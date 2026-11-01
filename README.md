@@ -30,3 +30,9 @@ cheat-sheet/
 ## Operating Guidelines & Safety
 
 Refer to [`AGENTS.md`](file:///home/jason/Work/cheat-sheet/AGENTS.md) for full role definitions, safety boundaries, non-destructive telemetry commands, and guided Layer-1 troubleshooting procedures.
+
+### Agent Directory Ownership
+- **GEMINI / Antigravity**: Uses `agy/`
+- **Claude**: Uses `claude/`
+- **Codex**: Uses `codex/`
+- **Shared Incident Triage**: `cases/<ticket-or-hostname>/`
