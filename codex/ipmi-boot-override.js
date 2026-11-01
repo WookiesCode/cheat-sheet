@@ -10,7 +10,7 @@ const IPMI_IPMI_BOOT_OVERRIDE_DATA = [
       {
         "id": "ipmi-bootdev-uefi-pxe",
         "desc": "Force one-time UEFI PXE network boot on the next reboot and immediately power-cycle",
-        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" chassis bootdev pxe options=efiboot && ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" chassis power cycle",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -P \"$PASS\" chassis bootdev pxe options=efiboot && ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -P \"$PASS\" chassis power cycle",
         "details": "",
         "flags": [
           [
@@ -48,7 +48,7 @@ const IPMI_IPMI_BOOT_OVERRIDE_DATA = [
       {
         "id": "ipmi-bootdev-bios-cdrom",
         "desc": "Boot directly into BIOS/UEFI Setup utility, Virtual CD-ROM ISO, or clear boot override",
-        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" chassis bootdev bios   |   ... chassis bootdev cdrom options=efiboot   |   ... chassis bootdev none",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -P \"$PASS\" chassis bootdev bios   |   ... chassis bootdev cdrom options=efiboot   |   ... chassis bootdev none",
         "details": "",
         "flags": [
           [
@@ -90,7 +90,7 @@ const IPMI_IPMI_BOOT_OVERRIDE_DATA = [
       {
         "id": "ipmi-bootdev-bios-cdrom-flags-card",
         "desc": "Options breakdown and parameter syntax for Boot directly into BIOS/UEFI Setup utility, Virtual CD-ROM ISO, or clear boot override",
-        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" chassis bootdev bios   |   ... chassis bootdev cdrom options=efiboot   |   ... chassis bootdev none",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -P \"$PASS\" chassis bootdev bios   |   ... chassis bootdev cdrom options=efiboot   |   ... chassis bootdev none",
         "flags": [
           [
             "bootdev none",
@@ -116,7 +116,7 @@ const IPMI_IPMI_BOOT_OVERRIDE_DATA = [
       {
         "id": "ipmi-bootparam-no-timeout",
         "desc": "Disable the IPMI 60-second boot flag watchdog timer so `bootdev` isn't cleared if reboot takes >60s",
-        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" chassis bootparam set bootflag force_pxe options=no-timeout",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -P \"$PASS\" chassis bootparam set bootflag force_pxe options=no-timeout",
         "details": "",
         "flags": [
           [
@@ -606,16 +606,12 @@ function initEventListeners() {
 }
 
 function applyTheme(theme) {
-  const sunIcon = document.getElementById("theme-icon-sun");
-  const moonIcon = document.getElementById("theme-icon-moon");
-  if (theme === "light") {
-    document.documentElement.setAttribute("data-theme", "light");
-    sunIcon.classList.add("hidden");
-    moonIcon.classList.remove("hidden");
+  state.theme = theme;
+  if (window.CheatSheetCommon && typeof window.CheatSheetCommon.applyTheme === "function") {
+    window.CheatSheetCommon.applyTheme(theme);
   } else {
-    document.documentElement.setAttribute("data-theme", "dark");
-    sunIcon.classList.remove("hidden");
-    moonIcon.classList.add("hidden");
+    document.documentElement.setAttribute("data-theme", theme);
+    try { localStorage.setItem("linux_cs_theme", theme); } catch (e) {}
   }
 }
 

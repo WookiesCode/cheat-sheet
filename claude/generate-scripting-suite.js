@@ -1130,7 +1130,7 @@ const SCRIPTING_DROPDOWN_HTML = `
                   <span>Scripting</span> <span class="dropdown-caret">▾</span>
                 </a>
                 <div class="nav-dropdown-menu" role="menu">
-                  <a href="scripting.html" class="dropdown-item" role="menuitem">📑 All-in-One Hub</a>
+                  <a href="scripting.html" class="dropdown-item dropdown-hub-link" role="menuitem">📑 All-in-One Hub</a>
                   <div class="dropdown-divider"></div>
                   <a href="bash.html" class="dropdown-item" role="menuitem">🐚 Bash &amp; Shell</a>
                   <a href="python.html" class="dropdown-item" role="menuitem">🐍 Python</a>
@@ -1159,7 +1159,7 @@ const state = {
   savedOnly: false,
   compact: localStorage.getItem("linux_cs_compact") === "1",
   theme: localStorage.getItem("linux_cs_theme") || "dark",
-  bookmarks: new Set(JSON.parse(localStorage.getItem("${lang.key}_cs_bookmarks") || "[]"))
+  bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("${lang.key}_cs_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
 
 // DOM Elements
@@ -1751,7 +1751,8 @@ for (const lang of SCRIPTING_LANGUAGES) {
   const jsPath = path.join(__dirname, lang.js);
   const htmlPath = path.join(__dirname, lang.file);
   fs.writeFileSync(jsPath, generateJsFile(lang), 'utf8');
-  fs.writeFileSync(htmlPath, generateHtmlFile(lang), 'utf8');
+  // Existing pages are authoritative for header/nav chrome; only create missing ones.
+  if (!fs.existsSync(htmlPath)) fs.writeFileSync(htmlPath, generateHtmlFile(lang), 'utf8');
   console.log(`Created ${lang.file} and ${lang.js}`);
 }
 

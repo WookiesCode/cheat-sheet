@@ -671,16 +671,25 @@ function initEventListeners() {
 }
 
 function applyTheme(theme) {
+  state.theme = theme;
+  if (window.CheatSheetCommon && window.CheatSheetCommon.applyTheme) {
+    window.CheatSheetCommon.applyTheme(theme);
+  } else if (window.AntigravityCommon && window.AntigravityCommon.applyTheme) {
+    window.AntigravityCommon.applyTheme(theme);
+  } else {
+    document.documentElement.setAttribute("data-theme", theme);
+    try { localStorage.setItem("linux_cs_theme", theme); } catch(e) {}
+  }
   const sunIcon = document.getElementById("theme-icon-sun");
   const moonIcon = document.getElementById("theme-icon-moon");
-  if (theme === "light") {
-    document.documentElement.setAttribute("data-theme", "light");
-    sunIcon.classList.add("hidden");
-    moonIcon.classList.remove("hidden");
-  } else {
-    document.documentElement.setAttribute("data-theme", "dark");
-    sunIcon.classList.remove("hidden");
-    moonIcon.classList.add("hidden");
+  if (sunIcon && moonIcon) {
+    if (theme === "light") {
+      sunIcon.classList.add("hidden");
+      moonIcon.classList.remove("hidden");
+    } else {
+      sunIcon.classList.remove("hidden");
+      moonIcon.classList.add("hidden");
+    }
   }
 }
 

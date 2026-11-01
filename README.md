@@ -22,14 +22,14 @@ cheat-sheet/
 ├── scripts/                         # Reusable read-only diagnostic collection helpers
 ├── agy/                             # Antigravity cheat sheets & references
 ├── claude/                          # Claude Code cheat sheets & references
-└── codex/                           # Codex cheat sheets & references
+└── codex/                           # Codex cheat sheets & references (agent entry point: codex/CODEX.md)
 ```
 
 ---
 
 ## Operating Guidelines & Safety
 
-Refer to [`AGENTS.md`](file:///home/jason/Work/cheat-sheet/AGENTS.md) for full role definitions, safety boundaries, non-destructive telemetry commands, and guided Layer-1 troubleshooting procedures.
+Refer to [`AGENTS.md`](AGENTS.md) for full role definitions, safety boundaries, non-destructive telemetry commands, and guided Layer-1 troubleshooting procedures.
 
 ### Agent Directory Ownership
 - **GEMINI / Antigravity**: Uses `agy/`

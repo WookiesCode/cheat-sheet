@@ -10,7 +10,7 @@ const RF_RF_HGX_DLC_DATA = [
       {
         "id": "rf-hgx-chassis-gpus",
         "desc": "Query NVIDIA HGX SXM GPU Baseboard, SXM GPU health, and NVSwitch status out-of-band when the host OS is hung",
-        "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Chassis\" | jq '.Members[][\"@odata.id\"] | select(contains(\"HGX\"))' && curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Chassis/HGX_GPU_SXM_1\" | jq '{Id, PartNumber, SerialNumber, Status}'",
+        "cmd": "curl -g -6 -sk -u \"$BMC_USER:$PASS\" \"https://[$BMC]/redfish/v1/Chassis\" | jq '.Members[][\"@odata.id\"] | select(contains(\"HGX\"))' && curl -g -6 -sk -u \"$BMC_USER:$PASS\" \"https://[$BMC]/redfish/v1/Chassis/HGX_GPU_SXM_1\" | jq '{Id, PartNumber, SerialNumber, Status}'",
         "details": "",
         "flags": [
           [
@@ -54,7 +54,7 @@ const RF_RF_HGX_DLC_DATA = [
       {
         "id": "rf-dlc-leak-sensors",
         "desc": "Check Direct Liquid Cooling (DLC) coldplate leak detection sensors, coolant flow & inlet/outlet temperatures",
-        "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Chassis/1/Sensors?\\$expand=.(\\$levels=1)\" | jq '.Members[] | select(.Name | test(\"Leak|Coolant|Liquid|Flow|Manifold\"; \"i\")) | {Name, Reading, ReadingUnits, Status}'",
+        "cmd": "curl -g -6 -sk -u \"$BMC_USER:$PASS\" \"https://[$BMC]/redfish/v1/Chassis/1/Sensors?\\$expand=.(\\$levels=1)\" | jq '.Members[] | select(.Name | test(\"Leak|Coolant|Liquid|Flow|Manifold\"; \"i\")) | {Name, Reading, ReadingUnits, Status}'",
         "details": "",
         "flags": [
           [
@@ -551,16 +551,12 @@ function initEventListeners() {
 }
 
 function applyTheme(theme) {
-  const sunIcon = document.getElementById("theme-icon-sun");
-  const moonIcon = document.getElementById("theme-icon-moon");
-  if (theme === "light") {
-    document.documentElement.setAttribute("data-theme", "light");
-    sunIcon.classList.add("hidden");
-    moonIcon.classList.remove("hidden");
+  state.theme = theme;
+  if (window.CheatSheetCommon && typeof window.CheatSheetCommon.applyTheme === "function") {
+    window.CheatSheetCommon.applyTheme(theme);
   } else {
-    document.documentElement.setAttribute("data-theme", "dark");
-    sunIcon.classList.remove("hidden");
-    moonIcon.classList.add("hidden");
+    document.documentElement.setAttribute("data-theme", theme);
+    try { localStorage.setItem("linux_cs_theme", theme); } catch (e) {}
   }
 }
 

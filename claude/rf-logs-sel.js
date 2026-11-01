@@ -10,7 +10,7 @@ const RF_RF_LOGS_SEL_DATA = [
       {
         "id": "rf-sel-entries-dump",
         "desc": "Fetch BMC System Event Log (SEL) entries and format timestamp, severity, and message",
-        "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Managers/1/LogServices/Sel/Entries\" | jq -r '.Members[] | \"\\(.Created) [\\(.Severity)] \\(.Message)\"' | tail -n 30",
+        "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Managers/1/LogServices/Sel/Entries\" | jq -r '.Members[] | \"\\(.Created) [\\(.Severity)] \\(.Message)\"' | tail -n 30",
         "details": "",
         "flags": [
           [
@@ -48,7 +48,7 @@ const RF_RF_LOGS_SEL_DATA = [
       {
         "id": "rf-sel-filter-critical",
         "desc": "Filter SEL entries to show only `Critical` or `Warning` hardware assertions",
-        "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Managers/1/LogServices/Sel/Entries\" | jq '.Members[] | select(.Severity == \"Critical\" or .Severity == \"Warning\") | {Id, Created, Severity, Message, SensorType}'",
+        "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Managers/1/LogServices/Sel/Entries\" | jq '.Members[] | select(.Severity == \"Critical\" or .Severity == \"Warning\") | {Id, Created, Severity, Message, SensorType}'",
         "details": "",
         "flags": [
           [
@@ -81,7 +81,7 @@ const RF_RF_LOGS_SEL_DATA = [
       {
         "id": "rf-sel-clear-log",
         "desc": "Clear all entries in the BMC System Event Log via `LogService.ClearLog` action",
-        "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" -X POST \"https://[$BMC]/redfish/v1/Managers/1/LogServices/Sel/Actions/LogService.ClearLog\" -H \"Content-Type: application/json\" -d '{}'",
+        "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc -X POST \"https://[$BMC]/redfish/v1/Managers/1/LogServices/Sel/Actions/LogService.ClearLog\" -H \"Content-Type: application/json\" -d '{}'",
         "details": "",
         "flags": [
           [
@@ -113,7 +113,7 @@ const RF_RF_LOGS_SEL_DATA = [
       {
         "id": "logs-sel-tips-card",
         "desc": "Hardware Event Log Analysis & Pre-Failure Detection",
-        "cmd": "curl -k -sS \"https://${BMC_IP}/redfish/v1/Systems/1/LogServices/EventLog/Entries?$filter=Severity eq 'Critical'\" | jq .",
+        "cmd": "curl -k -sS -K ~/.bmc-curlrc \"https://${BMC_IP}/redfish/v1/Systems/1/LogServices/EventLog/Entries?$filter=Severity eq 'Critical'\" | jq .",
         "details": "The BMC LogService captures out-of-band hardware events that the host OS cannot log, including memory uncorrectable multi-bit ECC errors, PCIe AER fatal errors, PSU loss, and thermal trip alarms. Use OData $filter or $top to inspect recent failures.",
         "flags": [
           [
@@ -150,7 +150,7 @@ const state = {
   savedOnly: false,
   compact: localStorage.getItem("linux_cs_compact") === "1",
   theme: localStorage.getItem("linux_cs_theme") || "dark",
-  bookmarks: new Set(JSON.parse(localStorage.getItem("rf-logs-sel_bookmarks") || "[]"))
+  bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("rf-logs-sel_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
 
 // DOM Elements
@@ -575,12 +575,12 @@ function applyTheme(theme) {
   const moonIcon = document.getElementById("theme-icon-moon");
   if (theme === "light") {
     document.documentElement.setAttribute("data-theme", "light");
-    sunIcon.classList.add("hidden");
-    moonIcon.classList.remove("hidden");
+    sunIcon?.classList.add("hidden");
+    moonIcon?.classList.remove("hidden");
   } else {
-    document.documentElement.setAttribute("data-theme", "dark");
-    sunIcon.classList.remove("hidden");
-    moonIcon.classList.add("hidden");
+    document.documentElement.setAttribute("data-theme", theme);
+    sunIcon?.classList.remove("hidden");
+    moonIcon?.classList.add("hidden");
   }
 }
 

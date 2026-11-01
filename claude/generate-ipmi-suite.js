@@ -74,7 +74,7 @@ const SECTION_MAP = {
     heading: 'Power Actions (on/off/cycle/reset), Status & Chassis UID Locator',
     proTip: {
       desc: 'Chassis Power Cycling & Hard Freeze Triage',
-      cmd: 'ipmitool -I lanplus -H $BMC_IP -U admin -P password chassis power status',
+      cmd: 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E chassis power status',
       details: 'Use "power soft" first to give ACPI OS time to cleanly shutdown daemons and unmount NVMe filesystems. If the OS kernel is hard frozen, use "power cycle" (powers off, waits 1s, powers on) or pulse an NMI diagnostics trigger to force a kernel crash dump.',
       tip: 'Run "chassis status" after unexpected node drops to inspect "Last Power Event" (e.g. AC failed, power overload, power interlock).',
       flags: [
@@ -91,7 +91,7 @@ const SECTION_MAP = {
     heading: 'UEFI PXE, BIOS Setup, Virtual Media & Boot Flag Watchdog',
     proTip: {
       desc: 'Automated PXE Re-imaging & Boot Flag Persistence',
-      cmd: 'ipmitool -I lanplus -H $BMC_IP -U admin -P password chassis bootdev pxe options=efiboot',
+      cmd: 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E chassis bootdev pxe options=efiboot',
       details: 'By default, IPMI bootdev flags are volatile and expire after 60 seconds if the host does not reboot immediately. To avoid missing the boot flag window, run "chassis bootparam set bootflag no-timeout" or combine the bootdev command with "chassis power reset" on a single shell line.',
       tip: 'Always specify "options=efiboot" on modern UEFI servers to avoid legacy BIOS CSM boot failure.',
       flags: [
@@ -108,7 +108,7 @@ const SECTION_MAP = {
     heading: 'SDR Sensor Telemetry, Fan RPMs, Thermal Limits & DCMI Wattage',
     proTip: {
       desc: 'Hardware Environmental Triage & Thermal Throttling Detection',
-      cmd: 'ipmitool -I lanplus -H $BMC_IP -U admin -P password sdr elist full',
+      cmd: 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E sdr elist full',
       details: 'SDR elist full prints real-time analog sensor values (volts, amps, RPMs, Celsius) with sensor state ("ok", "nc", "cr"). DCMI (Data Center Management Interface) commands query calibrated high-frequency power meters to monitor instantaneous wattage and rolling averages.',
       tip: 'Filter SDR by sensor type using "sdr type Temperature" or "sdr type Fan" to cut through noisy SDR catalogs.',
       flags: [
@@ -125,7 +125,7 @@ const SECTION_MAP = {
     heading: 'BMC System Event Log (SEL), Hardware Faults & Event Log Clearing',
     proTip: {
       desc: 'Out-of-Band Hardware Event Triage & Post-Mortem Crash Analysis',
-      cmd: 'ipmitool -I lanplus -H $BMC_IP -U admin -P password sel elist',
+      cmd: 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E sel elist',
       details: 'The BMC System Event Log captures critical hardware events that bypass the host OS, such as uncorrectable multi-bit ECC errors, PCIe AER fatal timeouts, power supply failures, and CPU thermal trips. "sel elist" cross-references raw sensor numbers with human-readable SDR names.',
       tip: 'Back up SEL entries to a timestamped file before calling "sel clear", as cleared events cannot be recovered.',
       flags: [
@@ -142,7 +142,7 @@ const SECTION_MAP = {
     heading: 'Serial-over-LAN (SOL) Console, Baud Rates & Session Deactivation',
     proTip: {
       desc: 'Out-of-Band Serial Console Operations & Session Recovery',
-      cmd: 'ipmitool -I lanplus -H $BMC_IP -U admin -P password sol activate',
+      cmd: 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E sol activate',
       details: 'Serial-over-LAN redirects the host server\'s UART serial port (COM1 / ttyS0 / ttyS1) over the encrypted IPMI 2.0 RMCP+ channel. If another administrator leaves an SOL session open, use "sol deactivate" to forcibly release the session.',
       tip: 'To disconnect an active SOL session without killing the terminal, press Enter, then ~ (tilde), then . (period).',
       flags: [
@@ -159,7 +159,7 @@ const SECTION_MAP = {
     heading: 'BMC IPv6/IPv4 Network Setup (lan6/lan), User Accounts & Password Reset',
     proTip: {
       desc: 'BMC Out-of-Band Network Provisioning & Root Password Recovery',
-      cmd: 'ipmitool -I lanplus -H $BMC_IP -U admin -P password lan print 1',
+      cmd: 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E lan print 1',
       details: 'Configure dedicated or shared BMC network interfaces across channel 1 (or channel 8). In-band access from the host OS via "ipmitool user set password 2 <newpass>" allows root administrators to recover lost BMC passwords without physical serial cables.',
       tip: 'Modern AI clusters use IPv6 link-local and static ULA addressing; query channel 1 using "lan6 print 1".',
       flags: [
@@ -176,7 +176,7 @@ const SECTION_MAP = {
     heading: 'FRU Inventory EEPROM, BMC Controller Reset (mc) & Hardware Watchdog',
     proTip: {
       desc: 'Hardware Inventory Audit & BMC Health Maintenance',
-      cmd: 'ipmitool -I lanplus -H $BMC_IP -U admin -P password fru print',
+      cmd: 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E fru print',
       details: 'FRU (Field Replaceable Unit) EEPROMs store motherboard, chassis, and power supply part numbers, serial numbers, and asset tags. If the BMC becomes unresponsive or fails to serve Redfish/web traffic, use "mc reset cold" to reboot the BMC controller without interrupting host OS operations.',
       tip: 'Check "mc watchdog get" to verify hardware watchdog timer parameters; disable watchdog during prolonged debug sessions.',
       flags: [
@@ -290,7 +290,7 @@ const state = {
   savedOnly: false,
   compact: localStorage.getItem("linux_cs_compact") === "1",
   theme: localStorage.getItem("linux_cs_theme") || "dark",
-  bookmarks: new Set(JSON.parse(localStorage.getItem("${fileKey}_bookmarks") || "[]"))
+  bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("${fileKey}_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
 
 // DOM Elements
@@ -715,12 +715,12 @@ function applyTheme(theme) {
   const moonIcon = document.getElementById("theme-icon-moon");
   if (theme === "light") {
     document.documentElement.setAttribute("data-theme", "light");
-    sunIcon.classList.add("hidden");
-    moonIcon.classList.remove("hidden");
+    sunIcon?.classList.add("hidden");
+    moonIcon?.classList.remove("hidden");
   } else {
-    document.documentElement.setAttribute("data-theme", "dark");
-    sunIcon.classList.remove("hidden");
-    moonIcon.classList.add("hidden");
+    document.documentElement.setAttribute("data-theme", theme);
+    sunIcon?.classList.remove("hidden");
+    moonIcon?.classList.add("hidden");
   }
 }
 
@@ -886,6 +886,7 @@ function generateIpmiHtml(sec, fileKey) {
   </footer>
 
   <script src="${fileKey}.js"></script>
+  <script src="global-search-index.js"></script>
   <script src="common.js"></script>
 </body>
 </html>
@@ -903,7 +904,8 @@ for (const sec of IPMI_CHEAT_SHEET_DATA) {
   fs.writeFileSync(path.join(__dirname, `${fileKey}.js`), jsContent, 'utf8');
 
   const htmlContent = generateIpmiHtml(sec, fileKey);
-  fs.writeFileSync(path.join(__dirname, `${fileKey}.html`), htmlContent, 'utf8');
+  // Existing pages are authoritative for header/nav chrome; only create missing ones.
+  if (!fs.existsSync(path.join(__dirname, `${fileKey}.html`))) fs.writeFileSync(path.join(__dirname, `${fileKey}.html`), htmlContent, 'utf8');
 
   createdSheets++;
   console.log(`Created ${fileKey}.html and ${fileKey}.js (${cards.length} cards)`);

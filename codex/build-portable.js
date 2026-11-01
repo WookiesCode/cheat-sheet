@@ -1,5 +1,5 @@
 // build-portable.js
-// Compiles all 14 cheat sheets into a single, 100% offline standalone portable HTML file:
+// Compiles all discovered cheat sheets into a single, 100% offline standalone portable HTML file:
 // datacenter-cheatsheet-portable.html (Zero external requests, local CSS, local JS, local SVGs)
 const fs = require('fs');
 const path = require('path');
@@ -31,6 +31,21 @@ const SHEETS_CONFIG = [
   { key: 'awk-sed', file: 'awk-sed.html', js: 'awk-sed.js', name: 'AWK & Sed', varName: 'AWK_SED_CHEAT_SHEET_DATA', prompt: "awk '", cursor: "'", title: 'AWK & Sed Stream Processing', subtitle: 'Field extraction, column math, BEGIN/END blocks, pattern filtering, and in-place stream editing', pill: 'POSIX AWK / GNU Sed' },
   { key: 'sql', file: 'sql.html', js: 'sql.js', name: 'SQL & SQLite', varName: 'SQL_CHEAT_SHEET_DATA', prompt: 'sqlite>', cursor: ';', title: 'SQL & SQLite CLI Reference', subtitle: 'SELECT queries, filtering, joins, GROUP BY, aggregations, DDL, transactions & SQLite CLI', pill: 'ANSI SQL / SQLite 3.45' }
 ];
+
+// Discover standalone sheets as well as the curated hub metadata above.
+for (const js of fs.readdirSync(__dirname).filter(f => f.endsWith('.js')).sort()) {
+  if (SHEETS_CONFIG.some(cfg => cfg.js === js)) continue;
+  const file = js.replace(/\.js$/, '.html');
+  if (!fs.existsSync(path.join(__dirname, file))) continue;
+  const source = fs.readFileSync(path.join(__dirname, js), 'utf8');
+  const match = source.match(/const\s+([A-Z0-9_]+_DATA)\s*=/);
+  if (!match) continue;
+  const html = fs.readFileSync(path.join(__dirname, file), 'utf8');
+  const title = (html.match(/<title>(.*?)<\/title>/s) || [null, file])[1]
+    .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+  SHEETS_CONFIG.push({key: js.slice(0, -3), file, js, varName: match[1],
+    name: title, title, subtitle: 'Command reference', prompt: '$', cursor: '_', pill: 'Reference'});
+}
 
 console.log('Compiling Datacenter Cheat Sheet Suite into single portable HTML...');
 
@@ -67,6 +82,8 @@ SHEETS_CONFIG.forEach(cfg => {
 // 4. Read global-search-index.js and common.js
 const globalSearchIndexJs = fs.readFileSync(path.join(__dirname, 'global-search-index.js'), 'utf8');
 const commonJs = fs.readFileSync(path.join(__dirname, 'common.js'), 'utf8');
+const manualsDataJs = fs.readFileSync(path.join(__dirname, 'manuals-data.js'), 'utf8');
+const manualsUiJs = fs.readFileSync(path.join(__dirname, 'manuals-ui.js'), 'utf8');
 
 // 5. Build Portable HTML
 const portableHtml = `<!DOCTYPE html>
@@ -244,7 +261,7 @@ ${navLinksHtml}
         <span>Datacenter &amp; AI Hardware Sysadmin Reference Suite — 100% Offline Portable Single-File Build</span>
       </div>
       <div class="footer-shortcuts">
-        <span><kbd>Ctrl+K</kbd> Global Search (768 cmds)</span>
+        <span><kbd>Ctrl+K</kbd> Global Search</span>
         <span><kbd>/</kbd> In-Sheet Filter</span>
         <span><kbd>Esc</kbd> Clear</span>
         <span><kbd>Ctrl+P</kbd> Print</span>
@@ -259,18 +276,24 @@ ${navLinksHtml}
 
   <!-- Embedded Global Search Index -->
   <script>
-${globalSearchIndexJs}
+${globalSearchIndexJs.replace(/<\/script/gi, '<\\/script')}
   </script>
 
-  <!-- Embedded Datasets for All 14 Sheets -->
+  <!-- Embedded datasets for every discovered sheet -->
   <script>
+${manualsDataJs}
 window.PORTABLE_SHEETS = ${JSON.stringify(SHEETS_CONFIG, null, 2)};
-window.PORTABLE_DATASETS = ${JSON.stringify(allDatasets, null, 2)};
+window.PORTABLE_DATASETS = ${JSON.stringify(allDatasets, null, 2).replace(/<\/script/gi, '<\\/script')};
   </script>
 
   <!-- Embedded Shared Common Logic (Target Bar, Global Search Ctrl+K, Triage Modal) -->
   <script>
 ${commonJs}
+  </script>
+
+  <!-- Offline manual browser -->
+  <script>
+${manualsUiJs}
   </script>
 
   <!-- Portable SPA Runtime -->
@@ -553,7 +576,7 @@ ${commonJs}
                 '</button>' +
               '</div>' +
             '</div>' +
-            '<div class="cmd-code-box" data-copy="' + escapeHtml(item.cmd) + '" title="Click to copy command">' +
+            '<div class="cmd-code-box" data-copy="' + escapeHtml(window.CheatSheetCommon.commandForCopy(item.cmd)) + '" title="Click to copy command">' +
               '<code class="cmd-code">' + highlightCommand(item.cmd) + '</code>' +
               '<span class="copy-hint">Copy</span>' +
             '</div>' +
@@ -616,29 +639,13 @@ ${commonJs}
   }
 
   function initEvents() {
-    // Nav sheet links & dropdown menu items
-    const portableDropdown = document.getElementById('scripting-nav-dropdown');
-    const portableToggle = portableDropdown?.querySelector('.dropdown-toggle');
-    if (portableToggle) {
-      portableToggle.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        portableDropdown.classList.toggle('open');
-      });
-    }
-
-    document.addEventListener('click', (e) => {
-      if (portableDropdown && !portableDropdown.contains(e.target)) {
-        portableDropdown.classList.remove('open');
-      }
-    });
-
+    // common.js owns dropdown open/close behavior.
     document.querySelectorAll('#portable-sheet-nav .sheet-link:not(.dropdown-toggle), #portable-sheet-nav .dropdown-item').forEach(link => {
       link.addEventListener('click', (e) => {
         const sheet = link.dataset.sheet;
         if (sheet) {
           e.preventDefault();
-          if (portableDropdown) portableDropdown.classList.remove('open');
+          link.closest('.nav-dropdown')?.classList.remove('open');
           switchSheet(sheet);
           window.location.hash = 'sheet-' + sheet;
         }
@@ -655,7 +662,7 @@ ${commonJs}
     sectionsContainer.addEventListener('click', (e) => {
       const copyBox = e.target.closest('.cmd-code-box, .subcmd-row');
       if (copyBox && copyBox.dataset.copy) {
-        navigator.clipboard.writeText(copyBox.dataset.copy);
+        window.CheatSheetCommon.copyCommand(copyBox.dataset.copy);
         return;
       }
 
@@ -705,15 +712,24 @@ ${commonJs}
       renderSections();
     });
 
-    // Hash check on load
-    const hash = window.location.hash.replace(/^#/, '');
-    if (hash.startsWith('sheet-')) {
-      const sKey = hash.replace('sheet-', '');
-      switchSheet(sKey);
-    } else {
-      switchSheet('linux');
-    }
+    window.addEventListener('hashchange', routeHash);
+    routeHash();
   }
+
+  function routeHash() {
+    const [key, id = ''] = window.location.hash.replace(/^#sheet-/, '').split('/');
+    switchSheet(SHEETS.some(s => s.key === key) ? key : 'linux', decodeURIComponent(id));
+  }
+
+  window.PortableNavigation = {
+    open(file, id = '') {
+      const cfg = SHEETS.find(s => s.file === file);
+      if (!cfg) return;
+      const hash = 'sheet-' + cfg.key + (id ? '/' + encodeURIComponent(id) : '');
+      if (window.location.hash === '#' + hash) routeHash();
+      else window.location.hash = hash;
+    }
+  };
 
   applyTheme(state.theme);
   applyDensity(state.compact);

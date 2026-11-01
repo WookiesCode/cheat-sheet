@@ -10,7 +10,7 @@ const REDFISH_CHEAT_SHEET_DATA = [
         mode: "GET",
         modeClass: "mode-n",
         desc: "Query `/redfish/v1` ServiceRoot over IPv6 (`-g -6`) and dynamically discover System & Manager URIs",
-        cmd: 'SYS_URI=$(curl -g -6 -sk -u "$USER:$PASS" "https://[$BMC]/redfish/v1/Systems" | jq -r \'.Members[0]."@odata.id"\') && echo "$SYS_URI"',
+        cmd: 'SYS_URI=$(curl -g -6 -sk -u "$BMC_USER:$PASS" "https://[$BMC]/redfish/v1/Systems" | jq -r \'.Members[0]."@odata.id"\') && echo "$SYS_URI"',
         flags: [
           ["-g -6", "-g (--globoff) prevents curl from failing on IPv6 brackets [2001:db8::1]; -6 forces IPv6 transport"],
           ['.Members[0]."@odata.id"', "Extracts exact vendor-specific URI (/redfish/v1/Systems/1 vs /redfish/v1/Systems/System.Embedded.1)"],
@@ -24,7 +24,7 @@ const REDFISH_CHEAT_SHEET_DATA = [
         mode: "POST",
         modeClass: "mode-i",
         desc: "Create a Redfish Session Token (`X-Auth-Token`) to avoid slow Basic Auth hashing on every request",
-        cmd: 'curl -g -6 -sk -D - -X POST "https://[$BMC]/redfish/v1/SessionService/Sessions" -H "Content-Type: application/json" -d "{\\"UserName\\":\\"$USER\\",\\"Password\\":\\"$PASS\\"}"',
+        cmd: 'curl -g -6 -sk -D - -X POST "https://[$BMC]/redfish/v1/SessionService/Sessions" -H "Content-Type: application/json" -d "{\\"UserName\\":\\"$BMC_USER\\",\\"Password\\":\\"$PASS\\"}"',
         flags: [
           ["X-Auth-Token:", "Grab token from response headers and pass via -H 'X-Auth-Token: <token>' on subsequent requests"],
           ["Location:", "Session URI (e.g. .../Sessions/1) — send HTTP DELETE to this URI when done to avoid exhausting BMC session slots!"]
@@ -37,7 +37,7 @@ const REDFISH_CHEAT_SHEET_DATA = [
         mode: "GET",
         modeClass: "mode-n",
         desc: "Use `$expand=.($levels=1)` to fetch an entire collection's child objects in a single HTTP call",
-        cmd: 'curl -g -6 -sk -u "$USER:$PASS" "https://[$BMC]/redfish/v1/Systems/1/Memory?\\$expand=.(\\$levels=1)" | jq \'.Members[] | {Name, CapacityMiB, Manufacturer, SerialNumber, Status}\'',
+        cmd: 'curl -g -6 -sk -u "$BMC_USER:$PASS" "https://[$BMC]/redfish/v1/Systems/1/Memory?\\$expand=.(\\$levels=1)" | jq \'.Members[] | {Name, CapacityMiB, Manufacturer, SerialNumber, Status}\'',
         flags: [
           ["$expand=.($levels=1)", "Inlines all Member objects instead of returning only @odata.id links"],
           ["$only", "Return the single member directly if collection only has 1 item"]
@@ -58,7 +58,7 @@ const REDFISH_CHEAT_SHEET_DATA = [
         mode: "POST",
         modeClass: "mode-t",
         desc: "Check current server power state or execute `ComputerSystem.Reset` (On, ForceOff, ForceRestart, PowerCycle)",
-        cmd: 'curl -g -6 -sk -u "$USER:$PASS" -X POST "https://[$BMC]/redfish/v1/Systems/1/Actions/ComputerSystem.Reset" -H "Content-Type: application/json" -d \'{"ResetType": "PowerCycle"}\'',
+        cmd: 'curl -g -6 -sk -u "$BMC_USER:$PASS" -X POST "https://[$BMC]/redfish/v1/Systems/1/Actions/ComputerSystem.Reset" -H "Content-Type: application/json" -d \'{"ResetType": "PowerCycle"}\'',
         flags: [
           ["PowerCycle", "Cold DC power off followed by power on"],
           ["ForceRestart / GracefulRestart", "Immediate warm reset vs ACPI OS reboot"],
@@ -71,7 +71,7 @@ const REDFISH_CHEAT_SHEET_DATA = [
         mode: "PATCH",
         modeClass: "mode-c",
         desc: "Set one-time UEFI PXE network boot on next restart (`BootSourceOverrideTarget: Pxe`)",
-        cmd: 'curl -g -6 -sk -u "$USER:$PASS" -X PATCH "https://[$BMC]/redfish/v1/Systems/1" -H "Content-Type: application/json" -d \'{"Boot": {"BootSourceOverrideTarget": "Pxe", "BootSourceOverrideEnabled": "Once", "BootSourceOverrideMode": "UEFI"}}\'',
+        cmd: 'curl -g -6 -sk -u "$BMC_USER:$PASS" -X PATCH "https://[$BMC]/redfish/v1/Systems/1" -H "Content-Type: application/json" -d \'{"Boot": {"BootSourceOverrideTarget": "Pxe", "BootSourceOverrideEnabled": "Once", "BootSourceOverrideMode": "UEFI"}}\'',
         flags: [
           ["BootSourceOverrideEnabled", "'Once' (single reboot), 'Continuous' (permanent), or 'Disabled'"],
           ["BootSourceOverrideTarget", "'Pxe', 'BiosSetup', 'Cd', 'Hdd', 'UefiHttp', 'UefiShell', 'None'"]
@@ -84,7 +84,7 @@ const REDFISH_CHEAT_SHEET_DATA = [
         mode: "PATCH",
         modeClass: "mode-c",
         desc: "Force server to boot directly into UEFI/BIOS Setup utility on next reboot",
-        cmd: 'curl -g -6 -sk -u "$USER:$PASS" -X PATCH "https://[$BMC]/redfish/v1/Systems/1" -H "Content-Type: application/json" -d \'{"Boot": {"BootSourceOverrideTarget": "BiosSetup", "BootSourceOverrideEnabled": "Once"}}\'',
+        cmd: 'curl -g -6 -sk -u "$BMC_USER:$PASS" -X PATCH "https://[$BMC]/redfish/v1/Systems/1" -H "Content-Type: application/json" -d \'{"Boot": {"BootSourceOverrideTarget": "BiosSetup", "BootSourceOverrideEnabled": "Once"}}\'',
         flags: [
           ["BiosSetup", "Enters BIOS setup automatically on next boot (viewable via SOL or HTML5 KVM)"]
         ],
@@ -95,7 +95,7 @@ const REDFISH_CHEAT_SHEET_DATA = [
         mode: "POST",
         modeClass: "mode-t",
         desc: "Send diagnostic Non-Maskable Interrupt (`Nmi`) to hung OS to trigger kernel kdump crash dump",
-        cmd: 'curl -g -6 -sk -u "$USER:$PASS" -X POST "https://[$BMC]/redfish/v1/Systems/1/Actions/ComputerSystem.Reset" -H "Content-Type: application/json" -d \'{"ResetType": "Nmi"}\'',
+        cmd: 'curl -g -6 -sk -u "$BMC_USER:$PASS" -X POST "https://[$BMC]/redfish/v1/Systems/1/Actions/ComputerSystem.Reset" -H "Content-Type: application/json" -d \'{"ResetType": "Nmi"}\'',
         flags: [
           ["Nmi", "Triggers kernel panic/kdump when Linux kernel is hard-locked (`kernel.unknown_nmi_panic=1`)"]
         ],
@@ -115,7 +115,7 @@ const REDFISH_CHEAT_SHEET_DATA = [
         mode: "GET",
         modeClass: "mode-n",
         desc: "Audit all populated RAM DIMM slots, capacity, speed, part/serial numbers, and ECC health status",
-        cmd: 'curl -g -6 -sk -u "$USER:$PASS" "https://[$BMC]/redfish/v1/Systems/1/Memory?\\$expand=.(\\$levels=1)" | jq \'.Members[] | select(.Status.State=="Enabled") | {Id, DeviceLocator, CapacityMiB, OperatingSpeedMhz, Manufacturer, PartNumber, SerialNumber, Health: .Status.Health}\'',
+        cmd: 'curl -g -6 -sk -u "$BMC_USER:$PASS" "https://[$BMC]/redfish/v1/Systems/1/Memory?\\$expand=.(\\$levels=1)" | jq \'.Members[] | select(.Status.State=="Enabled") | {Id, DeviceLocator, CapacityMiB, OperatingSpeedMhz, Manufacturer, PartNumber, SerialNumber, Health: .Status.Health}\'',
         flags: [
           ["select(.Status.State==\"Enabled\")", "Filters out empty/unpopulated DIMM sockets (`State: Absent`)"],
           ["DeviceLocator", "Prints silkscreen motherboard slot label (e.g. DIMM_A1, P1-DIMMA1)"]
@@ -128,7 +128,7 @@ const REDFISH_CHEAT_SHEET_DATA = [
         mode: "GET",
         modeClass: "mode-n",
         desc: "Inspect all CPUs and baseboard GPUs (`ProcessorType: CPU` vs `Accelerator`) with core counts and health",
-        cmd: 'curl -g -6 -sk -u "$USER:$PASS" "https://[$BMC]/redfish/v1/Systems/1/Processors?\\$expand=.(\\$levels=1)" | jq \'.Members[] | {Id, ProcessorType, Model, TotalCores, TotalThreads, SerialNumber, Status}\'',
+        cmd: 'curl -g -6 -sk -u "$BMC_USER:$PASS" "https://[$BMC]/redfish/v1/Systems/1/Processors?\\$expand=.(\\$levels=1)" | jq \'.Members[] | {Id, ProcessorType, Model, TotalCores, TotalThreads, SerialNumber, Status}\'',
         flags: [
           ["ProcessorType", "'CPU', 'GPU', 'Accelerator', 'FPGA', or 'DPU'"],
           ["ProcessorMetrics", "Follow ProcessorMetrics.@odata.id for out-of-band GPU/CPU bandwidth, temp & ECC metrics"]
@@ -140,7 +140,7 @@ const REDFISH_CHEAT_SHEET_DATA = [
         mode: "GET",
         modeClass: "mode-n",
         desc: "Inspect storage controllers, NVMe/SAS/SATA drive health, wear life remaining, and serial numbers",
-        cmd: 'curl -g -6 -sk -u "$USER:$PASS" "https://[$BMC]/redfish/v1/Systems/1/Storage?\\$expand=.(\\$levels=2)" | jq \'.Members[].Drives[]? | {Id, Name, Model, SerialNumber, CapacityBytes, MediaType, PredictedMediaLifeLeftPercent, Status}\'',
+        cmd: 'curl -g -6 -sk -u "$BMC_USER:$PASS" "https://[$BMC]/redfish/v1/Systems/1/Storage?\\$expand=.(\\$levels=2)" | jq \'.Members[].Drives[]? | {Id, Name, Model, SerialNumber, CapacityBytes, MediaType, PredictedMediaLifeLeftPercent, Status}\'',
         flags: [
           ["PredictedMediaLifeLeftPercent", "SSD/NVMe wear-out indicator (100 = new, 0 = worn out)"],
           ["FailurePredicted", "Boolean SMART pre-fail warning flag"]
@@ -152,7 +152,7 @@ const REDFISH_CHEAT_SHEET_DATA = [
         mode: "GET",
         modeClass: "mode-n",
         desc: "Collect host & BMC NIC MAC addresses, IPv6 addresses, SLAAC/DHCPv6 state, and link status out-of-band",
-        cmd: 'curl -g -6 -sk -u "$USER:$PASS" "https://[$BMC]/redfish/v1/Managers/1/EthernetInterfaces?\\$expand=.(\\$levels=1)" | jq \'.Members[] | {Id, MACAddress, IPv6DefaultGateway, IPv6Addresses}\'',
+        cmd: 'curl -g -6 -sk -u "$BMC_USER:$PASS" "https://[$BMC]/redfish/v1/Managers/1/EthernetInterfaces?\\$expand=.(\\$levels=1)" | jq \'.Members[] | {Id, MACAddress, IPv6DefaultGateway, IPv6Addresses}\'',
         flags: [
           ["IPv6Addresses / IPv6StaticAddresses", "Inspect assigned global unicast, SLAAC, DHCPv6, and link-local fe80:: addresses on BMC or host NICs"],
           ["MACAddress", "Hardware MAC address of onboard LOM and PCIe network adapters (for DHCPv6 DUID / PXEv6)"]
@@ -173,7 +173,7 @@ const REDFISH_CHEAT_SHEET_DATA = [
         mode: "GET",
         modeClass: "mode-n",
         desc: "Read all Chassis temperature sensors (°C) and cooling fan speeds (RPM / %)",
-        cmd: 'curl -g -6 -sk -u "$USER:$PASS" "https://[$BMC]/redfish/v1/Chassis/1/Thermal" | jq \'{Temps: [.Temperatures[] | {Name, ReadingCelsius, UpperThresholdCritical, Health: .Status.Health}], Fans: [.Fans[] | {Name, Reading, ReadingUnits, Health: .Status.Health}]}\'',
+        cmd: 'curl -g -6 -sk -u "$BMC_USER:$PASS" "https://[$BMC]/redfish/v1/Chassis/1/Thermal" | jq \'{Temps: [.Temperatures[] | {Name, ReadingCelsius, UpperThresholdCritical, Health: .Status.Health}], Fans: [.Fans[] | {Name, Reading, ReadingUnits, Health: .Status.Health}]}\'',
         flags: [
           ["/Chassis/1/Sensors", "Note: Newer Redfish 2021+ schemas also expose individual sensor URIs under /Chassis/1/Sensors?$expand=.($levels=1)"]
         ],
@@ -184,7 +184,7 @@ const REDFISH_CHEAT_SHEET_DATA = [
         mode: "GET",
         modeClass: "mode-n",
         desc: "Check live server power consumption (Watts), power cap, and redundant Power Supply (PSU) health",
-        cmd: 'curl -g -6 -sk -u "$USER:$PASS" "https://[$BMC]/redfish/v1/Chassis/1/Power" | jq \'{PowerConsumedWatts: .PowerControl[0].PowerConsumedWatts, PSUs: [.PowerSupplies[] | {Name, Model, SerialNumber, PowerInputWatts, LineInputVoltage, Status}]}\'',
+        cmd: 'curl -g -6 -sk -u "$BMC_USER:$PASS" "https://[$BMC]/redfish/v1/Chassis/1/Power" | jq \'{PowerConsumedWatts: .PowerControl[0].PowerConsumedWatts, PSUs: [.PowerSupplies[] | {Name, Model, SerialNumber, PowerInputWatts, LineInputVoltage, Status}]}\'',
         flags: [
           ["PowerConsumedWatts", "Current real-time chassis power draw in Watts"],
           ["LineInputVoltage", "Verify both PSUs have active AC/HVDC input voltage (catches unplugged B-feed cords!)"]
@@ -197,7 +197,7 @@ const REDFISH_CHEAT_SHEET_DATA = [
         mode: "PATCH",
         modeClass: "mode-c",
         desc: "Turn on or blink the physical Chassis UID Locator LED to help datacenter techs find the server",
-        cmd: 'curl -g -6 -sk -u "$USER:$PASS" -X PATCH "https://[$BMC]/redfish/v1/Chassis/1" -H "Content-Type: application/json" -d \'{"LocationIndicatorActive": true}\'',
+        cmd: 'curl -g -6 -sk -u "$BMC_USER:$PASS" -X PATCH "https://[$BMC]/redfish/v1/Chassis/1" -H "Content-Type: application/json" -d \'{"LocationIndicatorActive": true}\'',
         flags: [
           ["LocationIndicatorActive", "true = turn on / blink blue UID LED; false = turn off (replaces deprecated IndicatorLED)"]
         ],
@@ -216,7 +216,7 @@ const REDFISH_CHEAT_SHEET_DATA = [
         mode: "GET",
         modeClass: "mode-n",
         desc: "Fetch BMC System Event Log (SEL) entries and format timestamp, severity, and message",
-        cmd: 'curl -g -6 -sk -u "$USER:$PASS" "https://[$BMC]/redfish/v1/Managers/1/LogServices/Sel/Entries" | jq -r \'.Members[] | "\\(.Created) [\\(.Severity)] \\(.Message)"\' | tail -n 30',
+        cmd: 'curl -g -6 -sk -u "$BMC_USER:$PASS" "https://[$BMC]/redfish/v1/Managers/1/LogServices/Sel/Entries" | jq -r \'.Members[] | "\\(.Created) [\\(.Severity)] \\(.Message)"\' | tail -n 30',
         flags: [
           ["/Managers/1/LogServices", "Query /LogServices first to see vendor log IDs (e.g. Sel, Lclog, Log1, EventLog, FaultList)"],
           ["/Systems/1/LogServices", "Some BMCs (HPE iLO IML, OpenBMC HostLogger, NVIDIA HGX) also mount host/FDR logs under /Systems/<id>/LogServices"]
@@ -228,7 +228,7 @@ const REDFISH_CHEAT_SHEET_DATA = [
         mode: "GET",
         modeClass: "mode-t",
         desc: "Filter SEL entries to show only `Critical` or `Warning` hardware assertions",
-        cmd: 'curl -g -6 -sk -u "$USER:$PASS" "https://[$BMC]/redfish/v1/Managers/1/LogServices/Sel/Entries" | jq \'.Members[] | select(.Severity == "Critical" or .Severity == "Warning") | {Id, Created, Severity, Message, SensorType}\'',
+        cmd: 'curl -g -6 -sk -u "$BMC_USER:$PASS" "https://[$BMC]/redfish/v1/Managers/1/LogServices/Sel/Entries" | jq \'.Members[] | select(.Severity == "Critical" or .Severity == "Warning") | {Id, Created, Severity, Message, SensorType}\'',
         flags: [
           ["Severity", "'OK', 'Warning', or 'Critical'"]
         ],
@@ -240,7 +240,7 @@ const REDFISH_CHEAT_SHEET_DATA = [
         mode: "POST",
         modeClass: "mode-c",
         desc: "Clear all entries in the BMC System Event Log via `LogService.ClearLog` action",
-        cmd: 'curl -g -6 -sk -u "$USER:$PASS" -X POST "https://[$BMC]/redfish/v1/Managers/1/LogServices/Sel/Actions/LogService.ClearLog" -H "Content-Type: application/json" -d \'{}\'',
+        cmd: 'curl -g -6 -sk -u "$BMC_USER:$PASS" -X POST "https://[$BMC]/redfish/v1/Managers/1/LogServices/Sel/Actions/LogService.ClearLog" -H "Content-Type: application/json" -d \'{}\'',
         flags: [
           ["LogService.ClearLog", "Resets SEL capacity counter after hardware replacement/repair"]
         ],
@@ -259,7 +259,7 @@ const REDFISH_CHEAT_SHEET_DATA = [
         mode: "GET / PATCH",
         modeClass: "mode-c",
         desc: "Inspect current BIOS attributes or stage pending BIOS settings for next server reboot",
-        cmd: 'curl -g -6 -sk -u "$USER:$PASS" "https://[$BMC]/redfish/v1/Systems/1/Bios" | jq \'.Attributes\'   |   curl -g -6 -sk -u "$USER:$PASS" -X PATCH "https://[$BMC]/redfish/v1/Systems/1/Bios/Settings" -H "Content-Type: application/json" -d \'{"Attributes": {"SriovGlobalEnable": "Enabled"}}\'',
+        cmd: 'curl -g -6 -sk -u "$BMC_USER:$PASS" "https://[$BMC]/redfish/v1/Systems/1/Bios" | jq \'.Attributes\'   |   curl -g -6 -sk -u "$BMC_USER:$PASS" -X PATCH "https://[$BMC]/redfish/v1/Systems/1/Bios/Settings" -H "Content-Type: application/json" -d \'{"Attributes": {"SriovGlobalEnable": "Enabled"}}\'',
         flags: [
           ["/Bios", "Shows currently active BIOS attributes from last boot"],
           ["/Bios/Settings", "Staging URI where PATCH changes are written (applied on next System reboot!)"],
@@ -273,7 +273,7 @@ const REDFISH_CHEAT_SHEET_DATA = [
         mode: "POST",
         modeClass: "mode-c",
         desc: "Mount a remote OS installer ISO over IPv6 HTTP/HTTPS via BMC Virtual Media (`InsertMedia`)",
-        cmd: 'curl -g -6 -sk -u "$USER:$PASS" -X POST "https://[$BMC]/redfish/v1/Managers/1/VirtualMedia/CD1/Actions/VirtualMedia.InsertMedia" -H "Content-Type: application/json" -d \'{"Image": "http://[2001:db8:dc::5]:8000/ubuntu-24.04-live-server-amd64.iso", "Inserted": true, "WriteProtected": true}\'',
+        cmd: 'curl -g -6 -sk -u "$BMC_USER:$PASS" -X POST "https://[$BMC]/redfish/v1/Managers/1/VirtualMedia/CD1/Actions/VirtualMedia.InsertMedia" -H "Content-Type: application/json" -d \'{"Image": "http://[2001:db8:dc::5]:8000/ubuntu-24.04-live-server-amd64.iso", "Inserted": true, "WriteProtected": true}\'',
         flags: [
           ["VirtualMedia.InsertMedia", "Attaches remote HTTP/HTTPS/NFS/SMB ISO as virtual USB CD/DVD drive to host"],
           ["VirtualMedia.EjectMedia", "POST '{}' to .../Actions/VirtualMedia.EjectMedia to unmount ISO"]
@@ -286,7 +286,7 @@ const REDFISH_CHEAT_SHEET_DATA = [
         mode: "POST",
         modeClass: "mode-c",
         desc: "Reboot the Out-of-Band BMC controller itself without disrupting the running host OS",
-        cmd: 'curl -g -6 -sk -u "$USER:$PASS" -X POST "https://[$BMC]/redfish/v1/Managers/1/Actions/Manager.Reset" -H "Content-Type: application/json" -d \'{"ResetType": "GracefulRestart"}\'',
+        cmd: 'curl -g -6 -sk -u "$BMC_USER:$PASS" -X POST "https://[$BMC]/redfish/v1/Managers/1/Actions/Manager.Reset" -H "Content-Type: application/json" -d \'{"ResetType": "GracefulRestart"}\'',
         flags: [
           ["GracefulRestart / ForceRestart", "Reboots only the BMC management processor (host OS & workloads keep running)"]
         ],
@@ -305,7 +305,7 @@ const REDFISH_CHEAT_SHEET_DATA = [
         mode: "GET",
         modeClass: "mode-n",
         desc: "List all installed firmware components (BMC, BIOS, CPLD, PSU, NVMe, GPU, NIC) and versions",
-        cmd: 'curl -g -6 -sk -u "$USER:$PASS" "https://[$BMC]/redfish/v1/UpdateService/FirmwareInventory?\\$expand=.(\\$levels=1)" | jq \'.Members[] | {Id, Name, Version, Updateable, Status}\'',
+        cmd: 'curl -g -6 -sk -u "$BMC_USER:$PASS" "https://[$BMC]/redfish/v1/UpdateService/FirmwareInventory?\\$expand=.(\\$levels=1)" | jq \'.Members[] | {Id, Name, Version, Updateable, Status}\'',
         flags: [
           ["Updateable", "Boolean indicating whether component can be flashed via UpdateService"]
         ],
@@ -316,7 +316,7 @@ const REDFISH_CHEAT_SHEET_DATA = [
         mode: "POST",
         modeClass: "mode-c",
         desc: "Upload a local firmware bundle (`.bin` / `.fwpkg` / `.exe`) via Redfish `MultipartHttpPushUri`",
-        cmd: 'curl -g -6 -sk -u "$USER:$PASS" -X POST "https://[$BMC]/redfish/v1/UpdateService/upload" -F \'UpdateParameters={"Targets":[],"@Redfish.OperationApplyTime":"OnReset"};type=application/json\' -F "UpdateFile=@./firmware.fwpkg;type=application/octet-stream"',
+        cmd: 'curl -g -6 -sk -u "$BMC_USER:$PASS" -X POST "https://[$BMC]/redfish/v1/UpdateService/upload" -F \'UpdateParameters={"Targets":[],"@Redfish.OperationApplyTime":"OnReset"};type=application/json\' -F "UpdateFile=@./firmware.fwpkg;type=application/octet-stream"',
         flags: [
           ["MultipartHttpPushUri", "Check GET /redfish/v1/UpdateService for exact MultipartHttpPushUri path"],
           ["@Redfish.OperationApplyTime", "'Immediate' (for BMC) or 'OnReset' (for BIOS/CPLD/GPU firmware)"]
@@ -328,7 +328,7 @@ const REDFISH_CHEAT_SHEET_DATA = [
         mode: "GET",
         modeClass: "mode-n",
         desc: "Monitor progress percentage and status of asynchronous Redfish jobs (`TaskService`)",
-        cmd: 'curl -g -6 -sk -u "$USER:$PASS" "https://[$BMC]/redfish/v1/TaskService/Tasks/1" | jq \'{Id, Name, TaskState, PercentComplete, TaskStatus, Messages}\'',
+        cmd: 'curl -g -6 -sk -u "$BMC_USER:$PASS" "https://[$BMC]/redfish/v1/TaskService/Tasks/1" | jq \'{Id, Name, TaskState, PercentComplete, TaskStatus, Messages}\'',
         flags: [
           ["TaskState", "'Running', 'Pending', 'Completed', 'Exception', or 'Killed'"],
           ["PercentComplete", "0 to 100 integer progress indicator"]
@@ -348,7 +348,7 @@ const REDFISH_CHEAT_SHEET_DATA = [
         mode: "GET",
         modeClass: "mode-n",
         desc: "Query NVIDIA HGX SXM GPU Baseboard, SXM GPU health, and NVSwitch status out-of-band when the host OS is hung",
-        cmd: 'curl -g -6 -sk -u "$USER:$PASS" "https://[$BMC]/redfish/v1/Chassis" | jq \'.Members[]["@odata.id"] | select(contains("HGX"))\' && curl -g -6 -sk -u "$USER:$PASS" "https://[$BMC]/redfish/v1/Chassis/HGX_GPU_SXM_1" | jq \'{Id, PartNumber, SerialNumber, Status}\'',
+        cmd: 'curl -g -6 -sk -u "$BMC_USER:$PASS" "https://[$BMC]/redfish/v1/Chassis" | jq \'.Members[]["@odata.id"] | select(contains("HGX"))\' && curl -g -6 -sk -u "$BMC_USER:$PASS" "https://[$BMC]/redfish/v1/Chassis/HGX_GPU_SXM_1" | jq \'{Id, PartNumber, SerialNumber, Status}\'',
         flags: [
           ["HGX_Baseboard_0", "Dedicated HMC (Hardware Management Controller) on ASUS ESC N8 / GIGABYTE G593 / DGX HGX trays"],
           ["HGX_GPU_SXM_1..8", "Out-of-band SXM GPU health, serial number, and thermals readable even when the x86 host is powered off or kernel-panicked!"],
@@ -362,7 +362,7 @@ const REDFISH_CHEAT_SHEET_DATA = [
         mode: "GET",
         modeClass: "mode-t",
         desc: "Check Direct Liquid Cooling (DLC) coldplate leak detection sensors, coolant flow & inlet/outlet temperatures",
-        cmd: 'curl -g -6 -sk -u "$USER:$PASS" "https://[$BMC]/redfish/v1/Chassis/1/Sensors?\\$expand=.(\\$levels=1)" | jq \'.Members[] | select(.Name | test("Leak|Coolant|Liquid|Flow|Manifold"; "i")) | {Name, Reading, ReadingUnits, Status}\'',
+        cmd: 'curl -g -6 -sk -u "$BMC_USER:$PASS" "https://[$BMC]/redfish/v1/Chassis/1/Sensors?\\$expand=.(\\$levels=1)" | jq \'.Members[] | select(.Name | test("Leak|Coolant|Liquid|Flow|Manifold"; "i")) | {Name, Reading, ReadingUnits, Status}\'',
         flags: [
           ["ThermalSubsystem / LeakDetection", "Redfish 2023+ schema (/redfish/v1/Chassis/1/ThermalSubsystem/LeakDetection) reports moisture/rope sensor states"],
           ["Status.Health = Critical", "Triggered immediately if conductive coolant touches the coldplate drip-tray leak rope sensor"]
@@ -382,28 +382,28 @@ const RF_BUILDER_ACTIONS = {
       label: "GET System Summary (Power, Health, BIOS, Serial)",
       desc: "Query server power state, overall health status, model, serial number, and BIOS version",
       build: (sysId) =>
-        `curl -g -6 -sk -u "$USER:$PASS" "https://[$BMC]/redfish/v1/Systems/${sysId}" | jq '{PowerState, Status, Manufacturer, Model, SerialNumber, BiosVersion}'`
+        `curl -g -6 -sk -u "$BMC_USER:$PASS" "https://[$BMC]/redfish/v1/Systems/${sysId}" | jq '{PowerState, Status, Manufacturer, Model, SerialNumber, BiosVersion}'`
     },
     {
       id: "power-cycle",
       label: "POST ComputerSystem.Reset (PowerCycle)",
       desc: "Execute a cold DC PowerCycle via ComputerSystem.Reset action",
       build: (sysId) =>
-        `curl -g -6 -sk -u "$USER:$PASS" -X POST "https://[$BMC]/redfish/v1/Systems/${sysId}/Actions/ComputerSystem.Reset" -H "Content-Type: application/json" -d '{"ResetType": "PowerCycle"}'`
+        `curl -g -6 -sk -u "$BMC_USER:$PASS" -X POST "https://[$BMC]/redfish/v1/Systems/${sysId}/Actions/ComputerSystem.Reset" -H "Content-Type: application/json" -d '{"ResetType": "PowerCycle"}'`
     },
     {
       id: "boot-pxe",
       label: "PATCH One-Time UEFI PXE Boot Override",
       desc: "Configure server to PXE boot in UEFI mode on the next restart only",
       build: (sysId) =>
-        `curl -g -6 -sk -u "$USER:$PASS" -X PATCH "https://[$BMC]/redfish/v1/Systems/${sysId}" -H "Content-Type: application/json" -d '{"Boot": {"BootSourceOverrideTarget": "Pxe", "BootSourceOverrideEnabled": "Once", "BootSourceOverrideMode": "UEFI"}}'`
+        `curl -g -6 -sk -u "$BMC_USER:$PASS" -X PATCH "https://[$BMC]/redfish/v1/Systems/${sysId}" -H "Content-Type: application/json" -d '{"Boot": {"BootSourceOverrideTarget": "Pxe", "BootSourceOverrideEnabled": "Once", "BootSourceOverrideMode": "UEFI"}}'`
     },
     {
       id: "dimm-audit",
       label: "GET Populated Memory DIMMs & Health",
       desc: "Fetch all populated memory DIMMs with slot locator, capacity, speed, and health",
       build: (sysId) =>
-        `curl -g -6 -sk -u "$USER:$PASS" "https://[$BMC]/redfish/v1/Systems/${sysId}/Memory?\\$expand=.(\\$levels=1)" | jq '.Members[] | select(.Status.State=="Enabled") | {DeviceLocator, CapacityMiB, SerialNumber, Status}'`
+        `curl -g -6 -sk -u "$BMC_USER:$PASS" "https://[$BMC]/redfish/v1/Systems/${sysId}/Memory?\\$expand=.(\\$levels=1)" | jq '.Members[] | select(.Status.State=="Enabled") | {DeviceLocator, CapacityMiB, SerialNumber, Status}'`
     }
   ],
   chassis: [
@@ -412,21 +412,21 @@ const RF_BUILDER_ACTIONS = {
       label: "GET Thermal Temperatures & Fan Speeds",
       desc: "Read all chassis temperature sensors (°C) and cooling fan speeds",
       build: (_sysId, chasId) =>
-        `curl -g -6 -sk -u "$USER:$PASS" "https://[$BMC]/redfish/v1/Chassis/${chasId}/Thermal" | jq '{Temperatures: [.Temperatures[] | {Name, ReadingCelsius, Status}], Fans: [.Fans[] | {Name, Reading, Status}]}'`
+        `curl -g -6 -sk -u "$BMC_USER:$PASS" "https://[$BMC]/redfish/v1/Chassis/${chasId}/Thermal" | jq '{Temperatures: [.Temperatures[] | {Name, ReadingCelsius, Status}], Fans: [.Fans[] | {Name, Reading, Status}]}'`
     },
     {
       id: "psu-wattage",
       label: "GET Power Consumption & PSU Status",
       desc: "Query current chassis power consumption in Watts and redundant PSU status",
       build: (_sysId, chasId) =>
-        `curl -g -6 -sk -u "$USER:$PASS" "https://[$BMC]/redfish/v1/Chassis/${chasId}/Power" | jq '{PowerConsumedWatts: .PowerControl[0].PowerConsumedWatts, PowerSupplies: [.PowerSupplies[] | {Name, PowerInputWatts, LineInputVoltage, Status}]}'`
+        `curl -g -6 -sk -u "$BMC_USER:$PASS" "https://[$BMC]/redfish/v1/Chassis/${chasId}/Power" | jq '{PowerConsumedWatts: .PowerControl[0].PowerConsumedWatts, PowerSupplies: [.PowerSupplies[] | {Name, PowerInputWatts, LineInputVoltage, Status}]}'`
     },
     {
       id: "uid-led-on",
       label: "PATCH Turn On Chassis UID Locator LED",
       desc: "Illuminate the physical blue UID locator LED on the server chassis",
       build: (_sysId, chasId) =>
-        `curl -g -6 -sk -u "$USER:$PASS" -X PATCH "https://[$BMC]/redfish/v1/Chassis/${chasId}" -H "Content-Type: application/json" -d '{"LocationIndicatorActive": true}'`
+        `curl -g -6 -sk -u "$BMC_USER:$PASS" -X PATCH "https://[$BMC]/redfish/v1/Chassis/${chasId}" -H "Content-Type: application/json" -d '{"LocationIndicatorActive": true}'`
     }
   ],
   managers: [
@@ -435,14 +435,14 @@ const RF_BUILDER_ACTIONS = {
       label: "GET System Event Log (SEL) Entries",
       desc: "Dump recent System Event Log (SEL) hardware events from the BMC",
       build: (_sysId, _chasId, mgrId) =>
-        `curl -g -6 -sk -u "$USER:$PASS" "https://[$BMC]/redfish/v1/Managers/${mgrId}/LogServices/Sel/Entries" | jq -r '.Members[] | "\\(.Created) [\\(.Severity)] \\(.Message)"' | tail -n 25`
+        `curl -g -6 -sk -u "$BMC_USER:$PASS" "https://[$BMC]/redfish/v1/Managers/${mgrId}/LogServices/Sel/Entries" | jq -r '.Members[] | "\\(.Created) [\\(.Severity)] \\(.Message)"' | tail -n 25`
     },
     {
       id: "bmc-reboot",
       label: "POST GracefulRestart BMC Manager",
       desc: "Restart the out-of-band BMC processor without affecting the running host OS",
       build: (_sysId, _chasId, mgrId) =>
-        `curl -g -6 -sk -u "$USER:$PASS" -X POST "https://[$BMC]/redfish/v1/Managers/${mgrId}/Actions/Manager.Reset" -H "Content-Type: application/json" -d '{"ResetType": "GracefulRestart"}'`
+        `curl -g -6 -sk -u "$BMC_USER:$PASS" -X POST "https://[$BMC]/redfish/v1/Managers/${mgrId}/Actions/Manager.Reset" -H "Content-Type: application/json" -d '{"ResetType": "GracefulRestart"}'`
     }
   ],
   update: [
@@ -451,7 +451,7 @@ const RF_BUILDER_ACTIONS = {
       label: "GET All Installed Firmware Versions",
       desc: "List all installed firmware packages (BIOS, BMC, CPLD, NIC, PSU, GPU) via UpdateService",
       build: () =>
-        `curl -g -6 -sk -u "$USER:$PASS" "https://[$BMC]/redfish/v1/UpdateService/FirmwareInventory?\\$expand=.(\\$levels=1)" | jq '.Members[] | {Id, Name, Version, Status}'`
+        `curl -g -6 -sk -u "$BMC_USER:$PASS" "https://[$BMC]/redfish/v1/UpdateService/FirmwareInventory?\\$expand=.(\\$levels=1)" | jq '.Members[] | {Id, Name, Version, Status}'`
     }
   ]
 };

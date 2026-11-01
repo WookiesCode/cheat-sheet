@@ -3440,10 +3440,12 @@ body.compact-mode .subcmd-list {
   }
 }
 
-
-
-
-
-
-
-
+/* Credentials note in the target variables bar */
+.target-creds-note { grid-column: span 2; min-width: 0; }
+.target-creds-label { display: block; font-size: 0.72rem; margin-bottom: 4px; }
+.target-creds-note code {
+  display: block;
+  font-size: 0.68rem;
+  overflow-wrap: anywhere;
+  user-select: all;
+}

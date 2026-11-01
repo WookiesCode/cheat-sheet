@@ -10,7 +10,7 @@ const RF_RF_THERMALS_POWER_DATA = [
       {
         "id": "rf-chassis-thermal-temps-fans",
         "desc": "Read all Chassis temperature sensors (°C) and cooling fan speeds (RPM / %)",
-        "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Chassis/1/Thermal\" | jq '{Temps: [.Temperatures[] | {Name, ReadingCelsius, UpperThresholdCritical, Health: .Status.Health}], Fans: [.Fans[] | {Name, Reading, ReadingUnits, Health: .Status.Health}]}'",
+        "cmd": "curl -g -6 -sk -u \"$BMC_USER:$PASS\" \"https://[$BMC]/redfish/v1/Chassis/1/Thermal\" | jq '{Temps: [.Temperatures[] | {Name, ReadingCelsius, UpperThresholdCritical, Health: .Status.Health}], Fans: [.Fans[] | {Name, Reading, ReadingUnits, Health: .Status.Health}]}'",
         "details": "",
         "flags": [
           [
@@ -44,7 +44,7 @@ const RF_RF_THERMALS_POWER_DATA = [
       {
         "id": "rf-chassis-power-psus",
         "desc": "Check live server power consumption (Watts), power cap, and redundant Power Supply (PSU) health",
-        "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Chassis/1/Power\" | jq '{PowerConsumedWatts: .PowerControl[0].PowerConsumedWatts, PSUs: [.PowerSupplies[] | {Name, Model, SerialNumber, PowerInputWatts, LineInputVoltage, Status}]}'",
+        "cmd": "curl -g -6 -sk -u \"$BMC_USER:$PASS\" \"https://[$BMC]/redfish/v1/Chassis/1/Power\" | jq '{PowerConsumedWatts: .PowerControl[0].PowerConsumedWatts, PSUs: [.PowerSupplies[] | {Name, Model, SerialNumber, PowerInputWatts, LineInputVoltage, Status}]}'",
         "details": "",
         "flags": [
           [
@@ -82,7 +82,7 @@ const RF_RF_THERMALS_POWER_DATA = [
       {
         "id": "rf-chassis-uid-led",
         "desc": "Turn on or blink the physical Chassis UID Locator LED to help datacenter techs find the server",
-        "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" -X PATCH \"https://[$BMC]/redfish/v1/Chassis/1\" -H \"Content-Type: application/json\" -d '{\"LocationIndicatorActive\": true}'",
+        "cmd": "curl -g -6 -sk -u \"$BMC_USER:$PASS\" -X PATCH \"https://[$BMC]/redfish/v1/Chassis/1\" -H \"Content-Type: application/json\" -d '{\"LocationIndicatorActive\": true}'",
         "details": "",
         "flags": [
           [
@@ -574,16 +574,12 @@ function initEventListeners() {
 }
 
 function applyTheme(theme) {
-  const sunIcon = document.getElementById("theme-icon-sun");
-  const moonIcon = document.getElementById("theme-icon-moon");
-  if (theme === "light") {
-    document.documentElement.setAttribute("data-theme", "light");
-    sunIcon.classList.add("hidden");
-    moonIcon.classList.remove("hidden");
+  state.theme = theme;
+  if (window.CheatSheetCommon && typeof window.CheatSheetCommon.applyTheme === "function") {
+    window.CheatSheetCommon.applyTheme(theme);
   } else {
-    document.documentElement.setAttribute("data-theme", "dark");
-    sunIcon.classList.remove("hidden");
-    moonIcon.classList.add("hidden");
+    document.documentElement.setAttribute("data-theme", theme);
+    try { localStorage.setItem("linux_cs_theme", theme); } catch (e) {}
   }
 }
 

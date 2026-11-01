@@ -10,7 +10,7 @@ const RF_RF_THERMALS_POWER_DATA = [
       {
         "id": "rf-chassis-thermal-temps-fans",
         "desc": "Read all Chassis temperature sensors (°C) and cooling fan speeds (RPM / %)",
-        "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Chassis/1/Thermal\" | jq '{Temps: [.Temperatures[] | {Name, ReadingCelsius, UpperThresholdCritical, Health: .Status.Health}], Fans: [.Fans[] | {Name, Reading, ReadingUnits, Health: .Status.Health}]}'",
+        "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Chassis/1/Thermal\" | jq '{Temps: [.Temperatures[] | {Name, ReadingCelsius, UpperThresholdCritical, Health: .Status.Health}], Fans: [.Fans[] | {Name, Reading, ReadingUnits, Health: .Status.Health}]}'",
         "details": "",
         "flags": [
           [
@@ -44,7 +44,7 @@ const RF_RF_THERMALS_POWER_DATA = [
       {
         "id": "rf-chassis-power-psus",
         "desc": "Check live server power consumption (Watts), power cap, and redundant Power Supply (PSU) health",
-        "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Chassis/1/Power\" | jq '{PowerConsumedWatts: .PowerControl[0].PowerConsumedWatts, PSUs: [.PowerSupplies[] | {Name, Model, SerialNumber, PowerInputWatts, LineInputVoltage, Status}]}'",
+        "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Chassis/1/Power\" | jq '{PowerConsumedWatts: .PowerControl[0].PowerConsumedWatts, PSUs: [.PowerSupplies[] | {Name, Model, SerialNumber, PowerInputWatts, LineInputVoltage, Status}]}'",
         "details": "",
         "flags": [
           [
@@ -82,7 +82,7 @@ const RF_RF_THERMALS_POWER_DATA = [
       {
         "id": "rf-chassis-uid-led",
         "desc": "Turn on or blink the physical Chassis UID Locator LED to help datacenter techs find the server",
-        "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" -X PATCH \"https://[$BMC]/redfish/v1/Chassis/1\" -H \"Content-Type: application/json\" -d '{\"LocationIndicatorActive\": true}'",
+        "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc -X PATCH \"https://[$BMC]/redfish/v1/Chassis/1\" -H \"Content-Type: application/json\" -d '{\"LocationIndicatorActive\": true}'",
         "details": "",
         "flags": [
           [
@@ -116,7 +116,7 @@ const RF_RF_THERMALS_POWER_DATA = [
       {
         "id": "thermals-power-sensors-tips-card",
         "desc": "Thermal Triage & Power Supply Redundancy Telemetry",
-        "cmd": "curl -k -sS \"https://${BMC_IP}/redfish/v1/Chassis/1/Thermal\" | jq '.Temperatures[] | {Sensor: .Name, Reading: .ReadingCelsius, UpperThresh: .UpperThresholdCritical}'",
+        "cmd": "curl -k -sS -K ~/.bmc-curlrc \"https://${BMC_IP}/redfish/v1/Chassis/1/Thermal\" | jq '.Temperatures[] | {Sensor: .Name, Reading: .ReadingCelsius, UpperThresh: .UpperThresholdCritical}'",
         "details": "Chassis thermal readings provide immediate visibility into CPU die temperatures, intake air temps, and DIMM zone cooling. Verify redundant PSU load-sharing via /redfish/v1/Chassis/1/Power to ensure loss of one A/B feed will not cause an unexpected node drop.",
         "flags": [
           [
@@ -153,7 +153,7 @@ const state = {
   savedOnly: false,
   compact: localStorage.getItem("linux_cs_compact") === "1",
   theme: localStorage.getItem("linux_cs_theme") || "dark",
-  bookmarks: new Set(JSON.parse(localStorage.getItem("rf-thermals-power_bookmarks") || "[]"))
+  bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("rf-thermals-power_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
 
 // DOM Elements
@@ -578,12 +578,12 @@ function applyTheme(theme) {
   const moonIcon = document.getElementById("theme-icon-moon");
   if (theme === "light") {
     document.documentElement.setAttribute("data-theme", "light");
-    sunIcon.classList.add("hidden");
-    moonIcon.classList.remove("hidden");
+    sunIcon?.classList.add("hidden");
+    moonIcon?.classList.remove("hidden");
   } else {
-    document.documentElement.setAttribute("data-theme", "dark");
-    sunIcon.classList.remove("hidden");
-    moonIcon.classList.add("hidden");
+    document.documentElement.setAttribute("data-theme", theme);
+    sunIcon?.classList.remove("hidden");
+    moonIcon?.classList.add("hidden");
   }
 }
 

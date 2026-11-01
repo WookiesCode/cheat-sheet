@@ -10,7 +10,7 @@ const RF_RF_BIOS_BMC_DATA = [
       {
         "id": "rf-bios-read-patch",
         "desc": "Inspect current BIOS attributes or stage pending BIOS settings for next server reboot",
-        "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Systems/1/Bios\" | jq '.Attributes'   |   curl -g -6 -sk -u \"$USER:$PASS\" -X PATCH \"https://[$BMC]/redfish/v1/Systems/1/Bios/Settings\" -H \"Content-Type: application/json\" -d '{\"Attributes\": {\"SriovGlobalEnable\": \"Enabled\"}}'",
+        "cmd": "curl -g -6 -sk -u \"$BMC_USER:$PASS\" \"https://[$BMC]/redfish/v1/Systems/1/Bios\" | jq '.Attributes'   |   curl -g -6 -sk -u \"$BMC_USER:$PASS\" -X PATCH \"https://[$BMC]/redfish/v1/Systems/1/Bios/Settings\" -H \"Content-Type: application/json\" -d '{\"Attributes\": {\"SriovGlobalEnable\": \"Enabled\"}}'",
         "details": "",
         "flags": [
           [
@@ -52,7 +52,7 @@ const RF_RF_BIOS_BMC_DATA = [
       {
         "id": "rf-virtual-media-mount",
         "desc": "Mount a remote OS installer ISO over IPv6 HTTP/HTTPS via BMC Virtual Media (`InsertMedia`)",
-        "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" -X POST \"https://[$BMC]/redfish/v1/Managers/1/VirtualMedia/CD1/Actions/VirtualMedia.InsertMedia\" -H \"Content-Type: application/json\" -d '{\"Image\": \"http://[2001:db8:dc::5]:8000/ubuntu-24.04-live-server-amd64.iso\", \"Inserted\": true, \"WriteProtected\": true}'",
+        "cmd": "curl -g -6 -sk -u \"$BMC_USER:$PASS\" -X POST \"https://[$BMC]/redfish/v1/Managers/1/VirtualMedia/CD1/Actions/VirtualMedia.InsertMedia\" -H \"Content-Type: application/json\" -d '{\"Image\": \"http://[2001:db8:dc::5]:8000/ubuntu-24.04-live-server-amd64.iso\", \"Inserted\": true, \"WriteProtected\": true}'",
         "details": "",
         "flags": [
           [
@@ -90,7 +90,7 @@ const RF_RF_BIOS_BMC_DATA = [
       {
         "id": "rf-bmc-manager-reset",
         "desc": "Reboot the Out-of-Band BMC controller itself without disrupting the running host OS",
-        "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" -X POST \"https://[$BMC]/redfish/v1/Managers/1/Actions/Manager.Reset\" -H \"Content-Type: application/json\" -d '{\"ResetType\": \"GracefulRestart\"}'",
+        "cmd": "curl -g -6 -sk -u \"$BMC_USER:$PASS\" -X POST \"https://[$BMC]/redfish/v1/Managers/1/Actions/Manager.Reset\" -H \"Content-Type: application/json\" -d '{\"ResetType\": \"GracefulRestart\"}'",
         "details": "",
         "flags": [
           [
@@ -582,16 +582,12 @@ function initEventListeners() {
 }
 
 function applyTheme(theme) {
-  const sunIcon = document.getElementById("theme-icon-sun");
-  const moonIcon = document.getElementById("theme-icon-moon");
-  if (theme === "light") {
-    document.documentElement.setAttribute("data-theme", "light");
-    sunIcon.classList.add("hidden");
-    moonIcon.classList.remove("hidden");
+  state.theme = theme;
+  if (window.CheatSheetCommon && typeof window.CheatSheetCommon.applyTheme === "function") {
+    window.CheatSheetCommon.applyTheme(theme);
   } else {
-    document.documentElement.setAttribute("data-theme", "dark");
-    sunIcon.classList.remove("hidden");
-    moonIcon.classList.add("hidden");
+    document.documentElement.setAttribute("data-theme", theme);
+    try { localStorage.setItem("linux_cs_theme", theme); } catch (e) {}
   }
 }
 

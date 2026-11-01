@@ -10,7 +10,7 @@ const RF_RF_HGX_DLC_DATA = [
       {
         "id": "rf-hgx-chassis-gpus",
         "desc": "Query NVIDIA HGX SXM GPU Baseboard, SXM GPU health, and NVSwitch status out-of-band when the host OS is hung",
-        "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Chassis\" | jq '.Members[][\"@odata.id\"] | select(contains(\"HGX\"))' && curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Chassis/HGX_GPU_SXM_1\" | jq '{Id, PartNumber, SerialNumber, Status}'",
+        "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Chassis\" | jq '.Members[][\"@odata.id\"] | select(contains(\"HGX\"))' && curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Chassis/HGX_GPU_SXM_1\" | jq '{Id, PartNumber, SerialNumber, Status}'",
         "details": "",
         "flags": [
           [
@@ -54,7 +54,7 @@ const RF_RF_HGX_DLC_DATA = [
       {
         "id": "rf-dlc-leak-sensors",
         "desc": "Check Direct Liquid Cooling (DLC) coldplate leak detection sensors, coolant flow & inlet/outlet temperatures",
-        "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Chassis/1/Sensors?\\$expand=.(\\$levels=1)\" | jq '.Members[] | select(.Name | test(\"Leak|Coolant|Liquid|Flow|Manifold\"; \"i\")) | {Name, Reading, ReadingUnits, Status}'",
+        "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Chassis/1/Sensors?\\$expand=.(\\$levels=1)\" | jq '.Members[] | select(.Name | test(\"Leak|Coolant|Liquid|Flow|Manifold\"; \"i\")) | {Name, Reading, ReadingUnits, Status}'",
         "details": "",
         "flags": [
           [
@@ -93,7 +93,7 @@ const RF_RF_HGX_DLC_DATA = [
       {
         "id": "hgx-dlc-redfish-tips-card",
         "desc": "AI Server HGX Baseboard & Liquid Cooling Telemetry",
-        "cmd": "curl -k -sS \"https://${BMC_IP}/redfish/v1/Chassis/HGX_Baseboard_0\" | jq .",
+        "cmd": "curl -k -sS -K ~/.bmc-curlrc \"https://${BMC_IP}/redfish/v1/Chassis/HGX_Baseboard_0\" | jq .",
         "details": "Modern 8-GPU AI supercomputers (NVIDIA HGX H100/H200/B200) expose dedicated Redfish Chassis and Thermal collections for the GPU tray. Inspect Direct Liquid Cooling (DLC) leak detection sensors and coolant flow rates before powering on GPUs.",
         "flags": [
           [
@@ -130,7 +130,7 @@ const state = {
   savedOnly: false,
   compact: localStorage.getItem("linux_cs_compact") === "1",
   theme: localStorage.getItem("linux_cs_theme") || "dark",
-  bookmarks: new Set(JSON.parse(localStorage.getItem("rf-hgx-dlc_bookmarks") || "[]"))
+  bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("rf-hgx-dlc_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
 
 // DOM Elements
@@ -555,12 +555,12 @@ function applyTheme(theme) {
   const moonIcon = document.getElementById("theme-icon-moon");
   if (theme === "light") {
     document.documentElement.setAttribute("data-theme", "light");
-    sunIcon.classList.add("hidden");
-    moonIcon.classList.remove("hidden");
+    sunIcon?.classList.add("hidden");
+    moonIcon?.classList.remove("hidden");
   } else {
-    document.documentElement.setAttribute("data-theme", "dark");
-    sunIcon.classList.remove("hidden");
-    moonIcon.classList.add("hidden");
+    document.documentElement.setAttribute("data-theme", theme);
+    sunIcon?.classList.remove("hidden");
+    moonIcon?.classList.add("hidden");
   }
 }
 

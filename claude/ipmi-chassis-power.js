@@ -10,7 +10,7 @@ const IPMI_IPMI_CHASSIS_POWER_DATA = [
       {
         "id": "ipmi-power-actions",
         "desc": "Check chassis power state or execute hard power off, cold power cycle, warm reset, or ACPI shutdown",
-        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" chassis power status   |   ... chassis power cycle   |   ... chassis power reset   |   ... chassis power soft",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis power status   |   ... chassis power cycle   |   ... chassis power reset   |   ... chassis power soft",
         "details": "",
         "flags": [
           [
@@ -53,7 +53,7 @@ const IPMI_IPMI_CHASSIS_POWER_DATA = [
       {
         "id": "ipmi-power-actions-flags-card",
         "desc": "Options breakdown and parameter syntax for Check chassis power state or execute hard power off, cold power cycle, warm reset, or ACPI shutdown",
-        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" chassis power status   |   ... chassis power cycle   |   ... chassis power reset   |   ... chassis power soft",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis power status   |   ... chassis power cycle   |   ... chassis power reset   |   ... chassis power soft",
         "flags": [
           [
             "power off / on",
@@ -79,7 +79,7 @@ const IPMI_IPMI_CHASSIS_POWER_DATA = [
       {
         "id": "ipmi-chassis-status",
         "desc": "Inspect detailed chassis state: Last Power Event (AC failed, overload, thermal trip), power restore policy & intrusion",
-        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" chassis status   |   ... chassis policy always-on",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis status   |   ... chassis policy always-on",
         "details": "",
         "flags": [
           [
@@ -117,7 +117,7 @@ const IPMI_IPMI_CHASSIS_POWER_DATA = [
       {
         "id": "ipmi-chassis-identify-nmi",
         "desc": "Blink the physical blue Chassis UID Locator LED or pulse diagnostic NMI for kernel kdump",
-        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" chassis identify force   |   ... chassis identify 0   |   ... chassis power diag",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis identify force   |   ... chassis identify 0   |   ... chassis power diag",
         "details": "",
         "flags": [
           [
@@ -156,7 +156,7 @@ const IPMI_IPMI_CHASSIS_POWER_DATA = [
       {
         "id": "chassis-power-tips-card",
         "desc": "Chassis Power Cycling & Hard Freeze Triage",
-        "cmd": "ipmitool -I lanplus -H $BMC_IP -U admin -P password chassis power status",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis power status",
         "details": "Use \"power soft\" first to give ACPI OS time to cleanly shutdown daemons and unmount NVMe filesystems. If the OS kernel is hard frozen, use \"power cycle\" (powers off, waits 1s, powers on) or pulse an NMI diagnostics trigger to force a kernel crash dump.",
         "flags": [
           [
@@ -193,7 +193,7 @@ const state = {
   savedOnly: false,
   compact: localStorage.getItem("linux_cs_compact") === "1",
   theme: localStorage.getItem("linux_cs_theme") || "dark",
-  bookmarks: new Set(JSON.parse(localStorage.getItem("ipmi-chassis-power_bookmarks") || "[]"))
+  bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("ipmi-chassis-power_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
 
 // DOM Elements
@@ -618,12 +618,12 @@ function applyTheme(theme) {
   const moonIcon = document.getElementById("theme-icon-moon");
   if (theme === "light") {
     document.documentElement.setAttribute("data-theme", "light");
-    sunIcon.classList.add("hidden");
-    moonIcon.classList.remove("hidden");
+    sunIcon?.classList.add("hidden");
+    moonIcon?.classList.remove("hidden");
   } else {
-    document.documentElement.setAttribute("data-theme", "dark");
-    sunIcon.classList.remove("hidden");
-    moonIcon.classList.add("hidden");
+    document.documentElement.setAttribute("data-theme", theme);
+    sunIcon?.classList.remove("hidden");
+    moonIcon?.classList.add("hidden");
   }
 }
 

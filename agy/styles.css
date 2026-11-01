@@ -12,6 +12,7 @@
   --text-muted: #64748b;
 
   --accent-primary: #38bdf8;
+  --accent-secondary: #0ea5e9;
   --accent-glow: rgba(56, 189, 248, 0.14);
   --accent-green: #4ade80;
   --accent-amber: #fbbf24;
@@ -44,6 +45,7 @@
   --text-muted: #64748b;
 
   --accent-primary: #0284c7;
+  --accent-secondary: #0369a1;
   --accent-glow: rgba(2, 132, 199, 0.12);
   --accent-green: #16a34a;
   --accent-amber: #d97706;

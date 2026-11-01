@@ -1740,6 +1740,8 @@ function generateHtmlFile(lang) {
   </div>
 
   <script src="global-search-index.js"></script>
+  <script src="manuals-data.js"></script>
+  <script src="manuals-ui.js"></script>
   <script src="common.js"></script>
   <script src="${lang.js}"></script>
 </body>

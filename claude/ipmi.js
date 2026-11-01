@@ -10,7 +10,7 @@ const IPMI_CHEAT_SHEET_DATA = [
         mode: "POWER",
         modeClass: "mode-t",
         desc: "Check chassis power state or execute hard power off, cold power cycle, warm reset, or ACPI shutdown",
-        cmd: 'ipmitool -I lanplus -H "$BMC" -U "$USER" -P "$PASS" chassis power status   |   ... chassis power cycle   |   ... chassis power reset   |   ... chassis power soft',
+        cmd: 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E chassis power status   |   ... chassis power cycle   |   ... chassis power reset   |   ... chassis power soft',
         flags: [
           ["power cycle", "Cold DC power off, wait ~1–3s, then power on (must power already be ON)"],
           ["power reset", "Warm hard reset (pulses motherboard reset line without dropping DC power rails)"],
@@ -25,7 +25,7 @@ const IPMI_CHEAT_SHEET_DATA = [
         mode: "CHASSIS",
         modeClass: "mode-n",
         desc: "Inspect detailed chassis state: Last Power Event (AC failed, overload, thermal trip), power restore policy & intrusion",
-        cmd: 'ipmitool -I lanplus -H "$BMC" -U "$USER" -P "$PASS" chassis status   |   ... chassis policy always-on',
+        cmd: 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E chassis status   |   ... chassis policy always-on',
         flags: [
           ["Last Power Event", "Shows why server turned off: 'ac-failed', 'power-overload', 'power-interlock', 'power-fault'"],
           ["chassis policy", "Set AC power recovery mode: 'always-on', 'previous', or 'always-off'"]
@@ -38,7 +38,7 @@ const IPMI_CHEAT_SHEET_DATA = [
         mode: "CHASSIS",
         modeClass: "mode-c",
         desc: "Blink the physical blue Chassis UID Locator LED or pulse diagnostic NMI for kernel kdump",
-        cmd: 'ipmitool -I lanplus -H "$BMC" -U "$USER" -P "$PASS" chassis identify force   |   ... chassis identify 0   |   ... chassis power diag',
+        cmd: 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E chassis identify force   |   ... chassis identify 0   |   ... chassis power diag',
         flags: [
           ["identify force / 60", "Turn UID LED on indefinitely ('force') or blink for 60 seconds ('0' turns it off)"],
           ["chassis power diag", "Assert hardware Non-Maskable Interrupt (NMI) to trigger Linux kdump on hung node"]
@@ -58,7 +58,7 @@ const IPMI_CHEAT_SHEET_DATA = [
         mode: "BOOT",
         modeClass: "mode-c",
         desc: "Force one-time UEFI PXE network boot on the next reboot and immediately power-cycle",
-        cmd: 'ipmitool -I lanplus -H "$BMC" -U "$USER" -P "$PASS" chassis bootdev pxe options=efiboot && ipmitool -I lanplus -H "$BMC" -U "$USER" -P "$PASS" chassis power cycle',
+        cmd: 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E chassis bootdev pxe options=efiboot && ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E chassis power cycle',
         flags: [
           ["options=efiboot", "Critical on modern servers: without efiboot, some BMCs attempt Legacy CSM PXE and fail!"],
           ["options=persistent", "Add comma-separated 'options=efiboot,persistent' to make PXE first permanently"]
@@ -71,7 +71,7 @@ const IPMI_CHEAT_SHEET_DATA = [
         mode: "BOOT",
         modeClass: "mode-c",
         desc: "Boot directly into BIOS/UEFI Setup utility, Virtual CD-ROM ISO, or clear boot override",
-        cmd: 'ipmitool -I lanplus -H "$BMC" -U "$USER" -P "$PASS" chassis bootdev bios   |   ... chassis bootdev cdrom options=efiboot   |   ... chassis bootdev none',
+        cmd: 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E chassis bootdev bios   |   ... chassis bootdev cdrom options=efiboot   |   ... chassis bootdev none',
         flags: [
           ["bootdev bios", "Enters BIOS/UEFI Setup automatically on next POST"],
           ["bootdev cdrom", "Boots from mounted Virtual Media CD/DVD ISO"],
@@ -85,7 +85,7 @@ const IPMI_CHEAT_SHEET_DATA = [
         mode: "BOOT",
         modeClass: "mode-c",
         desc: "Disable the IPMI 60-second boot flag watchdog timer so `bootdev` isn't cleared if reboot takes >60s",
-        cmd: 'ipmitool -I lanplus -H "$BMC" -U "$USER" -P "$PASS" chassis bootparam set bootflag force_pxe options=no-timeout',
+        cmd: 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E chassis bootparam set bootflag force_pxe options=no-timeout',
         flags: [
           ["options=no-timeout", "Prevents BMC from clearing the one-time boot flag if chassis power cycle happens >60 seconds later"]
         ],
@@ -104,7 +104,7 @@ const IPMI_CHEAT_SHEET_DATA = [
         mode: "SENSORS",
         modeClass: "mode-n",
         desc: "Read all Sensor Data Repository (SDR) entries or filter specifically by Temperature, Fan, or Power Supply",
-        cmd: 'ipmitool -I lanplus -H "$BMC" -U "$USER" -P "$PASS" sdr elist full   |   ... sdr type Temperature   |   ... sdr type Fan   |   ... sdr type "Power Supply"',
+        cmd: 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E sdr elist full   |   ... sdr type Temperature   |   ... sdr type Fan   |   ... sdr type "Power Supply"',
         flags: [
           ["sdr elist full", "Fast bulk read of all analog/discrete sensors with sensor ID, status, and reading"],
           ["sdr type list", "Print all valid sensor type strings (Temperature, Voltage, Current, Fan, Memory, Processor)"]
@@ -117,7 +117,7 @@ const IPMI_CHEAT_SHEET_DATA = [
         mode: "POWER",
         modeClass: "mode-n",
         desc: "Read real-time server power consumption (Watts), min/max/avg power, and thermal status via DCMI",
-        cmd: 'ipmitool -I lanplus -H "$BMC" -U "$USER" -P "$PASS" dcmi power reading   |   ... dcmi power get_limit',
+        cmd: 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E dcmi power reading   |   ... dcmi power get_limit',
         flags: [
           ["dcmi power reading", "Prints Instantaneous power (Watts), Min, Max, Average over sample period, and timestamp"],
           ["dcmi power set_limit", "Configure out-of-band node power cap in Watts"]
@@ -130,7 +130,7 @@ const IPMI_CHEAT_SHEET_DATA = [
         mode: "SENSORS",
         modeClass: "mode-n",
         desc: "Inspect lower/upper non-critical, critical, and non-recoverable thresholds for a specific sensor",
-        cmd: 'ipmitool -I lanplus -H "$BMC" -U "$USER" -P "$PASS" sensor get "Inlet Temp" "FAN1"',
+        cmd: 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E sensor get "Inlet Temp" "FAN1"',
         flags: [
           ["unr / ucr / unc", "Upper Non-Recoverable / Upper Critical / Upper Non-Critical thresholds"],
           ["lnr / lcr / lnc", "Lower Non-Recoverable / Lower Critical / Lower Non-Critical thresholds"]
@@ -150,7 +150,7 @@ const IPMI_CHEAT_SHEET_DATA = [
         mode: "EVENT LOG",
         modeClass: "mode-n",
         desc: "Display System Event Log cross-referenced with SDR sensor names for human-readable hardware triage",
-        cmd: 'ipmitool -I lanplus -H "$BMC" -U "$USER" -P "$PASS" sel elist   |   ... sel elist last 25',
+        cmd: 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E sel elist   |   ... sel elist last 25',
         flags: [
           ["sel elist", "Resolves raw hex sensor numbers into human-readable sensor names (unlike 'sel list')"],
           ["sel elist last 25", "Fetch only the most recent 25 hardware events"],
@@ -164,7 +164,7 @@ const IPMI_CHEAT_SHEET_DATA = [
         mode: "EVENT LOG",
         modeClass: "mode-c",
         desc: "Check SEL fullness percentage (`Percent Used`), backup SEL to file, and clear the log",
-        cmd: 'ipmitool -I lanplus -H "$BMC" -U "$USER" -P "$PASS" sel info   |   ... sel save sel_backup.log   |   ... sel clear',
+        cmd: 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E sel info   |   ... sel save sel_backup.log   |   ... sel clear',
         flags: [
           ["Overflow : true", "Indicates SEL hit 100% capacity and dropped newer hardware events — clear after saving!"],
           ["sel time get / now", "Check BMC real-time clock or sync it to host clock"]
@@ -184,7 +184,7 @@ const IPMI_CHEAT_SHEET_DATA = [
         mode: "CONSOLE",
         modeClass: "mode-v",
         desc: "Connect to the server's live serial console (BIOS POST, GRUB, Linux ttyS0/ttyS1) over the network",
-        cmd: 'ipmitool -I lanplus -H "$BMC" -U "$USER" -P "$PASS" -e @ sol activate',
+        cmd: 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E -e @ sol activate',
         flags: [
           ["-e @", "Sets escape character to '@' instead of '~' so typing '<Enter>@.' exits SOL without killing your SSH session!"],
           ["Linux kernel args", "Ensure GRUB has 'console=tty0 console=ttyS1,115200n8' (or ttyS0 depending on motherboard)"]
@@ -197,7 +197,7 @@ const IPMI_CHEAT_SHEET_DATA = [
         mode: "CONSOLE",
         modeClass: "mode-c",
         desc: "Force-close a hung or active SOL session and inspect SOL baud rate configuration",
-        cmd: 'ipmitool -I lanplus -H "$BMC" -U "$USER" -P "$PASS" sol deactivate   |   ... sol info 1   |   ... sol set non-volatile-bit-rate 115.2 1',
+        cmd: 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E sol deactivate   |   ... sol info 1   |   ... sol set non-volatile-bit-rate 115.2 1',
         flags: [
           ["sol deactivate", "Frees the SOL channel when 'SOL payload already active on another session' error occurs"],
           ["115.2", "Standard 115200 bps serial baud rate (9.6, 19.2, 38.4, 57.6, 115.2)"]
@@ -264,7 +264,7 @@ const IPMI_CHEAT_SHEET_DATA = [
         mode: "INVENTORY",
         modeClass: "mode-n",
         desc: "Dump Field Replaceable Unit (FRU) EEPROM data: Board/Chassis/Product part & serial numbers",
-        cmd: 'ipmitool -I lanplus -H "$BMC" -U "$USER" -P "$PASS" fru print',
+        cmd: 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E fru print',
         flags: [
           ["Board Serial / Product Serial", "Reads factory-programmed EEPROM serials for chassis, backplane, motherboard, and PSUs"]
         ],
@@ -275,7 +275,7 @@ const IPMI_CHEAT_SHEET_DATA = [
         mode: "BMC MGMT",
         modeClass: "mode-c",
         desc: "Check BMC firmware version or perform a non-disruptive cold reset of the BMC processor",
-        cmd: 'ipmitool -I lanplus -H "$BMC" -U "$USER" -P "$PASS" mc info   |   ... mc reset cold   |   ... mc reset warm',
+        cmd: 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E mc info   |   ... mc reset cold   |   ... mc reset warm',
         flags: [
           ["mc info", "Displays BMC Firmware Revision, IPMI Version, Manufacturer ID, and Auxiliary FW Rev"],
           ["mc reset cold", "Reboots the BMC controller completely (does NOT reboot the host server or interrupt workloads!)"]
@@ -399,7 +399,7 @@ const state = {
   savedOnly: false,
   compact: localStorage.getItem("linux_cs_compact") === "1",
   theme: localStorage.getItem("linux_cs_theme") || "dark",
-  bookmarks: new Set(JSON.parse(localStorage.getItem("ipmi_cs_bookmarks") || "[]"))
+  bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("ipmi_cs_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
 
 // DOM Elements
@@ -681,9 +681,9 @@ function initIpmiBuilder() {
   const presetBtns = document.querySelectorAll(".ipmi-preset");
 
   const PREFIX_MAP = {
-    lanplus: 'ipmitool -I lanplus -H "$BMC" -U "$USER" -P "$PASS"',
+    lanplus: 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E',
     local: "ipmitool",
-    env: 'ipmitool -I lanplus -H "$BMC" -U "$USER" -E'
+    env: 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -f ~/.ipmi_pass'
   };
 
   function populateTasks(subKey, selectedTaskId) {

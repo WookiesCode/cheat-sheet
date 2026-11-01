@@ -485,7 +485,7 @@ const CLI_TOOLS_DATA = [
       {
         id: "jq-transform-group-redfish",
         desc: "Filter Redfish BMC JSON responses over IPv6, sort/group arrays, and safely construct JSON payloads from bash variables",
-        cmd: "curl -g -6 -sk -u root:pass \"https://[2001:db8:dc::bmc]/redfish/v1/Systems/1/Memory\" | jq -r '.Members[] | .[\"@odata.id\"]'",
+        cmd: "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems/1/Memory\" | jq -r '.Members[] | .[\"@odata.id\"]'",
         details: "When a JSON key contains special characters like '@' or '-' or '.' (common in Redfish '@odata.id'), wrap the key name in bracket-quotes: '.[\"@odata.id\"]'.",
         flags: [
           ["sort_by(.key)", "Sort an array of JSON objects by a specific property"],
@@ -1655,7 +1655,7 @@ const state = {
   savedOnly: false,
   compact: localStorage.getItem("linux_cs_compact") === "1",
   theme: localStorage.getItem("linux_cs_theme") || "dark",
-  bookmarks: new Set(JSON.parse(localStorage.getItem("cli_tools_bookmarks") || "[]"))
+  bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("cli_tools_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
 
 // DOM References

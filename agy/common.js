@@ -54,12 +54,12 @@
 
     const userVal = (targetState.vars.user || '').trim();
     if (userVal) {
-      result = result.replace(/(\$USER\b|\$\{USER\}|<user>)/g, userVal);
+      result = result.replace(/(\$BMC_USER\b|\$\{BMC_USER\}|\$USER\b|\$\{USER\}|<user>)/g, userVal);
     }
 
     const passVal = (targetState.vars.pass || '').trim();
     if (passVal) {
-      result = result.replace(/(\$PASS\b|\$\{PASS\}|<password>|<pass>)/g, passVal);
+      result = result.replace(/(\$BMC_PASS\b|\$\{BMC_PASS\}|\$PASS\b|\$\{PASS\}|<password>|<pass>)/g, passVal);
     }
 
     const ifaceVal = (targetState.vars.iface || '').trim();
@@ -876,7 +876,7 @@ ${log}
   let globalToastTimer = null;
   function showGlobalToast(message) {
     let toast = document.getElementById('toast');
-    let toastText = document.getElementById('toast-text');
+    let toastText = document.getElementById('toast-text') || document.getElementById('toast-msg');
     if (!toast) {
       toast = document.createElement('div');
       toast.id = 'toast';

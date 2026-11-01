@@ -716,16 +716,12 @@ function initEventListeners() {
 }
 
 function applyTheme(theme) {
-  const sunIcon = document.getElementById("theme-icon-sun");
-  const moonIcon = document.getElementById("theme-icon-moon");
-  if (theme === "light") {
-    document.documentElement.setAttribute("data-theme", "light");
-    sunIcon.classList.add("hidden");
-    moonIcon.classList.remove("hidden");
+  state.theme = theme;
+  if (window.CheatSheetCommon && typeof window.CheatSheetCommon.applyTheme === "function") {
+    window.CheatSheetCommon.applyTheme(theme);
   } else {
-    document.documentElement.setAttribute("data-theme", "dark");
-    sunIcon.classList.remove("hidden");
-    moonIcon.classList.add("hidden");
+    document.documentElement.setAttribute("data-theme", theme);
+    try { localStorage.setItem("linux_cs_theme", theme); } catch (e) {}
   }
 }
 
@@ -1011,6 +1007,8 @@ ${NVIM_NAVBAR_SNIPPET}
   </div>
 
   <script src="global-search-index.js"></script>
+  <script src="manuals-data.js"></script>
+  <script src="manuals-ui.js"></script>
   <script src="common.js"></script>
   <script src="nvim-${sec.id}.js"></script>
 </body>

@@ -142,7 +142,7 @@ const SECTION_MAP = {
     heading: 'ASUS Server Motherboards: ASMB10/11 BMC, Q-Code 7-Segment & Diagnostic Jumpers',
     proTip: {
       desc: 'ASUS Server ASMB BMC Telemetry & Hardware Recovery Jumpers',
-      cmd: 'ipmitool -I lanplus -H $BMC_IP -U admin -P admin raw 0x30 0x18',
+      cmd: 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E raw 0x30 0x18',
       details: 'ASUS server boards (ESC8000, KRPA, Z13, K14 series) feature an onboard 2-digit 7-segment Q-Code display and ASMB10/11 BMC controller. Use the CLRTC jumper to reset corrupt NVRAM, or ME_RCVR jumper to force Intel ME firmware recovery.',
       tip: 'Query live ASUS Q-Codes over Redfish via /redfish/v1/Managers/1/Oem/Asus/PostCode without opening chassis.',
       flags: [
@@ -159,7 +159,7 @@ const SECTION_MAP = {
     heading: 'GIGABYTE Server Boards: GSM / AST2600 BMC, Dual-BIOS & Diagnostic LEDs',
     proTip: {
       desc: 'GIGABYTE Dual-BIOS Switching & Remote Port 0x80 Snooping',
-      cmd: 'ipmitool -I lanplus -H $BMC_IP -U admin -P password raw 0x32 0x8b',
+      cmd: 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E raw 0x32 0x8b',
       details: 'GIGABYTE server motherboards (MZ, MD, MS, R-series) utilize an ASPEED AST2500/AST2600 BMC with hardware port 0x80 LPC snooping. If the primary SPI flash chip becomes corrupted, toggle the Dual-BIOS switch (BIOS_SEL) to boot from the redundant secondary SPI ROM.',
       tip: 'If BMC_RDY LED is solid amber or off, BMC power rail or SPI flash is unpowered; verify standby 3.3V rail.',
       flags: [
@@ -290,7 +290,7 @@ const state = {
   savedOnly: false,
   compact: localStorage.getItem("linux_cs_compact") === "1",
   theme: localStorage.getItem("linux_cs_theme") || "dark",
-  bookmarks: new Set(JSON.parse(localStorage.getItem("${fileKey}_bookmarks") || "[]"))
+  bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("${fileKey}_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
 
 // DOM Elements
@@ -715,12 +715,12 @@ function applyTheme(theme) {
   const moonIcon = document.getElementById("theme-icon-moon");
   if (theme === "light") {
     document.documentElement.setAttribute("data-theme", "light");
-    sunIcon.classList.add("hidden");
-    moonIcon.classList.remove("hidden");
+    sunIcon?.classList.add("hidden");
+    moonIcon?.classList.remove("hidden");
   } else {
-    document.documentElement.setAttribute("data-theme", "dark");
-    sunIcon.classList.remove("hidden");
-    moonIcon.classList.add("hidden");
+    document.documentElement.setAttribute("data-theme", theme);
+    sunIcon?.classList.remove("hidden");
+    moonIcon?.classList.add("hidden");
   }
 }
 
@@ -886,6 +886,7 @@ function generateMbHtml(sec, fileKey) {
   </footer>
 
   <script src="${fileKey}.js"></script>
+  <script src="global-search-index.js"></script>
   <script src="common.js"></script>
 </body>
 </html>
@@ -903,7 +904,8 @@ for (const sec of MOTHERBOARD_CHEAT_SHEET_DATA) {
   fs.writeFileSync(path.join(__dirname, `${fileKey}.js`), jsContent, 'utf8');
 
   const htmlContent = generateMbHtml(sec, fileKey);
-  fs.writeFileSync(path.join(__dirname, `${fileKey}.html`), htmlContent, 'utf8');
+  // Existing pages are authoritative for header/nav chrome; only create missing ones.
+  if (!fs.existsSync(path.join(__dirname, `${fileKey}.html`))) fs.writeFileSync(path.join(__dirname, `${fileKey}.html`), htmlContent, 'utf8');
 
   createdSheets++;
   console.log(`Created ${fileKey}.html and ${fileKey}.js (${cards.length} cards)`);

@@ -16,17 +16,23 @@
   const DEFAULT_TARGET_VARS = {
     bmc: '2001:db8:dc::50',
     user: 'ADMIN',
-    pass: 'ADMIN',
     iface: 'eno1',
     hca: 'mlx5_0',
     disk: '/dev/nvme0n1',
     gpu: '0'
   };
 
+  let savedTargetVars = {};
+  try {
+    savedTargetVars = JSON.parse(localStorage.getItem('dc_target_vars') || '{}') || {};
+    delete savedTargetVars.pass; // Migrate previously persisted passwords out of storage.
+    localStorage.setItem('dc_target_vars', JSON.stringify(savedTargetVars));
+  } catch (_) {}
+
   const targetState = {
     active: localStorage.getItem('dc_vars_active') !== '0', // default enabled
     collapsed: localStorage.getItem('dc_vars_collapsed') === '1',
-    vars: Object.assign({}, DEFAULT_TARGET_VARS, JSON.parse(localStorage.getItem('dc_target_vars') || '{}'))
+    vars: Object.assign({}, DEFAULT_TARGET_VARS, savedTargetVars)
   };
 
   function saveTargetState() {
@@ -54,12 +60,7 @@
 
     const userVal = (targetState.vars.user || '').trim();
     if (userVal) {
-      result = result.replace(/(\$USER\b|\$\{USER\}|<user>)/g, userVal);
-    }
-
-    const passVal = (targetState.vars.pass || '').trim();
-    if (passVal) {
-      result = result.replace(/(\$PASS\b|\$\{PASS\}|<password>|<pass>)/g, passVal);
+      result = result.replace(/(\$BMC_USER\b|\$\{BMC_USER\})/g, () => userVal);
     }
 
     const ifaceVal = (targetState.vars.iface || '').trim();
@@ -74,7 +75,7 @@
 
     const diskVal = (targetState.vars.disk || '').trim();
     if (diskVal) {
-      result = result.replace(/(\$DISK\b|\$\{DISK\}|<disk>|<device>)/gi, diskVal);
+      result = result.replace(/(\$DISK\b|\$\{DISK\}|<disk>)/gi, diskVal);
     }
 
     const gpuVal = (targetState.vars.gpu || '').trim();
@@ -85,13 +86,63 @@
     return { text: result, substituted: result !== text };
   }
 
+  // Triple-spaced pipes delimit alternatives in the source datasets, not pipelines.
+  function commandForCopy(text) {
+    return String(text).split('   |   ')[0].trim();
+  }
+
+  async function copyCommand(text) {
+    const prepared = substituteVariables(commandForCopy(text)).text;
+    try {
+      if (!navigator.clipboard || typeof navigator.clipboard.writeText !== 'function') {
+        throw new Error('Clipboard API unavailable');
+      }
+      await navigator.clipboard.writeText(prepared);
+    } catch (_) {
+      const previousFocus = document.activeElement;
+      const textarea = document.createElement('textarea');
+      textarea.value = prepared;
+      textarea.setAttribute('readonly', '');
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      let copied = false;
+      try {
+        textarea.select();
+        copied = typeof document.execCommand === 'function' && document.execCommand('copy');
+      } catch (_) {
+        // Clipboard permissions may also block the legacy fallback.
+      } finally {
+        textarea.remove();
+        if (previousFocus && typeof previousFocus.focus === 'function') previousFocus.focus();
+      }
+      if (!copied) {
+        showGlobalToast('Clipboard unavailable. Select the command text to copy it manually.');
+        return false;
+      }
+    }
+    showGlobalToast('Copied command to clipboard');
+    return true;
+  }
+
+  function navigateToResult(file, id) {
+    closeGlobalSearch();
+    if (window.PortableNavigation) {
+      window.PortableNavigation.open(file, id);
+    } else if ((window.location.pathname.split('/').pop() || 'index.html') !== file) {
+      window.location.href = `${file}#${id}`;
+    } else {
+      scrollToCard(id);
+    }
+  }
+
   // Intercept navigator.clipboard.writeText so all sheets inherit variable substitution automatically!
   if (navigator.clipboard && navigator.clipboard.writeText) {
     const originalWriteText = navigator.clipboard.writeText.bind(navigator.clipboard);
     navigator.clipboard.writeText = function(text) {
-      const { text: newText, substituted } = substituteVariables(text);
+      const { text: newText, substituted } = substituteVariables(commandForCopy(text));
       if (substituted) {
-        showGlobalToast(`Substituted target variables! Copied: ${newText.length > 50 ? newText.slice(0, 50) + '…' : newText}`);
+        showGlobalToast('Copied command with target placeholders substituted');
       }
       return originalWriteText(newText);
     };
@@ -119,7 +170,7 @@
         <div class="target-vars-header">
           <div class="target-vars-title">
             <span class="target-badge">🎯 RACK TARGETS</span>
-            <span class="target-subtitle">Live variables auto-substitute into all copyable commands</span>
+            <span class="target-subtitle">Target placeholders substitute on copy. Set credentials in your shell; passwords are never stored here.</span>
           </div>
           <div class="target-vars-actions">
             <label class="target-toggle-label" title="Enable or disable live variable substitution on copy">
@@ -139,12 +190,8 @@
             <input type="text" id="var-bmc" spellcheck="false" autocomplete="off" value="${escapeHtml(targetState.vars.bmc)}" placeholder="2001:db8:dc::50" />
           </div>
           <div class="target-field">
-            <label for="var-user"><span class="var-tag">$USER</span> BMC User</label>
+            <label for="var-user"><span class="var-tag">$BMC_USER</span> BMC User</label>
             <input type="text" id="var-user" spellcheck="false" autocomplete="off" value="${escapeHtml(targetState.vars.user)}" placeholder="ADMIN" />
-          </div>
-          <div class="target-field">
-            <label for="var-pass"><span class="var-tag">$PASS</span> BMC Password</label>
-            <input type="text" id="var-pass" spellcheck="false" autocomplete="off" value="${escapeHtml(targetState.vars.pass)}" placeholder="ADMIN" />
           </div>
           <div class="target-field">
             <label for="var-iface"><span class="var-tag">$IFACE</span> NIC</label>
@@ -195,7 +242,7 @@
       });
     }
 
-    ['bmc', 'user', 'pass', 'iface', 'hca', 'disk', 'gpu'].forEach(key => {
+    ['bmc', 'user', 'iface', 'hca', 'disk', 'gpu'].forEach(key => {
       const el = document.getElementById(`var-${key}`);
       if (el) {
         el.addEventListener('input', (e) => {
@@ -318,7 +365,7 @@
     }
 
     currentSearchResults = matches;
-    searchCount.textContent = `${matches.length} command${matches.length === 1 ? '' : 's'} found across 14 sheets`;
+    searchCount.textContent = `${matches.length} command${matches.length === 1 ? '' : 's'} found across ${new Set(window.GLOBAL_SEARCH_INDEX.map(item => item.file)).size} sheets`;
 
     if (!matches.length) {
       searchResults.innerHTML = `
@@ -357,23 +404,14 @@
         updatePaletteHighlightClasses();
       });
 
-      itemEl.addEventListener('click', (e) => {
+      itemEl.addEventListener('click', async (e) => {
         const file = itemEl.dataset.file;
         const id = itemEl.dataset.id;
         const cmd = itemEl.dataset.cmd;
 
-        // If target is copy or user wants to copy
-        navigator.clipboard.writeText(cmd);
-        showGlobalToast(`Copied command from ${itemEl.querySelector('.palette-sheet-badge').textContent}!`);
+        await copyCommand(cmd);
 
-        // If not already on this page, navigate to it with hash
-        const currentPath = window.location.pathname.split('/').pop() || 'index.html';
-        if (currentPath !== file) {
-          window.location.href = `${file}#${id}`;
-        } else {
-          closeGlobalSearch();
-          scrollToCard(id);
-        }
+        navigateToResult(file, id);
       });
     });
   }
@@ -399,21 +437,14 @@
     });
   }
 
-  function executeActivePaletteItem() {
+  async function executeActivePaletteItem() {
     if (!currentSearchResults.length) return;
     const item = currentSearchResults[searchActiveIndex];
     if (!item) return;
 
-    navigator.clipboard.writeText(item.cmd);
-    showGlobalToast(`Copied command: ${item.cmd.slice(0, 40)}…`);
+    await copyCommand(item.cmd);
 
-    const currentPath = window.location.pathname.split('/').pop() || 'index.html';
-    if (currentPath !== item.file) {
-      window.location.href = `${item.file}#${item.id}`;
-    } else {
-      closeGlobalSearch();
-      scrollToCard(item.id);
-    }
+    navigateToResult(item.file, item.id);
   }
 
   function highlightMatches(text, tokens) {
@@ -898,7 +929,9 @@ ${log}
   function scrollToCard(cardId) {
     if (!cardId) return;
     const cleanId = cardId.replace(/^#/, '');
-    const el = document.getElementById(cleanId);
+    const el = document.getElementById(cleanId) || document.getElementById('cmd-' + cleanId) ||
+      Array.from(document.querySelectorAll('[data-id], [data-cmd-id]')).find(card =>
+        card.dataset.id === cleanId || card.dataset.cmdId === cleanId);
     if (el) {
       el.scrollIntoView({ behavior: 'smooth', block: 'center' });
       el.classList.add('cmd-highlight-flash');
@@ -1117,6 +1150,9 @@ ${log}
     openTriageModal,
     closeTriageModal,
     substituteVariables,
+    commandForCopy,
+    copyCommand,
+    navigateToResult,
     showToast: showGlobalToast,
     scrollToCard,
     applyTheme: applyGlobalTheme,

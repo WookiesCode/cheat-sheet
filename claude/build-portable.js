@@ -1,8 +1,9 @@
 // build-portable.js
-// Compiles all 14 cheat sheets into a single, 100% offline standalone portable HTML file:
+// Compiles every cheat sheet and interactive tool into one 100% offline HTML file:
 // datacenter-cheatsheet-portable.html (Zero external requests, local CSS, local JS, local SVGs)
 const fs = require('fs');
 const path = require('path');
+const vm = require('vm');
 
 const SHEETS_CONFIG = [
   { key: 'linux', file: 'index.html', js: 'app.js', name: 'Linux', varName: 'CHEAT_SHEET_DATA', prompt: '$', cursor: '_', title: 'Ubuntu Linux Reference', subtitle: 'Interactive command cheat sheet, flag breakdown & pipe recipes', pill: 'Ubuntu / APT / systemd' },
@@ -32,6 +33,37 @@ const SHEETS_CONFIG = [
   { key: 'sql', file: 'sql.html', js: 'sql.js', name: 'SQL & SQLite', varName: 'SQL_CHEAT_SHEET_DATA', prompt: 'sqlite>', cursor: ';', title: 'SQL & SQLite CLI Reference', subtitle: 'SELECT queries, filtering, joins, GROUP BY, aggregations, DDL, transactions & SQLite CLI', pill: 'ANSI SQL / SQLite 3.45' }
 ];
 
+// The entries above carry hand-written labels. Every other sheet is discovered from
+// disk, so a new page is embedded without touching this list.
+const isTooling = f => /^(build-|generate-|create-)/.test(f) || f === 'common.js' || f === 'global-search-index.js';
+const decodeEntities = text => text
+  .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"')
+  .replace(/&#0?39;/g, "'").replace(/&amp;/g, '&');
+const pageText = (html, regex) => {
+  const match = html.match(regex);
+  return match ? decodeEntities(match[1].replace(/<[^>]+>/g, '').trim()) : '';
+};
+
+fs.readdirSync(__dirname)
+  .filter(f => f.endsWith('.js') && !isTooling(f) && !SHEETS_CONFIG.some(cfg => cfg.js === f))
+  .sort()
+  .forEach(js => {
+    const key = js.replace(/\.js$/, '');
+    const file = `${key}.html`;
+    const html = fs.readFileSync(path.join(__dirname, file), 'utf8');
+    const source = fs.readFileSync(path.join(__dirname, js), 'utf8');
+    const varMatch = source.match(/const\s+([A-Z0-9_]*DATA)\s*=\s*\[/);
+    if (!varMatch) throw new Error(`No data array found in ${js}`);
+    SHEETS_CONFIG.push({
+      key, file, js, name: key, varName: varMatch[1],
+      prompt: pageText(html, /class="prompt-symbol"[^>]*>([\s\S]*?)<\/span>/),
+      cursor: pageText(html, /class="cursor-block"[^>]*>([\s\S]*?)<\/span>/),
+      title: pageText(html, /<h1[^>]*>([\s\S]*?)<\/h1>/),
+      subtitle: pageText(html, /class="brand-subtitle"[^>]*>([\s\S]*?)<\/p>/),
+      pill: pageText(html, /class="version-pill"[^>]*>([\s\S]*?)<\/span>/)
+    });
+  });
+
 console.log('Compiling Datacenter Cheat Sheet Suite into single portable HTML...');
 
 // 1. Read styles.css
@@ -45,10 +77,12 @@ const indexHtml = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8');
 const navMatch = indexHtml.match(/<nav class="sheet-switcher"[^>]*>([\s\S]*?)<\/nav>/);
 let navLinksHtml = navMatch ? navMatch[1] : '';
 
-// Convert href="filename.html" to data-sheet="key" href="#key"
-SHEETS_CONFIG.forEach(cfg => {
-  const regex = new RegExp(`href="${cfg.file}"`, 'g');
-  navLinksHtml = navLinksHtml.replace(regex, `href="#sheet-${cfg.key}" data-sheet="${cfg.key}"`);
+// Convert every nav link to an in-page sheet link.
+const keyForFile = file => (SHEETS_CONFIG.find(cfg => cfg.file === file) || {}).key;
+navLinksHtml = navLinksHtml.replace(/href="([^"#]+\.html)"/g, (attr, file) => {
+  const key = keyForFile(file);
+  if (!key) throw new Error(`No portable sheet for nav link ${file}`);
+  return `href="#sheet-${key}" data-sheet="${key}"`;
 });
 
 // 3. Collect datasets
@@ -68,6 +102,35 @@ SHEETS_CONFIG.forEach(cfg => {
 const globalSearchIndexJs = fs.readFileSync(path.join(__dirname, 'global-search-index.js'), 'utf8');
 const commonJs = fs.readFileSync(path.join(__dirname, 'common.js'), 'utf8');
 
+// 4b. Pages with interactive tools run their own unmodified code in a srcdoc frame,
+// so each tool's globals stay isolated from the shell and from other tools.
+const escapeScriptClose = source => source.replace(/<\/script/gi, '<\\/script');
+const widgetPages = {};
+SHEETS_CONFIG.forEach(cfg => {
+  const html = fs.readFileSync(path.join(__dirname, cfg.file), 'utf8');
+  if (!html.includes('class="quick-widgets"')) return;
+  const body = html
+    .slice(html.indexOf('<body'), html.lastIndexOf('</body>'))
+    .replace(/^<body[^>]*>/, '')
+    .replace(/<nav class="sheet-switcher"[\s\S]*?<\/nav>/, '')
+    .replace(/<script\b[\s\S]*?<\/script>/g, '');
+  widgetPages[cfg.key] = {
+    body,
+    js: escapeScriptClose(fs.readFileSync(path.join(__dirname, cfg.js), 'utf8'))
+  };
+});
+const widgetPayload = JSON.stringify({ common: escapeScriptClose(commonJs), pages: widgetPages }).replace(/</g, '\\u003c');
+
+// 4c. Captured man pages. Run build-man-pages.js to refresh them.
+const manData = JSON.parse(fs.readFileSync(path.join(__dirname, 'man-pages-data.json'), 'utf8'));
+const manIndex = {
+  source: manData.source,
+  captured: manData.captured,
+  pages: Object.keys(manData.pages).sort(),
+  missing: manData.missing
+};
+const manPayload = JSON.stringify(manData.pages).replace(/</g, '\\u003c');
+
 // 5. Build Portable HTML
 const portableHtml = `<!DOCTYPE html>
 <html lang="en" data-theme="dark">
@@ -75,8 +138,30 @@ const portableHtml = `<!DOCTYPE html>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Datacenter &amp; Sysadmin Reference Suite — 100% Portable Air-Gapped Edition</title>
-  <style>
+  <style id="portable-css">
 ${css}
+
+  .portable-widget-frame { display: block; width: 100%; height: 420px; border: 0; }
+
+  .portable-man { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 1rem; align-items: start; }
+  .man-sidebar { position: sticky; top: 1rem; display: flex; flex-direction: column; gap: 0.5rem; max-height: calc(100vh - 2rem); }
+  .man-filter { width: 100%; padding: 0.45rem 0.6rem; color: var(--text-primary); background: var(--bg-code); border: 1px solid var(--border-strong); border-radius: 6px; }
+  .man-list { overflow-y: auto; }
+  .man-group { margin: 0.75rem 0 0.25rem; color: var(--text-muted); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.04em; }
+  .man-entry { display: block; width: 100%; padding: 0.2rem 0.5rem; color: var(--text-secondary); font-family: var(--font-mono); font-size: 0.78rem; text-align: left; background: none; border: 0; border-radius: 4px; cursor: pointer; }
+  .man-entry:hover, .man-entry.active { color: var(--text-primary); background: var(--bg-hover); }
+  .man-entry.is-missing { color: var(--text-muted); }
+  .man-reader { min-width: 0; padding: 1rem; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 8px; }
+  .man-warning { margin: 0 0 0.75rem; padding: 0.5rem 0.7rem; color: var(--text-secondary); font-size: 0.8rem; border: 1px solid var(--border-subtle); border-radius: 6px; }
+  .man-title { margin: 0; font-family: var(--font-mono); font-size: 1.1rem; color: var(--text-primary); }
+  .man-meta { margin: 0.25rem 0 0.75rem; color: var(--text-muted); font-size: 0.75rem; overflow-wrap: anywhere; }
+  .man-text { margin: 0; overflow-x: auto; color: var(--text-primary); font-family: var(--font-mono); font-size: 0.8rem; line-height: 1.45; white-space: pre; }
+  .man-link-btn { padding: 0 0.4rem; color: var(--text-secondary); font-family: var(--font-mono); font-size: 0.68rem; background: none; border: 1px solid var(--border-strong); border-radius: 4px; cursor: pointer; }
+  .man-link-btn:hover { color: var(--accent-primary); border-color: var(--accent-primary); }
+  @media (max-width: 768px) {
+    .portable-man { grid-template-columns: minmax(0, 1fr); }
+    .man-sidebar { position: static; max-height: 240px; }
+  }
 
   /* Portable font fallbacks for zero-internet environments */
   :root {
@@ -110,6 +195,7 @@ ${css}
             <span class="portable-badge">100% OFFLINE PORTABLE</span>
             <nav class="sheet-switcher" aria-label="Switch cheat sheet" id="portable-sheet-nav">
 ${navLinksHtml}
+              <a href="#man" class="sheet-link" id="portable-man-link">Man Pages</a>
             </nav>
           </div>
           <p class="brand-subtitle" id="brand-subtitle">Interactive command cheat sheet, flag breakdown &amp; pipe recipes</p>
@@ -225,6 +311,19 @@ ${navLinksHtml}
   </header>
 
   <main class="container main-layout">
+    <section id="portable-man-view" class="portable-man hidden" aria-label="Man pages">
+      <aside class="man-sidebar">
+        <input type="search" id="man-filter" class="man-filter" placeholder="Filter man pages..." aria-label="Filter man pages" autocomplete="off" spellcheck="false" />
+        <div id="man-list" class="man-list"></div>
+      </aside>
+      <article class="man-reader">
+        <p id="man-warning" class="man-warning"></p>
+        <h2 id="man-title" class="man-title"></h2>
+        <p id="man-meta" class="man-meta"></p>
+        <pre id="man-text" class="man-text" tabindex="0"></pre>
+      </article>
+    </section>
+    <div id="portable-widgets"></div>
     <div id="sections-container" class="sections-grid">
       <!-- Populated dynamically -->
     </div>
@@ -259,18 +358,21 @@ ${navLinksHtml}
 
   <!-- Embedded Global Search Index -->
   <script>
-${globalSearchIndexJs}
+${escapeScriptClose(globalSearchIndexJs)}
   </script>
 
-  <!-- Embedded Datasets for All 14 Sheets -->
+  <!-- Embedded Datasets for Every Sheet -->
+  <script type="application/json" id="portable-widget-pages">${widgetPayload}</script>
+  <script type="application/json" id="portable-man-pages">${manPayload}</script>
   <script>
 window.PORTABLE_SHEETS = ${JSON.stringify(SHEETS_CONFIG, null, 2)};
-window.PORTABLE_DATASETS = ${JSON.stringify(allDatasets, null, 2)};
+window.PORTABLE_MAN_INDEX = ${JSON.stringify(manIndex)};
+window.PORTABLE_DATASETS = ${escapeScriptClose(JSON.stringify(allDatasets, null, 2))};
   </script>
 
   <!-- Embedded Shared Common Logic (Target Bar, Global Search Ctrl+K, Triage Modal) -->
   <script>
-${commonJs}
+${escapeScriptClose(commonJs)}
   </script>
 
   <!-- Portable SPA Runtime -->
@@ -312,10 +414,137 @@ ${commonJs}
     return DATASETS[state.currentSheet] || [];
   }
 
+  const widgetData = JSON.parse(document.getElementById('portable-widget-pages').textContent);
+  const widgetHost = document.getElementById('portable-widgets');
+  // Height must come from the tools alone: body and main stretch to fill the frame,
+  // so measuring them would grow the frame without end.
+  const WIDGET_CSS = 'html,body{background:transparent!important;min-height:0!important}' +
+    'body>*:not(main):not(.toast){display:none!important}' +
+    'main{margin:0!important;padding:0!important;max-width:none!important;min-height:0!important;flex:none!important}' +
+    'main>*:not(.quick-widgets){display:none!important}';
+  const WIDGET_BRIDGE = '(function(){' +
+    'var tools=document.querySelector(".quick-widgets");' +
+    'function report(){parent.postMessage({portableWidgetHeight:tools.getBoundingClientRect().height+16},"*");}' +
+    'new ResizeObserver(report).observe(tools);window.addEventListener("load",report);' +
+    'window.addEventListener("message",function(e){' +
+    'if(e.data&&e.data.portableTheme)document.documentElement.setAttribute("data-theme",e.data.portableTheme);});' +
+    '})();';
+
+  function widgetDocument(key) {
+    const page = widgetData.pages[key];
+    const open = '<' + 'script>';
+    const close = '</' + 'script>';
+    const theme = document.documentElement.getAttribute('data-theme') || 'dark';
+    return '<!DOCTYPE html><html lang="en" data-theme="' + escapeHtml(theme) + '"><head><meta charset="UTF-8">' +
+      '<style>' + document.getElementById('portable-css').textContent + WIDGET_CSS + '</style></head><body>' +
+      page.body + open + widgetData.common + close + open + page.js + close + open + WIDGET_BRIDGE + close +
+      '</body></html>';
+  }
+
+  function showWidgets(key) {
+    widgetHost.textContent = '';
+    if (!widgetData.pages[key]) return;
+    const frame = document.createElement('iframe');
+    frame.className = 'portable-widget-frame';
+    frame.title = 'Interactive tools';
+    frame.setAttribute('allow', 'clipboard-write');
+    frame.srcdoc = widgetDocument(key);
+    widgetHost.appendChild(frame);
+  }
+
+  window.addEventListener('message', (e) => {
+    const frame = widgetHost.querySelector('iframe');
+    if (frame && e.source === frame.contentWindow && e.data && typeof e.data.portableWidgetHeight === 'number') {
+      frame.style.height = Math.ceil(e.data.portableWidgetHeight) + 'px';
+    }
+  });
+
+  new MutationObserver(() => {
+    const frame = widgetHost.querySelector('iframe');
+    if (frame && frame.contentWindow) {
+      frame.contentWindow.postMessage({ portableTheme: document.documentElement.getAttribute('data-theme') }, '*');
+    }
+  }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+  const manIndex = window.PORTABLE_MAN_INDEX;
+  const manView = document.getElementById('portable-man-view');
+  const MAN_MISSING_TEXT = {
+    vendor: 'Vendor tool: its man page is left out because the license may not allow redistribution.',
+    unavailable: 'No man page for this tool was found in Ubuntu 24.04 main or universe.'
+  };
+  let manPages = null;
+
+  function manTool(cmd) {
+    const [word, sub] = String(cmd).trim().replace(/^sudo\\s+/, '').replace(/^[A-Z_]+=\\S+\\s+/, '').split(/\\s+/);
+    if (sub && manIndex.pages.includes(word + '-' + sub)) return word + '-' + sub;
+    return manIndex.pages.includes(word) || manIndex.missing[word] ? word : '';
+  }
+
+  function manButton(cmd) {
+    const tool = manTool(cmd);
+    return tool ? '<button type="button" class="man-link-btn" data-man="' + escapeHtml(tool) + '" title="Open the man page reference">man</button>' : '';
+  }
+
+  function renderManList(filter) {
+    const term = filter.trim().toLowerCase();
+    const entries = names => names.filter(name => name.includes(term)).map(name =>
+      '<button type="button" class="man-entry' + (manIndex.pages.includes(name) ? '' : ' is-missing') + '" data-man="' + escapeHtml(name) + '">' + escapeHtml(name) + '</button>'
+    ).join('');
+    const missing = Object.keys(manIndex.missing).sort();
+    document.getElementById('man-list').innerHTML =
+      '<p class="man-group">Embedded (' + manIndex.pages.length + ')</p>' + entries(manIndex.pages) +
+      '<p class="man-group">Not embedded (' + missing.length + ')</p>' + entries(missing);
+  }
+
+  function openManPage(name) {
+    if (!manPages) manPages = JSON.parse(document.getElementById('portable-man-pages').textContent);
+    state.currentSheet = null;
+    document.querySelectorAll('#portable-sheet-nav .active').forEach(link => link.classList.remove('active'));
+    document.getElementById('portable-man-link').classList.add('active');
+    widgetHost.textContent = '';
+    sectionsContainer.classList.add('hidden');
+    emptyStateEl.classList.add('hidden');
+    manView.classList.remove('hidden');
+    document.getElementById('man-warning').textContent =
+      'From ' + manIndex.source + ' packages, captured ' + manIndex.captured + '. An image at a different patch level can differ slightly, so check --help on the node if a flag looks wrong.';
+    const filter = document.getElementById('man-filter');
+    if (!filter.dataset.ready) {
+      filter.dataset.ready = '1';
+      renderManList('');
+    }
+
+    const page = manPages[name];
+    const title = document.getElementById('man-title');
+    const meta = document.getElementById('man-meta');
+    const text = document.getElementById('man-text');
+    if (page) {
+      title.textContent = name + '(' + page.section + ')';
+      meta.textContent = 'Package ' + page.package + ' ' + page.version + ' · License: ' + page.license;
+      text.textContent = page.text;
+    } else if (manIndex.missing[name]) {
+      title.textContent = name;
+      meta.textContent = '';
+      text.textContent = MAN_MISSING_TEXT[manIndex.missing[name]] + '\\n\\nSearch all sheets with Ctrl+K for its commands, or run ' + name + ' --help on the node.';
+    } else {
+      title.textContent = 'Man pages';
+      meta.textContent = '';
+      text.textContent = 'Choose a tool from the list. ' + manIndex.pages.length + ' pages are embedded.';
+    }
+    document.querySelectorAll('.man-entry').forEach(entry => entry.classList.toggle('active', entry.dataset.man === name));
+    window.scrollTo(0, 0);
+  }
+
+  function closeManView() {
+    manView.classList.add('hidden');
+    sectionsContainer.classList.remove('hidden');
+    document.getElementById('portable-man-link').classList.remove('active');
+  }
+
   function switchSheet(sheetKey, targetHash = '') {
     const cfg = SHEETS.find(s => s.key === sheetKey);
     if (!cfg) return;
 
+    closeManView();
     state.currentSheet = sheetKey;
     state.activeCategory = 'all';
     state.searchQuery = '';
@@ -330,23 +559,15 @@ ${commonJs}
     document.getElementById('brand-pill').textContent = cfg.pill;
 
     // Update Nav links & dropdown items
-    const scriptingKeys = ['scripting', 'bash', 'python', 'javascript', 'typescript', 'powershell', 'json', 'yaml', 'toml', 'regex', 'awk-sed', 'sql'];
-    const dropdownToggle = document.querySelector('#portable-sheet-nav .dropdown-toggle');
-    if (dropdownToggle) {
-      if (scriptingKeys.includes(sheetKey)) {
-        dropdownToggle.classList.add('active');
-      } else {
-        dropdownToggle.classList.remove('active');
-      }
-    }
     document.querySelectorAll('#portable-sheet-nav .sheet-link, #portable-sheet-nav .dropdown-item').forEach(link => {
-      if (link.dataset.sheet === sheetKey) {
-        link.classList.add('active');
-      } else {
-        link.classList.remove('active');
-      }
+      link.classList.toggle('active', link.dataset.sheet === sheetKey);
+    });
+    document.querySelectorAll('#portable-sheet-nav .nav-dropdown').forEach(dropdown => {
+      const toggle = dropdown.querySelector('.dropdown-toggle');
+      if (toggle) toggle.classList.toggle('active', !!dropdown.querySelector('.dropdown-item.active'));
     });
 
+    showWidgets(sheetKey);
     renderCategoryTabs();
     renderSections();
 
@@ -498,6 +719,7 @@ ${commonJs}
   window.packMasonry = packMasonry;
 
   function renderSections() {
+    if (!state.currentSheet) return; // the man page view is open
     const data = getActiveSheetData();
     let visibleCommandsCount = 0;
     const cardsHtml = [];
@@ -548,12 +770,13 @@ ${commonJs}
                 dangerHtml +
               '</div>' +
               '<div class="cmd-actions">' +
+                manButton(item.cmd) +
                 '<button type="button" class="icon-btn bookmark-btn ' + (isSaved ? 'bookmarked' : '') + '" data-bookmark-id="' + item.id + '" title="' + (isSaved ? 'Remove bookmark' : 'Bookmark command') + '">' +
                   (isSaved ? '★' : '☆') +
                 '</button>' +
               '</div>' +
             '</div>' +
-            '<div class="cmd-code-box" data-copy="' + escapeHtml(item.cmd) + '" title="Click to copy command">' +
+            '<div class="cmd-code-box" data-copy="' + escapeHtml(item.cmd.split('   |   ')[0].trim()) + '" title="Click to copy command">' +
               '<code class="cmd-code">' + highlightCommand(item.cmd) + '</code>' +
               '<span class="copy-hint">Copy</span>' +
             '</div>' +
@@ -617,28 +840,12 @@ ${commonJs}
 
   function initEvents() {
     // Nav sheet links & dropdown menu items
-    const portableDropdown = document.getElementById('scripting-nav-dropdown');
-    const portableToggle = portableDropdown?.querySelector('.dropdown-toggle');
-    if (portableToggle) {
-      portableToggle.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        portableDropdown.classList.toggle('open');
-      });
-    }
-
-    document.addEventListener('click', (e) => {
-      if (portableDropdown && !portableDropdown.contains(e.target)) {
-        portableDropdown.classList.remove('open');
-      }
-    });
-
     document.querySelectorAll('#portable-sheet-nav .sheet-link:not(.dropdown-toggle), #portable-sheet-nav .dropdown-item').forEach(link => {
       link.addEventListener('click', (e) => {
         const sheet = link.dataset.sheet;
         if (sheet) {
           e.preventDefault();
-          if (portableDropdown) portableDropdown.classList.remove('open');
+          link.closest('.nav-dropdown')?.classList.remove('open');
           switchSheet(sheet);
           window.location.hash = 'sheet-' + sheet;
         }
@@ -652,7 +859,29 @@ ${commonJs}
     });
 
     // Bookmark / copy clicks on cards
+    document.getElementById('portable-man-link').addEventListener('click', (e) => {
+      e.preventDefault();
+      openManPage('');
+      window.location.hash = 'man';
+    });
+
+    document.getElementById('man-filter').addEventListener('input', (e) => renderManList(e.target.value));
+
+    document.getElementById('man-list').addEventListener('click', (e) => {
+      const entry = e.target.closest('.man-entry');
+      if (!entry) return;
+      openManPage(entry.dataset.man);
+      window.location.hash = 'man-' + entry.dataset.man;
+    });
+
     sectionsContainer.addEventListener('click', (e) => {
+      const manLink = e.target.closest('.man-link-btn');
+      if (manLink) {
+        openManPage(manLink.dataset.man);
+        window.location.hash = 'man-' + manLink.dataset.man;
+        return;
+      }
+
       const copyBox = e.target.closest('.cmd-code-box, .subcmd-row');
       if (copyBox && copyBox.dataset.copy) {
         navigator.clipboard.writeText(copyBox.dataset.copy);
@@ -710,10 +939,20 @@ ${commonJs}
     if (hash.startsWith('sheet-')) {
       const sKey = hash.replace('sheet-', '');
       switchSheet(sKey);
+    } else if (hash === 'man' || hash.startsWith('man-')) {
+      openManPage(hash.replace(/^man-?/, ''));
     } else {
       switchSheet('linux');
     }
   }
+
+  window.portableOpenSheet = function (file, id) {
+    const cfg = SHEETS.find(s => s.file === file);
+    if (cfg) {
+      switchSheet(cfg.key, id);
+      window.location.hash = 'sheet-' + cfg.key;
+    }
+  };
 
   applyTheme(state.theme);
   applyDensity(state.compact);
@@ -725,6 +964,12 @@ ${commonJs}
 `;
 
 const outPath = path.join(__dirname, 'datacenter-cheatsheet-portable.html');
+// The runtime lives in a template literal, so an escaping slip is invisible to
+// `node --check` on this file. Parse the generated scripts before writing them.
+for (const [, script] of portableHtml.matchAll(/<script>([\s\S]*?)<\/script>/g)) {
+  new vm.Script(script);
+}
+
 fs.writeFileSync(outPath, portableHtml, 'utf8');
 
 const stats = fs.statSync(outPath);

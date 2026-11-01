@@ -10,7 +10,7 @@ const MB_MB_ASUS_SERVERS_DATA = [
       {
         "id": "asus-asmb-redfish-post",
         "desc": "Query live & historical POST codes remotely from an ASUS ASMB10 / ASMB11 (ASPEED AST2600) BMC over IPv6",
-        "cmd": "curl -g -6 -sk -u admin:'<Pass>' \"https://[2001:db8:dc:4::50]/redfish/v1/Systems/Self\" | jq '{PowerState, Status, BootProgress}'",
+        "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems/Self\" | jq '{PowerState, Status, BootProgress}'",
         "details": "",
         "flags": [
           [
@@ -128,7 +128,7 @@ const MB_MB_ASUS_SERVERS_DATA = [
       {
         "id": "asus-server-board-tips-card",
         "desc": "ASUS Server ASMB BMC Telemetry & Hardware Recovery Jumpers",
-        "cmd": "ipmitool -I lanplus -H $BMC_IP -U admin -P admin raw 0x30 0x18",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E raw 0x30 0x18",
         "details": "ASUS server boards (ESC8000, KRPA, Z13, K14 series) feature an onboard 2-digit 7-segment Q-Code display and ASMB10/11 BMC controller. Use the CLRTC jumper to reset corrupt NVRAM, or ME_RCVR jumper to force Intel ME firmware recovery.",
         "flags": [
           [
@@ -165,7 +165,7 @@ const state = {
   savedOnly: false,
   compact: localStorage.getItem("linux_cs_compact") === "1",
   theme: localStorage.getItem("linux_cs_theme") || "dark",
-  bookmarks: new Set(JSON.parse(localStorage.getItem("mb-asus-servers_bookmarks") || "[]"))
+  bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("mb-asus-servers_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
 
 // DOM Elements
@@ -590,12 +590,12 @@ function applyTheme(theme) {
   const moonIcon = document.getElementById("theme-icon-moon");
   if (theme === "light") {
     document.documentElement.setAttribute("data-theme", "light");
-    sunIcon.classList.add("hidden");
-    moonIcon.classList.remove("hidden");
+    sunIcon?.classList.add("hidden");
+    moonIcon?.classList.remove("hidden");
   } else {
-    document.documentElement.setAttribute("data-theme", "dark");
-    sunIcon.classList.remove("hidden");
-    moonIcon.classList.add("hidden");
+    document.documentElement.setAttribute("data-theme", theme);
+    sunIcon?.classList.remove("hidden");
+    moonIcon?.classList.add("hidden");
   }
 }
 

@@ -236,7 +236,7 @@ const state = {
   savedOnly: false,
   compact: localStorage.getItem("linux_cs_compact") === "1",
   theme: localStorage.getItem("linux_cs_theme") || "dark",
-  bookmarks: new Set(JSON.parse(localStorage.getItem("${tool.id}_bookmarks") || "[]"))
+  bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("${tool.id}_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
 
 // DOM References
@@ -660,12 +660,12 @@ function applyTheme(theme) {
   const moonIcon = document.getElementById("theme-icon-moon");
   if (theme === "light") {
     document.documentElement.setAttribute("data-theme", "light");
-    sunIcon.classList.add("hidden");
-    moonIcon.classList.remove("hidden");
+    sunIcon?.classList.add("hidden");
+    moonIcon?.classList.remove("hidden");
   } else {
-    document.documentElement.removeAttribute("data-theme");
-    sunIcon.classList.remove("hidden");
-    moonIcon.classList.add("hidden");
+    document.documentElement.setAttribute("data-theme", theme);
+    sunIcon?.classList.remove("hidden");
+    moonIcon?.classList.add("hidden");
   }
 }
 
@@ -719,7 +719,7 @@ ${CLI_NAVBAR_SNIPPET}
                   <span>Scripting</span> <span class="dropdown-caret">▾</span>
                 </a>
                 <div class="nav-dropdown-menu" role="menu">
-                  <a href="scripting.html" class="dropdown-item" role="menuitem">📑 All-in-One Hub</a>
+                  <a href="scripting.html" class="dropdown-item dropdown-hub-link" role="menuitem">📑 All-in-One Hub</a>
                   <div class="dropdown-divider"></div>
                   <a href="bash.html" class="dropdown-item" role="menuitem">🐚 Bash &amp; Shell</a>
                   <a href="python.html" class="dropdown-item" role="menuitem">🐍 Python</a>
@@ -863,7 +863,8 @@ for (const tool of CLI_TOOLS_DATA) {
   const htmlContent = generateToolHtml(tool);
 
   fs.writeFileSync(path.join(__dirname, `${tool.id}.js`), jsContent, 'utf8');
-  fs.writeFileSync(path.join(__dirname, `${tool.id}.html`), htmlContent, 'utf8');
+  // Existing pages are authoritative for header/nav chrome; only create missing ones.
+  if (!fs.existsSync(path.join(__dirname, `${tool.id}.html`))) fs.writeFileSync(path.join(__dirname, `${tool.id}.html`), htmlContent, 'utf8');
   generatedCount++;
 }
 

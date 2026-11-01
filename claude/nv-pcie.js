@@ -156,7 +156,7 @@ const NV_NV_PCIE_DATA = [
         "id": "pcie-kernel-triage-tips-card",
         "desc": "Critical Xid error decoding, PCIe AER link errors & vendor RMA bug reports",
         "cmd": "dmesg -T | grep -E \"NVRM: Xid|AER\"   |   lspci -vvv -s <BUS_ID>   |   nvidia-bug-report.sh",
-        "details": "Xid errors are logged directly to dmesg. Xid 31 indicates page faults; Xid 43 indicates uncontained GPU stop; Xid 79 indicates GPU fallen off PCIe bus. Always generate nvidia-bug-report.sh before host reboot.",
+        "details": "Xid errors are logged directly to dmesg. Xid 31 indicates page faults; Xid 43 indicates the GPU stopped processing, usually an application fault; Xid 79 indicates GPU fallen off PCIe bus. Always generate nvidia-bug-report.sh before host reboot.",
         "flags": [
           [
             "Xid 79",
@@ -197,7 +197,7 @@ const state = {
   savedOnly: false,
   compact: localStorage.getItem("linux_cs_compact") === "1",
   theme: localStorage.getItem("linux_cs_theme") || "dark",
-  bookmarks: new Set(JSON.parse(localStorage.getItem("nv-pcie_bookmarks") || "[]"))
+  bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("nv-pcie_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
 
 // DOM References
@@ -614,12 +614,12 @@ function applyTheme(theme) {
   const moonIcon = document.getElementById("theme-icon-moon");
   if (theme === "light") {
     document.documentElement.setAttribute("data-theme", "light");
-    sunIcon.classList.add("hidden");
-    moonIcon.classList.remove("hidden");
+    sunIcon?.classList.add("hidden");
+    moonIcon?.classList.remove("hidden");
   } else {
-    document.documentElement.setAttribute("data-theme", "dark");
-    sunIcon.classList.remove("hidden");
-    moonIcon.classList.add("hidden");
+    document.documentElement.setAttribute("data-theme", theme);
+    sunIcon?.classList.remove("hidden");
+    moonIcon?.classList.add("hidden");
   }
 }
 

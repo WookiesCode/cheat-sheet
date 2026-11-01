@@ -631,7 +631,7 @@ const state = {
 };
 
 // DOM Elements
-const sectionsGrid = document.getElementById("sections-grid");
+const sectionsGrid = document.getElementById("sections-container") || document.getElementById("sections-grid");
 const categoryTabs = document.getElementById("category-tabs");
 const searchInput = document.getElementById("search-input");
 const visibleCountEl = document.getElementById("visible-count");
@@ -1000,13 +1000,25 @@ function applyDensity(isCompact) {
 }
 
 function applyTheme(theme) {
-  document.documentElement.setAttribute("data-theme", theme);
-  if (theme === "light") {
-    themeIconSun.classList.add("hidden");
-    themeIconMoon.classList.remove("hidden");
+  state.theme = theme;
+  if (window.CheatSheetCommon && window.CheatSheetCommon.applyTheme) {
+    window.CheatSheetCommon.applyTheme(theme);
+  } else if (window.AntigravityCommon && window.AntigravityCommon.applyTheme) {
+    window.AntigravityCommon.applyTheme(theme);
   } else {
-    themeIconSun.classList.remove("hidden");
-    themeIconMoon.classList.add("hidden");
+    document.documentElement.setAttribute("data-theme", theme);
+    try { localStorage.setItem("linux_cs_theme", theme); } catch(e) {}
+  }
+  const sunIcon = document.getElementById("theme-icon-sun");
+  const moonIcon = document.getElementById("theme-icon-moon");
+  if (sunIcon && moonIcon) {
+    if (theme === "light") {
+      sunIcon.classList.add("hidden");
+      moonIcon.classList.remove("hidden");
+    } else {
+      sunIcon.classList.remove("hidden");
+      moonIcon.classList.add("hidden");
+    }
   }
 }
 

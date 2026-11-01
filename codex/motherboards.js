@@ -626,7 +626,7 @@ const state = {
   activeCategory: "all",
   savedOnly: false,
   compactMode: localStorage.getItem("mb_sheet_compact") === "true",
-  theme: localStorage.getItem("mb_sheet_theme") || "dark",
+  theme: localStorage.getItem("linux_cs_theme") || localStorage.getItem("mb_sheet_theme") || "dark",
   savedIds: new Set(JSON.parse(localStorage.getItem("mb_sheet_saved") || "[]"))
 };
 
@@ -641,8 +641,6 @@ const densityToggleBtn = document.getElementById("density-toggle");
 const densityLabel = document.getElementById("density-label");
 const printBtn = document.getElementById("print-btn");
 const themeToggleBtn = document.getElementById("theme-toggle");
-const themeIconSun = document.getElementById("theme-icon-sun");
-const themeIconMoon = document.getElementById("theme-icon-moon");
 const emptyState = document.getElementById("empty-state");
 const resetSearchBtn = document.getElementById("reset-search-btn");
 const toastEl = document.getElementById("toast");
@@ -961,7 +959,7 @@ function bindEvents() {
 
   themeToggleBtn.addEventListener("click", () => {
     state.theme = state.theme === "dark" ? "light" : "dark";
-    localStorage.setItem("mb_sheet_theme", state.theme);
+    localStorage.setItem("linux_cs_theme", state.theme);
     applyTheme(state.theme);
   });
 
@@ -1000,13 +998,12 @@ function applyDensity(isCompact) {
 }
 
 function applyTheme(theme) {
-  document.documentElement.setAttribute("data-theme", theme);
-  if (theme === "light") {
-    themeIconSun.classList.add("hidden");
-    themeIconMoon.classList.remove("hidden");
+  state.theme = theme;
+  if (window.CheatSheetCommon && typeof window.CheatSheetCommon.applyTheme === "function") {
+    window.CheatSheetCommon.applyTheme(theme);
   } else {
-    themeIconSun.classList.remove("hidden");
-    themeIconMoon.classList.add("hidden");
+    document.documentElement.setAttribute("data-theme", theme);
+    try { localStorage.setItem("linux_cs_theme", theme); } catch (e) {}
   }
 }
 

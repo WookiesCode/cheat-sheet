@@ -10,7 +10,7 @@ const RF_RF_FIRMWARE_DATA = [
       {
         "id": "rf-firmware-inventory",
         "desc": "List all installed firmware components (BMC, BIOS, CPLD, PSU, NVMe, GPU, NIC) and versions",
-        "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/UpdateService/FirmwareInventory?\\$expand=.(\\$levels=1)\" | jq '.Members[] | {Id, Name, Version, Updateable, Status}'",
+        "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/UpdateService/FirmwareInventory?\\$expand=.(\\$levels=1)\" | jq '.Members[] | {Id, Name, Version, Updateable, Status}'",
         "details": "",
         "flags": [
           [
@@ -44,7 +44,7 @@ const RF_RF_FIRMWARE_DATA = [
       {
         "id": "rf-firmware-multipart-push",
         "desc": "Upload a local firmware bundle (`.bin` / `.fwpkg` / `.exe`) via Redfish `MultipartHttpPushUri`",
-        "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" -X POST \"https://[$BMC]/redfish/v1/UpdateService/upload\" -F 'UpdateParameters={\"Targets\":[],\"@Redfish.OperationApplyTime\":\"OnReset\"};type=application/json' -F \"UpdateFile=@./firmware.fwpkg;type=application/octet-stream\"",
+        "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc -X POST \"https://[$BMC]/redfish/v1/UpdateService/upload\" -F 'UpdateParameters={\"Targets\":[],\"@Redfish.OperationApplyTime\":\"OnReset\"};type=application/json' -F \"UpdateFile=@./firmware.fwpkg;type=application/octet-stream\"",
         "details": "",
         "flags": [
           [
@@ -82,7 +82,7 @@ const RF_RF_FIRMWARE_DATA = [
       {
         "id": "rf-poll-task-service",
         "desc": "Monitor progress percentage and status of asynchronous Redfish jobs (`TaskService`)",
-        "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/TaskService/Tasks/1\" | jq '{Id, Name, TaskState, PercentComplete, TaskStatus, Messages}'",
+        "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/TaskService/Tasks/1\" | jq '{Id, Name, TaskState, PercentComplete, TaskStatus, Messages}'",
         "details": "",
         "flags": [
           [
@@ -120,7 +120,7 @@ const RF_RF_FIRMWARE_DATA = [
       {
         "id": "firmware-tasks-tips-card",
         "desc": "Asynchronous Firmware Flashing & Task Service Monitoring",
-        "cmd": "curl -k -sS \"https://${BMC_IP}/redfish/v1/UpdateService/FirmwareInventory\" | jq '.Members[] | {Name: .Name, Version: .Version, Updateable: .Updateable}'",
+        "cmd": "curl -k -sS -K ~/.bmc-curlrc \"https://${BMC_IP}/redfish/v1/UpdateService/FirmwareInventory\" | jq '.Members[] | {Name: .Name, Version: .Version, Updateable: .Updateable}'",
         "details": "Firmware updates via Redfish UpdateService are asynchronous operations. A successful POST to /redfish/v1/UpdateService returns HTTP 202 Accepted with a Location header pointing to a Task URI (e.g. /redfish/v1/TaskService/Tasks/3). Poll this URI until TaskState reaches Completed.",
         "flags": [
           [
@@ -157,7 +157,7 @@ const state = {
   savedOnly: false,
   compact: localStorage.getItem("linux_cs_compact") === "1",
   theme: localStorage.getItem("linux_cs_theme") || "dark",
-  bookmarks: new Set(JSON.parse(localStorage.getItem("rf-firmware_bookmarks") || "[]"))
+  bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("rf-firmware_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
 
 // DOM Elements
@@ -582,12 +582,12 @@ function applyTheme(theme) {
   const moonIcon = document.getElementById("theme-icon-moon");
   if (theme === "light") {
     document.documentElement.setAttribute("data-theme", "light");
-    sunIcon.classList.add("hidden");
-    moonIcon.classList.remove("hidden");
+    sunIcon?.classList.add("hidden");
+    moonIcon?.classList.remove("hidden");
   } else {
-    document.documentElement.setAttribute("data-theme", "dark");
-    sunIcon.classList.remove("hidden");
-    moonIcon.classList.add("hidden");
+    document.documentElement.setAttribute("data-theme", theme);
+    sunIcon?.classList.remove("hidden");
+    moonIcon?.classList.add("hidden");
   }
 }
 

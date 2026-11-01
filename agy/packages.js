@@ -227,6 +227,74 @@ const PACKAGES_DATA = [
         ]
       }
     ]
+  },
+  {
+    "id": "packages-card-6",
+    "badge": "pkg",
+    "title": "Ubuntu APT: Restore man pages & documentation on minimized c...",
+    "subtitle": "Restore man pages & documentation on minimized cloud images, containers, and minimal Linux servers",
+    "commands": [
+      {
+        "id": "restore-manpages-minimized",
+        "desc": "Restore man pages & documentation on minimized cloud images, containers, and minimal Linux servers",
+        "cmd": "yes | unminimize || (rm -f /etc/dpkg/dpkg.cfg.d/excludes /etc/dpkg/dpkg.cfg.d/01_nodoc && apt update && apt install -y man-db manpages manpages-posix && mandb -c)",
+        "details": "Ubuntu cloud images (AWS, GCP, Azure, OCI) and container bases (docker.io/library/ubuntu) strip manual pages by default to minimize disk footprint via dpkg path-excludes (/etc/dpkg/dpkg.cfg.d/excludes). Running 'unminimize' or removing path-exclude rules, installing man-db/manpages, and rebuilding the mandb index restores full offline documentation for all Linux commands, system calls, and C APIs.",
+        "flags": [
+          [
+            "unminimize",
+            "Official Ubuntu utility that removes dpkg documentation filters and reinstalls full man pages for all installed packages"
+          ],
+          [
+            "rm -f .../excludes",
+            "Deletes path-exclude=/usr/share/man/* rules so future apt/dpkg installations extract manual pages"
+          ],
+          [
+            "man-db manpages manpages-posix",
+            "Installs the man pager, GNU/Linux base system manuals, and IEEE POSIX 1003.1 section 1/3 man pages"
+          ],
+          [
+            "mandb -c",
+            "Rebuilds the whatis / apropos index database cache from scratch in /var/cache/man/"
+          ]
+        ],
+        "subcommands": [
+          [
+            "man -k <keyword> | apropos <topic>",
+            "Search manual page titles and one-line summaries for matching keywords"
+          ],
+          [
+            "man 1 intro | man 2 intro | man 3 intro | man 7 intro",
+            "Display section overviews: 1 (User Commands), 2 (Kernel System Calls), 3 (C Library APIs), 7 (Protocols/Standards)"
+          ],
+          [
+            "sudo apt install --reinstall $(dpkg -l | awk '/^ii/ {print $2}')",
+            "Re-extract stripped man pages for already-installed packages after removing dpkg path-exclude rules"
+          ],
+          [
+            "sudo dnf install -y man-db man-pages && dnf reinstall -y '*' --setopt=tsflags=''",
+            "Restore man pages on RHEL, Rocky, AlmaLinux and Fedora minimal images (clears tsflags=nodocs in /etc/dnf/dnf.conf)"
+          ],
+          [
+            "curl -sL \"https://cheat.sh/${CMD}\" | less -R",
+            "Instant interactive community cheat sheet fallback when running on an air-gapped or ultra-minimal environment without man"
+          ]
+        ],
+        "tip": "Run 'yes | unminimize' on fresh cloud instances",
+        "tags": [
+          "man",
+          "manpages",
+          "unminimize",
+          "minimal",
+          "cloud-init",
+          "docs",
+          "dpkg",
+          "mandb",
+          "apropos",
+          "nodocs",
+          "containers"
+        ]
+      }
+    ]
   }
 ];
 
@@ -657,16 +725,25 @@ function initEventListeners() {
 }
 
 function applyTheme(theme) {
+  state.theme = theme;
+  if (window.CheatSheetCommon && window.CheatSheetCommon.applyTheme) {
+    window.CheatSheetCommon.applyTheme(theme);
+  } else if (window.AntigravityCommon && window.AntigravityCommon.applyTheme) {
+    window.AntigravityCommon.applyTheme(theme);
+  } else {
+    document.documentElement.setAttribute("data-theme", theme);
+    try { localStorage.setItem("linux_cs_theme", theme); } catch(e) {}
+  }
   const sunIcon = document.getElementById("theme-icon-sun");
   const moonIcon = document.getElementById("theme-icon-moon");
-  if (theme === "light") {
-    document.documentElement.setAttribute("data-theme", "light");
-    sunIcon.classList.add("hidden");
-    moonIcon.classList.remove("hidden");
-  } else {
-    document.documentElement.removeAttribute("data-theme");
-    sunIcon.classList.remove("hidden");
-    moonIcon.classList.add("hidden");
+  if (sunIcon && moonIcon) {
+    if (theme === "light") {
+      sunIcon.classList.add("hidden");
+      moonIcon.classList.remove("hidden");
+    } else {
+      sunIcon.classList.remove("hidden");
+      moonIcon.classList.add("hidden");
+    }
   }
 }
 

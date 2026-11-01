@@ -10,7 +10,7 @@ const RF_RF_LOGS_SEL_DATA = [
       {
         "id": "rf-sel-entries-dump",
         "desc": "Fetch BMC System Event Log (SEL) entries and format timestamp, severity, and message",
-        "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Managers/1/LogServices/Sel/Entries\" | jq -r '.Members[] | \"\\(.Created) [\\(.Severity)] \\(.Message)\"' | tail -n 30",
+        "cmd": "curl -g -6 -sk -u \"$BMC_USER:$PASS\" \"https://[$BMC]/redfish/v1/Managers/1/LogServices/Sel/Entries\" | jq -r '.Members[] | \"\\(.Created) [\\(.Severity)] \\(.Message)\"' | tail -n 30",
         "details": "",
         "flags": [
           [
@@ -48,7 +48,7 @@ const RF_RF_LOGS_SEL_DATA = [
       {
         "id": "rf-sel-filter-critical",
         "desc": "Filter SEL entries to show only `Critical` or `Warning` hardware assertions",
-        "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Managers/1/LogServices/Sel/Entries\" | jq '.Members[] | select(.Severity == \"Critical\" or .Severity == \"Warning\") | {Id, Created, Severity, Message, SensorType}'",
+        "cmd": "curl -g -6 -sk -u \"$BMC_USER:$PASS\" \"https://[$BMC]/redfish/v1/Managers/1/LogServices/Sel/Entries\" | jq '.Members[] | select(.Severity == \"Critical\" or .Severity == \"Warning\") | {Id, Created, Severity, Message, SensorType}'",
         "details": "",
         "flags": [
           [
@@ -81,7 +81,7 @@ const RF_RF_LOGS_SEL_DATA = [
       {
         "id": "rf-sel-clear-log",
         "desc": "Clear all entries in the BMC System Event Log via `LogService.ClearLog` action",
-        "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" -X POST \"https://[$BMC]/redfish/v1/Managers/1/LogServices/Sel/Actions/LogService.ClearLog\" -H \"Content-Type: application/json\" -d '{}'",
+        "cmd": "curl -g -6 -sk -u \"$BMC_USER:$PASS\" -X POST \"https://[$BMC]/redfish/v1/Managers/1/LogServices/Sel/Actions/LogService.ClearLog\" -H \"Content-Type: application/json\" -d '{}'",
         "details": "",
         "flags": [
           [
@@ -571,16 +571,12 @@ function initEventListeners() {
 }
 
 function applyTheme(theme) {
-  const sunIcon = document.getElementById("theme-icon-sun");
-  const moonIcon = document.getElementById("theme-icon-moon");
-  if (theme === "light") {
-    document.documentElement.setAttribute("data-theme", "light");
-    sunIcon.classList.add("hidden");
-    moonIcon.classList.remove("hidden");
+  state.theme = theme;
+  if (window.CheatSheetCommon && typeof window.CheatSheetCommon.applyTheme === "function") {
+    window.CheatSheetCommon.applyTheme(theme);
   } else {
-    document.documentElement.setAttribute("data-theme", "dark");
-    sunIcon.classList.remove("hidden");
-    moonIcon.classList.add("hidden");
+    document.documentElement.setAttribute("data-theme", theme);
+    try { localStorage.setItem("linux_cs_theme", theme); } catch (e) {}
   }
 }
 

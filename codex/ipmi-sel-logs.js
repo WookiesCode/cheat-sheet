@@ -10,7 +10,7 @@ const IPMI_IPMI_SEL_LOGS_DATA = [
       {
         "id": "ipmi-sel-elist",
         "desc": "Display System Event Log cross-referenced with SDR sensor names for human-readable hardware triage",
-        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" sel elist   |   ... sel elist last 25",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -P \"$PASS\" sel elist   |   ... sel elist last 25",
         "details": "",
         "flags": [
           [
@@ -53,7 +53,7 @@ const IPMI_IPMI_SEL_LOGS_DATA = [
       {
         "id": "ipmi-sel-info-clear",
         "desc": "Check SEL fullness percentage (`Percent Used`), backup SEL to file, and clear the log",
-        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" sel info   |   ... sel save sel_backup.log   |   ... sel clear",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -P \"$PASS\" sel info   |   ... sel save sel_backup.log   |   ... sel clear",
         "details": "",
         "flags": [
           [
@@ -549,16 +549,12 @@ function initEventListeners() {
 }
 
 function applyTheme(theme) {
-  const sunIcon = document.getElementById("theme-icon-sun");
-  const moonIcon = document.getElementById("theme-icon-moon");
-  if (theme === "light") {
-    document.documentElement.setAttribute("data-theme", "light");
-    sunIcon.classList.add("hidden");
-    moonIcon.classList.remove("hidden");
+  state.theme = theme;
+  if (window.CheatSheetCommon && typeof window.CheatSheetCommon.applyTheme === "function") {
+    window.CheatSheetCommon.applyTheme(theme);
   } else {
-    document.documentElement.setAttribute("data-theme", "dark");
-    sunIcon.classList.remove("hidden");
-    moonIcon.classList.add("hidden");
+    document.documentElement.setAttribute("data-theme", theme);
+    try { localStorage.setItem("linux_cs_theme", theme); } catch (e) {}
   }
 }
 

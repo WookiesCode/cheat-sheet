@@ -10,7 +10,7 @@ const IPMI_IPMI_SOL_CONSOLE_DATA = [
       {
         "id": "ipmi-sol-activate",
         "desc": "Connect to the server's live serial console (BIOS POST, GRUB, Linux ttyS0/ttyS1) over the network",
-        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" -e @ sol activate",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E -e @ sol activate",
         "details": "",
         "flags": [
           [
@@ -49,7 +49,7 @@ const IPMI_IPMI_SOL_CONSOLE_DATA = [
       {
         "id": "ipmi-sol-deactivate-info",
         "desc": "Force-close a hung or active SOL session and inspect SOL baud rate configuration",
-        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" sol deactivate   |   ... sol info 1   |   ... sol set non-volatile-bit-rate 115.2 1",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sol deactivate   |   ... sol info 1   |   ... sol set non-volatile-bit-rate 115.2 1",
         "details": "",
         "flags": [
           [
@@ -86,7 +86,7 @@ const IPMI_IPMI_SOL_CONSOLE_DATA = [
       {
         "id": "sol-console-tips-card",
         "desc": "Out-of-Band Serial Console Operations & Session Recovery",
-        "cmd": "ipmitool -I lanplus -H $BMC_IP -U admin -P password sol activate",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sol activate",
         "details": "Serial-over-LAN redirects the host server's UART serial port (COM1 / ttyS0 / ttyS1) over the encrypted IPMI 2.0 RMCP+ channel. If another administrator leaves an SOL session open, use \"sol deactivate\" to forcibly release the session.",
         "flags": [
           [
@@ -123,7 +123,7 @@ const state = {
   savedOnly: false,
   compact: localStorage.getItem("linux_cs_compact") === "1",
   theme: localStorage.getItem("linux_cs_theme") || "dark",
-  bookmarks: new Set(JSON.parse(localStorage.getItem("ipmi-sol-console_bookmarks") || "[]"))
+  bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("ipmi-sol-console_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
 
 // DOM Elements
@@ -548,12 +548,12 @@ function applyTheme(theme) {
   const moonIcon = document.getElementById("theme-icon-moon");
   if (theme === "light") {
     document.documentElement.setAttribute("data-theme", "light");
-    sunIcon.classList.add("hidden");
-    moonIcon.classList.remove("hidden");
+    sunIcon?.classList.add("hidden");
+    moonIcon?.classList.remove("hidden");
   } else {
-    document.documentElement.setAttribute("data-theme", "dark");
-    sunIcon.classList.remove("hidden");
-    moonIcon.classList.add("hidden");
+    document.documentElement.setAttribute("data-theme", theme);
+    sunIcon?.classList.remove("hidden");
+    moonIcon?.classList.add("hidden");
   }
 }
 

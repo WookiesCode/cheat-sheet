@@ -10,7 +10,7 @@ const RF_RF_POWER_BOOT_DATA = [
       {
         "id": "rf-power-state-reset",
         "desc": "Check current server power state or execute `ComputerSystem.Reset` (On, ForceOff, ForceRestart, PowerCycle)",
-        "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" -X POST \"https://[$BMC]/redfish/v1/Systems/1/Actions/ComputerSystem.Reset\" -H \"Content-Type: application/json\" -d '{\"ResetType\": \"PowerCycle\"}'",
+        "cmd": "curl -g -6 -sk -u \"$BMC_USER:$PASS\" -X POST \"https://[$BMC]/redfish/v1/Systems/1/Actions/ComputerSystem.Reset\" -H \"Content-Type: application/json\" -d '{\"ResetType\": \"PowerCycle\"}'",
         "details": "",
         "flags": [
           [
@@ -52,7 +52,7 @@ const RF_RF_POWER_BOOT_DATA = [
       {
         "id": "rf-boot-override-pxe",
         "desc": "Set one-time UEFI PXE network boot on next restart (`BootSourceOverrideTarget: Pxe`)",
-        "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" -X PATCH \"https://[$BMC]/redfish/v1/Systems/1\" -H \"Content-Type: application/json\" -d '{\"Boot\": {\"BootSourceOverrideTarget\": \"Pxe\", \"BootSourceOverrideEnabled\": \"Once\", \"BootSourceOverrideMode\": \"UEFI\"}}'",
+        "cmd": "curl -g -6 -sk -u \"$BMC_USER:$PASS\" -X PATCH \"https://[$BMC]/redfish/v1/Systems/1\" -H \"Content-Type: application/json\" -d '{\"Boot\": {\"BootSourceOverrideTarget\": \"Pxe\", \"BootSourceOverrideEnabled\": \"Once\", \"BootSourceOverrideMode\": \"UEFI\"}}'",
         "details": "",
         "flags": [
           [
@@ -90,7 +90,7 @@ const RF_RF_POWER_BOOT_DATA = [
       {
         "id": "rf-boot-into-bios",
         "desc": "Force server to boot directly into UEFI/BIOS Setup utility on next reboot",
-        "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" -X PATCH \"https://[$BMC]/redfish/v1/Systems/1\" -H \"Content-Type: application/json\" -d '{\"Boot\": {\"BootSourceOverrideTarget\": \"BiosSetup\", \"BootSourceOverrideEnabled\": \"Once\"}}'",
+        "cmd": "curl -g -6 -sk -u \"$BMC_USER:$PASS\" -X PATCH \"https://[$BMC]/redfish/v1/Systems/1\" -H \"Content-Type: application/json\" -d '{\"Boot\": {\"BootSourceOverrideTarget\": \"BiosSetup\", \"BootSourceOverrideEnabled\": \"Once\"}}'",
         "details": "",
         "flags": [
           [
@@ -122,7 +122,7 @@ const RF_RF_POWER_BOOT_DATA = [
       {
         "id": "rf-trigger-nmi",
         "desc": "Send diagnostic Non-Maskable Interrupt (`Nmi`) to hung OS to trigger kernel kdump crash dump",
-        "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" -X POST \"https://[$BMC]/redfish/v1/Systems/1/Actions/ComputerSystem.Reset\" -H \"Content-Type: application/json\" -d '{\"ResetType\": \"Nmi\"}'",
+        "cmd": "curl -g -6 -sk -u \"$BMC_USER:$PASS\" -X POST \"https://[$BMC]/redfish/v1/Systems/1/Actions/ComputerSystem.Reset\" -H \"Content-Type: application/json\" -d '{\"ResetType\": \"Nmi\"}'",
         "details": "",
         "flags": [
           [
@@ -614,16 +614,12 @@ function initEventListeners() {
 }
 
 function applyTheme(theme) {
-  const sunIcon = document.getElementById("theme-icon-sun");
-  const moonIcon = document.getElementById("theme-icon-moon");
-  if (theme === "light") {
-    document.documentElement.setAttribute("data-theme", "light");
-    sunIcon.classList.add("hidden");
-    moonIcon.classList.remove("hidden");
+  state.theme = theme;
+  if (window.CheatSheetCommon && typeof window.CheatSheetCommon.applyTheme === "function") {
+    window.CheatSheetCommon.applyTheme(theme);
   } else {
-    document.documentElement.setAttribute("data-theme", "dark");
-    sunIcon.classList.remove("hidden");
-    moonIcon.classList.add("hidden");
+    document.documentElement.setAttribute("data-theme", theme);
+    try { localStorage.setItem("linux_cs_theme", theme); } catch (e) {}
   }
 }
 

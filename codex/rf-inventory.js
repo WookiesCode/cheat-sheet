@@ -10,7 +10,7 @@ const RF_RF_INVENTORY_DATA = [
       {
         "id": "rf-dimm-memory-health",
         "desc": "Audit all populated RAM DIMM slots, capacity, speed, part/serial numbers, and ECC health status",
-        "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Systems/1/Memory?\\$expand=.(\\$levels=1)\" | jq '.Members[] | select(.Status.State==\"Enabled\") | {Id, DeviceLocator, CapacityMiB, OperatingSpeedMhz, Manufacturer, PartNumber, SerialNumber, Health: .Status.Health}'",
+        "cmd": "curl -g -6 -sk -u \"$BMC_USER:$PASS\" \"https://[$BMC]/redfish/v1/Systems/1/Memory?\\$expand=.(\\$levels=1)\" | jq '.Members[] | select(.Status.State==\"Enabled\") | {Id, DeviceLocator, CapacityMiB, OperatingSpeedMhz, Manufacturer, PartNumber, SerialNumber, Health: .Status.Health}'",
         "details": "",
         "flags": [
           [
@@ -49,7 +49,7 @@ const RF_RF_INVENTORY_DATA = [
       {
         "id": "rf-processors-cpu-gpu",
         "desc": "Inspect all CPUs and baseboard GPUs (`ProcessorType: CPU` vs `Accelerator`) with core counts and health",
-        "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Systems/1/Processors?\\$expand=.(\\$levels=1)\" | jq '.Members[] | {Id, ProcessorType, Model, TotalCores, TotalThreads, SerialNumber, Status}'",
+        "cmd": "curl -g -6 -sk -u \"$BMC_USER:$PASS\" \"https://[$BMC]/redfish/v1/Systems/1/Processors?\\$expand=.(\\$levels=1)\" | jq '.Members[] | {Id, ProcessorType, Model, TotalCores, TotalThreads, SerialNumber, Status}'",
         "details": "",
         "flags": [
           [
@@ -87,7 +87,7 @@ const RF_RF_INVENTORY_DATA = [
       {
         "id": "rf-storage-nvme-drives",
         "desc": "Inspect storage controllers, NVMe/SAS/SATA drive health, wear life remaining, and serial numbers",
-        "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Systems/1/Storage?\\$expand=.(\\$levels=2)\" | jq '.Members[].Drives[]? | {Id, Name, Model, SerialNumber, CapacityBytes, MediaType, PredictedMediaLifeLeftPercent, Status}'",
+        "cmd": "curl -g -6 -sk -u \"$BMC_USER:$PASS\" \"https://[$BMC]/redfish/v1/Systems/1/Storage?\\$expand=.(\\$levels=2)\" | jq '.Members[].Drives[]? | {Id, Name, Model, SerialNumber, CapacityBytes, MediaType, PredictedMediaLifeLeftPercent, Status}'",
         "details": "",
         "flags": [
           [
@@ -126,7 +126,7 @@ const RF_RF_INVENTORY_DATA = [
       {
         "id": "rf-network-mac-addresses",
         "desc": "Collect host & BMC NIC MAC addresses, IPv6 addresses, SLAAC/DHCPv6 state, and link status out-of-band",
-        "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Managers/1/EthernetInterfaces?\\$expand=.(\\$levels=1)\" | jq '.Members[] | {Id, MACAddress, IPv6DefaultGateway, IPv6Addresses}'",
+        "cmd": "curl -g -6 -sk -u \"$BMC_USER:$PASS\" \"https://[$BMC]/redfish/v1/Managers/1/EthernetInterfaces?\\$expand=.(\\$levels=1)\" | jq '.Members[] | {Id, MACAddress, IPv6DefaultGateway, IPv6Addresses}'",
         "details": "",
         "flags": [
           [
@@ -624,16 +624,12 @@ function initEventListeners() {
 }
 
 function applyTheme(theme) {
-  const sunIcon = document.getElementById("theme-icon-sun");
-  const moonIcon = document.getElementById("theme-icon-moon");
-  if (theme === "light") {
-    document.documentElement.setAttribute("data-theme", "light");
-    sunIcon.classList.add("hidden");
-    moonIcon.classList.remove("hidden");
+  state.theme = theme;
+  if (window.CheatSheetCommon && typeof window.CheatSheetCommon.applyTheme === "function") {
+    window.CheatSheetCommon.applyTheme(theme);
   } else {
-    document.documentElement.setAttribute("data-theme", "dark");
-    sunIcon.classList.remove("hidden");
-    moonIcon.classList.add("hidden");
+    document.documentElement.setAttribute("data-theme", theme);
+    try { localStorage.setItem("linux_cs_theme", theme); } catch (e) {}
   }
 }
 

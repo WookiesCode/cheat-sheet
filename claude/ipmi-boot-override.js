@@ -10,7 +10,7 @@ const IPMI_IPMI_BOOT_OVERRIDE_DATA = [
       {
         "id": "ipmi-bootdev-uefi-pxe",
         "desc": "Force one-time UEFI PXE network boot on the next reboot and immediately power-cycle",
-        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" chassis bootdev pxe options=efiboot && ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" chassis power cycle",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis bootdev pxe options=efiboot && ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis power cycle",
         "details": "",
         "flags": [
           [
@@ -48,7 +48,7 @@ const IPMI_IPMI_BOOT_OVERRIDE_DATA = [
       {
         "id": "ipmi-bootdev-bios-cdrom",
         "desc": "Boot directly into BIOS/UEFI Setup utility, Virtual CD-ROM ISO, or clear boot override",
-        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" chassis bootdev bios   |   ... chassis bootdev cdrom options=efiboot   |   ... chassis bootdev none",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis bootdev bios   |   ... chassis bootdev cdrom options=efiboot   |   ... chassis bootdev none",
         "details": "",
         "flags": [
           [
@@ -90,7 +90,7 @@ const IPMI_IPMI_BOOT_OVERRIDE_DATA = [
       {
         "id": "ipmi-bootdev-bios-cdrom-flags-card",
         "desc": "Options breakdown and parameter syntax for Boot directly into BIOS/UEFI Setup utility, Virtual CD-ROM ISO, or clear boot override",
-        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" chassis bootdev bios   |   ... chassis bootdev cdrom options=efiboot   |   ... chassis bootdev none",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis bootdev bios   |   ... chassis bootdev cdrom options=efiboot   |   ... chassis bootdev none",
         "flags": [
           [
             "bootdev none",
@@ -116,7 +116,7 @@ const IPMI_IPMI_BOOT_OVERRIDE_DATA = [
       {
         "id": "ipmi-bootparam-no-timeout",
         "desc": "Disable the IPMI 60-second boot flag watchdog timer so `bootdev` isn't cleared if reboot takes >60s",
-        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" chassis bootparam set bootflag force_pxe options=no-timeout",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis bootparam set bootflag force_pxe options=no-timeout",
         "details": "",
         "flags": [
           [
@@ -148,7 +148,7 @@ const IPMI_IPMI_BOOT_OVERRIDE_DATA = [
       {
         "id": "boot-override-tips-card",
         "desc": "Automated PXE Re-imaging & Boot Flag Persistence",
-        "cmd": "ipmitool -I lanplus -H $BMC_IP -U admin -P password chassis bootdev pxe options=efiboot",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis bootdev pxe options=efiboot",
         "details": "By default, IPMI bootdev flags are volatile and expire after 60 seconds if the host does not reboot immediately. To avoid missing the boot flag window, run \"chassis bootparam set bootflag no-timeout\" or combine the bootdev command with \"chassis power reset\" on a single shell line.",
         "flags": [
           [
@@ -185,7 +185,7 @@ const state = {
   savedOnly: false,
   compact: localStorage.getItem("linux_cs_compact") === "1",
   theme: localStorage.getItem("linux_cs_theme") || "dark",
-  bookmarks: new Set(JSON.parse(localStorage.getItem("ipmi-boot-override_bookmarks") || "[]"))
+  bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("ipmi-boot-override_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
 
 // DOM Elements
@@ -610,12 +610,12 @@ function applyTheme(theme) {
   const moonIcon = document.getElementById("theme-icon-moon");
   if (theme === "light") {
     document.documentElement.setAttribute("data-theme", "light");
-    sunIcon.classList.add("hidden");
-    moonIcon.classList.remove("hidden");
+    sunIcon?.classList.add("hidden");
+    moonIcon?.classList.remove("hidden");
   } else {
-    document.documentElement.setAttribute("data-theme", "dark");
-    sunIcon.classList.remove("hidden");
-    moonIcon.classList.add("hidden");
+    document.documentElement.setAttribute("data-theme", theme);
+    sunIcon?.classList.remove("hidden");
+    moonIcon?.classList.add("hidden");
   }
 }
 

@@ -10,7 +10,7 @@ const IPMI_IPMI_FRU_MC_DATA = [
       {
         "id": "ipmi-fru-print",
         "desc": "Dump Field Replaceable Unit (FRU) EEPROM data: Board/Chassis/Product part & serial numbers",
-        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" fru print",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E fru print",
         "details": "",
         "flags": [
           [
@@ -44,7 +44,7 @@ const IPMI_IPMI_FRU_MC_DATA = [
       {
         "id": "ipmi-mc-info-reset",
         "desc": "Check BMC firmware version or perform a non-disruptive cold reset of the BMC processor",
-        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" mc info   |   ... mc reset cold   |   ... mc reset warm",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E mc info   |   ... mc reset cold   |   ... mc reset warm",
         "details": "",
         "flags": [
           [
@@ -120,7 +120,7 @@ const IPMI_IPMI_FRU_MC_DATA = [
       {
         "id": "fru-mc-watchdog-tips-card",
         "desc": "Hardware Inventory Audit & BMC Health Maintenance",
-        "cmd": "ipmitool -I lanplus -H $BMC_IP -U admin -P password fru print",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E fru print",
         "details": "FRU (Field Replaceable Unit) EEPROMs store motherboard, chassis, and power supply part numbers, serial numbers, and asset tags. If the BMC becomes unresponsive or fails to serve Redfish/web traffic, use \"mc reset cold\" to reboot the BMC controller without interrupting host OS operations.",
         "flags": [
           [
@@ -157,7 +157,7 @@ const state = {
   savedOnly: false,
   compact: localStorage.getItem("linux_cs_compact") === "1",
   theme: localStorage.getItem("linux_cs_theme") || "dark",
-  bookmarks: new Set(JSON.parse(localStorage.getItem("ipmi-fru-mc_bookmarks") || "[]"))
+  bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("ipmi-fru-mc_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
 
 // DOM Elements
@@ -582,12 +582,12 @@ function applyTheme(theme) {
   const moonIcon = document.getElementById("theme-icon-moon");
   if (theme === "light") {
     document.documentElement.setAttribute("data-theme", "light");
-    sunIcon.classList.add("hidden");
-    moonIcon.classList.remove("hidden");
+    sunIcon?.classList.add("hidden");
+    moonIcon?.classList.remove("hidden");
   } else {
-    document.documentElement.setAttribute("data-theme", "dark");
-    sunIcon.classList.remove("hidden");
-    moonIcon.classList.add("hidden");
+    document.documentElement.setAttribute("data-theme", theme);
+    sunIcon?.classList.remove("hidden");
+    moonIcon?.classList.add("hidden");
   }
 }
 

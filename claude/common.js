@@ -16,26 +16,48 @@
   const DEFAULT_TARGET_VARS = {
     bmc: '2001:db8:dc::50',
     user: 'ADMIN',
-    pass: 'ADMIN',
     iface: 'eno1',
     hca: 'mlx5_0',
     disk: '/dev/nvme0n1',
     gpu: '0'
   };
 
+  function readStored(key) {
+    try { return localStorage.getItem(key); } catch (e) { return null; }
+  }
+
+  // Credentials are never kept in the browser. Earlier versions stored a BMC
+  // password here, so drop it from any saved state on load.
+  function readStoredVars() {
+    let saved = {};
+    try {
+      const parsed = JSON.parse(readStored('dc_target_vars') || '{}');
+      if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) saved = parsed;
+    } catch (e) {}
+    if ('pass' in saved) {
+      delete saved.pass;
+      try { localStorage.setItem('dc_target_vars', JSON.stringify(saved)); } catch (e) {}
+    }
+    return saved;
+  }
+
   const targetState = {
-    active: localStorage.getItem('dc_vars_active') !== '0', // default enabled
-    collapsed: localStorage.getItem('dc_vars_collapsed') === '1',
-    vars: Object.assign({}, DEFAULT_TARGET_VARS, JSON.parse(localStorage.getItem('dc_target_vars') || '{}'))
+    active: readStored('dc_vars_active') !== '0', // default enabled
+    collapsed: readStored('dc_vars_collapsed') === '1',
+    vars: Object.assign({}, DEFAULT_TARGET_VARS, readStoredVars())
   };
 
   function saveTargetState() {
-    localStorage.setItem('dc_vars_active', targetState.active ? '1' : '0');
-    localStorage.setItem('dc_vars_collapsed', targetState.collapsed ? '1' : '0');
-    localStorage.setItem('dc_target_vars', JSON.stringify(targetState.vars));
+    try {
+      localStorage.setItem('dc_vars_active', targetState.active ? '1' : '0');
+      localStorage.setItem('dc_vars_collapsed', targetState.collapsed ? '1' : '0');
+      localStorage.setItem('dc_target_vars', JSON.stringify(targetState.vars));
+    } catch (e) {}
   }
 
   // Hook clipboard to automatically substitute variables if active
+  // Placeholders are uppercase on purpose: lowercase $disk or $hca is a script's
+  // own variable, and $USER is the local login, so none of those are rewritten.
   function substituteVariables(text) {
     if (!targetState.active || !text) return { text, substituted: false };
     let result = text;
@@ -43,51 +65,70 @@
 
     const bmcVal = (targetState.vars.bmc || '').trim();
     if (bmcVal && bmcVal !== DEFAULT_TARGET_VARS.bmc) {
-      const bmcRegex = /(\$BMC\b|\$\{BMC\}|<bmc[_-]ip>|<bmc_host>|2001:db8:dc::1|192\.168\.1\.120)/gi;
+      const bmcRegex = /(\$BMC\b|\$\{BMC\}|\$BMC_IP\b|\$\{BMC_IP\}|<bmc[_-]ip>|<bmc_host>|2001:db8:dc::1|192\.168\.1\.120)/g;
       if (bmcRegex.test(result)) {
-        result = result.replace(bmcRegex, bmcVal);
+        result = result.replace(bmcRegex, () => bmcVal);
         count++;
       }
     } else if (bmcVal) {
-      result = result.replace(/(\$BMC\b|\$\{BMC\}|<bmc[_-]ip>|<bmc_host>)/gi, bmcVal);
+      result = result.replace(/(\$BMC\b|\$\{BMC\}|\$BMC_IP\b|\$\{BMC_IP\}|<bmc[_-]ip>|<bmc_host>)/g, () => bmcVal);
     }
 
     const userVal = (targetState.vars.user || '').trim();
     if (userVal) {
-      result = result.replace(/(\$USER\b|\$\{USER\}|<user>)/g, userVal);
-    }
-
-    const passVal = (targetState.vars.pass || '').trim();
-    if (passVal) {
-      result = result.replace(/(\$PASS\b|\$\{PASS\}|<password>|<pass>)/g, passVal);
+      result = result.replace(/(\$BMC_USER\b|\$\{BMC_USER\}|<bmc_user>)/g, () => userVal);
     }
 
     const ifaceVal = (targetState.vars.iface || '').trim();
     if (ifaceVal) {
-      result = result.replace(/(\$IFACE\b|\$\{IFACE\}|<interface>|<iface>)/gi, ifaceVal);
+      result = result.replace(/(\$IFACE\b|\$\{IFACE\}|<interface>|<iface>)/g, () => ifaceVal);
     }
 
     const hcaVal = (targetState.vars.hca || '').trim();
     if (hcaVal) {
-      result = result.replace(/(\$HCA\b|\$\{HCA\}|<hca>)/gi, hcaVal);
+      result = result.replace(/(\$HCA\b|\$\{HCA\}|<hca>)/g, () => hcaVal);
     }
 
     const diskVal = (targetState.vars.disk || '').trim();
     if (diskVal) {
-      result = result.replace(/(\$DISK\b|\$\{DISK\}|<disk>|<device>)/gi, diskVal);
+      result = result.replace(/(\$DISK\b|\$\{DISK\}|<disk>|<device>)/g, () => diskVal);
     }
 
     const gpuVal = (targetState.vars.gpu || '').trim();
     if (gpuVal) {
-      result = result.replace(/(\$GPU\b|\$\{GPU\}|<gpu>|<gpu_id>)/gi, gpuVal);
+      result = result.replace(/(\$GPU\b|\$\{GPU\}|<gpu>|<gpu_id>)/g, () => gpuVal);
     }
 
     return { text: result, substituted: result !== text };
   }
 
   // Intercept navigator.clipboard.writeText so all sheets inherit variable substitution automatically!
+  // navigator.clipboard is undefined on plain HTTP, so give every caller a fallback.
+  function legacyCopy(text) {
+    return new Promise((resolve, reject) => {
+      const area = document.createElement('textarea');
+      area.value = text;
+      area.style.cssText = 'position:fixed;opacity:0';
+      document.body.appendChild(area);
+      area.select();
+      const ok = document.execCommand('copy');
+      area.remove();
+      ok ? resolve() : reject(new Error('copy failed'));
+    });
+  }
+
+  if (!navigator.clipboard) {
+    try {
+      Object.defineProperty(navigator, 'clipboard', { value: { writeText: legacyCopy }, configurable: true });
+    } catch (e) {}
+  }
+
+  // Scripts and tickets must reach the clipboard exactly as written.
+  let copyVerbatim = legacyCopy;
+
   if (navigator.clipboard && navigator.clipboard.writeText) {
     const originalWriteText = navigator.clipboard.writeText.bind(navigator.clipboard);
+    copyVerbatim = originalWriteText;
     navigator.clipboard.writeText = function(text) {
       const { text: newText, substituted } = substituteVariables(text);
       if (substituted) {
@@ -139,12 +180,12 @@
             <input type="text" id="var-bmc" spellcheck="false" autocomplete="off" value="${escapeHtml(targetState.vars.bmc)}" placeholder="2001:db8:dc::50" />
           </div>
           <div class="target-field">
-            <label for="var-user"><span class="var-tag">$USER</span> BMC User</label>
+            <label for="var-user"><span class="var-tag">$BMC_USER</span> BMC User</label>
             <input type="text" id="var-user" spellcheck="false" autocomplete="off" value="${escapeHtml(targetState.vars.user)}" placeholder="ADMIN" />
           </div>
-          <div class="target-field">
-            <label for="var-pass"><span class="var-tag">$PASS</span> BMC Password</label>
-            <input type="text" id="var-pass" spellcheck="false" autocomplete="off" value="${escapeHtml(targetState.vars.pass)}" placeholder="ADMIN" />
+          <div class="target-field target-creds-note">
+            <span class="target-creds-label"><span class="var-tag">CREDS</span> Never stored here</span>
+            <code title="Set once per shell. curl reads ~/.bmc-curlrc (chmod 600), one line: user = &quot;BMC_USER:PASSWORD&quot;">read -rs BMC_PASS; export BMC_PASS IPMITOOL_PASSWORD="$BMC_PASS"</code>
           </div>
           <div class="target-field">
             <label for="var-iface"><span class="var-tag">$IFACE</span> NIC</label>
@@ -195,7 +236,7 @@
       });
     }
 
-    ['bmc', 'user', 'pass', 'iface', 'hca', 'disk', 'gpu'].forEach(key => {
+    ['bmc', 'user', 'iface', 'hca', 'disk', 'gpu'].forEach(key => {
       const el = document.getElementById(`var-${key}`);
       if (el) {
         el.addEventListener('input', (e) => {
@@ -229,7 +270,7 @@
             <circle cx="11" cy="11" r="8"></circle>
             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
           </svg>
-          <input type="text" id="palette-search-input" placeholder="Search 768+ commands across all 14 sheets (e.g. 'xid 79', 'edac', 'dom', 'vpi')..." autocomplete="off" spellcheck="false" />
+          <input type="text" id="palette-search-input" placeholder="Search ${searchIndexSummary()} (e.g. 'xid 79', 'edac', 'dom', 'vpi')..." autocomplete="off" spellcheck="false" />
           <kbd class="palette-kbd">ESC</kbd>
         </div>
         <div class="palette-toolbar">
@@ -307,18 +348,25 @@
     const tokens = cleanQuery.split(/\s+/).filter(Boolean);
 
     let matches = [];
+    let totalMatches = 0;
+    let sheetsMatched = 0;
     if (!tokens.length) {
       // Show default top picks across sheets
       matches = window.GLOBAL_SEARCH_INDEX.slice(0, 25);
+      totalMatches = window.GLOBAL_SEARCH_INDEX.length;
+      sheetsMatched = new Set(window.GLOBAL_SEARCH_INDEX.map(item => item.file)).size;
     } else {
       matches = window.GLOBAL_SEARCH_INDEX.filter(item => {
         const text = `${item.sName} ${item.sec} ${item.cmd} ${item.desc} ${item.tags} ${item.tip}`.toLowerCase();
         return tokens.every(token => text.includes(token));
-      }).slice(0, 50); // limit to top 50 matches for fast DOM render
+      });
+      totalMatches = matches.length;
+      sheetsMatched = new Set(matches.map(item => item.file)).size;
+      matches = matches.slice(0, 50); // limit to top 50 matches for fast DOM render
     }
 
     currentSearchResults = matches;
-    searchCount.textContent = `${matches.length} command${matches.length === 1 ? '' : 's'} found across 14 sheets`;
+    searchCount.textContent = `${totalMatches} command${totalMatches === 1 ? '' : 's'} found across ${sheetsMatched} sheet${sheetsMatched === 1 ? '' : 's'}`;
 
     if (!matches.length) {
       searchResults.innerHTML = `
@@ -363,17 +411,11 @@
         const cmd = itemEl.dataset.cmd;
 
         // If target is copy or user wants to copy
-        navigator.clipboard.writeText(cmd);
+        navigator.clipboard.writeText(firstCommand(cmd));
         showGlobalToast(`Copied command from ${itemEl.querySelector('.palette-sheet-badge').textContent}!`);
 
         // If not already on this page, navigate to it with hash
-        const currentPath = window.location.pathname.split('/').pop() || 'index.html';
-        if (currentPath !== file) {
-          window.location.href = `${file}#${id}`;
-        } else {
-          closeGlobalSearch();
-          scrollToCard(id);
-        }
+        openSearchResult(file, id);
       });
     });
   }
@@ -404,28 +446,47 @@
     const item = currentSearchResults[searchActiveIndex];
     if (!item) return;
 
-    navigator.clipboard.writeText(item.cmd);
+    navigator.clipboard.writeText(firstCommand(item.cmd));
     showGlobalToast(`Copied command: ${item.cmd.slice(0, 40)}…`);
 
+    openSearchResult(item.file, item.id);
+  }
+
+  function openSearchResult(file, id) {
+    // The portable build is one file, so sheet pages don't exist beside it.
+    if (window.portableOpenSheet) {
+      closeGlobalSearch();
+      window.portableOpenSheet(file, id);
+      return;
+    }
     const currentPath = window.location.pathname.split('/').pop() || 'index.html';
-    if (currentPath !== item.file) {
-      window.location.href = `${item.file}#${item.id}`;
+    if (currentPath !== file) {
+      window.location.href = `${file}#${id}`;
     } else {
       closeGlobalSearch();
-      scrollToCard(item.id);
+      scrollToCard(id);
     }
+  }
+
+  // Entries list alternatives joined by "   |   "; they are not a shell pipeline.
+  function searchIndexSummary() {
+    const index = window.GLOBAL_SEARCH_INDEX || [];
+    return `${index.length.toLocaleString('en-US')} commands across ${new Set(index.map(item => item.file)).size} sheets`;
+  }
+
+  function firstCommand(cmd) {
+    return String(cmd).split('   |   ')[0].trim();
   }
 
   function highlightMatches(text, tokens) {
     if (!text) return '';
-    if (!tokens.length) return escapeHtml(text);
-    let escaped = escapeHtml(text);
-    tokens.forEach(tok => {
-      if (!tok) return;
-      const regex = new RegExp(`(${escapeRegex(tok)})`, 'gi');
-      escaped = escaped.replace(regex, '<mark>$1</mark>');
-    });
-    return escaped;
+    const valid = tokens.filter(Boolean).map(escapeRegex).sort((a, b) => b.length - a.length);
+    if (!valid.length) return escapeHtml(text);
+    // Match on raw text, then escape, so tokens can't hit entities or <mark> tags.
+    const regex = new RegExp(`(${valid.join('|')})`, 'gi');
+    return String(text).split(regex)
+      .map((part, i) => (i % 2 ? `<mark>${escapeHtml(part)}</mark>` : escapeHtml(part)))
+      .join('');
   }
 
   function getSheetColorClass(sheetName) {
@@ -467,9 +528,14 @@ echo -n "Chassis Serial: "; sudo dmidecode -s system-serial-number 2>/dev/null |
 echo -n "BIOS Version:   "; sudo dmidecode -s bios-version 2>/dev/null || true
 echo -n "BIOS Date:      "; sudo dmidecode -s bios-release-date 2>/dev/null || true
 
-echo -e "\\n[2/7] PREVIOUS BOOT CRASH RECORDS (ACPI BERT / APEI / GHES):"
-if dmesg | grep -iE 'BERT|APEI|GHES' >/dev/null 2>&1; then
-  dmesg | grep -iE 'BERT|APEI|GHES' | head -n 12
+echo -e "\\\n[2/7] PREVIOUS BOOT CRASH RECORDS (ACPI BERT / APEI / GHES):"
+KLOG_OK=1
+KLOG=$(sudo dmesg -T 2>/dev/null) || KLOG_OK=0
+if [ "$KLOG_OK" != 1 ] || [ -z "$KLOG" ]; then
+  KLOG_OK=0
+  echo "UNKNOWN: Could not read the kernel log. BERT/APEI and Xid checks did not run."
+elif printf '%s\\n' "$KLOG" | grep -iE 'BERT|APEI|GHES' >/dev/null 2>&1; then
+  printf '%s\\n' "$KLOG" | grep -iE 'BERT|APEI|GHES' | head -n 12
 else
   echo "Clean: No ACPI BERT crash records found in dmesg."
 fi
@@ -488,19 +554,31 @@ if [ -d /sys/devices/system/edac/mc ]; then
 fi
 
 echo -e "\\n[4/7] PCIE LINK DEGRADATION (LnkSta vs LnkCap width/speed mismatches):"
-sudo lspci -vv 2>/dev/null | awk '
-  /^[0-9a-f]{2}:[0-9a-f]{2}\\.[0-9]/ { dev=$0 }
-  /LnkCap:/ { cap=$0 }
-  /LnkSta:/ {
-    if (cap != "" && match(cap, /Speed [^,]+, Width x[0-9]+/) && match($0, /Speed [^,]+, Width x[0-9]+/)) {
-      c_val=substr(cap, RSTART, RLENGTH)
-      s_val=substr($0, RSTART, RLENGTH)
-      if (c_val != s_val && !index(s_val, "Width x0")) {
-        print "DEGRADED: " substr(dev,1,45) "\\n   Cap: " c_val " -> Current: " s_val
-      }
+PCIE_RAW=$(sudo lspci -vv 2>/dev/null) || PCIE_RAW=""
+if ! printf '%s\\n' "$PCIE_RAW" | grep -q 'LnkCap:'; then
+  echo "UNKNOWN: Could not read PCIe link capabilities (lspci -vv needs root)."
+else
+  PCIE_REPORT=$(printf '%s\\n' "$PCIE_RAW" | awk '
+    function field(line, re, skip) {
+      return match(line, re) ? substr(line, RSTART + skip, RLENGTH - skip) : ""
     }
-  }
-' | head -n 15 || echo "No PCIe link degradation detected."
+    /^[0-9a-f]+:[0-9a-f]+(:[0-9a-f]+)?\\.[0-9a-f] / { dev=$0; cs=""; cw="" }
+    /LnkCap:/ { cs=field($0, "Speed [0-9.]+GT/s", 6); cw=field($0, "Width x[0-9]+", 7) }
+    /LnkSta:/ {
+      ss=field($0, "Speed [0-9.]+GT/s", 6); sw=field($0, "Width x[0-9]+", 7)
+      if (cs == "" || cw == "" || ss == "" || sw == "" || sw + 0 == 0) next
+      if (sw + 0 < cw + 0) tag="DEGRADED (width)"
+      else if (ss + 0 < cs + 0) tag="DOWNSHIFTED (speed only; can be idle power saving)"
+      else next
+      print tag ": " substr(dev, 1, 45) "\\n   Cap: " cs " x" cw " -> Current: " ss " x" sw
+    }
+  ' | head -n 30)
+  if [ -n "$PCIE_REPORT" ]; then
+    printf '%s\\n' "$PCIE_REPORT"
+  else
+    echo "No PCIe link degradation detected."
+  fi
+fi
 
 echo -e "\\n[5/7] NVIDIA GPU HEALTH, XIDS & ROW-REMAPS:"
 if command -v nvidia-smi >/dev/null 2>&1; then
@@ -508,7 +586,11 @@ if command -v nvidia-smi >/dev/null 2>&1; then
   echo -e "\\nPending & Uncorrectable Row Remap Status:"
   nvidia-smi --query-remapped-rows=gpu_uuid,remapped_due_to_uncorrectable,pending_remapped_due_to_uncorrectable,failure --format=csv 2>/dev/null || true
   echo -e "\\nRecent GPU Xids in dmesg:"
-  dmesg -T | grep -i "NVRM: Xid" | tail -n 8 || echo "No Xids found in kernel log."
+  if [ "$KLOG_OK" = 1 ]; then
+    printf '%s\\n' "$KLOG" | grep -i "NVRM: Xid" | tail -n 8 || echo "No Xids found in kernel log."
+  else
+    echo "UNKNOWN: Kernel log unavailable, Xids not checked."
+  fi
 else
   echo "nvidia-smi not detected on this host."
 fi
@@ -526,8 +608,9 @@ fi
 
 echo -e "\\n[7/7] NVME STORAGE DRIVE HEALTH:"
 if command -v nvme >/dev/null 2>&1; then
-  for dev in /dev/nvme[0-9]n1; do
+  for dev in /dev/nvme[0-9]*n[0-9]*; do
     [ -e "$dev" ] || continue
+    case "$dev" in *n[0-9]*p[0-9]*) continue ;; esac
     echo -n "$dev: "
     sudo nvme smart-log "$dev" 2>/dev/null | grep -E 'critical_warning|temperature|media_errors|num_err_log_entries|available_spare' | tr '\\n' ' '
     echo ""
@@ -656,14 +739,14 @@ echo "=========================================================="
 
     // Copy script actions
     document.getElementById('copy-triage-raw-btn').addEventListener('click', () => {
-      navigator.clipboard.writeText(TRIAGE_SCRIPT);
+      copyVerbatim(TRIAGE_SCRIPT);
       showGlobalToast('Copied raw Triage Shell Script to clipboard!');
     });
 
     document.getElementById('copy-triage-script-btn').addEventListener('click', () => {
       const b64 = btoa(unescape(encodeURIComponent(TRIAGE_SCRIPT)));
       const oneLiner = `echo "${b64}" | base64 -d | bash`;
-      navigator.clipboard.writeText(oneLiner);
+      copyVerbatim(oneLiner);
       showGlobalToast('Copied base64 Triage One-Liner to clipboard!');
     });
 
@@ -675,7 +758,7 @@ echo "=========================================================="
 
     document.getElementById('copy-rma-ticket-btn').addEventListener('click', () => {
       const text = document.getElementById('rma-preview-text').textContent;
-      navigator.clipboard.writeText(text);
+      copyVerbatim(text);
       showGlobalToast('Copied RMA Ticket Markdown to clipboard!');
     });
 
@@ -725,7 +808,8 @@ ${log}
   // 4. HEADER INJECTIONS (Search All & Triage Buttons)
   // -------------------------------------------------------------
   function injectHeaderControls() {
-    const actions = document.querySelector('.header-actions');
+    // Older page layouts keep these buttons in the filter bar instead of the header.
+    const actions = document.querySelector('.header-actions, .filter-actions');
     if (!actions) return;
 
     if (!document.getElementById('global-search-btn')) {
@@ -767,7 +851,7 @@ ${log}
       }
     }
 
-    if (!document.getElementById('portable-link-btn') && !window.location.pathname.endsWith('datacenter-cheatsheet-portable.html')) {
+    if (!document.getElementById('portable-link-btn') && !window.PORTABLE_SHEETS) {
       const portBtn = document.createElement('a');
       portBtn.id = 'portable-link-btn';
       portBtn.href = 'datacenter-cheatsheet-portable.html';

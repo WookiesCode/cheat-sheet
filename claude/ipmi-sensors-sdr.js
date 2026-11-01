@@ -10,7 +10,7 @@ const IPMI_IPMI_SENSORS_SDR_DATA = [
       {
         "id": "ipmi-sdr-elist-types",
         "desc": "Read all Sensor Data Repository (SDR) entries or filter specifically by Temperature, Fan, or Power Supply",
-        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" sdr elist full   |   ... sdr type Temperature   |   ... sdr type Fan   |   ... sdr type \"Power Supply\"",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sdr elist full   |   ... sdr type Temperature   |   ... sdr type Fan   |   ... sdr type \"Power Supply\"",
         "details": "",
         "flags": [
           [
@@ -49,7 +49,7 @@ const IPMI_IPMI_SENSORS_SDR_DATA = [
       {
         "id": "ipmi-dcmi-power-reading",
         "desc": "Read real-time server power consumption (Watts), min/max/avg power, and thermal status via DCMI",
-        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" dcmi power reading   |   ... dcmi power get_limit",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E dcmi power reading   |   ... dcmi power get_limit",
         "details": "",
         "flags": [
           [
@@ -87,7 +87,7 @@ const IPMI_IPMI_SENSORS_SDR_DATA = [
       {
         "id": "ipmi-sensor-thresholds",
         "desc": "Inspect lower/upper non-critical, critical, and non-recoverable thresholds for a specific sensor",
-        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" sensor get \"Inlet Temp\" \"FAN1\"",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sensor get \"Inlet Temp\" \"FAN1\"",
         "details": "",
         "flags": [
           [
@@ -124,7 +124,7 @@ const IPMI_IPMI_SENSORS_SDR_DATA = [
       {
         "id": "sensors-sdr-dcmi-tips-card",
         "desc": "Hardware Environmental Triage & Thermal Throttling Detection",
-        "cmd": "ipmitool -I lanplus -H $BMC_IP -U admin -P password sdr elist full",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sdr elist full",
         "details": "SDR elist full prints real-time analog sensor values (volts, amps, RPMs, Celsius) with sensor state (\"ok\", \"nc\", \"cr\"). DCMI (Data Center Management Interface) commands query calibrated high-frequency power meters to monitor instantaneous wattage and rolling averages.",
         "flags": [
           [
@@ -161,7 +161,7 @@ const state = {
   savedOnly: false,
   compact: localStorage.getItem("linux_cs_compact") === "1",
   theme: localStorage.getItem("linux_cs_theme") || "dark",
-  bookmarks: new Set(JSON.parse(localStorage.getItem("ipmi-sensors-sdr_bookmarks") || "[]"))
+  bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("ipmi-sensors-sdr_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
 
 // DOM Elements
@@ -586,12 +586,12 @@ function applyTheme(theme) {
   const moonIcon = document.getElementById("theme-icon-moon");
   if (theme === "light") {
     document.documentElement.setAttribute("data-theme", "light");
-    sunIcon.classList.add("hidden");
-    moonIcon.classList.remove("hidden");
+    sunIcon?.classList.add("hidden");
+    moonIcon?.classList.remove("hidden");
   } else {
-    document.documentElement.setAttribute("data-theme", "dark");
-    sunIcon.classList.remove("hidden");
-    moonIcon.classList.add("hidden");
+    document.documentElement.setAttribute("data-theme", theme);
+    sunIcon?.classList.remove("hidden");
+    moonIcon?.classList.add("hidden");
   }
 }
 

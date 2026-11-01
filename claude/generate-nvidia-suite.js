@@ -154,7 +154,7 @@ const PRO_TIPS = {
   'pcie-kernel-triage': {
     desc: 'Critical Xid error decoding, PCIe AER link errors & vendor RMA bug reports',
     cmd: 'dmesg -T | grep -E "NVRM: Xid|AER"   |   lspci -vvv -s <BUS_ID>   |   nvidia-bug-report.sh',
-    details: 'Xid errors are logged directly to dmesg. Xid 31 indicates page faults; Xid 43 indicates uncontained GPU stop; Xid 79 indicates GPU fallen off PCIe bus. Always generate nvidia-bug-report.sh before host reboot.',
+    details: 'Xid errors are logged directly to dmesg. Xid 31 indicates page faults; Xid 43 indicates the GPU stopped processing, usually an application fault; Xid 79 indicates GPU fallen off PCIe bus. Always generate nvidia-bug-report.sh before host reboot.',
     flags: [
       ['Xid 79', 'GPU fallen off PCIe bus: check PCIe auxiliary power cables, risers, or cold-plate torque'],
       ['Xid 45', 'Preemptive cleanup: GPU driver reset required due to hardware or memory fault'],
@@ -271,7 +271,7 @@ const state = {
   savedOnly: false,
   compact: localStorage.getItem("linux_cs_compact") === "1",
   theme: localStorage.getItem("linux_cs_theme") || "dark",
-  bookmarks: new Set(JSON.parse(localStorage.getItem("${fileKey}_bookmarks") || "[]"))
+  bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("${fileKey}_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
 
 // DOM References
@@ -688,12 +688,12 @@ function applyTheme(theme) {
   const moonIcon = document.getElementById("theme-icon-moon");
   if (theme === "light") {
     document.documentElement.setAttribute("data-theme", "light");
-    sunIcon.classList.add("hidden");
-    moonIcon.classList.remove("hidden");
+    sunIcon?.classList.add("hidden");
+    moonIcon?.classList.remove("hidden");
   } else {
-    document.documentElement.setAttribute("data-theme", "dark");
-    sunIcon.classList.remove("hidden");
-    moonIcon.classList.add("hidden");
+    document.documentElement.setAttribute("data-theme", theme);
+    sunIcon?.classList.remove("hidden");
+    moonIcon?.classList.add("hidden");
   }
 }
 
@@ -1077,7 +1077,8 @@ for (const sec of NVIDIA_CHEAT_SHEET_DATA) {
   const htmlPath = path.join(__dirname, `${cfg.file}.html`);
 
   fs.writeFileSync(jsPath, jsContent, 'utf8');
-  fs.writeFileSync(htmlPath, htmlContent, 'utf8');
+  // Existing pages are authoritative for header/nav chrome; only create missing ones.
+  if (!fs.existsSync(htmlPath)) fs.writeFileSync(htmlPath, htmlContent, 'utf8');
 
   console.log(`  + Created ${cfg.file}.html & ${cfg.file}.js (${cards.length} cards)`);
 }

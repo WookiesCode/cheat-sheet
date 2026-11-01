@@ -2,8 +2,8 @@
 // Total indexed items: 1930
 window.GLOBAL_SEARCH_INDEX = [
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "dmi",
     "id": "dmidecode-system-bios",
     "sec": "DMI / SMBIOS, FRU & Motherboard Inventory",
@@ -13,8 +13,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "dmidecode serial bios motherboard fru asset datacenter"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "dmi",
     "id": "dmidecode-system-bios",
     "sec": "DMI / SMBIOS, FRU & Motherboard Inventory",
@@ -24,8 +24,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "dmidecode serial bios motherboard fru asset datacenter"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "dmi",
     "id": "dmidecode-system-bios",
     "sec": "DMI / SMBIOS, FRU & Motherboard Inventory",
@@ -35,8 +35,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "dmidecode serial bios motherboard fru asset datacenter"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "dmi",
     "id": "dmidecode-system-bios",
     "sec": "DMI / SMBIOS, FRU & Motherboard Inventory",
@@ -46,8 +46,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "dmidecode serial bios motherboard fru asset datacenter"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "dmi",
     "id": "dmidecode-system-bios",
     "sec": "DMI / SMBIOS, FRU & Motherboard Inventory",
@@ -57,8 +57,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "dmidecode serial bios motherboard fru asset datacenter"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "dmi",
     "id": "dmidecode-memory-dimms",
     "sec": "DMI / SMBIOS, FRU & Motherboard Inventory",
@@ -68,8 +68,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "dimm ram memory ddr5 ddr4 slot part-number dmidecode"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "dmi",
     "id": "dmidecode-memory-dimms",
     "sec": "DMI / SMBIOS, FRU & Motherboard Inventory",
@@ -79,8 +79,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "dimm ram memory ddr5 ddr4 slot part-number dmidecode"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "dmi",
     "id": "dmidecode-memory-dimms",
     "sec": "DMI / SMBIOS, FRU & Motherboard Inventory",
@@ -90,8 +90,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "dimm ram memory ddr5 ddr4 slot part-number dmidecode"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "dmi",
     "id": "dmidecode-memory-dimms",
     "sec": "DMI / SMBIOS, FRU & Motherboard Inventory",
@@ -101,8 +101,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "dimm ram memory ddr5 ddr4 slot part-number dmidecode"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "dmi",
     "id": "dmidecode-psu-cpu",
     "sec": "DMI / SMBIOS, FRU & Motherboard Inventory",
@@ -112,8 +112,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "psu power-supply cpu socket dmidecode datacenter"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "dmi",
     "id": "dmidecode-psu-cpu",
     "sec": "DMI / SMBIOS, FRU & Motherboard Inventory",
@@ -123,8 +123,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "psu power-supply cpu socket dmidecode datacenter"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "dmi",
     "id": "dmidecode-psu-cpu",
     "sec": "DMI / SMBIOS, FRU & Motherboard Inventory",
@@ -134,8 +134,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "psu power-supply cpu socket dmidecode datacenter"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "dmi",
     "id": "lshw-hardware-tree",
     "sec": "DMI / SMBIOS, FRU & Motherboard Inventory",
@@ -145,8 +145,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "lshw inventory businfo unclaimed driver manifest"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "dmi",
     "id": "lshw-hardware-tree",
     "sec": "DMI / SMBIOS, FRU & Motherboard Inventory",
@@ -156,8 +156,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "lshw inventory businfo unclaimed driver manifest"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "dmi",
     "id": "lshw-hardware-tree",
     "sec": "DMI / SMBIOS, FRU & Motherboard Inventory",
@@ -167,8 +167,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "lshw inventory businfo unclaimed driver manifest"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "dmi",
     "id": "lshw-hardware-tree",
     "sec": "DMI / SMBIOS, FRU & Motherboard Inventory",
@@ -178,8 +178,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "lshw inventory businfo unclaimed driver manifest"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "pci",
     "id": "lspci-link-speed-width",
     "sec": "PCIe Bus, Link Speed/Width, CPU & NUMA Topology",
@@ -189,8 +189,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "lspci pcie lnksta lnkcap downgraded lanes gen4 gen5 riser"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "pci",
     "id": "lspci-link-speed-width",
     "sec": "PCIe Bus, Link Speed/Width, CPU & NUMA Topology",
@@ -200,8 +200,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "lspci pcie lnksta lnkcap downgraded lanes gen4 gen5 riser"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "pci",
     "id": "lspci-link-speed-width",
     "sec": "PCIe Bus, Link Speed/Width, CPU & NUMA Topology",
@@ -211,8 +211,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "lspci pcie lnksta lnkcap downgraded lanes gen4 gen5 riser"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "pci",
     "id": "lspci-link-speed-width",
     "sec": "PCIe Bus, Link Speed/Width, CPU & NUMA Topology",
@@ -222,8 +222,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "lspci pcie lnksta lnkcap downgraded lanes gen4 gen5 riser"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "pci",
     "id": "lspci-aer-rescan",
     "sec": "PCIe Bus, Link Speed/Width, CPU & NUMA Topology",
@@ -233,8 +233,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "aer pcie errors rescan hotplug tlp lspci"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "pci",
     "id": "lspci-aer-rescan",
     "sec": "PCIe Bus, Link Speed/Width, CPU & NUMA Topology",
@@ -244,8 +244,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "aer pcie errors rescan hotplug tlp lspci"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "pci",
     "id": "lspci-aer-rescan",
     "sec": "PCIe Bus, Link Speed/Width, CPU & NUMA Topology",
@@ -255,8 +255,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "aer pcie errors rescan hotplug tlp lspci"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "pci",
     "id": "lscpu-topology",
     "sec": "PCIe Bus, Link Speed/Width, CPU & NUMA Topology",
@@ -266,8 +266,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "lscpu cpu cores numa governor microcode smt"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "pci",
     "id": "lscpu-topology",
     "sec": "PCIe Bus, Link Speed/Width, CPU & NUMA Topology",
@@ -277,8 +277,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "lscpu cpu cores numa governor microcode smt"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "pci",
     "id": "lscpu-topology",
     "sec": "PCIe Bus, Link Speed/Width, CPU & NUMA Topology",
@@ -288,8 +288,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "lscpu cpu cores numa governor microcode smt"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "pci",
     "id": "lscpu-topology",
     "sec": "PCIe Bus, Link Speed/Width, CPU & NUMA Topology",
@@ -299,8 +299,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "lscpu cpu cores numa governor microcode smt"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "pci",
     "id": "numactl-topology",
     "sec": "PCIe Bus, Link Speed/Width, CPU & NUMA Topology",
@@ -310,8 +310,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "numa numactl numastat lstopo socket affinity latency"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "pci",
     "id": "numactl-topology",
     "sec": "PCIe Bus, Link Speed/Width, CPU & NUMA Topology",
@@ -321,8 +321,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "numa numactl numastat lstopo socket affinity latency"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "pci",
     "id": "numactl-topology",
     "sec": "PCIe Bus, Link Speed/Width, CPU & NUMA Topology",
@@ -332,8 +332,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "numa numactl numastat lstopo socket affinity latency"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "pci",
     "id": "numactl-topology",
     "sec": "PCIe Bus, Link Speed/Width, CPU & NUMA Topology",
@@ -343,8 +343,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "numa numactl numastat lstopo socket affinity latency"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "ecc",
     "id": "edac-dimm-errors",
     "sec": "ECC Memory, EDAC, MCE & Thermal Triage",
@@ -354,8 +354,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "ecc edac dimm memory-error ce ue ram"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "ecc",
     "id": "edac-dimm-errors",
     "sec": "ECC Memory, EDAC, MCE & Thermal Triage",
@@ -365,8 +365,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "ecc edac dimm memory-error ce ue ram"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "ecc",
     "id": "edac-dimm-errors",
     "sec": "ECC Memory, EDAC, MCE & Thermal Triage",
@@ -376,8 +376,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "ecc edac dimm memory-error ce ue ram"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "ecc",
     "id": "rasdaemon-mce-triage",
     "sec": "ECC Memory, EDAC, MCE & Thermal Triage",
@@ -387,8 +387,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "rasdaemon ras-mc-ctl mce mcelog apei ghes hardware-error"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "ecc",
     "id": "rasdaemon-mce-triage",
     "sec": "ECC Memory, EDAC, MCE & Thermal Triage",
@@ -398,8 +398,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "rasdaemon ras-mc-ctl mce mcelog apei ghes hardware-error"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "ecc",
     "id": "rasdaemon-mce-triage",
     "sec": "ECC Memory, EDAC, MCE & Thermal Triage",
@@ -409,8 +409,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "rasdaemon ras-mc-ctl mce mcelog apei ghes hardware-error"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "ecc",
     "id": "rasdaemon-mce-triage",
     "sec": "ECC Memory, EDAC, MCE & Thermal Triage",
@@ -420,8 +420,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "rasdaemon ras-mc-ctl mce mcelog apei ghes hardware-error"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "ecc",
     "id": "sensors-thermals",
     "sec": "ECC Memory, EDAC, MCE & Thermal Triage",
@@ -431,8 +431,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "sensors temperature thermal overheating throttling fan hwmon"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "ecc",
     "id": "sensors-thermals",
     "sec": "ECC Memory, EDAC, MCE & Thermal Triage",
@@ -442,8 +442,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "sensors temperature thermal overheating throttling fan hwmon"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "ecc",
     "id": "sensors-thermals",
     "sec": "ECC Memory, EDAC, MCE & Thermal Triage",
@@ -453,8 +453,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "sensors temperature thermal overheating throttling fan hwmon"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "ecc",
     "id": "turbostat-power-clocks",
     "sec": "ECC Memory, EDAC, MCE & Thermal Triage",
@@ -464,8 +464,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "turbostat power wattage mhz throttling smi msr"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "nvm",
     "id": "nvme-list-smart",
     "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
@@ -475,8 +475,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "nvme nvme-cli smart ssd wear endurance firmware"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "nvm",
     "id": "nvme-list-smart",
     "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
@@ -486,8 +486,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "nvme nvme-cli smart ssd wear endurance firmware"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "nvm",
     "id": "nvme-list-smart",
     "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
@@ -497,8 +497,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "nvme nvme-cli smart ssd wear endurance firmware"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "nvm",
     "id": "nvme-list-smart",
     "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
@@ -508,8 +508,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "nvme nvme-cli smart ssd wear endurance firmware"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "nvm",
     "id": "nvme-format-fw",
     "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
@@ -519,8 +519,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "nvme secure-erase format firmware 4kn blkdiscard wipe"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "nvm",
     "id": "nvme-format-fw",
     "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
@@ -530,8 +530,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "nvme secure-erase format firmware 4kn blkdiscard wipe"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "nvm",
     "id": "nvme-format-fw",
     "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
@@ -541,8 +541,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "nvme secure-erase format firmware 4kn blkdiscard wipe"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "nvm",
     "id": "nvme-format-fw",
     "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
@@ -552,8 +552,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "nvme secure-erase format firmware 4kn blkdiscard wipe"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "nvm",
     "id": "smartctl-disk-triage",
     "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
@@ -563,8 +563,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "smartctl smart sata sas hdd ssd megaraid defects"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "nvm",
     "id": "smartctl-disk-triage",
     "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
@@ -574,8 +574,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "smartctl smart sata sas hdd ssd megaraid defects"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "nvm",
     "id": "smartctl-disk-triage",
     "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
@@ -585,8 +585,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "smartctl smart sata sas hdd ssd megaraid defects"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "nvm",
     "id": "smartctl-disk-triage",
     "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
@@ -596,8 +596,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "smartctl smart sata sas hdd ssd megaraid defects"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "nvm",
     "id": "mdadm-raid-ops",
     "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
@@ -607,8 +607,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "mdadm raid mdstat degraded rebuild hotswap"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "nvm",
     "id": "mdadm-raid-ops",
     "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
@@ -618,8 +618,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "mdadm raid mdstat degraded rebuild hotswap"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "nvm",
     "id": "mdadm-raid-ops",
     "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
@@ -629,8 +629,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "mdadm raid mdstat degraded rebuild hotswap"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "nvm",
     "id": "mdadm-raid-ops",
     "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
@@ -640,8 +640,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "mdadm raid mdstat degraded rebuild hotswap"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "nvm",
     "id": "mdadm-raid-ops",
     "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
@@ -651,8 +651,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "mdadm raid mdstat degraded rebuild hotswap"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "nvm",
     "id": "ledctl-lsscsi-multipath",
     "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
@@ -662,8 +662,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "ledctl lsscsi multipath backplane led hotswap sas"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "nvm",
     "id": "ledctl-lsscsi-multipath",
     "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
@@ -673,8 +673,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "ledctl lsscsi multipath backplane led hotswap sas"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "nvm",
     "id": "ledctl-lsscsi-multipath",
     "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
@@ -684,8 +684,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "ledctl lsscsi multipath backplane led hotswap sas"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "krn",
     "id": "lsmod-modinfo-modprobe",
     "sec": "Kernel Modules, GRUB, Serial Console & Burn-in",
@@ -695,8 +695,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "lsmod modinfo modprobe dkms driver kernel-module"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "krn",
     "id": "lsmod-modinfo-modprobe",
     "sec": "Kernel Modules, GRUB, Serial Console & Burn-in",
@@ -706,8 +706,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "lsmod modinfo modprobe dkms driver kernel-module"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "krn",
     "id": "lsmod-modinfo-modprobe",
     "sec": "Kernel Modules, GRUB, Serial Console & Burn-in",
@@ -717,8 +717,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "lsmod modinfo modprobe dkms driver kernel-module"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "krn",
     "id": "lsmod-modinfo-modprobe",
     "sec": "Kernel Modules, GRUB, Serial Console & Burn-in",
@@ -728,8 +728,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "lsmod modinfo modprobe dkms driver kernel-module"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "krn",
     "id": "grub-serial-initramfs",
     "sec": "Kernel Modules, GRUB, Serial Console & Burn-in",
@@ -739,8 +739,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "grub cmdline serial ttys0 sol initramfs boot"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "krn",
     "id": "grub-serial-initramfs",
     "sec": "Kernel Modules, GRUB, Serial Console & Burn-in",
@@ -750,8 +750,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "grub cmdline serial ttys0 sol initramfs boot"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "krn",
     "id": "grub-serial-initramfs",
     "sec": "Kernel Modules, GRUB, Serial Console & Burn-in",
@@ -761,8 +761,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "grub cmdline serial ttys0 sol initramfs boot"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "krn",
     "id": "grub-serial-initramfs",
     "sec": "Kernel Modules, GRUB, Serial Console & Burn-in",
@@ -772,8 +772,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "grub cmdline serial ttys0 sol initramfs boot"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "krn",
     "id": "coredumpctl-kdump",
     "sec": "Kernel Modules, GRUB, Serial Console & Burn-in",
@@ -783,8 +783,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "coredumpctl kdump crash panic segfault vmcore"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "krn",
     "id": "coredumpctl-kdump",
     "sec": "Kernel Modules, GRUB, Serial Console & Burn-in",
@@ -794,8 +794,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "coredumpctl kdump crash panic segfault vmcore"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "krn",
     "id": "coredumpctl-kdump",
     "sec": "Kernel Modules, GRUB, Serial Console & Burn-in",
@@ -805,8 +805,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "coredumpctl kdump crash panic segfault vmcore"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "krn",
     "id": "stress-fio-burnin",
     "sec": "Kernel Modules, GRUB, Serial Console & Burn-in",
@@ -816,8 +816,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "stress-ng fio iperf3 burnin benchmark iops testing"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "krn",
     "id": "stress-fio-burnin",
     "sec": "Kernel Modules, GRUB, Serial Console & Burn-in",
@@ -827,8 +827,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "stress-ng fio iperf3 burnin benchmark iops testing"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "krn",
     "id": "stress-fio-burnin",
     "sec": "Kernel Modules, GRUB, Serial Console & Burn-in",
@@ -838,8 +838,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "stress-ng fio iperf3 burnin benchmark iops testing"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "fs",
     "id": "ls-lah",
     "sec": "Files & Directories",
@@ -849,8 +849,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "list directory hidden size recent modified"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "fs",
     "id": "ls-lah",
     "sec": "Files & Directories",
@@ -860,8 +860,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "list directory hidden size recent modified"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "fs",
     "id": "ls-lah",
     "sec": "Files & Directories",
@@ -871,8 +871,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "list directory hidden size recent modified"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "fs",
     "id": "ls-lah",
     "sec": "Files & Directories",
@@ -882,8 +882,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "list directory hidden size recent modified"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "fs",
     "id": "find-mtime-size",
     "sec": "Files & Directories",
@@ -893,8 +893,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "search find recent logs large big cleanup space"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "fs",
     "id": "find-mtime-size",
     "sec": "Files & Directories",
@@ -904,8 +904,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "search find recent logs large big cleanup space"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "fs",
     "id": "find-mtime-size",
     "sec": "Files & Directories",
@@ -915,8 +915,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "search find recent logs large big cleanup space"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "fs",
     "id": "mkdir-cp-ln",
     "sec": "Files & Directories",
@@ -926,8 +926,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "mkdir cp symlink ln stat readlink atomic"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "fs",
     "id": "mkdir-cp-ln",
     "sec": "Files & Directories",
@@ -937,8 +937,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "mkdir cp symlink ln stat readlink atomic"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "fs",
     "id": "mkdir-cp-ln",
     "sec": "Files & Directories",
@@ -948,8 +948,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "mkdir cp symlink ln stat readlink atomic"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "fs",
     "id": "rsync-mirror",
     "sec": "Files & Directories",
@@ -959,8 +959,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "sync backup remote transfer rsync mirror"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "fs",
     "id": "rsync-mirror",
     "sec": "Files & Directories",
@@ -970,8 +970,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "sync backup remote transfer rsync mirror"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "fs",
     "id": "rsync-mirror",
     "sec": "Files & Directories",
@@ -981,8 +981,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "sync backup remote transfer rsync mirror"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "perm",
     "id": "chmod-dirs-files",
     "sec": "Permissions, Ownership & ACLs",
@@ -992,8 +992,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "chmod web recursive permissions ssh"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "perm",
     "id": "chmod-dirs-files",
     "sec": "Permissions, Ownership & ACLs",
@@ -1003,8 +1003,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "chmod web recursive permissions ssh"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "perm",
     "id": "chmod-dirs-files",
     "sec": "Permissions, Ownership & ACLs",
@@ -1014,8 +1014,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "chmod web recursive permissions ssh"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "perm",
     "id": "chown-setgid",
     "sec": "Permissions, Ownership & ACLs",
@@ -1025,8 +1025,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "owner group chown setgid sgid sticky"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "perm",
     "id": "chown-setgid",
     "sec": "Permissions, Ownership & ACLs",
@@ -1036,8 +1036,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "owner group chown setgid sgid sticky"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "perm",
     "id": "setfacl-chattr",
     "sec": "Permissions, Ownership & ACLs",
@@ -1047,8 +1047,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "acl getfacl setfacl chattr lsattr immutable"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "perm",
     "id": "setfacl-chattr",
     "sec": "Permissions, Ownership & ACLs",
@@ -1058,8 +1058,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "acl getfacl setfacl chattr lsattr immutable"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "perm",
     "id": "setfacl-chattr",
     "sec": "Permissions, Ownership & ACLs",
@@ -1069,8 +1069,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "acl getfacl setfacl chattr lsattr immutable"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "txt",
     "id": "grep-recursive-logs",
     "sec": "Text Processing, Log Triage & Streams",
@@ -1080,8 +1080,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "search regex logs grep zgrep config"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "txt",
     "id": "grep-recursive-logs",
     "sec": "Text Processing, Log Triage & Streams",
@@ -1091,8 +1091,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "search regex logs grep zgrep config"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "txt",
     "id": "grep-recursive-logs",
     "sec": "Text Processing, Log Triage & Streams",
@@ -1102,8 +1102,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "search regex logs grep zgrep config"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "txt",
     "id": "grep-recursive-logs",
     "sec": "Text Processing, Log Triage & Streams",
@@ -1113,8 +1113,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "search regex logs grep zgrep config"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "txt",
     "id": "awk-sed-pipelines",
     "sec": "Text Processing, Log Triage & Streams",
@@ -1124,8 +1124,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "awk sed sort uniq column logs replace"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "txt",
     "id": "awk-sed-pipelines",
     "sec": "Text Processing, Log Triage & Streams",
@@ -1135,8 +1135,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "awk sed sort uniq column logs replace"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "txt",
     "id": "awk-sed-pipelines",
     "sec": "Text Processing, Log Triage & Streams",
@@ -1146,8 +1146,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "awk sed sort uniq column logs replace"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "txt",
     "id": "awk-sed-pipelines",
     "sec": "Text Processing, Log Triage & Streams",
@@ -1157,8 +1157,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "awk sed sort uniq column logs replace"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "txt",
     "id": "tail-jq-streams",
     "sec": "Text Processing, Log Triage & Streams",
@@ -1168,8 +1168,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "tail jq json logs diff stream"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "txt",
     "id": "tail-jq-streams",
     "sec": "Text Processing, Log Triage & Streams",
@@ -1179,8 +1179,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "tail jq json logs diff stream"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "txt",
     "id": "tail-jq-streams",
     "sec": "Text Processing, Log Triage & Streams",
@@ -1190,8 +1190,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "tail jq json logs diff stream"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "proc",
     "id": "ps-top-cpu-mem",
     "sec": "Processes, Signals, Open Files & Performance",
@@ -1201,8 +1201,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "ps memory cpu rss zombie tree pgrep pkill"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "proc",
     "id": "ps-top-cpu-mem",
     "sec": "Processes, Signals, Open Files & Performance",
@@ -1212,8 +1212,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "ps memory cpu rss zombie tree pgrep pkill"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "proc",
     "id": "ps-top-cpu-mem",
     "sec": "Processes, Signals, Open Files & Performance",
@@ -1223,8 +1223,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "ps memory cpu rss zombie tree pgrep pkill"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "proc",
     "id": "lsof-deleted-proc",
     "sec": "Processes, Signals, Open Files & Performance",
@@ -1234,8 +1234,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "lsof deleted disk-full fd proc"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "proc",
     "id": "lsof-deleted-proc",
     "sec": "Processes, Signals, Open Files & Performance",
@@ -1245,8 +1245,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "lsof deleted disk-full fd proc"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "proc",
     "id": "lsof-deleted-proc",
     "sec": "Processes, Signals, Open Files & Performance",
@@ -1256,8 +1256,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "lsof deleted disk-full fd proc"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "proc",
     "id": "free-vmstat-iostat",
     "sec": "Processes, Signals, Open Files & Performance",
@@ -1267,8 +1267,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "free iostat vmstat pidstat sysstat iowait ram latency"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "proc",
     "id": "free-vmstat-iostat",
     "sec": "Processes, Signals, Open Files & Performance",
@@ -1278,8 +1278,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "free iostat vmstat pidstat sysstat iowait ram latency"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "proc",
     "id": "free-vmstat-iostat",
     "sec": "Processes, Signals, Open Files & Performance",
@@ -1289,8 +1289,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "free iostat vmstat pidstat sysstat iowait ram latency"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "proc",
     "id": "strace-oom-debug",
     "sec": "Processes, Signals, Open Files & Performance",
@@ -1300,8 +1300,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "strace syscall hang debug oom oom-killer"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "proc",
     "id": "strace-oom-debug",
     "sec": "Processes, Signals, Open Files & Performance",
@@ -1311,8 +1311,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "strace syscall hang debug oom oom-killer"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "proc",
     "id": "strace-oom-debug",
     "sec": "Processes, Signals, Open Files & Performance",
@@ -1322,8 +1322,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "strace syscall hang debug oom oom-killer"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "net",
     "id": "ss-listening-conns",
     "sec": "Networking, Sockets, DNS, UFW & SSH",
@@ -1333,8 +1333,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "ports listen open netstat socket ss lsof"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "net",
     "id": "ss-listening-conns",
     "sec": "Networking, Sockets, DNS, UFW & SSH",
@@ -1344,8 +1344,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "ports listen open netstat socket ss lsof"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "net",
     "id": "ss-listening-conns",
     "sec": "Networking, Sockets, DNS, UFW & SSH",
@@ -1355,8 +1355,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "ports listen open netstat socket ss lsof"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "net",
     "id": "ss-listening-conns",
     "sec": "Networking, Sockets, DNS, UFW & SSH",
@@ -1366,8 +1366,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "ports listen open netstat socket ss lsof"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "net",
     "id": "iproute2-interfaces-routes",
     "sec": "Networking, Sockets, DNS, UFW & SSH",
@@ -1377,8 +1377,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "ip ipv6 interface nic gateway route ndp arp mtu"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "net",
     "id": "iproute2-interfaces-routes",
     "sec": "Networking, Sockets, DNS, UFW & SSH",
@@ -1388,8 +1388,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "ip ipv6 interface nic gateway route ndp arp mtu"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "net",
     "id": "iproute2-interfaces-routes",
     "sec": "Networking, Sockets, DNS, UFW & SSH",
@@ -1399,8 +1399,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "ip ipv6 interface nic gateway route ndp arp mtu"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "net",
     "id": "iproute2-interfaces-routes",
     "sec": "Networking, Sockets, DNS, UFW & SSH",
@@ -1410,8 +1410,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "ip ipv6 interface nic gateway route ndp arp mtu"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "net",
     "id": "dig-curl-diagnostics",
     "sec": "Networking, Sockets, DNS, UFW & SSH",
@@ -1421,8 +1421,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "dns ipv6 aaaa dig curl http tls ssl certificate netcat"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "net",
     "id": "dig-curl-diagnostics",
     "sec": "Networking, Sockets, DNS, UFW & SSH",
@@ -1432,8 +1432,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "dns ipv6 aaaa dig curl http tls ssl certificate netcat"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "net",
     "id": "dig-curl-diagnostics",
     "sec": "Networking, Sockets, DNS, UFW & SSH",
@@ -1443,8 +1443,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "dns ipv6 aaaa dig curl http tls ssl certificate netcat"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "net",
     "id": "dig-curl-diagnostics",
     "sec": "Networking, Sockets, DNS, UFW & SSH",
@@ -1454,8 +1454,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "dns ipv6 aaaa dig curl http tls ssl certificate netcat"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "net",
     "id": "tcpdump-ufw-ssh",
     "sec": "Networking, Sockets, DNS, UFW & SSH",
@@ -1465,8 +1465,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "tcpdump ipv6 icmp6 pcap ufw firewall ssh tunnel mtr traceroute"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "net",
     "id": "tcpdump-ufw-ssh",
     "sec": "Networking, Sockets, DNS, UFW & SSH",
@@ -1476,8 +1476,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "tcpdump ipv6 icmp6 pcap ufw firewall ssh tunnel mtr traceroute"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "net",
     "id": "tcpdump-ufw-ssh",
     "sec": "Networking, Sockets, DNS, UFW & SSH",
@@ -1487,8 +1487,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "tcpdump ipv6 icmp6 pcap ufw firewall ssh tunnel mtr traceroute"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "net",
     "id": "tcpdump-ufw-ssh",
     "sec": "Networking, Sockets, DNS, UFW & SSH",
@@ -1498,8 +1498,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "tcpdump ipv6 icmp6 pcap ufw firewall ssh tunnel mtr traceroute"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "dsk",
     "id": "df-du-space",
     "sec": "Filesystems, Partitions, LVM & Mounts",
@@ -1509,8 +1509,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "space free partition mount inodes du ncdu"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "dsk",
     "id": "df-du-space",
     "sec": "Filesystems, Partitions, LVM & Mounts",
@@ -1520,8 +1520,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "space free partition mount inodes du ncdu"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "dsk",
     "id": "df-du-space",
     "sec": "Filesystems, Partitions, LVM & Mounts",
@@ -1531,8 +1531,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "space free partition mount inodes du ncdu"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "dsk",
     "id": "df-du-space",
     "sec": "Filesystems, Partitions, LVM & Mounts",
@@ -1542,8 +1542,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "space free partition mount inodes du ncdu"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "dsk",
     "id": "df-du-space",
     "sec": "Filesystems, Partitions, LVM & Mounts",
@@ -1553,8 +1553,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "space free partition mount inodes du ncdu"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "dsk",
     "id": "lsblk-blkid-fstab",
     "sec": "Filesystems, Partitions, LVM & Mounts",
@@ -1564,8 +1564,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "lsblk blkid uuid fstab findmnt mount"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "dsk",
     "id": "lsblk-blkid-fstab",
     "sec": "Filesystems, Partitions, LVM & Mounts",
@@ -1575,8 +1575,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "lsblk blkid uuid fstab findmnt mount"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "dsk",
     "id": "lsblk-blkid-fstab",
     "sec": "Filesystems, Partitions, LVM & Mounts",
@@ -1586,8 +1586,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "lsblk blkid uuid fstab findmnt mount"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "dsk",
     "id": "lsblk-blkid-fstab",
     "sec": "Filesystems, Partitions, LVM & Mounts",
@@ -1597,8 +1597,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "lsblk blkid uuid fstab findmnt mount"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "dsk",
     "id": "lvm-resize-extend",
     "sec": "Filesystems, Partitions, LVM & Mounts",
@@ -1608,8 +1608,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "lvm lvextend vgs lvs pvs resize2fs xfs_growfs ubuntu-vg"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "dsk",
     "id": "lvm-resize-extend",
     "sec": "Filesystems, Partitions, LVM & Mounts",
@@ -1619,8 +1619,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "lvm lvextend vgs lvs pvs resize2fs xfs_growfs ubuntu-vg"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "dsk",
     "id": "lvm-resize-extend",
     "sec": "Filesystems, Partitions, LVM & Mounts",
@@ -1630,8 +1630,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "lvm lvextend vgs lvs pvs resize2fs xfs_growfs ubuntu-vg"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "dsk",
     "id": "dd-parted-fsck",
     "sec": "Filesystems, Partitions, LVM & Mounts",
@@ -1641,8 +1641,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "dd parted gpt mkfs ext4 iso usb"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "dsk",
     "id": "dd-parted-fsck",
     "sec": "Filesystems, Partitions, LVM & Mounts",
@@ -1652,8 +1652,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "dd parted gpt mkfs ext4 iso usb"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "dsk",
     "id": "dd-parted-fsck",
     "sec": "Filesystems, Partitions, LVM & Mounts",
@@ -1663,8 +1663,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "dd parted gpt mkfs ext4 iso usb"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "tar",
     "id": "tar-create-extract",
     "sec": "Archives, Compression & Checksums",
@@ -1674,8 +1674,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "tar compress extract zstd gzip backup"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "tar",
     "id": "tar-create-extract",
     "sec": "Archives, Compression & Checksums",
@@ -1685,8 +1685,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "tar compress extract zstd gzip backup"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "tar",
     "id": "tar-create-extract",
     "sec": "Archives, Compression & Checksums",
@@ -1696,8 +1696,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "tar compress extract zstd gzip backup"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "tar",
     "id": "tar-ssh-sha256",
     "sec": "Archives, Compression & Checksums",
@@ -1707,8 +1707,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "stream ssh remote-backup sha256sum checksum hash"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "tar",
     "id": "tar-ssh-sha256",
     "sec": "Archives, Compression & Checksums",
@@ -1718,8 +1718,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "stream ssh remote-backup sha256sum checksum hash"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "sys",
     "id": "systemctl-manage-units",
     "sec": "Systemd Services, Journald & Boot Analysis",
@@ -1729,8 +1729,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "systemctl service daemon failed timers systemd"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "sys",
     "id": "systemctl-manage-units",
     "sec": "Systemd Services, Journald & Boot Analysis",
@@ -1740,8 +1740,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "systemctl service daemon failed timers systemd"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "sys",
     "id": "systemctl-manage-units",
     "sec": "Systemd Services, Journald & Boot Analysis",
@@ -1751,8 +1751,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "systemctl service daemon failed timers systemd"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "sys",
     "id": "systemctl-manage-units",
     "sec": "Systemd Services, Journald & Boot Analysis",
@@ -1762,8 +1762,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "systemctl service daemon failed timers systemd"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "sys",
     "id": "systemctl-manage-units",
     "sec": "Systemd Services, Journald & Boot Analysis",
@@ -1773,8 +1773,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "systemctl service daemon failed timers systemd"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "sys",
     "id": "systemctl-manage-units",
     "sec": "Systemd Services, Journald & Boot Analysis",
@@ -1784,8 +1784,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "systemctl service daemon failed timers systemd"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "sys",
     "id": "journalctl-triage",
     "sec": "Systemd Services, Journald & Boot Analysis",
@@ -1795,8 +1795,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "journalctl logs boot crash errors systemd-analyze"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "sys",
     "id": "journalctl-triage",
     "sec": "Systemd Services, Journald & Boot Analysis",
@@ -1806,8 +1806,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "journalctl logs boot crash errors systemd-analyze"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "sys",
     "id": "journalctl-triage",
     "sec": "Systemd Services, Journald & Boot Analysis",
@@ -1817,8 +1817,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "journalctl logs boot crash errors systemd-analyze"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "sys",
     "id": "journalctl-triage",
     "sec": "Systemd Services, Journald & Boot Analysis",
@@ -1828,8 +1828,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "journalctl logs boot crash errors systemd-analyze"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "sys",
     "id": "journalctl-triage",
     "sec": "Systemd Services, Journald & Boot Analysis",
@@ -1839,8 +1839,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "journalctl logs boot crash errors systemd-analyze"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "usr",
     "id": "useradd-usermod-ubuntu",
     "sec": "Users, Groups, SSH Keys & Sudoers",
@@ -1850,8 +1850,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "useradd adduser usermod sudo ubuntu groups"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "usr",
     "id": "useradd-usermod-ubuntu",
     "sec": "Users, Groups, SSH Keys & Sudoers",
@@ -1861,8 +1861,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "useradd adduser usermod sudo ubuntu groups"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "usr",
     "id": "useradd-usermod-ubuntu",
     "sec": "Users, Groups, SSH Keys & Sudoers",
@@ -1872,8 +1872,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "useradd adduser usermod sudo ubuntu groups"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "usr",
     "id": "ssh-visudo-audit",
     "sec": "Users, Groups, SSH Keys & Sudoers",
@@ -1883,8 +1883,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "ssh-keygen visudo sudoers who last audit security"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "usr",
     "id": "ssh-visudo-audit",
     "sec": "Users, Groups, SSH Keys & Sudoers",
@@ -1894,8 +1894,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "ssh-keygen visudo sudoers who last audit security"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "usr",
     "id": "ssh-visudo-audit",
     "sec": "Users, Groups, SSH Keys & Sudoers",
@@ -1905,8 +1905,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "ssh-keygen visudo sudoers who last audit security"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "pkg",
     "id": "apt-update-upgrade",
     "sec": "Ubuntu APT, dpkg, Snap & Release Management",
@@ -1916,8 +1916,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "ubuntu debian apt upgrade cleanup apt-mark hold"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "pkg",
     "id": "apt-update-upgrade",
     "sec": "Ubuntu APT, dpkg, Snap & Release Management",
@@ -1927,8 +1927,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "ubuntu debian apt upgrade cleanup apt-mark hold"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "pkg",
     "id": "apt-update-upgrade",
     "sec": "Ubuntu APT, dpkg, Snap & Release Management",
@@ -1938,8 +1938,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "ubuntu debian apt upgrade cleanup apt-mark hold"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "pkg",
     "id": "apt-search-policy",
     "sec": "Ubuntu APT, dpkg, Snap & Release Management",
@@ -1949,8 +1949,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "apt search policy repo ppa version sources.list"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "pkg",
     "id": "apt-search-policy",
     "sec": "Ubuntu APT, dpkg, Snap & Release Management",
@@ -1960,8 +1960,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "apt search policy repo ppa version sources.list"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "pkg",
     "id": "apt-search-policy",
     "sec": "Ubuntu APT, dpkg, Snap & Release Management",
@@ -1971,8 +1971,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "apt search policy repo ppa version sources.list"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "pkg",
     "id": "dpkg-query-files",
     "sec": "Ubuntu APT, dpkg, Snap & Release Management",
@@ -1982,8 +1982,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "dpkg deb owns files ubuntu apt-file"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "pkg",
     "id": "dpkg-query-files",
     "sec": "Ubuntu APT, dpkg, Snap & Release Management",
@@ -1993,8 +1993,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "dpkg deb owns files ubuntu apt-file"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "pkg",
     "id": "dpkg-query-files",
     "sec": "Ubuntu APT, dpkg, Snap & Release Management",
@@ -2004,8 +2004,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "dpkg deb owns files ubuntu apt-file"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "pkg",
     "id": "dpkg-fix-needrestart",
     "sec": "Ubuntu APT, dpkg, Snap & Release Management",
@@ -2015,8 +2015,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "dpkg broken lock repair needrestart reboot-required"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "pkg",
     "id": "dpkg-fix-needrestart",
     "sec": "Ubuntu APT, dpkg, Snap & Release Management",
@@ -2026,8 +2026,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "dpkg broken lock repair needrestart reboot-required"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "pkg",
     "id": "dpkg-fix-needrestart",
     "sec": "Ubuntu APT, dpkg, Snap & Release Management",
@@ -2037,8 +2037,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "dpkg broken lock repair needrestart reboot-required"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "pkg",
     "id": "snap-ubuntu-release",
     "sec": "Ubuntu APT, dpkg, Snap & Release Management",
@@ -2048,8 +2048,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "snap ubuntu lsb_release hostnamectl dmesg livepatch"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "pkg",
     "id": "snap-ubuntu-release",
     "sec": "Ubuntu APT, dpkg, Snap & Release Management",
@@ -2059,8 +2059,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "snap ubuntu lsb_release hostnamectl dmesg livepatch"
   },
   {
-    "sName": "app",
-    "file": "app.html",
+    "sName": "linux",
+    "file": "index.html",
     "badge": "pkg",
     "id": "snap-ubuntu-release",
     "sec": "Ubuntu APT, dpkg, Snap & Release Management",
@@ -3516,7 +3516,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "jq",
     "id": "jq-transform-group-redfish",
     "sec": "jq — JSON Querying for Hardware, Network & BMC APIs",
-    "cmd": "curl -g -6 -sk -u root:pass \"https://[2001:db8:dc::bmc]/redfish/v1/Systems/1/Memory\" | jq -r '.Members[] | .[\"@odata.id\"]'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems/1/Memory\" | jq -r '.Members[] | .[\"@odata.id\"]'",
     "desc": "Filter Redfish BMC JSON responses over IPv6, sort/group arrays, and safely construct JSON payloads from bash variables",
     "tip": "",
     "tags": "jq redfish csv tsv sort_by group_by api"
@@ -8609,7 +8609,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "tip",
     "id": "bmc-lan-users-tips-card",
     "sec": "BMC Network & Users: Pro Tips & Best Practices",
-    "cmd": "ipmitool -I lanplus -H $BMC_IP -U admin -P password lan print 1",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E lan print 1",
     "desc": "BMC Out-of-Band Network Provisioning & Root Password Recovery",
     "tip": "Modern AI clusters use IPv6 link-local and static ULA addressing; query channel 1 using \"lan6 print 1\".",
     "tags": "bmc-lan-users tips pro ipmitool bmc best-practice"
@@ -8620,7 +8620,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "boot",
     "id": "ipmi-bootdev-uefi-pxe",
     "sec": "Boot Device Override: Force one-time UEFI PXE network boot on the next reboot and immediately power-cycle",
-    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" chassis bootdev pxe options=efiboot && ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" chassis power cycle",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis bootdev pxe options=efiboot && ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis power cycle",
     "desc": "Force one-time UEFI PXE network boot on the next reboot and immediately power-cycle",
     "tip": "Always include options=efiboot",
     "tags": "Boot Device Override ipmi ipmitool bmc hardware pxe bootdev efiboot uefi network reinstall"
@@ -8631,7 +8631,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "boot",
     "id": "ipmi-bootdev-bios-cdrom",
     "sec": "Boot Device Override: Boot directly into BIOS/UEFI Setup utility, Virtual CD-ROM ISO, or clear boot override",
-    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" chassis bootdev bios   |   ... chassis bootdev cdrom options=efiboot   |   ... chassis bootdev none",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis bootdev bios   |   ... chassis bootdev cdrom options=efiboot   |   ... chassis bootdev none",
     "desc": "Boot directly into BIOS/UEFI Setup utility, Virtual CD-ROM ISO, or clear boot override",
     "tip": "",
     "tags": "Boot Device Override ipmi ipmitool bmc hardware bios cdrom disk none bootdev setup"
@@ -8642,7 +8642,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "boot",
     "id": "ipmi-bootdev-bios-cdrom-flags-card",
     "sec": "Boot Device Override: Arguments & Parameters",
-    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" chassis bootdev bios   |   ... chassis bootdev cdrom options=efiboot   |   ... chassis bootdev none",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis bootdev bios   |   ... chassis bootdev cdrom options=efiboot   |   ... chassis bootdev none",
     "desc": "Options breakdown and parameter syntax for Boot directly into BIOS/UEFI Setup utility, Virtual CD-ROM ISO, or clear boot override",
     "tip": "",
     "tags": "Boot Device Override flags options syntax"
@@ -8653,7 +8653,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "boot",
     "id": "ipmi-bootparam-no-timeout",
     "sec": "Boot Device Override: Disable the IPMI 60-second boot flag watchdog timer so `bootdev` isn't cleared if reboot takes >60s",
-    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" chassis bootparam set bootflag force_pxe options=no-timeout",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis bootparam set bootflag force_pxe options=no-timeout",
     "desc": "Disable the IPMI 60-second boot flag watchdog timer so `bootdev` isn't cleared if reboot takes >60s",
     "tip": "",
     "tags": "Boot Device Override ipmi ipmitool bmc hardware bootparam timeout bootflag force_pxe"
@@ -8664,7 +8664,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "tip",
     "id": "boot-override-tips-card",
     "sec": "Boot Device Override: Pro Tips & Best Practices",
-    "cmd": "ipmitool -I lanplus -H $BMC_IP -U admin -P password chassis bootdev pxe options=efiboot",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis bootdev pxe options=efiboot",
     "desc": "Automated PXE Re-imaging & Boot Flag Persistence",
     "tip": "Always specify \"options=efiboot\" on modern UEFI servers to avoid legacy BIOS CSM boot failure.",
     "tags": "boot-override tips pro ipmitool bmc best-practice"
@@ -8675,7 +8675,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "pwr",
     "id": "ipmi-power-actions",
     "sec": "Chassis Power & UID: Check chassis power state or execute hard power off, cold power cycle, warm reset, or ACPI shutdown",
-    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" chassis power status   |   ... chassis power cycle   |   ... chassis power reset   |   ... chassis power soft",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis power status   |   ... chassis power cycle   |   ... chassis power reset   |   ... chassis power soft",
     "desc": "Check chassis power state or execute hard power off, cold power cycle, warm reset, or ACPI shutdown",
     "tip": "Prefer cycle over reset after BIOS/PCIe hangs",
     "tags": "Chassis Power & UID ipmi ipmitool bmc hardware power cycle reset soft on off status"
@@ -8686,7 +8686,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "pwr",
     "id": "ipmi-power-actions-flags-card",
     "sec": "Chassis Power & UID: Arguments & Parameters",
-    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" chassis power status   |   ... chassis power cycle   |   ... chassis power reset   |   ... chassis power soft",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis power status   |   ... chassis power cycle   |   ... chassis power reset   |   ... chassis power soft",
     "desc": "Options breakdown and parameter syntax for Check chassis power state or execute hard power off, cold power cycle, warm reset, or ACPI shutdown",
     "tip": "",
     "tags": "Chassis Power & UID flags options syntax"
@@ -8697,7 +8697,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "pwr",
     "id": "ipmi-chassis-status",
     "sec": "Chassis Power & UID: Inspect detailed chassis state: Last Power Event",
-    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" chassis status   |   ... chassis policy always-on",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis status   |   ... chassis policy always-on",
     "desc": "Inspect detailed chassis state: Last Power Event (AC failed, overload, thermal trip), power restore policy & intrusion",
     "tip": "Check 'Last Power Event' after unexpected reboot",
     "tags": "Chassis Power & UID ipmi ipmitool bmc hardware chassis status policy ac-failed overload fault"
@@ -8708,7 +8708,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "pwr",
     "id": "ipmi-chassis-identify-nmi",
     "sec": "Chassis Power & UID: Blink the physical blue Chassis UID Locator LED or pulse diagnostic NMI for kernel kdump",
-    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" chassis identify force   |   ... chassis identify 0   |   ... chassis power diag",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis identify force   |   ... chassis identify 0   |   ... chassis power diag",
     "desc": "Blink the physical blue Chassis UID Locator LED or pulse diagnostic NMI for kernel kdump",
     "tip": "",
     "tags": "Chassis Power & UID ipmi ipmitool bmc hardware identify uid led blink diag nmi kdump"
@@ -8719,7 +8719,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "tip",
     "id": "chassis-power-tips-card",
     "sec": "Chassis Power & UID: Pro Tips & Best Practices",
-    "cmd": "ipmitool -I lanplus -H $BMC_IP -U admin -P password chassis power status",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis power status",
     "desc": "Chassis Power Cycling & Hard Freeze Triage",
     "tip": "Run \"chassis status\" after unexpected node drops to inspect \"Last Power Event\" (e.g. AC failed, power overload, power interlock).",
     "tags": "chassis-power tips pro ipmitool bmc best-practice"
@@ -8730,7 +8730,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "fru",
     "id": "ipmi-fru-print",
     "sec": "FRU, BMC Reset & Watchdog: Dump Field Replaceable Unit",
-    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" fru print",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E fru print",
     "desc": "Dump Field Replaceable Unit (FRU) EEPROM data: Board/Chassis/Product part & serial numbers",
     "tip": "",
     "tags": "FRU, BMC Reset & Watchdog ipmi ipmitool bmc hardware fru serial part-number motherboard chassis inventory"
@@ -8741,7 +8741,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "fru",
     "id": "ipmi-mc-info-reset",
     "sec": "FRU, BMC Reset & Watchdog: Check BMC firmware version or perform a non-disruptive cold reset of the BMC processor",
-    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" mc info   |   ... mc reset cold   |   ... mc reset warm",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E mc info   |   ... mc reset cold   |   ... mc reset warm",
     "desc": "Check BMC firmware version or perform a non-disruptive cold reset of the BMC processor",
     "tip": "Fixes hung BMC web UI / Redfish",
     "tags": "FRU, BMC Reset & Watchdog ipmi ipmitool bmc hardware mc bmc reset cold firmware version"
@@ -8763,7 +8763,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "tip",
     "id": "fru-mc-watchdog-tips-card",
     "sec": "FRU, BMC Reset & Watchdog: Pro Tips & Best Practices",
-    "cmd": "ipmitool -I lanplus -H $BMC_IP -U admin -P password fru print",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E fru print",
     "desc": "Hardware Inventory Audit & BMC Health Maintenance",
     "tip": "Check \"mc watchdog get\" to verify hardware watchdog timer parameters; disable watchdog during prolonged debug sessions.",
     "tags": "fru-mc-watchdog tips pro ipmitool bmc best-practice"
@@ -8774,7 +8774,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "sel",
     "id": "ipmi-sel-elist",
     "sec": "SEL Logs & Faults: Display System Event Log cross-referenced with SDR sensor names for human-readable hardware triage",
-    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" sel elist   |   ... sel elist last 25",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sel elist   |   ... sel elist last 25",
     "desc": "Display System Event Log cross-referenced with SDR sensor names for human-readable hardware triage",
     "tip": "Always use 'sel elist' (not 'sel list')",
     "tags": "SEL Logs & Faults ipmi ipmitool bmc hardware sel elist logs events ecc pcie triage"
@@ -8785,7 +8785,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "sel",
     "id": "ipmi-sel-info-clear",
     "sec": "SEL Logs & Faults: Check SEL fullness percentage",
-    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" sel info   |   ... sel save sel_backup.log   |   ... sel clear",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sel info   |   ... sel save sel_backup.log   |   ... sel clear",
     "desc": "Check SEL fullness percentage (`Percent Used`), backup SEL to file, and clear the log",
     "tip": "",
     "tags": "SEL Logs & Faults ipmi ipmitool bmc hardware clear overflow save backup time sel"
@@ -8796,7 +8796,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "tip",
     "id": "sel-logs-tips-card",
     "sec": "SEL Logs & Faults: Pro Tips & Best Practices",
-    "cmd": "ipmitool -I lanplus -H $BMC_IP -U admin -P password sel elist",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sel elist",
     "desc": "Out-of-Band Hardware Event Triage & Post-Mortem Crash Analysis",
     "tip": "Back up SEL entries to a timestamped file before calling \"sel clear\", as cleared events cannot be recovered.",
     "tags": "sel-logs tips pro ipmitool bmc best-practice"
@@ -8807,7 +8807,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "sdr",
     "id": "ipmi-sdr-elist-types",
     "sec": "Sensors & DCMI Power: Read all Sensor Data Repository",
-    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" sdr elist full   |   ... sdr type Temperature   |   ... sdr type Fan   |   ... sdr type \"Power Supply\"",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sdr elist full   |   ... sdr type Temperature   |   ... sdr type Fan   |   ... sdr type \"Power Supply\"",
     "desc": "Read all Sensor Data Repository (SDR) entries or filter specifically by Temperature, Fan, or Power Supply",
     "tip": "sdr elist is much faster than sensor list",
     "tags": "Sensors & DCMI Power ipmi ipmitool bmc hardware sdr sensor temperature fan psu voltage elist"
@@ -8818,7 +8818,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "sdr",
     "id": "ipmi-dcmi-power-reading",
     "sec": "Sensors & DCMI Power: Read real-time server power consumption",
-    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" dcmi power reading   |   ... dcmi power get_limit",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E dcmi power reading   |   ... dcmi power get_limit",
     "desc": "Read real-time server power consumption (Watts), min/max/avg power, and thermal status via DCMI",
     "tip": "Works on almost all datacenter BMCs",
     "tags": "Sensors & DCMI Power ipmi ipmitool bmc hardware dcmi power watts consumption limit wattage"
@@ -8829,7 +8829,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "sdr",
     "id": "ipmi-sensor-thresholds",
     "sec": "Sensors & DCMI Power: Inspect lower/upper non-critical, critical, and non-recoverable thresholds for a specific sensor",
-    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" sensor get \"Inlet Temp\" \"FAN1\"",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sensor get \"Inlet Temp\" \"FAN1\"",
     "desc": "Inspect lower/upper non-critical, critical, and non-recoverable thresholds for a specific sensor",
     "tip": "",
     "tags": "Sensors & DCMI Power ipmi ipmitool bmc hardware thresholds critical inlet fan sensor"
@@ -8840,7 +8840,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "tip",
     "id": "sensors-sdr-dcmi-tips-card",
     "sec": "Sensors & DCMI Power: Pro Tips & Best Practices",
-    "cmd": "ipmitool -I lanplus -H $BMC_IP -U admin -P password sdr elist full",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sdr elist full",
     "desc": "Hardware Environmental Triage & Thermal Throttling Detection",
     "tip": "Filter SDR by sensor type using \"sdr type Temperature\" or \"sdr type Fan\" to cut through noisy SDR catalogs.",
     "tags": "sensors-sdr-dcmi tips pro ipmitool bmc best-practice"
@@ -8851,7 +8851,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "sol",
     "id": "ipmi-sol-activate",
     "sec": "SOL Serial Console: Connect to the server's live serial console",
-    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" -e @ sol activate",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E -e @ sol activate",
     "desc": "Connect to the server's live serial console (BIOS POST, GRUB, Linux ttyS0/ttyS1) over the network",
     "tip": "Use -e @ inside SSH sessions!",
     "tags": "SOL Serial Console ipmi ipmitool bmc hardware sol serial console activate escape ttys0 ttys1"
@@ -8862,7 +8862,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "sol",
     "id": "ipmi-sol-deactivate-info",
     "sec": "SOL Serial Console: Force-close a hung or active SOL session and inspect SOL baud rate configuration",
-    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" sol deactivate   |   ... sol info 1   |   ... sol set non-volatile-bit-rate 115.2 1",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sol deactivate   |   ... sol info 1   |   ... sol set non-volatile-bit-rate 115.2 1",
     "desc": "Force-close a hung or active SOL session and inspect SOL baud rate configuration",
     "tip": "",
     "tags": "SOL Serial Console ipmi ipmitool bmc hardware deactivate baud bitrate hung sol"
@@ -8873,7 +8873,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "tip",
     "id": "sol-console-tips-card",
     "sec": "SOL Serial Console: Pro Tips & Best Practices",
-    "cmd": "ipmitool -I lanplus -H $BMC_IP -U admin -P password sol activate",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sol activate",
     "desc": "Out-of-Band Serial Console Operations & Session Recovery",
     "tip": "To disconnect an active SOL session without killing the terminal, press Enter, then ~ (tilde), then . (period).",
     "tags": "sol-console tips pro ipmitool bmc best-practice"
@@ -8884,7 +8884,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "pwr",
     "id": "ipmi-power-actions",
     "sec": "Chassis Power, Status & UID Identify",
-    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" chassis power status   |   ... chassis power cycle   |   ... chassis power reset   |   ... chassis power soft",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis power status   |   ... chassis power cycle   |   ... chassis power reset   |   ... chassis power soft",
     "desc": "Check chassis power state or execute hard power off, cold power cycle, warm reset, or ACPI shutdown",
     "tip": "Prefer cycle over reset after BIOS/PCIe hangs",
     "tags": "power cycle reset soft on off status"
@@ -8895,7 +8895,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "pwr",
     "id": "ipmi-chassis-status",
     "sec": "Chassis Power, Status & UID Identify",
-    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" chassis status   |   ... chassis policy always-on",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis status   |   ... chassis policy always-on",
     "desc": "Inspect detailed chassis state: Last Power Event (AC failed, overload, thermal trip), power restore policy & intrusion",
     "tip": "Check 'Last Power Event' after unexpected reboot",
     "tags": "chassis status policy ac-failed overload fault"
@@ -8906,7 +8906,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "pwr",
     "id": "ipmi-chassis-identify-nmi",
     "sec": "Chassis Power, Status & UID Identify",
-    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" chassis identify force   |   ... chassis identify 0   |   ... chassis power diag",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis identify force   |   ... chassis identify 0   |   ... chassis power diag",
     "desc": "Blink the physical blue Chassis UID Locator LED or pulse diagnostic NMI for kernel kdump",
     "tip": "",
     "tags": "identify uid led blink diag nmi kdump"
@@ -8917,7 +8917,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "boot",
     "id": "ipmi-bootdev-uefi-pxe",
     "sec": "Boot Device Override (bootdev & bootparam)",
-    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" chassis bootdev pxe options=efiboot && ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" chassis power cycle",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis bootdev pxe options=efiboot && ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis power cycle",
     "desc": "Force one-time UEFI PXE network boot on the next reboot and immediately power-cycle",
     "tip": "Always include options=efiboot",
     "tags": "pxe bootdev efiboot uefi network reinstall"
@@ -8928,7 +8928,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "boot",
     "id": "ipmi-bootdev-bios-cdrom",
     "sec": "Boot Device Override (bootdev & bootparam)",
-    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" chassis bootdev bios   |   ... chassis bootdev cdrom options=efiboot   |   ... chassis bootdev none",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis bootdev bios   |   ... chassis bootdev cdrom options=efiboot   |   ... chassis bootdev none",
     "desc": "Boot directly into BIOS/UEFI Setup utility, Virtual CD-ROM ISO, or clear boot override",
     "tip": "",
     "tags": "bios cdrom disk none bootdev setup"
@@ -8939,7 +8939,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "boot",
     "id": "ipmi-bootparam-no-timeout",
     "sec": "Boot Device Override (bootdev & bootparam)",
-    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" chassis bootparam set bootflag force_pxe options=no-timeout",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis bootparam set bootflag force_pxe options=no-timeout",
     "desc": "Disable the IPMI 60-second boot flag watchdog timer so `bootdev` isn't cleared if reboot takes >60s",
     "tip": "",
     "tags": "bootparam timeout bootflag force_pxe"
@@ -8950,7 +8950,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "sdr",
     "id": "ipmi-sdr-elist-types",
     "sec": "Sensors, SDR, Fan Speeds & DCMI Wattage",
-    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" sdr elist full   |   ... sdr type Temperature   |   ... sdr type Fan   |   ... sdr type \"Power Supply\"",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sdr elist full   |   ... sdr type Temperature   |   ... sdr type Fan   |   ... sdr type \"Power Supply\"",
     "desc": "Read all Sensor Data Repository (SDR) entries or filter specifically by Temperature, Fan, or Power Supply",
     "tip": "sdr elist is much faster than sensor list",
     "tags": "sdr sensor temperature fan psu voltage elist"
@@ -8961,7 +8961,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "sdr",
     "id": "ipmi-dcmi-power-reading",
     "sec": "Sensors, SDR, Fan Speeds & DCMI Wattage",
-    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" dcmi power reading   |   ... dcmi power get_limit",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E dcmi power reading   |   ... dcmi power get_limit",
     "desc": "Read real-time server power consumption (Watts), min/max/avg power, and thermal status via DCMI",
     "tip": "Works on almost all datacenter BMCs",
     "tags": "dcmi power watts consumption limit wattage"
@@ -8972,7 +8972,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "sdr",
     "id": "ipmi-sensor-thresholds",
     "sec": "Sensors, SDR, Fan Speeds & DCMI Wattage",
-    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" sensor get \"Inlet Temp\" \"FAN1\"",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sensor get \"Inlet Temp\" \"FAN1\"",
     "desc": "Inspect lower/upper non-critical, critical, and non-recoverable thresholds for a specific sensor",
     "tip": "",
     "tags": "thresholds critical inlet fan sensor"
@@ -8983,7 +8983,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "sel",
     "id": "ipmi-sel-elist",
     "sec": "System Event Log (SEL) & Hardware Triage",
-    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" sel elist   |   ... sel elist last 25",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sel elist   |   ... sel elist last 25",
     "desc": "Display System Event Log cross-referenced with SDR sensor names for human-readable hardware triage",
     "tip": "Always use 'sel elist' (not 'sel list')",
     "tags": "sel elist logs events ecc pcie triage"
@@ -8994,7 +8994,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "sel",
     "id": "ipmi-sel-info-clear",
     "sec": "System Event Log (SEL) & Hardware Triage",
-    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" sel info   |   ... sel save sel_backup.log   |   ... sel clear",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sel info   |   ... sel save sel_backup.log   |   ... sel clear",
     "desc": "Check SEL fullness percentage (`Percent Used`), backup SEL to file, and clear the log",
     "tip": "",
     "tags": "clear overflow save backup time sel"
@@ -9005,7 +9005,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "sol",
     "id": "ipmi-sol-activate",
     "sec": "Serial-over-LAN (SOL) Console",
-    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" -e @ sol activate",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E -e @ sol activate",
     "desc": "Connect to the server's live serial console (BIOS POST, GRUB, Linux ttyS0/ttyS1) over the network",
     "tip": "Use -e @ inside SSH sessions!",
     "tags": "sol serial console activate escape ttys0 ttys1"
@@ -9016,7 +9016,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "sol",
     "id": "ipmi-sol-deactivate-info",
     "sec": "Serial-over-LAN (SOL) Console",
-    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" sol deactivate   |   ... sol info 1   |   ... sol set non-volatile-bit-rate 115.2 1",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sol deactivate   |   ... sol info 1   |   ... sol set non-volatile-bit-rate 115.2 1",
     "desc": "Force-close a hung or active SOL session and inspect SOL baud rate configuration",
     "tip": "",
     "tags": "deactivate baud bitrate hung sol"
@@ -9060,7 +9060,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "mc",
     "id": "ipmi-fru-print",
     "sec": "FRU Inventory, BMC Reset (mc) & Watchdog",
-    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" fru print",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E fru print",
     "desc": "Dump Field Replaceable Unit (FRU) EEPROM data: Board/Chassis/Product part & serial numbers",
     "tip": "",
     "tags": "fru serial part-number motherboard chassis inventory"
@@ -9071,7 +9071,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "mc",
     "id": "ipmi-mc-info-reset",
     "sec": "FRU Inventory, BMC Reset (mc) & Watchdog",
-    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" mc info   |   ... mc reset cold   |   ... mc reset warm",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E mc info   |   ... mc reset cold   |   ... mc reset warm",
     "desc": "Check BMC firmware version or perform a non-disruptive cold reset of the BMC processor",
     "tip": "Fixes hung BMC web UI / Redfish",
     "tags": "mc bmc reset cold firmware version"
@@ -9291,7 +9291,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "jq",
     "id": "jq-transform-group-redfish",
     "sec": "jq: Redfish BMC JSON responses over IPv6, sort/group",
-    "cmd": "curl -g -6 -sk -u root:pass \"https://[2001:db8:dc::bmc]/redfish/v1/Systems/1/Memory\" | jq -r '.Members[] | .[\"@odata.id\"]'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems/1/Memory\" | jq -r '.Members[] | .[\"@odata.id\"]'",
     "desc": "Filter Redfish BMC JSON responses over IPv6, sort/group arrays, and safely construct JSON payloads from bash variables",
     "tip": "",
     "tags": "jq redfish csv tsv sort_by group_by api"
@@ -10578,7 +10578,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "asus",
     "id": "asus-asmb-redfish-post",
     "sec": "ASUS Server Boards: Query live & historical POST codes remotely from an ASUS ASMB10 / ASMB11",
-    "cmd": "curl -g -6 -sk -u admin:'<Pass>' \"https://[2001:db8:dc:4::50]/redfish/v1/Systems/Self\" | jq '{PowerState, Status, BootProgress}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems/Self\" | jq '{PowerState, Status, BootProgress}'",
     "desc": "Query live & historical POST codes remotely from an ASUS ASMB10 / ASMB11 (ASPEED AST2600) BMC over IPv6",
     "tip": "ASUS ASMB11 Web GUI records the exact millisecond each 0x80 hex code changed!",
     "tags": "ASUS Server Boards motherboard post bios hardware asus asmb10 asmb11 redfish ipv6 post qcode megarac"
@@ -10611,7 +10611,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "tip",
     "id": "asus-server-board-tips-card",
     "sec": "ASUS Server Boards: Pro Tips & Best Practices",
-    "cmd": "ipmitool -I lanplus -H $BMC_IP -U admin -P admin raw 0x30 0x18",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E raw 0x30 0x18",
     "desc": "ASUS Server ASMB BMC Telemetry & Hardware Recovery Jumpers",
     "tip": "Query live ASUS Q-Codes over Redfish via /redfish/v1/Managers/1/Oem/Asus/PostCode without opening chassis.",
     "tags": "asus-server-board tips pro motherboard post best-practice"
@@ -10666,7 +10666,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "giga",
     "id": "gigabyte-bmc-post-snooping",
     "sec": "GIGABYTE Server Boards: Query GIGABYTE Server Management",
-    "cmd": "curl -g -6 -sk -u admin:'<Pass>' \"https://[2001:db8:dc:4::50]/redfish/v1/Systems/Self\" | jq '{PowerState, BootProgress}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems/Self\" | jq '{PowerState, BootProgress}'",
     "desc": "Query GIGABYTE Server Management (GSM / MegaRAC) BMC POST Snooping code over IPv6 Redfish or IPMI",
     "tip": "Newer GIGABYTE boards print the unique default BMC password on the serial sticker!",
     "tags": "GIGABYTE Server Boards motherboard post bios hardware gigabyte gsm bmc post snooping redfish ipv6 mz73 ms73 g492"
@@ -10699,7 +10699,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "tip",
     "id": "gigabyte-server-board-tips-card",
     "sec": "GIGABYTE Server Boards: Pro Tips & Best Practices",
-    "cmd": "ipmitool -I lanplus -H $BMC_IP -U admin -P password raw 0x32 0x8b",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E raw 0x32 0x8b",
     "desc": "GIGABYTE Dual-BIOS Switching & Remote Port 0x80 Snooping",
     "tip": "If BMC_RDY LED is solid amber or off, BMC power rail or SPI flash is unpowered; verify standby 3.3V rail.",
     "tags": "gigabyte-server-board tips pro motherboard post best-practice"
@@ -11084,7 +11084,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "ASUS SERVER",
     "id": "asus-asmb-redfish-post",
     "sec": "ASUS Server Boards (ASMB10 / ASMB11 BMC, Q-Code & Jumpers)",
-    "cmd": "curl -g -6 -sk -u admin:'<Pass>' \"https://[2001:db8:dc:4::50]/redfish/v1/Systems/Self\" | jq '{PowerState, Status, BootProgress}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems/Self\" | jq '{PowerState, Status, BootProgress}'",
     "desc": "Query live & historical POST codes remotely from an ASUS ASMB10 / ASMB11 (ASPEED AST2600) BMC over IPv6",
     "tip": "ASUS ASMB11 Web GUI records the exact millisecond each 0x80 hex code changed!",
     "tags": "asus asmb10 asmb11 redfish ipv6 post qcode megarac"
@@ -11106,7 +11106,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "GIGABYTE",
     "id": "gigabyte-bmc-post-snooping",
     "sec": "GIGABYTE Server Boards (GSM / AST2600 BMC, Dual-BIOS & Jumpers)",
-    "cmd": "curl -g -6 -sk -u admin:'<Pass>' \"https://[2001:db8:dc:4::50]/redfish/v1/Systems/Self\" | jq '{PowerState, BootProgress}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems/Self\" | jq '{PowerState, BootProgress}'",
     "desc": "Query GIGABYTE Server Management (GSM / MegaRAC) BMC POST Snooping code over IPv6 Redfish or IPMI",
     "tip": "Newer GIGABYTE boards print the unique default BMC password on the serial sticker!",
     "tags": "gigabyte gsm bmc post snooping redfish ipv6 mz73 ms73 g492"
@@ -14901,7 +14901,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "auth",
     "id": "rf-service-root-discover",
     "sec": "Discovery, Session Tokens & ETag Headers",
-    "cmd": "SYS_URI=$(curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Systems\" | jq -r '.Members[0].\"@odata.id\"') && echo \"$SYS_URI\"",
+    "cmd": "SYS_URI=$(curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems\" | jq -r '.Members[0].\"@odata.id\"') && echo \"$SYS_URI\"",
     "desc": "Query `/redfish/v1` ServiceRoot over IPv6 (`-g -6`) and dynamically discover System & Manager URIs",
     "tip": "Always pass -g to curl when using [IPv6] brackets!",
     "tags": "discover serviceroot systems uri members jq ipv6"
@@ -14912,7 +14912,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "auth",
     "id": "rf-session-token-create",
     "sec": "Discovery, Session Tokens & ETag Headers",
-    "cmd": "curl -g -6 -sk -D - -X POST \"https://[$BMC]/redfish/v1/SessionService/Sessions\" -H \"Content-Type: application/json\" -d \"{\\\"UserName\\\":\\\"$USER\\\",\\\"Password\\\":\\\"$PASS\\\"}\"",
+    "cmd": "curl -g -6 -sk -D - -X POST \"https://[$BMC]/redfish/v1/SessionService/Sessions\" -H \"Content-Type: application/json\" -d \"{\\\"UserName\\\":\\\"$BMC_USER\\\",\\\"Password\\\":\\\"$BMC_PASS\\\"}\"",
     "desc": "Create a Redfish Session Token (`X-Auth-Token`) to avoid slow Basic Auth hashing on every request",
     "tip": "10x faster than Basic Auth",
     "tags": "session token x-auth-token login auth delete"
@@ -14923,7 +14923,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "auth",
     "id": "rf-expand-query-param",
     "sec": "Discovery, Session Tokens & ETag Headers",
-    "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Systems/1/Memory?\\$expand=.(\\$levels=1)\" | jq '.Members[] | {Name, CapacityMiB, Manufacturer, SerialNumber, Status}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems/1/Memory?\\$expand=.(\\$levels=1)\" | jq '.Members[] | {Name, CapacityMiB, Manufacturer, SerialNumber, Status}'",
     "desc": "Use `$expand=.($levels=1)` to fetch an entire collection's child objects in a single HTTP call",
     "tip": "Avoids N+1 HTTP loop",
     "tags": "expand levels collection batch fast"
@@ -14934,7 +14934,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "pwr",
     "id": "rf-power-state-reset",
     "sec": "Chassis Power Control & Boot Overrides",
-    "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" -X POST \"https://[$BMC]/redfish/v1/Systems/1/Actions/ComputerSystem.Reset\" -H \"Content-Type: application/json\" -d '{\"ResetType\": \"PowerCycle\"}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc -X POST \"https://[$BMC]/redfish/v1/Systems/1/Actions/ComputerSystem.Reset\" -H \"Content-Type: application/json\" -d '{\"ResetType\": \"PowerCycle\"}'",
     "desc": "Check current server power state or execute `ComputerSystem.Reset` (On, ForceOff, ForceRestart, PowerCycle)",
     "tip": "",
     "tags": "power reset reboot powercycle forceoff on"
@@ -14945,7 +14945,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "pwr",
     "id": "rf-boot-override-pxe",
     "sec": "Chassis Power Control & Boot Overrides",
-    "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" -X PATCH \"https://[$BMC]/redfish/v1/Systems/1\" -H \"Content-Type: application/json\" -d '{\"Boot\": {\"BootSourceOverrideTarget\": \"Pxe\", \"BootSourceOverrideEnabled\": \"Once\", \"BootSourceOverrideMode\": \"UEFI\"}}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc -X PATCH \"https://[$BMC]/redfish/v1/Systems/1\" -H \"Content-Type: application/json\" -d '{\"Boot\": {\"BootSourceOverrideTarget\": \"Pxe\", \"BootSourceOverrideEnabled\": \"Once\", \"BootSourceOverrideMode\": \"UEFI\"}}'",
     "desc": "Set one-time UEFI PXE network boot on next restart (`BootSourceOverrideTarget: Pxe`)",
     "tip": "Follow with ForceRestart",
     "tags": "pxe boot uefi override once network"
@@ -14956,7 +14956,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "pwr",
     "id": "rf-boot-into-bios",
     "sec": "Chassis Power Control & Boot Overrides",
-    "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" -X PATCH \"https://[$BMC]/redfish/v1/Systems/1\" -H \"Content-Type: application/json\" -d '{\"Boot\": {\"BootSourceOverrideTarget\": \"BiosSetup\", \"BootSourceOverrideEnabled\": \"Once\"}}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc -X PATCH \"https://[$BMC]/redfish/v1/Systems/1\" -H \"Content-Type: application/json\" -d '{\"Boot\": {\"BootSourceOverrideTarget\": \"BiosSetup\", \"BootSourceOverrideEnabled\": \"Once\"}}'",
     "desc": "Force server to boot directly into UEFI/BIOS Setup utility on next reboot",
     "tip": "",
     "tags": "bios setup boot uefi"
@@ -14967,7 +14967,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "pwr",
     "id": "rf-trigger-nmi",
     "sec": "Chassis Power Control & Boot Overrides",
-    "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" -X POST \"https://[$BMC]/redfish/v1/Systems/1/Actions/ComputerSystem.Reset\" -H \"Content-Type: application/json\" -d '{\"ResetType\": \"Nmi\"}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc -X POST \"https://[$BMC]/redfish/v1/Systems/1/Actions/ComputerSystem.Reset\" -H \"Content-Type: application/json\" -d '{\"ResetType\": \"Nmi\"}'",
     "desc": "Send diagnostic Non-Maskable Interrupt (`Nmi`) to hung OS to trigger kernel kdump crash dump",
     "tip": "",
     "tags": "nmi kdump crash hang panic diagnostic"
@@ -14978,7 +14978,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "inv",
     "id": "rf-dimm-memory-health",
     "sec": "Hardware Inventory: CPU, Memory, Drives & PCIe",
-    "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Systems/1/Memory?\\$expand=.(\\$levels=1)\" | jq '.Members[] | select(.Status.State==\"Enabled\") | {Id, DeviceLocator, CapacityMiB, OperatingSpeedMhz, Manufacturer, PartNumber, SerialNumber, Health: .Status.Health}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems/1/Memory?\\$expand=.(\\$levels=1)\" | jq '.Members[] | select(.Status.State==\"Enabled\") | {Id, DeviceLocator, CapacityMiB, OperatingSpeedMhz, Manufacturer, PartNumber, SerialNumber, Health: .Status.Health}'",
     "desc": "Audit all populated RAM DIMM slots, capacity, speed, part/serial numbers, and ECC health status",
     "tip": "Pinpoints faulty DIMM slot label",
     "tags": "memory dimm ram serial ecc slot health"
@@ -14989,7 +14989,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "inv",
     "id": "rf-processors-cpu-gpu",
     "sec": "Hardware Inventory: CPU, Memory, Drives & PCIe",
-    "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Systems/1/Processors?\\$expand=.(\\$levels=1)\" | jq '.Members[] | {Id, ProcessorType, Model, TotalCores, TotalThreads, SerialNumber, Status}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems/1/Processors?\\$expand=.(\\$levels=1)\" | jq '.Members[] | {Id, ProcessorType, Model, TotalCores, TotalThreads, SerialNumber, Status}'",
     "desc": "Inspect all CPUs and baseboard GPUs (`ProcessorType: CPU` vs `Accelerator`) with core counts and health",
     "tip": "",
     "tags": "cpu gpu processors cores model serial"
@@ -15000,7 +15000,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "inv",
     "id": "rf-storage-nvme-drives",
     "sec": "Hardware Inventory: CPU, Memory, Drives & PCIe",
-    "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Systems/1/Storage?\\$expand=.(\\$levels=2)\" | jq '.Members[].Drives[]? | {Id, Name, Model, SerialNumber, CapacityBytes, MediaType, PredictedMediaLifeLeftPercent, Status}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems/1/Storage?\\$expand=.(\\$levels=2)\" | jq '.Members[].Drives[]? | {Id, Name, Model, SerialNumber, CapacityBytes, MediaType, PredictedMediaLifeLeftPercent, Status}'",
     "desc": "Inspect storage controllers, NVMe/SAS/SATA drive health, wear life remaining, and serial numbers",
     "tip": "",
     "tags": "storage nvme ssd drives smart wear raid"
@@ -15011,7 +15011,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "inv",
     "id": "rf-network-mac-addresses",
     "sec": "Hardware Inventory: CPU, Memory, Drives & PCIe",
-    "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Managers/1/EthernetInterfaces?\\$expand=.(\\$levels=1)\" | jq '.Members[] | {Id, MACAddress, IPv6DefaultGateway, IPv6Addresses}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Managers/1/EthernetInterfaces?\\$expand=.(\\$levels=1)\" | jq '.Members[] | {Id, MACAddress, IPv6DefaultGateway, IPv6Addresses}'",
     "desc": "Collect host & BMC NIC MAC addresses, IPv6 addresses, SLAAC/DHCPv6 state, and link status out-of-band",
     "tip": "Essential for zero-touch IPv6 PXE",
     "tags": "mac nic ethernet pxe ipv6 dhcpv6 slaac provisioning"
@@ -15022,7 +15022,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "sns",
     "id": "rf-chassis-thermal-temps-fans",
     "sec": "Thermals, Power Supplies, Fans & UID LED",
-    "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Chassis/1/Thermal\" | jq '{Temps: [.Temperatures[] | {Name, ReadingCelsius, UpperThresholdCritical, Health: .Status.Health}], Fans: [.Fans[] | {Name, Reading, ReadingUnits, Health: .Status.Health}]}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Chassis/1/Thermal\" | jq '{Temps: [.Temperatures[] | {Name, ReadingCelsius, UpperThresholdCritical, Health: .Status.Health}], Fans: [.Fans[] | {Name, Reading, ReadingUnits, Health: .Status.Health}]}'",
     "desc": "Read all Chassis temperature sensors (°C) and cooling fan speeds (RPM / %)",
     "tip": "",
     "tags": "thermal temperature fans rpm cooling inlet"
@@ -15033,7 +15033,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "sns",
     "id": "rf-chassis-power-psus",
     "sec": "Thermals, Power Supplies, Fans & UID LED",
-    "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Chassis/1/Power\" | jq '{PowerConsumedWatts: .PowerControl[0].PowerConsumedWatts, PSUs: [.PowerSupplies[] | {Name, Model, SerialNumber, PowerInputWatts, LineInputVoltage, Status}]}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Chassis/1/Power\" | jq '{PowerConsumedWatts: .PowerControl[0].PowerConsumedWatts, PSUs: [.PowerSupplies[] | {Name, Model, SerialNumber, PowerInputWatts, LineInputVoltage, Status}]}'",
     "desc": "Check live server power consumption (Watts), power cap, and redundant Power Supply (PSU) health",
     "tip": "Catches dead A/B PDU feeds",
     "tags": "power psu watts voltage redundant chassis"
@@ -15044,7 +15044,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "sns",
     "id": "rf-chassis-uid-led",
     "sec": "Thermals, Power Supplies, Fans & UID LED",
-    "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" -X PATCH \"https://[$BMC]/redfish/v1/Chassis/1\" -H \"Content-Type: application/json\" -d '{\"LocationIndicatorActive\": true}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc -X PATCH \"https://[$BMC]/redfish/v1/Chassis/1\" -H \"Content-Type: application/json\" -d '{\"LocationIndicatorActive\": true}'",
     "desc": "Turn on or blink the physical Chassis UID Locator LED to help datacenter techs find the server",
     "tip": "",
     "tags": "led uid identify locate blink chassis"
@@ -15055,7 +15055,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "log",
     "id": "rf-sel-entries-dump",
     "sec": "System Event Logs (SEL), Faults & ClearLog",
-    "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Managers/1/LogServices/Sel/Entries\" | jq -r '.Members[] | \"\\(.Created) [\\(.Severity)] \\(.Message)\"' | tail -n 30",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Managers/1/LogServices/Sel/Entries\" | jq -r '.Members[] | \"\\(.Created) [\\(.Severity)] \\(.Message)\"' | tail -n 30",
     "desc": "Fetch BMC System Event Log (SEL) entries and format timestamp, severity, and message",
     "tip": "",
     "tags": "sel logs events history lclog iml"
@@ -15066,7 +15066,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "log",
     "id": "rf-sel-filter-critical",
     "sec": "System Event Logs (SEL), Faults & ClearLog",
-    "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Managers/1/LogServices/Sel/Entries\" | jq '.Members[] | select(.Severity == \"Critical\" or .Severity == \"Warning\") | {Id, Created, Severity, Message, SensorType}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Managers/1/LogServices/Sel/Entries\" | jq '.Members[] | select(.Severity == \"Critical\" or .Severity == \"Warning\") | {Id, Created, Severity, Message, SensorType}'",
     "desc": "Filter SEL entries to show only `Critical` or `Warning` hardware assertions",
     "tip": "Fast root-cause triage",
     "tags": "critical warning faults filter triage"
@@ -15077,7 +15077,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "log",
     "id": "rf-sel-clear-log",
     "sec": "System Event Logs (SEL), Faults & ClearLog",
-    "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" -X POST \"https://[$BMC]/redfish/v1/Managers/1/LogServices/Sel/Actions/LogService.ClearLog\" -H \"Content-Type: application/json\" -d '{}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc -X POST \"https://[$BMC]/redfish/v1/Managers/1/LogServices/Sel/Actions/LogService.ClearLog\" -H \"Content-Type: application/json\" -d '{}'",
     "desc": "Clear all entries in the BMC System Event Log via `LogService.ClearLog` action",
     "tip": "",
     "tags": "clear sel reset logs"
@@ -15088,7 +15088,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "bmc",
     "id": "rf-bios-read-patch",
     "sec": "BIOS Settings, Virtual Media ISO & BMC Reset",
-    "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Systems/1/Bios\" | jq '.Attributes'   |   curl -g -6 -sk -u \"$USER:$PASS\" -X PATCH \"https://[$BMC]/redfish/v1/Systems/1/Bios/Settings\" -H \"Content-Type: application/json\" -d '{\"Attributes\": {\"SriovGlobalEnable\": \"Enabled\"}}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems/1/Bios\" | jq '.Attributes'   |   curl -g -6 -sk -K ~/.bmc-curlrc -X PATCH \"https://[$BMC]/redfish/v1/Systems/1/Bios/Settings\" -H \"Content-Type: application/json\" -d '{\"Attributes\": {\"SriovGlobalEnable\": \"Enabled\"}}'",
     "desc": "Inspect current BIOS attributes or stage pending BIOS settings for next server reboot",
     "tip": "PATCH goes to /Bios/Settings",
     "tags": "bios attributes settings sriov iommu patch"
@@ -15099,7 +15099,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "bmc",
     "id": "rf-virtual-media-mount",
     "sec": "BIOS Settings, Virtual Media ISO & BMC Reset",
-    "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" -X POST \"https://[$BMC]/redfish/v1/Managers/1/VirtualMedia/CD1/Actions/VirtualMedia.InsertMedia\" -H \"Content-Type: application/json\" -d '{\"Image\": \"http://[2001:db8:dc::5]:8000/ubuntu-24.04-live-server-amd64.iso\", \"Inserted\": true, \"WriteProtected\": true}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc -X POST \"https://[$BMC]/redfish/v1/Managers/1/VirtualMedia/CD1/Actions/VirtualMedia.InsertMedia\" -H \"Content-Type: application/json\" -d '{\"Image\": \"http://[2001:db8:dc::5]:8000/ubuntu-24.04-live-server-amd64.iso\", \"Inserted\": true, \"WriteProtected\": true}'",
     "desc": "Mount a remote OS installer ISO over IPv6 HTTP/HTTPS via BMC Virtual Media (`InsertMedia`)",
     "tip": "Pair with BootTarget: Cd",
     "tags": "virtualmedia iso mount cdrom install http"
@@ -15110,7 +15110,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "bmc",
     "id": "rf-bmc-manager-reset",
     "sec": "BIOS Settings, Virtual Media ISO & BMC Reset",
-    "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" -X POST \"https://[$BMC]/redfish/v1/Managers/1/Actions/Manager.Reset\" -H \"Content-Type: application/json\" -d '{\"ResetType\": \"GracefulRestart\"}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc -X POST \"https://[$BMC]/redfish/v1/Managers/1/Actions/Manager.Reset\" -H \"Content-Type: application/json\" -d '{\"ResetType\": \"GracefulRestart\"}'",
     "desc": "Reboot the Out-of-Band BMC controller itself without disrupting the running host OS",
     "tip": "",
     "tags": "bmc manager reset idrac ilo reboot"
@@ -15121,7 +15121,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "fw",
     "id": "rf-firmware-inventory",
     "sec": "Firmware Inventory, UpdateService & Tasks",
-    "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/UpdateService/FirmwareInventory?\\$expand=.(\\$levels=1)\" | jq '.Members[] | {Id, Name, Version, Updateable, Status}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/UpdateService/FirmwareInventory?\\$expand=.(\\$levels=1)\" | jq '.Members[] | {Id, Name, Version, Updateable, Status}'",
     "desc": "List all installed firmware components (BMC, BIOS, CPLD, PSU, NVMe, GPU, NIC) and versions",
     "tip": "",
     "tags": "firmware version bios bmc cpld inventory"
@@ -15132,7 +15132,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "fw",
     "id": "rf-firmware-multipart-push",
     "sec": "Firmware Inventory, UpdateService & Tasks",
-    "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" -X POST \"https://[$BMC]/redfish/v1/UpdateService/upload\" -F 'UpdateParameters={\"Targets\":[],\"@Redfish.OperationApplyTime\":\"OnReset\"};type=application/json' -F \"UpdateFile=@./firmware.fwpkg;type=application/octet-stream\"",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc -X POST \"https://[$BMC]/redfish/v1/UpdateService/upload\" -F 'UpdateParameters={\"Targets\":[],\"@Redfish.OperationApplyTime\":\"OnReset\"};type=application/json' -F \"UpdateFile=@./firmware.fwpkg;type=application/octet-stream\"",
     "desc": "Upload a local firmware bundle (`.bin` / `.fwpkg` / `.exe`) via Redfish `MultipartHttpPushUri`",
     "tip": "",
     "tags": "update flash upload multipart fwpkg updateservice"
@@ -15143,7 +15143,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "fw",
     "id": "rf-poll-task-service",
     "sec": "Firmware Inventory, UpdateService & Tasks",
-    "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/TaskService/Tasks/1\" | jq '{Id, Name, TaskState, PercentComplete, TaskStatus, Messages}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/TaskService/Tasks/1\" | jq '{Id, Name, TaskState, PercentComplete, TaskStatus, Messages}'",
     "desc": "Monitor progress percentage and status of asynchronous Redfish jobs (`TaskService`)",
     "tip": "",
     "tags": "task job progress async poll taskservice"
@@ -15154,7 +15154,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "HGX / DLC",
     "id": "rf-hgx-chassis-gpus",
     "sec": "HGX GPU Baseboard, NVSwitch & Liquid-Cooling Leak Sensors",
-    "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Chassis\" | jq '.Members[][\"@odata.id\"] | select(contains(\"HGX\"))' && curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Chassis/HGX_GPU_SXM_1\" | jq '{Id, PartNumber, SerialNumber, Status}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Chassis\" | jq '.Members[][\"@odata.id\"] | select(contains(\"HGX\"))' && curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Chassis/HGX_GPU_SXM_1\" | jq '{Id, PartNumber, SerialNumber, Status}'",
     "desc": "Query NVIDIA HGX SXM GPU Baseboard, SXM GPU health, and NVSwitch status out-of-band when the host OS is hung",
     "tip": "Lets you check GPU serials & health even if the server won't boot into Ubuntu!",
     "tags": "hgx sxm nvswitch hmc gpu out-of-band asus gigabyte"
@@ -15165,7 +15165,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "HGX / DLC",
     "id": "rf-dlc-leak-sensors",
     "sec": "HGX GPU Baseboard, NVSwitch & Liquid-Cooling Leak Sensors",
-    "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Chassis/1/Sensors?\\$expand=.(\\$levels=1)\" | jq '.Members[] | select(.Name | test(\"Leak|Coolant|Liquid|Flow|Manifold\"; \"i\")) | {Name, Reading, ReadingUnits, Status}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Chassis/1/Sensors?\\$expand=.(\\$levels=1)\" | jq '.Members[] | select(.Name | test(\"Leak|Coolant|Liquid|Flow|Manifold\"; \"i\")) | {Name, Reading, ReadingUnits, Status}'",
     "desc": "Check Direct Liquid Cooling (DLC) coldplate leak detection sensors, coolant flow & inlet/outlet temperatures",
     "tip": "Inspect leak sensors immediately if a liquid-cooled node shuts down unexpectedly!",
     "tags": "dlc liquid-cooling leak coolant coldplate manifold sensors"
@@ -15253,7 +15253,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "bmc",
     "id": "rf-bios-read-patch",
     "sec": "BIOS & BMC Control: Inspect current BIOS attributes or stage pending BIOS settings for next server reboot",
-    "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Systems/1/Bios\" | jq '.Attributes'   |   curl -g -6 -sk -u \"$USER:$PASS\" -X PATCH \"https://[$BMC]/redfish/v1/Systems/1/Bios/Settings\" -H \"Content-Type: application/json\" -d '{\"Attributes\": {\"SriovGlobalEnable\": \"Enabled\"}}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems/1/Bios\" | jq '.Attributes'   |   curl -g -6 -sk -K ~/.bmc-curlrc -X PATCH \"https://[$BMC]/redfish/v1/Systems/1/Bios/Settings\" -H \"Content-Type: application/json\" -d '{\"Attributes\": {\"SriovGlobalEnable\": \"Enabled\"}}'",
     "desc": "Inspect current BIOS attributes or stage pending BIOS settings for next server reboot",
     "tip": "PATCH goes to /Bios/Settings",
     "tags": "BIOS & BMC Control redfish rest api bmc bios attributes settings sriov iommu patch"
@@ -15264,7 +15264,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "bmc",
     "id": "rf-virtual-media-mount",
     "sec": "BIOS & BMC Control: Mount a remote OS installer ISO over IPv6 HTTP/HTTPS via BMC Virtual Media",
-    "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" -X POST \"https://[$BMC]/redfish/v1/Managers/1/VirtualMedia/CD1/Actions/VirtualMedia.InsertMedia\" -H \"Content-Type: application/json\" -d '{\"Image\": \"http://[2001:db8:dc::5]:8000/ubuntu-24.04-live-server-amd64.iso\", \"Inserted\": true, \"WriteProtected\": true}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc -X POST \"https://[$BMC]/redfish/v1/Managers/1/VirtualMedia/CD1/Actions/VirtualMedia.InsertMedia\" -H \"Content-Type: application/json\" -d '{\"Image\": \"http://[2001:db8:dc::5]:8000/ubuntu-24.04-live-server-amd64.iso\", \"Inserted\": true, \"WriteProtected\": true}'",
     "desc": "Mount a remote OS installer ISO over IPv6 HTTP/HTTPS via BMC Virtual Media (`InsertMedia`)",
     "tip": "Pair with BootTarget: Cd",
     "tags": "BIOS & BMC Control redfish rest api bmc virtualmedia iso mount cdrom install http"
@@ -15275,7 +15275,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "bmc",
     "id": "rf-bmc-manager-reset",
     "sec": "BIOS & BMC Control: Reboot the Out-of-Band BMC controller itself without disrupting the running host OS",
-    "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" -X POST \"https://[$BMC]/redfish/v1/Managers/1/Actions/Manager.Reset\" -H \"Content-Type: application/json\" -d '{\"ResetType\": \"GracefulRestart\"}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc -X POST \"https://[$BMC]/redfish/v1/Managers/1/Actions/Manager.Reset\" -H \"Content-Type: application/json\" -d '{\"ResetType\": \"GracefulRestart\"}'",
     "desc": "Reboot the Out-of-Band BMC controller itself without disrupting the running host OS",
     "tip": "",
     "tags": "BIOS & BMC Control redfish rest api bmc bmc manager reset idrac ilo reboot"
@@ -15286,7 +15286,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "tip",
     "id": "bios-vmedia-bmc-tips-card",
     "sec": "BIOS & BMC Control: Pro Tips & Best Practices",
-    "cmd": "curl -k -sS -X POST \"https://${BMC_IP}/redfish/v1/Managers/1/VirtualMedia/CD/Actions/VirtualMedia.InsertMedia\" -d '{\"Image\":\"http://pxe.dc.internal/ubuntu-24.04.iso\"}'",
+    "cmd": "curl -k -sS -K ~/.bmc-curlrc -X POST \"https://${BMC_IP}/redfish/v1/Managers/1/VirtualMedia/CD/Actions/VirtualMedia.InsertMedia\" -d '{\"Image\":\"http://pxe.dc.internal/ubuntu-24.04.iso\"}'",
     "desc": "Out-of-Band OS Deployment via Virtual Media & BIOS Tuning",
     "tip": "Changes to BIOS settings are staged and only applied after the server executes an ACPI reboot cycle.",
     "tags": "bios-vmedia-bmc tips pro redfish rest best-practice"
@@ -15297,7 +15297,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "auth",
     "id": "rf-service-root-discover",
     "sec": "Discovery & Auth: Query `/redfish/v1` ServiceRoot over IPv6",
-    "cmd": "SYS_URI=$(curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Systems\" | jq -r '.Members[0].\"@odata.id\"') && echo \"$SYS_URI\"",
+    "cmd": "SYS_URI=$(curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems\" | jq -r '.Members[0].\"@odata.id\"') && echo \"$SYS_URI\"",
     "desc": "Query `/redfish/v1` ServiceRoot over IPv6 (`-g -6`) and dynamically discover System & Manager URIs",
     "tip": "Always pass -g to curl when using [IPv6] brackets!",
     "tags": "Discovery & Auth redfish rest api bmc discover serviceroot systems uri members jq ipv6"
@@ -15308,7 +15308,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "auth",
     "id": "rf-session-token-create",
     "sec": "Discovery & Auth: Create a Redfish Session Token",
-    "cmd": "curl -g -6 -sk -D - -X POST \"https://[$BMC]/redfish/v1/SessionService/Sessions\" -H \"Content-Type: application/json\" -d \"{\\\"UserName\\\":\\\"$USER\\\",\\\"Password\\\":\\\"$PASS\\\"}\"",
+    "cmd": "curl -g -6 -sk -D - -X POST \"https://[$BMC]/redfish/v1/SessionService/Sessions\" -H \"Content-Type: application/json\" -d \"{\\\"UserName\\\":\\\"$BMC_USER\\\",\\\"Password\\\":\\\"$BMC_PASS\\\"}\"",
     "desc": "Create a Redfish Session Token (`X-Auth-Token`) to avoid slow Basic Auth hashing on every request",
     "tip": "10x faster than Basic Auth",
     "tags": "Discovery & Auth redfish rest api bmc session token x-auth-token login auth delete"
@@ -15319,7 +15319,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "auth",
     "id": "rf-expand-query-param",
     "sec": "Discovery & Auth: Use `$expand=",
-    "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Systems/1/Memory?\\$expand=.(\\$levels=1)\" | jq '.Members[] | {Name, CapacityMiB, Manufacturer, SerialNumber, Status}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems/1/Memory?\\$expand=.(\\$levels=1)\" | jq '.Members[] | {Name, CapacityMiB, Manufacturer, SerialNumber, Status}'",
     "desc": "Use `$expand=.($levels=1)` to fetch an entire collection's child objects in a single HTTP call",
     "tip": "Avoids N+1 HTTP loop",
     "tags": "Discovery & Auth redfish rest api bmc expand levels collection batch fast"
@@ -15341,7 +15341,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "fw",
     "id": "rf-firmware-inventory",
     "sec": "Firmware & Tasks: List all installed firmware components",
-    "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/UpdateService/FirmwareInventory?\\$expand=.(\\$levels=1)\" | jq '.Members[] | {Id, Name, Version, Updateable, Status}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/UpdateService/FirmwareInventory?\\$expand=.(\\$levels=1)\" | jq '.Members[] | {Id, Name, Version, Updateable, Status}'",
     "desc": "List all installed firmware components (BMC, BIOS, CPLD, PSU, NVMe, GPU, NIC) and versions",
     "tip": "",
     "tags": "Firmware & Tasks redfish rest api bmc firmware version bios bmc cpld inventory"
@@ -15352,7 +15352,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "fw",
     "id": "rf-firmware-multipart-push",
     "sec": "Firmware & Tasks: Upload a local firmware bundle",
-    "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" -X POST \"https://[$BMC]/redfish/v1/UpdateService/upload\" -F 'UpdateParameters={\"Targets\":[],\"@Redfish.OperationApplyTime\":\"OnReset\"};type=application/json' -F \"UpdateFile=@./firmware.fwpkg;type=application/octet-stream\"",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc -X POST \"https://[$BMC]/redfish/v1/UpdateService/upload\" -F 'UpdateParameters={\"Targets\":[],\"@Redfish.OperationApplyTime\":\"OnReset\"};type=application/json' -F \"UpdateFile=@./firmware.fwpkg;type=application/octet-stream\"",
     "desc": "Upload a local firmware bundle (`.bin` / `.fwpkg` / `.exe`) via Redfish `MultipartHttpPushUri`",
     "tip": "",
     "tags": "Firmware & Tasks redfish rest api bmc update flash upload multipart fwpkg updateservice"
@@ -15363,7 +15363,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "fw",
     "id": "rf-poll-task-service",
     "sec": "Firmware & Tasks: Monitor progress percentage and status of asynchronous Redfish jobs",
-    "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/TaskService/Tasks/1\" | jq '{Id, Name, TaskState, PercentComplete, TaskStatus, Messages}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/TaskService/Tasks/1\" | jq '{Id, Name, TaskState, PercentComplete, TaskStatus, Messages}'",
     "desc": "Monitor progress percentage and status of asynchronous Redfish jobs (`TaskService`)",
     "tip": "",
     "tags": "Firmware & Tasks redfish rest api bmc task job progress async poll taskservice"
@@ -15374,7 +15374,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "tip",
     "id": "firmware-tasks-tips-card",
     "sec": "Firmware & Tasks: Pro Tips & Best Practices",
-    "cmd": "curl -k -sS \"https://${BMC_IP}/redfish/v1/UpdateService/FirmwareInventory\" | jq '.Members[] | {Name: .Name, Version: .Version, Updateable: .Updateable}'",
+    "cmd": "curl -k -sS -K ~/.bmc-curlrc \"https://${BMC_IP}/redfish/v1/UpdateService/FirmwareInventory\" | jq '.Members[] | {Name: .Name, Version: .Version, Updateable: .Updateable}'",
     "desc": "Asynchronous Firmware Flashing & Task Service Monitoring",
     "tip": "Monitor .PercentComplete in the Task object to track flash progression and check .Messages for flashing errors.",
     "tags": "firmware-tasks tips pro redfish rest best-practice"
@@ -15385,7 +15385,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "hgx",
     "id": "rf-hgx-chassis-gpus",
     "sec": "HGX Baseboard & DLC: Query NVIDIA HGX SXM GPU Baseboard, SXM GPU health, and NVSwitch status out-of-band when the host OS is hung",
-    "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Chassis\" | jq '.Members[][\"@odata.id\"] | select(contains(\"HGX\"))' && curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Chassis/HGX_GPU_SXM_1\" | jq '{Id, PartNumber, SerialNumber, Status}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Chassis\" | jq '.Members[][\"@odata.id\"] | select(contains(\"HGX\"))' && curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Chassis/HGX_GPU_SXM_1\" | jq '{Id, PartNumber, SerialNumber, Status}'",
     "desc": "Query NVIDIA HGX SXM GPU Baseboard, SXM GPU health, and NVSwitch status out-of-band when the host OS is hung",
     "tip": "Lets you check GPU serials & health even if the server won't boot into Ubuntu!",
     "tags": "HGX Baseboard & DLC redfish rest api bmc hgx sxm nvswitch hmc gpu out-of-band asus gigabyte"
@@ -15396,7 +15396,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "hgx",
     "id": "rf-dlc-leak-sensors",
     "sec": "HGX Baseboard & DLC: Check Direct Liquid Cooling",
-    "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Chassis/1/Sensors?\\$expand=.(\\$levels=1)\" | jq '.Members[] | select(.Name | test(\"Leak|Coolant|Liquid|Flow|Manifold\"; \"i\")) | {Name, Reading, ReadingUnits, Status}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Chassis/1/Sensors?\\$expand=.(\\$levels=1)\" | jq '.Members[] | select(.Name | test(\"Leak|Coolant|Liquid|Flow|Manifold\"; \"i\")) | {Name, Reading, ReadingUnits, Status}'",
     "desc": "Check Direct Liquid Cooling (DLC) coldplate leak detection sensors, coolant flow & inlet/outlet temperatures",
     "tip": "Inspect leak sensors immediately if a liquid-cooled node shuts down unexpectedly!",
     "tags": "HGX Baseboard & DLC redfish rest api bmc dlc liquid-cooling leak coolant coldplate manifold sensors"
@@ -15407,7 +15407,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "tip",
     "id": "hgx-dlc-redfish-tips-card",
     "sec": "HGX Baseboard & DLC: Pro Tips & Best Practices",
-    "cmd": "curl -k -sS \"https://${BMC_IP}/redfish/v1/Chassis/HGX_Baseboard_0\" | jq .",
+    "cmd": "curl -k -sS -K ~/.bmc-curlrc \"https://${BMC_IP}/redfish/v1/Chassis/HGX_Baseboard_0\" | jq .",
     "desc": "AI Server HGX Baseboard & Liquid Cooling Telemetry",
     "tip": "DLC leak detection sensors reporting anything other than \"OK\" must trigger immediate automated host shutdown to prevent coolant spray on live 800W GPUs.",
     "tags": "hgx-dlc-redfish tips pro redfish rest best-practice"
@@ -15418,7 +15418,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "inv",
     "id": "rf-dimm-memory-health",
     "sec": "Hardware Inventory: Audit all populated RAM DIMM slots, capacity, speed, part/serial numbers, and ECC health status",
-    "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Systems/1/Memory?\\$expand=.(\\$levels=1)\" | jq '.Members[] | select(.Status.State==\"Enabled\") | {Id, DeviceLocator, CapacityMiB, OperatingSpeedMhz, Manufacturer, PartNumber, SerialNumber, Health: .Status.Health}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems/1/Memory?\\$expand=.(\\$levels=1)\" | jq '.Members[] | select(.Status.State==\"Enabled\") | {Id, DeviceLocator, CapacityMiB, OperatingSpeedMhz, Manufacturer, PartNumber, SerialNumber, Health: .Status.Health}'",
     "desc": "Audit all populated RAM DIMM slots, capacity, speed, part/serial numbers, and ECC health status",
     "tip": "Pinpoints faulty DIMM slot label",
     "tags": "Hardware Inventory redfish rest api bmc memory dimm ram serial ecc slot health"
@@ -15429,7 +15429,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "inv",
     "id": "rf-processors-cpu-gpu",
     "sec": "Hardware Inventory: Inspect all CPUs and baseboard GPUs",
-    "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Systems/1/Processors?\\$expand=.(\\$levels=1)\" | jq '.Members[] | {Id, ProcessorType, Model, TotalCores, TotalThreads, SerialNumber, Status}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems/1/Processors?\\$expand=.(\\$levels=1)\" | jq '.Members[] | {Id, ProcessorType, Model, TotalCores, TotalThreads, SerialNumber, Status}'",
     "desc": "Inspect all CPUs and baseboard GPUs (`ProcessorType: CPU` vs `Accelerator`) with core counts and health",
     "tip": "",
     "tags": "Hardware Inventory redfish rest api bmc cpu gpu processors cores model serial"
@@ -15440,7 +15440,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "inv",
     "id": "rf-storage-nvme-drives",
     "sec": "Hardware Inventory: Inspect storage controllers, NVMe/SAS/SATA drive health, wear life remaining, and serial numbers",
-    "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Systems/1/Storage?\\$expand=.(\\$levels=2)\" | jq '.Members[].Drives[]? | {Id, Name, Model, SerialNumber, CapacityBytes, MediaType, PredictedMediaLifeLeftPercent, Status}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems/1/Storage?\\$expand=.(\\$levels=2)\" | jq '.Members[].Drives[]? | {Id, Name, Model, SerialNumber, CapacityBytes, MediaType, PredictedMediaLifeLeftPercent, Status}'",
     "desc": "Inspect storage controllers, NVMe/SAS/SATA drive health, wear life remaining, and serial numbers",
     "tip": "",
     "tags": "Hardware Inventory redfish rest api bmc storage nvme ssd drives smart wear raid"
@@ -15451,7 +15451,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "inv",
     "id": "rf-network-mac-addresses",
     "sec": "Hardware Inventory: Collect host & BMC NIC MAC addresses, IPv6 addresses, SLAAC/DHCPv6 state, and link status out-of-band",
-    "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Managers/1/EthernetInterfaces?\\$expand=.(\\$levels=1)\" | jq '.Members[] | {Id, MACAddress, IPv6DefaultGateway, IPv6Addresses}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Managers/1/EthernetInterfaces?\\$expand=.(\\$levels=1)\" | jq '.Members[] | {Id, MACAddress, IPv6DefaultGateway, IPv6Addresses}'",
     "desc": "Collect host & BMC NIC MAC addresses, IPv6 addresses, SLAAC/DHCPv6 state, and link status out-of-band",
     "tip": "Essential for zero-touch IPv6 PXE",
     "tags": "Hardware Inventory redfish rest api bmc mac nic ethernet pxe ipv6 dhcpv6 slaac provisioning"
@@ -15462,7 +15462,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "tip",
     "id": "inventory-hw-tips-card",
     "sec": "Hardware Inventory: Pro Tips & Best Practices",
-    "cmd": "curl -k -sS \"https://${BMC_IP}/redfish/v1/Systems/1/Memory?$expand=.($levels=1)\" | jq '.Members[] | {Slot: .Id, Cap: .CapacityMiB, Health: .Status.Health}'",
+    "cmd": "curl -k -sS -K ~/.bmc-curlrc \"https://${BMC_IP}/redfish/v1/Systems/1/Memory?$expand=.($levels=1)\" | jq '.Members[] | {Slot: .Id, Cap: .CapacityMiB, Health: .Status.Health}'",
     "desc": "Automated Node Audit & Hardware Baseline Verification",
     "tip": "Check .Status.HealthRollup on parent collections to quickly identify failing sub-components without recursing manually.",
     "tags": "inventory-hw tips pro redfish rest best-practice"
@@ -15473,7 +15473,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "log",
     "id": "rf-sel-entries-dump",
     "sec": "Logs & SEL Triage: Fetch BMC System Event Log",
-    "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Managers/1/LogServices/Sel/Entries\" | jq -r '.Members[] | \"\\(.Created) [\\(.Severity)] \\(.Message)\"' | tail -n 30",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Managers/1/LogServices/Sel/Entries\" | jq -r '.Members[] | \"\\(.Created) [\\(.Severity)] \\(.Message)\"' | tail -n 30",
     "desc": "Fetch BMC System Event Log (SEL) entries and format timestamp, severity, and message",
     "tip": "",
     "tags": "Logs & SEL Triage redfish rest api bmc sel logs events history lclog iml"
@@ -15484,7 +15484,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "log",
     "id": "rf-sel-filter-critical",
     "sec": "Logs & SEL Triage: Filter SEL entries to show only `Critical` or `Warning` hardware assertions",
-    "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Managers/1/LogServices/Sel/Entries\" | jq '.Members[] | select(.Severity == \"Critical\" or .Severity == \"Warning\") | {Id, Created, Severity, Message, SensorType}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Managers/1/LogServices/Sel/Entries\" | jq '.Members[] | select(.Severity == \"Critical\" or .Severity == \"Warning\") | {Id, Created, Severity, Message, SensorType}'",
     "desc": "Filter SEL entries to show only `Critical` or `Warning` hardware assertions",
     "tip": "Fast root-cause triage",
     "tags": "Logs & SEL Triage redfish rest api bmc critical warning faults filter triage"
@@ -15495,7 +15495,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "log",
     "id": "rf-sel-clear-log",
     "sec": "Logs & SEL Triage: Clear all entries in the BMC System Event Log via `LogService",
-    "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" -X POST \"https://[$BMC]/redfish/v1/Managers/1/LogServices/Sel/Actions/LogService.ClearLog\" -H \"Content-Type: application/json\" -d '{}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc -X POST \"https://[$BMC]/redfish/v1/Managers/1/LogServices/Sel/Actions/LogService.ClearLog\" -H \"Content-Type: application/json\" -d '{}'",
     "desc": "Clear all entries in the BMC System Event Log via `LogService.ClearLog` action",
     "tip": "",
     "tags": "Logs & SEL Triage redfish rest api bmc clear sel reset logs"
@@ -15506,7 +15506,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "tip",
     "id": "logs-sel-tips-card",
     "sec": "Logs & SEL Triage: Pro Tips & Best Practices",
-    "cmd": "curl -k -sS \"https://${BMC_IP}/redfish/v1/Systems/1/LogServices/EventLog/Entries?$filter=Severity eq 'Critical'\" | jq .",
+    "cmd": "curl -k -sS -K ~/.bmc-curlrc \"https://${BMC_IP}/redfish/v1/Systems/1/LogServices/EventLog/Entries?$filter=Severity eq 'Critical'\" | jq .",
     "desc": "Hardware Event Log Analysis & Pre-Failure Detection",
     "tip": "Always export and archive SEL entries before calling LogService.ClearLog during RMA or node re-provisioning.",
     "tags": "logs-sel tips pro redfish rest best-practice"
@@ -15517,7 +15517,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "pwr",
     "id": "rf-power-state-reset",
     "sec": "Power & Boot: Check current server power state or execute `ComputerSystem",
-    "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" -X POST \"https://[$BMC]/redfish/v1/Systems/1/Actions/ComputerSystem.Reset\" -H \"Content-Type: application/json\" -d '{\"ResetType\": \"PowerCycle\"}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc -X POST \"https://[$BMC]/redfish/v1/Systems/1/Actions/ComputerSystem.Reset\" -H \"Content-Type: application/json\" -d '{\"ResetType\": \"PowerCycle\"}'",
     "desc": "Check current server power state or execute `ComputerSystem.Reset` (On, ForceOff, ForceRestart, PowerCycle)",
     "tip": "",
     "tags": "Power & Boot redfish rest api bmc power reset reboot powercycle forceoff on"
@@ -15528,7 +15528,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "pwr",
     "id": "rf-boot-override-pxe",
     "sec": "Power & Boot: Set one-time UEFI PXE network boot on next restart",
-    "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" -X PATCH \"https://[$BMC]/redfish/v1/Systems/1\" -H \"Content-Type: application/json\" -d '{\"Boot\": {\"BootSourceOverrideTarget\": \"Pxe\", \"BootSourceOverrideEnabled\": \"Once\", \"BootSourceOverrideMode\": \"UEFI\"}}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc -X PATCH \"https://[$BMC]/redfish/v1/Systems/1\" -H \"Content-Type: application/json\" -d '{\"Boot\": {\"BootSourceOverrideTarget\": \"Pxe\", \"BootSourceOverrideEnabled\": \"Once\", \"BootSourceOverrideMode\": \"UEFI\"}}'",
     "desc": "Set one-time UEFI PXE network boot on next restart (`BootSourceOverrideTarget: Pxe`)",
     "tip": "Follow with ForceRestart",
     "tags": "Power & Boot redfish rest api bmc pxe boot uefi override once network"
@@ -15539,7 +15539,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "pwr",
     "id": "rf-boot-into-bios",
     "sec": "Power & Boot: Force server to boot directly into UEFI/BIOS Setup utility on next reboot",
-    "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" -X PATCH \"https://[$BMC]/redfish/v1/Systems/1\" -H \"Content-Type: application/json\" -d '{\"Boot\": {\"BootSourceOverrideTarget\": \"BiosSetup\", \"BootSourceOverrideEnabled\": \"Once\"}}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc -X PATCH \"https://[$BMC]/redfish/v1/Systems/1\" -H \"Content-Type: application/json\" -d '{\"Boot\": {\"BootSourceOverrideTarget\": \"BiosSetup\", \"BootSourceOverrideEnabled\": \"Once\"}}'",
     "desc": "Force server to boot directly into UEFI/BIOS Setup utility on next reboot",
     "tip": "",
     "tags": "Power & Boot redfish rest api bmc bios setup boot uefi"
@@ -15550,7 +15550,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "pwr",
     "id": "rf-trigger-nmi",
     "sec": "Power & Boot: Send diagnostic Non-Maskable Interrupt",
-    "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" -X POST \"https://[$BMC]/redfish/v1/Systems/1/Actions/ComputerSystem.Reset\" -H \"Content-Type: application/json\" -d '{\"ResetType\": \"Nmi\"}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc -X POST \"https://[$BMC]/redfish/v1/Systems/1/Actions/ComputerSystem.Reset\" -H \"Content-Type: application/json\" -d '{\"ResetType\": \"Nmi\"}'",
     "desc": "Send diagnostic Non-Maskable Interrupt (`Nmi`) to hung OS to trigger kernel kdump crash dump",
     "tip": "",
     "tags": "Power & Boot redfish rest api bmc nmi kdump crash hang panic diagnostic"
@@ -15561,7 +15561,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "tip",
     "id": "power-boot-tips-card",
     "sec": "Power & Boot: Pro Tips & Best Practices",
-    "cmd": "curl -k -sS -X POST \"https://${BMC_IP}/redfish/v1/Systems/1/Actions/ComputerSystem.Reset\" -d '{\"ResetType\":\"GracefulRestart\"}'",
+    "cmd": "curl -k -sS -K ~/.bmc-curlrc -X POST \"https://${BMC_IP}/redfish/v1/Systems/1/Actions/ComputerSystem.Reset\" -d '{\"ResetType\":\"GracefulRestart\"}'",
     "desc": "Chassis Power State Triage & Boot Target Verification",
     "tip": "BootSourceOverrideTarget settings like Pxe or BiosSetup only apply for the immediate next boot cycle when BootSourceOverrideEnabled is set to \"Once\".",
     "tags": "power-boot tips pro redfish rest best-practice"
@@ -15572,7 +15572,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "sns",
     "id": "rf-chassis-thermal-temps-fans",
     "sec": "Thermals & Sensors: Read all Chassis temperature sensors",
-    "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Chassis/1/Thermal\" | jq '{Temps: [.Temperatures[] | {Name, ReadingCelsius, UpperThresholdCritical, Health: .Status.Health}], Fans: [.Fans[] | {Name, Reading, ReadingUnits, Health: .Status.Health}]}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Chassis/1/Thermal\" | jq '{Temps: [.Temperatures[] | {Name, ReadingCelsius, UpperThresholdCritical, Health: .Status.Health}], Fans: [.Fans[] | {Name, Reading, ReadingUnits, Health: .Status.Health}]}'",
     "desc": "Read all Chassis temperature sensors (°C) and cooling fan speeds (RPM / %)",
     "tip": "",
     "tags": "Thermals & Sensors redfish rest api bmc thermal temperature fans rpm cooling inlet"
@@ -15583,7 +15583,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "sns",
     "id": "rf-chassis-power-psus",
     "sec": "Thermals & Sensors: Check live server power consumption",
-    "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Chassis/1/Power\" | jq '{PowerConsumedWatts: .PowerControl[0].PowerConsumedWatts, PSUs: [.PowerSupplies[] | {Name, Model, SerialNumber, PowerInputWatts, LineInputVoltage, Status}]}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Chassis/1/Power\" | jq '{PowerConsumedWatts: .PowerControl[0].PowerConsumedWatts, PSUs: [.PowerSupplies[] | {Name, Model, SerialNumber, PowerInputWatts, LineInputVoltage, Status}]}'",
     "desc": "Check live server power consumption (Watts), power cap, and redundant Power Supply (PSU) health",
     "tip": "Catches dead A/B PDU feeds",
     "tags": "Thermals & Sensors redfish rest api bmc power psu watts voltage redundant chassis"
@@ -15594,7 +15594,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "sns",
     "id": "rf-chassis-uid-led",
     "sec": "Thermals & Sensors: Turn on or blink the physical Chassis UID Locator LED to help datacenter techs find the server",
-    "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" -X PATCH \"https://[$BMC]/redfish/v1/Chassis/1\" -H \"Content-Type: application/json\" -d '{\"LocationIndicatorActive\": true}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc -X PATCH \"https://[$BMC]/redfish/v1/Chassis/1\" -H \"Content-Type: application/json\" -d '{\"LocationIndicatorActive\": true}'",
     "desc": "Turn on or blink the physical Chassis UID Locator LED to help datacenter techs find the server",
     "tip": "",
     "tags": "Thermals & Sensors redfish rest api bmc led uid identify locate blink chassis"
@@ -15605,7 +15605,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "tip",
     "id": "thermals-power-sensors-tips-card",
     "sec": "Thermals & Sensors: Pro Tips & Best Practices",
-    "cmd": "curl -k -sS \"https://${BMC_IP}/redfish/v1/Chassis/1/Thermal\" | jq '.Temperatures[] | {Sensor: .Name, Reading: .ReadingCelsius, UpperThresh: .UpperThresholdCritical}'",
+    "cmd": "curl -k -sS -K ~/.bmc-curlrc \"https://${BMC_IP}/redfish/v1/Chassis/1/Thermal\" | jq '.Temperatures[] | {Sensor: .Name, Reading: .ReadingCelsius, UpperThresh: .UpperThresholdCritical}'",
     "desc": "Thermal Triage & Power Supply Redundancy Telemetry",
     "tip": "Toggle IndicatorLED to \"Blinking\" via PATCH to easily locate a troubled server in dense 42U rack rows.",
     "tags": "thermals-power-sensors tips pro redfish rest best-practice"

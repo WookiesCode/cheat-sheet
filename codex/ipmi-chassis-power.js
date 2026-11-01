@@ -10,7 +10,7 @@ const IPMI_IPMI_CHASSIS_POWER_DATA = [
       {
         "id": "ipmi-power-actions",
         "desc": "Check chassis power state or execute hard power off, cold power cycle, warm reset, or ACPI shutdown",
-        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" chassis power status   |   ... chassis power cycle   |   ... chassis power reset   |   ... chassis power soft",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -P \"$PASS\" chassis power status   |   ... chassis power cycle   |   ... chassis power reset   |   ... chassis power soft",
         "details": "",
         "flags": [
           [
@@ -53,7 +53,7 @@ const IPMI_IPMI_CHASSIS_POWER_DATA = [
       {
         "id": "ipmi-power-actions-flags-card",
         "desc": "Options breakdown and parameter syntax for Check chassis power state or execute hard power off, cold power cycle, warm reset, or ACPI shutdown",
-        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" chassis power status   |   ... chassis power cycle   |   ... chassis power reset   |   ... chassis power soft",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -P \"$PASS\" chassis power status   |   ... chassis power cycle   |   ... chassis power reset   |   ... chassis power soft",
         "flags": [
           [
             "power off / on",
@@ -79,7 +79,7 @@ const IPMI_IPMI_CHASSIS_POWER_DATA = [
       {
         "id": "ipmi-chassis-status",
         "desc": "Inspect detailed chassis state: Last Power Event (AC failed, overload, thermal trip), power restore policy & intrusion",
-        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" chassis status   |   ... chassis policy always-on",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -P \"$PASS\" chassis status   |   ... chassis policy always-on",
         "details": "",
         "flags": [
           [
@@ -117,7 +117,7 @@ const IPMI_IPMI_CHASSIS_POWER_DATA = [
       {
         "id": "ipmi-chassis-identify-nmi",
         "desc": "Blink the physical blue Chassis UID Locator LED or pulse diagnostic NMI for kernel kdump",
-        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" chassis identify force   |   ... chassis identify 0   |   ... chassis power diag",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -P \"$PASS\" chassis identify force   |   ... chassis identify 0   |   ... chassis power diag",
         "details": "",
         "flags": [
           [
@@ -614,16 +614,12 @@ function initEventListeners() {
 }
 
 function applyTheme(theme) {
-  const sunIcon = document.getElementById("theme-icon-sun");
-  const moonIcon = document.getElementById("theme-icon-moon");
-  if (theme === "light") {
-    document.documentElement.setAttribute("data-theme", "light");
-    sunIcon.classList.add("hidden");
-    moonIcon.classList.remove("hidden");
+  state.theme = theme;
+  if (window.CheatSheetCommon && typeof window.CheatSheetCommon.applyTheme === "function") {
+    window.CheatSheetCommon.applyTheme(theme);
   } else {
-    document.documentElement.setAttribute("data-theme", "dark");
-    sunIcon.classList.remove("hidden");
-    moonIcon.classList.add("hidden");
+    document.documentElement.setAttribute("data-theme", theme);
+    try { localStorage.setItem("linux_cs_theme", theme); } catch (e) {}
   }
 }
 

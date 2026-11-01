@@ -10,7 +10,7 @@ const MB_MB_GIGABYTE_SERVERS_DATA = [
       {
         "id": "gigabyte-bmc-post-snooping",
         "desc": "Query GIGABYTE Server Management (GSM / MegaRAC) BMC POST Snooping code over IPv6 Redfish or IPMI",
-        "cmd": "curl -g -6 -sk -u admin:'<Pass>' \"https://[2001:db8:dc:4::50]/redfish/v1/Systems/Self\" | jq '{PowerState, BootProgress}'",
+        "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems/Self\" | jq '{PowerState, BootProgress}'",
         "details": "",
         "flags": [
           [
@@ -125,7 +125,7 @@ const MB_MB_GIGABYTE_SERVERS_DATA = [
       {
         "id": "gigabyte-server-board-tips-card",
         "desc": "GIGABYTE Dual-BIOS Switching & Remote Port 0x80 Snooping",
-        "cmd": "ipmitool -I lanplus -H $BMC_IP -U admin -P password raw 0x32 0x8b",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E raw 0x32 0x8b",
         "details": "GIGABYTE server motherboards (MZ, MD, MS, R-series) utilize an ASPEED AST2500/AST2600 BMC with hardware port 0x80 LPC snooping. If the primary SPI flash chip becomes corrupted, toggle the Dual-BIOS switch (BIOS_SEL) to boot from the redundant secondary SPI ROM.",
         "flags": [
           [
@@ -162,7 +162,7 @@ const state = {
   savedOnly: false,
   compact: localStorage.getItem("linux_cs_compact") === "1",
   theme: localStorage.getItem("linux_cs_theme") || "dark",
-  bookmarks: new Set(JSON.parse(localStorage.getItem("mb-gigabyte-servers_bookmarks") || "[]"))
+  bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("mb-gigabyte-servers_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
 
 // DOM Elements
@@ -587,12 +587,12 @@ function applyTheme(theme) {
   const moonIcon = document.getElementById("theme-icon-moon");
   if (theme === "light") {
     document.documentElement.setAttribute("data-theme", "light");
-    sunIcon.classList.add("hidden");
-    moonIcon.classList.remove("hidden");
+    sunIcon?.classList.add("hidden");
+    moonIcon?.classList.remove("hidden");
   } else {
-    document.documentElement.setAttribute("data-theme", "dark");
-    sunIcon.classList.remove("hidden");
-    moonIcon.classList.add("hidden");
+    document.documentElement.setAttribute("data-theme", theme);
+    sunIcon?.classList.remove("hidden");
+    moonIcon?.classList.add("hidden");
   }
 }
 

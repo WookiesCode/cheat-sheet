@@ -10,7 +10,7 @@ const IPMI_IPMI_FRU_MC_DATA = [
       {
         "id": "ipmi-fru-print",
         "desc": "Dump Field Replaceable Unit (FRU) EEPROM data: Board/Chassis/Product part & serial numbers",
-        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" fru print",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -P \"$PASS\" fru print",
         "details": "",
         "flags": [
           [
@@ -44,7 +44,7 @@ const IPMI_IPMI_FRU_MC_DATA = [
       {
         "id": "ipmi-mc-info-reset",
         "desc": "Check BMC firmware version or perform a non-disruptive cold reset of the BMC processor",
-        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" mc info   |   ... mc reset cold   |   ... mc reset warm",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -P \"$PASS\" mc info   |   ... mc reset cold   |   ... mc reset warm",
         "details": "",
         "flags": [
           [
@@ -578,16 +578,12 @@ function initEventListeners() {
 }
 
 function applyTheme(theme) {
-  const sunIcon = document.getElementById("theme-icon-sun");
-  const moonIcon = document.getElementById("theme-icon-moon");
-  if (theme === "light") {
-    document.documentElement.setAttribute("data-theme", "light");
-    sunIcon.classList.add("hidden");
-    moonIcon.classList.remove("hidden");
+  state.theme = theme;
+  if (window.CheatSheetCommon && typeof window.CheatSheetCommon.applyTheme === "function") {
+    window.CheatSheetCommon.applyTheme(theme);
   } else {
-    document.documentElement.setAttribute("data-theme", "dark");
-    sunIcon.classList.remove("hidden");
-    moonIcon.classList.add("hidden");
+    document.documentElement.setAttribute("data-theme", theme);
+    try { localStorage.setItem("linux_cs_theme", theme); } catch (e) {}
   }
 }
 

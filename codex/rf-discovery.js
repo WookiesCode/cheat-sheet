@@ -10,7 +10,7 @@ const RF_RF_DISCOVERY_DATA = [
       {
         "id": "rf-service-root-discover",
         "desc": "Query `/redfish/v1` ServiceRoot over IPv6 (`-g -6`) and dynamically discover System & Manager URIs",
-        "cmd": "SYS_URI=$(curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Systems\" | jq -r '.Members[0].\"@odata.id\"') && echo \"$SYS_URI\"",
+        "cmd": "SYS_URI=$(curl -g -6 -sk -u \"$BMC_USER:$PASS\" \"https://[$BMC]/redfish/v1/Systems\" | jq -r '.Members[0].\"@odata.id\"') && echo \"$SYS_URI\"",
         "details": "",
         "flags": [
           [
@@ -53,7 +53,7 @@ const RF_RF_DISCOVERY_DATA = [
       {
         "id": "rf-session-token-create",
         "desc": "Create a Redfish Session Token (`X-Auth-Token`) to avoid slow Basic Auth hashing on every request",
-        "cmd": "curl -g -6 -sk -D - -X POST \"https://[$BMC]/redfish/v1/SessionService/Sessions\" -H \"Content-Type: application/json\" -d \"{\\\"UserName\\\":\\\"$USER\\\",\\\"Password\\\":\\\"$PASS\\\"}\"",
+        "cmd": "curl -g -6 -sk -D - -X POST \"https://[$BMC]/redfish/v1/SessionService/Sessions\" -H \"Content-Type: application/json\" -d \"{\\\"UserName\\\":\\\"$BMC_USER\\\",\\\"Password\\\":\\\"$PASS\\\"}\"",
         "details": "",
         "flags": [
           [
@@ -91,7 +91,7 @@ const RF_RF_DISCOVERY_DATA = [
       {
         "id": "rf-expand-query-param",
         "desc": "Use `$expand=.($levels=1)` to fetch an entire collection's child objects in a single HTTP call",
-        "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Systems/1/Memory?\\$expand=.(\\$levels=1)\" | jq '.Members[] | {Name, CapacityMiB, Manufacturer, SerialNumber, Status}'",
+        "cmd": "curl -g -6 -sk -u \"$BMC_USER:$PASS\" \"https://[$BMC]/redfish/v1/Systems/1/Memory?\\$expand=.(\\$levels=1)\" | jq '.Members[] | {Name, CapacityMiB, Manufacturer, SerialNumber, Status}'",
         "details": "",
         "flags": [
           [
@@ -586,16 +586,12 @@ function initEventListeners() {
 }
 
 function applyTheme(theme) {
-  const sunIcon = document.getElementById("theme-icon-sun");
-  const moonIcon = document.getElementById("theme-icon-moon");
-  if (theme === "light") {
-    document.documentElement.setAttribute("data-theme", "light");
-    sunIcon.classList.add("hidden");
-    moonIcon.classList.remove("hidden");
+  state.theme = theme;
+  if (window.CheatSheetCommon && typeof window.CheatSheetCommon.applyTheme === "function") {
+    window.CheatSheetCommon.applyTheme(theme);
   } else {
-    document.documentElement.setAttribute("data-theme", "dark");
-    sunIcon.classList.remove("hidden");
-    moonIcon.classList.add("hidden");
+    document.documentElement.setAttribute("data-theme", theme);
+    try { localStorage.setItem("linux_cs_theme", theme); } catch (e) {}
   }
 }
 

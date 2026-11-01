@@ -10,7 +10,7 @@ const IPMI_IPMI_SEL_LOGS_DATA = [
       {
         "id": "ipmi-sel-elist",
         "desc": "Display System Event Log cross-referenced with SDR sensor names for human-readable hardware triage",
-        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" sel elist   |   ... sel elist last 25",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sel elist   |   ... sel elist last 25",
         "details": "",
         "flags": [
           [
@@ -53,7 +53,7 @@ const IPMI_IPMI_SEL_LOGS_DATA = [
       {
         "id": "ipmi-sel-info-clear",
         "desc": "Check SEL fullness percentage (`Percent Used`), backup SEL to file, and clear the log",
-        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" sel info   |   ... sel save sel_backup.log   |   ... sel clear",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sel info   |   ... sel save sel_backup.log   |   ... sel clear",
         "details": "",
         "flags": [
           [
@@ -91,7 +91,7 @@ const IPMI_IPMI_SEL_LOGS_DATA = [
       {
         "id": "sel-logs-tips-card",
         "desc": "Out-of-Band Hardware Event Triage & Post-Mortem Crash Analysis",
-        "cmd": "ipmitool -I lanplus -H $BMC_IP -U admin -P password sel elist",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sel elist",
         "details": "The BMC System Event Log captures critical hardware events that bypass the host OS, such as uncorrectable multi-bit ECC errors, PCIe AER fatal timeouts, power supply failures, and CPU thermal trips. \"sel elist\" cross-references raw sensor numbers with human-readable SDR names.",
         "flags": [
           [
@@ -128,7 +128,7 @@ const state = {
   savedOnly: false,
   compact: localStorage.getItem("linux_cs_compact") === "1",
   theme: localStorage.getItem("linux_cs_theme") || "dark",
-  bookmarks: new Set(JSON.parse(localStorage.getItem("ipmi-sel-logs_bookmarks") || "[]"))
+  bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("ipmi-sel-logs_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
 
 // DOM Elements
@@ -553,12 +553,12 @@ function applyTheme(theme) {
   const moonIcon = document.getElementById("theme-icon-moon");
   if (theme === "light") {
     document.documentElement.setAttribute("data-theme", "light");
-    sunIcon.classList.add("hidden");
-    moonIcon.classList.remove("hidden");
+    sunIcon?.classList.add("hidden");
+    moonIcon?.classList.remove("hidden");
   } else {
-    document.documentElement.setAttribute("data-theme", "dark");
-    sunIcon.classList.remove("hidden");
-    moonIcon.classList.add("hidden");
+    document.documentElement.setAttribute("data-theme", theme);
+    sunIcon?.classList.remove("hidden");
+    moonIcon?.classList.add("hidden");
   }
 }
 

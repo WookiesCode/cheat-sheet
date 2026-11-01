@@ -1,5 +1,5 @@
 // Auto-generated Global Search Index across all 184 cheat sheets
-// Total indexed items: 1930
+// Total indexed items: 1942
 window.GLOBAL_SEARCH_INDEX = [
   {
     "sName": "app",
@@ -2068,6 +2068,72 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Watch the kernel ring buffer live with human-readable timestamps for hardware/driver errors",
     "tip": "",
     "tags": "snap ubuntu lsb_release hostnamectl dmesg livepatch"
+  },
+  {
+    "sName": "app",
+    "file": "app.html",
+    "badge": "pkg",
+    "id": "restore-manpages-minimized",
+    "sec": "Ubuntu APT, dpkg, Snap & Release Management",
+    "cmd": "yes | unminimize || (rm -f /etc/dpkg/dpkg.cfg.d/excludes /etc/dpkg/dpkg.cfg.d/01_nodoc && apt update && apt install -y man-db manpages manpages-posix && mandb -c)",
+    "desc": "Restore man pages & documentation on minimized cloud images, containers, and minimal Linux servers",
+    "tip": "Run 'yes | unminimize' on fresh cloud instances",
+    "tags": "man manpages unminimize minimal cloud-init docs dpkg mandb apropos nodocs containers"
+  },
+  {
+    "sName": "app",
+    "file": "app.html",
+    "badge": "pkg",
+    "id": "restore-manpages-minimized",
+    "sec": "Ubuntu APT, dpkg, Snap & Release Management",
+    "cmd": "man -k <keyword> | apropos <topic>",
+    "desc": "Search manual page titles and one-line summaries for matching keywords",
+    "tip": "",
+    "tags": "man manpages unminimize minimal cloud-init docs dpkg mandb apropos nodocs containers"
+  },
+  {
+    "sName": "app",
+    "file": "app.html",
+    "badge": "pkg",
+    "id": "restore-manpages-minimized",
+    "sec": "Ubuntu APT, dpkg, Snap & Release Management",
+    "cmd": "man 1 intro | man 2 intro | man 3 intro | man 7 intro",
+    "desc": "Display section overviews: 1 (User Commands), 2 (Kernel System Calls), 3 (C Library APIs), 7 (Protocols/Standards)",
+    "tip": "",
+    "tags": "man manpages unminimize minimal cloud-init docs dpkg mandb apropos nodocs containers"
+  },
+  {
+    "sName": "app",
+    "file": "app.html",
+    "badge": "pkg",
+    "id": "restore-manpages-minimized",
+    "sec": "Ubuntu APT, dpkg, Snap & Release Management",
+    "cmd": "sudo apt install --reinstall $(dpkg -l | awk '/^ii/ {print $2}')",
+    "desc": "Re-extract stripped man pages for already-installed packages after removing dpkg path-exclude rules",
+    "tip": "",
+    "tags": "man manpages unminimize minimal cloud-init docs dpkg mandb apropos nodocs containers"
+  },
+  {
+    "sName": "app",
+    "file": "app.html",
+    "badge": "pkg",
+    "id": "restore-manpages-minimized",
+    "sec": "Ubuntu APT, dpkg, Snap & Release Management",
+    "cmd": "sudo dnf install -y man-db man-pages && dnf reinstall -y '*' --setopt=tsflags=''",
+    "desc": "Restore man pages on RHEL, Rocky, AlmaLinux and Fedora minimal images (clears tsflags=nodocs in /etc/dnf/dnf.conf)",
+    "tip": "",
+    "tags": "man manpages unminimize minimal cloud-init docs dpkg mandb apropos nodocs containers"
+  },
+  {
+    "sName": "app",
+    "file": "app.html",
+    "badge": "pkg",
+    "id": "restore-manpages-minimized",
+    "sec": "Ubuntu APT, dpkg, Snap & Release Management",
+    "cmd": "curl -sL \"https://cheat.sh/${CMD}\" | less -R",
+    "desc": "Instant interactive community cheat sheet fallback when running on an air-gapped or ultra-minimal environment without man",
+    "tip": "",
+    "tags": "man manpages unminimize minimal cloud-init docs dpkg mandb apropos nodocs containers"
   },
   {
     "sName": "archives",
@@ -14036,6 +14102,72 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Watch the kernel ring buffer live with human-readable timestamps for hardware/driver errors",
     "tip": "",
     "tags": "snap ubuntu lsb_release hostnamectl dmesg livepatch"
+  },
+  {
+    "sName": "packages",
+    "file": "packages.html",
+    "badge": "pkg",
+    "id": "restore-manpages-minimized",
+    "sec": "Ubuntu APT: Restore man pages & documentation on minimized c...",
+    "cmd": "yes | unminimize || (rm -f /etc/dpkg/dpkg.cfg.d/excludes /etc/dpkg/dpkg.cfg.d/01_nodoc && apt update && apt install -y man-db manpages manpages-posix && mandb -c)",
+    "desc": "Restore man pages & documentation on minimized cloud images, containers, and minimal Linux servers",
+    "tip": "Run 'yes | unminimize' on fresh cloud instances",
+    "tags": "man manpages unminimize minimal cloud-init docs dpkg mandb apropos nodocs containers"
+  },
+  {
+    "sName": "packages",
+    "file": "packages.html",
+    "badge": "pkg",
+    "id": "restore-manpages-minimized",
+    "sec": "Ubuntu APT: Restore man pages & documentation on minimized c...",
+    "cmd": "man -k <keyword> | apropos <topic>",
+    "desc": "Search manual page titles and one-line summaries for matching keywords",
+    "tip": "",
+    "tags": "man manpages unminimize minimal cloud-init docs dpkg mandb apropos nodocs containers"
+  },
+  {
+    "sName": "packages",
+    "file": "packages.html",
+    "badge": "pkg",
+    "id": "restore-manpages-minimized",
+    "sec": "Ubuntu APT: Restore man pages & documentation on minimized c...",
+    "cmd": "man 1 intro | man 2 intro | man 3 intro | man 7 intro",
+    "desc": "Display section overviews: 1 (User Commands), 2 (Kernel System Calls), 3 (C Library APIs), 7 (Protocols/Standards)",
+    "tip": "",
+    "tags": "man manpages unminimize minimal cloud-init docs dpkg mandb apropos nodocs containers"
+  },
+  {
+    "sName": "packages",
+    "file": "packages.html",
+    "badge": "pkg",
+    "id": "restore-manpages-minimized",
+    "sec": "Ubuntu APT: Restore man pages & documentation on minimized c...",
+    "cmd": "sudo apt install --reinstall $(dpkg -l | awk '/^ii/ {print $2}')",
+    "desc": "Re-extract stripped man pages for already-installed packages after removing dpkg path-exclude rules",
+    "tip": "",
+    "tags": "man manpages unminimize minimal cloud-init docs dpkg mandb apropos nodocs containers"
+  },
+  {
+    "sName": "packages",
+    "file": "packages.html",
+    "badge": "pkg",
+    "id": "restore-manpages-minimized",
+    "sec": "Ubuntu APT: Restore man pages & documentation on minimized c...",
+    "cmd": "sudo dnf install -y man-db man-pages && dnf reinstall -y '*' --setopt=tsflags=''",
+    "desc": "Restore man pages on RHEL, Rocky, AlmaLinux and Fedora minimal images (clears tsflags=nodocs in /etc/dnf/dnf.conf)",
+    "tip": "",
+    "tags": "man manpages unminimize minimal cloud-init docs dpkg mandb apropos nodocs containers"
+  },
+  {
+    "sName": "packages",
+    "file": "packages.html",
+    "badge": "pkg",
+    "id": "restore-manpages-minimized",
+    "sec": "Ubuntu APT: Restore man pages & documentation on minimized c...",
+    "cmd": "curl -sL \"https://cheat.sh/${CMD}\" | less -R",
+    "desc": "Instant interactive community cheat sheet fallback when running on an air-gapped or ultra-minimal environment without man",
+    "tip": "",
+    "tags": "man manpages unminimize minimal cloud-init docs dpkg mandb apropos nodocs containers"
   },
   {
     "sName": "pcie-numa",

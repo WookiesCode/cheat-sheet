@@ -92,7 +92,7 @@ const SECTION_MAP = {
     heading: 'Chassis Power Control, ResetType Actions & UEFI Boot Overrides',
     proTip: {
       desc: 'Chassis Power State Triage & Boot Target Verification',
-      cmd: 'curl -k -sS -X POST "https://${BMC_IP}/redfish/v1/Systems/1/Actions/ComputerSystem.Reset" -d \'{"ResetType":"GracefulRestart"}\'',
+      cmd: 'curl -k -sS -K ~/.bmc-curlrc -X POST "https://${BMC_IP}/redfish/v1/Systems/1/Actions/ComputerSystem.Reset" -d \'{"ResetType":"GracefulRestart"}\'',
       details: 'Use GracefulShutdown or GracefulRestart to give the OS time to sync buffers and unmount filesystems cleanly. If the host kernel is frozen or panicked, fall back to ForceRestart or send an NMI to trigger a kdump kernel crash dump.',
       tip: 'BootSourceOverrideTarget settings like Pxe or BiosSetup only apply for the immediate next boot cycle when BootSourceOverrideEnabled is set to "Once".',
       flags: [
@@ -109,7 +109,7 @@ const SECTION_MAP = {
     heading: 'CPUs, Accelerators, DIMM Memory, NVMe Drives & PCIe Topology',
     proTip: {
       desc: 'Automated Node Audit & Hardware Baseline Verification',
-      cmd: 'curl -k -sS "https://${BMC_IP}/redfish/v1/Systems/1/Memory?$expand=.($levels=1)" | jq \'.Members[] | {Slot: .Id, Cap: .CapacityMiB, Health: .Status.Health}\'',
+      cmd: 'curl -k -sS -K ~/.bmc-curlrc "https://${BMC_IP}/redfish/v1/Systems/1/Memory?$expand=.($levels=1)" | jq \'.Members[] | {Slot: .Id, Cap: .CapacityMiB, Health: .Status.Health}\'',
       details: 'In large AI datacenters, query /redfish/v1/Systems/1/Memory and Processors during node provisioning to verify populated DIMM channel balancing and CPU core counts before passing bare-metal servers to the Kubernetes/Slurm scheduler pool.',
       tip: 'Check .Status.HealthRollup on parent collections to quickly identify failing sub-components without recursing manually.',
       flags: [
@@ -126,7 +126,7 @@ const SECTION_MAP = {
     heading: 'Thermal Sensors (°C), Fan Speeds (RPM), PSU Power Wattage & UID LED',
     proTip: {
       desc: 'Thermal Triage & Power Supply Redundancy Telemetry',
-      cmd: 'curl -k -sS "https://${BMC_IP}/redfish/v1/Chassis/1/Thermal" | jq \'.Temperatures[] | {Sensor: .Name, Reading: .ReadingCelsius, UpperThresh: .UpperThresholdCritical}\'',
+      cmd: 'curl -k -sS -K ~/.bmc-curlrc "https://${BMC_IP}/redfish/v1/Chassis/1/Thermal" | jq \'.Temperatures[] | {Sensor: .Name, Reading: .ReadingCelsius, UpperThresh: .UpperThresholdCritical}\'',
       details: 'Chassis thermal readings provide immediate visibility into CPU die temperatures, intake air temps, and DIMM zone cooling. Verify redundant PSU load-sharing via /redfish/v1/Chassis/1/Power to ensure loss of one A/B feed will not cause an unexpected node drop.',
       tip: 'Toggle IndicatorLED to "Blinking" via PATCH to easily locate a troubled server in dense 42U rack rows.',
       flags: [
@@ -143,7 +143,7 @@ const SECTION_MAP = {
     heading: 'BMC System Event Log (SEL), Hardware Faults & Event Clearing',
     proTip: {
       desc: 'Hardware Event Log Analysis & Pre-Failure Detection',
-      cmd: 'curl -k -sS "https://${BMC_IP}/redfish/v1/Systems/1/LogServices/EventLog/Entries?$filter=Severity eq \'Critical\'" | jq .',
+      cmd: 'curl -k -sS -K ~/.bmc-curlrc "https://${BMC_IP}/redfish/v1/Systems/1/LogServices/EventLog/Entries?$filter=Severity eq \'Critical\'" | jq .',
       details: 'The BMC LogService captures out-of-band hardware events that the host OS cannot log, including memory uncorrectable multi-bit ECC errors, PCIe AER fatal errors, PSU loss, and thermal trip alarms. Use OData $filter or $top to inspect recent failures.',
       tip: 'Always export and archive SEL entries before calling LogService.ClearLog during RMA or node re-provisioning.',
       flags: [
@@ -160,7 +160,7 @@ const SECTION_MAP = {
     heading: 'BIOS Attribute Inspection, Virtual Media ISO Mounting & BMC Reset',
     proTip: {
       desc: 'Out-of-Band OS Deployment via Virtual Media & BIOS Tuning',
-      cmd: 'curl -k -sS -X POST "https://${BMC_IP}/redfish/v1/Managers/1/VirtualMedia/CD/Actions/VirtualMedia.InsertMedia" -d \'{"Image":"http://pxe.dc.internal/ubuntu-24.04.iso"}\'',
+      cmd: 'curl -k -sS -K ~/.bmc-curlrc -X POST "https://${BMC_IP}/redfish/v1/Managers/1/VirtualMedia/CD/Actions/VirtualMedia.InsertMedia" -d \'{"Image":"http://pxe.dc.internal/ubuntu-24.04.iso"}\'',
       details: 'Virtual Media allows mounting remote ISO images over HTTP/HTTPS or NFS directly to the BMC\'s virtual USB drive for OS installation or firmware recovery without physical thumb drives. BIOS attributes can be patched via PATCH to /redfish/v1/Systems/1/Bios/Settings.',
       tip: 'Changes to BIOS settings are staged and only applied after the server executes an ACPI reboot cycle.',
       flags: [
@@ -177,7 +177,7 @@ const SECTION_MAP = {
     heading: 'Firmware Inventory, UpdateService Multipart Push & Async Task Polling',
     proTip: {
       desc: 'Asynchronous Firmware Flashing & Task Service Monitoring',
-      cmd: 'curl -k -sS "https://${BMC_IP}/redfish/v1/UpdateService/FirmwareInventory" | jq \'.Members[] | {Name: .Name, Version: .Version, Updateable: .Updateable}\'',
+      cmd: 'curl -k -sS -K ~/.bmc-curlrc "https://${BMC_IP}/redfish/v1/UpdateService/FirmwareInventory" | jq \'.Members[] | {Name: .Name, Version: .Version, Updateable: .Updateable}\'',
       details: 'Firmware updates via Redfish UpdateService are asynchronous operations. A successful POST to /redfish/v1/UpdateService returns HTTP 202 Accepted with a Location header pointing to a Task URI (e.g. /redfish/v1/TaskService/Tasks/3). Poll this URI until TaskState reaches Completed.',
       tip: 'Monitor .PercentComplete in the Task object to track flash progression and check .Messages for flashing errors.',
       flags: [
@@ -194,7 +194,7 @@ const SECTION_MAP = {
     heading: 'NVIDIA HGX SXM GPU Health, NVSwitch Thermals & DLC Leak Sensors',
     proTip: {
       desc: 'AI Server HGX Baseboard & Liquid Cooling Telemetry',
-      cmd: 'curl -k -sS "https://${BMC_IP}/redfish/v1/Chassis/HGX_Baseboard_0" | jq .',
+      cmd: 'curl -k -sS -K ~/.bmc-curlrc "https://${BMC_IP}/redfish/v1/Chassis/HGX_Baseboard_0" | jq .',
       details: 'Modern 8-GPU AI supercomputers (NVIDIA HGX H100/H200/B200) expose dedicated Redfish Chassis and Thermal collections for the GPU tray. Inspect Direct Liquid Cooling (DLC) leak detection sensors and coolant flow rates before powering on GPUs.',
       tip: 'DLC leak detection sensors reporting anything other than "OK" must trigger immediate automated host shutdown to prevent coolant spray on live 800W GPUs.',
       flags: [
@@ -308,7 +308,7 @@ const state = {
   savedOnly: false,
   compact: localStorage.getItem("linux_cs_compact") === "1",
   theme: localStorage.getItem("linux_cs_theme") || "dark",
-  bookmarks: new Set(JSON.parse(localStorage.getItem("${fileKey}_bookmarks") || "[]"))
+  bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("${fileKey}_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
 
 // DOM Elements
@@ -733,12 +733,12 @@ function applyTheme(theme) {
   const moonIcon = document.getElementById("theme-icon-moon");
   if (theme === "light") {
     document.documentElement.setAttribute("data-theme", "light");
-    sunIcon.classList.add("hidden");
-    moonIcon.classList.remove("hidden");
+    sunIcon?.classList.add("hidden");
+    moonIcon?.classList.remove("hidden");
   } else {
-    document.documentElement.setAttribute("data-theme", "dark");
-    sunIcon.classList.remove("hidden");
-    moonIcon.classList.add("hidden");
+    document.documentElement.setAttribute("data-theme", theme);
+    sunIcon?.classList.remove("hidden");
+    moonIcon?.classList.add("hidden");
   }
 }
 
@@ -904,6 +904,7 @@ function generateRfHtml(sec, fileKey) {
   </footer>
 
   <script src="${fileKey}.js"></script>
+  <script src="global-search-index.js"></script>
   <script src="common.js"></script>
 </body>
 </html>
@@ -921,7 +922,8 @@ for (const sec of REDFISH_CHEAT_SHEET_DATA) {
   fs.writeFileSync(path.join(__dirname, `${fileKey}.js`), jsContent, 'utf8');
 
   const htmlContent = generateRfHtml(sec, fileKey);
-  fs.writeFileSync(path.join(__dirname, `${fileKey}.html`), htmlContent, 'utf8');
+  // Existing pages are authoritative for header/nav chrome; only create missing ones.
+  if (!fs.existsSync(path.join(__dirname, `${fileKey}.html`))) fs.writeFileSync(path.join(__dirname, `${fileKey}.html`), htmlContent, 'utf8');
 
   createdSheets++;
   console.log(`Created ${fileKey}.html and ${fileKey}.js (${cards.length} cards)`);

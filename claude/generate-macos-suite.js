@@ -268,7 +268,7 @@ const state = {
   savedOnly: false,
   compact: localStorage.getItem("linux_cs_compact") === "1",
   theme: localStorage.getItem("linux_cs_theme") || "dark",
-  bookmarks: new Set(JSON.parse(localStorage.getItem("macos_${sec.id}_bookmarks") || "[]"))
+  bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("macos_${sec.id}_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
 
 // DOM References
@@ -685,12 +685,12 @@ function applyTheme(theme) {
   const moonIcon = document.getElementById("theme-icon-moon");
   if (theme === "light") {
     document.documentElement.setAttribute("data-theme", "light");
-    sunIcon.classList.add("hidden");
-    moonIcon.classList.remove("hidden");
+    sunIcon?.classList.add("hidden");
+    moonIcon?.classList.remove("hidden");
   } else {
-    document.documentElement.setAttribute("data-theme", "dark");
-    sunIcon.classList.remove("hidden");
-    moonIcon.classList.add("hidden");
+    document.documentElement.setAttribute("data-theme", theme);
+    sunIcon?.classList.remove("hidden");
+    moonIcon?.classList.add("hidden");
   }
 }
 
@@ -1019,7 +1019,8 @@ for (const sec of MACOS_CHEAT_SHEET_DATA) {
   const htmlPath = path.join(__dirname, `macos-${sec.id}.html`);
 
   fs.writeFileSync(jsPath, jsContent, 'utf8');
-  fs.writeFileSync(htmlPath, htmlContent, 'utf8');
+  // Existing pages are authoritative for header/nav chrome; only create missing ones.
+  if (!fs.existsSync(htmlPath)) fs.writeFileSync(htmlPath, htmlContent, 'utf8');
 
   console.log(`  + Created macos-${sec.id}.html & macos-${sec.id}.js (${cards.length} cards)`);
 }

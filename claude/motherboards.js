@@ -203,7 +203,7 @@ const MOTHERBOARD_CHEAT_SHEET_DATA = [
         mode: "ASUS BMC (IPv6)",
         modeClass: "mode-i",
         desc: "Query live & historical POST codes remotely from an ASUS ASMB10 / ASMB11 (ASPEED AST2600) BMC over IPv6",
-        cmd: "curl -g -6 -sk -u admin:'<Pass>' \"https://[2001:db8:dc:4::50]/redfish/v1/Systems/Self\" | jq '{PowerState, Status, BootProgress}'",
+        cmd: "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems/Self\" | jq '{PowerState, Status, BootProgress}'",
         flags: [
           ["Systems/Self", "ASUS ASMB10/ASMB11 (AMI MegaRAC SP-X) uses 'Systems/Self' as the primary ComputerSystem Redfish resource URI"],
           ["BootProgress.LastState", "Reports current UEFI boot stage (OSRunning, PCIResourceConfigStarted, PrimaryProcessorInitializationStarted, etc.)"],
@@ -241,7 +241,7 @@ const MOTHERBOARD_CHEAT_SHEET_DATA = [
         mode: "GIGABYTE BMC",
         modeClass: "mode-i",
         desc: "Query GIGABYTE Server Management (GSM / MegaRAC) BMC POST Snooping code over IPv6 Redfish or IPMI",
-        cmd: "curl -g -6 -sk -u admin:'<Pass>' \"https://[2001:db8:dc:4::50]/redfish/v1/Systems/Self\" | jq '{PowerState, BootProgress}'",
+        cmd: "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems/Self\" | jq '{PowerState, BootProgress}'",
         flags: [
           ["Web UI POST Snooping", "In GIGABYTE BMC Web UI: go to 'System -> POST Codes' (or 'Logs -> POST Code') to see the full sequence of Current & Previous Boot 0x80 hex codes"],
           ["ipmitool raw 0x3c", "On GIGABYTE AST2500/AST2600 boards, BMC snoopsLPC/eSPI port 0x80 and logs every checkpoint transition"],
@@ -627,7 +627,7 @@ const state = {
   savedOnly: false,
   compactMode: localStorage.getItem("mb_sheet_compact") === "true",
   theme: localStorage.getItem("mb_sheet_theme") || "dark",
-  savedIds: new Set(JSON.parse(localStorage.getItem("mb_sheet_saved") || "[]"))
+  savedIds: new Set((() => { try { return JSON.parse(localStorage.getItem("mb_sheet_saved") || "[]"); } catch (e) { return []; } })())
 };
 
 // DOM Elements
@@ -1002,11 +1002,11 @@ function applyDensity(isCompact) {
 function applyTheme(theme) {
   document.documentElement.setAttribute("data-theme", theme);
   if (theme === "light") {
-    themeIconSun.classList.add("hidden");
-    themeIconMoon.classList.remove("hidden");
+    themeIconSun?.classList.add("hidden");
+    themeIconMoon?.classList.remove("hidden");
   } else {
-    themeIconSun.classList.remove("hidden");
-    themeIconMoon.classList.add("hidden");
+    themeIconSun?.classList.remove("hidden");
+    themeIconMoon?.classList.add("hidden");
   }
 }
 

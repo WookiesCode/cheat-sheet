@@ -134,7 +134,7 @@ const IPMI_IPMI_BMC_LAN_USERS_DATA = [
       {
         "id": "bmc-lan-users-tips-card",
         "desc": "BMC Out-of-Band Network Provisioning & Root Password Recovery",
-        "cmd": "ipmitool -I lanplus -H $BMC_IP -U admin -P password lan print 1",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E lan print 1",
         "details": "Configure dedicated or shared BMC network interfaces across channel 1 (or channel 8). In-band access from the host OS via \"ipmitool user set password 2 <newpass>\" allows root administrators to recover lost BMC passwords without physical serial cables.",
         "flags": [
           [
@@ -171,7 +171,7 @@ const state = {
   savedOnly: false,
   compact: localStorage.getItem("linux_cs_compact") === "1",
   theme: localStorage.getItem("linux_cs_theme") || "dark",
-  bookmarks: new Set(JSON.parse(localStorage.getItem("ipmi-bmc-lan-users_bookmarks") || "[]"))
+  bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("ipmi-bmc-lan-users_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
 
 // DOM Elements
@@ -596,12 +596,12 @@ function applyTheme(theme) {
   const moonIcon = document.getElementById("theme-icon-moon");
   if (theme === "light") {
     document.documentElement.setAttribute("data-theme", "light");
-    sunIcon.classList.add("hidden");
-    moonIcon.classList.remove("hidden");
+    sunIcon?.classList.add("hidden");
+    moonIcon?.classList.remove("hidden");
   } else {
-    document.documentElement.setAttribute("data-theme", "dark");
-    sunIcon.classList.remove("hidden");
-    moonIcon.classList.add("hidden");
+    document.documentElement.setAttribute("data-theme", theme);
+    sunIcon?.classList.remove("hidden");
+    moonIcon?.classList.add("hidden");
   }
 }
 

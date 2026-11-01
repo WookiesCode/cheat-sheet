@@ -10,7 +10,7 @@ const RF_RF_BIOS_BMC_DATA = [
       {
         "id": "rf-bios-read-patch",
         "desc": "Inspect current BIOS attributes or stage pending BIOS settings for next server reboot",
-        "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/Systems/1/Bios\" | jq '.Attributes'   |   curl -g -6 -sk -u \"$USER:$PASS\" -X PATCH \"https://[$BMC]/redfish/v1/Systems/1/Bios/Settings\" -H \"Content-Type: application/json\" -d '{\"Attributes\": {\"SriovGlobalEnable\": \"Enabled\"}}'",
+        "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems/1/Bios\" | jq '.Attributes'   |   curl -g -6 -sk -K ~/.bmc-curlrc -X PATCH \"https://[$BMC]/redfish/v1/Systems/1/Bios/Settings\" -H \"Content-Type: application/json\" -d '{\"Attributes\": {\"SriovGlobalEnable\": \"Enabled\"}}'",
         "details": "",
         "flags": [
           [
@@ -52,7 +52,7 @@ const RF_RF_BIOS_BMC_DATA = [
       {
         "id": "rf-virtual-media-mount",
         "desc": "Mount a remote OS installer ISO over IPv6 HTTP/HTTPS via BMC Virtual Media (`InsertMedia`)",
-        "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" -X POST \"https://[$BMC]/redfish/v1/Managers/1/VirtualMedia/CD1/Actions/VirtualMedia.InsertMedia\" -H \"Content-Type: application/json\" -d '{\"Image\": \"http://[2001:db8:dc::5]:8000/ubuntu-24.04-live-server-amd64.iso\", \"Inserted\": true, \"WriteProtected\": true}'",
+        "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc -X POST \"https://[$BMC]/redfish/v1/Managers/1/VirtualMedia/CD1/Actions/VirtualMedia.InsertMedia\" -H \"Content-Type: application/json\" -d '{\"Image\": \"http://[2001:db8:dc::5]:8000/ubuntu-24.04-live-server-amd64.iso\", \"Inserted\": true, \"WriteProtected\": true}'",
         "details": "",
         "flags": [
           [
@@ -90,7 +90,7 @@ const RF_RF_BIOS_BMC_DATA = [
       {
         "id": "rf-bmc-manager-reset",
         "desc": "Reboot the Out-of-Band BMC controller itself without disrupting the running host OS",
-        "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" -X POST \"https://[$BMC]/redfish/v1/Managers/1/Actions/Manager.Reset\" -H \"Content-Type: application/json\" -d '{\"ResetType\": \"GracefulRestart\"}'",
+        "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc -X POST \"https://[$BMC]/redfish/v1/Managers/1/Actions/Manager.Reset\" -H \"Content-Type: application/json\" -d '{\"ResetType\": \"GracefulRestart\"}'",
         "details": "",
         "flags": [
           [
@@ -124,7 +124,7 @@ const RF_RF_BIOS_BMC_DATA = [
       {
         "id": "bios-vmedia-bmc-tips-card",
         "desc": "Out-of-Band OS Deployment via Virtual Media & BIOS Tuning",
-        "cmd": "curl -k -sS -X POST \"https://${BMC_IP}/redfish/v1/Managers/1/VirtualMedia/CD/Actions/VirtualMedia.InsertMedia\" -d '{\"Image\":\"http://pxe.dc.internal/ubuntu-24.04.iso\"}'",
+        "cmd": "curl -k -sS -K ~/.bmc-curlrc -X POST \"https://${BMC_IP}/redfish/v1/Managers/1/VirtualMedia/CD/Actions/VirtualMedia.InsertMedia\" -d '{\"Image\":\"http://pxe.dc.internal/ubuntu-24.04.iso\"}'",
         "details": "Virtual Media allows mounting remote ISO images over HTTP/HTTPS or NFS directly to the BMC's virtual USB drive for OS installation or firmware recovery without physical thumb drives. BIOS attributes can be patched via PATCH to /redfish/v1/Systems/1/Bios/Settings.",
         "flags": [
           [
@@ -161,7 +161,7 @@ const state = {
   savedOnly: false,
   compact: localStorage.getItem("linux_cs_compact") === "1",
   theme: localStorage.getItem("linux_cs_theme") || "dark",
-  bookmarks: new Set(JSON.parse(localStorage.getItem("rf-bios-bmc_bookmarks") || "[]"))
+  bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("rf-bios-bmc_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
 
 // DOM Elements
@@ -586,12 +586,12 @@ function applyTheme(theme) {
   const moonIcon = document.getElementById("theme-icon-moon");
   if (theme === "light") {
     document.documentElement.setAttribute("data-theme", "light");
-    sunIcon.classList.add("hidden");
-    moonIcon.classList.remove("hidden");
+    sunIcon?.classList.add("hidden");
+    moonIcon?.classList.remove("hidden");
   } else {
-    document.documentElement.setAttribute("data-theme", "dark");
-    sunIcon.classList.remove("hidden");
-    moonIcon.classList.add("hidden");
+    document.documentElement.setAttribute("data-theme", theme);
+    sunIcon?.classList.remove("hidden");
+    moonIcon?.classList.add("hidden");
   }
 }
 

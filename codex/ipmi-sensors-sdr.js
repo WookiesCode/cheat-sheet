@@ -10,7 +10,7 @@ const IPMI_IPMI_SENSORS_SDR_DATA = [
       {
         "id": "ipmi-sdr-elist-types",
         "desc": "Read all Sensor Data Repository (SDR) entries or filter specifically by Temperature, Fan, or Power Supply",
-        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" sdr elist full   |   ... sdr type Temperature   |   ... sdr type Fan   |   ... sdr type \"Power Supply\"",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -P \"$PASS\" sdr elist full   |   ... sdr type Temperature   |   ... sdr type Fan   |   ... sdr type \"Power Supply\"",
         "details": "",
         "flags": [
           [
@@ -49,7 +49,7 @@ const IPMI_IPMI_SENSORS_SDR_DATA = [
       {
         "id": "ipmi-dcmi-power-reading",
         "desc": "Read real-time server power consumption (Watts), min/max/avg power, and thermal status via DCMI",
-        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" dcmi power reading   |   ... dcmi power get_limit",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -P \"$PASS\" dcmi power reading   |   ... dcmi power get_limit",
         "details": "",
         "flags": [
           [
@@ -87,7 +87,7 @@ const IPMI_IPMI_SENSORS_SDR_DATA = [
       {
         "id": "ipmi-sensor-thresholds",
         "desc": "Inspect lower/upper non-critical, critical, and non-recoverable thresholds for a specific sensor",
-        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" sensor get \"Inlet Temp\" \"FAN1\"",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -P \"$PASS\" sensor get \"Inlet Temp\" \"FAN1\"",
         "details": "",
         "flags": [
           [
@@ -582,16 +582,12 @@ function initEventListeners() {
 }
 
 function applyTheme(theme) {
-  const sunIcon = document.getElementById("theme-icon-sun");
-  const moonIcon = document.getElementById("theme-icon-moon");
-  if (theme === "light") {
-    document.documentElement.setAttribute("data-theme", "light");
-    sunIcon.classList.add("hidden");
-    moonIcon.classList.remove("hidden");
+  state.theme = theme;
+  if (window.CheatSheetCommon && typeof window.CheatSheetCommon.applyTheme === "function") {
+    window.CheatSheetCommon.applyTheme(theme);
   } else {
-    document.documentElement.setAttribute("data-theme", "dark");
-    sunIcon.classList.remove("hidden");
-    moonIcon.classList.add("hidden");
+    document.documentElement.setAttribute("data-theme", theme);
+    try { localStorage.setItem("linux_cs_theme", theme); } catch (e) {}
   }
 }
 

@@ -10,7 +10,7 @@ const IPMI_IPMI_SOL_CONSOLE_DATA = [
       {
         "id": "ipmi-sol-activate",
         "desc": "Connect to the server's live serial console (BIOS POST, GRUB, Linux ttyS0/ttyS1) over the network",
-        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" -e @ sol activate",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -P \"$PASS\" -e @ sol activate",
         "details": "",
         "flags": [
           [
@@ -49,7 +49,7 @@ const IPMI_IPMI_SOL_CONSOLE_DATA = [
       {
         "id": "ipmi-sol-deactivate-info",
         "desc": "Force-close a hung or active SOL session and inspect SOL baud rate configuration",
-        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$USER\" -P \"$PASS\" sol deactivate   |   ... sol info 1   |   ... sol set non-volatile-bit-rate 115.2 1",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -P \"$PASS\" sol deactivate   |   ... sol info 1   |   ... sol set non-volatile-bit-rate 115.2 1",
         "details": "",
         "flags": [
           [
@@ -544,16 +544,12 @@ function initEventListeners() {
 }
 
 function applyTheme(theme) {
-  const sunIcon = document.getElementById("theme-icon-sun");
-  const moonIcon = document.getElementById("theme-icon-moon");
-  if (theme === "light") {
-    document.documentElement.setAttribute("data-theme", "light");
-    sunIcon.classList.add("hidden");
-    moonIcon.classList.remove("hidden");
+  state.theme = theme;
+  if (window.CheatSheetCommon && typeof window.CheatSheetCommon.applyTheme === "function") {
+    window.CheatSheetCommon.applyTheme(theme);
   } else {
-    document.documentElement.setAttribute("data-theme", "dark");
-    sunIcon.classList.remove("hidden");
-    moonIcon.classList.add("hidden");
+    document.documentElement.setAttribute("data-theme", theme);
+    try { localStorage.setItem("linux_cs_theme", theme); } catch (e) {}
   }
 }
 

@@ -1,37 +1,18 @@
 // build-index.js
-// Generates global-search-index.js across all 184 interactive cheat sheet JS data files.
+// Generates global-search-index.js across every interactive cheat sheet JS data file.
 const fs = require('fs');
 const path = require('path');
 
-const excludeFiles = new Set([
-  'build-index.js',
-  'build-portable.js',
-  'generate-scripting-suite.js',
-  'generate-cli-suite.js',
-  'generate-linux-suite.js',
-  'generate-neovim-suite.js',
-  'generate-macos-suite.js',
-  'generate-windows-suite.js',
-  'generate-nvidia-suite.js',
-  'generate-infiniband-suite.js',
-  'generate-switches-suite.js',
-  'generate-redfish-suite.js',
-  'generate-ipmi-suite.js',
-  'generate-fiber-suite.js',
-  'generate-ethernet-suite.js',
-  'generate-motherboards-suite.js',
-  'generate-all-remaining-suites.js',
-  'create-scripting-data.js',
-  'common.js',
-  'global-search-index.js'
-]);
+// Tooling never holds sheet data. app.js does: it backs index.html.
+const isTooling = f => /^(build-|generate-|create-)/.test(f) || f === 'common.js' || f === 'global-search-index.js';
+const htmlFor = f => (f === 'app.js' ? 'index.html' : f.replace(/\.js$/, '.html'));
 
-const jsFiles = fs.readdirSync(__dirname).filter(f => f.endsWith('.js') && !excludeFiles.has(f));
+const jsFiles = fs.readdirSync(__dirname).filter(f => f.endsWith('.js') && !isTooling(f));
 
 const index = [];
 
 for (const jsFile of jsFiles) {
-  const htmlFile = jsFile.replace(/\.js$/, '.html');
+  const htmlFile = htmlFor(jsFile);
   const filePath = path.join(__dirname, jsFile);
   const content = fs.readFileSync(filePath, 'utf8');
 
@@ -46,7 +27,7 @@ for (const jsFile of jsFiles) {
     continue;
   }
 
-  const sName = jsFile.replace(/\.js$/, '');
+  const sName = jsFile === 'app.js' ? 'linux' : jsFile.replace(/\.js$/, '');
 
   for (const s of sections) {
     if (!s || !Array.isArray(s.commands)) continue;

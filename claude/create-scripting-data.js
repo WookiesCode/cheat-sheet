@@ -527,7 +527,7 @@ const state = {
   savedOnly: false,
   compact: localStorage.getItem("linux_cs_compact") === "1",
   theme: localStorage.getItem("linux_cs_theme") || "dark",
-  bookmarks: new Set(JSON.parse(localStorage.getItem("scripting_cs_bookmarks") || "[]"))
+  bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("scripting_cs_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
 
 // DOM References
@@ -666,6 +666,50 @@ function matchesSearch(cmdObj, section, query) {
   return terms.every((t) => haystack.includes(t));
 }
 
+let allRenderedCards = [];
+function packMasonry() {
+  if (!sectionsContainer) return;
+  if (sectionsContainer.querySelectorAll(".section-card").length === 0) {
+    allRenderedCards = [];
+    return;
+  }
+  const directCards = [...sectionsContainer.querySelectorAll(":scope > .section-card")];
+  if (directCards.length > 0) {
+    allRenderedCards = directCards;
+  }
+  if (allRenderedCards.length === 0) return;
+
+  const containerWidth = sectionsContainer.clientWidth || window.innerWidth;
+  const colCount = Math.max(1, Math.min(allRenderedCards.length, Math.floor((containerWidth + 18) / (380 + 18))));
+  if (colCount <= 1) {
+    sectionsContainer.classList.remove("has-masonry");
+    sectionsContainer.replaceChildren(...allRenderedCards);
+    return;
+  }
+
+  sectionsContainer.classList.add("has-masonry");
+  const cols = Array.from({ length: colCount }, () => {
+    const col = document.createElement("div");
+    col.className = "masonry-col";
+    return col;
+  });
+  const colHeights = new Array(colCount).fill(0);
+  sectionsContainer.replaceChildren(...cols);
+
+  for (const card of allRenderedCards) {
+    let shortestIdx = 0;
+    for (let i = 1; i < colCount; i++) {
+      if (colHeights[i] < colHeights[shortestIdx]) {
+        shortestIdx = i;
+      }
+    }
+    cols[shortestIdx].appendChild(card);
+    colHeights[shortestIdx] += card.offsetHeight + 18;
+  }
+}
+window.addEventListener("resize", () => packMasonry());
+window.packMasonry = packMasonry;
+
 function renderSections() {
   let visibleCommandsCount = 0;
   const cardsHtml = [];
@@ -772,6 +816,7 @@ function renderSections() {
   }
 
   sectionsContainer.innerHTML = cardsHtml.join("");
+  packMasonry();
   visibleCountEl.textContent = visibleCommandsCount;
   savedCountEl.textContent = state.bookmarks.size;
 
@@ -799,6 +844,7 @@ function applyDensity(compact) {
   document.body.classList.toggle("compact-density", compact);
   densityLabel.textContent = compact ? "Relaxed" : "Compact";
   localStorage.setItem("linux_cs_compact", compact ? "1" : "0");
+  packMasonry();
 }
 
 function initEvents() {

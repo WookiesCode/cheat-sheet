@@ -10,7 +10,7 @@ const RF_RF_FIRMWARE_DATA = [
       {
         "id": "rf-firmware-inventory",
         "desc": "List all installed firmware components (BMC, BIOS, CPLD, PSU, NVMe, GPU, NIC) and versions",
-        "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/UpdateService/FirmwareInventory?\\$expand=.(\\$levels=1)\" | jq '.Members[] | {Id, Name, Version, Updateable, Status}'",
+        "cmd": "curl -g -6 -sk -u \"$BMC_USER:$PASS\" \"https://[$BMC]/redfish/v1/UpdateService/FirmwareInventory?\\$expand=.(\\$levels=1)\" | jq '.Members[] | {Id, Name, Version, Updateable, Status}'",
         "details": "",
         "flags": [
           [
@@ -44,7 +44,7 @@ const RF_RF_FIRMWARE_DATA = [
       {
         "id": "rf-firmware-multipart-push",
         "desc": "Upload a local firmware bundle (`.bin` / `.fwpkg` / `.exe`) via Redfish `MultipartHttpPushUri`",
-        "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" -X POST \"https://[$BMC]/redfish/v1/UpdateService/upload\" -F 'UpdateParameters={\"Targets\":[],\"@Redfish.OperationApplyTime\":\"OnReset\"};type=application/json' -F \"UpdateFile=@./firmware.fwpkg;type=application/octet-stream\"",
+        "cmd": "curl -g -6 -sk -u \"$BMC_USER:$PASS\" -X POST \"https://[$BMC]/redfish/v1/UpdateService/upload\" -F 'UpdateParameters={\"Targets\":[],\"@Redfish.OperationApplyTime\":\"OnReset\"};type=application/json' -F \"UpdateFile=@./firmware.fwpkg;type=application/octet-stream\"",
         "details": "",
         "flags": [
           [
@@ -82,7 +82,7 @@ const RF_RF_FIRMWARE_DATA = [
       {
         "id": "rf-poll-task-service",
         "desc": "Monitor progress percentage and status of asynchronous Redfish jobs (`TaskService`)",
-        "cmd": "curl -g -6 -sk -u \"$USER:$PASS\" \"https://[$BMC]/redfish/v1/TaskService/Tasks/1\" | jq '{Id, Name, TaskState, PercentComplete, TaskStatus, Messages}'",
+        "cmd": "curl -g -6 -sk -u \"$BMC_USER:$PASS\" \"https://[$BMC]/redfish/v1/TaskService/Tasks/1\" | jq '{Id, Name, TaskState, PercentComplete, TaskStatus, Messages}'",
         "details": "",
         "flags": [
           [
@@ -578,16 +578,12 @@ function initEventListeners() {
 }
 
 function applyTheme(theme) {
-  const sunIcon = document.getElementById("theme-icon-sun");
-  const moonIcon = document.getElementById("theme-icon-moon");
-  if (theme === "light") {
-    document.documentElement.setAttribute("data-theme", "light");
-    sunIcon.classList.add("hidden");
-    moonIcon.classList.remove("hidden");
+  state.theme = theme;
+  if (window.CheatSheetCommon && typeof window.CheatSheetCommon.applyTheme === "function") {
+    window.CheatSheetCommon.applyTheme(theme);
   } else {
-    document.documentElement.setAttribute("data-theme", "dark");
-    sunIcon.classList.remove("hidden");
-    moonIcon.classList.add("hidden");
+    document.documentElement.setAttribute("data-theme", theme);
+    try { localStorage.setItem("linux_cs_theme", theme); } catch (e) {}
   }
 }
 
