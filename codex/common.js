@@ -16,6 +16,7 @@
   const DEFAULT_TARGET_VARS = {
     bmc: '2001:db8:dc::50',
     user: 'ADMIN',
+    pass: '',
     iface: 'eno1',
     hca: 'mlx5_0',
     disk: '/dev/nvme0n1',
@@ -38,7 +39,8 @@
   function saveTargetState() {
     localStorage.setItem('dc_vars_active', targetState.active ? '1' : '0');
     localStorage.setItem('dc_vars_collapsed', targetState.collapsed ? '1' : '0');
-    localStorage.setItem('dc_target_vars', JSON.stringify(targetState.vars));
+    const { pass, ...persistedVars } = targetState.vars;
+    localStorage.setItem('dc_target_vars', JSON.stringify(persistedVars));
   }
 
   // Hook clipboard to automatically substitute variables if active
@@ -81,6 +83,11 @@
     const gpuVal = (targetState.vars.gpu || '').trim();
     if (gpuVal) {
       result = result.replace(/(\$GPU\b|\$\{GPU\}|<gpu>|<gpu_id>)/gi, gpuVal);
+    }
+
+    const passVal = targetState.vars.pass || '';
+    if (passVal) {
+      result = result.replace(/(\$BMC_PASS\b|\$\{BMC_PASS\}|\$PASS\b|\$\{PASS\}|<password>|<pass>)/g, () => passVal);
     }
 
     return { text: result, substituted: result !== text };
@@ -170,7 +177,7 @@
         <div class="target-vars-header">
           <div class="target-vars-title">
             <span class="target-badge">🎯 RACK TARGETS</span>
-            <span class="target-subtitle">Target placeholders substitute on copy. Set credentials in your shell; passwords are never stored here.</span>
+            <span class="target-subtitle">Target placeholders substitute on copy. Password is masked, kept only in this page, and cleared on reload.</span>
           </div>
           <div class="target-vars-actions">
             <label class="target-toggle-label" title="Enable or disable live variable substitution on copy">
@@ -194,6 +201,10 @@
             <input type="text" id="var-user" spellcheck="false" autocomplete="off" value="${escapeHtml(targetState.vars.user)}" placeholder="ADMIN" />
           </div>
           <div class="target-field">
+            <label for="var-pass"><span class="var-tag">$PASS</span> BMC Password</label>
+            <input type="password" id="var-pass" spellcheck="false" autocomplete="off" autocapitalize="off" placeholder="Enter password" aria-label="BMC Password" />
+          </div>
+          <div class="target-field">
             <label for="var-iface"><span class="var-tag">$IFACE</span> NIC</label>
             <input type="text" id="var-iface" spellcheck="false" autocomplete="off" value="${escapeHtml(targetState.vars.iface)}" placeholder="eno1" />
           </div>
@@ -212,6 +223,9 @@
         </div>
       </div>
     `;
+
+    // Set the password as a property rather than embedding it in HTML markup.
+    document.getElementById('var-pass').value = targetState.vars.pass || '';
 
     // Attach listeners
     const activeToggle = document.getElementById('target-active-toggle');
@@ -242,7 +256,7 @@
       });
     }
 
-    ['bmc', 'user', 'iface', 'hca', 'disk', 'gpu'].forEach(key => {
+    ['bmc', 'user', 'pass', 'iface', 'hca', 'disk', 'gpu'].forEach(key => {
       const el = document.getElementById(`var-${key}`);
       if (el) {
         el.addEventListener('input', (e) => {
@@ -824,11 +838,26 @@ ${log}
   const THEMES = [
     { id: 'dark', name: 'Cyber Dark', desc: 'Default obsidian slate & cyan', swatches: ['#0b0e14', '#111621', '#38bdf8', '#4ade80'] },
     { id: 'light', name: 'Clean Light', desc: 'Crisp daylight paper & azure', swatches: ['#f5f7fa', '#ffffff', '#0284c7', '#16a34a'] },
+    { id: 'gemini', name: 'Gemini Spark', desc: 'Google Gemini cosmic indigo & violet', swatches: ['#090a12', '#101322', '#818cf8', '#c084fc'] },
+    { id: 'claude', name: 'Claude Warm', desc: 'Warm charcoal & terracotta', swatches: ['#1f1e1d', '#262624', '#d97757', '#e8b48f'] },
+    { id: 'codex', name: 'Codex Mint', desc: 'Charcoal & mint workspace', swatches: ['#141414', '#1c1c1c', '#8de8c2', '#ececec'] },
+    { id: 'startrek', name: 'Star Trek', desc: 'Starship console orange & lilac', swatches: ['#000000', '#17131f', '#ff9900', '#cc99cc'] },
+    { id: 'starwars', name: 'Star Wars', desc: 'Deep space black & crawl yellow', swatches: ['#05060a', '#14171f', '#ffe81f', '#5fb8ff'] },
     { id: 'nord', name: 'Nord Frost', desc: 'Arctic cold & polar blue', swatches: ['#242933', '#2e3440', '#88c0d0', '#a3be8c'] },
     { id: 'dracula', name: 'Dracula Night', desc: 'High-contrast vampire purple & pink', swatches: ['#1e1f29', '#282a36', '#bd93f9', '#ff79c6'] },
     { id: 'catppuccin', name: 'Catppuccin Mocha', desc: 'Soothing pastel mantle & mauve', swatches: ['#181825', '#1e1e2e', '#cba6f7', '#a6e3a1'] },
     { id: 'matrix', name: 'Matrix CRT', desc: 'Hacker phosphor green & terminal black', swatches: ['#030804', '#061408', '#00ff66', '#a3e635'] },
     { id: 'tokyonight', name: 'Tokyo Night', desc: 'Vibrant Shibuya neon cyan & violet', swatches: ['#16161e', '#1a1b26', '#7aa2f7', '#bb9af7'] },
+    { id: 'nebius', name: 'Nebius Cloud', desc: 'AI cloud petrol navy & volt lime', swatches: ['#031422', '#062238', '#e0ff4f', '#614efa'] },
+    {"id": "everforest", "name": "Everforest Dark", "desc": "Forest gray & muted sage", "swatches": ["#2d353b", "#343f44", "#a7c080", "#83c092"]},
+    {"id": "gruvbox-material", "name": "Gruvbox Material", "desc": "Warm charcoal, cream & olive", "swatches": ["#282828", "#32302f", "#d8a657", "#89b482"]},
+    {"id": "rose-pine-moon", "name": "Rosé Pine Moon", "desc": "Soft dusk, rose & lavender", "swatches": ["#232136", "#2a273f", "#c4a7e7", "#9ccfd8"]},
+    {"id": "kanagawa-wave", "name": "Kanagawa Wave", "desc": "Ink blue & warm paper", "swatches": ["#1f1f28", "#24242e", "#7e9cd8", "#7fb4ca"]},
+    {"id": "rose-pine-dawn", "name": "Rosé Pine Dawn", "desc": "Warm cream, rose & muted plum", "swatches": ["#faf4ed", "#fffaf3", "#77518d", "#286983"]},
+    {"id": "zenburn", "name": "Zenburn", "desc": "Warm gray & soft sage", "swatches": ["#2b2b2b", "#383838", "#8cd0d3", "#8cd0d3"]},
+    {"id": "latte", "name": "Catppuccin Latte", "desc": "Soft pastel gray & mauve", "swatches": ["#e6e9ef", "#eff1f5", "#7e35de", "#176a86"]},
+    {"id": "gruvboxlight", "name": "Gruvbox Light", "desc": "Warm cream paper & earthy accents", "swatches": ["#f2e5bc", "#fbf1c7", "#076678", "#076678"]},
+    {"id": "solarizedlight", "name": "Solarized Light", "desc": "Precision cream & muted blue", "swatches": ["#eee8d5", "#fdf6e3", "#1c679b", "#0d6d66"]},
     { id: 'solarized', name: 'Solarized Dark', desc: 'Low-contrast precision cyan & gold', swatches: ['#00212b', '#002b36', '#268bd2', '#b58900'] }
   ];
 
@@ -855,6 +884,27 @@ ${log}
     const currentThemeId = (function() {
       try { return localStorage.getItem('linux_cs_theme') || 'dark'; } catch(e) { return 'dark'; }
     })();
+
+    if (dropdown) {
+      const countEl = dropdown.querySelector('.theme-count');
+      if (countEl) countEl.textContent = `${THEMES.length} Themes`;
+
+      let list = dropdown.querySelector('.theme-options-list');
+      if (!list) {
+        list = document.createElement('div');
+        list.className = 'theme-options-list';
+        dropdown.appendChild(list);
+      }
+
+      list.innerHTML = THEMES.map(t => `
+        <button type="button" class="theme-option${t.id === currentThemeId ? ' active' : ''}" data-theme="${t.id}" title="${escapeHtml(t.desc)}">
+          <div class="theme-swatches">${t.swatches.map(s => `<span class="theme-dot" style="background:${s}"></span>`).join('')}</div>
+          <div class="theme-info"><span class="theme-name">${escapeHtml(t.name)}</span><span class="theme-desc">${escapeHtml(t.desc)}</span></div>
+          <span class="theme-check">✓</span>
+        </button>
+      `).join('');
+    }
+
     applyGlobalTheme(currentThemeId);
 
     if (!btn || !dropdown) return;

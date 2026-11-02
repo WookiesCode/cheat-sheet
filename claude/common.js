@@ -26,8 +26,9 @@
     try { return localStorage.getItem(key); } catch (e) { return null; }
   }
 
-  // Credentials are never kept in the browser. Earlier versions stored a BMC
-  // password here, so drop it from any saved state on load.
+  // The BMC password stays out of localStorage. Earlier versions stored it there,
+  // so drop it from any saved state on load. It lives in sessionStorage instead,
+  // so it follows you between pages and is gone when the tab closes.
   function readStoredVars() {
     let saved = {};
     try {
@@ -41,7 +42,30 @@
     return saved;
   }
 
+  const PASS_KEY = 'dc_target_pass';
+
+  function readSessionPass() {
+    try { return sessionStorage.getItem(PASS_KEY) || ''; } catch (e) { return ''; }
+  }
+
+  function saveSessionPass(value) {
+    try {
+      if (value) sessionStorage.setItem(PASS_KEY, value);
+      else sessionStorage.removeItem(PASS_KEY);
+    } catch (e) {}
+  }
+
+  // Quote the password for where its placeholder sits, so characters like $ or `
+  // reach the BMC literally instead of being interpreted by the shell.
+  function quotePassword(pass, before) {
+    const insideDoubleQuotes = ((before.split('\n').pop().match(/(^|[^\\])"/g) || []).length % 2) === 1;
+    if (!insideDoubleQuotes) return `'${pass.replace(/'/g, `'\\''`)}'`;
+    const value = before.endsWith('\\"') ? pass.replace(/[\\"]/g, '\\$&') : pass;
+    return value.replace(/[\\"$`]/g, '\\$&');
+  }
+
   const targetState = {
+    pass: readSessionPass(),
     active: readStored('dc_vars_active') !== '0', // default enabled
     collapsed: readStored('dc_vars_collapsed') === '1',
     vars: Object.assign({}, DEFAULT_TARGET_VARS, readStoredVars())
@@ -59,7 +83,7 @@
   // Placeholders are uppercase on purpose: lowercase $disk or $hca is a script's
   // own variable, and $USER is the local login, so none of those are rewritten.
   function substituteVariables(text) {
-    if (!targetState.active || !text) return { text, substituted: false };
+    if (!targetState.active || !text) return { text, substituted: false, hasSecret: false };
     let result = text;
     let count = 0;
 
@@ -77,6 +101,17 @@
     const userVal = (targetState.vars.user || '').trim();
     if (userVal) {
       result = result.replace(/(\$BMC_USER\b|\$\{BMC_USER\}|<bmc_user>)/g, () => userVal);
+    }
+
+    let hasSecret = false;
+    if (targetState.pass) {
+      const passRegex = /(\$BMC_PASS\b|\$\{BMC_PASS\}|<bmc_pass>|<password>|<pass>)/g;
+      result = result.replace(passRegex, (match, _group, offset, whole) => {
+        hasSecret = true;
+        return quotePassword(targetState.pass, whole.slice(0, offset));
+      });
+      // A leading space keeps the line out of history where HISTCONTROL ignores spaces.
+      if (hasSecret && !result.startsWith(' ')) result = ' ' + result;
     }
 
     const ifaceVal = (targetState.vars.iface || '').trim();
@@ -99,7 +134,7 @@
       result = result.replace(/(\$GPU\b|\$\{GPU\}|<gpu>|<gpu_id>)/g, () => gpuVal);
     }
 
-    return { text: result, substituted: result !== text };
+    return { text: result, substituted: result !== text, hasSecret };
   }
 
   // Intercept navigator.clipboard.writeText so all sheets inherit variable substitution automatically!
@@ -130,8 +165,10 @@
     const originalWriteText = navigator.clipboard.writeText.bind(navigator.clipboard);
     copyVerbatim = originalWriteText;
     navigator.clipboard.writeText = function(text) {
-      const { text: newText, substituted } = substituteVariables(text);
-      if (substituted) {
+      const { text: newText, substituted, hasSecret } = substituteVariables(text);
+      if (hasSecret) {
+        showGlobalToast('Substituted target variables, including the password. Clear your clipboard after use.');
+      } else if (substituted) {
         showGlobalToast(`Substituted target variables! Copied: ${newText.length > 50 ? newText.slice(0, 50) + '…' : newText}`);
       }
       return originalWriteText(newText);
@@ -183,9 +220,14 @@
             <label for="var-user"><span class="var-tag">$BMC_USER</span> BMC User</label>
             <input type="text" id="var-user" spellcheck="false" autocomplete="off" value="${escapeHtml(targetState.vars.user)}" placeholder="ADMIN" />
           </div>
-          <div class="target-field target-creds-note">
-            <span class="target-creds-label"><span class="var-tag">CREDS</span> Never stored here</span>
-            <code title="Set once per shell. curl reads ~/.bmc-curlrc (chmod 600), one line: user = &quot;BMC_USER:PASSWORD&quot;">read -rs BMC_PASS; export BMC_PASS IPMITOOL_PASSWORD="$BMC_PASS"</code>
+          <div class="target-field">
+            <label for="var-pass"><span class="var-tag">$BMC_PASS</span> BMC Password</label>
+            <div class="password-input-wrapper">
+              <input type="password" id="var-pass" spellcheck="false" autocomplete="new-password" placeholder="This tab only" title="Hidden, and cleared when this tab closes. Fills $BMC_PASS, &lt;password&gt; and &lt;pass&gt; when you copy. curl -K commands read ~/.bmc-curlrc, and ipmitool -E reads IPMITOOL_PASSWORD from your shell." />
+              <button type="button" id="toggle-pass-visibility" class="password-toggle-btn" title="Show password" aria-label="Show password" aria-pressed="false">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+              </button>
+            </div>
           </div>
           <div class="target-field">
             <label for="var-iface"><span class="var-tag">$IFACE</span> NIC</label>
@@ -230,10 +272,33 @@
     if (resetBtn) {
       resetBtn.addEventListener('click', () => {
         targetState.vars = Object.assign({}, DEFAULT_TARGET_VARS);
+        targetState.pass = '';
+        saveSessionPass('');
         saveTargetState();
         renderTargetVarsBar();
         showGlobalToast('Target variables reset to defaults');
       });
+    }
+
+    const passInput = document.getElementById('var-pass');
+    if (passInput) {
+      passInput.value = targetState.pass;
+      passInput.addEventListener('input', (e) => {
+        targetState.pass = e.target.value;
+        saveSessionPass(targetState.pass);
+      });
+
+      const toggleBtn = document.getElementById('toggle-pass-visibility');
+      if (toggleBtn) {
+        toggleBtn.addEventListener('click', () => {
+          const reveal = passInput.type === 'password';
+          passInput.type = reveal ? 'text' : 'password';
+          const label = reveal ? 'Hide password' : 'Show password';
+          toggleBtn.title = label;
+          toggleBtn.setAttribute('aria-label', label);
+          toggleBtn.setAttribute('aria-pressed', String(reveal));
+        });
+      }
     }
 
     ['bmc', 'user', 'iface', 'hca', 'disk', 'gpu'].forEach(key => {
@@ -877,12 +942,28 @@ ${log}
   const THEMES = [
     { id: 'dark', name: 'Cyber Dark', desc: 'Default obsidian slate & cyan', swatches: ['#0b0e14', '#111621', '#38bdf8', '#4ade80'] },
     { id: 'light', name: 'Clean Light', desc: 'Crisp daylight paper & azure', swatches: ['#f5f7fa', '#ffffff', '#0284c7', '#16a34a'] },
+    { id: 'gemini', name: 'Gemini Spark', desc: 'Google Gemini cosmic indigo & violet', swatches: ['#090a12', '#101322', '#818cf8', '#c084fc'] },
+    { id: 'claude', name: 'Claude Warm', desc: 'Warm charcoal & terracotta', swatches: ['#1f1e1d', '#262624', '#d97757', '#e8b48f'] },
+    { id: 'codex', name: 'Codex Mint', desc: 'Charcoal & mint workspace', swatches: ['#141414', '#1c1c1c', '#8de8c2', '#ececec'] },
+    { id: 'startrek', name: 'Star Trek', label: 'Star Trek', desc: 'Starship console orange & lilac', swatches: ['#000000', '#17131f', '#ff9900', '#cc99cc'] },
+    { id: 'starwars', name: 'Star Wars', label: 'Star Wars', desc: 'Deep space black & crawl yellow', swatches: ['#05060a', '#14171f', '#ffe81f', '#5fb8ff'] },
+    { id: 'nebius', name: 'Nebius Cloud', desc: 'AI cloud petrol navy & volt lime', swatches: ['#031422', '#062238', '#e0ff4f', '#614efa'] },
     { id: 'nord', name: 'Nord Frost', desc: 'Arctic cold & polar blue', swatches: ['#242933', '#2e3440', '#88c0d0', '#a3be8c'] },
     { id: 'dracula', name: 'Dracula Night', desc: 'High-contrast vampire purple & pink', swatches: ['#1e1f29', '#282a36', '#bd93f9', '#ff79c6'] },
-    { id: 'catppuccin', name: 'Catppuccin Mocha', desc: 'Soothing pastel mantle & mauve', swatches: ['#181825', '#1e1e2e', '#cba6f7', '#a6e3a1'] },
+    { id: 'catppuccin', name: 'Catppuccin Mocha', label: 'Catppuccin Mocha', desc: 'Soothing pastel mantle & mauve', swatches: ['#181825', '#1e1e2e', '#cba6f7', '#a6e3a1'] },
     { id: 'matrix', name: 'Matrix CRT', desc: 'Hacker phosphor green & terminal black', swatches: ['#030804', '#061408', '#00ff66', '#a3e635'] },
     { id: 'tokyonight', name: 'Tokyo Night', desc: 'Vibrant Shibuya neon cyan & violet', swatches: ['#16161e', '#1a1b26', '#7aa2f7', '#bb9af7'] },
-    { id: 'solarized', name: 'Solarized Dark', desc: 'Low-contrast precision cyan & gold', swatches: ['#00212b', '#002b36', '#268bd2', '#b58900'] }
+    { id: 'solarized', name: 'Solarized Dark', label: 'Solarized Dark', desc: 'Low-contrast precision cyan & gold', swatches: ['#00212b', '#002b36', '#268bd2', '#b58900'] },
+    { id: 'everforest', name: 'Everforest', label: 'Everforest', desc: 'Soft forest green & sage', swatches: ['#232a2e', '#2d353b', '#a7c080', '#85beb7'] },
+    { id: 'gruvbox', name: 'Gruvbox Dark', label: 'Gruvbox Dark', desc: 'Warm retro browns & cream', swatches: ['#1d2021', '#282828', '#fabd2f', '#88a99c'] },
+    { id: 'rosepine', name: 'Rosé Pine', label: 'Rosé Pine', desc: 'Muted dusk purple & rose', swatches: ['#191724', '#1f1d2e', '#ebbcba', '#c4a7e7'] },
+    { id: 'kanagawa', name: 'Kanagawa', label: 'Kanagawa', desc: 'Faded ink blue & parchment', swatches: ['#16161d', '#1f1f28', '#83a0da', '#83a0da'] },
+    { id: 'zenburn', name: 'Zenburn', label: 'Zenburn', desc: 'Low-contrast warm gray', swatches: ['#2b2b2b', '#383838', '#8cd0d3', '#8cd0d3'] },
+    { id: 'ayumirage', name: 'Ayu Mirage', label: 'Ayu Mirage', desc: 'Mid-tone dusk navy & amber', swatches: ['#191e2a', '#212733', '#ffcc66', '#73d0ff'] },
+    { id: 'latte', name: 'Catppuccin Latte', label: 'Catppuccin Latte', desc: 'Soft pastel gray & mauve', swatches: ['#e6e9ef', '#eff1f5', '#7e35de', '#1a5ad8'] },
+    { id: 'gruvboxlight', name: 'Gruvbox Light', label: 'Gruvbox Light', desc: 'Warm cream paper', swatches: ['#f2e5bc', '#fbf1c7', '#076678', '#076678'] },
+    { id: 'solarizedlight', name: 'Solarized Light', label: 'Solarized Light', desc: 'Precision cream & blue', swatches: ['#eee8d5', '#fdf6e3', '#1c679b', '#1c679b'] },
+    { id: 'sepia', name: 'Warm Sepia', label: 'Warm Sepia', desc: 'E-reader parchment & espresso ink', swatches: ['#ece4d0', '#f4ecd8', '#964c22', '#366674'] }
   ];
 
   function applyGlobalTheme(themeId) {
@@ -896,7 +977,7 @@ ${log}
 
     const label = document.getElementById('theme-btn-label');
     if (label) {
-      label.textContent = theme.name.split(' ')[0];
+      label.textContent = theme.label || theme.name.split(' ')[0];
     }
   }
 
@@ -908,6 +989,27 @@ ${log}
     const currentThemeId = (function() {
       try { return localStorage.getItem('linux_cs_theme') || 'dark'; } catch(e) { return 'dark'; }
     })();
+
+    if (dropdown) {
+      const countEl = dropdown.querySelector('.theme-count');
+      if (countEl) countEl.textContent = `${THEMES.length} Themes`;
+
+      let list = dropdown.querySelector('.theme-options-list');
+      if (!list) {
+        list = document.createElement('div');
+        list.className = 'theme-options-list';
+        dropdown.appendChild(list);
+      }
+
+      list.innerHTML = THEMES.map(t => `
+        <button type="button" class="theme-option${t.id === currentThemeId ? ' active' : ''}" data-theme="${t.id}" title="${escapeHtml(t.desc)}">
+          <div class="theme-swatches">${t.swatches.map(s => `<span class="theme-dot" style="background:${s}"></span>`).join('')}</div>
+          <div class="theme-info"><span class="theme-name">${escapeHtml(t.name)}</span><span class="theme-desc">${escapeHtml(t.desc)}</span></div>
+          <span class="theme-check">✓</span>
+        </button>
+      `).join('');
+    }
+
     applyGlobalTheme(currentThemeId);
 
     if (!btn || !dropdown) return;

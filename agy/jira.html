@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jira Datacenter &amp; Hardware Operations Cheat Sheet — JQL Queries &amp; REST API</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="top-bar">
+    <div class="container top-bar-inner">
+      <div class="brand">
+        <div class="terminal-badge" aria-hidden="true">
+          <span class="prompt-symbol">JQL</span><span class="cursor-block">&gt;</span>
+        </div>
+        <div>
+          <div class="brand-title-row">
+            <h1>Jira Hardware Ops</h1>
+            <span class="version-pill">Jira Cloud &amp; Data Center / JQL / REST API</span>
+            <nav class="sheet-switcher" aria-label="Switch cheat sheet">
+              <div class="nav-dropdown" id="linux-nav-dropdown">
+                <a href="index.html" class="sheet-link dropdown-toggle" aria-haspopup="true">
+                  <svg class="nav-logo" viewBox="0 0 24 24" width="14" height="14" fill="none" aria-hidden="true"><path d="M12 2C8.8 2 7.2 4.3 7.2 7.2c0 1.4-.4 2.4-1.3 3.7-1.1 1.6-1.9 3.6-1.4 5.2.3.9 1.1 1.2 1.8.8.4 1.8 2.4 3.6 5.7 3.6s5.3-1.8 5.7-3.6c.7.4 1.5.1 1.8-.8.5-1.6-.3-3.6-1.4-5.2-.9-1.3-1.3-2.3-1.3-3.7C16.8 4.3 15.2 2 12 2z" fill="#1e293b" stroke="#94a3b8" stroke-width="1.2"/><ellipse cx="12" cy="14.5" rx="4.1" ry="5" fill="#f8fafc"/><circle cx="10.2" cy="6.5" r="1.4" fill="#fff"/><circle cx="13.8" cy="6.5" r="1.4" fill="#fff"/><circle cx="10.5" cy="6.6" r="0.7" fill="#0f172a"/><circle cx="13.5" cy="6.6" r="0.7" fill="#0f172a"/><path d="M9.6 8.3c1.3-.5 3.5-.5 4.8 0L12 10.6 9.6 8.3z" fill="#f59e0b"/><ellipse cx="8.5" cy="20.5" rx="2.6" ry="1.3" fill="#f59e0b"/><ellipse cx="15.5" cy="20.5" rx="2.6" ry="1.3" fill="#f59e0b"/></svg>
+                  <span>Linux</span> <span class="dropdown-caret">▾</span>
+                </a>
+                <div class="nav-dropdown-menu linux-dropdown-menu" role="menu">
+                  <a href="index.html" class="dropdown-item dropdown-hub-link" role="menuitem">📑 Ubuntu Linux Hub</a>
+                  <div class="dropdown-divider"></div>
+                  <div class="linux-dropdown-grid">
+                    <div class="linux-dropdown-col">
+                      <div class="linux-dropdown-heading">Hardware &amp; Architecture</div>
+                      <a href="dmi-hw.html" class="dropdown-item" role="menuitem"><code>dmi</code> <span class="cmd-desc">DMI / SMBIOS / FRU</span></a>
+                      <a href="pcie-numa.html" class="dropdown-item" role="menuitem"><code>pci</code> <span class="cmd-desc">PCIe &amp; NUMA Topology</span></a>
+                      <a href="ecc-edac.html" class="dropdown-item" role="menuitem"><code>ecc</code> <span class="cmd-desc">ECC Memory &amp; MCE</span></a>
+                      <a href="nvme-smart.html" class="dropdown-item" role="menuitem"><code>nvm</code> <span class="cmd-desc">Enterprise NVMe / SMART</span></a>
+                      <a href="kernel-boot.html" class="dropdown-item" role="menuitem"><code>krn</code> <span class="cmd-desc">Kernel &amp; Bootloader</span></a>
+                    </div>
+                    <div class="linux-dropdown-col">
+                      <div class="linux-dropdown-heading">System &amp; Services</div>
+                      <a href="systemd.html" class="dropdown-item" role="menuitem"><code>sys</code> <span class="cmd-desc">systemd &amp; journald</span></a>
+                      <a href="processes.html" class="dropdown-item" role="menuitem"><code>proc</code> <span class="cmd-desc">Processes &amp; Signals</span></a>
+                      <a href="storage.html" class="dropdown-item" role="menuitem"><code>dsk</code> <span class="cmd-desc">Filesystems &amp; LVM</span></a>
+                      <a href="archives.html" class="dropdown-item" role="menuitem"><code>tar</code> <span class="cmd-desc">Archives &amp; Compress</span></a>
+                      <a href="packages.html" class="dropdown-item" role="menuitem"><code>pkg</code> <span class="cmd-desc">APT &amp; Release Mgmt</span></a>
+                    </div>
+                    <div class="linux-dropdown-col">
+                      <div class="linux-dropdown-heading">Core OS &amp; Security</div>
+                      <a href="files.html" class="dropdown-item" role="menuitem"><code>fs</code> <span class="cmd-desc">Files &amp; Directories</span></a>
+                      <a href="permissions.html" class="dropdown-item" role="menuitem"><code>perm</code> <span class="cmd-desc">Permissions &amp; ACLs</span></a>
+                      <a href="users.html" class="dropdown-item" role="menuitem"><code>usr</code> <span class="cmd-desc">Users, Sudo &amp; SSH</span></a>
+                      <a href="network.html" class="dropdown-item" role="menuitem"><code>net</code> <span class="cmd-desc">Network &amp; Firewalls</span></a>
+                      <a href="text.html" class="dropdown-item" role="menuitem"><code>txt</code> <span class="cmd-desc">Text &amp; Log Triage</span></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="nav-dropdown" id="cli-nav-dropdown">
+                <a href="cli-tools.html" class="sheet-link dropdown-toggle" aria-haspopup="true">
+                  <svg class="nav-logo" viewBox="0 0 24 24" width="14" height="14" fill="none" aria-hidden="true"><rect x="2" y="3" width="20" height="18" rx="2.5" stroke="currentColor" stroke-width="1.8"/><path d="M6.5 9l3.5 3-3.5 3" stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M12.5 15h5" stroke="#38bdf8" stroke-width="2" stroke-linecap="round"/></svg>
+                  <span>CLI Tools</span> <span class="dropdown-caret">▾</span>
+                </a>
+                <div class="nav-dropdown-menu cli-dropdown-menu" role="menu">
+                  <a href="cli-tools.html" class="dropdown-item dropdown-hub-link" role="menuitem">📑 All CLI Tools Hub</a>
+                  <div class="dropdown-divider"></div>
+                  <div class="cli-dropdown-grid">
+                    <div class="cli-dropdown-col">
+                      <div class="cli-dropdown-heading">Text &amp; Search</div>
+                      <a href="grep.html" class="dropdown-item" role="menuitem"><code>grep</code> <span class="cmd-desc">Pattern search</span></a>
+                      <a href="awk.html" class="dropdown-item" role="menuitem"><code>awk</code> <span class="cmd-desc">Columns &amp; math</span></a>
+                      <a href="sed.html" class="dropdown-item" role="menuitem"><code>sed</code> <span class="cmd-desc">Stream editing</span></a>
+                      <a href="cut.html" class="dropdown-item" role="menuitem"><code>cut</code> <span class="cmd-desc">Delimited slicing</span></a>
+                      <a href="sort.html" class="dropdown-item" role="menuitem"><code>sort</code> <span class="cmd-desc">Multi-key sort</span></a>
+                    </div>
+                    <div class="cli-dropdown-col">
+                      <div class="cli-dropdown-heading">Files &amp; Storage</div>
+                      <a href="find.html" class="dropdown-item" role="menuitem"><code>find</code> <span class="cmd-desc">Tree search</span></a>
+                      <a href="ls.html" class="dropdown-item" role="menuitem"><code>ls</code> <span class="cmd-desc">File listings</span></a>
+                      <a href="lsof.html" class="dropdown-item" role="menuitem"><code>lsof</code> <span class="cmd-desc">Open files &amp; ports</span></a>
+                      <a href="dd.html" class="dropdown-item" role="menuitem"><code>dd</code> <span class="cmd-desc">Direct I/O</span></a>
+                      <a href="tar.html" class="dropdown-item" role="menuitem"><code>tar</code> <span class="cmd-desc">Sparse archives</span></a>
+                    </div>
+                    <div class="cli-dropdown-col">
+                      <div class="cli-dropdown-heading">Process &amp; System</div>
+                      <a href="ps.html" class="dropdown-item" role="menuitem"><code>ps</code> <span class="cmd-desc">Process table</span></a>
+                      <a href="watch.html" class="dropdown-item" role="menuitem"><code>watch</code> <span class="cmd-desc">Diff loop</span></a>
+                      <a href="strace.html" class="dropdown-item" role="menuitem"><code>strace</code> <span class="cmd-desc">Syscall trace</span></a>
+                      <a href="dmesg.html" class="dropdown-item" role="menuitem"><code>dmesg</code> <span class="cmd-desc">Kernel buffer</span></a>
+                      <a href="tmux.html" class="dropdown-item" role="menuitem"><code>tmux</code> <span class="cmd-desc">Multiplexer</span></a>
+                    </div>
+                    <div class="cli-dropdown-col">
+                      <div class="cli-dropdown-heading">Network &amp; Hardware</div>
+                      <a href="curl.html" class="dropdown-item" role="menuitem"><code>curl</code> <span class="cmd-desc">HTTP/REST</span></a>
+                      <a href="rsync.html" class="dropdown-item" role="menuitem"><code>rsync</code> <span class="cmd-desc">Delta mirror</span></a>
+                      <a href="ip.html" class="dropdown-item" role="menuitem"><code>ip</code> <span class="cmd-desc">IPv6 &amp; routes</span></a>
+                      <a href="ss.html" class="dropdown-item" role="menuitem"><code>ss</code> <span class="cmd-desc">Socket stats</span></a>
+                      <a href="jq.html" class="dropdown-item" role="menuitem"><code>jq</code> <span class="cmd-desc">JSON parser</span></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="nav-dropdown" id="nvidia-nav-dropdown">
+                <a href="nvidia.html" class="sheet-link dropdown-toggle" aria-haspopup="true">
+                  <svg class="nav-logo" viewBox="0 0 24 24" width="14" height="14" fill="none" aria-hidden="true"><path d="M3.5 6.5C3.5 5.4 4.4 4.5 5.5 4.5h13c1.1 0 2 .9 2 2v11c0 1.1-.9 2-2 2h-13c-1.1 0-2-.9-2-2v-11z" stroke="#76b900" stroke-width="1.8"/><circle cx="9" cy="12" r="2.5" fill="#76b900"/><path d="M14 9.5h3.5M14 12h3.5M14 14.5h3.5" stroke="#76b900" stroke-width="1.6" stroke-linecap="round"/></svg>
+                  <span>NVIDIA DC</span> <span class="dropdown-caret">▾</span>
+                </a>
+                <div class="nav-dropdown-menu nvidia-dropdown-menu" role="menu">
+                  <a href="nvidia.html" class="dropdown-item dropdown-hub-link" role="menuitem">📑 NVIDIA Datacenter Hub</a>
+                  <div class="dropdown-divider"></div>
+                  <div class="nvidia-dropdown-grid">
+                    <div class="nvidia-dropdown-col">
+                      <div class="nvidia-dropdown-heading">Telemetry &amp; Triage</div>
+                      <a href="nv-smi.html" class="dropdown-item" role="menuitem"><code>smi</code> <span class="cmd-desc">nvidia-smi Core CLI</span></a>
+                      <a href="nv-admin.html" class="dropdown-item" role="menuitem"><code>adm</code> <span class="cmd-desc">Power, Clocks &amp; Resets</span></a>
+                      <a href="nv-dcgm.html" class="dropdown-item" role="menuitem"><code>dcgm</code> <span class="cmd-desc">DCGM Diagnostic Levels</span></a>
+                    </div>
+                    <div class="nvidia-dropdown-col">
+                      <div class="nvidia-dropdown-heading">Interconnect &amp; Fabric</div>
+                      <a href="nv-nvlink.html" class="dropdown-item" role="menuitem"><code>nvl</code> <span class="cmd-desc">NVLink &amp; NVSwitch Status</span></a>
+                      <a href="nv-pcie.html" class="dropdown-item" role="menuitem"><code>pci</code> <span class="cmd-desc">PCIe AER &amp; Generation</span></a>
+                      <a href="nv-ops.html" class="dropdown-item" role="menuitem"><code>ops</code> <span class="cmd-desc">Xid Logs &amp; Row Remapping</span></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="nav-dropdown" id="infiniband-nav-dropdown">
+                <a href="infiniband.html" class="sheet-link dropdown-toggle" aria-haspopup="true">
+                  <svg class="nav-logo" viewBox="0 0 24 24" width="14" height="14" fill="none" aria-hidden="true"><circle cx="5" cy="12" r="3" stroke="#38bdf8" stroke-width="1.8"/><circle cx="19" cy="6" r="3" stroke="#38bdf8" stroke-width="1.8"/><circle cx="19" cy="18" r="3" stroke="#38bdf8" stroke-width="1.8"/><path d="M8 12h5m0 0l3-4.5m-3 4.5l3 4.5" stroke="#38bdf8" stroke-width="1.8" stroke-linecap="round"/></svg>
+                  <span>InfiniBand</span> <span class="dropdown-caret">▾</span>
+                </a>
+                <div class="nav-dropdown-menu ib-dropdown-menu" role="menu">
+                  <a href="infiniband.html" class="dropdown-item dropdown-hub-link" role="menuitem">📑 InfiniBand Fabric Hub</a>
+                  <div class="dropdown-divider"></div>
+                  <a href="ib-ibstat.html" class="dropdown-item" role="menuitem"><code>stat</code> <span class="cmd-desc">ibstat &amp; Link State</span></a>
+                  <a href="ib-mlxlink.html" class="dropdown-item" role="menuitem"><code>link</code> <span class="cmd-desc">mlxlink BER &amp; Optics</span></a>
+                  <a href="ib-perfquery.html" class="dropdown-item" role="menuitem"><code>perf</code> <span class="cmd-desc">Symbol Errors &amp; Discards</span></a>
+                </div>
+              </div>
+
+              <div class="nav-dropdown" id="switches-nav-dropdown">
+                <a href="switches.html" class="sheet-link dropdown-toggle" aria-haspopup="true">
+                  <svg class="nav-logo" viewBox="0 0 24 24" width="14" height="14" fill="none" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2" stroke="currentColor" stroke-width="1.8"/><circle cx="6" cy="12" r="1.5" fill="#38bdf8"/><circle cx="10" cy="12" r="1.5" fill="#38bdf8"/><circle cx="14" cy="12" r="1.5" fill="#38bdf8"/><circle cx="18" cy="12" r="1.5" fill="#38bdf8"/></svg>
+                  <span>Switches</span> <span class="dropdown-caret">▾</span>
+                </a>
+                <div class="nav-dropdown-menu sw-dropdown-menu" role="menu">
+                  <a href="switches.html" class="dropdown-item dropdown-hub-link" role="menuitem">📑 Datacenter Switches Hub</a>
+                  <div class="dropdown-divider"></div>
+                  <a href="sw-sonic.html" class="dropdown-item" role="menuitem"><code>sonic</code> <span class="cmd-desc">SONiC NOS CLI</span></a>
+                  <a href="sw-cumulus-ports.html" class="dropdown-item" role="menuitem"><code>cumulus</code> <span class="cmd-desc">Cumulus Linux NVUE</span></a>
+                  <a href="sw-quantum-ports.html" class="dropdown-item" role="menuitem"><code>quantum</code> <span class="cmd-desc">Quantum InfiniBand Switch</span></a>
+                </div>
+              </div>
+
+              <div class="nav-dropdown" id="redfish-nav-dropdown">
+                <a href="redfish.html" class="sheet-link dropdown-toggle" aria-haspopup="true">
+                  <svg class="nav-logo" viewBox="0 0 24 24" width="14" height="14" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="#ef4444" stroke-width="1.8"/><path d="M12 7v5l3 3" stroke="#ef4444" stroke-width="1.8" stroke-linecap="round"/></svg>
+                  <span>Redfish</span> <span class="dropdown-caret">▾</span>
+                </a>
+                <div class="nav-dropdown-menu rf-dropdown-menu" role="menu">
+                  <a href="redfish.html" class="dropdown-item dropdown-hub-link" role="menuitem">📑 Redfish REST API Hub</a>
+                  <div class="dropdown-divider"></div>
+                  <a href="rf-discovery.html" class="dropdown-item" role="menuitem"><code>auth</code> <span class="cmd-desc">Discovery &amp; Sessions</span></a>
+                  <a href="rf-power-boot.html" class="dropdown-item" role="menuitem"><code>pwr</code> <span class="cmd-desc">Power &amp; PXE Boot</span></a>
+                  <a href="rf-thermals-power.html" class="dropdown-item" role="menuitem"><code>thrm</code> <span class="cmd-desc">Thermals &amp; Fan Sensors</span></a>
+                </div>
+              </div>
+
+              <div class="nav-dropdown" id="ipmi-nav-dropdown">
+                <a href="ipmi.html" class="sheet-link dropdown-toggle" aria-haspopup="true">
+                  <svg class="nav-logo" viewBox="0 0 24 24" width="14" height="14" fill="none" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2" stroke="#f59e0b" stroke-width="1.8"/><circle cx="7.5" cy="9.5" r="1.5" fill="#f59e0b"/><circle cx="12" cy="9.5" r="1.5" fill="#f59e0b"/><path d="M7.5 15h9" stroke="#f59e0b" stroke-width="1.8" stroke-linecap="round"/></svg>
+                  <span>ipmitool</span> <span class="dropdown-caret">▾</span>
+                </a>
+                <div class="nav-dropdown-menu ipmi-dropdown-menu" role="menu">
+                  <a href="ipmi.html" class="dropdown-item dropdown-hub-link" role="menuitem">📑 ipmitool Sysadmin Hub</a>
+                  <div class="dropdown-divider"></div>
+                  <a href="ipmi-chassis-power.html" class="dropdown-item" role="menuitem"><code>pwr</code> <span class="cmd-desc">Chassis Power Control</span></a>
+                  <a href="ipmi-sel-logs.html" class="dropdown-item" role="menuitem"><code>sel</code> <span class="cmd-desc">System Event Log (SEL)</span></a>
+                  <a href="ipmi-sensors-sdr.html" class="dropdown-item" role="menuitem"><code>sdr</code> <span class="cmd-desc">SDR Sensor Thresholds</span></a>
+                </div>
+              </div>
+
+              <div class="nav-dropdown" id="fiber-nav-dropdown">
+                <a href="fiber.html" class="sheet-link dropdown-toggle" aria-haspopup="true">
+                  <svg class="nav-logo" viewBox="0 0 24 24" width="14" height="14" fill="none" aria-hidden="true"><circle cx="6" cy="12" r="3.5" stroke="#ec4899" stroke-width="1.8"/><circle cx="18" cy="12" r="3.5" stroke="#ec4899" stroke-width="1.8"/><path d="M9.5 12h5" stroke="#ec4899" stroke-width="1.8" stroke-dasharray="2 2"/></svg>
+                  <span>Fiber</span> <span class="dropdown-caret">▾</span>
+                </a>
+                <div class="nav-dropdown-menu fo-dropdown-menu" role="menu">
+                  <a href="fiber.html" class="dropdown-item dropdown-hub-link" role="menuitem">📑 Fiber &amp; DOM Optics Hub</a>
+                  <div class="dropdown-divider"></div>
+                  <a href="fo-dom-cli.html" class="dropdown-item" role="menuitem"><code>dom</code> <span class="cmd-desc">DOM / DDM Transceiver CLI</span></a>
+                  <a href="fo-cleaning-testing.html" class="dropdown-item" role="menuitem"><code>clean</code> <span class="cmd-desc">MPO Ferrule Cleaning</span></a>
+                </div>
+              </div>
+
+              <div class="nav-dropdown" id="ethernet-nav-dropdown">
+                <a href="ethernet.html" class="sheet-link dropdown-toggle" aria-haspopup="true">
+                  <svg class="nav-logo" viewBox="0 0 24 24" width="14" height="14" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5" stroke="#10b981" stroke-width="1.8"/><circle cx="8" cy="12" r="1.5" fill="#10b981"/><circle cx="12" cy="12" r="1.5" fill="#10b981"/><circle cx="16" cy="12" r="1.5" fill="#10b981"/></svg>
+                  <span>Ethernet</span> <span class="dropdown-caret">▾</span>
+                </a>
+                <div class="nav-dropdown-menu eth-dropdown-menu" role="menu">
+                  <a href="ethernet.html" class="dropdown-item dropdown-hub-link" role="menuitem">📑 Datacenter Ethernet Hub</a>
+                  <div class="dropdown-divider"></div>
+                  <a href="eth-ethtool-tuning.html" class="dropdown-item" role="menuitem"><code>tune</code> <span class="cmd-desc">ethtool Ring Buffers &amp; FEC</span></a>
+                  <a href="eth-bonding-vlans.html" class="dropdown-item" role="menuitem"><code>bond</code> <span class="cmd-desc">LACP Bonds &amp; VLANs</span></a>
+                </div>
+              </div>
+
+              <div class="nav-dropdown" id="motherboards-nav-dropdown">
+                <a href="motherboards.html" class="sheet-link dropdown-toggle" aria-haspopup="true">
+                  <svg class="nav-logo" viewBox="0 0 24 24" width="14" height="14" fill="none" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="2" stroke="currentColor" stroke-width="1.7"/><rect x="6.5" y="5.5" width="6" height="6" rx="0.8" stroke="#38bdf8" stroke-width="1.6"/><circle cx="9.5" cy="8.5" r="1.2" fill="#38bdf8"/><path d="M15.5 5.5v6M18 5.5v6" stroke="#fbbf24" stroke-width="1.6" stroke-linecap="round"/><path d="M6 15h12M6 18h9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+                  <span>Motherboards</span> <span class="dropdown-caret">▾</span>
+                </a>
+                <div class="nav-dropdown-menu mb-dropdown-menu" role="menu">
+                  <a href="motherboards.html" class="dropdown-item dropdown-hub-link" role="menuitem">📑 Motherboards Hub</a>
+                  <div class="dropdown-divider"></div>
+                  <a href="mb-memory-post.html" class="dropdown-item" role="menuitem"><code>mrc</code> <span class="cmd-desc">Memory MRC Codes (50–55)</span></a>
+                  <a href="mb-pcie-dxe-post.html" class="dropdown-item" role="menuitem"><code>pci</code> <span class="cmd-desc">PCIe &amp; DXE Codes (60–99)</span></a>
+                  <a href="mb-epyc-agesa.html" class="dropdown-item" role="menuitem"><code>epyc</code> <span class="cmd-desc">AMD EPYC AGESA &amp; PSP</span></a>
+                </div>
+              </div>
+
+              <div class="nav-dropdown" id="scripting-nav-dropdown">
+                <a href="scripting.html" class="sheet-link dropdown-toggle" aria-haspopup="true">
+                  <svg class="nav-logo" viewBox="0 0 24 24" width="14" height="14" fill="none" aria-hidden="true"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 4l-4 16" stroke="#38bdf8" stroke-width="1.8" stroke-linecap="round"/></svg>
+                  <span>Scripting</span> <span class="dropdown-caret">▾</span>
+                </a>
+                <div class="nav-dropdown-menu" role="menu">
+                  <a href="scripting.html" class="dropdown-item" role="menuitem">📑 All-in-One Hub</a>
+                  <div class="dropdown-divider"></div>
+                  <a href="bash.html" class="dropdown-item" role="menuitem">🐚 Bash &amp; Shell</a>
+                  <a href="python.html" class="dropdown-item" role="menuitem">🐍 Python</a>
+                  <a href="json.html" class="dropdown-item" role="menuitem">📋 JSON &amp; jq</a>
+                  <a href="regex.html" class="dropdown-item" role="menuitem">🔤 Regex</a>
+                </div>
+              </div>
+
+              <div class="nav-dropdown" id="jira-nav-dropdown">
+                <a href="jira.html" class="sheet-link dropdown-toggle active" aria-haspopup="true">
+                  <svg class="nav-logo" viewBox="0 0 24 24" width="14" height="14" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3" stroke="#38bdf8" stroke-width="1.8"/><path d="M7 8h10M7 12h7M7 16h4" stroke="#4ade80" stroke-width="2" stroke-linecap="round"/></svg>
+                  <span>Jira</span> <span class="dropdown-caret">▾</span>
+                </a>
+                <div class="nav-dropdown-menu jira-dropdown-menu" role="menu">
+                  <a href="jira.html" class="dropdown-item dropdown-hub-link" role="menuitem">📑 Jira DC Operations Hub</a>
+                  <div class="dropdown-divider"></div>
+                  <div class="jira-dropdown-grid">
+                    <div class="jira-dropdown-col">
+                      <div class="jira-dropdown-heading">Node, Rack &amp; Asset Triage</div>
+                      <a href="#node-triage" class="dropdown-item" role="menuitem"><code>node</code> <span class="cmd-desc">Server, Hostname &amp; IP Audits</span></a>
+                      <a href="#rack-position" class="dropdown-item" role="menuitem"><code>rack</code> <span class="cmd-desc">Rack, Cage &amp; RU Position</span></a>
+                      <a href="#serial-asset" class="dropdown-item" role="menuitem"><code>sn</code> <span class="cmd-desc">Chassis Serial &amp; Asset Tags</span></a>
+                      <a href="#hardware-rma" class="dropdown-item" role="menuitem"><code>rma</code> <span class="cmd-desc">Vendor RMAs &amp; Parts Returns</span></a>
+                    </div>
+                    <div class="jira-dropdown-col">
+                      <div class="jira-dropdown-heading">Cluster Incidents &amp; Ops</div>
+                      <a href="#gpu-cluster" class="dropdown-item" role="menuitem"><code>gpu</code> <span class="cmd-desc">GPU, NVLink &amp; SXid Incidents</span></a>
+                      <a href="#slurm-drain" class="dropdown-item" role="menuitem"><code>drain</code> <span class="cmd-desc">Slurm Drained &amp; Cordons</span></a>
+                      <a href="#queue-ops" class="dropdown-item" role="menuitem"><code>queue</code> <span class="cmd-desc">DC Queue &amp; P1 Blockers</span></a>
+                      <a href="#jira-api-cli" class="dropdown-item" role="menuitem"><code>api</code> <span class="cmd-desc">REST API curl &amp; Jira CLI</span></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </nav>
+          </div>
+          <p class="brand-subtitle">Jira Query Language (JQL), REST API &amp; CLI Triage for Nodes, Racks, Serials, RMAs &amp; Cluster Outages</p>
+        </div>
+      </div>
+
+      <div class="search-wrapper">
+        <svg class="search-icon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+          <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15z"/>
+        </svg>
+        <input
+          type="search"
+          id="search-input"
+          class="search-input"
+          placeholder="Search JQL queries, hostname, rack, serial, RMA, Xid, API commands... (Press '/' to focus)"
+          aria-label="Search Jira cheat sheet"
+          autocomplete="off"
+          spellcheck="false"
+        />
+        <button type="button" id="reset-search-btn" class="reset-search-btn" title="Clear search">✕</button>
+      </div>
+
+      <div class="header-actions">
+        <button type="button" id="saved-filter-btn" class="action-btn" title="Show bookmarked queries">
+          <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
+            <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+          </svg>
+          <span>Saved</span>
+          <span id="saved-count" class="count-badge">0</span>
+        </button>
+
+        <button type="button" id="density-toggle" class="action-btn" title="Toggle compact density">
+          <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
+            <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M4 6h16M4 10h16M4 14h16M4 18h16"/>
+          </svg>
+          <span id="density-label">Compact</span>
+        </button>
+
+        <button type="button" id="theme-toggle" style="display:none;" aria-hidden="true"></button>
+      </div>
+    </div>
+
+    <div class="category-bar">
+      <div class="container category-bar-inner">
+        <nav class="category-tabs" id="category-tabs" aria-label="Command categories">
+          <!-- Populated by JS -->
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content container">
+    <div class="stats-bar">
+      <span class="stat-item">Showing <strong id="command-count">0</strong> queries</span>
+      <span class="stat-dot">•</span>
+      <span class="stat-item">Total <strong id="total-commands-count">33</strong> recipes</span>
+      <span class="stat-dot">•</span>
+      <span class="stat-item"><kbd class="kbd">/</kbd> to search</span>
+      <span class="stat-dot">•</span>
+      <span class="stat-item"><kbd class="kbd">Esc</kbd> to clear</span>
+    </div>
+
+    <!-- Quick Widgets -->
+    <section class="quick-widgets" id="quick-widgets">
+      <!-- Widget 1: Interactive JQL Query & Link Composer -->
+      <div class="widget-card">
+        <div class="widget-header">
+          <div class="widget-title-group">
+            <span class="widget-tag">INTERACTIVE</span>
+            <h2>JQL Query &amp; Direct Jira Link Composer</h2>
+          </div>
+          <div class="chmod-displays">
+            <button type="button" class="code-pill copyable" id="jira-composer-copy" title="Click to copy JQL string">
+              <strong id="jira-composer-output">(summary ~ "gpu-worker-042" OR description ~ "gpu-worker-042") ORDER BY created DESC</strong>
+            </button>
+            <a href="#" target="_blank" rel="noopener noreferrer" class="action-btn global-search-header-btn" id="jira-composer-open" title="Open query directly in your Jira instance" style="text-decoration:none; display:inline-flex; align-items:center; gap:4px; font-weight:600; padding:0.3rem 0.65rem;">
+              <span>Open in Jira</span>
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="vim-composer-grid">
+          <div class="composer-col">
+            <span class="scope-title">1. Query Recipe</span>
+            <select id="jira-recipe-select" class="composer-select" aria-label="Select Jira query recipe">
+              <!-- Populated dynamically by jira.js -->
+            </select>
+          </div>
+
+          <div class="composer-col">
+            <span class="scope-title">2. Target Value / Identifier</span>
+            <input
+              type="text"
+              id="jira-target-input"
+              class="composer-input"
+              value="gpu-worker-042"
+              placeholder="Hostname, rack position, or serial..."
+              aria-label="Target identifier"
+            />
+          </div>
+
+          <div class="composer-col">
+            <span class="scope-title">3. Jira Host / Domain</span>
+            <input
+              type="text"
+              id="jira-host-input"
+              class="composer-input"
+              value="jira.company.com"
+              placeholder="e.g. yourcompany.atlassian.net"
+              aria-label="Jira domain host"
+            />
+          </div>
+        </div>
+        <p class="composer-explanation" id="jira-composer-desc">
+          Finds all historical, maintenance, and active tickets ever logged for this specific server node.
+        </p>
+      </div>
+
+      <!-- Widget 2: JQL Operators & Date Functions Decoder Card -->
+      <div class="widget-card">
+        <div class="widget-header">
+          <div class="widget-title-group">
+            <span class="widget-tag">REFERENCE</span>
+            <h2>JQL Syntax, Operators &amp; Date Calculations</h2>
+          </div>
+        </div>
+
+        <div class="decoder-grid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:0.75rem;">
+          <div class="decoder-col">
+            <span class="scope-title">Text &amp; Set Operators</span>
+            <div class="flags-table" style="font-size:0.72rem;">
+              <div class="flag-row"><code class="flag-code">~</code><span class="flag-desc">Wildcard text search (stemmed contains match: <code>text ~ "node*"</code>)</span></div>
+              <div class="flag-row"><code class="flag-code">!~</code><span class="flag-desc">Negative text search (does not contain pattern)</span></div>
+              <div class="flag-row"><code class="flag-code">in (...)</code><span class="flag-desc">Match any item in list: <code>priority in (Highest, Blocker)</code></span></div>
+              <div class="flag-row"><code class="flag-code">is EMPTY</code><span class="flag-desc">Unassigned or null field: <code>"Tracking" is EMPTY</code></span></div>
+              <div class="flag-row"><code class="flag-code">changed</code><span class="flag-desc">Audit workflow history: <code>status changed to "Resolved"</code></span></div>
+            </div>
+          </div>
+
+          <div class="decoder-col">
+            <span class="scope-title">Time &amp; Shift Boundary Functions</span>
+            <div class="flags-table" style="font-size:0.72rem;">
+              <div class="flag-row"><code class="flag-code">-24h / -7d / -90d</code><span class="flag-desc">Relative time window from current execution: <code>created &gt;= -7d</code></span></div>
+              <div class="flag-row"><code class="flag-code">startOfDay()</code><span class="flag-desc">Midnight today (great for shift handover tickets)</span></div>
+              <div class="flag-row"><code class="flag-code">startOfWeek()</code><span class="flag-desc">Beginning of the current working week</span></div>
+              <div class="flag-row"><code class="flag-code">now()</code><span class="flag-desc">Current timestamp (used for active maintenance: <code>end &gt;= now()</code>)</span></div>
+              <div class="flag-row"><code class="flag-code">currentUser()</code><span class="flag-desc">Evaluates to logged-in user: <code>assignee = currentUser()</code></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Commands Container -->
+    <div id="sections-container" class="sections-container">
+      <!-- Populated by JS -->
+    </div>
+  </main>
+
+  <footer class="bottom-bar">
+    <div class="container bottom-bar-inner">
+      <div class="footer-left">
+        <span>Antigravity AI Datacenter Reference Suite</span>
+        <span class="stat-dot">•</span>
+        <span>Jira Cloud &amp; Jira Data Center JQL &amp; REST API</span>
+      </div>
+      <div class="footer-right">
+        <span>Use <kbd class="kbd">Ctrl</kbd> + <kbd class="kbd">K</kbd> for Global Search</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="common.js"></script>
+  <script src="jira.js"></script>
+</body>
+</html>

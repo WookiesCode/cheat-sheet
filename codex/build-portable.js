@@ -5,6 +5,7 @@ const fs = require('fs');
 const path = require('path');
 
 const SHEETS_CONFIG = [
+  { key: 'jira', file: 'jira.html', js: 'jira.js', name: 'Jira', varName: 'JIRA_DATA', prompt: 'JQL', cursor: '>', title: 'Jira — Datacenter Ticket Queries', subtitle: 'Paste in Jira advanced search. Replace examples; text matches are not exact asset identity.', pill: 'JQL / Ticket History' },
   { key: 'linux', file: 'index.html', js: 'app.js', name: 'Linux', varName: 'CHEAT_SHEET_DATA', prompt: '$', cursor: '_', title: 'Ubuntu Linux Reference', subtitle: 'Interactive command cheat sheet, flag breakdown & pipe recipes', pill: 'Ubuntu / APT / systemd' },
   { key: 'cli-tools', file: 'cli-tools.html', js: 'cli-tools.js', name: 'CLI Tools', varName: 'CLI_TOOLS_DATA', prompt: 'CLI', cursor: '>', title: 'Modern CLI Tools Reference', subtitle: 'ripgrep, bat, fzf, fd, eza, zoxide, jq, dust, btop, delta, gum & modern shell utilities', pill: 'Rust / Go / Modern TUI' },
   { key: 'scripting', file: 'scripting.html', js: 'scripting.js', name: 'Scripting', varName: 'SCRIPTING_DATA', prompt: '#!/', cursor: '>', title: 'Scripting & Formats Reference', subtitle: 'Bash, Python 3.10+, JavaScript, TypeScript, PowerShell, JSON, YAML, TOML, Regex, AWK & SQLite', pill: 'Polyglot / Dev & Sysadmin' },
@@ -179,9 +180,14 @@ ${navLinksHtml}
           <div id="theme-dropdown-menu" class="theme-dropdown-menu">
             <div class="theme-dropdown-header">
               <span>Color Theme</span>
-              <span class="theme-count">8 Themes</span>
+              <span class="theme-count">12 Themes</span>
             </div>
             <div class="theme-options-list">
+              <button type="button" class="theme-option" data-theme="codex" title="Charcoal & mint workspace">
+                <div class="theme-swatches"><span class="theme-dot" style="background:#141414"></span><span class="theme-dot" style="background:#1c1c1c"></span><span class="theme-dot" style="background:#8de8c2"></span><span class="theme-dot" style="background:#ececec"></span></div>
+                <div class="theme-info"><span class="theme-name">Codex</span><span class="theme-desc">Charcoal & mint workspace</span></div>
+                <span class="theme-check">✓</span>
+              </button>
               <button type="button" class="theme-option active" data-theme="dark" title="Obsidian & cyan datacenter">
                 <div class="theme-swatches"><span class="theme-dot" style="background:#0b0e14"></span><span class="theme-dot" style="background:#111621"></span><span class="theme-dot" style="background:#38bdf8"></span><span class="theme-dot" style="background:#4ade80"></span></div>
                 <div class="theme-info"><span class="theme-name">Cyber Dark</span><span class="theme-desc">Obsidian & cyan datacenter</span></div>
@@ -215,6 +221,21 @@ ${navLinksHtml}
               <button type="button" class="theme-option" data-theme="tokyonight" title="Vibrant Shibuya neon cyan & violet">
                 <div class="theme-swatches"><span class="theme-dot" style="background:#16161e"></span><span class="theme-dot" style="background:#1a1b26"></span><span class="theme-dot" style="background:#7aa2f7"></span><span class="theme-dot" style="background:#bb9af7"></span></div>
                 <div class="theme-info"><span class="theme-name">Tokyo Night</span><span class="theme-desc">Neon Shibuya cyan & violet</span></div>
+                <span class="theme-check">✓</span>
+              </button>
+              <button type="button" class="theme-option" data-theme="starwars" title="Deep space & opening-crawl gold">
+                <div class="theme-swatches"><span class="theme-dot" style="background:#080a0f"></span><span class="theme-dot" style="background:#121722"></span><span class="theme-dot" style="background:#ffe81f"></span><span class="theme-dot" style="background:#70c8ff"></span></div>
+                <div class="theme-info"><span class="theme-name">Star Wars</span><span class="theme-desc">Deep space & opening-crawl gold</span></div>
+                <span class="theme-check">✓</span>
+              </button>
+              <button type="button" class="theme-option" data-theme="startrek" title="LCARS amber & lavender">
+                <div class="theme-swatches"><span class="theme-dot" style="background:#09090f"></span><span class="theme-dot" style="background:#171520"></span><span class="theme-dot" style="background:#ffcc99"></span><span class="theme-dot" style="background:#cc99ff"></span></div>
+                <div class="theme-info"><span class="theme-name">Star Trek</span><span class="theme-desc">LCARS amber & lavender</span></div>
+                <span class="theme-check">✓</span>
+              </button>
+              <button type="button" class="theme-option" data-theme="nebius" title="Cloud white, navy & electric lime">
+                <div class="theme-swatches"><span class="theme-dot" style="background:#ffffff"></span><span class="theme-dot" style="background:#062b3d"></span><span class="theme-dot" style="background:#daff40"></span><span class="theme-dot" style="background:#e0e3ff"></span></div>
+                <div class="theme-info"><span class="theme-name">Nebius</span><span class="theme-desc">Cloud white, navy & electric lime</span></div>
                 <span class="theme-check">✓</span>
               </button>
               <button type="button" class="theme-option" data-theme="solarized" title="Low-contrast precision cyan & gold">

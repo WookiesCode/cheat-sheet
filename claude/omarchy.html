@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Omarchy Cheat Sheet — Hyprland Shortcuts, Quickshell Panels, Themes, Agents &amp; omarchy CLI Reference</title>
+  <title>Omarchy Keyboard Shortcuts</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -18,11 +18,11 @@
         </div>
         <div>
           <div class="brand-title-row">
-            <h1>Omarchy Reference</h1>
+            <h1>Omarchy Shortcuts</h1>
             <span class="version-pill">Arch / Hyprland / Quickshell</span>
             <span class="standalone-badge" style="font-family: var(--font-mono); font-size: 0.65rem; font-weight: 700; color: #a3e635; background: rgba(163,230,53,0.15); border: 1px solid rgba(163,230,53,0.3); padding: 0.15rem 0.45rem; border-radius: 4px;">STANDALONE DESKTOP CHEAT SHEET</span>
           </div>
-          <p class="brand-subtitle">Keyboard shortcuts, window tiling &amp; groups, Quickshell panels, themes, AI agents &amp; omarchy CLI</p>
+          <p class="brand-subtitle">Every desktop shortcut: apps, windows, workspaces, panels, capture &amp; media keys</p>
         </div>
       </div>
 
@@ -33,10 +33,10 @@
         <input
           type="search"
           id="search-input"
-          placeholder="Search shortcuts, panels, CLI (e.g. 'theme', 'scratchpad', 'ocr', 'reminder', 'agent', 'gaps', 'bindings.lua')..."
+          placeholder="Search shortcuts (e.g. 'theme', 'scratchpad', 'ocr', 'reminder', 'gaps', 'volume')..."
           autocomplete="off"
           spellcheck="false"
-          aria-label="Search Omarchy shortcuts and CLI commands"
+          aria-label="Search Omarchy shortcuts"
         />
         <kbd class="search-Shortcut" id="search-kbd">/</kbd>
       </div>
@@ -73,7 +73,7 @@
           <div id="theme-dropdown-menu" class="theme-dropdown-menu">
             <div class="theme-dropdown-header">
               <span>Color Theme</span>
-              <span class="theme-count">8 Themes</span>
+              <span class="theme-count">11 Themes</span>
             </div>
             <div class="theme-options-list">
               <button type="button" class="theme-option active" data-theme="dark" title="Obsidian & cyan datacenter">
@@ -116,6 +116,21 @@
                 <div class="theme-info"><span class="theme-name">Solarized Dark</span><span class="theme-desc">Low-contrast precision cyan</span></div>
                 <span class="theme-check">✓</span>
               </button>
+              <button type="button" class="theme-option" data-theme="claude" title="Warm charcoal & terracotta">
+                <div class="theme-swatches"><span class="theme-dot" style="background:#1f1e1d"></span><span class="theme-dot" style="background:#262624"></span><span class="theme-dot" style="background:#d97757"></span><span class="theme-dot" style="background:#e8b48f"></span></div>
+                <div class="theme-info"><span class="theme-name">Claude</span><span class="theme-desc">Warm charcoal &amp; terracotta</span></div>
+                <span class="theme-check">✓</span>
+              </button>
+              <button type="button" class="theme-option" data-theme="startrek" title="Starship console orange & lilac">
+                <div class="theme-swatches"><span class="theme-dot" style="background:#000000"></span><span class="theme-dot" style="background:#17131f"></span><span class="theme-dot" style="background:#ff9900"></span><span class="theme-dot" style="background:#cc99cc"></span></div>
+                <div class="theme-info"><span class="theme-name">Star Trek</span><span class="theme-desc">Starship console orange &amp; lilac</span></div>
+                <span class="theme-check">✓</span>
+              </button>
+              <button type="button" class="theme-option" data-theme="starwars" title="Deep space black & crawl yellow">
+                <div class="theme-swatches"><span class="theme-dot" style="background:#05060a"></span><span class="theme-dot" style="background:#14171f"></span><span class="theme-dot" style="background:#ffe81f"></span><span class="theme-dot" style="background:#5fb8ff"></span></div>
+                <div class="theme-info"><span class="theme-name">Star Wars</span><span class="theme-desc">Deep space black &amp; crawl yellow</span></div>
+                <span class="theme-check">✓</span>
+              </button>
             </div>
           </div>
         </div>
@@ -138,123 +153,41 @@
   <main class="container main-layout">
     <!-- Interactive Quick Tools Row -->
     <section class="quick-widgets" id="quick-widgets">
-      <!-- Interactive omarchy CLI & Lua Binding Builder -->
-      <div class="widget-card">
-        <div class="widget-header">
-          <div class="widget-title-group">
-            <span class="widget-tag">INTERACTIVE</span>
-            <h2><code>omarchy</code> CLI &amp; <code>bindings.lua</code> Generator</h2>
-          </div>
-          <div class="chmod-displays">
-            <button type="button" class="code-pill copyable" id="om-copy-btn" title="Click to copy command">
-              <span class="dim">Copy</span> <strong>Command</strong>
-            </button>
-          </div>
-        </div>
-
-        <div class="vim-composer-grid" style="grid-template-columns: 1.15fr 1.65fr;">
-          <div class="composer-col">
-            <label class="scope-title" for="om-group">1. Command / Config Group</label>
-            <select id="om-group" class="composer-select">
-              <option value="theme" selected>theme &amp; font (Appearance &amp; Wallpaper)</option>
-              <option value="toggle">toggle &amp; hyprland (Visual &amp; Idle Toggles)</option>
-              <option value="pkg">pkg, install &amp; webapp (Software &amp; Apps)</option>
-              <option value="agent">agent (AI Coding Agents &amp; Accounts)</option>
-              <option value="refresh">restart, refresh &amp; debug (Maintenance)</option>
-              <option value="lua">bindings.lua (Custom Keybind Snippets)</option>
-            </select>
-          </div>
-
-          <div class="composer-col">
-            <label class="scope-title" for="om-task">2. Action / Recipe</label>
-            <select id="om-task" class="composer-select">
-              <!-- Populated dynamically -->
-            </select>
-          </div>
-        </div>
-
-        <div class="cmd-code-box" id="om-preview-box" title="Click to copy">
-          <code class="cmd-code" id="om-cmd-output">omarchy theme list && omarchy theme set catppuccin</code>
-          <span class="copy-hint">Copy</span>
-        </div>
-
-        <div class="composer-meaning">
-          <span id="om-meaning-text">List available themes and switch the entire desktop, terminal, Neovim, and bar to Catppuccin</span>
-          <div class="composer-presets">
-            <button type="button" class="preset-btn om-preset active" data-group="theme" data-task="set-theme">Switch Theme</button>
-            <button type="button" class="preset-btn om-preset" data-group="toggle" data-task="toggle-night">Toggle Nightlight</button>
-            <button type="button" class="preset-btn om-preset" data-group="agent" data-task="agent-acct">Agent Accounts</button>
-            <button type="button" class="preset-btn om-preset" data-group="refresh" data-task="refresh-shell">Refresh Shell Bar</button>
-            <button type="button" class="preset-btn om-preset" data-group="lua" data-task="lua-rebind">Override Keybind (Lua)</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Modifier Grammar, Config Files, Universal Keys & Stock Themes -->
       <div class="widget-card">
         <div class="widget-header">
           <div class="widget-title-group">
             <span class="widget-tag">ESSENTIALS</span>
-            <h2>Chord Grammar, Safe Config Paths, Smart Keys &amp; Themes</h2>
-          </div>
-          <div class="mini-tabs" role="tablist">
-            <button type="button" class="mini-tab active" data-tab="grammar">Chord Logic</button>
-            <button type="button" class="mini-tab" data-tab="configs">Config Paths</button>
-            <button type="button" class="mini-tab" data-tab="smartkeys">Smart Features</button>
-            <button type="button" class="mini-tab" data-tab="themes">Stock Themes</button>
+            <h2>How the Chords Work</h2>
           </div>
         </div>
+        <div class="kv-grid">
+          <div class="kv-item"><kbd>Super + Key</kbd><span>Windows and everyday actions</span></div>
+          <div class="kv-item"><kbd>Super + Shift + Key</kbd><span>Launch apps and web apps</span></div>
+          <div class="kv-item"><kbd>Super + Ctrl + Key</kbd><span>Bar panels and menus</span></div>
+          <div class="kv-item"><kbd>Super + Alt + Key</kbd><span>Groups, Tmux and scratchpad</span></div>
+          <div class="kv-item"><kbd>Super + 1..0</kbd><span>Switch to workspace 1-10</span></div>
+          <div class="kv-item"><kbd>Super + Shift + 1..0</kbd><span>Move window to workspace 1-10</span></div>
+          <div class="kv-item"><kbd>Super + Ctrl + 1..9</kbd><span>Open a bar panel by position</span></div>
+          <div class="kv-item"><kbd>Super + K</kbd><span>Search all live keybindings</span></div>
+        </div>
+      </div>
 
-        <div class="mini-tab-panel active" id="panel-grammar">
-          <div class="kv-grid">
-            <div class="kv-item"><kbd>Super + Key</kbd><span>Core WM &amp; Windows (Close, Float, Full, Copy/Paste)</span></div>
-            <div class="kv-item"><kbd>Super + Shift + Key</kbd><span>Launch Apps &amp; Web Apps (Browser, Files, Editor)</span></div>
-            <div class="kv-item"><kbd>Super + Ctrl + Key</kbd><span>Quickshell Panels &amp; Menus (Audio, Wi-Fi, Theme)</span></div>
-            <div class="kv-item"><kbd>Super + Alt + Key</kbd><span>Window Groups/Tabs, Tmux, Scratchpad &amp; Sizing</span></div>
-            <div class="kv-item"><kbd>Super + 1..0</kbd><span>Switch to Workspace 1–10</span></div>
-            <div class="kv-item"><kbd>Super + Shift + 1..0</kbd><span>Move active window to Workspace 1–10</span></div>
-            <div class="kv-item"><kbd>Super + Ctrl + 1..9</kbd><span>Open top-right bar panel icon #1–9 directly</span></div>
-            <div class="kv-item"><kbd>Super + K</kbd><span>Open live searchable Keybindings reference</span></div>
+      <div class="widget-card">
+        <div class="widget-header">
+          <div class="widget-title-group">
+            <span class="widget-tag">ESSENTIALS</span>
+            <h2>Most-Used Shortcuts</h2>
           </div>
         </div>
-
-        <div class="mini-tab-panel" id="panel-configs">
-          <div class="kv-grid">
-            <div class="kv-item"><code>~/.config/hypr/bindings.lua</code><span>Personal keybind additions &amp; overrides</span></div>
-            <div class="kv-item"><code>~/.config/hypr/monitors.lua</code><span>Display resolution, scale, VRR &amp; layout</span></div>
-            <div class="kv-item"><code>~/.config/hypr/looknfeel.lua</code><span>Gaps, borders, rounding, blur &amp; animations</span></div>
-            <div class="kv-item"><code>~/.config/omarchy/shell.json</code><span>Top bar layout, widgets &amp; idle timeouts</span></div>
-            <div class="kv-item"><code>~/.config/omarchy/themes/</code><span>Custom themes &amp; color overlays</span></div>
-            <div class="kv-item"><code>~/.config/omarchy/hooks/</code><span>Event scripts (`theme-set`, `post-update`)</span></div>
-            <div class="kv-item"><code>~/.config/ghostty/config</code><span>Terminal config (or `alacritty.toml`, `foot.ini`)</span></div>
-            <div class="kv-item"><code>/usr/share/omarchy/</code><span><strong>READ-ONLY</strong> package files (never edit!)</span></div>
-          </div>
-        </div>
-
-        <div class="mini-tab-panel" id="panel-smartkeys">
-          <div class="kv-grid">
-            <div class="kv-item"><kbd>Super + C / V / X / A</kbd><span>Universal Copy/Paste (works in Terminals + GUI!)</span></div>
-            <div class="kv-item"><kbd>Super + Ctrl + V</kbd><span>Clipboard History Manager panel</span></div>
-            <div class="kv-item"><kbd>F9</kbd> or <kbd>Alt + Right Alt</kbd><span>Push-to-Talk Voice Dictation (hold to speak)</span></div>
-            <div class="kv-item"><kbd>Super + Ctrl + X</kbd><span>Toggle continuous voice dictation on/off</span></div>
-            <div class="kv-item"><kbd>Shift + Alt + L</kbd><span>Copy current page URL from focused Web App</span></div>
-            <div class="kv-item"><kbd>Shift + Alt + D</kbd><span>Download video (`yt-dlp`) from focused Web App</span></div>
-            <div class="kv-item"><kbd>Super + Ctrl + Print</kbd><span>OCR: Select screen region &amp; copy extracted text</span></div>
-            <div class="kv-item"><kbd>Super + Print</kbd><span>Pick pixel hex color (`#RRGGBB`) to clipboard</span></div>
-          </div>
-        </div>
-
-        <div class="mini-tab-panel" id="panel-themes">
-          <div class="kv-grid">
-            <div class="kv-item"><code>catppuccin</code> / <code>latte</code><span>Warm pastel dark &amp; light flavors</span></div>
-            <div class="kv-item"><code>tokyonight</code><span>Clean deep-blue neon developer theme</span></div>
-            <div class="kv-item"><code>gruvbox</code> / <code>kanagawa</code><span>Retro warm earth tones / Japanese ink</span></div>
-            <div class="kv-item"><code>rose-pine</code> / <code>nord</code><span>Muted Soho pine / Arctic bluish-grey</span></div>
-            <div class="kv-item"><code>everforest</code> / <code>osaka-jade</code><span>Soft forest greens / high-contrast jade</span></div>
-            <div class="kv-item"><code>matte-black</code> / <code>ristretto</code><span>OLED pitch-black / espresso warm dark</span></div>
-            <div class="kv-item"><kbd>Super + Ctrl + T</kbd><span>Open interactive Theme Switcher menu</span></div>
-            <div class="kv-item"><kbd>Super + Ctrl + W</kbd><span>Cycle or pick background wallpaper</span></div>
-          </div>
+        <div class="kv-grid">
+          <div class="kv-item"><kbd>Super + Space</kbd><span>Omarchy menu</span></div>
+          <div class="kv-item"><kbd>Super + Alt + Space</kbd><span>App launcher</span></div>
+          <div class="kv-item"><kbd>Super + Return</kbd><span>Terminal</span></div>
+          <div class="kv-item"><kbd>Super + W</kbd><span>Close window</span></div>
+          <div class="kv-item"><kbd>Super + Arrows</kbd><span>Move focus</span></div>
+          <div class="kv-item"><kbd>Super + C / V</kbd><span>Universal copy and paste</span></div>
+          <div class="kv-item"><kbd>Super + Escape</kbd><span>System menu</span></div>
+          <div class="kv-item"><kbd>Super + Ctrl + L</kbd><span>Lock the system</span></div>
         </div>
       </div>
     </section>
@@ -267,8 +200,8 @@
     <!-- Empty State -->
     <div id="empty-state" class="empty-state hidden">
       <div class="empty-icon">omarchy: no match</div>
-      <h3>No matching Omarchy shortcuts or CLI commands found</h3>
-      <p>Try searching for <code>theme</code>, <code>scratchpad</code>, <code>quake</code>, <code>group</code>, <code>ocr</code>, <code>agent</code>, <code>reminder</code>, <code>bindings</code>, or reset active filters.</p>
+      <h3>No matching Omarchy shortcuts found</h3>
+      <p>Try searching for <code>theme</code>, <code>scratchpad</code>, <code>quake</code>, <code>group</code>, <code>ocr</code>, <code>reminder</code>, <code>volume</code>, or reset active filters.</p>
       <button type="button" id="reset-search-btn" class="action-btn">Reset Filters</button>
     </div>
   </main>
@@ -276,7 +209,7 @@
   <footer class="footer">
     <div class="container footer-inner">
       <div>
-        <span>Tip: Press <kbd>Super + K</kbd> anytime on your desktop to search live keybindings, or run <code>omarchy menu keybindings --print</code> in a terminal.</span>
+        <span>Tip: Press <kbd>Super + K</kbd> anytime on your desktop to search live keybindings.</span>
       </div>
       <div class="footer-shortcuts">
         <span><kbd>/</kbd> Search</span>

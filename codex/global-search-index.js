@@ -1,5 +1,5 @@
-// Auto-generated Global Search Index across all 184 cheat sheets
-// Total indexed items: 1930
+// Auto-generated Global Search Index across all 185 cheat sheets
+// Total indexed items: 1957
 window.GLOBAL_SEARCH_INDEX = [
   {
     "sName": "app",
@@ -9251,6 +9251,303 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Instantiate and throw standard Error object with stack trace",
     "tip": "",
     "tags": "javascript async await promises fetch try-catch concurrency"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-node-history",
+    "sec": "Server, Node & Serial History",
+    "cmd": "(summary ~ \"\\\"NODE_NAME\\\"\" OR description ~ \"\\\"NODE_NAME\\\"\") ORDER BY created DESC",
+    "desc": "All tickets mentioning a server or node",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql server node hostname history"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-node-broad",
+    "sec": "Server, Node & Serial History",
+    "cmd": "text ~ \"\\\"NODE_NAME\\\"\" ORDER BY created DESC",
+    "desc": "Broader node mentions, including comments",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql node comments history"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-aliases",
+    "sec": "Server, Node & Serial History",
+    "cmd": "((summary ~ \"\\\"NODE_NAME\\\"\" OR description ~ \"\\\"NODE_NAME\\\"\") OR (summary ~ \"\\\"OLD_NODE_NAME\\\"\" OR description ~ \"\\\"OLD_NODE_NAME\\\"\") OR (summary ~ \"\\\"SERIAL_NUMBER\\\"\" OR description ~ \"\\\"SERIAL_NUMBER\\\"\")) ORDER BY created DESC",
+    "desc": "Hostname, old name, or serial number",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql aliases serial rename history"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-serial",
+    "sec": "Server, Node & Serial History",
+    "cmd": "(summary ~ \"\\\"SERIAL_NUMBER\\\"\" OR description ~ \"\\\"SERIAL_NUMBER\\\"\") ORDER BY created DESC",
+    "desc": "All tickets mentioning a chassis serial",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql serial chassis rma"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-projects",
+    "sec": "Server, Node & Serial History",
+    "cmd": "project IN (PROJECT_A, PROJECT_B) AND (summary ~ \"\\\"NODE_NAME\\\"\" OR description ~ \"\\\"NODE_NAME\\\"\") ORDER BY created DESC",
+    "desc": "Node history within selected projects",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql project node history"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-rack",
+    "sec": "Rack, Position & Site History",
+    "cmd": "(summary ~ \"\\\"RACK_ID\\\"\" OR description ~ \"\\\"RACK_ID\\\"\") ORDER BY created DESC",
+    "desc": "All tickets mentioning a rack",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql rack history"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-position",
+    "sec": "Rack, Position & Site History",
+    "cmd": "(summary ~ \"\\\"RACK_ID\\\"\" OR description ~ \"\\\"RACK_ID\\\"\") AND (summary ~ \"\\\"POSITION\\\"\" OR description ~ \"\\\"POSITION\\\"\") ORDER BY created DESC",
+    "desc": "Rack plus position / rack unit",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql rack position slot unit"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-site-rack",
+    "sec": "Rack, Position & Site History",
+    "cmd": "(summary ~ \"\\\"SITE_ID\\\"\" OR description ~ \"\\\"SITE_ID\\\"\") AND (summary ~ \"\\\"RACK_ID\\\"\" OR description ~ \"\\\"RACK_ID\\\"\") ORDER BY created DESC",
+    "desc": "Site plus rack to disambiguate reused rack IDs",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql site rack datacenter"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-rack-alias",
+    "sec": "Rack, Position & Site History",
+    "cmd": "((summary ~ \"\\\"RACK_ID\\\"\" OR description ~ \"\\\"RACK_ID\\\"\") OR (summary ~ \"\\\"OLD_RACK_ID\\\"\" OR description ~ \"\\\"OLD_RACK_ID\\\"\")) ORDER BY created DESC",
+    "desc": "Rack naming variations",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql rack aliases history"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-location-open",
+    "sec": "Rack, Position & Site History",
+    "cmd": "statusCategory != Done AND (summary ~ \"\\\"RACK_ID\\\"\" OR description ~ \"\\\"RACK_ID\\\"\") AND (summary ~ \"\\\"POSITION\\\"\" OR description ~ \"\\\"POSITION\\\"\") ORDER BY priority DESC, updated DESC",
+    "desc": "Open work at a rack position",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql rack position open"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-node-open",
+    "sec": "Daily Work & Handoff",
+    "cmd": "statusCategory != Done AND (summary ~ \"\\\"NODE_NAME\\\"\" OR description ~ \"\\\"NODE_NAME\\\"\") ORDER BY priority DESC, updated DESC",
+    "desc": "Active tickets for a node",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql node open"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-mine",
+    "sec": "Daily Work & Handoff",
+    "cmd": "project = PROJECT_KEY AND assignee = currentUser() AND statusCategory != Done ORDER BY priority DESC, updated DESC",
+    "desc": "My active tickets",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql assigned mine"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-unassigned",
+    "sec": "Daily Work & Handoff",
+    "cmd": "project = PROJECT_KEY AND assignee IS EMPTY AND statusCategory != Done ORDER BY priority DESC, created ASC",
+    "desc": "Unassigned active tickets",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql unassigned queue"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-stale",
+    "sec": "Daily Work & Handoff",
+    "cmd": "project = PROJECT_KEY AND statusCategory != Done AND updated <= \"-7d\" ORDER BY updated ASC",
+    "desc": "Active tickets with no updates in seven days",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql stale handoff"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-new",
+    "sec": "Daily Work & Handoff",
+    "cmd": "project = PROJECT_KEY AND created >= \"-24h\" ORDER BY created DESC",
+    "desc": "Tickets created in the last 24 hours",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql new shift"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-shift",
+    "sec": "Daily Work & Handoff",
+    "cmd": "project = PROJECT_KEY AND updated >= \"-12h\" ORDER BY updated DESC",
+    "desc": "Tickets updated during the last 12 hours",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql handoff shift"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-overdue",
+    "sec": "Daily Work & Handoff",
+    "cmd": "project = PROJECT_KEY AND statusCategory != Done AND due < startOfDay() ORDER BY due ASC",
+    "desc": "Overdue active tickets",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql overdue due"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-resolved",
+    "sec": "Daily Work & Handoff",
+    "cmd": "project = PROJECT_KEY AND resolved >= \"-7d\" ORDER BY resolved DESC",
+    "desc": "Recently resolved tickets",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql resolved history"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-transitions",
+    "sec": "Daily Work & Handoff",
+    "cmd": "project = PROJECT_KEY AND status CHANGED AFTER \"-7d\" ORDER BY updated DESC",
+    "desc": "Tickets with status changes in the last week",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql status history handoff"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-gpu",
+    "sec": "Hardware Faults & RMA Follow-up",
+    "cmd": "(summary ~ \"\\\"NODE_NAME\\\"\" OR description ~ \"\\\"NODE_NAME\\\"\") AND ((summary ~ \"\\\"Xid\\\"\" OR description ~ \"\\\"Xid\\\"\") OR (summary ~ \"\\\"NVLink\\\"\" OR description ~ \"\\\"NVLink\\\"\") OR (summary ~ \"\\\"ECC\\\"\" OR description ~ \"\\\"ECC\\\"\")) ORDER BY created DESC",
+    "desc": "GPU / NVLink fault tickets for a node",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql hardware gpu fault"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-network",
+    "sec": "Hardware Faults & RMA Follow-up",
+    "cmd": "(summary ~ \"\\\"RACK_ID\\\"\" OR description ~ \"\\\"RACK_ID\\\"\") AND ((summary ~ \"\\\"InfiniBand\\\"\" OR description ~ \"\\\"InfiniBand\\\"\") OR (summary ~ \"\\\"BER\\\"\" OR description ~ \"\\\"BER\\\"\") OR (summary ~ \"\\\"transceiver\\\"\" OR description ~ \"\\\"transceiver\\\"\")) ORDER BY created DESC",
+    "desc": "Fabric / optics tickets for a rack",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql hardware network fault"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-storage",
+    "sec": "Hardware Faults & RMA Follow-up",
+    "cmd": "(summary ~ \"\\\"NODE_NAME\\\"\" OR description ~ \"\\\"NODE_NAME\\\"\") AND ((summary ~ \"\\\"NVMe\\\"\" OR description ~ \"\\\"NVMe\\\"\") OR (summary ~ \"\\\"SMART\\\"\" OR description ~ \"\\\"SMART\\\"\") OR (summary ~ \"\\\"disk\\\"\" OR description ~ \"\\\"disk\\\"\")) ORDER BY created DESC",
+    "desc": "Storage tickets for a node",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql hardware storage fault"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-rma",
+    "sec": "Hardware Faults & RMA Follow-up",
+    "cmd": "project = PROJECT_KEY AND statusCategory != Done AND ((summary ~ \"\\\"RMA\\\"\" OR description ~ \"\\\"RMA\\\"\") OR (summary ~ \"\\\"vendor\\\"\" OR description ~ \"\\\"vendor\\\"\")) ORDER BY updated ASC",
+    "desc": "Active RMA / vendor follow-up candidates",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql rma vendor followup"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-linked",
+    "sec": "Hardware Faults & RMA Follow-up",
+    "cmd": "(key = DC-123 OR issue IN linkedIssues(\"DC-123\")) ORDER BY created ASC",
+    "desc": "A ticket and its directly linked tickets",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql linked incident rma"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-custom-text",
+    "sec": "Optional Structured Fields",
+    "cmd": "\"Server Name\" ~ \"\\\"NODE_NAME\\\"\" AND \"Rack\" ~ \"\\\"RACK_ID\\\"\" AND \"Rack Position\" ~ \"\\\"POSITION\\\"\" ORDER BY created DESC",
+    "desc": "Custom text fields: node, rack, and position",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql custom field node rack"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-custom-select",
+    "sec": "Optional Structured Fields",
+    "cmd": "\"Rack\" = \"RACK_ID\" AND \"Rack Position\" = \"POSITION\" ORDER BY created DESC",
+    "desc": "Exact rack and position using select-list fields",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql custom select position"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-labels",
+    "sec": "Optional Structured Fields",
+    "cmd": "labels = \"NODE_LABEL\" ORDER BY created DESC",
+    "desc": "Exact asset label",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql labels asset"
   },
   {
     "sName": "jq",

@@ -451,6 +451,32 @@
                   </div>
                 </div>
               </div>
+              <div class="nav-dropdown" id="jira-nav-dropdown">
+                <a href="jira.html" class="sheet-link dropdown-toggle" aria-haspopup="true">
+                  <svg class="nav-logo" viewBox="0 0 24 24" width="14" height="14" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3" stroke="#38bdf8" stroke-width="1.8"/><path d="M7 8h10M7 12h7M7 16h4" stroke="#4ade80" stroke-width="2" stroke-linecap="round"/></svg>
+                  <span>Jira</span> <span class="dropdown-caret">▾</span>
+                </a>
+                <div class="nav-dropdown-menu jira-dropdown-menu" role="menu">
+                  <a href="jira.html" class="dropdown-item dropdown-hub-link" role="menuitem">📑 Jira DC Operations Hub</a>
+                  <div class="dropdown-divider"></div>
+                  <div class="jira-dropdown-grid">
+                    <div class="jira-dropdown-col">
+                      <div class="jira-dropdown-heading">Node, Rack &amp; Asset Triage</div>
+                      <a href="jira.html#node-triage" class="dropdown-item" role="menuitem"><code>node</code> <span class="cmd-desc">Server, Hostname &amp; IP Audits</span></a>
+                      <a href="jira.html#rack-position" class="dropdown-item" role="menuitem"><code>rack</code> <span class="cmd-desc">Rack, Cage &amp; RU Position</span></a>
+                      <a href="jira.html#serial-asset" class="dropdown-item" role="menuitem"><code>sn</code> <span class="cmd-desc">Chassis Serial &amp; Asset Tags</span></a>
+                      <a href="jira.html#hardware-rma" class="dropdown-item" role="menuitem"><code>rma</code> <span class="cmd-desc">Vendor RMAs &amp; Parts Returns</span></a>
+                    </div>
+                    <div class="jira-dropdown-col">
+                      <div class="jira-dropdown-heading">Cluster Incidents &amp; Ops</div>
+                      <a href="jira.html#gpu-cluster" class="dropdown-item" role="menuitem"><code>gpu</code> <span class="cmd-desc">GPU, NVLink &amp; SXid Incidents</span></a>
+                      <a href="jira.html#slurm-drain" class="dropdown-item" role="menuitem"><code>drain</code> <span class="cmd-desc">Slurm Drained &amp; Cordons</span></a>
+                      <a href="jira.html#queue-ops" class="dropdown-item" role="menuitem"><code>queue</code> <span class="cmd-desc">DC Queue &amp; P1 Blockers</span></a>
+                      <a href="jira.html#jira-api-cli" class="dropdown-item" role="menuitem"><code>api</code> <span class="cmd-desc">REST API curl &amp; Jira CLI</span></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </nav>
           </div>
           <p class="brand-subtitle">Deep-dive subcommands, flags, field variables &amp; data center log/process pipelines for core Ubuntu CLI utilities</p>
@@ -503,7 +529,7 @@
           <div id="theme-dropdown-menu" class="theme-dropdown-menu">
             <div class="theme-dropdown-header">
               <span>Color Theme</span>
-              <span class="theme-count">8 Themes</span>
+              <span class="theme-count">9 Themes</span>
             </div>
             <div class="theme-options-list">
               <button type="button" class="theme-option active" data-theme="dark" title="Obsidian & cyan datacenter">
@@ -514,6 +540,11 @@
               <button type="button" class="theme-option" data-theme="light" title="Crisp daylight paper & azure">
                 <div class="theme-swatches"><span class="theme-dot" style="background:#f5f7fa"></span><span class="theme-dot" style="background:#ffffff"></span><span class="theme-dot" style="background:#0284c7"></span><span class="theme-dot" style="background:#16a34a"></span></div>
                 <div class="theme-info"><span class="theme-name">Clean Light</span><span class="theme-desc">Crisp daylight paper & azure</span></div>
+                <span class="theme-check">✓</span>
+              </button>
+              <button type="button" class="theme-option" data-theme="gemini" title="Google Gemini cosmic indigo & violet">
+                <div class="theme-swatches"><span class="theme-dot" style="background:#090a12"></span><span class="theme-dot" style="background:#101322"></span><span class="theme-dot" style="background:#818cf8"></span><span class="theme-dot" style="background:#c084fc"></span></div>
+                <div class="theme-info"><span class="theme-name">Gemini Spark</span><span class="theme-desc">Cosmic indigo & violet spark</span></div>
                 <span class="theme-check">✓</span>
               </button>
               <button type="button" class="theme-option" data-theme="nord" title="Arctic cold & polar blue">

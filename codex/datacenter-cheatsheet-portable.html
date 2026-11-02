@@ -6,7 +6,7 @@
   <title>Datacenter &amp; Sysadmin Reference Suite — 100% Portable Air-Gapped Edition</title>
   <style>
 :root,
-[data-theme="dark"] {
+html[data-theme="dark"] {
   --bg-base: #0b0e14;
   --bg-surface: #111621;
   --bg-elevated: #171e2c;
@@ -38,7 +38,91 @@
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
-[data-theme="light"] {
+html[data-theme="codex"] {
+  --bg-base: #141414;
+  --bg-surface: #1c1c1c;
+  --bg-elevated: #252525;
+  --bg-code: #101010;
+  --bg-hover: #2d2d2d;
+  --border-subtle: #333333;
+  --border-strong: #505050;
+  --text-primary: #ececec;
+  --text-secondary: #b4b4b4;
+  --text-muted: #929292;
+
+  --accent-primary: #8de8c2;
+  --accent-glow: rgba(141, 232, 194, 0.14);
+  --accent-green: #8de8c2;
+  --accent-amber: #e9c879;
+  --accent-red: #f28b82;
+  --accent-purple: #c9b2ee;
+  --accent-cyan: #91d8e8;
+
+  --syn-cmd: #8de8c2;
+  --syn-flag: #91d8e8;
+  --syn-arg: #ececec;
+  --syn-pipe: #c9b2ee;
+  --syn-string: #e9c879;
+  --syn-comment: #929292;
+
+  --shadow-card: 0 8px 24px -6px rgba(0, 0, 0, 0.45);
+}
+
+html[data-theme="starwars"] {
+  --bg-base: #080a0f;
+  --bg-surface: #121722;
+  --bg-elevated: #1b2330;
+  --bg-code: #05070b;
+  --bg-hover: #263143;
+  --border-subtle: #303d50;
+  --border-strong: #52617a;
+  --text-primary: #f5f3e7;
+  --text-secondary: #bec6d4;
+  --text-muted: #949fb2;
+  --accent-primary: #ffe81f;
+  --accent-glow: rgba(255, 232, 31, 0.14);
+  --accent-green: #86e89b;
+  --accent-amber: #ffd078;
+  --accent-red: #ff8585;
+  --accent-purple: #c5acff;
+  --accent-cyan: #70c8ff;
+  --syn-cmd: #86e89b;
+  --syn-flag: #70c8ff;
+  --syn-arg: #f5f3e7;
+  --syn-pipe: #c5acff;
+  --syn-string: #ffe81f;
+  --syn-comment: #949fb2;
+  --shadow-card: 0 8px 24px -6px rgba(0, 0, 0, 0.5);
+}
+
+html[data-theme="startrek"] {
+  --bg-base: #09090f;
+  --bg-surface: #171520;
+  --bg-elevated: #242031;
+  --bg-code: #050509;
+  --bg-hover: #322a43;
+  --border-subtle: #443854;
+  --border-strong: #79618e;
+  --text-primary: #f5edff;
+  --text-secondary: #d0bbdf;
+  --text-muted: #ad98be;
+  --accent-primary: #ffcc99;
+  --accent-glow: rgba(255, 204, 153, 0.14);
+  --accent-green: #99ddbb;
+  --accent-amber: #ffcc66;
+  --accent-red: #ff9999;
+  --accent-purple: #cc99ff;
+  --accent-cyan: #99ccff;
+  --syn-cmd: #99ddbb;
+  --syn-flag: #99ccff;
+  --syn-arg: #f5edff;
+  --syn-pipe: #cc99ff;
+  --syn-string: #ffcc99;
+  --syn-comment: #ad98be;
+  --shadow-card: 0 8px 24px -6px rgba(0, 0, 0, 0.5);
+}
+
+html[data-theme="light"] {
   --bg-base: #f5f7fa;
   --bg-surface: #ffffff;
   --bg-elevated: #f0f4f8;
@@ -68,7 +152,7 @@
   --shadow-card: 0 4px 16px -4px rgba(15, 23, 42, 0.08);
 }
 
-[data-theme="nord"] {
+html[data-theme="nord"] {
   --bg-base: #242933;
   --bg-surface: #2e3440;
   --bg-elevated: #3b4252;
@@ -98,7 +182,7 @@
   --shadow-card: 0 8px 24px -6px rgba(0, 0, 0, 0.4);
 }
 
-[data-theme="dracula"] {
+html[data-theme="dracula"] {
   --bg-base: #1e1f29;
   --bg-surface: #282a36;
   --bg-elevated: #343746;
@@ -128,7 +212,7 @@
   --shadow-card: 0 8px 24px -6px rgba(0, 0, 0, 0.5);
 }
 
-[data-theme="catppuccin"] {
+html[data-theme="catppuccin"] {
   --bg-base: #181825;
   --bg-surface: #1e1e2e;
   --bg-elevated: #313244;
@@ -158,7 +242,7 @@
   --shadow-card: 0 8px 24px -6px rgba(0, 0, 0, 0.45);
 }
 
-[data-theme="matrix"] {
+html[data-theme="matrix"] {
   --bg-base: #030804;
   --bg-surface: #061408;
   --bg-elevated: #0c2410;
@@ -188,7 +272,7 @@
   --shadow-card: 0 8px 24px -6px rgba(0, 255, 102, 0.15);
 }
 
-[data-theme="tokyonight"] {
+html[data-theme="tokyonight"] {
   --bg-base: #16161e;
   --bg-surface: #1a1b26;
   --bg-elevated: #24283b;
@@ -218,7 +302,7 @@
   --shadow-card: 0 8px 24px -6px rgba(0, 0, 0, 0.45);
 }
 
-[data-theme="solarized"] {
+html[data-theme="solarized"] {
   --bg-base: #00212b;
   --bg-surface: #002b36;
   --bg-elevated: #073642;
@@ -246,6 +330,106 @@
   --syn-comment: #586e75;
 
   --shadow-card: 0 8px 24px -6px rgba(0, 0, 0, 0.4);
+}
+
+/* Nebius AI Cloud — Deep Petrol Navy & Volt Lime Theme */
+html[data-theme="nebius"],
+:root[data-theme="nebius"],
+[data-theme="nebius"] {
+  --bg-base: #031422;
+  --bg-surface: #062238;
+  --bg-elevated: #0a2d4a;
+  --bg-code: #020e18;
+  --bg-hover: #103c61;
+  --border-subtle: #14446d;
+  --border-strong: #235e91;
+  --text-primary: #f0f7fc;
+  --text-secondary: #b6cde2;
+  --text-muted: #728ea6;
+
+  --accent-primary: #e0ff4f;
+  --accent-secondary: #614efa;
+  --accent-glow: rgba(224, 255, 79, 0.16);
+  --accent-green: #34d399;
+  --accent-amber: #fbbf24;
+  --accent-red: #f87171;
+  --accent-purple: #8b5cf6;
+  --accent-cyan: #38bdf8;
+
+  --syn-cmd: #e0ff4f;
+  --syn-flag: #9385ff;
+  --syn-arg: #f0f7fc;
+  --syn-pipe: #38bdf8;
+  --syn-string: #6ee7b7;
+  --syn-comment: #728ea6;
+
+  --shadow-card: 0 8px 24px -6px rgba(0, 0, 0, 0.55);
+}
+
+/* Google Gemini Cosmic Indigo & Spark Violet Theme */
+html[data-theme="gemini"],
+[data-theme="gemini"] {
+  --bg-base: #090a12;
+  --bg-surface: #101322;
+  --bg-elevated: #181d33;
+  --bg-code: #0c0f1c;
+  --bg-hover: #1f2542;
+  --border-subtle: #252b4c;
+  --border-strong: #3e487a;
+  --text-primary: #f1f4fd;
+  --text-secondary: #c0c8e2;
+  --text-muted: #828cae;
+
+  --accent-primary: #818cf8;
+  --accent-secondary: #38bdf8;
+  --accent-glow: rgba(129, 140, 248, 0.18);
+  --accent-green: #34d399;
+  --accent-amber: #fbbf24;
+  --accent-red: #f87171;
+  --accent-purple: #c084fc;
+  --accent-cyan: #38bdf8;
+
+  --syn-cmd: #38bdf8;
+  --syn-flag: #c084fc;
+  --syn-arg: #f1f4fd;
+  --syn-pipe: #f472b6;
+  --syn-string: #34d399;
+  --syn-comment: #6b769e;
+
+  --shadow-card: 0 4px 20px -2px rgba(9, 10, 18, 0.7);
+}
+
+/* Anthropic Claude Warm Charcoal & Terracotta Theme */
+html[data-theme="claude"],
+[data-theme="claude"] {
+  --bg-base: #1f1e1d;
+  --bg-surface: #262624;
+  --bg-elevated: #30302e;
+  --bg-code: #1a1918;
+  --bg-hover: #3a3936;
+  --border-subtle: #363530;
+  --border-strong: #4a4843;
+  --text-primary: #faf9f5;
+  --text-secondary: #c2c0b6;
+  --text-muted: #8f8d84;
+
+  --accent-primary: #d97757;
+  --accent-secondary: #e8b48f;
+  --accent-glow: rgba(217, 119, 87, 0.16);
+  --accent-green: #a8c686;
+  --accent-amber: #e0a94a;
+  --accent-red: #e5695c;
+  --accent-purple: #b09ce0;
+  --accent-cyan: #7fbdb5;
+
+  --syn-cmd: #d97757;
+  --syn-flag: #e8b48f;
+  --syn-arg: #faf9f5;
+  --syn-pipe: #b09ce0;
+  --syn-string: #a8c686;
+  --syn-comment: #8f8d84;
+
+  --shadow-card: 0 8px 24px -6px rgba(0, 0, 0, 0.45);
 }
 
 *,
@@ -686,7 +870,7 @@ code, kbd, pre {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: var(--text-muted);
+  color: var(--text-secondary);
   border-bottom: 1px solid var(--border-subtle);
   margin-bottom: 0.3rem;
 }
@@ -695,14 +879,35 @@ code, kbd, pre {
   font-family: var(--font-mono);
   font-size: 0.68rem;
   color: var(--accent-primary);
+  font-weight: 600;
 }
 
 .theme-options-list {
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
-  max-height: 380px;
+  max-height: min(480px, 75vh);
   overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
+}
+
+.theme-options-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.theme-options-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.theme-options-list::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 999px;
+}
+
+.theme-options-list::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
 }
 
 .theme-option {
@@ -735,18 +940,45 @@ code, kbd, pre {
   align-items: center;
   gap: 3px;
   flex-shrink: 0;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(125, 125, 125, 0.15);
   padding: 3px 4px;
   border-radius: 4px;
   border: 1px solid var(--border-subtle);
 }
 
 .theme-dot {
-  width: 8px;
-  height: 8px;
+  width: 9px;
+  height: 9px;
   border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.45);
   display: inline-block;
+  box-sizing: border-box;
+}
+
+/* Ensure Clean Light theme swatches and dropdown remain crisp and distinct */
+html[data-theme="light"] .theme-dropdown-menu,
+[data-theme="light"] .theme-dropdown-menu {
+  box-shadow: 0 12px 32px -4px rgba(15, 23, 42, 0.15);
+  background: #ffffff;
+  border-color: #cbd5e1;
+}
+
+html[data-theme="light"] .theme-swatches,
+[data-theme="light"] .theme-swatches {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+html[data-theme="light"] .theme-dot,
+[data-theme="light"] .theme-dot {
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.85);
+}
+
+.theme-option[data-theme="light"] .theme-dot {
+  border-color: rgba(100, 116, 139, 0.75);
+  box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.35);
 }
 
 .theme-info {
@@ -765,15 +997,21 @@ code, kbd, pre {
 
 .theme-option.active .theme-name {
   color: var(--accent-primary);
+  font-weight: 700;
 }
 
 .theme-desc {
   font-size: 0.68rem;
-  color: var(--text-muted);
+  color: var(--text-secondary);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   margin-top: 1px;
+}
+
+.theme-option:hover .theme-desc,
+.theme-option.active .theme-desc {
+  color: var(--text-primary);
 }
 
 .theme-check {
@@ -3494,6 +3732,307 @@ body.compact-mode .subcmd-list {
   #manual-content { font-size: .75rem; }
 }
 
+/* Let the Nebius section bar blend into the page. */
+html[data-theme="nebius"] .category-bar {
+  background: var(--bg-base);
+  color: var(--text-primary);
+}
+
+html[data-theme="nebius"] .category-bar .cat-dropdown-label,
+html[data-theme="nebius"] .category-bar .stats-summary {
+  color: var(--text-secondary);
+}
+
+html[data-theme="nebius"] .category-bar .stats-summary strong {
+  color: var(--text-primary);
+}
+
+/* Soft palettes with readable text and restrained selection fills. */
+html[data-theme="everforest"] {
+  color-scheme: dark;
+  --bg-base: #2d353b;
+  --bg-surface: #343f44;
+  --bg-elevated: #3d484d;
+  --bg-code: #272e33;
+  --bg-hover: #414b50;
+  --border-subtle: #4f5b58;
+  --border-strong: #859289;
+  --text-primary: #d3c6aa;
+  --text-secondary: #c3bca9;
+  --text-muted: #b9bcaa;
+  --accent-primary: #a7c080;
+  --accent-green: #a7c080;
+  --accent-amber: #dbbc7f;
+  --accent-red: #e67e80;
+  --accent-purple: #d699b6;
+  --accent-cyan: #83c092;
+  --accent-glow: rgba(167, 192, 128, 0.14);
+  --syn-cmd: #a7c080;
+  --syn-flag: #83c092;
+  --syn-arg: #d3c6aa;
+  --syn-pipe: #d699b6;
+  --syn-string: #dbbc7f;
+  --syn-comment: #b3b6a4;
+  --shadow-card: 0 8px 24px -6px rgba(0, 0, 0, 0.18);
+}
+
+html[data-theme="gruvbox-material"] {
+  color-scheme: dark;
+  --bg-base: #282828;
+  --bg-surface: #32302f;
+  --bg-elevated: #3c3836;
+  --bg-code: #242424;
+  --bg-hover: #45403d;
+  --border-subtle: #504945;
+  --border-strong: #928374;
+  --text-primary: #d4be98;
+  --text-secondary: #c9b99a;
+  --text-muted: #bdae93;
+  --accent-primary: #d8a657;
+  --accent-green: #a9b665;
+  --accent-amber: #d8a657;
+  --accent-red: #ea6962;
+  --accent-purple: #d3869b;
+  --accent-cyan: #89b482;
+  --accent-glow: rgba(216, 166, 87, 0.14);
+  --syn-cmd: #a9b665;
+  --syn-flag: #89b482;
+  --syn-arg: #d4be98;
+  --syn-pipe: #d3869b;
+  --syn-string: #d8a657;
+  --syn-comment: #bdae93;
+  --shadow-card: 0 8px 24px -6px rgba(0, 0, 0, 0.18);
+}
+
+html[data-theme="rose-pine-moon"] {
+  color-scheme: dark;
+  --bg-base: #232136;
+  --bg-surface: #2a273f;
+  --bg-elevated: #393552;
+  --bg-code: #1f1d30;
+  --bg-hover: #403d58;
+  --border-subtle: #4c4865;
+  --border-strong: #908caa;
+  --text-primary: #e0def4;
+  --text-secondary: #cbc8e2;
+  --text-muted: #b2aecb;
+  --accent-primary: #c4a7e7;
+  --accent-green: #9ccfd8;
+  --accent-amber: #f6c177;
+  --accent-red: #eb6f92;
+  --accent-purple: #c4a7e7;
+  --accent-cyan: #9ccfd8;
+  --accent-glow: rgba(196, 167, 231, 0.14);
+  --syn-cmd: #9ccfd8;
+  --syn-flag: #9ccfd8;
+  --syn-arg: #e0def4;
+  --syn-pipe: #c4a7e7;
+  --syn-string: #f6c177;
+  --syn-comment: #b2aecb;
+  --shadow-card: 0 8px 24px -6px rgba(0, 0, 0, 0.18);
+}
+
+html[data-theme="kanagawa-wave"] {
+  color-scheme: dark;
+  --bg-base: #1f1f28;
+  --bg-surface: #24242e;
+  --bg-elevated: #2a2a37;
+  --bg-code: #16161d;
+  --bg-hover: #363646;
+  --border-subtle: #454558;
+  --border-strong: #727169;
+  --text-primary: #dcd7ba;
+  --text-secondary: #c8c4ad;
+  --text-muted: #aaa89a;
+  --accent-primary: #7e9cd8;
+  --accent-green: #98bb6c;
+  --accent-amber: #e6c384;
+  --accent-red: #e46876;
+  --accent-purple: #957fb8;
+  --accent-cyan: #7fb4ca;
+  --accent-glow: rgba(126, 156, 216, 0.14);
+  --syn-cmd: #98bb6c;
+  --syn-flag: #7fb4ca;
+  --syn-arg: #dcd7ba;
+  --syn-pipe: #957fb8;
+  --syn-string: #e6c384;
+  --syn-comment: #aaa89a;
+  --shadow-card: 0 8px 24px -6px rgba(0, 0, 0, 0.18);
+}
+
+html[data-theme="rose-pine-dawn"] {
+  color-scheme: light;
+  --bg-base: #faf4ed;
+  --bg-surface: #fffaf3;
+  --bg-elevated: #f2e9e1;
+  --bg-code: #f4ede8;
+  --bg-hover: #eee4da;
+  --border-subtle: #d5c9c5;
+  --border-strong: #9893a5;
+  --text-primary: #575279;
+  --text-secondary: #625b79;
+  --text-muted: #696179;
+  --accent-primary: #77518d;
+  --accent-green: #286983;
+  --accent-amber: #946000;
+  --accent-red: #b33c59;
+  --accent-purple: #77518d;
+  --accent-cyan: #286983;
+  --accent-glow: rgba(119, 81, 141, 0.14);
+  --syn-cmd: #286983;
+  --syn-flag: #286983;
+  --syn-arg: #575279;
+  --syn-pipe: #77518d;
+  --syn-string: #946000;
+  --syn-comment: #6f677f;
+  --shadow-card: 0 8px 24px -6px rgba(0, 0, 0, 0.18);
+}
+
+:is(html[data-theme="everforest"],
+html[data-theme="gruvbox-material"],
+html[data-theme="rose-pine-moon"],
+html[data-theme="kanagawa-wave"],
+html[data-theme="rose-pine-dawn"]) .category-bar {
+  background: var(--bg-base);
+}
+
+:is(html[data-theme="everforest"],
+html[data-theme="gruvbox-material"],
+html[data-theme="rose-pine-moon"],
+html[data-theme="kanagawa-wave"],
+html[data-theme="rose-pine-dawn"]) ::selection {
+  background: var(--accent-primary);
+  color: var(--bg-base);
+}
+
+/* Additional soft dark and warm light palettes. */
+html[data-theme="zenburn"] {
+  color-scheme: dark;
+  --bg-base: #2b2b2b;
+  --bg-surface: #383838;
+  --bg-elevated: #404040;
+  --bg-code: #242424;
+  --bg-hover: #494949;
+  --border-subtle: #555555;
+  --border-strong: #808080;
+  --text-primary: #dcdccc;
+  --text-secondary: #ccccbc;
+  --text-muted: #bbbbab;
+  --accent-primary: #8cd0d3;
+  --accent-green: #afbf87;
+  --accent-amber: #f0dfaf;
+  --accent-red: #e5acac;
+  --accent-purple: #f1a1d8;
+  --accent-cyan: #8cd0d3;
+  --syn-cmd: #afbf87;
+  --syn-flag: #8cd0d3;
+  --syn-arg: #dcdccc;
+  --syn-pipe: #f1a1d8;
+  --syn-string: #f0dfaf;
+  --syn-comment: #bbbbab;
+  --accent-glow: rgba(140, 208, 211, 0.12);
+  --shadow-card: 0 8px 24px -6px rgba(0, 0, 0, 0.18);
+}
+
+html[data-theme="latte"] {
+  color-scheme: light;
+  --bg-base: #e6e9ef;
+  --bg-surface: #eff1f5;
+  --bg-elevated: #e6e9ef;
+  --bg-code: #e6e9ef;
+  --bg-hover: #dce0e8;
+  --border-subtle: #bcc0cc;
+  --border-strong: #8c8fa1;
+  --text-primary: #4c4f69;
+  --text-secondary: #5c5f77;
+  --text-muted: #5d6076;
+  --accent-primary: #7e35de;
+  --accent-green: #306f0c;
+  --accent-amber: #8b5700;
+  --accent-red: #b92349;
+  --accent-purple: #7e35de;
+  --accent-cyan: #176a86;
+  --syn-cmd: #306f0c;
+  --syn-flag: #176a86;
+  --syn-arg: #4c4f69;
+  --syn-pipe: #7e35de;
+  --syn-string: #8b5700;
+  --syn-comment: #5d6076;
+  --accent-glow: rgba(126, 53, 222, 0.12);
+  --shadow-card: 0 8px 24px -6px rgba(0, 0, 0, 0.18);
+}
+
+html[data-theme="gruvboxlight"] {
+  color-scheme: light;
+  --bg-base: #f2e5bc;
+  --bg-surface: #fbf1c7;
+  --bg-elevated: #ebdbb2;
+  --bg-code: #f2e5bc;
+  --bg-hover: #e5d5ad;
+  --border-subtle: #d5c4a1;
+  --border-strong: #928374;
+  --text-primary: #3c3836;
+  --text-secondary: #504945;
+  --text-muted: #635951;
+  --accent-primary: #076678;
+  --accent-green: #5c6000;
+  --accent-amber: #8b4d00;
+  --accent-red: #9d0006;
+  --accent-purple: #8f3f71;
+  --accent-cyan: #076678;
+  --syn-cmd: #5c6000;
+  --syn-flag: #076678;
+  --syn-arg: #3c3836;
+  --syn-pipe: #8f3f71;
+  --syn-string: #8b4d00;
+  --syn-comment: #635951;
+  --accent-glow: rgba(7, 102, 120, 0.12);
+  --shadow-card: 0 8px 24px -6px rgba(0, 0, 0, 0.18);
+}
+
+html[data-theme="solarizedlight"] {
+  color-scheme: light;
+  --bg-base: #eee8d5;
+  --bg-surface: #fdf6e3;
+  --bg-elevated: #eee8d5;
+  --bg-code: #eee8d5;
+  --bg-hover: #e5dfcd;
+  --border-subtle: #d5cdb5;
+  --border-strong: #93a1a1;
+  --text-primary: #40545c;
+  --text-secondary: #50646b;
+  --text-muted: #4f656c;
+  --accent-primary: #1c679b;
+  --accent-green: #596900;
+  --accent-amber: #805c00;
+  --accent-red: #b52d27;
+  --accent-purple: #6659a0;
+  --accent-cyan: #0d6d66;
+  --syn-cmd: #596900;
+  --syn-flag: #0d6d66;
+  --syn-arg: #40545c;
+  --syn-pipe: #6659a0;
+  --syn-string: #805c00;
+  --syn-comment: #4f656c;
+  --accent-glow: rgba(28, 103, 155, 0.12);
+  --shadow-card: 0 8px 24px -6px rgba(0, 0, 0, 0.18);
+}
+
+:is(html[data-theme="zenburn"],
+html[data-theme="latte"],
+html[data-theme="gruvboxlight"],
+html[data-theme="solarizedlight"]) .category-bar {
+  background: var(--bg-base);
+}
+
+:is(html[data-theme="zenburn"],
+html[data-theme="latte"],
+html[data-theme="gruvboxlight"],
+html[data-theme="solarizedlight"]) ::selection {
+  background: var(--accent-primary);
+  color: var(--bg-base);
+}
+
 
   /* Portable font fallbacks for zero-internet environments */
   :root {
@@ -3526,6 +4065,8 @@ body.compact-mode .subcmd-list {
             <span class="version-pill" id="brand-pill">Ubuntu / APT / systemd</span>
             <span class="portable-badge">100% OFFLINE PORTABLE</span>
             <nav class="sheet-switcher" aria-label="Switch cheat sheet" id="portable-sheet-nav">
+
+              <a href="#sheet-jira" data-sheet="jira" class="sheet-link"><span>Jira</span></a>
 
               <div class="nav-dropdown" id="linux-nav-dropdown">
                 <a href="#sheet-linux" data-sheet="linux" class="sheet-link dropdown-toggle" aria-haspopup="true">
@@ -4010,9 +4551,14 @@ body.compact-mode .subcmd-list {
           <div id="theme-dropdown-menu" class="theme-dropdown-menu">
             <div class="theme-dropdown-header">
               <span>Color Theme</span>
-              <span class="theme-count">8 Themes</span>
+              <span class="theme-count">12 Themes</span>
             </div>
             <div class="theme-options-list">
+              <button type="button" class="theme-option" data-theme="codex" title="Charcoal & mint workspace">
+                <div class="theme-swatches"><span class="theme-dot" style="background:#141414"></span><span class="theme-dot" style="background:#1c1c1c"></span><span class="theme-dot" style="background:#8de8c2"></span><span class="theme-dot" style="background:#ececec"></span></div>
+                <div class="theme-info"><span class="theme-name">Codex</span><span class="theme-desc">Charcoal & mint workspace</span></div>
+                <span class="theme-check">✓</span>
+              </button>
               <button type="button" class="theme-option active" data-theme="dark" title="Obsidian & cyan datacenter">
                 <div class="theme-swatches"><span class="theme-dot" style="background:#0b0e14"></span><span class="theme-dot" style="background:#111621"></span><span class="theme-dot" style="background:#38bdf8"></span><span class="theme-dot" style="background:#4ade80"></span></div>
                 <div class="theme-info"><span class="theme-name">Cyber Dark</span><span class="theme-desc">Obsidian & cyan datacenter</span></div>
@@ -4046,6 +4592,21 @@ body.compact-mode .subcmd-list {
               <button type="button" class="theme-option" data-theme="tokyonight" title="Vibrant Shibuya neon cyan & violet">
                 <div class="theme-swatches"><span class="theme-dot" style="background:#16161e"></span><span class="theme-dot" style="background:#1a1b26"></span><span class="theme-dot" style="background:#7aa2f7"></span><span class="theme-dot" style="background:#bb9af7"></span></div>
                 <div class="theme-info"><span class="theme-name">Tokyo Night</span><span class="theme-desc">Neon Shibuya cyan & violet</span></div>
+                <span class="theme-check">✓</span>
+              </button>
+              <button type="button" class="theme-option" data-theme="starwars" title="Deep space & opening-crawl gold">
+                <div class="theme-swatches"><span class="theme-dot" style="background:#080a0f"></span><span class="theme-dot" style="background:#121722"></span><span class="theme-dot" style="background:#ffe81f"></span><span class="theme-dot" style="background:#70c8ff"></span></div>
+                <div class="theme-info"><span class="theme-name">Star Wars</span><span class="theme-desc">Deep space & opening-crawl gold</span></div>
+                <span class="theme-check">✓</span>
+              </button>
+              <button type="button" class="theme-option" data-theme="startrek" title="LCARS amber & lavender">
+                <div class="theme-swatches"><span class="theme-dot" style="background:#09090f"></span><span class="theme-dot" style="background:#171520"></span><span class="theme-dot" style="background:#ffcc99"></span><span class="theme-dot" style="background:#cc99ff"></span></div>
+                <div class="theme-info"><span class="theme-name">Star Trek</span><span class="theme-desc">LCARS amber & lavender</span></div>
+                <span class="theme-check">✓</span>
+              </button>
+              <button type="button" class="theme-option" data-theme="nebius" title="Cloud white, navy & electric lime">
+                <div class="theme-swatches"><span class="theme-dot" style="background:#ffffff"></span><span class="theme-dot" style="background:#062b3d"></span><span class="theme-dot" style="background:#daff40"></span><span class="theme-dot" style="background:#e0e3ff"></span></div>
+                <div class="theme-info"><span class="theme-name">Nebius</span><span class="theme-desc">Cloud white, navy & electric lime</span></div>
                 <span class="theme-check">✓</span>
               </button>
               <button type="button" class="theme-option" data-theme="solarized" title="Low-contrast precision cyan & gold">
@@ -4107,8 +4668,8 @@ body.compact-mode .subcmd-list {
 
   <!-- Embedded Global Search Index -->
   <script>
-// Auto-generated Global Search Index across all 184 cheat sheets
-// Total indexed items: 1930
+// Auto-generated Global Search Index across all 185 cheat sheets
+// Total indexed items: 1957
 window.GLOBAL_SEARCH_INDEX = [
   {
     "sName": "app",
@@ -13360,6 +13921,303 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Instantiate and throw standard Error object with stack trace",
     "tip": "",
     "tags": "javascript async await promises fetch try-catch concurrency"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-node-history",
+    "sec": "Server, Node & Serial History",
+    "cmd": "(summary ~ \"\\\"NODE_NAME\\\"\" OR description ~ \"\\\"NODE_NAME\\\"\") ORDER BY created DESC",
+    "desc": "All tickets mentioning a server or node",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql server node hostname history"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-node-broad",
+    "sec": "Server, Node & Serial History",
+    "cmd": "text ~ \"\\\"NODE_NAME\\\"\" ORDER BY created DESC",
+    "desc": "Broader node mentions, including comments",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql node comments history"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-aliases",
+    "sec": "Server, Node & Serial History",
+    "cmd": "((summary ~ \"\\\"NODE_NAME\\\"\" OR description ~ \"\\\"NODE_NAME\\\"\") OR (summary ~ \"\\\"OLD_NODE_NAME\\\"\" OR description ~ \"\\\"OLD_NODE_NAME\\\"\") OR (summary ~ \"\\\"SERIAL_NUMBER\\\"\" OR description ~ \"\\\"SERIAL_NUMBER\\\"\")) ORDER BY created DESC",
+    "desc": "Hostname, old name, or serial number",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql aliases serial rename history"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-serial",
+    "sec": "Server, Node & Serial History",
+    "cmd": "(summary ~ \"\\\"SERIAL_NUMBER\\\"\" OR description ~ \"\\\"SERIAL_NUMBER\\\"\") ORDER BY created DESC",
+    "desc": "All tickets mentioning a chassis serial",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql serial chassis rma"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-projects",
+    "sec": "Server, Node & Serial History",
+    "cmd": "project IN (PROJECT_A, PROJECT_B) AND (summary ~ \"\\\"NODE_NAME\\\"\" OR description ~ \"\\\"NODE_NAME\\\"\") ORDER BY created DESC",
+    "desc": "Node history within selected projects",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql project node history"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-rack",
+    "sec": "Rack, Position & Site History",
+    "cmd": "(summary ~ \"\\\"RACK_ID\\\"\" OR description ~ \"\\\"RACK_ID\\\"\") ORDER BY created DESC",
+    "desc": "All tickets mentioning a rack",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql rack history"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-position",
+    "sec": "Rack, Position & Site History",
+    "cmd": "(summary ~ \"\\\"RACK_ID\\\"\" OR description ~ \"\\\"RACK_ID\\\"\") AND (summary ~ \"\\\"POSITION\\\"\" OR description ~ \"\\\"POSITION\\\"\") ORDER BY created DESC",
+    "desc": "Rack plus position / rack unit",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql rack position slot unit"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-site-rack",
+    "sec": "Rack, Position & Site History",
+    "cmd": "(summary ~ \"\\\"SITE_ID\\\"\" OR description ~ \"\\\"SITE_ID\\\"\") AND (summary ~ \"\\\"RACK_ID\\\"\" OR description ~ \"\\\"RACK_ID\\\"\") ORDER BY created DESC",
+    "desc": "Site plus rack to disambiguate reused rack IDs",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql site rack datacenter"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-rack-alias",
+    "sec": "Rack, Position & Site History",
+    "cmd": "((summary ~ \"\\\"RACK_ID\\\"\" OR description ~ \"\\\"RACK_ID\\\"\") OR (summary ~ \"\\\"OLD_RACK_ID\\\"\" OR description ~ \"\\\"OLD_RACK_ID\\\"\")) ORDER BY created DESC",
+    "desc": "Rack naming variations",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql rack aliases history"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-location-open",
+    "sec": "Rack, Position & Site History",
+    "cmd": "statusCategory != Done AND (summary ~ \"\\\"RACK_ID\\\"\" OR description ~ \"\\\"RACK_ID\\\"\") AND (summary ~ \"\\\"POSITION\\\"\" OR description ~ \"\\\"POSITION\\\"\") ORDER BY priority DESC, updated DESC",
+    "desc": "Open work at a rack position",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql rack position open"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-node-open",
+    "sec": "Daily Work & Handoff",
+    "cmd": "statusCategory != Done AND (summary ~ \"\\\"NODE_NAME\\\"\" OR description ~ \"\\\"NODE_NAME\\\"\") ORDER BY priority DESC, updated DESC",
+    "desc": "Active tickets for a node",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql node open"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-mine",
+    "sec": "Daily Work & Handoff",
+    "cmd": "project = PROJECT_KEY AND assignee = currentUser() AND statusCategory != Done ORDER BY priority DESC, updated DESC",
+    "desc": "My active tickets",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql assigned mine"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-unassigned",
+    "sec": "Daily Work & Handoff",
+    "cmd": "project = PROJECT_KEY AND assignee IS EMPTY AND statusCategory != Done ORDER BY priority DESC, created ASC",
+    "desc": "Unassigned active tickets",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql unassigned queue"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-stale",
+    "sec": "Daily Work & Handoff",
+    "cmd": "project = PROJECT_KEY AND statusCategory != Done AND updated <= \"-7d\" ORDER BY updated ASC",
+    "desc": "Active tickets with no updates in seven days",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql stale handoff"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-new",
+    "sec": "Daily Work & Handoff",
+    "cmd": "project = PROJECT_KEY AND created >= \"-24h\" ORDER BY created DESC",
+    "desc": "Tickets created in the last 24 hours",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql new shift"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-shift",
+    "sec": "Daily Work & Handoff",
+    "cmd": "project = PROJECT_KEY AND updated >= \"-12h\" ORDER BY updated DESC",
+    "desc": "Tickets updated during the last 12 hours",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql handoff shift"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-overdue",
+    "sec": "Daily Work & Handoff",
+    "cmd": "project = PROJECT_KEY AND statusCategory != Done AND due < startOfDay() ORDER BY due ASC",
+    "desc": "Overdue active tickets",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql overdue due"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-resolved",
+    "sec": "Daily Work & Handoff",
+    "cmd": "project = PROJECT_KEY AND resolved >= \"-7d\" ORDER BY resolved DESC",
+    "desc": "Recently resolved tickets",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql resolved history"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-transitions",
+    "sec": "Daily Work & Handoff",
+    "cmd": "project = PROJECT_KEY AND status CHANGED AFTER \"-7d\" ORDER BY updated DESC",
+    "desc": "Tickets with status changes in the last week",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql status history handoff"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-gpu",
+    "sec": "Hardware Faults & RMA Follow-up",
+    "cmd": "(summary ~ \"\\\"NODE_NAME\\\"\" OR description ~ \"\\\"NODE_NAME\\\"\") AND ((summary ~ \"\\\"Xid\\\"\" OR description ~ \"\\\"Xid\\\"\") OR (summary ~ \"\\\"NVLink\\\"\" OR description ~ \"\\\"NVLink\\\"\") OR (summary ~ \"\\\"ECC\\\"\" OR description ~ \"\\\"ECC\\\"\")) ORDER BY created DESC",
+    "desc": "GPU / NVLink fault tickets for a node",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql hardware gpu fault"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-network",
+    "sec": "Hardware Faults & RMA Follow-up",
+    "cmd": "(summary ~ \"\\\"RACK_ID\\\"\" OR description ~ \"\\\"RACK_ID\\\"\") AND ((summary ~ \"\\\"InfiniBand\\\"\" OR description ~ \"\\\"InfiniBand\\\"\") OR (summary ~ \"\\\"BER\\\"\" OR description ~ \"\\\"BER\\\"\") OR (summary ~ \"\\\"transceiver\\\"\" OR description ~ \"\\\"transceiver\\\"\")) ORDER BY created DESC",
+    "desc": "Fabric / optics tickets for a rack",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql hardware network fault"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-storage",
+    "sec": "Hardware Faults & RMA Follow-up",
+    "cmd": "(summary ~ \"\\\"NODE_NAME\\\"\" OR description ~ \"\\\"NODE_NAME\\\"\") AND ((summary ~ \"\\\"NVMe\\\"\" OR description ~ \"\\\"NVMe\\\"\") OR (summary ~ \"\\\"SMART\\\"\" OR description ~ \"\\\"SMART\\\"\") OR (summary ~ \"\\\"disk\\\"\" OR description ~ \"\\\"disk\\\"\")) ORDER BY created DESC",
+    "desc": "Storage tickets for a node",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql hardware storage fault"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-rma",
+    "sec": "Hardware Faults & RMA Follow-up",
+    "cmd": "project = PROJECT_KEY AND statusCategory != Done AND ((summary ~ \"\\\"RMA\\\"\" OR description ~ \"\\\"RMA\\\"\") OR (summary ~ \"\\\"vendor\\\"\" OR description ~ \"\\\"vendor\\\"\")) ORDER BY updated ASC",
+    "desc": "Active RMA / vendor follow-up candidates",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql rma vendor followup"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-linked",
+    "sec": "Hardware Faults & RMA Follow-up",
+    "cmd": "(key = DC-123 OR issue IN linkedIssues(\"DC-123\")) ORDER BY created ASC",
+    "desc": "A ticket and its directly linked tickets",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql linked incident rma"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-custom-text",
+    "sec": "Optional Structured Fields",
+    "cmd": "\"Server Name\" ~ \"\\\"NODE_NAME\\\"\" AND \"Rack\" ~ \"\\\"RACK_ID\\\"\" AND \"Rack Position\" ~ \"\\\"POSITION\\\"\" ORDER BY created DESC",
+    "desc": "Custom text fields: node, rack, and position",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql custom field node rack"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-custom-select",
+    "sec": "Optional Structured Fields",
+    "cmd": "\"Rack\" = \"RACK_ID\" AND \"Rack Position\" = \"POSITION\" ORDER BY created DESC",
+    "desc": "Exact rack and position using select-list fields",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql custom select position"
+  },
+  {
+    "sName": "jira",
+    "file": "jira.html",
+    "badge": "JQL",
+    "id": "jira-labels",
+    "sec": "Optional Structured Fields",
+    "cmd": "labels = \"NODE_LABEL\" ORDER BY created DESC",
+    "desc": "Exact asset label",
+    "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+    "tags": "jira jql labels asset"
   },
   {
     "sName": "jq",
@@ -25351,6 +26209,18 @@ window.OFFLINE_MANUALS = {"captured":"2026-11-01T19:50:45+00:00","manuals":[{"id
 
 window.PORTABLE_SHEETS = [
   {
+    "key": "jira",
+    "file": "jira.html",
+    "js": "jira.js",
+    "name": "Jira",
+    "varName": "JIRA_DATA",
+    "prompt": "JQL",
+    "cursor": ">",
+    "title": "Jira — Datacenter Ticket Queries",
+    "subtitle": "Paste in Jira advanced search. Replace examples; text matches are not exact asset identity.",
+    "pill": "JQL / Ticket History"
+  },
+  {
     "key": "linux",
     "file": "index.html",
     "js": "app.js",
@@ -27560,6 +28430,474 @@ window.PORTABLE_SHEETS = [
   }
 ];
 window.PORTABLE_DATASETS = {
+  "jira": [
+    {
+      "id": "jira-history",
+      "badge": "JQL",
+      "title": "Server, Node & Serial History",
+      "subtitle": "All statuses and all dates; start here before narrowing by project",
+      "commands": [
+        {
+          "id": "jira-node-history",
+          "desc": "All tickets mentioning a server or node",
+          "cmd": "(summary ~ \"\\\"NODE_NAME\\\"\" OR description ~ \"\\\"NODE_NAME\\\"\") ORDER BY created DESC",
+          "details": "Paste into Jira advanced search (JQL), replace uppercase example values, then Search. These are templates, not connected searches. Only tickets you can access are returned. Text matching is tokenized: quotes narrow a phrase but do not guarantee exact hostname punctuation or whole-field equality. Check results against serial numbers and aliases. No project, status, or date filter: includes matching closed tickets. Replace NODE_NAME with the hostname.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+          "tags": [
+            "jira",
+            "jql",
+            "server",
+            "node",
+            "hostname",
+            "history"
+          ]
+        },
+        {
+          "id": "jira-node-broad",
+          "desc": "Broader node mentions, including comments",
+          "cmd": "text ~ \"\\\"NODE_NAME\\\"\" ORDER BY created DESC",
+          "details": "Paste into Jira advanced search (JQL), replace uppercase example values, then Search. These are templates, not connected searches. Only tickets you can access are returned. Text matching is tokenized: quotes narrow a phrase but do not guarantee exact hostname punctuation or whole-field equality. Check results against serial numbers and aliases. The text field searches indexed Summary, Description, environment, comments, and custom text fields. It does not search arbitrary attachments or every previous value in field history.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+          "tags": [
+            "jira",
+            "jql",
+            "node",
+            "comments",
+            "history"
+          ]
+        },
+        {
+          "id": "jira-aliases",
+          "desc": "Hostname, old name, or serial number",
+          "cmd": "((summary ~ \"\\\"NODE_NAME\\\"\" OR description ~ \"\\\"NODE_NAME\\\"\") OR (summary ~ \"\\\"OLD_NODE_NAME\\\"\" OR description ~ \"\\\"OLD_NODE_NAME\\\"\") OR (summary ~ \"\\\"SERIAL_NUMBER\\\"\" OR description ~ \"\\\"SERIAL_NUMBER\\\"\")) ORDER BY created DESC",
+          "details": "Paste into Jira advanced search (JQL), replace uppercase example values, then Search. These are templates, not connected searches. Only tickets you can access are returned. Search multiple known identifiers when a node was renamed or moved. Use serial history to distinguish different servers that occupied the same location.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+          "tags": [
+            "jira",
+            "jql",
+            "aliases",
+            "serial",
+            "rename",
+            "history"
+          ]
+        },
+        {
+          "id": "jira-serial",
+          "desc": "All tickets mentioning a chassis serial",
+          "cmd": "(summary ~ \"\\\"SERIAL_NUMBER\\\"\" OR description ~ \"\\\"SERIAL_NUMBER\\\"\") ORDER BY created DESC",
+          "details": "Paste into Jira advanced search (JQL), replace uppercase example values, then Search. These are templates, not connected searches. Only tickets you can access are returned. Text matching is tokenized: quotes narrow a phrase but do not guarantee exact hostname punctuation or whole-field equality. Check results against serial numbers and aliases. Useful for tracking the same chassis across hostname changes and rack moves.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+          "tags": [
+            "jira",
+            "jql",
+            "serial",
+            "chassis",
+            "rma"
+          ]
+        },
+        {
+          "id": "jira-projects",
+          "desc": "Node history within selected projects",
+          "cmd": "project IN (PROJECT_A, PROJECT_B) AND (summary ~ \"\\\"NODE_NAME\\\"\" OR description ~ \"\\\"NODE_NAME\\\"\") ORDER BY created DESC",
+          "details": "Paste into Jira advanced search (JQL), replace uppercase example values, then Search. These are templates, not connected searches. Only tickets you can access are returned. Replace project keys using Jira autocomplete. Parentheses preserve the intended AND/OR grouping. Remove the project clause if you are unsure where older tickets were filed.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+          "tags": [
+            "jira",
+            "jql",
+            "project",
+            "node",
+            "history"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "jira-location",
+      "badge": "JQL",
+      "title": "Rack, Position & Site History",
+      "subtitle": "Combine location identifiers to avoid matching the same position in unrelated racks",
+      "commands": [
+        {
+          "id": "jira-rack",
+          "desc": "All tickets mentioning a rack",
+          "cmd": "(summary ~ \"\\\"RACK_ID\\\"\" OR description ~ \"\\\"RACK_ID\\\"\") ORDER BY created DESC",
+          "details": "Paste into Jira advanced search (JQL), replace uppercase example values, then Search. These are templates, not connected searches. Only tickets you can access are returned. Text matching is tokenized: quotes narrow a phrase but do not guarantee exact hostname punctuation or whole-field equality. Check results against serial numbers and aliases. Includes rack-wide incidents and tickets that explicitly mention the rack; node-only tickets are not automatically associated with their rack.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+          "tags": [
+            "jira",
+            "jql",
+            "rack",
+            "history"
+          ]
+        },
+        {
+          "id": "jira-position",
+          "desc": "Rack plus position / rack unit",
+          "cmd": "(summary ~ \"\\\"RACK_ID\\\"\" OR description ~ \"\\\"RACK_ID\\\"\") AND (summary ~ \"\\\"POSITION\\\"\" OR description ~ \"\\\"POSITION\\\"\") ORDER BY created DESC",
+          "details": "Paste into Jira advanced search (JQL), replace uppercase example values, then Search. These are templates, not connected searches. Only tickets you can access are returned. Text matching is tokenized: quotes narrow a phrase but do not guarantee exact hostname punctuation or whole-field equality. Check results against serial numbers and aliases. Replace POSITION with your recorded format, such as U24. A match means both phrases occur in a ticket, not necessarily in the same sentence or for the same device.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+          "tags": [
+            "jira",
+            "jql",
+            "rack",
+            "position",
+            "slot",
+            "unit"
+          ]
+        },
+        {
+          "id": "jira-site-rack",
+          "desc": "Site plus rack to disambiguate reused rack IDs",
+          "cmd": "(summary ~ \"\\\"SITE_ID\\\"\" OR description ~ \"\\\"SITE_ID\\\"\") AND (summary ~ \"\\\"RACK_ID\\\"\" OR description ~ \"\\\"RACK_ID\\\"\") ORDER BY created DESC",
+          "details": "Paste into Jira advanced search (JQL), replace uppercase example values, then Search. These are templates, not connected searches. Only tickets you can access are returned. Use a site identifier if racks have the same names in multiple datacenters.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+          "tags": [
+            "jira",
+            "jql",
+            "site",
+            "rack",
+            "datacenter"
+          ]
+        },
+        {
+          "id": "jira-rack-alias",
+          "desc": "Rack naming variations",
+          "cmd": "((summary ~ \"\\\"RACK_ID\\\"\" OR description ~ \"\\\"RACK_ID\\\"\") OR (summary ~ \"\\\"OLD_RACK_ID\\\"\" OR description ~ \"\\\"OLD_RACK_ID\\\"\")) ORDER BY created DESC",
+          "details": "Paste into Jira advanced search (JQL), replace uppercase example values, then Search. These are templates, not connected searches. Only tickets you can access are returned. List known historical rack names. JQL cannot infer physical location changes from an inventory system.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+          "tags": [
+            "jira",
+            "jql",
+            "rack",
+            "aliases",
+            "history"
+          ]
+        },
+        {
+          "id": "jira-location-open",
+          "desc": "Open work at a rack position",
+          "cmd": "statusCategory != Done AND (summary ~ \"\\\"RACK_ID\\\"\" OR description ~ \"\\\"RACK_ID\\\"\") AND (summary ~ \"\\\"POSITION\\\"\" OR description ~ \"\\\"POSITION\\\"\") ORDER BY priority DESC, updated DESC",
+          "details": "Paste into Jira advanced search (JQL), replace uppercase example values, then Search. These are templates, not connected searches. Only tickets you can access are returned. Active work only. Use the all-time rack-position query above for completed work. Status categories avoid relying on a particular workflow status name.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+          "tags": [
+            "jira",
+            "jql",
+            "rack",
+            "position",
+            "open"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "jira-queues",
+      "badge": "JQL",
+      "title": "Daily Work & Handoff",
+      "subtitle": "Project-scoped queues: replace PROJECT_KEY with your Jira project key",
+      "commands": [
+        {
+          "id": "jira-node-open",
+          "desc": "Active tickets for a node",
+          "cmd": "statusCategory != Done AND (summary ~ \"\\\"NODE_NAME\\\"\" OR description ~ \"\\\"NODE_NAME\\\"\") ORDER BY priority DESC, updated DESC",
+          "details": "Paste into Jira advanced search (JQL), replace uppercase example values, then Search. These are templates, not connected searches. Only tickets you can access are returned. Includes tickets outside the Done status category.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+          "tags": [
+            "jira",
+            "jql",
+            "node",
+            "open"
+          ]
+        },
+        {
+          "id": "jira-mine",
+          "desc": "My active tickets",
+          "cmd": "project = PROJECT_KEY AND assignee = currentUser() AND statusCategory != Done ORDER BY priority DESC, updated DESC",
+          "details": "Paste into Jira advanced search (JQL), replace uppercase example values, then Search. These are templates, not connected searches. Only tickets you can access are returned. Uses the signed-in Jira user.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+          "tags": [
+            "jira",
+            "jql",
+            "assigned",
+            "mine"
+          ]
+        },
+        {
+          "id": "jira-unassigned",
+          "desc": "Unassigned active tickets",
+          "cmd": "project = PROJECT_KEY AND assignee IS EMPTY AND statusCategory != Done ORDER BY priority DESC, created ASC",
+          "details": "Paste into Jira advanced search (JQL), replace uppercase example values, then Search. These are templates, not connected searches. Only tickets you can access are returned. Shows oldest work first within each priority.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+          "tags": [
+            "jira",
+            "jql",
+            "unassigned",
+            "queue"
+          ]
+        },
+        {
+          "id": "jira-stale",
+          "desc": "Active tickets with no updates in seven days",
+          "cmd": "project = PROJECT_KEY AND statusCategory != Done AND updated <= \"-7d\" ORDER BY updated ASC",
+          "details": "Paste into Jira advanced search (JQL), replace uppercase example values, then Search. These are templates, not connected searches. Only tickets you can access are returned. Any ticket edit or comment can update the updated timestamp; this is not an SLA timer.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+          "tags": [
+            "jira",
+            "jql",
+            "stale",
+            "handoff"
+          ]
+        },
+        {
+          "id": "jira-new",
+          "desc": "Tickets created in the last 24 hours",
+          "cmd": "project = PROJECT_KEY AND created >= \"-24h\" ORDER BY created DESC",
+          "details": "Paste into Jira advanced search (JQL), replace uppercase example values, then Search. These are templates, not connected searches. Only tickets you can access are returned. Rolling window rather than a calendar day.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+          "tags": [
+            "jira",
+            "jql",
+            "new",
+            "shift"
+          ]
+        },
+        {
+          "id": "jira-shift",
+          "desc": "Tickets updated during the last 12 hours",
+          "cmd": "project = PROJECT_KEY AND updated >= \"-12h\" ORDER BY updated DESC",
+          "details": "Paste into Jira advanced search (JQL), replace uppercase example values, then Search. These are templates, not connected searches. Only tickets you can access are returned. Useful for shift handoff; includes completed work and all types of updates.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+          "tags": [
+            "jira",
+            "jql",
+            "handoff",
+            "shift"
+          ]
+        },
+        {
+          "id": "jira-overdue",
+          "desc": "Overdue active tickets",
+          "cmd": "project = PROJECT_KEY AND statusCategory != Done AND due < startOfDay() ORDER BY due ASC",
+          "details": "Paste into Jira advanced search (JQL), replace uppercase example values, then Search. These are templates, not connected searches. Only tickets you can access are returned. Only tickets with a populated due date match. Jira timezone affects day boundaries.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+          "tags": [
+            "jira",
+            "jql",
+            "overdue",
+            "due"
+          ]
+        },
+        {
+          "id": "jira-resolved",
+          "desc": "Recently resolved tickets",
+          "cmd": "project = PROJECT_KEY AND resolved >= \"-7d\" ORDER BY resolved DESC",
+          "details": "Paste into Jira advanced search (JQL), replace uppercase example values, then Search. These are templates, not connected searches. Only tickets you can access are returned. Depends on your workflow setting resolution correctly.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+          "tags": [
+            "jira",
+            "jql",
+            "resolved",
+            "history"
+          ]
+        },
+        {
+          "id": "jira-transitions",
+          "desc": "Tickets with status changes in the last week",
+          "cmd": "project = PROJECT_KEY AND status CHANGED AFTER \"-7d\" ORDER BY updated DESC",
+          "details": "Paste into Jira advanced search (JQL), replace uppercase example values, then Search. These are templates, not connected searches. Only tickets you can access are returned. Finds status changes, not arbitrary edits to hostname or rack fields.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+          "tags": [
+            "jira",
+            "jql",
+            "status",
+            "history",
+            "handoff"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "jira-hardware",
+      "badge": "JQL",
+      "title": "Hardware Faults & RMA Follow-up",
+      "subtitle": "Keyword-based candidates; results are not a confirmed diagnosis",
+      "commands": [
+        {
+          "id": "jira-gpu",
+          "desc": "GPU / NVLink fault tickets for a node",
+          "cmd": "(summary ~ \"\\\"NODE_NAME\\\"\" OR description ~ \"\\\"NODE_NAME\\\"\") AND ((summary ~ \"\\\"Xid\\\"\" OR description ~ \"\\\"Xid\\\"\") OR (summary ~ \"\\\"NVLink\\\"\" OR description ~ \"\\\"NVLink\\\"\") OR (summary ~ \"\\\"ECC\\\"\" OR description ~ \"\\\"ECC\\\"\")) ORDER BY created DESC",
+          "details": "Paste into Jira advanced search (JQL), replace uppercase example values, then Search. These are templates, not connected searches. Only tickets you can access are returned. Searches Summary and Description for symptom keywords. Add your team’s terminology; a keyword match does not prove component failure.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+          "tags": [
+            "jira",
+            "jql",
+            "hardware",
+            "gpu",
+            "fault"
+          ]
+        },
+        {
+          "id": "jira-network",
+          "desc": "Fabric / optics tickets for a rack",
+          "cmd": "(summary ~ \"\\\"RACK_ID\\\"\" OR description ~ \"\\\"RACK_ID\\\"\") AND ((summary ~ \"\\\"InfiniBand\\\"\" OR description ~ \"\\\"InfiniBand\\\"\") OR (summary ~ \"\\\"BER\\\"\" OR description ~ \"\\\"BER\\\"\") OR (summary ~ \"\\\"transceiver\\\"\" OR description ~ \"\\\"transceiver\\\"\")) ORDER BY created DESC",
+          "details": "Paste into Jira advanced search (JQL), replace uppercase example values, then Search. These are templates, not connected searches. Only tickets you can access are returned. Searches Summary and Description for symptom keywords. Add your team’s terminology; a keyword match does not prove component failure.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+          "tags": [
+            "jira",
+            "jql",
+            "hardware",
+            "network",
+            "fault"
+          ]
+        },
+        {
+          "id": "jira-storage",
+          "desc": "Storage tickets for a node",
+          "cmd": "(summary ~ \"\\\"NODE_NAME\\\"\" OR description ~ \"\\\"NODE_NAME\\\"\") AND ((summary ~ \"\\\"NVMe\\\"\" OR description ~ \"\\\"NVMe\\\"\") OR (summary ~ \"\\\"SMART\\\"\" OR description ~ \"\\\"SMART\\\"\") OR (summary ~ \"\\\"disk\\\"\" OR description ~ \"\\\"disk\\\"\")) ORDER BY created DESC",
+          "details": "Paste into Jira advanced search (JQL), replace uppercase example values, then Search. These are templates, not connected searches. Only tickets you can access are returned. Searches Summary and Description for symptom keywords. Add your team’s terminology; a keyword match does not prove component failure.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+          "tags": [
+            "jira",
+            "jql",
+            "hardware",
+            "storage",
+            "fault"
+          ]
+        },
+        {
+          "id": "jira-rma",
+          "desc": "Active RMA / vendor follow-up candidates",
+          "cmd": "project = PROJECT_KEY AND statusCategory != Done AND ((summary ~ \"\\\"RMA\\\"\" OR description ~ \"\\\"RMA\\\"\") OR (summary ~ \"\\\"vendor\\\"\" OR description ~ \"\\\"vendor\\\"\")) ORDER BY updated ASC",
+          "details": "Paste into Jira advanced search (JQL), replace uppercase example values, then Search. These are templates, not connected searches. Only tickets you can access are returned. Keyword query for follow-up candidates, not a guaranteed waiting-on-vendor workflow state.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+          "tags": [
+            "jira",
+            "jql",
+            "rma",
+            "vendor",
+            "followup"
+          ]
+        },
+        {
+          "id": "jira-linked",
+          "desc": "A ticket and its directly linked tickets",
+          "cmd": "(key = DC-123 OR issue IN linkedIssues(\"DC-123\")) ORDER BY created ASC",
+          "details": "Paste into Jira advanced search (JQL), replace uppercase example values, then Search. These are templates, not connected searches. Only tickets you can access are returned. Replace DC-123 with a real issue key. Includes direct links only, not recursive relationships; linked tickets still obey permissions.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+          "tags": [
+            "jira",
+            "jql",
+            "linked",
+            "incident",
+            "rma"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "jira-fields",
+      "badge": "JQL",
+      "title": "Optional Structured Fields",
+      "subtitle": "Use only if your Jira actually has these fields and matching field types",
+      "commands": [
+        {
+          "id": "jira-custom-text",
+          "desc": "Custom text fields: node, rack, and position",
+          "cmd": "\"Server Name\" ~ \"\\\"NODE_NAME\\\"\" AND \"Rack\" ~ \"\\\"RACK_ID\\\"\" AND \"Rack Position\" ~ \"\\\"POSITION\\\"\" ORDER BY created DESC",
+          "details": "Paste into Jira advanced search (JQL), replace uppercase example values, then Search. These are templates, not connected searches. Only tickets you can access are returned. These field names are examples, not standard Jira fields. Verify names and operators with autocomplete. Text fields use ~. If a name is ambiguous, ask for its cf[12345] ID. Assets fields require their own supported syntax.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+          "tags": [
+            "jira",
+            "jql",
+            "custom",
+            "field",
+            "node",
+            "rack"
+          ]
+        },
+        {
+          "id": "jira-custom-select",
+          "desc": "Exact rack and position using select-list fields",
+          "cmd": "\"Rack\" = \"RACK_ID\" AND \"Rack Position\" = \"POSITION\" ORDER BY created DESC",
+          "details": "Paste into Jira advanced search (JQL), replace uppercase example values, then Search. These are templates, not connected searches. Only tickets you can access are returned. Only for matching select-list fields/options. For numeric position use a number, e.g. \"Rack Position\" = 24. For text fields use the text template. Current field values do not reconstruct historical physical occupancy.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+          "tags": [
+            "jira",
+            "jql",
+            "custom",
+            "select",
+            "position"
+          ]
+        },
+        {
+          "id": "jira-labels",
+          "desc": "Exact asset label",
+          "cmd": "labels = \"NODE_LABEL\" ORDER BY created DESC",
+          "details": "Paste into Jira advanced search (JQL), replace uppercase example values, then Search. These are templates, not connected searches. Only tickets you can access are returned. Use only if your team labels assets consistently. Labels match exactly; a missing label does not mean no ticket exists.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Replace example values before searching. Save useful queries as Jira filters.",
+          "tags": [
+            "jira",
+            "jql",
+            "labels",
+            "asset"
+          ]
+        }
+      ]
+    }
+  ],
   "linux": [
     {
       "id": "dmi-hw",
@@ -72650,6 +73988,7 @@ window.PORTABLE_DATASETS = {
   const DEFAULT_TARGET_VARS = {
     bmc: '2001:db8:dc::50',
     user: 'ADMIN',
+    pass: '',
     iface: 'eno1',
     hca: 'mlx5_0',
     disk: '/dev/nvme0n1',
@@ -72672,7 +74011,8 @@ window.PORTABLE_DATASETS = {
   function saveTargetState() {
     localStorage.setItem('dc_vars_active', targetState.active ? '1' : '0');
     localStorage.setItem('dc_vars_collapsed', targetState.collapsed ? '1' : '0');
-    localStorage.setItem('dc_target_vars', JSON.stringify(targetState.vars));
+    const { pass, ...persistedVars } = targetState.vars;
+    localStorage.setItem('dc_target_vars', JSON.stringify(persistedVars));
   }
 
   // Hook clipboard to automatically substitute variables if active
@@ -72715,6 +74055,11 @@ window.PORTABLE_DATASETS = {
     const gpuVal = (targetState.vars.gpu || '').trim();
     if (gpuVal) {
       result = result.replace(/(\$GPU\b|\$\{GPU\}|<gpu>|<gpu_id>)/gi, gpuVal);
+    }
+
+    const passVal = targetState.vars.pass || '';
+    if (passVal) {
+      result = result.replace(/(\$BMC_PASS\b|\$\{BMC_PASS\}|\$PASS\b|\$\{PASS\}|<password>|<pass>)/g, () => passVal);
     }
 
     return { text: result, substituted: result !== text };
@@ -72804,7 +74149,7 @@ window.PORTABLE_DATASETS = {
         <div class="target-vars-header">
           <div class="target-vars-title">
             <span class="target-badge">🎯 RACK TARGETS</span>
-            <span class="target-subtitle">Target placeholders substitute on copy. Set credentials in your shell; passwords are never stored here.</span>
+            <span class="target-subtitle">Target placeholders substitute on copy. Password is masked, kept only in this page, and cleared on reload.</span>
           </div>
           <div class="target-vars-actions">
             <label class="target-toggle-label" title="Enable or disable live variable substitution on copy">
@@ -72828,6 +74173,10 @@ window.PORTABLE_DATASETS = {
             <input type="text" id="var-user" spellcheck="false" autocomplete="off" value="${escapeHtml(targetState.vars.user)}" placeholder="ADMIN" />
           </div>
           <div class="target-field">
+            <label for="var-pass"><span class="var-tag">$PASS</span> BMC Password</label>
+            <input type="password" id="var-pass" spellcheck="false" autocomplete="off" autocapitalize="off" placeholder="Enter password" aria-label="BMC Password" />
+          </div>
+          <div class="target-field">
             <label for="var-iface"><span class="var-tag">$IFACE</span> NIC</label>
             <input type="text" id="var-iface" spellcheck="false" autocomplete="off" value="${escapeHtml(targetState.vars.iface)}" placeholder="eno1" />
           </div>
@@ -72846,6 +74195,9 @@ window.PORTABLE_DATASETS = {
         </div>
       </div>
     `;
+
+    // Set the password as a property rather than embedding it in HTML markup.
+    document.getElementById('var-pass').value = targetState.vars.pass || '';
 
     // Attach listeners
     const activeToggle = document.getElementById('target-active-toggle');
@@ -72876,7 +74228,7 @@ window.PORTABLE_DATASETS = {
       });
     }
 
-    ['bmc', 'user', 'iface', 'hca', 'disk', 'gpu'].forEach(key => {
+    ['bmc', 'user', 'pass', 'iface', 'hca', 'disk', 'gpu'].forEach(key => {
       const el = document.getElementById(`var-${key}`);
       if (el) {
         el.addEventListener('input', (e) => {
@@ -73458,11 +74810,26 @@ ${log}
   const THEMES = [
     { id: 'dark', name: 'Cyber Dark', desc: 'Default obsidian slate & cyan', swatches: ['#0b0e14', '#111621', '#38bdf8', '#4ade80'] },
     { id: 'light', name: 'Clean Light', desc: 'Crisp daylight paper & azure', swatches: ['#f5f7fa', '#ffffff', '#0284c7', '#16a34a'] },
+    { id: 'gemini', name: 'Gemini Spark', desc: 'Google Gemini cosmic indigo & violet', swatches: ['#090a12', '#101322', '#818cf8', '#c084fc'] },
+    { id: 'claude', name: 'Claude Warm', desc: 'Warm charcoal & terracotta', swatches: ['#1f1e1d', '#262624', '#d97757', '#e8b48f'] },
+    { id: 'codex', name: 'Codex Mint', desc: 'Charcoal & mint workspace', swatches: ['#141414', '#1c1c1c', '#8de8c2', '#ececec'] },
+    { id: 'startrek', name: 'Star Trek', desc: 'Starship console orange & lilac', swatches: ['#000000', '#17131f', '#ff9900', '#cc99cc'] },
+    { id: 'starwars', name: 'Star Wars', desc: 'Deep space black & crawl yellow', swatches: ['#05060a', '#14171f', '#ffe81f', '#5fb8ff'] },
     { id: 'nord', name: 'Nord Frost', desc: 'Arctic cold & polar blue', swatches: ['#242933', '#2e3440', '#88c0d0', '#a3be8c'] },
     { id: 'dracula', name: 'Dracula Night', desc: 'High-contrast vampire purple & pink', swatches: ['#1e1f29', '#282a36', '#bd93f9', '#ff79c6'] },
     { id: 'catppuccin', name: 'Catppuccin Mocha', desc: 'Soothing pastel mantle & mauve', swatches: ['#181825', '#1e1e2e', '#cba6f7', '#a6e3a1'] },
     { id: 'matrix', name: 'Matrix CRT', desc: 'Hacker phosphor green & terminal black', swatches: ['#030804', '#061408', '#00ff66', '#a3e635'] },
     { id: 'tokyonight', name: 'Tokyo Night', desc: 'Vibrant Shibuya neon cyan & violet', swatches: ['#16161e', '#1a1b26', '#7aa2f7', '#bb9af7'] },
+    { id: 'nebius', name: 'Nebius Cloud', desc: 'AI cloud petrol navy & volt lime', swatches: ['#031422', '#062238', '#e0ff4f', '#614efa'] },
+    {"id": "everforest", "name": "Everforest Dark", "desc": "Forest gray & muted sage", "swatches": ["#2d353b", "#343f44", "#a7c080", "#83c092"]},
+    {"id": "gruvbox-material", "name": "Gruvbox Material", "desc": "Warm charcoal, cream & olive", "swatches": ["#282828", "#32302f", "#d8a657", "#89b482"]},
+    {"id": "rose-pine-moon", "name": "Rosé Pine Moon", "desc": "Soft dusk, rose & lavender", "swatches": ["#232136", "#2a273f", "#c4a7e7", "#9ccfd8"]},
+    {"id": "kanagawa-wave", "name": "Kanagawa Wave", "desc": "Ink blue & warm paper", "swatches": ["#1f1f28", "#24242e", "#7e9cd8", "#7fb4ca"]},
+    {"id": "rose-pine-dawn", "name": "Rosé Pine Dawn", "desc": "Warm cream, rose & muted plum", "swatches": ["#faf4ed", "#fffaf3", "#77518d", "#286983"]},
+    {"id": "zenburn", "name": "Zenburn", "desc": "Warm gray & soft sage", "swatches": ["#2b2b2b", "#383838", "#8cd0d3", "#8cd0d3"]},
+    {"id": "latte", "name": "Catppuccin Latte", "desc": "Soft pastel gray & mauve", "swatches": ["#e6e9ef", "#eff1f5", "#7e35de", "#176a86"]},
+    {"id": "gruvboxlight", "name": "Gruvbox Light", "desc": "Warm cream paper & earthy accents", "swatches": ["#f2e5bc", "#fbf1c7", "#076678", "#076678"]},
+    {"id": "solarizedlight", "name": "Solarized Light", "desc": "Precision cream & muted blue", "swatches": ["#eee8d5", "#fdf6e3", "#1c679b", "#0d6d66"]},
     { id: 'solarized', name: 'Solarized Dark', desc: 'Low-contrast precision cyan & gold', swatches: ['#00212b', '#002b36', '#268bd2', '#b58900'] }
   ];
 
@@ -73489,6 +74856,27 @@ ${log}
     const currentThemeId = (function() {
       try { return localStorage.getItem('linux_cs_theme') || 'dark'; } catch(e) { return 'dark'; }
     })();
+
+    if (dropdown) {
+      const countEl = dropdown.querySelector('.theme-count');
+      if (countEl) countEl.textContent = `${THEMES.length} Themes`;
+
+      let list = dropdown.querySelector('.theme-options-list');
+      if (!list) {
+        list = document.createElement('div');
+        list.className = 'theme-options-list';
+        dropdown.appendChild(list);
+      }
+
+      list.innerHTML = THEMES.map(t => `
+        <button type="button" class="theme-option${t.id === currentThemeId ? ' active' : ''}" data-theme="${t.id}" title="${escapeHtml(t.desc)}">
+          <div class="theme-swatches">${t.swatches.map(s => `<span class="theme-dot" style="background:${s}"></span>`).join('')}</div>
+          <div class="theme-info"><span class="theme-name">${escapeHtml(t.name)}</span><span class="theme-desc">${escapeHtml(t.desc)}</span></div>
+          <span class="theme-check">✓</span>
+        </button>
+      `).join('');
+    }
+
     applyGlobalTheme(currentThemeId);
 
     if (!btn || !dropdown) return;

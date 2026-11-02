@@ -2,136 +2,182 @@ const OMARCHY_CHEAT_SHEET_DATA = [
   {
     id: "menus-apps",
     badge: "apps",
-    title: "Menus, Launchers & App Shortcuts",
-    subtitle: "Omarchy menu, terminals, browser, file manager, coding agents, TUIs & web apps",
+    title: "Menus, Launchers & Apps",
+    subtitle: "Omarchy menus, terminals, browser, files, tools & web apps",
     commands: [
       {
         id: "om-core-menus-launcher",
         mode: "MENUS",
         modeClass: "mode-n",
-        desc: "Open App Launcher, Omarchy Main Menu, Keybindings guide, System/Power menu, or Theme/Wallpaper switchers",
-        cmd: "Super + Space (Launcher)   |   Super + Alt + Space (Apps)   |   Super + K (Keybinds)   |   Super + Esc (System)",
+        desc: "Open the Omarchy menu, app launcher, keybinding guides, and the focused sub-menus",
+        cmd: "Super + Space (Omarchy Menu)   |   Super + Alt + Space (Apps)   |   Super + K (Keybindings)   |   Super + Escape (System)",
         flags: [
-          ["Super + Space", "Open Omarchy application & command launcher"],
-          ["Super + K", "Open searchable keybindings reference overlay (Super+Alt+K = Tmux, Super+Ctrl+K = Herdr)"],
-          ["Super + Escape", "Open System Menu (Lock, Suspend, Reboot, Shutdown, Update)"],
-          ["Super + Ctrl + T", "Open Theme Menu (also Super+Shift+Ctrl+Space)"],
-          ["Super + Ctrl + W / Space", "Open Background Wallpaper switcher"]
+          ["Super + Space", "Omarchy main menu"],
+          ["Super + Shift + F23", "Omarchy main menu (the Copilot key on laptops that have one)"],
+          ["Super + Alt + Space", "App launcher"],
+          ["Super + Escape", "System menu (Power key opens it too)"],
+          ["Super + K", "Searchable keybindings overlay"],
+          ["Super + Alt + K", "Tmux keybindings overlay"],
+          ["Super + Ctrl + K", "Herdr keybindings overlay"],
+          ["Super + Ctrl + T / Super + Shift + Ctrl + Space", "Theme menu"],
+          ["Super + Ctrl + W / Super + Ctrl + Space", "Background switcher"],
+          ["Super + Ctrl + O", "Toggle menu"],
+          ["Super + Ctrl + H", "Hardware menu"],
+          ["Super + Ctrl + C", "Capture menu"],
+          ["Super + Ctrl + S", "Share menu"]
         ],
-        tip: "Super+K shows all live bindings",
-        tags: ["menu", "launcher", "keybindings", "system", "theme", "wallpaper"]
+        tip: "Super+K searches every live binding",
+        tags: ["menu", "launcher", "keybindings", "system", "theme", "wallpaper", "background", "hardware", "toggle", "share", "capture", "tmux", "herdr", "power"]
       },
       {
         id: "om-terminals-browser-files",
         mode: "CORE APPS",
         modeClass: "mode-n",
-        desc: "Launch Terminal, Tmux session, Herdr, Browser (normal/private), File Manager, or Neovim Editor",
-        cmd: "Super + Return (Term)   |   Super + Alt + Return (Tmux)   |   Super + Shift + Return (Browser)   |   Super + Shift + F (Files)",
+        desc: "Launch the terminal, browser, file manager, and editor",
+        cmd: "Super + Return (Terminal)   |   Super + Shift + Return (Browser)   |   Super + Shift + F (Files)   |   Super + Shift + N (Editor)",
         flags: [
-          ["Super + Return", "Launch default Terminal (Alacritty / Ghostty / Foot / Kitty)"],
-          ["Super + Alt + Return / Ctrl + Return", "Launch Terminal directly into Tmux / Herdr"],
-          ["Super + Shift + B / Shift+Alt+B", "Launch Browser / Private Browser window"],
-          ["Super + Shift + F / Shift+Alt+F", "Open Nautilus File Manager / Open File Manager in active terminal's CWD"],
-          ["Super + Shift + N", "Launch default Editor (Neovim)"]
+          ["Super + Return", "Terminal"],
+          ["Super + Alt + Return", "Terminal in Tmux"],
+          ["Super + Ctrl + Return", "Terminal in Herdr"],
+          ["Super + Shift + Return / Super + Shift + B", "Browser"],
+          ["Super + Shift + Alt + B", "Private browser window"],
+          ["Super + Shift + F", "File manager"],
+          ["Super + Shift + Alt + F", "File manager at the active terminal's current folder"],
+          ["Super + Shift + N", "Editor"]
         ],
-        tip: "Super+Shift+Alt+F opens CWD in Files",
-        tags: ["terminal", "tmux", "herdr", "browser", "files", "nautilus", "editor", "neovim"]
+        tip: "Two chords open the browser",
+        tags: ["terminal", "tmux", "herdr", "browser", "private", "files", "nautilus", "editor", "neovim"]
       },
       {
         id: "om-tuis-utilities-agents",
-        mode: "TUIS & TOOLS",
+        mode: "TOOLS",
         modeClass: "mode-v",
-        desc: "Launch Coding Agent picker, btop Activity Monitor, Lazydocker, Calculator, 1Password, Obsidian, or Music",
-        cmd: "Super + Shift + Ctrl + A (Agent)   |   Super + Shift + T (btop)   |   Super + Shift + D (Docker)   |   Super + Shift + / (1Password)",
+        desc: "Launch the coding agent picker, activity monitor, Docker, calculator, passwords, notes, and music",
+        cmd: "Super + Shift + Ctrl + A (Agent)   |   Super + Shift + T (Activity)   |   Super + Shift + D (Docker)   |   Super + Shift + / (Passwords)",
         flags: [
-          ["Super + Shift + Ctrl + A", "Pick & launch AI Coding Agent (`omarchy-agent --pick`)"],
-          ["Super + Shift + T / D", "Open btop system activity TUI / Lazydocker container TUI"],
-          ["Super + Shift + Q", "Open Calculator (`omacalc`)"],
-          ["Super + Shift + M / Shift+Alt+M", "Launch Spotify / `cliamp` Music TUI"],
-          ["Super + Shift + O / W", "Launch Obsidian / Omawrite distraction-free writer"]
+          ["Super + Shift + Ctrl + A", "Pick and launch a coding agent"],
+          ["Super + Shift + T", "Activity monitor"],
+          ["Super + Shift + D", "Docker manager"],
+          ["Super + Shift + Q", "Calculator (Calculator key works too)"],
+          ["Super + Shift + /", "Passwords (1Password)"],
+          ["Super + Shift + O", "Obsidian"],
+          ["Super + Shift + W", "Omawrite distraction-free writer"],
+          ["Super + Shift + M", "Spotify"],
+          ["Super + Shift + Alt + M", "Terminal music player"]
         ],
-        tags: ["agent", "btop", "docker", "lazydocker", "calculator", "1password", "obsidian", "music"]
+        tags: ["agent", "activity", "btop", "docker", "lazydocker", "calculator", "1password", "passwords", "obsidian", "omawrite", "music", "spotify"]
       },
       {
         id: "om-webapps-shortcuts",
         mode: "WEB APPS",
         modeClass: "mode-v",
-        desc: "Launch dedicated Web Apps (ChatGPT, Grok, Email, Calendar, YouTube, WhatsApp, Messages, Maps, Photos, X)",
-        cmd: "Super + Shift + A (ChatGPT)   |   Super + Shift + E (Email)   |   Super + Shift + C (Calendar)   |   Super + Shift + Y (YouTube)",
+        desc: "Launch web apps. Email and Calendar are rebound to Gmail and Google Calendar on this machine.",
+        cmd: "Super + Shift + E (Gmail)   |   Super + Shift + C (Calendar)   |   Super + Shift + A (ChatGPT)   |   Super + Shift + Y (YouTube)",
         flags: [
-          ["Super + Shift + A / Shift+Alt+A", "ChatGPT / Grok web app"],
-          ["Super + Shift + E / Shift+Alt+E", "Email inbox / Compose new email"],
-          ["Super + Shift + G / Shift+Alt+G / Shift+Ctrl+G", "Signal / WhatsApp / Google Messages"],
-          ["Super + Shift + P / S / X", "Google Photos / Google Maps / X (Shift+Alt+X = X Post)"],
-          ["Shift + Alt + L / D (Inside Web App)", "Copy current Web App URL / Download video with yt-dlp"]
+          ["Super + Shift + E", "Gmail inbox"],
+          ["Super + Shift + Alt + E", "Compose a new Gmail message"],
+          ["Super + Shift + C", "Google Calendar"],
+          ["Super + Shift + A", "ChatGPT"],
+          ["Super + Shift + Alt + A", "Grok"],
+          ["Super + Shift + G", "Signal"],
+          ["Super + Shift + Alt + G", "WhatsApp"],
+          ["Super + Shift + Ctrl + G", "Google Messages"],
+          ["Super + Shift + P", "Google Photos"],
+          ["Super + Shift + S", "Google Maps"],
+          ["Super + Shift + Y", "YouTube"],
+          ["Super + Shift + X", "X"],
+          ["Super + Shift + Alt + X", "New X post"],
+          ["Shift + Alt + L", "Inside a web app: copy the page URL"],
+          ["Shift + Alt + D", "Inside a web app: download the video"]
         ],
-        tip: "Shift+Alt+L copies URL inside any Web App",
-        tags: ["webapp", "chatgpt", "grok", "email", "gmail", "calendar", "youtube", "whatsapp", "signal"]
+        tip: "Shift+Alt+L copies the URL inside any web app",
+        tags: ["webapp", "chatgpt", "grok", "email", "gmail", "calendar", "youtube", "whatsapp", "signal", "messages", "photos", "maps", "url", "download"]
       }
     ]
   },
   {
     id: "windows-tiling",
     badge: "win",
-    title: "Window Management, Tiling, Sizing & Opacity",
-    subtitle: "Focus, swap, fullscreen modes, float/pop-out, resize increments & visual glass/gap toggles",
+    title: "Windows, Tiling & Sizing",
+    subtitle: "Close, fullscreen, float, focus, swap, resize & appearance toggles",
     commands: [
       {
         id: "om-window-close-fullscreen-float",
         mode: "WINDOWS",
         modeClass: "mode-n",
-        desc: "Close window, toggle fullscreen/tiled-fullscreen, float, or pop-out (float + pin on top)",
-        cmd: "Super + W (or Q)   |   Super + F (Fullscreen)   |   Super + Ctrl + F (Tiled Full)   |   Super + T (Float)   |   Super + O (Pop-out)",
+        desc: "Close windows, change fullscreen mode, float, pop out, and change the tiling split",
+        cmd: "Super + W (Close)   |   Super + F (Fullscreen)   |   Super + T (Float)   |   Super + O (Pop Out)",
         flags: [
-          ["Super + W / Super + Q", "Close active window (`Ctrl + Alt + Delete` closes ALL open windows)"],
-          ["Super + F / Super + Alt + F", "True Fullscreen / Full-width window"],
-          ["Super + Ctrl + F", "Toggle Tiled Fullscreen (keeps window border/bar integration)"],
-          ["Super + T / Super + O", "Toggle floating/tiling / Pop window out (fixed floating PIP pinned across workspaces)"],
-          ["Super + J / P / M", "Toggle split direction (horiz/vert) / Pseudo-tile / Minimize window to dock"]
+          ["Super + W / Super + Q", "Close the active window"],
+          ["Ctrl + Alt + Delete", "Close ALL windows"],
+          ["Super + F", "Full screen"],
+          ["Super + Alt + F", "Full width"],
+          ["Super + Ctrl + F", "Tiled full screen"],
+          ["Super + Ctrl + Alt + F", "Toggle full screen desktop"],
+          ["Super + T", "Toggle floating / tiling"],
+          ["Super + O", "Pop window out (float and pin on top)"],
+          ["Super + J", "Toggle split direction"],
+          ["Super + P", "Pseudo-tile the window"],
+          ["Super + M", "Minimize window to the dock"]
         ],
-        tip: "Super+O pins video/PIP window on top",
-        tags: ["close", "fullscreen", "float", "pop", "pip", "split", "minimize"]
+        tip: "Super+O keeps a video on top",
+        danger: "Ctrl+Alt+Delete closes every window",
+        tags: ["close", "fullscreen", "float", "pop", "pip", "pin", "split", "pseudo", "minimize", "dock"]
       },
       {
         id: "om-window-focus-swap",
         mode: "NAVIGATION",
         modeClass: "mode-n",
-        desc: "Move focus between tiled windows, swap window positions, or cycle workspace layouts",
-        cmd: "Super + ←/→/↑/↓ (Focus)   |   Super + Shift + ←/→/↑/↓ (Swap)   |   Alt + Tab   |   Super + L (Layout)",
+        desc: "Move focus between windows, swap their positions, and cycle the workspace layout",
+        cmd: "Super + Arrows (Focus)   |   Super + Shift + Arrows (Swap)   |   Alt + Tab (Next)   |   Super + L (Layout)",
         flags: [
-          ["Super + Arrow Keys", "Move focus left, right, up, or down"],
-          ["Super + Shift + Arrow Keys", "Swap active window with neighbor in that direction"],
-          ["Alt + Tab / Shift + Alt + Tab", "Focus next / previous window and bring floating windows to top"],
-          ["Super + L / Super + Alt + L", "Cycle workspace layout forward / backward"]
+          ["Super + Arrows", "Move focus left, right, up, or down"],
+          ["Super + Shift + Arrows", "Swap the window in that direction"],
+          ["Alt + Tab", "Focus the next window and raise it"],
+          ["Shift + Alt + Tab", "Focus the previous window and raise it"],
+          ["Super + L", "Cycle workspace layout forward"],
+          ["Super + Alt + L", "Cycle workspace layout back"]
         ],
-        tags: ["focus", "swap", "move", "arrows", "layout", "alt-tab"]
+        tags: ["focus", "swap", "move", "arrows", "layout", "alt-tab", "navigate"]
       },
       {
         id: "om-window-resize-mouse-keys",
         mode: "RESIZING",
         modeClass: "mode-n",
-        desc: "Resize or move windows with mouse drag or keyboard increments (normal, fine `Alt`, or coarse `Ctrl`)",
+        desc: "Move or resize with the mouse or keyboard. Add Alt for small steps or Ctrl for large steps.",
         cmd: "Super + Left-Drag (Move)   |   Super + Right-Drag (Resize)   |   Super + -/= (Width)   |   Super + Shift + -/= (Height)",
         flags: [
-          ["Super + - / = ", "Expand / Shrink window horizontally (add Alt for tiny steps, Ctrl for huge steps)"],
-          ["Super + Shift + - / =", "Shrink / Expand window vertically (add Alt for tiny steps, Ctrl for huge steps)"],
-          ["Super + Alt + Home / Super + Home", "Save focused window's width / Restore saved window width"]
+          ["Super + Left-Drag", "Move window with the mouse"],
+          ["Super + Right-Drag", "Resize window with the mouse"],
+          ["Super + -", "Widen window, moving its edge left"],
+          ["Super + =", "Narrow window, moving its edge left"],
+          ["Super + Shift + -", "Shorten window upward"],
+          ["Super + Shift + =", "Lengthen window downward"],
+          ["Super + Alt + -", "Widen a little"],
+          ["Super + Alt + =", "Narrow a little"],
+          ["Super + Shift + Alt + -", "Shorten a little"],
+          ["Super + Shift + Alt + =", "Lengthen a little"],
+          ["Super + Ctrl + -", "Widen a lot"],
+          ["Super + Ctrl + =", "Narrow a lot"],
+          ["Super + Shift + Ctrl + -", "Shorten a lot"],
+          ["Super + Shift + Ctrl + =", "Lengthen a lot"],
+          ["Super + Alt + Home", "Save window width"],
+          ["Super + Home", "Restore saved window width"]
         ],
-        tags: ["resize", "mouse", "drag", "width", "height", "expand", "shrink"]
+        tags: ["resize", "mouse", "drag", "width", "height", "expand", "shrink", "save", "restore"]
       },
       {
         id: "om-visual-toggles-gaps-opacity",
         mode: "APPEARANCE",
         modeClass: "mode-v",
-        desc: "Toggle window transparency/glass, window gaps, top bar visibility, or square aspect ratio on the fly",
-        cmd: "Super + Backspace (Opacity)   |   Super + Shift + Backspace (Gaps)   |   Super + Shift + Space (Top Bar)",
+        desc: "Toggle transparency, gaps, the top bar, and single-window aspect",
+        cmd: "Super + Backspace (Transparency)   |   Super + Shift + Backspace (Gaps)   |   Super + Shift + Space (Top Bar)",
         flags: [
-          ["Super + Backspace", "Toggle transparency on focused window (opaque ↔ transparent/glassy)"],
-          ["Super + Shift + Backspace", "Toggle workspace window gaps between default gaps and zero-gap edge-to-edge"],
-          ["Super + Ctrl + Backspace", "Toggle single-window square aspect ratio"],
-          ["Super + Shift + Space", "Show or hide the top Omarchy Quickshell bar"]
+          ["Super + Backspace", "Toggle transparency on the window"],
+          ["Super + Shift + Backspace", "Toggle window gaps"],
+          ["Super + Ctrl + Backspace", "Toggle single-window square aspect"],
+          ["Super + Shift + Space", "Show or hide the top bar"]
         ],
-        tip: "Super+Shift+Backspace = instant zero-gaps",
         tags: ["transparency", "opacity", "gaps", "bar", "hide", "aspect"]
       }
     ]
@@ -139,49 +185,60 @@ const OMARCHY_CHEAT_SHEET_DATA = [
   {
     id: "workspaces-groups",
     badge: "ws",
-    title: "Workspaces, Scratchpad, Quake & Groups",
-    subtitle: "Workspaces 1–10, Quake drop-down terminal, scratchpad, window tab groups & multi-monitor",
+    title: "Workspaces, Groups & Monitors",
+    subtitle: "Workspaces 1-10, scratchpad, Quake console, tabbed groups & multi-monitor",
     commands: [
       {
         id: "om-workspaces-switch-move",
         mode: "WORKSPACES",
         modeClass: "mode-n",
-        desc: "Switch workspaces 1–10, move windows (or move silently without following), and cycle workspaces",
-        cmd: "Super + 1..0   |   Super + Shift + 1..0 (Move)   |   Super + Shift + Alt + 1..0 (Silent)   |   Super + Tab",
+        desc: "Switch workspaces and move windows between them. Each monitor has its own workspaces 1-10.",
+        cmd: "Super + 1..0 (Switch)   |   Super + Shift + 1..0 (Move)   |   Super + Shift + Alt + 1..0 (Silent)   |   Super + Tab (Next)",
         flags: [
-          ["Super + 1..9, 0", "Switch to Workspace 1 through 10"],
-          ["Super + Shift + 1..0", "Move active window to Workspace 1–10 and follow it"],
-          ["Super + Shift + Alt + 1..0", "Send active window silently to Workspace 1–10 while staying on current workspace"],
-          ["Super + Tab / Shift+Tab / Ctrl+Tab", "Next workspace / Previous workspace / Back-and-forth to former workspace"],
-          ["Super + Mouse Scroll", "Scroll active workspace forward / backward"]
+          ["Super + 1..0", "Switch to workspace 1-10 (0 = 10)"],
+          ["Super + Shift + 1..0", "Move window to workspace 1-10 and follow it"],
+          ["Super + Shift + Alt + 1..0", "Send window to workspace 1-10 and stay here"],
+          ["Super + Tab", "Next workspace"],
+          ["Super + Shift + Tab", "Previous workspace"],
+          ["Super + Ctrl + Tab", "Back to the former workspace"],
+          ["Super + Scroll Down", "Scroll workspaces forward"],
+          ["Super + Scroll Up", "Scroll workspaces backward"]
         ],
-        tip: "Super+Ctrl+Tab jumps to last workspace",
-        tags: ["workspace", "switch", "move", "silent", "tab", "scroll"]
+        tip: "Super+Ctrl+Tab jumps back",
+        tags: ["workspace", "switch", "move", "silent", "tab", "scroll", "former"]
       },
       {
         id: "om-scratchpad-quake",
         mode: "SCRATCHPAD",
         modeClass: "mode-v",
-        desc: "Toggle the floating Scratchpad workspace or Quake-style drop-down console",
-        cmd: "Super + S (Scratchpad)   |   Super + Alt + S (Send to Scratch)   |   Super + ~ (Quake)   |   Super + Shift + ~ (Send to Quake)",
+        desc: "Toggle the scratchpad or Quake console overlay, or send the active window to either one",
+        cmd: "Super + S (Scratchpad)   |   Super + Alt + S (Send)   |   Super + ` (Quake)   |   Super + Shift + ` (Send)",
         flags: [
-          ["Super + S / Super + Alt + S", "Toggle scratchpad overlay / Move focused window into the scratchpad"],
-          ["Super + ~ (Grave) / Super + Shift + ~", "Toggle Quake console overlay / Move focused window into Quake slot"]
+          ["Super + S", "Toggle the scratchpad"],
+          ["Super + Alt + S", "Move window to the scratchpad"],
+          ["Super + `", "Toggle the Quake console (the ~ key)"],
+          ["Super + Shift + `", "Move window to the Quake console"]
         ],
-        tip: "Great for persistent chat or terminal",
+        tip: "Good for an always-handy terminal or chat",
         tags: ["scratchpad", "quake", "dropdown", "overlay", "tilde", "grave"]
       },
       {
         id: "om-window-groups-tabs",
         mode: "WINDOW GROUPS",
         modeClass: "mode-v",
-        desc: "Group multiple windows into a tabbed container and switch or rearrange grouped tabs",
-        cmd: "Super + G (Group)   |   Super + Alt + G (Ungroup)   |   Super + Alt + ←/→/↑/↓ (Join Group)   |   Super + Alt + Tab",
+        desc: "Combine windows into a tabbed group, then switch or rearrange its tabs",
+        cmd: "Super + G (Group)   |   Super + Alt + G (Ungroup)   |   Super + Alt + Arrows (Join)   |   Super + Alt + Tab (Next)",
         flags: [
-          ["Super + G / Super + Alt + G", "Turn active window into a tabbed group / Pop active window out of group"],
-          ["Super + Alt + ←/→/↑/↓", "Push active window into adjacent group on left/right/top/bottom"],
-          ["Super + Alt + 1..5", "Switch directly to tab 1–5 inside the active group"],
-          ["Super + Alt + Tab / Super + Ctrl + ←/→", "Cycle next/prev window in group"]
+          ["Super + G", "Toggle window grouping"],
+          ["Super + Alt + G", "Move window out of the group"],
+          ["Super + Alt + Arrows", "Move window into the group in that direction"],
+          ["Super + Alt + 1..5", "Switch to group window 1-5"],
+          ["Super + Alt + Tab", "Next window in group"],
+          ["Super + Shift + Alt + Tab", "Previous window in group"],
+          ["Super + Ctrl + Right", "Next window in group"],
+          ["Super + Ctrl + Left", "Previous window in group"],
+          ["Super + Alt + Scroll Down", "Next window in group"],
+          ["Super + Alt + Scroll Up", "Previous window in group"]
         ],
         tags: ["group", "tabs", "tabbed", "stack", "container", "ungroup"]
       },
@@ -189,14 +246,17 @@ const OMARCHY_CHEAT_SHEET_DATA = [
         id: "om-multimonitor-scaling",
         mode: "MONITORS",
         modeClass: "mode-n",
-        desc: "Move windows or workspaces across monitors, adjust display scaling, or toggle laptop clamshell display",
-        cmd: "Ctrl + Alt + Tab (Focus Mon)   |   Super + Shift + Ctrl + ←/→ (Move Win)   |   Super + Shift + Alt + ←/→ (Move WS)   |   Super + /",
+        desc: "Move focus, windows, and workspaces across monitors, adjust scaling, and control the laptop display",
+        cmd: "Ctrl + Alt + Tab (Next Monitor)   |   Super + Shift + Ctrl + Arrows (Move Window)   |   Super + Shift + Alt + Arrows (Move Workspace)",
         flags: [
-          ["Ctrl + Alt + Tab", "Move focus to next physical monitor"],
-          ["Super + Shift + Ctrl + ←/→/↑/↓", "Move active window to adjacent monitor"],
-          ["Super + Shift + Alt + ←/→/↑/↓", "Move entire active workspace to adjacent monitor"],
-          ["Super + / and Super + Alt + /", "Increase / Decrease focused monitor UI scaling factor"],
-          ["Super + Ctrl + Delete / Ctrl+Alt+Delete", "Toggle built-in laptop display on/off / Toggle laptop display mirroring"]
+          ["Ctrl + Alt + Tab", "Focus the next monitor"],
+          ["Shift + Ctrl + Alt + Tab", "Focus the previous monitor"],
+          ["Super + Shift + Ctrl + Arrows", "Move window to the monitor in that direction"],
+          ["Super + Shift + Alt + Arrows", "Move workspace to the monitor in that direction"],
+          ["Super + /", "Monitor scaling up"],
+          ["Super + Alt + /", "Monitor scaling down"],
+          ["Super + Ctrl + Delete", "Toggle the laptop display"],
+          ["Super + Ctrl + Alt + Delete", "Toggle laptop display mirroring"]
         ],
         tags: ["monitor", "display", "scaling", "mirror", "laptop", "clamshell"]
       }
@@ -205,327 +265,163 @@ const OMARCHY_CHEAT_SHEET_DATA = [
   {
     id: "panels-capture",
     badge: "bar",
-    title: "Quickshell Bar, Capture, OCR, Dictation & Reminders",
-    subtitle: "Audio/Network/Bluetooth panels, screenshots, screen recording, OCR, clipboard & voice dictation",
+    title: "Bar Panels, Capture & Input",
+    subtitle: "Bar panels, screenshots, recording, clipboard, dictation & notifications",
     commands: [
       {
         id: "om-quickshell-bar-panels",
         mode: "BAR PANELS",
         modeClass: "mode-n",
-        desc: "Open Quickshell status bar popovers directly from the keyboard (Audio, Bluetooth, Network, Display, Power, Clock)",
-        cmd: "Super + Ctrl + A (Audio)   |   Super + Ctrl + B (BT)   |   Super + Ctrl + N (Net)   |   Super + Ctrl + D (Display)   |   Super + Ctrl + 1..9",
+        desc: "Open top bar panels from the keyboard",
+        cmd: "Super + Ctrl + A (Audio)   |   Super + Ctrl + B (Bluetooth)   |   Super + Ctrl + N (Network)   |   Super + Ctrl + 1..9 (By Position)",
         flags: [
-          ["Super + Ctrl + A / B / N / D / P", "Toggle Audio, Bluetooth, Network, Display, or Power panel"],
-          ["Super + Ctrl + Alt + D / E", "Toggle Calendar/Clock panel / World Clock (`elsewhen`) panel"],
-          ["Super + Ctrl + 1..9", "Toggle top-right bar icon #1 through #9 by position"]
+          ["Super + Ctrl + A", "Audio"],
+          ["Super + Ctrl + B", "Bluetooth"],
+          ["Super + Ctrl + N", "Network"],
+          ["Super + Ctrl + D", "Display"],
+          ["Super + Ctrl + P", "Power"],
+          ["Super + Ctrl + Alt + D", "Calendar"],
+          ["Super + Ctrl + Alt + E", "World clock"],
+          ["Super + Ctrl + 1..9", "Right-side bar panels by position, counted from the left"]
         ],
-        tags: ["panel", "bar", "quickshell", "audio", "bluetooth", "network", "wifi", "calendar", "power"]
+        tags: ["panel", "bar", "quickshell", "audio", "bluetooth", "network", "wifi", "calendar", "clock", "power", "display"]
       },
       {
         id: "om-capture-screenshot-record-ocr",
-        mode: "CAPTURE & OCR",
+        mode: "CAPTURE",
         modeClass: "mode-t",
-        desc: "Take region/window/fullscreen screenshots, record screen with webcam, extract text via OCR, or pick colors",
-        cmd: "Print (Screenshot)   |   Alt + Print (Record)   |   Super + Ctrl + Print (OCR)   |   Super + Print (Color Picker)   |   Super + Ctrl + C",
+        desc: "Take screenshots, record the screen, extract text, pick colors, and transcode media",
+        cmd: "Print (Screenshot)   |   Alt + Print (Record)   |   Super + Ctrl + Print (OCR)   |   Super + Print (Color)",
         flags: [
-          ["Print (or Super+Ctrl+Alt+C)", "Interactive region screenshot (during selection: Enter=focused window, Ctrl+Enter=fullscreen, Tab/Arrows=select window!)"],
-          ["Alt + Print", "Start / Stop screen recording (`Super + Alt + [ / ]` resizes webcam PIP overlay)"],
-          ["Super + Ctrl + Print", "Select screen region and extract text directly to clipboard via OCR (`omarchy-capture-text`)"],
-          ["Super + Print", "Pick any pixel color on screen as `#RRGGBB` hex (`hyprpicker`)"],
-          ["Super + Ctrl + S / .", "Open Share menu / Transcode media file (`omarchy-transcode`)"]
+          ["Print / Super + Ctrl + Alt + C", "Screenshot"],
+          ["Enter", "While selecting: capture the highlighted window"],
+          ["Ctrl + Enter", "While selecting: capture the entire screen"],
+          ["Tab", "While selecting: highlight the next window"],
+          ["Ctrl + Tab", "While selecting: highlight the previous window"],
+          ["Arrows", "While selecting: highlight the window in that direction"],
+          ["Alt + Print", "Start or stop screen recording"],
+          ["Super + Alt + [", "Make the webcam overlay smaller"],
+          ["Super + Alt + ]", "Make the webcam overlay larger"],
+          ["Super + Ctrl + Print", "Extract text from a screenshot (OCR)"],
+          ["Super + Print", "Color picker"],
+          ["Super + Ctrl + .", "Transcode"]
         ],
-        tip: "Press Enter in Print mode to snap whole window!",
+        tip: "Enter snaps the highlighted window",
         tags: ["screenshot", "screenrecord", "ocr", "color-picker", "capture", "webcam", "share", "transcode"]
       },
       {
         id: "om-clipboard-dictation-emojis",
         mode: "INPUT & CLIP",
         modeClass: "mode-i",
-        desc: "Universal terminal/GUI copy-paste, Clipboard History, Emoji picker, and Voice Dictation",
-        cmd: "Super + C / V / X / A   |   Super + Ctrl + V (Clip History)   |   Super + Ctrl + E (Emojis)   |   F9 or Alt+RightAlt (Dictate)",
+        desc: "Universal clipboard shortcuts, clipboard history, emojis, voice dictation, and input language",
+        cmd: "Super + C / V / X / A   |   Super + Ctrl + V (History)   |   Super + Ctrl + E (Emojis)   |   F9 (Hold to Dictate)",
         flags: [
-          ["Super + C / V", "Smart Copy/Paste: sends Ctrl+Shift+C/V inside terminals and Ctrl+C/V in regular GUI apps"],
-          ["Super + Ctrl + V / E", "Open Clipboard Manager history / Emoji & symbol picker"],
-          ["F9 (or Alt + Right Alt)", "Push-to-Talk voice dictation (hold while speaking); `Super + Ctrl + X` toggles hands-free dictation"],
-          ["Super + I / Super + Shift + I", "Cycle keyboard input language forward / backward"]
+          ["Super + C", "Universal copy (works in terminals too)"],
+          ["Super + V", "Universal paste"],
+          ["Super + X", "Universal cut"],
+          ["Super + A", "Select all"],
+          ["Super + Ctrl + V", "Clipboard manager"],
+          ["Super + Ctrl + E", "Emojis"],
+          ["F9 / Alt + Right Alt", "Hold to dictate, release to stop"],
+          ["Super + Ctrl + X", "Toggle hands-free dictation"],
+          ["Super + I", "Switch input language"],
+          ["Super + Shift + I", "Switch input language back"],
+          ["Ctrl + Space", "Direct input for the Tmux or Herdr prefix"]
         ],
-        tip: "Super+C/V works in both Terminal & Browser!",
-        tags: ["copy", "paste", "clipboard", "emoji", "dictation", "voice", "whisper", "voxtype"]
+        tip: "Super+C/V works in terminals and apps",
+        tags: ["copy", "paste", "cut", "select", "clipboard", "emoji", "dictation", "voice", "voxtype", "language", "prefix"]
       },
       {
         id: "om-notifications-reminders-lock",
         mode: "NOTIFICATIONS",
         modeClass: "mode-c",
-        desc: "Manage desktop notifications, set timed reminders, check status toasts, zoom screen, or lock system",
-        cmd: "Super + , (Dismiss)   |   Super + Ctrl + R (Set Reminder)   |   Super + Ctrl + L (Lock)   |   Super + Ctrl + Z (Zoom)",
+        desc: "Manage notifications and reminders, show status toasts, zoom, and lock the system",
+        cmd: "Super + , (Dismiss)   |   Super + Ctrl + R (Reminder)   |   Super + Ctrl + L (Lock)   |   Super + Ctrl + Z (Zoom)",
         flags: [
-          ["Super + , / Super + Shift + ,", "Dismiss last notification / Dismiss all notifications"],
-          ["Super + Shift + Alt + , / Ctrl+Alt+,", "Open notification history / Toggle Do-Not-Disturb notification silencing"],
-          ["Super + Ctrl + R / Ctrl+Alt+R / Shift+Ctrl+R", "Set reminder / Show active reminders / Clear all reminders"],
-          ["Super + Ctrl + Alt + T / B / W", "Pop up Time / Battery remaining / Weather notification toast"],
-          ["Super + Ctrl + L / Super + Ctrl + I", "Lock screen immediately / Toggle idle auto-lock"]
+          ["Super + ,", "Dismiss, invoke, or focus the last notification"],
+          ["Super + Alt + ,", "Dismiss the last notification"],
+          ["Super + Shift + ,", "Dismiss all notifications"],
+          ["Super + Ctrl + ,", "Control notifications with the keyboard"],
+          ["Super + Shift + Alt + ,", "Open notification history"],
+          ["Super + Ctrl + Alt + ,", "Toggle silencing notifications"],
+          ["Super + Ctrl + R", "Set a reminder"],
+          ["Super + Ctrl + Alt + R", "Show reminders"],
+          ["Super + Shift + Ctrl + R", "Clear reminders"],
+          ["Super + Ctrl + Alt + T", "Show the time"],
+          ["Super + Ctrl + Alt + B", "Show battery remaining"],
+          ["Super + Ctrl + Alt + W", "Toggle weather"],
+          ["Super + Ctrl + Z", "Zoom in (press again for more)"],
+          ["Super + Ctrl + Alt + Z", "Reset zoom"],
+          ["Super + Ctrl + L", "Lock the system"],
+          ["Super + Ctrl + I", "Toggle locking on idle"]
         ],
-        tags: ["notification", "dismiss", "dnd", "reminder", "lock", "idle", "zoom", "weather", "battery"]
+        tags: ["notification", "dismiss", "dnd", "silence", "reminder", "lock", "idle", "zoom", "weather", "battery", "time"]
       }
     ]
   },
   {
-    id: "omarchy-cli-desktop",
-    badge: "cli",
-    title: "omarchy CLI: Themes, Bar, Toggles & Capture",
-    subtitle: "Self-documenting omarchy <group> <action> commands for appearance, bar plugins & desktop control",
+    id: "keyboard-function-keys",
+    badge: "keys",
+    title: "Media, Brightness & Terminal Keys",
+    subtitle: "Dedicated keyboard keys, plus keys built into the terminal",
     commands: [
       {
-        id: "cli-command-discovery",
-        mode: "DISCOVERY",
+        id: "om-audio-media-keys",
+        mode: "AUDIO & MEDIA",
         modeClass: "mode-n",
-        desc: "Discover all available `omarchy` commands, group subcommands, JSON schemas, or system debug info",
-        cmd: "omarchy commands   |   omarchy <group> --help   |   omarchy version   |   omarchy debug --no-sudo --print",
+        desc: "Control volume, playback, and audio routing with the keyboard's media keys",
+        cmd: "Volume Up / Volume Down   |   Mute   |   Play   |   Next Track   |   Previous Track",
         flags: [
-          ["omarchy commands", "List every documented command and summary (`--all` includes internal commands, `--json` outputs JSON)"],
-          ["omarchy debug --no-sudo --print", "Print full non-interactive diagnostic report (always include `--no-sudo --print`!)"],
-          ["cat $(which omarchy-theme-set)", "Inspect source of any underlying `/usr/bin/omarchy-*` script"]
+          ["Volume Up / Volume Down", "Change volume"],
+          ["Alt + Volume Up / Alt + Volume Down", "Change volume in fine steps"],
+          ["Mute", "Mute audio"],
+          ["Mic Mute", "Mute the microphone"],
+          ["Shift + Mute", "Switch audio output"],
+          ["Play / Pause", "Play or pause"],
+          ["Next Track / Alt + Play", "Next track"],
+          ["Previous Track / Shift + Alt + Play", "Previous track"],
+          ["Shift + Play / Shift + Pause", "Switch media source"],
+          ["Eject", "Eject media"]
         ],
-        tip: "Always use --no-sudo --print with debug",
-        tags: ["commands", "help", "version", "debug", "cli", "discover"]
+        tip: "Alt gives fine volume steps",
+        tags: ["volume", "mute", "microphone", "media", "play", "pause", "track", "audio", "output", "eject"]
       },
       {
-        id: "cli-theme-font-bg",
-        mode: "THEMING",
-        modeClass: "mode-v",
-        desc: "List and switch desktop themes, cycle background wallpapers, or change system monospace font",
-        cmd: "omarchy theme list   |   omarchy theme set catppuccin   |   omarchy theme bg next   |   omarchy font set 'JetBrainsMono Nerd Font'",
-        flags: [
-          ["omarchy theme set <name>", "Atomically updates Hyprland, Quickshell bar, terminals, Neovim, btop, Ghostty, VS Code & browser theme"],
-          ["omarchy theme current / refresh", "Print active theme name / Re-apply current theme templates"],
-          ["omarchy font list / current / set", "List installed Nerd Fonts, check current font, or switch font across all terminals & UI"]
-        ],
-        tip: "Themes sync across Terminal, Nvim & Bar",
-        tags: ["theme", "font", "background", "wallpaper", "catppuccin", "tokyonight"]
-      },
-      {
-        id: "cli-toggles-window-modes",
-        mode: "TOGGLES",
-        modeClass: "mode-c",
-        desc: "Toggle nightlight, idle lock, bar, animations, window gaps, or window transparency from CLI",
-        cmd: "omarchy toggle nightlight   |   omarchy toggle idle   |   omarchy toggle bar   |   omarchy hyprland window transparency glassy",
-        flags: [
-          ["omarchy toggle <feature>", "Supports `nightlight`, `idle`, `bar`, `animations`, `notification-silencing`, `screensaver`, `suspend`, `touchpad`"],
-          ["window transparency [opaque|transparent|glassy]", "Get or set window opacity profile (`window transparency toggle` flips current window)"],
-          ["omarchy hyprland window gaps toggle", "Toggle global workspace gaps on/off"]
-        ],
-        tags: ["toggle", "nightlight", "idle", "animations", "transparency", "glassy", "gaps"]
-      },
-      {
-        id: "cli-bar-plugins-reminders",
-        mode: "BAR & PLUGINS",
-        modeClass: "mode-c",
-        desc: "Move/configure top bar widgets, clone built-in Quickshell plugins for customization, or set reminders",
-        cmd: "omarchy bar move omarchy.clock --section right   |   omarchy plugin clone omarchy.workspaces   |   omarchy reminder 15 'Check build'",
-        flags: [
-          ["omarchy plugin clone <id>", "Copies packaged plugin into `~/.config/omarchy/plugins/` and switches `shell.json` to your editable copy"],
-          ["omarchy reminder <min> '<msg>'", "Schedule a desktop reminder notification (`omarchy reminder show` / `clear` to manage)"]
-        ],
-        tip: "Clone plugins instead of editing /usr/share",
-        tags: ["bar", "plugin", "clone", "quickshell", "reminder", "widgets"]
-      }
-    ]
-  },
-  {
-    id: "omarchy-cli-sys-agents",
-    badge: "sys",
-    title: "omarchy CLI: Packages, AI Agents, Configs & Hyprland",
-    subtitle: "Package/AUR/WebApp installers, multi-account coding agents, config refresh & hyprctl validation",
-    commands: [
-      {
-        id: "cli-pkg-webapp-install",
-        mode: "PACKAGES",
-        modeClass: "mode-c",
-        desc: "Install Arch official repo packages, AUR packages, standalone Web Apps, TUI apps, or dev stacks",
-        cmd: "omarchy pkg add ripgrep jq   |   omarchy pkg aur add <aur-pkg>   |   omarchy webapp install   |   omarchy install docker dbs",
-        flags: [
-          ["omarchy pkg add / remove", "Install or remove official Arch packages cleanly"],
-          ["omarchy pkg aur add <pkg>", "Build and install AUR packages"],
-          ["omarchy webapp install / remove", "Create or remove a dedicated Chromium app-mode desktop launcher & window class"],
-          ["omarchy tui install / remove", "Wrap a terminal TUI tool in a desktop launcher entry"]
-        ],
-        tags: ["pkg", "pacman", "aur", "webapp", "tui", "install", "docker"]
-      },
-      {
-        id: "cli-ai-agents-accounts",
-        mode: "AI AGENTS",
-        modeClass: "mode-v",
-        desc: "Launch coding agents, manage multiple Claude/Codex/Grok subscription accounts, or auto-switch near rate limits",
-        cmd: "omarchy agent --pick   |   omarchy agent account list   |   omarchy agent account use next   |   omarchy agent account mode claude auto",
-        flags: [
-          ["omarchy agent [--pick] / prompt '...'", "Launch default coding agent or pick from installed agents"],
-          ["agent account add / list / use", "Add, inspect usage limits, or switch active account for Claude, Codex, or Grok"],
-          ["agent account mode <agent> auto", "Automatically rotate to your next account when approaching subscription usage limits"],
-          ["agent account copy <ssh-host>", "Sync agent subscription logins to another Omarchy machine over SSH"]
-        ],
-        tip: "Auto-rotates accounts near rate limits!",
-        tags: ["agent", "claude", "codex", "grok", "account", "usage", "limits"]
-      },
-      {
-        id: "cli-restart-refresh-update",
-        mode: "MAINTENANCE",
-        modeClass: "mode-t",
-        desc: "Update Omarchy, restart desktop services, or safely reset a specific config to defaults (with automatic backup)",
-        cmd: "omarchy update   |   omarchy restart shell   |   omarchy restart terminal   |   omarchy refresh config hypr/bindings.lua",
-        flags: [
-          ["omarchy restart <target>", "Restart `shell` (bar/notifications), `terminal`, `audio`, `bluetooth`, `wifi`, `hyprsunset`, or `trackpad`"],
-          ["omarchy refresh <app>", "Backs up your current config with a timestamp, then restores default config for `shell`, `hyprland`, etc."],
-          ["omarchy snapshot", "Create or restore system Btrfs/Limine snapshots"]
-        ],
-        danger: "omarchy refresh resets target config (backs up first)",
-        tags: ["update", "restart", "refresh", "reset", "backup", "snapshot", "shell"]
-      },
-      {
-        id: "cli-hyprctl-lua-validation",
-        mode: "HYPRLAND",
+        id: "om-brightness-touchpad-keys",
+        mode: "HARDWARE KEYS",
         modeClass: "mode-n",
-        desc: "Validate `~/.config/hypr/*.lua` edits and inspect live window classes, monitors, and layers via `hyprctl`",
-        cmd: "hyprctl reload && hyprctl configerrors   |   hyprctl clients | grep -E 'Window|class:|title:'   |   hyprctl monitors",
+        desc: "Control screen and keyboard brightness, the touchpad, and the power menu",
+        cmd: "Brightness Up / Brightness Down   |   Keyboard Light Key   |   Touchpad Toggle   |   Power Key",
         flags: [
-          ["hyprctl reload && hyprctl configerrors", "Reloads Hyprland Lua config and verifies zero syntax/binding errors"],
-          ["hyprctl clients", "Lists all open windows with `class`, `initialClass`, `title`, `workspace`, and `floating` state for window rules"],
-          ["hyprctl layers", "Inspect Quickshell bar, OSD, and notification layer-shell surfaces"]
+          ["Brightness Up / Brightness Down", "Change screen brightness"],
+          ["Alt + Brightness Up / Alt + Brightness Down", "Change brightness in fine steps"],
+          ["Shift + Brightness Up", "Maximum brightness"],
+          ["Shift + Brightness Down", "Minimum brightness"],
+          ["Keyboard Brightness Up / Keyboard Brightness Down", "Change keyboard backlight"],
+          ["Keyboard Light Key", "Cycle keyboard backlight"],
+          ["Touchpad Toggle", "Toggle the touchpad"],
+          ["Touchpad On", "Enable the touchpad"],
+          ["Touchpad Off", "Disable the touchpad"],
+          ["Power Key", "Open the system menu"]
         ],
-        tip: "Always run hyprctl configerrors after editing Lua",
-        tags: ["hyprctl", "reload", "configerrors", "clients", "monitors", "lua", "windowrules"]
+        tags: ["brightness", "screen", "keyboard", "backlight", "touchpad", "power"]
+      },
+      {
+        id: "om-terminal-keys",
+        mode: "TERMINAL",
+        modeClass: "mode-i",
+        desc: "Keys configured inside Omarchy's terminals, in addition to Super+C and Super+V",
+        cmd: "Ctrl + Insert (Copy)   |   Shift + Insert (Paste)   |   Super + Shift + Ctrl + Alt + Arrows (Ghostty Split)",
+        flags: [
+          ["Ctrl + Insert", "Copy (Alacritty, Ghostty, Foot)"],
+          ["Shift + Insert", "Paste (Alacritty, Ghostty, Foot)"],
+          ["Super + Shift + Ctrl + Alt + Arrows", "Resize a Ghostty split"]
+        ],
+        tags: ["terminal", "copy", "paste", "ghostty", "alacritty", "foot", "split"]
       }
     ]
   }
 ];
-
-// Interactive Omarchy CLI & Lua Generator Database
-const OM_BUILDER_TASKS = {
-  theme: [
-    {
-      id: "set-theme",
-      label: "List & Switch Desktop Theme (catppuccin, tokyonight...)",
-      desc: "List available themes and switch the entire desktop, terminal, Neovim, and bar to Catppuccin",
-      cmd: "omarchy theme list && omarchy theme set catppuccin"
-    },
-    {
-      id: "next-bg",
-      label: "Cycle to Next Theme Wallpaper",
-      desc: "Switch to the next background wallpaper in the active theme",
-      cmd: "omarchy theme bg next"
-    },
-    {
-      id: "set-font",
-      label: "List & Change System Monospace Font",
-      desc: "List installed fonts and update the monospace font across terminals and UI",
-      cmd: "omarchy font list && omarchy font set 'JetBrainsMono Nerd Font'"
-    }
-  ],
-  toggle: [
-    {
-      id: "toggle-night",
-      label: "Toggle Nightlight (Warm Screen Filter)",
-      desc: "Toggle hyprsunset blue-light filter on or off",
-      cmd: "omarchy toggle nightlight"
-    },
-    {
-      id: "toggle-glass",
-      label: "Set Window Transparency Profile (opaque / transparent / glassy)",
-      desc: "Switch window opacity mode between opaque, transparent, or glassy",
-      cmd: "omarchy hyprland window transparency glassy"
-    },
-    {
-      id: "toggle-gaps",
-      label: "Toggle Window Gaps On/Off",
-      desc: "Toggle workspace window gaps between default spacing and zero gaps",
-      cmd: "omarchy hyprland window gaps toggle"
-    },
-    {
-      id: "toggle-idle",
-      label: "Toggle Idle Screen Lock / Sleep",
-      desc: "Temporarily disable or re-enable automatic idle screen locking",
-      cmd: "omarchy toggle idle"
-    }
-  ],
-  pkg: [
-    {
-      id: "pkg-add",
-      label: "Install Official Arch & AUR Packages",
-      desc: "Install official repository packages or AUR packages via omarchy pkg",
-      cmd: "omarchy pkg add ripgrep fd jq   # or: omarchy pkg aur add <aur-pkg>"
-    },
-    {
-      id: "webapp-add",
-      label: "Install a Custom Standalone Web App",
-      desc: "Launch interactive wizard to create a dedicated desktop Web App",
-      cmd: "omarchy webapp install"
-    },
-    {
-      id: "reminder-set",
-      label: "Set a Timed Desktop Reminder Notification",
-      desc: "Trigger a desktop notification reminder in 15 minutes",
-      cmd: "omarchy reminder 15 'Check deployment logs'"
-    }
-  ],
-  agent: [
-    {
-      id: "agent-acct",
-      label: "List & Rotate Coding Agent Accounts",
-      desc: "View subscription usage limits across Claude/Codex/Grok accounts and switch to the next account",
-      cmd: "omarchy agent account list && omarchy agent account use next"
-    },
-    {
-      id: "agent-auto",
-      label: "Enable Auto-Account Rotation Near Rate Limits",
-      desc: "Automatically switch accounts when approaching subscription usage thresholds",
-      cmd: "omarchy agent account mode claude auto"
-    },
-    {
-      id: "agent-prompt",
-      label: "Launch Coding Agent with an Immediate Prompt",
-      desc: "Open the default coding agent directly with a task prompt",
-      cmd: "omarchy agent prompt 'Investigate recent systemd errors'"
-    }
-  ],
-  refresh: [
-    {
-      id: "refresh-shell",
-      label: "Restart Quickshell Bar & Terminal Configs",
-      desc: "Restart the Omarchy status bar/notifications shell and reload terminal configs",
-      cmd: "omarchy restart shell && omarchy restart terminal"
-    },
-    {
-      id: "debug-print",
-      label: "Print Non-Interactive System Diagnostics",
-      desc: "Output full Omarchy hardware, driver, Hyprland, and package diagnostic info",
-      cmd: "omarchy debug --no-sudo --print"
-    },
-    {
-      id: "reset-cfg",
-      label: "Backup & Reset a Specific Config File to Default",
-      desc: "Backup current config with timestamp and restore default template",
-      cmd: "omarchy refresh config hypr/looknfeel.lua"
-    }
-  ],
-  lua: [
-    {
-      id: "lua-rebind",
-      label: "Override an Existing Keybinding in ~/.config/hypr/bindings.lua",
-      desc: "Unbind a default shortcut and replace it in ~/.config/hypr/bindings.lua, then validate",
-      cmd: `-- In ~/.config/hypr/bindings.lua:
-hl.unbind("SUPER + SHIFT + E")
-o.bind("SUPER + SHIFT + E", "Email", { webapp = "https://mail.google.com" })
--- Then validate in terminal: hyprctl reload && hyprctl configerrors`
-    },
-    {
-      id: "lua-newbind",
-      label: "Add a Custom App or SSH Keybinding in bindings.lua",
-      desc: "Bind a new shortcut in ~/.config/hypr/bindings.lua using o.bind()",
-      cmd: `-- In ~/.config/hypr/bindings.lua:
-o.bind("SUPER + SHIFT + R", "Prod SSH", "ghostty -e ssh prod-server")
--- Then validate in terminal: hyprctl reload && hyprctl configerrors`
-    }
-  ]
-};
 
 // Application State
 const state = {
@@ -564,21 +460,6 @@ function showToast(msg) {
   }, 1800);
 }
 
-async function copyToClipboard(text) {
-  try {
-    await navigator.clipboard.writeText(text);
-    showToast(`Copied: ${text.length > 42 ? text.slice(0, 42) + "…" : text}`);
-  } catch {
-    const ta = document.createElement("textarea");
-    ta.value = text;
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand("copy");
-    document.body.removeChild(ta);
-    showToast("Copied to clipboard");
-  }
-}
-
 function escapeHtml(str) {
   return str
     .replace(/&/g, "&amp;")
@@ -587,25 +468,10 @@ function escapeHtml(str) {
     .replace(/"/g, "&quot;");
 }
 
-function highlightOmCmd(raw) {
-  const escaped = escapeHtml(raw);
-  return escaped.replace(
-    /(--[^\n]*|#[^\n]*)|(\s\|\s|\s&&\s)|(\b(?:Super|Ctrl|Alt|Shift|Print|Return|Space|Backspace|Delete|Tab|Esc)(?:\s*\+\s*(?:Super|Ctrl|Alt|Shift|[A-Za-z0-9/.,~\[\]\-=←→↑↓]+))*)|(\b(?:omarchy|hyprctl|o\.bind|hl\.unbind|cat|grep)\b)|(\s--[a-zA-Z0-9-]+|\s-[a-zA-Z0-9]+)/g,
-    (match, comment, sep, chord, cmd, flag) => {
-      if (comment) return `<span class="tok-comment">${comment}</span>`;
-      if (sep) return `<span class="tok-pipe">${sep}</span>`;
-      if (chord) return `<span class="tok-flag">${chord}</span>`;
-      if (cmd) return `<span class="tok-cmd">${cmd}</span>`;
-      if (flag) return `<span class="tok-flag">${flag}</span>`;
-      return match;
-    }
-  );
-}
-
 function renderCategoryTabs() {
   const totalCommands = OMARCHY_CHEAT_SHEET_DATA.reduce((sum, s) => sum + s.commands.length, 0);
   const optionsHtml = [
-    `<option value="all" ${state.activeCategory === "all" ? "selected" : ""}>All Sections (${totalCommands} commands)</option>`
+    `<option value="all" ${state.activeCategory === "all" ? "selected" : ""}>All Sections (${totalCommands} groups)</option>`
   ];
 
   for (const section of OMARCHY_CHEAT_SHEET_DATA) {
@@ -741,10 +607,6 @@ function renderSections() {
               </div>`
             : "";
 
-        const copyTarget = item.cmd.includes("   |   ")
-          ? item.cmd.split("   |   ")[0].trim()
-          : item.cmd.trim();
-
         return `
           <div class="cmd-item" data-id="${item.id}">
             <div class="cmd-top-row">
@@ -765,11 +627,6 @@ function renderSections() {
                   ${isSaved ? "★" : "☆"}
                 </button>
               </div>
-            </div>
-
-            <div class="cmd-code-box" data-copy="${escapeHtml(copyTarget)}" title="Click to copy">
-              <code class="cmd-code">${highlightOmCmd(item.cmd)}</code>
-              <span class="copy-hint">Copy</span>
             </div>
 
             ${flagsHtml}
@@ -808,81 +665,6 @@ function renderSections() {
   } else {
     emptyStateEl.classList.add("hidden");
   }
-}
-
-function initOmBuilder() {
-  const groupEl = document.getElementById("om-group");
-  const taskEl = document.getElementById("om-task");
-  const cmdOutputEl = document.getElementById("om-cmd-output");
-  const previewBox = document.getElementById("om-preview-box");
-  const copyBtn = document.getElementById("om-copy-btn");
-  const meaningEl = document.getElementById("om-meaning-text");
-  const presetBtns = document.querySelectorAll(".om-preset");
-
-  function populateTasks(groupKey, selectedTaskId) {
-    const list = OM_BUILDER_TASKS[groupKey] || [];
-    taskEl.innerHTML = list
-      .map(
-        (t) =>
-          `<option value="${t.id}" ${t.id === selectedTaskId ? "selected" : ""}>${escapeHtml(t.label)}</option>`
-      )
-      .join("");
-  }
-
-  function updateOmPreview() {
-    const groupKey = groupEl.value;
-    const list = OM_BUILDER_TASKS[groupKey] || [];
-    const current = list.find((t) => t.id === taskEl.value) || list[0];
-    if (!current) return;
-
-    cmdOutputEl.innerHTML = highlightOmCmd(current.cmd);
-    previewBox.dataset.copy = current.cmd;
-    meaningEl.textContent = current.desc;
-
-    presetBtns.forEach((btn) => {
-      const active = btn.dataset.group === groupKey && btn.dataset.task === current.id;
-      btn.classList.toggle("active", active);
-    });
-  }
-
-  groupEl.addEventListener("change", () => {
-    populateTasks(groupEl.value);
-    updateOmPreview();
-  });
-
-  taskEl.addEventListener("change", updateOmPreview);
-
-  presetBtns.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      groupEl.value = btn.dataset.group;
-      populateTasks(btn.dataset.group, btn.dataset.task);
-      updateOmPreview();
-    });
-  });
-
-  previewBox.addEventListener("click", () => {
-    copyToClipboard(previewBox.dataset.copy);
-  });
-
-  copyBtn.addEventListener("click", () => {
-    copyToClipboard(previewBox.dataset.copy);
-  });
-
-  populateTasks("theme", "set-theme");
-  updateOmPreview();
-}
-
-function initMiniTabs() {
-  const tabs = document.querySelectorAll(".mini-tab");
-  tabs.forEach((tab) => {
-    tab.addEventListener("click", () => {
-      tabs.forEach((t) => t.classList.remove("active"));
-      document.querySelectorAll(".mini-tab-panel").forEach((p) => p.classList.remove("active"));
-      tab.classList.add("active");
-      const targetPanel = document.getElementById(`panel-${tab.dataset.tab}`);
-      if (targetPanel) targetPanel.classList.add("active");
-    });
-  });
 }
 
 function applyTheme(theme) {
@@ -927,12 +709,6 @@ function initEvents() {
   });
 
   sectionsContainer.addEventListener("click", (e) => {
-    const copyBox = e.target.closest(".cmd-code-box");
-    if (copyBox) {
-      copyToClipboard(copyBox.dataset.copy);
-      return;
-    }
-
     const bookmarkBtn = e.target.closest(".bookmark-btn");
     if (bookmarkBtn) {
       const id = bookmarkBtn.dataset.bookmarkId;
@@ -994,6 +770,4 @@ applyTheme(state.theme);
 applyDensity(state.compact);
 renderCategoryTabs();
 renderSections();
-initOmBuilder();
-initMiniTabs();
 initEvents();

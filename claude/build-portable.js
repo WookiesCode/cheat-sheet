@@ -8,7 +8,7 @@ const vm = require('vm');
 const SHEETS_CONFIG = [
   { key: 'linux', file: 'index.html', js: 'app.js', name: 'Linux', varName: 'CHEAT_SHEET_DATA', prompt: '$', cursor: '_', title: 'Ubuntu Linux Reference', subtitle: 'Interactive command cheat sheet, flag breakdown & pipe recipes', pill: 'Ubuntu / APT / systemd' },
   { key: 'cli-tools', file: 'cli-tools.html', js: 'cli-tools.js', name: 'CLI Tools', varName: 'CLI_TOOLS_DATA', prompt: 'CLI', cursor: '>', title: 'Modern CLI Tools Reference', subtitle: 'ripgrep, bat, fzf, fd, eza, zoxide, jq, dust, btop, delta, gum & modern shell utilities', pill: 'Rust / Go / Modern TUI' },
-  { key: 'scripting', file: 'scripting.html', js: 'scripting.js', name: 'Scripting', varName: 'SCRIPTING_DATA', prompt: '#!/', cursor: '>', title: 'Scripting & Formats Reference', subtitle: 'Bash, Python 3.10+, JavaScript, TypeScript, PowerShell, JSON, YAML, TOML, Regex, AWK & SQLite', pill: 'Polyglot / Dev & Sysadmin' },
+  { key: 'scripting', file: 'scripting.html', js: 'scripting.js', name: 'Scripting', varName: 'SCRIPTING_DATA', prompt: '#!/', cursor: '>', title: 'Scripting & Formats Reference', subtitle: 'Bash, Python 3.10+, JavaScript, TypeScript, PowerShell, Lua, JSON, YAML, TOML, Regex, AWK & SQLite', pill: 'Polyglot / Dev & Sysadmin' },
   { key: 'neovim', file: 'neovim.html', js: 'neovim.js', name: 'Neovim', varName: 'NEOVIM_CHEAT_SHEET_DATA', prompt: 'NV', cursor: ':', title: 'Neovim (NVIM) Reference', subtitle: 'Motions, operators, text objects, visual mode, windows, buffers, macros & Lua config', pill: 'v0.10+ / Lua / LSP' },
   { key: 'macos', file: 'macos.html', js: 'macos.js', name: 'macOS', varName: 'MACOS_CHEAT_SHEET_DATA', prompt: 'mac', cursor: '%', title: 'macOS Terminal & Sysadmin', subtitle: 'Zsh, launchctl, brew, diskutil, networksetup, defaults, dtrace, security & Apple Silicon', pill: 'Darwin / Apple Silicon / Zsh' },
   { key: 'windows', file: 'windows.html', js: 'windows.js', name: 'Windows', varName: 'WINDOWS_CHEAT_SHEET_DATA', prompt: 'C:\\>', cursor: '_', title: 'Windows Admin & Sysadmin', subtitle: 'PowerShell, WMI/CIM, winget, dism, sc.exe, netsh, WSL2, BitLocker & Active Directory', pill: 'Windows 11 / Server' },
@@ -25,6 +25,8 @@ const SHEETS_CONFIG = [
   { key: 'javascript', file: 'javascript.html', js: 'javascript.js', name: 'JavaScript', varName: 'JS_CHEAT_SHEET_DATA', prompt: 'js', cursor: '>', title: 'JavaScript (ES2024 / Node.js) Reference', subtitle: 'Variables, data types, operators, loops, functions, array methods, async/await & JSON', pill: 'ES2024 / Node.js 20+' },
   { key: 'typescript', file: 'typescript.html', js: 'typescript.js', name: 'TypeScript', varName: 'TS_CHEAT_SHEET_DATA', prompt: 'ts', cursor: ':', title: 'TypeScript 5+ Reference & Types', subtitle: 'Primitives, interfaces, union types, type guards, generics, utility types & tsconfig', pill: 'TypeScript 5.x / Strict' },
   { key: 'powershell', file: 'powershell.html', js: 'powershell.js', name: 'PowerShell', varName: 'POWERSHELL_CHEAT_SHEET_DATA', prompt: 'PS', cursor: '>', title: 'PowerShell 7 / Windows & Linux Scripting', subtitle: 'Variables, typed objects, pipelines, conditionals, loops, functions, PSCustomObject & error handling', pill: 'PowerShell 7.x / pwsh' },
+  { key: 'lua', file: 'lua.html', js: 'lua.js', name: 'Lua', varName: 'LUA_CHEAT_SHEET_DATA', prompt: 'lua', cursor: '>', title: 'Lua Scripting & Config Reference', subtitle: 'Variables, tables, loops, functions, patterns, error handling & Hyprland / Neovim config files', pill: 'Lua 5.5 / LuaJIT' },
+  { key: 'jira', file: 'jira.html', js: 'jira.js', name: 'Jira', varName: 'JIRA_CHEAT_SHEET_DATA', prompt: 'JQL', cursor: '>', title: 'Jira JQL Queries', subtitle: 'Find every ticket for a server, rack, or position, plus queue, RMA, and shift handoff queries', pill: 'Jira Cloud / Data Center' },
   { key: 'json', file: 'json.html', js: 'json.js', name: 'JSON & jq', varName: 'JSON_CHEAT_SHEET_DATA', prompt: 'jq', cursor: '.', title: 'JSON Syntax & jq Query Reference', subtitle: 'JSON data types, quoting rules, validation, jq filters, slicing, formatting & transformations', pill: 'RFC 8259 / jq 1.7' },
   { key: 'yaml', file: 'yaml.html', js: 'yaml.js', name: 'YAML & yq', varName: 'YAML_CHEAT_SHEET_DATA', prompt: 'yq', cursor: '.', title: 'YAML 1.2 Syntax & yq CLI Reference', subtitle: 'Indentation, scalars, multi-line blocks (| vs >), anchors, aliases, and yq query/mutations', pill: 'YAML 1.2 / yq v4' },
   { key: 'toml', file: 'toml.html', js: 'toml.js', name: 'TOML', varName: 'TOML_CHEAT_SHEET_DATA', prompt: 'toml', cursor: '=', title: 'TOML Reference (v1.0.0)', subtitle: 'Tables [table], sub-tables, array of tables [[items]], key-value pairs, dates & Python parsing', pill: 'TOML v1.0.0 / tomllib' },
@@ -248,7 +250,7 @@ ${navLinksHtml}
           <div id="theme-dropdown-menu" class="theme-dropdown-menu">
             <div class="theme-dropdown-header">
               <span>Color Theme</span>
-              <span class="theme-count">8 Themes</span>
+              <span class="theme-count">11 Themes</span>
             </div>
             <div class="theme-options-list">
               <button type="button" class="theme-option active" data-theme="dark" title="Obsidian & cyan datacenter">
@@ -289,6 +291,21 @@ ${navLinksHtml}
               <button type="button" class="theme-option" data-theme="solarized" title="Low-contrast precision cyan & gold">
                 <div class="theme-swatches"><span class="theme-dot" style="background:#00212b"></span><span class="theme-dot" style="background:#002b36"></span><span class="theme-dot" style="background:#268bd2"></span><span class="theme-dot" style="background:#b58900"></span></div>
                 <div class="theme-info"><span class="theme-name">Solarized Dark</span><span class="theme-desc">Low-contrast precision cyan</span></div>
+                <span class="theme-check">✓</span>
+              </button>
+              <button type="button" class="theme-option" data-theme="claude" title="Warm charcoal & terracotta">
+                <div class="theme-swatches"><span class="theme-dot" style="background:#1f1e1d"></span><span class="theme-dot" style="background:#262624"></span><span class="theme-dot" style="background:#d97757"></span><span class="theme-dot" style="background:#e8b48f"></span></div>
+                <div class="theme-info"><span class="theme-name">Claude</span><span class="theme-desc">Warm charcoal &amp; terracotta</span></div>
+                <span class="theme-check">✓</span>
+              </button>
+              <button type="button" class="theme-option" data-theme="startrek" title="Starship console orange & lilac">
+                <div class="theme-swatches"><span class="theme-dot" style="background:#000000"></span><span class="theme-dot" style="background:#17131f"></span><span class="theme-dot" style="background:#ff9900"></span><span class="theme-dot" style="background:#cc99cc"></span></div>
+                <div class="theme-info"><span class="theme-name">Star Trek</span><span class="theme-desc">Starship console orange &amp; lilac</span></div>
+                <span class="theme-check">✓</span>
+              </button>
+              <button type="button" class="theme-option" data-theme="starwars" title="Deep space black & crawl yellow">
+                <div class="theme-swatches"><span class="theme-dot" style="background:#05060a"></span><span class="theme-dot" style="background:#14171f"></span><span class="theme-dot" style="background:#ffe81f"></span><span class="theme-dot" style="background:#5fb8ff"></span></div>
+                <div class="theme-info"><span class="theme-name">Star Wars</span><span class="theme-desc">Deep space black &amp; crawl yellow</span></div>
                 <span class="theme-check">✓</span>
               </button>
             </div>

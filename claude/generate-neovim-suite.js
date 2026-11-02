@@ -890,6 +890,7 @@ function generateNeovimHtml(sec) {
                   <a href="javascript.html" class="dropdown-item" role="menuitem">⚡ JavaScript</a>
                   <a href="typescript.html" class="dropdown-item" role="menuitem">🔷 TypeScript</a>
                   <a href="powershell.html" class="dropdown-item" role="menuitem">💻 PowerShell</a>
+                  <a href="lua.html" class="dropdown-item" role="menuitem">🌙 Lua</a>
                   <div class="dropdown-divider"></div>
                   <a href="json.html" class="dropdown-item" role="menuitem">📋 JSON &amp; jq</a>
                   <a href="yaml.html" class="dropdown-item" role="menuitem">📄 YAML &amp; yq</a>

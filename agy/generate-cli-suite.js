@@ -800,15 +800,73 @@ ${CLI_NAVBAR_SNIPPET}
           <span>Print</span>
         </button>
 
-        <button type="button" id="theme-toggle" class="action-btn icon-only" title="Toggle dark/light theme" aria-label="Toggle theme">
-          <svg id="theme-icon-sun" viewBox="0 0 24 24" width="16" height="16">
-            <circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="2"/>
-            <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
-          </svg>
-          <svg id="theme-icon-moon" viewBox="0 0 24 24" width="16" height="16" class="hidden">
-            <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-          </svg>
-        </button>
+        <div id="theme-menu-wrapper" class="theme-menu-wrapper">
+          <button type="button" id="theme-palette-btn" class="action-btn theme-palette-btn" title="Switch Theme (Shift+Click to cycle)" aria-haspopup="true" aria-expanded="false">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="13.5" cy="6.5" r=".5" fill="currentColor"></circle>
+              <circle cx="17.5" cy="10.5" r=".5" fill="currentColor"></circle>
+              <circle cx="8.5" cy="7.5" r=".5" fill="currentColor"></circle>
+              <circle cx="6.5" cy="12.5" r=".5" fill="currentColor"></circle>
+              <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.9 0 1.5-.7 1.5-1.5 0-.4-.2-.8-.4-1.1-.3-.4-.4-.8-.4-1.4 0-1.1.9-2 2-2h2.5c3.6 0 6.5-2.9 6.5-6.5C22 5.6 17.5 2 12 2z"></path>
+            </svg>
+            <span id="theme-btn-label">Theme</span>
+            <svg class="dropdown-caret" viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div id="theme-dropdown-menu" class="theme-dropdown-menu">
+            <div class="theme-dropdown-header">
+              <span>Color Theme</span>
+              <span class="theme-count">9 Themes</span>
+            </div>
+            <div class="theme-options-list">
+              <button type="button" class="theme-option active" data-theme="dark" title="Obsidian & cyan datacenter">
+                <div class="theme-swatches"><span class="theme-dot" style="background:#0b0e14"></span><span class="theme-dot" style="background:#111621"></span><span class="theme-dot" style="background:#38bdf8"></span><span class="theme-dot" style="background:#4ade80"></span></div>
+                <div class="theme-info"><span class="theme-name">Cyber Dark</span><span class="theme-desc">Obsidian & cyan datacenter</span></div>
+                <span class="theme-check">✓</span>
+              </button>
+              <button type="button" class="theme-option" data-theme="light" title="Crisp daylight paper & azure">
+                <div class="theme-swatches"><span class="theme-dot" style="background:#f5f7fa"></span><span class="theme-dot" style="background:#ffffff"></span><span class="theme-dot" style="background:#0284c7"></span><span class="theme-dot" style="background:#16a34a"></span></div>
+                <div class="theme-info"><span class="theme-name">Clean Light</span><span class="theme-desc">Crisp daylight paper & azure</span></div>
+                <span class="theme-check">✓</span>
+              </button>
+              <button type="button" class="theme-option" data-theme="gemini" title="Google Gemini cosmic indigo & violet">
+                <div class="theme-swatches"><span class="theme-dot" style="background:#090a12"></span><span class="theme-dot" style="background:#101322"></span><span class="theme-dot" style="background:#818cf8"></span><span class="theme-dot" style="background:#c084fc"></span></div>
+                <div class="theme-info"><span class="theme-name">Gemini Spark</span><span class="theme-desc">Cosmic indigo & violet spark</span></div>
+                <span class="theme-check">✓</span>
+              </button>
+              <button type="button" class="theme-option" data-theme="nord" title="Arctic cold & polar blue">
+                <div class="theme-swatches"><span class="theme-dot" style="background:#242933"></span><span class="theme-dot" style="background:#2e3440"></span><span class="theme-dot" style="background:#88c0d0"></span><span class="theme-dot" style="background:#a3be8c"></span></div>
+                <div class="theme-info"><span class="theme-name">Nord Frost</span><span class="theme-desc">Arctic cold & polar blue</span></div>
+                <span class="theme-check">✓</span>
+              </button>
+              <button type="button" class="theme-option" data-theme="dracula" title="High-contrast vampire purple & pink">
+                <div class="theme-swatches"><span class="theme-dot" style="background:#1e1f29"></span><span class="theme-dot" style="background:#282a36"></span><span class="theme-dot" style="background:#bd93f9"></span><span class="theme-dot" style="background:#ff79c6"></span></div>
+                <div class="theme-info"><span class="theme-name">Dracula Night</span><span class="theme-desc">High-contrast vampire purple</span></div>
+                <span class="theme-check">✓</span>
+              </button>
+              <button type="button" class="theme-option" data-theme="catppuccin" title="Cozy pastel mantle & mauve">
+                <div class="theme-swatches"><span class="theme-dot" style="background:#181825"></span><span class="theme-dot" style="background:#1e1e2e"></span><span class="theme-dot" style="background:#cba6f7"></span><span class="theme-dot" style="background:#a6e3a1"></span></div>
+                <div class="theme-info"><span class="theme-name">Catppuccin Mocha</span><span class="theme-desc">Cozy pastel mantle & mauve</span></div>
+                <span class="theme-check">✓</span>
+              </button>
+              <button type="button" class="theme-option" data-theme="matrix" title="Hacker phosphor green & terminal black">
+                <div class="theme-swatches"><span class="theme-dot" style="background:#030804"></span><span class="theme-dot" style="background:#061408"></span><span class="theme-dot" style="background:#00ff66"></span><span class="theme-dot" style="background:#a3e635"></span></div>
+                <div class="theme-info"><span class="theme-name">Matrix CRT</span><span class="theme-desc">Phosphor green terminal</span></div>
+                <span class="theme-check">✓</span>
+              </button>
+              <button type="button" class="theme-option" data-theme="tokyonight" title="Vibrant Shibuya neon cyan & violet">
+                <div class="theme-swatches"><span class="theme-dot" style="background:#16161e"></span><span class="theme-dot" style="background:#1a1b26"></span><span class="theme-dot" style="background:#7aa2f7"></span><span class="theme-dot" style="background:#bb9af7"></span></div>
+                <div class="theme-info"><span class="theme-name">Tokyo Night</span><span class="theme-desc">Neon Shibuya cyan & violet</span></div>
+                <span class="theme-check">✓</span>
+              </button>
+              <button type="button" class="theme-option" data-theme="solarized" title="Low-contrast precision cyan & gold">
+                <div class="theme-swatches"><span class="theme-dot" style="background:#00212b"></span><span class="theme-dot" style="background:#002b36"></span><span class="theme-dot" style="background:#268bd2"></span><span class="theme-dot" style="background:#b58900"></span></div>
+                <div class="theme-info"><span class="theme-name">Solarized Dark</span><span class="theme-desc">Low-contrast precision cyan</span></div>
+                <span class="theme-check">✓</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <button type="button" id="theme-toggle" style="display:none;" aria-hidden="true"></button>
       </div>
     </div>
 

@@ -144,7 +144,15 @@
           </div>
           <div class="target-field">
             <label for="var-pass"><span class="var-tag">$PASS</span> BMC Password</label>
-            <input type="text" id="var-pass" spellcheck="false" autocomplete="off" value="${escapeHtml(targetState.vars.pass)}" placeholder="ADMIN" />
+            <div class="password-input-wrapper">
+              <input type="password" id="var-pass" spellcheck="false" autocomplete="off" value="${escapeHtml(targetState.vars.pass)}" placeholder="ADMIN" />
+              <button type="button" id="toggle-pass-visibility" class="password-toggle-btn" title="Show password" aria-label="Toggle password visibility">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+              </button>
+            </div>
           </div>
           <div class="target-field">
             <label for="var-iface"><span class="var-tag">$IFACE</span> NIC</label>
@@ -192,6 +200,20 @@
         saveTargetState();
         renderTargetVarsBar();
         showGlobalToast('Target variables reset to defaults');
+      });
+    }
+
+    const togglePassBtn = document.getElementById('toggle-pass-visibility');
+    const passInput = document.getElementById('var-pass');
+    if (togglePassBtn && passInput) {
+      togglePassBtn.addEventListener('click', () => {
+        const isPass = passInput.type === 'password';
+        passInput.type = isPass ? 'text' : 'password';
+        togglePassBtn.title = isPass ? 'Hide password' : 'Show password';
+        togglePassBtn.setAttribute('aria-label', isPass ? 'Hide password' : 'Show password');
+        togglePassBtn.innerHTML = isPass
+          ? `<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>`
+          : `<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>`;
       });
     }
 
@@ -793,12 +815,28 @@ ${log}
   const THEMES = [
     { id: 'dark', name: 'Cyber Dark', desc: 'Default obsidian slate & cyan', swatches: ['#0b0e14', '#111621', '#38bdf8', '#4ade80'] },
     { id: 'light', name: 'Clean Light', desc: 'Crisp daylight paper & azure', swatches: ['#f5f7fa', '#ffffff', '#0284c7', '#16a34a'] },
+    { id: 'sepia', name: 'Warm Sepia', desc: 'E-reader parchment & espresso ink', swatches: ['#ece4d0', '#f4ecd8', '#2c2523', '#b05a28'] },
+    { id: 'nebius', name: 'Nebius Cloud', desc: 'AI cloud petrol navy & volt lime', swatches: ['#031422', '#062238', '#e0ff4f', '#614efa'] },
+    { id: 'gruvbox', name: 'Gruvbox Dark', desc: 'Warm retro groove & amber', swatches: ['#1d2021', '#282828', '#fabd2f', '#fe8019'] },
+    { id: 'everforest', name: 'Everforest', desc: 'Natural pine, moss & cedar', swatches: ['#232a2e', '#2d353b', '#a7c080', '#dbbc7f'] },
+    { id: 'kanagawa', name: 'Kanagawa', desc: 'Japanese sumi-e ink & autumn wave', swatches: ['#16161d', '#1f1f28', '#7aa89f', '#c34043'] },
+    { id: 'rosepine', name: 'Rosé Pine', desc: 'Velvet charcoal & dusty rose', swatches: ['#13111b', '#191724', '#ebbcba', '#f6c177'] },
+    { id: 'ayumirage', name: 'Ayu Mirage', desc: 'Mid-tone dusk navy & amber', swatches: ['#191e2a', '#212733', '#ffcc66', '#73d0ff'] },
+    { id: 'gemini', name: 'Gemini Spark', desc: 'Google Gemini cosmic indigo & violet', swatches: ['#090a12', '#101322', '#818cf8', '#c084fc'] },
+    { id: 'claude', name: 'Claude Warm', desc: 'Warm charcoal & terracotta', swatches: ['#1f1e1d', '#262624', '#d97757', '#e8b48f'] },
+    { id: 'codex', name: 'Codex Mint', desc: 'Charcoal & mint workspace', swatches: ['#141414', '#1c1c1c', '#8de8c2', '#ececec'] },
+    { id: 'startrek', name: 'Star Trek', desc: 'Starship console orange & lilac', swatches: ['#000000', '#17131f', '#ff9900', '#cc99cc'] },
+    { id: 'starwars', name: 'Star Wars', desc: 'Deep space black & crawl yellow', swatches: ['#05060a', '#14171f', '#ffe81f', '#5fb8ff'] },
     { id: 'nord', name: 'Nord Frost', desc: 'Arctic cold & polar blue', swatches: ['#242933', '#2e3440', '#88c0d0', '#a3be8c'] },
     { id: 'dracula', name: 'Dracula Night', desc: 'High-contrast vampire purple & pink', swatches: ['#1e1f29', '#282a36', '#bd93f9', '#ff79c6'] },
     { id: 'catppuccin', name: 'Catppuccin Mocha', desc: 'Soothing pastel mantle & mauve', swatches: ['#181825', '#1e1e2e', '#cba6f7', '#a6e3a1'] },
     { id: 'matrix', name: 'Matrix CRT', desc: 'Hacker phosphor green & terminal black', swatches: ['#030804', '#061408', '#00ff66', '#a3e635'] },
     { id: 'tokyonight', name: 'Tokyo Night', desc: 'Vibrant Shibuya neon cyan & violet', swatches: ['#16161e', '#1a1b26', '#7aa2f7', '#bb9af7'] },
-    { id: 'solarized', name: 'Solarized Dark', desc: 'Low-contrast precision cyan & gold', swatches: ['#00212b', '#002b36', '#268bd2', '#b58900'] }
+    { id: 'solarized', name: 'Solarized Dark', desc: 'Low-contrast precision cyan & gold', swatches: ['#00212b', '#002b36', '#268bd2', '#b58900'] },
+    { id: 'zenburn', name: 'Zenburn', desc: 'Low-contrast warm gray & sage', swatches: ['#2b2b2b', '#383838', '#8cd0d3', '#a7caa7'] },
+    { id: 'latte', name: 'Catppuccin Latte', label: 'Latte', desc: 'Soft pastel light paper & mauve', swatches: ['#e6e9ef', '#eff1f5', '#7e35de', '#1a5ad8'] },
+    { id: 'gruvboxlight', name: 'Gruvbox Light', label: 'Gruvbox L', desc: 'Warm cream paper & forest', swatches: ['#f2e5bc', '#fbf1c7', '#076678', '#67630c'] },
+    { id: 'solarizedlight', name: 'Solarized Light', label: 'Solarized L', desc: 'Precision cream & solar cyan', swatches: ['#eee8d5', '#fdf6e3', '#1c679b', '#5a6800'] }
   ];
 
   function applyGlobalTheme(themeId) {
@@ -812,18 +850,81 @@ ${log}
 
     const label = document.getElementById('theme-btn-label');
     if (label) {
-      label.textContent = theme.name.split(' ')[0];
+      label.textContent = theme.label || theme.name.split(' ')[0];
     }
   }
 
   function setupThemeSelector() {
-    const btn = document.getElementById('theme-palette-btn');
-    const dropdown = document.getElementById('theme-dropdown-menu');
-    const wrapper = document.getElementById('theme-menu-wrapper');
+    let wrapper = document.getElementById('theme-menu-wrapper');
+    let btn = document.getElementById('theme-palette-btn');
+    let dropdown = document.getElementById('theme-dropdown-menu');
+    const oldToggle = document.getElementById('theme-toggle');
+
+    // If page doesn't have the enhanced theme menu wrapper, construct it or replace old theme-toggle
+    if (!wrapper || !dropdown || !btn) {
+      const actions = document.querySelector('.header-actions') || document.querySelector('.top-bar-inner');
+      if (actions) {
+        if (!wrapper) {
+          wrapper = document.createElement('div');
+          wrapper.id = 'theme-menu-wrapper';
+          wrapper.className = 'theme-menu-wrapper';
+          wrapper.innerHTML = `
+            <button type="button" id="theme-palette-btn" class="action-btn theme-palette-btn" title="Switch Theme (Shift+Click to cycle)" aria-haspopup="true" aria-expanded="false">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+              </svg>
+              <span id="theme-btn-label">Theme</span>
+              <svg class="dropdown-caret" viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div id="theme-dropdown-menu" class="theme-dropdown-menu">
+              <div class="theme-dropdown-header">
+                <span>Color Theme</span>
+                <span class="theme-count">${THEMES.length} Themes</span>
+              </div>
+              <div class="theme-options-list"></div>
+            </div>
+          `;
+          if (oldToggle && oldToggle.parentNode) {
+            oldToggle.parentNode.replaceChild(wrapper, oldToggle);
+          } else {
+            actions.appendChild(wrapper);
+          }
+        }
+        btn = document.getElementById('theme-palette-btn');
+        dropdown = document.getElementById('theme-dropdown-menu');
+      }
+    }
+
+    if (oldToggle && wrapper && oldToggle !== wrapper) {
+      oldToggle.style.display = 'none';
+    }
 
     const currentThemeId = (function() {
       try { return localStorage.getItem('linux_cs_theme') || 'dark'; } catch(e) { return 'dark'; }
     })();
+
+    if (dropdown) {
+      const countEl = dropdown.querySelector('.theme-count');
+      if (countEl) countEl.textContent = `${THEMES.length} Themes`;
+
+      let list = dropdown.querySelector('.theme-options-list');
+      if (!list) {
+        list = document.createElement('div');
+        list.className = 'theme-options-list';
+        dropdown.appendChild(list);
+      }
+
+      // Ensure all themes from THEMES array (including Gemini & Clean Light) are rendered
+      list.innerHTML = THEMES.map(t => `
+        <button type="button" class="theme-option${t.id === currentThemeId ? ' active' : ''}" data-theme="${t.id}" title="${escapeHtml(t.desc)}">
+          <div class="theme-swatches">${t.swatches.map(s => `<span class="theme-dot" style="background:${s}"></span>`).join('')}</div>
+          <div class="theme-info"><span class="theme-name">${escapeHtml(t.name)}</span><span class="theme-desc">${escapeHtml(t.desc)}</span></div>
+          <span class="theme-check">✓</span>
+        </button>
+      `).join('');
+    }
+
     applyGlobalTheme(currentThemeId);
 
     if (!btn || !dropdown) return;

@@ -304,6 +304,48 @@ const SCRIPTING_DATA = [
     ]
   },
   {
+    id: "lua-script",
+    badge: "lua",
+    title: "Lua Scripting & Config Files",
+    subtitle: "local scope, tables, pairs & ipairs, functions, pcall & Hyprland / Neovim config",
+    commands: [
+      {
+        id: "lua-hub-basics",
+        mode: "LUA",
+        modeClass: "mode-n",
+        desc: "Variables, comments, tables, and the rules that surprise newcomers",
+        cmd: "-- Comment: delete the -- to turn a line on\nlocal server = { host = \"10.0.0.1\", ports = { 22, 8080 } }\nprint(server.host .. \":\" .. server.ports[1])\nprint(#server.ports, server.missing == nil)",
+        flags: [
+          ["local name = value", "Block scope. Without local, the variable is global."],
+          ["{ key = value }", "Table used as a dictionary"],
+          ["{ \"a\", \"b\" }", "Table used as a list, starting at index 1"],
+          ["..", "Concatenate strings"],
+          ["~=", "Not equal"],
+          ["#t", "Length of a list or string"]
+        ],
+        tip: "Only false and nil are falsy; 0 and \"\" are true",
+        tags: ["lua", "variables", "tables", "local", "comments", "hyprland", "neovim"]
+      },
+      {
+        id: "lua-hub-flow-functions",
+        mode: "LUA",
+        modeClass: "mode-n",
+        desc: "Loop over tables, define functions, and catch errors with pcall",
+        cmd: "local function check(temps)\n  for name, temp in pairs(temps) do\n    if temp >= 90 then error(name .. \" too hot\") end\n  end\n  return \"ok\"\nend\nprint(pcall(check, { gpu0 = 71, gpu1 = 95 }))",
+        flags: [
+          ["pairs(t)", "Every key in a table, in no guaranteed order"],
+          ["ipairs(t)", "List items in order"],
+          ["for i = 1, 10, 2 do ... end", "Numeric loop that includes both ends"],
+          ["if x then ... elseif y then ... end", "Every block closes with end"],
+          ["pcall(f, args)", "Call f safely. Returns false and the error if it fails."],
+          ["obj:method(x)", "Shorthand for obj.method(obj, x)"]
+        ],
+        tip: "luac -p file.lua checks syntax without running it",
+        tags: ["lua", "loops", "pairs", "ipairs", "functions", "pcall", "errors"]
+      }
+    ]
+  },
+  {
     id: "json-jq",
     badge: "json",
     title: "JSON Syntax & jq Recipes",
