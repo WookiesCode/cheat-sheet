@@ -628,6 +628,15 @@ function renderSections() {
         const copyTarget = item.cmd.includes("   |   ")
           ? item.cmd.split("   |   ")[0].replace(/^#\s*Server:\s*/i, "").trim()
           : item.cmd.trim();
+        const commandHtml = item.id === "rj45-t568b-t568a-chart"
+          ? `<div class="pinout-diagrams">
+              <figure class="pinout-figure"><img src="assets/rj45-t568b.svg" alt="T568B plug wire order, pins 1 through 8: white-orange, orange, white-green, blue, white-blue, green, white-brown, brown" width="373" height="187"><figcaption>T568B · <a href="https://commons.wikimedia.org/wiki/File:RJ-45_TIA-568B_Right.svg">Miha Ulanov, CC0</a></figcaption></figure>
+              <figure class="pinout-figure"><img src="assets/rj45-t568a.svg" alt="T568A plug wire order, pins 1 through 8: white-green, green, white-orange, blue, white-blue, orange, white-brown, brown" width="373" height="187"><figcaption>T568A · <a href="https://commons.wikimedia.org/wiki/File:RJ-45_TIA-568A_Right.svg">Miha Ulanov, CC0</a></figcaption></figure>
+            </div>`
+          : `<div class="cmd-code-box" data-copy="${escapeHtml(copyTarget)}" title="Click to copy">
+              <code class="cmd-code">${highlightEthCmd(item.cmd)}</code>
+              <span class="copy-hint">Copy</span>
+            </div>`;
 
         return `
           <div class="cmd-item" data-id="${item.id}">
@@ -650,10 +659,7 @@ function renderSections() {
               </div>
             </div>
 
-            <div class="cmd-code-box" data-copy="${escapeHtml(copyTarget)}" title="Click to copy">
-              <code class="cmd-code">${highlightEthCmd(item.cmd)}</code>
-              <span class="copy-hint">Copy</span>
-            </div>
+            ${commandHtml}
 
             ${flagsHtml}
           </div>

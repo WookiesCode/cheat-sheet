@@ -30,8 +30,25 @@ const SHEETS_CONFIG = [
   { key: 'regex', file: 'regex.html', js: 'regex.js', name: 'Regex', varName: 'REGEX_CHEAT_SHEET_DATA', prompt: '/.*', cursor: '/g', title: 'Regular Expressions (PCRE / Modern RegExp)', subtitle: 'Tokens, character classes, quantifiers, lookahead/lookbehind, capture groups & datacenter recipes', pill: 'PCRE2 / ECMAScript' },
   { key: 'awk-sed', file: 'awk-sed.html', js: 'awk-sed.js', name: 'AWK & Sed', varName: 'AWK_SED_CHEAT_SHEET_DATA', prompt: "awk '", cursor: "'", title: 'AWK & Sed Stream Processing', subtitle: 'Field extraction, column math, BEGIN/END blocks, pattern filtering, and in-place stream editing', pill: 'POSIX AWK / GNU Sed' },
   { key: 'sql', file: 'sql.html', js: 'sql.js', name: 'SQL & SQLite', varName: 'SQL_CHEAT_SHEET_DATA', prompt: 'sqlite>', cursor: ';', title: 'SQL & SQLite CLI Reference', subtitle: 'SELECT queries, filtering, joins, GROUP BY, aggregations, DDL, transactions & SQLite CLI', pill: 'ANSI SQL / SQLite 3.45' },
+  { key: 'lua', file: 'lua.html', js: 'lua.js', name: 'Lua', varName: 'LUA_CHEAT_SHEET_DATA', prompt: 'lua', cursor: '>', title: 'Lua 5.4 Reference & Scripting', subtitle: 'Variables, tables, metatables & OOP, control flow, functions, closures, pcall & system I/O', pill: 'Lua 5.4 / LuaJIT / StdLib' },
+  { key: 'git', file: 'git.html', js: 'git.js', name: 'Git', varName: 'GIT_CHEAT_SHEET_DATA', prompt: 'git', cursor: '>', title: 'Git Version Control & Ops Reference', subtitle: 'Branching, staging, worktrees, air-gapped bundles, history inspection & recovery recipes', pill: 'Git 2.44+ / Ops' },
   { key: 'jira', file: 'jira.html', js: 'jira.js', name: 'Jira', varName: 'JIRA_CHEAT_SHEET_DATA', prompt: 'JQL', cursor: '>', title: 'Jira Datacenter & Hardware Ops', subtitle: 'JQL queries for node/rack/serial triage, RMA tracking, GPU incidents & REST API', pill: 'Jira / JQL / REST API' }
 ];
+
+// Discover standalone sheets as well as the curated hub metadata above.
+for (const js of fs.readdirSync(__dirname).filter(f => f.endsWith('.js')).sort()) {
+  if (SHEETS_CONFIG.some(cfg => cfg.js === js)) continue;
+  const file = js.replace(/\.js$/, '.html');
+  if (!fs.existsSync(path.join(__dirname, file))) continue;
+  const source = fs.readFileSync(path.join(__dirname, js), 'utf8');
+  const match = source.match(/const\s+([A-Z0-9_]+_DATA)\s*=/);
+  if (!match) continue;
+  const html = fs.readFileSync(path.join(__dirname, file), 'utf8');
+  const title = (html.match(/<title>(.*?)<\/title>/s) || [null, file])[1]
+    .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+  SHEETS_CONFIG.push({key: js.slice(0, -3), file, js, varName: match[1],
+    name: title, title, subtitle: 'Command reference', prompt: '$', cursor: '_', pill: 'Reference'});
+}
 
 console.log('Compiling Datacenter Cheat Sheet Suite into single portable HTML...');
 
@@ -68,6 +85,9 @@ SHEETS_CONFIG.forEach(cfg => {
 // 4. Read global-search-index.js and common.js
 const globalSearchIndexJs = fs.readFileSync(path.join(__dirname, 'global-search-index.js'), 'utf8');
 const commonJs = fs.readFileSync(path.join(__dirname, 'common.js'), 'utf8');
+const manualsDataJs = fs.readFileSync(path.join(__dirname, 'manuals-data.js'), 'utf8');
+const manualsUiJs = fs.readFileSync(path.join(__dirname, 'manuals-ui.js'), 'utf8');
+const jiraFormJs = fs.readFileSync(path.join(__dirname, 'jira-form.js'), 'utf8');
 
 // 5. Build Portable HTML
 const portableHtml = `<!DOCTYPE html>
@@ -306,6 +326,48 @@ ${navLinksHtml}
   </header>
 
   <main class="container main-layout">
+    <section class="quick-widgets" id="jira-form">
+      <div class="widget-card">
+        <div class="widget-header">
+          <div class="widget-title-group">
+            <span class="widget-tag">FILL IN</span>
+            <h2>Enter once to fill the queries below</h2>
+          </div>
+          <button type="button" id="jira-clear-btn" class="target-tool-btn">Clear</button>
+        </div>
+        <div class="target-inputs-row">
+          <div class="target-field">
+            <label for="jira-project"><span class="var-tag">$PROJECT</span> Project key</label>
+            <input type="text" id="jira-project" spellcheck="false" autocomplete="off" placeholder="OPS" />
+          </div>
+          <div class="target-field">
+            <label for="jira-site"><span class="var-tag">$SITE</span> Site / Hall</label>
+            <input type="text" id="jira-site" spellcheck="false" autocomplete="off" placeholder="DH2" />
+          </div>
+          <div class="target-field">
+            <label for="jira-node"><span class="var-tag">$NODE</span> Server / Node</label>
+            <input type="text" id="jira-node" spellcheck="false" autocomplete="off" placeholder="gpu-node-014" />
+          </div>
+          <div class="target-field">
+            <label for="jira-rack"><span class="var-tag">$RACK</span> Rack</label>
+            <input type="text" id="jira-rack" spellcheck="false" autocomplete="off" placeholder="R12" />
+          </div>
+          <div class="target-field">
+            <label for="jira-position"><span class="var-tag">$POSITION</span> Position</label>
+            <input type="text" id="jira-position" spellcheck="false" autocomplete="off" placeholder="U23" />
+          </div>
+          <div class="target-field">
+            <label for="jira-serial"><span class="var-tag">$SERIAL</span> Serial</label>
+            <input type="text" id="jira-serial" spellcheck="false" autocomplete="off" placeholder="SN12345" />
+          </div>
+          <div class="target-field">
+            <label for="jira-ticket"><span class="var-tag">$TICKET</span> Ticket</label>
+            <input type="text" id="jira-ticket" spellcheck="false" autocomplete="off" placeholder="OPS-123" />
+          </div>
+        </div>
+      </div>
+      <p class="jira-form-note">Fields fill query examples as you type. Empty fields stay as placeholders. Check the query before copying it into Jira.</p>
+    </section>
     <div id="sections-container" class="sections-grid">
       <!-- Populated dynamically -->
     </div>
@@ -326,6 +388,7 @@ ${navLinksHtml}
       </div>
       <div class="footer-shortcuts">
         <span><kbd>Ctrl+K</kbd> Global Search (768 cmds)</span>
+        <span><kbd>M</kbd> Manuals</span>
         <span><kbd>/</kbd> In-Sheet Filter</span>
         <span><kbd>Esc</kbd> Clear</span>
         <span><kbd>Ctrl+P</kbd> Print</span>
@@ -340,18 +403,24 @@ ${navLinksHtml}
 
   <!-- Embedded Global Search Index -->
   <script>
-${globalSearchIndexJs}
+${globalSearchIndexJs.replace(/<\/script/gi, '<\\/script')}
   </script>
 
-  <!-- Embedded Datasets for All 14 Sheets -->
+  <!-- Embedded Datasets for All Sheets & Offline Manuals -->
   <script>
+${manualsDataJs}
 window.PORTABLE_SHEETS = ${JSON.stringify(SHEETS_CONFIG, null, 2)};
-window.PORTABLE_DATASETS = ${JSON.stringify(allDatasets, null, 2)};
+window.PORTABLE_DATASETS = ${JSON.stringify(allDatasets, null, 2).replace(/<\/script/gi, '<\\/script')};
   </script>
 
   <!-- Embedded Shared Common Logic (Target Bar, Global Search Ctrl+K, Triage Modal) -->
   <script>
 ${commonJs}
+  </script>
+
+  <!-- Offline manual browser -->
+  <script>
+${manualsUiJs}
   </script>
 
   <!-- Portable SPA Runtime -->
@@ -411,7 +480,7 @@ ${commonJs}
     document.getElementById('brand-pill').textContent = cfg.pill;
 
     // Update Nav links & dropdown items
-    const scriptingKeys = ['scripting', 'bash', 'python', 'javascript', 'typescript', 'powershell', 'json', 'yaml', 'toml', 'regex', 'awk-sed', 'sql'];
+    const scriptingKeys = ['scripting', 'bash', 'lua', 'git', 'python', 'javascript', 'typescript', 'powershell', 'json', 'yaml', 'toml', 'regex', 'awk-sed', 'sql'];
     const dropdownToggle = document.querySelector('#portable-sheet-nav .dropdown-toggle');
     if (dropdownToggle) {
       if (scriptingKeys.includes(sheetKey)) {
@@ -515,11 +584,8 @@ ${commonJs}
       cmdObj.desc || '',
       cmdObj.cmd || '',
       cmdObj.details || '',
-      section.title || '',
-      section.subtitle || '',
       ...(cmdObj.tags || []),
-      ...(cmdObj.flags || []).flat(),
-      ...(cmdObj.subcommands || []).flat()
+      ...(cmdObj.flags || []).flat()
     ].join(' ').toLowerCase();
 
     return terms.every(t => haystack.includes(t));
@@ -578,6 +644,22 @@ ${commonJs}
   document.addEventListener('webkitfullscreenchange', scheduleMasonry);
   window.packMasonry = packMasonry;
 
+  function isRunnableCommand(cmd) {
+    if (window.AntigravityCommon && window.AntigravityCommon.isRunnableCommand) {
+      return window.AntigravityCommon.isRunnableCommand(cmd);
+    }
+    if (!cmd || typeof cmd !== 'string') return false;
+    var s = cmd.trim();
+    if (!s) return false;
+    if (s.startsWith('POST ') || s.startsWith('Stage ') || s.startsWith('1-DIMM') || s.startsWith('BMC_') || s.startsWith('Above 4G')) return false;
+    if (s.startsWith('T568') || s.startsWith('[Transceiver') || s.startsWith('Switch Port: OSFP') || s.startsWith('800G Twin-Port') || s.startsWith('0.5')) return false;
+    if (s.startsWith('Direct Optic-to-Optic') || s.startsWith('MPO-12') || s.startsWith('LC Duplex') || s.startsWith('1. Inspect') || s.startsWith('Check DOM') || s.startsWith('10km LR4') || s.startsWith('Tier ')) return false;
+    if (s.includes('──►') || s.includes('◄──')) return false;
+    if (s.startsWith('Win+') || s.startsWith('Alt+') || s.startsWith('Ctrl+') || s.startsWith('Super')) return false;
+    if (/[⇧⌘⌥⌃]/.test(s) || s.includes('-Finger Swipe')) return false;
+    return true;
+  }
+
   function renderSections() {
     const data = getActiveSheetData();
     let visibleCommandsCount = 0;
@@ -634,10 +716,15 @@ ${commonJs}
                 '</button>' +
               '</div>' +
             '</div>' +
-            '<div class="cmd-code-box" data-copy="' + escapeHtml(item.cmd) + '" title="Click to copy command">' +
-              '<code class="cmd-code">' + highlightCommand(item.cmd) + '</code>' +
-              '<span class="copy-hint">Copy</span>' +
-            '</div>' +
+            (isRunnableCommand(item.cmd)
+              ? '<div class="cmd-code-box" data-copy="' + escapeHtml(window.CheatSheetCommon ? window.CheatSheetCommon.commandForCopy(item.cmd) : String(item.cmd).split('   |   ')[0].trim()) + '" title="Click to copy command">' +
+                  '<code class="cmd-code">' + highlightCommand(item.cmd) + '</code>' +
+                  '<span class="copy-hint">Copy</span>' +
+                '</div>'
+              : '<div class="reference-box">' +
+                  '<code class="cmd-code">' + highlightCommand(item.cmd) + '</code>' +
+                '</div>'
+            ) +
             detailsHtml +
             flagsHtml +
             subcommandsHtml +
@@ -691,29 +778,18 @@ ${commonJs}
   function applyDensity(compact) {
     state.compact = compact;
     document.body.classList.toggle('compact-density', compact);
-    densityLabel.textContent = compact ? 'Relaxed' : 'Compact';
+    document.body.classList.toggle('compact-mode', compact);
+    if (densityToggleBtn) {
+      densityToggleBtn.classList.toggle('active', compact);
+      densityToggleBtn.setAttribute('aria-pressed', compact ? 'true' : 'false');
+    }
+    if (densityLabel) densityLabel.textContent = compact ? 'Relaxed' : 'Compact';
     localStorage.setItem('linux_cs_compact', compact ? '1' : '0');
     packMasonry();
   }
 
   function initEvents() {
-    // Nav sheet links & dropdown menu items
-    const portableDropdown = document.getElementById('scripting-nav-dropdown');
-    const portableToggle = portableDropdown?.querySelector('.dropdown-toggle');
-    if (portableToggle) {
-      portableToggle.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        portableDropdown.classList.toggle('open');
-      });
-    }
-
-    document.addEventListener('click', (e) => {
-      if (portableDropdown && !portableDropdown.contains(e.target)) {
-        portableDropdown.classList.remove('open');
-      }
-    });
-
+    // common.js owns dropdown open/close behavior.
     document.querySelectorAll('#portable-sheet-nav .sheet-link:not(.dropdown-toggle), #portable-sheet-nav .dropdown-item').forEach(link => {
       link.addEventListener('click', (e) => {
         const sheet = link.dataset.sheet;
@@ -736,7 +812,13 @@ ${commonJs}
     sectionsContainer.addEventListener('click', (e) => {
       const copyBox = e.target.closest('.cmd-code-box, .subcmd-row');
       if (copyBox && copyBox.dataset.copy) {
-        navigator.clipboard.writeText(copyBox.dataset.copy);
+        if (window.CheatSheetCommon && window.CheatSheetCommon.copyCommand) {
+          window.CheatSheetCommon.copyCommand(copyBox.dataset.copy);
+        } else if (window.AntigravityCommon && window.AntigravityCommon.copyCommand) {
+          window.AntigravityCommon.copyCommand(copyBox.dataset.copy);
+        } else {
+          navigator.clipboard.writeText(copyBox.dataset.copy).catch(() => {});
+        }
         return;
       }
 
@@ -786,20 +868,37 @@ ${commonJs}
       renderSections();
     });
 
-    // Hash check on load
-    const hash = window.location.hash.replace(/^#/, '');
-    if (hash.startsWith('sheet-')) {
-      const sKey = hash.replace('sheet-', '');
-      switchSheet(sKey);
-    } else {
-      switchSheet('linux');
-    }
+    window.addEventListener('hashchange', routeHash);
+    routeHash();
   }
+
+  function routeHash() {
+    const raw = (window.location.hash || '').replace(/^#sheet-/, '');
+    const [key, id = ''] = raw.split('/');
+    switchSheet(SHEETS.some(s => s.key === key) ? key : 'linux', decodeURIComponent(id));
+  }
+
+  window.PortableNavigation = {
+    open: function(fileOrKey, targetId = '') {
+      let key = fileOrKey;
+      if (typeof fileOrKey === 'string' && fileOrKey.endsWith('.html')) {
+        const found = SHEETS.find(s => s.file === fileOrKey || s.key === fileOrKey.replace('.html', ''));
+        if (found) key = found.key;
+        else key = fileOrKey.replace('.html', '');
+      }
+      const hash = 'sheet-' + key + (targetId ? '/' + encodeURIComponent(targetId) : '');
+      if (window.location.hash === '#' + hash) routeHash();
+      else window.location.hash = hash;
+    }
+  };
 
   applyTheme(state.theme);
   applyDensity(state.compact);
   initEvents();
 })();
+  </script>
+  <script>
+${jiraFormJs.replace(/<\/script/gi, '<\\/script')}
   </script>
 </body>
 </html>

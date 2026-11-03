@@ -188,7 +188,7 @@ function buildEthSectionCards(sec) {
           desc: cmd.desc,
           cmd: cmd.cmd,
           details: cmd.details || '',
-          flags: cmd.flags ? cmd.flags.slice(0, 3) : [],
+          flags: cmd.flags ? (cmd.id === 'rj45-t568b-t568a-chart' ? cmd.flags : cmd.flags.slice(0, 3)) : [],
           tip: cmd.tip || '',
           tags: [cfg.name, 'ethernet', 'nic', 'networking', 'linux', ...(cmd.tags || [])]
         }
@@ -196,7 +196,7 @@ function buildEthSectionCards(sec) {
     });
 
     // Card: Flags & Parameter Breakdown (if more flags exist)
-    if (cmd.flags && cmd.flags.length > 3) {
+    if (cmd.id !== 'rj45-t568b-t568a-chart' && cmd.flags && cmd.flags.length > 3) {
       cards.push({
         id: `${sec.id}-flags-${cIdx + 1}`,
         badge: cfg.badge,
@@ -525,6 +525,18 @@ function renderSections() {
       const copyTarget = cmd.cmd.includes("   |   ")
         ? cmd.cmd.split("   |   ")[0].trim()
         : cmd.cmd.trim();
+      const commandHtml = cmd.id === "rj45-t568b-t568a-chart"
+        ? '<div class="pinout-diagrams">' +
+          '<figure class="pinout-figure"><img src="assets/rj45-t568b.svg" alt="T568B plug wire order, pins 1 through 8: white-orange, orange, white-green, blue, white-blue, green, white-brown, brown" width="373" height="187"><figcaption>T568B · <a href="https://commons.wikimedia.org/wiki/File:RJ-45_TIA-568B_Right.svg">Miha Ulanov, CC0</a></figcaption></figure>' +
+          '<figure class="pinout-figure"><img src="assets/rj45-t568a.svg" alt="T568A plug wire order, pins 1 through 8: white-green, green, white-orange, blue, white-blue, orange, white-brown, brown" width="373" height="187"><figcaption>T568A · <a href="https://commons.wikimedia.org/wiki/File:RJ-45_TIA-568A_Right.svg">Miha Ulanov, CC0</a></figcaption></figure>' +
+          '</div>'
+        : '<div class="cmd-code-box" data-cmd="' + escapeHtml(copyTarget) + '" title="Click to copy command">' +
+          '<pre class="cmd-code"><code>' + highlightCommand(cmd.cmd) + '</code></pre>' +
+          '<button type="button" class="copy-btn" title="Copy command" aria-label="Copy command">' +
+            '<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">' +
+              '<rect x="9" y="9" width="13" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>' +
+              '<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" fill="none" stroke="currentColor" stroke-width="2"/>' +
+            '</svg><span class="copy-feedback">Copy</span></button></div>';
 
       return [
         '<div class="cmd-item" id="cmd-' + escapeHtml(cmd.id) + '" data-cmd-id="' + escapeHtml(cmd.id) + '">',
@@ -545,16 +557,7 @@ function renderSections() {
         '    </button>',
         '  </div>',
         '',
-        '  <div class="cmd-code-box" data-cmd="' + escapeHtml(copyTarget) + '" title="Click to copy command">',
-        '    <pre class="cmd-code"><code>' + highlightCommand(cmd.cmd) + '</code></pre>',
-        '    <button type="button" class="copy-btn" title="Copy command" aria-label="Copy command">',
-        '      <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">',
-        '        <rect x="9" y="9" width="13" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>',
-        '        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" fill="none" stroke="currentColor" stroke-width="2"/>',
-        '      </svg>',
-        '      <span class="copy-feedback">Copied!</span>',
-        '    </button>',
-        '  </div>',
+        '  ' + commandHtml,
         '  ' + detailsHtml,
         '  ' + flagsHtml,
         '  ' + tipHtml,
@@ -765,19 +768,11 @@ function generateEthHtml(sec, fileKey) {
         <button type="button" id="reset-search-btn" class="search-reset-btn" title="Clear search (Esc)" aria-label="Clear search">✕</button>
         <kbd class="search-kbd">/</kbd>
       </div>
-    </div>
-  </header>
-
-  <main class="container main-content">
-    <!-- Toolbar -->
-    <section class="filter-bar" aria-label="Command filters">
-      <div id="category-tabs" class="category-tabs" role="region" aria-label="Topic filters"></div>
-
-      <div class="filter-actions">
+      <div class="header-actions">
         <button
           type="button"
           id="saved-filter-btn"
-          class="saved-filter-btn"
+          class="action-btn saved-filter-btn"
           title="Filter to bookmarked commands"
           aria-pressed="false"
         >
@@ -791,7 +786,7 @@ function generateEthHtml(sec, fileKey) {
         <button
           type="button"
           id="density-toggle"
-          class="density-btn"
+          class="action-btn density-btn"
           title="Toggle compact view (compact spacing)"
           aria-label="Toggle compact view"
         >
@@ -830,6 +825,14 @@ function generateEthHtml(sec, fileKey) {
           </svg>
         </button>
       </div>
+    </div>
+  </header>
+
+  <main class="container main-content">
+    <!-- Toolbar -->
+    <section class="filter-bar" aria-label="Command filters">
+      <div id="category-tabs" class="category-tabs" role="region" aria-label="Topic filters"></div>
+
     </section>
 
     <!-- Results Counter -->

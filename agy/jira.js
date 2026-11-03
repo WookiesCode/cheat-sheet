@@ -1,1055 +1,785 @@
 const JIRA_CHEAT_SHEET_DATA = [
   {
-    id: "node-triage",
-    badge: "node",
-    title: "Server, Hostname & Node Lifecycle Triage",
-    subtitle: "Historical and active ticket lookups by hostname, IP address, partition, and recurring lemon node detection",
+    id: "jira-hardware",
+    badge: "hw",
+    title: "Tickets by Server, Rack & Position",
+    subtitle: "Full history for a node, rack, position, site, serial number, or BMC",
     commands: [
       {
-        id: "jql-node-all",
-        desc: "Query all historical and active tickets ever logged for a target server hostname",
-        cmd: '(summary ~ "gpu-worker-042" OR description ~ "gpu-worker-042" OR text ~ "gpu-worker-042" OR "Host Name" ~ "gpu-worker-042") ORDER BY created DESC',
-        details: "Comprehensive query to trace the entire service and repair history of a physical server. Searches standard Jira text fields (summary, description, comments) as well as common DC custom fields ('Host Name', 'Asset', 'Device Name').",
+        id: "jira-node-history",
+        desc: "Every ticket that mentions a server or node, open or closed",
+        cmd: "text ~ \"\\\"$NODE\\\"\" ORDER BY created DESC",
         flags: [
-          ["summary ~ \"<host>\"", "Matches hostname anywhere in the ticket subject line"],
-          ["text ~ \"<host>\"", "Global text index search across summary, description, comments, and environment fields"],
-          ["ORDER BY created DESC", "Presents newest issues first to evaluate recent repairs vs historic failures"]
+          ["text ~", "Searches summary, description, comments, environment, and text custom fields"],
+          ["\\\"...\\\"", "Inner quotes search for the exact phrase, which keeps hyphenated names together"],
+          ["ORDER BY created DESC", "Newest tickets first"]
         ],
         subcommands: [
-          ['(text ~ "gpu-worker-042") AND statusCategory != Done', "Filter only currently unresolved/open tickets on this node"],
-          ['(text ~ "gpu-worker-042") AND issuetype in (Incident, "Hardware Failure") ORDER BY created DESC', "Filter only physical incident reports, excluding routine maintenance or software tasks"],
-          ['(text ~ "gpu-worker-042*") ORDER BY created DESC', "Search wildcard variants (e.g. gpu-worker-042, gpu-worker-042-bmc, gpu-worker-042-ib)"]
+          ["text ~ \"\\\"$NODE\\\"\" AND statusCategory != Done ORDER BY updated DESC", "Open tickets only"],
+          ["text ~ \"\\\"$NODE\\\"\" AND statusCategory = Done ORDER BY resolved DESC", "Closed tickets only"],
+          ["text ~ \"\\\"$NODE\\\"\" AND created >= -90d ORDER BY created DESC", "Last 90 days"],
+          ["project = \"$PROJECT\" AND text ~ \"\\\"$NODE\\\"\" ORDER BY created DESC", "Limit to one project"],
+          ["summary ~ \"\\\"$NODE\\\"\" ORDER BY created DESC", "Only tickets with the node in the title"],
+          ["text ~ \"\\\"node-01\\\"\" OR text ~ \"\\\"node-02\\\"\" ORDER BY created DESC", "Several nodes at once"],
+          ["summary ~ \"gpu-node*\" ORDER BY created DESC", "Names starting with a prefix. Wildcards can't go at the start."]
         ],
-        tip: "Use ~ for wildcard contains matching; use = only for exact match text or select custom fields",
-        tags: ["node", "hostname", "server", "history", "triage", "audit", "host", "tickets"]
+        tip: "Start here. text ~ finds the node even if it's only mentioned in a comment.",
+        tags: ["node", "server", "host", "hostname", "history", "all tickets", "text"]
       },
       {
-        id: "jql-node-open",
-        desc: "Query currently active, unresolved hardware incidents on a specific node",
-        cmd: '(text ~ "gpu-worker-042") AND status not in (Resolved, Closed, Done) AND statusCategory != Done ORDER BY priority DESC, created ASC',
-        details: "Checks if a node currently has an active work-in-progress ticket before technicians duplicate work or before cluster schedulers uncordon a node.",
+        id: "jira-rack-history",
+        desc: "Every ticket for a rack, including all the nodes in it if the rack is mentioned",
+        cmd: "text ~ \"\\\"$RACK\\\"\" ORDER BY created DESC",
         flags: [
-          ["statusCategory != Done", "Jira standard category covering all open, in-progress, pending-vendor, and triage states"],
-          ["ORDER BY priority DESC", "Ranks highest severity blockers first (P1/Blocker before P3/Minor)"]
+          ["$RACK", "Use the name as it's written in your tickets, such as R12 or Rack 12"]
         ],
         subcommands: [
-          ['(text ~ "gpu-worker-042") AND status in ("In Progress", "Investigating", "Waiting for Hardware")', "Show issues actively assigned to an on-duty technician"],
-          ['(text ~ "gpu-worker-042") AND labels in (drain, cordoned, slurm-drain)', "Check if the server is marked drained in scheduler tracking tickets"]
+          ["text ~ \"\\\"$RACK\\\"\" AND statusCategory != Done ORDER BY priority DESC", "Open tickets for the rack, most urgent first"],
+          ["text ~ \"\\\"$RACK\\\"\" AND created >= -30d ORDER BY created DESC", "Last 30 days"],
+          ["text ~ \"\\\"$RACK\\\"\" AND text ~ \"PDU\" ORDER BY created DESC", "Rack power tickets"],
+          ["text ~ \"\\\"$RACK\\\"\" AND (text ~ \"switch\" OR text ~ \"ToR\") ORDER BY created DESC", "Rack switch tickets"]
         ],
-        tip: "Check statusCategory != Done to catch custom closed statuses like 'Cancelled' or 'RMA Replaced'",
-        tags: ["open", "active", "in-progress", "blocker", "triage", "node", "unresolved"]
+        tip: "Tickets that name only the node won't match. Search the nodes too for a full picture.",
+        tags: ["rack", "cabinet", "history", "pdu", "tor"]
       },
       {
-        id: "jql-node-bmc",
-        desc: "Query tickets by BMC IP or out-of-band management IPv6/IPv4 address",
-        cmd: '(text ~ "2001:db8:dc::50" OR text ~ "192.168.1.120" OR "BMC IP" ~ "2001:db8:dc::50") ORDER BY created DESC',
-        details: "Useful when automated alerting systems (Prometheus, Nagios, Redfish event receivers) log tickets using the BMC management IP instead of the OS hostname.",
+        id: "jira-position-history",
+        desc: "Every ticket for one rack position, such as a U number or slot",
+        cmd: "text ~ \"\\\"$RACK\\\"\" AND text ~ \"\\\"$POSITION\\\"\" ORDER BY created DESC",
         flags: [
-          ["text ~ \"<bmc-ip>\"", "Searches ticket body and automated monitoring alert payloads for the management IP"],
-          ["\"BMC IP\" ~ \"...\"", "Matches custom asset management field for BMC address if configured in your Jira instance"]
+          ["$POSITION", "Use the form your tickets use, such as U23"],
+          ["AND", "Both must appear, but not necessarily next to each other"]
         ],
         subcommands: [
-          ['text ~ "$BMC" AND statusCategory != Done', "Search using the active $BMC target variable from the top bar"],
-          ['text ~ "192.168.1.*" AND summary ~ "BMC unresponsive"', "Find all nodes across a subnet with IPMI/BMC network timeouts"]
+          ["text ~ \"\\\"$RACK $POSITION\\\"\" ORDER BY created DESC", "Written together: R12 U23"],
+          ["text ~ \"\\\"$RACK-$POSITION\\\"\" ORDER BY created DESC", "Written with a hyphen: R12-U23"],
+          ["text ~ \"\\\"$RACK/$POSITION\\\"\" ORDER BY created DESC", "Written with a slash: R12/U23"]
         ],
-        tip: "When searching IPv6, quote the full address to prevent colons from triggering JQL syntax errors",
-        tags: ["bmc", "ipmi", "ipv6", "ip", "management", "alert", "monitoring", "oob"]
+        tip: "The same position can hold different servers over time, so this also shows work on earlier hardware.",
+        tags: ["position", "rack unit", "ru", "u", "slot", "location", "elevation"]
       },
       {
-        id: "jql-node-lemon",
-        desc: "Identify chronic / lemon nodes with repeated hardware failures in the last 90 days",
-        cmd: '(text ~ "gpu-worker-042") AND created >= -90d AND issuetype in (Incident, "Hardware Failure") ORDER BY created DESC',
-        details: "Identifies recurring problem nodes that have suffered 3+ failures in 90 days. Essential for cluster fleet audits to decide between component replacement vs full chassis RMA.",
+        id: "jira-site-history",
+        desc: "Open tickets for a site, data hall, or row",
+        cmd: "text ~ \"\\\"$SITE\\\"\" AND statusCategory != Done ORDER BY priority DESC, created ASC",
         flags: [
-          ["created >= -90d", "Restricts query to the last 90 days relative to the current timestamp"],
-          ["issuetype in (...)", "Excludes general access requests, scheduled reboots, and cluster maintenance"]
+          ["$SITE", "Site, data hall, or row name"],
+          ["priority DESC, created ASC", "Most urgent first, then oldest first"]
         ],
         subcommands: [
-          ['(text ~ "gpu-worker-042") AND resolution = "Done" AND resolved >= -60d', "Review what was fixed or replaced on this node in the past 60 days"],
-          ['labels = "lemon-node" AND statusCategory != Done', "View fleet-wide chronic failure candidates flagged by senior engineers"]
+          ["text ~ \"\\\"$SITE\\\"\" AND created >= startOfDay() ORDER BY created DESC", "Opened at this site today"],
+          ["text ~ \"\\\"$SITE\\\"\" AND assignee is EMPTY AND statusCategory != Done", "Unassigned work at this site"]
         ],
-        tip: "Combine with 'dcgmi diag -r 3' on the node to verify if intermittent PCIe/NVLink issues persist",
-        tags: ["lemon", "chronic", "recurring", "repeat", "history", "audit", "90d"]
+        tags: ["site", "data hall", "datacenter", "row", "location"]
+      },
+      {
+        id: "jira-serial-bmc",
+        desc: "Find tickets by serial number or BMC address, which also follow hardware that moved",
+        cmd: "text ~ \"\\\"$SERIAL\\\"\" ORDER BY created DESC",
+        flags: [
+          ["$SERIAL", "Chassis, GPU, drive, or part serial number"],
+          ["$BMC", "BMC IP or hostname filled when available"]
+        ],
+        subcommands: [
+          ["text ~ \"\\\"$BMC\\\"\" ORDER BY created DESC", "Tickets that mention the BMC address"],
+          ["text ~ \"\\\"$NODE\\\"\" OR text ~ \"\\\"$SERIAL\\\"\" ORDER BY created DESC", "By name or serial, which helps after a rename or a move"]
+        ],
+        tip: "Serials stay with the hardware when a server is renamed or moved.",
+        tags: ["serial", "sn", "asset", "bmc", "ip", "rma"]
+      },
+      {
+        id: "jira-custom-fields",
+        desc: "Templates for dedicated fields, if your Jira has them. More precise than text search.",
+        cmd: "\"Rack\" ~ \"$RACK\" ORDER BY created DESC",
+        flags: [
+          ["\"Field Name\" ~", "For text fields. Replace the name with your field's name."],
+          ["\"Field Name\" =", "For dropdown fields, which need an exact value"],
+          ["cf[10050]", "Field by ID, useful when two fields share a name"]
+        ],
+        subcommands: [
+          ["\"Hostname\" ~ \"$NODE\" ORDER BY created DESC", "Node field"],
+          ["\"Rack\" ~ \"$RACK\" AND \"Rack Position\" ~ \"$POSITION\" ORDER BY created DESC", "Rack and position fields"],
+          ["\"Serial Number\" ~ \"$SERIAL\" ORDER BY created DESC", "Serial number field"],
+          ["cf[10050] ~ \"$NODE\" ORDER BY created DESC", "Same search using a field ID (replace 10050 with yours)"]
+        ],
+        tip: "In Jira's Advanced search, start typing a field name and it will suggest the real names.",
+        tags: ["custom field", "cf", "hostname", "rack", "position", "serial", "field"]
       }
     ]
   },
   {
-    id: "rack-position",
-    badge: "rack",
-    title: "Physical Rack, Row, Cage & RU Position",
-    subtitle: "Correlate tickets across physical rack units, row aisles, ToR switches, PDUs, and shared cooling loops",
-    commands: [
-      {
-        id: "jql-rack-all",
-        desc: "Query all tickets associated with a physical rack (e.g. Rack-14, R14, RK14)",
-        cmd: '(text ~ "Rack-14" OR text ~ "Rack 14" OR summary ~ "R14" OR "Rack" ~ "Rack-14" OR "Location" ~ "Rack-14") ORDER BY created DESC',
-        details: "Searches across multiple common rack naming conventions. Essential when stepping in front of a rack to know the health status of all servers installed in that enclosure.",
-        flags: [
-          ["text ~ \"Rack-14\"", "Finds mentions of Rack-14 in descriptions and technician worklogs"],
-          ["summary ~ \"R14\"", "Finds short-hand rack naming conventions often used in incident summaries"],
-          ["\"Rack\" ~ \"Rack-14\"", "Queries structured datacenter location custom fields"]
-        ],
-        subcommands: [
-          ['(text ~ "Rack-14") AND statusCategory != Done', "View only active, open tickets inside Rack-14"],
-          ['(text ~ "Rack-14") AND created >= -7d ORDER BY created DESC', "Show all incidents and maintenance logged in Rack-14 over the past week"]
-        ],
-        tip: "Always search both hyphenated ('Rack-14') and spaced ('Rack 14') variants to catch manual typos",
-        tags: ["rack", "location", "ru", "position", "enclosure", "chassis", "row", "datacenter"]
-      },
-      {
-        id: "jql-rack-slot",
-        desc: "Query tickets logged for a specific Rack Unit (RU) slot (e.g. RU21–RU24, U21)",
-        cmd: '(text ~ "Rack-14") AND (text ~ "RU21" OR text ~ "U21" OR text ~ "Slot 21" OR "Rack Unit" ~ "21") ORDER BY created DESC',
-        details: "Pinpoints tickets affecting a specific 1U, 2U, or 4U chassis position inside a rack. Helps confirm whether an RMA delivery matches the exact physical bay needing replacement.",
-        flags: [
-          ["text ~ \"RU21\"", "Matches standard Rack Unit notation (RU21, RU-21)"],
-          ["text ~ \"U21\"", "Matches short-hand unit notation (U21)"]
-        ],
-        subcommands: [
-          ['(text ~ "Rack-14") AND (text ~ "RU01" OR text ~ "RU02" OR text ~ "RU03") AND statusCategory != Done', "Audit bottom-of-rack nodes (often affected by floor cooling or cable tension)"],
-          ['(text ~ "Rack-14") AND (text ~ "RU38" OR text ~ "RU39" OR text ~ "RU40") AND statusCategory != Done', "Audit top-of-rack nodes (often affected by heat rises or short DAC cables)"]
-        ],
-        tip: "Double check RU numbers from front vs rear: some vendors label bottom-up (RU 1 at bottom)",
-        tags: ["ru", "slot", "bay", "unit", "rack", "position", "elevation"]
-      },
-      {
-        id: "jql-rack-shared",
-        desc: "Detect correlated rack outages (PDU feed drop, ToR switch failure, Liquid CDI/CDU leak)",
-        cmd: '(text ~ "Rack-14") AND (summary ~ "PDU" OR summary ~ "ToR" OR summary ~ "switch" OR summary ~ "CDU" OR summary ~ "leak" OR summary ~ "power feed" OR summary ~ "breaker") AND created >= -30d',
-        details: "Triage cascade failures where multiple nodes in the same rack report offline simultaneously due to an upstream electrical, networking, or cooling manifold failure.",
-        flags: [
-          ["summary ~ \"PDU\"", "Flags Power Distribution Unit circuit breaker trips or A/B feed drops"],
-          ["summary ~ \"CDU\"", "Flags Coolant Distribution Unit pressure drops, manifold leaks, or thermal alarms"],
-          ["summary ~ \"ToR\"", "Flags Top-of-Rack leaf switch reboot or optical uplink flaps"]
-        ],
-        subcommands: [
-          ['project = "FAC" AND summary ~ "Rack-14" AND statusCategory != Done', "Check Facilities/Datacenter Operations queue for environmental tickets affecting this rack"],
-          ['(text ~ "Rack-14") AND summary ~ "offline" AND created >= -24h', "Find all nodes in Rack-14 that dropped offline in the last 24 hours"]
-        ],
-        tip: "If 4+ nodes in a rack report down at once, check PDU feed meters and ToR switch link state first!",
-        tags: ["pdu", "cdu", "tor", "switch", "shared", "power", "cooling", "leak", "breaker"]
-      },
-      {
-        id: "jql-rack-thermal",
-        desc: "Query row, aisle, and pod-level thermal excursions and airflow alarm tickets",
-        cmd: '(summary ~ "thermal" OR summary ~ "temperature" OR summary ~ "overheat" OR summary ~ "fan failure") AND (text ~ "Row-B" OR text ~ "Pod-2" OR text ~ "Cold Aisle") AND created >= -30d',
-        details: "Finds hot-spot issues where cooling containment tiles or blower fans have degraded, causing nodes in a specific row to throttle clock speeds.",
-        flags: [
-          ["summary ~ \"thermal\"", "Matches thermal throttling, high ambient temp, or inlet sensor trips"],
-          ["text ~ \"Cold Aisle\"", "Correlates containment door leaks or perforated floor tile blockages"]
-        ],
-        subcommands: [
-          ['(summary ~ "fan" OR summary ~ "cooling") AND (text ~ "Rack-14") AND statusCategory != Done', "Check for active fan module or pump faults in this specific rack"],
-          ['text ~ "thermal throttle" AND statusCategory != Done', "Find all AI GPU nodes reporting thermal clock throttling"]
-        ],
-        tip: "Correlate with 'ipmitool sensor | grep Temp' and 'nvidia-smi -q -d TEMPERATURE'",
-        tags: ["thermal", "temperature", "overheat", "fan", "cooling", "aisle", "pod", "containment"]
-      }
-    ]
-  },
-  {
-    id: "serial-asset",
-    badge: "sn",
-    title: "Chassis Serial, Service Tag & Component Identifiers",
-    subtitle: "Instant lookups using hardware serial numbers, OEM service tags, GPU SXM IDs, drive WWNs & MACs",
-    commands: [
-      {
-        id: "jql-serial-chassis",
-        desc: "Query tickets by server chassis serial number or OEM service tag",
-        cmd: '(text ~ "CZ240101AB" OR "Serial Number" ~ "CZ240101AB" OR "Service Tag" ~ "CZ240101AB" OR summary ~ "CZ240101AB") ORDER BY created DESC',
-        details: "Direct lookup using the physical server serial number (obtained from 'dmidecode -s system-serial-number' or the pull-out chassis luggage tag). Avoids ambiguity when hostnames have been changed or reprovisioned.",
-        flags: [
-          ["text ~ \"<serial>\"", "Global search across ticket bodies, attachments, and RMA shipping manifests"],
-          ["\"Serial Number\" ~ \"...\"", "Matches formal asset management serial number custom fields"]
-        ],
-        subcommands: [
-          ['text ~ "CZ240101AB" AND labels in (rma, warranty, replacement)', "Find previous warranty claims or part replacements under this chassis tag"],
-          ['"Service Tag" = "7XYZ123"', "Exact match Dell Service Tag lookup in environments with Dell enterprise tracking"]
-        ],
-        tip: "Run 'dmidecode -t system | grep Serial' on the node to grab the exact chassis serial string",
-        tags: ["serial", "service-tag", "chassis", "asset", "hardware", "sn", "dmidecode"]
-      },
-      {
-        id: "jql-serial-gpu",
-        desc: "Query tickets by NVIDIA SXM module or PCIe GPU serial number",
-        cmd: '(text ~ "1324823001234" OR summary ~ "1324823001234" OR "GPU Serial" ~ "1324823001234") ORDER BY created DESC',
-        details: "Matches tickets referencing a specific GPU board or SXM module serial number (obtained via 'nvidia-smi -q | grep Serial'). Essential when validating whether an incoming replacement GPU was already triaged elsewhere in the fleet.",
-        flags: [
-          ["text ~ \"<gpu-sn>\"", "Matches the 13-digit or 14-digit NVIDIA GPU board serial number"],
-          ["ORDER BY created DESC", "Shows the initial failure ticket, NVIDIA enterprise RMA case number, and installation log"]
-        ],
-        subcommands: [
-          ['text ~ "1324823001234" AND text ~ "NVIDIA RMA"', "Locate the official NVIDIA Enterprise Support (NVES) RMA case number"],
-          ['text ~ "GPU 3" AND text ~ "gpu-worker-042" AND statusCategory != Done', "Find tickets referencing a specific GPU index on a target node"]
-        ],
-        tip: "Run 'nvidia-smi --query-gpu=index,gpu_serial,gpu_bus_id --format=csv' to list all GPU serials on a node",
-        tags: ["gpu", "sxm", "nvidia", "h200", "b200", "serial", "board", "sn"]
-      },
-      {
-        id: "jql-serial-drive",
-        desc: "Query tickets by NVMe, SSD, or SAS drive serial number or WWN",
-        cmd: '(text ~ "S6B0NE0R123456" OR "Disk Serial" ~ "S6B0NE0R123456" OR summary ~ "S6B0NE0R123456") AND labels in (disk-fail, nvme, rma, storage)',
-        details: "Tracks dead NVMe drive replacements and vendor return tracking. Obtained via 'nvme list' or 'smartctl -i /dev/nvmeXn1'.",
-        flags: [
-          ["text ~ \"<drive-sn>\"", "Matches the drive serial number from 'nvme list' or 'smartctl'"],
-          ["labels in (disk-fail, ...)", "Focuses on storage drive swap tickets"]
-        ],
-        subcommands: [
-          ['(text ~ "nvme0n1" OR text ~ "nvme1n1") AND (text ~ "gpu-worker-042") AND statusCategory != Done', "Check open tickets for specific NVMe block devices on a host"],
-          ['text ~ "Media and Data Integrity Errors" AND statusCategory != Done', "Find all nodes reporting NVMe SMART critical warning errors"]
-        ],
-        tip: "Always record both the Drive Serial Number AND the physical Enclosure Bay Slot # in the ticket!",
-        tags: ["nvme", "disk", "drive", "smart", "storage", "serial", "ssd", "bay"]
-      },
-      {
-        id: "jql-serial-net",
-        desc: "Query tickets by InfiniBand GUID, MAC address, or PCIe BDF address",
-        cmd: '(text ~ "00:02:c9:ab:cd:ef" OR text ~ "0002c9abcdef" OR text ~ "0c42a103005b8e90" OR text ~ "0000:8a:00.0") ORDER BY created DESC',
-        details: "Searches tickets referencing networking hardware identifiers, such as Mellanox/NVIDIA ConnectX HCA GUIDs, MAC addresses, or PCIe bus numbers.",
-        flags: [
-          ["text ~ \"<guid>\"", "Matches 16-hex InfiniBand Node or Port GUIDs from 'ibstat' or 'ibv_devinfo'"],
-          ["text ~ \"0000:8a:00.0\"", "Matches the PCIe BDF address from 'lspci' or 'dmesg'"]
-        ],
-        subcommands: [
-          ['text ~ "mlx5_0" AND (text ~ "gpu-worker-042") AND statusCategory != Done', "Check open tickets for primary HCA mlx5_0 on target node"],
-          ['text ~ "PCIe AER" AND (text ~ "gpu-worker-042")', "Find tickets regarding PCIe Advanced Error Reporting AER bus errors"]
-        ],
-        tip: "Search MAC addresses both with colons ('00:11:22:33:44:55') and without ('001122334455')",
-        tags: ["mac", "guid", "infiniband", "pcie", "bdf", "hca", "connectx", "nic"]
-      }
-    ]
-  },
-  {
-    id: "hardware-rma",
+    id: "jira-failures",
     badge: "rma",
-    title: "Hardware RMAs & Vendor Parts Tracking",
-    subtitle: "Track open vendor warranty claims, replacement shipments, reverse logistics, and onsite field engineers",
+    title: "Failures, Repeats & RMAs",
+    subtitle: "Find repeat problems, reopened work, and hardware returns",
     commands: [
       {
-        id: "jql-rma-all",
-        desc: "Query all active, open hardware RMA tickets across all hardware vendors",
-        cmd: 'labels in (rma, hardware-rma, vendor-rma) AND statusCategory != Done ORDER BY updated DESC',
-        details: "The master queue for datacenter hardware logistics. Tracks all active warranty replacements awaiting vendor review, component shipping, or technician installation.",
-        flags: [
-          ["labels in (rma, ...)", "Matches standardized datacenter RMA ticket tags"],
-          ["statusCategory != Done", "Includes all open, approved, and in-transit statuses"],
-          ["ORDER BY updated DESC", "Puts tickets with newest shipping or vendor comments at the top"]
-        ],
+        id: "jira-fault-type",
+        desc: "Past tickets on a node for one kind of fault",
+        cmd: "text ~ \"\\\"$NODE\\\"\" AND (text ~ \"Xid\" OR text ~ \"NVLink\" OR text ~ \"ECC\" OR text ~ \"GPU\") ORDER BY created DESC",
         subcommands: [
-          ['labels in (rma, hardware-rma) AND status in ("Waiting for Parts", "Parts Shipped")', "Filter specifically for parts currently in transit or awaiting courier delivery"],
-          ['labels in (rma, hardware-rma) AND status = "Parts Arrived"', "List replacement parts delivered to the datacenter loading dock ready for technician installation"]
+          ["text ~ \"\\\"$NODE\\\"\" AND (text ~ \"NVMe\" OR text ~ \"SMART\" OR text ~ \"drive\" OR text ~ \"disk\") ORDER BY created DESC", "Storage faults"],
+          ["text ~ \"\\\"$NODE\\\"\" AND (text ~ \"InfiniBand\" OR text ~ \"transceiver\" OR text ~ \"optic\" OR text ~ \"link\") ORDER BY created DESC", "Network and optics faults"],
+          ["text ~ \"\\\"$NODE\\\"\" AND (text ~ \"PSU\" OR text ~ \"power\" OR text ~ \"thermal\" OR text ~ \"fan\") ORDER BY created DESC", "Power and cooling faults"],
+          ["text ~ \"\\\"$NODE\\\"\" AND (text ~ \"DIMM\" OR text ~ \"memory\" OR text ~ \"BMC\" OR text ~ \"BIOS\") ORDER BY created DESC", "Memory and firmware faults"]
         ],
-        tip: "Filter by statusCategory != Done to keep closed historical warranty claims out of the active queue",
-        tags: ["rma", "vendor", "warranty", "replacement", "parts", "shipping", "hardware"]
+        tip: "Check this before an RMA. A repeat fault after a part swap can point at the slot or riser, not the part.",
+        tags: ["gpu", "xid", "nvlink", "ecc", "nvme", "optics", "psu", "dimm", "fault"]
       },
       {
-        id: "jql-rma-vendor",
-        desc: "Filter open RMA tickets by specific hardware vendor (NVIDIA, Supermicro, Dell, HPE)",
-        cmd: '(labels in (nvidia-rma, sxm-rma, h200-rma, b200-rma) OR text ~ "NVIDIA RMA" OR "Vendor" = "NVIDIA") AND statusCategory != Done ORDER BY priority DESC',
-        details: "Isolate warranty tickets for a specific manufacturer. High-value GPU and switch RMA queues are typically reviewed during weekly vendor escalation calls.",
-        flags: [
-          ["labels in (nvidia-rma, ...)", "Labels tagged for NVIDIA SXM GPU, NVSwitch, or Quantum-2 switch RMAs"],
-          ["\"Vendor\" = \"NVIDIA\"", "Matches vendor dropdown custom field if configured"]
-        ],
+        id: "jira-rma",
+        desc: "Hardware returns for a node, and RMAs that are still open",
+        cmd: "text ~ \"\\\"$NODE\\\"\" AND text ~ \"RMA\" ORDER BY created DESC",
         subcommands: [
-          ['(labels in (smc-rma, supermicro-rma) OR text ~ "Supermicro RMA") AND statusCategory != Done', "View active Supermicro motherboard, power supply, or chassis RMAs"],
-          ['(labels in (dell-rma, idrac-rma) OR text ~ "Dell Dispatch") AND statusCategory != Done', "View active Dell PowerEdge server warranty dispatches"]
+          ["project = \"$PROJECT\" AND text ~ \"RMA\" AND statusCategory != Done ORDER BY created ASC", "All open RMAs, oldest first"],
+          ["project = \"$PROJECT\" AND text ~ \"RMA\" AND statusCategory != Done AND updated <= -7d", "RMAs with no update for 7 days"],
+          ["project = \"$PROJECT\" AND text ~ \"RMA\" AND resolved >= -30d ORDER BY resolved DESC", "RMAs closed in the last 30 days"]
         ],
-        tip: "Include the vendor case number (e.g. NVES #123456 or Dell Dispatch #987654) directly in the ticket summary",
-        tags: ["nvidia", "dell", "supermicro", "hpe", "vendor", "rma", "escalation"]
+        tags: ["rma", "return", "replacement", "warranty", "parts"]
       },
       {
-        id: "jql-rma-returns",
-        desc: "Track defective core parts awaiting return shipment (Reverse Logistics & SLA Deficit)",
-        cmd: 'labels in (rma-pending-return, rma-core-return, return-defective) AND "Return Tracking" is EMPTY AND statusCategory != Done',
-        details: "Tracks defective components (failed H200 SXM modules, motherboards, DIMMs) that must be shipped back to the vendor within 14–30 days to avoid unreturned core fee penalties.",
+        id: "jira-reopened",
+        desc: "Tickets that were closed and came back, a sign the first fix didn't hold",
+        cmd: "project = \"$PROJECT\" AND status WAS IN (\"Done\", \"Closed\", \"Resolved\") AND statusCategory != Done ORDER BY updated DESC",
         flags: [
-          ["labels in (rma-pending-return, ...)", "Identifies defective components that have been physically pulled from a server"],
-          ["\"Return Tracking\" is EMPTY", "Alerts on packages that do not yet have a FedEx/UPS return tracking number recorded"]
+          ["status WAS IN (...)", "Matches past statuses. Use your workflow's status names."]
         ],
         subcommands: [
-          ['labels = "rma-pending-return" AND updated <= -7d', "Flag defective parts pulled over 7 days ago that have not yet shipped"],
-          ['text ~ "FedEx" OR text ~ "UPS" AND labels in (rma, return) AND statusCategory != Done', "Look up in-flight reverse logistics tracking numbers"]
+          ["text ~ \"\\\"$NODE\\\"\" AND status WAS IN (\"Done\", \"Closed\", \"Resolved\") AND statusCategory != Done", "Reopened tickets for one node"]
         ],
-        tip: "Vendors charge massive core fees for late returns on high-value AI accelerator silicon!",
-        tags: ["return", "core", "defective", "tracking", "reverse-logistics", "fedex", "ups", "sla"]
+        tags: ["reopened", "repeat", "regression", "was"]
       },
       {
-        id: "jql-rma-onsite",
-        desc: "Query vendor field engineer (FE) onsite crash-cart dispatches and escorted visits",
-        cmd: '(summary ~ "onsite" OR summary ~ "dispatch" OR labels in (vendor-dispatch, fe-onsite, crash-cart)) AND statusCategory != Done ORDER BY "Target Start" ASC, created ASC',
-        details: "Tracks vendor technicians (Dell, HPE, Supermicro, NVIDIA) scheduled to visit the physical datacenter cage to replace motherboards, midplanes, or liquid manifolds.",
+        id: "jira-cluster-drain",
+        desc: "Slurm cluster drained nodes and cordoned Kubernetes worker tickets",
+        cmd: "project = \"$PROJECT\" AND (text ~ \"DRAIN\" OR text ~ \"cordon\" OR text ~ \"drain reason\") AND statusCategory != Done ORDER BY priority DESC",
+        subcommands: [
+          ["text ~ \"\\\"$NODE\\\"\" AND (text ~ \"drain\" OR text ~ \"cordoned\") ORDER BY created DESC", "Drain history for this node"],
+          ["project = \"$PROJECT\" AND text ~ \"NHC\" AND statusCategory != Done ORDER BY created DESC", "Node Health Check (NHC) failure tickets"],
+          ["project = \"$PROJECT\" AND (text ~ \"P1\" OR text ~ \"Blocker\" OR text ~ \"Outage\") AND statusCategory != Done", "Active cluster-wide blockers"]
+        ],
+        tip: "Correlates scheduler drain reasons with technician hardware tickets.",
+        tags: ["drain", "slurm", "cordon", "kubernetes", "nhc", "cluster", "outage"]
+      },
+      {
+        id: "jira-related",
+        desc: "Everything connected to one ticket",
+        cmd: "issue in linkedIssues(\"$TICKET\") ORDER BY created DESC",
         flags: [
-          ["summary ~ \"dispatch\"", "Identifies field engineer onsite dispatch requests"],
-          ["ORDER BY \"Target Start\" ASC", "Sorts by scheduled arrival date and time"]
+          ["linkedIssues()", "Tickets linked to the one you name"],
+          ["parent", "Sub-tasks, or child work under an epic"]
         ],
         subcommands: [
-          ['labels in (vendor-dispatch) AND "Security Escort" is EMPTY AND statusCategory != Done', "Flag upcoming vendor visits that still require DC security access clearance"],
-          ['(summary ~ "datacenter access" OR summary ~ "badge access") AND statusCategory != Done', "Track vendor security and badge authorization tickets"]
+          ["parent = \"$TICKET\" ORDER BY created ASC", "Sub-tasks and child tickets"],
+          ["issue in linkedIssues(\"$TICKET\", \"blocks\")", "Only one kind of link"]
         ],
-        tip: "Ensure badge requests and rack escort clearances are submitted at least 24 hours prior to dispatch",
-        tags: ["onsite", "dispatch", "field-engineer", "technician", "escort", "crash-cart", "datacenter"]
+        tags: ["linked", "related", "parent", "subtask", "epic"]
       }
     ]
   },
   {
-    id: "gpu-cluster",
-    badge: "gpu",
-    title: "GPU, NVLink & Cluster Fabric Outages",
-    subtitle: "Triage NVIDIA SXM/PCIe GPU fatalities, Xid errors, dead NVSwitch links, and InfiniBand optical flaps",
+    id: "jira-queue",
+    badge: "me",
+    title: "My Work",
+    subtitle: "Your tickets, watched tickets, and recent activity",
     commands: [
       {
-        id: "jql-gpu-xid",
-        desc: "Query active NVIDIA GPU fatal crashes (Xid 79, Xid 62, GPU fallen off the bus)",
-        cmd: '(summary ~ "Xid" OR text ~ "Xid 79" OR text ~ "Xid 62" OR text ~ "SXid" OR summary ~ "fallen off the bus" OR labels in (gpu-xid, sxid-fail)) AND statusCategory != Done ORDER BY priority DESC',
-        details: "High-priority triage query for AI GPU cluster failures. Xid 79 (GPU fallen off bus) and Xid 62 (Internal micro-controller halt) indicate hard silicon or SXM socket failures.",
-        flags: [
-          ["text ~ \"Xid 79\"", "GPU has fallen off the PCIe/NVLink bus (requires chassis power cycle or SXM swap)"],
-          ["text ~ \"SXid\"", "NVSwitch fatal fabric error on HGX architectures"],
-          ["labels in (gpu-xid, ...)", "Standard incident labels applied by cluster monitoring agents"]
-        ],
+        id: "jira-my-open",
+        desc: "Your open tickets, most urgent first",
+        cmd: "assignee = currentUser() AND statusCategory != Done ORDER BY priority DESC, updated ASC",
         subcommands: [
-          ['(text ~ "Xid 79") AND (text ~ "gpu-worker-042")', "Check if a specific node has previously reported Xid 79"],
-          ['text ~ "Xid 31" AND statusCategory != Done', "Find memory page retirement / excessive recoverable ECC incidents"]
+          ["assignee = currentUser() AND due <= 7d AND statusCategory != Done ORDER BY due ASC", "Due in the next 7 days"],
+          ["reporter = currentUser() AND statusCategory != Done ORDER BY updated DESC", "Tickets you opened that are still open"],
+          ["watcher = currentUser() AND statusCategory != Done ORDER BY updated DESC", "Tickets you're watching"]
         ],
-        tip: "Correlate with 'dmesg -T | grep -E \"NVRM: Xid\"' on the physical node",
-        tags: ["xid", "gpu", "nvidia", "h200", "b200", "sxid", "crash", "cluster", "ai"]
+        tip: "currentUser() works for anyone, so you can share these queries.",
+        tags: ["my tickets", "assignee", "currentuser", "queue", "watching"]
       },
       {
-        id: "jql-gpu-nvlink",
-        desc: "Query active NVLink and NVSwitch link degradation or down-port tickets",
-        cmd: '(text ~ "NVLink" OR text ~ "NVSwitch" OR labels in (nvlink-down, nvswitch-fail, fabric-degraded)) AND statusCategory != Done ORDER BY created DESC',
-        details: "Finds nodes where inter-GPU NVLink bandwidth is cut in half or training jobs fail with NCCL connection timeouts due to degraded high-speed copper/optical NVLink traces.",
+        id: "jira-my-history",
+        desc: "Find a ticket you worked on or looked at recently",
+        cmd: "issuekey in issueHistory() ORDER BY lastViewed DESC",
         flags: [
-          ["text ~ \"NVLink\"", "Matches NVLink error messages, CRC failures, and degraded link speeds"],
-          ["labels in (nvlink-down, ...)", "Used by NCCL health check suites to flag nodes failing 'nccl-tests'"]
+          ["issueHistory()", "Tickets you've recently viewed"]
         ],
         subcommands: [
-          ['(text ~ "NVSwitch") AND (summary ~ "unresponsive" OR summary ~ "offline")', "Find physical NVSwitch ASIC failures on HGX baseboards"],
-          ['text ~ "NVLink down" AND text ~ "gpu-worker-042"', "Check NVLink link state history on a specific node"]
+          ["issue in updatedBy(currentUser(), \"-7d\") ORDER BY updated DESC", "Tickets you changed in the last 7 days"],
+          ["assignee WAS currentUser() AND updated >= -30d ORDER BY updated DESC", "Tickets that were assigned to you"],
+          ["assignee CHANGED FROM currentUser() AFTER -7d", "Tickets you handed off in the last 7 days"]
         ],
-        tip: "Run 'nvidia-smi nvlink -s' and check for replay/recovery errors on active lanes",
-        tags: ["nvlink", "nvswitch", "hgx", "nccl", "fabric", "bandwidth", "gpu"]
-      },
-      {
-        id: "jql-gpu-ecc",
-        desc: "Query uncorrectable ECC memory and Row Remapping failure incidents",
-        cmd: '(text ~ "Row Remap Failure" OR text ~ "uncorrectable ECC" OR summary ~ "Row Remap" OR labels in (row-remap, ecc-uncorrectable)) AND statusCategory != Done',
-        details: "Row Remapping Failure indicates the HBM3e/HBM3 high-bandwidth memory has exhausted its spare memory rows, requiring an immediate hardware RMA of the GPU.",
-        flags: [
-          ["text ~ \"Row Remap Failure\"", "Crucial RMA trigger condition for NVIDIA H100/H200/B200 GPUs"],
-          ["text ~ \"uncorrectable ECC\"", "Double-bit memory error requiring immediate GPU/system restart"]
-        ],
-        subcommands: [
-          ['text ~ "Row Remap Pending" AND statusCategory != Done', "Find GPUs that require a node reboot/reset to activate pending row remaps"],
-          ['(summary ~ "DIMM" OR summary ~ "ECC") AND (text ~ "gpu-worker-042")', "Audit host CPU DDR5/DDR4 ECC memory replacement history on a node"]
-        ],
-        tip: "Check row remap status on the node using 'nvidia-smi --query-gpu=remapped_rows.failure --format=csv'",
-        tags: ["ecc", "row-remap", "hbm", "memory", "uncorrectable", "dram", "gpu", "rma"]
-      },
-      {
-        id: "jql-ib-flaps",
-        desc: "Query InfiniBand fabric port flaps, symbol errors, and optical high-BER tickets",
-        cmd: '(text ~ "IB link down" OR text ~ "Symbol Error" OR text ~ "high BER" OR text ~ "port flap" OR labels in (infiniband-flap, optical-dom, ib-ber)) AND statusCategory != Done',
-        details: "Identifies nodes causing multi-node distributed training job interruptions due to dirty MPO fiber ferrules, failing OSFP/QSFP optics, or high bit error rates (BER).",
-        flags: [
-          ["text ~ \"Symbol Error\"", "Physical layer bit corruptions typically caused by contaminated optical end-faces"],
-          ["text ~ \"high BER\"", "Bit Error Rate exceeding NDR 400G / XDR 800G FEC forward error correction limits"]
-        ],
-        subcommands: [
-          ['(text ~ "mlx5_") AND (text ~ "link down") AND (text ~ "gpu-worker-042")', "Check for specific ConnectX adapter link down incidents on a node"],
-          ['text ~ "Effective BER" AND statusCategory != Done', "Find all nodes reporting critical pre-FEC or post-FEC link degradation"]
-        ],
-        tip: "Run 'mlxlink -d <dev> -m -c -e' to inspect physical link parameters and transceiver DOM light levels",
-        tags: ["infiniband", "ber", "optics", "symbol-error", "link-down", "flap", "mpo", "osfp"]
+        tags: ["recent", "viewed", "history", "updatedby", "handoff"]
       }
     ]
   },
   {
-    id: "slurm-drain",
-    badge: "drain",
-    title: "Cluster Scheduler, Node Drains & Maintenance",
-    subtitle: "Identify nodes drained in Slurm or cordoned in Kubernetes, burn-in validation tickets, and maintenance windows",
+    id: "jira-team",
+    badge: "team",
+    title: "Team Queue & Health",
+    subtitle: "Unassigned, stale, urgent, overdue, and SLA risk",
     commands: [
       {
-        id: "jql-slurm-drained",
-        desc: "Query compute nodes currently drained in Slurm awaiting technician physical triage",
-        cmd: 'labels in (slurm-drain, drained-node, node-drain, cordoned) AND statusCategory != Done ORDER BY priority DESC, created ASC',
-        details: "Shows all compute nodes that the Slurm scheduler ('sinfo -R' or automated health check epilogs) has drained and placed in maintenance hold. Technicians use this queue to clear repair backlogs.",
-        flags: [
-          ["labels in (slurm-drain, ...)", "Labels tagged automatically by slurmctld prolog/epilog or site operators"],
-          ["ORDER BY created ASC", "Surfaces oldest drained nodes to prevent cluster capacity starvation"]
-        ],
-        subcommands: [
-          ['(text ~ "gpu-worker-042") AND labels in (drain, slurm-drain)', "Check why a specific node was marked drained in Slurm"],
-          ['text ~ "scontrol update NodeName" AND statusCategory != Done', "Find tickets referencing manual Slurm drain or resume commands"]
-        ],
-        tip: "Verify current live Slurm state on jumpbox with 'sinfo -N -n <node> -o \"%N %T %E\"'",
-        tags: ["slurm", "drain", "cordon", "scheduler", "cluster", "maintenance", "scontrol", "sinfo"]
+        id: "jira-unassigned",
+        desc: "Open tickets nobody has picked up",
+        cmd: "project = \"$PROJECT\" AND assignee is EMPTY AND statusCategory != Done ORDER BY priority DESC, created ASC",
+        tags: ["unassigned", "triage", "queue", "empty"]
       },
       {
-        id: "jql-slurm-k8s",
-        desc: "Query Kubernetes worker nodes marked Cordoned, NotReady, or Evacuated",
-        cmd: '(summary ~ "NotReady" OR summary ~ "Cordoned" OR labels in (k8s-notready, k8s-cordoned)) AND statusCategory != Done ORDER BY created DESC',
-        details: "Triage Kubernetes GPU worker clusters. Finds nodes where the Kubelet has stopped responding, container runtime (containerd/docker) crashed, or node was cordoned.",
-        flags: [
-          ["summary ~ \"NotReady\"", "Node condition NodeReady=False or NodeReady=Unknown"],
-          ["labels in (k8s-cordoned, ...)", "Node scheduling disabled by cluster administrator via 'kubectl cordon'"]
-        ],
+        id: "jira-stale",
+        desc: "Open tickets with no update for a week",
+        cmd: "project = \"$PROJECT\" AND statusCategory != Done AND updated <= -7d ORDER BY updated ASC",
         subcommands: [
-          ['text ~ "gpu-worker-042" AND summary ~ "k8s"', "Check Kubernetes cluster events and tickets for target node"],
-          ['text ~ "PLEG is not healthy" AND statusCategory != Done', "Find nodes reporting Process Lifecycle Event Generator runtime stalls"]
+          ["project = \"$PROJECT\" AND statusCategory = \"In Progress\" AND updated <= -3d ORDER BY updated ASC", "In progress but quiet for 3 days"],
+          ["project = \"$PROJECT\" AND statusCategory != Done AND created <= -30d ORDER BY created ASC", "Open for more than 30 days"]
         ],
-        tip: "Check live K8s status via 'kubectl get node <node> -o wide' and 'kubectl describe node <node>'",
-        tags: ["k8s", "kubernetes", "cordon", "notready", "worker", "kubelet", "containerd"]
+        tags: ["stale", "aging", "stuck", "old"]
       },
       {
-        id: "jql-slurm-burnin",
-        desc: "Query hardware burn-in, acceptance testing, and factory validation failures",
-        cmd: '(summary ~ "burn-in" OR summary ~ "acceptance" OR summary ~ "L10 triage" OR labels in (burnin-fail, acceptance-fail)) AND statusCategory != Done',
-        details: "Tracks newly racked or repaired servers undergoing qualification tests (e.g. 24-hour GEMM GPU stress, HPL, FIO storage test, and NCCL all-reduce).",
+        id: "jira-urgent",
+        desc: "High-priority and overdue tickets",
+        cmd: "project = \"$PROJECT\" AND priority in (Highest, High) AND statusCategory != Done ORDER BY priority DESC, created ASC",
         flags: [
-          ["summary ~ \"burn-in\"", "Stress testing phases to catch infant mortality on silicon"],
-          ["labels in (burnin-fail, ...)", "Flags servers that failed thermal or compute stress tests prior to production handover"]
+          ["priority in (...)", "Use the priority names your Jira has"]
         ],
         subcommands: [
-          ['(text ~ "gpu-worker-042") AND summary ~ "burn-in"', "View burn-in logs and acceptance history for target node"],
-          ['text ~ "HPL failed" OR text ~ "nccl-tests failed" AND statusCategory != Done', "Find nodes failing high-performance cluster benchmarks"]
+          ["project = \"$PROJECT\" AND due < now() AND statusCategory != Done ORDER BY due ASC", "Past their due date"],
+          ["project = \"$PROJECT\" AND priority in (Highest, High) AND assignee is EMPTY AND statusCategory != Done", "Urgent and unassigned"]
         ],
-        tip: "Run 'dcgmi diag -r 3' and 'nccl-tests' locally before closing out burn-in tickets",
-        tags: ["burn-in", "acceptance", "validation", "stress", "gemm", "hpl", "nccl", "factory"]
+        tags: ["priority", "urgent", "overdue", "due", "p1"]
       },
       {
-        id: "jql-slurm-maint",
-        desc: "Query scheduled maintenance windows, cluster cold-starts, and BIOS/firmware campaigns",
-        cmd: 'issuetype in ("Maintenance", "Scheduled Change") AND (summary ~ "BIOS" OR summary ~ "Firmware" OR summary ~ "upgrade" OR summary ~ "outage") AND "Target End" >= now() ORDER BY "Target Start" ASC',
-        details: "Tracks planned cluster downtime so technicians don't mistake maintenance reboots for unexpected hardware failures.",
+        id: "jira-sla",
+        desc: "SLA risk. These only work in Jira Service Management projects.",
+        cmd: "project = \"$PROJECT\" AND \"Time to resolution\" = breached() AND statusCategory != Done ORDER BY created ASC",
         flags: [
-          ["issuetype in (\"Maintenance\", ...)", "Standard change management ticket types"],
-          ["\"Target End\" >= now()", "Filters for active and future scheduled maintenance windows"]
+          ["\"Time to resolution\"", "Use the SLA names set up in your project"],
+          ["breached()", "The SLA has been missed"]
         ],
         subcommands: [
-          ['text ~ "Rack-14" AND issuetype = "Maintenance" AND "Target End" >= now()', "Check if target rack has upcoming power or networking downtime scheduled"],
-          ['summary ~ "Firmware update" AND statusCategory != Done', "Track fleet-wide firmware deployment progress"]
+          ["project = \"$PROJECT\" AND \"Time to resolution\" < remaining(\"2h\") AND statusCategory != Done", "Under 2 hours left on the SLA"],
+          ["project = \"$PROJECT\" AND \"Time to first response\" = breached() AND resolved >= -30d", "Missed first response in the last 30 days"]
         ],
-        tip: "Always verify change calendar before performing mid-day hardware reboots",
-        tags: ["maintenance", "scheduled", "change", "downtime", "bios", "firmware", "upgrade"]
+        tags: ["sla", "breached", "remaining", "service management", "jsm"]
       }
     ]
   },
   {
-    id: "queue-ops",
-    badge: "queue",
-    title: "Datacenter Operations & Queue Management",
-    subtitle: "P1 blockers, unassigned hardware queue, technician task assignments, and post-maintenance verification",
+    id: "jira-handoff",
+    badge: "shift",
+    title: "Shift Handoff & Reporting",
+    subtitle: "What happened today, this shift, and this week",
     commands: [
       {
-        id: "jql-ops-blocker",
-        desc: "Query Critical, Blocker, and P1 severity hardware outages currently active",
-        cmd: 'priority in (Highest, Blocker, Critical, P1) AND project in (DC, HW, INFRA) AND statusCategory != Done ORDER BY created ASC',
-        details: "The highest urgency queue in the datacenter. Lists cluster-blocking emergencies (e.g. fire suppression alarms, chiller failures, spine switch down, multi-node training blocks).",
-        flags: [
-          ["priority in (Highest, Blocker, ...)", "Highest severity classification"],
-          ["project in (DC, HW, INFRA)", "Limits search to physical infrastructure projects"],
-          ["ORDER BY created ASC", "Surfaces oldest open blockers first to respect MTTR SLA deadlines"]
-        ],
+        id: "jira-shift",
+        desc: "Everything that changed in the last 12 hours",
+        cmd: "project = \"$PROJECT\" AND updated >= -12h ORDER BY updated DESC",
         subcommands: [
-          ['priority in (Highest, Blocker) AND statusCategory != Done AND assignee is EMPTY', "Show unassigned P1 blockers requiring immediate technician pickup"],
-          ['priority = Highest AND created >= -24h', "Show all critical incidents raised in the past 24 hours"]
+          ["project = \"$PROJECT\" AND created >= -12h ORDER BY priority DESC", "Opened in the last 12 hours"],
+          ["project = \"$PROJECT\" AND resolved >= -12h ORDER BY resolved DESC", "Closed in the last 12 hours"],
+          ["project = \"$PROJECT\" AND status CHANGED AFTER -12h ORDER BY updated DESC", "Status changed in the last 12 hours"],
+          ["project = \"$PROJECT\" AND statusCategory = \"In Progress\" ORDER BY assignee, updated DESC", "In progress, grouped by person"]
         ],
-        tip: "Review this query at the start of every shift handover!",
-        tags: ["p1", "blocker", "critical", "highest", "severity", "urgent", "emergency", "sla"]
+        tip: "Change -12h to match your shift length.",
+        tags: ["shift", "handoff", "turnover", "today", "12h"]
       },
       {
-        id: "jql-ops-unassigned",
-        desc: "Query unassigned tickets in the Datacenter Hardware Operations queue",
-        cmd: 'project in (DC, HW, INFRA) AND assignee is EMPTY AND statusCategory = "To Do" ORDER BY priority DESC, created ASC',
-        details: "The general dispatch inbox. Technicians pull new hardware repair tasks, drive swaps, and cable inspections from this query.",
-        flags: [
-          ["assignee is EMPTY", "Finds tickets not yet claimed by any technician"],
-          ["statusCategory = \"To Do\"", "Filters out tickets already in progress or completed"]
-        ],
+        id: "jira-weekly",
+        desc: "Daily, weekly, and monthly counts",
+        cmd: "project = \"$PROJECT\" AND created >= startOfDay() ORDER BY created DESC",
         subcommands: [
-          ['project = "HW" AND assignee is EMPTY AND labels = "drive-swap"', "Filter unassigned drive swap tasks"],
-          ['project = "HW" AND assignee is EMPTY AND labels = "cable-check"', "Filter unassigned optical cable cleaning/inspection tasks"]
+          ["project = \"$PROJECT\" AND resolved >= startOfDay() ORDER BY resolved DESC", "Closed today"],
+          ["project = \"$PROJECT\" AND created >= startOfWeek() ORDER BY created DESC", "Opened this week"],
+          ["project = \"$PROJECT\" AND resolved >= startOfWeek() ORDER BY resolved DESC", "Closed this week"],
+          ["project = \"$PROJECT\" AND created >= startOfMonth(-1) AND created < startOfMonth() ORDER BY created ASC", "Opened last month"]
         ],
-        tip: "Assign ticket to yourself ('assignee = currentUser()') before entering the datacenter cage",
-        tags: ["unassigned", "queue", "inbox", "dispatch", "todo", "triage", "operations"]
-      },
-      {
-        id: "jql-ops-my-tickets",
-        desc: "Query all active tickets assigned to the currently logged-in technician",
-        cmd: 'assignee = currentUser() AND statusCategory in ("To Do", "In Progress") ORDER BY priority DESC, updated DESC',
-        details: "Personal technician workboard query. Shows your active repair assignments, pending verifications, and parts in transit.",
-        flags: [
-          ["assignee = currentUser()", "Dynamically evaluates to whoever is logged into Jira"],
-          ["statusCategory in (...)", "Includes work you need to do and work actively underway"]
-        ],
-        subcommands: [
-          ['assignee = currentUser() AND status = "In Progress"', "Show tickets you are actively working on right now"],
-          ['assignee = currentUser() AND updated <= -3d AND statusCategory != Done', "Flag stale tickets on your board that have not had an update in 3 days"]
-        ],
-        tip: "Bookmark this query in your browser for 1-click access to your daily shift tasks",
-        tags: ["my-tickets", "assignee", "currentuser", "workboard", "tasks", "technician"]
-      },
-      {
-        id: "jql-ops-resolved-today",
-        desc: "Query recently resolved tickets (last 24 hours) for post-maintenance burn-in audit",
-        cmd: 'project in (DC, HW, INFRA) AND statusCategory = Done AND resolved >= -24h ORDER BY resolved DESC',
-        details: "Shift handover and quality audit query. Review what physical components were replaced in the last 24 hours and verify that nodes have successfully rejoined the scheduler.",
-        flags: [
-          ["resolved >= -24h", "Matches issues closed within the past 24 hours"],
-          ["statusCategory = Done", "Filters for completed tickets"]
-        ],
-        subcommands: [
-          ['project in (DC, HW) AND resolved >= -7d AND labels in (rma, replacement)', "Weekly audit of all replaced hardware components"],
-          ['resolution = "Fixed" AND resolved >= startOfDay() ORDER BY resolved DESC', "Show all issues successfully repaired since midnight today"]
-        ],
-        tip: "Great for writing shift pass-down logs for incoming technicians",
-        tags: ["resolved", "done", "audit", "handover", "completed", "shift", "passdown"]
+        tags: ["report", "weekly", "monthly", "metrics", "startofweek"]
       }
     ]
   },
   {
-    id: "jira-api-cli",
+    id: "jira-api",
     badge: "api",
-    title: "Jira REST API & CLI Automation",
-    subtitle: "Automate ticket lookups, create hardware incident reports, and post triage notes via curl and jira-cli",
+    title: "Jira REST API & Automation",
+    subtitle: "Query, comment, transition, and file hardware incident tickets via curl",
     commands: [
       {
-        id: "api-curl-search",
-        desc: "Query Jira tickets using JQL via `curl` and parse key fields with `jq`",
-        cmd: 'curl -s -u "$JIRA_USER:$JIRA_API_TOKEN" -H "Content-Type: application/json" \\\n  "https://$JIRA_HOST/rest/api/3/search?jql=$(echo \'text ~ "gpu-worker-042" AND statusCategory != Done\' | jq -sRr @uri)&fields=key,summary,priority,status,assignee" \\\n  | jq \'.issues[] | {key: .key, summary: .fields.summary, priority: .fields.priority.name, status: .fields.status.name, assignee: .fields.assignee.displayName}\'',
-        details: "Queries the Jira Cloud v3 or Data Center v2 REST search API from your terminal or diagnostic scripts. URL-encodes the JQL query using 'jq -sRr @uri' to avoid encoding breakages.",
+        id: "jira-curl-search",
+        desc: "Execute JQL query via REST API using curl and extract keys and summaries with jq",
+        cmd: "curl -s -u \"$JIRA_EMAIL:$JIRA_TOKEN\" -H \"Content-Type: application/json\" \\\n  \"https://jira.corp.internal/rest/api/3/search?jql=text~%22$NODE%22+AND+statusCategory!=Done\" | jq -r '.issues[] | \"\\(.key): \\(.fields.summary)\"'",
         flags: [
-          ["-u \"$JIRA_USER:$JIRA_API_TOKEN\"", "Authenticates via email & API token (Cloud) or Bearer Personal Access Token PAT (Data Center)"],
-          ["&fields=key,summary,...", "Restricts returned JSON payload to only needed fields, speeding up queries 10x"],
-          ["jq -sRr @uri", "Safely URL-encodes spaces, quotes, and operators in JQL for HTTP GET parameters"]
+          ["-u email:token", "HTTP Basic authentication using Jira API Token (export JIRA_TOKEN)"],
+          ["/rest/api/3/search", "Standard Jira Cloud & DC REST search endpoint"],
+          ["jq -r ...", "Extracts ticket key, assignee, and summary into clean terminal lines"]
         ],
         subcommands: [
-          ['curl -s -H "Authorization: Bearer $JIRA_PAT" "https://$JIRA_HOST/rest/api/2/search?jql=text~%22gpu-worker-042%22" | jq \'.total\'', "Query Jira Data Center / Server using a Personal Access Token (PAT)"],
-          ['curl -s -u "$JIRA_USER:$JIRA_API_TOKEN" "https://$JIRA_HOST/rest/api/3/issue/HW-1234?fields=comment" | jq \'.fields.comment.comments[-1].body\'', "Fetch the latest technician triage comment on a specific ticket"]
+          ["jira issue list -q \"text ~ \\\"$NODE\\\" AND statusCategory != Done\"", "Using the official Jira CLI (jira)"],
+          ["curl -s -u \"$JIRA_EMAIL:$JIRA_TOKEN\" \"https://jira.corp.internal/rest/api/3/issue/$TICKET\" | jq .fields.status.name", "Fetch status of a single ticket"]
         ],
-        tip: "Set JIRA_HOST='yourcompany.atlassian.net' and store your API token in ~/.jira_token",
-        tags: ["curl", "api", "rest", "jql", "search", "jq", "automation", "token"]
+        tip: "Never hardcode passwords; use environment variables or a netrc file.",
+        tags: ["api", "rest", "curl", "json", "jq", "cli", "token"]
       },
       {
-        id: "api-curl-create",
-        desc: "Create a new hardware incident ticket via Jira REST API using `curl` and JSON payload",
-        cmd: 'curl -s -X POST -u "$JIRA_USER:$JIRA_API_TOKEN" \\\n  -H "Content-Type: application/json" "https://$JIRA_HOST/rest/api/3/issue" \\\n  -d \'{\n    "fields": {\n      "project": { "key": "HW" },\n      "summary": "[gpu-worker-042] GPU 3 SXM Row Remap Failure (Xid 79)",\n      "issuetype": { "name": "Incident" },\n      "priority": { "name": "High" },\n      "labels": ["gpu-fail", "rma-needed", "h200"],\n      "description": {\n        "type": "doc",\n        "version": 1,\n        "content": [\n          {\n            "type": "paragraph",\n            "content": [\n              { "type": "text", "text": "Server gpu-worker-042 reported fatal GPU 3 row remap exhaustion. DCGM diag -r 3 failed. RMA required." }\n            ]\n          }\n        ]\n      }\n    }\n  }\' | jq \'{key: .key, self: .self}\'',
-        details: "Automate incident ticket creation directly from local diagnostic scripts (e.g. when an automated health check detects a dead GPU, unseated drive, or link down).",
-        flags: [
-          ["-X POST", "HTTP method to create new issue resource"],
-          ["\"project\": { \"key\": \"HW\" }", "The target Jira project key (e.g. HW, DC, INFRA)"],
-          ["Atlassian Document Format (ADF)", "Jira Cloud v3 uses structured ADF format for description; Jira Server/Data Center uses plain string"]
-        ],
+        id: "jira-curl-comment",
+        desc: "Post diagnostic telemetry or physical triage findings directly into ticket comments",
+        cmd: "curl -s -u \"$JIRA_EMAIL:$JIRA_TOKEN\" -X POST \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"body\": \"Triage Note: Node $NODE in rack $RACK slot $POSITION inspected. Reseated PCIe riser and verified GPU DOM levels normal.\"}' \\\n  \"https://jira.corp.internal/rest/api/2/issue/$TICKET/comment\"",
         subcommands: [
-          ['# Jira Server / Data Center (v2 plain text format)\ncurl -s -X POST -H "Authorization: Bearer $JIRA_PAT" -H "Content-Type: application/json" \\\n  "https://$JIRA_HOST/rest/api/2/issue" -d \'{"fields":{"project":{"key":"HW"},"summary":"[node-042] Drive Failed","issuetype":{"name":"Incident"},"description":"Disk /dev/nvme0n1 failed SMART"}}', "Jira Data Center v2 syntax using simple text strings"]
+          ["jira issue comment add $TICKET \"Reseated OSFP transceiver; link up with 0 BER errors.\"", "Via Jira CLI tool"],
+          ["curl -s -u \"$JIRA_EMAIL:$JIRA_TOKEN\" -X POST -H \"X-Atlassian-Token: no-check\" -F \"file=@/tmp/dcgmi-diag.log\" \"https://jira.corp.internal/rest/api/2/issue/$TICKET/attachments\"", "Attach raw diagnostic log file to ticket"]
         ],
-        tip: "Always include the server hostname in square brackets at the start of the summary: '[node-042] ...'",
-        tags: ["create", "issue", "api", "rest", "post", "ticket", "curl", "json"]
+        tip: "Use the REST API in automation scripts to append BMC SEL logs or DCGM reports automatically.",
+        tags: ["comment", "log", "attachment", "curl", "triage"]
+      }
+    ]
+  },
+  {
+    id: "jira-reference",
+    badge: "jql",
+    title: "JQL Quick Reference",
+    subtitle: "Operators, dates, functions, and text search rules",
+    commands: [
+      {
+        id: "jira-operators",
+        desc: "The operators you'll use most",
+        cmd: "field operator value AND field operator value ORDER BY field DESC",
+        flags: [
+          ["= / !=", "Exactly equal / not equal"],
+          ["~ / !~", "Contains text / doesn't contain text"],
+          ["in / not in", "Any of a list: status in (Open, Blocked)"],
+          ["is EMPTY / is not EMPTY", "Field has no value / has a value"],
+          [">= / <=", "Dates, numbers, and priorities"],
+          ["WAS / CHANGED", "Past values and changes, for status, assignee, and similar fields"],
+          ["AND / OR / NOT", "Combine conditions. Use parentheses when mixing AND with OR."]
+        ],
+        tags: ["operators", "syntax", "was", "changed", "empty"]
       },
       {
-        id: "api-curl-comment",
-        desc: "Append a technician triage note or command output comment to an existing ticket",
-        cmd: 'curl -s -X POST -u "$JIRA_USER:$JIRA_API_TOKEN" \\\n  -H "Content-Type: application/json" \\\n  "https://$JIRA_HOST/rest/api/3/issue/HW-1234/comment" \\\n  -d \'{\n    "body": {\n      "type": "doc",\n      "version": 1,\n      "content": [\n        {\n          "type": "paragraph",\n          "content": [\n            { "type": "text", "text": "Technician replaced GPU 3 in bay 3. Re-ran dcgmi diag -r 3: ALL TESTS PASSED. Node resumed in Slurm." }\n          ]\n        }\n      ]\n    }\n  }\' | jq \'.id\'',
-        details: "Allows scripts or technicians to append diagnostic logs, serial verification, and post-repair test results directly into the Jira incident record.",
+        id: "jira-dates",
+        desc: "Dates and common functions",
+        cmd: "created >= -7d AND created < startOfDay()",
         flags: [
-          ["HW-1234", "The target Jira ticket key"],
-          ["/comment", "The comments sub-resource endpoint"]
+          ["-7d / -12h / -2w", "Relative time: days, hours, weeks"],
+          ["startOfDay() / startOfWeek() / startOfMonth()", "Start of the period. Add an offset like startOfDay(-1)."],
+          ["now()", "The current time"],
+          ["currentUser()", "Whoever runs the query"],
+          ["membersOf(\"group\")", "Everyone in a group"],
+          ["statusCategory", "To Do, In Progress, or Done, whatever your status names are"]
         ],
-        subcommands: [
-          ['# Jira Server / Data Center (v2 format)\ncurl -s -X POST -H "Authorization: Bearer $JIRA_PAT" -H "Content-Type: application/json" \\\n  "https://$JIRA_HOST/rest/api/2/issue/HW-1234/comment" -d \'{"body":"Technician inspected MPO optical cable: cleaned ferrule and link restored."}\'', "Append note to Jira Data Center issue"]
-        ],
-        tip: "Paste the output of 'mlxlink' or 'dcgmi diag' into comments for warranty audit proof",
-        tags: ["comment", "note", "triage", "update", "api", "rest", "log", "worklog"]
+        tags: ["dates", "functions", "startofday", "now", "membersof", "statuscategory"]
       },
       {
-        id: "api-curl-transition",
-        desc: "Transition ticket workflow status (e.g. Move to 'In Progress' or 'Resolved')",
-        cmd: '# 1. Fetch available workflow transition IDs for ticket\ncurl -s -u "$JIRA_USER:$JIRA_API_TOKEN" "https://$JIRA_HOST/rest/api/3/issue/HW-1234/transitions" | jq \'.transitions[] | {id: .id, name: .name}\'\n\n# 2. Execute transition using desired ID (e.g. ID "31" for Resolved)\ncurl -s -X POST -u "$JIRA_USER:$JIRA_API_TOKEN" -H "Content-Type: application/json" \\\n  "https://$JIRA_HOST/rest/api/3/issue/HW-1234/transitions" \\\n  -d \'{"transition": {"id": "31"}}\'',
-        details: "Moves tickets through your company's workflow states automatically when technician actions complete (e.g. automatically mark 'Resolved' when burn-in test succeeds).",
+        id: "jira-text-rules",
+        desc: "How text search behaves, which explains most surprising results",
+        cmd: "text ~ \"\\\"exact phrase\\\"\" AND text ~ \"prefix*\"",
         flags: [
-          ["GET /transitions", "Returns all valid next-step states and their numerical IDs for this specific issue"],
-          ["POST /transitions", "Executes the transition state change"]
+          ["\\\"phrase\\\"", "Exact words in order. Punctuation is mostly ignored, so node-01 can also match node 01."],
+          ["word*", "Prefix match. *word doesn't work."],
+          ["No quotes inside", "Without inner quotes, the words can appear anywhere and in any order"],
+          ["~ isn't exact", "It matches whole words, so gpu won't match gpu01. Use gpu* for that."],
+          ["= on text", "Text fields don't support =, so use ~"]
         ],
-        subcommands: [
-          ['curl -s -X POST -u "$JIRA_USER:$JIRA_API_TOKEN" -H "Content-Type: application/json" "https://$JIRA_HOST/rest/api/3/issue/HW-1234/transitions" -d \'{"transition":{"id":"21"}}\'', "Move issue from 'To Do' to 'In Progress'"]
-        ],
-        tip: "Transition IDs vary between projects—always query GET /transitions first to find the exact ID",
-        tags: ["transition", "status", "resolve", "close", "workflow", "api", "rest"]
+        tip: "If a search misses a ticket you know exists, try a prefix search or fewer words.",
+        tags: ["text", "search", "wildcard", "phrase", "quotes", "syntax"]
       },
       {
-        id: "cli-jira-list",
-        desc: "Terminal triage using `jira` CLI (go-jira / atlassian-cli)",
-        cmd: 'jira issue list -q "(text ~ \'gpu-worker-042\') AND statusCategory != Done" --columns key,priority,summary,status,assignee',
-        details: "Fast terminal-based workflow for technicians who prefer staying in their bash terminal or tmux session without opening a heavy web browser.",
+        id: "jira-use-it",
+        desc: "Running a query and keeping it",
+        cmd: "Filters > View all issues > Switch to JQL > paste > Enter",
         flags: [
-          ["-q \"...\"", "Passes arbitrary raw JQL query directly to Jira"],
-          ["--columns ...", "Customizes terminal table columns for compact display on small screens"]
+          ["Save as", "Saves the query as a filter you can reopen or share"],
+          ["Subscribe", "Emails you the results on a schedule, useful for stale tickets or RMAs"],
+          ["Export", "Download the results as a CSV"]
         ],
-        subcommands: [
-          ['jira issue list -q "assignee = currentUser() AND statusCategory != Done"', "List your active assigned tickets from your terminal"],
-          ['jira issue view HW-1234', "View ticket details, description, and comments in terminal pager"],
-          ['jira issue comment add HW-1234 -m "Inspected node: reseated PCIe riser card."', "Quickly add a triage note from command line"]
-        ],
-        tip: "Install via 'brew install jira-cli' or download from github.com/ankitpokhrel/jira-cli",
-        tags: ["cli", "jira-cli", "terminal", "go-jira", "tmux", "bash", "table"]
+        tip: "Menu names vary by Jira version.",
+        tags: ["filter", "save", "subscribe", "export", "advanced search"]
       }
     ]
   }
 ];
 
-// Interactive JQL Query Composer Recipes
-const JIRA_COMPOSER_RECIPES = {
-  "node-all": {
-    name: "All Tickets for Server / Node Hostname",
-    defaultArg: "gpu-worker-042",
-    placeholder: "Enter hostname (e.g. gpu-worker-042)...",
-    desc: "Finds all historical, maintenance, and active tickets ever logged for this specific server node.",
-    build: (val) => `(summary ~ "${val}" OR description ~ "${val}" OR text ~ "${val}" OR "Host Name" ~ "${val}") ORDER BY created DESC`
-  },
-  "node-open": {
-    name: "Open / Active Incidents on Target Node",
-    defaultArg: "gpu-worker-042",
-    placeholder: "Enter hostname...",
-    desc: "Lists only currently unresolved incidents and ongoing maintenance on this specific server.",
-    build: (val) => `(text ~ "${val}") AND statusCategory != Done ORDER BY priority DESC, created ASC`
-  },
-  "rack-all": {
-    name: "All Tickets for Physical Rack (Rack-14 / R14)",
-    defaultArg: "Rack-14",
-    placeholder: "Enter rack identifier (e.g. Rack-14, R14)...",
-    desc: "Locates all tickets affecting an entire rack enclosure, including nodes, switches, and PDUs.",
-    build: (val) => `(text ~ "${val}" OR text ~ "${val.replace('-', ' ')}" OR summary ~ "${val}") ORDER BY created DESC`
-  },
-  "rack-ru": {
-    name: "Tickets for Specific RU Slot in Rack",
-    defaultArg: "RU21",
-    placeholder: "Enter RU slot (e.g. RU21, U21)...",
-    desc: "Combines rack and unit position to pinpoint tickets for a specific server elevation.",
-    build: (val) => `(text ~ "Rack-14") AND (text ~ "${val}" OR text ~ "${val.replace('RU', 'U')}" OR "Rack Unit" ~ "${val.replace('RU', '')}") ORDER BY created DESC`
-  },
-  "serial-chassis": {
-    name: "Chassis Serial Number / Service Tag",
-    defaultArg: "CZ240101AB",
-    placeholder: "Enter serial or service tag...",
-    desc: "Direct lookup by physical chassis serial (from dmidecode or luggage tag).",
-    build: (val) => `(text ~ "${val}" OR "Serial Number" ~ "${val}" OR "Service Tag" ~ "${val}") ORDER BY created DESC`
-  },
-  "serial-component": {
-    name: "Component Serial (GPU SXM / NVMe / HCA)",
-    defaultArg: "1324823001234",
-    placeholder: "Enter GPU or NVMe serial number...",
-    desc: "Tracks component-level warranty history and vendor RMA records.",
-    build: (val) => `(text ~ "${val}" OR summary ~ "${val}") ORDER BY created DESC`
-  },
-  "open-p1": {
-    name: "Open P1 / Blocker Hardware Outages",
-    defaultArg: "HW",
-    placeholder: "Enter Jira project key (e.g. HW, DC, INFRA)...",
-    desc: "Surfaces all critical, blocker, and highest-priority hardware incidents in a project.",
-    build: (val) => `project = "${val}" AND priority in (Highest, Blocker, Critical, P1) AND statusCategory != Done ORDER BY created ASC`
-  },
-  "active-rma": {
-    name: "Active Hardware RMAs (Awaiting Parts / Vendor)",
-    defaultArg: "NVIDIA",
-    placeholder: "Enter vendor or component (e.g. NVIDIA, Dell, Supermicro)...",
-    desc: "Filters active warranty claims awaiting shipment, delivery, or core return.",
-    build: (val) => `labels in (rma, hardware-rma) AND (text ~ "${val}" OR "Vendor" ~ "${val}") AND statusCategory != Done ORDER BY updated DESC`
-  },
-  "slurm-drains": {
-    name: "Slurm Drained & Cordoned Nodes Queue",
-    defaultArg: "slurm-drain",
-    placeholder: "Enter drain label or partition...",
-    desc: "Lists compute nodes removed from active scheduling awaiting technician repair.",
-    build: (val) => `labels in (${val}, drained-node, cordoned) AND statusCategory != Done ORDER BY priority DESC`
-  },
-  "unassigned-queue": {
-    name: "Unassigned Datacenter Hardware Queue",
-    defaultArg: "HW",
-    placeholder: "Enter Jira project key...",
-    desc: "Shows unclaimed hardware triage tickets in need of technician pickup.",
-    build: (val) => `project = "${val}" AND assignee is EMPTY AND statusCategory = "To Do" ORDER BY priority DESC, created ASC`
-  },
-  "recent-closed": {
-    name: "Recently Resolved (Last 24 Hours Verification)",
-    defaultArg: "HW",
-    placeholder: "Enter Jira project key...",
-    desc: "Audits hardware repairs closed in the last 24 hours for shift handover verification.",
-    build: (val) => `project = "${val}" AND statusCategory = Done AND resolved >= -24h ORDER BY resolved DESC`
-  }
-};
+const JIRA_DATA = JIRA_CHEAT_SHEET_DATA;
 
-// Global state for JIRA sheet
-let state = {
+// State
+const state = {
   searchQuery: "",
   activeCategory: "all",
-  bookmarks: new Set(JSON.parse(localStorage.getItem("jira_cs_bookmarks") || "[]")),
   savedOnly: false,
   compact: localStorage.getItem("linux_cs_compact") === "1",
-  theme: localStorage.getItem("linux_cs_theme") || "dark"
+  theme: localStorage.getItem("linux_cs_theme") || "dark",
+  bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("jira_cs_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
 
-// DOM references
-const searchInput = document.getElementById("search-input");
-const categoryTabsEl = document.getElementById("category-tabs");
+// DOM Elements
 const sectionsContainer = document.getElementById("sections-container");
-const commandCountEl = document.getElementById("command-count");
-const totalCommandsCountEl = document.getElementById("total-commands-count");
-const savedCountEl = document.getElementById("saved-count");
+const categoryTabsEl = document.getElementById("category-tabs");
+const searchInput = document.getElementById("search-input");
 const savedFilterBtn = document.getElementById("saved-filter-btn");
+const savedCountEl = document.getElementById("saved-count");
 const densityToggleBtn = document.getElementById("density-toggle");
-const printBtn = document.getElementById("print-btn");
+const densityLabel = document.getElementById("density-label");
 const themeToggleBtn = document.getElementById("theme-toggle");
+const visibleCountEl = document.getElementById("visible-count");
+const emptyStateEl = document.getElementById("empty-state");
 const resetSearchBtn = document.getElementById("reset-search-btn");
+const toast = document.getElementById("toast");
+const toastText = document.getElementById("toast-text");
+const printBtn = document.getElementById("print-btn");
 
-function getFilteredData() {
-  const query = state.searchQuery.toLowerCase().trim();
-
-  return JIRA_CHEAT_SHEET_DATA.map((section) => {
-    if (state.activeCategory !== "all" && section.id !== state.activeCategory) {
-      return null;
-    }
-
-    const filteredCommands = section.commands.filter((cmd) => {
-      if (state.savedOnly && !state.bookmarks.has(cmd.id)) {
-        return false;
-      }
-
-      if (!query) return true;
-
-      const inDesc = cmd.desc.toLowerCase().includes(query);
-      const inCmd = cmd.cmd.toLowerCase().includes(query);
-      const inDetails = cmd.details && cmd.details.toLowerCase().includes(query);
-      const inTags = cmd.tags && cmd.tags.some((t) => t.toLowerCase().includes(query));
-      const inSub = cmd.subcommands && cmd.subcommands.some(([c, d]) =>
-        c.toLowerCase().includes(query) || d.toLowerCase().includes(query)
-      );
-
-      return inDesc || inCmd || inDetails || inTags || inSub;
-    });
-
-    if (filteredCommands.length === 0) return null;
-
-    return {
-      ...section,
-      commands: filteredCommands
-    };
-  }).filter(Boolean);
-}
-
-function renderCategoryTabs() {
-  if (!categoryTabsEl) return;
-  const categories = [
-    { id: "all", label: "All JQL & API Queries" },
-    ...JIRA_CHEAT_SHEET_DATA.map((s) => ({ id: s.id, label: s.title.split("—")[0].trim() }))
-  ];
-
-  categoryTabsEl.innerHTML = categories
-    .map(
-      (cat) => `
-    <button
-      type="button"
-      class="cat-tab ${state.activeCategory === cat.id ? "active" : ""}"
-      data-cat="${cat.id}"
-      role="tab"
-      aria-selected="${state.activeCategory === cat.id}"
-    >
-      ${escapeHtml(cat.label)}
-    </button>
-  `
-    )
-    .join("");
-}
-
-function renderSections() {
-  if (!sectionsContainer) return;
-  const filteredData = getFilteredData();
-  const totalVisibleCommands = filteredData.reduce((acc, s) => acc + s.commands.length, 0);
-
-  if (commandCountEl) commandCountEl.textContent = totalVisibleCommands;
-  if (savedCountEl) savedCountEl.textContent = state.bookmarks.size;
-
-  const totalAll = JIRA_CHEAT_SHEET_DATA.reduce((acc, s) => acc + s.commands.length, 0);
-  if (totalCommandsCountEl) totalCommandsCountEl.textContent = totalAll;
-
-  if (filteredData.length === 0) {
-    sectionsContainer.innerHTML = `
-      <div class="empty-state">
-        <div class="empty-state-icon">🔍</div>
-        <h3>No matching Jira queries found</h3>
-        <p>Try searching for a different keyword, hostname, or clear active filters.</p>
-        <button type="button" class="btn" onclick="resetAllFilters()">Reset All Filters</button>
-      </div>
-    `;
-    return;
-  }
-
-  sectionsContainer.innerHTML = filteredData.map((section) => renderSectionCard(section)).join("");
-}
-
-function renderSectionCard(section) {
-  return `
-    <section class="section-card" id="${section.id}">
-      <div class="section-header">
-        <div class="section-badge">${escapeHtml(section.badge)}</div>
-        <div class="section-title-wrap">
-          <h2 class="section-title">${escapeHtml(section.title)}</h2>
-          <p class="section-subtitle">${escapeHtml(section.subtitle)}</p>
-        </div>
-      </div>
-      <div class="commands-grid">
-        ${section.commands.map((cmd) => renderCommandCard(cmd, section)).join("")}
-      </div>
-    </section>
-  `;
-}
-
-function renderCommandCard(cmd, section) {
-  const isBookmarked = state.bookmarks.has(cmd.id);
-
-  return `
-    <div class="command-card" id="card-${cmd.id}">
-      <div class="cmd-top-row">
-        <div class="cmd-desc-wrap">
-          <span class="cmd-desc">${escapeHtml(cmd.desc)}</span>
-        </div>
-        <div class="cmd-actions">
-          <button
-            type="button"
-            class="bookmark-btn ${isBookmarked ? "active" : ""}"
-            data-bookmark-id="${cmd.id}"
-            title="${isBookmarked ? "Remove from saved" : "Save for quick access"}"
-            aria-label="${isBookmarked ? "Remove from saved" : "Save for quick access"}"
-          >
-            ★
-          </button>
-        </div>
-      </div>
-
-      <div class="cmd-code-box" data-copy="${escapeHtml(cmd.cmd)}" title="Click to copy query">
-        <div class="cmd-code-header">
-          <span class="cmd-lang-label">JQL / API</span>
-          <span class="copy-hint">Copy</span>
-        </div>
-        <pre class="cmd-pre"><code class="cmd-code">${escapeHtml(cmd.cmd)}</code></pre>
-      </div>
-
-      ${cmd.details ? `<div class="cmd-details-box"><p>${escapeHtml(cmd.details)}</p></div>` : ""}
-
-      ${
-        cmd.flags && cmd.flags.length > 0
-          ? `
-        <div class="cmd-flags-wrap">
-          <span class="mini-heading">Syntax &amp; Parameters</span>
-          <div class="flags-table">
-            ${cmd.flags
-              .map(
-                ([flag, desc]) => `
-              <div class="flag-row">
-                <code class="flag-code">${escapeHtml(flag)}</code>
-                <span class="flag-desc">${escapeHtml(desc)}</span>
-              </div>
-            `
-              )
-              .join("")}
-          </div>
-        </div>
-      `
-          : ""
-      }
-
-      ${
-        cmd.subcommands && cmd.subcommands.length > 0
-          ? `
-        <div class="cmd-subcommands-wrap">
-          <span class="mini-heading">Practical Variations &amp; Recipes</span>
-          <div class="subcommands-list">
-            ${cmd.subcommands
-              .map(
-                ([subCmd, subDesc]) => `
-              <div class="subcommand-item">
-                <div class="sub-code-line" data-copy="${escapeHtml(subCmd)}" title="Click to copy">
-                  <code>${escapeHtml(subCmd)}</code>
-                  <span class="copy-hint-tiny">Copy</span>
-                </div>
-                <div class="sub-desc">${escapeHtml(subDesc)}</div>
-              </div>
-            `
-              )
-              .join("")}
-          </div>
-        </div>
-      `
-          : ""
-      }
-
-      <div class="cmd-footer-row">
-        ${
-          cmd.tags && cmd.tags.length > 0
-            ? `
-          <div class="cmd-tags-list">
-            ${cmd.tags.map((t) => `<span class="cmd-tag">${escapeHtml(t)}</span>`).join("")}
-          </div>
-        `
-            : "<div></div>"
-        }
-        ${cmd.tip ? `<span class="cmd-tip-pill" title="${escapeHtml(cmd.tip)}">💡 ${escapeHtml(cmd.tip)}</span>` : ""}
-      </div>
-    </div>
-  `;
-}
+let toastTimer = null;
 
 function escapeHtml(str) {
-  if (!str) return "";
+  if (str == null) return "";
   return String(str)
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
-
-function copyToClipboard(text) {
-  if (!navigator.clipboard) {
-    const ta = document.createElement("textarea");
-    ta.value = text;
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand("copy");
-    document.body.removeChild(ta);
-    showToast("Copied query to clipboard!");
-    return;
-  }
-  navigator.clipboard.writeText(text).then(
-    () => showToast("Copied query to clipboard!"),
-    () => showToast("Failed to copy query")
-  );
+    .replace(/"/g, "&quot;");
 }
 
 function showToast(msg) {
-  const existing = document.querySelector(".toast-notification");
-  if (existing) existing.remove();
-
-  const toast = document.createElement("div");
-  toast.className = "toast-notification";
-  toast.textContent = msg;
-  document.body.appendChild(toast);
-
-  setTimeout(() => toast.classList.add("visible"), 10);
-  setTimeout(() => {
-    toast.classList.remove("visible");
-    setTimeout(() => toast.remove(), 250);
+  if (!toast) return;
+  toastText.textContent = msg;
+  toast.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    toast.classList.remove("show");
   }, 2200);
 }
 
-function resetAllFilters() {
-  state.searchQuery = "";
-  state.activeCategory = "all";
-  state.savedOnly = false;
-  if (searchInput) searchInput.value = "";
-  renderCategoryTabs();
-  renderSections();
+function copyToClipboard(text) {
+  if (window.AntigravityCommon && typeof window.AntigravityCommon.substituteVariables === "function") {
+    const subResult = window.AntigravityCommon.substituteVariables(text);
+    text = subResult.text;
+  }
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text).then(() => {
+      showToast("Copied query snippet to clipboard");
+    }).catch(() => fallbackCopy(text));
+  } else {
+    fallbackCopy(text);
+  }
+}
+
+function fallbackCopy(text) {
+  const ta = document.createElement("textarea");
+  ta.value = text;
+  document.body.appendChild(ta);
+  let copied = false;
+  try {
+    ta.select();
+    copied = typeof document.execCommand === "function" && document.execCommand("copy");
+  } catch (_) {
+  } finally {
+    ta.remove();
+  }
+  showToast(copied ? "Copied query snippet to clipboard" : "Clipboard unavailable. Select the query text to copy it manually.");
+}
+
+// Shell & language syntax highlighter
+function highlightCommand(raw) {
+  const escaped = escapeHtml(raw);
+  return escaped.replace(
+    /(^|\s|;|&&|\|\||\|)(sudo\s+)?([a-zA-Z0-9_.-]+)|('[^']*'|"[^"]*")|(\s--?[a-zA-Z0-9_-]+(?:=[a-zA-Z0-9_.,*/:-]+)?)|(\|\||&&|\|)/g,
+    (match, lead, sudoPart, cmdName, strLiteral, flagPart, operatorPart) => {
+      if (strLiteral) return `<span class="tok-str">${strLiteral}</span>`;
+      if (flagPart) return `<span class="tok-flag">${flagPart}</span>`;
+      if (operatorPart) return `<span class="tok-pipe">${operatorPart}</span>`;
+      if (cmdName) {
+        const prefix = lead || "";
+        const sudoHtml = sudoPart ? `<span class="tok-pipe">${sudoPart}</span>` : "";
+        return `${prefix}${sudoHtml}<span class="tok-cmd">${cmdName}</span>`;
+      }
+      return match;
+    }
+  );
+}
+
+function renderCategoryTabs() {
+  if (!categoryTabsEl) return;
+  const totalCommands = JIRA_CHEAT_SHEET_DATA.reduce((sum, s) => sum + s.commands.length, 0);
+  const optionsHtml = [
+    `<option value="all" ${state.activeCategory === "all" ? "selected" : ""}>All Sections (${totalCommands} recipes)</option>`
+  ];
+
+  for (const section of JIRA_CHEAT_SHEET_DATA) {
+    const isSelected = state.activeCategory === section.id ? "selected" : "";
+    optionsHtml.push(
+      `<option value="${section.id}" ${isSelected}>${escapeHtml(section.title)} (${section.commands.length})</option>`
+    );
+  }
+
+  const resetBtnHtml =
+    state.activeCategory !== "all"
+      ? `<button type="button" class="cat-reset-btn" data-cat="all" title="Show all sections">✕ Show All</button>`
+      : "";
+
+  categoryTabsEl.innerHTML = `
+    <div class="cat-dropdown-wrap">
+      <label class="cat-dropdown-label" for="category-select">Section:</label>
+      <select id="category-select" class="cat-select" aria-label="Filter by Jira section">
+        ${optionsHtml.join("")}
+      </select>
+      ${resetBtnHtml}
+    </div>
+  `;
+
+  const sel = document.getElementById("category-select");
+  if (sel) {
+    sel.addEventListener("change", (e) => {
+      state.activeCategory = e.target.value;
+      renderSections();
+    });
+  }
+
+  const resetBtn = categoryTabsEl.querySelector(".cat-reset-btn");
+  if (resetBtn) {
+    resetBtn.addEventListener("click", () => {
+      state.activeCategory = "all";
+      renderCategoryTabs();
+      renderSections();
+    });
+  }
+}
+
+function matchesSearch(cmdObj, section, query) {
+  if (!query) return true;
+  const terms = query.toLowerCase().split(/\s+/).filter(Boolean);
+  const haystack = [
+    cmdObj.desc,
+    cmdObj.cmd,
+    cmdObj.details || "",
+    cmdObj.tip || "",
+    ...(cmdObj.tags || []),
+    ...(cmdObj.flags || []).flat()
+  ]
+    .join(" ")
+    .toLowerCase();
+
+  return terms.every((t) => haystack.includes(t));
+}
+
+let allRenderedCards = [];
+function packMasonry() {
+  if (!sectionsContainer) return;
+  if (sectionsContainer.querySelectorAll(".section-card").length === 0) {
+    allRenderedCards = [];
+    return;
+  }
+  const directCards = [...sectionsContainer.querySelectorAll(":scope > .section-card")];
+  if (directCards.length > 0) {
+    allRenderedCards = directCards;
+  }
+  if (allRenderedCards.length === 0) return;
+
+  const containerWidth = sectionsContainer.clientWidth || window.innerWidth;
+  const colCount = Math.max(1, Math.min(allRenderedCards.length, Math.floor((containerWidth + 18) / (380 + 18))));
+  if (colCount <= 1) {
+    sectionsContainer.classList.remove("has-masonry");
+    sectionsContainer.replaceChildren(...allRenderedCards);
+    return;
+  }
+
+  sectionsContainer.classList.add("has-masonry");
+  const cols = Array.from({ length: colCount }, () => {
+    const col = document.createElement("div");
+    col.className = "masonry-col";
+    return col;
+  });
+  const colHeights = new Array(colCount).fill(0);
+  sectionsContainer.replaceChildren(...cols);
+
+  for (const card of allRenderedCards) {
+    let shortestIdx = 0;
+    for (let i = 1; i < colCount; i++) {
+      if (colHeights[i] < colHeights[shortestIdx]) {
+        shortestIdx = i;
+      }
+    }
+    cols[shortestIdx].appendChild(card);
+    colHeights[shortestIdx] += card.offsetHeight + 18;
+  }
+}
+
+let masonryResizeTimer;
+function scheduleMasonry() {
+  clearTimeout(masonryResizeTimer);
+  masonryResizeTimer = setTimeout(packMasonry, 40);
+}
+window.addEventListener("resize", scheduleMasonry);
+document.addEventListener("fullscreenchange", scheduleMasonry);
+
+if (typeof ResizeObserver !== "undefined" && sectionsContainer) {
+  let lastObservedWidth = 0;
+  const ro = new ResizeObserver((entries) => {
+    for (const entry of entries) {
+      const w = Math.round(entry.contentRect.width);
+      if (w > 0 && Math.abs(w - lastObservedWidth) > 10) {
+        lastObservedWidth = w;
+        scheduleMasonry();
+      }
+    }
+  });
+  ro.observe(sectionsContainer);
+}
+
+function renderSections() {
+  if (!sectionsContainer) return;
+  let visibleCommandsCount = 0;
+  const cardsHtml = [];
+
+  for (const section of JIRA_CHEAT_SHEET_DATA) {
+    if (state.activeCategory !== "all" && state.activeCategory !== section.id) {
+      continue;
+    }
+
+    const filteredCommands = section.commands.filter((cmdObj) => {
+      if (state.savedOnly && !state.bookmarks.has(cmdObj.id)) {
+        return false;
+      }
+      return matchesSearch(cmdObj, section, state.searchQuery);
+    });
+
+    if (filteredCommands.length === 0) continue;
+    visibleCommandsCount += filteredCommands.length;
+
+    const itemsHtml = filteredCommands
+      .map((item) => {
+        const isSaved = state.bookmarks.has(item.id);
+        const tipHtml = item.tip ? `<span class="tip-badge">${escapeHtml(item.tip)}</span>` : "";
+        const detailsHtml = item.details ? `<p class="cmd-details">${escapeHtml(item.details)}</p>` : "";
+
+        const flagsHtml =
+          item.flags && item.flags.length
+            ? `<div class="flag-pills">
+                ${item.flags
+                  .map(
+                    ([flag, exp]) =>
+                      `<span class="flag-pill"><code>${escapeHtml(flag)}</code> <span>${escapeHtml(exp)}</span></span>`
+                  )
+                  .join("")}
+              </div>`
+            : "";
+
+        const subcommandsHtml =
+          item.subcommands && item.subcommands.length
+            ? `<div class="subcmd-list">
+                <span class="subcmd-header">Subcommands, Variations &amp; Snippets</span>
+                ${item.subcommands
+                  .map(
+                    ([subcmd, exp]) =>
+                      `<div class="subcmd-row" data-copy="${escapeHtml(subcmd)}" title="Click to copy snippet">
+                        <code>${escapeHtml(subcmd)}</code>
+                        <span>${escapeHtml(exp)}</span>
+                      </div>`
+                  )
+                  .join("")}
+              </div>`
+            : "";
+
+        return `
+          <div class="cmd-item" id="${item.id}" data-id="${item.id}">
+            <div class="cmd-top-row">
+              <div class="cmd-desc">
+                <span>${escapeHtml(item.desc)}</span>
+                ${tipHtml}
+              </div>
+              <div class="cmd-actions">
+                <button
+                  type="button"
+                  class="icon-btn bookmark-btn ${isSaved ? "bookmarked" : ""}"
+                  data-bookmark-id="${item.id}"
+                  title="${isSaved ? "Remove bookmark" : "Bookmark snippet"}"
+                  aria-label="Bookmark snippet"
+                >
+                  ${isSaved ? "★" : "☆"}
+                </button>
+              </div>
+            </div>
+
+            <div class="cmd-code-box" data-copy="${escapeHtml(item.cmd)}" title="Click to copy snippet">
+              <code class="cmd-code">${highlightCommand(item.cmd)}</code>
+              <span class="copy-hint">Copy</span>
+            </div>
+
+            ${detailsHtml}
+            ${flagsHtml}
+            ${subcommandsHtml}
+          </div>
+        `;
+      })
+      .join("");
+
+    cardsHtml.push(`
+      <article class="section-card" id="sec-${section.id}">
+        <header class="section-header">
+          <div class="section-title-wrap">
+            <span class="section-badge">${escapeHtml(section.badge)}</span>
+            <div>
+              <h2 class="section-title">${escapeHtml(section.title)}</h2>
+              <p class="section-subtitle">${escapeHtml(section.subtitle)}</p>
+            </div>
+          </div>
+          <span class="count-badge">${filteredCommands.length}</span>
+        </header>
+        <div class="command-list">
+          ${itemsHtml}
+        </div>
+      </article>
+    `);
+  }
+
+  sectionsContainer.innerHTML = cardsHtml.join("");
+  packMasonry();
+  if (visibleCountEl) visibleCountEl.textContent = visibleCommandsCount;
+  if (savedCountEl) savedCountEl.textContent = state.bookmarks.size;
+
+  if (emptyStateEl) {
+    if (visibleCommandsCount === 0) {
+      emptyStateEl.classList.remove("hidden");
+      sectionsContainer.classList.add("hidden");
+    } else {
+      emptyStateEl.classList.add("hidden");
+      sectionsContainer.classList.remove("hidden");
+    }
+  }
 }
 
 function applyTheme(theme) {
   state.theme = theme;
-  document.documentElement.setAttribute("data-theme", theme);
-  try {
-    localStorage.setItem("linux_cs_theme", theme);
-  } catch (e) {}
+  if (window.AntigravityCommon && window.AntigravityCommon.applyTheme) {
+    window.AntigravityCommon.applyTheme(theme);
+  } else {
+    document.documentElement.setAttribute("data-theme", theme);
+    try { localStorage.setItem("linux_cs_theme", theme); } catch(e) {}
+  }
 }
 
 function applyDensity(compact) {
   state.compact = compact;
+  document.body.classList.toggle("compact-density", compact);
   document.body.classList.toggle("compact-mode", compact);
+  if (densityToggleBtn) {
+    densityToggleBtn.classList.toggle("active", compact);
+    densityToggleBtn.setAttribute("aria-pressed", compact ? "true" : "false");
+  }
+  if (densityLabel) {
+    densityLabel.textContent = compact ? "Relaxed" : "Compact";
+  }
   try {
     localStorage.setItem("linux_cs_compact", compact ? "1" : "0");
   } catch (e) {}
-}
-
-// -------------------------------------------------------------
-// Interactive JQL Query & Link Composer Logic
-// -------------------------------------------------------------
-function initJiraComposer() {
-  const recipeSelect = document.getElementById("jira-recipe-select");
-  const targetInput = document.getElementById("jira-target-input");
-  const hostInput = document.getElementById("jira-host-input");
-  const outputEl = document.getElementById("jira-composer-output");
-  const descEl = document.getElementById("jira-composer-desc");
-  const copyBtn = document.getElementById("jira-composer-copy");
-  const openBtn = document.getElementById("jira-composer-open");
-
-  if (!recipeSelect || !targetInput || !outputEl) return;
-
-  // Populate recipes
-  recipeSelect.innerHTML = Object.entries(JIRA_COMPOSER_RECIPES)
-    .map(([key, r]) => `<option value="${key}">${escapeHtml(r.name)}</option>`)
-    .join("");
-
-  function updateComposer() {
-    const key = recipeSelect.value;
-    const recipe = JIRA_COMPOSER_RECIPES[key];
-    if (!recipe) return;
-
-    const val = targetInput.value.trim() || recipe.defaultArg;
-    const jql = recipe.build(val);
-
-    outputEl.textContent = jql;
-    if (descEl) descEl.textContent = recipe.desc;
-
-    // Update Open in Jira Link
-    if (openBtn && hostInput) {
-      const host = (hostInput.value.trim() || "jira.company.com").replace(/^https?:\/\//, "").replace(/\/$/, "");
-      const fullUrl = `https://${host}/issues/?jql=${encodeURIComponent(jql)}`;
-      openBtn.href = fullUrl;
-    }
-  }
-
-  recipeSelect.addEventListener("change", () => {
-    const key = recipeSelect.value;
-    const recipe = JIRA_COMPOSER_RECIPES[key];
-    if (recipe) {
-      targetInput.value = recipe.defaultArg;
-      targetInput.placeholder = recipe.placeholder;
-      updateComposer();
-    }
-  });
-
-  targetInput.addEventListener("input", updateComposer);
-  if (hostInput) hostInput.addEventListener("input", updateComposer);
-
-  if (copyBtn) {
-    copyBtn.addEventListener("click", () => {
-      copyToClipboard(outputEl.textContent);
-    });
-  }
-
-  updateComposer();
+  packMasonry();
 }
 
 function initEvents() {
   if (searchInput) {
     searchInput.addEventListener("input", (e) => {
-      state.searchQuery = e.target.value;
-      renderSections();
-    });
-  }
-
-  if (categoryTabsEl) {
-    categoryTabsEl.addEventListener("click", (e) => {
-      const tab = e.target.closest("[data-cat]");
-      if (!tab) return;
-      state.activeCategory = tab.dataset.cat;
-      renderCategoryTabs();
+      state.searchQuery = e.target.value.trim();
       renderSections();
     });
   }
 
   if (sectionsContainer) {
     sectionsContainer.addEventListener("click", (e) => {
-      const copyBox = e.target.closest(".cmd-code-box");
+      const copyBox = e.target.closest(".cmd-code-box, .subcmd-row");
       if (copyBox) {
         copyToClipboard(copyBox.dataset.copy);
         return;
@@ -1060,13 +790,24 @@ function initEvents() {
         const id = bookmarkBtn.dataset.bookmarkId;
         if (state.bookmarks.has(id)) {
           state.bookmarks.delete(id);
-          showToast("Removed from saved queries");
+          bookmarkBtn.classList.remove("bookmarked");
+          bookmarkBtn.textContent = "☆";
+          bookmarkBtn.title = "Bookmark snippet";
+          showToast("Removed from saved bookmarks");
         } else {
           state.bookmarks.add(id);
-          showToast("Saved query to bookmarks");
+          bookmarkBtn.classList.add("bookmarked");
+          bookmarkBtn.textContent = "★";
+          bookmarkBtn.title = "Remove bookmark";
+          showToast("Added to saved bookmarks");
         }
-        localStorage.setItem("jira_cs_bookmarks", JSON.stringify([...state.bookmarks]));
-        renderSections();
+        try {
+          localStorage.setItem("jira_cs_bookmarks", JSON.stringify([...state.bookmarks]));
+        } catch (err) {}
+        if (savedCountEl) savedCountEl.textContent = state.bookmarks.size;
+        if (state.savedOnly) {
+          renderSections();
+        }
       }
     });
   }
@@ -1074,6 +815,7 @@ function initEvents() {
   if (savedFilterBtn) {
     savedFilterBtn.addEventListener("click", () => {
       state.savedOnly = !state.savedOnly;
+      savedFilterBtn.classList.toggle("active", state.savedOnly);
       renderSections();
     });
   }
@@ -1097,7 +839,15 @@ function initEvents() {
   }
 
   if (resetSearchBtn) {
-    resetSearchBtn.addEventListener("click", resetAllFilters);
+    resetSearchBtn.addEventListener("click", () => {
+      state.searchQuery = "";
+      state.activeCategory = "all";
+      state.savedOnly = false;
+      if (searchInput) searchInput.value = "";
+      if (savedFilterBtn) savedFilterBtn.classList.remove("active");
+      renderCategoryTabs();
+      renderSections();
+    });
   }
 
   window.addEventListener("keydown", (e) => {
@@ -1118,9 +868,9 @@ function initEvents() {
   });
 }
 
+// Initialize
 applyTheme(state.theme);
 applyDensity(state.compact);
 renderCategoryTabs();
 renderSections();
-initJiraComposer();
 initEvents();

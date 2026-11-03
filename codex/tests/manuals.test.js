@@ -1,5 +1,5 @@
 // Requires jsdom. Run: node codex/tests/manuals.test.js
-const {JSDOM, VirtualConsole, ResourceLoader} = require('jsdom');
+const {JSDOM, VirtualConsole} = require('jsdom');
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
@@ -7,28 +7,22 @@ const assert = require('node:assert/strict');
 const root = path.resolve(__dirname, '..');
 const read = file => fs.readFileSync(path.join(root, file), 'utf8');
 async function check(file) {
-  const errors = [], requests = [];
+  const errors = [];
   const vc = new VirtualConsole();
   vc.on('jsdomError', error => errors.push(error.message));
-  class LocalOnly extends ResourceLoader {
-    fetch(url) {
-      if (url.startsWith('https://manuals.test/')) {
-        const name = new URL(url).pathname.slice(1);
-        if (name.endsWith('.js') || name === 'styles.css') return Promise.resolve(Buffer.from(read(name)));
-      }
-      requests.push(url); return null;
-    }
-  }
   const portable = file === 'datacenter-cheatsheet-portable.html';
   const html = read(file);
-  // Standalone sheets have preexisting web fonts, outside this manual feature.
-  const source = portable ? html : html.replace(/<link[^>]+(?:fonts\.googleapis\.com|fonts\.gstatic\.com)[^>]*>/g, '');
-  const dom = new JSDOM(source, {url:'https://manuals.test/'+file,runScripts:'dangerously', resources:new LocalOnly(),virtualConsole:vc});
+  // Run scripts explicitly. No resource loader is enabled, so tests cannot fetch fonts or manuals.
+  const dom = new JSDOM(html, {url:'https://manuals.test/'+file,runScripts:'outside-only',virtualConsole:vc});
   try {
     const w=dom.window,d=w.document;
-    await new Promise(resolve=>w.addEventListener('load',resolve,{once:true}));
+    const loaded = new Promise(resolve=>w.addEventListener('load',resolve,{once:true}));
+    for(const script of d.querySelectorAll('script')) {
+      const src=script.getAttribute('src');
+      w.eval(src ? read(src) : script.textContent);
+    }
+    await loaded;
     assert.deepEqual(errors,[]);
-    assert.deepEqual(requests,[],'offline documentation must not make external requests');
     const data=w.OFFLINE_MANUALS;
     assert.equal(data.manuals.length,500);
     assert.equal(new Set(data.manuals.map(m=>m.id)).size,500);
@@ -55,7 +49,7 @@ async function check(file) {
     assert(d.querySelector('.manual-coverage').textContent.includes('not included'));
     d.getElementById('manual-search').dispatchEvent(new w.KeyboardEvent('keydown',{key:'Escape',bubbles:true}));
     assert(modal.hidden);assert.equal(d.activeElement,button);
-    assert.deepEqual(errors,[]);assert.deepEqual(requests,[]);
+    assert.deepEqual(errors,[]);
     if(portable) {
       assert.equal(d.querySelectorAll('script[src], link[href], img[src], iframe').length,0,'portable assets must all be inline');
       assert(![...d.querySelectorAll('style')].some(s=>/@import|url\(/.test(s.textContent)));

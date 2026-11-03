@@ -63,7 +63,7 @@ Use the top navigation bar dropdowns to browse domain-specific command hubs or d
 | **Ethernet** | `ethernet.html` | 100G/200G/400G NIC configuration, `ethtool`, ring buffers, FEC tuning, LACP bonding, and SR-IOV. |
 | **Motherboards** | `motherboards.html`| Server motherboard hardware diagnostics, BIOS/AGESA post-codes, and sensor audits for ASUS, GIGABYTE, SMC, Dell, and HPE. |
 | **Jira** | `jira.html` | Datacenter JQL queries: node/hostname history, rack & RU position audits, chassis/GPU serials, vendor RMAs, GPU/NVLink incidents, Slurm drains, queue P1 blockers, REST API & `jira-cli`. |
-| **Scripting** | `scripting.html` | Polyglot scripting reference: Bash, Python 3.10+, JavaScript, TypeScript, PowerShell 7, JSON, YAML, TOML, Regex, and SQL/SQLite. |
+| **Scripting** | `scripting.html` | Polyglot scripting reference: Bash, Python 3.10+, JavaScript, TypeScript, PowerShell 7, Lua 5.4 / Neovim, JSON, YAML, TOML, Regex, and SQL/SQLite. |
 | **Neovim** | `neovim.html` | Vim/Neovim motions, operators, text objects, visual block mode, window splits, buffers, and interactive keybinding composer. |
 | **macOS / Win** | `macos.html` / `windows.html` | Darwin sysadmin (`launchctl`, `brew`, `diskutil`) & Windows Server / PowerShell 7 admin. |
 
@@ -91,11 +91,35 @@ Use the top navigation bar dropdowns to browse domain-specific command hubs or d
 
 ---
 
+## 📚 Embedded Offline Manuals Library (`📚 Manuals`)
+
+The suite embeds **500 complete, offline UNIX & datacenter hardware manpages** accessible from any page:
+
+- **Instant Access**: Click the **Manuals** button in the top action bar or press <kbd>M</kbd> anywhere on the page (when not typing in an input).
+- **Zero Internet Required**: All 500 manuals are pre-rendered into UTF-8 plaintext with original sources, copyright notices, and license metadata bundled locally in `manuals-data.js` and embedded inline into the portable single-file edition.
+- **Coverage**:
+  - **Linux & Shell**: `bash`, `ssh`, `curl`, `awk`, `sed`, `grep`, `systemctl`, `journalctl`, `cron`, `tar`, `find`, `strace`, `lsof`, etc.
+  - **BMC & Hardware**: `ipmitool`, `dmidecode`, `lscpu`, `lspci`, `numactl`, `mcelog`, `edac-util`.
+  - **GPU & Fabric**: `nvidia-smi`, `dcgmi` (DCGM), `nvlink`.
+  - **InfiniBand & RDMA**: `ibstat`, `ibv_devinfo`, `iblinkinfo`, `perfquery`, `sminfo`, `ibping`, `mstlink`, `mstflint`.
+  - **Storage & Enclosures**: `nvme`, `nvme-smart-log`, `smartctl`, `sg_ses`, `multipath`, `mdadm`, `zpool`.
+- **Search & Filtering**:
+  - Filter by command name, section, category, or alias.
+  - Optional **Search full text** toggle to search through all manual bodies.
+  - One-click **Copy** button to copy full manpages into the clipboard.
+- **Rebuilding & Verification**:
+  ```bash
+  python3 agy/manuals/build-manuals.py
+  NODE_PATH=/home/jason/.hermes/hermes-agent/node_modules node agy/tests/manuals.test.js
+  ```
+
+---
+
 ## 📦 1-File Offline Crash-Cart Edition
 
 For secure facilities, air-gapped clusters, or crash carts without internet access:
 - **File**: `agy/datacenter-cheatsheet-portable.html`
-- **Zero External Calls**: 100% self-contained single HTML bundle (~1.8 MB) containing all CSS styling, SVGs, client-side search indexes, target bar substitutions, and all 14 cheat sheets.
+- **Zero External Calls**: 100% self-contained single HTML bundle (~17.5 MB) containing all CSS styling, SVGs, client-side search indexes, target bar substitutions, 14 cheat sheets, and the complete 500-entry offline manual library.
 - **Recompiling**:
   ```bash
   node agy/build-portable.js

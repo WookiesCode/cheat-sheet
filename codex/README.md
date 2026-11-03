@@ -64,12 +64,20 @@ Some subject pages include interactive helpers, such as:
 
 These generate reference output for you to review and use; they do not apply changes to your systems.
 
+## Lua scripting
+
+Open **Scripting → Lua Scripting** for 16 examples covering variables, strings, control flow, tables, functions, modules, error handling, files, patterns, and coroutines. The Scripting hub also contains a Lua overview. Shell commands are labeled separately from Lua code. Examples target Lua 5.4; embedded LuaJIT hosts may differ. Reference: [official Lua 5.4 manual](https://www.lua.org/manual/5.4/).
+
+## Git commands
+
+Open **Scripting → Git Commands** for copyable examples covering status and diffs, staging and commits, branches, remotes, and recovery. Check the working tree and the command details before running commands that alter local files or publish to a remote.
+
 ## Jira ticket queries
 
 Open the **Jira** tab for 27 copyable JQL templates covering server/node history, serial numbers, rack positions, active work, shift handoffs, hardware faults, and RMA follow-up.
 
-1. Copy a query and paste it into Jira's advanced search (JQL), not your terminal.
-2. Replace `NODE_NAME`, `RACK_ID`, `POSITION`, `SERIAL_NUMBER`, project keys, or sample ticket keys as applicable. Rack Targets does not fill these Jira examples.
+1. Enter a project, site, node, rack, position, serial, or ticket in the form above the Jira queries. Matching examples update as you type; **Clear** restores their placeholders. The form remembers these values in this browser.
+2. Copy a query and paste it into Jira's advanced search (JQL). Check any remaining uppercase placeholders and replace them as needed. Rack Targets does not fill these Jira examples.
 3. Run the search in Jira and save useful queries as filters.
 
 The primary queries search **Summary and Description**. All-time history queries include closed tickets and have no date restriction. The broader `text` query also checks comments and other indexed text fields. You only see tickets your Jira account can access. Text matching can tokenize punctuation and is not exact asset identity; use aliases and serial numbers to cross-check results. A node-only ticket will not appear in a rack search unless it mentions that rack. JQL does not infer location history or group/count repeated hardware faults by asset.
@@ -82,7 +90,7 @@ Syntax references: [Atlassian JQL fields](https://support.atlassian.com/jira-sof
 
 | Control | Action |
 | --- | --- |
-| Theme | Choose a color palette; currently 23 themes are available. |
+| Theme | Choose a color palette; currently 28 themes are available. |
 | Density | Toggle compact layout. |
 | Saved | Filter the current sheet to bookmarked commands. |
 | Ctrl+K / Cmd+K | Open global search. |

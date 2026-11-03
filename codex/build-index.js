@@ -23,6 +23,7 @@ const excludeFiles = new Set([
   'generate-all-remaining-suites.js',
   'create-scripting-data.js',
   'common.js',
+  'jira-form.js',
   'manuals-data.js',
   'manuals-ui.js',
   'global-search-index.js'

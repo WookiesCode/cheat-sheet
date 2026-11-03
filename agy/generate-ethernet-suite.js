@@ -482,6 +482,22 @@ document.addEventListener("webkitfullscreenchange", () => {
 });
 window.packMasonry = packMasonry;
 
+function isRunnableCommand(cmd) {
+  if (window.AntigravityCommon && window.AntigravityCommon.isRunnableCommand) {
+    return window.AntigravityCommon.isRunnableCommand(cmd);
+  }
+  if (!cmd || typeof cmd !== 'string') return false;
+  var s = cmd.trim();
+  if (!s) return false;
+  if (s.startsWith('POST ') || s.startsWith('Stage ') || s.startsWith('1-DIMM') || s.startsWith('BMC_') || s.startsWith('Above 4G')) return false;
+  if (s.startsWith('T568') || s.startsWith('[Transceiver') || s.startsWith('Switch Port: OSFP') || s.startsWith('800G Twin-Port') || s.startsWith('0.5')) return false;
+  if (s.startsWith('Direct Optic-to-Optic') || s.startsWith('MPO-12') || s.startsWith('LC Duplex') || s.startsWith('1. Inspect') || s.startsWith('Check DOM') || s.startsWith('10km LR4') || s.startsWith('Tier ')) return false;
+  if (s.includes('──►') || s.includes('◄──')) return false;
+  if (s.startsWith('Win+') || s.startsWith('Alt+') || s.startsWith('Ctrl+')) return false;
+  if (/[⇧⌘⌥⌃]/.test(s) || s.includes('-Finger Swipe')) return false;
+  return true;
+}
+
 function renderSections() {
   let visibleCommandsCount = 0;
   const cardsHtml = [];
@@ -526,6 +542,26 @@ function renderSections() {
         ? cmd.cmd.split("   |   ")[0].trim()
         : cmd.cmd.trim();
 
+      const isRun = isRunnableCommand(cmd.cmd);
+      const codeBoxLines = isRun
+        ? [
+            '  <div class="cmd-code-box" data-cmd="' + escapeHtml(copyTarget) + '" title="Click to copy command">',
+            '    <pre class="cmd-code"><code>' + highlightCommand(cmd.cmd) + '</code></pre>',
+            '    <button type="button" class="copy-btn" title="Copy command" aria-label="Copy command">',
+            '      <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">',
+            '        <rect x="9" y="9" width="13" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>',
+            '        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" fill="none" stroke="currentColor" stroke-width="2"/>',
+            '      </svg>',
+            '      <span class="copy-feedback">Copy</span>',
+            '    </button>',
+            '  </div>'
+          ]
+        : [
+            '  <div class="cmd-code-box ref-box">',
+            '    <pre class="cmd-code"><code>' + highlightCommand(cmd.cmd) + '</code></pre>',
+            '  </div>'
+          ];
+
       return [
         '<div class="cmd-item" id="cmd-' + escapeHtml(cmd.id) + '" data-cmd-id="' + escapeHtml(cmd.id) + '">',
         '  <div class="cmd-header-row">',
@@ -545,16 +581,7 @@ function renderSections() {
         '    </button>',
         '  </div>',
         '',
-        '  <div class="cmd-code-box" data-cmd="' + escapeHtml(copyTarget) + '" title="Click to copy command">',
-        '    <pre class="cmd-code"><code>' + highlightCommand(cmd.cmd) + '</code></pre>',
-        '    <button type="button" class="copy-btn" title="Copy command" aria-label="Copy command">',
-        '      <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">',
-        '        <rect x="9" y="9" width="13" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>',
-        '        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" fill="none" stroke="currentColor" stroke-width="2"/>',
-        '      </svg>',
-        '      <span class="copy-feedback">Copied!</span>',
-        '    </button>',
-        '  </div>',
+        codeBoxLines.join("\\n"),
         '  ' + detailsHtml,
         '  ' + flagsHtml,
         '  ' + tipHtml,
@@ -659,13 +686,13 @@ function initEventListeners() {
   sectionsContainer.addEventListener("click", (e) => {
     const copyBtn = e.target.closest(".copy-btn");
     if (copyBtn) {
-      const codeBox = copyBtn.closest(".cmd-code-box");
+      const codeBox = copyBtn.closest(".cmd-code-box[data-cmd]");
       const cmdText = codeBox ? codeBox.getAttribute("data-cmd") : "";
       if (cmdText) copyToClipboard(cmdText);
       return;
     }
 
-    const codeBox = e.target.closest(".cmd-code-box");
+    const codeBox = e.target.closest(".cmd-code-box[data-cmd]");
     if (codeBox && !e.target.closest(".copy-btn")) {
       const cmdText = codeBox.getAttribute("data-cmd");
       if (cmdText) copyToClipboard(cmdText);
@@ -778,19 +805,12 @@ function generateEthHtml(sec, fileKey) {
         <button type="button" id="reset-search-btn" class="search-reset-btn" title="Clear search (Esc)" aria-label="Clear search">✕</button>
         <kbd class="search-kbd">/</kbd>
       </div>
-    </div>
-  </header>
 
-  <main class="container main-content">
-    <!-- Toolbar -->
-    <section class="filter-bar" aria-label="Command filters">
-      <div id="category-tabs" class="category-tabs" role="region" aria-label="Topic filters"></div>
-
-      <div class="filter-actions">
+      <div class="header-actions">
         <button
           type="button"
           id="saved-filter-btn"
-          class="saved-filter-btn"
+          class="action-btn"
           title="Filter to bookmarked commands"
           aria-pressed="false"
         >
@@ -798,13 +818,13 @@ function generateEthHtml(sec, fileKey) {
             <path fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
           </svg>
           <span>Saved</span>
-          <span id="saved-count" class="saved-badge">0</span>
+          <span id="saved-count" class="count-badge">0</span>
         </button>
 
         <button
           type="button"
           id="density-toggle"
-          class="density-btn"
+          class="action-btn"
           title="Toggle compact view (compact spacing)"
           aria-label="Toggle compact view"
         >
@@ -817,7 +837,7 @@ function generateEthHtml(sec, fileKey) {
         <button
           type="button"
           id="print-btn"
-          class="print-btn"
+          class="action-btn"
           title="Print cheat sheet (Ctrl+P)"
           aria-label="Print cheat sheet"
         >
@@ -825,33 +845,61 @@ function generateEthHtml(sec, fileKey) {
             <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
             <rect x="6" y="14" width="12" height="8" rx="1" fill="none" stroke="currentColor" stroke-width="2"/>
           </svg>
+          <span>Print</span>
         </button>
 
-        <button
-          type="button"
-          id="theme-toggle"
-          class="theme-toggle-btn"
-          title="Toggle light/dark theme"
-          aria-label="Toggle light/dark theme"
-        >
-          <svg id="theme-icon-sun" class="hidden" viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
-            <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/>
-            <path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
-          </svg>
-          <svg id="theme-icon-moon" viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
-            <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-          </svg>
-        </button>
+        <div class="theme-menu-wrapper" id="theme-menu-wrapper">
+          <button type="button" id="theme-palette-btn" class="action-btn theme-palette-btn" title="Select Color Theme" aria-haspopup="true" aria-expanded="false">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="13.5" cy="6.5" r=".5" fill="currentColor"></circle>
+              <circle cx="17.5" cy="10.5" r=".5" fill="currentColor"></circle>
+              <circle cx="8.5" cy="7.5" r=".5" fill="currentColor"></circle>
+              <circle cx="6.5" cy="12.5" r=".5" fill="currentColor"></circle>
+              <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.9 0 1.5-.7 1.5-1.5 0-.4-.2-.8-.4-1.1-.3-.4-.4-.8-.4-1.4 0-1.1.9-2 2-2h2.5c3.6 0 6.5-2.9 6.5-6.5C22 5.6 17.5 2 12 2z"></path>
+            </svg>
+            <span id="theme-btn-label">Theme</span>
+            <svg class="dropdown-caret" viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div id="theme-dropdown-menu" class="theme-dropdown-menu">
+            <div class="theme-dropdown-header">
+              <span>Color Theme</span>
+              <span class="theme-count">24 Themes</span>
+            </div>
+            <div class="theme-options-list">
+              <button type="button" class="theme-option active" data-theme="dark" title="Obsidian & cyan datacenter">
+                <div class="theme-swatches"><span class="theme-dot" style="background:#0b0e14"></span><span class="theme-dot" style="background:#111621"></span><span class="theme-dot" style="background:#38bdf8"></span><span class="theme-dot" style="background:#4ade80"></span></div>
+                <div class="theme-info"><span class="theme-name">Cyber Dark</span><span class="theme-desc">Obsidian & cyan datacenter</span></div>
+                <span class="theme-check">✓</span>
+              </button>
+              <button type="button" class="theme-option" data-theme="light" title="Crisp daylight paper & azure">
+                <div class="theme-swatches"><span class="theme-dot" style="background:#f5f7fa"></span><span class="theme-dot" style="background:#ffffff"></span><span class="theme-dot" style="background:#0284c7"></span><span class="theme-dot" style="background:#16a34a"></span></div>
+                <div class="theme-info"><span class="theme-name">Clean Light</span><span class="theme-desc">Crisp daylight paper & azure</span></div>
+                <span class="theme-check">✓</span>
+              </button>
+              <button type="button" class="theme-option" data-theme="gemini" title="Google Gemini cosmic indigo & violet">
+                <div class="theme-swatches"><span class="theme-dot" style="background:#090a12"></span><span class="theme-dot" style="background:#101322"></span><span class="theme-dot" style="background:#818cf8"></span><span class="theme-dot" style="background:#c084fc"></span></div>
+                <div class="theme-info"><span class="theme-name">Gemini Spark</span><span class="theme-desc">Cosmic indigo & violet spark</span></div>
+                <span class="theme-check">✓</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <button type="button" id="theme-toggle" style="display:none;" aria-hidden="true"></button>
       </div>
-    </section>
-
-    <!-- Results Counter -->
-    <div class="results-info" aria-live="polite">
-      Showing <span id="visible-count">0</span> items
     </div>
+    <div class="category-bar">
+      <div class="container category-bar-inner">
+        <div id="category-tabs" class="category-tabs" role="region" aria-label="Topic filters"></div>
+        <div class="stats-summary" id="stats-summary">
+          Showing <strong id="visible-count">0</strong> items
+        </div>
+      </div>
+    </div>
+  </header>
 
+  <main class="container main-layout">
     <!-- Commands Container (Masonry Cards) -->
-    <section id="sections-container" class="sections-container" aria-label="Command cards"></section>
+    <section id="sections-container" class="sections-grid sections-container" aria-label="Command cards"></section>
 
     <!-- Empty State -->
     <div id="empty-state" class="empty-state hidden" role="status">
@@ -877,6 +925,8 @@ function generateEthHtml(sec, fileKey) {
   </footer>
 
   <script src="global-search-index.js"></script>
+  <script src="manuals-data.js"></script>
+  <script src="manuals-ui.js"></script>
   <script src="common.js"></script>
   <script src="${fileKey}.js"></script>
 </body>

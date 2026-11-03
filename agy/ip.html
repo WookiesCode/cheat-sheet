@@ -142,6 +142,9 @@
                   <a href="javascript.html" class="dropdown-item" role="menuitem">⚡ JavaScript</a>
                   <a href="typescript.html" class="dropdown-item" role="menuitem">🔷 TypeScript</a>
                   <a href="powershell.html" class="dropdown-item" role="menuitem">💻 PowerShell</a>
+                  <a href="lua.html" class="dropdown-item" role="menuitem">🌙 Lua</a>
+                  <div class="dropdown-divider"></div>
+                  <a href="git.html" class="dropdown-item" role="menuitem">🌿 Git</a>
                   <div class="dropdown-divider"></div>
                   <a href="json.html" class="dropdown-item" role="menuitem">📋 JSON &amp; jq</a>
                   <a href="yaml.html" class="dropdown-item" role="menuitem">📄 YAML &amp; yq</a>
@@ -453,6 +456,32 @@
                   </div>
                 </div>
               </div>
+              <div class="nav-dropdown" id="jira-nav-dropdown">
+                <a href="jira.html" class="sheet-link dropdown-toggle" aria-haspopup="true">
+                  <svg class="nav-logo" viewBox="0 0 24 24" width="14" height="14" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3" stroke="#38bdf8" stroke-width="1.8"/><path d="M7 8h10M7 12h7M7 16h4" stroke="#4ade80" stroke-width="2" stroke-linecap="round"/></svg>
+                  <span>Jira</span> <span class="dropdown-caret">▾</span>
+                </a>
+                <div class="nav-dropdown-menu jira-dropdown-menu" role="menu">
+                  <a href="jira.html" class="dropdown-item dropdown-hub-link" role="menuitem">📑 Jira DC Operations Hub</a>
+                  <div class="dropdown-divider"></div>
+                  <div class="jira-dropdown-grid">
+                    <div class="jira-dropdown-col">
+                      <div class="jira-dropdown-heading">Node, Rack &amp; Asset Triage</div>
+                      <a href="jira.html#node-triage" class="dropdown-item" role="menuitem"><code>node</code> <span class="cmd-desc">Server, Hostname &amp; IP Audits</span></a>
+                      <a href="jira.html#rack-position" class="dropdown-item" role="menuitem"><code>rack</code> <span class="cmd-desc">Rack, Cage &amp; RU Position</span></a>
+                      <a href="jira.html#serial-asset" class="dropdown-item" role="menuitem"><code>sn</code> <span class="cmd-desc">Chassis Serial &amp; Asset Tags</span></a>
+                      <a href="jira.html#hardware-rma" class="dropdown-item" role="menuitem"><code>rma</code> <span class="cmd-desc">Vendor RMAs &amp; Parts Returns</span></a>
+                    </div>
+                    <div class="jira-dropdown-col">
+                      <div class="jira-dropdown-heading">Cluster Incidents &amp; Ops</div>
+                      <a href="jira.html#gpu-cluster" class="dropdown-item" role="menuitem"><code>gpu</code> <span class="cmd-desc">GPU, NVLink &amp; SXid Incidents</span></a>
+                      <a href="jira.html#slurm-drain" class="dropdown-item" role="menuitem"><code>drain</code> <span class="cmd-desc">Slurm Drained &amp; Cordons</span></a>
+                      <a href="jira.html#queue-ops" class="dropdown-item" role="menuitem"><code>queue</code> <span class="cmd-desc">DC Queue &amp; P1 Blockers</span></a>
+                      <a href="jira.html#jira-api-cli" class="dropdown-item" role="menuitem"><code>api</code> <span class="cmd-desc">REST API curl &amp; Jira CLI</span></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </nav>
           </div>
           <p class="brand-subtitle">iproute2 link/addr state (-6 -br -c), packet drop counters (-s -s), route policy lookup (ip -6 route get) & NDP cache (ip -6 neigh)</p>
@@ -606,6 +635,8 @@
   </div>
 
   <script src="global-search-index.js"></script>
+    <script src="manuals-data.js"></script>
+  <script src="manuals-ui.js"></script>
   <script src="common.js"></script>
   <script src="ip.js"></script>
 </body>

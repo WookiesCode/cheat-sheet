@@ -603,9 +603,9 @@ function initEventListeners() {
   });
 
   sectionsContainer.addEventListener("click", (e) => {
-    const copyBtn = e.target.closest(".copy-btn");
-    if (copyBtn) {
-      const codeBox = copyBtn.closest(".cmd-code-box");
+    const copyTarget = e.target.closest(".copy-btn, .cmd-code-box");
+    if (copyTarget && !e.target.closest(".subcmd-copy-btn")) {
+      const codeBox = copyTarget.closest(".cmd-code-box") || copyTarget;
       const cmdText = codeBox ? codeBox.getAttribute("data-cmd") : "";
       if (cmdText) copyToClipboard(cmdText);
       return;

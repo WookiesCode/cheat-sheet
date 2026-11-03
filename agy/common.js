@@ -16,23 +16,31 @@
   const DEFAULT_TARGET_VARS = {
     bmc: '2001:db8:dc::50',
     user: 'ADMIN',
-    pass: 'ADMIN',
+    pass: '',
     iface: 'eno1',
     hca: 'mlx5_0',
     disk: '/dev/nvme0n1',
     gpu: '0'
   };
 
+  let savedTargetVars = {};
+  try {
+    savedTargetVars = JSON.parse(localStorage.getItem('dc_target_vars') || '{}') || {};
+    delete savedTargetVars.pass; // Migrate previously persisted passwords out of storage.
+    localStorage.setItem('dc_target_vars', JSON.stringify(savedTargetVars));
+  } catch (_) {}
+
   const targetState = {
     active: localStorage.getItem('dc_vars_active') !== '0', // default enabled
     collapsed: localStorage.getItem('dc_vars_collapsed') === '1',
-    vars: Object.assign({}, DEFAULT_TARGET_VARS, JSON.parse(localStorage.getItem('dc_target_vars') || '{}'))
+    vars: Object.assign({}, DEFAULT_TARGET_VARS, savedTargetVars)
   };
 
   function saveTargetState() {
     localStorage.setItem('dc_vars_active', targetState.active ? '1' : '0');
     localStorage.setItem('dc_vars_collapsed', targetState.collapsed ? '1' : '0');
-    localStorage.setItem('dc_target_vars', JSON.stringify(targetState.vars));
+    const { pass, ...persistedVars } = targetState.vars;
+    localStorage.setItem('dc_target_vars', JSON.stringify(persistedVars));
   }
 
   // Hook clipboard to automatically substitute variables if active
@@ -54,12 +62,12 @@
 
     const userVal = (targetState.vars.user || '').trim();
     if (userVal) {
-      result = result.replace(/(\$BMC_USER\b|\$\{BMC_USER\}|\$USER\b|\$\{USER\}|<user>)/g, userVal);
+      result = result.replace(/(\$BMC_USER\b|\$\{BMC_USER\})/g, () => userVal);
     }
 
     const passVal = (targetState.vars.pass || '').trim();
     if (passVal) {
-      result = result.replace(/(\$BMC_PASS\b|\$\{BMC_PASS\}|\$PASS\b|\$\{PASS\}|<password>|<pass>)/g, passVal);
+      result = result.replace(/(\$BMC_PASS\b|\$\{BMC_PASS\}|\$PASS\b|\$\{PASS\}|<password>|<pass>)/g, () => passVal);
     }
 
     const ifaceVal = (targetState.vars.iface || '').trim();
@@ -74,7 +82,7 @@
 
     const diskVal = (targetState.vars.disk || '').trim();
     if (diskVal) {
-      result = result.replace(/(\$DISK\b|\$\{DISK\}|<disk>|<device>)/gi, diskVal);
+      result = result.replace(/(\$DISK\b|\$\{DISK\}|<disk>)/gi, diskVal);
     }
 
     const gpuVal = (targetState.vars.gpu || '').trim();
@@ -85,11 +93,187 @@
     return { text: result, substituted: result !== text };
   }
 
+  // Triple-spaced pipes delimit alternatives in the source datasets, not pipelines.
+  function commandForCopy(text) {
+    return String(text).split('   |   ')[0].trim();
+  }
+
+  // Check whether a command string is an executable CLI command or informational reference data
+  function isRunnableCommand(cmd) {
+    if (!cmd || typeof cmd !== 'string') return false;
+    const s = cmd.trim();
+    if (!s) return false;
+
+    // Motherboards & BIOS POST codes / stages / hardware pinouts
+    if (/^POST\s+0x/i.test(s)) return false;
+    if (/^Stage\s+[0-9]:/i.test(s)) return false;
+    if (/^1-DIMM\b/i.test(s)) return false;
+    if (/^BMC_LED/i.test(s)) return false;
+    if (/^BMC_RDY/i.test(s)) return false;
+    if (/^Above\s+4G\b/i.test(s)) return false;
+    if (/POST\s+0x[0-9A-Fa-f]{2}/.test(s) && (s.includes(" -> ") || s.includes(" | "))) return false;
+
+    // Ethernet pinouts & cabling
+    if (/^T568[AB]\b/i.test(s)) return false;
+
+    // Fiber optics form factors, reach comparisons, mating rules & cleaning diagrams
+    if (/^\[Transceiver/i.test(s)) return false;
+    if (/^Switch\s+Port:\s+OSFP/i.test(s)) return false;
+    if (/^800G\s+Twin-Port/i.test(s)) return false;
+    if (/^0\.5[–-]2\.5m:/i.test(s)) return false;
+    if (/^Direct\s+Optic-to-Optic/i.test(s)) return false;
+    if (/^MPO-12\b/i.test(s)) return false;
+    if (/^LC\s+Duplex\b/i.test(s)) return false;
+    if (/^1\.\s+Inspect\b/i.test(s)) return false;
+    if (/^Check\s+DOM\s+RX/i.test(s)) return false;
+    if (/^10km\s+LR4:/i.test(s)) return false;
+    if (/^Tier\s+[12]\b/i.test(s)) return false;
+    if (s.includes("──►") || s.includes("◄──")) return false;
+
+    // Keyboard shortcuts and gestures (Windows / macOS / Omarchy / Neovim)
+    if (/^(Win|Alt|Ctrl|Super)\b/i.test(s)) return false;
+    if (/[⇧⌘⌥⌃]/.test(s)) return false;
+    if (/^[0-9]+-Finger\s+Swipe/i.test(s)) return false;
+
+    return true;
+  }
+
+  // Lookup tables, physical wiring notes, and key combinations are reference material.
+  // Their IDs are shared by hub pages, generated subpages, and the portable build.
+  const REFERENCE_CARD_IDS = new Set([
+    'asus-gigabyte-dimm-population', 'epyc-2stage-abl-post', 'epyc-xgmi-dual-socket',
+    'asus-onboard-leds-jumpers', 'gigabyte-leds-switches-jumpers', 'ai-server-bios-checklist',
+    'rj45-t568b-t568a-chart',
+    'arista-cisco-juniper-dom', 'osfp-finned-vs-flattop', 'breakout-topologies-800g-400g',
+    'dac-acc-aec-aoc', 'mpo-male-female-pin-rule', 'mpo-polarity-type-a-b-c',
+    'mpo12-vs-mpo16-keying', 'lc-cs-sn-mdc-duplex', 'inspect-clean-connect',
+    'optical-attenuators-overload', 'fec-ber-fault-triage', 'olts-vs-otdr-testing',
+    'screenshots-capture', 'app-window-switching', 'window-tiling-fullscreen',
+    'spotlight-power', 'lock-forcequit-emoji', 'sound-brightness-fine',
+    'finder-nav-folders', 'finder-dotfiles-pathbar', 'finder-copy-move-path',
+    'finder-trash-delete', 'quicklook-inspector', 'finder-keys-tips-card',
+    'text-cursor-navigation', 'text-delete-word-line', 'paste-without-formatting',
+    'mac-special-typography', 'text-editing-tips-card', 'system-keys-tips-card',
+    'trackpad-spaces-mission', 'trackpad-lookup-zoom', 'trackpad-three-finger-drag',
+    'horizontal-scroll-shift', 'trackpad-tips-card',
+    'win-power-user-admin', 'win-snap-multimonitor', 'win-virtual-desktops',
+    'win-clipboard-capture-gpu', 'win-explorer-power-tricks', 'win-keys-tips-card',
+    'word-motions', 'line-boundaries', 'char-find-inline', 'file-vertical-jumps',
+    'scroll-and-center', 'screen-high-mid-low', 'jumplist-changelist',
+    'text-objects-quotes-brackets', 'word-change-delete', 'eol-shortcuts',
+    'dot-repeat-and-join', 'case-indent-format', 'commenting-builtin',
+    'visual-block-insert', 'visual-block-append', 'visual-reselect-and-ends',
+    'visual-number-sequence', 'visual-sort-and-move', 'search-word-under-cursor',
+    'split-create-close', 'split-nav-move', 'split-resize', 'buffer-management',
+    'tabpages', 'macro-record-replay', 'clipboard-and-blackhole',
+    'insert-cmd-paste-expr', 'undo-branches-time', 'lsp-goto-navigation',
+    'lsp-actions-rename-format', 'diagnostics-navigation',
+    'treesitter-incremental-select', 'lazyvim-file-grep-pickers',
+    'lazyvim-neotree-explorer', 'lazyvim-git-hunks-lazygit',
+    'lazyvim-search-symbols-replace', 'lazyvim-ui-toggles-managers',
+    'quickfix-cdo-batch', 'builtin-terminal-and-health',
+    'motions-tips-card', 'visual-tips-card', 'windows-tips-card',
+    'lazyvim-tips-card', 'lsp-tips-card', 'macros-tips-card', 'operators-tips-card'
+  ]);
+
+  function isReferenceCard(id, cmd) {
+    const baseId = String(id || '').replace(/-flags-card$/, '');
+    if (/^post-/.test(baseId) || /^om-/.test(baseId) || REFERENCE_CARD_IDS.has(baseId)) {
+      return true;
+    }
+    if (cmd && !isRunnableCommand(cmd)) {
+      return true;
+    }
+    return false;
+  }
+
+  function decorateReferenceCards(root) {
+    if (!root) return;
+    const boxes = root.matches?.('.cmd-code-box, .code-block') ? [root] : root.querySelectorAll('.cmd-code-box, .code-block');
+    for (const box of boxes) {
+      const card = box.closest('.cmd-item, .command-item');
+      const id = card?.getAttribute('data-id') || card?.getAttribute('data-cmd-id') || card?.id?.replace(/^cmd-/, '');
+      const cmdText = box.getAttribute('data-copy') || box.getAttribute('data-cmd') || box.querySelector('code')?.textContent || '';
+      if (!isReferenceCard(id, cmdText)) continue;
+      box.classList.remove('cmd-code-box', 'code-block');
+      box.classList.add('reference-box');
+      box.removeAttribute('data-copy');
+      box.removeAttribute('data-cmd');
+      box.removeAttribute('title');
+      box.querySelectorAll('.copy-btn, .copy-hint').forEach(button => button.remove());
+    }
+  }
+
+  function initReferenceCards() {
+    const containers = document.querySelectorAll('#sections-container, #sections-grid');
+    if (!containers.length) {
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initReferenceCards, { once: true });
+      }
+      return;
+    }
+    for (const container of containers) {
+      decorateReferenceCards(container);
+      new MutationObserver(records => {
+        for (const record of records) {
+          for (const node of record.addedNodes) {
+            if (node.nodeType === 1) decorateReferenceCards(node);
+          }
+        }
+      }).observe(container, { childList: true, subtree: true });
+    }
+  }
+
+  async function copyCommand(text) {
+    const raw = commandForCopy(text);
+    const prepared = substituteVariables(raw).text;
+    try {
+      if (!navigator.clipboard || typeof navigator.clipboard.writeText !== 'function') {
+        throw new Error('Clipboard API unavailable');
+      }
+      await navigator.clipboard.writeText(prepared);
+      showGlobalToast('Copied to clipboard');
+      return true;
+    } catch (err) {
+      // Fallback using textarea
+      let success = false;
+      try {
+        const textarea = document.createElement('textarea');
+        textarea.value = prepared;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.focus();
+        textarea.select();
+        success = document.execCommand('copy');
+        document.body.removeChild(textarea);
+      } catch (_) {}
+      if (success) {
+        showGlobalToast('Copied to clipboard');
+        return true;
+      }
+      showGlobalToast('Clipboard unavailable in this environment');
+      return false;
+    }
+  }
+
+  function navigateToResult(file, id) {
+    closeGlobalSearch();
+    if (window.PortableNavigation && typeof window.PortableNavigation.open === 'function') {
+      window.PortableNavigation.open(file, id);
+    } else if ((window.location.pathname.split('/').pop() || 'index.html') !== file) {
+      window.location.href = `${file}#${id}`;
+    } else {
+      scrollToCard(id);
+    }
+  }
+
   // Intercept navigator.clipboard.writeText so all sheets inherit variable substitution automatically!
-  if (navigator.clipboard && navigator.clipboard.writeText) {
+  if (typeof navigator !== 'undefined' && navigator.clipboard && navigator.clipboard.writeText) {
     const originalWriteText = navigator.clipboard.writeText.bind(navigator.clipboard);
     navigator.clipboard.writeText = function(text) {
-      const { text: newText, substituted } = substituteVariables(text);
+      const raw = commandForCopy(text);
+      const { text: newText, substituted } = substituteVariables(raw);
       if (substituted) {
         showGlobalToast(`Substituted target variables! Copied: ${newText.length > 50 ? newText.slice(0, 50) + '…' : newText}`);
       }
@@ -145,7 +329,7 @@
           <div class="target-field">
             <label for="var-pass"><span class="var-tag">$PASS</span> BMC Password</label>
             <div class="password-input-wrapper">
-              <input type="password" id="var-pass" spellcheck="false" autocomplete="off" value="${escapeHtml(targetState.vars.pass)}" placeholder="ADMIN" />
+              <input type="password" id="var-pass" spellcheck="false" autocomplete="off" placeholder="session only" />
               <button type="button" id="toggle-pass-visibility" class="password-toggle-btn" title="Show password" aria-label="Toggle password visibility">
                 <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
@@ -205,6 +389,9 @@
 
     const togglePassBtn = document.getElementById('toggle-pass-visibility');
     const passInput = document.getElementById('var-pass');
+    if (passInput) {
+      passInput.value = targetState.vars.pass || '';
+    }
     if (togglePassBtn && passInput) {
       togglePassBtn.addEventListener('click', () => {
         const isPass = passInput.type === 'password';
@@ -379,23 +566,15 @@
         updatePaletteHighlightClasses();
       });
 
-      itemEl.addEventListener('click', (e) => {
+      itemEl.addEventListener('click', async (e) => {
         const file = itemEl.dataset.file;
         const id = itemEl.dataset.id;
         const cmd = itemEl.dataset.cmd;
 
-        // If target is copy or user wants to copy
-        navigator.clipboard.writeText(cmd);
-        showGlobalToast(`Copied command from ${itemEl.querySelector('.palette-sheet-badge').textContent}!`);
-
-        // If not already on this page, navigate to it with hash
-        const currentPath = window.location.pathname.split('/').pop() || 'index.html';
-        if (currentPath !== file) {
-          window.location.href = `${file}#${id}`;
-        } else {
-          closeGlobalSearch();
-          scrollToCard(id);
+        if (!isReferenceCard(id, cmd) && isRunnableCommand(cmd)) {
+          await copyCommand(cmd);
         }
+        navigateToResult(file, id);
       });
     });
   }
@@ -421,21 +600,15 @@
     });
   }
 
-  function executeActivePaletteItem() {
+  async function executeActivePaletteItem() {
     if (!currentSearchResults.length) return;
     const item = currentSearchResults[searchActiveIndex];
     if (!item) return;
 
-    navigator.clipboard.writeText(item.cmd);
-    showGlobalToast(`Copied command: ${item.cmd.slice(0, 40)}…`);
-
-    const currentPath = window.location.pathname.split('/').pop() || 'index.html';
-    if (currentPath !== item.file) {
-      window.location.href = `${item.file}#${item.id}`;
-    } else {
-      closeGlobalSearch();
-      scrollToCard(item.id);
+    if (!isReferenceCard(item.id, item.cmd) && isRunnableCommand(item.cmd)) {
+      await copyCommand(item.cmd);
     }
+    navigateToResult(item.file, item.id);
   }
 
   function highlightMatches(text, tokens) {
@@ -747,8 +920,25 @@ ${log}
   // 4. HEADER INJECTIONS (Search All & Triage Buttons)
   // -------------------------------------------------------------
   function injectHeaderControls() {
-    const actions = document.querySelector('.header-actions');
+    let actions = document.querySelector('.header-actions');
+    if (!actions) {
+      const topBarInner = document.querySelector('.top-bar-inner');
+      if (topBarInner) {
+        actions = document.createElement('div');
+        actions.className = 'header-actions';
+        topBarInner.appendChild(actions);
+      }
+    }
     if (!actions) return;
+
+    // Migrate any stranded filter-actions into top-bar header-actions
+    const filterActions = document.querySelector('.filter-actions');
+    if (filterActions && filterActions !== actions) {
+      while (filterActions.firstChild) {
+        actions.appendChild(filterActions.firstChild);
+      }
+      filterActions.remove();
+    }
 
     if (!document.getElementById('global-search-btn')) {
       const searchBtn = document.createElement('button');
@@ -999,7 +1189,9 @@ ${log}
   function scrollToCard(cardId) {
     if (!cardId) return;
     const cleanId = cardId.replace(/^#/, '');
-    const el = document.getElementById(cleanId);
+    const el = document.getElementById(cleanId) || document.getElementById('cmd-' + cleanId) ||
+      Array.from(document.querySelectorAll('[data-id], [data-cmd-id]')).find(card =>
+        card.dataset.id === cleanId || card.dataset.cmdId === cleanId);
     if (el) {
       el.scrollIntoView({ behavior: 'smooth', block: 'center' });
       el.classList.add('cmd-highlight-flash');
@@ -1198,8 +1390,8 @@ ${log}
     }
   }
 
-  // Check URL hash on page load
-  window.addEventListener('DOMContentLoaded', () => {
+  function initCommon() {
+    initReferenceCards();
     syncActiveNav();
     setupNavDropdown();
     setupFullscreenObserver();
@@ -1209,7 +1401,14 @@ ${log}
     if (window.location.hash) {
       setTimeout(() => scrollToCard(window.location.hash), 150);
     }
-  });
+  }
+
+  // Run on DOMContentLoaded or immediately if already interactive/complete
+  if (document.readyState === 'loading') {
+    window.addEventListener('DOMContentLoaded', initCommon);
+  } else {
+    initCommon();
+  }
 
   // Expose global methods (aliased across Antigravity, Claude, Codex, and neutral CheatSheetCommon)
   const commonExports = {
@@ -1218,6 +1417,13 @@ ${log}
     openTriageModal,
     closeTriageModal,
     substituteVariables,
+    commandForCopy,
+    copyCommand,
+    navigateToResult,
+    isRunnableCommand,
+    isReferenceCard,
+    decorateReferenceCards,
+    initReferenceCards,
     showToast: showGlobalToast,
     scrollToCard,
     applyTheme: applyGlobalTheme,

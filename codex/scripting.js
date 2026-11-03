@@ -1,4 +1,79 @@
 const SCRIPTING_DATA = [
+{
+  "id": "lua-overview",
+  "badge": "lua",
+  "title": "Lua Scripting",
+  "subtitle": "Tables, functions, modules & log parsing; open Lua in the Scripting menu for the full reference",
+  "commands": [
+    {
+      "id": "lua-variables",
+      "desc": "Local variables, types, nil, and conversion",
+      "cmd": "local host = \"node-a\"\nlocal count = 8\nlocal enabled = false\nlocal missing = nil\nprint(type(host), tonumber(\"42\"), tostring(enabled))\nprint(0 and \"zero is truthy\")",
+      "details": "Prefer local variables: assignments without local normally set globals. Only false and nil are falsey; 0 and the empty string are truthy. Lua is case-sensitive. -- starts a line comment; --[[ ... ]] is a block comment.",
+      "flags": [],
+      "subcommands": [],
+      "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+      "tags": [
+        "lua",
+        "scripting",
+        "variables",
+        "scope",
+        "types"
+      ]
+    },
+    {
+      "id": "lua-tables",
+      "desc": "Sequences, maps, and safe field access",
+      "cmd": "local nodes = {\"node-a\", \"node-b\"}\ntable.insert(nodes, \"node-c\")\nfor i, name in ipairs(nodes) do print(i, name) end\nlocal inventory = {host = \"node-a\", gpus = 8}\nfor key, value in pairs(inventory) do print(key, value) end\nprint(inventory.host, inventory[\"gpus\"])",
+      "details": "Sequence indices conventionally begin at 1. ipairs stops at the first absent integer entry; pairs order is unspecified. The length operator # is reliable for dense sequences, not a general count of keys or sparse entries. Assign nil to remove a key.",
+      "flags": [],
+      "subcommands": [],
+      "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+      "tags": [
+        "lua",
+        "scripting",
+        "tables",
+        "arrays",
+        "maps",
+        "pairs",
+        "ipairs"
+      ]
+    },
+    {
+      "id": "lua-errors",
+      "desc": "Catch a runtime error with pcall",
+      "cmd": "local ok, result = pcall(function()\n  local value = tonumber(\"bad input\")\n  assert(value, \"expected a number\")\n  return value * 2\nend)\nif ok then print(result) else io.stderr:write(tostring(result), \"\\n\") end",
+      "details": "pcall returns true plus results on success, or false plus the error object on failure. It does not validate the safety of executing untrusted Lua code.",
+      "flags": [],
+      "subcommands": [],
+      "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+      "tags": [
+        "lua",
+        "scripting",
+        "errors",
+        "pcall",
+        "assert"
+      ]
+    },
+    {
+      "id": "lua-logs",
+      "desc": "Count Xid messages in diagnostic text",
+      "cmd": "local sample = \"GPU Xid 79\\nhealthy\\nGPU Xid 48\\nGPU Xid 79\\n\"\nlocal counts = {}\nfor xid in sample:gmatch(\"Xid%s+(%d+)\") do\n  counts[xid] = (counts[xid] or 0) + 1\nend\nlocal keys = {}\nfor key in pairs(counts) do keys[#keys + 1] = key end\ntable.sort(keys, function(a,b) return tonumber(a) < tonumber(b) end)\nfor _, key in ipairs(keys) do print(key, counts[key]) end",
+      "details": "Counts the simplified Xid <number> format in sample text. Real driver log formats vary; adapt the pattern to captured lines. Counts are evidence to investigate, not a hardware diagnosis.",
+      "flags": [],
+      "subcommands": [],
+      "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+      "tags": [
+        "lua",
+        "scripting",
+        "logs",
+        "gpu",
+        "xid",
+        "recipe"
+      ]
+    }
+  ]
+},
   {
     "id": "shell-script",
     "badge": "bash",
@@ -1395,7 +1470,7 @@ function applyTheme(theme) {
 
 function applyDensity(compact) {
   state.compact = compact;
-  document.body.classList.toggle("compact-density", compact);
+  document.body.classList.toggle("compact-mode", compact);
   densityLabel.textContent = compact ? "Relaxed" : "Compact";
   localStorage.setItem("linux_cs_compact", compact ? "1" : "0");
   packMasonry();

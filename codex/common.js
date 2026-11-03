@@ -98,6 +98,77 @@
     return String(text).split('   |   ')[0].trim();
   }
 
+  // Lookup tables, physical wiring notes, and key combinations are reference material.
+  // Their IDs are shared by hub pages, generated subpages, and the portable build.
+  const REFERENCE_CARD_IDS = new Set([
+    'asus-gigabyte-dimm-population', 'epyc-2stage-abl-post', 'epyc-xgmi-dual-socket',
+    'asus-onboard-leds-jumpers', 'gigabyte-leds-switches-jumpers', 'ai-server-bios-checklist',
+    'rj45-t568b-t568a-chart',
+    'arista-cisco-juniper-dom', 'osfp-finned-vs-flattop', 'breakout-topologies-800g-400g',
+    'dac-acc-aec-aoc', 'mpo-male-female-pin-rule', 'mpo-polarity-type-a-b-c',
+    'mpo12-vs-mpo16-keying', 'lc-cs-sn-mdc-duplex', 'inspect-clean-connect',
+    'optical-attenuators-overload', 'fec-ber-fault-triage', 'olts-vs-otdr-testing',
+    'screenshots-capture', 'app-window-switching', 'window-tiling-fullscreen',
+    'spotlight-power', 'lock-forcequit-emoji', 'sound-brightness-fine',
+    'finder-nav-folders', 'finder-dotfiles-pathbar', 'finder-copy-move-path',
+    'finder-trash-delete', 'quicklook-inspector', 'finder-keys-tips-card',
+    'text-cursor-navigation', 'text-delete-word-line', 'paste-without-formatting',
+    'mac-special-typography', 'text-editing-tips-card', 'system-keys-tips-card',
+    'trackpad-spaces-mission', 'trackpad-lookup-zoom', 'trackpad-three-finger-drag',
+    'horizontal-scroll-shift', 'trackpad-tips-card',
+    'win-power-user-admin', 'win-snap-multimonitor', 'win-virtual-desktops',
+    'win-clipboard-capture-gpu', 'win-explorer-power-tricks', 'win-keys-tips-card',
+    'word-motions', 'line-boundaries', 'char-find-inline', 'file-vertical-jumps',
+    'scroll-and-center', 'screen-high-mid-low', 'jumplist-changelist',
+    'text-objects-quotes-brackets', 'word-change-delete', 'eol-shortcuts',
+    'dot-repeat-and-join', 'case-indent-format', 'commenting-builtin',
+    'visual-block-insert', 'visual-block-append', 'visual-reselect-and-ends',
+    'visual-number-sequence', 'visual-sort-and-move', 'search-word-under-cursor',
+    'split-create-close', 'split-nav-move', 'split-resize', 'buffer-management',
+    'tabpages', 'macro-record-replay', 'clipboard-and-blackhole',
+    'insert-cmd-paste-expr', 'undo-branches-time', 'lsp-goto-navigation',
+    'lsp-actions-rename-format', 'diagnostics-navigation',
+    'treesitter-incremental-select', 'lazyvim-file-grep-pickers',
+    'lazyvim-neotree-explorer', 'lazyvim-git-hunks-lazygit',
+    'lazyvim-search-symbols-replace', 'lazyvim-ui-toggles-managers',
+    'quickfix-cdo-batch', 'builtin-terminal-and-health',
+    'motions-tips-card', 'visual-tips-card', 'windows-tips-card',
+    'lazyvim-tips-card', 'lsp-tips-card', 'macros-tips-card', 'operators-tips-card'
+  ]);
+
+  function isReferenceCard(id) {
+    const baseId = String(id || '').replace(/-flags-card$/, '');
+    return /^post-/.test(baseId) || /^om-/.test(baseId) || REFERENCE_CARD_IDS.has(baseId);
+  }
+
+  function decorateReferenceCards(root) {
+    const boxes = root.matches?.('.cmd-code-box, .code-block') ? [root] : root.querySelectorAll('.cmd-code-box, .code-block');
+    for (const box of boxes) {
+      const card = box.closest('.cmd-item, .command-item');
+      const id = card?.getAttribute('data-id') || card?.getAttribute('data-cmd-id') || card?.id?.replace(/^cmd-/, '');
+      if (!isReferenceCard(id)) continue;
+      box.classList.remove('cmd-code-box', 'code-block');
+      box.classList.add('reference-box');
+      box.removeAttribute('data-copy');
+      box.removeAttribute('data-cmd');
+      box.removeAttribute('title');
+      box.querySelectorAll('.copy-btn, .copy-hint').forEach(button => button.remove());
+    }
+  }
+
+  function initReferenceCards() {
+    for (const container of document.querySelectorAll('#sections-container, #sections-grid')) {
+      decorateReferenceCards(container);
+      new MutationObserver(records => {
+        for (const record of records) {
+          for (const node of record.addedNodes) {
+            if (node.nodeType === 1) decorateReferenceCards(node);
+          }
+        }
+      }).observe(container, { childList: true, subtree: true });
+    }
+  }
+
   async function copyCommand(text) {
     const prepared = substituteVariables(commandForCopy(text)).text;
     try {
@@ -284,20 +355,20 @@
     searchBackdrop.id = 'global-search-modal';
     searchBackdrop.className = 'global-search-backdrop hidden';
     searchBackdrop.innerHTML = `
-      <div class="global-search-box" role="dialog" aria-modal="true" aria-label="Global Command Palette">
+      <div class="global-search-box" role="dialog" aria-modal="true" aria-label="Global Search">
         <div class="palette-header">
           <svg class="palette-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="11" cy="11" r="8"></circle>
             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
           </svg>
-          <input type="text" id="palette-search-input" placeholder="Search 768+ commands across all 14 sheets (e.g. 'xid 79', 'edac', 'dom', 'vpi')..." autocomplete="off" spellcheck="false" />
+          <input type="text" id="palette-search-input" placeholder="Search commands and reference information (e.g. 'xid 79', 'POST 0x53', 'dom')..." autocomplete="off" spellcheck="false" />
           <kbd class="palette-kbd">ESC</kbd>
         </div>
         <div class="palette-toolbar">
-          <span id="palette-stats" class="palette-stats">Showing 0 matching commands</span>
+          <span id="palette-stats" class="palette-stats">Showing 0 matching items</span>
           <span class="palette-hints">
             <span><kbd>↑</kbd><kbd>↓</kbd> Navigate</span>
-            <span><kbd>Enter</kbd> Copy</span>
+            <span><kbd>Enter</kbd> Open (copy commands)</span>
             <span><kbd>Click</kbd> Jump to sheet</span>
           </span>
         </div>
@@ -379,12 +450,12 @@
     }
 
     currentSearchResults = matches;
-    searchCount.textContent = `${matches.length} command${matches.length === 1 ? '' : 's'} found across ${new Set(window.GLOBAL_SEARCH_INDEX.map(item => item.file)).size} sheets`;
+    searchCount.textContent = `${matches.length} item${matches.length === 1 ? '' : 's'} found across ${new Set(window.GLOBAL_SEARCH_INDEX.map(item => item.file)).size} sheets`;
 
     if (!matches.length) {
       searchResults.innerHTML = `
         <div class="palette-empty">
-          <p>No commands matching "<strong>${escapeHtml(cleanQuery)}</strong>"</p>
+          <p>No items matching "<strong>${escapeHtml(cleanQuery)}</strong>"</p>
           <span class="palette-empty-tip">Try searching for generic keywords like <code>dmesg</code>, <code>xid</code>, <code>pcie</code>, <code>ipmi</code>, <code>dom</code>, <code>vlan</code>, or <code>edac</code>.</span>
         </div>
       `;
@@ -402,7 +473,7 @@
           <div class="palette-item-top">
             <span class="palette-sheet-badge ${sheetColor}">${escapeHtml(item.sName)}</span>
             <span class="palette-sec">${escapeHtml(item.sec)}</span>
-            <span class="palette-action-hint">Enter to Copy • Click to Open</span>
+            <span class="palette-action-hint">${isReferenceCard(item.id) ? 'Open reference' : 'Copy command &amp; open'}</span>
           </div>
           <div class="palette-cmd-code">${highlightedCmd}</div>
           <div class="palette-desc">${highlightedDesc}</div>
@@ -423,7 +494,7 @@
         const id = itemEl.dataset.id;
         const cmd = itemEl.dataset.cmd;
 
-        await copyCommand(cmd);
+        if (!isReferenceCard(id)) await copyCommand(cmd);
 
         navigateToResult(file, id);
       });
@@ -456,7 +527,7 @@
     const item = currentSearchResults[searchActiveIndex];
     if (!item) return;
 
-    await copyCommand(item.cmd);
+    if (!isReferenceCard(item.id)) await copyCommand(item.cmd);
 
     navigateToResult(item.file, item.id);
   }
@@ -836,6 +907,11 @@ ${log}
   // 4b. MULTI-COLOR THEME SELECTOR ENGINE
   // -------------------------------------------------------------
   const THEMES = [
+    { id: 'ayumirage', name: 'Ayu Mirage', desc: 'Mid-tone dusk navy & amber', swatches: ['#191e2a', '#212733', '#ffcc66', '#73d0ff'] },
+    { id: 'rosepine', name: 'Rosé Pine', desc: 'Velvet charcoal & dusty rose', swatches: ['#13111b', '#191724', '#ebbcba', '#f6c177'] },
+    { id: 'kanagawa', name: 'Kanagawa', desc: 'Japanese sumi-e ink & autumn wave', swatches: ['#16161d', '#1f1f28', '#7aa89f', '#c34043'] },
+    { id: 'gruvbox', name: 'Gruvbox Dark', desc: 'Warm retro groove & amber', swatches: ['#1d2021', '#282828', '#fabd2f', '#fe8019'] },
+    { id: 'sepia', name: 'Warm Sepia', desc: 'E-reader parchment & espresso ink', swatches: ['#ece4d0', '#f4ecd8', '#2c2523', '#b05a28'] },
     { id: 'dark', name: 'Cyber Dark', desc: 'Default obsidian slate & cyan', swatches: ['#0b0e14', '#111621', '#38bdf8', '#4ade80'] },
     { id: 'light', name: 'Clean Light', desc: 'Crisp daylight paper & azure', swatches: ['#f5f7fa', '#ffffff', '#0284c7', '#16a34a'] },
     { id: 'gemini', name: 'Gemini Spark', desc: 'Google Gemini cosmic indigo & violet', swatches: ['#090a12', '#101322', '#818cf8', '#c084fc'] },
@@ -1182,6 +1258,17 @@ ${log}
 
   // Check URL hash on page load
   window.addEventListener('DOMContentLoaded', () => {
+    initReferenceCards();
+    const scriptingMenu = document.querySelector('#scripting-nav-dropdown .nav-dropdown-menu');
+    if (scriptingMenu && !scriptingMenu.querySelector('a[href="git.html"], a[data-sheet="git"]')) {
+      const gitLink = document.createElement('a');
+      gitLink.href = 'git.html';
+      gitLink.className = 'dropdown-item';
+      gitLink.setAttribute('role', 'menuitem');
+      gitLink.textContent = '🌿 Git Commands';
+      const luaLink = scriptingMenu.querySelector('a[href="lua.html"]');
+      scriptingMenu.insertBefore(gitLink, luaLink || null);
+    }
     syncActiveNav();
     setupNavDropdown();
     setupFullscreenObserver();
