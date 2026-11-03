@@ -7,6 +7,7 @@ const ETHERNET_CHEAT_SHEET_DATA = [
     commands: [
       {
         id: "rj45-t568b-t568a-chart",
+        diagram: "rj45-pinout",
         mode: "RJ45 PINOUT",
         modeClass: "mode-v",
         desc: "Complete TIA/EIA-568B vs 568A RJ45 (8P8C) wire order (Hold plug clip-down, gold pins facing you, left=Pin 1)",
@@ -420,7 +421,6 @@ const state = {
   searchQuery: "",
   activeCategory: "all",
   savedOnly: false,
-  compact: localStorage.getItem("linux_cs_compact") === "1",
   theme: localStorage.getItem("linux_cs_theme") || "dark",
   bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("eth_cs_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
@@ -432,8 +432,6 @@ const sectionsContainer = document.getElementById("sections-container");
 const visibleCountEl = document.getElementById("visible-count");
 const savedCountEl = document.getElementById("saved-count");
 const savedFilterBtn = document.getElementById("saved-filter-btn");
-const densityToggleBtn = document.getElementById("density-toggle");
-const densityLabel = document.getElementById("density-label");
 const printBtn = document.getElementById("print-btn");
 const themeToggleBtn = document.getElementById("theme-toggle");
 const emptyStateEl = document.getElementById("empty-state");
@@ -629,6 +627,13 @@ function renderSections() {
           ? item.cmd.split("   |   ")[0].replace(/^#\s*Server:\s*/i, "").trim()
           : item.cmd.trim();
 
+        const codeBoxHtml = item.diagram
+          ? window.CheatSheetCommon.renderDiagram(item.diagram)
+          : `<div class="cmd-code-box" data-copy="${escapeHtml(copyTarget)}" title="Click to copy">
+              <code class="cmd-code">${highlightEthCmd(item.cmd)}</code>
+              <span class="copy-hint">Copy</span>
+            </div>`;
+
         return `
           <div class="cmd-item" data-id="${item.id}">
             <div class="cmd-top-row">
@@ -650,10 +655,7 @@ function renderSections() {
               </div>
             </div>
 
-            <div class="cmd-code-box" data-copy="${escapeHtml(copyTarget)}" title="Click to copy">
-              <code class="cmd-code">${highlightEthCmd(item.cmd)}</code>
-              <span class="copy-hint">Copy</span>
-            </div>
+            ${codeBoxHtml}
 
             ${flagsHtml}
           </div>
@@ -763,15 +765,6 @@ function applyTheme(theme) {
   }
 }
 
-function applyDensity(compact) {
-  state.compact = compact;
-  document.body.classList.toggle("compact-mode", compact);
-  densityToggleBtn.classList.toggle("active", compact);
-  densityLabel.textContent = compact ? "Detailed" : "Compact";
-  localStorage.setItem("linux_cs_compact", compact ? "1" : "0");
-  packMasonry();
-}
-
 function initEvents() {
   searchInput.addEventListener("input", (e) => {
     state.searchQuery = e.target.value.trim();
@@ -821,10 +814,6 @@ function initEvents() {
     renderSections();
   });
 
-  densityToggleBtn.addEventListener("click", () => {
-    applyDensity(!state.compact);
-  });
-
   if (printBtn) printBtn.addEventListener("click", () => {
     window.print();
   });
@@ -859,7 +848,6 @@ function initEvents() {
 }
 
 applyTheme(state.theme);
-applyDensity(state.compact);
 renderCategoryTabs();
 renderSections();
 initEthGenerator();

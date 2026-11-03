@@ -353,7 +353,6 @@ const state = {
   searchQuery: "",
   activeCategory: "all",
   savedOnly: false,
-  compact: localStorage.getItem("linux_cs_compact") === "1",
   theme: localStorage.getItem("linux_cs_theme") || "dark",
   bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("jira_cs_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
@@ -364,8 +363,6 @@ const categoryTabsEl = document.getElementById("category-tabs");
 const searchInput = document.getElementById("search-input");
 const savedFilterBtn = document.getElementById("saved-filter-btn");
 const savedCountEl = document.getElementById("saved-count");
-const densityToggleBtn = document.getElementById("density-toggle");
-const densityLabel = document.getElementById("density-label");
 const themeToggleBtn = document.getElementById("theme-toggle");
 const visibleCountEl = document.getElementById("visible-count");
 const emptyStateEl = document.getElementById("empty-state");
@@ -697,14 +694,6 @@ function applyTheme(theme) {
   }
 }
 
-function applyDensity(compact) {
-  state.compact = compact;
-  document.body.classList.toggle("compact-density", compact);
-  densityLabel.textContent = compact ? "Relaxed" : "Compact";
-  localStorage.setItem("linux_cs_compact", compact ? "1" : "0");
-  packMasonry();
-}
-
 function initEvents() {
   searchInput.addEventListener("input", (e) => {
     state.searchQuery = e.target.value.trim();
@@ -746,10 +735,6 @@ function initEvents() {
     state.savedOnly = !state.savedOnly;
     savedFilterBtn.classList.toggle("active", state.savedOnly);
     renderSections();
-  });
-
-  densityToggleBtn.addEventListener("click", () => {
-    applyDensity(!state.compact);
   });
 
   if (printBtn) printBtn.addEventListener("click", () => {
@@ -794,11 +779,15 @@ const jiraValues = (() => {
   try { return JSON.parse(localStorage.getItem("jira_cs_targets") || "{}") || {}; } catch (e) { return {}; }
 })();
 
+// Quotes and backslashes would end the JQL string early.
+function jiraValue(key) {
+  return String(jiraValues[key] || "").replace(/["\\]/g, "").trim();
+}
+
 function fillQuery(query) {
   let result = query;
   for (const [key, token] of Object.entries(JIRA_FIELDS)) {
-    // Quotes and backslashes would end the JQL string early.
-    const value = String(jiraValues[key] || "").replace(/["\\]/g, "").trim();
+    const value = jiraValue(key);
     if (value) result = result.split(token).join(value);
   }
   return result;
@@ -815,6 +804,11 @@ function applyJiraValues() {
     });
   });
   renderSections();
+  // In the offline copy this form runs in a frame, away from the queries on screen.
+  if (window.parent !== window) {
+    const fill = Object.fromEntries(Object.entries(JIRA_FIELDS).map(([key, token]) => [token, jiraValue(key)]));
+    window.parent.postMessage({ portableQueryFill: fill }, "*");
+  }
 }
 
 function initJiraForm() {
@@ -844,7 +838,6 @@ function initJiraForm() {
 
 // Initialize
 applyTheme(state.theme);
-applyDensity(state.compact);
 renderCategoryTabs();
 initEvents();
 initJiraForm();

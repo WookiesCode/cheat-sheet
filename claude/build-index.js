@@ -2,9 +2,10 @@
 // Generates global-search-index.js across every interactive cheat sheet JS data file.
 const fs = require('fs');
 const path = require('path');
+const { isReference } = require('./build-reference-rules.js');
 
 // Tooling never holds sheet data. app.js does: it backs index.html.
-const isTooling = f => /^(build-|generate-|create-)/.test(f) || f === 'common.js' || f === 'global-search-index.js';
+const isTooling = f => /^(build-|generate-|create-)/.test(f) || f === 'common.js' || f === 'global-search-index.js' || f === 'man-pages-data.js';
 const htmlFor = f => (f === 'app.js' ? 'index.html' : f.replace(/\.js$/, '.html'));
 
 const jsFiles = fs.readdirSync(__dirname).filter(f => f.endsWith('.js') && !isTooling(f));
@@ -42,7 +43,9 @@ for (const jsFile of jsFiles) {
         cmd: c.cmd || '',
         desc: c.desc || '',
         tip: c.tip || '',
-        tags: Array.isArray(c.tags) ? c.tags.join(' ') : ''
+        tags: Array.isArray(c.tags) ? c.tags.join(' ') : '',
+        // Reference entries keep their text for search but have nothing to copy.
+        ...((c.diagram || c.hideCode || isReference(c.cmd || '', jsFile)) ? { noCopy: true } : {})
       });
       if (Array.isArray(c.subcommands)) {
         for (const sub of c.subcommands) {
@@ -56,7 +59,8 @@ for (const jsFile of jsFiles) {
               cmd: sub[0],
               desc: sub[1],
               tip: '',
-              tags: Array.isArray(c.tags) ? c.tags.join(' ') : ''
+              tags: Array.isArray(c.tags) ? c.tags.join(' ') : '',
+              ...(isReference(String(sub[0]), jsFile) ? { noCopy: true } : {})
             });
           }
         }

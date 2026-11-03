@@ -625,7 +625,6 @@ const state = {
   searchQuery: "",
   activeCategory: "all",
   savedOnly: false,
-  compactMode: localStorage.getItem("mb_sheet_compact") === "true",
   theme: localStorage.getItem("mb_sheet_theme") || "dark",
   savedIds: new Set((() => { try { return JSON.parse(localStorage.getItem("mb_sheet_saved") || "[]"); } catch (e) { return []; } })())
 };
@@ -637,8 +636,6 @@ const searchInput = document.getElementById("search-input");
 const visibleCountEl = document.getElementById("visible-count");
 const savedCountEl = document.getElementById("saved-count");
 const savedFilterBtn = document.getElementById("saved-filter-btn");
-const densityToggleBtn = document.getElementById("density-toggle");
-const densityLabel = document.getElementById("density-label");
 const printBtn = document.getElementById("print-btn");
 const themeToggleBtn = document.getElementById("theme-toggle");
 const themeIconSun = document.getElementById("theme-icon-sun");
@@ -651,7 +648,6 @@ const toastMsg = document.getElementById("toast-msg");
 // Initialize
 function init() {
   applyTheme(state.theme);
-  applyDensity(state.compactMode);
   updateSavedBadge();
   renderCategoryTabs();
   renderSections();
@@ -717,15 +713,11 @@ function initPhaseTabs() {
   function renderPhase(key) {
     const items = PHASE_REFERENCE[key] || [];
     grid.innerHTML = items.map(([k, v]) => `
-      <div class="kv-item" data-copy="${escapeHtml(k)}" title="Click to copy ${escapeHtml(k)}">
+      <div class="kv-item">
         <span class="kv-key">${escapeHtml(k)}</span>
         <span class="kv-val">${escapeHtml(v)}</span>
       </div>
     `).join("");
-
-    grid.querySelectorAll(".kv-item").forEach((el) => {
-      el.addEventListener("click", () => copyText(el.dataset.copy, `Copied ${el.dataset.copy}`));
-    });
   }
 
   tabs.forEach((tab) => {
@@ -808,63 +800,61 @@ function renderSections() {
     const itemsHtml = filteredCommands.map((c) => {
       const isSaved = state.savedIds.has(c.id);
       const flagsHtml = (c.flags && c.flags.length)
-        ? `<div class="flags-list">${c.flags.map(([flag, desc]) => `
-            <div class="flag-row">
-              <code class="flag-token">${escapeHtml(flag)}</code>
-              <span class="flag-desc">${escapeHtml(desc)}</span>
-            </div>
-          `).join("")}</div>`
+        ? `<div class="flag-pills">${c.flags.map(([flag, desc]) =>
+            `<span class="flag-pill"><code>${escapeHtml(flag)}</code> <span>${escapeHtml(desc)}</span></span>`
+          ).join("")}</div>`
         : "";
 
       const tipHtml = c.tip
-        ? `<div class="cmd-tip">💡 ${escapeHtml(c.tip)}</div>`
+        ? `<div class="cmd-tip"><span class="tip-badge">TIP</span>${escapeHtml(c.tip)}</div>`
         : "";
 
       return `
-        <article class="command-item" data-id="${c.id}">
-          <div class="cmd-header">
-            <div class="cmd-title-group">
-              ${c.mode ? `<span class="vim-mode-badge ${c.modeClass || "mode-n"}">${escapeHtml(c.mode)}</span>` : ""}
-              <p class="cmd-desc">${ highlightText(c.desc, state.searchQuery) }</p>
+        <div class="cmd-item" id="${c.id}" data-id="${c.id}">
+          <div class="cmd-top-row">
+            <div class="cmd-desc">
+              ${c.mode ? `<span class="mode-pill ${c.modeClass || "mode-n"}">${escapeHtml(c.mode)}</span>` : ""}
+              <span>${highlightText(c.desc, state.searchQuery)}</span>
             </div>
             <div class="cmd-actions">
-              <button type="button" class="icon-btn save-btn ${isSaved ? "saved" : ""}" data-save-id="${c.id}" title="Bookmark item" aria-label="Bookmark item">
-                <svg viewBox="0 0 24 24" width="14" height="14">
-                  <path fill="${isSaved ? "currentColor" : "none"}" stroke="currentColor" stroke-width="2" d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
-                </svg>
+              <button type="button" class="icon-btn bookmark-btn save-btn ${isSaved ? "bookmarked" : ""}" data-save-id="${c.id}" title="${isSaved ? "Remove bookmark" : "Bookmark item"}" aria-label="Bookmark item">
+                ${isSaved ? "★" : "☆"}
               </button>
             </div>
           </div>
 
-          <div class="code-block" data-copy="${escapeHtml(c.cmd)}" title="Click to copy">
-            <code>${ highlightText(c.cmd, state.searchQuery) }</code>
+          <div class="cmd-code-box" data-copy="${escapeHtml(c.cmd)}" title="Click to copy">
+            <code class="cmd-code">${highlightText(c.cmd, state.searchQuery)}</code>
             <span class="copy-hint">Copy</span>
           </div>
 
           ${flagsHtml}
           ${tipHtml}
-        </article>
+        </div>
       `;
     }).join("");
 
     cardsHtml.push(`
-      <section class="section-card" data-section="${sec.id}">
-        <header class="section-card-header">
-          <span class="section-badge">${escapeHtml(sec.badge)}</span>
-          <div class="section-title-Block">
-            <h2>${escapeHtml(sec.title)}</h2>
-            <p>${escapeHtml(sec.subtitle)}</p>
+      <article class="section-card" id="sec-${sec.id}" data-section="${sec.id}">
+        <header class="section-header">
+          <div class="section-title-wrap">
+            <span class="section-badge">${escapeHtml(sec.badge)}</span>
+            <div>
+              <h2 class="section-title">${escapeHtml(sec.title)}</h2>
+              <p class="section-subtitle">${escapeHtml(sec.subtitle)}</p>
+            </div>
           </div>
-          <span class="section-count">${filteredCommands.length}</span>
+          <span class="count-badge">${filteredCommands.length}</span>
         </header>
         <div class="command-list">
           ${itemsHtml}
         </div>
-      </section>
+      </article>
     `);
   });
 
   sectionsGrid.innerHTML = cardsHtml.join("");
+  renderedCards = Array.from(sectionsGrid.querySelectorAll(".section-card"));
   visibleCountEl.textContent = visibleCount;
 
   if (visibleCount === 0) {
@@ -877,9 +867,12 @@ function renderSections() {
   packMasonry();
 }
 
+// Kept in render order. Reading the cards back from the columns would shuffle them.
+let renderedCards = [];
+
 function packMasonry() {
   if (!sectionsGrid) return;
-  const cards = Array.from(sectionsGrid.querySelectorAll(".section-card"));
+  const cards = renderedCards;
   cards.forEach((c) => sectionsGrid.appendChild(c));
   sectionsGrid.querySelectorAll(".masonry-col").forEach((col) => col.remove());
 
@@ -917,7 +910,7 @@ window.addEventListener("resize", () => {
 });
 
 function bindCardEvents() {
-  sectionsGrid.querySelectorAll(".code-block").forEach((block) => {
+  sectionsGrid.querySelectorAll(".cmd-code-box").forEach((block) => {
     block.addEventListener("click", () => {
       copyText(block.dataset.copy, "Copied to clipboard");
     });
@@ -949,12 +942,6 @@ function bindEvents() {
     state.savedOnly = !state.savedOnly;
     savedFilterBtn.classList.toggle("active", state.savedOnly);
     renderSections();
-  });
-
-  densityToggleBtn.addEventListener("click", () => {
-    state.compactMode = !state.compactMode;
-    localStorage.setItem("mb_sheet_compact", state.compactMode);
-    applyDensity(state.compactMode);
   });
 
   if (printBtn) printBtn.addEventListener("click", () => window.print());
@@ -990,13 +977,6 @@ function bindEvents() {
 
 function updateSavedBadge() {
   savedCountEl.textContent = state.savedIds.size;
-}
-
-function applyDensity(isCompact) {
-  document.body.classList.toggle("compact-mode", isCompact);
-  densityLabel.textContent = isCompact ? "Comfortable" : "Compact";
-  densityToggleBtn.classList.toggle("active", isCompact);
-  setTimeout(packMasonry, 20);
 }
 
 function applyTheme(theme) {

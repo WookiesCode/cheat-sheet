@@ -75,7 +75,7 @@ const SECTION_MAP = {
     heading: 'ServiceRoot Query, Dynamic Member URIs, X-Auth-Token & $expand',
     proTip: {
       desc: 'Production Redfish API Discovery & Authentication Best Practices',
-      cmd: 'curl -k -g -6 -sS -u "admin:password" "https://[fd00::10]/redfish/v1" | jq .',
+      cmd: 'curl -k -g -6 -sS -K ~/.bmc-curlrc "https://[$BMC]/redfish/v1" | jq .',
       details: 'Always discover collection URIs dynamically starting from /redfish/v1 ServiceRoot rather than hardcoding vendor OEM paths. For automated scripts, create an X-Auth-Token via POST to /redfish/v1/SessionService/Sessions to bypass costly per-request Basic authentication handshakes.',
       tip: 'Store the X-Auth-Token in an environment variable and always DELETE the session URI upon script completion to prevent exhausting the BMC session limit.',
       flags: [
@@ -306,7 +306,6 @@ const state = {
   searchQuery: "",
   activeCategory: "all",
   savedOnly: false,
-  compact: localStorage.getItem("linux_cs_compact") === "1",
   theme: localStorage.getItem("linux_cs_theme") || "dark",
   bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("${fileKey}_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
@@ -319,8 +318,6 @@ const visibleCountEl = document.getElementById("visible-count");
 const emptyStateEl = document.getElementById("empty-state");
 const savedFilterBtn = document.getElementById("saved-filter-btn");
 const savedCountEl = document.getElementById("saved-count");
-const densityToggleBtn = document.getElementById("density-toggle");
-const densityLabel = document.getElementById("density-label");
 const printBtn = document.getElementById("print-btn");
 const themeToggleBtn = document.getElementById("theme-toggle");
 const resetSearchBtn = document.getElementById("reset-search-btn");
@@ -583,13 +580,7 @@ function renderSections() {
         '',
         '  <div class="cmd-code-box" data-cmd="' + escapeHtml(copyTarget) + '" title="Click to copy command">',
         '    <pre class="cmd-code"><code>' + highlightCommand(cmd.cmd) + '</code></pre>',
-        '    <button type="button" class="copy-btn" title="Copy command" aria-label="Copy command">',
-        '      <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">',
-        '        <rect x="9" y="9" width="13" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>',
-        '        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" fill="none" stroke="currentColor" stroke-width="2"/>',
-        '      </svg>',
-        '      <span class="copy-feedback">Copied!</span>',
-        '    </button>',
+        '    <span class="copy-hint">Copy</span>',
         '  </div>',
         '  ' + detailsHtml,
         '  ' + flagsHtml,
@@ -661,14 +652,6 @@ function initEventListeners() {
     renderSections();
   });
 
-  densityToggleBtn.addEventListener("click", () => {
-    state.compact = !state.compact;
-    document.body.classList.toggle("compact-mode", state.compact);
-    densityLabel.textContent = state.compact ? "Normal" : "Compact";
-    localStorage.setItem("linux_cs_compact", state.compact ? "1" : "0");
-    packMasonry();
-  });
-
   if (printBtn) printBtn.addEventListener("click", () => {
     window.print();
   });
@@ -693,16 +676,8 @@ function initEventListeners() {
   });
 
   sectionsContainer.addEventListener("click", (e) => {
-    const copyBtn = e.target.closest(".copy-btn");
-    if (copyBtn) {
-      const codeBox = copyBtn.closest(".cmd-code-box");
-      const cmdText = codeBox ? codeBox.getAttribute("data-cmd") : "";
-      if (cmdText) copyToClipboard(cmdText);
-      return;
-    }
-
     const codeBox = e.target.closest(".cmd-code-box");
-    if (codeBox && !e.target.closest(".copy-btn")) {
+    if (codeBox) {
       const cmdText = codeBox.getAttribute("data-cmd");
       if (cmdText) copyToClipboard(cmdText);
       return;
@@ -744,10 +719,6 @@ function applyTheme(theme) {
 
 function init() {
   applyTheme(state.theme);
-  if (state.compact) {
-    document.body.classList.add("compact-mode");
-    densityLabel.textContent = "Normal";
-  }
   updateSavedCount();
   renderCategoryTabs();
   renderSections();
@@ -803,21 +774,14 @@ function generateRfHtml(sec, fileKey) {
           spellcheck="false"
         />
         <button type="button" id="reset-search-btn" class="search-reset-btn" title="Clear search (Esc)" aria-label="Clear search">✕</button>
-        <kbd class="search-kbd">/</kbd>
+        <kbd class="search-Shortcut" id="search-kbd">/</kbd>
       </div>
-    </div>
-  </header>
 
-  <main class="container main-content">
-    <!-- Toolbar -->
-    <section class="filter-bar" aria-label="Command filters">
-      <div id="category-tabs" class="category-tabs" role="region" aria-label="Topic filters"></div>
-
-      <div class="filter-actions">
+      <div class="header-actions">
         <button
           type="button"
           id="saved-filter-btn"
-          class="saved-filter-btn"
+          class="action-btn"
           title="Filter to bookmarked endpoints"
           aria-pressed="false"
         >
@@ -825,13 +789,13 @@ function generateRfHtml(sec, fileKey) {
             <path fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
           </svg>
           <span>Saved</span>
-          <span id="saved-count" class="saved-badge">0</span>
+          <span id="saved-count" class="count-badge">0</span>
         </button>
 
         <button
           type="button"
           id="density-toggle"
-          class="density-btn"
+          class="action-btn"
           title="Toggle compact view (compact spacing)"
           aria-label="Toggle compact view"
         >
@@ -870,12 +834,18 @@ function generateRfHtml(sec, fileKey) {
           </svg>
         </button>
       </div>
-    </section>
-
-    <!-- Results Counter -->
-    <div class="results-info" aria-live="polite">
-      Showing <span id="visible-count">0</span> items
     </div>
+    <div class="category-bar">
+      <div class="container category-bar-inner">
+        <div id="category-tabs" class="category-tabs" role="region" aria-label="Topic filters"></div>
+        <div class="stats-summary" id="stats-summary">
+          Showing <strong id="visible-count">0</strong> items
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container main-layout">
 
     <!-- Commands Container (Masonry Cards) -->
     <section id="sections-container" class="sections-container" aria-label="Command cards"></section>

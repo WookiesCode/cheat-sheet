@@ -8,7 +8,7 @@ const vm = require('vm');
 const SHEETS_CONFIG = [
   { key: 'linux', file: 'index.html', js: 'app.js', name: 'Linux', varName: 'CHEAT_SHEET_DATA', prompt: '$', cursor: '_', title: 'Ubuntu Linux Reference', subtitle: 'Interactive command cheat sheet, flag breakdown & pipe recipes', pill: 'Ubuntu / APT / systemd' },
   { key: 'cli-tools', file: 'cli-tools.html', js: 'cli-tools.js', name: 'CLI Tools', varName: 'CLI_TOOLS_DATA', prompt: 'CLI', cursor: '>', title: 'Modern CLI Tools Reference', subtitle: 'ripgrep, bat, fzf, fd, eza, zoxide, jq, dust, btop, delta, gum & modern shell utilities', pill: 'Rust / Go / Modern TUI' },
-  { key: 'scripting', file: 'scripting.html', js: 'scripting.js', name: 'Scripting', varName: 'SCRIPTING_DATA', prompt: '#!/', cursor: '>', title: 'Scripting & Formats Reference', subtitle: 'Bash, Python 3.10+, JavaScript, TypeScript, PowerShell, Lua, JSON, YAML, TOML, Regex, AWK & SQLite', pill: 'Polyglot / Dev & Sysadmin' },
+  { key: 'scripting', file: 'scripting.html', js: 'scripting.js', name: 'Scripting', varName: 'SCRIPTING_DATA', prompt: '#!/', cursor: '>', title: 'Scripting & Formats Reference', subtitle: 'Bash, Python 3.10+, JavaScript, TypeScript, PowerShell, Lua, JSON, YAML, TOML, Regex, AWK, SQLite & Git', pill: 'Polyglot / Dev & Sysadmin' },
   { key: 'neovim', file: 'neovim.html', js: 'neovim.js', name: 'Neovim', varName: 'NEOVIM_CHEAT_SHEET_DATA', prompt: 'NV', cursor: ':', title: 'Neovim (NVIM) Reference', subtitle: 'Motions, operators, text objects, visual mode, windows, buffers, macros & Lua config', pill: 'v0.10+ / Lua / LSP' },
   { key: 'macos', file: 'macos.html', js: 'macos.js', name: 'macOS', varName: 'MACOS_CHEAT_SHEET_DATA', prompt: 'mac', cursor: '%', title: 'macOS Terminal & Sysadmin', subtitle: 'Zsh, launchctl, brew, diskutil, networksetup, defaults, dtrace, security & Apple Silicon', pill: 'Darwin / Apple Silicon / Zsh' },
   { key: 'windows', file: 'windows.html', js: 'windows.js', name: 'Windows', varName: 'WINDOWS_CHEAT_SHEET_DATA', prompt: 'C:\\>', cursor: '_', title: 'Windows Admin & Sysadmin', subtitle: 'PowerShell, WMI/CIM, winget, dism, sc.exe, netsh, WSL2, BitLocker & Active Directory', pill: 'Windows 11 / Server' },
@@ -32,12 +32,13 @@ const SHEETS_CONFIG = [
   { key: 'toml', file: 'toml.html', js: 'toml.js', name: 'TOML', varName: 'TOML_CHEAT_SHEET_DATA', prompt: 'toml', cursor: '=', title: 'TOML Reference (v1.0.0)', subtitle: 'Tables [table], sub-tables, array of tables [[items]], key-value pairs, dates & Python parsing', pill: 'TOML v1.0.0 / tomllib' },
   { key: 'regex', file: 'regex.html', js: 'regex.js', name: 'Regex', varName: 'REGEX_CHEAT_SHEET_DATA', prompt: '/.*', cursor: '/g', title: 'Regular Expressions (PCRE / Modern RegExp)', subtitle: 'Tokens, character classes, quantifiers, lookahead/lookbehind, capture groups & datacenter recipes', pill: 'PCRE2 / ECMAScript' },
   { key: 'awk-sed', file: 'awk-sed.html', js: 'awk-sed.js', name: 'AWK & Sed', varName: 'AWK_SED_CHEAT_SHEET_DATA', prompt: "awk '", cursor: "'", title: 'AWK & Sed Stream Processing', subtitle: 'Field extraction, column math, BEGIN/END blocks, pattern filtering, and in-place stream editing', pill: 'POSIX AWK / GNU Sed' },
-  { key: 'sql', file: 'sql.html', js: 'sql.js', name: 'SQL & SQLite', varName: 'SQL_CHEAT_SHEET_DATA', prompt: 'sqlite>', cursor: ';', title: 'SQL & SQLite CLI Reference', subtitle: 'SELECT queries, filtering, joins, GROUP BY, aggregations, DDL, transactions & SQLite CLI', pill: 'ANSI SQL / SQLite 3.45' }
+  { key: 'sql', file: 'sql.html', js: 'sql.js', name: 'SQL & SQLite', varName: 'SQL_CHEAT_SHEET_DATA', prompt: 'sqlite>', cursor: ';', title: 'SQL & SQLite CLI Reference', subtitle: 'SELECT queries, filtering, joins, GROUP BY, aggregations, DDL, transactions & SQLite CLI', pill: 'ANSI SQL / SQLite 3.45' },
+  { key: 'git', file: 'git.html', js: 'git.js', name: 'Git', varName: 'GIT_CHEAT_SHEET_DATA', prompt: 'git', cursor: '>', title: 'Git Version Control Reference', subtitle: 'Setup, commits, branches, remotes, history search, undo & recovery, and offline transfer', pill: 'Git 2.x' },
 ];
 
 // The entries above carry hand-written labels. Every other sheet is discovered from
 // disk, so a new page is embedded without touching this list.
-const isTooling = f => /^(build-|generate-|create-)/.test(f) || f === 'common.js' || f === 'global-search-index.js';
+const isTooling = f => /^(build-|generate-|create-)/.test(f) || f === 'common.js' || f === 'global-search-index.js' || f === 'man-pages-data.js';
 const decodeEntities = text => text
   .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"')
   .replace(/&#0?39;/g, "'").replace(/&amp;/g, '&');
@@ -123,15 +124,13 @@ SHEETS_CONFIG.forEach(cfg => {
 });
 const widgetPayload = JSON.stringify({ common: escapeScriptClose(commonJs), pages: widgetPages }).replace(/</g, '\\u003c');
 
-// 4c. Captured man pages. Run build-man-pages.js to refresh them.
-const manData = JSON.parse(fs.readFileSync(path.join(__dirname, 'man-pages-data.json'), 'utf8'));
+// 4c. Manuals. build-man-data.js writes the data that the reader in common.js opens.
+const manData = JSON.parse(fs.readFileSync(path.join(__dirname, 'man-pages-data.js'), 'utf8').replace(/^window\.MAN_PAGES_DATA = /, '').replace(/;\s*$/, ''));
 const manIndex = {
-  source: manData.source,
-  captured: manData.captured,
   pages: Object.keys(manData.pages).sort(),
   missing: manData.missing
 };
-const manPayload = JSON.stringify(manData.pages).replace(/</g, '\\u003c');
+const manPayload = JSON.stringify(manData).replace(/</g, '\\u003c');
 
 // 5. Build Portable HTML
 const portableHtml = `<!DOCTYPE html>
@@ -145,25 +144,8 @@ ${css}
 
   .portable-widget-frame { display: block; width: 100%; height: 420px; border: 0; }
 
-  .portable-man { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 1rem; align-items: start; }
-  .man-sidebar { position: sticky; top: 1rem; display: flex; flex-direction: column; gap: 0.5rem; max-height: calc(100vh - 2rem); }
-  .man-filter { width: 100%; padding: 0.45rem 0.6rem; color: var(--text-primary); background: var(--bg-code); border: 1px solid var(--border-strong); border-radius: 6px; }
-  .man-list { overflow-y: auto; }
-  .man-group { margin: 0.75rem 0 0.25rem; color: var(--text-muted); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.04em; }
-  .man-entry { display: block; width: 100%; padding: 0.2rem 0.5rem; color: var(--text-secondary); font-family: var(--font-mono); font-size: 0.78rem; text-align: left; background: none; border: 0; border-radius: 4px; cursor: pointer; }
-  .man-entry:hover, .man-entry.active { color: var(--text-primary); background: var(--bg-hover); }
-  .man-entry.is-missing { color: var(--text-muted); }
-  .man-reader { min-width: 0; padding: 1rem; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 8px; }
-  .man-warning { margin: 0 0 0.75rem; padding: 0.5rem 0.7rem; color: var(--text-secondary); font-size: 0.8rem; border: 1px solid var(--border-subtle); border-radius: 6px; }
-  .man-title { margin: 0; font-family: var(--font-mono); font-size: 1.1rem; color: var(--text-primary); }
-  .man-meta { margin: 0.25rem 0 0.75rem; color: var(--text-muted); font-size: 0.75rem; overflow-wrap: anywhere; }
-  .man-text { margin: 0; overflow-x: auto; color: var(--text-primary); font-family: var(--font-mono); font-size: 0.8rem; line-height: 1.45; white-space: pre; }
   .man-link-btn { padding: 0 0.4rem; color: var(--text-secondary); font-family: var(--font-mono); font-size: 0.68rem; background: none; border: 1px solid var(--border-strong); border-radius: 4px; cursor: pointer; }
   .man-link-btn:hover { color: var(--accent-primary); border-color: var(--accent-primary); }
-  @media (max-width: 768px) {
-    .portable-man { grid-template-columns: minmax(0, 1fr); }
-    .man-sidebar { position: static; max-height: 240px; }
-  }
 
   /* Portable font fallbacks for zero-internet environments */
   :root {
@@ -197,7 +179,6 @@ ${css}
             <span class="portable-badge">100% OFFLINE PORTABLE</span>
             <nav class="sheet-switcher" aria-label="Switch cheat sheet" id="portable-sheet-nav">
 ${navLinksHtml}
-              <a href="#man" class="sheet-link" id="portable-man-link">Man Pages</a>
             </nav>
           </div>
           <p class="brand-subtitle" id="brand-subtitle">Interactive command cheat sheet, flag breakdown &amp; pipe recipes</p>
@@ -328,18 +309,6 @@ ${navLinksHtml}
   </header>
 
   <main class="container main-layout">
-    <section id="portable-man-view" class="portable-man hidden" aria-label="Man pages">
-      <aside class="man-sidebar">
-        <input type="search" id="man-filter" class="man-filter" placeholder="Filter man pages..." aria-label="Filter man pages" autocomplete="off" spellcheck="false" />
-        <div id="man-list" class="man-list"></div>
-      </aside>
-      <article class="man-reader">
-        <p id="man-warning" class="man-warning"></p>
-        <h2 id="man-title" class="man-title"></h2>
-        <p id="man-meta" class="man-meta"></p>
-        <pre id="man-text" class="man-text" tabindex="0"></pre>
-      </article>
-    </section>
     <div id="portable-widgets"></div>
     <div id="sections-container" class="sections-grid">
       <!-- Populated dynamically -->
@@ -405,7 +374,6 @@ ${escapeScriptClose(commonJs)}
     searchQuery: '',
     activeCategory: 'all',
     savedOnly: false,
-    compact: localStorage.getItem('linux_cs_compact') === '1',
     theme: localStorage.getItem('linux_cs_theme') || 'dark',
     bookmarks: new Set(JSON.parse(localStorage.getItem('portable_bookmarks') || '[]'))
   };
@@ -417,8 +385,6 @@ ${escapeScriptClose(commonJs)}
   const emptyStateEl = document.getElementById('empty-state');
   const savedFilterBtn = document.getElementById('saved-filter-btn');
   const savedCountEl = document.getElementById('saved-count');
-  const densityToggleBtn = document.getElementById('density-toggle');
-  const densityLabel = document.getElementById('density-label');
   const printBtn = document.getElementById('print-btn');
   const themeToggleBtn = document.getElementById('theme-toggle');
   const resetSearchBtn = document.getElementById('reset-search-btn');
@@ -474,7 +440,29 @@ ${escapeScriptClose(commonJs)}
     if (frame && e.source === frame.contentWindow && e.data && typeof e.data.portableWidgetHeight === 'number') {
       frame.style.height = Math.ceil(e.data.portableWidgetHeight) + 'px';
     }
+    if (frame && e.source === frame.contentWindow && e.data && e.data.portableQueryFill) {
+      applyQueryFill(e.data.portableQueryFill);
+    }
   });
+
+  // The Jira form runs in a frame, so its values are applied to the queries here.
+  let jiraTemplates = null;
+
+  function applyQueryFill(values) {
+    if (!jiraTemplates) jiraTemplates = JSON.parse(JSON.stringify(DATASETS.jira));
+    const fill = query => Object.entries(values).reduce(
+      (text, [token, value]) => (value ? text.split(token).join(value) : text), query);
+    DATASETS.jira.forEach((section, s) => {
+      section.commands.forEach((command, c) => {
+        const template = jiraTemplates[s].commands[c];
+        command.cmd = fill(template.cmd);
+        if (template.subcommands) {
+          command.subcommands = template.subcommands.map(([query, note]) => [fill(query), note]);
+        }
+      });
+    });
+    if (state.currentSheet === 'jira') renderSections();
+  }
 
   new MutationObserver(() => {
     const frame = widgetHost.querySelector('iframe');
@@ -484,12 +472,6 @@ ${escapeScriptClose(commonJs)}
   }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
   const manIndex = window.PORTABLE_MAN_INDEX;
-  const manView = document.getElementById('portable-man-view');
-  const MAN_MISSING_TEXT = {
-    vendor: 'Vendor tool: its man page is left out because the license may not allow redistribution.',
-    unavailable: 'No man page for this tool was found in Ubuntu 24.04 main or universe.'
-  };
-  let manPages = null;
 
   function manTool(cmd) {
     const [word, sub] = String(cmd).trim().replace(/^sudo\\s+/, '').replace(/^[A-Z_]+=\\S+\\s+/, '').split(/\\s+/);
@@ -502,67 +484,12 @@ ${escapeScriptClose(commonJs)}
     return tool ? '<button type="button" class="man-link-btn" data-man="' + escapeHtml(tool) + '" title="Open the man page reference">man</button>' : '';
   }
 
-  function renderManList(filter) {
-    const term = filter.trim().toLowerCase();
-    const entries = names => names.filter(name => name.includes(term)).map(name =>
-      '<button type="button" class="man-entry' + (manIndex.pages.includes(name) ? '' : ' is-missing') + '" data-man="' + escapeHtml(name) + '">' + escapeHtml(name) + '</button>'
-    ).join('');
-    const missing = Object.keys(manIndex.missing).sort();
-    document.getElementById('man-list').innerHTML =
-      '<p class="man-group">Embedded (' + manIndex.pages.length + ')</p>' + entries(manIndex.pages) +
-      '<p class="man-group">Not embedded (' + missing.length + ')</p>' + entries(missing);
-  }
-
-  function openManPage(name) {
-    if (!manPages) manPages = JSON.parse(document.getElementById('portable-man-pages').textContent);
-    state.currentSheet = null;
-    document.querySelectorAll('#portable-sheet-nav .active').forEach(link => link.classList.remove('active'));
-    document.getElementById('portable-man-link').classList.add('active');
-    widgetHost.textContent = '';
-    sectionsContainer.classList.add('hidden');
-    emptyStateEl.classList.add('hidden');
-    manView.classList.remove('hidden');
-    document.getElementById('man-warning').textContent =
-      'From ' + manIndex.source + ' packages, captured ' + manIndex.captured + '. An image at a different patch level can differ slightly, so check --help on the node if a flag looks wrong.';
-    const filter = document.getElementById('man-filter');
-    if (!filter.dataset.ready) {
-      filter.dataset.ready = '1';
-      renderManList('');
-    }
-
-    const page = manPages[name];
-    const title = document.getElementById('man-title');
-    const meta = document.getElementById('man-meta');
-    const text = document.getElementById('man-text');
-    if (page) {
-      title.textContent = name + '(' + page.section + ')';
-      meta.textContent = 'Package ' + page.package + ' ' + page.version + ' · License: ' + page.license;
-      text.textContent = page.text;
-    } else if (manIndex.missing[name]) {
-      title.textContent = name;
-      meta.textContent = '';
-      text.textContent = MAN_MISSING_TEXT[manIndex.missing[name]] + '\\n\\nSearch all sheets with Ctrl+K for its commands, or run ' + name + ' --help on the node.';
-    } else {
-      title.textContent = 'Man pages';
-      meta.textContent = '';
-      text.textContent = 'Choose a tool from the list. ' + manIndex.pages.length + ' pages are embedded.';
-    }
-    document.querySelectorAll('.man-entry').forEach(entry => entry.classList.toggle('active', entry.dataset.man === name));
-    window.scrollTo(0, 0);
-  }
-
-  function closeManView() {
-    manView.classList.add('hidden');
-    sectionsContainer.classList.remove('hidden');
-    document.getElementById('portable-man-link').classList.remove('active');
-  }
-
   function switchSheet(sheetKey, targetHash = '') {
     const cfg = SHEETS.find(s => s.key === sheetKey);
     if (!cfg) return;
 
-    closeManView();
     state.currentSheet = sheetKey;
+    window.CheatSheetCommon.setSheetContext(cfg.file);
     state.activeCategory = 'all';
     state.searchQuery = '';
     state.savedOnly = false;
@@ -778,6 +705,15 @@ ${escapeScriptClose(commonJs)}
             '</div>'
           : '';
 
+        const codeBoxHtml = item.diagram
+          ? window.CheatSheetCommon.renderDiagram(item.diagram)
+          : item.hideCode ? '' : (
+              '<div class="cmd-code-box" data-copy="' + escapeHtml(item.cmd.split('   |   ')[0].trim()) + '" title="Click to copy command">' +
+              '<code class="cmd-code">' + highlightCommand(item.cmd) + '</code>' +
+              '<span class="copy-hint">Copy</span>' +
+            '</div>'
+            );
+
         return (
           '<div class="cmd-item" id="' + item.id + '" data-id="' + item.id + '">' +
             '<div class="cmd-top-row">' +
@@ -787,16 +723,13 @@ ${escapeScriptClose(commonJs)}
                 dangerHtml +
               '</div>' +
               '<div class="cmd-actions">' +
-                manButton(item.cmd) +
+                (item.diagram || item.hideCode ? '' : manButton(item.cmd)) +
                 '<button type="button" class="icon-btn bookmark-btn ' + (isSaved ? 'bookmarked' : '') + '" data-bookmark-id="' + item.id + '" title="' + (isSaved ? 'Remove bookmark' : 'Bookmark command') + '">' +
                   (isSaved ? '★' : '☆') +
                 '</button>' +
               '</div>' +
             '</div>' +
-            '<div class="cmd-code-box" data-copy="' + escapeHtml(item.cmd.split('   |   ')[0].trim()) + '" title="Click to copy command">' +
-              '<code class="cmd-code">' + highlightCommand(item.cmd) + '</code>' +
-              '<span class="copy-hint">Copy</span>' +
-            '</div>' +
+            codeBoxHtml +
             detailsHtml +
             flagsHtml +
             subcommandsHtml +
@@ -847,14 +780,6 @@ ${escapeScriptClose(commonJs)}
     }
   }
 
-  function applyDensity(compact) {
-    state.compact = compact;
-    document.body.classList.toggle('compact-density', compact);
-    densityLabel.textContent = compact ? 'Relaxed' : 'Compact';
-    localStorage.setItem('linux_cs_compact', compact ? '1' : '0');
-    packMasonry();
-  }
-
   function initEvents() {
     // Nav sheet links & dropdown menu items
     document.querySelectorAll('#portable-sheet-nav .sheet-link:not(.dropdown-toggle), #portable-sheet-nav .dropdown-item').forEach(link => {
@@ -876,32 +801,20 @@ ${escapeScriptClose(commonJs)}
     });
 
     // Bookmark / copy clicks on cards
-    document.getElementById('portable-man-link').addEventListener('click', (e) => {
-      e.preventDefault();
-      openManPage('');
-      window.location.hash = 'man';
-    });
-
-    document.getElementById('man-filter').addEventListener('input', (e) => renderManList(e.target.value));
-
-    document.getElementById('man-list').addEventListener('click', (e) => {
-      const entry = e.target.closest('.man-entry');
-      if (!entry) return;
-      openManPage(entry.dataset.man);
-      window.location.hash = 'man-' + entry.dataset.man;
-    });
-
     sectionsContainer.addEventListener('click', (e) => {
       const manLink = e.target.closest('.man-link-btn');
       if (manLink) {
-        openManPage(manLink.dataset.man);
-        window.location.hash = 'man-' + manLink.dataset.man;
+        window.CheatSheetCommon.openManuals(manLink.dataset.man);
         return;
       }
 
       const copyBox = e.target.closest('.cmd-code-box, .subcmd-row');
       if (copyBox && copyBox.dataset.copy) {
         navigator.clipboard.writeText(copyBox.dataset.copy);
+        // common.js shows its own toast when it fills in Rack Targets values.
+        if (!window.CheatSheetCommon.substituteVariables(copyBox.dataset.copy).substituted) {
+          window.CheatSheetCommon.showToast('Copied to clipboard');
+        }
         return;
       }
 
@@ -926,10 +839,6 @@ ${escapeScriptClose(commonJs)}
       renderSections();
     });
 
-    densityToggleBtn.addEventListener('click', () => {
-      applyDensity(!state.compact);
-    });
-
     if (printBtn) {
       printBtn.addEventListener('click', () => {
         window.print();
@@ -951,13 +860,27 @@ ${escapeScriptClose(commonJs)}
       renderSections();
     });
 
+    document.addEventListener('keydown', (e) => {
+      if (e.key === '/' && document.activeElement !== searchInput) {
+        e.preventDefault();
+        searchInput.focus();
+        searchInput.select();
+      } else if (e.key === 'Escape' && (document.activeElement === searchInput || state.searchQuery)) {
+        searchInput.value = '';
+        state.searchQuery = '';
+        searchInput.blur();
+        renderSections();
+      }
+    });
+
     // Hash check on load
     const hash = window.location.hash.replace(/^#/, '');
     if (hash.startsWith('sheet-')) {
       const sKey = hash.replace('sheet-', '');
       switchSheet(sKey);
     } else if (hash === 'man' || hash.startsWith('man-')) {
-      openManPage(hash.replace(/^man-?/, ''));
+      switchSheet('linux');
+      window.CheatSheetCommon.openManuals(hash.replace(/^man-?/, ''));
     } else {
       switchSheet('linux');
     }
@@ -972,7 +895,6 @@ ${escapeScriptClose(commonJs)}
   };
 
   applyTheme(state.theme);
-  applyDensity(state.compact);
   initEvents();
 })();
   </script>

@@ -645,7 +645,7 @@ const SCRIPTING_DATA = [
     "id": "lua-script",
     "badge": "lua",
     "title": "Lua Scripting & Config Files",
-    "subtitle": "local scope, tables, pairs & ipairs, functions, pcall & Hyprland / Neovim config",
+    "subtitle": "Variables, tables, loops, strings, files, pcall & Hyprland / Neovim config. The Lua sheet has the full reference.",
     "commands": [
       {
         "id": "lua-hub-basics",
@@ -680,6 +680,20 @@ const SCRIPTING_DATA = [
           ]
         ],
         "tip": "Only false and nil are falsy; 0 and \"\" are true",
+        "subcommands": [
+          [
+            "local port = opts.port or 8080",
+            "Use a default when a value is nil or false"
+          ],
+          [
+            "local a, b = 1, 2",
+            "Assign several values at once, or swap with a, b = b, a"
+          ],
+          [
+            "print(type(server), tostring(nil))",
+            "Check a value's type, or turn it into a string"
+          ]
+        ],
         "tags": [
           "lua",
           "variables",
@@ -723,6 +737,20 @@ const SCRIPTING_DATA = [
           ]
         ],
         "tip": "luac -p file.lua checks syntax without running it",
+        "subcommands": [
+          [
+            "for i, host in ipairs(hosts) do print(i, host) end",
+            "Loop over a list in order"
+          ],
+          [
+            "while retries > 0 do retries = retries - 1 end",
+            "Loop until a condition changes"
+          ],
+          [
+            "local ok, err = pcall(check, temps)",
+            "Catch an error: ok is false and err holds the message"
+          ]
+        ],
         "tags": [
           "lua",
           "loops",
@@ -731,6 +759,170 @@ const SCRIPTING_DATA = [
           "functions",
           "pcall",
           "errors"
+        ]
+      },
+      {
+        "id": "lua-hub-strings-tables",
+        "mode": "LUA",
+        "modeClass": "mode-n",
+        "desc": "Search and format strings, and change lists",
+        "cmd": "local line = \"gpu-node-014 degraded\"\nlocal host, state = line:match(\"^(%S+)%s+(%S+)$\")\nprint(string.format(\"%-14s %s\", host, state:upper()))\n\nlocal hosts = { \"node2\", \"node1\" }\ntable.insert(hosts, \"node3\")\ntable.sort(hosts)\nprint(table.concat(hosts, \",\"))",
+        "flags": [
+          [
+            "s:match(pattern)",
+            "Return the captured parts of a string"
+          ],
+          [
+            "%s  %S  %d",
+            "Lua patterns: space, not space, digit"
+          ],
+          [
+            "string.format(fmt, ...)",
+            "Build text from a template, like printf"
+          ],
+          [
+            "table.insert(t, value)",
+            "Add to the end of a list"
+          ],
+          [
+            "table.concat(t, sep)",
+            "Join a list into one string"
+          ]
+        ],
+        "subcommands": [
+          [
+            "for word in line:gmatch(\"%S+\") do print(word) end",
+            "Split a string on whitespace"
+          ],
+          [
+            "local clean = line:gsub(\"%s+$\", \"\")",
+            "Trim trailing spaces. gsub finds and replaces."
+          ],
+          [
+            "table.remove(hosts, 1)",
+            "Remove and return the first item"
+          ],
+          [
+            "local copy = { table.unpack(hosts) }",
+            "Make a shallow copy of a list. In Neovim, use unpack(hosts) instead."
+          ]
+        ],
+        "tip": "Lua patterns are not regex, so use %d instead of \\d and there is no | for alternatives",
+        "tags": [
+          "lua",
+          "strings",
+          "patterns",
+          "match",
+          "gsub",
+          "format",
+          "tables",
+          "insert",
+          "sort",
+          "concat"
+        ]
+      },
+      {
+        "id": "lua-hub-files-cli",
+        "mode": "LUA",
+        "modeClass": "mode-n",
+        "desc": "Read files, run commands, and run scripts",
+        "cmd": "local f = assert(io.open(\"/etc/hostname\", \"r\"))\nlocal name = f:read(\"l\")\nf:close()\nprint(name)\n\nlocal p = assert(io.popen(\"uname -r\"))\nprint(p:read(\"l\"))\np:close()",
+        "flags": [
+          [
+            "assert(value)",
+            "Stop with the error if the value is nil or false"
+          ],
+          [
+            "io.open(path, mode)",
+            "Open a file: \"r\" read, \"w\" write, \"a\" append"
+          ],
+          [
+            "f:read(\"l\")",
+            "Read one line. \"a\" reads the whole file."
+          ],
+          [
+            "io.popen(command)",
+            "Run a shell command and read its output"
+          ],
+          [
+            "arg[1]",
+            "First argument passed to the script"
+          ]
+        ],
+        "subcommands": [
+          [
+            "lua script.lua arg1",
+            "Run a script"
+          ],
+          [
+            "lua -e 'print(_VERSION)'",
+            "Run one line without a file"
+          ],
+          [
+            "luac -p script.lua",
+            "Check syntax without running it"
+          ]
+        ],
+        "tip": "Always close what you open, or use for line in io.lines(path) do ... end, which closes the file for you",
+        "tags": [
+          "lua",
+          "files",
+          "io",
+          "open",
+          "read",
+          "popen",
+          "cli",
+          "arg",
+          "luac"
+        ]
+      },
+      {
+        "id": "lua-hub-config",
+        "mode": "LUA",
+        "modeClass": "mode-n",
+        "desc": "Edit Hyprland and Neovim config files",
+        "cmd": "-- ~/.config/hypr/bindings.lua\nhl.unbind(\"SUPER + SHIFT + E\")\no.bind(\"SUPER + SHIFT + E\", \"Email\", { webapp = \"https://mail.google.com\" })\n\n-- ~/.config/nvim/init.lua\nvim.opt.number = true\nvim.keymap.set(\"n\", \"<leader>w\", \"<cmd>write<CR>\", { desc = \"Save file\" })",
+        "flags": [
+          [
+            "o.bind(keys, label, action)",
+            "Add an Omarchy keybinding"
+          ],
+          [
+            "hl.unbind(keys)",
+            "Remove a default binding before replacing it"
+          ],
+          [
+            "vim.opt.name = value",
+            "Set a Neovim option"
+          ],
+          [
+            "vim.keymap.set(mode, keys, action, opts)",
+            "Add a Neovim keymap"
+          ]
+        ],
+        "subcommands": [
+          [
+            "hyprctl configerrors",
+            "List Hyprland config problems after you save"
+          ],
+          [
+            "hyprctl reload",
+            "Reload the Hyprland config"
+          ],
+          [
+            ":lua print(vim.version().minor)",
+            "Run Lua from Neovim's command line"
+          ]
+        ],
+        "tip": "Neovim runs LuaJIT (Lua 5.1), so features from Lua 5.3 and later, such as // and bitwise operators, are unavailable",
+        "tags": [
+          "lua",
+          "hyprland",
+          "omarchy",
+          "neovim",
+          "config",
+          "bindings",
+          "keymap"
         ]
       }
     ]
@@ -1165,6 +1357,161 @@ const SCRIPTING_DATA = [
         ]
       }
     ]
+  },
+  {
+    "id": "git-script",
+    "badge": "git",
+    "title": "Git Version Control",
+    "subtitle": "Daily commands, undoing mistakes & scripting against repositories. The Git sheet has the full reference.",
+    "commands": [
+      {
+        "id": "git-hub-daily",
+        "mode": "GIT",
+        "modeClass": "mode-n",
+        "desc": "The everyday loop: check, stage, commit, sync and branch",
+        "cmd": "git status -sb\ngit add -p\ngit commit -m \"Fix BMC timeout\"\ngit pull --rebase\ngit push -u origin HEAD",
+        "flags": [
+          [
+            "-sb",
+            "Short status, including the branch and how far ahead or behind it is"
+          ],
+          [
+            "add -p",
+            "Choose which hunks to stage"
+          ],
+          [
+            "pull --rebase",
+            "Put your commits on top of what you pulled"
+          ],
+          [
+            "push -u origin HEAD",
+            "Push the current branch and set its upstream"
+          ]
+        ],
+        "subcommands": [
+          [
+            "git switch -c feature/x",
+            "Create a branch and switch to it"
+          ],
+          [
+            "git log --oneline --graph --all -20",
+            "See recent history across branches"
+          ],
+          [
+            "git diff --staged",
+            "Review what the next commit contains"
+          ]
+        ],
+        "tip": "Run git diff --staged before committing to catch debug lines and secrets",
+        "tags": [
+          "git",
+          "status",
+          "add",
+          "commit",
+          "pull",
+          "push",
+          "branch"
+        ]
+      },
+      {
+        "id": "git-hub-undo",
+        "mode": "GIT",
+        "modeClass": "mode-n",
+        "desc": "Undo mistakes, from unstaging a file to recovering lost commits",
+        "cmd": "git restore --staged path/to/file\ngit reset --soft HEAD~1\ngit revert abc1234\ngit reflog -20",
+        "flags": [
+          [
+            "restore --staged",
+            "Unstage a file and keep your edits"
+          ],
+          [
+            "reset --soft HEAD~1",
+            "Undo the last commit and keep its changes staged"
+          ],
+          [
+            "revert",
+            "Undo a pushed commit by adding a new one"
+          ],
+          [
+            "reflog",
+            "List where HEAD has been, so you can recover lost commits"
+          ]
+        ],
+        "subcommands": [
+          [
+            "git stash push -u -m \"WIP\"",
+            "Set work aside, including untracked files"
+          ],
+          [
+            "git clean -nd",
+            "Preview which untracked files would be deleted"
+          ],
+          [
+            "git branch recovered HEAD@{2}",
+            "Recover a commit found in the reflog"
+          ]
+        ],
+        "tip": "Use git revert on shared branches, because git reset rewrites history",
+        "tags": [
+          "git",
+          "undo",
+          "restore",
+          "reset",
+          "revert",
+          "reflog",
+          "stash"
+        ]
+      },
+      {
+        "id": "git-hub-scripts",
+        "mode": "GIT",
+        "modeClass": "mode-n",
+        "desc": "Use git in scripts: check for local edits and report the version",
+        "cmd": "cd \"$(git rev-parse --show-toplevel)\"\nif [[ -n \"$(git status --porcelain)\" ]]; then\n  echo \"Refusing to deploy: uncommitted changes\" >&2\n  exit 1\nfi\nVERSION=\"$(git describe --tags --always --dirty)\"\necho \"Deploying $VERSION\"",
+        "flags": [
+          [
+            "--porcelain",
+            "Stable status output meant for scripts"
+          ],
+          [
+            "--show-toplevel",
+            "Print the top folder of the repository"
+          ],
+          [
+            "describe --always",
+            "Name the commit, even if there are no tags"
+          ],
+          [
+            "-C PATH",
+            "Run git in PATH without changing folder"
+          ]
+        ],
+        "subcommands": [
+          [
+            "git -C /opt/tools rev-parse --short HEAD",
+            "Print the commit deployed in a folder"
+          ],
+          [
+            "git diff --quiet || echo \"Unstaged changes\"",
+            "Use the exit code to detect changes"
+          ],
+          [
+            "git rev-parse --abbrev-ref HEAD",
+            "Print the current branch name"
+          ]
+        ],
+        "tip": "Parse --porcelain output, not plain git status, because the plain text can change between versions",
+        "tags": [
+          "git",
+          "scripts",
+          "porcelain",
+          "rev-parse",
+          "describe",
+          "deploy",
+          "automation"
+        ]
+      }
+    ]
   }
 ];
 
@@ -1173,7 +1520,6 @@ const state = {
   searchQuery: "",
   activeCategory: "all",
   savedOnly: false,
-  compact: localStorage.getItem("linux_cs_compact") === "1",
   theme: localStorage.getItem("linux_cs_theme") || "dark",
   bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("scripting_cs_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
@@ -1186,8 +1532,6 @@ const visibleCountEl = document.getElementById("visible-count");
 const emptyStateEl = document.getElementById("empty-state");
 const savedFilterBtn = document.getElementById("saved-filter-btn");
 const savedCountEl = document.getElementById("saved-count");
-const densityToggleBtn = document.getElementById("density-toggle");
-const densityLabel = document.getElementById("density-label");
 const printBtn = document.getElementById("print-btn");
 const themeToggleBtn = document.getElementById("theme-toggle");
 const resetSearchBtn = document.getElementById("reset-search-btn");
@@ -1487,14 +1831,6 @@ function applyTheme(theme) {
   }
 }
 
-function applyDensity(compact) {
-  state.compact = compact;
-  document.body.classList.toggle("compact-density", compact);
-  densityLabel.textContent = compact ? "Relaxed" : "Compact";
-  localStorage.setItem("linux_cs_compact", compact ? "1" : "0");
-  packMasonry();
-}
-
 function initEvents() {
   searchInput.addEventListener("input", (e) => {
     state.searchQuery = e.target.value.trim();
@@ -1527,10 +1863,6 @@ function initEvents() {
     state.savedOnly = !state.savedOnly;
     savedFilterBtn.classList.toggle("active", state.savedOnly);
     renderSections();
-  });
-
-  densityToggleBtn.addEventListener("click", () => {
-    applyDensity(!state.compact);
   });
 
   if (printBtn) printBtn.addEventListener("click", () => {
@@ -1568,7 +1900,6 @@ function initEvents() {
 
 // Initialize
 applyTheme(state.theme);
-applyDensity(state.compact);
 renderCategoryTabs();
 renderSections();
 initEvents();

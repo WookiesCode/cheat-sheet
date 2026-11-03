@@ -2,6 +2,32 @@
 (function() {
   'use strict';
 
+  // Sheets read and write storage directly, so make it safe once here. If the browser
+  // blocks storage, use a copy held in memory; if it's full, skip the write.
+  function guardStorage() {
+    ['localStorage', 'sessionStorage'].forEach(name => {
+      try {
+        window[name].getItem('dc_storage_probe');
+      } catch (e) {
+        const values = new Map();
+        const memory = {
+          getItem: key => (values.has(String(key)) ? values.get(String(key)) : null),
+          setItem: (key, value) => { values.set(String(key), String(value)); },
+          removeItem: key => { values.delete(String(key)); },
+          clear: () => values.clear()
+        };
+        try { Object.defineProperty(window, name, { value: memory, configurable: true }); } catch (err) {}
+      }
+    });
+    if (window.Storage) {
+      const setItem = Storage.prototype.setItem;
+      Storage.prototype.setItem = function(key, value) {
+        try { setItem.call(this, key, value); } catch (e) {}
+      };
+    }
+  }
+  guardStorage();
+
   // Apply saved theme immediately on script execution to avoid flash of wrong theme
   try {
     const savedTheme = localStorage.getItem('linux_cs_theme');
@@ -85,15 +111,11 @@
   function substituteVariables(text) {
     if (!targetState.active || !text) return { text, substituted: false, hasSecret: false };
     let result = text;
-    let count = 0;
 
     const bmcVal = (targetState.vars.bmc || '').trim();
     if (bmcVal && bmcVal !== DEFAULT_TARGET_VARS.bmc) {
       const bmcRegex = /(\$BMC\b|\$\{BMC\}|\$BMC_IP\b|\$\{BMC_IP\}|<bmc[_-]ip>|<bmc_host>|2001:db8:dc::1|192\.168\.1\.120)/g;
-      if (bmcRegex.test(result)) {
-        result = result.replace(bmcRegex, () => bmcVal);
-        count++;
-      }
+      result = result.replace(bmcRegex, () => bmcVal);
     } else if (bmcVal) {
       result = result.replace(/(\$BMC\b|\$\{BMC\}|\$BMC_IP\b|\$\{BMC_IP\}|<bmc[_-]ip>|<bmc_host>)/g, () => bmcVal);
     }
@@ -101,17 +123,6 @@
     const userVal = (targetState.vars.user || '').trim();
     if (userVal) {
       result = result.replace(/(\$BMC_USER\b|\$\{BMC_USER\}|<bmc_user>)/g, () => userVal);
-    }
-
-    let hasSecret = false;
-    if (targetState.pass) {
-      const passRegex = /(\$BMC_PASS\b|\$\{BMC_PASS\}|<bmc_pass>|<password>|<pass>)/g;
-      result = result.replace(passRegex, (match, _group, offset, whole) => {
-        hasSecret = true;
-        return quotePassword(targetState.pass, whole.slice(0, offset));
-      });
-      // A leading space keeps the line out of history where HISTCONTROL ignores spaces.
-      if (hasSecret && !result.startsWith(' ')) result = ' ' + result;
     }
 
     const ifaceVal = (targetState.vars.iface || '').trim();
@@ -132,6 +143,18 @@
     const gpuVal = (targetState.vars.gpu || '').trim();
     if (gpuVal) {
       result = result.replace(/(\$GPU\b|\$\{GPU\}|<gpu>|<gpu_id>)/g, () => gpuVal);
+    }
+
+    // Last, so no other substitution can rewrite part of the password.
+    let hasSecret = false;
+    if (targetState.pass) {
+      const passRegex = /(\$BMC_PASS\b|\$\{BMC_PASS\}|<bmc_pass>|<password>|<pass>)/g;
+      result = result.replace(passRegex, (match, _group, offset, whole) => {
+        hasSecret = true;
+        return quotePassword(targetState.pass, whole.slice(0, offset));
+      });
+      // A leading space keeps the line out of history where HISTCONTROL ignores spaces.
+      if (hasSecret && !result.startsWith(' ')) result = ' ' + result;
     }
 
     return { text: result, substituted: result !== text, hasSecret };
@@ -454,7 +477,7 @@
           <div class="palette-item-top">
             <span class="palette-sheet-badge ${sheetColor}">${escapeHtml(item.sName)}</span>
             <span class="palette-sec">${escapeHtml(item.sec)}</span>
-            <span class="palette-action-hint">Enter to Copy • Click to Open</span>
+            <span class="palette-action-hint">${item.noCopy ? 'Enter or Click to Open' : 'Enter to Copy • Click to Open'}</span>
           </div>
           <div class="palette-cmd-code">${highlightedCmd}</div>
           <div class="palette-desc">${highlightedDesc}</div>
@@ -476,8 +499,10 @@
         const cmd = itemEl.dataset.cmd;
 
         // If target is copy or user wants to copy
-        navigator.clipboard.writeText(firstCommand(cmd));
-        showGlobalToast(`Copied command from ${itemEl.querySelector('.palette-sheet-badge').textContent}!`);
+        if (!currentSearchResults[idx].noCopy) {
+          navigator.clipboard.writeText(firstCommand(cmd));
+          showGlobalToast(`Copied command from ${itemEl.querySelector('.palette-sheet-badge').textContent}!`);
+        }
 
         // If not already on this page, navigate to it with hash
         openSearchResult(file, id);
@@ -511,8 +536,10 @@
     const item = currentSearchResults[searchActiveIndex];
     if (!item) return;
 
-    navigator.clipboard.writeText(firstCommand(item.cmd));
-    showGlobalToast(`Copied command: ${item.cmd.slice(0, 40)}…`);
+    if (!item.noCopy) {
+      navigator.clipboard.writeText(firstCommand(item.cmd));
+      showGlobalToast(`Copied command: ${item.cmd.slice(0, 40)}…`);
+    }
 
     openSearchResult(item.file, item.id);
   }
@@ -554,24 +581,27 @@
       .join('');
   }
 
+  // Index entries are named after their file, so group them by the nav menu they sit under.
+  const SHEET_BADGES = [
+    [/^(awk-sed|bash|git|javascript|json|lua|powershell|python|regex|scripting|sql|toml|typescript|yaml)$/, 'badge-scripting'],
+    [/^(nv-|nvidia$)/, 'badge-nvidia'],
+    [/^(ib-|infiniband$)/, 'badge-ib'],
+    [/^(sw-|switches$)/, 'badge-switch'],
+    [/^(mb-|motherboards$)/, 'badge-mb'],
+    [/^(rf-|redfish$)/, 'badge-redfish'],
+    [/^ipmi/, 'badge-ipmi'],
+    [/^(fo-|fiber$)/, 'badge-fiber'],
+    [/^(eth-|ethernet$)/, 'badge-eth'],
+    [/^(nvim-|neovim$)/, 'badge-nvim'],
+    [/^macos/, 'badge-mac'],
+    [/^(win-|windows$)/, 'badge-win'],
+    [/^omarchy$/, 'badge-omarchy'],
+    [/^cli-tools$/, 'badge-cli']
+  ];
+
   function getSheetColorClass(sheetName) {
-    switch (sheetName) {
-      case 'Scripting': return 'badge-scripting';
-      case 'NVIDIA DC': return 'badge-nvidia';
-      case 'InfiniBand': return 'badge-ib';
-      case 'Switches': return 'badge-switch';
-      case 'Motherboards': return 'badge-mb';
-      case 'Redfish': return 'badge-redfish';
-      case 'ipmitool': return 'badge-ipmi';
-      case 'Fiber': return 'badge-fiber';
-      case 'Ethernet': return 'badge-eth';
-      case 'Neovim': return 'badge-nvim';
-      case 'macOS': return 'badge-mac';
-      case 'Windows':
-      case 'PS> Windows': return 'badge-win';
-      case 'Omarchy': return 'badge-omarchy';
-      default: return 'badge-linux';
-    }
+    const match = SHEET_BADGES.find(([pattern]) => pattern.test(sheetName));
+    return match ? match[1] : 'badge-linux';
   }
 
   // -------------------------------------------------------------
@@ -593,7 +623,7 @@ echo -n "Chassis Serial: "; sudo dmidecode -s system-serial-number 2>/dev/null |
 echo -n "BIOS Version:   "; sudo dmidecode -s bios-version 2>/dev/null || true
 echo -n "BIOS Date:      "; sudo dmidecode -s bios-release-date 2>/dev/null || true
 
-echo -e "\\\n[2/7] PREVIOUS BOOT CRASH RECORDS (ACPI BERT / APEI / GHES):"
+echo -e "\\n[2/7] PREVIOUS BOOT CRASH RECORDS (ACPI BERT / APEI / GHES):"
 KLOG_OK=1
 KLOG=$(sudo dmesg -T 2>/dev/null) || KLOG_OK=0
 if [ "$KLOG_OK" != 1 ] || [ -z "$KLOG" ]; then
@@ -873,8 +903,7 @@ ${log}
   // 4. HEADER INJECTIONS (Search All & Triage Buttons)
   // -------------------------------------------------------------
   function injectHeaderControls() {
-    // Older page layouts keep these buttons in the filter bar instead of the header.
-    const actions = document.querySelector('.header-actions, .filter-actions');
+    const actions = document.querySelector('.header-actions');
     if (!actions) return;
 
     if (!document.getElementById('global-search-btn')) {
@@ -914,6 +943,23 @@ ${log}
       } else {
         actions.appendChild(triageBtn);
       }
+    }
+
+    if (!document.getElementById('manuals-btn')) {
+      const manualsBtn = document.createElement('button');
+      manualsBtn.type = 'button';
+      manualsBtn.id = 'manuals-btn';
+      manualsBtn.className = 'action-btn';
+      manualsBtn.title = 'Search offline manuals (M)';
+      manualsBtn.innerHTML = `
+        <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"></path>
+          <path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"></path>
+        </svg>
+        <span>Manuals</span>
+      `;
+      manualsBtn.addEventListener('click', () => openManuals());
+      actions.appendChild(manualsBtn);
     }
 
     if (!document.getElementById('portable-link-btn') && !window.PORTABLE_SHEETS) {
@@ -1086,6 +1132,7 @@ ${log}
     const cleanId = cardId.replace(/^#/, '');
     const el = document.getElementById(cleanId);
     if (el) {
+      el.classList.add('card-revealed'); // Compact may be hiding the result you came for.
       el.scrollIntoView({ behavior: 'smooth', block: 'center' });
       el.classList.add('cmd-highlight-flash');
       setTimeout(() => el.classList.remove('cmd-highlight-flash'), 2500);
@@ -1106,12 +1153,26 @@ ${log}
     return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   }
 
+  // Sheets use "/" to jump to search. In a form field it has to type a slash instead.
+  window.addEventListener('keydown', (e) => {
+    if (e.key === '/' && e.target instanceof Element && e.target.matches('input, textarea, select, [contenteditable]')) {
+      e.stopPropagation();
+    }
+  }, true);
+
   // Global keydown handler
   window.addEventListener('keydown', (e) => {
     // Ctrl+K or Cmd+K opens global search
     if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
       e.preventDefault();
       openGlobalSearch();
+    }
+    // M opens Manuals, except while typing, in a modal, or inside an offline-copy tool frame.
+    const typing = e.target instanceof Element && e.target.matches('input, textarea, select, [contenteditable]');
+    const modalOpen = document.querySelector('.global-search-backdrop:not(.hidden), .triage-modal-backdrop:not(.hidden)');
+    if (e.key.toLowerCase() === 'm' && !e.ctrlKey && !e.metaKey && !e.altKey && !typing && !modalOpen && window.parent === window) {
+      e.preventDefault();
+      openManuals();
     }
     // Escape closes modals
     if (e.key === 'Escape') {
@@ -1283,6 +1344,360 @@ ${log}
     }
   }
 
+  // -------------------------------------------------------------
+  // 6. COMPACT VIEW
+  // -------------------------------------------------------------
+  const COMPACT_KEY = 'linux_cs_compact';
+  // The variants are the main content on these sheets, so Compact keeps them.
+  const KEEPS_VARIANTS = /^(awk-sed|bash|git|javascript|jira|json|lua|powershell|python|regex|scripting|sql|toml|typescript|yaml)\.html$/;
+
+  // -------------------------------------------------------------
+  // 7. REFERENCE DIAGRAMS
+  // -------------------------------------------------------------
+  // Drawn here rather than loaded as images so they work offline and follow the theme.
+  // Wire colors are the real cable colors, so they stay the same in every theme.
+  const WIRE_COLORS = { orange: '#e8791f', green: '#2f9e44', blue: '#2f6fd6', brown: '#9c6b3c' };
+  const RJ45_STANDARDS = [
+    { name: 'T568B', note: 'Standard for most installs',
+      wires: ['white-orange', 'orange', 'white-green', 'blue', 'white-blue', 'green', 'white-brown', 'brown'] },
+    { name: 'T568A', note: 'Government and residential',
+      wires: ['white-green', 'green', 'white-orange', 'blue', 'white-blue', 'orange', 'white-brown', 'brown'] }
+  ];
+
+  function wireLabel(wire) {
+    return wire.split('-').map(word => word[0].toUpperCase() + word.slice(1)).join('/');
+  }
+
+  function rj45Wire(wire, x) {
+    const top = 86;
+    const height = 124;
+    const striped = wire.startsWith('white-');
+    const color = WIRE_COLORS[wire.replace('white-', '')];
+    let bands = '';
+    if (striped) {
+      for (let y = top + 3; y < top + height - 6; y += 14) {
+        bands += `<rect x="${x - 6}" y="${y}" width="12" height="7" fill="${color}"/>`;
+      }
+    }
+    return `<rect x="${x - 6}" y="${top}" width="12" height="${height}" rx="2" fill="${striped ? '#f4f4f0' : color}"/>${bands}` +
+      `<rect x="${x - 6}" y="${top}" width="12" height="${height}" rx="2" fill="none" stroke="var(--border-strong)"/>`;
+  }
+
+  function rj45Svg(standard) {
+    const wireX = pin => 59 + pin * 26;
+    const pins = standard.wires.map((wire, pin) => {
+      const x = wireX(pin);
+      return `<text x="${x}" y="58" text-anchor="middle" class="wire-pin">${pin + 1}</text>` +
+        `<rect x="${x - 6}" y="66" width="12" height="20" rx="1.5" fill="#d4a72c"/>` +
+        rj45Wire(wire, x) +
+        `<text transform="translate(${x + 4} 288) rotate(-90)" class="wire-label">${wireLabel(wire)}</text>`;
+    }).join('');
+    const summary = standard.wires.map((wire, pin) => `${pin + 1} ${wireLabel(wire)}`).join(', ');
+    return `<svg viewBox="0 0 300 296" role="img" aria-label="${standard.name} wire order: ${summary}">` +
+      `<text x="150" y="18" text-anchor="middle" class="wire-title">${standard.name}</text>` +
+      `<text x="150" y="35" text-anchor="middle" class="wire-note">${standard.note}</text>` +
+      '<rect x="38" y="62" width="224" height="128" rx="6" class="wire-plug"/>' +
+      pins + '</svg>';
+  }
+
+  const DIAGRAMS = {
+    'rj45-pinout': () => '<figure class="wire-diagram">' + RJ45_STANDARDS.map(rj45Svg).join('') +
+      '<figcaption>Hold the plug with the contacts facing you, the clip behind, and the cable pointing down. Pin 1 is on the left.</figcaption></figure>'
+  };
+
+  function renderDiagram(name) {
+    return DIAGRAMS[name] ? DIAGRAMS[name]() : '';
+  }
+
+  // -------------------------------------------------------------
+  // 8. READ-ONLY REFERENCE ENTRIES
+  // -------------------------------------------------------------
+  // build-reference-rules.js decides what isn't a command. About 200 sheet scripts render
+  // these boxes, so entries are matched by text here rather than in each renderer.
+  const COPY_BOXES = '.cmd-code-box:not([data-ref-checked]), .subcmd-row:not([data-ref-checked])';
+  let referenceText = null;
+
+  function getReferenceText() {
+    if (!referenceText) {
+      referenceText = new Set();
+      (window.GLOBAL_SEARCH_INDEX || []).filter(item => item.noCopy).forEach(item => {
+        referenceText.add(item.cmd);
+        referenceText.add(firstCommand(item.cmd));
+      });
+    }
+    return referenceText;
+  }
+
+  function markReferenceEntries() {
+    document.querySelectorAll(COPY_BOXES).forEach(box => {
+      box.dataset.refChecked = '1';
+      const text = box.dataset.copy ?? box.dataset.cmd ?? box.dataset.subcmd;
+      if (text !== undefined && getReferenceText().has(text)) {
+        box.classList.add('is-reference');
+        box.removeAttribute('title');
+      }
+    });
+  }
+
+  function initReferenceEntries() {
+    markReferenceEntries();
+    new MutationObserver(markReferenceEntries).observe(document.body, { childList: true, subtree: true });
+    // Runs before the sheets' own copy handlers.
+    window.addEventListener('click', (e) => {
+      if (e.target instanceof Element && e.target.closest('.is-reference')) e.stopPropagation();
+    }, true);
+  }
+
+  // -------------------------------------------------------------
+  // 9. MANUALS
+  // -------------------------------------------------------------
+  // The manuals are about 9 MB, so they load the first time the reader opens rather
+  // than on every page. The offline copy embeds them as JSON instead of a script file.
+  const MANUAL_MISSING_TEXT = {
+    vendor: 'Vendor tool: its manual is left out because the license may not allow redistribution.',
+    unavailable: 'No manual for this tool was found in Ubuntu 24.04 main or universe.'
+  };
+  const MANUAL_ELSEWHERE = 'Search all sheets with Ctrl+K for its commands, or run the tool with --help on the node.';
+  let manuals = null;
+  let manualsLoading = null;
+  let manualsEl = null;
+  let manualsFocus = null;
+  let manualsSelected = '';
+  let manualsTimer = null;
+
+  function buildManuals(data) {
+    const pages = Object.entries(data.pages).map(([name, page]) => ({ name, ...page }));
+    const absent = Object.entries(data.missing || {}).map(([name, reason]) => ({ name, reason, category: 'Not included' }));
+    return { count: pages.length, list: [...pages, ...absent].sort((a, b) => a.name.localeCompare(b.name)) };
+  }
+
+  function loadManuals() {
+    if (manuals) return Promise.resolve();
+    if (manualsLoading) return manualsLoading;
+    manualsLoading = new Promise((resolve, reject) => {
+      const embedded = document.getElementById('portable-man-pages');
+      if (embedded) {
+        manuals = buildManuals(JSON.parse(embedded.textContent));
+        resolve();
+        return;
+      }
+      const script = document.createElement('script');
+      script.src = 'man-pages-data.js';
+      script.onload = () => {
+        manuals = buildManuals(window.MAN_PAGES_DATA);
+        delete window.MAN_PAGES_DATA;
+        resolve();
+      };
+      script.onerror = () => {
+        manualsLoading = null;
+        reject(new Error('man-pages-data.js could not be loaded'));
+      };
+      document.head.appendChild(script);
+    });
+    return manualsLoading;
+  }
+
+  function manualNode(id) {
+    return document.getElementById(id);
+  }
+
+  function initManualsReader() {
+    if (manualsEl) return;
+    manualsEl = document.createElement('div');
+    manualsEl.id = 'manuals-modal';
+    manualsEl.className = 'manual-backdrop hidden';
+    manualsEl.innerHTML = `
+      <section class="manual-dialog" role="dialog" aria-modal="true" aria-labelledby="manual-heading">
+        <header class="manual-header">
+          <h2 id="manual-heading">Manuals</h2>
+          <span id="manual-count" class="manual-count" role="status">Loading...</span>
+          <button type="button" id="manual-close" class="action-btn" aria-label="Close manuals">Close</button>
+        </header>
+        <div class="manual-toolbar">
+          <input type="search" id="manual-search" placeholder="Search manuals, such as nvme smart-log or ipmitool" aria-label="Search manuals" autocomplete="off" spellcheck="false" />
+          <select id="manual-category" aria-label="Filter by category"><option value="">All categories</option></select>
+          <label class="manual-fulltext"><input type="checkbox" id="manual-fulltext" /> Search full text</label>
+        </div>
+        <div class="manual-layout">
+          <nav id="manual-list" class="manual-list" aria-label="Manual list"></nav>
+          <article class="manual-reader" tabindex="0" aria-label="Selected manual">
+            <h3 id="manual-title"></h3>
+            <p id="manual-meta" class="manual-meta"></p>
+            <pre id="manual-text"></pre>
+          </article>
+        </div>
+      </section>`;
+    document.body.appendChild(manualsEl);
+
+    manualNode('manual-close').addEventListener('click', closeManuals);
+    manualsEl.addEventListener('click', (e) => {
+      if (e.target === manualsEl) closeManuals();
+    });
+    manualNode('manual-search').addEventListener('input', () => {
+      clearTimeout(manualsTimer);
+      manualsTimer = setTimeout(renderManualList, 120);
+    });
+    manualNode('manual-category').addEventListener('change', renderManualList);
+    manualNode('manual-fulltext').addEventListener('change', renderManualList);
+    manualNode('manual-list').addEventListener('click', (e) => {
+      const entry = e.target.closest('[data-manual]');
+      if (entry) selectManual(entry.dataset.manual);
+    });
+    manualsEl.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        closeManuals();
+      } else if (e.key === 'Tab') {
+        const focusable = [...manualsEl.querySelectorAll('button, input, select, [tabindex="0"]')];
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    });
+  }
+
+  function manualMatches() {
+    const tokens = manualNode('manual-search').value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+    const category = manualNode('manual-category').value;
+    const fullText = manualNode('manual-fulltext').checked;
+    const joined = tokens.join('-');
+    const rank = entry => (entry.name === joined || entry.name === tokens[0] ? 0 : entry.name.startsWith(joined) ? 1 : 2);
+    return manuals.list
+      .filter(entry => !category || entry.category === category)
+      .filter(entry => {
+        const words = `${entry.name} ${entry.package || ''} ${entry.category} ${fullText ? entry.text || '' : ''}`.toLowerCase();
+        return tokens.every(token => words.includes(token));
+      })
+      .sort((a, b) => rank(a) - rank(b));
+  }
+
+  function renderManualList() {
+    const matches = manualMatches();
+    manualNode('manual-count').textContent = `${matches.length} of ${manuals.list.length}`;
+    const list = manualNode('manual-list');
+    list.replaceChildren(...matches.map(entry => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.dataset.manual = entry.name;
+      button.className = `manual-entry${entry.text ? '' : ' is-missing'}${entry.name === manualsSelected ? ' active' : ''}`;
+      button.textContent = entry.section ? `${entry.name}(${entry.section})` : entry.name;
+      return button;
+    }));
+    if (!matches.length) {
+      const empty = document.createElement('p');
+      empty.className = 'manual-empty';
+      empty.textContent = 'No manuals match. Try fewer words, or turn on Search full text.';
+      list.replaceChildren(empty);
+    } else if (!matches.some(entry => entry.name === manualsSelected)) {
+      selectManual((matches.find(entry => entry.text) || matches[0]).name);
+    }
+  }
+
+  function selectManual(name) {
+    const entry = manuals.list.find(item => item.name === name);
+    if (!entry) return;
+    manualsSelected = name;
+    manualNode('manual-title').textContent = entry.section ? `${entry.name}(${entry.section})` : entry.name;
+    manualNode('manual-meta').textContent = entry.text
+      ? `${entry.package} ${entry.version} · ${entry.category} · License: ${entry.license} · Source: ${entry.source}. The version on a node can differ.`
+      : '';
+    manualNode('manual-text').textContent = entry.text || `${MANUAL_MISSING_TEXT[entry.reason] || ''}\n\n${MANUAL_ELSEWHERE}`;
+    manualsEl.querySelector('.manual-reader').scrollTop = 0;
+    manualsEl.querySelectorAll('.manual-entry').forEach(item => item.classList.toggle('active', item.dataset.manual === name));
+  }
+
+  function openManuals(name) {
+    initManualsReader();
+    if (manualsEl.classList.contains('hidden')) {
+      manualsFocus = document.activeElement;
+      manualsEl.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    manualNode('manual-search').focus();
+    return loadManuals().then(() => {
+      const category = manualNode('manual-category');
+      if (category.options.length === 1) {
+        [...new Set(manuals.list.map(entry => entry.category))].sort().forEach(value => category.add(new Option(value, value)));
+      }
+      manualNode('manual-search').value = name || '';
+      renderManualList();
+      if (name) selectManual(name);
+    }).catch(() => {
+      manualNode('manual-count').textContent = '';
+      manualNode('manual-text').textContent = 'The manuals could not be loaded. Keep man-pages-data.js in the same folder as this page.';
+    });
+  }
+
+  function closeManuals() {
+    if (!manualsEl || manualsEl.classList.contains('hidden')) return;
+    clearTimeout(manualsTimer);
+    manualsEl.classList.add('hidden');
+    document.body.style.overflow = '';
+    if (manualsFocus && manualsFocus.focus) manualsFocus.focus();
+  }
+
+  function repack() {
+    if (typeof window.packMasonry === 'function') window.packMasonry();
+  }
+
+  function applyCompact(compact) {
+    document.body.classList.toggle('compact-mode', compact);
+    const btn = document.getElementById('density-toggle');
+    const label = document.getElementById('density-label');
+    if (btn) {
+      btn.classList.toggle('active', compact);
+      btn.setAttribute('aria-pressed', String(compact));
+    }
+    if (label) label.textContent = compact ? 'Detailed' : 'Compact';
+    repack();
+  }
+
+  function setSheetContext(file) {
+    document.body.classList.toggle('keep-variants', KEEPS_VARIANTS.test(file));
+    syncSearchActive();
+  }
+
+  // Search reveals everything Compact hides, so a match is never hidden in its own result.
+  function syncSearchActive() {
+    const input = document.getElementById('search-input');
+    const active = !!(input && input.value.trim());
+    if (active !== document.body.classList.contains('search-active')) {
+      document.body.classList.toggle('search-active', active);
+      repack();
+    }
+  }
+
+  function initCompact() {
+    // Motherboards used to keep its own setting.
+    const legacy = readStored('mb_sheet_compact');
+    if (legacy !== null) {
+      if (legacy === 'true' && readStored(COMPACT_KEY) === null) localStorage.setItem(COMPACT_KEY, '1');
+      localStorage.removeItem('mb_sheet_compact');
+    }
+    setSheetContext(window.location.pathname.split('/').pop() || 'index.html');
+    applyCompact(readStored(COMPACT_KEY) === '1');
+
+    document.addEventListener('click', (e) => {
+      if (!(e.target instanceof Element) || !e.target.closest('#density-toggle')) return;
+      const compact = !document.body.classList.contains('compact-mode');
+      localStorage.setItem(COMPACT_KEY, compact ? '1' : '0');
+      applyCompact(compact);
+    });
+    document.addEventListener('input', syncSearchActive, true);
+    // Esc and Reset clear the box without an input event.
+    ['click', 'keyup'].forEach(type => document.addEventListener(type, () => setTimeout(syncSearchActive, 0)));
+  }
+
+  // Sheet scripts load after this one, so apply Compact now, before they measure cards.
+  if (document.body) initCompact();
+  else window.addEventListener('DOMContentLoaded', initCompact);
+
   // Check URL hash on page load
   window.addEventListener('DOMContentLoaded', () => {
     syncActiveNav();
@@ -1291,6 +1706,7 @@ ${log}
     injectHeaderControls();
     renderTargetVarsBar();
     enhanceEmptyState();
+    initReferenceEntries();
     if (window.location.hash) {
       setTimeout(() => scrollToCard(window.location.hash), 150);
     }
@@ -1306,6 +1722,9 @@ ${log}
     showToast: showGlobalToast,
     scrollToCard,
     applyTheme: applyGlobalTheme,
+    setSheetContext,
+    renderDiagram,
+    openManuals,
     THEMES
   };
 
