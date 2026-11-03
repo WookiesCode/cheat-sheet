@@ -697,6 +697,68 @@ const SCRIPTING_DATA = [
         tags: ["git", "scripts", "porcelain", "rev-parse", "describe", "deploy", "automation"]
       }
     ]
+  },
+  {
+    id: "markdown-script",
+    badge: "md",
+    title: "Markdown",
+    subtitle: "Formatting, tables & collapsible logs for tickets and READMEs. The Markdown sheet has the full reference.",
+    commands: [
+      {
+        id: "md-hub-basics",
+        mode: "MARKDOWN",
+        modeClass: "mode-n",
+        desc: "The syntax you use every day: headings, emphasis, lists, links and code",
+        cmd: "# Title\n## Section\n\n**bold**  *italic*  `inline code`\n\n- Bullet\n  - Nested bullet\n1. Numbered step\n- [ ] Open task\n\n[Link text](https://example.com)\n\n```bash\nnvidia-smi -q -d ECC\n```",
+        flags: [
+          ["# to ######", "Heading levels 1 to 6, with a space after the marks"],
+          ["**text** / *text*", "Bold and italic"],
+          ["- [ ] / - [x]", "Open and checked task boxes"],
+          ["```lang", "Fenced code block with highlighting"]
+        ],
+        subcommands: [
+          ["> [!WARNING]\n> Drain the node first.", "GitHub alert box"],
+          ["[Jump](#root-cause)", "Link to a heading in the same file"],
+          ["\\*not italic\\*", "Backslash shows a special character literally"]
+        ],
+        tip: "Leave a blank line around headings, lists and code blocks so every renderer reads them the same way",
+        tags: ["markdown", "md", "headings", "lists", "links", "code", "gfm"]
+      },
+      {
+        id: "md-hub-tables",
+        mode: "MARKDOWN",
+        modeClass: "mode-n",
+        desc: "Tables with alignment, and a table built from command output",
+        cmd: "| GPU | BDF          | Temp |\n|:----|:-------------|-----:|\n| 3   | 0000:8a:00.0 |  88C |\n\nnvidia-smi --query-gpu=index,pci.bus_id,temperature.gpu --format=csv,noheader \\\n  | awk -F', ' '{ printf \"| %s | %s | %sC |\\n\", $1, $2, $3 }'",
+        flags: [
+          [":--- / ---: / :---:", "Left, right and center alignment"],
+          ["\\|", "Pipe character inside a cell"],
+          ["<br>", "Line break inside a cell"]
+        ],
+        subcommands: [
+          ["pandoc -f csv -t gfm data.csv", "Convert a CSV to a Markdown table"]
+        ],
+        tip: "Right-align number columns so values are easy to compare",
+        tags: ["markdown", "tables", "awk", "nvidia-smi", "csv"]
+      },
+      {
+        id: "md-hub-details",
+        mode: "MARKDOWN",
+        modeClass: "mode-n",
+        desc: "Fold long logs into a collapsible section in a ticket or PR",
+        cmd: "<details>\n<summary>Full dmesg output</summary>\n\n```text\n...\n```\n\n</details>",
+        flags: [
+          ["<details open>", "Start expanded"],
+          ["<summary>", "The clickable title line"]
+        ],
+        subcommands: [
+          ["glow summary.md", "Preview rendered Markdown in the terminal"],
+          ["pandoc summary.md -o summary.docx", "Convert to Word"]
+        ],
+        tip: "Leave blank lines inside <details>, or the Markdown in it won't render",
+        tags: ["markdown", "details", "summary", "collapse", "logs", "ticket"]
+      }
+    ]
   }
 ];
 

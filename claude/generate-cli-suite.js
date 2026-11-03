@@ -710,6 +710,7 @@ ${CLI_NAVBAR_SNIPPET}
                   <a href="awk-sed.html" class="dropdown-item" role="menuitem">✂️ AWK &amp; Sed</a>
                   <a href="sql.html" class="dropdown-item" role="menuitem">🗄️ SQL &amp; SQLite</a>
                   <a href="git.html" class="dropdown-item" role="menuitem">🌿 Git</a>
+                  <a href="markdown.html" class="dropdown-item" role="menuitem">📝 Markdown</a>
                 </div>
               </div>
               <a href="neovim.html" class="sheet-link"><svg class="nav-logo" viewBox="0 0 24 24" width="13" height="13" fill="none" aria-hidden="true"><path d="M2.5 5.2L7.3.5v23l-4.8-4.7V5.2z" fill="#16b0ed"/><path d="M16.7.5l4.8 4.7v13.6l-4.8 4.7V.5z" fill="#57a143"/><path d="M7.3.5l12 18.2-2.6 4.8L4.7 5.3 7.3.5z" fill="#7db643"/></svg> Neovim</a>
