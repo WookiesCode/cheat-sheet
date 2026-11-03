@@ -1,5 +1,5 @@
-// Auto-generated Global Search Index across all 186 cheat sheets
-// Total indexed items: 2047
+// Auto-generated Global Search Index across all 187 cheat sheets
+// Total indexed items: 2223
 window.GLOBAL_SEARCH_INDEX = [
   {
     "sName": "linux",
@@ -5873,7 +5873,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "T568B (Standard): 1:W/Org  2:Org  3:W/Grn  4:Blu  5:W/Blu  6:Grn  7:W/Brn  8:Brn\nT568A (Gov/Res):  1:W/Grn  2:Grn  3:W/Org  4:Blu  5:W/Blu  6:Org  7:W/Brn  8:Brn",
     "desc": "Complete TIA/EIA-568B vs 568A RJ45 (8P8C) wire order (Hold plug clip-down, gold pins facing you, left=Pin 1)",
     "tip": "Only Orange & Green swap between B and A",
-    "tags": "RJ45 Pinouts & TDR ethernet nic networking linux rj45 pinout t568b t568a 568b 568a wires colors 8p8c"
+    "tags": "RJ45 Pinouts & TDR ethernet nic networking linux rj45 pinout t568b t568a 568b 568a wires colors 8p8c",
+    "noCopy": true
   },
   {
     "sName": "eth-rj45-tdr",
@@ -5884,7 +5885,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "T568B (Standard): 1:W/Org  2:Org  3:W/Grn  4:Blu  5:W/Blu  6:Grn  7:W/Brn  8:Brn\nT568A (Gov/Res):  1:W/Grn  2:Grn  3:W/Org  4:Blu  5:W/Blu  6:Org  7:W/Brn  8:Brn",
     "desc": "Options breakdown and parameter syntax for Complete TIA/EIA-568B vs 568A RJ45 (8P8C) wire order (Hold plug clip-down, gold pins facing you, left=Pin 1)",
     "tip": "",
-    "tags": "RJ45 Pinouts & TDR flags options syntax"
+    "tags": "RJ45 Pinouts & TDR flags options syntax",
+    "noCopy": true
   },
   {
     "sName": "eth-rj45-tdr",
@@ -5928,7 +5930,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "T568B (Standard): 1:W/Org  2:Org  3:W/Grn  4:Blu  5:W/Blu  6:Grn  7:W/Brn  8:Brn\nT568A (Gov/Res):  1:W/Grn  2:Grn  3:W/Org  4:Blu  5:W/Blu  6:Org  7:W/Brn  8:Brn",
     "desc": "Complete TIA/EIA-568B vs 568A RJ45 (8P8C) wire order (Hold plug clip-down, gold pins facing you, left=Pin 1)",
     "tip": "Only Orange & Green swap between B and A",
-    "tags": "rj45 pinout t568b t568a 568b 568a wires colors 8p8c"
+    "tags": "rj45 pinout t568b t568a 568b 568a wires colors 8p8c",
+    "noCopy": true
   },
   {
     "sName": "ethernet",
@@ -6203,7 +6206,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Switch Port: OSFP Finned (8x100G = 800G)   |   NIC Card: OSFP Flat-Top / RHS or QSFP112 (4x100G = 400G)",
     "desc": "OSFP Finned (Switch side) vs OSFP Flat-Top / RHS (Riding Heat Sink for ConnectX-7/8 PCIe NICs)",
     "tip": "",
-    "tags": "osfp finned flattop rhs qsfp-dd qsfp112 800g 400g"
+    "tags": "osfp finned flattop rhs qsfp-dd qsfp112 800g 400g",
+    "noCopy": true
   },
   {
     "sName": "fiber",
@@ -6214,7 +6218,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "800G Twin-Port OSFP (2x MPO-12 APC)  ──►  2× 400G DR4 / QSFP112 (1x MPO-12 APC each)\n400G DR4 (1x MPO-12 APC)             ──►  4× 100G DR1 / SFP112 (4x LC Duplex UPC)",
     "desc": "Common AI / Datacenter optical breakout patterns (800G 2xDR4 → 2× 400G DR4, 400G DR4 → 4× 100G DR1)",
     "tip": "Verify 100G/lane vs 50G/lane PAM4 before breakout!",
-    "tags": "breakout fanout 2xdr4 dr4 dr1 pam4 lanes"
+    "tags": "breakout fanout 2xdr4 dr4 dr1 pam4 lanes",
+    "noCopy": true
   },
   {
     "sName": "fiber",
@@ -6225,7 +6230,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "0.5–2.5m: Passive DAC   |   2.5–7m: AEC (Retimed Copper)   |   ≤100m: SR4/SR8 (MMF)   |   ≤500m: DR4/DR8 (SMF)   |   ≤2km: FR4 (SMF)",
     "desc": "Choosing between Passive DAC, Active AEC (Retimed Copper), AOC, SR, DR, and FR optics by distance",
     "tip": "",
-    "tags": "dac aec acc aoc copper distance reach"
+    "tags": "dac aec acc aoc copper distance reach",
+    "noCopy": true
   },
   {
     "sName": "fiber",
@@ -6236,7 +6242,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "[Transceiver: MALE PINS] ◄── [Patch Cord: FEMALE] ──► [Trunk Panel: MALE] ◄── [Patch Cord: FEMALE] ──► [Transceiver: MALE PINS]",
     "desc": "Prevent transceiver damage: How Male (Pinned) and Female (Unpinned) MPO/MTP connectors mate",
     "tip": "",
-    "tags": "mpo mtp male female pins pinned unpinned damage"
+    "tags": "mpo mtp male female pins pinned unpinned damage",
+    "noCopy": true
   },
   {
     "sName": "fiber",
@@ -6247,7 +6254,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Direct Optic-to-Optic Patch: Type B (Key-Up to Key-Up, Female-to-Female)   |   MPO-12 Lanes: TX=1..4, Unused=5..8, RX=9..12",
     "desc": "MPO-12 / MPO-16 Polarity Types (Type B rollover for direct patch vs Type A structured trunks)",
     "tip": "Direct jumper between 2 optics = Type B Female-Female",
-    "tags": "polarity type-b type-a rollover key-up mpo12 mpo16"
+    "tags": "polarity type-b type-a rollover key-up mpo12 mpo16",
+    "noCopy": true
   },
   {
     "sName": "fiber",
@@ -6258,7 +6266,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "MPO-12 (4-lane): Centered Alignment Key   |   MPO-16 (8-lane 800G): Offset (Left-Shifted) Alignment Key",
     "desc": "Distinguishing MPO-12 (4-lane SR4/DR4) from MPO-16 (8-lane 800G SR8/DR8) connectors",
     "tip": "",
-    "tags": "mpo12 mpo16 key offset sr8 dr8 800g"
+    "tags": "mpo12 mpo16 key offset sr8 dr8 800g",
+    "noCopy": true
   },
   {
     "sName": "fiber",
@@ -6269,7 +6278,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "LC Duplex (FR4/LR4/SR/DR1)   |   CS / SN / MDC (High-Density 2xFR4 / 4xDR1 breakouts)",
     "desc": "Duplex 2-fiber connectors (LC, CS, SN, MDC) and how to fix RX_LOS polarity swaps in the field",
     "tip": "TX ok + RX -40dBm on both sides = roll LC clip",
-    "tags": "lc duplex cs sn mdc los swap roll upc apc"
+    "tags": "lc duplex cs sn mdc los swap roll upc apc",
+    "noCopy": true
   },
   {
     "sName": "fiber",
@@ -6280,7 +6290,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "1. Inspect w/ 400x Scope  ──►  2. Dry IBC Click-Cleaner (1–2 clicks)  ──►  3. Wet-to-Dry Clean (if oil/gel)  ──►  4. Re-Inspect",
     "desc": "IEC 61300-3-35 Inspect-Before-You-Connect workflow (85%+ of datacenter link issues are dirty ferrules)",
     "tip": "New out of bag ≠ clean!",
-    "tags": "clean ibc clicker scope ferrule dust contamination"
+    "tags": "clean ibc clicker scope ferrule dust contamination",
+    "noCopy": true
   },
   {
     "sName": "fiber",
@@ -6291,7 +6302,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "10km LR4: Safe at 2m patch (Max TX ≤ Max RX)   |   40km ER4 / 80km ZR: MUST use 10–15 dB Attenuator on short patches!",
     "desc": "When to install inline optical attenuators to prevent burning out receiver photodiodes (`RX High Alarm`)",
     "tip": "",
-    "tags": "attenuator overload er4 zr lr4 burn damage pad"
+    "tags": "attenuator overload er4 zr lr4 burn damage pad",
+    "noCopy": true
   },
   {
     "sName": "fiber",
@@ -6302,7 +6314,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Check DOM RX dBm per lane  ──►  Check Lane Skew (<2.5 dB)  ──►  Clean Patch & Panel  ──►  Swap Patch Cord  ──►  Loopback Test Optic",
     "desc": "Step-by-step field isolation for flapping links, high Pre-FEC BER, or uncorrectable FEC codeword errors",
     "tip": "1 weak lane on MPO = dirty outer fiber",
-    "tags": "triage troubleshooting ber fec flap crc skew loopback"
+    "tags": "triage troubleshooting ber fec flap crc skew loopback",
+    "noCopy": true
   },
   {
     "sName": "fiber",
@@ -6313,7 +6326,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Tier 1 (OLTS Power Meter): Total End-to-End dB Insertion Loss   |   Tier 2 (OTDR): Distance-to-Fault (m) + Per-Panel Reflectance & Splice Loss",
     "desc": "Tier-1 OLTS (Optical Loss Test Set) vs Tier-2 OTDR (Optical Time-Domain Reflectometer) structured cabling tests",
     "tip": "",
-    "tags": "otdr olts fluke exfo tier1 tier2 launch-cable dead-zone"
+    "tags": "otdr olts fluke exfo tier1 tier2 launch-cable dead-zone",
+    "noCopy": true
   },
   {
     "sName": "file",
@@ -6588,7 +6602,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "1. Inspect w/ 400x Scope  ──►  2. Dry IBC Click-Cleaner (1–2 clicks)  ──►  3. Wet-to-Dry Clean (if oil/gel)  ──►  4. Re-Inspect",
     "desc": "IEC 61300-3-35 Inspect-Before-You-Connect workflow (85%+ of datacenter link issues are dirty ferrules)",
     "tip": "New out of bag ≠ clean!",
-    "tags": "Cleaning & Testing Triage fiber optics transceiver dom clean ibc clicker scope ferrule dust contamination"
+    "tags": "Cleaning & Testing Triage fiber optics transceiver dom clean ibc clicker scope ferrule dust contamination",
+    "noCopy": true
   },
   {
     "sName": "fo-cleaning-testing",
@@ -6599,7 +6614,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "10km LR4: Safe at 2m patch (Max TX ≤ Max RX)   |   40km ER4 / 80km ZR: MUST use 10–15 dB Attenuator on short patches!",
     "desc": "When to install inline optical attenuators to prevent burning out receiver photodiodes (`RX High Alarm`)",
     "tip": "",
-    "tags": "Cleaning & Testing Triage fiber optics transceiver dom attenuator overload er4 zr lr4 burn damage pad"
+    "tags": "Cleaning & Testing Triage fiber optics transceiver dom attenuator overload er4 zr lr4 burn damage pad",
+    "noCopy": true
   },
   {
     "sName": "fo-cleaning-testing",
@@ -6610,7 +6626,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Check DOM RX dBm per lane  ──►  Check Lane Skew (<2.5 dB)  ──►  Clean Patch & Panel  ──►  Swap Patch Cord  ──►  Loopback Test Optic",
     "desc": "Step-by-step field isolation for flapping links, high Pre-FEC BER, or uncorrectable FEC codeword errors",
     "tip": "1 weak lane on MPO = dirty outer fiber",
-    "tags": "Cleaning & Testing Triage fiber optics transceiver dom triage troubleshooting ber fec flap crc skew loopback"
+    "tags": "Cleaning & Testing Triage fiber optics transceiver dom triage troubleshooting ber fec flap crc skew loopback",
+    "noCopy": true
   },
   {
     "sName": "fo-cleaning-testing",
@@ -6621,7 +6638,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Tier 1 (OLTS Power Meter): Total End-to-End dB Insertion Loss   |   Tier 2 (OTDR): Distance-to-Fault (m) + Per-Panel Reflectance & Splice Loss",
     "desc": "Tier-1 OLTS (Optical Loss Test Set) vs Tier-2 OTDR (Optical Time-Domain Reflectometer) structured cabling tests",
     "tip": "",
-    "tags": "Cleaning & Testing Triage fiber optics transceiver dom otdr olts fluke exfo tier1 tier2 launch-cable dead-zone"
+    "tags": "Cleaning & Testing Triage fiber optics transceiver dom otdr olts fluke exfo tier1 tier2 launch-cable dead-zone",
+    "noCopy": true
   },
   {
     "sName": "fo-cleaning-testing",
@@ -6698,7 +6716,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Switch Port: OSFP Finned (8x100G = 800G)   |   NIC Card: OSFP Flat-Top / RHS or QSFP112 (4x100G = 400G)",
     "desc": "OSFP Finned (Switch side) vs OSFP Flat-Top / RHS (Riding Heat Sink for ConnectX-7/8 PCIe NICs)",
     "tip": "",
-    "tags": "Form Factors & Breakouts fiber optics transceiver dom osfp finned flattop rhs qsfp-dd qsfp112 800g 400g"
+    "tags": "Form Factors & Breakouts fiber optics transceiver dom osfp finned flattop rhs qsfp-dd qsfp112 800g 400g",
+    "noCopy": true
   },
   {
     "sName": "fo-form-factors",
@@ -6709,7 +6728,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "800G Twin-Port OSFP (2x MPO-12 APC)  ──►  2× 400G DR4 / QSFP112 (1x MPO-12 APC each)\n400G DR4 (1x MPO-12 APC)             ──►  4× 100G DR1 / SFP112 (4x LC Duplex UPC)",
     "desc": "Common AI / Datacenter optical breakout patterns (800G 2xDR4 → 2× 400G DR4, 400G DR4 → 4× 100G DR1)",
     "tip": "Verify 100G/lane vs 50G/lane PAM4 before breakout!",
-    "tags": "Form Factors & Breakouts fiber optics transceiver dom breakout fanout 2xdr4 dr4 dr1 pam4 lanes"
+    "tags": "Form Factors & Breakouts fiber optics transceiver dom breakout fanout 2xdr4 dr4 dr1 pam4 lanes",
+    "noCopy": true
   },
   {
     "sName": "fo-form-factors",
@@ -6720,7 +6740,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "0.5–2.5m: Passive DAC   |   2.5–7m: AEC (Retimed Copper)   |   ≤100m: SR4/SR8 (MMF)   |   ≤500m: DR4/DR8 (SMF)   |   ≤2km: FR4 (SMF)",
     "desc": "Choosing between Passive DAC, Active AEC (Retimed Copper), AOC, SR, DR, and FR optics by distance",
     "tip": "",
-    "tags": "Form Factors & Breakouts fiber optics transceiver dom dac aec acc aoc copper distance reach"
+    "tags": "Form Factors & Breakouts fiber optics transceiver dom dac aec acc aoc copper distance reach",
+    "noCopy": true
   },
   {
     "sName": "fo-form-factors",
@@ -6742,7 +6763,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "[Transceiver: MALE PINS] ◄── [Patch Cord: FEMALE] ──► [Trunk Panel: MALE] ◄── [Patch Cord: FEMALE] ──► [Transceiver: MALE PINS]",
     "desc": "Prevent transceiver damage: How Male (Pinned) and Female (Unpinned) MPO/MTP connectors mate",
     "tip": "",
-    "tags": "MPO Pinning & Polarity fiber optics transceiver dom mpo mtp male female pins pinned unpinned damage"
+    "tags": "MPO Pinning & Polarity fiber optics transceiver dom mpo mtp male female pins pinned unpinned damage",
+    "noCopy": true
   },
   {
     "sName": "fo-mpo-polarity",
@@ -6753,7 +6775,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "[Transceiver: MALE PINS] ◄── [Patch Cord: FEMALE] ──► [Trunk Panel: MALE] ◄── [Patch Cord: FEMALE] ──► [Transceiver: MALE PINS]",
     "desc": "Options breakdown and parameter syntax for Prevent transceiver damage: How Male (Pinned) and Female (Unpinned) MPO/MTP connectors mate",
     "tip": "",
-    "tags": "MPO Pinning & Polarity flags options syntax"
+    "tags": "MPO Pinning & Polarity flags options syntax",
+    "noCopy": true
   },
   {
     "sName": "fo-mpo-polarity",
@@ -6764,7 +6787,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Direct Optic-to-Optic Patch: Type B (Key-Up to Key-Up, Female-to-Female)   |   MPO-12 Lanes: TX=1..4, Unused=5..8, RX=9..12",
     "desc": "MPO-12 / MPO-16 Polarity Types (Type B rollover for direct patch vs Type A structured trunks)",
     "tip": "Direct jumper between 2 optics = Type B Female-Female",
-    "tags": "MPO Pinning & Polarity fiber optics transceiver dom polarity type-b type-a rollover key-up mpo12 mpo16"
+    "tags": "MPO Pinning & Polarity fiber optics transceiver dom polarity type-b type-a rollover key-up mpo12 mpo16",
+    "noCopy": true
   },
   {
     "sName": "fo-mpo-polarity",
@@ -6775,7 +6799,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "MPO-12 (4-lane): Centered Alignment Key   |   MPO-16 (8-lane 800G): Offset (Left-Shifted) Alignment Key",
     "desc": "Distinguishing MPO-12 (4-lane SR4/DR4) from MPO-16 (8-lane 800G SR8/DR8) connectors",
     "tip": "",
-    "tags": "MPO Pinning & Polarity fiber optics transceiver dom mpo12 mpo16 key offset sr8 dr8 800g"
+    "tags": "MPO Pinning & Polarity fiber optics transceiver dom mpo12 mpo16 key offset sr8 dr8 800g",
+    "noCopy": true
   },
   {
     "sName": "fo-mpo-polarity",
@@ -6786,7 +6811,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "LC Duplex (FR4/LR4/SR/DR1)   |   CS / SN / MDC (High-Density 2xFR4 / 4xDR1 breakouts)",
     "desc": "Duplex 2-fiber connectors (LC, CS, SN, MDC) and how to fix RX_LOS polarity swaps in the field",
     "tip": "TX ok + RX -40dBm on both sides = roll LC clip",
-    "tags": "MPO Pinning & Polarity fiber optics transceiver dom lc duplex cs sn mdc los swap roll upc apc"
+    "tags": "MPO Pinning & Polarity fiber optics transceiver dom lc duplex cs sn mdc los swap roll upc apc",
+    "noCopy": true
   },
   {
     "sName": "fo-mpo-polarity",
@@ -6864,6 +6890,1601 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Verify binary path and installed version in current environment",
     "tip": "",
     "tags": "fuser umount busy lock dpkg mount tips safety help"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "setup",
+    "id": "git-config-basics",
+    "sec": "Setup & Configuration",
+    "cmd": "git config --global user.name \"Your Name\"\ngit config --global user.email \"you@example.com\"\ngit config --global init.defaultBranch main\ngit config --global pull.rebase true\ngit config --global push.autoSetupRemote true\ngit config --global fetch.prune true",
+    "desc": "Set your identity and sensible defaults once per machine",
+    "tip": "Run git config user.email inside a repository to see which address your commits will use.",
+    "tags": "git config setup identity gitconfig defaults"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "setup",
+    "id": "git-config-basics",
+    "sec": "Setup & Configuration",
+    "cmd": "git config --list --show-origin",
+    "desc": "Show every setting and the file it came from",
+    "tip": "",
+    "tags": "git config setup identity gitconfig defaults"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "setup",
+    "id": "git-config-basics",
+    "sec": "Setup & Configuration",
+    "cmd": "git config --global core.editor nvim",
+    "desc": "Set the editor used for commit messages",
+    "tip": "",
+    "tags": "git config setup identity gitconfig defaults"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "setup",
+    "id": "git-config-basics",
+    "sec": "Setup & Configuration",
+    "cmd": "git config --global --unset pull.rebase",
+    "desc": "Remove a setting",
+    "tip": "",
+    "tags": "git config setup identity gitconfig defaults"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "setup",
+    "id": "git-config-basics",
+    "sec": "Setup & Configuration",
+    "cmd": "git config --global --edit",
+    "desc": "Open your global config in the editor",
+    "tip": "",
+    "tags": "git config setup identity gitconfig defaults"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "setup",
+    "id": "git-aliases",
+    "sec": "Setup & Configuration",
+    "cmd": "git config --global alias.st \"status -sb\"\ngit config --global alias.co switch\ngit config --global alias.lg \"log --oneline --graph --decorate --all\"\ngit config --global alias.last \"log -1 --stat\"\ngit config --global alias.unstage \"restore --staged\"",
+    "desc": "Short aliases for commands you type all day",
+    "tip": "Aliases live in ~/.gitconfig, so copying that file brings them to a new machine.",
+    "tags": "git alias config shortcuts"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "setup",
+    "id": "git-aliases",
+    "sec": "Setup & Configuration",
+    "cmd": "git config --get-regexp '^alias\\.'",
+    "desc": "List your aliases",
+    "tip": "",
+    "tags": "git alias config shortcuts"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "setup",
+    "id": "git-aliases",
+    "sec": "Setup & Configuration",
+    "cmd": "git config --global alias.root \"rev-parse --show-toplevel\"",
+    "desc": "git root prints the top folder of the repository",
+    "tip": "",
+    "tags": "git alias config shortcuts"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "setup",
+    "id": "git-init-clone",
+    "sec": "Setup & Configuration",
+    "cmd": "# New repository\ngit init my-project\n\n# Clone over SSH or HTTPS\ngit clone git@github.com:org/repo.git\ngit clone https://github.com/org/repo.git my-folder",
+    "desc": "Start a new repository or clone an existing one",
+    "tip": "A shallow clone is ideal for pulling a tool onto a node. Use a full clone if you need log, blame or bisect.",
+    "tags": "git init clone shallow partial depth"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "setup",
+    "id": "git-init-clone",
+    "sec": "Setup & Configuration",
+    "cmd": "git clone --depth 1 --branch v1.2.0 https://github.com/org/repo.git",
+    "desc": "Fetch one tagged release quickly",
+    "tip": "",
+    "tags": "git init clone shallow partial depth"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "setup",
+    "id": "git-init-clone",
+    "sec": "Setup & Configuration",
+    "cmd": "git clone --filter=blob:none https://github.com/org/repo.git",
+    "desc": "Clone a large repository with history but less data",
+    "tip": "",
+    "tags": "git init clone shallow partial depth"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "setup",
+    "id": "git-init-clone",
+    "sec": "Setup & Configuration",
+    "cmd": "git fetch --unshallow",
+    "desc": "Turn a shallow clone into a full one",
+    "tip": "",
+    "tags": "git init clone shallow partial depth"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "setup",
+    "id": "git-ignore",
+    "sec": "Setup & Configuration",
+    "cmd": "cat >> .gitignore <<'EOF'\n*.log\nbuild/\n.env\n!important.log\nEOF\ngit add .gitignore\ngit commit -m \"Ignore logs, build output and .env\"",
+    "desc": "Keep logs, build output and secrets out of the repository",
+    "tip": ".gitignore only affects untracked files. If a file is already committed, remove it with git rm --cached first.",
+    "tags": "git gitignore ignore untrack secrets"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "setup",
+    "id": "git-ignore",
+    "sec": "Setup & Configuration",
+    "cmd": "git check-ignore -v build/out.bin",
+    "desc": "Show which rule ignores a file",
+    "tip": "",
+    "tags": "git gitignore ignore untrack secrets"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "setup",
+    "id": "git-ignore",
+    "sec": "Setup & Configuration",
+    "cmd": "git rm --cached .env",
+    "desc": "Stop tracking a file but keep it on disk",
+    "tip": "",
+    "tags": "git gitignore ignore untrack secrets"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "setup",
+    "id": "git-ignore",
+    "sec": "Setup & Configuration",
+    "cmd": "git rm -r --cached build/",
+    "desc": "Stop tracking a whole folder",
+    "tip": "",
+    "tags": "git gitignore ignore untrack secrets"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "setup",
+    "id": "git-ignore",
+    "sec": "Setup & Configuration",
+    "cmd": "git status --ignored",
+    "desc": "List ignored files too",
+    "tip": "",
+    "tags": "git gitignore ignore untrack secrets"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "daily",
+    "id": "git-status-add-commit",
+    "sec": "Everyday Workflow",
+    "cmd": "git status -sb\ngit add path/to/file\ngit commit -m \"Fix BMC timeout in collection script\"\ngit push",
+    "desc": "The basic loop: check what changed, stage it, commit it",
+    "tip": "Only amend commits you haven't pushed, because amending rewrites history other people may already have.",
+    "tags": "git status add commit amend stage push"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "daily",
+    "id": "git-status-add-commit",
+    "sec": "Everyday Workflow",
+    "cmd": "git commit --amend --no-edit",
+    "desc": "Add staged changes to the last commit and keep its message",
+    "tip": "",
+    "tags": "git status add commit amend stage push"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "daily",
+    "id": "git-status-add-commit",
+    "sec": "Everyday Workflow",
+    "cmd": "git commit --amend -m \"Better message\"",
+    "desc": "Replace the last commit's message",
+    "tip": "",
+    "tags": "git status add commit amend stage push"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "daily",
+    "id": "git-status-add-commit",
+    "sec": "Everyday Workflow",
+    "cmd": "git mv old.sh new.sh",
+    "desc": "Rename a tracked file",
+    "tip": "",
+    "tags": "git status add commit amend stage push"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "daily",
+    "id": "git-status-add-commit",
+    "sec": "Everyday Workflow",
+    "cmd": "git rm old.sh",
+    "desc": "Delete a tracked file and stage the deletion",
+    "tip": "",
+    "tags": "git status add commit amend stage push"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "daily",
+    "id": "git-status-add-commit",
+    "sec": "Everyday Workflow",
+    "cmd": "git ls-files",
+    "desc": "List every tracked file",
+    "tip": "",
+    "tags": "git status add commit amend stage push"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "daily",
+    "id": "git-diff",
+    "sec": "Everyday Workflow",
+    "cmd": "git diff\ngit diff --staged\ngit diff HEAD~1 HEAD\ngit diff main...feature/fix",
+    "desc": "Compare the working tree, staging area, commits and branches",
+    "tip": "Run git diff --staged before every commit to catch stray debug lines and secrets.",
+    "tags": "git diff compare staged changes"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "daily",
+    "id": "git-diff",
+    "sec": "Everyday Workflow",
+    "cmd": "git diff --stat main...HEAD",
+    "desc": "See how much your branch changes",
+    "tip": "",
+    "tags": "git diff compare staged changes"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "daily",
+    "id": "git-diff",
+    "sec": "Everyday Workflow",
+    "cmd": "git diff --name-only HEAD~3",
+    "desc": "Files changed in the last 3 commits",
+    "tip": "",
+    "tags": "git diff compare staged changes"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "daily",
+    "id": "git-diff",
+    "sec": "Everyday Workflow",
+    "cmd": "git diff HEAD~1 -- path/to/file",
+    "desc": "Limit the diff to one file",
+    "tip": "",
+    "tags": "git diff compare staged changes"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "daily",
+    "id": "git-diff",
+    "sec": "Everyday Workflow",
+    "cmd": "git show HEAD:path/to/file",
+    "desc": "Print a file as it was in a commit",
+    "tip": "",
+    "tags": "git diff compare staged changes"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "daily",
+    "id": "git-stash",
+    "sec": "Everyday Workflow",
+    "cmd": "git stash push -u -m \"WIP timeout fix\"\ngit stash list\ngit stash pop",
+    "desc": "Set unfinished work aside and bring it back later",
+    "tip": "If git stash pop hits a conflict, the stash is kept. Fix the conflict, then git stash drop it.",
+    "tags": "git stash wip pop apply shelve"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "daily",
+    "id": "git-stash",
+    "sec": "Everyday Workflow",
+    "cmd": "git stash show -p stash@{0}",
+    "desc": "See what a stash contains",
+    "tip": "",
+    "tags": "git stash wip pop apply shelve"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "daily",
+    "id": "git-stash",
+    "sec": "Everyday Workflow",
+    "cmd": "git stash apply stash@{1}",
+    "desc": "Apply a specific stash",
+    "tip": "",
+    "tags": "git stash wip pop apply shelve"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "daily",
+    "id": "git-stash",
+    "sec": "Everyday Workflow",
+    "cmd": "git stash branch fix-timeout stash@{0}",
+    "desc": "Turn a stash into a new branch",
+    "tip": "",
+    "tags": "git stash wip pop apply shelve"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "daily",
+    "id": "git-stash",
+    "sec": "Everyday Workflow",
+    "cmd": "git stash drop stash@{1}",
+    "desc": "Delete one stash",
+    "tip": "",
+    "tags": "git stash wip pop apply shelve"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "daily",
+    "id": "git-stash",
+    "sec": "Everyday Workflow",
+    "cmd": "git stash clear",
+    "desc": "Delete every stash",
+    "tip": "",
+    "tags": "git stash wip pop apply shelve"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "branch",
+    "id": "git-branches",
+    "sec": "Branches, Merging & Rebasing",
+    "cmd": "git switch -c feature/nvme-check\ngit switch main\ngit switch -\ngit branch -vv",
+    "desc": "Create, switch, rename and delete branches",
+    "tip": "git switch and git restore split up the old git checkout, so it's harder to overwrite files by mistake.",
+    "tags": "git branch switch checkout delete rename"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "branch",
+    "id": "git-branches",
+    "sec": "Branches, Merging & Rebasing",
+    "cmd": "git switch -c fix origin/fix",
+    "desc": "Create a local branch from a remote branch",
+    "tip": "",
+    "tags": "git branch switch checkout delete rename"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "branch",
+    "id": "git-branches",
+    "sec": "Branches, Merging & Rebasing",
+    "cmd": "git switch --detach v1.2.0",
+    "desc": "Look at a tag without being on a branch",
+    "tip": "",
+    "tags": "git branch switch checkout delete rename"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "branch",
+    "id": "git-branches",
+    "sec": "Branches, Merging & Rebasing",
+    "cmd": "git branch --merged main",
+    "desc": "List branches already merged, which are safe to delete",
+    "tip": "",
+    "tags": "git branch switch checkout delete rename"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "branch",
+    "id": "git-branches",
+    "sec": "Branches, Merging & Rebasing",
+    "cmd": "git branch --sort=-committerdate",
+    "desc": "List branches by most recent work",
+    "tip": "",
+    "tags": "git branch switch checkout delete rename"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "branch",
+    "id": "git-branches",
+    "sec": "Branches, Merging & Rebasing",
+    "cmd": "git push origin --delete feature/old",
+    "desc": "Delete a branch on the remote",
+    "tip": "",
+    "tags": "git branch switch checkout delete rename"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "branch",
+    "id": "git-merge",
+    "sec": "Branches, Merging & Rebasing",
+    "cmd": "git switch main\ngit pull\ngit merge feature/nvme-check",
+    "desc": "Bring another branch into the current one",
+    "tip": "Commit or stash your work before merging. Merges are hard to back out of with uncommitted changes around.",
+    "tags": "git merge fast-forward squash no-ff"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "branch",
+    "id": "git-merge",
+    "sec": "Branches, Merging & Rebasing",
+    "cmd": "git merge --squash feature/x && git commit -m \"Add feature x\"",
+    "desc": "Merge a branch as a single commit",
+    "tip": "",
+    "tags": "git merge fast-forward squash no-ff"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "branch",
+    "id": "git-merge",
+    "sec": "Branches, Merging & Rebasing",
+    "cmd": "git merge --abort",
+    "desc": "Back out of a conflicted merge",
+    "tip": "",
+    "tags": "git merge fast-forward squash no-ff"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "branch",
+    "id": "git-merge",
+    "sec": "Branches, Merging & Rebasing",
+    "cmd": "git log --merges --oneline",
+    "desc": "List merge commits",
+    "tip": "",
+    "tags": "git merge fast-forward squash no-ff"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "branch",
+    "id": "git-rebase",
+    "sec": "Branches, Merging & Rebasing",
+    "cmd": "git switch feature/nvme-check\ngit fetch origin\ngit rebase origin/main\ngit push --force-with-lease",
+    "desc": "Replay your commits on top of another branch and tidy them up",
+    "tip": "Don't rebase a branch other people work on. Rebasing rewrites commit IDs, and that breaks their copies.",
+    "tags": "git rebase interactive squash fixup history"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "branch",
+    "id": "git-rebase",
+    "sec": "Branches, Merging & Rebasing",
+    "cmd": "git rebase -i HEAD~5",
+    "desc": "Clean up recent commits before opening a pull request",
+    "tip": "",
+    "tags": "git rebase interactive squash fixup history"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "branch",
+    "id": "git-rebase",
+    "sec": "Branches, Merging & Rebasing",
+    "cmd": "git commit --fixup=abc1234",
+    "desc": "Mark a commit as a correction to abc1234",
+    "tip": "",
+    "tags": "git rebase interactive squash fixup history"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "branch",
+    "id": "git-rebase",
+    "sec": "Branches, Merging & Rebasing",
+    "cmd": "git rebase -i --autosquash origin/main",
+    "desc": "Fold fixup commits into their targets",
+    "tip": "",
+    "tags": "git rebase interactive squash fixup history"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "branch",
+    "id": "git-rebase",
+    "sec": "Branches, Merging & Rebasing",
+    "cmd": "git rebase --onto main old-base feature/x",
+    "desc": "Move a branch to a new base",
+    "tip": "",
+    "tags": "git rebase interactive squash fixup history"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "branch",
+    "id": "git-cherry-pick",
+    "sec": "Branches, Merging & Rebasing",
+    "cmd": "git switch release/1.2\ngit cherry-pick abc1234",
+    "desc": "Copy specific commits onto the current branch",
+    "tip": "Use -x when backporting to a release branch, so people can trace the fix to its original commit.",
+    "tags": "git cherry-pick backport hotfix"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "branch",
+    "id": "git-cherry-pick",
+    "sec": "Branches, Merging & Rebasing",
+    "cmd": "git cherry-pick -x abc1234",
+    "desc": "Backport a fix and record where it came from",
+    "tip": "",
+    "tags": "git cherry-pick backport hotfix"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "branch",
+    "id": "git-cherry-pick",
+    "sec": "Branches, Merging & Rebasing",
+    "cmd": "git cherry-pick abc1234^..def5678",
+    "desc": "Pick a run of commits in order",
+    "tip": "",
+    "tags": "git cherry-pick backport hotfix"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "branch",
+    "id": "git-conflicts",
+    "sec": "Branches, Merging & Rebasing",
+    "cmd": "git status\n# Edit each conflicted file and remove the <<<<<<< ======= >>>>>>> markers\ngit add path/to/file\ngit merge --continue",
+    "desc": "Resolve merge and rebase conflicts",
+    "tip": "--ours and --theirs swap meaning during a rebase, so check the file after you pick a side.",
+    "tags": "git conflict merge rebase resolve ours theirs"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "branch",
+    "id": "git-conflicts",
+    "sec": "Branches, Merging & Rebasing",
+    "cmd": "git diff --name-only --diff-filter=U",
+    "desc": "List files that still have conflicts",
+    "tip": "",
+    "tags": "git conflict merge rebase resolve ours theirs"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "branch",
+    "id": "git-conflicts",
+    "sec": "Branches, Merging & Rebasing",
+    "cmd": "git checkout --ours path/to/file",
+    "desc": "Take one side of a conflicted file",
+    "tip": "",
+    "tags": "git conflict merge rebase resolve ours theirs"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "branch",
+    "id": "git-conflicts",
+    "sec": "Branches, Merging & Rebasing",
+    "cmd": "git checkout --theirs path/to/file",
+    "desc": "Take the other side of a conflicted file",
+    "tip": "",
+    "tags": "git conflict merge rebase resolve ours theirs"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "branch",
+    "id": "git-conflicts",
+    "sec": "Branches, Merging & Rebasing",
+    "cmd": "git config --global merge.conflictStyle zdiff3",
+    "desc": "Also show the original text inside conflict markers",
+    "tip": "",
+    "tags": "git conflict merge rebase resolve ours theirs"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "branch",
+    "id": "git-conflicts",
+    "sec": "Branches, Merging & Rebasing",
+    "cmd": "git config --global rerere.enabled true",
+    "desc": "Remember how you resolved a conflict and reuse it",
+    "tip": "",
+    "tags": "git conflict merge rebase resolve ours theirs"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "remote",
+    "id": "git-remotes",
+    "sec": "Remotes, Fetch, Pull & Push",
+    "cmd": "git remote -v\ngit remote add upstream https://github.com/org/repo.git\ngit remote set-url origin git@github.com:org/repo.git",
+    "desc": "See and change the remotes this repository talks to",
+    "tip": "git ls-remote is a quick way to test that you can reach a remote and that your credentials work.",
+    "tags": "git remote origin upstream url"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "remote",
+    "id": "git-remotes",
+    "sec": "Remotes, Fetch, Pull & Push",
+    "cmd": "git remote show origin",
+    "desc": "Check the default branch and what tracks what",
+    "tip": "",
+    "tags": "git remote origin upstream url"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "remote",
+    "id": "git-remotes",
+    "sec": "Remotes, Fetch, Pull & Push",
+    "cmd": "git remote prune origin",
+    "desc": "Remove local references to deleted remote branches",
+    "tip": "",
+    "tags": "git remote origin upstream url"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "remote",
+    "id": "git-remotes",
+    "sec": "Remotes, Fetch, Pull & Push",
+    "cmd": "git ls-remote origin",
+    "desc": "List remote branches and tags without fetching",
+    "tip": "",
+    "tags": "git remote origin upstream url"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "remote",
+    "id": "git-fetch-pull-push",
+    "sec": "Remotes, Fetch, Pull & Push",
+    "cmd": "git fetch --all --prune\ngit status -sb\ngit pull --rebase\ngit push -u origin HEAD",
+    "desc": "Download changes, update your branch and publish your commits",
+    "tip": "Use --force-with-lease rather than --force, because plain --force can erase a teammate's commits.",
+    "tags": "git fetch pull push upstream force-with-lease sync"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "remote",
+    "id": "git-fetch-pull-push",
+    "sec": "Remotes, Fetch, Pull & Push",
+    "cmd": "git log HEAD..@{u} --oneline",
+    "desc": "Commits on the remote that you don't have yet",
+    "tip": "",
+    "tags": "git fetch pull push upstream force-with-lease sync"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "remote",
+    "id": "git-fetch-pull-push",
+    "sec": "Remotes, Fetch, Pull & Push",
+    "cmd": "git log @{u}..HEAD --oneline",
+    "desc": "Local commits you haven't pushed",
+    "tip": "",
+    "tags": "git fetch pull push upstream force-with-lease sync"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "remote",
+    "id": "git-fetch-pull-push",
+    "sec": "Remotes, Fetch, Pull & Push",
+    "cmd": "git pull --ff-only",
+    "desc": "Update a deployed copy, stopping if it has diverged",
+    "tip": "",
+    "tags": "git fetch pull push upstream force-with-lease sync"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "remote",
+    "id": "git-fetch-pull-push",
+    "sec": "Remotes, Fetch, Pull & Push",
+    "cmd": "git push --force-with-lease",
+    "desc": "Publish a rebased branch safely",
+    "tip": "",
+    "tags": "git fetch pull push upstream force-with-lease sync"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "remote",
+    "id": "git-tags",
+    "sec": "Remotes, Fetch, Pull & Push",
+    "cmd": "git tag -a v1.2.0 -m \"Release 1.2.0\"\ngit push origin v1.2.0\ngit tag -l 'v1.*'",
+    "desc": "Mark releases and compare what's between them",
+    "tip": "git push doesn't send tags by default, so push them by name.",
+    "tags": "git tag release version describe"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "remote",
+    "id": "git-tags",
+    "sec": "Remotes, Fetch, Pull & Push",
+    "cmd": "git tag -a v1.1.9 abc1234 -m \"Tag an older commit\"",
+    "desc": "Tag a past commit",
+    "tip": "",
+    "tags": "git tag release version describe"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "remote",
+    "id": "git-tags",
+    "sec": "Remotes, Fetch, Pull & Push",
+    "cmd": "git push origin --tags",
+    "desc": "Push every local tag",
+    "tip": "",
+    "tags": "git tag release version describe"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "remote",
+    "id": "git-tags",
+    "sec": "Remotes, Fetch, Pull & Push",
+    "cmd": "git push origin --delete v1.2.0",
+    "desc": "Delete a tag on the remote",
+    "tip": "",
+    "tags": "git tag release version describe"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "remote",
+    "id": "git-tags",
+    "sec": "Remotes, Fetch, Pull & Push",
+    "cmd": "git log v1.1.0..v1.2.0 --oneline",
+    "desc": "List commits between two releases",
+    "tip": "",
+    "tags": "git tag release version describe"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "remote",
+    "id": "git-tags",
+    "sec": "Remotes, Fetch, Pull & Push",
+    "cmd": "git describe --tags --always --dirty",
+    "desc": "Name the current commit relative to the nearest tag",
+    "tip": "",
+    "tags": "git tag release version describe"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "history",
+    "id": "git-log",
+    "sec": "History & Searching",
+    "cmd": "git log --oneline --graph --decorate --all -20",
+    "desc": "Read the commit history",
+    "tip": "Commits can be named with HEAD~2 (two back), HEAD^ (parent), a tag, a branch, or a short ID.",
+    "tags": "git log history graph shortlog show"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "history",
+    "id": "git-log",
+    "sec": "History & Searching",
+    "cmd": "git log --pretty=format:'%h %ad %an %s' --date=short",
+    "desc": "Compact custom format",
+    "tip": "",
+    "tags": "git log history graph shortlog show"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "history",
+    "id": "git-log",
+    "sec": "History & Searching",
+    "cmd": "git log main..feature/x --oneline",
+    "desc": "Commits on the branch that aren't on main",
+    "tip": "",
+    "tags": "git log history graph shortlog show"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "history",
+    "id": "git-log",
+    "sec": "History & Searching",
+    "cmd": "git log --follow -p -- path/to/file",
+    "desc": "Every change made to one file",
+    "tip": "",
+    "tags": "git log history graph shortlog show"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "history",
+    "id": "git-log",
+    "sec": "History & Searching",
+    "cmd": "git shortlog -sne",
+    "desc": "Commit counts per author",
+    "tip": "",
+    "tags": "git log history graph shortlog show"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "history",
+    "id": "git-log",
+    "sec": "History & Searching",
+    "cmd": "git show abc1234 --stat",
+    "desc": "Show one commit and its files",
+    "tip": "",
+    "tags": "git log history graph shortlog show"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "history",
+    "id": "git-blame-search",
+    "sec": "History & Searching",
+    "cmd": "git blame -L 40,60 path/to/file\ngit log -S'bmc_timeout' --oneline\ngit grep -n 'bmc_timeout'",
+    "desc": "Find who changed a line and when a string appeared",
+    "tip": "git log -S finds when something was added or removed, even if the line no longer exists.",
+    "tags": "git blame grep pickaxe search annotate"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "history",
+    "id": "git-blame-search",
+    "sec": "History & Searching",
+    "cmd": "git blame -w -C path/to/file",
+    "desc": "Skip formatting changes to find the real author",
+    "tip": "",
+    "tags": "git blame grep pickaxe search annotate"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "history",
+    "id": "git-blame-search",
+    "sec": "History & Searching",
+    "cmd": "git log -L 40,60:path/to/file",
+    "desc": "History of a range of lines",
+    "tip": "",
+    "tags": "git blame grep pickaxe search annotate"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "history",
+    "id": "git-blame-search",
+    "sec": "History & Searching",
+    "cmd": "git grep -n 'pattern' v1.2.0",
+    "desc": "Search the code as it was at a tag",
+    "tip": "",
+    "tags": "git blame grep pickaxe search annotate"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "history",
+    "id": "git-blame-search",
+    "sec": "History & Searching",
+    "cmd": "git log --all --oneline -- deleted/file.sh",
+    "desc": "Find commits that touched a file that's now gone",
+    "tip": "",
+    "tags": "git blame grep pickaxe search annotate"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "history",
+    "id": "git-bisect",
+    "sec": "History & Searching",
+    "cmd": "git bisect start\ngit bisect bad HEAD\ngit bisect good v1.1.0\n# Test this commit, then mark it, and repeat until git names the culprit\ngit bisect good\ngit bisect reset",
+    "desc": "Binary search through history to find the commit that broke something",
+    "tip": "Bisect tests about 10 commits to search 1,000, so it's well worth a small test script.",
+    "tags": "git bisect regression binary-search debug"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "history",
+    "id": "git-bisect",
+    "sec": "History & Searching",
+    "cmd": "git bisect run ./test.sh",
+    "desc": "Let a script find the bad commit",
+    "tip": "",
+    "tags": "git bisect regression binary-search debug"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "history",
+    "id": "git-bisect",
+    "sec": "History & Searching",
+    "cmd": "git bisect log",
+    "desc": "Show the steps so far",
+    "tip": "",
+    "tags": "git bisect regression binary-search debug"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "undo",
+    "id": "git-restore",
+    "sec": "Undo & Recovery",
+    "cmd": "git restore --staged path/to/file\ngit restore path/to/file",
+    "desc": "Undo changes that haven't been committed",
+    "tip": "Always run git clean -nd first. git clean deletes files that git has no copy of.",
+    "tags": "git restore unstage discard clean untracked"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "undo",
+    "id": "git-restore",
+    "sec": "Undo & Recovery",
+    "cmd": "git restore --source=HEAD~2 -- path/to/file",
+    "desc": "Bring back an older version of a file",
+    "tip": "",
+    "tags": "git restore unstage discard clean untracked"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "undo",
+    "id": "git-restore",
+    "sec": "Undo & Recovery",
+    "cmd": "git restore .",
+    "desc": "Discard all unstaged edits under the current folder",
+    "tip": "",
+    "tags": "git restore unstage discard clean untracked"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "undo",
+    "id": "git-restore",
+    "sec": "Undo & Recovery",
+    "cmd": "git clean -nd",
+    "desc": "Preview which untracked files and folders would be deleted",
+    "tip": "",
+    "tags": "git restore unstage discard clean untracked"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "undo",
+    "id": "git-restore",
+    "sec": "Undo & Recovery",
+    "cmd": "git clean -fd",
+    "desc": "Delete untracked files and folders",
+    "tip": "",
+    "tags": "git restore unstage discard clean untracked"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "undo",
+    "id": "git-restore",
+    "sec": "Undo & Recovery",
+    "cmd": "git clean -fdx",
+    "desc": "Also delete ignored files, such as build output and .env",
+    "tip": "",
+    "tags": "git restore unstage discard clean untracked"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "undo",
+    "id": "git-reset",
+    "sec": "Undo & Recovery",
+    "cmd": "# Undo the last commit and keep its changes staged\ngit reset --soft HEAD~1",
+    "desc": "Move the branch back to an earlier commit",
+    "tip": "Run git status and git stash first. git reset --hard deletes uncommitted work for good.",
+    "tags": "git reset soft mixed hard uncommit"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "undo",
+    "id": "git-reset",
+    "sec": "Undo & Recovery",
+    "cmd": "git reset HEAD~1",
+    "desc": "Undo the last commit and keep the edits unstaged",
+    "tip": "",
+    "tags": "git reset soft mixed hard uncommit"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "undo",
+    "id": "git-reset",
+    "sec": "Undo & Recovery",
+    "cmd": "git reset --hard origin/main",
+    "desc": "Make your branch match the remote exactly, discarding local work",
+    "tip": "",
+    "tags": "git reset soft mixed hard uncommit"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "undo",
+    "id": "git-reset",
+    "sec": "Undo & Recovery",
+    "cmd": "git reset --hard ORIG_HEAD",
+    "desc": "Undo a merge, rebase or reset you just did",
+    "tip": "",
+    "tags": "git reset soft mixed hard uncommit"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "undo",
+    "id": "git-revert",
+    "sec": "Undo & Recovery",
+    "cmd": "git revert abc1234\ngit push",
+    "desc": "Undo a commit that's already pushed by adding a new commit",
+    "tip": "On shared branches use git revert, not git reset, because revert keeps history intact for everyone else.",
+    "tags": "git revert undo rollback shared"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "undo",
+    "id": "git-revert",
+    "sec": "Undo & Recovery",
+    "cmd": "git revert --no-edit HEAD",
+    "desc": "Back out the latest commit",
+    "tip": "",
+    "tags": "git revert undo rollback shared"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "undo",
+    "id": "git-revert",
+    "sec": "Undo & Recovery",
+    "cmd": "git revert -m 1 abc1234",
+    "desc": "Back out a merged branch",
+    "tip": "",
+    "tags": "git revert undo rollback shared"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "undo",
+    "id": "git-revert",
+    "sec": "Undo & Recovery",
+    "cmd": "git revert --abort",
+    "desc": "Cancel a conflicted revert",
+    "tip": "",
+    "tags": "git revert undo rollback shared"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "undo",
+    "id": "git-reflog",
+    "sec": "Undo & Recovery",
+    "cmd": "git reflog -20\ngit branch recovered HEAD@{2}\ngit switch recovered",
+    "desc": "Recover commits after a bad reset, rebase or deleted branch",
+    "tip": "If it was committed, it can usually be recovered. Reflog entries last 90 days by default, or 30 for unreachable commits.",
+    "tags": "git reflog recover lost fsck rescue"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "undo",
+    "id": "git-reflog",
+    "sec": "Undo & Recovery",
+    "cmd": "git reset --hard HEAD@{1}",
+    "desc": "Jump back to where you were before the last move",
+    "tip": "",
+    "tags": "git reflog recover lost fsck rescue"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "undo",
+    "id": "git-reflog",
+    "sec": "Undo & Recovery",
+    "cmd": "git fsck --lost-found",
+    "desc": "Find dangling commits and blobs",
+    "tip": "",
+    "tags": "git reflog recover lost fsck rescue"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "undo",
+    "id": "git-reflog",
+    "sec": "Undo & Recovery",
+    "cmd": "git show abc1234",
+    "desc": "Inspect a recovered commit before using it",
+    "tip": "",
+    "tags": "git reflog recover lost fsck rescue"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "advanced",
+    "id": "git-worktree",
+    "sec": "Worktrees, Submodules & Hooks",
+    "cmd": "git worktree add ../repo-hotfix -b hotfix main\ngit worktree list\ngit worktree remove ../repo-hotfix",
+    "desc": "Check out a second branch in another folder without cloning again",
+    "tip": "A branch can only be checked out in one worktree at a time.",
+    "tags": "git worktree parallel checkout hotfix"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "advanced",
+    "id": "git-worktree",
+    "sec": "Worktrees, Submodules & Hooks",
+    "cmd": "git worktree add ../repo-review origin/main",
+    "desc": "Check out a remote branch in a separate folder, detached, to compare with",
+    "tip": "",
+    "tags": "git worktree parallel checkout hotfix"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "advanced",
+    "id": "git-worktree",
+    "sec": "Worktrees, Submodules & Hooks",
+    "cmd": "git worktree prune",
+    "desc": "Tidy up after deleting a folder by hand",
+    "tip": "",
+    "tags": "git worktree parallel checkout hotfix"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "advanced",
+    "id": "git-submodule",
+    "sec": "Worktrees, Submodules & Hooks",
+    "cmd": "git submodule add https://github.com/org/lib.git vendor/lib\ngit submodule update --init --recursive\ngit submodule status",
+    "desc": "Work with repositories nested inside another repository",
+    "tip": "Empty submodule folders after a clone just mean you need git submodule update --init --recursive.",
+    "tags": "git submodule vendor nested recursive"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "advanced",
+    "id": "git-submodule",
+    "sec": "Worktrees, Submodules & Hooks",
+    "cmd": "git clone --recurse-submodules https://github.com/org/repo.git",
+    "desc": "Clone with submodules included",
+    "tip": "",
+    "tags": "git submodule vendor nested recursive"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "advanced",
+    "id": "git-submodule",
+    "sec": "Worktrees, Submodules & Hooks",
+    "cmd": "git submodule foreach 'git status -sb'",
+    "desc": "Run a command in every submodule",
+    "tip": "",
+    "tags": "git submodule vendor nested recursive"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "advanced",
+    "id": "git-hooks",
+    "sec": "Worktrees, Submodules & Hooks",
+    "cmd": "mkdir -p .githooks\ncat > .githooks/pre-commit <<'EOF'\n#!/bin/sh\nif git diff --cached | grep -qE 'BEGIN (RSA|OPENSSH) PRIVATE KEY'; then\n  echo \"Private key in staged changes\" >&2\n  exit 1\nfi\nEOF\nchmod +x .githooks/pre-commit\ngit config core.hooksPath .githooks",
+    "desc": "Run checks automatically on commit or push",
+    "tip": "Files in .git/hooks aren't cloned, so keep shared hooks in a tracked folder and set core.hooksPath.",
+    "tags": "git hooks pre-commit automation secrets"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "advanced",
+    "id": "git-hooks",
+    "sec": "Worktrees, Submodules & Hooks",
+    "cmd": "git commit --no-verify",
+    "desc": "Skip the pre-commit and commit-msg hooks once",
+    "tip": "",
+    "tags": "git hooks pre-commit automation secrets"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "advanced",
+    "id": "git-hooks",
+    "sec": "Worktrees, Submodules & Hooks",
+    "cmd": "ls .git/hooks",
+    "desc": "See the sample hooks git installs",
+    "tip": "",
+    "tags": "git hooks pre-commit automation secrets"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "advanced",
+    "id": "git-lfs-signing",
+    "sec": "Worktrees, Submodules & Hooks",
+    "cmd": "# Large files (needs the git-lfs package)\ngit lfs install\ngit lfs track \"*.bin\"\ngit add .gitattributes\n\n# Sign commits with your SSH key\ngit config --global gpg.format ssh\ngit config --global user.signingkey ~/.ssh/id_ed25519.pub\ngit config --global commit.gpgsign true",
+    "desc": "Store large binaries with Git LFS and sign commits with an SSH key",
+    "tip": "If firmware files look like tiny text files after a clone, those are LFS pointers. Run git lfs pull.",
+    "tags": "git lfs large-files signing ssh gpg firmware"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "advanced",
+    "id": "git-lfs-signing",
+    "sec": "Worktrees, Submodules & Hooks",
+    "cmd": "git lfs ls-files",
+    "desc": "List files stored in LFS",
+    "tip": "",
+    "tags": "git lfs large-files signing ssh gpg firmware"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "advanced",
+    "id": "git-lfs-signing",
+    "sec": "Worktrees, Submodules & Hooks",
+    "cmd": "git log --show-signature -1",
+    "desc": "Check the signature on the last commit",
+    "tip": "",
+    "tags": "git lfs large-files signing ssh gpg firmware"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "ops",
+    "id": "git-check-deployed",
+    "sec": "Datacenter & Ops Recipes",
+    "cmd": "git -C /opt/tools describe --tags --always --dirty\ngit -C /opt/tools rev-parse HEAD\ngit -C /opt/tools status --short\ngit -C /opt/tools log -1 --format='%h %ad %an %s' --date=iso",
+    "desc": "Check what version of a repository is deployed on a node, without changing it",
+    "tip": "These commands only read the repository, so they're safe to run on a node that's running jobs.",
+    "tags": "git deployed version describe rev-parse fleet drift"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "ops",
+    "id": "git-check-deployed",
+    "sec": "Datacenter & Ops Recipes",
+    "cmd": "git rev-parse --show-toplevel",
+    "desc": "Print the top folder of the repository",
+    "tip": "",
+    "tags": "git deployed version describe rev-parse fleet drift"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "ops",
+    "id": "git-check-deployed",
+    "sec": "Datacenter & Ops Recipes",
+    "cmd": "git rev-parse --abbrev-ref HEAD",
+    "desc": "Print the current branch name",
+    "tip": "",
+    "tags": "git deployed version describe rev-parse fleet drift"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "ops",
+    "id": "git-check-deployed",
+    "sec": "Datacenter & Ops Recipes",
+    "cmd": "for h in node01 node02; do echo \"$h: $(ssh \"$h\" git -C /opt/tools rev-parse --short HEAD)\"; done",
+    "desc": "Compare the deployed commit across nodes",
+    "tip": "",
+    "tags": "git deployed version describe rev-parse fleet drift"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "ops",
+    "id": "git-air-gapped",
+    "sec": "Datacenter & Ops Recipes",
+    "cmd": "# On the connected machine\ngit bundle create tools.bundle --all\nsha256sum tools.bundle\nscp tools.bundle jumpbox:/tmp/\n\n# On the isolated host\ngit bundle verify /tmp/tools.bundle\ngit clone /tmp/tools.bundle tools",
+    "desc": "Move a repository to a host with no route to the Git server",
+    "tip": "A git bundle works like a remote, so history and tags survive the trip. Compare the sha256sum at both ends.",
+    "tags": "git bundle archive air-gapped offline patch format-patch"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "ops",
+    "id": "git-air-gapped",
+    "sec": "Datacenter & Ops Recipes",
+    "cmd": "git bundle create update.bundle main ^v1.2.0",
+    "desc": "Bundle main's commits made since a tag",
+    "tip": "",
+    "tags": "git bundle archive air-gapped offline patch format-patch"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "ops",
+    "id": "git-air-gapped",
+    "sec": "Datacenter & Ops Recipes",
+    "cmd": "git fetch /tmp/update.bundle main:refs/remotes/bundle/main",
+    "desc": "Fetch from a bundle on the isolated host",
+    "tip": "",
+    "tags": "git bundle archive air-gapped offline patch format-patch"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "ops",
+    "id": "git-air-gapped",
+    "sec": "Datacenter & Ops Recipes",
+    "cmd": "git archive --format=tar.gz --prefix=tools/ -o tools.tar.gz HEAD",
+    "desc": "Export the files only",
+    "tip": "",
+    "tags": "git bundle archive air-gapped offline patch format-patch"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "ops",
+    "id": "git-air-gapped",
+    "sec": "Datacenter & Ops Recipes",
+    "cmd": "git format-patch -3 -o patches/",
+    "desc": "Save the last 3 commits as patches",
+    "tip": "",
+    "tags": "git bundle archive air-gapped offline patch format-patch"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "ops",
+    "id": "git-air-gapped",
+    "sec": "Datacenter & Ops Recipes",
+    "cmd": "git apply --check patches/0001-fix.patch",
+    "desc": "Test whether a patch applies, without changing anything",
+    "tip": "",
+    "tags": "git bundle archive air-gapped offline patch format-patch"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "ops",
+    "id": "git-air-gapped",
+    "sec": "Datacenter & Ops Recipes",
+    "cmd": "git am patches/*.patch",
+    "desc": "Apply patches as commits",
+    "tip": "",
+    "tags": "git bundle archive air-gapped offline patch format-patch"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "ops",
+    "id": "git-network-auth",
+    "sec": "Datacenter & Ops Recipes",
+    "cmd": "# Check that you can reach the remote and authenticate\ngit ls-remote origin HEAD\nssh -T git@github.com\n\n# Show what git is doing on the network\nGIT_TRACE=1 GIT_CURL_VERBOSE=1 git fetch\nGIT_SSH_COMMAND=\"ssh -v\" git fetch",
+    "desc": "Work behind a proxy or internal CA, and debug connections",
+    "tip": "GIT_CURL_VERBOSE output can include auth headers, so clean it before pasting it into a ticket.",
+    "tags": "git proxy ssl ca ssh trace debug credentials"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "ops",
+    "id": "git-network-auth",
+    "sec": "Datacenter & Ops Recipes",
+    "cmd": "git config --global http.proxy http://proxy.example.com:3128",
+    "desc": "Use a proxy",
+    "tip": "",
+    "tags": "git proxy ssl ca ssh trace debug credentials"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "ops",
+    "id": "git-network-auth",
+    "sec": "Datacenter & Ops Recipes",
+    "cmd": "git config --global --unset http.proxy",
+    "desc": "Stop using a proxy",
+    "tip": "",
+    "tags": "git proxy ssl ca ssh trace debug credentials"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "ops",
+    "id": "git-network-auth",
+    "sec": "Datacenter & Ops Recipes",
+    "cmd": "git config --global http.sslCAInfo /etc/ssl/certs/internal-ca.pem",
+    "desc": "Trust an internal CA",
+    "tip": "",
+    "tags": "git proxy ssl ca ssh trace debug credentials"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "ops",
+    "id": "git-network-auth",
+    "sec": "Datacenter & Ops Recipes",
+    "cmd": "GIT_SSH_COMMAND=\"ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes\" git pull",
+    "desc": "Use a specific SSH key once",
+    "tip": "",
+    "tags": "git proxy ssl ca ssh trace debug credentials"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "ops",
+    "id": "git-network-auth",
+    "sec": "Datacenter & Ops Recipes",
+    "cmd": "git config --global credential.helper 'cache --timeout=3600'",
+    "desc": "Keep HTTPS credentials in memory for an hour",
+    "tip": "",
+    "tags": "git proxy ssl ca ssh trace debug credentials"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "ops",
+    "id": "git-common-errors",
+    "sec": "Datacenter & Ops Recipes",
+    "cmd": "# fatal: detected dubious ownership in repository\ngit config --global --add safe.directory /opt/tools",
+    "desc": "Fix common error messages",
+    "tip": "Don't set http.sslVerify false to get past certificate errors. Install the CA instead.",
+    "tags": "git errors safe.directory dubious-ownership detached-head index.lock troubleshooting"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "ops",
+    "id": "git-common-errors",
+    "sec": "Datacenter & Ops Recipes",
+    "cmd": "pgrep -a git",
+    "desc": "Check for a running git process before touching a lock file",
+    "tip": "",
+    "tags": "git errors safe.directory dubious-ownership detached-head index.lock troubleshooting"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "ops",
+    "id": "git-common-errors",
+    "sec": "Datacenter & Ops Recipes",
+    "cmd": "rm .git/index.lock",
+    "desc": "Remove a stale lock once no git process is running",
+    "tip": "",
+    "tags": "git errors safe.directory dubious-ownership detached-head index.lock troubleshooting"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "ops",
+    "id": "git-common-errors",
+    "sec": "Datacenter & Ops Recipes",
+    "cmd": "git switch -c rescue-work",
+    "desc": "Keep commits made on a detached HEAD",
+    "tip": "",
+    "tags": "git errors safe.directory dubious-ownership detached-head index.lock troubleshooting"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "ops",
+    "id": "git-common-errors",
+    "sec": "Datacenter & Ops Recipes",
+    "cmd": "git fsck",
+    "desc": "Check the repository for corruption",
+    "tip": "",
+    "tags": "git errors safe.directory dubious-ownership detached-head index.lock troubleshooting"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "ops",
+    "id": "git-common-errors",
+    "sec": "Datacenter & Ops Recipes",
+    "cmd": "git count-objects -vH",
+    "desc": "Show how much space the repository uses",
+    "tip": "",
+    "tags": "git errors safe.directory dubious-ownership detached-head index.lock troubleshooting"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "ops",
+    "id": "git-common-errors",
+    "sec": "Datacenter & Ops Recipes",
+    "cmd": "git gc",
+    "desc": "Compress and clean up the repository",
+    "tip": "",
+    "tags": "git errors safe.directory dubious-ownership detached-head index.lock troubleshooting"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "ops",
+    "id": "git-secret-removal",
+    "sec": "Datacenter & Ops Recipes",
+    "cmd": "# 1. Rotate the credential first. It's exposed once pushed.\n# 2. Rewrite history (needs the git-filter-repo package) in a fresh clone\ngit clone --mirror git@github.com:org/repo.git\ncd repo.git\ngit filter-repo --path config/secrets.env --invert-paths\n# 3. git filter-repo removes origin, so add it back, then coordinate the force push\ngit remote add origin git@github.com:org/repo.git\ngit push --force --mirror origin",
+    "desc": "Deal with a password or key that was committed",
+    "tip": "Rewriting history breaks everyone's clones and doesn't reach copies already made. Rotating the secret is the real fix.",
+    "tags": "git secrets filter-repo history rewrite credentials leak"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "ops",
+    "id": "git-secret-removal",
+    "sec": "Datacenter & Ops Recipes",
+    "cmd": "git log --all --oneline -- config/secrets.env",
+    "desc": "See which commits contain the file",
+    "tip": "",
+    "tags": "git secrets filter-repo history rewrite credentials leak"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "ops",
+    "id": "git-secret-removal",
+    "sec": "Datacenter & Ops Recipes",
+    "cmd": "git log --all -p -S'SEARCH_TEXT'",
+    "desc": "Find a leaked string anywhere in history",
+    "tip": "",
+    "tags": "git secrets filter-repo history rewrite credentials leak"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "ops",
+    "id": "git-secret-removal",
+    "sec": "Datacenter & Ops Recipes",
+    "cmd": "git filter-repo --replace-text replacements.txt",
+    "desc": "Scrub a string everywhere",
+    "tip": "",
+    "tags": "git secrets filter-repo history rewrite credentials leak"
   },
   {
     "sName": "grep",
@@ -11076,7 +12697,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "⇧⌘G (Go to Path)   |   ⌘↑ (Parent)   |   ⌘↓ (Open)   |   ⌘O",
     "desc": "Navigate folder hierarchy, jump to arbitrary POSIX path, or open selected item",
     "tip": "Works in Open/Save dialogs too!",
-    "tags": "finder goto path parent open rename"
+    "tags": "finder goto path parent open rename",
+    "noCopy": true
   },
   {
     "sName": "macos-finder-keys",
@@ -11087,7 +12709,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "⇧⌘. (Dotfiles)   |   ⌥⌘P (Path Bar)   |   ⌘/ (Status)   |   ⌘1 ⌘2 ⌘3 ⌘4",
     "desc": "Instantly toggle hidden dotfiles, bottom path bar, status bar, and view modes",
     "tip": "⇧⌘. works in Save dialogs",
-    "tags": "hidden dotfiles pathbar views columns"
+    "tags": "hidden dotfiles pathbar views columns",
+    "noCopy": true
   },
   {
     "sName": "macos-finder-keys",
@@ -11098,7 +12721,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "⌘C then ⌥⌘V (Move)   |   ⌥⌘C (Copy Path)   |   ⌘D (Duplicate)",
     "desc": "Move (Cut-Paste) files, copy full POSIX file path, or duplicate item",
     "tip": "⌥⌘V = Cut & Paste files",
-    "tags": "cut move paste path copy duplicate folder"
+    "tags": "cut move paste path copy duplicate folder",
+    "noCopy": true
   },
   {
     "sName": "macos-finder-keys",
@@ -11109,7 +12733,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "⌘⌫ (Trash)   |   ⌥⌘⌫ (Delete Immediately)   |   ⌥⇧⌘⌫ (Empty Trash)",
     "desc": "Move to Trash, bypass Trash (permanent delete), or empty Trash without prompt",
     "tip": "",
-    "tags": "trash delete permanent empty remove"
+    "tags": "trash delete permanent empty remove",
+    "noCopy": true
   },
   {
     "sName": "macos-finder-keys",
@@ -11120,7 +12745,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Space (Quick Look)   |   ⌥Space (Fullscreen)   |   ⌘I   |   ⌥⌘I (Inspector)",
     "desc": "Preview files with Quick Look, markup PDFs/images, or open live Inspector",
     "tip": "",
-    "tags": "quicklook preview info inspector metadata"
+    "tags": "quicklook preview info inspector metadata",
+    "noCopy": true
   },
   {
     "sName": "macos-finder-keys",
@@ -11131,7 +12757,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "⌥⌘V   |   ⌥⌘C   |   ⌥⌘⌫   |   ⌘⇧.",
     "desc": "Bypass trash, copy exact POSIX path & toggle hidden system dotfiles",
     "tip": "Press ⌘⇧G in Finder to open the \"Go to Folder\" direct path prompt!",
-    "tags": "finder-keys tips pro tricks macos best-practices"
+    "tags": "finder-keys tips pro tricks macos best-practices",
+    "noCopy": true
   },
   {
     "sName": "macos-homebrew",
@@ -11318,7 +12945,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "⇧⌘3   |   ⇧⌘4   |   ⇧⌘4 then Space   |   ⇧⌘5",
     "desc": "Capture full screen, crosshair region, or clean single window (with or without shadow)",
     "tip": "Hold ⌥ click = no shadow",
-    "tags": "screenshot capture record window shadow clipboard"
+    "tags": "screenshot capture record window shadow clipboard",
+    "noCopy": true
   },
   {
     "sName": "macos-system-keys",
@@ -11329,7 +12957,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "⌘Tab   |   ⌘` (Backtick)   |   ⌃↑ (Mission Control)   |   ⌃↓ (App Exposé)",
     "desc": "Switch between open apps or cycle through windows of the active application",
     "tip": "⌘` switches same-app windows",
-    "tags": "switch alt-tab windows cycle mission-control expose"
+    "tags": "switch alt-tab windows cycle mission-control expose",
+    "noCopy": true
   },
   {
     "sName": "macos-system-keys",
@@ -11340,7 +12969,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "🌐⌃←   🌐⌃→   🌐⌃Return   |   ⌃⌘F   ⌘H   ⌥⌘H   ⌘M",
     "desc": "Native macOS Sequoia window snapping/tiling, fullscreen, hide, and minimize",
     "tip": "",
-    "tags": "tile snap fullscreen hide minimize sequoia"
+    "tags": "tile snap fullscreen hide minimize sequoia",
+    "noCopy": true
   },
   {
     "sName": "macos-system-keys",
@@ -11351,7 +12981,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "⌘Space   |   ⌘Return (Reveal)   |   ⌘C (Copy file)   |   Hold ⌘ (Show Path)",
     "desc": "Launch Spotlight search, reveal matched file in Finder, or copy file directly",
     "tip": "",
-    "tags": "spotlight search launcher reveal path"
+    "tags": "spotlight search launcher reveal path",
+    "noCopy": true
   },
   {
     "sName": "macos-system-keys",
@@ -11362,7 +12993,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "⌃⌘Q (Lock)   |   ⌥⌘⎋ (Force Quit)   |   ⌃⌘Space (Emoji)",
     "desc": "Immediately lock screen, force quit unresponsive app, or open Emoji/Symbol picker",
     "tip": "",
-    "tags": "lock force-quit hang emoji symbols security"
+    "tags": "lock force-quit hang emoji symbols security",
+    "noCopy": true
   },
   {
     "sName": "macos-system-keys",
@@ -11373,7 +13005,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "⌥⇧ + Vol/Brightness (1/4 step)   |   ⌥ + Vol/Brightness (Settings)",
     "desc": "Adjust volume or display brightness in 1/4-step micro-increments or open settings",
     "tip": "⌥+Click Wi-Fi icon for diagnostics",
-    "tags": "volume brightness fine wifi menu-bar option"
+    "tags": "volume brightness fine wifi menu-bar option",
+    "noCopy": true
   },
   {
     "sName": "macos-system-keys",
@@ -11384,7 +13017,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "⌃⇧⌘4   |   ⇧⌘4 then Space then ⌥Click   |   ⌘Space then 1024*768",
     "desc": "Capture to clipboard directly, window shadow removal & instant Spotlight math",
     "tip": "Press Space during region capture (⇧⌘4) to turn the crosshair into a camera icon!",
-    "tags": "system-keys tips pro tricks macos best-practices"
+    "tags": "system-keys tips pro tricks macos best-practices",
+    "noCopy": true
   },
   {
     "sName": "macos-text-editing",
@@ -11395,7 +13029,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "⌥← / ⌥→ (Word)   |   ⌘← / ⌘→ (Line)   |   ⌘↑ / ⌘↓ (Doc)",
     "desc": "Jump cursor by word, to start/end of line, or top/bottom of document",
     "tip": "",
-    "tags": "cursor word home end line select"
+    "tags": "cursor word home end line select",
+    "noCopy": true
   },
   {
     "sName": "macos-text-editing",
@@ -11406,7 +13041,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "⌥⌫ (Prev Word)   |   ⌘⌫ (To Line Start)   |   fn+⌫ or ⌃D (Forward Del)",
     "desc": "Delete previous word, next word, entire line before cursor, or forward-delete",
     "tip": "⌥⌫ & ⌘⌫ work everywhere",
-    "tags": "delete backspace word line forward"
+    "tags": "delete backspace word line forward",
+    "noCopy": true
   },
   {
     "sName": "macos-text-editing",
@@ -11417,7 +13053,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "⇧⌥⌘V (Paste & Match Style)   |   ⌘K (Insert Link)",
     "desc": "Paste clipboard contents as plain text matching destination font & style",
     "tip": "Essential for clean pasting",
-    "tags": "paste plain unformatted style clipboard"
+    "tags": "paste plain unformatted style clipboard",
+    "noCopy": true
   },
   {
     "sName": "macos-text-editing",
@@ -11428,7 +13065,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "⌥⇧8 (°)   ⌥- (–)   ⌥⇧- (—)   ⌥; (…)   ⌥G (©)   ⌥R (®)   ⌥⇧K ()",
     "desc": "Type common symbols, degree sign, em-dash, ellipsis, and Apple logo directly",
     "tip": "",
-    "tags": "symbols typography emdash degree accents apple"
+    "tags": "symbols typography emdash degree accents apple",
+    "noCopy": true
   },
   {
     "sName": "macos-text-editing",
@@ -11439,7 +13077,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "⌃A   ⌃E   ⌃K   ⌃Y   |   ⌥⇧⌘V   |   ⌥⇧- (—)   ⌥; (…)   ⌥⇧K ()",
     "desc": "System-wide Emacs readline keybindings, paste matching style & special typography",
     "tip": "⌥⌫ deletes the entire previous word; ⌘⌫ deletes the entire line to the left!",
-    "tags": "text-editing tips pro tricks macos best-practices"
+    "tags": "text-editing tips pro tricks macos best-practices",
+    "noCopy": true
   },
   {
     "sName": "macos-trackpad",
@@ -11450,7 +13089,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "3/4-Finger Swipe Up / Down / Left / Right   |   Spread Thumb + 3 Fingers",
     "desc": "Manage workspaces, view all open windows, or reveal the desktop",
     "tip": "",
-    "tags": "trackpad gesture swipe spaces mission-control desktop"
+    "tags": "trackpad gesture swipe spaces mission-control desktop",
+    "noCopy": true
   },
   {
     "sName": "macos-trackpad",
@@ -11461,7 +13101,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Force Click (or 3-Finger Tap)   |   2-Finger Double Tap   |   2-Finger Pinch",
     "desc": "Preview links/files inline, smart-zoom columns, or rotate images",
     "tip": "",
-    "tags": "force-click lookup dictionary zoom preview rotate"
+    "tags": "force-click lookup dictionary zoom preview rotate",
+    "noCopy": true
   },
   {
     "sName": "macos-trackpad",
@@ -11472,7 +13113,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "System Settings → Accessibility → Pointer Control → Trackpad Options → Three Finger Drag",
     "desc": "Enable effortless Three-Finger Window & Text Dragging (hidden in Accessibility)",
     "tip": "Best hidden trackpad setting",
-    "tags": "drag three-finger accessibility ergonomic"
+    "tags": "drag three-finger accessibility ergonomic",
+    "noCopy": true
   },
   {
     "sName": "macos-trackpad",
@@ -11483,7 +13125,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Hold ⇧ Shift + Scroll Wheel   |   2-Finger Scroll on App Cluster in Mission Control",
     "desc": "Scroll horizontally with any vertical mouse scroll wheel or switch Mission Control apps",
     "tip": "",
-    "tags": "scroll horizontal mouse wheel mission-control"
+    "tags": "scroll horizontal mouse wheel mission-control",
+    "noCopy": true
   },
   {
     "sName": "macos-trackpad",
@@ -11494,7 +13137,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "System Settings > Accessibility > Pointer Control > Trackpad Options > Dragging style",
     "desc": "Accessibility 3-finger drag, desktop peek & smart zoom gestures",
     "tip": "Hold Shift while scrolling any vertical mouse wheel to scroll horizontally!",
-    "tags": "trackpad tips pro tricks macos best-practices"
+    "tags": "trackpad tips pro tricks macos best-practices",
+    "noCopy": true
   },
   {
     "sName": "macos",
@@ -11505,7 +13149,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "⇧⌘3   |   ⇧⌘4   |   ⇧⌘4 then Space   |   ⇧⌘5",
     "desc": "Capture full screen, crosshair region, or clean single window (with or without shadow)",
     "tip": "Hold ⌥ click = no shadow",
-    "tags": "screenshot capture record window shadow clipboard"
+    "tags": "screenshot capture record window shadow clipboard",
+    "noCopy": true
   },
   {
     "sName": "macos",
@@ -11516,7 +13161,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "⌘Tab   |   ⌘` (Backtick)   |   ⌃↑ (Mission Control)   |   ⌃↓ (App Exposé)",
     "desc": "Switch between open apps or cycle through windows of the active application",
     "tip": "⌘` switches same-app windows",
-    "tags": "switch alt-tab windows cycle mission-control expose"
+    "tags": "switch alt-tab windows cycle mission-control expose",
+    "noCopy": true
   },
   {
     "sName": "macos",
@@ -11527,7 +13173,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "🌐⌃←   🌐⌃→   🌐⌃Return   |   ⌃⌘F   ⌘H   ⌥⌘H   ⌘M",
     "desc": "Native macOS Sequoia window snapping/tiling, fullscreen, hide, and minimize",
     "tip": "",
-    "tags": "tile snap fullscreen hide minimize sequoia"
+    "tags": "tile snap fullscreen hide minimize sequoia",
+    "noCopy": true
   },
   {
     "sName": "macos",
@@ -11538,7 +13185,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "⌘Space   |   ⌘Return (Reveal)   |   ⌘C (Copy file)   |   Hold ⌘ (Show Path)",
     "desc": "Launch Spotlight search, reveal matched file in Finder, or copy file directly",
     "tip": "",
-    "tags": "spotlight search launcher reveal path"
+    "tags": "spotlight search launcher reveal path",
+    "noCopy": true
   },
   {
     "sName": "macos",
@@ -11549,7 +13197,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "⌃⌘Q (Lock)   |   ⌥⌘⎋ (Force Quit)   |   ⌃⌘Space (Emoji)",
     "desc": "Immediately lock screen, force quit unresponsive app, or open Emoji/Symbol picker",
     "tip": "",
-    "tags": "lock force-quit hang emoji symbols security"
+    "tags": "lock force-quit hang emoji symbols security",
+    "noCopy": true
   },
   {
     "sName": "macos",
@@ -11560,7 +13209,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "⌥⇧ + Vol/Brightness (1/4 step)   |   ⌥ + Vol/Brightness (Settings)",
     "desc": "Adjust volume or display brightness in 1/4-step micro-increments or open settings",
     "tip": "⌥+Click Wi-Fi icon for diagnostics",
-    "tags": "volume brightness fine wifi menu-bar option"
+    "tags": "volume brightness fine wifi menu-bar option",
+    "noCopy": true
   },
   {
     "sName": "macos",
@@ -11571,7 +13221,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "⇧⌘G (Go to Path)   |   ⌘↑ (Parent)   |   ⌘↓ (Open)   |   ⌘O",
     "desc": "Navigate folder hierarchy, jump to arbitrary POSIX path, or open selected item",
     "tip": "Works in Open/Save dialogs too!",
-    "tags": "finder goto path parent open rename"
+    "tags": "finder goto path parent open rename",
+    "noCopy": true
   },
   {
     "sName": "macos",
@@ -11582,7 +13233,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "⇧⌘. (Dotfiles)   |   ⌥⌘P (Path Bar)   |   ⌘/ (Status)   |   ⌘1 ⌘2 ⌘3 ⌘4",
     "desc": "Instantly toggle hidden dotfiles, bottom path bar, status bar, and view modes",
     "tip": "⇧⌘. works in Save dialogs",
-    "tags": "hidden dotfiles pathbar views columns"
+    "tags": "hidden dotfiles pathbar views columns",
+    "noCopy": true
   },
   {
     "sName": "macos",
@@ -11593,7 +13245,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "⌘C then ⌥⌘V (Move)   |   ⌥⌘C (Copy Path)   |   ⌘D (Duplicate)",
     "desc": "Move (Cut-Paste) files, copy full POSIX file path, or duplicate item",
     "tip": "⌥⌘V = Cut & Paste files",
-    "tags": "cut move paste path copy duplicate folder"
+    "tags": "cut move paste path copy duplicate folder",
+    "noCopy": true
   },
   {
     "sName": "macos",
@@ -11604,7 +13257,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "⌘⌫ (Trash)   |   ⌥⌘⌫ (Delete Immediately)   |   ⌥⇧⌘⌫ (Empty Trash)",
     "desc": "Move to Trash, bypass Trash (permanent delete), or empty Trash without prompt",
     "tip": "",
-    "tags": "trash delete permanent empty remove"
+    "tags": "trash delete permanent empty remove",
+    "noCopy": true
   },
   {
     "sName": "macos",
@@ -11615,7 +13269,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Space (Quick Look)   |   ⌥Space (Fullscreen)   |   ⌘I   |   ⌥⌘I (Inspector)",
     "desc": "Preview files with Quick Look, markup PDFs/images, or open live Inspector",
     "tip": "",
-    "tags": "quicklook preview info inspector metadata"
+    "tags": "quicklook preview info inspector metadata",
+    "noCopy": true
   },
   {
     "sName": "macos",
@@ -11626,7 +13281,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "⌥← / ⌥→ (Word)   |   ⌘← / ⌘→ (Line)   |   ⌘↑ / ⌘↓ (Doc)",
     "desc": "Jump cursor by word, to start/end of line, or top/bottom of document",
     "tip": "",
-    "tags": "cursor word home end line select"
+    "tags": "cursor word home end line select",
+    "noCopy": true
   },
   {
     "sName": "macos",
@@ -11637,7 +13293,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "⌥⌫ (Prev Word)   |   ⌘⌫ (To Line Start)   |   fn+⌫ or ⌃D (Forward Del)",
     "desc": "Delete previous word, next word, entire line before cursor, or forward-delete",
     "tip": "⌥⌫ & ⌘⌫ work everywhere",
-    "tags": "delete backspace word line forward"
+    "tags": "delete backspace word line forward",
+    "noCopy": true
   },
   {
     "sName": "macos",
@@ -11648,7 +13305,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "⇧⌥⌘V (Paste & Match Style)   |   ⌘K (Insert Link)",
     "desc": "Paste clipboard contents as plain text matching destination font & style",
     "tip": "Essential for clean pasting",
-    "tags": "paste plain unformatted style clipboard"
+    "tags": "paste plain unformatted style clipboard",
+    "noCopy": true
   },
   {
     "sName": "macos",
@@ -11659,7 +13317,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "⌥⇧8 (°)   ⌥- (–)   ⌥⇧- (—)   ⌥; (…)   ⌥G (©)   ⌥R (®)   ⌥⇧K ()",
     "desc": "Type common symbols, degree sign, em-dash, ellipsis, and Apple logo directly",
     "tip": "",
-    "tags": "symbols typography emdash degree accents apple"
+    "tags": "symbols typography emdash degree accents apple",
+    "noCopy": true
   },
   {
     "sName": "macos",
@@ -11670,7 +13329,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "3/4-Finger Swipe Up / Down / Left / Right   |   Spread Thumb + 3 Fingers",
     "desc": "Manage workspaces, view all open windows, or reveal the desktop",
     "tip": "",
-    "tags": "trackpad gesture swipe spaces mission-control desktop"
+    "tags": "trackpad gesture swipe spaces mission-control desktop",
+    "noCopy": true
   },
   {
     "sName": "macos",
@@ -11681,7 +13341,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Force Click (or 3-Finger Tap)   |   2-Finger Double Tap   |   2-Finger Pinch",
     "desc": "Preview links/files inline, smart-zoom columns, or rotate images",
     "tip": "",
-    "tags": "force-click lookup dictionary zoom preview rotate"
+    "tags": "force-click lookup dictionary zoom preview rotate",
+    "noCopy": true
   },
   {
     "sName": "macos",
@@ -11692,7 +13353,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "System Settings → Accessibility → Pointer Control → Trackpad Options → Three Finger Drag",
     "desc": "Enable effortless Three-Finger Window & Text Dragging (hidden in Accessibility)",
     "tip": "Best hidden trackpad setting",
-    "tags": "drag three-finger accessibility ergonomic"
+    "tags": "drag three-finger accessibility ergonomic",
+    "noCopy": true
   },
   {
     "sName": "macos",
@@ -11703,7 +13365,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Hold ⇧ Shift + Scroll Wheel   |   2-Finger Scroll on App Cluster in Mission Control",
     "desc": "Scroll horizontally with any vertical mouse scroll wheel or switch Mission Control apps",
     "tip": "",
-    "tags": "scroll horizontal mouse wheel mission-control"
+    "tags": "scroll horizontal mouse wheel mission-control",
+    "noCopy": true
   },
   {
     "sName": "macos",
@@ -11912,7 +13575,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "BMC_LED1 (Blinking Green = ASMB Ready)   |   CATERR_LED1 (Solid Red = CPU IERR/MCERR)   |   CLRTC1 (Clear CMOS)",
     "desc": "ASUS server motherboard onboard diagnostic LEDs (`BMC_LED1`, `CATERR_LED1`, `Q-LED`) and recovery jumpers",
     "tip": "Wait ~60s after plugging in AC power for BMC_LED1 to blink green before powering on!",
-    "tags": "ASUS Server Boards motherboard post bios hardware asus bmc_led1 caterr q-led clrtc1 vga_sw1 jumper cmos"
+    "tags": "ASUS Server Boards motherboard post bios hardware asus bmc_led1 caterr q-led clrtc1 vga_sw1 jumper cmos",
+    "noCopy": true
   },
   {
     "sName": "mb-asus-servers",
@@ -11923,7 +13587,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "BMC_LED1 (Blinking Green = ASMB Ready)   |   CATERR_LED1 (Solid Red = CPU IERR/MCERR)   |   CLRTC1 (Clear CMOS)",
     "desc": "Hex code lookup and diagnostics breakdown for ASUS server motherboard onboard diagnostic LEDs (`BMC_LED1`, `CATERR_LED1`, `Q-LED`) and recovery jumpers",
     "tip": "",
-    "tags": "ASUS Server Boards flags options syntax"
+    "tags": "ASUS Server Boards flags options syntax",
+    "noCopy": true
   },
   {
     "sName": "mb-asus-servers",
@@ -11945,7 +13610,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Stage 1: AMD PSP & AGESA BootLoader (0xE0..0xFF / 0xD0..0xDF)   -->   Stage 2: AMI Aptio V UEFI (0x10..0xAD)",
     "desc": "Understand the 2-Stage POST sequence on GIGABYTE & ASUS AMD EPYC (Rome/Milan/Genoa/Turin) boards",
     "tip": "EPYC SP3/SP5 sockets are extremely torque-sensitive: uneven Torx T20 screws cause 0xEA/0x55!",
-    "tags": "AMD EPYC AGESA & PSP motherboard post bios hardware epyc amd agesa abl psp e0 e1 e6 ea eb ee sp3 sp5 genoa turin"
+    "tags": "AMD EPYC AGESA & PSP motherboard post bios hardware epyc amd agesa abl psp e0 e1 e6 ea eb ee sp3 sp5 genoa turin",
+    "noCopy": true
   },
   {
     "sName": "mb-epyc-agesa",
@@ -11956,7 +13622,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Stage 1: AMD PSP & AGESA BootLoader (0xE0..0xFF / 0xD0..0xDF)   -->   Stage 2: AMI Aptio V UEFI (0x10..0xAD)",
     "desc": "Hex code lookup and diagnostics breakdown for Understand the 2-Stage POST sequence on GIGABYTE & ASUS AMD EPYC (Rome/Milan/Genoa/Turin) boards",
     "tip": "",
-    "tags": "AMD EPYC AGESA & PSP flags options syntax"
+    "tags": "AMD EPYC AGESA & PSP flags options syntax",
+    "noCopy": true
   },
   {
     "sName": "mb-epyc-agesa",
@@ -11967,7 +13634,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "POST 0xE3 / 0xE4 (EPYC xGMI Link Training)   |   POST 0x19 / 0x2A / 0x3B (Intel Xeon UPI Init)",
     "desc": "Diagnose Dual-Socket (2P) AMD EPYC Infinity Fabric (xGMI) & Intel Xeon UPI link training hangs",
     "tip": "You can flash BIOS via ASUS ASMB11 or GIGABYTE GSM BMC even without a supported CPU installed!",
-    "tags": "AMD EPYC AGESA & PSP motherboard post bios hardware xgmi upi 2p dual-socket e3 e4 mz73 k14 krpa"
+    "tags": "AMD EPYC AGESA & PSP motherboard post bios hardware xgmi upi 2p dual-socket e3 e4 mz73 k14 krpa",
+    "noCopy": true
   },
   {
     "sName": "mb-epyc-agesa",
@@ -12000,7 +13668,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "BMC_RDY LED (Blinking Green)   |   SW_BIOS / BIOS_SW (Dual-BIOS ROM Select)   |   CLR_CMOS (Pins 1-2 Short)",
     "desc": "GIGABYTE server motherboard status LEDs (`BMC_RDY`, `CPU_ERR`), Dual-BIOS switches & CMOS jumpers",
     "tip": "If a GIGABYTE board won't POST after a failed BIOS flash, flip SW_BIOS to the backup ROM!",
-    "tags": "GIGABYTE Server Boards motherboard post bios hardware gigabyte bmc_rdy sw_bios dual-bios clr_cmos jumper dip-switch"
+    "tags": "GIGABYTE Server Boards motherboard post bios hardware gigabyte bmc_rdy sw_bios dual-bios clr_cmos jumper dip-switch",
+    "noCopy": true
   },
   {
     "sName": "mb-gigabyte-servers",
@@ -12011,7 +13680,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "BMC_RDY LED (Blinking Green)   |   SW_BIOS / BIOS_SW (Dual-BIOS ROM Select)   |   CLR_CMOS (Pins 1-2 Short)",
     "desc": "Hex code lookup and diagnostics breakdown for GIGABYTE server motherboard status LEDs (`BMC_RDY`, `CPU_ERR`), Dual-BIOS switches & CMOS jumpers",
     "tip": "",
-    "tags": "GIGABYTE Server Boards flags options syntax"
+    "tags": "GIGABYTE Server Boards flags options syntax",
+    "noCopy": true
   },
   {
     "sName": "mb-gigabyte-servers",
@@ -12055,7 +13725,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Above 4G Decoding = Enabled  |  MMIO High Base = 56T  |  ACS = Disabled  |  IOMMU = Disabled (or iommu=pt)",
     "desc": "Mandatory BIOS settings on ASUS (ESC N8 / ESC8000 / K14 / Z13) & GIGABYTE (G593 / G493 / MZ / MS) 8-GPU AI servers",
     "tip": "After clearing CMOS or flashing BIOS, re-verify Above 4G, MMIO 56T & ACS Disabled!",
-    "tags": "In-Band DMI & ACPI Audit motherboard post bios hardware bios above-4g mmio acs iommu resize-bar hgx asus gigabyte"
+    "tags": "In-Band DMI & ACPI Audit motherboard post bios hardware bios above-4g mmio acs iommu resize-bar hgx asus gigabyte",
+    "noCopy": true
   },
   {
     "sName": "mb-linux-audit",
@@ -12066,7 +13737,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Above 4G Decoding = Enabled  |  MMIO High Base = 56T  |  ACS = Disabled  |  IOMMU = Disabled (or iommu=pt)",
     "desc": "Hex code lookup and diagnostics breakdown for Mandatory BIOS settings on ASUS (ESC N8 / ESC8000 / K14 / Z13) & GIGABYTE (G593 / G493 / MZ / MS) 8-GPU AI servers",
     "tip": "",
-    "tags": "In-Band DMI & ACPI Audit flags options syntax"
+    "tags": "In-Band DMI & ACPI Audit flags options syntax",
+    "noCopy": true
   },
   {
     "sName": "mb-linux-audit",
@@ -12088,7 +13760,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "POST 0x53 (Invalid/Incompatible RAM)   |   POST 0x55 (Memory Not Installed / Unseated)",
     "desc": "Decode AMI Aptio V memory initialization halt codes (`0x50`–`0x55`) on ASUS & GIGABYTE boards",
     "tip": "0x55 = Check primary slot population (ASUS=A1, GIGABYTE=A0) & CPU socket pins!",
-    "tags": "Memory MRC Codes motherboard post bios hardware 50 51 52 53 54 55 memory ram dimm rdimm mrc asus gigabyte"
+    "tags": "Memory MRC Codes motherboard post bios hardware 50 51 52 53 54 55 memory ram dimm rdimm mrc asus gigabyte",
+    "noCopy": true
   },
   {
     "sName": "mb-memory-post",
@@ -12099,7 +13772,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "POST 0x53 (Invalid/Incompatible RAM)   |   POST 0x55 (Memory Not Installed / Unseated)",
     "desc": "Hex code lookup and diagnostics breakdown for Decode AMI Aptio V memory initialization halt codes (`0x50`–`0x55`) on ASUS & GIGABYTE boards",
     "tip": "",
-    "tags": "Memory MRC Codes flags options syntax"
+    "tags": "Memory MRC Codes flags options syntax",
+    "noCopy": true
   },
   {
     "sName": "mb-memory-post",
@@ -12110,7 +13784,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "POST 0xB0 (DIMM Detect)  ->  0xB4 (Rank/RCD)  ->  0xB7 (Channel Training Fail)  ->  0xBF (MRC Done)",
     "desc": "Decode Intel Xeon & AMD EPYC DDR4/DDR5 MRC channel training codes (`0xB0`–`0xBF`, `0x2C`–`0x2F`)",
     "tip": "When stuck on 0xB7, check BMC Event Log (SEL) to see which exact DIMM slot failed!",
-    "tags": "Memory MRC Codes motherboard post bios hardware b0 b1 b4 b7 b8 ba bf 2c 2e 2f mrc training xeon epyc"
+    "tags": "Memory MRC Codes motherboard post bios hardware b0 b1 b4 b7 b8 ba bf 2c 2e 2f mrc training xeon epyc",
+    "noCopy": true
   },
   {
     "sName": "mb-memory-post",
@@ -12121,7 +13796,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "POST 0xB0 (DIMM Detect)  ->  0xB4 (Rank/RCD)  ->  0xB7 (Channel Training Fail)  ->  0xBF (MRC Done)",
     "desc": "Hex code lookup and diagnostics breakdown for Decode Intel Xeon & AMD EPYC DDR4/DDR5 MRC channel training codes (`0xB0`–`0xBF`, `0x2C`–`0x2F`)",
     "tip": "",
-    "tags": "Memory MRC Codes flags options syntax"
+    "tags": "Memory MRC Codes flags options syntax",
+    "noCopy": true
   },
   {
     "sName": "mb-memory-post",
@@ -12132,7 +13808,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "1-DIMM Minimal Boot Test:  ASUS = CPU1_DIMM_A1   |   GIGABYTE = CPU0_DIMM_A0 (or DIMM_P0_A0)",
     "desc": "ASUS (K14/KRPA/Z13) vs GIGABYTE (MZ/MD/MS) server motherboard DIMM slot naming & population order",
     "tip": "Wait at least 4 minutes on first DDR5 boot before assuming a hang!",
-    "tags": "Memory MRC Codes motherboard post bios hardware population slots a1 a0 ddr5 ddr4 rdimm lrdimm asus gigabyte"
+    "tags": "Memory MRC Codes motherboard post bios hardware population slots a1 a0 ddr5 ddr4 rdimm lrdimm asus gigabyte",
+    "noCopy": true
   },
   {
     "sName": "mb-memory-post",
@@ -12143,7 +13820,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "1-DIMM Minimal Boot Test:  ASUS = CPU1_DIMM_A1   |   GIGABYTE = CPU0_DIMM_A0 (or DIMM_P0_A0)",
     "desc": "Hex code lookup and diagnostics breakdown for ASUS (K14/KRPA/Z13) vs GIGABYTE (MZ/MD/MS) server motherboard DIMM slot naming & population order",
     "tip": "",
-    "tags": "Memory MRC Codes flags options syntax"
+    "tags": "Memory MRC Codes flags options syntax",
+    "noCopy": true
   },
   {
     "sName": "mb-memory-post",
@@ -12165,7 +13843,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "POST 0x91 (PCIe Init)  ->  0x92 (Bridge/Riser Detect)  ->  0x94 (Bus Enumeration)  ->  0x96 (BAR Resources)",
     "desc": "Decode PCIe bus, riser card, GPU, and NVMe enumeration hangs (`0x91`–`0x99`)",
     "tip": "Hang at 0x94/0x96 after adding GPUs = Enable 'Above 4G Decoding' in BIOS!",
-    "tags": "PCIe & DXE Codes motherboard post bios hardware 91 92 93 94 95 96 pcie gpu riser mcio slimsas above-4g bar"
+    "tags": "PCIe & DXE Codes motherboard post bios hardware 91 92 93 94 95 96 pcie gpu riser mcio slimsas above-4g bar",
+    "noCopy": true
   },
   {
     "sName": "mb-pcie-dxe-post",
@@ -12176,7 +13855,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "POST 0x91 (PCIe Init)  ->  0x92 (Bridge/Riser Detect)  ->  0x94 (Bus Enumeration)  ->  0x96 (BAR Resources)",
     "desc": "Hex code lookup and diagnostics breakdown for Decode PCIe bus, riser card, GPU, and NVMe enumeration hangs (`0x91`–`0x99`)",
     "tip": "",
-    "tags": "PCIe & DXE Codes flags options syntax"
+    "tags": "PCIe & DXE Codes flags options syntax",
+    "noCopy": true
   },
   {
     "sName": "mb-pcie-dxe-post",
@@ -12187,7 +13867,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "POST 0xd6 (No Console Output / VGA)   |   POST 0xd7 (No Console Input)   |   POST 0xB2 (Legacy Option ROM)",
     "desc": "Decode DXE error codes (`0xd0`–`0xd8`), missing VGA/Console (`0xd6`), and Option ROM hangs (`0xB2`)",
     "tip": "Check onboard VGA_SW1 jumper on ASUS/GIGABYTE boards if halting at 0xd6!",
-    "tags": "PCIe & DXE Codes motherboard post bios hardware d0 d1 d2 d4 d6 d7 d8 b2 vga console option-rom ast2600"
+    "tags": "PCIe & DXE Codes motherboard post bios hardware d0 d1 d2 d4 d6 d7 d8 b2 vga console option-rom ast2600",
+    "noCopy": true
   },
   {
     "sName": "mb-pcie-dxe-post",
@@ -12198,7 +13879,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "POST 0xd6 (No Console Output / VGA)   |   POST 0xd7 (No Console Input)   |   POST 0xB2 (Legacy Option ROM)",
     "desc": "Hex code lookup and diagnostics breakdown for Decode DXE error codes (`0xd0`–`0xd8`), missing VGA/Console (`0xd6`), and Option ROM hangs (`0xB2`)",
     "tip": "",
-    "tags": "PCIe & DXE Codes flags options syntax"
+    "tags": "PCIe & DXE Codes flags options syntax",
+    "noCopy": true
   },
   {
     "sName": "mb-pcie-dxe-post",
@@ -12209,7 +13891,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "POST 0x60 (DXE Core)  ->  0x61 (NVRAM)  ->  0x68 (PCI Host Bridge)  ->  0x70 (Southbridge)  ->  0x79 (CSM)",
     "desc": "Decode DXE Core, NVRAM, Northbridge/UPI, and Southbridge/PCH codes (`0x60`–`0x79`)",
     "tip": "Stuck at 0x61 = corrupted UEFI NVRAM (use CLRTC / CLR_CMOS jumper)",
-    "tags": "PCIe & DXE Codes motherboard post bios hardware 60 61 62 63 68 69 70 78 79 dxe nvram cmos acpi csm"
+    "tags": "PCIe & DXE Codes motherboard post bios hardware 60 61 62 63 68 69 70 78 79 dxe nvram cmos acpi csm",
+    "noCopy": true
   },
   {
     "sName": "mb-pcie-dxe-post",
@@ -12220,7 +13903,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "POST 0x60 (DXE Core)  ->  0x61 (NVRAM)  ->  0x68 (PCI Host Bridge)  ->  0x70 (Southbridge)  ->  0x79 (CSM)",
     "desc": "Hex code lookup and diagnostics breakdown for Decode DXE Core, NVRAM, Northbridge/UPI, and Southbridge/PCH codes (`0x60`–`0x79`)",
     "tip": "",
-    "tags": "PCIe & DXE Codes flags options syntax"
+    "tags": "PCIe & DXE Codes flags options syntax",
+    "noCopy": true
   },
   {
     "sName": "mb-pcie-dxe-post",
@@ -12242,7 +13926,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "POST 0x99 (Super IO)  ->  0x9C (USB Detect)  ->  0xA0 (IDE/AHCI Init)  ->  0xA2 (Drive Detect)  ->  0xB4 (USB Hotplug)",
     "desc": "Decode SATA, SAS, M.2 NVMe, and USB bus initialization codes (`0x99`–`0xA7`, `0xB4`)",
     "tip": "Stuck on 0xA2 = unplug SATA/M.2 drives one by one to find the bad drive!",
-    "tags": "Storage & Boot BDS motherboard post bios hardware 99 9c a0 a1 a2 a3 a4 a6 b4 sata nvme usb virtual-media"
+    "tags": "Storage & Boot BDS motherboard post bios hardware 99 9c a0 a1 a2 a3 a4 a6 b4 sata nvme usb virtual-media",
+    "noCopy": true
   },
   {
     "sName": "mb-storage-bds-post",
@@ -12253,7 +13938,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "POST 0x99 (Super IO)  ->  0x9C (USB Detect)  ->  0xA0 (IDE/AHCI Init)  ->  0xA2 (Drive Detect)  ->  0xB4 (USB Hotplug)",
     "desc": "Hex code lookup and diagnostics breakdown for Decode SATA, SAS, M",
     "tip": "",
-    "tags": "Storage & Boot BDS flags options syntax"
+    "tags": "Storage & Boot BDS flags options syntax",
+    "noCopy": true
   },
   {
     "sName": "mb-storage-bds-post",
@@ -12264,7 +13950,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "POST 0xA9 (Start Setup)  ->  0xAB (Setup Input Wait)  ->  0xAD (Ready To Boot)  ->  0xAA / 0x00 (OS Running)",
     "desc": "Decode UEFI Setup entry, PXE/NVMe boot selection, and OS handoff codes (`0xA9`–`0xAE`, `0xAA`, `0x00`)",
     "tip": "0xAB means the board is waiting at the BIOS prompt (connect BMC KVM/SOL)!",
-    "tags": "Storage & Boot BDS motherboard post bios hardware a9 ab ac ad ae aa 00 ff bios setup grub boot acpi"
+    "tags": "Storage & Boot BDS motherboard post bios hardware a9 ab ac ad ae aa 00 ff bios setup grub boot acpi",
+    "noCopy": true
   },
   {
     "sName": "mb-storage-bds-post",
@@ -12275,7 +13962,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "POST 0xA9 (Start Setup)  ->  0xAB (Setup Input Wait)  ->  0xAD (Ready To Boot)  ->  0xAA / 0x00 (OS Running)",
     "desc": "Hex code lookup and diagnostics breakdown for Decode UEFI Setup entry, PXE/NVMe boot selection, and OS handoff codes (`0xA9`–`0xAE`, `0xAA`, `0x00`)",
     "tip": "",
-    "tags": "Storage & Boot BDS flags options syntax"
+    "tags": "Storage & Boot BDS flags options syntax",
+    "noCopy": true
   },
   {
     "sName": "mb-storage-bds-post",
@@ -12297,7 +13985,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "POST 0x53 (Invalid/Incompatible RAM)   |   POST 0x55 (Memory Not Installed / Unseated)",
     "desc": "Decode AMI Aptio V memory initialization halt codes (`0x50`–`0x55`) on ASUS & GIGABYTE boards",
     "tip": "0x55 = Check primary slot population (ASUS=A1, GIGABYTE=A0) & CPU socket pins!",
-    "tags": "50 51 52 53 54 55 memory ram dimm rdimm mrc asus gigabyte"
+    "tags": "50 51 52 53 54 55 memory ram dimm rdimm mrc asus gigabyte",
+    "noCopy": true
   },
   {
     "sName": "motherboards",
@@ -12308,7 +13997,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "POST 0xB0 (DIMM Detect)  ->  0xB4 (Rank/RCD)  ->  0xB7 (Channel Training Fail)  ->  0xBF (MRC Done)",
     "desc": "Decode Intel Xeon & AMD EPYC DDR4/DDR5 MRC channel training codes (`0xB0`–`0xBF`, `0x2C`–`0x2F`)",
     "tip": "When stuck on 0xB7, check BMC Event Log (SEL) to see which exact DIMM slot failed!",
-    "tags": "b0 b1 b4 b7 b8 ba bf 2c 2e 2f mrc training xeon epyc"
+    "tags": "b0 b1 b4 b7 b8 ba bf 2c 2e 2f mrc training xeon epyc",
+    "noCopy": true
   },
   {
     "sName": "motherboards",
@@ -12319,7 +14009,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "1-DIMM Minimal Boot Test:  ASUS = CPU1_DIMM_A1   |   GIGABYTE = CPU0_DIMM_A0 (or DIMM_P0_A0)",
     "desc": "ASUS (K14/KRPA/Z13) vs GIGABYTE (MZ/MD/MS) server motherboard DIMM slot naming & population order",
     "tip": "Wait at least 4 minutes on first DDR5 boot before assuming a hang!",
-    "tags": "population slots a1 a0 ddr5 ddr4 rdimm lrdimm asus gigabyte"
+    "tags": "population slots a1 a0 ddr5 ddr4 rdimm lrdimm asus gigabyte",
+    "noCopy": true
   },
   {
     "sName": "motherboards",
@@ -12330,7 +14021,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "POST 0x91 (PCIe Init)  ->  0x92 (Bridge/Riser Detect)  ->  0x94 (Bus Enumeration)  ->  0x96 (BAR Resources)",
     "desc": "Decode PCIe bus, riser card, GPU, and NVMe enumeration hangs (`0x91`–`0x99`)",
     "tip": "Hang at 0x94/0x96 after adding GPUs = Enable 'Above 4G Decoding' in BIOS!",
-    "tags": "91 92 93 94 95 96 pcie gpu riser mcio slimsas above-4g bar"
+    "tags": "91 92 93 94 95 96 pcie gpu riser mcio slimsas above-4g bar",
+    "noCopy": true
   },
   {
     "sName": "motherboards",
@@ -12341,7 +14033,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "POST 0xd6 (No Console Output / VGA)   |   POST 0xd7 (No Console Input)   |   POST 0xB2 (Legacy Option ROM)",
     "desc": "Decode DXE error codes (`0xd0`–`0xd8`), missing VGA/Console (`0xd6`), and Option ROM hangs (`0xB2`)",
     "tip": "Check onboard VGA_SW1 jumper on ASUS/GIGABYTE boards if halting at 0xd6!",
-    "tags": "d0 d1 d2 d4 d6 d7 d8 b2 vga console option-rom ast2600"
+    "tags": "d0 d1 d2 d4 d6 d7 d8 b2 vga console option-rom ast2600",
+    "noCopy": true
   },
   {
     "sName": "motherboards",
@@ -12352,7 +14045,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "POST 0x60 (DXE Core)  ->  0x61 (NVRAM)  ->  0x68 (PCI Host Bridge)  ->  0x70 (Southbridge)  ->  0x79 (CSM)",
     "desc": "Decode DXE Core, NVRAM, Northbridge/UPI, and Southbridge/PCH codes (`0x60`–`0x79`)",
     "tip": "Stuck at 0x61 = corrupted UEFI NVRAM (use CLRTC / CLR_CMOS jumper)",
-    "tags": "60 61 62 63 68 69 70 78 79 dxe nvram cmos acpi csm"
+    "tags": "60 61 62 63 68 69 70 78 79 dxe nvram cmos acpi csm",
+    "noCopy": true
   },
   {
     "sName": "motherboards",
@@ -12363,7 +14057,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "POST 0x99 (Super IO)  ->  0x9C (USB Detect)  ->  0xA0 (IDE/AHCI Init)  ->  0xA2 (Drive Detect)  ->  0xB4 (USB Hotplug)",
     "desc": "Decode SATA, SAS, M.2 NVMe, and USB bus initialization codes (`0x99`–`0xA7`, `0xB4`)",
     "tip": "Stuck on 0xA2 = unplug SATA/M.2 drives one by one to find the bad drive!",
-    "tags": "99 9c a0 a1 a2 a3 a4 a6 b4 sata nvme usb virtual-media"
+    "tags": "99 9c a0 a1 a2 a3 a4 a6 b4 sata nvme usb virtual-media",
+    "noCopy": true
   },
   {
     "sName": "motherboards",
@@ -12374,7 +14069,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "POST 0xA9 (Start Setup)  ->  0xAB (Setup Input Wait)  ->  0xAD (Ready To Boot)  ->  0xAA / 0x00 (OS Running)",
     "desc": "Decode UEFI Setup entry, PXE/NVMe boot selection, and OS handoff codes (`0xA9`–`0xAE`, `0xAA`, `0x00`)",
     "tip": "0xAB means the board is waiting at the BIOS prompt (connect BMC KVM/SOL)!",
-    "tags": "a9 ab ac ad ae aa 00 ff bios setup grub boot acpi"
+    "tags": "a9 ab ac ad ae aa 00 ff bios setup grub boot acpi",
+    "noCopy": true
   },
   {
     "sName": "motherboards",
@@ -12385,7 +14081,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Stage 1: AMD PSP & AGESA BootLoader (0xE0..0xFF / 0xD0..0xDF)   -->   Stage 2: AMI Aptio V UEFI (0x10..0xAD)",
     "desc": "Understand the 2-Stage POST sequence on GIGABYTE & ASUS AMD EPYC (Rome/Milan/Genoa/Turin) boards",
     "tip": "EPYC SP3/SP5 sockets are extremely torque-sensitive: uneven Torx T20 screws cause 0xEA/0x55!",
-    "tags": "epyc amd agesa abl psp e0 e1 e6 ea eb ee sp3 sp5 genoa turin"
+    "tags": "epyc amd agesa abl psp e0 e1 e6 ea eb ee sp3 sp5 genoa turin",
+    "noCopy": true
   },
   {
     "sName": "motherboards",
@@ -12396,7 +14093,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "POST 0xE3 / 0xE4 (EPYC xGMI Link Training)   |   POST 0x19 / 0x2A / 0x3B (Intel Xeon UPI Init)",
     "desc": "Diagnose Dual-Socket (2P) AMD EPYC Infinity Fabric (xGMI) & Intel Xeon UPI link training hangs",
     "tip": "You can flash BIOS via ASUS ASMB11 or GIGABYTE GSM BMC even without a supported CPU installed!",
-    "tags": "xgmi upi 2p dual-socket e3 e4 mz73 k14 krpa"
+    "tags": "xgmi upi 2p dual-socket e3 e4 mz73 k14 krpa",
+    "noCopy": true
   },
   {
     "sName": "motherboards",
@@ -12418,7 +14116,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "BMC_LED1 (Blinking Green = ASMB Ready)   |   CATERR_LED1 (Solid Red = CPU IERR/MCERR)   |   CLRTC1 (Clear CMOS)",
     "desc": "ASUS server motherboard onboard diagnostic LEDs (`BMC_LED1`, `CATERR_LED1`, `Q-LED`) and recovery jumpers",
     "tip": "Wait ~60s after plugging in AC power for BMC_LED1 to blink green before powering on!",
-    "tags": "asus bmc_led1 caterr q-led clrtc1 vga_sw1 jumper cmos"
+    "tags": "asus bmc_led1 caterr q-led clrtc1 vga_sw1 jumper cmos",
+    "noCopy": true
   },
   {
     "sName": "motherboards",
@@ -12440,7 +14139,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "BMC_RDY LED (Blinking Green)   |   SW_BIOS / BIOS_SW (Dual-BIOS ROM Select)   |   CLR_CMOS (Pins 1-2 Short)",
     "desc": "GIGABYTE server motherboard status LEDs (`BMC_RDY`, `CPU_ERR`), Dual-BIOS switches & CMOS jumpers",
     "tip": "If a GIGABYTE board won't POST after a failed BIOS flash, flip SW_BIOS to the backup ROM!",
-    "tags": "gigabyte bmc_rdy sw_bios dual-bios clr_cmos jumper dip-switch"
+    "tags": "gigabyte bmc_rdy sw_bios dual-bios clr_cmos jumper dip-switch",
+    "noCopy": true
   },
   {
     "sName": "motherboards",
@@ -12473,7 +14173,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Above 4G Decoding = Enabled  |  MMIO High Base = 56T  |  ACS = Disabled  |  IOMMU = Disabled (or iommu=pt)",
     "desc": "Mandatory BIOS settings on ASUS (ESC N8 / ESC8000 / K14 / Z13) & GIGABYTE (G593 / G493 / MZ / MS) 8-GPU AI servers",
     "tip": "After clearing CMOS or flashing BIOS, re-verify Above 4G, MMIO 56T & ACS Disabled!",
-    "tags": "bios above-4g mmio acs iommu resize-bar hgx asus gigabyte"
+    "tags": "bios above-4g mmio acs iommu resize-bar hgx asus gigabyte",
+    "noCopy": true
   },
   {
     "sName": "namei",
@@ -12528,7 +14229,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "w   b   e   ge   |   W   B   E",
     "desc": "Move by word start/end or whitespace-delimited WORD",
     "tip": "",
-    "tags": "word move cursor navigation punctuation"
+    "tags": "word move cursor navigation punctuation",
+    "noCopy": true
   },
   {
     "sName": "neovim",
@@ -12539,7 +14241,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "^   0   $   g_",
     "desc": "Jump to first non-blank character, column 0, or end of line",
     "tip": "Use ^ & g_ with operators",
-    "tags": "line start end home bol eol"
+    "tags": "line start end home bol eol",
+    "noCopy": true
   },
   {
     "sName": "neovim",
@@ -12550,7 +14253,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "f{char}   t{char}   ;   ,",
     "desc": "Jump directly to or right before a character on the current line",
     "tip": "Fastest horizontal motion",
-    "tags": "find till character inline repeat"
+    "tags": "find till character inline repeat",
+    "noCopy": true
   },
   {
     "sName": "neovim",
@@ -12561,7 +14265,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "gg   G   42G   50%   %",
     "desc": "Jump to top/bottom of buffer, specific line number, or matching bracket",
     "tip": "",
-    "tags": "top bottom goto line bracket match"
+    "tags": "top bottom goto line bracket match",
+    "noCopy": true
   },
   {
     "sName": "neovim",
@@ -12572,7 +14277,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "<C-d>   <C-u>   zz   zt   zb",
     "desc": "Half-page scrolling and recentering viewport around cursor",
     "tip": "Pro tip: map <C-d>zz",
-    "tags": "scroll center page viewport screen"
+    "tags": "scroll center page viewport screen",
+    "noCopy": true
   },
   {
     "sName": "neovim",
@@ -12583,7 +14289,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "H   M   L   |   {   }",
     "desc": "Jump to top, middle, or bottom of currently visible window",
     "tip": "",
-    "tags": "window high middle low paragraph"
+    "tags": "window high middle low paragraph",
+    "noCopy": true
   },
   {
     "sName": "neovim",
@@ -12594,7 +14301,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "<C-o>   <C-i>   |   g;   g,   gi",
     "desc": "Traverse jump history or edit location history across files",
     "tip": "",
-    "tags": "back forward history jumplist changelist"
+    "tags": "back forward history jumplist changelist",
+    "noCopy": true
   },
   {
     "sName": "neovim",
@@ -12605,7 +14313,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ci\"   da(   yi{   cit   dip",
     "desc": "Change, delete, or yank inside/around quotes, parens, braces & tags",
     "tip": "Core Vim superpower",
-    "tags": "inside around text-object quotes parens braces html tag"
+    "tags": "inside around text-object quotes parens braces html tag",
+    "noCopy": true
   },
   {
     "sName": "neovim",
@@ -12616,7 +14325,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ciw   diw   yiw   daw",
     "desc": "Operate on whole word under cursor regardless of cursor position in word",
     "tip": "",
-    "tags": "word replace delete copy inner"
+    "tags": "word replace delete copy inner",
+    "noCopy": true
   },
   {
     "sName": "neovim",
@@ -12627,7 +14337,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "D   C   Y   S   s   x",
     "desc": "Single-key equivalents for operating from cursor to end of line",
     "tip": "Nvim defaults Y to y$",
-    "tags": "end line shortcut substitute delete"
+    "tags": "end line shortcut substitute delete",
+    "noCopy": true
   },
   {
     "sName": "neovim",
@@ -12638,7 +14349,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": ".   J   gJ   <C-a>   <C-x>",
     "desc": "Repeat last change, join lines with or without space, and increment numbers",
     "tip": "",
-    "tags": "repeat dot join increment number"
+    "tags": "repeat dot join increment number",
+    "noCopy": true
   },
   {
     "sName": "neovim",
@@ -12649,7 +14361,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "~   gUiw   guiw   =G   gqip",
     "desc": "Toggle case, uppercase/lowercase, auto-indent, and wrap paragraphs",
     "tip": "",
-    "tags": "case uppercase lowercase indent format wrap"
+    "tags": "case uppercase lowercase indent format wrap",
+    "noCopy": true
   },
   {
     "sName": "neovim",
@@ -12660,7 +14373,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "gcc   gcip   gc}",
     "desc": "Toggle code comments using Neovim 0.10+ built-in commenting",
     "tip": "Built into Nvim 0.10+",
-    "tags": "comment uncomment toggle code"
+    "tags": "comment uncomment toggle code",
+    "noCopy": true
   },
   {
     "sName": "neovim",
@@ -12671,7 +14385,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "<C-v>  jjj  I{text}<Esc>",
     "desc": "Insert text at the beginning of multiple lines simultaneously",
     "tip": "Multi-cursor alternative",
-    "tags": "block column multiline prefix insert"
+    "tags": "block column multiline prefix insert",
+    "noCopy": true
   },
   {
     "sName": "neovim",
@@ -12682,7 +14397,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "<C-v>  jjj  $A{text}<Esc>",
     "desc": "Append text to the end of multiple ragged-length lines",
     "tip": "",
-    "tags": "append eol block multiline column"
+    "tags": "append eol block multiline column",
+    "noCopy": true
   },
   {
     "sName": "neovim",
@@ -12693,7 +14409,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "gv   o   O   V   v",
     "desc": "Reselect previous visual area or jump cursor to other end of selection",
     "tip": "",
-    "tags": "reselect swap corner selection"
+    "tags": "reselect swap corner selection",
+    "noCopy": true
   },
   {
     "sName": "neovim",
@@ -12704,7 +14421,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "<C-v> jjj  g<C-a>",
     "desc": "Turn column of zeros into sequential numbers (1, 2, 3, 4...)",
     "tip": "Instant numbered lists",
-    "tags": "sequence increment numbers list"
+    "tags": "sequence increment numbers list",
+    "noCopy": true
   },
   {
     "sName": "neovim",
@@ -12726,7 +14444,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "*   #   n   N   cgn{new}<Esc>.",
     "desc": "Search exact word under cursor forward/backward and operate with cgn",
     "tip": "* + cgn + . beats :%s",
-    "tags": "search word cgn highlight repeat"
+    "tags": "search word cgn highlight repeat",
+    "noCopy": true
   },
   {
     "sName": "neovim",
@@ -12792,7 +14511,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "<C-w>v   <C-w>s   <C-w>q   <C-w>o",
     "desc": "Create vertical or horizontal window splits and close active/other splits",
     "tip": "",
-    "tags": "split vertical horizontal window only close"
+    "tags": "split vertical horizontal window only close",
+    "noCopy": true
   },
   {
     "sName": "neovim",
@@ -12803,7 +14523,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "<C-w>h/j/k/l   |   <C-w>H/J/K/L   |   <C-w>T",
     "desc": "Move focus between splits or rearrange window layout",
     "tip": "LazyVim maps Ctrl+h/j/k/l",
-    "tags": "navigate focus rearrange break tab"
+    "tags": "navigate focus rearrange break tab",
+    "noCopy": true
   },
   {
     "sName": "neovim",
@@ -12814,7 +14535,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "<C-w>=   <C-w>|   <C-w>_   10<C-w>>",
     "desc": "Equalize, maximize, or adjust split window dimensions",
     "tip": "",
-    "tags": "resize equalize maximize width height"
+    "tags": "resize equalize maximize width height",
+    "noCopy": true
   },
   {
     "sName": "neovim",
@@ -12825,7 +14547,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "]b   [b   <C-^>   :bd   <leader>bd",
     "desc": "Switch between open buffers, jump to alternate file, or delete buffer",
     "tip": "",
-    "tags": "buffer switch alternate close next prev"
+    "tags": "buffer switch alternate close next prev",
+    "noCopy": true
   },
   {
     "sName": "neovim",
@@ -12836,7 +14559,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": ":tabnew   gt   gT   :tabclose   :tabonly",
     "desc": "Manage workspace tab pages (each tab holds its own window layout)",
     "tip": "",
-    "tags": "tabs workspace layout"
+    "tags": "tabs workspace layout",
+    "noCopy": true
   },
   {
     "sName": "neovim",
@@ -12847,7 +14571,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "qa ... q   |   @a   @@   10@a",
     "desc": "Record keystrokes into register 'a' and replay once or N times",
     "tip": "Start macro with 0 or ^",
-    "tags": "macro record replay automation"
+    "tags": "macro record replay automation",
+    "noCopy": true
   },
   {
     "sName": "neovim",
@@ -12869,7 +14594,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "\"+y   \"+p   |   \"0p   |   \"_dd   \"_dP",
     "desc": "Copy/paste with system clipboard or replace text without losing yanked register",
     "tip": "\"0p saves tons of re-yanking",
-    "tags": "clipboard copy paste blackhole register yank"
+    "tags": "clipboard copy paste blackhole register yank",
+    "noCopy": true
   },
   {
     "sName": "neovim",
@@ -12880,7 +14606,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "<C-r>\"   <C-r>+   <C-r><C-w>   <C-r>=64*1024<CR>",
     "desc": "Paste any register or evaluate math/Lua expressions inline while typing",
     "tip": "",
-    "tags": "insert paste calculator expression cword"
+    "tags": "insert paste calculator expression cword",
+    "noCopy": true
   },
   {
     "sName": "neovim",
@@ -12891,7 +14618,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "u   <C-r>   U   |   :earlier 10m   :later 5m",
     "desc": "Undo, redo, or travel backward/forward through Neovim's persistent undo tree",
     "tip": "",
-    "tags": "undo redo history tree earlier time"
+    "tags": "undo redo history tree earlier time",
+    "noCopy": true
   },
   {
     "sName": "neovim",
@@ -12902,7 +14630,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "gd   gr   gI   gy   gD   K",
     "desc": "Jump to symbol definition, references, implementation, or type definition",
     "tip": "<C-o> jumps right back",
-    "tags": "lsp definition references hover implementation type"
+    "tags": "lsp definition references hover implementation type",
+    "noCopy": true
   },
   {
     "sName": "neovim",
@@ -12913,7 +14642,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "<leader>ca   <leader>cr   <leader>cf   |   gra   grn",
     "desc": "Trigger LSP code actions, workspace-wide symbol rename, and formatting",
     "tip": "",
-    "tags": "rename refactor code-action format signature"
+    "tags": "rename refactor code-action format signature",
+    "noCopy": true
   },
   {
     "sName": "neovim",
@@ -12924,7 +14654,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "]d   [d   ]e   [e   <leader>cd   <leader>xx",
     "desc": "Jump between compiler/LSP diagnostics, errors, and inspect floating details",
     "tip": "",
-    "tags": "error warning diagnostic trouble lint"
+    "tags": "error warning diagnostic trouble lint",
+    "noCopy": true
   },
   {
     "sName": "neovim",
@@ -12935,7 +14666,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "<C-space>   <BS>   |   ]f   [f   ]c   [c",
     "desc": "Expand or shrink visual selection incrementally by AST syntax nodes",
     "tip": "AST-aware selection",
-    "tags": "treesitter ast node expand function class"
+    "tags": "treesitter ast node expand function class",
+    "noCopy": true
   },
   {
     "sName": "neovim",
@@ -12946,7 +14678,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "<leader><space>   <leader>/   <leader>,   <leader>fr",
     "desc": "Fuzzy find files, live ripgrep across project, recent files & open buffers",
     "tip": "<leader> is Space",
-    "tags": "telescope fzf snacks find grep files search"
+    "tags": "telescope fzf snacks find grep files search",
+    "noCopy": true
   },
   {
     "sName": "neovim",
@@ -12957,7 +14690,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "<leader>e   <leader>E   |   a   d   r   y   c   m   ?",
     "desc": "Toggle Neo-tree file explorer and perform file operations inside tree",
     "tip": "",
-    "tags": "neotree explorer sidebar tree create rename"
+    "tags": "neotree explorer sidebar tree create rename",
+    "noCopy": true
   },
   {
     "sName": "neovim",
@@ -12968,7 +14702,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "<leader>gg   ]h   [h   <leader>ghs   <leader>ghr   <leader>ghb",
     "desc": "Open LazyGit TUI, navigate git diff hunks, stage/reset hunks, and blame",
     "tip": "",
-    "tags": "git lazygit hunk stage blame diff"
+    "tags": "git lazygit hunk stage blame diff",
+    "noCopy": true
   },
   {
     "sName": "neovim",
@@ -12979,7 +14714,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "<leader>ss   <leader>sS   <leader>sr   <leader>sk   <leader>sh",
     "desc": "Search LSP document/workspace symbols, keymaps, help tags, or project replace",
     "tip": "",
-    "tags": "symbols functions outline keymaps help grug-far"
+    "tags": "symbols functions outline keymaps help grug-far",
+    "noCopy": true
   },
   {
     "sName": "neovim",
@@ -12990,7 +14726,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "<leader>uw   <leader>ul   <leader>uf   <leader>uC   :Lazy   :Mason",
     "desc": "Toggle UI features (wrap, relative numbers, format-on-save, zen) & plugin managers",
     "tip": "",
-    "tags": "toggle wrap format colorscheme lazy mason plugins"
+    "tags": "toggle wrap format colorscheme lazy mason plugins",
+    "noCopy": true
   },
   {
     "sName": "neovim",
@@ -13001,7 +14738,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": ":w   ZZ   ZQ   :wa   :qa!   :e!",
     "desc": "Save, quit, force quit all buffers, or reload file from disk",
     "tip": "",
-    "tags": "save write quit exit reload discard"
+    "tags": "save write quit exit reload discard",
+    "noCopy": true
   },
   {
     "sName": "neovim",
@@ -13023,7 +14761,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "]q   [q   :copen   :cfdo %s/old/new/g | update",
     "desc": "Navigate Quickfix list and run substitutions across all quickfix files",
     "tip": "",
-    "tags": "quickfix cdo cfdo project batch multifile"
+    "tags": "quickfix cdo cfdo project batch multifile",
+    "noCopy": true
   },
   {
     "sName": "neovim",
@@ -13034,7 +14773,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "<C-/>   <C-\\><C-n>   :term   :checkhealth",
     "desc": "Toggle floating terminal, exit terminal insert mode, or diagnose Neovim setup",
     "tip": "",
-    "tags": "terminal shell escape checkhealth diagnose"
+    "tags": "terminal shell escape checkhealth diagnose",
+    "noCopy": true
   },
   {
     "sName": "network",
@@ -14046,7 +15786,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": ":w   ZZ   ZQ   :wa   :qa!   :e!",
     "desc": "Save, quit, force quit all buffers, or reload file from disk",
     "tip": "",
-    "tags": "save write quit exit reload discard"
+    "tags": "save write quit exit reload discard",
+    "noCopy": true
   },
   {
     "sName": "nvim-ex-shell",
@@ -14068,7 +15809,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "]q   [q   :copen   :cfdo %s/old/new/g | update",
     "desc": "Navigate Quickfix list and run substitutions across all quickfix files",
     "tip": "",
-    "tags": "quickfix cdo cfdo project batch multifile"
+    "tags": "quickfix cdo cfdo project batch multifile",
+    "noCopy": true
   },
   {
     "sName": "nvim-ex-shell",
@@ -14079,7 +15821,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "<C-/>   <C-\\><C-n>   :term   :checkhealth",
     "desc": "Toggle floating terminal, exit terminal insert mode, or diagnose Neovim setup",
     "tip": "",
-    "tags": "terminal shell escape checkhealth diagnose"
+    "tags": "terminal shell escape checkhealth diagnose",
+    "noCopy": true
   },
   {
     "sName": "nvim-ex-shell",
@@ -14101,7 +15844,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "<leader><space>   <leader>/   <leader>,   <leader>fr",
     "desc": "Fuzzy find files, live ripgrep across project, recent files & open buffers",
     "tip": "<leader> is Space",
-    "tags": "telescope fzf snacks find grep files search"
+    "tags": "telescope fzf snacks find grep files search",
+    "noCopy": true
   },
   {
     "sName": "nvim-lazyvim",
@@ -14112,7 +15856,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "<leader>e   <leader>E   |   a   d   r   y   c   m   ?",
     "desc": "Toggle Neo-tree file explorer and perform file operations inside tree",
     "tip": "",
-    "tags": "neotree explorer sidebar tree create rename"
+    "tags": "neotree explorer sidebar tree create rename",
+    "noCopy": true
   },
   {
     "sName": "nvim-lazyvim",
@@ -14123,7 +15868,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "<leader>gg   ]h   [h   <leader>ghs   <leader>ghr   <leader>ghb",
     "desc": "Open LazyGit TUI, navigate git diff hunks, stage/reset hunks, and blame",
     "tip": "",
-    "tags": "git lazygit hunk stage blame diff"
+    "tags": "git lazygit hunk stage blame diff",
+    "noCopy": true
   },
   {
     "sName": "nvim-lazyvim",
@@ -14134,7 +15880,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "<leader>ss   <leader>sS   <leader>sr   <leader>sk   <leader>sh",
     "desc": "Search LSP document/workspace symbols, keymaps, help tags, or project replace",
     "tip": "",
-    "tags": "symbols functions outline keymaps help grug-far"
+    "tags": "symbols functions outline keymaps help grug-far",
+    "noCopy": true
   },
   {
     "sName": "nvim-lazyvim",
@@ -14145,7 +15892,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "<leader>uw   <leader>ul   <leader>uf   <leader>uC   :Lazy   :Mason",
     "desc": "Toggle UI features (wrap, relative numbers, format-on-save, zen) & plugin managers",
     "tip": "",
-    "tags": "toggle wrap format colorscheme lazy mason plugins"
+    "tags": "toggle wrap format colorscheme lazy mason plugins",
+    "noCopy": true
   },
   {
     "sName": "nvim-lazyvim",
@@ -14156,7 +15904,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "<leader><space>   <leader>sg   <leader>e   <leader>gg",
     "desc": "LazyVim fast fuzzy finding, Neo-tree, LazyGit & keymap discovery",
     "tip": "Space is the default <leader> key in LazyVim!",
-    "tags": "lazyvim tips pro chords best-practices"
+    "tags": "lazyvim tips pro chords best-practices",
+    "noCopy": true
   },
   {
     "sName": "nvim-lsp",
@@ -14167,7 +15916,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "gd   gr   gI   gy   gD   K",
     "desc": "Jump to symbol definition, references, implementation, or type definition",
     "tip": "<C-o> jumps right back",
-    "tags": "lsp definition references hover implementation type"
+    "tags": "lsp definition references hover implementation type",
+    "noCopy": true
   },
   {
     "sName": "nvim-lsp",
@@ -14178,7 +15928,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "<leader>ca   <leader>cr   <leader>cf   |   gra   grn",
     "desc": "Trigger LSP code actions, workspace-wide symbol rename, and formatting",
     "tip": "",
-    "tags": "rename refactor code-action format signature"
+    "tags": "rename refactor code-action format signature",
+    "noCopy": true
   },
   {
     "sName": "nvim-lsp",
@@ -14189,7 +15940,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "]d   [d   ]e   [e   <leader>cd   <leader>xx",
     "desc": "Jump between compiler/LSP diagnostics, errors, and inspect floating details",
     "tip": "",
-    "tags": "error warning diagnostic trouble lint"
+    "tags": "error warning diagnostic trouble lint",
+    "noCopy": true
   },
   {
     "sName": "nvim-lsp",
@@ -14200,7 +15952,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "<C-space>   <BS>   |   ]f   [f   ]c   [c",
     "desc": "Expand or shrink visual selection incrementally by AST syntax nodes",
     "tip": "AST-aware selection",
-    "tags": "treesitter ast node expand function class"
+    "tags": "treesitter ast node expand function class",
+    "noCopy": true
   },
   {
     "sName": "nvim-lsp",
@@ -14211,7 +15964,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "gd   gr   K   |   <leader>ca   <leader>cr   |   [d   ]d",
     "desc": "Neovim 0.10+ native LSP navigation, inlay hints & code actions",
     "tip": "In Neovim 0.10, enable inlay hints with: vim.lsp.inlay_hint.enable()",
-    "tags": "lsp tips pro chords best-practices"
+    "tags": "lsp tips pro chords best-practices",
+    "noCopy": true
   },
   {
     "sName": "nvim-macros",
@@ -14222,7 +15976,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "qa ... q   |   @a   @@   10@a",
     "desc": "Record keystrokes into register 'a' and replay once or N times",
     "tip": "Start macro with 0 or ^",
-    "tags": "macro record replay automation"
+    "tags": "macro record replay automation",
+    "noCopy": true
   },
   {
     "sName": "nvim-macros",
@@ -14244,7 +15999,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "\"+y   \"+p   |   \"0p   |   \"_dd   \"_dP",
     "desc": "Copy/paste with system clipboard or replace text without losing yanked register",
     "tip": "\"0p saves tons of re-yanking",
-    "tags": "clipboard copy paste blackhole register yank"
+    "tags": "clipboard copy paste blackhole register yank",
+    "noCopy": true
   },
   {
     "sName": "nvim-macros",
@@ -14255,7 +16011,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "<C-r>\"   <C-r>+   <C-r><C-w>   <C-r>=64*1024<CR>",
     "desc": "Paste any register or evaluate math/Lua expressions inline while typing",
     "tip": "",
-    "tags": "insert paste calculator expression cword"
+    "tags": "insert paste calculator expression cword",
+    "noCopy": true
   },
   {
     "sName": "nvim-macros",
@@ -14266,7 +16023,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "u   <C-r>   U   |   :earlier 10m   :later 5m",
     "desc": "Undo, redo, or travel backward/forward through Neovim's persistent undo tree",
     "tip": "",
-    "tags": "undo redo history tree earlier time"
+    "tags": "undo redo history tree earlier time",
+    "noCopy": true
   },
   {
     "sName": "nvim-macros",
@@ -14277,7 +16035,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "qa ... q   |   @a   @@   |   :'<,'>norm @a   |   <C-r>=",
     "desc": "Macro recording, parallel visual playback & expression register",
     "tip": "Use \"+y to yank into system clipboard, and \"0p to paste last yank after deleting!",
-    "tags": "macros tips pro chords best-practices"
+    "tags": "macros tips pro chords best-practices",
+    "noCopy": true
   },
   {
     "sName": "nvim-motions",
@@ -14288,7 +16047,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "w   b   e   ge   |   W   B   E",
     "desc": "Move by word start/end or whitespace-delimited WORD",
     "tip": "",
-    "tags": "word move cursor navigation punctuation"
+    "tags": "word move cursor navigation punctuation",
+    "noCopy": true
   },
   {
     "sName": "nvim-motions",
@@ -14299,7 +16059,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "^   0   $   g_",
     "desc": "Jump to first non-blank character, column 0, or end of line",
     "tip": "Use ^ & g_ with operators",
-    "tags": "line start end home bol eol"
+    "tags": "line start end home bol eol",
+    "noCopy": true
   },
   {
     "sName": "nvim-motions",
@@ -14310,7 +16071,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "f{char}   t{char}   ;   ,",
     "desc": "Jump directly to or right before a character on the current line",
     "tip": "Fastest horizontal motion",
-    "tags": "find till character inline repeat"
+    "tags": "find till character inline repeat",
+    "noCopy": true
   },
   {
     "sName": "nvim-motions",
@@ -14321,7 +16083,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "gg   G   42G   50%   %",
     "desc": "Jump to top/bottom of buffer, specific line number, or matching bracket",
     "tip": "",
-    "tags": "top bottom goto line bracket match"
+    "tags": "top bottom goto line bracket match",
+    "noCopy": true
   },
   {
     "sName": "nvim-motions",
@@ -14332,7 +16095,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "<C-d>   <C-u>   zz   zt   zb",
     "desc": "Half-page scrolling and recentering viewport around cursor",
     "tip": "Pro tip: map <C-d>zz",
-    "tags": "scroll center page viewport screen"
+    "tags": "scroll center page viewport screen",
+    "noCopy": true
   },
   {
     "sName": "nvim-motions",
@@ -14343,7 +16107,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "H   M   L   |   {   }",
     "desc": "Jump to top, middle, or bottom of currently visible window",
     "tip": "",
-    "tags": "window high middle low paragraph"
+    "tags": "window high middle low paragraph",
+    "noCopy": true
   },
   {
     "sName": "nvim-motions",
@@ -14354,7 +16119,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "<C-o>   <C-i>   |   g;   g,   gi",
     "desc": "Traverse jump history or edit location history across files",
     "tip": "",
-    "tags": "back forward history jumplist changelist"
+    "tags": "back forward history jumplist changelist",
+    "noCopy": true
   },
   {
     "sName": "nvim-motions",
@@ -14365,7 +16131,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "<C-o>   <C-i>   |   g;   g,   |   zz   zt   zb",
     "desc": "Jump list traversal, change list navigation & viewport centering",
     "tip": "Combine motions with operators: d2w, y$, c^",
-    "tags": "motions tips pro chords best-practices"
+    "tags": "motions tips pro chords best-practices",
+    "noCopy": true
   },
   {
     "sName": "nvim-operators",
@@ -14376,7 +16143,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ci\"   da(   yi{   cit   dip",
     "desc": "Change, delete, or yank inside/around quotes, parens, braces & tags",
     "tip": "Core Vim superpower",
-    "tags": "inside around text-object quotes parens braces html tag"
+    "tags": "inside around text-object quotes parens braces html tag",
+    "noCopy": true
   },
   {
     "sName": "nvim-operators",
@@ -14387,7 +16155,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ciw   diw   yiw   daw",
     "desc": "Operate on whole word under cursor regardless of cursor position in word",
     "tip": "",
-    "tags": "word replace delete copy inner"
+    "tags": "word replace delete copy inner",
+    "noCopy": true
   },
   {
     "sName": "nvim-operators",
@@ -14398,7 +16167,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "D   C   Y   S   s   x",
     "desc": "Single-key equivalents for operating from cursor to end of line",
     "tip": "Nvim defaults Y to y$",
-    "tags": "end line shortcut substitute delete"
+    "tags": "end line shortcut substitute delete",
+    "noCopy": true
   },
   {
     "sName": "nvim-operators",
@@ -14409,7 +16179,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": ".   J   gJ   <C-a>   <C-x>",
     "desc": "Repeat last change, join lines with or without space, and increment numbers",
     "tip": "",
-    "tags": "repeat dot join increment number"
+    "tags": "repeat dot join increment number",
+    "noCopy": true
   },
   {
     "sName": "nvim-operators",
@@ -14420,7 +16191,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "~   gUiw   guiw   =G   gqip",
     "desc": "Toggle case, uppercase/lowercase, auto-indent, and wrap paragraphs",
     "tip": "",
-    "tags": "case uppercase lowercase indent format wrap"
+    "tags": "case uppercase lowercase indent format wrap",
+    "noCopy": true
   },
   {
     "sName": "nvim-operators",
@@ -14431,7 +16203,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "gcc   gcip   gc}",
     "desc": "Toggle code comments using Neovim 0.10+ built-in commenting",
     "tip": "Built into Nvim 0.10+",
-    "tags": "comment uncomment toggle code"
+    "tags": "comment uncomment toggle code",
+    "noCopy": true
   },
   {
     "sName": "nvim-operators",
@@ -14442,7 +16215,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ci\"   da)   yiw   gUiw   =i}   gc",
     "desc": "Vim operator grammar composition rules: [operator][count][scope][target]",
     "tip": "The dot (.) command repeats the entire composite operator change!",
-    "tags": "operators tips pro chords best-practices"
+    "tags": "operators tips pro chords best-practices",
+    "noCopy": true
   },
   {
     "sName": "nvim-search",
@@ -14453,7 +16227,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "*   #   n   N   cgn{new}<Esc>.",
     "desc": "Search exact word under cursor forward/backward and operate with cgn",
     "tip": "* + cgn + . beats :%s",
-    "tags": "search word cgn highlight repeat"
+    "tags": "search word cgn highlight repeat",
+    "noCopy": true
   },
   {
     "sName": "nvim-search",
@@ -14530,7 +16305,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "<C-v>  jjj  I{text}<Esc>",
     "desc": "Insert text at the beginning of multiple lines simultaneously",
     "tip": "Multi-cursor alternative",
-    "tags": "block column multiline prefix insert"
+    "tags": "block column multiline prefix insert",
+    "noCopy": true
   },
   {
     "sName": "nvim-visual",
@@ -14541,7 +16317,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "<C-v>  jjj  $A{text}<Esc>",
     "desc": "Append text to the end of multiple ragged-length lines",
     "tip": "",
-    "tags": "append eol block multiline column"
+    "tags": "append eol block multiline column",
+    "noCopy": true
   },
   {
     "sName": "nvim-visual",
@@ -14552,7 +16329,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "gv   o   O   V   v",
     "desc": "Reselect previous visual area or jump cursor to other end of selection",
     "tip": "",
-    "tags": "reselect swap corner selection"
+    "tags": "reselect swap corner selection",
+    "noCopy": true
   },
   {
     "sName": "nvim-visual",
@@ -14563,7 +16341,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "<C-v> jjj  g<C-a>",
     "desc": "Turn column of zeros into sequential numbers (1, 2, 3, 4...)",
     "tip": "Instant numbered lists",
-    "tags": "sequence increment numbers list"
+    "tags": "sequence increment numbers list",
+    "noCopy": true
   },
   {
     "sName": "nvim-visual",
@@ -14585,7 +16364,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "<C-v>   I<text><Esc>   |   <C-v>$   A<text><Esc>   |   gv",
     "desc": "Visual-block multi-line column editing & reselection",
     "tip": "Always wait 100ms after pressing Esc in visual block mode for lines to populate!",
-    "tags": "visual tips pro chords best-practices"
+    "tags": "visual tips pro chords best-practices",
+    "noCopy": true
   },
   {
     "sName": "nvim-windows",
@@ -14596,7 +16376,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "<C-w>v   <C-w>s   <C-w>q   <C-w>o",
     "desc": "Create vertical or horizontal window splits and close active/other splits",
     "tip": "",
-    "tags": "split vertical horizontal window only close"
+    "tags": "split vertical horizontal window only close",
+    "noCopy": true
   },
   {
     "sName": "nvim-windows",
@@ -14607,7 +16388,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "<C-w>h/j/k/l   |   <C-w>H/J/K/L   |   <C-w>T",
     "desc": "Move focus between splits or rearrange window layout",
     "tip": "LazyVim maps Ctrl+h/j/k/l",
-    "tags": "navigate focus rearrange break tab"
+    "tags": "navigate focus rearrange break tab",
+    "noCopy": true
   },
   {
     "sName": "nvim-windows",
@@ -14618,7 +16400,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "<C-w>=   <C-w>|   <C-w>_   10<C-w>>",
     "desc": "Equalize, maximize, or adjust split window dimensions",
     "tip": "",
-    "tags": "resize equalize maximize width height"
+    "tags": "resize equalize maximize width height",
+    "noCopy": true
   },
   {
     "sName": "nvim-windows",
@@ -14629,7 +16412,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "]b   [b   <C-^>   :bd   <leader>bd",
     "desc": "Switch between open buffers, jump to alternate file, or delete buffer",
     "tip": "",
-    "tags": "buffer switch alternate close next prev"
+    "tags": "buffer switch alternate close next prev",
+    "noCopy": true
   },
   {
     "sName": "nvim-windows",
@@ -14640,7 +16424,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": ":tabnew   gt   gT   :tabclose   :tabonly",
     "desc": "Manage workspace tab pages (each tab holds its own window layout)",
     "tip": "",
-    "tags": "tabs workspace layout"
+    "tags": "tabs workspace layout",
+    "noCopy": true
   },
   {
     "sName": "nvim-windows",
@@ -14651,7 +16436,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "<C-w>v   <C-w>s   |   <C-w>h/j/k/l   |   <C-w>=   |   <C-w>T",
     "desc": "Split window layout navigation, resizing & tab page control",
     "tip": "In LazyVim, use Shift+H and Shift+L to switch between open buffer tabs rapidly!",
-    "tags": "windows tips pro chords best-practices"
+    "tags": "windows tips pro chords best-practices",
+    "noCopy": true
   },
   {
     "sName": "nvme-smart",
@@ -14882,7 +16668,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Super + Space (Omarchy Menu)   |   Super + Alt + Space (Apps)   |   Super + K (Keybindings)   |   Super + Escape (System)",
     "desc": "Open the Omarchy menu, app launcher, keybinding guides, and the focused sub-menus",
     "tip": "Super+K searches every live binding",
-    "tags": "menu launcher keybindings system theme wallpaper background hardware toggle share capture tmux herdr power"
+    "tags": "menu launcher keybindings system theme wallpaper background hardware toggle share capture tmux herdr power",
+    "noCopy": true
   },
   {
     "sName": "omarchy",
@@ -14893,7 +16680,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Super + Return (Terminal)   |   Super + Shift + Return (Browser)   |   Super + Shift + F (Files)   |   Super + Shift + N (Editor)",
     "desc": "Launch the terminal, browser, file manager, and editor",
     "tip": "Two chords open the browser",
-    "tags": "terminal tmux herdr browser private files nautilus editor neovim"
+    "tags": "terminal tmux herdr browser private files nautilus editor neovim",
+    "noCopy": true
   },
   {
     "sName": "omarchy",
@@ -14904,7 +16692,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Super + Shift + Ctrl + A (Agent)   |   Super + Shift + T (Activity)   |   Super + Shift + D (Docker)   |   Super + Shift + / (Passwords)",
     "desc": "Launch the coding agent picker, activity monitor, Docker, calculator, passwords, notes, and music",
     "tip": "",
-    "tags": "agent activity btop docker lazydocker calculator 1password passwords obsidian omawrite music spotify"
+    "tags": "agent activity btop docker lazydocker calculator 1password passwords obsidian omawrite music spotify",
+    "noCopy": true
   },
   {
     "sName": "omarchy",
@@ -14915,7 +16704,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Super + Shift + E (Gmail)   |   Super + Shift + C (Calendar)   |   Super + Shift + A (ChatGPT)   |   Super + Shift + Y (YouTube)",
     "desc": "Launch web apps. Email and Calendar are rebound to Gmail and Google Calendar on this machine.",
     "tip": "Shift+Alt+L copies the URL inside any web app",
-    "tags": "webapp chatgpt grok email gmail calendar youtube whatsapp signal messages photos maps url download"
+    "tags": "webapp chatgpt grok email gmail calendar youtube whatsapp signal messages photos maps url download",
+    "noCopy": true
   },
   {
     "sName": "omarchy",
@@ -14926,7 +16716,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Super + W (Close)   |   Super + F (Fullscreen)   |   Super + T (Float)   |   Super + O (Pop Out)",
     "desc": "Close windows, change fullscreen mode, float, pop out, and change the tiling split",
     "tip": "Super+O keeps a video on top",
-    "tags": "close fullscreen float pop pip pin split pseudo minimize dock"
+    "tags": "close fullscreen float pop pip pin split pseudo minimize dock",
+    "noCopy": true
   },
   {
     "sName": "omarchy",
@@ -14937,7 +16728,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Super + Arrows (Focus)   |   Super + Shift + Arrows (Swap)   |   Alt + Tab (Next)   |   Super + L (Layout)",
     "desc": "Move focus between windows, swap their positions, and cycle the workspace layout",
     "tip": "",
-    "tags": "focus swap move arrows layout alt-tab navigate"
+    "tags": "focus swap move arrows layout alt-tab navigate",
+    "noCopy": true
   },
   {
     "sName": "omarchy",
@@ -14948,7 +16740,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Super + Left-Drag (Move)   |   Super + Right-Drag (Resize)   |   Super + -/= (Width)   |   Super + Shift + -/= (Height)",
     "desc": "Move or resize with the mouse or keyboard. Add Alt for small steps or Ctrl for large steps.",
     "tip": "",
-    "tags": "resize mouse drag width height expand shrink save restore"
+    "tags": "resize mouse drag width height expand shrink save restore",
+    "noCopy": true
   },
   {
     "sName": "omarchy",
@@ -14959,7 +16752,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Super + Backspace (Transparency)   |   Super + Shift + Backspace (Gaps)   |   Super + Shift + Space (Top Bar)",
     "desc": "Toggle transparency, gaps, the top bar, and single-window aspect",
     "tip": "",
-    "tags": "transparency opacity gaps bar hide aspect"
+    "tags": "transparency opacity gaps bar hide aspect",
+    "noCopy": true
   },
   {
     "sName": "omarchy",
@@ -14970,7 +16764,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Super + 1..0 (Switch)   |   Super + Shift + 1..0 (Move)   |   Super + Shift + Alt + 1..0 (Silent)   |   Super + Tab (Next)",
     "desc": "Switch workspaces and move windows between them. Each monitor has its own workspaces 1-10.",
     "tip": "Super+Ctrl+Tab jumps back",
-    "tags": "workspace switch move silent tab scroll former"
+    "tags": "workspace switch move silent tab scroll former",
+    "noCopy": true
   },
   {
     "sName": "omarchy",
@@ -14981,7 +16776,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Super + S (Scratchpad)   |   Super + Alt + S (Send)   |   Super + ` (Quake)   |   Super + Shift + ` (Send)",
     "desc": "Toggle the scratchpad or Quake console overlay, or send the active window to either one",
     "tip": "Good for an always-handy terminal or chat",
-    "tags": "scratchpad quake dropdown overlay tilde grave"
+    "tags": "scratchpad quake dropdown overlay tilde grave",
+    "noCopy": true
   },
   {
     "sName": "omarchy",
@@ -14992,7 +16788,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Super + G (Group)   |   Super + Alt + G (Ungroup)   |   Super + Alt + Arrows (Join)   |   Super + Alt + Tab (Next)",
     "desc": "Combine windows into a tabbed group, then switch or rearrange its tabs",
     "tip": "",
-    "tags": "group tabs tabbed stack container ungroup"
+    "tags": "group tabs tabbed stack container ungroup",
+    "noCopy": true
   },
   {
     "sName": "omarchy",
@@ -15003,7 +16800,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Ctrl + Alt + Tab (Next Monitor)   |   Super + Shift + Ctrl + Arrows (Move Window)   |   Super + Shift + Alt + Arrows (Move Workspace)",
     "desc": "Move focus, windows, and workspaces across monitors, adjust scaling, and control the laptop display",
     "tip": "",
-    "tags": "monitor display scaling mirror laptop clamshell"
+    "tags": "monitor display scaling mirror laptop clamshell",
+    "noCopy": true
   },
   {
     "sName": "omarchy",
@@ -15014,7 +16812,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Super + Ctrl + A (Audio)   |   Super + Ctrl + B (Bluetooth)   |   Super + Ctrl + N (Network)   |   Super + Ctrl + 1..9 (By Position)",
     "desc": "Open top bar panels from the keyboard",
     "tip": "",
-    "tags": "panel bar quickshell audio bluetooth network wifi calendar clock power display"
+    "tags": "panel bar quickshell audio bluetooth network wifi calendar clock power display",
+    "noCopy": true
   },
   {
     "sName": "omarchy",
@@ -15025,7 +16824,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Print (Screenshot)   |   Alt + Print (Record)   |   Super + Ctrl + Print (OCR)   |   Super + Print (Color)",
     "desc": "Take screenshots, record the screen, extract text, pick colors, and transcode media",
     "tip": "Enter snaps the highlighted window",
-    "tags": "screenshot screenrecord ocr color-picker capture webcam share transcode"
+    "tags": "screenshot screenrecord ocr color-picker capture webcam share transcode",
+    "noCopy": true
   },
   {
     "sName": "omarchy",
@@ -15036,7 +16836,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Super + C / V / X / A   |   Super + Ctrl + V (History)   |   Super + Ctrl + E (Emojis)   |   F9 (Hold to Dictate)",
     "desc": "Universal clipboard shortcuts, clipboard history, emojis, voice dictation, and input language",
     "tip": "Super+C/V works in terminals and apps",
-    "tags": "copy paste cut select clipboard emoji dictation voice voxtype language prefix"
+    "tags": "copy paste cut select clipboard emoji dictation voice voxtype language prefix",
+    "noCopy": true
   },
   {
     "sName": "omarchy",
@@ -15047,7 +16848,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Super + , (Dismiss)   |   Super + Ctrl + R (Reminder)   |   Super + Ctrl + L (Lock)   |   Super + Ctrl + Z (Zoom)",
     "desc": "Manage notifications and reminders, show status toasts, zoom, and lock the system",
     "tip": "",
-    "tags": "notification dismiss dnd silence reminder lock idle zoom weather battery time"
+    "tags": "notification dismiss dnd silence reminder lock idle zoom weather battery time",
+    "noCopy": true
   },
   {
     "sName": "omarchy",
@@ -15058,7 +16860,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Volume Up / Volume Down   |   Mute   |   Play   |   Next Track   |   Previous Track",
     "desc": "Control volume, playback, and audio routing with the keyboard's media keys",
     "tip": "Alt gives fine volume steps",
-    "tags": "volume mute microphone media play pause track audio output eject"
+    "tags": "volume mute microphone media play pause track audio output eject",
+    "noCopy": true
   },
   {
     "sName": "omarchy",
@@ -15069,7 +16872,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Brightness Up / Brightness Down   |   Keyboard Light Key   |   Touchpad Toggle   |   Power Key",
     "desc": "Control screen and keyboard brightness, the touchpad, and the power menu",
     "tip": "",
-    "tags": "brightness screen keyboard backlight touchpad power"
+    "tags": "brightness screen keyboard backlight touchpad power",
+    "noCopy": true
   },
   {
     "sName": "omarchy",
@@ -15080,7 +16884,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Ctrl + Insert (Copy)   |   Shift + Insert (Paste)   |   Super + Shift + Ctrl + Alt + Arrows (Ghostty Split)",
     "desc": "Keys configured inside Omarchy's terminals, in addition to Super+C and Super+V",
     "tip": "",
-    "tags": "terminal copy paste ghostty alacritty foot split"
+    "tags": "terminal copy paste ghostty alacritty foot split",
+    "noCopy": true
   },
   {
     "sName": "openssl",
@@ -16595,7 +18400,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "tip",
     "id": "discovery-auth-tips-card",
     "sec": "Discovery & Auth: Pro Tips & Best Practices",
-    "cmd": "curl -k -g -6 -sS -u \"admin:password\" \"https://[fd00::10]/redfish/v1\" | jq .",
+    "cmd": "curl -k -g -6 -sS -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1\" | jq .",
     "desc": "Production Redfish API Discovery & Authentication Best Practices",
     "tip": "Store the X-Auth-Token in an environment variable and always DELETE the session URI upon script completion to prevent exhausting the BMC session limit.",
     "tags": "discovery-auth tips pro redfish rest best-practice"
@@ -17484,12 +19289,221 @@ window.GLOBAL_SEARCH_INDEX = [
     "sName": "scripting",
     "file": "scripting.html",
     "badge": "lua",
+    "id": "lua-hub-basics",
+    "sec": "Lua Scripting & Config Files",
+    "cmd": "local port = opts.port or 8080",
+    "desc": "Use a default when a value is nil or false",
+    "tip": "",
+    "tags": "lua variables tables local comments hyprland neovim"
+  },
+  {
+    "sName": "scripting",
+    "file": "scripting.html",
+    "badge": "lua",
+    "id": "lua-hub-basics",
+    "sec": "Lua Scripting & Config Files",
+    "cmd": "local a, b = 1, 2",
+    "desc": "Assign several values at once, or swap with a, b = b, a",
+    "tip": "",
+    "tags": "lua variables tables local comments hyprland neovim"
+  },
+  {
+    "sName": "scripting",
+    "file": "scripting.html",
+    "badge": "lua",
+    "id": "lua-hub-basics",
+    "sec": "Lua Scripting & Config Files",
+    "cmd": "print(type(server), tostring(nil))",
+    "desc": "Check a value's type, or turn it into a string",
+    "tip": "",
+    "tags": "lua variables tables local comments hyprland neovim"
+  },
+  {
+    "sName": "scripting",
+    "file": "scripting.html",
+    "badge": "lua",
     "id": "lua-hub-flow-functions",
     "sec": "Lua Scripting & Config Files",
     "cmd": "local function check(temps)\n  for name, temp in pairs(temps) do\n    if temp >= 90 then error(name .. \" too hot\") end\n  end\n  return \"ok\"\nend\nprint(pcall(check, { gpu0 = 71, gpu1 = 95 }))",
     "desc": "Loop over tables, define functions, and catch errors with pcall",
     "tip": "luac -p file.lua checks syntax without running it",
     "tags": "lua loops pairs ipairs functions pcall errors"
+  },
+  {
+    "sName": "scripting",
+    "file": "scripting.html",
+    "badge": "lua",
+    "id": "lua-hub-flow-functions",
+    "sec": "Lua Scripting & Config Files",
+    "cmd": "for i, host in ipairs(hosts) do print(i, host) end",
+    "desc": "Loop over a list in order",
+    "tip": "",
+    "tags": "lua loops pairs ipairs functions pcall errors"
+  },
+  {
+    "sName": "scripting",
+    "file": "scripting.html",
+    "badge": "lua",
+    "id": "lua-hub-flow-functions",
+    "sec": "Lua Scripting & Config Files",
+    "cmd": "while retries > 0 do retries = retries - 1 end",
+    "desc": "Loop until a condition changes",
+    "tip": "",
+    "tags": "lua loops pairs ipairs functions pcall errors"
+  },
+  {
+    "sName": "scripting",
+    "file": "scripting.html",
+    "badge": "lua",
+    "id": "lua-hub-flow-functions",
+    "sec": "Lua Scripting & Config Files",
+    "cmd": "local ok, err = pcall(check, temps)",
+    "desc": "Catch an error: ok is false and err holds the message",
+    "tip": "",
+    "tags": "lua loops pairs ipairs functions pcall errors"
+  },
+  {
+    "sName": "scripting",
+    "file": "scripting.html",
+    "badge": "lua",
+    "id": "lua-hub-strings-tables",
+    "sec": "Lua Scripting & Config Files",
+    "cmd": "local line = \"gpu-node-014 degraded\"\nlocal host, state = line:match(\"^(%S+)%s+(%S+)$\")\nprint(string.format(\"%-14s %s\", host, state:upper()))\n\nlocal hosts = { \"node2\", \"node1\" }\ntable.insert(hosts, \"node3\")\ntable.sort(hosts)\nprint(table.concat(hosts, \",\"))",
+    "desc": "Search and format strings, and change lists",
+    "tip": "Lua patterns are not regex, so use %d instead of \\d and there is no | for alternatives",
+    "tags": "lua strings patterns match gsub format tables insert sort concat"
+  },
+  {
+    "sName": "scripting",
+    "file": "scripting.html",
+    "badge": "lua",
+    "id": "lua-hub-strings-tables",
+    "sec": "Lua Scripting & Config Files",
+    "cmd": "for word in line:gmatch(\"%S+\") do print(word) end",
+    "desc": "Split a string on whitespace",
+    "tip": "",
+    "tags": "lua strings patterns match gsub format tables insert sort concat"
+  },
+  {
+    "sName": "scripting",
+    "file": "scripting.html",
+    "badge": "lua",
+    "id": "lua-hub-strings-tables",
+    "sec": "Lua Scripting & Config Files",
+    "cmd": "local clean = line:gsub(\"%s+$\", \"\")",
+    "desc": "Trim trailing spaces. gsub finds and replaces.",
+    "tip": "",
+    "tags": "lua strings patterns match gsub format tables insert sort concat"
+  },
+  {
+    "sName": "scripting",
+    "file": "scripting.html",
+    "badge": "lua",
+    "id": "lua-hub-strings-tables",
+    "sec": "Lua Scripting & Config Files",
+    "cmd": "table.remove(hosts, 1)",
+    "desc": "Remove and return the first item",
+    "tip": "",
+    "tags": "lua strings patterns match gsub format tables insert sort concat"
+  },
+  {
+    "sName": "scripting",
+    "file": "scripting.html",
+    "badge": "lua",
+    "id": "lua-hub-strings-tables",
+    "sec": "Lua Scripting & Config Files",
+    "cmd": "local copy = { table.unpack(hosts) }",
+    "desc": "Make a shallow copy of a list. In Neovim, use unpack(hosts) instead.",
+    "tip": "",
+    "tags": "lua strings patterns match gsub format tables insert sort concat"
+  },
+  {
+    "sName": "scripting",
+    "file": "scripting.html",
+    "badge": "lua",
+    "id": "lua-hub-files-cli",
+    "sec": "Lua Scripting & Config Files",
+    "cmd": "local f = assert(io.open(\"/etc/hostname\", \"r\"))\nlocal name = f:read(\"l\")\nf:close()\nprint(name)\n\nlocal p = assert(io.popen(\"uname -r\"))\nprint(p:read(\"l\"))\np:close()",
+    "desc": "Read files, run commands, and run scripts",
+    "tip": "Always close what you open, or use for line in io.lines(path) do ... end, which closes the file for you",
+    "tags": "lua files io open read popen cli arg luac"
+  },
+  {
+    "sName": "scripting",
+    "file": "scripting.html",
+    "badge": "lua",
+    "id": "lua-hub-files-cli",
+    "sec": "Lua Scripting & Config Files",
+    "cmd": "lua script.lua arg1",
+    "desc": "Run a script",
+    "tip": "",
+    "tags": "lua files io open read popen cli arg luac"
+  },
+  {
+    "sName": "scripting",
+    "file": "scripting.html",
+    "badge": "lua",
+    "id": "lua-hub-files-cli",
+    "sec": "Lua Scripting & Config Files",
+    "cmd": "lua -e 'print(_VERSION)'",
+    "desc": "Run one line without a file",
+    "tip": "",
+    "tags": "lua files io open read popen cli arg luac"
+  },
+  {
+    "sName": "scripting",
+    "file": "scripting.html",
+    "badge": "lua",
+    "id": "lua-hub-files-cli",
+    "sec": "Lua Scripting & Config Files",
+    "cmd": "luac -p script.lua",
+    "desc": "Check syntax without running it",
+    "tip": "",
+    "tags": "lua files io open read popen cli arg luac"
+  },
+  {
+    "sName": "scripting",
+    "file": "scripting.html",
+    "badge": "lua",
+    "id": "lua-hub-config",
+    "sec": "Lua Scripting & Config Files",
+    "cmd": "-- ~/.config/hypr/bindings.lua\nhl.unbind(\"SUPER + SHIFT + E\")\no.bind(\"SUPER + SHIFT + E\", \"Email\", { webapp = \"https://mail.google.com\" })\n\n-- ~/.config/nvim/init.lua\nvim.opt.number = true\nvim.keymap.set(\"n\", \"<leader>w\", \"<cmd>write<CR>\", { desc = \"Save file\" })",
+    "desc": "Edit Hyprland and Neovim config files",
+    "tip": "Neovim runs LuaJIT (Lua 5.1), so features from Lua 5.3 and later, such as // and bitwise operators, are unavailable",
+    "tags": "lua hyprland omarchy neovim config bindings keymap"
+  },
+  {
+    "sName": "scripting",
+    "file": "scripting.html",
+    "badge": "lua",
+    "id": "lua-hub-config",
+    "sec": "Lua Scripting & Config Files",
+    "cmd": "hyprctl configerrors",
+    "desc": "List Hyprland config problems after you save",
+    "tip": "",
+    "tags": "lua hyprland omarchy neovim config bindings keymap"
+  },
+  {
+    "sName": "scripting",
+    "file": "scripting.html",
+    "badge": "lua",
+    "id": "lua-hub-config",
+    "sec": "Lua Scripting & Config Files",
+    "cmd": "hyprctl reload",
+    "desc": "Reload the Hyprland config",
+    "tip": "",
+    "tags": "lua hyprland omarchy neovim config bindings keymap"
+  },
+  {
+    "sName": "scripting",
+    "file": "scripting.html",
+    "badge": "lua",
+    "id": "lua-hub-config",
+    "sec": "Lua Scripting & Config Files",
+    "cmd": ":lua print(vim.version().minor)",
+    "desc": "Run Lua from Neovim's command line",
+    "tip": "",
+    "tags": "lua hyprland omarchy neovim config bindings keymap"
   },
   {
     "sName": "scripting",
@@ -17776,6 +19790,138 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Extract nested attributes from SQLite JSON columns",
     "tip": "",
     "tags": "sqlite sql csv json database schema cli"
+  },
+  {
+    "sName": "scripting",
+    "file": "scripting.html",
+    "badge": "git",
+    "id": "git-hub-daily",
+    "sec": "Git Version Control",
+    "cmd": "git status -sb\ngit add -p\ngit commit -m \"Fix BMC timeout\"\ngit pull --rebase\ngit push -u origin HEAD",
+    "desc": "The everyday loop: check, stage, commit, sync and branch",
+    "tip": "Run git diff --staged before committing to catch debug lines and secrets",
+    "tags": "git status add commit pull push branch"
+  },
+  {
+    "sName": "scripting",
+    "file": "scripting.html",
+    "badge": "git",
+    "id": "git-hub-daily",
+    "sec": "Git Version Control",
+    "cmd": "git switch -c feature/x",
+    "desc": "Create a branch and switch to it",
+    "tip": "",
+    "tags": "git status add commit pull push branch"
+  },
+  {
+    "sName": "scripting",
+    "file": "scripting.html",
+    "badge": "git",
+    "id": "git-hub-daily",
+    "sec": "Git Version Control",
+    "cmd": "git log --oneline --graph --all -20",
+    "desc": "See recent history across branches",
+    "tip": "",
+    "tags": "git status add commit pull push branch"
+  },
+  {
+    "sName": "scripting",
+    "file": "scripting.html",
+    "badge": "git",
+    "id": "git-hub-daily",
+    "sec": "Git Version Control",
+    "cmd": "git diff --staged",
+    "desc": "Review what the next commit contains",
+    "tip": "",
+    "tags": "git status add commit pull push branch"
+  },
+  {
+    "sName": "scripting",
+    "file": "scripting.html",
+    "badge": "git",
+    "id": "git-hub-undo",
+    "sec": "Git Version Control",
+    "cmd": "git restore --staged path/to/file\ngit reset --soft HEAD~1\ngit revert abc1234\ngit reflog -20",
+    "desc": "Undo mistakes, from unstaging a file to recovering lost commits",
+    "tip": "Use git revert on shared branches, because git reset rewrites history",
+    "tags": "git undo restore reset revert reflog stash"
+  },
+  {
+    "sName": "scripting",
+    "file": "scripting.html",
+    "badge": "git",
+    "id": "git-hub-undo",
+    "sec": "Git Version Control",
+    "cmd": "git stash push -u -m \"WIP\"",
+    "desc": "Set work aside, including untracked files",
+    "tip": "",
+    "tags": "git undo restore reset revert reflog stash"
+  },
+  {
+    "sName": "scripting",
+    "file": "scripting.html",
+    "badge": "git",
+    "id": "git-hub-undo",
+    "sec": "Git Version Control",
+    "cmd": "git clean -nd",
+    "desc": "Preview which untracked files would be deleted",
+    "tip": "",
+    "tags": "git undo restore reset revert reflog stash"
+  },
+  {
+    "sName": "scripting",
+    "file": "scripting.html",
+    "badge": "git",
+    "id": "git-hub-undo",
+    "sec": "Git Version Control",
+    "cmd": "git branch recovered HEAD@{2}",
+    "desc": "Recover a commit found in the reflog",
+    "tip": "",
+    "tags": "git undo restore reset revert reflog stash"
+  },
+  {
+    "sName": "scripting",
+    "file": "scripting.html",
+    "badge": "git",
+    "id": "git-hub-scripts",
+    "sec": "Git Version Control",
+    "cmd": "cd \"$(git rev-parse --show-toplevel)\"\nif [[ -n \"$(git status --porcelain)\" ]]; then\n  echo \"Refusing to deploy: uncommitted changes\" >&2\n  exit 1\nfi\nVERSION=\"$(git describe --tags --always --dirty)\"\necho \"Deploying $VERSION\"",
+    "desc": "Use git in scripts: check for local edits and report the version",
+    "tip": "Parse --porcelain output, not plain git status, because the plain text can change between versions",
+    "tags": "git scripts porcelain rev-parse describe deploy automation"
+  },
+  {
+    "sName": "scripting",
+    "file": "scripting.html",
+    "badge": "git",
+    "id": "git-hub-scripts",
+    "sec": "Git Version Control",
+    "cmd": "git -C /opt/tools rev-parse --short HEAD",
+    "desc": "Print the commit deployed in a folder",
+    "tip": "",
+    "tags": "git scripts porcelain rev-parse describe deploy automation"
+  },
+  {
+    "sName": "scripting",
+    "file": "scripting.html",
+    "badge": "git",
+    "id": "git-hub-scripts",
+    "sec": "Git Version Control",
+    "cmd": "git diff --quiet || echo \"Unstaged changes\"",
+    "desc": "Use the exit code to detect changes",
+    "tip": "",
+    "tags": "git scripts porcelain rev-parse describe deploy automation"
+  },
+  {
+    "sName": "scripting",
+    "file": "scripting.html",
+    "badge": "git",
+    "id": "git-hub-scripts",
+    "sec": "Git Version Control",
+    "cmd": "git rev-parse --abbrev-ref HEAD",
+    "desc": "Print the current branch name",
+    "tip": "",
+    "tags": "git scripts porcelain rev-parse describe deploy automation"
   },
   {
     "sName": "sed",
@@ -21559,7 +23705,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Win+X   |   Win+X then I (Admin Terminal)   |   Ctrl+Shift+Esc   |   Ctrl+Shift+Enter",
     "desc": "Open Quick Link admin menu, Task Manager, or launch any app as Administrator",
     "tip": "Win+X then I = Admin PS",
-    "tags": "admin elevate task-manager shutdown menu terminal"
+    "tags": "admin elevate task-manager shutdown menu terminal",
+    "noCopy": true
   },
   {
     "sName": "win-shortcuts",
@@ -21570,7 +23717,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Win+Z   |   Win+← / Win+→   |   Win+Shift+← / → (Monitor)   |   Win+Home",
     "desc": "Snap windows into halves/quadrants, open Snap Layouts, or move window across monitors",
     "tip": "",
-    "tags": "snap tile monitor layout minimize desktop"
+    "tags": "snap tile monitor layout minimize desktop",
+    "noCopy": true
   },
   {
     "sName": "win-shortcuts",
@@ -21581,7 +23729,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Win+Tab   |   Win+Ctrl+D (New)   |   Win+Ctrl+← / → (Switch)   |   Win+Ctrl+F4 (Close)",
     "desc": "Create, switch between, and close Virtual Desktops (Workspaces)",
     "tip": "",
-    "tags": "virtual-desktop workspaces task-view switch"
+    "tags": "virtual-desktop workspaces task-view switch",
+    "noCopy": true
   },
   {
     "sName": "win-shortcuts",
@@ -21592,7 +23741,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Win+V (Clipboard)   |   Win+Shift+S (Snip)   |   Win+Ctrl+Shift+B (Reset GPU)",
     "desc": "Clipboard history, region screenshot/screen-record, text OCR, and GPU driver reset",
     "tip": "Win+Ctrl+Shift+B fixes black screens",
-    "tags": "clipboard screenshot snip record gpu audio"
+    "tags": "clipboard screenshot snip record gpu audio",
+    "noCopy": true
   },
   {
     "sName": "win-shortcuts",
@@ -21603,7 +23753,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Alt+D then type wt<Enter>   |   Ctrl+Shift+C (Copy Path)   |   Alt+P (Preview)",
     "desc": "Open Terminal in current Explorer folder, copy full file path, or toggle preview panes",
     "tip": "Alt+D -> wt opens shell here",
-    "tags": "explorer path copy terminal folder preview"
+    "tags": "explorer path copy terminal folder preview",
+    "noCopy": true
   },
   {
     "sName": "win-shortcuts",
@@ -21614,7 +23765,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Win+Ctrl+Shift+B   |   Win+Shift+S   |   Ctrl+Shift+Esc   |   Win+X",
     "desc": "Instant graphics driver reset, Snipping Tool OCR & Task Manager shortcut",
     "tip": "Press Win+X then A to launch an elevated Administrator PowerShell prompt in 1 second!",
-    "tags": "win-keys tips pro windows powershell best-practices"
+    "tags": "win-keys tips pro windows powershell best-practices",
+    "noCopy": true
   },
   {
     "sName": "win-storage",
@@ -21845,7 +23997,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Win+X   |   Win+X then I (Admin Terminal)   |   Ctrl+Shift+Esc   |   Ctrl+Shift+Enter",
     "desc": "Open Quick Link admin menu, Task Manager, or launch any app as Administrator",
     "tip": "Win+X then I = Admin PS",
-    "tags": "admin elevate task-manager shutdown menu terminal"
+    "tags": "admin elevate task-manager shutdown menu terminal",
+    "noCopy": true
   },
   {
     "sName": "windows",
@@ -21856,7 +24009,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Win+Z   |   Win+← / Win+→   |   Win+Shift+← / → (Monitor)   |   Win+Home",
     "desc": "Snap windows into halves/quadrants, open Snap Layouts, or move window across monitors",
     "tip": "",
-    "tags": "snap tile monitor layout minimize desktop"
+    "tags": "snap tile monitor layout minimize desktop",
+    "noCopy": true
   },
   {
     "sName": "windows",
@@ -21867,7 +24021,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Win+Tab   |   Win+Ctrl+D (New)   |   Win+Ctrl+← / → (Switch)   |   Win+Ctrl+F4 (Close)",
     "desc": "Create, switch between, and close Virtual Desktops (Workspaces)",
     "tip": "",
-    "tags": "virtual-desktop workspaces task-view switch"
+    "tags": "virtual-desktop workspaces task-view switch",
+    "noCopy": true
   },
   {
     "sName": "windows",
@@ -21878,7 +24033,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Win+V (Clipboard)   |   Win+Shift+S (Snip)   |   Win+Ctrl+Shift+B (Reset GPU)",
     "desc": "Clipboard history, region screenshot/screen-record, text OCR, and GPU driver reset",
     "tip": "Win+Ctrl+Shift+B fixes black screens",
-    "tags": "clipboard screenshot snip record gpu audio"
+    "tags": "clipboard screenshot snip record gpu audio",
+    "noCopy": true
   },
   {
     "sName": "windows",
@@ -21889,7 +24045,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Alt+D then type wt<Enter>   |   Ctrl+Shift+C (Copy Path)   |   Alt+P (Preview)",
     "desc": "Open Terminal in current Explorer folder, copy full file path, or toggle preview panes",
     "tip": "Alt+D -> wt opens shell here",
-    "tags": "explorer path copy terminal folder preview"
+    "tags": "explorer path copy terminal folder preview",
+    "noCopy": true
   },
   {
     "sName": "windows",

@@ -637,7 +637,6 @@ const state = {
   searchQuery: "",
   activeCategory: "all",
   savedOnly: false,
-  compact: localStorage.getItem("linux_cs_compact") === "1",
   theme: localStorage.getItem("linux_cs_theme") || "dark",
   bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("win_cs_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
@@ -649,8 +648,6 @@ const sectionsContainer = document.getElementById("sections-container");
 const visibleCountEl = document.getElementById("visible-count");
 const savedCountEl = document.getElementById("saved-count");
 const savedFilterBtn = document.getElementById("saved-filter-btn");
-const densityToggleBtn = document.getElementById("density-toggle");
-const densityLabel = document.getElementById("density-label");
 const printBtn = document.getElementById("print-btn");
 const themeToggleBtn = document.getElementById("theme-toggle");
 const emptyStateEl = document.getElementById("empty-state");
@@ -1024,15 +1021,6 @@ function applyTheme(theme) {
   }
 }
 
-function applyDensity(compact) {
-  state.compact = compact;
-  document.body.classList.toggle("compact-mode", compact);
-  densityToggleBtn.classList.toggle("active", compact);
-  densityLabel.textContent = compact ? "Detailed" : "Compact";
-  localStorage.setItem("linux_cs_compact", compact ? "1" : "0");
-  packMasonry();
-}
-
 function initEvents() {
   searchInput.addEventListener("input", (e) => {
     state.searchQuery = e.target.value.trim();
@@ -1082,10 +1070,6 @@ function initEvents() {
     renderSections();
   });
 
-  densityToggleBtn.addEventListener("click", () => {
-    applyDensity(!state.compact);
-  });
-
   if (printBtn) printBtn.addEventListener("click", () => {
     window.print();
   });
@@ -1121,7 +1105,6 @@ function initEvents() {
 
 // Initialize
 applyTheme(state.theme);
-applyDensity(state.compact);
 renderCategoryTabs();
 renderSections();
 initPsPipelineBuilder();

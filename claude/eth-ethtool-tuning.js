@@ -53,6 +53,7 @@ const ETH_ETH_ETHTOOL_TUNING_DATA = [
         "id": "ethtool-link-speed-autoneg-flags-card",
         "desc": "Options breakdown and parameter syntax for Check negotiated link speed, duplex, auto-negotiation, and link partner advertised speeds",
         "cmd": "ethtool eth0   |   ethtool -r eth0   |   ethtool -s eth0 speed 1000 duplex full autoneg on",
+        "hideCode": false,
         "flags": [
           [
             "Note on 1000BASE-T",
@@ -239,7 +240,6 @@ const state = {
   searchQuery: "",
   activeCategory: "all",
   savedOnly: false,
-  compact: localStorage.getItem("linux_cs_compact") === "1",
   theme: localStorage.getItem("linux_cs_theme") || "dark",
   bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("eth-ethtool-tuning_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
@@ -252,8 +252,6 @@ const visibleCountEl = document.getElementById("visible-count");
 const emptyStateEl = document.getElementById("empty-state");
 const savedFilterBtn = document.getElementById("saved-filter-btn");
 const savedCountEl = document.getElementById("saved-count");
-const densityToggleBtn = document.getElementById("density-toggle");
-const densityLabel = document.getElementById("density-label");
 const printBtn = document.getElementById("print-btn");
 const themeToggleBtn = document.getElementById("theme-toggle");
 const resetSearchBtn = document.getElementById("reset-search-btn");
@@ -495,6 +493,15 @@ function renderSections() {
         ? cmd.cmd.split("   |   ")[0].trim()
         : cmd.cmd.trim();
 
+      const codeBoxHtml = cmd.diagram
+        ? window.CheatSheetCommon.renderDiagram(cmd.diagram)
+        : cmd.hideCode ? "" : [
+        '  <div class="cmd-code-box" data-cmd="' + escapeHtml(copyTarget) + '" title="Click to copy command">',
+        '    <pre class="cmd-code"><code>' + highlightCommand(cmd.cmd) + '</code></pre>',
+        '    <span class="copy-hint">Copy</span>',
+        '  </div>'
+      ].join("\n");
+
       return [
         '<div class="cmd-item" id="cmd-' + escapeHtml(cmd.id) + '" data-cmd-id="' + escapeHtml(cmd.id) + '">',
         '  <div class="cmd-header-row">',
@@ -514,16 +521,7 @@ function renderSections() {
         '    </button>',
         '  </div>',
         '',
-        '  <div class="cmd-code-box" data-cmd="' + escapeHtml(copyTarget) + '" title="Click to copy command">',
-        '    <pre class="cmd-code"><code>' + highlightCommand(cmd.cmd) + '</code></pre>',
-        '    <button type="button" class="copy-btn" title="Copy command" aria-label="Copy command">',
-        '      <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">',
-        '        <rect x="9" y="9" width="13" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>',
-        '        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" fill="none" stroke="currentColor" stroke-width="2"/>',
-        '      </svg>',
-        '      <span class="copy-feedback">Copied!</span>',
-        '    </button>',
-        '  </div>',
+        '  ' + codeBoxHtml,
         '  ' + detailsHtml,
         '  ' + flagsHtml,
         '  ' + tipHtml,
@@ -594,14 +592,6 @@ function initEventListeners() {
     renderSections();
   });
 
-  densityToggleBtn.addEventListener("click", () => {
-    state.compact = !state.compact;
-    document.body.classList.toggle("compact-mode", state.compact);
-    densityLabel.textContent = state.compact ? "Normal" : "Compact";
-    localStorage.setItem("linux_cs_compact", state.compact ? "1" : "0");
-    packMasonry();
-  });
-
   if (printBtn) printBtn.addEventListener("click", () => {
     window.print();
   });
@@ -626,16 +616,8 @@ function initEventListeners() {
   });
 
   sectionsContainer.addEventListener("click", (e) => {
-    const copyBtn = e.target.closest(".copy-btn");
-    if (copyBtn) {
-      const codeBox = copyBtn.closest(".cmd-code-box");
-      const cmdText = codeBox ? codeBox.getAttribute("data-cmd") : "";
-      if (cmdText) copyToClipboard(cmdText);
-      return;
-    }
-
     const codeBox = e.target.closest(".cmd-code-box");
-    if (codeBox && !e.target.closest(".copy-btn")) {
+    if (codeBox) {
       const cmdText = codeBox.getAttribute("data-cmd");
       if (cmdText) copyToClipboard(cmdText);
       return;
@@ -677,10 +659,6 @@ function applyTheme(theme) {
 
 function init() {
   applyTheme(state.theme);
-  if (state.compact) {
-    document.body.classList.add("compact-mode");
-    densityLabel.textContent = "Normal";
-  }
   updateSavedCount();
   renderCategoryTabs();
   renderSections();

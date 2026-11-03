@@ -1,6 +1,6 @@
 # Datacenter Cheat Sheets
 
-Offline command reference sheets for datacenter work: 186 linked pages, plus one file that bundles them all.
+Offline command reference sheets for datacenter work: 187 linked pages, plus one file that bundles them all.
 
 ## Open it
 
@@ -23,6 +23,8 @@ Offline command reference sheets for datacenter work: 186 linked pages, plus one
 2. Leave **Active** checked.
 3. Click any command box to copy it. Your values replace placeholders like `$BMC` and `$DISK` automatically.
 
+Only real commands copy. Reference information such as POST codes, wire colors and keyboard shortcuts is read-only, and `build-reference-rules.js` lists what counts as reference.
+
 Your targets carry across pages, and **Reset** puts them back to defaults.
 
 ## The password field
@@ -36,7 +38,8 @@ Your targets carry across pages, and **Reset** puts them back to defaults.
 
 - **Triage & RMA:** gives you a crash-cart diagnostic script and a formatter for RMA tickets.
 - **Saved:** star a command to bookmark it, then click **Saved** to show only those.
-- **Compact:** fits more on screen.
+- **Manuals:** click **Manuals** or press `M` to search offline manuals by name, category or full text. Ubuntu 24.04 pages come first, and open-source projects fill the gaps. Vendor tools such as `nvidia-smi` aren't included because of their licenses. Keep `man-pages-data.js` with the pages; the offline copy has them built in.
+- **Compact:** fits more on screen by hiding notes, tips, flag explanations and extra command variants. Click **Detailed** on the same button to bring them back. The setting carries across pages. Jira and the Scripting sheets keep their variants, because those are the main content. Searching shows everything hidden, and printing always includes it.
 - **Theme menu:** 24 color themes, and your choice is remembered. Everforest is a good pick for long sessions.
 - **Print:** `Ctrl+P` prints the current sheet.
 
