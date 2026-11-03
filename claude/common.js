@@ -583,7 +583,7 @@
 
   // Index entries are named after their file, so group them by the nav menu they sit under.
   const SHEET_BADGES = [
-    [/^(awk-sed|bash|git|javascript|json|lua|powershell|python|regex|scripting|sql|toml|typescript|yaml)$/, 'badge-scripting'],
+    [/^(awk-sed|bash|git|javascript|json|lua|markdown|powershell|python|regex|scripting|sql|toml|typescript|yaml)$/, 'badge-scripting'],
     [/^(nv-|nvidia$)/, 'badge-nvidia'],
     [/^(ib-|infiniband$)/, 'badge-ib'],
     [/^(sw-|switches$)/, 'badge-switch'],
@@ -1349,7 +1349,7 @@ ${log}
   // -------------------------------------------------------------
   const COMPACT_KEY = 'linux_cs_compact';
   // The variants are the main content on these sheets, so Compact keeps them.
-  const KEEPS_VARIANTS = /^(awk-sed|bash|git|javascript|jira|json|lua|powershell|python|regex|scripting|sql|toml|typescript|yaml)\.html$/;
+  const KEEPS_VARIANTS = /^(awk-sed|bash|git|javascript|jira|json|lua|markdown|powershell|python|regex|scripting|sql|toml|typescript|yaml)\.html$/;
 
   // -------------------------------------------------------------
   // 7. REFERENCE DIAGRAMS

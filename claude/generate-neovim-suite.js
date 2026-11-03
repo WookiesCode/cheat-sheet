@@ -871,6 +871,7 @@ function generateNeovimHtml(sec) {
                   <a href="awk-sed.html" class="dropdown-item" role="menuitem">✂️ AWK &amp; Sed</a>
                   <a href="sql.html" class="dropdown-item" role="menuitem">🗄️ SQL &amp; SQLite</a>
                   <a href="git.html" class="dropdown-item" role="menuitem">🌿 Git</a>
+                  <a href="markdown.html" class="dropdown-item" role="menuitem">📝 Markdown</a>
                 </div>
               </div>
 ${NVIM_NAVBAR_SNIPPET}
