@@ -140,6 +140,9 @@
                   <a href="javascript.html" class="dropdown-item" role="menuitem">⚡ JavaScript</a>
                   <a href="typescript.html" class="dropdown-item" role="menuitem">🔷 TypeScript</a>
                   <a href="powershell.html" class="dropdown-item" role="menuitem">💻 PowerShell</a>
+                  <a href="lua.html" class="dropdown-item" role="menuitem">🌙 Lua</a>
+                  <div class="dropdown-divider"></div>
+                  <a href="git.html" class="dropdown-item" role="menuitem">🌿 Git</a>
                   <div class="dropdown-divider"></div>
                   <a href="json.html" class="dropdown-item" role="menuitem">📋 JSON &amp; jq</a>
                   <a href="yaml.html" class="dropdown-item" role="menuitem">📄 YAML &amp; yq</a>
@@ -451,6 +454,32 @@
                   </div>
                 </div>
               </div>
+              <div class="nav-dropdown" id="jira-nav-dropdown">
+                <a href="jira.html" class="sheet-link dropdown-toggle" aria-haspopup="true">
+                  <svg class="nav-logo" viewBox="0 0 24 24" width="14" height="14" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3" stroke="#38bdf8" stroke-width="1.8"/><path d="M7 8h10M7 12h7M7 16h4" stroke="#4ade80" stroke-width="2" stroke-linecap="round"/></svg>
+                  <span>Jira</span> <span class="dropdown-caret">▾</span>
+                </a>
+                <div class="nav-dropdown-menu jira-dropdown-menu" role="menu">
+                  <a href="jira.html" class="dropdown-item dropdown-hub-link" role="menuitem">📑 Jira DC Operations Hub</a>
+                  <div class="dropdown-divider"></div>
+                  <div class="jira-dropdown-grid">
+                    <div class="jira-dropdown-col">
+                      <div class="jira-dropdown-heading">Node, Rack &amp; Asset Triage</div>
+                      <a href="jira.html#node-triage" class="dropdown-item" role="menuitem"><code>node</code> <span class="cmd-desc">Server, Hostname &amp; IP Audits</span></a>
+                      <a href="jira.html#rack-position" class="dropdown-item" role="menuitem"><code>rack</code> <span class="cmd-desc">Rack, Cage &amp; RU Position</span></a>
+                      <a href="jira.html#serial-asset" class="dropdown-item" role="menuitem"><code>sn</code> <span class="cmd-desc">Chassis Serial &amp; Asset Tags</span></a>
+                      <a href="jira.html#hardware-rma" class="dropdown-item" role="menuitem"><code>rma</code> <span class="cmd-desc">Vendor RMAs &amp; Parts Returns</span></a>
+                    </div>
+                    <div class="jira-dropdown-col">
+                      <div class="jira-dropdown-heading">Cluster Incidents &amp; Ops</div>
+                      <a href="jira.html#gpu-cluster" class="dropdown-item" role="menuitem"><code>gpu</code> <span class="cmd-desc">GPU, NVLink &amp; SXid Incidents</span></a>
+                      <a href="jira.html#slurm-drain" class="dropdown-item" role="menuitem"><code>drain</code> <span class="cmd-desc">Slurm Drained &amp; Cordons</span></a>
+                      <a href="jira.html#queue-ops" class="dropdown-item" role="menuitem"><code>queue</code> <span class="cmd-desc">DC Queue &amp; P1 Blockers</span></a>
+                      <a href="jira.html#jira-api-cli" class="dropdown-item" role="menuitem"><code>api</code> <span class="cmd-desc">REST API curl &amp; Jira CLI</span></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </nav>
           </div>
           <p class="brand-subtitle">ComputerSystem.Reset actions, one-time UEFI PXE boot, BIOS Setup boot &amp; NMI crash dump</p>
@@ -472,33 +501,26 @@
         <button type="button" id="reset-search-btn" class="search-reset-btn" title="Clear search (Esc)" aria-label="Clear search">✕</button>
         <kbd class="search-kbd">/</kbd>
       </div>
-    </div>
-  </header>
 
-  <main class="container main-content">
-    <!-- Toolbar -->
-    <section class="filter-bar" aria-label="Command filters">
-      <div id="category-tabs" class="category-tabs" role="region" aria-label="Topic filters"></div>
-
-      <div class="filter-actions">
+      <div class="header-actions">
         <button
           type="button"
           id="saved-filter-btn"
-          class="saved-filter-btn"
-          title="Filter to bookmarked endpoints"
+          class="action-btn"
+          title="Filter to bookmarked commands"
           aria-pressed="false"
         >
           <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
             <path fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
           </svg>
           <span>Saved</span>
-          <span id="saved-count" class="saved-badge">0</span>
+          <span id="saved-count" class="count-badge">0</span>
         </button>
 
         <button
           type="button"
           id="density-toggle"
-          class="density-btn"
+          class="action-btn"
           title="Toggle compact view (compact spacing)"
           aria-label="Toggle compact view"
         >
@@ -508,7 +530,21 @@
           <span id="density-label">Compact</span>
         </button>
 
-                <div class="theme-menu-wrapper" id="theme-menu-wrapper">
+        <button
+          type="button"
+          id="print-btn"
+          class="action-btn"
+          title="Print cheat sheet (Ctrl+P)"
+          aria-label="Print cheat sheet"
+        >
+          <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+            <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+            <rect x="6" y="14" width="12" height="8" rx="1" fill="none" stroke="currentColor" stroke-width="2"/>
+          </svg>
+          <span>Print</span>
+        </button>
+
+        <div class="theme-menu-wrapper" id="theme-menu-wrapper">
           <button type="button" id="theme-palette-btn" class="action-btn theme-palette-btn" title="Select Color Theme" aria-haspopup="true" aria-expanded="false">
             <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <circle cx="13.5" cy="6.5" r=".5" fill="currentColor"></circle>
@@ -523,7 +559,7 @@
           <div id="theme-dropdown-menu" class="theme-dropdown-menu">
             <div class="theme-dropdown-header">
               <span>Color Theme</span>
-              <span class="theme-count">9 Themes</span>
+              <span class="theme-count">24 Themes</span>
             </div>
             <div class="theme-options-list">
               <button type="button" class="theme-option active" data-theme="dark" title="Obsidian & cyan datacenter">
@@ -541,50 +577,25 @@
                 <div class="theme-info"><span class="theme-name">Gemini Spark</span><span class="theme-desc">Cosmic indigo & violet spark</span></div>
                 <span class="theme-check">✓</span>
               </button>
-              <button type="button" class="theme-option" data-theme="nord" title="Arctic cold & polar blue">
-                <div class="theme-swatches"><span class="theme-dot" style="background:#242933"></span><span class="theme-dot" style="background:#2e3440"></span><span class="theme-dot" style="background:#88c0d0"></span><span class="theme-dot" style="background:#a3be8c"></span></div>
-                <div class="theme-info"><span class="theme-name">Nord Frost</span><span class="theme-desc">Arctic cold & polar blue</span></div>
-                <span class="theme-check">✓</span>
-              </button>
-              <button type="button" class="theme-option" data-theme="dracula" title="High-contrast vampire purple & pink">
-                <div class="theme-swatches"><span class="theme-dot" style="background:#1e1f29"></span><span class="theme-dot" style="background:#282a36"></span><span class="theme-dot" style="background:#bd93f9"></span><span class="theme-dot" style="background:#ff79c6"></span></div>
-                <div class="theme-info"><span class="theme-name">Dracula Night</span><span class="theme-desc">High-contrast vampire purple</span></div>
-                <span class="theme-check">✓</span>
-              </button>
-              <button type="button" class="theme-option" data-theme="catppuccin" title="Cozy pastel mantle & mauve">
-                <div class="theme-swatches"><span class="theme-dot" style="background:#181825"></span><span class="theme-dot" style="background:#1e1e2e"></span><span class="theme-dot" style="background:#cba6f7"></span><span class="theme-dot" style="background:#a6e3a1"></span></div>
-                <div class="theme-info"><span class="theme-name">Catppuccin Mocha</span><span class="theme-desc">Cozy pastel mantle & mauve</span></div>
-                <span class="theme-check">✓</span>
-              </button>
-              <button type="button" class="theme-option" data-theme="matrix" title="Hacker phosphor green & terminal black">
-                <div class="theme-swatches"><span class="theme-dot" style="background:#030804"></span><span class="theme-dot" style="background:#061408"></span><span class="theme-dot" style="background:#00ff66"></span><span class="theme-dot" style="background:#a3e635"></span></div>
-                <div class="theme-info"><span class="theme-name">Matrix CRT</span><span class="theme-desc">Phosphor green terminal</span></div>
-                <span class="theme-check">✓</span>
-              </button>
-              <button type="button" class="theme-option" data-theme="tokyonight" title="Vibrant Shibuya neon cyan & violet">
-                <div class="theme-swatches"><span class="theme-dot" style="background:#16161e"></span><span class="theme-dot" style="background:#1a1b26"></span><span class="theme-dot" style="background:#7aa2f7"></span><span class="theme-dot" style="background:#bb9af7"></span></div>
-                <div class="theme-info"><span class="theme-name">Tokyo Night</span><span class="theme-desc">Neon Shibuya cyan & violet</span></div>
-                <span class="theme-check">✓</span>
-              </button>
-              <button type="button" class="theme-option" data-theme="solarized" title="Low-contrast precision cyan & gold">
-                <div class="theme-swatches"><span class="theme-dot" style="background:#00212b"></span><span class="theme-dot" style="background:#002b36"></span><span class="theme-dot" style="background:#268bd2"></span><span class="theme-dot" style="background:#b58900"></span></div>
-                <div class="theme-info"><span class="theme-name">Solarized Dark</span><span class="theme-desc">Low-contrast precision cyan</span></div>
-                <span class="theme-check">✓</span>
-              </button>
             </div>
           </div>
         </div>
         <button type="button" id="theme-toggle" style="display:none;" aria-hidden="true"></button>
       </div>
-    </section>
-
-    <!-- Results Counter -->
-    <div class="results-info" aria-live="polite">
-      Showing <span id="visible-count">0</span> items
     </div>
+    <div class="category-bar">
+      <div class="container category-bar-inner">
+        <div id="category-tabs" class="category-tabs" role="region" aria-label="Topic filters"></div>
+        <div class="stats-summary" id="stats-summary">
+          Showing <strong id="visible-count">0</strong> items
+        </div>
+      </div>
+    </div>
+  </header>
 
+  <main class="container main-layout">
     <!-- Commands Container (Masonry Cards) -->
-    <section id="sections-container" class="sections-container" aria-label="Command cards"></section>
+    <section id="sections-container" class="sections-grid sections-container" aria-label="Command cards"></section>
 
     <!-- Empty State -->
     <div id="empty-state" class="empty-state hidden" role="status">
@@ -609,6 +620,8 @@
     </div>
   </footer>
   <script src="global-search-index.js"></script>
+    <script src="manuals-data.js"></script>
+  <script src="manuals-ui.js"></script>
   <script src="common.js"></script>
   <script src="rf-power-boot.js"></script>
 </body>

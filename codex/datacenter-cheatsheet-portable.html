@@ -1493,7 +1493,8 @@ html[data-theme="light"] .theme-dot,
 }
 
 /* Compact Mode */
-body.compact-mode .cmd-item {
+body.compact-mode .cmd-item,
+body.compact-mode .command-item {
   padding: 0.42rem 0.85rem;
   gap: 0.22rem;
 }
@@ -1501,7 +1502,9 @@ body.compact-mode .cmd-item {
 body.compact-mode .flag-pills,
 body.compact-mode .cmd-note,
 body.compact-mode .cmd-details,
-body.compact-mode .subcmd-list {
+body.compact-mode .subcmd-list,
+body.compact-mode .flags-list,
+body.compact-mode .cmd-tip {
   display: none;
 }
 
@@ -1594,6 +1597,22 @@ body.compact-mode .subcmd-list {
   border-color: var(--accent-primary);
 }
 
+.reference-box {
+  background: var(--bg-code);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  padding: 0.42rem 0.65rem;
+  overflow-x: auto;
+  cursor: default;
+}
+
+.reference-box .cmd-code,
+.reference-box code {
+  display: block;
+  white-space: pre-wrap;
+  color: var(--text-secondary);
+}
+
 .cmd-code {
   font-family: var(--font-mono);
   font-size: 0.8rem;
@@ -1619,6 +1638,35 @@ body.compact-mode .subcmd-list {
 
 .cmd-code-box:hover .copy-hint {
   opacity: 1;
+}
+
+/* Generated subpages use a real button; show it like the hub's hover hint. */
+.cmd-code-box .copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-shrink: 0;
+  padding: 0.1rem 0.4rem;
+  margin: 0;
+  background: var(--bg-elevated);
+  color: var(--text-muted);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  font: 0.68rem var(--font-sans);
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.12s;
+}
+
+.cmd-code-box:hover .copy-btn,
+.cmd-code-box:focus-within .copy-btn {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (hover: none) {
+  .cmd-code-box .copy-btn { opacity: 1; pointer-events: auto; }
 }
 
 /* Syntax Tokens */
@@ -1723,6 +1771,30 @@ body.compact-mode .subcmd-list {
 .subcmd-row:hover {
   border-color: var(--accent-primary);
   background: var(--bg-elevated);
+}
+
+.subcmd-copy-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.12rem;
+  background: var(--bg-elevated);
+  color: var(--text-muted);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.12s;
+}
+
+.subcmd-row:hover .subcmd-copy-btn,
+.subcmd-row:focus-within .subcmd-copy-btn {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (hover: none) {
+  .subcmd-copy-btn { opacity: 1; pointer-events: auto; }
 }
 
 .subcmd-row code {
@@ -4033,6 +4105,189 @@ html[data-theme="solarizedlight"]) ::selection {
   color: var(--bg-base);
 }
 
+html[data-theme="sepia"] {
+  --bg-base: #ece4d0;
+  --bg-surface: #f4ecd8;
+  --bg-elevated: #fbf5ea;
+  --bg-code: #e8dfc9;
+  --bg-hover: #e4dac2;
+  --border-subtle: #dbd0b7;
+  --border-strong: #c4b699;
+  --text-primary: #2c2523;
+  --text-secondary: #4a413d;
+  --text-muted: #7d726a;
+
+  --accent-primary: #b05a28;
+  --accent-secondary: #3b7080;
+  --accent-glow: rgba(176, 90, 40, 0.14);
+  --accent-green: #4f772d;
+  --accent-amber: #b05a28;
+  --accent-red: #b83a34;
+  --accent-purple: #704e82;
+  --accent-cyan: #3b7080;
+
+  --syn-cmd: #4f772d;
+  --syn-flag: #3b7080;
+  --syn-arg: #2c2523;
+  --syn-pipe: #b05a28;
+  --syn-string: #8b5a2b;
+  --syn-comment: #7d726a;
+
+  --shadow-card: 0 4px 16px -4px rgba(44, 37, 35, 0.1);
+}
+
+html[data-theme="sepia"] .category-bar { background: var(--bg-base); }
+
+
+html[data-theme="gruvbox"] {
+  --bg-base: #1d2021;
+  --bg-surface: #282828;
+  --bg-elevated: #3c3836;
+  --bg-code: #181b1c;
+  --bg-hover: #504945;
+  --border-subtle: #3c3836;
+  --border-strong: #665c54;
+  --text-primary: #ebdbb2;
+  --text-secondary: #d5c4a1;
+  --text-muted: #928374;
+
+  --accent-primary: #fabd2f;
+  --accent-secondary: #fe8019;
+  --accent-glow: rgba(250, 189, 47, 0.16);
+  --accent-green: #b8bb26;
+  --accent-amber: #fabd2f;
+  --accent-red: #fb4934;
+  --accent-purple: #d3869b;
+  --accent-cyan: #8ec07c;
+
+  --syn-cmd: #b8bb26;
+  --syn-flag: #8ec07c;
+  --syn-arg: #ebdbb2;
+  --syn-pipe: #fe8019;
+  --syn-string: #fabd2f;
+  --syn-comment: #928374;
+
+  --shadow-card: 0 8px 24px -6px rgba(0, 0, 0, 0.5);
+}
+
+html[data-theme="gruvbox"] .category-bar { background: var(--bg-base); }
+
+
+html[data-theme="kanagawa"] {
+  --bg-base: #16161d;
+  --bg-surface: #1f1f28;
+  --bg-elevated: #2a2a37;
+  --bg-code: #121217;
+  --bg-hover: #363646;
+  --border-subtle: #2d2d3f;
+  --border-strong: #494763;
+  --text-primary: #dcd7ba;
+  --text-secondary: #c8c093;
+  --text-muted: #727169;
+
+  --accent-primary: #7aa89f;
+  --accent-secondary: #e6c384;
+  --accent-glow: rgba(122, 168, 159, 0.16);
+  --accent-green: #98bb6c;
+  --accent-amber: #e6c384;
+  --accent-red: #c34043;
+  --accent-purple: #957fb8;
+  --accent-cyan: #7fb4ca;
+
+  --syn-cmd: #98bb6c;
+  --syn-flag: #7fb4ca;
+  --syn-arg: #dcd7ba;
+  --syn-pipe: #e6c384;
+  --syn-string: #7aa89f;
+  --syn-comment: #727169;
+
+  --shadow-card: 0 8px 24px -6px rgba(0, 0, 0, 0.5);
+}
+
+html[data-theme="kanagawa"] .category-bar { background: var(--bg-base); }
+
+
+html[data-theme="rosepine"] {
+  --bg-base: #13111b;
+  --bg-surface: #191724;
+  --bg-elevated: #26233a;
+  --bg-code: #0d0c13;
+  --bg-hover: #312f44;
+  --border-subtle: #2b283e;
+  --border-strong: #44415a;
+  --text-primary: #e0def4;
+  --text-secondary: #c4a7e7;
+  --text-muted: #6e6a86;
+
+  --accent-primary: #ebbcba;
+  --accent-secondary: #f6c177;
+  --accent-glow: rgba(235, 188, 186, 0.16);
+  --accent-green: #9ccfd8;
+  --accent-amber: #f6c177;
+  --accent-red: #eb6f92;
+  --accent-purple: #c4a7e7;
+  --accent-cyan: #31748f;
+
+  --syn-cmd: #ebbcba;
+  --syn-flag: #9ccfd8;
+  --syn-arg: #e0def4;
+  --syn-pipe: #f6c177;
+  --syn-string: #ea9a97;
+  --syn-comment: #6e6a86;
+
+  --shadow-card: 0 8px 24px -6px rgba(0, 0, 0, 0.5);
+}
+
+html[data-theme="rosepine"] .category-bar { background: var(--bg-base); }
+
+
+html[data-theme="ayumirage"] {
+  --bg-base: #191e2a;
+  --bg-surface: #212733;
+  --bg-elevated: #272d38;
+  --bg-code: #151a24;
+  --bg-hover: #333a47;
+  --border-subtle: #2c3340;
+  --border-strong: #404b5c;
+  --text-primary: #cbccc6;
+  --text-secondary: #b3b1ad;
+  --text-muted: #707a8c;
+
+  --accent-primary: #ffcc66;
+  --accent-secondary: #73d0ff;
+  --accent-glow: rgba(255, 204, 102, 0.16);
+  --accent-green: #bae67e;
+  --accent-amber: #ffcc66;
+  --accent-red: #ff3333;
+  --accent-purple: #d4bfff;
+  --accent-cyan: #73d0ff;
+
+  --syn-cmd: #ffcc66;
+  --syn-flag: #73d0ff;
+  --syn-arg: #cbccc6;
+  --syn-pipe: #ff8f40;
+  --syn-string: #bae67e;
+  --syn-comment: #707a8c;
+
+  --shadow-card: 0 8px 24px -6px rgba(0, 0, 0, 0.45);
+}
+
+html[data-theme="ayumirage"] .category-bar { background: var(--bg-base); }
+
+/* Jira query inputs above the recipe cards. */
+#jira-form { margin-bottom: 1rem; }
+#jira-form .widget-card { width: 100%; }
+#jira-form .target-inputs-row { padding: 0.4rem 0 0; }
+#jira-form .jira-form-note { color: var(--text-secondary); font-size: 0.78rem; margin: 0.55rem 0 0; }
+#jira-form input { min-width: 0; width: 100%; }
+/* RJ45 diagrams stay readable on dark and light themes. */
+.pinout-figure { margin: 0 0 1rem; }
+.pinout-figure img { display: block; width: min(100%, 373px); height: auto; padding: .5rem; background: #fff; border-radius: .5rem; }
+.pinout-figure figcaption { margin-top: .35rem; color: var(--text-muted, #64748b); font-size: .75rem; }
+.pinout-figure a { color: inherit; text-decoration: underline; }
+.pinout-diagrams { display: flex; flex-wrap: wrap; gap: 1rem; margin: .75rem 0; }
+.pinout-diagrams .pinout-figure { flex: 1 1 260px; }
+
 
   /* Portable font fallbacks for zero-internet environments */
   :root {
@@ -4066,9 +4321,7 @@ html[data-theme="solarizedlight"]) ::selection {
             <span class="portable-badge">100% OFFLINE PORTABLE</span>
             <nav class="sheet-switcher" aria-label="Switch cheat sheet" id="portable-sheet-nav">
 
-              <a href="#sheet-jira" data-sheet="jira" class="sheet-link"><span>Jira</span></a>
-
-              <div class="nav-dropdown" id="linux-nav-dropdown">
+<div class="nav-dropdown" id="linux-nav-dropdown">
                 <a href="#sheet-linux" data-sheet="linux" class="sheet-link dropdown-toggle" aria-haspopup="true">
                   <svg class="nav-logo" viewBox="0 0 24 24" width="14" height="14" fill="none" aria-hidden="true"><path d="M12 2C8.8 2 7.2 4.3 7.2 7.2c0 1.4-.4 2.4-1.3 3.7-1.1 1.6-1.9 3.6-1.4 5.2.3.9 1.1 1.2 1.8.8.4 1.8 2.4 3.6 5.7 3.6s5.3-1.8 5.7-3.6c.7.4 1.5.1 1.8-.8.5-1.6-.3-3.6-1.4-5.2-.9-1.3-1.3-2.3-1.3-3.7C16.8 4.3 15.2 2 12 2z" fill="#1e293b" stroke="#94a3b8" stroke-width="1.2"/><ellipse cx="12" cy="14.5" rx="4.1" ry="5" fill="#f8fafc"/><circle cx="10.2" cy="6.5" r="1.4" fill="#fff"/><circle cx="13.8" cy="6.5" r="1.4" fill="#fff"/><circle cx="10.5" cy="6.6" r="0.7" fill="#0f172a"/><circle cx="13.5" cy="6.6" r="0.7" fill="#0f172a"/><path d="M9.6 8.3c1.3-.5 3.5-.5 4.8 0L12 10.6 9.6 8.3z" fill="#f59e0b"/><ellipse cx="8.5" cy="20.5" rx="2.6" ry="1.3" fill="#f59e0b"/><ellipse cx="15.5" cy="20.5" rx="2.6" ry="1.3" fill="#f59e0b"/></svg>
                   <span>Linux</span> <span class="dropdown-caret">▾</span>
@@ -4183,6 +4436,9 @@ html[data-theme="solarizedlight"]) ::selection {
                   <a href="#sheet-scripting" data-sheet="scripting" class="dropdown-item" role="menuitem">📑 All-in-One Hub</a>
                   <div class="dropdown-divider"></div>
                   <a href="#sheet-bash" data-sheet="bash" class="dropdown-item" role="menuitem">🐚 Bash &amp; Shell</a>
+                  <a href="#sheet-git" data-sheet="git" class="dropdown-item" role="menuitem">🌿 Git Commands</a>
+                  <a href="#sheet-lua" data-sheet="lua" class="dropdown-item" role="menuitem">🌙 Lua Scripting</a>
+
                   <a href="#sheet-python" data-sheet="python" class="dropdown-item" role="menuitem">🐍 Python</a>
                   <a href="#sheet-javascript" data-sheet="javascript" class="dropdown-item" role="menuitem">⚡ JavaScript</a>
                   <a href="#sheet-typescript" data-sheet="typescript" class="dropdown-item" role="menuitem">🔷 TypeScript</a>
@@ -4498,6 +4754,7 @@ html[data-theme="solarizedlight"]) ::selection {
                   </div>
                 </div>
               </div>
+              <a href="#sheet-jira" data-sheet="jira" class="sheet-link"><span>Jira</span></a>
             
             </nav>
           </div>
@@ -4634,6 +4891,48 @@ html[data-theme="solarizedlight"]) ::selection {
   </header>
 
   <main class="container main-layout">
+    <section class="quick-widgets" id="jira-form">
+      <div class="widget-card">
+        <div class="widget-header">
+          <div class="widget-title-group">
+            <span class="widget-tag">FILL IN</span>
+            <h2>Enter once to fill the queries below</h2>
+          </div>
+          <button type="button" id="jira-clear-btn" class="target-tool-btn">Clear</button>
+        </div>
+        <div class="target-inputs-row">
+          <div class="target-field">
+            <label for="jira-project"><span class="var-tag">$PROJECT</span> Project key</label>
+            <input type="text" id="jira-project" spellcheck="false" autocomplete="off" placeholder="OPS" />
+          </div>
+          <div class="target-field">
+            <label for="jira-site"><span class="var-tag">$SITE</span> Site / Hall</label>
+            <input type="text" id="jira-site" spellcheck="false" autocomplete="off" placeholder="DH2" />
+          </div>
+          <div class="target-field">
+            <label for="jira-node"><span class="var-tag">$NODE</span> Server / Node</label>
+            <input type="text" id="jira-node" spellcheck="false" autocomplete="off" placeholder="gpu-node-014" />
+          </div>
+          <div class="target-field">
+            <label for="jira-rack"><span class="var-tag">$RACK</span> Rack</label>
+            <input type="text" id="jira-rack" spellcheck="false" autocomplete="off" placeholder="R12" />
+          </div>
+          <div class="target-field">
+            <label for="jira-position"><span class="var-tag">$POSITION</span> Position</label>
+            <input type="text" id="jira-position" spellcheck="false" autocomplete="off" placeholder="U23" />
+          </div>
+          <div class="target-field">
+            <label for="jira-serial"><span class="var-tag">$SERIAL</span> Serial</label>
+            <input type="text" id="jira-serial" spellcheck="false" autocomplete="off" placeholder="SN12345" />
+          </div>
+          <div class="target-field">
+            <label for="jira-ticket"><span class="var-tag">$TICKET</span> Ticket</label>
+            <input type="text" id="jira-ticket" spellcheck="false" autocomplete="off" placeholder="OPS-123" />
+          </div>
+        </div>
+      </div>
+      <p class="jira-form-note">Fields fill query examples as you type. Empty fields stay as placeholders. Check the query before copying it into Jira.</p>
+    </section>
     <div id="sections-container" class="sections-grid">
       <!-- Populated dynamically -->
     </div>
@@ -4668,8 +4967,8 @@ html[data-theme="solarizedlight"]) ::selection {
 
   <!-- Embedded Global Search Index -->
   <script>
-// Auto-generated Global Search Index across all 185 cheat sheets
-// Total indexed items: 1957
+// Auto-generated Global Search Index across all 187 cheat sheets
+// Total indexed items: 1998
 window.GLOBAL_SEARCH_INDEX = [
   {
     "sName": "app",
@@ -10549,17 +10848,6 @@ window.GLOBAL_SEARCH_INDEX = [
     "sName": "eth-rj45-tdr",
     "file": "eth-rj45-tdr.html",
     "badge": "rj45",
-    "id": "rj45-t568b-t568a-chart-flags-card",
-    "sec": "RJ45 Pinouts & TDR: Arguments & Parameters",
-    "cmd": "T568B (Standard): 1:W/Org  2:Org  3:W/Grn  4:Blu  5:W/Blu  6:Grn  7:W/Brn  8:Brn\nT568A (Gov/Res):  1:W/Grn  2:Grn  3:W/Org  4:Blu  5:W/Blu  6:Org  7:W/Brn  8:Brn",
-    "desc": "Options breakdown and parameter syntax for Complete TIA/EIA-568B vs 568A RJ45 (8P8C) wire order (Hold plug clip-down, gold pins facing you, left=Pin 1)",
-    "tip": "",
-    "tags": "RJ45 Pinouts & TDR flags options syntax"
-  },
-  {
-    "sName": "eth-rj45-tdr",
-    "file": "eth-rj45-tdr.html",
-    "badge": "rj45",
     "id": "ethtool-cable-test-tdr",
     "sec": "RJ45 Pinouts & TDR: Run built-in NIC PHY Time-Domain Reflectometer",
     "cmd": "ethtool --cable-test eth0   |   ethtool --cable-test-tdr eth0",
@@ -11534,6 +11822,248 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Verify binary path and installed version in current environment",
     "tip": "",
     "tags": "fuser umount busy lock dpkg mount tips safety help"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "GIT",
+    "id": "git-init-clone",
+    "sec": "Start & Inspect",
+    "cmd": "git init\ngit clone <repository-url>\ngit clone --branch <branch> <repository-url>",
+    "desc": "Create a repository or clone an existing one",
+    "tip": "",
+    "tags": "git init clone setup"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "GIT",
+    "id": "git-status",
+    "sec": "Start & Inspect",
+    "cmd": "git status --short --branch\ngit status",
+    "desc": "See the branch and working tree state",
+    "tip": "",
+    "tags": "git status working tree read only"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "GIT",
+    "id": "git-diff",
+    "sec": "Start & Inspect",
+    "cmd": "git diff\ngit diff --staged\ngit diff --check",
+    "desc": "Review unstaged and staged changes",
+    "tip": "",
+    "tags": "git diff staged review"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "GIT",
+    "id": "git-log",
+    "sec": "Start & Inspect",
+    "cmd": "git log --oneline --decorate --graph -15\ngit log --oneline -- path/to/file\ngit show --stat <commit>",
+    "desc": "Inspect recent commits and a file's history",
+    "tip": "",
+    "tags": "git log show history"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "GIT",
+    "id": "git-add",
+    "sec": "Stage & Commit",
+    "cmd": "git add -- path/to/file\ngit add -p\ngit diff --cached",
+    "desc": "Stage a file or interactively select hunks",
+    "tip": "",
+    "tags": "git add stage hunks"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "GIT",
+    "id": "git-commit",
+    "sec": "Stage & Commit",
+    "cmd": "git diff --cached --check\ngit commit -m \"Describe the change\"",
+    "desc": "Commit reviewed staged changes",
+    "tip": "",
+    "tags": "git commit message"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "GIT",
+    "id": "git-unstage",
+    "sec": "Stage & Commit",
+    "cmd": "git restore --staged -- path/to/file\ngit status --short",
+    "desc": "Remove a path from the index while keeping its edits",
+    "tip": "",
+    "tags": "git restore unstage index"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "GIT",
+    "id": "git-ignore",
+    "sec": "Stage & Commit",
+    "cmd": "git check-ignore -v -- path/to/file\ngit ls-files -- path/to/file",
+    "desc": "Inspect why a path is ignored",
+    "tip": "",
+    "tags": "git ignore tracked inspect"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "GIT",
+    "id": "git-branch-list",
+    "sec": "Branches & Changes",
+    "cmd": "git branch -vv\ngit branch -a\ngit remote -v",
+    "desc": "List local and remote branches",
+    "tip": "",
+    "tags": "git branch remote upstream"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "GIT",
+    "id": "git-switch",
+    "sec": "Branches & Changes",
+    "cmd": "git switch -c <new-branch>\ngit switch <existing-branch>",
+    "desc": "Create or switch to a branch",
+    "tip": "",
+    "tags": "git switch branch create"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "GIT",
+    "id": "git-merge",
+    "sec": "Branches & Changes",
+    "cmd": "git status --short --branch\ngit merge <source-branch>",
+    "desc": "Merge another branch into the current branch",
+    "tip": "",
+    "tags": "git merge branch conflict"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "GIT",
+    "id": "git-cherry-pick",
+    "sec": "Branches & Changes",
+    "cmd": "git show --stat <commit>\ngit cherry-pick <commit>",
+    "desc": "Apply one existing commit to the current branch",
+    "tip": "",
+    "tags": "git cherry-pick commit conflict"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "GIT",
+    "id": "git-stash",
+    "sec": "Branches & Changes",
+    "cmd": "git stash push -m \"work in progress\"\ngit stash list\ngit stash show -p stash@{0}\ngit stash apply stash@{0}",
+    "desc": "Temporarily save tracked edits",
+    "tip": "",
+    "tags": "git stash working tree"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "GIT",
+    "id": "git-fetch",
+    "sec": "Remotes & Collaboration",
+    "cmd": "git fetch origin\ngit log --oneline --left-right HEAD...origin/<branch>",
+    "desc": "Download remote history without integrating it",
+    "tip": "",
+    "tags": "git fetch remote history"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "GIT",
+    "id": "git-pull",
+    "sec": "Remotes & Collaboration",
+    "cmd": "git pull --ff-only",
+    "desc": "Integrate the configured upstream branch",
+    "tip": "",
+    "tags": "git pull fast forward remote"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "GIT",
+    "id": "git-push",
+    "sec": "Remotes & Collaboration",
+    "cmd": "git push -u origin <branch>\ngit push",
+    "desc": "Publish a branch to its remote",
+    "tip": "",
+    "tags": "git push publish upstream"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "GIT",
+    "id": "git-remote-inspect",
+    "sec": "Remotes & Collaboration",
+    "cmd": "git remote -v\ngit branch -vv\ngit rev-parse --show-toplevel",
+    "desc": "Inspect remote URLs and upstream tracking",
+    "tip": "",
+    "tags": "git remote upstream repository"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "GIT",
+    "id": "git-blame",
+    "sec": "Investigate & Recover",
+    "cmd": "git blame -L 10,30 -- path/to/file\ngit show <commit>",
+    "desc": "Find the commit that last changed a line",
+    "tip": "",
+    "tags": "git blame history line"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "GIT",
+    "id": "git-reflog",
+    "sec": "Investigate & Recover",
+    "cmd": "git reflog -10\ngit show <commit>",
+    "desc": "Find recently visited commits and branch tips",
+    "tip": "",
+    "tags": "git reflog recovery read only"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "GIT",
+    "id": "git-restore-file",
+    "sec": "Investigate & Recover",
+    "cmd": "git diff -- path/to/file\ngit restore --worktree -- path/to/file",
+    "desc": "Discard local unstaged changes in one tracked file",
+    "tip": "",
+    "tags": "git restore discard destructive"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "GIT",
+    "id": "git-revert",
+    "sec": "Investigate & Recover",
+    "cmd": "git show --stat <commit>\ngit revert <commit>",
+    "desc": "Undo a committed change with a new commit",
+    "tip": "",
+    "tags": "git revert undo commit"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "GIT",
+    "id": "git-worktree",
+    "sec": "Investigate & Recover",
+    "cmd": "git worktree list\ngit worktree add -b <new-branch> ../<directory>",
+    "desc": "Create a separate checkout for another branch",
+    "tip": "",
+    "tags": "git worktree branch checkout"
   },
   {
     "sName": "grep",
@@ -14658,6 +15188,182 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Verify binary path and installed version in current environment",
     "tip": "",
     "tags": "lsof deleted disk-full ports socket fd tips safety help"
+  },
+  {
+    "sName": "lua",
+    "file": "lua.html",
+    "badge": "LUA",
+    "id": "lua-run",
+    "sec": "Lua Basics & Running Scripts",
+    "cmd": "lua -v\nlua script.lua node-a\nlua -e 'print(\"hello\")'\nluac -p script.lua",
+    "desc": "Check the interpreter, run a script, or evaluate a short expression",
+    "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+    "tags": "lua scripting cli interpreter syntax"
+  },
+  {
+    "sName": "lua",
+    "file": "lua.html",
+    "badge": "LUA",
+    "id": "lua-variables",
+    "sec": "Lua Basics & Running Scripts",
+    "cmd": "local host = \"node-a\"\nlocal count = 8\nlocal enabled = false\nlocal missing = nil\nprint(type(host), tonumber(\"42\"), tostring(enabled))\nprint(0 and \"zero is truthy\")",
+    "desc": "Local variables, types, nil, and conversion",
+    "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+    "tags": "lua scripting variables scope types"
+  },
+  {
+    "sName": "lua",
+    "file": "lua.html",
+    "badge": "LUA",
+    "id": "lua-strings",
+    "sec": "Lua Basics & Running Scripts",
+    "cmd": "local host = \"node-a\"\nlocal status = \"healthy\"\nprint(host .. \": \" .. status)\nprint(string.format(\"%s has %d GPUs\", host, 8))\nlocal message = [[first line\nsecond line]]\nprint(message)",
+    "desc": "Concatenate and format strings",
+    "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+    "tags": "lua scripting strings format"
+  },
+  {
+    "sName": "lua",
+    "file": "lua.html",
+    "badge": "LUA",
+    "id": "lua-conditions",
+    "sec": "Conditions, Loops & Tables",
+    "cmd": "local temperature = 74\nif temperature >= 85 then\n  print(\"critical\")\nelseif temperature >= 70 then\n  print(\"warm\")\nelse\n  print(\"normal\")\nend\nprint(temperature ~= 0 and \"sensor available\")",
+    "desc": "if / elseif / else, comparisons, and boolean logic",
+    "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+    "tags": "lua scripting if conditions boolean"
+  },
+  {
+    "sName": "lua",
+    "file": "lua.html",
+    "badge": "LUA",
+    "id": "lua-loops",
+    "sec": "Conditions, Loops & Tables",
+    "cmd": "for i = 1, 3 do print(i) end\nlocal n = 3\nwhile n > 0 do n = n - 1 end\nrepeat n = n + 1 until n == 3\nfor i = 1, 10 do\n  if i == 4 then break end\n  print(i)\nend",
+    "desc": "Numeric for, while, repeat, and break",
+    "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+    "tags": "lua scripting for while repeat loops"
+  },
+  {
+    "sName": "lua",
+    "file": "lua.html",
+    "badge": "LUA",
+    "id": "lua-tables",
+    "sec": "Conditions, Loops & Tables",
+    "cmd": "local nodes = {\"node-a\", \"node-b\"}\ntable.insert(nodes, \"node-c\")\nfor i, name in ipairs(nodes) do print(i, name) end\nlocal inventory = {host = \"node-a\", gpus = 8}\nfor key, value in pairs(inventory) do print(key, value) end\nprint(inventory.host, inventory[\"gpus\"])",
+    "desc": "Sequences, maps, and safe field access",
+    "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+    "tags": "lua scripting tables arrays maps pairs ipairs"
+  },
+  {
+    "sName": "lua",
+    "file": "lua.html",
+    "badge": "LUA",
+    "id": "lua-sort",
+    "sec": "Conditions, Loops & Tables",
+    "cmd": "local nodes = {{name=\"b\", errors=2}, {name=\"a\", errors=0}}\ntable.sort(nodes, function(a, b) return a.name < b.name end)\nlocal names = {}\nfor _, node in ipairs(nodes) do names[#names + 1] = node.name end\nprint(table.concat(names, \", \"))",
+    "desc": "Sort records and join a sequence",
+    "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+    "tags": "lua scripting sort tables join"
+  },
+  {
+    "sName": "lua",
+    "file": "lua.html",
+    "badge": "LUA",
+    "id": "lua-functions",
+    "sec": "Functions, Modules & Error Handling",
+    "cmd": "local function divide(a, b)\n  if b == 0 then return nil, \"division by zero\" end\n  return a / b\nend\nlocal value, err = divide(12, 3)\nprint(value, err)\nlocal function counter()\n  local n = 0\n  return function() n = n + 1; return n end\nend\nlocal next_id = counter()\nprint(next_id(), next_id())",
+    "desc": "Functions, multiple results, and closures",
+    "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+    "tags": "lua scripting functions closures returns"
+  },
+  {
+    "sName": "lua",
+    "file": "lua.html",
+    "badge": "LUA",
+    "id": "lua-errors",
+    "sec": "Functions, Modules & Error Handling",
+    "cmd": "local ok, result = pcall(function()\n  local value = tonumber(\"bad input\")\n  assert(value, \"expected a number\")\n  return value * 2\nend)\nif ok then print(result) else io.stderr:write(tostring(result), \"\\n\") end",
+    "desc": "Catch a runtime error with pcall",
+    "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+    "tags": "lua scripting errors pcall assert"
+  },
+  {
+    "sName": "lua",
+    "file": "lua.html",
+    "badge": "LUA",
+    "id": "lua-module",
+    "sec": "Functions, Modules & Error Handling",
+    "cmd": "-- inventory.lua\nlocal M = {}\nfunction M.gpu_count(node) return node.gpus or 0 end\nreturn M",
+    "desc": "A module file and its caller",
+    "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+    "tags": "lua scripting module require package"
+  },
+  {
+    "sName": "lua",
+    "file": "lua.html",
+    "badge": "LUA",
+    "id": "lua-methods",
+    "sec": "Functions, Modules & Error Handling",
+    "cmd": "local Node = {}\nNode.__index = Node\nfunction Node.new(name)\n  return setmetatable({name = name}, Node)\nend\nfunction Node:describe() return \"Node: \" .. self.name end\nlocal node = Node.new(\"node-a\")\nprint(node:describe())",
+    "desc": "Metatables and colon method calls",
+    "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+    "tags": "lua scripting metatable methods self"
+  },
+  {
+    "sName": "lua",
+    "file": "lua.html",
+    "badge": "LUA",
+    "id": "lua-args",
+    "sec": "Files, Arguments & Log Parsing",
+    "cmd": "local host = arg[1] or \"node-a\"\nlocal home = os.getenv(\"HOME\") or \".\"\nprint(host, home)",
+    "desc": "Command-line arguments and environment variables",
+    "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+    "tags": "lua scripting arguments environment cli"
+  },
+  {
+    "sName": "lua",
+    "file": "lua.html",
+    "badge": "LUA",
+    "id": "lua-file",
+    "sec": "Files, Arguments & Log Parsing",
+    "cmd": "local file, err = io.open(\"inventory.txt\", \"r\")\nif not file then\n  io.stderr:write(tostring(err), \"\\n\")\nelse\n  for line in file:lines() do print(line) end\n  file:close()\nend",
+    "desc": "Read a text file and close it explicitly",
+    "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+    "tags": "lua scripting file io read"
+  },
+  {
+    "sName": "lua",
+    "file": "lua.html",
+    "badge": "LUA",
+    "id": "lua-patterns",
+    "sec": "Files, Arguments & Log Parsing",
+    "cmd": "local line = \"host=node-a gpus=8 state=healthy\"\nlocal values = {}\nfor key, value in line:gmatch(\"([%w_]+)=([^%s]+)\") do\n  values[key] = value\nend\nprint(values.host, tonumber(values.gpus))",
+    "desc": "Parse key=value records with Lua patterns",
+    "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+    "tags": "lua scripting patterns parsing logs"
+  },
+  {
+    "sName": "lua",
+    "file": "lua.html",
+    "badge": "LUA",
+    "id": "lua-logs",
+    "sec": "Files, Arguments & Log Parsing",
+    "cmd": "local sample = \"GPU Xid 79\\nhealthy\\nGPU Xid 48\\nGPU Xid 79\\n\"\nlocal counts = {}\nfor xid in sample:gmatch(\"Xid%s+(%d+)\") do\n  counts[xid] = (counts[xid] or 0) + 1\nend\nlocal keys = {}\nfor key in pairs(counts) do keys[#keys + 1] = key end\ntable.sort(keys, function(a,b) return tonumber(a) < tonumber(b) end)\nfor _, key in ipairs(keys) do print(key, counts[key]) end",
+    "desc": "Count Xid messages in diagnostic text",
+    "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+    "tags": "lua scripting logs gpu xid recipe"
+  },
+  {
+    "sName": "lua",
+    "file": "lua.html",
+    "badge": "LUA",
+    "id": "lua-coroutines",
+    "sec": "Files, Arguments & Log Parsing",
+    "cmd": "local co = coroutine.create(function()\n  for i = 1, 2 do coroutine.yield(i) end\nend)\nwhile coroutine.status(co) ~= \"dead\" do\n  local ok, value = coroutine.resume(co)\n  assert(ok, value)\n  if value ~= nil then print(value) end\nend",
+    "desc": "Cooperative coroutine execution",
+    "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+    "tags": "lua scripting coroutine yield"
   },
   {
     "sName": "macos-darwin-cli",
@@ -20719,6 +21425,50 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Verify binary path and installed version in current environment",
     "tip": "",
     "tags": "scp ipv6 ssh transfer copy bastion proxyjump port tips safety help"
+  },
+  {
+    "sName": "scripting",
+    "file": "scripting.html",
+    "badge": "lua",
+    "id": "lua-variables",
+    "sec": "Lua Scripting",
+    "cmd": "local host = \"node-a\"\nlocal count = 8\nlocal enabled = false\nlocal missing = nil\nprint(type(host), tonumber(\"42\"), tostring(enabled))\nprint(0 and \"zero is truthy\")",
+    "desc": "Local variables, types, nil, and conversion",
+    "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+    "tags": "lua scripting variables scope types"
+  },
+  {
+    "sName": "scripting",
+    "file": "scripting.html",
+    "badge": "lua",
+    "id": "lua-tables",
+    "sec": "Lua Scripting",
+    "cmd": "local nodes = {\"node-a\", \"node-b\"}\ntable.insert(nodes, \"node-c\")\nfor i, name in ipairs(nodes) do print(i, name) end\nlocal inventory = {host = \"node-a\", gpus = 8}\nfor key, value in pairs(inventory) do print(key, value) end\nprint(inventory.host, inventory[\"gpus\"])",
+    "desc": "Sequences, maps, and safe field access",
+    "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+    "tags": "lua scripting tables arrays maps pairs ipairs"
+  },
+  {
+    "sName": "scripting",
+    "file": "scripting.html",
+    "badge": "lua",
+    "id": "lua-errors",
+    "sec": "Lua Scripting",
+    "cmd": "local ok, result = pcall(function()\n  local value = tonumber(\"bad input\")\n  assert(value, \"expected a number\")\n  return value * 2\nend)\nif ok then print(result) else io.stderr:write(tostring(result), \"\\n\") end",
+    "desc": "Catch a runtime error with pcall",
+    "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+    "tags": "lua scripting errors pcall assert"
+  },
+  {
+    "sName": "scripting",
+    "file": "scripting.html",
+    "badge": "lua",
+    "id": "lua-logs",
+    "sec": "Lua Scripting",
+    "cmd": "local sample = \"GPU Xid 79\\nhealthy\\nGPU Xid 48\\nGPU Xid 79\\n\"\nlocal counts = {}\nfor xid in sample:gmatch(\"Xid%s+(%d+)\") do\n  counts[xid] = (counts[xid] or 0) + 1\nend\nlocal keys = {}\nfor key in pairs(counts) do keys[#keys + 1] = key end\ntable.sort(keys, function(a,b) return tonumber(a) < tonumber(b) end)\nfor _, key in ipairs(keys) do print(key, counts[key]) end",
+    "desc": "Count Xid messages in diagnostic text",
+    "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+    "tags": "lua scripting logs gpu xid recipe"
   },
   {
     "sName": "scripting",
@@ -26857,6 +27607,18 @@ window.PORTABLE_SHEETS = [
     "pill": "Reference"
   },
   {
+    "key": "git",
+    "file": "git.html",
+    "js": "git.js",
+    "varName": "GIT_DATA",
+    "name": "Git Commands — Reference & Cheat Sheet",
+    "title": "Git Commands — Reference & Cheat Sheet",
+    "subtitle": "Command reference",
+    "prompt": "$",
+    "cursor": "_",
+    "pill": "Reference"
+  },
+  {
     "key": "grep",
     "file": "grep.html",
     "js": "grep.js",
@@ -27223,6 +27985,18 @@ window.PORTABLE_SHEETS = [
     "varName": "LSOF_DATA",
     "name": "lsof — Open Files, Deleted Space & Network Sockets — Reference Cheat Sheet",
     "title": "lsof — Open Files, Deleted Space & Network Sockets — Reference Cheat Sheet",
+    "subtitle": "Command reference",
+    "prompt": "$",
+    "cursor": "_",
+    "pill": "Reference"
+  },
+  {
+    "key": "lua",
+    "file": "lua.html",
+    "js": "lua.js",
+    "varName": "LUA_DATA",
+    "name": "Lua Scripting — Reference & Cheat Sheet",
+    "title": "Lua Scripting — Reference & Cheat Sheet",
     "subtitle": "Command reference",
     "prompt": "$",
     "cursor": "_",
@@ -34214,6 +34988,81 @@ window.PORTABLE_DATASETS = {
     }
   ],
   "scripting": [
+    {
+      "id": "lua-overview",
+      "badge": "lua",
+      "title": "Lua Scripting",
+      "subtitle": "Tables, functions, modules & log parsing; open Lua in the Scripting menu for the full reference",
+      "commands": [
+        {
+          "id": "lua-variables",
+          "desc": "Local variables, types, nil, and conversion",
+          "cmd": "local host = \"node-a\"\nlocal count = 8\nlocal enabled = false\nlocal missing = nil\nprint(type(host), tonumber(\"42\"), tostring(enabled))\nprint(0 and \"zero is truthy\")",
+          "details": "Prefer local variables: assignments without local normally set globals. Only false and nil are falsey; 0 and the empty string are truthy. Lua is case-sensitive. -- starts a line comment; --[[ ... ]] is a block comment.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+          "tags": [
+            "lua",
+            "scripting",
+            "variables",
+            "scope",
+            "types"
+          ]
+        },
+        {
+          "id": "lua-tables",
+          "desc": "Sequences, maps, and safe field access",
+          "cmd": "local nodes = {\"node-a\", \"node-b\"}\ntable.insert(nodes, \"node-c\")\nfor i, name in ipairs(nodes) do print(i, name) end\nlocal inventory = {host = \"node-a\", gpus = 8}\nfor key, value in pairs(inventory) do print(key, value) end\nprint(inventory.host, inventory[\"gpus\"])",
+          "details": "Sequence indices conventionally begin at 1. ipairs stops at the first absent integer entry; pairs order is unspecified. The length operator # is reliable for dense sequences, not a general count of keys or sparse entries. Assign nil to remove a key.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+          "tags": [
+            "lua",
+            "scripting",
+            "tables",
+            "arrays",
+            "maps",
+            "pairs",
+            "ipairs"
+          ]
+        },
+        {
+          "id": "lua-errors",
+          "desc": "Catch a runtime error with pcall",
+          "cmd": "local ok, result = pcall(function()\n  local value = tonumber(\"bad input\")\n  assert(value, \"expected a number\")\n  return value * 2\nend)\nif ok then print(result) else io.stderr:write(tostring(result), \"\\n\") end",
+          "details": "pcall returns true plus results on success, or false plus the error object on failure. It does not validate the safety of executing untrusted Lua code.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+          "tags": [
+            "lua",
+            "scripting",
+            "errors",
+            "pcall",
+            "assert"
+          ]
+        },
+        {
+          "id": "lua-logs",
+          "desc": "Count Xid messages in diagnostic text",
+          "cmd": "local sample = \"GPU Xid 79\\nhealthy\\nGPU Xid 48\\nGPU Xid 79\\n\"\nlocal counts = {}\nfor xid in sample:gmatch(\"Xid%s+(%d+)\") do\n  counts[xid] = (counts[xid] or 0) + 1\nend\nlocal keys = {}\nfor key in pairs(counts) do keys[#keys + 1] = key end\ntable.sort(keys, function(a,b) return tonumber(a) < tonumber(b) end)\nfor _, key in ipairs(keys) do print(key, counts[key]) end",
+          "details": "Counts the simplified Xid <number> format in sample text. Real driver log formats vary; adapt the pattern to captured lines. Counts are evidence to investigate, not a hardware diagnosis.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+          "tags": [
+            "lua",
+            "scripting",
+            "logs",
+            "gpu",
+            "xid",
+            "recipe"
+          ]
+        }
+      ]
+    },
     {
       "id": "shell-script",
       "badge": "bash",
@@ -50098,6 +50947,10 @@ window.PORTABLE_DATASETS = {
             [
               "Pair 4 (Brown: Pins 7–8)",
               "Rightmost pair (Pins 7 & 8) is ALWAYS White-Brown / Brown in both T568B and T568A"
+            ],
+            [
+              "1G / 2.5G / 5G / 10GBASE-T",
+              "Uses ALL 4 pairs (Pins 1–8) simultaneously in full-duplex PAM5 / PAM16"
             ]
           ],
           "tip": "Only Orange & Green swap between B and A",
@@ -50116,32 +50969,6 @@ window.PORTABLE_DATASETS = {
             "wires",
             "colors",
             "8p8c"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "rj45-pinout-tdr-flags-1",
-      "badge": "rj45",
-      "title": "RJ45 Pinouts & TDR: Arguments & Parameters",
-      "subtitle": "Key arguments, parameters, and filtering options for Complete TIA/EIA-568B vs 568A RJ45 (8P8C) wire order (Hold plug clip-down, gold pins facing you, left=Pin 1)",
-      "commands": [
-        {
-          "id": "rj45-t568b-t568a-chart-flags-card",
-          "desc": "Options breakdown and parameter syntax for Complete TIA/EIA-568B vs 568A RJ45 (8P8C) wire order (Hold plug clip-down, gold pins facing you, left=Pin 1)",
-          "cmd": "T568B (Standard): 1:W/Org  2:Org  3:W/Grn  4:Blu  5:W/Blu  6:Grn  7:W/Brn  8:Brn\nT568A (Gov/Res):  1:W/Grn  2:Grn  3:W/Org  4:Blu  5:W/Blu  6:Org  7:W/Brn  8:Brn",
-          "flags": [
-            [
-              "1G / 2.5G / 5G / 10GBASE-T",
-              "Uses ALL 4 pairs (Pins 1–8) simultaneously in full-duplex PAM5 / PAM16"
-            ]
-          ],
-          "details": "Common operational and diagnostic parameters for Linux Ethernet networking.",
-          "tags": [
-            "RJ45 Pinouts & TDR",
-            "flags",
-            "options",
-            "syntax"
           ]
         }
       ]
@@ -51673,6 +52500,402 @@ window.PORTABLE_DATASETS = {
             "tips",
             "safety",
             "help"
+          ]
+        }
+      ]
+    }
+  ],
+  "git": [
+    {
+      "id": "git-start",
+      "badge": "GIT",
+      "title": "Start & Inspect",
+      "subtitle": "Identify the repository and review changes before acting",
+      "commands": [
+        {
+          "id": "git-init-clone",
+          "desc": "Create a repository or clone an existing one",
+          "cmd": "git init\ngit clone <repository-url>\ngit clone --branch <branch> <repository-url>",
+          "details": "git init starts version control in the current directory. Clone copies a remote repository into a new local directory. Replace angle-bracket placeholders before running.",
+          "flags": [
+            [
+              "--branch",
+              "Check out the named branch after cloning"
+            ]
+          ],
+          "tags": [
+            "git",
+            "init",
+            "clone",
+            "setup"
+          ]
+        },
+        {
+          "id": "git-status",
+          "desc": "See the branch and working tree state",
+          "cmd": "git status --short --branch\ngit status",
+          "details": "Check staged, unstaged, and untracked paths before staging, committing, switching branches, or synchronizing.",
+          "flags": [
+            [
+              "--short",
+              "Compact two-column status"
+            ],
+            [
+              "--branch",
+              "Show branch and upstream summary"
+            ]
+          ],
+          "tags": [
+            "git",
+            "status",
+            "working tree",
+            "read only"
+          ]
+        },
+        {
+          "id": "git-diff",
+          "desc": "Review unstaged and staged changes",
+          "cmd": "git diff\ngit diff --staged\ngit diff --check",
+          "details": "Plain git diff shows tracked changes outside the index. --staged compares the index with HEAD. --check detects whitespace errors and conflict markers.",
+          "flags": [
+            [
+              "--staged",
+              "Show changes prepared for the next commit"
+            ],
+            [
+              "--check",
+              "Check patch formatting"
+            ]
+          ],
+          "tags": [
+            "git",
+            "diff",
+            "staged",
+            "review"
+          ]
+        },
+        {
+          "id": "git-log",
+          "desc": "Inspect recent commits and a file's history",
+          "cmd": "git log --oneline --decorate --graph -15\ngit log --oneline -- path/to/file\ngit show --stat <commit>",
+          "details": "The path separator tells Git that the final argument is a file path. git show can inspect a commit without changing the working tree.",
+          "flags": [
+            [
+              "--oneline",
+              "Abbreviate commits"
+            ],
+            [
+              "--stat",
+              "Summarize changed files"
+            ]
+          ],
+          "tags": [
+            "git",
+            "log",
+            "show",
+            "history"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "git-commit",
+      "badge": "GIT",
+      "title": "Stage & Commit",
+      "subtitle": "Review exactly what the next commit contains",
+      "commands": [
+        {
+          "id": "git-add",
+          "desc": "Stage a file or interactively select hunks",
+          "cmd": "git add -- path/to/file\ngit add -p\ngit diff --cached",
+          "details": "Prefer explicit paths or interactive staging when the working tree contains unrelated edits. Inspect the staged diff before committing.",
+          "flags": [
+            [
+              "-p",
+              "Choose individual hunks"
+            ],
+            [
+              "--",
+              "Separate options from paths"
+            ]
+          ],
+          "tags": [
+            "git",
+            "add",
+            "stage",
+            "hunks"
+          ]
+        },
+        {
+          "id": "git-commit",
+          "desc": "Commit reviewed staged changes",
+          "cmd": "git diff --cached --check\ngit commit -m \"Describe the change\"",
+          "details": "Commit records the current index. The -m text is the commit message; it does not stage files automatically.",
+          "flags": [
+            [
+              "-m",
+              "Supply a commit message"
+            ]
+          ],
+          "tags": [
+            "git",
+            "commit",
+            "message"
+          ]
+        },
+        {
+          "id": "git-unstage",
+          "desc": "Remove a path from the index while keeping its edits",
+          "cmd": "git restore --staged -- path/to/file\ngit status --short",
+          "details": "This changes the index only; the file's working-tree edits remain. Review status afterward.",
+          "flags": [
+            [
+              "--staged",
+              "Restore the index from HEAD"
+            ]
+          ],
+          "tags": [
+            "git",
+            "restore",
+            "unstage",
+            "index"
+          ]
+        },
+        {
+          "id": "git-ignore",
+          "desc": "Inspect why a path is ignored",
+          "cmd": "git check-ignore -v -- path/to/file\ngit ls-files -- path/to/file",
+          "details": "check-ignore names the matching ignore rule. Ignore rules do not stop tracking a file already in the index.",
+          "tags": [
+            "git",
+            "ignore",
+            "tracked",
+            "inspect"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "git-branches",
+      "badge": "GIT",
+      "title": "Branches & Changes",
+      "subtitle": "Move between lines of work and carry selected commits",
+      "commands": [
+        {
+          "id": "git-branch-list",
+          "desc": "List local and remote branches",
+          "cmd": "git branch -vv\ngit branch -a\ngit remote -v",
+          "details": "-vv shows upstream and ahead/behind information for local branches. Remote-tracking branches reflect the last fetch.",
+          "tags": [
+            "git",
+            "branch",
+            "remote",
+            "upstream"
+          ]
+        },
+        {
+          "id": "git-switch",
+          "desc": "Create or switch to a branch",
+          "cmd": "git switch -c <new-branch>\ngit switch <existing-branch>",
+          "details": "Confirm status first; Git may block a switch if local changes would be overwritten. -c creates and switches to the new branch.",
+          "flags": [
+            [
+              "-c",
+              "Create the branch before switching"
+            ]
+          ],
+          "tags": [
+            "git",
+            "switch",
+            "branch",
+            "create"
+          ]
+        },
+        {
+          "id": "git-merge",
+          "desc": "Merge another branch into the current branch",
+          "cmd": "git status --short --branch\ngit merge <source-branch>",
+          "details": "Run while on the destination branch. A merge may create a merge commit or stop for conflict resolution. Review the incoming commits first with git log HEAD..<source-branch>.",
+          "tags": [
+            "git",
+            "merge",
+            "branch",
+            "conflict"
+          ]
+        },
+        {
+          "id": "git-cherry-pick",
+          "desc": "Apply one existing commit to the current branch",
+          "cmd": "git show --stat <commit>\ngit cherry-pick <commit>",
+          "details": "Cherry-pick creates a new commit with a new ID. If conflicts occur, resolve them and use git cherry-pick --continue, or abort with git cherry-pick --abort.",
+          "tags": [
+            "git",
+            "cherry-pick",
+            "commit",
+            "conflict"
+          ]
+        },
+        {
+          "id": "git-stash",
+          "desc": "Temporarily save tracked edits",
+          "cmd": "git stash push -m \"work in progress\"\ngit stash list\ngit stash show -p stash@{0}\ngit stash apply stash@{0}",
+          "details": "By default stash does not include untracked files; add -u only after reviewing those paths. apply keeps the stash entry, while pop removes it if application succeeds.",
+          "flags": [
+            [
+              "-u",
+              "Include untracked files"
+            ],
+            [
+              "apply",
+              "Restore a stash without dropping it"
+            ]
+          ],
+          "tags": [
+            "git",
+            "stash",
+            "working tree"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "git-remotes",
+      "badge": "GIT",
+      "title": "Remotes & Collaboration",
+      "subtitle": "Fetch first, inspect, then publish intentionally",
+      "commands": [
+        {
+          "id": "git-fetch",
+          "desc": "Download remote history without integrating it",
+          "cmd": "git fetch origin\ngit log --oneline --left-right HEAD...origin/<branch>",
+          "details": "Fetch updates remote-tracking refs but does not merge them into the checked-out branch. Inspect divergence before pulling or rebasing.",
+          "tags": [
+            "git",
+            "fetch",
+            "remote",
+            "history"
+          ]
+        },
+        {
+          "id": "git-pull",
+          "desc": "Integrate the configured upstream branch",
+          "cmd": "git pull --ff-only",
+          "details": "--ff-only updates only if no local merge commit is needed; it fails on divergent history. Check git status and upstream configuration first.",
+          "flags": [
+            [
+              "--ff-only",
+              "Allow only a fast-forward update"
+            ]
+          ],
+          "tags": [
+            "git",
+            "pull",
+            "fast forward",
+            "remote"
+          ]
+        },
+        {
+          "id": "git-push",
+          "desc": "Publish a branch to its remote",
+          "cmd": "git push -u origin <branch>\ngit push",
+          "details": "The first command sets the branch's upstream. Push changes a remote repository; verify the destination and branch before running. Avoid force push on shared branches.",
+          "flags": [
+            [
+              "-u",
+              "Set upstream tracking for future pushes"
+            ]
+          ],
+          "tags": [
+            "git",
+            "push",
+            "publish",
+            "upstream"
+          ]
+        },
+        {
+          "id": "git-remote-inspect",
+          "desc": "Inspect remote URLs and upstream tracking",
+          "cmd": "git remote -v\ngit branch -vv\ngit rev-parse --show-toplevel",
+          "details": "These read-only checks help prevent pushing to the wrong repository or working in the wrong checkout.",
+          "tags": [
+            "git",
+            "remote",
+            "upstream",
+            "repository"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "git-recovery",
+      "badge": "GIT",
+      "title": "Investigate & Recover",
+      "subtitle": "Use targeted recovery commands after inspecting the diff",
+      "commands": [
+        {
+          "id": "git-blame",
+          "desc": "Find the commit that last changed a line",
+          "cmd": "git blame -L 10,30 -- path/to/file\ngit show <commit>",
+          "details": "Blame maps lines to commits. Follow the referenced commit with git show to see its full context.",
+          "tags": [
+            "git",
+            "blame",
+            "history",
+            "line"
+          ]
+        },
+        {
+          "id": "git-reflog",
+          "desc": "Find recently visited commits and branch tips",
+          "cmd": "git reflog -10\ngit show <commit>",
+          "details": "Reflog is local and records movements such as commits, resets, and checkouts. Inspect a candidate before using it for recovery.",
+          "tags": [
+            "git",
+            "reflog",
+            "recovery",
+            "read only"
+          ]
+        },
+        {
+          "id": "git-restore-file",
+          "desc": "Discard local unstaged changes in one tracked file",
+          "cmd": "git diff -- path/to/file\ngit restore --worktree -- path/to/file",
+          "details": "This overwrites unstaged changes in the named file. Review the diff and confirm those edits are no longer needed before running.",
+          "flags": [
+            [
+              "--worktree",
+              "Restore the working copy from the index"
+            ]
+          ],
+          "tags": [
+            "git",
+            "restore",
+            "discard",
+            "destructive"
+          ]
+        },
+        {
+          "id": "git-revert",
+          "desc": "Undo a committed change with a new commit",
+          "cmd": "git show --stat <commit>\ngit revert <commit>",
+          "details": "Revert preserves published history by adding a new inverse commit. It can conflict and may require manual resolution.",
+          "tags": [
+            "git",
+            "revert",
+            "undo",
+            "commit"
+          ]
+        },
+        {
+          "id": "git-worktree",
+          "desc": "Create a separate checkout for another branch",
+          "cmd": "git worktree list\ngit worktree add -b <new-branch> ../<directory>",
+          "details": "Worktrees share one repository's object database while keeping separate working directories. Choose a new directory and branch name deliberately.",
+          "tags": [
+            "git",
+            "worktree",
+            "branch",
+            "checkout"
           ]
         }
       ]
@@ -55535,6 +56758,298 @@ window.PORTABLE_DATASETS = {
             "tips",
             "safety",
             "help"
+          ]
+        }
+      ]
+    }
+  ],
+  "lua": [
+    {
+      "id": "lua-basics",
+      "badge": "LUA",
+      "title": "Lua Basics & Running Scripts",
+      "subtitle": "Run Lua code in the interpreter, not directly in a shell",
+      "commands": [
+        {
+          "id": "lua-run",
+          "desc": "Check the interpreter, run a script, or evaluate a short expression",
+          "cmd": "lua -v\nlua script.lua node-a\nlua -e 'print(\"hello\")'\nluac -p script.lua",
+          "details": "Shell commands. lua runs a script; -e evaluates code; luac -p checks syntax without running the script. These examples target Lua 5.4. Neovim and other embedded hosts may use LuaJIT with Lua 5.1 semantics.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+          "tags": [
+            "lua",
+            "scripting",
+            "cli",
+            "interpreter",
+            "syntax"
+          ]
+        },
+        {
+          "id": "lua-variables",
+          "desc": "Local variables, types, nil, and conversion",
+          "cmd": "local host = \"node-a\"\nlocal count = 8\nlocal enabled = false\nlocal missing = nil\nprint(type(host), tonumber(\"42\"), tostring(enabled))\nprint(0 and \"zero is truthy\")",
+          "details": "Prefer local variables: assignments without local normally set globals. Only false and nil are falsey; 0 and the empty string are truthy. Lua is case-sensitive. -- starts a line comment; --[[ ... ]] is a block comment.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+          "tags": [
+            "lua",
+            "scripting",
+            "variables",
+            "scope",
+            "types"
+          ]
+        },
+        {
+          "id": "lua-strings",
+          "desc": "Concatenate and format strings",
+          "cmd": "local host = \"node-a\"\nlocal status = \"healthy\"\nprint(host .. \": \" .. status)\nprint(string.format(\"%s has %d GPUs\", host, 8))\nlocal message = [[first line\nsecond line]]\nprint(message)",
+          "details": "Use .. for concatenation; + is arithmetic. Strings are immutable byte sequences; # returns byte length, not Unicode character count. Long bracket strings preserve newlines.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+          "tags": [
+            "lua",
+            "scripting",
+            "strings",
+            "format"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lua-control",
+      "badge": "LUA",
+      "title": "Conditions, Loops & Tables",
+      "subtitle": "Tables implement both sequences and key/value maps",
+      "commands": [
+        {
+          "id": "lua-conditions",
+          "desc": "if / elseif / else, comparisons, and boolean logic",
+          "cmd": "local temperature = 74\nif temperature >= 85 then\n  print(\"critical\")\nelseif temperature >= 70 then\n  print(\"warm\")\nelse\n  print(\"normal\")\nend\nprint(temperature ~= 0 and \"sensor available\")",
+          "details": "Use == to compare and ~= for not equal. and/or return operands rather than forcing booleans. An or default also replaces false; use an explicit nil check when false is a valid value.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+          "tags": [
+            "lua",
+            "scripting",
+            "if",
+            "conditions",
+            "boolean"
+          ]
+        },
+        {
+          "id": "lua-loops",
+          "desc": "Numeric for, while, repeat, and break",
+          "cmd": "for i = 1, 3 do print(i) end\nlocal n = 3\nwhile n > 0 do n = n - 1 end\nrepeat n = n + 1 until n == 3\nfor i = 1, 10 do\n  if i == 4 then break end\n  print(i)\nend",
+          "details": "Numeric for includes both endpoints. repeat tests its condition after the body. Lua has no standard continue keyword; structure the body with if.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+          "tags": [
+            "lua",
+            "scripting",
+            "for",
+            "while",
+            "repeat",
+            "loops"
+          ]
+        },
+        {
+          "id": "lua-tables",
+          "desc": "Sequences, maps, and safe field access",
+          "cmd": "local nodes = {\"node-a\", \"node-b\"}\ntable.insert(nodes, \"node-c\")\nfor i, name in ipairs(nodes) do print(i, name) end\nlocal inventory = {host = \"node-a\", gpus = 8}\nfor key, value in pairs(inventory) do print(key, value) end\nprint(inventory.host, inventory[\"gpus\"])",
+          "details": "Sequence indices conventionally begin at 1. ipairs stops at the first absent integer entry; pairs order is unspecified. The length operator # is reliable for dense sequences, not a general count of keys or sparse entries. Assign nil to remove a key.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+          "tags": [
+            "lua",
+            "scripting",
+            "tables",
+            "arrays",
+            "maps",
+            "pairs",
+            "ipairs"
+          ]
+        },
+        {
+          "id": "lua-sort",
+          "desc": "Sort records and join a sequence",
+          "cmd": "local nodes = {{name=\"b\", errors=2}, {name=\"a\", errors=0}}\ntable.sort(nodes, function(a, b) return a.name < b.name end)\nlocal names = {}\nfor _, node in ipairs(nodes) do names[#names + 1] = node.name end\nprint(table.concat(names, \", \"))",
+          "details": "table.sort mutates its input; provide a strict ordering comparator. table.concat joins a sequence of strings or numbers. Tables are references: assigning a table to another variable does not copy it.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+          "tags": [
+            "lua",
+            "scripting",
+            "sort",
+            "tables",
+            "join"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lua-functions",
+      "badge": "LUA",
+      "title": "Functions, Modules & Error Handling",
+      "subtitle": "Reusable helpers and protected calls",
+      "commands": [
+        {
+          "id": "lua-functions",
+          "desc": "Functions, multiple results, and closures",
+          "cmd": "local function divide(a, b)\n  if b == 0 then return nil, \"division by zero\" end\n  return a / b\nend\nlocal value, err = divide(12, 3)\nprint(value, err)\nlocal function counter()\n  local n = 0\n  return function() n = n + 1; return n end\nend\nlocal next_id = counter()\nprint(next_id(), next_id())",
+          "details": "Functions are first-class values and can return multiple results. Closures retain access to surrounding local variables. Parentheses around a function call can reduce its results to one value.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+          "tags": [
+            "lua",
+            "scripting",
+            "functions",
+            "closures",
+            "returns"
+          ]
+        },
+        {
+          "id": "lua-errors",
+          "desc": "Catch a runtime error with pcall",
+          "cmd": "local ok, result = pcall(function()\n  local value = tonumber(\"bad input\")\n  assert(value, \"expected a number\")\n  return value * 2\nend)\nif ok then print(result) else io.stderr:write(tostring(result), \"\\n\") end",
+          "details": "pcall returns true plus results on success, or false plus the error object on failure. It does not validate the safety of executing untrusted Lua code.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+          "tags": [
+            "lua",
+            "scripting",
+            "errors",
+            "pcall",
+            "assert"
+          ]
+        },
+        {
+          "id": "lua-module",
+          "desc": "A module file and its caller",
+          "cmd": "-- inventory.lua\nlocal M = {}\nfunction M.gpu_count(node) return node.gpus or 0 end\nreturn M",
+          "details": "Save this as inventory.lua. In a separate script: local inventory = require(\"inventory\"); print(inventory.gpu_count({gpus=8})). require uses package.path and caches loaded modules in package.loaded. This snippet is the module file only.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+          "tags": [
+            "lua",
+            "scripting",
+            "module",
+            "require",
+            "package"
+          ]
+        },
+        {
+          "id": "lua-methods",
+          "desc": "Metatables and colon method calls",
+          "cmd": "local Node = {}\nNode.__index = Node\nfunction Node.new(name)\n  return setmetatable({name = name}, Node)\nend\nfunction Node:describe() return \"Node: \" .. self.name end\nlocal node = Node.new(\"node-a\")\nprint(node:describe())",
+          "details": "The colon call passes the receiver as the first argument (self). __index provides fallback lookups; Lua tables and metatables can model objects without a built-in class keyword.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+          "tags": [
+            "lua",
+            "scripting",
+            "metatable",
+            "methods",
+            "self"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lua-io",
+      "badge": "LUA",
+      "title": "Files, Arguments & Log Parsing",
+      "subtitle": "Read-only examples for inventory and diagnostic text",
+      "commands": [
+        {
+          "id": "lua-args",
+          "desc": "Command-line arguments and environment variables",
+          "cmd": "local host = arg[1] or \"node-a\"\nlocal home = os.getenv(\"HOME\") or \".\"\nprint(host, home)",
+          "details": "Run as lua script.lua node-a. arg[0] contains the script name; arg[1] is the first argument. arg is provided by the standalone interpreter and may be absent in embedded hosts.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+          "tags": [
+            "lua",
+            "scripting",
+            "arguments",
+            "environment",
+            "cli"
+          ]
+        },
+        {
+          "id": "lua-file",
+          "desc": "Read a text file and close it explicitly",
+          "cmd": "local file, err = io.open(\"inventory.txt\", \"r\")\nif not file then\n  io.stderr:write(tostring(err), \"\\n\")\nelse\n  for line in file:lines() do print(line) end\n  file:close()\nend",
+          "details": "Mode r reads an existing file and does not create it. Always close handles. io.lines(filename) can also iterate a file and closes it when iteration reaches EOF; breaking early needs deliberate cleanup.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+          "tags": [
+            "lua",
+            "scripting",
+            "file",
+            "io",
+            "read"
+          ]
+        },
+        {
+          "id": "lua-patterns",
+          "desc": "Parse key=value records with Lua patterns",
+          "cmd": "local line = \"host=node-a gpus=8 state=healthy\"\nlocal values = {}\nfor key, value in line:gmatch(\"([%w_]+)=([^%s]+)\") do\n  values[key] = value\nend\nprint(values.host, tonumber(values.gpus))",
+          "details": "Lua patterns are not PCRE regular expressions: %d matches digits, %s whitespace, and captures use parentheses. There is no regex alternation operator |. This simple parser does not support quoted values containing spaces.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+          "tags": [
+            "lua",
+            "scripting",
+            "patterns",
+            "parsing",
+            "logs"
+          ]
+        },
+        {
+          "id": "lua-logs",
+          "desc": "Count Xid messages in diagnostic text",
+          "cmd": "local sample = \"GPU Xid 79\\nhealthy\\nGPU Xid 48\\nGPU Xid 79\\n\"\nlocal counts = {}\nfor xid in sample:gmatch(\"Xid%s+(%d+)\") do\n  counts[xid] = (counts[xid] or 0) + 1\nend\nlocal keys = {}\nfor key in pairs(counts) do keys[#keys + 1] = key end\ntable.sort(keys, function(a,b) return tonumber(a) < tonumber(b) end)\nfor _, key in ipairs(keys) do print(key, counts[key]) end",
+          "details": "Counts the simplified Xid <number> format in sample text. Real driver log formats vary; adapt the pattern to captured lines. Counts are evidence to investigate, not a hardware diagnosis.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+          "tags": [
+            "lua",
+            "scripting",
+            "logs",
+            "gpu",
+            "xid",
+            "recipe"
+          ]
+        },
+        {
+          "id": "lua-coroutines",
+          "desc": "Cooperative coroutine execution",
+          "cmd": "local co = coroutine.create(function()\n  for i = 1, 2 do coroutine.yield(i) end\nend)\nwhile coroutine.status(co) ~= \"dead\" do\n  local ok, value = coroutine.resume(co)\n  assert(ok, value)\n  if value ~= nil then print(value) end\nend",
+          "details": "Coroutines cooperate by yielding; they do not automatically execute in parallel or turn blocking I/O into asynchronous I/O.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+          "tags": [
+            "lua",
+            "scripting",
+            "coroutine",
+            "yield"
           ]
         }
       ]
@@ -74070,6 +75585,77 @@ window.PORTABLE_DATASETS = {
     return String(text).split('   |   ')[0].trim();
   }
 
+  // Lookup tables, physical wiring notes, and key combinations are reference material.
+  // Their IDs are shared by hub pages, generated subpages, and the portable build.
+  const REFERENCE_CARD_IDS = new Set([
+    'asus-gigabyte-dimm-population', 'epyc-2stage-abl-post', 'epyc-xgmi-dual-socket',
+    'asus-onboard-leds-jumpers', 'gigabyte-leds-switches-jumpers', 'ai-server-bios-checklist',
+    'rj45-t568b-t568a-chart',
+    'arista-cisco-juniper-dom', 'osfp-finned-vs-flattop', 'breakout-topologies-800g-400g',
+    'dac-acc-aec-aoc', 'mpo-male-female-pin-rule', 'mpo-polarity-type-a-b-c',
+    'mpo12-vs-mpo16-keying', 'lc-cs-sn-mdc-duplex', 'inspect-clean-connect',
+    'optical-attenuators-overload', 'fec-ber-fault-triage', 'olts-vs-otdr-testing',
+    'screenshots-capture', 'app-window-switching', 'window-tiling-fullscreen',
+    'spotlight-power', 'lock-forcequit-emoji', 'sound-brightness-fine',
+    'finder-nav-folders', 'finder-dotfiles-pathbar', 'finder-copy-move-path',
+    'finder-trash-delete', 'quicklook-inspector', 'finder-keys-tips-card',
+    'text-cursor-navigation', 'text-delete-word-line', 'paste-without-formatting',
+    'mac-special-typography', 'text-editing-tips-card', 'system-keys-tips-card',
+    'trackpad-spaces-mission', 'trackpad-lookup-zoom', 'trackpad-three-finger-drag',
+    'horizontal-scroll-shift', 'trackpad-tips-card',
+    'win-power-user-admin', 'win-snap-multimonitor', 'win-virtual-desktops',
+    'win-clipboard-capture-gpu', 'win-explorer-power-tricks', 'win-keys-tips-card',
+    'word-motions', 'line-boundaries', 'char-find-inline', 'file-vertical-jumps',
+    'scroll-and-center', 'screen-high-mid-low', 'jumplist-changelist',
+    'text-objects-quotes-brackets', 'word-change-delete', 'eol-shortcuts',
+    'dot-repeat-and-join', 'case-indent-format', 'commenting-builtin',
+    'visual-block-insert', 'visual-block-append', 'visual-reselect-and-ends',
+    'visual-number-sequence', 'visual-sort-and-move', 'search-word-under-cursor',
+    'split-create-close', 'split-nav-move', 'split-resize', 'buffer-management',
+    'tabpages', 'macro-record-replay', 'clipboard-and-blackhole',
+    'insert-cmd-paste-expr', 'undo-branches-time', 'lsp-goto-navigation',
+    'lsp-actions-rename-format', 'diagnostics-navigation',
+    'treesitter-incremental-select', 'lazyvim-file-grep-pickers',
+    'lazyvim-neotree-explorer', 'lazyvim-git-hunks-lazygit',
+    'lazyvim-search-symbols-replace', 'lazyvim-ui-toggles-managers',
+    'quickfix-cdo-batch', 'builtin-terminal-and-health',
+    'motions-tips-card', 'visual-tips-card', 'windows-tips-card',
+    'lazyvim-tips-card', 'lsp-tips-card', 'macros-tips-card', 'operators-tips-card'
+  ]);
+
+  function isReferenceCard(id) {
+    const baseId = String(id || '').replace(/-flags-card$/, '');
+    return /^post-/.test(baseId) || /^om-/.test(baseId) || REFERENCE_CARD_IDS.has(baseId);
+  }
+
+  function decorateReferenceCards(root) {
+    const boxes = root.matches?.('.cmd-code-box, .code-block') ? [root] : root.querySelectorAll('.cmd-code-box, .code-block');
+    for (const box of boxes) {
+      const card = box.closest('.cmd-item, .command-item');
+      const id = card?.getAttribute('data-id') || card?.getAttribute('data-cmd-id') || card?.id?.replace(/^cmd-/, '');
+      if (!isReferenceCard(id)) continue;
+      box.classList.remove('cmd-code-box', 'code-block');
+      box.classList.add('reference-box');
+      box.removeAttribute('data-copy');
+      box.removeAttribute('data-cmd');
+      box.removeAttribute('title');
+      box.querySelectorAll('.copy-btn, .copy-hint').forEach(button => button.remove());
+    }
+  }
+
+  function initReferenceCards() {
+    for (const container of document.querySelectorAll('#sections-container, #sections-grid')) {
+      decorateReferenceCards(container);
+      new MutationObserver(records => {
+        for (const record of records) {
+          for (const node of record.addedNodes) {
+            if (node.nodeType === 1) decorateReferenceCards(node);
+          }
+        }
+      }).observe(container, { childList: true, subtree: true });
+    }
+  }
+
   async function copyCommand(text) {
     const prepared = substituteVariables(commandForCopy(text)).text;
     try {
@@ -74256,20 +75842,20 @@ window.PORTABLE_DATASETS = {
     searchBackdrop.id = 'global-search-modal';
     searchBackdrop.className = 'global-search-backdrop hidden';
     searchBackdrop.innerHTML = `
-      <div class="global-search-box" role="dialog" aria-modal="true" aria-label="Global Command Palette">
+      <div class="global-search-box" role="dialog" aria-modal="true" aria-label="Global Search">
         <div class="palette-header">
           <svg class="palette-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="11" cy="11" r="8"></circle>
             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
           </svg>
-          <input type="text" id="palette-search-input" placeholder="Search 768+ commands across all 14 sheets (e.g. 'xid 79', 'edac', 'dom', 'vpi')..." autocomplete="off" spellcheck="false" />
+          <input type="text" id="palette-search-input" placeholder="Search commands and reference information (e.g. 'xid 79', 'POST 0x53', 'dom')..." autocomplete="off" spellcheck="false" />
           <kbd class="palette-kbd">ESC</kbd>
         </div>
         <div class="palette-toolbar">
-          <span id="palette-stats" class="palette-stats">Showing 0 matching commands</span>
+          <span id="palette-stats" class="palette-stats">Showing 0 matching items</span>
           <span class="palette-hints">
             <span><kbd>↑</kbd><kbd>↓</kbd> Navigate</span>
-            <span><kbd>Enter</kbd> Copy</span>
+            <span><kbd>Enter</kbd> Open (copy commands)</span>
             <span><kbd>Click</kbd> Jump to sheet</span>
           </span>
         </div>
@@ -74351,12 +75937,12 @@ window.PORTABLE_DATASETS = {
     }
 
     currentSearchResults = matches;
-    searchCount.textContent = `${matches.length} command${matches.length === 1 ? '' : 's'} found across ${new Set(window.GLOBAL_SEARCH_INDEX.map(item => item.file)).size} sheets`;
+    searchCount.textContent = `${matches.length} item${matches.length === 1 ? '' : 's'} found across ${new Set(window.GLOBAL_SEARCH_INDEX.map(item => item.file)).size} sheets`;
 
     if (!matches.length) {
       searchResults.innerHTML = `
         <div class="palette-empty">
-          <p>No commands matching "<strong>${escapeHtml(cleanQuery)}</strong>"</p>
+          <p>No items matching "<strong>${escapeHtml(cleanQuery)}</strong>"</p>
           <span class="palette-empty-tip">Try searching for generic keywords like <code>dmesg</code>, <code>xid</code>, <code>pcie</code>, <code>ipmi</code>, <code>dom</code>, <code>vlan</code>, or <code>edac</code>.</span>
         </div>
       `;
@@ -74374,7 +75960,7 @@ window.PORTABLE_DATASETS = {
           <div class="palette-item-top">
             <span class="palette-sheet-badge ${sheetColor}">${escapeHtml(item.sName)}</span>
             <span class="palette-sec">${escapeHtml(item.sec)}</span>
-            <span class="palette-action-hint">Enter to Copy • Click to Open</span>
+            <span class="palette-action-hint">${isReferenceCard(item.id) ? 'Open reference' : 'Copy command &amp; open'}</span>
           </div>
           <div class="palette-cmd-code">${highlightedCmd}</div>
           <div class="palette-desc">${highlightedDesc}</div>
@@ -74395,7 +75981,7 @@ window.PORTABLE_DATASETS = {
         const id = itemEl.dataset.id;
         const cmd = itemEl.dataset.cmd;
 
-        await copyCommand(cmd);
+        if (!isReferenceCard(id)) await copyCommand(cmd);
 
         navigateToResult(file, id);
       });
@@ -74428,7 +76014,7 @@ window.PORTABLE_DATASETS = {
     const item = currentSearchResults[searchActiveIndex];
     if (!item) return;
 
-    await copyCommand(item.cmd);
+    if (!isReferenceCard(item.id)) await copyCommand(item.cmd);
 
     navigateToResult(item.file, item.id);
   }
@@ -74808,6 +76394,11 @@ ${log}
   // 4b. MULTI-COLOR THEME SELECTOR ENGINE
   // -------------------------------------------------------------
   const THEMES = [
+    { id: 'ayumirage', name: 'Ayu Mirage', desc: 'Mid-tone dusk navy & amber', swatches: ['#191e2a', '#212733', '#ffcc66', '#73d0ff'] },
+    { id: 'rosepine', name: 'Rosé Pine', desc: 'Velvet charcoal & dusty rose', swatches: ['#13111b', '#191724', '#ebbcba', '#f6c177'] },
+    { id: 'kanagawa', name: 'Kanagawa', desc: 'Japanese sumi-e ink & autumn wave', swatches: ['#16161d', '#1f1f28', '#7aa89f', '#c34043'] },
+    { id: 'gruvbox', name: 'Gruvbox Dark', desc: 'Warm retro groove & amber', swatches: ['#1d2021', '#282828', '#fabd2f', '#fe8019'] },
+    { id: 'sepia', name: 'Warm Sepia', desc: 'E-reader parchment & espresso ink', swatches: ['#ece4d0', '#f4ecd8', '#2c2523', '#b05a28'] },
     { id: 'dark', name: 'Cyber Dark', desc: 'Default obsidian slate & cyan', swatches: ['#0b0e14', '#111621', '#38bdf8', '#4ade80'] },
     { id: 'light', name: 'Clean Light', desc: 'Crisp daylight paper & azure', swatches: ['#f5f7fa', '#ffffff', '#0284c7', '#16a34a'] },
     { id: 'gemini', name: 'Gemini Spark', desc: 'Google Gemini cosmic indigo & violet', swatches: ['#090a12', '#101322', '#818cf8', '#c084fc'] },
@@ -75154,6 +76745,17 @@ ${log}
 
   // Check URL hash on page load
   window.addEventListener('DOMContentLoaded', () => {
+    initReferenceCards();
+    const scriptingMenu = document.querySelector('#scripting-nav-dropdown .nav-dropdown-menu');
+    if (scriptingMenu && !scriptingMenu.querySelector('a[href="git.html"], a[data-sheet="git"]')) {
+      const gitLink = document.createElement('a');
+      gitLink.href = 'git.html';
+      gitLink.className = 'dropdown-item';
+      gitLink.setAttribute('role', 'menuitem');
+      gitLink.textContent = '🌿 Git Commands';
+      const luaLink = scriptingMenu.querySelector('a[href="lua.html"]');
+      scriptingMenu.insertBefore(gitLink, luaLink || null);
+    }
     syncActiveNav();
     setupNavDropdown();
     setupFullscreenObserver();
@@ -75421,7 +77023,7 @@ ${log}
     document.getElementById('brand-pill').textContent = cfg.pill;
 
     // Update Nav links & dropdown items
-    const scriptingKeys = ['scripting', 'bash', 'python', 'javascript', 'typescript', 'powershell', 'json', 'yaml', 'toml', 'regex', 'awk-sed', 'sql'];
+    const scriptingKeys = ['scripting', 'bash', 'git', 'lua', 'python', 'javascript', 'typescript', 'powershell', 'json', 'yaml', 'toml', 'regex', 'awk-sed', 'sql'];
     const dropdownToggle = document.querySelector('#portable-sheet-nav .dropdown-toggle');
     if (dropdownToggle) {
       if (scriptingKeys.includes(sheetKey)) {
@@ -75440,6 +77042,7 @@ ${log}
 
     renderCategoryTabs();
     renderSections();
+    window.JiraQueryForm?.refresh();
 
     if (targetHash) {
       setTimeout(() => window.AntigravityCommon?.scrollToCard(targetHash), 100);
@@ -75630,6 +77233,16 @@ ${log}
             '</div>'
           : '';
 
+        const commandHtml = item.id === 'rj45-t568b-t568a-chart'
+          ? '<div class="pinout-diagrams">' +
+              '<figure class="pinout-figure"><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhLS0gQ3JlYXRlZCB3aXRoIElua3NjYXBlIChodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy8pIC0tPgoKPHN2ZwogICB3aWR0aD0iMTA1LjQwMzcybW0iCiAgIGhlaWdodD0iNTIuNzcxOW1tIgogICB2aWV3Qm94PSIwIDAgMTA1LjQwMzcyIDUyLjc3MTkiCiAgIHZlcnNpb249IjEuMSIKICAgaWQ9InN2ZzUiCiAgIGlua3NjYXBlOnZlcnNpb249IjEuMS4xICgzYmY1YWUwZDI1LCAyMDIxLTA5LTIwKSIKICAgc29kaXBvZGk6ZG9jbmFtZT0iUkotNDUgVElBLTU2OEIgUmlnaHQuc3ZnIgogICB4bWxuczppbmtzY2FwZT0iaHR0cDovL3d3dy5pbmtzY2FwZS5vcmcvbmFtZXNwYWNlcy9pbmtzY2FwZSIKICAgeG1sbnM6c29kaXBvZGk9Imh0dHA6Ly9zb2RpcG9kaS5zb3VyY2Vmb3JnZS5uZXQvRFREL3NvZGlwb2RpLTAuZHRkIgogICB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiAgIHhtbG5zOnN2Zz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxzb2RpcG9kaTpuYW1lZHZpZXcKICAgICBpZD0ibmFtZWR2aWV3NyIKICAgICBwYWdlY29sb3I9IiNmZmZmZmYiCiAgICAgYm9yZGVyY29sb3I9IiM2NjY2NjYiCiAgICAgYm9yZGVyb3BhY2l0eT0iMS4wIgogICAgIGlua3NjYXBlOnBhZ2VzaGFkb3c9IjIiCiAgICAgaW5rc2NhcGU6cGFnZW9wYWNpdHk9IjAuMCIKICAgICBpbmtzY2FwZTpwYWdlY2hlY2tlcmJvYXJkPSIwIgogICAgIGlua3NjYXBlOmRvY3VtZW50LXVuaXRzPSJtbSIKICAgICBzaG93Z3JpZD0iZmFsc2UiCiAgICAgaW5rc2NhcGU6b2JqZWN0LXBhdGhzPSJ0cnVlIgogICAgIGZpdC1tYXJnaW4tdG9wPSI1IgogICAgIGZpdC1tYXJnaW4tbGVmdD0iNSIKICAgICBmaXQtbWFyZ2luLXJpZ2h0PSI1IgogICAgIGZpdC1tYXJnaW4tYm90dG9tPSI1IgogICAgIGlua3NjYXBlOnpvb209IjIuMDk1Mjg2MiIKICAgICBpbmtzY2FwZTpjeD0iMjIwLjI1NjMxIgogICAgIGlua3NjYXBlOmN5PSI2Ni44MTY2NDgiCiAgICAgaW5rc2NhcGU6d2luZG93LXdpZHRoPSIxNzk5IgogICAgIGlua3NjYXBlOndpbmRvdy1oZWlnaHQ9IjkzMSIKICAgICBpbmtzY2FwZTp3aW5kb3cteD0iNzIwIgogICAgIGlua3NjYXBlOndpbmRvdy15PSIxMzEiCiAgICAgaW5rc2NhcGU6d2luZG93LW1heGltaXplZD0iMSIKICAgICBpbmtzY2FwZTpjdXJyZW50LWxheWVyPSJsYXllcjEiIC8+CiAgPGRlZnMKICAgICBpZD0iZGVmczIiIC8+CiAgPGcKICAgICBpbmtzY2FwZTpsYWJlbD0iTGF5ZXIgMSIKICAgICBpbmtzY2FwZTpncm91cG1vZGU9ImxheWVyIgogICAgIGlkPSJsYXllcjEiCiAgICAgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTM0LjI3Mjk0MiwtMTIuNDA5NDc5KSI+CiAgICA8cGF0aAogICAgICAgc3R5bGU9ImZpbGw6bm9uZTtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MC40NDk3OTI7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW1pdGVybGltaXQ6NDtzdHJva2UtZGFzaGFycmF5Om5vbmU7c3Ryb2tlLW9wYWNpdHk6MSIKICAgICAgIGQ9Im0gMTI4LjUwOTgsNDQuMjg0ODIyIGggMy4xOTAwMSB2IC0xOC42OTUwOSBoIC0zLjE5MDAxIgogICAgICAgaWQ9InBhdGgxMzI0IgogICAgICAgc29kaXBvZGk6bm9kZXR5cGVzPSJjY2NjIiAvPgogICAgPHJlY3QKICAgICAgIHN0eWxlPSJmaWxsOiNmMGZmMzQ7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOm5vbmU7c3Ryb2tlLXdpZHRoOjAuNDQ5NzkyO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdG9wLWNvbG9yOiMwMDAwMDAiCiAgICAgICBpZD0icmVjdDIwMTAiCiAgICAgICB3aWR0aD0iMTEuMTk0NjQ2IgogICAgICAgaGVpZ2h0PSIxLjg1NjI1MzEiCiAgICAgICB4PSItMTI1LjY3NTI2IgogICAgICAgeT0iLTM3LjQ5NTczOSIKICAgICAgIHRyYW5zZm9ybT0ic2NhbGUoLTEpIiAvPgogICAgPHJlY3QKICAgICAgIHN0eWxlPSJmaWxsOiNmMGZmMzQ7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOm5vbmU7c3Ryb2tlLXdpZHRoOjAuNDQ5NzkyO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdG9wLWNvbG9yOiMwMDAwMDAiCiAgICAgICBpZD0icmVjdDI3NDEiCiAgICAgICB3aWR0aD0iMTEuMTk0NjQ2IgogICAgICAgaGVpZ2h0PSIxLjg1NjI1MzEiCiAgICAgICB4PSItMTI1LjY3NTI2IgogICAgICAgeT0iLTM3LjQ5NTczOSIKICAgICAgIHRyYW5zZm9ybT0ic2NhbGUoLTEpIiAvPgogICAgPHJlY3QKICAgICAgIHN0eWxlPSJmaWxsOiNmMGZmMzQ7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOm5vbmU7c3Ryb2tlLXdpZHRoOjAuNDQ5NzkyO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdG9wLWNvbG9yOiMwMDAwMDAiCiAgICAgICBpZD0icmVjdDMwNTciCiAgICAgICB3aWR0aD0iMTEuMTk0NjQ2IgogICAgICAgaGVpZ2h0PSIxLjg1NjI1MzEiCiAgICAgICB4PSItMTI1LjY3NTI2IgogICAgICAgeT0iLTM3LjUxMzM2NyIKICAgICAgIHRyYW5zZm9ybT0ic2NhbGUoLTEpIiAvPgogICAgPHJlY3QKICAgICAgIHN0eWxlPSJmaWxsOiNmMGZmMzQ7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOm5vbmU7c3Ryb2tlLXdpZHRoOjAuNDQ5NzkyO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdG9wLWNvbG9yOiMwMDAwMDAiCiAgICAgICBpZD0icmVjdDMwODAiCiAgICAgICB3aWR0aD0iMTEuMTk0NjQ2IgogICAgICAgaGVpZ2h0PSIxLjg1NjI1MzEiCiAgICAgICB4PSItMTI1LjY3NTI2IgogICAgICAgeT0iLTQwLjgwOTI5MiIKICAgICAgIHRyYW5zZm9ybT0ic2NhbGUoLTEpIiAvPgogICAgPHJlY3QKICAgICAgIHN0eWxlPSJmaWxsOiNmMGZmMzQ7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOm5vbmU7c3Ryb2tlLXdpZHRoOjAuNDQ5NzkyO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdG9wLWNvbG9yOiMwMDAwMDAiCiAgICAgICBpZD0icmVjdDMwOTYiCiAgICAgICB3aWR0aD0iMTEuMTk0NjQ2IgogICAgICAgaGVpZ2h0PSIxLjg1NjI1MzEiCiAgICAgICB4PSItMTI1LjY3NTI2IgogICAgICAgeT0iLTQ0LjEwNTIxMyIKICAgICAgIHRyYW5zZm9ybT0ic2NhbGUoLTEpIiAvPgogICAgPHJlY3QKICAgICAgIHN0eWxlPSJmaWxsOiNmMGZmMzQ7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOm5vbmU7c3Ryb2tlLXdpZHRoOjAuNDQ5NzkyO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdG9wLWNvbG9yOiMwMDAwMDAiCiAgICAgICBpZD0icmVjdDMxMTIiCiAgICAgICB3aWR0aD0iMTEuMTk0NjQ2IgogICAgICAgaGVpZ2h0PSIxLjg1NjI1MzEiCiAgICAgICB4PSItMTI1LjY3NTI2IgogICAgICAgeT0iLTQ3LjQwMTEzOCIKICAgICAgIHRyYW5zZm9ybT0ic2NhbGUoLTEpIiAvPgogICAgPGcKICAgICAgIGlkPSJnMzA4MTIiCiAgICAgICBzdHlsZT0iZmlsbDojMTg3OGMzO2ZpbGwtb3BhY2l0eToxO3N0cm9rZS13aWR0aDowLjQ0OTc5MjtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZSIKICAgICAgIHRyYW5zZm9ybT0icm90YXRlKDE4MCw4Ni44NjUzMDcsMzQuOTM3Mjc3KSI+CiAgICAgIDxyZWN0CiAgICAgICAgIHN0eWxlPSJmaWxsOiMxODc4YzM7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOm5vbmU7c3Ryb2tlLXdpZHRoOjAuNDQ5NzkyO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdG9wLWNvbG9yOiMwMDAwMDAiCiAgICAgICAgIGlkPSJyZWN0MzA1MyIKICAgICAgICAgd2lkdGg9IjMuOTE1NDA2NyIKICAgICAgICAgaGVpZ2h0PSIyLjM1MzQ2MSIKICAgICAgICAgeD0iNjguMDc5NzQyIgogICAgICAgICB5PSIzMi4xMzAyMTEiIC8+CiAgICAgIDxwYXRoCiAgICAgICAgIGlkPSJyZWN0MzA1NSIKICAgICAgICAgc3R5bGU9ImZpbGw6IzE4NzhjMztmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2Utd2lkdGg6MC40NDk3OTI7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZS1taXRlcmxpbWl0OjQ7c3Ryb2tlLWRhc2hhcnJheTpub25lO3N0b3AtY29sb3I6IzAwMDAwMCIKICAgICAgICAgZD0ibSA3Ni44NjM3ODUsMzIuMjczNzI2IDMuOTE1NDA2LDAuMDc2NTYgdiAyLjIyMjAwOCBsIC0zLjkxNTQwNiwtMC4wODg2MyB6IgogICAgICAgICBzb2RpcG9kaTpub2RldHlwZXM9ImNjY2NjIiAvPgogICAgICA8cmVjdAogICAgICAgICBzdHlsZT0iZmlsbDojMTg3OGMzO2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTpub25lO3N0cm9rZS13aWR0aDowLjQ0OTc5MjtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6NDtzdHJva2UtZGFzaGFycmF5Om5vbmU7c3RvcC1jb2xvcjojMDAwMDAwIgogICAgICAgICBpZD0icmVjdDI4ODMiCiAgICAgICAgIHdpZHRoPSIzLjkxNTQwNjciCiAgICAgICAgIGhlaWdodD0iMi4zNTM0NjEiCiAgICAgICAgIHg9IjU5LjI0NTk3OSIKICAgICAgICAgeT0iMzIuMTMwMjExIiAvPgogICAgPC9nPgogICAgPGcKICAgICAgIGlkPSJnMjc0NDgiCiAgICAgICBzdHlsZT0iZmlsbDojODAyZTE5O2ZpbGwtb3BhY2l0eToxO3N0cm9rZS13aWR0aDowLjQ0OTc5MjtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZSIKICAgICAgIHRyYW5zZm9ybT0icm90YXRlKDE4MCw4Ni44NjUzMDcsMzQuOTM3Mjc3KSI+CiAgICAgIDxwYXRoCiAgICAgICAgIGlkPSJyZWN0MzA5OCIKICAgICAgICAgc3R5bGU9ImZpbGw6IzgwMmUxOTtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2Utd2lkdGg6MC40NDk3OTI7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZS1taXRlcmxpbWl0OjQ7c3Ryb2tlLWRhc2hhcnJheTpub25lO3N0b3AtY29sb3I6IzAwMDAwMCIKICAgICAgICAgZD0ibSA2OC4wNzgxODUsMjUuNjQxNjQyIDMuOTE0NDE0LDAuMTIxOTQ3IDAuMDAyNSwyLjIyMDIxNiAtMy45MTU0MDcsLTAuMTA5NjA3IHoiCiAgICAgICAgIHNvZGlwb2RpOm5vZGV0eXBlcz0iY2NjY2MiIC8+CiAgICAgIDxwYXRoCiAgICAgICAgIGlkPSJyZWN0MzEwMCIKICAgICAgICAgc3R5bGU9ImZpbGw6IzgwMmUxOTtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2Utd2lkdGg6MC40NDk3OTI7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZS1taXRlcmxpbWl0OjQ7c3Ryb2tlLWRhc2hhcnJheTpub25lO3N0b3AtY29sb3I6IzAwMDAwMCIKICAgICAgICAgZD0ibSA3Ni44NjM3ODUsMjYuMTkwOTc4IDMuOTE1NDA2LDAuMzU5NTE3IHYgMi4wOTI2MjMgbCAtMy45MTU0MDYsLTAuMjkzNDM1IHoiCiAgICAgICAgIHNvZGlwb2RpOm5vZGV0eXBlcz0iY2NjY2MiIC8+CiAgICAgIDxyZWN0CiAgICAgICAgIHN0eWxlPSJmaWxsOiM4MDJlMTk7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOm5vbmU7c3Ryb2tlLXdpZHRoOjAuNDQ5NzkyO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdG9wLWNvbG9yOiMwMDAwMDAiCiAgICAgICAgIGlkPSJyZWN0MzEwNiIKICAgICAgICAgd2lkdGg9IjMuOTE1NDA2NyIKICAgICAgICAgaGVpZ2h0PSIyLjM1MzQ2MSIKICAgICAgICAgeD0iNTkuMjQ1OTc5IgogICAgICAgICB5PSIyNS41MjA3MzciIC8+CiAgICA8L2c+CiAgICA8cmVjdAogICAgICAgc3R5bGU9ImZpbGw6I2YwZmYzNDtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6bm9uZTtzdHJva2Utd2lkdGg6MC40NDk3OTI7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZS1taXRlcmxpbWl0OjQ7c3Ryb2tlLWRhc2hhcnJheTpub25lO3N0b3AtY29sb3I6IzAwMDAwMCIKICAgICAgIGlkPSJyZWN0MzEyOCIKICAgICAgIHdpZHRoPSIxMS4xOTQ2NDYiCiAgICAgICBoZWlnaHQ9IjEuODU2MjUzMSIKICAgICAgIHg9Ii0xMjUuNjc1MjYiCiAgICAgICB5PSItMjQuMzI5NjciCiAgICAgICB0cmFuc2Zvcm09InNjYWxlKC0xKSIgLz4KICAgIDxyZWN0CiAgICAgICBzdHlsZT0iZmlsbDojZjBmZjM0O2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTpub25lO3N0cm9rZS13aWR0aDowLjQ0OTc5MjtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6NDtzdHJva2UtZGFzaGFycmF5Om5vbmU7c3RvcC1jb2xvcjojMDAwMDAwIgogICAgICAgaWQ9InJlY3QzMTQ0IgogICAgICAgd2lkdGg9IjExLjE5NDY0NiIKICAgICAgIGhlaWdodD0iMS44NTYyNTMxIgogICAgICAgeD0iLTEyNS42NzUyNiIKICAgICAgIHk9Ii0yNy42MjU1OTUiCiAgICAgICB0cmFuc2Zvcm09InNjYWxlKC0xKSIgLz4KICAgIDxyZWN0CiAgICAgICBzdHlsZT0iZmlsbDojZjBmZjM0O2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTpub25lO3N0cm9rZS13aWR0aDowLjQ0OTc5MjtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6NDtzdHJva2UtZGFzaGFycmF5Om5vbmU7c3RvcC1jb2xvcjojMDAwMDAwIgogICAgICAgaWQ9InJlY3QzMTYwIgogICAgICAgd2lkdGg9IjExLjE5NDY0NiIKICAgICAgIGhlaWdodD0iMS44NTYyNTMxIgogICAgICAgeD0iLTEyNS42NzUyNiIKICAgICAgIHk9Ii0zMC45MjE1MTMiCiAgICAgICB0cmFuc2Zvcm09InNjYWxlKC0xKSIgLz4KICAgIDxyZWN0CiAgICAgICBzdHlsZT0iZmlsbDojZjBmZjM0O2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTpub25lO3N0cm9rZS13aWR0aDowLjQ0OTc5MjtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6NDtzdHJva2UtZGFzaGFycmF5Om5vbmU7c3RvcC1jb2xvcjojMDAwMDAwIgogICAgICAgaWQ9InJlY3QzMTc2IgogICAgICAgd2lkdGg9IjExLjE5NDY0NiIKICAgICAgIGhlaWdodD0iMS44NTYyNTMxIgogICAgICAgeD0iLTEyNS42NzUyNiIKICAgICAgIHk9Ii0zNC4yMTc0NDIiCiAgICAgICB0cmFuc2Zvcm09InNjYWxlKC0xKSIgLz4KICAgIDxnCiAgICAgICBpZD0iZzg2NzYxIgogICAgICAgc3R5bGU9ImZpbGw6I2ZmZTY1MztmaWxsLW9wYWNpdHk6MSI+CiAgICAgIDxyZWN0CiAgICAgICAgIHN0eWxlPSJmaWxsOiNmZmU2NTM7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOm5vbmU7c3Ryb2tlLXdpZHRoOjAuNDQ5NzkyO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdG9wLWNvbG9yOiMwMDAwMDAiCiAgICAgICAgIGlkPSJyZWN0MzA2MyIKICAgICAgICAgd2lkdGg9IjExLjE5NDY0NiIKICAgICAgICAgaGVpZ2h0PSIxLjg1NjI1MzEiCiAgICAgICAgIHg9Ii0xMjUuNjc1MjYiCiAgICAgICAgIHk9Ii0zNy41MTMzNjciCiAgICAgICAgIHRyYW5zZm9ybT0ic2NhbGUoLTEpIiAvPgogICAgICA8cmVjdAogICAgICAgICBzdHlsZT0iZmlsbDojZmZlNjUzO2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTpub25lO3N0cm9rZS13aWR0aDowLjQ0OTc5MjtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6NDtzdHJva2UtZGFzaGFycmF5Om5vbmU7c3RvcC1jb2xvcjojMDAwMDAwIgogICAgICAgICBpZD0icmVjdDMwODYiCiAgICAgICAgIHdpZHRoPSIxMS4xOTQ2NDYiCiAgICAgICAgIGhlaWdodD0iMS44NTYyNTMxIgogICAgICAgICB4PSItMTI1LjY3NTI2IgogICAgICAgICB5PSItNDAuODA5MjkyIgogICAgICAgICB0cmFuc2Zvcm09InNjYWxlKC0xKSIgLz4KICAgICAgPHJlY3QKICAgICAgICAgc3R5bGU9ImZpbGw6I2ZmZTY1MztmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6bm9uZTtzdHJva2Utd2lkdGg6MC40NDk3OTI7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZS1taXRlcmxpbWl0OjQ7c3Ryb2tlLWRhc2hhcnJheTpub25lO3N0b3AtY29sb3I6IzAwMDAwMCIKICAgICAgICAgaWQ9InJlY3QzMTAyIgogICAgICAgICB3aWR0aD0iMTEuMTk0NjQ2IgogICAgICAgICBoZWlnaHQ9IjEuODU2MjUzMSIKICAgICAgICAgeD0iLTEyNS42NzUyNiIKICAgICAgICAgeT0iLTQ0LjEwNTIxMyIKICAgICAgICAgdHJhbnNmb3JtPSJzY2FsZSgtMSkiIC8+CiAgICAgIDxyZWN0CiAgICAgICAgIHN0eWxlPSJmaWxsOiNmZmU2NTM7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOm5vbmU7c3Ryb2tlLXdpZHRoOjAuNDQ5NzkyO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdG9wLWNvbG9yOiMwMDAwMDAiCiAgICAgICAgIGlkPSJyZWN0MzExOCIKICAgICAgICAgd2lkdGg9IjExLjE5NDY0NiIKICAgICAgICAgaGVpZ2h0PSIxLjg1NjI1MzEiCiAgICAgICAgIHg9Ii0xMjUuNjc1MjYiCiAgICAgICAgIHk9Ii00Ny40MDExMzgiCiAgICAgICAgIHRyYW5zZm9ybT0ic2NhbGUoLTEpIiAvPgogICAgICA8cmVjdAogICAgICAgICBzdHlsZT0iZmlsbDojZmZlNjUzO2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTpub25lO3N0cm9rZS13aWR0aDowLjQ0OTc5MjtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6NDtzdHJva2UtZGFzaGFycmF5Om5vbmU7c3RvcC1jb2xvcjojMDAwMDAwIgogICAgICAgICBpZD0icmVjdDMxMzQiCiAgICAgICAgIHdpZHRoPSIxMS4xOTQ2NDYiCiAgICAgICAgIGhlaWdodD0iMS44NTYyNTMxIgogICAgICAgICB4PSItMTI1LjY3NTI2IgogICAgICAgICB5PSItMjQuMzI5NjciCiAgICAgICAgIHRyYW5zZm9ybT0ic2NhbGUoLTEpIiAvPgogICAgICA8cmVjdAogICAgICAgICBzdHlsZT0iZmlsbDojZmZlNjUzO2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTpub25lO3N0cm9rZS13aWR0aDowLjQ0OTc5MjtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6NDtzdHJva2UtZGFzaGFycmF5Om5vbmU7c3RvcC1jb2xvcjojMDAwMDAwIgogICAgICAgICBpZD0icmVjdDMxNTAiCiAgICAgICAgIHdpZHRoPSIxMS4xOTQ2NDYiCiAgICAgICAgIGhlaWdodD0iMS44NTYyNTMxIgogICAgICAgICB4PSItMTI1LjY3NTI2IgogICAgICAgICB5PSItMjcuNjI1NTk1IgogICAgICAgICB0cmFuc2Zvcm09InNjYWxlKC0xKSIgLz4KICAgICAgPHJlY3QKICAgICAgICAgc3R5bGU9ImZpbGw6I2ZmZTY1MztmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6bm9uZTtzdHJva2Utd2lkdGg6MC40NDk3OTI7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZS1taXRlcmxpbWl0OjQ7c3Ryb2tlLWRhc2hhcnJheTpub25lO3N0b3AtY29sb3I6IzAwMDAwMCIKICAgICAgICAgaWQ9InJlY3QzMTY2IgogICAgICAgICB3aWR0aD0iMTEuMTk0NjQ2IgogICAgICAgICBoZWlnaHQ9IjEuODU2MjUzMSIKICAgICAgICAgeD0iLTEyNS42NzUyNiIKICAgICAgICAgeT0iLTMwLjkyMTUxMyIKICAgICAgICAgdHJhbnNmb3JtPSJzY2FsZSgtMSkiIC8+CiAgICAgIDxyZWN0CiAgICAgICAgIHN0eWxlPSJmaWxsOiNmZmU2NTM7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOm5vbmU7c3Ryb2tlLXdpZHRoOjAuNDQ5NzkyO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdG9wLWNvbG9yOiMwMDAwMDAiCiAgICAgICAgIGlkPSJyZWN0MzE4MiIKICAgICAgICAgd2lkdGg9IjExLjE5NDY0NiIKICAgICAgICAgaGVpZ2h0PSIxLjg1NjI1MzEiCiAgICAgICAgIHg9Ii0xMjUuNjc1MjYiCiAgICAgICAgIHk9Ii0zNC4yMTc0NDIiCiAgICAgICAgIHRyYW5zZm9ybT0ic2NhbGUoLTEpIiAvPgogICAgPC9nPgogICAgPGcKICAgICAgIGlkPSJnMzQzODkiCiAgICAgICBzdHlsZT0iZmlsbDojNjRiODJmO2ZpbGwtb3BhY2l0eToxO3N0cm9rZS13aWR0aDowLjQ0OTc5MjtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZSIKICAgICAgIHRyYW5zZm9ybT0icm90YXRlKDE4MCw4Ni44NjUzMDcsMzQuOTM3Mjc3KSI+CiAgICAgIDxwYXRoCiAgICAgICAgIGlkPSJwYXRoOTQ2NCIKICAgICAgICAgc3R5bGU9ImZpbGw6IzY0YjgyZjtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2Utd2lkdGg6MC40NDk3OTI7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZS1taXRlcmxpbWl0OjQ7c3Ryb2tlLWRhc2hhcnJheTpub25lO3N0b3AtY29sb3I6IzAwMDAwMCIKICAgICAgICAgZD0ibSA2OC4wODM3NjEsNDEuMDU4OTQyIDMuOTE1NDA3LC0wLjA4OTUxIHYgLTIuMzI2OTY3IGwgLTMuOTE1NDA3LDAuMDYzMDEgeiIKICAgICAgICAgc29kaXBvZGk6bm9kZXR5cGVzPSJjY2NjYyIgLz4KICAgICAgPHBhdGgKICAgICAgICAgaWQ9InBhdGg5NDY2IgogICAgICAgICBzdHlsZT0iZmlsbDojNjRiODJmO2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZS13aWR0aDowLjQ0OTc5MjtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6NDtzdHJva2UtZGFzaGFycmF5Om5vbmU7c3RvcC1jb2xvcjojMDAwMDAwIgogICAgICAgICBkPSJtIDc2Ljg2NzgwNCw0MC44NDc2NTIgMy45MTU0MDYsLTAuMTU4Njg4IDEwZS03LC0yLjI4NDA0IC0zLjkxNTQwNywwLjEzODQ4NiB6IgogICAgICAgICBzb2RpcG9kaTpub2RldHlwZXM9ImNjY2NjIiAvPgogICAgICA8cmVjdAogICAgICAgICBzdHlsZT0iZmlsbDojNjRiODJmO2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTpub25lO3N0cm9rZS13aWR0aDowLjQ0OTc5MjtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6NDtzdHJva2UtZGFzaGFycmF5Om5vbmU7c3RvcC1jb2xvcjojMDAwMDAwIgogICAgICAgICBpZD0icmVjdDk0NjgiCiAgICAgICAgIHdpZHRoPSIzLjkxNTQwNjciCiAgICAgICAgIGhlaWdodD0iMi4zNTM0NjEiCiAgICAgICAgIHg9IjU5LjI0OTk5NiIKICAgICAgICAgeT0iLTQxLjA1ODk0MSIKICAgICAgICAgdHJhbnNmb3JtPSJzY2FsZSgxLC0xKSIgLz4KICAgIDwvZz4KICAgIDxnCiAgICAgICBpZD0iZzQxMTE5IgogICAgICAgc3R5bGU9ImZpbGw6I2YyN2ExZjtmaWxsLW9wYWNpdHk6MTtzdHJva2Utd2lkdGg6MC40NDk3OTI7c3Ryb2tlLW1pdGVybGltaXQ6NDtzdHJva2UtZGFzaGFycmF5Om5vbmUiCiAgICAgICB0cmFuc2Zvcm09InJvdGF0ZSgxODAsODYuODY1MzA3LDM0LjkzNzI3NykiPgogICAgICA8cGF0aAogICAgICAgICBpZD0icGF0aDk0ODAiCiAgICAgICAgIHN0eWxlPSJmaWxsOiNmMjdhMWY7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlLXdpZHRoOjAuNDQ5NzkyO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdG9wLWNvbG9yOiMwMDAwMDAiCiAgICAgICAgIGQ9Im0gNjguMDgzNzYxLDQ3LjUxMjk2OCAzLjkxNTQwNywtMC4yMDc4NjQgdiAtMi41MDYyMzEgbCAtMy45MTU0MDcsMC4yMTA4NjEgeiIKICAgICAgICAgc29kaXBvZGk6bm9kZXR5cGVzPSJjY2NjYyIgLz4KICAgICAgPHBhdGgKICAgICAgICAgaWQ9InBhdGg5NDgyIgogICAgICAgICBzdHlsZT0iZmlsbDojZjI3YTFmO2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZS13aWR0aDowLjQ0OTc5MjtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6NDtzdHJva2UtZGFzaGFycmF5Om5vbmU7c3RvcC1jb2xvcjojMDAwMDAwIgogICAgICAgICBkPSJtIDc2Ljg2NzgwNSw0Ni44NjY0MzggMy45MTU0MDUsLTAuNTkwODAzIHYgLTIuMjYxODY4IGwgLTMuOTE1NDA2LDAuNDIyMDk5IHoiCiAgICAgICAgIHNvZGlwb2RpOm5vZGV0eXBlcz0iY2NjY2MiIC8+CiAgICAgIDxyZWN0CiAgICAgICAgIHN0eWxlPSJmaWxsOiNmMjdhMWY7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOm5vbmU7c3Ryb2tlLXdpZHRoOjAuNDQ5NzkyO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdG9wLWNvbG9yOiMwMDAwMDAiCiAgICAgICAgIGlkPSJyZWN0OTQ4NCIKICAgICAgICAgd2lkdGg9IjMuOTE1NDA2NyIKICAgICAgICAgaGVpZ2h0PSIyLjM1MzQ2MSIKICAgICAgICAgeD0iNTkuMjQ5OTk2IgogICAgICAgICB5PSItNDcuNjUwNzkxIgogICAgICAgICB0cmFuc2Zvcm09InNjYWxlKDEsLTEpIiAvPgogICAgPC9nPgogICAgPHBhdGgKICAgICAgIHN0eWxlPSJmaWxsOm5vbmU7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjAuMzcwNDE3O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1taXRlcmxpbWl0OjQ7c3Ryb2tlLWRhc2hhcnJheTpub25lO3N0cm9rZS1vcGFjaXR5OjEiCiAgICAgICBkPSJtIDkwLjEyMTM1NiwzNS4yMDMzNzEgYyA0LjcxMTE3OCwwLjI4MTI2NSAyNC4zNjMyODQsMC4xODc1MSAyNC4zNjMyODQsMC4xODc1MSB2IDIuMzUzNDYxIGMgMCwwIC0xNi41NDA0NDgsLTAuMDIzNDQgLTI0LjQ2MjcyNywtMC4zMDQ3MDMiCiAgICAgICBpZD0icGF0aDE5MDYiCiAgICAgICBzb2RpcG9kaTpub2RldHlwZXM9ImNjY2MiIC8+CiAgICA8cGF0aAogICAgICAgc3R5bGU9ImZpbGw6IzY0YjgyZjtmaWxsLW9wYWNpdHk6MTtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MC4zNzA0MTc7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW1pdGVybGltaXQ6NDtzdHJva2UtZGFzaGFycmF5Om5vbmU7c3Ryb2tlLW9wYWNpdHk6MSIKICAgICAgIGQ9Im0gODkuNzk0MzMsMzcuOTg4OTk0IGMgNy4wNTUwNDcsMC41ODU5NjggMjQuNjkwMzEsMC43MTU0MzkgMjQuNjkwMzEsMC43MTU0MzkgdiAyLjM1MzQ2MSBjIDAsMCAtMTYuMTE4NTUxLC0wLjA0MDE5IC0yNC42MjY3OTgsLTAuNjk2NDY0IgogICAgICAgaWQ9InBhdGgzMDkyIgogICAgICAgc29kaXBvZGk6bm9kZXR5cGVzPSJjY2NjIiAvPgogICAgPHBhdGgKICAgICAgIHN0eWxlPSJmaWxsOm5vbmU7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjAuMzcwNDE3O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1taXRlcmxpbWl0OjQ7c3Ryb2tlLWRhc2hhcnJheTpub25lO3N0cm9rZS1vcGFjaXR5OjEiCiAgICAgICBkPSJtIDkwLjE0NDc5NSw0MC45MDg3ODQgYyA3LjY4Nzg5MiwxLjEwMTYxOCAyNC4zMzk4NDUsMS4wOTE1NzMgMjQuMzM5ODQ1LDEuMDkxNTczIHYgMi4zNTM0NiBjIDAsMCAtMTguNTY3OTY2LC0wLjIwODcwMyAtMjQuMzQ1NTM0LC0xLjQ2NjU5MyIKICAgICAgIGlkPSJwYXRoMzEwOCIKICAgICAgIHNvZGlwb2RpOm5vZGV0eXBlcz0iY2NjYyIgLz4KICAgIDxwYXRoCiAgICAgICBzdHlsZT0iZmlsbDojODAyZTE5O2ZpbGwtb3BhY2l0eToxO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDowLjM3MDQxNztzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIgogICAgICAgZD0ibSA5MC4yNzM3MDgsNDMuNTUyMzI5IGMgOC4xMzc2OTIsMS45MjE5NzUgMjQuMjEwOTMyLDEuNzQzOTUxIDI0LjIxMDkzMiwxLjc0Mzk1MSB2IDIuMzUzNDYxIGMgMCwwIC0xNy4wNzk1MzgsMC4yNTc4MjYgLTI0LjQxNTg1LC0yLjA4NjA0NCIKICAgICAgIGlkPSJwYXRoMzEyNCIKICAgICAgIHNvZGlwb2RpOm5vZGV0eXBlcz0iY2NjYyIgLz4KICAgIDxwYXRoCiAgICAgICBzdHlsZT0iZmlsbDojMTg3OGMzO2ZpbGwtb3BhY2l0eToxO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDowLjM3MDQxNztzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIgogICAgICAgZD0ibSA5MC4xMTczMzcsMzQuNjcwMTM1IGMgNC43MTExNzgsLTAuMjgxMjY1IDI0LjM2MzI4MywtMC4xODc1MSAyNC4zNjMyODMsLTAuMTg3NTEgdiAtMi4zNTM0NjEgYyAwLDAgLTE2LjU0MDQ0NywwLjAyMzQ0IC0yNC40NjI3MjYsMC4zMDQ3MDMiCiAgICAgICBpZD0icGF0aDk0NjIiCiAgICAgICBzb2RpcG9kaTpub2RldHlwZXM9ImNjY2MiIC8+CiAgICA8cGF0aAogICAgICAgc3R5bGU9ImZpbGw6bm9uZTtmaWxsLW9wYWNpdHk6MTtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MC4zNzA0MTc7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW1pdGVybGltaXQ6NDtzdHJva2UtZGFzaGFycmF5Om5vbmU7c3Ryb2tlLW9wYWNpdHk6MSIKICAgICAgIGQ9Im0gODkuNzkwMzExLDMxLjg4NDUxMSBjIDcuMDU1MDQ3LC0wLjU4NTk2OCAyNC42OTAzMDksLTAuNzE1NDM5IDI0LjY5MDMwOSwtMC43MTU0MzkgdiAtMi4zNTM0NjEgYyAwLDAgLTE2LjExODU1LDAuMDQwMTkgLTI0LjYyNjc5NywwLjY5NjQ2NCIKICAgICAgIGlkPSJwYXRoNTQzNjEiCiAgICAgICBzb2RpcG9kaTpub2RldHlwZXM9ImNjY2MiIC8+CiAgICA8cGF0aAogICAgICAgc3R5bGU9ImZpbGw6I2YyN2ExZjtmaWxsLW9wYWNpdHk6MTtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MC4zNzA0MTc7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW1pdGVybGltaXQ6NDtzdHJva2UtZGFzaGFycmF5Om5vbmU7c3Ryb2tlLW9wYWNpdHk6MSIKICAgICAgIGQ9Im0gOTAuMTQwNzc2LDI4Ljk2NDcyMSBjIDcuNjg3ODkyLC0xLjEwMTYxOCAyNC4zMzk4NDQsLTEuMDkxNTczIDI0LjMzOTg0NCwtMS4wOTE1NzMgdiAtMi4zNTM0NiBjIDAsMCAtMTguNTY3OTY1LDAuMjA4NzAzIC0yNC4zNDU1MzMsMS40NjY1OTMiCiAgICAgICBpZD0icGF0aDU0MzYzIgogICAgICAgc29kaXBvZGk6bm9kZXR5cGVzPSJjY2NjIiAvPgogICAgPHBhdGgKICAgICAgIHN0eWxlPSJmaWxsOm5vbmU7ZmlsbC1vcGFjaXR5OjE7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjAuMzcwNDE3O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1taXRlcmxpbWl0OjQ7c3Ryb2tlLWRhc2hhcnJheTpub25lO3N0cm9rZS1vcGFjaXR5OjEiCiAgICAgICBkPSJtIDkwLjI2OTY4OSwyNi4zMjExNzYgYyA4LjEzNzY5MiwtMS45MjE5NzUgMjQuMjEwOTMxLC0xLjc0Mzk1MSAyNC4yMTA5MzEsLTEuNzQzOTUxIHYgLTIuMzUzNDYxIGMgMCwwIC0xNy4wNzk1MzcsLTAuMjU3ODI2IC0yNC40MTU4NDksMi4wODYwNDQiCiAgICAgICBpZD0icGF0aDU0MzY1IgogICAgICAgc29kaXBvZGk6bm9kZXR5cGVzPSJjY2NjIiAvPgogICAgPHBhdGgKICAgICAgIGlkPSJwYXRoOTUyNSIKICAgICAgIHN0eWxlPSJmaWxsOiMyMTllOWE7ZmlsbC1vcGFjaXR5OjE7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjAuNDQ5NzkyO3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOmJldmVsO3N0cm9rZS1taXRlcmxpbWl0OjQ7c3Ryb2tlLWRhc2hhcnJheTpub25lO3N0cm9rZS1vcGFjaXR5OjEiCiAgICAgICBkPSJNIDQwLjQ0NTIzNCwyNi41MTc4NTYgSCA3Ni42NDIxMSBsIDE1LjU3OTI0MSwtMy41MTM2MTUgYyAtMC43ODk2NzksNS41OTU2MTcgLTAuODE5NzI0LDguMDQwNzM4IDAsMTEuOTMzMDM2IDAuNzMwMDcxLDMuNDY2NTk5IDEuMTcxOTM1LDUuNDE3MDc4IDAsMTEuOTMzMDM1IEwgNzYuNjQyMTEsNDMuMzU2Njk3IEggNDAuNDQ1MjM0IGMgMi45ODMyNiwtNC4yNDI4NTkgMS43MjM2NiwtNS43Njc2MzUgMC4wMzMyLC04LjcxNzc0NyAtMS42OTA1MiwtMi45NTAxMTEgLTEuNDI1MzQsLTUuMDM4MzkzIC0wLjAzMzIsLTguMTIxMDk0IHoiCiAgICAgICBzb2RpcG9kaTpub2RldHlwZXM9ImNjY3NjY2NjYyIgLz4KICAgIDxwYXRoCiAgICAgICBzdHlsZT0iZmlsbDojMWQ3NzY0O2ZpbGwtb3BhY2l0eToxO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDowLjQ0OTc5MjtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjpiZXZlbDtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIgogICAgICAgZD0ibSA0MC42MDEyNTQsMzQuODE5MDk5IGMgLTEuOTk4NTYsMy4xOTY1NTMgLTEuNDgxOTEsNi4xMTc4NDMgLTAuMTU2MDIsOC41Mzc1OTggMi4zNDI5LC0zLjQ4NDgyMiAyLjQzMzQ2LC00LjY2MTUyNCAwLjE1NjAyLC04LjUzNzU5OCB6IgogICAgICAgaWQ9InBhdGgxMDE1NyIKICAgICAgIHNvZGlwb2RpOm5vZGV0eXBlcz0iY2NjIiAvPgogICAgPHBhdGgKICAgICAgIHN0eWxlPSJmaWxsOm5vbmU7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjAuNDQ5NzkyO3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1taXRlcmxpbWl0OjQ7c3Ryb2tlLWRhc2hhcnJheTpub25lO3N0cm9rZS1vcGFjaXR5OjEiCiAgICAgICBkPSJNIDg3Ljg3OTA1Miw1Mi4yNDAxNzkgViAxNy42MzQzNzUiCiAgICAgICBpZD0icGF0aDEwMTU5IiAvPgogICAgPHJlY3QKICAgICAgIHN0eWxlPSJmb250LXZhcmlhdGlvbi1zZXR0aW5nczpub3JtYWw7ZmlsbDpub25lO2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDowLjQ0OTc5MjtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdHJva2UtZGFzaG9mZnNldDowO3N0cm9rZS1vcGFjaXR5OjE7c3RvcC1jb2xvcjojMDAwMDAwIgogICAgICAgaWQ9InJlY3QxMDE4MyIKICAgICAgIHdpZHRoPSI5LjY3OTAxOCIKICAgICAgIGhlaWdodD0iMjYuOTgxOTIiCiAgICAgICB4PSItODAuMDU2MjgyIgogICAgICAgeT0iLTQ4LjQyODIzOCIKICAgICAgIHRyYW5zZm9ybT0ic2NhbGUoLTEpIiAvPgogICAgPHJlY3QKICAgICAgIHN0eWxlPSJmb250LXZhcmlhdGlvbi1zZXR0aW5nczpub3JtYWw7ZmlsbDpub25lO2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDowLjQ0OTc5MjtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdHJva2UtZGFzaG9mZnNldDowO3N0cm9rZS1vcGFjaXR5OjE7c3RvcC1jb2xvcjojMDAwMDAwIgogICAgICAgaWQ9InJlY3QxMDMyNCIKICAgICAgIHdpZHRoPSI1LjEwNDY5MjUiCiAgICAgICBoZWlnaHQ9IjIzLjc5OTc3NCIKICAgICAgIHg9Ii03Ni44MDc4NDYiCiAgICAgICB5PSItNDYuODM3MTY2IgogICAgICAgdHJhbnNmb3JtPSJzY2FsZSgtMSkiIC8+CiAgICA8dGV4dAogICAgICAgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIKICAgICAgIHN0eWxlPSJmb250LXNpemU6Ni4xNDkwMXB4O2xpbmUtaGVpZ2h0OjEuNWV4O2ZvbnQtZmFtaWx5OidUaW1lcyBOZXcgUm9tYW4nOy1pbmtzY2FwZS1mb250LXNwZWNpZmljYXRpb246J1RpbWVzIE5ldyBSb21hbiwgJztsZXR0ZXItc3BhY2luZzowcHg7d29yZC1zcGFjaW5nOjBweDtzdHJva2Utd2lkdGg6MC4zODQzMTMiCiAgICAgICB4PSIxMzEuMzk4MTgiCiAgICAgICB5PSIyMS45NDAzNDgiCiAgICAgICBpZD0idGV4dDQ1MjA3Ij48dHNwYW4KICAgICAgICAgc29kaXBvZGk6cm9sZT0ibGluZSIKICAgICAgICAgaWQ9InRzcGFuNDUyMDUiCiAgICAgICAgIHN0eWxlPSJmb250LXN0eWxlOm5vcm1hbDtmb250LXZhcmlhbnQ6bm9ybWFsO2ZvbnQtd2VpZ2h0Om5vcm1hbDtmb250LXN0cmV0Y2g6bm9ybWFsO2ZvbnQtZmFtaWx5OkNhbGlicmk7LWlua3NjYXBlLWZvbnQtc3BlY2lmaWNhdGlvbjpDYWxpYnJpO3N0cm9rZS13aWR0aDowLjM4NDMxMyIKICAgICAgICAgeD0iMTMxLjM5ODE4IgogICAgICAgICB5PSIyMS45NDAzNDgiPjE8L3RzcGFuPjwvdGV4dD4KICAgIDx0ZXh0CiAgICAgICB4bWw6c3BhY2U9InByZXNlcnZlIgogICAgICAgc3R5bGU9ImZvbnQtc2l6ZTo2LjE0OTAxcHg7bGluZS1oZWlnaHQ6MS41ZXg7Zm9udC1mYW1pbHk6J1RpbWVzIE5ldyBSb21hbic7LWlua3NjYXBlLWZvbnQtc3BlY2lmaWNhdGlvbjonVGltZXMgTmV3IFJvbWFuLCAnO2xldHRlci1zcGFjaW5nOjBweDt3b3JkLXNwYWNpbmc6MHB4O3N0cm9rZS13aWR0aDowLjM4NDMxMyIKICAgICAgIHg9IjEzMS41OTMzNCIKICAgICAgIHk9IjUxLjgyMTA5OCIKICAgICAgIGlkPSJ0ZXh0NDkwODEiPjx0c3BhbgogICAgICAgICBzb2RpcG9kaTpyb2xlPSJsaW5lIgogICAgICAgICBpZD0idHNwYW40OTA3OSIKICAgICAgICAgc3R5bGU9ImZvbnQtc3R5bGU6bm9ybWFsO2ZvbnQtdmFyaWFudDpub3JtYWw7Zm9udC13ZWlnaHQ6bm9ybWFsO2ZvbnQtc3RyZXRjaDpub3JtYWw7Zm9udC1mYW1pbHk6Q2FsaWJyaTstaW5rc2NhcGUtZm9udC1zcGVjaWZpY2F0aW9uOkNhbGlicmk7c3Ryb2tlLXdpZHRoOjAuMzg0MzEzIgogICAgICAgICB4PSIxMzEuNTkzMzQiCiAgICAgICAgIHk9IjUxLjgyMTA5OCI+ODwvdHNwYW4+PC90ZXh0PgogICAgPHRleHQKICAgICAgIHhtbDpzcGFjZT0icHJlc2VydmUiCiAgICAgICBzdHlsZT0iZm9udC1zaXplOjYuMTQ5MDFweDtsaW5lLWhlaWdodDoxLjVleDtmb250LWZhbWlseTonVGltZXMgTmV3IFJvbWFuJzstaW5rc2NhcGUtZm9udC1zcGVjaWZpY2F0aW9uOidUaW1lcyBOZXcgUm9tYW4sICc7bGV0dGVyLXNwYWNpbmc6MHB4O3dvcmQtc3BhY2luZzowcHg7c3Ryb2tlLXdpZHRoOjAuMzg0MzEzIgogICAgICAgeD0iODguMTcwOTM3IgogICAgICAgeT0iNjAuMTI0MzMyIgogICAgICAgaWQ9InRleHQ1MjkyMCI+PHRzcGFuCiAgICAgICAgIHNvZGlwb2RpOnJvbGU9ImxpbmUiCiAgICAgICAgIGlkPSJ0c3BhbjUyOTE4IgogICAgICAgICBzdHlsZT0iZm9udC1zdHlsZTpub3JtYWw7Zm9udC12YXJpYW50Om5vcm1hbDtmb250LXdlaWdodDpub3JtYWw7Zm9udC1zdHJldGNoOm5vcm1hbDtmb250LWZhbWlseTpDYWxpYnJpOy1pbmtzY2FwZS1mb250LXNwZWNpZmljYXRpb246Q2FsaWJyaTtzdHJva2Utd2lkdGg6MC4zODQzMTMiCiAgICAgICAgIHg9Ijg4LjE3MDkzNyIKICAgICAgICAgeT0iNjAuMTI0MzMyIj5UNTY4QjwvdHNwYW4+PC90ZXh0PgogICAgPHBhdGgKICAgICAgIGlkPSJwYXRoMzE4NCIKICAgICAgIHN0eWxlPSJmaWxsOm5vbmU7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjAuNDQ5NzkyO3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1taXRlcmxpbWl0OjQ7c3Ryb2tlLWRhc2hhcnJheTpub25lO3N0cm9rZS1vcGFjaXR5OjEiCiAgICAgICBkPSJtIDEyOC41MDk4LDQ3LjQwMTEzNyBoIC0xNC4wMjkxOCB2IC0xLjg1NjI1IGggMTQuMDI5MTggdiAtMS40Mzk2NzUgaCAtMTQuMDI5MTggdiAtMS44NTYyNSBoIDE0LjAyOTE4IHYgLTEuNDM5Njc0IGggLTE0LjAyOTE4IHYgLTEuODU2MjUgaCAxNC4wMjkxOCB2IC0xLjQzOTY3NCBoIC0xNC4wMjkxOCB2IC0xLjg1NjI1IEggMTI4LjUwOTggViAzNC4yMTc0NDEgSCAxMTQuNDgwNjIgViAzMi4zNjExOSBoIDE0LjAyOTE4IHYgLTEuNDM5Njc4IGggLTE0LjAyOTE4IHYgLTEuODU2MjUgSCAxMjguNTA5OCBWIDI3LjYyNTU5MyBIIDExNC40ODA2MiBWIDI1Ljc2OTM0MiBIIDEyOC41MDk4IFYgMjQuMzI5NjY5IEggMTE0LjQ4MDYyIFYgMjIuNDczNDE4IEggMTI4LjUwOTggViAxNy42MzQzNzUgSCA2Mi42ODcwOTQgViA1Mi4yNDAxNzkgSCAxMjguNTA5OCBaIgogICAgICAgc29kaXBvZGk6bm9kZXR5cGVzPSJjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjIiAvPgogIDwvZz4KPC9zdmc+Cg==" alt="T568B plug wire order, pins 1 through 8: white-orange, orange, white-green, blue, white-blue, green, white-brown, brown" width="373" height="187"><figcaption>T568B · <a href="https://commons.wikimedia.org/wiki/File:RJ-45_TIA-568B_Right.svg">Miha Ulanov, CC0</a></figcaption></figure>' +
+              '<figure class="pinout-figure"><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhLS0gQ3JlYXRlZCB3aXRoIElua3NjYXBlIChodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy8pIC0tPgoKPHN2ZwogICB3aWR0aD0iMTA1LjQwMzcybW0iCiAgIGhlaWdodD0iNTIuNzcxOW1tIgogICB2aWV3Qm94PSIwIDAgMTA1LjQwMzcyIDUyLjc3MTkiCiAgIHZlcnNpb249IjEuMSIKICAgaWQ9InN2ZzUiCiAgIGlua3NjYXBlOnZlcnNpb249IjEuMS4xICgzYmY1YWUwZDI1LCAyMDIxLTA5LTIwKSIKICAgc29kaXBvZGk6ZG9jbmFtZT0iUkotNDUgVElBLTU2OEEgUmlnaHQuc3ZnIgogICB4bWxuczppbmtzY2FwZT0iaHR0cDovL3d3dy5pbmtzY2FwZS5vcmcvbmFtZXNwYWNlcy9pbmtzY2FwZSIKICAgeG1sbnM6c29kaXBvZGk9Imh0dHA6Ly9zb2RpcG9kaS5zb3VyY2Vmb3JnZS5uZXQvRFREL3NvZGlwb2RpLTAuZHRkIgogICB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiAgIHhtbG5zOnN2Zz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxzb2RpcG9kaTpuYW1lZHZpZXcKICAgICBpZD0ibmFtZWR2aWV3NyIKICAgICBwYWdlY29sb3I9IiNmZmZmZmYiCiAgICAgYm9yZGVyY29sb3I9IiM2NjY2NjYiCiAgICAgYm9yZGVyb3BhY2l0eT0iMS4wIgogICAgIGlua3NjYXBlOnBhZ2VzaGFkb3c9IjIiCiAgICAgaW5rc2NhcGU6cGFnZW9wYWNpdHk9IjAuMCIKICAgICBpbmtzY2FwZTpwYWdlY2hlY2tlcmJvYXJkPSIwIgogICAgIGlua3NjYXBlOmRvY3VtZW50LXVuaXRzPSJtbSIKICAgICBzaG93Z3JpZD0iZmFsc2UiCiAgICAgaW5rc2NhcGU6b2JqZWN0LXBhdGhzPSJ0cnVlIgogICAgIGZpdC1tYXJnaW4tdG9wPSI1IgogICAgIGZpdC1tYXJnaW4tbGVmdD0iNSIKICAgICBmaXQtbWFyZ2luLXJpZ2h0PSI1IgogICAgIGZpdC1tYXJnaW4tYm90dG9tPSI1IgogICAgIGlua3NjYXBlOnpvb209IjIuMDk1Mjg2MiIKICAgICBpbmtzY2FwZTpjeD0iMTgzLjUwNzE1IgogICAgIGlua3NjYXBlOmN5PSIzOS4xMzU0NjUiCiAgICAgaW5rc2NhcGU6d2luZG93LXdpZHRoPSIxNzk5IgogICAgIGlua3NjYXBlOndpbmRvdy1oZWlnaHQ9IjkzMSIKICAgICBpbmtzY2FwZTp3aW5kb3cteD0iNzIwIgogICAgIGlua3NjYXBlOndpbmRvdy15PSIxMzEiCiAgICAgaW5rc2NhcGU6d2luZG93LW1heGltaXplZD0iMCIKICAgICBpbmtzY2FwZTpjdXJyZW50LWxheWVyPSJsYXllcjEiIC8+CiAgPGRlZnMKICAgICBpZD0iZGVmczIiIC8+CiAgPGcKICAgICBpbmtzY2FwZTpsYWJlbD0iTGF5ZXIgMSIKICAgICBpbmtzY2FwZTpncm91cG1vZGU9ImxheWVyIgogICAgIGlkPSJsYXllcjEiCiAgICAgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTM0LjI3Mjk0MiwtMTIuNDA5NDc5KSI+CiAgICA8cGF0aAogICAgICAgc3R5bGU9ImZpbGw6bm9uZTtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MC40NDk3OTI7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW1pdGVybGltaXQ6NDtzdHJva2UtZGFzaGFycmF5Om5vbmU7c3Ryb2tlLW9wYWNpdHk6MSIKICAgICAgIGQ9Im0gMTI4LjUwOTgsNDQuMjg0ODIyIGggMy4xOTAwMSB2IC0xOC42OTUwOSBoIC0zLjE5MDAxIgogICAgICAgaWQ9InBhdGgxMzI0IgogICAgICAgc29kaXBvZGk6bm9kZXR5cGVzPSJjY2NjIiAvPgogICAgPHJlY3QKICAgICAgIHN0eWxlPSJmaWxsOiNmMGZmMzQ7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOm5vbmU7c3Ryb2tlLXdpZHRoOjAuNDQ5NzkyO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdG9wLWNvbG9yOiMwMDAwMDAiCiAgICAgICBpZD0icmVjdDIwMTAiCiAgICAgICB3aWR0aD0iMTEuMTk0NjQ2IgogICAgICAgaGVpZ2h0PSIxLjg1NjI1MzEiCiAgICAgICB4PSItMTI1LjY3NTI2IgogICAgICAgeT0iLTM3LjQ5NTczOSIKICAgICAgIHRyYW5zZm9ybT0ic2NhbGUoLTEpIiAvPgogICAgPHJlY3QKICAgICAgIHN0eWxlPSJmaWxsOiNmMGZmMzQ7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOm5vbmU7c3Ryb2tlLXdpZHRoOjAuNDQ5NzkyO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdG9wLWNvbG9yOiMwMDAwMDAiCiAgICAgICBpZD0icmVjdDI3NDEiCiAgICAgICB3aWR0aD0iMTEuMTk0NjQ2IgogICAgICAgaGVpZ2h0PSIxLjg1NjI1MzEiCiAgICAgICB4PSItMTI1LjY3NTI2IgogICAgICAgeT0iLTM3LjQ5NTczOSIKICAgICAgIHRyYW5zZm9ybT0ic2NhbGUoLTEpIiAvPgogICAgPHJlY3QKICAgICAgIHN0eWxlPSJmaWxsOiNmMGZmMzQ7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOm5vbmU7c3Ryb2tlLXdpZHRoOjAuNDQ5NzkyO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdG9wLWNvbG9yOiMwMDAwMDAiCiAgICAgICBpZD0icmVjdDMwNTciCiAgICAgICB3aWR0aD0iMTEuMTk0NjQ2IgogICAgICAgaGVpZ2h0PSIxLjg1NjI1MzEiCiAgICAgICB4PSItMTI1LjY3NTI2IgogICAgICAgeT0iLTM3LjUxMzM2NyIKICAgICAgIHRyYW5zZm9ybT0ic2NhbGUoLTEpIiAvPgogICAgPHJlY3QKICAgICAgIHN0eWxlPSJmaWxsOiNmMGZmMzQ7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOm5vbmU7c3Ryb2tlLXdpZHRoOjAuNDQ5NzkyO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdG9wLWNvbG9yOiMwMDAwMDAiCiAgICAgICBpZD0icmVjdDMwODAiCiAgICAgICB3aWR0aD0iMTEuMTk0NjQ2IgogICAgICAgaGVpZ2h0PSIxLjg1NjI1MzEiCiAgICAgICB4PSItMTI1LjY3NTI2IgogICAgICAgeT0iLTQwLjgwOTI5MiIKICAgICAgIHRyYW5zZm9ybT0ic2NhbGUoLTEpIiAvPgogICAgPHJlY3QKICAgICAgIHN0eWxlPSJmaWxsOiNmMGZmMzQ7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOm5vbmU7c3Ryb2tlLXdpZHRoOjAuNDQ5NzkyO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdG9wLWNvbG9yOiMwMDAwMDAiCiAgICAgICBpZD0icmVjdDMwOTYiCiAgICAgICB3aWR0aD0iMTEuMTk0NjQ2IgogICAgICAgaGVpZ2h0PSIxLjg1NjI1MzEiCiAgICAgICB4PSItMTI1LjY3NTI2IgogICAgICAgeT0iLTQ0LjEwNTIxMyIKICAgICAgIHRyYW5zZm9ybT0ic2NhbGUoLTEpIiAvPgogICAgPHJlY3QKICAgICAgIHN0eWxlPSJmaWxsOiNmMGZmMzQ7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOm5vbmU7c3Ryb2tlLXdpZHRoOjAuNDQ5NzkyO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdG9wLWNvbG9yOiMwMDAwMDAiCiAgICAgICBpZD0icmVjdDMxMTIiCiAgICAgICB3aWR0aD0iMTEuMTk0NjQ2IgogICAgICAgaGVpZ2h0PSIxLjg1NjI1MzEiCiAgICAgICB4PSItMTI1LjY3NTI2IgogICAgICAgeT0iLTQ3LjQwMTEzOCIKICAgICAgIHRyYW5zZm9ybT0ic2NhbGUoLTEpIiAvPgogICAgPGcKICAgICAgIGlkPSJnMzA4MTIiCiAgICAgICBzdHlsZT0iZmlsbDojMTg3OGMzO2ZpbGwtb3BhY2l0eToxO3N0cm9rZS13aWR0aDowLjQ0OTc5MjtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZSIKICAgICAgIHRyYW5zZm9ybT0icm90YXRlKDE4MCw4Ni44NjUzMDcsMzQuOTM3Mjc3KSI+CiAgICAgIDxyZWN0CiAgICAgICAgIHN0eWxlPSJmaWxsOiMxODc4YzM7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOm5vbmU7c3Ryb2tlLXdpZHRoOjAuNDQ5NzkyO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdG9wLWNvbG9yOiMwMDAwMDAiCiAgICAgICAgIGlkPSJyZWN0MzA1MyIKICAgICAgICAgd2lkdGg9IjMuOTE1NDA2NyIKICAgICAgICAgaGVpZ2h0PSIyLjM1MzQ2MSIKICAgICAgICAgeD0iNjguMDc5NzQyIgogICAgICAgICB5PSIzMi4xMzAyMTEiIC8+CiAgICAgIDxwYXRoCiAgICAgICAgIGlkPSJyZWN0MzA1NSIKICAgICAgICAgc3R5bGU9ImZpbGw6IzE4NzhjMztmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2Utd2lkdGg6MC40NDk3OTI7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZS1taXRlcmxpbWl0OjQ7c3Ryb2tlLWRhc2hhcnJheTpub25lO3N0b3AtY29sb3I6IzAwMDAwMCIKICAgICAgICAgZD0ibSA3Ni44NjM3ODUsMzIuMjczNzI2IDMuOTE1NDA2LDAuMDc2NTYgdiAyLjIyMjAwOCBsIC0zLjkxNTQwNiwtMC4wODg2MyB6IgogICAgICAgICBzb2RpcG9kaTpub2RldHlwZXM9ImNjY2NjIiAvPgogICAgICA8cmVjdAogICAgICAgICBzdHlsZT0iZmlsbDojMTg3OGMzO2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTpub25lO3N0cm9rZS13aWR0aDowLjQ0OTc5MjtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6NDtzdHJva2UtZGFzaGFycmF5Om5vbmU7c3RvcC1jb2xvcjojMDAwMDAwIgogICAgICAgICBpZD0icmVjdDI4ODMiCiAgICAgICAgIHdpZHRoPSIzLjkxNTQwNjciCiAgICAgICAgIGhlaWdodD0iMi4zNTM0NjEiCiAgICAgICAgIHg9IjU5LjI0NTk3OSIKICAgICAgICAgeT0iMzIuMTMwMjExIiAvPgogICAgPC9nPgogICAgPGcKICAgICAgIGlkPSJnMjc0NDgiCiAgICAgICBzdHlsZT0iZmlsbDojODAyZTE5O2ZpbGwtb3BhY2l0eToxO3N0cm9rZS13aWR0aDowLjQ0OTc5MjtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZSIKICAgICAgIHRyYW5zZm9ybT0icm90YXRlKDE4MCw4Ni44NjUzMDcsMzQuOTM3Mjc3KSI+CiAgICAgIDxwYXRoCiAgICAgICAgIGlkPSJyZWN0MzA5OCIKICAgICAgICAgc3R5bGU9ImZpbGw6IzgwMmUxOTtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2Utd2lkdGg6MC40NDk3OTI7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZS1taXRlcmxpbWl0OjQ7c3Ryb2tlLWRhc2hhcnJheTpub25lO3N0b3AtY29sb3I6IzAwMDAwMCIKICAgICAgICAgZD0ibSA2OC4wNzgxODUsMjUuNjQxNjQyIDMuOTE0NDE0LDAuMTIxOTQ3IDAuMDAyNSwyLjIyMDIxNiAtMy45MTU0MDcsLTAuMTA5NjA3IHoiCiAgICAgICAgIHNvZGlwb2RpOm5vZGV0eXBlcz0iY2NjY2MiIC8+CiAgICAgIDxwYXRoCiAgICAgICAgIGlkPSJyZWN0MzEwMCIKICAgICAgICAgc3R5bGU9ImZpbGw6IzgwMmUxOTtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2Utd2lkdGg6MC40NDk3OTI7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZS1taXRlcmxpbWl0OjQ7c3Ryb2tlLWRhc2hhcnJheTpub25lO3N0b3AtY29sb3I6IzAwMDAwMCIKICAgICAgICAgZD0ibSA3Ni44NjM3ODUsMjYuMTkwOTc4IDMuOTE1NDA2LDAuMzU5NTE3IHYgMi4wOTI2MjMgbCAtMy45MTU0MDYsLTAuMjkzNDM1IHoiCiAgICAgICAgIHNvZGlwb2RpOm5vZGV0eXBlcz0iY2NjY2MiIC8+CiAgICAgIDxyZWN0CiAgICAgICAgIHN0eWxlPSJmaWxsOiM4MDJlMTk7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOm5vbmU7c3Ryb2tlLXdpZHRoOjAuNDQ5NzkyO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdG9wLWNvbG9yOiMwMDAwMDAiCiAgICAgICAgIGlkPSJyZWN0MzEwNiIKICAgICAgICAgd2lkdGg9IjMuOTE1NDA2NyIKICAgICAgICAgaGVpZ2h0PSIyLjM1MzQ2MSIKICAgICAgICAgeD0iNTkuMjQ1OTc5IgogICAgICAgICB5PSIyNS41MjA3MzciIC8+CiAgICA8L2c+CiAgICA8cmVjdAogICAgICAgc3R5bGU9ImZpbGw6I2YwZmYzNDtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6bm9uZTtzdHJva2Utd2lkdGg6MC40NDk3OTI7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZS1taXRlcmxpbWl0OjQ7c3Ryb2tlLWRhc2hhcnJheTpub25lO3N0b3AtY29sb3I6IzAwMDAwMCIKICAgICAgIGlkPSJyZWN0MzEyOCIKICAgICAgIHdpZHRoPSIxMS4xOTQ2NDYiCiAgICAgICBoZWlnaHQ9IjEuODU2MjUzMSIKICAgICAgIHg9Ii0xMjUuNjc1MjYiCiAgICAgICB5PSItMjQuMzI5NjciCiAgICAgICB0cmFuc2Zvcm09InNjYWxlKC0xKSIgLz4KICAgIDxyZWN0CiAgICAgICBzdHlsZT0iZmlsbDojZjBmZjM0O2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTpub25lO3N0cm9rZS13aWR0aDowLjQ0OTc5MjtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6NDtzdHJva2UtZGFzaGFycmF5Om5vbmU7c3RvcC1jb2xvcjojMDAwMDAwIgogICAgICAgaWQ9InJlY3QzMTQ0IgogICAgICAgd2lkdGg9IjExLjE5NDY0NiIKICAgICAgIGhlaWdodD0iMS44NTYyNTMxIgogICAgICAgeD0iLTEyNS42NzUyNiIKICAgICAgIHk9Ii0yNy42MjU1OTUiCiAgICAgICB0cmFuc2Zvcm09InNjYWxlKC0xKSIgLz4KICAgIDxyZWN0CiAgICAgICBzdHlsZT0iZmlsbDojZjBmZjM0O2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTpub25lO3N0cm9rZS13aWR0aDowLjQ0OTc5MjtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6NDtzdHJva2UtZGFzaGFycmF5Om5vbmU7c3RvcC1jb2xvcjojMDAwMDAwIgogICAgICAgaWQ9InJlY3QzMTYwIgogICAgICAgd2lkdGg9IjExLjE5NDY0NiIKICAgICAgIGhlaWdodD0iMS44NTYyNTMxIgogICAgICAgeD0iLTEyNS42NzUyNiIKICAgICAgIHk9Ii0zMC45MjE1MTMiCiAgICAgICB0cmFuc2Zvcm09InNjYWxlKC0xKSIgLz4KICAgIDxyZWN0CiAgICAgICBzdHlsZT0iZmlsbDojZjBmZjM0O2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTpub25lO3N0cm9rZS13aWR0aDowLjQ0OTc5MjtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6NDtzdHJva2UtZGFzaGFycmF5Om5vbmU7c3RvcC1jb2xvcjojMDAwMDAwIgogICAgICAgaWQ9InJlY3QzMTc2IgogICAgICAgd2lkdGg9IjExLjE5NDY0NiIKICAgICAgIGhlaWdodD0iMS44NTYyNTMxIgogICAgICAgeD0iLTEyNS42NzUyNiIKICAgICAgIHk9Ii0zNC4yMTc0NDIiCiAgICAgICB0cmFuc2Zvcm09InNjYWxlKC0xKSIgLz4KICAgIDxnCiAgICAgICBpZD0iZzg2NzYxIgogICAgICAgc3R5bGU9ImZpbGw6I2ZmZTY1MztmaWxsLW9wYWNpdHk6MSI+CiAgICAgIDxyZWN0CiAgICAgICAgIHN0eWxlPSJmaWxsOiNmZmU2NTM7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOm5vbmU7c3Ryb2tlLXdpZHRoOjAuNDQ5NzkyO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdG9wLWNvbG9yOiMwMDAwMDAiCiAgICAgICAgIGlkPSJyZWN0MzA2MyIKICAgICAgICAgd2lkdGg9IjExLjE5NDY0NiIKICAgICAgICAgaGVpZ2h0PSIxLjg1NjI1MzEiCiAgICAgICAgIHg9Ii0xMjUuNjc1MjYiCiAgICAgICAgIHk9Ii0zNy41MTMzNjciCiAgICAgICAgIHRyYW5zZm9ybT0ic2NhbGUoLTEpIiAvPgogICAgICA8cmVjdAogICAgICAgICBzdHlsZT0iZmlsbDojZmZlNjUzO2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTpub25lO3N0cm9rZS13aWR0aDowLjQ0OTc5MjtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6NDtzdHJva2UtZGFzaGFycmF5Om5vbmU7c3RvcC1jb2xvcjojMDAwMDAwIgogICAgICAgICBpZD0icmVjdDMwODYiCiAgICAgICAgIHdpZHRoPSIxMS4xOTQ2NDYiCiAgICAgICAgIGhlaWdodD0iMS44NTYyNTMxIgogICAgICAgICB4PSItMTI1LjY3NTI2IgogICAgICAgICB5PSItNDAuODA5MjkyIgogICAgICAgICB0cmFuc2Zvcm09InNjYWxlKC0xKSIgLz4KICAgICAgPHJlY3QKICAgICAgICAgc3R5bGU9ImZpbGw6I2ZmZTY1MztmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6bm9uZTtzdHJva2Utd2lkdGg6MC40NDk3OTI7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZS1taXRlcmxpbWl0OjQ7c3Ryb2tlLWRhc2hhcnJheTpub25lO3N0b3AtY29sb3I6IzAwMDAwMCIKICAgICAgICAgaWQ9InJlY3QzMTAyIgogICAgICAgICB3aWR0aD0iMTEuMTk0NjQ2IgogICAgICAgICBoZWlnaHQ9IjEuODU2MjUzMSIKICAgICAgICAgeD0iLTEyNS42NzUyNiIKICAgICAgICAgeT0iLTQ0LjEwNTIxMyIKICAgICAgICAgdHJhbnNmb3JtPSJzY2FsZSgtMSkiIC8+CiAgICAgIDxyZWN0CiAgICAgICAgIHN0eWxlPSJmaWxsOiNmZmU2NTM7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOm5vbmU7c3Ryb2tlLXdpZHRoOjAuNDQ5NzkyO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdG9wLWNvbG9yOiMwMDAwMDAiCiAgICAgICAgIGlkPSJyZWN0MzExOCIKICAgICAgICAgd2lkdGg9IjExLjE5NDY0NiIKICAgICAgICAgaGVpZ2h0PSIxLjg1NjI1MzEiCiAgICAgICAgIHg9Ii0xMjUuNjc1MjYiCiAgICAgICAgIHk9Ii00Ny40MDExMzgiCiAgICAgICAgIHRyYW5zZm9ybT0ic2NhbGUoLTEpIiAvPgogICAgICA8cmVjdAogICAgICAgICBzdHlsZT0iZmlsbDojZmZlNjUzO2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTpub25lO3N0cm9rZS13aWR0aDowLjQ0OTc5MjtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6NDtzdHJva2UtZGFzaGFycmF5Om5vbmU7c3RvcC1jb2xvcjojMDAwMDAwIgogICAgICAgICBpZD0icmVjdDMxMzQiCiAgICAgICAgIHdpZHRoPSIxMS4xOTQ2NDYiCiAgICAgICAgIGhlaWdodD0iMS44NTYyNTMxIgogICAgICAgICB4PSItMTI1LjY3NTI2IgogICAgICAgICB5PSItMjQuMzI5NjciCiAgICAgICAgIHRyYW5zZm9ybT0ic2NhbGUoLTEpIiAvPgogICAgICA8cmVjdAogICAgICAgICBzdHlsZT0iZmlsbDojZmZlNjUzO2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTpub25lO3N0cm9rZS13aWR0aDowLjQ0OTc5MjtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6NDtzdHJva2UtZGFzaGFycmF5Om5vbmU7c3RvcC1jb2xvcjojMDAwMDAwIgogICAgICAgICBpZD0icmVjdDMxNTAiCiAgICAgICAgIHdpZHRoPSIxMS4xOTQ2NDYiCiAgICAgICAgIGhlaWdodD0iMS44NTYyNTMxIgogICAgICAgICB4PSItMTI1LjY3NTI2IgogICAgICAgICB5PSItMjcuNjI1NTk1IgogICAgICAgICB0cmFuc2Zvcm09InNjYWxlKC0xKSIgLz4KICAgICAgPHJlY3QKICAgICAgICAgc3R5bGU9ImZpbGw6I2ZmZTY1MztmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6bm9uZTtzdHJva2Utd2lkdGg6MC40NDk3OTI7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZS1taXRlcmxpbWl0OjQ7c3Ryb2tlLWRhc2hhcnJheTpub25lO3N0b3AtY29sb3I6IzAwMDAwMCIKICAgICAgICAgaWQ9InJlY3QzMTY2IgogICAgICAgICB3aWR0aD0iMTEuMTk0NjQ2IgogICAgICAgICBoZWlnaHQ9IjEuODU2MjUzMSIKICAgICAgICAgeD0iLTEyNS42NzUyNiIKICAgICAgICAgeT0iLTMwLjkyMTUxMyIKICAgICAgICAgdHJhbnNmb3JtPSJzY2FsZSgtMSkiIC8+CiAgICAgIDxyZWN0CiAgICAgICAgIHN0eWxlPSJmaWxsOiNmZmU2NTM7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOm5vbmU7c3Ryb2tlLXdpZHRoOjAuNDQ5NzkyO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdG9wLWNvbG9yOiMwMDAwMDAiCiAgICAgICAgIGlkPSJyZWN0MzE4MiIKICAgICAgICAgd2lkdGg9IjExLjE5NDY0NiIKICAgICAgICAgaGVpZ2h0PSIxLjg1NjI1MzEiCiAgICAgICAgIHg9Ii0xMjUuNjc1MjYiCiAgICAgICAgIHk9Ii0zNC4yMTc0NDIiCiAgICAgICAgIHRyYW5zZm9ybT0ic2NhbGUoLTEpIiAvPgogICAgPC9nPgogICAgPGcKICAgICAgIGlkPSJnMzQzODkiCiAgICAgICBzdHlsZT0iZmlsbDojZjI3YTFmO2ZpbGwtb3BhY2l0eToxO3N0cm9rZS13aWR0aDowLjQ0OTc5MjtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZSIKICAgICAgIHRyYW5zZm9ybT0icm90YXRlKDE4MCw4Ni44NjUzMDcsMzQuOTM3Mjc3KSI+CiAgICAgIDxwYXRoCiAgICAgICAgIGlkPSJwYXRoOTQ2NCIKICAgICAgICAgc3R5bGU9ImZpbGw6I2YyN2ExZjtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2Utd2lkdGg6MC40NDk3OTI7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZS1taXRlcmxpbWl0OjQ7c3Ryb2tlLWRhc2hhcnJheTpub25lO3N0b3AtY29sb3I6IzAwMDAwMCIKICAgICAgICAgZD0ibSA2OC4wODM3NjEsNDEuMDU4OTQyIDMuOTE1NDA3LC0wLjA4OTUxIHYgLTIuMzI2OTY3IGwgLTMuOTE1NDA3LDAuMDYzMDEgeiIKICAgICAgICAgc29kaXBvZGk6bm9kZXR5cGVzPSJjY2NjYyIgLz4KICAgICAgPHBhdGgKICAgICAgICAgaWQ9InBhdGg5NDY2IgogICAgICAgICBzdHlsZT0iZmlsbDojZjI3YTFmO2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZS13aWR0aDowLjQ0OTc5MjtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6NDtzdHJva2UtZGFzaGFycmF5Om5vbmU7c3RvcC1jb2xvcjojMDAwMDAwIgogICAgICAgICBkPSJtIDc2Ljg2NzgwNCw0MC44NDc2NTIgMy45MTU0MDYsLTAuMTU4Njg4IDEwZS03LC0yLjI4NDA0IC0zLjkxNTQwNywwLjEzODQ4NiB6IgogICAgICAgICBzb2RpcG9kaTpub2RldHlwZXM9ImNjY2NjIiAvPgogICAgICA8cmVjdAogICAgICAgICBzdHlsZT0iZmlsbDojZjI3YTFmO2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTpub25lO3N0cm9rZS13aWR0aDowLjQ0OTc5MjtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6NDtzdHJva2UtZGFzaGFycmF5Om5vbmU7c3RvcC1jb2xvcjojMDAwMDAwIgogICAgICAgICBpZD0icmVjdDk0NjgiCiAgICAgICAgIHdpZHRoPSIzLjkxNTQwNjciCiAgICAgICAgIGhlaWdodD0iMi4zNTM0NjEiCiAgICAgICAgIHg9IjU5LjI0OTk5NiIKICAgICAgICAgeT0iLTQxLjA1ODk0MSIKICAgICAgICAgdHJhbnNmb3JtPSJzY2FsZSgxLC0xKSIgLz4KICAgIDwvZz4KICAgIDxnCiAgICAgICBpZD0iZzQxMTE5IgogICAgICAgc3R5bGU9ImZpbGw6IzY0YjgyZjtmaWxsLW9wYWNpdHk6MTtzdHJva2Utd2lkdGg6MC40NDk3OTI7c3Ryb2tlLW1pdGVybGltaXQ6NDtzdHJva2UtZGFzaGFycmF5Om5vbmUiCiAgICAgICB0cmFuc2Zvcm09InJvdGF0ZSgxODAsODYuODY1MzA3LDM0LjkzNzI3NykiPgogICAgICA8cGF0aAogICAgICAgICBpZD0icGF0aDk0ODAiCiAgICAgICAgIHN0eWxlPSJmaWxsOiM2NGI4MmY7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlLXdpZHRoOjAuNDQ5NzkyO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdG9wLWNvbG9yOiMwMDAwMDAiCiAgICAgICAgIGQ9Im0gNjguMDgzNzYxLDQ3LjUxMjk2OCAzLjkxNTQwNywtMC4yMDc4NjQgdiAtMi41MDYyMzEgbCAtMy45MTU0MDcsMC4yMTA4NjEgeiIKICAgICAgICAgc29kaXBvZGk6bm9kZXR5cGVzPSJjY2NjYyIgLz4KICAgICAgPHBhdGgKICAgICAgICAgaWQ9InBhdGg5NDgyIgogICAgICAgICBzdHlsZT0iZmlsbDojNjRiODJmO2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZS13aWR0aDowLjQ0OTc5MjtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6NDtzdHJva2UtZGFzaGFycmF5Om5vbmU7c3RvcC1jb2xvcjojMDAwMDAwIgogICAgICAgICBkPSJtIDc2Ljg2NzgwNSw0Ni44NjY0MzggMy45MTU0MDUsLTAuNTkwODAzIHYgLTIuMjYxODY4IGwgLTMuOTE1NDA2LDAuNDIyMDk5IHoiCiAgICAgICAgIHNvZGlwb2RpOm5vZGV0eXBlcz0iY2NjY2MiIC8+CiAgICAgIDxyZWN0CiAgICAgICAgIHN0eWxlPSJmaWxsOiM2NGI4MmY7ZmlsbC1vcGFjaXR5OjE7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOm5vbmU7c3Ryb2tlLXdpZHRoOjAuNDQ5NzkyO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdG9wLWNvbG9yOiMwMDAwMDAiCiAgICAgICAgIGlkPSJyZWN0OTQ4NCIKICAgICAgICAgd2lkdGg9IjMuOTE1NDA2NyIKICAgICAgICAgaGVpZ2h0PSIyLjM1MzQ2MSIKICAgICAgICAgeD0iNTkuMjQ5OTk2IgogICAgICAgICB5PSItNDcuNjUwNzkxIgogICAgICAgICB0cmFuc2Zvcm09InNjYWxlKDEsLTEpIiAvPgogICAgPC9nPgogICAgPHBhdGgKICAgICAgIHN0eWxlPSJmaWxsOm5vbmU7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjAuMzcwNDE3O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1taXRlcmxpbWl0OjQ7c3Ryb2tlLWRhc2hhcnJheTpub25lO3N0cm9rZS1vcGFjaXR5OjEiCiAgICAgICBkPSJtIDkwLjEyMTM1NiwzNS4yMDMzNzEgYyA0LjcxMTE3OCwwLjI4MTI2NSAyNC4zNjMyODQsMC4xODc1MSAyNC4zNjMyODQsMC4xODc1MSB2IDIuMzUzNDYxIGMgMCwwIC0xNi41NDA0NDgsLTAuMDIzNDQgLTI0LjQ2MjcyNywtMC4zMDQ3MDMiCiAgICAgICBpZD0icGF0aDE5MDYiCiAgICAgICBzb2RpcG9kaTpub2RldHlwZXM9ImNjY2MiIC8+CiAgICA8cGF0aAogICAgICAgc3R5bGU9ImZpbGw6I2YyN2ExZjtmaWxsLW9wYWNpdHk6MTtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MC4zNzA0MTc7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW1pdGVybGltaXQ6NDtzdHJva2UtZGFzaGFycmF5Om5vbmU7c3Ryb2tlLW9wYWNpdHk6MSIKICAgICAgIGQ9Im0gODkuNzk0MzMsMzcuOTg4OTk0IGMgNy4wNTUwNDcsMC41ODU5NjggMjQuNjkwMzEsMC43MTU0MzkgMjQuNjkwMzEsMC43MTU0MzkgdiAyLjM1MzQ2MSBjIDAsMCAtMTYuMTE4NTUxLC0wLjA0MDE5IC0yNC42MjY3OTgsLTAuNjk2NDY0IgogICAgICAgaWQ9InBhdGgzMDkyIgogICAgICAgc29kaXBvZGk6bm9kZXR5cGVzPSJjY2NjIiAvPgogICAgPHBhdGgKICAgICAgIHN0eWxlPSJmaWxsOm5vbmU7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjAuMzcwNDE3O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1taXRlcmxpbWl0OjQ7c3Ryb2tlLWRhc2hhcnJheTpub25lO3N0cm9rZS1vcGFjaXR5OjEiCiAgICAgICBkPSJtIDkwLjE0NDc5NSw0MC45MDg3ODQgYyA3LjY4Nzg5MiwxLjEwMTYxOCAyNC4zMzk4NDUsMS4wOTE1NzMgMjQuMzM5ODQ1LDEuMDkxNTczIHYgMi4zNTM0NiBjIDAsMCAtMTguNTY3OTY2LC0wLjIwODcwMyAtMjQuMzQ1NTM0LC0xLjQ2NjU5MyIKICAgICAgIGlkPSJwYXRoMzEwOCIKICAgICAgIHNvZGlwb2RpOm5vZGV0eXBlcz0iY2NjYyIgLz4KICAgIDxwYXRoCiAgICAgICBzdHlsZT0iZmlsbDojODAyZTE5O2ZpbGwtb3BhY2l0eToxO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDowLjM3MDQxNztzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIgogICAgICAgZD0ibSA5MC4yNzM3MDgsNDMuNTUyMzI5IGMgOC4xMzc2OTIsMS45MjE5NzUgMjQuMjEwOTMyLDEuNzQzOTUxIDI0LjIxMDkzMiwxLjc0Mzk1MSB2IDIuMzUzNDYxIGMgMCwwIC0xNy4wNzk1MzgsMC4yNTc4MjYgLTI0LjQxNTg1LC0yLjA4NjA0NCIKICAgICAgIGlkPSJwYXRoMzEyNCIKICAgICAgIHNvZGlwb2RpOm5vZGV0eXBlcz0iY2NjYyIgLz4KICAgIDxwYXRoCiAgICAgICBzdHlsZT0iZmlsbDojMTg3OGMzO2ZpbGwtb3BhY2l0eToxO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDowLjM3MDQxNztzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIgogICAgICAgZD0ibSA5MC4xMTczMzcsMzQuNjcwMTM1IGMgNC43MTExNzgsLTAuMjgxMjY1IDI0LjM2MzI4MywtMC4xODc1MSAyNC4zNjMyODMsLTAuMTg3NTEgdiAtMi4zNTM0NjEgYyAwLDAgLTE2LjU0MDQ0NywwLjAyMzQ0IC0yNC40NjI3MjYsMC4zMDQ3MDMiCiAgICAgICBpZD0icGF0aDk0NjIiCiAgICAgICBzb2RpcG9kaTpub2RldHlwZXM9ImNjY2MiIC8+CiAgICA8cGF0aAogICAgICAgc3R5bGU9ImZpbGw6bm9uZTtmaWxsLW9wYWNpdHk6MTtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MC4zNzA0MTc7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW1pdGVybGltaXQ6NDtzdHJva2UtZGFzaGFycmF5Om5vbmU7c3Ryb2tlLW9wYWNpdHk6MSIKICAgICAgIGQ9Im0gODkuNzkwMzExLDMxLjg4NDUxMSBjIDcuMDU1MDQ3LC0wLjU4NTk2OCAyNC42OTAzMDksLTAuNzE1NDM5IDI0LjY5MDMwOSwtMC43MTU0MzkgdiAtMi4zNTM0NjEgYyAwLDAgLTE2LjExODU1LDAuMDQwMTkgLTI0LjYyNjc5NywwLjY5NjQ2NCIKICAgICAgIGlkPSJwYXRoNTQzNjEiCiAgICAgICBzb2RpcG9kaTpub2RldHlwZXM9ImNjY2MiIC8+CiAgICA8cGF0aAogICAgICAgc3R5bGU9ImZpbGw6IzY0YjgyZjtmaWxsLW9wYWNpdHk6MTtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MC4zNzA0MTc7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW1pdGVybGltaXQ6NDtzdHJva2UtZGFzaGFycmF5Om5vbmU7c3Ryb2tlLW9wYWNpdHk6MSIKICAgICAgIGQ9Im0gOTAuMTQwNzc2LDI4Ljk2NDcyMSBjIDcuNjg3ODkyLC0xLjEwMTYxOCAyNC4zMzk4NDQsLTEuMDkxNTczIDI0LjMzOTg0NCwtMS4wOTE1NzMgdiAtMi4zNTM0NiBjIDAsMCAtMTguNTY3OTY1LDAuMjA4NzAzIC0yNC4zNDU1MzMsMS40NjY1OTMiCiAgICAgICBpZD0icGF0aDU0MzYzIgogICAgICAgc29kaXBvZGk6bm9kZXR5cGVzPSJjY2NjIiAvPgogICAgPHBhdGgKICAgICAgIHN0eWxlPSJmaWxsOm5vbmU7ZmlsbC1vcGFjaXR5OjE7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjAuMzcwNDE3O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1taXRlcmxpbWl0OjQ7c3Ryb2tlLWRhc2hhcnJheTpub25lO3N0cm9rZS1vcGFjaXR5OjEiCiAgICAgICBkPSJtIDkwLjI2OTY4OSwyNi4zMjExNzYgYyA4LjEzNzY5MiwtMS45MjE5NzUgMjQuMjEwOTMxLC0xLjc0Mzk1MSAyNC4yMTA5MzEsLTEuNzQzOTUxIHYgLTIuMzUzNDYxIGMgMCwwIC0xNy4wNzk1MzcsLTAuMjU3ODI2IC0yNC40MTU4NDksMi4wODYwNDQiCiAgICAgICBpZD0icGF0aDU0MzY1IgogICAgICAgc29kaXBvZGk6bm9kZXR5cGVzPSJjY2NjIiAvPgogICAgPHBhdGgKICAgICAgIGlkPSJwYXRoOTUyNSIKICAgICAgIHN0eWxlPSJmaWxsOiMyMTllOWE7ZmlsbC1vcGFjaXR5OjE7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjAuNDQ5NzkyO3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOmJldmVsO3N0cm9rZS1taXRlcmxpbWl0OjQ7c3Ryb2tlLWRhc2hhcnJheTpub25lO3N0cm9rZS1vcGFjaXR5OjEiCiAgICAgICBkPSJNIDQwLjQ0NTIzNCwyNi41MTc4NTYgSCA3Ni42NDIxMSBsIDE1LjU3OTI0MSwtMy41MTM2MTUgYyAtMC43ODk2NzksNS41OTU2MTcgLTAuODE5NzI0LDguMDQwNzM4IDAsMTEuOTMzMDM2IDAuNzMwMDcxLDMuNDY2NTk5IDEuMTcxOTM1LDUuNDE3MDc4IDAsMTEuOTMzMDM1IEwgNzYuNjQyMTEsNDMuMzU2Njk3IEggNDAuNDQ1MjM0IGMgMi45ODMyNiwtNC4yNDI4NTkgMS43MjM2NiwtNS43Njc2MzUgMC4wMzMyLC04LjcxNzc0NyAtMS42OTA1MiwtMi45NTAxMTEgLTEuNDI1MzQsLTUuMDM4MzkzIC0wLjAzMzIsLTguMTIxMDk0IHoiCiAgICAgICBzb2RpcG9kaTpub2RldHlwZXM9ImNjY3NjY2NjYyIgLz4KICAgIDxwYXRoCiAgICAgICBzdHlsZT0iZmlsbDojMWQ3NzY0O2ZpbGwtb3BhY2l0eToxO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDowLjQ0OTc5MjtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjpiZXZlbDtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIgogICAgICAgZD0ibSA0MC42MDEyNTQsMzQuODE5MDk5IGMgLTEuOTk4NTYsMy4xOTY1NTMgLTEuNDgxOTEsNi4xMTc4NDMgLTAuMTU2MDIsOC41Mzc1OTggMi4zNDI5LC0zLjQ4NDgyMiAyLjQzMzQ2LC00LjY2MTUyNCAwLjE1NjAyLC04LjUzNzU5OCB6IgogICAgICAgaWQ9InBhdGgxMDE1NyIKICAgICAgIHNvZGlwb2RpOm5vZGV0eXBlcz0iY2NjIiAvPgogICAgPHBhdGgKICAgICAgIHN0eWxlPSJmaWxsOm5vbmU7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjAuNDQ5NzkyO3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1taXRlcmxpbWl0OjQ7c3Ryb2tlLWRhc2hhcnJheTpub25lO3N0cm9rZS1vcGFjaXR5OjEiCiAgICAgICBkPSJNIDg3Ljg3OTA1Miw1Mi4yNDAxNzkgViAxNy42MzQzNzUiCiAgICAgICBpZD0icGF0aDEwMTU5IiAvPgogICAgPHJlY3QKICAgICAgIHN0eWxlPSJmb250LXZhcmlhdGlvbi1zZXR0aW5nczpub3JtYWw7ZmlsbDpub25lO2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDowLjQ0OTc5MjtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdHJva2UtZGFzaG9mZnNldDowO3N0cm9rZS1vcGFjaXR5OjE7c3RvcC1jb2xvcjojMDAwMDAwIgogICAgICAgaWQ9InJlY3QxMDE4MyIKICAgICAgIHdpZHRoPSI5LjY3OTAxOCIKICAgICAgIGhlaWdodD0iMjYuOTgxOTIiCiAgICAgICB4PSItODAuMDU2MjgyIgogICAgICAgeT0iLTQ4LjQyODIzOCIKICAgICAgIHRyYW5zZm9ybT0ic2NhbGUoLTEpIiAvPgogICAgPHJlY3QKICAgICAgIHN0eWxlPSJmb250LXZhcmlhdGlvbi1zZXR0aW5nczpub3JtYWw7ZmlsbDpub25lO2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDowLjQ0OTc5MjtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZTtzdHJva2UtZGFzaG9mZnNldDowO3N0cm9rZS1vcGFjaXR5OjE7c3RvcC1jb2xvcjojMDAwMDAwIgogICAgICAgaWQ9InJlY3QxMDMyNCIKICAgICAgIHdpZHRoPSI1LjEwNDY5MjUiCiAgICAgICBoZWlnaHQ9IjIzLjc5OTc3NCIKICAgICAgIHg9Ii03Ni44MDc4NDYiCiAgICAgICB5PSItNDYuODM3MTY2IgogICAgICAgdHJhbnNmb3JtPSJzY2FsZSgtMSkiIC8+CiAgICA8dGV4dAogICAgICAgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIKICAgICAgIHN0eWxlPSJmb250LXNpemU6Ni4xNDkwMXB4O2xpbmUtaGVpZ2h0OjEuNWV4O2ZvbnQtZmFtaWx5OidUaW1lcyBOZXcgUm9tYW4nOy1pbmtzY2FwZS1mb250LXNwZWNpZmljYXRpb246J1RpbWVzIE5ldyBSb21hbiwgJztsZXR0ZXItc3BhY2luZzowcHg7d29yZC1zcGFjaW5nOjBweDtzdHJva2Utd2lkdGg6MC4zODQzMTMiCiAgICAgICB4PSIxMzEuMzk4MTgiCiAgICAgICB5PSIyMS45NDAzNDgiCiAgICAgICBpZD0idGV4dDQ1MjA3Ij48dHNwYW4KICAgICAgICAgc29kaXBvZGk6cm9sZT0ibGluZSIKICAgICAgICAgaWQ9InRzcGFuNDUyMDUiCiAgICAgICAgIHN0eWxlPSJmb250LXN0eWxlOm5vcm1hbDtmb250LXZhcmlhbnQ6bm9ybWFsO2ZvbnQtd2VpZ2h0Om5vcm1hbDtmb250LXN0cmV0Y2g6bm9ybWFsO2ZvbnQtZmFtaWx5OkNhbGlicmk7LWlua3NjYXBlLWZvbnQtc3BlY2lmaWNhdGlvbjpDYWxpYnJpO3N0cm9rZS13aWR0aDowLjM4NDMxMyIKICAgICAgICAgeD0iMTMxLjM5ODE4IgogICAgICAgICB5PSIyMS45NDAzNDgiPjE8L3RzcGFuPjwvdGV4dD4KICAgIDx0ZXh0CiAgICAgICB4bWw6c3BhY2U9InByZXNlcnZlIgogICAgICAgc3R5bGU9ImZvbnQtc2l6ZTo2LjE0OTAxcHg7bGluZS1oZWlnaHQ6MS41ZXg7Zm9udC1mYW1pbHk6J1RpbWVzIE5ldyBSb21hbic7LWlua3NjYXBlLWZvbnQtc3BlY2lmaWNhdGlvbjonVGltZXMgTmV3IFJvbWFuLCAnO2xldHRlci1zcGFjaW5nOjBweDt3b3JkLXNwYWNpbmc6MHB4O3N0cm9rZS13aWR0aDowLjM4NDMxMyIKICAgICAgIHg9IjEzMS41OTMzNCIKICAgICAgIHk9IjUxLjgyMTA5OCIKICAgICAgIGlkPSJ0ZXh0NDkwODEiPjx0c3BhbgogICAgICAgICBzb2RpcG9kaTpyb2xlPSJsaW5lIgogICAgICAgICBpZD0idHNwYW40OTA3OSIKICAgICAgICAgc3R5bGU9ImZvbnQtc3R5bGU6bm9ybWFsO2ZvbnQtdmFyaWFudDpub3JtYWw7Zm9udC13ZWlnaHQ6bm9ybWFsO2ZvbnQtc3RyZXRjaDpub3JtYWw7Zm9udC1mYW1pbHk6Q2FsaWJyaTstaW5rc2NhcGUtZm9udC1zcGVjaWZpY2F0aW9uOkNhbGlicmk7c3Ryb2tlLXdpZHRoOjAuMzg0MzEzIgogICAgICAgICB4PSIxMzEuNTkzMzQiCiAgICAgICAgIHk9IjUxLjgyMTA5OCI+ODwvdHNwYW4+PC90ZXh0PgogICAgPHRleHQKICAgICAgIHhtbDpzcGFjZT0icHJlc2VydmUiCiAgICAgICBzdHlsZT0iZm9udC1zaXplOjYuMTQ5MDFweDtsaW5lLWhlaWdodDoxLjVleDtmb250LWZhbWlseTonVGltZXMgTmV3IFJvbWFuJzstaW5rc2NhcGUtZm9udC1zcGVjaWZpY2F0aW9uOidUaW1lcyBOZXcgUm9tYW4sICc7bGV0dGVyLXNwYWNpbmc6MHB4O3dvcmQtc3BhY2luZzowcHg7c3Ryb2tlLXdpZHRoOjAuMzg0MzEzIgogICAgICAgeD0iODguMTcwOTM3IgogICAgICAgeT0iNjAuMTI0MzMyIgogICAgICAgaWQ9InRleHQ1MjkyMCI+PHRzcGFuCiAgICAgICAgIHNvZGlwb2RpOnJvbGU9ImxpbmUiCiAgICAgICAgIGlkPSJ0c3BhbjUyOTE4IgogICAgICAgICBzdHlsZT0iZm9udC1zdHlsZTpub3JtYWw7Zm9udC12YXJpYW50Om5vcm1hbDtmb250LXdlaWdodDpub3JtYWw7Zm9udC1zdHJldGNoOm5vcm1hbDtmb250LWZhbWlseTpDYWxpYnJpOy1pbmtzY2FwZS1mb250LXNwZWNpZmljYXRpb246Q2FsaWJyaTtzdHJva2Utd2lkdGg6MC4zODQzMTMiCiAgICAgICAgIHg9Ijg4LjE3MDkzNyIKICAgICAgICAgeT0iNjAuMTI0MzMyIj5UNTY4QTwvdHNwYW4+PC90ZXh0PgogICAgPHBhdGgKICAgICAgIGlkPSJwYXRoMzE4NCIKICAgICAgIHN0eWxlPSJmaWxsOm5vbmU7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjAuNDQ5NzkyO3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1taXRlcmxpbWl0OjQ7c3Ryb2tlLWRhc2hhcnJheTpub25lO3N0cm9rZS1vcGFjaXR5OjEiCiAgICAgICBkPSJtIDEyOC41MDk4LDQ3LjQwMTEzNyBoIC0xNC4wMjkxOCB2IC0xLjg1NjI1IGggMTQuMDI5MTggdiAtMS40Mzk2NzUgaCAtMTQuMDI5MTggdiAtMS44NTYyNSBoIDE0LjAyOTE4IHYgLTEuNDM5Njc0IGggLTE0LjAyOTE4IHYgLTEuODU2MjUgaCAxNC4wMjkxOCB2IC0xLjQzOTY3NCBoIC0xNC4wMjkxOCB2IC0xLjg1NjI1IEggMTI4LjUwOTggViAzNC4yMTc0NDEgSCAxMTQuNDgwNjIgViAzMi4zNjExOSBoIDE0LjAyOTE4IHYgLTEuNDM5Njc4IGggLTE0LjAyOTE4IHYgLTEuODU2MjUgSCAxMjguNTA5OCBWIDI3LjYyNTU5MyBIIDExNC40ODA2MiBWIDI1Ljc2OTM0MiBIIDEyOC41MDk4IFYgMjQuMzI5NjY5IEggMTE0LjQ4MDYyIFYgMjIuNDczNDE4IEggMTI4LjUwOTggViAxNy42MzQzNzUgSCA2Mi42ODcwOTQgViA1Mi4yNDAxNzkgSCAxMjguNTA5OCBaIgogICAgICAgc29kaXBvZGk6bm9kZXR5cGVzPSJjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjIiAvPgogIDwvZz4KPC9zdmc+Cg==" alt="T568A plug wire order, pins 1 through 8: white-green, green, white-orange, blue, white-blue, orange, white-brown, brown" width="373" height="187"><figcaption>T568A · <a href="https://commons.wikimedia.org/wiki/File:RJ-45_TIA-568A_Right.svg">Miha Ulanov, CC0</a></figcaption></figure>' +
+            '</div>'
+          : '<div class="cmd-code-box" data-copy="' + escapeHtml(window.CheatSheetCommon.commandForCopy(item.cmd)) + '" title="Click to copy command">' +
+              '<code class="cmd-code">' + highlightCommand(item.cmd) + '</code>' +
+              '<span class="copy-hint">Copy</span>' +
+            '</div>';
+
         return (
           '<div class="cmd-item" id="' + item.id + '" data-id="' + item.id + '">' +
             '<div class="cmd-top-row">' +
@@ -75644,10 +77257,7 @@ ${log}
                 '</button>' +
               '</div>' +
             '</div>' +
-            '<div class="cmd-code-box" data-copy="' + escapeHtml(window.CheatSheetCommon.commandForCopy(item.cmd)) + '" title="Click to copy command">' +
-              '<code class="cmd-code">' + highlightCommand(item.cmd) + '</code>' +
-              '<span class="copy-hint">Copy</span>' +
-            '</div>' +
+            commandHtml +
             detailsHtml +
             flagsHtml +
             subcommandsHtml +
@@ -75700,7 +77310,7 @@ ${log}
 
   function applyDensity(compact) {
     state.compact = compact;
-    document.body.classList.toggle('compact-density', compact);
+    document.body.classList.toggle('compact-mode', compact);
     densityLabel.textContent = compact ? 'Relaxed' : 'Compact';
     localStorage.setItem('linux_cs_compact', compact ? '1' : '0');
     packMasonry();
@@ -75803,6 +77413,78 @@ ${log}
   applyDensity(state.compact);
   initEvents();
 })();
+  </script>
+  <script>
+// Fill the on-page Jira examples without changing the source recipes.
+// The portable build embeds this same script and form.
+(function () {
+  'use strict';
+  const tokens = {
+    project: 'PROJECT_KEY',
+    site: 'SITE_ID',
+    node: 'NODE_NAME',
+    rack: 'RACK_ID',
+    position: 'POSITION',
+    serial: 'SERIAL_NUMBER',
+    ticket: 'DC-123'
+  };
+  const storageKey = 'codex_jira_query_fields';
+  let values = {};
+  try { values = JSON.parse(localStorage.getItem(storageKey) || '{}') || {}; } catch (_) {}
+  const form = document.getElementById('jira-form');
+  const container = document.getElementById('sections-container');
+  if (!form || !container) return;
+
+  function fill(template) {
+    let query = template;
+    for (const [field, token] of Object.entries(tokens)) {
+      const raw = String(values[field] || '').trim();
+      if (!raw) continue;
+      // Quoted JQL phrases already surround most tokens. Escape their contents.
+      const value = raw.replace(/[\\"]/g, char => '\\' + char);
+      query = query.split(token).join(value);
+    }
+    return query;
+  }
+
+  function refresh() {
+    const portable = Boolean(window.PortableNavigation);
+    const onJira = !portable || location.hash.startsWith('#sheet-jira');
+    form.hidden = !onJira;
+    if (!onJira) return;
+    for (const box of container.querySelectorAll('.cmd-code-box[data-cmd], .cmd-code-box[data-copy]')) {
+      if (!box.dataset.jqlTemplate) box.dataset.jqlTemplate = box.dataset.cmd || box.dataset.copy;
+      const query = fill(box.dataset.jqlTemplate);
+      if (box.dataset.cmd !== undefined) box.dataset.cmd = query;
+      if (box.dataset.copy !== undefined) box.dataset.copy = query;
+      const code = box.querySelector('.cmd-code');
+      if (code && code.textContent !== query) code.textContent = query;
+    }
+  }
+
+  for (const field of Object.keys(tokens)) {
+    const input = document.getElementById('jira-' + field);
+    if (!input) continue;
+    input.value = values[field] || '';
+    input.addEventListener('input', () => {
+      values[field] = input.value;
+      try { localStorage.setItem(storageKey, JSON.stringify(values)); } catch (_) {}
+      refresh();
+    });
+  }
+  document.getElementById('jira-clear-btn')?.addEventListener('click', () => {
+    values = {};
+    for (const field of Object.keys(tokens)) document.getElementById('jira-' + field).value = '';
+    try { localStorage.removeItem(storageKey); } catch (_) {}
+    refresh();
+  });
+  // Search and bookmark filters rebuild cards. Refresh their displayed JQL too.
+  new MutationObserver(refresh).observe(container, {childList: true, subtree: true});
+  window.addEventListener('hashchange', refresh);
+  window.JiraQueryForm = {refresh};
+  refresh();
+})();
+
   </script>
 </body>
 </html>

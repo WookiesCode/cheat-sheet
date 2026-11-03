@@ -502,7 +502,7 @@ function applyTheme(theme) {
 
 function applyDensity(compact) {
   state.compact = compact;
-  document.body.classList.toggle("compact-density", compact);
+  document.body.classList.toggle("compact-mode", compact);
   densityLabel.textContent = compact ? "Relaxed" : "Compact";
   localStorage.setItem("linux_cs_compact", compact ? "1" : "0");
   packMasonry();

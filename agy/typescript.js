@@ -554,7 +554,12 @@ function applyTheme(theme) {
 function applyDensity(compact) {
   state.compact = compact;
   document.body.classList.toggle("compact-density", compact);
-  densityLabel.textContent = compact ? "Relaxed" : "Compact";
+  document.body.classList.toggle("compact-mode", compact);
+  if (densityToggleBtn) {
+    densityToggleBtn.classList.toggle("active", compact);
+    densityToggleBtn.setAttribute("aria-pressed", compact ? "true" : "false");
+  }
+  if (densityLabel) densityLabel.textContent = compact ? "Relaxed" : "Compact";
   localStorage.setItem("linux_cs_compact", compact ? "1" : "0");
   packMasonry();
 }

@@ -5,6 +5,310 @@ const fs = require('fs');
 const path = require('path');
 
 const SCRIPTING_LANGUAGES = [
+{
+  "key": "lua",
+  "file": "lua.html",
+  "js": "lua.js",
+  "varName": "LUA_DATA",
+  "name": "Lua",
+  "title": "Lua Scripting",
+  "subtitle": "Tables, functions, modules, error handling & log parsing",
+  "pill": "Lua 5.4 / LuaJIT notes",
+  "prompt": "lua",
+  "cursor": ">",
+  "sections": [
+    {
+      "id": "lua-basics",
+      "badge": "LUA",
+      "title": "Lua Basics & Running Scripts",
+      "subtitle": "Run Lua code in the interpreter, not directly in a shell",
+      "commands": [
+        {
+          "id": "lua-run",
+          "desc": "Check the interpreter, run a script, or evaluate a short expression",
+          "cmd": "lua -v\nlua script.lua node-a\nlua -e 'print(\"hello\")'\nluac -p script.lua",
+          "details": "Shell commands. lua runs a script; -e evaluates code; luac -p checks syntax without running the script. These examples target Lua 5.4. Neovim and other embedded hosts may use LuaJIT with Lua 5.1 semantics.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+          "tags": [
+            "lua",
+            "scripting",
+            "cli",
+            "interpreter",
+            "syntax"
+          ]
+        },
+        {
+          "id": "lua-variables",
+          "desc": "Local variables, types, nil, and conversion",
+          "cmd": "local host = \"node-a\"\nlocal count = 8\nlocal enabled = false\nlocal missing = nil\nprint(type(host), tonumber(\"42\"), tostring(enabled))\nprint(0 and \"zero is truthy\")",
+          "details": "Prefer local variables: assignments without local normally set globals. Only false and nil are falsey; 0 and the empty string are truthy. Lua is case-sensitive. -- starts a line comment; --[[ ... ]] is a block comment.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+          "tags": [
+            "lua",
+            "scripting",
+            "variables",
+            "scope",
+            "types"
+          ]
+        },
+        {
+          "id": "lua-strings",
+          "desc": "Concatenate and format strings",
+          "cmd": "local host = \"node-a\"\nlocal status = \"healthy\"\nprint(host .. \": \" .. status)\nprint(string.format(\"%s has %d GPUs\", host, 8))\nlocal message = [[first line\nsecond line]]\nprint(message)",
+          "details": "Use .. for concatenation; + is arithmetic. Strings are immutable byte sequences; # returns byte length, not Unicode character count. Long bracket strings preserve newlines.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+          "tags": [
+            "lua",
+            "scripting",
+            "strings",
+            "format"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lua-control",
+      "badge": "LUA",
+      "title": "Conditions, Loops & Tables",
+      "subtitle": "Tables implement both sequences and key/value maps",
+      "commands": [
+        {
+          "id": "lua-conditions",
+          "desc": "if / elseif / else, comparisons, and boolean logic",
+          "cmd": "local temperature = 74\nif temperature >= 85 then\n  print(\"critical\")\nelseif temperature >= 70 then\n  print(\"warm\")\nelse\n  print(\"normal\")\nend\nprint(temperature ~= 0 and \"sensor available\")",
+          "details": "Use == to compare and ~= for not equal. and/or return operands rather than forcing booleans. An or default also replaces false; use an explicit nil check when false is a valid value.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+          "tags": [
+            "lua",
+            "scripting",
+            "if",
+            "conditions",
+            "boolean"
+          ]
+        },
+        {
+          "id": "lua-loops",
+          "desc": "Numeric for, while, repeat, and break",
+          "cmd": "for i = 1, 3 do print(i) end\nlocal n = 3\nwhile n > 0 do n = n - 1 end\nrepeat n = n + 1 until n == 3\nfor i = 1, 10 do\n  if i == 4 then break end\n  print(i)\nend",
+          "details": "Numeric for includes both endpoints. repeat tests its condition after the body. Lua has no standard continue keyword; structure the body with if.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+          "tags": [
+            "lua",
+            "scripting",
+            "for",
+            "while",
+            "repeat",
+            "loops"
+          ]
+        },
+        {
+          "id": "lua-tables",
+          "desc": "Sequences, maps, and safe field access",
+          "cmd": "local nodes = {\"node-a\", \"node-b\"}\ntable.insert(nodes, \"node-c\")\nfor i, name in ipairs(nodes) do print(i, name) end\nlocal inventory = {host = \"node-a\", gpus = 8}\nfor key, value in pairs(inventory) do print(key, value) end\nprint(inventory.host, inventory[\"gpus\"])",
+          "details": "Sequence indices conventionally begin at 1. ipairs stops at the first absent integer entry; pairs order is unspecified. The length operator # is reliable for dense sequences, not a general count of keys or sparse entries. Assign nil to remove a key.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+          "tags": [
+            "lua",
+            "scripting",
+            "tables",
+            "arrays",
+            "maps",
+            "pairs",
+            "ipairs"
+          ]
+        },
+        {
+          "id": "lua-sort",
+          "desc": "Sort records and join a sequence",
+          "cmd": "local nodes = {{name=\"b\", errors=2}, {name=\"a\", errors=0}}\ntable.sort(nodes, function(a, b) return a.name < b.name end)\nlocal names = {}\nfor _, node in ipairs(nodes) do names[#names + 1] = node.name end\nprint(table.concat(names, \", \"))",
+          "details": "table.sort mutates its input; provide a strict ordering comparator. table.concat joins a sequence of strings or numbers. Tables are references: assigning a table to another variable does not copy it.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+          "tags": [
+            "lua",
+            "scripting",
+            "sort",
+            "tables",
+            "join"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lua-functions",
+      "badge": "LUA",
+      "title": "Functions, Modules & Error Handling",
+      "subtitle": "Reusable helpers and protected calls",
+      "commands": [
+        {
+          "id": "lua-functions",
+          "desc": "Functions, multiple results, and closures",
+          "cmd": "local function divide(a, b)\n  if b == 0 then return nil, \"division by zero\" end\n  return a / b\nend\nlocal value, err = divide(12, 3)\nprint(value, err)\nlocal function counter()\n  local n = 0\n  return function() n = n + 1; return n end\nend\nlocal next_id = counter()\nprint(next_id(), next_id())",
+          "details": "Functions are first-class values and can return multiple results. Closures retain access to surrounding local variables. Parentheses around a function call can reduce its results to one value.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+          "tags": [
+            "lua",
+            "scripting",
+            "functions",
+            "closures",
+            "returns"
+          ]
+        },
+        {
+          "id": "lua-errors",
+          "desc": "Catch a runtime error with pcall",
+          "cmd": "local ok, result = pcall(function()\n  local value = tonumber(\"bad input\")\n  assert(value, \"expected a number\")\n  return value * 2\nend)\nif ok then print(result) else io.stderr:write(tostring(result), \"\\n\") end",
+          "details": "pcall returns true plus results on success, or false plus the error object on failure. It does not validate the safety of executing untrusted Lua code.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+          "tags": [
+            "lua",
+            "scripting",
+            "errors",
+            "pcall",
+            "assert"
+          ]
+        },
+        {
+          "id": "lua-module",
+          "desc": "A module file and its caller",
+          "cmd": "-- inventory.lua\nlocal M = {}\nfunction M.gpu_count(node) return node.gpus or 0 end\nreturn M",
+          "details": "Save this as inventory.lua. In a separate script: local inventory = require(\"inventory\"); print(inventory.gpu_count({gpus=8})). require uses package.path and caches loaded modules in package.loaded. This snippet is the module file only.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+          "tags": [
+            "lua",
+            "scripting",
+            "module",
+            "require",
+            "package"
+          ]
+        },
+        {
+          "id": "lua-methods",
+          "desc": "Metatables and colon method calls",
+          "cmd": "local Node = {}\nNode.__index = Node\nfunction Node.new(name)\n  return setmetatable({name = name}, Node)\nend\nfunction Node:describe() return \"Node: \" .. self.name end\nlocal node = Node.new(\"node-a\")\nprint(node:describe())",
+          "details": "The colon call passes the receiver as the first argument (self). __index provides fallback lookups; Lua tables and metatables can model objects without a built-in class keyword.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+          "tags": [
+            "lua",
+            "scripting",
+            "metatable",
+            "methods",
+            "self"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lua-io",
+      "badge": "LUA",
+      "title": "Files, Arguments & Log Parsing",
+      "subtitle": "Read-only examples for inventory and diagnostic text",
+      "commands": [
+        {
+          "id": "lua-args",
+          "desc": "Command-line arguments and environment variables",
+          "cmd": "local host = arg[1] or \"node-a\"\nlocal home = os.getenv(\"HOME\") or \".\"\nprint(host, home)",
+          "details": "Run as lua script.lua node-a. arg[0] contains the script name; arg[1] is the first argument. arg is provided by the standalone interpreter and may be absent in embedded hosts.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+          "tags": [
+            "lua",
+            "scripting",
+            "arguments",
+            "environment",
+            "cli"
+          ]
+        },
+        {
+          "id": "lua-file",
+          "desc": "Read a text file and close it explicitly",
+          "cmd": "local file, err = io.open(\"inventory.txt\", \"r\")\nif not file then\n  io.stderr:write(tostring(err), \"\\n\")\nelse\n  for line in file:lines() do print(line) end\n  file:close()\nend",
+          "details": "Mode r reads an existing file and does not create it. Always close handles. io.lines(filename) can also iterate a file and closes it when iteration reaches EOF; breaking early needs deliberate cleanup.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+          "tags": [
+            "lua",
+            "scripting",
+            "file",
+            "io",
+            "read"
+          ]
+        },
+        {
+          "id": "lua-patterns",
+          "desc": "Parse key=value records with Lua patterns",
+          "cmd": "local line = \"host=node-a gpus=8 state=healthy\"\nlocal values = {}\nfor key, value in line:gmatch(\"([%w_]+)=([^%s]+)\") do\n  values[key] = value\nend\nprint(values.host, tonumber(values.gpus))",
+          "details": "Lua patterns are not PCRE regular expressions: %d matches digits, %s whitespace, and captures use parentheses. There is no regex alternation operator |. This simple parser does not support quoted values containing spaces.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+          "tags": [
+            "lua",
+            "scripting",
+            "patterns",
+            "parsing",
+            "logs"
+          ]
+        },
+        {
+          "id": "lua-logs",
+          "desc": "Count Xid messages in diagnostic text",
+          "cmd": "local sample = \"GPU Xid 79\\nhealthy\\nGPU Xid 48\\nGPU Xid 79\\n\"\nlocal counts = {}\nfor xid in sample:gmatch(\"Xid%s+(%d+)\") do\n  counts[xid] = (counts[xid] or 0) + 1\nend\nlocal keys = {}\nfor key in pairs(counts) do keys[#keys + 1] = key end\ntable.sort(keys, function(a,b) return tonumber(a) < tonumber(b) end)\nfor _, key in ipairs(keys) do print(key, counts[key]) end",
+          "details": "Counts the simplified Xid <number> format in sample text. Real driver log formats vary; adapt the pattern to captured lines. Counts are evidence to investigate, not a hardware diagnosis.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+          "tags": [
+            "lua",
+            "scripting",
+            "logs",
+            "gpu",
+            "xid",
+            "recipe"
+          ]
+        },
+        {
+          "id": "lua-coroutines",
+          "desc": "Cooperative coroutine execution",
+          "cmd": "local co = coroutine.create(function()\n  for i = 1, 2 do coroutine.yield(i) end\nend)\nwhile coroutine.status(co) ~= \"dead\" do\n  local ok, value = coroutine.resume(co)\n  assert(ok, value)\n  if value ~= nil then print(value) end\nend",
+          "details": "Coroutines cooperate by yielding; they do not automatically execute in parallel or turn blocking I/O into asynchronous I/O.",
+          "flags": [],
+          "subcommands": [],
+          "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+          "tags": [
+            "lua",
+            "scripting",
+            "coroutine",
+            "yield"
+          ]
+        }
+      ]
+    }
+  ]
+},
   // 1. BASH & SHELL
   {
     key: 'bash',
@@ -1133,6 +1437,8 @@ const SCRIPTING_DROPDOWN_HTML = `
                   <a href="scripting.html" class="dropdown-item" role="menuitem">📑 All-in-One Hub</a>
                   <div class="dropdown-divider"></div>
                   <a href="bash.html" class="dropdown-item" role="menuitem">🐚 Bash &amp; Shell</a>
+                  <a href="git.html" class="dropdown-item" role="menuitem">🌿 Git Commands</a>
+                  <a href="lua.html" class="dropdown-item" role="menuitem">🌙 Lua Scripting</a>
                   <a href="python.html" class="dropdown-item" role="menuitem">🐍 Python</a>
                   <a href="javascript.html" class="dropdown-item" role="menuitem">⚡ JavaScript</a>
                   <a href="typescript.html" class="dropdown-item" role="menuitem">🔷 TypeScript</a>
@@ -1503,7 +1809,7 @@ function applyTheme(theme) {
 
 function applyDensity(compact) {
   state.compact = compact;
-  document.body.classList.toggle("compact-density", compact);
+  document.body.classList.toggle("compact-mode", compact);
   densityLabel.textContent = compact ? "Relaxed" : "Compact";
   localStorage.setItem("linux_cs_compact", compact ? "1" : "0");
   packMasonry();

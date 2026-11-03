@@ -625,8 +625,8 @@ const state = {
   searchQuery: "",
   activeCategory: "all",
   savedOnly: false,
-  compactMode: localStorage.getItem("mb_sheet_compact") === "true",
-  theme: localStorage.getItem("mb_sheet_theme") || "dark",
+  compactMode: localStorage.getItem("linux_cs_compact") === "1" || localStorage.getItem("mb_sheet_compact") === "true",
+  theme: localStorage.getItem("linux_cs_theme") || "dark",
   savedIds: new Set(JSON.parse(localStorage.getItem("mb_sheet_saved") || "[]"))
 };
 
@@ -667,13 +667,15 @@ function initPostDecoder() {
   const actionOut = document.getElementById("post-action-output");
   const quickBtns = document.querySelectorAll(".post-quick-btn");
 
+  if (!phaseBadge || !meaningOut || !actionOut) return;
+
   function lookupCode(raw) {
     const clean = (raw || "").trim().replace(/^0x/i, "").toUpperCase();
     if (!clean) return;
     const entry = POST_CODE_DICTIONARY[clean];
     if (entry) {
       phaseBadge.textContent = entry.phase;
-      phaseBadge.style.color = entry.color;
+      if (phaseBadge.style) phaseBadge.style.color = entry.color;
       meaningOut.textContent = entry.meaning;
       actionOut.innerHTML = `<strong>Rack Action:</strong> ${escapeHtml(entry.action)}`;
     } else {
@@ -692,7 +694,7 @@ function initPostDecoder() {
         else if (num >= 0xE0 && num <= 0xFF) rangeHint = "AMD EPYC AGESA ABL Stage 1 / S3 Resume / Flash Range";
       }
       phaseBadge.textContent = rangeHint.toUpperCase();
-      phaseBadge.style.color = "var(--accent-secondary)";
+      if (phaseBadge.style) phaseBadge.style.color = "var(--accent-secondary)";
       meaningOut.textContent = `0x${clean} — ${rangeHint}`;
       actionOut.innerHTML = `<strong>Rack Action:</strong> Type <code>${escapeHtml(clean)}</code> into the search box above to filter matching command cards, or inspect the BMC Event Log (SEL) and POST Code history in ASUS ASMB / GIGABYTE GSM.`;
     }
@@ -717,15 +719,11 @@ function initPhaseTabs() {
   function renderPhase(key) {
     const items = PHASE_REFERENCE[key] || [];
     grid.innerHTML = items.map(([k, v]) => `
-      <div class="kv-item" data-copy="${escapeHtml(k)}" title="Click to copy ${escapeHtml(k)}">
+      <div class="kv-item">
         <span class="kv-key">${escapeHtml(k)}</span>
         <span class="kv-val">${escapeHtml(v)}</span>
       </div>
     `).join("");
-
-    grid.querySelectorAll(".kv-item").forEach((el) => {
-      el.addEventListener("click", () => copyText(el.dataset.copy, `Copied ${el.dataset.copy}`));
-    });
   }
 
   tabs.forEach((tab) => {
@@ -737,6 +735,41 @@ function initPhaseTabs() {
   });
 
   renderPhase("pei");
+}
+
+function isRunnableCommand(cmd) {
+  if (!cmd || typeof cmd !== 'string') return false;
+  const s = cmd.trim();
+  if (!s) return false;
+
+  if (/^POST\s+0x/i.test(s)) return false;
+  if (/^Stage\s+[0-9]:/i.test(s)) return false;
+  if (/^1-DIMM\b/i.test(s)) return false;
+  if (/^BMC_LED/i.test(s)) return false;
+  if (/^BMC_RDY/i.test(s)) return false;
+  if (/^Above\s+4G\b/i.test(s)) return false;
+  if (/POST\s+0x[0-9A-Fa-f]{2}/.test(s) && (s.includes(" -> ") || s.includes(" | "))) return false;
+
+  if (/^T568[AB]\b/i.test(s)) return false;
+
+  if (/^\[Transceiver/i.test(s)) return false;
+  if (/^Switch\s+Port:\s+OSFP/i.test(s)) return false;
+  if (/^800G\s+Twin-Port/i.test(s)) return false;
+  if (/^0\.5[–-]2\.5m:/i.test(s)) return false;
+  if (/^Direct\s+Optic-to-Optic/i.test(s)) return false;
+  if (/^MPO-12\b/i.test(s)) return false;
+  if (/^LC\s+Duplex\b/i.test(s)) return false;
+  if (/^1\.\s+Inspect\b/i.test(s)) return false;
+  if (/^Check\s+DOM\s+RX/i.test(s)) return false;
+  if (/^10km\s+LR4:/i.test(s)) return false;
+  if (/^Tier\s+[12]\b/i.test(s)) return false;
+  if (s.includes("──►") || s.includes("◄──")) return false;
+
+  if (/^(Win|Alt|Ctrl)\+[A-Za-z0-9]/i.test(s)) return false;
+  if (/[⇧⌘⌥⌃]/.test(s)) return false;
+  if (/^[0-9]+-Finger\s+Swipe/i.test(s)) return false;
+
+  return true;
 }
 
 function renderCategoryTabs() {
@@ -836,10 +869,15 @@ function renderSections() {
             </div>
           </div>
 
-          <div class="code-block" data-copy="${escapeHtml(c.cmd)}" title="Click to copy">
-            <code>${ highlightText(c.cmd, state.searchQuery) }</code>
-            <span class="copy-hint">Copy</span>
-          </div>
+          ${isRunnableCommand(c.cmd)
+            ? `<div class="code-block" data-copy="${escapeHtml(c.cmd)}" title="Click to copy">
+                <code>${ highlightText(c.cmd, state.searchQuery) }</code>
+                <span class="copy-hint">Copy</span>
+              </div>`
+            : `<div class="reference-box">
+                <code>${ highlightText(c.cmd, state.searchQuery) }</code>
+              </div>`
+          }
 
           ${flagsHtml}
           ${tipHtml}
@@ -917,9 +955,11 @@ window.addEventListener("resize", () => {
 });
 
 function bindCardEvents() {
-  sectionsGrid.querySelectorAll(".code-block").forEach((block) => {
+  sectionsGrid.querySelectorAll(".code-block[data-copy]").forEach((block) => {
     block.addEventListener("click", () => {
-      copyText(block.dataset.copy, "Copied to clipboard");
+      if (block.dataset.copy) {
+        copyText(block.dataset.copy, "Copied to clipboard");
+      }
     });
   });
 
@@ -953,17 +993,21 @@ function bindEvents() {
 
   densityToggleBtn.addEventListener("click", () => {
     state.compactMode = !state.compactMode;
+    localStorage.setItem("linux_cs_compact", state.compactMode ? "1" : "0");
     localStorage.setItem("mb_sheet_compact", state.compactMode);
     applyDensity(state.compactMode);
   });
 
   if (printBtn) printBtn.addEventListener("click", () => window.print());
 
-  themeToggleBtn.addEventListener("click", () => {
-    state.theme = state.theme === "dark" ? "light" : "dark";
-    localStorage.setItem("mb_sheet_theme", state.theme);
-    applyTheme(state.theme);
-  });
+  if (themeToggleBtn) {
+    themeToggleBtn.addEventListener("click", () => {
+      const currentTheme = localStorage.getItem("linux_cs_theme") || state.theme || "dark";
+      const nextTheme = currentTheme === "dark" ? "light" : "dark";
+      state.theme = nextTheme;
+      applyTheme(nextTheme);
+    });
+  }
 
   resetSearchBtn.addEventListener("click", () => {
     state.searchQuery = "";

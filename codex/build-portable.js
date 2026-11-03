@@ -85,6 +85,9 @@ const globalSearchIndexJs = fs.readFileSync(path.join(__dirname, 'global-search-
 const commonJs = fs.readFileSync(path.join(__dirname, 'common.js'), 'utf8');
 const manualsDataJs = fs.readFileSync(path.join(__dirname, 'manuals-data.js'), 'utf8');
 const manualsUiJs = fs.readFileSync(path.join(__dirname, 'manuals-ui.js'), 'utf8');
+const jiraFormJs = fs.readFileSync(path.join(__dirname, 'jira-form.js'), 'utf8');
+const rj45T568a = fs.readFileSync(path.join(__dirname, 'assets/rj45-t568a.svg')).toString('base64');
+const rj45T568b = fs.readFileSync(path.join(__dirname, 'assets/rj45-t568b.svg')).toString('base64');
 
 // 5. Build Portable HTML
 const portableHtml = `<!DOCTYPE html>
@@ -263,6 +266,48 @@ ${navLinksHtml}
   </header>
 
   <main class="container main-layout">
+    <section class="quick-widgets" id="jira-form">
+      <div class="widget-card">
+        <div class="widget-header">
+          <div class="widget-title-group">
+            <span class="widget-tag">FILL IN</span>
+            <h2>Enter once to fill the queries below</h2>
+          </div>
+          <button type="button" id="jira-clear-btn" class="target-tool-btn">Clear</button>
+        </div>
+        <div class="target-inputs-row">
+          <div class="target-field">
+            <label for="jira-project"><span class="var-tag">$PROJECT</span> Project key</label>
+            <input type="text" id="jira-project" spellcheck="false" autocomplete="off" placeholder="OPS" />
+          </div>
+          <div class="target-field">
+            <label for="jira-site"><span class="var-tag">$SITE</span> Site / Hall</label>
+            <input type="text" id="jira-site" spellcheck="false" autocomplete="off" placeholder="DH2" />
+          </div>
+          <div class="target-field">
+            <label for="jira-node"><span class="var-tag">$NODE</span> Server / Node</label>
+            <input type="text" id="jira-node" spellcheck="false" autocomplete="off" placeholder="gpu-node-014" />
+          </div>
+          <div class="target-field">
+            <label for="jira-rack"><span class="var-tag">$RACK</span> Rack</label>
+            <input type="text" id="jira-rack" spellcheck="false" autocomplete="off" placeholder="R12" />
+          </div>
+          <div class="target-field">
+            <label for="jira-position"><span class="var-tag">$POSITION</span> Position</label>
+            <input type="text" id="jira-position" spellcheck="false" autocomplete="off" placeholder="U23" />
+          </div>
+          <div class="target-field">
+            <label for="jira-serial"><span class="var-tag">$SERIAL</span> Serial</label>
+            <input type="text" id="jira-serial" spellcheck="false" autocomplete="off" placeholder="SN12345" />
+          </div>
+          <div class="target-field">
+            <label for="jira-ticket"><span class="var-tag">$TICKET</span> Ticket</label>
+            <input type="text" id="jira-ticket" spellcheck="false" autocomplete="off" placeholder="OPS-123" />
+          </div>
+        </div>
+      </div>
+      <p class="jira-form-note">Fields fill query examples as you type. Empty fields stay as placeholders. Check the query before copying it into Jira.</p>
+    </section>
     <div id="sections-container" class="sections-grid">
       <!-- Populated dynamically -->
     </div>
@@ -374,7 +419,7 @@ ${manualsUiJs}
     document.getElementById('brand-pill').textContent = cfg.pill;
 
     // Update Nav links & dropdown items
-    const scriptingKeys = ['scripting', 'bash', 'python', 'javascript', 'typescript', 'powershell', 'json', 'yaml', 'toml', 'regex', 'awk-sed', 'sql'];
+    const scriptingKeys = ['scripting', 'bash', 'git', 'lua', 'python', 'javascript', 'typescript', 'powershell', 'json', 'yaml', 'toml', 'regex', 'awk-sed', 'sql'];
     const dropdownToggle = document.querySelector('#portable-sheet-nav .dropdown-toggle');
     if (dropdownToggle) {
       if (scriptingKeys.includes(sheetKey)) {
@@ -393,6 +438,7 @@ ${manualsUiJs}
 
     renderCategoryTabs();
     renderSections();
+    window.JiraQueryForm?.refresh();
 
     if (targetHash) {
       setTimeout(() => window.AntigravityCommon?.scrollToCard(targetHash), 100);
@@ -583,6 +629,16 @@ ${manualsUiJs}
             '</div>'
           : '';
 
+        const commandHtml = item.id === 'rj45-t568b-t568a-chart'
+          ? '<div class="pinout-diagrams">' +
+              '<figure class="pinout-figure"><img src="data:image/svg+xml;base64,${rj45T568b}" alt="T568B plug wire order, pins 1 through 8: white-orange, orange, white-green, blue, white-blue, green, white-brown, brown" width="373" height="187"><figcaption>T568B · <a href="https://commons.wikimedia.org/wiki/File:RJ-45_TIA-568B_Right.svg">Miha Ulanov, CC0</a></figcaption></figure>' +
+              '<figure class="pinout-figure"><img src="data:image/svg+xml;base64,${rj45T568a}" alt="T568A plug wire order, pins 1 through 8: white-green, green, white-orange, blue, white-blue, orange, white-brown, brown" width="373" height="187"><figcaption>T568A · <a href="https://commons.wikimedia.org/wiki/File:RJ-45_TIA-568A_Right.svg">Miha Ulanov, CC0</a></figcaption></figure>' +
+            '</div>'
+          : '<div class="cmd-code-box" data-copy="' + escapeHtml(window.CheatSheetCommon.commandForCopy(item.cmd)) + '" title="Click to copy command">' +
+              '<code class="cmd-code">' + highlightCommand(item.cmd) + '</code>' +
+              '<span class="copy-hint">Copy</span>' +
+            '</div>';
+
         return (
           '<div class="cmd-item" id="' + item.id + '" data-id="' + item.id + '">' +
             '<div class="cmd-top-row">' +
@@ -597,10 +653,7 @@ ${manualsUiJs}
                 '</button>' +
               '</div>' +
             '</div>' +
-            '<div class="cmd-code-box" data-copy="' + escapeHtml(window.CheatSheetCommon.commandForCopy(item.cmd)) + '" title="Click to copy command">' +
-              '<code class="cmd-code">' + highlightCommand(item.cmd) + '</code>' +
-              '<span class="copy-hint">Copy</span>' +
-            '</div>' +
+            commandHtml +
             detailsHtml +
             flagsHtml +
             subcommandsHtml +
@@ -653,7 +706,7 @@ ${manualsUiJs}
 
   function applyDensity(compact) {
     state.compact = compact;
-    document.body.classList.toggle('compact-density', compact);
+    document.body.classList.toggle('compact-mode', compact);
     densityLabel.textContent = compact ? 'Relaxed' : 'Compact';
     localStorage.setItem('linux_cs_compact', compact ? '1' : '0');
     packMasonry();
@@ -756,6 +809,9 @@ ${manualsUiJs}
   applyDensity(state.compact);
   initEvents();
 })();
+  </script>
+  <script>
+${jiraFormJs}
   </script>
 </body>
 </html>

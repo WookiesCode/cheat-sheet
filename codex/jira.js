@@ -533,10 +533,16 @@ function fallbackCopy(text) {
   const ta = document.createElement("textarea");
   ta.value = text;
   document.body.appendChild(ta);
-  ta.select();
-  document.execCommand("copy");
-  document.body.removeChild(ta);
-  showToast("Copied JQL query to clipboard");
+  let copied = false;
+  try {
+    ta.select();
+    copied = typeof document.execCommand === "function" && document.execCommand("copy");
+  } catch (_) {
+    // Clipboard access can also fail through the legacy API.
+  } finally {
+    ta.remove();
+  }
+  showToast(copied ? "Copied JQL query to clipboard" : "Clipboard unavailable. Select the query text to copy it manually.");
 }
 
 function highlightCommand(raw) { return escapeHtml(raw); }

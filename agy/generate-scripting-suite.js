@@ -1137,6 +1137,9 @@ const SCRIPTING_DROPDOWN_HTML = `
                   <a href="javascript.html" class="dropdown-item" role="menuitem">⚡ JavaScript</a>
                   <a href="typescript.html" class="dropdown-item" role="menuitem">🔷 TypeScript</a>
                   <a href="powershell.html" class="dropdown-item" role="menuitem">💻 PowerShell</a>
+                  <a href="lua.html" class="dropdown-item" role="menuitem">🌙 Lua</a>
+                  <div class="dropdown-divider"></div>
+                  <a href="git.html" class="dropdown-item" role="menuitem">🌿 Git</a>
                   <div class="dropdown-divider"></div>
                   <a href="json.html" class="dropdown-item" role="menuitem">📋 JSON &amp; jq</a>
                   <a href="yaml.html" class="dropdown-item" role="menuitem">📄 YAML &amp; yq</a>
@@ -1504,7 +1507,12 @@ function applyTheme(theme) {
 function applyDensity(compact) {
   state.compact = compact;
   document.body.classList.toggle("compact-density", compact);
-  densityLabel.textContent = compact ? "Relaxed" : "Compact";
+  document.body.classList.toggle("compact-mode", compact);
+  if (densityToggleBtn) {
+    densityToggleBtn.classList.toggle("active", compact);
+    densityToggleBtn.setAttribute("aria-pressed", compact ? "true" : "false");
+  }
+  if (densityLabel) densityLabel.textContent = compact ? "Relaxed" : "Compact";
   localStorage.setItem("linux_cs_compact", compact ? "1" : "0");
   packMasonry();
 }

@@ -238,15 +238,15 @@ const PYTHON_CHEAT_SHEET_DATA = [
         ],
         "subcommands": [
           [
-            "for key, val in my_dict.items():",
+            "for key, val in my_dict.items():\n    print(f\"{key}: {val}\")",
             "Iterate over both keys and values of dictionary"
           ],
           [
-            "for i in range(0, 10, 2):",
+            "for i in range(0, 10, 2):\n    print(i)",
             "Generate arithmetic progressions (start, stop, step)"
           ],
           [
-            "while count > 0: count -= 1",
+            "while count > 0:\n    count -= 1",
             "Standard while loop condition"
           ]
         ],
@@ -718,7 +718,12 @@ function applyTheme(theme) {
 function applyDensity(compact) {
   state.compact = compact;
   document.body.classList.toggle("compact-density", compact);
-  densityLabel.textContent = compact ? "Relaxed" : "Compact";
+  document.body.classList.toggle("compact-mode", compact);
+  if (densityToggleBtn) {
+    densityToggleBtn.classList.toggle("active", compact);
+    densityToggleBtn.setAttribute("aria-pressed", compact ? "true" : "false");
+  }
+  if (densityLabel) densityLabel.textContent = compact ? "Relaxed" : "Compact";
   localStorage.setItem("linux_cs_compact", compact ? "1" : "0");
   packMasonry();
 }

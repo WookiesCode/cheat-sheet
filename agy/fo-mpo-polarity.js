@@ -451,6 +451,22 @@ document.addEventListener("webkitfullscreenchange", () => {
 });
 window.packMasonry = packMasonry;
 
+function isRunnableCommand(cmd) {
+  if (window.AntigravityCommon && window.AntigravityCommon.isRunnableCommand) {
+    return window.AntigravityCommon.isRunnableCommand(cmd);
+  }
+  if (!cmd || typeof cmd !== 'string') return false;
+  var s = cmd.trim();
+  if (!s) return false;
+  if (s.startsWith('POST ') || s.startsWith('Stage ') || s.startsWith('1-DIMM') || s.startsWith('BMC_') || s.startsWith('Above 4G')) return false;
+  if (s.startsWith('T568') || s.startsWith('[Transceiver') || s.startsWith('Switch Port: OSFP') || s.startsWith('800G Twin-Port') || s.startsWith('0.5')) return false;
+  if (s.startsWith('Direct Optic-to-Optic') || s.startsWith('MPO-12') || s.startsWith('LC Duplex') || s.startsWith('1. Inspect') || s.startsWith('Check DOM') || s.startsWith('10km LR4') || s.startsWith('Tier ')) return false;
+  if (s.includes('──►') || s.includes('◄──')) return false;
+  if (s.startsWith('Win+') || s.startsWith('Alt+') || s.startsWith('Ctrl+')) return false;
+  if (/[⇧⌘⌥⌃]/.test(s) || s.includes('-Finger Swipe')) return false;
+  return true;
+}
+
 function renderSections() {
   let visibleCommandsCount = 0;
   const cardsHtml = [];
@@ -495,6 +511,26 @@ function renderSections() {
         ? cmd.cmd.split("   |   ")[0].trim()
         : cmd.cmd.trim();
 
+      const isRun = isRunnableCommand(cmd.cmd);
+      const codeBoxLines = isRun
+        ? [
+            '  <div class="cmd-code-box" data-cmd="' + escapeHtml(copyTarget) + '" title="Click to copy command">',
+            '    <pre class="cmd-code"><code>' + highlightCommand(cmd.cmd) + '</code></pre>',
+            '    <button type="button" class="copy-btn" title="Copy command" aria-label="Copy command">',
+            '      <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">',
+            '        <rect x="9" y="9" width="13" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>',
+            '        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" fill="none" stroke="currentColor" stroke-width="2"/>',
+            '      </svg>',
+            '      <span class="copy-feedback">Copy</span>',
+            '    </button>',
+            '  </div>'
+          ]
+        : [
+            '  <div class="cmd-code-box ref-box">',
+            '    <pre class="cmd-code"><code>' + highlightCommand(cmd.cmd) + '</code></pre>',
+            '  </div>'
+          ];
+
       return [
         '<div class="cmd-item" id="cmd-' + escapeHtml(cmd.id) + '" data-cmd-id="' + escapeHtml(cmd.id) + '">',
         '  <div class="cmd-header-row">',
@@ -514,16 +550,7 @@ function renderSections() {
         '    </button>',
         '  </div>',
         '',
-        '  <div class="cmd-code-box" data-cmd="' + escapeHtml(copyTarget) + '" title="Click to copy command">',
-        '    <pre class="cmd-code"><code>' + highlightCommand(cmd.cmd) + '</code></pre>',
-        '    <button type="button" class="copy-btn" title="Copy command" aria-label="Copy command">',
-        '      <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">',
-        '        <rect x="9" y="9" width="13" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>',
-        '        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" fill="none" stroke="currentColor" stroke-width="2"/>',
-        '      </svg>',
-        '      <span class="copy-feedback">Copied!</span>',
-        '    </button>',
-        '  </div>',
+        codeBoxLines.join("\n"),
         '  ' + detailsHtml,
         '  ' + flagsHtml,
         '  ' + tipHtml,
@@ -628,13 +655,13 @@ function initEventListeners() {
   sectionsContainer.addEventListener("click", (e) => {
     const copyBtn = e.target.closest(".copy-btn");
     if (copyBtn) {
-      const codeBox = copyBtn.closest(".cmd-code-box");
+      const codeBox = copyBtn.closest(".cmd-code-box[data-cmd]");
       const cmdText = codeBox ? codeBox.getAttribute("data-cmd") : "";
       if (cmdText) copyToClipboard(cmdText);
       return;
     }
 
-    const codeBox = e.target.closest(".cmd-code-box");
+    const codeBox = e.target.closest(".cmd-code-box[data-cmd]");
     if (codeBox && !e.target.closest(".copy-btn")) {
       const cmdText = codeBox.getAttribute("data-cmd");
       if (cmdText) copyToClipboard(cmdText);

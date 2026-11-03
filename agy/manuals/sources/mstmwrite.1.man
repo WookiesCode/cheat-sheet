@@ -1,0 +1,7 @@
+.TH MSTMWRITE "1" "March 2020" "mstflint" "User Commands"
+.SH NAME
+mstmwrite \- Mellanox Write Configuration Register Tool
+.SH DESCRIPTION
+mstmwrite <device> <addr> <value>
+.SH "SEE ALSO"
+.B mstflint(1)

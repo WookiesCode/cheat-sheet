@@ -953,10 +953,15 @@ function renderSections() {
               </div>
             </div>
 
-            <div class="cmd-code-box" data-copy="${escapeHtml(copyTarget)}" title="Click to copy">
-              <code class="cmd-code">${highlightVimCmd(item.cmd)}</code>
-              <span class="copy-hint">Copy</span>
-            </div>
+            ${(window.AntigravityCommon?.isReferenceCard?.(item.id, item.cmd) ?? window.CheatSheetCommon?.isReferenceCard?.(item.id, item.cmd))
+              ? `<div class="reference-box">
+                  <code class="cmd-code">${highlightVimCmd(item.cmd)}</code>
+                </div>`
+              : `<div class="cmd-code-box" data-copy="${escapeHtml(copyTarget)}" title="Click to copy">
+                  <code class="cmd-code">${highlightVimCmd(item.cmd)}</code>
+                  <span class="copy-hint">Copy</span>
+                </div>`
+            }
 
             ${flagsHtml}
           </div>

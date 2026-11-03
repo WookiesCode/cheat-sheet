@@ -31,7 +31,8 @@ vm.createContext(context);
 vm.runInContext(read('common.js'), context);
 const common = context.window.CheatSheetCommon;
 assert(!('pass' in JSON.parse(storage.get('dc_target_vars'))), 'legacy password must be purged');
-assert(!read('common.js').includes('id="var-pass"'), 'password input must be absent');
+assert(read('common.js').includes('type="password" id="var-pass"'), 'password input must be masked');
+assert(!/id="var-pass"[^>]*\bvalue=/.test(read('common.js')), 'password must not be embedded in HTML markup');
 for (const cmd of ['usermod -aG docker $USER && newgrp docker', 'echo ${USER} <user> <device>', 'echo "$PASS" <password>']) {
   assert.equal(common.substituteVariables(cmd).text, cmd);
 }
@@ -55,7 +56,9 @@ for (const item of index) {
   assert(context.window.PORTABLE_DATASETS[sheet.key].some(s => s.commands.some(c => c.id === item.id)), 'missing embedded card '+item.id);
 }
 // Execute the portable runtime with a minimal DOM to check actual route behavior.
-vm.runInContext(scripts.at(-1), context);
+const portableRuntime = scripts.find(script => script.includes('window.PortableNavigation ='));
+assert(portableRuntime, 'portable router script missing');
+vm.runInContext(portableRuntime, context);
 common.navigateToResult('nv-dcgm.html', 'dcgmi-diag-levels');
 assert.equal(context.window.location.href, undefined, 'portable navigation must not leave file');
 assert.equal(context.window.location.hash, 'sheet-nv-dcgm/dcgmi-diag-levels');

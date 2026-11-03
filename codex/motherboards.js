@@ -625,7 +625,7 @@ const state = {
   searchQuery: "",
   activeCategory: "all",
   savedOnly: false,
-  compactMode: localStorage.getItem("mb_sheet_compact") === "true",
+  compactMode: localStorage.getItem("linux_cs_compact") === "1",
   theme: localStorage.getItem("linux_cs_theme") || localStorage.getItem("mb_sheet_theme") || "dark",
   savedIds: new Set(JSON.parse(localStorage.getItem("mb_sheet_saved") || "[]"))
 };
@@ -715,15 +715,11 @@ function initPhaseTabs() {
   function renderPhase(key) {
     const items = PHASE_REFERENCE[key] || [];
     grid.innerHTML = items.map(([k, v]) => `
-      <div class="kv-item" data-copy="${escapeHtml(k)}" title="Click to copy ${escapeHtml(k)}">
+      <div class="kv-item">
         <span class="kv-key">${escapeHtml(k)}</span>
         <span class="kv-val">${escapeHtml(v)}</span>
       </div>
     `).join("");
-
-    grid.querySelectorAll(".kv-item").forEach((el) => {
-      el.addEventListener("click", () => copyText(el.dataset.copy, `Copied ${el.dataset.copy}`));
-    });
   }
 
   tabs.forEach((tab) => {
@@ -951,7 +947,7 @@ function bindEvents() {
 
   densityToggleBtn.addEventListener("click", () => {
     state.compactMode = !state.compactMode;
-    localStorage.setItem("mb_sheet_compact", state.compactMode);
+    localStorage.setItem("linux_cs_compact", state.compactMode ? "1" : "0");
     applyDensity(state.compactMode);
   });
 

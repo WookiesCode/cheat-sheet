@@ -22,6 +22,8 @@ const excludeFiles = new Set([
   'generate-motherboards-suite.js',
   'generate-all-remaining-suites.js',
   'create-scripting-data.js',
+  'manuals-data.js',
+  'manuals-ui.js',
   'common.js',
   'global-search-index.js'
 ]);
@@ -31,7 +33,7 @@ const jsFiles = fs.readdirSync(__dirname).filter(f => f.endsWith('.js') && !excl
 const index = [];
 
 for (const jsFile of jsFiles) {
-  const htmlFile = jsFile.replace(/\.js$/, '.html');
+  const htmlFile = jsFile === 'app.js' ? 'index.html' : jsFile.replace(/\.js$/, '.html');
   const filePath = path.join(__dirname, jsFile);
   const content = fs.readFileSync(filePath, 'utf8');
 

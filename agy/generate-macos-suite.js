@@ -470,6 +470,22 @@ document.addEventListener("webkitfullscreenchange", () => {
 });
 window.packMasonry = packMasonry;
 
+function isRunnableCommand(cmd) {
+  if (window.AntigravityCommon && window.AntigravityCommon.isRunnableCommand) {
+    return window.AntigravityCommon.isRunnableCommand(cmd);
+  }
+  if (!cmd || typeof cmd !== 'string') return false;
+  var s = cmd.trim();
+  if (!s) return false;
+  if (s.startsWith('POST ') || s.startsWith('Stage ') || s.startsWith('1-DIMM') || s.startsWith('BMC_') || s.startsWith('Above 4G')) return false;
+  if (s.startsWith('T568') || s.startsWith('[Transceiver') || s.startsWith('Switch Port: OSFP') || s.startsWith('800G Twin-Port') || s.startsWith('0.5')) return false;
+  if (s.startsWith('Direct Optic-to-Optic') || s.startsWith('MPO-12') || s.startsWith('LC Duplex') || s.startsWith('1. Inspect') || s.startsWith('Check DOM') || s.startsWith('10km LR4') || s.startsWith('Tier ')) return false;
+  if (s.includes('──►') || s.includes('◄──')) return false;
+  if (s.startsWith('Win+') || s.startsWith('Alt+') || s.startsWith('Ctrl+')) return false;
+  if (/[⇧⌘⌥⌃]/.test(s) || s.includes('-Finger Swipe')) return false;
+  return true;
+}
+
 function renderSections() {
   let visibleCommandsCount = 0;
   const cardsHtml = [];
@@ -514,6 +530,26 @@ function renderSections() {
         ? cmd.cmd.split("   |   ")[0].trim()
         : cmd.cmd.trim();
 
+      const isRun = isRunnableCommand(cmd.cmd);
+      const codeBoxLines = isRun
+        ? [
+            '  <div class="cmd-code-box" data-cmd="' + escapeHtml(copyTarget) + '" title="Click to copy shortcut">',
+            '    <pre class="cmd-code"><code>' + highlightMacCmd(cmd.cmd) + '</code></pre>',
+            '    <button type="button" class="copy-btn" title="Copy shortcut" aria-label="Copy shortcut">',
+            '      <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">',
+            '        <rect x="9" y="9" width="13" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>',
+            '        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" fill="none" stroke="currentColor" stroke-width="2"/>',
+            '      </svg>',
+            '      <span class="copy-feedback">Copy</span>',
+            '    </button>',
+            '  </div>'
+          ]
+        : [
+            '  <div class="cmd-code-box ref-box">',
+            '    <pre class="cmd-code"><code>' + highlightMacCmd(cmd.cmd) + '</code></pre>',
+            '  </div>'
+          ];
+
       return [
         '<div class="cmd-item" id="cmd-' + escapeHtml(cmd.id) + '" data-cmd-id="' + escapeHtml(cmd.id) + '">',
         '  <div class="cmd-header-row">',
@@ -533,16 +569,7 @@ function renderSections() {
         '    </button>',
         '  </div>',
         '',
-        '  <div class="cmd-code-box" data-cmd="' + escapeHtml(copyTarget) + '" title="Click to copy shortcut">',
-        '    <pre class="cmd-code"><code>' + highlightMacCmd(cmd.cmd) + '</code></pre>',
-        '    <button type="button" class="copy-btn" title="Copy shortcut" aria-label="Copy shortcut">',
-        '      <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">',
-        '        <rect x="9" y="9" width="13" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>',
-        '        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" fill="none" stroke="currentColor" stroke-width="2"/>',
-        '      </svg>',
-        '      <span class="copy-feedback">Copied!</span>',
-        '    </button>',
-        '  </div>',
+        codeBoxLines.join("\\n"),
         '  ' + detailsHtml,
         '  ' + flagsHtml,
         '  ' + tipHtml,
@@ -647,13 +674,13 @@ function initEventListeners() {
   sectionsContainer.addEventListener("click", (e) => {
     const copyBtn = e.target.closest(".copy-btn");
     if (copyBtn) {
-      const codeBox = copyBtn.closest(".cmd-code-box");
+      const codeBox = copyBtn.closest(".cmd-code-box[data-cmd]");
       const cmdText = codeBox ? codeBox.getAttribute("data-cmd") : "";
       if (cmdText) copyToClipboard(cmdText);
       return;
     }
 
-    const codeBox = e.target.closest(".cmd-code-box");
+    const codeBox = e.target.closest(".cmd-code-box[data-cmd]");
     if (codeBox && !e.target.closest(".copy-btn")) {
       const cmdText = codeBox.getAttribute("data-cmd");
       if (cmdText) copyToClipboard(cmdText);
@@ -864,6 +891,9 @@ function generateMacosHtml(sec) {
                   <a href="javascript.html" class="dropdown-item" role="menuitem">⚡ JavaScript</a>
                   <a href="typescript.html" class="dropdown-item" role="menuitem">🔷 TypeScript</a>
                   <a href="powershell.html" class="dropdown-item" role="menuitem">💻 PowerShell</a>
+                  <a href="lua.html" class="dropdown-item" role="menuitem">🌙 Lua</a>
+                  <div class="dropdown-divider"></div>
+                  <a href="git.html" class="dropdown-item" role="menuitem">🌿 Git</a>
                   <div class="dropdown-divider"></div>
                   <a href="json.html" class="dropdown-item" role="menuitem">📋 JSON &amp; jq</a>
                   <a href="yaml.html" class="dropdown-item" role="menuitem">📄 YAML &amp; yq</a>
@@ -911,6 +941,7 @@ ${MACOS_NAVBAR_SNIPPET}
               <a href="fiber.html" class="sheet-link"><svg class="nav-logo" viewBox="0 0 24 24" width="14" height="14" fill="none" aria-hidden="true"><rect x="2" y="8" width="7" height="8" rx="1.2" stroke="currentColor" stroke-width="1.8"/><path d="M9 10h3v4H9" stroke="currentColor" stroke-width="1.6"/><circle cx="14.5" cy="12" r="1.5" fill="#fbbf24"/><path d="M16 12h6M15.5 9.5l5.5-3.5M15.5 14.5l5.5 3.5" stroke="#22d3ee" stroke-width="1.8" stroke-linecap="round"/></svg> Fiber</a>
               <a href="ethernet.html" class="sheet-link"><svg class="nav-logo" viewBox="0 0 24 24" width="14" height="14" fill="none" aria-hidden="true"><rect x="5" y="2" width="14" height="10" rx="1.5" stroke="currentColor" stroke-width="1.8"/><path d="M8 2v3.5M10.67 2v3.5M13.33 2v3.5M16 2v3.5" stroke="#fbbf24" stroke-width="1.5" stroke-linecap="round"/><path d="M9.5 8.5h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M8 12h8l-1 4.5H9L8 12z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M12 16.5V22" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg> Ethernet</a>
               <a href="motherboards.html" class="sheet-link"><svg class="nav-logo" viewBox="0 0 24 24" width="14" height="14" fill="none" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="2" stroke="currentColor" stroke-width="1.7"/><rect x="6.5" y="5.5" width="6" height="6" rx="0.8" stroke="#38bdf8" stroke-width="1.6"/><circle cx="9.5" cy="8.5" r="1.2" fill="#38bdf8"/><path d="M15.5 5.5v6M18 5.5v6" stroke="#fbbf24" stroke-width="1.6" stroke-linecap="round"/><path d="M6 15h12M6 18h9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg> Motherboards</a>
+              <a href="jira.html" class="sheet-link"><svg class="nav-logo" viewBox="0 0 24 24" width="14" height="14" fill="#0052cc" aria-hidden="true"><path d="M11.53 2c0 2.4 1.97 4.35 4.35 4.35h1.78v1.74c0 2.4 1.97 4.35 4.35 4.35V2h-10.48zm-5.76 5.76c0 2.4 1.97 4.35 4.35 4.35h1.78v1.74c0 2.4 1.97 4.35 4.35 4.35V7.76H5.77zM0 13.52c0 2.4 1.97 4.35 4.35 4.35h1.78v1.74c0 2.4 1.97 4.35 4.35 4.35V13.52H0z"/></svg> Jira</a>
             </nav>
           </div>
           <p class="brand-subtitle">${escapeHtml(sec.subtitle)}</p>
@@ -1011,6 +1042,8 @@ ${MACOS_NAVBAR_SNIPPET}
   </div>
 
   <script src="global-search-index.js"></script>
+  <script src="manuals-data.js"></script>
+  <script src="manuals-ui.js"></script>
   <script src="common.js"></script>
   <script src="macos-${sec.id}.js"></script>
 </body>

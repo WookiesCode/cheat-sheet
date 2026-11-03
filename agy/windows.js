@@ -810,6 +810,41 @@ function packMasonry() {
 window.addEventListener("resize", () => packMasonry());
 window.packMasonry = packMasonry;
 
+function isRunnableCommand(cmd) {
+  if (!cmd || typeof cmd !== 'string') return false;
+  const s = cmd.trim();
+  if (!s) return false;
+
+  if (/^POST\s+0x/i.test(s)) return false;
+  if (/^Stage\s+[0-9]:/i.test(s)) return false;
+  if (/^1-DIMM\b/i.test(s)) return false;
+  if (/^BMC_LED/i.test(s)) return false;
+  if (/^BMC_RDY/i.test(s)) return false;
+  if (/^Above\s+4G\b/i.test(s)) return false;
+  if (/POST\s+0x[0-9A-Fa-f]{2}/.test(s) && (s.includes(" -> ") || s.includes(" | "))) return false;
+
+  if (/^T568[AB]\b/i.test(s)) return false;
+
+  if (/^\[Transceiver/i.test(s)) return false;
+  if (/^Switch\s+Port:\s+OSFP/i.test(s)) return false;
+  if (/^800G\s+Twin-Port/i.test(s)) return false;
+  if (/^0\.5[–-]2\.5m:/i.test(s)) return false;
+  if (/^Direct\s+Optic-to-Optic/i.test(s)) return false;
+  if (/^MPO-12\b/i.test(s)) return false;
+  if (/^LC\s+Duplex\b/i.test(s)) return false;
+  if (/^1\.\s+Inspect\b/i.test(s)) return false;
+  if (/^Check\s+DOM\s+RX/i.test(s)) return false;
+  if (/^10km\s+LR4:/i.test(s)) return false;
+  if (/^Tier\s+[12]\b/i.test(s)) return false;
+  if (s.includes("──►") || s.includes("◄──")) return false;
+
+  if (/^(Win|Alt|Ctrl)\+[A-Za-z0-9]/i.test(s)) return false;
+  if (/[⇧⌘⌥⌃]/.test(s)) return false;
+  if (/^[0-9]+-Finger\s+Swipe/i.test(s)) return false;
+
+  return true;
+}
+
 function renderSections() {
   let visibleCommandsCount = 0;
   const cardsHtml = [];
@@ -883,10 +918,15 @@ function renderSections() {
               </div>
             </div>
 
-            <div class="cmd-code-box" data-copy="${escapeHtml(copyTarget)}" title="Click to copy">
-              <code class="cmd-code">${highlightPsCmd(item.cmd)}</code>
-              <span class="copy-hint">Copy</span>
-            </div>
+            ${isRunnableCommand(item.cmd)
+              ? `<div class="cmd-code-box" data-copy="${escapeHtml(copyTarget)}" title="Click to copy">
+                  <code class="cmd-code">${highlightPsCmd(item.cmd)}</code>
+                  <span class="copy-hint">Copy</span>
+                </div>`
+              : `<div class="cmd-code-box ref-box">
+                  <code class="cmd-code">${highlightPsCmd(item.cmd)}</code>
+                </div>`
+            }
 
             ${flagsHtml}
           </div>
@@ -1056,8 +1096,8 @@ function initEvents() {
   });
 
   sectionsContainer.addEventListener("click", (e) => {
-    const copyBox = e.target.closest(".cmd-code-box");
-    if (copyBox) {
+    const copyBox = e.target.closest(".cmd-code-box[data-copy]");
+    if (copyBox && copyBox.dataset.copy) {
       copyToClipboard(copyBox.dataset.copy);
       return;
     }

@@ -23,9 +23,7 @@
             <h1>Jira — Datacenter Ticket Queries</h1>
             <span class="version-pill">JQL / Ticket History</span>
             <nav class="sheet-switcher" aria-label="Switch cheat sheet">
-              <a href="jira.html" class="sheet-link"><span>Jira</span></a>
-
-              <div class="nav-dropdown" id="linux-nav-dropdown">
+<div class="nav-dropdown" id="linux-nav-dropdown">
                 <a href="index.html" class="sheet-link dropdown-toggle" aria-haspopup="true">
                   <svg class="nav-logo" viewBox="0 0 24 24" width="14" height="14" fill="none" aria-hidden="true"><path d="M12 2C8.8 2 7.2 4.3 7.2 7.2c0 1.4-.4 2.4-1.3 3.7-1.1 1.6-1.9 3.6-1.4 5.2.3.9 1.1 1.2 1.8.8.4 1.8 2.4 3.6 5.7 3.6s5.3-1.8 5.7-3.6c.7.4 1.5.1 1.8-.8.5-1.6-.3-3.6-1.4-5.2-.9-1.3-1.3-2.3-1.3-3.7C16.8 4.3 15.2 2 12 2z" fill="#1e293b" stroke="#94a3b8" stroke-width="1.2"/><ellipse cx="12" cy="14.5" rx="4.1" ry="5" fill="#f8fafc"/><circle cx="10.2" cy="6.5" r="1.4" fill="#fff"/><circle cx="13.8" cy="6.5" r="1.4" fill="#fff"/><circle cx="10.5" cy="6.6" r="0.7" fill="#0f172a"/><circle cx="13.5" cy="6.6" r="0.7" fill="#0f172a"/><path d="M9.6 8.3c1.3-.5 3.5-.5 4.8 0L12 10.6 9.6 8.3z" fill="#f59e0b"/><ellipse cx="8.5" cy="20.5" rx="2.6" ry="1.3" fill="#f59e0b"/><ellipse cx="15.5" cy="20.5" rx="2.6" ry="1.3" fill="#f59e0b"/></svg>
                   <span>Linux</span> <span class="dropdown-caret">▾</span>
@@ -140,6 +138,8 @@
                   <a href="scripting.html" class="dropdown-item" role="menuitem">📑 All-in-One Hub</a>
                   <div class="dropdown-divider"></div>
                   <a href="bash.html" class="dropdown-item" role="menuitem">🐚 Bash &amp; Shell</a>
+                  <a href="lua.html" class="dropdown-item" role="menuitem">🌙 Lua Scripting</a>
+
                   <a href="python.html" class="dropdown-item" role="menuitem">🐍 Python</a>
                   <a href="javascript.html" class="dropdown-item" role="menuitem">⚡ JavaScript</a>
                   <a href="typescript.html" class="dropdown-item" role="menuitem">🔷 TypeScript</a>
@@ -455,6 +455,7 @@
                   </div>
                 </div>
               </div>
+              <a href="jira.html" class="sheet-link"><span>Jira</span></a>
             </nav>
           </div>
           <p class="brand-subtitle">Copy JQL into Jira advanced search; replace example values before running.</p>
@@ -590,6 +591,48 @@
   </header>
 
   <main class="container main-layout">
+    <section class="quick-widgets" id="jira-form">
+      <div class="widget-card">
+        <div class="widget-header">
+          <div class="widget-title-group">
+            <span class="widget-tag">FILL IN</span>
+            <h2>Enter once to fill the queries below</h2>
+          </div>
+          <button type="button" id="jira-clear-btn" class="target-tool-btn">Clear</button>
+        </div>
+        <div class="target-inputs-row">
+          <div class="target-field">
+            <label for="jira-project"><span class="var-tag">$PROJECT</span> Project key</label>
+            <input type="text" id="jira-project" spellcheck="false" autocomplete="off" placeholder="OPS" />
+          </div>
+          <div class="target-field">
+            <label for="jira-site"><span class="var-tag">$SITE</span> Site / Hall</label>
+            <input type="text" id="jira-site" spellcheck="false" autocomplete="off" placeholder="DH2" />
+          </div>
+          <div class="target-field">
+            <label for="jira-node"><span class="var-tag">$NODE</span> Server / Node</label>
+            <input type="text" id="jira-node" spellcheck="false" autocomplete="off" placeholder="gpu-node-014" />
+          </div>
+          <div class="target-field">
+            <label for="jira-rack"><span class="var-tag">$RACK</span> Rack</label>
+            <input type="text" id="jira-rack" spellcheck="false" autocomplete="off" placeholder="R12" />
+          </div>
+          <div class="target-field">
+            <label for="jira-position"><span class="var-tag">$POSITION</span> Position</label>
+            <input type="text" id="jira-position" spellcheck="false" autocomplete="off" placeholder="U23" />
+          </div>
+          <div class="target-field">
+            <label for="jira-serial"><span class="var-tag">$SERIAL</span> Serial</label>
+            <input type="text" id="jira-serial" spellcheck="false" autocomplete="off" placeholder="SN12345" />
+          </div>
+          <div class="target-field">
+            <label for="jira-ticket"><span class="var-tag">$TICKET</span> Ticket</label>
+            <input type="text" id="jira-ticket" spellcheck="false" autocomplete="off" placeholder="OPS-123" />
+          </div>
+        </div>
+      </div>
+      <p class="jira-form-note">Fields fill query examples as you type. Empty fields stay as placeholders. Check the query before copying it into Jira.</p>
+    </section>
     <div id="sections-container" class="sections-grid">
       <!-- Populated dynamically -->
     </div>
@@ -627,5 +670,6 @@
   <script src="manuals-ui.js"></script>
   <script src="common.js"></script>
   <script src="jira.js"></script>
+  <script src="jira-form.js"></script>
 </body>
 </html>

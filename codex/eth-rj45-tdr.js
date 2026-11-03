@@ -24,6 +24,10 @@ const ETH_ETH_RJ45_TDR_DATA = [
           [
             "Pair 4 (Brown: Pins 7–8)",
             "Rightmost pair (Pins 7 & 8) is ALWAYS White-Brown / Brown in both T568B and T568A"
+          ],
+          [
+            "1G / 2.5G / 5G / 10GBASE-T",
+            "Uses ALL 4 pairs (Pins 1–8) simultaneously in full-duplex PAM5 / PAM16"
           ]
         ],
         "tip": "Only Orange & Green swap between B and A",
@@ -42,32 +46,6 @@ const ETH_ETH_RJ45_TDR_DATA = [
           "wires",
           "colors",
           "8p8c"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "rj45-pinout-tdr-flags-1",
-    "badge": "rj45",
-    "title": "RJ45 Pinouts & TDR: Arguments & Parameters",
-    "subtitle": "Key arguments, parameters, and filtering options for Complete TIA/EIA-568B vs 568A RJ45 (8P8C) wire order (Hold plug clip-down, gold pins facing you, left=Pin 1)",
-    "commands": [
-      {
-        "id": "rj45-t568b-t568a-chart-flags-card",
-        "desc": "Options breakdown and parameter syntax for Complete TIA/EIA-568B vs 568A RJ45 (8P8C) wire order (Hold plug clip-down, gold pins facing you, left=Pin 1)",
-        "cmd": "T568B (Standard): 1:W/Org  2:Org  3:W/Grn  4:Blu  5:W/Blu  6:Grn  7:W/Brn  8:Brn\nT568A (Gov/Res):  1:W/Grn  2:Grn  3:W/Org  4:Blu  5:W/Blu  6:Org  7:W/Brn  8:Brn",
-        "flags": [
-          [
-            "1G / 2.5G / 5G / 10GBASE-T",
-            "Uses ALL 4 pairs (Pins 1–8) simultaneously in full-duplex PAM5 / PAM16"
-          ]
-        ],
-        "details": "Common operational and diagnostic parameters for Linux Ethernet networking.",
-        "tags": [
-          "RJ45 Pinouts & TDR",
-          "flags",
-          "options",
-          "syntax"
         ]
       }
     ]
@@ -449,6 +427,18 @@ function renderSections() {
       const copyTarget = cmd.cmd.includes("   |   ")
         ? cmd.cmd.split("   |   ")[0].trim()
         : cmd.cmd.trim();
+      const commandHtml = cmd.id === "rj45-t568b-t568a-chart"
+        ? '<div class="pinout-diagrams">' +
+          '<figure class="pinout-figure"><img src="assets/rj45-t568b.svg" alt="T568B plug wire order, pins 1 through 8: white-orange, orange, white-green, blue, white-blue, green, white-brown, brown" width="373" height="187"><figcaption>T568B · <a href="https://commons.wikimedia.org/wiki/File:RJ-45_TIA-568B_Right.svg">Miha Ulanov, CC0</a></figcaption></figure>' +
+          '<figure class="pinout-figure"><img src="assets/rj45-t568a.svg" alt="T568A plug wire order, pins 1 through 8: white-green, green, white-orange, blue, white-blue, orange, white-brown, brown" width="373" height="187"><figcaption>T568A · <a href="https://commons.wikimedia.org/wiki/File:RJ-45_TIA-568A_Right.svg">Miha Ulanov, CC0</a></figcaption></figure>' +
+          '</div>'
+        : '<div class="cmd-code-box" data-cmd="' + escapeHtml(copyTarget) + '" title="Click to copy command">' +
+          '<pre class="cmd-code"><code>' + highlightCommand(cmd.cmd) + '</code></pre>' +
+          '<button type="button" class="copy-btn" title="Copy command" aria-label="Copy command">' +
+            '<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">' +
+              '<rect x="9" y="9" width="13" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>' +
+              '<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" fill="none" stroke="currentColor" stroke-width="2"/>' +
+            '</svg><span class="copy-feedback">Copy</span></button></div>';
 
       return [
         '<div class="cmd-item" id="cmd-' + escapeHtml(cmd.id) + '" data-cmd-id="' + escapeHtml(cmd.id) + '">',
@@ -469,16 +459,7 @@ function renderSections() {
         '    </button>',
         '  </div>',
         '',
-        '  <div class="cmd-code-box" data-cmd="' + escapeHtml(copyTarget) + '" title="Click to copy command">',
-        '    <pre class="cmd-code"><code>' + highlightCommand(cmd.cmd) + '</code></pre>',
-        '    <button type="button" class="copy-btn" title="Copy command" aria-label="Copy command">',
-        '      <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">',
-        '        <rect x="9" y="9" width="13" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>',
-        '        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" fill="none" stroke="currentColor" stroke-width="2"/>',
-        '      </svg>',
-        '      <span class="copy-feedback">Copied!</span>',
-        '    </button>',
-        '  </div>',
+        '  ' + commandHtml,
         '  ' + detailsHtml,
         '  ' + flagsHtml,
         '  ' + tipHtml,

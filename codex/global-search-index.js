@@ -1,5 +1,5 @@
-// Auto-generated Global Search Index across all 185 cheat sheets
-// Total indexed items: 1957
+// Auto-generated Global Search Index across all 187 cheat sheets
+// Total indexed items: 1998
 window.GLOBAL_SEARCH_INDEX = [
   {
     "sName": "app",
@@ -5879,17 +5879,6 @@ window.GLOBAL_SEARCH_INDEX = [
     "sName": "eth-rj45-tdr",
     "file": "eth-rj45-tdr.html",
     "badge": "rj45",
-    "id": "rj45-t568b-t568a-chart-flags-card",
-    "sec": "RJ45 Pinouts & TDR: Arguments & Parameters",
-    "cmd": "T568B (Standard): 1:W/Org  2:Org  3:W/Grn  4:Blu  5:W/Blu  6:Grn  7:W/Brn  8:Brn\nT568A (Gov/Res):  1:W/Grn  2:Grn  3:W/Org  4:Blu  5:W/Blu  6:Org  7:W/Brn  8:Brn",
-    "desc": "Options breakdown and parameter syntax for Complete TIA/EIA-568B vs 568A RJ45 (8P8C) wire order (Hold plug clip-down, gold pins facing you, left=Pin 1)",
-    "tip": "",
-    "tags": "RJ45 Pinouts & TDR flags options syntax"
-  },
-  {
-    "sName": "eth-rj45-tdr",
-    "file": "eth-rj45-tdr.html",
-    "badge": "rj45",
     "id": "ethtool-cable-test-tdr",
     "sec": "RJ45 Pinouts & TDR: Run built-in NIC PHY Time-Domain Reflectometer",
     "cmd": "ethtool --cable-test eth0   |   ethtool --cable-test-tdr eth0",
@@ -6864,6 +6853,248 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Verify binary path and installed version in current environment",
     "tip": "",
     "tags": "fuser umount busy lock dpkg mount tips safety help"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "GIT",
+    "id": "git-init-clone",
+    "sec": "Start & Inspect",
+    "cmd": "git init\ngit clone <repository-url>\ngit clone --branch <branch> <repository-url>",
+    "desc": "Create a repository or clone an existing one",
+    "tip": "",
+    "tags": "git init clone setup"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "GIT",
+    "id": "git-status",
+    "sec": "Start & Inspect",
+    "cmd": "git status --short --branch\ngit status",
+    "desc": "See the branch and working tree state",
+    "tip": "",
+    "tags": "git status working tree read only"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "GIT",
+    "id": "git-diff",
+    "sec": "Start & Inspect",
+    "cmd": "git diff\ngit diff --staged\ngit diff --check",
+    "desc": "Review unstaged and staged changes",
+    "tip": "",
+    "tags": "git diff staged review"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "GIT",
+    "id": "git-log",
+    "sec": "Start & Inspect",
+    "cmd": "git log --oneline --decorate --graph -15\ngit log --oneline -- path/to/file\ngit show --stat <commit>",
+    "desc": "Inspect recent commits and a file's history",
+    "tip": "",
+    "tags": "git log show history"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "GIT",
+    "id": "git-add",
+    "sec": "Stage & Commit",
+    "cmd": "git add -- path/to/file\ngit add -p\ngit diff --cached",
+    "desc": "Stage a file or interactively select hunks",
+    "tip": "",
+    "tags": "git add stage hunks"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "GIT",
+    "id": "git-commit",
+    "sec": "Stage & Commit",
+    "cmd": "git diff --cached --check\ngit commit -m \"Describe the change\"",
+    "desc": "Commit reviewed staged changes",
+    "tip": "",
+    "tags": "git commit message"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "GIT",
+    "id": "git-unstage",
+    "sec": "Stage & Commit",
+    "cmd": "git restore --staged -- path/to/file\ngit status --short",
+    "desc": "Remove a path from the index while keeping its edits",
+    "tip": "",
+    "tags": "git restore unstage index"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "GIT",
+    "id": "git-ignore",
+    "sec": "Stage & Commit",
+    "cmd": "git check-ignore -v -- path/to/file\ngit ls-files -- path/to/file",
+    "desc": "Inspect why a path is ignored",
+    "tip": "",
+    "tags": "git ignore tracked inspect"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "GIT",
+    "id": "git-branch-list",
+    "sec": "Branches & Changes",
+    "cmd": "git branch -vv\ngit branch -a\ngit remote -v",
+    "desc": "List local and remote branches",
+    "tip": "",
+    "tags": "git branch remote upstream"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "GIT",
+    "id": "git-switch",
+    "sec": "Branches & Changes",
+    "cmd": "git switch -c <new-branch>\ngit switch <existing-branch>",
+    "desc": "Create or switch to a branch",
+    "tip": "",
+    "tags": "git switch branch create"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "GIT",
+    "id": "git-merge",
+    "sec": "Branches & Changes",
+    "cmd": "git status --short --branch\ngit merge <source-branch>",
+    "desc": "Merge another branch into the current branch",
+    "tip": "",
+    "tags": "git merge branch conflict"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "GIT",
+    "id": "git-cherry-pick",
+    "sec": "Branches & Changes",
+    "cmd": "git show --stat <commit>\ngit cherry-pick <commit>",
+    "desc": "Apply one existing commit to the current branch",
+    "tip": "",
+    "tags": "git cherry-pick commit conflict"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "GIT",
+    "id": "git-stash",
+    "sec": "Branches & Changes",
+    "cmd": "git stash push -m \"work in progress\"\ngit stash list\ngit stash show -p stash@{0}\ngit stash apply stash@{0}",
+    "desc": "Temporarily save tracked edits",
+    "tip": "",
+    "tags": "git stash working tree"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "GIT",
+    "id": "git-fetch",
+    "sec": "Remotes & Collaboration",
+    "cmd": "git fetch origin\ngit log --oneline --left-right HEAD...origin/<branch>",
+    "desc": "Download remote history without integrating it",
+    "tip": "",
+    "tags": "git fetch remote history"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "GIT",
+    "id": "git-pull",
+    "sec": "Remotes & Collaboration",
+    "cmd": "git pull --ff-only",
+    "desc": "Integrate the configured upstream branch",
+    "tip": "",
+    "tags": "git pull fast forward remote"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "GIT",
+    "id": "git-push",
+    "sec": "Remotes & Collaboration",
+    "cmd": "git push -u origin <branch>\ngit push",
+    "desc": "Publish a branch to its remote",
+    "tip": "",
+    "tags": "git push publish upstream"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "GIT",
+    "id": "git-remote-inspect",
+    "sec": "Remotes & Collaboration",
+    "cmd": "git remote -v\ngit branch -vv\ngit rev-parse --show-toplevel",
+    "desc": "Inspect remote URLs and upstream tracking",
+    "tip": "",
+    "tags": "git remote upstream repository"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "GIT",
+    "id": "git-blame",
+    "sec": "Investigate & Recover",
+    "cmd": "git blame -L 10,30 -- path/to/file\ngit show <commit>",
+    "desc": "Find the commit that last changed a line",
+    "tip": "",
+    "tags": "git blame history line"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "GIT",
+    "id": "git-reflog",
+    "sec": "Investigate & Recover",
+    "cmd": "git reflog -10\ngit show <commit>",
+    "desc": "Find recently visited commits and branch tips",
+    "tip": "",
+    "tags": "git reflog recovery read only"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "GIT",
+    "id": "git-restore-file",
+    "sec": "Investigate & Recover",
+    "cmd": "git diff -- path/to/file\ngit restore --worktree -- path/to/file",
+    "desc": "Discard local unstaged changes in one tracked file",
+    "tip": "",
+    "tags": "git restore discard destructive"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "GIT",
+    "id": "git-revert",
+    "sec": "Investigate & Recover",
+    "cmd": "git show --stat <commit>\ngit revert <commit>",
+    "desc": "Undo a committed change with a new commit",
+    "tip": "",
+    "tags": "git revert undo commit"
+  },
+  {
+    "sName": "git",
+    "file": "git.html",
+    "badge": "GIT",
+    "id": "git-worktree",
+    "sec": "Investigate & Recover",
+    "cmd": "git worktree list\ngit worktree add -b <new-branch> ../<directory>",
+    "desc": "Create a separate checkout for another branch",
+    "tip": "",
+    "tags": "git worktree branch checkout"
   },
   {
     "sName": "grep",
@@ -9988,6 +10219,182 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Verify binary path and installed version in current environment",
     "tip": "",
     "tags": "lsof deleted disk-full ports socket fd tips safety help"
+  },
+  {
+    "sName": "lua",
+    "file": "lua.html",
+    "badge": "LUA",
+    "id": "lua-run",
+    "sec": "Lua Basics & Running Scripts",
+    "cmd": "lua -v\nlua script.lua node-a\nlua -e 'print(\"hello\")'\nluac -p script.lua",
+    "desc": "Check the interpreter, run a script, or evaluate a short expression",
+    "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+    "tags": "lua scripting cli interpreter syntax"
+  },
+  {
+    "sName": "lua",
+    "file": "lua.html",
+    "badge": "LUA",
+    "id": "lua-variables",
+    "sec": "Lua Basics & Running Scripts",
+    "cmd": "local host = \"node-a\"\nlocal count = 8\nlocal enabled = false\nlocal missing = nil\nprint(type(host), tonumber(\"42\"), tostring(enabled))\nprint(0 and \"zero is truthy\")",
+    "desc": "Local variables, types, nil, and conversion",
+    "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+    "tags": "lua scripting variables scope types"
+  },
+  {
+    "sName": "lua",
+    "file": "lua.html",
+    "badge": "LUA",
+    "id": "lua-strings",
+    "sec": "Lua Basics & Running Scripts",
+    "cmd": "local host = \"node-a\"\nlocal status = \"healthy\"\nprint(host .. \": \" .. status)\nprint(string.format(\"%s has %d GPUs\", host, 8))\nlocal message = [[first line\nsecond line]]\nprint(message)",
+    "desc": "Concatenate and format strings",
+    "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+    "tags": "lua scripting strings format"
+  },
+  {
+    "sName": "lua",
+    "file": "lua.html",
+    "badge": "LUA",
+    "id": "lua-conditions",
+    "sec": "Conditions, Loops & Tables",
+    "cmd": "local temperature = 74\nif temperature >= 85 then\n  print(\"critical\")\nelseif temperature >= 70 then\n  print(\"warm\")\nelse\n  print(\"normal\")\nend\nprint(temperature ~= 0 and \"sensor available\")",
+    "desc": "if / elseif / else, comparisons, and boolean logic",
+    "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+    "tags": "lua scripting if conditions boolean"
+  },
+  {
+    "sName": "lua",
+    "file": "lua.html",
+    "badge": "LUA",
+    "id": "lua-loops",
+    "sec": "Conditions, Loops & Tables",
+    "cmd": "for i = 1, 3 do print(i) end\nlocal n = 3\nwhile n > 0 do n = n - 1 end\nrepeat n = n + 1 until n == 3\nfor i = 1, 10 do\n  if i == 4 then break end\n  print(i)\nend",
+    "desc": "Numeric for, while, repeat, and break",
+    "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+    "tags": "lua scripting for while repeat loops"
+  },
+  {
+    "sName": "lua",
+    "file": "lua.html",
+    "badge": "LUA",
+    "id": "lua-tables",
+    "sec": "Conditions, Loops & Tables",
+    "cmd": "local nodes = {\"node-a\", \"node-b\"}\ntable.insert(nodes, \"node-c\")\nfor i, name in ipairs(nodes) do print(i, name) end\nlocal inventory = {host = \"node-a\", gpus = 8}\nfor key, value in pairs(inventory) do print(key, value) end\nprint(inventory.host, inventory[\"gpus\"])",
+    "desc": "Sequences, maps, and safe field access",
+    "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+    "tags": "lua scripting tables arrays maps pairs ipairs"
+  },
+  {
+    "sName": "lua",
+    "file": "lua.html",
+    "badge": "LUA",
+    "id": "lua-sort",
+    "sec": "Conditions, Loops & Tables",
+    "cmd": "local nodes = {{name=\"b\", errors=2}, {name=\"a\", errors=0}}\ntable.sort(nodes, function(a, b) return a.name < b.name end)\nlocal names = {}\nfor _, node in ipairs(nodes) do names[#names + 1] = node.name end\nprint(table.concat(names, \", \"))",
+    "desc": "Sort records and join a sequence",
+    "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+    "tags": "lua scripting sort tables join"
+  },
+  {
+    "sName": "lua",
+    "file": "lua.html",
+    "badge": "LUA",
+    "id": "lua-functions",
+    "sec": "Functions, Modules & Error Handling",
+    "cmd": "local function divide(a, b)\n  if b == 0 then return nil, \"division by zero\" end\n  return a / b\nend\nlocal value, err = divide(12, 3)\nprint(value, err)\nlocal function counter()\n  local n = 0\n  return function() n = n + 1; return n end\nend\nlocal next_id = counter()\nprint(next_id(), next_id())",
+    "desc": "Functions, multiple results, and closures",
+    "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+    "tags": "lua scripting functions closures returns"
+  },
+  {
+    "sName": "lua",
+    "file": "lua.html",
+    "badge": "LUA",
+    "id": "lua-errors",
+    "sec": "Functions, Modules & Error Handling",
+    "cmd": "local ok, result = pcall(function()\n  local value = tonumber(\"bad input\")\n  assert(value, \"expected a number\")\n  return value * 2\nend)\nif ok then print(result) else io.stderr:write(tostring(result), \"\\n\") end",
+    "desc": "Catch a runtime error with pcall",
+    "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+    "tags": "lua scripting errors pcall assert"
+  },
+  {
+    "sName": "lua",
+    "file": "lua.html",
+    "badge": "LUA",
+    "id": "lua-module",
+    "sec": "Functions, Modules & Error Handling",
+    "cmd": "-- inventory.lua\nlocal M = {}\nfunction M.gpu_count(node) return node.gpus or 0 end\nreturn M",
+    "desc": "A module file and its caller",
+    "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+    "tags": "lua scripting module require package"
+  },
+  {
+    "sName": "lua",
+    "file": "lua.html",
+    "badge": "LUA",
+    "id": "lua-methods",
+    "sec": "Functions, Modules & Error Handling",
+    "cmd": "local Node = {}\nNode.__index = Node\nfunction Node.new(name)\n  return setmetatable({name = name}, Node)\nend\nfunction Node:describe() return \"Node: \" .. self.name end\nlocal node = Node.new(\"node-a\")\nprint(node:describe())",
+    "desc": "Metatables and colon method calls",
+    "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+    "tags": "lua scripting metatable methods self"
+  },
+  {
+    "sName": "lua",
+    "file": "lua.html",
+    "badge": "LUA",
+    "id": "lua-args",
+    "sec": "Files, Arguments & Log Parsing",
+    "cmd": "local host = arg[1] or \"node-a\"\nlocal home = os.getenv(\"HOME\") or \".\"\nprint(host, home)",
+    "desc": "Command-line arguments and environment variables",
+    "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+    "tags": "lua scripting arguments environment cli"
+  },
+  {
+    "sName": "lua",
+    "file": "lua.html",
+    "badge": "LUA",
+    "id": "lua-file",
+    "sec": "Files, Arguments & Log Parsing",
+    "cmd": "local file, err = io.open(\"inventory.txt\", \"r\")\nif not file then\n  io.stderr:write(tostring(err), \"\\n\")\nelse\n  for line in file:lines() do print(line) end\n  file:close()\nend",
+    "desc": "Read a text file and close it explicitly",
+    "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+    "tags": "lua scripting file io read"
+  },
+  {
+    "sName": "lua",
+    "file": "lua.html",
+    "badge": "LUA",
+    "id": "lua-patterns",
+    "sec": "Files, Arguments & Log Parsing",
+    "cmd": "local line = \"host=node-a gpus=8 state=healthy\"\nlocal values = {}\nfor key, value in line:gmatch(\"([%w_]+)=([^%s]+)\") do\n  values[key] = value\nend\nprint(values.host, tonumber(values.gpus))",
+    "desc": "Parse key=value records with Lua patterns",
+    "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+    "tags": "lua scripting patterns parsing logs"
+  },
+  {
+    "sName": "lua",
+    "file": "lua.html",
+    "badge": "LUA",
+    "id": "lua-logs",
+    "sec": "Files, Arguments & Log Parsing",
+    "cmd": "local sample = \"GPU Xid 79\\nhealthy\\nGPU Xid 48\\nGPU Xid 79\\n\"\nlocal counts = {}\nfor xid in sample:gmatch(\"Xid%s+(%d+)\") do\n  counts[xid] = (counts[xid] or 0) + 1\nend\nlocal keys = {}\nfor key in pairs(counts) do keys[#keys + 1] = key end\ntable.sort(keys, function(a,b) return tonumber(a) < tonumber(b) end)\nfor _, key in ipairs(keys) do print(key, counts[key]) end",
+    "desc": "Count Xid messages in diagnostic text",
+    "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+    "tags": "lua scripting logs gpu xid recipe"
+  },
+  {
+    "sName": "lua",
+    "file": "lua.html",
+    "badge": "LUA",
+    "id": "lua-coroutines",
+    "sec": "Files, Arguments & Log Parsing",
+    "cmd": "local co = coroutine.create(function()\n  for i = 1, 2 do coroutine.yield(i) end\nend)\nwhile coroutine.status(co) ~= \"dead\" do\n  local ok, value = coroutine.resume(co)\n  assert(ok, value)\n  if value ~= nil then print(value) end\nend",
+    "desc": "Cooperative coroutine execution",
+    "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+    "tags": "lua scripting coroutine yield"
   },
   {
     "sName": "macos-darwin-cli",
@@ -16049,6 +16456,50 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Verify binary path and installed version in current environment",
     "tip": "",
     "tags": "scp ipv6 ssh transfer copy bastion proxyjump port tips safety help"
+  },
+  {
+    "sName": "scripting",
+    "file": "scripting.html",
+    "badge": "lua",
+    "id": "lua-variables",
+    "sec": "Lua Scripting",
+    "cmd": "local host = \"node-a\"\nlocal count = 8\nlocal enabled = false\nlocal missing = nil\nprint(type(host), tonumber(\"42\"), tostring(enabled))\nprint(0 and \"zero is truthy\")",
+    "desc": "Local variables, types, nil, and conversion",
+    "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+    "tags": "lua scripting variables scope types"
+  },
+  {
+    "sName": "scripting",
+    "file": "scripting.html",
+    "badge": "lua",
+    "id": "lua-tables",
+    "sec": "Lua Scripting",
+    "cmd": "local nodes = {\"node-a\", \"node-b\"}\ntable.insert(nodes, \"node-c\")\nfor i, name in ipairs(nodes) do print(i, name) end\nlocal inventory = {host = \"node-a\", gpus = 8}\nfor key, value in pairs(inventory) do print(key, value) end\nprint(inventory.host, inventory[\"gpus\"])",
+    "desc": "Sequences, maps, and safe field access",
+    "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+    "tags": "lua scripting tables arrays maps pairs ipairs"
+  },
+  {
+    "sName": "scripting",
+    "file": "scripting.html",
+    "badge": "lua",
+    "id": "lua-errors",
+    "sec": "Lua Scripting",
+    "cmd": "local ok, result = pcall(function()\n  local value = tonumber(\"bad input\")\n  assert(value, \"expected a number\")\n  return value * 2\nend)\nif ok then print(result) else io.stderr:write(tostring(result), \"\\n\") end",
+    "desc": "Catch a runtime error with pcall",
+    "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+    "tags": "lua scripting errors pcall assert"
+  },
+  {
+    "sName": "scripting",
+    "file": "scripting.html",
+    "badge": "lua",
+    "id": "lua-logs",
+    "sec": "Lua Scripting",
+    "cmd": "local sample = \"GPU Xid 79\\nhealthy\\nGPU Xid 48\\nGPU Xid 79\\n\"\nlocal counts = {}\nfor xid in sample:gmatch(\"Xid%s+(%d+)\") do\n  counts[xid] = (counts[xid] or 0) + 1\nend\nlocal keys = {}\nfor key in pairs(counts) do keys[#keys + 1] = key end\ntable.sort(keys, function(a,b) return tonumber(a) < tonumber(b) end)\nfor _, key in ipairs(keys) do print(key, counts[key]) end",
+    "desc": "Count Xid messages in diagnostic text",
+    "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+    "tags": "lua scripting logs gpu xid recipe"
   },
   {
     "sName": "scripting",
