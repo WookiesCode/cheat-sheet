@@ -2418,6 +2418,7 @@
       const out = anBackdrop.querySelector('.an-out');
       const run = () => {
         if (frLooksLike(input.value)) { const t = input.value; input.value = ''; closeAnalyzer(); openFleetResults(t); return; }
+        if (xrLooksLike(input.value)) { const t = input.value; input.value = ''; closeAnalyzer(); openXray(t); return; }
         const r = analyzeOutput(input.value);
         anBackdrop._result = r;
         anBackdrop.classList.toggle('has-result', !!r);
@@ -2469,6 +2470,7 @@
       const text = e.clipboardData ? e.clipboardData.getData('text') : '';
       if (!text || !/\n/.test(text.trim())) return;
       if (frLooksLike(text)) { e.preventDefault(); if (before) before(); openFleetResults(text); return; }
+      if (xrLooksLike(text)) { e.preventDefault(); if (before) before(); openXray(text); return; }
       if (!detectOutput(text)) return;
       e.preventDefault();
       if (before) before();
@@ -2846,26 +2848,34 @@
   // on this page (or not visible on a phone) are skipped.
   // -------------------------------------------------------------
   const TOUR_SEEN_KEY = 'dc_tour_seen';
+  // Bumped when the tour gains steps: anyone who saw an older one is offered "What's new" (the isNew steps).
+  const TOUR_VERSION = '2';
+  // center: the step still shows (centred) when its control is not on this page.
   const TOUR_STEPS = [
-    { title: 'This reference does more than list commands', body: 'A two-minute tour of the parts that save time on the floor: decoding errors, filling in your node, guided runbooks and handing off a shift. Use ← → or the buttons; Esc ends it.' },
-    { target: '#lp-omni-input', title: 'Paste an error, get a diagnosis', body: 'Drop a raw dmesg, SEL or EDAC line here. You get what it means, how bad it is, the next read-only commands and a matching runbook. A whole dmesg or SEL dump opens a cross-layer incident timeline; full mlxlink, smart-log or topo -m outputs open a visual report.',
+    { title: 'This reference does more than list commands', body: 'A short tour that follows an incident: diagnose the error, set up the node, run commands in the built-in terminal, see the GPU tray, compare against healthy nodes, and file the case. Use ← → or the buttons; Esc ends it.' },
+    { target: '#lp-omni-input', title: 'Paste an error, get a diagnosis', body: 'Drop a raw dmesg, SEL or EDAC line here: what it means, how bad it is, the next read-only commands and a matching runbook. Whole dumps open the right tool by themselves: dmesg/SEL → incident timeline, mlxlink / smart-log / topo -m → visual report, an nvidia-smi GPU table → Node X-ray, pdsh output → Fleet results.',
       try: { label: 'Try an Xid 79 line', run: () => { const i = document.getElementById('lp-omni-input'); if (i) { i.value = 'NVRM: Xid (PCI:0000:8a:00): 79, pid=48213, name=python, GPU has fallen off the bus.'; i.dispatchEvent(new Event('input')); } } } },
-    { target: '.lp-flow', title: 'Your incident, step by step', body: 'Identify → Collect → Correlate → Isolate → Document: the team method, with each step\u2019s tools in its card. The cards follow the current node: steps tick green as you name the node, run commands, compare, work a runbook and file the case; the next step is highlighted.' },
-    { target: '#global-search-btn, [data-fd="search"]', title: 'Ctrl+K does almost everything', body: 'Search 2,300 commands, open any sheet or runbook, run actions (> lists them), switch themes, or quick-set values: "gpu 3", "hca mlx5_4", "pid 48213", "node gpu-node-08".',
+    { target: '.lp-flow', isNew: true, title: 'Your incident, step by step', body: 'Identify → Collect → Correlate → Isolate → Document: the team method, each step holding its tools. The cards follow the current node and tick green as you name it, run commands, compare, work a runbook and file the case; the next step is highlighted.' },
+    { target: '.node-chip, [data-fd="targets"]', title: 'One workspace per machine', body: 'Name the node you are on. Its targets, Case Trail, pinned evidence and runbook progress stay with it, so switching to the next node is one click and nothing leaks between tickets.' },
+    { target: '.target-summary, .target-inputs-row, [data-fd="targets"]', title: 'Your targets go into every command', body: 'BMC, interface, HCA, disk and GPU are filled in when you copy or send a command. Dashed chips inside commands are those values: click one to change it. The BMC password is never stored. Red-tagged commands change state and need a drained node and approval.' },
+    { target: '#console-btn, .con-cbar', center: true, isNew: true, title: 'A real terminal under every sheet', body: 'Ctrl+` opens a shell on this jumpbox (start python3 term-bridge.py once and paste its token). Hover any command and press ⏎ Send to type it, with your targets filled in; state-changing ones ask first. When the reply is something a tool can read, a ✦ Read this output button lights up in the terminal bar.',
+      try: { label: 'Open the terminal', run: () => { endTour(); toggleConsole(true); } } },
+    { target: '[data-lp="xray"], [data-flow="xray"]', center: true, isNew: true, title: 'Node X-ray: see the GPU tray', body: 'One read-only command draws the node: every GPU and NIC as a tile, red where it needs you, with hollow slots for GPUs that fell off the bus. ▶ Run in terminal fills it with no copy-paste; ● Watch live streams nvidia-smi every 2 s with a temperature trace and peaks per GPU, so a fault under load is caught in the act.',
+      try: { label: 'Watch a demo tray heat up', run: () => { endTour(); openXray(XR_SAMPLE); xrLiveStart(true); } } },
+    { target: '[data-flow="diff"], .fleet-chip', center: true, isNew: true, title: 'One node, or the whole rack?', body: 'Compare nodes puts a suspect next to a known-good twin and shows only real differences (firmware, link width, missing devices), not serials and temperatures. Fleet mode fans any command out over pdsh / clush; paste what comes back and Fleet results groups the nodes and points at the odd one out.',
+      try: { label: 'Try Fleet results with 12 nodes', run: () => { endTour(); openFleetResults(FR_SAMPLE); } } },
+    { target: '#global-search-btn, [data-fd="search"]', title: 'Ctrl+K does almost everything', body: 'Search 2,300 commands, open any sheet or runbook, run actions (> lists them), switch themes, or quick-set values: "gpu 3", "hca mlx5_4", "node gpu-node-08".',
       try: { label: 'Open Ctrl+K with "gpu 3"', run: () => { endTour(); openGlobalSearch('gpu 3'); } } },
-    { target: '.node-chip, [data-fd="targets"]', title: 'One workspace per machine', body: 'Name the node you are on. Its targets, Case Trail, runbook progress and placeholder values stay with it, so switching to the next node is one click and nothing leaks between tickets.' },
-    { target: '.target-summary, .target-inputs-row, [data-fd="targets"]', title: 'Your targets go into every copy', body: 'BMC, interface, HCA, disk and GPU are filled into commands when you copy them. Click any chip to change it; the password is never stored.' },
-    { target: '.cmd-code-box .slot, .cmd-code-box .anat-known', title: 'Commands show what you will paste', body: 'Dashed chips are values that come from your targets or placeholders; click one to set it. Dotted flags explain themselves on hover. Red-tagged commands change state and need a drained node and approval.' },
     { target: '#triage-modal-btn, [data-fd="triage"]', title: 'Guided runbooks and the RMA ticket', body: 'Step-by-step runs of the team playbooks: safety, evidence, decisions, physical isolation. Intrusive steps stay locked until you confirm the drain. The verdict and findings fill the RMA ticket.',
       try: { label: 'Open the runbooks', run: () => { endTour(); openRunbook(); } } },
-    { target: '#trail-btn, [data-fd="more"]', title: 'Everything you copy is on the record', body: 'The Case Trail logs each copied command with time, sheet and your targets, ready to paste into the ticket as notes.' },
-    { target: '#kit-btn, [data-fd="more"]', title: 'Build your own cheat sheet', body: 'Bookmark commands on any sheet and My kit collects them in one place, ready to print as a two-column pocket card for the crash cart.' },
+    { target: '#trail-btn, [data-fd="more"]', center: true, isNew: true, title: 'Pin evidence, get summary.md', body: 'Every command you copy or send lands in the Case Trail. Every result (decoded error, analyzer report, X-ray, comparison, fleet board) has 📌 Pin. The Case file turns pins and trail into cases/<host>/summary.md with timeline, root cause and a filled RMA block, and 📱 To phone hands any of it over as QR codes, no network needed.',
+      try: { label: 'Open the case file', run: () => { endTour(); openCaseFile(); } } },
     { target: '.lp-board, .lp-runbooks', title: 'Your nodes, worst first', body: 'The home page shows every node workspace with its verdict and next steps. The Shift board turns them into one handoff for the next shift.',
       try: { label: 'Open the Shift board', run: () => { endTour(); openBoard(); } } },
-    { title: 'Read outputs, not just commands', body: 'Paste a full mlxlink, nvme smart-log or nvidia-smi topo -m output and get lane charts, decoded warning bits and a GPU/NIC topology map, each finding tied to the playbook rule.',
-      try: { label: 'Open the analyzer with a sample', run: () => { endTour(); openAnalyzer(AN_SAMPLES.mlxlink); } } },
-    { target: '.hdr-more-btn, [data-fd="more"]', title: 'Replay this anytime', body: 'Saved, Compact, themes, Manuals and the offline file live under More. Prefer the keyboard? j/k move between commands, Enter copies, and ? lists every shortcut. Ctrl+K → "tour" brings this walkthrough back.' }
+    { target: '.hdr-more-btn, [data-fd="more"]', title: 'Replay this anytime', body: 'My kit (★) collects bookmarked commands into a printable pocket card. Themes, Manuals and the offline 1-file copy live under More. j/k move between commands, Enter copies, ? lists every shortcut. Ctrl+K → "tour" or "what’s new" brings this back.' }
   ];
+  const tourSeenVersion = () => { try { return localStorage.getItem(TOUR_SEEN_KEY); } catch (e) { return null; } };
+  const tourMarkSeen = () => { try { localStorage.setItem(TOUR_SEEN_KEY, TOUR_VERSION); } catch (e) {} };
 
   let tourEl = null;
   let tourSteps = [];
@@ -2888,10 +2898,12 @@
     return null;
   }
 
-  function startTour() {
+  function startTour(mode) {
     closeGlobalSearch();
+    const whatsNew = mode === 'new';
     // Steps without a visible control on this page are skipped, except the centred ones.
-    tourSteps = TOUR_STEPS.filter(s => !s.target || tourTarget(s));
+    tourSteps = TOUR_STEPS.filter(s => (!whatsNew || s.isNew) && (!s.target || s.center || tourTarget(s)));
+    if (whatsNew) tourSteps.unshift({ title: 'What\u2019s new since your last tour', body: `${tourSteps.length} additions on this page: ${tourSteps.map(t => t.title.split(/[:?]/)[0].toLowerCase()).join(' · ')}. Each step has a ▶ button that shows it working.` });
     tourIdx = 0;
     tourPrev = document.activeElement;
     if (!tourEl) {
@@ -2906,9 +2918,7 @@
           <p id="tour-body"></p>
           <div class="tour-actions">
             <button type="button" class="tour-try" data-tour="try" hidden></button>
-            <span class="tour-spacer"></span>
-            <button type="button" data-tour="back">Back</button>
-            <button type="button" class="tour-next" data-tour="next">Next</button>
+            <span class="tour-nav"><button type="button" data-tour="back">Back</button><button type="button" class="tour-next" data-tour="next">Next</button></span>
           </div>
           <button type="button" class="tour-skip" data-tour="end">End tour</button>
         </div>`;
@@ -2931,7 +2941,7 @@
       window.addEventListener('resize', () => { if (tourEl.classList.contains('show')) placeTour(); });
       window.addEventListener('scroll', () => { if (tourEl.classList.contains('show')) placeTour(); }, { passive: true });
     }
-    try { localStorage.setItem(TOUR_SEEN_KEY, '1'); } catch (e) {}
+    tourMarkSeen();
     const invite = document.querySelector('.tour-invite');
     if (invite) invite.remove();
     tourEl.classList.add('show');
@@ -2942,7 +2952,7 @@
     tourIdx = i;
     const s = tourSteps[i];
     const card = tourEl.querySelector('.tour-card');
-    tourEl.querySelector('.tour-step').textContent = `${i + 1} of ${tourSteps.length}`;
+    tourEl.querySelector('.tour-step').innerHTML = `${i + 1} of ${tourSteps.length}${s.isNew ? ' <span class="tour-new">New</span>' : ''}`;
     tourEl.querySelector('.tour-progress span').style.width = `${((i + 1) / tourSteps.length) * 100}%`;
     tourEl.querySelector('#tour-title').textContent = s.title;
     tourEl.querySelector('#tour-body').textContent = s.body;
@@ -2988,17 +2998,20 @@
   }
 
   function initTourInvite() {
-    let seen = null;
-    try { seen = localStorage.getItem(TOUR_SEEN_KEY); } catch (e) {}
-    if (seen || document.querySelector('.tour-invite')) return;
+    const seen = tourSeenVersion();
+    if (seen === TOUR_VERSION || document.querySelector('.tour-invite')) return;
+    const returning = !!seen;
     const inv = document.createElement('div');
-    inv.className = 'tour-invite';
+    inv.className = `tour-invite${returning ? ' is-whatsnew' : ''}`;
     inv.setAttribute('role', 'status');
-    inv.innerHTML = `<span class="tour-invite-dot" aria-hidden="true"></span><div><b>New here?</b><span>Two-minute tour of what this reference can do.</span></div>
+    inv.innerHTML = returning
+      ? `<span class="tour-invite-dot" aria-hidden="true"></span><div><b>New since your last tour</b><span>Terminal, Node X-ray with live watch, fleet tools and the case file.</span></div>
+      <button type="button" class="tour-invite-go">What\u2019s new</button><button type="button" class="tour-invite-x" aria-label="Dismiss">✕</button>`
+      : `<span class="tour-invite-dot" aria-hidden="true"></span><div><b>New here?</b><span>Two-minute tour of what this reference can do.</span></div>
       <button type="button" class="tour-invite-go">Take the tour</button><button type="button" class="tour-invite-x" aria-label="Dismiss">✕</button>`;
     document.body.appendChild(inv);
-    inv.querySelector('.tour-invite-go').addEventListener('click', startTour);
-    inv.querySelector('.tour-invite-x').addEventListener('click', () => { try { localStorage.setItem(TOUR_SEEN_KEY, '1'); } catch (e) {} inv.remove(); });
+    inv.querySelector('.tour-invite-go').addEventListener('click', () => startTour(returning ? 'new' : undefined));
+    inv.querySelector('.tour-invite-x').addEventListener('click', () => { tourMarkSeen(); inv.remove(); });
     setTimeout(() => inv.classList.add('show'), 900);
   }
 
@@ -3085,17 +3098,19 @@
       { icon: '📁', label: `Open case file (${readCase().evidence.length} pinned)`, sub: 'Pinned evidence + Case Trail → cases/<host>/summary.md with timeline, root cause and RMA block', kw: 'case file summary summary.md evidence pinned rma root cause hypothesis ticket report handoff', run: openCaseFile },
       { icon: '📱', label: 'Send ticket notes to my phone', sub: 'The Case Trail as QR codes: scan with the phone camera, no network needed', kw: 'phone qr code mobile handoff send scan camera crash cart notes trail', run: () => { const l = readTrail(); return l.length ? openPhone(trailMarkdown(l), 'Ticket notes to your phone', `${l.length} commands from the Case Trail`) : showGlobalToast('The trail is empty: copy a command first.'); } },
       { icon: '📱', label: 'Send last copied command to my phone', sub: 'QR code of the most recent command in the Case Trail', kw: 'phone qr last command mobile scan', run: () => { const l = readTrail(); return l.length ? openPhone(l[l.length - 1].cmd, 'Last copied command', l[l.length - 1].sheet) : showGlobalToast('Copy a command first.'); } },
+      { icon: '▦', label: 'Node X-ray: see the GPU tray', sub: 'One read-only command → every GPU and NIC as a tile, red where it needs you; click one for its commands', kw: 'xray x-ray tray map gpu map baseboard sxm slot position which gpu bdf serial physical layout nic cage missing gpu fallen off bus', run: () => openXray() },
       { icon: '⇉', label: 'Read fleet results', sub: 'Paste pdsh / dshbak / clush / BMC-loop output: group nodes, spot the odd one out', kw: 'fleet results pdsh dshbak clush odd node outlier compare many nodes which node differs', run: () => openFleetResults() },
       { icon: '⇉', label: `Fleet mode${fleetState().active ? ' (on)' : ''}`, sub: 'Copy any command fanned out across many nodes (pdsh / clush / ssh) or BMCs', kw: 'fleet pdsh clush parallel many nodes rack all nodes fan out bulk mass hostlist bmcs', run: openFleet },
       { icon: '⚖', label: 'Compare with a known-good node', sub: 'Paste the same output from a healthy node and the suspect; see what really differs', kw: 'compare diff golden healthy known good node identical baseline drift mismatch firmware vbios', run: () => openGoldenDiff() },
-      { icon: '🔌', label: 'Serial console', sub: 'Talk to a switch, BMC or PDU over USB-serial; ⏎ Send any command (Ctrl+`)', kw: 'serial console tty ttyusb usb rs232 rj45 baud tio screen minicom switch bmc pdu web serial', run: () => toggleConsole(true) },
+      { icon: '>_', label: 'Terminal', sub: 'A shell on this jumpbox under the sheet; ⏎ Send any command (Ctrl+`)', kw: 'terminal shell console bash ssh prompt run command jumpbox xterm tty cli', run: () => toggleConsole(true) },
       { icon: '⟲', label: 'Open Case trail', sub: `${readTrail().length} commands copied, ready for ticket notes`, kw: 'trail history copied log ticket notes timeline', run: openTrail },
       { icon: '🩺', label: 'Triage & RMA', sub: 'Runbooks, crash-cart script, RMA ticket formatter', kw: 'triage rma ticket crash cart script vendor escalation', run: openTriageModal },
       { icon: '▶', label: 'Guided runbooks', sub: `${RUNBOOKS.length} step-by-step playbooks`, kw: 'runbooks runbook playbooks playbook guided steps', run: () => openRunbook() },
       { icon: '🩻', label: 'Health atlas: what healthy looks like', sub: 'Optics power, temps, row remap, PCIe, NVMe and ECC ranges with examples', kw: 'healthy health atlas thresholds ranges normal good bad unhealthy limits dbm rx tx temperature remap pcie nvme spare wear ecc', run: () => openHealthAtlas() },
       { icon: '📶', label: 'BER: healthy vs unhealthy', sub: 'What raw and effective BER look like on a clean, degraded and failing link', kw: 'ber bit error rate fec raw effective mlxlink healthy unhealthy reference thresholds', run: () => openBerReference() },
       { icon: '⌨', label: 'Keyboard shortcuts', sub: 'j/k move between commands, ↵ copy, b save, ? for the full map', kw: 'keyboard shortcuts keys hotkeys vim navigation help accessibility', run: () => toggleKbHelp(true) },
-      { icon: '🧭', label: 'Take the tour', sub: 'Two-minute walkthrough of what this reference can do', kw: 'tour help guide getting started onboarding whats new features walkthrough', run: () => startTour() },
+      { icon: '🧭', label: 'Take the tour', sub: 'Walkthrough of what this reference can do, following an incident', kw: 'tour help guide getting started onboarding features walkthrough', run: () => startTour() },
+      { icon: '✨', label: 'What\u2019s new', sub: 'Only the newest additions: terminal, Node X-ray + live watch, fleet tools, case file', kw: 'whats new what\'s new changes changelog latest updates recent features', run: () => startTour('new') },
       { icon: '📋', label: 'Shift board & handoff', sub: 'All node workspaces at a glance; copy or print the handoff', kw: 'board shift handoff handover incidents nodes overview status report', run: () => openBoard() },
       { icon: '📈', label: 'Analyze command output', sub: 'Paste mlxlink, nvme smart-log or nvidia-smi topo -m output for a report', kw: 'analyze analyzer output paste mlxlink smart-log smartlog dom ber optics nvme report topo topology nvlink pix numa affinity', run: () => openAnalyzer() },
       { icon: '☰', label: 'Toggle compact view', sub: 'Hide or show explanations and variants', kw: 'compact density detailed dense view', run: () => { const b = document.getElementById('density-toggle'); if (b) b.click(); } },
@@ -4528,211 +4543,170 @@ ${rmaTrailSection()}#### Action Requested:
   else window.addEventListener('DOMContentLoaded', initCompact);
 
   // -------------------------------------------------------------
-  // SERIAL CONSOLE
-  // On a crash cart the last step of every command here was: copy, alt-tab to
-  // screen/tio/minicom, paste, and hope the USB-serial dongle enumerated as the
-  // ttyUSB you guessed. Chrome and Edge speak to the port directly (Web Serial),
-  // so the console now docks under the sheet: Connect once, and every command
-  // box grows a ⏎ Send button that types it, with your Rack Targets filled in,
-  // into the switch / BMC / PDU console. State-changing commands and BREAK ask
-  // first; password prompts mask the input and keep it out of history and the
-  // Case Trail; the session saves as a timestamped log for cases/<host>/logs/.
+  // TERMINAL
+  // The last step of every command here was: copy, alt-tab to a terminal,
+  // paste. The dock under the sheet is now a real terminal on this jumpbox: a
+  // login shell (ssh, ipmitool, curl, pdsh, all of it) drawn by xterm.js, so
+  // colours, top, less and vim work. A page cannot start a shell itself, so
+  // term-bridge.py (stdlib Python, 127.0.0.1 only, token + Origin checked)
+  // gives each connection its own PTY. Every command box grows ⏎ Send, which
+  // types the command with Rack Targets filled in; state-changing commands ask
+  // first; the session saves as a timestamped log for cases/<host>/logs/.
   // -------------------------------------------------------------
-  const CON_PREFS_KEY = 'dc_console_prefs';
-  const CON_BAUDS = [9600, 19200, 38400, 57600, 115200, 230400, 460800];
-  const CON_EOL = { cr: '\r', lf: '\n', crlf: '\r\n' };
-  const CON_USB = { 0x0403: 'FTDI', 0x067b: 'Prolific', 0x10c4: 'Silicon Labs CP210x', 0x1a86: 'WCH CH340', 0x2341: 'Arduino', 0x0557: 'ATEN', 0x05ac: 'Apple' };
-  const CON_MAX_LINES = 5000;
-  const con = { port: null, reader: null, open: false, live: false, lines: [], cur: '', crPending: false, history: [], hIdx: -1, secret: false, pending: null, dirty: false, el: null, decoder: null };
+  const CON_PREFS_KEY = 'dc_terminal_prefs';
+  const CON_BASE = (() => { const s = document.currentScript && document.currentScript.src; return s ? s.replace(/[^/]*$/, '') : ''; })();
+  const con = { ws: null, term: null, fit: null, open: false, live: false, opened: false, pending: null, el: null, hello: null, enc: new TextEncoder(), dec: null, cap: null };
 
   function conPrefs() {
     let p = {};
     try { p = JSON.parse(readStored(CON_PREFS_KEY) || '{}') || {}; } catch (e) {}
-    return { baud: CON_BAUDS.includes(+p.baud) ? +p.baud : 115200, eol: CON_EOL[p.eol] ? p.eol : 'cr', h: Math.min(80, Math.max(22, +p.h || 38)) };
+    return { port: Math.min(65535, Math.max(1, +p.port || 8767)), token: String(p.token || ''), h: Math.min(80, Math.max(22, +p.h || 40)) };
   }
   function conSavePrefs(patch) {
     try { localStorage.setItem(CON_PREFS_KEY, JSON.stringify(Object.assign(conPrefs(), patch))); } catch (e) {}
   }
-  const conSupported = () => typeof navigator !== 'undefined' && 'serial' in navigator;
+  // Where term-bridge.py sits: next to this page when it was opened from disk.
+  function conBridgeCmd() {
+    if (location.protocol === 'file:') {
+      const dir = decodeURIComponent(location.pathname.replace(/[^/]*$/, ''));
+      return `python3 ${/\s/.test(dir) ? `"${dir}term-bridge.py"` : `${dir}term-bridge.py`}`;
+    }
+    return 'python3 term-bridge.py   # from the cheat-sheet claude/ folder';
+  }
+
+  // xterm.js is vendored (vendor/xterm/) so the terminal works offline; the 1-file copy inlines it.
+  let conXtermLoad = null;
+  function conLoadXterm() {
+    if (window.Terminal && window.FitAddon) return Promise.resolve();
+    if (conXtermLoad) return conXtermLoad;
+    const add = (tag, attrs) => new Promise((res, rej) => { const n = document.createElement(tag); Object.assign(n, attrs); n.onload = res; n.onerror = () => rej(new Error(`could not load ${attrs.src || attrs.href}`)); document.head.appendChild(n); });
+    conXtermLoad = add('link', { rel: 'stylesheet', href: `${CON_BASE}vendor/xterm/xterm.css` })
+      .then(() => add('script', { src: `${CON_BASE}vendor/xterm/xterm.js` }))
+      .then(() => add('script', { src: `${CON_BASE}vendor/xterm/addon-fit.js` }))
+      .catch(e => { conXtermLoad = null; throw e; });
+    return conXtermLoad;
+  }
+
+  function conTheme() {
+    const cs = getComputedStyle(document.documentElement);
+    const v = (n, d) => (cs.getPropertyValue(n) || '').trim() || d;
+    return {
+      background: v('--bg-code', '#080b10'), foreground: v('--text-primary', '#e6edf3'), cursor: v('--accent-green', '#4ade80'), cursorAccent: v('--bg-code', '#080b10'),
+      selectionBackground: 'rgba(56, 189, 248, 0.35)',
+      black: '#1f293a', red: v('--accent-red', '#f87171'), green: v('--accent-green', '#4ade80'), yellow: v('--accent-amber', '#fbbf24'), blue: v('--accent-primary', '#38bdf8'), magenta: v('--accent-purple', '#c084fc'), cyan: v('--accent-cyan', '#22d3ee'), white: v('--text-secondary', '#9aa7b8'),
+      brightBlack: v('--text-muted', '#64748b'), brightRed: '#fca5a5', brightGreen: '#86efac', brightYellow: '#fde68a', brightBlue: '#7dd3fc', brightMagenta: '#d8b4fe', brightCyan: '#67e8f9', brightWhite: '#f8fafc'
+    };
+  }
 
   function conBuild() {
     if (con.el) return con.el;
     const p = conPrefs();
     const el = document.createElement('section');
     el.className = 'con-drawer';
-    el.setAttribute('aria-label', 'Serial console');
+    el.setAttribute('aria-label', 'Terminal');
     el.style.setProperty('--con-h', `${p.h}vh`);
     el.innerHTML = `
       <div class="con-grip" title="Drag to resize" aria-hidden="true"></div>
       <header class="con-head">
         <span class="con-led" aria-hidden="true"></span>
-        <b class="con-title">Serial console</b>
+        <b class="con-title">Terminal</b>
         <span class="con-status" aria-live="polite">Not connected</span>
+        <button type="button" class="con-offer" hidden></button>
         <span class="con-tools">
-          <label class="con-sel" title="Baud rate (8N1, no flow control)"><span>Baud</span><select data-con-pref="baud">${CON_BAUDS.map(b => `<option value="${b}"${b === p.baud ? ' selected' : ''}>${b}</option>`).join('')}</select></label>
-          <label class="con-sel" title="What Enter sends"><span>Enter</span><select data-con-pref="eol">${Object.keys(CON_EOL).map(k => `<option value="${k}"${k === p.eol ? ' selected' : ''}>${k.toUpperCase()}</option>`).join('')}</select></label>
-          <button type="button" class="con-btn con-connect" data-con="connect">Connect…</button>
+          <button type="button" class="con-btn con-connect" data-con="connect">Connect</button>
           <button type="button" class="con-btn" data-con="ctrlc" title="Send Ctrl-C (interrupt)" disabled>^C</button>
-          <button type="button" class="con-btn" data-con="break" title="Send a serial BREAK (asks first)" disabled>Break</button>
-          <button type="button" class="con-btn" data-con="clear" title="Clear the screen (not the device)">Clear</button>
+          <button type="button" class="con-btn" data-con="clear" title="Clear the screen and scrollback (not the shell)">Clear</button>
           <button type="button" class="con-btn" data-con="save" title="Download the session as a timestamped .txt log">Save log</button>
-          <button type="button" class="con-btn con-icon" data-con="close" title="Hide console (stays connected) · Ctrl+\`" aria-label="Hide console">▾</button>
+          <button type="button" class="con-btn" data-con="setup" title="Bridge port and token">Setup</button>
+          <button type="button" class="con-btn con-icon" data-con="close" title="Hide terminal (the shell keeps running) · Ctrl+\`" aria-label="Hide terminal">▾</button>
         </span>
       </header>
       <div class="con-confirm" hidden></div>
-      <pre class="con-out" tabindex="0" aria-label="Console output. Focus it to type raw keys."></pre>
-      <form class="con-in" autocomplete="off">
-        <span class="con-prompt" aria-hidden="true">›</span>
-        <input type="text" class="con-input" spellcheck="false" aria-label="Send a line to the console" placeholder="Type a line and press Enter · or click ⏎ Send on any command" />
-        <button type="submit" class="con-btn con-send-line" disabled>Send ⏎</button>
-      </form>`;
+      <div class="con-setup" hidden>
+        <div class="con-setup-step"><span class="con-n">1</span><div><b>Start the bridge on this jumpbox</b> <span class="con-muted">once per login; it only listens on 127.0.0.1</span>
+          <div class="con-cmd"><code>${escapeHtml(conBridgeCmd())}</code><button type="button" class="con-btn" data-con="copybridge">Copy</button></div></div></div>
+        <div class="con-setup-step"><span class="con-n">2</span><div><b>Paste the token it prints</b> <span class="con-muted">saved in this browser; stored in ~/.config/dc-cheatsheet/term-token</span>
+          <form class="con-setup-form" autocomplete="off"><input type="password" class="con-token" placeholder="token" aria-label="Bridge token" value="${escapeHtml(p.token)}" spellcheck="false"><label class="con-port-l">Port <input type="number" class="con-port" min="1" max="65535" value="${p.port}" aria-label="Bridge port"></label><button type="submit" class="con-btn con-connect-2">Connect</button></form>
+          <p class="con-err" hidden></p></div></div>
+      </div>
+      <div class="con-term" aria-label="Terminal. Ctrl+Shift+C copies, Ctrl+Shift+V pastes."></div>`;
     document.body.appendChild(el);
     con.el = el;
-    con.out = el.querySelector('.con-out');
-    con.input = el.querySelector('.con-input');
     con.status = el.querySelector('.con-status');
     con.confirmEl = el.querySelector('.con-confirm');
-    conIntro();
+    con.setup = el.querySelector('.con-setup');
+    con.host = el.querySelector('.con-term');
 
-    el.addEventListener('change', (e) => {
-      const s = e.target.closest('[data-con-pref]');
-      if (!s) return;
-      conSavePrefs({ [s.dataset.conPref]: s.value });
-      if (s.dataset.conPref === 'baud' && con.live) conSys(`Baud changes apply on the next Connect (now ${con.baud}).`);
-    });
     el.addEventListener('click', (e) => {
       const b = e.target instanceof Element ? e.target.closest('[data-con]') : null;
       if (!b) return;
       const act = b.dataset.con;
       if (act === 'connect') return con.live ? conDisconnect() : conConnect();
-      if (act === 'ctrlc') return conWrite('\x03');
-      if (act === 'break') return conConfirm('Send a serial BREAK? On many switches and routers a BREAK during boot drops into ROMMON / the boot loader.', 'Send BREAK', conBreak);
-      if (act === 'clear') { con.lines = []; con.cur = ''; conRender(); return; }
+      if (act === 'ctrlc') { conWrite('\x03'); return con.term && con.term.focus(); }
+      if (act === 'clear') { if (con.term) { con.term.clear(); con.term.focus(); } return; }
       if (act === 'save') return conSaveLog();
+      if (act === 'setup') return conShowSetup(con.setup.hidden);
+      if (act === 'copybridge') { copyVerbatim(conBridgeCmd().replace(/\s+#.*$/, '')); b.textContent = 'Copied'; setTimeout(() => { b.textContent = 'Copy'; }, 1200); return; }
       if (act === 'close') return toggleConsole(false);
       if (act === 'confirm-yes' && con.pending) { const run = con.pending; conConfirm(null); run(); return; }
       if (act === 'confirm-no') return conConfirm(null);
     });
-    el.querySelector('.con-in').addEventListener('submit', (e) => {
+    el.querySelector('.con-setup-form').addEventListener('submit', (e) => {
       e.preventDefault();
-      const line = con.input.value;
-      if (!con.live) { conSys('Not connected. Press Connect… and pick the USB-serial adapter.'); return; }
-      conWrite(line + CON_EOL[conPrefs().eol]);
-      if (!con.secret && line.trim()) {
-        if (con.history[con.history.length - 1] !== line) con.history.push(line);
-        recordTrail(line);
-      }
-      con.hIdx = -1;
-      con.input.value = '';
-      conSecret(false);
+      conSavePrefs({ token: el.querySelector('.con-token').value.trim(), port: +el.querySelector('.con-port').value || 8767 });
+      conConnect();
     });
-    con.input.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
-        if (!con.history.length || con.secret) return;
-        e.preventDefault();
-        con.hIdx = e.key === 'ArrowUp' ? (con.hIdx < 0 ? con.history.length - 1 : Math.max(0, con.hIdx - 1)) : (con.hIdx < 0 ? -1 : con.hIdx + 1);
-        if (con.hIdx >= con.history.length) con.hIdx = -1;
-        con.input.value = con.hIdx < 0 ? '' : con.history[con.hIdx];
-      } else if (e.ctrlKey && e.key === 'c' && con.live && con.input.selectionStart === con.input.selectionEnd && !window.getSelection().toString()) {
-        e.preventDefault(); conWrite('\x03');
-      } else if (e.key === 'Escape') { e.stopPropagation(); toggleConsole(false); }
-    });
-    // Raw keys for pagers (--More--), menus and full-screen BIOS consoles.
-    con.out.addEventListener('keydown', (e) => {
-      if (!con.live || e.metaKey || (e.ctrlKey && e.key === 'c' && window.getSelection().toString())) return;
-      const map = { Enter: CON_EOL[conPrefs().eol], Backspace: '\x7f', Tab: '\t', Escape: '\x1b', ArrowUp: '\x1b[A', ArrowDown: '\x1b[B', ArrowRight: '\x1b[C', ArrowLeft: '\x1b[D', Home: '\x1b[H', End: '\x1b[F', Delete: '\x1b[3~', PageUp: '\x1b[5~', PageDown: '\x1b[6~', F1: '\x1bOP', F2: '\x1bOQ', F3: '\x1bOR', F4: '\x1bOS' };
-      let s = map[e.key];
-      if (!s && e.ctrlKey && /^[a-z]$/i.test(e.key)) s = String.fromCharCode(e.key.toUpperCase().charCodeAt(0) - 64);
-      if (!s && !e.ctrlKey && !e.altKey && e.key.length === 1) s = e.key;
-      if (!s) return;
-      e.preventDefault();
-      e.stopPropagation();
-      conWrite(s);
-    });
-    // Drag the grip to resize; height is remembered.
+    // Drag the grip to resize; height is remembered and the shell is told its new size.
     const grip = el.querySelector('.con-grip');
     grip.addEventListener('pointerdown', (e) => {
       e.preventDefault();
       grip.setPointerCapture(e.pointerId);
       const move = ev => { const vh = Math.min(80, Math.max(22, (window.innerHeight - ev.clientY) / window.innerHeight * 100)); el.style.setProperty('--con-h', `${vh.toFixed(1)}vh`); document.body.style.setProperty('--con-pad', `${vh.toFixed(1)}vh`); };
-      const up = ev => { grip.removeEventListener('pointermove', move); grip.removeEventListener('pointerup', up); conSavePrefs({ h: Math.round(parseFloat(el.style.getPropertyValue('--con-h'))) }); };
+      const up = () => { grip.removeEventListener('pointermove', move); grip.removeEventListener('pointerup', up); conSavePrefs({ h: Math.round(parseFloat(el.style.getPropertyValue('--con-h'))) }); conFit(); };
       grip.addEventListener('pointermove', move);
       grip.addEventListener('pointerup', up);
     });
+    if (window.ResizeObserver) { let t = null; new ResizeObserver(() => { clearTimeout(t); t = setTimeout(conFit, 60); }).observe(con.host); }
     return el;
   }
 
-  function conIntro() {
-    if (conSupported()) {
-      conSys('Plug in the USB-serial / RJ45 console cable, set the baud (115200 for most BMCs and NVIDIA switches, 9600 for many older switches and PDUs), then Connect…');
-      conSys('Once connected, every command on this sheet shows ⏎ Send. Focus this screen to send raw keys (pagers, menus, BIOS).');
-    } else {
-      conSys('This browser has no Web Serial. Use Chrome or Edge on a desktop, or open the port from a terminal instead:');
-      conSys('  tio -b 115200 /dev/ttyUSB0      (Ctrl-t q to quit)');
-      conSys('  screen /dev/ttyUSB0 115200      (Ctrl-a k to quit)');
-    }
+  function conShowSetup(show, err) {
+    con.setup.hidden = !show;
+    const e = con.setup.querySelector('.con-err');
+    e.hidden = !err;
+    e.textContent = err || '';
+    if (show) setTimeout(() => { const t = con.setup.querySelector('.con-token'); (t.value ? con.setup.querySelector('.con-connect-2') : t).focus(); }, 30);
+    conFit();
   }
 
-  function conSys(msg) {
-    conCommit();
-    con.lines.push({ t: Date.now(), s: `[console] ${msg}`, sys: true });
-    conRender();
-  }
-  function conCommit() {
-    if (con.cur) { con.lines.push({ t: Date.now(), s: con.cur }); con.cur = ''; }
-  }
-
-  // Terminal output → plain lines. Escape sequences are dropped; \r rewrites the
-  // line (progress spinners), \b erases. Good enough for switch CLIs, BMC and
-  // GRUB/serial-over-LAN text; not a full VT100.
-  function conFeed(text) {
-    const clean = text
-      .replace(/\x1b\][^\x07\x1b]*(\x07|\x1b\\)/g, '')
-      .replace(/\x1b\[[0-?]*[ -/]*[@-~]/g, '')
-      .replace(/\x1b[()][A-Za-z0-9]|\x1b[=>78DEHMc]/g, '');
-    for (const ch of clean) {
-      if (ch === '\n') { con.crPending = false; con.lines.push({ t: Date.now(), s: con.cur }); con.cur = ''; continue; }
-      if (con.crPending) { con.crPending = false; con.cur = ''; }
-      if (ch === '\r') { con.crPending = true; continue; }
-      if (ch === '\b' || ch === '\x7f') { con.cur = con.cur.slice(0, -1); continue; }
-      if (ch === '\t' || ch >= ' ') con.cur += ch;
-    }
-    if (con.lines.length > CON_MAX_LINES) con.lines.splice(0, con.lines.length - CON_MAX_LINES);
-    // A password prompt: mask the input and keep the next line out of history.
-    conSecret(/(pass(word|phrase|code)?|pin)\s*:\s*$/i.test(con.cur));
-    conRender();
-  }
-
-  function conSecret(on) {
-    if (!con.input || con.secret === on) return;
-    con.secret = on;
-    con.input.type = on ? 'password' : 'text';
-    con.input.placeholder = on ? 'Password prompt: input is masked and kept out of history, the trail and the log' : 'Type a line and press Enter · or click ⏎ Send on any command';
-    con.el.classList.toggle('is-secret', on);
-    if (on && document.activeElement !== con.out) con.input.focus();
-  }
-
-  function conRender() {
-    if (con.dirty || !con.out) return;
-    con.dirty = true;
-    requestAnimationFrame(() => {
-      con.dirty = false;
-      const atBottom = con.out.scrollHeight - con.out.scrollTop - con.out.clientHeight < 40;
-      const frag = document.createDocumentFragment();
-      con.lines.slice(-1500).forEach(l => {
-        const d = document.createElement('div');
-        if (l.sys) d.className = 'con-sys';
-        else if (l.tx) d.className = 'con-tx';
-        d.textContent = l.s || ' ';
-        frag.appendChild(d);
-      });
-      const cur = document.createElement('div');
-      cur.className = 'con-cur';
-      cur.textContent = con.cur;
-      frag.appendChild(cur);
-      con.out.replaceChildren(frag);
-      if (atBottom) con.out.scrollTop = con.out.scrollHeight;
+  async function conEnsureTerm() {
+    await conLoadXterm();
+    if (con.term) { con.term.options.theme = conTheme(); return con.term; }
+    const mono = getComputedStyle(document.documentElement).getPropertyValue('--font-mono').trim() || 'monospace';
+    const term = new window.Terminal({ cursorBlink: true, fontFamily: mono, fontSize: 13, lineHeight: 1.15, scrollback: 10000, theme: conTheme(), allowProposedApi: false, convertEol: false });
+    const fit = new window.FitAddon.FitAddon();
+    term.loadAddon(fit);
+    term.open(con.host);
+    con.term = term;
+    con.fit = fit;
+    term.attachCustomKeyEventHandler((e) => {
+      if (e.type !== 'keydown') return true;
+      if (e.ctrlKey && !e.altKey && (e.key === '`' || e.code === 'Backquote')) return false; // the dock's own toggle
+      if (e.ctrlKey && e.shiftKey && (e.key === 'C' || e.key === 'c')) { const s = term.getSelection(); if (s) { copyVerbatim(s); showGlobalToast('Copied from the terminal.'); } e.preventDefault(); return false; }
+      if (e.ctrlKey && e.shiftKey && (e.key === 'V' || e.key === 'v')) { e.preventDefault(); if (navigator.clipboard && navigator.clipboard.readText) navigator.clipboard.readText().then(t => t && term.paste(t)).catch(() => {}); return false; }
+      return true;
     });
+    term.onData(d => { if (con.ws && con.ws.readyState === 1) con.ws.send(con.enc.encode(d)); });
+    term.onResize(({ cols, rows }) => { if (con.ws && con.ws.readyState === 1) con.ws.send(JSON.stringify({ type: 'resize', cols, rows })); });
+    conFit();
+    return term;
+  }
+  function conFit() {
+    if (!con.fit || !con.el || !con.el.classList.contains('open')) return;
+    try { con.fit.fit(); } catch (e) {}
+  }
+  function conNote(msg) {
+    if (con.term) con.term.write(`\r\n\x1b[2;3m[terminal] ${msg.replace(/\n/g, '\r\n')}\x1b[0m\r\n`);
   }
 
   function conSetLive(live, label) {
@@ -4740,94 +4714,193 @@ ${rmaTrailSection()}#### Action Requested:
     con.el.classList.toggle('is-live', live);
     document.body.classList.toggle('con-live', live);
     con.status.textContent = label;
-    con.el.querySelector('.con-connect').textContent = live ? 'Disconnect' : 'Connect…';
-    con.el.querySelectorAll('[data-con="ctrlc"], [data-con="break"], .con-send-line').forEach(b => { b.disabled = !live; });
+    con.el.querySelector('.con-connect').textContent = live ? 'Disconnect' : 'Connect';
+    con.el.querySelectorAll('[data-con="ctrlc"]').forEach(b => { b.disabled = !live; });
     document.querySelectorAll('.con-hdr-led').forEach(l => l.classList.toggle('on', live));
-    if (live) conInjectSend();
+    if (live) conInjectSend(); else conCapEnd();
   }
 
   async function conConnect() {
-    if (!conSupported()) { conSys('Web Serial is not available in this browser. See the tio / screen lines above.'); return; }
-    let port;
-    try { port = await navigator.serial.requestPort(); } catch (e) { conSys(e && e.name === 'NotFoundError' ? 'No port picked.' : `Could not pick a port: ${e.message}`); return; }
-    const { baud } = conPrefs();
-    try {
-      await port.open({ baudRate: baud, dataBits: 8, stopBits: 1, parity: 'none', flowControl: 'none', bufferSize: 65536 });
-    } catch (e) {
-      conSys(`Could not open the port: ${e.message}. Is screen/tio/minicom still holding it?`);
-      return;
-    }
-    con.port = port;
-    con.baud = baud;
-    con.decoder = new TextDecoder();
-    const info = port.getInfo ? port.getInfo() : {};
-    const chip = CON_USB[info.usbVendorId] || (info.usbVendorId ? `USB ${info.usbVendorId.toString(16).padStart(4, '0')}:${(info.usbProductId || 0).toString(16).padStart(4, '0')}` : 'serial port');
-    conSetLive(true, `${chip} · ${baud} 8N1`);
-    conSys(`Connected: ${chip} at ${baud} 8N1. Press Enter if the screen stays blank.`);
-    conReadLoop(port);
-  }
-
-  async function conReadLoop(port) {
-    while (con.port === port && port.readable) {
-      con.reader = port.readable.getReader();
-      try {
-        for (;;) {
-          const { value, done } = await con.reader.read();
-          if (done) break;
-          if (value) conFeed(con.decoder.decode(value, { stream: true }));
-        }
-      } catch (e) {
-        if (con.port === port) conSys(`Read error: ${e.message}. Wrong baud shows as garbage; a pulled cable ends the session.`);
-      } finally {
-        try { con.reader.releaseLock(); } catch (e) {}
+    const { port, token } = conPrefs();
+    if (!token) { conShowSetup(true); return; }
+    try { await conEnsureTerm(); } catch (e) { conShowSetup(true, `The terminal library did not load (${e.message}). Keep the vendor/ folder next to the sheets.`); return; }
+    if (con.ws) { try { con.ws.close(); } catch (e) {} }
+    con.status.textContent = `Connecting to 127.0.0.1:${port}…`;
+    let ws;
+    try { ws = new WebSocket(`ws://127.0.0.1:${port}/term?token=${encodeURIComponent(token)}`); } catch (e) { conShowSetup(true, e.message); return; }
+    ws.binaryType = 'arraybuffer';
+    con.ws = ws;
+    con.dec = new TextDecoder();
+    let opened = false;
+    ws.onopen = () => {
+      opened = true;
+      conShowSetup(false);
+      conSetLive(true, 'Starting shell…');
+      conFit();
+      ws.send(JSON.stringify({ type: 'resize', cols: con.term.cols, rows: con.term.rows }));
+      con.term.focus();
+    };
+    ws.onmessage = (ev) => {
+      if (typeof ev.data === 'string') {
+        let m = {};
+        try { m = JSON.parse(ev.data); } catch (e) {}
+        if (m.type === 'hello') { con.hello = m; conSetLive(true, `${m.user}@${m.host} · ${m.shell}`); if (con.afterLive) { const f = con.afterLive; con.afterLive = null; setTimeout(f, 400); } }
+        return;
       }
-      if (con.port !== port) break;
-    }
-    if (con.port === port) { con.port = null; try { await port.close(); } catch (e) {} conSetLive(false, 'Disconnected'); conSys('Port closed.'); }
+      const bytes = new Uint8Array(ev.data);
+      con.term.write(bytes);
+      if (con.cap) conTap(con.dec.decode(bytes, { stream: true }));
+    };
+    ws.onclose = () => {
+      if (con.ws !== ws) return;
+      con.ws = null;
+      if (!opened) {
+        conSetLive(false, 'Bridge not reachable');
+        conShowSetup(true, `No answer on 127.0.0.1:${port}, or the token was refused. Is term-bridge.py running? A rotated token (--new-token) must be pasted again.`);
+        return;
+      }
+      conSetLive(false, 'Shell closed');
+      conNote('Shell ended. Press Connect for a new one.');
+    };
   }
 
-  async function conDisconnect() {
-    const port = con.port;
-    con.port = null;
-    if (con.reader) { try { await con.reader.cancel(); } catch (e) {} }
-    if (port) { try { await port.close(); } catch (e) {} }
+  function conDisconnect() {
+    const ws = con.ws;
+    con.ws = null;
+    if (ws) { try { ws.close(); } catch (e) {} }
     conSetLive(false, 'Disconnected');
-    conSys('Disconnected.');
+    conNote('Disconnected: the shell was hung up.');
   }
 
-  async function conWrite(s) {
-    if (!con.port || !con.port.writable) { conSys('Not connected.'); return false; }
-    const w = con.port.writable.getWriter();
-    try { await w.write(new TextEncoder().encode(s)); return true; } catch (e) { conSys(`Write failed: ${e.message}`); return false; } finally { w.releaseLock(); }
-  }
-
-  async function conBreak() {
-    if (!con.port || !con.port.setSignals) return;
-    try { await con.port.setSignals({ break: true }); setTimeout(() => con.port && con.port.setSignals({ break: false }).catch(() => {}), 300); conSys('BREAK sent (300 ms).'); } catch (e) { conSys(`BREAK failed: ${e.message}`); }
+  function conWrite(s) {
+    if (!con.ws || con.ws.readyState !== 1) { conNote('Not connected.'); return false; }
+    con.ws.send(con.enc.encode(s));
+    return true;
   }
 
   function conConfirm(msg, yesLabel, run) {
     con.pending = msg ? run : null;
     con.confirmEl.hidden = !msg;
-    if (!msg) { con.confirmEl.innerHTML = ''; return; }
+    if (!msg) { con.confirmEl.innerHTML = ''; conFit(); return; }
     con.confirmEl.innerHTML = `<span class="con-warn">⚠</span><span class="con-confirm-msg">${escapeHtml(msg)}</span><button type="button" class="con-btn con-danger" data-con="confirm-yes">${escapeHtml(yesLabel)}</button><button type="button" class="con-btn" data-con="confirm-no">Cancel</button>`;
     con.confirmEl.querySelector('[data-con="confirm-no"]').focus();
+    conFit();
   }
 
-  // Send a command from a sheet box: Rack Targets and slots filled in, one line at a time.
+  // -------------------------------------------------------------
+  // THE TERMINAL READS ITS OWN OUTPUT
+  // With a shell under the sheet, output still scrolled past and had to be
+  // selected, copied and pasted into an analyzer. Now the dock listens:
+  // • Run (Node X-ray and friends) wraps the command in two invisible markers
+  //   (\036 record separators printed by printf, so the echoed command line never
+  //   matches) and hands exactly the output between them to the tool.
+  // • ⏎ Send watches the reply until the shell goes quiet; when an analyzer
+  //   recognises it (GPU table, fleet output, mlxlink, smart-log, topo,
+  //   dmesg/SEL) a "Read this output" button lights up in the dock header.
+  // -------------------------------------------------------------
+  const conClean = (s) => String(s)
+    .replace(/\x1b\][^\x07\x1b]*(\x07|\x1b\\)/g, '')
+    .replace(/\x1b\[[0-?]*[ -/]*[@-~]/g, '')
+    .replace(/\x1b[()][A-Za-z0-9]|\x1b[=>78DEHMc]/g, '')
+    .replace(/\r+\n/g, '\n').replace(/[^\n]*\r(?!\n)/g, '')
+    .replace(/[\x00-\x08\x0b-\x1f\x7f]/g, '');
+  function conTap(text) {
+    const c = con.cap;
+    if (!c) return;
+    c.buf += text;
+    if (c.buf.length > 4e6) c.buf = c.buf.slice(-4e6);
+    if (c.mode === 'stream') { c.buf = ''; c.onText(text); return; }
+    if (c.mode === 'marker') {
+      const b = c.buf.indexOf(`\x1eDC${c.id}B\x1e`), e = c.buf.indexOf(`\x1eDC${c.id}E\x1e`);
+      if (b >= 0 && e > b) { const out = c.buf.slice(b + c.id.length + 5, e); conCapEnd(); c.done(conClean(out).replace(/^\n+|\s+$/g, '')); }
+      return;
+    }
+    clearTimeout(c.timer);
+    c.timer = setTimeout(conIdleDone, 1300);
+  }
+  function conCapEnd() {
+    const c = con.cap;
+    if (!c) return;
+    clearTimeout(c.timer); clearTimeout(c.hard);
+    con.cap = null;
+    if (c.onEnd) c.onEnd();
+  }
+  function conIdleDone() {
+    const c = con.cap;
+    if (!c || c.mode !== 'idle') return;
+    conCapEnd();
+    const lines = conClean(c.buf).split('\n');
+    lines.shift();                    // the echoed command line
+    lines.pop();                      // the prompt that came back
+    const text = lines.join('\n').trim();
+    if (text) conOffer(text, c.cmd);
+  }
+  // Which tool reads this output, if any.
+  function conReader(text) {
+    if (xrLooksLike(text)) return { label: 'Node X-ray tray', open: () => openXray(text) };
+    if (frLooksLike(text)) return { label: 'Fleet results', open: () => openFleetResults(text) };
+    const t = detectOutput(text);
+    const names = { timeline: 'Incident timeline', topo: 'Topology check', mlxlink: 'Link health (mlxlink)', smartlog: 'NVMe health' };
+    if (t && analyzeOutput(text)) return { label: names[t] || 'Analyzer', open: () => openAnalyzer(text) };
+    return null;
+  }
+  function conOffer(text, cmd) {
+    const r = conReader(text);
+    const host = con.el && con.el.querySelector('.con-offer');
+    if (!host) return;
+    if (!r) { host.hidden = true; return; }
+    host.hidden = false;
+    host.innerHTML = `<span class="con-offer-spark" aria-hidden="true">✦</span><span>Read this output as <b>${escapeHtml(r.label)}</b></span><span aria-hidden="true">→</span>`;
+    host.title = `Output of: ${cmd}`;
+    host.onclick = () => { host.hidden = true; r.open(); };
+    host.classList.remove('is-new'); void host.offsetWidth; host.classList.add('is-new');
+    clearTimeout(host._t);
+    host._t = setTimeout(() => { host.hidden = true; }, 60000);
+  }
+  // Start a long-running command (a -l loop, a tail -f) and feed its output to onText
+  // until stop(), which sends Ctrl-C. Anything else sent to the terminal stops it too.
+  function conStream(cmd, onText, onEnd) {
+    if (!con.live) return null;
+    conCapEnd();
+    const cap = { mode: 'stream', buf: '', onText, onEnd };
+    con.cap = cap;
+    conWrite(cmd + '\r');
+    recordTrail(cmd);
+    return () => { if (con.cap === cap) { conCapEnd(); conWrite('\x03'); } };
+  }
+
+  // Run a command at the prompt and resolve with exactly its output.
+  function conRun(cmd, { timeout = 90000 } = {}) {
+    return new Promise((resolve, reject) => {
+      if (!con.live) { reject(new Error('not connected')); return; }
+      if (con.cap && con.cap.mode === 'stream') conWrite('\x03');
+      conCapEnd();
+      const id = Math.random().toString(36).slice(2, 8);
+      con.cap = { mode: 'marker', id, buf: '', done: resolve };
+      con.cap.hard = setTimeout(() => { if (con.cap && con.cap.id === id) { conCapEnd(); reject(new Error('no answer within ' + Math.round(timeout / 1000) + ' s')); } }, timeout);
+      // \r + ESC[2K wipes each marker off the screen as soon as it is printed.
+      const wrapped = `printf '\\036DC%sB\\036\\r\\033[2K' ${id}; ${cmd.replace(/[;\s]+$/, '')}; printf '\\036DC%sE\\036\\r\\033[2K' ${id}`;
+      conWrite(wrapped + '\r');
+      recordTrail(cmd);
+    });
+  }
+
+  // Send a command from a sheet box: Rack Targets and slots filled in, typed at the prompt.
   function conSendCommand(raw) {
     const cmd = firstCommand(raw);
     const { text } = substituteVariables(cmd);
-    const go = async () => {
+    const go = () => {
       toggleConsole(true);
-      const lines = text.split(/\r?\n/);
-      const eol = CON_EOL[conPrefs().eol];
-      for (let i = 0; i < lines.length; i++) {
-        if (!(await conWrite(lines[i] + eol))) return;
-        if (i < lines.length - 1) await new Promise(r => setTimeout(r, 80));
-      }
+      if (!con.live) { conConnect(); showGlobalToast('Connect the terminal first, then press ⏎ Send again.'); return; }
+      if (con.cap && con.cap.mode === 'stream') conWrite('\x03');
+      conCapEnd();
+      con.cap = { mode: 'idle', buf: '', cmd };
+      con.cap.hard = setTimeout(conIdleDone, 20000);
+      const offer = con.el.querySelector('.con-offer'); if (offer) offer.hidden = true;
+      if (!conWrite(text.replace(/\r?\n/g, '\r') + '\r')) { conCapEnd(); return; }
       recordTrail(cmd);
-      showGlobalToast(`Sent to console: ${cmd.length > 60 ? cmd.slice(0, 60) + '…' : cmd}`);
+      con.term && con.term.focus();
+      showGlobalToast(`Sent to terminal: ${cmd.length > 60 ? cmd.slice(0, 60) + '…' : cmd}`);
     };
     if (DANGER_RE.test(cmd)) {
       toggleConsole(true);
@@ -4846,7 +4919,7 @@ ${rmaTrailSection()}#### Action Requested:
       b.type = 'button';
       b.className = 'con-send';
       b.tabIndex = -1;
-      b.title = 'Type this command into the connected serial console';
+      b.title = 'Type this command into the terminal';
       b.innerHTML = '⏎ Send';
       box.appendChild(b);
     });
@@ -4859,24 +4932,29 @@ ${rmaTrailSection()}#### Action Requested:
     document.body.classList.toggle('con-open', open);
     document.body.style.setProperty('--con-pad', el.style.getPropertyValue('--con-h'));
     document.querySelectorAll('.con-hdr-btn').forEach(b => b.setAttribute('aria-expanded', String(open)));
-    if (open) setTimeout(() => (con.live ? con.input : el.querySelector('.con-connect')).focus(), 30);
+    if (!open) return;
+    if (con.live) { setTimeout(() => { conFit(); con.term.focus(); }, 30); return; }
+    if (!con.ws) conConnect();
   }
 
   function conSaveLog() {
+    if (!con.term) { showGlobalToast('Nothing to save yet.'); return; }
     const pad = n => String(n).padStart(2, '0');
     const d = new Date();
     const stamp = `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}-${pad(d.getHours())}${pad(d.getMinutes())}`;
-    const node = (trailMeta().caseId || 'console').replace(/[^\w.-]+/g, '_');
-    const fmt = t => { const x = new Date(t); return `${pad(x.getHours())}:${pad(x.getMinutes())}:${pad(x.getSeconds())}`; };
-    const body = [...con.lines, ...(con.cur ? [{ t: Date.now(), s: con.cur }] : [])].map(l => `[${fmt(l.t)}] ${l.s}`).join('\n');
-    const blob = new Blob([`# serial console log · ${node} · ${d.toISOString()} · ${con.baud || conPrefs().baud} 8N1\n${body}\n`], { type: 'text/plain' });
+    const node = (trailMeta().caseId || 'terminal').replace(/[^\w.-]+/g, '_');
+    const buf = con.term.buffer.active, lines = [];
+    for (let i = 0; i < buf.length; i++) { const l = buf.getLine(i); if (l) lines.push(l.translateToString(true)); }
+    while (lines.length && !lines[lines.length - 1]) lines.pop();
+    const who = con.hello ? `${con.hello.user}@${con.hello.host}` : 'jumpbox';
+    const blob = new Blob([`# terminal log · ${node} · ${who} · ${d.toISOString()}\n${lines.join('\n')}\n`], { type: 'text/plain' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
-    a.download = `serial-${node}-${stamp}.txt`;
+    a.download = `terminal-${node}-${stamp}.txt`;
     document.body.appendChild(a);
     a.click();
     setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
-    showGlobalToast(`Saved ${a.download}. File it under cases/${node}/logs/.`);
+    showGlobalToast(`Saved ${a.download}. Check it for passwords, then file it under cases/${node}/logs/.`);
   }
 
   function initConsole() {
@@ -4886,9 +4964,9 @@ ${rmaTrailSection()}#### Action Requested:
       btn.type = 'button';
       btn.id = 'console-btn';
       btn.className = 'action-btn con-hdr-btn';
-      btn.title = 'Serial console: talk to a switch, BMC or PDU over USB-serial and send any command with one click (Ctrl+`)';
+      btn.title = 'Terminal: a shell on this jumpbox under the sheet; send any command with one click (Ctrl+`)';
       btn.setAttribute('aria-expanded', 'false');
-      btn.innerHTML = `<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 2v5M15 2v5M7 7h10v5a5 5 0 0 1-10 0z"/><path d="M12 17v5"/></svg><span>Console</span><span class="con-hdr-led" aria-hidden="true"></span>`;
+      btn.innerHTML = `<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 17l6-5-6-5"/><path d="M12 19h8"/></svg><span>Terminal</span><span class="con-hdr-led" aria-hidden="true"></span>`;
       btn.addEventListener('click', () => toggleConsole());
       const trail = document.getElementById('trail-btn');
       if (trail && trail.parentNode === actions) trail.after(btn); else actions.appendChild(btn);
@@ -4913,11 +4991,8 @@ ${rmaTrailSection()}#### Action Requested:
       queued = true;
       requestAnimationFrame(() => { queued = false; conInjectSend(); });
     }).observe(document.body, { childList: true, subtree: true });
-    if (conSupported() && navigator.serial.addEventListener) {
-      navigator.serial.addEventListener('disconnect', (e) => {
-        if (con.port && e.target === con.port) { con.port = null; conSetLive(false, 'Cable unplugged'); conSys('The adapter was unplugged.'); }
-      });
-    }
+    // Theme switches recolour the terminal.
+    new MutationObserver(() => { if (con.term) con.term.options.theme = conTheme(); }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
   }
 
   // -------------------------------------------------------------
@@ -6324,6 +6399,418 @@ ${rmaTrailSection()}#### Action Requested:
   }
 
   // -------------------------------------------------------------
+  // NODE X-RAY
+  // Every tool so far answered in text. A tech standing at an 8-GPU tray thinks
+  // in positions: "which one is it?". One copied command prints the GPU table,
+  // the HCA→netdev map and the PCIe GPU list; pasting it back draws the tray:
+  // eight GPU tiles in BDF order around the NVSwitch fabric and the NIC cages,
+  // each one green / amber / red with the reason, and a GPU that is on PCIe but
+  // gone from nvidia-smi (or gone entirely) is a hollow slot. A click on a tile
+  // gives that GPU's own follow-up commands, sets $GPU, and pins it with serial
+  // and BDF to the case file for the RMA block.
+  // -------------------------------------------------------------
+  const XR_FIELDS = ['index', 'pci.bus_id', 'serial', 'name', 'temperature.gpu', 'temperature.memory', 'power.draw', 'ecc.errors.uncorrected.volatile.total', 'remapped_rows.pending', 'remapped_rows.failure', 'pcie.link.gen.current', 'pcie.link.width.current', 'clocks_event_reasons.active'];
+  // Drivers before R535 only know clocks_throttle_reasons.active: same bits, older name.
+  const XR_CMD = `nvidia-smi --query-gpu=${XR_FIELDS.join(',')} --format=csv,noheader 2>/dev/null || nvidia-smi --query-gpu=${XR_FIELDS.join(',').replace('clocks_event_reasons', 'clocks_throttle_reasons')} --format=csv,noheader; echo ---; ibdev2netdev -v 2>/dev/null || ibdev2netdev; echo ---; lspci -D -d 10de: | grep -i '3D controller'`;
+  const XR_THROTTLE = { 0x8: 'HW slowdown', 0x20: 'SW thermal slowdown', 0x40: 'HW thermal slowdown', 0x80: 'HW power brake' };
+  const XR_SAMPLE = [
+    '0, 00000000:18:00.0, 1652823051234, NVIDIA H200, 41, 49, 312.40 W, 0, No, No, 5, 16, 0x0000000000000000',
+    '1, 00000000:2A:00.0, 1652823051877, NVIDIA H200, 43, 51, 318.02 W, 0, No, No, 5, 16, 0x0000000000000000',
+    '2, 00000000:3A:00.0, 1652823050991, NVIDIA H200, 40, 48, 305.77 W, 0, No, No, 5, 16, 0x0000000000000000',
+    '3, 00000000:5D:00.0, 1652823052410, NVIDIA H200, 66, 84, 296.13 W, 0, No, No, 5, 16, 0x0000000000000040',
+    '4, 00000000:9A:00.0, 1652823051509, NVIDIA H200, 42, 50, 309.55 W, 2, Yes, Yes, 5, 16, 0x0000000000000000',
+    '5, 00000000:AB:00.0, 1652823050466, NVIDIA H200, 41, 49, 311.20 W, 0, No, No, 5, 16, 0x0000000000000000',
+    '6, 00000000:BA:00.0, 1652823052088, NVIDIA H200, 44, 52, 315.86 W, 0, No, No, 4, 8, 0x0000000000000000',
+    '---',
+    '0000:1a:00.0 mlx5_0 (MT4129 - MCX75310AAS-NEAT) NVIDIA ConnectX-7 fw 28.39.1002 port 1 (ACTIVE) ==> ibp26s0 (Up)',
+    '0000:3c:00.0 mlx5_1 (MT4129 - MCX75310AAS-NEAT) NVIDIA ConnectX-7 fw 28.39.1002 port 1 (ACTIVE) ==> ibp60s0 (Up)',
+    '0000:4d:00.0 mlx5_2 (MT4129 - MCX75310AAS-NEAT) NVIDIA ConnectX-7 fw 28.39.1002 port 1 (ACTIVE) ==> ibp77s0 (Up)',
+    '0000:5e:00.0 mlx5_3 (MT4129 - MCX75310AAS-NEAT) NVIDIA ConnectX-7 fw 28.39.1002 port 1 (DOWN) ==> ibp94s0 (Down)',
+    '0000:9c:00.0 mlx5_4 (MT4129 - MCX75310AAS-NEAT) NVIDIA ConnectX-7 fw 28.39.1002 port 1 (ACTIVE) ==> ibp156s0 (Up)',
+    '0000:bc:00.0 mlx5_5 (MT4129 - MCX75310AAS-NEAT) NVIDIA ConnectX-7 fw 28.39.1002 port 1 (ACTIVE) ==> ibp188s0 (Up)',
+    '0000:cc:00.0 mlx5_6 (MT4129 - MCX75310AAS-NEAT) NVIDIA ConnectX-7 fw 28.39.1002 port 1 (ACTIVE) ==> ibp204s0 (Up)',
+    '0000:dc:00.0 mlx5_7 (MT4129 - MCX75310AAS-NEAT) NVIDIA ConnectX-7 fw 28.39.1002 port 1 (ACTIVE) ==> ibp220s0 (Up)',
+    '---',
+    '0000:18:00.0 3D controller: NVIDIA Corporation GH100 [H200 SXM 141GB] (rev a1)',
+    '0000:2a:00.0 3D controller: NVIDIA Corporation GH100 [H200 SXM 141GB] (rev a1)',
+    '0000:3a:00.0 3D controller: NVIDIA Corporation GH100 [H200 SXM 141GB] (rev a1)',
+    '0000:5d:00.0 3D controller: NVIDIA Corporation GH100 [H200 SXM 141GB] (rev a1)',
+    '0000:9a:00.0 3D controller: NVIDIA Corporation GH100 [H200 SXM 141GB] (rev a1)',
+    '0000:ab:00.0 3D controller: NVIDIA Corporation GH100 [H200 SXM 141GB] (rev a1)',
+    '0000:ba:00.0 3D controller: NVIDIA Corporation GH100 [H200 SXM 141GB] (rev a1)',
+    '0000:db:00.0 3D controller: NVIDIA Corporation GH100 [H200 SXM 141GB] (rev ff)'
+  ].join('\n');
+
+  const xrBdf = (s) => { const m = String(s || '').match(/(?:([0-9a-f]{4,8}):)?([0-9a-f]{2}):([0-9a-f]{2})\.([0-7])/i); return m ? `${(m[1] || '0000').slice(-4)}:${m[2]}:${m[3]}.${m[4]}`.toLowerCase() : ''; };
+  const xrNum = (s) => { const m = String(s || '').match(/-?\d+(?:\.\d+)?/); return m && !/N\/A|not supported/i.test(s) ? parseFloat(m[0]) : null; };
+  const XR_GPU_LINE = /^\s*\d+\s*,\s*(?:[0-9a-f]{4,8}:)?[0-9a-f]{2}:[0-9a-f]{2}\.[0-7]\s*(,|$)/i;
+  function xrLooksLike(text) {
+    const lines = String(text || '').split('\n');
+    const gpu = lines.filter(l => XR_GPU_LINE.test(l));
+    // One GPU counts too when it is clearly the --query-gpu CSV (header, or 4+ columns).
+    return gpu.length >= 2 || (gpu.length === 1 && (lines.some(l => /\bpci\.bus_id\b/.test(l) && /\bindex\b/.test(l)) || gpu[0].split(',').length >= 5));
+  }
+  function xrParse(text) {
+    const lines = String(text || '').replace(/\r/g, '').split('\n');
+    let fields = XR_FIELDS;
+    const gpus = [], nics = [], pci = [];
+    for (const raw of lines) {
+      const l = raw.trim();
+      if (!l) continue;
+      if (/pci\.bus_id/i.test(l) && /index/i.test(l)) { fields = l.split(',').map(s => s.trim().replace(/\s*\[.*\]$/, '').toLowerCase()); continue; }
+      if (XR_GPU_LINE.test(l)) {
+        const v = l.split(',').map(s => s.trim()), o = {};
+        fields.forEach((f, i) => { o[f] = v[i] == null ? '' : v[i]; });
+        gpus.push(o); continue;
+      }
+      const nic = l.match(/(mlx5_\d+|mlx5_bond_\d+)\b.*?port\s+(\d+).*?==>\s*(\S+)\s*\((\w+)\)/i);
+      if (nic) { nics.push({ dev: nic[1], port: nic[2], netdev: nic[3], up: /^up$/i.test(nic[4]), bdf: xrBdf(l.split(/\s+/)[0]), opn: (l.match(/\(MT\d+\s*-\s*([^)]+)\)/) || [])[1] || '', fw: (l.match(/\bfw\s+(\S+)/) || [])[1] || '' }); continue; }
+      const p = l.match(/^((?:[0-9a-f]{4}:)?[0-9a-f]{2}:[0-9a-f]{2}\.[0-7])\s+3D controller:\s*(.*)$/i);
+      if (p) pci.push({ bdf: xrBdf(p[1]), desc: p[2], revff: /rev ff/i.test(p[2]) });
+    }
+    return gpus.length ? { gpus, nics, pci } : null;
+  }
+  function xrAnalyze(text) {
+    const p = xrParse(text);
+    if (!p) return null;
+    const temps = p.gpus.map(g => xrNum(g['temperature.gpu'])).filter(n => n != null).sort((a, b) => a - b);
+    const median = temps.length ? temps[Math.floor(temps.length / 2)] : null;
+    const gens = p.gpus.map(g => xrNum(g['pcie.link.gen.current'])).filter(n => n != null);
+    const widths = p.gpus.map(g => xrNum(g['pcie.link.width.current'])).filter(n => n != null);
+    const maxGen = gens.length ? Math.max(...gens) : null, maxW = widths.length ? Math.max(...widths) : null;
+    const slots = p.gpus.map(g => {
+      const issues = [];
+      const add = (sev, text, why) => issues.push({ sev, text, why });
+      const t = xrNum(g['temperature.gpu']), hbm = xrNum(g['temperature.memory']);
+      const ue = xrNum(g['ecc.errors.uncorrected.volatile.total']);
+      if (/yes/i.test(g['remapped_rows.failure'] || '')) add('crit', 'Row-remap FAILURE', 'HBM ran out of spare rows: RMA the GPU (gpu-nvlink §ECC / Row Remap).');
+      if (ue) add('crit', `${ue} uncorrectable ECC`, 'Volatile DBE since the last driver load: correlate with Xid 48 / 94 / 95 in dmesg.');
+      if (/yes/i.test(g['remapped_rows.pending'] || '')) add('warn', 'Row remap pending', 'A remap is queued: it applies after a GPU reset (drain first, ask before nvidia-smi -r).');
+      if (t != null && t >= 87) add('crit', `${t} °C core`, 'At or past slowdown: check coldplate flow / fan wall now.');
+      else if (t != null && t >= 80) add('warn', `${t} °C core`, 'Running hot: check airflow / coolant before it throttles.');
+      else if (t != null && median != null && temps.length >= 4 && t - median >= 15) add('warn', `+${t - median} °C vs peers`, 'Hot outlier on the same tray: coldplate seating, TIM or blocked flow on that position.');
+      if (hbm != null && hbm >= 95) add('crit', `HBM ${hbm} °C`, 'HBM at its limit: memory throttling and ECC risk.');
+      else if (hbm != null && hbm >= 85) add('warn', `HBM ${hbm} °C`, 'HBM running hot.');
+      const thr = parseInt(g['clocks_event_reasons.active'] || '', 16);
+      if (!isNaN(thr)) Object.entries(XR_THROTTLE).forEach(([bit, name]) => { if (thr & +bit) add(+bit === 0x8 || +bit === 0x80 ? 'crit' : 'warn', name, +bit === 0x80 ? 'Power brake asserted by the board/BMC: check PSU redundancy and SEL.' : 'Clocks pulled down by a thermal/hardware event: check SEL and cooling.'); });
+      const gen = xrNum(g['pcie.link.gen.current']), w = xrNum(g['pcie.link.width.current']);
+      if (w != null && maxW && w < maxW) add('warn', `PCIe x${w} (peers x${maxW})`, 'Link trained narrow: reseat the module / check the riser or retimer (Gen can drop at idle, width should not).');
+      if (gen != null && maxGen && gen < maxGen && !(w != null && maxW && w < maxW)) add('info', `PCIe Gen${gen} (peers Gen${maxGen})`, 'Often idle power saving: recheck under load before acting.');
+      const sev = issues.some(i => i.sev === 'crit') ? 'crit' : issues.some(i => i.sev === 'warn') ? 'warn' : 'ok';
+      return { kind: 'gpu', idx: g.index, bdf: xrBdf(g['pci.bus_id']), serial: g.serial || '', name: g.name || '', t, hbm, power: xrNum(g['power.draw']), ue, gen, w, issues, sev };
+    });
+    const seen = new Set(slots.map(s => s.bdf));
+    // On PCIe but not in nvidia-smi: the driver lost it (Xid 79 / rev ff).
+    p.pci.filter(x => !seen.has(x.bdf)).forEach(x => slots.push({ kind: 'ghost', idx: '?', bdf: x.bdf, serial: '', name: x.desc.replace(/^NVIDIA Corporation\s*/i, ''), issues: [{ sev: 'crit', text: x.revff ? 'On PCIe, config space reads ff' : 'On PCIe, not in nvidia-smi', why: x.revff ? '"rev ff" = the device stopped answering config reads: fallen off the bus (Xid 79). Power/SEL first, then reseat.' : 'The driver did not claim it: check dmesg for NVRM errors at that BDF.' }], sev: 'crit' }));
+    // Only HGX-class boards are known to carry 8: an RTX PCIe box with 2 or 4 GPUs is complete as listed.
+    const hgx = p.gpus.some(g => /\b(A100|H100|H200|H20|B100|B200|B300|SXM)/i.test(g.name || ''));
+    const expected = hgx && slots.length >= 4 && slots.length < 8 ? 8 : slots.length;
+    const missing = p.pci.length ? 0 : Math.max(0, expected - slots.length);
+    for (let i = 0; i < missing; i++) slots.push({ kind: 'ghost', idx: '?', bdf: '', serial: '', name: '', issues: [{ sev: 'crit', text: 'Not detected', why: `nvidia-smi lists ${p.gpus.length} of ${expected}: the gap in BDF order is the dead position. Add the lspci part of the command to place it.` }], sev: 'crit' });
+    slots.sort((a, b) => (a.bdf || 'zz').localeCompare(b.bdf || 'zz'));
+    slots.forEach((s, i) => { s.key = s.bdf || `missing-${i}`; });
+    const nics = p.nics.map(n => ({ ...n, sev: n.up ? 'ok' : 'crit' }));
+    const bad = slots.filter(s => s.sev === 'crit').length, warn = slots.filter(s => s.sev === 'warn').length, nicDown = nics.filter(n => !n.up).length;
+    const model = (p.gpus.find(g => g.name) || {}).name || 'GPU';
+    return { slots, nics, bad, warn, nicDown, model, hgx, seen: p.gpus.length, expected,
+      verdict: bad || nicDown ? `${bad ? `${bad} GPU${bad === 1 ? '' : 's'} need attention` : ''}${bad && nicDown ? ' · ' : ''}${nicDown ? `${nicDown} NIC${nicDown === 1 ? '' : 's'} down` : ''}` : warn ? `${warn} GPU${warn === 1 ? '' : 's'} to watch` : 'Tray looks healthy' };
+  }
+  function xrCmds(s) {
+    const bdf = s.bdf, short = bdf.replace(/\.\d$/, '');
+    const out = [];
+    if (s.kind === 'gpu') {
+      out.push(['Full ECC, row-remap, thermal and clocks for this GPU', `nvidia-smi -i ${s.idx} -q -d ECC,ROW_REMAPPER,TEMPERATURE,PERFORMANCE,POWER`]);
+      out.push(['NVLink state and error counters', `nvidia-smi nvlink -s -i ${s.idx}; nvidia-smi nvlink -e -i ${s.idx}`]);
+    }
+    if (bdf) {
+      out.push(['Kernel messages for this BDF (Xid lines carry it)', `dmesg -T | grep -iE "nvrm|xid|aer" | grep -i "${short}"`]);
+      out.push(['PCIe link capability vs status', `sudo lspci -vvv -s ${bdf} | grep -E "LnkCap|LnkSta|DevSta"`]);
+    }
+    out.push(['BMC: GPU, power and thermal events', `ipmitool sel elist | grep -iE "gpu|pcie|power|thermal|leak" | tail -n 30`]);
+    return out;
+  }
+
+  // LIVE X-RAY: nvidia-smi -l 2 streamed through the terminal into the tray. Every
+  // tile becomes a gauge with a scrolling core-temperature trace (power dashed) and
+  // the peaks it saw, so a fault that only shows under load is caught in the act.
+  const XR_LIVE_SECS = 2, XR_LIVE_KEEP = 90;
+  let xrLive = null;
+  const xrLiveCmd = () => `nvidia-smi --query-gpu=${XR_FIELDS.join(',')} --format=csv,noheader -l ${XR_LIVE_SECS}`;
+  const xrClock = (t) => new Date(t).toTimeString().slice(0, 8);
+  function xrHist(bdf) { return xrLive && xrLive.hist.get(bdf); }
+  function xrSpark(h, w = 120, ht = 26) {
+    if (!h || h.t.length < 2) return '';
+    // Fills the width after 20 samples, then scrolls (newest at the right edge).
+    const n = h.t.length, span = Math.max(20, n), x = i => w - (n - 1 - i) / (span - 1) * w;
+    const yT = v => ht - 2 - Math.max(0, Math.min(1, (v - 25) / 70)) * (ht - 4);
+    const pMax = Math.max(50, ...h.p.filter(v => v != null));
+    const yP = v => ht - 2 - Math.max(0, Math.min(1, v / pMax)) * (ht - 4);
+    const line = (arr, y) => arr.map((v, i) => v == null ? '' : `${x(i).toFixed(1)},${y(v).toFixed(1)}`).filter(Boolean).join(' ');
+    const last = h.t[n - 1];
+    return `<svg class="xr-spark" viewBox="0 0 ${w} ${ht}" preserveAspectRatio="none" aria-hidden="true"><line x1="0" x2="${w}" y1="${yT(80).toFixed(1)}" y2="${yT(80).toFixed(1)}" class="xr-spark-lim"/><polyline class="xr-spark-p" points="${line(h.p, yP)}"/><polyline class="xr-spark-t" points="${line(h.t, yT)}"/>${last != null ? `<circle cx="${x(n - 1).toFixed(1)}" cy="${yT(last).toFixed(1)}" r="2.2" class="xr-spark-dot"/>` : ''}</svg>`;
+  }
+  function xrLiveRecord(r) {
+    const now = Date.now();
+    r.slots.forEach(sl => {
+      if (sl.kind !== 'gpu') return;
+      let h = xrLive.hist.get(sl.bdf);
+      if (!h) { h = { t: [], p: [], peakT: null, peakTAt: 0, peakP: null, peakPAt: 0, minT: null, flags: new Set() }; xrLive.hist.set(sl.bdf, h); }
+      h.t.push(sl.t); h.p.push(sl.power);
+      if (h.t.length > XR_LIVE_KEEP) { h.t.shift(); h.p.shift(); }
+      if (sl.t != null && (h.peakT == null || sl.t > h.peakT)) { h.peakT = sl.t; h.peakTAt = now; }
+      if (sl.t != null && (h.minT == null || sl.t < h.minT)) h.minT = sl.t;
+      if (sl.power != null && (h.peakP == null || sl.power > h.peakP)) { h.peakP = sl.power; h.peakPAt = now; }
+      sl.issues.forEach(i => { if (i.sev !== 'info') h.flags.add(/°C core$/.test(i.text) ? 'core over temperature' : /^HBM /.test(i.text) ? 'HBM over temperature' : /vs peers$/.test(i.text) && /°C/.test(i.text) ? 'hot vs peers' : i.text.replace(/^\d+ (?=uncorrectable)/, '')); });
+    });
+  }
+  function xrLiveStart(demo) {
+    if ((!con.live && !demo) || (xrLive && xrLive.on)) return;
+    const input = xrEl.querySelector('.xr-input');
+    const parts = input.value.split(/^---\s*$/m);
+    const tail = parts.length > 1 ? '\n---' + parts.slice(1).join('---') : '';
+    const latest = new Map();
+    let part = '', t = null, gotAny = false;
+    xrLive = { on: true, hist: new Map(), samples: 0, started: Date.now(), tail, stop: null };
+    const flush = () => {
+      t = null;
+      if (!xrLive || !latest.size) return;
+      const text = [...latest.values()].join('\n') + xrLive.tail;
+      const r = xrAnalyze(text);
+      if (!r) return;
+      input.value = text;
+      xrEl._r = r;
+      xrLive.samples++;
+      xrLiveRecord(r);
+      const f = document.activeElement && document.activeElement.closest && document.activeElement.closest('[data-xr-slot]');
+      xrEl._draw();
+      if (f) { const g = xrEl.querySelector(`[data-xr-slot="${CSS.escape(f.dataset.xrSlot)}"]`); if (g) g.focus({ preventScroll: true }); }
+    };
+    if (demo) {
+      // The sample tray under a simulated burn-in: GPU 3 (the hot one) climbs into slowdown.
+      const base = XR_SAMPLE.split('\n').filter(l => XR_GPU_LINE.test(l));
+      let k = 0;
+      const tick = () => {
+        k++;
+        base.forEach(l => {
+          const v = l.split(',').map(x => x.trim());
+          const hot = v[0] === '3', load = Math.min(1, k / 6);
+          const t = Math.round(+v[4] + load * (hot ? 26 : 22) + (Math.random() * 3 - 1.5) + (hot ? Math.min(k * 0.5, 4) : 0));
+          v[4] = String(t); v[5] = String(Math.round(+v[5] + load * (hot ? 14 : 12) + Math.random() * 2));
+          v[6] = `${(+v[6].replace(/[^\d.]/g, '') + load * 360 + Math.random() * 25).toFixed(2)} W`;
+          if (hot && t >= 87) v[12] = '0x0000000000000048';
+          latest.set(v[0], v.join(', '));
+        });
+        flush();
+      };
+      tick();
+      const iv = setInterval(tick, 1000);
+      xrLive.demo = true;
+      xrLive.stop = () => clearInterval(iv);
+      xrEl.classList.add('is-live');
+      return;
+    }
+    xrLive.stop = conStream(xrLiveCmd(), (chunk) => {
+      part += chunk.replace(/\x1b\[[0-?]*[ -/]*[@-~]/g, '').replace(/\r/g, '');
+      const lines = part.split('\n');
+      part = lines.pop();
+      lines.forEach(l => { if (XR_GPU_LINE.test(l)) { latest.set(l.split(',')[0].trim(), l.trim()); gotAny = true; } });
+      // One sample = one burst of lines; draw when the burst settles.
+      if (gotAny && !t) t = setTimeout(flush, 250);
+    }, () => { if (xrLive) { xrLive.on = false; if (xrEl && xrEl._draw) xrEl._draw(); } });
+    if (!xrLive.stop) { xrLive = null; return; }
+    xrEl.classList.add('is-live');
+    xrEl._draw();
+  }
+  function xrLiveStop() {
+    if (!xrLive || !xrLive.on) return;
+    xrLive.on = false;
+    if (xrLive.stop) xrLive.stop();
+    if (xrEl) { xrEl.classList.remove('is-live'); if (xrEl._draw) xrEl._draw(); }
+  }
+  function xrLiveMarkdown() {
+    if (!xrLive || !xrLive.hist.size) return '';
+    const secs = Math.round((Date.now() - xrLive.started) / 1000);
+    const rows = [...xrLive.hist.entries()].map(([bdf, h]) => {
+      const sl = xrEl && xrEl._r && xrEl._r.slots.find(x => x.bdf === bdf);
+      return `| ${sl ? sl.idx : '?'} | ${bdf} | ${h.minT ?? '—'}–${h.peakT ?? '—'} °C (peak ${xrClock(h.peakTAt)}) | ${h.peakP != null ? Math.round(h.peakP) + ' W' : '—'} | ${h.flags.size ? [...h.flags].join(', ') : 'none'} |`;
+    });
+    return ['', `**Live watch:** ${xrLive.samples} samples over ${secs} s (nvidia-smi -l ${XR_LIVE_SECS})`, '', '| GPU | BDF | Core range | Peak power | Flags seen |', '|---|---|---|---|---|', ...rows].join('\n');
+  }
+  function xrMarkdown(r, only) {
+    const list = only ? [only] : r.slots;
+    const lines = [`### Node X-ray: ${r.verdict}`, '', `${r.model} · ${r.seen}/${r.expected} GPUs in nvidia-smi${r.nics.length ? ` · ${r.nics.filter(n => n.up).length}/${r.nics.length} NICs up` : ''}`, '', '| GPU | BDF | Serial | Core / HBM °C | Status |', '|---|---|---|---|---|'];
+    list.forEach(s => lines.push(`| ${s.idx} | ${s.bdf || '—'} | ${s.serial || '—'} | ${s.t != null ? s.t : '—'} / ${s.hbm != null ? s.hbm : '—'} | ${s.issues.length ? s.issues.map(i => `${i.sev === 'crit' ? '❌' : i.sev === 'warn' ? '⚠️' : 'ℹ️'} ${i.text}`).join('; ') : '✅ ok'} |`));
+    if (!only && r.nics.length) {
+      lines.push('', '| HCA | netdev | PCIe | State |', '|---|---|---|---|');
+      r.nics.forEach(n => lines.push(`| ${n.dev} | ${n.netdev} | ${n.bdf || '—'} | ${n.up ? 'Up' : '❌ Down'} |`));
+    }
+    if (!only) { const lm = xrLiveMarkdown(); if (lm) lines.push(lm); }
+    lines.push('', '_Order is logical (PCIe BDF). Confirm the physical SXM / OSFP position with the OEM slot map before pulling a part._');
+    return lines.join('\n');
+  }
+  function xrTileHtml(s, sel) {
+    const top = s.issues.find(i => i.sev === s.sev) || s.issues[0];
+    const heat = s.t != null ? Math.max(4, Math.min(100, (s.t - 25) / (90 - 25) * 100)) : 0;
+    return `<button type="button" class="xr-gpu is-${s.sev}${s.kind === 'ghost' ? ' is-ghost' : ''}${sel ? ' is-sel' : ''}" data-xr-slot="${escapeHtml(s.key)}" aria-label="GPU ${escapeHtml(String(s.idx))} ${escapeHtml(s.bdf)} ${s.sev}">
+      <span class="xr-gpu-top"><b>GPU ${escapeHtml(String(s.idx))}</b><i class="xr-dot" aria-hidden="true"></i></span>
+      <span class="xr-die" aria-hidden="true">${s.kind === 'ghost' ? '?' : '<span></span><span></span><span></span><span></span><span></span><span></span>'}</span>
+      <code>${escapeHtml(s.bdf || 'no BDF')}</code>
+      ${s.kind === 'gpu' && xrHist(s.bdf) ? xrSpark(xrHist(s.bdf)) : ''}
+      ${s.kind === 'gpu' ? `<span class="xr-heat" title="Core ${s.t ?? '—'} °C"><span style="width:${heat}%"></span></span><span class="xr-nums" title="Core ${s.t ?? '—'} °C · HBM ${s.hbm ?? '—'} °C · ${s.power ?? '—'} W">${s.t ?? '—'}°/${s.hbm ?? '—'}° · ${s.power != null ? Math.round(s.power) + 'W' : '—'}</span>` : ''}
+      <span class="xr-why">${top ? escapeHtml(top.text) : 'Healthy'}</span>
+    </button>`;
+  }
+  function xrDetailHtml(s) {
+    if (!s) return '<p class="xr-pick">Click a GPU on the tray for its own follow-up commands.</p>';
+    return `<div class="xr-detail-head"><div><span class="xr-detail-k">GPU ${escapeHtml(String(s.idx))}${s.name ? ` · ${escapeHtml(s.name)}` : ''}</span><h3>${s.bdf ? `<code>${escapeHtml(s.bdf)}</code>` : 'Position unknown'}${s.serial ? ` <small>S/N ${escapeHtml(s.serial)}</small>` : ''}</h3></div>
+        <div class="xr-detail-acts">${s.kind === 'gpu' ? `<button type="button" data-xr="setgpu">Set $GPU = ${escapeHtml(String(s.idx))}</button>` : ''}<button type="button" data-xr="pinone">📌 Pin this GPU</button></div></div>
+      ${(() => { const h = xrHist(s.bdf); return h && h.t.length ? `<div class="xr-peaks">${xrSpark(h, 320, 54)}<dl><div><dt>Core now</dt><dd>${h.t[h.t.length - 1] ?? '—'} °C</dd></div><div><dt>Range</dt><dd>${h.minT ?? '—'}–${h.peakT ?? '—'} °C</dd></div><div><dt>Peak core</dt><dd>${h.peakT ?? '—'} °C <small>${xrClock(h.peakTAt)}</small></dd></div><div><dt>Peak power</dt><dd>${h.peakP != null ? Math.round(h.peakP) + ' W' : '—'} <small>${h.peakPAt ? xrClock(h.peakPAt) : ''}</small></dd></div></dl>${h.flags.size ? `<p class="xr-peak-flags">Seen during the watch: <b>${escapeHtml([...h.flags].join(', '))}</b></p>` : ''}</div>` : ''; })()}
+      ${s.issues.length ? `<ul class="xr-issues">${s.issues.map(i => `<li class="is-${i.sev}"><b>${escapeHtml(i.text)}</b><span>${escapeHtml(i.why)}</span></li>`).join('')}</ul>` : '<p class="xr-fine">Nothing out of range on this GPU.</p>'}
+      <ol class="xr-cmds">${xrCmds(s).map(([label, cmd], i) => `<li><span>${escapeHtml(label)}</span><div><code>${escapeHtml(cmd)}</code><button type="button" data-xr-copy="${i}">Copy</button></div></li>`).join('')}</ol>`;
+  }
+  function xrRender(r, selKey) {
+    if (!r) return '';
+    const sel = r.slots.find(s => s.key === selKey) || null;
+    const half = Math.ceil(r.slots.length / 2);
+    const row = (arr) => arr.map(s => xrTileHtml(s, s === sel)).join('');
+    const sev = r.bad || r.nicDown ? 'crit' : r.warn ? 'warn' : 'ok';
+    return `<div class="an-verdict xr-verdict is-${sev}"><span class="an-type">Node X-ray · ${escapeHtml(r.model)}</span><b>${escapeHtml(r.verdict)}</b>${xrLive && xrLive.on ? `<span class="xr-live-badge"><i aria-hidden="true"></i>${xrLive.demo ? 'DEMO' : 'LIVE'} · every ${xrLive.demo ? 1 : XR_LIVE_SECS} s · ${xrLive.samples} sample${xrLive.samples === 1 ? '' : 's'}</span>` : xrLive && xrLive.samples ? `<span class="xr-live-badge is-off">Watched ${xrLive.samples} samples</span>` : ''}<span class="an-count">${r.seen}/${r.expected} GPUs${r.nics.length ? ` · ${r.nics.filter(n => n.up).length}/${r.nics.length} NICs up` : ''}</span></div>
+      <div class="xr-tray" role="group" aria-label="GPU tray, logical BDF order">
+        ${r.nics.length ? `<div class="xr-rear"><span class="xr-lbl">NIC cages · rear</span><div class="xr-nics">${r.nics.map(n => `<span class="xr-nic is-${n.sev}" title="${escapeHtml([n.opn, n.fw && 'fw ' + n.fw, n.bdf].filter(Boolean).join(' · '))}"><i aria-hidden="true"></i><b>${escapeHtml(n.dev)}</b><code>${escapeHtml(n.netdev)}</code><em>${n.up ? 'Up' : 'Down'}</em></span>`).join('')}</div></div>` : ''}
+        ${r.hgx && r.slots.length > 4 ? `<div class="xr-row">${row(r.slots.slice(0, half))}</div>
+        <div class="xr-fabric"><span>NVSwitch fabric</span></div>
+        <div class="xr-row">${row(r.slots.slice(half))}</div>` : `<span class="xr-lbl">PCIe GPUs</span><div class="xr-row">${row(r.slots)}</div>`}
+        <p class="xr-note">Logical order by PCIe BDF. The physical SXM position differs per OEM: confirm on the baseboard silkscreen / OEM slot map before pulling a module.</p>
+      </div>
+      <div class="xr-detail">${xrDetailHtml(sel)}</div>
+      <div class="an-actions xr-actions">${!con.live && xrEl && xrEl.querySelector('.xr-input').value === XR_SAMPLE || xrLive && xrLive.demo ? (xrLive && xrLive.on ? '<button type="button" class="xr-live-btn is-on" data-xr="live">■ Stop demo</button>' : '<button type="button" class="xr-live-btn" data-xr="demo">● Watch live (demo load)</button>') : ''}${con.live && !(xrLive && xrLive.demo) ? (xrLive && xrLive.on ? '<button type="button" class="xr-live-btn is-on" data-xr="live">■ Stop live</button>' : '<button type="button" class="xr-live-btn" data-xr="live">● Watch live</button><button type="button" class="xr-run" data-xr="run">▶ Re-run in terminal</button>') : ''}<button type="button" data-xr="copy">Copy as Markdown</button><button type="button" data-xr="pin">📌 Pin tray to case</button><button type="button" data-xr="phone">📱 To phone</button><button type="button" data-xr="clear">Paste another node</button></div>`;
+  }
+
+  // Run the collection command in the docked terminal and draw the tray from what it prints.
+  function xrRunState() {
+    if (!xrEl) return;
+    const b = xrEl.querySelector('[data-xr="run"]'), h = xrEl.querySelector('.xr-run-hint');
+    const who = con.live && con.hello ? `${con.hello.user}@${con.hello.host}` : '';
+    b.textContent = con.live ? '▶ Run in terminal' : '▶ Connect & run';
+    h.innerHTML = con.live ? `Runs at the terminal prompt on <b>${escapeHtml(who || 'the connected shell')}</b>: ssh to the GPU node first if the terminal is on the jumpbox.` : 'No terminal yet: <b>Connect &amp; run</b> opens it; the X-ray runs as soon as the shell is up.';
+  }
+  function xrScanHtml(who) {
+    return `<div class="an-verdict xr-verdict is-ok"><span class="an-type">Node X-ray · scanning</span><b>Reading ${escapeHtml(who)}…</b><span class="an-count">nvidia-smi · ibdev2netdev · lspci</span></div>
+      <div class="xr-tray is-scanning"><div class="xr-beam" aria-hidden="true"></div><div class="xr-row">${'<span class="xr-gpu xr-skel"></span>'.repeat(4)}</div><div class="xr-fabric"><span>NVSwitch fabric</span></div><div class="xr-row">${'<span class="xr-gpu xr-skel"></span>'.repeat(4)}</div></div>`;
+  }
+  function xrRunInTerminal() {
+    if (!con.live) {
+      con.afterLive = () => { openXray(); xrRunInTerminal(); };
+      closeXray();
+      toggleConsole(true);
+      showGlobalToast('Connect the terminal: the X-ray runs as soon as the shell is up.');
+      return;
+    }
+    const input = xrEl.querySelector('.xr-input'), out = xrEl.querySelector('.xr-out');
+    const who = con.hello ? `${con.hello.user}@${con.hello.host}` : 'the terminal';
+    xrEl.classList.add('has-result', 'is-running');
+    out.innerHTML = xrScanHtml(who);
+    conRun(XR_CMD).then(text => {
+      xrEl.classList.remove('is-running');
+      input.value = text;
+      xrEl._sel = null;
+      xrEl._run();
+      if (!xrEl._r) out.innerHTML = `<p class="an-hint">The command ran on ${escapeHtml(who)} but printed no GPU table: is this a GPU node with the NVIDIA driver loaded? First lines:</p><pre class="xr-raw">${escapeHtml(text.split('\n').slice(0, 8).join('\n') || '(no output)')}</pre>`;
+      else { showGlobalToast(`Tray read from ${who}.`); const f = xrEl.querySelector('.xr-gpu.is-sel, .xr-gpu'); if (f) f.focus(); }
+    }).catch(e => {
+      xrEl.classList.remove('is-running');
+      xrEl._run();
+      showGlobalToast(`X-ray run failed: ${e.message}.`);
+    });
+  }
+
+  let xrEl = null;
+  function openXray(text = '') {
+    if (!xrEl) {
+      xrEl = document.createElement('div');
+      xrEl.className = 'an-backdrop xr-backdrop';
+      xrEl.innerHTML = `
+        <div class="an-dialog xr-dialog" role="dialog" aria-modal="true" aria-labelledby="xr-title">
+          <header class="an-head">
+            <div><h2 id="xr-title">Node X-ray</h2><p>One read-only command, run straight in the docked terminal (or paste what it printed), draws the tray: every GPU and NIC as a tile, red where it needs you. Nothing leaves this machine.</p></div>
+            <button type="button" class="trail-close" data-xr="close" aria-label="Close">✕</button>
+          </header>
+          <div class="an-body">
+            <div class="xr-step"><span class="xr-step-n">1</span><div class="xr-step-cmd"><code>${escapeHtml(XR_CMD)}</code><span class="xr-step-btns"><button type="button" class="xr-run" data-xr="run">▶ Run in terminal</button><button type="button" data-xr="copycmd">Copy command</button></span></div><p class="xr-run-hint"></p></div>
+            <div class="xr-step"><span class="xr-step-n">2</span><textarea class="an-input xr-input" spellcheck="false" placeholder="Paste its output here: 0, 00000000:18:00.0, 1652…, NVIDIA H200, 41, …" aria-label="Command output"></textarea></div>
+            <div class="an-samples"><span>Not at a node?</span><button type="button" data-xr="sample">Try a sample: H200 tray with a lost GPU</button></div>
+            <div class="an-out xr-out" aria-live="polite"></div>
+          </div>
+        </div>`;
+      document.body.appendChild(xrEl);
+      const input = xrEl.querySelector('.xr-input');
+      const out = xrEl.querySelector('.xr-out');
+      let t = null;
+      const draw = () => { out.innerHTML = input.value.trim() ? (xrEl._r ? xrRender(xrEl._r, xrEl._sel) : '<p class="an-hint">Not recognised yet: the first block must be the <code>nvidia-smi --query-gpu=index,pci.bus_id,…</code> CSV lines.</p>') : '<p class="an-hint">Waiting for output…</p>'; };
+      const run = () => {
+        xrEl._r = input.value.trim() ? xrAnalyze(input.value) : null;
+        const r = xrEl._r;
+        if (r && !r.slots.some(s => s.key === xrEl._sel)) { const first = r.slots.find(s => s.sev === 'crit') || r.slots.find(s => s.sev === 'warn'); xrEl._sel = first ? first.key : null; }
+        xrEl.classList.toggle('has-result', !!r);
+        draw();
+      };
+      xrEl._run = run;
+      xrEl._draw = draw;
+      const selected = () => xrEl._r && xrEl._r.slots.find(s => s.key === xrEl._sel);
+      input.addEventListener('input', () => { clearTimeout(t); t = setTimeout(run, 150); });
+      xrEl.addEventListener('click', (e) => {
+        if (e.target === xrEl) return closeXray();
+        const el = e.target instanceof Element ? e.target : null;
+        if (!el) return;
+        const tile = el.closest('[data-xr-slot]');
+        if (tile) { xrEl._sel = tile.dataset.xrSlot; draw(); const d = xrEl.querySelector('.xr-detail'); if (d && window.innerWidth < 900) d.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); return; }
+        const c = el.closest('[data-xr-copy]');
+        if (c) { const s = selected(); const cmd = s && xrCmds(s)[+c.dataset.xrCopy]; if (cmd) { navigator.clipboard.writeText(cmd[1]); c.textContent = 'Copied'; setTimeout(() => { c.textContent = 'Copy'; }, 1200); } return; }
+        const b = el.closest('[data-xr]');
+        if (!b) return;
+        const act = b.dataset.xr, r = xrEl._r;
+        if (act === 'close') closeXray();
+        if (act === 'run') { xrRunInTerminal(); return; }
+        if (act === 'live') { if (xrLive && xrLive.on) xrLiveStop(); else xrLiveStart(); return; }
+        if (act === 'demo') { xrLiveStart(true); return; }
+        if (act === 'copycmd') { navigator.clipboard.writeText(XR_CMD); b.textContent = 'Copied ✓'; setTimeout(() => { b.textContent = 'Copy command'; }, 1400); input.focus(); }
+        if (act === 'sample') { xrLiveStop(); xrLive = null; input.value = XR_SAMPLE; run(); }
+        if (act === 'clear') { xrLiveStop(); xrLive = null; input.value = ''; xrEl._sel = null; run(); input.focus(); }
+        if (act === 'copy' && r) { copyVerbatim(xrMarkdown(r)); showGlobalToast('Copied the tray as Markdown.'); }
+        if (act === 'phone' && r) openPhone(xrMarkdown(r), 'Tray map to your phone', r.verdict);
+        if (act === 'pin' && r) casePin({ kind: 'Node X-ray', title: `Tray: ${r.verdict}`, sev: r.bad || r.nicDown ? 'crit' : r.warn ? 'warn' : 'ok', md: xrMarkdown(r), facts: [['GPUs seen', `${r.seen}/${r.expected}`], ['Model', r.model]] });
+        const s = selected();
+        if (act === 'setgpu' && s) { setSlotStore('gpu', String(s.idx)); try { refreshSlots(); } catch (err) {} showGlobalToast(`$GPU is now ${s.idx}: commands with nvidia-smi -i copy for this GPU.`); }
+        if (act === 'pinone' && s && r) casePin({ kind: 'Node X-ray', title: `GPU ${s.idx}${s.bdf ? ` (${s.bdf})` : ''}: ${s.issues.length ? s.issues.map(i => i.text).join(', ') : 'healthy'}`, sev: s.sev, md: xrMarkdown(r, s), facts: [['GPU', String(s.idx)], ['BDF', s.bdf || '—'], ['Serial', s.serial || '—'], ['Model', s.name || r.model]] });
+      });
+      xrEl.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') { e.stopPropagation(); closeXray(); return; }
+        const tile = e.target instanceof Element ? e.target.closest('[data-xr-slot]') : null;
+        if (tile && /^Arrow(Left|Right)$/.test(e.key)) {
+          const all = [...xrEl.querySelectorAll('[data-xr-slot]')], i = all.indexOf(tile);
+          const n = all[(i + (e.key === 'ArrowRight' ? 1 : all.length - 1)) % all.length];
+          if (n) { e.preventDefault(); xrEl._sel = n.dataset.xrSlot; draw(); const f = xrEl.querySelector(`[data-xr-slot="${CSS.escape(xrEl._sel)}"]`); if (f) f.focus(); }
+        }
+      });
+    }
+    xrEl._focus = document.activeElement;
+    xrRunState();
+    const input = xrEl.querySelector('.xr-input');
+    if (text) { xrLiveStop(); xrLive = null; input.value = text; xrEl._sel = null; }
+    xrEl._run();
+    xrEl.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => (input.value ? (xrEl.querySelector('.xr-gpu.is-sel, .xr-gpu') || input) : xrEl.querySelector('[data-xr="copycmd"]')).focus(), 40);
+  }
+  function closeXray() {
+    if (!xrEl || !xrEl.classList.contains('show')) return;
+    xrLiveStop();
+    xrEl.classList.remove('show');
+    document.body.style.overflow = '';
+    if (xrEl._focus && xrEl._focus.focus) xrEl._focus.focus();
+  }
+
+  // -------------------------------------------------------------
   // CASE FILE
   // Every tool here ended in "Copy as Markdown": a decoded Xid, an mlxlink
   // report, a timeline cascade, a golden-node diff, fleet results. The ticket
@@ -6585,6 +7072,7 @@ ${rmaTrailSection()}#### Action Requested:
     // The portable build runs each sheet's interactive widgets in an about:srcdoc frame
     // with its own copy of this file; page chrome belongs to the outer page only.
     if (!IN_WIDGET_FRAME) {
+      retireSavedButton();
       initCaseTrail();
       initKit();
       initConsole();
@@ -6612,7 +7100,7 @@ ${rmaTrailSection()}#### Action Requested:
   // SLIM HEADER TOOLBAR (desktop)
   // Nine equal-weight buttons wrapped the toolbar onto its own row, so the
   // header grew to 393px at 1440 wide and 490px at 1024. Four primary tools
-  // stay visible; Saved, Compact, Theme, Manuals and the offline file move
+  // stay visible; Compact, Theme, Manuals and the offline file move
   // into a More menu. Field Mode (phones) shows them all flat, as before.
   // -------------------------------------------------------------
   const TOOLBAR_PRIMARY = ['global-search-btn', 'triage-modal-btn', 'kit-btn', 'trail-btn', 'console-btn'];
@@ -6626,7 +7114,7 @@ ${rmaTrailSection()}#### Action Requested:
     const wrap = document.createElement('div');
     wrap.className = 'hdr-more';
     wrap.innerHTML = `
-      <button type="button" class="action-btn hdr-more-btn" aria-haspopup="true" aria-expanded="false" title="Saved, view, theme, manuals, offline">
+      <button type="button" class="action-btn hdr-more-btn" aria-haspopup="true" aria-expanded="false" title="View, theme, manuals, offline, tour">
         <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="5" cy="12" r="1.3" fill="currentColor"/><circle cx="12" cy="12" r="1.3" fill="currentColor"/><circle cx="19" cy="12" r="1.3" fill="currentColor"/></svg>
         <span>More</span><span class="hdr-more-dot" hidden></span>
       </button>
@@ -6663,23 +7151,6 @@ ${rmaTrailSection()}#### Action Requested:
     }, true);
     wrap.addEventListener('keydown', (e) => { if (e.key === 'Escape' && wrap.classList.contains('open')) { e.stopPropagation(); setOpen(false); btn.focus(); } });
 
-    // Saved lives in the menu now: surface its count and its filter state on More.
-    const sync = () => {
-      const saved = document.getElementById('saved-count');
-      const savedBtn = document.getElementById('saved-filter-btn');
-      const n = saved ? parseInt(saved.textContent, 10) || 0 : 0;
-      const active = !!(savedBtn && (savedBtn.classList.contains('active') || savedBtn.getAttribute('aria-pressed') === 'true'));
-      dot.hidden = !n && !active;
-      dot.textContent = active ? '★' : String(n);
-      btn.classList.toggle('active', active);
-      btn.title = `More: ${n} saved on this sheet${active ? ' (showing saved only)' : ''}, view, theme, manuals, offline`;
-    };
-    sync();
-    const mo = new MutationObserver(sync);
-    const saved = document.getElementById('saved-count');
-    const savedBtn = document.getElementById('saved-filter-btn');
-    if (saved) mo.observe(saved, { childList: true, characterData: true, subtree: true });
-    if (savedBtn) mo.observe(savedBtn, { attributes: true, attributeFilter: ['class', 'aria-pressed'] });
   }
 
   // -------------------------------------------------------------
@@ -6691,6 +7162,16 @@ ${rmaTrailSection()}#### Action Requested:
   // filled in, exportable as Markdown or a printable pocket card.
   // -------------------------------------------------------------
   const KIT_KEY_RE = /^(.+)_bookmarks$/;
+  // Which bookmark list belongs to this page: the one its sheet script reads while
+  // loading (nv_cs_bookmarks, linux_cs_bookmarks…). common.js runs first, so it can listen.
+  const kitPageKeys = new Set();
+  (() => {
+    if (!window.Storage || Storage.prototype.getItem._kitPage) return;
+    const get = Storage.prototype.getItem;
+    const spy = function (key) { if (document.readyState === 'loading' && KIT_KEY_RE.test(String(key))) kitPageKeys.add(String(key)); return get.call(this, key); };
+    spy._kitPage = true;
+    Storage.prototype.getItem = spy;
+  })();
 
   function kitIndex() {
     // First entry per file#id is the card's main command.
@@ -6822,9 +7303,15 @@ ${rmaTrailSection()}#### Action Requested:
     }
     const groups = kitGroups(list, kitQuery);
     if (!groups.size) { box.innerHTML = `<p class="kit-none">Nothing in your kit matches “${escapeHtml(kitQuery)}”.</p>`; return; }
-    box.innerHTML = [...groups.entries()].map(([sheet, entries]) => `
-      <section class="kit-group">
-        <h3><span>${escapeHtml(sheet)}</span><small>${entries.length}</small></h3>
+    // The current sheet's bookmarks first (what the old Saved filter showed).
+    const here = anatSheetFile || window.location.pathname.split('/').pop() || 'index.html';
+    // Bookmarks are stored per page (<sheet>_bookmarks); the page decides "this sheet", not the sub-sheet a command is indexed under.
+    // The 1-file copy keeps one shared list (portable_bookmarks) for every sheet: match by file there.
+    const isHere = entries => entries.some(e => (kitPageKeys.has(e.key) && kitFileForKey(e.key)) || e.item.file === here);
+    const ordered = [...groups.entries()].sort((a, b) => isHere(b[1]) - isHere(a[1]));
+    box.innerHTML = ordered.map(([sheet, entries]) => `
+      <section class="kit-group${isHere(entries) ? ' is-here' : ''}">
+        <h3><span>${escapeHtml(sheet)}</span>${isHere(entries) ? '<em class="kit-here">this sheet</em>' : ''}<small>${entries.length}</small></h3>
         ${entries.map(e => `
           <div class="kit-entry" data-kit="${escapeHtml(e.key)}|${escapeHtml(e.id)}">
             ${DANGER_RE.test(e.item.cmd) ? '<span class="danger-tag">⚠ Changes state · drain &amp; get approval first</span>' : ''}
@@ -6916,6 +7403,18 @@ ${rmaTrailSection()}#### Action Requested:
       if (b.textContent !== String(n)) { b.textContent = n; b.classList.remove('pulse'); void b.offsetWidth; b.classList.add('pulse'); }
     });
     if (kitDrawer && kitDrawer.classList.contains('open')) renderKit();
+  }
+
+  // Saved (filter this sheet to its bookmarks) and My kit (bookmarks from every
+  // sheet) were two buttons over the same bookmarks. My kit stays, with this
+  // sheet's group first. The Saved button is in every page's static header and
+  // the sheet scripts hold a reference to it, so it is detached here, after they
+  // ran, with its filter switched off so nobody is left on a filtered sheet.
+  function retireSavedButton() {
+    const b = document.getElementById('saved-filter-btn');
+    if (!b) return;
+    if (b.classList.contains('active') || b.getAttribute('aria-pressed') === 'true') b.click();
+    b.remove();
   }
 
   function initKit() {
@@ -7149,7 +7648,7 @@ ${rmaTrailSection()}#### Action Requested:
             <button type="submit">Diagnose<kbd>↵</kbd></button>
           </form>
           <div class="lp-preview" aria-live="polite"></div>
-          <div class="lp-samples"><button type="button" class="lp-atlas" data-atlas-open>🩻 What healthy looks like</button><span>Try:</span>${DECODER_SAMPLES.map(([label, line]) => `<button type="button" data-lp-sample="${escapeHtml(line)}">${escapeHtml(label)}</button>`).join('')}</div>
+          <div class="lp-samples"><button type="button" class="lp-atlas lp-xray" data-lp="xray">▦ X-ray a GPU node</button><button type="button" class="lp-atlas" data-atlas-open>🩻 What healthy looks like</button><span>Try:</span>${DECODER_SAMPLES.map(([label, line]) => `<button type="button" data-lp-sample="${escapeHtml(line)}">${escapeHtml(label)}</button>`).join('')}</div>
         </div>
       </div>
 
@@ -7246,10 +7745,10 @@ ${rmaTrailSection()}#### Action Requested:
         acts: [['node', node ? 'Switch node' : 'Name this node'], ['drain', 'Copy drain check'], ['targets', 'Rack Targets']] },
       { id: 'collect', n: 2, title: 'Collect', what: 'Read-only evidence: dmesg, SEL, telemetry.',
         done: trail.length >= 1 || collected > 0, status: trail.length || collected ? `${trail.length} command${trail.length === 1 ? '' : 's'} run · ${collected} analys${collected === 1 ? 'is' : 'es'} pinned` : 'Paste an error or a whole dump',
-        acts: [['paste', 'Paste a log'], ['timeline', 'Incident timeline'], ['console', 'Serial console']] },
+        acts: [['paste', 'Paste a log'], ['timeline', 'Incident timeline'], ['console', 'Terminal']] },
       { id: 'correlate', n: 3, title: 'Correlate', what: 'Across layers, nodes and a healthy twin.',
-        done: kinds.has('Node comparison') || kinds.has('Fleet results') || kinds.has('Incident timeline'), status: fl.active ? `Fleet on · ×${fleetExpand(fl.hosts).length} nodes` : [kinds.has('Node comparison') && 'compared', kinds.has('Fleet results') && 'fleet checked', kinds.has('Incident timeline') && 'timeline pinned'].filter(Boolean).join(' · ') || 'One node, or many?',
-        acts: [['diff', 'Compare nodes'], ['fleet', fl.active ? 'Fleet settings' : 'Fleet mode'], ['fleetres', 'Fleet results']] },
+        done: kinds.has('Node X-ray') || kinds.has('Node comparison') || kinds.has('Fleet results') || kinds.has('Incident timeline'), status: fl.active ? `Fleet on · ×${fleetExpand(fl.hosts).length} nodes` : [kinds.has('Node comparison') && 'compared', kinds.has('Fleet results') && 'fleet checked', kinds.has('Incident timeline') && 'timeline pinned'].filter(Boolean).join(' · ') || 'One node, or many?',
+        acts: [['xray', 'Node X-ray'], ['diff', 'Compare nodes'], ['fleet', fl.active ? 'Fleet settings' : 'Fleet mode'], ['fleetres', 'Fleet results']] },
       { id: 'isolate', n: 4, title: 'Isolate', what: 'Physical checks before declaring a part dead.',
         done: runs.some(x => x.p.done >= Math.ceil(x.p.total / 2)), status: runs[0] ? `${runs[0].rb.title.split(/[/(]/)[0].trim()}: ${runs[0].p.done}/${runs[0].p.total}` : 'Clean, reseat, A/B swap',
         acts: [['runbook', runs[0] ? 'Resume runbook' : 'Guided runbooks'], ['atlas', 'Healthy ranges']] },
@@ -7290,6 +7789,7 @@ ${rmaTrailSection()}#### Action Requested:
     if (a === 'diff') return openGoldenDiff();
     if (a === 'fleet') return openFleet();
     if (a === 'fleetres') return openFleetResults();
+    if (a === 'xray') return openXray();
     if (a === 'runbook') { const r = flowState().runs[0]; return openRunbook(r ? r.rb.id : undefined); }
     if (a === 'atlas') return openHealthAtlas();
     if (a === 'case') return openCaseFile();
@@ -7328,6 +7828,7 @@ ${rmaTrailSection()}#### Action Requested:
       if (act.dataset.lp === 'timeline') return openAnalyzer(AN_SAMPLES.timeline);
       if (act.dataset.lp === 'diff') return openGoldenDiff();
       if (act.dataset.lp === 'fleetres') return openFleetResults();
+      if (act.dataset.lp === 'xray') return openXray();
       if (act.dataset.lp === 'kit') return openKit();
       if (act.dataset.lp === 'board') return openBoard();
       if (act.dataset.lp === 'hide') { try { localStorage.setItem(LP_HIDDEN_KEY, '1'); } catch (err) {} return renderLaunchpad(lp); }
@@ -7798,6 +8299,7 @@ ${rmaTrailSection()}#### Action Requested:
   const CBAR_HEIGHT = 60;
   const CBAR_ICONS = {
     plug: '<path d="M9 2v5M15 2v5M7 7h10v5a5 5 0 0 1-10 0z"/><path d="M12 17v5"/>',
+    term: '<path d="M4 17l6-5-6-5"/><path d="M12 19h8"/>',
     all: '<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.6-4.6"/><path d="M8 11h6M11 8v6"/>',
     triage: '<path d="M22 12h-4l-3 9L9 3l-3 9H2"/>',
     trail: '<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l3 2"/>',
@@ -7838,8 +8340,7 @@ ${rmaTrailSection()}#### Action Requested:
           <button type="button" class="cbar-btn" data-proxy="global-search-btn" title="Search all sheets (Ctrl+K)">${cbarIcon('all')}</button>
           <button type="button" class="cbar-btn cbar-triage" data-proxy="triage-modal-btn" title="Triage &amp; RMA">${cbarIcon('triage')}</button>
           <button type="button" class="cbar-btn" data-proxy="trail-btn" title="Case trail">${cbarIcon('trail')}<span class="cbar-count" data-count="trail"></span></button>
-          <button type="button" class="cbar-btn con-cbar" data-proxy="console-btn" title="Serial console (Ctrl+\`)">${cbarIcon('plug')}<span class="con-hdr-led" aria-hidden="true"></span></button>
-          <button type="button" class="cbar-btn" data-proxy="saved-filter-btn" title="Saved on this sheet">${cbarIcon('saved')}<span class="cbar-count" data-count="saved"></span></button>
+          <button type="button" class="cbar-btn con-cbar" data-proxy="console-btn" title="Terminal (Ctrl+\`)">${cbarIcon('term')}<span class="con-hdr-led" aria-hidden="true"></span></button>
           <button type="button" class="cbar-btn cbar-kit" data-proxy="kit-btn" title="My kit: bookmarks from every sheet">${cbarIcon('kit')}<span class="cbar-count" data-count="kit"></span></button>
           <button type="button" class="cbar-btn" data-proxy="density-toggle" title="Toggle compact view">${cbarIcon('compact')}</button>
           <button type="button" class="cbar-btn cbar-up" title="Back to top">${cbarIcon('top')}</button>
@@ -7876,17 +8377,15 @@ ${rmaTrailSection()}#### Action Requested:
     }
 
     function syncCounts() {
-      const saved = document.getElementById('saved-count');
       const trail = document.querySelector('.trail-badge');
       const set = (key, el) => {
         const span = bar.querySelector(`[data-count="${key}"]`);
         const n = el ? el.textContent.trim() : '';
         span.textContent = n && n !== '0' ? n : '';
       };
-      set('saved', saved);
       set('trail', trail);
       set('kit', document.querySelector('.kit-badge'));
-      ['saved-filter-btn', 'density-toggle'].forEach(id => {
+      ['density-toggle'].forEach(id => {
         const real = document.getElementById(id);
         const mine = bar.querySelector(`[data-proxy="${id}"]`);
         if (mine) mine.classList.toggle('active', !!(real && (real.classList.contains('active') || real.getAttribute('aria-pressed') === 'true')));
@@ -8925,6 +9424,7 @@ ${rmaTrailSection()}#### Action Requested:
     openFleet,
     openPhone,
     openFleetResults,
+    openXray,
     openCaseFile,
     casePin,
     caseMarkdown,

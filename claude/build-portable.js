@@ -105,6 +105,9 @@ SHEETS_CONFIG.forEach(cfg => {
 // 4. Read global-search-index.js and common.js
 const globalSearchIndexJs = fs.readFileSync(path.join(__dirname, 'global-search-index.js'), 'utf8');
 const commonJs = fs.readFileSync(path.join(__dirname, 'common.js'), 'utf8');
+// The Terminal dock's emulator; pages load it on demand from vendor/, the 1-file copy carries it.
+const xtermJs = ['xterm.js', 'addon-fit.js'].map(f => fs.readFileSync(path.join(__dirname, 'vendor', 'xterm', f), 'utf8')).join('\n');
+const xtermCss = fs.readFileSync(path.join(__dirname, 'vendor', 'xterm', 'xterm.css'), 'utf8');
 
 // 4b. Pages with interactive tools run their own unmodified code in a srcdoc frame,
 // so each tool's globals stay isolated from the shell and from other tools.
@@ -355,6 +358,14 @@ ${escapeScriptClose(globalSearchIndexJs)}
 window.PORTABLE_SHEETS = ${JSON.stringify(SHEETS_CONFIG, null, 2)};
 window.PORTABLE_MAN_INDEX = ${JSON.stringify(manIndex)};
 window.PORTABLE_DATASETS = ${escapeScriptClose(JSON.stringify(allDatasets, null, 2))};
+  </script>
+
+  <!-- Terminal emulator (xterm.js, MIT) for the Terminal dock -->
+  <style>
+${xtermCss}
+  </style>
+  <script>
+${escapeScriptClose(xtermJs)}
   </script>
 
   <!-- Embedded Shared Common Logic (Target Bar, Global Search Ctrl+K, Triage Modal) -->
