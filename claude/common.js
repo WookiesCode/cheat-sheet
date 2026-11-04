@@ -36,6 +36,26 @@
     }
   } catch(e) {}
 
+  // The per-page search box, Saved button and section filter were removed from
+  // all 189 pages (Ctrl+K and My kit replaced them), but every sheet script still
+  // binds to five of their ids when it loads. One hidden stub, added here before
+  // the sheet script runs, stands in for the markup each page used to carry.
+  // Each id is added only when the page lacks it (142 pages keep their own
+  // reset-search-btn in the empty state), so ids stay unique.
+  (function sheetFilterStubs() {
+    if (!document.body || document.getElementById('sheet-filter-stubs')) return;
+    const want = [['search-input', '<input type="search" id="search-input" tabindex="-1">'], ['reset-search-btn', '<button type="button" id="reset-search-btn" tabindex="-1"></button>'],
+      ['saved-filter-btn', '<button type="button" id="saved-filter-btn" tabindex="-1"></button>'], ['saved-count', '<span id="saved-count">0</span>'],
+      ['category-tabs', '<nav id="category-tabs"></nav>'], ['visible-count', '<strong id="visible-count">0</strong>']].filter(([id]) => !document.getElementById(id));
+    if (!want.length) return;
+    const stub = document.createElement('div');
+    stub.id = 'sheet-filter-stubs';
+    stub.hidden = true;
+    stub.setAttribute('aria-hidden', 'true');
+    stub.innerHTML = want.map(([, html]) => html).join('');
+    document.body.appendChild(stub);
+  })();
+
   // -------------------------------------------------------------
   // 1. RACK TARGET VARIABLES SYSTEM
   // -------------------------------------------------------------
@@ -407,7 +427,7 @@
   // command to a different BMC.
   // -------------------------------------------------------------
   const NODES_KEY = 'dc_nodes';
-  const NODE_DATA_KEYS = ['dc_target_vars', 'dc_case_trail', 'dc_case_trail_meta', 'dc_runbook_runs', 'dc_slot_values', 'dc_case_file'];
+  const NODE_DATA_KEYS = ['dc_target_vars', 'dc_case_trail', 'dc_case_trail_meta', 'dc_runbook_runs', 'dc_slot_values', 'dc_case_file', 'dc_node_vitals'];
 
   function readNodes() {
     try {
@@ -1369,8 +1389,28 @@
     return score;
   }
 
+  // Each suite hub (index, cli-tools, switches…) repeats its sub-sheets' commands,
+  // so the raw index lists ~850 commands twice. Search shows each command once,
+  // from the most specific sheet: the one with fewer commands (the sub-sheet).
+  function searchIndexUnique() {
+    const index = window.GLOBAL_SEARCH_INDEX || [];
+    if (searchIndexUnique.src === index && searchIndexUnique.len === index.length) return searchIndexUnique.list;
+    const size = new Map();
+    index.forEach(i => size.set(i.file, (size.get(i.file) || 0) + 1));
+    const best = new Map();
+    index.forEach(i => {
+      const k = String(i.cmd || '').replace(/\s+/g, ' ').trim() || `${i.file}#${i.id}`;
+      const cur = best.get(k);
+      if (!cur || size.get(i.file) < size.get(cur.file)) best.set(k, i);
+    });
+    const keep = new Set(best.values());
+    searchIndexUnique.src = index; searchIndexUnique.len = index.length;
+    searchIndexUnique.list = index.filter(i => keep.has(i));
+    return searchIndexUnique.list;
+  }
+
   function rankIndex(tokens, phrase, boost) {
-    return window.GLOBAL_SEARCH_INDEX
+    return searchIndexUnique()
       .map((item, i) => ({ item, i, s: scoreEntry(item, tokens, phrase, boost) }))
       .filter(r => r.s > 0)
       .sort((a, b) => b.s - a.s || a.i - b.i)
@@ -2851,12 +2891,13 @@
   // -------------------------------------------------------------
   const TOUR_SEEN_KEY = 'dc_tour_seen';
   // Bumped when the tour gains steps: anyone who saw an older one is offered "What's new" (the isNew steps).
-  const TOUR_VERSION = '3';
+  const TOUR_VERSION = '4';
   // center: the step still shows (centred) when its control is not on this page.
   const TOUR_STEPS = [
     { title: 'This reference does more than list commands', body: 'A short tour that follows an incident: diagnose the error, set up the node, run commands in the built-in terminal, see the GPU tray, compare against healthy nodes, and file the case. Use ← → or the buttons; Esc ends it.' },
     { target: '#lp-omni-input', title: 'Paste an error, get a diagnosis', body: 'Drop a raw dmesg, SEL or EDAC line here: what it means, how bad it is, the next read-only commands and a matching runbook. Whole dumps open the right tool by themselves: dmesg/SEL → incident timeline, mlxlink / smart-log / topo -m → visual report, an nvidia-smi GPU table → Node X-ray, pdsh output → Fleet results.',
       try: { label: 'Try an Xid 79 line', run: () => { const i = document.getElementById('lp-omni-input'); if (i) { i.value = 'NVRM: Xid (PCI:0000:8a:00): 79, pid=48213, name=python, GPU has fallen off the bus.'; i.dispatchEvent(new Event('input')); } } } },
+    { target: '.lp-cockpit', isNew: true, title: 'This node, at a glance', body: 'The cockpit keeps the latest readings for the node you are on: checkup score, a mini GPU tray with NIC lights, the top problems and the terminal link, with how old each reading is. It follows the node workspace, so switching nodes switches the cockpit. Click the ring or the tray to reopen the full report.' },
     { target: '.lp-flow', isNew: true, title: 'Your incident, step by step', body: 'Identify → Collect → Correlate → Isolate → Document: the team method, each step holding its tools. The cards follow the current node and tick green as you name it, run commands, compare, work a runbook and file the case; the next step is highlighted.' },
     { target: '.node-chip, [data-fd="targets"]', title: 'One workspace per machine', body: 'Name the node you are on. Its targets, Case Trail, pinned evidence and runbook progress stay with it, so switching to the next node is one click and nothing leaks between tickets.' },
     { target: '.target-summary, .target-inputs-row, [data-fd="targets"]', title: 'Your targets go into every command', body: 'BMC, interface, HCA, disk and GPU are filled in when you copy or send a command. Dashed chips inside commands are those values: click one to change it. The BMC password is never stored. Red-tagged commands change state and need a drained node and approval.' },
@@ -2868,7 +2909,7 @@
       try: { label: 'Watch a demo tray heat up', run: () => { endTour(); openXray(XR_SAMPLE); xrLiveStart(true); } } },
     { target: '[data-flow="diff"], .fleet-chip', center: true, isNew: true, title: 'One node, or the whole rack?', body: 'Compare nodes puts a suspect next to a known-good twin and shows only real differences (firmware, link width, missing devices), not serials and temperatures. Fleet mode fans any command out over pdsh / clush; paste what comes back and Fleet results groups the nodes and points at the odd one out.',
       try: { label: 'Try Fleet results with 12 nodes', run: () => { endTour(); openFleetResults(FR_SAMPLE); } } },
-    { target: '#global-search-btn, [data-fd="search"]', title: 'Ctrl+K does almost everything', body: 'Search 2,300 commands, open any sheet or runbook, run actions (> lists them), switch themes, or quick-set values: "gpu 3", "hca mlx5_4", "node gpu-node-08".',
+    { target: '.hdr-search-pill, #global-search-btn, [data-fd="search"]', title: 'One search for everything', body: 'Ctrl+K, / or the search pill: search 1,500 commands, open any sheet or runbook, run actions (> lists them), switch themes, or quick-set values: "gpu 3", "hca mlx5_4", "node gpu-node-08".',
       try: { label: 'Open Ctrl+K with "gpu 3"', run: () => { endTour(); openGlobalSearch('gpu 3'); } } },
     { target: '#triage-modal-btn, [data-fd="triage"]', title: 'Guided runbooks and the RMA ticket', body: 'Step-by-step runs of the team playbooks: safety, evidence, decisions, physical isolation. Intrusive steps stay locked until you confirm the drain. The verdict and findings fill the RMA ticket.',
       try: { label: 'Open the runbooks', run: () => { endTour(); openRunbook(); } } },
@@ -3009,7 +3050,7 @@
     inv.className = `tour-invite${returning ? ' is-whatsnew' : ''}`;
     inv.setAttribute('role', 'status');
     inv.innerHTML = returning
-      ? `<span class="tour-invite-dot" aria-hidden="true"></span><div><b>New since your last tour</b><span>Node checkup, terminal, Node X-ray with live watch, fleet tools and the case file.</span></div>
+      ? `<span class="tour-invite-dot" aria-hidden="true"></span><div><b>New since your last tour</b><span>Node cockpit, checkup, terminal, Node X-ray with live watch, fleet tools and the case file.</span></div>
       <button type="button" class="tour-invite-go">What\u2019s new</button><button type="button" class="tour-invite-x" aria-label="Dismiss">✕</button>`
       : `<span class="tour-invite-dot" aria-hidden="true"></span><div><b>New here?</b><span>Two-minute tour of what this reference can do.</span></div>
       <button type="button" class="tour-invite-go">Take the tour</button><button type="button" class="tour-invite-x" aria-label="Dismiss">✕</button>`;
@@ -3185,6 +3226,7 @@
     }
     const actions = paletteActions();
     const themeWanted = tokens.includes('theme') || tokens.includes('themes');
+    actions.push({ icon: '🎨', label: 'Choose a theme…', sub: `Gallery of all ${THEMES.length} color themes with previews`, kw: 'theme themes color colour gallery appearance look dark light palette skin', run: () => openThemeGallery() });
     THEMES.forEach(t => actions.push({ icon: '🎨', label: `Theme: ${t.name}`, sub: t.desc, kw: `theme themes color colour ${t.name} ${t.id} ${t.desc}`.toLowerCase(), theme: true, run: () => applyGlobalTheme(t.id) }));
     actions.forEach(a => {
       const hay = `${a.label} ${a.kw}`.toLowerCase();
@@ -3234,9 +3276,9 @@
     let sheetsMatched = 0;
     if (!tokens.length) {
       // Show default top picks across sheets
-      matches = window.GLOBAL_SEARCH_INDEX.slice(0, 25);
-      totalMatches = window.GLOBAL_SEARCH_INDEX.length;
-      sheetsMatched = new Set(window.GLOBAL_SEARCH_INDEX.map(item => item.file)).size;
+      matches = searchIndexUnique().slice(0, 25);
+      totalMatches = searchIndexUnique().length;
+      sheetsMatched = new Set(searchIndexUnique().map(item => item.file)).size;
     } else {
       // A pasted log line won't match word-for-word; search what the decoder understood instead.
       let phrase = cleanQuery;
@@ -3386,7 +3428,7 @@
 
   // Entries list alternatives joined by "   |   "; they are not a shell pipeline.
   function searchIndexSummary() {
-    const index = window.GLOBAL_SEARCH_INDEX || [];
+    const index = searchIndexUnique();
     return `${index.length.toLocaleString('en-US')} commands across ${new Set(index.map(item => item.file)).size} sheets`;
   }
 
@@ -3782,12 +3824,7 @@ ${rmaTrailSection()}#### Action Requested:
         <span>Triage &amp; RMA</span>
       `;
       triageBtn.addEventListener('click', () => openTriageModal());
-      const savedBtn = document.getElementById('saved-filter-btn');
-      if (savedBtn) {
-        actions.insertBefore(triageBtn, savedBtn);
-      } else {
-        actions.appendChild(triageBtn);
-      }
+      actions.appendChild(triageBtn);
     }
 
     if (!document.getElementById('manuals-btn')) {
@@ -3872,79 +3909,76 @@ ${rmaTrailSection()}#### Action Requested:
     }
   }
 
+  // THEME GALLERY: 24 themes did not fit a dropdown inside the More menu (it ran
+  // off the bottom of the screen and squeezed the menu). They open as a centred
+  // gallery of preview cards instead; Shift+click on the button still cycles.
+  let tgEl = null;
+  function themePreview(t) {
+    const [bg, surf, acc, acc2] = t.swatches;
+    return `<span class="tg-prev" style="background:${bg}"><span class="tg-bar" style="background:${surf}"><i style="background:${acc}"></i><i style="background:${acc2}"></i></span><span class="tg-card" style="background:${surf}"><b style="background:${acc}"></b><em style="background:${acc2}"></em><em style="background:${acc}; width:40%"></em></span><span class="tg-card" style="background:${surf}"><b style="background:${acc2}"></b><em style="background:${acc}"></em></span></span>`;
+  }
+  function openThemeGallery() {
+    document.querySelectorAll('.hdr-more.open').forEach(w => { w.classList.remove('open'); const b = w.querySelector('.hdr-more-btn'); if (b) b.setAttribute('aria-expanded', 'false'); });
+    if (!tgEl) {
+      tgEl = document.createElement('div');
+      tgEl.className = 'an-backdrop tg-backdrop';
+      tgEl.innerHTML = `<div class="an-dialog tg-dialog" role="dialog" aria-modal="true" aria-labelledby="tg-title">
+          <header class="an-head"><div><h2 id="tg-title">Color theme</h2><p>${THEMES.length} themes. Click one to apply it; it is saved in this browser. Shift+click the theme button to cycle without opening this.</p></div>
+          <button type="button" class="trail-close" data-tg="close" aria-label="Close">✕</button></header>
+          <div class="tg-grid" role="listbox" aria-label="Themes"></div>
+        </div>`;
+      document.body.appendChild(tgEl);
+      tgEl.addEventListener('click', (e) => {
+        if (e.target === tgEl) return closeThemeGallery();
+        const el = e.target instanceof Element ? e.target : null;
+        if (el && el.closest('[data-tg="close"]')) return closeThemeGallery();
+        const card = el && el.closest('[data-tg-theme]');
+        if (!card) return;
+        const t = THEMES.find(x => x.id === card.dataset.tgTheme);
+        applyGlobalTheme(card.dataset.tgTheme);
+        tgEl.querySelectorAll('[data-tg-theme]').forEach(c => { const on = c === card; c.classList.toggle('is-on', on); c.setAttribute('aria-selected', String(on)); });
+        showGlobalToast('Theme: ' + (t ? t.name : card.dataset.tgTheme));
+      });
+      tgEl.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') { e.stopPropagation(); closeThemeGallery(); return; }
+        const cards = [...tgEl.querySelectorAll('[data-tg-theme]')], i = cards.indexOf(document.activeElement);
+        if (i < 0 || !/^Arrow/.test(e.key)) return;
+        const cols = Math.max(1, Math.round(tgEl.querySelector('.tg-grid').clientWidth / cards[0].offsetWidth));
+        const d = { ArrowRight: 1, ArrowLeft: -1, ArrowDown: cols, ArrowUp: -cols }[e.key];
+        const n = cards[Math.min(cards.length - 1, Math.max(0, i + d))];
+        if (n) { e.preventDefault(); n.focus(); }
+      });
+    }
+    const cur = document.documentElement.getAttribute('data-theme') || 'dark';
+    tgEl.querySelector('.tg-grid').innerHTML = THEMES.map(t => `<button type="button" class="tg-card-btn${t.id === cur ? ' is-on' : ''}" role="option" aria-selected="${t.id === cur}" data-tg-theme="${t.id}">${themePreview(t)}<span class="tg-name">${escapeHtml(t.name)}<span class="tg-check" aria-hidden="true">✓</span></span><span class="tg-desc">${escapeHtml(t.desc)}</span></button>`).join('');
+    tgEl._focus = document.activeElement;
+    tgEl.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => { const on = tgEl.querySelector('.tg-card-btn.is-on') || tgEl.querySelector('.tg-card-btn'); if (on) { on.focus(); on.scrollIntoView({ block: 'nearest' }); } }, 40);
+  }
+  function closeThemeGallery() {
+    if (!tgEl || !tgEl.classList.contains('show')) return;
+    tgEl.classList.remove('show');
+    document.body.style.overflow = '';
+    if (tgEl._focus && tgEl._focus.focus && document.contains(tgEl._focus)) tgEl._focus.focus();
+  }
+
   function setupThemeSelector() {
     const btn = document.getElementById('theme-palette-btn');
-    const dropdown = document.getElementById('theme-dropdown-menu');
-    const wrapper = document.getElementById('theme-menu-wrapper');
-
-    const currentThemeId = (function() {
-      try { return localStorage.getItem('linux_cs_theme') || 'dark'; } catch(e) { return 'dark'; }
-    })();
-
-    if (dropdown) {
-      const countEl = dropdown.querySelector('.theme-count');
-      if (countEl) countEl.textContent = `${THEMES.length} Themes`;
-
-      let list = dropdown.querySelector('.theme-options-list');
-      if (!list) {
-        list = document.createElement('div');
-        list.className = 'theme-options-list';
-        dropdown.appendChild(list);
-      }
-
-      list.innerHTML = THEMES.map(t => `
-        <button type="button" class="theme-option${t.id === currentThemeId ? ' active' : ''}" data-theme="${t.id}" title="${escapeHtml(t.desc)}">
-          <div class="theme-swatches">${t.swatches.map(s => `<span class="theme-dot" style="background:${s}"></span>`).join('')}</div>
-          <div class="theme-info"><span class="theme-name">${escapeHtml(t.name)}</span><span class="theme-desc">${escapeHtml(t.desc)}</span></div>
-          <span class="theme-check">✓</span>
-        </button>
-      `).join('');
-    }
-
-    applyGlobalTheme(currentThemeId);
-
-    if (!btn || !dropdown) return;
-
-    btn.onclick = function(e) {
+    let current = 'dark';
+    try { current = localStorage.getItem('linux_cs_theme') || 'dark'; } catch (e) {}
+    applyGlobalTheme(current);
+    if (!btn) return;
+    // Click opens the gallery; Shift+click cycles without opening it.
+    btn.setAttribute('aria-haspopup', 'dialog');
+    btn.onclick = function (e) {
       e.stopPropagation();
-      if (e.shiftKey) {
-        const currId = document.documentElement.getAttribute('data-theme') || 'dark';
-        const currIdx = THEMES.findIndex(t => t.id === currId);
-        const nextIdx = (currIdx + 1) % THEMES.length;
-        applyGlobalTheme(THEMES[nextIdx].id);
-        showGlobalToast('Theme: ' + THEMES[nextIdx].name);
-        return;
-      }
-      const isOpen = dropdown.classList.contains('open');
-      dropdown.classList.toggle('open', !isOpen);
-      btn.setAttribute('aria-expanded', !isOpen);
+      if (!e.shiftKey) return openThemeGallery();
+      const idx = THEMES.findIndex(t => t.id === (document.documentElement.getAttribute('data-theme') || 'dark'));
+      const next = THEMES[(idx + 1) % THEMES.length];
+      applyGlobalTheme(next.id);
+      showGlobalToast('Theme: ' + next.name);
     };
-
-    dropdown.querySelectorAll('.theme-option').forEach(opt => {
-      opt.onclick = function(e) {
-        e.stopPropagation();
-        const themeId = opt.dataset.theme;
-        const theme = THEMES.find(t => t.id === themeId);
-        applyGlobalTheme(themeId);
-        dropdown.classList.remove('open');
-        btn.setAttribute('aria-expanded', 'false');
-        showGlobalToast('Theme: ' + (theme ? theme.name : themeId));
-      };
-    });
-
-    document.addEventListener('click', (e) => {
-      if (wrapper && !wrapper.contains(e.target)) {
-        dropdown.classList.remove('open');
-        btn.setAttribute('aria-expanded', 'false');
-      }
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && dropdown.classList.contains('open')) {
-        dropdown.classList.remove('open');
-        btn.setAttribute('aria-expanded', 'false');
-      }
-    });
   }
 
   // -------------------------------------------------------------
@@ -4025,63 +4059,6 @@ ${rmaTrailSection()}#### Action Requested:
       closeTriageModal();
     }
   });
-
-  // Enhance Empty State with cross-sheet suggestions
-  function enhanceEmptyState() {
-    const localInput = document.getElementById('search-input');
-    const emptyState = document.getElementById('empty-state');
-    if (!localInput || !emptyState) return;
-
-    let suggestionBox = document.getElementById('empty-global-suggestion');
-    if (!suggestionBox) {
-      suggestionBox = document.createElement('div');
-      suggestionBox.id = 'empty-global-suggestion';
-      suggestionBox.className = 'empty-global-suggestion hidden';
-      emptyState.appendChild(suggestionBox);
-    }
-
-    localInput.addEventListener('input', () => {
-      const q = localInput.value.trim().toLowerCase();
-      if (!q || !window.GLOBAL_SEARCH_INDEX) {
-        suggestionBox.classList.add('hidden');
-        return;
-      }
-
-      // Check after local rendering cycle
-      setTimeout(() => {
-        if (!emptyState.classList.contains('hidden')) {
-          const tokens = q.split(/\s+/).filter(Boolean);
-          const currentFile = window.location.pathname.split('/').pop() || 'index.html';
-          const otherMatches = window.GLOBAL_SEARCH_INDEX.filter(item => {
-            if (item.file === currentFile) return false;
-            const text = `${item.sName} ${item.sec} ${item.cmd} ${item.desc} ${item.tags}`.toLowerCase();
-            return tokens.every(tok => text.includes(tok));
-          });
-
-          if (otherMatches.length > 0) {
-            const sheetNames = [...new Set(otherMatches.map(m => m.sName))].slice(0, 3).join(', ');
-            suggestionBox.innerHTML = `
-              <div class="empty-global-hint">
-                <p>💡 Found <strong>${otherMatches.length}</strong> matching command${otherMatches.length === 1 ? '' : 's'} on other sheets (${sheetNames}${otherMatches.length > 3 ? '...' : ''})</p>
-                <button type="button" class="action-btn empty-global-btn" id="empty-open-global-btn">
-                  🔍 View in Global Search (Ctrl+K)
-                </button>
-              </div>
-            `;
-            suggestionBox.classList.remove('hidden');
-            const btn = document.getElementById('empty-open-global-btn');
-            if (btn) {
-              btn.addEventListener('click', () => openGlobalSearch(localInput.value));
-            }
-          } else {
-            suggestionBox.classList.add('hidden');
-          }
-        } else {
-          suggestionBox.classList.add('hidden');
-        }
-      }, 50);
-    });
-  }
 
   // Synchronize active states across sheet-switcher and all dropdown menus
   function syncActiveNav() {
@@ -4509,17 +4486,6 @@ ${rmaTrailSection()}#### Action Requested:
     // The portable build swaps sheets in place: keep recents and the launchpad in step.
     if (changed && !IN_WIDGET_FRAME) queueVisit(file);
     document.body.classList.toggle('keep-variants', KEEPS_VARIANTS.test(file));
-    syncSearchActive();
-  }
-
-  // Search reveals everything Compact hides, so a match is never hidden in its own result.
-  function syncSearchActive() {
-    const input = document.getElementById('search-input');
-    const active = !!(input && input.value.trim());
-    if (active !== document.body.classList.contains('search-active')) {
-      document.body.classList.toggle('search-active', active);
-      repack();
-    }
   }
 
   function initCompact() {
@@ -4538,9 +4504,6 @@ ${rmaTrailSection()}#### Action Requested:
       localStorage.setItem(COMPACT_KEY, compact ? '1' : '0');
       applyCompact(compact);
     });
-    document.addEventListener('input', syncSearchActive, true);
-    // Esc and Reset clear the box without an input event.
-    ['click', 'keyup'].forEach(type => document.addEventListener(type, () => setTimeout(syncSearchActive, 0)));
   }
 
   // Sheet scripts load after this one, so apply Compact now, before they measure cards.
@@ -5740,9 +5703,6 @@ ${rmaTrailSection()}#### Action Requested:
     let row = top.querySelector('.hdr-nav-row');
     if (!row) { row = document.createElement('div'); row.className = 'container hdr-nav-row'; inner.after(row); }
     hdrMove(top.querySelector('.sheet-switcher'), row);
-    const actions = inner.querySelector(':scope > .header-actions');
-    const cat = document.getElementById('category-tabs');
-    if (cat && actions) hdrMove(cat, inner, actions);
     const sub = top.querySelector('.brand-subtitle');
     const h1 = top.querySelector('h1');
     if (sub && h1 && sub.textContent.trim()) h1.title = sub.textContent.trim();
@@ -6589,6 +6549,7 @@ ${rmaTrailSection()}#### Action Requested:
       xrEl._r = r;
       xrLive.samples++;
       xrLiveRecord(r);
+      if (!xrLive.demo && xrLive.samples % 5 === 1) vitalsSave('xray', r, text);
       const f = document.activeElement && document.activeElement.closest && document.activeElement.closest('[data-xr-slot]');
       xrEl._draw();
       if (f) { const g = xrEl.querySelector(`[data-xr-slot="${CSS.escape(f.dataset.xrSlot)}"]`); if (g) g.focus({ preventScroll: true }); }
@@ -6757,6 +6718,7 @@ ${rmaTrailSection()}#### Action Requested:
       const draw = () => { out.innerHTML = input.value.trim() ? (xrEl._r ? xrRender(xrEl._r, xrEl._sel) : '<p class="an-hint">Not recognised yet: the first block must be the <code>nvidia-smi --query-gpu=index,pci.bus_id,…</code> CSV lines.</p>') : '<p class="an-hint">Waiting for output…</p>'; };
       const run = () => {
         xrEl._r = input.value.trim() ? xrAnalyze(input.value) : null;
+        if (xrEl._r && input.value !== XR_SAMPLE && !(xrLive && xrLive.demo)) { const vx = vitalsRead().xray; if (!vx || vx.text !== input.value) vitalsSave('xray', xrEl._r, input.value); }
         const r = xrEl._r;
         if (r && !r.slots.some(s => s.key === xrEl._sel)) { const first = r.slots.find(s => s.sev === 'crit') || r.slots.find(s => s.sev === 'warn'); xrEl._sel = first ? first.key : null; }
         xrEl.classList.toggle('has-result', !!r);
@@ -6978,7 +6940,7 @@ ${rmaTrailSection()}#### Action Requested:
     const scored = checks.filter(c => c.sev !== 'skip' && c.sev !== 'info');
     const crit = checks.filter(c => c.sev === 'crit').length, warn = checks.filter(c => c.sev === 'warn').length, ok = checks.filter(c => c.sev === 'ok').length;
     const score = scored.length ? Math.round(((ok + warn * 0.5) / scored.length) * 100) : 100;
-    return { host, ident, up: up.trim(), cores, load1, checks, crit, warn, ok, score, at: Date.now(), xr,
+    return { host, ident, up: up.trim(), cores, load1, checks, crit, warn, ok, score, at: Date.now(), xr, gpuText,
       verdict: crit ? `${crit} area${crit === 1 ? '' : 's'} need${crit === 1 ? 's' : ''} attention` : warn ? `${warn} to watch` : 'Healthy' };
   }
 
@@ -7061,7 +7023,7 @@ ${rmaTrailSection()}#### Action Requested:
       ckEl.addEventListener('keydown', (e) => { if (e.key === 'Escape') { e.stopPropagation(); closeCheckup(); } });
     }
     ckEl._focus = document.activeElement;
-    if (text) ckEl._r = ckAnalyze(text);
+    if (text) { ckEl._r = ckAnalyze(text); if (text !== CK_SAMPLE && !(vitalsRead().checkup && vitalsRead().checkup.text === text)) vitalsSave('checkup', ckEl._r, text); }
     ckEl._draw();
     ckEl.classList.add('show');
     document.body.style.overflow = 'hidden';
@@ -7087,6 +7049,7 @@ ${rmaTrailSection()}#### Action Requested:
     out.innerHTML = ckScanHtml(who);
     conRun(CK_CMD, { timeout: 120000 }).then(text => {
       ckEl._r = ckAnalyze(text);
+      vitalsSave('checkup', ckEl._r, text);
       if (!ckEl._r) { out.innerHTML = `<p class="an-hint">The sweep ran but printed nothing usable. First lines:</p><pre class="xr-raw">${escapeHtml(text.split('\n').slice(0, 10).join('\n') || '(no output)')}</pre>`; return; }
       ckEl._draw();
       showGlobalToast(`Checkup of ${ckEl._r.host}: ${ckEl._r.verdict}.`);
@@ -7349,14 +7312,13 @@ ${rmaTrailSection()}#### Action Requested:
     setupFullscreenObserver();
     injectHeaderControls();
     renderTargetVarsBar();
-    enhanceEmptyState();
     initReferenceEntries();
     initCleanCards();
     initCommandAnatomy();
     // The portable build runs each sheet's interactive widgets in an about:srcdoc frame
     // with its own copy of this file; page chrome belongs to the outer page only.
     if (!IN_WIDGET_FRAME) {
-      retireSavedButton();
+      retireSheetFilters();
       initCaseTrail();
       initKit();
       initConsole();
@@ -7400,7 +7362,7 @@ ${rmaTrailSection()}#### Action Requested:
     wrap.innerHTML = `
       <button type="button" class="action-btn hdr-more-btn" aria-haspopup="true" aria-expanded="false" title="View, theme, manuals, offline, tour">
         <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="5" cy="12" r="1.3" fill="currentColor"/><circle cx="12" cy="12" r="1.3" fill="currentColor"/><circle cx="19" cy="12" r="1.3" fill="currentColor"/></svg>
-        <span>More</span><span class="hdr-more-dot" hidden></span>
+        <span>More</span>
       </button>
       <div class="hdr-more-menu" role="menu"></div>`;
     const menu = wrap.querySelector('.hdr-more-menu');
@@ -7417,7 +7379,6 @@ ${rmaTrailSection()}#### Action Requested:
     actions.classList.add('has-more');
 
     const btn = wrap.querySelector('.hdr-more-btn');
-    const dot = wrap.querySelector('.hdr-more-dot');
     const setOpen = (open) => {
       wrap.classList.toggle('open', open);
       btn.setAttribute('aria-expanded', String(open));
@@ -7689,16 +7650,42 @@ ${rmaTrailSection()}#### Action Requested:
     if (kitDrawer && kitDrawer.classList.contains('open')) renderKit();
   }
 
-  // Saved (filter this sheet to its bookmarks) and My kit (bookmarks from every
-  // sheet) were two buttons over the same bookmarks. My kit stays, with this
-  // sheet's group first. The Saved button is in every page's static header and
-  // the sheet scripts hold a reference to it, so it is detached here, after they
-  // ran, with its filter switched off so nobody is left on a filtered sheet.
-  function retireSavedButton() {
-    const b = document.getElementById('saved-filter-btn');
-    if (!b) return;
-    if (b.classList.contains('active') || b.getAttribute('aria-pressed') === 'true') b.click();
-    b.remove();
+
+  // -------------------------------------------------------------
+  // ONE SEARCH
+  // Every page had its own "Search commands…" box and an "All Sections"
+  // dropdown beside Search All (Ctrl+K), which searches every sheet and also
+  // decodes errors, runs actions and quick-sets targets. The rail's "On this
+  // sheet" outline already jumps between sections. Both per-page filters are
+  // retired: reset to "everything" (the sheet scripts keep their references,
+  // so the elements stay in the DOM, hidden), their place in the header
+  // becomes a Search-all pill, and "/" opens Ctrl+K instead of a hidden box.
+  // -------------------------------------------------------------
+  function retireSheetFilters() {
+    document.body.classList.add('no-sheet-filters');
+    const actions = document.querySelector('.top-bar .header-actions');
+    if (actions && !document.querySelector('.hdr-search-pill')) {
+      const pill = document.createElement('button');
+      pill.type = 'button';
+      pill.className = 'hdr-search-pill';
+      pill.title = 'Search every sheet, decode an error, run an action (Ctrl+K or /)';
+      pill.innerHTML = `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.6-4.6"/></svg><span class="hdr-search-text">Search all sheets, paste an error…</span><kbd>Ctrl K</kbd>`;
+      pill.addEventListener('click', () => openGlobalSearch());
+      actions.parentNode.insertBefore(pill, actions);
+    }
+    // "/" used to focus the page box; the sheets listen on document, so a window capture listener wins.
+    if (!window._oneSearchKey) {
+      window._oneSearchKey = true;
+      window.addEventListener('keydown', (e) => {
+        if (e.key !== '/' || e.ctrlKey || e.metaKey || e.altKey) return;
+        const t = e.target;
+        if (t instanceof Element && (t.closest('input, textarea, select, [contenteditable="true"], .xterm') )) return;
+        if (document.querySelector('.an-backdrop.show, .tour.show')) return;
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        openGlobalSearch();
+      }, true);
+    }
   }
 
   function initKit() {
@@ -7882,23 +7869,6 @@ ${rmaTrailSection()}#### Action Requested:
     else window.location.href = file;
   }
 
-  function lpSuites() {
-    const nav = document.querySelector('.top-bar .sheet-switcher');
-    if (!nav) return [];
-    return Array.from(nav.children).map(child => {
-      const toggle = child.querySelector('.dropdown-toggle') || (child.matches('a') ? child : null);
-      if (!toggle) return null;
-      const items = child.querySelectorAll('.dropdown-item');
-      const hub = items[0] || toggle;
-      return {
-        name: toggle.textContent.replace(/[▾•]/g, '').trim(),
-        icon: toggle.querySelector('svg, img') ? toggle.querySelector('svg, img').outerHTML : '',
-        count: items.length ? items.length - (items[0] && /hub|all /i.test(items[0].textContent) ? 1 : 0) : 1,
-        link: hub
-      };
-    }).filter(Boolean);
-  }
-
   function lpAgo(t) {
     const s = Math.max(1, Math.round((Date.now() - t) / 1000));
     if (s < 60) return 'just now';
@@ -7908,7 +7878,7 @@ ${rmaTrailSection()}#### Action Requested:
   }
 
   function renderLaunchpad(lp) {
-    const index = window.GLOBAL_SEARCH_INDEX || [];
+    const index = searchIndexUnique();
     const sheets = new Set(index.map(i => i.file)).size;
     const hidden = readStored(LP_HIDDEN_KEY) === '1';
     lp.classList.toggle('is-collapsed', hidden);
@@ -7919,7 +7889,6 @@ ${rmaTrailSection()}#### Action Requested:
     const recents = readRecents().filter(r => r.file !== 'index.html').slice(0, 5);
     const trail = readTrail().slice(-3).reverse();
     const kit = readKit();
-    const suites = lpSuites();
     lp.innerHTML = `
       <div class="lp-hero lp-hero-flow">
         <div class="lp-hero-main">
@@ -7932,8 +7901,9 @@ ${rmaTrailSection()}#### Action Requested:
             <button type="submit">Diagnose<kbd>↵</kbd></button>
           </form>
           <div class="lp-preview" aria-live="polite"></div>
-          <div class="lp-samples"><button type="button" class="lp-atlas lp-checkup" data-lp="checkup">♥ Node checkup</button><button type="button" class="lp-atlas lp-xray" data-lp="xray">▦ X-ray a GPU node</button><button type="button" class="lp-atlas" data-atlas-open>🩻 What healthy looks like</button><span>Try:</span>${DECODER_SAMPLES.map(([label, line]) => `<button type="button" data-lp-sample="${escapeHtml(line)}">${escapeHtml(label)}</button>`).join('')}</div>
+          <div class="lp-samples"><span>Try:</span>${DECODER_SAMPLES.map(([label, line]) => `<button type="button" data-lp-sample="${escapeHtml(line)}">${escapeHtml(label)}</button>`).join('')}</div>
         </div>
+        <div class="lp-cockpit-slot"></div>
       </div>
 
       <section class="lp-flow" aria-label="Incident flow"></section>
@@ -7962,26 +7932,19 @@ ${rmaTrailSection()}#### Action Requested:
         </div>
       </div>
 
-      <div class="lp-cols">
-        <div class="lp-section">
+      <div class="lp-section lp-pickup">
           <div class="lp-section-head"><h3>Pick up where you left off</h3></div>
           ${recents.length || trail.length || kit.length ? `
             ${recents.length ? `<div class="lp-recents">${recents.map(r => `<button type="button" class="lp-recent" data-lp-go="${escapeHtml(r.file)}"><span>${escapeHtml(r.name)}</span><small>${lpAgo(r.t)}</small></button>`).join('')}</div>` : ''}
             ${kit.length ? `<div class="lp-trail lp-kit"><div class="lp-trail-head">My kit · ${kit.length} bookmarked <button type="button" data-lp="kit">Open kit →</button></div>${kit.slice(0, 3).map(e => `<code title="${escapeHtml(e.item.sName)}">${escapeHtml(firstCommand(trailSafeText(e.item.cmd)))}</code>`).join('')}</div>` : ''}
             ${trail.length ? `<div class="lp-trail"><div class="lp-trail-head">Last copied <button type="button" data-lp="trail">Open trail (${readTrail().length}) →</button></div>${trail.map(e => `<code title="${escapeHtml(e.sheet)} · ${trailTime(e.t)}">${escapeHtml(e.cmd)}</code>`).join('')}</div>` : ''}
           ` : `<p class="lp-empty">Sheets you open and commands you copy show up here, so you can get back to them mid-incident.</p>`}
-        </div>
-        <div class="lp-section">
-          <div class="lp-section-head"><h3>Browse suites</h3><span>${sheets} sheets</span></div>
-          <div class="lp-suites">
-            ${suites.map((s, i) => `<button type="button" class="lp-suite" data-lp-suite="${i}">${s.icon}<span>${escapeHtml(s.name)}</span><small>${s.count}</small></button>`).join('')}
-          </div>
-        </div>
       </div>
       <button type="button" class="lp-hide" data-lp="hide" title="Collapse the launchpad (remembered)">Hide launchpad ▴</button>`;
 
     const input = lp.querySelector('#lp-omni-input');
     renderFlow(lp, true);
+    renderCockpit(lp, true);
     interceptOutputPaste(input);
     const preview = lp.querySelector('.lp-preview');
     const updatePreview = () => {
@@ -7997,7 +7960,6 @@ ${rmaTrailSection()}#### Action Requested:
       e.preventDefault();
       openGlobalSearch(input.value.trim());
     });
-    lp._suites = suites;
   }
 
   // -------------------------------------------------------------
@@ -8082,6 +8044,90 @@ ${rmaTrailSection()}#### Action Requested:
     if (a === 'rma') { openTriageModal(); setTimeout(() => { const t = [...document.querySelectorAll('.triage-modal-backdrop button, .triage-modal-backdrop [role=tab]')].find(x => /RMA Ticket/.test(x.textContent)); if (t) t.click(); }, 60); }
   }
 
+
+  // -------------------------------------------------------------
+  // NODE COCKPIT (hub hero, right column)
+  // Checkup, X-ray and case results lived in dialogs: close one and the
+  // answer to "how is this node?" was gone. The latest readings are kept per
+  // node workspace (dc_node_vitals, in NODE_DATA_KEYS) and the hub shows them
+  // as a cockpit: score ring, mini GPU tray with NIC lights, top problems,
+  // terminal link and case status, with how old each reading is.
+  // Samples and demos are never stored.
+  // -------------------------------------------------------------
+  const VITALS_KEY = 'dc_node_vitals';
+  function vitalsRead() { try { return JSON.parse(readStored(VITALS_KEY) || '{}') || {}; } catch (e) { return {}; } }
+  function vitalsSave(kind, r, text) {
+    if (!r) return;
+    const v = vitalsRead();
+    const keep = String(text || '').slice(0, 200000);
+    if (kind === 'checkup') v.checkup = { host: r.host, score: r.score, crit: r.crit, warn: r.warn, ok: r.ok, verdict: r.verdict, at: Date.now(), rows: r.checks.map(c => ({ title: c.title, sev: c.sev, summary: c.summary })), text: keep };
+    // A checkup carries the GPU table: it refreshes the mini tray too (never the built-in sample's).
+    if (kind === 'checkup' && r.xr && r.gpuText && r.gpuText !== XR_SAMPLE) {
+      const x = r.xr;
+      v.xray = { model: x.model, seen: x.seen, expected: x.expected, verdict: x.verdict, at: Date.now(), slots: x.slots.map(sl => ({ idx: sl.idx, sev: sl.sev, ghost: sl.kind === 'ghost', t: sl.t })), nics: x.nics.map(n => ({ dev: n.dev, up: n.up })), text: r.gpuText.slice(0, 200000) };
+    }
+    if (kind === 'xray') v.xray = { model: r.model, seen: r.seen, expected: r.expected, verdict: r.verdict, at: Date.now(), slots: r.slots.map(sl => ({ idx: sl.idx, sev: sl.sev, ghost: sl.kind === 'ghost', t: sl.t })), nics: r.nics.map(n => ({ dev: n.dev, up: n.up })), text: keep };
+    try { localStorage.setItem(VITALS_KEY, JSON.stringify(v)); } catch (e) {}
+    const lp = document.getElementById('launchpad') || document.querySelector('.launchpad');
+    if (lp) renderCockpit(lp, true);
+  }
+  const cpAgo = (t) => { const m = Math.round((Date.now() - t) / 60000); return m < 1 ? 'just now' : m < 60 ? `${m} min ago` : m < 1440 ? `${Math.round(m / 60)} h ago` : `${Math.round(m / 1440)} d ago`; };
+  const cpStale = (t) => Date.now() - t > 2 * 3600 * 1000;
+  function cockpitHtml() {
+    const v = vitalsRead(), ck = v.checkup, xr = v.xray;
+    const node = readNodes().active || trailMeta().caseId || '';
+    const kase = readCase(), pins = (kase.evidence || []).length;
+    const who = con.live && con.hello ? `${con.hello.user}@${con.hello.host}` : '';
+    const sev = ck ? (ck.crit ? 'crit' : ck.warn ? 'warn' : 'ok') : 'none';
+    const ring = ck ? ckRing(ck) : `<svg class="ck-ring" viewBox="0 0 128 128" aria-hidden="true"><circle class="ck-track" r="52" cx="64" cy="64"/></svg><div class="ck-score"><b>?</b><span>no data</span></div>`;
+    const tray = xr ? `<button type="button" class="cp-tray" data-cp="xray-last" title="Open the last X-ray">
+        <span class="cp-k">GPUs · ${escapeHtml(xr.model.replace(/^NVIDIA\s+/, ''))}</span>
+        <span class="cp-gpus">${xr.slots.map(sl => `<i class="is-${sl.sev}${sl.ghost ? ' is-ghost' : ''}" title="GPU ${escapeHtml(String(sl.idx))}${sl.t != null ? ` · ${sl.t} °C` : ''}"></i>`).join('')}</span>
+        ${xr.nics.length ? `<span class="cp-nics">${xr.nics.map(n => `<i class="${n.up ? 'is-ok' : 'is-crit'}" title="${escapeHtml(n.dev)} ${n.up ? 'Up' : 'Down'}"></i>`).join('')}</span>` : ''}
+        <span class="cp-when${cpStale(xr.at) ? ' is-stale' : ''}">${escapeHtml(xr.verdict)} · ${cpAgo(xr.at)}</span></button>` : '';
+    const top = ck ? ck.rows.filter(r => r.sev === 'crit' || r.sev === 'warn').sort((a, b) => (a.sev === 'crit' ? 0 : 1) - (b.sev === 'crit' ? 0 : 1)).slice(0, 3) : [];
+    return `<aside class="lp-cockpit is-${sev}" aria-label="Node cockpit">
+        <div class="cp-head"><span class="cp-led${con.live ? ' on' : ''}" aria-hidden="true"></span><b>${escapeHtml(node || (ck && ck.host) || 'This node')}</b>
+          <button type="button" class="cp-term" data-cp="term" title="${con.live ? 'Open the terminal' : 'Connect the terminal'}">${con.live ? `>_ ${escapeHtml(who)}` : '>_ terminal off'}</button></div>
+        <div class="cp-main">
+          <button type="button" class="cp-ring" data-cp="${ck ? 'checkup-last' : 'checkup'}" title="${ck ? 'Open the last checkup' : 'Run a checkup'}">${ring}</button>
+          <div class="cp-facts">
+            ${ck ? `<b class="cp-verdict">${escapeHtml(ck.verdict)}</b><span class="cp-when${cpStale(ck.at) ? ' is-stale' : ''}">Checkup ${cpAgo(ck.at)}${ck.host && node && ck.host !== node ? ` · on ${escapeHtml(ck.host)}` : ''}${cpStale(ck.at) ? ' · re-run' : ''}</span>
+              <span class="ck-tally"><span class="is-crit">${ck.crit}</span><span class="is-warn">${ck.warn}</span><span class="is-ok">${ck.ok}</span></span>`
+            : `<b class="cp-verdict">No readings yet</b><span class="cp-when">Run a checkup to fill this panel: score, GPUs, links and problems for this node.</span>`}
+          </div>
+        </div>
+        ${tray}
+        ${top.length ? `<ul class="cp-top">${top.map(r => `<li class="is-${r.sev}"><b>${escapeHtml(r.title.replace(/ · .*/, ''))}</b><span>${escapeHtml(r.summary)}</span></li>`).join('')}</ul>` : ''}
+        <div class="cp-acts">
+          <button type="button" class="cp-go" data-cp="checkup">${ck ? '♥ Re-check' : '♥ Run checkup'}</button>
+          <button type="button" data-cp="xray">▦ X-ray</button>
+          <button type="button" data-cp="case">📁 Case${pins ? ` · ${pins}` : ''}</button>
+          ${ck || xr ? '' : '<button type="button" class="cp-sample" data-cp="sample">See a sample</button>'}
+        </div>
+      </aside>`;
+  }
+  function renderCockpit(lp, force) {
+    const host = lp && lp.querySelector('.lp-cockpit-slot');
+    if (!host) return;
+    const v = readStored(VITALS_KEY) || '';
+    const sig = JSON.stringify([v.length, v.slice(0, 120), con.live, con.hello && con.hello.host, readNodes().active, (readCase().evidence || []).length, Math.floor(Date.now() / 60000)]);
+    if (!force && host.dataset.sig === sig) return;
+    host.dataset.sig = sig;
+    host.innerHTML = cockpitHtml();
+  }
+  function cockpitAct(a) {
+    const v = vitalsRead();
+    // Connect & run when the terminal is off: ckRun opens it and starts once the shell is up.
+    if (a === 'checkup') { openCheckup(); ckRun(); return; }
+    if (a === 'checkup-last') return v.checkup && v.checkup.text ? openCheckup(v.checkup.text) : openCheckup();
+    if (a === 'xray') return openXray();
+    if (a === 'xray-last') return v.xray && v.xray.text ? openXray(v.xray.text) : openXray();
+    if (a === 'case') return openCaseFile();
+    if (a === 'term') return toggleConsole(true);
+    if (a === 'sample') return openCheckup(CK_SAMPLE);
+  }
+
   function initLaunchpad() {
     const main = document.querySelector('main');
     if (!main || document.getElementById('launchpad')) return;
@@ -8099,22 +8145,20 @@ ${rmaTrailSection()}#### Action Requested:
       const rb = el.closest('[data-lp-runbook]');
       if (el.closest('[data-board-resume], [data-board-trail], [data-board-remove]')) return handleBoardClick(e);
       const go = el.closest('[data-lp-go]');
-      const suite = el.closest('[data-lp-suite]');
       const act = el.closest('[data-lp]');
       if (sample && input) { input.value = sample.dataset.lpSample; input.dispatchEvent(new Event('input')); input.focus(); return; }
       if (rb) return openRunbook(rb.dataset.lpRunbook);
       if (go) return goToSheet(go.dataset.lpGo);
-      if (suite && lp._suites) { const s = lp._suites[+suite.dataset.lpSuite]; if (s && s.link) s.link.click(); return; }
       const fa = el.closest('[data-flow]');
       if (fa) return flowAct(fa.dataset.flow, lp);
+      const cp = el.closest('[data-cp]');
+      if (cp) return cockpitAct(cp.dataset.cp);
       if (!act) return;
       if (act.dataset.lp === 'open') return openGlobalSearch(input ? input.value.trim() : '');
       if (act.dataset.lp === 'trail') return openTrail();
       if (act.dataset.lp === 'timeline') return openAnalyzer(AN_SAMPLES.timeline);
       if (act.dataset.lp === 'diff') return openGoldenDiff();
       if (act.dataset.lp === 'fleetres') return openFleetResults();
-      if (act.dataset.lp === 'xray') return openXray();
-      if (act.dataset.lp === 'checkup') return openCheckup();
       if (act.dataset.lp === 'kit') return openKit();
       if (act.dataset.lp === 'board') return openBoard();
       if (act.dataset.lp === 'hide') { try { localStorage.setItem(LP_HIDDEN_KEY, '1'); } catch (err) {} return renderLaunchpad(lp); }
@@ -8130,8 +8174,8 @@ ${rmaTrailSection()}#### Action Requested:
     sync();
     lp._sync = sync;
     // The flow follows the incident: nodes, trail, pins, Fleet and runbooks change in modals and other tabs.
-    setInterval(() => { if (!lp.hidden && !document.hidden) renderFlow(lp); }, 1200);
-    window.addEventListener('storage', () => renderFlow(lp));
+    setInterval(() => { if (!lp.hidden && !document.hidden) { renderFlow(lp); renderCockpit(lp); } }, 1200);
+    window.addEventListener('storage', () => { renderFlow(lp); renderCockpit(lp); });
   }
 
   // -------------------------------------------------------------
@@ -8584,12 +8628,10 @@ ${rmaTrailSection()}#### Action Requested:
   const CBAR_QUERY = '(min-width: 769px)';
   const CBAR_HEIGHT = 60;
   const CBAR_ICONS = {
-    plug: '<path d="M9 2v5M15 2v5M7 7h10v5a5 5 0 0 1-10 0z"/><path d="M12 17v5"/>',
     term: '<path d="M4 17l6-5-6-5"/><path d="M12 19h8"/>',
     all: '<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.6-4.6"/><path d="M8 11h6M11 8v6"/>',
     triage: '<path d="M22 12h-4l-3 9L9 3l-3 9H2"/>',
     trail: '<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l3 2"/>',
-    saved: '<path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>',
     compact: '<path d="M4 6h16M4 10h16M4 14h16M4 18h16"/>',
     top: '<path d="M12 19V5M5 12l7-7 7 7"/>',
     kit: '<path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/>',
@@ -8599,7 +8641,6 @@ ${rmaTrailSection()}#### Action Requested:
 
   function initCommandBar() {
     const header = document.querySelector('.top-bar');
-    const realSearch = document.getElementById('search-input');
     if (!header || document.getElementById('command-bar') || !window.IntersectionObserver) return;
 
     const bar = document.createElement('div');
@@ -8613,12 +8654,6 @@ ${rmaTrailSection()}#### Action Requested:
           <span class="cbar-badge" aria-hidden="true"></span>
           <span class="cbar-name"></span>
         </button>
-        <label class="cbar-search">
-          ${cbarIcon('all', 15).replace('<path d="M8 11h6M11 8v6"/>', '')}
-          <input type="search" placeholder="Filter this sheet…" aria-label="Filter commands on this sheet" autocomplete="off" spellcheck="false" />
-          <kbd>/</kbd>
-        </label>
-        <select class="cbar-topic" aria-label="Jump to topic"></select>
         <button type="button" class="cbar-target" aria-haspopup="dialog" aria-expanded="false" title="Rack targets: values filled into every copied command">
           ${cbarIcon('target', 15)}<span class="cbar-target-text">Targets</span>
         </button>
@@ -8640,8 +8675,6 @@ ${rmaTrailSection()}#### Action Requested:
     document.body.classList.add('has-cbar');
 
     const mq = window.matchMedia(CBAR_QUERY);
-    const proxySearch = bar.querySelector('.cbar-search input');
-    const topic = bar.querySelector('.cbar-topic');
     const chip = bar.querySelector('.cbar-target');
     const pop = bar.querySelector('.cbar-pop');
     let shown = false;
@@ -8651,15 +8684,6 @@ ${rmaTrailSection()}#### Action Requested:
       bar.querySelector('.cbar-name').textContent = h1 ? h1.textContent.trim() : document.title;
       const badge = document.querySelector('.top-bar .terminal-badge');
       bar.querySelector('.cbar-badge').textContent = badge ? badge.textContent.replace(/\s+/g, '').slice(0, 6) : '$_';
-      if (realSearch) proxySearch.placeholder = realSearch.placeholder || 'Filter this sheet…';
-    }
-
-    function syncTopics() {
-      const real = document.querySelector('.category-bar select');
-      topic.hidden = !real;
-      if (!real) return;
-      topic.innerHTML = real.innerHTML;
-      topic.value = real.value;
     }
 
     function syncCounts() {
@@ -8696,13 +8720,13 @@ ${rmaTrailSection()}#### Action Requested:
       shown = on;
       bar.classList.toggle('show', on);
       document.body.classList.toggle('cbar-on', on);
-      if (on) { syncIdentity(); syncTopics(); syncCounts(); syncChip(); if (realSearch) proxySearch.value = realSearch.value; }
+      if (on) { syncIdentity(); syncCounts(); syncChip(); }
       else closePop();
     }
 
     // The bar appears once the real header has fully scrolled away. While you are
-    // filtering from it (or editing targets) it stays, even if the results get short.
-    const pinned = () => document.activeElement === proxySearch || !!proxySearch.value || !pop.hidden;
+    // editing targets from it, it stays.
+    const pinned = () => !pop.hidden;
     function evaluate() {
       const r = header.getBoundingClientRect();
       const want = mq.matches && r.bottom <= CBAR_HEIGHT;   // gone, or tucked behind the bar
@@ -8711,56 +8735,7 @@ ${rmaTrailSection()}#### Action Requested:
     }
     const io = new IntersectionObserver(evaluate, { rootMargin: `-${CBAR_HEIGHT}px 0px 0px 0px` });
     io.observe(header);
-    proxySearch.addEventListener('blur', () => setTimeout(() => { syncFiltering(); evaluate(); }, 0));
-    function syncFiltering() {
-      document.body.classList.toggle('cbar-filtering', document.activeElement === proxySearch || !!proxySearch.value);
-    }
-    proxySearch.addEventListener('focus', syncFiltering);
     mq.addEventListener ? mq.addEventListener('change', () => { if (!mq.matches) show(false); }) : null;
-
-    // ---- search proxy
-    function scrollResultsIntoView() {
-      const main = document.querySelector('main') || document.querySelector('.main-layout');
-      if (!main) return;
-      const top = main.getBoundingClientRect().top + window.scrollY - 64;
-      if (Math.abs(window.scrollY - top) > 4) window.scrollTo({ top, behavior: 'auto' });
-    }
-    proxySearch.addEventListener('input', () => {
-      syncFiltering();
-      if (!realSearch) return;
-      realSearch.value = proxySearch.value;
-      realSearch.dispatchEvent(new Event('input', { bubbles: true }));
-      realSearch.dispatchEvent(new KeyboardEvent('keyup', { bubbles: true, key: proxySearch.value.slice(-1) || 'Backspace' }));
-      requestAnimationFrame(scrollResultsIntoView);
-    });
-    proxySearch.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        e.stopPropagation();
-        if (proxySearch.value) { proxySearch.value = ''; proxySearch.dispatchEvent(new Event('input')); }
-        else proxySearch.blur();
-      }
-    });
-    if (realSearch) realSearch.addEventListener('input', () => { if (document.activeElement !== proxySearch) proxySearch.value = realSearch.value; });
-
-    // "/" would focus the real search box and scroll the page back to the top.
-    window.addEventListener('keydown', (e) => {
-      if (!shown || e.key !== '/' || e.ctrlKey || e.metaKey || e.altKey) return;
-      const t = e.target;
-      if (t instanceof HTMLElement && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
-      e.preventDefault();
-      e.stopImmediatePropagation();
-      proxySearch.focus();
-      proxySearch.select();
-    }, true);
-
-    // ---- topic proxy
-    topic.addEventListener('change', () => {
-      const real = document.querySelector('.category-bar select');
-      if (!real) return;
-      real.value = topic.value;
-      real.dispatchEvent(new Event('change', { bubbles: true }));
-      requestAnimationFrame(scrollResultsIntoView);
-    });
 
     // ---- tool proxies
     bar.addEventListener('click', (e) => {
@@ -8771,7 +8746,6 @@ ${rmaTrailSection()}#### Action Requested:
         const real = document.getElementById(proxy.dataset.proxy);
         if (real) real.click();
         setTimeout(syncCounts, 50);
-        if (proxy.dataset.proxy === 'saved-filter-btn') requestAnimationFrame(scrollResultsIntoView);
         return;
       }
       if (el.closest('.cbar-up, .cbar-title')) window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
@@ -8840,14 +8814,13 @@ ${rmaTrailSection()}#### Action Requested:
 
     // Badges and the Rack Targets bar are re-rendered by other code; follow them.
     const watch = new MutationObserver(() => { if (shown) { syncCounts(); syncChip(); } });
-    ['saved-count'].forEach(id => { const el = document.getElementById(id); if (el) watch.observe(el, { childList: true, characterData: true, subtree: true }); });
     document.querySelectorAll('.trail-badge, .kit-badge').forEach(el => watch.observe(el, { childList: true, characterData: true, subtree: true }));
     const tv = document.getElementById('target-vars-container');
     if (tv) watch.observe(tv, { childList: true, subtree: true });
     document.addEventListener('input', (e) => { if (shown && e.target instanceof Element && e.target.closest('#target-vars-container')) syncChip(); });
     // The portable build swaps sheets in place.
     const h1 = document.querySelector('.top-bar h1');
-    if (h1) new MutationObserver(() => { syncIdentity(); syncTopics(); }).observe(h1, { childList: true, characterData: true, subtree: true });
+    if (h1) new MutationObserver(syncIdentity).observe(h1, { childList: true, characterData: true, subtree: true });
   }
 
   // -------------------------------------------------------------
@@ -9146,9 +9119,7 @@ ${rmaTrailSection()}#### Action Requested:
         <span>Trail</span>
         <span class="count-badge trail-badge">0</span>`;
       btn.addEventListener('click', openTrail);
-      const saved = document.getElementById('saved-filter-btn');
-      if (saved && saved.parentNode === actions) saved.after(btn);
-      else actions.appendChild(btn);
+      actions.appendChild(btn);
     }
     refreshTrailUi(false);
     // Another tab (or page) added to the trail.
@@ -9665,7 +9636,7 @@ ${rmaTrailSection()}#### Action Requested:
     });
     // A tool inside the Tools sheet that opens a modal should not leave the sheet on top.
     morePanel.addEventListener('click', (e) => {
-      const btn = e.target.closest('#global-search-btn, #triage-modal-btn, #manuals-btn, #saved-filter-btn, #trail-btn, #kit-btn, .tour-menu-btn');
+      const btn = e.target.closest('#global-search-btn, #triage-modal-btn, #manuals-btn, #trail-btn, #kit-btn, .tour-menu-btn');
       if (btn) closeSheets(false);
     });
 

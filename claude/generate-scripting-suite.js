@@ -3134,29 +3134,7 @@ function generateHtmlFile(lang) {
         </div>
       </div>
 
-      <div class="search-wrapper">
-        <svg class="search-icon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
-          <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15z"/>
-        </svg>
-        <input
-          type="search"
-          id="search-input"
-          placeholder="Search ${lang.name} syntax, variables, loops, functions..."
-          autocomplete="off"
-          spellcheck="false"
-          aria-label="Search ${lang.name} snippets"
-        />
-        <kbd class="search-Shortcut" id="search-kbd">/</kbd>
-      </div>
-
       <div class="header-actions">
-        <button type="button" id="saved-filter-btn" class="action-btn" title="Show bookmarked commands">
-          <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
-            <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
-          </svg>
-          <span>Saved</span>
-          <span id="saved-count" class="count-badge">0</span>
-        </button>
 
         <button type="button" id="density-toggle" class="action-btn" title="Toggle compact density">
           <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
@@ -3184,16 +3162,6 @@ function generateHtmlFile(lang) {
       </div>
     </div>
 
-    <div class="category-bar">
-      <div class="container category-bar-inner">
-        <nav class="category-tabs" id="category-tabs" aria-label="${lang.name} categories">
-          <!-- Populated by JS -->
-        </nav>
-        <div class="stats-summary" id="stats-summary">
-          Showing <strong id="visible-count">0</strong> recipes
-        </div>
-      </div>
-    </div>
   </header>
 
   <main class="container main-layout">
