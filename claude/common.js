@@ -2891,7 +2891,7 @@
   // -------------------------------------------------------------
   const TOUR_SEEN_KEY = 'dc_tour_seen';
   // Bumped when the tour gains steps: anyone who saw an older one is offered "What's new" (the isNew steps).
-  const TOUR_VERSION = '4';
+  const TOUR_VERSION = '6';
   // center: the step still shows (centred) when its control is not on this page.
   const TOUR_STEPS = [
     { title: 'This reference does more than list commands', body: 'A short tour that follows an incident: diagnose the error, set up the node, run commands in the built-in terminal, see the GPU tray, compare against healthy nodes, and file the case. Use ← → or the buttons; Esc ends it.' },
@@ -2901,7 +2901,7 @@
     { target: '.lp-flow', isNew: true, title: 'Your incident, step by step', body: 'Identify → Collect → Correlate → Isolate → Document: the team method, each step holding its tools. The cards follow the current node and tick green as you name it, run commands, compare, work a runbook and file the case; the next step is highlighted.' },
     { target: '.node-chip, [data-fd="targets"]', title: 'One workspace per machine', body: 'Name the node you are on. Its targets, Case Trail, pinned evidence and runbook progress stay with it, so switching to the next node is one click and nothing leaks between tickets.' },
     { target: '.target-summary, .target-inputs-row, [data-fd="targets"]', title: 'Your targets go into every command', body: 'BMC, interface, HCA, disk and GPU are filled in when you copy or send a command. Dashed chips inside commands are those values: click one to change it. The BMC password is never stored. Red-tagged commands change state and need a drained node and approval.' },
-    { target: '#console-btn, .con-cbar', center: true, isNew: true, title: 'A real terminal under every sheet', body: 'Ctrl+` opens a shell on this jumpbox (start python3 term-bridge.py once and paste its token). Hover any command and press ⏎ Send to type it, with your targets filled in; state-changing ones ask first. When the reply is something a tool can read, a ✦ Read this output button lights up in the terminal bar.',
+    { target: '#console-btn, .con-cbar', center: true, isNew: true, title: 'A real terminal under every sheet', body: 'Ctrl+` opens a shell on this jumpbox (start python3 term-bridge.py once and paste its token). Hover a read-only command and press ▶ Run: it runs and the output appears right under it, like a notebook, with Copy, 📌 Pin and the ✦ tool that can read it. ⏎ Send types any command into the dock instead; state-changing ones ask first.',
       try: { label: 'Open the terminal', run: () => { endTour(); toggleConsole(true); } } },
     { target: '[data-lp="checkup"], [data-flow="checkup"]', center: true, isNew: true, title: 'Node checkup: the whole node in one click', body: 'One read-only sweep through the terminal (no root): scheduler drain state, GPUs, kernel errors, memory ECC, InfiniBand ports, NVMe, failed services and full disks, scored in a single report. Every red row opens the tool or runbook that explains it, and the report pins to the case.',
       try: { label: 'See a sample checkup', run: () => { endTour(); openCheckup(CK_SAMPLE); } } },
@@ -2911,7 +2911,7 @@
       try: { label: 'Try Fleet results with 12 nodes', run: () => { endTour(); openFleetResults(FR_SAMPLE); } } },
     { target: '.hdr-search-pill, #global-search-btn, [data-fd="search"]', title: 'One search for everything', body: 'Ctrl+K, / or the search pill: search 1,500 commands, open any sheet or runbook, run actions (> lists them), switch themes, or quick-set values: "gpu 3", "hca mlx5_4", "node gpu-node-08".',
       try: { label: 'Open Ctrl+K with "gpu 3"', run: () => { endTour(); openGlobalSearch('gpu 3'); } } },
-    { target: '#triage-modal-btn, [data-fd="triage"]', title: 'Guided runbooks and the RMA ticket', body: 'Step-by-step runs of the team playbooks: safety, evidence, decisions, physical isolation. Intrusive steps stay locked until you confirm the drain. The verdict and findings fill the RMA ticket.',
+    { target: '#triage-modal-btn, [data-fd="triage"]', isNew: true, title: 'Runbooks that run themselves', body: 'Step-by-step runs of the team playbooks: safety, evidence, decisions, physical isolation. With the terminal connected, ▶ Run executes a step, shows its output under it, ticks it and suggests the finding; ▶ Run all safe steps does the whole evidence collection. Gates, state changes and live views stay manual, and intrusive steps stay locked until you confirm the drain. The verdict and findings fill the RMA ticket.',
       try: { label: 'Open the runbooks', run: () => { endTour(); openRunbook(); } } },
     { target: '#trail-btn, [data-fd="more"]', center: true, isNew: true, title: 'Pin evidence, get summary.md', body: 'Every command you copy or send lands in the Case Trail. Every result (decoded error, analyzer report, X-ray, comparison, fleet board) has 📌 Pin. The Case file turns pins and trail into cases/<host>/summary.md with timeline, root cause and a filled RMA block, and 📱 To phone hands any of it over as QR codes, no network needed.',
       try: { label: 'Open the case file', run: () => { endTour(); openCaseFile(); } } },
@@ -3050,7 +3050,7 @@
     inv.className = `tour-invite${returning ? ' is-whatsnew' : ''}`;
     inv.setAttribute('role', 'status');
     inv.innerHTML = returning
-      ? `<span class="tour-invite-dot" aria-hidden="true"></span><div><b>New since your last tour</b><span>Node cockpit, checkup, terminal, Node X-ray with live watch, fleet tools and the case file.</span></div>
+      ? `<span class="tour-invite-dot" aria-hidden="true"></span><div><b>New since your last tour</b><span>Run commands inline, runbook autopilot, node cockpit, checkup, terminal, Node X-ray with live watch and the case file.</span></div>
       <button type="button" class="tour-invite-go">What\u2019s new</button><button type="button" class="tour-invite-x" aria-label="Dismiss">✕</button>`
       : `<span class="tour-invite-dot" aria-hidden="true"></span><div><b>New here?</b><span>Two-minute tour of what this reference can do.</span></div>
       <button type="button" class="tour-invite-go">Take the tour</button><button type="button" class="tour-invite-x" aria-label="Dismiss">✕</button>`;
@@ -4893,7 +4893,88 @@ ${rmaTrailSection()}#### Action Requested:
       b.title = 'Type this command into the terminal';
       b.innerHTML = '⏎ Send';
       box.appendChild(b);
+      if (liveRunnable(conBoxRaw(box))) {
+        const r = document.createElement('button');
+        r.type = 'button';
+        r.className = 'con-run';
+        r.tabIndex = -1;
+        r.title = 'Run it in the terminal and show the output right here';
+        r.innerHTML = '▶ Run';
+        box.appendChild(r);
+      }
     });
+  }
+
+  // -------------------------------------------------------------
+  // LIVE SHEETS
+  // ⏎ Send typed a command into the dock and the answer scrolled by down
+  // there, away from the card that explains it. ▶ Run (read-only commands only,
+  // same rules as the runbook autopilot) runs it through the terminal and puts
+  // the output under the command, like a notebook cell: host, time, line count,
+  // the ✦ tool that can read it, Copy, 📌 Pin to case, Re-run.
+  // -------------------------------------------------------------
+  function conBoxRaw(box) {
+    const raw = box.dataset.copy ?? box.dataset.cmd ?? box.dataset.subcmd ?? (() => { const c = box.cloneNode(true); c.querySelectorAll('.con-send, .con-run, .fleet-badge, .phone-send').forEach(x => x.remove()); return c.textContent; })();
+    return String(raw || '').trim();
+  }
+  function liveRunnable(raw) {
+    const cmd = firstCommand(raw || '');
+    if (!cmd || /\n/.test(cmd.trim())) return false;
+    return !DANGER_RE.test(cmd) && !RB_NEVER_RETURNS.test(cmd);
+  }
+  function liveCmd(raw) {
+    return substituteVariables(firstCommand(raw)).text.replace(/(^|[;&|]\s*)sudo\s+(?!-n\b)/g, '$1sudo -n ');
+  }
+  function livePanel(box) {
+    let p = box.nextElementSibling;
+    if (!p || !p.classList.contains('cmd-out')) { p = document.createElement('div'); p.className = 'cmd-out'; box.after(p); }
+    return p;
+  }
+  function liveRun(box) {
+    const raw = conBoxRaw(box), cmd = liveCmd(raw);
+    const panel = livePanel(box);
+    const hole = cmd.match(/<([A-Za-z][\w.-]*)>/);
+    if (hole) { panel.className = 'cmd-out is-failed'; panel.innerHTML = `<div class="cmd-out-head"><span class="cmd-out-k">Not run</span><span>set &lt;${escapeHtml(hole[1])}&gt; first: click the dashed chip in the command</span><button type="button" data-out="close" aria-label="Close output">✕</button></div>`; return; }
+    if (!con.live) { showGlobalToast('Connect the terminal first (Ctrl+`).'); return; }
+    const who = con.hello ? `${con.hello.user}@${con.hello.host}` : 'terminal';
+    panel.className = 'cmd-out is-running';
+    panel.innerHTML = `<div class="cmd-out-head"><span class="cmd-out-k">Running</span><span>on ${escapeHtml(who)}…</span></div><div class="cmd-out-bar"></div>`;
+    box.classList.add('is-live-running');
+    conRun(cmd, { timeout: 60000 }).then(text => {
+      panel._out = { text, cmd, who, at: Date.now() };
+      liveRender(panel);
+    }).catch(e => {
+      panel.className = 'cmd-out is-failed';
+      panel.innerHTML = `<div class="cmd-out-head"><span class="cmd-out-k">Failed</span><span>${escapeHtml(e.message)}</span><button type="button" data-out="close" aria-label="Close output">✕</button></div>`;
+    }).finally(() => box.classList.remove('is-live-running'));
+  }
+  function liveRender(panel) {
+    const o = panel._out, lines = o.text ? o.text.split('\n') : [];
+    const rec = o.text && conReader(o.text);
+    const flag = lines.find(l => /\b(xid|error|fail(ed|ure)?|fatal|down|disabled|degraded|critical|uncorrect|timeout|not permitted|permission denied|command not found|a password is required)\b/i.test(l) && !/\b0 errors?\b/i.test(l));
+    panel.className = `cmd-out${flag ? ' has-flag' : ''}`;
+    panel.innerHTML = `<div class="cmd-out-head"><span class="cmd-out-k">Output</span><span>${escapeHtml(o.who)} · ${new Date(o.at).toLocaleTimeString()} · ${lines.length} line${lines.length === 1 ? '' : 's'}</span>
+        ${rec ? `<button type="button" class="cmd-out-read" data-out="read">✦ ${escapeHtml(rec.label)} →</button>` : ''}
+        <span class="cmd-out-acts"><button type="button" data-out="copy">Copy</button><button type="button" data-out="pin">📌 Pin</button><button type="button" data-out="again">↻</button><button type="button" data-out="close" aria-label="Close output">✕</button></span></div>
+      ${flag ? `<div class="cmd-out-flag">⚠ ${escapeHtml(flag.trim().slice(0, 200))}</div>` : ''}
+      <pre>${o.text ? escapeHtml(lines.slice(0, 80).join('\n')) + (lines.length > 80 ? `\n… ${lines.length - 80} more lines: Copy has everything` : '') : '<span class="cmd-out-empty">(no output)</span>'}</pre>`;
+  }
+  function initLiveSheets() {
+    document.addEventListener('click', (e) => {
+      const el = e.target instanceof Element ? e.target : null;
+      if (!el) return;
+      const run = el.closest('.con-run');
+      if (run) { e.preventDefault(); e.stopPropagation(); liveRun(run.parentElement); return; }
+      const b = el.closest('.cmd-out [data-out]');
+      if (!b) return;
+      const panel = b.closest('.cmd-out'), o = panel._out, act = b.dataset.out;
+      if (act === 'close') { panel.remove(); return; }
+      if (!o) return;
+      if (act === 'copy') { copyVerbatim(o.text); showGlobalToast('Copied the output.'); }
+      if (act === 'again') { const box = panel.previousElementSibling; if (box) liveRun(box); }
+      if (act === 'read') { const r = conReader(o.text); if (r) r.open(); }
+      if (act === 'pin') casePin({ kind: 'Command output', title: `${o.cmd.length > 70 ? o.cmd.slice(0, 70) + '…' : o.cmd} @ ${o.who}`, sev: panel.classList.contains('has-flag') ? 'warn' : 'info', md: `\`\`\`text\n$ ${o.cmd}\n${o.text.split('\n').slice(0, 200).join('\n')}\n\`\`\``, facts: [] });
+    }, true);
   }
 
   function toggleConsole(force) {
@@ -4948,9 +5029,7 @@ ${rmaTrailSection()}#### Action Requested:
       if (!b) return;
       e.preventDefault();
       e.stopPropagation();
-      const box = b.parentElement;
-      const raw = box.dataset.copy ?? box.dataset.cmd ?? box.dataset.subcmd ?? (() => { const c = box.cloneNode(true); c.querySelectorAll('.con-send').forEach(x => x.remove()); return c.textContent; })();
-      conSendCommand(String(raw).trim());
+      conSendCommand(conBoxRaw(b.parentElement));
     }, true);
     document.addEventListener('keydown', (e) => {
       if (e.ctrlKey && !e.altKey && !e.metaKey && (e.key === '`' || e.code === 'Backquote')) { e.preventDefault(); toggleConsole(); }
@@ -6020,7 +6099,7 @@ ${rmaTrailSection()}#### Action Requested:
 
   // A command box → its command with Rack Targets and slots filled in, password masked.
   function phoneTextForBox(box) {
-    const raw = box.dataset.copy ?? box.dataset.cmd ?? box.dataset.subcmd ?? (() => { const c = box.cloneNode(true); c.querySelectorAll('.con-send, .fleet-badge, .phone-send').forEach(x => x.remove()); return c.textContent; })();
+    const raw = box.dataset.copy ?? box.dataset.cmd ?? box.dataset.subcmd ?? (() => { const c = box.cloneNode(true); c.querySelectorAll('.con-send, .con-run, .fleet-badge, .phone-send').forEach(x => x.remove()); return c.textContent; })();
     const cmd = firstCommand(String(raw).trim());
     const fleet = fleetWrap(cmd);
     return fleet ? trailSafeText(fleet.kind === 'skip' ? cmd : fleet.text) : trailSafeText(cmd);
@@ -7322,6 +7401,7 @@ ${rmaTrailSection()}#### Action Requested:
       initCaseTrail();
       initKit();
       initConsole();
+      initLiveSheets();
       initFleet();
       initPhone();
       initToolbar();
@@ -8361,7 +8441,7 @@ ${rmaTrailSection()}#### Action Requested:
   }
 
   function rbRuns() { try { return JSON.parse(localStorage.getItem(RB_KEY) || '{}') || {}; } catch (e) { return {}; } }
-  function rbRun(id) { return Object.assign({ done: {}, notes: {}, picks: {}, unlocked: {}, started: null }, rbRuns()[id] || {}); }
+  function rbRun(id) { return Object.assign({ done: {}, notes: {}, picks: {}, unlocked: {}, outputs: {}, started: null }, rbRuns()[id] || {}); }
   function rbSave(id, run) { const all = rbRuns(); all[id] = run; try { localStorage.setItem(RB_KEY, JSON.stringify(all)); } catch (e) {} }
   function rbSteps(rb) { return rb.phases.flatMap(p => p.steps); }
   function rbProgress(rb, run) {
@@ -8403,6 +8483,126 @@ ${rmaTrailSection()}#### Action Requested:
       </div>`;
   }
 
+
+  // -------------------------------------------------------------
+  // RUNBOOK AUTOPILOT
+  // A runbook step was: copy the command, switch to a shell, run it, read it,
+  // come back and type a finding. With the terminal docked, ▶ Run does all of
+  // that: the command runs at the prompt (Rack Targets filled in), its output
+  // lands under the step, the step is ticked and a finding is suggested from
+  // what came back. ▶ Run all safe steps walks the whole runbook. Never run
+  // automatically: gate steps (drain + approval), anything DANGER_RE flags,
+  // and commands that never return (watch, top, -f, loops). sudo runs as
+  // sudo -n, so a missing password fails fast instead of hanging the prompt.
+  // -------------------------------------------------------------
+  const RB_NEVER_RETURNS = /(^|[;&|]\s*)(watch|top|htop|btop|less|more|man|vim?|nano|tmux|screen|minicom|tio)\b|\s-f\b(?!\S)|\btail\s+-[a-z]*f|\bjournalctl\b[^|;&]*\s-f\b|\bping\b(?![^|;&]*\s-c\s*\d)|\s-l\s+\d+\b|\bdmon\b|\bpmon\b|\bwhile\s+true\b|\bnvidia-smi\b[^|;&]*\s(-l|--loop|-lms)\b|\bdmesg\b[^|;&]*\s(-w|-W|--follow(-new)?)\b|--follow\b|\bsol\s+activate\b|\bipmitool\b[^|;&]*\bshell\b|\b(nvidia-bug-report|sosreport|sos\s+report|dcgmi\s+diag|ibdiagnet|fio|stress(-ng)?|memtester|nccl-tests|all_reduce_perf)\b/i;
+  let rbBusy = null, rbAutoStop = false;
+  function rbSafe(st) {
+    if (!st.cmd || st.type === 'gate' || st.type === 'decide') return false;
+    const cmd = firstCommand(st.cmd);
+    return !DANGER_RE.test(cmd) && !RB_NEVER_RETURNS.test(cmd);
+  }
+  // The first <placeholder> the targets and slots could not fill, if any.
+  function rbHole(st) {
+    const m = st.cmd && substituteVariables(firstCommand(st.cmd)).text.match(/<([A-Za-z][\w.-]*)>/);
+    return m ? m[1] : null;
+  }
+  // A one-line finding from what the command printed.
+  function rbSuggest(st, text) {
+    const t = String(text || '').trim();
+    if (!t) return 'No output (nothing matched / nothing reported)';
+    if (/a password is required|sudo: a terminal is required/i.test(t)) return 'Needs sudo: run it by hand once (sudo -v), then ▶ Run again';
+    if (/command not found|No such file or directory/i.test(t) && t.split('\n').length < 4) return t.split('\n')[0].slice(0, 140);
+    const r = conReader(t);
+    if (r) {
+      if (xrLooksLike(t)) { const x = xrAnalyze(t); if (x) return `X-ray: ${x.verdict} (${x.seen}/${x.expected} GPUs)`; }
+      const a = analyzeOutput(t);
+      if (a && a.findings && a.findings.length) return `${r.label}: ${a.findings[0].title}`;
+      return `${r.label} recognised: open it for the full report`;
+    }
+    const lines = t.split('\n').map(l => l.trim()).filter(Boolean);
+    const hit = lines.find(l => /\b(xid|error|errors?:\s*[1-9]|fail(ed|ure)?|fatal|down|disabled|degraded|critical|uncorrect|timeout|lost|not found|offline|unreachable)\b/i.test(l) && !/\b0 errors?\b|errors?:\s*0\b/i.test(l));
+    return `${hit ? '⚠ ' + hit : lines[0]}${lines.length > 1 ? ` (+${lines.length - 1} line${lines.length === 2 ? '' : 's'})` : ''}`.slice(0, 180);
+  }
+  function rbRunStep(rb, stId) {
+    const st = rbSteps(rb).find(x => x.id === stId);
+    if (!st || !rbSafe(st)) return Promise.resolve(false);
+    if (!con.live) {
+      con.afterLive = () => { openRunbook(rb.id); rbRunStep(rb, stId); };
+      closeTriageModal();
+      toggleConsole(true);
+      showGlobalToast('Connect the terminal: the step runs as soon as the shell is up.');
+      return Promise.resolve(false);
+    }
+    const cmd = substituteVariables(firstCommand(st.cmd)).text.replace(/(^|[;&|]\s*)sudo\s+(?!-n\b)/g, '$1sudo -n ');
+    // An unfilled <placeholder> would be read by the shell as a redirection: never send it.
+    const hole = cmd.match(/<([A-Za-z][\w.-]*)>/);
+    if (hole) {
+      const run = rbRun(rb.id);
+      run.outputs[stId] = { text: `Not run: set <${hole[1]}> first (click the dashed chip in the command, or Ctrl+K → "${hole[1].replace(/_/g, ' ')} …").`, at: Date.now(), host: '', lines: 1, failed: true };
+      rbSave(rb.id, run);
+      rbRefresh(stId);
+      return Promise.resolve(false);
+    }
+    rbBusy = stId;
+    rbRefresh(stId);
+    return conRun(cmd, { timeout: 60000 }).then(text => {
+      const run = rbRun(rb.id);
+      run.outputs[stId] = { text: text.slice(-8000), at: Date.now(), host: con.hello ? `${con.hello.user}@${con.hello.host}` : '', lines: text ? text.split('\n').length : 0 };
+      run.done[stId] = true;
+      if (!(run.notes[stId] || '').trim()) run.notes[stId] = rbSuggest(st, text);
+      rbSave(rb.id, run);
+      return true;
+    }).catch(e => {
+      const run = rbRun(rb.id);
+      run.outputs[stId] = { text: `(${e.message})`, at: Date.now(), host: '', lines: 0, failed: true };
+      rbSave(rb.id, run);
+      return false;
+    }).finally(() => { rbBusy = null; if (rbActive && rbActive.id === rb.id) rbRefresh(stId); });
+  }
+  async function rbAutopilot(rb) {
+    if (!con.live) {
+      con.afterLive = () => { openRunbook(rb.id); rbAutopilot(rb); };
+      closeTriageModal();
+      toggleConsole(true);
+      showGlobalToast('Connect the terminal: the runbook runs as soon as the shell is up.');
+      return;
+    }
+    rbAutoStop = false;
+    const todo = rbSteps(rb).filter(st => rbSafe(st) && !rbHole(st) && !rbRun(rb.id).done[st.id]);
+    let ok = 0;
+    for (let i = 0; i < todo.length; i++) {
+      if (rbAutoStop || !con.live) break;
+      rbAuto = { i: i + 1, n: todo.length };
+      if (await rbRunStep(rb, todo[i].id)) ok++;
+    }
+    rbAuto = null;
+    if (rbActive && rbActive.id === rb.id) rbRefresh();
+    showGlobalToast(rbAutoStop ? `Autopilot stopped after ${ok} step${ok === 1 ? '' : 's'}.` : `Autopilot ran ${ok} of ${todo.length} safe step${todo.length === 1 ? '' : 's'}. Gates, decisions and hands-on checks are yours.`);
+  }
+  let rbAuto = null;
+  function rbOutputHtml(o, st) {
+    if (!o) return '';
+    const rec = !o.failed && conReader(o.text);
+    const lines = o.text.split('\n');
+    return `<details class="rb-out${o.failed ? ' is-failed' : ''}"${o.failed || lines.length <= 12 ? ' open' : ''}>
+        <summary><span class="rb-out-k">Output</span>${o.host ? ` · ${escapeHtml(o.host)}` : ''} · ${new Date(o.at).toLocaleTimeString()} · ${o.lines} line${o.lines === 1 ? '' : 's'}${rec ? `<button type="button" class="rb-out-read" data-rb-act="out-read">✦ ${escapeHtml(rec.label)} →</button>` : ''}</summary>
+        <pre>${escapeHtml(lines.slice(0, 60).join('\n'))}${lines.length > 60 ? `\n… ${lines.length - 60} more lines (Save log in the terminal keeps everything)` : ''}</pre>
+      </details>`;
+  }
+  function rbAutoBarHtml(rb, run) {
+    const safe = rbSteps(rb).filter(rbSafe), holes = safe.filter(st => rbHole(st) && !run.done[st.id]).length, left = safe.filter(st => !run.done[st.id] && !rbHole(st)).length;
+    const manual = rbSteps(rb).filter(st => st.cmd && !rbSafe(st)).length;
+    const who = con.live && con.hello ? `${con.hello.user}@${con.hello.host}` : '';
+    return `<div class="rb-auto${rbAuto ? ' is-running' : ''}">
+        <span class="rb-auto-ico" aria-hidden="true">${rbAuto ? '◌' : '▶'}</span>
+        <div class="rb-auto-txt"><b>${rbAuto ? `Autopilot: step ${rbAuto.i} of ${rbAuto.n}…` : 'Autopilot'}</b>
+          <span>${con.live ? `Runs at the terminal prompt on <code>${escapeHtml(who || 'the connected shell')}</code>: ssh to the node first.` : 'Connect the terminal and each command step can run itself.'} ${safe.length} safe step${safe.length === 1 ? '' : 's'}${manual ? `, ${manual} left to you (gates, state changes, live views)` : ''}${holes ? `, ${holes} waiting for a value (dashed chip in the command)` : ''}.</span></div>
+        ${rbAuto ? '<button type="button" class="rb-auto-stop" data-rb-act="auto-stop">■ Stop</button>'
+          : `<button type="button" class="rb-auto-go" data-rb-act="autopilot" ${left ? '' : 'disabled'}>${left ? (con.live ? `▶ Run all ${left} safe step${left === 1 ? '' : 's'}` : '▶ Connect & run all') : '✓ All safe steps ran'}</button>`}
+      </div>`;
+  }
+
   function stepStatus(step, run) {
     if (step.type === 'decide') return run.picks[step.id] !== undefined;
     return !!run.done[step.id];
@@ -8431,6 +8631,7 @@ ${rmaTrailSection()}#### Action Requested:
         </div>
       </div>
       ${v ? `<div class="rb-verdict ${v.opt.sev === 'crit' ? 'sev-crit' : v.opt.rma ? 'sev-rma' : 'sev-ok'}"><span>Current verdict</span>${escapeHtml(v.opt.verdict)}</div>` : ''}
+      ${rbAutoBarHtml(rb, run)}
       <ol class="rb-phases">
         ${rb.phases.map((ph, pi) => `
           <li class="rb-phase">
@@ -8441,7 +8642,7 @@ ${rmaTrailSection()}#### Action Requested:
                 const isDone = stepStatus(st, run);
                 const locked = st.type === 'gate' && !run.unlocked[st.id];
                 return `
-                <li class="rb-step type-${st.type} ${isDone ? 'is-done' : ''}" data-step="${st.id}">
+                <li class="rb-step type-${st.type} ${isDone ? 'is-done' : ''}${rbBusy === st.id ? ' is-running' : ''}" data-step="${st.id}">
                   <div class="rb-step-head">
                     ${st.type === 'decide'
                       ? `<span class="rb-step-num" aria-hidden="true">?</span>`
@@ -8454,7 +8655,7 @@ ${rmaTrailSection()}#### Action Requested:
                          <code>${escapeHtml(st.cmd)}</code>
                          <label><input type="checkbox" data-rb-act="unlock"/> The node is drained and this action is approved by the technician on site</label>
                        </div>`
-                    : `<div class="rb-cmd"><code>${escapeHtml(st.cmd)}</code><button type="button" data-rb-act="copy" data-cmd="${escapeHtml(st.cmd)}">Copy</button>${st.analyze ? '<button type="button" class="rb-analyze" data-rb-act="analyze">Analyze output</button>' : ''}</div>`) : ''}
+                    : `<div class="rb-cmd"><code>${escapeHtml(st.cmd)}</code>${rbSafe(st) ? (rbHole(st) ? `<button type="button" class="rb-run is-hole" data-rb-act="run" title="Set &lt;${escapeHtml(rbHole(st))}&gt; first: click the dashed chip in the command">Needs &lt;${escapeHtml(rbHole(st))}&gt;</button>` : `<button type="button" class="rb-run${run.outputs[st.id] && rbBusy !== st.id ? ' is-again' : ''}" data-rb-act="run" ${rbBusy || rbAuto ? 'disabled' : ''}>${rbBusy === st.id ? '◌ Running' : run.outputs[st.id] ? '↻ Re-run' : '▶ Run'}</button>`) : ''}<button type="button" data-rb-act="copy" data-cmd="${escapeHtml(st.cmd)}">Copy</button>${st.analyze ? '<button type="button" class="rb-analyze" data-rb-act="analyze">Analyze output</button>' : ''}</div>${rbOutputHtml(run.outputs[st.id], st)}`) : ''}
                   ${st.look ? `<p class="rb-look"><b>${st.type === 'gate' ? 'Note' : 'Look for'}:</b> ${escapeHtml(st.look)}</p>` : ''}
                   ${st.type === 'decide' ? `<div class="rb-options" role="radiogroup" aria-label="${escapeHtml(st.title)}">${st.options.map((o, oi) => `
                     <button type="button" role="radio" aria-checked="${run.picks[st.id] === oi}" class="rb-option ${run.picks[st.id] === oi ? 'picked' : ''} ${o.rma ? 'is-rma' : ''} ${o.sev === 'crit' ? 'is-crit' : ''}" data-rb-act="pick" data-opt="${oi}">
@@ -8527,6 +8728,10 @@ ${rmaTrailSection()}#### Action Requested:
       const stepEl = actEl.closest('[data-step]');
       const stepId = stepEl && stepEl.dataset.step;
       if (act === 'back') return renderRunbookPicker();
+      if (act === 'run' && stepId) { rbRunStep(rb, stepId); return; }
+      if (act === 'autopilot') { rbAutopilot(rb); return; }
+      if (act === 'auto-stop') { rbAutoStop = true; showGlobalToast('Stopping after the current step…'); return; }
+      if (act === 'out-read' && stepId) { e.preventDefault(); const o = run.outputs[stepId]; const r = o && conReader(o.text); if (r) { closeTriageModal(); r.open(); } return; }
       if (act === 'analyze') { if (stepId && !run.done[stepId]) { run.done[stepId] = true; rbSave(rb.id, run); } return openAnalyzer(); }
       if (act === 'copy') {
         navigator.clipboard.writeText(actEl.dataset.cmd);   // Rack Targets + Case Trail apply
