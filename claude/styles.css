@@ -7368,3 +7368,68 @@ body.hdr-compact .target-vars-wrapper { margin-top: 0; }
 /* Tour: Back and Next always share a line; a long ▶ Try label takes its own row above them */
 .tour-nav { display: inline-flex; gap: 0.4rem; margin-left: auto; flex: none; white-space: nowrap; }
 .tour-actions .tour-try { flex: 0 1 auto; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* ── Node checkup: one read-only sweep → scored report card ── */
+.ck-dialog { width: min(920px, 100%); }
+.lp-checkup { color: var(--accent-red) !important; border-color: color-mix(in srgb, var(--accent-red) 45%, transparent) !important; }
+.con-ck { color: var(--accent-red); border-color: color-mix(in srgb, var(--accent-red) 45%, transparent); }
+.ck-start { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 1.2rem; align-items: center; padding: 1.4rem; border-radius: 14px; background: radial-gradient(120% 140% at 0% 0%, color-mix(in srgb, var(--accent-red) 10%, transparent), transparent 60%), var(--bg-surface); border: 1px solid var(--border-subtle); }
+.ck-start-ring { width: 92px; height: 92px; border-radius: 50%; display: grid; place-items: center; font-size: 2.3rem; color: var(--accent-red); border: 3px solid color-mix(in srgb, var(--accent-red) 40%, transparent); box-shadow: 0 0 0 8px color-mix(in srgb, var(--accent-red) 7%, transparent); animation: ck-beat 1.6s ease-in-out infinite; }
+@keyframes ck-beat { 0%, 100% { transform: scale(1); } 12% { transform: scale(1.08); } 24% { transform: scale(0.98); } 36% { transform: scale(1.05); } }
+.ck-start h3 { margin: 0 0 0.3rem; font-size: 1.1rem; color: var(--text-primary); }
+.ck-start p { margin: 0 0 0.8rem; font-size: 0.82rem; color: var(--text-secondary); }
+.ck-start-acts, .ck-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.ck-start-acts button, .ck-actions button, .ck-open { font: 600 0.78rem var(--font-sans); padding: 0.45rem 0.85rem; border-radius: 8px; border: 1px solid var(--border-strong); background: var(--bg-elevated); color: var(--text-primary); cursor: pointer; }
+.ck-start-acts .xr-run, .ck-actions .xr-run { background: var(--accent-green); color: var(--bg-base); border-color: transparent; font-weight: 700; }
+
+.ck-head { display: grid; grid-template-columns: 148px minmax(0, 1fr); gap: 1.2rem; align-items: center; padding: 1rem 1.2rem; border-radius: 14px; border: 1px solid var(--border-subtle);
+  --ck: var(--accent-green); background: radial-gradient(120% 160% at 0% 50%, color-mix(in srgb, var(--ck) 13%, transparent), transparent 62%), var(--bg-surface); }
+.ck-head.is-warn { --ck: var(--accent-amber); }
+.ck-head.is-crit { --ck: var(--accent-red); }
+.ck-head.is-scan { --ck: var(--accent-cyan); }
+.ck-dial { position: relative; width: 148px; height: 148px; }
+.ck-ring { width: 100%; height: 100%; transform: rotate(-90deg); }
+.ck-ring.is-spin { animation: ck-spin 1.1s linear infinite; }
+@keyframes ck-spin { to { transform: rotate(270deg); } }
+.ck-track { fill: none; stroke: var(--bg-code); stroke-width: 12; }
+.ck-arc { fill: none; stroke-width: 12; stroke-linecap: round; animation: ck-draw 0.9s cubic-bezier(.3,.8,.3,1) both; }
+.ck-arc.is-ok { stroke: var(--accent-green); } .ck-arc.is-warn { stroke: var(--accent-amber); } .ck-arc.is-crit { stroke: var(--accent-red); } .ck-arc.is-scan { stroke: var(--accent-cyan); animation: none; }
+@keyframes ck-draw { from { stroke-dasharray: 0 400; } }
+.ck-score { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; }
+.ck-score b { font: 800 2.3rem/1 var(--font-mono); color: var(--ck); }
+.ck-score span { font: 700 0.6rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin-top: 0.2rem; }
+.ck-id h3 { margin: 0.15rem 0 0.1rem; font: 700 1.35rem var(--font-mono); color: var(--text-primary); }
+.ck-verdict { display: block; font-size: 1.05rem; color: var(--ck); }
+.ck-id p { margin: 0.35rem 0 0.55rem; font-size: 0.78rem; color: var(--text-secondary); }
+.ck-id p span { color: var(--text-muted); font-family: var(--font-mono); font-size: 0.72rem; }
+.ck-tally { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.ck-tally span { font: 700 0.66rem var(--font-mono); padding: 0.15rem 0.55rem; border-radius: 99px; border: 1px solid var(--border-subtle); color: var(--text-muted); }
+.ck-tally .is-crit { color: var(--accent-red); border-color: color-mix(in srgb, var(--accent-red) 40%, transparent); }
+.ck-tally .is-warn { color: var(--accent-amber); border-color: color-mix(in srgb, var(--accent-amber) 40%, transparent); }
+.ck-tally .is-ok { color: var(--accent-green); border-color: color-mix(in srgb, var(--accent-green) 40%, transparent); }
+
+.ck-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.45rem; }
+.ck-row { --ck: var(--accent-green); display: grid; grid-template-columns: 2.2rem minmax(0, 1fr) auto; gap: 0.7rem; align-items: start; padding: 0.7rem 0.85rem; border-radius: 10px; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-left: 3px solid var(--ck);
+  animation: ck-in 0.35s ease-out both; animation-delay: calc(var(--i) * 55ms); }
+@keyframes ck-in { from { opacity: 0; transform: translateY(6px); } }
+.ck-row.is-warn { --ck: var(--accent-amber); } .ck-row.is-crit { --ck: var(--accent-red); background: color-mix(in srgb, var(--accent-red) 6%, var(--bg-surface)); }
+.ck-row.is-info { --ck: var(--accent-primary); } .ck-row.is-skip { --ck: var(--border-strong); opacity: 0.7; }
+.ck-ico { width: 2.2rem; height: 2.2rem; border-radius: 8px; display: grid; place-items: center; font-size: 1rem; color: var(--ck); background: color-mix(in srgb, var(--ck) 12%, var(--bg-code)); }
+.ck-line { display: flex; align-items: baseline; gap: 0.6rem; }
+.ck-line b { font-size: 0.88rem; color: var(--text-primary); }
+.ck-line em { font: normal 700 0.6rem var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--ck); }
+.ck-main p { margin: 0.15rem 0 0; font-size: 0.8rem; color: var(--text-secondary); }
+.ck-main ul { margin: 0.35rem 0 0; padding-left: 1rem; font: 0.72rem/1.5 var(--font-mono); color: var(--text-muted); }
+.ck-open { align-self: center; white-space: nowrap; color: var(--ck) !important; border-color: color-mix(in srgb, var(--ck) 45%, transparent) !important; }
+.ck-row.is-skel { --ck: var(--accent-cyan); opacity: 0.8; }
+.ck-bar { height: 8px; width: 60%; border-radius: 4px; background: linear-gradient(110deg, var(--bg-code) 30%, color-mix(in srgb, var(--accent-cyan) 18%, var(--bg-elevated)) 50%, var(--bg-code) 70%) 0 0 / 300% 100%; animation: xr-shimmer 1.3s linear infinite; }
+@media (max-width: 640px) {
+  .ck-head { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+  .ck-tally { justify-content: center; }
+  .ck-row { grid-template-columns: 2.2rem minmax(0, 1fr); }
+  .ck-open { grid-column: 2; justify-self: start; }
+  .ck-start { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+  .ck-start-acts { justify-content: center; }
+}
+@media (prefers-reduced-motion: reduce) { .ck-start-ring, .ck-ring.is-spin, .ck-arc, .ck-row, .ck-bar { animation: none !important; } }
+.ck-out { display: grid; gap: 0.8rem; }

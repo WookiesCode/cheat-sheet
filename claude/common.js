@@ -2418,6 +2418,7 @@
       const out = anBackdrop.querySelector('.an-out');
       const run = () => {
         if (frLooksLike(input.value)) { const t = input.value; input.value = ''; closeAnalyzer(); openFleetResults(t); return; }
+        if (ckLooksLike(input.value)) { const t = input.value; input.value = ''; closeAnalyzer(); openCheckup(t); return; }
         if (xrLooksLike(input.value)) { const t = input.value; input.value = ''; closeAnalyzer(); openXray(t); return; }
         const r = analyzeOutput(input.value);
         anBackdrop._result = r;
@@ -2470,6 +2471,7 @@
       const text = e.clipboardData ? e.clipboardData.getData('text') : '';
       if (!text || !/\n/.test(text.trim())) return;
       if (frLooksLike(text)) { e.preventDefault(); if (before) before(); openFleetResults(text); return; }
+      if (ckLooksLike(text)) { e.preventDefault(); if (before) before(); openCheckup(text); return; }
       if (xrLooksLike(text)) { e.preventDefault(); if (before) before(); openXray(text); return; }
       if (!detectOutput(text)) return;
       e.preventDefault();
@@ -2849,7 +2851,7 @@
   // -------------------------------------------------------------
   const TOUR_SEEN_KEY = 'dc_tour_seen';
   // Bumped when the tour gains steps: anyone who saw an older one is offered "What's new" (the isNew steps).
-  const TOUR_VERSION = '2';
+  const TOUR_VERSION = '3';
   // center: the step still shows (centred) when its control is not on this page.
   const TOUR_STEPS = [
     { title: 'This reference does more than list commands', body: 'A short tour that follows an incident: diagnose the error, set up the node, run commands in the built-in terminal, see the GPU tray, compare against healthy nodes, and file the case. Use ← → or the buttons; Esc ends it.' },
@@ -2860,6 +2862,8 @@
     { target: '.target-summary, .target-inputs-row, [data-fd="targets"]', title: 'Your targets go into every command', body: 'BMC, interface, HCA, disk and GPU are filled in when you copy or send a command. Dashed chips inside commands are those values: click one to change it. The BMC password is never stored. Red-tagged commands change state and need a drained node and approval.' },
     { target: '#console-btn, .con-cbar', center: true, isNew: true, title: 'A real terminal under every sheet', body: 'Ctrl+` opens a shell on this jumpbox (start python3 term-bridge.py once and paste its token). Hover any command and press ⏎ Send to type it, with your targets filled in; state-changing ones ask first. When the reply is something a tool can read, a ✦ Read this output button lights up in the terminal bar.',
       try: { label: 'Open the terminal', run: () => { endTour(); toggleConsole(true); } } },
+    { target: '[data-lp="checkup"], [data-flow="checkup"]', center: true, isNew: true, title: 'Node checkup: the whole node in one click', body: 'One read-only sweep through the terminal (no root): scheduler drain state, GPUs, kernel errors, memory ECC, InfiniBand ports, NVMe, failed services and full disks, scored in a single report. Every red row opens the tool or runbook that explains it, and the report pins to the case.',
+      try: { label: 'See a sample checkup', run: () => { endTour(); openCheckup(CK_SAMPLE); } } },
     { target: '[data-lp="xray"], [data-flow="xray"]', center: true, isNew: true, title: 'Node X-ray: see the GPU tray', body: 'One read-only command draws the node: every GPU and NIC as a tile, red where it needs you, with hollow slots for GPUs that fell off the bus. ▶ Run in terminal fills it with no copy-paste; ● Watch live streams nvidia-smi every 2 s with a temperature trace and peaks per GPU, so a fault under load is caught in the act.',
       try: { label: 'Watch a demo tray heat up', run: () => { endTour(); openXray(XR_SAMPLE); xrLiveStart(true); } } },
     { target: '[data-flow="diff"], .fleet-chip', center: true, isNew: true, title: 'One node, or the whole rack?', body: 'Compare nodes puts a suspect next to a known-good twin and shows only real differences (firmware, link width, missing devices), not serials and temperatures. Fleet mode fans any command out over pdsh / clush; paste what comes back and Fleet results groups the nodes and points at the odd one out.',
@@ -3005,7 +3009,7 @@
     inv.className = `tour-invite${returning ? ' is-whatsnew' : ''}`;
     inv.setAttribute('role', 'status');
     inv.innerHTML = returning
-      ? `<span class="tour-invite-dot" aria-hidden="true"></span><div><b>New since your last tour</b><span>Terminal, Node X-ray with live watch, fleet tools and the case file.</span></div>
+      ? `<span class="tour-invite-dot" aria-hidden="true"></span><div><b>New since your last tour</b><span>Node checkup, terminal, Node X-ray with live watch, fleet tools and the case file.</span></div>
       <button type="button" class="tour-invite-go">What\u2019s new</button><button type="button" class="tour-invite-x" aria-label="Dismiss">✕</button>`
       : `<span class="tour-invite-dot" aria-hidden="true"></span><div><b>New here?</b><span>Two-minute tour of what this reference can do.</span></div>
       <button type="button" class="tour-invite-go">Take the tour</button><button type="button" class="tour-invite-x" aria-label="Dismiss">✕</button>`;
@@ -3098,6 +3102,7 @@
       { icon: '📁', label: `Open case file (${readCase().evidence.length} pinned)`, sub: 'Pinned evidence + Case Trail → cases/<host>/summary.md with timeline, root cause and RMA block', kw: 'case file summary summary.md evidence pinned rma root cause hypothesis ticket report handoff', run: openCaseFile },
       { icon: '📱', label: 'Send ticket notes to my phone', sub: 'The Case Trail as QR codes: scan with the phone camera, no network needed', kw: 'phone qr code mobile handoff send scan camera crash cart notes trail', run: () => { const l = readTrail(); return l.length ? openPhone(trailMarkdown(l), 'Ticket notes to your phone', `${l.length} commands from the Case Trail`) : showGlobalToast('The trail is empty: copy a command first.'); } },
       { icon: '📱', label: 'Send last copied command to my phone', sub: 'QR code of the most recent command in the Case Trail', kw: 'phone qr last command mobile scan', run: () => { const l = readTrail(); return l.length ? openPhone(l[l.length - 1].cmd, 'Last copied command', l[l.length - 1].sheet) : showGlobalToast('Copy a command first.'); } },
+      { icon: '♥', label: 'Node checkup: one-click health report', sub: 'Read-only sweep in the terminal: scheduler, GPUs, kernel errors, ECC, InfiniBand, NVMe, services, disks', kw: 'checkup check health report sweep scan node status triage collect telemetry doctor overview everything', run: () => openCheckup() },
       { icon: '▦', label: 'Node X-ray: see the GPU tray', sub: 'One read-only command → every GPU and NIC as a tile, red where it needs you; click one for its commands', kw: 'xray x-ray tray map gpu map baseboard sxm slot position which gpu bdf serial physical layout nic cage missing gpu fallen off bus', run: () => openXray() },
       { icon: '⇉', label: 'Read fleet results', sub: 'Paste pdsh / dshbak / clush / BMC-loop output: group nodes, spot the odd one out', kw: 'fleet results pdsh dshbak clush odd node outlier compare many nodes which node differs', run: () => openFleetResults() },
       { icon: '⇉', label: `Fleet mode${fleetState().active ? ' (on)' : ''}`, sub: 'Copy any command fanned out across many nodes (pdsh / clush / ssh) or BMCs', kw: 'fleet pdsh clush parallel many nodes rack all nodes fan out bulk mass hostlist bmcs', run: openFleet },
@@ -4614,6 +4619,7 @@ ${rmaTrailSection()}#### Action Requested:
         <button type="button" class="con-offer" hidden></button>
         <span class="con-tools">
           <button type="button" class="con-btn con-connect" data-con="connect">Connect</button>
+          <button type="button" class="con-btn con-ck" data-con="checkup" title="Read-only health sweep of the host this shell is on">♥ Checkup</button>
           <button type="button" class="con-btn" data-con="ctrlc" title="Send Ctrl-C (interrupt)" disabled>^C</button>
           <button type="button" class="con-btn" data-con="clear" title="Clear the screen and scrollback (not the shell)">Clear</button>
           <button type="button" class="con-btn" data-con="save" title="Download the session as a timestamped .txt log">Save log</button>
@@ -4643,6 +4649,7 @@ ${rmaTrailSection()}#### Action Requested:
       const act = b.dataset.con;
       if (act === 'connect') return con.live ? conDisconnect() : conConnect();
       if (act === 'ctrlc') { conWrite('\x03'); return con.term && con.term.focus(); }
+      if (act === 'checkup') { openCheckup(); if (con.live) ckRun(); return; }
       if (act === 'clear') { if (con.term) { con.term.clear(); con.term.focus(); } return; }
       if (act === 'save') return conSaveLog();
       if (act === 'setup') return conShowSetup(con.setup.hidden);
@@ -4837,6 +4844,7 @@ ${rmaTrailSection()}#### Action Requested:
   }
   // Which tool reads this output, if any.
   function conReader(text) {
+    if (ckLooksLike(text)) return { label: 'Node checkup', open: () => openCheckup(text) };
     if (xrLooksLike(text)) return { label: 'Node X-ray tray', open: () => openXray(text) };
     if (frLooksLike(text)) return { label: 'Fleet results', open: () => openFleetResults(text) };
     const t = detectOutput(text);
@@ -6811,6 +6819,282 @@ ${rmaTrailSection()}#### Action Requested:
   }
 
   // -------------------------------------------------------------
+  // NODE CHECKUP
+  // Step 2 of the method ("collect non-destructive telemetry") was a dozen
+  // commands from a dozen sheets. With a shell docked, one read-only sweep can
+  // do it: scheduler state, GPUs, kernel errors, EDAC, InfiniBand ports, NVMe,
+  // failed services and full disks, in one command line, without root. Each
+  // section is scored by the analyzers that already exist (X-ray, incident
+  // timeline) or by simple rules, shown as a report card with a score ring, and
+  // every red or amber row opens the tool that explains it.
+  // -------------------------------------------------------------
+  const CK_CMD = [
+    "echo '@@sys'; hostname; cat /sys/class/dmi/id/sys_vendor /sys/class/dmi/id/product_name /sys/class/dmi/id/bios_version 2>/dev/null; uptime; nproc",
+    `echo '@@gpu'; command -v nvidia-smi >/dev/null && { ${XR_CMD}; }`,
+    "echo '@@klog'; { dmesg -T --level=emerg,alert,crit,err 2>/dev/null || journalctl -k -p err --no-pager -o short 2>/dev/null || echo '@@denied'; } | tail -n 150",
+    "echo '@@edac'; grep -H . /sys/devices/system/edac/mc/mc*/ce_count /sys/devices/system/edac/mc/mc*/ue_count 2>/dev/null",
+    "echo '@@ib'; for p in /sys/class/infiniband/*/ports/*; do [ -r \"$p/state\" ] && echo \"$(basename \"$(dirname \"$(dirname \"$p\")\")\")/$(basename \"$p\") | $(cat \"$p/state\") | $(cat \"$p/phys_state\") | $(cat \"$p/rate\") | $(cat \"$p/link_layer\" 2>/dev/null)\"; done",
+    "echo '@@nvme'; for n in /sys/class/nvme/nvme*; do [ -e \"$n\" ] && echo \"$(basename \"$n\") | $(cat \"$n/model\" 2>/dev/null | xargs) | $(cat \"$n/state\" 2>/dev/null)\"; done",
+    "echo '@@svc'; systemctl --failed --no-legend --plain 2>/dev/null | head -n 20",
+    "echo '@@sched'; command -v sinfo >/dev/null && sinfo -N -h -n \"$(hostname -s)\" -o '%N %T %E' 2>/dev/null",
+    "echo '@@disk'; df -hP -x tmpfs -x devtmpfs -x overlay -x squashfs 2>/dev/null | awk 'NR>1 && $5+0>=85'",
+    "echo '@@end'"
+  ].join('; ');
+
+  const CK_SAMPLE = [
+    '@@sys', 'gpu-node-12', 'Supermicro', 'SYS-821GE-TNHR', '2.1a',
+    ' 03:20:11 up 41 days,  6:02,  1 user,  load average: 1.02, 0.98, 0.91', '224',
+    '@@gpu', XR_SAMPLE,
+    '@@klog',
+    '[Wed Nov  4 03:11:58 2026] pcieport 0000:89:00.0: AER: Corrected error received: 0000:8a:00.0',
+    '[Wed Nov  4 03:12:04 2026] pcieport 0000:89:00.0: AER: Uncorrected (Fatal) error received: 0000:8a:00.0',
+    '[Wed Nov  4 03:12:04 2026] NVRM: Xid (PCI:0000:8a:00): 79, pid=48213, name=python, GPU has fallen off the bus.',
+    '[Wed Nov  4 03:12:05 2026] NVRM: GPU 0000:8a:00.0: GPU has fallen off the bus.',
+    '[Wed Nov  4 03:14:40 2026] mlx5_core 0000:5e:00.0: mlx5_port_module_event: Port module event: module 3, Cable unplugged',
+    '@@edac',
+    '/sys/devices/system/edac/mc/mc0/ce_count:0', '/sys/devices/system/edac/mc/mc1/ce_count:1532',
+    '/sys/devices/system/edac/mc/mc0/ue_count:0', '/sys/devices/system/edac/mc/mc1/ue_count:0',
+    '@@ib',
+    'mlx5_0/1 | 4: ACTIVE | 5: LinkUp | 400 Gb/sec (4X NDR) | InfiniBand', 'mlx5_1/1 | 4: ACTIVE | 5: LinkUp | 400 Gb/sec (4X NDR) | InfiniBand',
+    'mlx5_2/1 | 4: ACTIVE | 5: LinkUp | 400 Gb/sec (4X NDR) | InfiniBand', 'mlx5_3/1 | 1: DOWN | 3: Disabled | 10 Gb/sec (4X SDR) | InfiniBand',
+    'mlx5_4/1 | 4: ACTIVE | 5: LinkUp | 400 Gb/sec (4X NDR) | InfiniBand', 'mlx5_5/1 | 4: ACTIVE | 5: LinkUp | 200 Gb/sec (4X HDR) | InfiniBand',
+    'mlx5_6/1 | 4: ACTIVE | 5: LinkUp | 400 Gb/sec (4X NDR) | InfiniBand', 'mlx5_7/1 | 4: ACTIVE | 5: LinkUp | 400 Gb/sec (4X NDR) | InfiniBand',
+    '@@nvme',
+    'nvme0 | SAMSUNG MZQL23T8HCLS-00A07 | live', 'nvme1 | SAMSUNG MZQL23T8HCLS-00A07 | live', 'nvme2 | SAMSUNG MZQL23T8HCLS-00A07 | live', 'nvme3 | SAMSUNG MZQL23T8HCLS-00A07 | live',
+    '@@svc', 'nvidia-fabricmanager.service loaded failed failed NVIDIA fabric manager service',
+    '@@sched', 'gpu-node-12 drained GPU lost (Xid 79) - ticket DC-4821',
+    '@@disk', '/dev/nvme0n1p2  1.8T  1.7T   99G  95% /var',
+    '@@end'
+  ].join('\n');
+
+  function ckSections(text) {
+    const out = {};
+    let cur = null;
+    String(text || '').replace(/\r/g, '').split('\n').forEach(l => {
+      const m = l.trim().match(/^@@(\w+)$/);
+      if (m) { cur = m[1]; out[cur] = []; return; }
+      if (cur) out[cur].push(l);
+    });
+    return out;
+  }
+  function ckLooksLike(text) { return /^@@sys\s*$/m.test(text) && /^@@gpu\s*$/m.test(text); }
+
+  function ckAnalyze(text) {
+    const sec = ckSections(text);
+    if (!sec.sys) return null;
+    const checks = [];
+    const add = (c) => checks.push(Object.assign({ details: [], open: null }, c));
+    const body = (k) => (sec[k] || []).filter(l => l.trim());
+
+    // Identity
+    const sys = body('sys');
+    const host = (sys[0] || 'this node').trim();
+    const up = sys.find(l => /\bup\b.*load average/.test(l)) || '';
+    const cores = +(sys[sys.length - 1] || 0) || null;
+    const load1 = +((up.match(/load average:\s*([\d.]+)/) || [])[1] || NaN);
+    const ident = sys.slice(1).filter(l => l !== up && !/^\d+$/.test(l.trim())).map(s => s.trim()).filter(Boolean);
+
+    // Scheduler first: it decides what is allowed next.
+    const sched = body('sched');
+    if (!sched.length) add({ id: 'sched', icon: '⛁', title: 'Scheduler', sev: 'skip', summary: 'No Slurm here (or the node is not in it)', details: ['Check Kubernetes instead: kubectl describe node <node>'] });
+    else {
+      const st = (sched[0].split(/\s+/)[1] || '').toLowerCase(), reason = sched[0].split(/\s+/).slice(2).join(' ');
+      const drained = /drain/.test(st), busy = /alloc|mix|comp/.test(st);
+      add({ id: 'sched', icon: '⛁', title: 'Scheduler', sev: drained ? 'ok' : busy ? 'warn' : /down|fail/.test(st) ? 'warn' : 'info',
+        summary: drained ? `Drained${reason ? `: ${reason}` : ''}` : busy ? `${st}: jobs are running, nothing intrusive` : `${st || 'unknown'}${reason ? `: ${reason}` : ''}`,
+        details: drained ? ['Safe for intrusive diagnostics once you have the OK.'] : ['Drain (with approval) before resets, burn-in or reseats.'] });
+    }
+
+    // GPUs via the X-ray
+    const gpuText = body('gpu').join('\n');
+    const xr = gpuText && xrLooksLike(gpuText) ? xrAnalyze(gpuText) : null;
+    const pciGpus = body('gpu').filter(l => /3D controller/i.test(l)).length;
+    if (xr) add({ id: 'gpu', icon: '▦', title: `GPUs · ${xr.seen}/${xr.expected}`, sev: xr.bad || xr.nicDown ? 'crit' : xr.warn ? 'warn' : 'ok', summary: xr.verdict,
+      details: xr.slots.filter(s => s.sev !== 'ok').map(s => `GPU ${s.idx}${s.bdf ? ` (${s.bdf})` : ''}: ${s.issues.map(i => i.text).join(', ')}`).slice(0, 6),
+      open: { label: 'Open the tray', run: () => openXray(gpuText) } });
+    else if (pciGpus) add({ id: 'gpu', icon: '▦', title: 'GPUs', sev: 'crit', summary: `${pciGpus} GPU${pciGpus === 1 ? '' : 's'} on PCIe, nvidia-smi lists none`, details: ['Driver not loaded, or every GPU dropped off the bus: check dmesg for NVRM and Xid 79.'] });
+    else add({ id: 'gpu', icon: '▦', title: 'GPUs', sev: 'skip', summary: 'No NVIDIA GPUs or no driver on this host' });
+
+    // Kernel errors via the incident timeline
+    const klog = body('klog');
+    if (klog.some(l => l.trim() === '@@denied')) add({ id: 'klog', icon: '≋', title: 'Kernel errors', sev: 'skip', summary: 'dmesg is restricted for this user', details: ['Run sudo dmesg -T --level=err,crit,alert,emerg, or add the user to the adm group for journalctl -k.'] });
+    else if (!klog.length) add({ id: 'klog', icon: '≋', title: 'Kernel errors', sev: 'ok', summary: 'No error-level kernel messages' });
+    else {
+      const tl = klog.length >= 2 ? analyzeTimeline(klog.join('\n')) : null;
+      const f = tl ? tl.findings.filter(x => x.sev === 'crit' || x.sev === 'warn') : [];
+      const sev = f.some(x => x.sev === 'crit') ? 'crit' : f.length ? 'warn' : 'info';
+      add({ id: 'klog', icon: '≋', title: `Kernel errors · ${klog.length} line${klog.length === 1 ? '' : 's'}`, sev,
+        summary: f.length ? f[0].title : 'Error-level lines, none of a known fault pattern',
+        details: f.length ? f.slice(0, 5).map(x => x.title) : klog.slice(-3).map(l => l.trim().slice(0, 140)),
+        open: { label: 'Open the timeline', run: () => openAnalyzer(klog.join('\n')) } });
+    }
+
+    // Memory ECC
+    const edac = body('edac').map(l => l.match(/\/(mc\d+)\/(ce|ue)_count:(\d+)/)).filter(Boolean);
+    if (!edac.length) add({ id: 'edac', icon: '▤', title: 'Memory ECC', sev: 'skip', summary: 'EDAC not loaded (counts live in the BMC SEL instead)', details: ['ipmitool sel elist | grep -i -E "ecc|memory"'] });
+    else {
+      const ue = edac.filter(m => m[2] === 'ue' && +m[3] > 0), ce = edac.filter(m => m[2] === 'ce' && +m[3] > 0);
+      add({ id: 'edac', icon: '▤', title: 'Memory ECC', sev: ue.length ? 'crit' : ce.some(m => +m[3] >= 100) ? 'warn' : ce.length ? 'info' : 'ok',
+        summary: ue.length ? `Uncorrectable errors on ${ue.map(m => m[1]).join(', ')}` : ce.length ? `${ce.reduce((n, m) => n + +m[3], 0).toLocaleString()} corrected on ${ce.map(m => m[1]).join(', ')}` : `No ECC errors on ${new Set(edac.map(m => m[1])).size} controllers`,
+        details: [...ue, ...ce].map(m => `${m[1]} ${m[2].toUpperCase()} ${(+m[3]).toLocaleString()}`).concat(ue.length || ce.length ? ['Map the controller to a DIMM slot with edac-util -v, then check the SEL.'] : []),
+        open: ue.length || ce.length ? { label: 'Memory ECC runbook', run: () => openRunbook('dimm') } : null });
+    }
+
+    // InfiniBand ports
+    const ib = body('ib').map(l => l.split('|').map(s => s.trim())).filter(p => p.length >= 4);
+    if (!ib.length) add({ id: 'ib', icon: '⇄', title: 'InfiniBand / RDMA', sev: 'skip', summary: 'No RDMA devices' });
+    else {
+      const down = ib.filter(p => !/ACTIVE/i.test(p[1]));
+      const rates = ib.filter(p => /ACTIVE/i.test(p[1])).map(p => parseFloat(p[3]) || 0);
+      const top = rates.length ? Math.max(...rates) : 0;
+      const slow = ib.filter(p => /ACTIVE/i.test(p[1]) && (parseFloat(p[3]) || 0) < top);
+      add({ id: 'ib', icon: '⇄', title: `InfiniBand · ${ib.length - down.length}/${ib.length} active`, sev: down.length ? 'crit' : slow.length ? 'warn' : 'ok',
+        summary: down.length ? `${down.map(p => p[0]).join(', ')} ${down.length === 1 ? 'is' : 'are'} not active` : slow.length ? `${slow.map(p => p[0]).join(', ')} trained below ${top} Gb/s` : `All ports active at ${top} Gb/s`,
+        details: [...down.map(p => `${p[0]}: ${p[1]} · ${p[2]} → check the cable/transceiver, then mlxlink -d ${p[0].split('/')[0]} -m -c -e`), ...slow.map(p => `${p[0]}: ${p[3]} → downtrained: clean / reseat, compare BER`)],
+        open: down.length || slow.length ? { label: 'Link-down runbook', run: () => openRunbook('ib-link') } : null });
+    }
+
+    // NVMe
+    const nv = body('nvme').map(l => l.split('|').map(s => s.trim())).filter(p => p.length >= 3);
+    if (!nv.length) add({ id: 'nvme', icon: '◫', title: 'NVMe', sev: 'skip', summary: 'No NVMe controllers' });
+    else {
+      const bad = nv.filter(p => p[2] && p[2] !== 'live');
+      add({ id: 'nvme', icon: '◫', title: `NVMe · ${nv.length - bad.length}/${nv.length} live`, sev: bad.length ? 'crit' : 'ok',
+        summary: bad.length ? `${bad.map(p => `${p[0]} ${p[2]}`).join(', ')}` : `${nv.length} controller${nv.length === 1 ? '' : 's'} live (${[...new Set(nv.map(p => p[1]))].join(', ')})`,
+        details: bad.length ? ['Controller not live: check dmesg for nvme timeouts / resets, then nvme smart-log (root).'] : ['SMART needs root: sudo nvme smart-log /dev/nvme0 (paste it into the analyzer).'],
+        open: bad.length ? { label: 'NVMe runbook', run: () => openRunbook('nvme') } : null });
+    }
+
+    // Services and disks
+    const svc = body('svc').map(l => l.trim().split(/\s+/)[0]).filter(Boolean);
+    add({ id: 'svc', icon: '⚙', title: 'Services', sev: svc.length ? (svc.some(s => /fabricmanager|nvidia|opensm|slurmd|kubelet/.test(s)) ? 'crit' : 'warn') : 'ok',
+      summary: svc.length ? `${svc.length} failed: ${svc.slice(0, 3).join(', ')}${svc.length > 3 ? '…' : ''}` : 'No failed systemd units',
+      details: svc.map(s => `systemctl status ${s} --no-pager; journalctl -u ${s} -n 50 --no-pager`) });
+    const disk = body('disk').map(l => l.trim().split(/\s+/)).filter(p => p.length >= 6);
+    add({ id: 'disk', icon: '◔', title: 'Filesystems', sev: disk.some(p => parseInt(p[4], 10) >= 95) ? 'crit' : disk.length ? 'warn' : 'ok',
+      summary: disk.length ? disk.map(p => `${p[5]} ${p[4]}`).join(', ') : 'Every filesystem under 85 %',
+      details: disk.map(p => `${p[5]}: ${p[2]} used of ${p[1]} (${p[4]}) → du -xh ${p[5]} --max-depth=2 | sort -h | tail`) });
+
+    const scored = checks.filter(c => c.sev !== 'skip' && c.sev !== 'info');
+    const crit = checks.filter(c => c.sev === 'crit').length, warn = checks.filter(c => c.sev === 'warn').length, ok = checks.filter(c => c.sev === 'ok').length;
+    const score = scored.length ? Math.round(((ok + warn * 0.5) / scored.length) * 100) : 100;
+    return { host, ident, up: up.trim(), cores, load1, checks, crit, warn, ok, score, at: Date.now(), xr,
+      verdict: crit ? `${crit} area${crit === 1 ? '' : 's'} need${crit === 1 ? 's' : ''} attention` : warn ? `${warn} to watch` : 'Healthy' };
+  }
+
+  function ckRing(r) {
+    const C = 2 * Math.PI * 52, segs = [['crit', r.crit], ['warn', r.warn], ['ok', r.ok]], total = r.crit + r.warn + r.ok || 1;
+    let off = 0;
+    const arcs = segs.filter(([, n]) => n).map(([k, n]) => { const len = (n / total) * C; const a = `<circle class="ck-arc is-${k}" r="52" cx="64" cy="64" stroke-dasharray="${Math.max(0, len - 3).toFixed(1)} ${C.toFixed(1)}" stroke-dashoffset="${(-off).toFixed(1)}"/>`; off += len; return a; }).join('');
+    return `<svg class="ck-ring" viewBox="0 0 128 128" aria-hidden="true"><circle class="ck-track" r="52" cx="64" cy="64"/>${arcs}</svg><div class="ck-score"><b>${r.score}</b><span>health</span></div>`;
+  }
+  function ckMarkdown(r) {
+    const icon = { crit: '❌', warn: '⚠️', ok: '✅', info: 'ℹ️', skip: '—' };
+    return [`### Node checkup: ${r.host} · ${r.verdict} (score ${r.score})`, '', `${r.ident.join(' · ')}${r.up ? `  \n${r.up}` : ''}`, '', '| Area | Result | Detail |', '|---|---|---|',
+      ...r.checks.map(c => `| ${icon[c.sev]} ${c.title} | ${c.summary} | ${c.details.slice(0, 3).join('<br>') || ''} |`), '', `_Read-only sweep run ${new Date(r.at).toLocaleString()}._`].join('\n');
+  }
+  function ckRender(r) {
+    const order = { crit: 0, warn: 1, info: 2, ok: 3, skip: 4 };
+    const rows = r.checks.slice().sort((a, b) => order[a.sev] - order[b.sev]);
+    return `<div class="ck-head is-${r.crit ? 'crit' : r.warn ? 'warn' : 'ok'}">
+        <div class="ck-dial">${ckRing(r)}</div>
+        <div class="ck-id"><span class="an-type">Node checkup · ${escapeHtml(new Date(r.at).toLocaleTimeString())}</span><h3>${escapeHtml(r.host)}</h3><b class="ck-verdict">${escapeHtml(r.verdict)}</b>
+          <p>${escapeHtml(r.ident.join(' · '))}${r.up ? `<br><span>${escapeHtml(r.up.replace(/^\s*[\d:]+\s+/, ''))}</span>` : ''}</p>
+          <div class="ck-tally"><span class="is-crit">${r.crit} critical</span><span class="is-warn">${r.warn} watch</span><span class="is-ok">${r.ok} healthy</span><span class="is-skip">${r.checks.filter(c => c.sev === 'skip').length} n/a</span></div></div>
+      </div>
+      <ol class="ck-list">${rows.map((c, i) => `<li class="ck-row is-${c.sev}" style="--i:${i}">
+          <span class="ck-ico" aria-hidden="true">${c.icon}</span>
+          <div class="ck-main"><div class="ck-line"><b>${escapeHtml(c.title)}</b><em>${{ crit: 'Critical', warn: 'Watch', ok: 'OK', info: 'Info', skip: 'n/a' }[c.sev]}</em></div><p>${escapeHtml(c.summary)}</p>
+            ${c.details.length && c.sev !== 'ok' ? `<ul>${c.details.slice(0, 5).map(d => `<li>${escapeHtml(d)}</li>`).join('')}</ul>` : ''}</div>
+          ${c.open ? `<button type="button" class="ck-open" data-ck-open="${escapeHtml(c.id)}">${escapeHtml(c.open.label)} →</button>` : ''}
+        </li>`).join('')}</ol>
+      <div class="an-actions ck-actions"><button type="button" class="xr-run" data-ck="run">${con.live ? '▶ Run again' : '▶ Connect &amp; run'}</button><button type="button" data-ck="copy">Copy as Markdown</button><button type="button" data-ck="pin">📌 Pin to case</button><button type="button" data-ck="phone">📱 To phone</button></div>`;
+  }
+  function ckScanHtml(who) {
+    const steps = ['Scheduler', 'GPUs', 'Kernel log', 'Memory ECC', 'InfiniBand', 'NVMe', 'Services', 'Filesystems'];
+    return `<div class="ck-head is-scan"><div class="ck-dial"><svg class="ck-ring is-spin" viewBox="0 0 128 128" aria-hidden="true"><circle class="ck-track" r="52" cx="64" cy="64"/><circle class="ck-arc is-scan" r="52" cx="64" cy="64" stroke-dasharray="80 400"/></svg><div class="ck-score"><b>…</b><span>reading</span></div></div>
+      <div class="ck-id"><span class="an-type">Node checkup</span><h3>${escapeHtml(who)}</h3><b class="ck-verdict">Reading the node…</b><p>One read-only command, no root.</p></div></div>
+      <ol class="ck-list is-scan">${steps.map((s, i) => `<li class="ck-row is-skel" style="--i:${i}"><span class="ck-ico">·</span><div class="ck-main"><div class="ck-line"><b>${s}</b></div><p class="ck-bar"></p></div></li>`).join('')}</ol>`;
+  }
+
+  let ckEl = null;
+  function openCheckup(text) {
+    if (!ckEl) {
+      ckEl = document.createElement('div');
+      ckEl.className = 'an-backdrop ck-backdrop';
+      ckEl.innerHTML = `
+        <div class="an-dialog ck-dialog" role="dialog" aria-modal="true" aria-labelledby="ck-title">
+          <header class="an-head">
+            <div><h2 id="ck-title">Node checkup</h2><p>One read-only sweep through the docked terminal: scheduler, GPUs, kernel errors, memory ECC, InfiniBand, NVMe, services and disks, scored in one report. Runs on whatever host the shell is on: ssh to the node first.</p></div>
+            <button type="button" class="trail-close" data-ck="close" aria-label="Close">✕</button>
+          </header>
+          <div class="an-body"><div class="an-out ck-out" aria-live="polite"></div></div>
+        </div>`;
+      document.body.appendChild(ckEl);
+      const out = ckEl.querySelector('.ck-out');
+      ckEl._draw = () => {
+        if (ckEl._r) { out.innerHTML = ckRender(ckEl._r); return; }
+        out.innerHTML = `<div class="ck-start">
+            <div class="ck-start-ring" aria-hidden="true">♥</div>
+            <div><h3>${con.live ? `Check ${escapeHtml(con.hello ? `${con.hello.user}@${con.hello.host}` : 'the connected shell')}` : 'Connect the terminal to check a node'}</h3>
+            <p>${con.live ? 'Reads /sys, nvidia-smi, dmesg / journalctl, systemctl, sinfo and df. Nothing is changed.' : 'The checkup runs at the terminal prompt: Connect &amp; run opens it and starts as soon as the shell is up.'}</p>
+            <div class="ck-start-acts"><button type="button" class="xr-run ck-go" data-ck="run">${con.live ? '▶ Run checkup' : '▶ Connect &amp; run'}</button><button type="button" data-ck="copycmd">Copy the command</button><button type="button" data-ck="sample">See a sample report</button></div></div>
+          </div>`;
+      };
+      ckEl.addEventListener('click', (e) => {
+        if (e.target === ckEl) return closeCheckup();
+        const el = e.target instanceof Element ? e.target : null;
+        if (!el) return;
+        const o = el.closest('[data-ck-open]');
+        if (o && ckEl._r) { const c = ckEl._r.checks.find(x => x.id === o.dataset.ckOpen); if (c && c.open) { closeCheckup(); c.open.run(); } return; }
+        const b = el.closest('[data-ck]');
+        if (!b) return;
+        const act = b.dataset.ck, r = ckEl._r;
+        if (act === 'close') closeCheckup();
+        if (act === 'run') ckRun();
+        if (act === 'sample') { ckEl._r = ckAnalyze(CK_SAMPLE); ckEl._draw(); }
+        if (act === 'copycmd') { copyVerbatim(CK_CMD); b.textContent = 'Copied ✓'; showGlobalToast('Copied the checkup command: paste its output into the hub box or Ctrl+K.'); }
+        if (act === 'copy' && r) { copyVerbatim(ckMarkdown(r)); showGlobalToast('Copied the checkup as Markdown.'); }
+        if (act === 'phone' && r) openPhone(ckMarkdown(r), 'Checkup to your phone', `${r.host}: ${r.verdict}`);
+        if (act === 'pin' && r) casePin({ kind: 'Node checkup', title: `Checkup ${r.host}: ${r.verdict} (score ${r.score})`, sev: r.crit ? 'crit' : r.warn ? 'warn' : 'ok', md: ckMarkdown(r), facts: [['Host', r.host], ...(r.ident[1] ? [['Model', r.ident.slice(0, 2).join(' ')]] : []), ...(r.ident[2] ? [['BIOS', r.ident[2]]] : [])] });
+      });
+      ckEl.addEventListener('keydown', (e) => { if (e.key === 'Escape') { e.stopPropagation(); closeCheckup(); } });
+    }
+    ckEl._focus = document.activeElement;
+    if (text) ckEl._r = ckAnalyze(text);
+    ckEl._draw();
+    ckEl.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => { const f = ckEl.querySelector('.ck-go, .ck-open, [data-ck="copy"], .trail-close'); if (f) f.focus(); }, 40);
+  }
+  function closeCheckup() {
+    if (!ckEl || !ckEl.classList.contains('show')) return;
+    ckEl.classList.remove('show');
+    document.body.style.overflow = '';
+    if (ckEl._focus && ckEl._focus.focus) ckEl._focus.focus();
+  }
+  function ckRun() {
+    if (!con.live) {
+      con.afterLive = () => { openCheckup(); ckRun(); };
+      closeCheckup();
+      toggleConsole(true);
+      showGlobalToast('Connect the terminal: the checkup runs as soon as the shell is up.');
+      return;
+    }
+    const out = ckEl.querySelector('.ck-out');
+    const who = con.hello ? `${con.hello.user}@${con.hello.host}` : 'the terminal';
+    ckEl._r = null;
+    out.innerHTML = ckScanHtml(who);
+    conRun(CK_CMD, { timeout: 120000 }).then(text => {
+      ckEl._r = ckAnalyze(text);
+      if (!ckEl._r) { out.innerHTML = `<p class="an-hint">The sweep ran but printed nothing usable. First lines:</p><pre class="xr-raw">${escapeHtml(text.split('\n').slice(0, 10).join('\n') || '(no output)')}</pre>`; return; }
+      ckEl._draw();
+      showGlobalToast(`Checkup of ${ckEl._r.host}: ${ckEl._r.verdict}.`);
+      const f = ckEl.querySelector('.ck-open, [data-ck="copy"]'); if (f) f.focus();
+    }).catch(e => { out.innerHTML = `<p class="an-hint">Checkup failed: ${escapeHtml(e.message)}.</p>`; });
+  }
+
+  // -------------------------------------------------------------
   // CASE FILE
   // Every tool here ended in "Copy as Markdown": a decoded Xid, an mlxlink
   // report, a timeline cascade, a golden-node diff, fleet results. The ticket
@@ -7648,7 +7932,7 @@ ${rmaTrailSection()}#### Action Requested:
             <button type="submit">Diagnose<kbd>↵</kbd></button>
           </form>
           <div class="lp-preview" aria-live="polite"></div>
-          <div class="lp-samples"><button type="button" class="lp-atlas lp-xray" data-lp="xray">▦ X-ray a GPU node</button><button type="button" class="lp-atlas" data-atlas-open>🩻 What healthy looks like</button><span>Try:</span>${DECODER_SAMPLES.map(([label, line]) => `<button type="button" data-lp-sample="${escapeHtml(line)}">${escapeHtml(label)}</button>`).join('')}</div>
+          <div class="lp-samples"><button type="button" class="lp-atlas lp-checkup" data-lp="checkup">♥ Node checkup</button><button type="button" class="lp-atlas lp-xray" data-lp="xray">▦ X-ray a GPU node</button><button type="button" class="lp-atlas" data-atlas-open>🩻 What healthy looks like</button><span>Try:</span>${DECODER_SAMPLES.map(([label, line]) => `<button type="button" data-lp-sample="${escapeHtml(line)}">${escapeHtml(label)}</button>`).join('')}</div>
         </div>
       </div>
 
@@ -7738,14 +8022,14 @@ ${rmaTrailSection()}#### Action Requested:
     const bmc = v.bmc && v.bmc !== DEFAULT_TARGET_VARS.bmc ? v.bmc : '';
     const runs = RUNBOOKS.map(rb => ({ rb, p: rbProgress(rb, rbRun(rb.id)) })).filter(x => x.p.done > 0).sort((a, b) => b.p.done / b.p.total - a.p.done / a.p.total);
     const kinds = new Set(pins.map(e => e.kind));
-    const collected = pins.filter(e => /decoder|analyzer|timeline/i.test(e.kind)).length;
+    const collected = pins.filter(e => /decoder|analyzer|timeline|checkup/i.test(e.kind)).length;
     const stages = [
       { id: 'identify', n: 1, title: 'Identify', what: 'Which node, which BMC, is it drained?',
         done: !!node, status: node ? `${node}${bmc ? ` · BMC ${bmc}` : ' · no BMC set'}` : 'No node named yet',
         acts: [['node', node ? 'Switch node' : 'Name this node'], ['drain', 'Copy drain check'], ['targets', 'Rack Targets']] },
       { id: 'collect', n: 2, title: 'Collect', what: 'Read-only evidence: dmesg, SEL, telemetry.',
         done: trail.length >= 1 || collected > 0, status: trail.length || collected ? `${trail.length} command${trail.length === 1 ? '' : 's'} run · ${collected} analys${collected === 1 ? 'is' : 'es'} pinned` : 'Paste an error or a whole dump',
-        acts: [['paste', 'Paste a log'], ['timeline', 'Incident timeline'], ['console', 'Terminal']] },
+        acts: [['checkup', 'Node checkup'], ['paste', 'Paste a log'], ['timeline', 'Incident timeline'], ['console', 'Terminal']] },
       { id: 'correlate', n: 3, title: 'Correlate', what: 'Across layers, nodes and a healthy twin.',
         done: kinds.has('Node X-ray') || kinds.has('Node comparison') || kinds.has('Fleet results') || kinds.has('Incident timeline'), status: fl.active ? `Fleet on · ×${fleetExpand(fl.hosts).length} nodes` : [kinds.has('Node comparison') && 'compared', kinds.has('Fleet results') && 'fleet checked', kinds.has('Incident timeline') && 'timeline pinned'].filter(Boolean).join(' · ') || 'One node, or many?',
         acts: [['xray', 'Node X-ray'], ['diff', 'Compare nodes'], ['fleet', fl.active ? 'Fleet settings' : 'Fleet mode'], ['fleetres', 'Fleet results']] },
@@ -7790,6 +8074,7 @@ ${rmaTrailSection()}#### Action Requested:
     if (a === 'fleet') return openFleet();
     if (a === 'fleetres') return openFleetResults();
     if (a === 'xray') return openXray();
+    if (a === 'checkup') return openCheckup();
     if (a === 'runbook') { const r = flowState().runs[0]; return openRunbook(r ? r.rb.id : undefined); }
     if (a === 'atlas') return openHealthAtlas();
     if (a === 'case') return openCaseFile();
@@ -7829,6 +8114,7 @@ ${rmaTrailSection()}#### Action Requested:
       if (act.dataset.lp === 'diff') return openGoldenDiff();
       if (act.dataset.lp === 'fleetres') return openFleetResults();
       if (act.dataset.lp === 'xray') return openXray();
+      if (act.dataset.lp === 'checkup') return openCheckup();
       if (act.dataset.lp === 'kit') return openKit();
       if (act.dataset.lp === 'board') return openBoard();
       if (act.dataset.lp === 'hide') { try { localStorage.setItem(LP_HIDDEN_KEY, '1'); } catch (err) {} return renderLaunchpad(lp); }
@@ -9425,6 +9711,7 @@ ${rmaTrailSection()}#### Action Requested:
     openPhone,
     openFleetResults,
     openXray,
+    openCheckup,
     openCaseFile,
     casePin,
     caseMarkdown,
