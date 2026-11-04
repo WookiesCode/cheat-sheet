@@ -11,7 +11,7 @@ Offline command reference sheets for datacenter work: 188 linked pages, plus one
 
 | To do this | Use |
 |---|---|
-| Search every sheet | `Ctrl+K` or **Search All**, then arrow keys and `Enter` |
+| Search every sheet | `Ctrl+K`, `/` or the search pill in the header, then arrow keys and `Enter`. It is the only search now: the per-page search box and the All Sections dropdown were retired (the rail's **On this sheet** outline jumps between sections). |
 | Filter the current sheet | `/`, and `Esc` clears it |
 | Jump to a topic | Top nav menus, or the **Section** dropdown |
 
@@ -39,6 +39,7 @@ Your targets carry across pages, and **Reset** puts them back to defaults.
 - **Triage & RMA:** gives you a crash-cart diagnostic script and a formatter for RMA tickets.
 - **My kit (★):** star a command on any sheet to bookmark it. My kit collects them from every sheet, with the current sheet's bookmarks first, and prints them as a pocket card.
 - **Manuals:** click **Manuals** or press `M` to search offline manuals by name, category or full text. Ubuntu 24.04 pages come first, and open-source projects fill the gaps. Vendor tools such as `nvidia-smi` aren't included because of their licenses. Keep `man-pages-data.js` with the pages; the offline copy has them built in.
+- **Theme:** More → theme (or Ctrl+K → "theme") opens a gallery of all 24 themes with previews; click one to apply it. Shift+click the theme button cycles without opening it.
 - **Compact:** fits more on screen by hiding notes, tips, flag explanations and extra command variants. Click **Detailed** on the same button to bring them back. The setting carries across pages. Jira and the Scripting sheets keep their variants, because those are the main content. Searching shows everything hidden, and printing always includes it.
 - **Theme menu:** 24 color themes, and your choice is remembered. Everforest is a good pick for long sessions.
 - **Print:** `Ctrl+P` prints the current sheet.
@@ -67,7 +68,8 @@ A web page can't start a shell, so a small helper does:
 - **Copy and paste:** Ctrl+Shift+C copies the selection, Ctrl+Shift+V pastes. **^C** sends an interrupt.
 - **Save log:** downloads the scrollback as a timestamped `.txt` for `cases/<host>/logs/`. Check it for secrets first.
 - **Hiding vs disconnecting:** hiding the dock (▾) keeps the shell running. **Disconnect** or closing the tab hangs it up.
-- **Node checkup:** **♥ Node checkup** on the hub (or **♥ Checkup** in the terminal bar, step 2 *Collect*, or Ctrl+K → "checkup") runs one read-only sweep at the prompt, with no root needed. It covers the Slurm drain state, GPUs (via the X-ray), error-level kernel messages (via the incident timeline), EDAC ECC counts, InfiniBand port state and rate, NVMe controller state, failed systemd units, and filesystems over 85 %. The result is a scored report card. Each red or amber row opens the tool or runbook that explains it, and the report copies as Markdown or pins to the case. **Copy the command** works without the terminal: paste its output into the hub box. **See a sample report** shows a broken H200 node.
+- **Node cockpit (hub):** the right side of "What's broken?" is a live panel for the node you're on. It shows the latest checkup score ring with tallies, a mini GPU tray (one light per GPU, hatched for a lost GPU) with NIC lights, the top three problems, the terminal link, and how old each reading is (amber when over 2 h). Click the ring or tray to reopen the full report. **♥ Run checkup / Re-check** connects and runs. Readings are saved per node workspace (`dc_node_vitals`), so switching nodes switches the cockpit. Built-in samples and demos are never stored.
+- **Node checkup:** **♥ Run checkup** in the hub cockpit (or **♥ Checkup** in the terminal bar, **Node checkup** in step 2 *Collect*, or Ctrl+K → "checkup") runs one read-only sweep at the prompt, with no root needed. It covers the Slurm drain state, GPUs (via the X-ray), error-level kernel messages (via the incident timeline), EDAC ECC counts, InfiniBand port state and rate, NVMe controller state, failed systemd units, and filesystems over 85 %. The result is a scored report card. Each red or amber row opens the tool or runbook that explains it, and the report copies as Markdown or pins to the case. **Copy the command** works without the terminal: paste its output into the hub box. **See a sample report** shows a broken H200 node.
 - **Run in terminal:** the Node X-ray's **▶ Run in terminal** types its collection command at the prompt (on whatever host the shell is on, so `ssh` to the GPU node first) and draws the tray from the output. No copy-paste. If the terminal isn't connected, **Connect & run** opens it and runs as soon as the shell is up.
 - **Watch live:** once the tray is drawn, **● Watch live** streams `nvidia-smi --query-gpu=… -l 2` through the terminal into it. Every GPU tile gets a scrolling core-temperature trace, with power dashed and the 80 °C line dotted, and the tile colours update as thresholds are crossed. The selected GPU shows **Core now / Range / Peak core / Peak power** with timestamps, and every problem seen during the watch is listed, even ones that cleared. **■ Stop live** sends Ctrl-C. **Copy as Markdown** and **📌 Pin tray to case** include a *Live watch* table, so the peaks reach the RMA. Use it while reproducing a fault under load (after the drain check). The sample tray has **● Watch live (demo load)**, where GPU 3 climbs into thermal slowdown.
 - **Read this output:** after any **⏎ Send**, the dock watches the reply. When an analyzer recognises it (GPU table, fleet output, `mlxlink`, `nvme smart-log`, `nvidia-smi topo -m`, dmesg/SEL), a **✦ Read this output as …** button lights up in the dock header and opens the matching tool already filled in.
@@ -77,7 +79,7 @@ A web page can't start a shell, so a small helper does:
 
 On screens 1280px and wider, every sheet has a sticky left rail:
 - **Suite list:** every sheet in the suite, with visited ticks and the current one highlighted.
-- **On this sheet:** an outline of the cards that follows your scroll and your search filter.
+- **On this sheet:** an outline of the cards that follows your scroll; click a section to jump to it.
 - **Reference and runbooks:** links to the healthy-ranges and BER panels, and to the suite's guided runbooks.
 
 "What healthy looks like" and "BER" start folded to one line so commands come first. If you open one, it stays open on later visits. The home hub keeps its full Mission Control layout.
@@ -112,7 +114,7 @@ Some commands never fan out:
 ## Compact header
 
 On screens wider than 768px, the header uses three short lines:
-1. **Title, search, Topic and tools** on one row. The tools show as icons below 1500px; hover them for their names, and counts and status lights stay visible.
+1. **Title, the Search-all pill and the tools** on one row. Tool labels show from 1100px; below that they are icons with tooltips, and counts and status lights stay visible.
 2. **Suite nav** on one line. It tightens until it fits: carets go first, then logos.
 3. **Rack Targets** on one line, faded at the edge if it overflows.
 
@@ -149,7 +151,7 @@ After a fan-out, paste what came back. Pasting multi-node output into the home b
 
 Every analysis result has **📌 Pin to case**: decoded errors (Ctrl+K), Output Analyzer reports, Incident Timelines, node comparisons and Fleet results. Pins belong to the current node workspace, like the Case Trail, so switching nodes switches cases.
 
-Open the case file from **📁 Case file** in the Trail drawer, Ctrl+K → "case file", or the link in Triage & RMA → RMA formatter. It gives you:
+Open the case file from **📁 Case file** in the Trail drawer, Ctrl+K → "case file", the cockpit's **📁 Case**, or the link in Triage & RMA → RMA formatter. It gives you:
 
 - **Status and severity:** a status picker, and a severity worked out from the evidence.
 - **Notes:** current hypothesis, root cause and next action.

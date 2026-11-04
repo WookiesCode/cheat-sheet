@@ -689,36 +689,7 @@ function generateFoHtml(sec, fileKey) {
         </div>
       </div>
 
-      <div class="search-wrapper">
-        <svg class="search-icon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
-          <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15z"/>
-        </svg>
-        <input
-          type="search"
-          id="search-input"
-          placeholder="Search ${escapeHtml(cfg.name)} optical commands, parameters..."
-          aria-label="Search ${escapeHtml(cfg.name)} commands"
-          autocomplete="off"
-          spellcheck="false"
-        />
-        <button type="button" id="reset-search-btn" class="search-reset-btn" title="Clear search (Esc)" aria-label="Clear search">✕</button>
-        <kbd class="search-Shortcut" id="search-kbd">/</kbd>
-      </div>
-
       <div class="header-actions">
-        <button
-          type="button"
-          id="saved-filter-btn"
-          class="action-btn"
-          title="Filter to bookmarked commands"
-          aria-pressed="false"
-        >
-          <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
-            <path fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
-          </svg>
-          <span>Saved</span>
-          <span id="saved-count" class="count-badge">0</span>
-        </button>
 
         <button
           type="button"
@@ -763,14 +734,6 @@ function generateFoHtml(sec, fileKey) {
         </button>
       </div>
     </div>
-    <div class="category-bar">
-      <div class="container category-bar-inner">
-        <div id="category-tabs" class="category-tabs" role="region" aria-label="Topic filters"></div>
-        <div class="stats-summary" id="stats-summary">
-          Showing <strong id="visible-count">0</strong> items
-        </div>
-      </div>
-    </div>
   </header>
 
   <main class="container main-layout">
@@ -801,9 +764,9 @@ function generateFoHtml(sec, fileKey) {
     </div>
   </footer>
 
-  <script src="${fileKey}.js"></script>
   <script src="global-search-index.js"></script>
   <script src="common.js"></script>
+  <script src="${fileKey}.js"></script>
 </body>
 </html>
 `;
