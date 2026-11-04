@@ -37,7 +37,7 @@ Your targets carry across pages, and **Reset** puts them back to defaults.
 ## Other tools
 
 - **Triage & RMA:** gives you a crash-cart diagnostic script and a formatter for RMA tickets.
-- **Saved:** star a command to bookmark it, then click **Saved** to show only those.
+- **My kit (★):** star a command on any sheet to bookmark it. My kit collects them from every sheet, with the current sheet's bookmarks first, and prints them as a pocket card.
 - **Manuals:** click **Manuals** or press `M` to search offline manuals by name, category or full text. Ubuntu 24.04 pages come first, and open-source projects fill the gaps. Vendor tools such as `nvidia-smi` aren't included because of their licenses. Keep `man-pages-data.js` with the pages; the offline copy has them built in.
 - **Compact:** fits more on screen by hiding notes, tips, flag explanations and extra command variants. Click **Detailed** on the same button to bring them back. The setting carries across pages. Jira and the Scripting sheets keep their variants, because those are the main content. Searching shows everything hidden, and printing always includes it.
 - **Theme menu:** 24 color themes, and your choice is remembered. Everforest is a good pick for long sessions.
@@ -52,18 +52,25 @@ Open **Jira** in the nav, fill in the form with a node, rack, position or serial
 - **Omarchy** (under the nav) lists your desktop keyboard shortcuts. It's for reading, so there are no commands to copy.
 - **Lua** (under Scripting) covers the language and how to edit your Hyprland and Neovim config files.
 
-## Serial console (crash cart)
+## Terminal
 
-**Console** in the header (or `` Ctrl+` ``) opens a serial terminal under the sheet. It runs in Chrome or Edge on desktop, including the 1-file offline copy.
+**Terminal** in the header (or `` Ctrl+` ``) opens a real shell on this jumpbox under the sheet: your login shell with colours, `top`, `less`, `vim`, `ssh`, `ipmitool`, and everything else. It's drawn by xterm.js, vendored in `vendor/xterm/` so it works offline.
 
-1. Plug in the USB-serial or RJ45 console cable. Set the baud: 115200 for most BMCs and NVIDIA switches, 9600 for many older switches and PDUs.
-2. Click **Connect…** and pick the adapter.
-3. Hover any command and click **⏎ Send**. It's typed into the console with your Rack Targets filled in.
+A web page can't start a shell, so a small helper does:
 
-- Commands that change state, and **Break**, ask for confirmation first.
-- At a `Password:` prompt the input is masked. The password stays out of history, the Case Trail and the log.
-- Click the output area to send raw keys: `--More--` pagers, menus and BIOS screens.
-- **Save log** downloads a timestamped `.txt` for `cases/<host>/logs/`.
+1. Start the bridge once per login: `python3 term-bridge.py` (run from this folder). Python standard library only; default port 8767.
+2. Paste the token it prints into the dock's **Setup** panel, then click **Connect**. The token is kept in the browser and in `~/.config/dc-cheatsheet/term-token` (mode 0600). `--new-token` rotates it.
+3. Hover any command and click **⏎ Send**. It's typed at the prompt with your Rack Targets filled in.
+
+- **Security:** the bridge listens on 127.0.0.1 only. It refuses any connection without the token, and any page that isn't the cheat-sheet (file:// or localhost).
+- **Confirmation:** commands that change state ask first.
+- **Copy and paste:** Ctrl+Shift+C copies the selection, Ctrl+Shift+V pastes. **^C** sends an interrupt.
+- **Save log:** downloads the scrollback as a timestamped `.txt` for `cases/<host>/logs/`. Check it for secrets first.
+- **Hiding vs disconnecting:** hiding the dock (▾) keeps the shell running. **Disconnect** or closing the tab hangs it up.
+- **Run in terminal:** the Node X-ray's **▶ Run in terminal** types its collection command at the prompt (on whatever host the shell is on, so `ssh` to the GPU node first) and draws the tray from the output. No copy-paste. If the terminal isn't connected, **Connect & run** opens it and runs as soon as the shell is up.
+- **Watch live:** once the tray is drawn, **● Watch live** streams `nvidia-smi --query-gpu=… -l 2` through the terminal into it. Every GPU tile gets a scrolling core-temperature trace, with power dashed and the 80 °C line dotted, and the tile colours update as thresholds are crossed. The selected GPU shows **Core now / Range / Peak core / Peak power** with timestamps, and every problem seen during the watch is listed, even ones that cleared. **■ Stop live** sends Ctrl-C. **Copy as Markdown** and **📌 Pin tray to case** include a *Live watch* table, so the peaks reach the RMA. Use it while reproducing a fault under load (after the drain check). The sample tray has **● Watch live (demo load)**, where GPU 3 climbs into thermal slowdown.
+- **Read this output:** after any **⏎ Send**, the dock watches the reply. When an analyzer recognises it (GPU table, fleet output, `mlxlink`, `nvme smart-log`, `nvidia-smi topo -m`, dmesg/SEL), a **✦ Read this output as …** button lights up in the dock header and opens the matching tool already filled in.
+- **Serial console cables:** run `tio -b 115200 /dev/ttyUSB0` or `screen /dev/ttyUSB0 115200` inside the terminal.
 
 ## Sheet layout
 
@@ -157,8 +164,8 @@ Under "What's broken?" the hub shows the team method from AGENTS.md §5 as five 
 | Step | Tools |
 |---|---|
 | **Identify** | name or switch node, copy the drain check, Rack Targets |
-| **Collect** | paste a log, Incident timeline, Serial console |
-| **Correlate** | Compare nodes, Fleet mode, Fleet results |
+| **Collect** | paste a log, Incident timeline, Terminal |
+| **Correlate** | Node X-ray, Compare nodes, Fleet mode, Fleet results |
 | **Isolate** | guided runbooks, healthy ranges |
 | **Document** | Case file, To phone, RMA formatter |
 
