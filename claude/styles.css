@@ -7074,3 +7074,92 @@ body.hdr-compact .target-vars-wrapper { margin-top: 0; }
 .tg-backdrop { z-index: 2000; }
 .tg-card-btn { display: grid; gap: 0.3rem; padding: 0.5rem 0.5rem 0.65rem; border-radius: 12px; text-align: left; cursor: pointer; font: inherit; color: inherit; background: var(--bg-surface); border: 1px solid var(--border-subtle); transition: transform 0.12s, border-color 0.12s, box-shadow 0.12s; align-content: start; }
 @media (max-width: 768px) { .hdr-search-pill kbd { display: none; } }
+
+/* ── Runbook autopilot: ▶ Run per step, inline output, run-all bar ── */
+.rb-auto { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 0.8rem; align-items: center; margin: 0 0 1rem; padding: 0.8rem 1rem; border-radius: 12px;
+  background: linear-gradient(100deg, color-mix(in srgb, var(--accent-green) 12%, var(--bg-elevated)), var(--bg-surface) 70%); border: 1px solid color-mix(in srgb, var(--accent-green) 35%, var(--border-subtle)); }
+.rb-auto-ico { width: 2.2rem; height: 2.2rem; border-radius: 50%; display: grid; place-items: center; font-size: 0.95rem; color: var(--bg-base); background: var(--accent-green); box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent-green) 15%, transparent); }
+.rb-auto.is-running .rb-auto-ico { animation: con-spin 1s linear infinite; background: var(--accent-cyan); }
+.rb-auto-txt { display: grid; gap: 0.15rem; min-width: 0; }
+.rb-auto-txt b { font-size: 0.9rem; color: var(--text-primary); }
+.rb-auto-txt span { font-size: 0.75rem; color: var(--text-secondary); }
+.rb-auto-txt code { font-family: var(--font-mono); color: var(--accent-green); }
+.rb-auto-go, .rb-auto-stop { white-space: nowrap; font: 700 0.8rem var(--font-sans); padding: 0.55rem 0.95rem; border-radius: 9px; cursor: pointer; border: 0; color: var(--bg-base); background: var(--accent-green); box-shadow: 0 8px 20px -10px var(--accent-green); }
+.rb-auto-go:disabled { background: var(--bg-elevated); color: var(--text-muted); box-shadow: none; cursor: default; border: 1px solid var(--border-subtle); }
+.rb-auto-stop { background: var(--accent-red); box-shadow: none; }
+.rb-cmd .rb-run { color: var(--bg-base) !important; background: var(--accent-green) !important; border-color: transparent !important; font-weight: 700; }
+.rb-cmd .rb-run:disabled { opacity: 0.5; cursor: default; }
+.rb-step.is-running { border-color: var(--accent-cyan); box-shadow: 0 0 0 1px var(--accent-cyan), 0 0 24px -10px var(--accent-cyan); }
+.rb-step.is-running .rb-run { background: var(--accent-cyan) !important; }
+.rb-out { margin: 0.45rem 0 0.2rem; border-radius: 8px; border: 1px solid var(--border-subtle); background: var(--bg-code); overflow: hidden; }
+.rb-out summary { display: flex; align-items: center; gap: 0.35rem; flex-wrap: wrap; padding: 0.4rem 0.65rem; cursor: pointer; font: 0.7rem var(--font-mono); color: var(--text-muted); list-style: none; }
+.rb-out summary::-webkit-details-marker { display: none; }
+.rb-out summary::before { content: '▸'; color: var(--accent-green); transition: transform 0.15s; }
+.rb-out[open] summary::before { transform: rotate(90deg); }
+.rb-out-k { font-weight: 700; color: var(--accent-green); letter-spacing: 0.06em; text-transform: uppercase; }
+.rb-out.is-failed .rb-out-k, .rb-out.is-failed summary::before { color: var(--accent-red); }
+.rb-out-read { margin-left: auto; font: 700 0.68rem var(--font-sans); padding: 0.2rem 0.6rem; border-radius: 99px; cursor: pointer; border: 0; color: var(--bg-base); background: linear-gradient(90deg, var(--accent-green), var(--accent-cyan)); }
+.rb-out pre { margin: 0; padding: 0.55rem 0.75rem 0.7rem; max-height: 260px; overflow: auto; font: 0.72rem/1.45 var(--font-mono); color: var(--text-primary); white-space: pre; border-top: 1px solid var(--border-subtle); }
+@media (max-width: 640px) { .rb-auto { grid-template-columns: auto minmax(0, 1fr); } .rb-auto-go, .rb-auto-stop { grid-column: 1 / -1; } }
+@media (prefers-reduced-motion: reduce) { .rb-auto.is-running .rb-auto-ico { animation: none; } }
+.rb-cmd .rb-run.is-hole { background: var(--bg-elevated) !important; color: var(--accent-amber) !important; border: 1px dashed var(--accent-amber) !important; font-weight: 600; }
+.rb-cmd .rb-run.is-again { background: transparent !important; color: var(--accent-green) !important; border: 1px solid color-mix(in srgb, var(--accent-green) 50%, transparent) !important; }
+
+/* ── Live sheets: ▶ Run on a command, output cell under it ── */
+.con-run { display: none; }
+body.con-live .con-run {
+  display: inline-flex; align-items: center; position: absolute; right: 62px; bottom: 6px; z-index: 3;
+  padding: 0.12rem 0.55rem; border-radius: 99px; cursor: pointer; font: 700 0.66rem var(--font-sans);
+  color: var(--accent-green); background: var(--bg-elevated); border: 1px solid color-mix(in srgb, var(--accent-green) 60%, transparent);
+  opacity: 0; transform: translateY(2px); transition: opacity 0.12s, transform 0.12s;
+}
+body.con-live .cmd-code-box:hover > .con-run, body.con-live .cmd-code-box:focus-visible > .con-run,
+body.con-live .subcmd-row:hover > .con-run, body.con-live .subcmd-row:focus-visible > .con-run { opacity: 1; transform: none; }
+body.con-live .con-run:hover { background: var(--accent-green); color: var(--bg-base); }
+@media (hover: none) { body.con-live .con-run { opacity: 1; transform: none; } }
+.cmd-code-box.is-live-running { box-shadow: 0 0 0 1px var(--accent-cyan), 0 0 22px -8px var(--accent-cyan); }
+.cmd-out { --o: var(--accent-green); margin: 0.4rem 0 0.6rem; border-radius: 10px; overflow: hidden; background: var(--bg-code);
+  border: 1px solid color-mix(in srgb, var(--o) 35%, var(--border-subtle)); border-left: 3px solid var(--o); animation: ck-in 0.25s ease-out both; }
+.cmd-out.has-flag { --o: var(--accent-amber); }
+.cmd-out.is-failed { --o: var(--accent-red); }
+.cmd-out.is-running { --o: var(--accent-cyan); }
+.cmd-out-head { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; padding: 0.4rem 0.55rem 0.4rem 0.7rem; font: 0.68rem var(--font-mono); color: var(--text-muted); border-bottom: 1px solid var(--border-subtle); }
+.cmd-out-k { font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--o); }
+.cmd-out-read { font: 700 0.66rem var(--font-sans); padding: 0.15rem 0.55rem; border-radius: 99px; cursor: pointer; border: 0; color: var(--bg-base); background: linear-gradient(90deg, var(--accent-green), var(--accent-cyan)); }
+.cmd-out-acts { margin-left: auto; display: flex; gap: 0.25rem; }
+.cmd-out-acts button, .cmd-out-head > button { font: 600 0.66rem var(--font-sans); padding: 0.15rem 0.45rem; border-radius: 5px; cursor: pointer; color: var(--text-secondary); background: var(--bg-elevated); border: 1px solid var(--border-subtle); }
+.cmd-out-head > button[data-out="close"] { margin-left: auto; }
+.cmd-out-acts button:hover, .cmd-out-head > button:hover { color: var(--text-primary); border-color: var(--o); }
+.cmd-out-flag { padding: 0.35rem 0.7rem; font: 0.72rem var(--font-mono); color: var(--accent-amber); background: color-mix(in srgb, var(--accent-amber) 8%, transparent); border-bottom: 1px solid var(--border-subtle); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cmd-out pre { margin: 0; padding: 0.55rem 0.75rem 0.7rem; max-height: 300px; overflow: auto; font: 0.72rem/1.45 var(--font-mono); color: var(--text-primary); white-space: pre; }
+.cmd-out-empty { color: var(--text-muted); font-style: italic; }
+.cmd-out-bar { height: 3px; background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent) 0 0 / 40% 100% no-repeat; animation: cmd-out-scan 1s linear infinite; }
+@keyframes cmd-out-scan { from { background-position: -40% 0; } to { background-position: 140% 0; } }
+@media print { .con-run { display: none !important; } }
+@media (prefers-reduced-motion: reduce) { .cmd-out, .cmd-out-bar { animation: none; } }
+
+/* ── One bookmark icon everywhere: the My kit star ──
+   158 sheets drew an SVG bookmark, 30 drew a ☆/★ text glyph (font-dependent).
+   Both mark saved commands with .bookmark-btn.bookmarked, so the icon is drawn
+   here once, from the same star path as the ★ My kit button: outline = not
+   saved, filled amber = in My kit. The sheet's own glyph or SVG is hidden. */
+:root {
+  --bm-star-o: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linejoin='round'%3E%3Cpath d='M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z'/%3E%3C/svg%3E");
+  --bm-star-f: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23000' stroke='%23000' stroke-width='2' stroke-linejoin='round'%3E%3Cpath d='M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z'/%3E%3C/svg%3E");
+}
+.bookmark-btn {
+  display: inline-grid !important; place-items: center; flex: none;
+  width: 28px; height: 28px; padding: 0 !important; border-radius: 7px; cursor: pointer;
+  font-size: 0 !important; line-height: 0; color: var(--text-muted);
+  background: transparent; border: 1px solid transparent; transition: color 0.12s, background 0.12s, transform 0.12s;
+}
+.bookmark-btn > * { display: none !important; }
+.bookmark-btn::before {
+  content: ''; width: 16px; height: 16px; background: currentColor;
+  -webkit-mask: var(--bm-star-o) center / contain no-repeat; mask: var(--bm-star-o) center / contain no-repeat;
+}
+.bookmark-btn.bookmarked::before { -webkit-mask-image: var(--bm-star-f); mask-image: var(--bm-star-f); }
+.bookmark-btn:hover, .bookmark-btn:focus-visible { color: var(--accent-amber); background: var(--bg-elevated); border-color: var(--border-subtle); }
+.bookmark-btn.bookmarked { color: var(--accent-amber); }
+.bookmark-btn:active { transform: scale(0.9); }
+@media print { .bookmark-btn { display: none !important; } }
