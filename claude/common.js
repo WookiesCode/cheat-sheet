@@ -378,6 +378,12 @@
     const originalWriteText = navigator.clipboard.writeText.bind(navigator.clipboard);
     copyVerbatim = originalWriteText;
     navigator.clipboard.writeText = function(text) {
+      const fleet = fleetWrap(text);
+      if (fleet) {
+        setTimeout(() => showGlobalToast(fleet.note), 160);
+        recordTrail(text);
+        return originalWriteText(fleet.text);
+      }
       const { text: newText, substituted, hasSecret } = substituteVariables(text);
       if (hasSecret) {
         showGlobalToast('Substituted target variables, including the password. Clear your clipboard after use.');
@@ -401,7 +407,7 @@
   // command to a different BMC.
   // -------------------------------------------------------------
   const NODES_KEY = 'dc_nodes';
-  const NODE_DATA_KEYS = ['dc_target_vars', 'dc_case_trail', 'dc_case_trail_meta', 'dc_runbook_runs', 'dc_slot_values'];
+  const NODE_DATA_KEYS = ['dc_target_vars', 'dc_case_trail', 'dc_case_trail_meta', 'dc_runbook_runs', 'dc_slot_values', 'dc_case_file'];
 
   function readNodes() {
     try {
@@ -475,7 +481,7 @@
     if (creating) {
       // A new node starts clean, keeping only the BMC login name.
       const vars = Object.assign({}, DEFAULT_TARGET_VARS, { user: targetState.vars.user || DEFAULT_TARGET_VARS.user });
-      reg.nodes[name] = { t: Date.now(), data: { dc_target_vars: JSON.stringify(vars), dc_case_trail: null, dc_case_trail_meta: JSON.stringify({ caseId: name, paused: false, introduced: true }), dc_runbook_runs: null, dc_slot_values: null } };
+      reg.nodes[name] = { t: Date.now(), data: { dc_target_vars: JSON.stringify(vars), dc_case_trail: null, dc_case_trail_meta: JSON.stringify({ caseId: name, paused: false, introduced: true }), dc_runbook_runs: null, dc_slot_values: null, dc_case_file: null } };
     }
     nodeRestore(reg.nodes[name].data);
     reg.active = name;
@@ -879,6 +885,7 @@
         <div class="target-vars-header">
           <div class="target-vars-title">
             ${nodeChipHtml()}
+            ${fleetChipHtml()}
             <span class="target-badge">🎯 RACK TARGETS</span>
             ${targetState.collapsed ? targetSummaryHtml() : '<span class="target-subtitle">Live variables auto-substitute into all copyable commands</span>'}
           </div>
@@ -1056,6 +1063,8 @@
       const open = el.closest('[data-dec-open]');
       const sample = el.closest('[data-dec-sample]');
       if (el.closest('[data-dec-analyze]')) { closeGlobalSearch(); openAnalyzer(); return; }
+      const pin = el.closest('[data-dec-pin]');
+      if (pin) { pinDecoded(pin.dataset.decPin); return; }
       const runbook = el.closest('[data-dec-runbook]');
       if (runbook) {
         closeGlobalSearch();
@@ -1318,6 +1327,7 @@
           <p class="decoder-next"><b>Then:</b> ${escapeHtml(card.next)}</p>
           <span class="decoder-foot-actions">
             ${runbookForDecoded(card) ? `<button type="button" class="decoder-runbook" data-dec-runbook="${runbookForDecoded(card)}">Start guided runbook</button>` : ''}
+            <button type="button" class="decoder-pin pin-btn" data-dec-pin="${escapeHtml(card.ent.raw)}" title="Add this diagnosis to the node's case file">📌 Pin to case</button>
             <button type="button" class="decoder-open" data-dec-open="${escapeHtml(card.sheet)}">Open ${escapeHtml(sheetName)} sheet →</button>
           </span>
         </div>
@@ -1403,6 +1413,7 @@
 
   function detectOutput(text) {
     const t = String(text || '');
+    if (tlLooksLikeLog(t)) return 'timeline';
     if (/\bGPU0\b/.test(t) && /\b(NV\d+|PIX|PXB|PHB|NODE|SYS)\b/.test(t) && /(Legend|CPU Affinity|^\s*GPU1\b)/m.test(t)) return 'topo';
     if (/Rx Power Current|Effective Physical (Errors|BER)|Raw Physical BER|Physical state\s*:/i.test(t)) return 'mlxlink';
     if (/critical_warning\s*:/i.test(t) && /available_spare|media_errors|percentage_used/i.test(t)) return 'smartlog';
@@ -1610,7 +1621,7 @@
     if (!main) return;
     const panel = document.createElement('section');
     panel.className = 'container ber-panel';
-    panel.innerHTML = `<details open><summary><h2>BER: healthy vs unhealthy</h2><span>How to read the Physical Counters section of <code>mlxlink -m -c -e</code></span></summary>${berReferenceHtml()}</details>`;
+    panel.innerHTML = `<details${refOpen('ber') ? ' open' : ''}><summary><h2>BER: healthy vs unhealthy</h2><span>How to read the Physical Counters section of <code>mlxlink -m -c -e</code></span></summary>${berReferenceHtml()}</details>`;
     main.insertAdjacentElement('beforebegin', panel);
   }
 
@@ -1855,18 +1866,23 @@
         <div class="hx-scale">
           <div class="ber-track hx-track">${bands}${m.ex.map(e => `<span class="ber-marker z-${e.cls}" style="left:${pos(e.v)}"></span>`).join('')}</div>
           <div class="hx-labels">${(() => {
-            // Labels closer than ~22% of the bar drop to a second row; edge labels align inward.
+            // Width-aware packing: each label takes the first row where its estimated
+            // extent (≈2.3% of the bar per character, edge labels aligned inward) clears
+            // every label already on that row.
             const pct = v => (Math.min(m.max, Math.max(m.min, v)) - m.min) / (m.max - m.min) * 100;
             const sorted = [...m.ex].sort((a, b) => a.v - b.v);
-            let lastRow0 = -100;
+            const rows = [];
             return sorted.map(e => {
               const at = pct(e.v);
-              const row = at - lastRow0 < 22 ? 1 : 0;
-              if (!row) lastRow0 = at;
               const unit = m.log || /%|°|dB/.test(e.label) || !m.unit ? '' : ` ${m.unit}`;
-              // Centred labels near the ends spill past the card: align them inward instead.
-              const align = at < 22 ? 'start' : at > 78 ? 'end' : 'mid';
-              return `<span class="z-${e.cls} row-${row} al-${align}" style="left:${at.toFixed(2)}%"><b>${escapeHtml(z(e.cls))}</b>${escapeHtml(e.label)}${escapeHtml(unit)}</span>`;
+              const w = Math.min(60, Math.max(z(e.cls).length * 1.9, (e.label + unit).length * 2.3) + 2);
+              const align = at - w / 2 < 0 ? 'start' : at + w / 2 > 100 ? 'end' : 'mid';
+              const l = align === 'start' ? at : align === 'end' ? at - w : at - w / 2;
+              const r = l + w;
+              let row = rows.findIndex(spans => spans.every(([sl, sr]) => r <= sl || l >= sr));
+              if (row < 0) { rows.push([]); row = rows.length - 1; }
+              rows[row].push([l, r]);
+              return `<span class="z-${e.cls} row-${Math.min(row, 2)} al-${align}" style="left:${at.toFixed(2)}%"><b>${escapeHtml(z(e.cls))}</b>${escapeHtml(e.label)}${escapeHtml(unit)}</span>`;
             }).join('');
           })()}</div>
           <div class="hx-zones">${m.zones.map(zn => `<span class="z-${zn.cls}"><i></i>${escapeHtml(zn.label)}</span>`).join('')}</div>
@@ -1931,7 +1947,7 @@
     const optics = hit[1].includes('rx');
     const panel = document.createElement('section');
     panel.className = 'container hx-panel';
-    panel.innerHTML = `<details open><summary><h2>What healthy looks like</h2><span>Ranges for the numbers this sheet's commands print · <button type="button" class="hx-all" data-atlas-open>Open the full health atlas</button></span></summary>${healthPanelHtml(hit[1], optics, file)}</details>`;
+    panel.innerHTML = `<details${refOpen('hx') ? ' open' : ''}><summary><h2>What healthy looks like</h2><span>Ranges for the numbers this sheet's commands print · <button type="button" class="hx-all" data-atlas-open>Open the full health atlas</button></span></summary>${healthPanelHtml(hit[1], optics, file)}</details>`;
     // Above the BER panel when both apply, otherwise straight above the sheet.
     const ber = document.querySelector('.ber-panel');
     (ber || main).insertAdjacentElement('beforebegin', panel);
@@ -2101,11 +2117,213 @@
     return `<div class="an-chart topo-chart"><div class="an-chart-head"><b>Link matrix</b><span>hover a cell for the pair</span></div>${table}</div>${pairing}`;
   }
 
+  // -------------------------------------------------------------
+  // INCIDENT TIMELINE
+  // The decoder reads one line; the analyzer reads one command's output. A real
+  // incident is neither: it is 400 lines of dmesg plus a page of SEL, and the
+  // answer is in the ORDER. A PSU dropping AC four seconds before an Xid 79 is
+  // a power problem, not a GPU RMA (AGENTS.md §5.3, gpu-nvlink §4). Paste the
+  // whole dump (dmesg -T, dmesg, journalctl -k, ipmitool sel elist, any mix):
+  // every line runs through the Symptom Decoder, repeats collapse, events land
+  // on per-layer swim lanes, and the earliest event of a cross-layer cascade is
+  // called out as the place to start.
+  // -------------------------------------------------------------
+  const TL_LANES = [
+    { id: 'power', name: 'Power & cooling', rules: ['psu', 'thermal', 'tl-leak'] },
+    { id: 'cpu', name: 'CPU & memory', rules: ['edac-ue', 'edac-ce', 'cpu-ierr'] },
+    { id: 'pcie', name: 'PCIe', rules: ['aer', 'pcie-down', 'tl-serr'] },
+    { id: 'gpu', name: 'GPU & NVLink', rules: ['xid', 'fabric'] },
+    { id: 'net', name: 'Network', rules: ['ib', 'netdev'] },
+    { id: 'storage', name: 'Storage', rules: ['nvme', 'disk-io'] },
+    { id: 'os', name: 'OS & lifecycle', rules: ['oom', 'tl-panic', 'tl-boot'] }
+  ];
+  const TL_LANE_OF = {};
+  TL_LANES.forEach(l => l.rules.forEach(r => { TL_LANE_OF[r] = l; }));
+
+  // SEL and boot lines the single-line decoder has no card for.
+  const TL_EXTRA = [
+    { id: 'tl-leak', test: /leak detected|coolant (leak|flow)|\bleak\b[^\n]*assert/i, card: { sev: 'crit', layer: 'Liquid cooling', title: 'Leak / coolant alarm', meaning: 'A liquid-cooling sensor reported a leak or lost coolant flow.', next: 'STOP and alert facilities. Never power on a node with an active leak alarm.' } },
+    { id: 'tl-serr', test: /PCI (SERR|PERR)|Bus (Uncorrectable|Fatal) error|Critical Interrupt[^\n]*(PCI|Bus)/i, card: { sev: 'crit', layer: 'PCIe / Layer-1', title: 'BMC: PCIe bus error (SERR / fatal)', meaning: 'The platform logged a fatal PCIe error at the root complex.', next: 'Match the time against dmesg AER lines to find the device, then reseat riser and card.' } },
+    { id: 'tl-panic', test: /Kernel panic|BUG: unable to handle|\bOops:|soft lockup|hard LOCKUP|OS Stop|Run-time Critical Stop/i, card: { sev: 'crit', layer: 'Kernel', title: 'Kernel panic / lockup', meaning: 'The OS crashed or a CPU stopped responding.', next: 'Read the lines just before it: the panic is usually a consequence. After reboot use journalctl -k -b -1.' } },
+    { id: 'tl-boot', test: /Linux version \d|System Boot Initiated|OS Boot\b|System Restart|Initiated by (power up|warm reset|hard reset)|Power Button pressed|Power off \/ down/i, card: { sev: 'info', layer: 'Lifecycle', title: 'Boot / power-state change', meaning: 'The node booted, reset or changed power state.', next: 'Kernel messages from before this point are gone from dmesg; use journalctl -k -b -1.' } }
+  ];
+
+  const TL_MON = { jan: 0, feb: 1, mar: 2, apr: 3, may: 4, jun: 5, jul: 6, aug: 7, sep: 8, oct: 9, nov: 10, dec: 11 };
+  function tlParseLine(line) {
+    let m = line.match(/^\s*[0-9a-f]+\s*\|\s*(\d{2})\/(\d{2})\/(\d{4})\s*\|\s*(\d{2}):(\d{2}):(\d{2})\s*\|\s*(.*)$/i);
+    if (m) return { src: 'SEL', abs: new Date(+m[3], +m[1] - 1, +m[2], +m[4], +m[5], +m[6]).getTime(), msg: m[7].split('|').map(s => s.trim()).filter(Boolean).join(' | ') };
+    m = line.match(/^\s*\[\s*(?:[A-Za-z]{3}\s+)?([A-Za-z]{3})\s+(\d{1,2})\s+(\d{2}):(\d{2}):(\d{2})\s+(\d{4})\]\s*(.*)$/);
+    if (m && TL_MON[m[1].toLowerCase()] != null) return { src: 'dmesg', abs: new Date(+m[6], TL_MON[m[1].toLowerCase()], +m[2], +m[3], +m[4], +m[5]).getTime(), msg: m[7] };
+    m = line.match(/^\s*(\d{4}-\d{2}-\d{2}[T ]\d{2}:\d{2}:\d{2})([.,]\d+)?(Z|[+-]\d{2}:?\d{2})?\s+(.*)$/);
+    if (m) {
+      const iso = m[1].replace(' ', 'T') + (m[2] ? m[2].replace(',', '.').slice(0, 4) : '') + (m[3] ? (m[3].length === 5 ? m[3].slice(0, 3) + ':' + m[3].slice(3) : m[3]) : '');
+      const t = Date.parse(iso);
+      return { src: 'journal', abs: Number.isNaN(t) ? null : t, msg: m[4].replace(/^\S+\s+kernel:\s*/, '') };
+    }
+    m = line.match(/^\s*([A-Za-z]{3})\s+(\d{1,2})\s+(\d{2}):(\d{2}):(\d{2})\s+\S+\s+(.*)$/);
+    if (m && TL_MON[m[1].toLowerCase()] != null) return { src: 'journal', abs: new Date(new Date().getFullYear(), TL_MON[m[1].toLowerCase()], +m[2], +m[3], +m[4], +m[5]).getTime(), msg: m[6].replace(/^kernel:\s*/, '') };
+    m = line.match(/^\s*\[\s*(\d+\.\d+)\]\s*(.*)$/);
+    if (m) return { src: 'dmesg', rel: parseFloat(m[1]), msg: m[2] };
+    return null;
+  }
+
+  function tlClassify(msg) {
+    const extra = TL_EXTRA.find(x => x.test.test(msg));
+    if (extra) return Object.assign({}, extra.card, { ruleId: extra.id, ent: extractEntities(msg) });
+    const card = decodeSymptom(msg);
+    return card && TL_LANE_OF[card.ruleId] ? card : null;
+  }
+
+  function tlLooksLikeLog(text) {
+    const lines = String(text).split(/\r?\n/).filter(l => l.trim());
+    if (lines.length < 2) return false;
+    let stamped = 0, hit = 0;
+    for (const l of lines) {
+      const p = tlParseLine(l);
+      if (!p) continue;
+      stamped++;
+      if (!hit && tlClassify(p.msg)) hit = 1;
+      if (stamped >= 2 && hit) return true;
+    }
+    return false;
+  }
+
+  const tlPad = n => String(n).padStart(2, '0');
+  const tlClock = t => { const d = new Date(t); return `${tlPad(d.getHours())}:${tlPad(d.getMinutes())}:${tlPad(d.getSeconds())}`; };
+  const tlDur = s => { s = Math.abs(Math.round(s)); return s < 60 ? `${s} s` : s < 3600 ? `${Math.floor(s / 60)} min ${s % 60 ? `${s % 60} s` : ''}`.trim() : `${Math.floor(s / 3600)} h ${Math.round(s % 3600 / 60)} min`; };
+
+  function analyzeTimeline(text) {
+    const lines = String(text).split(/\r?\n/).filter(l => l.trim());
+    const parsed = lines.map(l => tlParseLine(l)).filter(Boolean);
+    const mode = parsed.some(p => p.abs != null) ? 'abs' : parsed.some(p => p.rel != null) ? 'rel' : 'seq';
+    const events = [];
+    parsed.forEach((p, i) => {
+      const card = tlClassify(p.msg);
+      if (!card) return;
+      // A cleared SEL assertion is the end of an alarm, not a new one.
+      const cleared = p.src === 'SEL' && /\|\s*Deasserted\s*$/i.test(p.msg);
+      const t = mode === 'abs' ? p.abs : mode === 'rel' ? p.rel * 1000 : i;
+      if (t == null) return;
+      events.push({ t, src: p.src, msg: p.msg, card, lane: TL_LANE_OF[card.ruleId], sev: cleared ? 'info' : card.sev, title: (cleared ? 'Cleared: ' : '') + card.title, i });
+    });
+    if (!events.length) return null;
+    events.sort((a, b) => a.t - b.t || a.i - b.i);
+    const fmt = t => (mode === 'abs' ? tlClock(t) : mode === 'rel' ? `+${(t / 1000).toFixed(1)} s` : `#${t + 1}`);
+
+    // Collapse repeats: same decoded issue on the same device is one row.
+    const groups = new Map();
+    events.forEach(e => {
+      const ent = e.card.ent || {};
+      const who = ent.bdf || ent.hca || ent.nvme || ent.disk || ent.iface || ent.dimm || '';
+      const key = `${e.card.ruleId}|${e.title}|${who}`;
+      if (!groups.has(key)) groups.set(key, { key, title: e.title, who, lane: e.lane, sev: e.sev, card: e.card, first: e.t, last: e.t, count: 0, srcs: new Set(), raw: e.msg });
+      const g = groups.get(key);
+      g.count++; g.last = e.t; g.srcs.add(e.src);
+      if (AN_SEV_ORDER[e.sev] > AN_SEV_ORDER[g.sev]) g.sev = e.sev;
+    });
+    const glist = [...groups.values()];
+
+    // Cascade: fault events no more than 2 minutes apart, chained. The cluster
+    // that crosses the most layers is the incident; its earliest event is where to start.
+    const faults = events.filter(e => e.sev === 'crit' || e.sev === 'warn');
+    const gap = mode === 'seq' ? 25 : 120000;
+    const clusters = [];
+    faults.forEach(e => {
+      const c = clusters[clusters.length - 1];
+      if (c && e.t - c.end <= gap) { c.events.push(e); c.end = e.t; } else clusters.push({ start: e.t, end: e.t, events: [e] });
+    });
+    clusters.forEach(c => {
+      c.lanes = [];
+      c.events.forEach(e => { if (!c.lanes.includes(e.lane)) c.lanes.push(e.lane); });
+      c.crit = c.events.filter(e => e.sev === 'crit').length;
+    });
+    const cascade = clusters.filter(c => c.lanes.length > 1).sort((a, b) => b.lanes.length - a.lanes.length || b.crit - a.crit)[0] || null;
+
+    const f = [];
+    const add = (sev, title, detail, rule) => f.push({ sev, title, detail, rule });
+    if (cascade) {
+      const first = cascade.events[0];
+      const lastLane = cascade.lanes[cascade.lanes.length - 1];
+      add(cascade.crit ? 'crit' : 'warn', `Cascade across ${cascade.lanes.length} layers in ${mode === 'seq' ? `${cascade.events.length} events` : tlDur((cascade.end - cascade.start) / 1000)}: ${cascade.lanes.map(l => l.name).join(' → ')}`,
+        `Earliest: ${first.title} (${first.src}, ${fmt(first.t)}). What follows in ${lastLane.name} is likely a consequence: rule out the ${first.lane.name.toLowerCase()} layer before replacing parts further down the chain.`,
+        'AGENTS.md §5.3 correlate across layers · gpu-nvlink §4: SEL power/thermal at the Xid time');
+    }
+    glist.filter(g => g.sev !== 'info').sort((a, b) => AN_SEV_ORDER[b.sev] - AN_SEV_ORDER[a.sev] || a.first - b.first).slice(0, 10).forEach(g => {
+      add(g.sev, `${g.title}${g.who ? ` · ${g.who}` : ''}`,
+        `${g.count > 1 ? `${g.count}× from ${fmt(g.first)} to ${fmt(g.last)}.` : `At ${fmt(g.first)}.`} ${g.card.meaning} Next: ${g.card.next}`,
+        `Symptom Decoder · ${g.card.layer}`);
+    });
+    glist.filter(g => g.count >= 20).forEach(g => {
+      const mins = mode === 'abs' || mode === 'rel' ? Math.max(1, (g.last - g.first) / 60000) : 0;
+      add('warn', `Log storm: ${g.title} repeated ${g.count}×`, `${mins ? `About ${Math.round(g.count / mins)} per minute. ` : ''}The kernel rate-limits and the BMC may throttle the SEL, so the real count can be higher. A storm on one device is a trend, not noise.`, 'bmc-hardware §3 · CE trending');
+    });
+    const firstFault = faults[0];
+    const boots = events.filter(e => e.card.ruleId === 'tl-boot');
+    if (firstFault && boots.some(b => b.t > firstFault.t)) add('info', 'The node rebooted after the fault', 'dmesg only holds the current boot. Pull the previous boot’s kernel log before it rotates: journalctl -k -b -1.', 'gpu-nvlink §4 · evidence before reset');
+    const srcs = new Set(events.map(e => e.src));
+    if (srcs.has('SEL') && (srcs.has('dmesg') || srcs.has('journal'))) add('info', 'Two clocks: BMC and OS', 'The SEL uses the BMC clock, often UTC; dmesg -T uses host local time and drifts after suspend. Compare ipmitool sel time get with date before trusting a gap of a few seconds.', 'bmc-hardware §2');
+    if (mode === 'rel') add('info', 'Times are seconds since boot', 'Plain dmesg cannot line up with the SEL. Re-run as dmesg -T (or journalctl -k -o short-iso) to correlate with BMC events.', 'dmesg sheet');
+
+    const lanesHit = TL_LANES.filter(l => events.some(e => e.lane === l));
+    const span = events[events.length - 1].t - events[0].t;
+    const anchor = (cascade && cascade.events.find(e => e.sev === 'crit' && e.lane.id !== 'power')) || events.find(e => e.sev === 'crit') || events[0];
+    const sheet = anchor.card.sheet || null;
+    return {
+      type: 'timeline', title: `Incident timeline · ${[...srcs].join(' + ')}`, runbook: runbookForDecoded(anchor.card), sheet,
+      facts: [['Events', `${events.length} of ${lines.length} lines`], ['Distinct issues', glist.length], ['Layers hit', lanesHit.length],
+        ['Window', mode === 'abs' ? `${new Date(events[0].t).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} ${fmt(events[0].t)} → ${fmt(events[events.length - 1].t)} (${tlDur(span / 1000)})` : mode === 'rel' ? `${fmt(events[0].t)} → ${fmt(events[events.length - 1].t)}` : `${events.length} lines, no timestamps`],
+        ['First fault', firstFault ? `${fmt(firstFault.t)} ${firstFault.title}` : 'none']],
+      findings: f.sort((a, b) => AN_SEV_ORDER[b.sev] - AN_SEV_ORDER[a.sev]),
+      timeline: { mode, events, groups: glist.sort((a, b) => a.first - b.first), lanes: lanesHit, t0: events[0].t, span, cascade, fmt }
+    };
+  }
+
+  function renderTimeline(r) {
+    const tl = r.timeline;
+    const pos = t => (tl.span ? ((t - tl.t0) / tl.span) * 100 : 50);
+    const band = tl.cascade ? `<span class="tl-band" style="left:${pos(tl.cascade.start).toFixed(2)}%;width:${Math.max(0.8, pos(tl.cascade.end) - pos(tl.cascade.start)).toFixed(2)}%"></span>` : '';
+    const lanes = tl.lanes.map(l => {
+      const seen = new Set();
+      const dots = tl.events.filter(e => e.lane === l).map(e => {
+        const x = pos(e.t);
+        const k = `${Math.round(x * 2)}|${e.sev}`;
+        if (seen.has(k)) return '';
+        seen.add(k);
+        const lead = tl.cascade && tl.cascade.events[0] === e;
+        return `<span class="tl-dot sev-${e.sev}${lead ? ' is-lead' : ''}" style="left:${x.toFixed(2)}%" title="${escapeHtml(`${tl.fmt(e.t)} · ${e.src} · ${e.title}`)}"></span>`;
+      }).join('');
+      return `<div class="tl-lane"><span class="tl-lane-name">${escapeHtml(l.name)}</span><span class="tl-track">${band}${dots}</span></div>`;
+    }).join('');
+    const ticks = tl.mode === 'seq' ? '' : [0, 0.5, 1].map(p => `<span style="left:${p * 100}%">${tl.fmt(tl.t0 + tl.span * p)}</span>`).join('');
+    const rows = tl.groups.map(g => `<tr class="sev-${g.sev}">
+        <td class="tl-t">${escapeHtml(tl.fmt(g.first))}${g.count > 1 && g.last !== g.first ? `<small>→ ${escapeHtml(tl.fmt(g.last))}</small>` : ''}</td>
+        <td><span class="tl-src">${[...g.srcs].join(' ')}</span></td>
+        <td class="tl-ev"><b>${escapeHtml(g.title)}</b>${g.who ? `<code>${escapeHtml(g.who)}</code>` : ''}<small>${escapeHtml(g.lane.name)}</small></td>
+        <td class="tl-n">${g.count > 1 ? `×${g.count}` : ''}</td>
+        <td><button type="button" class="tl-decode" data-an="decode" data-raw="${escapeHtml(g.raw)}" title="Open the full diagnosis and next commands">Decode →</button></td>
+      </tr>`).join('');
+    return `<div class="an-chart tl-chart">
+        <div class="an-chart-head"><b>Swim lanes</b><span>${tl.cascade ? '<i class="tl-key-band"></i>cascade · <i class="tl-key-lead"></i>earliest event · ' : ''}hover a dot</span></div>
+        <div class="tl-lanes">${lanes}</div>
+        ${ticks ? `<div class="tl-axis">${ticks}</div>` : ''}
+      </div>
+      <details class="tl-table-wrap"${tl.groups.length <= 8 ? ' open' : ''}><summary>Event log · ${tl.groups.length} distinct, in order</summary>
+        <div class="tl-table-scroll"><table class="tl-table"><tbody>${rows}</tbody></table></div>
+      </details>`;
+  }
+
+  function timelineMarkdown(r) {
+    const tl = r.timeline;
+    return ['', '', '#### Timeline', '| Time | Source | Layer | Severity | Event | Count |', '|---|---|---|---|---|---|',
+      ...tl.groups.map(g => `| ${tl.fmt(g.first)}${g.count > 1 && g.last !== g.first ? `–${tl.fmt(g.last)}` : ''} | ${[...g.srcs].join('+')} | ${g.lane.name} | ${g.sev} | ${g.title}${g.who ? ` (${g.who})` : ''} | ${g.count} |`)].join('\n');
+  }
+
   function analyzeOutput(text) {
     const type = detectOutput(text);
     if (type === 'topo') return analyzeTopo(text);
     if (type === 'mlxlink') return analyzeMlxlink(text);
     if (type === 'smartlog') return analyzeSmartlog(text);
+    if (type === 'timeline') return analyzeTimeline(text);
     return null;
   }
 
@@ -2155,13 +2373,17 @@
         ${r.charts ? `<div class="an-charts">${laneChart('Rx power', r.charts.rx, -10, 'Rx alarm -10')}${laneChart('Tx power', r.charts.tx, -8, 'Tx alarm -8')}</div>` : ''}
         ${r.gauges ? `<div class="an-charts">${gauge('Available spare', r.gauges.spare, 100, r.gauges.spareTh, true)}${gauge('Endurance used', r.gauges.used, 100, 90, false)}</div>` : ''}
         ${r.matrix ? renderTopo(r) : ''}
+        ${r.timeline ? renderTimeline(r) : ''}
         <ol class="an-findings">
           ${r.findings.map(x => `<li class="sev-${x.sev}"><span class="an-sev">${{ crit: 'Critical', warn: 'Warning', info: 'Note', ok: 'OK' }[x.sev]}</span><div><b>${escapeHtml(x.title)}</b><p>${escapeHtml(x.detail)}</p><small>Rule: ${escapeHtml(x.rule)}</small></div></li>`).join('')}
         </ol>
         <div class="an-actions">
           <button type="button" class="an-primary" data-an="copy">Copy findings</button>
+          <button type="button" data-an="pin" class="pin-btn" title="Add this report to the node's case file">📌 Pin to case</button>
+          <button type="button" data-an="phone" title="Findings as QR codes for your phone">📱 To phone</button>
           ${rb ? `<button type="button" data-an="runbook" data-rb="${rb.id}">▶ ${escapeHtml(rb.title)} runbook</button>` : ''}
           ${r.sheet ? `<button type="button" data-an="sheet" data-sheet="${escapeHtml(r.sheet)}">Open ${escapeHtml(r.sheet.replace(/\.html$/, ''))} sheet →</button>` : ''}
+          <button type="button" data-an="diff" title="Compare this output with the same command from a healthy node">⚖ Compare with a healthy node</button>
           <button type="button" data-an="again">Analyze another</button>
         </div>
       </div>`;
@@ -2170,7 +2392,7 @@
   function analysisMarkdown(r) {
     return [`### Output analysis: ${r.title}`, '', ...r.facts.map(([k, v]) => `- **${k}:** ${v}`), '', '#### Findings',
       ...r.findings.map(x => `- **${x.sev.toUpperCase()}** ${x.title} — ${x.detail} _(rule: ${x.rule})_`),
-      ...(r.pairing && r.pairing.some(p => p.nic) ? ['', '#### GPU → nearest NIC', '| GPU | NIC | Device | Link | NUMA |', '|---|---|---|---|---|', ...r.pairing.map(p => `| ${p.gpu} | ${p.nic || '—'} | ${p.dev || '—'} | ${p.link}${p.bad ? ' ⚠' : ''} | ${p.numa || '—'} |`)] : [])].join('\n');
+      ...(r.pairing && r.pairing.some(p => p.nic) ? ['', '#### GPU → nearest NIC', '| GPU | NIC | Device | Link | NUMA |', '|---|---|---|---|---|', ...r.pairing.map(p => `| ${p.gpu} | ${p.nic || '—'} | ${p.dev || '—'} | ${p.link}${p.bad ? ' ⚠' : ''} | ${p.numa || '—'} |`)] : [])].join('\n') + (r.timeline ? timelineMarkdown(r) : '');
   }
 
   let anBackdrop = null;
@@ -2182,12 +2404,12 @@
       anBackdrop.innerHTML = `
         <div class="an-dialog" role="dialog" aria-modal="true" aria-labelledby="an-title">
           <header class="an-head">
-            <div><h2 id="an-title">Output analyzer</h2><p>Paste the full output of <code>mlxlink -d &lt;dev&gt; -m -c -e</code>, <code>nvme smart-log</code> or <code>nvidia-smi topo -m</code>. Checked against the team playbooks; nothing leaves this browser.</p></div>
+            <div><h2 id="an-title">Output analyzer</h2><p>Paste a whole <code>dmesg -T</code> / <code>ipmitool sel elist</code> / <code>journalctl -k</code> dump (mix them) for a cross-layer incident timeline, or the full output of <code>mlxlink -d &lt;dev&gt; -m -c -e</code>, <code>nvme smart-log</code> or <code>nvidia-smi topo -m</code>. Checked against the team playbooks; nothing leaves this browser.</p></div>
             <button type="button" class="trail-close" data-an="close" aria-label="Close analyzer">✕</button>
           </header>
           <div class="an-body">
             <textarea class="an-input" spellcheck="false" placeholder="Paste command output here…" aria-label="Command output"></textarea>
-            <div class="an-samples"><span>No output handy? Try a sample:</span><button type="button" data-an-sample="mlxlink">mlxlink -m -c -e</button><button type="button" data-an-sample="smartlog">nvme smart-log</button><button type="button" data-an-sample="topo">nvidia-smi topo -m</button></div>
+            <div class="an-samples"><span>No output handy? Try a sample:</span><button type="button" data-an-sample="timeline">dmesg + SEL timeline</button><button type="button" data-an-sample="mlxlink">mlxlink -m -c -e</button><button type="button" data-an-sample="smartlog">nvme smart-log</button><button type="button" data-an-sample="topo">nvidia-smi topo -m</button></div>
             <div class="an-out" aria-live="polite"></div>
           </div>
         </div>`;
@@ -2195,11 +2417,12 @@
       const input = anBackdrop.querySelector('.an-input');
       const out = anBackdrop.querySelector('.an-out');
       const run = () => {
+        if (frLooksLike(input.value)) { const t = input.value; input.value = ''; closeAnalyzer(); openFleetResults(t); return; }
         const r = analyzeOutput(input.value);
         anBackdrop._result = r;
         anBackdrop.classList.toggle('has-result', !!r);
         out.innerHTML = r ? renderAnalysis(r) : (input.value.trim()
-          ? '<p class="an-hint">Not recognised yet. Supported: <code>mlxlink -m -c -e</code> (and <code>-m</code> / <code>-c</code> alone), <code>nvme smart-log</code> and <code>nvidia-smi topo -m</code>. Single log lines go in Ctrl+K for the Symptom Decoder.</p>'
+          ? '<p class="an-hint">Not recognised yet. Supported: timestamped <code>dmesg -T</code> / SEL / journal dumps (2+ lines, at least one known error), <code>mlxlink -m -c -e</code> (and <code>-m</code> / <code>-c</code> alone), <code>nvme smart-log</code> and <code>nvidia-smi topo -m</code>. Single log lines go in Ctrl+K for the Symptom Decoder.</p>'
           : '<p class="an-hint">Waiting for output…</p>');
       };
       input.addEventListener('input', run);
@@ -2215,6 +2438,10 @@
         if (act === 'runbook') { closeAnalyzer(); openRunbook(b.dataset.rb); }
         if (act === 'sheet') { closeAnalyzer(); goToSheet(b.dataset.sheet); }
         if (act === 'again') { input.value = ''; run(); input.focus(); }
+        if (act === 'decode') { closeAnalyzer(); openGlobalSearch(b.dataset.raw); }
+        if (act === 'diff') { const t = input.value; closeAnalyzer(); openGoldenDiff(t); }
+        if (act === 'pin' && anBackdrop._result) pinAnalysis(anBackdrop._result);
+        if (act === 'phone' && anBackdrop._result) openPhone(analysisMarkdown(anBackdrop._result), 'Findings to your phone', anBackdrop._result.title);
       });
       anBackdrop.addEventListener('keydown', (e) => { if (e.key === 'Escape') { e.stopPropagation(); closeAnalyzer(); } });
       anBackdrop._run = run;
@@ -2240,7 +2467,9 @@
     input.dataset.anPaste = '1';
     input.addEventListener('paste', (e) => {
       const text = e.clipboardData ? e.clipboardData.getData('text') : '';
-      if (!text || !/\n/.test(text.trim()) || !detectOutput(text)) return;
+      if (!text || !/\n/.test(text.trim())) return;
+      if (frLooksLike(text)) { e.preventDefault(); if (before) before(); openFleetResults(text); return; }
+      if (!detectOutput(text)) return;
       e.preventDefault();
       if (before) before();
       openAnalyzer(text);
@@ -2338,7 +2567,7 @@
               ${row(['j'], 'Next command')}${row(['k'], 'Previous command')}${row(['J'], 'Next card')}${row(['K'], 'Previous card')}${row(['g'], 'First command')}${row(['G'], 'Last command')}${row(['Tab'], 'Every command is a tab stop too')}
             </ul></section>
             <section><h3>On the focused command</h3><ul>
-              ${row(['↵'], 'Copy (targets and values filled in)')}${row(['c'], 'Copy')}${row(['y'], 'Copy (yank)')}${row(['b'], 'Bookmark to My kit')}${row(['v'], 'Set its first value chip')}
+              ${row(['↵'], 'Copy (targets and values filled in)')}${row(['c'], 'Copy')}${row(['y'], 'Copy (yank)')}${row(['b'], 'Bookmark to My kit')}${row(['v'], 'Set its first value chip')}${row(['p'], 'Show it as a QR code for your phone')}
             </ul></section>
             <section><h3>Anywhere</h3><ul>
               ${row(['Ctrl', 'K'], 'Command Center: search, sheets, runbooks, actions, quick-set')}${row(['/'], 'Filter this sheet')}${row(['Esc'], 'Clear / close')}${row(['t'], 'Case trail')}${row(['s'], 'My kit')}${row(['n'], 'Node workspaces')}${row(['m'], 'Manuals')}${row(['?'], 'This sheet')}${row(['Ctrl', 'P'], 'Print')}
@@ -2397,6 +2626,7 @@
         if (btn) { e.preventDefault(); btn.click(); showGlobalToast(btn.classList.contains('bookmarked') || btn.classList.contains('active') ? 'Saved to My kit.' : 'Bookmark toggled (My kit).'); box.focus({ preventScroll: true }); }
         return;
       }
+      if (k === 'p' && box) { e.preventDefault(); phoneCommand(box); return; }
       if (k === 'v' && box) { const chip = box.querySelector('.slot[data-slot]'); if (chip) { e.preventDefault(); openSlotEditor(chip); } return; }
       if (k === 't') { e.preventDefault(); return openTrail(); }
       if (k === 's') { e.preventDefault(); return openKit(); }
@@ -2474,6 +2704,10 @@
   }
 
   function renderSuiteNav() {
+    renderSuiteNavInner();
+    if (railReady) renderSheetRail();
+  }
+  function renderSuiteNavInner() {
     if (IN_WIDGET_FRAME) return;
     const file = anatSheetFile || window.location.pathname.split('/').pop() || 'index.html';
     const main = document.querySelector('main');
@@ -2562,6 +2796,25 @@
 
   // Bundled outputs so the analyzer can be tried without a node at hand.
   const AN_SAMPLES = {
+    timeline: [
+      '   1 | 11/04/2026 | 02:58:11 | Event Logging Disabled SEL | Log area reset/cleared | Asserted',
+      '   2 | 11/04/2026 | 03:11:57 | Power Supply PSU1_Status | Power Supply AC lost | Asserted',
+      '   3 | 11/04/2026 | 03:11:58 | Power Supply PS_Redundancy | Power Supply Redundancy Lost | Asserted',
+      '[Wed Nov  4 03:11:58 2026] pcieport 0000:89:00.0: AER: Corrected error received: 0000:8a:00.0',
+      '[Wed Nov  4 03:11:58 2026] nvidia 0000:8a:00.0: PCIe Bus Error: severity=Corrected, type=Physical Layer, (Receiver ID)',
+      '[Wed Nov  4 03:11:58 2026] nvidia 0000:8a:00.0:   device [10de:2335] error status/mask=00000001/0000e000',
+      '[Wed Nov  4 03:11:58 2026] nvidia 0000:8a:00.0:    [ 0] RxErr',
+      '[Wed Nov  4 03:11:59 2026] pcieport 0000:89:00.0: AER: Corrected error received: 0000:8a:00.0',
+      '[Wed Nov  4 03:12:01 2026] pcieport 0000:89:00.0: AER: Corrected error received: 0000:8a:00.0',
+      '[Wed Nov  4 03:12:04 2026] pcieport 0000:89:00.0: AER: Uncorrected (Fatal) error received: 0000:8a:00.0',
+      '[Wed Nov  4 03:12:04 2026] NVRM: Xid (PCI:0000:8a:00): 79, pid=48213, name=python, GPU has fallen off the bus.',
+      '[Wed Nov  4 03:12:04 2026] NVRM: GPU 0000:8a:00.0: GPU has fallen off the bus.',
+      '[Wed Nov  4 03:12:05 2026] NVRM: Xid (PCI:0000:8a:00): 154, pid=\'<unknown>\', name=<unknown>, GPU recovery action changed from 0x0 (None) to 0x2 (Node Reboot Required)',
+      '   4 | 11/04/2026 | 03:12:09 | Temperature GPU5_Temp | Upper Critical going high | Asserted',
+      '[Wed Nov  4 03:12:31 2026] mlx5_core 0000:8b:00.0: mlx5_4 Physical state: Polling',
+      '[Wed Nov  4 03:13:02 2026] python[48213]: NCCL WARN NET/IB : Got completion with error 12',
+      '   5 | 11/04/2026 | 03:14:30 | Power Supply PSU1_Status | Power Supply AC lost | Deasserted'
+    ].join('\n'),
     mlxlink: [
       'Operational Info', '----------------', 'State                              : Active', 'Physical state                     : LinkUp', 'Speed                              : IB-NDR', 'Width                              : 4x',
       'FEC                                : Interleaved_Standard_RS-FEC - (544,514)', '', 'Module Info', '-----------', 'Identifier                         : OSFP',
@@ -2595,8 +2848,9 @@
   const TOUR_SEEN_KEY = 'dc_tour_seen';
   const TOUR_STEPS = [
     { title: 'This reference does more than list commands', body: 'A two-minute tour of the parts that save time on the floor: decoding errors, filling in your node, guided runbooks and handing off a shift. Use ← → or the buttons; Esc ends it.' },
-    { target: '#lp-omni-input', title: 'Paste an error, get a diagnosis', body: 'Drop a raw dmesg, SEL or EDAC line here. You get what it means, how bad it is, the next read-only commands and a matching runbook. Full mlxlink, smart-log or topo -m outputs open a visual report instead.',
+    { target: '#lp-omni-input', title: 'Paste an error, get a diagnosis', body: 'Drop a raw dmesg, SEL or EDAC line here. You get what it means, how bad it is, the next read-only commands and a matching runbook. A whole dmesg or SEL dump opens a cross-layer incident timeline; full mlxlink, smart-log or topo -m outputs open a visual report.',
       try: { label: 'Try an Xid 79 line', run: () => { const i = document.getElementById('lp-omni-input'); if (i) { i.value = 'NVRM: Xid (PCI:0000:8a:00): 79, pid=48213, name=python, GPU has fallen off the bus.'; i.dispatchEvent(new Event('input')); } } } },
+    { target: '.lp-flow', title: 'Your incident, step by step', body: 'Identify → Collect → Correlate → Isolate → Document: the team method, with each step\u2019s tools in its card. The cards follow the current node: steps tick green as you name the node, run commands, compare, work a runbook and file the case; the next step is highlighted.' },
     { target: '#global-search-btn, [data-fd="search"]', title: 'Ctrl+K does almost everything', body: 'Search 2,300 commands, open any sheet or runbook, run actions (> lists them), switch themes, or quick-set values: "gpu 3", "hca mlx5_4", "pid 48213", "node gpu-node-08".',
       try: { label: 'Open Ctrl+K with "gpu 3"', run: () => { endTour(); openGlobalSearch('gpu 3'); } } },
     { target: '.node-chip, [data-fd="targets"]', title: 'One workspace per machine', body: 'Name the node you are on. Its targets, Case Trail, runbook progress and placeholder values stay with it, so switching to the next node is one click and nothing leaks between tickets.' },
@@ -2828,6 +3082,13 @@
     const list = [
       { icon: '★', label: 'Open My kit', sub: `${readKit().length} bookmarked commands from every sheet`, kw: 'kit bookmarks saved favorites starred mine', run: openKit },
       { icon: '🖨', label: 'Print pocket card', sub: 'Your kit as a two-column printable card', kw: 'print kit pocket card laminate crash cart', run: () => kitPrint(readKit()) },
+      { icon: '📁', label: `Open case file (${readCase().evidence.length} pinned)`, sub: 'Pinned evidence + Case Trail → cases/<host>/summary.md with timeline, root cause and RMA block', kw: 'case file summary summary.md evidence pinned rma root cause hypothesis ticket report handoff', run: openCaseFile },
+      { icon: '📱', label: 'Send ticket notes to my phone', sub: 'The Case Trail as QR codes: scan with the phone camera, no network needed', kw: 'phone qr code mobile handoff send scan camera crash cart notes trail', run: () => { const l = readTrail(); return l.length ? openPhone(trailMarkdown(l), 'Ticket notes to your phone', `${l.length} commands from the Case Trail`) : showGlobalToast('The trail is empty: copy a command first.'); } },
+      { icon: '📱', label: 'Send last copied command to my phone', sub: 'QR code of the most recent command in the Case Trail', kw: 'phone qr last command mobile scan', run: () => { const l = readTrail(); return l.length ? openPhone(l[l.length - 1].cmd, 'Last copied command', l[l.length - 1].sheet) : showGlobalToast('Copy a command first.'); } },
+      { icon: '⇉', label: 'Read fleet results', sub: 'Paste pdsh / dshbak / clush / BMC-loop output: group nodes, spot the odd one out', kw: 'fleet results pdsh dshbak clush odd node outlier compare many nodes which node differs', run: () => openFleetResults() },
+      { icon: '⇉', label: `Fleet mode${fleetState().active ? ' (on)' : ''}`, sub: 'Copy any command fanned out across many nodes (pdsh / clush / ssh) or BMCs', kw: 'fleet pdsh clush parallel many nodes rack all nodes fan out bulk mass hostlist bmcs', run: openFleet },
+      { icon: '⚖', label: 'Compare with a known-good node', sub: 'Paste the same output from a healthy node and the suspect; see what really differs', kw: 'compare diff golden healthy known good node identical baseline drift mismatch firmware vbios', run: () => openGoldenDiff() },
+      { icon: '🔌', label: 'Serial console', sub: 'Talk to a switch, BMC or PDU over USB-serial; ⏎ Send any command (Ctrl+`)', kw: 'serial console tty ttyusb usb rs232 rj45 baud tio screen minicom switch bmc pdu web serial', run: () => toggleConsole(true) },
       { icon: '⟲', label: 'Open Case trail', sub: `${readTrail().length} commands copied, ready for ticket notes`, kw: 'trail history copied log ticket notes timeline', run: openTrail },
       { icon: '🩺', label: 'Triage & RMA', sub: 'Runbooks, crash-cart script, RMA ticket formatter', kw: 'triage rma ticket crash cart script vendor escalation', run: openTriageModal },
       { icon: '▶', label: 'Guided runbooks', sub: `${RUNBOOKS.length} step-by-step playbooks`, kw: 'runbooks runbook playbooks playbook guided steps', run: () => openRunbook() },
@@ -3343,6 +3604,7 @@ echo "=========================================================="
                   <label>Error Details & Log Snippet (Paste dmesg / Xid / EDAC error)</label>
                   <textarea id="rma-log" rows="4" placeholder="e.g. NVRM: Xid 79: GPU has fallen off the bus... or EDAC MC0 CE on P0_MC0_DIMM_A0"></textarea>
                 </div>
+                <button type="button" class="ticket-field full-width rma-case-cta" data-case-from-rma>📁 Pinned evidence already? Build the full <b>summary.md</b> with timeline, root cause and an RMA block pre-filled from it →</button>
                 <label class="ticket-field full-width rma-trail-toggle">
                   <input type="checkbox" id="rma-include-trail" checked />
                   <span>Attach my Case Trail: the <b id="rma-trail-count">0</b> diagnostic commands I copied, in order</span>
@@ -4265,6 +4527,2050 @@ ${rmaTrailSection()}#### Action Requested:
   if (document.body) initCompact();
   else window.addEventListener('DOMContentLoaded', initCompact);
 
+  // -------------------------------------------------------------
+  // SERIAL CONSOLE
+  // On a crash cart the last step of every command here was: copy, alt-tab to
+  // screen/tio/minicom, paste, and hope the USB-serial dongle enumerated as the
+  // ttyUSB you guessed. Chrome and Edge speak to the port directly (Web Serial),
+  // so the console now docks under the sheet: Connect once, and every command
+  // box grows a ⏎ Send button that types it, with your Rack Targets filled in,
+  // into the switch / BMC / PDU console. State-changing commands and BREAK ask
+  // first; password prompts mask the input and keep it out of history and the
+  // Case Trail; the session saves as a timestamped log for cases/<host>/logs/.
+  // -------------------------------------------------------------
+  const CON_PREFS_KEY = 'dc_console_prefs';
+  const CON_BAUDS = [9600, 19200, 38400, 57600, 115200, 230400, 460800];
+  const CON_EOL = { cr: '\r', lf: '\n', crlf: '\r\n' };
+  const CON_USB = { 0x0403: 'FTDI', 0x067b: 'Prolific', 0x10c4: 'Silicon Labs CP210x', 0x1a86: 'WCH CH340', 0x2341: 'Arduino', 0x0557: 'ATEN', 0x05ac: 'Apple' };
+  const CON_MAX_LINES = 5000;
+  const con = { port: null, reader: null, open: false, live: false, lines: [], cur: '', crPending: false, history: [], hIdx: -1, secret: false, pending: null, dirty: false, el: null, decoder: null };
+
+  function conPrefs() {
+    let p = {};
+    try { p = JSON.parse(readStored(CON_PREFS_KEY) || '{}') || {}; } catch (e) {}
+    return { baud: CON_BAUDS.includes(+p.baud) ? +p.baud : 115200, eol: CON_EOL[p.eol] ? p.eol : 'cr', h: Math.min(80, Math.max(22, +p.h || 38)) };
+  }
+  function conSavePrefs(patch) {
+    try { localStorage.setItem(CON_PREFS_KEY, JSON.stringify(Object.assign(conPrefs(), patch))); } catch (e) {}
+  }
+  const conSupported = () => typeof navigator !== 'undefined' && 'serial' in navigator;
+
+  function conBuild() {
+    if (con.el) return con.el;
+    const p = conPrefs();
+    const el = document.createElement('section');
+    el.className = 'con-drawer';
+    el.setAttribute('aria-label', 'Serial console');
+    el.style.setProperty('--con-h', `${p.h}vh`);
+    el.innerHTML = `
+      <div class="con-grip" title="Drag to resize" aria-hidden="true"></div>
+      <header class="con-head">
+        <span class="con-led" aria-hidden="true"></span>
+        <b class="con-title">Serial console</b>
+        <span class="con-status" aria-live="polite">Not connected</span>
+        <span class="con-tools">
+          <label class="con-sel" title="Baud rate (8N1, no flow control)"><span>Baud</span><select data-con-pref="baud">${CON_BAUDS.map(b => `<option value="${b}"${b === p.baud ? ' selected' : ''}>${b}</option>`).join('')}</select></label>
+          <label class="con-sel" title="What Enter sends"><span>Enter</span><select data-con-pref="eol">${Object.keys(CON_EOL).map(k => `<option value="${k}"${k === p.eol ? ' selected' : ''}>${k.toUpperCase()}</option>`).join('')}</select></label>
+          <button type="button" class="con-btn con-connect" data-con="connect">Connect…</button>
+          <button type="button" class="con-btn" data-con="ctrlc" title="Send Ctrl-C (interrupt)" disabled>^C</button>
+          <button type="button" class="con-btn" data-con="break" title="Send a serial BREAK (asks first)" disabled>Break</button>
+          <button type="button" class="con-btn" data-con="clear" title="Clear the screen (not the device)">Clear</button>
+          <button type="button" class="con-btn" data-con="save" title="Download the session as a timestamped .txt log">Save log</button>
+          <button type="button" class="con-btn con-icon" data-con="close" title="Hide console (stays connected) · Ctrl+\`" aria-label="Hide console">▾</button>
+        </span>
+      </header>
+      <div class="con-confirm" hidden></div>
+      <pre class="con-out" tabindex="0" aria-label="Console output. Focus it to type raw keys."></pre>
+      <form class="con-in" autocomplete="off">
+        <span class="con-prompt" aria-hidden="true">›</span>
+        <input type="text" class="con-input" spellcheck="false" aria-label="Send a line to the console" placeholder="Type a line and press Enter · or click ⏎ Send on any command" />
+        <button type="submit" class="con-btn con-send-line" disabled>Send ⏎</button>
+      </form>`;
+    document.body.appendChild(el);
+    con.el = el;
+    con.out = el.querySelector('.con-out');
+    con.input = el.querySelector('.con-input');
+    con.status = el.querySelector('.con-status');
+    con.confirmEl = el.querySelector('.con-confirm');
+    conIntro();
+
+    el.addEventListener('change', (e) => {
+      const s = e.target.closest('[data-con-pref]');
+      if (!s) return;
+      conSavePrefs({ [s.dataset.conPref]: s.value });
+      if (s.dataset.conPref === 'baud' && con.live) conSys(`Baud changes apply on the next Connect (now ${con.baud}).`);
+    });
+    el.addEventListener('click', (e) => {
+      const b = e.target instanceof Element ? e.target.closest('[data-con]') : null;
+      if (!b) return;
+      const act = b.dataset.con;
+      if (act === 'connect') return con.live ? conDisconnect() : conConnect();
+      if (act === 'ctrlc') return conWrite('\x03');
+      if (act === 'break') return conConfirm('Send a serial BREAK? On many switches and routers a BREAK during boot drops into ROMMON / the boot loader.', 'Send BREAK', conBreak);
+      if (act === 'clear') { con.lines = []; con.cur = ''; conRender(); return; }
+      if (act === 'save') return conSaveLog();
+      if (act === 'close') return toggleConsole(false);
+      if (act === 'confirm-yes' && con.pending) { const run = con.pending; conConfirm(null); run(); return; }
+      if (act === 'confirm-no') return conConfirm(null);
+    });
+    el.querySelector('.con-in').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const line = con.input.value;
+      if (!con.live) { conSys('Not connected. Press Connect… and pick the USB-serial adapter.'); return; }
+      conWrite(line + CON_EOL[conPrefs().eol]);
+      if (!con.secret && line.trim()) {
+        if (con.history[con.history.length - 1] !== line) con.history.push(line);
+        recordTrail(line);
+      }
+      con.hIdx = -1;
+      con.input.value = '';
+      conSecret(false);
+    });
+    con.input.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+        if (!con.history.length || con.secret) return;
+        e.preventDefault();
+        con.hIdx = e.key === 'ArrowUp' ? (con.hIdx < 0 ? con.history.length - 1 : Math.max(0, con.hIdx - 1)) : (con.hIdx < 0 ? -1 : con.hIdx + 1);
+        if (con.hIdx >= con.history.length) con.hIdx = -1;
+        con.input.value = con.hIdx < 0 ? '' : con.history[con.hIdx];
+      } else if (e.ctrlKey && e.key === 'c' && con.live && con.input.selectionStart === con.input.selectionEnd && !window.getSelection().toString()) {
+        e.preventDefault(); conWrite('\x03');
+      } else if (e.key === 'Escape') { e.stopPropagation(); toggleConsole(false); }
+    });
+    // Raw keys for pagers (--More--), menus and full-screen BIOS consoles.
+    con.out.addEventListener('keydown', (e) => {
+      if (!con.live || e.metaKey || (e.ctrlKey && e.key === 'c' && window.getSelection().toString())) return;
+      const map = { Enter: CON_EOL[conPrefs().eol], Backspace: '\x7f', Tab: '\t', Escape: '\x1b', ArrowUp: '\x1b[A', ArrowDown: '\x1b[B', ArrowRight: '\x1b[C', ArrowLeft: '\x1b[D', Home: '\x1b[H', End: '\x1b[F', Delete: '\x1b[3~', PageUp: '\x1b[5~', PageDown: '\x1b[6~', F1: '\x1bOP', F2: '\x1bOQ', F3: '\x1bOR', F4: '\x1bOS' };
+      let s = map[e.key];
+      if (!s && e.ctrlKey && /^[a-z]$/i.test(e.key)) s = String.fromCharCode(e.key.toUpperCase().charCodeAt(0) - 64);
+      if (!s && !e.ctrlKey && !e.altKey && e.key.length === 1) s = e.key;
+      if (!s) return;
+      e.preventDefault();
+      e.stopPropagation();
+      conWrite(s);
+    });
+    // Drag the grip to resize; height is remembered.
+    const grip = el.querySelector('.con-grip');
+    grip.addEventListener('pointerdown', (e) => {
+      e.preventDefault();
+      grip.setPointerCapture(e.pointerId);
+      const move = ev => { const vh = Math.min(80, Math.max(22, (window.innerHeight - ev.clientY) / window.innerHeight * 100)); el.style.setProperty('--con-h', `${vh.toFixed(1)}vh`); document.body.style.setProperty('--con-pad', `${vh.toFixed(1)}vh`); };
+      const up = ev => { grip.removeEventListener('pointermove', move); grip.removeEventListener('pointerup', up); conSavePrefs({ h: Math.round(parseFloat(el.style.getPropertyValue('--con-h'))) }); };
+      grip.addEventListener('pointermove', move);
+      grip.addEventListener('pointerup', up);
+    });
+    return el;
+  }
+
+  function conIntro() {
+    if (conSupported()) {
+      conSys('Plug in the USB-serial / RJ45 console cable, set the baud (115200 for most BMCs and NVIDIA switches, 9600 for many older switches and PDUs), then Connect…');
+      conSys('Once connected, every command on this sheet shows ⏎ Send. Focus this screen to send raw keys (pagers, menus, BIOS).');
+    } else {
+      conSys('This browser has no Web Serial. Use Chrome or Edge on a desktop, or open the port from a terminal instead:');
+      conSys('  tio -b 115200 /dev/ttyUSB0      (Ctrl-t q to quit)');
+      conSys('  screen /dev/ttyUSB0 115200      (Ctrl-a k to quit)');
+    }
+  }
+
+  function conSys(msg) {
+    conCommit();
+    con.lines.push({ t: Date.now(), s: `[console] ${msg}`, sys: true });
+    conRender();
+  }
+  function conCommit() {
+    if (con.cur) { con.lines.push({ t: Date.now(), s: con.cur }); con.cur = ''; }
+  }
+
+  // Terminal output → plain lines. Escape sequences are dropped; \r rewrites the
+  // line (progress spinners), \b erases. Good enough for switch CLIs, BMC and
+  // GRUB/serial-over-LAN text; not a full VT100.
+  function conFeed(text) {
+    const clean = text
+      .replace(/\x1b\][^\x07\x1b]*(\x07|\x1b\\)/g, '')
+      .replace(/\x1b\[[0-?]*[ -/]*[@-~]/g, '')
+      .replace(/\x1b[()][A-Za-z0-9]|\x1b[=>78DEHMc]/g, '');
+    for (const ch of clean) {
+      if (ch === '\n') { con.crPending = false; con.lines.push({ t: Date.now(), s: con.cur }); con.cur = ''; continue; }
+      if (con.crPending) { con.crPending = false; con.cur = ''; }
+      if (ch === '\r') { con.crPending = true; continue; }
+      if (ch === '\b' || ch === '\x7f') { con.cur = con.cur.slice(0, -1); continue; }
+      if (ch === '\t' || ch >= ' ') con.cur += ch;
+    }
+    if (con.lines.length > CON_MAX_LINES) con.lines.splice(0, con.lines.length - CON_MAX_LINES);
+    // A password prompt: mask the input and keep the next line out of history.
+    conSecret(/(pass(word|phrase|code)?|pin)\s*:\s*$/i.test(con.cur));
+    conRender();
+  }
+
+  function conSecret(on) {
+    if (!con.input || con.secret === on) return;
+    con.secret = on;
+    con.input.type = on ? 'password' : 'text';
+    con.input.placeholder = on ? 'Password prompt: input is masked and kept out of history, the trail and the log' : 'Type a line and press Enter · or click ⏎ Send on any command';
+    con.el.classList.toggle('is-secret', on);
+    if (on && document.activeElement !== con.out) con.input.focus();
+  }
+
+  function conRender() {
+    if (con.dirty || !con.out) return;
+    con.dirty = true;
+    requestAnimationFrame(() => {
+      con.dirty = false;
+      const atBottom = con.out.scrollHeight - con.out.scrollTop - con.out.clientHeight < 40;
+      const frag = document.createDocumentFragment();
+      con.lines.slice(-1500).forEach(l => {
+        const d = document.createElement('div');
+        if (l.sys) d.className = 'con-sys';
+        else if (l.tx) d.className = 'con-tx';
+        d.textContent = l.s || ' ';
+        frag.appendChild(d);
+      });
+      const cur = document.createElement('div');
+      cur.className = 'con-cur';
+      cur.textContent = con.cur;
+      frag.appendChild(cur);
+      con.out.replaceChildren(frag);
+      if (atBottom) con.out.scrollTop = con.out.scrollHeight;
+    });
+  }
+
+  function conSetLive(live, label) {
+    con.live = live;
+    con.el.classList.toggle('is-live', live);
+    document.body.classList.toggle('con-live', live);
+    con.status.textContent = label;
+    con.el.querySelector('.con-connect').textContent = live ? 'Disconnect' : 'Connect…';
+    con.el.querySelectorAll('[data-con="ctrlc"], [data-con="break"], .con-send-line').forEach(b => { b.disabled = !live; });
+    document.querySelectorAll('.con-hdr-led').forEach(l => l.classList.toggle('on', live));
+    if (live) conInjectSend();
+  }
+
+  async function conConnect() {
+    if (!conSupported()) { conSys('Web Serial is not available in this browser. See the tio / screen lines above.'); return; }
+    let port;
+    try { port = await navigator.serial.requestPort(); } catch (e) { conSys(e && e.name === 'NotFoundError' ? 'No port picked.' : `Could not pick a port: ${e.message}`); return; }
+    const { baud } = conPrefs();
+    try {
+      await port.open({ baudRate: baud, dataBits: 8, stopBits: 1, parity: 'none', flowControl: 'none', bufferSize: 65536 });
+    } catch (e) {
+      conSys(`Could not open the port: ${e.message}. Is screen/tio/minicom still holding it?`);
+      return;
+    }
+    con.port = port;
+    con.baud = baud;
+    con.decoder = new TextDecoder();
+    const info = port.getInfo ? port.getInfo() : {};
+    const chip = CON_USB[info.usbVendorId] || (info.usbVendorId ? `USB ${info.usbVendorId.toString(16).padStart(4, '0')}:${(info.usbProductId || 0).toString(16).padStart(4, '0')}` : 'serial port');
+    conSetLive(true, `${chip} · ${baud} 8N1`);
+    conSys(`Connected: ${chip} at ${baud} 8N1. Press Enter if the screen stays blank.`);
+    conReadLoop(port);
+  }
+
+  async function conReadLoop(port) {
+    while (con.port === port && port.readable) {
+      con.reader = port.readable.getReader();
+      try {
+        for (;;) {
+          const { value, done } = await con.reader.read();
+          if (done) break;
+          if (value) conFeed(con.decoder.decode(value, { stream: true }));
+        }
+      } catch (e) {
+        if (con.port === port) conSys(`Read error: ${e.message}. Wrong baud shows as garbage; a pulled cable ends the session.`);
+      } finally {
+        try { con.reader.releaseLock(); } catch (e) {}
+      }
+      if (con.port !== port) break;
+    }
+    if (con.port === port) { con.port = null; try { await port.close(); } catch (e) {} conSetLive(false, 'Disconnected'); conSys('Port closed.'); }
+  }
+
+  async function conDisconnect() {
+    const port = con.port;
+    con.port = null;
+    if (con.reader) { try { await con.reader.cancel(); } catch (e) {} }
+    if (port) { try { await port.close(); } catch (e) {} }
+    conSetLive(false, 'Disconnected');
+    conSys('Disconnected.');
+  }
+
+  async function conWrite(s) {
+    if (!con.port || !con.port.writable) { conSys('Not connected.'); return false; }
+    const w = con.port.writable.getWriter();
+    try { await w.write(new TextEncoder().encode(s)); return true; } catch (e) { conSys(`Write failed: ${e.message}`); return false; } finally { w.releaseLock(); }
+  }
+
+  async function conBreak() {
+    if (!con.port || !con.port.setSignals) return;
+    try { await con.port.setSignals({ break: true }); setTimeout(() => con.port && con.port.setSignals({ break: false }).catch(() => {}), 300); conSys('BREAK sent (300 ms).'); } catch (e) { conSys(`BREAK failed: ${e.message}`); }
+  }
+
+  function conConfirm(msg, yesLabel, run) {
+    con.pending = msg ? run : null;
+    con.confirmEl.hidden = !msg;
+    if (!msg) { con.confirmEl.innerHTML = ''; return; }
+    con.confirmEl.innerHTML = `<span class="con-warn">⚠</span><span class="con-confirm-msg">${escapeHtml(msg)}</span><button type="button" class="con-btn con-danger" data-con="confirm-yes">${escapeHtml(yesLabel)}</button><button type="button" class="con-btn" data-con="confirm-no">Cancel</button>`;
+    con.confirmEl.querySelector('[data-con="confirm-no"]').focus();
+  }
+
+  // Send a command from a sheet box: Rack Targets and slots filled in, one line at a time.
+  function conSendCommand(raw) {
+    const cmd = firstCommand(raw);
+    const { text } = substituteVariables(cmd);
+    const go = async () => {
+      toggleConsole(true);
+      const lines = text.split(/\r?\n/);
+      const eol = CON_EOL[conPrefs().eol];
+      for (let i = 0; i < lines.length; i++) {
+        if (!(await conWrite(lines[i] + eol))) return;
+        if (i < lines.length - 1) await new Promise(r => setTimeout(r, 80));
+      }
+      recordTrail(cmd);
+      showGlobalToast(`Sent to console: ${cmd.length > 60 ? cmd.slice(0, 60) + '…' : cmd}`);
+    };
+    if (DANGER_RE.test(cmd)) {
+      toggleConsole(true);
+      conConfirm(`This changes state: ${cmd.length > 90 ? cmd.slice(0, 90) + '…' : cmd} — is the node drained and the change approved?`, 'Send anyway', go);
+      return;
+    }
+    go();
+  }
+
+  const CON_BOXES = '.cmd-code-box:not(.is-reference), .subcmd-row:not(.is-reference)';
+  function conInjectSend() {
+    if (!con.live) return;
+    document.querySelectorAll(CON_BOXES).forEach(box => {
+      if (box.querySelector(':scope > .con-send')) return;
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'con-send';
+      b.tabIndex = -1;
+      b.title = 'Type this command into the connected serial console';
+      b.innerHTML = '⏎ Send';
+      box.appendChild(b);
+    });
+  }
+
+  function toggleConsole(force) {
+    const el = conBuild();
+    const open = force == null ? !el.classList.contains('open') : !!force;
+    el.classList.toggle('open', open);
+    document.body.classList.toggle('con-open', open);
+    document.body.style.setProperty('--con-pad', el.style.getPropertyValue('--con-h'));
+    document.querySelectorAll('.con-hdr-btn').forEach(b => b.setAttribute('aria-expanded', String(open)));
+    if (open) setTimeout(() => (con.live ? con.input : el.querySelector('.con-connect')).focus(), 30);
+  }
+
+  function conSaveLog() {
+    const pad = n => String(n).padStart(2, '0');
+    const d = new Date();
+    const stamp = `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}-${pad(d.getHours())}${pad(d.getMinutes())}`;
+    const node = (trailMeta().caseId || 'console').replace(/[^\w.-]+/g, '_');
+    const fmt = t => { const x = new Date(t); return `${pad(x.getHours())}:${pad(x.getMinutes())}:${pad(x.getSeconds())}`; };
+    const body = [...con.lines, ...(con.cur ? [{ t: Date.now(), s: con.cur }] : [])].map(l => `[${fmt(l.t)}] ${l.s}`).join('\n');
+    const blob = new Blob([`# serial console log · ${node} · ${d.toISOString()} · ${con.baud || conPrefs().baud} 8N1\n${body}\n`], { type: 'text/plain' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `serial-${node}-${stamp}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+    showGlobalToast(`Saved ${a.download}. File it under cases/${node}/logs/.`);
+  }
+
+  function initConsole() {
+    const actions = document.querySelector('.top-bar .header-actions');
+    if (actions && !document.getElementById('console-btn')) {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.id = 'console-btn';
+      btn.className = 'action-btn con-hdr-btn';
+      btn.title = 'Serial console: talk to a switch, BMC or PDU over USB-serial and send any command with one click (Ctrl+`)';
+      btn.setAttribute('aria-expanded', 'false');
+      btn.innerHTML = `<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 2v5M15 2v5M7 7h10v5a5 5 0 0 1-10 0z"/><path d="M12 17v5"/></svg><span>Console</span><span class="con-hdr-led" aria-hidden="true"></span>`;
+      btn.addEventListener('click', () => toggleConsole());
+      const trail = document.getElementById('trail-btn');
+      if (trail && trail.parentNode === actions) trail.after(btn); else actions.appendChild(btn);
+    }
+    // ⏎ Send wins over the box's own click-to-copy.
+    document.addEventListener('click', (e) => {
+      const b = e.target instanceof Element ? e.target.closest('.con-send') : null;
+      if (!b) return;
+      e.preventDefault();
+      e.stopPropagation();
+      const box = b.parentElement;
+      const raw = box.dataset.copy ?? box.dataset.cmd ?? box.dataset.subcmd ?? (() => { const c = box.cloneNode(true); c.querySelectorAll('.con-send').forEach(x => x.remove()); return c.textContent; })();
+      conSendCommand(String(raw).trim());
+    }, true);
+    document.addEventListener('keydown', (e) => {
+      if (e.ctrlKey && !e.altKey && !e.metaKey && (e.key === '`' || e.code === 'Backquote')) { e.preventDefault(); toggleConsole(); }
+    });
+    // Sheets render cards after load and on filter; new boxes get a Send button while live.
+    let queued = false;
+    new MutationObserver((muts) => {
+      if (!con.live || queued || muts.every(mu => con.el && con.el.contains(mu.target))) return;
+      queued = true;
+      requestAnimationFrame(() => { queued = false; conInjectSend(); });
+    }).observe(document.body, { childList: true, subtree: true });
+    if (conSupported() && navigator.serial.addEventListener) {
+      navigator.serial.addEventListener('disconnect', (e) => {
+        if (con.port && e.target === con.port) { con.port = null; conSetLive(false, 'Cable unplugged'); conSys('The adapter was unplugged.'); }
+      });
+    }
+  }
+
+  // -------------------------------------------------------------
+  // COMMANDS-FIRST LAYOUT
+  // The helpers above each earned their place, and together they buried the
+  // thing people come for: at 1440×1100 the first copyable command sat at
+  // y=2274 on Switches (15 suite tiles + four health cards first) and y=1305 on
+  // NVIDIA. On wide screens the suite directory and an outline of this sheet
+  // now live in a sticky left rail (scrollspy, visited ticks, runbooks), and
+  // the reference panels fold into one-line strips that remember being opened.
+  // Narrow screens keep the stacked layout; Field Mode is untouched.
+  // -------------------------------------------------------------
+  const REF_OPEN_KEY = 'dc_ref_open';
+  function refOpen(id) {
+    try { return !!(JSON.parse(readStored(REF_OPEN_KEY) || '{}') || {})[id]; } catch (e) { return false; }
+  }
+  function setRefOpen(id, open) {
+    let v = {};
+    try { v = JSON.parse(readStored(REF_OPEN_KEY) || '{}') || {}; } catch (e) {}
+    v[id] = open;
+    try { localStorage.setItem(REF_OPEN_KEY, JSON.stringify(v)); } catch (e) {}
+  }
+
+  let railSpyQueued = false;
+  let railReady = false;
+  function ensureSheetShell() {
+    const main = document.querySelector('main');
+    const lp = document.getElementById('launchpad');
+    const onHub = !!(lp && !lp.hidden);
+    document.body.classList.toggle('rail-off', onHub);
+    if (!main || onHub) return null;
+    let shell = document.querySelector('.sheet-shell');
+    if (shell && shell.contains(main)) return shell;
+    if (!shell) {
+      shell = document.createElement('div');
+      shell.className = 'sheet-shell';
+      shell.innerHTML = '<aside class="sheet-rail" aria-label="Suite and sheet outline"></aside><div class="sheet-col"></div>';
+    }
+    const parent = main.parentNode;
+    const movers = Array.from(parent.children).filter(el => el === main || el.matches('.hx-panel, .ber-panel, .suite-dir, .suite-rail'));
+    parent.insertBefore(shell, movers[0]);
+    const col = shell.querySelector('.sheet-col');
+    movers.forEach(el => col.appendChild(el));
+    document.body.classList.add('has-rail');
+    // Masonry measured the old width; let every sheet repack.
+    requestAnimationFrame(() => window.dispatchEvent(new Event('resize')));
+    return shell;
+  }
+
+  function renderSheetRail() {
+    if (IN_WIDGET_FRAME) return;
+    const shell = ensureSheetShell();
+    if (!shell) return;
+    const rail = shell.querySelector('.sheet-rail');
+    const file = anatSheetFile || window.location.pathname.split('/').pop() || 'index.html';
+    const suite = suiteFor(file);
+    const visited = readVisited();
+    const counts = sheetCmdCounts();
+    const rbs = suite ? (SUITE_RUNBOOKS[suite.name] || []).map(id => RUNBOOKS.find(r => r.id === id)).filter(Boolean) : [];
+    const done = suite ? suite.sheets.filter(s => visited.has(s.file)).length : 0;
+    const refs = [
+      document.querySelector('.hx-panel') && ['hx', '🩻', 'Healthy ranges'],
+      document.querySelector('.ber-panel') && ['ber', '📶', 'BER: healthy vs not']
+    ].filter(Boolean);
+    rail.innerHTML = `
+      ${suite ? `<div class="rail-block rail-suite">
+        <button type="button" class="rail-suite-head ${suite.isHub ? 'is-current' : ''}" data-suite-go="${escapeHtml(suite.hub)}" ${suite.isHub ? 'aria-current="page"' : ''}>
+          <span class="rail-suite-icon" aria-hidden="true">${suite.icon}</span><b>${escapeHtml(suite.name)}</b><small>${done}/${suite.sheets.length}</small>
+        </button>
+        <span class="rb-meter rail-meter" aria-hidden="true"><span style="width:${Math.round(done / suite.sheets.length * 100)}%"></span></span>
+        <ul class="rail-list">
+          ${suite.sheets.map(s => `<li><button type="button" class="rail-sheet ${s.file === file ? 'is-current' : ''} ${visited.has(s.file) ? 'is-visited' : ''}" data-suite-go="${escapeHtml(s.file)}" ${s.file === file ? 'aria-current="page"' : ''} title="${escapeHtml(s.desc)}${counts[s.file] ? ` · ${counts[s.file]} commands` : ''}">
+            ${s.code ? `<code>${escapeHtml(s.code)}</code>` : '<code>·</code>'}<span>${escapeHtml(s.desc)}</span>${visited.has(s.file) && s.file !== file ? '<i aria-label="visited">✓</i>' : ''}
+          </button></li>`).join('')}
+        </ul>
+      </div>` : ''}
+      <div class="rail-block rail-outline-block">
+        <div class="rail-h">On this sheet</div>
+        <ol class="rail-outline"></ol>
+      </div>
+      <div class="rail-block"><div class="rail-h">Reference</div>${refs.map(([id, ic, label]) => `<button type="button" class="rail-ref" data-rail-ref="${id}"><span aria-hidden="true">${ic}</span>${label}</button>`).join('')}<button type="button" class="rail-ref" data-rail-ref="diff"><span aria-hidden="true">⚖</span>Compare with a healthy node</button></div>
+      ${rbs.length ? `<div class="rail-block"><div class="rail-h">Runbooks</div>${rbs.map(rb => `<button type="button" class="rail-ref rail-rb" data-suite-rb="${rb.id}"><span aria-hidden="true">${rb.icon}</span>${escapeHtml(rb.title)}</button>`).join('')}</div>` : ''}`;
+    renderRailOutline();
+    const cur = rail.querySelector('.rail-sheet.is-current');
+    if (cur) requestAnimationFrame(() => { const r = cur.getBoundingClientRect(), rr = rail.getBoundingClientRect(); if (r.bottom > rr.bottom - 120) rail.scrollTop += r.bottom - rr.bottom + 160; });
+  }
+
+  // Outline of the cards that are visible right now (search and Section filter hide cards).
+  function renderRailOutline() {
+    const list = document.querySelector('.sheet-rail .rail-outline');
+    if (!list) return;
+    const cards = Array.from(document.querySelectorAll('#sections-container .section-card')).filter(c => c.offsetParent !== null && c.id);
+    list.innerHTML = cards.length ? cards.map(c => {
+      const t = c.querySelector('.section-title');
+      const n = c.querySelectorAll('.cmd-code-box:not(.is-reference)').length;
+      return `<li><a href="#${escapeHtml(c.id)}" data-rail-sec="${escapeHtml(c.id)}"><span>${escapeHtml((t ? t.textContent : c.id).replace(/^[^:]+:\s*/, '').trim())}</span>${n ? `<small>${n}</small>` : ''}</a></li>`;
+    }).join('') : '<li class="rail-empty">No cards match the filter</li>';
+    railSpyUpdate();
+  }
+
+  // Active entry = the last card whose header has scrolled under the top bar
+  // (masonry puts cards side by side, so "most visible" picks the wrong column).
+  function railSpyUpdate() {
+    const list = document.querySelector('.sheet-rail .rail-outline');
+    if (!list || !list.offsetParent) return;
+    const links = Array.from(list.querySelectorAll('a'));
+    let best = links[0], bestTop = -Infinity;
+    links.forEach(a => {
+      const c = document.getElementById(a.dataset.railSec);
+      if (!c) return;
+      const top = c.getBoundingClientRect().top;
+      if (top <= 160 && top > bestTop) { bestTop = top; best = a; }
+    });
+    links.forEach(a => a.classList.toggle('is-active', a === best));
+  }
+
+  function initSheetLayout() {
+    if (IN_WIDGET_FRAME) return;
+    railReady = true;
+    renderSheetRail();
+    const container = document.getElementById('sections-container');
+    if (container) {
+      let queued = false;
+      new MutationObserver(() => {
+        if (queued) return;
+        queued = true;
+        requestAnimationFrame(() => { queued = false; renderRailOutline(); });
+      }).observe(container, { childList: true, subtree: true, attributes: true, attributeFilter: ['hidden'] });
+    }
+    window.addEventListener('scroll', () => {
+      if (railSpyQueued) return;
+      railSpyQueued = true;
+      requestAnimationFrame(() => { railSpyQueued = false; railSpyUpdate(); });
+    }, { passive: true });
+    document.addEventListener('click', (e) => {
+      const el = e.target instanceof Element ? e.target : null;
+      if (!el) return;
+      const sec = el.closest('[data-rail-sec]');
+      if (sec) {
+        e.preventDefault();
+        const card = document.getElementById(sec.dataset.railSec);
+        if (card) {
+          card.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+          history.replaceState(null, '', `#${card.id}`);
+          card.classList.remove('rail-flash'); void card.offsetWidth; card.classList.add('rail-flash');
+        }
+        return;
+      }
+      const ref = el.closest('[data-rail-ref]');
+      if (ref && ref.dataset.railRef === 'diff') return openGoldenDiff();
+      if (ref) {
+        const panel = document.querySelector(ref.dataset.railRef === 'hx' ? '.hx-panel' : '.ber-panel');
+        const d = panel && panel.querySelector('details');
+        if (d) { d.open = true; panel.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      }
+    });
+    // Remember which reference panels the tech keeps open.
+    document.addEventListener('toggle', (e) => {
+      const d = e.target;
+      if (!(d instanceof HTMLDetailsElement)) return;
+      const panel = d.closest('.hx-panel, .ber-panel');
+      if (panel && d.parentElement === panel) setRefOpen(panel.classList.contains('hx-panel') ? 'hx' : 'ber', d.open);
+    }, true);
+  }
+
+  // -------------------------------------------------------------
+  // GOLDEN-NODE DIFF
+  // "Compare against an identical healthy node" is the advice on half the
+  // decoder cards and runbooks, and the tooling for it was two terminals and
+  // eyeballs: 1,200 lines of nvidia-smi -q where 300 differ (serials, UUIDs,
+  // temps, clocks) and three matter (a VBIOS, an x8 link, a pending remap).
+  // Paste the same command's output from a known-good node and the suspect:
+  // it is parsed into a tree by indentation (nvidia-smi -q, dmidecode,
+  // lspci -vvv, mlxlink, ibstat, ethtool, smart-log), CSV by its key column
+  // (nvidia-smi --query-*), or lines by their first token (lsmod, dpkg -l),
+  // then every difference is ranked: missing devices, error counters that got
+  // worse, firmware / link / mode mismatches, other changes, and the noise
+  // that always differs folded away.
+  // -------------------------------------------------------------
+  const GD_COUNTER = /error|retired|remap|pending|fail|crc|symbol|drop|discard|downed|uncorr|corrected|replay|recovery|\bxid\b|\bsbe\b|\bdbe\b|\baer\b|badtlp|baddllp|rxerr|media_errors|critical_warning|throttl|slowdown|unsafe_shutdowns|num_err/i;
+  const GD_VOLATILE = /serial|uuid|guid|\bmac\b|mac address|hwaddr|permaddr|timestamp|\bdate\b|\btime\b|uptime|temp|fan|clock|\butil|utilization|power draw|power\.draw|energy|memory usage|\bused\b|\bfree\b|reserved|\bpid\b|process|minor number|hostname|asset tag|\blid\b|bytes|packets|power_on_hours|power_cycles|data_units|host_(read|write)|controller_busy|session|accounting|bar1|voltage|\bcurrent \[ma\]|bias current|rx power|tx power|uuid/i;
+  const GD_DEGRADED = /no module installed|not installed|not present|\babsent\b|\bmissing\b|downgraded|\bunknown\b|\bdown\b|polling|disabled|\bfailed\b|\bn\/a\b|not available|\+\s|\+$/i;
+  const GD_CRIT_CFG = /uesta|cesta|devsta|attached|link width|\bwidth\b|speed|lnksta|generation|\bstate\b|\brate\b|present|\bstatus\b|physical state|link ?status|ecc mode|mig mode|persistence|fabric/i;
+  const GD_CFG = /version|firmware|\bfw\b|vbios|bios|driver|cuda|image|revision|release|psid|part number|\bopn\b|model|product|\bmode\b|ecc|\bmig\b|enabled|disabled|power limit|enforced|capab|\bcount\b|\bsize\b|\btype\b|fec|\bmtu\b|numa|affinity|bus|link|max|kernel|lnkcap|addressing|vendor|sku|board|config/i;
+
+  function gdParse(text) {
+    const raw = String(text || '').replace(/\r/g, '').split('\n').map(l => l.replace(/\t/g, '    ').replace(/\s+$/, ''));
+    const lines = raw.filter(l => l.trim() && !/^[\s=_-]+$/.test(l) && !/^\s*Handle 0x[0-9A-F]+, DMI type/i.test(l) && !/^={3,}|^Timestamp\s*:/i.test(l.trim()));
+    const fields = new Map(), headers = new Set();
+    const put = (path, v) => {
+      let p = path, n = 2;
+      while (fields.has(p)) p = `${path} #${n++}`;
+      fields.set(p, v);
+      return p;
+    };
+    if (!lines.length) return { format: 'empty', fields, headers };
+    // CSV (nvidia-smi --query-gpu/--query-compute-apps, ibdev2netdev-ish tables): key on the first column.
+    const commas = lines.map(l => (l.match(/,/g) || []).length);
+    if (lines.length >= 2 && commas[0] >= 1 && commas.every(c => c === commas[0])) {
+      const split = l => l.split(',').map(x => x.trim());
+      const head = split(lines[0]);
+      lines.slice(1).forEach(l => {
+        const cells = split(l);
+        const rowKey = `${head[0]} ${cells[0]}`;
+        headers.add(rowKey);
+        head.forEach((h, i) => { if (i) put(`${rowKey} › ${h}`, cells[i] ?? ''); });
+      });
+      return { format: 'CSV', fields, headers };
+    }
+    const kvLines = lines.filter(l => / : |:\s|=/.test(l)).length;
+    const indented = lines.some(l => /^\s{2,}\S/.test(l));
+    if (kvLines / lines.length < 0.3 && !indented) {
+      // Line lists: lsmod, dpkg -l, rpm -qa, lspci -nn | grep … — key on the identifying token.
+      lines.forEach(l => {
+        const t = l.trim().split(/\s+/);
+        const skip = /^(ii|rc|hi|un|iU|Module|Package)$/.test(t[0]) ? 1 : 0;
+        const key = t[skip] || l.trim();
+        put(key, t.slice(skip + 1).join(' '));
+      });
+      return { format: 'lines', fields, headers };
+    }
+    const BDF = /^((?:[0-9a-f]{4,8}:)?[0-9a-f]{2}:[0-9a-f]{2}\.[0-7])\b/i;
+    const stack = [];
+    lines.forEach((l, i) => {
+      const indent = l.match(/^\s*/)[0].length;
+      const next = lines[i + 1];
+      const hasKids = !!next && next.match(/^\s*/)[0].length > indent;
+      while (stack.length && stack[stack.length - 1].indent >= indent) stack.pop();
+      const t = l.trim();
+      const parent = stack.map(s => s.key).join(' › ');
+      const join = k => (parent ? `${parent} › ${k}` : k);
+      if (hasKids || (indent === 0 && BDF.test(t) && /\b(controller|bridge|device)\b/i.test(t))) {
+        let key = t.replace(/:\s*$/, '');
+        const bdf = key.match(BDF);
+        if (bdf && indent === 0) key = key.replace(BDF, b => b.toLowerCase().replace(/^0{4,}(?=[0-9a-f]{4}:)/, ''));
+        let p = join(key), n = 2;
+        while (headers.has(p)) p = `${join(key)} #${n++}`;
+        headers.add(p);
+        stack.push({ indent, key: p.slice(parent ? parent.length + 3 : 0) });
+        return;
+      }
+      let m = t.match(/^(.+?)\s+:\s*(.*)$/) || t.match(/^([^:=]{1,80}?):\s+(.*)$/) || t.match(/^([^:=]{1,80}?):$/) || t.match(/^([\w./-]{1,80})\s*=\s*(.*)$/);
+      if (m) put(join(m[1].trim()), (m[2] || '').trim());
+      else put(join(t), '');
+    });
+    return { format: 'tree', fields, headers };
+  }
+
+  const gdNum = v => { const m = String(v).match(/-?\d+(\.\d+)?/); return m ? parseFloat(m[0]) : null; };
+
+  function gdCompare(goodText, badText) {
+    const g = gdParse(goodText), b = gdParse(badText);
+    if (!g.fields.size || !b.fields.size) return null;
+    const rows = { missing: [], counter: [], cfgCrit: [], cfg: [], other: [], extra: [], volatile: [], better: [] };
+    let same = 0;
+    // A whole block (a GPU, a DIMM, a PCIe function) missing on the suspect is one finding, not 120.
+    const missingHeads = [...g.headers].filter(h => !b.headers.has(h) && ![...g.headers].some(o => o !== h && h.startsWith(`${o} › `) && !b.headers.has(o)));
+    const underMissing = p => missingHeads.find(h => p === h || p.startsWith(`${h} › `));
+    const blockCount = {};
+    g.fields.forEach((gv, path) => {
+      const mh = underMissing(path);
+      if (mh) { blockCount[mh] = (blockCount[mh] || 0) + 1; return; }
+      if (!b.fields.has(path)) { rows[GD_VOLATILE.test(path) && !GD_COUNTER.test(path) ? 'volatile' : 'missing'].push({ path, good: gv, bad: '—' }); return; }
+      const bv = b.fields.get(path);
+      if (String(gv).trim() === String(bv).trim()) { same++; return; }
+      const row = { path, good: gv, bad: bv };
+      const leaf = path.split(' › ').pop();
+      // The suspect's value reads as gone or degraded where the good node's does not.
+      if (GD_DEGRADED.test(bv) && !GD_DEGRADED.test(gv) && !GD_VOLATILE.test(leaf)) { rows.cfgCrit.push(row); return; }
+      if (GD_COUNTER.test(path) && !/threshold|\bmax\b|limit|capab/i.test(leaf)) {
+        const a = gdNum(gv), c = gdNum(bv);
+        const worse = a != null && c != null ? c > a : /^(yes|true|active|pending|fail)/i.test(bv);
+        rows[worse ? 'counter' : 'better'].push(row);
+      } else if (GD_VOLATILE.test(path) && !GD_CRIT_CFG.test(leaf)) rows.volatile.push(row);
+      else if (GD_CRIT_CFG.test(path)) rows.cfgCrit.push(row);
+      else if (GD_CFG.test(path)) rows.cfg.push(row);
+      else rows.other.push(row);
+    });
+    missingHeads.forEach(h => rows.missing.unshift({ path: h, good: `present · ${blockCount[h] || 0} fields`, bad: 'absent', block: true }));
+    b.fields.forEach((bv, path) => { if (!g.fields.has(path) && !underMissing(path) && ![...b.headers].some(h => !g.headers.has(h) && path.startsWith(`${h} › `))) rows.extra.push({ path, good: '—', bad: bv }); });
+    [...b.headers].filter(h => !g.headers.has(h) && ![...b.headers].some(o => o !== h && h.startsWith(`${o} › `) && !g.headers.has(o))).forEach(h => rows.extra.unshift({ path: h, good: 'absent', bad: 'present', block: true }));
+    return { g, b, rows, same, total: new Set([...g.fields.keys(), ...b.fields.keys()]).size };
+  }
+
+  const GD_GROUPS = [
+    ['missing', 'crit', 'Missing on the suspect', 'Present on the known-good node, gone on the suspect: a device off the bus, an unseated DIMM, a link that never trained.'],
+    ['counter', 'crit', 'Error counters worse on the suspect', 'Same counter, higher on the suspect. Compare after the same uptime and workload.'],
+    ['cfgCrit', 'crit', 'Link, state and mode mismatches', 'Link width/speed, port state, ECC/MIG/persistence mode: identical nodes should match exactly.'],
+    ['cfg', 'warn', 'Firmware, version and configuration drift', 'Driver, VBIOS, BIOS, firmware, part numbers. Drift alone can explain "only this node fails".'],
+    ['other', 'warn', 'Other differences', 'Values that differ and are not known noise. Worth a glance.'],
+    ['extra', 'info', 'Only on the suspect', 'Present on the suspect but not the known-good node.'],
+    ['better', 'info', 'Counters lower on the suspect', 'The suspect looks better here, often just a shorter uptime or freshly cleared counters.'],
+    ['volatile', 'ok', 'Expected to differ', 'Serials, UUIDs, MACs, GUIDs, temperatures, clocks, utilization and timestamps. Folded away.']
+  ];
+
+  function gdRender(res, names) {
+    if (!res) return '<p class="an-hint">Paste the same command’s output from both nodes: <code>nvidia-smi -q</code>, <code>nvidia-smi --query-gpu=… --format=csv</code>, <code>lspci -vvv</code>, <code>dmidecode -t memory</code>, <code>mlxlink -m -c -e</code>, <code>ibstat</code>, <code>ethtool -i</code>, <code>nvme smart-log</code>, <code>lsmod</code>, <code>dpkg -l</code>…</p>';
+    const r = res.rows;
+    const crit = r.missing.length + r.counter.length + r.cfgCrit.length;
+    const warn = r.cfg.length + r.other.length;
+    const worst = crit ? 'crit' : warn ? 'warn' : 'ok';
+    const verdict = crit ? `${crit} difference${crit === 1 ? '' : 's'} that point${crit === 1 ? 's' : ''} at the fault` : warn ? `${warn} drift${warn === 1 ? '' : 's'} to check` : 'Matches the known-good node';
+    const cell = (v, cls) => `<td class="${cls}">${escapeHtml(String(v)) || '<i>empty</i>'}</td>`;
+    const pathHtml = p => { const parts = p.split(' › '); const leaf = parts.pop(); return `${parts.length ? `<small>${escapeHtml(parts.join(' › '))}</small>` : ''}<b>${escapeHtml(leaf)}</b>`; };
+    const groups = GD_GROUPS.filter(([k]) => r[k].length).map(([k, sev, title, help]) => `
+      <details class="gd-group sev-${sev}"${sev === 'crit' || (sev === 'warn' && r[k].length <= 12) ? ' open' : ''}>
+        <summary><span class="an-sev">${{ crit: 'Critical', warn: 'Check', info: 'Note', ok: 'Noise' }[sev]}</span><b>${title}</b><span class="gd-n">${r[k].length}</span></summary>
+        <p class="gd-help">${help}</p>
+        <div class="gd-scroll"><table class="gd-table"><thead><tr><th>Field</th><th>${escapeHtml(names.good)}</th><th>${escapeHtml(names.bad)}</th></tr></thead><tbody>
+          ${r[k].slice(0, 400).map(x => `<tr${x.block ? ' class="is-block"' : ''}><td class="gd-path">${pathHtml(x.path)}</td>${cell(x.good, 'gd-good')}${cell(x.bad, 'gd-bad')}</tr>`).join('')}
+        </tbody></table></div>
+      </details>`).join('');
+    return `<div class="an-report sev-${worst}">
+      <div class="an-verdict"><span class="an-type">Golden-node diff · ${res.g.format === res.b.format ? res.g.format : `${res.g.format} vs ${res.b.format}`}</span><b>${verdict}</b><span class="an-count">${res.same.toLocaleString('en-US')} of ${res.total.toLocaleString('en-US')} fields identical</span></div>
+      <dl class="an-facts">
+        <div><dt>Missing</dt><dd>${r.missing.length}</dd></div><div><dt>Counters worse</dt><dd>${r.counter.length}</dd></div>
+        <div><dt>Link / state / mode</dt><dd>${r.cfgCrit.length}</dd></div><div><dt>FW / config drift</dt><dd>${r.cfg.length}</dd></div>
+        <div><dt>Noise folded</dt><dd>${r.volatile.length}</dd></div>
+      </dl>
+      ${groups || '<p class="an-hint">Every field matches.</p>'}
+      <div class="an-actions"><button type="button" class="an-primary" data-gd="copy">Copy as Markdown</button><button type="button" data-gd="pin" class="pin-btn">📌 Pin to case</button><button type="button" data-gd="phone" title="The comparison as QR codes for your phone">📱 To phone</button><button type="button" data-gd="swap">⇄ Swap sides</button><button type="button" data-gd="clear">Compare another</button></div>
+    </div>`;
+  }
+
+  function gdMarkdown(res, names) {
+    const out = [`### Golden-node comparison: ${names.bad} vs known-good ${names.good}`, '', `${res.same} of ${res.total} fields identical (${res.g.format}). Serials, UUIDs, temperatures, clocks and timestamps excluded.`];
+    GD_GROUPS.filter(([k]) => k !== 'volatile' && res.rows[k].length).forEach(([k, , title]) => {
+      out.push('', `#### ${title} (${res.rows[k].length})`, `| Field | ${names.good} | ${names.bad} |`, '|---|---|---|',
+        ...res.rows[k].slice(0, 60).map(x => `| ${x.path.replace(/\|/g, '\\|')} | ${String(x.good).replace(/\|/g, '\\|')} | ${String(x.bad).replace(/\|/g, '\\|')} |`));
+    });
+    return out.join('\n');
+  }
+
+  const GD_SAMPLE = (() => {
+    const gpu = (bdf, o) => [
+      `GPU ${bdf}`,
+      `    Product Name                          : NVIDIA H200`,
+      `    Persistence Mode                      : Enabled`,
+      `    Serial Number                         : ${o.serial}`,
+      `    GPU UUID                              : ${o.uuid}`,
+      `    VBIOS Version                         : ${o.vbios || '96.00.9F.00.04'}`,
+      `    Inforom Version`,
+      `        Image Version                     : G520.0200.00.05`,
+      `        ECC Object                        : 7.16`,
+      `    PCI`,
+      `        Bus Id                            : ${bdf}`,
+      `        GPU Link Info`,
+      `            PCIe Generation`,
+      `                Max                       : 5`,
+      `                Current                   : ${o.gen || 5}`,
+      `            Link Width`,
+      `                Max                       : 16x`,
+      `                Current                   : ${o.width || '16x'}`,
+      `        Replays Since Reset               : ${o.replays || 0}`,
+      `    Temperature`,
+      `        GPU Current Temp                  : ${o.temp} C`,
+      `    ECC Mode`,
+      `        Current                           : Enabled`,
+      `    ECC Errors`,
+      `        Aggregate`,
+      `            DRAM Uncorrectable            : ${o.dbe || 0}`,
+      `    Remapped Rows`,
+      `        Correctable Error                 : 0`,
+      `        Uncorrectable Error               : ${o.remap || 0}`,
+      `        Pending                           : ${o.pending || 'No'}`,
+      `        Remapping Failure Occurred        : No`,
+      `    Clocks`,
+      `        SM                                : ${o.sm} MHz`
+    ];
+    const head = ['==============NVSMI LOG==============', '', 'Timestamp                                 : Wed Nov  4 03:20:11 2026', 'Driver Version                            : 550.127.05', 'CUDA Version                              : 12.4', '', 'Attached GPUs                             : 4'];
+    const good = [...head, ...gpu('00000000:18:00.0', { serial: '1652023012345', uuid: 'GPU-1a2b3c4d', temp: 41, sm: 1980 }), ...gpu('00000000:2A:00.0', { serial: '1652023012346', uuid: 'GPU-2b3c4d5e', temp: 43, sm: 1980 }),
+      ...gpu('00000000:3A:00.0', { serial: '1652023012347', uuid: 'GPU-3c4d5e6f', temp: 40, sm: 1965 }), ...gpu('00000000:8A:00.0', { serial: '1652023012348', uuid: 'GPU-4d5e6f70', temp: 42, sm: 1980 })].join('\n');
+    const bad = [...head.map(l => l.replace('03:20:11', '03:24:57').replace('Attached GPUs                             : 4', 'Attached GPUs                             : 3')),
+      ...gpu('00000000:18:00.0', { serial: '1652023099001', uuid: 'GPU-9a8b7c6d', temp: 46, sm: 1755, vbios: '96.00.74.00.11' }),
+      ...gpu('00000000:2A:00.0', { serial: '1652023099002', uuid: 'GPU-8b7c6d5e', temp: 52, sm: 1980, width: '8x', gen: 4, replays: 1843 }),
+      ...gpu('00000000:3A:00.0', { serial: '1652023099003', uuid: 'GPU-7c6d5e4f', temp: 44, sm: 1980, remap: 2, pending: 'Yes', dbe: 3 })].join('\n');
+    return { good, bad };
+  })();
+
+  let gdEl = null, gdFocus = null;
+  function openGoldenDiff(suspectText = '', goodText = '') {
+    if (!gdEl) {
+      gdEl = document.createElement('div');
+      gdEl.className = 'an-backdrop gd-backdrop';
+      gdEl.innerHTML = `
+        <div class="an-dialog gd-dialog" role="dialog" aria-modal="true" aria-labelledby="gd-title">
+          <header class="an-head">
+            <div><h2 id="gd-title">Compare with a known-good node</h2><p>Run the same command on a healthy identical node and on the suspect, paste both. Fields are matched by structure, not line order; serials, UUIDs, temperatures and clocks are folded away. Nothing leaves this browser.</p></div>
+            <button type="button" class="trail-close" data-gd="close" aria-label="Close comparison">✕</button>
+          </header>
+          <div class="an-body">
+            <div class="gd-inputs">
+              <div class="gd-side gd-side-good"><span class="gd-label"><i aria-hidden="true">✓</i><input type="text" class="gd-name" data-side="good" value="known-good" aria-label="Known-good node name" spellcheck="false" /></span>
+                <textarea class="an-input gd-text" data-side="good" spellcheck="false" placeholder="Known-good node: paste output here…" aria-label="Known-good node output"></textarea></div>
+              <div class="gd-side gd-side-bad"><span class="gd-label"><i aria-hidden="true">!</i><input type="text" class="gd-name" data-side="bad" value="suspect" aria-label="Suspect node name" spellcheck="false" /></span>
+                <textarea class="an-input gd-text" data-side="bad" spellcheck="false" placeholder="Suspect node: paste the same command's output…" aria-label="Suspect node output"></textarea></div>
+            </div>
+            <div class="an-samples"><span>No two nodes handy?</span><button type="button" data-gd="sample">Try a sample: nvidia-smi -q, 4 GPUs vs 3</button></div>
+            <div class="an-out gd-out" aria-live="polite"></div>
+          </div>
+        </div>`;
+      document.body.appendChild(gdEl);
+      const tGood = gdEl.querySelector('.gd-text[data-side="good"]'), tBad = gdEl.querySelector('.gd-text[data-side="bad"]');
+      const nGood = gdEl.querySelector('.gd-name[data-side="good"]'), nBad = gdEl.querySelector('.gd-name[data-side="bad"]');
+      const out = gdEl.querySelector('.gd-out');
+      let timer = null;
+      const names = () => ({ good: nGood.value.trim() || 'known-good', bad: nBad.value.trim() || 'suspect' });
+      const run = () => {
+        const both = tGood.value.trim() && tBad.value.trim();
+        gdEl._res = both ? gdCompare(tGood.value, tBad.value) : null;
+        gdEl.classList.toggle('has-result', !!gdEl._res);
+        out.innerHTML = both ? gdRender(gdEl._res, names()) : `<p class="an-hint">${tGood.value.trim() || tBad.value.trim() ? 'Now paste the other node’s output.' : 'Waiting for both outputs…'}</p>`;
+      };
+      gdEl._run = run;
+      gdEl.addEventListener('input', () => { clearTimeout(timer); timer = setTimeout(run, 180); });
+      gdEl.addEventListener('click', (e) => {
+        if (e.target === gdEl) return closeGoldenDiff();
+        const b = e.target instanceof Element ? e.target.closest('[data-gd]') : null;
+        if (!b) return;
+        const act = b.dataset.gd;
+        if (act === 'close') closeGoldenDiff();
+        if (act === 'sample') { tGood.value = GD_SAMPLE.good; tBad.value = GD_SAMPLE.bad; nGood.value = 'gpu-node-07'; nBad.value = 'gpu-node-12'; run(); }
+        if (act === 'swap') { [tGood.value, tBad.value] = [tBad.value, tGood.value]; [nGood.value, nBad.value] = [nBad.value, nGood.value]; run(); }
+        if (act === 'clear') { tGood.value = ''; tBad.value = ''; run(); tGood.focus(); }
+        if (act === 'pin' && gdEl._res) { const rr = gdEl._res.rows, n = names(); const crit = rr.missing.length + rr.counter.length + rr.cfgCrit.length; casePin({ kind: 'Node comparison', title: `${n.bad} vs known-good ${n.good}: ${crit ? `${crit} critical difference${crit === 1 ? '' : 's'}` : `${rr.cfg.length + rr.other.length} drift(s)`}`, sev: crit ? 'crit' : rr.cfg.length + rr.other.length ? 'warn' : 'ok', md: gdMarkdown(gdEl._res, n), facts: [['Compared with', n.good]] }); }
+        if (act === 'phone' && gdEl._res) openPhone(gdMarkdown(gdEl._res, names()), 'Comparison to your phone', `${names().bad} vs ${names().good}`);
+        if (act === 'copy' && gdEl._res) { copyVerbatim(gdMarkdown(gdEl._res, names())); showGlobalToast('Copied the comparison as Markdown, ready for the ticket.'); }
+      });
+      gdEl.addEventListener('keydown', (e) => { if (e.key === 'Escape') { e.stopPropagation(); closeGoldenDiff(); } });
+    }
+    gdFocus = document.activeElement;
+    const tGood = gdEl.querySelector('.gd-text[data-side="good"]'), tBad = gdEl.querySelector('.gd-text[data-side="bad"]');
+    const node = trailMeta().caseId;
+    if (node) gdEl.querySelector('.gd-name[data-side="bad"]').value = node;
+    if (suspectText) tBad.value = suspectText;
+    if (goodText) tGood.value = goodText;
+    gdEl._run();
+    gdEl.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => (tGood.value ? tBad : tGood).focus(), 40);
+  }
+  function closeGoldenDiff() {
+    if (!gdEl || !gdEl.classList.contains('show')) return;
+    gdEl.classList.remove('show');
+    document.body.style.overflow = '';
+    if (gdFocus && gdFocus.focus) gdFocus.focus();
+  }
+
+  // -------------------------------------------------------------
+  // FLEET MODE
+  // Every command here was written for one node: one $BMC, one $HCA, one
+  // $GPU. The work rarely is: "which of the 16 nodes in rack B07 has a
+  // downgraded link", "pull the SEL from all 32 BMCs that alarmed". Turn Fleet
+  // on, give it a host list (pdsh/clush syntax: gpu-node-[01-16]) and a BMC
+  // list, and every command you copy comes out fanned out: host commands via
+  // pdsh | dshbak -c (identical output folds together, so the odd node out
+  // stands alone), clush -b, or plain ssh + xargs; BMC commands as a loop over
+  // the BMC list with $BMC as the loop variable. State-changing, interactive
+  // and multi-line commands are never fanned out: they copy for one node, and
+  // the toast says why (AGENTS.md §2: drain + approval, per node).
+  // -------------------------------------------------------------
+  const FLEET_KEY = 'dc_fleet';
+  const FLEET_DEFAULT = { active: false, hosts: '', bmcs: '', runner: 'pdsh', fanout: 32, save: false };
+  const FLEET_INTERACTIVE = /(^|[;&|]\s*|\bsudo\s+|EDITOR=\S+\s+)(tmux|screen|n?vim?|nano|less|more|top|htop|nvtop|btop|watch|tio|minicom|picocom|ssh|scp|sftp|rsync|mtr|iftop|ibtop|strace|ltrace|gdb)\b|\bperf\s+(top|record|trace)\b|sol\s+activate|journalctl\b[^|;&]*\s-f\b|tail\s+-[a-zA-Z]*f|dmesg\b[^|;&]*\s-w\b|\bping\b(?![^|;&]*\s-c\s*\d)|tcpdump\b(?![^|;&]*\s-c\s*\d)|\bread\s+-|nvidia-smi\b[^|;&]*\s-l\b|\bdmon\b|ibdump|\bfio\b/i;
+  // Fan-out multiplies blast radius, so Fleet is stricter than the site-wide DANGER_RE.
+  const FLEET_MUTATE = /\bsetpci\b[^|;&]*=|>\s*\/(sys|proc|dev)\/|\btee\s+(-a\s+)?\/(sys|proc|etc)\/|\bsysctl\s+(-w|--write|-p)\b|\bmodprobe\b|\binsmod\b|\bsystemctl\s+(start|stop|restart|reload|enable|disable|mask|unmask|isolate|kill)\b|\b(apt|apt-get|dnf|yum|zypper|snap|pip3?)\s+(install|remove|purge|upgrade|dist-upgrade|autoremove|update)\b|\bdpkg\s+-(i|r|P)\b|nvidia-smi\b[^|;&]*\s(-pm|-pl|-ac|-rac|-lgc|-rgc|-mig|-e|-c|--persistence-mode|--power-limit|--applications-clocks|--compute-mode|--ecc-config)\b|\b(p?kill|killall)\b|\b(u?mount)\s+[^-]|\bswapo(n|ff)\b|\bhwclock\s+--(systohc|set)|\bdate\s+-s\b|\bchmod\b|\bchown\b|\bmv\b|\bcp\b[^|;&]*\s\/(etc|boot|usr)|\bsed\s+-i\b|\bnmcli\b[^|;&]*\s(mod|up|down|delete|add)\b|\bip\s+(-\S+\s+)*(addr|address|route|link|neigh|rule|tunnel)\s+(add|del|delete|change|replace|set|flush)\b|\bmst\s+(start|stop|restart)\b|nvidia-smi\b[^|;&]*\s(--clear-\S+|--reset-\S+|-p\s+[01]|-r)\b|\bmlxconfig\b|\bflint\b|\bmstconfig\b|\bmlxreg\b[^|;&]*--set|\bipmitool\b[^|;&]*\s(chassis\s+(power|bootdev|bootparam|identify|policy)|power\s|mc\s+reset|sel\s+clear|lan6?\s+set|user\s+(set|enable|disable|priv)|sol\s+set|channel\s+setaccess|sensor\s+thresh|fru\s+(edit|write)|delloem|raw)\b|-X\s*(POST|PATCH|PUT|DELETE)\b|\bcpupower\b[^|;&]*-set\b|\bledctl\b|\bupdate-grub\b|\bupdate-initramfs\b|grub2?-mkconfig|\bdracut\b|\s-delete\b|--vacuum|\bvisudo\b|\budevadm\s+(control|trigger)\b|\bdd\b[^|;&]*\bof=|(^|[\s;&|])\.\/|\btuned-adm\s+profile\b|\bnvme\s+(set-feature|reset|subsystem-reset|ns-rescan|attach-ns|detach-ns|create-ns)\b|\bsmartctl\b[^|;&]*\s-t\s|\bhdparm\b[^|;&]*\s--?(security|fwdownload|trim|yes-i-know)|\bethtool\b[^|;&]*--(reset|flash)|\btc\s+qdisc\s+(add|del|change|replace)\b|\bmlnx_qos\b[^|;&]*\s--?(trust|pfc|prio|tsa|dscp)|\bdcbtool\b|\bdcgmi\s+(group\s+-[cd]|config\s+--set|policy\s+--set)|\bexportfs\b|\bfirewall-cmd\b|\bufw\s+(allow|deny|enable|disable|delete|reset)\b|\biptables\s+-[AIDRFXZ]\b|\bnft\s+(add|delete|flush|insert|replace)\b|\bcrontab\s+-[er]\b|\b(useradd|usermod|userdel|groupadd|chpasswd|passwd)\b|\bsetfacl\b|\brm\b|\bmkfs|\bparted\b|\bs?fdisk\b|\b(lvcreate|lvremove|lvextend|lvreduce|vgcreate|vgextend|pvcreate|resize2fs|xfs_growfs)\b|\bmdadm\b(?![^|;&]*--(detail|examine|query)\b)|\bzpool\s+(?!status|list|iostat|get|history)\w|\bzfs\s+(create|destroy|set|rollback|snapshot|send|receive)\b|\bhostnamectl\s+set|\btimedatectl\s+set|\bchronyc\s+(makestep|settime)|\blfs\s+(setstripe|migrate|mkdir)\b|\bweka\s+\S+\s+(add|remove|set|update|activate|deactivate)\b|\bceph\s+(osd\s+(out|in|down|rm|purge|set|unset|reweight)|config\s+set)\b|\bbeegfs-ctl\b[^|;&]*--(set|remove|add)/i;
+  // Cluster-, fabric- or workstation-wide: one run sees everything; 16 runs are noise (or harm: ibdiagnet floods the fabric with MADs).
+  const FLEET_ONCE = /(^|[;&|(]\s*|\bsudo\s+)(git|gh|kubectl|helm|k9s|terraform|ansible(-playbook)?|scontrol|sinfo|squeue|sacct|sacctmgr|srun|sbatch|salloc|scancel|npm|npx|yarn|pnpm|cargo|docker|podman|jira|nmap|arp-scan|ndisc6|rdisc6|ibdiagnet|ibnetdiscover|iblinkinfo|ibswitches|ibhosts|ibrouters|ibqueryerrors|ibcheckerrors|ibclearerrors|ibclearcounters|saquery|smpquery|ibtracert|sminfo|ufm\S*|clush|pdsh)\b/i;
+  // Not shell (JS / Python / SQL / JQL snippets) or a workstation sheet: nothing to fan out.
+  const FLEET_NOT_SHELL = /^\s*(const|let|var|function|import|export|def|class|return|async|await|from\s+\S+\s+import|print\(|console\.|#include|SELECT|INSERT|WITH|CREATE|DROP|ALTER|local\s+\w+\s*=|\[\.\.\.|[{}[\]])|=>|\bORDER BY\b|^\s*(project|text|assignee|status)\s*(=|~|in\b)|^\s*\w+(\.\w+)+\(/i;
+  const FLEET_NO_SHEETS = /^(scripting|bash|python|javascript|typescript|powershell|lua|json|yaml|toml|regex|awk-sed|sql|markdown|git|jira|neovim|nvim-\S*|macos\S*|windows\S*|win-\S*|omarchy\S*|switches|sw-\S+)\.html$/;
+  const FLEET_BMC = /\$BMC(?![A-Z_])|\$\{BMC\}|\$BMC_IP\b|<bmc[_-]ip>|<bmc_host>|\/redfish\/v1|redfishtool|ipmitool\b[^|;&]*\s-H\s/;
+  const FLEET_BMC_TOKENS = /\$BMC(?![A-Z_])|\$\{BMC\}|\$BMC_IP\b|\$\{BMC_IP\}|<bmc[_-]ip>|<bmc_host>|2001:db8:dc::1|192\.168\.1\.120/g;
+
+  function fleetState() {
+    let v = {};
+    try { v = JSON.parse(readStored(FLEET_KEY) || '{}') || {}; } catch (e) {}
+    return Object.assign({}, FLEET_DEFAULT, v);
+  }
+  function saveFleet(patch) {
+    const v = Object.assign(fleetState(), patch);
+    try { localStorage.setItem(FLEET_KEY, JSON.stringify(v)); } catch (e) {}
+    return v;
+  }
+
+  // pdsh/clush host-list syntax: gpu-node-[01-16,20], rack[1-2]-n[1-4], commas or whitespace between.
+  function fleetExpand(spec) {
+    const out = [];
+    const tokens = String(spec || '').split(/[\s,]+(?![^[]*\])/).map(t => t.trim()).filter(Boolean);
+    const one = (t) => {
+      const m = t.match(/^(.*?)\[([^\]]+)\](.*)$/);
+      if (!m) { out.push(t); return; }
+      m[2].split(',').forEach(part => {
+        const r = part.match(/^(\d+)-(\d+)$/);
+        if (!r) { one(m[1] + part + m[3]); return; }
+        const w = r[1].length, a = parseInt(r[1], 10), b = parseInt(r[2], 10);
+        for (let i = a; i <= b && out.length < 4096; i++) one(m[1] + String(i).padStart(w, '0') + m[3]);
+      });
+    };
+    tokens.forEach(one);
+    return [...new Set(out)];
+  }
+  const fleetSpec = spec => String(spec || '').split(/[\s,]+(?![^[]*\])/).map(t => t.trim()).filter(Boolean).join(',');
+  const sq = s => `'${String(s).replace(/'/g, `'\\''`)}'`;
+  const fleetSlug = cmd => (String(cmd).replace(/^sudo\s+/, '').match(/[\w.-]+(\s+-{0,2}[\w.-]+){0,2}/) || ['cmd'])[0].replace(/[^\w.-]+/g, '-').slice(0, 32);
+
+  function fleetKind(cmd) {
+    if (/\n/.test(cmd.trim())) return { kind: 'skip', why: 'multi-line scripts' };
+    if (FLEET_NOT_SHELL.test(cmd) || FLEET_NO_SHEETS.test(anatSheetFile || window.location.pathname.split('/').pop() || '')) return { kind: 'skip', why: 'code snippets, workstation or switch-CLI commands (they don\u2019t run on compute nodes)', once: true };
+    if (DANGER_RE.test(cmd) || FLEET_MUTATE.test(cmd)) return { kind: 'skip', why: 'state-changing commands', danger: true };
+    if (FLEET_INTERACTIVE.test(cmd)) return { kind: 'skip', why: 'interactive or streaming commands' };
+    if (FLEET_ONCE.test(cmd)) return { kind: 'skip', why: 'cluster-, fabric- or workstation-wide commands (one run sees everything)', once: true };
+    return { kind: FLEET_BMC.test(cmd) ? 'bmc' : 'host' };
+  }
+
+  // Wrap a command (placeholders still in it) for the fleet. Returns null when Fleet is off.
+  function fleetWrap(raw, st = fleetState()) {
+    if (!st.active) return null;
+    const text = String(raw).includes('   |   ') ? firstCommand(raw) : String(raw).trim();
+    const k = fleetKind(text);
+    const hosts = fleetExpand(st.hosts), bmcs = fleetExpand(st.bmcs);
+    if (k.kind === 'skip') return { text: substituteVariables(text).text, kind: 'skip', note: k.once ? `Copied once: Fleet doesn't fan out ${k.why}.` : `Copied for ONE node: Fleet never fans out ${k.why}.${k.danger ? ' Drain and get approval per node.' : ''}` };
+    const logDir = `cases/${(trailMeta().caseId || 'fleet').replace(/[^\w.-]+/g, '_')}/logs`;
+    const slug = fleetSlug(text);
+    const fan = Math.max(1, Math.min(256, parseInt(st.fanout, 10) || 32));
+    if (k.kind === 'bmc') {
+      if (!bmcs.length) return { text: substituteVariables(text).text, kind: 'skip', note: 'BMC command copied for one BMC: add a BMC list in Fleet to loop over BMCs.' };
+      // Keep $BMC as the loop variable; fill everything else (user, iface, slots) as usual.
+      const SENT = '\u0001FLEETBMC\u0001';
+      // Sheets often render the current Rack Target into the command; that literal is the loop variable too.
+      const cur = (targetState.vars.bmc || '').trim();
+      const marked = (cur ? text.split(cur).join(SENT) : text).replace(FLEET_BMC_TOKENS, SENT);
+      const body = substituteVariables(marked).text.split(SENT).join('$BMC').replace(/^\s+/, '');
+      const run = st.save ? `{ ${body}; } 2>&1 | tee "${logDir}/\${BMC//:/_}-${slug}.txt"` : `${body}`;
+      const list = bmcs.join(' ');
+      return {
+        kind: 'bmc', count: bmcs.length,
+        text: `${st.save ? `mkdir -p "${logDir}" && ` : ''}for BMC in ${list}; do echo "=== $BMC"; ${run}; done`,
+        note: `Fanned out to ${bmcs.length} BMC${bmcs.length === 1 ? '' : 's'} (sequential: BMCs are slow and fragile).`
+      };
+    }
+    if (!hosts.length) return { text: substituteVariables(text).text, kind: 'skip', note: 'Copied for one node: add a host list in Fleet to fan out.' };
+    const cmd = substituteVariables(text).text.replace(/^\s+/, '');
+    const spec = fleetSpec(st.hosts);
+    const tee = st.save ? ` | tee "${logDir}/fleet-${slug}.txt"` : '';
+    const pre = st.save ? `mkdir -p "${logDir}" && ` : '';
+    let out;
+    if (st.runner === 'clush') out = `${pre}clush -b -f ${fan} -w ${sq(spec)} -- ${sq(cmd)}${tee}`;
+    else if (st.runner === 'ssh') out = `${pre}printf '%s\\n' ${hosts.join(' ')} | xargs -P ${fan} -I{} sh -c 'ssh -n -o BatchMode=yes -o ConnectTimeout=5 "$1" "$2" 2>&1 | sed "s/^/$1: /"' _ {} ${sq(cmd)}${tee}`;
+    else out = `${pre}pdsh -R ssh -f ${fan} -w ${sq(spec)} -- ${sq(cmd)} 2>&1 | dshbak -c${tee}`;
+    return { kind: 'host', count: hosts.length, text: out, note: `Fanned out to ${hosts.length} node${hosts.length === 1 ? '' : 's'} via ${st.runner === 'ssh' ? 'ssh + xargs' : st.runner}.${st.runner === 'pdsh' ? ' dshbak -c groups nodes with identical output.' : ''}` };
+  }
+
+  // Badges on every command while Fleet is on: ×16, ×16 BMC, or "1 node".
+  const FLEET_BOXES = '.cmd-code-box:not(.is-reference), .subcmd-row:not(.is-reference)';
+  function fleetBadges() {
+    const st = fleetState();
+    document.body.classList.toggle('fleet-on', st.active);
+    if (!st.active) return;
+    const nH = fleetExpand(st.hosts).length, nB = fleetExpand(st.bmcs).length;
+    document.querySelectorAll(FLEET_BOXES).forEach(box => {
+      const raw = box.dataset.copy ?? box.dataset.cmd ?? box.dataset.subcmd;
+      if (raw == null) return;
+      const k = fleetKind(String(raw).includes('   |   ') ? firstCommand(raw) : String(raw));
+      let badge = box.querySelector(':scope > .fleet-badge');
+      if (!badge) { badge = document.createElement('span'); badge.className = 'fleet-badge'; badge.setAttribute('aria-hidden', 'true'); box.appendChild(badge); }
+      const n = k.kind === 'bmc' ? nB : k.kind === 'host' ? nH : 0;
+      const label = n ? `⇉ ×${n}${k.kind === 'bmc' ? ' BMC' : ''}` : (k.danger ? '1 node · changes state' : k.once ? 'run once' : '1 node');
+      if (badge.dataset.kind !== (n ? k.kind : 'skip')) badge.dataset.kind = n ? k.kind : 'skip';
+      if (badge.textContent !== label) badge.textContent = label;
+      badge.title = n ? `Copies as a fan-out to ${n} ${k.kind === 'bmc' ? 'BMCs' : 'nodes'}` : `Copies for one node only: ${k.why || 'no list set'}`;
+    });
+  }
+
+  function fleetChipHtml() {
+    const st = fleetState();
+    const n = fleetExpand(st.hosts).length, b = fleetExpand(st.bmcs).length;
+    return `<button type="button" class="fleet-chip ${st.active ? 'is-on' : ''}" data-fleet-open aria-haspopup="dialog" title="Fleet mode: copy any command fanned out across many nodes / BMCs">
+      <span aria-hidden="true">⇉</span><span>${st.active ? `Fleet ×${n}${b ? ` · ${b} BMC` : ''}` : 'Fleet off'}</span></button>`;
+  }
+  function refreshFleetUi() {
+    document.querySelectorAll('.fleet-chip').forEach(c => { c.outerHTML = fleetChipHtml(); });
+    fleetBadges();
+  }
+
+  let fleetEl = null;
+  function openFleet() {
+    if (!fleetEl) {
+      fleetEl = document.createElement('div');
+      fleetEl.className = 'an-backdrop fleet-backdrop';
+      fleetEl.innerHTML = `
+        <div class="an-dialog fleet-dialog" role="dialog" aria-modal="true" aria-labelledby="fleet-title">
+          <header class="an-head">
+            <div><h2 id="fleet-title">Fleet mode</h2><p>While on, every command you copy comes out fanned out across these nodes or BMCs. State-changing, interactive and multi-line commands still copy for one node.</p></div>
+            <button type="button" class="trail-close" data-fl="close" aria-label="Close Fleet mode">✕</button>
+          </header>
+          <div class="an-body fleet-body">
+            <label class="fleet-switch"><input type="checkbox" data-fl-f="active" /><span class="fleet-switch-ui" aria-hidden="true"></span><b>Fan out copied commands</b></label>
+            <div class="fleet-grid">
+              <div class="fleet-field"><label for="fleet-hosts">Nodes <small>pdsh / clush syntax</small></label>
+                <textarea id="fleet-hosts" data-fl-f="hosts" spellcheck="false" placeholder="gpu-node-[01-16]&#10;gpu-node-[20,24-27]"></textarea>
+                <div class="fleet-count" data-fl-count="hosts"></div></div>
+              <div class="fleet-field"><label for="fleet-bmcs">BMCs <small>for ipmitool -H / Redfish</small></label>
+                <textarea id="fleet-bmcs" data-fl-f="bmcs" spellcheck="false" placeholder="gpu-node-[01-16]-bmc&#10;or 10.10.7.[11-26]"></textarea>
+                <div class="fleet-count" data-fl-count="bmcs"></div>
+                <button type="button" class="fleet-mini" data-fl="derive">Derive from nodes: append “-bmc”</button></div>
+            </div>
+            <div class="fleet-opts">
+              <div class="fleet-runner" role="radiogroup" aria-label="Runner">
+                ${[['pdsh', 'pdsh + dshbak', 'groups identical output'], ['clush', 'clush -b', 'ClusterShell'], ['ssh', 'ssh + xargs', 'no extra tools']].map(([v, l, s]) => `<label><input type="radio" name="fleet-runner" value="${v}" data-fl-f="runner" /><span><b>${l}</b><small>${s}</small></span></label>`).join('')}
+              </div>
+              <label class="fleet-inline">Parallel <input type="number" min="1" max="256" data-fl-f="fanout" /></label>
+              <label class="fleet-inline"><input type="checkbox" data-fl-f="save" /> Save output under <code class="fleet-logdir"></code></label>
+            </div>
+            <div class="fleet-results-cta"><span>Ran it? Paste what came back to see which nodes differ.</span><button type="button" class="fleet-mini" data-fl="results">Read results →</button></div>
+            <div class="fleet-preview"><div class="rail-h">What you'd copy</div><div class="fleet-preview-list"></div></div>
+          </div>
+        </div>`;
+      document.body.appendChild(fleetEl);
+      const sync = () => {
+        const st = fleetState();
+        const nh = fleetExpand(st.hosts), nb = fleetExpand(st.bmcs);
+        const show = (list) => list.length ? `<b>${list.length}</b> → ${escapeHtml(list.slice(0, 4).join(', '))}${list.length > 4 ? ` … ${escapeHtml(list[list.length - 1])}` : ''}` : '<i>empty</i>';
+        fleetEl.querySelector('[data-fl-count="hosts"]').innerHTML = show(nh);
+        fleetEl.querySelector('[data-fl-count="bmcs"]').innerHTML = show(nb);
+        fleetEl.querySelector('.fleet-logdir').textContent = `cases/${(trailMeta().caseId || 'fleet').replace(/[^\w.-]+/g, '_')}/logs/`;
+        const pageCmds = Array.from(document.querySelectorAll('.cmd-code-box:not(.is-reference)')).map(b => b.dataset.copy).filter(Boolean);
+        const pick = re => pageCmds.find(c => re(fleetKind(c)));
+        const samples = [pick(k => k.kind === 'host') || 'nvidia-smi --query-gpu=index,pci.bus_id,pcie.link.width.current --format=csv',
+          pick(k => k.kind === 'bmc') || 'ipmitool -I lanplus -H $BMC -U $BMC_USER -E sel elist | tail -n 20',
+          pick(k => k.danger) || 'sudo nvidia-smi -r -i $GPU'];
+        const on = Object.assign({}, st, { active: true });
+        fleetEl.querySelector('.fleet-preview-list').innerHTML = samples.map(c => {
+          const w = fleetWrap(c, on);
+          return `<div class="fleet-pv fleet-pv-${w.kind}"><span class="fleet-pv-tag">${w.kind === 'skip' ? '1 node' : `⇉ ×${w.count}${w.kind === 'bmc' ? ' BMC' : ''}`}</span><code>${escapeHtml(w.text)}</code><small>${escapeHtml(w.note)}</small></div>`;
+        }).join('');
+        refreshFleetUi();
+      };
+      const load = () => {
+        const st = fleetState();
+        fleetEl.querySelectorAll('[data-fl-f]').forEach(el => {
+          const f = el.dataset.flF;
+          if (el.type === 'checkbox') el.checked = !!st[f];
+          else if (el.type === 'radio') el.checked = el.value === st.runner;
+          else el.value = st[f];
+        });
+      };
+      fleetEl._load = load;
+      fleetEl._sync = sync;
+      fleetEl.addEventListener('input', (e) => {
+        const el = e.target.closest('[data-fl-f]');
+        if (!el) return;
+        const f = el.dataset.flF;
+        const v = el.type === 'checkbox' ? el.checked : el.type === 'number' ? parseInt(el.value, 10) || 32 : el.value;
+        if (el.type === 'radio' && !el.checked) return;
+        saveFleet({ [f]: v });
+        sync();
+      });
+      fleetEl.addEventListener('click', (e) => {
+        if (e.target === fleetEl) return closeFleet();
+        const b = e.target instanceof Element ? e.target.closest('[data-fl]') : null;
+        if (!b) return;
+        if (b.dataset.fl === 'close') closeFleet();
+        if (b.dataset.fl === 'results') { closeFleet(); openFleetResults(); }
+        if (b.dataset.fl === 'derive') {
+          const st = fleetState();
+          const bm = String(st.hosts).split(/[\s,]+(?![^[]*\])/).filter(Boolean).map(t => `${t}-bmc`).join('\n');
+          if (!bm) { showGlobalToast('Add nodes first.'); return; }
+          saveFleet({ bmcs: bm });
+          load(); sync();
+        }
+      });
+      fleetEl.addEventListener('keydown', (e) => { if (e.key === 'Escape') { e.stopPropagation(); closeFleet(); } });
+    }
+    fleetEl._load();
+    fleetEl._sync();
+    fleetEl.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => fleetEl.querySelector(fleetState().hosts ? '[data-fl-f="active"]' : '#fleet-hosts').focus(), 40);
+  }
+  function closeFleet() {
+    if (!fleetEl || !fleetEl.classList.contains('show')) return;
+    fleetEl.classList.remove('show');
+    document.body.style.overflow = '';
+    const st = fleetState();
+    if (st.active && !fleetExpand(st.hosts).length && !fleetExpand(st.bmcs).length) showGlobalToast('Fleet is on but has no nodes or BMCs, so commands still copy for one node.');
+  }
+
+  function initFleet() {
+    if (IN_WIDGET_FRAME) return;
+    fleetBadges();
+    let queued = false;
+    new MutationObserver((muts) => {
+      if (!fleetState().active || queued || muts.every(m => m.target instanceof Element && m.target.closest('.fleet-backdrop, .con-drawer, .an-backdrop'))) return;
+      queued = true;
+      requestAnimationFrame(() => { queued = false; fleetBadges(); });
+    }).observe(document.body, { childList: true, subtree: true });
+    document.addEventListener('click', (e) => {
+      if (e.target instanceof Element && e.target.closest('[data-fleet-open]')) openFleet();
+    });
+    window.addEventListener('storage', (e) => { if (e.key === FLEET_KEY) refreshFleetUi(); });
+  }
+
+  // -------------------------------------------------------------
+  // COMPACT HEADER
+  // On a 1280×800 crash-cart laptop the header stack (title row with a
+  // two-line suite nav, a tagline, search + tools, a Topic row, the Rack
+  // Targets row) ended at y=313: 39% of the screen before the first command,
+  // three commands visible. Above Field Mode's breakpoint the same controls are
+  // re-flowed, not removed: title · search · topic · tools on one row, the suite
+  // nav on one line underneath (tightened step by step until it fits), and the
+  // Rack Targets summary on one line. The tagline becomes the title's tooltip.
+  // Nodes are moved with markers so Field Mode (≤768px) gets them back in place.
+  // -------------------------------------------------------------
+  const HDR_QUERY = '(min-width: 769px)';
+  const hdrHomes = new Map();
+  function hdrMove(node, into, before) {
+    if (!node || !into) return;
+    if (!hdrHomes.has(node)) {
+      const marker = document.createComment('hdr-home');
+      node.parentNode.insertBefore(marker, node);
+      hdrHomes.set(node, marker);
+    }
+    if (before) { if (node.nextSibling !== before || node.parentNode !== into) into.insertBefore(node, before); }
+    else if (node.parentNode !== into) into.appendChild(node);
+  }
+  function hdrRestore() {
+    hdrHomes.forEach((marker, node) => { if (marker.parentNode) marker.parentNode.insertBefore(node, marker.nextSibling); });
+    document.body.classList.remove('hdr-compact');
+  }
+  function applyCompactHeader() {
+    if (IN_WIDGET_FRAME) return;
+    const top = document.querySelector('.top-bar');
+    const inner = top && top.querySelector('.top-bar-inner');
+    if (!inner || !window.matchMedia) return;
+    if (!window.matchMedia(HDR_QUERY).matches) { hdrRestore(); return; }
+    let row = top.querySelector('.hdr-nav-row');
+    if (!row) { row = document.createElement('div'); row.className = 'container hdr-nav-row'; inner.after(row); }
+    hdrMove(top.querySelector('.sheet-switcher'), row);
+    const actions = inner.querySelector(':scope > .header-actions');
+    const cat = document.getElementById('category-tabs');
+    if (cat && actions) hdrMove(cat, inner, actions);
+    const sub = top.querySelector('.brand-subtitle');
+    const h1 = top.querySelector('h1');
+    if (sub && h1 && sub.textContent.trim()) h1.title = sub.textContent.trim();
+    document.body.classList.add('hdr-compact');
+    hdrFit();
+  }
+  // Tighten the suite nav until it is one line: carets, then logos, then spacing.
+  function hdrFit() {
+    const row = document.querySelector('.hdr-nav-row');
+    const nav = row && row.querySelector('.sheet-switcher');
+    if (!nav) return;
+    const steps = ['nav-t1', 'nav-t2', 'nav-t3'];
+    row.classList.remove(...steps);
+    const oneLine = () => nav.getBoundingClientRect().height <= 36;
+    for (const s of steps) { if (oneLine()) break; row.classList.add(s); }
+  }
+  function initCompactHeader() {
+    if (IN_WIDGET_FRAME || !window.matchMedia) return;
+    applyCompactHeader();
+    const mq = window.matchMedia(HDR_QUERY);
+    if (mq.addEventListener) mq.addEventListener('change', applyCompactHeader);
+    let t = null;
+    window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(hdrFit, 120); });
+    // Web fonts change label widths after first paint.
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(hdrFit);
+  }
+
+  // -------------------------------------------------------------
+  // TO PHONE (offline QR handoff)
+  // Everything this suite produces ends on the workstation's clipboard, and the
+  // work then moves somewhere that clipboard can't follow: the phone in the
+  // tech's pocket at the rack, the crash-cart laptop, the KVM with no paste.
+  // Any command (targets filled in, password never), the Case Trail as ticket
+  // notes, a kit or an analysis renders as a QR code the phone camera reads as
+  // plain text. Encoded locally (no network, no library); long text is split
+  // into numbered pages on line boundaries.
+  // -------------------------------------------------------------
+  // Minimal QR Code encoder (ISO/IEC 18004): byte mode, ECC L/M/Q/H, versions 1–40,
+  // all 8 masks scored by the standard penalty rules. Structure follows Project
+  // Nayuki's reference implementation (MIT). Returns a boolean matrix [y][x].
+  const QR_ECC_PER_BLOCK = [
+    [-1, 7, 10, 15, 20, 26, 18, 20, 24, 30, 18, 20, 24, 26, 30, 22, 24, 28, 30, 28, 28, 28, 28, 30, 30, 26, 28, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30],
+    [-1, 10, 16, 26, 18, 24, 16, 18, 22, 22, 26, 30, 22, 22, 24, 24, 28, 28, 26, 26, 26, 26, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28],
+    [-1, 13, 22, 18, 26, 18, 24, 18, 22, 20, 24, 28, 26, 24, 20, 30, 24, 28, 28, 26, 30, 28, 30, 30, 30, 30, 28, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30],
+    [-1, 17, 28, 22, 16, 22, 28, 26, 26, 24, 28, 24, 28, 22, 24, 24, 30, 28, 28, 26, 28, 30, 24, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30]
+  ];
+  const QR_NUM_BLOCKS = [
+    [-1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 4, 4, 4, 4, 4, 6, 6, 6, 6, 7, 8, 8, 9, 9, 10, 12, 12, 12, 13, 14, 15, 16, 17, 18, 19, 19, 20, 21, 22, 24, 25],
+    [-1, 1, 1, 1, 2, 2, 4, 4, 4, 5, 5, 5, 8, 9, 9, 10, 10, 11, 13, 14, 16, 17, 17, 18, 20, 21, 23, 25, 26, 28, 29, 31, 33, 35, 37, 38, 40, 43, 45, 47, 49],
+    [-1, 1, 1, 2, 2, 4, 4, 6, 6, 8, 8, 8, 10, 12, 16, 12, 17, 16, 18, 21, 20, 23, 23, 25, 27, 29, 34, 34, 35, 38, 40, 43, 45, 48, 51, 53, 56, 59, 62, 65, 68],
+    [-1, 1, 1, 2, 4, 4, 4, 5, 6, 8, 8, 11, 11, 16, 16, 18, 16, 19, 21, 25, 25, 25, 34, 30, 32, 35, 37, 40, 42, 45, 48, 51, 54, 57, 60, 63, 66, 70, 74, 77, 81]
+  ];
+  const QR_ECL_FORMAT = [1, 0, 3, 2]; // L, M, Q, H
+  const qrRawModules = (ver) => {
+    let r = (16 * ver + 128) * ver + 64;
+    if (ver >= 2) { const n = Math.floor(ver / 7) + 2; r -= (25 * n - 10) * n - 55; if (ver >= 7) r -= 36; }
+    return r;
+  };
+  const qrDataCodewords = (ver, ecl) => Math.floor(qrRawModules(ver) / 8) - QR_ECC_PER_BLOCK[ecl][ver] * QR_NUM_BLOCKS[ecl][ver];
+  function qrRsDivisor(degree) {
+    const res = new Array(degree).fill(0); res[degree - 1] = 1;
+    let root = 1;
+    for (let i = 0; i < degree; i++) {
+      for (let j = 0; j < res.length; j++) { res[j] = qrMul(res[j], root); if (j + 1 < res.length) res[j] ^= res[j + 1]; }
+      root = qrMul(root, 0x02);
+    }
+    return res;
+  }
+  function qrRsRemainder(data, divisor) {
+    const res = divisor.map(() => 0);
+    for (const b of data) {
+      const factor = b ^ res.shift(); res.push(0);
+      divisor.forEach((coef, i) => { res[i] ^= qrMul(coef, factor); });
+    }
+    return res;
+  }
+  function qrMul(x, y) {
+    let z = 0;
+    for (let i = 7; i >= 0; i--) { z = (z << 1) ^ ((z >>> 7) * 0x11D); z ^= ((y >>> i) & 1) * x; }
+    return z & 0xFF;
+  }
+  const qrBit = (x, i) => ((x >>> i) & 1) !== 0;
+
+  // eclPref: 0=L 1=M 2=Q 3=H (minimum); boosted while the version stays the same.
+  function qrEncode(text, eclPref = 1) {
+    const bytes = Array.from(new TextEncoder().encode(String(text)));
+    let ver, ecl = eclPref, bitsNeeded;
+    for (ver = 1; ver <= 40; ver++) {
+      bitsNeeded = 4 + (ver <= 9 ? 8 : 16) + bytes.length * 8;
+      if (bitsNeeded <= qrDataCodewords(ver, ecl) * 8) break;
+    }
+    if (ver > 40) return null;
+    for (let e = ecl + 1; e <= 3; e++) if (bitsNeeded <= qrDataCodewords(ver, e) * 8) ecl = e;
+    // Data bit stream
+    const bb = [];
+    const push = (val, len) => { for (let i = len - 1; i >= 0; i--) bb.push((val >>> i) & 1); };
+    push(0x4, 4); push(bytes.length, ver <= 9 ? 8 : 16); bytes.forEach(b => push(b, 8));
+    const cap = qrDataCodewords(ver, ecl) * 8;
+    push(0, Math.min(4, cap - bb.length)); push(0, (8 - bb.length % 8) % 8);
+    for (let pad = 0xEC; bb.length < cap; pad ^= 0xEC ^ 0x11) push(pad, 8);
+    const data = [];
+    for (let i = 0; i < bb.length; i += 8) data.push(parseInt(bb.slice(i, i + 8).join(''), 2));
+    // Blocks + ECC, interleaved
+    const numBlocks = QR_NUM_BLOCKS[ecl][ver], eccLen = QR_ECC_PER_BLOCK[ecl][ver];
+    const rawCw = Math.floor(qrRawModules(ver) / 8);
+    const numShort = numBlocks - rawCw % numBlocks, shortLen = Math.floor(rawCw / numBlocks);
+    const div = qrRsDivisor(eccLen);
+    const blocks = [];
+    for (let i = 0, k = 0; i < numBlocks; i++) {
+      const dat = data.slice(k, k + shortLen - eccLen + (i < numShort ? 0 : 1));
+      k += dat.length;
+      const ecc = qrRsRemainder(dat, div);
+      if (i < numShort) dat.push(0);
+      blocks.push(dat.concat(ecc));
+    }
+    const cw = [];
+    for (let i = 0; i < blocks[0].length; i++) blocks.forEach((b, j) => { if (i !== shortLen - eccLen || j >= numShort) cw.push(b[i]); });
+    // Matrix
+    const size = ver * 4 + 17;
+    const mod = Array.from({ length: size }, () => new Array(size).fill(false));
+    const fn = Array.from({ length: size }, () => new Array(size).fill(false));
+    const setF = (x, y, d) => { mod[y][x] = d; fn[y][x] = true; };
+    for (let i = 0; i < size; i++) { setF(6, i, i % 2 === 0); setF(i, 6, i % 2 === 0); }
+    const finder = (cx, cy) => { for (let dy = -4; dy <= 4; dy++) for (let dx = -4; dx <= 4; dx++) { const d = Math.max(Math.abs(dx), Math.abs(dy)), x = cx + dx, y = cy + dy; if (x >= 0 && x < size && y >= 0 && y < size) setF(x, y, d !== 2 && d !== 4); } };
+    finder(3, 3); finder(size - 4, 3); finder(3, size - 4);
+    const align = [];
+    if (ver > 1) {
+      const n = Math.floor(ver / 7) + 2;
+      const step = ver === 32 ? 26 : Math.ceil((ver * 4 + 4) / (n * 2 - 2)) * 2;
+      align.push(6);
+      for (let pos = size - 7; align.length < n; pos -= step) align.splice(1, 0, pos);
+    }
+    align.forEach((ay, i) => align.forEach((ax, j) => {
+      if ((i === 0 && j === 0) || (i === 0 && j === align.length - 1) || (i === align.length - 1 && j === 0)) return;
+      for (let dy = -2; dy <= 2; dy++) for (let dx = -2; dx <= 2; dx++) setF(ax + dx, ay + dy, Math.max(Math.abs(dx), Math.abs(dy)) !== 1);
+    }));
+    const drawFormat = (mask) => {
+      const d = QR_ECL_FORMAT[ecl] << 3 | mask;
+      let rem = d;
+      for (let i = 0; i < 10; i++) rem = (rem << 1) ^ ((rem >>> 9) * 0x537);
+      const bits = (d << 10 | rem) ^ 0x5412;
+      for (let i = 0; i <= 5; i++) setF(8, i, qrBit(bits, i));
+      setF(8, 7, qrBit(bits, 6)); setF(8, 8, qrBit(bits, 7)); setF(7, 8, qrBit(bits, 8));
+      for (let i = 9; i < 15; i++) setF(14 - i, 8, qrBit(bits, i));
+      for (let i = 0; i < 8; i++) setF(size - 1 - i, 8, qrBit(bits, i));
+      for (let i = 8; i < 15; i++) setF(8, size - 15 + i, qrBit(bits, i));
+      setF(8, size - 8, true);
+    };
+    drawFormat(0);
+    if (ver >= 7) {
+      let rem = ver;
+      for (let i = 0; i < 12; i++) rem = (rem << 1) ^ ((rem >>> 11) * 0x1F25);
+      const bits = ver << 12 | rem;
+      for (let i = 0; i < 18; i++) { const a = size - 11 + i % 3, b = Math.floor(i / 3); setF(a, b, qrBit(bits, i)); setF(b, a, qrBit(bits, i)); }
+    }
+    let bi = 0;
+    for (let right = size - 1; right >= 1; right -= 2) {
+      if (right === 6) right = 5;
+      for (let v = 0; v < size; v++) for (let j = 0; j < 2; j++) {
+        const x = right - j, up = ((right + 1) & 2) === 0, y = up ? size - 1 - v : v;
+        if (!fn[y][x] && bi < cw.length * 8) { mod[y][x] = qrBit(cw[bi >>> 3], 7 - (bi & 7)); bi++; }
+      }
+    }
+    const maskFn = [
+      (x, y) => (x + y) % 2 === 0, (x, y) => y % 2 === 0, (x) => x % 3 === 0, (x, y) => (x + y) % 3 === 0,
+      (x, y) => (Math.floor(x / 3) + Math.floor(y / 2)) % 2 === 0, (x, y) => x * y % 2 + x * y % 3 === 0,
+      (x, y) => (x * y % 2 + x * y % 3) % 2 === 0, (x, y) => ((x + y) % 2 + x * y % 3) % 2 === 0
+    ];
+    const applyMask = (m) => { for (let y = 0; y < size; y++) for (let x = 0; x < size; x++) if (!fn[y][x] && maskFn[m](x, y)) mod[y][x] = !mod[y][x]; };
+    // Penalty: runs (N1), 2×2 blocks (N2), finder-like 1:1:3:1:1 (N3), dark balance (N4).
+    const penalty = () => {
+      let p = 0, dark = 0;
+      const lineScore = (get) => {
+        let s = 0;
+        for (let a = 0; a < size; a++) {
+          let run = 1;
+          for (let b = 1; b <= size; b++) {
+            if (b < size && get(a, b) === get(a, b - 1)) run++;
+            else { if (run >= 5) s += 3 + run - 5; run = 1; }
+          }
+          for (let b = 0; b + 10 < size; b++) {
+            const seq = [];
+            for (let k = 0; k < 11; k++) seq.push(get(a, b + k) ? 1 : 0);
+            const str = seq.join('');
+            if (str === '10111010000' || str === '00001011101') s += 40;
+          }
+        }
+        return s;
+      };
+      p += lineScore((a, b) => mod[a][b]) + lineScore((a, b) => mod[b][a]);
+      for (let y = 0; y < size - 1; y++) for (let x = 0; x < size - 1; x++) { const c = mod[y][x]; if (c === mod[y][x + 1] && c === mod[y + 1][x] && c === mod[y + 1][x + 1]) p += 3; }
+      mod.forEach(r => r.forEach(c => { if (c) dark++; }));
+      p += Math.floor(Math.abs(dark * 20 - size * size * 10) / (size * size)) * 10;
+      return p;
+    };
+    let best = 0, bestP = Infinity;
+    for (let m = 0; m < 8; m++) { applyMask(m); drawFormat(m); const s = penalty(); if (s < bestP) { bestP = s; best = m; } applyMask(m); }
+    applyMask(best); drawFormat(best);
+    return { size, modules: mod, version: ver, ecl: 'LMQH'[ecl], mask: best };
+  }
+
+  function qrSvg(q) {
+    const n = q.size + 8;
+    let d = '';
+    for (let y = 0; y < q.size; y++) {
+      let x = 0;
+      while (x < q.size) {
+        if (!q.modules[y][x]) { x++; continue; }
+        let w = 1;
+        while (x + w < q.size && q.modules[y][x + w]) w++;
+        d += `M${x + 4} ${y + 4}h${w}v1h-${w}z`;
+        x += w;
+      }
+    }
+    return `<svg viewBox="0 0 ${n} ${n}" shape-rendering="crispEdges" role="img" aria-label="QR code"><rect width="${n}" height="${n}" fill="#fff"/><path d="${d}" fill="#000"/></svg>`;
+  }
+
+  // ≤ 900 UTF-8 bytes per code keeps it at version ≤ 25 (M): easy for any phone camera.
+  const PHONE_PAGE_BYTES = 900;
+  function phonePages(text) {
+    const enc = new TextEncoder();
+    const bytes = s => enc.encode(s).length;
+    text = String(text).replace(/\r/g, '').trim();
+    if (bytes(text) <= PHONE_PAGE_BYTES) return [text];
+    const pages = [];
+    let cur = '';
+    const flush = () => { if (cur) pages.push(cur); cur = ''; };
+    text.split('\n').forEach(line => {
+      while (bytes(line) > PHONE_PAGE_BYTES - 20) {
+        // A single very long line: cut it (by characters, safely under the byte budget).
+        let cut = Math.floor((PHONE_PAGE_BYTES - 20) / 3);
+        flush(); pages.push(line.slice(0, cut)); line = line.slice(cut);
+      }
+      if (bytes(cur ? `${cur}\n${line}` : line) > PHONE_PAGE_BYTES - 20) flush();
+      cur = cur ? `${cur}\n${line}` : line;
+    });
+    flush();
+    return pages.length > 1 ? pages.map((p, i) => `[${i + 1}/${pages.length}]\n${p.replace(/\s+$/, '')}`) : pages;
+  }
+
+  let phoneEl = null;
+  function openPhone(text, title = 'Scan with your phone', sub = '') {
+    const pages = phonePages(text);
+    if (!pages[0]) { showGlobalToast('Nothing to send yet.'); return; }
+    if (!phoneEl) {
+      phoneEl = document.createElement('div');
+      phoneEl.className = 'an-backdrop phone-backdrop';
+      phoneEl.innerHTML = `
+        <div class="an-dialog phone-dialog" role="dialog" aria-modal="true" aria-labelledby="phone-title">
+          <header class="an-head">
+            <div><h2 id="phone-title"></h2><p class="phone-sub"></p></div>
+            <button type="button" class="trail-close" data-ph="close" aria-label="Close">✕</button>
+          </header>
+          <div class="phone-body">
+            <div class="phone-qr-wrap"><button type="button" class="phone-qr" data-ph="big" title="Click to fill the screen (scan from further away)"></button>
+              <div class="phone-pager"><button type="button" data-ph="prev" aria-label="Previous page">◀</button><span class="phone-page"></span><button type="button" data-ph="next" aria-label="Next page">▶</button></div></div>
+            <div class="phone-side">
+              <ol class="phone-steps"><li>Open the phone camera and point it at the code.</li><li>Tap the text it finds, then <b>Copy</b>.</li><li>Paste into the terminal, ticket or chat on the phone.</li></ol>
+              <div class="phone-meta"></div>
+              <pre class="phone-text" tabindex="0"></pre>
+              <div class="an-actions"><button type="button" class="an-primary" data-ph="big">⛶ Full screen</button><button type="button" data-ph="copy">Copy text</button></div>
+              <p class="phone-note">Made in this browser; nothing is uploaded. Passwords are never put in a code.</p>
+            </div>
+          </div>
+        </div>`;
+      document.body.appendChild(phoneEl);
+      phoneEl.addEventListener('click', (e) => {
+        if (e.target === phoneEl) return closePhone();
+        const b = e.target instanceof Element ? e.target.closest('[data-ph]') : null;
+        if (!b) return;
+        const act = b.dataset.ph;
+        if (act === 'close') closePhone();
+        if (act === 'prev') phoneShow(phoneEl._i - 1);
+        if (act === 'next') phoneShow(phoneEl._i + 1);
+        if (act === 'big') phoneEl.classList.toggle('is-big');
+        if (act === 'copy') { copyVerbatim(phoneEl._pages[phoneEl._i]); showGlobalToast('Copied this page’s text.'); }
+      });
+      phoneEl.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') { e.stopPropagation(); if (phoneEl.classList.contains('is-big')) phoneEl.classList.remove('is-big'); else closePhone(); }
+        if (e.key === 'ArrowRight' || e.key === 'PageDown') { e.preventDefault(); phoneShow(phoneEl._i + 1); }
+        if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); phoneShow(phoneEl._i - 1); }
+        if (e.key === 'f') phoneEl.classList.toggle('is-big');
+      });
+    }
+    phoneEl._pages = pages;
+    phoneEl.querySelector('#phone-title').textContent = title;
+    phoneEl.querySelector('.phone-sub').textContent = sub || (pages.length > 1 ? `Too long for one code, so it's split into ${pages.length} pages: scan them in order (← → to flip).` : 'One code, scanned as plain text by any phone camera.');
+    phoneEl.classList.toggle('is-multi', pages.length > 1);
+    phoneEl.classList.remove('is-big');
+    phoneShow(0);
+    phoneEl._focus = document.activeElement;
+    phoneEl.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => phoneEl.querySelector('.phone-qr').focus(), 40);
+  }
+  function phoneShow(i) {
+    const pages = phoneEl._pages;
+    i = Math.max(0, Math.min(pages.length - 1, i));
+    phoneEl._i = i;
+    const q = qrEncode(pages[i], 1);
+    phoneEl.querySelector('.phone-qr').innerHTML = q ? qrSvg(q) : '<p>Too long for a QR code.</p>';
+    phoneEl.querySelector('.phone-page').textContent = `${i + 1} / ${pages.length}`;
+    phoneEl.querySelector('[data-ph="prev"]').disabled = i === 0;
+    phoneEl.querySelector('[data-ph="next"]').disabled = i === pages.length - 1;
+    const bytes = new TextEncoder().encode(pages[i]).length;
+    phoneEl.querySelector('.phone-meta').textContent = `${bytes.toLocaleString('en-US')} bytes · QR version ${q ? q.version : '—'}-${q ? q.ecl : ''}${pages.length > 1 ? ` · page ${i + 1} of ${pages.length}` : ''}`;
+    phoneEl.querySelector('.phone-text').textContent = pages[i];
+  }
+  function closePhone() {
+    if (!phoneEl || !phoneEl.classList.contains('show')) return;
+    phoneEl.classList.remove('show', 'is-big');
+    document.body.style.overflow = '';
+    if (phoneEl._focus && phoneEl._focus.focus) phoneEl._focus.focus();
+  }
+
+  // A command box → its command with Rack Targets and slots filled in, password masked.
+  function phoneTextForBox(box) {
+    const raw = box.dataset.copy ?? box.dataset.cmd ?? box.dataset.subcmd ?? (() => { const c = box.cloneNode(true); c.querySelectorAll('.con-send, .fleet-badge, .phone-send').forEach(x => x.remove()); return c.textContent; })();
+    const cmd = firstCommand(String(raw).trim());
+    const fleet = fleetWrap(cmd);
+    return fleet ? trailSafeText(fleet.kind === 'skip' ? cmd : fleet.text) : trailSafeText(cmd);
+  }
+  function phoneCommand(box) {
+    const text = phoneTextForBox(box);
+    const card = box.closest('.section-card, .hx-card');
+    const t = card && card.querySelector('.section-title, h3');
+    openPhone(text, 'Send this command to your phone', t ? (t.innerText || t.textContent).trim().replace(/\s*\n+\s*/g, ' · ') : '');
+  }
+
+  const PHONE_BOXES = '.cmd-code-box:not(.is-reference), .subcmd-row:not(.is-reference)';
+  function initPhone() {
+    if (IN_WIDGET_FRAME) return;
+    document.addEventListener('click', (e) => { if (e.target instanceof Element && e.target.closest('[data-case-from-rma]')) { closeTriageModal(); openCaseFile(); } });
+    // The 📱 chip is added the first time a command is hovered or focused (cheap on 50-card sheets).
+    const ensure = (e) => {
+      const box = e.target instanceof Element ? e.target.closest(PHONE_BOXES) : null;
+      if (!box || box.querySelector(':scope > .phone-send')) return;
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'phone-send';
+      b.tabIndex = -1;
+      b.title = 'Show as a QR code for your phone (p)';
+      b.setAttribute('aria-label', 'Send to phone as QR code');
+      b.innerHTML = '<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/></svg>';
+      box.appendChild(b);
+    };
+    document.addEventListener('pointerover', ensure, { passive: true });
+    document.addEventListener('focusin', ensure);
+    document.addEventListener('click', (e) => {
+      const b = e.target instanceof Element ? e.target.closest('.phone-send') : null;
+      if (!b) return;
+      e.preventDefault();
+      e.stopPropagation();
+      phoneCommand(b.parentElement);
+    }, true);
+  }
+
+  // -------------------------------------------------------------
+  // FLEET RESULTS
+  // Fleet mode sends one command to 16 nodes; what comes back was 16 nodes'
+  // output interleaved (pdsh), folded (dshbak -c / clush -b) or looped (BMCs),
+  // and the site could not read any of it. Paste it here: it is split per node,
+  // nodes are grouped by output (temperatures, serials, clocks ignored via the
+  // golden-diff parser), the largest group is the baseline, and every other
+  // group shows exactly what differs from it, or, when the baseline is "no
+  // output" (a grep that found nothing), what its lines decode to. Nodes that
+  // could not be reached are called out on their own, as are listed nodes that
+  // never answered.
+  // -------------------------------------------------------------
+  const FR_UNREACHABLE = /ssh: connect to host|Connection (timed out|refused|closed)|No route to host|Could not resolve hostname|Name or service not known|Permission denied \(|exited with exit code 255|Host key verification failed|Network is unreachable|Unable to establish IPMI|Error: Unable to establish|Get Session Challenge command failed|Activate Session (command )?failed/i;
+  const FR_HOST = /^(?:pdsh@[\w.-]+:\s+)?((?!\d{4}-\d{2}-\d{2})(?=[\w.-]*[\d-])[A-Za-z0-9][\w.-]{0,62}|\d{1,3}(?:\.\d{1,3}){3}):\s?(.*)$/;
+
+  function frParse(text) {
+    const lines = String(text || '').replace(/\r/g, '').split('\n');
+    const out = new Map();
+    const add = (h, l) => { if (!out.has(h)) out.set(h, []); if (l != null) out.get(h).push(l); };
+    // dshbak -c / clush -b: dashed rules around a host-list header.
+    const rule = /^-{6,}\s*$/;
+    if (lines.filter(l => rule.test(l)).length >= 2) {
+      let i = 0, cur = null;
+      while (i < lines.length) {
+        if (rule.test(lines[i]) && i + 2 < lines.length && rule.test(lines[i + 2])) {
+          cur = fleetExpand(lines[i + 1].replace(/\s*\(\d+\)\s*$/, '').trim());
+          cur.forEach(h => add(h));
+          i += 3;
+          continue;
+        }
+        if (cur) cur.forEach(h => add(h, lines[i]));
+        i++;
+      }
+      if (out.size) return { format: 'dshbak / clush -b', nodes: out };
+    }
+    // BMC loop from Fleet mode: "=== <bmc>" then that BMC's output.
+    if (lines.filter(l => /^=== \S+\s*$/.test(l)).length >= 2) {
+      let cur = null;
+      lines.forEach(l => { const m = l.match(/^=== (\S+)\s*$/); if (m) { cur = m[1]; add(cur); } else if (cur) add(cur, l); });
+      return { format: 'BMC loop', nodes: out };
+    }
+    // pdsh / ssh + xargs: "host: line", interleaved.
+    let hits = 0;
+    const nonEmpty = lines.filter(l => l.trim());
+    nonEmpty.forEach(l => { const m = l.match(FR_HOST); if (m) { hits++; add(m[1], m[2]); } });
+    if (out.size >= 1 && hits >= nonEmpty.length * 0.7) return { format: 'pdsh / ssh', nodes: out };
+    return null;
+  }
+  // Lines of free text rather than key: value fields.
+  function frLineish(text) {
+    const p = gdParse(text);
+    if (p.format === 'CSV') return false;
+    const vals = [...p.fields.values()];
+    return !vals.length || vals.filter(v => v !== '').length < vals.length * 0.5 || /\|\s*\d{2}\/\d{2}\/\d{4}\s*\|/.test(text) || /^\[[^\]]+\]\s/m.test(text);
+  }
+  const frLooksLike = (text) => { const r = frParse(text); return !!(r && r.nodes.size >= 2); };
+
+  // Grouping key: structured fields minus the noise; raw trimmed lines otherwise.
+  function frKey(lines) {
+    const text = lines.join('\n').trim();
+    if (!text) return '\u0000empty';
+    const p = gdParse(text);
+    if (p.fields.size >= 2) {
+      return [...p.fields].filter(([k]) => !(GD_VOLATILE.test(k) && !GD_COUNTER.test(k))).map(([k, v]) => `${k}=${v}`).join('\n') + `\n#${[...p.headers].join('|')}`;
+    }
+    return text.split('\n').map(l => l.trim()).filter(Boolean).join('\n');
+  }
+
+  // gpu-node-01,02,03,05 → gpu-node-[01-03,05]
+  function fleetCompress(hosts) {
+    const groups = new Map(), loose = [];
+    hosts.forEach(h => {
+      const m = String(h).match(/^(.*?)(\d+)(\D*)$/);
+      if (!m) { loose.push(h); return; }
+      const key = `${m[1]}\u0000${m[3]}\u0000${m[2].length}`;
+      if (!groups.has(key)) groups.set(key, { pre: m[1], suf: m[3], w: m[2].length, nums: [] });
+      groups.get(key).nums.push(parseInt(m[2], 10));
+    });
+    const parts = [];
+    groups.forEach(g => {
+      const ns = [...new Set(g.nums)].sort((a, b) => a - b);
+      const pad = n => String(n).padStart(g.w, '0');
+      const rs = [];
+      for (let i = 0; i < ns.length; i++) { let j = i; while (j + 1 < ns.length && ns[j + 1] === ns[j] + 1) j++; rs.push(i === j ? pad(ns[i]) : `${pad(ns[i])}-${pad(ns[j])}`); i = j; }
+      parts.push(ns.length === 1 ? `${g.pre}${pad(ns[0])}${g.suf}` : `${g.pre}[${rs.join(',')}]${g.suf}`);
+    });
+    return [...parts, ...loose].join(',');
+  }
+
+  function frAnalyze(text, expected = []) {
+    const parsed = frParse(text);
+    if (!parsed) return null;
+    const nodes = parsed.nodes;
+    const unreachable = [], groupsByKey = new Map();
+    nodes.forEach((ls, host) => {
+      const body = ls.join('\n');
+      if (FR_UNREACHABLE.test(body) && ls.length <= 4) { unreachable.push({ host, why: (ls.find(l => FR_UNREACHABLE.test(l)) || '').trim() }); return; }
+      const key = frKey(ls);
+      if (!groupsByKey.has(key)) groupsByKey.set(key, { key, hosts: [], sample: body.trim(), empty: key === '\u0000empty' });
+      groupsByKey.get(key).hosts.push(host);
+    });
+    // Listed in Fleet but silent: with grep-style commands that is the healthy answer.
+    const silent = expected.filter(h => !nodes.has(h));
+    if (silent.length) {
+      const k = '\u0000empty';
+      if (!groupsByKey.has(k)) groupsByKey.set(k, { key: k, hosts: [], sample: '', empty: true, silent: true });
+      groupsByKey.get(k).hosts.push(...silent);
+    }
+    // Baseline: the largest group that printed something, unless most nodes printed nothing
+    // (a grep for errors where silence is the healthy answer).
+    let groups = [...groupsByKey.values()].sort((a, b) => b.hosts.length - a.hosts.length || (a.empty ? 1 : -1));
+    if (!groups.length && !unreachable.length) return null;
+    const silentG = groups.find(g => g.empty);
+    const reporting = groups.filter(g => !g.empty).reduce((n, g) => n + g.hosts.length, 0);
+    const allErrors = groups.filter(g => !g.empty).every(g => g.sample.split('\n').some(l => decodeSymptom(l)));
+    const base = silentG && (!reporting || allErrors) ? silentG : (groups.find(g => !g.empty) || groups[0]);
+    groups = [base, ...groups.filter(g => g !== base)];
+    groups.forEach((g, i) => {
+      g.letter = String.fromCharCode(65 + Math.min(i, 25));
+      g.base = i === 0;
+      g.findings = [];
+      g.sev = 'ok';
+      if (g.base) return;
+      if (base.empty || g.empty) {
+        // One side printed nothing: decode what the other side printed.
+        const src = g.empty ? base.sample : g.sample;
+        const seen = new Set();
+        src.split('\n').forEach(l => { const d = decodeSymptom(l); if (d && !seen.has(d.title)) { seen.add(d.title); g.findings.push({ sev: d.sev === 'info' ? 'warn' : d.sev, path: d.layer, good: g.empty ? d.title : '—', bad: g.empty ? '(no output)' : d.title }); } });
+        if (!g.findings.length) g.findings.push({ sev: 'warn', path: g.silent ? 'Listed in Fleet, printed nothing (not run there, or no output)' : 'Output', good: base.empty ? '(no output)' : `${base.sample.split('\n').length} line(s)`, bad: g.empty ? '(no output)' : `${g.sample.split('\n').length} line(s)` });
+      } else if (!/\n/.test(base.sample) && !/\n/.test(g.sample) && base.sample.split(',').length > 1 && base.sample.split(',').length === g.sample.split(',').length) {
+        // One headerless CSV line per node (--format=csv,noheader): compare column by column.
+        const a = base.sample.split(',').map(x => x.trim()), c = g.sample.split(',').map(x => x.trim());
+        a.forEach((v, i) => { if (v !== c[i]) g.findings.push({ sev: GD_DEGRADED.test(c[i]) && !GD_DEGRADED.test(v) ? 'crit' : 'warn', path: `column ${i + 1}`, good: v, bad: c[i] }); });
+      } else if (frLineish(base.sample) || frLineish(g.sample)) {
+        // Line output (SEL, dmesg, grep): what only this group printed, decoded; what it lacks.
+        const bl = new Set(base.sample.split('\n').map(l => l.trim()).filter(Boolean));
+        const gl = new Set(g.sample.split('\n').map(l => l.trim()).filter(Boolean));
+        [...gl].filter(l => !bl.has(l)).slice(0, 10).forEach(l => { const d = decodeSymptom(l); g.findings.push({ sev: d ? (d.sev === 'info' ? 'warn' : d.sev) : 'warn', path: d ? d.title : 'Only on this group', good: '—', bad: l }); });
+        [...bl].filter(l => !gl.has(l)).slice(0, 6).forEach(l => g.findings.push({ sev: 'warn', path: 'Missing on this group', good: l, bad: '—' }));
+      } else {
+        const res = gdCompare(base.sample, g.sample);
+        if (res) {
+          const take = (k, sev) => res.rows[k].forEach(r => g.findings.push(Object.assign({ sev }, r)));
+          take('missing', 'crit'); take('counter', 'crit'); take('cfgCrit', 'crit'); take('cfg', 'warn'); take('other', 'warn'); take('extra', 'info');
+        }
+        if (!g.findings.length) g.findings.push({ sev: 'info', path: 'Output', good: 'same fields', bad: 'differs only in noise or order' });
+      }
+      g.sev = g.findings.some(f => f.sev === 'crit') ? 'crit' : g.findings.some(f => f.sev === 'warn') ? 'warn' : 'info';
+    });
+    const rank = { crit: 0, warn: 1, info: 2, ok: 3 };
+    groups = [groups[0], ...groups.slice(1).sort((a, b) => rank[a.sev] - rank[b.sev] || b.hosts.length - a.hosts.length)];
+    groups.forEach((g, i) => { g.letter = String.fromCharCode(65 + Math.min(i, 25)); });
+    const all = [...groups.flatMap(g => g.hosts), ...unreachable.map(u => u.host)];
+    const sorted = all.slice().sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+    return { format: parsed.format, groups, unreachable, hosts: sorted, base };
+  }
+
+  function frRender(r) {
+    if (!r) return '<p class="an-hint">Paste what the fan-out printed: <code>pdsh</code> lines (<code>host: …</code>), <code>dshbak -c</code> or <code>clush -b</code> blocks, the ssh + xargs output or the BMC loop (<code>=== bmc</code>).</p>';
+    const odd = r.groups.filter(g => !g.base);
+    const oddHosts = odd.reduce((n, g) => n + g.hosts.length, 0);
+    const worst = r.unreachable.length || odd.some(g => g.sev === 'crit') ? 'crit' : odd.some(g => g.sev === 'warn') ? 'warn' : 'ok';
+    const verdict = !odd.length && !r.unreachable.length ? `All ${r.hosts.length} nodes match` : [oddHosts && `${oddHosts} node${oddHosts === 1 ? '' : 's'} differ${oddHosts === 1 ? 's' : ''}`, r.unreachable.length && `${r.unreachable.length} unreachable`].filter(Boolean).join(' · ');
+    const groupOf = new Map();
+    r.groups.forEach(g => g.hosts.forEach(h => groupOf.set(h, g)));
+    const tiles = r.hosts.map(h => {
+      const g = groupOf.get(h);
+      const u = !g && r.unreachable.find(x => x.host === h);
+      const cls = u ? 'is-down' : g.base ? 'is-base' : `is-odd sev-${g.sev}`;
+      const short = h.replace(/^(.*?)(\d+)(\D*)$/, (m, a, n, s) => n + s) || h;
+      return `<button type="button" class="fr-tile ${cls}" data-fr-host="${escapeHtml(h)}" title="${escapeHtml(h)} · ${u ? `unreachable: ${u.why}` : `group ${g.letter}${g.base ? ' (baseline)' : ''}${g.silent && g.empty ? ' · no output' : ''}`}"><b>${escapeHtml(short)}</b><span>${u ? '✕' : g.letter}</span></button>`;
+    }).join('');
+    const cell = v => escapeHtml(String(v)) || '<i>empty</i>';
+    const groupCard = g => `
+      <section class="fr-group ${g.base ? 'is-base' : `sev-${g.sev}`}" data-fr-group="${g.letter}">
+        <header><span class="fr-letter">${g.letter}</span><div><b>${g.base ? 'Baseline' : { crit: 'Differs: likely fault', warn: 'Differs: check', info: 'Differs: noise only' }[g.sev]} · ${g.hosts.length} node${g.hosts.length === 1 ? '' : 's'}</b><code>${escapeHtml(fleetCompress(g.hosts))}</code></div>
+          ${!g.base && !g.empty && !r.base.empty ? `<button type="button" class="fr-mini" data-fr="compare" data-g="${g.letter}">Compare in full →</button>` : ''}</header>
+        ${g.base ? `<p class="fr-sum">${g.empty ? 'Printed nothing. For a grep or error query that is the healthy answer.' : 'The majority output. Every other group is compared against it.'}</p>` : `<table class="gd-table fr-table"><thead><tr><th>Field</th><th>Baseline (${r.base.letter})</th><th>Group ${g.letter}</th></tr></thead><tbody>
+          ${g.findings.slice(0, 12).map(f => `<tr class="sev-${f.sev}"><td class="gd-path">${escapeHtml(String(f.path).split(' › ').slice(-2).join(' › '))}</td><td class="gd-good">${cell(f.good)}</td><td class="gd-bad">${cell(f.bad)}</td></tr>`).join('')}
+          </tbody></table>${g.findings.length > 12 ? `<p class="fr-sum">+${g.findings.length - 12} more: use Compare in full.</p>` : ''}`}
+        ${g.sample ? `<details class="fr-raw"><summary>Output of ${escapeHtml(g.hosts[0])}${g.hosts.length > 1 ? ` (same for ${g.hosts.length - 1} more)` : ''}</summary><pre>${escapeHtml(g.sample.slice(0, 6000))}</pre></details>` : ''}
+      </section>`;
+    return `<div class="an-report sev-${worst}">
+      <div class="an-verdict"><span class="an-type">Fleet results · ${escapeHtml(r.format)}</span><b>${verdict}</b><span class="an-count">${r.hosts.length} nodes · ${r.groups.length} group${r.groups.length === 1 ? '' : 's'}</span></div>
+      <div class="fr-tiles" role="list" aria-label="Nodes">${tiles}</div>
+      <div class="fr-legend"><span><i class="is-base"></i>baseline</span><span><i class="sev-crit"></i>differs, likely fault</span><span><i class="sev-warn"></i>differs</span><span><i class="is-down"></i>unreachable</span></div>
+      ${r.unreachable.length ? `<section class="fr-group sev-crit fr-down"><header><span class="fr-letter">✕</span><div><b>Unreachable · ${r.unreachable.length} node${r.unreachable.length === 1 ? '' : 's'}</b><code>${escapeHtml(fleetCompress(r.unreachable.map(u => u.host)))}</code></div></header>
+        <p class="fr-sum">The command never ran there. Check the node is up (BMC power state, console) before reading anything into its silence.</p><ul class="fr-why">${r.unreachable.slice(0, 8).map(u => `<li><b>${escapeHtml(u.host)}</b> ${escapeHtml(u.why)}</li>`).join('')}</ul></section>` : ''}
+      ${r.groups.filter(g => !g.base).map(groupCard).join('')}
+      ${r.groups[0] ? groupCard(r.groups[0]) : ''}
+      <div class="an-actions"><button type="button" class="an-primary" data-fr="copy">Copy summary</button><button type="button" data-fr="pin" class="pin-btn">📌 Pin to case</button><button type="button" data-fr="phone">📱 To phone</button><button type="button" data-fr="clear">Paste other results</button></div>
+    </div>`;
+  }
+
+  function frMarkdown(r) {
+    const out = [`### Fleet results: ${r.hosts.length} nodes`, ''];
+    if (r.unreachable.length) out.push(`- **Unreachable (${r.unreachable.length}):** \`${fleetCompress(r.unreachable.map(u => u.host))}\``);
+    r.groups.forEach(g => {
+      out.push(`- **Group ${g.letter}${g.base ? ' (baseline)' : ''} — ${g.hosts.length} node(s):** \`${fleetCompress(g.hosts)}\`${g.empty ? ' (no output)' : ''}`);
+      if (!g.base) g.findings.slice(0, 8).forEach(f => out.push(`  - ${f.sev.toUpperCase()} ${String(f.path).split(' › ').slice(-2).join(' › ')}: ${f.good} → ${f.bad}`));
+    });
+    return out.join('\n');
+  }
+
+  const FR_SAMPLE = (() => {
+    const head = 'index, pci.bus_id, pcie.link.gen.current, pcie.link.width.current, vbios_version, ecc.errors.uncorrected.aggregate.total, temperature.gpu';
+    const rows = (n) => {
+      const t = 38 + (n * 7) % 9;
+      const r = [[0, '00000000:18:00.0', 5, 16, '96.00.9F.00.04', 0, t], [1, '00000000:2A:00.0', 5, 16, '96.00.9F.00.04', 0, t + 2]];
+      if (n === 5) { r[1][2] = 4; r[1][3] = 8; }
+      if (n === 7) { r[0][4] = '96.00.74.00.11'; r[1][4] = '96.00.74.00.11'; }
+      if (n === 11) r[0][5] = 6;
+      return [head, ...r.map(x => x.join(', '))];
+    };
+    const lines = [];
+    const order = [3, 1, 8, 2, 12, 5, 4, 9, 7, 10, 6, 11];
+    order.forEach(n => {
+      const h = `gpu-node-${String(n).padStart(2, '0')}`;
+      if (n === 9) { lines.push(`${h}: ssh: connect to host ${h} port 22: Connection timed out`, `pdsh@jumpbox: ${h}: ssh exited with exit code 255`); return; }
+      rows(n).forEach(l => lines.push(`${h}: ${l}`));
+    });
+    return lines.join('\n');
+  })();
+
+  let frEl = null;
+  function openFleetResults(text = '') {
+    if (!frEl) {
+      frEl = document.createElement('div');
+      frEl.className = 'an-backdrop fr-backdrop';
+      frEl.innerHTML = `
+        <div class="an-dialog fr-dialog" role="dialog" aria-modal="true" aria-labelledby="fr-title">
+          <header class="an-head">
+            <div><h2 id="fr-title">Fleet results</h2><p>Paste what a fanned-out command printed. Nodes are grouped by output (temperatures, serials and clocks ignored), the largest group is the baseline, and every odd node shows exactly what differs.</p></div>
+            <button type="button" class="trail-close" data-fr="close" aria-label="Close">✕</button>
+          </header>
+          <div class="an-body">
+            <textarea class="an-input fr-input" spellcheck="false" placeholder="gpu-node-01: index, pci.bus_id, …&#10;gpu-node-01: 0, 00000000:18:00.0, …&#10;…  or dshbak -c / clush -b blocks, or the BMC loop" aria-label="Fleet output"></textarea>
+            <div class="an-samples"><span>Nothing to paste yet?</span><button type="button" data-fr="sample">Try a sample: 12 nodes, nvidia-smi --query-gpu</button></div>
+            <div class="an-out fr-out" aria-live="polite"></div>
+          </div>
+        </div>`;
+      document.body.appendChild(frEl);
+      const input = frEl.querySelector('.fr-input');
+      const out = frEl.querySelector('.fr-out');
+      let t = null;
+      const run = () => {
+        const st = fleetState();
+        // Fleet's own list tells which nodes stayed silent, when the paste is from that list.
+        const parsed = input.value.trim() ? frParse(input.value) : null;
+        let expected = [];
+        if (parsed) {
+          const got = [...parsed.nodes.keys()];
+          for (const list of [fleetExpand(st.hosts), fleetExpand(st.bmcs)]) {
+            if (list.length && got.filter(h => list.includes(h)).length >= Math.max(1, got.length / 2)) { expected = list; break; }
+          }
+        }
+        frEl._r = parsed ? frAnalyze(input.value, expected) : null;
+        frEl.classList.toggle('has-result', !!frEl._r);
+        out.innerHTML = input.value.trim() ? frRender(frEl._r) : '<p class="an-hint">Waiting for output…</p>';
+      };
+      frEl._run = run;
+      input.addEventListener('input', () => { clearTimeout(t); t = setTimeout(run, 150); });
+      frEl.addEventListener('click', (e) => {
+        if (e.target === frEl) return closeFleetResults();
+        const tile = e.target instanceof Element ? e.target.closest('[data-fr-host]') : null;
+        if (tile && frEl._r) {
+          const g = frEl._r.groups.find(x => x.hosts.includes(tile.dataset.frHost));
+          const card = frEl.querySelector(g ? `[data-fr-group="${g.letter}"]` : '.fr-down');
+          if (card) { card.scrollIntoView({ behavior: 'smooth', block: 'start' }); card.classList.remove('rail-flash'); void card.offsetWidth; card.classList.add('rail-flash'); }
+          return;
+        }
+        const b = e.target instanceof Element ? e.target.closest('[data-fr]') : null;
+        if (!b) return;
+        const act = b.dataset.fr;
+        if (act === 'close') closeFleetResults();
+        if (act === 'sample') { input.value = FR_SAMPLE; run(); }
+        if (act === 'clear') { input.value = ''; run(); input.focus(); }
+        if (act === 'copy' && frEl._r) { copyVerbatim(frMarkdown(frEl._r)); showGlobalToast('Copied the fleet summary as Markdown.'); }
+        if (act === 'pin' && frEl._r) { const r = frEl._r, odd = r.groups.filter(g => !g.base); casePin({ kind: 'Fleet results', title: `Fleet: ${r.hosts.length} nodes, ${odd.reduce((n, g) => n + g.hosts.length, 0)} differ${r.unreachable.length ? `, ${r.unreachable.length} unreachable` : ''}`, sev: r.unreachable.length || odd.some(g => g.sev === 'crit') ? 'crit' : odd.length ? 'warn' : 'ok', md: frMarkdown(r), facts: [] }); }
+        if (act === 'phone' && frEl._r) openPhone(frMarkdown(frEl._r), 'Fleet results to your phone', `${frEl._r.hosts.length} nodes`);
+        if (act === 'compare' && frEl._r) {
+          const g = frEl._r.groups.find(x => x.letter === b.dataset.g);
+          const base = frEl._r.base;
+          closeFleetResults();
+          openGoldenDiff(g.sample, base.sample);
+          const nb = document.querySelector('.gd-name[data-side="bad"]'), ng = document.querySelector('.gd-name[data-side="good"]');
+          if (nb && ng) { nb.value = g.hosts.length > 1 ? fleetCompress(g.hosts) : g.hosts[0]; ng.value = `baseline ${base.hosts[0]}`; nb.dispatchEvent(new Event('input', { bubbles: true })); }
+        }
+      });
+      frEl.addEventListener('keydown', (e) => { if (e.key === 'Escape') { e.stopPropagation(); closeFleetResults(); } });
+    }
+    frEl._focus = document.activeElement;
+    const input = frEl.querySelector('.fr-input');
+    if (text) input.value = text;
+    frEl._run();
+    frEl.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => (input.value ? frEl.querySelector('.fr-out button, .trail-close') : input).focus(), 40);
+  }
+  function closeFleetResults() {
+    if (!frEl || !frEl.classList.contains('show')) return;
+    frEl.classList.remove('show');
+    document.body.style.overflow = '';
+    if (frEl._focus && frEl._focus.focus) frEl._focus.focus();
+  }
+
+  // -------------------------------------------------------------
+  // CASE FILE
+  // Every tool here ended in "Copy as Markdown": a decoded Xid, an mlxlink
+  // report, a timeline cascade, a golden-node diff, fleet results. The ticket
+  // then got assembled by hand, and the RMA form started blank while the serial
+  // and slot sat in an analysis from ten minutes earlier. Results can now be
+  // pinned to the node's case (per node workspace, like the trail). The case
+  // file merges pins and the Case Trail into one timeline, keeps the hypothesis,
+  // root cause and next action, pre-fills the RMA block from the evidence, and
+  // exports cases/<host>/summary.md in the layout AGENTS.md §4–5 asks for.
+  // -------------------------------------------------------------
+  const CASE_KEY = 'dc_case_file';
+  const CASE_STATUS = ['Investigating', 'Waiting on drain', 'Waiting on parts', 'RMA filed', 'Monitoring', 'Resolved'];
+  const CASE_SEV_RANK = { crit: 3, warn: 2, info: 1, ok: 0 };
+  function readCase() {
+    let c = {};
+    try { c = JSON.parse(readStored(CASE_KEY) || '{}') || {}; } catch (e) {}
+    return Object.assign({ evidence: [], status: 'Investigating', hypothesis: '', root: '', next: '', rma: {} }, c, { rma: Object.assign({}, c.rma) });
+  }
+  function writeCase(c) {
+    try { localStorage.setItem(CASE_KEY, JSON.stringify(c)); } catch (e) {}
+    refreshCaseUi();
+  }
+  const caseName = () => trailMeta().caseId || readNodes().active || 'this node';
+
+  function casePin(item) {
+    const c = readCase();
+    const md = String(item.md || '').trim();
+    if (c.evidence.some(e => e.md === md)) { showGlobalToast('Already pinned to this case.'); return; }
+    c.evidence.push({ id: Date.now().toString(36) + Math.random().toString(36).slice(2, 5), t: Date.now(), kind: item.kind, title: item.title, sev: item.sev || 'info', md, facts: item.facts || [] });
+    writeCase(c);
+    showCaseToast(`📌 Pinned to ${caseName()}: ${item.title}`, c.evidence.length);
+  }
+  let caseToastEl = null;
+  function showCaseToast(msg, n) {
+    if (!caseToastEl) {
+      caseToastEl = document.createElement('div');
+      caseToastEl.className = 'case-toast';
+      caseToastEl.setAttribute('role', 'status');
+      document.body.appendChild(caseToastEl);
+      caseToastEl.addEventListener('click', (e) => { if (e.target.closest('[data-case-open]')) { caseToastEl.classList.remove('show'); openCaseFile(); } });
+    }
+    caseToastEl.innerHTML = `<span>${escapeHtml(msg)}</span><button type="button" data-case-open>Open case file (${n}) →</button>`;
+    caseToastEl.classList.add('show');
+    clearTimeout(caseToastEl._t);
+    caseToastEl._t = setTimeout(() => caseToastEl.classList.remove('show'), 4200);
+  }
+
+  // RMA suggestions from what the evidence already says.
+  function caseSuggestions(c) {
+    const s = { serial: new Set(), part: new Set(), slot: new Set(), component: new Set() };
+    c.evidence.forEach(e => {
+      (e.facts || []).forEach(([k, v]) => {
+        const val = String(v || '').trim();
+        if (!val || val === '—' || /^(n\/a|none|unknown)$/i.test(val)) return;
+        if (/serial/i.test(k)) s.serial.add(val);
+        else if (/part|module|model|opn|product/i.test(k)) s.part.add(val);
+        else if (/bdf|bus|dimm|slot|locator|hca|nvme|disk|iface|device/i.test(k)) s.slot.add(val);
+        else if (/layer|component/i.test(k)) s.component.add(val);
+      });
+    });
+    return Object.fromEntries(Object.entries(s).map(([k, v]) => [k, [...v].slice(0, 6)]));
+  }
+
+  function caseSeverity(c) {
+    const w = c.evidence.reduce((m, e) => Math.max(m, CASE_SEV_RANK[e.sev] || 0), 0);
+    return ['OK', 'Info', 'Warning', 'Critical'][w];
+  }
+
+  function caseMarkdown() {
+    const c = readCase();
+    const trail = readTrail();
+    const pad = n => String(n).padStart(2, '0');
+    const stamp = t => { const d = new Date(t); return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`; };
+    const times = [...c.evidence.map(e => e.t), ...trail.map(e => e.t)];
+    const node = caseName();
+    const targets = trailTargetsSummary();
+    const strip = md => md.replace(/^#{1,6}\s+.*\n+/, '').replace(/^#{1,6}\s/gm, m => '#'.repeat(Math.min(6, m.trim().length + 1)) + ' ');
+    const sevWord = { crit: 'Critical', warn: 'Warning', info: 'Info', ok: 'OK' };
+    const timeline = [
+      ...c.evidence.map(e => ({ t: e.t, line: `📌 **${e.title}** (${sevWord[e.sev] || e.sev})` })),
+      ...trail.map(e => ({ t: e.t, line: `ran \`${trailSafeText(e.cmd).split('\n')[0].replace(/`/g, "'").slice(0, 120)}\`${e.note ? ` — ${e.note}` : ''}` }))
+    ].sort((a, b) => a.t - b.t);
+    const r = c.rma || {};
+    const lines = [
+      `# ${node} — ${c.status}`, '',
+      '| | |', '|---|---|',
+      `| Node / ticket | ${node} |`,
+      ...(targets ? [`| Targets | ${targets} |`] : []),
+      `| Status | ${c.status} |`,
+      `| Severity | ${caseSeverity(c)} |`,
+      `| Opened | ${times.length ? stamp(Math.min(...times)) : stamp(Date.now())} |`,
+      `| Updated | ${stamp(Date.now())} |`, '',
+      '## Current hypothesis', '', c.hypothesis.trim() || '_Not written yet._', '',
+      '## Root cause', '', c.root.trim() || '_Not confirmed yet._', '',
+      '## Next action', '', c.next.trim() || '_—_', '',
+      '## Timeline', '',
+      ...(timeline.length ? ['| Time | Event |', '|---|---|', ...timeline.map(x => `| ${stamp(x.t).slice(11)} | ${x.line.replace(/\|/g, '\\|')} |`)] : ['_No evidence or commands yet._']), '',
+      '## Evidence', '',
+      ...(c.evidence.length ? c.evidence.flatMap((e, i) => [`### ${i + 1}. ${e.title} — ${sevWord[e.sev] || e.sev} · ${stamp(e.t).slice(11)}`, '', strip(e.md), '']) : ['_Nothing pinned yet._', '']),
+      '## Commands run', '',
+      ...(trail.length ? trail.map((e, i) => `${i + 1}. \`${stamp(e.t).slice(11)}\` \`${trailSafeText(e.cmd).split('\n')[0].replace(/`/g, "'")}\`${e.note ? ` — ${e.note}` : ''}`) : ['_None recorded._']), ''
+    ];
+    if (r.component || r.serial || r.part || r.slot) {
+      lines.push('## RMA block', '',
+        `### Hardware RMA Request: ${r.component || 'component'}`,
+        `- **Node / ticket:** ${node}`,
+        `- **Chassis serial:** ${r.chassis || '_fill in_'}`,
+        `- **Faulty part serial:** ${r.serial || '_fill in_'}`,
+        `- **Part number / OPN:** ${r.part || '_fill in_'}`,
+        `- **Physical location:** ${r.slot || '_fill in_'}`,
+        `- **Failure:** ${c.root.trim() || c.hypothesis.trim() || '_see evidence_'}`,
+        `- **Evidence:** ${c.evidence.length} pinned item${c.evidence.length === 1 ? '' : 's'} and ${trail.length} command${trail.length === 1 ? '' : 's'} above (timestamps local).`,
+        '- **Action requested:** advance replacement of the failed part; return packaging for the defective unit.', '');
+    }
+    return lines.join('\n');
+  }
+
+  let caseEl = null;
+  function openCaseFile() {
+    if (!caseEl) {
+      caseEl = document.createElement('div');
+      caseEl.className = 'an-backdrop case-backdrop';
+      caseEl.innerHTML = `
+        <div class="an-dialog case-dialog" role="dialog" aria-modal="true" aria-labelledby="case-title">
+          <header class="an-head">
+            <div><h2 id="case-title">Case file</h2><p>Pinned evidence and the Case Trail, assembled into <code>cases/&lt;host&gt;/summary.md</code>. Kept per node workspace, in this browser only.</p></div>
+            <button type="button" class="trail-close" data-case="close" aria-label="Close case file">✕</button>
+          </header>
+          <div class="case-body">
+            <div class="case-left">
+              <div class="case-row"><label>Status<select data-case-f="status">${CASE_STATUS.map(s => `<option>${s}</option>`).join('')}</select></label><span class="case-sev"></span></div>
+              <label class="case-field">Current hypothesis<textarea data-case-f="hypothesis" rows="2" placeholder="e.g. GPU 2 link trained x8 after the PSU AC loss: riser or power, not the GPU yet."></textarea></label>
+              <label class="case-field">Root cause<textarea data-case-f="root" rows="2" placeholder="Fill in once confirmed by isolation (A/B swap, reseat)."></textarea></label>
+              <label class="case-field">Next action<textarea data-case-f="next" rows="2" placeholder="e.g. Drain, reseat riser 2, re-run lspci -vvv."></textarea></label>
+              <div class="case-h">Evidence <span class="case-n"></span></div>
+              <ol class="case-evidence"></ol>
+              <div class="case-h">RMA block <small>suggestions come from the evidence</small></div>
+              <div class="case-rma">
+                ${[['component', 'Component'], ['chassis', 'Chassis serial'], ['serial', 'Part serial'], ['part', 'Part number / OPN'], ['slot', 'Location (slot / BDF / DIMM)']].map(([k, l]) => `<label class="case-field">${l}<input type="text" data-case-rma="${k}" list="case-dl-${k}" spellcheck="false" /><datalist id="case-dl-${k}"></datalist></label>`).join('')}
+              </div>
+            </div>
+            <div class="case-right">
+              <div class="case-h">summary.md <span class="case-bytes"></span></div>
+              <pre class="case-md" tabindex="0"></pre>
+              <div class="an-actions"><button type="button" class="an-primary" data-case="download">⬇ Download summary.md</button><button type="button" data-case="copy">Copy</button><button type="button" data-case="phone">📱 To phone</button><button type="button" class="case-clear" data-case="clear">Close case…</button></div>
+            </div>
+          </div>
+        </div>`;
+      document.body.appendChild(caseEl);
+      let t = null;
+      caseEl.addEventListener('input', (e) => {
+        const f = e.target.closest('[data-case-f], [data-case-rma]');
+        if (!f) return;
+        const c = readCase();
+        if (f.dataset.caseF) c[f.dataset.caseF] = f.value; else c.rma[f.dataset.caseRma] = f.value;
+        try { localStorage.setItem(CASE_KEY, JSON.stringify(c)); } catch (err) {}
+        clearTimeout(t); t = setTimeout(caseRenderPreview, 120);
+      });
+      caseEl.addEventListener('change', (e) => { if (e.target.closest('[data-case-f="status"]')) { caseRenderPreview(); refreshCaseUi(); } });
+      caseEl.addEventListener('click', (e) => {
+        if (e.target === caseEl) return closeCaseFile();
+        const b = e.target instanceof Element ? e.target.closest('[data-case], [data-case-rm], [data-case-sug]') : null;
+        if (!b) return;
+        if (b.dataset.caseRm) { const c = readCase(); c.evidence = c.evidence.filter(x => x.id !== b.dataset.caseRm); writeCase(c); caseRenderAll(); return; }
+        if (b.dataset.caseSug) { const [k, v] = b.dataset.caseSug.split('\u0001'); const c = readCase(); c.rma[k] = v; writeCase(c); caseRenderAll(); return; }
+        const act = b.dataset.case;
+        if (act === 'close') closeCaseFile();
+        if (act === 'copy') { copyVerbatim(caseMarkdown()); showGlobalToast('Copied summary.md.'); }
+        if (act === 'phone') openPhone(caseMarkdown(), 'Case summary to your phone', caseName());
+        if (act === 'download') {
+          const a = document.createElement('a');
+          a.href = URL.createObjectURL(new Blob([caseMarkdown() + '\n'], { type: 'text/markdown' }));
+          a.download = 'summary.md';
+          document.body.appendChild(a); a.click();
+          setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+          showGlobalToast(`Saved summary.md. It belongs in cases/${caseName().replace(/[^\w.-]+/g, '_')}/summary.md`);
+        }
+        if (act === 'clear') {
+          if (b.dataset.armed) { try { localStorage.removeItem(CASE_KEY); } catch (err) {} refreshCaseUi(); caseRenderAll(); delete b.dataset.armed; b.textContent = 'Close case…'; showGlobalToast('Case cleared. The Case Trail is kept; clear it in Trail if you are done with this node.'); return; }
+          b.dataset.armed = '1'; b.textContent = 'Click again to clear pins & notes';
+          setTimeout(() => { if (b.dataset.armed) { delete b.dataset.armed; b.textContent = 'Close case…'; } }, 3500);
+        }
+      });
+      caseEl.addEventListener('keydown', (e) => { if (e.key === 'Escape') { e.stopPropagation(); closeCaseFile(); } });
+    }
+    caseRenderAll();
+    caseEl._focus = document.activeElement;
+    caseEl.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => caseEl.querySelector(readCase().hypothesis ? '.case-md' : '[data-case-f="hypothesis"]').focus(), 40);
+  }
+  function caseRenderPreview() {
+    if (!caseEl) return;
+    const md = caseMarkdown();
+    caseEl.querySelector('.case-md').textContent = md;
+    caseEl.querySelector('.case-bytes').textContent = `${md.split('\n').length} lines`;
+    const sev = caseSeverity(readCase());
+    const s = caseEl.querySelector('.case-sev');
+    s.textContent = `Severity: ${sev}`;
+    s.dataset.sev = sev;
+  }
+  function caseRenderAll() {
+    if (!caseEl) return;
+    const c = readCase();
+    caseEl.querySelector('#case-title').textContent = `Case file · ${caseName()}`;
+    caseEl.querySelector('[data-case-f="status"]').value = c.status;
+    ['hypothesis', 'root', 'next'].forEach(k => { const el = caseEl.querySelector(`[data-case-f="${k}"]`); if (el !== document.activeElement) el.value = c[k] || ''; });
+    const sug = caseSuggestions(c);
+    if (!c.rma.component && sug.component[0]) { c.rma.component = sug.component[0]; try { localStorage.setItem(CASE_KEY, JSON.stringify(c)); } catch (e) {} }
+    ['component', 'chassis', 'serial', 'part', 'slot'].forEach(k => {
+      const el = caseEl.querySelector(`[data-case-rma="${k}"]`);
+      if (el !== document.activeElement) el.value = c.rma[k] || '';
+      caseEl.querySelector(`#case-dl-${k}`).innerHTML = (sug[k] || []).map(v => `<option value="${escapeHtml(v)}"></option>`).join('');
+    });
+    caseEl.querySelector('.case-n').textContent = `${c.evidence.length} pinned · ${readTrail().length} commands in the trail`;
+    const sevWord = { crit: 'Critical', warn: 'Warning', info: 'Info', ok: 'OK' };
+    caseEl.querySelector('.case-evidence').innerHTML = c.evidence.length ? c.evidence.map(e => `
+      <li class="sev-${e.sev}"><span class="an-sev">${sevWord[e.sev] || e.sev}</span><div><b>${escapeHtml(e.title)}</b><small>${escapeHtml(e.kind)} · ${new Date(e.t).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}</small>
+        ${(e.facts || []).filter(([k, v]) => /serial|part|module|bdf|dimm|slot|nvme|hca/i.test(k) && v && v !== '—').slice(0, 3).map(([k, v]) => `<button type="button" class="case-sug" data-case-sug="${/serial/i.test(k) ? 'serial' : /part|module/i.test(k) ? 'part' : 'slot'}\u0001${escapeHtml(String(v))}" title="Use in the RMA block">${escapeHtml(k)}: ${escapeHtml(String(v))} ↓</button>`).join('')}</div>
+        <button type="button" class="case-rm" data-case-rm="${e.id}" aria-label="Remove from case">✕</button></li>`).join('')
+      : '<li class="case-empty">Nothing pinned yet. Use <b>📌 Pin to case</b> on a decoded error, an analyzer report, an incident timeline, a node comparison or fleet results.</li>';
+    caseRenderPreview();
+  }
+  function closeCaseFile() {
+    if (!caseEl || !caseEl.classList.contains('show')) return;
+    caseEl.classList.remove('show');
+    document.body.style.overflow = '';
+    if (caseEl._focus && caseEl._focus.focus) caseEl._focus.focus();
+  }
+  function refreshCaseUi() {
+    const n = readCase().evidence.length;
+    document.querySelectorAll('.case-count').forEach(el => { el.textContent = n; el.hidden = !n; });
+  }
+
+  // Pin helpers for each tool's result.
+  function pinAnalysis(r) {
+    const worst = r.findings && r.findings[0] ? r.findings[0].sev : 'ok';
+    casePin({ kind: r.type === 'timeline' ? 'Incident timeline' : 'Output analyzer', title: r.title, sev: worst, md: analysisMarkdown(r), facts: (r.facts || []).map(([k, v]) => [k, String(v)]) });
+  }
+  function pinDecoded(raw) {
+    const d = decodeSymptom(raw);
+    if (!d) return;
+    const ent = d.ent || {};
+    const facts = [['Layer', d.layer], ent.bdf && ['BDF', ent.bdf], ent.dimm && ['DIMM', ent.dimm], ent.nvme && ['NVMe', ent.nvme], ent.hca && ['HCA', ent.hca], ent.iface && ['Iface', ent.iface], ent.disk && ['Disk', ent.disk]].filter(Boolean);
+    casePin({ kind: 'Symptom decoder', title: d.title, sev: d.sev, md: `### ${d.title}\n\n- **Layer:** ${d.layer}\n- **Log line:** \`${String(raw).trim().replace(/`/g, "'")}\`\n- **Meaning:** ${d.meaning}\n- **Next:** ${d.next}${facts.length > 1 ? `\n- **Identifiers:** ${facts.slice(1).map(([k, v]) => `${k} ${v}`).join(', ')}` : ''}`, facts });
+  }
+
   // Check URL hash on page load
   window.addEventListener('DOMContentLoaded', () => {
     syncActiveNav();
@@ -4281,7 +6587,11 @@ ${rmaTrailSection()}#### Action Requested:
     if (!IN_WIDGET_FRAME) {
       initCaseTrail();
       initKit();
+      initConsole();
+      initFleet();
+      initPhone();
       initToolbar();
+      initCompactHeader();
       initFieldDock();
       initCommandBar();
       initLaunchpad();
@@ -4289,6 +6599,7 @@ ${rmaTrailSection()}#### Action Requested:
       initKeyboardMode();
       initBer();
       initHealthAtlas();
+      initSheetLayout();
       initTourInvite();
       recordVisit(anatSheetFile || window.location.pathname.split('/').pop() || 'index.html');
     }
@@ -4304,7 +6615,7 @@ ${rmaTrailSection()}#### Action Requested:
   // stay visible; Saved, Compact, Theme, Manuals and the offline file move
   // into a More menu. Field Mode (phones) shows them all flat, as before.
   // -------------------------------------------------------------
-  const TOOLBAR_PRIMARY = ['global-search-btn', 'triage-modal-btn', 'kit-btn', 'trail-btn'];
+  const TOOLBAR_PRIMARY = ['global-search-btn', 'triage-modal-btn', 'kit-btn', 'trail-btn', 'console-btn'];
 
   function initToolbar() {
     const actions = document.querySelector('.top-bar .header-actions');
@@ -4549,7 +6860,7 @@ ${rmaTrailSection()}#### Action Requested:
       </label></div>
       <div class="trail-list"></div>
       <footer class="trail-foot">
-        <button type="button" class="trail-primary kit-primary" data-kit-act="print">Print pocket card</button>
+        <button type="button" class="trail-primary kit-primary" data-kit-act="print">Print pocket card</button><button type="button" class="trail-phone" data-kit-act="phone" title="Your kit as QR codes for your phone">📱 To phone</button>
         <button type="button" data-kit-act="md">Copy as Markdown</button>
       </footer>`;
     document.body.append(scrim, kitDrawer);
@@ -4565,6 +6876,7 @@ ${rmaTrailSection()}#### Action Requested:
       const list = readKit();
       if (act === 'print') return kitPrint(list);
       if (act === 'md') { copyVerbatim(kitMarkdown(list)); return showGlobalToast(`Copied your kit (${list.length} commands) as Markdown.`); }
+      if (act === 'phone') return list.length ? openPhone(kitMarkdown(list), 'My kit to your phone', `${list.length} bookmarked commands`) : showGlobalToast('Your kit is empty: bookmark a command first.');
       const row = btn.closest('[data-kit]');
       if (!row) return;
       const [key, ...idParts] = row.dataset.kit.split('|');
@@ -4763,6 +7075,8 @@ ${rmaTrailSection()}#### Action Requested:
     renderSuiteNav();
     renderBerPanel();
     renderHealthPanel();
+    if (railReady) renderSheetRail();
+    refreshFleetUi();
     markXidTiles();
   }
   function queueVisit(file) {
@@ -4824,11 +7138,11 @@ ${rmaTrailSection()}#### Action Requested:
     const kit = readKit();
     const suites = lpSuites();
     lp.innerHTML = `
-      <div class="lp-hero">
+      <div class="lp-hero lp-hero-flow">
         <div class="lp-hero-main">
           <div class="lp-eyebrow"><span class="lp-dot" aria-hidden="true"></span>Datacenter field reference · works offline</div>
           <h2 class="lp-title">What's broken?</h2>
-          <p class="lp-sub">Paste an error straight from <code>dmesg</code>, the SEL or <code>mlxlink</code> for a diagnosis and the next commands, or search ${index.length.toLocaleString('en-US')} commands across ${sheets} sheets.</p>
+          <p class="lp-sub">Paste an error straight from <code>dmesg</code>, the SEL or <code>mlxlink</code> for a diagnosis and the next commands, paste a whole dump to see what failed first, or search ${index.length.toLocaleString('en-US')} commands across ${sheets} sheets.</p>
           <form class="lp-omni" role="search">
             <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.6-4.6"/></svg>
             <input type="text" id="lp-omni-input" placeholder="NVRM: Xid (PCI:0000:8a:00): 79 …  or  mlxlink ber" autocomplete="off" spellcheck="false" aria-label="Paste an error line or search commands" />
@@ -4837,13 +7151,9 @@ ${rmaTrailSection()}#### Action Requested:
           <div class="lp-preview" aria-live="polite"></div>
           <div class="lp-samples"><button type="button" class="lp-atlas" data-atlas-open>🩻 What healthy looks like</button><span>Try:</span>${DECODER_SAMPLES.map(([label, line]) => `<button type="button" data-lp-sample="${escapeHtml(line)}">${escapeHtml(label)}</button>`).join('')}</div>
         </div>
-        <div class="lp-stats" aria-label="Suite size">
-          <div><b>${sheets}</b><span>sheets</span></div>
-          <div><b>${index.length.toLocaleString('en-US')}</b><span>commands</span></div>
-          <div><b>${RUNBOOKS.length}</b><span>guided runbooks</span></div>
-          <div><b>${suites.length}</b><span>suites</span></div>
-        </div>
       </div>
+
+      <section class="lp-flow" aria-label="Incident flow"></section>
 
       ${(() => {
         const nodes = boardNodes();
@@ -4888,6 +7198,7 @@ ${rmaTrailSection()}#### Action Requested:
       <button type="button" class="lp-hide" data-lp="hide" title="Collapse the launchpad (remembered)">Hide launchpad ▴</button>`;
 
     const input = lp.querySelector('#lp-omni-input');
+    renderFlow(lp, true);
     interceptOutputPaste(input);
     const preview = lp.querySelector('.lp-preview');
     const updatePreview = () => {
@@ -4904,6 +7215,86 @@ ${rmaTrailSection()}#### Action Requested:
       openGlobalSearch(input.value.trim());
     });
     lp._suites = suites;
+  }
+
+  // -------------------------------------------------------------
+  // INCIDENT FLOW
+  // The hub's hero spent its best space on four counters (sheets, commands,
+  // runbooks, suites) that never fixed a node, while the tools built for each
+  // step of the job sat as loose chips or behind Ctrl+K. The hero now shows the
+  // method from AGENTS.md §5 as a pipeline: Identify → Collect → Correlate →
+  // Isolate → Document. Each stage holds its tools and reports the live state
+  // of the current incident (node, trail, pins, Fleet, runbooks, case status);
+  // finished stages tick green and the next one is highlighted.
+  // -------------------------------------------------------------
+  function flowState() {
+    const reg = readNodes();
+    const meta = trailMeta();
+    const node = reg.active || meta.caseId || '';
+    const trail = readTrail();
+    const kase = readCase();
+    const pins = kase.evidence || [];
+    const fl = fleetState();
+    const v = targetState.vars || {};
+    const bmc = v.bmc && v.bmc !== DEFAULT_TARGET_VARS.bmc ? v.bmc : '';
+    const runs = RUNBOOKS.map(rb => ({ rb, p: rbProgress(rb, rbRun(rb.id)) })).filter(x => x.p.done > 0).sort((a, b) => b.p.done / b.p.total - a.p.done / a.p.total);
+    const kinds = new Set(pins.map(e => e.kind));
+    const collected = pins.filter(e => /decoder|analyzer|timeline/i.test(e.kind)).length;
+    const stages = [
+      { id: 'identify', n: 1, title: 'Identify', what: 'Which node, which BMC, is it drained?',
+        done: !!node, status: node ? `${node}${bmc ? ` · BMC ${bmc}` : ' · no BMC set'}` : 'No node named yet',
+        acts: [['node', node ? 'Switch node' : 'Name this node'], ['drain', 'Copy drain check'], ['targets', 'Rack Targets']] },
+      { id: 'collect', n: 2, title: 'Collect', what: 'Read-only evidence: dmesg, SEL, telemetry.',
+        done: trail.length >= 1 || collected > 0, status: trail.length || collected ? `${trail.length} command${trail.length === 1 ? '' : 's'} run · ${collected} analys${collected === 1 ? 'is' : 'es'} pinned` : 'Paste an error or a whole dump',
+        acts: [['paste', 'Paste a log'], ['timeline', 'Incident timeline'], ['console', 'Serial console']] },
+      { id: 'correlate', n: 3, title: 'Correlate', what: 'Across layers, nodes and a healthy twin.',
+        done: kinds.has('Node comparison') || kinds.has('Fleet results') || kinds.has('Incident timeline'), status: fl.active ? `Fleet on · ×${fleetExpand(fl.hosts).length} nodes` : [kinds.has('Node comparison') && 'compared', kinds.has('Fleet results') && 'fleet checked', kinds.has('Incident timeline') && 'timeline pinned'].filter(Boolean).join(' · ') || 'One node, or many?',
+        acts: [['diff', 'Compare nodes'], ['fleet', fl.active ? 'Fleet settings' : 'Fleet mode'], ['fleetres', 'Fleet results']] },
+      { id: 'isolate', n: 4, title: 'Isolate', what: 'Physical checks before declaring a part dead.',
+        done: runs.some(x => x.p.done >= Math.ceil(x.p.total / 2)), status: runs[0] ? `${runs[0].rb.title.split(/[/(]/)[0].trim()}: ${runs[0].p.done}/${runs[0].p.total}` : 'Clean, reseat, A/B swap',
+        acts: [['runbook', runs[0] ? 'Resume runbook' : 'Guided runbooks'], ['atlas', 'Healthy ranges']] },
+      { id: 'document', n: 5, title: 'Document', what: 'summary.md, RMA block, handoff.',
+        done: /RMA filed|Resolved|Monitoring/.test(kase.status) || !!(kase.root || '').trim(), status: pins.length || trail.length ? `Case: ${kase.status} · ${pins.length} pinned` : 'Pin evidence as you go',
+        acts: [['case', `Case file${pins.length ? ` (${pins.length})` : ''}`], ['phone', 'To phone'], ['rma', 'RMA formatter']] }
+    ];
+    const next = stages.find(st => !st.done);
+    stages.forEach(st => { st.state = st.done ? 'done' : st === next ? 'next' : 'todo'; });
+    return { stages, runs, sig: JSON.stringify([node, bmc, trail.length, pins.length, kase.status, !!(kase.root || '').trim(), fl.active, fl.hosts, runs.map(x => x.p.done)]) };
+  }
+  function flowHtml(f) {
+    const done = f.stages.filter(st => st.done).length;
+    return `<div class="lp-flow-head"><h3>Incident flow</h3><span>${done ? `${done} of 5 steps done for this node` : 'The five-step method: each step holds its tools'}</span>${done ? '<button type="button" class="lp-flow-reset" data-flow="newnode" title="Start a fresh node workspace">+ New incident</button>' : ''}</div>
+      <ol class="lp-flow-track">${f.stages.map(st => `
+        <li class="lp-stage is-${st.state}">
+          <div class="lp-stage-top"><span class="lp-stage-n" aria-hidden="true">${st.done ? '✓' : st.n}</span><b>${st.title}</b>${st.state === 'next' ? '<em>next</em>' : ''}</div>
+          <p class="lp-stage-what">${escapeHtml(st.what)}</p>
+          <p class="lp-stage-status" title="${escapeHtml(st.status)}">${escapeHtml(st.status)}</p>
+          <div class="lp-stage-acts">${st.acts.map(([a, l], i) => `<button type="button" class="${i === 0 ? 'is-primary' : ''}" data-flow="${a}">${escapeHtml(l)}</button>`).join('')}</div>
+        </li>`).join('')}</ol>`;
+  }
+  function renderFlow(lp, force) {
+    const host = lp && lp.querySelector('.lp-flow');
+    if (!host) return;
+    const f = flowState();
+    if (!force && host.dataset.sig === f.sig) return;
+    host.dataset.sig = f.sig;
+    host.innerHTML = flowHtml(f);
+  }
+  function flowAct(a, lp) {
+    if (a === 'node' || a === 'newnode') { const chip = document.querySelector('[data-node-picker]'); if (chip) chip.click(); return; }
+    if (a === 'drain') { navigator.clipboard.writeText(DRAIN_CHECK.cmd); showGlobalToast('Copied the drain check: no compute PIDs and the node drained before anything intrusive.'); return; }
+    if (a === 'targets') { const t = document.querySelector('#target-collapse-btn'); if (t && /Expand/.test(t.textContent)) t.click(); setTimeout(() => { const i = document.getElementById('var-bmc'); if (i) { i.scrollIntoView({ block: 'center' }); i.focus(); } }, 30); return; }
+    if (a === 'paste') { const i = lp.querySelector('#lp-omni-input'); if (i) { i.scrollIntoView({ block: 'center' }); i.focus(); showGlobalToast('Paste a log line, or a whole dmesg / SEL dump, then press Enter.'); } return; }
+    if (a === 'timeline') return openAnalyzer('');
+    if (a === 'console') return toggleConsole(true);
+    if (a === 'diff') return openGoldenDiff();
+    if (a === 'fleet') return openFleet();
+    if (a === 'fleetres') return openFleetResults();
+    if (a === 'runbook') { const r = flowState().runs[0]; return openRunbook(r ? r.rb.id : undefined); }
+    if (a === 'atlas') return openHealthAtlas();
+    if (a === 'case') return openCaseFile();
+    if (a === 'phone') return openPhone(caseMarkdown(), 'Case summary to your phone', caseName());
+    if (a === 'rma') { openTriageModal(); setTimeout(() => { const t = [...document.querySelectorAll('.triage-modal-backdrop button, .triage-modal-backdrop [role=tab]')].find(x => /RMA Ticket/.test(x.textContent)); if (t) t.click(); }, 60); }
   }
 
   function initLaunchpad() {
@@ -4929,9 +7320,14 @@ ${rmaTrailSection()}#### Action Requested:
       if (rb) return openRunbook(rb.dataset.lpRunbook);
       if (go) return goToSheet(go.dataset.lpGo);
       if (suite && lp._suites) { const s = lp._suites[+suite.dataset.lpSuite]; if (s && s.link) s.link.click(); return; }
+      const fa = el.closest('[data-flow]');
+      if (fa) return flowAct(fa.dataset.flow, lp);
       if (!act) return;
       if (act.dataset.lp === 'open') return openGlobalSearch(input ? input.value.trim() : '');
       if (act.dataset.lp === 'trail') return openTrail();
+      if (act.dataset.lp === 'timeline') return openAnalyzer(AN_SAMPLES.timeline);
+      if (act.dataset.lp === 'diff') return openGoldenDiff();
+      if (act.dataset.lp === 'fleetres') return openFleetResults();
       if (act.dataset.lp === 'kit') return openKit();
       if (act.dataset.lp === 'board') return openBoard();
       if (act.dataset.lp === 'hide') { try { localStorage.setItem(LP_HIDDEN_KEY, '1'); } catch (err) {} return renderLaunchpad(lp); }
@@ -4946,6 +7342,9 @@ ${rmaTrailSection()}#### Action Requested:
     };
     sync();
     lp._sync = sync;
+    // The flow follows the incident: nodes, trail, pins, Fleet and runbooks change in modals and other tabs.
+    setInterval(() => { if (!lp.hidden && !document.hidden) renderFlow(lp); }, 1200);
+    window.addEventListener('storage', () => renderFlow(lp));
   }
 
   // -------------------------------------------------------------
@@ -5398,6 +7797,7 @@ ${rmaTrailSection()}#### Action Requested:
   const CBAR_QUERY = '(min-width: 769px)';
   const CBAR_HEIGHT = 60;
   const CBAR_ICONS = {
+    plug: '<path d="M9 2v5M15 2v5M7 7h10v5a5 5 0 0 1-10 0z"/><path d="M12 17v5"/>',
     all: '<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.6-4.6"/><path d="M8 11h6M11 8v6"/>',
     triage: '<path d="M22 12h-4l-3 9L9 3l-3 9H2"/>',
     trail: '<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l3 2"/>',
@@ -5438,6 +7838,7 @@ ${rmaTrailSection()}#### Action Requested:
           <button type="button" class="cbar-btn" data-proxy="global-search-btn" title="Search all sheets (Ctrl+K)">${cbarIcon('all')}</button>
           <button type="button" class="cbar-btn cbar-triage" data-proxy="triage-modal-btn" title="Triage &amp; RMA">${cbarIcon('triage')}</button>
           <button type="button" class="cbar-btn" data-proxy="trail-btn" title="Case trail">${cbarIcon('trail')}<span class="cbar-count" data-count="trail"></span></button>
+          <button type="button" class="cbar-btn con-cbar" data-proxy="console-btn" title="Serial console (Ctrl+\`)">${cbarIcon('plug')}<span class="con-hdr-led" aria-hidden="true"></span></button>
           <button type="button" class="cbar-btn" data-proxy="saved-filter-btn" title="Saved on this sheet">${cbarIcon('saved')}<span class="cbar-count" data-count="saved"></span></button>
           <button type="button" class="cbar-btn cbar-kit" data-proxy="kit-btn" title="My kit: bookmarks from every sheet">${cbarIcon('kit')}<span class="cbar-count" data-count="kit"></span></button>
           <button type="button" class="cbar-btn" data-proxy="density-toggle" title="Toggle compact view">${cbarIcon('compact')}</button>
@@ -5857,6 +8258,8 @@ ${rmaTrailSection()}#### Action Requested:
       <footer class="trail-foot">
         <button type="button" class="trail-primary" data-act="md">Copy ticket notes</button>
         <button type="button" data-act="plain">Copy commands</button>
+        <button type="button" class="trail-case" data-act="case" title="Pinned evidence + this trail as summary.md">📁 Case file <span class="case-count" hidden>0</span></button>
+        <button type="button" class="trail-phone" data-act="phone" title="Show the ticket notes as QR codes for your phone">📱 To phone</button>
         <button type="button" class="trail-danger" data-act="clear">Clear</button>
       </footer>`;
     document.body.append(scrim, trailDrawer);
@@ -5885,6 +8288,8 @@ ${rmaTrailSection()}#### Action Requested:
       const entryEl = btn.closest('.trail-entry');
       const list = readTrail();
       if (act === 'md') return trailCopy(trailMarkdown(list), `Copied ticket notes (${list.length} commands).`);
+      if (act === 'case') { closeTrail(); return openCaseFile(); }
+      if (act === 'phone') return list.length ? openPhone(trailMarkdown(list), 'Ticket notes to your phone', `${list.length} command${list.length === 1 ? '' : 's'} from the Case Trail${trailMeta().caseId ? ` · ${trailMeta().caseId}` : ''}`) : showGlobalToast('The trail is empty: copy a command first.');
       if (act === 'plain') return trailCopy(list.map(x => x.cmd).join('\n'), `Copied ${list.length} commands.`);
       if (act === 'clear') {
         if (btn.dataset.confirm !== '1') {
@@ -5927,6 +8332,7 @@ ${rmaTrailSection()}#### Action Requested:
     if (!trailDrawer) buildTrailDrawer();
     trailFocus = document.activeElement;
     renderTrailList();
+    refreshCaseUi();
     trailDrawer.classList.add('open');
     trailDrawer._scrim.classList.add('show');
     document.body.style.overflow = 'hidden';
@@ -6515,6 +8921,19 @@ ${rmaTrailSection()}#### Action Requested:
     openKit,
     openAnalyzer,
     analyzeOutput,
+    openGoldenDiff,
+    openFleet,
+    openPhone,
+    openFleetResults,
+    openCaseFile,
+    casePin,
+    caseMarkdown,
+    frAnalyze,
+    fleetCompress,
+    qrEncode,
+    fleetWrap,
+    fleetExpand,
+    toggleConsole,
     switchNode,
     openBoard,
     startTour,
