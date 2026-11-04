@@ -51,3 +51,115 @@ Open **Jira** in the nav, fill in the form with a node, rack, position or serial
 
 - **Omarchy** (under the nav) lists your desktop keyboard shortcuts. It's for reading, so there are no commands to copy.
 - **Lua** (under Scripting) covers the language and how to edit your Hyprland and Neovim config files.
+
+## Serial console (crash cart)
+
+**Console** in the header (or `` Ctrl+` ``) opens a serial terminal under the sheet. It runs in Chrome or Edge on desktop, including the 1-file offline copy.
+
+1. Plug in the USB-serial or RJ45 console cable. Set the baud: 115200 for most BMCs and NVIDIA switches, 9600 for many older switches and PDUs.
+2. Click **Connect…** and pick the adapter.
+3. Hover any command and click **⏎ Send**. It's typed into the console with your Rack Targets filled in.
+
+- Commands that change state, and **Break**, ask for confirmation first.
+- At a `Password:` prompt the input is masked. The password stays out of history, the Case Trail and the log.
+- Click the output area to send raw keys: `--More--` pagers, menus and BIOS screens.
+- **Save log** downloads a timestamped `.txt` for `cases/<host>/logs/`.
+
+## Sheet layout
+
+On screens 1280px and wider, every sheet has a sticky left rail:
+- **Suite list:** every sheet in the suite, with visited ticks and the current one highlighted.
+- **On this sheet:** an outline of the cards that follows your scroll and your search filter.
+- **Reference and runbooks:** links to the healthy-ranges and BER panels, and to the suite's guided runbooks.
+
+"What healthy looks like" and "BER" start folded to one line so commands come first. If you open one, it stays open on later visits. The home hub keeps its full Mission Control layout.
+
+## Compare with a known-good node
+
+**⚖ Compare nodes** on the home page opens it. You can also use Ctrl+K → "compare", the sheet rail's Reference block, or **Compare with a healthy node** in the Output Analyzer. Run the same command on a healthy identical node and on the suspect, then paste both outputs.
+
+- **Matching:** fields are matched by structure, not line order:
+  - Indented trees: `nvidia-smi -q`, `lspci -vvv`, `dmidecode`, `mlxlink`, `ibstat`, `ethtool -i`, `nvme smart-log`.
+  - CSV, by its first column: `nvidia-smi --query-gpu=… --format=csv`.
+  - Line lists: `lsmod`, `dpkg -l`.
+- **Ranking:**
+  - **Critical:** missing devices, error counters worse on the suspect, link/state/mode mismatches and degraded values (`downgraded`, `No Module Installed`, AER flags set).
+  - **Check:** firmware and config drift.
+  - **Folded away:** noise such as serials, UUIDs, MACs, temperatures, clocks and timestamps.
+- **Copy as Markdown:** gives a ticket-ready comparison table.
+
+## Fleet mode (many nodes at once)
+
+The **⇉ Fleet** chip in the Rack Targets bar opens it (also Ctrl+K → "fleet"). Enter nodes and BMCs in pdsh/clush syntax, like `gpu-node-[01-16]`; **Derive** makes `gpu-node-[01-16]-bmc`. With Fleet on, every command you copy comes out fanned out:
+
+- **Node commands:** `pdsh … | dshbak -c`, where identical output folds together so the odd node out stands alone. You can also pick `clush -b` or `ssh` + `xargs -P`, which needs no extra tools.
+- **BMC commands (`ipmitool -H`, Redfish):** a sequential `for BMC in …` loop, with `$BMC` as the loop variable.
+- **Save output:** optionally saves results under `cases/<node>/logs/`.
+- **Badges:** each command shows what it will do: `⇉ ×16`, `⇉ ×16 BMC`, `1 node`, `1 node · changes state` or `run once`.
+
+Some commands never fan out:
+- **Copy for one node:** anything that changes state (resets, writes to `/sys`, `setpci` writes, firmware, packages, services, `chassis bootparam`, clearing ECC counts…), plus interactive, streaming and multi-line commands.
+- **Copy once:** cluster- and fabric-wide tools (`ibdiagnet`, `iblinkinfo`, Slurm, `kubectl`, `git`), switch CLI, workstation sheets and code snippets.
+
+## Compact header
+
+On screens wider than 768px, the header uses three short lines:
+1. **Title, search, Topic and tools** on one row. The tools show as icons below 1500px; hover them for their names, and counts and status lights stay visible.
+2. **Suite nav** on one line. It tightens until it fits: carets go first, then logos.
+3. **Rack Targets** on one line, faded at the edge if it overflows.
+
+At 1280×800 the header ends at 141px instead of 313px. The sheet's tagline is now the title's tooltip. Phones keep Field Mode exactly as before.
+
+## To phone (QR handoff, offline)
+
+Move text from this screen to your phone without a network:
+
+- **One command:** hover it and click **📱** (or press `p` in keyboard mode). Rack Targets are filled in, and Fleet fan-out is applied if it's on.
+- **Ticket notes:** **📱 To phone** in the Case Trail. Also in My kit, the Output Analyzer and Compare nodes, plus Ctrl+K → "phone".
+
+Point the phone camera at the code, tap the text, then Copy.
+
+- **Long text:** split into numbered pages (← → to flip).
+- **Full screen:** click the code to scan it from further away.
+- **Privacy:** codes are generated in the browser with no library or upload. The BMC password is never put in a code.
+
+## Fleet results (which node is the odd one out?)
+
+After a fan-out, paste what came back. Pasting multi-node output into the home box or Ctrl+K opens it automatically. You can also use **⇉ Fleet results** on the home page, **Read results →** in the Fleet dialog, or Ctrl+K → "fleet results".
+
+- **Formats:** `pdsh` / ssh + xargs lines (`host: …`), `dshbak -c` and `clush -b` blocks, and the Fleet BMC loop (`=== bmc`).
+- **Tiles:** one per node, colored green for the baseline, red for a likely fault, amber for "check", and hatched for unreachable. Click a tile to jump to its group.
+- **Grouping:** nodes are grouped by output, ignoring temperatures, serials, clocks and the like. The largest group is the baseline. For a grep for errors, where most nodes print nothing, silence is the baseline.
+- **Each odd group shows exactly what differs:**
+  - **Field changes:** from the Compare engine, for example `pcie.link.width.current 16 → 8`.
+  - **Errors only that group printed:** decoded, for example "Xid 79" or "Power supply fault".
+  - **Column changes:** for one-line CSV.
+- **Unreachable nodes:** listed separately (ssh or IPMI session failures). Nodes in your Fleet list that never answered are flagged too.
+- **Follow-up:** **Compare in full →** opens the full node comparison, plus **Copy summary** and **📱 To phone**.
+
+## Case file → summary.md
+
+Every analysis result has **📌 Pin to case**: decoded errors (Ctrl+K), Output Analyzer reports, Incident Timelines, node comparisons and Fleet results. Pins belong to the current node workspace, like the Case Trail, so switching nodes switches cases.
+
+Open the case file from **📁 Case file** in the Trail drawer, Ctrl+K → "case file", or the link in Triage & RMA → RMA formatter. It gives you:
+
+- **Status and severity:** a status picker, and a severity worked out from the evidence.
+- **Notes:** current hypothesis, root cause and next action.
+- **Evidence:** every pin, with chips that copy a serial, part number or BDF found in it into the RMA block.
+- **A live `summary.md`:** a header table, then hypothesis, root cause, next action, a timeline merging pins and copied commands, the evidence, the commands run and an RMA block.
+
+**Download summary.md** to save it as `cases/<host>/summary.md`. You can also Copy it or send it with **📱 To phone**. **Close case…** clears the pins and notes and keeps the trail.
+
+## Incident flow (home hub)
+
+Under "What's broken?" the hub shows the team method from AGENTS.md §5 as five connected steps. Each step holds its tools:
+
+| Step | Tools |
+|---|---|
+| **Identify** | name or switch node, copy the drain check, Rack Targets |
+| **Collect** | paste a log, Incident timeline, Serial console |
+| **Correlate** | Compare nodes, Fleet mode, Fleet results |
+| **Isolate** | guided runbooks, healthy ranges |
+| **Document** | Case file, To phone, RMA formatter |
+
+Each card shows live status for the current node, such as `gpu-node-12 · BMC …`, `4 commands run · 2 analyses pinned`, `Fleet on · ×16 nodes`, `GPU missing: 7/13` or `Case: RMA filed`. Finished steps tick green and the next step is highlighted. **+ New incident** starts a fresh node workspace.
