@@ -63,7 +63,7 @@ Use the top navigation bar dropdowns to browse domain-specific command hubs or d
 | **Ethernet** | `ethernet.html` | 100G/200G/400G NIC configuration, `ethtool`, ring buffers, FEC tuning, LACP bonding, and SR-IOV. |
 | **Motherboards** | `motherboards.html`| Server motherboard hardware diagnostics, BIOS/AGESA post-codes, and sensor audits for ASUS, GIGABYTE, SMC, Dell, and HPE. |
 | **Jira** | `jira.html` | Datacenter JQL queries: node/hostname history, rack & RU position audits, chassis/GPU serials, vendor RMAs, GPU/NVLink incidents, Slurm drains, queue P1 blockers, REST API & `jira-cli`. |
-| **Scripting** | `scripting.html` | Polyglot scripting reference: Bash, Python 3.10+, JavaScript, TypeScript, PowerShell 7, Lua 5.4 / Neovim, JSON, YAML, TOML, Regex, and SQL/SQLite. |
+| **Scripting** | `scripting.html` | Polyglot scripting reference: Bash, Python 3.10+, JavaScript, TypeScript, PowerShell 7, Lua 5.4, Git, JSON, YAML, TOML, Regex, SQL/SQLite, and Markdown. |
 | **Neovim** | `neovim.html` | Vim/Neovim motions, operators, text objects, visual block mode, window splits, buffers, and interactive keybinding composer. |
 | **macOS / Win** | `macos.html` / `windows.html` | Darwin sysadmin (`launchctl`, `brew`, `diskutil`) & Windows Server / PowerShell 7 admin. |
 

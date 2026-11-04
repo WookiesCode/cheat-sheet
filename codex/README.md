@@ -70,7 +70,11 @@ Open **Scripting → Lua Scripting** for 16 examples covering variables, strings
 
 ## Git commands
 
-Open **Scripting → Git Commands** for copyable examples covering status and diffs, staging and commits, branches, remotes, and recovery. Check the working tree and the command details before running commands that alter local files or publish to a remote.
+Open **Scripting → Git Commands** for 36 copyable examples covering setup, daily work, branches, history, recovery, and datacenter operations. Check the working tree and the command details before running commands that alter local files or publish to a remote.
+
+## Markdown
+
+Open **Scripting → Markdown** for 28 copyable examples covering CommonMark syntax, GitHub extensions, incident templates, and validation tools. The Scripting hub includes the same examples.
 
 ## Jira ticket queries
 

@@ -1,689 +1,1143 @@
 const LUA_CHEAT_SHEET_DATA = [
   {
-    id: "lua-vars",
-    badge: "vars",
-    title: "Variables, Types, Scope & Strings",
-    subtitle: "Local vs global scope, truthiness, type checking, string concatenation & pattern matching",
-    commands: [
+    "id": "lua-vars",
+    "badge": "vars",
+    "title": "Variables, Types & Strings",
+    "subtitle": "local scope, truthiness, numbers, concatenation, formatting & patterns",
+    "commands": [
       {
-        id: "lua-var-types",
-        desc: "Declare variables with local scope, inspect types, and understand Lua truthiness",
-        cmd: "-- Always use local for lexical scope\nlocal host = \"node-042\"\nlocal port = 8080\nlocal enabled = true\nlocal spare = nil\n\nprint(type(host), type(port), type(enabled), type(spare))\n-- Output: string  number  boolean  nil",
-        flags: [
-          ["local var = val", "Lexical block scope. Without 'local', variable leaks to global environment (_G)!"],
-          ["type(v)", "Returns type as string: 'nil', 'boolean', 'number', 'string', 'table', 'function', 'thread', 'userdata'"],
-          ["Truthiness", "In Lua, ONLY 'false' and 'nil' are falsy! 0, 0.0, and \"\" (empty string) are TRUTHY!"]
+        "id": "lua-var-declare",
+        "desc": "Variables, comments, data types, and what counts as true or false",
+        "cmd": "-- Single-line comment\n--[[ Multi-line\n     comment ]]\nlocal host = \"node-01\"\nlocal port = 8080\nlocal enabled = true\nlocal nothing = nil\n\nprint(type(host), type(port), type(enabled), type(nothing))\nprint(host .. \":\" .. port)\nprint(port ~= 80, not enabled)\nlocal label = enabled and \"on\" or \"off\"\nprint(label)",
+        "flags": [
+          [
+            "local name = value",
+            "Scoped to the current block. Without local, the variable is global."
+          ],
+          [
+            "-- comment",
+            "Single-line comment. Deleting the -- turns the line back on."
+          ],
+          [
+            "--[[ ... ]]",
+            "Multi-line comment block"
+          ],
+          [
+            "..",
+            "Concatenate strings. Numbers convert automatically."
+          ],
+          [
+            "~=",
+            "Not equal (not != as in most languages)"
+          ],
+          [
+            "and / or / not",
+            "Logical operators, spelled as words"
+          ],
+          [
+            "a and b or c",
+            "Ternary-style pick. Gives c if b is false or nil."
+          ],
+          [
+            "nil",
+            "No value. Reading an unset variable gives nil, not an error."
+          ]
         ],
-        subcommands: [
-          ["local val = enabled and \"on\" or \"off\"", "Idiomatic Lua ternary idiom (ensure truthy value is never false/nil)"],
-          ["local x, y, z = 1, 2, 3", "Multiple variable parallel assignment in a single line"],
-          ["local PI <const> = 3.14159", "Lua 5.4 to-be-closed or compile-time constant variable attribute"]
+        "subcommands": [
+          [
+            "type(value)",
+            "Returns \"nil\", \"boolean\", \"number\", \"string\", \"table\", or \"function\""
+          ],
+          [
+            "tostring(42) / tonumber(\"42\")",
+            "Convert between numbers and strings. tonumber gives nil if invalid."
+          ],
+          [
+            "local a, b = 1, 2",
+            "Assign several variables at once"
+          ],
+          [
+            "a, b = b, a",
+            "Swap two values without a temporary variable"
+          ]
         ],
-        tip: "Rule of thumb in Lua: ALWAYS declare variables with 'local' unless intentionally exporting to _G",
-        tags: ["lua", "variables", "types", "scope", "local", "truthiness", "nil"]
+        "tip": "Only false and nil are falsy. 0 and the empty string \"\" both count as true.",
+        "tags": [
+          "lua",
+          "variables",
+          "local",
+          "global",
+          "types",
+          "nil",
+          "comments",
+          "truthy"
+        ]
       },
       {
-        id: "lua-strings-ops",
-        desc: "String concatenation, multi-line blocks, length operator, and string formatting",
-        cmd: "local prefix = \"gpu\"\nlocal id = 42\nlocal fqdn = prefix .. \"-\" .. string.format(\"%03d.dc.lan\", id)\nlocal raw_block = [[\n  Line 1: No escapes needed\n  Line 2: \"quotes\" & 'apostrophes' preserved\n]]\nprint(fqdn, \"Length:\", #fqdn)",
-        flags: [
-          ["..", "String concatenation operator (automatically coerces numbers to strings)"],
-          ["#str", "Unary length operator: returns string byte count"],
-          ["[[ ... ]]", "Multi-line string literal block: raw text preserving newlines and quotes"],
-          ["string.format()", "C-style printf formatting (%s, %d, %02x, %.2f)"]
+        "id": "lua-strings-patterns",
+        "desc": "String functions and Lua patterns, which are similar to regex but simpler",
+        "cmd": "local s = \"gpu-07: temp=71C\"\nprint(#s, s:upper(), s:sub(1, 6))\nprint(string.format(\"%-8s %5.1f%%\", \"load\", 93.456))\nprint(s:match(\"temp=(%d+)\"))\nprint(s:find(\"temp\", 1, true))\nprint((s:gsub(\"%d+\", \"#\")))\nfor key, value in (\"a=1, b=2\"):gmatch(\"(%w+)=(%w+)\") do\n  print(key, value)\nend",
+        "flags": [
+          [
+            "#s",
+            "Length of a string"
+          ],
+          [
+            "s:sub(i, j)",
+            "Substring. Positions start at 1, and negative counts from the end."
+          ],
+          [
+            "s:upper() / s:lower()",
+            "Change case"
+          ],
+          [
+            "s:find(text, 1, true)",
+            "Plain-text search. Returns start and end positions."
+          ],
+          [
+            "s:match(pattern)",
+            "Returns the captured parts of the first match"
+          ],
+          [
+            "s:gsub(pattern, repl)",
+            "Replace all matches. Also returns the replacement count."
+          ],
+          [
+            "s:gmatch(pattern)",
+            "Loop over every match"
+          ],
+          [
+            "%d %a %w %s",
+            "Digit, letter, alphanumeric, whitespace (capitalize to invert)"
+          ]
         ],
-        subcommands: [
-          ["string.upper(s) / string.lower(s)", "Convert string to all uppercase or lowercase"],
-          ["string.sub(s, 1, 4)", "Extract substring (1-based indexing! -1 is last character)"],
-          ["string.rep(\"=\", 40)", "Repeat string N times (e.g. print horizontal separator lines)"]
+        "subcommands": [
+          [
+            "string.format(\"%s %d %.2f\", s, i, f)",
+            "printf-style formatting"
+          ],
+          [
+            "%.  %-  %%",
+            "Use % to escape magic characters, not a backslash"
+          ],
+          [
+            "s:rep(3, \",\")",
+            "Repeat a string with an optional separator"
+          ],
+          [
+            "[[multi-line string]]",
+            "Long string: no escapes, and newlines are kept"
+          ]
         ],
-        tip: "Use 'table.concat(parts)' instead of repeated '..' loops when joining thousands of strings for 10x speed",
-        tags: ["string", "concat", "format", "multiline", "length", "printf"]
-      },
-      {
-        id: "lua-patterns",
-        desc: "Lua pattern matching (lightweight regex alternative): find, match & gsub",
-        cmd: "local log = \"[2026-11-02] ERROR node-042: GPU 3 dropped off bus\"\nlocal date, level, host = string.match(log, \"%[(%d+%-%d+%-%d+)%]%s+(%a+)%s+([%w%-]+)\")\nlocal cleaned = string.gsub(log, \"node%-%d+\", \"[REDACTED]\")\nprint(date, level, host)",
-        flags: [
-          ["%d / %D", "%d matches digit (0-9); %D matches non-digit"],
-          ["%a / %w / %s", "%a letters; %w alphanumeric; %s whitespace (%S non-whitespace)"],
-          ["(%b()) / (%b[])", "Balanced character match (e.g. parentheses or brackets)"],
-          ["string.match(s, pat)", "Extract capture groups () matching pattern, or nil if no match"],
-          ["string.gsub(s, pat, repl)", "Global search and replace: returns modified string and match count"]
-        ],
-        subcommands: [
-          ["for match in string.gmatch(text, \"%S+\") do ... end", "Iterate over all whitespace-separated words in a string"],
-          ["local start_pos, end_pos = string.find(text, \"ERROR\")", "Return starting and ending integer index of substring match"]
-        ],
-        tip: "Lua uses '%' instead of '\\' as the pattern escape character (e.g. '%.' matches a literal dot)",
-        tags: ["patterns", "regex", "match", "gsub", "gmatch", "find", "search"]
+        "tip": "Patterns are not regex: there is no | alternation or {n} count, and - means shortest repeat.",
+        "tags": [
+          "lua",
+          "strings",
+          "patterns",
+          "format",
+          "gsub",
+          "match",
+          "gmatch"
+        ]
       }
     ]
   },
   {
-    id: "lua-tables",
-    badge: "tables",
-    title: "Tables: Arrays, Dictionaries & Metatables",
-    subtitle: "Lua's single universal data structure: 1-based arrays, hash maps, table utilities & OOP metatables",
-    commands: [
+    "id": "lua-tables",
+    "badge": "tbl",
+    "title": "Tables: Lists & Dictionaries",
+    "subtitle": "Lua's only data structure: arrays, key-value maps, nesting & iteration",
+    "commands": [
       {
-        id: "lua-table-arrays",
-        desc: "Sequential lists (arrays) in Lua: 1-based indexing, insertion, removal & length",
-        cmd: "local nodes = { \"node-001\", \"node-002\", \"node-003\" }\ntable.insert(nodes, \"node-004\")      -- Append to end\ntable.insert(nodes, 1, \"head-000\")   -- Prepend at index 1\nlocal removed = table.remove(nodes)   -- Pop last element\n\nprint(\"Node count:\", #nodes)\nprint(\"First item:\", nodes[1])       -- 1-based index!",
-        flags: [
-          ["1-based indexing", "Arrays start at index 1! nodes[1] is the first item (not nodes[0])"],
-          ["#table", "Returns array length (stops at the first nil element hole)"],
-          ["table.insert(t, [pos,] val)", "Inserts element; shifts subsequent elements right"],
-          ["table.remove(t [, pos])", "Removes element; shifts subsequent elements left"]
+        "id": "lua-table-basics",
+        "desc": "A table works as a list, a dictionary, or both. Lists start at index 1.",
+        "cmd": "local nodes = { \"node-01\", \"node-02\", \"node-03\" }\nprint(nodes[1], #nodes)\ntable.insert(nodes, \"node-04\")\ntable.remove(nodes, 1)\nprint(table.concat(nodes, \", \"))\n\nlocal server = { host = \"10.0.0.1\", port = 22, tags = { \"gpu\", \"prod\" } }\nprint(server.host, server[\"port\"], server.tags[2])\nserver.port = 2222\nserver.tags = nil",
+        "flags": [
+          [
+            "{ \"a\", \"b\" }",
+            "List. The first item is at index 1, not 0."
+          ],
+          [
+            "{ key = value }",
+            "Dictionary with named keys"
+          ],
+          [
+            "t.key / t[\"key\"]",
+            "Two ways to read the same field"
+          ],
+          [
+            "t[key]",
+            "Look up using the value of a variable"
+          ],
+          [
+            "#t",
+            "Length of a list. Unreliable if the list has nil gaps."
+          ],
+          [
+            "t.key = nil",
+            "Delete a field"
+          ]
         ],
-        subcommands: [
-          ["table.concat(nodes, \", \")", "Join all array string elements with a separator"],
-          ["table.sort(nodes)", "Sort array elements in-place in ascending order"],
-          ["table.sort(nodes, function(a, b) return a > b end)", "Sort with custom comparator function (descending)"]
+        "subcommands": [
+          [
+            "table.insert(t, value)",
+            "Append to the end (table.insert(t, 1, value) to prepend)"
+          ],
+          [
+            "table.remove(t, i)",
+            "Remove item i and shift the rest down"
+          ],
+          [
+            "table.sort(t, function(a, b) return a > b end)",
+            "Sort in place, with an optional comparator"
+          ],
+          [
+            "table.concat(t, \", \")",
+            "Join a list into a string"
+          ]
         ],
-        tip: "Avoid creating 'holes' (nil values) in arrays, as '#table' may return an unpredictable length!",
-        tags: ["table", "array", "list", "insert", "remove", "sort", "concat", "1-based"]
-      },
-      {
-        id: "lua-table-dicts",
-        desc: "Key-value hash maps (dictionaries) and nested table objects",
-        cmd: "local server = {\n  hostname = \"gpu-worker-042\",\n  rack = \"Rack-14\",\n  ru_slot = 21,\n  gpus = { \"H200-0\", \"H200-1\", \"H200-2\", \"H200-3\" },\n  active = true\n}\n\nserver.uptime_days = 45          -- Dot notation\nserver[\"bmc-ip\"] = \"2001:db8::50\" -- Bracket notation for non-identifier keys\nprint(server.hostname, server[\"bmc-ip\"])",
-        flags: [
-          ["table.field", "Dot syntax works for keys that are valid Lua identifiers"],
-          ["table[\"key\"]", "Bracket syntax allows any string, number, or object as a dictionary key"],
-          ["table[key] = nil", "Deletes a key-value pair from the dictionary"]
-        ],
-        subcommands: [
-          ["if server.rack then ... end", "Check if key exists in dictionary (returns nil if key is absent)"],
-          ["local keys = {}; for k in pairs(server) do table.insert(keys, k) end", "Collect all dictionary keys into an array"]
-        ],
-        tip: "The length operator '#table' ONLY works on integer-indexed arrays, not on string-keyed dictionaries!",
-        tags: ["dict", "hash", "map", "key-value", "object", "table", "nested"]
-      },
-      {
-        id: "lua-metatables",
-        desc: "Metatables, operator overloading, and prototypal inheritance (__index)",
-        cmd: "local Server = {}\nServer.__index = Server\n\nfunction Server.new(hostname, rack)\n  local self = setmetatable({}, Server)\n  self.hostname = hostname\n  self.rack = rack\n  return self\nend\n\nfunction Server:describe()\n  return self.hostname .. \" in \" .. self.rack\nend\n\nlocal s1 = Server.new(\"dgx-01\", \"Rack-04\")\nprint(s1:describe())",
-        flags: [
-          ["setmetatable(tbl, meta)", "Associates a metatable with a table"],
-          ["__index", "Fallback lookup table or function when a key is not found in the original table"],
-          ["__tostring", "Metamethod invoked when object is passed to tostring() or print()"],
-          ["Colon syntax (obj:method())", "Syntactic sugar for Server.describe(self) — passes self automatically!"]
-        ],
-        subcommands: [
-          ["__add / __sub / __eq", "Operator overloading metamethods for +, -, and =="],
-          ["__call", "Allows a table to be called directly like a function: tbl()"]
-        ],
-        tip: "Use the ':' colon operator for method definitions and calls to pass 'self' implicitly",
-        tags: ["metatable", "oop", "class", "prototype", "inheritance", "colon", "self"]
+        "tip": "Config files are mostly nested tables, so a { key = value } block is the shape to recognize.",
+        "tags": [
+          "lua",
+          "tables",
+          "arrays",
+          "lists",
+          "dictionary",
+          "map",
+          "insert",
+          "sort"
+        ]
       }
     ]
   },
   {
-    id: "lua-flow",
-    badge: "flow",
-    title: "Control Flow, Conditionals & Loops",
-    subtitle: "if/elseif/else/end, numeric for loops, generic pairs() vs ipairs() iteration & while loops",
-    commands: [
+    "id": "lua-flow",
+    "badge": "flow",
+    "title": "Conditionals & Loops",
+    "subtitle": "if / elseif, numeric for, pairs, ipairs, while & repeat",
+    "commands": [
       {
-        id: "lua-conditionals",
-        desc: "Branching logic with if, elseif, else, and boolean comparison operators",
-        cmd: "local temp_c = 78\nlocal alert_level = \"\"\n\nif temp_c >= 85 then\n  alert_level = \"CRITICAL: Thermal Throttling!\"\nelseif temp_c >= 75 and temp_c < 85 then\n  alert_level = \"WARNING: High GPU Temp\"\nelse\n  alert_level = \"NORMAL: Operating Nominal\"\nend\n\nprint(alert_level)",
-        flags: [
-          ["if ... then ... end", "Requires 'then' after condition and 'end' at block termination"],
-          ["elseif", "Spelled as a single word 'elseif' (not 'else if')!"],
-          ["~=", "Not-equal operator in Lua (NOT !=)"],
-          ["and / or / not", "Logical operators (lowercase words, not &&, ||, !)"]
+        "id": "lua-conditionals",
+        "desc": "if / elseif / else blocks. Each block closes with end.",
+        "cmd": "local temp = 83\nif temp >= 90 then\n  print(\"critical\")\nelseif temp >= 80 then\n  print(\"warning\")\nelse\n  print(\"ok\")\nend",
+        "flags": [
+          [
+            "if cond then ... end",
+            "Basic conditional. Parentheses are not needed."
+          ],
+          [
+            "elseif",
+            "One word, not else if"
+          ],
+          [
+            "== ~= < <= > >=",
+            "Comparison operators"
+          ],
+          [
+            "if not value then",
+            "Runs when value is nil or false"
+          ]
         ],
-        subcommands: [
-          ["if x ~= nil and not done then ... end", "Combine logical negation and inequality"],
-          ["local status = (code == 0) and \"SUCCESS\" or \"FAILED\"", "Compact inline conditional assignment"]
+        "subcommands": [
+          [
+            "if t and t.key then",
+            "Check a table exists before reading a field"
+          ],
+          [
+            "local port = opts.port or 8080",
+            "Fall back to a default when a value is nil"
+          ]
         ],
-        tip: "Remember that '~=' is not-equal in Lua — typing '!=' will cause a syntax error!",
-        tags: ["if", "elseif", "else", "then", "end", "conditionals", "operators"]
+        "tip": "A missing end is the most common syntax error. Every if, for, while, and function needs one.",
+        "tags": [
+          "lua",
+          "if",
+          "else",
+          "elseif",
+          "conditionals",
+          "defaults"
+        ]
       },
       {
-        id: "lua-loops",
-        desc: "Loop iteration: numeric for, generic ipairs (arrays), pairs (dictionaries), and while",
-        cmd: "-- 1. Numeric for loop: start, stop [, step]\nfor i = 1, 5, 2 do\n  print(\"Step:\", i) -- 1, 3, 5\nend\n\n-- 2. ipairs: guaranteed order for sequential arrays (1 to #tbl)\nlocal hosts = { \"node-01\", \"node-02\", \"node-03\" }\nfor idx, host in ipairs(hosts) do\n  print(idx, host)\nend\n\n-- 3. pairs: iterates over all keys (including non-integer/string keys)\nlocal metrics = { temp = 72, fan = 4500, psu = \"ok\" }\nfor k, v in pairs(metrics) do\n  print(k, \"=\", v)\nend",
-        flags: [
-          ["ipairs(array)", "Iterates index 1, 2, ... in order until first nil hole. Best for arrays!"],
-          ["pairs(dict)", "Iterates all keys in undefined hash order. Best for dictionaries and key-value tables!"],
-          ["while condition do ... end", "Pre-test loop: executes while condition is truthy"],
-          ["repeat ... until condition", "Post-test loop: executes at least once, stops when condition is TRUE"]
+        "id": "lua-loops",
+        "desc": "Numeric for loops, list and table iteration, while, and repeat",
+        "cmd": "for i = 1, 3 do print(i) end\nfor i = 10, 0, -5 do print(i) end\n\nlocal list = { \"a\", \"b\" }\nfor index, value in ipairs(list) do\n  print(index, value)\nend\n\nlocal map = { host = \"n1\", port = 22 }\nfor key, value in pairs(map) do\n  print(key, value)\nend\n\nlocal n = 0\nwhile n < 2 do n = n + 1 end\nrepeat n = n - 1 until n == 0",
+        "flags": [
+          [
+            "for i = start, stop, step do",
+            "Numeric loop. Both ends are included, and step defaults to 1."
+          ],
+          [
+            "ipairs(t)",
+            "List items in order, stopping at the first nil"
+          ],
+          [
+            "pairs(t)",
+            "Every key in a table, in no guaranteed order"
+          ],
+          [
+            "while cond do ... end",
+            "Checks before each pass"
+          ],
+          [
+            "repeat ... until cond",
+            "Checks after each pass, so it always runs once"
+          ],
+          [
+            "break",
+            "Leave the innermost loop"
+          ]
         ],
-        subcommands: [
-          ["for i = #hosts, 1, -1 do ... end", "Reverse loop through an array using a step of -1"],
-          ["break", "Exits the innermost loop immediately (Lua has no 'continue' keyword)"]
+        "subcommands": [
+          [
+            "for _, value in ipairs(t) do",
+            "_ is the usual name for a value you will ignore"
+          ],
+          [
+            "goto continue ... ::continue::",
+            "Stand-in for continue, which Lua does not have"
+          ]
         ],
-        tip: "To simulate 'continue' in Lua 5.2+, put a '::continue::' goto label at the bottom of the loop body",
-        tags: ["loops", "for", "ipairs", "pairs", "while", "repeat", "break", "iteration"]
+        "tip": "Use ipairs for lists when order matters, and pairs for dictionaries.",
+        "tags": [
+          "lua",
+          "loops",
+          "for",
+          "while",
+          "repeat",
+          "pairs",
+          "ipairs",
+          "break"
+        ]
       }
     ]
   },
   {
-    id: "lua-functions",
-    badge: "fn",
-    title: "Functions, Closures, Variadics & Modules",
-    subtitle: "First-class functions, multiple return values, closures, varargs (...), and require modules",
-    commands: [
+    "id": "lua-functions",
+    "badge": "fn",
+    "title": "Functions, Methods & Modules",
+    "subtitle": "Multiple returns, closures, varargs, colon syntax, metatables & require",
+    "commands": [
       {
-        id: "lua-func-multi-ret",
-        desc: "Define functions with multiple return values, default parameters & variadics",
-        cmd: "local function divide_checked(numerator, denominator)\n  if denominator == 0 then\n    return nil, \"Division by zero error\"\n  end\n  return numerator / denominator, nil\nend\n\nlocal result, err = divide_checked(100, 4)\nif err then\n  print(\"Failed:\", err)\nelse\n  print(\"Result:\", result)\nend",
-        flags: [
-          ["return val1, val2", "Functions can return multiple independent values"],
-          ["val = param or default", "Idiomatic pattern for optional / default arguments"],
-          ["function(...)", "Variadic function accepting arbitrary number of arguments into '...'"],
-          ["local args = { ... }", "Packs variadic arguments into an array table"]
+        "id": "lua-function-basics",
+        "desc": "Define functions, return several values, and pass functions around",
+        "cmd": "local function add(a, b)\n  return a + b\nend\n\nlocal function min_max(list)\n  table.sort(list)\n  return list[1], list[#list]\nend\nlocal low, high = min_max({ 4, 9, 1 })\nprint(add(2, 3), low, high)\n\nlocal function counter()\n  local count = 0\n  return function()\n    count = count + 1\n    return count\n  end\nend\nlocal tick = counter()\ntick()\nprint(tick())\n\nlocal function sum(...)\n  local total = 0\n  for _, v in ipairs({ ... }) do total = total + v end\n  return total\nend\nprint(sum(1, 2, 3))",
+        "flags": [
+          [
+            "local function name(args)",
+            "Define a function in local scope"
+          ],
+          [
+            "return a, b",
+            "Return several values at once"
+          ],
+          [
+            "function(x) ... end",
+            "Anonymous function, used as a value or callback"
+          ],
+          [
+            "...",
+            "Accept any number of arguments"
+          ],
+          [
+            "f{ a = 1 }",
+            "Parentheses are optional for a single table argument"
+          ],
+          [
+            "f\"text\"",
+            "Parentheses are optional for a single string argument"
+          ]
         ],
-        subcommands: [
-          ["local sum = function(a, b) return a + b end", "Anonymous function expression assigned to a variable"],
-          ["local function counter()\n  local n = 0\n  return function() n = n + 1; return n end\nend", "Closure capturing upvalue state across function invocations"]
+        "subcommands": [
+          [
+            "local x, y = f()",
+            "Extra return values are dropped, and missing ones are nil"
+          ],
+          [
+            "select(\"#\", ...)",
+            "Count arguments, including nils"
+          ],
+          [
+            "function M.name() end",
+            "Define a function inside a table"
+          ]
         ],
-        tip: "Follow the standard Lua convention for error-prone functions: return 'result, nil' or 'nil, err_msg'",
-        tags: ["function", "return", "multiple", "closure", "variadic", "args", "error-pattern"]
+        "tip": "Missing arguments arrive as nil, and extra arguments are ignored without an error.",
+        "tags": [
+          "lua",
+          "functions",
+          "return",
+          "closures",
+          "varargs",
+          "callbacks"
+        ]
       },
       {
-        id: "lua-modules",
-        desc: "Write modular Lua libraries and export tables via require()",
-        cmd: "-- In file: /opt/cluster/hardware.lua\nlocal M = {}\nM._VERSION = \"1.0.0\"\n\nfunction M.check_health(host)\n  return { host = host, status = \"OK\", gpus = 8 }\nend\n\nreturn M\n\n-- In consumer script:\n-- local hw = require(\"hardware\")\n-- local info = hw.check_health(\"node-042\")",
-        flags: [
-          ["local M = {}", "Standard Lua module convention: define a local table and return it at file end"],
-          ["require(\"modname\")", "Loads module once and caches result in package.loaded[modname]"],
-          ["package.path", "Semicolon-separated search path string for require (e.g. './?.lua;/opt/lua/?.lua')"]
+        "id": "lua-methods-modules",
+        "desc": "Colon method calls, metatable classes, and splitting code into modules",
+        "cmd": "local Node = {}\nNode.__index = Node\n\nfunction Node.new(name)\n  return setmetatable({ name = name, up = false }, Node)\nend\n\nfunction Node:start()\n  self.up = true\n  return self.name .. \" started\"\nend\n\nlocal node = Node.new(\"gpu-01\")\nprint(node:start())\nprint(node.up)",
+        "flags": [
+          [
+            "obj:method(x)",
+            "Shorthand for obj.method(obj, x)"
+          ],
+          [
+            "function T:method()",
+            "Defines a method with a hidden self parameter"
+          ],
+          [
+            "setmetatable(t, mt)",
+            "Attach behavior such as inheritance or operators to a table"
+          ],
+          [
+            "__index",
+            "Where Lua looks when a field is missing"
+          ],
+          [
+            "require(\"module\")",
+            "Load a module once and return its value"
+          ],
+          [
+            "return M",
+            "How a module file hands back its public table"
+          ]
         ],
-        subcommands: [
-          ["package.loaded[\"hardware\"] = nil", "Unload module from memory cache to allow dynamic reloading in Neovim/scripts"],
-          ["local pcall_ok, mod = pcall(require, \"optional_mod\")", "Safely require a module without crashing if it is not installed"]
+        "subcommands": [
+          [
+            "local cfg = require(\"hypr.monitors\")",
+            "Dots map to folders: hypr/monitors.lua"
+          ],
+          [
+            "package.path",
+            "Search path that require uses to find files"
+          ],
+          [
+            "dofile(\"file.lua\")",
+            "Run a file every time, with no caching"
+          ]
         ],
-        tip: "Always wrap 'require' in a pcall if a plugin or third-party library might not be present",
-        tags: ["module", "require", "package", "library", "export", "import"]
+        "tip": "If you see a nil error on a method, check for . where : was needed.",
+        "tags": [
+          "lua",
+          "methods",
+          "self",
+          "metatable",
+          "class",
+          "modules",
+          "require"
+        ]
       }
     ]
   },
   {
-    id: "lua-errors-files",
-    badge: "io",
-    title: "Error Handling, File I/O & System Execution",
-    subtitle: "assert(), pcall() protected calls, reading/writing files, popen subcommands & CLI args",
-    commands: [
+    "id": "lua-errors-files",
+    "badge": "io",
+    "title": "Errors, Files & the Command Line",
+    "subtitle": "pcall, reading and writing files, running scripts & syntax checks",
+    "commands": [
       {
-        id: "lua-pcall-assert",
-        desc: "Error handling with assert(), pcall() (protected call), and xpcall() with tracebacks",
-        cmd: "local function risky_query(bdf)\n  if not bdf then error(\"BDF address cannot be nil!\") end\n  return \"Link: Gen5 x16\"\nend\n\n-- pcall catches runtime errors: returns ok_status, result_or_err\nlocal ok, res = pcall(risky_query, nil)\nif not ok then\n  print(\"Caught error gracefully:\", res)\nend\n\n-- xpcall captures stack traceback\nlocal ok2, res2 = xpcall(\n  function() return risky_query(nil) end,\n  debug.traceback\n)",
-        flags: [
-          ["error(\"msg\" [, level])", "Throws a runtime error; terminates execution unless trapped by pcall"],
-          ["assert(condition, \"msg\")", "Evaluates condition: returns condition if truthy, otherwise throws error"],
-          ["pcall(fn, arg1, ...)", "Protected call: returns true + results on success, or false + error message on failure"],
-          ["debug.traceback", "Captures full call stack frames with line numbers for post-mortem debugging"]
+        "id": "lua-error-handling",
+        "desc": "Raise errors and catch them with pcall instead of crashing the script",
+        "cmd": "local function read_port(cfg)\n  if not cfg.port then\n    error(\"port is missing\")\n  end\n  return cfg.port\nend\n\nlocal ok, result = pcall(read_port, {})\nif ok then\n  print(\"port\", result)\nelse\n  print(\"failed:\", result)\nend\n\nlocal f, err = io.open(\"/no/such/file\", \"r\")\nif not f then print(err) end",
+        "flags": [
+          [
+            "error(\"message\")",
+            "Raise an error, adding the file and line"
+          ],
+          [
+            "pcall(f, args)",
+            "Call f safely. Returns false and the error if it fails."
+          ],
+          [
+            "xpcall(f, handler)",
+            "Like pcall, with a handler that runs on failure"
+          ],
+          [
+            "assert(value, \"message\")",
+            "Raise an error if value is nil or false"
+          ],
+          [
+            "return nil, \"reason\"",
+            "Common way to report an expected failure"
+          ]
         ],
-        subcommands: [
-          ["local f = assert(io.open(\"/etc/hosts\", \"r\"))", "Open file or crash immediately with helpful OS error message"]
+        "subcommands": [
+          [
+            "local f = assert(io.open(path))",
+            "Open a file or stop with the reason"
+          ],
+          [
+            "debug.traceback()",
+            "Get the call stack as a string"
+          ]
         ],
-        tip: "Use pcall() whenever parsing untrusted JSON/YAML or querying hardware sysfs nodes that may vanish",
-        tags: ["error", "pcall", "xpcall", "assert", "traceback", "try-catch", "exception"]
+        "tip": "pcall takes the function and its arguments separately: pcall(f, x), not pcall(f(x)).",
+        "tags": [
+          "lua",
+          "errors",
+          "pcall",
+          "xpcall",
+          "assert",
+          "exceptions"
+        ]
       },
       {
-        id: "lua-file-io",
-        desc: "Read and write files line-by-line using Lua's standard I/O library",
-        cmd: "-- Read file line-by-line\nlocal file, err = io.open(\"/etc/os-release\", \"r\")\nif not file then\n  print(\"Cannot open file:\", err)\n  return\nend\n\nfor line in file:lines() do\n  if line:match(\"^PRETTY_NAME\") then\n    print(\"OS:\", line)\n  end\nend\nfile:close()\n\n-- Write text to file\nlocal out = assert(io.open(\"/tmp/audit.txt\", \"w\"))\nout:write(\"Node: gpu-worker-042\\nStatus: PASS\\n\")\nout:close()",
-        flags: [
-          ["io.open(path, mode)", "Modes: 'r' read, 'w' overwrite, 'a' append, 'r+' read/write, 'rb' binary"],
-          ["file:lines()", "Memory-efficient iterator yielding one line at a time without reading whole file into RAM"],
-          ["file:read(\"*a\")", "Read entire file contents into a single string (*all)"],
-          ["file:close()", "Closes the file descriptor handle"]
+        "id": "lua-file-io",
+        "desc": "Read and write files line by line or all at once",
+        "cmd": "local path = \"lua-demo.txt\"\nlocal out = assert(io.open(path, \"w\"))\nout:write(\"node-01\\nnode-02\\n\")\nout:close()\n\nfor line in io.lines(path) do\n  print(line)\nend\n\nlocal input = assert(io.open(path, \"r\"))\nlocal content = input:read(\"a\")\ninput:close()\nprint(#content)\nos.remove(path)",
+        "flags": [
+          [
+            "io.open(path, mode)",
+            "Open a file: \"r\" read, \"w\" overwrite, \"a\" append"
+          ],
+          [
+            "f:read(\"a\")",
+            "Read the whole file (Lua 5.1 needs \"*a\")"
+          ],
+          [
+            "f:read(\"l\")",
+            "Read one line (Lua 5.1 needs \"*l\")"
+          ],
+          [
+            "io.lines(path)",
+            "Loop over lines and close the file automatically"
+          ],
+          [
+            "f:write(text)",
+            "Write text. It adds no newline."
+          ],
+          [
+            "f:close()",
+            "Close the file and flush pending writes"
+          ]
         ],
-        subcommands: [
-          ["io.input(\"/path\"); local content = io.read(\"*a\")", "Simplified default input stream helper"]
+        "subcommands": [
+          [
+            "os.getenv(\"HOME\")",
+            "Read an environment variable"
+          ],
+          [
+            "os.execute(\"cmd\")",
+            "Run a shell command"
+          ],
+          [
+            "io.popen(\"cmd\"):read(\"a\")",
+            "Run a shell command and capture its output"
+          ],
+          [
+            "os.date(\"%Y-%m-%d\") / os.time()",
+            "Formatted date / Unix timestamp"
+          ]
         ],
-        tip: "Always close open file descriptors or use io.lines(filename) which auto-closes upon EOF",
-        tags: ["io", "file", "read", "write", "open", "lines", "append"]
+        "tip": "\"w\" mode erases the file as soon as it opens, so use \"a\" to add to it.",
+        "tags": [
+          "lua",
+          "files",
+          "io",
+          "read",
+          "write",
+          "lines",
+          "os"
+        ]
       },
       {
-        id: "lua-sys-popen",
-        desc: "Execute shell commands, capture process stdout with io.popen, and read CLI args",
-        cmd: "-- Read command stdout stream\nlocal handle = io.popen(\"uname -r\", \"r\")\nif handle then\n  local kernel = handle:read(\"*a\"):gsub(\"%s+$\", \"\")\n  handle:close()\n  print(\"Kernel version:\", kernel)\nend\n\n-- Access CLI script arguments via global 'arg' table\n-- arg[0] is script name; arg[1] is first argument\nprint(\"Script name:\", arg[0])\nfor i = 1, #arg do\n  print(\"Arg \" .. i .. \":\", arg[i])\nend",
-        flags: [
-          ["io.popen(cmd, \"r\")", "Spawns a shell sub-process and returns a readable pipe connected to its stdout"],
-          ["os.execute(cmd)", "Runs command directly in shell; returns true/nil, exit_type, exit_code"],
-          ["os.getenv(\"USER\")", "Reads environment variable from parent shell (returns nil if unset)"],
-          ["arg[1], arg[2]...", "Global array holding command-line parameters passed to the script"]
+        "id": "lua-cli",
+        "desc": "Run scripts, check syntax without running, and try code interactively",
+        "cmd": "lua script.lua arg1 arg2\nlua -e 'print(2 ^ 10)'\nlua -i\nluac -p script.lua",
+        "flags": [
+          [
+            "lua script.lua",
+            "Run a script"
+          ],
+          [
+            "lua -e 'code'",
+            "Run one line of code"
+          ],
+          [
+            "lua -i",
+            "Interactive prompt (Ctrl+D to exit)"
+          ],
+          [
+            "luac -p file.lua",
+            "Check syntax only, without running anything"
+          ],
+          [
+            "luajit file.lua",
+            "Run with LuaJIT, the engine Neovim uses"
+          ],
+          [
+            "arg[1]",
+            "First command-line argument inside a script"
+          ]
         ],
-        subcommands: [
-          ["os.exit(1)", "Terminates the running Lua process with an exit status code"],
-          ["os.time()", "Returns current epoch timestamp in seconds"]
+        "subcommands": [
+          [
+            "#!/usr/bin/env lua",
+            "Shebang line for executable scripts"
+          ],
+          [
+            "lua -v",
+            "Show the installed version"
+          ]
         ],
-        tip: "Always close handle with handle:close() to avoid leaking zombie sub-processes!",
-        tags: ["popen", "execute", "shell", "subcommand", "cli", "arg", "env", "os"]
+        "tip": "luac -p catches typos in a config file before you reload it.",
+        "tags": [
+          "lua",
+          "cli",
+          "luac",
+          "luajit",
+          "repl",
+          "syntax-check",
+          "arguments"
+        ]
       }
     ]
   },
   {
-    id: "lua-modules-stdlib",
-    badge: "stdlib",
-    title: "Modules, Packages & OS / System Standard Library",
-    subtitle: "Reusable modules with require(), package.path, os.date, os.time, os.getenv & math utilities",
-    commands: [
+    "id": "lua-config",
+    "badge": "cfg",
+    "title": "Reading & Editing Lua Config Files",
+    "subtitle": "How Lua is used in Omarchy / Hyprland and Neovim config files",
+    "commands": [
       {
-        id: "lua-module-export",
-        desc: "Structure and export reusable Lua modules with require() and custom search paths",
-        cmd: "-- mymodule.lua\nlocal M = {}\nM.VERSION = \"1.2.0\"\n\nfunction M.format_mac(mac)\n  return mac:upper():gsub(\"([%x]{2})(?=[%x])\", \"%1:\")\nend\n\nfunction M.calc_pct(part, total)\n  if total == 0 then return 0.0 end\n  return (part / total) * 100\nend\n\nreturn M\n\n-- main.lua\n-- package.path = package.path .. \";./lib/?.lua\"\nlocal net = require(\"mymodule\")\nprint(\"Version:\", net.VERSION)\nprint(\"MAC:\", net.format_mac(\"e4115be99f20\"))",
-        flags: [
-          ["local M = {}", "Module table pattern: all exported public functions and constants are attached to M"],
-          ["return M", "Module files must return their exported table at the end"],
-          ["require(\"name\")", "Loads and runs file once; caches returned table in package.loaded[name]"],
-          ["package.path", "Semicolon-delimited template string Lua uses to search for .lua source files"]
+        "id": "lua-config-omarchy",
+        "desc": "Omarchy and Hyprland: bindings, unbinding defaults, and switching settings on",
+        "cmd": "-- ~/.config/hypr/bindings.lua\nhl.unbind(\"SUPER + SHIFT + E\")\no.bind(\"SUPER + SHIFT + E\", \"Email\", { webapp = \"https://mail.google.com\" })\n\n-- ~/.config/hypr/looknfeel.lua\nhl.config({\n  general = {\n    layout = \"scrolling\",\n  },\n})",
+        "flags": [
+          [
+            "o.bind(keys, label, action)",
+            "Add a keybinding. All three arguments go in the parentheses."
+          ],
+          [
+            "hl.unbind(keys)",
+            "Remove a default binding before replacing it"
+          ],
+          [
+            "{ webapp = \"url\" }",
+            "A table passed as the action"
+          ],
+          [
+            "hl.config({ ... })",
+            "Set options using nested tables"
+          ],
+          [
+            "require(\"hypr.bindings\")",
+            "Loads ~/.config/hypr/bindings.lua"
+          ],
+          [
+            "-- at line start",
+            "The line is off. Delete -- to turn it on."
+          ]
         ],
-        subcommands: [
-          ["package.loaded[\"mymodule\"] = nil", "Unload module from cache to force reload on next require()"],
-          ["local ok, mod = pcall(require, \"optional_mod\")", "Safely test if optional module or C extension is installed"]
+        "subcommands": [
+          [
+            "hyprctl configerrors",
+            "List config problems after you save and reload"
+          ],
+          [
+            "hyprctl reload",
+            "Reload the Hyprland config"
+          ]
         ],
-        tip: "Keep helper functions local to the file so they remain private to your module",
-        tags: ["modules", "require", "package", "exports", "library", "architecture"]
+        "tip": "When uncommenting a setting inside { }, uncomment the opening and closing lines too.",
+        "tags": [
+          "lua",
+          "omarchy",
+          "hyprland",
+          "bindings",
+          "config",
+          "o.bind",
+          "hl.unbind"
+        ]
       },
       {
-        id: "lua-os-system",
-        desc: "System time, date formatting, environment variables, and process exit status via os library",
-        cmd: "-- Current timestamp & ISO 8601 UTC date\nlocal now = os.time()\nlocal iso = os.date(\"!%Y-%m-%dT%H:%M:%SZ\", now)\n\n-- Environment variables\nlocal user = os.getenv(\"USER\") or \"unknown\"\nlocal rack = os.getenv(\"TARGET_RACK\") or \"Rack-01\"\n\nprint(string.format(\"[%s] Audit run by %s on %s\", iso, user, rack))\n\n-- Exit script with status code\nif false then os.exit(1) end",
-        flags: [
-          ["os.time([table])", "Returns current UNIX epoch timestamp in seconds, or converts date table to epoch"],
-          ["os.date(fmt, time)", "Formats epoch into string; leading '!' forces UTC/GMT instead of local timezone"],
-          ["os.getenv(\"VAR\")", "Returns value of environment variable as string, or nil if unset"],
-          ["os.exit(code)", "Terminates the host program/script with integer exit code (0 for success)"],
-          ["os.difftime(t2, t1)", "Calculates elapsed time in seconds between two os.time timestamps"]
+        "id": "lua-config-neovim",
+        "desc": "Neovim: options, keymaps, and autocommands",
+        "cmd": "-- ~/.config/nvim/init.lua\nvim.opt.number = true\nvim.opt.shiftwidth = 2\nvim.g.mapleader = \" \"\n\nvim.keymap.set(\"n\", \"<leader>w\", \"<cmd>write<cr>\", { desc = \"Save file\" })\n\nvim.api.nvim_create_autocmd(\"BufWritePre\", {\n  pattern = \"*.lua\",\n  callback = function() print(\"saving\") end,\n})",
+        "flags": [
+          [
+            "vim.opt.name = value",
+            "Set an editor option"
+          ],
+          [
+            "vim.g.name = value",
+            "Set a global variable"
+          ],
+          [
+            "vim.keymap.set(mode, keys, action, opts)",
+            "Add a keymap"
+          ],
+          [
+            "vim.api.nvim_create_autocmd(event, opts)",
+            "Run code on an editor event"
+          ],
+          [
+            "return { \"owner/plugin\", opts = {} }",
+            "Common shape of a plugin spec file"
+          ]
         ],
-        subcommands: [
-          ["local start = os.clock(); ...; print(os.clock() - start)", "Benchmark CPU execution time with fractional second precision"],
-          ["local ok, kind, code = os.execute(\"ping -c 1 127.0.0.1 >/dev/null\")", "Run system command and check exit code"]
+        "subcommands": [
+          [
+            ":lua print(vim.version().minor)",
+            "Run Lua from Neovim's command line"
+          ],
+          [
+            ":lua =vim.opt.number:get()",
+            "Print the value of an expression"
+          ]
         ],
-        tip: "Use os.date('!%Y-%m-%d %H:%M:%S') for RFC-3339 timestamps in datacenter incident logs",
-        tags: ["os", "time", "date", "getenv", "exit", "epoch", "timestamp", "benchmark"]
+        "tip": "Neovim runs LuaJIT (Lua 5.1), so 5.3+ features such as // and bitwise operators are unavailable.",
+        "tags": [
+          "lua",
+          "neovim",
+          "nvim",
+          "init.lua",
+          "keymap",
+          "autocmd",
+          "config"
+        ]
       }
     ]
   }
 ];
 
-// Global state for LUA sheet
-let state = {
+// State
+const state = {
   searchQuery: "",
   activeCategory: "all",
-  bookmarks: new Set(JSON.parse(localStorage.getItem("lua_cs_bookmarks") || "[]")),
   savedOnly: false,
   compact: localStorage.getItem("linux_cs_compact") === "1",
-  theme: localStorage.getItem("linux_cs_theme") || "dark"
+  theme: localStorage.getItem("linux_cs_theme") || "dark",
+  bookmarks: new Set(JSON.parse(localStorage.getItem("lua_cs_bookmarks") || "[]"))
 };
 
-// DOM references
-const searchInput = document.getElementById("search-input");
-const categoryTabsEl = document.getElementById("category-tabs");
+// DOM Elements
 const sectionsContainer = document.getElementById("sections-container");
-const commandCountEl = document.getElementById("command-count");
-const totalCommandsCountEl = document.getElementById("total-commands-count");
-const savedCountEl = document.getElementById("saved-count");
+const categoryTabsEl = document.getElementById("category-tabs");
+const searchInput = document.getElementById("search-input");
 const savedFilterBtn = document.getElementById("saved-filter-btn");
+const savedCountEl = document.getElementById("saved-count");
 const densityToggleBtn = document.getElementById("density-toggle");
 const densityLabel = document.getElementById("density-label");
-const printBtn = document.getElementById("print-btn");
 const themeToggleBtn = document.getElementById("theme-toggle");
+const visibleCountEl = document.getElementById("visible-count");
+const emptyStateEl = document.getElementById("empty-state");
 const resetSearchBtn = document.getElementById("reset-search-btn");
+const toast = document.getElementById("toast");
+const toastText = document.getElementById("toast-text");
+const printBtn = document.getElementById("print-btn");
 
-function getFilteredData() {
-  const query = state.searchQuery.toLowerCase().trim();
-
-  return LUA_CHEAT_SHEET_DATA.map((section) => {
-    if (state.activeCategory !== "all" && section.id !== state.activeCategory) {
-      return null;
-    }
-
-    const filteredCommands = section.commands.filter((cmd) => {
-      if (state.savedOnly && !state.bookmarks.has(cmd.id)) {
-        return false;
-      }
-
-      if (!query) return true;
-
-      const inDesc = cmd.desc.toLowerCase().includes(query);
-      const inCmd = cmd.cmd.toLowerCase().includes(query);
-      const inDetails = cmd.details && cmd.details.toLowerCase().includes(query);
-      const inTags = cmd.tags && cmd.tags.some((t) => t.toLowerCase().includes(query));
-      const inSub = cmd.subcommands && cmd.subcommands.some(([c, d]) =>
-        c.toLowerCase().includes(query) || d.toLowerCase().includes(query)
-      );
-
-      return inDesc || inCmd || inDetails || inTags || inSub;
-    });
-
-    if (filteredCommands.length === 0) return null;
-
-    return {
-      ...section,
-      commands: filteredCommands
-    };
-  }).filter(Boolean);
-}
-
-function renderCategoryTabs() {
-  if (!categoryTabsEl) return;
-  const categories = [
-    { id: "all", label: "All Lua Concepts" },
-    ...LUA_CHEAT_SHEET_DATA.map((s) => ({ id: s.id, label: s.title.split(":")[0].trim() }))
-  ];
-
-  categoryTabsEl.innerHTML = categories
-    .map(
-      (cat) => `
-    <button
-      type="button"
-      class="cat-tab ${state.activeCategory === cat.id ? "active" : ""}"
-      data-cat="${cat.id}"
-      role="tab"
-      aria-selected="${state.activeCategory === cat.id}"
-    >
-      ${escapeHtml(cat.label)}
-    </button>
-  `
-    )
-    .join("");
-}
-
-function renderSections() {
-  if (!sectionsContainer) return;
-  const filteredData = getFilteredData();
-  const totalVisibleCommands = filteredData.reduce((acc, s) => acc + s.commands.length, 0);
-
-  if (commandCountEl) commandCountEl.textContent = totalVisibleCommands;
-  if (savedCountEl) savedCountEl.textContent = state.bookmarks.size;
-
-  const totalAll = LUA_CHEAT_SHEET_DATA.reduce((acc, s) => acc + s.commands.length, 0);
-  if (totalCommandsCountEl) totalCommandsCountEl.textContent = totalAll;
-
-  if (filteredData.length === 0) {
-    sectionsContainer.innerHTML = `
-      <div class="empty-state">
-        <div class="empty-state-icon">🔍</div>
-        <h3>No matching Lua recipes found</h3>
-        <p>Try searching for a different keyword, function, or clear active filters.</p>
-        <button type="button" class="btn" onclick="resetAllFilters()">Reset All Filters</button>
-      </div>
-    `;
-    return;
-  }
-
-  sectionsContainer.innerHTML = filteredData.map((section) => renderSectionCard(section)).join("");
-}
-
-function renderSectionCard(section) {
-  return `
-    <section class="section-card" id="${section.id}">
-      <div class="section-header">
-        <div class="section-badge">${escapeHtml(section.badge)}</div>
-        <div class="section-title-wrap">
-          <h2 class="section-title">${escapeHtml(section.title)}</h2>
-          <p class="section-subtitle">${escapeHtml(section.subtitle)}</p>
-        </div>
-      </div>
-      <div class="commands-grid">
-        ${section.commands.map((cmd) => renderCommandCard(cmd, section)).join("")}
-      </div>
-    </section>
-  `;
-}
-
-function renderCommandCard(cmd, section) {
-  const isBookmarked = state.bookmarks.has(cmd.id);
-
-  return `
-    <div class="cmd-item command-card" id="card-${cmd.id}" data-id="${cmd.id}">
-      <div class="cmd-top-row">
-        <div class="cmd-desc-wrap">
-          <span class="cmd-desc">${escapeHtml(cmd.desc)}</span>
-        </div>
-        <div class="cmd-actions">
-          <button
-            type="button"
-            class="bookmark-btn ${isBookmarked ? "active" : ""}"
-            data-bookmark-id="${cmd.id}"
-            title="${isBookmarked ? "Remove from saved" : "Save for quick access"}"
-            aria-label="${isBookmarked ? "Remove from saved" : "Save for quick access"}"
-          >
-            ★
-          </button>
-        </div>
-      </div>
-
-      <div class="cmd-code-box" data-copy="${escapeHtml(cmd.cmd)}" title="Click to copy snippet">
-        <div class="cmd-code-header">
-          <span class="cmd-lang-label">LUA</span>
-          <span class="copy-hint">Copy</span>
-        </div>
-        <pre class="cmd-pre"><code class="cmd-code">${escapeHtml(cmd.cmd)}</code></pre>
-      </div>
-
-      ${cmd.details ? `<div class="cmd-details cmd-details-box"><p>${escapeHtml(cmd.details)}</p></div>` : ""}
-
-      ${
-        cmd.flags && cmd.flags.length > 0
-          ? `
-        <div class="flag-pills cmd-flags-wrap">
-          <span class="mini-heading">Syntax &amp; Semantics</span>
-          <div class="flags-table">
-            ${cmd.flags
-              .map(
-                ([flag, desc]) => `
-              <div class="flag-row">
-                <code class="flag-code">${escapeHtml(flag)}</code>
-                <span class="flag-desc">${escapeHtml(desc)}</span>
-              </div>
-            `
-              )
-              .join("")}
-          </div>
-        </div>
-      `
-          : ""
-      }
-
-      ${
-        cmd.subcommands && cmd.subcommands.length > 0
-          ? `
-        <div class="subcmd-list cmd-subcommands-wrap">
-          <span class="mini-heading">Idiomatic Patterns &amp; Variations</span>
-          <div class="subcommands-list">
-            ${cmd.subcommands
-              .map(
-                ([subCmd, subDesc]) => `
-              <div class="subcommand-item">
-                <div class="sub-code-line" data-copy="${escapeHtml(subCmd)}" title="Click to copy">
-                  <code>${escapeHtml(subCmd)}</code>
-                  <span class="copy-hint-tiny">Copy</span>
-                </div>
-                <div class="sub-desc">${escapeHtml(subDesc)}</div>
-              </div>
-            `
-              )
-              .join("")}
-          </div>
-        </div>
-      `
-          : ""
-      }
-
-      <div class="cmd-footer-row">
-        ${
-          cmd.tags && cmd.tags.length > 0
-            ? `
-          <div class="cmd-tags-list">
-            ${cmd.tags.map((t) => `<span class="cmd-tag">${escapeHtml(t)}</span>`).join("")}
-          </div>
-        `
-            : "<div></div>"
-        }
-        ${cmd.tip ? `<span class="cmd-tip-pill" title="${escapeHtml(cmd.tip)}">💡 ${escapeHtml(cmd.tip)}</span>` : ""}
-      </div>
-    </div>
-  `;
-}
+let toastTimer = null;
 
 function escapeHtml(str) {
-  if (!str) return "";
+  if (str == null) return "";
   return String(str)
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
-
-function copyToClipboard(text) {
-  if (!navigator.clipboard) {
-    const ta = document.createElement("textarea");
-    ta.value = text;
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand("copy");
-    document.body.removeChild(ta);
-    showToast("Copied Lua snippet to clipboard!");
-    return;
-  }
-  navigator.clipboard.writeText(text).then(
-    () => showToast("Copied Lua snippet to clipboard!"),
-    () => showToast("Failed to copy code")
-  );
+    .replace(/"/g, "&quot;");
 }
 
 function showToast(msg) {
-  const existing = document.querySelector(".toast-notification");
-  if (existing) existing.remove();
-
-  const toast = document.createElement("div");
-  toast.className = "toast-notification";
-  toast.textContent = msg;
-  document.body.appendChild(toast);
-
-  setTimeout(() => toast.classList.add("visible"), 10);
-  setTimeout(() => {
-    toast.classList.remove("visible");
-    setTimeout(() => toast.remove(), 250);
+  if (!toast) return;
+  toastText.textContent = msg;
+  toast.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    toast.classList.remove("show");
   }, 2200);
 }
 
-function resetAllFilters() {
-  state.searchQuery = "";
-  state.activeCategory = "all";
-  state.savedOnly = false;
-  if (searchInput) searchInput.value = "";
-  renderCategoryTabs();
-  renderSections();
-}
-
-function applyTheme(theme) {
-  state.theme = theme;
-  document.documentElement.setAttribute("data-theme", theme);
-  try {
-    localStorage.setItem("linux_cs_theme", theme);
-  } catch (e) {}
-}
-
-function applyDensity(compact) {
-  state.compact = compact;
-  document.body.classList.toggle("compact-mode", compact);
-  document.body.classList.toggle("compact-density", compact);
-  if (densityToggleBtn) {
-    densityToggleBtn.classList.toggle("active", compact);
-    densityToggleBtn.setAttribute("aria-pressed", compact ? "true" : "false");
+function copyToClipboard(text) {
+  if (window.AntigravityCommon && typeof window.AntigravityCommon.substituteVariables === "function") {
+    const subResult = window.AntigravityCommon.substituteVariables(text);
+    text = subResult.text;
   }
-  if (densityLabel) {
-    densityLabel.textContent = compact ? "Relaxed" : "Compact";
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text).then(() => {
+      showToast("Copied snippet to clipboard");
+    }).catch(() => fallbackCopy(text));
+  } else {
+    fallbackCopy(text);
   }
-  try {
-    localStorage.setItem("linux_cs_compact", compact ? "1" : "0");
-  } catch (e) {}
 }
 
-function initEvents() {
-  if (searchInput) {
-    searchInput.addEventListener("input", (e) => {
-      state.searchQuery = e.target.value;
+function fallbackCopy(text) {
+  const ta = document.createElement("textarea");
+  ta.value = text;
+  document.body.appendChild(ta);
+  ta.select();
+  document.execCommand("copy");
+  document.body.removeChild(ta);
+  showToast("Copied snippet to clipboard");
+}
+
+// Shell & language syntax highlighter
+function highlightCommand(raw) {
+  const escaped = escapeHtml(raw);
+  return escaped.replace(
+    /(^|\s|;|&&|\|\||\|)(sudo\s+)?([a-zA-Z0-9_.-]+)|('[^']*'|"[^"]*")|(\s--?[a-zA-Z0-9_-]+(?:=[a-zA-Z0-9_.,*/:-]+)?)|(\|\||&&|\|)/g,
+    (match, lead, sudoPart, cmdName, strLiteral, flagPart, operatorPart) => {
+      if (strLiteral) return `<span class="tok-str">${strLiteral}</span>`;
+      if (flagPart) return `<span class="tok-flag">${flagPart}</span>`;
+      if (operatorPart) return `<span class="tok-pipe">${operatorPart}</span>`;
+      if (cmdName) {
+        const prefix = lead || "";
+        const sudoHtml = sudoPart ? `<span class="tok-pipe">${sudoPart}</span>` : "";
+        return `${prefix}${sudoHtml}<span class="tok-cmd">${cmdName}</span>`;
+      }
+      return match;
+    }
+  );
+}
+
+function renderCategoryTabs() {
+  const totalCommands = LUA_CHEAT_SHEET_DATA.reduce((sum, s) => sum + s.commands.length, 0);
+  const optionsHtml = [
+    `<option value="all" ${state.activeCategory === "all" ? "selected" : ""}>All Sections (${totalCommands} recipes)</option>`
+  ];
+
+  for (const section of LUA_CHEAT_SHEET_DATA) {
+    const isSelected = state.activeCategory === section.id ? "selected" : "";
+    optionsHtml.push(
+      `<option value="${section.id}" ${isSelected}>${escapeHtml(section.title)} (${section.commands.length})</option>`
+    );
+  }
+
+  const resetBtnHtml =
+    state.activeCategory !== "all"
+      ? `<button type="button" class="cat-reset-btn" data-cat="all" title="Show all sections">✕ Show All</button>`
+      : "";
+
+  categoryTabsEl.innerHTML = `
+    <div class="cat-dropdown-wrap">
+      <label class="cat-dropdown-label" for="category-select">Section:</label>
+      <select id="category-select" class="cat-select" aria-label="Filter by ${escapeHtml('Lua')} section">
+        ${optionsHtml.join("")}
+      </select>
+      ${resetBtnHtml}
+    </div>
+  `;
+
+  const sel = document.getElementById("category-select");
+  if (sel) {
+    sel.addEventListener("change", (e) => {
+      state.activeCategory = e.target.value;
       renderSections();
     });
   }
 
-  if (categoryTabsEl) {
-    categoryTabsEl.addEventListener("click", (e) => {
-      const tab = e.target.closest("[data-cat]");
-      if (!tab) return;
-      state.activeCategory = tab.dataset.cat;
+  const resetBtn = categoryTabsEl.querySelector(".cat-reset-btn");
+  if (resetBtn) {
+    resetBtn.addEventListener("click", () => {
+      state.activeCategory = "all";
       renderCategoryTabs();
       renderSections();
     });
   }
+}
 
-  if (sectionsContainer) {
-    sectionsContainer.addEventListener("click", (e) => {
-      const copyBox = e.target.closest(".cmd-code-box");
-      if (copyBox) {
-        copyToClipboard(copyBox.dataset.copy);
-        return;
+function matchesSearch(cmdObj, section, query) {
+  if (!query) return true;
+  const terms = query.toLowerCase().split(/\s+/).filter(Boolean);
+  const haystack = [
+    cmdObj.desc,
+    cmdObj.cmd,
+    cmdObj.details || "",
+    cmdObj.tip || "",
+    section.title,
+    section.subtitle,
+    ...(cmdObj.tags || []),
+    ...(cmdObj.flags || []).flat(),
+    ...(cmdObj.subcommands || []).flat()
+  ]
+    .join(" ")
+    .toLowerCase();
+
+  return terms.every((t) => haystack.includes(t));
+}
+
+let allRenderedCards = [];
+function packMasonry() {
+  if (!sectionsContainer) return;
+  if (sectionsContainer.querySelectorAll(".section-card").length === 0) {
+    allRenderedCards = [];
+    return;
+  }
+  const directCards = [...sectionsContainer.querySelectorAll(":scope > .section-card")];
+  if (directCards.length > 0) {
+    allRenderedCards = directCards;
+  }
+  if (allRenderedCards.length === 0) return;
+
+  const containerWidth = sectionsContainer.clientWidth || window.innerWidth;
+  const colCount = Math.max(1, Math.min(allRenderedCards.length, Math.floor((containerWidth + 18) / (380 + 18))));
+  if (colCount <= 1) {
+    sectionsContainer.classList.remove("has-masonry");
+    sectionsContainer.replaceChildren(...allRenderedCards);
+    return;
+  }
+
+  sectionsContainer.classList.add("has-masonry");
+  const cols = Array.from({ length: colCount }, () => {
+    const col = document.createElement("div");
+    col.className = "masonry-col";
+    return col;
+  });
+  const colHeights = new Array(colCount).fill(0);
+  sectionsContainer.replaceChildren(...cols);
+
+  for (const card of allRenderedCards) {
+    let shortestIdx = 0;
+    for (let i = 1; i < colCount; i++) {
+      if (colHeights[i] < colHeights[shortestIdx]) {
+        shortestIdx = i;
       }
+    }
+    cols[shortestIdx].appendChild(card);
+    colHeights[shortestIdx] += card.offsetHeight + 18;
+  }
+}
 
-      const bookmarkBtn = e.target.closest(".bookmark-btn");
-      if (bookmarkBtn) {
-        const id = bookmarkBtn.dataset.bookmarkId;
-        if (state.bookmarks.has(id)) {
-          state.bookmarks.delete(id);
-          showToast("Removed from saved snippets");
-        } else {
-          state.bookmarks.add(id);
-          showToast("Saved snippet to bookmarks");
-        }
-        localStorage.setItem("lua_cs_bookmarks", JSON.stringify([...state.bookmarks]));
+let masonryResizeTimer;
+function scheduleMasonry() {
+  clearTimeout(masonryResizeTimer);
+  masonryResizeTimer = setTimeout(packMasonry, 40);
+}
+window.addEventListener("resize", scheduleMasonry);
+document.addEventListener("fullscreenchange", scheduleMasonry);
+
+if (typeof ResizeObserver !== "undefined" && sectionsContainer) {
+  let lastObservedWidth = 0;
+  const ro = new ResizeObserver((entries) => {
+    for (const entry of entries) {
+      const w = Math.round(entry.contentRect.width);
+      if (w > 0 && Math.abs(w - lastObservedWidth) > 10) {
+        lastObservedWidth = w;
+        scheduleMasonry();
+      }
+    }
+  });
+  ro.observe(sectionsContainer);
+}
+
+function renderSections() {
+  let visibleCommandsCount = 0;
+  const cardsHtml = [];
+
+  for (const section of LUA_CHEAT_SHEET_DATA) {
+    if (state.activeCategory !== "all" && state.activeCategory !== section.id) {
+      continue;
+    }
+
+    const filteredCommands = section.commands.filter((cmdObj) => {
+      if (state.savedOnly && !state.bookmarks.has(cmdObj.id)) {
+        return false;
+      }
+      return matchesSearch(cmdObj, section, state.searchQuery);
+    });
+
+    if (filteredCommands.length === 0) continue;
+    visibleCommandsCount += filteredCommands.length;
+
+    const itemsHtml = filteredCommands
+      .map((item) => {
+        const isSaved = state.bookmarks.has(item.id);
+        const tipHtml = item.tip ? `<span class="tip-badge">${escapeHtml(item.tip)}</span>` : "";
+        const detailsHtml = item.details ? `<p class="cmd-details">${escapeHtml(item.details)}</p>` : "";
+
+        const flagsHtml =
+          item.flags && item.flags.length
+            ? `<div class="flag-pills">
+                ${item.flags
+                  .map(
+                    ([flag, exp]) =>
+                      `<span class="flag-pill"><code>${escapeHtml(flag)}</code> <span>${escapeHtml(exp)}</span></span>`
+                  )
+                  .join("")}
+              </div>`
+            : "";
+
+        const subcommandsHtml =
+          item.subcommands && item.subcommands.length
+            ? `<div class="subcmd-list">
+                <span class="subcmd-header">Subcommands, Variations &amp; Snippets</span>
+                ${item.subcommands
+                  .map(
+                    ([subcmd, exp]) =>
+                      `<div class="subcmd-row" data-copy="${escapeHtml(subcmd)}" title="Click to copy snippet">
+                        <code>${escapeHtml(subcmd)}</code>
+                        <span>${escapeHtml(exp)}</span>
+                      </div>`
+                  )
+                  .join("")}
+              </div>`
+            : "";
+
+        return `
+          <div class="cmd-item" id="${item.id}" data-id="${item.id}">
+            <div class="cmd-top-row">
+              <div class="cmd-desc">
+                <span>${escapeHtml(item.desc)}</span>
+                ${tipHtml}
+              </div>
+              <div class="cmd-actions">
+                <button
+                  type="button"
+                  class="icon-btn bookmark-btn ${isSaved ? "bookmarked" : ""}"
+                  data-bookmark-id="${item.id}"
+                  title="${isSaved ? "Remove bookmark" : "Bookmark snippet"}"
+                  aria-label="Bookmark snippet"
+                >
+                  ${isSaved ? "★" : "☆"}
+                </button>
+              </div>
+            </div>
+
+            <div class="cmd-code-box" data-copy="${escapeHtml(item.cmd)}" title="Click to copy snippet">
+              <code class="cmd-code">${highlightCommand(item.cmd)}</code>
+              <span class="copy-hint">Copy</span>
+            </div>
+
+            ${detailsHtml}
+            ${flagsHtml}
+            ${subcommandsHtml}
+          </div>
+        `;
+      })
+      .join("");
+
+    cardsHtml.push(`
+      <article class="section-card" id="sec-${section.id}">
+        <header class="section-header">
+          <div class="section-title-wrap">
+            <span class="section-badge">${escapeHtml(section.badge)}</span>
+            <div>
+              <h2 class="section-title">${escapeHtml(section.title)}</h2>
+              <p class="section-subtitle">${escapeHtml(section.subtitle)}</p>
+            </div>
+          </div>
+          <span class="count-badge">${filteredCommands.length}</span>
+        </header>
+        <div class="command-list">
+          ${itemsHtml}
+        </div>
+      </article>
+    `);
+  }
+
+  sectionsContainer.innerHTML = cardsHtml.join("");
+  packMasonry();
+  visibleCountEl.textContent = visibleCommandsCount;
+  savedCountEl.textContent = state.bookmarks.size;
+
+  if (visibleCommandsCount === 0) {
+    emptyStateEl.classList.remove("hidden");
+    sectionsContainer.classList.add("hidden");
+  } else {
+    emptyStateEl.classList.add("hidden");
+    sectionsContainer.classList.remove("hidden");
+  }
+}
+
+function applyTheme(theme) {
+  state.theme = theme;
+  if (window.AntigravityCommon && window.AntigravityCommon.applyTheme) {
+    window.AntigravityCommon.applyTheme(theme);
+  } else {
+    document.documentElement.setAttribute("data-theme", theme);
+    try { localStorage.setItem("linux_cs_theme", theme); } catch(e) {}
+  }
+}
+
+function applyDensity(compact) {
+  state.compact = compact;
+  document.body.classList.toggle("compact-density", compact);
+  document.body.classList.toggle("compact-mode", compact);
+  if (densityToggleBtn) {
+    densityToggleBtn.classList.toggle("active", compact);
+    densityToggleBtn.setAttribute("aria-pressed", compact ? "true" : "false");
+  }
+  if (densityLabel) densityLabel.textContent = compact ? "Relaxed" : "Compact";
+  localStorage.setItem("linux_cs_compact", compact ? "1" : "0");
+  packMasonry();
+}
+
+function initEvents() {
+  searchInput.addEventListener("input", (e) => {
+    state.searchQuery = e.target.value.trim();
+    renderSections();
+  });
+
+  sectionsContainer.addEventListener("click", (e) => {
+    const copyBox = e.target.closest(".cmd-code-box, .subcmd-row");
+    if (copyBox) {
+      copyToClipboard(copyBox.dataset.copy);
+      return;
+    }
+
+    const bookmarkBtn = e.target.closest(".bookmark-btn");
+    if (bookmarkBtn) {
+      const id = bookmarkBtn.dataset.bookmarkId;
+      if (state.bookmarks.has(id)) {
+        state.bookmarks.delete(id);
+        bookmarkBtn.classList.remove("bookmarked");
+        bookmarkBtn.textContent = "☆";
+        bookmarkBtn.title = "Bookmark snippet";
+        showToast("Removed from saved bookmarks");
+      } else {
+        state.bookmarks.add(id);
+        bookmarkBtn.classList.add("bookmarked");
+        bookmarkBtn.textContent = "★";
+        bookmarkBtn.title = "Remove bookmark";
+        showToast("Added to saved bookmarks");
+      }
+      localStorage.setItem("lua_cs_bookmarks", JSON.stringify([...state.bookmarks]));
+      savedCountEl.textContent = state.bookmarks.size;
+      if (state.savedOnly) {
         renderSections();
       }
-    });
-  }
+    }
+  });
 
-  if (savedFilterBtn) {
-    savedFilterBtn.addEventListener("click", () => {
-      state.savedOnly = !state.savedOnly;
-      renderSections();
-    });
-  }
+  savedFilterBtn.addEventListener("click", () => {
+    state.savedOnly = !state.savedOnly;
+    savedFilterBtn.classList.toggle("active", state.savedOnly);
+    renderSections();
+  });
 
-  if (densityToggleBtn) {
-    densityToggleBtn.addEventListener("click", () => {
-      applyDensity(!state.compact);
-    });
-  }
+  densityToggleBtn.addEventListener("click", () => {
+    applyDensity(!state.compact);
+  });
 
-  if (printBtn) {
-    printBtn.addEventListener("click", () => {
-      window.print();
-    });
-  }
+  if (printBtn) printBtn.addEventListener("click", () => {
+    window.print();
+  });
 
-  if (themeToggleBtn) {
-    themeToggleBtn.addEventListener("click", () => {
-      applyTheme(state.theme === "dark" ? "light" : "dark");
-    });
-  }
+  themeToggleBtn.addEventListener("click", () => {
+    applyTheme(state.theme === "dark" ? "light" : "dark");
+  });
 
-  if (resetSearchBtn) {
-    resetSearchBtn.addEventListener("click", resetAllFilters);
-  }
+  resetSearchBtn.addEventListener("click", () => {
+    state.searchQuery = "";
+    state.activeCategory = "all";
+    state.savedOnly = false;
+    searchInput.value = "";
+    savedFilterBtn.classList.remove("active");
+    renderCategoryTabs();
+    renderSections();
+  });
 
   window.addEventListener("keydown", (e) => {
     if (e.key === "/" && document.activeElement !== searchInput) {
       e.preventDefault();
-      if (searchInput) {
-        searchInput.focus();
-        searchInput.select();
-      }
+      searchInput.focus();
+      searchInput.select();
     } else if (e.key === "Escape") {
       if (document.activeElement === searchInput || state.searchQuery) {
-        if (searchInput) searchInput.value = "";
+        searchInput.value = "";
         state.searchQuery = "";
-        if (searchInput) searchInput.blur();
+        searchInput.blur();
         renderSections();
       }
     }

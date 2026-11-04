@@ -1759,10 +1759,6 @@ function showToast(msg) {
 }
 
 function copyToClipboard(text) {
-  if (window.CheatSheetCommon && typeof window.CheatSheetCommon.copyCommand === "function") {
-    window.CheatSheetCommon.copyCommand(text);
-    return;
-  }
   if (window.AntigravityCommon && typeof window.AntigravityCommon.substituteVariables === "function") {
     const subResult = window.AntigravityCommon.substituteVariables(text);
     text = subResult.text;
@@ -1826,7 +1822,7 @@ function renderCategoryTabs() {
   categoryTabsEl.innerHTML = `
     <div class="cat-dropdown-wrap">
       <label class="cat-dropdown-label" for="category-select">Section:</label>
-      <select id="category-select" class="cat-select" aria-label="Filter by Git section">
+      <select id="category-select" class="cat-select" aria-label="Filter by ${escapeHtml('Git')} section">
         ${optionsHtml.join("")}
       </select>
       ${resetBtnHtml}
@@ -1859,6 +1855,8 @@ function matchesSearch(cmdObj, section, query) {
     cmdObj.cmd,
     cmdObj.details || "",
     cmdObj.tip || "",
+    section.title,
+    section.subtitle,
     ...(cmdObj.tags || []),
     ...(cmdObj.flags || []).flat(),
     ...(cmdObj.subcommands || []).flat()
@@ -2054,9 +2052,7 @@ function renderSections() {
 
 function applyTheme(theme) {
   state.theme = theme;
-  if (window.CheatSheetCommon && window.CheatSheetCommon.applyTheme) {
-    window.CheatSheetCommon.applyTheme(theme);
-  } else if (window.AntigravityCommon && window.AntigravityCommon.applyTheme) {
+  if (window.AntigravityCommon && window.AntigravityCommon.applyTheme) {
     window.AntigravityCommon.applyTheme(theme);
   } else {
     document.documentElement.setAttribute("data-theme", theme);

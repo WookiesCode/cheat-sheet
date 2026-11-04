@@ -1,79 +1,469 @@
 const SCRIPTING_DATA = [
-{
-  "id": "lua-overview",
-  "badge": "lua",
-  "title": "Lua Scripting",
-  "subtitle": "Tables, functions, modules & log parsing; open Lua in the Scripting menu for the full reference",
-  "commands": [
-    {
-      "id": "lua-variables",
-      "desc": "Local variables, types, nil, and conversion",
-      "cmd": "local host = \"node-a\"\nlocal count = 8\nlocal enabled = false\nlocal missing = nil\nprint(type(host), tonumber(\"42\"), tostring(enabled))\nprint(0 and \"zero is truthy\")",
-      "details": "Prefer local variables: assignments without local normally set globals. Only false and nil are falsey; 0 and the empty string are truthy. Lua is case-sensitive. -- starts a line comment; --[[ ... ]] is a block comment.",
-      "flags": [],
-      "subcommands": [],
-      "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
-      "tags": [
-        "lua",
-        "scripting",
-        "variables",
-        "scope",
-        "types"
-      ]
-    },
-    {
-      "id": "lua-tables",
-      "desc": "Sequences, maps, and safe field access",
-      "cmd": "local nodes = {\"node-a\", \"node-b\"}\ntable.insert(nodes, \"node-c\")\nfor i, name in ipairs(nodes) do print(i, name) end\nlocal inventory = {host = \"node-a\", gpus = 8}\nfor key, value in pairs(inventory) do print(key, value) end\nprint(inventory.host, inventory[\"gpus\"])",
-      "details": "Sequence indices conventionally begin at 1. ipairs stops at the first absent integer entry; pairs order is unspecified. The length operator # is reliable for dense sequences, not a general count of keys or sparse entries. Assign nil to remove a key.",
-      "flags": [],
-      "subcommands": [],
-      "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
-      "tags": [
-        "lua",
-        "scripting",
-        "tables",
-        "arrays",
-        "maps",
-        "pairs",
-        "ipairs"
-      ]
-    },
-    {
-      "id": "lua-errors",
-      "desc": "Catch a runtime error with pcall",
-      "cmd": "local ok, result = pcall(function()\n  local value = tonumber(\"bad input\")\n  assert(value, \"expected a number\")\n  return value * 2\nend)\nif ok then print(result) else io.stderr:write(tostring(result), \"\\n\") end",
-      "details": "pcall returns true plus results on success, or false plus the error object on failure. It does not validate the safety of executing untrusted Lua code.",
-      "flags": [],
-      "subcommands": [],
-      "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
-      "tags": [
-        "lua",
-        "scripting",
-        "errors",
-        "pcall",
-        "assert"
-      ]
-    },
-    {
-      "id": "lua-logs",
-      "desc": "Count Xid messages in diagnostic text",
-      "cmd": "local sample = \"GPU Xid 79\\nhealthy\\nGPU Xid 48\\nGPU Xid 79\\n\"\nlocal counts = {}\nfor xid in sample:gmatch(\"Xid%s+(%d+)\") do\n  counts[xid] = (counts[xid] or 0) + 1\nend\nlocal keys = {}\nfor key in pairs(counts) do keys[#keys + 1] = key end\ntable.sort(keys, function(a,b) return tonumber(a) < tonumber(b) end)\nfor _, key in ipairs(keys) do print(key, counts[key]) end",
-      "details": "Counts the simplified Xid <number> format in sample text. Real driver log formats vary; adapt the pattern to captured lines. Counts are evidence to investigate, not a hardware diagnosis.",
-      "flags": [],
-      "subcommands": [],
-      "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
-      "tags": [
-        "lua",
-        "scripting",
-        "logs",
-        "gpu",
-        "xid",
-        "recipe"
-      ]
-    }
-  ]
-},
+  {
+    "id": "md-basics",
+    "badge": "MD",
+    "title": "Text & Structure",
+    "subtitle": "Core Markdown syntax for readable notes and runbooks",
+    "commands": [
+      {
+        "id": "md-headings",
+        "desc": "Headings and document outline",
+        "cmd": "# Incident summary\n## Evidence\n### GPU telemetry",
+        "details": "Use one # heading for the document title, then descend one level at a time. A space after the # characters is required by CommonMark. Keep a blank line around headings for portability.",
+        "tags": [
+          "markdown",
+          "heading",
+          "outline"
+        ]
+      },
+      {
+        "id": "md-paragraphs",
+        "desc": "Paragraphs and line breaks",
+        "cmd": "First paragraph.\n\nSecond paragraph.\n\nLine one  \nLine two",
+        "details": "A blank line starts a new paragraph. Two trailing spaces make a hard line break, but are easy to miss in review; use separate paragraphs when possible.",
+        "tags": [
+          "markdown",
+          "paragraph",
+          "line break"
+        ]
+      },
+      {
+        "id": "md-emphasis",
+        "desc": "Bold, italic, and inline code",
+        "cmd": "**Critical** GPU fault\n*Investigating* fabric state\nRun `nvidia-smi -q`",
+        "details": "Use ** for strong emphasis, * for emphasis, and backticks for literal commands, paths, identifiers, and output. Keep punctuation outside code spans unless it is part of the literal text.",
+        "tags": [
+          "markdown",
+          "bold",
+          "italic",
+          "inline code"
+        ]
+      },
+      {
+        "id": "md-escape",
+        "desc": "Show Markdown characters literally",
+        "cmd": "\\*literal asterisks\\*\n\\# not a heading\nUse `*` for a wildcard",
+        "details": "Backslash escapes punctuation in normal Markdown text. An inline code span is often clearer for syntax characters. Backslashes do not escape content inside fenced code blocks.",
+        "tags": [
+          "markdown",
+          "escape",
+          "literal"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "md-lists",
+    "badge": "MD",
+    "title": "Lists & Tasks",
+    "subtitle": "Action steps and technician checklists",
+    "commands": [
+      {
+        "id": "md-bullets",
+        "desc": "Unordered and numbered lists",
+        "cmd": "- Check BMC SEL\n- Capture GPU telemetry\n\n1. Identify the failed device\n2. Map BDF to physical slot",
+        "details": "Use a blank line before a list following a paragraph. Start each item with a marker and a space. Numbered lists express sequence; bullets group peers.",
+        "tags": [
+          "markdown",
+          "list",
+          "ordered",
+          "bullet"
+        ]
+      },
+      {
+        "id": "md-nested",
+        "desc": "Nested list with supporting detail",
+        "cmd": "- GPU 3\n  - BDF: `0000:8a:00.0`\n  - UUID: `GPU-...`\n- GPU 4\n  - Healthy",
+        "details": "Indent child bullets beneath the parent item, typically two spaces for a one-character bullet marker. Keep indentation consistent to avoid unexpected list structure.",
+        "tags": [
+          "markdown",
+          "nested list",
+          "indent"
+        ]
+      },
+      {
+        "id": "md-tasks",
+        "desc": "Checklist items for a handoff",
+        "cmd": "- [x] Capture SEL\n- [x] Map GPU UUID to BDF\n- [ ] Inspect physical module\n- [ ] Attach logs to ticket",
+        "details": "Task checkboxes are a GitHub Flavored Markdown extension, not core CommonMark. Use x for checked and a space for unchecked. Rendering and editability vary by platform.",
+        "tags": [
+          "markdown",
+          "gfm",
+          "task list",
+          "checklist"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "md-links",
+    "badge": "MD",
+    "title": "Links & Images",
+    "subtitle": "Point to evidence and keep paths reviewable",
+    "commands": [
+      {
+        "id": "md-link",
+        "desc": "Inline and reference links",
+        "cmd": "[Playbook](../docs/playbooks/gpu-nvlink.md)\n[Vendor guide][vendor]\n\n[vendor]: https://example.com/guide",
+        "details": "Relative links work within a repository when the destination moves with it. Reference links keep long URLs out of prose. Check whether the target viewer supports local paths.",
+        "tags": [
+          "markdown",
+          "link",
+          "reference",
+          "relative path"
+        ]
+      },
+      {
+        "id": "md-image",
+        "desc": "Image with useful alternate text",
+        "cmd": "![Front panel showing OSFP cage 4](images/osfp-cage-4.jpg)",
+        "details": "Alt text should describe the image's useful content. A relative image path is resolved from the Markdown file. Do not embed credentials or sensitive labels in images before sharing.",
+        "tags": [
+          "markdown",
+          "image",
+          "alt text"
+        ]
+      },
+      {
+        "id": "md-autolink",
+        "desc": "Autolinks and email addresses",
+        "cmd": "<https://example.com/runbook>\n<team@example.com>",
+        "details": "Angle brackets make explicit autolinks in CommonMark. Bare URLs are recognized by some renderers, including GitHub Flavored Markdown, but are less portable.",
+        "tags": [
+          "markdown",
+          "autolink",
+          "url"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "md-evidence",
+    "badge": "MD",
+    "title": "Code & Evidence",
+    "subtitle": "Preserve exact commands and diagnostic output",
+    "commands": [
+      {
+        "id": "md-fence",
+        "desc": "Fenced command block with language",
+        "cmd": "```bash\nnvidia-smi -q\n```",
+        "details": "Put the opening and closing fences on their own lines. The language hint enables syntax highlighting where supported. A Markdown code fence shows text; it never executes it.",
+        "tags": [
+          "markdown",
+          "fence",
+          "code block",
+          "bash"
+        ]
+      },
+      {
+        "id": "md-output",
+        "desc": "Separate command from captured output",
+        "cmd": "```text\nGPU 3: Xid 79 at 2026-11-03T14:22:00Z\n```",
+        "details": "Use text for raw output so highlighting does not reinterpret it. Keep timestamps, device identifiers, and error wording intact when recording evidence; sanitize credentials before sharing.",
+        "tags": [
+          "markdown",
+          "output",
+          "logs",
+          "evidence"
+        ]
+      },
+      {
+        "id": "md-quote",
+        "desc": "Quote an observation or ticket excerpt",
+        "cmd": "> Technician observed link LED dark on OSFP cage 4.\n> No cable swap performed yet.",
+        "details": "The > marker distinguishes quoted source material from your own diagnosis. Attribute the source and time in surrounding prose when they matter.",
+        "tags": [
+          "markdown",
+          "blockquote",
+          "quote"
+        ]
+      },
+      {
+        "id": "md-rule",
+        "desc": "Separate major sections",
+        "cmd": "## Observations\n\n...\n\n---\n\n## Next actions",
+        "details": "Three hyphens on their own line make a thematic break. Leave blank lines around it. Use headings for structure; use rules sparingly.",
+        "tags": [
+          "markdown",
+          "horizontal rule",
+          "section"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "md-gfm",
+    "badge": "GFM",
+    "title": "Tables & GitHub Extensions",
+    "subtitle": "Compact comparisons and repository documentation",
+    "commands": [
+      {
+        "id": "md-table",
+        "desc": "Compare devices in a table",
+        "cmd": "| Device | BDF | State |\n| :--- | :---: | ---: |\n| GPU 3 | `0000:8a:00.0` | Fault |\n| GPU 4 | `0000:8b:00.0` | OK |",
+        "details": "Tables are a GitHub Flavored Markdown extension. The separator row is required; colons set left, center, or right alignment. Tables are best for short single-line cells.",
+        "tags": [
+          "markdown",
+          "gfm",
+          "table",
+          "alignment"
+        ]
+      },
+      {
+        "id": "md-strike",
+        "desc": "Mark superseded text",
+        "cmd": "~~Suspected cable fault~~\nConfirmed transceiver fault after A/B swap.",
+        "details": "Strikethrough with ~~ is a GitHub Flavored Markdown extension. For incident records, state when and why a conclusion changed rather than relying on strikethrough alone.",
+        "tags": [
+          "markdown",
+          "gfm",
+          "strikethrough"
+        ]
+      },
+      {
+        "id": "md-footnote",
+        "desc": "Add a footnote when the renderer supports it",
+        "cmd": "BER exceeded the site threshold.[^threshold]\n\n[^threshold]: See the local fabric acceptance criteria.",
+        "details": "Footnotes are supported by GitHub and some other renderers, but are outside core CommonMark. Use a plain link or nearby note when portability matters.",
+        "tags": [
+          "markdown",
+          "footnote",
+          "gfm"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "md-github",
+    "badge": "GFM",
+    "title": "GitHub Features",
+    "subtitle": "Renderer-specific tools for longer technical notes",
+    "commands": [
+      {
+        "id": "md-alert",
+        "desc": "Call out a note or warning in GitHub",
+        "cmd": "> [!NOTE]\n> Link counters were sampled after the cable swap.\n\n> [!WARNING]\n> Obtain approval before resetting the GPU.",
+        "details": "GitHub alert syntax is not core CommonMark. Other viewers may show it as an ordinary block quote. Keep the key instruction in the text itself.",
+        "tags": [
+          "markdown",
+          "github",
+          "alert",
+          "warning"
+        ]
+      },
+      {
+        "id": "md-details",
+        "desc": "Collapse a long log excerpt on GitHub",
+        "cmd": "<details>\n<summary>SEL excerpt</summary>\n\n```text\n2026-11-03 14:22:00 PSU failure\n```\n\n</details>",
+        "details": "GitHub supports HTML details and summary elements. Blank lines around the Markdown block inside are needed for reliable rendering. Some viewers sanitize or ignore inline HTML.",
+        "tags": [
+          "markdown",
+          "github",
+          "details",
+          "logs"
+        ]
+      },
+      {
+        "id": "md-mermaid",
+        "desc": "Draw a small path diagram where Mermaid is supported",
+        "cmd": "```mermaid\nflowchart LR\n  GPU --> HCA --> Switch\n```",
+        "details": "Mermaid diagrams render on GitHub and some other platforms, but are not part of CommonMark. Include a text description when the path must remain clear in plain-text viewers.",
+        "tags": [
+          "markdown",
+          "mermaid",
+          "diagram",
+          "github"
+        ]
+      },
+      {
+        "id": "md-heading-links",
+        "desc": "Link to a heading in the same document",
+        "cmd": "[Jump to evidence](#evidence)\n\n## Evidence",
+        "details": "GitHub creates heading fragments from heading text. Fragment rules differ among renderers and duplicate headings can get numbered suffixes; test links in the target viewer.",
+        "tags": [
+          "markdown",
+          "heading",
+          "anchor",
+          "link"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "md-templates",
+    "badge": "MD",
+    "title": "Incident Templates",
+    "subtitle": "Reusable structure for case notes and runbooks",
+    "commands": [
+      {
+        "id": "md-case-template",
+        "desc": "Start a hardware incident summary",
+        "cmd": "# Incident: node-a GPU 3\n\n## Symptom\n\n## Safety state\n- Scheduler: drained / active / unknown\n- GPU processes: none / present / unknown\n\n## Evidence\n- GPU UUID / BDF / physical module:\n- Timestamped logs:\n\n## Hypothesis and next action\n\n## Timeline",
+        "details": "Record exact identifiers, timestamps, and safety state before proposing intrusive diagnostics. Use unknown until verified; do not present placeholders as findings.",
+        "tags": [
+          "markdown",
+          "incident",
+          "template",
+          "summary"
+        ]
+      },
+      {
+        "id": "md-runbook-template",
+        "desc": "Outline a maintenance runbook",
+        "cmd": "# Procedure: replace OSFP module\n\n## Scope and prerequisites\n\n## Safety and approval checks\n\n## Steps\n1. Record port and transceiver IDs.\n2. Capture baseline telemetry.\n\n## Verification\n\n## Rollback and escalation",
+        "details": "A runbook should name the target, prerequisites, approval point, expected result, and rollback. The sample is only an outline; it does not authorize physical or network changes.",
+        "tags": [
+          "markdown",
+          "runbook",
+          "template",
+          "maintenance"
+        ]
+      },
+      {
+        "id": "md-frontmatter",
+        "desc": "Add YAML metadata for a supporting tool",
+        "cmd": "---\ntitle: GPU NVLink triage\nowner: datacenter-ops\nstatus: draft\n---\n\n# GPU NVLink triage",
+        "details": "YAML front matter is a convention used by static site generators and note apps, not core Markdown. Check the receiving tool's schema and quote values when YAML syntax requires it.",
+        "tags": [
+          "markdown",
+          "yaml",
+          "front matter",
+          "metadata"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "md-tools",
+    "badge": "MD",
+    "title": "Preview & Validation",
+    "subtitle": "Check Markdown before sharing it",
+    "commands": [
+      {
+        "id": "md-heading-list",
+        "desc": "List headings in a Markdown file",
+        "cmd": "rg -n '^#{1,6} ' summary.md",
+        "details": "A quick plain-text outline. This can also match headings inside fenced code blocks; use a Markdown-aware parser if exact structure matters.",
+        "tags": [
+          "markdown",
+          "ripgrep",
+          "heading",
+          "outline"
+        ]
+      },
+      {
+        "id": "md-lint",
+        "desc": "Lint Markdown with an installed CLI",
+        "cmd": "markdownlint-cli2 summary.md",
+        "details": "Run when markdownlint-cli2 is installed. Its rules depend on local configuration; fix or intentionally configure reported style issues before publishing.",
+        "tags": [
+          "markdown",
+          "lint",
+          "cli",
+          "format"
+        ]
+      },
+      {
+        "id": "md-convert",
+        "desc": "Convert Markdown to HTML with Pandoc",
+        "cmd": "pandoc summary.md -f gfm -t html -o summary.html",
+        "details": "Requires Pandoc. This writes summary.html and may not reproduce every GitHub feature exactly. Review the output and avoid rendering untrusted HTML in privileged contexts.",
+        "tags": [
+          "markdown",
+          "pandoc",
+          "convert",
+          "html"
+        ]
+      },
+      {
+        "id": "md-nested-fence",
+        "desc": "Show a fenced block inside Markdown documentation",
+        "cmd": "````markdown\n```bash\nnvidia-smi -q\n```\n````",
+        "details": "Use an outer fence with more backticks than any inner fence. This preserves literal Markdown examples in a document without prematurely closing the outer block.",
+        "tags": [
+          "markdown",
+          "fence",
+          "nested",
+          "documentation"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "lua-overview",
+    "badge": "lua",
+    "title": "Lua Scripting",
+    "subtitle": "Tables, functions, modules & log parsing; open Lua in the Scripting menu for the full reference",
+    "commands": [
+      {
+        "id": "lua-variables",
+        "desc": "Local variables, types, nil, and conversion",
+        "cmd": "local host = \"node-a\"\nlocal count = 8\nlocal enabled = false\nlocal missing = nil\nprint(type(host), tonumber(\"42\"), tostring(enabled))\nprint(0 and \"zero is truthy\")",
+        "details": "Prefer local variables: assignments without local normally set globals. Only false and nil are falsey; 0 and the empty string are truthy. Lua is case-sensitive. -- starts a line comment; --[[ ... ]] is a block comment.",
+        "flags": [],
+        "subcommands": [],
+        "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+        "tags": [
+          "lua",
+          "scripting",
+          "variables",
+          "scope",
+          "types"
+        ]
+      },
+      {
+        "id": "lua-tables",
+        "desc": "Sequences, maps, and safe field access",
+        "cmd": "local nodes = {\"node-a\", \"node-b\"}\ntable.insert(nodes, \"node-c\")\nfor i, name in ipairs(nodes) do print(i, name) end\nlocal inventory = {host = \"node-a\", gpus = 8}\nfor key, value in pairs(inventory) do print(key, value) end\nprint(inventory.host, inventory[\"gpus\"])",
+        "details": "Sequence indices conventionally begin at 1. ipairs stops at the first absent integer entry; pairs order is unspecified. The length operator # is reliable for dense sequences, not a general count of keys or sparse entries. Assign nil to remove a key.",
+        "flags": [],
+        "subcommands": [],
+        "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+        "tags": [
+          "lua",
+          "scripting",
+          "tables",
+          "arrays",
+          "maps",
+          "pairs",
+          "ipairs"
+        ]
+      },
+      {
+        "id": "lua-errors",
+        "desc": "Catch a runtime error with pcall",
+        "cmd": "local ok, result = pcall(function()\n  local value = tonumber(\"bad input\")\n  assert(value, \"expected a number\")\n  return value * 2\nend)\nif ok then print(result) else io.stderr:write(tostring(result), \"\\n\") end",
+        "details": "pcall returns true plus results on success, or false plus the error object on failure. It does not validate the safety of executing untrusted Lua code.",
+        "flags": [],
+        "subcommands": [],
+        "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+        "tags": [
+          "lua",
+          "scripting",
+          "errors",
+          "pcall",
+          "assert"
+        ]
+      },
+      {
+        "id": "lua-logs",
+        "desc": "Count Xid messages in diagnostic text",
+        "cmd": "local sample = \"GPU Xid 79\\nhealthy\\nGPU Xid 48\\nGPU Xid 79\\n\"\nlocal counts = {}\nfor xid in sample:gmatch(\"Xid%s+(%d+)\") do\n  counts[xid] = (counts[xid] or 0) + 1\nend\nlocal keys = {}\nfor key in pairs(counts) do keys[#keys + 1] = key end\ntable.sort(keys, function(a,b) return tonumber(a) < tonumber(b) end)\nfor _, key in ipairs(keys) do print(key, counts[key]) end",
+        "details": "Counts the simplified Xid <number> format in sample text. Real driver log formats vary; adapt the pattern to captured lines. Counts are evidence to investigate, not a hardware diagnosis.",
+        "flags": [],
+        "subcommands": [],
+        "tip": "Lua 5.4 reference; most basics also work in LuaJIT / Lua 5.1. Check host-specific APIs separately.",
+        "tags": [
+          "lua",
+          "scripting",
+          "logs",
+          "gpu",
+          "xid",
+          "recipe"
+        ]
+      }
+    ]
+  },
   {
     "id": "shell-script",
     "badge": "bash",
@@ -1295,50 +1685,6 @@ function matchesSearch(cmdObj, section, query) {
   return terms.every((t) => haystack.includes(t));
 }
 
-let allRenderedCards = [];
-function packMasonry() {
-  if (!sectionsContainer) return;
-  if (sectionsContainer.querySelectorAll(".section-card").length === 0) {
-    allRenderedCards = [];
-    return;
-  }
-  const directCards = [...sectionsContainer.querySelectorAll(":scope > .section-card")];
-  if (directCards.length > 0) {
-    allRenderedCards = directCards;
-  }
-  if (allRenderedCards.length === 0) return;
-
-  const containerWidth = sectionsContainer.clientWidth || window.innerWidth;
-  const colCount = Math.max(1, Math.min(allRenderedCards.length, Math.floor((containerWidth + 18) / (380 + 18))));
-  if (colCount <= 1) {
-    sectionsContainer.classList.remove("has-masonry");
-    sectionsContainer.replaceChildren(...allRenderedCards);
-    return;
-  }
-
-  sectionsContainer.classList.add("has-masonry");
-  const cols = Array.from({ length: colCount }, () => {
-    const col = document.createElement("div");
-    col.className = "masonry-col";
-    return col;
-  });
-  const colHeights = new Array(colCount).fill(0);
-  sectionsContainer.replaceChildren(...cols);
-
-  for (const card of allRenderedCards) {
-    let shortestIdx = 0;
-    for (let i = 1; i < colCount; i++) {
-      if (colHeights[i] < colHeights[shortestIdx]) {
-        shortestIdx = i;
-      }
-    }
-    cols[shortestIdx].appendChild(card);
-    colHeights[shortestIdx] += card.offsetHeight + 18;
-  }
-}
-window.addEventListener("resize", () => packMasonry());
-window.packMasonry = packMasonry;
-
 function renderSections() {
   let visibleCommandsCount = 0;
   const cardsHtml = [];
@@ -1445,7 +1791,6 @@ function renderSections() {
   }
 
   sectionsContainer.innerHTML = cardsHtml.join("");
-  packMasonry();
   visibleCountEl.textContent = visibleCommandsCount;
   savedCountEl.textContent = state.bookmarks.size;
 
@@ -1473,7 +1818,6 @@ function applyDensity(compact) {
   document.body.classList.toggle("compact-mode", compact);
   densityLabel.textContent = compact ? "Relaxed" : "Compact";
   localStorage.setItem("linux_cs_compact", compact ? "1" : "0");
-  packMasonry();
 }
 
 function initEvents() {
