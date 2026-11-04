@@ -1269,6 +1269,15 @@ ${log}
       const luaLink = scriptingMenu.querySelector('a[href="lua.html"]');
       scriptingMenu.insertBefore(gitLink, luaLink || null);
     }
+    if (scriptingMenu && !scriptingMenu.querySelector('a[href="markdown.html"], a[data-sheet="markdown"]')) {
+      const markdownLink = document.createElement('a');
+      markdownLink.href = 'markdown.html';
+      markdownLink.className = 'dropdown-item';
+      markdownLink.setAttribute('role', 'menuitem');
+      markdownLink.textContent = '📝 Markdown';
+      const jsonLink = scriptingMenu.querySelector('a[href="json.html"], a[data-sheet="json"]');
+      scriptingMenu.insertBefore(markdownLink, jsonLink || null);
+    }
     syncActiveNav();
     setupNavDropdown();
     setupFullscreenObserver();

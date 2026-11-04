@@ -238,15 +238,15 @@ const PYTHON_CHEAT_SHEET_DATA = [
         ],
         "subcommands": [
           [
-            "for key, val in my_dict.items():\n    print(f\"{key}: {val}\")",
+            "for key, val in my_dict.items():",
             "Iterate over both keys and values of dictionary"
           ],
           [
-            "for i in range(0, 10, 2):\n    print(i)",
+            "for i in range(0, 10, 2):",
             "Generate arithmetic progressions (start, stop, step)"
           ],
           [
-            "while count > 0:\n    count -= 1",
+            "while count > 0: count -= 1",
             "Standard while loop condition"
           ]
         ],

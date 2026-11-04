@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 const SCRIPTING_DATA = [
+  ...require('./markdown-data.json'),
 {
   "id": "lua-overview",
   "badge": "lua",
@@ -957,3 +958,10 @@ initEvents();
 
 fs.writeFileSync(path.join(__dirname, 'scripting.js'), jsContent, 'utf8');
 console.log('Successfully wrote scripting.js');
+
+// Keep the standalone Markdown page in sync with the hub's Markdown examples.
+const markdownPath = path.join(__dirname, 'markdown.js');
+const markdownUi = fs.readFileSync(markdownPath, 'utf8').split('// State\n')[1];
+if (!markdownUi) throw new Error('markdown.js is missing its UI section');
+fs.writeFileSync(markdownPath, `const MARKDOWN_DATA = ${JSON.stringify(require('./markdown-data.json'), null, 2)};\n\n// State\n${markdownUi}`, 'utf8');
+console.log('Successfully wrote markdown.js');

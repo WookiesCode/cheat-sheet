@@ -514,7 +514,574 @@ const SCRIPTING_DATA = [
         tags: ["sqlite", "sql", "csv", "json", "database", "schema", "cli"]
       }
     ]
-  }
+  },
+{
+  "id": "lua-script",
+  "badge": "lua",
+  "title": "Lua 5.4 Systems & Embedded Scripting",
+  "subtitle": "Tables, 1-based arrays, metatables & OOP, pcall error handling, closures, file I/O & subprocesses",
+  "commands": [
+    {
+      "id": "lua-basics-tables",
+      "mode": "LUA",
+      "modeClass": "mode-n",
+      "desc": "Lua foundational variables, 1-based arrays, hash dictionaries, and truthiness rules",
+      "cmd": "local host = \"node-042\"\nlocal ports = { 80, 443, 8080 } -- 1-based array!\nlocal server = { name = host, rack = \"Rack-14\", active = true }\n\ntable.insert(ports, 9090)\nprint(\"First port:\", ports[1]) -- 1-based index!\nprint(\"Server rack:\", server.rack)\n-- Truthiness gotcha: ONLY false and nil are falsy! 0 and \"\" are TRUE!",
+      "flags": [
+        [
+          "local var = val",
+          "Lexical block scope. Without 'local', variable leaks to global _G!"
+        ],
+        [
+          "1-based arrays",
+          "Array indexing starts at 1, NOT 0! ports[1] is 80"
+        ],
+        [
+          "table.insert(t, val)",
+          "Appends element to sequential array table"
+        ],
+        [
+          "Truthiness",
+          "0 and \"\" evaluate to true in if statements (only false and nil are falsy)"
+        ]
+      ],
+      "subcommands": [
+        [
+          "for i, v in ipairs(ports) do print(i, v) end",
+          "Iterate sequential array in index order (1..N)"
+        ],
+        [
+          "for k, v in pairs(server) do print(k, v) end",
+          "Iterate hash dictionary key-value pairs"
+        ],
+        [
+          "local str = table.concat(ports, \", \")",
+          "Join all array string elements with a delimiter"
+        ]
+      ],
+      "tip": "Always use 'local' for variables and remember '~=' is not-equal (not '!=')",
+      "tags": [
+        "lua",
+        "scripting",
+        "tables",
+        "arrays",
+        "dictionaries",
+        "truthiness",
+        "syntax"
+      ]
+    },
+    {
+      "id": "lua-functions-closures",
+      "mode": "LUA",
+      "modeClass": "mode-e",
+      "desc": "Functions, multiple return values, closures, variadics (...) and custom iterator factories",
+      "cmd": "-- Multiple return values & closures\nlocal function split_host(fqdn)\n  local host, domain = fqdn:match(\"^([%w%-]+)%.(.*)$\")\n  return host, domain or \"local\"\nend\n\n-- Closure factory (encapsulated state)\nlocal function make_counter(start)\n  local count = start or 0\n  return function(inc)\n    count = count + (inc or 1)\n    return count\n  end\nend\n\nlocal host, domain = split_host(\"node-042.dc.lan\")\nlocal c = make_counter(10)\nprint(host, domain, \"Next:\", c()) -- node-042  dc.lan  Next: 11",
+      "flags": [
+        [
+          "return a, b",
+          "Functions can return any number of values simultaneously"
+        ],
+        [
+          "closure",
+          "Inner function retains reference to parent scope local variable (count)"
+        ],
+        [
+          "fqdn:match()",
+          "Method colon syntax passes fqdn automatically as self"
+        ]
+      ],
+      "subcommands": [
+        [
+          "local function sum(...) local s = 0 for _, v in ipairs({...}) do s = s + v end return s end",
+          "Variadic argument pack via {...}"
+        ],
+        [
+          "local ok, res = pcall(fn, arg1)",
+          "Invoke function safely without crashing caller"
+        ]
+      ],
+      "tip": "Functions are first-class values in Lua—they can be stored in tables, passed as arguments, and returned from other functions.",
+      "tags": [
+        "lua",
+        "functions",
+        "closures",
+        "multiple-returns",
+        "variadics",
+        "factory"
+      ]
+    },
+    {
+      "id": "lua-metatables-oop",
+      "mode": "LUA",
+      "modeClass": "mode-c",
+      "desc": "Metatables, metamethods (__index, __tostring) and object-oriented class patterns",
+      "cmd": "-- Class prototype with metatable fallback\nlocal Server = {}\nServer.__index = Server\n\nfunction Server:new(name, ip)\n  local instance = setmetatable({ name = name, ip = ip, active = true }, self)\n  return instance\nend\n\nfunction Server:describe()\n  return string.format(\"[%s] IP: %s (Status: %s)\", self.name, self.ip, self.active and \"UP\" or \"DOWN\")\nend\n\n-- Instantiate and call method\nlocal s1 = Server:new(\"dgx-01\", \"10.0.1.50\")\nprint(s1:describe())",
+      "flags": [
+        [
+          "setmetatable(t, mt)",
+          "Associates metatable mt with table t to intercept operations"
+        ],
+        [
+          "__index = Server",
+          "If key not found in instance, Lua looks it up in Server"
+        ],
+        [
+          "function Class:method()",
+          "Syntactic sugar for Class.method(self, ...)"
+        ],
+        [
+          "obj:method()",
+          "Syntactic sugar for obj.method(obj, ...)"
+        ]
+      ],
+      "subcommands": [
+        [
+          "Server.__tostring = function(self) return self.name end",
+          "Custom string representation for tostring(obj)"
+        ],
+        [
+          "rawget(t, k) / rawset(t, k, v)",
+          "Access or modify table without invoking metamethods"
+        ]
+      ],
+      "tip": "Metatables are Lua's core extensibility mechanism for OOP, operator overloading, and proxy tables.",
+      "tags": [
+        "lua",
+        "metatables",
+        "oop",
+        "classes",
+        "__index",
+        "prototype",
+        "objects"
+      ]
+    },
+    {
+      "id": "lua-pcall-popen",
+      "mode": "LUA",
+      "modeClass": "mode-t",
+      "desc": "Error trapping with pcall(), reading files & executing shell commands via io.popen()",
+      "cmd": "-- 1. Protected call (try-catch alternative)\nlocal ok, res = pcall(function()\n  local f = assert(io.open(\"/proc/loadavg\", \"r\"))\n  local content = f:read(\"*a\")\n  f:close()\n  return content:gsub(\"%s+$\", \"\")\nend)\nif not ok then print(\"Caught runtime error:\", res) end\n\n-- 2. Shell sub-process execution and stdout capture\nlocal handle = io.popen(\"uname -r\", \"r\")\nlocal kernel = handle:read(\"*a\"):gsub(\"%s+$\", \"\")\nhandle:close()\nprint(\"Kernel:\", kernel)",
+      "flags": [
+        [
+          "pcall(fn, ...)",
+          "Calls function in protected mode: returns true + results, or false + error message"
+        ],
+        [
+          "io.open(path, mode)",
+          "Opens file descriptor ('r' read, 'w' write, 'a' append)"
+        ],
+        [
+          "io.popen(cmd, \"r\")",
+          "Runs shell command and opens a readable pipe to stdout stream"
+        ],
+        [
+          "handle:close()",
+          "Closes stream descriptor to prevent leaking zombie processes"
+        ]
+      ],
+      "subcommands": [
+        [
+          "local f = assert(io.open(\"/etc/hosts\", \"r\"))",
+          "Open file with built-in assertion (raises error on failure)"
+        ],
+        [
+          "for line in io.lines(\"/tmp/audit.log\") do ... end",
+          "Memory-efficient line-by-line file iteration"
+        ],
+        [
+          "os.execute(\"systemctl is-active --quiet dcgm\")",
+          "Execute command directly and return exit status"
+        ]
+      ],
+      "tip": "Always call handle:close() on io.popen streams to reap child processes and avoid descriptor leaks.",
+      "tags": [
+        "pcall",
+        "popen",
+        "error",
+        "shell",
+        "io",
+        "subprocess",
+        "try-catch"
+      ]
+    }
+  ]
+},
+{
+  "id": "git-scm",
+  "badge": "git",
+  "title": "Git Version Control & Ops Workflow",
+  "subtitle": "Branching, staging, worktrees, air-gapped bundles, history inspection & recovery recipes",
+  "commands": [
+    {
+      "id": "git-workflow-daily",
+      "mode": "GIT",
+      "modeClass": "mode-e",
+      "desc": "Everyday branching, interactive hunk staging, commit review & clean status summary",
+      "cmd": "git status -sb\ngit switch -c feature/node-telemetry\ngit add -p\ngit diff --staged\ngit commit -m \"feat: collect nvlink error counters\"",
+      "flags": [
+        [
+          "status -sb",
+          "Short format with branch and upstream tracking information"
+        ],
+        [
+          "switch -c <branch>",
+          "Create and switch to new branch (modern replacement for checkout -b)"
+        ],
+        [
+          "add -p",
+          "Interactive patch staging: review and stage individual code hunks selectively"
+        ],
+        [
+          "diff --staged",
+          "Compare staged index against HEAD before committing"
+        ]
+      ],
+      "subcommands": [
+        [
+          "git commit --amend --no-edit",
+          "Incorporate new staged edits into previous commit without changing message"
+        ],
+        [
+          "git branch -vv",
+          "List local branches with upstream tracking and ahead/behind count"
+        ],
+        [
+          "git switch -",
+          "Switch back to the previous branch"
+        ]
+      ],
+      "tip": "Always check 'git status -sb' and 'git diff --staged' before committing to prevent accidental secrets leakage.",
+      "tags": [
+        "git",
+        "workflow",
+        "branch",
+        "stage",
+        "commit",
+        "diff",
+        "status"
+      ]
+    },
+    {
+      "id": "git-inspect-history",
+      "mode": "GIT",
+      "modeClass": "mode-n",
+      "desc": "Inspect history with ASCII graph trees, blame line annotations, and pickaxe search",
+      "cmd": "git log --oneline --graph --decorate --all -20\ngit blame -L 40,65 scripts/collect-dcgm.sh\ngit log -S \"fabricmanager\" --source --all",
+      "flags": [
+        [
+          "--graph",
+          "Draw ASCII character graph of commit and merge topology"
+        ],
+        [
+          "--oneline",
+          "Compact single-line output (abbreviated hash + subject)"
+        ],
+        [
+          "-L start,end",
+          "Annotate specific line range with commit hash, author and timestamp"
+        ],
+        [
+          "-S <string>",
+          "Pickaxe: search commits that added or removed occurrences of specific string"
+        ]
+      ],
+      "subcommands": [
+        [
+          "git show --stat <commit>",
+          "Inspect commit diff, stats, and metadata"
+        ],
+        [
+          "git diff main...feature",
+          "Show changes on feature since it diverged from main (three-dot diff)"
+        ],
+        [
+          "git log --stat -5",
+          "Show top 5 commits with list of modified files and line deltas"
+        ]
+      ],
+      "tip": "Combine 'git log -p -S <symbol>' to find exact historical patches introducing a bug or API change.",
+      "tags": [
+        "git",
+        "history",
+        "log",
+        "blame",
+        "pickaxe",
+        "search",
+        "graph"
+      ]
+    },
+    {
+      "id": "git-stash-worktrees",
+      "mode": "GIT",
+      "modeClass": "mode-t",
+      "desc": "Parallel worktrees and safe stashes: switch contexts instantly without losing uncommitted edits",
+      "cmd": "git stash push -u -m \"WIP: telemetry refactor\"\ngit worktree add ../hotfix-link -b hotfix/nvlink-flap main\ncd ../hotfix-link && git status\n# Once hotfix is complete:\ncd - && git worktree remove ../hotfix-link",
+      "flags": [
+        [
+          "stash push -u",
+          "Stash tracked edits and untracked new files (-u / --include-untracked)"
+        ],
+        [
+          "worktree add <path> -b <br>",
+          "Check out branch in separate filesystem folder sharing the same .git repo"
+        ],
+        [
+          "worktree remove <path>",
+          "Safely remove linked worktree after finishing work"
+        ]
+      ],
+      "subcommands": [
+        [
+          "git stash list",
+          "List all stashed state snapshots with indices"
+        ],
+        [
+          "git stash pop",
+          "Apply the latest stash (stash@{0}) and drop it from the stack"
+        ],
+        [
+          "git worktree list",
+          "Display all currently active linked worktrees and checked out branches"
+        ]
+      ],
+      "tip": "Worktrees let you test multiple branches side-by-side or run long builds without switching your primary directory.",
+      "tags": [
+        "git",
+        "worktree",
+        "stash",
+        "context",
+        "parallel",
+        "branch"
+      ]
+    },
+    {
+      "id": "git-ops-deployment",
+      "mode": "GIT",
+      "modeClass": "mode-c",
+      "desc": "Datacenter & production ops: air-gapped bundles, deployed version check, and ownership fixes",
+      "cmd": "git -C /opt/tools describe --tags --always --dirty\ngit config --global --add safe.directory /opt/tools\ngit bundle create repo-offline.bundle --all\ngit clone repo-offline.bundle my-repo",
+      "flags": [
+        [
+          "describe --tags --dirty",
+          "Returns human-readable build version: tag, commit count, hash, and -dirty flag"
+        ],
+        [
+          "safe.directory",
+          "Resolve 'detected dubious ownership' errors in multi-user cluster environments"
+        ],
+        [
+          "bundle create",
+          "Package entire git repository and commit history into a single portable file for air-gapped clusters"
+        ],
+        [
+          "-C <path>",
+          "Run git command as if started in specified target directory"
+        ]
+      ],
+      "subcommands": [
+        [
+          "git bundle verify repo-offline.bundle",
+          "Verify bundle integrity and prerequisites before cloning"
+        ],
+        [
+          "git archive --format=tar.gz -o release.tar.gz HEAD",
+          "Export current tree snapshot into archive without .git folder"
+        ],
+        [
+          "git clean -fdn",
+          "Dry-run preview of untracked files and directories before cleaning (-fd to execute)"
+        ]
+      ],
+      "tip": "Air-gapped datacenters with zero internet access can sync Git repos over USB or scp using 'git bundle'.",
+      "tags": [
+        "git",
+        "ops",
+        "bundle",
+        "air-gapped",
+        "describe",
+        "safe.directory",
+        "clean"
+      ]
+    },
+    {
+      "id": "git-recovery-undo",
+      "mode": "GIT",
+      "modeClass": "mode-e",
+      "desc": "Emergency undo: reflog resurrection, restore staged files, soft resets, and safe reverts",
+      "cmd": "git restore --staged path/to/file\ngit reset --soft HEAD~1\ngit reflog -15\ngit reset --hard HEAD@{2}\ngit revert <commit-hash>",
+      "flags": [
+        [
+          "restore --staged",
+          "Unstage file from index while keeping working tree modifications intact"
+        ],
+        [
+          "reset --soft HEAD~1",
+          "Undo last commit but keep all modified files staged in index"
+        ],
+        [
+          "reflog",
+          "Local flight-recorder recording every HEAD move (even deleted branches or aborted rebases)"
+        ],
+        [
+          "revert <commit>",
+          "Create a new inverse commit that safely undos an already pushed commit"
+        ]
+      ],
+      "subcommands": [
+        [
+          "git restore path/to/file",
+          "Discard working-tree changes in tracked file (revert to index/HEAD)"
+        ],
+        [
+          "git reset --hard HEAD~1",
+          "Discard last commit and all uncommitted changes (DANGER: destroys uncommitted work)"
+        ],
+        [
+          "git cherry-pick --abort",
+          "Cancel an in-progress cherry-pick and restore branch state"
+        ]
+      ],
+      "tip": "Nothing committed in Git is truly lost until garbage-collected—use 'git reflog' to find lost commit hashes.",
+      "tags": [
+        "git",
+        "recovery",
+        "undo",
+        "restore",
+        "reset",
+        "revert",
+        "reflog"
+      ]
+    }
+  ]
+},
+{
+  "id": "markdown-script",
+  "badge": "md",
+  "title": "Markdown",
+  "subtitle": "Formatting, tables & collapsible logs for tickets and READMEs. The Markdown sheet has the full reference.",
+  "commands": [
+    {
+      "id": "md-hub-basics",
+      "mode": "MARKDOWN",
+      "modeClass": "mode-n",
+      "desc": "The syntax you use every day: headings, emphasis, lists, links and code",
+      "cmd": "# Title\n## Section\n\n**bold**  *italic*  `inline code`\n\n- Bullet\n  - Nested bullet\n1. Numbered step\n- [ ] Open task\n\n[Link text](https://example.com)\n\n```bash\nnvidia-smi -q -d ECC\n```",
+      "flags": [
+        [
+          "# to ######",
+          "Heading levels 1 to 6, with a space after the marks"
+        ],
+        [
+          "**text** / *text*",
+          "Bold and italic"
+        ],
+        [
+          "- [ ] / - [x]",
+          "Open and checked task boxes"
+        ],
+        [
+          "```lang",
+          "Fenced code block with highlighting"
+        ]
+      ],
+      "subcommands": [
+        [
+          "> [!WARNING]\n> Drain the node first.",
+          "GitHub alert box"
+        ],
+        [
+          "[Jump](#root-cause)",
+          "Link to a heading in the same file"
+        ],
+        [
+          "\\*not italic\\*",
+          "Backslash shows a special character literally"
+        ]
+      ],
+      "tip": "Leave a blank line around headings, lists and code blocks so every renderer reads them the same way",
+      "tags": [
+        "markdown",
+        "md",
+        "headings",
+        "lists",
+        "links",
+        "code",
+        "gfm"
+      ]
+    },
+    {
+      "id": "md-hub-tables",
+      "mode": "MARKDOWN",
+      "modeClass": "mode-n",
+      "desc": "Tables with alignment, and a table built from command output",
+      "cmd": "| GPU | BDF          | Temp |\n|:----|:-------------|-----:|\n| 3   | 0000:8a:00.0 |  88C |\n\nnvidia-smi --query-gpu=index,pci.bus_id,temperature.gpu --format=csv,noheader \\\n  | awk -F', ' '{ printf \"| %s | %s | %sC |\\n\", $1, $2, $3 }'",
+      "flags": [
+        [
+          ":--- / ---: / :---:",
+          "Left, right and center alignment"
+        ],
+        [
+          "\\|",
+          "Pipe character inside a cell"
+        ],
+        [
+          "<br>",
+          "Line break inside a cell"
+        ]
+      ],
+      "subcommands": [
+        [
+          "pandoc -f csv -t gfm data.csv",
+          "Convert a CSV to a Markdown table"
+        ]
+      ],
+      "tip": "Right-align number columns so values are easy to compare",
+      "tags": [
+        "markdown",
+        "tables",
+        "awk",
+        "nvidia-smi",
+        "csv"
+      ]
+    },
+    {
+      "id": "md-hub-details",
+      "mode": "MARKDOWN",
+      "modeClass": "mode-n",
+      "desc": "Fold long logs into a collapsible section in a ticket or PR",
+      "cmd": "<details>\n<summary>Full dmesg output</summary>\n\n```text\n...\n```\n\n</details>",
+      "flags": [
+        [
+          "<details open>",
+          "Start expanded"
+        ],
+        [
+          "<summary>",
+          "The clickable title line"
+        ]
+      ],
+      "subcommands": [
+        [
+          "glow summary.md",
+          "Preview rendered Markdown in the terminal"
+        ],
+        [
+          "pandoc summary.md -o summary.docx",
+          "Convert to Word"
+        ]
+      ],
+      "tip": "Leave blank lines inside <details>, or the Markdown in it won't render",
+      "tags": [
+        "markdown",
+        "details",
+        "summary",
+        "collapse",
+        "logs",
+        "ticket"
+      ]
+    }
+  ]
+}
 ];
 
 // Write SCRIPTING_DATA to scripting.js

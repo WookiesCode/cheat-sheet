@@ -1117,10 +1117,3573 @@ const SCRIPTING_LANGUAGES = [
         ]
       }
     ]
-  }
+  },
+
+  // 12. LUA
+  {
+  "key": "lua",
+  "file": "lua.html",
+  "js": "lua.js",
+  "varName": "LUA_CHEAT_SHEET_DATA",
+  "name": "Lua",
+  "title": "Lua Scripting & Config Reference",
+  "subtitle": "Variables, tables, loops, functions, patterns, error handling & Hyprland / Neovim config files",
+  "pill": "Lua 5.5 / LuaJIT",
+  "prompt": "lua",
+  "cursor": ">",
+  "sections": [
+    {
+      "id": "lua-vars",
+      "badge": "vars",
+      "title": "Variables, Types & Strings",
+      "subtitle": "local scope, truthiness, numbers, concatenation, formatting & patterns",
+      "commands": [
+        {
+          "id": "lua-var-declare",
+          "desc": "Variables, comments, data types, and what counts as true or false",
+          "cmd": "-- Single-line comment\n--[[ Multi-line\n     comment ]]\nlocal host = \"node-01\"\nlocal port = 8080\nlocal enabled = true\nlocal nothing = nil\n\nprint(type(host), type(port), type(enabled), type(nothing))\nprint(host .. \":\" .. port)\nprint(port ~= 80, not enabled)\nlocal label = enabled and \"on\" or \"off\"\nprint(label)",
+          "flags": [
+            [
+              "local name = value",
+              "Scoped to the current block. Without local, the variable is global."
+            ],
+            [
+              "-- comment",
+              "Single-line comment. Deleting the -- turns the line back on."
+            ],
+            [
+              "--[[ ... ]]",
+              "Multi-line comment block"
+            ],
+            [
+              "..",
+              "Concatenate strings. Numbers convert automatically."
+            ],
+            [
+              "~=",
+              "Not equal (not != as in most languages)"
+            ],
+            [
+              "and / or / not",
+              "Logical operators, spelled as words"
+            ],
+            [
+              "a and b or c",
+              "Ternary-style pick. Gives c if b is false or nil."
+            ],
+            [
+              "nil",
+              "No value. Reading an unset variable gives nil, not an error."
+            ]
+          ],
+          "subcommands": [
+            [
+              "type(value)",
+              "Returns \"nil\", \"boolean\", \"number\", \"string\", \"table\", or \"function\""
+            ],
+            [
+              "tostring(42) / tonumber(\"42\")",
+              "Convert between numbers and strings. tonumber gives nil if invalid."
+            ],
+            [
+              "local a, b = 1, 2",
+              "Assign several variables at once"
+            ],
+            [
+              "a, b = b, a",
+              "Swap two values without a temporary variable"
+            ]
+          ],
+          "tip": "Only false and nil are falsy. 0 and the empty string \"\" both count as true.",
+          "tags": [
+            "lua",
+            "variables",
+            "local",
+            "global",
+            "types",
+            "nil",
+            "comments",
+            "truthy"
+          ]
+        },
+        {
+          "id": "lua-strings-patterns",
+          "desc": "String functions and Lua patterns, which are similar to regex but simpler",
+          "cmd": "local s = \"gpu-07: temp=71C\"\nprint(#s, s:upper(), s:sub(1, 6))\nprint(string.format(\"%-8s %5.1f%%\", \"load\", 93.456))\nprint(s:match(\"temp=(%d+)\"))\nprint(s:find(\"temp\", 1, true))\nprint((s:gsub(\"%d+\", \"#\")))\nfor key, value in (\"a=1, b=2\"):gmatch(\"(%w+)=(%w+)\") do\n  print(key, value)\nend",
+          "flags": [
+            [
+              "#s",
+              "Length of a string"
+            ],
+            [
+              "s:sub(i, j)",
+              "Substring. Positions start at 1, and negative counts from the end."
+            ],
+            [
+              "s:upper() / s:lower()",
+              "Change case"
+            ],
+            [
+              "s:find(text, 1, true)",
+              "Plain-text search. Returns start and end positions."
+            ],
+            [
+              "s:match(pattern)",
+              "Returns the captured parts of the first match"
+            ],
+            [
+              "s:gsub(pattern, repl)",
+              "Replace all matches. Also returns the replacement count."
+            ],
+            [
+              "s:gmatch(pattern)",
+              "Loop over every match"
+            ],
+            [
+              "%d %a %w %s",
+              "Digit, letter, alphanumeric, whitespace (capitalize to invert)"
+            ]
+          ],
+          "subcommands": [
+            [
+              "string.format(\"%s %d %.2f\", s, i, f)",
+              "printf-style formatting"
+            ],
+            [
+              "%.  %-  %%",
+              "Use % to escape magic characters, not a backslash"
+            ],
+            [
+              "s:rep(3, \",\")",
+              "Repeat a string with an optional separator"
+            ],
+            [
+              "[[multi-line string]]",
+              "Long string: no escapes, and newlines are kept"
+            ]
+          ],
+          "tip": "Patterns are not regex: there is no | alternation or {n} count, and - means shortest repeat.",
+          "tags": [
+            "lua",
+            "strings",
+            "patterns",
+            "format",
+            "gsub",
+            "match",
+            "gmatch"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lua-tables",
+      "badge": "tbl",
+      "title": "Tables: Lists & Dictionaries",
+      "subtitle": "Lua's only data structure: arrays, key-value maps, nesting & iteration",
+      "commands": [
+        {
+          "id": "lua-table-basics",
+          "desc": "A table works as a list, a dictionary, or both. Lists start at index 1.",
+          "cmd": "local nodes = { \"node-01\", \"node-02\", \"node-03\" }\nprint(nodes[1], #nodes)\ntable.insert(nodes, \"node-04\")\ntable.remove(nodes, 1)\nprint(table.concat(nodes, \", \"))\n\nlocal server = { host = \"10.0.0.1\", port = 22, tags = { \"gpu\", \"prod\" } }\nprint(server.host, server[\"port\"], server.tags[2])\nserver.port = 2222\nserver.tags = nil",
+          "flags": [
+            [
+              "{ \"a\", \"b\" }",
+              "List. The first item is at index 1, not 0."
+            ],
+            [
+              "{ key = value }",
+              "Dictionary with named keys"
+            ],
+            [
+              "t.key / t[\"key\"]",
+              "Two ways to read the same field"
+            ],
+            [
+              "t[key]",
+              "Look up using the value of a variable"
+            ],
+            [
+              "#t",
+              "Length of a list. Unreliable if the list has nil gaps."
+            ],
+            [
+              "t.key = nil",
+              "Delete a field"
+            ]
+          ],
+          "subcommands": [
+            [
+              "table.insert(t, value)",
+              "Append to the end (table.insert(t, 1, value) to prepend)"
+            ],
+            [
+              "table.remove(t, i)",
+              "Remove item i and shift the rest down"
+            ],
+            [
+              "table.sort(t, function(a, b) return a > b end)",
+              "Sort in place, with an optional comparator"
+            ],
+            [
+              "table.concat(t, \", \")",
+              "Join a list into a string"
+            ]
+          ],
+          "tip": "Config files are mostly nested tables, so a { key = value } block is the shape to recognize.",
+          "tags": [
+            "lua",
+            "tables",
+            "arrays",
+            "lists",
+            "dictionary",
+            "map",
+            "insert",
+            "sort"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lua-flow",
+      "badge": "flow",
+      "title": "Conditionals & Loops",
+      "subtitle": "if / elseif, numeric for, pairs, ipairs, while & repeat",
+      "commands": [
+        {
+          "id": "lua-conditionals",
+          "desc": "if / elseif / else blocks. Each block closes with end.",
+          "cmd": "local temp = 83\nif temp >= 90 then\n  print(\"critical\")\nelseif temp >= 80 then\n  print(\"warning\")\nelse\n  print(\"ok\")\nend",
+          "flags": [
+            [
+              "if cond then ... end",
+              "Basic conditional. Parentheses are not needed."
+            ],
+            [
+              "elseif",
+              "One word, not else if"
+            ],
+            [
+              "== ~= < <= > >=",
+              "Comparison operators"
+            ],
+            [
+              "if not value then",
+              "Runs when value is nil or false"
+            ]
+          ],
+          "subcommands": [
+            [
+              "if t and t.key then",
+              "Check a table exists before reading a field"
+            ],
+            [
+              "local port = opts.port or 8080",
+              "Fall back to a default when a value is nil"
+            ]
+          ],
+          "tip": "A missing end is the most common syntax error. Every if, for, while, and function needs one.",
+          "tags": [
+            "lua",
+            "if",
+            "else",
+            "elseif",
+            "conditionals",
+            "defaults"
+          ]
+        },
+        {
+          "id": "lua-loops",
+          "desc": "Numeric for loops, list and table iteration, while, and repeat",
+          "cmd": "for i = 1, 3 do print(i) end\nfor i = 10, 0, -5 do print(i) end\n\nlocal list = { \"a\", \"b\" }\nfor index, value in ipairs(list) do\n  print(index, value)\nend\n\nlocal map = { host = \"n1\", port = 22 }\nfor key, value in pairs(map) do\n  print(key, value)\nend\n\nlocal n = 0\nwhile n < 2 do n = n + 1 end\nrepeat n = n - 1 until n == 0",
+          "flags": [
+            [
+              "for i = start, stop, step do",
+              "Numeric loop. Both ends are included, and step defaults to 1."
+            ],
+            [
+              "ipairs(t)",
+              "List items in order, stopping at the first nil"
+            ],
+            [
+              "pairs(t)",
+              "Every key in a table, in no guaranteed order"
+            ],
+            [
+              "while cond do ... end",
+              "Checks before each pass"
+            ],
+            [
+              "repeat ... until cond",
+              "Checks after each pass, so it always runs once"
+            ],
+            [
+              "break",
+              "Leave the innermost loop"
+            ]
+          ],
+          "subcommands": [
+            [
+              "for _, value in ipairs(t) do",
+              "_ is the usual name for a value you will ignore"
+            ],
+            [
+              "goto continue ... ::continue::",
+              "Stand-in for continue, which Lua does not have"
+            ]
+          ],
+          "tip": "Use ipairs for lists when order matters, and pairs for dictionaries.",
+          "tags": [
+            "lua",
+            "loops",
+            "for",
+            "while",
+            "repeat",
+            "pairs",
+            "ipairs",
+            "break"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lua-functions",
+      "badge": "fn",
+      "title": "Functions, Methods & Modules",
+      "subtitle": "Multiple returns, closures, varargs, colon syntax, metatables & require",
+      "commands": [
+        {
+          "id": "lua-function-basics",
+          "desc": "Define functions, return several values, and pass functions around",
+          "cmd": "local function add(a, b)\n  return a + b\nend\n\nlocal function min_max(list)\n  table.sort(list)\n  return list[1], list[#list]\nend\nlocal low, high = min_max({ 4, 9, 1 })\nprint(add(2, 3), low, high)\n\nlocal function counter()\n  local count = 0\n  return function()\n    count = count + 1\n    return count\n  end\nend\nlocal tick = counter()\ntick()\nprint(tick())\n\nlocal function sum(...)\n  local total = 0\n  for _, v in ipairs({ ... }) do total = total + v end\n  return total\nend\nprint(sum(1, 2, 3))",
+          "flags": [
+            [
+              "local function name(args)",
+              "Define a function in local scope"
+            ],
+            [
+              "return a, b",
+              "Return several values at once"
+            ],
+            [
+              "function(x) ... end",
+              "Anonymous function, used as a value or callback"
+            ],
+            [
+              "...",
+              "Accept any number of arguments"
+            ],
+            [
+              "f{ a = 1 }",
+              "Parentheses are optional for a single table argument"
+            ],
+            [
+              "f\"text\"",
+              "Parentheses are optional for a single string argument"
+            ]
+          ],
+          "subcommands": [
+            [
+              "local x, y = f()",
+              "Extra return values are dropped, and missing ones are nil"
+            ],
+            [
+              "select(\"#\", ...)",
+              "Count arguments, including nils"
+            ],
+            [
+              "function M.name() end",
+              "Define a function inside a table"
+            ]
+          ],
+          "tip": "Missing arguments arrive as nil, and extra arguments are ignored without an error.",
+          "tags": [
+            "lua",
+            "functions",
+            "return",
+            "closures",
+            "varargs",
+            "callbacks"
+          ]
+        },
+        {
+          "id": "lua-methods-modules",
+          "desc": "Colon method calls, metatable classes, and splitting code into modules",
+          "cmd": "local Node = {}\nNode.__index = Node\n\nfunction Node.new(name)\n  return setmetatable({ name = name, up = false }, Node)\nend\n\nfunction Node:start()\n  self.up = true\n  return self.name .. \" started\"\nend\n\nlocal node = Node.new(\"gpu-01\")\nprint(node:start())\nprint(node.up)",
+          "flags": [
+            [
+              "obj:method(x)",
+              "Shorthand for obj.method(obj, x)"
+            ],
+            [
+              "function T:method()",
+              "Defines a method with a hidden self parameter"
+            ],
+            [
+              "setmetatable(t, mt)",
+              "Attach behavior such as inheritance or operators to a table"
+            ],
+            [
+              "__index",
+              "Where Lua looks when a field is missing"
+            ],
+            [
+              "require(\"module\")",
+              "Load a module once and return its value"
+            ],
+            [
+              "return M",
+              "How a module file hands back its public table"
+            ]
+          ],
+          "subcommands": [
+            [
+              "local cfg = require(\"hypr.monitors\")",
+              "Dots map to folders: hypr/monitors.lua"
+            ],
+            [
+              "package.path",
+              "Search path that require uses to find files"
+            ],
+            [
+              "dofile(\"file.lua\")",
+              "Run a file every time, with no caching"
+            ]
+          ],
+          "tip": "If you see a nil error on a method, check for . where : was needed.",
+          "tags": [
+            "lua",
+            "methods",
+            "self",
+            "metatable",
+            "class",
+            "modules",
+            "require"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lua-errors-files",
+      "badge": "io",
+      "title": "Errors, Files & the Command Line",
+      "subtitle": "pcall, reading and writing files, running scripts & syntax checks",
+      "commands": [
+        {
+          "id": "lua-error-handling",
+          "desc": "Raise errors and catch them with pcall instead of crashing the script",
+          "cmd": "local function read_port(cfg)\n  if not cfg.port then\n    error(\"port is missing\")\n  end\n  return cfg.port\nend\n\nlocal ok, result = pcall(read_port, {})\nif ok then\n  print(\"port\", result)\nelse\n  print(\"failed:\", result)\nend\n\nlocal f, err = io.open(\"/no/such/file\", \"r\")\nif not f then print(err) end",
+          "flags": [
+            [
+              "error(\"message\")",
+              "Raise an error, adding the file and line"
+            ],
+            [
+              "pcall(f, args)",
+              "Call f safely. Returns false and the error if it fails."
+            ],
+            [
+              "xpcall(f, handler)",
+              "Like pcall, with a handler that runs on failure"
+            ],
+            [
+              "assert(value, \"message\")",
+              "Raise an error if value is nil or false"
+            ],
+            [
+              "return nil, \"reason\"",
+              "Common way to report an expected failure"
+            ]
+          ],
+          "subcommands": [
+            [
+              "local f = assert(io.open(path))",
+              "Open a file or stop with the reason"
+            ],
+            [
+              "debug.traceback()",
+              "Get the call stack as a string"
+            ]
+          ],
+          "tip": "pcall takes the function and its arguments separately: pcall(f, x), not pcall(f(x)).",
+          "tags": [
+            "lua",
+            "errors",
+            "pcall",
+            "xpcall",
+            "assert",
+            "exceptions"
+          ]
+        },
+        {
+          "id": "lua-file-io",
+          "desc": "Read and write files line by line or all at once",
+          "cmd": "local path = \"lua-demo.txt\"\nlocal out = assert(io.open(path, \"w\"))\nout:write(\"node-01\\nnode-02\\n\")\nout:close()\n\nfor line in io.lines(path) do\n  print(line)\nend\n\nlocal input = assert(io.open(path, \"r\"))\nlocal content = input:read(\"a\")\ninput:close()\nprint(#content)\nos.remove(path)",
+          "flags": [
+            [
+              "io.open(path, mode)",
+              "Open a file: \"r\" read, \"w\" overwrite, \"a\" append"
+            ],
+            [
+              "f:read(\"a\")",
+              "Read the whole file (Lua 5.1 needs \"*a\")"
+            ],
+            [
+              "f:read(\"l\")",
+              "Read one line (Lua 5.1 needs \"*l\")"
+            ],
+            [
+              "io.lines(path)",
+              "Loop over lines and close the file automatically"
+            ],
+            [
+              "f:write(text)",
+              "Write text. It adds no newline."
+            ],
+            [
+              "f:close()",
+              "Close the file and flush pending writes"
+            ]
+          ],
+          "subcommands": [
+            [
+              "os.getenv(\"HOME\")",
+              "Read an environment variable"
+            ],
+            [
+              "os.execute(\"cmd\")",
+              "Run a shell command"
+            ],
+            [
+              "io.popen(\"cmd\"):read(\"a\")",
+              "Run a shell command and capture its output"
+            ],
+            [
+              "os.date(\"%Y-%m-%d\") / os.time()",
+              "Formatted date / Unix timestamp"
+            ]
+          ],
+          "tip": "\"w\" mode erases the file as soon as it opens, so use \"a\" to add to it.",
+          "tags": [
+            "lua",
+            "files",
+            "io",
+            "read",
+            "write",
+            "lines",
+            "os"
+          ]
+        },
+        {
+          "id": "lua-cli",
+          "desc": "Run scripts, check syntax without running, and try code interactively",
+          "cmd": "lua script.lua arg1 arg2\nlua -e 'print(2 ^ 10)'\nlua -i\nluac -p script.lua",
+          "flags": [
+            [
+              "lua script.lua",
+              "Run a script"
+            ],
+            [
+              "lua -e 'code'",
+              "Run one line of code"
+            ],
+            [
+              "lua -i",
+              "Interactive prompt (Ctrl+D to exit)"
+            ],
+            [
+              "luac -p file.lua",
+              "Check syntax only, without running anything"
+            ],
+            [
+              "luajit file.lua",
+              "Run with LuaJIT, the engine Neovim uses"
+            ],
+            [
+              "arg[1]",
+              "First command-line argument inside a script"
+            ]
+          ],
+          "subcommands": [
+            [
+              "#!/usr/bin/env lua",
+              "Shebang line for executable scripts"
+            ],
+            [
+              "lua -v",
+              "Show the installed version"
+            ]
+          ],
+          "tip": "luac -p catches typos in a config file before you reload it.",
+          "tags": [
+            "lua",
+            "cli",
+            "luac",
+            "luajit",
+            "repl",
+            "syntax-check",
+            "arguments"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lua-config",
+      "badge": "cfg",
+      "title": "Reading & Editing Lua Config Files",
+      "subtitle": "How Lua is used in Omarchy / Hyprland and Neovim config files",
+      "commands": [
+        {
+          "id": "lua-config-omarchy",
+          "desc": "Omarchy and Hyprland: bindings, unbinding defaults, and switching settings on",
+          "cmd": "-- ~/.config/hypr/bindings.lua\nhl.unbind(\"SUPER + SHIFT + E\")\no.bind(\"SUPER + SHIFT + E\", \"Email\", { webapp = \"https://mail.google.com\" })\n\n-- ~/.config/hypr/looknfeel.lua\nhl.config({\n  general = {\n    layout = \"scrolling\",\n  },\n})",
+          "flags": [
+            [
+              "o.bind(keys, label, action)",
+              "Add a keybinding. All three arguments go in the parentheses."
+            ],
+            [
+              "hl.unbind(keys)",
+              "Remove a default binding before replacing it"
+            ],
+            [
+              "{ webapp = \"url\" }",
+              "A table passed as the action"
+            ],
+            [
+              "hl.config({ ... })",
+              "Set options using nested tables"
+            ],
+            [
+              "require(\"hypr.bindings\")",
+              "Loads ~/.config/hypr/bindings.lua"
+            ],
+            [
+              "-- at line start",
+              "The line is off. Delete -- to turn it on."
+            ]
+          ],
+          "subcommands": [
+            [
+              "hyprctl configerrors",
+              "List config problems after you save and reload"
+            ],
+            [
+              "hyprctl reload",
+              "Reload the Hyprland config"
+            ]
+          ],
+          "tip": "When uncommenting a setting inside { }, uncomment the opening and closing lines too.",
+          "tags": [
+            "lua",
+            "omarchy",
+            "hyprland",
+            "bindings",
+            "config",
+            "o.bind",
+            "hl.unbind"
+          ]
+        },
+        {
+          "id": "lua-config-neovim",
+          "desc": "Neovim: options, keymaps, and autocommands",
+          "cmd": "-- ~/.config/nvim/init.lua\nvim.opt.number = true\nvim.opt.shiftwidth = 2\nvim.g.mapleader = \" \"\n\nvim.keymap.set(\"n\", \"<leader>w\", \"<cmd>write<cr>\", { desc = \"Save file\" })\n\nvim.api.nvim_create_autocmd(\"BufWritePre\", {\n  pattern = \"*.lua\",\n  callback = function() print(\"saving\") end,\n})",
+          "flags": [
+            [
+              "vim.opt.name = value",
+              "Set an editor option"
+            ],
+            [
+              "vim.g.name = value",
+              "Set a global variable"
+            ],
+            [
+              "vim.keymap.set(mode, keys, action, opts)",
+              "Add a keymap"
+            ],
+            [
+              "vim.api.nvim_create_autocmd(event, opts)",
+              "Run code on an editor event"
+            ],
+            [
+              "return { \"owner/plugin\", opts = {} }",
+              "Common shape of a plugin spec file"
+            ]
+          ],
+          "subcommands": [
+            [
+              ":lua print(vim.version().minor)",
+              "Run Lua from Neovim's command line"
+            ],
+            [
+              ":lua =vim.opt.number:get()",
+              "Print the value of an expression"
+            ]
+          ],
+          "tip": "Neovim runs LuaJIT (Lua 5.1), so 5.3+ features such as // and bitwise operators are unavailable.",
+          "tags": [
+            "lua",
+            "neovim",
+            "nvim",
+            "init.lua",
+            "keymap",
+            "autocmd",
+            "config"
+          ]
+        }
+      ]
+    }
+  ]
+},
+
+  // 13. GIT
+  {
+  "key": "git",
+  "file": "git.html",
+  "js": "git.js",
+  "varName": "GIT_CHEAT_SHEET_DATA",
+  "name": "Git",
+  "title": "Git Version Control Reference",
+  "subtitle": "Setup, commits, branches, remotes, history search, undo & recovery, and offline transfer",
+  "pill": "Git 2.x",
+  "prompt": "git",
+  "cursor": ">",
+  "sections": [
+    {
+      "id": "git-setup",
+      "badge": "setup",
+      "title": "Setup & Configuration",
+      "subtitle": "Identity, useful defaults, aliases, starting a repository & cloning",
+      "commands": [
+        {
+          "id": "git-config-basics",
+          "desc": "Set your identity and sensible defaults once per machine",
+          "cmd": "git config --global user.name \"Your Name\"\ngit config --global user.email \"you@example.com\"\ngit config --global init.defaultBranch main\ngit config --global pull.rebase true\ngit config --global push.autoSetupRemote true\ngit config --global fetch.prune true",
+          "flags": [
+            [
+              "--global",
+              "Applies to your user (~/.gitconfig)"
+            ],
+            [
+              "--local",
+              "Applies to this repository only (.git/config). This is the default when writing"
+            ],
+            [
+              "--system",
+              "Applies to every user on the machine (/etc/gitconfig)"
+            ],
+            [
+              "pull.rebase true",
+              "git pull rebases your work instead of creating a merge commit"
+            ],
+            [
+              "push.autoSetupRemote true",
+              "The first git push on a new branch sets its upstream for you"
+            ],
+            [
+              "fetch.prune true",
+              "Fetching removes local copies of branches deleted on the remote"
+            ]
+          ],
+          "subcommands": [
+            [
+              "git config --list --show-origin",
+              "Show every setting and the file it came from"
+            ],
+            [
+              "git config --global core.editor nvim",
+              "Set the editor used for commit messages"
+            ],
+            [
+              "git config --global --unset pull.rebase",
+              "Remove a setting"
+            ],
+            [
+              "git config --global --edit",
+              "Open your global config in the editor"
+            ]
+          ],
+          "tip": "Run git config user.email inside a repository to see which address your commits will use.",
+          "tags": [
+            "git",
+            "config",
+            "setup",
+            "identity",
+            "gitconfig",
+            "defaults"
+          ]
+        },
+        {
+          "id": "git-aliases",
+          "desc": "Short aliases for commands you type all day",
+          "cmd": "git config --global alias.st \"status -sb\"\ngit config --global alias.co switch\ngit config --global alias.lg \"log --oneline --graph --decorate --all\"\ngit config --global alias.last \"log -1 --stat\"\ngit config --global alias.unstage \"restore --staged\"",
+          "flags": [
+            [
+              "alias.NAME \"args\"",
+              "Runs git args when you type git NAME"
+            ],
+            [
+              "alias.NAME \"!cmd\"",
+              "A leading ! runs a shell command instead of a git subcommand"
+            ]
+          ],
+          "subcommands": [
+            [
+              "git config --get-regexp '^alias\\.'",
+              "List your aliases"
+            ],
+            [
+              "git config --global alias.root \"rev-parse --show-toplevel\"",
+              "git root prints the top folder of the repository"
+            ]
+          ],
+          "tip": "Aliases live in ~/.gitconfig, so copying that file brings them to a new machine.",
+          "tags": [
+            "git",
+            "alias",
+            "config",
+            "shortcuts"
+          ]
+        },
+        {
+          "id": "git-init-clone",
+          "desc": "Start a new repository or clone an existing one",
+          "cmd": "# New repository\ngit init my-project\n\n# Clone over SSH or HTTPS\ngit clone git@github.com:org/repo.git\ngit clone https://github.com/org/repo.git my-folder",
+          "flags": [
+            [
+              "--depth 1",
+              "Shallow clone: fetch only the latest commit"
+            ],
+            [
+              "--branch NAME",
+              "Check out this branch or tag after cloning"
+            ],
+            [
+              "--single-branch",
+              "Fetch one branch instead of all of them"
+            ],
+            [
+              "--filter=blob:none",
+              "Partial clone: full history, with file contents fetched on demand"
+            ],
+            [
+              "--recurse-submodules",
+              "Also clone every submodule"
+            ]
+          ],
+          "subcommands": [
+            [
+              "git clone --depth 1 --branch v1.2.0 https://github.com/org/repo.git",
+              "Fetch one tagged release quickly"
+            ],
+            [
+              "git clone --filter=blob:none https://github.com/org/repo.git",
+              "Clone a large repository with history but less data"
+            ],
+            [
+              "git fetch --unshallow",
+              "Turn a shallow clone into a full one"
+            ]
+          ],
+          "tip": "A shallow clone is ideal for pulling a tool onto a node. Use a full clone if you need log, blame or bisect.",
+          "tags": [
+            "git",
+            "init",
+            "clone",
+            "shallow",
+            "partial",
+            "depth"
+          ]
+        },
+        {
+          "id": "git-ignore",
+          "desc": "Keep logs, build output and secrets out of the repository",
+          "cmd": "cat >> .gitignore <<'EOF'\n*.log\nbuild/\n.env\n!important.log\nEOF\ngit add .gitignore\ngit commit -m \"Ignore logs, build output and .env\"",
+          "flags": [
+            [
+              "*.log",
+              "Ignore matching files in every folder"
+            ],
+            [
+              "build/",
+              "Ignore a folder"
+            ],
+            [
+              "/config.local",
+              "A leading / matches only at the repository root"
+            ],
+            [
+              "!important.log",
+              "Exception: keep tracking this file"
+            ]
+          ],
+          "subcommands": [
+            [
+              "git check-ignore -v build/out.bin",
+              "Show which rule ignores a file"
+            ],
+            [
+              "git rm --cached .env",
+              "Stop tracking a file but keep it on disk"
+            ],
+            [
+              "git rm -r --cached build/",
+              "Stop tracking a whole folder"
+            ],
+            [
+              "git status --ignored",
+              "List ignored files too"
+            ]
+          ],
+          "tip": ".gitignore only affects untracked files. If a file is already committed, remove it with git rm --cached first.",
+          "tags": [
+            "git",
+            "gitignore",
+            "ignore",
+            "untrack",
+            "secrets"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "git-daily",
+      "badge": "daily",
+      "title": "Everyday Workflow",
+      "subtitle": "Check status, stage changes, commit, compare & stash work",
+      "commands": [
+        {
+          "id": "git-status-add-commit",
+          "desc": "The basic loop: check what changed, stage it, commit it",
+          "cmd": "git status -sb\ngit add path/to/file\ngit commit -m \"Fix BMC timeout in collection script\"\ngit push",
+          "flags": [
+            [
+              "git add .",
+              "Stage every change under the current folder"
+            ],
+            [
+              "git add -A",
+              "Stage every change in the repository, including deletions"
+            ],
+            [
+              "git add -u",
+              "Stage changes to tracked files only, leaving new files out"
+            ],
+            [
+              "git add -p",
+              "Choose individual hunks to stage"
+            ],
+            [
+              "git commit -a",
+              "Stage all tracked changes and commit in one step"
+            ],
+            [
+              "git commit -v",
+              "Show the diff in the editor while you write the message"
+            ]
+          ],
+          "subcommands": [
+            [
+              "git commit --amend --no-edit",
+              "Add staged changes to the last commit and keep its message"
+            ],
+            [
+              "git commit --amend -m \"Better message\"",
+              "Replace the last commit's message"
+            ],
+            [
+              "git mv old.sh new.sh",
+              "Rename a tracked file"
+            ],
+            [
+              "git rm old.sh",
+              "Delete a tracked file and stage the deletion"
+            ],
+            [
+              "git ls-files",
+              "List every tracked file"
+            ]
+          ],
+          "tip": "Only amend commits you haven't pushed, because amending rewrites history other people may already have.",
+          "tags": [
+            "git",
+            "status",
+            "add",
+            "commit",
+            "amend",
+            "stage",
+            "push"
+          ]
+        },
+        {
+          "id": "git-diff",
+          "desc": "Compare the working tree, staging area, commits and branches",
+          "cmd": "git diff\ngit diff --staged\ngit diff HEAD~1 HEAD\ngit diff main...feature/fix",
+          "flags": [
+            [
+              "git diff",
+              "Unstaged changes"
+            ],
+            [
+              "--staged",
+              "What the next commit will contain"
+            ],
+            [
+              "A..B or A B",
+              "Direct comparison of two commits"
+            ],
+            [
+              "A...B",
+              "Changes on B since it split from A, which is what a pull request shows"
+            ],
+            [
+              "--stat",
+              "Summary of files and lines changed"
+            ],
+            [
+              "--name-only",
+              "Changed file names only"
+            ],
+            [
+              "-w",
+              "Ignore whitespace changes"
+            ],
+            [
+              "--word-diff",
+              "Highlight changed words instead of whole lines"
+            ]
+          ],
+          "subcommands": [
+            [
+              "git diff --stat main...HEAD",
+              "See how much your branch changes"
+            ],
+            [
+              "git diff --name-only HEAD~3",
+              "Files changed in the last 3 commits"
+            ],
+            [
+              "git diff HEAD~1 -- path/to/file",
+              "Limit the diff to one file"
+            ],
+            [
+              "git show HEAD:path/to/file",
+              "Print a file as it was in a commit"
+            ]
+          ],
+          "tip": "Run git diff --staged before every commit to catch stray debug lines and secrets.",
+          "tags": [
+            "git",
+            "diff",
+            "compare",
+            "staged",
+            "changes"
+          ]
+        },
+        {
+          "id": "git-stash",
+          "desc": "Set unfinished work aside and bring it back later",
+          "cmd": "git stash push -u -m \"WIP timeout fix\"\ngit stash list\ngit stash pop",
+          "flags": [
+            [
+              "-u",
+              "Include untracked files"
+            ],
+            [
+              "-m \"msg\"",
+              "Label the stash so you can recognise it later"
+            ],
+            [
+              "-p",
+              "Choose which hunks to stash"
+            ],
+            [
+              "pop",
+              "Apply the newest stash and delete it"
+            ],
+            [
+              "apply",
+              "Apply a stash and keep it"
+            ]
+          ],
+          "subcommands": [
+            [
+              "git stash show -p stash@{0}",
+              "See what a stash contains"
+            ],
+            [
+              "git stash apply stash@{1}",
+              "Apply a specific stash"
+            ],
+            [
+              "git stash branch fix-timeout stash@{0}",
+              "Turn a stash into a new branch"
+            ],
+            [
+              "git stash drop stash@{1}",
+              "Delete one stash"
+            ],
+            [
+              "git stash clear",
+              "Delete every stash"
+            ]
+          ],
+          "tip": "If git stash pop hits a conflict, the stash is kept. Fix the conflict, then git stash drop it.",
+          "tags": [
+            "git",
+            "stash",
+            "wip",
+            "pop",
+            "apply",
+            "shelve"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "git-branch",
+      "badge": "branch",
+      "title": "Branches, Merging & Rebasing",
+      "subtitle": "Create and switch branches, merge, rebase, cherry-pick & resolve conflicts",
+      "commands": [
+        {
+          "id": "git-branches",
+          "desc": "Create, switch, rename and delete branches",
+          "cmd": "git switch -c feature/nvme-check\ngit switch main\ngit switch -\ngit branch -vv",
+          "flags": [
+            [
+              "-c NAME",
+              "Create a branch and switch to it"
+            ],
+            [
+              "git switch -",
+              "Go back to the previous branch"
+            ],
+            [
+              "-a",
+              "List local and remote branches"
+            ],
+            [
+              "-vv",
+              "Show each branch's upstream and whether it's ahead or behind"
+            ],
+            [
+              "-d NAME",
+              "Delete a merged branch"
+            ],
+            [
+              "-D NAME",
+              "Force delete a branch, even if unmerged"
+            ],
+            [
+              "-m OLD NEW",
+              "Rename a branch"
+            ]
+          ],
+          "subcommands": [
+            [
+              "git switch -c fix origin/fix",
+              "Create a local branch from a remote branch"
+            ],
+            [
+              "git switch --detach v1.2.0",
+              "Look at a tag without being on a branch"
+            ],
+            [
+              "git branch --merged main",
+              "List branches already merged, which are safe to delete"
+            ],
+            [
+              "git branch --sort=-committerdate",
+              "List branches by most recent work"
+            ],
+            [
+              "git push origin --delete feature/old",
+              "Delete a branch on the remote"
+            ]
+          ],
+          "tip": "git switch and git restore split up the old git checkout, so it's harder to overwrite files by mistake.",
+          "tags": [
+            "git",
+            "branch",
+            "switch",
+            "checkout",
+            "delete",
+            "rename"
+          ]
+        },
+        {
+          "id": "git-merge",
+          "desc": "Bring another branch into the current one",
+          "cmd": "git switch main\ngit pull\ngit merge feature/nvme-check",
+          "flags": [
+            [
+              "--ff-only",
+              "Only merge if no merge commit is needed, otherwise stop"
+            ],
+            [
+              "--no-ff",
+              "Always create a merge commit, which keeps the branch visible in history"
+            ],
+            [
+              "--squash",
+              "Stage all the branch's changes as one commit for you to make"
+            ],
+            [
+              "--abort",
+              "Cancel a merge and go back to how things were"
+            ],
+            [
+              "--continue",
+              "Finish the merge after resolving conflicts"
+            ]
+          ],
+          "subcommands": [
+            [
+              "git merge --squash feature/x && git commit -m \"Add feature x\"",
+              "Merge a branch as a single commit"
+            ],
+            [
+              "git merge --abort",
+              "Back out of a conflicted merge"
+            ],
+            [
+              "git log --merges --oneline",
+              "List merge commits"
+            ]
+          ],
+          "tip": "Commit or stash your work before merging. Merges are hard to back out of with uncommitted changes around.",
+          "tags": [
+            "git",
+            "merge",
+            "fast-forward",
+            "squash",
+            "no-ff"
+          ]
+        },
+        {
+          "id": "git-rebase",
+          "desc": "Replay your commits on top of another branch and tidy them up",
+          "cmd": "git switch feature/nvme-check\ngit fetch origin\ngit rebase origin/main\ngit push --force-with-lease",
+          "flags": [
+            [
+              "-i HEAD~5",
+              "Interactive: reorder, squash, edit or drop the last 5 commits"
+            ],
+            [
+              "--continue",
+              "Carry on after fixing a conflict and running git add"
+            ],
+            [
+              "--skip",
+              "Drop the commit that's currently conflicting"
+            ],
+            [
+              "--abort",
+              "Cancel and return the branch to where it started"
+            ],
+            [
+              "--autosquash",
+              "Move fixup! commits next to their targets automatically"
+            ],
+            [
+              "--onto NEW OLD",
+              "Move commits made after OLD onto NEW"
+            ]
+          ],
+          "subcommands": [
+            [
+              "git rebase -i HEAD~5",
+              "Clean up recent commits before opening a pull request"
+            ],
+            [
+              "git commit --fixup=abc1234",
+              "Mark a commit as a correction to abc1234"
+            ],
+            [
+              "git rebase -i --autosquash origin/main",
+              "Fold fixup commits into their targets"
+            ],
+            [
+              "git rebase --onto main old-base feature/x",
+              "Move a branch to a new base"
+            ]
+          ],
+          "tip": "Don't rebase a branch other people work on. Rebasing rewrites commit IDs, and that breaks their copies.",
+          "tags": [
+            "git",
+            "rebase",
+            "interactive",
+            "squash",
+            "fixup",
+            "history"
+          ]
+        },
+        {
+          "id": "git-cherry-pick",
+          "desc": "Copy specific commits onto the current branch",
+          "cmd": "git switch release/1.2\ngit cherry-pick abc1234",
+          "flags": [
+            [
+              "-x",
+              "Add \"cherry picked from\" with the original commit ID to the message"
+            ],
+            [
+              "-n",
+              "Apply the changes without committing"
+            ],
+            [
+              "A^..B",
+              "Pick a range of commits, including A"
+            ],
+            [
+              "--abort",
+              "Cancel and go back"
+            ],
+            [
+              "--continue",
+              "Carry on after fixing a conflict"
+            ]
+          ],
+          "subcommands": [
+            [
+              "git cherry-pick -x abc1234",
+              "Backport a fix and record where it came from"
+            ],
+            [
+              "git cherry-pick abc1234^..def5678",
+              "Pick a run of commits in order"
+            ]
+          ],
+          "tip": "Use -x when backporting to a release branch, so people can trace the fix to its original commit.",
+          "tags": [
+            "git",
+            "cherry-pick",
+            "backport",
+            "hotfix"
+          ]
+        },
+        {
+          "id": "git-conflicts",
+          "desc": "Resolve merge and rebase conflicts",
+          "cmd": "git status\n# Edit each conflicted file and remove the <<<<<<< ======= >>>>>>> markers\ngit add path/to/file\ngit merge --continue",
+          "flags": [
+            [
+              "<<<<<<< HEAD",
+              "Start of the version on your current branch"
+            ],
+            [
+              "=======",
+              "Divider between the two versions"
+            ],
+            [
+              ">>>>>>> other",
+              "End of the incoming version"
+            ],
+            [
+              "--ours",
+              "During a merge, your branch. During a rebase, the branch you're rebasing onto"
+            ],
+            [
+              "--theirs",
+              "During a merge, the incoming branch. During a rebase, your commit"
+            ]
+          ],
+          "subcommands": [
+            [
+              "git diff --name-only --diff-filter=U",
+              "List files that still have conflicts"
+            ],
+            [
+              "git checkout --ours path/to/file",
+              "Take one side of a conflicted file"
+            ],
+            [
+              "git checkout --theirs path/to/file",
+              "Take the other side of a conflicted file"
+            ],
+            [
+              "git config --global merge.conflictStyle zdiff3",
+              "Also show the original text inside conflict markers"
+            ],
+            [
+              "git config --global rerere.enabled true",
+              "Remember how you resolved a conflict and reuse it"
+            ]
+          ],
+          "tip": "--ours and --theirs swap meaning during a rebase, so check the file after you pick a side.",
+          "tags": [
+            "git",
+            "conflict",
+            "merge",
+            "rebase",
+            "resolve",
+            "ours",
+            "theirs"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "git-remote",
+      "badge": "remote",
+      "title": "Remotes, Fetch, Pull & Push",
+      "subtitle": "Manage remotes, sync with them, safe force pushes & tags",
+      "commands": [
+        {
+          "id": "git-remotes",
+          "desc": "See and change the remotes this repository talks to",
+          "cmd": "git remote -v\ngit remote add upstream https://github.com/org/repo.git\ngit remote set-url origin git@github.com:org/repo.git",
+          "flags": [
+            [
+              "-v",
+              "Show each remote's URLs"
+            ],
+            [
+              "add NAME URL",
+              "Add a remote"
+            ],
+            [
+              "set-url NAME URL",
+              "Change a remote's address, for example from HTTPS to SSH"
+            ],
+            [
+              "rename OLD NEW",
+              "Rename a remote"
+            ],
+            [
+              "remove NAME",
+              "Remove a remote"
+            ],
+            [
+              "show NAME",
+              "Show branches and tracking details for a remote"
+            ]
+          ],
+          "subcommands": [
+            [
+              "git remote show origin",
+              "Check the default branch and what tracks what"
+            ],
+            [
+              "git remote prune origin",
+              "Remove local references to deleted remote branches"
+            ],
+            [
+              "git ls-remote origin",
+              "List remote branches and tags without fetching"
+            ]
+          ],
+          "tip": "git ls-remote is a quick way to test that you can reach a remote and that your credentials work.",
+          "tags": [
+            "git",
+            "remote",
+            "origin",
+            "upstream",
+            "url"
+          ]
+        },
+        {
+          "id": "git-fetch-pull-push",
+          "desc": "Download changes, update your branch and publish your commits",
+          "cmd": "git fetch --all --prune\ngit status -sb\ngit pull --rebase\ngit push -u origin HEAD",
+          "flags": [
+            [
+              "git fetch",
+              "Download changes without touching your files"
+            ],
+            [
+              "git pull",
+              "Fetch, then update the current branch"
+            ],
+            [
+              "--rebase",
+              "Put your local commits on top of what you pulled"
+            ],
+            [
+              "--ff-only",
+              "Pull only if no merge or rebase is needed"
+            ],
+            [
+              "-u origin HEAD",
+              "Push the current branch and set it as the upstream"
+            ],
+            [
+              "--force-with-lease",
+              "Force push, but stop if someone else has pushed in the meantime"
+            ]
+          ],
+          "subcommands": [
+            [
+              "git log HEAD..@{u} --oneline",
+              "Commits on the remote that you don't have yet"
+            ],
+            [
+              "git log @{u}..HEAD --oneline",
+              "Local commits you haven't pushed"
+            ],
+            [
+              "git pull --ff-only",
+              "Update a deployed copy, stopping if it has diverged"
+            ],
+            [
+              "git push --force-with-lease",
+              "Publish a rebased branch safely"
+            ]
+          ],
+          "tip": "Use --force-with-lease rather than --force, because plain --force can erase a teammate's commits.",
+          "tags": [
+            "git",
+            "fetch",
+            "pull",
+            "push",
+            "upstream",
+            "force-with-lease",
+            "sync"
+          ]
+        },
+        {
+          "id": "git-tags",
+          "desc": "Mark releases and compare what's between them",
+          "cmd": "git tag -a v1.2.0 -m \"Release 1.2.0\"\ngit push origin v1.2.0\ngit tag -l 'v1.*'",
+          "flags": [
+            [
+              "-a",
+              "Annotated tag, which stores the author, date and message"
+            ],
+            [
+              "-m \"msg\"",
+              "Tag message"
+            ],
+            [
+              "-l 'pattern'",
+              "List matching tags"
+            ],
+            [
+              "-d NAME",
+              "Delete a local tag"
+            ],
+            [
+              "--sort=-v:refname",
+              "Sort by version, newest first"
+            ]
+          ],
+          "subcommands": [
+            [
+              "git tag -a v1.1.9 abc1234 -m \"Tag an older commit\"",
+              "Tag a past commit"
+            ],
+            [
+              "git push origin --tags",
+              "Push every local tag"
+            ],
+            [
+              "git push origin --delete v1.2.0",
+              "Delete a tag on the remote"
+            ],
+            [
+              "git log v1.1.0..v1.2.0 --oneline",
+              "List commits between two releases"
+            ],
+            [
+              "git describe --tags --always --dirty",
+              "Name the current commit relative to the nearest tag"
+            ]
+          ],
+          "tip": "git push doesn't send tags by default, so push them by name.",
+          "tags": [
+            "git",
+            "tag",
+            "release",
+            "version",
+            "describe"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "git-history",
+      "badge": "history",
+      "title": "History & Searching",
+      "subtitle": "Read the log, find who changed what, search code & track down bad commits",
+      "commands": [
+        {
+          "id": "git-log",
+          "desc": "Read the commit history",
+          "cmd": "git log --oneline --graph --decorate --all -20",
+          "flags": [
+            [
+              "--oneline",
+              "One line per commit"
+            ],
+            [
+              "--graph",
+              "Draw branches and merges"
+            ],
+            [
+              "-n / -20",
+              "Limit the number of commits"
+            ],
+            [
+              "--stat",
+              "Show files changed in each commit"
+            ],
+            [
+              "-p",
+              "Show the full diff of each commit"
+            ],
+            [
+              "--author=\"name\"",
+              "Commits by one author"
+            ],
+            [
+              "--since=\"2 weeks ago\"",
+              "Commits after a date (--until for before)"
+            ],
+            [
+              "--grep=\"text\"",
+              "Search commit messages"
+            ],
+            [
+              "--follow -- file",
+              "Follow one file's history across renames"
+            ]
+          ],
+          "subcommands": [
+            [
+              "git log --pretty=format:'%h %ad %an %s' --date=short",
+              "Compact custom format"
+            ],
+            [
+              "git log main..feature/x --oneline",
+              "Commits on the branch that aren't on main"
+            ],
+            [
+              "git log --follow -p -- path/to/file",
+              "Every change made to one file"
+            ],
+            [
+              "git shortlog -sne",
+              "Commit counts per author"
+            ],
+            [
+              "git show abc1234 --stat",
+              "Show one commit and its files"
+            ]
+          ],
+          "tip": "Commits can be named with HEAD~2 (two back), HEAD^ (parent), a tag, a branch, or a short ID.",
+          "tags": [
+            "git",
+            "log",
+            "history",
+            "graph",
+            "shortlog",
+            "show"
+          ]
+        },
+        {
+          "id": "git-blame-search",
+          "desc": "Find who changed a line and when a string appeared",
+          "cmd": "git blame -L 40,60 path/to/file\ngit log -S'bmc_timeout' --oneline\ngit grep -n 'bmc_timeout'",
+          "flags": [
+            [
+              "-L 40,60",
+              "Blame only these lines"
+            ],
+            [
+              "-w",
+              "Ignore whitespace-only changes when blaming"
+            ],
+            [
+              "-C",
+              "Follow lines moved or copied from other files"
+            ],
+            [
+              "-S'text'",
+              "Commits where the number of times text appears changed"
+            ],
+            [
+              "-G'regex'",
+              "Commits whose diff has a line matching the regex"
+            ],
+            [
+              "git grep -n",
+              "Search tracked files, showing line numbers"
+            ]
+          ],
+          "subcommands": [
+            [
+              "git blame -w -C path/to/file",
+              "Skip formatting changes to find the real author"
+            ],
+            [
+              "git log -L 40,60:path/to/file",
+              "History of a range of lines"
+            ],
+            [
+              "git grep -n 'pattern' v1.2.0",
+              "Search the code as it was at a tag"
+            ],
+            [
+              "git log --all --oneline -- deleted/file.sh",
+              "Find commits that touched a file that's now gone"
+            ]
+          ],
+          "tip": "git log -S finds when something was added or removed, even if the line no longer exists.",
+          "tags": [
+            "git",
+            "blame",
+            "grep",
+            "pickaxe",
+            "search",
+            "annotate"
+          ]
+        },
+        {
+          "id": "git-bisect",
+          "desc": "Binary search through history to find the commit that broke something",
+          "cmd": "git bisect start\ngit bisect bad HEAD\ngit bisect good v1.1.0\n# Test this commit, then mark it, and repeat until git names the culprit\ngit bisect good\ngit bisect reset",
+          "flags": [
+            [
+              "start",
+              "Begin a bisect session"
+            ],
+            [
+              "bad [commit]",
+              "Mark a commit as broken"
+            ],
+            [
+              "good [commit]",
+              "Mark a commit as working"
+            ],
+            [
+              "skip",
+              "Skip a commit you can't test"
+            ],
+            [
+              "run ./test.sh",
+              "Automate it: exit 0 is good, exit 1 to 127 is bad, 125 is skip"
+            ],
+            [
+              "reset",
+              "End the session and return to where you started"
+            ]
+          ],
+          "subcommands": [
+            [
+              "git bisect run ./test.sh",
+              "Let a script find the bad commit"
+            ],
+            [
+              "git bisect log",
+              "Show the steps so far"
+            ]
+          ],
+          "tip": "Bisect tests about 10 commits to search 1,000, so it's well worth a small test script.",
+          "tags": [
+            "git",
+            "bisect",
+            "regression",
+            "binary-search",
+            "debug"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "git-undo",
+      "badge": "undo",
+      "title": "Undo & Recovery",
+      "subtitle": "Discard changes, unstage, undo commits & recover lost work",
+      "commands": [
+        {
+          "id": "git-restore",
+          "desc": "Undo changes that haven't been committed",
+          "cmd": "git restore --staged path/to/file\ngit restore path/to/file",
+          "flags": [
+            [
+              "--staged",
+              "Unstage a file and keep your edits"
+            ],
+            [
+              "git restore file",
+              "Discard unstaged edits. They can't be recovered"
+            ],
+            [
+              "--source=COMMIT",
+              "Restore a file as it was in a commit"
+            ],
+            [
+              "-p",
+              "Choose which hunks to discard"
+            ]
+          ],
+          "subcommands": [
+            [
+              "git restore --source=HEAD~2 -- path/to/file",
+              "Bring back an older version of a file"
+            ],
+            [
+              "git restore .",
+              "Discard all unstaged edits under the current folder"
+            ],
+            [
+              "git clean -nd",
+              "Preview which untracked files and folders would be deleted"
+            ],
+            [
+              "git clean -fd",
+              "Delete untracked files and folders"
+            ],
+            [
+              "git clean -fdx",
+              "Also delete ignored files, such as build output and .env"
+            ]
+          ],
+          "tip": "Always run git clean -nd first. git clean deletes files that git has no copy of.",
+          "tags": [
+            "git",
+            "restore",
+            "unstage",
+            "discard",
+            "clean",
+            "untracked"
+          ]
+        },
+        {
+          "id": "git-reset",
+          "desc": "Move the branch back to an earlier commit",
+          "cmd": "# Undo the last commit and keep its changes staged\ngit reset --soft HEAD~1",
+          "flags": [
+            [
+              "--soft",
+              "Undo commits. Changes stay staged"
+            ],
+            [
+              "--mixed",
+              "Undo commits and unstage. Changes stay in your files. This is the default"
+            ],
+            [
+              "--hard",
+              "Undo commits and delete the changes from your files"
+            ],
+            [
+              "HEAD~1",
+              "One commit back. Use HEAD~3 for three"
+            ]
+          ],
+          "subcommands": [
+            [
+              "git reset HEAD~1",
+              "Undo the last commit and keep the edits unstaged"
+            ],
+            [
+              "git reset --hard origin/main",
+              "Make your branch match the remote exactly, discarding local work"
+            ],
+            [
+              "git reset --hard ORIG_HEAD",
+              "Undo a merge, rebase or reset you just did"
+            ]
+          ],
+          "tip": "Run git status and git stash first. git reset --hard deletes uncommitted work for good.",
+          "tags": [
+            "git",
+            "reset",
+            "soft",
+            "mixed",
+            "hard",
+            "uncommit"
+          ]
+        },
+        {
+          "id": "git-revert",
+          "desc": "Undo a commit that's already pushed by adding a new commit",
+          "cmd": "git revert abc1234\ngit push",
+          "flags": [
+            [
+              "--no-edit",
+              "Use the default commit message"
+            ],
+            [
+              "-n",
+              "Apply the reversal without committing"
+            ],
+            [
+              "-m 1",
+              "Revert a merge commit, keeping its first parent"
+            ],
+            [
+              "A..B",
+              "Revert a range of commits, leaving A itself in place"
+            ]
+          ],
+          "subcommands": [
+            [
+              "git revert --no-edit HEAD",
+              "Back out the latest commit"
+            ],
+            [
+              "git revert -m 1 abc1234",
+              "Back out a merged branch"
+            ],
+            [
+              "git revert --abort",
+              "Cancel a conflicted revert"
+            ]
+          ],
+          "tip": "On shared branches use git revert, not git reset, because revert keeps history intact for everyone else.",
+          "tags": [
+            "git",
+            "revert",
+            "undo",
+            "rollback",
+            "shared"
+          ]
+        },
+        {
+          "id": "git-reflog",
+          "desc": "Recover commits after a bad reset, rebase or deleted branch",
+          "cmd": "git reflog -20\ngit branch recovered HEAD@{2}\ngit switch recovered",
+          "flags": [
+            [
+              "git reflog",
+              "Every position HEAD has been in, even for commits no branch points to"
+            ],
+            [
+              "HEAD@{2}",
+              "Where HEAD was two moves ago"
+            ],
+            [
+              "git reflog show BRANCH",
+              "History of one branch"
+            ],
+            [
+              "git fsck --lost-found",
+              "Find commits no reference points to, such as a dropped stash"
+            ]
+          ],
+          "subcommands": [
+            [
+              "git reset --hard HEAD@{1}",
+              "Jump back to where you were before the last move"
+            ],
+            [
+              "git fsck --lost-found",
+              "Find dangling commits and blobs"
+            ],
+            [
+              "git show abc1234",
+              "Inspect a recovered commit before using it"
+            ]
+          ],
+          "tip": "If it was committed, it can usually be recovered. Reflog entries last 90 days by default, or 30 for unreachable commits.",
+          "tags": [
+            "git",
+            "reflog",
+            "recover",
+            "lost",
+            "fsck",
+            "rescue"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "git-advanced",
+      "badge": "advanced",
+      "title": "Worktrees, Submodules & Hooks",
+      "subtitle": "Parallel checkouts, nested repositories, automation, large files & signing",
+      "commands": [
+        {
+          "id": "git-worktree",
+          "desc": "Check out a second branch in another folder without cloning again",
+          "cmd": "git worktree add ../repo-hotfix -b hotfix main\ngit worktree list\ngit worktree remove ../repo-hotfix",
+          "flags": [
+            [
+              "add PATH BRANCH",
+              "Check out an existing branch at PATH"
+            ],
+            [
+              "add PATH -b NEW BASE",
+              "Create a new branch from BASE at PATH"
+            ],
+            [
+              "list",
+              "Show every worktree"
+            ],
+            [
+              "remove PATH",
+              "Delete a worktree"
+            ],
+            [
+              "prune",
+              "Clean up records of worktrees whose folders are gone"
+            ]
+          ],
+          "subcommands": [
+            [
+              "git worktree add ../repo-review origin/main",
+              "Check out a remote branch in a separate folder, detached, to compare with"
+            ],
+            [
+              "git worktree prune",
+              "Tidy up after deleting a folder by hand"
+            ]
+          ],
+          "tip": "A branch can only be checked out in one worktree at a time.",
+          "tags": [
+            "git",
+            "worktree",
+            "parallel",
+            "checkout",
+            "hotfix"
+          ]
+        },
+        {
+          "id": "git-submodule",
+          "desc": "Work with repositories nested inside another repository",
+          "cmd": "git submodule add https://github.com/org/lib.git vendor/lib\ngit submodule update --init --recursive\ngit submodule status",
+          "flags": [
+            [
+              "add URL PATH",
+              "Add a repository as a submodule"
+            ],
+            [
+              "update --init --recursive",
+              "Download the exact commits the parent expects"
+            ],
+            [
+              "update --remote",
+              "Move submodules to the latest commit on their branch"
+            ],
+            [
+              "status",
+              "Show the commit each submodule is on"
+            ]
+          ],
+          "subcommands": [
+            [
+              "git clone --recurse-submodules https://github.com/org/repo.git",
+              "Clone with submodules included"
+            ],
+            [
+              "git submodule foreach 'git status -sb'",
+              "Run a command in every submodule"
+            ]
+          ],
+          "tip": "Empty submodule folders after a clone just mean you need git submodule update --init --recursive.",
+          "tags": [
+            "git",
+            "submodule",
+            "vendor",
+            "nested",
+            "recursive"
+          ]
+        },
+        {
+          "id": "git-hooks",
+          "desc": "Run checks automatically on commit or push",
+          "cmd": "mkdir -p .githooks\ncat > .githooks/pre-commit <<'EOF'\n#!/bin/sh\nif git diff --cached | grep -qE 'BEGIN (RSA|OPENSSH) PRIVATE KEY'; then\n  echo \"Private key in staged changes\" >&2\n  exit 1\nfi\nEOF\nchmod +x .githooks/pre-commit\ngit config core.hooksPath .githooks",
+          "flags": [
+            [
+              "pre-commit",
+              "Runs before a commit. A non-zero exit stops the commit"
+            ],
+            [
+              "commit-msg",
+              "Checks the commit message"
+            ],
+            [
+              "pre-push",
+              "Runs before a push"
+            ],
+            [
+              "core.hooksPath",
+              "Use a tracked folder of hooks rather than .git/hooks"
+            ]
+          ],
+          "subcommands": [
+            [
+              "git commit --no-verify",
+              "Skip the pre-commit and commit-msg hooks once"
+            ],
+            [
+              "ls .git/hooks",
+              "See the sample hooks git installs"
+            ]
+          ],
+          "tip": "Files in .git/hooks aren't cloned, so keep shared hooks in a tracked folder and set core.hooksPath.",
+          "tags": [
+            "git",
+            "hooks",
+            "pre-commit",
+            "automation",
+            "secrets"
+          ]
+        },
+        {
+          "id": "git-lfs-signing",
+          "desc": "Store large binaries with Git LFS and sign commits with an SSH key",
+          "cmd": "# Large files (needs the git-lfs package)\ngit lfs install\ngit lfs track \"*.bin\"\ngit add .gitattributes\n\n# Sign commits with your SSH key\ngit config --global gpg.format ssh\ngit config --global user.signingkey ~/.ssh/id_ed25519.pub\ngit config --global commit.gpgsign true",
+          "flags": [
+            [
+              "git lfs track",
+              "Store matching files in LFS. The rule goes in .gitattributes"
+            ],
+            [
+              "git lfs pull",
+              "Download the real files for the current checkout"
+            ],
+            [
+              "gpg.format ssh",
+              "Sign with an SSH key instead of GPG"
+            ],
+            [
+              "commit.gpgsign true",
+              "Sign every commit"
+            ]
+          ],
+          "subcommands": [
+            [
+              "git lfs ls-files",
+              "List files stored in LFS"
+            ],
+            [
+              "git log --show-signature -1",
+              "Check the signature on the last commit"
+            ]
+          ],
+          "tip": "If firmware files look like tiny text files after a clone, those are LFS pointers. Run git lfs pull.",
+          "tags": [
+            "git",
+            "lfs",
+            "large-files",
+            "signing",
+            "ssh",
+            "gpg",
+            "firmware"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "git-ops",
+      "badge": "ops",
+      "title": "Datacenter & Ops Recipes",
+      "subtitle": "Check deployed copies, move code to air-gapped hosts & fix common errors",
+      "commands": [
+        {
+          "id": "git-check-deployed",
+          "desc": "Check what version of a repository is deployed on a node, without changing it",
+          "cmd": "git -C /opt/tools describe --tags --always --dirty\ngit -C /opt/tools rev-parse HEAD\ngit -C /opt/tools status --short\ngit -C /opt/tools log -1 --format='%h %ad %an %s' --date=iso",
+          "flags": [
+            [
+              "-C PATH",
+              "Run git as if started in PATH, so you don't need to cd"
+            ],
+            [
+              "--dirty",
+              "Adds -dirty to the name if there are local edits"
+            ],
+            [
+              "--short",
+              "One line per changed file. Empty output means a clean copy"
+            ]
+          ],
+          "subcommands": [
+            [
+              "git rev-parse --show-toplevel",
+              "Print the top folder of the repository"
+            ],
+            [
+              "git rev-parse --abbrev-ref HEAD",
+              "Print the current branch name"
+            ],
+            [
+              "for h in node01 node02; do echo \"$h: $(ssh \"$h\" git -C /opt/tools rev-parse --short HEAD)\"; done",
+              "Compare the deployed commit across nodes"
+            ]
+          ],
+          "tip": "These commands only read the repository, so they're safe to run on a node that's running jobs.",
+          "tags": [
+            "git",
+            "deployed",
+            "version",
+            "describe",
+            "rev-parse",
+            "fleet",
+            "drift"
+          ]
+        },
+        {
+          "id": "git-air-gapped",
+          "desc": "Move a repository to a host with no route to the Git server",
+          "cmd": "# On the connected machine\ngit bundle create tools.bundle --all\nsha256sum tools.bundle\nscp tools.bundle jumpbox:/tmp/\n\n# On the isolated host\ngit bundle verify /tmp/tools.bundle\ngit clone /tmp/tools.bundle tools",
+          "flags": [
+            [
+              "git bundle create FILE --all",
+              "Pack every branch and tag into one file"
+            ],
+            [
+              "git bundle verify FILE",
+              "Check that a bundle is complete and valid"
+            ],
+            [
+              "base..HEAD",
+              "Bundle only recent commits instead of everything"
+            ],
+            [
+              "git archive",
+              "Export a plain snapshot with no history"
+            ],
+            [
+              "git format-patch",
+              "Write commits out as patch files"
+            ]
+          ],
+          "subcommands": [
+            [
+              "git bundle create update.bundle main ^v1.2.0",
+              "Bundle main's commits made since a tag"
+            ],
+            [
+              "git fetch /tmp/update.bundle main:refs/remotes/bundle/main",
+              "Fetch from a bundle on the isolated host"
+            ],
+            [
+              "git archive --format=tar.gz --prefix=tools/ -o tools.tar.gz HEAD",
+              "Export the files only"
+            ],
+            [
+              "git format-patch -3 -o patches/",
+              "Save the last 3 commits as patches"
+            ],
+            [
+              "git apply --check patches/0001-fix.patch",
+              "Test whether a patch applies, without changing anything"
+            ],
+            [
+              "git am patches/*.patch",
+              "Apply patches as commits"
+            ]
+          ],
+          "tip": "A git bundle works like a remote, so history and tags survive the trip. Compare the sha256sum at both ends.",
+          "tags": [
+            "git",
+            "bundle",
+            "archive",
+            "air-gapped",
+            "offline",
+            "patch",
+            "format-patch"
+          ]
+        },
+        {
+          "id": "git-network-auth",
+          "desc": "Work behind a proxy or internal CA, and debug connections",
+          "cmd": "# Check that you can reach the remote and authenticate\ngit ls-remote origin HEAD\nssh -T git@github.com\n\n# Show what git is doing on the network\nGIT_TRACE=1 GIT_CURL_VERBOSE=1 git fetch\nGIT_SSH_COMMAND=\"ssh -v\" git fetch",
+          "flags": [
+            [
+              "GIT_TRACE=1",
+              "Print the commands git runs internally"
+            ],
+            [
+              "GIT_CURL_VERBOSE=1",
+              "Print HTTP request details"
+            ],
+            [
+              "GIT_SSH_COMMAND",
+              "Replace the ssh command git uses"
+            ],
+            [
+              "http.proxy",
+              "Send HTTPS traffic through a proxy"
+            ],
+            [
+              "http.sslCAInfo",
+              "Trust an internal certificate authority"
+            ]
+          ],
+          "subcommands": [
+            [
+              "git config --global http.proxy http://proxy.example.com:3128",
+              "Use a proxy"
+            ],
+            [
+              "git config --global --unset http.proxy",
+              "Stop using a proxy"
+            ],
+            [
+              "git config --global http.sslCAInfo /etc/ssl/certs/internal-ca.pem",
+              "Trust an internal CA"
+            ],
+            [
+              "GIT_SSH_COMMAND=\"ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes\" git pull",
+              "Use a specific SSH key once"
+            ],
+            [
+              "git config --global credential.helper 'cache --timeout=3600'",
+              "Keep HTTPS credentials in memory for an hour"
+            ]
+          ],
+          "tip": "GIT_CURL_VERBOSE output can include auth headers, so clean it before pasting it into a ticket.",
+          "tags": [
+            "git",
+            "proxy",
+            "ssl",
+            "ca",
+            "ssh",
+            "trace",
+            "debug",
+            "credentials"
+          ]
+        },
+        {
+          "id": "git-common-errors",
+          "desc": "Fix common error messages",
+          "cmd": "# fatal: detected dubious ownership in repository\ngit config --global --add safe.directory /opt/tools",
+          "flags": [
+            [
+              "dubious ownership",
+              "The folder belongs to another user. Add it to safe.directory, or run git as the owner"
+            ],
+            [
+              "non-fast-forward",
+              "The remote has commits you don't. Run git pull --rebase, then push"
+            ],
+            [
+              "detached HEAD",
+              "You aren't on a branch. Save your work with git switch -c NAME"
+            ],
+            [
+              "Permission denied (publickey)",
+              "Your SSH key isn't loaded or authorised. Test with ssh -T git@github.com"
+            ],
+            [
+              "SSL certificate problem",
+              "Your host doesn't trust the server's CA. Set http.sslCAInfo"
+            ],
+            [
+              "index.lock exists",
+              "Another git process is running, or one crashed. Check before deleting the lock"
+            ],
+            [
+              "refusing to merge unrelated histories",
+              "The two repositories don't share a root commit"
+            ]
+          ],
+          "subcommands": [
+            [
+              "pgrep -a git",
+              "Check for a running git process before touching a lock file"
+            ],
+            [
+              "rm .git/index.lock",
+              "Remove a stale lock once no git process is running"
+            ],
+            [
+              "git switch -c rescue-work",
+              "Keep commits made on a detached HEAD"
+            ],
+            [
+              "git fsck",
+              "Check the repository for corruption"
+            ],
+            [
+              "git count-objects -vH",
+              "Show how much space the repository uses"
+            ],
+            [
+              "git gc",
+              "Compress and clean up the repository"
+            ]
+          ],
+          "tip": "Don't set http.sslVerify false to get past certificate errors. Install the CA instead.",
+          "tags": [
+            "git",
+            "errors",
+            "safe.directory",
+            "dubious-ownership",
+            "detached-head",
+            "index.lock",
+            "troubleshooting"
+          ]
+        },
+        {
+          "id": "git-secret-removal",
+          "desc": "Deal with a password or key that was committed",
+          "cmd": "# 1. Rotate the credential first. It's exposed once pushed.\n# 2. Rewrite history (needs the git-filter-repo package) in a fresh clone\ngit clone --mirror git@github.com:org/repo.git\ncd repo.git\ngit filter-repo --path config/secrets.env --invert-paths\n# 3. git filter-repo removes origin, so add it back, then coordinate the force push\ngit remote add origin git@github.com:org/repo.git\ngit push --force --mirror origin",
+          "flags": [
+            [
+              "--path FILE",
+              "Select a file"
+            ],
+            [
+              "--invert-paths",
+              "Remove the selected paths from every commit"
+            ],
+            [
+              "--replace-text FILE",
+              "Replace strings listed in a file throughout history"
+            ],
+            [
+              "--mirror",
+              "Clone or push every branch and tag exactly"
+            ]
+          ],
+          "subcommands": [
+            [
+              "git log --all --oneline -- config/secrets.env",
+              "See which commits contain the file"
+            ],
+            [
+              "git log --all -p -S'SEARCH_TEXT'",
+              "Find a leaked string anywhere in history"
+            ],
+            [
+              "git filter-repo --replace-text replacements.txt",
+              "Scrub a string everywhere"
+            ]
+          ],
+          "tip": "Rewriting history breaks everyone's clones and doesn't reach copies already made. Rotating the secret is the real fix.",
+          "tags": [
+            "git",
+            "secrets",
+            "filter-repo",
+            "history",
+            "rewrite",
+            "credentials",
+            "leak"
+          ]
+        }
+      ]
+    }
+  ]
+},
+
+  // 14. MARKDOWN
+  {
+  "key": "markdown",
+  "file": "markdown.html",
+  "js": "markdown.js",
+  "varName": "MARKDOWN_CHEAT_SHEET_DATA",
+  "name": "Markdown",
+  "title": "Markdown & GitHub Flavored Markdown",
+  "subtitle": "Headings, lists, links, code blocks, tables, GitHub alerts & ticket templates",
+  "pill": "CommonMark / GFM",
+  "prompt": "#",
+  "cursor": "_",
+  "sections": [
+    {
+      "id": "md-text",
+      "badge": "text",
+      "title": "Headings, Text & Paragraphs",
+      "subtitle": "Headings, emphasis, line breaks, quotes, rules & escaping",
+      "commands": [
+        {
+          "id": "md-headings",
+          "desc": "Headings from level 1 to 6. Put a space after the # marks",
+          "cmd": "# Node gpu-node-07 triage\n## Symptoms\n### GPU 3\n#### Xid 79\n##### Notes\n###### Footnote level",
+          "flags": [
+            [
+              "# Title",
+              "Level 1. Use one per document, as the title"
+            ],
+            [
+              "## Section",
+              "Level 2. GitHub draws a line under levels 1 and 2"
+            ],
+            [
+              "#Title",
+              "No space means plain text in CommonMark, not a heading"
+            ],
+            [
+              "Title\\n=====",
+              "Older underline style for level 1 (--- under the text gives level 2)"
+            ]
+          ],
+          "subcommands": [
+            [
+              "## Step 1: Drain the node {#drain}",
+              "Custom anchor id (Pandoc and some renderers, not GitHub)"
+            ],
+            [
+              "[Jump to Symptoms](#symptoms)",
+              "Link to a heading: lowercase, spaces become -, punctuation removed"
+            ]
+          ],
+          "tip": "Leave a blank line before and after each heading so every renderer sees it.",
+          "tags": [
+            "markdown",
+            "headings",
+            "h1",
+            "h2",
+            "title",
+            "anchor"
+          ]
+        },
+        {
+          "id": "md-emphasis",
+          "desc": "Bold, italic, strikethrough and inline code",
+          "cmd": "**bold**  __also bold__\n*italic*  _also italic_\n***bold and italic***\n~~strikethrough~~\n`inline code`\n<kbd>Ctrl</kbd>+<kbd>C</kbd>",
+          "flags": [
+            [
+              "**text**",
+              "Bold. Prefer ** over __, because _ inside words is ignored"
+            ],
+            [
+              "*text*",
+              "Italic"
+            ],
+            [
+              "~~text~~",
+              "Strikethrough (GitHub, not plain CommonMark)"
+            ],
+            [
+              "`text`",
+              "Inline code. Nothing inside is formatted"
+            ],
+            [
+              "<kbd>Key</kbd>",
+              "Keyboard key style, using HTML that GitHub allows"
+            ]
+          ],
+          "subcommands": [
+            [
+              "``code with a ` backtick``",
+              "Use two backticks to wrap code that contains one"
+            ],
+            [
+              "<sub>2</sub> <sup>TM</sup>",
+              "Subscript and superscript with HTML"
+            ],
+            [
+              "<mark>highlighted</mark>",
+              "Highlight text (rendered on GitHub)"
+            ]
+          ],
+          "tip": "Put serial numbers, BDFs and hostnames in `backticks` so nothing turns them into links or formatting.",
+          "tags": [
+            "markdown",
+            "bold",
+            "italic",
+            "strikethrough",
+            "emphasis",
+            "kbd",
+            "inline-code"
+          ]
+        },
+        {
+          "id": "md-paragraphs",
+          "desc": "Paragraphs, line breaks, block quotes and horizontal rules",
+          "cmd": "First paragraph line one\nstill the same paragraph.\n\nNew paragraph after a blank line.\n\nLine one\\\nLine two (backslash break)\n\n> Quoted text from the vendor\n>\n> > Nested quote\n\n---",
+          "flags": [
+            [
+              "Blank line",
+              "Starts a new paragraph. A single newline joins the lines"
+            ],
+            [
+              "Line\\\\ at end",
+              "A backslash at the end of a line forces a line break"
+            ],
+            [
+              "Two trailing spaces",
+              "Also forces a break, but editors often strip them"
+            ],
+            [
+              "> text",
+              "Block quote. Add more > for nesting"
+            ],
+            [
+              "--- or *** or ___",
+              "Horizontal rule. Put a blank line above ---, or it makes the text above a heading"
+            ]
+          ],
+          "subcommands": [
+            [
+              "<br>",
+              "HTML line break, useful inside table cells"
+            ],
+            [
+              "&nbsp;",
+              "Non-breaking space"
+            ]
+          ],
+          "tip": "Use a backslash line break rather than trailing spaces. You can see it, and editors leave it alone.",
+          "tags": [
+            "markdown",
+            "paragraph",
+            "line-break",
+            "blockquote",
+            "hr",
+            "rule"
+          ]
+        },
+        {
+          "id": "md-escaping",
+          "desc": "Show special characters literally with a backslash",
+          "cmd": "\\*not italic\\*\n\\# not a heading\n1986\\. A great year\nC:\\\\Users\\\\admin\nfile\\_name\\_v2.txt\n\\| pipe inside a table",
+          "flags": [
+            [
+              "\\\\ ` * _ { } [ ] < > ( ) # + - . ! |",
+              "Characters you can escape with a backslash"
+            ],
+            [
+              "1986\\.",
+              "Stops a number followed by a period from starting a list"
+            ],
+            [
+              "&lt; &gt; &amp;",
+              "HTML entities for <, > and &"
+            ]
+          ],
+          "subcommands": [
+            [
+              "`*args`",
+              "Inline code is the easiest escape: everything inside is literal"
+            ],
+            [
+              "<!-- hidden comment -->",
+              "HTML comment, left out of the rendered page"
+            ]
+          ],
+          "tip": "Paths, regexes and globs belong in backticks. Escaping each character one by one is error prone.",
+          "tags": [
+            "markdown",
+            "escape",
+            "backslash",
+            "special-characters",
+            "comment",
+            "entities"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "md-lists",
+      "badge": "lists",
+      "title": "Lists & Task Lists",
+      "subtitle": "Bullets, numbered steps, nesting, checkboxes & content inside list items",
+      "commands": [
+        {
+          "id": "md-bullets",
+          "desc": "Bullet lists and nested lists",
+          "cmd": "- Check SEL\n- Check dmesg\n  - Look for Xid errors\n  - Look for AER errors\n- Check NVLink\n\n* Asterisks work too\n+ So do plus signs",
+          "flags": [
+            [
+              "- item",
+              "Bullet. Use one marker style per list"
+            ],
+            [
+              "  - nested",
+              "Indent to line up with the text of the parent item (2 spaces after -)"
+            ],
+            [
+              "Blank line between items",
+              "Makes a loose list: items are spaced as paragraphs"
+            ]
+          ],
+          "subcommands": [
+            [
+              "- item\\n\\n<!-- end list -->\\n\\n- new list",
+              "A comment ends one list so the next starts fresh"
+            ]
+          ],
+          "tip": "Changing the marker from - to * in the middle starts a new list.",
+          "tags": [
+            "markdown",
+            "lists",
+            "bullets",
+            "unordered",
+            "nested"
+          ]
+        },
+        {
+          "id": "md-numbered",
+          "desc": "Numbered steps, with code and notes inside a step",
+          "cmd": "1. Drain the node in Slurm\n2. Run the health check:\n\n   ```bash\n   dcgmi health -c\n   ```\n\n3. Record the result\n   > Paste the output into the ticket\n\n1. Numbers can all be 1.\n1. The renderer counts for you.",
+          "flags": [
+            [
+              "1. item",
+              "Numbered item. The first number sets the start"
+            ],
+            [
+              "5. item",
+              "A list that starts at 5 renders as 5, 6, 7"
+            ],
+            [
+              "1) item",
+              "A parenthesis also works in CommonMark"
+            ],
+            [
+              "3 spaces of indent",
+              "Lines up content with the text after \"1. \", so it stays inside the step"
+            ]
+          ],
+          "subcommands": [
+            [
+              "1. Step\\n   - sub-bullet",
+              "Bullets inside a numbered step"
+            ],
+            [
+              "10. Step",
+              "Two-digit numbers need 4 spaces of indent for content below"
+            ]
+          ],
+          "tip": "Indent code blocks inside a numbered step, or the numbering restarts at 1 after the block.",
+          "tags": [
+            "markdown",
+            "lists",
+            "numbered",
+            "ordered",
+            "steps",
+            "runbook"
+          ]
+        },
+        {
+          "id": "md-tasks",
+          "desc": "Task lists with checkboxes",
+          "cmd": "- [x] Drain node in Slurm\n- [x] Capture nvidia-smi -q\n- [ ] Reseat GPU 3\n- [ ] Run dcgmi diag -r 3\n  - [ ] Attach results to the RMA",
+          "flags": [
+            [
+              "- [ ] item",
+              "Open checkbox"
+            ],
+            [
+              "- [x] item",
+              "Checked box"
+            ],
+            [
+              "Space inside [ ]",
+              "Required. [] without a space is not a checkbox"
+            ]
+          ],
+          "subcommands": [
+            [
+              "grep -c '\\- \\[ \\]' summary.md",
+              "Count open tasks in a file"
+            ],
+            [
+              "grep -n '\\- \\[ \\]' cases/*/summary.md",
+              "List open tasks across every case"
+            ]
+          ],
+          "tip": "On GitHub issues and PRs you can tick the boxes in the rendered page, and the counts show in issue lists.",
+          "tags": [
+            "markdown",
+            "tasks",
+            "checklist",
+            "checkbox",
+            "todo",
+            "gfm"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "md-links",
+      "badge": "links",
+      "title": "Links & Images",
+      "subtitle": "Inline links, reference links, anchors, autolinks & images",
+      "commands": [
+        {
+          "id": "md-links-inline",
+          "desc": "Inline links, links to headings and links to other files",
+          "cmd": "[NVIDIA Xid docs](https://docs.nvidia.com/deploy/xid-errors/)\n[With a title](https://example.com \"Hover text\")\n[Jump to Root Cause](#root-cause)\n[GPU playbook](../docs/playbooks/gpu-nvlink.md)\n[Line 42](scripts/collect.sh#L42)\n<https://example.com>",
+          "flags": [
+            [
+              "[text](url)",
+              "Inline link"
+            ],
+            [
+              "[text](url \"title\")",
+              "Adds hover text"
+            ],
+            [
+              "[text](#heading-id)",
+              "Link to a heading in the same file"
+            ],
+            [
+              "[text](path/file.md)",
+              "Relative link to another file in the repository"
+            ],
+            [
+              "<url>",
+              "Autolink: shows the URL as a link"
+            ]
+          ],
+          "subcommands": [
+            [
+              "[text](<path with spaces.md>)",
+              "Angle brackets allow spaces in the path"
+            ],
+            [
+              "[text](path%20with%20spaces.md)",
+              "Or encode spaces as %20"
+            ],
+            [
+              "https://example.com",
+              "GitHub links bare URLs; plain CommonMark doesn't"
+            ]
+          ],
+          "tip": "Heading anchors are lowercase with spaces as -, so \"## Root Cause\" becomes #root-cause.",
+          "tags": [
+            "markdown",
+            "links",
+            "url",
+            "anchor",
+            "relative",
+            "autolink"
+          ]
+        },
+        {
+          "id": "md-links-reference",
+          "desc": "Reference links keep long URLs out of your sentences",
+          "cmd": "See the [Xid list][xid] and the [DCGM guide][dcgm].\nThe [RMA portal] is linked below.\n\n[xid]: https://docs.nvidia.com/deploy/xid-errors/\n[dcgm]: https://docs.nvidia.com/datacenter/dcgm/latest/\n[RMA portal]: https://example.com/rma",
+          "flags": [
+            [
+              "[text][label]",
+              "Uses the URL defined for label"
+            ],
+            [
+              "[label]",
+              "Short form when the text and label match"
+            ],
+            [
+              "[label]: url",
+              "Definition. Put these at the bottom; they don't render"
+            ],
+            [
+              "Labels are case-insensitive",
+              "[XID] and [xid] are the same link"
+            ]
+          ],
+          "subcommands": [
+            [
+              "[label]: url \"Title\"",
+              "Definition with hover text"
+            ]
+          ],
+          "tip": "Reference links make tables and lists readable in the raw file.",
+          "tags": [
+            "markdown",
+            "links",
+            "reference",
+            "footnote-style",
+            "url"
+          ]
+        },
+        {
+          "id": "md-images",
+          "desc": "Images, sized images and clickable images",
+          "cmd": "![Rack 12 front view](images/rack12-front.jpg)\n![Link LED amber](images/osfp-led.png \"Cage 4\")\n<img src=\"images/riser.jpg\" alt=\"PCIe riser\" width=\"400\">\n[![Status](badge.svg)](https://example.com/status)",
+          "flags": [
+            [
+              "![alt](path)",
+              "Image. The alt text is shown if the image can't load"
+            ],
+            [
+              "<img width=\"400\">",
+              "Use HTML to set a size"
+            ],
+            [
+              "[![alt](img)](url)",
+              "An image that links somewhere"
+            ]
+          ],
+          "subcommands": [
+            [
+              "![Photo](https://example.com/photo.jpg)",
+              "Remote image"
+            ],
+            [
+              "<picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"dark.png\"><img src=\"light.png\" alt=\"Diagram\"></picture>",
+              "Different images for light and dark themes on GitHub"
+            ]
+          ],
+          "tip": "Keep photos in an images/ folder next to the file and use relative paths, so they work offline and in clones.",
+          "tags": [
+            "markdown",
+            "images",
+            "img",
+            "photos",
+            "alt",
+            "size"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "md-code",
+      "badge": "code",
+      "title": "Code Blocks",
+      "subtitle": "Fenced blocks, syntax highlighting, diffs, log output & nested fences",
+      "commands": [
+        {
+          "id": "md-fenced",
+          "desc": "Fenced code block with a language for highlighting",
+          "cmd": "```bash\nnvidia-smi -q -d ECC\ndcgmi health -c\n```\n\n```json\n{ \"gpu\": 3, \"xid\": 79 }\n```\n\n```text\nPlain output, no highlighting\n```",
+          "flags": [
+            [
+              "```lang",
+              "Opens a block. The language word sets highlighting"
+            ],
+            [
+              "bash sh console",
+              "Shell scripts and terminal sessions"
+            ],
+            [
+              "json yaml toml ini",
+              "Config and data formats"
+            ],
+            [
+              "python lua powershell sql",
+              "Scripting languages"
+            ],
+            [
+              "text or plaintext",
+              "No highlighting, best for raw logs"
+            ]
+          ],
+          "subcommands": [
+            [
+              "~~~bash",
+              "Tildes work as fences too"
+            ],
+            [
+              "    indented code",
+              "Four spaces of indent also make a code block, but with no language"
+            ]
+          ],
+          "tip": "Always add a language, even text. It keeps highlighting predictable and tells readers what they're looking at.",
+          "tags": [
+            "markdown",
+            "code",
+            "fenced",
+            "syntax",
+            "highlighting",
+            "bash"
+          ]
+        },
+        {
+          "id": "md-diff-logs",
+          "desc": "Show changes and log output",
+          "cmd": "```diff\n- MTU=1500\n+ MTU=9000\n```\n\n```console\n$ ibstat mlx5_0 | grep State\n        State: Active\n        Physical state: LinkUp\n```",
+          "flags": [
+            [
+              "```diff",
+              "Lines starting with - are red, + are green"
+            ],
+            [
+              "```console",
+              "Terminal session: the $ prompt line is styled apart from the output"
+            ],
+            [
+              "```log",
+              "Highlights timestamps and levels on some renderers"
+            ]
+          ],
+          "subcommands": [
+            [
+              "git diff > change.diff",
+              "Save a diff to paste into a diff block"
+            ]
+          ],
+          "tip": "Paste raw command output into text or console blocks so wide columns and spacing stay intact.",
+          "tags": [
+            "markdown",
+            "code",
+            "diff",
+            "console",
+            "logs",
+            "output"
+          ]
+        },
+        {
+          "id": "md-nested-fences",
+          "desc": "Show a code block inside a code block",
+          "cmd": "````markdown\nUse this in the ticket:\n\n```bash\nipmitool sel elist\n```\n````",
+          "flags": [
+            [
+              "````",
+              "Four backticks wrap content that contains three"
+            ],
+            [
+              "~~~ around ```",
+              "Or mix tildes and backticks"
+            ]
+          ],
+          "subcommands": [
+            [
+              "<details><summary>Full dmesg</summary>\\n\\n```text\\n...\\n```\\n\\n</details>",
+              "Collapse a long block (see the GitHub section)"
+            ]
+          ],
+          "tip": "The closing fence must use the same character and at least as many as the opening one.",
+          "tags": [
+            "markdown",
+            "code",
+            "nested",
+            "fence",
+            "backticks"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "md-tables",
+      "badge": "tables",
+      "title": "Tables",
+      "subtitle": "Pipe tables, alignment, special characters & building tables from command output",
+      "commands": [
+        {
+          "id": "md-table-basic",
+          "desc": "Table with a header row and column alignment",
+          "cmd": "| GPU | BDF          | Temp | Status   |\n|:----|:-------------|-----:|:--------:|\n| 0   | 0000:18:00.0 |  41C | OK       |\n| 3   | 0000:8a:00.0 |  88C | **HOT**  |",
+          "flags": [
+            [
+              ":---",
+              "Left align"
+            ],
+            [
+              "---:",
+              "Right align, best for numbers"
+            ],
+            [
+              ":---:",
+              "Center"
+            ],
+            [
+              "Header separator row",
+              "Required. Each column needs at least three dashes"
+            ],
+            [
+              "Outer pipes",
+              "Optional, but they make the raw text easier to read"
+            ]
+          ],
+          "subcommands": [
+            [
+              "| a \\| b |",
+              "Escape a pipe inside a cell"
+            ],
+            [
+              "| line one<br>line two |",
+              "Line break inside a cell"
+            ],
+            [
+              "| `code` | **bold** |",
+              "Inline formatting works in cells; lists and code blocks don't"
+            ]
+          ],
+          "tip": "Columns don't need to line up in the raw file. Your editor's formatter or prettier can align them.",
+          "tags": [
+            "markdown",
+            "tables",
+            "alignment",
+            "columns",
+            "gfm"
+          ]
+        },
+        {
+          "id": "md-table-from-cli",
+          "desc": "Turn command output into a Markdown table",
+          "cmd": "nvidia-smi --query-gpu=index,pci.bus_id,temperature.gpu,serial --format=csv,noheader \\\n  | awk -F', ' 'BEGIN { print \"| GPU | BDF | Temp | Serial |\"; print \"|---|---|---:|---|\" }\n               { printf \"| %s | %s | %sC | %s |\\n\", $1, $2, $3, $4 }'",
+          "flags": [
+            [
+              "--format=csv,noheader",
+              "Comma-separated output without a header line"
+            ],
+            [
+              "awk -F', '",
+              "Split fields on a comma and space"
+            ],
+            [
+              "BEGIN { print ... }",
+              "Print the header and separator rows once"
+            ]
+          ],
+          "subcommands": [
+            [
+              "lsblk -o NAME,SIZE,MODEL,SERIAL -dn | awk '{ printf \"| %s | %s | %s | %s |\\n\", $1, $2, $3, $4 }'",
+              "Disk inventory rows"
+            ],
+            [
+              "column -t -s, data.csv",
+              "Align a CSV for a plain text block instead"
+            ],
+            [
+              "pandoc -f csv -t gfm data.csv",
+              "Convert a CSV straight to a Markdown table"
+            ]
+          ],
+          "tip": "Fields that can contain spaces, like model names, should come last or be quoted in the CSV.",
+          "tags": [
+            "markdown",
+            "tables",
+            "awk",
+            "nvidia-smi",
+            "csv",
+            "pandoc",
+            "inventory"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "md-gfm",
+      "badge": "gfm",
+      "title": "GitHub Extensions",
+      "subtitle": "Alerts, collapsible sections, footnotes, mentions, diagrams & math",
+      "commands": [
+        {
+          "id": "md-alerts",
+          "desc": "GitHub alert boxes for notes and warnings",
+          "cmd": "> [!NOTE]\n> GPU 3 was reseated on 2026-11-03.\n\n> [!WARNING]\n> Drain the node before running dcgmi diag -r 3.\n\n> [!CAUTION]\n> nvme format erases the drive.",
+          "flags": [
+            [
+              "[!NOTE]",
+              "Blue: useful background"
+            ],
+            [
+              "[!TIP]",
+              "Green: a better way to do something"
+            ],
+            [
+              "[!IMPORTANT]",
+              "Purple: needed to succeed"
+            ],
+            [
+              "[!WARNING]",
+              "Yellow: needs attention right away"
+            ],
+            [
+              "[!CAUTION]",
+              "Red: risk of data loss or outage"
+            ]
+          ],
+          "subcommands": [
+            [
+              "> **Note:** text",
+              "Fallback that reads well on renderers without alerts"
+            ]
+          ],
+          "tip": "Alerts render on GitHub and some editors. Elsewhere they show as plain block quotes.",
+          "tags": [
+            "markdown",
+            "gfm",
+            "alerts",
+            "callout",
+            "note",
+            "warning",
+            "admonition"
+          ]
+        },
+        {
+          "id": "md-details",
+          "desc": "Collapsible section for long logs",
+          "cmd": "<details>\n<summary>Full nvidia-smi -q output</summary>\n\n```text\n==============NVSMI LOG==============\n...\n```\n\n</details>",
+          "flags": [
+            [
+              "<details>",
+              "Collapsed by default"
+            ],
+            [
+              "<details open>",
+              "Starts expanded"
+            ],
+            [
+              "<summary>",
+              "The clickable title line"
+            ],
+            [
+              "Blank lines inside",
+              "Needed so the Markdown inside renders"
+            ]
+          ],
+          "subcommands": [],
+          "tip": "Keep the key evidence visible and fold the full logs, so reviewers see the cause first.",
+          "tags": [
+            "markdown",
+            "gfm",
+            "details",
+            "summary",
+            "collapse",
+            "html",
+            "logs"
+          ]
+        },
+        {
+          "id": "md-footnotes-mentions",
+          "desc": "Footnotes, mentions and issue references",
+          "cmd": "Row remap failed on GPU 3.[^1]\n\n[^1]: See nvidia-smi -q -d ROW_REMAPPER output in logs/.\n\nFixed in org/repo#42 and abc1234.\nClosing: Fixes #57",
+          "flags": [
+            [
+              "[^1] and [^1]: text",
+              "Footnote marker and its text, listed at the bottom"
+            ],
+            [
+              "#123",
+              "Links an issue or PR in the same repository"
+            ],
+            [
+              "org/repo#123",
+              "Links an issue in another repository"
+            ],
+            [
+              "abc1234",
+              "A commit hash becomes a link"
+            ],
+            [
+              "Fixes #57",
+              "In a PR, closes the issue when merged"
+            ]
+          ],
+          "subcommands": [
+            [
+              "`@name`",
+              "Put a name in backticks to mention it without notifying anyone"
+            ]
+          ],
+          "tip": "On GitHub, a bare @name notifies that person, so only write it when you mean to.",
+          "tags": [
+            "markdown",
+            "gfm",
+            "footnotes",
+            "mentions",
+            "issues",
+            "references"
+          ]
+        },
+        {
+          "id": "md-mermaid-math",
+          "desc": "Diagrams with Mermaid and math with LaTeX",
+          "cmd": "```mermaid\nflowchart LR\n  GPU3[GPU 3] -->|NVLink| NVS[NVSwitch 1]\n  NVS --> GPU5[GPU 5]\n```\n\nInline math: $BW = lanes \\times rate$\n\n$$\nBER = \\frac{errors}{bits}\n$$",
+          "flags": [
+            [
+              "```mermaid",
+              "Flowcharts, sequence diagrams and more, drawn from text"
+            ],
+            [
+              "flowchart LR / TD",
+              "Left-to-right or top-down layout"
+            ],
+            [
+              "A -->|label| B",
+              "Arrow with a label"
+            ],
+            [
+              "$...$ and $$...$$",
+              "Inline and block math on GitHub"
+            ]
+          ],
+          "subcommands": [
+            [
+              "sequenceDiagram",
+              "Mermaid sequence diagram, good for request flows"
+            ]
+          ],
+          "tip": "Mermaid and math need a renderer that supports them. GitHub and Obsidian do; plain viewers show the source.",
+          "tags": [
+            "markdown",
+            "gfm",
+            "mermaid",
+            "diagram",
+            "math",
+            "latex"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "md-templates",
+      "badge": "tmpl",
+      "title": "Ticket & Runbook Templates",
+      "subtitle": "Ready-to-fill case summaries, runbooks and front matter",
+      "commands": [
+        {
+          "id": "md-case-summary",
+          "desc": "Case summary.md skeleton for a hardware incident",
+          "cmd": "# gpu-node-07: GPU 3 Xid 79\n\n| Field    | Value |\n|----------|-------|\n| Ticket   | DC-1234 |\n| Severity | High |\n| Node     | `gpu-node-07` (Rack 12, U20) |\n| Status   | Drained |\n\n## Symptoms\n\n## Timeline\n- 2026-11-03 09:12 Xid 79 on GPU 3\n\n## Evidence\n\n## Root Cause\n\n## Next Actions\n- [ ] Reseat GPU 3\n- [ ] Open RMA",
+          "flags": [
+            [
+              "Title line",
+              "Host and symptom, so the case is clear in a file list"
+            ],
+            [
+              "Field table",
+              "Quick facts at the top for whoever picks up the ticket"
+            ],
+            [
+              "Timeline",
+              "Timestamped entries, newest at the bottom"
+            ],
+            [
+              "Next Actions",
+              "A task list that shows what's still open"
+            ]
+          ],
+          "subcommands": [
+            [
+              "mkdir -p cases/DC-1234/logs && $EDITOR cases/DC-1234/summary.md",
+              "Start a new case folder"
+            ]
+          ],
+          "tip": "Never paste passwords or tokens into a case file. Strip them from captured output first.",
+          "tags": [
+            "markdown",
+            "template",
+            "case",
+            "incident",
+            "summary",
+            "rma",
+            "ticket"
+          ]
+        },
+        {
+          "id": "md-runbook",
+          "desc": "Runbook skeleton with prerequisites, steps and rollback",
+          "cmd": "# Replace a failed NVMe drive\n\n> [!WARNING]\n> Confirm the drive serial before pulling anything.\n\n## Prerequisites\n- Node drained\n- Replacement drive on hand\n\n## Steps\n1. Identify the drive:\n\n   ```bash\n   nvme list\n   ```\n\n2. Light the bay LED.\n3. Swap the drive.\n\n## Verify\n\n## Rollback",
+          "flags": [
+            [
+              "Warning at the top",
+              "Puts the risk where nobody can miss it"
+            ],
+            [
+              "Numbered steps",
+              "Readers can say which step failed"
+            ],
+            [
+              "Verify and Rollback",
+              "How to confirm success and how to back out"
+            ]
+          ],
+          "subcommands": [],
+          "tip": "Write each step as a single action, with its command in a code block indented under it.",
+          "tags": [
+            "markdown",
+            "template",
+            "runbook",
+            "procedure",
+            "sop",
+            "steps"
+          ]
+        },
+        {
+          "id": "md-front-matter",
+          "desc": "YAML front matter for static sites and note apps",
+          "cmd": "---\ntitle: Replace a failed NVMe drive\nauthor: dc-ops\ndate: 2026-11-03\ntags: [nvme, storage, runbook]\n---\n\n# Replace a failed NVMe drive",
+          "flags": [
+            [
+              "--- ... ---",
+              "YAML block. Must be the very first thing in the file"
+            ],
+            [
+              "title, date, tags",
+              "Common fields read by Hugo, Jekyll, MkDocs, Obsidian and Pandoc"
+            ]
+          ],
+          "subcommands": [
+            [
+              "+++ ... +++",
+              "TOML front matter (Hugo)"
+            ]
+          ],
+          "tip": "GitHub shows front matter as a table at the top of the rendered file.",
+          "tags": [
+            "markdown",
+            "front-matter",
+            "yaml",
+            "metadata",
+            "hugo",
+            "jekyll",
+            "obsidian"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "md-tools",
+      "badge": "tools",
+      "title": "Markdown Tools",
+      "subtitle": "Preview in the terminal, lint, format, convert to other formats & build tables of contents",
+      "commands": [
+        {
+          "id": "md-preview",
+          "desc": "Read rendered Markdown in the terminal",
+          "cmd": "glow README.md\nglow -p cases/DC-1234/summary.md\nmdcat README.md",
+          "flags": [
+            [
+              "glow FILE",
+              "Render Markdown with color in the terminal"
+            ],
+            [
+              "glow -p",
+              "Page through long files"
+            ],
+            [
+              "glow -w 100",
+              "Wrap at 100 columns"
+            ],
+            [
+              "mdcat FILE",
+              "Alternative renderer that can show images in some terminals"
+            ]
+          ],
+          "subcommands": [
+            [
+              "glow",
+              "Browse every Markdown file in the current folder"
+            ],
+            [
+              "pandoc README.md | lynx -stdin",
+              "Fallback with tools found on most servers"
+            ]
+          ],
+          "tip": "Neovim users can install render-markdown.nvim to see headings and tables styled while editing.",
+          "tags": [
+            "markdown",
+            "glow",
+            "mdcat",
+            "preview",
+            "terminal",
+            "render"
+          ]
+        },
+        {
+          "id": "md-lint-format",
+          "desc": "Check and format Markdown files",
+          "cmd": "markdownlint-cli2 \"**/*.md\"\nmarkdownlint-cli2 --fix \"docs/**/*.md\"\nprettier --write \"**/*.md\"",
+          "flags": [
+            [
+              "markdownlint-cli2 GLOB",
+              "Report problems such as skipped heading levels and bad list indents"
+            ],
+            [
+              "--fix",
+              "Fix the problems it can"
+            ],
+            [
+              ".markdownlint.jsonc",
+              "Turn rules on or off, for example { \"MD013\": false } to allow long lines"
+            ],
+            [
+              "prettier --write",
+              "Reformat files: aligns tables and normalizes list markers"
+            ]
+          ],
+          "subcommands": [
+            [
+              "prettier --check \"**/*.md\"",
+              "Fail in CI if files need formatting"
+            ],
+            [
+              "npx markdown-link-check README.md",
+              "Find broken links"
+            ]
+          ],
+          "tip": "MD013 (line length) is the rule most teams turn off first.",
+          "tags": [
+            "markdown",
+            "lint",
+            "markdownlint",
+            "prettier",
+            "format",
+            "ci"
+          ]
+        },
+        {
+          "id": "md-pandoc",
+          "desc": "Convert Markdown to HTML, Word or PDF with Pandoc",
+          "cmd": "pandoc summary.md -o summary.html --standalone\npandoc summary.md -o summary.docx\npandoc summary.md -o summary.pdf\npandoc report.docx -t gfm -o report.md",
+          "flags": [
+            [
+              "-o FILE",
+              "Output file. The extension sets the format"
+            ],
+            [
+              "--standalone / -s",
+              "Full HTML page with head and body"
+            ],
+            [
+              "-t gfm",
+              "Write GitHub Flavored Markdown"
+            ],
+            [
+              "--toc",
+              "Add a table of contents"
+            ],
+            [
+              "--metadata title=\"...\"",
+              "Set the document title"
+            ]
+          ],
+          "subcommands": [
+            [
+              "pandoc -s --embed-resources summary.md -o summary.html",
+              "Single HTML file with images built in"
+            ],
+            [
+              "pandoc page.html -t gfm -o page.md",
+              "Convert a web page or wiki export to Markdown"
+            ],
+            [
+              "pandoc summary.md -t jira",
+              "Convert to Jira wiki markup for older Jira editors"
+            ]
+          ],
+          "tip": "PDF output needs a LaTeX engine. On Ubuntu, install texlive-latex-recommended, or write HTML and print it to PDF.",
+          "tags": [
+            "markdown",
+            "pandoc",
+            "convert",
+            "html",
+            "docx",
+            "pdf",
+            "jira"
+          ]
+        },
+        {
+          "id": "md-toc-grep",
+          "desc": "List headings and build a table of contents",
+          "cmd": "grep -n '^#\\{1,6\\} ' README.md\ngrep -h '^## ' docs/playbooks/*.md\npandoc -s --toc README.md -o README.html",
+          "flags": [
+            [
+              "grep -n '^#\\{1,6\\} '",
+              "Every heading with its line number"
+            ],
+            [
+              "--toc --toc-depth=2",
+              "Pandoc table of contents down to level 2"
+            ]
+          ],
+          "subcommands": [
+            [
+              "grep '^## ' README.md | sed -E 's/^## (.*)/- [\\1](#\\1)/'",
+              "Rough TOC list to paste (fix the anchors to lowercase-with-dashes)"
+            ],
+            [
+              "npx markdown-toc -i README.md",
+              "Insert a TOC between <!-- toc --> markers"
+            ]
+          ],
+          "tip": "GitHub builds a TOC for you: use the outline button at the top of any rendered Markdown file.",
+          "tags": [
+            "markdown",
+            "toc",
+            "headings",
+            "grep",
+            "pandoc",
+            "outline"
+          ]
+        }
+      ]
+    }
+  ]
+}
 ];
 
-console.log('Generating 11 individual scripting cheat sheet files with complete learner foundations...');
+console.log('Generating 14 individual scripting cheat sheet files with complete learner foundations...');
 
 // Dropdown snippet with All-in-One Hub + 11 individual languages
 const SCRIPTING_DROPDOWN_HTML = `
@@ -1139,15 +4702,15 @@ const SCRIPTING_DROPDOWN_HTML = `
                   <a href="powershell.html" class="dropdown-item" role="menuitem">💻 PowerShell</a>
                   <a href="lua.html" class="dropdown-item" role="menuitem">🌙 Lua</a>
                   <div class="dropdown-divider"></div>
-                  <a href="git.html" class="dropdown-item" role="menuitem">🌿 Git</a>
-                  <div class="dropdown-divider"></div>
-                  <a href="json.html" class="dropdown-item" role="menuitem">📋 JSON &amp; jq</a>
+                                    <a href="json.html" class="dropdown-item" role="menuitem">📋 JSON &amp; jq</a>
                   <a href="yaml.html" class="dropdown-item" role="menuitem">📄 YAML &amp; yq</a>
                   <a href="toml.html" class="dropdown-item" role="menuitem">⚙️ TOML</a>
                   <div class="dropdown-divider"></div>
                   <a href="regex.html" class="dropdown-item" role="menuitem">🔤 Regex</a>
                   <a href="awk-sed.html" class="dropdown-item" role="menuitem">✂️ AWK &amp; Sed</a>
                   <a href="sql.html" class="dropdown-item" role="menuitem">🗄️ SQL &amp; SQLite</a>
+                  <a href="git.html" class="dropdown-item" role="menuitem">🌿 Git</a>
+                  <a href="markdown.html" class="dropdown-item" role="menuitem">📝 Markdown</a>
                 </div>
               </div>`;
 
@@ -1748,19 +5311,21 @@ function generateHtmlFile(lang) {
   </div>
 
   <script src="global-search-index.js"></script>
+  <script src="manuals-data.js"></script>
+  <script src="manuals-ui.js"></script>
   <script src="common.js"></script>
   <script src="${lang.js}"></script>
 </body>
 </html>`;
 }
 
-// Write all 11 JS and HTML files
+// Write all 14 JS and HTML files
 for (const lang of SCRIPTING_LANGUAGES) {
   const jsPath = path.join(__dirname, lang.js);
   const htmlPath = path.join(__dirname, lang.file);
   fs.writeFileSync(jsPath, generateJsFile(lang), 'utf8');
-  fs.writeFileSync(htmlPath, generateHtmlFile(lang), 'utf8');
+  if (!fs.existsSync(htmlPath)) fs.writeFileSync(htmlPath, generateHtmlFile(lang), 'utf8');
   console.log(`Created ${lang.file} and ${lang.js}`);
 }
 
-console.log('All 11 scripting language sheets generated successfully.');
+console.log('All 14 scripting language sheets generated successfully.');

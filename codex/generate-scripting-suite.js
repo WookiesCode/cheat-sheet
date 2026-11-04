@@ -1439,6 +1439,7 @@ const SCRIPTING_DROPDOWN_HTML = `
                   <a href="bash.html" class="dropdown-item" role="menuitem">🐚 Bash &amp; Shell</a>
                   <a href="git.html" class="dropdown-item" role="menuitem">🌿 Git Commands</a>
                   <a href="lua.html" class="dropdown-item" role="menuitem">🌙 Lua Scripting</a>
+                  <a href="markdown.html" class="dropdown-item" role="menuitem">📝 Markdown</a>
                   <a href="python.html" class="dropdown-item" role="menuitem">🐍 Python</a>
                   <a href="javascript.html" class="dropdown-item" role="menuitem">⚡ JavaScript</a>
                   <a href="typescript.html" class="dropdown-item" role="menuitem">🔷 TypeScript</a>

@@ -9,6 +9,7 @@ const SHEETS_CONFIG = [
   { key: 'linux', file: 'index.html', js: 'app.js', name: 'Linux', varName: 'CHEAT_SHEET_DATA', prompt: '$', cursor: '_', title: 'Ubuntu Linux Reference', subtitle: 'Interactive command cheat sheet, flag breakdown & pipe recipes', pill: 'Ubuntu / APT / systemd' },
   { key: 'cli-tools', file: 'cli-tools.html', js: 'cli-tools.js', name: 'CLI Tools', varName: 'CLI_TOOLS_DATA', prompt: 'CLI', cursor: '>', title: 'Modern CLI Tools Reference', subtitle: 'ripgrep, bat, fzf, fd, eza, zoxide, jq, dust, btop, delta, gum & modern shell utilities', pill: 'Rust / Go / Modern TUI' },
   { key: 'scripting', file: 'scripting.html', js: 'scripting.js', name: 'Scripting', varName: 'SCRIPTING_DATA', prompt: '#!/', cursor: '>', title: 'Scripting & Formats Reference', subtitle: 'Bash, Python 3.10+, JavaScript, TypeScript, PowerShell, JSON, YAML, TOML, Regex, AWK & SQLite', pill: 'Polyglot / Dev & Sysadmin' },
+  { key: 'markdown', file: 'markdown.html', js: 'markdown.js', name: 'Markdown', varName: 'MARKDOWN_DATA', prompt: 'MD', cursor: '#', title: 'Markdown Reference', subtitle: 'CommonMark syntax, lists, links, code blocks, tables & GitHub extensions', pill: 'CommonMark / GFM' },
   { key: 'neovim', file: 'neovim.html', js: 'neovim.js', name: 'Neovim', varName: 'NEOVIM_CHEAT_SHEET_DATA', prompt: 'NV', cursor: ':', title: 'Neovim (NVIM) Reference', subtitle: 'Motions, operators, text objects, visual mode, windows, buffers, macros & Lua config', pill: 'v0.10+ / Lua / LSP' },
   { key: 'macos', file: 'macos.html', js: 'macos.js', name: 'macOS', varName: 'MACOS_CHEAT_SHEET_DATA', prompt: 'mac', cursor: '%', title: 'macOS Terminal & Sysadmin', subtitle: 'Zsh, launchctl, brew, diskutil, networksetup, defaults, dtrace, security & Apple Silicon', pill: 'Darwin / Apple Silicon / Zsh' },
   { key: 'windows', file: 'windows.html', js: 'windows.js', name: 'Windows', varName: 'WINDOWS_CHEAT_SHEET_DATA', prompt: 'C:\\>', cursor: '_', title: 'Windows Admin & Sysadmin', subtitle: 'PowerShell, WMI/CIM, winget, dism, sc.exe, netsh, WSL2, BitLocker & Active Directory', pill: 'Windows 11 / Server' },
@@ -419,7 +420,7 @@ ${manualsUiJs}
     document.getElementById('brand-pill').textContent = cfg.pill;
 
     // Update Nav links & dropdown items
-    const scriptingKeys = ['scripting', 'bash', 'git', 'lua', 'python', 'javascript', 'typescript', 'powershell', 'json', 'yaml', 'toml', 'regex', 'awk-sed', 'sql'];
+    const scriptingKeys = ['scripting', 'bash', 'git', 'lua', 'python', 'javascript', 'typescript', 'powershell', 'markdown', 'json', 'yaml', 'toml', 'regex', 'awk-sed', 'sql'];
     const dropdownToggle = document.querySelector('#portable-sheet-nav .dropdown-toggle');
     if (dropdownToggle) {
       if (scriptingKeys.includes(sheetKey)) {
