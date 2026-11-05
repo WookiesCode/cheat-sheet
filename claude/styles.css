@@ -7163,3 +7163,19 @@ body.con-live .con-run:hover { background: var(--accent-green); color: var(--bg-
 .bookmark-btn.bookmarked { color: var(--accent-amber); }
 .bookmark-btn:active { transform: scale(0.9); }
 @media print { .bookmark-btn { display: none !important; } }
+
+/* Alternatives in one command box: each one is its own copy target */
+.anat-line[data-alt] { border-radius: 4px; cursor: copy; transition: background 0.12s; }
+.anat-line[data-alt]:hover { background: color-mix(in srgb, var(--accent-primary) 12%, transparent); }
+.cmd-code-box[data-alts]:not([data-alts="1"]) { cursor: copy; }
+.alt-copied { animation: alt-copied 0.6s ease-out; }
+@keyframes alt-copied { 0% { background: color-mix(in srgb, var(--accent-green) 30%, transparent); } 100% { background: transparent; } }
+@media (prefers-reduced-motion: reduce) { .alt-copied { animation: none; } }
+
+/* Pills and health-card lines that are whole commands copy on click */
+.flag-pill.pill-cmd { cursor: copy; border-color: color-mix(in srgb, var(--accent-green) 35%, var(--border-subtle)); }
+.flag-pill.pill-cmd:hover, .flag-pill.pill-cmd:focus-visible { border-color: var(--accent-green); background: color-mix(in srgb, var(--accent-green) 8%, var(--bg-elevated)); outline: none; }
+.flag-pill.pill-cmd > code::after, .flag-pill.pill-cmd > .flag-token::after { content: ' ⧉'; font-size: 0.85em; color: var(--accent-green); opacity: 0.7; }
+.hx-cmd code { cursor: copy; }
+.hx-cmd code:hover { color: var(--accent-green); }
+summary code { cursor: copy; }

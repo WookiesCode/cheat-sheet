@@ -376,11 +376,16 @@
     return new Promise((resolve, reject) => {
       const area = document.createElement('textarea');
       area.value = text;
-      area.style.cssText = 'position:fixed;opacity:0';
+      area.setAttribute('readonly', '');
+      area.style.cssText = 'position:fixed;top:0;left:0;opacity:0;pointer-events:none';
+      const prev = document.activeElement;
       document.body.appendChild(area);
+      area.focus();
       area.select();
-      const ok = document.execCommand('copy');
+      let ok = false;
+      try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
       area.remove();
+      if (prev && prev.focus) { try { prev.focus({ preventScroll: true }); } catch (e) {} }
       ok ? resolve() : reject(new Error('copy failed'));
     });
   }
@@ -391,27 +396,90 @@
     } catch (e) {}
   }
 
+
+  // -------------------------------------------------------------
+  // COPY DIAGNOSTICS (?diag=1 in the address)
+  // For "clicking a command copies nothing" reports that cannot be reproduced:
+  // a corner panel logs what each click landed on (the element on top at that
+  // point, to catch an invisible layer), every copy attempt with its text, and
+  // whether the browser accepted or refused it (and why).
+  // -------------------------------------------------------------
+  const DIAG = /[?&]diag=1\b/.test(location.search) || /[#&]diag=1\b/.test(location.hash);
+  let diagEl = null;
+  function diag(line, kind) {
+    if (!DIAG) return;
+    if (!diagEl) {
+      diagEl = document.createElement('div');
+      diagEl.id = 'copy-diag';
+      diagEl.style.cssText = 'position:fixed;left:8px;bottom:8px;z-index:2147483647;width:min(560px,calc(100vw - 16px));max-height:46vh;overflow:auto;padding:8px 10px;border-radius:10px;font:12px/1.45 ui-monospace,monospace;color:#e6edf3;background:rgba(8,11,16,.94);border:1px solid #f87171;box-shadow:0 10px 30px rgba(0,0,0,.5);pointer-events:auto;white-space:pre-wrap;word-break:break-word';
+      (document.body || document.documentElement).appendChild(diagEl);
+      const src = [...document.scripts].map(x => x.src).find(x => /common\.js/.test(x)) || '(inline / offline file)';
+      diagEl.textContent = `COPY DIAGNOSTICS  ·  ${new Date().toLocaleTimeString()}\nurl: ${location.href}\ncommon.js: ${src.split('/').pop()}\nsecure context: ${window.isSecureContext}  ·  clipboard API: ${!!(navigator.clipboard && navigator.clipboard.writeText)}  ·  focused: ${document.hasFocus()}\nbrowser: ${navigator.userAgent.replace(/^Mozilla\/5\.0 /, '').slice(0, 150)}\n— click a command, then send me this panel —\n`;
+    }
+    const row = document.createElement('div');
+    row.style.color = kind === 'bad' ? '#f87171' : kind === 'ok' ? '#4ade80' : kind === 'dim' ? '#9aa7b8' : '#e6edf3';
+    row.textContent = `${new Date().toLocaleTimeString()}  ${line}`;
+    diagEl.appendChild(row);
+    diagEl.scrollTop = diagEl.scrollHeight;
+  }
+  if (DIAG) {
+    const describe = (el) => { if (!(el instanceof Element)) return String(el); const c = typeof el.className === 'string' && el.className.trim() ? '.' + el.className.trim().split(/\s+/).slice(0, 2).join('.') : ''; return `${el.tagName.toLowerCase()}${el.id ? '#' + el.id : ''}${c}`; };
+    const start = () => diag('diagnostics on', 'dim');
+    if (document.body) start(); else document.addEventListener('DOMContentLoaded', start);
+    window.addEventListener('pointerdown', (e) => {
+      if (e.target instanceof Element && e.target.closest('#copy-diag')) return;
+      const top = document.elementFromPoint(e.clientX, e.clientY);
+      const box = e.target instanceof Element && e.target.closest('.cmd-code-box, .subcmd-row, .flag-pill, .hx-cmd');
+      diag(`press on ${describe(e.target)}${top && top !== e.target ? `  (top element: ${describe(top)})` : ''}${box ? `  ·  inside ${describe(box)}` : '  ·  NOT inside a command'}`);
+    }, true);
+    window.addEventListener('click', (e) => { if (!(e.target instanceof Element && e.target.closest('#copy-diag'))) diag(`click reached the page (${describe(e.target)})`, 'dim'); }, true);
+    window.addEventListener('error', (e) => diag(`JS ERROR: ${e.message} @ ${String(e.filename).split('/').pop()}:${e.lineno}`, 'bad'));
+    window.addEventListener('unhandledrejection', (e) => diag(`UNHANDLED: ${e.reason && (e.reason.name + ': ' + e.reason.message)}`, 'bad'));
+    document.addEventListener('copy', () => diag('browser "copy" event fired', 'dim'));
+  }
+
   // Scripts and tickets must reach the clipboard exactly as written.
   let copyVerbatim = legacyCopy;
 
   if (navigator.clipboard && navigator.clipboard.writeText) {
-    const originalWriteText = navigator.clipboard.writeText.bind(navigator.clipboard);
-    copyVerbatim = originalWriteText;
+    const apiWriteText = navigator.clipboard.writeText.bind(navigator.clipboard);
+    // Every copy on the site ends here. The clipboard write must happen even if
+    // Fleet, Rack Targets or the Case Trail trip over saved data, and a refused
+    // Clipboard API (focus, permissions, some Wayland setups) falls back to
+    // execCommand; only when both fail does the user see "Copy failed".
+    const writeOut = (t) => {
+      diag(`copy attempt (Clipboard API): ${JSON.stringify(String(t).slice(0, 70))}`);
+      let pr;
+      try { pr = apiWriteText(t); } catch (err) { pr = Promise.reject(err); }
+      return pr.then(() => { diag('  → Clipboard API: accepted', 'ok'); }, err => {
+        diag(`  → Clipboard API REFUSED: ${err && (err.name + ': ' + err.message)}  · trying execCommand`, 'bad');
+        console.warn('[cheat-sheet] Clipboard API refused, trying execCommand:', err);
+        return legacyCopy(t).then(() => diag('  → execCommand copy: accepted', 'ok'), e2 => { diag(`  → execCommand copy FAILED: ${e2 && e2.message}`, 'bad'); throw e2; });
+      }).catch(err => {
+        console.error('[cheat-sheet] copy failed:', err);
+        showGlobalToast('Copy failed: select the text and press Ctrl+C. (Details in the browser console.)');
+        throw err;
+      });
+    };
+    const step = (name, fn, fallback) => { try { return fn(); } catch (err) { console.error(`[cheat-sheet] copy step "${name}" failed:`, err); return fallback; } };
+    copyVerbatim = writeOut;
     navigator.clipboard.writeText = function(text) {
-      const fleet = fleetWrap(text);
+      text = String(text ?? '');
+      const fleet = step('fleet', () => fleetWrap(text), null);
       if (fleet) {
         setTimeout(() => showGlobalToast(fleet.note), 160);
-        recordTrail(text);
-        return originalWriteText(fleet.text);
+        step('trail', () => recordTrail(text));
+        return writeOut(fleet.text);
       }
-      const { text: newText, substituted, hasSecret } = substituteVariables(text);
-      if (hasSecret) {
+      const sub = step('targets', () => substituteVariables(text), { text, substituted: false, hasSecret: false });
+      const newText = sub.text;
+      if (sub.hasSecret) {
         showGlobalToast('Substituted target variables, including the password. Clear your clipboard after use.');
-      } else if (substituted) {
+      } else if (sub.substituted) {
         showGlobalToast(`Substituted target variables! Copied: ${newText.length > 50 ? newText.slice(0, 50) + '…' : newText}`);
       }
-      recordTrail(text);
-      return originalWriteText(newText);
+      step('trail', () => recordTrail(text));
+      return writeOut(newText);
     };
   }
 
@@ -4464,7 +4532,20 @@ ${rmaTrailSection()}#### Action Requested:
     if (manualsFocus && manualsFocus.focus) manualsFocus.focus();
   }
 
+  // Never re-pack while a mouse button is down: moving the pressed card between
+  // columns detaches it and the browser drops the click. Wait for the click to finish.
+  let pointerIsDown = false, repackPending = false;
+  window.addEventListener('pointerdown', () => { pointerIsDown = true; }, true);
+  const pointerReleased = () => {
+    if (!pointerIsDown) return;
+    pointerIsDown = false;
+    if (repackPending) { repackPending = false; setTimeout(repack, 0); }   // after the click event
+  };
+  window.addEventListener('pointerup', pointerReleased, true);
+  window.addEventListener('pointercancel', pointerReleased, true);
+  window.addEventListener('blur', pointerReleased);
   function repack() {
+    if (pointerIsDown) { repackPending = true; return; }
     if (typeof window.packMasonry === 'function') window.packMasonry();
   }
 
@@ -7385,37 +7466,45 @@ ${rmaTrailSection()}#### Action Requested:
   }
 
   // Check URL hash on page load
+  // One failing start-up step must not take the rest down with it (the copy
+  // handlers came last, so any earlier error left commands uncopyable).
+  function safeInit(name, fn) {
+    try { fn(); } catch (err) { console.error(`[cheat-sheet] ${name} failed:`, err); }
+  }
+
   window.addEventListener('DOMContentLoaded', () => {
-    syncActiveNav();
-    setupNavDropdown();
-    setupFullscreenObserver();
-    injectHeaderControls();
-    renderTargetVarsBar();
-    initReferenceEntries();
-    initCleanCards();
-    initCommandAnatomy();
+    safeInit('syncActiveNav', () => syncActiveNav());
+    safeInit('setupNavDropdown', () => setupNavDropdown());
+    safeInit('setupFullscreenObserver', () => setupFullscreenObserver());
+    safeInit('injectHeaderControls', () => injectHeaderControls());
+    safeInit('renderTargetVarsBar', () => renderTargetVarsBar());
+    safeInit('initReferenceEntries', () => initReferenceEntries());
+    safeInit('initCleanCards', () => initCleanCards());
+    safeInit('initCommandAnatomy', () => initCommandAnatomy());
+    safeInit('initAlternatives', () => initAlternatives());
+    safeInit('initCommandPills', () => initCommandPills());
     // The portable build runs each sheet's interactive widgets in an about:srcdoc frame
     // with its own copy of this file; page chrome belongs to the outer page only.
     if (!IN_WIDGET_FRAME) {
-      retireSheetFilters();
-      initCaseTrail();
-      initKit();
-      initConsole();
-      initLiveSheets();
-      initFleet();
-      initPhone();
-      initToolbar();
-      initCompactHeader();
-      initFieldDock();
-      initCommandBar();
-      initLaunchpad();
-      initSuiteNav();
-      initKeyboardMode();
-      initBer();
-      initHealthAtlas();
-      initSheetLayout();
-      initTourInvite();
-      recordVisit(anatSheetFile || window.location.pathname.split('/').pop() || 'index.html');
+      safeInit('retireSheetFilters', () => retireSheetFilters());
+      safeInit('initCaseTrail', () => initCaseTrail());
+      safeInit('initKit', () => initKit());
+      safeInit('initConsole', () => initConsole());
+      safeInit('initLiveSheets', () => initLiveSheets());
+      safeInit('initFleet', () => initFleet());
+      safeInit('initPhone', () => initPhone());
+      safeInit('initToolbar', () => initToolbar());
+      safeInit('initCompactHeader', () => initCompactHeader());
+      safeInit('initFieldDock', () => initFieldDock());
+      safeInit('initCommandBar', () => initCommandBar());
+      safeInit('initLaunchpad', () => initLaunchpad());
+      safeInit('initSuiteNav', () => initSuiteNav());
+      safeInit('initKeyboardMode', () => initKeyboardMode());
+      safeInit('initBer', () => initBer());
+      safeInit('initHealthAtlas', () => initHealthAtlas());
+      safeInit('initSheetLayout', () => initSheetLayout());
+      safeInit('initTourInvite', () => initTourInvite());
+      safeInit('recordVisit', () => recordVisit(anatSheetFile || window.location.pathname.split('/').pop() || 'index.html'));
     }
     if (window.location.hash) {
       setTimeout(() => scrollToCard(window.location.hash), 150);
@@ -9488,16 +9577,16 @@ ${rmaTrailSection()}#### Action Requested:
       const stages = anatSplit(alt);
       const breakUp = alt.length > ANAT_BREAK_AT && stages.length > 1;
       if (breakUp) {
-        stages.forEach((st, si) => lines.push({ op: si === 0 ? (ai ? 'or' : '') : st.op, html: anatStageHtml(st.text, map) }));
+        stages.forEach((st, si) => lines.push({ op: si === 0 ? (ai ? 'or' : '') : st.op, html: anatStageHtml(st.text, map), alt }));
       } else {
         const html = stages.map((st, si) => (si ? `<span class="anat-op-inline">${escapeHtml(st.op)}</span> ` : '') + anatStageHtml(st.text, map)).join(' ');
-        lines.push({ op: ai ? 'or' : '', html });
+        lines.push({ op: ai ? 'or' : '', html, alt });
       }
     });
     const gutter = lines.some(l => l.op);
     const danger = DANGER_RE.test(raw);
     const inner = (danger ? '<span class="danger-tag" aria-label="Changes state">⚠ Changes state · drain &amp; get approval first</span>' : '')
-      + lines.map(l => `<span class="anat-line">${gutter ? `<span class="anat-op">${escapeHtml(l.op)}</span>` : ''}<span class="anat-body">${l.html}</span></span>`).join('');
+      + lines.map(l => `<span class="anat-line"${alternatives.length > 1 ? ` data-alt="${escapeHtml(l.alt)}" title="Click to copy this alternative"` : ''}>${gutter ? `<span class="anat-op">${escapeHtml(l.op)}</span>` : ''}<span class="anat-body">${l.html}</span></span>`).join('');
     if (danger) box.classList.add('anat-danger');
     const target = codeEl.tagName === 'PRE' ? codeEl : codeEl;
     target.innerHTML = codeEl.tagName === 'PRE' ? `<code>${inner}</code>` : inner;
@@ -9565,13 +9654,168 @@ ${rmaTrailSection()}#### Action Requested:
     window.addEventListener('storage', (e) => { if (e.key === SLOT_STORE_KEY || e.key === 'dc_target_vars') refreshSlots(); });
   }
 
+
+  // -------------------------------------------------------------
+  // ALTERNATIVES: EACH ONE COPIES ITSELF
+  // 324 commands on 68 sheets show alternatives in one box, separated by
+  // "   |   " (ethtool -m eth0 | ethtool --show-fec eth0 | ethtool -S eth0),
+  // but every sheet copied only the first, whichever part was clicked, and the
+  // vendor-labelled ones copied the label too ("Arista: show int …"). Now the
+  // alternative under the pointer is copied, without its label. Stacked
+  // (anatomy) boxes mark each line with data-alt; flat boxes are mapped from
+  // the click position, so their look does not change.
+  // -------------------------------------------------------------
+  const ALT_SPLIT = /\s{2,}\|\s{2,}/g;
+  const ALT_LABEL = /^[A-Z][A-Za-z0-9 .\/()+-]{0,22}:\s+(?=\S)/;
+  const altClean = (a) => String(a || '').trim().replace(ALT_LABEL, '').replace(/\s+\|\s*$/, '').trim();
+  function altSegments(text) {
+    const segs = []; let last = 0, m;
+    ALT_SPLIT.lastIndex = 0;
+    while ((m = ALT_SPLIT.exec(text))) { segs.push({ from: last, to: m.index, text: text.slice(last, m.index) }); last = m.index + m[0].length; }
+    segs.push({ from: last, to: text.length, text: text.slice(last) });
+    return segs.filter(x => x.text.trim());
+  }
+  function altClickOffset(code, e) {
+    let range = null;
+    if (document.caretRangeFromPoint) range = document.caretRangeFromPoint(e.clientX, e.clientY);
+    else if (document.caretPositionFromPoint) { const pos = document.caretPositionFromPoint(e.clientX, e.clientY); if (pos) { range = document.createRange(); range.setStart(pos.offsetNode, pos.offset); } }
+    if (!range || !code.contains(range.startContainer)) return -1;
+    const pre = document.createRange();
+    pre.selectNodeContents(code);
+    pre.setEnd(range.startContainer, range.startOffset);
+    return pre.toString().length;
+  }
+  function initAlternatives() {
+    // Tell people each part is its own command.
+    const tag = () => document.querySelectorAll('.cmd-code-box:not(.is-reference):not([data-alts])').forEach(box => {
+      const code = box.querySelector('.cmd-code') || box;
+      const n = box.querySelectorAll('[data-alt]').length ? new Set([...box.querySelectorAll('[data-alt]')].map(x => x.dataset.alt)).size : altSegments(code.textContent).length;
+      box.dataset.alts = String(n);
+      if (n > 1) box.title = `${n} alternatives: click the one you want to copy`;
+    });
+    tag();
+    let queued = false;
+    new MutationObserver(() => { if (queued) return; queued = true; requestAnimationFrame(() => { queued = false; tag(); }); }).observe(document.body, { childList: true, subtree: true });
+  }
+
+
+  // -------------------------------------------------------------
+  // COMMANDS OUTSIDE THE COMMAND BOX
+  // Two more places showed runnable commands that could not be copied:
+  // • flag pills whose label is a whole command (ethtool -m <iface>,
+  //   sfputil reset Ethernet0, mlxlink -d <dev> -p 1 --show_module), and
+  // • the command line of the "What healthy looks like" cards (only their
+  //   small Copy button worked).
+  // A pill counts as a command when its first word is a command used in a
+  // copyable box somewhere on the site (ethtool, sfputil, mlxlink, show, …),
+  // so plain flags (--show-fec, -m, pcie.link.width.current) stay as notes.
+  // -------------------------------------------------------------
+  let cmdWords = null;
+  function commandWords() {
+    if (cmdWords) return cmdWords;
+    cmdWords = new Set();
+    (window.GLOBAL_SEARCH_INDEX || []).forEach(i => {
+      if (i.noCopy) return;
+      String(i.cmd || '').split(/\s{2,}\|\s{2,}/).forEach(alt => {
+        const w = altClean(alt).replace(/^sudo\s+/, '').split(/\s+/)[0];
+        if (w && /^[a-z][\w.+-]*$/i.test(w) && w.length > 1) cmdWords.add(w.toLowerCase());
+      });
+    });
+    return cmdWords;
+  }
+  // Language keywords and words that start notes, not commands.
+  const PILL_NOT_COMMANDS = /^(for|if|then|else|elif|fi|while|until|do|done|case|esac|in|def|class|const|let|var|async|await|function|return|local|declare|readonly|export|BEGIN|END|import|from|set|unset|text|status|update|configuration|interface|type|field|select|with|try|catch)$/i;
+  function pillCommand(pill) {
+    const key = pill.querySelector(':scope > code, :scope > .flag-token, :scope > strong, :scope > b');
+    if (!key) return null;
+    const t = key.textContent.trim();
+    if (!/\s/.test(t) || /^[-+.]/.test(t)) return null;
+    if (/\s\+\s|[⌘⌥⌃⇧]|\(\w+\)\s*$|\.\.\.|…|^\w+:/.test(t)) return null;   // key combos, alias notes, placeholders-only
+    const word = t.replace(/^sudo\s+/, '').split(/\s+/)[0];
+    if (PILL_NOT_COMMANDS.test(word)) return null;
+    if (/^[A-Z]/.test(word) && !/[-.]/.test(word)) return null;                 // Type, Field, STAT…; cmdlets have a hyphen
+    return commandWords().has(word.toLowerCase()) ? t : null;
+  }
+  function tagCommandPills() {
+    document.querySelectorAll('.flag-pill:not([data-pill-checked])').forEach(pill => {
+      pill.dataset.pillChecked = '1';
+      const cmd = pillCommand(pill);
+      if (!cmd) return;
+      pill.classList.add('pill-cmd');
+      pill.dataset.pillCmd = cmd;
+      pill.setAttribute('role', 'button');
+      pill.tabIndex = 0;
+      pill.title = `Click to copy: ${cmd}`;
+    });
+  }
+  function copyFlash(el, text) {
+    navigator.clipboard.writeText(text);
+    showGlobalToast(`Copied: ${text.length > 70 ? text.slice(0, 70) + '…' : text}`);
+    el.classList.remove('alt-copied'); void el.offsetWidth; el.classList.add('alt-copied');
+  }
+  function initCommandPills() {
+    tagCommandPills();
+    let queued = false;
+    new MutationObserver(() => { if (queued) return; queued = true; requestAnimationFrame(() => { queued = false; tagCommandPills(); }); }).observe(document.body, { childList: true, subtree: true });
+  }
+
+  // The copy listeners are attached as soon as this file runs (delegated on
+  // document, so they work for boxes rendered later), not at the end of start-up.
+  (function attachCopyListeners() {
+      document.addEventListener('click', (e) => {
+        const el = e.target instanceof Element ? e.target : null;
+        if (!el || el.closest('button, a, input, select, textarea, .slot')) return;
+        const box = el.closest('.cmd-code-box, .subcmd-row');
+        if (!box || box.classList.contains('is-reference')) return;
+        let alt = null;
+        const line = el.closest('[data-alt]');
+        if (line && box.contains(line)) alt = line.dataset.alt;
+        else {
+          const code = box.querySelector('.cmd-code, .subcmd-code') || box;
+          const segs = altSegments(code.textContent);
+          if (segs.length < 2) return;
+          const off = altClickOffset(code, e);
+          if (off < 0) return;                                   // padding: the sheet copies its default
+          alt = (segs.find(x => off <= x.to) || segs[segs.length - 1]).text;
+        }
+        const clean = altClean(alt);
+        const sheetCopies = String(box.dataset.copy ?? box.dataset.cmd ?? box.dataset.subcmd ?? '').trim();
+        if (!clean || clean === sheetCopies) return;             // the sheet already copies exactly this
+        e.preventDefault();
+        e.stopPropagation();
+        navigator.clipboard.writeText(clean);
+        showGlobalToast(`Copied: ${clean.length > 70 ? clean.slice(0, 70) + '…' : clean}`);
+        const flash = line || box;
+        flash.classList.remove('alt-copied'); void flash.offsetWidth; flash.classList.add('alt-copied');
+      }, true);
+      document.addEventListener('click', (e) => {
+        const el = e.target instanceof Element ? e.target : null;
+        if (!el || el.closest('button, a, input, .slot')) return;
+        const pill = el.closest('.flag-pill');
+        const pillCmd = pill && (pill.dataset.pillCmd || pillCommand(pill));
+        if (pillCmd) { e.preventDefault(); e.stopPropagation(); copyFlash(pill, pillCmd); return; }
+        // A command named in a panel heading copies instead of folding the panel.
+        const sc = el.closest('summary code');
+        if (sc && /\s/.test(sc.textContent.trim()) && commandWords().has(sc.textContent.trim().split(/\s+/)[0].toLowerCase())) { e.preventDefault(); e.stopPropagation(); copyFlash(sc, sc.textContent.trim()); return; }
+        const hx = el.closest('.hx-cmd');
+        if (hx) { const b = hx.querySelector('[data-hx-copy]'); if (b) { e.preventDefault(); b.click(); const c = hx.querySelector('code') || hx; c.classList.remove('alt-copied'); void c.offsetWidth; c.classList.add('alt-copied'); } }
+      }, true);
+      document.addEventListener('keydown', (e) => {
+        if ((e.key === 'Enter' || e.key === ' ') && e.target instanceof Element && e.target.matches('.flag-pill.pill-cmd')) { e.preventDefault(); copyFlash(e.target, e.target.dataset.pillCmd); }
+      });
+  })();
+
   function initCommandAnatomy() {
     initSlots();
     // Returns whether anything new was rendered, so layout only repacks when it has to.
+    // Boxes anatomy leaves alone (Fiber, Motherboards, key-combo sheets, scripts) are marked
+    // too. Unmarked, every DOM change counted them as "new" and re-packed the masonry, which
+    // moved the pressed card mid-click and cancelled the click: commands would not copy.
     const run = () => {
-      const fresh = document.querySelectorAll('.cmd-code-box:not([data-anat])');
-      fresh.forEach(renderAnatomy);
-      return fresh.length > 0;
+      const fresh = document.querySelectorAll('.cmd-code-box:not([data-anat]):not([data-anat-skip])');
+      let rendered = 0;
+      fresh.forEach(box => { renderAnatomy(box); if (box.dataset.anat) rendered++; else box.dataset.anatSkip = '1'; });
+      return rendered > 0;
     };
     run();
     let queued = false;
