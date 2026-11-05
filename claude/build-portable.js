@@ -2,6 +2,8 @@
 // Compiles every cheat sheet and interactive tool into one 100% offline HTML file:
 // datacenter-cheatsheet-portable.html (Zero external requests, local CSS, local JS, local SVGs)
 const fs = require('fs');
+// Version-stamp common.js / styles.css in every page first (see build-stamp-assets.js).
+require('./build-stamp-assets.js');
 const path = require('path');
 const vm = require('vm');
 
