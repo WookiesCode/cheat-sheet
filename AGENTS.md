@@ -81,6 +81,7 @@ Follow this 5-step sequence on every incident:
    - Auto-detect platform OEM/model via `dmidecode -t system` or `ipmitool fru print 0`.
 2. **Collect Non-Destructive Telemetry**:
    - Consult the relevant playbook in `docs/playbooks/` before running domain-specific commands.
+   - Web-search current vendor sources (NVIDIA, Mellanox/NVIDIA Networking, server OEM, drive vendor) for driver/firmware versions, Xid/SXid meanings, known issues, EOL/support status, and tool deprecations before relying on memory or the playbooks.
    - Capture OS kernel logs (`dmesg -T`), BMC System Event Logs (`ipmitool sel elist`), and component-specific telemetry into `cases/<ticket-or-hostname>/logs/`.
 3. **Correlate Across Layers**:
    - Map logical Linux devices (`GPU UUID` / `nvmeXn1` / `ibX` / `mlx5_X`) to physical PCIe BDF addresses, NUMA nodes, riser/backplane slots, switch ports, and physical enclosure bays.
@@ -106,3 +107,4 @@ Always consult the matching playbook in `docs/playbooks/` when troubleshooting a
 - **Technician-First & Actionable**: Lead with the **current hypothesis**, **severity**, and **immediate next diagnostic or physical action**.
 - **Exact Identifiers**: Always cite both the logical ID and physical location (e.g., `GPU 3 (UUID: GPU-..., BDF: 0000:8a:00.0, SXM Module 4)` or `mlx5_4 (ib4, PCIe 0000:41:00.0, OSFP Cage 4)`).
 - **No Generic Fluff**: Skip introductory filler. Present data in compact Markdown tables when comparing lanes, DOM light levels, temperatures, or drive slots.
+- **Current Info First**: Before recommending a tool, driver, firmware, CLI flag, or procedure, web-search official sources and cite them. Tools get renamed, deprecated or replaced, and training data goes stale. If the technician says something is outdated or doesn't exist, search before disagreeing. Never insist from memory.

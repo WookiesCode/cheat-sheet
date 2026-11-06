@@ -1,34 +1,70 @@
-# AI Datacenter Hardware & Fabric Troubleshooting & Cheat Sheets
+# Datacenter Cheat Sheets & Learning Notes
 
-Repository containing field playbooks, agent operating instructions, triage templates, and CLI cheat sheets for AI Datacenter operations.
+My personal workspace for learning AI datacenter infrastructure and the languages and tools behind it.
 
 ---
 
-## Repository Structure
+## What This Is
+
+I built this mainly for myself, for two reasons:
+
+1. **To understand AI datacenter infrastructure:** GPU nodes (H200, B200, RTX), NVLink/NVSwitch, InfiniBand and RoCE fabrics, optics, storage and JBODs, and BMCs. That means knowing how the parts fit together and how to troubleshoot them, not just which commands to type.
+2. **To learn new skills:** Bash, Python, JavaScript/TypeScript, Lua, SQL, jq/awk/sed, YAML/JSON/TOML, Markdown and Git. I'm still learning these. Most of the code here was written with an AI coding agent and explained back to me as it was written.
+
+## Who It's For
+
+**Me.** It's shaped around my own workflow, my jumpbox and how I learn. If you find something useful, you're welcome to it, but it isn't a product: there's no support, no roadmap and no promise that anything fits your environment. Check every command against your own hardware and vendor docs before you trust it.
+
+---
+
+## What's Inside
+
+| Part | What it is |
+|---|---|
+| [`claude/`](claude/) | The cheat-sheet site: about 188 offline HTML sheets (Linux, CLI tools, scripting, NVIDIA DC, InfiniBand, switches, Redfish, ipmitool, fiber, Ethernet, motherboards and more), plus triage tools, a terminal dock and a single-file offline bundle. See [`claude/README.md`](claude/README.md). |
+| [`docs/playbooks/`](docs/playbooks/) | Troubleshooting playbooks for GPU/NVLink, network and optics, storage and JBODs, BMC hardware, and RMA templates. |
+| [`AGENTS.md`](AGENTS.md) | Instructions for an AI agent working as my datacenter troubleshooting partner in this repo: safety rules, read-only vs. ask-first commands, and the 5-step triage method. `CLAUDE.md` is a symlink to it. |
+| [`coding-agent.md`](coding-agent.md) | My general instructions for AI coding agents. They include a **teach-as-you-go** mode, because I'm learning the languages. |
+| [`chat-instructions.md`](chat-instructions.md) | The same preferences, written for chat assistants. Includes a short version for fields limited to 1,500 characters. |
+| `cases/` | Per-incident working folders (`cases/<ticket-or-hostname>/`) for logs and a `summary.md`. |
+| `scripts/` | Read-only diagnostic collection helpers (still empty). |
+
+### Open the Site
+- **Normally:** open `claude/index.html` in a browser.
+- **Offline or on another machine:** copy `claude/datacenter-cheatsheet-portable.html`. It's one file and needs no network.
+
+---
+
+## How I Use AI Here
+
+The AI agent is a pair-programmer and a tutor, not an autopilot.
+
+- **Teach, don't just do.** The agent finishes the task, then explains the code: what each part does, the name of each concept, the common mistakes, and a readable version of any one-liner.
+- **Verified is the only kind of "fixed."** A change counts as done only after it's tested the way I'd actually use it.
+- **Read-only by default.** Diagnostics run freely. Anything that changes state needs my explicit OK first: power, resets, firmware, drains, deletes, commits and pushes.
+- **No secrets in the repo.** BMC and API credentials come from environment variables or config files, never from the repo itself or command history.
+
+My global Claude Code profile (`~/.claude/CLAUDE.md`) is built from `coding-agent.md`, plus the troubleshooting rules from `chat-instructions.md`.
+
+---
+
+## Repository Layout
 
 ```text
 cheat-sheet/
-├── AGENTS.md                        # Core agent operating instructions & safety boundaries (Source of Truth)
-├── CLAUDE.md -> AGENTS.md           # Symlink for Claude Code
-├── docs/
-│   └── playbooks/
-│       ├── gpu-nvlink.md            # H200, B200, RTX, Xid/SXid, ECC/Row-Remap, NVLink/NVSwitch
-│       ├── network-optics.md        # NDR/XDR InfiniBand, RoCEv2, mlxlink, OSFP/QSFP/MPO DOM & BER
-│       ├── storage-jbod.md          # SAS/NVMe JBODs, SES slot mapping, U.2/E3.S, Lustre/WEKA/BeeGFS/Ceph
-│       ├── bmc-hardware.md          # Vendor-agnostic IPMI/Redfish, DMI auto-detect, DIMM/CPU/PCIe/PSU
-│       └── rma-templates.md         # Ready-to-paste RMA & L1 escalation templates
-├── cases/                           # Per-incident working folders (e.g., cases/<ticket-or-hostname>/)
-├── scripts/                         # Reusable read-only diagnostic collection helpers
-└── claude/                          # Claude Code cheat sheets & references
+├── AGENTS.md              # Datacenter troubleshooting agent rules (source of truth)
+├── CLAUDE.md -> AGENTS.md # Symlink for Claude Code
+├── README.md              # This file
+├── chat-instructions.md   # Preferences for chat assistants (full + short version)
+├── coding-agent.md        # Preferences for coding agents (incl. teach-as-you-go)
+├── claude/                # The cheat-sheet site, build scripts, and backups (git-ignored)
+├── docs/playbooks/        # GPU, network/optics, storage, BMC, and RMA playbooks
+├── cases/                 # Per-incident working folders
+└── scripts/               # Read-only diagnostic helpers
 ```
 
 ---
 
-## Operating Guidelines & Safety
+## Disclaimer
 
-Refer to [`AGENTS.md`](AGENTS.md) for full role definitions, safety boundaries, non-destructive telemetry commands, and guided Layer-1 troubleshooting procedures.
-
-### Agent Directory Ownership
-Claude Code is the only AI assistant used in this repository.
-- **Claude**: Uses `claude/`
-- **Shared Incident Triage**: `cases/<ticket-or-hostname>/`
+These are personal learning notes. Commands and procedures come from my own study and practice and may be incomplete or wrong for your hardware. Commands that power-cycle, reset, format or flash hardware are destructive. Read them, understand them, and get approval before running them on any system you don't own.
