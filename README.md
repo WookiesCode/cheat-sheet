@@ -21,17 +21,18 @@ I built this mainly for myself, for two reasons:
 
 | Part | What it is |
 |---|---|
-| [`claude/`](claude/) | The cheat-sheet site: about 188 offline HTML sheets (Linux, CLI tools, scripting, NVIDIA DC, InfiniBand, switches, Redfish, ipmitool, fiber, Ethernet, motherboards and more), plus triage tools, a terminal dock and a single-file offline bundle. See [`claude/README.md`](claude/README.md). |
+| [`cheat-sheets/`](cheat-sheets/) | The cheat-sheet site: about 188 offline HTML sheets (Linux, CLI tools, scripting, NVIDIA DC, InfiniBand, switches, Redfish, ipmitool, fiber, Ethernet, motherboards and more), plus triage tools, a terminal dock and a single-file offline bundle. See [`cheat-sheets/README.md`](cheat-sheets/README.md). |
 | [`docs/playbooks/`](docs/playbooks/) | Troubleshooting playbooks for GPU/NVLink, network and optics, storage and JBODs, BMC hardware, and RMA templates. |
-| [`AGENTS.md`](AGENTS.md) | Instructions for an AI agent working as my datacenter troubleshooting partner in this repo: safety rules, read-only vs. ask-first commands, and the 5-step triage method. `CLAUDE.md` is a symlink to it. |
-| [`coding-agent.md`](coding-agent.md) | My general instructions for AI coding agents. They include a **teach-as-you-go** mode, because I'm learning the languages. |
-| [`chat-instructions.md`](chat-instructions.md) | The same preferences, written for chat assistants. Includes a short version for fields limited to 1,500 characters. |
+| [`agents/AGENTS.md`](agents/AGENTS.md) | Instructions for an AI agent working as my datacenter troubleshooting partner in this repo: safety rules, read-only vs. ask-first commands, and the 5-step triage method. The root `CLAUDE.md` is a symlink to it. |
+| [`agents/AGENTS-portable.md`](agents/AGENTS-portable.md) | A copy of `AGENTS.md` with `<WORKSPACE>` placeholders, for dropping into another repo. |
+| [`agents/coding-agent.md`](agents/coding-agent.md) | My general instructions for AI coding agents. They include a **teach-as-you-go** mode, because I'm learning the languages. |
+| [`agents/chat-instructions.md`](agents/chat-instructions.md) | The same preferences, written for chat assistants. Includes a short version for fields limited to 1,500 characters. |
 | `cases/` | Per-incident working folders (`cases/<ticket-or-hostname>/`) for logs and a `summary.md`. |
 | `scripts/` | Read-only diagnostic collection helpers (still empty). |
 
 ### Open the Site
-- **Normally:** open `claude/index.html` in a browser.
-- **Offline or on another machine:** copy `claude/datacenter-cheatsheet-portable.html`. It's one file and needs no network.
+- **Normally:** open `cheat-sheets/index.html` in a browser.
+- **Offline or on another machine:** copy `cheat-sheets/datacenter-cheatsheet-portable.html`. It's one file and needs no network.
 
 ---
 
@@ -44,7 +45,7 @@ The AI agent is a pair-programmer and a tutor, not an autopilot.
 - **Read-only by default.** Diagnostics run freely. Anything that changes state needs my explicit OK first: power, resets, firmware, drains, deletes, commits and pushes.
 - **No secrets in the repo.** BMC and API credentials come from environment variables or config files, never from the repo itself or command history.
 
-My global Claude Code profile (`~/.claude/CLAUDE.md`) is built from `coding-agent.md`, plus the troubleshooting rules from `chat-instructions.md`.
+My global Claude Code profile (`~/.claude/CLAUDE.md`) is built from `agents/coding-agent.md`, plus the troubleshooting rules from `agents/chat-instructions.md`.
 
 ---
 
@@ -52,15 +53,17 @@ My global Claude Code profile (`~/.claude/CLAUDE.md`) is built from `coding-agen
 
 ```text
 cheat-sheet/
-├── AGENTS.md              # Datacenter troubleshooting agent rules (source of truth)
-├── CLAUDE.md -> AGENTS.md # Symlink for Claude Code
-├── README.md              # This file
-├── chat-instructions.md   # Preferences for chat assistants (full + short version)
-├── coding-agent.md        # Preferences for coding agents (incl. teach-as-you-go)
-├── claude/                # The cheat-sheet site, build scripts, and backups (git-ignored)
-├── docs/playbooks/        # GPU, network/optics, storage, BMC, and RMA playbooks
-├── cases/                 # Per-incident working folders
-└── scripts/               # Read-only diagnostic helpers
+├── CLAUDE.md -> agents/AGENTS.md  # Symlink so Claude Code loads the agent rules
+├── README.md                     # This file
+├── agents/
+│   ├── AGENTS.md                 # Datacenter troubleshooting agent rules (source of truth)
+│   ├── AGENTS-portable.md        # Workspace-agnostic copy for other repos
+│   ├── coding-agent.md           # Preferences for coding agents (incl. teach-as-you-go)
+│   └── chat-instructions.md      # Preferences for chat assistants (full + short version)
+├── cheat-sheets/                 # The cheat-sheet site, build scripts, and backups (git-ignored)
+├── docs/playbooks/               # GPU, network/optics, storage, BMC, and RMA playbooks
+├── cases/                        # Per-incident working folders
+└── scripts/                      # Read-only diagnostic helpers
 ```
 
 ---
