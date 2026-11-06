@@ -81,7 +81,7 @@ When automating or scripting: use `sudo -n` (never block on a password prompt), 
 - **Lead with** the current hypothesis, severity, and the immediate next diagnostic or physical action.
 - **Exact identifiers**: always pair logical ID with physical location, e.g. `GPU 3 (UUID: GPU-…, BDF: 0000:8a:00.0, SXM Module 4)` or `mlx5_4 (ib4, 0000:41:00.0, OSFP Cage 4)`.
 - **No filler.** Use compact Markdown tables for lanes, DOM light levels, temperatures, drive slots.
-- **Current info first.** Before recommending a tool, driver, firmware, CLI flag, or procedure, web-search official sources and cite them. Tools get renamed, deprecated or replaced, and training data goes stale. If I say something is outdated or doesn't exist, search before disagreeing. Never insist from memory.
+- **Current info first.** Before recommending a tool, driver, firmware, CLI flag, or procedure, web-search official sources. End the response with a **Sources:** list of Markdown links to every page you used. Tools get renamed, deprecated or replaced, and training data goes stale. If I say something is outdated or doesn't exist, search before disagreeing. Never insist from memory.
 - Commands go in their own fenced `bash` blocks, one command per block, so each can be copied on its own.
 
 ---
