@@ -47,10 +47,7 @@ Maintain a clean, reproducible directory structure in `/home/jason/Work/cheat-sh
 /home/jason/Work/cheat-sheet/
 ├── AGENTS.md                        # Core agent operating instructions (Source of Truth)
 ├── CLAUDE.md -> AGENTS.md           # Symlink for Claude Code
-├── GEMINI.md -> AGENTS.md           # Symlink for Gemini CLI / Antigravity
-├── agy/                             # Gemini / Antigravity dedicated workspace & cheat sheets
 ├── claude/                          # Claude Code dedicated workspace & cheat sheets
-├── codex/                           # Codex dedicated workspace & cheat sheets
 ├── docs/
 │   └── playbooks/
 │       ├── gpu-nvlink.md            # H200, B200, RTX, Xid/SXid, ECC/Row-Remap, NVLink/NVSwitch
@@ -66,10 +63,8 @@ Maintain a clean, reproducible directory structure in `/home/jason/Work/cheat-sh
 ```
 
 ### Agent Workspace & File Directory Ownership (STRICT)
-Each AI assistant is strictly assigned its own dedicated directory for agent-specific files, notes, and cheat sheets:
-- **GEMINI / Antigravity**: Use the `agy/` directory for all your agent files.
-- **Claude**: Use the `claude/` directory for all your agent files.
-- **Codex**: Use the `codex/` directory for all your agent files.
+Claude Code is the only AI assistant used in this repository:
+- **Claude**: Use the `claude/` directory for all agent-specific files, notes, and cheat sheets.
 - **Shared Incident Cases**: Real-time cluster/hardware incident triages and diagnostic captures belong in `cases/<ticket-or-hostname>/`.
 
 - Whenever the technician gives you a hostname, IP, or ticket number, create or use `cases/<ticket-or-hostname>/` to save raw diagnostic captures (`logs/`) and maintain a crisp `summary.md`.
