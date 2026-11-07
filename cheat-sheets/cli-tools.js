@@ -774,8 +774,8 @@ const CLI_TOOLS_DATA = [
       {
         id: "tee-sudo-sysfs-logging",
         desc: "Write to root-owned /sys, /proc, or /etc files via sudo or capture live command output to a log file while watching it",
-        cmd: "echo 'performance' | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor",
-        details: "'echo val > /sys/...' fails with Permission Denied because the shell performs the '>' redirection as your unprivileged user BEFORE invoking sudo. Piping into 'tee' runs the file open() syscall as root AND supports writing to multiple wildcard files at once.",
+        cmd: "echo 'performance' | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor",
+        details: "'echo val > /sys/...' fails with Permission Denied because the shell performs the '>' redirection as your unprivileged user BEFORE invoking sudo. Piping into 'sudo tee' runs the file open() syscall as root AND supports writing to multiple wildcard files at once. Why root is dangerous, and how to use sudo well: see the sudo & root sheet.",
         flags: [
           ["-a", "Append to the target file(s) instead of overwriting (`>>` equivalent)"],
           ["2>&1 | tee", "Redirect stderr into stdout before piping so both normal output and errors are logged to disk"]
@@ -1234,6 +1234,173 @@ const CLI_TOOLS_DATA = [
           ["cloud-init query --all", "Dump all instance metadata and user-data variables discovered by cloud-init"]
         ],
         tags: ["cloud-init", "maas", "provisioning", "subiquity", "ubuntu"]
+      }
+    ]
+  },
+  {
+    id: "sudo",
+    badge: "sudo",
+    title: "sudo & root — Why Root Is Dangerous and How to Use sudo",
+    subtitle: "What root is, what can go wrong as root, why sudo is safer than a root login, and the sudo options you use on the job",
+    commands: [
+      {
+        id: "sudo-dangers",
+        desc: "Why not just work as root? The dangers, and what sudo does instead",
+        cmd: "sudo -l",
+        details: "1) No safety net: rm -rf on the wrong path, dd, mkfs or wipefs on the wrong disk, chmod -R or chown -R on / all just happen. 2) Everything inherits root: every program, script, plugin and editor shell escape started from a root shell runs as root, so a bad install script or a compromised package owns the machine. 3) No accountability: with a shared root password the logs only say root. 4) Root shells linger: a forgotten root shell in tmux or on a jumpbox is an open door. sudo answers each one: root for one command at a time, your own password, your user name and command in the log, cached for 5 minutes by default, and sudoers can allow only the commands you need (least privilege).",
+        flags: [
+          ["One command at a time", "Root only for the command that needs it, then you are back to your normal user"],
+          ["Your own password", "No shared root password to leak or rotate when someone leaves"],
+          ["Logged by name", "Who ran what, where and when: needed for audits and incident timelines"],
+          ["Time-limited", "Your password is cached for 5 minutes by default (sudoers timestamp_timeout); sudo -k ends it now"],
+          ["Least privilege", "sudoers can allow one command (for example ipmitool) instead of everything"],
+          ["sudo -l", "Lists exactly what you are allowed to run here"]
+        ],
+        subcommands: [
+          ["sudo -k", "Forget your cached password now (do it before you walk away)"],
+          ["sudo -v", "Refresh the cache without running anything (before a long series of steps)"]
+        ],
+        tip: "Root is a tool for one step, not a place to work",
+        tags: ["sudo", "root", "danger", "least-privilege", "audit", "security"]
+      },
+      {
+        id: "sudo-who-am-i",
+        desc: "Who am I running as? Check before you type anything destructive",
+        cmd: "id",
+        details: "root is the account with user ID 0. For root the kernel skips most permission checks: any file can be read, changed or deleted, any disk can be overwritten, any process can be killed. That is exactly why it is dangerous: the system stops protecting you from your own typo. A prompt ending in # usually means you are root; $ means a normal user.",
+        flags: [
+          ["uid=0(root)", "You are root right now: nothing checks your permissions"],
+          ["groups=…sudo / wheel", "You may use sudo (Ubuntu and Debian use the sudo group; RHEL and Rocky use wheel)"],
+          ["# prompt", "Usually a root shell. Exit it as soon as the job is done"],
+          ["Ubuntu", "The root password is locked by default: you are meant to use sudo, not log in as root"]
+        ],
+        subcommands: [
+          ["whoami", "Just the user name"],
+          ["sudo -l", "What sudo lets you run on this host (asks for your password)"]
+        ],
+        tip: "Read the prompt: # means every command is unchecked",
+        tags: ["sudo", "root", "uid", "id", "whoami", "privilege"]
+      },
+      {
+        id: "sudo-run-one",
+        desc: "Run one command as root, or as another user",
+        cmd: "sudo dmesg -T",
+        details: "sudo checks the sudoers policy, asks for YOUR password (not root's), runs the command as root and logs it. On this site, and in the agent's answers, commands that need root are marked # needs root instead of carrying a sudo prefix: you decide how to elevate.",
+        flags: [
+          ["-u <user>", "Run as that user instead of root, for example a service account: sudo -u postgres psql"],
+          ["-n", "Never prompt: fail with an error if a password is needed (use in scripts so they never hang)"],
+          ["-k / -v", "End the cached password now / refresh it"],
+          ["--", "End of sudo's own options: everything after it belongs to the command"],
+          ["sudo !!", "Re-runs your previous command as root. Read it again first: !! is whatever ran last"]
+        ],
+        subcommands: [
+          ["sudo -u postgres psql -c 'select 1'", "Run a command as a service account"],
+          ["sudo -n true && echo 'sudo works without a prompt'", "Check that a script can use sudo before it runs"]
+        ],
+        tip: "Prefix the one command, never your whole session",
+        tags: ["sudo", "run", "user", "non-interactive", "scripts"]
+      },
+      {
+        id: "sudo-shells",
+        desc: "A root shell when you really need one: sudo -i, sudo -s and su",
+        cmd: "sudo -i",
+        details: "Sometimes a root shell is the practical choice (a long recovery in single-user style). Know the trade-off: sudo logs only the command it runs, so once you are in a root shell the commands you type there are not logged one by one (the sudo man page warns about exactly this). Get in, do the job, type exit.",
+        flags: [
+          ["sudo -i", "Login shell as root: root's environment and home directory, reads root's profile"],
+          ["sudo -s", "Shell as root that keeps your own environment (your $HOME, PATH may be reset by policy)"],
+          ["su -", "Switch to root with ROOT's password: on Ubuntu root's password is locked, so this usually fails"],
+          ["sudo su / sudo bash", "Same as a root shell, and it skips the per-command log: avoid"],
+          ["exit", "Leave the root shell the moment you are done"]
+        ],
+        subcommands: [
+          ["exit", "Back to your own user"]
+        ],
+        tip: "If you open a root shell, close it in the same breath",
+        tags: ["sudo", "root-shell", "su", "login", "logging"]
+      },
+      {
+        id: "sudo-redirect-gotcha",
+        desc: "The redirect gotcha: sudo echo > /etc/file fails; use tee (changes state)",
+        cmd: "echo 'vm.swappiness = 10' | sudo tee /etc/sysctl.d/99-swappiness.conf",
+        details: "In sudo echo x > /etc/file, your own shell opens /etc/file for the > BEFORE sudo runs, so it fails with Permission denied. Piping into sudo tee makes tee (running as root) open the file. Add > /dev/null to hide tee's echo, and -a to append instead of replace.",
+        flags: [
+          ["sudo tee <file>", "tee opens the file as root, so the write works"],
+          ["sudo tee -a <file>", "Append instead of replacing the file"],
+          ["> /dev/null", "Stop tee from also printing the text to your screen"],
+          ["sudo sh -c '… > file'", "The other fix: the whole line, redirect included, runs as root"]
+        ],
+        subcommands: [
+          ["echo '2001:db8:dc:4::50 bmc-rack04' | sudo tee -a /etc/hosts > /dev/null", "Append a line to a root-owned file (changes state)"]
+        ],
+        tip: "The shell does the redirect, not sudo",
+        tags: ["sudo", "tee", "redirect", "permission-denied", "gotcha"]
+      },
+      {
+        id: "sudo-edit-files",
+        desc: "Edit a root-owned file safely with sudoedit (sudo -e)",
+        cmd: "sudoedit /etc/ssh/sshd_config",
+        details: "sudoedit copies the file to a temporary file owned by you, runs YOUR editor as you, and writes the result back as root only when you save. Your editor, its plugins and its shell escapes never run as root, unlike sudo nano or sudo vim. Back up first, validate after (sshd -t, visudo -c, findmnt --verify).",
+        flags: [
+          ["sudoedit = sudo -e", "Same thing"],
+          ["SUDO_EDITOR / VISUAL / EDITOR", "Pick the editor it uses, for example SUDO_EDITOR=nano"],
+          ["Why not sudo vim", "Inside sudo vim, :!bash gives a root shell that is not logged"]
+        ],
+        subcommands: [
+          ["sudo sshd -t", "Validate sshd_config before restarting sshd"]
+        ],
+        tip: "Back up, sudoedit, then validate",
+        tags: ["sudo", "sudoedit", "edit", "config", "nano", "vim"]
+      },
+      {
+        id: "sudo-sudoers",
+        desc: "Who may run what: sudoers drop-in files, edited only with visudo (changes state)",
+        cmd: "sudo visudo -f /etc/sudoers.d/90-datacenter-techs",
+        details: "Never edit /etc/sudoers or its drop-ins with a plain editor: one syntax error can leave nobody able to use sudo. visudo locks the file and checks the syntax before saving. Grant the smallest set of commands that does the job. Be careful with NOPASSWD (no password at all) and with commands that can start a shell (editors, less, find -exec, tar --to-command): each one is a way to a full root shell.",
+        flags: [
+          ["visudo -f <file>", "Edit a drop-in in /etc/sudoers.d/ with locking and a syntax check"],
+          ["visudo -c", "Check every sudoers file without editing"],
+          ["%group ALL=(root) /usr/bin/ipmitool", "Example rule: members of a group may run only ipmitool as root"],
+          ["NOPASSWD:", "Skips the password: convenient for automation, risky on a shared account"],
+          ["sudo-rs visudo", "On Ubuntu's newer sudo-rs, visudo is reported to check only /etc/sudoers itself, not the drop-ins: verify on your release"]
+        ],
+        subcommands: [
+          ["sudo visudo -c", "Syntax check of every sudoers file"]
+        ],
+        tip: "Keep a second root session open while you change sudoers",
+        tags: ["sudo", "sudoers", "visudo", "nopasswd", "least-privilege"]
+      },
+      {
+        id: "sudo-audit",
+        desc: "Who ran what as root? Read the sudo log",
+        cmd: "sudo journalctl -t sudo --since today --no-pager",
+        details: "Every sudo command is logged with the user, the terminal, the working directory and the full command. That is what makes sudo better than a shared root login during an incident: the timeline shows who changed what. Ubuntu and Debian also write it to /var/log/auth.log; RHEL and Rocky to /var/log/secure.",
+        flags: [
+          ["-t sudo", "Only entries logged by sudo"],
+          ["--since today / '-1h'", "Limit the time range"],
+          ["/var/log/auth.log", "Ubuntu and Debian text log"],
+          ["/var/log/secure", "RHEL and Rocky text log"]
+        ],
+        subcommands: [
+          ["sudo grep -h 'COMMAND=' /var/log/auth.log | tail -n 20", "Last 20 sudo commands (Ubuntu and Debian)"]
+        ],
+        tip: "Commands typed inside a root shell do not show up here",
+        tags: ["sudo", "audit", "log", "journalctl", "auth.log", "incident"]
+      },
+      {
+        id: "sudo-implementation",
+        desc: "Which sudo is this? Ubuntu 25.10 and 26.04 default to sudo-rs",
+        cmd: "update-alternatives --display sudo",
+        details: "Ubuntu now ships sudo-rs, a Rust rewrite of sudo, as the default, and keeps the original as sudo.ws. Day-to-day use is the same. Reported differences: sudo-rs shows asterisks while you type the password, visudo checks less, and some sudoers features (LDAP sudoers, mail on failure) are not supported. Upstream sudo is at 1.9.17p2.",
+        flags: [
+          ["sudo-rs", "Default on Ubuntu 25.10 and 26.04"],
+          ["sudo.ws", "The original sudo, still installed as a fallback"],
+          ["sudo --version", "Shows the implementation and version"]
+        ],
+        subcommands: [
+          ["sudo --version", "Which sudo, which version"]
+        ],
+        tip: "If a sudoers rule behaves differently on Ubuntu 26.04, check which sudo is active",
+        tags: ["sudo", "sudo-rs", "ubuntu", "version", "rust"]
       }
     ]
   },

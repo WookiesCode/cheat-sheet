@@ -24,6 +24,14 @@ const MB_MB_MEMORY_POST_DATA = [
           [
             "0x53",
             "Memory initialization error: Memory modules detected, but no usable/compatible memory configured (mixing RDIMM & UDIMM/LRDIMM!)"
+          ],
+          [
+            "0x54",
+            "Unspecified memory initialization error during early PEI MRC training"
+          ],
+          [
+            "0x55",
+            "Memory Not Installed: Zero DIMMs detected on CPU0 primary channel (ASUS: A1; GIGABYTE: A0) or uneven CPU cooler torque"
           ]
         ],
         "tip": "0x55 = Check primary slot population (ASUS=A1, GIGABYTE=A0) & CPU socket pins!",
@@ -51,36 +59,6 @@ const MB_MB_MEMORY_POST_DATA = [
     ]
   },
   {
-    "id": "memory-post-flags-1",
-    "badge": "mrc",
-    "title": "Memory MRC Codes: POST Hex Codes & Options",
-    "subtitle": "Key hex codes, parameters, and error indicators for Decode AMI Aptio V memory initialization halt codes (`0x50`–`0x55`) on ASUS & GIGABYTE boards",
-    "commands": [
-      {
-        "id": "post-50-55-memory-init-flags-card",
-        "desc": "Hex code lookup and diagnostics breakdown for Decode AMI Aptio V memory initialization halt codes (`0x50`–`0x55`) on ASUS & GIGABYTE boards",
-        "cmd": "POST 0x53 (Invalid/Incompatible RAM)   |   POST 0x55 (Memory Not Installed / Unseated)",
-        "flags": [
-          [
-            "0x54",
-            "Unspecified memory initialization error during early PEI MRC training"
-          ],
-          [
-            "0x55",
-            "Memory Not Installed: Zero DIMMs detected on CPU0 primary channel (ASUS: A1; GIGABYTE: A0) or uneven CPU cooler torque"
-          ]
-        ],
-        "details": "Common operational and diagnostic POST / Q-Codes on ASUS and GIGABYTE server motherboards.",
-        "tags": [
-          "Memory MRC Codes",
-          "flags",
-          "options",
-          "syntax"
-        ]
-      }
-    ]
-  },
-  {
     "id": "memory-post-cmd-2",
     "badge": "mrc",
     "title": "Memory MRC Codes: Decode Intel Xeon & AMD EPYC DDR4/DDR5 MRC channel training codes",
@@ -103,6 +81,14 @@ const MB_MB_MEMORY_POST_DATA = [
           [
             "0xB4 / 0xB6",
             "Registering Clock Driver (RCD) & Data Buffer initialization on DDR4/DDR5 RDIMMs/MRDIMMs"
+          ],
+          [
+            "0xB7 / 0xB8",
+            "DDR channel training failure / marginal eye margin on a specific DIMM channel (check BMC SEL for exact failing DIMM slot label!)"
+          ],
+          [
+            "0xBA / 0xBC / 0xBF",
+            "Memory BIST (Built-In Self Test) & Rank Margin Tool (RMT) validation; 0xBF = MRC memory init complete"
           ]
         ],
         "tip": "When stuck on 0xB7, check BMC Event Log (SEL) to see which exact DIMM slot failed!",
@@ -131,36 +117,6 @@ const MB_MB_MEMORY_POST_DATA = [
     ]
   },
   {
-    "id": "memory-post-flags-2",
-    "badge": "mrc",
-    "title": "Memory MRC Codes: POST Hex Codes & Options",
-    "subtitle": "Key hex codes, parameters, and error indicators for Decode Intel Xeon & AMD EPYC DDR4/DDR5 MRC channel training codes (`0xB0`–`0xBF`, `0x2C`–`0x2F`)",
-    "commands": [
-      {
-        "id": "post-b0-bf-xeon-epyc-training-flags-card",
-        "desc": "Hex code lookup and diagnostics breakdown for Decode Intel Xeon & AMD EPYC DDR4/DDR5 MRC channel training codes (`0xB0`–`0xBF`, `0x2C`–`0x2F`)",
-        "cmd": "POST 0xB0 (DIMM Detect)  ->  0xB4 (Rank/RCD)  ->  0xB7 (Channel Training Fail)  ->  0xBF (MRC Done)",
-        "flags": [
-          [
-            "0xB7 / 0xB8",
-            "DDR channel training failure / marginal eye margin on a specific DIMM channel (check BMC SEL for exact failing DIMM slot label!)"
-          ],
-          [
-            "0xBA / 0xBC / 0xBF",
-            "Memory BIST (Built-In Self Test) & Rank Margin Tool (RMT) validation; 0xBF = MRC memory init complete"
-          ]
-        ],
-        "details": "Common operational and diagnostic POST / Q-Codes on ASUS and GIGABYTE server motherboards.",
-        "tags": [
-          "Memory MRC Codes",
-          "flags",
-          "options",
-          "syntax"
-        ]
-      }
-    ]
-  },
-  {
     "id": "memory-post-cmd-3",
     "badge": "mrc",
     "title": "Memory MRC Codes: ASUS",
@@ -183,6 +139,10 @@ const MB_MB_MEMORY_POST_DATA = [
           [
             "Never Mix RDIMM & LRDIMM",
             "Mixing Registered (RDIMM), Load-Reduced (LRDIMM/3DS), or Unbuffered (ECC UDIMM) on the same board halts at POST 0x53"
+          ],
+          [
+            "DDR5 PMIC Training",
+            "First boot after swapping DDR5 RDIMMs on EPYC 9004/9005 or Xeon 4th/5th Gen takes 2–5 minutes at 0x2E/0xB4/0xEA — do not power-cycle early!"
           ]
         ],
         "tip": "Wait at least 4 minutes on first DDR5 boot before assuming a hang!",
@@ -202,32 +162,6 @@ const MB_MB_MEMORY_POST_DATA = [
           "lrdimm",
           "asus",
           "gigabyte"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "memory-post-flags-3",
-    "badge": "mrc",
-    "title": "Memory MRC Codes: POST Hex Codes & Options",
-    "subtitle": "Key hex codes, parameters, and error indicators for ASUS (K14/KRPA/Z13) vs GIGABYTE (MZ/MD/MS) server motherboard DIMM slot naming & population order",
-    "commands": [
-      {
-        "id": "asus-gigabyte-dimm-population-flags-card",
-        "desc": "Hex code lookup and diagnostics breakdown for ASUS (K14/KRPA/Z13) vs GIGABYTE (MZ/MD/MS) server motherboard DIMM slot naming & population order",
-        "cmd": "1-DIMM Minimal Boot Test:  ASUS = CPU1_DIMM_A1   |   GIGABYTE = CPU0_DIMM_A0 (or DIMM_P0_A0)",
-        "flags": [
-          [
-            "DDR5 PMIC Training",
-            "First boot after swapping DDR5 RDIMMs on EPYC 9004/9005 or Xeon 4th/5th Gen takes 2–5 minutes at 0x2E/0xB4/0xEA — do not power-cycle early!"
-          ]
-        ],
-        "details": "Common operational and diagnostic POST / Q-Codes on ASUS and GIGABYTE server motherboards.",
-        "tags": [
-          "Memory MRC Codes",
-          "flags",
-          "options",
-          "syntax"
         ]
       }
     ]

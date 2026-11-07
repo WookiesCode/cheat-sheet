@@ -29,15 +29,7 @@ const IB_IB_SMINFO_DATA = [
           "triage",
           "rdma"
         ]
-      }
-    ]
-  },
-  {
-    "id": "sminfo-subcmds",
-    "badge": "sm",
-    "title": "sminfo: Common Recipes & Pipelines",
-    "subtitle": "Verified production bash one-liners and automation pipelines using sminfo",
-    "commands": [
+      },
       {
         "id": "sminfo-sub-1",
         "desc": "Check if the local OpenSM Subnet Manager daemon is running on this host",

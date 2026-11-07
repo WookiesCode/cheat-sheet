@@ -33,15 +33,7 @@ const IB_IB_MLXCABLES_DATA = [
           "triage",
           "rdma"
         ]
-      }
-    ]
-  },
-  {
-    "id": "mlxcables-subcmds",
-    "badge": "cbl",
-    "title": "mlxcables: Common Recipes & Pipelines",
-    "subtitle": "Verified production bash one-liners and automation pipelines using mlxcables",
-    "commands": [
+      },
       {
         "id": "mlxcables-sub-1",
         "desc": "Read detailed vendor part number, serial number, FW version, and per-lane DDM power on cable 0",

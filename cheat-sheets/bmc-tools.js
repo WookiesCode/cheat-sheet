@@ -24,6 +24,18 @@ const BMC_HUB_DATA = [
           [
             "--nocertwarn",
             "Add at the end to skip the self-signed certificate warning"
+          ],
+          [
+            "-d / -c / -4 / -6",
+            "Only iDRAC info / common settings / IPv4 / IPv6"
+          ],
+          [
+            "-A",
+            "No headers, easier to parse"
+          ],
+          [
+            "Hostname and OS fields",
+            "Only accurate when OpenManage Server Administrator is installed on the host"
           ]
         ],
         "tip": "-p shows up in ps; on a shared jumpbox, run racadm in-band or over SSH to the iDRAC",
@@ -38,53 +50,7 @@ const BMC_HUB_DATA = [
           "sensors",
           "service-tag"
         ]
-      }
-    ]
-  },
-  {
-    "id": "racadm-flags-1",
-    "badge": "racadm",
-    "title": "Dell racadm: More options",
-    "subtitle": "More options for: System and iDRAC summary, remote or in-band",
-    "commands": [
-      {
-        "id": "racadm-getsysinfo-flags-card",
-        "desc": "More options and gotchas for: System and iDRAC summary, remote or in-band",
-        "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" getsysinfo",
-        "hideCode": false,
-        "flags": [
-          [
-            "-d / -c / -4 / -6",
-            "Only iDRAC info / common settings / IPv4 / IPv6"
-          ],
-          [
-            "-A",
-            "No headers, easier to parse"
-          ],
-          [
-            "Hostname and OS fields",
-            "Only accurate when OpenManage Server Administrator is installed on the host"
-          ]
-        ],
-        "tags": [
-          "bmc",
-          "remote-management",
-          "racadm",
-          "flags",
-          "options",
-          "dell",
-          "idrac",
-          "sysinfo"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "racadm-recipes-1",
-    "badge": "racadm",
-    "title": "Dell racadm: Related commands",
-    "subtitle": "Related commands for: System and iDRAC summary, remote or in-band",
-    "commands": [
+      },
       {
         "id": "racadm-getsysinfo-sub-1",
         "desc": "Common settings only",
@@ -166,6 +132,18 @@ const BMC_HUB_DATA = [
           [
             "-n",
             "Number of records (local RACADM returns 100 if you leave it out)"
+          ],
+          [
+            "-q <seq>",
+            "Start at a sequence number: lclog view -q 20 -n 5"
+          ],
+          [
+            "-r / -e \"yyyy-mm-dd HH:MM:SS\"",
+            "Start and end time, in double quotes"
+          ],
+          [
+            "-a <agent>",
+            "One agent only, for example iDRAC, SEL or RACADM"
           ]
         ],
         "tip": "The Lifecycle log has more than the SEL: config changes, updates, and storage events",
@@ -180,53 +158,7 @@ const BMC_HUB_DATA = [
           "storage",
           "audit"
         ]
-      }
-    ]
-  },
-  {
-    "id": "racadm-flags-2",
-    "badge": "racadm",
-    "title": "Dell racadm: More options",
-    "subtitle": "More options for: Lifecycle log, filtered to storage and system warnings",
-    "commands": [
-      {
-        "id": "racadm-lclog-flags-card",
-        "desc": "More options and gotchas for: Lifecycle log, filtered to storage and system warnings",
-        "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" lclog view -c storage,system -s warning,critical -n 50",
-        "hideCode": false,
-        "flags": [
-          [
-            "-q <seq>",
-            "Start at a sequence number: lclog view -q 20 -n 5"
-          ],
-          [
-            "-r / -e \"yyyy-mm-dd HH:MM:SS\"",
-            "Start and end time, in double quotes"
-          ],
-          [
-            "-a <agent>",
-            "One agent only, for example iDRAC, SEL or RACADM"
-          ]
-        ],
-        "tags": [
-          "bmc",
-          "remote-management",
-          "racadm",
-          "flags",
-          "options",
-          "lclog",
-          "sel",
-          "logs"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "racadm-recipes-2",
-    "badge": "racadm",
-    "title": "Dell racadm: Related commands",
-    "subtitle": "Related commands for: Lifecycle log, filtered to storage and system warnings",
-    "commands": [
+      },
       {
         "id": "racadm-lclog-sub-1",
         "desc": "How many SEL entries there are",
@@ -294,6 +226,10 @@ const BMC_HUB_DATA = [
           [
             "hwinventory <FQDD>",
             "One device, for example NIC.Integrated.1-1 (NIC, InfiniBand and FC only)"
+          ],
+          [
+            "FQDD",
+            "Fully Qualified Device Descriptor: Dell's stable name for a part (RAID.Integrated.1-1, NIC.Slot.3-1). Use it in RMA tickets"
           ]
         ],
         "tip": "iDRAC allows at most 12 parallel hardware-inventory sessions",
@@ -308,45 +244,7 @@ const BMC_HUB_DATA = [
           "serial",
           "rma"
         ]
-      }
-    ]
-  },
-  {
-    "id": "racadm-flags-3",
-    "badge": "racadm",
-    "title": "Dell racadm: More options",
-    "subtitle": "More options for: Hardware inventory: every component with FQDDs",
-    "commands": [
-      {
-        "id": "racadm-hwinventory-flags-card",
-        "desc": "More options and gotchas for: Hardware inventory: every component with FQDDs",
-        "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" hwinventory",
-        "hideCode": false,
-        "flags": [
-          [
-            "FQDD",
-            "Fully Qualified Device Descriptor: Dell's stable name for a part (RAID.Integrated.1-1, NIC.Slot.3-1). Use it in RMA tickets"
-          ]
-        ],
-        "tags": [
-          "bmc",
-          "remote-management",
-          "racadm",
-          "flags",
-          "options",
-          "inventory",
-          "fqdd",
-          "nic"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "racadm-recipes-3",
-    "badge": "racadm",
-    "title": "Dell racadm: Related commands",
-    "subtitle": "Related commands for: Hardware inventory: every component with FQDDs",
-    "commands": [
+      },
       {
         "id": "racadm-hwinventory-sub-1",
         "desc": "Transceiver part and serial numbers",
@@ -400,6 +298,18 @@ const BMC_HUB_DATA = [
           [
             "storage get vdisks --refkey <ctrl FQDD> -o",
             "Virtual disks on one controller"
+          ],
+          [
+            "storage get pdisks:<PD FQDD>",
+            "One disk"
+          ],
+          [
+            "storage get status",
+            "Overall storage status"
+          ],
+          [
+            "raid",
+            "The guide says raid can be used in place of storage"
           ]
         ],
         "tip": "Run -o once to learn the property names, then use -p for a short table",
@@ -414,53 +324,7 @@ const BMC_HUB_DATA = [
           "perc",
           "disk"
         ]
-      }
-    ]
-  },
-  {
-    "id": "racadm-flags-4",
-    "badge": "racadm",
-    "title": "Dell racadm: More options",
-    "subtitle": "More options for: RAID controllers, physical and virtual disks",
-    "commands": [
-      {
-        "id": "racadm-storage-flags-card",
-        "desc": "More options and gotchas for: RAID controllers, physical and virtual disks",
-        "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" storage get controllers -o",
-        "hideCode": false,
-        "flags": [
-          [
-            "storage get pdisks:<PD FQDD>",
-            "One disk"
-          ],
-          [
-            "storage get status",
-            "Overall storage status"
-          ],
-          [
-            "raid",
-            "The guide says raid can be used in place of storage"
-          ]
-        ],
-        "tags": [
-          "bmc",
-          "remote-management",
-          "racadm",
-          "flags",
-          "options",
-          "storage",
-          "raid",
-          "pdisk"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "racadm-recipes-4",
-    "badge": "racadm",
-    "title": "Dell racadm: Related commands",
-    "subtitle": "Related commands for: RAID controllers, physical and virtual disks",
-    "commands": [
+      },
       {
         "id": "racadm-storage-sub-1",
         "desc": "Every physical disk with state and slot",
@@ -528,6 +392,14 @@ const BMC_HUB_DATA = [
           [
             "powerdown / powerup",
             "Hard off / on (changes state)"
+          ],
+          [
+            "powercycle",
+            "Off then on (changes state)"
+          ],
+          [
+            "Before any of them",
+            "Drain the node in Slurm or Kubernetes and get approval"
           ]
         ],
         "tip": "Prefer graceshutdown; powercycle skips the OS",
@@ -541,49 +413,7 @@ const BMC_HUB_DATA = [
           "shutdown",
           "racreset"
         ]
-      }
-    ]
-  },
-  {
-    "id": "racadm-flags-5",
-    "badge": "racadm",
-    "title": "Dell racadm: More options",
-    "subtitle": "More options for: Power state, and power actions after a drain",
-    "commands": [
-      {
-        "id": "racadm-serveraction-flags-card",
-        "desc": "More options and gotchas for: Power state, and power actions after a drain",
-        "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" serveraction powerstatus",
-        "hideCode": false,
-        "flags": [
-          [
-            "powercycle",
-            "Off then on (changes state)"
-          ],
-          [
-            "Before any of them",
-            "Drain the node in Slurm or Kubernetes and get approval"
-          ]
-        ],
-        "tags": [
-          "bmc",
-          "remote-management",
-          "racadm",
-          "flags",
-          "options",
-          "power",
-          "serveraction",
-          "powercycle"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "racadm-recipes-5",
-    "badge": "racadm",
-    "title": "Dell racadm: Related commands",
-    "subtitle": "Related commands for: Power state, and power actions after a drain",
-    "commands": [
+      },
       {
         "id": "racadm-serveraction-sub-1",
         "desc": "Clean OS shutdown (changes state)",
@@ -651,6 +481,18 @@ const BMC_HUB_DATA = [
           [
             "Staged vs immediate",
             "iDRAC attributes apply at once; BIOS, NIC and most RAID changes are staged until a job runs at reboot"
+          ],
+          [
+            "jobqueue create <FQDD> -r <type> -s TIME_NOW",
+            "Schedule the staged change. Reboot types: none, pwrcycle, graceful, forced"
+          ],
+          [
+            "jobqueue view [-i <JID>]",
+            "All jobs, or one job's status"
+          ],
+          [
+            "jobqueue delete -i JID_CLEARALL",
+            "Force-delete every job in the queue (changes state)"
           ]
         ],
         "tip": "A set that seems to do nothing is usually a staged change waiting for its job",
@@ -665,53 +507,7 @@ const BMC_HUB_DATA = [
           "job",
           "attributes"
         ]
-      }
-    ]
-  },
-  {
-    "id": "racadm-flags-6",
-    "badge": "racadm",
-    "title": "Dell racadm: More options",
-    "subtitle": "More options for: Read and change attributes; BIOS changes need a job",
-    "commands": [
-      {
-        "id": "racadm-get-set-job-flags-card",
-        "desc": "More options and gotchas for: Read and change attributes; BIOS changes need a job",
-        "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" get system.location.rack.name",
-        "hideCode": false,
-        "flags": [
-          [
-            "jobqueue create <FQDD> -r <type> -s TIME_NOW",
-            "Schedule the staged change. Reboot types: none, pwrcycle, graceful, forced"
-          ],
-          [
-            "jobqueue view [-i <JID>]",
-            "All jobs, or one job's status"
-          ],
-          [
-            "jobqueue delete -i JID_CLEARALL",
-            "Force-delete every job in the queue (changes state)"
-          ]
-        ],
-        "tags": [
-          "bmc",
-          "remote-management",
-          "racadm",
-          "flags",
-          "options",
-          "get",
-          "set",
-          "bios"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "racadm-recipes-6",
-    "badge": "racadm",
-    "title": "Dell racadm: Related commands",
-    "subtitle": "Related commands for: Read and change attributes; BIOS changes need a job",
-    "commands": [
+      },
       {
         "id": "racadm-get-set-job-sub-1",
         "desc": "Pending and finished jobs",
@@ -779,6 +575,10 @@ const BMC_HUB_DATA = [
           [
             "set -f ... --preview",
             "Validate a profile and get a job ID without rebooting"
+          ],
+          [
+            "set -f ... -b graceful|forced|NoReboot -w <sec>",
+            "Import with a reboot policy (changes state)"
           ]
         ],
         "tip": "Export before and after a change, then diff the two files",
@@ -792,45 +592,7 @@ const BMC_HUB_DATA = [
           "clone",
           "backup"
         ]
-      }
-    ]
-  },
-  {
-    "id": "racadm-flags-7",
-    "badge": "racadm",
-    "title": "Dell racadm: More options",
-    "subtitle": "More options for: Export the whole server configuration",
-    "commands": [
-      {
-        "id": "racadm-scp-flags-card",
-        "desc": "More options and gotchas for: Export the whole server configuration",
-        "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" get -f server-config.xml -t xml -l 192.0.2.50:/exports/scp",
-        "hideCode": false,
-        "flags": [
-          [
-            "set -f ... -b graceful|forced|NoReboot -w <sec>",
-            "Import with a reboot policy (changes state)"
-          ]
-        ],
-        "tags": [
-          "bmc",
-          "remote-management",
-          "racadm",
-          "flags",
-          "options",
-          "scp",
-          "export",
-          "config"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "racadm-recipes-7",
-    "badge": "racadm",
-    "title": "Dell racadm: Related commands",
-    "subtitle": "Related commands for: Export the whole server configuration",
-    "commands": [
+      },
       {
         "id": "racadm-scp-sub-1",
         "desc": "Dry-run an import",
@@ -883,15 +645,7 @@ const BMC_HUB_DATA = [
           "logs",
           "collect"
         ]
-      }
-    ]
-  },
-  {
-    "id": "racadm-recipes-8",
-    "badge": "racadm",
-    "title": "Dell racadm: Related commands",
-    "subtitle": "Related commands for: SupportAssist collection",
-    "commands": [
+      },
       {
         "id": "racadm-tsr-sub-1",
         "desc": "Wait for the collection job to finish",
@@ -977,6 +731,14 @@ const BMC_HUB_DATA = [
           [
             "--usercert / --userkey",
             "Certificate login, no password at all"
+          ],
+          [
+            "--logout",
+            "Append to any one-off command to end the session afterwards"
+          ],
+          [
+            "Special characters",
+            "Single-quote a password that contains ! on Linux"
           ]
         ],
         "tip": "Always logout: iLO has a limited number of sessions",
@@ -990,49 +752,7 @@ const BMC_HUB_DATA = [
           "session",
           "logout"
         ]
-      }
-    ]
-  },
-  {
-    "id": "ilorest-flags-1",
-    "badge": "ilorest",
-    "title": "HPE iLOrest: More options",
-    "subtitle": "More options for: Log in to an iLO",
-    "commands": [
-      {
-        "id": "ilorest-login-flags-card",
-        "desc": "More options and gotchas for: Log in to an iLO",
-        "cmd": "ilorest login $BMC -u $BMC_USER -p \"$BMC_PASS\"",
-        "hideCode": false,
-        "flags": [
-          [
-            "--logout",
-            "Append to any one-off command to end the session afterwards"
-          ],
-          [
-            "Special characters",
-            "Single-quote a password that contains ! on Linux"
-          ]
-        ],
-        "tags": [
-          "bmc",
-          "remote-management",
-          "ilorest",
-          "flags",
-          "options",
-          "hpe",
-          "ilo",
-          "login"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "ilorest-recipes-1",
-    "badge": "ilorest",
-    "title": "HPE iLOrest: Related commands",
-    "subtitle": "Related commands for: Log in to an iLO",
-    "commands": [
+      },
       {
         "id": "ilorest-login-sub-1",
         "desc": "End the session",
@@ -1086,6 +806,14 @@ const BMC_HUB_DATA = [
           [
             "--firmware --software",
             "Firmware inventory and installed software"
+          ],
+          [
+            "--all -j",
+            "Everything, as JSON"
+          ],
+          [
+            "-f <file>",
+            "Save to a file (default ilorest.json)"
           ]
         ],
         "tip": "serverstate FinishedPost means the OS is booting or up",
@@ -1100,49 +828,7 @@ const BMC_HUB_DATA = [
           "power",
           "firmware"
         ]
-      }
-    ]
-  },
-  {
-    "id": "ilorest-flags-2",
-    "badge": "ilorest",
-    "title": "HPE iLOrest: More options",
-    "subtitle": "More options for: Server summary: system, firmware, memory, CPUs, fans, power, thermals",
-    "commands": [
-      {
-        "id": "ilorest-serverinfo-flags-card",
-        "desc": "More options and gotchas for: Server summary: system, firmware, memory, CPUs, fans, power, thermals",
-        "cmd": "ilorest serverinfo --system --firmware",
-        "hideCode": false,
-        "flags": [
-          [
-            "--all -j",
-            "Everything, as JSON"
-          ],
-          [
-            "-f <file>",
-            "Save to a file (default ilorest.json)"
-          ]
-        ],
-        "tags": [
-          "bmc",
-          "remote-management",
-          "ilorest",
-          "flags",
-          "options",
-          "serverinfo",
-          "inventory",
-          "thermals"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "ilorest-recipes-2",
-    "badge": "ilorest",
-    "title": "HPE iLOrest: Related commands",
-    "subtitle": "Related commands for: Server summary: system, firmware, memory, CPUs, fans, power, thermals",
-    "commands": [
+      },
       {
         "id": "ilorest-serverinfo-sub-1",
         "desc": "POST state: InPost, FinishedPost, PowerOff…",
@@ -1210,35 +896,7 @@ const BMC_HUB_DATA = [
           [
             "--selectlog=AHS",
             "Active Health System log for HPE support; the file name is built from serial and date"
-          ]
-        ],
-        "tip": "HPE support asks for the AHS log first; IML is the one to read yourself",
-        "tags": [
-          "bmc",
-          "remote-management",
-          "ilorest",
-          "iml",
-          "iel",
-          "ahs",
-          "logs",
-          "events",
-          "rma"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "ilorest-flags-3",
-    "badge": "ilorest",
-    "title": "HPE iLOrest: More options",
-    "subtitle": "More options for: IML, iLO event log and AHS download",
-    "commands": [
-      {
-        "id": "ilorest-serverlogs-flags-card",
-        "desc": "More options and gotchas for: IML, iLO event log and AHS download",
-        "cmd": "ilorest serverlogs --selectlog=IML",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "--directorypath=<dir>",
             "Where to save the AHS file"
@@ -1256,25 +914,19 @@ const BMC_HUB_DATA = [
             "Clear the selected log (changes state)"
           ]
         ],
+        "tip": "HPE support asks for the AHS log first; IML is the one to read yourself",
         "tags": [
           "bmc",
           "remote-management",
           "ilorest",
-          "flags",
-          "options",
           "iml",
           "iel",
-          "ahs"
+          "ahs",
+          "logs",
+          "events",
+          "rma"
         ]
-      }
-    ]
-  },
-  {
-    "id": "ilorest-recipes-3",
-    "badge": "ilorest",
-    "title": "HPE iLOrest: Related commands",
-    "subtitle": "Related commands for: IML, iLO event log and AHS download",
-    "commands": [
+      },
       {
         "id": "ilorest-serverlogs-sub-1",
         "desc": "iLO's own event log",
@@ -1342,6 +994,14 @@ const BMC_HUB_DATA = [
           [
             "--physicaldrives / --drives",
             "Drives behind it"
+          ],
+          [
+            "--volumes / --logicaldrives",
+            "Volumes"
+          ],
+          [
+            "Scope",
+            "PLDM RDE controllers (MR, SR, NS). For NVMe use select/get or Redfish"
           ]
         ],
         "tip": "If storage looks empty, check serverstate: discovery finishes at InPostDiscoveryComplete",
@@ -1355,49 +1015,7 @@ const BMC_HUB_DATA = [
           "volumes",
           "smartarray"
         ]
-      }
-    ]
-  },
-  {
-    "id": "ilorest-flags-4",
-    "badge": "ilorest",
-    "title": "HPE iLOrest: More options",
-    "subtitle": "More options for: Storage controllers, drives and volumes",
-    "commands": [
-      {
-        "id": "ilorest-storage-flags-card",
-        "desc": "More options and gotchas for: Storage controllers, drives and volumes",
-        "cmd": "ilorest storagecontroller",
-        "hideCode": false,
-        "flags": [
-          [
-            "--volumes / --logicaldrives",
-            "Volumes"
-          ],
-          [
-            "Scope",
-            "PLDM RDE controllers (MR, SR, NS). For NVMe use select/get or Redfish"
-          ]
-        ],
-        "tags": [
-          "bmc",
-          "remote-management",
-          "ilorest",
-          "flags",
-          "options",
-          "storage",
-          "raid",
-          "drives"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "ilorest-recipes-4",
-    "badge": "ilorest",
-    "title": "HPE iLOrest: Related commands",
-    "subtitle": "Related commands for: Storage controllers, drives and volumes",
-    "commands": [
+      },
       {
         "id": "ilorest-storage-sub-1",
         "desc": "Drives on one controller",
@@ -1451,6 +1069,14 @@ const BMC_HUB_DATA = [
           [
             "list",
             "Like get, but includes @odata, Actions and Links"
+          ],
+          [
+            "set <prop>=<value>",
+            "Stage a change (changes state); quote the whole pair: \"Name=Two Words\""
+          ],
+          [
+            "commit",
+            "Apply staged changes (changes state); BIOS changes take effect after reboot"
           ]
         ],
         "tip": "set only stages: nothing changes until commit",
@@ -1465,49 +1091,7 @@ const BMC_HUB_DATA = [
           "bios",
           "redfish"
         ]
-      }
-    ]
-  },
-  {
-    "id": "ilorest-flags-5",
-    "badge": "ilorest",
-    "title": "HPE iLOrest: More options",
-    "subtitle": "More options for: Read any Redfish property with select and get",
-    "commands": [
-      {
-        "id": "ilorest-select-get-flags-card",
-        "desc": "More options and gotchas for: Read any Redfish property with select and get",
-        "cmd": "ilorest get BootOrderPolicy --select Bios.",
-        "hideCode": false,
-        "flags": [
-          [
-            "set <prop>=<value>",
-            "Stage a change (changes state); quote the whole pair: \"Name=Two Words\""
-          ],
-          [
-            "commit",
-            "Apply staged changes (changes state); BIOS changes take effect after reboot"
-          ]
-        ],
-        "tags": [
-          "bmc",
-          "remote-management",
-          "ilorest",
-          "flags",
-          "options",
-          "select",
-          "get",
-          "set"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "ilorest-recipes-5",
-    "badge": "ilorest",
-    "title": "HPE iLOrest: Related commands",
-    "subtitle": "Related commands for: Read any Redfish property with select and get",
-    "commands": [
+      },
       {
         "id": "ilorest-select-get-sub-1",
         "desc": "System resource paths",
@@ -1561,34 +1145,7 @@ const BMC_HUB_DATA = [
           [
             "PushPowerButton / Press",
             "Momentary press: the OS gets an ACPI shutdown"
-          ]
-        ],
-        "tip": "Every reboot form changes state: drain and get approval first",
-        "tags": [
-          "bmc",
-          "remote-management",
-          "ilorest",
-          "power",
-          "reboot",
-          "iloreset",
-          "forceoff",
-          "nmi"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "ilorest-flags-6",
-    "badge": "ilorest",
-    "title": "HPE iLOrest: More options",
-    "subtitle": "More options for: Power control",
-    "commands": [
-      {
-        "id": "ilorest-reboot-flags-card",
-        "desc": "More options and gotchas for: Power control",
-        "cmd": "ilorest reboot PushPowerButton",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "PressAndHold",
             "Hold the button: hard off"
@@ -1602,25 +1159,18 @@ const BMC_HUB_DATA = [
             "Restart the iLO; the session ends (changes state)"
           ]
         ],
+        "tip": "Every reboot form changes state: drain and get approval first",
         "tags": [
           "bmc",
           "remote-management",
           "ilorest",
-          "flags",
-          "options",
           "power",
           "reboot",
-          "iloreset"
+          "iloreset",
+          "forceoff",
+          "nmi"
         ]
-      }
-    ]
-  },
-  {
-    "id": "ilorest-recipes-6",
-    "badge": "ilorest",
-    "title": "HPE iLOrest: Related commands",
-    "subtitle": "Related commands for: Power control",
-    "commands": [
+      },
       {
         "id": "ilorest-reboot-sub-1",
         "desc": "Hard off (changes state)",
@@ -1674,6 +1224,14 @@ const BMC_HUB_DATA = [
           [
             "flashfwpkg <file>.fwpkg",
             "Upload and flash a package (changes state)"
+          ],
+          [
+            "uploadcomp --component <file>",
+            "Upload to the repository; needs iLO 5 1.48(a)+"
+          ],
+          [
+            "firmwareupdate <URI>",
+            "iLO and UEFI firmware from a URL (changes state)"
           ]
         ],
         "tip": "Read versions with serverinfo --firmware before and after an update",
@@ -1687,49 +1245,7 @@ const BMC_HUB_DATA = [
           "update",
           "fwpkg"
         ]
-      }
-    ]
-  },
-  {
-    "id": "ilorest-flags-7",
-    "badge": "ilorest",
-    "title": "HPE iLOrest: More options",
-    "subtitle": "More options for: Firmware integrity and the iLO repository",
-    "commands": [
-      {
-        "id": "ilorest-firmware-flags-card",
-        "desc": "More options and gotchas for: Firmware integrity and the iLO repository",
-        "cmd": "ilorest fwintegritycheck --results",
-        "hideCode": false,
-        "flags": [
-          [
-            "uploadcomp --component <file>",
-            "Upload to the repository; needs iLO 5 1.48(a)+"
-          ],
-          [
-            "firmwareupdate <URI>",
-            "iLO and UEFI firmware from a URL (changes state)"
-          ]
-        ],
-        "tags": [
-          "bmc",
-          "remote-management",
-          "ilorest",
-          "flags",
-          "options",
-          "firmware",
-          "integrity",
-          "repository"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "ilorest-recipes-7",
-    "badge": "ilorest",
-    "title": "HPE iLOrest: Related commands",
-    "subtitle": "Related commands for: Firmware integrity and the iLO repository",
-    "commands": [
+      },
       {
         "id": "ilorest-firmware-sub-1",
         "desc": "Installed firmware versions",
@@ -1783,33 +1299,7 @@ const BMC_HUB_DATA = [
           [
             "--network_ipv4 / --nameservers",
             "Change the address or DNS; needs an iLO reset (changes state)"
-          ]
-        ],
-        "tip": "Don't put credentials in the ISO URL; use a share that doesn't need them",
-        "tags": [
-          "bmc",
-          "remote-management",
-          "ilorest",
-          "ethernet",
-          "network",
-          "virtualmedia",
-          "iso"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "ilorest-flags-8",
-    "badge": "ilorest",
-    "title": "HPE iLOrest: More options",
-    "subtitle": "More options for: iLO network settings and virtual media",
-    "commands": [
-      {
-        "id": "ilorest-network-media-flags-card",
-        "desc": "More options and gotchas for: iLO network settings and virtual media",
-        "cmd": "ilorest ethernet",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "virtualmedia",
             "Show mounted media"
@@ -1823,25 +1313,17 @@ const BMC_HUB_DATA = [
             "Eject"
           ]
         ],
+        "tip": "Don't put credentials in the ISO URL; use a share that doesn't need them",
         "tags": [
           "bmc",
           "remote-management",
           "ilorest",
-          "flags",
-          "options",
           "ethernet",
           "network",
-          "virtualmedia"
+          "virtualmedia",
+          "iso"
         ]
-      }
-    ]
-  },
-  {
-    "id": "ilorest-recipes-8",
-    "badge": "ilorest",
-    "title": "HPE iLOrest: Related commands",
-    "subtitle": "Related commands for: iLO network settings and virtual media",
-    "commands": [
+      },
       {
         "id": "ilorest-network-media-sub-1",
         "desc": "What is mounted now",
@@ -1913,34 +1395,7 @@ const BMC_HUB_DATA = [
           [
             "-c <command>",
             "The command to run"
-          ]
-        ],
-        "tip": "Check -h -c on your SAA version before scripting: options change between releases",
-        "tags": [
-          "bmc",
-          "remote-management",
-          "saa",
-          "supermicro",
-          "saa",
-          "sum",
-          "help",
-          "usage"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "saa-flags-1",
-    "badge": "saa",
-    "title": "Supermicro SAA: More options",
-    "subtitle": "More options for: List the commands, and the options for one command",
-    "commands": [
-      {
-        "id": "saa-help-flags-card",
-        "desc": "More options and gotchas for: List the commands, and the options for one command",
-        "cmd": "./saa -h -c GetEventLog",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "-u / -p",
             "BMC user and password"
@@ -1954,25 +1409,18 @@ const BMC_HUB_DATA = [
             "In-band through the Redfish Host Interface (UEFI guide)"
           ]
         ],
+        "tip": "Check -h -c on your SAA version before scripting: options change between releases",
         "tags": [
           "bmc",
           "remote-management",
           "saa",
-          "flags",
-          "options",
           "supermicro",
           "saa",
-          "sum"
+          "sum",
+          "help",
+          "usage"
         ]
-      }
-    ]
-  },
-  {
-    "id": "saa-recipes-1",
-    "badge": "saa",
-    "title": "Supermicro SAA: Related commands",
-    "subtitle": "Related commands for: List the commands, and the options for one command",
-    "commands": [
+      },
       {
         "id": "saa-help-sub-1",
         "desc": "Options for a BIOS update",
@@ -2012,6 +1460,18 @@ const BMC_HUB_DATA = [
           [
             "GetBmcInfo",
             "BMC firmware info"
+          ],
+          [
+            "GetFruInfo",
+            "FRU: board, product and chassis serials"
+          ],
+          [
+            "GetDmiInfo --file DMI.txt",
+            "Editable DMI fields, saved to a file"
+          ],
+          [
+            "Out-of-band",
+            "SAA is SUM renamed (UEFI guide), so remote use follows SUM's -i <BMC IP> -u -p form: confirm with ./saa -h"
           ]
         ],
         "tip": "In-band commands need root; help (-h) doesn't",
@@ -2026,53 +1486,7 @@ const BMC_HUB_DATA = [
           "dmi",
           "inventory"
         ]
-      }
-    ]
-  },
-  {
-    "id": "saa-flags-2",
-    "badge": "saa",
-    "title": "Supermicro SAA: More options",
-    "subtitle": "More options for: System, BIOS and BMC firmware information",
-    "commands": [
-      {
-        "id": "saa-sysinfo-flags-card",
-        "desc": "More options and gotchas for: System, BIOS and BMC firmware information",
-        "cmd": "sudo ./saa -c GetSystemInfo",
-        "hideCode": false,
-        "flags": [
-          [
-            "GetFruInfo",
-            "FRU: board, product and chassis serials"
-          ],
-          [
-            "GetDmiInfo --file DMI.txt",
-            "Editable DMI fields, saved to a file"
-          ],
-          [
-            "Out-of-band",
-            "SAA is SUM renamed (UEFI guide), so remote use follows SUM's -i <BMC IP> -u -p form: confirm with ./saa -h"
-          ]
-        ],
-        "tags": [
-          "bmc",
-          "remote-management",
-          "saa",
-          "flags",
-          "options",
-          "sysinfo",
-          "bios",
-          "bmc"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "saa-recipes-2",
-    "badge": "saa",
-    "title": "Supermicro SAA: Related commands",
-    "subtitle": "Related commands for: System, BIOS and BMC firmware information",
-    "commands": [
+      },
       {
         "id": "saa-sysinfo-sub-1",
         "desc": "BIOS version and build date",
@@ -2140,34 +1554,7 @@ const BMC_HUB_DATA = [
           [
             "GetMaintenEventLog",
             "Maintenance event log"
-          ]
-        ],
-        "tip": "Save the event log before any clear or firmware update",
-        "tags": [
-          "bmc",
-          "remote-management",
-          "saa",
-          "eventlog",
-          "sel",
-          "sensors",
-          "psu",
-          "intrusion"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "saa-flags-3",
-    "badge": "saa",
-    "title": "Supermicro SAA: More options",
-    "subtitle": "More options for: BMC event log and sensor status",
-    "commands": [
-      {
-        "id": "saa-eventlog-flags-card",
-        "desc": "More options and gotchas for: BMC event log and sensor status",
-        "cmd": "sudo ./saa -c GetEventLog --info",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "CheckSensorData --action Show",
             "Sensor status"
@@ -2181,25 +1568,18 @@ const BMC_HUB_DATA = [
             "Chassis intrusion status"
           ]
         ],
+        "tip": "Save the event log before any clear or firmware update",
         "tags": [
           "bmc",
           "remote-management",
           "saa",
-          "flags",
-          "options",
           "eventlog",
           "sel",
-          "sensors"
+          "sensors",
+          "psu",
+          "intrusion"
         ]
-      }
-    ]
-  },
-  {
-    "id": "saa-recipes-3",
-    "badge": "saa",
-    "title": "Supermicro SAA: Related commands",
-    "subtitle": "Related commands for: BMC event log and sensor status",
-    "commands": [
+      },
       {
         "id": "saa-eventlog-sub-1",
         "desc": "Save the log for the case",
@@ -2267,6 +1647,10 @@ const BMC_HUB_DATA = [
           [
             "--overwrite",
             "Replace an existing output file"
+          ],
+          [
+            "-p",
+            "Visible in ps: keep the password in a variable, never typed inline"
           ]
         ],
         "tip": "Export the config from a known-good node and diff it against the suspect one",
@@ -2278,36 +1662,6 @@ const BMC_HUB_DATA = [
           "fleet",
           "bmccfg",
           "export"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "saa-flags-4",
-    "badge": "saa",
-    "title": "Supermicro SAA: More options",
-    "subtitle": "More options for: Same command across many BMCs",
-    "commands": [
-      {
-        "id": "saa-multi-flags-card",
-        "desc": "More options and gotchas for: Same command across many BMCs",
-        "cmd": "./saa -l SList.txt -u $BMC_USER -p \"$BMC_PASS\" -c GetBmcCfg --file BmcCfg.xml --overwrite",
-        "hideCode": false,
-        "flags": [
-          [
-            "-p",
-            "Visible in ps: keep the password in a variable, never typed inline"
-          ]
-        ],
-        "tags": [
-          "bmc",
-          "remote-management",
-          "saa",
-          "flags",
-          "options",
-          "multi",
-          "fleet",
-          "bmccfg"
         ]
       }
     ]
@@ -2347,15 +1701,7 @@ const BMC_HUB_DATA = [
           "cpld",
           "firmware"
         ]
-      }
-    ]
-  },
-  {
-    "id": "saa-recipes-5",
-    "badge": "saa",
-    "title": "Supermicro SAA: Related commands",
-    "subtitle": "Related commands for: GPU and CPLD firmware information",
-    "commands": [
+      },
       {
         "id": "saa-gpu-sub-1",
         "desc": "Motherboard CPLD version",
@@ -2427,33 +1773,7 @@ const BMC_HUB_DATA = [
           [
             "--configfile <json>",
             "Credentials from a file (template: Sample/credentials_config.json)"
-          ]
-        ],
-        "tip": "Encrypt the credentials file with misc encrypt instead of passing --bmc on the command line",
-        "tags": [
-          "bmc",
-          "remote-management",
-          "onecli",
-          "lenovo",
-          "xcc",
-          "health",
-          "syshealth"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "onecli-flags-1",
-    "badge": "onecli",
-    "title": "Lenovo OneCLI: More options",
-    "subtitle": "More options for: System health summary through the XCC",
-    "commands": [
-      {
-        "id": "onecli-syshealth-flags-card",
-        "desc": "More options and gotchas for: System health summary through the XCC",
-        "cmd": "./OneCli misc syshealth --bmc \"$BMC_USER:$BMC_PASS@$BMC\"",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "-N / --never-check-trust",
             "Skip certificate and SSH fingerprint checks (lab only)"
@@ -2467,25 +1787,17 @@ const BMC_HUB_DATA = [
             "syshealth is not supported on older System x"
           ]
         ],
+        "tip": "Encrypt the credentials file with misc encrypt instead of passing --bmc on the command line",
         "tags": [
           "bmc",
           "remote-management",
           "onecli",
-          "flags",
-          "options",
           "lenovo",
           "xcc",
-          "health"
+          "health",
+          "syshealth"
         ]
-      }
-    ]
-  },
-  {
-    "id": "onecli-recipes-1",
-    "badge": "onecli",
-    "title": "Lenovo OneCLI: Related commands",
-    "subtitle": "Related commands for: System health summary through the XCC",
-    "commands": [
+      },
       {
         "id": "onecli-syshealth-sub-1",
         "desc": "Power subsystem only",
@@ -2539,6 +1851,14 @@ const BMC_HUB_DATA = [
           [
             "--type AEL|PEL|ALL",
             "Audit, Platform, or both event logs"
+          ],
+          [
+            "clearsel / clearbmclog / clearall",
+            "Clear logs (changes state)"
+          ],
+          [
+            "In-band too",
+            "logmgr works in-band and out-of-band"
           ]
         ],
         "tip": "There is no getsel: showsel is the command",
@@ -2551,49 +1871,7 @@ const BMC_HUB_DATA = [
           "logmgr",
           "audit"
         ]
-      }
-    ]
-  },
-  {
-    "id": "onecli-flags-2",
-    "badge": "onecli",
-    "title": "Lenovo OneCLI: More options",
-    "subtitle": "More options for: SEL, BMC and audit logs",
-    "commands": [
-      {
-        "id": "onecli-logmgr-flags-card",
-        "desc": "More options and gotchas for: SEL, BMC and audit logs",
-        "cmd": "./OneCli misc logmgr showsel --bmc \"$BMC_USER:$BMC_PASS@$BMC\"",
-        "hideCode": false,
-        "flags": [
-          [
-            "clearsel / clearbmclog / clearall",
-            "Clear logs (changes state)"
-          ],
-          [
-            "In-band too",
-            "logmgr works in-band and out-of-band"
-          ]
-        ],
-        "tags": [
-          "bmc",
-          "remote-management",
-          "onecli",
-          "flags",
-          "options",
-          "sel",
-          "logs",
-          "logmgr"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "onecli-recipes-2",
-    "badge": "onecli",
-    "title": "Lenovo OneCLI: Related commands",
-    "subtitle": "Related commands for: SEL, BMC and audit logs",
-    "commands": [
+      },
       {
         "id": "onecli-logmgr-sub-1",
         "desc": "XCC event log",
@@ -2633,6 +1911,14 @@ const BMC_HUB_DATA = [
           [
             "--device <name>",
             "One category (default all); list them with inventory getdevices"
+          ],
+          [
+            "--ffdc",
+            "Collect service data too"
+          ],
+          [
+            "getdevices",
+            "In-band only: the device categories getinfor accepts"
           ]
         ],
         "tip": "Attach the HTML report to the case",
@@ -2644,49 +1930,7 @@ const BMC_HUB_DATA = [
           "getinfor",
           "report"
         ]
-      }
-    ]
-  },
-  {
-    "id": "onecli-flags-3",
-    "badge": "onecli",
-    "title": "Lenovo OneCLI: More options",
-    "subtitle": "More options for: Full inventory report",
-    "commands": [
-      {
-        "id": "onecli-inventory-flags-card",
-        "desc": "More options and gotchas for: Full inventory report",
-        "cmd": "sudo ./OneCli inventory getinfor --output ./inventory --htmlreport",
-        "hideCode": false,
-        "flags": [
-          [
-            "--ffdc",
-            "Collect service data too"
-          ],
-          [
-            "getdevices",
-            "In-band only: the device categories getinfor accepts"
-          ]
-        ],
-        "tags": [
-          "bmc",
-          "remote-management",
-          "onecli",
-          "flags",
-          "options",
-          "inventory",
-          "getinfor",
-          "report"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "onecli-recipes-3",
-    "badge": "onecli",
-    "title": "Lenovo OneCLI: Related commands",
-    "subtitle": "Related commands for: Full inventory report",
-    "commands": [
+      },
       {
         "id": "onecli-inventory-sub-1",
         "desc": "Categories: system_overview, bmc_event_logs, …",
@@ -2726,6 +1970,10 @@ const BMC_HUB_DATA = [
           [
             "config set <setting> <value>",
             "Change one setting (changes state)"
+          ],
+          [
+            "config compare / comparedefault",
+            "Compare against a file or the defaults"
           ]
         ],
         "tip": "Save before you set, and keep the file in the case folder",
@@ -2739,45 +1987,7 @@ const BMC_HUB_DATA = [
           "imm",
           "xcc"
         ]
-      }
-    ]
-  },
-  {
-    "id": "onecli-flags-4",
-    "badge": "onecli",
-    "title": "Lenovo OneCLI: More options",
-    "subtitle": "More options for: Read and save settings",
-    "commands": [
-      {
-        "id": "onecli-config-flags-card",
-        "desc": "More options and gotchas for: Read and save settings",
-        "cmd": "./OneCli config show IMM --bmc \"$BMC_USER:$BMC_PASS@$BMC\"",
-        "hideCode": false,
-        "flags": [
-          [
-            "config compare / comparedefault",
-            "Compare against a file or the defaults"
-          ]
-        ],
-        "tags": [
-          "bmc",
-          "remote-management",
-          "onecli",
-          "flags",
-          "options",
-          "config",
-          "settings",
-          "uefi"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "onecli-recipes-4",
-    "badge": "onecli",
-    "title": "Lenovo OneCLI: Related commands",
-    "subtitle": "Related commands for: Read and save settings",
-    "commands": [
+      },
       {
         "id": "onecli-config-sub-1",
         "desc": "Save every setting for a later diff",
@@ -2831,6 +2041,10 @@ const BMC_HUB_DATA = [
           [
             "update flash",
             "Apply updates from the compare result (changes state)"
+          ],
+          [
+            "--noreboot",
+            "By default the BMC restarts itself after a BMC update"
           ]
         ],
         "tip": "scan and compare are read-only; flash needs a drain and approval",
@@ -2844,45 +2058,7 @@ const BMC_HUB_DATA = [
           "compare",
           "flash"
         ]
-      }
-    ]
-  },
-  {
-    "id": "onecli-flags-5",
-    "badge": "onecli",
-    "title": "Lenovo OneCLI: More options",
-    "subtitle": "More options for: What firmware is installed, and what is newer",
-    "commands": [
-      {
-        "id": "onecli-update-flags-card",
-        "desc": "More options and gotchas for: What firmware is installed, and what is newer",
-        "cmd": "./OneCli update scan --bmc \"$BMC_USER:$BMC_PASS@$BMC\" --output ./scan",
-        "hideCode": false,
-        "flags": [
-          [
-            "--noreboot",
-            "By default the BMC restarts itself after a BMC update"
-          ]
-        ],
-        "tags": [
-          "bmc",
-          "remote-management",
-          "onecli",
-          "flags",
-          "options",
-          "firmware",
-          "update",
-          "scan"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "onecli-recipes-5",
-    "badge": "onecli",
-    "title": "Lenovo OneCLI: Related commands",
-    "subtitle": "Related commands for: What firmware is installed, and what is newer",
-    "commands": [
+      },
       {
         "id": "onecli-update-sub-1",
         "desc": "What would be updated",
@@ -2922,33 +2098,7 @@ const BMC_HUB_DATA = [
           [
             "power forceoff / forcerestart / on",
             "Hard actions (change state)"
-          ]
-        ],
-        "tip": "Prefer normalrestart over forcerestart",
-        "tags": [
-          "bmc",
-          "remote-management",
-          "onecli",
-          "power",
-          "restart",
-          "rebootbmc",
-          "boottosetup"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "onecli-flags-6",
-    "badge": "onecli",
-    "title": "Lenovo OneCLI: More options",
-    "subtitle": "More options for: Power state and control",
-    "commands": [
-      {
-        "id": "onecli-power-flags-card",
-        "desc": "More options and gotchas for: Power state and control",
-        "cmd": "./OneCli misc power state --bmc \"$BMC_USER:$BMC_PASS@$BMC\"",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "power boottosetup",
             "Restart into UEFI setup (changes state)"
@@ -2962,25 +2112,17 @@ const BMC_HUB_DATA = [
             "Replaced by power in OneCLI 5.3.0"
           ]
         ],
+        "tip": "Prefer normalrestart over forcerestart",
         "tags": [
           "bmc",
           "remote-management",
           "onecli",
-          "flags",
-          "options",
           "power",
           "restart",
-          "rebootbmc"
+          "rebootbmc",
+          "boottosetup"
         ]
-      }
-    ]
-  },
-  {
-    "id": "onecli-recipes-6",
-    "badge": "onecli",
-    "title": "Lenovo OneCLI: Related commands",
-    "subtitle": "Related commands for: Power state and control",
-    "commands": [
+      },
       {
         "id": "onecli-power-sub-1",
         "desc": "Clean restart (changes state)",
@@ -3066,34 +2208,7 @@ const BMC_HUB_DATA = [
           [
             "--ignore-not-available-sensors",
             "Hide N/A sensors"
-          ]
-        ],
-        "tip": "-P (prompt) is the safe default; -p puts the password in ps",
-        "tags": [
-          "bmc",
-          "remote-management",
-          "freeipmi",
-          "freeipmi",
-          "sensors",
-          "sdr",
-          "bmc-info",
-          "fru"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "freeipmi-flags-1",
-    "badge": "freeipmi",
-    "title": "GNU FreeIPMI: More options",
-    "subtitle": "More options for: Sensors with a health state, password prompted",
-    "commands": [
-      {
-        "id": "freeipmi-sensors-flags-card",
-        "desc": "More options and gotchas for: Sensors with a health state, password prompted",
-        "cmd": "ipmi-sensors -h $BMC -u $BMC_USER -P --output-sensor-state --ignore-not-available-sensors",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "--sdr-cache-recreate",
             "Rebuild a stale SDR cache (after a BMC firmware update)"
@@ -3107,25 +2222,18 @@ const BMC_HUB_DATA = [
             "Cipher suite (default 3)"
           ]
         ],
+        "tip": "-P (prompt) is the safe default; -p puts the password in ps",
         "tags": [
           "bmc",
           "remote-management",
           "freeipmi",
-          "flags",
-          "options",
           "freeipmi",
           "sensors",
-          "sdr"
+          "sdr",
+          "bmc-info",
+          "fru"
         ]
-      }
-    ]
-  },
-  {
-    "id": "freeipmi-recipes-1",
-    "badge": "freeipmi",
-    "title": "GNU FreeIPMI: Related commands",
-    "subtitle": "Related commands for: Sensors with a health state, password prompted",
-    "commands": [
+      },
       {
         "id": "freeipmi-sensors-sub-1",
         "desc": "Only temperatures and fans",
@@ -3193,6 +2301,14 @@ const BMC_HUB_DATA = [
           [
             "--output-event-state",
             "NOMINAL / WARNING / CRITICAL per event"
+          ],
+          [
+            "--display-range=<a>-<b>",
+            "A range of record IDs"
+          ],
+          [
+            "--clear / --post-clear / --delete=<id>",
+            "Change the SEL (changes state)"
           ]
         ],
         "tip": "Save the SEL before anyone clears it",
@@ -3205,49 +2321,7 @@ const BMC_HUB_DATA = [
           "logs",
           "oem"
         ]
-      }
-    ]
-  },
-  {
-    "id": "freeipmi-flags-2",
-    "badge": "freeipmi",
-    "title": "GNU FreeIPMI: More options",
-    "subtitle": "More options for: Last SEL entries, interpreted",
-    "commands": [
-      {
-        "id": "freeipmi-sel-flags-card",
-        "desc": "More options and gotchas for: Last SEL entries, interpreted",
-        "cmd": "ipmi-sel -h $BMC -u $BMC_USER -P --tail=50 --interpret-oem-data --output-event-state",
-        "hideCode": false,
-        "flags": [
-          [
-            "--display-range=<a>-<b>",
-            "A range of record IDs"
-          ],
-          [
-            "--clear / --post-clear / --delete=<id>",
-            "Change the SEL (changes state)"
-          ]
-        ],
-        "tags": [
-          "bmc",
-          "remote-management",
-          "freeipmi",
-          "flags",
-          "options",
-          "sel",
-          "events",
-          "logs"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "freeipmi-recipes-2",
-    "badge": "freeipmi",
-    "title": "GNU FreeIPMI: Related commands",
-    "subtitle": "Related commands for: Last SEL entries, interpreted",
-    "commands": [
+      },
       {
         "id": "freeipmi-sel-sub-1",
         "desc": "Save the whole SEL to the case folder",
@@ -3287,34 +2361,7 @@ const BMC_HUB_DATA = [
           [
             "--on / --off / --cycle / --reset",
             "Power actions (change state; OPERATOR privilege)"
-          ]
-        ],
-        "tip": "Host ranges make rack-wide status checks one command",
-        "tags": [
-          "bmc",
-          "remote-management",
-          "freeipmi",
-          "power",
-          "ipmipower",
-          "chassis",
-          "hostrange",
-          "rack"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "freeipmi-flags-3",
-    "badge": "freeipmi",
-    "title": "GNU FreeIPMI: More options",
-    "subtitle": "More options for: Power status for a whole rack at once",
-    "commands": [
-      {
-        "id": "freeipmi-power-flags-card",
-        "desc": "More options and gotchas for: Power status for a whole rack at once",
-        "cmd": "ipmipower -h \"rack12-node[01-16]-bmc\" -u $BMC_USER -P --stat",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "--soft",
             "ACPI soft shutdown (changes state)"
@@ -3328,25 +2375,18 @@ const BMC_HUB_DATA = [
             "Fan-out: hosts in parallel (default 64)"
           ]
         ],
+        "tip": "Host ranges make rack-wide status checks one command",
         "tags": [
           "bmc",
           "remote-management",
           "freeipmi",
-          "flags",
-          "options",
           "power",
           "ipmipower",
-          "chassis"
+          "chassis",
+          "hostrange",
+          "rack"
         ]
-      }
-    ]
-  },
-  {
-    "id": "freeipmi-recipes-3",
-    "badge": "freeipmi",
-    "title": "GNU FreeIPMI: Related commands",
-    "subtitle": "Related commands for: Power status for a whole rack at once",
-    "commands": [
+      },
       {
         "id": "freeipmi-power-sub-1",
         "desc": "Power, last power event, intrusion",
@@ -3400,33 +2440,7 @@ const BMC_HUB_DATA = [
           [
             "&B",
             "Send a serial break"
-          ]
-        ],
-        "tip": "Use --dont-steal on a node someone else may be working on",
-        "tags": [
-          "bmc",
-          "remote-management",
-          "freeipmi",
-          "sol",
-          "console",
-          "serial",
-          "ipmiconsole"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "freeipmi-flags-4",
-    "badge": "freeipmi",
-    "title": "GNU FreeIPMI: More options",
-    "subtitle": "More options for: Serial-over-LAN console",
-    "commands": [
-      {
-        "id": "freeipmi-sol-flags-card",
-        "desc": "More options and gotchas for: Serial-over-LAN console",
-        "cmd": "ipmiconsole -h $BMC -u $BMC_USER -P",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "-e <char>",
             "Change the escape character"
@@ -3444,25 +2458,17 @@ const BMC_HUB_DATA = [
             "The only ones that encrypt console traffic"
           ]
         ],
+        "tip": "Use --dont-steal on a node someone else may be working on",
         "tags": [
           "bmc",
           "remote-management",
           "freeipmi",
-          "flags",
-          "options",
           "sol",
           "console",
-          "serial"
+          "serial",
+          "ipmiconsole"
         ]
-      }
-    ]
-  },
-  {
-    "id": "freeipmi-recipes-4",
-    "badge": "freeipmi",
-    "title": "GNU FreeIPMI: Related commands",
-    "subtitle": "Related commands for: Serial-over-LAN console",
-    "commands": [
+      },
       {
         "id": "freeipmi-sol-sub-1",
         "desc": "Free a stuck SOL session",
@@ -3516,6 +2522,10 @@ const BMC_HUB_DATA = [
           [
             "--get-power-limit",
             "The configured power cap"
+          ],
+          [
+            "--set-power-limit",
+            "Change the cap (changes state)"
           ]
         ],
         "tip": "A power cap can explain GPUs that never reach full clocks",
@@ -3528,45 +2538,7 @@ const BMC_HUB_DATA = [
           "watts",
           "cap"
         ]
-      }
-    ]
-  },
-  {
-    "id": "freeipmi-flags-5",
-    "badge": "freeipmi",
-    "title": "GNU FreeIPMI: More options",
-    "subtitle": "More options for: Power draw from the BMC",
-    "commands": [
-      {
-        "id": "freeipmi-dcmi-flags-card",
-        "desc": "More options and gotchas for: Power draw from the BMC",
-        "cmd": "ipmi-dcmi -h $BMC -u $BMC_USER -P --get-system-power-statistics",
-        "hideCode": false,
-        "flags": [
-          [
-            "--set-power-limit",
-            "Change the cap (changes state)"
-          ]
-        ],
-        "tags": [
-          "bmc",
-          "remote-management",
-          "freeipmi",
-          "flags",
-          "options",
-          "dcmi",
-          "power",
-          "watts"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "freeipmi-recipes-5",
-    "badge": "freeipmi",
-    "title": "GNU FreeIPMI: Related commands",
-    "subtitle": "Related commands for: Power draw from the BMC",
-    "commands": [
+      },
       {
         "id": "freeipmi-dcmi-sub-1",
         "desc": "Is a power cap active?",
@@ -3638,34 +2610,7 @@ const BMC_HUB_DATA = [
           [
             "C-a C-q",
             "Quit without resetting the port"
-          ]
-        ],
-        "tip": "Use /dev/serial/by-id paths: ttyUSB numbers change on replug",
-        "tags": [
-          "bmc",
-          "remote-management",
-          "serial",
-          "serial",
-          "picocom",
-          "console",
-          "usb",
-          "tty"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "serial-flags-1",
-    "badge": "serial",
-    "title": "Serial consoles: More options",
-    "subtitle": "More options for: Open a USB serial console",
-    "commands": [
-      {
-        "id": "serial-picocom-flags-card",
-        "desc": "More options and gotchas for: Open a USB serial console",
-        "cmd": "picocom -b 115200 /dev/ttyUSB0",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "C-a C-h",
             "Help: every C-a command"
@@ -3679,25 +2624,18 @@ const BMC_HUB_DATA = [
             "Log the session to a file"
           ]
         ],
+        "tip": "Use /dev/serial/by-id paths: ttyUSB numbers change on replug",
         "tags": [
           "bmc",
           "remote-management",
           "serial",
-          "flags",
-          "options",
           "serial",
           "picocom",
-          "console"
+          "console",
+          "usb",
+          "tty"
         ]
-      }
-    ]
-  },
-  {
-    "id": "serial-recipes-1",
-    "badge": "serial",
-    "title": "Serial consoles: Related commands",
-    "subtitle": "Related commands for: Open a USB serial console",
-    "commands": [
+      },
       {
         "id": "serial-picocom-sub-1",
         "desc": "Stable names for USB serial adapters",
@@ -3765,34 +2703,7 @@ const BMC_HUB_DATA = [
           [
             "connector",
             "The device: serialdev,<path>,<baud><parity><bits><stop>"
-          ]
-        ],
-        "tip": "Bind ser2net to a management VLAN only: it has no login by default",
-        "tags": [
-          "bmc",
-          "remote-management",
-          "serial",
-          "ser2net",
-          "serial",
-          "network",
-          "yaml",
-          "rfc2217"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "serial-flags-2",
-    "badge": "serial",
-    "title": "Serial consoles: More options",
-    "subtitle": "More options for: Share a serial port on the network with ser2net",
-    "commands": [
-      {
-        "id": "serial-ser2net-flags-card",
-        "desc": "More options and gotchas for: Share a serial port on the network with ser2net",
-        "cmd": "connection: &rack12-sw1\n  accepter: telnet(rfc2217),tcp,3001\n  connector: serialdev,/dev/ttyUSB0,115200N81\n  options:\n    kickolduser: false\n    banner: \"rack12-sw1 console\\r\\n\"",
-        "hideCode": true,
-        "flags": [
+          ],
           [
             "kickolduser",
             "true: a new user takes over from the old one"
@@ -3806,25 +2717,18 @@ const BMC_HUB_DATA = [
             "YAML v1: insert a file's contents, so secrets stay out of the config"
           ]
         ],
+        "tip": "Bind ser2net to a management VLAN only: it has no login by default",
         "tags": [
           "bmc",
           "remote-management",
           "serial",
-          "flags",
-          "options",
           "ser2net",
           "serial",
-          "network"
+          "network",
+          "yaml",
+          "rfc2217"
         ]
-      }
-    ]
-  },
-  {
-    "id": "serial-recipes-2",
-    "badge": "serial",
-    "title": "Serial consoles: Related commands",
-    "subtitle": "Related commands for: Share a serial port on the network with ser2net",
-    "commands": [
+      },
       {
         "id": "serial-ser2net-sub-1",
         "desc": "Is it running?",
@@ -3878,33 +2782,7 @@ const BMC_HUB_DATA = [
           [
             "console -s <name>",
             "Spy: read-only"
-          ]
-        ],
-        "tip": "conserver logs every console, so the boot that crashed at 3 a.m. is in the log",
-        "tags": [
-          "bmc",
-          "remote-management",
-          "serial",
-          "conserver",
-          "console",
-          "serial",
-          "logging"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "serial-flags-3",
-    "badge": "serial",
-    "title": "Serial consoles: More options",
-    "subtitle": "More options for: List and attach to logged consoles",
-    "commands": [
-      {
-        "id": "serial-conserver-flags-card",
-        "desc": "More options and gotchas for: List and attach to logged consoles",
-        "cmd": "console -u",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "^Ec.",
             "Disconnect (Ctrl-E, c, period)"
@@ -3918,25 +2796,17 @@ const BMC_HUB_DATA = [
             "Replay recent output / send a break"
           ]
         ],
+        "tip": "conserver logs every console, so the boot that crashed at 3 a.m. is in the log",
         "tags": [
           "bmc",
           "remote-management",
           "serial",
-          "flags",
-          "options",
           "conserver",
           "console",
-          "serial"
+          "serial",
+          "logging"
         ]
-      }
-    ]
-  },
-  {
-    "id": "serial-recipes-3",
-    "badge": "serial",
-    "title": "Serial consoles: Related commands",
-    "subtitle": "Related commands for: List and attach to logged consoles",
-    "commands": [
+      },
       {
         "id": "serial-conserver-sub-1",
         "desc": "Watch a console without typing into it",
@@ -3990,6 +2860,10 @@ const BMC_HUB_DATA = [
           [
             "ipmiciphersuite / ipmiprivlevel",
             "Cipher suite and privilege (default admin)"
+          ],
+          [
+            "type device + device + baud",
+            "A local serial port instead"
           ]
         ],
         "tip": "chmod 600 conserver.cf when it holds BMC passwords",
@@ -4001,36 +2875,6 @@ const BMC_HUB_DATA = [
           "ipmi",
           "sol",
           "config"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "serial-flags-4",
-    "badge": "serial",
-    "title": "Serial consoles: More options",
-    "subtitle": "More options for: conserver console for an IPMI SOL target",
-    "commands": [
-      {
-        "id": "serial-conserver-ipmi-flags-card",
-        "desc": "More options and gotchas for: conserver console for an IPMI SOL target",
-        "cmd": "console rack12-node07 {\n  master localhost;\n  type ipmi;\n  host rack12-node07-bmc.example.com;\n  username <bmc_user>;\n  rw *;\n}",
-        "hideCode": true,
-        "flags": [
-          [
-            "type device + device + baud",
-            "A local serial port instead"
-          ]
-        ],
-        "tags": [
-          "bmc",
-          "remote-management",
-          "serial",
-          "flags",
-          "options",
-          "conserver",
-          "ipmi",
-          "sol"
         ]
       }
     ]

@@ -24,36 +24,7 @@ const GRAF_GRAFANA_GPU_DASHBOARD_DATA = [
           [
             "DCGM_FI_DEV_GPU_TEMP",
             "→ DCGM_FI_DEV_GPU_TEMP_CELSIUS (same unit, °C)"
-          ]
-        ],
-        "tip": "Upgrading the exporter breaks old dashboards",
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "dcgm",
-          "metric names",
-          "rename",
-          "4.9.0",
-          "upgrade",
-          "units",
-          "hostname"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-gpu-dashboard-flags-1",
-    "badge": "gpu",
-    "title": "GPU Fleet Dashboard: More options",
-    "subtitle": "More options for: Which metric names does your exporter use? dcgm-exporter 4.9.0 renamed them",
-    "commands": [
-      {
-        "id": "gpu-dash-metric-names-flags-card",
-        "desc": "More options and gotchas for: Which metric names does your exporter use? dcgm-exporter 4.9.0 renamed them",
-        "cmd": "curl -s http://<node>:9400/metrics | grep -c '^DCGM_FI_DEV_GPU_TEMP_CELSIUS{'",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "DCGM_FI_DEV_POWER_USAGE",
             "→ DCGM_FI_DEV_BOARD_POWER_WATTS (same unit, W)"
@@ -95,25 +66,20 @@ const GRAF_GRAFANA_GPU_DASHBOARD_DATA = [
             "→ hostname since 4.6.0; the driver-version label DCGM_FI_DRIVER_VERSION → DCGM_FI_SYSTEM_DRIVER_VERSION in 4.9.0"
           ]
         ],
+        "tip": "Upgrading the exporter breaks old dashboards",
         "tags": [
           "grafana",
           "dashboards",
           "observability",
-          "flags",
-          "options",
           "dcgm",
           "metric names",
-          "rename"
+          "rename",
+          "4.9.0",
+          "upgrade",
+          "units",
+          "hostname"
         ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-gpu-dashboard-recipes-1",
-    "badge": "gpu",
-    "title": "GPU Fleet Dashboard: Related commands",
-    "subtitle": "Related commands for: Which metric names does your exporter use? dcgm-exporter 4.9.0 renamed them",
-    "commands": [
+      },
       {
         "id": "gpu-dash-metric-names-sub-1",
         "desc": "Mixed fleet during an upgrade: or keeps a series from either name (only safe where the unit did not change)",
@@ -181,6 +147,10 @@ const GRAF_GRAFANA_GPU_DASHBOARD_DATA = [
           [
             "Row 3 repeat",
             "Repeat the row by $host so selecting 3 nodes shows 3 blocks"
+          ],
+          [
+            "Starting point",
+            "Community dashboard 12239 shows working queries but uses the pre-4.9 metric names. dcgm-exporter 4.9.0 updated its own Grafana dashboard to the new names and units"
           ]
         ],
         "tip": "Match the dashboard to your exporter's names",
@@ -195,45 +165,7 @@ const GRAF_GRAFANA_GPU_DASHBOARD_DATA = [
           "rows",
           "12239"
         ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-gpu-dashboard-flags-2",
-    "badge": "gpu",
-    "title": "GPU Fleet Dashboard: More options",
-    "subtitle": "More options for: Layout: three rows answering 'anything wrong?', 'where?', 'why?'",
-    "commands": [
-      {
-        "id": "gpu-dash-layout-flags-card",
-        "desc": "More options and gotchas for: Layout: three rows answering 'anything wrong?', 'where?', 'why?'",
-        "cmd": "Row 1  Fleet health (stat panels, w 4 each = 6 across)\n       GPUs reporting | Exporters down | XID now | Hot GPUs | Fleet power kW | Avg util\nRow 2  Where (w 12 + 12)\n       Per-GPU table (sorted by temp)  |  Temperature heatmap by GPU\nRow 3  Why (time series, repeat by $host)\n       Util | Temp | Power | Memory used | NVLink bandwidth | Clock event reasons",
-        "hideCode": true,
-        "flags": [
-          [
-            "Starting point",
-            "Community dashboard 12239 shows working queries but uses the pre-4.9 metric names. dcgm-exporter 4.9.0 updated its own Grafana dashboard to the new names and units"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "layout",
-          "gpu",
-          "dcgm"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-gpu-dashboard-recipes-2",
-    "badge": "gpu",
-    "title": "GPU Fleet Dashboard: Related commands",
-    "subtitle": "Related commands for: Layout: three rows answering 'anything wrong?', 'where?', 'why?'",
-    "commands": [
+      },
       {
         "id": "gpu-dash-layout-sub-1",
         "desc": "Import the community DCGM dashboard (read its JSON before trusting it)",
@@ -273,6 +205,14 @@ const GRAF_GRAFANA_GPU_DASHBOARD_DATA = [
           [
             "XID now",
             "count(DCGM_FI_DEV_XID_ERROR > 0) or vector(0); the metric holds the last XID code, not a count"
+          ],
+          [
+            "Hot GPUs",
+            "count(DCGM_FI_DEV_GPU_TEMP_CELSIUS > 85) or vector(0); take the limit from your GPU's spec"
+          ],
+          [
+            "or vector(0)",
+            "Turns 'No data' into 0 so the panel stays green instead of grey"
           ]
         ],
         "tip": "or vector(0) keeps stat panels green",
@@ -287,49 +227,7 @@ const GRAF_GRAFANA_GPU_DASHBOARD_DATA = [
           "count",
           "dcgm"
         ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-gpu-dashboard-flags-3",
-    "badge": "gpu",
-    "title": "GPU Fleet Dashboard: More options",
-    "subtitle": "More options for: Row 1 stat queries: GPUs reporting, exporters down, XID, hot GPUs",
-    "commands": [
-      {
-        "id": "gpu-dash-health-stats-flags-card",
-        "desc": "More options and gotchas for: Row 1 stat queries: GPUs reporting, exporters down, XID, hot GPUs",
-        "cmd": "count(DCGM_FI_DEV_GPU_TEMP_CELSIUS)",
-        "hideCode": false,
-        "flags": [
-          [
-            "Hot GPUs",
-            "count(DCGM_FI_DEV_GPU_TEMP_CELSIUS > 85) or vector(0); take the limit from your GPU's spec"
-          ],
-          [
-            "or vector(0)",
-            "Turns 'No data' into 0 so the panel stays green instead of grey"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "stat",
-          "health",
-          "xid"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-gpu-dashboard-recipes-3",
-    "badge": "gpu",
-    "title": "GPU Fleet Dashboard: Related commands",
-    "subtitle": "Related commands for: Row 1 stat queries: GPUs reporting, exporters down, XID, hot GPUs",
-    "commands": [
+      },
       {
         "id": "gpu-dash-health-stats-sub-1",
         "desc": "Fleet GPU power in kW (unit: none, or kwatt)",
@@ -383,6 +281,10 @@ const GRAF_GRAFANA_GPU_DASHBOARD_DATA = [
           [
             "Overrides",
             "Temp → celsius with thresholds; Power → watt; Util → percentunit; FB_USED_BYTES → bytes (pre-4.9 FB_USED was MiB → mbytes)"
+          ],
+          [
+            "Cell display",
+            "Override Temp: Cell options → Colored background, so hot rows stand out"
           ]
         ],
         "tip": "Keep UUID and BDF columns for RMAs",
@@ -396,36 +298,6 @@ const GRAF_GRAFANA_GPU_DASHBOARD_DATA = [
           "uuid",
           "bdf",
           "rma"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-gpu-dashboard-flags-4",
-    "badge": "gpu",
-    "title": "GPU Fleet Dashboard: More options",
-    "subtitle": "More options for: Row 2 per-GPU table: one row per GPU with temp, power, util and memory",
-    "commands": [
-      {
-        "id": "gpu-dash-table-flags-card",
-        "desc": "More options and gotchas for: Row 2 per-GPU table: one row per GPU with temp, power, util and memory",
-        "cmd": "A: DCGM_FI_DEV_GPU_TEMP_CELSIUS{hostname=~\"$host\"}\nB: DCGM_FI_DEV_BOARD_POWER_WATTS{hostname=~\"$host\"}\nC: DCGM_FI_DEV_GPU_UTIL_RATIO{hostname=~\"$host\"}\nD: DCGM_FI_DEV_FB_USED_BYTES{hostname=~\"$host\"}\n(all: Format Table, Type Instant)\n→ Merge → Organize fields (keep hostname, gpu, modelName, UUID, pci_bus_id) → Sort by Temp desc",
-        "hideCode": true,
-        "flags": [
-          [
-            "Cell display",
-            "Override Temp: Cell options → Colored background, so hot rows stand out"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "table",
-          "per gpu",
-          "merge"
         ]
       }
     ]
@@ -453,6 +325,18 @@ const GRAF_GRAFANA_GPU_DASHBOARD_DATA = [
           [
             "Power",
             "DCGM_FI_DEV_BOARD_POWER_WATTS, unit watt; one GPU far below its siblings under load is worth a look"
+          ],
+          [
+            "Memory",
+            "DCGM_FI_DEV_FB_USED_BYTES, unit bytes (Grafana scales it to GiB for you)"
+          ],
+          [
+            "Utilization",
+            "DCGM_FI_DEV_GPU_UTIL_RATIO (share of time the GPU was busy) and DCGM_FI_PROF_GR_ENGINE_UTIL_RATIO (share of time the graphics engine was active); both are in the default counters, unit percentunit"
+          ],
+          [
+            "Clocks",
+            "DCGM_FI_DEV_SM_CLOCK_HERTZ (unit hertz; pre-4.9 SM_CLOCK was MHz); a GPU running slower than its siblings is often thermal or power throttling"
           ]
         ],
         "tip": "One GPU unlike its 7 siblings = investigate",
@@ -468,53 +352,7 @@ const GRAF_GRAFANA_GPU_DASHBOARD_DATA = [
           "nvlink",
           "dcgm"
         ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-gpu-dashboard-flags-5",
-    "badge": "gpu",
-    "title": "GPU Fleet Dashboard: More options",
-    "subtitle": "More options for: Row 3 time series queries for one node",
-    "commands": [
-      {
-        "id": "gpu-dash-timeseries-flags-card",
-        "desc": "More options and gotchas for: Row 3 time series queries for one node",
-        "cmd": "DCGM_FI_DEV_GPU_TEMP_CELSIUS{hostname=~\"$host\"}",
-        "hideCode": false,
-        "flags": [
-          [
-            "Memory",
-            "DCGM_FI_DEV_FB_USED_BYTES, unit bytes (Grafana scales it to GiB for you)"
-          ],
-          [
-            "Utilization",
-            "DCGM_FI_DEV_GPU_UTIL_RATIO (share of time the GPU was busy) and DCGM_FI_PROF_GR_ENGINE_UTIL_RATIO (share of time the graphics engine was active); both are in the default counters, unit percentunit"
-          ],
-          [
-            "Clocks",
-            "DCGM_FI_DEV_SM_CLOCK_HERTZ (unit hertz; pre-4.9 SM_CLOCK was MHz); a GPU running slower than its siblings is often thermal or power throttling"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "time series",
-          "temperature",
-          "power"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-gpu-dashboard-recipes-5",
-    "badge": "gpu",
-    "title": "GPU Fleet Dashboard: Related commands",
-    "subtitle": "Related commands for: Row 3 time series queries for one node",
-    "commands": [
+      },
       {
         "id": "gpu-dash-timeseries-sub-1",
         "desc": "NVLink throughput across all links: already a per-second gauge, so no rate() (unit Bps)",
@@ -568,6 +406,14 @@ const GRAF_GRAFANA_GPU_DASHBOARD_DATA = [
           [
             "Row remapping",
             "DCGM_FI_DEV_ROW_REMAP_UNCORRECTABLE_TOTAL (counter) and DCGM_FI_DEV_ROW_REMAP_FAILED (gauge, whether remapping failed); both are default fields. FAILED > 0 is an RMA candidate"
+          ],
+          [
+            "Not every metric is on",
+            "dcgm-exporter only exports what its counters CSV lists; add missing fields there"
+          ],
+          [
+            "Then go to the node",
+            "The dashboard says where; nvidia-smi -q and dmesg on the node say why (see the NVIDIA DC sheets)"
           ]
         ],
         "tip": "Dashboards find the GPU; the CLI proves the fault",
@@ -581,40 +427,6 @@ const GRAF_GRAFANA_GPU_DASHBOARD_DATA = [
           "errors",
           "state timeline",
           "rma"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-gpu-dashboard-flags-6",
-    "badge": "gpu",
-    "title": "GPU Fleet Dashboard: More options",
-    "subtitle": "More options for: Error panels: XID codes, ECC and row remapping",
-    "commands": [
-      {
-        "id": "gpu-dash-errors-flags-card",
-        "desc": "More options and gotchas for: Error panels: XID codes, ECC and row remapping",
-        "cmd": "max by (hostname, gpu) (DCGM_FI_DEV_XID_ERROR{hostname=~\"$host\"})",
-        "hideCode": false,
-        "flags": [
-          [
-            "Not every metric is on",
-            "dcgm-exporter only exports what its counters CSV lists; add missing fields there"
-          ],
-          [
-            "Then go to the node",
-            "The dashboard says where; nvidia-smi -q and dmesg on the node say why (see the NVIDIA DC sheets)"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "xid",
-          "ecc",
-          "row remap"
         ]
       }
     ]
@@ -642,6 +454,14 @@ const GRAF_GRAFANA_GPU_DASHBOARD_DATA = [
           [
             "IB link downs",
             "increase(node_infiniband_link_downed_total[$__range]) from node_exporter's infiniband collector"
+          ],
+          [
+            "IB symbol errors",
+            "increase(node_infiniband_symbol_error_total[$__range]); a climbing count points at optics or cables"
+          ],
+          [
+            "instance vs hostname",
+            "node_exporter labels by instance (host:9100) while DCGM uses hostname; join with node_uname_info or relabel in Prometheus"
           ]
         ],
         "tip": "Rising symbol errors → clean/swap the optic",
@@ -655,40 +475,6 @@ const GRAF_GRAFANA_GPU_DASHBOARD_DATA = [
           "infiniband",
           "link errors",
           "context"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-gpu-dashboard-flags-7",
-    "badge": "gpu",
-    "title": "GPU Fleet Dashboard: More options",
-    "subtitle": "More options for: Node context from node_exporter: CPU, memory and InfiniBand link errors",
-    "commands": [
-      {
-        "id": "gpu-dash-node-context-flags-card",
-        "desc": "More options and gotchas for: Node context from node_exporter: CPU, memory and InfiniBand link errors",
-        "cmd": "100 * (1 - avg by (instance) (rate(node_cpu_seconds_total{mode=\"idle\"}[$__rate_interval])))",
-        "hideCode": false,
-        "flags": [
-          [
-            "IB symbol errors",
-            "increase(node_infiniband_symbol_error_total[$__range]); a climbing count points at optics or cables"
-          ],
-          [
-            "instance vs hostname",
-            "node_exporter labels by instance (host:9100) while DCGM uses hostname; join with node_uname_info or relabel in Prometheus"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "node_exporter",
-          "cpu",
-          "memory"
         ]
       }
     ]

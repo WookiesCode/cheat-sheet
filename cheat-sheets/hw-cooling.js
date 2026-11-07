@@ -24,6 +24,10 @@ const HWREF_HW_COOLING_DATA = [
           [
             "A1 allowable 15-32 °C",
             "Wider range the hardware tolerates; A2-A4 allow more"
+          ],
+          [
+            "Exhaust",
+            "Usually 10-20 °C above inlet; a small difference with high fan speed points to blocked airflow"
           ]
         ],
         "tip": "One hot node in a cold row is a node problem; a whole hot rack is a room problem",
@@ -37,45 +41,7 @@ const HWREF_HW_COOLING_DATA = [
           "sensors",
           "airflow"
         ]
-      }
-    ]
-  },
-  {
-    "id": "cooling-flags-1",
-    "badge": "cooling",
-    "title": "Cooling: More options",
-    "subtitle": "More options for: Inlet and component temperatures from the BMC",
-    "commands": [
-      {
-        "id": "cooling-inlet-flags-card",
-        "desc": "More options and gotchas for: Inlet and component temperatures from the BMC",
-        "cmd": "ipmitool -I lanplus -H $BMC -U $BMC_USER -E sdr type Temperature",
-        "hideCode": false,
-        "flags": [
-          [
-            "Exhaust",
-            "Usually 10-20 °C above inlet; a small difference with high fan speed points to blocked airflow"
-          ]
-        ],
-        "tags": [
-          "hardware",
-          "reference",
-          "cooling",
-          "flags",
-          "options",
-          "temperature",
-          "inlet",
-          "ashrae"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "cooling-recipes-1",
-    "badge": "cooling",
-    "title": "Cooling: Related commands",
-    "subtitle": "Related commands for: Inlet and component temperatures from the BMC",
-    "commands": [
+      },
       {
         "id": "cooling-inlet-sub-1",
         "desc": "Fan speeds and failed fans",
@@ -129,6 +95,10 @@ const HWREF_HW_COOLING_DATA = [
           [
             "nvidia-smi -q -d TEMPERATURE",
             "Slowdown and shutdown thresholds for this GPU"
+          ],
+          [
+            "One GPU hot",
+            "Check its slot: airflow, blank panels, cold plate or fan module"
           ]
         ],
         "tip": "Compare the hot GPU with its neighbours in the same chassis",
@@ -142,45 +112,7 @@ const HWREF_HW_COOLING_DATA = [
           "hbm",
           "thermal"
         ]
-      }
-    ]
-  },
-  {
-    "id": "cooling-flags-2",
-    "badge": "cooling",
-    "title": "Cooling: More options",
-    "subtitle": "More options for: GPU temperatures and thermal slowdown",
-    "commands": [
-      {
-        "id": "cooling-gpu-flags-card",
-        "desc": "More options and gotchas for: GPU temperatures and thermal slowdown",
-        "cmd": "nvidia-smi --query-gpu=index,temperature.gpu,temperature.memory,power.draw,clocks_event_reasons.active --format=csv",
-        "hideCode": false,
-        "flags": [
-          [
-            "One GPU hot",
-            "Check its slot: airflow, blank panels, cold plate or fan module"
-          ]
-        ],
-        "tags": [
-          "hardware",
-          "reference",
-          "cooling",
-          "flags",
-          "options",
-          "gpu",
-          "temperature",
-          "throttle"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "cooling-recipes-2",
-    "badge": "cooling",
-    "title": "Cooling: Related commands",
-    "subtitle": "Related commands for: GPU temperatures and thermal slowdown",
-    "commands": [
+      },
       {
         "id": "cooling-gpu-sub-1",
         "desc": "Thresholds per GPU",
@@ -234,6 +166,14 @@ const HWREF_HW_COOLING_DATA = [
           [
             "Cable bundles",
             "Behind the fans, they choke exhaust"
+          ],
+          [
+            "Fan module",
+            "Reseat a fan that reads 0 RPM before replacing it"
+          ],
+          [
+            "Hot aisle / cold aisle",
+            "Containment doors closed"
           ]
         ],
         "tip": "Fix airflow before you change fan settings",
@@ -245,40 +185,6 @@ const HWREF_HW_COOLING_DATA = [
           "fans",
           "blanking",
           "physical"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "cooling-flags-3",
-    "badge": "cooling",
-    "title": "Cooling: More options",
-    "subtitle": "More options for: Airflow checklist",
-    "commands": [
-      {
-        "id": "cooling-airflow-flags-card",
-        "desc": "More options and gotchas for: Airflow checklist",
-        "cmd": "ipmitool -I lanplus -H $BMC -U $BMC_USER -E sel elist | grep -iE 'fan|temp'",
-        "hideCode": false,
-        "flags": [
-          [
-            "Fan module",
-            "Reseat a fan that reads 0 RPM before replacing it"
-          ],
-          [
-            "Hot aisle / cold aisle",
-            "Containment doors closed"
-          ]
-        ],
-        "tags": [
-          "hardware",
-          "reference",
-          "cooling",
-          "flags",
-          "options",
-          "airflow",
-          "fans",
-          "blanking"
         ]
       }
     ]
@@ -306,6 +212,14 @@ const HWREF_HW_COOLING_DATA = [
           [
             "Rack-scale liquid",
             "GB200 / GB300 NVL72 racks are liquid-cooled"
+          ],
+          [
+            "Leak sensors",
+            "Treat any leak event as critical: stop and escalate"
+          ],
+          [
+            "Sensor names",
+            "Coolant, flow and leak sensors are vendor-specific: grep broadly"
           ]
         ],
         "tip": "Never open a liquid loop without the facility team",
@@ -318,40 +232,6 @@ const HWREF_HW_COOLING_DATA = [
           "coolant",
           "leak",
           "nvl72"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "cooling-flags-4",
-    "badge": "cooling",
-    "title": "Cooling: More options",
-    "subtitle": "More options for: Liquid cooling: ASHRAE W classes",
-    "commands": [
-      {
-        "id": "cooling-liquid-flags-card",
-        "desc": "More options and gotchas for: Liquid cooling: ASHRAE W classes",
-        "cmd": "ipmitool -I lanplus -H $BMC -U $BMC_USER -E sdr elist | grep -iE 'coolant|leak|flow|pump'",
-        "hideCode": false,
-        "flags": [
-          [
-            "Leak sensors",
-            "Treat any leak event as critical: stop and escalate"
-          ],
-          [
-            "Sensor names",
-            "Coolant, flow and leak sensors are vendor-specific: grep broadly"
-          ]
-        ],
-        "tags": [
-          "hardware",
-          "reference",
-          "cooling",
-          "flags",
-          "options",
-          "liquid",
-          "w-class",
-          "coolant"
         ]
       }
     ]

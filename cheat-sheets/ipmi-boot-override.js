@@ -62,6 +62,10 @@ const IPMI_IPMI_BOOT_OVERRIDE_DATA = [
           [
             "bootdev disk",
             "Boots from primary local disk"
+          ],
+          [
+            "bootdev none",
+            "Clears any pending one-time boot override"
           ]
         ],
         "tip": "",
@@ -77,32 +81,6 @@ const IPMI_IPMI_BOOT_OVERRIDE_DATA = [
           "none",
           "bootdev",
           "setup"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "boot-override-flags-2",
-    "badge": "boot",
-    "title": "Boot Device Override: Arguments & Parameters",
-    "subtitle": "Key arguments, parameters, and filtering options for Boot directly into BIOS/UEFI Setup utility, Virtual CD-ROM ISO, or clear boot override",
-    "commands": [
-      {
-        "id": "ipmi-bootdev-bios-cdrom-flags-card",
-        "desc": "Options breakdown and parameter syntax for Boot directly into BIOS/UEFI Setup utility, Virtual CD-ROM ISO, or clear boot override",
-        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis bootdev bios   |   ... chassis bootdev cdrom options=efiboot   |   ... chassis bootdev none",
-        "flags": [
-          [
-            "bootdev none",
-            "Clears any pending one-time boot override"
-          ]
-        ],
-        "details": "Common operational and diagnostic parameters for ipmitool CLI commands.",
-        "tags": [
-          "Boot Device Override",
-          "flags",
-          "options",
-          "syntax"
         ]
       }
     ]

@@ -36,15 +36,7 @@ const HWREF_HW_DRIVES_DATA = [
           "serial",
           "identify"
         ]
-      }
-    ]
-  },
-  {
-    "id": "drives-recipes-1",
-    "badge": "drives",
-    "title": "Drive form factors: Related commands",
-    "subtitle": "Related commands for: Which drives, which transport, which model",
-    "commands": [
+      },
       {
         "id": "drives-identify-sub-1",
         "desc": "NVMe inventory",
@@ -98,6 +90,14 @@ const HWREF_HW_DRIVES_DATA = [
           [
             "U.3 drive in a U.2 bay",
             "Works: U.3 drives must be backward-compatible with U.2 hosts"
+          ],
+          [
+            "U.2 drive in a U.3-only bay",
+            "Usually doesn't work: the lane pinout differs"
+          ],
+          [
+            "Same plug ≠ works",
+            "The backplane and controller must support the protocol too"
           ]
         ],
         "tip": "Check the backplane's spec before ordering spares",
@@ -111,49 +111,7 @@ const HWREF_HW_DRIVES_DATA = [
           "tri-mode",
           "backplane"
         ]
-      }
-    ]
-  },
-  {
-    "id": "drives-flags-2",
-    "badge": "drives",
-    "title": "Drive form factors: More options",
-    "subtitle": "More options for: U.2 vs U.3",
-    "commands": [
-      {
-        "id": "drives-u2u3-flags-card",
-        "desc": "More options and gotchas for: U.2 vs U.3",
-        "cmd": "sudo lspci -vv -s <bdf> | grep -E 'LnkCap|LnkSta'",
-        "hideCode": false,
-        "flags": [
-          [
-            "U.2 drive in a U.3-only bay",
-            "Usually doesn't work: the lane pinout differs"
-          ],
-          [
-            "Same plug ≠ works",
-            "The backplane and controller must support the protocol too"
-          ]
-        ],
-        "tags": [
-          "hardware",
-          "reference",
-          "drives",
-          "flags",
-          "options",
-          "u.2",
-          "u.3",
-          "sff-8639"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "drives-recipes-2",
-    "badge": "drives",
-    "title": "Drive form factors: Related commands",
-    "subtitle": "Related commands for: U.2 vs U.3",
-    "commands": [
+      },
       {
         "id": "drives-u2u3-sub-1",
         "desc": "Which controller and path each NVMe drive is on",
@@ -193,6 +151,14 @@ const HWREF_HW_DRIVES_DATA = [
           [
             "E3.S / E3.L",
             "SFF-TA-1008. 76 mm tall, 112.75 mm (S) or 142.2 mm (L) long, 7.5 mm or 16.8 mm (2T). Up to 70 W"
+          ],
+          [
+            "Connector",
+            "SFF-TA-1002 edge connector across the family"
+          ],
+          [
+            "Thickness matters",
+            "A 15 mm E1.S does not fit a 9.5 mm bay"
           ]
         ],
         "tip": "Order spares by form factor and thickness, not just capacity",
@@ -205,40 +171,6 @@ const HWREF_HW_DRIVES_DATA = [
           "e3.s",
           "e1.l",
           "ruler"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "drives-flags-3",
-    "badge": "drives",
-    "title": "Drive form factors: More options",
-    "subtitle": "More options for: EDSFF sizes",
-    "commands": [
-      {
-        "id": "drives-edsff-flags-card",
-        "desc": "More options and gotchas for: EDSFF sizes",
-        "cmd": "sudo nvme id-ctrl /dev/nvme0 | grep -E '^(mn|sn|fr) '",
-        "hideCode": false,
-        "flags": [
-          [
-            "Connector",
-            "SFF-TA-1002 edge connector across the family"
-          ],
-          [
-            "Thickness matters",
-            "A 15 mm E1.S does not fit a 9.5 mm bay"
-          ]
-        ],
-        "tags": [
-          "hardware",
-          "reference",
-          "drives",
-          "flags",
-          "options",
-          "edsff",
-          "e1.s",
-          "e3.s"
         ]
       }
     ]
@@ -266,6 +198,10 @@ const HWREF_HW_DRIVES_DATA = [
           [
             "max_link_width / max_link_speed",
             "What it should be"
+          ],
+          [
+            "Degraded",
+            "x2 or a lower speed: reseat the drive, then check the backplane cable"
           ]
         ],
         "tip": "A degraded link is a physical problem until proven otherwise",
@@ -278,36 +214,6 @@ const HWREF_HW_DRIVES_DATA = [
           "width",
           "speed",
           "degraded"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "drives-flags-4",
-    "badge": "drives",
-    "title": "Drive form factors: More options",
-    "subtitle": "More options for: Is the NVMe link at full width and speed?",
-    "commands": [
-      {
-        "id": "drives-link-flags-card",
-        "desc": "More options and gotchas for: Is the NVMe link at full width and speed?",
-        "cmd": "for d in /sys/class/nvme/nvme*; do echo \"$(basename $d): $(cat $d/device/current_link_width)x @ $(cat $d/device/current_link_speed)\"; done",
-        "hideCode": false,
-        "flags": [
-          [
-            "Degraded",
-            "x2 or a lower speed: reseat the drive, then check the backplane cable"
-          ]
-        ],
-        "tags": [
-          "hardware",
-          "reference",
-          "drives",
-          "flags",
-          "options",
-          "pcie",
-          "link",
-          "width"
         ]
       }
     ]

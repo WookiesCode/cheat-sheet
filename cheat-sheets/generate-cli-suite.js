@@ -1,5 +1,5 @@
 // generate-cli-suite.js
-// Generates all 46 standalone CLI tool cheat sheets and updates the CLI dropdown across all HTML sheets.
+// Generates all standalone CLI tool cheat sheets and updates the CLI dropdown across all HTML sheets.
 const fs = require('fs');
 const path = require('path');
 
@@ -57,6 +57,7 @@ const CLI_NAVBAR_SNIPPET = `              <div class="nav-dropdown" id="cli-nav-
                       <a href="tee.html" class="dropdown-item" role="menuitem"><code>tee</code> <span class="cmd-desc">Pipe splitter</span></a>
                       <a href="strace.html" class="dropdown-item" role="menuitem"><code>strace</code> <span class="cmd-desc">Syscall trace</span></a>
                       <a href="xargs.html" class="dropdown-item" role="menuitem"><code>xargs</code> <span class="cmd-desc">Batch exec</span></a>
+                      <a href="sudo.html" class="dropdown-item" role="menuitem"><code>sudo</code> <span class="cmd-desc">Root &amp; why sudo</span></a>
                       <a href="sysctl.html" class="dropdown-item" role="menuitem"><code>sysctl</code> <span class="cmd-desc">Kernel params</span></a>
                       <a href="dmesg.html" class="dropdown-item" role="menuitem"><code>dmesg</code> <span class="cmd-desc">Kernel buffer</span></a>
                       <a href="tmux.html" class="dropdown-item" role="menuitem"><code>tmux</code> <span class="cmd-desc">Multiplexer</span></a>
@@ -89,11 +90,29 @@ const CLI_NAVBAR_SNIPPET = `              <div class="nav-dropdown" id="cli-nav-
 const htmlFiles = fs.readdirSync(__dirname).filter(f => f.endsWith('.html') && f !== 'datacenter-cheatsheet-portable.html' && f !== 'omarchy.html');
 const cliLinkPattern = /<a href="cli-tools\.html" class="sheet-link(?: active)?"><svg class="nav-logo"[\s\S]*?<\/svg>\s*CLI Tools<\/a>/;
 
+// An existing dropdown is replaced too, so changes to the menu above reach every page.
+// Its end is found by counting <div> depth (the menu nests divs, so a regex can't).
+const cliMenuStart = '<div class="nav-dropdown" id="cli-nav-dropdown">';
+function replaceCliMenu(content) {
+  const start = content.indexOf(cliMenuStart);
+  if (start < 0) return content;
+  const rx = /<div\b|<\/div>/g;
+  rx.lastIndex = start;
+  let depth = 0, m;
+  while ((m = rx.exec(content))) {
+    depth += m[0] === '</div>' ? -1 : 1;
+    if (depth === 0) return content.slice(0, start) + CLI_NAVBAR_SNIPPET.trimStart() + content.slice(m.index + 6);
+  }
+  return content;
+}
+
 let updatedNavCount = 0;
 for (const file of htmlFiles) {
   let content = fs.readFileSync(path.join(__dirname, file), 'utf8');
-  if (cliLinkPattern.test(content)) {
-    content = content.replace(cliLinkPattern, CLI_NAVBAR_SNIPPET);
+  const before = content;
+  if (cliLinkPattern.test(content)) content = content.replace(cliLinkPattern, CLI_NAVBAR_SNIPPET);
+  else content = replaceCliMenu(content);
+  if (content !== before) {
     fs.writeFileSync(path.join(__dirname, file), content, 'utf8');
     updatedNavCount++;
   }

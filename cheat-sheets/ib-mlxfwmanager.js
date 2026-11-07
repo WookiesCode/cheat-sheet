@@ -24,6 +24,10 @@ const IB_IB_MLXFWMANAGER_DATA = [
           [
             "flint -d <dev> q",
             "Low-level firmware flash query showing FW version, FW release date, Product Version, and GUID/MACs"
+          ],
+          [
+            "mlxfwreset -d <dev> r",
+            "Reset NIC ASIC and reload updated firmware live without rebooting the Ubuntu host"
           ]
         ],
         "tip": "Always match the 16-char PSID when downloading NIC firmware!",
@@ -33,41 +37,7 @@ const IB_IB_MLXFWMANAGER_DATA = [
           "triage",
           "rdma"
         ]
-      }
-    ]
-  },
-  {
-    "id": "mlxfwmanager-flags",
-    "badge": "fwm",
-    "title": "mlxfwmanager: Flags & Options Reference",
-    "subtitle": "Key arguments, parameters, and filtering flags for mlxfwmanager",
-    "commands": [
-      {
-        "id": "mlxfwmanager-flags-card",
-        "desc": "Full options breakdown and parameter syntax for mlxfwmanager",
-        "cmd": "mlxfwmanager -h",
-        "flags": [
-          [
-            "mlxfwreset -d <dev> r",
-            "Reset NIC ASIC and reload updated firmware live without rebooting the Ubuntu host"
-          ]
-        ],
-        "details": "Common diagnostic, verbose, and targeting flags for mlxfwmanager in high-performance cluster environments.",
-        "tags": [
-          "mlxfwmanager",
-          "flags",
-          "options",
-          "syntax"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "mlxfwmanager-subcmds",
-    "badge": "fwm",
-    "title": "mlxfwmanager: Common Recipes & Pipelines",
-    "subtitle": "Verified production bash one-liners and automation pipelines using mlxfwmanager",
-    "commands": [
+      },
       {
         "id": "mlxfwmanager-sub-1",
         "desc": "Burn a specific .bin firmware image onto a target adapter using flint",

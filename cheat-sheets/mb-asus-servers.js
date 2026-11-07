@@ -68,6 +68,14 @@ const MB_MB_ASUS_SERVERS_DATA = [
           [
             "CATERR_LED1 (Red)",
             "Catastrophic Error LED: illuminates red if CPU asserts IERR/MCERR due to fatal uncorrectable PCIe AER or CPU core fault"
+          ],
+          [
+            "Q-LEDs (Pro WS boards)",
+            "4-LED cluster near 24-pin ATX: CPU (Red), DRAM (Yellow/Amber), VGA (White), BOOT (Yellow-Green) — stays lit on the failing component!"
+          ],
+          [
+            "CLRTC1 /VGA_SW1",
+            "CLRTC1 (short pins 2-3 for 10s with AC unplugged to Clear CMOS); VGA_SW1 (enables/disables onboard ASPEED VGA)"
           ]
         ],
         "tip": "Wait ~60s after plugging in AC power for BMC_LED1 to blink green before powering on!",
@@ -85,36 +93,6 @@ const MB_MB_ASUS_SERVERS_DATA = [
           "vga_sw1",
           "jumper",
           "cmos"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "asus-server-board-flags-2",
-    "badge": "asus",
-    "title": "ASUS Server Boards: POST Hex Codes & Options",
-    "subtitle": "Key hex codes, parameters, and error indicators for ASUS server motherboard onboard diagnostic LEDs (`BMC_LED1`, `CATERR_LED1`, `Q-LED`) and recovery jumpers",
-    "commands": [
-      {
-        "id": "asus-onboard-leds-jumpers-flags-card",
-        "desc": "Hex code lookup and diagnostics breakdown for ASUS server motherboard onboard diagnostic LEDs (`BMC_LED1`, `CATERR_LED1`, `Q-LED`) and recovery jumpers",
-        "cmd": "BMC_LED1 (Blinking Green = ASMB Ready)   |   CATERR_LED1 (Solid Red = CPU IERR/MCERR)   |   CLRTC1 (Clear CMOS)",
-        "flags": [
-          [
-            "Q-LEDs (Pro WS boards)",
-            "4-LED cluster near 24-pin ATX: CPU (Red), DRAM (Yellow/Amber), VGA (White), BOOT (Yellow-Green) — stays lit on the failing component!"
-          ],
-          [
-            "CLRTC1 /VGA_SW1",
-            "CLRTC1 (short pins 2-3 for 10s with AC unplugged to Clear CMOS); VGA_SW1 (enables/disables onboard ASPEED VGA)"
-          ]
-        ],
-        "details": "Common operational and diagnostic POST / Q-Codes on ASUS and GIGABYTE server motherboards.",
-        "tags": [
-          "ASUS Server Boards",
-          "flags",
-          "options",
-          "syntax"
         ]
       }
     ]

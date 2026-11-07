@@ -24,6 +24,14 @@ const GRAF_GRAFANA_SETUP_DATA = [
           [
             "grafana-data volume",
             "Holds grafana.db (users, UI-made dashboards, API keys). Lose the volume and you lose everything not provisioned from files"
+          ],
+          [
+            "./provisioning",
+            "Data sources and dashboard providers as YAML, loaded at startup (see the cards below)"
+          ],
+          [
+            "image tag",
+            "Pin a version (13.2.4 was current on 2026-11-07); check the Grafana releases page before upgrading"
           ]
         ],
         "tip": "Bind to 127.0.0.1, tunnel with ssh -L",
@@ -38,49 +46,7 @@ const GRAF_GRAFANA_SETUP_DATA = [
           "prometheus",
           "secrets"
         ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-setup-flags-1",
-    "badge": "lab",
-    "title": "Grafana Lab Setup: More options",
-    "subtitle": "More options for: compose.yaml for a local Grafana + Prometheus lab",
-    "commands": [
-      {
-        "id": "grafana-compose-lab-flags-card",
-        "desc": "More options and gotchas for: compose.yaml for a local Grafana + Prometheus lab",
-        "cmd": "services:\n  prometheus:\n    image: prom/prometheus:latest\n    ports: [\"127.0.0.1:9090:9090\"]\n    volumes:\n      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro\n      - prom-data:/prometheus\n  grafana:\n    image: grafana/grafana:13.2.4\n    ports: [\"127.0.0.1:3000:3000\"]\n    environment:\n      GF_SECURITY_ADMIN_PASSWORD__FILE: /run/secrets/grafana_admin\n    secrets: [grafana_admin]\n    volumes:\n      - grafana-data:/var/lib/grafana\n      - ./provisioning:/etc/grafana/provisioning:ro\n      - ./dashboards:/var/lib/grafana/dashboards:ro\nsecrets:\n  grafana_admin:\n    file: ./grafana_admin.txt   # chmod 600, keep out of git\nvolumes:\n  prom-data:\n  grafana-data:",
-        "hideCode": true,
-        "flags": [
-          [
-            "./provisioning",
-            "Data sources and dashboard providers as YAML, loaded at startup (see the cards below)"
-          ],
-          [
-            "image tag",
-            "Pin a version (13.2.4 was current on 2026-11-07); check the Grafana releases page before upgrading"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "compose",
-          "docker",
-          "install"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-setup-recipes-1",
-    "badge": "lab",
-    "title": "Grafana Lab Setup: Related commands",
-    "subtitle": "Related commands for: compose.yaml for a local Grafana + Prometheus lab",
-    "commands": [
+      },
       {
         "id": "grafana-compose-lab-sub-1",
         "desc": "Start the lab in the background (changes state)",
@@ -162,6 +128,14 @@ const GRAF_GRAFANA_SETUP_DATA = [
           [
             "targets",
             "host:port pairs. node_exporter listens on 9100, dcgm-exporter on 9400 by default"
+          ],
+          [
+            "YAML indentation",
+            "Spaces only, never tabs. A list item (-) under static_configs must line up exactly or Prometheus refuses to start"
+          ],
+          [
+            "file_sd_configs",
+            "For a fleet, keep targets in a separate JSON/YAML file Prometheus re-reads on change, instead of editing this file"
           ]
         ],
         "tip": "No data in Grafana? Check Prometheus targets first",
@@ -176,49 +150,7 @@ const GRAF_GRAFANA_SETUP_DATA = [
           "dcgm-exporter",
           "yaml"
         ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-setup-flags-2",
-    "badge": "lab",
-    "title": "Grafana Lab Setup: More options",
-    "subtitle": "More options for: prometheus.yml: scrape node_exporter",
-    "commands": [
-      {
-        "id": "prometheus-scrape-config-flags-card",
-        "desc": "More options and gotchas for: prometheus.yml: scrape node_exporter",
-        "cmd": "global:\n  scrape_interval: 15s\nscrape_configs:\n  - job_name: node\n    static_configs:\n      - targets: ['gpu-node01:9100', 'gpu-node02:9100']\n  - job_name: dcgm\n    static_configs:\n      - targets: ['gpu-node01:9400', 'gpu-node02:9400']",
-        "hideCode": true,
-        "flags": [
-          [
-            "YAML indentation",
-            "Spaces only, never tabs. A list item (-) under static_configs must line up exactly or Prometheus refuses to start"
-          ],
-          [
-            "file_sd_configs",
-            "For a fleet, keep targets in a separate JSON/YAML file Prometheus re-reads on change, instead of editing this file"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "prometheus",
-          "scrape",
-          "targets"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-setup-recipes-2",
-    "badge": "lab",
-    "title": "Grafana Lab Setup: Related commands",
-    "subtitle": "Related commands for: prometheus.yml: scrape node_exporter",
-    "commands": [
+      },
       {
         "id": "prometheus-scrape-config-sub-1",
         "desc": "Validate the file before restarting Prometheus",
@@ -286,6 +218,14 @@ const GRAF_GRAFANA_SETUP_DATA = [
           [
             "url",
             "Resolved from inside the Grafana container: in compose, the service name prometheus works; from the host it would be 127.0.0.1:9090"
+          ],
+          [
+            "jsonData.timeInterval",
+            "Set to your scrape_interval. Grafana uses it as the minimum step and to compute $__rate_interval"
+          ],
+          [
+            "Changed it in the UI?",
+            "Provisioned data sources are read-only in the UI; edit the YAML and restart Grafana"
           ]
         ],
         "tip": "Fixed data source UIDs keep dashboards portable",
@@ -299,49 +239,7 @@ const GRAF_GRAFANA_SETUP_DATA = [
           "uid",
           "yaml"
         ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-setup-flags-3",
-    "badge": "lab",
-    "title": "Grafana Lab Setup: More options",
-    "subtitle": "More options for: Provision the Prometheus data source from YAML",
-    "commands": [
-      {
-        "id": "grafana-datasource-provisioning-flags-card",
-        "desc": "More options and gotchas for: Provision the Prometheus data source from YAML",
-        "cmd": "apiVersion: 1\ndatasources:\n  - name: Prometheus\n    type: prometheus\n    uid: prometheus\n    access: proxy\n    url: http://prometheus:9090\n    isDefault: true\n    jsonData:\n      timeInterval: 15s",
-        "hideCode": true,
-        "flags": [
-          [
-            "jsonData.timeInterval",
-            "Set to your scrape_interval. Grafana uses it as the minimum step and to compute $__rate_interval"
-          ],
-          [
-            "Changed it in the UI?",
-            "Provisioned data sources are read-only in the UI; edit the YAML and restart Grafana"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "datasource",
-          "provisioning",
-          "prometheus"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-setup-recipes-3",
-    "badge": "lab",
-    "title": "Grafana Lab Setup: Related commands",
-    "subtitle": "Related commands for: Provision the Prometheus data source from YAML",
-    "commands": [
+      },
       {
         "id": "grafana-datasource-provisioning-sub-1",
         "desc": "Reload provisioning files (changes state)",
@@ -409,6 +307,14 @@ const GRAF_GRAFANA_SETUP_DATA = [
           [
             "export",
             "Makes the variable visible to curl and other child processes started from this shell"
+          ],
+          [
+            "Authorization: Bearer $GRAFANA_TOKEN",
+            "How every API call below authenticates"
+          ],
+          [
+            "Expiry",
+            "Give tokens an expiry and one service account per tool, so you can revoke one without breaking the rest"
           ]
         ],
         "tip": "Never paste tokens into commands that get logged",
@@ -422,49 +328,7 @@ const GRAF_GRAFANA_SETUP_DATA = [
           "auth",
           "secrets"
         ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-setup-flags-4",
-    "badge": "lab",
-    "title": "Grafana Lab Setup: More options",
-    "subtitle": "More options for: Create a service account token for API and CLI use, and load it without echoing it",
-    "commands": [
-      {
-        "id": "grafana-service-account-token-flags-card",
-        "desc": "More options and gotchas for: Create a service account token for API and CLI use, and load it without echoing it",
-        "cmd": "read -rsp 'Grafana token: ' GRAFANA_TOKEN && export GRAFANA_TOKEN GRAFANA_URL=http://127.0.0.1:3000",
-        "hideCode": false,
-        "flags": [
-          [
-            "Authorization: Bearer $GRAFANA_TOKEN",
-            "How every API call below authenticates"
-          ],
-          [
-            "Expiry",
-            "Give tokens an expiry and one service account per tool, so you can revoke one without breaking the rest"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "token",
-          "service account",
-          "api"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-setup-recipes-4",
-    "badge": "lab",
-    "title": "Grafana Lab Setup: Related commands",
-    "subtitle": "Related commands for: Create a service account token for API and CLI use, and load it without echoing it",
-    "commands": [
+      },
       {
         "id": "grafana-service-account-token-sub-1",
         "desc": "Token works if this prints a number instead of an auth error",

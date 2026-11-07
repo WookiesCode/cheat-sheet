@@ -33,15 +33,7 @@ const IB_IB_IBPING_DATA = [
           "triage",
           "rdma"
         ]
-      }
-    ]
-  },
-  {
-    "id": "ibping-subcmds",
-    "badge": "png",
-    "title": "ibping: Common Recipes & Pipelines",
-    "subtitle": "Verified production bash one-liners and automation pipelines using ibping",
-    "commands": [
+      },
       {
         "id": "ibping-sub-1",
         "desc": "Trace the fabric switch path between two HCA Port GUIDs",

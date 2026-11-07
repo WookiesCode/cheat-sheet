@@ -24,6 +24,10 @@ const SRE_ARGOCD_DATA = [
           [
             "--core",
             "Talk to Kubernetes directly, no API server login"
+          ],
+          [
+            "--username / --password",
+            "Local accounts; avoid typing the password inline"
           ]
         ],
         "tip": "SSO keeps passwords off the jumpbox",
@@ -31,36 +35,6 @@ const SRE_ARGOCD_DATA = [
           "sre",
           "devops",
           "argocd",
-          "argocd",
-          "login",
-          "sso"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "argocd-flags-1",
-    "badge": "argocd",
-    "title": "Argo CD: More options",
-    "subtitle": "More options for: Log in with SSO",
-    "commands": [
-      {
-        "id": "argocd-login-flags-card",
-        "desc": "More options and gotchas for: Log in with SSO",
-        "cmd": "argocd login argocd.example.com --sso --grpc-web",
-        "hideCode": false,
-        "flags": [
-          [
-            "--username / --password",
-            "Local accounts; avoid typing the password inline"
-          ]
-        ],
-        "tags": [
-          "sre",
-          "devops",
-          "argocd",
-          "flags",
-          "options",
           "argocd",
           "login",
           "sso"
@@ -91,6 +65,10 @@ const SRE_ARGOCD_DATA = [
           [
             "app diff <app>",
             "Git (target) vs live state"
+          ],
+          [
+            "app history <app>",
+            "Deployed revisions with IDs"
           ]
         ],
         "tip": "OutOfSync + Healthy is drift; Degraded is broken",
@@ -103,45 +81,7 @@ const SRE_ARGOCD_DATA = [
           "history",
           "drift"
         ]
-      }
-    ]
-  },
-  {
-    "id": "argocd-flags-2",
-    "badge": "argocd",
-    "title": "Argo CD: More options",
-    "subtitle": "More options for: What is out of sync, and what differs",
-    "commands": [
-      {
-        "id": "argocd-status-flags-card",
-        "desc": "More options and gotchas for: What is out of sync, and what differs",
-        "cmd": "argocd app list",
-        "hideCode": false,
-        "flags": [
-          [
-            "app history <app>",
-            "Deployed revisions with IDs"
-          ]
-        ],
-        "tags": [
-          "sre",
-          "devops",
-          "argocd",
-          "flags",
-          "options",
-          "status",
-          "diff",
-          "history"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "argocd-recipes-2",
-    "badge": "argocd",
-    "title": "Argo CD: Related commands",
-    "subtitle": "Related commands for: What is out of sync, and what differs",
-    "commands": [
+      },
       {
         "id": "argocd-status-sub-1",
         "desc": "One application in detail",
@@ -195,6 +135,14 @@ const SRE_ARGOCD_DATA = [
           [
             "--prune",
             "Also delete resources no longer in Git (changes state)"
+          ],
+          [
+            "--resource <group:kind:name>",
+            "Sync one resource"
+          ],
+          [
+            "app wait --health --timeout <s>",
+            "Block until healthy (seconds)"
           ]
         ],
         "tip": "--prune deletes things: read the diff first",
@@ -207,49 +155,7 @@ const SRE_ARGOCD_DATA = [
           "prune",
           "wait"
         ]
-      }
-    ]
-  },
-  {
-    "id": "argocd-flags-3",
-    "badge": "argocd",
-    "title": "Argo CD: More options",
-    "subtitle": "More options for: Preview, then sync",
-    "commands": [
-      {
-        "id": "argocd-sync-flags-card",
-        "desc": "More options and gotchas for: Preview, then sync",
-        "cmd": "argocd app sync dcgm-exporter --dry-run",
-        "hideCode": false,
-        "flags": [
-          [
-            "--resource <group:kind:name>",
-            "Sync one resource"
-          ],
-          [
-            "app wait --health --timeout <s>",
-            "Block until healthy (seconds)"
-          ]
-        ],
-        "tags": [
-          "sre",
-          "devops",
-          "argocd",
-          "flags",
-          "options",
-          "sync",
-          "dry-run",
-          "prune"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "argocd-recipes-3",
-    "badge": "argocd",
-    "title": "Argo CD: Related commands",
-    "subtitle": "Related commands for: Preview, then sync",
-    "commands": [
+      },
       {
         "id": "argocd-sync-sub-1",
         "desc": "Real sync (changes state)",
@@ -303,6 +209,10 @@ const SRE_ARGOCD_DATA = [
           [
             "app set --sync-policy manual",
             "Turn auto-sync off first (changes state)"
+          ],
+          [
+            "Real fix",
+            "Revert the commit in Git; that is the GitOps rollback"
           ]
         ],
         "tip": "Revert in Git when you can; CLI rollback is for emergencies",
@@ -315,45 +225,7 @@ const SRE_ARGOCD_DATA = [
           "gitops",
           "revert"
         ]
-      }
-    ]
-  },
-  {
-    "id": "argocd-flags-4",
-    "badge": "argocd",
-    "title": "Argo CD: More options",
-    "subtitle": "More options for: Roll back, and the auto-sync gotcha",
-    "commands": [
-      {
-        "id": "argocd-rollback-flags-card",
-        "desc": "More options and gotchas for: Roll back, and the auto-sync gotcha",
-        "cmd": "argocd app history dcgm-exporter",
-        "hideCode": false,
-        "flags": [
-          [
-            "Real fix",
-            "Revert the commit in Git; that is the GitOps rollback"
-          ]
-        ],
-        "tags": [
-          "sre",
-          "devops",
-          "argocd",
-          "flags",
-          "options",
-          "rollback",
-          "auto-sync",
-          "gitops"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "argocd-recipes-4",
-    "badge": "argocd",
-    "title": "Argo CD: Related commands",
-    "subtitle": "Related commands for: Roll back, and the auto-sync gotcha",
-    "commands": [
+      },
       {
         "id": "argocd-rollback-sub-1",
         "desc": "Pause auto-sync (changes state)",

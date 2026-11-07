@@ -24,6 +24,10 @@ const FO_FO_MPO_POLARITY_DATA = [
           [
             "Male-to-Male Clash",
             "Forcing a Male (Pinned) cable into a Male transceiver crushes guide pins and ruins the optic!"
+          ],
+          [
+            "Female-to-Female Mismatch",
+            "Mating two Female connectors in a patch coupler leaves cores unaligned (causes 3–10+ dB loss!)"
           ]
         ],
         "tip": "",
@@ -41,32 +45,6 @@ const FO_FO_MPO_POLARITY_DATA = [
           "pinned",
           "unpinned",
           "damage"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "mpo-polarity-connectors-flags-1",
-    "badge": "conn",
-    "title": "MPO Pinning & Polarity: Arguments & Parameters",
-    "subtitle": "Key arguments, parameters, and filtering options for Prevent transceiver damage: How Male (Pinned) and Female (Unpinned) MPO/MTP connectors mate",
-    "commands": [
-      {
-        "id": "mpo-male-female-pin-rule-flags-card",
-        "desc": "Options breakdown and parameter syntax for Prevent transceiver damage: How Male (Pinned) and Female (Unpinned) MPO/MTP connectors mate",
-        "cmd": "[Transceiver: MALE PINS] ◄── [Patch Cord: FEMALE] ──► [Trunk Panel: MALE] ◄── [Patch Cord: FEMALE] ──► [Transceiver: MALE PINS]",
-        "flags": [
-          [
-            "Female-to-Female Mismatch",
-            "Mating two Female connectors in a patch coupler leaves cores unaligned (causes 3–10+ dB loss!)"
-          ]
-        ],
-        "details": "Common operational, diagnostic, and optical parameters for fiber optic testing and telemetry.",
-        "tags": [
-          "MPO Pinning & Polarity",
-          "flags",
-          "options",
-          "syntax"
         ]
       }
     ]

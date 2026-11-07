@@ -24,6 +24,14 @@ const ED_ZED_DATA = [
           [
             "ctrl-,",
             "Settings window"
+          ],
+          [
+            "ctrl-alt-,",
+            "Open the settings file (JSON)"
+          ],
+          [
+            "ctrl-k ctrl-s",
+            "Keymap editor"
           ]
         ],
         "tip": "zed: open default keymap shows every binding",
@@ -35,40 +43,6 @@ const ED_ZED_DATA = [
           "file finder",
           "settings",
           "keymap"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "zed-flags-1",
-    "badge": "zed",
-    "title": "Zed: More options",
-    "subtitle": "More options for: Command palette, file finder, settings and keymap",
-    "commands": [
-      {
-        "id": "zed-palette-flags-card",
-        "desc": "More options and gotchas for: Command palette, file finder, settings and keymap",
-        "cmd": "ctrl-shift-p  ·  ctrl-p",
-        "hideCode": false,
-        "flags": [
-          [
-            "ctrl-alt-,",
-            "Open the settings file (JSON)"
-          ],
-          [
-            "ctrl-k ctrl-s",
-            "Keymap editor"
-          ]
-        ],
-        "tags": [
-          "editor",
-          "editors",
-          "zed",
-          "flags",
-          "options",
-          "palette",
-          "file finder",
-          "settings"
         ]
       }
     ]
@@ -96,6 +70,14 @@ const ED_ZED_DATA = [
           [
             "ctrl-`",
             "Toggle the terminal panel"
+          ],
+          [
+            "ctrl-j",
+            "Toggle the bottom dock"
+          ],
+          [
+            "ctrl-shift-f / ctrl-shift-h",
+            "Search / replace across the project"
           ]
         ],
         "tip": "Same keys as VS Code by default",
@@ -107,40 +89,6 @@ const ED_ZED_DATA = [
           "terminal",
           "project",
           "search"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "zed-flags-2",
-    "badge": "zed",
-    "title": "Zed: More options",
-    "subtitle": "More options for: Docks, terminal and project search",
-    "commands": [
-      {
-        "id": "zed-panels-flags-card",
-        "desc": "More options and gotchas for: Docks, terminal and project search",
-        "cmd": "ctrl-b  ·  ctrl-`",
-        "hideCode": false,
-        "flags": [
-          [
-            "ctrl-j",
-            "Toggle the bottom dock"
-          ],
-          [
-            "ctrl-shift-f / ctrl-shift-h",
-            "Search / replace across the project"
-          ]
-        ],
-        "tags": [
-          "editor",
-          "editors",
-          "zed",
-          "flags",
-          "options",
-          "dock",
-          "terminal",
-          "project"
         ]
       }
     ]
@@ -168,33 +116,7 @@ const ED_ZED_DATA = [
           [
             "f2",
             "Rename symbol"
-          ]
-        ],
-        "tip": "ctrl-shift-o for a quick file outline",
-        "tags": [
-          "editor",
-          "editors",
-          "zed",
-          "definition",
-          "references",
-          "symbols",
-          "go to line"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "zed-flags-3",
-    "badge": "zed",
-    "title": "Zed: More options",
-    "subtitle": "More options for: Definitions, references, symbols",
-    "commands": [
-      {
-        "id": "zed-navigate-flags-card",
-        "desc": "More options and gotchas for: Definitions, references, symbols",
-        "cmd": "f12  ·  alt-shift-f12",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "ctrl-shift-o",
             "Outline: symbols in this file"
@@ -208,15 +130,15 @@ const ED_ZED_DATA = [
             "Go to line"
           ]
         ],
+        "tip": "ctrl-shift-o for a quick file outline",
         "tags": [
           "editor",
           "editors",
           "zed",
-          "flags",
-          "options",
           "definition",
           "references",
-          "symbols"
+          "symbols",
+          "go to line"
         ]
       }
     ]
@@ -244,35 +166,7 @@ const ED_ZED_DATA = [
           [
             "alt-up / alt-down",
             "Move the line"
-          ]
-        ],
-        "tip": "Muscle memory from VS Code carries over",
-        "tags": [
-          "editor",
-          "editors",
-          "zed",
-          "multi-cursor",
-          "move line",
-          "duplicate",
-          "comment",
-          "format",
-          "split"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "zed-flags-4",
-    "badge": "zed",
-    "title": "Zed: More options",
-    "subtitle": "More options for: Multi-cursor and line editing",
-    "commands": [
-      {
-        "id": "zed-editing-flags-card",
-        "desc": "More options and gotchas for: Multi-cursor and line editing",
-        "cmd": "ctrl-d  ·  shift-alt-down",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "ctrl-alt-shift-up / down",
             "Duplicate the line"
@@ -290,15 +184,17 @@ const ED_ZED_DATA = [
             "Split right / close the tab"
           ]
         ],
+        "tip": "Muscle memory from VS Code carries over",
         "tags": [
           "editor",
           "editors",
           "zed",
-          "flags",
-          "options",
           "multi-cursor",
           "move line",
-          "duplicate"
+          "duplicate",
+          "comment",
+          "format",
+          "split"
         ]
       }
     ]
@@ -364,33 +260,7 @@ const ED_ZED_DATA = [
           [
             "--diff OLD NEW",
             "Diff two files"
-          ]
-        ],
-        "tip": "core.editor needs --wait",
-        "tags": [
-          "editor",
-          "editors",
-          "zed",
-          "zed",
-          "cli",
-          "diff",
-          "git"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "zed-flags-6",
-    "badge": "zed",
-    "title": "Zed: More options",
-    "subtitle": "More options for: The zed command: open a folder, a line, a diff",
-    "commands": [
-      {
-        "id": "zed-cli-flags-card",
-        "desc": "More options and gotchas for: The zed command: open a folder, a line, a diff",
-        "cmd": "zed /etc/netplan/50-cloud-init.yaml:12:5",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "-n / -a / -r",
             "New window / add to the current workspace / reuse the window"
@@ -404,25 +274,17 @@ const ED_ZED_DATA = [
             "Some Linux packages name the binary zeditor instead of zed"
           ]
         ],
+        "tip": "core.editor needs --wait",
         "tags": [
           "editor",
           "editors",
           "zed",
-          "flags",
-          "options",
           "zed",
           "cli",
-          "diff"
+          "diff",
+          "git"
         ]
-      }
-    ]
-  },
-  {
-    "id": "zed-recipes-6",
-    "badge": "zed",
-    "title": "Zed: Related commands",
-    "subtitle": "Related commands for: The zed command: open a folder, a line, a diff",
-    "commands": [
+      },
       {
         "id": "zed-cli-sub-1",
         "desc": "Zed for commit messages",

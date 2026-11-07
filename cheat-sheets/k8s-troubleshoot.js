@@ -24,6 +24,10 @@ const CTR_K8S_TROUBLESHOOT_DATA = [
           [
             "Conditions",
             "PodScheduled, Initialized, ContainersReady, Ready"
+          ],
+          [
+            "Node",
+            "Which server it landed on; combine with the node sheets"
           ]
         ],
         "tip": "Read Events first",
@@ -36,37 +40,6 @@ const CTR_K8S_TROUBLESHOOT_DATA = [
           "events",
           "pod",
           "state"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-troubleshoot-flags-1",
-    "badge": "dbg",
-    "title": "Kubernetes Troubleshooting: More options",
-    "subtitle": "More options for: Describe a pod: read the Events section at the bottom first",
-    "commands": [
-      {
-        "id": "kubectl-describe-pod-flags-card",
-        "desc": "More options and gotchas for: Describe a pod: read the Events section at the bottom first",
-        "cmd": "kubectl describe pod <pod> -n <ns>",
-        "hideCode": false,
-        "flags": [
-          [
-            "Node",
-            "Which server it landed on; combine with the node sheets"
-          ]
-        ],
-        "tags": [
-          "kubernetes",
-          "k8s",
-          "kubectl",
-          "containers",
-          "flags",
-          "options",
-          "describe",
-          "events",
-          "pod"
         ]
       }
     ]
@@ -94,36 +67,7 @@ const CTR_K8S_TROUBLESHOOT_DATA = [
           [
             "ImagePullBackOff / ErrImagePull",
             "Wrong image name or tag, a private registry without credentials, or no route to the registry"
-          ]
-        ],
-        "tip": "Pending → Events; CrashLoop → logs --previous",
-        "tags": [
-          "kubernetes",
-          "k8s",
-          "kubectl",
-          "containers",
-          "status",
-          "pending",
-          "crashloopbackoff",
-          "imagepullbackoff",
-          "oomkilled",
-          "evicted"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-troubleshoot-flags-2",
-    "badge": "dbg",
-    "title": "Kubernetes Troubleshooting: More options",
-    "subtitle": "More options for: What the common pod statuses mean and where to look next",
-    "commands": [
-      {
-        "id": "kubectl-pod-status-meanings-flags-card",
-        "desc": "More options and gotchas for: What the common pod statuses mean and where to look next",
-        "cmd": "kubectl get pods -n <ns>",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "CrashLoopBackOff",
             "The container starts and exits again; read logs --previous"
@@ -141,16 +85,18 @@ const CTR_K8S_TROUBLESHOOT_DATA = [
             "A finalizer or an unreachable node; check the node first"
           ]
         ],
+        "tip": "Pending → Events; CrashLoop → logs --previous",
         "tags": [
           "kubernetes",
           "k8s",
           "kubectl",
           "containers",
-          "flags",
-          "options",
           "status",
           "pending",
-          "crashloopbackoff"
+          "crashloopbackoff",
+          "imagepullbackoff",
+          "oomkilled",
+          "evicted"
         ]
       }
     ]
@@ -178,6 +124,14 @@ const CTR_K8S_TROUBLESHOOT_DATA = [
           [
             "--tail=200 / --since=30m",
             "Limit output"
+          ],
+          [
+            "-f",
+            "Follow live"
+          ],
+          [
+            "-l app=<label> --all-containers",
+            "Logs from every pod matching a label"
           ]
         ],
         "tip": "CrashLoopBackOff? Always add --previous",
@@ -191,50 +145,7 @@ const CTR_K8S_TROUBLESHOOT_DATA = [
           "crashloop",
           "container"
         ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-troubleshoot-flags-3",
-    "badge": "dbg",
-    "title": "Kubernetes Troubleshooting: More options",
-    "subtitle": "More options for: Logs from the previous",
-    "commands": [
-      {
-        "id": "kubectl-logs-previous-flags-card",
-        "desc": "More options and gotchas for: Logs from the previous",
-        "cmd": "kubectl logs <pod> -n <ns> --previous --tail=200",
-        "hideCode": false,
-        "flags": [
-          [
-            "-f",
-            "Follow live"
-          ],
-          [
-            "-l app=<label> --all-containers",
-            "Logs from every pod matching a label"
-          ]
-        ],
-        "tags": [
-          "kubernetes",
-          "k8s",
-          "kubectl",
-          "containers",
-          "flags",
-          "options",
-          "logs",
-          "previous",
-          "crashloop"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-troubleshoot-recipes-3",
-    "badge": "dbg",
-    "title": "Kubernetes Troubleshooting: Related commands",
-    "subtitle": "Related commands for: Logs from the previous",
-    "commands": [
+      },
       {
         "id": "kubectl-logs-previous-sub-1",
         "desc": "One container in a multi-container pod",
@@ -303,15 +214,7 @@ const CTR_K8S_TROUBLESHOOT_DATA = [
           "sort",
           "timeline"
         ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-troubleshoot-recipes-4",
-    "badge": "dbg",
-    "title": "Kubernetes Troubleshooting: Related commands",
-    "subtitle": "Related commands for: Recent events in a namespace, oldest first",
-    "commands": [
+      },
       {
         "id": "kubectl-events-sorted-sub-1",
         "desc": "Warnings across the whole cluster",
@@ -367,6 +270,10 @@ const CTR_K8S_TROUBLESHOOT_DATA = [
           [
             "kubectl debug -it <pod> --image=busybox --target=<container>",
             "Adds a temporary debug container that shares the target's process namespace; works for distroless images"
+          ],
+          [
+            "kubectl debug node/<node> -it --image=busybox",
+            "A pod on the node with the host filesystem at /host"
           ]
         ],
         "tip": "No shell in the image? kubectl debug --target",
@@ -381,46 +288,7 @@ const CTR_K8S_TROUBLESHOOT_DATA = [
           "shell",
           "distroless"
         ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-troubleshoot-flags-5",
-    "badge": "dbg",
-    "title": "Kubernetes Troubleshooting: More options",
-    "subtitle": "More options for: Get a shell in a running pod, or attach a debug container to one that has no shell",
-    "commands": [
-      {
-        "id": "kubectl-exec-debug-flags-card",
-        "desc": "More options and gotchas for: Get a shell in a running pod, or attach a debug container to one that has no shell",
-        "cmd": "kubectl exec -it <pod> -n <ns> -- sh",
-        "hideCode": false,
-        "flags": [
-          [
-            "kubectl debug node/<node> -it --image=busybox",
-            "A pod on the node with the host filesystem at /host"
-          ]
-        ],
-        "tags": [
-          "kubernetes",
-          "k8s",
-          "kubectl",
-          "containers",
-          "flags",
-          "options",
-          "exec",
-          "debug",
-          "ephemeral"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-troubleshoot-recipes-5",
-    "badge": "dbg",
-    "title": "Kubernetes Troubleshooting: Related commands",
-    "subtitle": "Related commands for: Get a shell in a running pod, or attach a debug container to one that has no shell",
-    "commands": [
+      },
       {
         "id": "kubectl-exec-debug-sub-1",
         "desc": "Environment variables the app sees",
@@ -505,15 +373,7 @@ const CTR_K8S_TROUBLESHOOT_DATA = [
           "service",
           "endpoints"
         ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-troubleshoot-recipes-6",
-    "badge": "dbg",
-    "title": "Kubernetes Troubleshooting: Related commands",
-    "subtitle": "Related commands for: Reach a service from your workstation, and see live resource usage",
-    "commands": [
+      },
       {
         "id": "kubectl-port-forward-top-sub-1",
         "desc": "Memory hogs in a namespace",

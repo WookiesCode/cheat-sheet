@@ -19,7 +19,7 @@ const SWITCH_DATA = [
           ["show interfaces ib 1/1 transceiver", "Inspect OSFP/QSFP optical DOM on IB 1/1: per-lane Rx/Tx optical power (dBm), bias current, module temp, PN & SN"],
           ["show interfaces ib transceiver", "Dump optical transceiver inventory and DOM diagnostics across all populated InfiniBand switch ports"],
           ["show interfaces ib 1/1 counters", "Display IB 1/1 traffic and physical error counters (SymbolError, LinkErrorRecovery, LinkDowned, PortRcvErrors)"],
-          ["clear interfaces ib 1/1 counters", "Reset hardware error counters on IB 1/1 after cleaning fiber or replacing an OSFP/QSFP module"],
+          ["interface ib 1/1\nclear counters", "Reset IB 1/1 error counters after cleaning fiber or replacing an OSFP/QSFP module (MLNX-OS clears counters only inside interface ib mode, from configure terminal)"],
           ["configure terminal ; interface ib 1/1 shutdown ; no interface ib 1/1 shutdown", "Bounce (shut / no shut) InfiniBand switch port IB 1/1 to force link retraining"],
           ["interface ib 1/1 description \"GPU-Node-01 mlx5_0\"", "Label InfiniBand switch port IB 1/1 with the connected GPU server hostname and HCA"]
         ],
@@ -65,7 +65,7 @@ const SWITCH_DATA = [
           ["show inventory && show version", "Display chassis serial number, part number (e.g., MQM9700-NS2F), MLNX-OS software version, and ASIC firmware"],
           ["show ib smgoing && sminfo", "Check which LID/GUID in the InfiniBand fabric is currently acting as the Master Subnet Manager"],
           ["configure terminal ; ib sm ; configuration write", "Enable the embedded Subnet Manager on a standalone Quantum switch and persist config"],
-          ["show logging | tail -n 50", "Inspect recent MLNX-OS system logs for port flaps, thermal alerts, PSU faults, or SM traps"],
+          ["show log", "Inspect recent MLNX-OS system logs for port flaps, thermal alerts, PSU faults, or SM traps (show logging shows the logging settings, not the log)"],
           ["configuration write", "Save running MLNX-OS configuration to startup database (equivalent to 'write memory')"],
           ["show images && boot system partition next", "Inspect installed MLNX-OS software partition images (image 1 vs image 2) for upgrades"]
         ],
@@ -318,11 +318,11 @@ const SWITCH_DATA = [
       {
         id: "arista-bgp-environment-logs",
         desc: "Inspect IPv6/IPv4 BGP peering, chassis power/fan/temperature sensors, recent link-flap logs, and config changes",
-        cmd: "show ipv6 bgp summary && show environment all && show logging last 50",
-        details: "Use 'show environment all' during rack walk-throughs to verify both PSUs are 'Ok', fans are running at normal speed without airflow direction mismatches, and optic/ASIC temperatures are below alert thresholds.",
+        cmd: "show ipv6 bgp summary && show system environment all && show logging",
+        details: "Use 'show system environment all' during rack walk-throughs to verify both PSUs are 'Ok', fans are running at normal speed without airflow direction mismatches, and optic/ASIC temperatures are below alert thresholds.",
         flags: [
           ["show ipv6 bgp summary", "List all IPv6 BGP peers, ASNs, message counts, and state/prefixes received (also 'show ip bgp summary')"],
-          ["show environment all", "Show power supply status/wattage, fan tray speeds, and temperature sensors"],
+          ["show system environment all", "Show power supply status/wattage, fan tray speeds, and temperature sensors"],
           ["show logging last 50", "Show the 50 most recent switch syslog messages (link flaps, transceiver insert/remove, LACP)"]
         ],
         subcommands: [
@@ -403,7 +403,7 @@ const SWITCH_DATA = [
         subcommands: [
           ["show lldp table && show lldp neighbors Ethernet0", "List all LLDP neighbors across the switch or inspect detailed TLVs on Ethernet0"],
           ["show interfaces counters errors && show pfc counters", "Inspect physical error counters and RoCEv2 Priority Flow Control (PFC) pause counters"],
-          ["show platform summary && show platform psu && show platform fan && show platform temperature", "Inspect SONiC switch hardware SKU, ASIC, PSU wattage/status, fan RPMs, and board temperatures"],
+          ["show platform summary && show platform psustatus && show platform fan && show platform temperature", "Inspect SONiC switch hardware SKU, ASIC, PSU wattage/status, fan RPMs, and board temperatures"],
           ["config interface shutdown Ethernet0 && config interface startup Ethernet0", "Bounce (shut / no shut) port Ethernet0 in SONiC and save with 'config save -y'"]
         ],
         tip: "sfputil show eeprom -d reads optical DOM on SONiC switches",
@@ -445,7 +445,7 @@ const SW_TRANSLATOR = {
     lldp: (p) => `show lldp neighbors ${p && p.startsWith("Eth") ? p : "Ethernet1"} detail`,
     errors: () => `show interfaces counters errors nz`,
     lacp: () => `show port-channel summary && show mlag`,
-    env: () => `show environment all && show inventory`
+    env: () => `show system environment all && show inventory`
   },
   nxos: {
     dom: (p) => `show interface ${p && p.startsWith("Eth") ? p : "Ethernet1/1"} transceiver details`,
@@ -461,7 +461,7 @@ const SW_TRANSLATOR = {
     lldp: (p) => `show lldp neighbors ${p && p.startsWith("Eth") ? p : "Ethernet0"}`,
     errors: () => `show interfaces counters errors`,
     lacp: () => `show interfaces portchannel`,
-    env: () => `show platform psu && show platform fan && show platform temperature`
+    env: () => `show platform psustatus && show platform fan && show platform temperature`
   }
 };
 

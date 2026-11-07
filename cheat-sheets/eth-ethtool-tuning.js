@@ -24,6 +24,10 @@ const ETH_ETH_ETHTOOL_TUNING_DATA = [
           [
             "ethtool -r <iface>",
             "Restart auto-negotiation on the interface"
+          ],
+          [
+            "Note on 1000BASE-T",
+            "IEEE 802.3ab requires autoneg ON for 1000BASE-T (to negotiate Master/Slave clock timing)"
           ]
         ],
         "tip": "",
@@ -39,33 +43,6 @@ const ETH_ETH_ETHTOOL_TUNING_DATA = [
           "ethtool",
           "carrier",
           "1000base-t"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "ethtool-phy-tuning-flags-1",
-    "badge": "eth",
-    "title": "ethtool & Ring Buffers: Arguments & Parameters",
-    "subtitle": "Key arguments, parameters, and filtering options for Check negotiated link speed, duplex, auto-negotiation, and link partner advertised speeds",
-    "commands": [
-      {
-        "id": "ethtool-link-speed-autoneg-flags-card",
-        "desc": "Options breakdown and parameter syntax for Check negotiated link speed, duplex, auto-negotiation, and link partner advertised speeds",
-        "cmd": "ethtool eth0   |   ethtool -r eth0   |   ethtool -s eth0 speed 1000 duplex full autoneg on",
-        "hideCode": false,
-        "flags": [
-          [
-            "Note on 1000BASE-T",
-            "IEEE 802.3ab requires autoneg ON for 1000BASE-T (to negotiate Master/Slave clock timing)"
-          ]
-        ],
-        "details": "Common operational and diagnostic parameters for Linux Ethernet networking.",
-        "tags": [
-          "ethtool & Ring Buffers",
-          "flags",
-          "options",
-          "syntax"
         ]
       }
     ]

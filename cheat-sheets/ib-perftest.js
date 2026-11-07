@@ -24,29 +24,7 @@ const IB_IB_PERFTEST_DATA = [
           [
             "-F",
             "Do not fail or warn if CPU frequency scaling governor is not locked to max"
-          ]
-        ],
-        "tip": "400G NDR = ~392 Gb/s; pass --ipv6 for IPv6 QP handshake!",
-        "tags": [
-          "perftest",
-          "infiniband",
-          "triage",
-          "rdma"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "perftest-flags",
-    "badge": "bch",
-    "title": "perftest: Flags & Options Reference",
-    "subtitle": "Key arguments, parameters, and filtering flags for perftest",
-    "commands": [
-      {
-        "id": "perftest-flags-card",
-        "desc": "Full options breakdown and parameter syntax for perftest",
-        "cmd": "ib_write_bw -h",
-        "flags": [
+          ],
           [
             "--report_gbits",
             "Report throughput in Gb/sec instead of MB/sec (expect ~392 Gb/s on 400G NDR, ~195 Gb/s on 200G HDR)"
@@ -64,22 +42,14 @@ const IB_IB_PERFTEST_DATA = [
             "Allocate RDMA buffer directly in NVIDIA GPU HBM memory to test GPUDirect RDMA (GDR)!"
           ]
         ],
-        "details": "Common diagnostic, verbose, and targeting flags for perftest in high-performance cluster environments.",
+        "tip": "400G NDR = ~392 Gb/s; pass --ipv6 for IPv6 QP handshake!",
         "tags": [
           "perftest",
-          "flags",
-          "options",
-          "syntax"
+          "infiniband",
+          "triage",
+          "rdma"
         ]
-      }
-    ]
-  },
-  {
-    "id": "perftest-subcmds",
-    "badge": "bch",
-    "title": "perftest: Common Recipes & Pipelines",
-    "subtitle": "Verified production bash one-liners and automation pipelines using perftest",
-    "commands": [
+      },
       {
         "id": "perftest-sub-1",
         "desc": "Measure half-round-trip RDMA Write latency in microseconds (usec) over IPv6",

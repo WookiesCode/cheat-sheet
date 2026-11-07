@@ -24,29 +24,7 @@ const IB_IB_MLXLINK_DATA = [
           [
             "-c",
             "Show physical Counters: Effective Physical Errors, Raw Physical BER, and Effective Physical BER"
-          ]
-        ],
-        "tip": "ethtool -m doesn't work on IB interfaces — always use mlxlink -m!",
-        "tags": [
-          "mlxlink",
-          "infiniband",
-          "triage",
-          "rdma"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "mlxlink-flags",
-    "badge": "mlx",
-    "title": "mlxlink: Flags & Options Reference",
-    "subtitle": "Key arguments, parameters, and filtering flags for mlxlink",
-    "commands": [
-      {
-        "id": "mlxlink-flags-card",
-        "desc": "Full options breakdown and parameter syntax for mlxlink",
-        "cmd": "mlxlink -h",
-        "flags": [
+          ],
           [
             "-e",
             "Show per-lane SerDes Eye Opening Info (Height/Width mV/mpUI and Eye Grade)"
@@ -56,22 +34,14 @@ const IB_IB_MLXLINK_DATA = [
             "Show supported and active Forward Error Correction (RS-FEC) mode"
           ]
         ],
-        "details": "Common diagnostic, verbose, and targeting flags for mlxlink in high-performance cluster environments.",
+        "tip": "ethtool -m doesn't work on IB interfaces — always use mlxlink -m!",
         "tags": [
           "mlxlink",
-          "flags",
-          "options",
-          "syntax"
+          "infiniband",
+          "triage",
+          "rdma"
         ]
-      }
-    ]
-  },
-  {
-    "id": "mlxlink-subcmds",
-    "badge": "mlx",
-    "title": "mlxlink: Common Recipes & Pipelines",
-    "subtitle": "Verified production bash one-liners and automation pipelines using mlxlink",
-    "commands": [
+      },
       {
         "id": "mlxlink-sub-1",
         "desc": "Toggle (bounce/flap) the physical port link down and back up to force link retraining",

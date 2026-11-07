@@ -24,6 +24,10 @@ const CTR_DOCKER_GPU_DAEMON_DATA = [
           [
             "nvidia/cuda:<tag>",
             "Pick a tag whose CUDA version is supported by the host driver (nvidia-smi on the host shows the max CUDA version)"
+          ],
+          [
+            "'could not select device driver'",
+            "The toolkit isn't installed or Docker isn't configured for it: see nvidia-ctk below"
           ]
         ],
         "tip": "Quote device lists: '\"device=0,1\"'",
@@ -36,44 +40,7 @@ const CTR_DOCKER_GPU_DAEMON_DATA = [
           "nvidia-smi",
           "toolkit"
         ]
-      }
-    ]
-  },
-  {
-    "id": "docker-gpu-daemon-flags-1",
-    "badge": "dgpu",
-    "title": "Docker GPUs & Daemon: More options",
-    "subtitle": "More options for: Smoke test: run nvidia-smi inside a CUDA container with every GPU attached",
-    "commands": [
-      {
-        "id": "docker-gpu-smoke-test-flags-card",
-        "desc": "More options and gotchas for: Smoke test: run nvidia-smi inside a CUDA container with every GPU attached",
-        "cmd": "docker run --rm --gpus all nvidia/cuda:<tag> nvidia-smi",
-        "hideCode": false,
-        "flags": [
-          [
-            "'could not select device driver'",
-            "The toolkit isn't installed or Docker isn't configured for it: see nvidia-ctk below"
-          ]
-        ],
-        "tags": [
-          "docker",
-          "containers",
-          "flags",
-          "options",
-          "gpu",
-          "nvidia",
-          "cuda"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "docker-gpu-daemon-recipes-1",
-    "badge": "dgpu",
-    "title": "Docker GPUs & Daemon: Related commands",
-    "subtitle": "Related commands for: Smoke test: run nvidia-smi inside a CUDA container with every GPU attached",
-    "commands": [
+      },
       {
         "id": "docker-gpu-smoke-test-sub-1",
         "desc": "List only the GPUs that were passed in",
@@ -136,15 +103,7 @@ const CTR_DOCKER_GPU_DAEMON_DATA = [
           "runtime",
           "daemon.json"
         ]
-      }
-    ]
-  },
-  {
-    "id": "docker-gpu-daemon-recipes-2",
-    "badge": "dgpu",
-    "title": "Docker GPUs & Daemon: Related commands",
-    "subtitle": "Related commands for: Register the NVIDIA runtime with Docker, then restart Docker",
-    "commands": [
+      },
       {
         "id": "nvidia-ctk-configure-sub-1",
         "desc": "Apply the new daemon.json (changes state)",
@@ -207,15 +166,7 @@ const CTR_DOCKER_GPU_DAEMON_DATA = [
           "device",
           "gpu"
         ]
-      }
-    ]
-  },
-  {
-    "id": "docker-gpu-daemon-recipes-3",
-    "badge": "dgpu",
-    "title": "Docker GPUs & Daemon: Related commands",
-    "subtitle": "Related commands for: List the CDI",
-    "commands": [
+      },
       {
         "id": "nvidia-cdi-sub-1",
         "desc": "Rebuild the CDI spec (changes state)",
@@ -267,6 +218,10 @@ const CTR_DOCKER_GPU_DAEMON_DATA = [
           [
             "Runtimes",
             "Should include nvidia on GPU nodes"
+          ],
+          [
+            "Storage Driver",
+            "overlay2 on current kernels"
           ]
         ],
         "tip": "docker events --until now returns instead of following",
@@ -280,44 +235,7 @@ const CTR_DOCKER_GPU_DAEMON_DATA = [
           "cgroup",
           "systemd"
         ]
-      }
-    ]
-  },
-  {
-    "id": "docker-gpu-daemon-flags-4",
-    "badge": "dgpu",
-    "title": "Docker GPUs & Daemon: More options",
-    "subtitle": "More options for: Check the Docker daemon: version, storage and cgroup driver, runtimes, and recent errors",
-    "commands": [
-      {
-        "id": "docker-daemon-health-flags-card",
-        "desc": "More options and gotchas for: Check the Docker daemon: version, storage and cgroup driver, runtimes, and recent errors",
-        "cmd": "docker info",
-        "hideCode": false,
-        "flags": [
-          [
-            "Storage Driver",
-            "overlay2 on current kernels"
-          ]
-        ],
-        "tags": [
-          "docker",
-          "containers",
-          "flags",
-          "options",
-          "daemon",
-          "info",
-          "journalctl"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "docker-gpu-daemon-recipes-4",
-    "badge": "dgpu",
-    "title": "Docker GPUs & Daemon: Related commands",
-    "subtitle": "Related commands for: Check the Docker daemon: version, storage and cgroup driver, runtimes, and recent errors",
-    "commands": [
+      },
       {
         "id": "docker-daemon-health-sub-1",
         "desc": "Is the daemon running, and its last log lines",

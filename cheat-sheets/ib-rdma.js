@@ -24,6 +24,10 @@ const IB_IB_RDMA_DATA = [
           [
             "res show qp",
             "List active RDMA Queue Pairs (QPs), owning PIDs, and state (RTS/RTR)"
+          ],
+          [
+            "statistic show",
+            "Dump hardware RDMA RoCE/IB transport counters (rx_write_requests, out_of_sequence, duplicate_request)"
           ]
         ],
         "tip": "rdma link show maps mlx5_X directly to netdev ibX/ethX",
@@ -33,41 +37,7 @@ const IB_IB_RDMA_DATA = [
           "triage",
           "rdma"
         ]
-      }
-    ]
-  },
-  {
-    "id": "rdma-flags",
-    "badge": "rdm",
-    "title": "rdma: Flags & Options Reference",
-    "subtitle": "Key arguments, parameters, and filtering flags for rdma",
-    "commands": [
-      {
-        "id": "rdma-flags-card",
-        "desc": "Full options breakdown and parameter syntax for rdma",
-        "cmd": "rdma -h",
-        "flags": [
-          [
-            "statistic show",
-            "Dump hardware RDMA RoCE/IB transport counters (rx_write_requests, out_of_sequence, duplicate_request)"
-          ]
-        ],
-        "details": "Common diagnostic, verbose, and targeting flags for rdma in high-performance cluster environments.",
-        "tags": [
-          "rdma",
-          "flags",
-          "options",
-          "syntax"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "rdma-subcmds",
-    "badge": "rdm",
-    "title": "rdma: Common Recipes & Pipelines",
-    "subtitle": "Verified production bash one-liners and automation pipelines using rdma",
-    "commands": [
+      },
       {
         "id": "rdma-sub-1",
         "desc": "Show active RDMA Connection Manager IDs, local/remote IPs, and owning process PIDs",

@@ -41,15 +41,7 @@ const SW_SW_CUMULUS_LLDP_DATA = [
           "bridge",
           "fdb"
         ]
-      }
-    ]
-  },
-  {
-    "id": "cumulus-lldp-recipes-1",
-    "badge": "lld",
-    "title": "Cumulus: LLDP, MAC & ARP: Common Recipes & Verification",
-    "subtitle": "Production CLI commands, transceivers & diagnostic workflows for Cumulus: LLDP, MAC & ARP",
-    "commands": [
+      },
       {
         "id": "nvue-lldp-mac-arp-sub-1",
         "desc": "Display IPv6 Neighbor Discovery (NDP) table mapping server IPv6 addresses to MACs and swp* ports",
@@ -83,15 +75,15 @@ const SW_SW_CUMULUS_LLDP_DATA = [
       {
         "id": "cumulus-lldp-tips-card",
         "desc": "Cluster Cabling Verification & Host Discovery via LLDP",
-        "cmd": "nv show router lldp neighbor && nv show bridge mac-table",
-        "details": "LLDP is the cornerstone of automated datacenter cabling verification. Compare `nv show router lldp neighbor` output against your cluster wiring manifest to detect mis-cabled GPU compute nodes before running distributed training jobs.",
+        "cmd": "nv show interface --view lldp && nv show bridge domain br_default mac-table",
+        "details": "LLDP is the cornerstone of automated datacenter cabling verification. Compare `nv show interface --view lldp` output against your cluster wiring manifest to detect mis-cabled GPU compute nodes before running distributed training jobs.",
         "flags": [
           [
-            "nv show router lldp neighbor",
+            "nv show interface --view lldp",
             "List all discovered adjacent servers, spine switches, and storage nodes with port IDs"
           ],
           [
-            "nv show bridge mac-table",
+            "nv show bridge domain br_default mac-table",
             "Display learned MAC addresses, VLAN tags, and egress switch ports"
           ],
           [

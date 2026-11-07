@@ -24,6 +24,10 @@ const IB_IB_IBDIAGNET_DATA = [
           [
             "--ber_test",
             "Measure Raw and Effective (post-FEC) Bit Error Rate across all fabric links"
+          ],
+          [
+            "--pc",
+            "Reset all fabric performance counters at the start of the run"
           ]
         ],
         "tip": "Check /tmp/ibdiagnet2/ibdiagnet2.cables for overtemp optics!",
@@ -33,41 +37,7 @@ const IB_IB_IBDIAGNET_DATA = [
           "triage",
           "rdma"
         ]
-      }
-    ]
-  },
-  {
-    "id": "ibdiagnet-flags",
-    "badge": "dgn",
-    "title": "ibdiagnet: Flags & Options Reference",
-    "subtitle": "Key arguments, parameters, and filtering flags for ibdiagnet",
-    "commands": [
-      {
-        "id": "ibdiagnet-flags-card",
-        "desc": "Full options breakdown and parameter syntax for ibdiagnet",
-        "cmd": "ibdiagnet -h",
-        "flags": [
-          [
-            "--pc",
-            "Reset all fabric performance counters at the start of the run"
-          ]
-        ],
-        "details": "Common diagnostic, verbose, and targeting flags for ibdiagnet in high-performance cluster environments.",
-        "tags": [
-          "ibdiagnet",
-          "flags",
-          "options",
-          "syntax"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "ibdiagnet-subcmds",
-    "badge": "dgn",
-    "title": "ibdiagnet: Common Recipes & Pipelines",
-    "subtitle": "Verified production bash one-liners and automation pipelines using ibdiagnet",
-    "commands": [
+      },
       {
         "id": "ibdiagnet-sub-1",
         "desc": "Run fabric diagnostics specifically on Rail 0 (mlx5_0 port 1)",

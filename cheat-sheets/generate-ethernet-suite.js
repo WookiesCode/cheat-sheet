@@ -2,6 +2,7 @@
 // Generates all 6 standalone Datacenter Ethernet cheat sheets and updates the Ethernet dropdown across all HTML sheets.
 const fs = require('fs');
 const path = require('path');
+const { mergeCommandCards } = require('./generate-card-utils');
 
 // 1. Read ethernet.js to extract ETHERNET_CHEAT_SHEET_DATA
 const ethJs = fs.readFileSync(path.join(__dirname, 'ethernet.js'), 'utf8');
@@ -255,7 +256,7 @@ function buildEthSectionCards(sec) {
     });
   }
 
-  return cards;
+  return mergeCommandCards(cards);
 }
 
 // 6. Generate JS file for each Ethernet sub-sheet

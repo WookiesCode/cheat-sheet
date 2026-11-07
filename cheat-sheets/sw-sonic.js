@@ -41,15 +41,7 @@ const SW_SW_SONIC_DATA = [
           "psu",
           "pfc"
         ]
-      }
-    ]
-  },
-  {
-    "id": "sonic-cli-recipes-1",
-    "badge": "snc",
-    "title": "SONiC: Cloud NOS CLI: Common Recipes & Verification",
-    "subtitle": "Production CLI commands, transceivers & diagnostic workflows for SONiC: Cloud NOS CLI",
-    "commands": [
+      },
       {
         "id": "sonic-interfaces-sfputil-lldp-sub-1",
         "desc": "List all LLDP neighbors across the switch or inspect detailed TLVs on Ethernet0",
@@ -75,7 +67,7 @@ const SW_SW_SONIC_DATA = [
       {
         "id": "sonic-interfaces-sfputil-lldp-sub-3",
         "desc": "Inspect SONiC switch hardware SKU, ASIC, PSU wattage/status, fan RPMs, and board temperatures",
-        "cmd": "show platform summary && show platform psu && show platform fan && show platform temperature",
+        "cmd": "show platform summary && show platform psustatus && show platform fan && show platform temperature",
         "tags": [
           "SONiC: Cloud NOS CLI",
           "recipe",

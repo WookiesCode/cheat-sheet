@@ -311,7 +311,7 @@
   }
 
   // Commands that change state get a visible tag and a reminder when copied.
-  const DANGER_RE = /\b(nvme\s+(format|sanitize|delete-ns|fw-activate|fw-commit)|mkfs(\.\w+)?|wipefs|sgdisk\s+(-Z|--zap)|parted\b[^|;&]*\bmklabel|dd\b[^|;&]*\bof=\/dev|mdadm\b[^|;&]*--(fail|remove|zero-superblock|create|stop)|zpool\s+(destroy|offline|replace|labelclear)|rm\s+-[a-z]*r[a-z]*f|nvidia-smi\b[^|;&]*\s(-r|--gpu-reset)\b|reboot\b|shutdown\b|poweroff\b|chassis\s+power\s+(off|cycle|reset)|power\s+(off|cycle|reset)\b|scontrol\s+update\b[^|;&]*state=|\bkubectl\b[^|;&]*\s(drain|cordon|uncordon|delete|apply|create|replace|patch|edit|scale|autoscale|set|label|annotate|taint|expose|run|cp|debug)\b|\bkubectl\b[^|;&]*\brollout\s+(restart|undo|pause|resume)\b|\bkubectl\s+config\s+(use-context|set-context|delete-context|set)\b|\bdocker\s+(rm|rmi|kill|stop|restart|pause|unpause|run|create|start|build|push|pull|load|import|commit|update|rename|tag|login)\b|\bdocker\s+(container|image|volume|network|system|builder|buildx|swarm|node|service|stack|plugin|context)\s+(rm|prune|create|remove|kill|stop|restart|run|start|build|push|pull|load|import|connect|disconnect|update|scale|install|enable|disable|use|bake)\b|\bdocker\s+compose\b[^|;&]*\s(up|down|restart|stop|start|rm|kill|pull|build|push|create|run|scale|pause|unpause|watch)\b|\bprune\b|\bfind\b[^|;&]*\s(-delete|-exec(dir)?\s+rm)\b|\bnvidia-ctk\s+(runtime\s+configure|cdi\s+generate)\b|\b(curl|wget)\b[^;&]*\|\s*(sudo\s+)?(ba|z)?sh\b|\bgcx\s+resources\s+(push|delete|edit)\b|\bgrafana(-cli)?\b[^|;&]*\b(plugins\s+(install|uninstall|remove|update(-all)?)|reset-admin-password)\b|\bhelm\s+(install|upgrade|uninstall|delete|rollback)\b|\bracadm\b[^|;&]*\b(serveraction\s+(powercycle|powerdown|powerup|graceshutdown|hardreset)|racreset|clrsel|set|update|jobqueue\s+(create|delete))\b|\bilorest\b[^|;&]*\b(reboot|iloreset|commit|set|flashfwpkg|firmwareupdate|uploadcomp|deletecomp|createvolume|deletevolume|drivesanitize|clearcontrollerconfig|factoryresetcontroller|--clearlog|--network_ipv4|--nameservers)\b|\bilorest\s+virtualmedia\s+\d|\bsaa\b(?![^|;&]*\s-h\b)[^|;&]*-c\s+(Update\w*|ClearEventLog|ClearMaintenEventLog|BmcReset|Change\w*|Restore\w*|LoadDefaultBmcCfg|EditDmiInfo|RawCommand)\b|\bOneCli\b[^|;&]*\b(power\s+(on|forceoff|forcerestart|normaloff|normalrestart|accycle|dccycle|boottosetup|triggernmi|schedule\w+)|rebootbmc|config\s+(set|restore|batch|import)|update\s+flash|logmgr\s+clear\w*)\b|\bipmipower\b[^|;&]*\s(--on|--off|--cycle|--reset|--pulse|--soft|--on-if-off|-[nfcr])\b|\bipmi-sel\b[^|;&]*--(clear|post-clear|delete)|\bipmi-chassis\b[^|;&]*--chassis-control|\bipmi-dcmi\b[^|;&]*--set-power-limit|\b(terraform|tofu)\s+(apply|destroy|import|taint|untaint|force-unlock)\b|\b(terraform|tofu)\s+state\s+(mv|rm|push|replace-provider)\b|\bansible\b[^|;&]*\s(-b|--become)\b|\bansible-playbook\b(?![^|;&]*(--check|\s-C\b|--syntax-check|--list-))|\bargocd\s+app\s+(sync|rollback|delete|set|create|patch|terminate-op)\b|\bamtool\s+silence\s+(add|expire|import)\b|\bcrictl\s+(rm|rmi|rmp|stop|stopp|runp|create|start|pull)\b|\bctr\b[^|;&]*\s(rm|delete|import|pull|kill)\b|ip\s+link\s+set\b[^|;&]*\bdown\b|mlxfwmanager\b[^|;&]*(-u|--update)|flint\b[^|;&]*\bburn|fwupdmgr\s+(update|install)|sg_reset|echo\s+1\s*>\s*\S*\/remove|rmmod|modprobe\s+-r|sel\s+clear|systemctl\s+(stop|restart)\b|mlxlink\b[^|;&]*--(port_state|rx_prbs|tx_prbs)|mlxconfig\b[^|;&]*\bset\b|mlxfwreset|ethtool\s+(-s|-K|-G|-A|-L|--set-\S+|--change)\s|ip\s+link\s+set\b[^|;&]*\bmtu\b|ipmitool\b[^|;&]*\b(lan\s+set|user\s+set|mc\s+reset|chassis\s+bootdev)|dcgmi\s+diag\s+-r\s*[234]|\b(ib_write_bw|ib_read_bw|ib_send_bw|nvbandwidth|all_reduce_perf|fio)\b|(?<=-)X\s*(POST|PATCH|PUT|DELETE)\b(?![^|;&]*SessionService)|ComputerSystem\.Reset|Manager\.Reset|nv\s+(set|unset)\b|nv\s+config\s+apply|(?<![\w-])config\s+(interface|save|reload|load|apply|qos|vlan|portchannel|bgp)\b|\bclear\s+(counters|ib|interface|mac|arp|ip)\b|\bsonic-clear\b|\bperfquery\b[^|;&]*\s-R\b)/i;
+  const DANGER_RE = /\b(nvme\s+(format|sanitize|delete-ns|fw-activate|fw-commit)|mkfs(\.\w+)?|wipefs|sgdisk\s+(-Z|--zap)|parted\b[^|;&]*\bmklabel|dd\b[^|;&]*\bof=\/dev|mdadm\b[^|;&]*--(fail|remove|zero-superblock|create|stop)|zpool\s+(destroy|offline|replace|labelclear)|rm\s+-[a-z]*r[a-z]*f|nvidia-smi\b[^|;&]*\s(-r|--gpu-reset)\b|reboot\b|shutdown\b|poweroff\b|chassis\s+power\s+(off|cycle|reset)|power\s+(off|cycle|reset)\b|scontrol\s+update\b[^|;&]*state=|\bkubectl\b[^|;&]*\s(drain|cordon|uncordon|delete|apply|create|replace|patch|edit|scale|autoscale|set|label|annotate|taint|expose|run|cp|debug)\b|\bkubectl\b[^|;&]*\brollout\s+(restart|undo|pause|resume)\b|\bkubectl\s+config\s+(use-context|set-context|delete-context|set)\b|\bdocker\s+(rm|rmi|kill|stop|restart|pause|unpause|run|create|start|build|push|pull|load|import|commit|update|rename|tag|login)\b|\bdocker\s+(container|image|volume|network|system|builder|buildx|swarm|node|service|stack|plugin|context)\s+(rm|prune|create|remove|kill|stop|restart|run|start|build|push|pull|load|import|connect|disconnect|update|scale|install|enable|disable|use|bake)\b|\bdocker\s+compose\b[^|;&]*\s(up|down|restart|stop|start|rm|kill|pull|build|push|create|run|scale|pause|unpause|watch)\b|\bprune\b|\bfind\b[^|;&]*\s(-delete|-exec(dir)?\s+rm)\b|tee\s+(-a\s+)?\/(etc|sys|proc|boot)\/|\bvisudo\b(?![^|;&]*\s-c\b)|\bupdate-alternatives\s+--(set|install|config|remove)\b|\bnvidia-ctk\s+(runtime\s+configure|cdi\s+generate)\b|\b(curl|wget)\b[^;&]*\|\s*(sudo\s+)?(ba|z)?sh\b|\bgcx\s+resources\s+(push|delete|edit)\b|\bgrafana(-cli)?\b[^|;&]*\b(plugins\s+(install|uninstall|remove|update(-all)?)|reset-admin-password)\b|\bhelm\s+(install|upgrade|uninstall|delete|rollback)\b|\bracadm\b[^|;&]*\b(serveraction\s+(powercycle|powerdown|powerup|graceshutdown|hardreset)|racreset|clrsel|set|update|jobqueue\s+(create|delete))\b|\bilorest\b[^|;&]*\b(reboot|iloreset|commit|set|flashfwpkg|firmwareupdate|uploadcomp|deletecomp|createvolume|deletevolume|drivesanitize|clearcontrollerconfig|factoryresetcontroller|--clearlog|--network_ipv4|--nameservers)\b|\bilorest\s+virtualmedia\s+\d|\bsaa\b(?![^|;&]*\s-h\b)[^|;&]*-c\s+(Update\w*|ClearEventLog|ClearMaintenEventLog|BmcReset|Change\w*|Restore\w*|LoadDefaultBmcCfg|EditDmiInfo|RawCommand)\b|\bOneCli\b[^|;&]*\b(power\s+(on|forceoff|forcerestart|normaloff|normalrestart|accycle|dccycle|boottosetup|triggernmi|schedule\w+)|rebootbmc|config\s+(set|restore|batch|import)|update\s+flash|logmgr\s+clear\w*)\b|\bipmipower\b[^|;&]*\s(--on|--off|--cycle|--reset|--pulse|--soft|--on-if-off|-[nfcr])\b|\bipmi-sel\b[^|;&]*--(clear|post-clear|delete)|\bipmi-chassis\b[^|;&]*--chassis-control|\bipmi-dcmi\b[^|;&]*--set-power-limit|\b(terraform|tofu)\s+(apply|destroy|import|taint|untaint|force-unlock)\b|\b(terraform|tofu)\s+state\s+(mv|rm|push|replace-provider)\b|\bansible\b[^|;&]*\s(-b|--become)\b|\bansible-playbook\b(?![^|;&]*(--check|\s-C\b|--syntax-check|--list-))|\bargocd\s+app\s+(sync|rollback|delete|set|create|patch|terminate-op)\b|\bamtool\s+silence\s+(add|expire|import)\b|\bcrictl\s+(rm|rmi|rmp|stop|stopp|runp|create|start|pull)\b|\bctr\b[^|;&]*\s(rm|delete|import|pull|kill)\b|ip\s+link\s+set\b[^|;&]*\bdown\b|mlxfwmanager\b[^|;&]*(-u|--update)|flint\b[^|;&]*\bburn|fwupdmgr\s+(update|install)|sg_reset|echo\s+1\s*>\s*\S*\/remove|rmmod|modprobe\s+-r|sel\s+clear|systemctl\s+(stop|restart)\b|mlxlink\b[^|;&]*--(port_state|rx_prbs|tx_prbs)|mlxconfig\b[^|;&]*\bset\b|mlxfwreset|ethtool\s+(-[sKGAL]\s+[^\s|;&]+\s+[^\s|;&-]|--set-\S+\s|--change\s)|ip\s+link\s+set\b[^|;&]*\bmtu\b|ipmitool\b[^|;&]*\b(lan\s+set|user\s+set|mc\s+reset|chassis\s+bootdev)|dcgmi\s+diag\s+-r\s*[234]|\b(ib_write_bw|ib_read_bw|ib_send_bw|nvbandwidth|all_reduce_perf|fio)\b|(?<=-)X\s*(POST|PATCH|PUT|DELETE)\b(?![^|;&]*SessionService)|ComputerSystem\.Reset|Manager\.Reset|nv\s+(set|unset)\b|nv\s+config\s+apply|(?<![\w-])config\s+(interface|save|reload|load|apply|qos|vlan|portchannel|bgp)\b|\bclear\s+(counters|ib|interface|mac|arp|ip)\b|\bsonic-clear\b|\bperfquery\b[^|;&]*\s-R\b)/i;
 
   // Hook clipboard to automatically substitute variables if active
   // Placeholders are uppercase on purpose: lowercase $disk or $hca is a script's
@@ -3258,8 +3258,12 @@
       { icon: '📈', label: 'Analyze command output', sub: 'Paste mlxlink, nvme smart-log or nvidia-smi topo -m output for a report', kw: 'analyze analyzer output paste mlxlink smart-log smartlog dom ber optics nvme report topo topology nvlink pix numa affinity', run: () => openAnalyzer() },
       { icon: '☰', label: 'Toggle compact view', sub: 'Hide or show explanations and variants', kw: 'compact density detailed dense view', run: () => { const b = document.getElementById('density-toggle'); if (b) b.click(); } },
       { icon: '📖', label: 'Open manuals', sub: 'Offline man pages', kw: 'man manual manuals pages docs offline', run: () => openManuals() },
+      { icon: '⚙', label: 'Capture script: kit or trail → one bash file', sub: 'Read-only commands, sudo -n, time limits; outputs saved to cases/<case>/logs/ and tarred', kw: 'capture script bash collect collection logs export kit trail run node sh download automate batch', run: () => openCapture() },
       { icon: '🔎', label: 'Explain a command', sub: 'Paste one from a ticket, KB or chat: what each part does and whether it is safe (e)', kw: 'explain explainer explainshell what does this command do flags meaning safe pasted understand decode', run: () => openExplain() },
-      { icon: '⇄', label: 'BMC Rosetta: same task, every BMC tool', sub: 'Power, SEL, sensors, serials, firmware and resets in ipmitool, FreeIPMI, Redfish, racadm, iLOrest, OneCLI and SAA (⇧R)', kw: 'rosetta bmc vendor matrix equivalent translate ipmitool freeipmi redfish racadm idrac ilorest ilo onecli xcc saa supermicro dell hpe lenovo power sel', run: () => openRosetta() },
+      { icon: '▦', label: 'Switch front panel: find a port', sub: 'Where is Ethernet33 / swp14 / ib 1/14/2 on the real panel, and how this switch numbers its ports', kw: 'front panel port find locate count numbering odd even cage osfp qsfp where is port switch face diagram layout', run: () => openPanel('find') },
+      { icon: '🔌', label: 'Cable check: LLDP vs wiring manifest', sub: 'Wrong server, swapped pair, wrong NIC, missing, unexpected: on the front panel, with a fix list', kw: 'cable check cabling wiring manifest lldp neighbors miscabled swapped verify trace patch audit', run: () => openPanel('check') },
+      { icon: '⇄', label: 'Switch Rosetta: same task, every network OS', sub: 'Optics, errors, LLDP, MAC, logs, bounce and save in Arista EOS, Cumulus NVUE, NX-OS, SONiC and Quantum MLNX-OS, plus the server end', kw: 'rosetta switch switches nos network os arista eos cumulus nvue nx-os nexus cisco sonic quantum mlnx-os infiniband optics transceiver lldp mac counters bounce save matrix', run: () => openRosetta('', 'sw') },
+      { icon: '⇄', label: 'BMC Rosetta: same task, every BMC tool', sub: 'Power, SEL, sensors, serials, firmware and resets in ipmitool, FreeIPMI, Redfish, racadm, iLOrest, OneCLI and SAA (⇧R)', kw: 'rosetta bmc vendor matrix equivalent translate ipmitool freeipmi redfish racadm idrac ilorest ilo onecli xcc saa supermicro dell hpe lenovo power sel', run: () => openRosetta('', 'bmc') },
       { icon: '◆', label: 'Go to Mission Control', sub: 'Home: decode an error, start a runbook', kw: 'home launchpad mission control start index', run: () => goToSheet('index.html') },
       { icon: '📝', label: 'Write field notes', sub: 'Markdown notes for the server you are on, saved to cases/ or your Obsidian vault', kw: 'notes note notebook journal document markdown obsidian write log second brain field', run: () => openFieldNotes() },
       { icon: '🎯', label: `Turn Rack Targets ${targetState.active ? 'off' : 'on'}`, sub: 'Substitution of targets into copied commands', kw: 'targets substitution variables rack toggle on off', run: () => { const t = document.getElementById('target-active-toggle'); if (t) { t.checked = !t.checked; t.dispatchEvent(new Event('change', { bubbles: true })); refreshSlots(); } } }
@@ -9172,6 +9176,7 @@ ${rmaTrailSection()}#### Action Requested:
       <footer class="trail-foot">
         <button type="button" class="trail-primary kit-primary" data-kit-act="print">Print pocket card</button><button type="button" class="trail-phone" data-kit-act="phone" title="Your kit as QR codes for your phone">📱 To phone</button>
         <button type="button" data-kit-act="md">Copy as Markdown</button>
+        <button type="button" class="kit-script" data-kit-act="script" title="One read-only bash script that saves every output to cases/<case>/logs/">⚙ Capture script</button>
       </footer>`;
     document.body.append(scrim, kitDrawer);
     kitDrawer._scrim = scrim;
@@ -9186,6 +9191,7 @@ ${rmaTrailSection()}#### Action Requested:
       const list = readKit();
       if (act === 'print') return kitPrint(list);
       if (act === 'md') { copyVerbatim(kitMarkdown(list)); return showGlobalToast(`Copied your kit (${list.length} commands) as Markdown.`); }
+      if (act === 'script') { closeKit(); return openCapture('kit'); }
       if (act === 'phone') return list.length ? openPhone(kitMarkdown(list), 'My kit to your phone', `${list.length} bookmarked commands`) : showGlobalToast('Your kit is empty: bookmark a command first.');
       const row = btn.closest('[data-kit]');
       if (!row) return;
@@ -9343,7 +9349,18 @@ ${rmaTrailSection()}#### Action Requested:
       repaired = true;
     }
 
-    if (items.length !== 1) return;
+    // Generators fold a command's related commands (ids ending -sub-N) into its card:
+    // group them under a "Related" heading, and treat the card as a single command.
+    const related = Array.from(items).filter(it => /-sub-\d+$/.test(it.dataset.cmdId || it.dataset.id || ''));
+    if (related.length && related.length < items.length) {
+      related.forEach(it => it.classList.add('is-related'));
+      const head = document.createElement('div');
+      head.className = 'rel-head';
+      head.innerHTML = `<span>Related commands</span><small>${related.length}</small>`;
+      related[0].before(head);
+      card.classList.add('has-related');
+    }
+    if (items.length - related.length !== 1) return;
     card.classList.add('tidy-single');
     const sub = subEl ? tidyNorm(subEl.textContent) : '';
     const desc = tidyNorm(descText);
@@ -9382,6 +9399,657 @@ ${rmaTrailSection()}#### Action Requested:
       queued = true;
       requestAnimationFrame(() => { queued = false; if (run()) repack(); });
     }).observe(document.body, { childList: true, subtree: true });
+  }
+
+  // -------------------------------------------------------------
+  // SWITCH FRONT PANEL: find a port, and check the cabling
+  // Two jobs that go wrong at the rack. (1) Counting ports: most two-row switches number
+  // odd on top and even below, so port 2 is under port 1, not beside it, and a 2RU switch can
+  // start over at 33 under port 2. The panel draws the real layout (from the vendor's own
+  // front-panel figure) and lights up the cage for a port name you type: Ethernet14, Et33,
+  // swp14, ib 1/14/2. (2) Cabling: paste the wiring manifest and the switch's LLDP output;
+  // every link is classed ok / wrong NIC / wrong host / swapped / missing / unexpected,
+  // painted on the panel, and turned into a fix list for the tech at the rack.
+  // Layouts checked 2026-11-07 against Arista's 7060X5 Quick Start Guide (Appendix C,
+  // Figures C-1 to C-4) and NVIDIA's QM97XX hardware manual front views. LLDP parsing follows
+  // the documented output of lldpctl/lldpcli, Arista EOS, SONiC and NX-OS-style tables.
+  // -------------------------------------------------------------
+  const PANEL_KEY = 'cs_panel_v1';
+  const oddEven = (from, to) => ({ top: Array.from({ length: (to - from + 1) / 2 }, (_, i) => from + i * 2), bottom: Array.from({ length: (to - from + 1) / 2 }, (_, i) => from + 1 + i * 2) });
+  const PANEL_MODELS = {
+    'arista-7060dx5-64e': {
+      name: 'Arista 7060DX5-64E', vendor: 'arista', ru: 1, groups: [16], rows: [oddEven(1, 32)], cage: 'QSFP-DD 800G',
+      extras: [{ label: '33', kind: 'SFP', row: 0 }, { label: '34', kind: 'SFP', row: 1 }],
+      src: 'Arista 7060X5 Quick Start Guide, Figure C-1',
+      count: ['Two rows: odd numbers on top, even below. Count columns left to right: 1/2, 3/4, 5/6 …', 'Port 2 is directly under port 1, not next to it.', 'The two small SFP ports at the right are 33 (top) and 34 (bottom).']
+    },
+    'arista-7060px5-64e': {
+      name: 'Arista 7060PX5-64E', vendor: 'arista', ru: 1, groups: [4, 4, 4, 4], rows: [oddEven(1, 32)], cage: 'OSFP 800G',
+      extras: [{ label: '33', kind: 'SFP', row: 0 }, { label: '34', kind: 'SFP', row: 1 }],
+      src: 'Arista 7060X5 Quick Start Guide, Figure C-2',
+      count: ['Four blocks of four columns. Odd numbers on top, even below, left to right.', 'Each block ends on a multiple of 8: 7/8, 15/16, 23/24, 31/32.', 'SFP 33 (top) and 34 (bottom) at the right.']
+    },
+    'arista-7060dx5-32': {
+      name: 'Arista 7060DX5-32', vendor: 'arista', ru: 1, groups: [16], rows: [oddEven(1, 32)], cage: 'QSFP-DD 400G',
+      extras: [{ label: '33', kind: 'SFP', row: 1 }],
+      src: 'Arista 7060X5 Quick Start Guide, Figure C-3',
+      count: ['Odd numbers on top, even below, left to right.', 'One SFP port, 33, at the bottom right.']
+    },
+    'arista-7060dx5-64s': {
+      name: 'Arista 7060DX5-64S (2RU)', vendor: 'arista', ru: 2, groups: [4, 4, 4, 4], rows: [oddEven(1, 32), oddEven(33, 64)], cage: 'QSFP-DD 400G',
+      extras: [{ label: '65', kind: 'SFP', row: 2 }, { label: '66', kind: 'SFP', row: 3 }, { label: 'MGT · USB · CON', kind: 'mgmt', row: 0 }],
+      src: 'Arista 7060X5 Quick Start Guide, Figure C-4',
+      count: ['Four rows in two pairs. The top pair holds 1–32 (odd over even).', 'The bottom pair starts over: 33 is directly under 2, not next to 32. Odd over even again, up to 64.', 'SFP 65 and 66 at the right; management, USB and console at the top right.']
+    },
+    'nvidia-qm9700': {
+      name: 'NVIDIA QM9700 / QM9790 (Quantum-2)', vendor: 'nvidia', ru: 1, groups: [4, 4, 4, 4], rows: [oddEven(1, 32)], cage: 'OSFP, 2 × NDR per cage', twin: true,
+      extras: [{ label: 'MGT', kind: 'mgmt', row: 0 }, { label: 'CON', kind: 'mgmt', row: 1 }],
+      src: 'NVIDIA QM97XX hardware user manual, front view',
+      count: ['The label between the rows reads "1 ▲▼ 2": the number before ▲ is the top cage, after ▼ the bottom one.', 'Odd cages on top, even below, left to right, in four blocks of four.', 'Each OSFP cage holds two NDR ports: cage 14 is ports 1/14/1 and 1/14/2 (ASIC/cage/port). A split port adds one more level: 1/14/1/2.', 'QM9700: MGT RJ45 above the console RJ45 at the right. QM9790 is externally managed and has neither.']
+    },
+    'generic-oddeven': {
+      name: 'Other switch: odd top / even bottom', vendor: 'generic', ru: 1, groups: [8, 8], rows: [oddEven(1, 32)], cage: 'pattern, not a vendor drawing', generic: true,
+      extras: [], src: 'A common pattern, not a vendor drawing: check the numbers printed on your switch',
+      count: ['The most common two-row pattern: odd on top, even below, left to right.', 'Always trust the numbers printed next to the cages over any pattern.']
+    },
+    'generic-rows': {
+      name: 'Other switch: top row first', vendor: 'generic', ru: 1, groups: [8, 8], rows: [{ top: Array.from({ length: 16 }, (_, i) => i + 1), bottom: Array.from({ length: 16 }, (_, i) => i + 17) }], cage: 'pattern, not a vendor drawing', generic: true,
+      extras: [], src: 'A less common pattern, not a vendor drawing: check the numbers printed on your switch',
+      count: ['Some switches number the whole top row first (1–16), then the bottom row (17–32).', 'If port 2 is next to port 1 on your switch, this is your pattern.']
+    }
+  };
+  const PANEL_SAMPLE = {
+    model: 'arista-7060dx5-64e', sw: 'leaf01',
+    manifest: 'switch,port,host,nic\nleaf01,Ethernet1,gpu-node01,eth0\nleaf01,Ethernet2,gpu-node02,eth0\nleaf01,Ethernet3,gpu-node03,eth0\nleaf01,Ethernet4,gpu-node04,eth0\nleaf01,Ethernet5,gpu-node05,eth0\nleaf01,Ethernet6,gpu-node06,eth0\nleaf01,Ethernet7,gpu-node07,eth0\nleaf01,Ethernet8,gpu-node08,eth0',
+    lldp: 'leaf01# show lldp neighbors\nPort      Neighbor Device ID             Neighbor Port ID           TTL\nEt1       gpu-node01                     eth0                       120\nEt2       gpu-node02                     eth1                       120\nEt3       gpu-node04                     eth0                       120\nEt4       gpu-node03                     eth0                       120\nEt5       gpu-node09                     eth0                       120\nEt7       gpu-node07                     eth0                       120\nEt8       gpu-node08                     eth0                       120\nEt12      gpu-node06                     eth0                       120'
+  };
+
+  let pnEl = null, pnTab = 'find', pnFindText = '', pnResult = null, pnFocusCage = null;
+  const pnRead = () => { try { const v = JSON.parse(localStorage.getItem(PANEL_KEY) || '{}'); return v && typeof v === 'object' ? v : {}; } catch (e) { return {}; } };
+  const pnWrite = (patch) => { try { localStorage.setItem(PANEL_KEY, JSON.stringify(Object.assign(pnRead(), patch))); } catch (e) {} };
+  const pnModel = () => PANEL_MODELS[pnRead().model] || PANEL_MODELS['arista-7060dx5-64e'];
+  const pnModelKey = () => (PANEL_MODELS[pnRead().model] ? pnRead().model : 'arista-7060dx5-64e');
+
+  // A port name → which cage on this panel. EOS "Ethernet14/2" is port 14 lane 2;
+  // NX-OS "Ethernet1/14" is module 1 port 14; QM9700 "1/14/2" is ASIC 1, cage 14, port 2.
+  function pnCageOf(text, model) {
+    const raw = String(text || '').trim();
+    const nums = (raw.match(/\d+/g) || []).map(Number);
+    if (!nums.length) return null;
+    let cage = nums[0], sub = '';
+    if (model.twin) {
+      if (nums.length >= 3) { cage = nums[1]; sub = `/${nums[2]}`; }
+      else if (nums.length === 2) { cage = nums[0]; sub = `/${nums[1]}`; }
+    } else if (/^(?:eth(?:ernet)?\s*)?1\/\d+/i.test(raw) && /cisco|nx/i.test(model.vendor)) {
+      cage = nums[1];
+    } else if (nums.length >= 2 && !/^swp/i.test(raw)) {
+      sub = `/${nums[1]}`;   // lane or breakout
+    } else if (/^swp\d+s\d+/i.test(raw)) {
+      sub = `s${nums[1]}`;
+    }
+    return { cage, sub };
+  }
+  // Where a cage sits: block row, top/bottom, column.
+  function pnWhere(cage, model) {
+    for (let r = 0; r < model.rows.length; r++) {
+      for (const half of ['top', 'bottom']) {
+        const col = model.rows[r][half].indexOf(cage);
+        if (col >= 0) return { r, half, col };
+      }
+    }
+    return null;
+  }
+  function pnDescribe(cage, model) {
+    const w = pnWhere(cage, model);
+    if (!w) return '';
+    const rowNo = w.r * 2 + (w.half === 'top' ? 1 : 2);
+    const totalRows = model.rows.length * 2;
+    const rowWord = totalRows === 2 ? (w.half === 'top' ? 'top row' : 'bottom row') : `row ${rowNo} of ${totalRows} from the top`;
+    const nth = (n) => `${n}${[, 'st', 'nd', 'rd'][n % 100 > 10 && n % 100 < 14 ? 0 : n % 10] || 'th'}`;
+    // The whole column, top to bottom: on a 2RU switch 33 sits under 2, not beside 32.
+    const stack = model.rows.flatMap(p => [p.top[w.col], p.bottom[w.col]]);
+    const at = stack.indexOf(cage);
+    const near = [stack[at - 1] && `below ${stack[at - 1]}`, stack[at + 1] && `above ${stack[at + 1]}`].filter(Boolean).join(', ');
+    return `${nth(w.col + 1)} column from the left, ${rowWord}${near ? ` (directly ${near})` : ''}`;
+  }
+
+  // ---- The front panel itself (SVG) -------------------------------------------
+  function pnSvg(model, marks, focus) {
+    const cw = 50, ch = 30, gx = 6, gy = 10, gg = 18, pad = 16, pairGap = 22;
+    const cols = model.rows[0].top.length;
+    const colX = [];
+    let x = pad + 34, c = 0;
+    model.groups.forEach((n, gi) => { for (let i = 0; i < n && c < cols; i++, c++) { colX.push(x); x += cw + gx; } if (gi < model.groups.length - 1) x += gg; });
+    const extrasX = x + 14;
+    const width = extrasX + (model.extras.some(e => e.kind === 'mgmt' && e.label.length > 4) ? 120 : 70) + pad;
+    const rowY = [];
+    let y = pad + 6;
+    model.rows.forEach((pair, pi) => { rowY.push(y, y + ch + gy); y += 2 * ch + gy + (pi < model.rows.length - 1 ? pairGap : 0); });
+    const height = y + pad + 4;
+    const out = [`<svg class="pn-svg" viewBox="0 0 ${width} ${height}" role="img" aria-label="${escapeHtml(model.name)} front panel">`,
+      `<rect class="pn-chassis" x="2" y="2" width="${width - 4}" height="${height - 4}" rx="6"/>`,
+      `<text class="pn-brand" x="${pad}" y="${height / 2}" transform="rotate(-90 ${pad + 4} ${height / 2})">${escapeHtml(model.vendor === 'generic' ? 'SWITCH' : model.vendor.toUpperCase())}</text>`];
+    model.rows.forEach((pair, pi) => ['top', 'bottom'].forEach((half, hi) => {
+      const yy = rowY[pi * 2 + hi];
+      pair[half].forEach((n, ci) => {
+        const m = marks && marks[n];
+        const on = focus && focus.cage === n;
+        const cls = ['pn-cage', m ? `is-${m.sev}` : '', on ? 'is-focus' : ''].join(' ');
+        out.push(`<g class="${cls}" data-pn-cage="${n}" tabindex="0" role="button" aria-label="Port ${n}${m ? `: ${escapeHtml(m.label)}` : ''}"><title>Port ${n}${m ? ` · ${m.label}` : ''}</title>`
+          + `<rect x="${colX[ci]}" y="${yy}" width="${cw}" height="${ch}" rx="4"/>`
+          + (model.twin ? `<line x1="${colX[ci] + cw / 2}" y1="${yy + 5}" x2="${colX[ci] + cw / 2}" y2="${yy + ch - 5}" class="pn-twin"/>` : '')
+          + `<text x="${colX[ci] + cw / 2}" y="${yy + ch / 2 + 4}" text-anchor="middle">${n}</text></g>`);
+        if (on) out.push(`<path class="pn-pointer" d="M ${colX[ci] + cw / 2} ${hi === 0 && pi === 0 ? yy - 2 : yy + ch + 2} l -6 ${hi === 0 && pi === 0 ? -9 : 9} h 12 z"/>`);
+      });
+    }));
+    model.extras.forEach(e => {
+      const yy = rowY[Math.min(e.row, rowY.length - 1)];
+      const w = e.kind === 'mgmt' && e.label.length > 4 ? 104 : 46;
+      out.push(`<g class="pn-extra pn-${e.kind}"><rect x="${extrasX}" y="${yy + 4}" width="${w}" height="${ch - 8}" rx="3"/><text x="${extrasX + w / 2}" y="${yy + ch / 2 + 3}" text-anchor="middle">${escapeHtml(e.kind === 'SFP' ? `SFP ${e.label}` : e.label)}</text></g>`);
+    });
+    out.push('</svg>');
+    return out.join('');
+  }
+
+  // ---- Parsing ----------------------------------------------------------------
+  const pnHost = (h) => String(h || '').trim().toLowerCase().split('.')[0];
+  const pnNic = (n) => String(n || '').trim().toLowerCase();
+  // Compare port names across spellings: Ethernet14 / Et14 / eth14 / swp14 / 14 → "14".
+  const pnPort = (p) => String(p || '').trim().toLowerCase().replace(/\s+/g, '').replace(/^(ethernet|eth|et|swp|port|ib)/, '');
+
+  function pnParseManifest(text) {
+    const lines = String(text || '').split(/\r?\n/).map(l => l.trim()).filter(l => l && !l.startsWith('#'));
+    if (!lines.length) return [];
+    const delim = lines[0].includes('\t') ? '\t' : lines[0].includes(',') ? ',' : lines[0].includes(';') ? ';' : /\s{2,}/.test(lines[0]) ? /\s{2,}/ : /\s+/;
+    const split = (l) => l.split(delim).map(s => s.trim().replace(/^"|"$/g, ''));
+    let head = split(lines[0]).map(h => h.toLowerCase());
+    let map = null;
+    if (head.some(h => /switch|port|host|server|node|nic|iface|interface/.test(h))) {
+      const find = (re, not) => head.findIndex(h => re.test(h) && !(not && not.test(h)));
+      map = {
+        sw: find(/^(switch|sw|leaf|spine|device|switch.?name)$/),
+        sport: find(/port|intf/, /host|server|node|nic/),
+        host: find(/host|server|node/, /port|nic|iface/),
+        nic: find(/nic|iface|interface|host.?port|server.?port|hca/)
+      };
+      lines.shift();
+    } else {
+      const n = head.length;
+      map = n >= 4 ? { sw: 0, sport: 1, host: 2, nic: 3 } : n === 3 ? { sw: -1, sport: 0, host: 1, nic: 2 } : { sw: -1, sport: 0, host: 1, nic: -1 };
+    }
+    return lines.map(split).map(c => ({ sw: map.sw >= 0 ? c[map.sw] : '', sport: c[map.sport] || '', host: map.host >= 0 ? c[map.host] : '', nic: map.nic >= 0 ? c[map.nic] : '' })).filter(r => r.sport && r.host);
+  }
+
+  // LLDP: lldpctl/lldpcli blocks ("Interface: … SysName: … PortID: …") or a table whose
+  // header names the columns (Arista, SONiC, NX-OS). Tables are cut on the header's column
+  // positions, because values can contain spaces ("GigabitEthernet 0/2").
+  function pnParseLldp(text) {
+    const src = String(text || '');
+    const prompt = (src.match(/^\s*(?:[\w.-]+@)?([\w.-]+)(?:[:~][^#$>\n]*)?[#>$][^\n]*lldp/m) || [])[1] || '';
+    const rows = [];
+    if (/^\s*Interface:\s+\S/m.test(src)) {
+      src.split(/\n(?=\s*Interface:\s)/).forEach(block => {
+        const iface = (block.match(/Interface:\s+([^,\s]+)/) || [])[1];
+        const name = (block.match(/SysName:\s+(\S+)/) || [])[1];
+        const pid = block.match(/PortID:\s+(ifname|local|mac)\s+(.+)/);
+        const pdesc = (block.match(/PortDescr:\s+(.+)/) || [])[1];
+        if (!iface || !name) return;
+        const port = pid && pid[1] !== 'mac' ? pid[2].trim() : (pdesc || (pid ? pid[2] : '')).trim();
+        rows.push({ local: iface, dev: name, rport: port });
+      });
+      return { rows, kind: 'lldpctl', prompt };
+    }
+    const lines = src.split(/\r?\n/);
+    const hi = lines.findIndex(l => /(^|\s{2,})(Port|Local ?Intf|LocalPort|Local Port|Interface)(\s{2,}|$)/i.test(l) && /(Device ID|RemoteDevice|System Name|SysName|Neighbor)/i.test(l));
+    if (hi < 0) return { rows, kind: '', prompt };
+    const header = lines[hi];
+    const cols = [];
+    const re = /\S+(?: \S+)*/g;
+    let m;
+    while ((m = re.exec(header))) cols.push({ name: m[0], at: m.index });
+    const idx = (test) => cols.findIndex(c => test.test(c.name));
+    const iLocal = idx(/^(Port|Local ?Intf|LocalPort|Local Port|Interface)$/i);
+    const iDev = idx(/Device ID|RemoteDevice|System Name|SysName|^Neighbor$/i);
+    const iPort = idx(/^(Neighbor Port ID|Port ID|RemotePortID|Remote Port ID|Remote Port)$/i);
+    const iDesc = idx(/PortDescr/i);
+    const cut = (line, i) => (i < 0 ? '' : line.slice(cols[i].at, i + 1 < cols.length ? cols[i + 1].at : undefined).trim());
+    lines.slice(hi + 1).forEach(l => {
+      if (!l.trim() || /^[\s-]+$/.test(l) || /^(Total|Capability codes)/i.test(l.trim())) return;
+      let local = cut(l, iLocal), dev = cut(l, iDev), rport = cut(l, iPort);
+      const desc = cut(l, iDesc);
+      if (/^([0-9a-f]{2}[:.-]){5}[0-9a-f]{2}$/i.test(rport) && desc) rport = desc;   // a MAC as port ID: use the description
+      if (!local || !dev) {   // misaligned row: fall back to whitespace order
+        const w = l.trim().split(/\s+/);
+        if (iLocal < iDev) { local = w[0]; dev = w[1]; rport = w[2] || ''; } else { dev = w[0]; local = w[1]; rport = w[w.length - 1] || ''; }
+      }
+      rows.push({ local, dev, rport });
+    });
+    return { rows, kind: 'table', prompt };
+  }
+
+  // ---- Compare ----------------------------------------------------------------
+  function pnCompare(manifestText, lldpText, swName) {
+    const manifest = pnParseManifest(manifestText);
+    const parsed = pnParseLldp(lldpText);
+    const switches = [...new Set(manifest.map(r => pnHost(r.sw)).filter(Boolean))];
+    const sw = pnHost(swName || parsed.prompt || (switches.length === 1 ? switches[0] : ''));
+    // Server-side output (lldpctl on a host): the neighbor is the switch.
+    const fromServer = parsed.rows.some(r => switches.includes(pnHost(r.dev)) || (sw && pnHost(r.dev) === sw));
+    const obs = new Map();
+    parsed.rows.forEach(r => {
+      const o = fromServer ? { sw: pnHost(r.dev), sport: r.rport, host: '', nic: r.local, show: '', showNic: r.local } : { sw, sport: r.local, host: pnHost(r.dev), nic: pnNic(r.rport), show: r.dev, showNic: r.rport };
+      obs.set(`${o.sw}|${pnPort(o.sport)}`, o);
+    });
+    const want = manifest.filter(r => !sw || !r.sw || pnHost(r.sw) === sw);
+    const findHost = (h) => [...obs.values()].find(o => o.host && o.host === h);
+    const items = want.map(r => {
+      const key = `${sw || pnHost(r.sw)}|${pnPort(r.sport)}`;
+      const o = obs.get(key);
+      const host = pnHost(r.host), nic = pnNic(r.nic);
+      const base = { sport: r.sport, host: r.host, nic: r.nic, seen: o };
+      if (!o) { const else_ = findHost(host); return { ...base, status: else_ ? 'moved' : 'missing', elsewhere: else_ }; }
+      if (fromServer) return { ...base, status: 'ok' };
+      if (o.host === host) return { ...base, status: nic && o.nic && o.nic !== nic ? 'nic' : 'ok' };
+      return { ...base, status: 'wrong', elsewhere: findHost(host) };
+    });
+    // Two wrong ports that hold each other's hosts are one swap.
+    items.forEach(a => {
+      if (a.status !== 'wrong' || !a.elsewhere) return;
+      const b = items.find(x => x !== a && x.status === 'wrong' && pnPort(x.sport) === pnPort(a.elsewhere.sport) && x.seen && x.seen.host === pnHost(a.host));
+      if (b) { a.status = b.status = 'swap'; a.pair = b; b.pair = a; }
+    });
+    const planned = new Set(want.map(r => pnPort(r.sport)));
+    const extras = [...obs.values()].filter(o => (!sw || o.sw === sw) && !planned.has(pnPort(o.sport)));
+    return { sw, fromServer, kind: parsed.kind, items, extras, counts: { manifest: want.length, lldp: parsed.rows.length } };
+  }
+
+  const PN_STATUS = {
+    ok: ['ok', 'Correct'], nic: ['warn', 'Right server, wrong NIC'], wrong: ['crit', 'Wrong server'], swap: ['crit', 'Swapped'],
+    moved: ['crit', 'In the wrong port'], missing: ['warn', 'No neighbor'], extra: ['info', 'Not in the manifest']
+  };
+  function pnFixes(res) {
+    const done = new Set();
+    const out = [];
+    res.items.forEach(i => {
+      if (i.status === 'ok' || done.has(i)) return;
+      if (i.status === 'swap') { done.add(i.pair); out.push({ sev: 'crit', text: `Swap the cables in ${i.sport} and ${i.pair.sport}: ${i.host} and ${i.pair.host} are crossed.` }); return; }
+      if (i.status === 'moved') { out.push({ sev: 'crit', text: `${i.host}${i.nic ? ` ${i.nic}` : ''} is plugged into ${i.elsewhere.sport}: move it to ${i.sport}.` }); return; }
+      if (i.status === 'wrong') { out.push({ sev: 'crit', text: `${i.sport} has ${i.seen.host} instead of ${i.host}${i.elsewhere ? ` (${i.host} is on ${i.elsewhere.sport})` : `; ${i.host} was not seen on any port`}. Trace the cable.` }); return; }
+      if (i.status === 'nic') { out.push({ sev: 'warn', text: `${i.sport}: right server (${i.host}) but it lands on ${i.seen.nic}, expected ${i.nic}. Move it at the server end.` }); return; }
+      if (i.status === 'missing') out.push({ sev: 'warn', text: `${i.sport}: no LLDP neighbor (expected ${i.host}${i.nic ? ` ${i.nic}` : ''}). Is the link up, the cable seated, lldpd running on the server?` });
+    });
+    const placed = new Set(res.items.filter(i => i.elsewhere).map(i => pnPort(i.elsewhere.sport)));
+    res.extras.filter(o => !placed.has(pnPort(o.sport))).forEach(o => out.push({ sev: 'info', text: `${o.sport}: ${o.show || o.host || 'something'}${o.nic ? ` ${o.showNic || o.nic}` : ''} is plugged in but not in the manifest.` }));
+    return out;
+  }
+  function pnMarks(res, model) {
+    const marks = {};
+    const put = (sport, status) => { const c = pnCageOf(sport, model); if (c) { const [sev, label] = PN_STATUS[status]; const prev = marks[c.cage]; const rank = { crit: 3, warn: 2, info: 1, ok: 0 }; if (!prev || rank[sev] > rank[prev.sev]) marks[c.cage] = { sev, label }; } };
+    res.items.forEach(i => put(i.sport, i.status));
+    res.extras.forEach(o => put(o.sport, 'extra'));
+    return marks;
+  }
+  function pnMarkdown(res, fixes) {
+    const lines = [`**Cable check: ${res.sw || 'switch'}** (${res.items.filter(i => i.status === 'ok').length}/${res.items.length} correct)`, '', '| Port | Expected | Seen | Result |', '|---|---|---|---|'];
+    res.items.forEach(i => lines.push(`| ${i.sport} | ${i.host} ${i.nic || ''} | ${i.seen ? `${i.seen.host || ''} ${i.seen.nic || ''}` : '—'} | ${PN_STATUS[i.status][1]} |`));
+    res.extras.forEach(o => lines.push(`| ${o.sport} | — | ${o.host || ''} ${o.nic || ''} | ${PN_STATUS.extra[1]} |`));
+    if (fixes.length) { lines.push('', '**Fix list**'); fixes.forEach(f => lines.push(`- [ ] ${f.text}`)); }
+    return lines.join('\n');
+  }
+
+  // ---- Dialog -----------------------------------------------------------------
+  function pnRender() {
+    const model = pnModel();
+    const st = pnRead();
+    pnEl.querySelectorAll('[data-pn-tab]').forEach(b => { const on = b.dataset.pnTab === pnTab; b.classList.toggle('is-on', on); b.setAttribute('aria-selected', String(on)); });
+    pnEl.querySelector('.pn-model').innerHTML = Object.entries(PANEL_MODELS).map(([k, m]) => `<option value="${k}" ${k === pnModelKey() ? 'selected' : ''}>${escapeHtml(m.name)}</option>`).join('');
+    pnEl.querySelector('.pn-src').textContent = `${model.cage} · ${model.src}`;
+    pnEl.querySelector('.pn-src').classList.toggle('is-generic', !!model.generic);
+    pnEl.querySelectorAll('.pn-pane').forEach(p => { p.hidden = p.dataset.pane !== pnTab; });
+    let marks = null, focus = null;
+    if (pnTab === 'find') {
+      const hit = pnFindText.trim() ? pnCageOf(pnFindText, model) : null;
+      const where = hit ? pnDescribe(hit.cage, model) : '';
+      focus = hit && where ? hit : null;
+      pnEl.querySelector('.pn-answer').innerHTML = !pnFindText.trim() ? 'Type a port name the way the switch prints it.'
+        : !where ? `<b>${escapeHtml(pnFindText)}</b>: port ${hit ? hit.cage : '?'} is not on this panel. Pick the right model above.`
+        : `<b>${escapeHtml(pnFindText.trim())}</b> → ${model.twin ? 'cage' : 'port'} <b>${hit.cage}</b>${hit.sub ? ` (<b>${escapeHtml(hit.sub)}</b>${model.twin ? hit.sub === '/1' ? ': first port in the cage' : hit.sub === '/2' ? ': second port in the cage' : '' : ': a lane or breakout of that port'})` : ''}: ${escapeHtml(where)}.`;
+      pnEl.querySelector('.pn-count').innerHTML = `<h4>How to count on this switch</h4><ul>${model.count.map(t => `<li>${escapeHtml(t)}</li>`).join('')}</ul><h4>Every switch</h4><ul><li>Trust the numbers printed beside the cages over any pattern, including this one.</li><li>Confirm before you pull: check the port's link LED goes dark or blinks the way you expect, and read the label on the cable.</li><li>Port 1 is at the left on every panel here. A switch mounted backwards in the rack (ports facing the rear) reads mirrored from the hot aisle.</li></ul>`;
+    } else {
+      const res = pnResult;
+      marks = res ? pnMarks(res, model) : null;
+      const fixes = res ? pnFixes(res) : [];
+      const tally = res ? Object.keys(PN_STATUS).map(k => [k, k === 'extra' ? res.extras.length : res.items.filter(i => i.status === k).length]).filter(([, n]) => n) : [];
+      pnEl.querySelector('.pn-results').innerHTML = !res ? '<p class="pn-hint">Paste both, then press <b>Check</b>. Or try the sample.</p>'
+        : !res.items.length && !res.extras.length ? `<p class="pn-hint">Nothing to compare: ${res.counts.manifest} manifest rows and ${res.counts.lldp} LLDP neighbors were read. Check that the switch name matches the manifest.</p>`
+        : `<div class="pn-tally">${tally.map(([k, n]) => `<span class="pn-t pn-${PN_STATUS[k][0]}">${n} ${escapeHtml(PN_STATUS[k][1].toLowerCase())}</span>`).join('')}<small>${escapeHtml(res.sw || 'switch')} · ${res.fromServer ? 'server-side lldpctl' : res.kind === 'lldpctl' ? 'lldpctl' : 'switch LLDP table'}</small></div>
+          ${fixes.length ? `<ol class="pn-fixes">${fixes.map(f => `<li class="pn-${f.sev}"><label><input type="checkbox"> ${escapeHtml(f.text)}</label></li>`).join('')}</ol>` : '<p class="pn-allgood">✓ Every port matches the manifest.</p>'}
+          <table class="pn-table"><thead><tr><th>Port</th><th>Expected</th><th>Seen</th><th>Result</th></tr></thead><tbody>
+          ${res.items.map(i => `<tr class="pn-${PN_STATUS[i.status][0]}" data-pn-row="${escapeHtml(i.sport)}"><td><code>${escapeHtml(i.sport)}</code></td><td>${escapeHtml(i.host)} <small>${escapeHtml(i.nic || '')}</small></td><td>${i.seen ? `${escapeHtml(i.seen.show || i.seen.host || '')} <small>${escapeHtml(i.seen.showNic || i.seen.nic || '')}</small>` : '—'}</td><td>${escapeHtml(PN_STATUS[i.status][1])}</td></tr>`).join('')}
+          ${res.extras.map(o => `<tr class="pn-info"><td><code>${escapeHtml(o.sport)}</code></td><td>—</td><td>${escapeHtml(o.show || o.host || '')} <small>${escapeHtml(o.showNic || o.nic || '')}</small></td><td>${escapeHtml((res.items.find(i => i.elsewhere && pnPort(i.elsewhere.sport) === pnPort(o.sport)) || {}).sport ? `Belongs in ${(res.items.find(i => i.elsewhere && pnPort(i.elsewhere.sport) === pnPort(o.sport))).sport}` : PN_STATUS.extra[1])}</td></tr>`).join('')}
+          </tbody></table>
+          <div class="pn-actions"><button type="button" data-pn-act="copy">Copy fix list</button><button type="button" data-pn-act="pin">📌 Pin to case</button></div>`;
+      if (pnFocusCage != null) focus = { cage: pnFocusCage };
+    }
+    pnEl.querySelector('.pn-panel').innerHTML = pnSvg(model, marks, focus);
+    pnEl.querySelector('.pn-legend').hidden = pnTab !== 'check' || !pnResult;
+    if (st.manifest != null && !pnEl.querySelector('.pn-manifest').value) pnEl.querySelector('.pn-manifest').value = st.manifest;
+  }
+
+  function pnClick(e) {
+    const t = e.target instanceof Element ? e.target : null;
+    if (!t) return;
+    if (t === pnEl || t.closest('[data-pn-close]')) return closePanel();
+    const tab = t.closest('[data-pn-tab]');
+    if (tab) { pnTab = tab.dataset.pnTab; pnFocusCage = null; return pnRender(); }
+    const cage = t.closest('[data-pn-cage]');
+    if (cage) {
+      const n = Number(cage.dataset.pnCage);
+      if (pnTab === 'find') { pnFindText = String(n); pnEl.querySelector('.pn-find').value = pnFindText; }
+      else { pnFocusCage = n; const row = [...pnEl.querySelectorAll('[data-pn-row]')].find(r => { const c = pnCageOf(r.dataset.pnRow, pnModel()); return c && c.cage === n; }); if (row) { row.scrollIntoView({ block: 'nearest' }); row.classList.add('is-flash'); setTimeout(() => row.classList.remove('is-flash'), 900); } }
+      return pnRender();
+    }
+    const row = t.closest('[data-pn-row]');
+    if (row) { const c = pnCageOf(row.dataset.pnRow, pnModel()); pnFocusCage = c ? c.cage : null; return pnRender(); }
+    if (t.closest('[data-pn-sample]')) {
+      pnWrite({ model: PANEL_SAMPLE.model });
+      pnEl.querySelector('.pn-manifest').value = PANEL_SAMPLE.manifest;
+      pnEl.querySelector('.pn-lldp').value = PANEL_SAMPLE.lldp;
+      pnEl.querySelector('.pn-sw').value = '';
+      return pnCheck();
+    }
+    if (t.closest('[data-pn-check]')) return pnCheck();
+    const act = t.closest('[data-pn-act]');
+    if (act && pnResult) {
+      const md = pnMarkdown(pnResult, pnFixes(pnResult));
+      if (act.dataset.pnAct === 'copy') { copyVerbatim(md); return showGlobalToast('Copied the cable check and fix list as Markdown.'); }
+      if (act.dataset.pnAct === 'pin') {
+        const bad = pnResult.items.filter(i => i.status !== 'ok').length + pnResult.extras.length;
+        casePin({ kind: 'Cable check', title: `${pnResult.sw || 'switch'}: ${bad ? `${bad} cabling problem${bad === 1 ? '' : 's'}` : 'all ports match'}`, sev: pnResult.items.some(i => PN_STATUS[i.status][0] === 'crit') ? 'crit' : bad ? 'warn' : 'ok', md, facts: [['Switch', pnResult.sw || '—'], ['Ports checked', String(pnResult.items.length)]] });
+      }
+    }
+  }
+
+  function pnCheck() {
+    const manifest = pnEl.querySelector('.pn-manifest').value;
+    pnWrite({ manifest });
+    pnResult = pnCompare(manifest, pnEl.querySelector('.pn-lldp').value, pnEl.querySelector('.pn-sw').value);
+    pnFocusCage = null;
+    pnRender();
+  }
+
+  function openPanel(tab, findText) {
+    if (IN_WIDGET_FRAME) return;
+    if (!pnEl) {
+      pnEl = document.createElement('div');
+      pnEl.className = 'an-backdrop pn-backdrop';
+      pnEl.innerHTML = `
+        <div class="an-dialog pn-dialog" role="dialog" aria-modal="true" aria-labelledby="pn-title">
+          <header class="an-head pn-head">
+            <div><h2 id="pn-title">Switch front panel</h2><p>Find a port on the real layout, or check the cabling against your wiring manifest.</p></div>
+            <div class="pn-tabs" role="tablist"><button type="button" role="tab" data-pn-tab="find">Find a port</button><button type="button" role="tab" data-pn-tab="check">Cable check</button></div>
+            <button type="button" class="trail-close" data-pn-close aria-label="Close">✕</button>
+          </header>
+          <div class="pn-bar"><label>Switch <select class="pn-model"></select></label><span class="pn-src"></span></div>
+          <div class="pn-panel"></div>
+          <div class="pn-legend" hidden><span class="pn-ok">correct</span><span class="pn-warn">wrong NIC · no neighbor</span><span class="pn-crit">wrong server · swapped · wrong port</span><span class="pn-info">not in manifest</span></div>
+          <div class="pn-body">
+            <section class="pn-pane" data-pane="find">
+              <label class="pn-findbox"><span>Port</span><input type="text" class="pn-find" placeholder="Ethernet14, Et33, swp7, ib 1/14/2, 1/14/2…" spellcheck="false" autocomplete="off" /></label>
+              <p class="pn-answer"></p>
+              <div class="pn-count"></div>
+            </section>
+            <section class="pn-pane" data-pane="check" hidden>
+              <div class="pn-inputs">
+                <label><span>Wiring manifest <small>CSV or spreadsheet rows: switch, port, host, nic</small></span><textarea class="pn-manifest" spellcheck="false" placeholder="switch,port,host,nic&#10;leaf01,Ethernet1,gpu-node01,eth0"></textarea></label>
+                <label><span>LLDP output <small>show lldp neighbors · show lldp table · lldpctl</small></span><textarea class="pn-lldp" spellcheck="false" placeholder="Paste the switch's LLDP neighbors, or lldpctl from servers"></textarea></label>
+              </div>
+              <div class="pn-run"><label>Switch name <input type="text" class="pn-sw" placeholder="from the prompt or manifest" spellcheck="false" autocomplete="off" /></label><button type="button" class="pn-primary" data-pn-check>Check</button><button type="button" data-pn-sample>Try a sample</button></div>
+              <div class="pn-results"></div>
+            </section>
+          </div>
+        </div>`;
+      document.body.appendChild(pnEl);
+      pnEl.addEventListener('click', pnClick);
+      pnEl.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') { e.stopPropagation(); return closePanel(); }
+        const cage = e.target instanceof Element && e.target.closest('[data-pn-cage]');
+        if (cage && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); cage.dispatchEvent(new MouseEvent('click', { bubbles: true })); }
+      });
+      pnEl.querySelector('.pn-model').addEventListener('change', (e) => { pnWrite({ model: e.target.value }); pnRender(); });
+      pnEl.querySelector('.pn-find').addEventListener('input', (e) => { pnFindText = e.target.value; pnRender(); });
+    }
+    if (tab) pnTab = tab;
+    if (typeof findText === 'string') { pnFindText = findText; pnEl.querySelector('.pn-find').value = findText; }
+    pnEl._back = document.activeElement;
+    pnRender();
+    pnEl.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => { const f = pnEl.querySelector(pnTab === 'find' ? '.pn-find' : '.pn-manifest'); if (f) f.focus({ preventScroll: true }); }, 30);
+  }
+
+  function closePanel() {
+    if (!pnEl) return;
+    pnEl.classList.remove('show');
+    document.body.style.overflow = '';
+    if (pnEl._back && pnEl._back.focus) pnEl._back.focus({ preventScroll: true });
+  }
+
+  // -------------------------------------------------------------
+  // CAPTURE SCRIPT BUILDER
+  // My kit and the Case Trail could be printed, phoned or copied as Markdown, but not run:
+  // a tech still pasted twelve commands one at a time and saved each output by hand. This
+  // turns the kit, the trail or the current sheet into one bash script for the node. Only
+  // read-only commands go in (state-changing, never-ending and unfilled ones are left out,
+  // with the reason shown); sudo becomes sudo -n; every command gets a time limit; each
+  // output lands in cases/<case>/logs/<UTC time>/NN-name.txt with the command, time and exit
+  // code, and the folder is tarred for the RMA desk. Commands go into quoted heredocs, so
+  // nothing in them needs escaping. Passwords are never written: $BMC_PASS stays a variable.
+  // -------------------------------------------------------------
+  let csEl = null, csSource = 'kit', csOff = new Set(), csLast = '';
+  const CS_DELIM = 'CHEATSHEET_CMD';
+  const CS_VARS = ['BMC', 'BMC_USER', 'BMC_PASS', 'IFACE', 'HCA', 'DISK', 'GPU'];
+
+  function csItems(source) {
+    if (source === 'kit') return readKit().map(e => ({ key: `${e.item.file}#${e.item.id}`, cmd: firstCommand(e.item.cmd), desc: e.item.desc, file: e.item.file }));
+    if (source === 'trail') {
+      const seen = new Set();
+      return readTrail().filter(x => !seen.has(x.cmd) && seen.add(x.cmd)).map((x, i) => ({ key: `trail#${i}#${x.cmd}`, cmd: x.cmd, desc: x.sheet ? `Copied from ${x.sheet}` : 'Copied command', name: x.cmd.replace(/^sudo\s+(-\S+\s+)*/, '').split(/\s*[|;&>]/)[0], file: x.sheet || '' }));
+    }
+    const file = anatSheetFile || window.location.pathname.split('/').pop() || '';
+    const seen = new Set();
+    return (window.GLOBAL_SEARCH_INDEX || []).filter(i => i.file === file && !i.noCopy).map(i => ({ key: `${i.file}#${i.id}#${i.cmd}`, cmd: firstCommand(i.cmd), desc: i.desc, file: i.file })).filter(x => !seen.has(x.cmd) && seen.add(x.cmd));
+  }
+
+  // Why a command can't go into an unattended, read-only capture (or '' when it can).
+  function csReason(cmd) {
+    const first = cmd.split('\n')[0].trim();
+    if (!/^(sudo\s+)?[a-z.\/$][\w.+\/${}-]*(\s|$)/.test(first) || /^[\w-]+:(\s|$)/.test(first)) return 'not a shell command';
+    if (DANGER_RE.test(cmd)) return 'changes state';
+    if (RB_NEVER_RETURNS.test(cmd)) return 'never returns on its own';
+    const ph = cmd.match(/<[A-Za-z_][\w -]*>/);
+    if (ph) return `fill ${ph[0]} first`;
+    return '';
+  }
+
+  const csSlug = (s, n) => `${String(n).padStart(2, '0')}-${String(s || 'command').toLowerCase().replace(/\([^)]*\)/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40).replace(/-$/, '') || 'command'}`;
+  const csSudo = (cmd) => cmd.replace(/(^|[;&|(]\s*|\$\(\s*)sudo\s+(?!-n\b)/g, '$1sudo -n ');
+
+  function csScript(rows, opts) {
+    const now = new Date().toISOString().replace(/\.\d+Z$/, 'Z');
+    const body = rows.map(r => r.text).join('\n');
+    const needs = CS_VARS.filter(v => new RegExp(`\\$\\{?${v}\\b`).test(body));
+    const ipmiEnv = /\bipmitool\b[^\n]*\s-E\b/.test(body);
+    const caseDefault = opts.caseName ? opts.caseName.replace(/[^\w.-]/g, '-') : '';
+    const lines = [
+      '#!/usr/bin/env bash',
+      `# Capture script: ${rows.length} read-only command${rows.length === 1 ? '' : 's'}, built ${now} by the datacenter cheat-sheet.`,
+      `# Usage: bash capture-${caseDefault || 'node'}.sh [case-name]    (case name defaults to ${caseDefault ? caseDefault : 'this host’s short name'})`,
+      '# Every output is saved under cases/<case>/logs/<UTC time>/. Nothing on this node is changed.',
+      'set -uo pipefail   # no -e: one failing command must not stop the rest of the capture',
+      ''
+    ];
+    if (needs.length || ipmiEnv) {
+      lines.push('# Set these first (read -rs keeps a password out of your shell history):');
+      needs.forEach(v => lines.push(`: "\${${v}:?set ${v} first${v === 'BMC_PASS' ? ' (read -rs BMC_PASS; export BMC_PASS)' : ''}}"`));
+      if (ipmiEnv) lines.push(': "${IPMI_PASSWORD:?set IPMI_PASSWORD first (read -rs IPMI_PASSWORD; export IPMI_PASSWORD)}"');
+      lines.push('');
+    }
+    lines.push(
+      `case_name="\${1:-${caseDefault || '$(hostname -s)'}}"`,
+      'out="cases/${case_name}/logs/$(date -u +%Y%m%dT%H%M%SZ)"',
+      'mkdir -p "$out"',
+      '',
+      '# run NAME: reads one command from stdin (a quoted heredoc, so nothing in it is expanded',
+      '# here), runs it with a time limit, and saves the command, output, exit code and duration.',
+      'run() {',
+      '  local name="$1" cmd rc start',
+      '  cmd="$(cat)"',
+      '  start=$(date +%s)',
+      '  printf \'%-46s \' "$name"',
+      '  {',
+      '    printf \'$ %s\\n# %s on %s\\n\\n\' "$cmd" "$(date -u +%FT%TZ)" "$(hostname -s)"',
+      `    timeout --kill-after=5 "\${TIMEOUT:-${opts.timeout}}" bash -o pipefail -c "$cmd"   # pipefail: a failing sudo before | still shows`,
+      '    rc=$?',
+      '    printf \'\\n# exit %s after %ss\\n\' "$rc" "$(( $(date +%s) - start ))"',
+      '  } > "$out/$name.txt" 2>&1',
+      '  if [ "$rc" -eq 124 ]; then echo "timed out"; else echo "exit $rc"; fi',
+      '}',
+      ''
+    );
+    rows.forEach((r, i) => {
+      lines.push(`# ${r.desc.replace(/\s+/g, ' ').slice(0, 110)}`);
+      lines.push(`run ${csSlug(r.name, i + 1)} <<'${CS_DELIM}'`, r.text, CS_DELIM, '');
+    });
+    if (opts.tar) lines.push('tar -czf "$out.tgz" -C "$(dirname "$out")" "$(basename "$out")"', 'echo "Saved: $out/ and $out.tgz"');
+    else lines.push('echo "Saved: $out/"');
+    return lines.join('\n') + '\n';
+  }
+
+  function csHighlight(script) {
+    return script.split('\n').map(l => {
+      const e = escapeHtml(l);
+      if (/^\s*#/.test(l)) return `<span class="cs-c">${e}</span>`;
+      if (/^run /.test(l)) return e.replace(/^run (\S+)/, 'run <b class="cs-n">$1</b>');
+      if (l === CS_DELIM) return `<span class="cs-d">${e}</span>`;
+      return e;
+    }).join('\n');
+  }
+
+  function csRender() {
+    const items = csItems(csSource);
+    const caseName = csEl.querySelector('.cs-case').value.trim();
+    const opts = { caseName, timeout: csEl.querySelector('.cs-timeout').value, tar: csEl.querySelector('.cs-tar').checked };
+    const rows = [];
+    const list = items.map(it => {
+      const text = csSudo(trailSafeText(it.cmd));
+      const why = csReason(text);
+      const on = !why && !csOff.has(it.key);
+      if (on) rows.push({ text, desc: it.desc, name: it.name || it.desc });
+      return `<label class="cs-item ${why ? 'is-out' : ''}" title="${escapeHtml(text)}">
+        <input type="checkbox" data-cs-key="${escapeHtml(it.key)}" ${on ? 'checked' : ''} ${why ? 'disabled' : ''} />
+        <span><b>${escapeHtml(it.desc)}</b><code>${escapeHtml(text)}</code>${why ? `<em>${escapeHtml(why)}</em>` : ''}</span></label>`;
+    }).join('');
+    const counts = { kit: readKit().length, trail: new Set(readTrail().map(x => x.cmd)).size };
+    const onSheet = !document.body.classList.contains('is-home');
+    csEl.querySelector('.cs-sources').innerHTML = [['kit', `★ My kit`, counts.kit], ['trail', '⏱ Case trail', counts.trail], ...(onSheet ? [['sheet', '📄 This sheet', null]] : [])]
+      .map(([k, label, n]) => `<button type="button" class="cs-src ${k === csSource ? 'is-on' : ''}" data-cs-src="${k}">${label}${n != null ? ` <small>${n}</small>` : ''}</button>`).join('');
+    const out = items.length - items.filter(it => !csReason(csSudo(trailSafeText(it.cmd)))).length;
+    csEl.querySelector('.cs-list').innerHTML = items.length
+      ? `<div class="cs-list-head"><span>${rows.length} of ${items.length} in the script${out ? ` · ${out} left out` : ''}</span><button type="button" data-cs-all="1">All</button><button type="button" data-cs-all="0">None</button></div>${list}`
+      : `<p class="cs-empty">${csSource === 'kit' ? 'Your kit is empty. Star (★) the commands you run on every node of this kind, then build the script here.' : csSource === 'trail' ? 'Nothing copied yet. Commands you copy are logged in the Case trail.' : 'No copyable commands on this sheet.'}</p>`;
+    csLast = rows.length ? csScript(rows, opts) : '';
+    csEl.querySelector('.cs-preview').innerHTML = csLast ? csHighlight(csLast) : '<span class="cs-c"># Pick at least one read-only command on the left.</span>';
+    csEl.querySelector('.cs-file').textContent = `capture-${(caseName || 'node').replace(/[^\w.-]/g, '-')}.sh · ${rows.length} command${rows.length === 1 ? '' : 's'}`;
+    csEl.querySelectorAll('[data-cs-act]').forEach(b => { b.disabled = !csLast; });
+  }
+
+  function csClick(e) {
+    const t = e.target instanceof Element ? e.target : null;
+    if (!t) return;
+    if (t === csEl || t.closest('[data-cs-close]')) return closeCapture();
+    const src = t.closest('[data-cs-src]');
+    if (src) { csSource = src.dataset.csSrc; return csRender(); }
+    const all = t.closest('[data-cs-all]');
+    if (all) {
+      csItems(csSource).forEach(it => { if (all.dataset.csAll === '1') csOff.delete(it.key); else csOff.add(it.key); });
+      return csRender();
+    }
+    const act = t.closest('[data-cs-act]');
+    if (!act || !csLast) return;
+    const name = csEl.querySelector('.cs-file').textContent.split(' ·')[0];
+    if (act.dataset.csAct === 'download') {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([csLast], { type: 'text/x-shellscript' }));
+      a.download = name;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+      return showGlobalToast(`Downloaded ${name}. Copy it to the node, read it, then run: bash ${name}`);
+    }
+    if (act.dataset.csAct === 'copy') { copyVerbatim(csLast); return showGlobalToast('Copied the capture script.'); }
+    if (act.dataset.csAct === 'pin') {
+      casePin({ kind: 'Capture script', title: name, sev: 'info', md: `\`\`\`bash\n${csLast}\`\`\``, facts: [['Commands', String((csLast.match(/^run /gm) || []).length)]] });
+    }
+  }
+
+  function openCapture(source) {
+    if (IN_WIDGET_FRAME) return;
+    if (!csEl) {
+      csEl = document.createElement('div');
+      csEl.className = 'an-backdrop cs-backdrop';
+      csEl.innerHTML = `
+        <div class="an-dialog cs-dialog" role="dialog" aria-modal="true" aria-labelledby="cs-title">
+          <header class="an-head cs-head">
+            <div><h2 id="cs-title">Capture script</h2><p>Turn your kit, your trail or this sheet into one read-only script for the node. Every output is saved to <code>cases/&lt;case&gt;/logs/</code> for the ticket.</p></div>
+            <button type="button" class="trail-close" data-cs-close aria-label="Close">✕</button>
+          </header>
+          <div class="cs-body">
+            <section class="cs-left">
+              <div class="cs-sources" role="group" aria-label="Commands from"></div>
+              <div class="cs-list"></div>
+            </section>
+            <section class="cs-right">
+              <div class="cs-opts">
+                <label>Case <input type="text" class="cs-case" placeholder="hostname -s" spellcheck="false" autocomplete="off" /></label>
+                <label>Time limit <select class="cs-timeout"><option value="30">30 s</option><option value="60">60 s</option><option value="120" selected>2 min</option><option value="300">5 min</option></select></label>
+                <label class="cs-check"><input type="checkbox" class="cs-tar" checked /> .tgz at the end</label>
+              </div>
+              <div class="cs-file-row"><span class="cs-file"></span></div>
+              <pre class="cs-preview"></pre>
+              <div class="cs-actions">
+                <button type="button" class="cs-primary" data-cs-act="download">⬇ Download .sh</button>
+                <button type="button" data-cs-act="copy">Copy script</button>
+                <button type="button" data-cs-act="pin">📌 Pin to case</button>
+              </div>
+            </section>
+          </div>
+        </div>`;
+      document.body.appendChild(csEl);
+      csEl.addEventListener('click', csClick);
+      csEl.addEventListener('change', (e) => {
+        const box = e.target instanceof Element ? e.target.closest('[data-cs-key]') : null;
+        if (box) { if (box.checked) csOff.delete(box.dataset.csKey); else csOff.add(box.dataset.csKey); }
+        csRender();
+      });
+      csEl.querySelector('.cs-case').addEventListener('input', csRender);
+      csEl.addEventListener('keydown', (e) => { if (e.key === 'Escape') { e.stopPropagation(); closeCapture(); } });
+    }
+    let node = '';
+    try { node = readNodes().active || trailMeta().caseId || ''; } catch (e) {}
+    const caseInput = csEl.querySelector('.cs-case');
+    if (!caseInput.value && node) caseInput.value = node;
+    csSource = source || (readKit().length ? 'kit' : readTrail().length ? 'trail' : document.body.classList.contains('is-home') ? 'kit' : 'sheet');
+    csEl._back = document.activeElement;
+    csRender();
+    csEl.classList.add('show');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeCapture() {
+    if (!csEl) return;
+    csEl.classList.remove('show');
+    document.body.style.overflow = '';
+    if (csEl._back && csEl._back.focus) csEl._back.focus({ preventScroll: true });
   }
 
   // -------------------------------------------------------------
@@ -9823,7 +10491,7 @@ ${rmaTrailSection()}#### Action Requested:
   }
 
   // -------------------------------------------------------------
-  // BMC ROSETTA
+  // ROSETTA (BMC and switches)
   // Seven BMC tools (ipmitool, FreeIPMI, Redfish, racadm, iLOrest, OneCLI, SAA) answer the
   // same dozen questions with seven syntaxes, spread over seven sheets. The Rosetta is one
   // task × tool matrix: pick (or detect) the node's vendor once, and every row shows the
@@ -9928,28 +10596,134 @@ ${rmaTrailSection()}#### Action Requested:
       gaps: { fipmi: 'Use ipmitool mc reset cold or Redfish.' } }
   ];
 
+  // ---- Switch domain ---------------------------------------------------------
+  // The Switches suite is 15 sheets across five network OSes. Same idea as the BMC matrix:
+  // one row per job, one column per OS, plus the server end of the same link.
+  // Checked 2026-11-07: NVUE against Cumulus Linux 5.18 docs; SONiC against the sonic-utilities
+  // Command Reference; MLNX-OS against the 3.12.6200 LTS manual; NX-OS and EOS against the
+  // 10.5(x) and 4.37 references where reachable. Cells the references did not confirm are
+  // marked "check on your release" (unverified) instead of looking authoritative.
+  // Port names are examples: Ethernet1 (EOS), swp1 (Cumulus), ethernet1/1 (NX-OS),
+  // Ethernet0 (SONiC), ib 1/1 (Quantum). Root-only commands carry a note, not a sudo prefix.
+  const SW_LOGOS = {"cisco": "<svg class=\"ros-logo\" viewBox=\"0 0 24 24\" width=\"15\" height=\"15\" aria-hidden=\"true\"><path fill=\"#1BA0D7\" d=\"M16.331 18.171V17.06l-.022.01c-.25.121-.522.19-.801.203a1.186 1.186 0 01-.806-.237 1.038 1.038 0 01-.352-.498 1.21 1.21 0 01-.023-.667c.052-.225.178-.426.357-.569.16-.134.355-.218.562-.242a1.85 1.85 0 011.061.198l.024.013v-1.117l-.051-.014a2.862 2.862 0 00-1.011-.132 2.34 2.34 0 00-.903.206c-.287.132-.54.327-.739.571a2.221 2.221 0 00-.04 2.705c.295.378.709.645 1.175.756.491.12 1.006.102 1.487-.052l.082-.023M5.336 18.171V17.06l-.022.01c-.25.121-.522.19-.801.203a1.183 1.183 0 01-.806-.237 1.03 1.03 0 01-.351-.498 1.202 1.202 0 01-.024-.667c.052-.225.177-.426.357-.569.16-.134.355-.218.562-.242a1.85 1.85 0 011.061.198l.024.013v-1.117l-.051-.014a2.862 2.862 0 00-1.011-.132 2.344 2.344 0 00-.903.206 2.08 2.08 0 00-.74.571 2.224 2.224 0 00-.041 2.705 2.11 2.11 0 001.176.756c.491.12 1.005.102 1.487-.052l.083-.023M9.26 17.249l-.004.957.07.012c.22.041.441.069.664.085.195.019.391.022.587.012.187-.014.372-.049.551-.104.21-.06.405-.163.571-.305a1.16 1.16 0 00.333-.478 1.31 1.31 0 00-.007-.96 1.068 1.068 0 00-.298-.414 1.261 1.261 0 00-.438-.255l-.722-.268a.388.388 0 01-.197-.188.245.245 0 01.008-.219.382.382 0 01.154-.142.798.798 0 01.257-.074c.153-.022.308-.021.46.005.18.02.358.051.533.096l.038.008v-.883l-.069-.015a4.749 4.749 0 00-.543-.097 2.844 2.844 0 00-.714-.003c-.3.027-.585.143-.821.33-.16.126-.281.293-.351.484-.104.29-.105.608 0 .899.054.145.14.274.252.381.097.093.207.173.327.236.157.084.324.149.497.195.057.017.114.035.17.054l.085.031.024.01c.084.03.162.078.226.14.045.042.08.094.101.151a.325.325 0 01.001.161.339.339 0 01-.166.198.856.856 0 01-.275.086 2.032 2.032 0 01-.427.021 5.208 5.208 0 01-.557-.074 9.195 9.195 0 01-.287-.067l-.033-.006zm-2.475.995h1.05v-4.167h-1.05v4.167zm12.162-2.936a1.095 1.095 0 011.541.158 1.094 1.094 0 01-.157 1.541l-.017.014a1.096 1.096 0 01-1.367-1.713m-1.525.854a2.193 2.193 0 002.666 2.107 2.139 2.139 0 00.701-3.937 2.207 2.207 0 00-3.367 1.83M22.961 10.728a.52.52 0 001.039 0V9.573a.52.52 0 00-1.039 0v1.155M20.117 10.728a.522.522 0 001.041 0V8.139a.521.521 0 00-1.04 0v2.589M17.231 11.771a.521.521 0 001.039 0V6.17a.52.52 0 00-1.039 0v5.601M14.393 10.728a.521.521 0 001.04 0V8.139a.52.52 0 00-1.039 0v2.589M11.494 10.728a.522.522 0 001.039 0V9.573a.52.52 0 00-1.039 0v1.155M8.624 10.728a.52.52 0 001.039 0V8.139a.52.52 0 00-1.039 0v2.589M5.737 11.771a.52.52 0 001.039 0V6.17a.52.52 0 00-1.039 0v5.601M2.876 10.728a.522.522 0 001.04 0V8.139a.52.52 0 00-1.039 0v2.589M0 10.728a.521.521 0 001.039 0V9.573a.52.52 0 00-1.039 0v1.155\"/></svg>", "nvidia": "<svg class=\"ros-logo\" viewBox=\"0 0 24 24\" width=\"15\" height=\"15\" aria-hidden=\"true\"><path fill=\"#76B900\" d=\"M8.948 8.798v-1.43a6.7 6.7 0 0 1 .424-.018c3.922-.124 6.493 3.374 6.493 3.374s-2.774 3.851-5.75 3.851c-.398 0-.787-.062-1.158-.185v-4.346c1.528.185 1.837.857 2.747 2.385l2.04-1.714s-1.492-1.952-4-1.952a6.016 6.016 0 0 0-.796.035m0-4.735v2.138l.424-.027c5.45-.185 9.01 4.47 9.01 4.47s-4.08 4.964-8.33 4.964c-.37 0-.733-.035-1.095-.097v1.325c.3.035.61.062.91.062 3.957 0 6.82-2.023 9.593-4.408.459.371 2.34 1.263 2.73 1.652-2.633 2.208-8.772 3.984-12.253 3.984-.335 0-.653-.018-.971-.053v1.864H24V4.063zm0 10.326v1.131c-3.657-.654-4.673-4.46-4.673-4.46s1.758-1.944 4.673-2.262v1.237H8.94c-1.528-.186-2.73 1.245-2.73 1.245s.68 2.412 2.739 3.11M2.456 10.9s2.164-3.197 6.5-3.533V6.201C4.153 6.59 0 10.653 0 10.653s2.35 6.802 8.948 7.42v-1.237c-4.84-.6-6.492-5.936-6.492-5.936z\"/></svg>", "linux": "<svg class=\"ros-logo logo-chip\" viewBox=\"0 0 24 24\" width=\"15\" height=\"15\" aria-hidden=\"true\"><path fill=\"#FCC624\" d=\"M12.504 0c-.155 0-.315.008-.48.021-4.226.333-3.105 4.807-3.17 6.298-.076 1.092-.3 1.953-1.05 3.02-.885 1.051-2.127 2.75-2.716 4.521-.278.832-.41 1.684-.287 2.489a.424.424 0 00-.11.135c-.26.268-.45.6-.663.839-.199.199-.485.267-.797.4-.313.136-.658.269-.864.68-.09.189-.136.394-.132.602 0 .199.027.4.055.536.058.399.116.728.04.97-.249.68-.28 1.145-.106 1.484.174.334.535.47.94.601.81.2 1.91.135 2.774.6.926.466 1.866.67 2.616.47.526-.116.97-.464 1.208-.946.587-.003 1.23-.269 2.26-.334.699-.058 1.574.267 2.577.2.025.134.063.198.114.333l.003.003c.391.778 1.113 1.132 1.884 1.071.771-.06 1.592-.536 2.257-1.306.631-.765 1.683-1.084 2.378-1.503.348-.199.629-.469.649-.853.023-.4-.2-.811-.714-1.376v-.097l-.003-.003c-.17-.2-.25-.535-.338-.926-.085-.401-.182-.786-.492-1.046h-.003c-.059-.054-.123-.067-.188-.135a.357.357 0 00-.19-.064c.431-1.278.264-2.55-.173-3.694-.533-1.41-1.465-2.638-2.175-3.483-.796-1.005-1.576-1.957-1.56-3.368.026-2.152.236-6.133-3.544-6.139zm.529 3.405h.013c.213 0 .396.062.584.198.19.135.33.332.438.533.105.259.158.459.166.724 0-.02.006-.04.006-.06v.105a.086.086 0 01-.004-.021l-.004-.024a1.807 1.807 0 01-.15.706.953.953 0 01-.213.335.71.71 0 00-.088-.042c-.104-.045-.198-.064-.284-.133a1.312 1.312 0 00-.22-.066c.05-.06.146-.133.183-.198.053-.128.082-.264.088-.402v-.02a1.21 1.21 0 00-.061-.4c-.045-.134-.101-.2-.183-.333-.084-.066-.167-.132-.267-.132h-.016c-.093 0-.176.03-.262.132a.8.8 0 00-.205.334 1.18 1.18 0 00-.09.4v.019c.002.089.008.179.02.267-.193-.067-.438-.135-.607-.202a1.635 1.635 0 01-.018-.2v-.02a1.772 1.772 0 01.15-.768c.082-.22.232-.406.43-.533a.985.985 0 01.594-.2zm-2.962.059h.036c.142 0 .27.048.399.135.146.129.264.288.344.465.09.199.14.4.153.667v.004c.007.134.006.2-.002.266v.08c-.03.007-.056.018-.083.024-.152.055-.274.135-.393.2.012-.09.013-.18.003-.267v-.015c-.012-.133-.04-.2-.082-.333a.613.613 0 00-.166-.267.248.248 0 00-.183-.064h-.021c-.071.006-.13.04-.186.132a.552.552 0 00-.12.27.944.944 0 00-.023.33v.015c.012.135.037.2.08.334.046.134.098.2.166.268.01.009.02.018.034.024-.07.057-.117.07-.176.136a.304.304 0 01-.131.068 2.62 2.62 0 01-.275-.402 1.772 1.772 0 01-.155-.667 1.759 1.759 0 01.08-.668 1.43 1.43 0 01.283-.535c.128-.133.26-.2.418-.2zm1.37 1.706c.332 0 .733.065 1.216.399.293.2.523.269 1.052.468h.003c.255.136.405.266.478.399v-.131a.571.571 0 01.016.47c-.123.31-.516.643-1.063.842v.002c-.268.135-.501.333-.775.465-.276.135-.588.292-1.012.267a1.139 1.139 0 01-.448-.067 3.566 3.566 0 01-.322-.198c-.195-.135-.363-.332-.612-.465v-.005h-.005c-.4-.246-.616-.512-.686-.71-.07-.268-.005-.47.193-.6.224-.135.38-.271.483-.336.104-.074.143-.102.176-.131h.002v-.003c.169-.202.436-.47.839-.601.139-.036.294-.065.466-.065zm2.8 2.142c.358 1.417 1.196 3.475 1.735 4.473.286.534.855 1.659 1.102 3.024.156-.005.33.018.513.064.646-1.671-.546-3.467-1.089-3.966-.22-.2-.232-.335-.123-.335.59.534 1.365 1.572 1.646 2.757.13.535.16 1.104.021 1.67.067.028.135.06.205.067 1.032.534 1.413.938 1.23 1.537v-.043c-.06-.003-.12 0-.18 0h-.016c.151-.467-.182-.825-1.065-1.224-.915-.4-1.646-.336-1.77.465-.008.043-.013.066-.018.135-.068.023-.139.053-.209.064-.43.268-.662.669-.793 1.187-.13.533-.17 1.156-.205 1.869v.003c-.02.334-.17.838-.319 1.35-1.5 1.072-3.58 1.538-5.348.334a2.645 2.645 0 00-.402-.533 1.45 1.45 0 00-.275-.333c.182 0 .338-.03.465-.067a.615.615 0 00.314-.334c.108-.267 0-.697-.345-1.163-.345-.467-.931-.995-1.788-1.521-.63-.4-.986-.87-1.15-1.396-.165-.534-.143-1.085-.015-1.645.245-1.07.873-2.11 1.274-2.763.107-.065.037.135-.408.974-.396.751-1.14 2.497-.122 3.854a8.123 8.123 0 01.647-2.876c.564-1.278 1.743-3.504 1.836-5.268.048.036.217.135.289.202.218.133.38.333.59.465.21.201.477.335.876.335.039.003.075.006.11.006.412 0 .73-.134.997-.268.29-.134.52-.334.74-.4h.005c.467-.135.835-.402 1.044-.7zm2.185 8.958c.037.6.343 1.245.882 1.377.588.134 1.434-.333 1.791-.765l.211-.01c.315-.007.577.01.847.268l.003.003c.208.199.305.53.391.876.085.4.154.78.409 1.066.486.527.645.906.636 1.14l.003-.007v.018l-.003-.012c-.015.262-.185.396-.498.595-.63.401-1.746.712-2.457 1.57-.618.737-1.37 1.14-2.036 1.191-.664.053-1.237-.2-1.574-.898l-.005-.003c-.21-.4-.12-1.025.056-1.69.176-.668.428-1.344.463-1.897.037-.714.076-1.335.195-1.814.12-.465.308-.797.641-.984l.045-.022zm-10.814.049h.01c.053 0 .105.005.157.014.376.055.706.333 1.023.752l.91 1.664.003.003c.243.533.754 1.064 1.189 1.637.434.598.77 1.131.729 1.57v.006c-.057.744-.48 1.148-1.125 1.294-.645.135-1.52.002-2.395-.464-.968-.536-2.118-.469-2.857-.602-.369-.066-.61-.2-.723-.4-.11-.2-.113-.602.123-1.23v-.004l.002-.003c.117-.334.03-.752-.027-1.118-.055-.401-.083-.71.043-.94.16-.334.396-.4.69-.533.294-.135.64-.202.915-.47h.002v-.002c.256-.268.445-.601.668-.838.19-.201.38-.336.663-.336zm7.159-9.074c-.435.201-.945.535-1.488.535-.542 0-.97-.267-1.28-.466-.154-.134-.28-.268-.373-.335-.164-.134-.144-.333-.074-.333.109.016.129.134.199.2.096.066.215.2.36.333.292.2.68.467 1.167.467.485 0 1.053-.267 1.398-.466.195-.135.445-.334.648-.467.156-.136.149-.267.279-.267.128.016.034.134-.147.332a8.097 8.097 0 01-.69.468zm-1.082-1.583V5.64c-.006-.02.013-.042.029-.05.074-.043.18-.027.26.004.063 0 .16.067.15.135-.006.049-.085.066-.135.066-.055 0-.092-.043-.141-.068-.052-.018-.146-.008-.163-.065zm-.551 0c-.02.058-.113.049-.166.066-.047.025-.086.068-.14.068-.05 0-.13-.02-.136-.068-.01-.066.088-.133.15-.133.08-.031.184-.047.259-.005.019.009.036.03.03.05v.02h.003z\"/></svg>", "arista": "<span class=\"ros-logo ros-textmark\" aria-hidden=\"true\">EOS</span>", "sonic": "<span class=\"ros-logo ros-textmark\" aria-hidden=\"true\">SONiC</span>"};
+  const SW_VENDORS = {
+    eos: { name: 'Arista EOS', tool: 'eos', re: /arista|\beos\b/i, note: 'EOS CLI. show logging last takes a time window, not a line count.' },
+    nvue: { name: 'Cumulus (NVUE)', tool: 'nvue', re: /cumulus|nvue/i, note: 'NVUE: nv set … then nv config apply. Apply saves to startup by default (auto-save).' },
+    nxos: { name: 'Cisco NX-OS', tool: 'nxos', re: /(^|[^a-z])nx-?os|nexus/i, note: 'NX-OS CLI. Port names are module/port: ethernet1/1.' },
+    sonic: { name: 'SONiC', tool: 'sonic', re: /sonic/i, note: 'SONiC: show … reads, config … changes (needs root); config save -y makes it permanent.' },
+    mlnx: { name: 'Quantum (MLNX-OS)', tool: 'mlnx', re: /mlnx-?os|onyx|quantum|mqm\d/i, note: 'InfiniBand switch: no LLDP or MAC table. Port-level changes happen inside interface ib mode.' }
+  };
+  const SW_TOOLS = {
+    eos: { name: 'Arista EOS', sheet: 'sw-arista-ports.html', logo: 'arista' },
+    nvue: { name: 'Cumulus NVUE', sheet: 'sw-cumulus-ports.html', logo: 'nvidia' },
+    nxos: { name: 'Cisco NX-OS', sheet: 'sw-nxos-ports.html', logo: 'cisco' },
+    sonic: { name: 'SONiC', sheet: 'sw-sonic.html', logo: 'sonic' },
+    mlnx: { name: 'Quantum MLNX-OS', sheet: 'sw-quantum-ports.html', logo: 'nvidia' },
+    host: { name: 'Server end', sheet: 'ethernet.html', logo: 'linux' }
+  };
+  const ROOT = 'needs root';
+  const SW_TASKS = [
+    { group: 'Look', id: 'ver', task: 'Version & model', hint: 'What is this switch?', cells: {
+      eos: 'show version', nvue: 'nv show platform', nxos: 'show version', sonic: 'show version', mlnx: 'show version', host: null },
+      gaps: { host: 'Run it on the switch.' }, unverified: { eos: 1 }, notes: { nvue: 'Model, serial, MAC, part number.' } },
+    { group: 'Look', id: 'status', task: 'Port status', hint: 'Up, down, speed', cells: {
+      eos: 'show interfaces status', nvue: 'nv show interface status', nxos: 'show interface status', sonic: 'show interfaces status', mlnx: 'show interfaces ib status', host: 'ip -br link show' },
+      notes: { host: 'InfiniBand HCA: ibstat.' } },
+    { group: 'Look', id: 'optics', task: 'Optics power (DOM)', hint: 'Rx/Tx dBm, temperature', cells: {
+      eos: 'show interfaces ethernet 1 transceiver', nvue: 'nv show platform transceiver swp1', nxos: 'show interface ethernet1/1 transceiver details', sonic: 'show interfaces transceiver eeprom --dom Ethernet0', mlnx: 'show interfaces ib transceiver diagnostics', host: 'ethtool -m $IFACE' },
+      unverified: { nxos: 1 }, notes: { nvue: 'Per-lane power plus alarm and warning thresholds.', mlnx: 'Every port: temperatures, voltages, Tx/Rx power, alarms.', host: `${ROOT}. InfiniBand: mlxlink -d $HCA -m.` } },
+    { group: 'Look', id: 'errors', task: 'Error counters', hint: 'CRC, drops, symbol errors', cells: {
+      eos: 'show interfaces counters errors', nvue: 'nv show interface swp1 counters errors', nxos: 'show interface counters errors', sonic: 'show interfaces counters errors', mlnx: 'show interfaces ib 1/1', host: "ethtool -S $IFACE | grep -iE 'err|drop|crc'" },
+      notes: { nvue: 'All ports: nv show interface --view counters.', mlnx: 'Errors, symbol errors and discards are in the per-port output.' } },
+    { group: 'Look', id: 'lldp', task: 'Who is plugged in? (LLDP)', hint: 'Neighbor on each port', cells: {
+      eos: 'show lldp neighbors', nvue: 'nv show interface --view lldp', nxos: 'show lldp neighbors', sonic: 'show lldp table', mlnx: null, host: 'lldpctl' },
+      gaps: { mlnx: 'InfiniBand has no LLDP: from a host, iblinkinfo shows what each switch port connects to.' }, notes: { host: `${ROOT}; needs the lldpd service.` } },
+    { group: 'Look', id: 'mac', task: 'Find a host by MAC', hint: 'Which port learned it', cells: {
+      eos: 'show mac address-table address <mac>', nvue: 'nv show bridge domain br_default mac-table', nxos: 'show mac address-table address <mac>', sonic: 'show mac -a <mac>', mlnx: null, host: 'ip neigh show' },
+      gaps: { mlnx: 'InfiniBand uses LIDs and GUIDs, not MACs: from a host use ibnetdiscover or saquery.' }, unverified: { eos: 1 } },
+    { group: 'Look', id: 'env', task: 'PSUs, fans, temperatures', hint: 'Hardware health', cells: {
+      eos: 'show system environment all', nvue: 'nv show system health', nxos: 'show environment', sonic: 'show platform psustatus', mlnx: 'show power', host: null },
+      gaps: { host: 'Server hardware: the BMC Rosetta.' }, notes: { nvue: 'Detail: nv show platform environment fan | psu | temperature.', sonic: 'Also show platform fan, show platform temperature.', mlnx: 'Also show fan, show temperature.' } },
+    { group: 'Look', id: 'inv', task: 'Serial numbers & inventory', hint: 'For the RMA', cells: {
+      eos: 'show inventory', nvue: 'nv show platform inventory', nxos: 'show inventory', sonic: 'show platform syseeprom', mlnx: 'show inventory', host: "ethtool -m $IFACE | grep -iE 'vendor|serial|part'" },
+      unverified: { eos: 1 }, notes: { host: `${ROOT}. The transceiver at the server end.` } },
+    { group: 'Look', id: 'logs', task: 'Recent logs', hint: 'Flaps, errors, alarms', cells: {
+      eos: 'show logging', nvue: 'nv show system log file brief', nxos: 'show logging last 50', sonic: 'show logging --lines 50', mlnx: 'show log', host: "journalctl -k --since '-1h' --no-pager" },
+      notes: { mlnx: 'Not show logging: that shows the logging settings.', host: 'Kernel log: link up/down, driver errors. Needs root or the adm / systemd-journal group.' } },
+    { group: 'Look', id: 'ctrl', task: 'Routing / Subnet Manager', hint: 'BGP peers or the IB SM', cells: {
+      eos: 'show ip bgp summary', nvue: 'nv show vrf default router bgp neighbor', nxos: 'show bgp ipv4 unicast summary', sonic: 'show ip bgp summary', mlnx: 'show ib sm', host: null },
+      gaps: { host: 'From a host on InfiniBand: sminfo shows the master SM.' }, unverified: { eos: 1, nvue: 1, nxos: 1, sonic: 1 } },
+    { group: 'Act', id: 'bounce', task: 'Bounce a port', hint: 'Shut, then bring up', danger: true, cells: {
+      eos: 'configure\ninterface ethernet 1\nshutdown\nno shutdown\nend', nvue: 'nv set interface swp1 link state down\nnv config apply\nnv set interface swp1 link state up\nnv config apply',
+      nxos: 'configure terminal\ninterface ethernet1/1\nshutdown\nno shutdown\nend', sonic: 'config interface shutdown Ethernet0\nconfig interface startup Ethernet0',
+      mlnx: 'configure terminal\ninterface ib 1/1\nshutdown\nno shutdown\nexit', host: 'ip link set $IFACE down && ip link set $IFACE up' },
+      unverified: { eos: 1, nxos: 1 }, notes: { sonic: ROOT, host: `${ROOT}. Use NVUE, not ip link, on a Cumulus switch.` } },
+    { group: 'Act', id: 'clear', task: 'Clear counters', hint: 'Before a re-test', danger: true, cells: {
+      eos: 'clear counters', nvue: 'nv action clear interface swp1 counters', nxos: 'clear counters interface ethernet1/1', sonic: 'sonic-clear counters', mlnx: 'configure terminal\ninterface ib 1/1\nclear counters\nexit', host: null },
+      gaps: { host: 'NIC counters don’t reset: save ethtool -S before and after instead.' }, unverified: { nxos: 1 }, notes: { eos: 'Clears every interface.', nvue: 'Software counters only.', mlnx: 'Only inside interface ib mode.' } },
+    { group: 'Act', id: 'save', task: 'Save the config', hint: 'Survives a reboot', danger: true, cells: {
+      eos: 'copy running-config startup-config', nvue: 'nv config save', nxos: 'copy running-config startup-config', sonic: 'config save -y', mlnx: 'configure terminal\nconfiguration write', host: null },
+      gaps: { host: 'Not a switch task.' }, unverified: { eos: 1, nxos: 1 }, notes: { nvue: 'Only when auto-save is off: nv config apply already saves by default.', sonic: ROOT } }
+  ];
+
+  // ---- Domains ---------------------------------------------------------------
+  const ROS_DOMAINS = {
+    bmc: {
+      label: 'BMC', title: 'BMC Rosetta', vendors: ROS_VENDORS, tools: ROS_TOOLS, tasks: ROS_TASKS, perNode: true,
+      intro: 'One task, every BMC tool. Pick the vendor once per node; click a command to copy it with your Rack Targets filled in.',
+      cols: (v, all) => all ? ['ipmi', 'fipmi', 'rf', 'dell', 'hpe', 'lenovo', 'smc'] : v ? [ROS_VENDORS[v].tool, 'rf', 'ipmi', 'fipmi'] : ['ipmi', 'fipmi', 'rf'],
+      allLabel: 'Compare all 7 tools', vendorWord: 'vendor', other: 'Other / unknown',
+      empty: 'No vendor yet: showing the tools that work on any BMC. Pick one above, or paste <code>dmidecode -s system-manufacturer</code> output below.',
+      detectCmd: 'dmidecode -s system-manufacturer', detectHint: 'Paste dmidecode -s system-manufacturer, or a FRU dump',
+      find: 'sel, power, serial, firmware…', act: 'changes state · drain the node and get approval first',
+      foot: '<i class="ros-conn">⋯</i> is the connection and credentials part (hover a command to see it all; the copy is always complete). Passwords stay in <code>$BMC_PASS</code> or a prompt (<code>-E</code>, <code>-P</code>, <code>~/.bmc-curlrc</code>): never type them inline. Redfish IDs follow the vendor; list <code>/redfish/v1/Systems</code> if yours differ.',
+      strip: /^(bmc-tools|racadm|ilorest|supermicro-saa|onecli|freeipmi|serial-console|ipmi[\w-]*|redfish|rf-[\w-]+|hw-power)\.html$/,
+      stripText: (t) => `The same task in ipmitool, FreeIPMI, Redfish${t ? ` and ${t}` : ' and your vendor’s CLI'}: power, SEL, sensors, serials, firmware, resets.`
+    },
+    sw: {
+      label: 'Switch', title: 'Switch Rosetta', vendors: SW_VENDORS, tools: SW_TOOLS, tasks: SW_TASKS, perNode: false,
+      intro: 'One task, every network OS, plus the server end of the same link. Pick the switch OS, or paste its show version.',
+      cols: (v, all) => (all || !v) ? ['eos', 'nvue', 'nxos', 'sonic', 'mlnx', 'host'] : [SW_VENDORS[v].tool, 'host'],
+      allLabel: 'Compare all 5 OSes', vendorWord: 'OS', other: 'All OSes',
+      empty: 'No OS picked: showing all five side by side. Pick one above, or paste the switch’s <code>show version</code> below.',
+      detectCmd: 'show version', detectHint: 'Paste the switch’s show version output',
+      find: 'optics, lldp, errors, save…', act: 'changes the switch · get approval and a change window first',
+      foot: 'Port names are examples: <code>Ethernet1</code> (EOS), <code>swp1</code> (Cumulus), <code>ethernet1/1</code> (NX-OS), <code>Ethernet0</code> (SONiC), <code>ib 1/1</code> (Quantum). The server-end column uses your Rack Targets (<code>$IFACE</code>, <code>$HCA</code>). <span class="ros-unv-key">check on your release</span> marks commands the vendor reference I read did not confirm. Root-only commands say <em>needs root</em> instead of carrying sudo.',
+      strip: /^(switches|sw-[\w-]+)\.html$/,
+      stripText: (t) => `The same task in Arista EOS, Cumulus NVUE, Cisco NX-OS, SONiC and Quantum MLNX-OS${t ? `, ${t} first` : ''}, with the server end of the link: optics, errors, LLDP, logs, bounce, save.`
+    }
+  };
+  let rosDomain = 'bmc';
+  const rosD = () => ROS_DOMAINS[rosDomain];
+
   let rosEl = null, rosAll = false, rosFilter = '';
   const rosRead = () => { try { const v = JSON.parse(localStorage.getItem(ROS_KEY) || '{}'); return v && typeof v === 'object' ? v : {}; } catch (e) { return {}; } };
   const rosWrite = (v) => { try { localStorage.setItem(ROS_KEY, JSON.stringify(v)); } catch (e) {} };
   const rosNode = () => { try { return readNodes().active || ''; } catch (e) { return ''; } };
-  const rosDetect = (text) => Object.keys(ROS_VENDORS).find(k => ROS_VENDORS[k].re.test(text || '')) || '';
-  // Remembered for this node → last vendor picked → manufacturer in the last checkup.
-  function rosVendor() {
-    const st = rosRead(), node = rosNode();
+  const rosDetect = (text, d = rosD()) => Object.keys(d.vendors).find(k => d.vendors[k].re.test(text || '')) || '';
+  // BMC: remembered for this node → manufacturer in the last checkup → last pick.
+  // Switch: last pick (a switch is not a node workspace).
+  function rosVendor(domain = rosDomain) {
+    const st = rosRead();
+    if (domain === 'sw') return { v: (st.sw && st.sw.last) || '', why: st.sw && st.sw.last ? 'last OS you picked' : '' };
+    const node = rosNode();
     if (node && st.byNode && st.byNode[node]) return { v: st.byNode[node], why: `remembered for ${node}` };
     let ck = '';
-    try { const v = vitalsRead(); ck = v.checkup && v.checkup.text ? rosDetect(v.checkup.text.slice(0, 20000)) : ''; } catch (e) {}
+    try { const v = vitalsRead(); ck = v.checkup && v.checkup.text ? rosDetect(v.checkup.text.slice(0, 20000), ROS_DOMAINS.bmc) : ''; } catch (e) {}
     if (ck) return { v: ck, why: 'from the last Node checkup' };
     if (st.last) return { v: st.last, why: 'last vendor you picked' };
     return { v: '', why: '' };
   }
   function rosSetVendor(v) {
-    const st = rosRead(), node = rosNode();
+    const st = rosRead();
+    if (rosDomain === 'sw') { st.sw = { last: v }; return rosWrite(st); }
+    const node = rosNode();
     st.last = v;
     if (node) { st.byNode = st.byNode || {}; if (v) st.byNode[node] = v; else delete st.byNode[node]; }
     rosWrite(st);
   }
-  function rosLogo(tool) {
+  function rosLogo(tool, domain = rosDomain) {
+    if (domain === 'sw') return SW_LOGOS[SW_TOOLS[tool].logo] || '';
     const src = document.querySelector(ROS_TOOLS[tool].logoFrom);
     if (!src) return '';
     const chip = src.classList.contains('logo-chip') ? ' logo-chip' : '';
@@ -9960,10 +10734,11 @@ ${rmaTrailSection()}#### Action Requested:
     return cmd.replace(/\/(Systems|Managers|Chassis)\/(SYS|MGR|CH)\b/g, (m, coll, k) => `/${coll}/${ids[k]}`);
   };
 
-  // Display only: the connection and credential part every command of a tool shares becomes
-  // a dim ⋯, so the part that differs per task (sel elist, getsysinfo) is what you read.
+  // Display only: the connection and credential part every BMC command of a tool shares
+  // becomes a dim ⋯, so the part that differs per task (sel elist, getsysinfo) is what you read.
   const ROS_CONN = [` -I lanplus -H "$BMC" -U "$BMC_USER" -E`, ` ${FIPMI}`, ` -g -6 -sk -K ~/.bmc-curlrc`, ` -r "$BMC" -u "$BMC_USER" -p "$BMC_PASS"`, ` ${ILO}`, ` ${ONE}`];
   function rosDisplay(cmd) {
+    if (rosDomain !== 'bmc') return escapeHtml(cmd);
     const conn = '<i class="ros-conn" aria-hidden="true">⋯</i>';
     return escapeHtml(cmd)
       .split(escapeHtml('"https://[$BMC]/redfish/v1')).join(`${conn}`)
@@ -9972,41 +10747,47 @@ ${rmaTrailSection()}#### Action Requested:
       .split(` ${conn}${conn}`).join(` ${conn}`);
   }
 
-  function rosColumns(vendor) {
-    if (rosAll) return ['ipmi', 'fipmi', 'rf', 'dell', 'hpe', 'lenovo', 'smc'];
-    return vendor ? [ROS_VENDORS[vendor].tool, 'rf', 'ipmi', 'fipmi'] : ['ipmi', 'fipmi', 'rf'];
-  }
-
   function rosRender() {
+    const d = rosD();
     const { v: vendor, why } = rosVendor();
-    const cols = rosColumns(vendor);
+    const cols = d.cols(vendor, rosAll);
+    const vendorTool = vendor ? d.vendors[vendor].tool : '';
     const node = rosNode();
     const q = rosFilter.trim().toLowerCase();
-    const tasks = ROS_TASKS.filter(t => !q || `${t.task} ${t.hint} ${t.group} ${Object.values(t.cells).join(' ')}`.toLowerCase().includes(q));
-    const chips = Object.entries(ROS_VENDORS).map(([k, o]) => `<button type="button" class="ros-vendor ${k === vendor ? 'is-on' : ''}" data-ros-vendor="${k}" aria-pressed="${k === vendor}">${rosLogo(o.tool)}<span>${escapeHtml(o.name)}</span></button>`).join('')
-      + `<button type="button" class="ros-vendor ${!vendor ? 'is-on' : ''}" data-ros-vendor="" aria-pressed="${!vendor}"><span>Other / unknown</span></button>`;
-    const head = cols.map(c => `<th scope="col" class="${vendor && c === ROS_VENDORS[vendor].tool ? 'is-vendor' : ''}"><a href="${ROS_TOOLS[c].sheet}" data-ros-sheet="${ROS_TOOLS[c].sheet}">${rosLogo(c)}${escapeHtml(ROS_TOOLS[c].name)}</a></th>`).join('');
+    const tasks = d.tasks.filter(t => !q || `${t.task} ${t.hint} ${t.group} ${Object.values(t.cells).join(' ')}`.toLowerCase().includes(q));
+    rosEl.querySelector('#ros-title').textContent = d.title;
+    rosEl.querySelector('.ros-intro').textContent = d.intro;
+    rosEl.querySelectorAll('[data-ros-domain]').forEach(b => { const on = b.dataset.rosDomain === rosDomain; b.classList.toggle('is-on', on); b.setAttribute('aria-pressed', String(on)); });
+    const chips = Object.entries(d.vendors).map(([k, o]) => `<button type="button" class="ros-vendor ${k === vendor ? 'is-on' : ''}" data-ros-vendor="${k}" aria-pressed="${k === vendor}">${rosLogo(o.tool)}<span>${escapeHtml(o.name)}</span></button>`).join('')
+      + `<button type="button" class="ros-vendor ${!vendor ? 'is-on' : ''}" data-ros-vendor="" aria-pressed="${!vendor}"><span>${escapeHtml(d.other)}</span></button>`;
+    const head = cols.map(c => `<th scope="col" class="${c === vendorTool ? 'is-vendor' : ''}"><a href="${d.tools[c].sheet}" data-ros-sheet="${d.tools[c].sheet}">${rosLogo(c)}${escapeHtml(d.tools[c].name)}</a></th>`).join('');
     let lastGroup = '';
     const rows = tasks.map(t => {
-      const sep = t.group !== lastGroup ? `<tr class="ros-group"><th colspan="${cols.length + 1}">${escapeHtml(t.group)}${t.group === 'Act' ? ' <span>changes state · drain the node and get approval first</span>' : ''}</th></tr>` : '';
+      const sep = t.group !== lastGroup ? `<tr class="ros-group"><th colspan="${cols.length + 1}">${escapeHtml(t.group)}${t.group === 'Act' ? ` <span>${escapeHtml(d.act)}</span>` : ''}</th></tr>` : '';
       lastGroup = t.group;
       const cells = cols.map(c => {
         const raw = t.cells[c];
-        const isVendorCol = vendor && c === ROS_VENDORS[vendor].tool;
+        const isVendorCol = c === vendorTool;
         if (!raw) return `<td class="ros-gap ${isVendorCol ? 'is-vendor' : ''}"><span>${escapeHtml((t.gaps && t.gaps[c]) || 'No equivalent')}</span></td>`;
-        const cmd = rosFill(raw, vendor || (['dell', 'hpe', 'lenovo', 'smc'].includes(c) ? c : ''));
+        const cmd = rosDomain === 'bmc' ? rosFill(raw, vendor || (['dell', 'hpe', 'lenovo', 'smc'].includes(c) ? c : '')) : raw;
         const danger = t.danger || DANGER_RE.test(cmd);
+        const unv = t.unverified && t.unverified[c];
         const note = t.notes && t.notes[c];
-        return `<td class="${isVendorCol ? 'is-vendor' : ''}"><button type="button" class="ros-cell ${danger ? 'is-danger' : ''}" data-ros-copy="${escapeHtml(cmd)}" title="${escapeHtml(cmd)}"><code>${rosDisplay(cmd)}</code><span class="ros-copied" aria-hidden="true">Copied</span></button>${note ? `<small>${escapeHtml(note)}</small>` : ''}</td>`;
+        return `<td class="${isVendorCol ? 'is-vendor' : ''}"><button type="button" class="ros-cell ${danger ? 'is-danger' : ''} ${unv ? 'is-unverified' : ''}" data-ros-copy="${escapeHtml(cmd)}" title="${escapeHtml(cmd)}"><code>${rosDisplay(cmd)}</code><span class="ros-copied" aria-hidden="true">Copied</span></button>${unv ? '<small class="ros-unv">check on your release</small>' : ''}${note ? `<small>${escapeHtml(note)}</small>` : ''}</td>`;
       }).join('');
       return `${sep}<tr class="${t.danger ? 'is-act' : ''}"><th scope="row"><b>${escapeHtml(t.task)}</b><small>${escapeHtml(t.hint)}</small></th>${cells}</tr>`;
     }).join('');
     rosEl.querySelector('.ros-vendors').innerHTML = chips;
+    rosEl.querySelector('.ros-vendors').setAttribute('aria-label', rosDomain === 'sw' ? 'Switch OS' : 'Server vendor');
     rosEl.querySelector('.ros-why').innerHTML = vendor
-      ? `<b>${escapeHtml(ROS_VENDORS[vendor].name)}</b>${why ? ` · ${escapeHtml(why)}` : ''}${node ? '' : ' · name a node to remember it per server'}<br><span>${escapeHtml(ROS_VENDORS[vendor].note)}</span>`
-      : `No vendor yet: showing the tools that work on any BMC. Pick one above, or paste <code>dmidecode -s system-manufacturer</code> output below.`;
+      ? `<b>${escapeHtml(d.vendors[vendor].name)}</b>${why ? ` · ${escapeHtml(why)}` : ''}${d.perNode && !node ? ' · name a node to remember it per server' : ''}<br><span>${escapeHtml(d.vendors[vendor].note)}</span>`
+      : d.empty;
+    rosEl.querySelector('.ros-detect input').placeholder = d.detectHint;
+    rosEl.querySelector('.ros-find input').placeholder = d.find;
+    rosEl.querySelector('.ros-foot').innerHTML = d.foot;
+    rosEl.querySelector('.ros-all').hidden = rosDomain === 'sw' && !vendor;
     rosEl.querySelector('.ros-all').setAttribute('aria-pressed', String(rosAll));
-    rosEl.querySelector('.ros-all').textContent = rosAll ? 'Show my vendor only' : 'Compare all 7 tools';
+    rosEl.querySelector('.ros-all').textContent = rosAll ? `Show my ${d.vendorWord} only` : d.allLabel;
     rosEl.querySelector('.ros-table').innerHTML = tasks.length
       ? `<thead><tr><th scope="col">Task</th>${head}</tr></thead><tbody>${rows}</tbody>`
       : `<tbody><tr><td class="ros-none">No task matches “${escapeHtml(rosFilter)}”.</td></tr></tbody>`;
@@ -10017,12 +10798,14 @@ ${rmaTrailSection()}#### Action Requested:
     const t = e.target instanceof Element ? e.target : null;
     if (!t) return;
     if (t === rosEl || t.closest('[data-ros-close]')) return closeRosetta();
+    const dom = t.closest('[data-ros-domain]');
+    if (dom) { rosDomain = dom.dataset.rosDomain; rosAll = false; return rosRender(); }
     const vb = t.closest('[data-ros-vendor]');
     if (vb) { rosSetVendor(vb.dataset.rosVendor); rosAll = false; return rosRender(); }
     if (t.closest('.ros-all')) { rosAll = !rosAll; return rosRender(); }
     if (t.closest('[data-ros-detect-copy]')) {
-      navigator.clipboard.writeText('sudo dmidecode -s system-manufacturer');
-      showGlobalToast('Copied: run it on the host, then paste the output here.');
+      navigator.clipboard.writeText(rosD().detectCmd);
+      showGlobalToast(rosDomain === 'sw' ? 'Copied: run it on the switch, then paste the output here.' : 'Copied (needs root): run it on the host, then paste the output here.');
       return;
     }
     const sh = t.closest('[data-ros-sheet]');
@@ -10032,32 +10815,37 @@ ${rmaTrailSection()}#### Action Requested:
       navigator.clipboard.writeText(cell.dataset.rosCopy);
       cell.classList.add('did-copy');
       setTimeout(() => cell.classList.remove('did-copy'), 1100);
-      if (cell.classList.contains('is-danger')) showGlobalToast('Copied a state-changing command: drain the node and get approval before running it.');
+      if (cell.classList.contains('is-danger')) showGlobalToast(rosDomain === 'sw' ? 'Copied a command that changes the switch: get approval and a change window first.' : 'Copied a state-changing command: drain the node and get approval before running it.');
     }
   }
 
-  function openRosetta(query) {
+  // The Switch matrix on switch pages, otherwise the BMC one.
+  const rosDomainFor = (file) => (ROS_DOMAINS.sw.strip.test(file || '') ? 'sw' : 'bmc');
+
+  function openRosetta(query, domain) {
     if (IN_WIDGET_FRAME) return;
+    rosDomain = domain || rosDomainFor(anatSheetFile || window.location.pathname.split('/').pop() || '');
     if (!rosEl) {
       rosEl = document.createElement('div');
       rosEl.className = 'an-backdrop ros-backdrop';
       rosEl.innerHTML = `
         <div class="an-dialog ros-dialog" role="dialog" aria-modal="true" aria-labelledby="ros-title">
           <header class="an-head ros-head">
-            <div><h2 id="ros-title">BMC Rosetta</h2><p>One task, every BMC tool. Pick the vendor once per node; click a command to copy it with your Rack Targets filled in.</p></div>
+            <div><h2 id="ros-title">Rosetta</h2><p class="ros-intro"></p></div>
+            <div class="ros-domains" role="group" aria-label="What are you working on">${Object.entries(ROS_DOMAINS).map(([k, dm]) => `<button type="button" data-ros-domain="${k}">${escapeHtml(dm.label)}</button>`).join('')}</div>
             <button type="button" class="trail-close" data-ros-close aria-label="Close">✕</button>
           </header>
           <div class="ros-bar">
-            <div class="ros-vendors" role="group" aria-label="Server vendor"></div>
+            <div class="ros-vendors" role="group"></div>
             <button type="button" class="ros-all" aria-pressed="false"></button>
           </div>
           <div class="ros-info">
             <p class="ros-why"></p>
-            <label class="ros-detect"><span>Detect</span><input type="text" placeholder="Paste dmidecode -s system-manufacturer, or a FRU dump" spellcheck="false" autocomplete="off" /><button type="button" data-ros-detect-copy title="Copy the command that prints the manufacturer">Copy command</button></label>
-            <label class="ros-find"><span>Find</span><input type="search" placeholder="sel, power, serial, firmware…" spellcheck="false" autocomplete="off" /></label>
+            <label class="ros-detect"><span>Detect</span><input type="text" spellcheck="false" autocomplete="off" /><button type="button" data-ros-detect-copy title="Copy the command whose output identifies the vendor">Copy command</button></label>
+            <label class="ros-find"><span>Find</span><input type="search" spellcheck="false" autocomplete="off" /></label>
           </div>
           <div class="ros-scroll"><table class="ros-table"></table></div>
-          <footer class="ros-foot"><i class="ros-conn">⋯</i> is the connection and credentials part (hover a command to see it all; the copy is always complete). Passwords stay in <code>$BMC_PASS</code> or a prompt (<code>-E</code>, <code>-P</code>, <code>~/.bmc-curlrc</code>): never type them inline. Redfish IDs follow the vendor; list <code>/redfish/v1/Systems</code> if yours differ.</footer>
+          <footer class="ros-foot"></footer>
         </div>`;
       document.body.appendChild(rosEl);
       rosEl.addEventListener('click', rosClick);
@@ -10066,11 +10854,12 @@ ${rmaTrailSection()}#### Action Requested:
         const v = rosDetect(e.target.value);
         if (!v) return;
         rosSetVendor(v); rosAll = false; rosRender();
-        showGlobalToast(`Detected ${ROS_VENDORS[v].name}${rosNode() ? ` · remembered for ${rosNode()}` : ''}.`);
+        showGlobalToast(`Detected ${rosD().vendors[v].name}${rosD().perNode && rosNode() ? ` · remembered for ${rosNode()}` : ''}.`);
         e.target.value = '';
       });
       rosEl.querySelector('.ros-find input').addEventListener('input', (e) => { rosFilter = e.target.value; rosRender(); });
     }
+    rosAll = false;
     rosFilter = query || '';
     rosEl.querySelector('.ros-find input').value = rosFilter;
     rosEl._back = document.activeElement;
@@ -10087,24 +10876,29 @@ ${rmaTrailSection()}#### Action Requested:
     if (rosEl._back && rosEl._back.focus) rosEl._back.focus({ preventScroll: true });
   }
 
-  // On BMC-related sheets, a strip at the top of the page leads into the Rosetta.
-  const ROS_STRIP_SHEETS = /^(bmc-tools|racadm|ilorest|supermicro-saa|onecli|freeipmi|serial-console|ipmi[\w-]*|redfish|rf-[\w-]+|hw-power)\.html$/;
+  // On BMC and switch sheets, a strip at the top of the page leads into the matching matrix.
   function mountRosettaStrip(file) {
     if (IN_WIDGET_FRAME) return;
     const old = document.getElementById('ros-strip');
     if (old) old.remove();
-    if (!ROS_STRIP_SHEETS.test(file)) return;
+    const domain = Object.keys(ROS_DOMAINS).find(k => ROS_DOMAINS[k].strip.test(file));
+    if (!domain) return;
     const main = document.querySelector('main.main-layout');
     if (!main) return;
-    const { v } = rosVendor();
+    const d = ROS_DOMAINS[domain];
+    const { v } = rosVendor(domain);
+    const tool = v ? d.vendors[v].tool : '';
     const strip = document.createElement('div');
     strip.id = 'ros-strip';
     strip.className = 'ros-strip';
     strip.innerHTML = `<span class="ros-strip-glyph" aria-hidden="true">⇄</span>
-      <div><b>BMC Rosetta</b><span>The same task in ipmitool, FreeIPMI, Redfish${v ? ` and ${escapeHtml(ROS_TOOLS[ROS_VENDORS[v].tool].name)}` : ' and your vendor’s CLI'}: power, SEL, sensors, serials, firmware, resets.</span></div>
-      ${v ? `<span class="ros-strip-vendor">${rosLogo(ROS_VENDORS[v].tool)}${escapeHtml(ROS_VENDORS[v].name)}</span>` : ''}
+      <div><b>${escapeHtml(d.title)}</b><span>${escapeHtml(d.stripText(tool ? d.tools[tool].name : ''))}</span></div>
+      ${v ? `<span class="ros-strip-vendor">${rosLogo(tool, domain)}${escapeHtml(d.vendors[v].name)}</span>` : ''}
+      ${domain === 'sw' ? '<button type="button" class="ros-strip-panel">▦ Front panel &amp; cable check</button>' : ''}
       <button type="button" class="ros-strip-open">Open the matrix <kbd>⇧R</kbd></button>`;
-    strip.querySelector('.ros-strip-open').addEventListener('click', () => openRosetta());
+    strip.querySelector('.ros-strip-open').addEventListener('click', () => openRosetta('', domain));
+    const pb = strip.querySelector('.ros-strip-panel');
+    if (pb) pb.addEventListener('click', () => openPanel('find'));
     main.insertBefore(strip, main.firstChild);
   }
 
@@ -10308,13 +11102,13 @@ ${rmaTrailSection()}#### Action Requested:
         acts: [['node', node ? 'Switch node' : 'Name this node'], ['drain', 'Copy drain check'], ['targets', 'Rack Targets'], ['rosetta', 'BMC Rosetta']] },
       { id: 'collect', n: 2, title: 'Collect', what: 'Read-only evidence: dmesg, SEL, telemetry.',
         done: trail.length >= 1 || collected > 0, status: trail.length || collected ? `${trail.length} command${trail.length === 1 ? '' : 's'} run · ${collected} analys${collected === 1 ? 'is' : 'es'} pinned` : 'Paste an error or a whole dump',
-        acts: [['checkup', 'Node checkup'], ['paste', 'Paste a log'], ['timeline', 'Incident timeline'], ['console', 'Terminal']] },
+        acts: [['checkup', 'Node checkup'], ['capture', 'Capture script'], ['paste', 'Paste a log'], ['timeline', 'Incident timeline'], ['console', 'Terminal']] },
       { id: 'correlate', n: 3, title: 'Correlate', what: 'Across layers, nodes and a healthy twin.',
         done: kinds.has('Node X-ray') || kinds.has('Node comparison') || kinds.has('Fleet results') || kinds.has('Incident timeline'), status: fl.active ? `Fleet on · ×${fleetExpand(fl.hosts).length} nodes` : [kinds.has('Node comparison') && 'compared', kinds.has('Fleet results') && 'fleet checked', kinds.has('Incident timeline') && 'timeline pinned'].filter(Boolean).join(' · ') || 'One node, or many?',
         acts: [['xray', 'Node X-ray'], ['diff', 'Compare nodes'], ['fleet', fl.active ? 'Fleet settings' : 'Fleet mode'], ['fleetres', 'Fleet results']] },
       { id: 'isolate', n: 4, title: 'Isolate', what: 'Physical checks before declaring a part dead.',
         done: runs.some(x => x.p.done >= Math.ceil(x.p.total / 2)), status: runs[0] ? `${runs[0].rb.title.split(/[/(]/)[0].trim()}: ${runs[0].p.done}/${runs[0].p.total}` : 'Clean, reseat, A/B swap',
-        acts: [['runbook', runs[0] ? 'Resume runbook' : 'Guided runbooks'], ['atlas', 'Healthy ranges']] },
+        acts: [['runbook', runs[0] ? 'Resume runbook' : 'Guided runbooks'], ['cable', 'Cable check'], ['atlas', 'Healthy ranges']] },
       { id: 'document', n: 5, title: 'Document', what: 'summary.md, RMA block, handoff.',
         done: /RMA filed|Resolved|Monitoring/.test(kase.status) || !!(kase.root || '').trim(), status: pins.length || trail.length ? `Case: ${kase.status} · ${pins.length} pinned` : 'Pin evidence as you go',
         acts: [['notes', 'Field notes'], ['case', `Case file${pins.length ? ` (${pins.length})` : ''}`], ['phone', 'To phone'], ['rma', 'RMA formatter']] }
@@ -10348,7 +11142,9 @@ ${rmaTrailSection()}#### Action Requested:
     if (a === 'targets') { const t = document.querySelector('#target-collapse-btn'); if (t && /Expand/.test(t.textContent)) t.click(); setTimeout(() => { const i = document.getElementById('var-bmc'); if (i) { i.scrollIntoView({ block: 'center' }); i.focus(); } }, 30); return; }
     if (a === 'paste') { const i = lp.querySelector('#lp-omni-input'); if (i) { i.scrollIntoView({ block: 'center' }); i.focus(); showGlobalToast('Paste a log line, or a whole dmesg / SEL dump, then press Enter.'); } return; }
     if (a === 'timeline') return openAnalyzer('');
-    if (a === 'rosetta') return openRosetta();
+    if (a === 'rosetta') return openRosetta('', 'bmc');
+    if (a === 'capture') return openCapture();
+    if (a === 'cable') return openPanel('check');
     if (a === 'console') return toggleConsole(true);
     if (a === 'diff') return openGoldenDiff();
     if (a === 'fleet') return openFleet();
@@ -11462,6 +12258,7 @@ ${rmaTrailSection()}#### Action Requested:
         <button type="button" data-act="plain">Copy commands</button>
         <button type="button" class="trail-case" data-act="case" title="Pinned evidence + this trail as summary.md">📁 Case file <span class="case-count" hidden>0</span></button>
         <button type="button" class="trail-phone" data-act="phone" title="Show the ticket notes as QR codes for your phone">📱 To phone</button>
+        <button type="button" data-act="script" title="Re-run these commands later as one read-only capture script">⚙ Capture script</button>
         <button type="button" class="trail-danger" data-act="clear">Clear</button>
       </footer>`;
     document.body.append(scrim, trailDrawer);
@@ -11491,6 +12288,7 @@ ${rmaTrailSection()}#### Action Requested:
       const list = readTrail();
       if (act === 'md') return trailCopy(trailMarkdown(list), `Copied ticket notes (${list.length} commands).`);
       if (act === 'case') { closeTrail(); return openCaseFile(); }
+      if (act === 'script') { closeTrail(); return openCapture('trail'); }
       if (act === 'phone') return list.length ? openPhone(trailMarkdown(list), 'Ticket notes to your phone', `${list.length} command${list.length === 1 ? '' : 's'} from the Case Trail${trailMeta().caseId ? ` · ${trailMeta().caseId}` : ''}`) : showGlobalToast('The trail is empty: copy a command first.');
       if (act === 'plain') return trailCopy(list.map(x => x.cmd).join('\n'), `Copied ${list.length} commands.`);
       if (act === 'clear') {

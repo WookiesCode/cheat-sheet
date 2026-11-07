@@ -24,6 +24,10 @@ const CTR_DOCKER_NETWORK_STORAGE_DATA = [
           [
             "host",
             "--network host: the container shares the host's network stack, no port mapping and no isolation"
+          ],
+          [
+            "none",
+            "No networking at all"
           ]
         ],
         "tip": "Use a user-defined network for name resolution",
@@ -35,44 +39,7 @@ const CTR_DOCKER_NETWORK_STORAGE_DATA = [
           "host",
           "dns"
         ]
-      }
-    ]
-  },
-  {
-    "id": "docker-network-storage-flags-1",
-    "badge": "dnet",
-    "title": "Docker Networking & Storage: More options",
-    "subtitle": "More options for: List Docker networks and see which containers are on one",
-    "commands": [
-      {
-        "id": "docker-network-ls-flags-card",
-        "desc": "More options and gotchas for: List Docker networks and see which containers are on one",
-        "cmd": "docker network ls",
-        "hideCode": false,
-        "flags": [
-          [
-            "none",
-            "No networking at all"
-          ]
-        ],
-        "tags": [
-          "docker",
-          "containers",
-          "flags",
-          "options",
-          "network",
-          "bridge",
-          "host"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "docker-network-storage-recipes-1",
-    "badge": "dnet",
-    "title": "Docker Networking & Storage: Related commands",
-    "subtitle": "Related commands for: List Docker networks and see which containers are on one",
-    "commands": [
+      },
       {
         "id": "docker-network-ls-sub-1",
         "desc": "Containers attached to a network and their IPs",
@@ -149,15 +116,7 @@ const CTR_DOCKER_NETWORK_STORAGE_DATA = [
           "firewall",
           "ufw"
         ]
-      }
-    ]
-  },
-  {
-    "id": "docker-network-storage-recipes-2",
-    "badge": "dnet",
-    "title": "Docker Networking & Storage: Related commands",
-    "subtitle": "Related commands for: Show which host ports a container publishes",
-    "commands": [
+      },
       {
         "id": "docker-port-check-sub-1",
         "desc": "Confirm what is listening on the host side",
@@ -209,6 +168,10 @@ const CTR_DOCKER_NETWORK_STORAGE_DATA = [
           [
             ":ro",
             "Mount read-only, e.g. -v /etc/ssl:/etc/ssl:ro"
+          ],
+          [
+            "--mount type=bind,src=...,dst=...",
+            "Longer syntax that fails loudly if the host path doesn't exist (-v silently creates it)"
           ]
         ],
         "tip": "-v creates a missing host path silently; --mount errors",
@@ -221,44 +184,7 @@ const CTR_DOCKER_NETWORK_STORAGE_DATA = [
           "storage",
           "backup"
         ]
-      }
-    ]
-  },
-  {
-    "id": "docker-network-storage-flags-3",
-    "badge": "dnet",
-    "title": "Docker Networking & Storage: More options",
-    "subtitle": "More options for: List volumes and find where one lives on the host",
-    "commands": [
-      {
-        "id": "docker-volumes-flags-card",
-        "desc": "More options and gotchas for: List volumes and find where one lives on the host",
-        "cmd": "docker volume ls",
-        "hideCode": false,
-        "flags": [
-          [
-            "--mount type=bind,src=...,dst=...",
-            "Longer syntax that fails loudly if the host path doesn't exist (-v silently creates it)"
-          ]
-        ],
-        "tags": [
-          "docker",
-          "containers",
-          "flags",
-          "options",
-          "volume",
-          "bind",
-          "mount"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "docker-network-storage-recipes-3",
-    "badge": "dnet",
-    "title": "Docker Networking & Storage: Related commands",
-    "subtitle": "Related commands for: List volumes and find where one lives on the host",
-    "commands": [
+      },
       {
         "id": "docker-volumes-sub-1",
         "desc": "Host path of a named volume",

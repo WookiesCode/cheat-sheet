@@ -24,6 +24,14 @@ const GRAF_GRAFANA_VARIABLES_DATA = [
           [
             "Multi-value + Include All",
             "Lets people pick several hosts or All; then always use =~ (regex match), never ="
+          ],
+          [
+            "Refresh: On time range change",
+            "Picks up nodes that joined since the dashboard was opened"
+          ],
+          [
+            "Custom all value: .*",
+            "Without it, All sends a regex of every host, which gets slow and long on big fleets"
           ]
         ],
         "tip": "Multi-value variables need =~ not =",
@@ -37,49 +45,7 @@ const GRAF_GRAFANA_VARIABLES_DATA = [
           "dropdown",
           "query variable"
         ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-variables-flags-1",
-    "badge": "var",
-    "title": "Grafana Variables: More options",
-    "subtitle": "More options for: A host dropdown filled from Prometheus labels",
-    "commands": [
-      {
-        "id": "grafana-query-variable-flags-card",
-        "desc": "More options and gotchas for: A host dropdown filled from Prometheus labels",
-        "cmd": "label_values(DCGM_FI_DEV_GPU_TEMP_CELSIUS, hostname)",
-        "hideCode": false,
-        "flags": [
-          [
-            "Refresh: On time range change",
-            "Picks up nodes that joined since the dashboard was opened"
-          ],
-          [
-            "Custom all value: .*",
-            "Without it, All sends a regex of every host, which gets slow and long on big fleets"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "variables",
-          "templating",
-          "label_values"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-variables-recipes-1",
-    "badge": "var",
-    "title": "Grafana Variables: Related commands",
-    "subtitle": "Related commands for: A host dropdown filled from Prometheus labels",
-    "commands": [
+      },
       {
         "id": "grafana-query-variable-sub-1",
         "desc": "Every label name in the data source",
@@ -147,6 +113,10 @@ const GRAF_GRAFANA_VARIABLES_DATA = [
           [
             "Panel query",
             "DCGM_FI_DEV_GPU_TEMP_CELSIUS{hostname=~\"$host\", gpu=~\"$gpu\"}"
+          ],
+          [
+            "Regex field",
+            "/^gpu-node(\\d+)$/ in the variable's Regex box would keep only the number; leave empty to keep full names"
           ]
         ],
         "tip": "Order variables parent first",
@@ -159,36 +129,6 @@ const GRAF_GRAFANA_VARIABLES_DATA = [
           "dependent",
           "filter",
           "gpu"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-variables-flags-2",
-    "badge": "var",
-    "title": "Grafana Variables: More options",
-    "subtitle": "More options for: Chained variables: the GPU dropdown only shows GPUs on the selected hosts",
-    "commands": [
-      {
-        "id": "grafana-chained-variable-flags-card",
-        "desc": "More options and gotchas for: Chained variables: the GPU dropdown only shows GPUs on the selected hosts",
-        "cmd": "label_values(DCGM_FI_DEV_GPU_TEMP_CELSIUS{hostname=~\"$host\"}, gpu)",
-        "hideCode": false,
-        "flags": [
-          [
-            "Regex field",
-            "/^gpu-node(\\d+)$/ in the variable's Regex box would keep only the number; leave empty to keep full names"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "variables",
-          "chained",
-          "dependent"
         ]
       }
     ]
@@ -216,6 +156,10 @@ const GRAF_GRAFANA_VARIABLES_DATA = [
           [
             "datasource.uid",
             "Matches the provisioned data source UID; that is why a fixed UID matters"
+          ],
+          [
+            "Schema note",
+            "This is the classic JSON model; Grafana 13 stores dashboards in the v2 schema and converts classic JSON on load"
           ]
         ],
         "tip": "refresh 2 picks up new nodes",
@@ -227,36 +171,6 @@ const GRAF_GRAFANA_VARIABLES_DATA = [
           "json",
           "templating",
           "schema"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-variables-flags-3",
-    "badge": "var",
-    "title": "Grafana Variables: More options",
-    "subtitle": "More options for: The same host variable as dashboard JSON",
-    "commands": [
-      {
-        "id": "grafana-variable-json-flags-card",
-        "desc": "More options and gotchas for: The same host variable as dashboard JSON",
-        "cmd": "\"templating\": {\n  \"list\": [\n    {\n      \"name\": \"host\",\n      \"label\": \"Host\",\n      \"type\": \"query\",\n      \"datasource\": { \"type\": \"prometheus\", \"uid\": \"prometheus\" },\n      \"query\": { \"query\": \"label_values(DCGM_FI_DEV_GPU_TEMP_CELSIUS, hostname)\" },\n      \"refresh\": 2,\n      \"multi\": true,\n      \"includeAll\": true,\n      \"allValue\": \".*\",\n      \"sort\": 1\n    }\n  ]\n}",
-        "hideCode": true,
-        "flags": [
-          [
-            "Schema note",
-            "This is the classic JSON model; Grafana 13 stores dashboards in the v2 schema and converts classic JSON on load"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "variables",
-          "json",
-          "templating"
         ]
       }
     ]
@@ -284,35 +198,7 @@ const GRAF_GRAFANA_VARIABLES_DATA = [
           [
             "${host:csv}",
             "node01,node02: for SQL IN (...) lists or APIs"
-          ]
-        ],
-        "tip": "Links to other dashboards: ${var:queryparam}",
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "variables",
-          "format",
-          "regex",
-          "csv",
-          "queryparam",
-          "interpolation"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-variables-flags-4",
-    "badge": "var",
-    "title": "Grafana Variables: More options",
-    "subtitle": "More options for: Format a multi-value variable for where it is used",
-    "commands": [
-      {
-        "id": "grafana-variable-formats-flags-card",
-        "desc": "More options and gotchas for: Format a multi-value variable for where it is used",
-        "cmd": "${host:regex}",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "${host:json}",
             "[\"node01\",\"node02\"]"
@@ -326,15 +212,17 @@ const GRAF_GRAFANA_VARIABLES_DATA = [
             "The display text instead of the value"
           ]
         ],
+        "tip": "Links to other dashboards: ${var:queryparam}",
         "tags": [
           "grafana",
           "dashboards",
           "observability",
-          "flags",
-          "options",
           "variables",
           "format",
-          "regex"
+          "regex",
+          "csv",
+          "queryparam",
+          "interpolation"
         ]
       }
     ]
@@ -362,6 +250,14 @@ const GRAF_GRAFANA_VARIABLES_DATA = [
           [
             "repeatDirection",
             "h = side by side (wraps after maxPerRow), v = stacked"
+          ],
+          [
+            "Repeat a row",
+            "Put several panels in a row and repeat the row: one block of panels per node"
+          ],
+          [
+            "Title",
+            "Use $host in the title so each copy is labeled"
           ]
         ],
         "tip": "Repeat rows, not copy-pasted panels",
@@ -374,40 +270,6 @@ const GRAF_GRAFANA_VARIABLES_DATA = [
           "variables",
           "per node",
           "layout"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-variables-flags-5",
-    "badge": "var",
-    "title": "Grafana Variables: More options",
-    "subtitle": "More options for: Repeat a panel or row once per selected host",
-    "commands": [
-      {
-        "id": "grafana-repeat-panels-flags-card",
-        "desc": "More options and gotchas for: Repeat a panel or row once per selected host",
-        "cmd": "\"repeat\": \"host\",\n\"repeatDirection\": \"h\",\n\"maxPerRow\": 4",
-        "hideCode": true,
-        "flags": [
-          [
-            "Repeat a row",
-            "Put several panels in a row and repeat the row: one block of panels per node"
-          ],
-          [
-            "Title",
-            "Use $host in the title so each copy is labeled"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "repeat",
-          "rows",
-          "variables"
         ]
       }
     ]
@@ -435,6 +297,14 @@ const GRAF_GRAFANA_VARIABLES_DATA = [
           [
             "$__range",
             "Length of the selected time range (6h, 7d…)"
+          ],
+          [
+            "$__from / $__to",
+            "Range start/end in epoch ms; ${__from:date:iso} formats it"
+          ],
+          [
+            "Interval variable type",
+            "A dropdown of windows (1m, 5m, 1h) the user can pick, used as [$window]"
           ]
         ],
         "tip": "Use $__rate_interval for every rate()",
@@ -447,40 +317,6 @@ const GRAF_GRAFANA_VARIABLES_DATA = [
           "interval",
           "range",
           "rate_interval"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-variables-flags-6",
-    "badge": "var",
-    "title": "Grafana Variables: More options",
-    "subtitle": "More options for: Built-in variables you can use in any query or title",
-    "commands": [
-      {
-        "id": "grafana-builtin-variables-flags-card",
-        "desc": "More options and gotchas for: Built-in variables you can use in any query or title",
-        "cmd": "$__interval  $__rate_interval  $__range  $__from  $__to  $__dashboard  $__user.login",
-        "hideCode": false,
-        "flags": [
-          [
-            "$__from / $__to",
-            "Range start/end in epoch ms; ${__from:date:iso} formats it"
-          ],
-          [
-            "Interval variable type",
-            "A dropdown of windows (1m, 5m, 1h) the user can pick, used as [$window]"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "variables",
-          "builtin",
-          "interval"
         ]
       }
     ]

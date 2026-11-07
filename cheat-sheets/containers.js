@@ -24,6 +24,14 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           [
             "Status column",
             "'Up 3 hours' = running; 'Exited (137)' = killed (137 = 128 + signal 9, often the OOM killer); 'Exited (0)' = finished normally"
+          ],
+          [
+            "-q",
+            "Print only container IDs, useful for loops: docker ps -q"
+          ],
+          [
+            "--filter status=exited",
+            "Show only containers in one state (running, exited, restarting, paused)"
           ]
         ],
         "tip": "Exit 137 = SIGKILL, usually out of memory",
@@ -35,39 +43,6 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "status",
           "exited",
           "format"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "docker-containers-flags-1",
-    "badge": "run",
-    "title": "Docker Containers: More options",
-    "subtitle": "More options for: List all containers",
-    "commands": [
-      {
-        "id": "docker-ps-table-flags-card",
-        "desc": "More options and gotchas for: List all containers",
-        "cmd": "docker ps -a --format 'table {{.Names}}\\t{{.Image}}\\t{{.Status}}\\t{{.Ports}}'",
-        "hideCode": false,
-        "flags": [
-          [
-            "-q",
-            "Print only container IDs, useful for loops: docker ps -q"
-          ],
-          [
-            "--filter status=exited",
-            "Show only containers in one state (running, exited, restarting, paused)"
-          ]
-        ],
-        "tags": [
-          "docker",
-          "containers",
-          "flags",
-          "options",
-          "ps",
-          "list",
-          "status"
         ]
       }
     ]
@@ -95,34 +70,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           [
             "--restart unless-stopped",
             "Restart after crashes and reboots, unless you stopped it yourself. Other values: no, on-failure[:N], always"
-          ]
-        ],
-        "tip": "Ports are host:container",
-        "tags": [
-          "docker",
-          "containers",
-          "run",
-          "start",
-          "detached",
-          "restart",
-          "port",
-          "publish"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "docker-containers-flags-2",
-    "badge": "run",
-    "title": "Docker Containers: More options",
-    "subtitle": "More options for: Run a container in the background with a name, a restart policy and a published port",
-    "commands": [
-      {
-        "id": "docker-run-detached-flags-card",
-        "desc": "More options and gotchas for: Run a container in the background with a name, a restart policy and a published port",
-        "cmd": "docker run -d --name <name> --restart unless-stopped -p 8080:80 <image>:<tag>",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "-p 8080:80",
             "Publish container port 80 on host port 8080 (host:container order)"
@@ -136,24 +84,18 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
             "Set environment variables"
           ]
         ],
+        "tip": "Ports are host:container",
         "tags": [
           "docker",
           "containers",
-          "flags",
-          "options",
           "run",
           "start",
-          "detached"
+          "detached",
+          "restart",
+          "port",
+          "publish"
         ]
-      }
-    ]
-  },
-  {
-    "id": "docker-containers-recipes-2",
-    "badge": "run",
-    "title": "Docker Containers: Related commands",
-    "subtitle": "Related commands for: Run a container in the background with a name, a restart policy and a published port",
-    "commands": [
+      },
       {
         "id": "docker-run-detached-sub-1",
         "desc": "Throwaway interactive container: gone as soon as you exit the shell",
@@ -244,6 +186,10 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           [
             "--since 30m",
             "Only lines from the last 30 minutes (also accepts a timestamp like 2026-11-06T12:00)"
+          ],
+          [
+            "-f",
+            "Follow new lines live (Ctrl+C to stop)"
           ]
         ],
         "tip": "Apps often log to stderr: add 2>&1 before grep",
@@ -256,44 +202,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "stderr",
           "timestamps"
         ]
-      }
-    ]
-  },
-  {
-    "id": "docker-containers-flags-3",
-    "badge": "run",
-    "title": "Docker Containers: More options",
-    "subtitle": "More options for: Read the last 200 log lines of a container with timestamps",
-    "commands": [
-      {
-        "id": "docker-logs-tail-flags-card",
-        "desc": "More options and gotchas for: Read the last 200 log lines of a container with timestamps",
-        "cmd": "docker logs --tail 200 --timestamps <container>",
-        "hideCode": false,
-        "flags": [
-          [
-            "-f",
-            "Follow new lines live (Ctrl+C to stop)"
-          ]
-        ],
-        "tags": [
-          "docker",
-          "containers",
-          "flags",
-          "options",
-          "logs",
-          "tail",
-          "follow"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "docker-containers-recipes-3",
-    "badge": "run",
-    "title": "Docker Containers: Related commands",
-    "subtitle": "Related commands for: Read the last 200 log lines of a container with timestamps",
-    "commands": [
+      },
       {
         "id": "docker-logs-tail-sub-1",
         "desc": "Errors from the last 30 minutes. 2>&1 merges stderr, where many apps write errors",
@@ -345,6 +254,10 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           [
             "sh vs bash",
             "Slim images often have no bash. Try sh if bash gives 'executable file not found'"
+          ],
+          [
+            "-u 0",
+            "Run as root inside the container, for debugging an image that drops privileges"
           ]
         ],
         "tip": "No bash? Use sh",
@@ -357,44 +270,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "bash",
           "interactive"
         ]
-      }
-    ]
-  },
-  {
-    "id": "docker-containers-flags-4",
-    "badge": "run",
-    "title": "Docker Containers: More options",
-    "subtitle": "More options for: Run a command inside a running container, or open a shell in it",
-    "commands": [
-      {
-        "id": "docker-exec-shell-flags-card",
-        "desc": "More options and gotchas for: Run a command inside a running container, or open a shell in it",
-        "cmd": "docker exec <container> cat /etc/os-release",
-        "hideCode": false,
-        "flags": [
-          [
-            "-u 0",
-            "Run as root inside the container, for debugging an image that drops privileges"
-          ]
-        ],
-        "tags": [
-          "docker",
-          "containers",
-          "flags",
-          "options",
-          "exec",
-          "shell",
-          "sh"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "docker-containers-recipes-4",
-    "badge": "run",
-    "title": "Docker Containers: Related commands",
-    "subtitle": "Related commands for: Run a command inside a running container, or open a shell in it",
-    "commands": [
+      },
       {
         "id": "docker-exec-shell-sub-1",
         "desc": "Interactive shell inside the container (exit with Ctrl+D)",
@@ -446,6 +322,10 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           [
             "oom=true",
             "The kernel's OOM killer stopped it: raise the memory limit or fix the leak. Confirm with dmesg -T | grep -i oom"
+          ],
+          [
+            "restarts=N rising",
+            "The restart policy keeps bringing it back: a crash loop. Read docker logs from just before each restart"
           ]
         ],
         "tip": "Exited + oom=true → memory limit",
@@ -460,44 +340,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "stats",
           "debug"
         ]
-      }
-    ]
-  },
-  {
-    "id": "docker-containers-flags-5",
-    "badge": "run",
-    "title": "Docker Containers: More options",
-    "subtitle": "More options for: Find out why a container stopped: state, exit code, OOM kill and restart count",
-    "commands": [
-      {
-        "id": "docker-inspect-state-flags-card",
-        "desc": "More options and gotchas for: Find out why a container stopped: state, exit code, OOM kill and restart count",
-        "cmd": "docker inspect <container> --format '{{.State.Status}} exit={{.State.ExitCode}} oom={{.State.OOMKilled}} restarts={{.RestartCount}}'",
-        "hideCode": false,
-        "flags": [
-          [
-            "restarts=N rising",
-            "The restart policy keeps bringing it back: a crash loop. Read docker logs from just before each restart"
-          ]
-        ],
-        "tags": [
-          "docker",
-          "containers",
-          "flags",
-          "options",
-          "inspect",
-          "state",
-          "exitcode"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "docker-containers-recipes-5",
-    "badge": "run",
-    "title": "Docker Containers: Related commands",
-    "subtitle": "Related commands for: Find out why a container stopped: state, exit code, OOM kill and restart count",
-    "commands": [
+      },
       {
         "id": "docker-inspect-state-sub-1",
         "desc": "Which host paths and volumes are mounted, via jq",
@@ -617,15 +460,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "size",
           "df"
         ]
-      }
-    ]
-  },
-  {
-    "id": "docker-images-recipes-1",
-    "badge": "img",
-    "title": "Docker Images: Related commands",
-    "subtitle": "Related commands for: List local images with their size and digest",
-    "commands": [
+      },
       {
         "id": "docker-image-ls-sub-1",
         "desc": "Disk used by images, containers, volumes and build cache, and how much is reclaimable",
@@ -677,33 +512,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           [
             "-f <path>",
             "Use a Dockerfile with a different name or location"
-          ]
-        ],
-        "tip": "Add a .dockerignore so .git and data aren't uploaded",
-        "tags": [
-          "docker",
-          "containers",
-          "build",
-          "buildkit",
-          "buildx",
-          "dockerfile",
-          "tag"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "docker-images-flags-2",
-    "badge": "img",
-    "title": "Docker Images: More options",
-    "subtitle": "More options for: Build an image from the Dockerfile in the current directory and tag it",
-    "commands": [
-      {
-        "id": "docker-build-tag-flags-card",
-        "desc": "More options and gotchas for: Build an image from the Dockerfile in the current directory and tag it",
-        "cmd": "docker build -t <name>:<tag> .",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "--no-cache",
             "Rebuild every step instead of reusing cached layers"
@@ -717,24 +526,17 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
             "Build for another CPU architecture (needs buildx/QEMU for cross builds)"
           ]
         ],
+        "tip": "Add a .dockerignore so .git and data aren't uploaded",
         "tags": [
           "docker",
           "containers",
-          "flags",
-          "options",
           "build",
           "buildkit",
-          "buildx"
+          "buildx",
+          "dockerfile",
+          "tag"
         ]
-      }
-    ]
-  },
-  {
-    "id": "docker-images-recipes-2",
-    "badge": "img",
-    "title": "Docker Images: Related commands",
-    "subtitle": "Related commands for: Build an image from the Dockerfile in the current directory and tag it",
-    "commands": [
+      },
       {
         "id": "docker-build-tag-sub-1",
         "desc": "List builders and the platforms they can build for",
@@ -786,6 +588,14 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           [
             "RUN",
             "Runs at build time and creates a layer. Each RUN, COPY and ADD adds a layer"
+          ],
+          [
+            "USER 1000",
+            "Run as a non-root user; root in a container is still root on shared kernels"
+          ],
+          [
+            "CMD [\"...\"] (exec form)",
+            "JSON array form: the app gets signals directly, so docker stop works cleanly"
           ]
         ],
         "tip": "Order steps from least to most often changed",
@@ -799,39 +609,6 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "cmd",
           "layers",
           "cache"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "docker-images-flags-3",
-    "badge": "img",
-    "title": "Docker Images: More options",
-    "subtitle": "More options for: Minimal Dockerfile for a small Python tool, with the layer-caching order explained",
-    "commands": [
-      {
-        "id": "dockerfile-minimal-flags-card",
-        "desc": "More options and gotchas for: Minimal Dockerfile for a small Python tool, with the layer-caching order explained",
-        "cmd": "FROM python:3.12-slim\nWORKDIR /app\nCOPY requirements.txt .\nRUN pip install --no-cache-dir -r requirements.txt\nCOPY . .\nUSER 1000\nCMD [\"python\", \"main.py\"]",
-        "hideCode": true,
-        "flags": [
-          [
-            "USER 1000",
-            "Run as a non-root user; root in a container is still root on shared kernels"
-          ],
-          [
-            "CMD [\"...\"] (exec form)",
-            "JSON array form: the app gets signals directly, so docker stop works cleanly"
-          ]
-        ],
-        "tags": [
-          "docker",
-          "containers",
-          "flags",
-          "options",
-          "dockerfile",
-          "from",
-          "run"
         ]
       }
     ]
@@ -870,15 +647,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "tag",
           "registry"
         ]
-      }
-    ]
-  },
-  {
-    "id": "docker-images-recipes-4",
-    "badge": "img",
-    "title": "Docker Images: Related commands",
-    "subtitle": "Related commands for: Pull an image, retag it for a private registry and push it",
-    "commands": [
+      },
       {
         "id": "docker-pull-tag-push-sub-1",
         "desc": "Retag for your own registry",
@@ -943,6 +712,10 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           [
             "gzip / zstd",
             "Compress for transfer: docker save <image> | zstd > <file>.tar.zst"
+          ],
+          [
+            "save vs export",
+            "save keeps layers and tags (an image); export flattens a container's filesystem and loses them"
           ]
         ],
         "tip": "Checksum the tar on both ends",
@@ -958,44 +731,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "ctr",
           "containerd"
         ]
-      }
-    ]
-  },
-  {
-    "id": "docker-images-flags-5",
-    "badge": "img",
-    "title": "Docker Images: More options",
-    "subtitle": "More options for: Move an image to an air-gapped host as a tar file",
-    "commands": [
-      {
-        "id": "docker-save-load-airgap-flags-card",
-        "desc": "More options and gotchas for: Move an image to an air-gapped host as a tar file",
-        "cmd": "docker save -o <name>.tar <image>:<tag>",
-        "hideCode": false,
-        "flags": [
-          [
-            "save vs export",
-            "save keeps layers and tags (an image); export flattens a container's filesystem and loses them"
-          ]
-        ],
-        "tags": [
-          "docker",
-          "containers",
-          "flags",
-          "options",
-          "save",
-          "load",
-          "airgap"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "docker-images-recipes-5",
-    "badge": "img",
-    "title": "Docker Images: Related commands",
-    "subtitle": "Related commands for: Move an image to an air-gapped host as a tar file",
-    "commands": [
+      },
       {
         "id": "docker-save-load-airgap-sub-1",
         "desc": "Import the image on the target host (changes state)",
@@ -1060,6 +796,10 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           [
             "--volumes",
             "Also removes unused volumes: this deletes data. Never use it casually"
+          ],
+          [
+            "-f",
+            "Skip the confirmation prompt; avoid in scripts unless you are sure"
           ]
         ],
         "tip": "Run docker system df first; never add --volumes blindly",
@@ -1072,44 +812,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "space",
           "df"
         ]
-      }
-    ]
-  },
-  {
-    "id": "docker-images-flags-6",
-    "badge": "img",
-    "title": "Docker Images: More options",
-    "subtitle": "More options for: Reclaim disk space from stopped containers, unused images and build cache",
-    "commands": [
-      {
-        "id": "docker-prune-flags-card",
-        "desc": "More options and gotchas for: Reclaim disk space from stopped containers, unused images and build cache",
-        "cmd": "docker system prune",
-        "hideCode": false,
-        "flags": [
-          [
-            "-f",
-            "Skip the confirmation prompt; avoid in scripts unless you are sure"
-          ]
-        ],
-        "tags": [
-          "docker",
-          "containers",
-          "flags",
-          "options",
-          "prune",
-          "cleanup",
-          "disk"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "docker-images-recipes-6",
-    "badge": "img",
-    "title": "Docker Images: Related commands",
-    "subtitle": "Related commands for: Reclaim disk space from stopped containers, unused images and build cache",
-    "commands": [
+      },
       {
         "id": "docker-prune-sub-1",
         "desc": "See exactly what is using space before you prune",
@@ -1209,6 +912,14 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           [
             "-f <file>",
             "Use a different file; default is compose.yaml (or docker-compose.yml) in the current directory"
+          ],
+          [
+            "--build",
+            "Rebuild images that have a build: section before starting"
+          ],
+          [
+            "-p <project>",
+            "Project name, used as a prefix for containers, networks and volumes (default: the directory name)"
           ]
         ],
         "tip": "Run docker compose config before up",
@@ -1220,48 +931,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "stack",
           "services"
         ]
-      }
-    ]
-  },
-  {
-    "id": "docker-compose-flags-1",
-    "badge": "compose",
-    "title": "Docker Compose: More options",
-    "subtitle": "More options for: Start",
-    "commands": [
-      {
-        "id": "compose-up-flags-card",
-        "desc": "More options and gotchas for: Start",
-        "cmd": "docker compose up -d",
-        "hideCode": false,
-        "flags": [
-          [
-            "--build",
-            "Rebuild images that have a build: section before starting"
-          ],
-          [
-            "-p <project>",
-            "Project name, used as a prefix for containers, networks and volumes (default: the directory name)"
-          ]
-        ],
-        "tags": [
-          "docker",
-          "containers",
-          "flags",
-          "options",
-          "compose",
-          "up",
-          "stack"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "docker-compose-recipes-1",
-    "badge": "compose",
-    "title": "Docker Compose: Related commands",
-    "subtitle": "Related commands for: Start",
-    "commands": [
+      },
       {
         "id": "compose-up-sub-1",
         "desc": "Print the final merged config with variables filled in; a quick syntax check",
@@ -1337,15 +1007,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "logs",
           "exec"
         ]
-      }
-    ]
-  },
-  {
-    "id": "docker-compose-recipes-2",
-    "badge": "compose",
-    "title": "Docker Compose: Related commands",
-    "subtitle": "Related commands for: See the state of every service in the stack",
-    "commands": [
+      },
       {
         "id": "compose-ps-logs-sub-1",
         "desc": "Last 100 lines from one service",
@@ -1421,15 +1083,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "stop",
           "volumes"
         ]
-      }
-    ]
-  },
-  {
-    "id": "docker-compose-recipes-3",
-    "badge": "compose",
-    "title": "Docker Compose: Related commands",
-    "subtitle": "Related commands for: Stop and remove the stack's containers and networks",
-    "commands": [
+      },
       {
         "id": "compose-down-sub-1",
         "desc": "Stop containers but keep them (changes state)",
@@ -1481,6 +1135,14 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           [
             "depends_on + condition: service_healthy",
             "Start web only after db's healthcheck passes, not just after db starts"
+          ],
+          [
+            "volumes: dbdata",
+            "A named volume that survives docker compose down (but not down -v)"
+          ],
+          [
+            "*_FILE / secrets",
+            "Read passwords from files instead of putting them in compose.yaml"
           ]
         ],
         "tip": "Services reach each other by service name",
@@ -1493,39 +1155,6 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "volumes",
           "healthcheck",
           "depends_on"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "docker-compose-flags-4",
-    "badge": "compose",
-    "title": "Docker Compose: More options",
-    "subtitle": "More options for: Example compose.yaml: a web service plus a database with a named volume and a health check",
-    "commands": [
-      {
-        "id": "compose-yaml-example-flags-card",
-        "desc": "More options and gotchas for: Example compose.yaml: a web service plus a database with a named volume and a health check",
-        "cmd": "services:\n  web:\n    image: nginx:1.27\n    ports:\n      - \"8080:80\"\n    depends_on:\n      db:\n        condition: service_healthy\n  db:\n    image: postgres:16\n    environment:\n      POSTGRES_PASSWORD_FILE: /run/secrets/db_pw\n    volumes:\n      - dbdata:/var/lib/postgresql/data\n    healthcheck:\n      test: [\"CMD\", \"pg_isready\"]\n      interval: 10s\nvolumes:\n  dbdata:",
-        "hideCode": true,
-        "flags": [
-          [
-            "volumes: dbdata",
-            "A named volume that survives docker compose down (but not down -v)"
-          ],
-          [
-            "*_FILE / secrets",
-            "Read passwords from files instead of putting them in compose.yaml"
-          ]
-        ],
-        "tags": [
-          "docker",
-          "containers",
-          "flags",
-          "options",
-          "compose",
-          "yaml",
-          "services"
         ]
       }
     ]
@@ -1588,6 +1217,10 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           [
             "host",
             "--network host: the container shares the host's network stack, no port mapping and no isolation"
+          ],
+          [
+            "none",
+            "No networking at all"
           ]
         ],
         "tip": "Use a user-defined network for name resolution",
@@ -1599,44 +1232,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "host",
           "dns"
         ]
-      }
-    ]
-  },
-  {
-    "id": "docker-network-storage-flags-1",
-    "badge": "dnet",
-    "title": "Docker Networking & Storage: More options",
-    "subtitle": "More options for: List Docker networks and see which containers are on one",
-    "commands": [
-      {
-        "id": "docker-network-ls-flags-card",
-        "desc": "More options and gotchas for: List Docker networks and see which containers are on one",
-        "cmd": "docker network ls",
-        "hideCode": false,
-        "flags": [
-          [
-            "none",
-            "No networking at all"
-          ]
-        ],
-        "tags": [
-          "docker",
-          "containers",
-          "flags",
-          "options",
-          "network",
-          "bridge",
-          "host"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "docker-network-storage-recipes-1",
-    "badge": "dnet",
-    "title": "Docker Networking & Storage: Related commands",
-    "subtitle": "Related commands for: List Docker networks and see which containers are on one",
-    "commands": [
+      },
       {
         "id": "docker-network-ls-sub-1",
         "desc": "Containers attached to a network and their IPs",
@@ -1713,15 +1309,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "firewall",
           "ufw"
         ]
-      }
-    ]
-  },
-  {
-    "id": "docker-network-storage-recipes-2",
-    "badge": "dnet",
-    "title": "Docker Networking & Storage: Related commands",
-    "subtitle": "Related commands for: Show which host ports a container publishes",
-    "commands": [
+      },
       {
         "id": "docker-port-check-sub-1",
         "desc": "Confirm what is listening on the host side",
@@ -1773,6 +1361,10 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           [
             ":ro",
             "Mount read-only, e.g. -v /etc/ssl:/etc/ssl:ro"
+          ],
+          [
+            "--mount type=bind,src=...,dst=...",
+            "Longer syntax that fails loudly if the host path doesn't exist (-v silently creates it)"
           ]
         ],
         "tip": "-v creates a missing host path silently; --mount errors",
@@ -1785,44 +1377,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "storage",
           "backup"
         ]
-      }
-    ]
-  },
-  {
-    "id": "docker-network-storage-flags-3",
-    "badge": "dnet",
-    "title": "Docker Networking & Storage: More options",
-    "subtitle": "More options for: List volumes and find where one lives on the host",
-    "commands": [
-      {
-        "id": "docker-volumes-flags-card",
-        "desc": "More options and gotchas for: List volumes and find where one lives on the host",
-        "cmd": "docker volume ls",
-        "hideCode": false,
-        "flags": [
-          [
-            "--mount type=bind,src=...,dst=...",
-            "Longer syntax that fails loudly if the host path doesn't exist (-v silently creates it)"
-          ]
-        ],
-        "tags": [
-          "docker",
-          "containers",
-          "flags",
-          "options",
-          "volume",
-          "bind",
-          "mount"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "docker-network-storage-recipes-3",
-    "badge": "dnet",
-    "title": "Docker Networking & Storage: Related commands",
-    "subtitle": "Related commands for: List volumes and find where one lives on the host",
-    "commands": [
+      },
       {
         "id": "docker-volumes-sub-1",
         "desc": "Host path of a named volume",
@@ -1922,6 +1477,10 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           [
             "nvidia/cuda:<tag>",
             "Pick a tag whose CUDA version is supported by the host driver (nvidia-smi on the host shows the max CUDA version)"
+          ],
+          [
+            "'could not select device driver'",
+            "The toolkit isn't installed or Docker isn't configured for it: see nvidia-ctk below"
           ]
         ],
         "tip": "Quote device lists: '\"device=0,1\"'",
@@ -1934,44 +1493,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "nvidia-smi",
           "toolkit"
         ]
-      }
-    ]
-  },
-  {
-    "id": "docker-gpu-daemon-flags-1",
-    "badge": "dgpu",
-    "title": "Docker GPUs & Daemon: More options",
-    "subtitle": "More options for: Smoke test: run nvidia-smi inside a CUDA container with every GPU attached",
-    "commands": [
-      {
-        "id": "docker-gpu-smoke-test-flags-card",
-        "desc": "More options and gotchas for: Smoke test: run nvidia-smi inside a CUDA container with every GPU attached",
-        "cmd": "docker run --rm --gpus all nvidia/cuda:<tag> nvidia-smi",
-        "hideCode": false,
-        "flags": [
-          [
-            "'could not select device driver'",
-            "The toolkit isn't installed or Docker isn't configured for it: see nvidia-ctk below"
-          ]
-        ],
-        "tags": [
-          "docker",
-          "containers",
-          "flags",
-          "options",
-          "gpu",
-          "nvidia",
-          "cuda"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "docker-gpu-daemon-recipes-1",
-    "badge": "dgpu",
-    "title": "Docker GPUs & Daemon: Related commands",
-    "subtitle": "Related commands for: Smoke test: run nvidia-smi inside a CUDA container with every GPU attached",
-    "commands": [
+      },
       {
         "id": "docker-gpu-smoke-test-sub-1",
         "desc": "List only the GPUs that were passed in",
@@ -2034,15 +1556,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "runtime",
           "daemon.json"
         ]
-      }
-    ]
-  },
-  {
-    "id": "docker-gpu-daemon-recipes-2",
-    "badge": "dgpu",
-    "title": "Docker GPUs & Daemon: Related commands",
-    "subtitle": "Related commands for: Register the NVIDIA runtime with Docker, then restart Docker",
-    "commands": [
+      },
       {
         "id": "nvidia-ctk-configure-sub-1",
         "desc": "Apply the new daemon.json (changes state)",
@@ -2105,15 +1619,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "device",
           "gpu"
         ]
-      }
-    ]
-  },
-  {
-    "id": "docker-gpu-daemon-recipes-3",
-    "badge": "dgpu",
-    "title": "Docker GPUs & Daemon: Related commands",
-    "subtitle": "Related commands for: List the CDI",
-    "commands": [
+      },
       {
         "id": "nvidia-cdi-sub-1",
         "desc": "Rebuild the CDI spec (changes state)",
@@ -2165,6 +1671,10 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           [
             "Runtimes",
             "Should include nvidia on GPU nodes"
+          ],
+          [
+            "Storage Driver",
+            "overlay2 on current kernels"
           ]
         ],
         "tip": "docker events --until now returns instead of following",
@@ -2178,44 +1688,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "cgroup",
           "systemd"
         ]
-      }
-    ]
-  },
-  {
-    "id": "docker-gpu-daemon-flags-4",
-    "badge": "dgpu",
-    "title": "Docker GPUs & Daemon: More options",
-    "subtitle": "More options for: Check the Docker daemon: version, storage and cgroup driver, runtimes, and recent errors",
-    "commands": [
-      {
-        "id": "docker-daemon-health-flags-card",
-        "desc": "More options and gotchas for: Check the Docker daemon: version, storage and cgroup driver, runtimes, and recent errors",
-        "cmd": "docker info",
-        "hideCode": false,
-        "flags": [
-          [
-            "Storage Driver",
-            "overlay2 on current kernels"
-          ]
-        ],
-        "tags": [
-          "docker",
-          "containers",
-          "flags",
-          "options",
-          "daemon",
-          "info",
-          "journalctl"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "docker-gpu-daemon-recipes-4",
-    "badge": "dgpu",
-    "title": "Docker GPUs & Daemon: Related commands",
-    "subtitle": "Related commands for: Check the Docker daemon: version, storage and cgroup driver, runtimes, and recent errors",
-    "commands": [
+      },
       {
         "id": "docker-daemon-health-sub-1",
         "desc": "Is the daemon running, and its last log lines",
@@ -2345,15 +1818,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "cluster",
           "namespace"
         ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-kubectl-recipes-1",
-    "badge": "ctx",
-    "title": "kubectl Basics & Contexts: Related commands",
-    "subtitle": "Related commands for: Show which cluster and namespace kubectl is pointed at",
-    "commands": [
+      },
       {
         "id": "kubectl-contexts-sub-1",
         "desc": "Just the active context name",
@@ -2424,6 +1889,18 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           [
             "-o wide",
             "Adds NODE and IP columns: which server is the pod on?"
+          ],
+          [
+            "READY 1/2",
+            "One of two containers in the pod isn't ready"
+          ],
+          [
+            "RESTARTS",
+            "A climbing number means a crash loop"
+          ],
+          [
+            "-l app=<label>",
+            "Filter by label"
           ]
         ],
         "tip": "-o wide shows the node",
@@ -2438,54 +1915,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "namespace",
           "list"
         ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-kubectl-flags-2",
-    "badge": "ctx",
-    "title": "kubectl Basics & Contexts: More options",
-    "subtitle": "More options for: List pods in every namespace with their node and IP",
-    "commands": [
-      {
-        "id": "kubectl-get-wide-flags-card",
-        "desc": "More options and gotchas for: List pods in every namespace with their node and IP",
-        "cmd": "kubectl get pods -A -o wide",
-        "hideCode": false,
-        "flags": [
-          [
-            "READY 1/2",
-            "One of two containers in the pod isn't ready"
-          ],
-          [
-            "RESTARTS",
-            "A climbing number means a crash loop"
-          ],
-          [
-            "-l app=<label>",
-            "Filter by label"
-          ]
-        ],
-        "tags": [
-          "kubernetes",
-          "k8s",
-          "kubectl",
-          "containers",
-          "flags",
-          "options",
-          "get",
-          "pods",
-          "wide"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-kubectl-recipes-2",
-    "badge": "ctx",
-    "title": "kubectl Basics & Contexts: Related commands",
-    "subtitle": "Related commands for: List pods in every namespace with their node and IP",
-    "commands": [
+      },
       {
         "id": "kubectl-get-wide-sub-1",
         "desc": "Pods, services, deployments and replica sets in one namespace (not literally all kinds)",
@@ -2541,6 +1971,10 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           [
             "-o custom-columns=HEADER:.path,...",
             "Your own table; paths are the same as in -o yaml"
+          ],
+          [
+            "--sort-by=.metadata.creationTimestamp",
+            "Sort rows by any field"
           ]
         ],
         "tip": "Find the path in -o yaml, then use it in jsonpath",
@@ -2556,46 +1990,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "jq",
           "sort"
         ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-kubectl-flags-3",
-    "badge": "ctx",
-    "title": "kubectl Basics & Contexts: More options",
-    "subtitle": "More options for: Print exactly the fields you need with jsonpath or custom columns",
-    "commands": [
-      {
-        "id": "kubectl-output-formats-flags-card",
-        "desc": "More options and gotchas for: Print exactly the fields you need with jsonpath or custom columns",
-        "cmd": "kubectl get pods -n <ns> -o custom-columns=NAME:.metadata.name,NODE:.spec.nodeName,PHASE:.status.phase",
-        "hideCode": false,
-        "flags": [
-          [
-            "--sort-by=.metadata.creationTimestamp",
-            "Sort rows by any field"
-          ]
-        ],
-        "tags": [
-          "kubernetes",
-          "k8s",
-          "kubectl",
-          "containers",
-          "flags",
-          "options",
-          "output",
-          "jsonpath",
-          "custom-columns"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-kubectl-recipes-3",
-    "badge": "ctx",
-    "title": "kubectl Basics & Contexts: Related commands",
-    "subtitle": "Related commands for: Print exactly the fields you need with jsonpath or custom columns",
-    "commands": [
+      },
       {
         "id": "kubectl-output-formats-sub-1",
         "desc": "Full pod definition and status",
@@ -2680,15 +2075,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "docs",
           "auth"
         ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-kubectl-recipes-4",
-    "badge": "ctx",
-    "title": "kubectl Basics & Contexts: Related commands",
-    "subtitle": "Related commands for: Look up what a field means without leaving the terminal",
-    "commands": [
+      },
       {
         "id": "kubectl-explain-sub-1",
         "desc": "All kinds the cluster knows, with short names",
@@ -2796,6 +2183,10 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           [
             "-f <dir>/",
             "Apply every manifest in a directory"
+          ],
+          [
+            "--dry-run=server",
+            "Let the API server validate the change without saving it"
           ]
         ],
         "tip": "diff before apply",
@@ -2811,46 +2202,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "declarative",
           "dry-run"
         ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-workloads-flags-1",
-    "badge": "wl",
-    "title": "Kubernetes Workloads: More options",
-    "subtitle": "More options for: Preview what a manifest would change, then apply it",
-    "commands": [
-      {
-        "id": "kubectl-diff-apply-flags-card",
-        "desc": "More options and gotchas for: Preview what a manifest would change, then apply it",
-        "cmd": "kubectl diff -f <file>.yaml",
-        "hideCode": false,
-        "flags": [
-          [
-            "--dry-run=server",
-            "Let the API server validate the change without saving it"
-          ]
-        ],
-        "tags": [
-          "kubernetes",
-          "k8s",
-          "kubectl",
-          "containers",
-          "flags",
-          "options",
-          "apply",
-          "diff",
-          "manifest"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-workloads-recipes-1",
-    "badge": "wl",
-    "title": "Kubernetes Workloads: Related commands",
-    "subtitle": "Related commands for: Preview what a manifest would change, then apply it",
-    "commands": [
+      },
       {
         "id": "kubectl-diff-apply-sub-1",
         "desc": "Apply the manifest (changes state)",
@@ -2906,6 +2258,14 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           [
             "requests",
             "What the scheduler reserves on a node (100m = 0.1 CPU core)"
+          ],
+          [
+            "limits.memory",
+            "Exceeding it gets the container OOMKilled"
+          ],
+          [
+            "Generate instead of typing",
+            "kubectl create deployment web --image=nginx:1.27 --dry-run=client -o yaml > web.yaml"
           ]
         ],
         "tip": "Labels connect Deployment → pods → Service",
@@ -2920,41 +2280,6 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "requests",
           "limits",
           "labels"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-workloads-flags-2",
-    "badge": "wl",
-    "title": "Kubernetes Workloads: More options",
-    "subtitle": "More options for: Minimal Deployment manifest with resource requests and limits",
-    "commands": [
-      {
-        "id": "deployment-yaml-example-flags-card",
-        "desc": "More options and gotchas for: Minimal Deployment manifest with resource requests and limits",
-        "cmd": "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: web\n  labels:\n    app: web\nspec:\n  replicas: 2\n  selector:\n    matchLabels:\n      app: web\n  template:\n    metadata:\n      labels:\n        app: web\n    spec:\n      containers:\n        - name: web\n          image: nginx:1.27\n          ports:\n            - containerPort: 80\n          resources:\n            requests:\n              cpu: 100m\n              memory: 128Mi\n            limits:\n              memory: 256Mi",
-        "hideCode": true,
-        "flags": [
-          [
-            "limits.memory",
-            "Exceeding it gets the container OOMKilled"
-          ],
-          [
-            "Generate instead of typing",
-            "kubectl create deployment web --image=nginx:1.27 --dry-run=client -o yaml > web.yaml"
-          ]
-        ],
-        "tags": [
-          "kubernetes",
-          "k8s",
-          "kubectl",
-          "containers",
-          "flags",
-          "options",
-          "deployment",
-          "yaml",
-          "manifest"
         ]
       }
     ]
@@ -2982,6 +2307,10 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           [
             "rollout undo",
             "Go back to the previous revision (changes state)"
+          ],
+          [
+            "rollout restart",
+            "Recreate all pods one by one, e.g. to pick up a changed ConfigMap (changes state)"
           ]
         ],
         "tip": "rollout undo is your fast rollback",
@@ -2997,46 +2326,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "restart",
           "deployment"
         ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-workloads-flags-3",
-    "badge": "wl",
-    "title": "Kubernetes Workloads: More options",
-    "subtitle": "More options for: Watch a deployment roll out and check its history",
-    "commands": [
-      {
-        "id": "kubectl-rollout-flags-card",
-        "desc": "More options and gotchas for: Watch a deployment roll out and check its history",
-        "cmd": "kubectl rollout status deployment/<name> -n <ns> --timeout=120s",
-        "hideCode": false,
-        "flags": [
-          [
-            "rollout restart",
-            "Recreate all pods one by one, e.g. to pick up a changed ConfigMap (changes state)"
-          ]
-        ],
-        "tags": [
-          "kubernetes",
-          "k8s",
-          "kubectl",
-          "containers",
-          "flags",
-          "options",
-          "rollout",
-          "status",
-          "history"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-workloads-recipes-3",
-    "badge": "wl",
-    "title": "Kubernetes Workloads: Related commands",
-    "subtitle": "Related commands for: Watch a deployment roll out and check its history",
-    "commands": [
+      },
       {
         "id": "kubectl-rollout-sub-1",
         "desc": "List revisions",
@@ -3120,15 +2410,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "hpa",
           "deployment"
         ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-workloads-recipes-4",
-    "badge": "wl",
-    "title": "Kubernetes Workloads: Related commands",
-    "subtitle": "Related commands for: Change the number of replicas",
-    "commands": [
+      },
       {
         "id": "kubectl-scale-sub-1",
         "desc": "The Deployment, its ReplicaSets and pods together",
@@ -3196,15 +2478,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "cronjob",
           "batch"
         ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-workloads-recipes-5",
-    "badge": "wl",
-    "title": "Kubernetes Workloads: Related commands",
-    "subtitle": "Related commands for: Check batch Jobs and CronJobs",
-    "commands": [
+      },
       {
         "id": "kubectl-jobs-sub-1",
         "desc": "Logs from a Job's pod",
@@ -3297,6 +2571,10 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           [
             "Conditions",
             "PodScheduled, Initialized, ContainersReady, Ready"
+          ],
+          [
+            "Node",
+            "Which server it landed on; combine with the node sheets"
           ]
         ],
         "tip": "Read Events first",
@@ -3309,37 +2587,6 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "events",
           "pod",
           "state"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-troubleshoot-flags-1",
-    "badge": "dbg",
-    "title": "Kubernetes Troubleshooting: More options",
-    "subtitle": "More options for: Describe a pod: read the Events section at the bottom first",
-    "commands": [
-      {
-        "id": "kubectl-describe-pod-flags-card",
-        "desc": "More options and gotchas for: Describe a pod: read the Events section at the bottom first",
-        "cmd": "kubectl describe pod <pod> -n <ns>",
-        "hideCode": false,
-        "flags": [
-          [
-            "Node",
-            "Which server it landed on; combine with the node sheets"
-          ]
-        ],
-        "tags": [
-          "kubernetes",
-          "k8s",
-          "kubectl",
-          "containers",
-          "flags",
-          "options",
-          "describe",
-          "events",
-          "pod"
         ]
       }
     ]
@@ -3367,36 +2614,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           [
             "ImagePullBackOff / ErrImagePull",
             "Wrong image name or tag, a private registry without credentials, or no route to the registry"
-          ]
-        ],
-        "tip": "Pending → Events; CrashLoop → logs --previous",
-        "tags": [
-          "kubernetes",
-          "k8s",
-          "kubectl",
-          "containers",
-          "status",
-          "pending",
-          "crashloopbackoff",
-          "imagepullbackoff",
-          "oomkilled",
-          "evicted"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-troubleshoot-flags-2",
-    "badge": "dbg",
-    "title": "Kubernetes Troubleshooting: More options",
-    "subtitle": "More options for: What the common pod statuses mean and where to look next",
-    "commands": [
-      {
-        "id": "kubectl-pod-status-meanings-flags-card",
-        "desc": "More options and gotchas for: What the common pod statuses mean and where to look next",
-        "cmd": "kubectl get pods -n <ns>",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "CrashLoopBackOff",
             "The container starts and exits again; read logs --previous"
@@ -3414,16 +2632,18 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
             "A finalizer or an unreachable node; check the node first"
           ]
         ],
+        "tip": "Pending → Events; CrashLoop → logs --previous",
         "tags": [
           "kubernetes",
           "k8s",
           "kubectl",
           "containers",
-          "flags",
-          "options",
           "status",
           "pending",
-          "crashloopbackoff"
+          "crashloopbackoff",
+          "imagepullbackoff",
+          "oomkilled",
+          "evicted"
         ]
       }
     ]
@@ -3451,6 +2671,14 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           [
             "--tail=200 / --since=30m",
             "Limit output"
+          ],
+          [
+            "-f",
+            "Follow live"
+          ],
+          [
+            "-l app=<label> --all-containers",
+            "Logs from every pod matching a label"
           ]
         ],
         "tip": "CrashLoopBackOff? Always add --previous",
@@ -3464,50 +2692,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "crashloop",
           "container"
         ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-troubleshoot-flags-3",
-    "badge": "dbg",
-    "title": "Kubernetes Troubleshooting: More options",
-    "subtitle": "More options for: Logs from the previous",
-    "commands": [
-      {
-        "id": "kubectl-logs-previous-flags-card",
-        "desc": "More options and gotchas for: Logs from the previous",
-        "cmd": "kubectl logs <pod> -n <ns> --previous --tail=200",
-        "hideCode": false,
-        "flags": [
-          [
-            "-f",
-            "Follow live"
-          ],
-          [
-            "-l app=<label> --all-containers",
-            "Logs from every pod matching a label"
-          ]
-        ],
-        "tags": [
-          "kubernetes",
-          "k8s",
-          "kubectl",
-          "containers",
-          "flags",
-          "options",
-          "logs",
-          "previous",
-          "crashloop"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-troubleshoot-recipes-3",
-    "badge": "dbg",
-    "title": "Kubernetes Troubleshooting: Related commands",
-    "subtitle": "Related commands for: Logs from the previous",
-    "commands": [
+      },
       {
         "id": "kubectl-logs-previous-sub-1",
         "desc": "One container in a multi-container pod",
@@ -3576,15 +2761,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "sort",
           "timeline"
         ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-troubleshoot-recipes-4",
-    "badge": "dbg",
-    "title": "Kubernetes Troubleshooting: Related commands",
-    "subtitle": "Related commands for: Recent events in a namespace, oldest first",
-    "commands": [
+      },
       {
         "id": "kubectl-events-sorted-sub-1",
         "desc": "Warnings across the whole cluster",
@@ -3640,6 +2817,10 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           [
             "kubectl debug -it <pod> --image=busybox --target=<container>",
             "Adds a temporary debug container that shares the target's process namespace; works for distroless images"
+          ],
+          [
+            "kubectl debug node/<node> -it --image=busybox",
+            "A pod on the node with the host filesystem at /host"
           ]
         ],
         "tip": "No shell in the image? kubectl debug --target",
@@ -3654,46 +2835,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "shell",
           "distroless"
         ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-troubleshoot-flags-5",
-    "badge": "dbg",
-    "title": "Kubernetes Troubleshooting: More options",
-    "subtitle": "More options for: Get a shell in a running pod, or attach a debug container to one that has no shell",
-    "commands": [
-      {
-        "id": "kubectl-exec-debug-flags-card",
-        "desc": "More options and gotchas for: Get a shell in a running pod, or attach a debug container to one that has no shell",
-        "cmd": "kubectl exec -it <pod> -n <ns> -- sh",
-        "hideCode": false,
-        "flags": [
-          [
-            "kubectl debug node/<node> -it --image=busybox",
-            "A pod on the node with the host filesystem at /host"
-          ]
-        ],
-        "tags": [
-          "kubernetes",
-          "k8s",
-          "kubectl",
-          "containers",
-          "flags",
-          "options",
-          "exec",
-          "debug",
-          "ephemeral"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-troubleshoot-recipes-5",
-    "badge": "dbg",
-    "title": "Kubernetes Troubleshooting: Related commands",
-    "subtitle": "Related commands for: Get a shell in a running pod, or attach a debug container to one that has no shell",
-    "commands": [
+      },
       {
         "id": "kubectl-exec-debug-sub-1",
         "desc": "Environment variables the app sees",
@@ -3778,15 +2920,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "service",
           "endpoints"
         ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-troubleshoot-recipes-6",
-    "badge": "dbg",
-    "title": "Kubernetes Troubleshooting: Related commands",
-    "subtitle": "Related commands for: Reach a service from your workstation, and see live resource usage",
-    "commands": [
+      },
       {
         "id": "kubectl-port-forward-top-sub-1",
         "desc": "Memory hogs in a namespace",
@@ -3898,6 +3032,10 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           [
             "VERSION",
             "kubelet version"
+          ],
+          [
+            "CONTAINER-RUNTIME",
+            "Usually containerd://<version>"
           ]
         ],
         "tip": "NotReady = kubelet stopped reporting",
@@ -3912,46 +3050,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "describe",
           "wide"
         ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-nodes-flags-1",
-    "badge": "node",
-    "title": "Kubernetes Nodes & Maintenance: More options",
-    "subtitle": "More options for: List nodes with status, version, OS and container runtime",
-    "commands": [
-      {
-        "id": "kubectl-nodes-wide-flags-card",
-        "desc": "More options and gotchas for: List nodes with status, version, OS and container runtime",
-        "cmd": "kubectl get nodes -o wide",
-        "hideCode": false,
-        "flags": [
-          [
-            "CONTAINER-RUNTIME",
-            "Usually containerd://<version>"
-          ]
-        ],
-        "tags": [
-          "kubernetes",
-          "k8s",
-          "kubectl",
-          "containers",
-          "flags",
-          "options",
-          "nodes",
-          "ready",
-          "notready"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-nodes-recipes-1",
-    "badge": "node",
-    "title": "Kubernetes Nodes & Maintenance: Related commands",
-    "subtitle": "Related commands for: List nodes with status, version, OS and container runtime",
-    "commands": [
+      },
       {
         "id": "kubectl-nodes-wide-sub-1",
         "desc": "Conditions, capacity, allocated resources, taints and recent events",
@@ -4007,6 +3106,18 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           [
             "--ignore-daemonsets",
             "DaemonSet pods (CNI, GPU operator, monitoring) are meant to run everywhere and are left alone"
+          ],
+          [
+            "--delete-emptydir-data",
+            "Allow evicting pods with emptyDir volumes; that scratch data is lost"
+          ],
+          [
+            "PodDisruptionBudget errors",
+            "Drain waits rather than break an app's minimum availability; don't --force past it without the app owner"
+          ],
+          [
+            "kubectl uncordon <node>",
+            "Put the node back into service after the work"
           ]
         ],
         "tip": "Approval first; check the active context",
@@ -4022,54 +3133,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "pdb",
           "rma"
         ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-nodes-flags-2",
-    "badge": "node",
-    "title": "Kubernetes Nodes & Maintenance: More options",
-    "subtitle": "More options for: Take a node out of service for hardware work: cordon, then drain",
-    "commands": [
-      {
-        "id": "kubectl-cordon-drain-flags-card",
-        "desc": "More options and gotchas for: Take a node out of service for hardware work: cordon, then drain",
-        "cmd": "kubectl drain <node> --ignore-daemonsets --delete-emptydir-data --timeout=10m",
-        "hideCode": false,
-        "flags": [
-          [
-            "--delete-emptydir-data",
-            "Allow evicting pods with emptyDir volumes; that scratch data is lost"
-          ],
-          [
-            "PodDisruptionBudget errors",
-            "Drain waits rather than break an app's minimum availability; don't --force past it without the app owner"
-          ],
-          [
-            "kubectl uncordon <node>",
-            "Put the node back into service after the work"
-          ]
-        ],
-        "tags": [
-          "kubernetes",
-          "k8s",
-          "kubectl",
-          "containers",
-          "flags",
-          "options",
-          "drain",
-          "cordon",
-          "uncordon"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-nodes-recipes-2",
-    "badge": "node",
-    "title": "Kubernetes Nodes & Maintenance: Related commands",
-    "subtitle": "Related commands for: Take a node out of service for hardware work: cordon, then drain",
-    "commands": [
+      },
       {
         "id": "kubectl-cordon-drain-sub-1",
         "desc": "Mark unschedulable (changes state)",
@@ -4140,6 +3204,10 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           [
             "key=value:NoSchedule- (trailing dash)",
             "Removes that taint"
+          ],
+          [
+            "--show-labels",
+            "kubectl get nodes --show-labels lists every label"
           ]
         ],
         "tip": "Trailing dash removes a taint",
@@ -4153,46 +3221,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "label",
           "noschedule"
         ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-nodes-flags-3",
-    "badge": "node",
-    "title": "Kubernetes Nodes & Maintenance: More options",
-    "subtitle": "More options for: Show a node's taints and labels",
-    "commands": [
-      {
-        "id": "kubectl-taints-labels-flags-card",
-        "desc": "More options and gotchas for: Show a node's taints and labels",
-        "cmd": "kubectl get node <node> -o jsonpath='{.spec.taints}'",
-        "hideCode": false,
-        "flags": [
-          [
-            "--show-labels",
-            "kubectl get nodes --show-labels lists every label"
-          ]
-        ],
-        "tags": [
-          "kubernetes",
-          "k8s",
-          "kubectl",
-          "containers",
-          "flags",
-          "options",
-          "taint",
-          "toleration",
-          "label"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-nodes-recipes-3",
-    "badge": "node",
-    "title": "Kubernetes Nodes & Maintenance: Related commands",
-    "subtitle": "Related commands for: Show a node's taints and labels",
-    "commands": [
+      },
       {
         "id": "kubectl-taints-labels-sub-1",
         "desc": "All node labels",
@@ -4263,6 +3292,10 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           [
             "crictl ps -a",
             "Containers including exited ones, with their pod names"
+          ],
+          [
+            "cgroup v2",
+            "stat -fc %T /sys/fs/cgroup must print cgroup2fs; kubelet 1.37 refuses cgroup v1 by default"
           ]
         ],
         "tip": "API down? crictl on the node still works",
@@ -4278,46 +3311,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "cgroup",
           "node"
         ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-nodes-flags-4",
-    "badge": "node",
-    "title": "Kubernetes Nodes & Maintenance: More options",
-    "subtitle": "More options for: On the node itself: kubelet logs and containers via crictl",
-    "commands": [
-      {
-        "id": "node-kubelet-crictl-flags-card",
-        "desc": "More options and gotchas for: On the node itself: kubelet logs and containers via crictl",
-        "cmd": "journalctl -u kubelet --since '30 min ago' --no-pager",
-        "hideCode": false,
-        "flags": [
-          [
-            "cgroup v2",
-            "stat -fc %T /sys/fs/cgroup must print cgroup2fs; kubelet 1.37 refuses cgroup v1 by default"
-          ]
-        ],
-        "tags": [
-          "kubernetes",
-          "k8s",
-          "kubectl",
-          "containers",
-          "flags",
-          "options",
-          "kubelet",
-          "crictl",
-          "containerd"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-nodes-recipes-4",
-    "badge": "node",
-    "title": "Kubernetes Nodes & Maintenance: Related commands",
-    "subtitle": "Related commands for: On the node itself: kubelet logs and containers via crictl",
-    "commands": [
+      },
       {
         "id": "node-kubelet-crictl-sub-1",
         "desc": "Are kubelet and containerd running",
@@ -4469,15 +3463,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "custom-columns",
           "capacity"
         ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-gpu-recipes-1",
-    "badge": "kgpu",
-    "title": "Kubernetes GPUs: Related commands",
-    "subtitle": "Related commands for: How many GPUs each node advertises to the scheduler",
-    "commands": [
+      },
       {
         "id": "k8s-gpu-allocatable-sub-1",
         "desc": "GPUs requested by pods vs. available on one node",
@@ -4533,6 +3519,18 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           [
             "container-toolkit daemonset",
             "Configures containerd for GPUs"
+          ],
+          [
+            "device-plugin daemonset",
+            "Advertises nvidia.com/gpu to the scheduler"
+          ],
+          [
+            "dcgm-exporter",
+            "GPU metrics for Prometheus"
+          ],
+          [
+            "validator",
+            "Checks the stack works; Init or Error here explains missing GPUs"
           ]
         ],
         "tip": "Validator not Completed = stack not ready",
@@ -4547,54 +3545,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "dcgm",
           "validator"
         ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-gpu-flags-2",
-    "badge": "kgpu",
-    "title": "Kubernetes GPUs: More options",
-    "subtitle": "More options for: Check the NVIDIA GPU Operator components",
-    "commands": [
-      {
-        "id": "k8s-gpu-operator-pods-flags-card",
-        "desc": "More options and gotchas for: Check the NVIDIA GPU Operator components",
-        "cmd": "kubectl get pods -n gpu-operator -o wide",
-        "hideCode": false,
-        "flags": [
-          [
-            "device-plugin daemonset",
-            "Advertises nvidia.com/gpu to the scheduler"
-          ],
-          [
-            "dcgm-exporter",
-            "GPU metrics for Prometheus"
-          ],
-          [
-            "validator",
-            "Checks the stack works; Init or Error here explains missing GPUs"
-          ]
-        ],
-        "tags": [
-          "kubernetes",
-          "k8s",
-          "kubectl",
-          "containers",
-          "flags",
-          "options",
-          "gpu-operator",
-          "device-plugin",
-          "driver"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-gpu-recipes-2",
-    "badge": "kgpu",
-    "title": "Kubernetes GPUs: Related commands",
-    "subtitle": "Related commands for: Check the NVIDIA GPU Operator components",
-    "commands": [
+      },
       {
         "id": "k8s-gpu-operator-pods-sub-1",
         "desc": "Why GPUs aren't being advertised",
@@ -4650,6 +3601,10 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           [
             "Pending: Insufficient nvidia.com/gpu",
             "Every GPU is already allocated, or none are advertised"
+          ],
+          [
+            "Toleration",
+            "If GPU nodes are tainted, add a matching toleration"
           ]
         ],
         "tip": "GPUs go under limits, in whole numbers",
@@ -4664,46 +3619,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "limits",
           "nvidia-smi"
         ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-gpu-flags-3",
-    "badge": "kgpu",
-    "title": "Kubernetes GPUs: More options",
-    "subtitle": "More options for: Test pod that requests one GPU and runs nvidia-smi",
-    "commands": [
-      {
-        "id": "k8s-gpu-test-pod-flags-card",
-        "desc": "More options and gotchas for: Test pod that requests one GPU and runs nvidia-smi",
-        "cmd": "apiVersion: v1\nkind: Pod\nmetadata:\n  name: gpu-test\nspec:\n  restartPolicy: Never\n  containers:\n    - name: cuda\n      image: nvidia/cuda:<tag>\n      command: [\"nvidia-smi\", \"-L\"]\n      resources:\n        limits:\n          nvidia.com/gpu: 1",
-        "hideCode": true,
-        "flags": [
-          [
-            "Toleration",
-            "If GPU nodes are tainted, add a matching toleration"
-          ]
-        ],
-        "tags": [
-          "kubernetes",
-          "k8s",
-          "kubectl",
-          "containers",
-          "flags",
-          "options",
-          "gpu",
-          "pod",
-          "test"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-gpu-recipes-3",
-    "badge": "kgpu",
-    "title": "Kubernetes GPUs: Related commands",
-    "subtitle": "Related commands for: Test pod that requests one GPU and runs nvidia-smi",
-    "commands": [
+      },
       {
         "id": "k8s-gpu-test-pod-sub-1",
         "desc": "Create the test pod (changes state)",
@@ -4774,6 +3690,10 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           [
             "DCGM_FI_DEV_XID_ERROR",
             "Last Xid error per GPU; map it with the NVIDIA DC Xid sheet (exporters before 4.9.0: DCGM_FI_DEV_XID_ERRORS)"
+          ],
+          [
+            "DCGM_FI_DEV_GPU_TEMP_CELSIUS / BOARD_POWER_WATTS",
+            "Temperature and power per GPU (before 4.9.0: DCGM_FI_DEV_GPU_TEMP / POWER_USAGE)"
           ]
         ],
         "tip": "Xid in DCGM → check the NVIDIA DC Xid sheet",
@@ -4788,46 +3708,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "xid",
           "temperature"
         ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-gpu-flags-4",
-    "badge": "kgpu",
-    "title": "Kubernetes GPUs: More options",
-    "subtitle": "More options for: Read GPU metrics from DCGM exporter",
-    "commands": [
-      {
-        "id": "k8s-dcgm-metrics-flags-card",
-        "desc": "More options and gotchas for: Read GPU metrics from DCGM exporter",
-        "cmd": "kubectl port-forward -n gpu-operator svc/nvidia-dcgm-exporter 9400:9400",
-        "hideCode": false,
-        "flags": [
-          [
-            "DCGM_FI_DEV_GPU_TEMP_CELSIUS / BOARD_POWER_WATTS",
-            "Temperature and power per GPU (before 4.9.0: DCGM_FI_DEV_GPU_TEMP / POWER_USAGE)"
-          ]
-        ],
-        "tags": [
-          "kubernetes",
-          "k8s",
-          "kubectl",
-          "containers",
-          "flags",
-          "options",
-          "dcgm",
-          "metrics",
-          "prometheus"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-gpu-recipes-4",
-    "badge": "kgpu",
-    "title": "Kubernetes GPUs: Related commands",
-    "subtitle": "Related commands for: Read GPU metrics from DCGM exporter",
-    "commands": [
+      },
       {
         "id": "k8s-dcgm-metrics-sub-1",
         "desc": "Xid errors and temperatures",

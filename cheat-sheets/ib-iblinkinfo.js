@@ -24,6 +24,10 @@ const IB_IB_IBLINKINFO_DATA = [
           [
             "-p",
             "Print additional switch port settings (hoqlife, vl_stall)"
+          ],
+          [
+            "-C <ca> -P <port>",
+            "Run fabric discovery out of a specific local HCA and port (e.g. -C mlx5_0 -P 1)"
           ]
         ],
         "tip": "iblinkinfo -l maps exact switch port to server hostname!",
@@ -33,41 +37,7 @@ const IB_IB_IBLINKINFO_DATA = [
           "triage",
           "rdma"
         ]
-      }
-    ]
-  },
-  {
-    "id": "iblinkinfo-flags",
-    "badge": "lnk",
-    "title": "iblinkinfo: Flags & Options Reference",
-    "subtitle": "Key arguments, parameters, and filtering flags for iblinkinfo",
-    "commands": [
-      {
-        "id": "iblinkinfo-flags-card",
-        "desc": "Full options breakdown and parameter syntax for iblinkinfo",
-        "cmd": "iblinkinfo -h",
-        "flags": [
-          [
-            "-C <ca> -P <port>",
-            "Run fabric discovery out of a specific local HCA and port (e.g. -C mlx5_0 -P 1)"
-          ]
-        ],
-        "details": "Common diagnostic, verbose, and targeting flags for iblinkinfo in high-performance cluster environments.",
-        "tags": [
-          "iblinkinfo",
-          "flags",
-          "options",
-          "syntax"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "iblinkinfo-subcmds",
-    "badge": "lnk",
-    "title": "iblinkinfo: Common Recipes & Pipelines",
-    "subtitle": "Verified production bash one-liners and automation pipelines using iblinkinfo",
-    "commands": [
+      },
       {
         "id": "iblinkinfo-sub-1",
         "desc": "Find any active fabric links running at degraded lane width (1X/2X) or stuck in Init/Armed state",

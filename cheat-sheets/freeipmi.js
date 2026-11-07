@@ -24,34 +24,7 @@ const BMC_FREEIPMI_DATA = [
           [
             "--ignore-not-available-sensors",
             "Hide N/A sensors"
-          ]
-        ],
-        "tip": "-P (prompt) is the safe default; -p puts the password in ps",
-        "tags": [
-          "bmc",
-          "remote-management",
-          "freeipmi",
-          "freeipmi",
-          "sensors",
-          "sdr",
-          "bmc-info",
-          "fru"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "freeipmi-flags-1",
-    "badge": "freeipmi",
-    "title": "GNU FreeIPMI: More options",
-    "subtitle": "More options for: Sensors with a health state, password prompted",
-    "commands": [
-      {
-        "id": "freeipmi-sensors-flags-card",
-        "desc": "More options and gotchas for: Sensors with a health state, password prompted",
-        "cmd": "ipmi-sensors -h $BMC -u $BMC_USER -P --output-sensor-state --ignore-not-available-sensors",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "--sdr-cache-recreate",
             "Rebuild a stale SDR cache (after a BMC firmware update)"
@@ -65,25 +38,18 @@ const BMC_FREEIPMI_DATA = [
             "Cipher suite (default 3)"
           ]
         ],
+        "tip": "-P (prompt) is the safe default; -p puts the password in ps",
         "tags": [
           "bmc",
           "remote-management",
           "freeipmi",
-          "flags",
-          "options",
           "freeipmi",
           "sensors",
-          "sdr"
+          "sdr",
+          "bmc-info",
+          "fru"
         ]
-      }
-    ]
-  },
-  {
-    "id": "freeipmi-recipes-1",
-    "badge": "freeipmi",
-    "title": "GNU FreeIPMI: Related commands",
-    "subtitle": "Related commands for: Sensors with a health state, password prompted",
-    "commands": [
+      },
       {
         "id": "freeipmi-sensors-sub-1",
         "desc": "Only temperatures and fans",
@@ -151,6 +117,14 @@ const BMC_FREEIPMI_DATA = [
           [
             "--output-event-state",
             "NOMINAL / WARNING / CRITICAL per event"
+          ],
+          [
+            "--display-range=<a>-<b>",
+            "A range of record IDs"
+          ],
+          [
+            "--clear / --post-clear / --delete=<id>",
+            "Change the SEL (changes state)"
           ]
         ],
         "tip": "Save the SEL before anyone clears it",
@@ -163,49 +137,7 @@ const BMC_FREEIPMI_DATA = [
           "logs",
           "oem"
         ]
-      }
-    ]
-  },
-  {
-    "id": "freeipmi-flags-2",
-    "badge": "freeipmi",
-    "title": "GNU FreeIPMI: More options",
-    "subtitle": "More options for: Last SEL entries, interpreted",
-    "commands": [
-      {
-        "id": "freeipmi-sel-flags-card",
-        "desc": "More options and gotchas for: Last SEL entries, interpreted",
-        "cmd": "ipmi-sel -h $BMC -u $BMC_USER -P --tail=50 --interpret-oem-data --output-event-state",
-        "hideCode": false,
-        "flags": [
-          [
-            "--display-range=<a>-<b>",
-            "A range of record IDs"
-          ],
-          [
-            "--clear / --post-clear / --delete=<id>",
-            "Change the SEL (changes state)"
-          ]
-        ],
-        "tags": [
-          "bmc",
-          "remote-management",
-          "freeipmi",
-          "flags",
-          "options",
-          "sel",
-          "events",
-          "logs"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "freeipmi-recipes-2",
-    "badge": "freeipmi",
-    "title": "GNU FreeIPMI: Related commands",
-    "subtitle": "Related commands for: Last SEL entries, interpreted",
-    "commands": [
+      },
       {
         "id": "freeipmi-sel-sub-1",
         "desc": "Save the whole SEL to the case folder",
@@ -245,34 +177,7 @@ const BMC_FREEIPMI_DATA = [
           [
             "--on / --off / --cycle / --reset",
             "Power actions (change state; OPERATOR privilege)"
-          ]
-        ],
-        "tip": "Host ranges make rack-wide status checks one command",
-        "tags": [
-          "bmc",
-          "remote-management",
-          "freeipmi",
-          "power",
-          "ipmipower",
-          "chassis",
-          "hostrange",
-          "rack"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "freeipmi-flags-3",
-    "badge": "freeipmi",
-    "title": "GNU FreeIPMI: More options",
-    "subtitle": "More options for: Power status for a whole rack at once",
-    "commands": [
-      {
-        "id": "freeipmi-power-flags-card",
-        "desc": "More options and gotchas for: Power status for a whole rack at once",
-        "cmd": "ipmipower -h \"rack12-node[01-16]-bmc\" -u $BMC_USER -P --stat",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "--soft",
             "ACPI soft shutdown (changes state)"
@@ -286,25 +191,18 @@ const BMC_FREEIPMI_DATA = [
             "Fan-out: hosts in parallel (default 64)"
           ]
         ],
+        "tip": "Host ranges make rack-wide status checks one command",
         "tags": [
           "bmc",
           "remote-management",
           "freeipmi",
-          "flags",
-          "options",
           "power",
           "ipmipower",
-          "chassis"
+          "chassis",
+          "hostrange",
+          "rack"
         ]
-      }
-    ]
-  },
-  {
-    "id": "freeipmi-recipes-3",
-    "badge": "freeipmi",
-    "title": "GNU FreeIPMI: Related commands",
-    "subtitle": "Related commands for: Power status for a whole rack at once",
-    "commands": [
+      },
       {
         "id": "freeipmi-power-sub-1",
         "desc": "Power, last power event, intrusion",
@@ -358,33 +256,7 @@ const BMC_FREEIPMI_DATA = [
           [
             "&B",
             "Send a serial break"
-          ]
-        ],
-        "tip": "Use --dont-steal on a node someone else may be working on",
-        "tags": [
-          "bmc",
-          "remote-management",
-          "freeipmi",
-          "sol",
-          "console",
-          "serial",
-          "ipmiconsole"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "freeipmi-flags-4",
-    "badge": "freeipmi",
-    "title": "GNU FreeIPMI: More options",
-    "subtitle": "More options for: Serial-over-LAN console",
-    "commands": [
-      {
-        "id": "freeipmi-sol-flags-card",
-        "desc": "More options and gotchas for: Serial-over-LAN console",
-        "cmd": "ipmiconsole -h $BMC -u $BMC_USER -P",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "-e <char>",
             "Change the escape character"
@@ -402,25 +274,17 @@ const BMC_FREEIPMI_DATA = [
             "The only ones that encrypt console traffic"
           ]
         ],
+        "tip": "Use --dont-steal on a node someone else may be working on",
         "tags": [
           "bmc",
           "remote-management",
           "freeipmi",
-          "flags",
-          "options",
           "sol",
           "console",
-          "serial"
+          "serial",
+          "ipmiconsole"
         ]
-      }
-    ]
-  },
-  {
-    "id": "freeipmi-recipes-4",
-    "badge": "freeipmi",
-    "title": "GNU FreeIPMI: Related commands",
-    "subtitle": "Related commands for: Serial-over-LAN console",
-    "commands": [
+      },
       {
         "id": "freeipmi-sol-sub-1",
         "desc": "Free a stuck SOL session",
@@ -474,6 +338,10 @@ const BMC_FREEIPMI_DATA = [
           [
             "--get-power-limit",
             "The configured power cap"
+          ],
+          [
+            "--set-power-limit",
+            "Change the cap (changes state)"
           ]
         ],
         "tip": "A power cap can explain GPUs that never reach full clocks",
@@ -486,45 +354,7 @@ const BMC_FREEIPMI_DATA = [
           "watts",
           "cap"
         ]
-      }
-    ]
-  },
-  {
-    "id": "freeipmi-flags-5",
-    "badge": "freeipmi",
-    "title": "GNU FreeIPMI: More options",
-    "subtitle": "More options for: Power draw from the BMC",
-    "commands": [
-      {
-        "id": "freeipmi-dcmi-flags-card",
-        "desc": "More options and gotchas for: Power draw from the BMC",
-        "cmd": "ipmi-dcmi -h $BMC -u $BMC_USER -P --get-system-power-statistics",
-        "hideCode": false,
-        "flags": [
-          [
-            "--set-power-limit",
-            "Change the cap (changes state)"
-          ]
-        ],
-        "tags": [
-          "bmc",
-          "remote-management",
-          "freeipmi",
-          "flags",
-          "options",
-          "dcmi",
-          "power",
-          "watts"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "freeipmi-recipes-5",
-    "badge": "freeipmi",
-    "title": "GNU FreeIPMI: Related commands",
-    "subtitle": "Related commands for: Power draw from the BMC",
-    "commands": [
+      },
       {
         "id": "freeipmi-dcmi-sub-1",
         "desc": "Is a power cap active?",

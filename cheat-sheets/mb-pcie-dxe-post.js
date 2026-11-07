@@ -24,6 +24,18 @@ const MB_MB_PCIE_DXE_POST_DATA = [
           [
             "0x93",
             "PCI Bus Hot-Plug controller initialization"
+          ],
+          [
+            "0x94",
+            "PCI Bus Enumeration: Probing all endpoints (GPUs, ConnectX NICs, U.2 NVMe). Hang at 0x94 = bad GPU/NIC or unseated riser"
+          ],
+          [
+            "0x95",
+            "PCI Bus Request Resources: Calculating MMIO aperture requirements across all PCIe devices"
+          ],
+          [
+            "0x96",
+            "PCI Bus Assign Resources: Out of 32-bit MMIO BAR space! Enable 'Above 4G Decoding' and set 'MMIO High Base / Size' in BIOS"
           ]
         ],
         "tip": "Hang at 0x94/0x96 after adding GPUs = Enable 'Above 4G Decoding' in BIOS!",
@@ -51,40 +63,6 @@ const MB_MB_PCIE_DXE_POST_DATA = [
     ]
   },
   {
-    "id": "pcie-dxe-post-flags-1",
-    "badge": "pci",
-    "title": "PCIe & DXE Codes: POST Hex Codes & Options",
-    "subtitle": "Key hex codes, parameters, and error indicators for Decode PCIe bus, riser card, GPU, and NVMe enumeration hangs (`0x91`–`0x99`)",
-    "commands": [
-      {
-        "id": "post-91-96-pcie-enumeration-flags-card",
-        "desc": "Hex code lookup and diagnostics breakdown for Decode PCIe bus, riser card, GPU, and NVMe enumeration hangs (`0x91`–`0x99`)",
-        "cmd": "POST 0x91 (PCIe Init)  ->  0x92 (Bridge/Riser Detect)  ->  0x94 (Bus Enumeration)  ->  0x96 (BAR Resources)",
-        "flags": [
-          [
-            "0x94",
-            "PCI Bus Enumeration: Probing all endpoints (GPUs, ConnectX NICs, U.2 NVMe). Hang at 0x94 = bad GPU/NIC or unseated riser"
-          ],
-          [
-            "0x95",
-            "PCI Bus Request Resources: Calculating MMIO aperture requirements across all PCIe devices"
-          ],
-          [
-            "0x96",
-            "PCI Bus Assign Resources: Out of 32-bit MMIO BAR space! Enable 'Above 4G Decoding' and set 'MMIO High Base / Size' in BIOS"
-          ]
-        ],
-        "details": "Common operational and diagnostic POST / Q-Codes on ASUS and GIGABYTE server motherboards.",
-        "tags": [
-          "PCIe & DXE Codes",
-          "flags",
-          "options",
-          "syntax"
-        ]
-      }
-    ]
-  },
-  {
     "id": "pcie-dxe-post-cmd-2",
     "badge": "pci",
     "title": "PCIe & DXE Codes: Decode DXE error codes",
@@ -107,6 +85,18 @@ const MB_MB_PCIE_DXE_POST_DATA = [
           [
             "0xd6",
             "No Console Output Devices found: Onboard ASPEED AST2500/AST2600 VGA disabled via jumper (VGA_SW1) or discrete GPU missing 12VHPWR/8-pin power"
+          ],
+          [
+            "0xd7",
+            "No Console Input Devices found: No USB keyboard or BMC virtual HID keyboard detected"
+          ],
+          [
+            "0xd8",
+            "Invalid password or corrupted UEFI NVRAM variable state"
+          ],
+          [
+            "0xB2",
+            "Legacy Option ROM Initialization: Hangs if an older RAID HBA/NIC tries to load a Legacy 16-bit OpROM when CSM is misconfigured"
           ]
         ],
         "tip": "Check onboard VGA_SW1 jumper on ASUS/GIGABYTE boards if halting at 0xd6!",
@@ -128,40 +118,6 @@ const MB_MB_PCIE_DXE_POST_DATA = [
           "console",
           "option-rom",
           "ast2600"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "pcie-dxe-post-flags-2",
-    "badge": "pci",
-    "title": "PCIe & DXE Codes: POST Hex Codes & Options",
-    "subtitle": "Key hex codes, parameters, and error indicators for Decode DXE error codes (`0xd0`–`0xd8`), missing VGA/Console (`0xd6`), and Option ROM hangs (`0xB2`)",
-    "commands": [
-      {
-        "id": "post-d0-d8-dxe-console-errors-flags-card",
-        "desc": "Hex code lookup and diagnostics breakdown for Decode DXE error codes (`0xd0`–`0xd8`), missing VGA/Console (`0xd6`), and Option ROM hangs (`0xB2`)",
-        "cmd": "POST 0xd6 (No Console Output / VGA)   |   POST 0xd7 (No Console Input)   |   POST 0xB2 (Legacy Option ROM)",
-        "flags": [
-          [
-            "0xd7",
-            "No Console Input Devices found: No USB keyboard or BMC virtual HID keyboard detected"
-          ],
-          [
-            "0xd8",
-            "Invalid password or corrupted UEFI NVRAM variable state"
-          ],
-          [
-            "0xB2",
-            "Legacy Option ROM Initialization: Hangs if an older RAID HBA/NIC tries to load a Legacy 16-bit OpROM when CSM is misconfigured"
-          ]
-        ],
-        "details": "Common operational and diagnostic POST / Q-Codes on ASUS and GIGABYTE server motherboards.",
-        "tags": [
-          "PCIe & DXE Codes",
-          "flags",
-          "options",
-          "syntax"
         ]
       }
     ]
@@ -189,6 +145,14 @@ const MB_MB_PCIE_DXE_POST_DATA = [
           [
             "0x68 / 0x69",
             "PCI Host Bridge initialization (68) and Northbridge / Intel IOH / AMD IOD SMM initialization (69)"
+          ],
+          [
+            "0x70 / 0x71 / 0x72",
+            "Southbridge DXE initialization started (70), Southbridge SMM initialization (71), and Southbridge devices init (72)"
+          ],
+          [
+            "0x78 / 0x79",
+            "ACPI module initialization (78) and CSM (Compatibility Support Module) initialization (79 — often hangs if GPU vBIOS is corrupted)"
           ]
         ],
         "tip": "Stuck at 0x61 = corrupted UEFI NVRAM (use CLRTC / CLR_CMOS jumper)",
@@ -212,36 +176,6 @@ const MB_MB_PCIE_DXE_POST_DATA = [
           "cmos",
           "acpi",
           "csm"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "pcie-dxe-post-flags-3",
-    "badge": "pci",
-    "title": "PCIe & DXE Codes: POST Hex Codes & Options",
-    "subtitle": "Key hex codes, parameters, and error indicators for Decode DXE Core, NVRAM, Northbridge/UPI, and Southbridge/PCH codes (`0x60`–`0x79`)",
-    "commands": [
-      {
-        "id": "post-60-79-dxe-core-pch-flags-card",
-        "desc": "Hex code lookup and diagnostics breakdown for Decode DXE Core, NVRAM, Northbridge/UPI, and Southbridge/PCH codes (`0x60`–`0x79`)",
-        "cmd": "POST 0x60 (DXE Core)  ->  0x61 (NVRAM)  ->  0x68 (PCI Host Bridge)  ->  0x70 (Southbridge)  ->  0x79 (CSM)",
-        "flags": [
-          [
-            "0x70 / 0x71 / 0x72",
-            "Southbridge DXE initialization started (70), Southbridge SMM initialization (71), and Southbridge devices init (72)"
-          ],
-          [
-            "0x78 / 0x79",
-            "ACPI module initialization (78) and CSM (Compatibility Support Module) initialization (79 — often hangs if GPU vBIOS is corrupted)"
-          ]
-        ],
-        "details": "Common operational and diagnostic POST / Q-Codes on ASUS and GIGABYTE server motherboards.",
-        "tags": [
-          "PCIe & DXE Codes",
-          "flags",
-          "options",
-          "syntax"
         ]
       }
     ]

@@ -24,6 +24,10 @@ const SRE_HELM_DATA = [
           [
             "show values <chart>",
             "Default values: start your values.yaml from these"
+          ],
+          [
+            "OCI",
+            "Many charts are OCI references: helm install x oci://registry/chart"
           ]
         ],
         "tip": "Pin --version on every install",
@@ -36,45 +40,7 @@ const SRE_HELM_DATA = [
           "values",
           "chart"
         ]
-      }
-    ]
-  },
-  {
-    "id": "helm-flags-1",
-    "badge": "helm",
-    "title": "Helm: More options",
-    "subtitle": "More options for: Add a chart repo and read its default values",
-    "commands": [
-      {
-        "id": "helm-repo-flags-card",
-        "desc": "More options and gotchas for: Add a chart repo and read its default values",
-        "cmd": "helm repo add prometheus-community https://prometheus-community.github.io/helm-charts && helm repo update",
-        "hideCode": false,
-        "flags": [
-          [
-            "OCI",
-            "Many charts are OCI references: helm install x oci://registry/chart"
-          ]
-        ],
-        "tags": [
-          "sre",
-          "devops",
-          "helm",
-          "flags",
-          "options",
-          "helm",
-          "repo",
-          "values"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "helm-recipes-1",
-    "badge": "helm",
-    "title": "Helm: Related commands",
-    "subtitle": "Related commands for: Add a chart repo and read its default values",
-    "commands": [
+      },
       {
         "id": "helm-repo-sub-1",
         "desc": "Available versions",
@@ -140,15 +106,7 @@ const SRE_HELM_DATA = [
           "diff",
           "render"
         ]
-      }
-    ]
-  },
-  {
-    "id": "helm-recipes-2",
-    "badge": "helm",
-    "title": "Helm: Related commands",
-    "subtitle": "Related commands for: Render and lint before installing",
-    "commands": [
+      },
       {
         "id": "helm-template-sub-1",
         "desc": "Install helm-diff (Helm 4 verifies plugin provenance)",
@@ -202,34 +160,7 @@ const SRE_HELM_DATA = [
           [
             "--force-replace",
             "Helm 4 name for --force"
-          ]
-        ],
-        "tip": "Old names (--atomic, --force) still work in Helm 4 with a warning",
-        "tags": [
-          "sre",
-          "devops",
-          "helm",
-          "upgrade",
-          "install",
-          "atomic",
-          "rollback-on-failure",
-          "helm4"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "helm-flags-3",
-    "badge": "helm",
-    "title": "Helm: More options",
-    "subtitle": "More options for: Install or upgrade, rolling back on failure",
-    "commands": [
-      {
-        "id": "helm-upgrade-flags-card",
-        "desc": "More options and gotchas for: Install or upgrade, rolling back on failure",
-        "cmd": "helm upgrade --install mon prometheus-community/kube-prometheus-stack -n monitoring --create-namespace -f values.yaml --version <chart-version> --rollback-on-failure",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "--wait / --timeout",
             "Wait for resources (default 5m)"
@@ -243,15 +174,16 @@ const SRE_HELM_DATA = [
             "Repeatable; the rightmost file wins"
           ]
         ],
+        "tip": "Old names (--atomic, --force) still work in Helm 4 with a warning",
         "tags": [
           "sre",
           "devops",
           "helm",
-          "flags",
-          "options",
           "upgrade",
           "install",
-          "atomic"
+          "atomic",
+          "rollback-on-failure",
+          "helm4"
         ]
       }
     ]
@@ -279,6 +211,14 @@ const SRE_HELM_DATA = [
           [
             "get values / get manifest",
             "What is deployed now"
+          ],
+          [
+            "rollback <release> <rev>",
+            "Go back to a revision (changes state)"
+          ],
+          [
+            "uninstall",
+            "Remove the release (changes state)"
           ]
         ],
         "tip": "history tells you which revision last worked",
@@ -291,49 +231,7 @@ const SRE_HELM_DATA = [
           "list",
           "get"
         ]
-      }
-    ]
-  },
-  {
-    "id": "helm-flags-4",
-    "badge": "helm",
-    "title": "Helm: More options",
-    "subtitle": "More options for: Release history and rollback",
-    "commands": [
-      {
-        "id": "helm-history-flags-card",
-        "desc": "More options and gotchas for: Release history and rollback",
-        "cmd": "helm history mon -n monitoring",
-        "hideCode": false,
-        "flags": [
-          [
-            "rollback <release> <rev>",
-            "Go back to a revision (changes state)"
-          ],
-          [
-            "uninstall",
-            "Remove the release (changes state)"
-          ]
-        ],
-        "tags": [
-          "sre",
-          "devops",
-          "helm",
-          "flags",
-          "options",
-          "history",
-          "rollback",
-          "list"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "helm-recipes-4",
-    "badge": "helm",
-    "title": "Helm: Related commands",
-    "subtitle": "Related commands for: Release history and rollback",
-    "commands": [
+      },
       {
         "id": "helm-history-sub-1",
         "desc": "Values in use",

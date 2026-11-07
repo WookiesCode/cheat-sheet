@@ -24,6 +24,10 @@ const SW_SW_QUANTUM_HW_SM_DATA = [
           [
             "show temperature",
             "Display Quantum switch ASIC junction temperature, board sensors, and thermal alarm thresholds"
+          ],
+          [
+            "show ib sm",
+            "Verify whether the switch's embedded InfiniBand Subnet Manager is enabled or disabled"
           ]
         ],
         "tip": "Only enable 'ib sm' on the switch if you do NOT have UFM or host-based OpenSM running!",
@@ -45,41 +49,7 @@ const SW_SW_QUANTUM_HW_SM_DATA = [
           "inventory",
           "version"
         ]
-      }
-    ]
-  },
-  {
-    "id": "quantum-mlnxos-hw-sm-flags-1",
-    "badge": "qsm",
-    "title": "Quantum: SM, UFM & HW: Flags & Options Reference",
-    "subtitle": "Key arguments, parameters, and filtering flags for Check Quantum switch PSUs, fan trays, ASIC temperatures, Subnet Manager (SM) status, and save configuration",
-    "commands": [
-      {
-        "id": "mlnxos-hardware-sm-config-flags-card",
-        "desc": "Options breakdown and parameter syntax for Check Quantum switch PSUs, fan trays, ASIC temperatures, Subnet Manager (SM) status, and save configuration",
-        "cmd": "show power && show fan && show temperature && show ib sm",
-        "flags": [
-          [
-            "show ib sm",
-            "Verify whether the switch's embedded InfiniBand Subnet Manager is enabled or disabled"
-          ]
-        ],
-        "details": "Common operational, diagnostic, and filtering arguments on production data center fabrics.",
-        "tags": [
-          "Quantum: SM, UFM & HW",
-          "flags",
-          "options",
-          "syntax"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "quantum-mlnxos-hw-sm-recipes-1",
-    "badge": "qsm",
-    "title": "Quantum: SM, UFM & HW: Common Recipes & Verification",
-    "subtitle": "Production CLI commands, transceivers & diagnostic workflows for Quantum: SM, UFM & HW",
-    "commands": [
+      },
       {
         "id": "mlnxos-hardware-sm-config-sub-1",
         "desc": "Display chassis serial number, part number (e.g., MQM9700-NS2F), MLNX-OS software version, and ASIC firmware",
@@ -115,8 +85,8 @@ const SW_SW_QUANTUM_HW_SM_DATA = [
       },
       {
         "id": "mlnxos-hardware-sm-config-sub-4",
-        "desc": "Inspect recent MLNX-OS system logs for port flaps, thermal alerts, PSU faults, or SM traps",
-        "cmd": "show logging | tail -n 50",
+        "desc": "Inspect recent MLNX-OS system logs for port flaps, thermal alerts, PSU faults, or SM traps (show logging shows the logging settings, not the log)",
+        "cmd": "show log",
         "tags": [
           "Quantum: SM, UFM & HW",
           "recipe",

@@ -24,6 +24,10 @@ const CTR_K8S_WORKLOADS_DATA = [
           [
             "-f <dir>/",
             "Apply every manifest in a directory"
+          ],
+          [
+            "--dry-run=server",
+            "Let the API server validate the change without saving it"
           ]
         ],
         "tip": "diff before apply",
@@ -39,46 +43,7 @@ const CTR_K8S_WORKLOADS_DATA = [
           "declarative",
           "dry-run"
         ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-workloads-flags-1",
-    "badge": "wl",
-    "title": "Kubernetes Workloads: More options",
-    "subtitle": "More options for: Preview what a manifest would change, then apply it",
-    "commands": [
-      {
-        "id": "kubectl-diff-apply-flags-card",
-        "desc": "More options and gotchas for: Preview what a manifest would change, then apply it",
-        "cmd": "kubectl diff -f <file>.yaml",
-        "hideCode": false,
-        "flags": [
-          [
-            "--dry-run=server",
-            "Let the API server validate the change without saving it"
-          ]
-        ],
-        "tags": [
-          "kubernetes",
-          "k8s",
-          "kubectl",
-          "containers",
-          "flags",
-          "options",
-          "apply",
-          "diff",
-          "manifest"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-workloads-recipes-1",
-    "badge": "wl",
-    "title": "Kubernetes Workloads: Related commands",
-    "subtitle": "Related commands for: Preview what a manifest would change, then apply it",
-    "commands": [
+      },
       {
         "id": "kubectl-diff-apply-sub-1",
         "desc": "Apply the manifest (changes state)",
@@ -134,6 +99,14 @@ const CTR_K8S_WORKLOADS_DATA = [
           [
             "requests",
             "What the scheduler reserves on a node (100m = 0.1 CPU core)"
+          ],
+          [
+            "limits.memory",
+            "Exceeding it gets the container OOMKilled"
+          ],
+          [
+            "Generate instead of typing",
+            "kubectl create deployment web --image=nginx:1.27 --dry-run=client -o yaml > web.yaml"
           ]
         ],
         "tip": "Labels connect Deployment → pods → Service",
@@ -148,41 +121,6 @@ const CTR_K8S_WORKLOADS_DATA = [
           "requests",
           "limits",
           "labels"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-workloads-flags-2",
-    "badge": "wl",
-    "title": "Kubernetes Workloads: More options",
-    "subtitle": "More options for: Minimal Deployment manifest with resource requests and limits",
-    "commands": [
-      {
-        "id": "deployment-yaml-example-flags-card",
-        "desc": "More options and gotchas for: Minimal Deployment manifest with resource requests and limits",
-        "cmd": "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: web\n  labels:\n    app: web\nspec:\n  replicas: 2\n  selector:\n    matchLabels:\n      app: web\n  template:\n    metadata:\n      labels:\n        app: web\n    spec:\n      containers:\n        - name: web\n          image: nginx:1.27\n          ports:\n            - containerPort: 80\n          resources:\n            requests:\n              cpu: 100m\n              memory: 128Mi\n            limits:\n              memory: 256Mi",
-        "hideCode": true,
-        "flags": [
-          [
-            "limits.memory",
-            "Exceeding it gets the container OOMKilled"
-          ],
-          [
-            "Generate instead of typing",
-            "kubectl create deployment web --image=nginx:1.27 --dry-run=client -o yaml > web.yaml"
-          ]
-        ],
-        "tags": [
-          "kubernetes",
-          "k8s",
-          "kubectl",
-          "containers",
-          "flags",
-          "options",
-          "deployment",
-          "yaml",
-          "manifest"
         ]
       }
     ]
@@ -210,6 +148,10 @@ const CTR_K8S_WORKLOADS_DATA = [
           [
             "rollout undo",
             "Go back to the previous revision (changes state)"
+          ],
+          [
+            "rollout restart",
+            "Recreate all pods one by one, e.g. to pick up a changed ConfigMap (changes state)"
           ]
         ],
         "tip": "rollout undo is your fast rollback",
@@ -225,46 +167,7 @@ const CTR_K8S_WORKLOADS_DATA = [
           "restart",
           "deployment"
         ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-workloads-flags-3",
-    "badge": "wl",
-    "title": "Kubernetes Workloads: More options",
-    "subtitle": "More options for: Watch a deployment roll out and check its history",
-    "commands": [
-      {
-        "id": "kubectl-rollout-flags-card",
-        "desc": "More options and gotchas for: Watch a deployment roll out and check its history",
-        "cmd": "kubectl rollout status deployment/<name> -n <ns> --timeout=120s",
-        "hideCode": false,
-        "flags": [
-          [
-            "rollout restart",
-            "Recreate all pods one by one, e.g. to pick up a changed ConfigMap (changes state)"
-          ]
-        ],
-        "tags": [
-          "kubernetes",
-          "k8s",
-          "kubectl",
-          "containers",
-          "flags",
-          "options",
-          "rollout",
-          "status",
-          "history"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-workloads-recipes-3",
-    "badge": "wl",
-    "title": "Kubernetes Workloads: Related commands",
-    "subtitle": "Related commands for: Watch a deployment roll out and check its history",
-    "commands": [
+      },
       {
         "id": "kubectl-rollout-sub-1",
         "desc": "List revisions",
@@ -348,15 +251,7 @@ const CTR_K8S_WORKLOADS_DATA = [
           "hpa",
           "deployment"
         ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-workloads-recipes-4",
-    "badge": "wl",
-    "title": "Kubernetes Workloads: Related commands",
-    "subtitle": "Related commands for: Change the number of replicas",
-    "commands": [
+      },
       {
         "id": "kubectl-scale-sub-1",
         "desc": "The Deployment, its ReplicaSets and pods together",
@@ -424,15 +319,7 @@ const CTR_K8S_WORKLOADS_DATA = [
           "cronjob",
           "batch"
         ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-workloads-recipes-5",
-    "badge": "wl",
-    "title": "Kubernetes Workloads: Related commands",
-    "subtitle": "Related commands for: Check batch Jobs and CronJobs",
-    "commands": [
+      },
       {
         "id": "kubectl-jobs-sub-1",
         "desc": "Logs from a Job's pod",

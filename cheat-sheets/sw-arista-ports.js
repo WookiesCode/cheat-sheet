@@ -42,15 +42,7 @@ const SW_SW_ARISTA_PORTS_DATA = [
           "nz",
           "phy"
         ]
-      }
-    ]
-  },
-  {
-    "id": "arista-ports-dom-recipes-1",
-    "badge": "eos",
-    "title": "Arista EOS: Ports & DOM: Common Recipes & Verification",
-    "subtitle": "Production CLI commands, transceivers & diagnostic workflows for Arista EOS: Ports & DOM",
-    "commands": [
+      },
       {
         "id": "arista-interfaces-dom-sub-1",
         "desc": "Filter out clean ports and display ONLY ports with non-zero physical error counters",

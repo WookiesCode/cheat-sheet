@@ -24,6 +24,14 @@ const CTR_DOCKER_CONTAINERS_DATA = [
           [
             "Status column",
             "'Up 3 hours' = running; 'Exited (137)' = killed (137 = 128 + signal 9, often the OOM killer); 'Exited (0)' = finished normally"
+          ],
+          [
+            "-q",
+            "Print only container IDs, useful for loops: docker ps -q"
+          ],
+          [
+            "--filter status=exited",
+            "Show only containers in one state (running, exited, restarting, paused)"
           ]
         ],
         "tip": "Exit 137 = SIGKILL, usually out of memory",
@@ -35,39 +43,6 @@ const CTR_DOCKER_CONTAINERS_DATA = [
           "status",
           "exited",
           "format"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "docker-containers-flags-1",
-    "badge": "run",
-    "title": "Docker Containers: More options",
-    "subtitle": "More options for: List all containers",
-    "commands": [
-      {
-        "id": "docker-ps-table-flags-card",
-        "desc": "More options and gotchas for: List all containers",
-        "cmd": "docker ps -a --format 'table {{.Names}}\\t{{.Image}}\\t{{.Status}}\\t{{.Ports}}'",
-        "hideCode": false,
-        "flags": [
-          [
-            "-q",
-            "Print only container IDs, useful for loops: docker ps -q"
-          ],
-          [
-            "--filter status=exited",
-            "Show only containers in one state (running, exited, restarting, paused)"
-          ]
-        ],
-        "tags": [
-          "docker",
-          "containers",
-          "flags",
-          "options",
-          "ps",
-          "list",
-          "status"
         ]
       }
     ]
@@ -95,34 +70,7 @@ const CTR_DOCKER_CONTAINERS_DATA = [
           [
             "--restart unless-stopped",
             "Restart after crashes and reboots, unless you stopped it yourself. Other values: no, on-failure[:N], always"
-          ]
-        ],
-        "tip": "Ports are host:container",
-        "tags": [
-          "docker",
-          "containers",
-          "run",
-          "start",
-          "detached",
-          "restart",
-          "port",
-          "publish"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "docker-containers-flags-2",
-    "badge": "run",
-    "title": "Docker Containers: More options",
-    "subtitle": "More options for: Run a container in the background with a name, a restart policy and a published port",
-    "commands": [
-      {
-        "id": "docker-run-detached-flags-card",
-        "desc": "More options and gotchas for: Run a container in the background with a name, a restart policy and a published port",
-        "cmd": "docker run -d --name <name> --restart unless-stopped -p 8080:80 <image>:<tag>",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "-p 8080:80",
             "Publish container port 80 on host port 8080 (host:container order)"
@@ -136,24 +84,18 @@ const CTR_DOCKER_CONTAINERS_DATA = [
             "Set environment variables"
           ]
         ],
+        "tip": "Ports are host:container",
         "tags": [
           "docker",
           "containers",
-          "flags",
-          "options",
           "run",
           "start",
-          "detached"
+          "detached",
+          "restart",
+          "port",
+          "publish"
         ]
-      }
-    ]
-  },
-  {
-    "id": "docker-containers-recipes-2",
-    "badge": "run",
-    "title": "Docker Containers: Related commands",
-    "subtitle": "Related commands for: Run a container in the background with a name, a restart policy and a published port",
-    "commands": [
+      },
       {
         "id": "docker-run-detached-sub-1",
         "desc": "Throwaway interactive container: gone as soon as you exit the shell",
@@ -244,6 +186,10 @@ const CTR_DOCKER_CONTAINERS_DATA = [
           [
             "--since 30m",
             "Only lines from the last 30 minutes (also accepts a timestamp like 2026-11-06T12:00)"
+          ],
+          [
+            "-f",
+            "Follow new lines live (Ctrl+C to stop)"
           ]
         ],
         "tip": "Apps often log to stderr: add 2>&1 before grep",
@@ -256,44 +202,7 @@ const CTR_DOCKER_CONTAINERS_DATA = [
           "stderr",
           "timestamps"
         ]
-      }
-    ]
-  },
-  {
-    "id": "docker-containers-flags-3",
-    "badge": "run",
-    "title": "Docker Containers: More options",
-    "subtitle": "More options for: Read the last 200 log lines of a container with timestamps",
-    "commands": [
-      {
-        "id": "docker-logs-tail-flags-card",
-        "desc": "More options and gotchas for: Read the last 200 log lines of a container with timestamps",
-        "cmd": "docker logs --tail 200 --timestamps <container>",
-        "hideCode": false,
-        "flags": [
-          [
-            "-f",
-            "Follow new lines live (Ctrl+C to stop)"
-          ]
-        ],
-        "tags": [
-          "docker",
-          "containers",
-          "flags",
-          "options",
-          "logs",
-          "tail",
-          "follow"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "docker-containers-recipes-3",
-    "badge": "run",
-    "title": "Docker Containers: Related commands",
-    "subtitle": "Related commands for: Read the last 200 log lines of a container with timestamps",
-    "commands": [
+      },
       {
         "id": "docker-logs-tail-sub-1",
         "desc": "Errors from the last 30 minutes. 2>&1 merges stderr, where many apps write errors",
@@ -345,6 +254,10 @@ const CTR_DOCKER_CONTAINERS_DATA = [
           [
             "sh vs bash",
             "Slim images often have no bash. Try sh if bash gives 'executable file not found'"
+          ],
+          [
+            "-u 0",
+            "Run as root inside the container, for debugging an image that drops privileges"
           ]
         ],
         "tip": "No bash? Use sh",
@@ -357,44 +270,7 @@ const CTR_DOCKER_CONTAINERS_DATA = [
           "bash",
           "interactive"
         ]
-      }
-    ]
-  },
-  {
-    "id": "docker-containers-flags-4",
-    "badge": "run",
-    "title": "Docker Containers: More options",
-    "subtitle": "More options for: Run a command inside a running container, or open a shell in it",
-    "commands": [
-      {
-        "id": "docker-exec-shell-flags-card",
-        "desc": "More options and gotchas for: Run a command inside a running container, or open a shell in it",
-        "cmd": "docker exec <container> cat /etc/os-release",
-        "hideCode": false,
-        "flags": [
-          [
-            "-u 0",
-            "Run as root inside the container, for debugging an image that drops privileges"
-          ]
-        ],
-        "tags": [
-          "docker",
-          "containers",
-          "flags",
-          "options",
-          "exec",
-          "shell",
-          "sh"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "docker-containers-recipes-4",
-    "badge": "run",
-    "title": "Docker Containers: Related commands",
-    "subtitle": "Related commands for: Run a command inside a running container, or open a shell in it",
-    "commands": [
+      },
       {
         "id": "docker-exec-shell-sub-1",
         "desc": "Interactive shell inside the container (exit with Ctrl+D)",
@@ -446,6 +322,10 @@ const CTR_DOCKER_CONTAINERS_DATA = [
           [
             "oom=true",
             "The kernel's OOM killer stopped it: raise the memory limit or fix the leak. Confirm with dmesg -T | grep -i oom"
+          ],
+          [
+            "restarts=N rising",
+            "The restart policy keeps bringing it back: a crash loop. Read docker logs from just before each restart"
           ]
         ],
         "tip": "Exited + oom=true → memory limit",
@@ -460,44 +340,7 @@ const CTR_DOCKER_CONTAINERS_DATA = [
           "stats",
           "debug"
         ]
-      }
-    ]
-  },
-  {
-    "id": "docker-containers-flags-5",
-    "badge": "run",
-    "title": "Docker Containers: More options",
-    "subtitle": "More options for: Find out why a container stopped: state, exit code, OOM kill and restart count",
-    "commands": [
-      {
-        "id": "docker-inspect-state-flags-card",
-        "desc": "More options and gotchas for: Find out why a container stopped: state, exit code, OOM kill and restart count",
-        "cmd": "docker inspect <container> --format '{{.State.Status}} exit={{.State.ExitCode}} oom={{.State.OOMKilled}} restarts={{.RestartCount}}'",
-        "hideCode": false,
-        "flags": [
-          [
-            "restarts=N rising",
-            "The restart policy keeps bringing it back: a crash loop. Read docker logs from just before each restart"
-          ]
-        ],
-        "tags": [
-          "docker",
-          "containers",
-          "flags",
-          "options",
-          "inspect",
-          "state",
-          "exitcode"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "docker-containers-recipes-5",
-    "badge": "run",
-    "title": "Docker Containers: Related commands",
-    "subtitle": "Related commands for: Find out why a container stopped: state, exit code, OOM kill and restart count",
-    "commands": [
+      },
       {
         "id": "docker-inspect-state-sub-1",
         "desc": "Which host paths and volumes are mounted, via jq",

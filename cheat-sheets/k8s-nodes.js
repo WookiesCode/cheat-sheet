@@ -24,6 +24,10 @@ const CTR_K8S_NODES_DATA = [
           [
             "VERSION",
             "kubelet version"
+          ],
+          [
+            "CONTAINER-RUNTIME",
+            "Usually containerd://<version>"
           ]
         ],
         "tip": "NotReady = kubelet stopped reporting",
@@ -38,46 +42,7 @@ const CTR_K8S_NODES_DATA = [
           "describe",
           "wide"
         ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-nodes-flags-1",
-    "badge": "node",
-    "title": "Kubernetes Nodes & Maintenance: More options",
-    "subtitle": "More options for: List nodes with status, version, OS and container runtime",
-    "commands": [
-      {
-        "id": "kubectl-nodes-wide-flags-card",
-        "desc": "More options and gotchas for: List nodes with status, version, OS and container runtime",
-        "cmd": "kubectl get nodes -o wide",
-        "hideCode": false,
-        "flags": [
-          [
-            "CONTAINER-RUNTIME",
-            "Usually containerd://<version>"
-          ]
-        ],
-        "tags": [
-          "kubernetes",
-          "k8s",
-          "kubectl",
-          "containers",
-          "flags",
-          "options",
-          "nodes",
-          "ready",
-          "notready"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-nodes-recipes-1",
-    "badge": "node",
-    "title": "Kubernetes Nodes & Maintenance: Related commands",
-    "subtitle": "Related commands for: List nodes with status, version, OS and container runtime",
-    "commands": [
+      },
       {
         "id": "kubectl-nodes-wide-sub-1",
         "desc": "Conditions, capacity, allocated resources, taints and recent events",
@@ -133,6 +98,18 @@ const CTR_K8S_NODES_DATA = [
           [
             "--ignore-daemonsets",
             "DaemonSet pods (CNI, GPU operator, monitoring) are meant to run everywhere and are left alone"
+          ],
+          [
+            "--delete-emptydir-data",
+            "Allow evicting pods with emptyDir volumes; that scratch data is lost"
+          ],
+          [
+            "PodDisruptionBudget errors",
+            "Drain waits rather than break an app's minimum availability; don't --force past it without the app owner"
+          ],
+          [
+            "kubectl uncordon <node>",
+            "Put the node back into service after the work"
           ]
         ],
         "tip": "Approval first; check the active context",
@@ -148,54 +125,7 @@ const CTR_K8S_NODES_DATA = [
           "pdb",
           "rma"
         ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-nodes-flags-2",
-    "badge": "node",
-    "title": "Kubernetes Nodes & Maintenance: More options",
-    "subtitle": "More options for: Take a node out of service for hardware work: cordon, then drain",
-    "commands": [
-      {
-        "id": "kubectl-cordon-drain-flags-card",
-        "desc": "More options and gotchas for: Take a node out of service for hardware work: cordon, then drain",
-        "cmd": "kubectl drain <node> --ignore-daemonsets --delete-emptydir-data --timeout=10m",
-        "hideCode": false,
-        "flags": [
-          [
-            "--delete-emptydir-data",
-            "Allow evicting pods with emptyDir volumes; that scratch data is lost"
-          ],
-          [
-            "PodDisruptionBudget errors",
-            "Drain waits rather than break an app's minimum availability; don't --force past it without the app owner"
-          ],
-          [
-            "kubectl uncordon <node>",
-            "Put the node back into service after the work"
-          ]
-        ],
-        "tags": [
-          "kubernetes",
-          "k8s",
-          "kubectl",
-          "containers",
-          "flags",
-          "options",
-          "drain",
-          "cordon",
-          "uncordon"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-nodes-recipes-2",
-    "badge": "node",
-    "title": "Kubernetes Nodes & Maintenance: Related commands",
-    "subtitle": "Related commands for: Take a node out of service for hardware work: cordon, then drain",
-    "commands": [
+      },
       {
         "id": "kubectl-cordon-drain-sub-1",
         "desc": "Mark unschedulable (changes state)",
@@ -266,6 +196,10 @@ const CTR_K8S_NODES_DATA = [
           [
             "key=value:NoSchedule- (trailing dash)",
             "Removes that taint"
+          ],
+          [
+            "--show-labels",
+            "kubectl get nodes --show-labels lists every label"
           ]
         ],
         "tip": "Trailing dash removes a taint",
@@ -279,46 +213,7 @@ const CTR_K8S_NODES_DATA = [
           "label",
           "noschedule"
         ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-nodes-flags-3",
-    "badge": "node",
-    "title": "Kubernetes Nodes & Maintenance: More options",
-    "subtitle": "More options for: Show a node's taints and labels",
-    "commands": [
-      {
-        "id": "kubectl-taints-labels-flags-card",
-        "desc": "More options and gotchas for: Show a node's taints and labels",
-        "cmd": "kubectl get node <node> -o jsonpath='{.spec.taints}'",
-        "hideCode": false,
-        "flags": [
-          [
-            "--show-labels",
-            "kubectl get nodes --show-labels lists every label"
-          ]
-        ],
-        "tags": [
-          "kubernetes",
-          "k8s",
-          "kubectl",
-          "containers",
-          "flags",
-          "options",
-          "taint",
-          "toleration",
-          "label"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-nodes-recipes-3",
-    "badge": "node",
-    "title": "Kubernetes Nodes & Maintenance: Related commands",
-    "subtitle": "Related commands for: Show a node's taints and labels",
-    "commands": [
+      },
       {
         "id": "kubectl-taints-labels-sub-1",
         "desc": "All node labels",
@@ -389,6 +284,10 @@ const CTR_K8S_NODES_DATA = [
           [
             "crictl ps -a",
             "Containers including exited ones, with their pod names"
+          ],
+          [
+            "cgroup v2",
+            "stat -fc %T /sys/fs/cgroup must print cgroup2fs; kubelet 1.37 refuses cgroup v1 by default"
           ]
         ],
         "tip": "API down? crictl on the node still works",
@@ -404,46 +303,7 @@ const CTR_K8S_NODES_DATA = [
           "cgroup",
           "node"
         ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-nodes-flags-4",
-    "badge": "node",
-    "title": "Kubernetes Nodes & Maintenance: More options",
-    "subtitle": "More options for: On the node itself: kubelet logs and containers via crictl",
-    "commands": [
-      {
-        "id": "node-kubelet-crictl-flags-card",
-        "desc": "More options and gotchas for: On the node itself: kubelet logs and containers via crictl",
-        "cmd": "journalctl -u kubelet --since '30 min ago' --no-pager",
-        "hideCode": false,
-        "flags": [
-          [
-            "cgroup v2",
-            "stat -fc %T /sys/fs/cgroup must print cgroup2fs; kubelet 1.37 refuses cgroup v1 by default"
-          ]
-        ],
-        "tags": [
-          "kubernetes",
-          "k8s",
-          "kubectl",
-          "containers",
-          "flags",
-          "options",
-          "kubelet",
-          "crictl",
-          "containerd"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-nodes-recipes-4",
-    "badge": "node",
-    "title": "Kubernetes Nodes & Maintenance: Related commands",
-    "subtitle": "Related commands for: On the node itself: kubelet logs and containers via crictl",
-    "commands": [
+      },
       {
         "id": "node-kubelet-crictl-sub-1",
         "desc": "Are kubelet and containerd running",

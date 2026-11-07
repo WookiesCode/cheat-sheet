@@ -41,15 +41,7 @@ const SW_SW_CUMULUS_BONDS_DATA = [
           "trunk",
           "access"
         ]
-      }
-    ]
-  },
-  {
-    "id": "cumulus-bonds-recipes-1",
-    "badge": "lcp",
-    "title": "Cumulus: MLAG Bonds & VLAN: Common Recipes & Verification",
-    "subtitle": "Production CLI commands, transceivers & diagnostic workflows for Cumulus: MLAG Bonds & VLAN",
-    "commands": [
+      },
       {
         "id": "nvue-bond-mlag-vlan-sub-1",
         "desc": "Inspect raw Linux kernel 802.3ad LACP partner MAC, aggregator ID, and link failure counters for bond1",

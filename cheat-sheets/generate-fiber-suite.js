@@ -2,6 +2,7 @@
 // Generates all 4 standalone Fiber Optics cheat sheets and updates the Fiber dropdown across all HTML sheets.
 const fs = require('fs');
 const path = require('path');
+const { mergeCommandCards } = require('./generate-card-utils');
 
 // 1. Read fiber.js to extract FIBER_CHEAT_SHEET_DATA
 const foJs = fs.readFileSync(path.join(__dirname, 'fiber.js'), 'utf8');
@@ -217,7 +218,7 @@ function buildFoSectionCards(sec) {
     });
   }
 
-  return cards;
+  return mergeCommandCards(cards);
 }
 
 // 6. Generate JS file for each Fiber sub-sheet

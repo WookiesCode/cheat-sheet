@@ -24,6 +24,10 @@ const ED_VSCODE_DATA = [
           [
             "Ctrl+,",
             "Settings"
+          ],
+          [
+            "Ctrl+K Ctrl+S",
+            "Keyboard Shortcuts editor (a chord: press Ctrl+K, release, then Ctrl+S)"
           ]
         ],
         "tip": "Forgot a key? Search the palette",
@@ -35,36 +39,6 @@ const ED_VSCODE_DATA = [
           "quick open",
           "settings",
           "shortcuts"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "vscode-flags-1",
-    "badge": "code",
-    "title": "VS Code: More options",
-    "subtitle": "More options for: Command Palette and Quick Open: find any command or file",
-    "commands": [
-      {
-        "id": "vscode-palette-flags-card",
-        "desc": "More options and gotchas for: Command Palette and Quick Open: find any command or file",
-        "cmd": "Ctrl+Shift+P  ·  Ctrl+P",
-        "hideCode": false,
-        "flags": [
-          [
-            "Ctrl+K Ctrl+S",
-            "Keyboard Shortcuts editor (a chord: press Ctrl+K, release, then Ctrl+S)"
-          ]
-        ],
-        "tags": [
-          "editor",
-          "editors",
-          "vscode",
-          "flags",
-          "options",
-          "command palette",
-          "quick open",
-          "settings"
         ]
       }
     ]
@@ -92,34 +66,7 @@ const ED_VSCODE_DATA = [
           [
             "Ctrl+Shift+E",
             "Explorer"
-          ]
-        ],
-        "tip": "Ctrl+` keeps a shell one key away",
-        "tags": [
-          "editor",
-          "editors",
-          "vscode",
-          "sidebar",
-          "terminal",
-          "explorer",
-          "search",
-          "git"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "vscode-flags-2",
-    "badge": "code",
-    "title": "VS Code: More options",
-    "subtitle": "More options for: Show and hide the panels",
-    "commands": [
-      {
-        "id": "vscode-panels-flags-card",
-        "desc": "More options and gotchas for: Show and hide the panels",
-        "cmd": "Ctrl+B  ·  Ctrl+`",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "Ctrl+Shift+F / Ctrl+Shift+H",
             "Search / replace across files"
@@ -133,15 +80,16 @@ const ED_VSCODE_DATA = [
             "Extensions"
           ]
         ],
+        "tip": "Ctrl+` keeps a shell one key away",
         "tags": [
           "editor",
           "editors",
           "vscode",
-          "flags",
-          "options",
           "sidebar",
           "terminal",
-          "explorer"
+          "explorer",
+          "search",
+          "git"
         ]
       }
     ]
@@ -169,33 +117,7 @@ const ED_VSCODE_DATA = [
           [
             "F2",
             "Rename a symbol everywhere"
-          ]
-        ],
-        "tip": "F12 in, Ctrl+Alt+- back",
-        "tags": [
-          "editor",
-          "editors",
-          "vscode",
-          "definition",
-          "symbol",
-          "rename",
-          "go to line"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "vscode-flags-3",
-    "badge": "code",
-    "title": "VS Code: More options",
-    "subtitle": "More options for: Move through code: definitions, symbols, lines",
-    "commands": [
-      {
-        "id": "vscode-navigate-flags-card",
-        "desc": "More options and gotchas for: Move through code: definitions, symbols, lines",
-        "cmd": "F12  ·  Ctrl+Shift+O  ·  Ctrl+G",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "Ctrl+Shift+O",
             "Go to a symbol in this file"
@@ -209,15 +131,15 @@ const ED_VSCODE_DATA = [
             "Go to line"
           ]
         ],
+        "tip": "F12 in, Ctrl+Alt+- back",
         "tags": [
           "editor",
           "editors",
           "vscode",
-          "flags",
-          "options",
           "definition",
           "symbol",
-          "rename"
+          "rename",
+          "go to line"
         ]
       }
     ]
@@ -245,34 +167,7 @@ const ED_VSCODE_DATA = [
           [
             "Shift+Alt+Up / Down",
             "Add a cursor above / below (Linux; Ctrl+Alt on Windows)"
-          ]
-        ],
-        "tip": "Ctrl+D is the fastest bulk rename",
-        "tags": [
-          "editor",
-          "editors",
-          "vscode",
-          "multi-cursor",
-          "select",
-          "move line",
-          "comment",
-          "format"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "vscode-flags-4",
-    "badge": "code",
-    "title": "VS Code: More options",
-    "subtitle": "More options for: Multi-cursor and line editing",
-    "commands": [
-      {
-        "id": "vscode-multicursor-flags-card",
-        "desc": "More options and gotchas for: Multi-cursor and line editing",
-        "cmd": "Ctrl+D  ·  Shift+Alt+Down",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "Alt+Up / Down",
             "Move the line up / down"
@@ -290,15 +185,16 @@ const ED_VSCODE_DATA = [
             "Format the document (Linux; Shift+Alt+F on Windows)"
           ]
         ],
+        "tip": "Ctrl+D is the fastest bulk rename",
         "tags": [
           "editor",
           "editors",
           "vscode",
-          "flags",
-          "options",
           "multi-cursor",
           "select",
-          "move line"
+          "move line",
+          "comment",
+          "format"
         ]
       }
     ]
@@ -364,6 +260,18 @@ const ED_VSCODE_DATA = [
           [
             "-r / --reuse-window",
             "Use the window that is already open"
+          ],
+          [
+            "-n / --new-window",
+            "Force a new window"
+          ],
+          [
+            "-d / --diff A B",
+            "Side-by-side diff of two files"
+          ],
+          [
+            "-w / --wait",
+            "Return only when the file is closed (needed as a git editor)"
           ]
         ],
         "tip": "core.editor needs --wait",
@@ -378,53 +286,7 @@ const ED_VSCODE_DATA = [
           "git",
           "extensions"
         ]
-      }
-    ]
-  },
-  {
-    "id": "vscode-flags-6",
-    "badge": "code",
-    "title": "VS Code: More options",
-    "subtitle": "More options for: The code command: open, jump to a line, diff",
-    "commands": [
-      {
-        "id": "vscode-cli-flags-card",
-        "desc": "More options and gotchas for: The code command: open, jump to a line, diff",
-        "cmd": "code -r -g /etc/netplan/50-cloud-init.yaml:12",
-        "hideCode": false,
-        "flags": [
-          [
-            "-n / --new-window",
-            "Force a new window"
-          ],
-          [
-            "-d / --diff A B",
-            "Side-by-side diff of two files"
-          ],
-          [
-            "-w / --wait",
-            "Return only when the file is closed (needed as a git editor)"
-          ]
-        ],
-        "tags": [
-          "editor",
-          "editors",
-          "vscode",
-          "flags",
-          "options",
-          "code",
-          "cli",
-          "diff"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "vscode-recipes-6",
-    "badge": "code",
-    "title": "VS Code: Related commands",
-    "subtitle": "Related commands for: The code command: open, jump to a line, diff",
-    "commands": [
+      },
       {
         "id": "vscode-cli-sub-1",
         "desc": "Compare two configs",
@@ -506,6 +368,14 @@ const ED_VSCODE_DATA = [
           [
             "ProxyJump jumpbox",
             "Reach lab nodes through the jumpbox without extra tunnels"
+          ],
+          [
+            "code --remote ssh-remote+HOST /path",
+            "The same from the command line"
+          ],
+          [
+            "code tunnel",
+            "Alternative when inbound SSH is blocked: the machine connects out (needs sign-in)"
           ]
         ],
         "tip": "Define hosts in ~/.ssh/config once",
@@ -518,40 +388,6 @@ const ED_VSCODE_DATA = [
           "remote-ssh",
           "tunnel",
           "jumpbox"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "vscode-flags-7",
-    "badge": "code",
-    "title": "VS Code: More options",
-    "subtitle": "More options for: Edit files on a server over SSH",
-    "commands": [
-      {
-        "id": "vscode-remote-flags-card",
-        "desc": "More options and gotchas for: Edit files on a server over SSH",
-        "cmd": "Ctrl+Shift+P → Remote-SSH: Connect to Host...",
-        "hideCode": false,
-        "flags": [
-          [
-            "code --remote ssh-remote+HOST /path",
-            "The same from the command line"
-          ],
-          [
-            "code tunnel",
-            "Alternative when inbound SSH is blocked: the machine connects out (needs sign-in)"
-          ]
-        ],
-        "tags": [
-          "editor",
-          "editors",
-          "vscode",
-          "flags",
-          "options",
-          "remote",
-          "ssh",
-          "remote-ssh"
         ]
       }
     ]

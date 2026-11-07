@@ -42,15 +42,7 @@ const SW_SW_CUMULUS_BGP_DATA = [
           "ecn",
           "qos"
         ]
-      }
-    ]
-  },
-  {
-    "id": "cumulus-bgp-roce-recipes-1",
-    "badge": "bgp",
-    "title": "Cumulus: BGP, EVPN & RoCEv2: Common Recipes & Verification",
-    "subtitle": "Production CLI commands, transceivers & diagnostic workflows for Cumulus: BGP, EVPN & RoCEv2",
-    "commands": [
+      },
       {
         "id": "nvue-bgp-roce-qos-sub-1",
         "desc": "Display the IPv6 Routing Information Base (RIB) and ECMP next-hops (often link-local fe80:: via BGP Unnumbered)",
