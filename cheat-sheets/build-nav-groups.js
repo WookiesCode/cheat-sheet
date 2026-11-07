@@ -48,12 +48,15 @@ const SUITES = {
   switches: { id: 'switches-nav-dropdown', gen: ['generate-switches-suite.js', 'SW_NAVBAR_SNIPPET'] },
   redfish: { id: 'redfish-nav-dropdown', gen: ['generate-redfish-suite.js', 'RF_NAVBAR_SNIPPET'] },
   ipmi: { id: 'ipmi-nav-dropdown', gen: ['generate-ipmi-suite.js', 'IPMI_NAVBAR_SNIPPET'] },
+  bmctools: { id: 'bmctools-nav-dropdown' },
   nvidia: { id: 'nvidia-nav-dropdown', gen: ['generate-nvidia-suite.js', 'NVIDIA_NAVBAR_SNIPPET'] },
   motherboards: { id: 'motherboards-nav-dropdown', gen: ['generate-motherboards-suite.js', 'MB_NAVBAR_SNIPPET'] },
+  hwref: { id: 'hwref-nav-dropdown' },
   // No hub page: the hardware-inventory sheets the Linux generator writes, filed under Hardware.
   internals: { name: 'Server internals', label: 'inventory, PCIe, ECC, NVMe', logo: svgIcon('hw', 'ng-logo'), take: ['dmi-hw.html', 'pcie-numa.html', 'ecc-edac.html', 'nvme-smart.html'] },
   containers: { id: 'containers-nav-dropdown' },
   grafana: { id: 'grafana-nav-dropdown' },
+  sre: { id: 'sre-nav-dropdown' },
   jira: { link: 'jira.html', name: 'Jira', logo: JIRA_LOGO.replace('class="nav-logo"', 'class="ng-logo"'), label: 'JQL: tickets per server, rack, RMA' }
 };
 
@@ -61,9 +64,9 @@ const TABS = [
   { key: 'os', label: 'Operating Systems', href: 'linux.html', cols: [['linux'], ['macos', 'omarchy'], ['windows']] },
   { key: 'editors', label: 'Editors', href: 'editors.html', cols: [['neovim'], ['editors']] },
   { key: 'net', label: 'Networking', href: 'infiniband.html', cols: [['infiniband'], ['ethernet', 'fiber'], ['switches']] },
-  { key: 'remote', label: 'Remote Management', href: 'redfish.html', cols: [['redfish'], ['ipmi']] },
-  { key: 'hw', label: 'Hardware', href: 'motherboards.html', cols: [['nvidia'], ['motherboards', 'internals']] },
-  { key: 'devops', label: 'DevOps', href: 'containers.html', cols: [['containers'], ['grafana', 'jira']] }
+  { key: 'remote', label: 'Remote Management', href: 'redfish.html', cols: [['redfish'], ['ipmi'], ['bmctools']] },
+  { key: 'hw', label: 'Hardware', href: 'motherboards.html', cols: [['nvidia'], ['motherboards', 'internals'], ['hwref']] },
+  { key: 'devops', label: 'DevOps', href: 'containers.html', cols: [['containers'], ['grafana', 'jira'], ['sre']] }
 ];
 // Top-level order; strings are tabs, { id } are menus kept as they are.
 const ORDER = ['home', 'os', 'editors', { id: 'cli-nav-dropdown' }, { id: 'scripting-nav-dropdown' }, 'net', 'remote', 'hw', 'devops'];

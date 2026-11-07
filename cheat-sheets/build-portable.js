@@ -43,7 +43,7 @@ const SHEETS_CONFIG = [
 
 // The entries above carry hand-written labels. Every other sheet is discovered from
 // disk, so a new page is embedded without touching this list.
-const isTooling = f => /^(build-|generate-|create-)/.test(f) || f === 'common.js' || f === 'global-search-index.js' || f === 'man-pages-data.js';
+const isTooling = f => /^(build-|generate-|create-)/.test(f) || f === 'common.js' || f === 'global-search-index.js' || f === 'man-pages-data.js' || f === 'flag-index.js';
 const decodeEntities = text => text
   .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"')
   .replace(/&#0?39;/g, "'").replace(/&amp;/g, '&');
@@ -140,6 +140,8 @@ const manIndex = {
   missing: manData.missing
 };
 const manPayload = JSON.stringify(manData).replace(/</g, '\\u003c');
+// 4d. Flag index for "Explain a command" (build-index.js writes it).
+const flagPayload = fs.readFileSync(path.join(__dirname, 'flag-index.js'), 'utf8').replace(/^[\s\S]*?window\.FLAG_INDEX = /, '').replace(/;\s*$/, '').replace(/</g, '\\u003c');
 
 // 5. Build Portable HTML
 const portableHtml = `<!DOCTYPE html>
@@ -264,6 +266,7 @@ ${escapeScriptClose(globalSearchIndexJs)}
   <!-- Embedded Datasets for Every Sheet -->
   <script type="application/json" id="portable-widget-pages">${widgetPayload}</script>
   <script type="application/json" id="portable-man-pages">${manPayload}</script>
+  <script type="application/json" id="portable-flag-index">${flagPayload}</script>
   <script>
 window.PORTABLE_SHEETS = ${JSON.stringify(SHEETS_CONFIG, null, 2)};
 window.PORTABLE_MAN_INDEX = ${JSON.stringify(manIndex)};
