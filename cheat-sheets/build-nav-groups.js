@@ -30,6 +30,7 @@ const ICON = {
   net: '<circle cx="12" cy="5" r="2.2"/><circle cx="5" cy="19" r="2.2"/><circle cx="19" cy="19" r="2.2"/><path d="M12 7.2v4.3M12 11.5l-5.6 5.6M12 11.5l5.6 5.6"/>',
   remote: '<rect x="3" y="3.5" width="18" height="7" rx="1.5"/><rect x="3" y="13.5" width="18" height="7" rx="1.5"/><path d="M7 7h.01M7 17h.01M11 7h6M11 17h6"/>',
   hw: '<rect x="6" y="6" width="12" height="12" rx="1.5"/><rect x="9.5" y="9.5" width="5" height="5"/><path d="M9 2.5v3.5M15 2.5v3.5M9 18v3.5M15 18v3.5M2.5 9h3.5M2.5 15h3.5M18 9h3.5M18 15h3.5"/>',
+  tickets: '<path d="M3 9V7.5A1.5 1.5 0 0 1 4.5 6h15A1.5 1.5 0 0 1 21 7.5V9a2.5 2.5 0 0 0 0 5v1.5a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 15.5V14a2.5 2.5 0 0 0 0-5z"/><path d="M14.5 6v2M14.5 10.5v2M14.5 15v2"/>',
   devops: '<path d="M6.5 8.5c-2 0-3.5 1.6-3.5 3.5s1.5 3.5 3.5 3.5c3.5 0 7.5-7 11-7 2 0 3.5 1.6 3.5 3.5s-1.5 3.5-3.5 3.5c-3.5 0-7.5-7-11-7z"/>'
 };
 const svgIcon = (k, cls) => `<svg class="${cls}" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON[k]}</svg>`;
@@ -66,10 +67,12 @@ const TABS = [
   { key: 'net', label: 'Networking', href: 'infiniband.html', cols: [['infiniband'], ['ethernet', 'fiber'], ['switches']] },
   { key: 'remote', label: 'Remote Management', href: 'redfish.html', cols: [['redfish'], ['ipmi'], ['bmctools']] },
   { key: 'hw', label: 'Hardware', href: 'motherboards.html', cols: [['nvidia'], ['motherboards', 'internals'], ['hwref']] },
-  { key: 'devops', label: 'DevOps', href: 'containers.html', cols: [['containers'], ['grafana', 'jira'], ['sre']] }
+  { key: 'devops', label: 'DevOps', href: 'containers.html', cols: [['containers'], ['grafana'], ['sre']] },
+  // Jira is a ticketing system, not DevOps: its own tab, with room for other ticketing tools.
+  { key: 'tickets', label: 'Ticketing', href: 'jira.html', cols: [['jira']] }
 ];
 // Top-level order; strings are tabs, { id } are menus kept as they are.
-const ORDER = ['home', 'os', 'editors', { id: 'cli-nav-dropdown' }, { id: 'scripting-nav-dropdown' }, 'net', 'remote', 'hw', 'devops'];
+const ORDER = ['home', 'os', 'editors', { id: 'cli-nav-dropdown' }, { id: 'scripting-nav-dropdown' }, 'net', 'remote', 'hw', 'devops', 'tickets'];
 
 // ---- parsing -------------------------------------------------------------
 function balancedDivEnd(s, start) {
@@ -206,6 +209,7 @@ for (const file of fs.readdirSync(__dirname).filter(f => f.endsWith('.html') && 
   const rendered = Object.fromEntries(Object.entries(groups).map(([k, g]) => [k, groupHtml(k, g)]));
 
   byHref('index.html');
+  byHref('notes.html');   // retired Notes tab: recognise it so it is removed, not kept as unknown
   const out = [];
   for (const slot of ORDER) {
     if (slot === 'home') out.push(HOME_LINK);
