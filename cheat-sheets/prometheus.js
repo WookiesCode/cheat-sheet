@@ -24,6 +24,14 @@ const SRE_PROMETHEUS_DATA = [
           [
             "--lint=all",
             "Extra checks (duplicate rules, too-long scrape interval)"
+          ],
+          [
+            "--lint-fatal",
+            "Make lint findings fail the check (for CI)"
+          ],
+          [
+            "test rules <test.yml>",
+            "Unit-test alerting rules against fake series"
           ]
         ],
         "tip": "Run check config in CI so a typo never reaches the server",
@@ -37,49 +45,7 @@ const SRE_PROMETHEUS_DATA = [
           "rules",
           "ci"
         ]
-      }
-    ]
-  },
-  {
-    "id": "prometheus-flags-1",
-    "badge": "prometheus",
-    "title": "Prometheus: More options",
-    "subtitle": "More options for: Validate the config and rule files before reloading",
-    "commands": [
-      {
-        "id": "prom-check-flags-card",
-        "desc": "More options and gotchas for: Validate the config and rule files before reloading",
-        "cmd": "promtool check config /etc/prometheus/prometheus.yml",
-        "hideCode": false,
-        "flags": [
-          [
-            "--lint-fatal",
-            "Make lint findings fail the check (for CI)"
-          ],
-          [
-            "test rules <test.yml>",
-            "Unit-test alerting rules against fake series"
-          ]
-        ],
-        "tags": [
-          "sre",
-          "devops",
-          "prometheus",
-          "flags",
-          "options",
-          "prometheus",
-          "promtool",
-          "check"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "prometheus-recipes-1",
-    "badge": "prometheus",
-    "title": "Prometheus: Related commands",
-    "subtitle": "Related commands for: Validate the config and rule files before reloading",
-    "commands": [
+      },
       {
         "id": "prom-check-sub-1",
         "desc": "Rules only",
@@ -133,6 +99,10 @@ const SRE_PROMETHEUS_DATA = [
           [
             "-o json",
             "JSON output for jq"
+          ],
+          [
+            "HTTP API",
+            "GET /api/v1/query?query=… is the same thing for curl"
           ]
         ],
         "tip": "up == 0 is the first query in any monitoring incident",
@@ -146,45 +116,7 @@ const SRE_PROMETHEUS_DATA = [
           "targets",
           "curl"
         ]
-      }
-    ]
-  },
-  {
-    "id": "prometheus-flags-2",
-    "badge": "prometheus",
-    "title": "Prometheus: More options",
-    "subtitle": "More options for: Query from the shell",
-    "commands": [
-      {
-        "id": "prom-query-flags-card",
-        "desc": "More options and gotchas for: Query from the shell",
-        "cmd": "promtool query instant http://localhost:9090 'up == 0'",
-        "hideCode": false,
-        "flags": [
-          [
-            "HTTP API",
-            "GET /api/v1/query?query=… is the same thing for curl"
-          ]
-        ],
-        "tags": [
-          "sre",
-          "devops",
-          "prometheus",
-          "flags",
-          "options",
-          "promql",
-          "query",
-          "api"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "prometheus-recipes-2",
-    "badge": "prometheus",
-    "title": "Prometheus: Related commands",
-    "subtitle": "Related commands for: Query from the shell",
-    "commands": [
+      },
       {
         "id": "prom-query-sub-1",
         "desc": "Same query with curl and jq",
@@ -252,6 +184,10 @@ const SRE_PROMETHEUS_DATA = [
           [
             "labels.severity",
             "What Alertmanager routes on"
+          ],
+          [
+            "annotations",
+            "Human text; {{ $labels.x }} inserts a label"
           ]
         ],
         "tip": "Every paging alert needs a runbook link in its annotations",
@@ -264,36 +200,6 @@ const SRE_PROMETHEUS_DATA = [
           "yaml",
           "for",
           "severity"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "prometheus-flags-3",
-    "badge": "prometheus",
-    "title": "Prometheus: More options",
-    "subtitle": "More options for: An alerting rule",
-    "commands": [
-      {
-        "id": "prom-alert-rule-flags-card",
-        "desc": "More options and gotchas for: An alerting rule",
-        "cmd": "groups:\n  - name: node\n    rules:\n      - alert: NodeExporterDown\n        expr: up{job=\"node\"} == 0\n        for: 5m\n        keep_firing_for: 5m\n        labels:\n          severity: page\n        annotations:\n          summary: \"{{ $labels.instance }} is not being scraped\"",
-        "hideCode": true,
-        "flags": [
-          [
-            "annotations",
-            "Human text; {{ $labels.x }} inserts a label"
-          ]
-        ],
-        "tags": [
-          "sre",
-          "devops",
-          "prometheus",
-          "flags",
-          "options",
-          "alerting",
-          "rules",
-          "yaml"
         ]
       }
     ]
@@ -321,6 +227,10 @@ const SRE_PROMETHEUS_DATA = [
           [
             "Why",
             "Precompute expensive queries that dashboards run every refresh"
+          ],
+          [
+            "DCGM names",
+            "dcgm-exporter 4.9.0 renamed metrics: check yours (Grafana suite)"
           ]
         ],
         "tip": "Use the recorded series in dashboards and alerts, not the raw expression",
@@ -332,36 +242,6 @@ const SRE_PROMETHEUS_DATA = [
           "rules",
           "naming",
           "dcgm"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "prometheus-flags-4",
-    "badge": "prometheus",
-    "title": "Prometheus: More options",
-    "subtitle": "More options for: A recording rule and its naming convention",
-    "commands": [
-      {
-        "id": "prom-recording-flags-card",
-        "desc": "More options and gotchas for: A recording rule and its naming convention",
-        "cmd": "groups:\n  - name: gpu\n    rules:\n      - record: instance:dcgm_fi_dev_gpu_util:avg\n        expr: avg by (instance) (DCGM_FI_DEV_GPU_UTIL)",
-        "hideCode": true,
-        "flags": [
-          [
-            "DCGM names",
-            "dcgm-exporter 4.9.0 renamed metrics: check yours (Grafana suite)"
-          ]
-        ],
-        "tags": [
-          "sre",
-          "devops",
-          "prometheus",
-          "flags",
-          "options",
-          "recording",
-          "rules",
-          "naming"
         ]
       }
     ]
@@ -389,33 +269,7 @@ const SRE_PROMETHEUS_DATA = [
           [
             "silence add <matchers>",
             "Create a silence (changes state); check amtool silence add --help for duration and comment flags"
-          ]
-        ],
-        "tip": "Silence the drained node, not the alert name, during maintenance",
-        "tags": [
-          "sre",
-          "devops",
-          "prometheus",
-          "alertmanager",
-          "amtool",
-          "silence",
-          "routes"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "prometheus-flags-5",
-    "badge": "prometheus",
-    "title": "Prometheus: More options",
-    "subtitle": "More options for: Alertmanager: check config, list alerts, silence",
-    "commands": [
-      {
-        "id": "prom-amtool-flags-card",
-        "desc": "More options and gotchas for: Alertmanager: check config, list alerts, silence",
-        "cmd": "amtool alert query --alertmanager.url=http://localhost:9093",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "silence query",
             "Active silences"
@@ -429,25 +283,17 @@ const SRE_PROMETHEUS_DATA = [
             "=, !=, =~, !~, for example instance=~\"node0[1-4].*\""
           ]
         ],
+        "tip": "Silence the drained node, not the alert name, during maintenance",
         "tags": [
           "sre",
           "devops",
           "prometheus",
-          "flags",
-          "options",
           "alertmanager",
           "amtool",
-          "silence"
+          "silence",
+          "routes"
         ]
-      }
-    ]
-  },
-  {
-    "id": "prometheus-recipes-5",
-    "badge": "prometheus",
-    "title": "Prometheus: Related commands",
-    "subtitle": "Related commands for: Alertmanager: check config, list alerts, silence",
-    "commands": [
+      },
       {
         "id": "prom-amtool-sub-1",
         "desc": "Validate before reload",
@@ -515,6 +361,10 @@ const SRE_PROMETHEUS_DATA = [
           [
             "Check first",
             "promtool check config, then reload"
+          ],
+          [
+            "Alertmanager 0.34",
+            "No CORS headers by default any more; --web.cors.origin restores them"
           ]
         ],
         "tip": "A failed reload keeps the old config; check the log for the error",
@@ -527,45 +377,7 @@ const SRE_PROMETHEUS_DATA = [
           "config",
           "sighup"
         ]
-      }
-    ]
-  },
-  {
-    "id": "prometheus-flags-6",
-    "badge": "prometheus",
-    "title": "Prometheus: More options",
-    "subtitle": "More options for: Reload the config after a check",
-    "commands": [
-      {
-        "id": "prom-reload-flags-card",
-        "desc": "More options and gotchas for: Reload the config after a check",
-        "cmd": "curl -X POST http://localhost:9090/-/reload",
-        "hideCode": false,
-        "flags": [
-          [
-            "Alertmanager 0.34",
-            "No CORS headers by default any more; --web.cors.origin restores them"
-          ]
-        ],
-        "tags": [
-          "sre",
-          "devops",
-          "prometheus",
-          "flags",
-          "options",
-          "reload",
-          "lifecycle",
-          "config"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "prometheus-recipes-6",
-    "badge": "prometheus",
-    "title": "Prometheus: Related commands",
-    "subtitle": "Related commands for: Reload the config after a check",
-    "commands": [
+      },
       {
         "id": "prom-reload-sub-1",
         "desc": "The config Prometheus actually loaded",

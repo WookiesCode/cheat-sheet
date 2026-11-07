@@ -24,6 +24,14 @@ const SRE_HUB_DATA = [
           [
             "--lint=all",
             "Extra checks (duplicate rules, too-long scrape interval)"
+          ],
+          [
+            "--lint-fatal",
+            "Make lint findings fail the check (for CI)"
+          ],
+          [
+            "test rules <test.yml>",
+            "Unit-test alerting rules against fake series"
           ]
         ],
         "tip": "Run check config in CI so a typo never reaches the server",
@@ -37,49 +45,7 @@ const SRE_HUB_DATA = [
           "rules",
           "ci"
         ]
-      }
-    ]
-  },
-  {
-    "id": "prometheus-flags-1",
-    "badge": "prometheus",
-    "title": "Prometheus: More options",
-    "subtitle": "More options for: Validate the config and rule files before reloading",
-    "commands": [
-      {
-        "id": "prom-check-flags-card",
-        "desc": "More options and gotchas for: Validate the config and rule files before reloading",
-        "cmd": "promtool check config /etc/prometheus/prometheus.yml",
-        "hideCode": false,
-        "flags": [
-          [
-            "--lint-fatal",
-            "Make lint findings fail the check (for CI)"
-          ],
-          [
-            "test rules <test.yml>",
-            "Unit-test alerting rules against fake series"
-          ]
-        ],
-        "tags": [
-          "sre",
-          "devops",
-          "prometheus",
-          "flags",
-          "options",
-          "prometheus",
-          "promtool",
-          "check"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "prometheus-recipes-1",
-    "badge": "prometheus",
-    "title": "Prometheus: Related commands",
-    "subtitle": "Related commands for: Validate the config and rule files before reloading",
-    "commands": [
+      },
       {
         "id": "prom-check-sub-1",
         "desc": "Rules only",
@@ -133,6 +99,10 @@ const SRE_HUB_DATA = [
           [
             "-o json",
             "JSON output for jq"
+          ],
+          [
+            "HTTP API",
+            "GET /api/v1/query?query=… is the same thing for curl"
           ]
         ],
         "tip": "up == 0 is the first query in any monitoring incident",
@@ -146,45 +116,7 @@ const SRE_HUB_DATA = [
           "targets",
           "curl"
         ]
-      }
-    ]
-  },
-  {
-    "id": "prometheus-flags-2",
-    "badge": "prometheus",
-    "title": "Prometheus: More options",
-    "subtitle": "More options for: Query from the shell",
-    "commands": [
-      {
-        "id": "prom-query-flags-card",
-        "desc": "More options and gotchas for: Query from the shell",
-        "cmd": "promtool query instant http://localhost:9090 'up == 0'",
-        "hideCode": false,
-        "flags": [
-          [
-            "HTTP API",
-            "GET /api/v1/query?query=… is the same thing for curl"
-          ]
-        ],
-        "tags": [
-          "sre",
-          "devops",
-          "prometheus",
-          "flags",
-          "options",
-          "promql",
-          "query",
-          "api"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "prometheus-recipes-2",
-    "badge": "prometheus",
-    "title": "Prometheus: Related commands",
-    "subtitle": "Related commands for: Query from the shell",
-    "commands": [
+      },
       {
         "id": "prom-query-sub-1",
         "desc": "Same query with curl and jq",
@@ -252,6 +184,10 @@ const SRE_HUB_DATA = [
           [
             "labels.severity",
             "What Alertmanager routes on"
+          ],
+          [
+            "annotations",
+            "Human text; {{ $labels.x }} inserts a label"
           ]
         ],
         "tip": "Every paging alert needs a runbook link in its annotations",
@@ -264,36 +200,6 @@ const SRE_HUB_DATA = [
           "yaml",
           "for",
           "severity"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "prometheus-flags-3",
-    "badge": "prometheus",
-    "title": "Prometheus: More options",
-    "subtitle": "More options for: An alerting rule",
-    "commands": [
-      {
-        "id": "prom-alert-rule-flags-card",
-        "desc": "More options and gotchas for: An alerting rule",
-        "cmd": "groups:\n  - name: node\n    rules:\n      - alert: NodeExporterDown\n        expr: up{job=\"node\"} == 0\n        for: 5m\n        keep_firing_for: 5m\n        labels:\n          severity: page\n        annotations:\n          summary: \"{{ $labels.instance }} is not being scraped\"",
-        "hideCode": true,
-        "flags": [
-          [
-            "annotations",
-            "Human text; {{ $labels.x }} inserts a label"
-          ]
-        ],
-        "tags": [
-          "sre",
-          "devops",
-          "prometheus",
-          "flags",
-          "options",
-          "alerting",
-          "rules",
-          "yaml"
         ]
       }
     ]
@@ -321,6 +227,10 @@ const SRE_HUB_DATA = [
           [
             "Why",
             "Precompute expensive queries that dashboards run every refresh"
+          ],
+          [
+            "DCGM names",
+            "dcgm-exporter 4.9.0 renamed metrics: check yours (Grafana suite)"
           ]
         ],
         "tip": "Use the recorded series in dashboards and alerts, not the raw expression",
@@ -332,36 +242,6 @@ const SRE_HUB_DATA = [
           "rules",
           "naming",
           "dcgm"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "prometheus-flags-4",
-    "badge": "prometheus",
-    "title": "Prometheus: More options",
-    "subtitle": "More options for: A recording rule and its naming convention",
-    "commands": [
-      {
-        "id": "prom-recording-flags-card",
-        "desc": "More options and gotchas for: A recording rule and its naming convention",
-        "cmd": "groups:\n  - name: gpu\n    rules:\n      - record: instance:dcgm_fi_dev_gpu_util:avg\n        expr: avg by (instance) (DCGM_FI_DEV_GPU_UTIL)",
-        "hideCode": true,
-        "flags": [
-          [
-            "DCGM names",
-            "dcgm-exporter 4.9.0 renamed metrics: check yours (Grafana suite)"
-          ]
-        ],
-        "tags": [
-          "sre",
-          "devops",
-          "prometheus",
-          "flags",
-          "options",
-          "recording",
-          "rules",
-          "naming"
         ]
       }
     ]
@@ -389,33 +269,7 @@ const SRE_HUB_DATA = [
           [
             "silence add <matchers>",
             "Create a silence (changes state); check amtool silence add --help for duration and comment flags"
-          ]
-        ],
-        "tip": "Silence the drained node, not the alert name, during maintenance",
-        "tags": [
-          "sre",
-          "devops",
-          "prometheus",
-          "alertmanager",
-          "amtool",
-          "silence",
-          "routes"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "prometheus-flags-5",
-    "badge": "prometheus",
-    "title": "Prometheus: More options",
-    "subtitle": "More options for: Alertmanager: check config, list alerts, silence",
-    "commands": [
-      {
-        "id": "prom-amtool-flags-card",
-        "desc": "More options and gotchas for: Alertmanager: check config, list alerts, silence",
-        "cmd": "amtool alert query --alertmanager.url=http://localhost:9093",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "silence query",
             "Active silences"
@@ -429,25 +283,17 @@ const SRE_HUB_DATA = [
             "=, !=, =~, !~, for example instance=~\"node0[1-4].*\""
           ]
         ],
+        "tip": "Silence the drained node, not the alert name, during maintenance",
         "tags": [
           "sre",
           "devops",
           "prometheus",
-          "flags",
-          "options",
           "alertmanager",
           "amtool",
-          "silence"
+          "silence",
+          "routes"
         ]
-      }
-    ]
-  },
-  {
-    "id": "prometheus-recipes-5",
-    "badge": "prometheus",
-    "title": "Prometheus: Related commands",
-    "subtitle": "Related commands for: Alertmanager: check config, list alerts, silence",
-    "commands": [
+      },
       {
         "id": "prom-amtool-sub-1",
         "desc": "Validate before reload",
@@ -515,6 +361,10 @@ const SRE_HUB_DATA = [
           [
             "Check first",
             "promtool check config, then reload"
+          ],
+          [
+            "Alertmanager 0.34",
+            "No CORS headers by default any more; --web.cors.origin restores them"
           ]
         ],
         "tip": "A failed reload keeps the old config; check the log for the error",
@@ -527,45 +377,7 @@ const SRE_HUB_DATA = [
           "config",
           "sighup"
         ]
-      }
-    ]
-  },
-  {
-    "id": "prometheus-flags-6",
-    "badge": "prometheus",
-    "title": "Prometheus: More options",
-    "subtitle": "More options for: Reload the config after a check",
-    "commands": [
-      {
-        "id": "prom-reload-flags-card",
-        "desc": "More options and gotchas for: Reload the config after a check",
-        "cmd": "curl -X POST http://localhost:9090/-/reload",
-        "hideCode": false,
-        "flags": [
-          [
-            "Alertmanager 0.34",
-            "No CORS headers by default any more; --web.cors.origin restores them"
-          ]
-        ],
-        "tags": [
-          "sre",
-          "devops",
-          "prometheus",
-          "flags",
-          "options",
-          "reload",
-          "lifecycle",
-          "config"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "prometheus-recipes-6",
-    "badge": "prometheus",
-    "title": "Prometheus: Related commands",
-    "subtitle": "Related commands for: Reload the config after a check",
-    "commands": [
+      },
       {
         "id": "prom-reload-sub-1",
         "desc": "The config Prometheus actually loaded",
@@ -637,6 +449,14 @@ const SRE_HUB_DATA = [
           [
             "-m ansible.builtin.ping",
             "Checks SSH and Python, not ICMP"
+          ],
+          [
+            "-l / --limit",
+            "Narrow the pattern further: -l 'gpu:&rack12'"
+          ],
+          [
+            "-f <n>",
+            "Forks: hosts in parallel"
           ]
         ],
         "tip": "ping first: most failures are SSH or inventory, not the playbook",
@@ -649,49 +469,7 @@ const SRE_HUB_DATA = [
           "inventory",
           "ad-hoc"
         ]
-      }
-    ]
-  },
-  {
-    "id": "ansible-flags-1",
-    "badge": "ansible",
-    "title": "Ansible: More options",
-    "subtitle": "More options for: Can Ansible reach every host?",
-    "commands": [
-      {
-        "id": "ansible-ping-flags-card",
-        "desc": "More options and gotchas for: Can Ansible reach every host?",
-        "cmd": "ansible all -i inventory.ini -m ansible.builtin.ping",
-        "hideCode": false,
-        "flags": [
-          [
-            "-l / --limit",
-            "Narrow the pattern further: -l 'gpu:&rack12'"
-          ],
-          [
-            "-f <n>",
-            "Forks: hosts in parallel"
-          ]
-        ],
-        "tags": [
-          "sre",
-          "devops",
-          "ansible",
-          "flags",
-          "options",
-          "ansible",
-          "ping",
-          "inventory"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "ansible-recipes-1",
-    "badge": "ansible",
-    "title": "Ansible: Related commands",
-    "subtitle": "Related commands for: Can Ansible reach every host?",
-    "commands": [
+      },
       {
         "id": "ansible-ping-sub-1",
         "desc": "Groups and hosts as a tree",
@@ -745,6 +523,14 @@ const SRE_HUB_DATA = [
           [
             "-b / --become",
             "Run as root (changes what the command can touch)"
+          ],
+          [
+            "-K",
+            "Prompt for the become password"
+          ],
+          [
+            "-o",
+            "One line per host"
           ]
         ],
         "tip": "Ad-hoc is for read-only checks; changes belong in a reviewed playbook",
@@ -757,49 +543,7 @@ const SRE_HUB_DATA = [
           "fleet",
           "become"
         ]
-      }
-    ]
-  },
-  {
-    "id": "ansible-flags-2",
-    "badge": "ansible",
-    "title": "Ansible: More options",
-    "subtitle": "More options for: One read-only command across a group",
-    "commands": [
-      {
-        "id": "ansible-adhoc-flags-card",
-        "desc": "More options and gotchas for: One read-only command across a group",
-        "cmd": "ansible gpu -i inventory.ini -m ansible.builtin.shell -a 'nvidia-smi -L | wc -l'",
-        "hideCode": false,
-        "flags": [
-          [
-            "-K",
-            "Prompt for the become password"
-          ],
-          [
-            "-o",
-            "One line per host"
-          ]
-        ],
-        "tags": [
-          "sre",
-          "devops",
-          "ansible",
-          "flags",
-          "options",
-          "ad-hoc",
-          "shell",
-          "fleet"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "ansible-recipes-2",
-    "badge": "ansible",
-    "title": "Ansible: Related commands",
-    "subtitle": "Related commands for: One read-only command across a group",
-    "commands": [
+      },
       {
         "id": "ansible-adhoc-sub-1",
         "desc": "Uptime per host, one line each",
@@ -839,34 +583,7 @@ const SRE_HUB_DATA = [
           [
             "--syntax-check",
             "Parse only"
-          ]
-        ],
-        "tip": "check + diff on one host, then the real run on that host, then the rest",
-        "tags": [
-          "sre",
-          "devops",
-          "ansible",
-          "playbook",
-          "check",
-          "diff",
-          "limit",
-          "dry-run"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "ansible-flags-3",
-    "badge": "ansible",
-    "title": "Ansible: More options",
-    "subtitle": "More options for: Dry-run a playbook on one host with a diff",
-    "commands": [
-      {
-        "id": "ansible-playbook-check-flags-card",
-        "desc": "More options and gotchas for: Dry-run a playbook on one host with a diff",
-        "cmd": "ansible-playbook -i inventory.ini site.yml --check --diff --limit node07",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "--list-hosts / --list-tasks / --list-tags",
             "What would run, where"
@@ -880,25 +597,18 @@ const SRE_HUB_DATA = [
             "Resume after a failure"
           ]
         ],
+        "tip": "check + diff on one host, then the real run on that host, then the rest",
         "tags": [
           "sre",
           "devops",
           "ansible",
-          "flags",
-          "options",
           "playbook",
           "check",
-          "diff"
+          "diff",
+          "limit",
+          "dry-run"
         ]
-      }
-    ]
-  },
-  {
-    "id": "ansible-recipes-3",
-    "badge": "ansible",
-    "title": "Ansible: Related commands",
-    "subtitle": "Related commands for: Dry-run a playbook on one host with a diff",
-    "commands": [
+      },
       {
         "id": "ansible-playbook-check-sub-1",
         "desc": "Parse only",
@@ -966,6 +676,14 @@ const SRE_HUB_DATA = [
           [
             "create / edit / view <file>",
             "Whole encrypted files"
+          ],
+          [
+            "--ask-vault-password / --vault-password-file",
+            "How playbooks unlock it"
+          ],
+          [
+            "rekey",
+            "Change the vault password"
           ]
         ],
         "tip": "Never put a vault password file in the repo",
@@ -978,49 +696,7 @@ const SRE_HUB_DATA = [
           "encrypt",
           "password"
         ]
-      }
-    ]
-  },
-  {
-    "id": "ansible-flags-4",
-    "badge": "ansible",
-    "title": "Ansible: More options",
-    "subtitle": "More options for: Encrypt a secret for a playbook",
-    "commands": [
-      {
-        "id": "ansible-vault-flags-card",
-        "desc": "More options and gotchas for: Encrypt a secret for a playbook",
-        "cmd": "ansible-vault encrypt_string --prompt --name bmc_password",
-        "hideCode": false,
-        "flags": [
-          [
-            "--ask-vault-password / --vault-password-file",
-            "How playbooks unlock it"
-          ],
-          [
-            "rekey",
-            "Change the vault password"
-          ]
-        ],
-        "tags": [
-          "sre",
-          "devops",
-          "ansible",
-          "flags",
-          "options",
-          "vault",
-          "secrets",
-          "encrypt"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "ansible-recipes-4",
-    "badge": "ansible",
-    "title": "Ansible: Related commands",
-    "subtitle": "Related commands for: Encrypt a secret for a playbook",
-    "commands": [
+      },
       {
         "id": "ansible-vault-sub-1",
         "desc": "A new encrypted vars file",
@@ -1074,6 +750,10 @@ const SRE_HUB_DATA = [
           [
             "ansible-galaxy collection install -r requirements.yml",
             "Install pinned collections"
+          ],
+          [
+            "ansible-lint",
+            "Linter for playbooks, roles and collections"
           ]
         ],
         "tip": "Pin collections in requirements.yml",
@@ -1086,45 +766,7 @@ const SRE_HUB_DATA = [
           "config",
           "lint"
         ]
-      }
-    ]
-  },
-  {
-    "id": "ansible-flags-5",
-    "badge": "ansible",
-    "title": "Ansible: More options",
-    "subtitle": "More options for: Collections, config and module docs",
-    "commands": [
-      {
-        "id": "ansible-tools-flags-card",
-        "desc": "More options and gotchas for: Collections, config and module docs",
-        "cmd": "ansible-doc -s ansible.builtin.copy",
-        "hideCode": false,
-        "flags": [
-          [
-            "ansible-lint",
-            "Linter for playbooks, roles and collections"
-          ]
-        ],
-        "tags": [
-          "sre",
-          "devops",
-          "ansible",
-          "flags",
-          "options",
-          "ansible-doc",
-          "galaxy",
-          "config"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "ansible-recipes-5",
-    "badge": "ansible",
-    "title": "Ansible: Related commands",
-    "subtitle": "Related commands for: Collections, config and module docs",
-    "commands": [
+      },
       {
         "id": "ansible-tools-sub-1",
         "desc": "Why does it behave differently here?",
@@ -1210,6 +852,14 @@ const SRE_HUB_DATA = [
           [
             "fmt -check -recursive",
             "Fail if any file is not formatted (CI)"
+          ],
+          [
+            "validate",
+            "Syntax and internal consistency, no API calls"
+          ],
+          [
+            "tofu",
+            "OpenTofu's CLI: the same subcommands with tofu in place of terraform"
           ]
         ],
         "tip": "Commit .terraform.lock.hcl",
@@ -1223,49 +873,7 @@ const SRE_HUB_DATA = [
           "fmt",
           "validate"
         ]
-      }
-    ]
-  },
-  {
-    "id": "terraform-flags-1",
-    "badge": "terraform",
-    "title": "Terraform / OpenTofu: More options",
-    "subtitle": "More options for: Initialise, format and validate",
-    "commands": [
-      {
-        "id": "tf-init-validate-flags-card",
-        "desc": "More options and gotchas for: Initialise, format and validate",
-        "cmd": "terraform init && terraform fmt -check -recursive && terraform validate",
-        "hideCode": false,
-        "flags": [
-          [
-            "validate",
-            "Syntax and internal consistency, no API calls"
-          ],
-          [
-            "tofu",
-            "OpenTofu's CLI: the same subcommands with tofu in place of terraform"
-          ]
-        ],
-        "tags": [
-          "sre",
-          "devops",
-          "terraform",
-          "flags",
-          "options",
-          "terraform",
-          "opentofu",
-          "init"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "terraform-recipes-1",
-    "badge": "terraform",
-    "title": "Terraform / OpenTofu: Related commands",
-    "subtitle": "Related commands for: Initialise, format and validate",
-    "commands": [
+      },
       {
         "id": "tf-init-validate-sub-1",
         "desc": "Lock-file hashes for every platform your team uses",
@@ -1305,6 +913,10 @@ const SRE_HUB_DATA = [
           [
             "destroy",
             "Delete everything in the configuration (changes state)"
+          ],
+          [
+            "-target",
+            "Exceptional cases only: it can hide drift. Split configurations instead"
           ]
         ],
         "tip": "Read every - and -/+ (destroy) line in the plan before you apply",
@@ -1317,45 +929,7 @@ const SRE_HUB_DATA = [
           "destroy",
           "target"
         ]
-      }
-    ]
-  },
-  {
-    "id": "terraform-flags-2",
-    "badge": "terraform",
-    "title": "Terraform / OpenTofu: More options",
-    "subtitle": "More options for: Save a plan, review it, apply exactly that plan",
-    "commands": [
-      {
-        "id": "tf-plan-apply-flags-card",
-        "desc": "More options and gotchas for: Save a plan, review it, apply exactly that plan",
-        "cmd": "terraform plan -out=tfplan",
-        "hideCode": false,
-        "flags": [
-          [
-            "-target",
-            "Exceptional cases only: it can hide drift. Split configurations instead"
-          ]
-        ],
-        "tags": [
-          "sre",
-          "devops",
-          "terraform",
-          "flags",
-          "options",
-          "plan",
-          "apply",
-          "destroy"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "terraform-recipes-2",
-    "badge": "terraform",
-    "title": "Terraform / OpenTofu: Related commands",
-    "subtitle": "Related commands for: Save a plan, review it, apply exactly that plan",
-    "commands": [
+      },
       {
         "id": "tf-plan-apply-sub-1",
         "desc": "Review the saved plan",
@@ -1409,6 +983,10 @@ const SRE_HUB_DATA = [
           [
             "state mv <src> <dst>",
             "Rename without destroy (changes state); -dry-run first"
+          ],
+          [
+            "output -json",
+            "Outputs for scripts; shows sensitive values in clear text"
           ]
         ],
         "tip": "Prefer a moved block to state mv: it is reviewed in the plan",
@@ -1421,45 +999,7 @@ const SRE_HUB_DATA = [
           "show",
           "output"
         ]
-      }
-    ]
-  },
-  {
-    "id": "terraform-flags-3",
-    "badge": "terraform",
-    "title": "Terraform / OpenTofu: More options",
-    "subtitle": "More options for: Inspect state",
-    "commands": [
-      {
-        "id": "tf-state-flags-card",
-        "desc": "More options and gotchas for: Inspect state",
-        "cmd": "terraform state list",
-        "hideCode": false,
-        "flags": [
-          [
-            "output -json",
-            "Outputs for scripts; shows sensitive values in clear text"
-          ]
-        ],
-        "tags": [
-          "sre",
-          "devops",
-          "terraform",
-          "flags",
-          "options",
-          "state",
-          "list",
-          "show"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "terraform-recipes-3",
-    "badge": "terraform",
-    "title": "Terraform / OpenTofu: Related commands",
-    "subtitle": "Related commands for: Inspect state",
-    "commands": [
+      },
       {
         "id": "tf-state-sub-1",
         "desc": "Quote addresses with brackets",
@@ -1513,6 +1053,10 @@ const SRE_HUB_DATA = [
           [
             "plan -generate-config-out=gen.tf",
             "Experimental: write the resource block for an import"
+          ],
+          [
+            "Why blocks",
+            "They show up in plan and code review; state commands don't"
           ]
         ],
         "tip": "Keep moved blocks until every workspace has applied them",
@@ -1524,36 +1068,6 @@ const SRE_HUB_DATA = [
           "import",
           "refactor",
           "hcl"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "terraform-flags-4",
-    "badge": "terraform",
-    "title": "Terraform / OpenTofu: More options",
-    "subtitle": "More options for: moved and import blocks",
-    "commands": [
-      {
-        "id": "tf-moved-import-flags-card",
-        "desc": "More options and gotchas for: moved and import blocks",
-        "cmd": "moved {\n  from = aws_instance.worker\n  to   = aws_instance.helper\n}\n\nimport {\n  to = aws_instance.legacy\n  id = \"i-0123456789abcdef0\"\n}",
-        "hideCode": true,
-        "flags": [
-          [
-            "Why blocks",
-            "They show up in plan and code review; state commands don't"
-          ]
-        ],
-        "tags": [
-          "sre",
-          "devops",
-          "terraform",
-          "flags",
-          "options",
-          "moved",
-          "import",
-          "refactor"
         ]
       }
     ]
@@ -1613,6 +1127,10 @@ const SRE_HUB_DATA = [
           [
             "show values <chart>",
             "Default values: start your values.yaml from these"
+          ],
+          [
+            "OCI",
+            "Many charts are OCI references: helm install x oci://registry/chart"
           ]
         ],
         "tip": "Pin --version on every install",
@@ -1625,45 +1143,7 @@ const SRE_HUB_DATA = [
           "values",
           "chart"
         ]
-      }
-    ]
-  },
-  {
-    "id": "helm-flags-1",
-    "badge": "helm",
-    "title": "Helm: More options",
-    "subtitle": "More options for: Add a chart repo and read its default values",
-    "commands": [
-      {
-        "id": "helm-repo-flags-card",
-        "desc": "More options and gotchas for: Add a chart repo and read its default values",
-        "cmd": "helm repo add prometheus-community https://prometheus-community.github.io/helm-charts && helm repo update",
-        "hideCode": false,
-        "flags": [
-          [
-            "OCI",
-            "Many charts are OCI references: helm install x oci://registry/chart"
-          ]
-        ],
-        "tags": [
-          "sre",
-          "devops",
-          "helm",
-          "flags",
-          "options",
-          "helm",
-          "repo",
-          "values"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "helm-recipes-1",
-    "badge": "helm",
-    "title": "Helm: Related commands",
-    "subtitle": "Related commands for: Add a chart repo and read its default values",
-    "commands": [
+      },
       {
         "id": "helm-repo-sub-1",
         "desc": "Available versions",
@@ -1729,15 +1209,7 @@ const SRE_HUB_DATA = [
           "diff",
           "render"
         ]
-      }
-    ]
-  },
-  {
-    "id": "helm-recipes-2",
-    "badge": "helm",
-    "title": "Helm: Related commands",
-    "subtitle": "Related commands for: Render and lint before installing",
-    "commands": [
+      },
       {
         "id": "helm-template-sub-1",
         "desc": "Install helm-diff (Helm 4 verifies plugin provenance)",
@@ -1791,34 +1263,7 @@ const SRE_HUB_DATA = [
           [
             "--force-replace",
             "Helm 4 name for --force"
-          ]
-        ],
-        "tip": "Old names (--atomic, --force) still work in Helm 4 with a warning",
-        "tags": [
-          "sre",
-          "devops",
-          "helm",
-          "upgrade",
-          "install",
-          "atomic",
-          "rollback-on-failure",
-          "helm4"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "helm-flags-3",
-    "badge": "helm",
-    "title": "Helm: More options",
-    "subtitle": "More options for: Install or upgrade, rolling back on failure",
-    "commands": [
-      {
-        "id": "helm-upgrade-flags-card",
-        "desc": "More options and gotchas for: Install or upgrade, rolling back on failure",
-        "cmd": "helm upgrade --install mon prometheus-community/kube-prometheus-stack -n monitoring --create-namespace -f values.yaml --version <chart-version> --rollback-on-failure",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "--wait / --timeout",
             "Wait for resources (default 5m)"
@@ -1832,15 +1277,16 @@ const SRE_HUB_DATA = [
             "Repeatable; the rightmost file wins"
           ]
         ],
+        "tip": "Old names (--atomic, --force) still work in Helm 4 with a warning",
         "tags": [
           "sre",
           "devops",
           "helm",
-          "flags",
-          "options",
           "upgrade",
           "install",
-          "atomic"
+          "atomic",
+          "rollback-on-failure",
+          "helm4"
         ]
       }
     ]
@@ -1868,6 +1314,14 @@ const SRE_HUB_DATA = [
           [
             "get values / get manifest",
             "What is deployed now"
+          ],
+          [
+            "rollback <release> <rev>",
+            "Go back to a revision (changes state)"
+          ],
+          [
+            "uninstall",
+            "Remove the release (changes state)"
           ]
         ],
         "tip": "history tells you which revision last worked",
@@ -1880,49 +1334,7 @@ const SRE_HUB_DATA = [
           "list",
           "get"
         ]
-      }
-    ]
-  },
-  {
-    "id": "helm-flags-4",
-    "badge": "helm",
-    "title": "Helm: More options",
-    "subtitle": "More options for: Release history and rollback",
-    "commands": [
-      {
-        "id": "helm-history-flags-card",
-        "desc": "More options and gotchas for: Release history and rollback",
-        "cmd": "helm history mon -n monitoring",
-        "hideCode": false,
-        "flags": [
-          [
-            "rollback <release> <rev>",
-            "Go back to a revision (changes state)"
-          ],
-          [
-            "uninstall",
-            "Remove the release (changes state)"
-          ]
-        ],
-        "tags": [
-          "sre",
-          "devops",
-          "helm",
-          "flags",
-          "options",
-          "history",
-          "rollback",
-          "list"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "helm-recipes-4",
-    "badge": "helm",
-    "title": "Helm: Related commands",
-    "subtitle": "Related commands for: Release history and rollback",
-    "commands": [
+      },
       {
         "id": "helm-history-sub-1",
         "desc": "Values in use",
@@ -2008,6 +1420,10 @@ const SRE_HUB_DATA = [
           [
             "--core",
             "Talk to Kubernetes directly, no API server login"
+          ],
+          [
+            "--username / --password",
+            "Local accounts; avoid typing the password inline"
           ]
         ],
         "tip": "SSO keeps passwords off the jumpbox",
@@ -2015,36 +1431,6 @@ const SRE_HUB_DATA = [
           "sre",
           "devops",
           "argocd",
-          "argocd",
-          "login",
-          "sso"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "argocd-flags-1",
-    "badge": "argocd",
-    "title": "Argo CD: More options",
-    "subtitle": "More options for: Log in with SSO",
-    "commands": [
-      {
-        "id": "argocd-login-flags-card",
-        "desc": "More options and gotchas for: Log in with SSO",
-        "cmd": "argocd login argocd.example.com --sso --grpc-web",
-        "hideCode": false,
-        "flags": [
-          [
-            "--username / --password",
-            "Local accounts; avoid typing the password inline"
-          ]
-        ],
-        "tags": [
-          "sre",
-          "devops",
-          "argocd",
-          "flags",
-          "options",
           "argocd",
           "login",
           "sso"
@@ -2075,6 +1461,10 @@ const SRE_HUB_DATA = [
           [
             "app diff <app>",
             "Git (target) vs live state"
+          ],
+          [
+            "app history <app>",
+            "Deployed revisions with IDs"
           ]
         ],
         "tip": "OutOfSync + Healthy is drift; Degraded is broken",
@@ -2087,45 +1477,7 @@ const SRE_HUB_DATA = [
           "history",
           "drift"
         ]
-      }
-    ]
-  },
-  {
-    "id": "argocd-flags-2",
-    "badge": "argocd",
-    "title": "Argo CD: More options",
-    "subtitle": "More options for: What is out of sync, and what differs",
-    "commands": [
-      {
-        "id": "argocd-status-flags-card",
-        "desc": "More options and gotchas for: What is out of sync, and what differs",
-        "cmd": "argocd app list",
-        "hideCode": false,
-        "flags": [
-          [
-            "app history <app>",
-            "Deployed revisions with IDs"
-          ]
-        ],
-        "tags": [
-          "sre",
-          "devops",
-          "argocd",
-          "flags",
-          "options",
-          "status",
-          "diff",
-          "history"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "argocd-recipes-2",
-    "badge": "argocd",
-    "title": "Argo CD: Related commands",
-    "subtitle": "Related commands for: What is out of sync, and what differs",
-    "commands": [
+      },
       {
         "id": "argocd-status-sub-1",
         "desc": "One application in detail",
@@ -2179,6 +1531,14 @@ const SRE_HUB_DATA = [
           [
             "--prune",
             "Also delete resources no longer in Git (changes state)"
+          ],
+          [
+            "--resource <group:kind:name>",
+            "Sync one resource"
+          ],
+          [
+            "app wait --health --timeout <s>",
+            "Block until healthy (seconds)"
           ]
         ],
         "tip": "--prune deletes things: read the diff first",
@@ -2191,49 +1551,7 @@ const SRE_HUB_DATA = [
           "prune",
           "wait"
         ]
-      }
-    ]
-  },
-  {
-    "id": "argocd-flags-3",
-    "badge": "argocd",
-    "title": "Argo CD: More options",
-    "subtitle": "More options for: Preview, then sync",
-    "commands": [
-      {
-        "id": "argocd-sync-flags-card",
-        "desc": "More options and gotchas for: Preview, then sync",
-        "cmd": "argocd app sync dcgm-exporter --dry-run",
-        "hideCode": false,
-        "flags": [
-          [
-            "--resource <group:kind:name>",
-            "Sync one resource"
-          ],
-          [
-            "app wait --health --timeout <s>",
-            "Block until healthy (seconds)"
-          ]
-        ],
-        "tags": [
-          "sre",
-          "devops",
-          "argocd",
-          "flags",
-          "options",
-          "sync",
-          "dry-run",
-          "prune"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "argocd-recipes-3",
-    "badge": "argocd",
-    "title": "Argo CD: Related commands",
-    "subtitle": "Related commands for: Preview, then sync",
-    "commands": [
+      },
       {
         "id": "argocd-sync-sub-1",
         "desc": "Real sync (changes state)",
@@ -2287,6 +1605,10 @@ const SRE_HUB_DATA = [
           [
             "app set --sync-policy manual",
             "Turn auto-sync off first (changes state)"
+          ],
+          [
+            "Real fix",
+            "Revert the commit in Git; that is the GitOps rollback"
           ]
         ],
         "tip": "Revert in Git when you can; CLI rollback is for emergencies",
@@ -2299,45 +1621,7 @@ const SRE_HUB_DATA = [
           "gitops",
           "revert"
         ]
-      }
-    ]
-  },
-  {
-    "id": "argocd-flags-4",
-    "badge": "argocd",
-    "title": "Argo CD: More options",
-    "subtitle": "More options for: Roll back, and the auto-sync gotcha",
-    "commands": [
-      {
-        "id": "argocd-rollback-flags-card",
-        "desc": "More options and gotchas for: Roll back, and the auto-sync gotcha",
-        "cmd": "argocd app history dcgm-exporter",
-        "hideCode": false,
-        "flags": [
-          [
-            "Real fix",
-            "Revert the commit in Git; that is the GitOps rollback"
-          ]
-        ],
-        "tags": [
-          "sre",
-          "devops",
-          "argocd",
-          "flags",
-          "options",
-          "rollback",
-          "auto-sync",
-          "gitops"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "argocd-recipes-4",
-    "badge": "argocd",
-    "title": "Argo CD: Related commands",
-    "subtitle": "Related commands for: Roll back, and the auto-sync gotcha",
-    "commands": [
+      },
       {
         "id": "argocd-rollback-sub-1",
         "desc": "Pause auto-sync (changes state)",
@@ -2423,6 +1707,14 @@ const SRE_HUB_DATA = [
           [
             "Communications lead (CL)",
             "Regular updates to stakeholders; fields questions"
+          ],
+          [
+            "Handoff",
+            "Explicit: \"You're now IC, okay?\", and wait for the yes"
+          ],
+          [
+            "Declare early",
+            "Declaring and standing down costs less than a late incident"
           ]
         ],
         "tip": "One person changes production at a time: the Ops lead",
@@ -2435,40 +1727,6 @@ const SRE_HUB_DATA = [
           "ic",
           "comms",
           "sre"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "incident-flags-1",
-    "badge": "incident",
-    "title": "Incident response: More options",
-    "subtitle": "More options for: Roles",
-    "commands": [
-      {
-        "id": "ir-roles-flags-card",
-        "desc": "More options and gotchas for: Roles",
-        "cmd": "printf '%s\\n' 'IC: <name>' 'Ops lead: <name>' 'Comms lead: <name>' 'Started (UTC): '\"$(date -u +%FT%TZ)\"",
-        "hideCode": false,
-        "flags": [
-          [
-            "Handoff",
-            "Explicit: \"You're now IC, okay?\", and wait for the yes"
-          ],
-          [
-            "Declare early",
-            "Declaring and standing down costs less than a late incident"
-          ]
-        ],
-        "tags": [
-          "sre",
-          "devops",
-          "incident",
-          "flags",
-          "options",
-          "incident",
-          "roles",
-          "ic"
         ]
       }
     ]
@@ -2496,6 +1754,14 @@ const SRE_HUB_DATA = [
           [
             "journalctl -p err -b",
             "Errors since boot"
+          ],
+          [
+            "dmesg -T --level=err,crit",
+            "Kernel errors (Xid, MCE, link down)"
+          ],
+          [
+            "Scheduler",
+            "Is it already drained? sinfo -R / kubectl get node"
           ]
         ],
         "tip": "Mitigate first (drain, fail over), find the root cause after",
@@ -2509,49 +1775,7 @@ const SRE_HUB_DATA = [
           "journalctl",
           "dmesg"
         ]
-      }
-    ]
-  },
-  {
-    "id": "incident-flags-2",
-    "badge": "incident",
-    "title": "Incident response: More options",
-    "subtitle": "More options for: First 15 minutes on a node: facts, in UTC",
-    "commands": [
-      {
-        "id": "ir-first15-flags-card",
-        "desc": "More options and gotchas for: First 15 minutes on a node: facts, in UTC",
-        "cmd": "date -u; uptime; journalctl -p err -b --since '-1h' --no-pager | tail -n 50",
-        "hideCode": false,
-        "flags": [
-          [
-            "dmesg -T --level=err,crit",
-            "Kernel errors (Xid, MCE, link down)"
-          ],
-          [
-            "Scheduler",
-            "Is it already drained? sinfo -R / kubectl get node"
-          ]
-        ],
-        "tags": [
-          "sre",
-          "devops",
-          "incident",
-          "flags",
-          "options",
-          "triage",
-          "timeline",
-          "utc"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "incident-recipes-2",
-    "badge": "incident",
-    "title": "Incident response: Related commands",
-    "subtitle": "Related commands for: First 15 minutes on a node: facts, in UTC",
-    "commands": [
+      },
       {
         "id": "ir-first15-sub-1",
         "desc": "Kernel errors",
@@ -2619,6 +1843,10 @@ const SRE_HUB_DATA = [
           [
             "Field notes",
             "The home page's Field notes log entries per server, in Markdown"
+          ],
+          [
+            "Feeds the postmortem",
+            "A good timeline writes half the postmortem"
           ]
         ],
         "tip": "Replace the placeholders before you run it",
@@ -2630,36 +1858,6 @@ const SRE_HUB_DATA = [
           "notes",
           "case",
           "postmortem"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "incident-flags-3",
-    "badge": "incident",
-    "title": "Incident response: More options",
-    "subtitle": "More options for: Keep a timeline as you go",
-    "commands": [
-      {
-        "id": "ir-timeline-flags-card",
-        "desc": "More options and gotchas for: Keep a timeline as you go",
-        "cmd": "echo \"$(date -u +%FT%TZ) <what you saw or did>\" >> cases/<ticket>/timeline.md",
-        "hideCode": false,
-        "flags": [
-          [
-            "Feeds the postmortem",
-            "A good timeline writes half the postmortem"
-          ]
-        ],
-        "tags": [
-          "sre",
-          "devops",
-          "incident",
-          "flags",
-          "options",
-          "timeline",
-          "notes",
-          "case"
         ]
       }
     ]
@@ -2687,6 +1885,10 @@ const SRE_HUB_DATA = [
           [
             "Root cause vs trigger",
             "Why it was possible vs what set it off"
+          ],
+          [
+            "Action items",
+            "Each with one owner and a date"
           ]
         ],
         "tip": "Action items without owners don't get done",
@@ -2698,36 +1900,6 @@ const SRE_HUB_DATA = [
           "blameless",
           "rca",
           "actions"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "incident-flags-4",
-    "badge": "incident",
-    "title": "Incident response: More options",
-    "subtitle": "More options for: Blameless postmortem outline",
-    "commands": [
-      {
-        "id": "ir-postmortem-flags-card",
-        "desc": "More options and gotchas for: Blameless postmortem outline",
-        "cmd": "## Summary\n## Impact (who, how long)\n## Timeline (UTC)\n## Root cause and trigger\n## What went well / what didn't\n## Action items (owner, due date)",
-        "hideCode": true,
-        "flags": [
-          [
-            "Action items",
-            "Each with one owner and a date"
-          ]
-        ],
-        "tags": [
-          "sre",
-          "devops",
-          "incident",
-          "flags",
-          "options",
-          "postmortem",
-          "blameless",
-          "rca"
         ]
       }
     ]

@@ -24,33 +24,7 @@ const ED_NANO_DATA = [
           [
             "-v / --view",
             "Read-only: you cannot change the file by accident"
-          ]
-        ],
-        "tip": "Use -v when you only need to read",
-        "tags": [
-          "editor",
-          "editors",
-          "nano",
-          "open",
-          "line",
-          "view",
-          "flags"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "nano-flags-1",
-    "badge": "nano",
-    "title": "GNU nano: More options",
-    "subtitle": "More options for: Open a file at a given line",
-    "commands": [
-      {
-        "id": "nano-open-line-flags-card",
-        "desc": "More options and gotchas for: Open a file at a given line",
-        "cmd": "nano -l +120 /etc/ssh/sshd_config",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "-B / --backup",
             "Keep the previous version as file~ when you save"
@@ -64,25 +38,17 @@ const ED_NANO_DATA = [
             "Convert typed tabs to spaces, tab width 4 (YAML wants spaces)"
           ]
         ],
+        "tip": "Use -v when you only need to read",
         "tags": [
           "editor",
           "editors",
           "nano",
-          "flags",
-          "options",
           "open",
           "line",
-          "view"
+          "view",
+          "flags"
         ]
-      }
-    ]
-  },
-  {
-    "id": "nano-recipes-1",
-    "badge": "nano",
-    "title": "GNU nano: Related commands",
-    "subtitle": "Related commands for: Open a file at a given line",
-    "commands": [
+      },
       {
         "id": "nano-open-line-sub-1",
         "desc": "Page through a log without any risk of editing it",
@@ -150,15 +116,7 @@ const ED_NANO_DATA = [
           "fstab",
           "validate"
         ]
-      }
-    ]
-  },
-  {
-    "id": "nano-recipes-2",
-    "badge": "nano",
-    "title": "GNU nano: Related commands",
-    "subtitle": "Related commands for: Edit a root-owned file safely with sudoedit",
-    "commands": [
+      },
       {
         "id": "nano-sudoedit-sub-1",
         "desc": "Keep a dated copy before you touch it (changes state)",
@@ -240,6 +198,14 @@ const ED_NANO_DATA = [
           [
             "Ctrl+S",
             "Save without the file-name prompt"
+          ],
+          [
+            "Ctrl+G",
+            "Help: every key binding for your version"
+          ],
+          [
+            "^ and M-",
+            "In nano's own help ^ means Ctrl and M- means Alt (Meta): M-U is Alt+U"
           ]
         ],
         "tip": "^ = Ctrl, M- = Alt",
@@ -252,40 +218,6 @@ const ED_NANO_DATA = [
           "write out",
           "help",
           "keys"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "nano-flags-3",
-    "badge": "nano",
-    "title": "GNU nano: More options",
-    "subtitle": "More options for: Save, exit and get help",
-    "commands": [
-      {
-        "id": "nano-save-exit-flags-card",
-        "desc": "More options and gotchas for: Save, exit and get help",
-        "cmd": "Ctrl+O  Enter  ·  Ctrl+X",
-        "hideCode": false,
-        "flags": [
-          [
-            "Ctrl+G",
-            "Help: every key binding for your version"
-          ],
-          [
-            "^ and M-",
-            "In nano's own help ^ means Ctrl and M- means Alt (Meta): M-U is Alt+U"
-          ]
-        ],
-        "tags": [
-          "editor",
-          "editors",
-          "nano",
-          "flags",
-          "options",
-          "save",
-          "exit",
-          "write out"
         ]
       }
     ]
@@ -313,6 +245,14 @@ const ED_NANO_DATA = [
           [
             "Alt+R (in the search prompt)",
             "Toggle regular expressions"
+          ],
+          [
+            "Alt+C (in the search prompt)",
+            "Toggle case-sensitive"
+          ],
+          [
+            "Alt+B (in the search prompt)",
+            "Search backwards"
           ]
         ],
         "tip": "A = replace all remaining matches",
@@ -324,40 +264,6 @@ const ED_NANO_DATA = [
           "find",
           "replace",
           "regex"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "nano-flags-4",
-    "badge": "nano",
-    "title": "GNU nano: More options",
-    "subtitle": "More options for: Search and replace",
-    "commands": [
-      {
-        "id": "nano-search-replace-flags-card",
-        "desc": "More options and gotchas for: Search and replace",
-        "cmd": "Ctrl+W  ·  Ctrl+\\",
-        "hideCode": false,
-        "flags": [
-          [
-            "Alt+C (in the search prompt)",
-            "Toggle case-sensitive"
-          ],
-          [
-            "Alt+B (in the search prompt)",
-            "Search backwards"
-          ]
-        ],
-        "tags": [
-          "editor",
-          "editors",
-          "nano",
-          "flags",
-          "options",
-          "search",
-          "find",
-          "replace"
         ]
       }
     ]
@@ -385,6 +291,14 @@ const ED_NANO_DATA = [
           [
             "Ctrl+U",
             "Paste (Uncut) what you cut or copied"
+          ],
+          [
+            "Alt+A",
+            "Set a mark: move the cursor to select a region, then Ctrl+K or Alt+6 acts on it"
+          ],
+          [
+            "Alt+U / Alt+E",
+            "Undo / redo"
           ]
         ],
         "tip": "Ctrl+K several times, then Ctrl+U = move a block",
@@ -398,40 +312,6 @@ const ED_NANO_DATA = [
           "undo",
           "redo",
           "mark"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "nano-flags-5",
-    "badge": "nano",
-    "title": "GNU nano: More options",
-    "subtitle": "More options for: Cut, copy and paste whole lines; undo and redo",
-    "commands": [
-      {
-        "id": "nano-cut-paste-flags-card",
-        "desc": "More options and gotchas for: Cut, copy and paste whole lines; undo and redo",
-        "cmd": "Ctrl+K  ·  Alt+6  ·  Ctrl+U",
-        "hideCode": false,
-        "flags": [
-          [
-            "Alt+A",
-            "Set a mark: move the cursor to select a region, then Ctrl+K or Alt+6 acts on it"
-          ],
-          [
-            "Alt+U / Alt+E",
-            "Undo / redo"
-          ]
-        ],
-        "tags": [
-          "editor",
-          "editors",
-          "nano",
-          "flags",
-          "options",
-          "cut",
-          "copy",
-          "paste"
         ]
       }
     ]
@@ -459,6 +339,14 @@ const ED_NANO_DATA = [
           [
             "Ctrl+C",
             "Show the current line and column"
+          ],
+          [
+            "Ctrl+Y / Ctrl+V",
+            "Page up / page down"
+          ],
+          [
+            "Line numbers",
+            "Toggle them with the key listed under Ctrl+G (Alt+N in current nano)"
           ]
         ],
         "tip": "Ctrl+G lists the keys of your exact version",
@@ -470,40 +358,6 @@ const ED_NANO_DATA = [
           "go to line",
           "page",
           "position"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "nano-flags-6",
-    "badge": "nano",
-    "title": "GNU nano: More options",
-    "subtitle": "More options for: Jump around a long file",
-    "commands": [
-      {
-        "id": "nano-navigate-flags-card",
-        "desc": "More options and gotchas for: Jump around a long file",
-        "cmd": "Ctrl+_  (go to line)",
-        "hideCode": false,
-        "flags": [
-          [
-            "Ctrl+Y / Ctrl+V",
-            "Page up / page down"
-          ],
-          [
-            "Line numbers",
-            "Toggle them with the key listed under Ctrl+G (Alt+N in current nano)"
-          ]
-        ],
-        "tags": [
-          "editor",
-          "editors",
-          "nano",
-          "flags",
-          "options",
-          "navigate",
-          "go to line",
-          "page"
         ]
       }
     ]
@@ -531,6 +385,10 @@ const ED_NANO_DATA = [
           [
             "constantshow",
             "Always show the cursor position in the status bar"
+          ],
+          [
+            "include …*.nanorc",
+            "Syntax colouring for many file types (shipped with the nano package)"
           ]
         ],
         "tip": "One file, every server: keep it in your dotfiles",
@@ -543,36 +401,6 @@ const ED_NANO_DATA = [
           "syntax",
           "tabs",
           "dotfiles"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "nano-flags-7",
-    "badge": "nano",
-    "title": "GNU nano: More options",
-    "subtitle": "More options for: ~/.config/nano/nanorc: sensible defaults for config files",
-    "commands": [
-      {
-        "id": "nano-nanorc-flags-card",
-        "desc": "More options and gotchas for: ~/.config/nano/nanorc: sensible defaults for config files",
-        "cmd": "set linenumbers\nset mouse\nset autoindent\nset tabsize 4\nset tabstospaces\nset constantshow\ninclude \"/usr/share/nano/*.nanorc\"",
-        "hideCode": true,
-        "flags": [
-          [
-            "include …*.nanorc",
-            "Syntax colouring for many file types (shipped with the nano package)"
-          ]
-        ],
-        "tags": [
-          "editor",
-          "editors",
-          "nano",
-          "flags",
-          "options",
-          "nanorc",
-          "config",
-          "syntax"
         ]
       }
     ]

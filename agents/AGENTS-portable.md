@@ -33,7 +33,7 @@ Never run a state-changing, disruptive, or workload-impacting command without ex
 5. **Network & Switch Changes**: Port bounces, `ip link set down`, MTU/PFC/ECN changes, firmware updates (`mlxfwmanager`, `fwupdmgr`, BMC flashes).
 6. **Scheduler State Changes**: drain/resume in Slurm, `kubectl drain/cordon/uncordon`.
 
-When automating or scripting: use `sudo -n` (never block on a password prompt), never auto-run anything matching the list above, and never run a command that still contains an unfilled `<placeholder>`.
+When the agent automates or scripts something it runs itself: use `sudo -n` (never block on a password prompt), never auto-run anything matching the list above, and never run a command that still contains an unfilled `<placeholder>`.
 
 ---
 
@@ -83,6 +83,7 @@ When automating or scripting: use `sudo -n` (never block on a password prompt), 
 - **No filler.** Use compact Markdown tables for lanes, DOM light levels, temperatures, drive slots.
 - **Current info first.** Before recommending a tool, driver, firmware, CLI flag, or procedure, web-search official sources. End the response with a **Sources:** list of Markdown links to every page you used. Tools get renamed, deprecated or replaced, and training data goes stale. If I say something is outdated or doesn't exist, search before disagreeing. Never insist from memory.
 - Commands go in their own fenced `bash` blocks, one command per block, so each can be copied on its own.
+- **Root-only commands**: when a command needs root, say so, but **do not put `sudo` in front of it**. Put a `# needs root` comment on the line above the command, inside the same code block, and I decide how to elevate (sudo, a root shell, `sudo -i`). Example: `# needs root` then `dmidecode -t memory`.
 
 ---
 

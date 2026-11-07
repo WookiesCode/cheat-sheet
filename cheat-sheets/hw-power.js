@@ -24,6 +24,10 @@ const HWREF_HW_POWER_DATA = [
           [
             "No DCMI?",
             "Read the PSU input-power sensors instead (next card)"
+          ],
+          [
+            "Budget with the maximum",
+            "Size circuits from the peak, not the average"
           ]
         ],
         "tip": "Measure under real load; idle numbers hide the GPU peak",
@@ -37,45 +41,7 @@ const HWREF_HW_POWER_DATA = [
           "psu",
           "budget"
         ]
-      }
-    ]
-  },
-  {
-    "id": "power-flags-1",
-    "badge": "power",
-    "title": "Power & PDUs: More options",
-    "subtitle": "More options for: Real power draw from the BMC",
-    "commands": [
-      {
-        "id": "power-read-bmc-flags-card",
-        "desc": "More options and gotchas for: Real power draw from the BMC",
-        "cmd": "ipmitool -I lanplus -H $BMC -U $BMC_USER -E dcmi power reading",
-        "hideCode": false,
-        "flags": [
-          [
-            "Budget with the maximum",
-            "Size circuits from the peak, not the average"
-          ]
-        ],
-        "tags": [
-          "hardware",
-          "reference",
-          "power",
-          "flags",
-          "options",
-          "power",
-          "dcmi",
-          "watts"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "power-recipes-1",
-    "badge": "power",
-    "title": "Power & PDUs: Related commands",
-    "subtitle": "Related commands for: Real power draw from the BMC",
-    "commands": [
+      },
       {
         "id": "power-read-bmc-sub-1",
         "desc": "PSU presence, failures and redundancy",
@@ -143,6 +109,14 @@ const HWREF_HW_POWER_DATA = [
           [
             "C14 vs C13",
             "C14 is the inlet (pins, on the PSU); C13 is the cord end"
+          ],
+          [
+            "Mixed cords",
+            "A C13 cord on a C14-to-C19 adapter is still limited to the C13 rating"
+          ],
+          [
+            "GPU nodes",
+            "Multi-kW PSUs are usually C19/C20, or busbar-fed in OCP racks"
           ]
         ],
         "tip": "Read the PSU label: input current and connector are printed on it",
@@ -155,40 +129,6 @@ const HWREF_HW_POWER_DATA = [
           "iec60320",
           "cord",
           "inlet"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "power-flags-2",
-    "badge": "power",
-    "title": "Power & PDUs: More options",
-    "subtitle": "More options for: Cord and inlet ratings",
-    "commands": [
-      {
-        "id": "power-cords-flags-card",
-        "desc": "More options and gotchas for: Cord and inlet ratings",
-        "cmd": "ipmitool -I lanplus -H $BMC -U $BMC_USER -E fru print | grep -iE 'power|psu'",
-        "hideCode": false,
-        "flags": [
-          [
-            "Mixed cords",
-            "A C13 cord on a C14-to-C19 adapter is still limited to the C13 rating"
-          ],
-          [
-            "GPU nodes",
-            "Multi-kW PSUs are usually C19/C20, or busbar-fed in OCP racks"
-          ]
-        ],
-        "tags": [
-          "hardware",
-          "reference",
-          "power",
-          "flags",
-          "options",
-          "c13",
-          "c19",
-          "iec60320"
         ]
       }
     ]
@@ -216,6 +156,14 @@ const HWREF_HW_POWER_DATA = [
           [
             "Three-phase",
             "kW = √3 × V(line-to-line) × A × PF / 1000; kVA is the same without PF"
+          ],
+          [
+            "PF",
+            "Power factor: about 0.95-0.99 for modern server PSUs"
+          ],
+          [
+            "100%-rated breakers",
+            "An exception exists only when the whole assembly is listed for 100%"
           ]
         ],
         "tip": "Change v and a to your PDU's rating and predict the result before you run it",
@@ -230,49 +178,7 @@ const HWREF_HW_POWER_DATA = [
           "circuit",
           "pdu"
         ]
-      }
-    ]
-  },
-  {
-    "id": "power-flags-3",
-    "badge": "power",
-    "title": "Power & PDUs: More options",
-    "subtitle": "More options for: Circuit math: the 80% rule and three-phase power",
-    "commands": [
-      {
-        "id": "power-circuit-flags-card",
-        "desc": "More options and gotchas for: Circuit math: the 80% rule and three-phase power",
-        "cmd": "awk 'BEGIN{v=415; a=32; pf=0.95; kw=sqrt(3)*v*a*pf/1000; printf \"%.1f kW total, %.1f kW usable at 80%%\\n\", kw, kw*0.8}'",
-        "hideCode": false,
-        "flags": [
-          [
-            "PF",
-            "Power factor: about 0.95-0.99 for modern server PSUs"
-          ],
-          [
-            "100%-rated breakers",
-            "An exception exists only when the whole assembly is listed for 100%"
-          ]
-        ],
-        "tags": [
-          "hardware",
-          "reference",
-          "power",
-          "flags",
-          "options",
-          "nec",
-          "80-percent",
-          "three-phase"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "power-recipes-3",
-    "badge": "power",
-    "title": "Power & PDUs: Related commands",
-    "subtitle": "Related commands for: Circuit math: the 80% rule and three-phase power",
-    "commands": [
+      },
       {
         "id": "power-circuit-sub-1",
         "desc": "Single-phase 208 V / 30 A circuit",
@@ -312,6 +218,10 @@ const HWREF_HW_POWER_DATA = [
           [
             "Budget per feed",
             "With N+N, one feed must carry the whole node: size each PDU for it"
+          ],
+          [
+            "AC lost",
+            "One PSU reporting AC lost: cord, PDU outlet or breaker first, PSU last"
           ]
         ],
         "tip": "Swap the cord to a known-good outlet before you RMA a PSU",
@@ -325,45 +235,7 @@ const HWREF_HW_POWER_DATA = [
           "pdu",
           "ac-lost"
         ]
-      }
-    ]
-  },
-  {
-    "id": "power-flags-4",
-    "badge": "power",
-    "title": "Power & PDUs: More options",
-    "subtitle": "More options for: PSU redundancy and A/B feeds",
-    "commands": [
-      {
-        "id": "power-redundancy-flags-card",
-        "desc": "More options and gotchas for: PSU redundancy and A/B feeds",
-        "cmd": "ipmitool -I lanplus -H $BMC -U $BMC_USER -E sel elist | grep -iE 'power supply|redundancy|ac lost'",
-        "hideCode": false,
-        "flags": [
-          [
-            "AC lost",
-            "One PSU reporting AC lost: cord, PDU outlet or breaker first, PSU last"
-          ]
-        ],
-        "tags": [
-          "hardware",
-          "reference",
-          "power",
-          "flags",
-          "options",
-          "redundancy",
-          "psu",
-          "ab-feed"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "power-recipes-4",
-    "badge": "power",
-    "title": "Power & PDUs: Related commands",
-    "subtitle": "Related commands for: PSU redundancy and A/B feeds",
-    "commands": [
+      },
       {
         "id": "power-redundancy-sub-1",
         "desc": "Which PSU is unhappy",

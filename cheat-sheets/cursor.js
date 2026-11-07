@@ -24,33 +24,7 @@ const ED_CURSOR_DATA = [
           [
             "Ctrl+.",
             "Mode menu"
-          ]
-        ],
-        "tip": "Shift+Tab to switch Agent / Plan / Ask",
-        "tags": [
-          "editor",
-          "editors",
-          "cursor",
-          "agent",
-          "side panel",
-          "mode",
-          "model"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "cursor-flags-1",
-    "badge": "cur",
-    "title": "Cursor: More options",
-    "subtitle": "More options for: Open the agent side panel and switch modes and models",
-    "commands": [
-      {
-        "id": "cursor-panel-flags-card",
-        "desc": "More options and gotchas for: Open the agent side panel and switch modes and models",
-        "cmd": "Ctrl+I  ·  Ctrl+.  ·  Shift+Tab",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "Shift+Tab",
             "Rotate between agent modes"
@@ -64,15 +38,15 @@ const ED_CURSOR_DATA = [
             "Cursor's reference lists macOS keys; on Linux and Windows Ctrl takes the place of Cmd"
           ]
         ],
+        "tip": "Shift+Tab to switch Agent / Plan / Ask",
         "tags": [
           "editor",
           "editors",
           "cursor",
-          "flags",
-          "options",
           "agent",
           "side panel",
-          "mode"
+          "mode",
+          "model"
         ]
       }
     ]
@@ -100,34 +74,7 @@ const ED_CURSOR_DATA = [
           [
             "Ctrl+Shift+Backspace",
             "Cancel the generation"
-          ]
-        ],
-        "tip": "Review the diff before accepting all",
-        "tags": [
-          "editor",
-          "editors",
-          "cursor",
-          "chat",
-          "send",
-          "accept",
-          "reject",
-          "cancel"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "cursor-flags-2",
-    "badge": "cur",
-    "title": "Cursor: More options",
-    "subtitle": "More options for: In the chat box: send, cancel, accept or reject changes",
-    "commands": [
-      {
-        "id": "cursor-chat-flags-card",
-        "desc": "More options and gotchas for: In the chat box: send, cancel, accept or reject changes",
-        "cmd": "Ctrl+Enter  ·  Ctrl+Shift+Backspace",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "Ctrl+Enter with suggested changes",
             "Accept all changes"
@@ -141,15 +88,16 @@ const ED_CURSOR_DATA = [
             "New chat / new chat tab / close the chat"
           ]
         ],
+        "tip": "Review the diff before accepting all",
         "tags": [
           "editor",
           "editors",
           "cursor",
-          "flags",
-          "options",
           "chat",
           "send",
-          "accept"
+          "accept",
+          "reject",
+          "cancel"
         ]
       }
     ]
@@ -177,6 +125,10 @@ const ED_CURSOR_DATA = [
           [
             "/",
             "Shortcut commands"
+          ],
+          [
+            "Ctrl+V (code or log in clipboard)",
+            "Paste it as context; Ctrl+Shift+V pastes it as plain text"
           ]
         ],
         "tip": "@-mention the file instead of pasting it",
@@ -188,36 +140,6 @@ const ED_CURSOR_DATA = [
           "mention",
           "selection",
           "clipboard"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "cursor-flags-3",
-    "badge": "cur",
-    "title": "Cursor: More options",
-    "subtitle": "More options for: Give the agent context: selections, files, clipboard",
-    "commands": [
-      {
-        "id": "cursor-context-flags-card",
-        "desc": "More options and gotchas for: Give the agent context: selections, files, clipboard",
-        "cmd": "Ctrl+Shift+L  ·  @",
-        "hideCode": false,
-        "flags": [
-          [
-            "Ctrl+V (code or log in clipboard)",
-            "Paste it as context; Ctrl+Shift+V pastes it as plain text"
-          ]
-        ],
-        "tags": [
-          "editor",
-          "editors",
-          "cursor",
-          "flags",
-          "options",
-          "context",
-          "mention",
-          "selection"
         ]
       }
     ]
@@ -278,6 +200,14 @@ const ED_CURSOR_DATA = [
           [
             "Ctrl+Shift+P",
             "Command palette"
+          ],
+          [
+            "Ctrl+R then Ctrl+S",
+            "Keyboard shortcuts editor (or search Keyboard Shortcuts in the palette)"
+          ],
+          [
+            "Ctrl+Shift+Space",
+            "Voice mode (dictation)"
           ]
         ],
         "tip": "Ctrl+Shift+J is Cursor's own settings",
@@ -289,40 +219,6 @@ const ED_CURSOR_DATA = [
           "palette",
           "shortcuts",
           "voice"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "cursor-flags-5",
-    "badge": "cur",
-    "title": "Cursor: More options",
-    "subtitle": "More options for: Settings, palette, keyboard shortcuts, voice",
-    "commands": [
-      {
-        "id": "cursor-settings-flags-card",
-        "desc": "More options and gotchas for: Settings, palette, keyboard shortcuts, voice",
-        "cmd": "Ctrl+Shift+J  ·  Ctrl+Shift+P",
-        "hideCode": false,
-        "flags": [
-          [
-            "Ctrl+R then Ctrl+S",
-            "Keyboard shortcuts editor (or search Keyboard Shortcuts in the palette)"
-          ],
-          [
-            "Ctrl+Shift+Space",
-            "Voice mode (dictation)"
-          ]
-        ],
-        "tags": [
-          "editor",
-          "editors",
-          "cursor",
-          "flags",
-          "options",
-          "settings",
-          "palette",
-          "shortcuts"
         ]
       }
     ]
@@ -350,6 +246,14 @@ const ED_CURSOR_DATA = [
           [
             "--mode=plan / --mode=ask",
             "Plan without editing, or just answer questions"
+          ],
+          [
+            "agent ls / agent resume / --continue",
+            "List, resume or continue earlier sessions"
+          ],
+          [
+            "--sandbox enabled",
+            "Run tool calls in the sandbox"
           ]
         ],
         "tip": "-p for scripts, plain agent for a chat",
@@ -362,49 +266,7 @@ const ED_CURSOR_DATA = [
           "terminal",
           "print mode"
         ]
-      }
-    ]
-  },
-  {
-    "id": "cursor-flags-6",
-    "badge": "cur",
-    "title": "Cursor: More options",
-    "subtitle": "More options for: Run the Cursor agent in a terminal",
-    "commands": [
-      {
-        "id": "cursor-agent-cli-flags-card",
-        "desc": "More options and gotchas for: Run the Cursor agent in a terminal",
-        "cmd": "agent \"explain why this service fails to start\"",
-        "hideCode": false,
-        "flags": [
-          [
-            "agent ls / agent resume / --continue",
-            "List, resume or continue earlier sessions"
-          ],
-          [
-            "--sandbox enabled",
-            "Run tool calls in the sandbox"
-          ]
-        ],
-        "tags": [
-          "editor",
-          "editors",
-          "cursor",
-          "flags",
-          "options",
-          "cli",
-          "agent",
-          "terminal"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "cursor-recipes-6",
-    "badge": "cur",
-    "title": "Cursor: Related commands",
-    "subtitle": "Related commands for: Run the Cursor agent in a terminal",
-    "commands": [
+      },
       {
         "id": "cursor-agent-cli-sub-1",
         "desc": "Install the CLI (pipes a script into bash: read it first; changes state)",

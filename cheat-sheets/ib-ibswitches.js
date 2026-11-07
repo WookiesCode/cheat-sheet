@@ -33,15 +33,7 @@ const IB_IB_IBSWITCHES_DATA = [
           "triage",
           "rdma"
         ]
-      }
-    ]
-  },
-  {
-    "id": "ibswitches-subcmds",
-    "badge": "sw",
-    "title": "ibswitches: Common Recipes & Pipelines",
-    "subtitle": "Verified production bash one-liners and automation pipelines using ibswitches",
-    "commands": [
+      },
       {
         "id": "ibswitches-sub-1",
         "desc": "Count total compute HCA ports visible on Rail 0 (mlx5_0) to verify all servers are online",

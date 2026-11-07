@@ -42,15 +42,7 @@ const SW_SW_CUMULUS_PORTS_DATA = [
           "bounce",
           "counters"
         ]
-      }
-    ]
-  },
-  {
-    "id": "cumulus-ports-recipes-1",
-    "badge": "nvu",
-    "title": "Cumulus: Port Status: Common Recipes & Verification",
-    "subtitle": "Production CLI commands, transceivers & diagnostic workflows for Cumulus: Port Status",
-    "commands": [
+      },
       {
         "id": "nvue-show-interface-sub-1",
         "desc": "Display hardware RX/TX packets, bytes, CRC errors, drops, and symbol errors on swp1",

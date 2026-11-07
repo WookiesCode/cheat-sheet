@@ -45,15 +45,7 @@ const SW_SW_QUANTUM_PORTS_DATA = [
           "qm9700",
           "qm8700"
         ]
-      }
-    ]
-  },
-  {
-    "id": "quantum-mlnxos-ports-recipes-1",
-    "badge": "qtm",
-    "title": "Quantum: Ports & Optics: Common Recipes & Verification",
-    "subtitle": "Production CLI commands, transceivers & diagnostic workflows for Quantum: Ports & Optics",
-    "commands": [
+      },
       {
         "id": "mlnxos-show-interfaces-ib-sub-1",
         "desc": "Inspect OSFP/QSFP optical DOM on IB 1/1: per-lane Rx/Tx optical power (dBm), bias current, module temp, PN & SN",
@@ -89,8 +81,8 @@ const SW_SW_QUANTUM_PORTS_DATA = [
       },
       {
         "id": "mlnxos-show-interfaces-ib-sub-4",
-        "desc": "Reset hardware error counters on IB 1/1 after cleaning fiber or replacing an OSFP/QSFP module",
-        "cmd": "clear interfaces ib 1/1 counters",
+        "desc": "Reset IB 1/1 error counters after cleaning fiber or replacing an OSFP/QSFP module (MLNX-OS clears counters only inside interface ib mode, from configure terminal)",
+        "cmd": "interface ib 1/1\nclear counters",
         "tags": [
           "Quantum: Ports & Optics",
           "recipe",
@@ -159,15 +151,7 @@ const SW_SW_QUANTUM_PORTS_DATA = [
           "hdr",
           "cables"
         ]
-      }
-    ]
-  },
-  {
-    "id": "quantum-mlnxos-ports-recipes-2",
-    "badge": "qtm",
-    "title": "Quantum: Ports & Optics: Common Recipes & Verification",
-    "subtitle": "Production CLI commands, transceivers & diagnostic workflows for Quantum: Ports & Optics",
-    "commands": [
+      },
       {
         "id": "mlnxos-split-ports-cable-sub-1",
         "desc": "Check optical DOM Tx/Rx dBm and module temperature on split sub-port IB 1/1/1",

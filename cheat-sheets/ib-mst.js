@@ -29,15 +29,7 @@ const IB_IB_MST_DATA = [
           "triage",
           "rdma"
         ]
-      }
-    ]
-  },
-  {
-    "id": "mst-subcmds",
-    "badge": "mst",
-    "title": "mst: Common Recipes & Pipelines",
-    "subtitle": "Verified production bash one-liners and automation pipelines using mst",
-    "commands": [
+      },
       {
         "id": "mst-sub-1",
         "desc": "Discover and create MST device nodes for attached optical transceivers and active cables",

@@ -24,6 +24,10 @@ const HWREF_HW_RACK_DATA = [
           [
             "chassis-asset-tag",
             "Your asset tag, if set"
+          ],
+          [
+            "ipmitool fru print 0",
+            "Same data through the BMC, even with the OS down"
           ]
         ],
         "tip": "Blink the ID LED before you touch a server in a full rack",
@@ -37,45 +41,7 @@ const HWREF_HW_RACK_DATA = [
           "fru",
           "dmidecode"
         ]
-      }
-    ]
-  },
-  {
-    "id": "rack-flags-1",
-    "badge": "rack",
-    "title": "Racks & labelling: More options",
-    "subtitle": "More options for: Who is this server? Serial, model and asset tag",
-    "commands": [
-      {
-        "id": "rack-identity-flags-card",
-        "desc": "More options and gotchas for: Who is this server? Serial, model and asset tag",
-        "cmd": "sudo dmidecode -s system-serial-number; sudo dmidecode -s system-product-name",
-        "hideCode": false,
-        "flags": [
-          [
-            "ipmitool fru print 0",
-            "Same data through the BMC, even with the OS down"
-          ]
-        ],
-        "tags": [
-          "hardware",
-          "reference",
-          "rack",
-          "flags",
-          "options",
-          "serial",
-          "asset",
-          "identify"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "rack-recipes-1",
-    "badge": "rack",
-    "title": "Racks & labelling: Related commands",
-    "subtitle": "Related commands for: Who is this server? Serial, model and asset tag",
-    "commands": [
+      },
       {
         "id": "rack-identity-sub-1",
         "desc": "FRU through the BMC",
@@ -129,6 +95,14 @@ const HWREF_HW_RACK_DATA = [
           [
             "42U",
             "The common full-height rack"
+          ],
+          [
+            "OCP Open Rack V3",
+            "21-inch bay; supports 48 mm OpenU and 44.45 mm EIA units; 48 V busbar power"
+          ],
+          [
+            "Busbar",
+            "ORv3 gear takes power from the rear busbar, not PDU cords"
           ]
         ],
         "tip": "Count U from the bottom, the way the rack's numbering does",
@@ -141,40 +115,6 @@ const HWREF_HW_RACK_DATA = [
           "ocp",
           "open-rack",
           "busbar"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "rack-flags-2",
-    "badge": "rack",
-    "title": "Racks & labelling: More options",
-    "subtitle": "More options for: Rack units and rack types",
-    "commands": [
-      {
-        "id": "rack-units-flags-card",
-        "desc": "More options and gotchas for: Rack units and rack types",
-        "cmd": "awk 'BEGIN{u=42; printf \"%dU = %.1f mm = %.2f in\\n\", u, u*44.45, u*1.75}'",
-        "hideCode": false,
-        "flags": [
-          [
-            "OCP Open Rack V3",
-            "21-inch bay; supports 48 mm OpenU and 44.45 mm EIA units; 48 V busbar power"
-          ],
-          [
-            "Busbar",
-            "ORv3 gear takes power from the rear busbar, not PDU cords"
-          ]
-        ],
-        "tags": [
-          "hardware",
-          "reference",
-          "rack",
-          "flags",
-          "options",
-          "rack-unit",
-          "eia-310",
-          "ocp"
         ]
       }
     ]
@@ -202,6 +142,10 @@ const HWREF_HW_RACK_DATA = [
           [
             "Both ends",
             "Every cable labelled at both ends with both endpoints"
+          ],
+          [
+            "Site-Row/Rack-U",
+            "A sortable, unique ID for every position"
           ]
         ],
         "tip": "If the label and the CMDB disagree, trust neither until you trace the cable",
@@ -213,36 +157,6 @@ const HWREF_HW_RACK_DATA = [
           "tia-606",
           "cabling",
           "cmdb"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "rack-flags-3",
-    "badge": "rack",
-    "title": "Racks & labelling: More options",
-    "subtitle": "More options for: A labelling scheme",
-    "commands": [
-      {
-        "id": "rack-labels-flags-card",
-        "desc": "More options and gotchas for: A labelling scheme",
-        "cmd": "printf '%s\\n' 'DC1-R12-U24' 'DC1-R12-U24-PSU1->PDU-R12-A-07' 'DC1-R12-U24-ib0->SW-R12-01:p17'",
-        "hideCode": false,
-        "flags": [
-          [
-            "Site-Row/Rack-U",
-            "A sortable, unique ID for every position"
-          ]
-        ],
-        "tags": [
-          "hardware",
-          "reference",
-          "rack",
-          "flags",
-          "options",
-          "labels",
-          "tia-606",
-          "cabling"
         ]
       }
     ]

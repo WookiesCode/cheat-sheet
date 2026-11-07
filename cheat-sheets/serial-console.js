@@ -24,34 +24,7 @@ const BMC_SERIAL_CONSOLE_DATA = [
           [
             "C-a C-q",
             "Quit without resetting the port"
-          ]
-        ],
-        "tip": "Use /dev/serial/by-id paths: ttyUSB numbers change on replug",
-        "tags": [
-          "bmc",
-          "remote-management",
-          "serial",
-          "serial",
-          "picocom",
-          "console",
-          "usb",
-          "tty"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "serial-flags-1",
-    "badge": "serial",
-    "title": "Serial consoles: More options",
-    "subtitle": "More options for: Open a USB serial console",
-    "commands": [
-      {
-        "id": "serial-picocom-flags-card",
-        "desc": "More options and gotchas for: Open a USB serial console",
-        "cmd": "picocom -b 115200 /dev/ttyUSB0",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "C-a C-h",
             "Help: every C-a command"
@@ -65,25 +38,18 @@ const BMC_SERIAL_CONSOLE_DATA = [
             "Log the session to a file"
           ]
         ],
+        "tip": "Use /dev/serial/by-id paths: ttyUSB numbers change on replug",
         "tags": [
           "bmc",
           "remote-management",
           "serial",
-          "flags",
-          "options",
           "serial",
           "picocom",
-          "console"
+          "console",
+          "usb",
+          "tty"
         ]
-      }
-    ]
-  },
-  {
-    "id": "serial-recipes-1",
-    "badge": "serial",
-    "title": "Serial consoles: Related commands",
-    "subtitle": "Related commands for: Open a USB serial console",
-    "commands": [
+      },
       {
         "id": "serial-picocom-sub-1",
         "desc": "Stable names for USB serial adapters",
@@ -151,34 +117,7 @@ const BMC_SERIAL_CONSOLE_DATA = [
           [
             "connector",
             "The device: serialdev,<path>,<baud><parity><bits><stop>"
-          ]
-        ],
-        "tip": "Bind ser2net to a management VLAN only: it has no login by default",
-        "tags": [
-          "bmc",
-          "remote-management",
-          "serial",
-          "ser2net",
-          "serial",
-          "network",
-          "yaml",
-          "rfc2217"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "serial-flags-2",
-    "badge": "serial",
-    "title": "Serial consoles: More options",
-    "subtitle": "More options for: Share a serial port on the network with ser2net",
-    "commands": [
-      {
-        "id": "serial-ser2net-flags-card",
-        "desc": "More options and gotchas for: Share a serial port on the network with ser2net",
-        "cmd": "connection: &rack12-sw1\n  accepter: telnet(rfc2217),tcp,3001\n  connector: serialdev,/dev/ttyUSB0,115200N81\n  options:\n    kickolduser: false\n    banner: \"rack12-sw1 console\\r\\n\"",
-        "hideCode": true,
-        "flags": [
+          ],
           [
             "kickolduser",
             "true: a new user takes over from the old one"
@@ -192,25 +131,18 @@ const BMC_SERIAL_CONSOLE_DATA = [
             "YAML v1: insert a file's contents, so secrets stay out of the config"
           ]
         ],
+        "tip": "Bind ser2net to a management VLAN only: it has no login by default",
         "tags": [
           "bmc",
           "remote-management",
           "serial",
-          "flags",
-          "options",
           "ser2net",
           "serial",
-          "network"
+          "network",
+          "yaml",
+          "rfc2217"
         ]
-      }
-    ]
-  },
-  {
-    "id": "serial-recipes-2",
-    "badge": "serial",
-    "title": "Serial consoles: Related commands",
-    "subtitle": "Related commands for: Share a serial port on the network with ser2net",
-    "commands": [
+      },
       {
         "id": "serial-ser2net-sub-1",
         "desc": "Is it running?",
@@ -264,33 +196,7 @@ const BMC_SERIAL_CONSOLE_DATA = [
           [
             "console -s <name>",
             "Spy: read-only"
-          ]
-        ],
-        "tip": "conserver logs every console, so the boot that crashed at 3 a.m. is in the log",
-        "tags": [
-          "bmc",
-          "remote-management",
-          "serial",
-          "conserver",
-          "console",
-          "serial",
-          "logging"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "serial-flags-3",
-    "badge": "serial",
-    "title": "Serial consoles: More options",
-    "subtitle": "More options for: List and attach to logged consoles",
-    "commands": [
-      {
-        "id": "serial-conserver-flags-card",
-        "desc": "More options and gotchas for: List and attach to logged consoles",
-        "cmd": "console -u",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "^Ec.",
             "Disconnect (Ctrl-E, c, period)"
@@ -304,25 +210,17 @@ const BMC_SERIAL_CONSOLE_DATA = [
             "Replay recent output / send a break"
           ]
         ],
+        "tip": "conserver logs every console, so the boot that crashed at 3 a.m. is in the log",
         "tags": [
           "bmc",
           "remote-management",
           "serial",
-          "flags",
-          "options",
           "conserver",
           "console",
-          "serial"
+          "serial",
+          "logging"
         ]
-      }
-    ]
-  },
-  {
-    "id": "serial-recipes-3",
-    "badge": "serial",
-    "title": "Serial consoles: Related commands",
-    "subtitle": "Related commands for: List and attach to logged consoles",
-    "commands": [
+      },
       {
         "id": "serial-conserver-sub-1",
         "desc": "Watch a console without typing into it",
@@ -376,6 +274,10 @@ const BMC_SERIAL_CONSOLE_DATA = [
           [
             "ipmiciphersuite / ipmiprivlevel",
             "Cipher suite and privilege (default admin)"
+          ],
+          [
+            "type device + device + baud",
+            "A local serial port instead"
           ]
         ],
         "tip": "chmod 600 conserver.cf when it holds BMC passwords",
@@ -387,36 +289,6 @@ const BMC_SERIAL_CONSOLE_DATA = [
           "ipmi",
           "sol",
           "config"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "serial-flags-4",
-    "badge": "serial",
-    "title": "Serial consoles: More options",
-    "subtitle": "More options for: conserver console for an IPMI SOL target",
-    "commands": [
-      {
-        "id": "serial-conserver-ipmi-flags-card",
-        "desc": "More options and gotchas for: conserver console for an IPMI SOL target",
-        "cmd": "console rack12-node07 {\n  master localhost;\n  type ipmi;\n  host rack12-node07-bmc.example.com;\n  username <bmc_user>;\n  rw *;\n}",
-        "hideCode": true,
-        "flags": [
-          [
-            "type device + device + baud",
-            "A local serial port instead"
-          ]
-        ],
-        "tags": [
-          "bmc",
-          "remote-management",
-          "serial",
-          "flags",
-          "options",
-          "conserver",
-          "ipmi",
-          "sol"
         ]
       }
     ]

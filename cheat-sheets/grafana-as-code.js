@@ -24,6 +24,14 @@ const GRAF_GRAFANA_AS_CODE_DATA = [
           [
             "targets[].expr",
             "The PromQL. Inside JSON, double quotes in the query must be escaped as \\\""
+          ],
+          [
+            "Leave out id",
+            "id is per-instance; when moving a dashboard between Grafanas, remove it (or set null) and keep uid"
+          ],
+          [
+            "Grafana 13",
+            "Exports default to the v2 resource schema (apiVersion/kind/spec); classic JSON like this still imports and is migrated"
           ]
         ],
         "tip": "Set uid yourself; drop id when moving",
@@ -39,49 +47,7 @@ const GRAF_GRAFANA_AS_CODE_DATA = [
           "export",
           "schema"
         ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-as-code-flags-1",
-    "badge": "code",
-    "title": "Dashboards as Code: More options",
-    "subtitle": "More options for: Minimal dashboard JSON",
-    "commands": [
-      {
-        "id": "grafana-dashboard-json-skeleton-flags-card",
-        "desc": "More options and gotchas for: Minimal dashboard JSON",
-        "cmd": "{\n  \"uid\": \"gpu-fleet\",\n  \"title\": \"GPU Fleet\",\n  \"tags\": [\"gpu\", \"dcgm\"],\n  \"time\": { \"from\": \"now-6h\", \"to\": \"now\" },\n  \"refresh\": \"30s\",\n  \"panels\": [\n    {\n      \"type\": \"timeseries\",\n      \"title\": \"GPU utilization\",\n      \"gridPos\": { \"x\": 0, \"y\": 0, \"w\": 12, \"h\": 8 },\n      \"datasource\": { \"type\": \"prometheus\", \"uid\": \"prometheus\" },\n      \"targets\": [\n        { \"refId\": \"A\",\n          \"expr\": \"avg by (hostname) (DCGM_FI_DEV_GPU_UTIL_RATIO{hostname=~\\\"$host\\\"})\",\n          \"legendFormat\": \"{{hostname}}\" }\n      ],\n      \"fieldConfig\": { \"defaults\": { \"unit\": \"percentunit\", \"min\": 0, \"max\": 1 }, \"overrides\": [] }\n    }\n  ]\n}",
-        "hideCode": true,
-        "flags": [
-          [
-            "Leave out id",
-            "id is per-instance; when moving a dashboard between Grafanas, remove it (or set null) and keep uid"
-          ],
-          [
-            "Grafana 13",
-            "Exports default to the v2 resource schema (apiVersion/kind/spec); classic JSON like this still imports and is migrated"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "json",
-          "model",
-          "uid"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-as-code-recipes-1",
-    "badge": "code",
-    "title": "Dashboards as Code: Related commands",
-    "subtitle": "Related commands for: Minimal dashboard JSON",
-    "commands": [
+      },
       {
         "id": "grafana-dashboard-json-skeleton-sub-1",
         "desc": "Check the file is valid JSON before loading it",
@@ -135,6 +101,14 @@ const GRAF_GRAFANA_AS_CODE_DATA = [
           [
             "updateIntervalSeconds",
             "How often Grafana re-reads the files; edits in git show up without a restart"
+          ],
+          [
+            "allowUiUpdates: false",
+            "UI edits are blocked, so git stays the source of truth. To change a dashboard: edit in the lab, export JSON, commit"
+          ],
+          [
+            "disableDeletion",
+            "Removing a file does not delete the dashboard; safer while you are learning"
           ]
         ],
         "tip": "Git is the source of truth: allowUiUpdates false",
@@ -148,49 +122,7 @@ const GRAF_GRAFANA_AS_CODE_DATA = [
           "folders",
           "gitops"
         ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-as-code-flags-2",
-    "badge": "code",
-    "title": "Dashboards as Code: More options",
-    "subtitle": "More options for: Load dashboards from a folder of JSON files",
-    "commands": [
-      {
-        "id": "grafana-dashboard-provider-flags-card",
-        "desc": "More options and gotchas for: Load dashboards from a folder of JSON files",
-        "cmd": "apiVersion: 1\nproviders:\n  - name: fleet\n    type: file\n    disableDeletion: true\n    allowUiUpdates: false\n    updateIntervalSeconds: 30\n    options:\n      path: /var/lib/grafana/dashboards\n      foldersFromFilesStructure: true",
-        "hideCode": true,
-        "flags": [
-          [
-            "allowUiUpdates: false",
-            "UI edits are blocked, so git stays the source of truth. To change a dashboard: edit in the lab, export JSON, commit"
-          ],
-          [
-            "disableDeletion",
-            "Removing a file does not delete the dashboard; safer while you are learning"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "provisioning",
-          "yaml",
-          "file"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-as-code-recipes-2",
-    "badge": "code",
-    "title": "Dashboards as Code: Related commands",
-    "subtitle": "Related commands for: Load dashboards from a folder of JSON files",
-    "commands": [
+      },
       {
         "id": "grafana-dashboard-provider-sub-1",
         "desc": "See which dashboards loaded and any JSON errors",
@@ -244,15 +176,7 @@ const GRAF_GRAFANA_AS_CODE_DATA = [
           "backup",
           "uid"
         ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-as-code-recipes-3",
-    "badge": "code",
-    "title": "Dashboards as Code: Related commands",
-    "subtitle": "Related commands for: Export a dashboard's JSON with the HTTP API",
-    "commands": [
+      },
       {
         "id": "grafana-api-export-sub-1",
         "desc": "Find dashboards and their UIDs",
@@ -320,6 +244,14 @@ const GRAF_GRAFANA_AS_CODE_DATA = [
           [
             "overwrite: true",
             "Replace an existing dashboard with the same uid or title. Without it, the API refuses (412 version-mismatch / name-exists)"
+          ],
+          [
+            "message",
+            "Shows in the dashboard's version history"
+          ],
+          [
+            "--data-binary @-",
+            "Read the body from stdin (the jq output) without changing newlines"
           ]
         ],
         "tip": "412 = someone changed it; re-export first",
@@ -334,40 +266,6 @@ const GRAF_GRAFANA_AS_CODE_DATA = [
           "jq",
           "overwrite",
           "folder"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-as-code-flags-4",
-    "badge": "code",
-    "title": "Dashboards as Code: More options",
-    "subtitle": "More options for: Create or update a dashboard from a JSON file with the HTTP API",
-    "commands": [
-      {
-        "id": "grafana-api-import-flags-card",
-        "desc": "More options and gotchas for: Create or update a dashboard from a JSON file with the HTTP API",
-        "cmd": "jq '{dashboard: (. | .id = null), folderUid: \"<folder-uid>\", overwrite: true, message: \"update from git\"}' gpu-fleet.json | curl -s -X POST -H \"Authorization: Bearer $GRAFANA_TOKEN\" -H 'Content-Type: application/json' --data-binary @- \"$GRAFANA_URL/api/dashboards/db\" | jq",
-        "hideCode": false,
-        "flags": [
-          [
-            "message",
-            "Shows in the dashboard's version history"
-          ],
-          [
-            "--data-binary @-",
-            "Read the body from stdin (the jq output) without changing newlines"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "api",
-          "import",
-          "post"
         ]
       }
     ]
@@ -395,6 +293,18 @@ const GRAF_GRAFANA_AS_CODE_DATA = [
           [
             "-o yaml|json",
             "File format for pulled resources"
+          ],
+          [
+            "--include-managed",
+            "Also touch resources owned by Terraform or Git Sync (skipped by default)"
+          ],
+          [
+            "Contexts",
+            "Configure one context per Grafana (lab, prod) and switch between them; see gcx config --help"
+          ],
+          [
+            "grafanactl",
+            "Deprecated; its repo was archived 2026-06-01. Replace grafanactl with gcx in old scripts"
           ]
         ],
         "tip": "Old scripts: grafanactl → gcx",
@@ -409,53 +319,7 @@ const GRAF_GRAFANA_AS_CODE_DATA = [
           "push",
           "gitops"
         ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-as-code-flags-5",
-    "badge": "code",
-    "title": "Dashboards as Code: More options",
-    "subtitle": "More options for: gcx: pull and push dashboards as files",
-    "commands": [
-      {
-        "id": "grafana-gcx-flags-card",
-        "desc": "More options and gotchas for: gcx: pull and push dashboards as files",
-        "cmd": "gcx resources pull --path ./resources/ -o yaml",
-        "hideCode": false,
-        "flags": [
-          [
-            "--include-managed",
-            "Also touch resources owned by Terraform or Git Sync (skipped by default)"
-          ],
-          [
-            "Contexts",
-            "Configure one context per Grafana (lab, prod) and switch between them; see gcx config --help"
-          ],
-          [
-            "grafanactl",
-            "Deprecated; its repo was archived 2026-06-01. Replace grafanactl with gcx in old scripts"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "gcx",
-          "grafanactl",
-          "cli"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-as-code-recipes-5",
-    "badge": "code",
-    "title": "Dashboards as Code: Related commands",
-    "subtitle": "Related commands for: gcx: pull and push dashboards as files",
-    "commands": [
+      },
       {
         "id": "grafana-gcx-sub-1",
         "desc": "Upload the files to the current context (changes state)",
@@ -523,6 +387,10 @@ const GRAF_GRAFANA_AS_CODE_DATA = [
           [
             "vs file provisioning",
             "File provisioning is one-way (files → Grafana). Git Sync is two-way and keeps UI editing"
+          ],
+          [
+            "vs API/gcx",
+            "API and gcx are scripts you run; Git Sync runs continuously inside Grafana"
           ]
         ],
         "tip": "One-way: files. Two-way: Git Sync",
@@ -535,36 +403,6 @@ const GRAF_GRAFANA_AS_CODE_DATA = [
           "gitops",
           "github",
           "provisioning"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-as-code-flags-6",
-    "badge": "code",
-    "title": "Dashboards as Code: More options",
-    "subtitle": "More options for: Git Sync",
-    "commands": [
-      {
-        "id": "grafana-git-sync-flags-card",
-        "desc": "More options and gotchas for: Git Sync",
-        "cmd": "Administration → General → Provisioning → Configure Git Sync",
-        "hideCode": false,
-        "flags": [
-          [
-            "vs API/gcx",
-            "API and gcx are scripts you run; Git Sync runs continuously inside Grafana"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "git sync",
-          "git",
-          "gitops"
         ]
       }
     ]

@@ -14,6 +14,7 @@
 // missing (existing pages own their chrome); the menu is replaced if present.
 const fs = require('fs');
 const path = require('path');
+const { mergeCommandCards } = require('./generate-card-utils');
 
 function escapeHtml(str) {
   if (str == null) return "";
@@ -608,7 +609,7 @@ function buildSectionCards(sec) {
       }]
     });
   }
-  return cards;
+  return mergeCommandCards(cards);
 }
 
 // 5. Sheet JS: data plus the shared render/search/bookmark code used by the other suites.

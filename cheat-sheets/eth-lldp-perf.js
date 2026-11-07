@@ -104,6 +104,10 @@ const ETH_ETH_LLDP_PERF_DATA = [
           [
             "-R (Reverse)",
             "Server sends, client receives (tests download direction without switching sides)"
+          ],
+          [
+            "Retr column",
+            "Watch TCP Retransmissions column: high Retr indicates switch buffer drops or bad cable CRC errors"
           ]
         ],
         "tip": "",
@@ -120,33 +124,6 @@ const ETH_ETH_LLDP_PERF_DATA = [
           "speedtest",
           "retransmissions",
           "10g"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "lldp-mtu-diag-flags-3",
-    "badge": "diag",
-    "title": "LLDP & Line-Rate Tests: Arguments & Parameters",
-    "subtitle": "Key arguments, parameters, and filtering options for Test IPv6 (`-6`) 1G / 10G / 25G / 100G / 400G TCP & UDP line-rate throughput and TCP retransmissions (`Retr`)",
-    "commands": [
-      {
-        "id": "iperf3-line-rate-test-flags-card",
-        "desc": "Options breakdown and parameter syntax for Test IPv6 (`-6`) 1G / 10G / 25G / 100G / 400G TCP & UDP line-rate throughput and TCP retransmissions (`Retr`)",
-        "cmd": "# Server: iperf3 -s   |   # Client: iperf3 -6 -c 2001:db8:dc:10::1 -P 8 -t 30   |   iperf3 -6 -c 2001:db8:dc:10::1 -R",
-        "hideCode": false,
-        "flags": [
-          [
-            "Retr column",
-            "Watch TCP Retransmissions column: high Retr indicates switch buffer drops or bad cable CRC errors"
-          ]
-        ],
-        "details": "Common operational and diagnostic parameters for Linux Ethernet networking.",
-        "tags": [
-          "LLDP & Line-Rate Tests",
-          "flags",
-          "options",
-          "syntax"
         ]
       }
     ]

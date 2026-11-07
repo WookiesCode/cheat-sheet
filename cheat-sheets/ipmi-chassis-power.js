@@ -24,6 +24,10 @@ const IPMI_IPMI_CHASSIS_POWER_DATA = [
           [
             "power soft",
             "Send ACPI power button signal for graceful OS shutdown"
+          ],
+          [
+            "power off / on",
+            "Immediate hard DC power off / power on"
           ]
         ],
         "tip": "Prefer cycle over reset after BIOS/PCIe hangs",
@@ -40,32 +44,6 @@ const IPMI_IPMI_CHASSIS_POWER_DATA = [
           "on",
           "off",
           "status"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "chassis-power-flags-1",
-    "badge": "pwr",
-    "title": "Chassis Power & UID: Arguments & Parameters",
-    "subtitle": "Key arguments, parameters, and filtering options for Check chassis power state or execute hard power off, cold power cycle, warm reset, or ACPI shutdown",
-    "commands": [
-      {
-        "id": "ipmi-power-actions-flags-card",
-        "desc": "Options breakdown and parameter syntax for Check chassis power state or execute hard power off, cold power cycle, warm reset, or ACPI shutdown",
-        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis power status   |   ... chassis power cycle   |   ... chassis power reset   |   ... chassis power soft",
-        "flags": [
-          [
-            "power off / on",
-            "Immediate hard DC power off / power on"
-          ]
-        ],
-        "details": "Common operational and diagnostic parameters for ipmitool CLI commands.",
-        "tags": [
-          "Chassis Power & UID",
-          "flags",
-          "options",
-          "syntax"
         ]
       }
     ]

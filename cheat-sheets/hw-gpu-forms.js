@@ -24,6 +24,10 @@ const HWREF_HW_GPU_FORMS_DATA = [
           [
             "power.limit",
             "H200 SXM up to 700 W; H200 NVL (PCIe) up to 600 W"
+          ],
+          [
+            "serial",
+            "Goes in the RMA, with the bus ID"
           ]
         ],
         "tip": "topo -m tells SXM (NV18 everywhere) from PCIe (PIX/SYS) at a glance",
@@ -37,45 +41,7 @@ const HWREF_HW_GPU_FORMS_DATA = [
           "topology",
           "identify"
         ]
-      }
-    ]
-  },
-  {
-    "id": "gpuform-flags-1",
-    "badge": "gpu",
-    "title": "GPU form factors: More options",
-    "subtitle": "More options for: Which GPUs, which bus IDs, which power limits",
-    "commands": [
-      {
-        "id": "gpu-forms-identify-flags-card",
-        "desc": "More options and gotchas for: Which GPUs, which bus IDs, which power limits",
-        "cmd": "nvidia-smi --query-gpu=index,name,pci.bus_id,power.limit,serial --format=csv",
-        "hideCode": false,
-        "flags": [
-          [
-            "serial",
-            "Goes in the RMA, with the bus ID"
-          ]
-        ],
-        "tags": [
-          "hardware",
-          "reference",
-          "gpuform",
-          "flags",
-          "options",
-          "sxm",
-          "pcie",
-          "hgx"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "gpuform-recipes-1",
-    "badge": "gpu",
-    "title": "GPU form factors: Related commands",
-    "subtitle": "Related commands for: Which GPUs, which bus IDs, which power limits",
-    "commands": [
+      },
       {
         "id": "gpu-forms-identify-sub-1",
         "desc": "How GPUs and NICs connect: NV# = NVLink, PIX/PXB/SYS = PCIe paths",
@@ -129,6 +95,14 @@ const HWREF_HW_GPU_FORMS_DATA = [
           [
             "HGX Rubin NVL8",
             "NVLink 6: 3.6 TB/s per GPU"
+          ],
+          [
+            "Fabric Manager",
+            "Must run, at the driver's exact version, before CUDA works on NVSwitch systems"
+          ],
+          [
+            "Service",
+            "A failed SXM GPU usually means a baseboard-level RMA: collect nvidia-bug-report first"
           ]
         ],
         "tip": "Inactive NVLinks on one GPU point at that module or its baseboard connector",
@@ -143,49 +117,7 @@ const HWREF_HW_GPU_FORMS_DATA = [
           "b200",
           "b300"
         ]
-      }
-    ]
-  },
-  {
-    "id": "gpuform-flags-2",
-    "badge": "gpu",
-    "title": "GPU form factors: More options",
-    "subtitle": "More options for: HGX / DGX 8-GPU systems",
-    "commands": [
-      {
-        "id": "gpu-forms-hgx-flags-card",
-        "desc": "More options and gotchas for: HGX / DGX 8-GPU systems",
-        "cmd": "nvidia-smi nvlink -s",
-        "hideCode": false,
-        "flags": [
-          [
-            "Fabric Manager",
-            "Must run, at the driver's exact version, before CUDA works on NVSwitch systems"
-          ],
-          [
-            "Service",
-            "A failed SXM GPU usually means a baseboard-level RMA: collect nvidia-bug-report first"
-          ]
-        ],
-        "tags": [
-          "hardware",
-          "reference",
-          "gpuform",
-          "flags",
-          "options",
-          "hgx",
-          "dgx",
-          "nvlink"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "gpuform-recipes-2",
-    "badge": "gpu",
-    "title": "GPU form factors: Related commands",
-    "subtitle": "Related commands for: HGX / DGX 8-GPU systems",
-    "commands": [
+      },
       {
         "id": "gpu-forms-hgx-sub-1",
         "desc": "Fabric Manager state",
@@ -225,6 +157,10 @@ const HWREF_HW_GPU_FORMS_DATA = [
           [
             "One rack = one system",
             "NVLink switch trays join compute trays; a tray fault affects the domain"
+          ],
+          [
+            "Liquid",
+            "Coolant and leak alarms are part of triage (Cooling sheet)"
           ]
         ],
         "tip": "On NVL72, check the NVLink switch trays before blaming one GPU",
@@ -237,36 +173,6 @@ const HWREF_HW_GPU_FORMS_DATA = [
           "gb300",
           "rack-scale",
           "liquid"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "gpuform-flags-3",
-    "badge": "gpu",
-    "title": "GPU form factors: More options",
-    "subtitle": "More options for: Rack-scale: GB200 / GB300 NVL72",
-    "commands": [
-      {
-        "id": "gpu-forms-nvl72-flags-card",
-        "desc": "More options and gotchas for: Rack-scale: GB200 / GB300 NVL72",
-        "cmd": "nvidia-smi -q | grep -iA3 fabric",
-        "hideCode": false,
-        "flags": [
-          [
-            "Liquid",
-            "Coolant and leak alarms are part of triage (Cooling sheet)"
-          ]
-        ],
-        "tags": [
-          "hardware",
-          "reference",
-          "gpuform",
-          "flags",
-          "options",
-          "nvl72",
-          "gb200",
-          "gb300"
         ]
       }
     ]

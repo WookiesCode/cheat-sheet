@@ -24,6 +24,10 @@ const ETH_ETH_NETPLAN_SYSTEMD_DATA = [
           [
             "netplan status --all",
             "Display active addresses, routes, DNS, and underlying renderer state (Ubuntu 22.04+)"
+          ],
+          [
+            "netplan get",
+            "Dump merged active Netplan YAML configuration across all files"
           ]
         ],
         "tip": "Always use 'netplan try' over remote SSH!",
@@ -40,33 +44,6 @@ const ETH_ETH_NETPLAN_SYSTEMD_DATA = [
           "yaml",
           "rollback",
           "chmod"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "ubuntu-netplan-flags-1",
-    "badge": "netp",
-    "title": "Netplan & networkctl: Arguments & Parameters",
-    "subtitle": "Key arguments, parameters, and filtering options for Validate and safely test `/etc/netplan/*",
-    "commands": [
-      {
-        "id": "netplan-try-apply-status-flags-card",
-        "desc": "Options breakdown and parameter syntax for Validate and safely test `/etc/netplan/*",
-        "cmd": "chmod 600 /etc/netplan/*.yaml && netplan generate && netplan try --timeout 60",
-        "hideCode": false,
-        "flags": [
-          [
-            "netplan get",
-            "Dump merged active Netplan YAML configuration across all files"
-          ]
-        ],
-        "details": "Common operational and diagnostic parameters for Linux Ethernet networking.",
-        "tags": [
-          "Netplan & networkctl",
-          "flags",
-          "options",
-          "syntax"
         ]
       }
     ]

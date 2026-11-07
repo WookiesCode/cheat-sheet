@@ -25,6 +25,10 @@ const ETH_ETH_RJ45_TDR_DATA = [
           [
             "Pair 4 (Brown: Pins 7–8)",
             "Rightmost pair (Pins 7 & 8) is ALWAYS White-Brown / Brown in both T568B and T568A"
+          ],
+          [
+            "1G / 2.5G / 5G / 10GBASE-T",
+            "Uses ALL 4 pairs (Pins 1–8) simultaneously in full-duplex PAM5 / PAM16"
           ]
         ],
         "tip": "Only Orange & Green swap between B and A",
@@ -43,33 +47,6 @@ const ETH_ETH_RJ45_TDR_DATA = [
           "wires",
           "colors",
           "8p8c"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "rj45-pinout-tdr-flags-1",
-    "badge": "rj45",
-    "title": "RJ45 Pinouts & TDR: Arguments & Parameters",
-    "subtitle": "Key arguments, parameters, and filtering options for Complete TIA/EIA-568B vs 568A RJ45 (8P8C) wire order (Hold plug clip-down, gold pins facing you, left=Pin 1)",
-    "commands": [
-      {
-        "id": "rj45-t568b-t568a-chart-flags-card",
-        "desc": "Options breakdown and parameter syntax for Complete TIA/EIA-568B vs 568A RJ45 (8P8C) wire order (Hold plug clip-down, gold pins facing you, left=Pin 1)",
-        "cmd": "T568B (Standard): 1:W/Org  2:Org  3:W/Grn  4:Blu  5:W/Blu  6:Grn  7:W/Brn  8:Brn\nT568A (Gov/Res):  1:W/Grn  2:Grn  3:W/Org  4:Blu  5:W/Blu  6:Org  7:W/Brn  8:Brn",
-        "hideCode": true,
-        "flags": [
-          [
-            "1G / 2.5G / 5G / 10GBASE-T",
-            "Uses ALL 4 pairs (Pins 1–8) simultaneously in full-duplex PAM5 / PAM16"
-          ]
-        ],
-        "details": "Common operational and diagnostic parameters for Linux Ethernet networking.",
-        "tags": [
-          "RJ45 Pinouts & TDR",
-          "flags",
-          "options",
-          "syntax"
         ]
       }
     ]

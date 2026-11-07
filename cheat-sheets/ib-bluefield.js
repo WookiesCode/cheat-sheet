@@ -33,15 +33,7 @@ const IB_IB_BLUEFIELD_DATA = [
           "triage",
           "rdma"
         ]
-      }
-    ]
-  },
-  {
-    "id": "bluefield-dpu-subcmds",
-    "badge": "dpu",
-    "title": "BlueField-3: Common Recipes & Pipelines",
-    "subtitle": "Verified production bash one-liners and automation pipelines using BlueField-3",
-    "commands": [
+      },
       {
         "id": "bluefield-dpu-sub-1",
         "desc": "Switch BlueField-3 into NIC / SuperNIC mode (requires full AC chassis power cycle to take effect!)",

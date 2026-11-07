@@ -42,15 +42,7 @@ const SW_SW_ARISTA_MLAG_DATA = [
           "mac",
           "arp"
         ]
-      }
-    ]
-  },
-  {
-    "id": "arista-lldp-mlag-recipes-1",
-    "badge": "mlg",
-    "title": "Arista EOS: LLDP & MLAG: Common Recipes & Verification",
-    "subtitle": "Production CLI commands, transceivers & diagnostic workflows for Arista EOS: LLDP & MLAG",
-    "commands": [
+      },
       {
         "id": "arista-lldp-portchannel-mlag-sub-1",
         "desc": "Show complete LLDP chassis ID, system description, management IPv6/IPv4, and VLAN for port Ethernet1",

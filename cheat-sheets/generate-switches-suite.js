@@ -2,6 +2,7 @@
 // Generates all 15 standalone Data Center Switch cheat sheets and updates the Switches dropdown across all HTML sheets.
 const fs = require('fs');
 const path = require('path');
+const { mergeCommandCards } = require('./generate-card-utils');
 
 // 1. Read switches.js to extract SWITCH_DATA
 const swJs = fs.readFileSync(path.join(__dirname, 'switches.js'), 'utf8');
@@ -170,12 +171,12 @@ const SECTION_MAP = {
     heading: 'Cumulus NVUE LLDP Discovery, Neighbor Audit & Forwarding Tables',
     proTip: {
       desc: 'Cluster Cabling Verification & Host Discovery via LLDP',
-      cmd: 'nv show router lldp neighbor && nv show bridge mac-table',
-      details: 'LLDP is the cornerstone of automated datacenter cabling verification. Compare `nv show router lldp neighbor` output against your cluster wiring manifest to detect mis-cabled GPU compute nodes before running distributed training jobs.',
+      cmd: 'nv show interface --view lldp && nv show bridge domain br_default mac-table',
+      details: 'LLDP is the cornerstone of automated datacenter cabling verification. Compare `nv show interface --view lldp` output against your cluster wiring manifest to detect mis-cabled GPU compute nodes before running distributed training jobs.',
       tip: 'Verify that server hostname, interface name, and switch port match the intended topology map.',
       flags: [
-        ['nv show router lldp neighbor', 'List all discovered adjacent servers, spine switches, and storage nodes with port IDs'],
-        ['nv show bridge mac-table', 'Display learned MAC addresses, VLAN tags, and egress switch ports'],
+        ['nv show interface --view lldp', 'List all discovered adjacent servers, spine switches, and storage nodes with port IDs'],
+        ['nv show bridge domain br_default mac-table', 'Display learned MAC addresses, VLAN tags, and egress switch ports'],
         ['nv show router arp', 'Inspect IPv4 ARP table mapping host IPs to MAC addresses and physical links']
       ]
     }
@@ -273,12 +274,12 @@ const SECTION_MAP = {
     heading: 'Arista EOS BGP EVPN Routing, Chassis Environment & Config Session',
     proTip: {
       desc: 'Arista EOS BGP State & Transactional Config Sessions',
-      cmd: 'show ip bgp summary && show environment all',
+      cmd: 'show ip bgp summary && show system environment all',
       details: 'Arista EOS supports transactional configuration via `configure session`. Changes are isolated in a private session where you can verify syntax with `show session-config diff` before committing or aborting.',
       tip: 'Always use "configure session <name>" for production changes to prevent accidental live-editing collisions.',
       flags: [
         ['show ip bgp summary', 'Summary of all IPv4 BGP neighbor sessions: peer IP, AS number, state, and prefix count'],
-        ['show environment all', 'Display real-time fan RPMs, chassis temperatures, and power supply wattage/voltage'],
+        ['show system environment all', 'Display real-time fan RPMs, chassis temperatures, and power supply wattage/voltage'],
         ['configure session <name> ; show session-config diff ; commit', 'Atomic configuration session with preview diff and commit']
       ]
     }
@@ -420,7 +421,7 @@ function buildSwSectionCards(sec) {
     });
   }
 
-  return cards;
+  return mergeCommandCards(cards);
 }
 
 // 6. Generate JS file for each Switch sub-sheet

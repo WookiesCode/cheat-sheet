@@ -33,15 +33,7 @@ const IB_IB_IBV_DEVINFO_DATA = [
           "triage",
           "rdma"
         ]
-      }
-    ]
-  },
-  {
-    "id": "ibv-devinfo-subcmds",
-    "badge": "ibv",
-    "title": "ibv_devinfo: Common Recipes & Pipelines",
-    "subtitle": "Verified production bash one-liners and automation pipelines using ibv_devinfo",
-    "commands": [
+      },
       {
         "id": "ibv-devinfo-sub-1",
         "desc": "Display full Global Identifier (GID) table across all mlx5 ports with IPv4/IPv6 addresses and RoCE v1/v2 version",

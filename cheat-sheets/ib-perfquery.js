@@ -24,6 +24,10 @@ const IB_IB_PERFQUERY_DATA = [
           [
             "-R",
             "Reset (clear to 0) hardware counters on the target LID/port so you can see if errors are still incrementing"
+          ],
+          [
+            "-a",
+            "Query or reset all ports on the target switch LID"
           ]
         ],
         "tip": "16-bit IB counters saturate at 65535 — use -R to clear after fixing!",
@@ -33,41 +37,7 @@ const IB_IB_PERFQUERY_DATA = [
           "triage",
           "rdma"
         ]
-      }
-    ]
-  },
-  {
-    "id": "perfquery-flags",
-    "badge": "prf",
-    "title": "perfquery: Flags & Options Reference",
-    "subtitle": "Key arguments, parameters, and filtering flags for perfquery",
-    "commands": [
-      {
-        "id": "perfquery-flags-card",
-        "desc": "Full options breakdown and parameter syntax for perfquery",
-        "cmd": "perfquery -h",
-        "flags": [
-          [
-            "-a",
-            "Query or reset all ports on the target switch LID"
-          ]
-        ],
-        "details": "Common diagnostic, verbose, and targeting flags for perfquery in high-performance cluster environments.",
-        "tags": [
-          "perfquery",
-          "flags",
-          "options",
-          "syntax"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "perfquery-subcmds",
-    "badge": "prf",
-    "title": "perfquery: Common Recipes & Pipelines",
-    "subtitle": "Verified production bash one-liners and automation pipelines using perfquery",
-    "commands": [
+      },
       {
         "id": "perfquery-sub-1",
         "desc": "Clear all latched PMA error counters across all ports on target LID",

@@ -10,15 +10,15 @@ const SW_SW_ARISTA_BGP_DATA = [
       {
         "id": "arista-bgp-environment-logs",
         "desc": "Inspect IPv6/IPv4 BGP peering, chassis power/fan/temperature sensors, recent link-flap logs, and config changes",
-        "cmd": "show ipv6 bgp summary && show environment all && show logging last 50",
-        "details": "Use 'show environment all' during rack walk-throughs to verify both PSUs are 'Ok', fans are running at normal speed without airflow direction mismatches, and optic/ASIC temperatures are below alert thresholds.",
+        "cmd": "show ipv6 bgp summary && show system environment all && show logging",
+        "details": "Use 'show system environment all' during rack walk-throughs to verify both PSUs are 'Ok', fans are running at normal speed without airflow direction mismatches, and optic/ASIC temperatures are below alert thresholds.",
         "flags": [
           [
             "show ipv6 bgp summary",
             "List all IPv6 BGP peers, ASNs, message counts, and state/prefixes received (also 'show ip bgp summary')"
           ],
           [
-            "show environment all",
+            "show system environment all",
             "Show power supply status/wattage, fan tray speeds, and temperature sensors"
           ],
           [
@@ -42,15 +42,7 @@ const SW_SW_ARISTA_BGP_DATA = [
           "logging",
           "version"
         ]
-      }
-    ]
-  },
-  {
-    "id": "arista-bgp-env-recipes-1",
-    "badge": "env",
-    "title": "Arista EOS: BGP & Health: Common Recipes & Verification",
-    "subtitle": "Production CLI commands, transceivers & diagnostic workflows for Arista EOS: BGP & Health",
-    "commands": [
+      },
       {
         "id": "arista-bgp-environment-logs-sub-1",
         "desc": "Check Arista switch hardware model, serial number, MAC, uptime, and EOS image version",
@@ -84,7 +76,7 @@ const SW_SW_ARISTA_BGP_DATA = [
       {
         "id": "arista-bgp-env-tips-card",
         "desc": "Arista EOS BGP State & Transactional Config Sessions",
-        "cmd": "show ip bgp summary && show environment all",
+        "cmd": "show ip bgp summary && show system environment all",
         "details": "Arista EOS supports transactional configuration via `configure session`. Changes are isolated in a private session where you can verify syntax with `show session-config diff` before committing or aborting.",
         "flags": [
           [
@@ -92,7 +84,7 @@ const SW_SW_ARISTA_BGP_DATA = [
             "Summary of all IPv4 BGP neighbor sessions: peer IP, AS number, state, and prefix count"
           ],
           [
-            "show environment all",
+            "show system environment all",
             "Display real-time fan RPMs, chassis temperatures, and power supply wattage/voltage"
           ],
           [

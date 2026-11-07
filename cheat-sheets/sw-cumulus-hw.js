@@ -24,6 +24,10 @@ const SW_SW_CUMULUS_HW_DATA = [
           [
             "nv config apply",
             "Apply pending candidate configuration and save to startup"
+          ],
+          [
+            "nv config history",
+            "List historical configuration commits with timestamps, user, and revision IDs"
           ]
         ],
         "tip": "nv config show -o commands exports clean CLI commands",
@@ -41,41 +45,7 @@ const SW_SW_CUMULUS_HW_DATA = [
           "config",
           "rollback"
         ]
-      }
-    ]
-  },
-  {
-    "id": "cumulus-hw-cfg-flags-1",
-    "badge": "psu",
-    "title": "Cumulus: PSU, Fans & Config: Flags & Options Reference",
-    "subtitle": "Key arguments, parameters, and filtering flags for Inspect switch PSUs, fan RPMs, thermal sensors, and safely diff, apply, or rollback NVUE config revisions",
-    "commands": [
-      {
-        "id": "nvue-platform-config-flags-card",
-        "desc": "Options breakdown and parameter syntax for Inspect switch PSUs, fan RPMs, thermal sensors, and safely diff, apply, or rollback NVUE config revisions",
-        "cmd": "nv show platform environment && nv config diff",
-        "flags": [
-          [
-            "nv config history",
-            "List historical configuration commits with timestamps, user, and revision IDs"
-          ]
-        ],
-        "details": "Common operational, diagnostic, and filtering arguments on production data center fabrics.",
-        "tags": [
-          "Cumulus: PSU, Fans & Config",
-          "flags",
-          "options",
-          "syntax"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "cumulus-hw-cfg-recipes-1",
-    "badge": "psu",
-    "title": "Cumulus: PSU, Fans & Config: Common Recipes & Verification",
-    "subtitle": "Production CLI commands, transceivers & diagnostic workflows for Cumulus: PSU, Fans & Config",
-    "commands": [
+      },
       {
         "id": "nvue-platform-config-sub-1",
         "desc": "Show Cumulus Linux OS version, uptime, switch model, ASIC type, and serial number",

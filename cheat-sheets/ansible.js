@@ -24,6 +24,14 @@ const SRE_ANSIBLE_DATA = [
           [
             "-m ansible.builtin.ping",
             "Checks SSH and Python, not ICMP"
+          ],
+          [
+            "-l / --limit",
+            "Narrow the pattern further: -l 'gpu:&rack12'"
+          ],
+          [
+            "-f <n>",
+            "Forks: hosts in parallel"
           ]
         ],
         "tip": "ping first: most failures are SSH or inventory, not the playbook",
@@ -36,49 +44,7 @@ const SRE_ANSIBLE_DATA = [
           "inventory",
           "ad-hoc"
         ]
-      }
-    ]
-  },
-  {
-    "id": "ansible-flags-1",
-    "badge": "ansible",
-    "title": "Ansible: More options",
-    "subtitle": "More options for: Can Ansible reach every host?",
-    "commands": [
-      {
-        "id": "ansible-ping-flags-card",
-        "desc": "More options and gotchas for: Can Ansible reach every host?",
-        "cmd": "ansible all -i inventory.ini -m ansible.builtin.ping",
-        "hideCode": false,
-        "flags": [
-          [
-            "-l / --limit",
-            "Narrow the pattern further: -l 'gpu:&rack12'"
-          ],
-          [
-            "-f <n>",
-            "Forks: hosts in parallel"
-          ]
-        ],
-        "tags": [
-          "sre",
-          "devops",
-          "ansible",
-          "flags",
-          "options",
-          "ansible",
-          "ping",
-          "inventory"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "ansible-recipes-1",
-    "badge": "ansible",
-    "title": "Ansible: Related commands",
-    "subtitle": "Related commands for: Can Ansible reach every host?",
-    "commands": [
+      },
       {
         "id": "ansible-ping-sub-1",
         "desc": "Groups and hosts as a tree",
@@ -132,6 +98,14 @@ const SRE_ANSIBLE_DATA = [
           [
             "-b / --become",
             "Run as root (changes what the command can touch)"
+          ],
+          [
+            "-K",
+            "Prompt for the become password"
+          ],
+          [
+            "-o",
+            "One line per host"
           ]
         ],
         "tip": "Ad-hoc is for read-only checks; changes belong in a reviewed playbook",
@@ -144,49 +118,7 @@ const SRE_ANSIBLE_DATA = [
           "fleet",
           "become"
         ]
-      }
-    ]
-  },
-  {
-    "id": "ansible-flags-2",
-    "badge": "ansible",
-    "title": "Ansible: More options",
-    "subtitle": "More options for: One read-only command across a group",
-    "commands": [
-      {
-        "id": "ansible-adhoc-flags-card",
-        "desc": "More options and gotchas for: One read-only command across a group",
-        "cmd": "ansible gpu -i inventory.ini -m ansible.builtin.shell -a 'nvidia-smi -L | wc -l'",
-        "hideCode": false,
-        "flags": [
-          [
-            "-K",
-            "Prompt for the become password"
-          ],
-          [
-            "-o",
-            "One line per host"
-          ]
-        ],
-        "tags": [
-          "sre",
-          "devops",
-          "ansible",
-          "flags",
-          "options",
-          "ad-hoc",
-          "shell",
-          "fleet"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "ansible-recipes-2",
-    "badge": "ansible",
-    "title": "Ansible: Related commands",
-    "subtitle": "Related commands for: One read-only command across a group",
-    "commands": [
+      },
       {
         "id": "ansible-adhoc-sub-1",
         "desc": "Uptime per host, one line each",
@@ -226,34 +158,7 @@ const SRE_ANSIBLE_DATA = [
           [
             "--syntax-check",
             "Parse only"
-          ]
-        ],
-        "tip": "check + diff on one host, then the real run on that host, then the rest",
-        "tags": [
-          "sre",
-          "devops",
-          "ansible",
-          "playbook",
-          "check",
-          "diff",
-          "limit",
-          "dry-run"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "ansible-flags-3",
-    "badge": "ansible",
-    "title": "Ansible: More options",
-    "subtitle": "More options for: Dry-run a playbook on one host with a diff",
-    "commands": [
-      {
-        "id": "ansible-playbook-check-flags-card",
-        "desc": "More options and gotchas for: Dry-run a playbook on one host with a diff",
-        "cmd": "ansible-playbook -i inventory.ini site.yml --check --diff --limit node07",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "--list-hosts / --list-tasks / --list-tags",
             "What would run, where"
@@ -267,25 +172,18 @@ const SRE_ANSIBLE_DATA = [
             "Resume after a failure"
           ]
         ],
+        "tip": "check + diff on one host, then the real run on that host, then the rest",
         "tags": [
           "sre",
           "devops",
           "ansible",
-          "flags",
-          "options",
           "playbook",
           "check",
-          "diff"
+          "diff",
+          "limit",
+          "dry-run"
         ]
-      }
-    ]
-  },
-  {
-    "id": "ansible-recipes-3",
-    "badge": "ansible",
-    "title": "Ansible: Related commands",
-    "subtitle": "Related commands for: Dry-run a playbook on one host with a diff",
-    "commands": [
+      },
       {
         "id": "ansible-playbook-check-sub-1",
         "desc": "Parse only",
@@ -353,6 +251,14 @@ const SRE_ANSIBLE_DATA = [
           [
             "create / edit / view <file>",
             "Whole encrypted files"
+          ],
+          [
+            "--ask-vault-password / --vault-password-file",
+            "How playbooks unlock it"
+          ],
+          [
+            "rekey",
+            "Change the vault password"
           ]
         ],
         "tip": "Never put a vault password file in the repo",
@@ -365,49 +271,7 @@ const SRE_ANSIBLE_DATA = [
           "encrypt",
           "password"
         ]
-      }
-    ]
-  },
-  {
-    "id": "ansible-flags-4",
-    "badge": "ansible",
-    "title": "Ansible: More options",
-    "subtitle": "More options for: Encrypt a secret for a playbook",
-    "commands": [
-      {
-        "id": "ansible-vault-flags-card",
-        "desc": "More options and gotchas for: Encrypt a secret for a playbook",
-        "cmd": "ansible-vault encrypt_string --prompt --name bmc_password",
-        "hideCode": false,
-        "flags": [
-          [
-            "--ask-vault-password / --vault-password-file",
-            "How playbooks unlock it"
-          ],
-          [
-            "rekey",
-            "Change the vault password"
-          ]
-        ],
-        "tags": [
-          "sre",
-          "devops",
-          "ansible",
-          "flags",
-          "options",
-          "vault",
-          "secrets",
-          "encrypt"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "ansible-recipes-4",
-    "badge": "ansible",
-    "title": "Ansible: Related commands",
-    "subtitle": "Related commands for: Encrypt a secret for a playbook",
-    "commands": [
+      },
       {
         "id": "ansible-vault-sub-1",
         "desc": "A new encrypted vars file",
@@ -461,6 +325,10 @@ const SRE_ANSIBLE_DATA = [
           [
             "ansible-galaxy collection install -r requirements.yml",
             "Install pinned collections"
+          ],
+          [
+            "ansible-lint",
+            "Linter for playbooks, roles and collections"
           ]
         ],
         "tip": "Pin collections in requirements.yml",
@@ -473,45 +341,7 @@ const SRE_ANSIBLE_DATA = [
           "config",
           "lint"
         ]
-      }
-    ]
-  },
-  {
-    "id": "ansible-flags-5",
-    "badge": "ansible",
-    "title": "Ansible: More options",
-    "subtitle": "More options for: Collections, config and module docs",
-    "commands": [
-      {
-        "id": "ansible-tools-flags-card",
-        "desc": "More options and gotchas for: Collections, config and module docs",
-        "cmd": "ansible-doc -s ansible.builtin.copy",
-        "hideCode": false,
-        "flags": [
-          [
-            "ansible-lint",
-            "Linter for playbooks, roles and collections"
-          ]
-        ],
-        "tags": [
-          "sre",
-          "devops",
-          "ansible",
-          "flags",
-          "options",
-          "ansible-doc",
-          "galaxy",
-          "config"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "ansible-recipes-5",
-    "badge": "ansible",
-    "title": "Ansible: Related commands",
-    "subtitle": "Related commands for: Collections, config and module docs",
-    "commands": [
+      },
       {
         "id": "ansible-tools-sub-1",
         "desc": "Why does it behave differently here?",

@@ -24,33 +24,7 @@ const BMC_ONECLI_DATA = [
           [
             "--configfile <json>",
             "Credentials from a file (template: Sample/credentials_config.json)"
-          ]
-        ],
-        "tip": "Encrypt the credentials file with misc encrypt instead of passing --bmc on the command line",
-        "tags": [
-          "bmc",
-          "remote-management",
-          "onecli",
-          "lenovo",
-          "xcc",
-          "health",
-          "syshealth"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "onecli-flags-1",
-    "badge": "onecli",
-    "title": "Lenovo OneCLI: More options",
-    "subtitle": "More options for: System health summary through the XCC",
-    "commands": [
-      {
-        "id": "onecli-syshealth-flags-card",
-        "desc": "More options and gotchas for: System health summary through the XCC",
-        "cmd": "./OneCli misc syshealth --bmc \"$BMC_USER:$BMC_PASS@$BMC\"",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "-N / --never-check-trust",
             "Skip certificate and SSH fingerprint checks (lab only)"
@@ -64,25 +38,17 @@ const BMC_ONECLI_DATA = [
             "syshealth is not supported on older System x"
           ]
         ],
+        "tip": "Encrypt the credentials file with misc encrypt instead of passing --bmc on the command line",
         "tags": [
           "bmc",
           "remote-management",
           "onecli",
-          "flags",
-          "options",
           "lenovo",
           "xcc",
-          "health"
+          "health",
+          "syshealth"
         ]
-      }
-    ]
-  },
-  {
-    "id": "onecli-recipes-1",
-    "badge": "onecli",
-    "title": "Lenovo OneCLI: Related commands",
-    "subtitle": "Related commands for: System health summary through the XCC",
-    "commands": [
+      },
       {
         "id": "onecli-syshealth-sub-1",
         "desc": "Power subsystem only",
@@ -136,6 +102,14 @@ const BMC_ONECLI_DATA = [
           [
             "--type AEL|PEL|ALL",
             "Audit, Platform, or both event logs"
+          ],
+          [
+            "clearsel / clearbmclog / clearall",
+            "Clear logs (changes state)"
+          ],
+          [
+            "In-band too",
+            "logmgr works in-band and out-of-band"
           ]
         ],
         "tip": "There is no getsel: showsel is the command",
@@ -148,49 +122,7 @@ const BMC_ONECLI_DATA = [
           "logmgr",
           "audit"
         ]
-      }
-    ]
-  },
-  {
-    "id": "onecli-flags-2",
-    "badge": "onecli",
-    "title": "Lenovo OneCLI: More options",
-    "subtitle": "More options for: SEL, BMC and audit logs",
-    "commands": [
-      {
-        "id": "onecli-logmgr-flags-card",
-        "desc": "More options and gotchas for: SEL, BMC and audit logs",
-        "cmd": "./OneCli misc logmgr showsel --bmc \"$BMC_USER:$BMC_PASS@$BMC\"",
-        "hideCode": false,
-        "flags": [
-          [
-            "clearsel / clearbmclog / clearall",
-            "Clear logs (changes state)"
-          ],
-          [
-            "In-band too",
-            "logmgr works in-band and out-of-band"
-          ]
-        ],
-        "tags": [
-          "bmc",
-          "remote-management",
-          "onecli",
-          "flags",
-          "options",
-          "sel",
-          "logs",
-          "logmgr"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "onecli-recipes-2",
-    "badge": "onecli",
-    "title": "Lenovo OneCLI: Related commands",
-    "subtitle": "Related commands for: SEL, BMC and audit logs",
-    "commands": [
+      },
       {
         "id": "onecli-logmgr-sub-1",
         "desc": "XCC event log",
@@ -230,6 +162,14 @@ const BMC_ONECLI_DATA = [
           [
             "--device <name>",
             "One category (default all); list them with inventory getdevices"
+          ],
+          [
+            "--ffdc",
+            "Collect service data too"
+          ],
+          [
+            "getdevices",
+            "In-band only: the device categories getinfor accepts"
           ]
         ],
         "tip": "Attach the HTML report to the case",
@@ -241,49 +181,7 @@ const BMC_ONECLI_DATA = [
           "getinfor",
           "report"
         ]
-      }
-    ]
-  },
-  {
-    "id": "onecli-flags-3",
-    "badge": "onecli",
-    "title": "Lenovo OneCLI: More options",
-    "subtitle": "More options for: Full inventory report",
-    "commands": [
-      {
-        "id": "onecli-inventory-flags-card",
-        "desc": "More options and gotchas for: Full inventory report",
-        "cmd": "sudo ./OneCli inventory getinfor --output ./inventory --htmlreport",
-        "hideCode": false,
-        "flags": [
-          [
-            "--ffdc",
-            "Collect service data too"
-          ],
-          [
-            "getdevices",
-            "In-band only: the device categories getinfor accepts"
-          ]
-        ],
-        "tags": [
-          "bmc",
-          "remote-management",
-          "onecli",
-          "flags",
-          "options",
-          "inventory",
-          "getinfor",
-          "report"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "onecli-recipes-3",
-    "badge": "onecli",
-    "title": "Lenovo OneCLI: Related commands",
-    "subtitle": "Related commands for: Full inventory report",
-    "commands": [
+      },
       {
         "id": "onecli-inventory-sub-1",
         "desc": "Categories: system_overview, bmc_event_logs, …",
@@ -323,6 +221,10 @@ const BMC_ONECLI_DATA = [
           [
             "config set <setting> <value>",
             "Change one setting (changes state)"
+          ],
+          [
+            "config compare / comparedefault",
+            "Compare against a file or the defaults"
           ]
         ],
         "tip": "Save before you set, and keep the file in the case folder",
@@ -336,45 +238,7 @@ const BMC_ONECLI_DATA = [
           "imm",
           "xcc"
         ]
-      }
-    ]
-  },
-  {
-    "id": "onecli-flags-4",
-    "badge": "onecli",
-    "title": "Lenovo OneCLI: More options",
-    "subtitle": "More options for: Read and save settings",
-    "commands": [
-      {
-        "id": "onecli-config-flags-card",
-        "desc": "More options and gotchas for: Read and save settings",
-        "cmd": "./OneCli config show IMM --bmc \"$BMC_USER:$BMC_PASS@$BMC\"",
-        "hideCode": false,
-        "flags": [
-          [
-            "config compare / comparedefault",
-            "Compare against a file or the defaults"
-          ]
-        ],
-        "tags": [
-          "bmc",
-          "remote-management",
-          "onecli",
-          "flags",
-          "options",
-          "config",
-          "settings",
-          "uefi"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "onecli-recipes-4",
-    "badge": "onecli",
-    "title": "Lenovo OneCLI: Related commands",
-    "subtitle": "Related commands for: Read and save settings",
-    "commands": [
+      },
       {
         "id": "onecli-config-sub-1",
         "desc": "Save every setting for a later diff",
@@ -428,6 +292,10 @@ const BMC_ONECLI_DATA = [
           [
             "update flash",
             "Apply updates from the compare result (changes state)"
+          ],
+          [
+            "--noreboot",
+            "By default the BMC restarts itself after a BMC update"
           ]
         ],
         "tip": "scan and compare are read-only; flash needs a drain and approval",
@@ -441,45 +309,7 @@ const BMC_ONECLI_DATA = [
           "compare",
           "flash"
         ]
-      }
-    ]
-  },
-  {
-    "id": "onecli-flags-5",
-    "badge": "onecli",
-    "title": "Lenovo OneCLI: More options",
-    "subtitle": "More options for: What firmware is installed, and what is newer",
-    "commands": [
-      {
-        "id": "onecli-update-flags-card",
-        "desc": "More options and gotchas for: What firmware is installed, and what is newer",
-        "cmd": "./OneCli update scan --bmc \"$BMC_USER:$BMC_PASS@$BMC\" --output ./scan",
-        "hideCode": false,
-        "flags": [
-          [
-            "--noreboot",
-            "By default the BMC restarts itself after a BMC update"
-          ]
-        ],
-        "tags": [
-          "bmc",
-          "remote-management",
-          "onecli",
-          "flags",
-          "options",
-          "firmware",
-          "update",
-          "scan"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "onecli-recipes-5",
-    "badge": "onecli",
-    "title": "Lenovo OneCLI: Related commands",
-    "subtitle": "Related commands for: What firmware is installed, and what is newer",
-    "commands": [
+      },
       {
         "id": "onecli-update-sub-1",
         "desc": "What would be updated",
@@ -519,33 +349,7 @@ const BMC_ONECLI_DATA = [
           [
             "power forceoff / forcerestart / on",
             "Hard actions (change state)"
-          ]
-        ],
-        "tip": "Prefer normalrestart over forcerestart",
-        "tags": [
-          "bmc",
-          "remote-management",
-          "onecli",
-          "power",
-          "restart",
-          "rebootbmc",
-          "boottosetup"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "onecli-flags-6",
-    "badge": "onecli",
-    "title": "Lenovo OneCLI: More options",
-    "subtitle": "More options for: Power state and control",
-    "commands": [
-      {
-        "id": "onecli-power-flags-card",
-        "desc": "More options and gotchas for: Power state and control",
-        "cmd": "./OneCli misc power state --bmc \"$BMC_USER:$BMC_PASS@$BMC\"",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "power boottosetup",
             "Restart into UEFI setup (changes state)"
@@ -559,25 +363,17 @@ const BMC_ONECLI_DATA = [
             "Replaced by power in OneCLI 5.3.0"
           ]
         ],
+        "tip": "Prefer normalrestart over forcerestart",
         "tags": [
           "bmc",
           "remote-management",
           "onecli",
-          "flags",
-          "options",
           "power",
           "restart",
-          "rebootbmc"
+          "rebootbmc",
+          "boottosetup"
         ]
-      }
-    ]
-  },
-  {
-    "id": "onecli-recipes-6",
-    "badge": "onecli",
-    "title": "Lenovo OneCLI: Related commands",
-    "subtitle": "Related commands for: Power state and control",
-    "commands": [
+      },
       {
         "id": "onecli-power-sub-1",
         "desc": "Clean restart (changes state)",

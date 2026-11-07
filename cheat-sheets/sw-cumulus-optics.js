@@ -42,15 +42,7 @@ const SW_SW_CUMULUS_OPTICS_DATA = [
           "ethtool",
           "fec"
         ]
-      }
-    ]
-  },
-  {
-    "id": "cumulus-optics-recipes-1",
-    "badge": "dom",
-    "title": "Cumulus: Optics DOM & FEC: Common Recipes & Verification",
-    "subtitle": "Production CLI commands, transceivers & diagnostic workflows for Cumulus: Optics DOM & FEC",
-    "commands": [
+      },
       {
         "id": "nvue-show-transceiver-sub-1",
         "desc": "Summary table of all populated optical/DAC transceivers across the entire switch",

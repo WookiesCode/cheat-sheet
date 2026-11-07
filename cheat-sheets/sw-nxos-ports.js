@@ -41,15 +41,7 @@ const SW_SW_NXOS_PORTS_DATA = [
           "dom",
           "errors"
         ]
-      }
-    ]
-  },
-  {
-    "id": "nxos-ports-dom-recipes-1",
-    "badge": "nxo",
-    "title": "Cisco NX-OS: Ports & DOM: Common Recipes & Verification",
-    "subtitle": "Production CLI commands, transceivers & diagnostic workflows for Cisco NX-OS: Ports & DOM",
-    "commands": [
+      },
       {
         "id": "nxos-interfaces-transceiver-sub-1",
         "desc": "List any switch ports shut down by error-disable (BPDU guard, link-flap, storm-control)",

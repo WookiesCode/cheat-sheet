@@ -24,33 +24,7 @@ const EDITORS_CHEAT_SHEET_DATA = [
           [
             "-v / --view",
             "Read-only: you cannot change the file by accident"
-          ]
-        ],
-        "tip": "Use -v when you only need to read",
-        "tags": [
-          "editor",
-          "editors",
-          "nano",
-          "open",
-          "line",
-          "view",
-          "flags"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "nano-flags-1",
-    "badge": "nano",
-    "title": "GNU nano: More options",
-    "subtitle": "More options for: Open a file at a given line",
-    "commands": [
-      {
-        "id": "nano-open-line-flags-card",
-        "desc": "More options and gotchas for: Open a file at a given line",
-        "cmd": "nano -l +120 /etc/ssh/sshd_config",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "-B / --backup",
             "Keep the previous version as file~ when you save"
@@ -64,25 +38,17 @@ const EDITORS_CHEAT_SHEET_DATA = [
             "Convert typed tabs to spaces, tab width 4 (YAML wants spaces)"
           ]
         ],
+        "tip": "Use -v when you only need to read",
         "tags": [
           "editor",
           "editors",
           "nano",
-          "flags",
-          "options",
           "open",
           "line",
-          "view"
+          "view",
+          "flags"
         ]
-      }
-    ]
-  },
-  {
-    "id": "nano-recipes-1",
-    "badge": "nano",
-    "title": "GNU nano: Related commands",
-    "subtitle": "Related commands for: Open a file at a given line",
-    "commands": [
+      },
       {
         "id": "nano-open-line-sub-1",
         "desc": "Page through a log without any risk of editing it",
@@ -150,15 +116,7 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "fstab",
           "validate"
         ]
-      }
-    ]
-  },
-  {
-    "id": "nano-recipes-2",
-    "badge": "nano",
-    "title": "GNU nano: Related commands",
-    "subtitle": "Related commands for: Edit a root-owned file safely with sudoedit",
-    "commands": [
+      },
       {
         "id": "nano-sudoedit-sub-1",
         "desc": "Keep a dated copy before you touch it (changes state)",
@@ -240,6 +198,14 @@ const EDITORS_CHEAT_SHEET_DATA = [
           [
             "Ctrl+S",
             "Save without the file-name prompt"
+          ],
+          [
+            "Ctrl+G",
+            "Help: every key binding for your version"
+          ],
+          [
+            "^ and M-",
+            "In nano's own help ^ means Ctrl and M- means Alt (Meta): M-U is Alt+U"
           ]
         ],
         "tip": "^ = Ctrl, M- = Alt",
@@ -252,40 +218,6 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "write out",
           "help",
           "keys"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "nano-flags-3",
-    "badge": "nano",
-    "title": "GNU nano: More options",
-    "subtitle": "More options for: Save, exit and get help",
-    "commands": [
-      {
-        "id": "nano-save-exit-flags-card",
-        "desc": "More options and gotchas for: Save, exit and get help",
-        "cmd": "Ctrl+O  Enter  ·  Ctrl+X",
-        "hideCode": false,
-        "flags": [
-          [
-            "Ctrl+G",
-            "Help: every key binding for your version"
-          ],
-          [
-            "^ and M-",
-            "In nano's own help ^ means Ctrl and M- means Alt (Meta): M-U is Alt+U"
-          ]
-        ],
-        "tags": [
-          "editor",
-          "editors",
-          "nano",
-          "flags",
-          "options",
-          "save",
-          "exit",
-          "write out"
         ]
       }
     ]
@@ -313,6 +245,14 @@ const EDITORS_CHEAT_SHEET_DATA = [
           [
             "Alt+R (in the search prompt)",
             "Toggle regular expressions"
+          ],
+          [
+            "Alt+C (in the search prompt)",
+            "Toggle case-sensitive"
+          ],
+          [
+            "Alt+B (in the search prompt)",
+            "Search backwards"
           ]
         ],
         "tip": "A = replace all remaining matches",
@@ -324,40 +264,6 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "find",
           "replace",
           "regex"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "nano-flags-4",
-    "badge": "nano",
-    "title": "GNU nano: More options",
-    "subtitle": "More options for: Search and replace",
-    "commands": [
-      {
-        "id": "nano-search-replace-flags-card",
-        "desc": "More options and gotchas for: Search and replace",
-        "cmd": "Ctrl+W  ·  Ctrl+\\",
-        "hideCode": false,
-        "flags": [
-          [
-            "Alt+C (in the search prompt)",
-            "Toggle case-sensitive"
-          ],
-          [
-            "Alt+B (in the search prompt)",
-            "Search backwards"
-          ]
-        ],
-        "tags": [
-          "editor",
-          "editors",
-          "nano",
-          "flags",
-          "options",
-          "search",
-          "find",
-          "replace"
         ]
       }
     ]
@@ -385,6 +291,14 @@ const EDITORS_CHEAT_SHEET_DATA = [
           [
             "Ctrl+U",
             "Paste (Uncut) what you cut or copied"
+          ],
+          [
+            "Alt+A",
+            "Set a mark: move the cursor to select a region, then Ctrl+K or Alt+6 acts on it"
+          ],
+          [
+            "Alt+U / Alt+E",
+            "Undo / redo"
           ]
         ],
         "tip": "Ctrl+K several times, then Ctrl+U = move a block",
@@ -398,40 +312,6 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "undo",
           "redo",
           "mark"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "nano-flags-5",
-    "badge": "nano",
-    "title": "GNU nano: More options",
-    "subtitle": "More options for: Cut, copy and paste whole lines; undo and redo",
-    "commands": [
-      {
-        "id": "nano-cut-paste-flags-card",
-        "desc": "More options and gotchas for: Cut, copy and paste whole lines; undo and redo",
-        "cmd": "Ctrl+K  ·  Alt+6  ·  Ctrl+U",
-        "hideCode": false,
-        "flags": [
-          [
-            "Alt+A",
-            "Set a mark: move the cursor to select a region, then Ctrl+K or Alt+6 acts on it"
-          ],
-          [
-            "Alt+U / Alt+E",
-            "Undo / redo"
-          ]
-        ],
-        "tags": [
-          "editor",
-          "editors",
-          "nano",
-          "flags",
-          "options",
-          "cut",
-          "copy",
-          "paste"
         ]
       }
     ]
@@ -459,6 +339,14 @@ const EDITORS_CHEAT_SHEET_DATA = [
           [
             "Ctrl+C",
             "Show the current line and column"
+          ],
+          [
+            "Ctrl+Y / Ctrl+V",
+            "Page up / page down"
+          ],
+          [
+            "Line numbers",
+            "Toggle them with the key listed under Ctrl+G (Alt+N in current nano)"
           ]
         ],
         "tip": "Ctrl+G lists the keys of your exact version",
@@ -470,40 +358,6 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "go to line",
           "page",
           "position"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "nano-flags-6",
-    "badge": "nano",
-    "title": "GNU nano: More options",
-    "subtitle": "More options for: Jump around a long file",
-    "commands": [
-      {
-        "id": "nano-navigate-flags-card",
-        "desc": "More options and gotchas for: Jump around a long file",
-        "cmd": "Ctrl+_  (go to line)",
-        "hideCode": false,
-        "flags": [
-          [
-            "Ctrl+Y / Ctrl+V",
-            "Page up / page down"
-          ],
-          [
-            "Line numbers",
-            "Toggle them with the key listed under Ctrl+G (Alt+N in current nano)"
-          ]
-        ],
-        "tags": [
-          "editor",
-          "editors",
-          "nano",
-          "flags",
-          "options",
-          "navigate",
-          "go to line",
-          "page"
         ]
       }
     ]
@@ -531,6 +385,10 @@ const EDITORS_CHEAT_SHEET_DATA = [
           [
             "constantshow",
             "Always show the cursor position in the status bar"
+          ],
+          [
+            "include …*.nanorc",
+            "Syntax colouring for many file types (shipped with the nano package)"
           ]
         ],
         "tip": "One file, every server: keep it in your dotfiles",
@@ -543,36 +401,6 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "syntax",
           "tabs",
           "dotfiles"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "nano-flags-7",
-    "badge": "nano",
-    "title": "GNU nano: More options",
-    "subtitle": "More options for: ~/.config/nano/nanorc: sensible defaults for config files",
-    "commands": [
-      {
-        "id": "nano-nanorc-flags-card",
-        "desc": "More options and gotchas for: ~/.config/nano/nanorc: sensible defaults for config files",
-        "cmd": "set linenumbers\nset mouse\nset autoindent\nset tabsize 4\nset tabstospaces\nset constantshow\ninclude \"/usr/share/nano/*.nanorc\"",
-        "hideCode": true,
-        "flags": [
-          [
-            "include …*.nanorc",
-            "Syntax colouring for many file types (shipped with the nano package)"
-          ]
-        ],
-        "tags": [
-          "editor",
-          "editors",
-          "nano",
-          "flags",
-          "options",
-          "nanorc",
-          "config",
-          "syntax"
         ]
       }
     ]
@@ -671,6 +499,10 @@ const EDITORS_CHEAT_SHEET_DATA = [
           [
             "Ctrl+,",
             "Settings"
+          ],
+          [
+            "Ctrl+K Ctrl+S",
+            "Keyboard Shortcuts editor (a chord: press Ctrl+K, release, then Ctrl+S)"
           ]
         ],
         "tip": "Forgot a key? Search the palette",
@@ -682,36 +514,6 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "quick open",
           "settings",
           "shortcuts"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "vscode-flags-1",
-    "badge": "code",
-    "title": "VS Code: More options",
-    "subtitle": "More options for: Command Palette and Quick Open: find any command or file",
-    "commands": [
-      {
-        "id": "vscode-palette-flags-card",
-        "desc": "More options and gotchas for: Command Palette and Quick Open: find any command or file",
-        "cmd": "Ctrl+Shift+P  ·  Ctrl+P",
-        "hideCode": false,
-        "flags": [
-          [
-            "Ctrl+K Ctrl+S",
-            "Keyboard Shortcuts editor (a chord: press Ctrl+K, release, then Ctrl+S)"
-          ]
-        ],
-        "tags": [
-          "editor",
-          "editors",
-          "vscode",
-          "flags",
-          "options",
-          "command palette",
-          "quick open",
-          "settings"
         ]
       }
     ]
@@ -739,34 +541,7 @@ const EDITORS_CHEAT_SHEET_DATA = [
           [
             "Ctrl+Shift+E",
             "Explorer"
-          ]
-        ],
-        "tip": "Ctrl+` keeps a shell one key away",
-        "tags": [
-          "editor",
-          "editors",
-          "vscode",
-          "sidebar",
-          "terminal",
-          "explorer",
-          "search",
-          "git"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "vscode-flags-2",
-    "badge": "code",
-    "title": "VS Code: More options",
-    "subtitle": "More options for: Show and hide the panels",
-    "commands": [
-      {
-        "id": "vscode-panels-flags-card",
-        "desc": "More options and gotchas for: Show and hide the panels",
-        "cmd": "Ctrl+B  ·  Ctrl+`",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "Ctrl+Shift+F / Ctrl+Shift+H",
             "Search / replace across files"
@@ -780,15 +555,16 @@ const EDITORS_CHEAT_SHEET_DATA = [
             "Extensions"
           ]
         ],
+        "tip": "Ctrl+` keeps a shell one key away",
         "tags": [
           "editor",
           "editors",
           "vscode",
-          "flags",
-          "options",
           "sidebar",
           "terminal",
-          "explorer"
+          "explorer",
+          "search",
+          "git"
         ]
       }
     ]
@@ -816,33 +592,7 @@ const EDITORS_CHEAT_SHEET_DATA = [
           [
             "F2",
             "Rename a symbol everywhere"
-          ]
-        ],
-        "tip": "F12 in, Ctrl+Alt+- back",
-        "tags": [
-          "editor",
-          "editors",
-          "vscode",
-          "definition",
-          "symbol",
-          "rename",
-          "go to line"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "vscode-flags-3",
-    "badge": "code",
-    "title": "VS Code: More options",
-    "subtitle": "More options for: Move through code: definitions, symbols, lines",
-    "commands": [
-      {
-        "id": "vscode-navigate-flags-card",
-        "desc": "More options and gotchas for: Move through code: definitions, symbols, lines",
-        "cmd": "F12  ·  Ctrl+Shift+O  ·  Ctrl+G",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "Ctrl+Shift+O",
             "Go to a symbol in this file"
@@ -856,15 +606,15 @@ const EDITORS_CHEAT_SHEET_DATA = [
             "Go to line"
           ]
         ],
+        "tip": "F12 in, Ctrl+Alt+- back",
         "tags": [
           "editor",
           "editors",
           "vscode",
-          "flags",
-          "options",
           "definition",
           "symbol",
-          "rename"
+          "rename",
+          "go to line"
         ]
       }
     ]
@@ -892,34 +642,7 @@ const EDITORS_CHEAT_SHEET_DATA = [
           [
             "Shift+Alt+Up / Down",
             "Add a cursor above / below (Linux; Ctrl+Alt on Windows)"
-          ]
-        ],
-        "tip": "Ctrl+D is the fastest bulk rename",
-        "tags": [
-          "editor",
-          "editors",
-          "vscode",
-          "multi-cursor",
-          "select",
-          "move line",
-          "comment",
-          "format"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "vscode-flags-4",
-    "badge": "code",
-    "title": "VS Code: More options",
-    "subtitle": "More options for: Multi-cursor and line editing",
-    "commands": [
-      {
-        "id": "vscode-multicursor-flags-card",
-        "desc": "More options and gotchas for: Multi-cursor and line editing",
-        "cmd": "Ctrl+D  ·  Shift+Alt+Down",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "Alt+Up / Down",
             "Move the line up / down"
@@ -937,15 +660,16 @@ const EDITORS_CHEAT_SHEET_DATA = [
             "Format the document (Linux; Shift+Alt+F on Windows)"
           ]
         ],
+        "tip": "Ctrl+D is the fastest bulk rename",
         "tags": [
           "editor",
           "editors",
           "vscode",
-          "flags",
-          "options",
           "multi-cursor",
           "select",
-          "move line"
+          "move line",
+          "comment",
+          "format"
         ]
       }
     ]
@@ -1011,6 +735,18 @@ const EDITORS_CHEAT_SHEET_DATA = [
           [
             "-r / --reuse-window",
             "Use the window that is already open"
+          ],
+          [
+            "-n / --new-window",
+            "Force a new window"
+          ],
+          [
+            "-d / --diff A B",
+            "Side-by-side diff of two files"
+          ],
+          [
+            "-w / --wait",
+            "Return only when the file is closed (needed as a git editor)"
           ]
         ],
         "tip": "core.editor needs --wait",
@@ -1025,53 +761,7 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "git",
           "extensions"
         ]
-      }
-    ]
-  },
-  {
-    "id": "vscode-flags-6",
-    "badge": "code",
-    "title": "VS Code: More options",
-    "subtitle": "More options for: The code command: open, jump to a line, diff",
-    "commands": [
-      {
-        "id": "vscode-cli-flags-card",
-        "desc": "More options and gotchas for: The code command: open, jump to a line, diff",
-        "cmd": "code -r -g /etc/netplan/50-cloud-init.yaml:12",
-        "hideCode": false,
-        "flags": [
-          [
-            "-n / --new-window",
-            "Force a new window"
-          ],
-          [
-            "-d / --diff A B",
-            "Side-by-side diff of two files"
-          ],
-          [
-            "-w / --wait",
-            "Return only when the file is closed (needed as a git editor)"
-          ]
-        ],
-        "tags": [
-          "editor",
-          "editors",
-          "vscode",
-          "flags",
-          "options",
-          "code",
-          "cli",
-          "diff"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "vscode-recipes-6",
-    "badge": "code",
-    "title": "VS Code: Related commands",
-    "subtitle": "Related commands for: The code command: open, jump to a line, diff",
-    "commands": [
+      },
       {
         "id": "vscode-cli-sub-1",
         "desc": "Compare two configs",
@@ -1153,6 +843,14 @@ const EDITORS_CHEAT_SHEET_DATA = [
           [
             "ProxyJump jumpbox",
             "Reach lab nodes through the jumpbox without extra tunnels"
+          ],
+          [
+            "code --remote ssh-remote+HOST /path",
+            "The same from the command line"
+          ],
+          [
+            "code tunnel",
+            "Alternative when inbound SSH is blocked: the machine connects out (needs sign-in)"
           ]
         ],
         "tip": "Define hosts in ~/.ssh/config once",
@@ -1165,40 +863,6 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "remote-ssh",
           "tunnel",
           "jumpbox"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "vscode-flags-7",
-    "badge": "code",
-    "title": "VS Code: More options",
-    "subtitle": "More options for: Edit files on a server over SSH",
-    "commands": [
-      {
-        "id": "vscode-remote-flags-card",
-        "desc": "More options and gotchas for: Edit files on a server over SSH",
-        "cmd": "Ctrl+Shift+P → Remote-SSH: Connect to Host...",
-        "hideCode": false,
-        "flags": [
-          [
-            "code --remote ssh-remote+HOST /path",
-            "The same from the command line"
-          ],
-          [
-            "code tunnel",
-            "Alternative when inbound SSH is blocked: the machine connects out (needs sign-in)"
-          ]
-        ],
-        "tags": [
-          "editor",
-          "editors",
-          "vscode",
-          "flags",
-          "options",
-          "remote",
-          "ssh",
-          "remote-ssh"
         ]
       }
     ]
@@ -1258,6 +922,14 @@ const EDITORS_CHEAT_SHEET_DATA = [
           [
             "ctrl-,",
             "Settings window"
+          ],
+          [
+            "ctrl-alt-,",
+            "Open the settings file (JSON)"
+          ],
+          [
+            "ctrl-k ctrl-s",
+            "Keymap editor"
           ]
         ],
         "tip": "zed: open default keymap shows every binding",
@@ -1269,40 +941,6 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "file finder",
           "settings",
           "keymap"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "zed-flags-1",
-    "badge": "zed",
-    "title": "Zed: More options",
-    "subtitle": "More options for: Command palette, file finder, settings and keymap",
-    "commands": [
-      {
-        "id": "zed-palette-flags-card",
-        "desc": "More options and gotchas for: Command palette, file finder, settings and keymap",
-        "cmd": "ctrl-shift-p  ·  ctrl-p",
-        "hideCode": false,
-        "flags": [
-          [
-            "ctrl-alt-,",
-            "Open the settings file (JSON)"
-          ],
-          [
-            "ctrl-k ctrl-s",
-            "Keymap editor"
-          ]
-        ],
-        "tags": [
-          "editor",
-          "editors",
-          "zed",
-          "flags",
-          "options",
-          "palette",
-          "file finder",
-          "settings"
         ]
       }
     ]
@@ -1330,6 +968,14 @@ const EDITORS_CHEAT_SHEET_DATA = [
           [
             "ctrl-`",
             "Toggle the terminal panel"
+          ],
+          [
+            "ctrl-j",
+            "Toggle the bottom dock"
+          ],
+          [
+            "ctrl-shift-f / ctrl-shift-h",
+            "Search / replace across the project"
           ]
         ],
         "tip": "Same keys as VS Code by default",
@@ -1341,40 +987,6 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "terminal",
           "project",
           "search"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "zed-flags-2",
-    "badge": "zed",
-    "title": "Zed: More options",
-    "subtitle": "More options for: Docks, terminal and project search",
-    "commands": [
-      {
-        "id": "zed-panels-flags-card",
-        "desc": "More options and gotchas for: Docks, terminal and project search",
-        "cmd": "ctrl-b  ·  ctrl-`",
-        "hideCode": false,
-        "flags": [
-          [
-            "ctrl-j",
-            "Toggle the bottom dock"
-          ],
-          [
-            "ctrl-shift-f / ctrl-shift-h",
-            "Search / replace across the project"
-          ]
-        ],
-        "tags": [
-          "editor",
-          "editors",
-          "zed",
-          "flags",
-          "options",
-          "dock",
-          "terminal",
-          "project"
         ]
       }
     ]
@@ -1402,33 +1014,7 @@ const EDITORS_CHEAT_SHEET_DATA = [
           [
             "f2",
             "Rename symbol"
-          ]
-        ],
-        "tip": "ctrl-shift-o for a quick file outline",
-        "tags": [
-          "editor",
-          "editors",
-          "zed",
-          "definition",
-          "references",
-          "symbols",
-          "go to line"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "zed-flags-3",
-    "badge": "zed",
-    "title": "Zed: More options",
-    "subtitle": "More options for: Definitions, references, symbols",
-    "commands": [
-      {
-        "id": "zed-navigate-flags-card",
-        "desc": "More options and gotchas for: Definitions, references, symbols",
-        "cmd": "f12  ·  alt-shift-f12",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "ctrl-shift-o",
             "Outline: symbols in this file"
@@ -1442,15 +1028,15 @@ const EDITORS_CHEAT_SHEET_DATA = [
             "Go to line"
           ]
         ],
+        "tip": "ctrl-shift-o for a quick file outline",
         "tags": [
           "editor",
           "editors",
           "zed",
-          "flags",
-          "options",
           "definition",
           "references",
-          "symbols"
+          "symbols",
+          "go to line"
         ]
       }
     ]
@@ -1478,35 +1064,7 @@ const EDITORS_CHEAT_SHEET_DATA = [
           [
             "alt-up / alt-down",
             "Move the line"
-          ]
-        ],
-        "tip": "Muscle memory from VS Code carries over",
-        "tags": [
-          "editor",
-          "editors",
-          "zed",
-          "multi-cursor",
-          "move line",
-          "duplicate",
-          "comment",
-          "format",
-          "split"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "zed-flags-4",
-    "badge": "zed",
-    "title": "Zed: More options",
-    "subtitle": "More options for: Multi-cursor and line editing",
-    "commands": [
-      {
-        "id": "zed-editing-flags-card",
-        "desc": "More options and gotchas for: Multi-cursor and line editing",
-        "cmd": "ctrl-d  ·  shift-alt-down",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "ctrl-alt-shift-up / down",
             "Duplicate the line"
@@ -1524,15 +1082,17 @@ const EDITORS_CHEAT_SHEET_DATA = [
             "Split right / close the tab"
           ]
         ],
+        "tip": "Muscle memory from VS Code carries over",
         "tags": [
           "editor",
           "editors",
           "zed",
-          "flags",
-          "options",
           "multi-cursor",
           "move line",
-          "duplicate"
+          "duplicate",
+          "comment",
+          "format",
+          "split"
         ]
       }
     ]
@@ -1598,33 +1158,7 @@ const EDITORS_CHEAT_SHEET_DATA = [
           [
             "--diff OLD NEW",
             "Diff two files"
-          ]
-        ],
-        "tip": "core.editor needs --wait",
-        "tags": [
-          "editor",
-          "editors",
-          "zed",
-          "zed",
-          "cli",
-          "diff",
-          "git"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "zed-flags-6",
-    "badge": "zed",
-    "title": "Zed: More options",
-    "subtitle": "More options for: The zed command: open a folder, a line, a diff",
-    "commands": [
-      {
-        "id": "zed-cli-flags-card",
-        "desc": "More options and gotchas for: The zed command: open a folder, a line, a diff",
-        "cmd": "zed /etc/netplan/50-cloud-init.yaml:12:5",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "-n / -a / -r",
             "New window / add to the current workspace / reuse the window"
@@ -1638,25 +1172,17 @@ const EDITORS_CHEAT_SHEET_DATA = [
             "Some Linux packages name the binary zeditor instead of zed"
           ]
         ],
+        "tip": "core.editor needs --wait",
         "tags": [
           "editor",
           "editors",
           "zed",
-          "flags",
-          "options",
           "zed",
           "cli",
-          "diff"
+          "diff",
+          "git"
         ]
-      }
-    ]
-  },
-  {
-    "id": "zed-recipes-6",
-    "badge": "zed",
-    "title": "Zed: Related commands",
-    "subtitle": "Related commands for: The zed command: open a folder, a line, a diff",
-    "commands": [
+      },
       {
         "id": "zed-cli-sub-1",
         "desc": "Zed for commit messages",
@@ -1781,33 +1307,7 @@ const EDITORS_CHEAT_SHEET_DATA = [
           [
             "Ctrl+.",
             "Mode menu"
-          ]
-        ],
-        "tip": "Shift+Tab to switch Agent / Plan / Ask",
-        "tags": [
-          "editor",
-          "editors",
-          "cursor",
-          "agent",
-          "side panel",
-          "mode",
-          "model"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "cursor-flags-1",
-    "badge": "cur",
-    "title": "Cursor: More options",
-    "subtitle": "More options for: Open the agent side panel and switch modes and models",
-    "commands": [
-      {
-        "id": "cursor-panel-flags-card",
-        "desc": "More options and gotchas for: Open the agent side panel and switch modes and models",
-        "cmd": "Ctrl+I  ·  Ctrl+.  ·  Shift+Tab",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "Shift+Tab",
             "Rotate between agent modes"
@@ -1821,15 +1321,15 @@ const EDITORS_CHEAT_SHEET_DATA = [
             "Cursor's reference lists macOS keys; on Linux and Windows Ctrl takes the place of Cmd"
           ]
         ],
+        "tip": "Shift+Tab to switch Agent / Plan / Ask",
         "tags": [
           "editor",
           "editors",
           "cursor",
-          "flags",
-          "options",
           "agent",
           "side panel",
-          "mode"
+          "mode",
+          "model"
         ]
       }
     ]
@@ -1857,34 +1357,7 @@ const EDITORS_CHEAT_SHEET_DATA = [
           [
             "Ctrl+Shift+Backspace",
             "Cancel the generation"
-          ]
-        ],
-        "tip": "Review the diff before accepting all",
-        "tags": [
-          "editor",
-          "editors",
-          "cursor",
-          "chat",
-          "send",
-          "accept",
-          "reject",
-          "cancel"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "cursor-flags-2",
-    "badge": "cur",
-    "title": "Cursor: More options",
-    "subtitle": "More options for: In the chat box: send, cancel, accept or reject changes",
-    "commands": [
-      {
-        "id": "cursor-chat-flags-card",
-        "desc": "More options and gotchas for: In the chat box: send, cancel, accept or reject changes",
-        "cmd": "Ctrl+Enter  ·  Ctrl+Shift+Backspace",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "Ctrl+Enter with suggested changes",
             "Accept all changes"
@@ -1898,15 +1371,16 @@ const EDITORS_CHEAT_SHEET_DATA = [
             "New chat / new chat tab / close the chat"
           ]
         ],
+        "tip": "Review the diff before accepting all",
         "tags": [
           "editor",
           "editors",
           "cursor",
-          "flags",
-          "options",
           "chat",
           "send",
-          "accept"
+          "accept",
+          "reject",
+          "cancel"
         ]
       }
     ]
@@ -1934,6 +1408,10 @@ const EDITORS_CHEAT_SHEET_DATA = [
           [
             "/",
             "Shortcut commands"
+          ],
+          [
+            "Ctrl+V (code or log in clipboard)",
+            "Paste it as context; Ctrl+Shift+V pastes it as plain text"
           ]
         ],
         "tip": "@-mention the file instead of pasting it",
@@ -1945,36 +1423,6 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "mention",
           "selection",
           "clipboard"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "cursor-flags-3",
-    "badge": "cur",
-    "title": "Cursor: More options",
-    "subtitle": "More options for: Give the agent context: selections, files, clipboard",
-    "commands": [
-      {
-        "id": "cursor-context-flags-card",
-        "desc": "More options and gotchas for: Give the agent context: selections, files, clipboard",
-        "cmd": "Ctrl+Shift+L  ·  @",
-        "hideCode": false,
-        "flags": [
-          [
-            "Ctrl+V (code or log in clipboard)",
-            "Paste it as context; Ctrl+Shift+V pastes it as plain text"
-          ]
-        ],
-        "tags": [
-          "editor",
-          "editors",
-          "cursor",
-          "flags",
-          "options",
-          "context",
-          "mention",
-          "selection"
         ]
       }
     ]
@@ -2035,6 +1483,14 @@ const EDITORS_CHEAT_SHEET_DATA = [
           [
             "Ctrl+Shift+P",
             "Command palette"
+          ],
+          [
+            "Ctrl+R then Ctrl+S",
+            "Keyboard shortcuts editor (or search Keyboard Shortcuts in the palette)"
+          ],
+          [
+            "Ctrl+Shift+Space",
+            "Voice mode (dictation)"
           ]
         ],
         "tip": "Ctrl+Shift+J is Cursor's own settings",
@@ -2046,40 +1502,6 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "palette",
           "shortcuts",
           "voice"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "cursor-flags-5",
-    "badge": "cur",
-    "title": "Cursor: More options",
-    "subtitle": "More options for: Settings, palette, keyboard shortcuts, voice",
-    "commands": [
-      {
-        "id": "cursor-settings-flags-card",
-        "desc": "More options and gotchas for: Settings, palette, keyboard shortcuts, voice",
-        "cmd": "Ctrl+Shift+J  ·  Ctrl+Shift+P",
-        "hideCode": false,
-        "flags": [
-          [
-            "Ctrl+R then Ctrl+S",
-            "Keyboard shortcuts editor (or search Keyboard Shortcuts in the palette)"
-          ],
-          [
-            "Ctrl+Shift+Space",
-            "Voice mode (dictation)"
-          ]
-        ],
-        "tags": [
-          "editor",
-          "editors",
-          "cursor",
-          "flags",
-          "options",
-          "settings",
-          "palette",
-          "shortcuts"
         ]
       }
     ]
@@ -2107,6 +1529,14 @@ const EDITORS_CHEAT_SHEET_DATA = [
           [
             "--mode=plan / --mode=ask",
             "Plan without editing, or just answer questions"
+          ],
+          [
+            "agent ls / agent resume / --continue",
+            "List, resume or continue earlier sessions"
+          ],
+          [
+            "--sandbox enabled",
+            "Run tool calls in the sandbox"
           ]
         ],
         "tip": "-p for scripts, plain agent for a chat",
@@ -2119,49 +1549,7 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "terminal",
           "print mode"
         ]
-      }
-    ]
-  },
-  {
-    "id": "cursor-flags-6",
-    "badge": "cur",
-    "title": "Cursor: More options",
-    "subtitle": "More options for: Run the Cursor agent in a terminal",
-    "commands": [
-      {
-        "id": "cursor-agent-cli-flags-card",
-        "desc": "More options and gotchas for: Run the Cursor agent in a terminal",
-        "cmd": "agent \"explain why this service fails to start\"",
-        "hideCode": false,
-        "flags": [
-          [
-            "agent ls / agent resume / --continue",
-            "List, resume or continue earlier sessions"
-          ],
-          [
-            "--sandbox enabled",
-            "Run tool calls in the sandbox"
-          ]
-        ],
-        "tags": [
-          "editor",
-          "editors",
-          "cursor",
-          "flags",
-          "options",
-          "cli",
-          "agent",
-          "terminal"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "cursor-recipes-6",
-    "badge": "cur",
-    "title": "Cursor: Related commands",
-    "subtitle": "Related commands for: Run the Cursor agent in a terminal",
-    "commands": [
+      },
       {
         "id": "cursor-agent-cli-sub-1",
         "desc": "Install the CLI (pipes a script into bash: read it first; changes state)",

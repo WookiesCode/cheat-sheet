@@ -24,6 +24,10 @@ const SW_SW_QUANTUM_INBAND_DATA = [
           [
             "-p <1..64>",
             "Specify the physical switch port number on the remote Quantum switch (1..64)"
+          ],
+          [
+            "-m -c -e",
+            "Dump remote switch port optical module DOM (dBm/temp), BER counters, and SerDes eye grade"
           ]
         ],
         "tip": "MQM9790 / MQM8790 switches have no SSH CLI—use 'mlxlink -d lid-<N> -p <Port>' from any host!",
@@ -46,41 +50,7 @@ const SW_SW_QUANTUM_INBAND_DATA = [
           "flint",
           "ibswitches"
         ]
-      }
-    ]
-  },
-  {
-    "id": "quantum-unmanaged-inband-flags-1",
-    "badge": "qib",
-    "title": "Quantum: In-Band MFT: Flags & Options Reference",
-    "subtitle": "Key arguments, parameters, and filtering flags for Remotely inspect optical DOM (dBm), BER, eye opening, and port counters on an Unmanaged Quantum switch using its IB LID",
-    "commands": [
-      {
-        "id": "quantum-inband-mlxlink-smpquery-flags-card",
-        "desc": "Options breakdown and parameter syntax for Remotely inspect optical DOM (dBm), BER, eye opening, and port counters on an Unmanaged Quantum switch using its IB LID",
-        "cmd": "ibswitches && mlxlink -d lid-1 -p 1 -m -c -e",
-        "flags": [
-          [
-            "-m -c -e",
-            "Dump remote switch port optical module DOM (dBm/temp), BER counters, and SerDes eye grade"
-          ]
-        ],
-        "details": "Common operational, diagnostic, and filtering arguments on production data center fabrics.",
-        "tags": [
-          "Quantum: In-Band MFT",
-          "flags",
-          "options",
-          "syntax"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "quantum-unmanaged-inband-recipes-1",
-    "badge": "qib",
-    "title": "Quantum: In-Band MFT: Common Recipes & Verification",
-    "subtitle": "Production CLI commands, transceivers & diagnostic workflows for Quantum: In-Band MFT",
-    "commands": [
+      },
       {
         "id": "quantum-inband-mlxlink-smpquery-sub-1",
         "desc": "Remotely read OSFP/QSFP optical Rx/Tx power (dBm), SNR, and BER on port 15 of Quantum switch LID 1",

@@ -24,6 +24,14 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           [
             "grafana-data volume",
             "Holds grafana.db (users, UI-made dashboards, API keys). Lose the volume and you lose everything not provisioned from files"
+          ],
+          [
+            "./provisioning",
+            "Data sources and dashboard providers as YAML, loaded at startup (see the cards below)"
+          ],
+          [
+            "image tag",
+            "Pin a version (13.2.4 was current on 2026-11-07); check the Grafana releases page before upgrading"
           ]
         ],
         "tip": "Bind to 127.0.0.1, tunnel with ssh -L",
@@ -38,49 +46,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "prometheus",
           "secrets"
         ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-setup-flags-1",
-    "badge": "lab",
-    "title": "Grafana Lab Setup: More options",
-    "subtitle": "More options for: compose.yaml for a local Grafana + Prometheus lab",
-    "commands": [
-      {
-        "id": "grafana-compose-lab-flags-card",
-        "desc": "More options and gotchas for: compose.yaml for a local Grafana + Prometheus lab",
-        "cmd": "services:\n  prometheus:\n    image: prom/prometheus:latest\n    ports: [\"127.0.0.1:9090:9090\"]\n    volumes:\n      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro\n      - prom-data:/prometheus\n  grafana:\n    image: grafana/grafana:13.2.4\n    ports: [\"127.0.0.1:3000:3000\"]\n    environment:\n      GF_SECURITY_ADMIN_PASSWORD__FILE: /run/secrets/grafana_admin\n    secrets: [grafana_admin]\n    volumes:\n      - grafana-data:/var/lib/grafana\n      - ./provisioning:/etc/grafana/provisioning:ro\n      - ./dashboards:/var/lib/grafana/dashboards:ro\nsecrets:\n  grafana_admin:\n    file: ./grafana_admin.txt   # chmod 600, keep out of git\nvolumes:\n  prom-data:\n  grafana-data:",
-        "hideCode": true,
-        "flags": [
-          [
-            "./provisioning",
-            "Data sources and dashboard providers as YAML, loaded at startup (see the cards below)"
-          ],
-          [
-            "image tag",
-            "Pin a version (13.2.4 was current on 2026-11-07); check the Grafana releases page before upgrading"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "compose",
-          "docker",
-          "install"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-setup-recipes-1",
-    "badge": "lab",
-    "title": "Grafana Lab Setup: Related commands",
-    "subtitle": "Related commands for: compose.yaml for a local Grafana + Prometheus lab",
-    "commands": [
+      },
       {
         "id": "grafana-compose-lab-sub-1",
         "desc": "Start the lab in the background (changes state)",
@@ -162,6 +128,14 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           [
             "targets",
             "host:port pairs. node_exporter listens on 9100, dcgm-exporter on 9400 by default"
+          ],
+          [
+            "YAML indentation",
+            "Spaces only, never tabs. A list item (-) under static_configs must line up exactly or Prometheus refuses to start"
+          ],
+          [
+            "file_sd_configs",
+            "For a fleet, keep targets in a separate JSON/YAML file Prometheus re-reads on change, instead of editing this file"
           ]
         ],
         "tip": "No data in Grafana? Check Prometheus targets first",
@@ -176,49 +150,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "dcgm-exporter",
           "yaml"
         ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-setup-flags-2",
-    "badge": "lab",
-    "title": "Grafana Lab Setup: More options",
-    "subtitle": "More options for: prometheus.yml: scrape node_exporter",
-    "commands": [
-      {
-        "id": "prometheus-scrape-config-flags-card",
-        "desc": "More options and gotchas for: prometheus.yml: scrape node_exporter",
-        "cmd": "global:\n  scrape_interval: 15s\nscrape_configs:\n  - job_name: node\n    static_configs:\n      - targets: ['gpu-node01:9100', 'gpu-node02:9100']\n  - job_name: dcgm\n    static_configs:\n      - targets: ['gpu-node01:9400', 'gpu-node02:9400']",
-        "hideCode": true,
-        "flags": [
-          [
-            "YAML indentation",
-            "Spaces only, never tabs. A list item (-) under static_configs must line up exactly or Prometheus refuses to start"
-          ],
-          [
-            "file_sd_configs",
-            "For a fleet, keep targets in a separate JSON/YAML file Prometheus re-reads on change, instead of editing this file"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "prometheus",
-          "scrape",
-          "targets"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-setup-recipes-2",
-    "badge": "lab",
-    "title": "Grafana Lab Setup: Related commands",
-    "subtitle": "Related commands for: prometheus.yml: scrape node_exporter",
-    "commands": [
+      },
       {
         "id": "prometheus-scrape-config-sub-1",
         "desc": "Validate the file before restarting Prometheus",
@@ -286,6 +218,14 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           [
             "url",
             "Resolved from inside the Grafana container: in compose, the service name prometheus works; from the host it would be 127.0.0.1:9090"
+          ],
+          [
+            "jsonData.timeInterval",
+            "Set to your scrape_interval. Grafana uses it as the minimum step and to compute $__rate_interval"
+          ],
+          [
+            "Changed it in the UI?",
+            "Provisioned data sources are read-only in the UI; edit the YAML and restart Grafana"
           ]
         ],
         "tip": "Fixed data source UIDs keep dashboards portable",
@@ -299,49 +239,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "uid",
           "yaml"
         ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-setup-flags-3",
-    "badge": "lab",
-    "title": "Grafana Lab Setup: More options",
-    "subtitle": "More options for: Provision the Prometheus data source from YAML",
-    "commands": [
-      {
-        "id": "grafana-datasource-provisioning-flags-card",
-        "desc": "More options and gotchas for: Provision the Prometheus data source from YAML",
-        "cmd": "apiVersion: 1\ndatasources:\n  - name: Prometheus\n    type: prometheus\n    uid: prometheus\n    access: proxy\n    url: http://prometheus:9090\n    isDefault: true\n    jsonData:\n      timeInterval: 15s",
-        "hideCode": true,
-        "flags": [
-          [
-            "jsonData.timeInterval",
-            "Set to your scrape_interval. Grafana uses it as the minimum step and to compute $__rate_interval"
-          ],
-          [
-            "Changed it in the UI?",
-            "Provisioned data sources are read-only in the UI; edit the YAML and restart Grafana"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "datasource",
-          "provisioning",
-          "prometheus"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-setup-recipes-3",
-    "badge": "lab",
-    "title": "Grafana Lab Setup: Related commands",
-    "subtitle": "Related commands for: Provision the Prometheus data source from YAML",
-    "commands": [
+      },
       {
         "id": "grafana-datasource-provisioning-sub-1",
         "desc": "Reload provisioning files (changes state)",
@@ -409,6 +307,14 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           [
             "export",
             "Makes the variable visible to curl and other child processes started from this shell"
+          ],
+          [
+            "Authorization: Bearer $GRAFANA_TOKEN",
+            "How every API call below authenticates"
+          ],
+          [
+            "Expiry",
+            "Give tokens an expiry and one service account per tool, so you can revoke one without breaking the rest"
           ]
         ],
         "tip": "Never paste tokens into commands that get logged",
@@ -422,49 +328,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "auth",
           "secrets"
         ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-setup-flags-4",
-    "badge": "lab",
-    "title": "Grafana Lab Setup: More options",
-    "subtitle": "More options for: Create a service account token for API and CLI use, and load it without echoing it",
-    "commands": [
-      {
-        "id": "grafana-service-account-token-flags-card",
-        "desc": "More options and gotchas for: Create a service account token for API and CLI use, and load it without echoing it",
-        "cmd": "read -rsp 'Grafana token: ' GRAFANA_TOKEN && export GRAFANA_TOKEN GRAFANA_URL=http://127.0.0.1:3000",
-        "hideCode": false,
-        "flags": [
-          [
-            "Authorization: Bearer $GRAFANA_TOKEN",
-            "How every API call below authenticates"
-          ],
-          [
-            "Expiry",
-            "Give tokens an expiry and one service account per tool, so you can revoke one without breaking the rest"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "token",
-          "service account",
-          "api"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-setup-recipes-4",
-    "badge": "lab",
-    "title": "Grafana Lab Setup: Related commands",
-    "subtitle": "Related commands for: Create a service account token for API and CLI use, and load it without echoing it",
-    "commands": [
+      },
       {
         "id": "grafana-service-account-token-sub-1",
         "desc": "Token works if this prints a number instead of an auth error",
@@ -550,6 +414,14 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           [
             "Unit",
             "Sets axis labels, tooltip formatting and stat values in one place; pick it before anything else. _RATIO metrics are 0-1, so use Percent (0.0-1.0), not Percent (0-100)"
+          ],
+          [
+            "Save message",
+            "Every save is a version (Dashboard settings → Versions); a message makes rollback easy"
+          ],
+          [
+            "Grafana 13 layouts",
+            "New dashboards use the v2 schema with auto grid, tabs and conditional rendering; older dashboards are migrated when opened"
           ]
         ],
         "tip": "Set the unit before anything else",
@@ -565,49 +437,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "shortcuts",
           "beginner"
         ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-panels-flags-1",
-    "badge": "pnl",
-    "title": "Grafana Panels: More options",
-    "subtitle": "More options for: Build your first dashboard: the click-path from empty to saved",
-    "commands": [
-      {
-        "id": "grafana-first-dashboard-flags-card",
-        "desc": "More options and gotchas for: Build your first dashboard: the click-path from empty to saved",
-        "cmd": "1. Dashboards → New → New dashboard → Add visualization\n2. Pick the Prometheus data source\n3. Query: avg by (hostname) (DCGM_FI_DEV_GPU_UTIL_RATIO)   → Run queries\n4. Legend (Options): {{hostname}}\n5. Right pane: Visualization = Time series, Title = GPU utilization\n6. Standard options → Unit = Percent (0.0-1.0), Min 0, Max 1\n7. Thresholds: 0.8 orange, 0.95 red; Show thresholds = As lines\n8. Back to dashboard → drag/resize → Save (Ctrl+S) with a message",
-        "hideCode": true,
-        "flags": [
-          [
-            "Save message",
-            "Every save is a version (Dashboard settings → Versions); a message makes rollback easy"
-          ],
-          [
-            "Grafana 13 layouts",
-            "New dashboards use the v2 schema with auto grid, tabs and conditional rendering; older dashboards are migrated when opened"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "dashboard",
-          "panel",
-          "ui"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-panels-recipes-1",
-    "badge": "pnl",
-    "title": "Grafana Panels: Related commands",
-    "subtitle": "Related commands for: Build your first dashboard: the click-path from empty to saved",
-    "commands": [
+      },
       {
         "id": "grafana-first-dashboard-sub-1",
         "desc": "Save the dashboard",
@@ -717,6 +547,14 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           [
             "State timeline",
             "Turns numbers into colored bands via value mappings (0 = OK green, >0 = XID red); great for link up/down and error flags"
+          ],
+          [
+            "Heatmap",
+            "Hundreds of GPUs in one panel: each row a GPU, color = temperature. Spots a single hot GPU faster than 800 lines"
+          ],
+          [
+            "Avoid",
+            "Pie charts for anything but small parts-of-a-whole; time series with more than ~20 lines (aggregate or use a table)"
           ]
         ],
         "tip": "Too many lines? Aggregate, table or heatmap",
@@ -731,40 +569,6 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "table",
           "heatmap",
           "state timeline"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-panels-flags-2",
-    "badge": "pnl",
-    "title": "Grafana Panels: More options",
-    "subtitle": "More options for: Pick the visualization from the question you are answering",
-    "commands": [
-      {
-        "id": "grafana-visualization-choice-flags-card",
-        "desc": "More options and gotchas for: Pick the visualization from the question you are answering",
-        "cmd": "Question                         → Visualization (JSON \"type\")\nHow does it change over time?    → Time series   (timeseries)\nWhat is it right now?            → Stat          (stat)\nHow close to a limit?            → Gauge / Bar gauge (gauge, bargauge)\nWhich GPU/node is worst?         → Table, sorted (table)\nUp/down or OK/fault over time?   → State timeline (state-timeline)\nDistribution across many nodes?  → Heatmap       (heatmap)\nNotes, runbook links             → Text          (text)",
-        "hideCode": true,
-        "flags": [
-          [
-            "Heatmap",
-            "Hundreds of GPUs in one panel: each row a GPU, color = temperature. Spots a single hot GPU faster than 800 lines"
-          ],
-          [
-            "Avoid",
-            "Pie charts for anything but small parts-of-a-whole; time series with more than ~20 lines (aggregate or use a table)"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "visualization",
-          "time series",
-          "stat"
         ]
       }
     ]
@@ -792,6 +596,14 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           [
             "mode",
             "absolute = raw values; percentage = percent of min..max"
+          ],
+          [
+            "mappings",
+            "value (exact match), range (from/to), regex, special (null, NaN, true/false). Mapped text replaces the number"
+          ],
+          [
+            "Thresholds are examples",
+            "Take temperature and power limits from the vendor spec for your exact GPU/CPU SKU"
           ]
         ],
         "tip": "Inspect → Panel JSON shows what the UI set",
@@ -806,49 +618,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "json",
           "colors"
         ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-panels-flags-3",
-    "badge": "pnl",
-    "title": "Grafana Panels: More options",
-    "subtitle": "More options for: Units, min/max, thresholds and value mappings in the panel JSON",
-    "commands": [
-      {
-        "id": "grafana-fieldconfig-json-flags-card",
-        "desc": "More options and gotchas for: Units, min/max, thresholds and value mappings in the panel JSON",
-        "cmd": "\"fieldConfig\": {\n  \"defaults\": {\n    \"unit\": \"celsius\",\n    \"min\": 0,\n    \"max\": 100,\n    \"decimals\": 0,\n    \"thresholds\": {\n      \"mode\": \"absolute\",\n      \"steps\": [\n        { \"color\": \"green\",  \"value\": null },\n        { \"color\": \"orange\", \"value\": 80 },\n        { \"color\": \"red\",    \"value\": 87 }\n      ]\n    },\n    \"mappings\": [\n      { \"type\": \"value\", \"options\": { \"0\": { \"text\": \"OK\", \"color\": \"green\" } } }\n    ]\n  },\n  \"overrides\": []\n}",
-        "hideCode": true,
-        "flags": [
-          [
-            "mappings",
-            "value (exact match), range (from/to), regex, special (null, NaN, true/false). Mapped text replaces the number"
-          ],
-          [
-            "Thresholds are examples",
-            "Take temperature and power limits from the vendor spec for your exact GPU/CPU SKU"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "fieldconfig",
-          "unit",
-          "thresholds"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-panels-recipes-3",
-    "badge": "pnl",
-    "title": "Grafana Panels: Related commands",
-    "subtitle": "Related commands for: Units, min/max, thresholds and value mappings in the panel JSON",
-    "commands": [
+      },
       {
         "id": "grafana-fieldconfig-json-sub-1",
         "desc": "See and edit exactly this JSON for any panel",
@@ -916,6 +686,10 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           [
             "byFrameRefID",
             "Match every field from query A, B, …: handy when query B is a different metric"
+          ],
+          [
+            "Add in the UI",
+            "Edit panel → Overrides tab → Add field override; the JSON above is the result"
           ]
         ],
         "tip": "Second metric, second axis: override on query B",
@@ -928,36 +702,6 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "axis",
           "unit",
           "json"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-panels-flags-4",
-    "badge": "pnl",
-    "title": "Grafana Panels: More options",
-    "subtitle": "More options for: Overrides: different settings for one series or field",
-    "commands": [
-      {
-        "id": "grafana-overrides-flags-card",
-        "desc": "More options and gotchas for: Overrides: different settings for one series or field",
-        "cmd": "\"overrides\": [\n  {\n    \"matcher\": { \"id\": \"byName\", \"options\": \"Power\" },\n    \"properties\": [\n      { \"id\": \"unit\", \"value\": \"watt\" },\n      { \"id\": \"custom.axisPlacement\", \"value\": \"right\" }\n    ]\n  },\n  {\n    \"matcher\": { \"id\": \"byRegexp\", \"options\": \"/.*gpu-node0[1-4].*/\" },\n    \"properties\": [ { \"id\": \"color\", \"value\": { \"mode\": \"fixed\", \"fixedColor\": \"purple\" } } ]\n  }\n]",
-        "hideCode": true,
-        "flags": [
-          [
-            "Add in the UI",
-            "Edit panel → Overrides tab → Add field override; the JSON above is the result"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "overrides",
-          "matcher",
-          "axis"
         ]
       }
     ]
@@ -985,35 +729,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           [
             "Join by field",
             "Join time series on a shared field (usually Time)"
-          ]
-        ],
-        "tip": "Instant + Table format + Merge = per-GPU table",
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "transformations",
-          "merge",
-          "organize",
-          "table",
-          "reduce",
-          "join"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-panels-flags-5",
-    "badge": "pnl",
-    "title": "Grafana Panels: More options",
-    "subtitle": "More options for: Transformations: reshape query results in Grafana",
-    "commands": [
-      {
-        "id": "grafana-transformations-flags-card",
-        "desc": "More options and gotchas for: Transformations: reshape query results in Grafana",
-        "cmd": "Per-GPU table from several instant queries:\n  Query A: DCGM_FI_DEV_GPU_TEMP_CELSIUS     (Format: Table, Type: Instant)\n  Query B: DCGM_FI_DEV_BOARD_POWER_WATTS  (Format: Table, Type: Instant)\n  Query C: DCGM_FI_DEV_GPU_UTIL_RATIO     (Format: Table, Type: Instant)\nTransformations:\n  1. Merge            → one row per GPU with Value #A, #B, #C\n  2. Organize fields  → hide Time/job/instance, rename Value #A → Temp\n  3. Sort by          → Temp, descending",
-        "hideCode": true,
-        "flags": [
+          ],
           [
             "Reduce",
             "Turn each series into one row: Last, Max, Mean… (good for 'max temp in range' tables)"
@@ -1027,15 +743,17 @@ const GRAFANA_CHEAT_SHEET_DATA = [
             "Transformations run top to bottom; use the debug (bug icon) view to see the data after each step"
           ]
         ],
+        "tip": "Instant + Table format + Merge = per-GPU table",
         "tags": [
           "grafana",
           "dashboards",
           "observability",
-          "flags",
-          "options",
           "transformations",
           "merge",
-          "organize"
+          "organize",
+          "table",
+          "reduce",
+          "join"
         ]
       }
     ]
@@ -1063,6 +781,10 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           [
             "${__value.raw}",
             "The raw value of the clicked point"
+          ],
+          [
+            "Where",
+            "Edit panel → Data links and actions → Add link; type $ in the URL box to get a list of variables"
           ]
         ],
         "tip": "Overview → click → detail is the classic layout",
@@ -1076,45 +798,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "kiosk",
           "variables"
         ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-panels-flags-6",
-    "badge": "pnl",
-    "title": "Grafana Panels: More options",
-    "subtitle": "More options for: Data links: click a node in an overview panel to open its detail dashboard",
-    "commands": [
-      {
-        "id": "grafana-data-links-flags-card",
-        "desc": "More options and gotchas for: Data links: click a node in an overview panel to open its detail dashboard",
-        "cmd": "/d/<node-dashboard-uid>/node-detail?var-host=${__field.labels.hostname}&${__url_time_range}",
-        "hideCode": false,
-        "flags": [
-          [
-            "Where",
-            "Edit panel → Data links and actions → Add link; type $ in the URL box to get a list of variables"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "data links",
-          "drilldown",
-          "url"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-panels-recipes-6",
-    "badge": "pnl",
-    "title": "Grafana Panels: Related commands",
-    "subtitle": "Related commands for: Data links: click a node in an overview panel to open its detail dashboard",
-    "commands": [
+      },
       {
         "id": "grafana-data-links-sub-1",
         "desc": "Dashboard URL with a multi-value variable and a time range",
@@ -1208,6 +892,18 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           [
             "$__rate_interval",
             "Grafana picks a window that is at least 4 × the scrape interval, so the graph never has gaps. Use it instead of a fixed [5m] in dashboards"
+          ],
+          [
+            "sum by (instance)",
+            "Add up all interfaces per host; every other label is dropped"
+          ],
+          [
+            "* 8",
+            "Bytes to bits; then set the panel unit to bps"
+          ],
+          [
+            "!~",
+            "Regex does-not-match. =~ and !~ regexes are fully anchored: \"lo\" does not match \"lo0\""
           ]
         ],
         "tip": "_total metric? Wrap it in rate()",
@@ -1222,53 +918,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "throughput",
           "rate_interval"
         ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-promql-flags-1",
-    "badge": "pql",
-    "title": "PromQL for Dashboards: More options",
-    "subtitle": "More options for: Turn a counter into a per-second rate",
-    "commands": [
-      {
-        "id": "promql-rate-counter-flags-card",
-        "desc": "More options and gotchas for: Turn a counter into a per-second rate",
-        "cmd": "sum by (instance) (rate(node_network_receive_bytes_total{device!~\"lo|veth.*|docker.*\"}[$__rate_interval])) * 8",
-        "hideCode": false,
-        "flags": [
-          [
-            "sum by (instance)",
-            "Add up all interfaces per host; every other label is dropped"
-          ],
-          [
-            "* 8",
-            "Bytes to bits; then set the panel unit to bps"
-          ],
-          [
-            "!~",
-            "Regex does-not-match. =~ and !~ regexes are fully anchored: \"lo\" does not match \"lo0\""
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "promql",
-          "rate",
-          "counter"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-promql-recipes-1",
-    "badge": "pql",
-    "title": "PromQL for Dashboards: Related commands",
-    "subtitle": "Related commands for: Turn a counter into a per-second rate",
-    "commands": [
+      },
       {
         "id": "promql-rate-counter-sub-1",
         "desc": "Total errors in the last hour (rate × seconds): nicer for stat panels",
@@ -1336,6 +986,10 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           [
             "avg / max / min / sum / count",
             "max is often better than avg for health: one hot GPU disappears in an 8-GPU average"
+          ],
+          [
+            "Gauge vs counter",
+            "DCGM_FI_DEV_GPU_UTIL_RATIO is a gauge (a current value) so no rate() is needed"
           ]
         ],
         "tip": "Use max for health, avg for capacity",
@@ -1351,45 +1005,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "by",
           "without"
         ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-promql-flags-2",
-    "badge": "pql",
-    "title": "PromQL for Dashboards: More options",
-    "subtitle": "More options for: Aggregate across GPUs and nodes: avg, max, count by label",
-    "commands": [
-      {
-        "id": "promql-aggregation-flags-card",
-        "desc": "More options and gotchas for: Aggregate across GPUs and nodes: avg, max, count by label",
-        "cmd": "avg by (hostname) (DCGM_FI_DEV_GPU_UTIL_RATIO)",
-        "hideCode": false,
-        "flags": [
-          [
-            "Gauge vs counter",
-            "DCGM_FI_DEV_GPU_UTIL_RATIO is a gauge (a current value) so no rate() is needed"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "promql",
-          "aggregation",
-          "avg"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-promql-recipes-2",
-    "badge": "pql",
-    "title": "PromQL for Dashboards: Related commands",
-    "subtitle": "Related commands for: Aggregate across GPUs and nodes: avg, max, count by label",
-    "commands": [
+      },
       {
         "id": "promql-aggregation-sub-1",
         "desc": "Hottest GPU per node",
@@ -1524,6 +1140,10 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           [
             "changes(x[1h])",
             "How many times the value changed: link flaps, clock-event reason flips"
+          ],
+          [
+            "offset 1d",
+            "Same query one day earlier, for 'today vs yesterday'"
           ]
         ],
         "tip": "$__range + Instant = one number for the view",
@@ -1537,45 +1157,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "changes",
           "range"
         ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-promql-flags-4",
-    "badge": "pql",
-    "title": "PromQL for Dashboards: More options",
-    "subtitle": "More options for: Functions over a time range: max, avg, changes, comparisons with offset",
-    "commands": [
-      {
-        "id": "promql-over-time-flags-card",
-        "desc": "More options and gotchas for: Functions over a time range: max, avg, changes, comparisons with offset",
-        "cmd": "max_over_time(DCGM_FI_DEV_GPU_TEMP_CELSIUS[$__range])",
-        "hideCode": false,
-        "flags": [
-          [
-            "offset 1d",
-            "Same query one day earlier, for 'today vs yesterday'"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "promql",
-          "over_time",
-          "offset"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-promql-recipes-4",
-    "badge": "pql",
-    "title": "PromQL for Dashboards: Related commands",
-    "subtitle": "Related commands for: Functions over a time range: max, avg, changes, comparisons with offset",
-    "commands": [
+      },
       {
         "id": "promql-over-time-sub-1",
         "desc": "Power now vs this time yesterday",
@@ -1629,6 +1211,10 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           [
             "absent(x)",
             "Returns 1 if no series match at all: catches an exporter that disappeared completely"
+          ],
+          [
+            "Why it matters",
+            "A crashed dcgm-exporter makes a GPU panel look 'quiet', not broken. Put up == 0 on the dashboard"
           ]
         ],
         "tip": "Silence is not health: graph up == 0",
@@ -1643,45 +1229,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "targets",
           "gpu fell off bus"
         ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-promql-flags-5",
-    "badge": "pql",
-    "title": "PromQL for Dashboards: More options",
-    "subtitle": "More options for: Is anything missing? Down targets and vanished metrics",
-    "commands": [
-      {
-        "id": "promql-up-absent-flags-card",
-        "desc": "More options and gotchas for: Is anything missing? Down targets and vanished metrics",
-        "cmd": "up == 0",
-        "hideCode": false,
-        "flags": [
-          [
-            "Why it matters",
-            "A crashed dcgm-exporter makes a GPU panel look 'quiet', not broken. Put up == 0 on the dashboard"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "promql",
-          "up",
-          "absent"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-promql-recipes-5",
-    "badge": "pql",
-    "title": "PromQL for Dashboards: Related commands",
-    "subtitle": "Related commands for: Is anything missing? Down targets and vanished metrics",
-    "commands": [
+      },
       {
         "id": "promql-up-absent-sub-1",
         "desc": "Down targets per job",
@@ -1749,6 +1297,10 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           [
             "group_left (nodename)",
             "Many-to-one join: copy the nodename label from the right side onto each left series"
+          ],
+          [
+            "Multiply by 1",
+            "Because info metrics are 1, the values stay the same; only labels are added"
           ]
         ],
         "tip": "Info metric × group_left = add labels",
@@ -1762,36 +1314,6 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "on",
           "labels",
           "info metric"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-promql-flags-6",
-    "badge": "pql",
-    "title": "PromQL for Dashboards: More options",
-    "subtitle": "More options for: Join labels from another metric",
-    "commands": [
-      {
-        "id": "promql-join-group-left-flags-card",
-        "desc": "More options and gotchas for: Join labels from another metric",
-        "cmd": "rate(node_cpu_seconds_total{mode=\"idle\"}[$__rate_interval]) * on (instance) group_left (nodename) node_uname_info",
-        "hideCode": false,
-        "flags": [
-          [
-            "Multiply by 1",
-            "Because info metrics are 1, the values stay the same; only labels are added"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "promql",
-          "join",
-          "group_left"
         ]
       }
     ]
@@ -1819,6 +1341,10 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           [
             "/api/v1/query",
             "Instant query (one value per series); /api/v1/query_range takes start, end and step"
+          ],
+          [
+            "jq .value[1]",
+            "Prometheus returns [timestamp, \"value\"]; the value is a string"
           ]
         ],
         "tip": "Use -G so curl sends a GET",
@@ -1833,45 +1359,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "promtool",
           "test"
         ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-promql-flags-7",
-    "badge": "pql",
-    "title": "PromQL for Dashboards: More options",
-    "subtitle": "More options for: Test a query from the shell before putting it in a panel",
-    "commands": [
-      {
-        "id": "promql-test-cli-flags-card",
-        "desc": "More options and gotchas for: Test a query from the shell before putting it in a panel",
-        "cmd": "curl -s -G http://127.0.0.1:9090/api/v1/query --data-urlencode 'query=max by (hostname) (DCGM_FI_DEV_GPU_TEMP_CELSIUS)' | jq -r '.data.result[] | \"\\(.metric.hostname)\\t\\(.value[1])\"'",
-        "hideCode": false,
-        "flags": [
-          [
-            "jq .value[1]",
-            "Prometheus returns [timestamp, \"value\"]; the value is a string"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "promql",
-          "curl",
-          "api"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-promql-recipes-7",
-    "badge": "pql",
-    "title": "PromQL for Dashboards: Related commands",
-    "subtitle": "Related commands for: Test a query from the shell before putting it in a panel",
-    "commands": [
+      },
       {
         "id": "promql-test-cli-sub-1",
         "desc": "Same with promtool, if it is installed",
@@ -1979,6 +1467,14 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           [
             "Multi-value + Include All",
             "Lets people pick several hosts or All; then always use =~ (regex match), never ="
+          ],
+          [
+            "Refresh: On time range change",
+            "Picks up nodes that joined since the dashboard was opened"
+          ],
+          [
+            "Custom all value: .*",
+            "Without it, All sends a regex of every host, which gets slow and long on big fleets"
           ]
         ],
         "tip": "Multi-value variables need =~ not =",
@@ -1992,49 +1488,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "dropdown",
           "query variable"
         ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-variables-flags-1",
-    "badge": "var",
-    "title": "Grafana Variables: More options",
-    "subtitle": "More options for: A host dropdown filled from Prometheus labels",
-    "commands": [
-      {
-        "id": "grafana-query-variable-flags-card",
-        "desc": "More options and gotchas for: A host dropdown filled from Prometheus labels",
-        "cmd": "label_values(DCGM_FI_DEV_GPU_TEMP_CELSIUS, hostname)",
-        "hideCode": false,
-        "flags": [
-          [
-            "Refresh: On time range change",
-            "Picks up nodes that joined since the dashboard was opened"
-          ],
-          [
-            "Custom all value: .*",
-            "Without it, All sends a regex of every host, which gets slow and long on big fleets"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "variables",
-          "templating",
-          "label_values"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-variables-recipes-1",
-    "badge": "var",
-    "title": "Grafana Variables: Related commands",
-    "subtitle": "Related commands for: A host dropdown filled from Prometheus labels",
-    "commands": [
+      },
       {
         "id": "grafana-query-variable-sub-1",
         "desc": "Every label name in the data source",
@@ -2102,6 +1556,10 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           [
             "Panel query",
             "DCGM_FI_DEV_GPU_TEMP_CELSIUS{hostname=~\"$host\", gpu=~\"$gpu\"}"
+          ],
+          [
+            "Regex field",
+            "/^gpu-node(\\d+)$/ in the variable's Regex box would keep only the number; leave empty to keep full names"
           ]
         ],
         "tip": "Order variables parent first",
@@ -2114,36 +1572,6 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "dependent",
           "filter",
           "gpu"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-variables-flags-2",
-    "badge": "var",
-    "title": "Grafana Variables: More options",
-    "subtitle": "More options for: Chained variables: the GPU dropdown only shows GPUs on the selected hosts",
-    "commands": [
-      {
-        "id": "grafana-chained-variable-flags-card",
-        "desc": "More options and gotchas for: Chained variables: the GPU dropdown only shows GPUs on the selected hosts",
-        "cmd": "label_values(DCGM_FI_DEV_GPU_TEMP_CELSIUS{hostname=~\"$host\"}, gpu)",
-        "hideCode": false,
-        "flags": [
-          [
-            "Regex field",
-            "/^gpu-node(\\d+)$/ in the variable's Regex box would keep only the number; leave empty to keep full names"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "variables",
-          "chained",
-          "dependent"
         ]
       }
     ]
@@ -2171,6 +1599,10 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           [
             "datasource.uid",
             "Matches the provisioned data source UID; that is why a fixed UID matters"
+          ],
+          [
+            "Schema note",
+            "This is the classic JSON model; Grafana 13 stores dashboards in the v2 schema and converts classic JSON on load"
           ]
         ],
         "tip": "refresh 2 picks up new nodes",
@@ -2182,36 +1614,6 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "json",
           "templating",
           "schema"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-variables-flags-3",
-    "badge": "var",
-    "title": "Grafana Variables: More options",
-    "subtitle": "More options for: The same host variable as dashboard JSON",
-    "commands": [
-      {
-        "id": "grafana-variable-json-flags-card",
-        "desc": "More options and gotchas for: The same host variable as dashboard JSON",
-        "cmd": "\"templating\": {\n  \"list\": [\n    {\n      \"name\": \"host\",\n      \"label\": \"Host\",\n      \"type\": \"query\",\n      \"datasource\": { \"type\": \"prometheus\", \"uid\": \"prometheus\" },\n      \"query\": { \"query\": \"label_values(DCGM_FI_DEV_GPU_TEMP_CELSIUS, hostname)\" },\n      \"refresh\": 2,\n      \"multi\": true,\n      \"includeAll\": true,\n      \"allValue\": \".*\",\n      \"sort\": 1\n    }\n  ]\n}",
-        "hideCode": true,
-        "flags": [
-          [
-            "Schema note",
-            "This is the classic JSON model; Grafana 13 stores dashboards in the v2 schema and converts classic JSON on load"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "variables",
-          "json",
-          "templating"
         ]
       }
     ]
@@ -2239,35 +1641,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           [
             "${host:csv}",
             "node01,node02: for SQL IN (...) lists or APIs"
-          ]
-        ],
-        "tip": "Links to other dashboards: ${var:queryparam}",
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "variables",
-          "format",
-          "regex",
-          "csv",
-          "queryparam",
-          "interpolation"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-variables-flags-4",
-    "badge": "var",
-    "title": "Grafana Variables: More options",
-    "subtitle": "More options for: Format a multi-value variable for where it is used",
-    "commands": [
-      {
-        "id": "grafana-variable-formats-flags-card",
-        "desc": "More options and gotchas for: Format a multi-value variable for where it is used",
-        "cmd": "${host:regex}",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "${host:json}",
             "[\"node01\",\"node02\"]"
@@ -2281,15 +1655,17 @@ const GRAFANA_CHEAT_SHEET_DATA = [
             "The display text instead of the value"
           ]
         ],
+        "tip": "Links to other dashboards: ${var:queryparam}",
         "tags": [
           "grafana",
           "dashboards",
           "observability",
-          "flags",
-          "options",
           "variables",
           "format",
-          "regex"
+          "regex",
+          "csv",
+          "queryparam",
+          "interpolation"
         ]
       }
     ]
@@ -2317,6 +1693,14 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           [
             "repeatDirection",
             "h = side by side (wraps after maxPerRow), v = stacked"
+          ],
+          [
+            "Repeat a row",
+            "Put several panels in a row and repeat the row: one block of panels per node"
+          ],
+          [
+            "Title",
+            "Use $host in the title so each copy is labeled"
           ]
         ],
         "tip": "Repeat rows, not copy-pasted panels",
@@ -2329,40 +1713,6 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "variables",
           "per node",
           "layout"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-variables-flags-5",
-    "badge": "var",
-    "title": "Grafana Variables: More options",
-    "subtitle": "More options for: Repeat a panel or row once per selected host",
-    "commands": [
-      {
-        "id": "grafana-repeat-panels-flags-card",
-        "desc": "More options and gotchas for: Repeat a panel or row once per selected host",
-        "cmd": "\"repeat\": \"host\",\n\"repeatDirection\": \"h\",\n\"maxPerRow\": 4",
-        "hideCode": true,
-        "flags": [
-          [
-            "Repeat a row",
-            "Put several panels in a row and repeat the row: one block of panels per node"
-          ],
-          [
-            "Title",
-            "Use $host in the title so each copy is labeled"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "repeat",
-          "rows",
-          "variables"
         ]
       }
     ]
@@ -2390,6 +1740,14 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           [
             "$__range",
             "Length of the selected time range (6h, 7d…)"
+          ],
+          [
+            "$__from / $__to",
+            "Range start/end in epoch ms; ${__from:date:iso} formats it"
+          ],
+          [
+            "Interval variable type",
+            "A dropdown of windows (1m, 5m, 1h) the user can pick, used as [$window]"
           ]
         ],
         "tip": "Use $__rate_interval for every rate()",
@@ -2402,40 +1760,6 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "interval",
           "range",
           "rate_interval"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-variables-flags-6",
-    "badge": "var",
-    "title": "Grafana Variables: More options",
-    "subtitle": "More options for: Built-in variables you can use in any query or title",
-    "commands": [
-      {
-        "id": "grafana-builtin-variables-flags-card",
-        "desc": "More options and gotchas for: Built-in variables you can use in any query or title",
-        "cmd": "$__interval  $__rate_interval  $__range  $__from  $__to  $__dashboard  $__user.login",
-        "hideCode": false,
-        "flags": [
-          [
-            "$__from / $__to",
-            "Range start/end in epoch ms; ${__from:date:iso} formats it"
-          ],
-          [
-            "Interval variable type",
-            "A dropdown of windows (1m, 5m, 1h) the user can pick, used as [$window]"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "variables",
-          "builtin",
-          "interval"
         ]
       }
     ]
@@ -2495,6 +1819,14 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           [
             "targets[].expr",
             "The PromQL. Inside JSON, double quotes in the query must be escaped as \\\""
+          ],
+          [
+            "Leave out id",
+            "id is per-instance; when moving a dashboard between Grafanas, remove it (or set null) and keep uid"
+          ],
+          [
+            "Grafana 13",
+            "Exports default to the v2 resource schema (apiVersion/kind/spec); classic JSON like this still imports and is migrated"
           ]
         ],
         "tip": "Set uid yourself; drop id when moving",
@@ -2510,49 +1842,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "export",
           "schema"
         ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-as-code-flags-1",
-    "badge": "code",
-    "title": "Dashboards as Code: More options",
-    "subtitle": "More options for: Minimal dashboard JSON",
-    "commands": [
-      {
-        "id": "grafana-dashboard-json-skeleton-flags-card",
-        "desc": "More options and gotchas for: Minimal dashboard JSON",
-        "cmd": "{\n  \"uid\": \"gpu-fleet\",\n  \"title\": \"GPU Fleet\",\n  \"tags\": [\"gpu\", \"dcgm\"],\n  \"time\": { \"from\": \"now-6h\", \"to\": \"now\" },\n  \"refresh\": \"30s\",\n  \"panels\": [\n    {\n      \"type\": \"timeseries\",\n      \"title\": \"GPU utilization\",\n      \"gridPos\": { \"x\": 0, \"y\": 0, \"w\": 12, \"h\": 8 },\n      \"datasource\": { \"type\": \"prometheus\", \"uid\": \"prometheus\" },\n      \"targets\": [\n        { \"refId\": \"A\",\n          \"expr\": \"avg by (hostname) (DCGM_FI_DEV_GPU_UTIL_RATIO{hostname=~\\\"$host\\\"})\",\n          \"legendFormat\": \"{{hostname}}\" }\n      ],\n      \"fieldConfig\": { \"defaults\": { \"unit\": \"percentunit\", \"min\": 0, \"max\": 1 }, \"overrides\": [] }\n    }\n  ]\n}",
-        "hideCode": true,
-        "flags": [
-          [
-            "Leave out id",
-            "id is per-instance; when moving a dashboard between Grafanas, remove it (or set null) and keep uid"
-          ],
-          [
-            "Grafana 13",
-            "Exports default to the v2 resource schema (apiVersion/kind/spec); classic JSON like this still imports and is migrated"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "json",
-          "model",
-          "uid"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-as-code-recipes-1",
-    "badge": "code",
-    "title": "Dashboards as Code: Related commands",
-    "subtitle": "Related commands for: Minimal dashboard JSON",
-    "commands": [
+      },
       {
         "id": "grafana-dashboard-json-skeleton-sub-1",
         "desc": "Check the file is valid JSON before loading it",
@@ -2606,6 +1896,14 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           [
             "updateIntervalSeconds",
             "How often Grafana re-reads the files; edits in git show up without a restart"
+          ],
+          [
+            "allowUiUpdates: false",
+            "UI edits are blocked, so git stays the source of truth. To change a dashboard: edit in the lab, export JSON, commit"
+          ],
+          [
+            "disableDeletion",
+            "Removing a file does not delete the dashboard; safer while you are learning"
           ]
         ],
         "tip": "Git is the source of truth: allowUiUpdates false",
@@ -2619,49 +1917,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "folders",
           "gitops"
         ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-as-code-flags-2",
-    "badge": "code",
-    "title": "Dashboards as Code: More options",
-    "subtitle": "More options for: Load dashboards from a folder of JSON files",
-    "commands": [
-      {
-        "id": "grafana-dashboard-provider-flags-card",
-        "desc": "More options and gotchas for: Load dashboards from a folder of JSON files",
-        "cmd": "apiVersion: 1\nproviders:\n  - name: fleet\n    type: file\n    disableDeletion: true\n    allowUiUpdates: false\n    updateIntervalSeconds: 30\n    options:\n      path: /var/lib/grafana/dashboards\n      foldersFromFilesStructure: true",
-        "hideCode": true,
-        "flags": [
-          [
-            "allowUiUpdates: false",
-            "UI edits are blocked, so git stays the source of truth. To change a dashboard: edit in the lab, export JSON, commit"
-          ],
-          [
-            "disableDeletion",
-            "Removing a file does not delete the dashboard; safer while you are learning"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "provisioning",
-          "yaml",
-          "file"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-as-code-recipes-2",
-    "badge": "code",
-    "title": "Dashboards as Code: Related commands",
-    "subtitle": "Related commands for: Load dashboards from a folder of JSON files",
-    "commands": [
+      },
       {
         "id": "grafana-dashboard-provider-sub-1",
         "desc": "See which dashboards loaded and any JSON errors",
@@ -2715,15 +1971,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "backup",
           "uid"
         ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-as-code-recipes-3",
-    "badge": "code",
-    "title": "Dashboards as Code: Related commands",
-    "subtitle": "Related commands for: Export a dashboard's JSON with the HTTP API",
-    "commands": [
+      },
       {
         "id": "grafana-api-export-sub-1",
         "desc": "Find dashboards and their UIDs",
@@ -2791,6 +2039,14 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           [
             "overwrite: true",
             "Replace an existing dashboard with the same uid or title. Without it, the API refuses (412 version-mismatch / name-exists)"
+          ],
+          [
+            "message",
+            "Shows in the dashboard's version history"
+          ],
+          [
+            "--data-binary @-",
+            "Read the body from stdin (the jq output) without changing newlines"
           ]
         ],
         "tip": "412 = someone changed it; re-export first",
@@ -2805,40 +2061,6 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "jq",
           "overwrite",
           "folder"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-as-code-flags-4",
-    "badge": "code",
-    "title": "Dashboards as Code: More options",
-    "subtitle": "More options for: Create or update a dashboard from a JSON file with the HTTP API",
-    "commands": [
-      {
-        "id": "grafana-api-import-flags-card",
-        "desc": "More options and gotchas for: Create or update a dashboard from a JSON file with the HTTP API",
-        "cmd": "jq '{dashboard: (. | .id = null), folderUid: \"<folder-uid>\", overwrite: true, message: \"update from git\"}' gpu-fleet.json | curl -s -X POST -H \"Authorization: Bearer $GRAFANA_TOKEN\" -H 'Content-Type: application/json' --data-binary @- \"$GRAFANA_URL/api/dashboards/db\" | jq",
-        "hideCode": false,
-        "flags": [
-          [
-            "message",
-            "Shows in the dashboard's version history"
-          ],
-          [
-            "--data-binary @-",
-            "Read the body from stdin (the jq output) without changing newlines"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "api",
-          "import",
-          "post"
         ]
       }
     ]
@@ -2866,6 +2088,18 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           [
             "-o yaml|json",
             "File format for pulled resources"
+          ],
+          [
+            "--include-managed",
+            "Also touch resources owned by Terraform or Git Sync (skipped by default)"
+          ],
+          [
+            "Contexts",
+            "Configure one context per Grafana (lab, prod) and switch between them; see gcx config --help"
+          ],
+          [
+            "grafanactl",
+            "Deprecated; its repo was archived 2026-06-01. Replace grafanactl with gcx in old scripts"
           ]
         ],
         "tip": "Old scripts: grafanactl → gcx",
@@ -2880,53 +2114,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "push",
           "gitops"
         ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-as-code-flags-5",
-    "badge": "code",
-    "title": "Dashboards as Code: More options",
-    "subtitle": "More options for: gcx: pull and push dashboards as files",
-    "commands": [
-      {
-        "id": "grafana-gcx-flags-card",
-        "desc": "More options and gotchas for: gcx: pull and push dashboards as files",
-        "cmd": "gcx resources pull --path ./resources/ -o yaml",
-        "hideCode": false,
-        "flags": [
-          [
-            "--include-managed",
-            "Also touch resources owned by Terraform or Git Sync (skipped by default)"
-          ],
-          [
-            "Contexts",
-            "Configure one context per Grafana (lab, prod) and switch between them; see gcx config --help"
-          ],
-          [
-            "grafanactl",
-            "Deprecated; its repo was archived 2026-06-01. Replace grafanactl with gcx in old scripts"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "gcx",
-          "grafanactl",
-          "cli"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-as-code-recipes-5",
-    "badge": "code",
-    "title": "Dashboards as Code: Related commands",
-    "subtitle": "Related commands for: gcx: pull and push dashboards as files",
-    "commands": [
+      },
       {
         "id": "grafana-gcx-sub-1",
         "desc": "Upload the files to the current context (changes state)",
@@ -2994,6 +2182,10 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           [
             "vs file provisioning",
             "File provisioning is one-way (files → Grafana). Git Sync is two-way and keeps UI editing"
+          ],
+          [
+            "vs API/gcx",
+            "API and gcx are scripts you run; Git Sync runs continuously inside Grafana"
           ]
         ],
         "tip": "One-way: files. Two-way: Git Sync",
@@ -3006,36 +2198,6 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "gitops",
           "github",
           "provisioning"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-as-code-flags-6",
-    "badge": "code",
-    "title": "Dashboards as Code: More options",
-    "subtitle": "More options for: Git Sync",
-    "commands": [
-      {
-        "id": "grafana-git-sync-flags-card",
-        "desc": "More options and gotchas for: Git Sync",
-        "cmd": "Administration → General → Provisioning → Configure Git Sync",
-        "hideCode": false,
-        "flags": [
-          [
-            "vs API/gcx",
-            "API and gcx are scripts you run; Git Sync runs continuously inside Grafana"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "git sync",
-          "git",
-          "gitops"
         ]
       }
     ]
@@ -3099,36 +2261,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           [
             "DCGM_FI_DEV_GPU_TEMP",
             "→ DCGM_FI_DEV_GPU_TEMP_CELSIUS (same unit, °C)"
-          ]
-        ],
-        "tip": "Upgrading the exporter breaks old dashboards",
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "dcgm",
-          "metric names",
-          "rename",
-          "4.9.0",
-          "upgrade",
-          "units",
-          "hostname"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-gpu-dashboard-flags-1",
-    "badge": "gpu",
-    "title": "GPU Fleet Dashboard: More options",
-    "subtitle": "More options for: Which metric names does your exporter use? dcgm-exporter 4.9.0 renamed them",
-    "commands": [
-      {
-        "id": "gpu-dash-metric-names-flags-card",
-        "desc": "More options and gotchas for: Which metric names does your exporter use? dcgm-exporter 4.9.0 renamed them",
-        "cmd": "curl -s http://<node>:9400/metrics | grep -c '^DCGM_FI_DEV_GPU_TEMP_CELSIUS{'",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "DCGM_FI_DEV_POWER_USAGE",
             "→ DCGM_FI_DEV_BOARD_POWER_WATTS (same unit, W)"
@@ -3170,25 +2303,20 @@ const GRAFANA_CHEAT_SHEET_DATA = [
             "→ hostname since 4.6.0; the driver-version label DCGM_FI_DRIVER_VERSION → DCGM_FI_SYSTEM_DRIVER_VERSION in 4.9.0"
           ]
         ],
+        "tip": "Upgrading the exporter breaks old dashboards",
         "tags": [
           "grafana",
           "dashboards",
           "observability",
-          "flags",
-          "options",
           "dcgm",
           "metric names",
-          "rename"
+          "rename",
+          "4.9.0",
+          "upgrade",
+          "units",
+          "hostname"
         ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-gpu-dashboard-recipes-1",
-    "badge": "gpu",
-    "title": "GPU Fleet Dashboard: Related commands",
-    "subtitle": "Related commands for: Which metric names does your exporter use? dcgm-exporter 4.9.0 renamed them",
-    "commands": [
+      },
       {
         "id": "gpu-dash-metric-names-sub-1",
         "desc": "Mixed fleet during an upgrade: or keeps a series from either name (only safe where the unit did not change)",
@@ -3256,6 +2384,10 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           [
             "Row 3 repeat",
             "Repeat the row by $host so selecting 3 nodes shows 3 blocks"
+          ],
+          [
+            "Starting point",
+            "Community dashboard 12239 shows working queries but uses the pre-4.9 metric names. dcgm-exporter 4.9.0 updated its own Grafana dashboard to the new names and units"
           ]
         ],
         "tip": "Match the dashboard to your exporter's names",
@@ -3270,45 +2402,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "rows",
           "12239"
         ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-gpu-dashboard-flags-2",
-    "badge": "gpu",
-    "title": "GPU Fleet Dashboard: More options",
-    "subtitle": "More options for: Layout: three rows answering 'anything wrong?', 'where?', 'why?'",
-    "commands": [
-      {
-        "id": "gpu-dash-layout-flags-card",
-        "desc": "More options and gotchas for: Layout: three rows answering 'anything wrong?', 'where?', 'why?'",
-        "cmd": "Row 1  Fleet health (stat panels, w 4 each = 6 across)\n       GPUs reporting | Exporters down | XID now | Hot GPUs | Fleet power kW | Avg util\nRow 2  Where (w 12 + 12)\n       Per-GPU table (sorted by temp)  |  Temperature heatmap by GPU\nRow 3  Why (time series, repeat by $host)\n       Util | Temp | Power | Memory used | NVLink bandwidth | Clock event reasons",
-        "hideCode": true,
-        "flags": [
-          [
-            "Starting point",
-            "Community dashboard 12239 shows working queries but uses the pre-4.9 metric names. dcgm-exporter 4.9.0 updated its own Grafana dashboard to the new names and units"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "layout",
-          "gpu",
-          "dcgm"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-gpu-dashboard-recipes-2",
-    "badge": "gpu",
-    "title": "GPU Fleet Dashboard: Related commands",
-    "subtitle": "Related commands for: Layout: three rows answering 'anything wrong?', 'where?', 'why?'",
-    "commands": [
+      },
       {
         "id": "gpu-dash-layout-sub-1",
         "desc": "Import the community DCGM dashboard (read its JSON before trusting it)",
@@ -3348,6 +2442,14 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           [
             "XID now",
             "count(DCGM_FI_DEV_XID_ERROR > 0) or vector(0); the metric holds the last XID code, not a count"
+          ],
+          [
+            "Hot GPUs",
+            "count(DCGM_FI_DEV_GPU_TEMP_CELSIUS > 85) or vector(0); take the limit from your GPU's spec"
+          ],
+          [
+            "or vector(0)",
+            "Turns 'No data' into 0 so the panel stays green instead of grey"
           ]
         ],
         "tip": "or vector(0) keeps stat panels green",
@@ -3362,49 +2464,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "count",
           "dcgm"
         ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-gpu-dashboard-flags-3",
-    "badge": "gpu",
-    "title": "GPU Fleet Dashboard: More options",
-    "subtitle": "More options for: Row 1 stat queries: GPUs reporting, exporters down, XID, hot GPUs",
-    "commands": [
-      {
-        "id": "gpu-dash-health-stats-flags-card",
-        "desc": "More options and gotchas for: Row 1 stat queries: GPUs reporting, exporters down, XID, hot GPUs",
-        "cmd": "count(DCGM_FI_DEV_GPU_TEMP_CELSIUS)",
-        "hideCode": false,
-        "flags": [
-          [
-            "Hot GPUs",
-            "count(DCGM_FI_DEV_GPU_TEMP_CELSIUS > 85) or vector(0); take the limit from your GPU's spec"
-          ],
-          [
-            "or vector(0)",
-            "Turns 'No data' into 0 so the panel stays green instead of grey"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "stat",
-          "health",
-          "xid"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-gpu-dashboard-recipes-3",
-    "badge": "gpu",
-    "title": "GPU Fleet Dashboard: Related commands",
-    "subtitle": "Related commands for: Row 1 stat queries: GPUs reporting, exporters down, XID, hot GPUs",
-    "commands": [
+      },
       {
         "id": "gpu-dash-health-stats-sub-1",
         "desc": "Fleet GPU power in kW (unit: none, or kwatt)",
@@ -3458,6 +2518,10 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           [
             "Overrides",
             "Temp → celsius with thresholds; Power → watt; Util → percentunit; FB_USED_BYTES → bytes (pre-4.9 FB_USED was MiB → mbytes)"
+          ],
+          [
+            "Cell display",
+            "Override Temp: Cell options → Colored background, so hot rows stand out"
           ]
         ],
         "tip": "Keep UUID and BDF columns for RMAs",
@@ -3471,36 +2535,6 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "uuid",
           "bdf",
           "rma"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-gpu-dashboard-flags-4",
-    "badge": "gpu",
-    "title": "GPU Fleet Dashboard: More options",
-    "subtitle": "More options for: Row 2 per-GPU table: one row per GPU with temp, power, util and memory",
-    "commands": [
-      {
-        "id": "gpu-dash-table-flags-card",
-        "desc": "More options and gotchas for: Row 2 per-GPU table: one row per GPU with temp, power, util and memory",
-        "cmd": "A: DCGM_FI_DEV_GPU_TEMP_CELSIUS{hostname=~\"$host\"}\nB: DCGM_FI_DEV_BOARD_POWER_WATTS{hostname=~\"$host\"}\nC: DCGM_FI_DEV_GPU_UTIL_RATIO{hostname=~\"$host\"}\nD: DCGM_FI_DEV_FB_USED_BYTES{hostname=~\"$host\"}\n(all: Format Table, Type Instant)\n→ Merge → Organize fields (keep hostname, gpu, modelName, UUID, pci_bus_id) → Sort by Temp desc",
-        "hideCode": true,
-        "flags": [
-          [
-            "Cell display",
-            "Override Temp: Cell options → Colored background, so hot rows stand out"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "table",
-          "per gpu",
-          "merge"
         ]
       }
     ]
@@ -3528,6 +2562,18 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           [
             "Power",
             "DCGM_FI_DEV_BOARD_POWER_WATTS, unit watt; one GPU far below its siblings under load is worth a look"
+          ],
+          [
+            "Memory",
+            "DCGM_FI_DEV_FB_USED_BYTES, unit bytes (Grafana scales it to GiB for you)"
+          ],
+          [
+            "Utilization",
+            "DCGM_FI_DEV_GPU_UTIL_RATIO (share of time the GPU was busy) and DCGM_FI_PROF_GR_ENGINE_UTIL_RATIO (share of time the graphics engine was active); both are in the default counters, unit percentunit"
+          ],
+          [
+            "Clocks",
+            "DCGM_FI_DEV_SM_CLOCK_HERTZ (unit hertz; pre-4.9 SM_CLOCK was MHz); a GPU running slower than its siblings is often thermal or power throttling"
           ]
         ],
         "tip": "One GPU unlike its 7 siblings = investigate",
@@ -3543,53 +2589,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "nvlink",
           "dcgm"
         ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-gpu-dashboard-flags-5",
-    "badge": "gpu",
-    "title": "GPU Fleet Dashboard: More options",
-    "subtitle": "More options for: Row 3 time series queries for one node",
-    "commands": [
-      {
-        "id": "gpu-dash-timeseries-flags-card",
-        "desc": "More options and gotchas for: Row 3 time series queries for one node",
-        "cmd": "DCGM_FI_DEV_GPU_TEMP_CELSIUS{hostname=~\"$host\"}",
-        "hideCode": false,
-        "flags": [
-          [
-            "Memory",
-            "DCGM_FI_DEV_FB_USED_BYTES, unit bytes (Grafana scales it to GiB for you)"
-          ],
-          [
-            "Utilization",
-            "DCGM_FI_DEV_GPU_UTIL_RATIO (share of time the GPU was busy) and DCGM_FI_PROF_GR_ENGINE_UTIL_RATIO (share of time the graphics engine was active); both are in the default counters, unit percentunit"
-          ],
-          [
-            "Clocks",
-            "DCGM_FI_DEV_SM_CLOCK_HERTZ (unit hertz; pre-4.9 SM_CLOCK was MHz); a GPU running slower than its siblings is often thermal or power throttling"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "time series",
-          "temperature",
-          "power"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-gpu-dashboard-recipes-5",
-    "badge": "gpu",
-    "title": "GPU Fleet Dashboard: Related commands",
-    "subtitle": "Related commands for: Row 3 time series queries for one node",
-    "commands": [
+      },
       {
         "id": "gpu-dash-timeseries-sub-1",
         "desc": "NVLink throughput across all links: already a per-second gauge, so no rate() (unit Bps)",
@@ -3643,6 +2643,14 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           [
             "Row remapping",
             "DCGM_FI_DEV_ROW_REMAP_UNCORRECTABLE_TOTAL (counter) and DCGM_FI_DEV_ROW_REMAP_FAILED (gauge, whether remapping failed); both are default fields. FAILED > 0 is an RMA candidate"
+          ],
+          [
+            "Not every metric is on",
+            "dcgm-exporter only exports what its counters CSV lists; add missing fields there"
+          ],
+          [
+            "Then go to the node",
+            "The dashboard says where; nvidia-smi -q and dmesg on the node say why (see the NVIDIA DC sheets)"
           ]
         ],
         "tip": "Dashboards find the GPU; the CLI proves the fault",
@@ -3656,40 +2664,6 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "errors",
           "state timeline",
           "rma"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-gpu-dashboard-flags-6",
-    "badge": "gpu",
-    "title": "GPU Fleet Dashboard: More options",
-    "subtitle": "More options for: Error panels: XID codes, ECC and row remapping",
-    "commands": [
-      {
-        "id": "gpu-dash-errors-flags-card",
-        "desc": "More options and gotchas for: Error panels: XID codes, ECC and row remapping",
-        "cmd": "max by (hostname, gpu) (DCGM_FI_DEV_XID_ERROR{hostname=~\"$host\"})",
-        "hideCode": false,
-        "flags": [
-          [
-            "Not every metric is on",
-            "dcgm-exporter only exports what its counters CSV lists; add missing fields there"
-          ],
-          [
-            "Then go to the node",
-            "The dashboard says where; nvidia-smi -q and dmesg on the node say why (see the NVIDIA DC sheets)"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "xid",
-          "ecc",
-          "row remap"
         ]
       }
     ]
@@ -3717,6 +2691,14 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           [
             "IB link downs",
             "increase(node_infiniband_link_downed_total[$__range]) from node_exporter's infiniband collector"
+          ],
+          [
+            "IB symbol errors",
+            "increase(node_infiniband_symbol_error_total[$__range]); a climbing count points at optics or cables"
+          ],
+          [
+            "instance vs hostname",
+            "node_exporter labels by instance (host:9100) while DCGM uses hostname; join with node_uname_info or relabel in Prometheus"
           ]
         ],
         "tip": "Rising symbol errors → clean/swap the optic",
@@ -3730,40 +2712,6 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "infiniband",
           "link errors",
           "context"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-gpu-dashboard-flags-7",
-    "badge": "gpu",
-    "title": "GPU Fleet Dashboard: More options",
-    "subtitle": "More options for: Node context from node_exporter: CPU, memory and InfiniBand link errors",
-    "commands": [
-      {
-        "id": "gpu-dash-node-context-flags-card",
-        "desc": "More options and gotchas for: Node context from node_exporter: CPU, memory and InfiniBand link errors",
-        "cmd": "100 * (1 - avg by (instance) (rate(node_cpu_seconds_total{mode=\"idle\"}[$__rate_interval])))",
-        "hideCode": false,
-        "flags": [
-          [
-            "IB symbol errors",
-            "increase(node_infiniband_symbol_error_total[$__range]); a climbing count points at optics or cables"
-          ],
-          [
-            "instance vs hostname",
-            "node_exporter labels by instance (host:9100) while DCGM uses hostname; join with node_uname_info or relabel in Prometheus"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "node_exporter",
-          "cpu",
-          "memory"
         ]
       }
     ]

@@ -24,6 +24,14 @@ const SRE_TERRAFORM_DATA = [
           [
             "fmt -check -recursive",
             "Fail if any file is not formatted (CI)"
+          ],
+          [
+            "validate",
+            "Syntax and internal consistency, no API calls"
+          ],
+          [
+            "tofu",
+            "OpenTofu's CLI: the same subcommands with tofu in place of terraform"
           ]
         ],
         "tip": "Commit .terraform.lock.hcl",
@@ -37,49 +45,7 @@ const SRE_TERRAFORM_DATA = [
           "fmt",
           "validate"
         ]
-      }
-    ]
-  },
-  {
-    "id": "terraform-flags-1",
-    "badge": "terraform",
-    "title": "Terraform / OpenTofu: More options",
-    "subtitle": "More options for: Initialise, format and validate",
-    "commands": [
-      {
-        "id": "tf-init-validate-flags-card",
-        "desc": "More options and gotchas for: Initialise, format and validate",
-        "cmd": "terraform init && terraform fmt -check -recursive && terraform validate",
-        "hideCode": false,
-        "flags": [
-          [
-            "validate",
-            "Syntax and internal consistency, no API calls"
-          ],
-          [
-            "tofu",
-            "OpenTofu's CLI: the same subcommands with tofu in place of terraform"
-          ]
-        ],
-        "tags": [
-          "sre",
-          "devops",
-          "terraform",
-          "flags",
-          "options",
-          "terraform",
-          "opentofu",
-          "init"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "terraform-recipes-1",
-    "badge": "terraform",
-    "title": "Terraform / OpenTofu: Related commands",
-    "subtitle": "Related commands for: Initialise, format and validate",
-    "commands": [
+      },
       {
         "id": "tf-init-validate-sub-1",
         "desc": "Lock-file hashes for every platform your team uses",
@@ -119,6 +85,10 @@ const SRE_TERRAFORM_DATA = [
           [
             "destroy",
             "Delete everything in the configuration (changes state)"
+          ],
+          [
+            "-target",
+            "Exceptional cases only: it can hide drift. Split configurations instead"
           ]
         ],
         "tip": "Read every - and -/+ (destroy) line in the plan before you apply",
@@ -131,45 +101,7 @@ const SRE_TERRAFORM_DATA = [
           "destroy",
           "target"
         ]
-      }
-    ]
-  },
-  {
-    "id": "terraform-flags-2",
-    "badge": "terraform",
-    "title": "Terraform / OpenTofu: More options",
-    "subtitle": "More options for: Save a plan, review it, apply exactly that plan",
-    "commands": [
-      {
-        "id": "tf-plan-apply-flags-card",
-        "desc": "More options and gotchas for: Save a plan, review it, apply exactly that plan",
-        "cmd": "terraform plan -out=tfplan",
-        "hideCode": false,
-        "flags": [
-          [
-            "-target",
-            "Exceptional cases only: it can hide drift. Split configurations instead"
-          ]
-        ],
-        "tags": [
-          "sre",
-          "devops",
-          "terraform",
-          "flags",
-          "options",
-          "plan",
-          "apply",
-          "destroy"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "terraform-recipes-2",
-    "badge": "terraform",
-    "title": "Terraform / OpenTofu: Related commands",
-    "subtitle": "Related commands for: Save a plan, review it, apply exactly that plan",
-    "commands": [
+      },
       {
         "id": "tf-plan-apply-sub-1",
         "desc": "Review the saved plan",
@@ -223,6 +155,10 @@ const SRE_TERRAFORM_DATA = [
           [
             "state mv <src> <dst>",
             "Rename without destroy (changes state); -dry-run first"
+          ],
+          [
+            "output -json",
+            "Outputs for scripts; shows sensitive values in clear text"
           ]
         ],
         "tip": "Prefer a moved block to state mv: it is reviewed in the plan",
@@ -235,45 +171,7 @@ const SRE_TERRAFORM_DATA = [
           "show",
           "output"
         ]
-      }
-    ]
-  },
-  {
-    "id": "terraform-flags-3",
-    "badge": "terraform",
-    "title": "Terraform / OpenTofu: More options",
-    "subtitle": "More options for: Inspect state",
-    "commands": [
-      {
-        "id": "tf-state-flags-card",
-        "desc": "More options and gotchas for: Inspect state",
-        "cmd": "terraform state list",
-        "hideCode": false,
-        "flags": [
-          [
-            "output -json",
-            "Outputs for scripts; shows sensitive values in clear text"
-          ]
-        ],
-        "tags": [
-          "sre",
-          "devops",
-          "terraform",
-          "flags",
-          "options",
-          "state",
-          "list",
-          "show"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "terraform-recipes-3",
-    "badge": "terraform",
-    "title": "Terraform / OpenTofu: Related commands",
-    "subtitle": "Related commands for: Inspect state",
-    "commands": [
+      },
       {
         "id": "tf-state-sub-1",
         "desc": "Quote addresses with brackets",
@@ -327,6 +225,10 @@ const SRE_TERRAFORM_DATA = [
           [
             "plan -generate-config-out=gen.tf",
             "Experimental: write the resource block for an import"
+          ],
+          [
+            "Why blocks",
+            "They show up in plan and code review; state commands don't"
           ]
         ],
         "tip": "Keep moved blocks until every workspace has applied them",
@@ -338,36 +240,6 @@ const SRE_TERRAFORM_DATA = [
           "import",
           "refactor",
           "hcl"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "terraform-flags-4",
-    "badge": "terraform",
-    "title": "Terraform / OpenTofu: More options",
-    "subtitle": "More options for: moved and import blocks",
-    "commands": [
-      {
-        "id": "tf-moved-import-flags-card",
-        "desc": "More options and gotchas for: moved and import blocks",
-        "cmd": "moved {\n  from = aws_instance.worker\n  to   = aws_instance.helper\n}\n\nimport {\n  to = aws_instance.legacy\n  id = \"i-0123456789abcdef0\"\n}",
-        "hideCode": true,
-        "flags": [
-          [
-            "Why blocks",
-            "They show up in plan and code review; state commands don't"
-          ]
-        ],
-        "tags": [
-          "sre",
-          "devops",
-          "terraform",
-          "flags",
-          "options",
-          "moved",
-          "import",
-          "refactor"
         ]
       }
     ]

@@ -24,6 +24,10 @@ const IB_IB_IBQUERYERRORS_DATA = [
           [
             "-s RcvSwRelayErrors,XmitWait",
             "Suppress common non-fatal congestion/relay counters to focus strictly on physical link faults"
+          ],
+          [
+            "-k / -K",
+            "Clear (-k) error counters across the fabric after reporting them"
           ]
         ],
         "tip": "Suppress RcvSwRelayErrors to focus on real physical bad cables",
@@ -33,41 +37,7 @@ const IB_IB_IBQUERYERRORS_DATA = [
           "triage",
           "rdma"
         ]
-      }
-    ]
-  },
-  {
-    "id": "ibqueryerrors-flags",
-    "badge": "err",
-    "title": "ibqueryerrors: Flags & Options Reference",
-    "subtitle": "Key arguments, parameters, and filtering flags for ibqueryerrors",
-    "commands": [
-      {
-        "id": "ibqueryerrors-flags-card",
-        "desc": "Full options breakdown and parameter syntax for ibqueryerrors",
-        "cmd": "ibqueryerrors -h",
-        "flags": [
-          [
-            "-k / -K",
-            "Clear (-k) error counters across the fabric after reporting them"
-          ]
-        ],
-        "details": "Common diagnostic, verbose, and targeting flags for ibqueryerrors in high-performance cluster environments.",
-        "tags": [
-          "ibqueryerrors",
-          "flags",
-          "options",
-          "syntax"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "ibqueryerrors-subcmds",
-    "badge": "err",
-    "title": "ibqueryerrors: Common Recipes & Pipelines",
-    "subtitle": "Verified production bash one-liners and automation pipelines using ibqueryerrors",
-    "commands": [
+      },
       {
         "id": "ibqueryerrors-sub-1",
         "desc": "Show only physical-layer symbol, link-down, and receive CRC errors across the fabric",

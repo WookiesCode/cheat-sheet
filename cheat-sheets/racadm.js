@@ -24,6 +24,18 @@ const BMC_RACADM_DATA = [
           [
             "--nocertwarn",
             "Add at the end to skip the self-signed certificate warning"
+          ],
+          [
+            "-d / -c / -4 / -6",
+            "Only iDRAC info / common settings / IPv4 / IPv6"
+          ],
+          [
+            "-A",
+            "No headers, easier to parse"
+          ],
+          [
+            "Hostname and OS fields",
+            "Only accurate when OpenManage Server Administrator is installed on the host"
           ]
         ],
         "tip": "-p shows up in ps; on a shared jumpbox, run racadm in-band or over SSH to the iDRAC",
@@ -38,53 +50,7 @@ const BMC_RACADM_DATA = [
           "sensors",
           "service-tag"
         ]
-      }
-    ]
-  },
-  {
-    "id": "racadm-flags-1",
-    "badge": "racadm",
-    "title": "Dell racadm: More options",
-    "subtitle": "More options for: System and iDRAC summary, remote or in-band",
-    "commands": [
-      {
-        "id": "racadm-getsysinfo-flags-card",
-        "desc": "More options and gotchas for: System and iDRAC summary, remote or in-band",
-        "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" getsysinfo",
-        "hideCode": false,
-        "flags": [
-          [
-            "-d / -c / -4 / -6",
-            "Only iDRAC info / common settings / IPv4 / IPv6"
-          ],
-          [
-            "-A",
-            "No headers, easier to parse"
-          ],
-          [
-            "Hostname and OS fields",
-            "Only accurate when OpenManage Server Administrator is installed on the host"
-          ]
-        ],
-        "tags": [
-          "bmc",
-          "remote-management",
-          "racadm",
-          "flags",
-          "options",
-          "dell",
-          "idrac",
-          "sysinfo"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "racadm-recipes-1",
-    "badge": "racadm",
-    "title": "Dell racadm: Related commands",
-    "subtitle": "Related commands for: System and iDRAC summary, remote or in-band",
-    "commands": [
+      },
       {
         "id": "racadm-getsysinfo-sub-1",
         "desc": "Common settings only",
@@ -166,6 +132,18 @@ const BMC_RACADM_DATA = [
           [
             "-n",
             "Number of records (local RACADM returns 100 if you leave it out)"
+          ],
+          [
+            "-q <seq>",
+            "Start at a sequence number: lclog view -q 20 -n 5"
+          ],
+          [
+            "-r / -e \"yyyy-mm-dd HH:MM:SS\"",
+            "Start and end time, in double quotes"
+          ],
+          [
+            "-a <agent>",
+            "One agent only, for example iDRAC, SEL or RACADM"
           ]
         ],
         "tip": "The Lifecycle log has more than the SEL: config changes, updates, and storage events",
@@ -180,53 +158,7 @@ const BMC_RACADM_DATA = [
           "storage",
           "audit"
         ]
-      }
-    ]
-  },
-  {
-    "id": "racadm-flags-2",
-    "badge": "racadm",
-    "title": "Dell racadm: More options",
-    "subtitle": "More options for: Lifecycle log, filtered to storage and system warnings",
-    "commands": [
-      {
-        "id": "racadm-lclog-flags-card",
-        "desc": "More options and gotchas for: Lifecycle log, filtered to storage and system warnings",
-        "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" lclog view -c storage,system -s warning,critical -n 50",
-        "hideCode": false,
-        "flags": [
-          [
-            "-q <seq>",
-            "Start at a sequence number: lclog view -q 20 -n 5"
-          ],
-          [
-            "-r / -e \"yyyy-mm-dd HH:MM:SS\"",
-            "Start and end time, in double quotes"
-          ],
-          [
-            "-a <agent>",
-            "One agent only, for example iDRAC, SEL or RACADM"
-          ]
-        ],
-        "tags": [
-          "bmc",
-          "remote-management",
-          "racadm",
-          "flags",
-          "options",
-          "lclog",
-          "sel",
-          "logs"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "racadm-recipes-2",
-    "badge": "racadm",
-    "title": "Dell racadm: Related commands",
-    "subtitle": "Related commands for: Lifecycle log, filtered to storage and system warnings",
-    "commands": [
+      },
       {
         "id": "racadm-lclog-sub-1",
         "desc": "How many SEL entries there are",
@@ -294,6 +226,10 @@ const BMC_RACADM_DATA = [
           [
             "hwinventory <FQDD>",
             "One device, for example NIC.Integrated.1-1 (NIC, InfiniBand and FC only)"
+          ],
+          [
+            "FQDD",
+            "Fully Qualified Device Descriptor: Dell's stable name for a part (RAID.Integrated.1-1, NIC.Slot.3-1). Use it in RMA tickets"
           ]
         ],
         "tip": "iDRAC allows at most 12 parallel hardware-inventory sessions",
@@ -308,45 +244,7 @@ const BMC_RACADM_DATA = [
           "serial",
           "rma"
         ]
-      }
-    ]
-  },
-  {
-    "id": "racadm-flags-3",
-    "badge": "racadm",
-    "title": "Dell racadm: More options",
-    "subtitle": "More options for: Hardware inventory: every component with FQDDs",
-    "commands": [
-      {
-        "id": "racadm-hwinventory-flags-card",
-        "desc": "More options and gotchas for: Hardware inventory: every component with FQDDs",
-        "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" hwinventory",
-        "hideCode": false,
-        "flags": [
-          [
-            "FQDD",
-            "Fully Qualified Device Descriptor: Dell's stable name for a part (RAID.Integrated.1-1, NIC.Slot.3-1). Use it in RMA tickets"
-          ]
-        ],
-        "tags": [
-          "bmc",
-          "remote-management",
-          "racadm",
-          "flags",
-          "options",
-          "inventory",
-          "fqdd",
-          "nic"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "racadm-recipes-3",
-    "badge": "racadm",
-    "title": "Dell racadm: Related commands",
-    "subtitle": "Related commands for: Hardware inventory: every component with FQDDs",
-    "commands": [
+      },
       {
         "id": "racadm-hwinventory-sub-1",
         "desc": "Transceiver part and serial numbers",
@@ -400,6 +298,18 @@ const BMC_RACADM_DATA = [
           [
             "storage get vdisks --refkey <ctrl FQDD> -o",
             "Virtual disks on one controller"
+          ],
+          [
+            "storage get pdisks:<PD FQDD>",
+            "One disk"
+          ],
+          [
+            "storage get status",
+            "Overall storage status"
+          ],
+          [
+            "raid",
+            "The guide says raid can be used in place of storage"
           ]
         ],
         "tip": "Run -o once to learn the property names, then use -p for a short table",
@@ -414,53 +324,7 @@ const BMC_RACADM_DATA = [
           "perc",
           "disk"
         ]
-      }
-    ]
-  },
-  {
-    "id": "racadm-flags-4",
-    "badge": "racadm",
-    "title": "Dell racadm: More options",
-    "subtitle": "More options for: RAID controllers, physical and virtual disks",
-    "commands": [
-      {
-        "id": "racadm-storage-flags-card",
-        "desc": "More options and gotchas for: RAID controllers, physical and virtual disks",
-        "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" storage get controllers -o",
-        "hideCode": false,
-        "flags": [
-          [
-            "storage get pdisks:<PD FQDD>",
-            "One disk"
-          ],
-          [
-            "storage get status",
-            "Overall storage status"
-          ],
-          [
-            "raid",
-            "The guide says raid can be used in place of storage"
-          ]
-        ],
-        "tags": [
-          "bmc",
-          "remote-management",
-          "racadm",
-          "flags",
-          "options",
-          "storage",
-          "raid",
-          "pdisk"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "racadm-recipes-4",
-    "badge": "racadm",
-    "title": "Dell racadm: Related commands",
-    "subtitle": "Related commands for: RAID controllers, physical and virtual disks",
-    "commands": [
+      },
       {
         "id": "racadm-storage-sub-1",
         "desc": "Every physical disk with state and slot",
@@ -528,6 +392,14 @@ const BMC_RACADM_DATA = [
           [
             "powerdown / powerup",
             "Hard off / on (changes state)"
+          ],
+          [
+            "powercycle",
+            "Off then on (changes state)"
+          ],
+          [
+            "Before any of them",
+            "Drain the node in Slurm or Kubernetes and get approval"
           ]
         ],
         "tip": "Prefer graceshutdown; powercycle skips the OS",
@@ -541,49 +413,7 @@ const BMC_RACADM_DATA = [
           "shutdown",
           "racreset"
         ]
-      }
-    ]
-  },
-  {
-    "id": "racadm-flags-5",
-    "badge": "racadm",
-    "title": "Dell racadm: More options",
-    "subtitle": "More options for: Power state, and power actions after a drain",
-    "commands": [
-      {
-        "id": "racadm-serveraction-flags-card",
-        "desc": "More options and gotchas for: Power state, and power actions after a drain",
-        "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" serveraction powerstatus",
-        "hideCode": false,
-        "flags": [
-          [
-            "powercycle",
-            "Off then on (changes state)"
-          ],
-          [
-            "Before any of them",
-            "Drain the node in Slurm or Kubernetes and get approval"
-          ]
-        ],
-        "tags": [
-          "bmc",
-          "remote-management",
-          "racadm",
-          "flags",
-          "options",
-          "power",
-          "serveraction",
-          "powercycle"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "racadm-recipes-5",
-    "badge": "racadm",
-    "title": "Dell racadm: Related commands",
-    "subtitle": "Related commands for: Power state, and power actions after a drain",
-    "commands": [
+      },
       {
         "id": "racadm-serveraction-sub-1",
         "desc": "Clean OS shutdown (changes state)",
@@ -651,6 +481,18 @@ const BMC_RACADM_DATA = [
           [
             "Staged vs immediate",
             "iDRAC attributes apply at once; BIOS, NIC and most RAID changes are staged until a job runs at reboot"
+          ],
+          [
+            "jobqueue create <FQDD> -r <type> -s TIME_NOW",
+            "Schedule the staged change. Reboot types: none, pwrcycle, graceful, forced"
+          ],
+          [
+            "jobqueue view [-i <JID>]",
+            "All jobs, or one job's status"
+          ],
+          [
+            "jobqueue delete -i JID_CLEARALL",
+            "Force-delete every job in the queue (changes state)"
           ]
         ],
         "tip": "A set that seems to do nothing is usually a staged change waiting for its job",
@@ -665,53 +507,7 @@ const BMC_RACADM_DATA = [
           "job",
           "attributes"
         ]
-      }
-    ]
-  },
-  {
-    "id": "racadm-flags-6",
-    "badge": "racadm",
-    "title": "Dell racadm: More options",
-    "subtitle": "More options for: Read and change attributes; BIOS changes need a job",
-    "commands": [
-      {
-        "id": "racadm-get-set-job-flags-card",
-        "desc": "More options and gotchas for: Read and change attributes; BIOS changes need a job",
-        "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" get system.location.rack.name",
-        "hideCode": false,
-        "flags": [
-          [
-            "jobqueue create <FQDD> -r <type> -s TIME_NOW",
-            "Schedule the staged change. Reboot types: none, pwrcycle, graceful, forced"
-          ],
-          [
-            "jobqueue view [-i <JID>]",
-            "All jobs, or one job's status"
-          ],
-          [
-            "jobqueue delete -i JID_CLEARALL",
-            "Force-delete every job in the queue (changes state)"
-          ]
-        ],
-        "tags": [
-          "bmc",
-          "remote-management",
-          "racadm",
-          "flags",
-          "options",
-          "get",
-          "set",
-          "bios"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "racadm-recipes-6",
-    "badge": "racadm",
-    "title": "Dell racadm: Related commands",
-    "subtitle": "Related commands for: Read and change attributes; BIOS changes need a job",
-    "commands": [
+      },
       {
         "id": "racadm-get-set-job-sub-1",
         "desc": "Pending and finished jobs",
@@ -779,6 +575,10 @@ const BMC_RACADM_DATA = [
           [
             "set -f ... --preview",
             "Validate a profile and get a job ID without rebooting"
+          ],
+          [
+            "set -f ... -b graceful|forced|NoReboot -w <sec>",
+            "Import with a reboot policy (changes state)"
           ]
         ],
         "tip": "Export before and after a change, then diff the two files",
@@ -792,45 +592,7 @@ const BMC_RACADM_DATA = [
           "clone",
           "backup"
         ]
-      }
-    ]
-  },
-  {
-    "id": "racadm-flags-7",
-    "badge": "racadm",
-    "title": "Dell racadm: More options",
-    "subtitle": "More options for: Export the whole server configuration",
-    "commands": [
-      {
-        "id": "racadm-scp-flags-card",
-        "desc": "More options and gotchas for: Export the whole server configuration",
-        "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" get -f server-config.xml -t xml -l 192.0.2.50:/exports/scp",
-        "hideCode": false,
-        "flags": [
-          [
-            "set -f ... -b graceful|forced|NoReboot -w <sec>",
-            "Import with a reboot policy (changes state)"
-          ]
-        ],
-        "tags": [
-          "bmc",
-          "remote-management",
-          "racadm",
-          "flags",
-          "options",
-          "scp",
-          "export",
-          "config"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "racadm-recipes-7",
-    "badge": "racadm",
-    "title": "Dell racadm: Related commands",
-    "subtitle": "Related commands for: Export the whole server configuration",
-    "commands": [
+      },
       {
         "id": "racadm-scp-sub-1",
         "desc": "Dry-run an import",
@@ -883,15 +645,7 @@ const BMC_RACADM_DATA = [
           "logs",
           "collect"
         ]
-      }
-    ]
-  },
-  {
-    "id": "racadm-recipes-8",
-    "badge": "racadm",
-    "title": "Dell racadm: Related commands",
-    "subtitle": "Related commands for: SupportAssist collection",
-    "commands": [
+      },
       {
         "id": "racadm-tsr-sub-1",
         "desc": "Wait for the collection job to finish",

@@ -24,6 +24,10 @@ const IB_IB_MLXCONFIG_DATA = [
           [
             "LINK_TYPE_P1=1 / 2",
             "Set Port 1 mode: 1 = InfiniBand (IB), 2 = Ethernet (ETH)"
+          ],
+          [
+            "-y",
+            "Answer yes to confirmation prompt when applying NVRAM changes"
           ]
         ],
         "tip": "LINK_TYPE: 1 = InfiniBand, 2 = Ethernet (requires reboot/mlxfwreset)",
@@ -33,41 +37,7 @@ const IB_IB_MLXCONFIG_DATA = [
           "triage",
           "rdma"
         ]
-      }
-    ]
-  },
-  {
-    "id": "mlxconfig-flags",
-    "badge": "cfg",
-    "title": "mlxconfig: Flags & Options Reference",
-    "subtitle": "Key arguments, parameters, and filtering flags for mlxconfig",
-    "commands": [
-      {
-        "id": "mlxconfig-flags-card",
-        "desc": "Full options breakdown and parameter syntax for mlxconfig",
-        "cmd": "mlxconfig -h",
-        "flags": [
-          [
-            "-y",
-            "Answer yes to confirmation prompt when applying NVRAM changes"
-          ]
-        ],
-        "details": "Common diagnostic, verbose, and targeting flags for mlxconfig in high-performance cluster environments.",
-        "tags": [
-          "mlxconfig",
-          "flags",
-          "options",
-          "syntax"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "mlxconfig-subcmds",
-    "badge": "cfg",
-    "title": "mlxconfig: Common Recipes & Pipelines",
-    "subtitle": "Verified production bash one-liners and automation pipelines using mlxconfig",
-    "commands": [
+      },
       {
         "id": "mlxconfig-sub-1",
         "desc": "Configure both ports of a dual-port ConnectX VPI adapter for native InfiniBand mode (1)",

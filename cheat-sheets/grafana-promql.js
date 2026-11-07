@@ -24,6 +24,18 @@ const GRAF_GRAFANA_PROMQL_DATA = [
           [
             "$__rate_interval",
             "Grafana picks a window that is at least 4 × the scrape interval, so the graph never has gaps. Use it instead of a fixed [5m] in dashboards"
+          ],
+          [
+            "sum by (instance)",
+            "Add up all interfaces per host; every other label is dropped"
+          ],
+          [
+            "* 8",
+            "Bytes to bits; then set the panel unit to bps"
+          ],
+          [
+            "!~",
+            "Regex does-not-match. =~ and !~ regexes are fully anchored: \"lo\" does not match \"lo0\""
           ]
         ],
         "tip": "_total metric? Wrap it in rate()",
@@ -38,53 +50,7 @@ const GRAF_GRAFANA_PROMQL_DATA = [
           "throughput",
           "rate_interval"
         ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-promql-flags-1",
-    "badge": "pql",
-    "title": "PromQL for Dashboards: More options",
-    "subtitle": "More options for: Turn a counter into a per-second rate",
-    "commands": [
-      {
-        "id": "promql-rate-counter-flags-card",
-        "desc": "More options and gotchas for: Turn a counter into a per-second rate",
-        "cmd": "sum by (instance) (rate(node_network_receive_bytes_total{device!~\"lo|veth.*|docker.*\"}[$__rate_interval])) * 8",
-        "hideCode": false,
-        "flags": [
-          [
-            "sum by (instance)",
-            "Add up all interfaces per host; every other label is dropped"
-          ],
-          [
-            "* 8",
-            "Bytes to bits; then set the panel unit to bps"
-          ],
-          [
-            "!~",
-            "Regex does-not-match. =~ and !~ regexes are fully anchored: \"lo\" does not match \"lo0\""
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "promql",
-          "rate",
-          "counter"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-promql-recipes-1",
-    "badge": "pql",
-    "title": "PromQL for Dashboards: Related commands",
-    "subtitle": "Related commands for: Turn a counter into a per-second rate",
-    "commands": [
+      },
       {
         "id": "promql-rate-counter-sub-1",
         "desc": "Total errors in the last hour (rate × seconds): nicer for stat panels",
@@ -152,6 +118,10 @@ const GRAF_GRAFANA_PROMQL_DATA = [
           [
             "avg / max / min / sum / count",
             "max is often better than avg for health: one hot GPU disappears in an 8-GPU average"
+          ],
+          [
+            "Gauge vs counter",
+            "DCGM_FI_DEV_GPU_UTIL_RATIO is a gauge (a current value) so no rate() is needed"
           ]
         ],
         "tip": "Use max for health, avg for capacity",
@@ -167,45 +137,7 @@ const GRAF_GRAFANA_PROMQL_DATA = [
           "by",
           "without"
         ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-promql-flags-2",
-    "badge": "pql",
-    "title": "PromQL for Dashboards: More options",
-    "subtitle": "More options for: Aggregate across GPUs and nodes: avg, max, count by label",
-    "commands": [
-      {
-        "id": "promql-aggregation-flags-card",
-        "desc": "More options and gotchas for: Aggregate across GPUs and nodes: avg, max, count by label",
-        "cmd": "avg by (hostname) (DCGM_FI_DEV_GPU_UTIL_RATIO)",
-        "hideCode": false,
-        "flags": [
-          [
-            "Gauge vs counter",
-            "DCGM_FI_DEV_GPU_UTIL_RATIO is a gauge (a current value) so no rate() is needed"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "promql",
-          "aggregation",
-          "avg"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-promql-recipes-2",
-    "badge": "pql",
-    "title": "PromQL for Dashboards: Related commands",
-    "subtitle": "Related commands for: Aggregate across GPUs and nodes: avg, max, count by label",
-    "commands": [
+      },
       {
         "id": "promql-aggregation-sub-1",
         "desc": "Hottest GPU per node",
@@ -340,6 +272,10 @@ const GRAF_GRAFANA_PROMQL_DATA = [
           [
             "changes(x[1h])",
             "How many times the value changed: link flaps, clock-event reason flips"
+          ],
+          [
+            "offset 1d",
+            "Same query one day earlier, for 'today vs yesterday'"
           ]
         ],
         "tip": "$__range + Instant = one number for the view",
@@ -353,45 +289,7 @@ const GRAF_GRAFANA_PROMQL_DATA = [
           "changes",
           "range"
         ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-promql-flags-4",
-    "badge": "pql",
-    "title": "PromQL for Dashboards: More options",
-    "subtitle": "More options for: Functions over a time range: max, avg, changes, comparisons with offset",
-    "commands": [
-      {
-        "id": "promql-over-time-flags-card",
-        "desc": "More options and gotchas for: Functions over a time range: max, avg, changes, comparisons with offset",
-        "cmd": "max_over_time(DCGM_FI_DEV_GPU_TEMP_CELSIUS[$__range])",
-        "hideCode": false,
-        "flags": [
-          [
-            "offset 1d",
-            "Same query one day earlier, for 'today vs yesterday'"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "promql",
-          "over_time",
-          "offset"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-promql-recipes-4",
-    "badge": "pql",
-    "title": "PromQL for Dashboards: Related commands",
-    "subtitle": "Related commands for: Functions over a time range: max, avg, changes, comparisons with offset",
-    "commands": [
+      },
       {
         "id": "promql-over-time-sub-1",
         "desc": "Power now vs this time yesterday",
@@ -445,6 +343,10 @@ const GRAF_GRAFANA_PROMQL_DATA = [
           [
             "absent(x)",
             "Returns 1 if no series match at all: catches an exporter that disappeared completely"
+          ],
+          [
+            "Why it matters",
+            "A crashed dcgm-exporter makes a GPU panel look 'quiet', not broken. Put up == 0 on the dashboard"
           ]
         ],
         "tip": "Silence is not health: graph up == 0",
@@ -459,45 +361,7 @@ const GRAF_GRAFANA_PROMQL_DATA = [
           "targets",
           "gpu fell off bus"
         ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-promql-flags-5",
-    "badge": "pql",
-    "title": "PromQL for Dashboards: More options",
-    "subtitle": "More options for: Is anything missing? Down targets and vanished metrics",
-    "commands": [
-      {
-        "id": "promql-up-absent-flags-card",
-        "desc": "More options and gotchas for: Is anything missing? Down targets and vanished metrics",
-        "cmd": "up == 0",
-        "hideCode": false,
-        "flags": [
-          [
-            "Why it matters",
-            "A crashed dcgm-exporter makes a GPU panel look 'quiet', not broken. Put up == 0 on the dashboard"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "promql",
-          "up",
-          "absent"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-promql-recipes-5",
-    "badge": "pql",
-    "title": "PromQL for Dashboards: Related commands",
-    "subtitle": "Related commands for: Is anything missing? Down targets and vanished metrics",
-    "commands": [
+      },
       {
         "id": "promql-up-absent-sub-1",
         "desc": "Down targets per job",
@@ -565,6 +429,10 @@ const GRAF_GRAFANA_PROMQL_DATA = [
           [
             "group_left (nodename)",
             "Many-to-one join: copy the nodename label from the right side onto each left series"
+          ],
+          [
+            "Multiply by 1",
+            "Because info metrics are 1, the values stay the same; only labels are added"
           ]
         ],
         "tip": "Info metric × group_left = add labels",
@@ -578,36 +446,6 @@ const GRAF_GRAFANA_PROMQL_DATA = [
           "on",
           "labels",
           "info metric"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-promql-flags-6",
-    "badge": "pql",
-    "title": "PromQL for Dashboards: More options",
-    "subtitle": "More options for: Join labels from another metric",
-    "commands": [
-      {
-        "id": "promql-join-group-left-flags-card",
-        "desc": "More options and gotchas for: Join labels from another metric",
-        "cmd": "rate(node_cpu_seconds_total{mode=\"idle\"}[$__rate_interval]) * on (instance) group_left (nodename) node_uname_info",
-        "hideCode": false,
-        "flags": [
-          [
-            "Multiply by 1",
-            "Because info metrics are 1, the values stay the same; only labels are added"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "promql",
-          "join",
-          "group_left"
         ]
       }
     ]
@@ -635,6 +473,10 @@ const GRAF_GRAFANA_PROMQL_DATA = [
           [
             "/api/v1/query",
             "Instant query (one value per series); /api/v1/query_range takes start, end and step"
+          ],
+          [
+            "jq .value[1]",
+            "Prometheus returns [timestamp, \"value\"]; the value is a string"
           ]
         ],
         "tip": "Use -G so curl sends a GET",
@@ -649,45 +491,7 @@ const GRAF_GRAFANA_PROMQL_DATA = [
           "promtool",
           "test"
         ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-promql-flags-7",
-    "badge": "pql",
-    "title": "PromQL for Dashboards: More options",
-    "subtitle": "More options for: Test a query from the shell before putting it in a panel",
-    "commands": [
-      {
-        "id": "promql-test-cli-flags-card",
-        "desc": "More options and gotchas for: Test a query from the shell before putting it in a panel",
-        "cmd": "curl -s -G http://127.0.0.1:9090/api/v1/query --data-urlencode 'query=max by (hostname) (DCGM_FI_DEV_GPU_TEMP_CELSIUS)' | jq -r '.data.result[] | \"\\(.metric.hostname)\\t\\(.value[1])\"'",
-        "hideCode": false,
-        "flags": [
-          [
-            "jq .value[1]",
-            "Prometheus returns [timestamp, \"value\"]; the value is a string"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "promql",
-          "curl",
-          "api"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-promql-recipes-7",
-    "badge": "pql",
-    "title": "PromQL for Dashboards: Related commands",
-    "subtitle": "Related commands for: Test a query from the shell before putting it in a panel",
-    "commands": [
+      },
       {
         "id": "promql-test-cli-sub-1",
         "desc": "Same with promtool, if it is installed",

@@ -24,6 +24,14 @@ const CTR_DOCKER_COMPOSE_DATA = [
           [
             "-f <file>",
             "Use a different file; default is compose.yaml (or docker-compose.yml) in the current directory"
+          ],
+          [
+            "--build",
+            "Rebuild images that have a build: section before starting"
+          ],
+          [
+            "-p <project>",
+            "Project name, used as a prefix for containers, networks and volumes (default: the directory name)"
           ]
         ],
         "tip": "Run docker compose config before up",
@@ -35,48 +43,7 @@ const CTR_DOCKER_COMPOSE_DATA = [
           "stack",
           "services"
         ]
-      }
-    ]
-  },
-  {
-    "id": "docker-compose-flags-1",
-    "badge": "compose",
-    "title": "Docker Compose: More options",
-    "subtitle": "More options for: Start",
-    "commands": [
-      {
-        "id": "compose-up-flags-card",
-        "desc": "More options and gotchas for: Start",
-        "cmd": "docker compose up -d",
-        "hideCode": false,
-        "flags": [
-          [
-            "--build",
-            "Rebuild images that have a build: section before starting"
-          ],
-          [
-            "-p <project>",
-            "Project name, used as a prefix for containers, networks and volumes (default: the directory name)"
-          ]
-        ],
-        "tags": [
-          "docker",
-          "containers",
-          "flags",
-          "options",
-          "compose",
-          "up",
-          "stack"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "docker-compose-recipes-1",
-    "badge": "compose",
-    "title": "Docker Compose: Related commands",
-    "subtitle": "Related commands for: Start",
-    "commands": [
+      },
       {
         "id": "compose-up-sub-1",
         "desc": "Print the final merged config with variables filled in; a quick syntax check",
@@ -152,15 +119,7 @@ const CTR_DOCKER_COMPOSE_DATA = [
           "logs",
           "exec"
         ]
-      }
-    ]
-  },
-  {
-    "id": "docker-compose-recipes-2",
-    "badge": "compose",
-    "title": "Docker Compose: Related commands",
-    "subtitle": "Related commands for: See the state of every service in the stack",
-    "commands": [
+      },
       {
         "id": "compose-ps-logs-sub-1",
         "desc": "Last 100 lines from one service",
@@ -236,15 +195,7 @@ const CTR_DOCKER_COMPOSE_DATA = [
           "stop",
           "volumes"
         ]
-      }
-    ]
-  },
-  {
-    "id": "docker-compose-recipes-3",
-    "badge": "compose",
-    "title": "Docker Compose: Related commands",
-    "subtitle": "Related commands for: Stop and remove the stack's containers and networks",
-    "commands": [
+      },
       {
         "id": "compose-down-sub-1",
         "desc": "Stop containers but keep them (changes state)",
@@ -296,6 +247,14 @@ const CTR_DOCKER_COMPOSE_DATA = [
           [
             "depends_on + condition: service_healthy",
             "Start web only after db's healthcheck passes, not just after db starts"
+          ],
+          [
+            "volumes: dbdata",
+            "A named volume that survives docker compose down (but not down -v)"
+          ],
+          [
+            "*_FILE / secrets",
+            "Read passwords from files instead of putting them in compose.yaml"
           ]
         ],
         "tip": "Services reach each other by service name",
@@ -308,39 +267,6 @@ const CTR_DOCKER_COMPOSE_DATA = [
           "volumes",
           "healthcheck",
           "depends_on"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "docker-compose-flags-4",
-    "badge": "compose",
-    "title": "Docker Compose: More options",
-    "subtitle": "More options for: Example compose.yaml: a web service plus a database with a named volume and a health check",
-    "commands": [
-      {
-        "id": "compose-yaml-example-flags-card",
-        "desc": "More options and gotchas for: Example compose.yaml: a web service plus a database with a named volume and a health check",
-        "cmd": "services:\n  web:\n    image: nginx:1.27\n    ports:\n      - \"8080:80\"\n    depends_on:\n      db:\n        condition: service_healthy\n  db:\n    image: postgres:16\n    environment:\n      POSTGRES_PASSWORD_FILE: /run/secrets/db_pw\n    volumes:\n      - dbdata:/var/lib/postgresql/data\n    healthcheck:\n      test: [\"CMD\", \"pg_isready\"]\n      interval: 10s\nvolumes:\n  dbdata:",
-        "hideCode": true,
-        "flags": [
-          [
-            "volumes: dbdata",
-            "A named volume that survives docker compose down (but not down -v)"
-          ],
-          [
-            "*_FILE / secrets",
-            "Read passwords from files instead of putting them in compose.yaml"
-          ]
-        ],
-        "tags": [
-          "docker",
-          "containers",
-          "flags",
-          "options",
-          "compose",
-          "yaml",
-          "services"
         ]
       }
     ]

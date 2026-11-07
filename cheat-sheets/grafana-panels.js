@@ -24,6 +24,14 @@ const GRAF_GRAFANA_PANELS_DATA = [
           [
             "Unit",
             "Sets axis labels, tooltip formatting and stat values in one place; pick it before anything else. _RATIO metrics are 0-1, so use Percent (0.0-1.0), not Percent (0-100)"
+          ],
+          [
+            "Save message",
+            "Every save is a version (Dashboard settings → Versions); a message makes rollback easy"
+          ],
+          [
+            "Grafana 13 layouts",
+            "New dashboards use the v2 schema with auto grid, tabs and conditional rendering; older dashboards are migrated when opened"
           ]
         ],
         "tip": "Set the unit before anything else",
@@ -39,49 +47,7 @@ const GRAF_GRAFANA_PANELS_DATA = [
           "shortcuts",
           "beginner"
         ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-panels-flags-1",
-    "badge": "pnl",
-    "title": "Grafana Panels: More options",
-    "subtitle": "More options for: Build your first dashboard: the click-path from empty to saved",
-    "commands": [
-      {
-        "id": "grafana-first-dashboard-flags-card",
-        "desc": "More options and gotchas for: Build your first dashboard: the click-path from empty to saved",
-        "cmd": "1. Dashboards → New → New dashboard → Add visualization\n2. Pick the Prometheus data source\n3. Query: avg by (hostname) (DCGM_FI_DEV_GPU_UTIL_RATIO)   → Run queries\n4. Legend (Options): {{hostname}}\n5. Right pane: Visualization = Time series, Title = GPU utilization\n6. Standard options → Unit = Percent (0.0-1.0), Min 0, Max 1\n7. Thresholds: 0.8 orange, 0.95 red; Show thresholds = As lines\n8. Back to dashboard → drag/resize → Save (Ctrl+S) with a message",
-        "hideCode": true,
-        "flags": [
-          [
-            "Save message",
-            "Every save is a version (Dashboard settings → Versions); a message makes rollback easy"
-          ],
-          [
-            "Grafana 13 layouts",
-            "New dashboards use the v2 schema with auto grid, tabs and conditional rendering; older dashboards are migrated when opened"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "dashboard",
-          "panel",
-          "ui"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-panels-recipes-1",
-    "badge": "pnl",
-    "title": "Grafana Panels: Related commands",
-    "subtitle": "Related commands for: Build your first dashboard: the click-path from empty to saved",
-    "commands": [
+      },
       {
         "id": "grafana-first-dashboard-sub-1",
         "desc": "Save the dashboard",
@@ -191,6 +157,14 @@ const GRAF_GRAFANA_PANELS_DATA = [
           [
             "State timeline",
             "Turns numbers into colored bands via value mappings (0 = OK green, >0 = XID red); great for link up/down and error flags"
+          ],
+          [
+            "Heatmap",
+            "Hundreds of GPUs in one panel: each row a GPU, color = temperature. Spots a single hot GPU faster than 800 lines"
+          ],
+          [
+            "Avoid",
+            "Pie charts for anything but small parts-of-a-whole; time series with more than ~20 lines (aggregate or use a table)"
           ]
         ],
         "tip": "Too many lines? Aggregate, table or heatmap",
@@ -205,40 +179,6 @@ const GRAF_GRAFANA_PANELS_DATA = [
           "table",
           "heatmap",
           "state timeline"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-panels-flags-2",
-    "badge": "pnl",
-    "title": "Grafana Panels: More options",
-    "subtitle": "More options for: Pick the visualization from the question you are answering",
-    "commands": [
-      {
-        "id": "grafana-visualization-choice-flags-card",
-        "desc": "More options and gotchas for: Pick the visualization from the question you are answering",
-        "cmd": "Question                         → Visualization (JSON \"type\")\nHow does it change over time?    → Time series   (timeseries)\nWhat is it right now?            → Stat          (stat)\nHow close to a limit?            → Gauge / Bar gauge (gauge, bargauge)\nWhich GPU/node is worst?         → Table, sorted (table)\nUp/down or OK/fault over time?   → State timeline (state-timeline)\nDistribution across many nodes?  → Heatmap       (heatmap)\nNotes, runbook links             → Text          (text)",
-        "hideCode": true,
-        "flags": [
-          [
-            "Heatmap",
-            "Hundreds of GPUs in one panel: each row a GPU, color = temperature. Spots a single hot GPU faster than 800 lines"
-          ],
-          [
-            "Avoid",
-            "Pie charts for anything but small parts-of-a-whole; time series with more than ~20 lines (aggregate or use a table)"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "visualization",
-          "time series",
-          "stat"
         ]
       }
     ]
@@ -266,6 +206,14 @@ const GRAF_GRAFANA_PANELS_DATA = [
           [
             "mode",
             "absolute = raw values; percentage = percent of min..max"
+          ],
+          [
+            "mappings",
+            "value (exact match), range (from/to), regex, special (null, NaN, true/false). Mapped text replaces the number"
+          ],
+          [
+            "Thresholds are examples",
+            "Take temperature and power limits from the vendor spec for your exact GPU/CPU SKU"
           ]
         ],
         "tip": "Inspect → Panel JSON shows what the UI set",
@@ -280,49 +228,7 @@ const GRAF_GRAFANA_PANELS_DATA = [
           "json",
           "colors"
         ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-panels-flags-3",
-    "badge": "pnl",
-    "title": "Grafana Panels: More options",
-    "subtitle": "More options for: Units, min/max, thresholds and value mappings in the panel JSON",
-    "commands": [
-      {
-        "id": "grafana-fieldconfig-json-flags-card",
-        "desc": "More options and gotchas for: Units, min/max, thresholds and value mappings in the panel JSON",
-        "cmd": "\"fieldConfig\": {\n  \"defaults\": {\n    \"unit\": \"celsius\",\n    \"min\": 0,\n    \"max\": 100,\n    \"decimals\": 0,\n    \"thresholds\": {\n      \"mode\": \"absolute\",\n      \"steps\": [\n        { \"color\": \"green\",  \"value\": null },\n        { \"color\": \"orange\", \"value\": 80 },\n        { \"color\": \"red\",    \"value\": 87 }\n      ]\n    },\n    \"mappings\": [\n      { \"type\": \"value\", \"options\": { \"0\": { \"text\": \"OK\", \"color\": \"green\" } } }\n    ]\n  },\n  \"overrides\": []\n}",
-        "hideCode": true,
-        "flags": [
-          [
-            "mappings",
-            "value (exact match), range (from/to), regex, special (null, NaN, true/false). Mapped text replaces the number"
-          ],
-          [
-            "Thresholds are examples",
-            "Take temperature and power limits from the vendor spec for your exact GPU/CPU SKU"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "fieldconfig",
-          "unit",
-          "thresholds"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-panels-recipes-3",
-    "badge": "pnl",
-    "title": "Grafana Panels: Related commands",
-    "subtitle": "Related commands for: Units, min/max, thresholds and value mappings in the panel JSON",
-    "commands": [
+      },
       {
         "id": "grafana-fieldconfig-json-sub-1",
         "desc": "See and edit exactly this JSON for any panel",
@@ -390,6 +296,10 @@ const GRAF_GRAFANA_PANELS_DATA = [
           [
             "byFrameRefID",
             "Match every field from query A, B, …: handy when query B is a different metric"
+          ],
+          [
+            "Add in the UI",
+            "Edit panel → Overrides tab → Add field override; the JSON above is the result"
           ]
         ],
         "tip": "Second metric, second axis: override on query B",
@@ -402,36 +312,6 @@ const GRAF_GRAFANA_PANELS_DATA = [
           "axis",
           "unit",
           "json"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-panels-flags-4",
-    "badge": "pnl",
-    "title": "Grafana Panels: More options",
-    "subtitle": "More options for: Overrides: different settings for one series or field",
-    "commands": [
-      {
-        "id": "grafana-overrides-flags-card",
-        "desc": "More options and gotchas for: Overrides: different settings for one series or field",
-        "cmd": "\"overrides\": [\n  {\n    \"matcher\": { \"id\": \"byName\", \"options\": \"Power\" },\n    \"properties\": [\n      { \"id\": \"unit\", \"value\": \"watt\" },\n      { \"id\": \"custom.axisPlacement\", \"value\": \"right\" }\n    ]\n  },\n  {\n    \"matcher\": { \"id\": \"byRegexp\", \"options\": \"/.*gpu-node0[1-4].*/\" },\n    \"properties\": [ { \"id\": \"color\", \"value\": { \"mode\": \"fixed\", \"fixedColor\": \"purple\" } } ]\n  }\n]",
-        "hideCode": true,
-        "flags": [
-          [
-            "Add in the UI",
-            "Edit panel → Overrides tab → Add field override; the JSON above is the result"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "overrides",
-          "matcher",
-          "axis"
         ]
       }
     ]
@@ -459,35 +339,7 @@ const GRAF_GRAFANA_PANELS_DATA = [
           [
             "Join by field",
             "Join time series on a shared field (usually Time)"
-          ]
-        ],
-        "tip": "Instant + Table format + Merge = per-GPU table",
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "transformations",
-          "merge",
-          "organize",
-          "table",
-          "reduce",
-          "join"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-panels-flags-5",
-    "badge": "pnl",
-    "title": "Grafana Panels: More options",
-    "subtitle": "More options for: Transformations: reshape query results in Grafana",
-    "commands": [
-      {
-        "id": "grafana-transformations-flags-card",
-        "desc": "More options and gotchas for: Transformations: reshape query results in Grafana",
-        "cmd": "Per-GPU table from several instant queries:\n  Query A: DCGM_FI_DEV_GPU_TEMP_CELSIUS     (Format: Table, Type: Instant)\n  Query B: DCGM_FI_DEV_BOARD_POWER_WATTS  (Format: Table, Type: Instant)\n  Query C: DCGM_FI_DEV_GPU_UTIL_RATIO     (Format: Table, Type: Instant)\nTransformations:\n  1. Merge            → one row per GPU with Value #A, #B, #C\n  2. Organize fields  → hide Time/job/instance, rename Value #A → Temp\n  3. Sort by          → Temp, descending",
-        "hideCode": true,
-        "flags": [
+          ],
           [
             "Reduce",
             "Turn each series into one row: Last, Max, Mean… (good for 'max temp in range' tables)"
@@ -501,15 +353,17 @@ const GRAF_GRAFANA_PANELS_DATA = [
             "Transformations run top to bottom; use the debug (bug icon) view to see the data after each step"
           ]
         ],
+        "tip": "Instant + Table format + Merge = per-GPU table",
         "tags": [
           "grafana",
           "dashboards",
           "observability",
-          "flags",
-          "options",
           "transformations",
           "merge",
-          "organize"
+          "organize",
+          "table",
+          "reduce",
+          "join"
         ]
       }
     ]
@@ -537,6 +391,10 @@ const GRAF_GRAFANA_PANELS_DATA = [
           [
             "${__value.raw}",
             "The raw value of the clicked point"
+          ],
+          [
+            "Where",
+            "Edit panel → Data links and actions → Add link; type $ in the URL box to get a list of variables"
           ]
         ],
         "tip": "Overview → click → detail is the classic layout",
@@ -550,45 +408,7 @@ const GRAF_GRAFANA_PANELS_DATA = [
           "kiosk",
           "variables"
         ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-panels-flags-6",
-    "badge": "pnl",
-    "title": "Grafana Panels: More options",
-    "subtitle": "More options for: Data links: click a node in an overview panel to open its detail dashboard",
-    "commands": [
-      {
-        "id": "grafana-data-links-flags-card",
-        "desc": "More options and gotchas for: Data links: click a node in an overview panel to open its detail dashboard",
-        "cmd": "/d/<node-dashboard-uid>/node-detail?var-host=${__field.labels.hostname}&${__url_time_range}",
-        "hideCode": false,
-        "flags": [
-          [
-            "Where",
-            "Edit panel → Data links and actions → Add link; type $ in the URL box to get a list of variables"
-          ]
-        ],
-        "tags": [
-          "grafana",
-          "dashboards",
-          "observability",
-          "flags",
-          "options",
-          "data links",
-          "drilldown",
-          "url"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "grafana-panels-recipes-6",
-    "badge": "pnl",
-    "title": "Grafana Panels: Related commands",
-    "subtitle": "Related commands for: Data links: click a node in an overview panel to open its detail dashboard",
-    "commands": [
+      },
       {
         "id": "grafana-data-links-sub-1",
         "desc": "Dashboard URL with a multi-value variable and a time range",

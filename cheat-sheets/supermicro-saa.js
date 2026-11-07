@@ -24,34 +24,7 @@ const BMC_SUPERMICRO_SAA_DATA = [
           [
             "-c <command>",
             "The command to run"
-          ]
-        ],
-        "tip": "Check -h -c on your SAA version before scripting: options change between releases",
-        "tags": [
-          "bmc",
-          "remote-management",
-          "saa",
-          "supermicro",
-          "saa",
-          "sum",
-          "help",
-          "usage"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "saa-flags-1",
-    "badge": "saa",
-    "title": "Supermicro SAA: More options",
-    "subtitle": "More options for: List the commands, and the options for one command",
-    "commands": [
-      {
-        "id": "saa-help-flags-card",
-        "desc": "More options and gotchas for: List the commands, and the options for one command",
-        "cmd": "./saa -h -c GetEventLog",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "-u / -p",
             "BMC user and password"
@@ -65,25 +38,18 @@ const BMC_SUPERMICRO_SAA_DATA = [
             "In-band through the Redfish Host Interface (UEFI guide)"
           ]
         ],
+        "tip": "Check -h -c on your SAA version before scripting: options change between releases",
         "tags": [
           "bmc",
           "remote-management",
           "saa",
-          "flags",
-          "options",
           "supermicro",
           "saa",
-          "sum"
+          "sum",
+          "help",
+          "usage"
         ]
-      }
-    ]
-  },
-  {
-    "id": "saa-recipes-1",
-    "badge": "saa",
-    "title": "Supermicro SAA: Related commands",
-    "subtitle": "Related commands for: List the commands, and the options for one command",
-    "commands": [
+      },
       {
         "id": "saa-help-sub-1",
         "desc": "Options for a BIOS update",
@@ -123,6 +89,18 @@ const BMC_SUPERMICRO_SAA_DATA = [
           [
             "GetBmcInfo",
             "BMC firmware info"
+          ],
+          [
+            "GetFruInfo",
+            "FRU: board, product and chassis serials"
+          ],
+          [
+            "GetDmiInfo --file DMI.txt",
+            "Editable DMI fields, saved to a file"
+          ],
+          [
+            "Out-of-band",
+            "SAA is SUM renamed (UEFI guide), so remote use follows SUM's -i <BMC IP> -u -p form: confirm with ./saa -h"
           ]
         ],
         "tip": "In-band commands need root; help (-h) doesn't",
@@ -137,53 +115,7 @@ const BMC_SUPERMICRO_SAA_DATA = [
           "dmi",
           "inventory"
         ]
-      }
-    ]
-  },
-  {
-    "id": "saa-flags-2",
-    "badge": "saa",
-    "title": "Supermicro SAA: More options",
-    "subtitle": "More options for: System, BIOS and BMC firmware information",
-    "commands": [
-      {
-        "id": "saa-sysinfo-flags-card",
-        "desc": "More options and gotchas for: System, BIOS and BMC firmware information",
-        "cmd": "sudo ./saa -c GetSystemInfo",
-        "hideCode": false,
-        "flags": [
-          [
-            "GetFruInfo",
-            "FRU: board, product and chassis serials"
-          ],
-          [
-            "GetDmiInfo --file DMI.txt",
-            "Editable DMI fields, saved to a file"
-          ],
-          [
-            "Out-of-band",
-            "SAA is SUM renamed (UEFI guide), so remote use follows SUM's -i <BMC IP> -u -p form: confirm with ./saa -h"
-          ]
-        ],
-        "tags": [
-          "bmc",
-          "remote-management",
-          "saa",
-          "flags",
-          "options",
-          "sysinfo",
-          "bios",
-          "bmc"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "saa-recipes-2",
-    "badge": "saa",
-    "title": "Supermicro SAA: Related commands",
-    "subtitle": "Related commands for: System, BIOS and BMC firmware information",
-    "commands": [
+      },
       {
         "id": "saa-sysinfo-sub-1",
         "desc": "BIOS version and build date",
@@ -251,34 +183,7 @@ const BMC_SUPERMICRO_SAA_DATA = [
           [
             "GetMaintenEventLog",
             "Maintenance event log"
-          ]
-        ],
-        "tip": "Save the event log before any clear or firmware update",
-        "tags": [
-          "bmc",
-          "remote-management",
-          "saa",
-          "eventlog",
-          "sel",
-          "sensors",
-          "psu",
-          "intrusion"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "saa-flags-3",
-    "badge": "saa",
-    "title": "Supermicro SAA: More options",
-    "subtitle": "More options for: BMC event log and sensor status",
-    "commands": [
-      {
-        "id": "saa-eventlog-flags-card",
-        "desc": "More options and gotchas for: BMC event log and sensor status",
-        "cmd": "sudo ./saa -c GetEventLog --info",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "CheckSensorData --action Show",
             "Sensor status"
@@ -292,25 +197,18 @@ const BMC_SUPERMICRO_SAA_DATA = [
             "Chassis intrusion status"
           ]
         ],
+        "tip": "Save the event log before any clear or firmware update",
         "tags": [
           "bmc",
           "remote-management",
           "saa",
-          "flags",
-          "options",
           "eventlog",
           "sel",
-          "sensors"
+          "sensors",
+          "psu",
+          "intrusion"
         ]
-      }
-    ]
-  },
-  {
-    "id": "saa-recipes-3",
-    "badge": "saa",
-    "title": "Supermicro SAA: Related commands",
-    "subtitle": "Related commands for: BMC event log and sensor status",
-    "commands": [
+      },
       {
         "id": "saa-eventlog-sub-1",
         "desc": "Save the log for the case",
@@ -378,6 +276,10 @@ const BMC_SUPERMICRO_SAA_DATA = [
           [
             "--overwrite",
             "Replace an existing output file"
+          ],
+          [
+            "-p",
+            "Visible in ps: keep the password in a variable, never typed inline"
           ]
         ],
         "tip": "Export the config from a known-good node and diff it against the suspect one",
@@ -389,36 +291,6 @@ const BMC_SUPERMICRO_SAA_DATA = [
           "fleet",
           "bmccfg",
           "export"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "saa-flags-4",
-    "badge": "saa",
-    "title": "Supermicro SAA: More options",
-    "subtitle": "More options for: Same command across many BMCs",
-    "commands": [
-      {
-        "id": "saa-multi-flags-card",
-        "desc": "More options and gotchas for: Same command across many BMCs",
-        "cmd": "./saa -l SList.txt -u $BMC_USER -p \"$BMC_PASS\" -c GetBmcCfg --file BmcCfg.xml --overwrite",
-        "hideCode": false,
-        "flags": [
-          [
-            "-p",
-            "Visible in ps: keep the password in a variable, never typed inline"
-          ]
-        ],
-        "tags": [
-          "bmc",
-          "remote-management",
-          "saa",
-          "flags",
-          "options",
-          "multi",
-          "fleet",
-          "bmccfg"
         ]
       }
     ]
@@ -458,15 +330,7 @@ const BMC_SUPERMICRO_SAA_DATA = [
           "cpld",
           "firmware"
         ]
-      }
-    ]
-  },
-  {
-    "id": "saa-recipes-5",
-    "badge": "saa",
-    "title": "Supermicro SAA: Related commands",
-    "subtitle": "Related commands for: GPU and CPLD firmware information",
-    "commands": [
+      },
       {
         "id": "saa-gpu-sub-1",
         "desc": "Motherboard CPLD version",

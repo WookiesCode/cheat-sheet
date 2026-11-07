@@ -38,15 +38,7 @@ const CTR_K8S_GPU_DATA = [
           "custom-columns",
           "capacity"
         ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-gpu-recipes-1",
-    "badge": "kgpu",
-    "title": "Kubernetes GPUs: Related commands",
-    "subtitle": "Related commands for: How many GPUs each node advertises to the scheduler",
-    "commands": [
+      },
       {
         "id": "k8s-gpu-allocatable-sub-1",
         "desc": "GPUs requested by pods vs. available on one node",
@@ -102,6 +94,18 @@ const CTR_K8S_GPU_DATA = [
           [
             "container-toolkit daemonset",
             "Configures containerd for GPUs"
+          ],
+          [
+            "device-plugin daemonset",
+            "Advertises nvidia.com/gpu to the scheduler"
+          ],
+          [
+            "dcgm-exporter",
+            "GPU metrics for Prometheus"
+          ],
+          [
+            "validator",
+            "Checks the stack works; Init or Error here explains missing GPUs"
           ]
         ],
         "tip": "Validator not Completed = stack not ready",
@@ -116,54 +120,7 @@ const CTR_K8S_GPU_DATA = [
           "dcgm",
           "validator"
         ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-gpu-flags-2",
-    "badge": "kgpu",
-    "title": "Kubernetes GPUs: More options",
-    "subtitle": "More options for: Check the NVIDIA GPU Operator components",
-    "commands": [
-      {
-        "id": "k8s-gpu-operator-pods-flags-card",
-        "desc": "More options and gotchas for: Check the NVIDIA GPU Operator components",
-        "cmd": "kubectl get pods -n gpu-operator -o wide",
-        "hideCode": false,
-        "flags": [
-          [
-            "device-plugin daemonset",
-            "Advertises nvidia.com/gpu to the scheduler"
-          ],
-          [
-            "dcgm-exporter",
-            "GPU metrics for Prometheus"
-          ],
-          [
-            "validator",
-            "Checks the stack works; Init or Error here explains missing GPUs"
-          ]
-        ],
-        "tags": [
-          "kubernetes",
-          "k8s",
-          "kubectl",
-          "containers",
-          "flags",
-          "options",
-          "gpu-operator",
-          "device-plugin",
-          "driver"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-gpu-recipes-2",
-    "badge": "kgpu",
-    "title": "Kubernetes GPUs: Related commands",
-    "subtitle": "Related commands for: Check the NVIDIA GPU Operator components",
-    "commands": [
+      },
       {
         "id": "k8s-gpu-operator-pods-sub-1",
         "desc": "Why GPUs aren't being advertised",
@@ -219,6 +176,10 @@ const CTR_K8S_GPU_DATA = [
           [
             "Pending: Insufficient nvidia.com/gpu",
             "Every GPU is already allocated, or none are advertised"
+          ],
+          [
+            "Toleration",
+            "If GPU nodes are tainted, add a matching toleration"
           ]
         ],
         "tip": "GPUs go under limits, in whole numbers",
@@ -233,46 +194,7 @@ const CTR_K8S_GPU_DATA = [
           "limits",
           "nvidia-smi"
         ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-gpu-flags-3",
-    "badge": "kgpu",
-    "title": "Kubernetes GPUs: More options",
-    "subtitle": "More options for: Test pod that requests one GPU and runs nvidia-smi",
-    "commands": [
-      {
-        "id": "k8s-gpu-test-pod-flags-card",
-        "desc": "More options and gotchas for: Test pod that requests one GPU and runs nvidia-smi",
-        "cmd": "apiVersion: v1\nkind: Pod\nmetadata:\n  name: gpu-test\nspec:\n  restartPolicy: Never\n  containers:\n    - name: cuda\n      image: nvidia/cuda:<tag>\n      command: [\"nvidia-smi\", \"-L\"]\n      resources:\n        limits:\n          nvidia.com/gpu: 1",
-        "hideCode": true,
-        "flags": [
-          [
-            "Toleration",
-            "If GPU nodes are tainted, add a matching toleration"
-          ]
-        ],
-        "tags": [
-          "kubernetes",
-          "k8s",
-          "kubectl",
-          "containers",
-          "flags",
-          "options",
-          "gpu",
-          "pod",
-          "test"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-gpu-recipes-3",
-    "badge": "kgpu",
-    "title": "Kubernetes GPUs: Related commands",
-    "subtitle": "Related commands for: Test pod that requests one GPU and runs nvidia-smi",
-    "commands": [
+      },
       {
         "id": "k8s-gpu-test-pod-sub-1",
         "desc": "Create the test pod (changes state)",
@@ -343,6 +265,10 @@ const CTR_K8S_GPU_DATA = [
           [
             "DCGM_FI_DEV_XID_ERROR",
             "Last Xid error per GPU; map it with the NVIDIA DC Xid sheet (exporters before 4.9.0: DCGM_FI_DEV_XID_ERRORS)"
+          ],
+          [
+            "DCGM_FI_DEV_GPU_TEMP_CELSIUS / BOARD_POWER_WATTS",
+            "Temperature and power per GPU (before 4.9.0: DCGM_FI_DEV_GPU_TEMP / POWER_USAGE)"
           ]
         ],
         "tip": "Xid in DCGM → check the NVIDIA DC Xid sheet",
@@ -357,46 +283,7 @@ const CTR_K8S_GPU_DATA = [
           "xid",
           "temperature"
         ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-gpu-flags-4",
-    "badge": "kgpu",
-    "title": "Kubernetes GPUs: More options",
-    "subtitle": "More options for: Read GPU metrics from DCGM exporter",
-    "commands": [
-      {
-        "id": "k8s-dcgm-metrics-flags-card",
-        "desc": "More options and gotchas for: Read GPU metrics from DCGM exporter",
-        "cmd": "kubectl port-forward -n gpu-operator svc/nvidia-dcgm-exporter 9400:9400",
-        "hideCode": false,
-        "flags": [
-          [
-            "DCGM_FI_DEV_GPU_TEMP_CELSIUS / BOARD_POWER_WATTS",
-            "Temperature and power per GPU (before 4.9.0: DCGM_FI_DEV_GPU_TEMP / POWER_USAGE)"
-          ]
-        ],
-        "tags": [
-          "kubernetes",
-          "k8s",
-          "kubectl",
-          "containers",
-          "flags",
-          "options",
-          "dcgm",
-          "metrics",
-          "prometheus"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-gpu-recipes-4",
-    "badge": "kgpu",
-    "title": "Kubernetes GPUs: Related commands",
-    "subtitle": "Related commands for: Read GPU metrics from DCGM exporter",
-    "commands": [
+      },
       {
         "id": "k8s-dcgm-metrics-sub-1",
         "desc": "Xid errors and temperatures",

@@ -42,15 +42,7 @@ const SW_SW_NXOS_VPC_DATA = [
           "vpc",
           "environment"
         ]
-      }
-    ]
-  },
-  {
-    "id": "nxos-lldp-vpc-recipes-1",
-    "badge": "vpc",
-    "title": "Cisco NX-OS: LLDP & vPC: Common Recipes & Verification",
-    "subtitle": "Production CLI commands, transceivers & diagnostic workflows for Cisco NX-OS: LLDP & vPC",
-    "commands": [
+      },
       {
         "id": "nxos-neighbors-portchannel-vpc-sub-1",
         "desc": "View detailed neighbor management IPs, OS versions, and port descriptions",

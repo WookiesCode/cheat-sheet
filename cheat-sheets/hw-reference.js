@@ -24,6 +24,10 @@ const HWREF_HUB_DATA = [
           [
             "No DCMI?",
             "Read the PSU input-power sensors instead (next card)"
+          ],
+          [
+            "Budget with the maximum",
+            "Size circuits from the peak, not the average"
           ]
         ],
         "tip": "Measure under real load; idle numbers hide the GPU peak",
@@ -37,45 +41,7 @@ const HWREF_HUB_DATA = [
           "psu",
           "budget"
         ]
-      }
-    ]
-  },
-  {
-    "id": "power-flags-1",
-    "badge": "power",
-    "title": "Power & PDUs: More options",
-    "subtitle": "More options for: Real power draw from the BMC",
-    "commands": [
-      {
-        "id": "power-read-bmc-flags-card",
-        "desc": "More options and gotchas for: Real power draw from the BMC",
-        "cmd": "ipmitool -I lanplus -H $BMC -U $BMC_USER -E dcmi power reading",
-        "hideCode": false,
-        "flags": [
-          [
-            "Budget with the maximum",
-            "Size circuits from the peak, not the average"
-          ]
-        ],
-        "tags": [
-          "hardware",
-          "reference",
-          "power",
-          "flags",
-          "options",
-          "power",
-          "dcmi",
-          "watts"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "power-recipes-1",
-    "badge": "power",
-    "title": "Power & PDUs: Related commands",
-    "subtitle": "Related commands for: Real power draw from the BMC",
-    "commands": [
+      },
       {
         "id": "power-read-bmc-sub-1",
         "desc": "PSU presence, failures and redundancy",
@@ -143,6 +109,14 @@ const HWREF_HUB_DATA = [
           [
             "C14 vs C13",
             "C14 is the inlet (pins, on the PSU); C13 is the cord end"
+          ],
+          [
+            "Mixed cords",
+            "A C13 cord on a C14-to-C19 adapter is still limited to the C13 rating"
+          ],
+          [
+            "GPU nodes",
+            "Multi-kW PSUs are usually C19/C20, or busbar-fed in OCP racks"
           ]
         ],
         "tip": "Read the PSU label: input current and connector are printed on it",
@@ -155,40 +129,6 @@ const HWREF_HUB_DATA = [
           "iec60320",
           "cord",
           "inlet"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "power-flags-2",
-    "badge": "power",
-    "title": "Power & PDUs: More options",
-    "subtitle": "More options for: Cord and inlet ratings",
-    "commands": [
-      {
-        "id": "power-cords-flags-card",
-        "desc": "More options and gotchas for: Cord and inlet ratings",
-        "cmd": "ipmitool -I lanplus -H $BMC -U $BMC_USER -E fru print | grep -iE 'power|psu'",
-        "hideCode": false,
-        "flags": [
-          [
-            "Mixed cords",
-            "A C13 cord on a C14-to-C19 adapter is still limited to the C13 rating"
-          ],
-          [
-            "GPU nodes",
-            "Multi-kW PSUs are usually C19/C20, or busbar-fed in OCP racks"
-          ]
-        ],
-        "tags": [
-          "hardware",
-          "reference",
-          "power",
-          "flags",
-          "options",
-          "c13",
-          "c19",
-          "iec60320"
         ]
       }
     ]
@@ -216,6 +156,14 @@ const HWREF_HUB_DATA = [
           [
             "Three-phase",
             "kW = √3 × V(line-to-line) × A × PF / 1000; kVA is the same without PF"
+          ],
+          [
+            "PF",
+            "Power factor: about 0.95-0.99 for modern server PSUs"
+          ],
+          [
+            "100%-rated breakers",
+            "An exception exists only when the whole assembly is listed for 100%"
           ]
         ],
         "tip": "Change v and a to your PDU's rating and predict the result before you run it",
@@ -230,49 +178,7 @@ const HWREF_HUB_DATA = [
           "circuit",
           "pdu"
         ]
-      }
-    ]
-  },
-  {
-    "id": "power-flags-3",
-    "badge": "power",
-    "title": "Power & PDUs: More options",
-    "subtitle": "More options for: Circuit math: the 80% rule and three-phase power",
-    "commands": [
-      {
-        "id": "power-circuit-flags-card",
-        "desc": "More options and gotchas for: Circuit math: the 80% rule and three-phase power",
-        "cmd": "awk 'BEGIN{v=415; a=32; pf=0.95; kw=sqrt(3)*v*a*pf/1000; printf \"%.1f kW total, %.1f kW usable at 80%%\\n\", kw, kw*0.8}'",
-        "hideCode": false,
-        "flags": [
-          [
-            "PF",
-            "Power factor: about 0.95-0.99 for modern server PSUs"
-          ],
-          [
-            "100%-rated breakers",
-            "An exception exists only when the whole assembly is listed for 100%"
-          ]
-        ],
-        "tags": [
-          "hardware",
-          "reference",
-          "power",
-          "flags",
-          "options",
-          "nec",
-          "80-percent",
-          "three-phase"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "power-recipes-3",
-    "badge": "power",
-    "title": "Power & PDUs: Related commands",
-    "subtitle": "Related commands for: Circuit math: the 80% rule and three-phase power",
-    "commands": [
+      },
       {
         "id": "power-circuit-sub-1",
         "desc": "Single-phase 208 V / 30 A circuit",
@@ -312,6 +218,10 @@ const HWREF_HUB_DATA = [
           [
             "Budget per feed",
             "With N+N, one feed must carry the whole node: size each PDU for it"
+          ],
+          [
+            "AC lost",
+            "One PSU reporting AC lost: cord, PDU outlet or breaker first, PSU last"
           ]
         ],
         "tip": "Swap the cord to a known-good outlet before you RMA a PSU",
@@ -325,45 +235,7 @@ const HWREF_HUB_DATA = [
           "pdu",
           "ac-lost"
         ]
-      }
-    ]
-  },
-  {
-    "id": "power-flags-4",
-    "badge": "power",
-    "title": "Power & PDUs: More options",
-    "subtitle": "More options for: PSU redundancy and A/B feeds",
-    "commands": [
-      {
-        "id": "power-redundancy-flags-card",
-        "desc": "More options and gotchas for: PSU redundancy and A/B feeds",
-        "cmd": "ipmitool -I lanplus -H $BMC -U $BMC_USER -E sel elist | grep -iE 'power supply|redundancy|ac lost'",
-        "hideCode": false,
-        "flags": [
-          [
-            "AC lost",
-            "One PSU reporting AC lost: cord, PDU outlet or breaker first, PSU last"
-          ]
-        ],
-        "tags": [
-          "hardware",
-          "reference",
-          "power",
-          "flags",
-          "options",
-          "redundancy",
-          "psu",
-          "ab-feed"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "power-recipes-4",
-    "badge": "power",
-    "title": "Power & PDUs: Related commands",
-    "subtitle": "Related commands for: PSU redundancy and A/B feeds",
-    "commands": [
+      },
       {
         "id": "power-redundancy-sub-1",
         "desc": "Which PSU is unhappy",
@@ -435,6 +307,10 @@ const HWREF_HUB_DATA = [
           [
             "A1 allowable 15-32 °C",
             "Wider range the hardware tolerates; A2-A4 allow more"
+          ],
+          [
+            "Exhaust",
+            "Usually 10-20 °C above inlet; a small difference with high fan speed points to blocked airflow"
           ]
         ],
         "tip": "One hot node in a cold row is a node problem; a whole hot rack is a room problem",
@@ -448,45 +324,7 @@ const HWREF_HUB_DATA = [
           "sensors",
           "airflow"
         ]
-      }
-    ]
-  },
-  {
-    "id": "cooling-flags-1",
-    "badge": "cooling",
-    "title": "Cooling: More options",
-    "subtitle": "More options for: Inlet and component temperatures from the BMC",
-    "commands": [
-      {
-        "id": "cooling-inlet-flags-card",
-        "desc": "More options and gotchas for: Inlet and component temperatures from the BMC",
-        "cmd": "ipmitool -I lanplus -H $BMC -U $BMC_USER -E sdr type Temperature",
-        "hideCode": false,
-        "flags": [
-          [
-            "Exhaust",
-            "Usually 10-20 °C above inlet; a small difference with high fan speed points to blocked airflow"
-          ]
-        ],
-        "tags": [
-          "hardware",
-          "reference",
-          "cooling",
-          "flags",
-          "options",
-          "temperature",
-          "inlet",
-          "ashrae"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "cooling-recipes-1",
-    "badge": "cooling",
-    "title": "Cooling: Related commands",
-    "subtitle": "Related commands for: Inlet and component temperatures from the BMC",
-    "commands": [
+      },
       {
         "id": "cooling-inlet-sub-1",
         "desc": "Fan speeds and failed fans",
@@ -540,6 +378,10 @@ const HWREF_HUB_DATA = [
           [
             "nvidia-smi -q -d TEMPERATURE",
             "Slowdown and shutdown thresholds for this GPU"
+          ],
+          [
+            "One GPU hot",
+            "Check its slot: airflow, blank panels, cold plate or fan module"
           ]
         ],
         "tip": "Compare the hot GPU with its neighbours in the same chassis",
@@ -553,45 +395,7 @@ const HWREF_HUB_DATA = [
           "hbm",
           "thermal"
         ]
-      }
-    ]
-  },
-  {
-    "id": "cooling-flags-2",
-    "badge": "cooling",
-    "title": "Cooling: More options",
-    "subtitle": "More options for: GPU temperatures and thermal slowdown",
-    "commands": [
-      {
-        "id": "cooling-gpu-flags-card",
-        "desc": "More options and gotchas for: GPU temperatures and thermal slowdown",
-        "cmd": "nvidia-smi --query-gpu=index,temperature.gpu,temperature.memory,power.draw,clocks_event_reasons.active --format=csv",
-        "hideCode": false,
-        "flags": [
-          [
-            "One GPU hot",
-            "Check its slot: airflow, blank panels, cold plate or fan module"
-          ]
-        ],
-        "tags": [
-          "hardware",
-          "reference",
-          "cooling",
-          "flags",
-          "options",
-          "gpu",
-          "temperature",
-          "throttle"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "cooling-recipes-2",
-    "badge": "cooling",
-    "title": "Cooling: Related commands",
-    "subtitle": "Related commands for: GPU temperatures and thermal slowdown",
-    "commands": [
+      },
       {
         "id": "cooling-gpu-sub-1",
         "desc": "Thresholds per GPU",
@@ -645,6 +449,14 @@ const HWREF_HUB_DATA = [
           [
             "Cable bundles",
             "Behind the fans, they choke exhaust"
+          ],
+          [
+            "Fan module",
+            "Reseat a fan that reads 0 RPM before replacing it"
+          ],
+          [
+            "Hot aisle / cold aisle",
+            "Containment doors closed"
           ]
         ],
         "tip": "Fix airflow before you change fan settings",
@@ -656,40 +468,6 @@ const HWREF_HUB_DATA = [
           "fans",
           "blanking",
           "physical"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "cooling-flags-3",
-    "badge": "cooling",
-    "title": "Cooling: More options",
-    "subtitle": "More options for: Airflow checklist",
-    "commands": [
-      {
-        "id": "cooling-airflow-flags-card",
-        "desc": "More options and gotchas for: Airflow checklist",
-        "cmd": "ipmitool -I lanplus -H $BMC -U $BMC_USER -E sel elist | grep -iE 'fan|temp'",
-        "hideCode": false,
-        "flags": [
-          [
-            "Fan module",
-            "Reseat a fan that reads 0 RPM before replacing it"
-          ],
-          [
-            "Hot aisle / cold aisle",
-            "Containment doors closed"
-          ]
-        ],
-        "tags": [
-          "hardware",
-          "reference",
-          "cooling",
-          "flags",
-          "options",
-          "airflow",
-          "fans",
-          "blanking"
         ]
       }
     ]
@@ -717,6 +495,14 @@ const HWREF_HUB_DATA = [
           [
             "Rack-scale liquid",
             "GB200 / GB300 NVL72 racks are liquid-cooled"
+          ],
+          [
+            "Leak sensors",
+            "Treat any leak event as critical: stop and escalate"
+          ],
+          [
+            "Sensor names",
+            "Coolant, flow and leak sensors are vendor-specific: grep broadly"
           ]
         ],
         "tip": "Never open a liquid loop without the facility team",
@@ -729,40 +515,6 @@ const HWREF_HUB_DATA = [
           "coolant",
           "leak",
           "nvl72"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "cooling-flags-4",
-    "badge": "cooling",
-    "title": "Cooling: More options",
-    "subtitle": "More options for: Liquid cooling: ASHRAE W classes",
-    "commands": [
-      {
-        "id": "cooling-liquid-flags-card",
-        "desc": "More options and gotchas for: Liquid cooling: ASHRAE W classes",
-        "cmd": "ipmitool -I lanplus -H $BMC -U $BMC_USER -E sdr elist | grep -iE 'coolant|leak|flow|pump'",
-        "hideCode": false,
-        "flags": [
-          [
-            "Leak sensors",
-            "Treat any leak event as critical: stop and escalate"
-          ],
-          [
-            "Sensor names",
-            "Coolant, flow and leak sensors are vendor-specific: grep broadly"
-          ]
-        ],
-        "tags": [
-          "hardware",
-          "reference",
-          "cooling",
-          "flags",
-          "options",
-          "liquid",
-          "w-class",
-          "coolant"
         ]
       }
     ]
@@ -822,6 +574,14 @@ const HWREF_HUB_DATA = [
           [
             "Speed vs Configured Memory Speed",
             "What the DIMM supports vs what it runs at now"
+          ],
+          [
+            "Size: No Module Installed",
+            "An empty slot"
+          ],
+          [
+            "Serial Number",
+            "Goes in the RMA"
           ]
         ],
         "tip": "Compare installed DIMMs with the order: a missing DIMM shows as an empty Locator",
@@ -835,49 +595,7 @@ const HWREF_HUB_DATA = [
           "serial",
           "memory"
         ]
-      }
-    ]
-  },
-  {
-    "id": "memory-flags-1",
-    "badge": "memory",
-    "title": "Memory population: More options",
-    "subtitle": "More options for: Every DIMM slot: populated, size, speed, part and serial",
-    "commands": [
-      {
-        "id": "mem-dmidecode-flags-card",
-        "desc": "More options and gotchas for: Every DIMM slot: populated, size, speed, part and serial",
-        "cmd": "sudo dmidecode -t memory | grep -E 'Locator|Size|Speed|Part Number|Serial Number'",
-        "hideCode": false,
-        "flags": [
-          [
-            "Size: No Module Installed",
-            "An empty slot"
-          ],
-          [
-            "Serial Number",
-            "Goes in the RMA"
-          ]
-        ],
-        "tags": [
-          "hardware",
-          "reference",
-          "memory",
-          "flags",
-          "options",
-          "dimm",
-          "dmidecode",
-          "locator"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "memory-recipes-1",
-    "badge": "memory",
-    "title": "Memory population: Related commands",
-    "subtitle": "Related commands for: Every DIMM slot: populated, size, speed, part and serial",
-    "commands": [
+      },
       {
         "id": "mem-dmidecode-sub-1",
         "desc": "How many DIMMs are installed",
@@ -945,6 +663,14 @@ const HWREF_HUB_DATA = [
           [
             "Intel Xeon 6700P",
             "8 channels, DDR5-6400, MRDIMM up to 8000 MT/s"
+          ],
+          [
+            "Highest common speed",
+            "The system runs every DIMM at the speed the slowest DIMM and the layout allow"
+          ],
+          [
+            "2 DPC",
+            "Two DIMMs per channel usually lowers the speed; check the server's memory guide"
           ]
         ],
         "tip": "One DIMM per channel on every channel is usually the fastest layout",
@@ -958,40 +684,6 @@ const HWREF_HUB_DATA = [
           "xeon",
           "ddr5",
           "mrdimm"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "memory-flags-2",
-    "badge": "memory",
-    "title": "Memory population: More options",
-    "subtitle": "More options for: Channels per socket on current CPUs",
-    "commands": [
-      {
-        "id": "mem-channels-flags-card",
-        "desc": "More options and gotchas for: Channels per socket on current CPUs",
-        "cmd": "lscpu | grep -E 'Model name|Socket|NUMA node\\(s\\)'",
-        "hideCode": false,
-        "flags": [
-          [
-            "Highest common speed",
-            "The system runs every DIMM at the speed the slowest DIMM and the layout allow"
-          ],
-          [
-            "2 DPC",
-            "Two DIMMs per channel usually lowers the speed; check the server's memory guide"
-          ]
-        ],
-        "tags": [
-          "hardware",
-          "reference",
-          "memory",
-          "flags",
-          "options",
-          "channels",
-          "dpc",
-          "epyc"
         ]
       }
     ]
@@ -1019,6 +711,10 @@ const HWREF_HUB_DATA = [
           [
             "Mixed part numbers",
             "Avoid: the system falls back to the slowest common timing"
+          ],
+          [
+            "After a swap",
+            "Replacement DIMM: same part number, same slot"
           ]
         ],
         "tip": "Check balance after every DIMM replacement",
@@ -1031,45 +727,7 @@ const HWREF_HUB_DATA = [
           "population",
           "dimm"
         ]
-      }
-    ]
-  },
-  {
-    "id": "memory-flags-3",
-    "badge": "memory",
-    "title": "Memory population: More options",
-    "subtitle": "More options for: Balanced population check",
-    "commands": [
-      {
-        "id": "mem-balance-flags-card",
-        "desc": "More options and gotchas for: Balanced population check",
-        "cmd": "sudo dmidecode -t memory | awk -F: '/Size:/{s=$2} /Bank Locator/{print $2 \" ->\" s}' | sort",
-        "hideCode": false,
-        "flags": [
-          [
-            "After a swap",
-            "Replacement DIMM: same part number, same slot"
-          ]
-        ],
-        "tags": [
-          "hardware",
-          "reference",
-          "memory",
-          "flags",
-          "options",
-          "balance",
-          "numa",
-          "population"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "memory-recipes-3",
-    "badge": "memory",
-    "title": "Memory population: Related commands",
-    "subtitle": "Related commands for: Balanced population check",
-    "commands": [
+      },
       {
         "id": "mem-balance-sub-1",
         "desc": "Memory per NUMA node",
@@ -1109,6 +767,10 @@ const HWREF_HUB_DATA = [
           [
             "Map to slot",
             "Match the EDAC row/channel to the dmidecode Locator"
+          ],
+          [
+            "BMC SEL",
+            "Also check ipmitool sel elist for memory events"
           ]
         ],
         "tip": "The ECC sheet under Server internals goes deeper",
@@ -1121,45 +783,7 @@ const HWREF_HUB_DATA = [
           "errors",
           "rma"
         ]
-      }
-    ]
-  },
-  {
-    "id": "memory-flags-4",
-    "badge": "memory",
-    "title": "Memory population: More options",
-    "subtitle": "More options for: Correctable errors per DIMM",
-    "commands": [
-      {
-        "id": "mem-errors-flags-card",
-        "desc": "More options and gotchas for: Correctable errors per DIMM",
-        "cmd": "sudo edac-util -v",
-        "hideCode": false,
-        "flags": [
-          [
-            "BMC SEL",
-            "Also check ipmitool sel elist for memory events"
-          ]
-        ],
-        "tags": [
-          "hardware",
-          "reference",
-          "memory",
-          "flags",
-          "options",
-          "ecc",
-          "edac",
-          "errors"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "memory-recipes-4",
-    "badge": "memory",
-    "title": "Memory population: Related commands",
-    "subtitle": "Related commands for: Correctable errors per DIMM",
-    "commands": [
+      },
       {
         "id": "mem-errors-sub-1",
         "desc": "EDAC's slot labels",
@@ -1243,15 +867,7 @@ const HWREF_HUB_DATA = [
           "serial",
           "identify"
         ]
-      }
-    ]
-  },
-  {
-    "id": "drives-recipes-1",
-    "badge": "drives",
-    "title": "Drive form factors: Related commands",
-    "subtitle": "Related commands for: Which drives, which transport, which model",
-    "commands": [
+      },
       {
         "id": "drives-identify-sub-1",
         "desc": "NVMe inventory",
@@ -1305,6 +921,14 @@ const HWREF_HUB_DATA = [
           [
             "U.3 drive in a U.2 bay",
             "Works: U.3 drives must be backward-compatible with U.2 hosts"
+          ],
+          [
+            "U.2 drive in a U.3-only bay",
+            "Usually doesn't work: the lane pinout differs"
+          ],
+          [
+            "Same plug ≠ works",
+            "The backplane and controller must support the protocol too"
           ]
         ],
         "tip": "Check the backplane's spec before ordering spares",
@@ -1318,49 +942,7 @@ const HWREF_HUB_DATA = [
           "tri-mode",
           "backplane"
         ]
-      }
-    ]
-  },
-  {
-    "id": "drives-flags-2",
-    "badge": "drives",
-    "title": "Drive form factors: More options",
-    "subtitle": "More options for: U.2 vs U.3",
-    "commands": [
-      {
-        "id": "drives-u2u3-flags-card",
-        "desc": "More options and gotchas for: U.2 vs U.3",
-        "cmd": "sudo lspci -vv -s <bdf> | grep -E 'LnkCap|LnkSta'",
-        "hideCode": false,
-        "flags": [
-          [
-            "U.2 drive in a U.3-only bay",
-            "Usually doesn't work: the lane pinout differs"
-          ],
-          [
-            "Same plug ≠ works",
-            "The backplane and controller must support the protocol too"
-          ]
-        ],
-        "tags": [
-          "hardware",
-          "reference",
-          "drives",
-          "flags",
-          "options",
-          "u.2",
-          "u.3",
-          "sff-8639"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "drives-recipes-2",
-    "badge": "drives",
-    "title": "Drive form factors: Related commands",
-    "subtitle": "Related commands for: U.2 vs U.3",
-    "commands": [
+      },
       {
         "id": "drives-u2u3-sub-1",
         "desc": "Which controller and path each NVMe drive is on",
@@ -1400,6 +982,14 @@ const HWREF_HUB_DATA = [
           [
             "E3.S / E3.L",
             "SFF-TA-1008. 76 mm tall, 112.75 mm (S) or 142.2 mm (L) long, 7.5 mm or 16.8 mm (2T). Up to 70 W"
+          ],
+          [
+            "Connector",
+            "SFF-TA-1002 edge connector across the family"
+          ],
+          [
+            "Thickness matters",
+            "A 15 mm E1.S does not fit a 9.5 mm bay"
           ]
         ],
         "tip": "Order spares by form factor and thickness, not just capacity",
@@ -1412,40 +1002,6 @@ const HWREF_HUB_DATA = [
           "e3.s",
           "e1.l",
           "ruler"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "drives-flags-3",
-    "badge": "drives",
-    "title": "Drive form factors: More options",
-    "subtitle": "More options for: EDSFF sizes",
-    "commands": [
-      {
-        "id": "drives-edsff-flags-card",
-        "desc": "More options and gotchas for: EDSFF sizes",
-        "cmd": "sudo nvme id-ctrl /dev/nvme0 | grep -E '^(mn|sn|fr) '",
-        "hideCode": false,
-        "flags": [
-          [
-            "Connector",
-            "SFF-TA-1002 edge connector across the family"
-          ],
-          [
-            "Thickness matters",
-            "A 15 mm E1.S does not fit a 9.5 mm bay"
-          ]
-        ],
-        "tags": [
-          "hardware",
-          "reference",
-          "drives",
-          "flags",
-          "options",
-          "edsff",
-          "e1.s",
-          "e3.s"
         ]
       }
     ]
@@ -1473,6 +1029,10 @@ const HWREF_HUB_DATA = [
           [
             "max_link_width / max_link_speed",
             "What it should be"
+          ],
+          [
+            "Degraded",
+            "x2 or a lower speed: reseat the drive, then check the backplane cable"
           ]
         ],
         "tip": "A degraded link is a physical problem until proven otherwise",
@@ -1485,36 +1045,6 @@ const HWREF_HUB_DATA = [
           "width",
           "speed",
           "degraded"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "drives-flags-4",
-    "badge": "drives",
-    "title": "Drive form factors: More options",
-    "subtitle": "More options for: Is the NVMe link at full width and speed?",
-    "commands": [
-      {
-        "id": "drives-link-flags-card",
-        "desc": "More options and gotchas for: Is the NVMe link at full width and speed?",
-        "cmd": "for d in /sys/class/nvme/nvme*; do echo \"$(basename $d): $(cat $d/device/current_link_width)x @ $(cat $d/device/current_link_speed)\"; done",
-        "hideCode": false,
-        "flags": [
-          [
-            "Degraded",
-            "x2 or a lower speed: reseat the drive, then check the backplane cable"
-          ]
-        ],
-        "tags": [
-          "hardware",
-          "reference",
-          "drives",
-          "flags",
-          "options",
-          "pcie",
-          "link",
-          "width"
         ]
       }
     ]
@@ -1574,6 +1104,10 @@ const HWREF_HUB_DATA = [
           [
             "power.limit",
             "H200 SXM up to 700 W; H200 NVL (PCIe) up to 600 W"
+          ],
+          [
+            "serial",
+            "Goes in the RMA, with the bus ID"
           ]
         ],
         "tip": "topo -m tells SXM (NV18 everywhere) from PCIe (PIX/SYS) at a glance",
@@ -1587,45 +1121,7 @@ const HWREF_HUB_DATA = [
           "topology",
           "identify"
         ]
-      }
-    ]
-  },
-  {
-    "id": "gpuform-flags-1",
-    "badge": "gpu",
-    "title": "GPU form factors: More options",
-    "subtitle": "More options for: Which GPUs, which bus IDs, which power limits",
-    "commands": [
-      {
-        "id": "gpu-forms-identify-flags-card",
-        "desc": "More options and gotchas for: Which GPUs, which bus IDs, which power limits",
-        "cmd": "nvidia-smi --query-gpu=index,name,pci.bus_id,power.limit,serial --format=csv",
-        "hideCode": false,
-        "flags": [
-          [
-            "serial",
-            "Goes in the RMA, with the bus ID"
-          ]
-        ],
-        "tags": [
-          "hardware",
-          "reference",
-          "gpuform",
-          "flags",
-          "options",
-          "sxm",
-          "pcie",
-          "hgx"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "gpuform-recipes-1",
-    "badge": "gpu",
-    "title": "GPU form factors: Related commands",
-    "subtitle": "Related commands for: Which GPUs, which bus IDs, which power limits",
-    "commands": [
+      },
       {
         "id": "gpu-forms-identify-sub-1",
         "desc": "How GPUs and NICs connect: NV# = NVLink, PIX/PXB/SYS = PCIe paths",
@@ -1679,6 +1175,14 @@ const HWREF_HUB_DATA = [
           [
             "HGX Rubin NVL8",
             "NVLink 6: 3.6 TB/s per GPU"
+          ],
+          [
+            "Fabric Manager",
+            "Must run, at the driver's exact version, before CUDA works on NVSwitch systems"
+          ],
+          [
+            "Service",
+            "A failed SXM GPU usually means a baseboard-level RMA: collect nvidia-bug-report first"
           ]
         ],
         "tip": "Inactive NVLinks on one GPU point at that module or its baseboard connector",
@@ -1693,49 +1197,7 @@ const HWREF_HUB_DATA = [
           "b200",
           "b300"
         ]
-      }
-    ]
-  },
-  {
-    "id": "gpuform-flags-2",
-    "badge": "gpu",
-    "title": "GPU form factors: More options",
-    "subtitle": "More options for: HGX / DGX 8-GPU systems",
-    "commands": [
-      {
-        "id": "gpu-forms-hgx-flags-card",
-        "desc": "More options and gotchas for: HGX / DGX 8-GPU systems",
-        "cmd": "nvidia-smi nvlink -s",
-        "hideCode": false,
-        "flags": [
-          [
-            "Fabric Manager",
-            "Must run, at the driver's exact version, before CUDA works on NVSwitch systems"
-          ],
-          [
-            "Service",
-            "A failed SXM GPU usually means a baseboard-level RMA: collect nvidia-bug-report first"
-          ]
-        ],
-        "tags": [
-          "hardware",
-          "reference",
-          "gpuform",
-          "flags",
-          "options",
-          "hgx",
-          "dgx",
-          "nvlink"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "gpuform-recipes-2",
-    "badge": "gpu",
-    "title": "GPU form factors: Related commands",
-    "subtitle": "Related commands for: HGX / DGX 8-GPU systems",
-    "commands": [
+      },
       {
         "id": "gpu-forms-hgx-sub-1",
         "desc": "Fabric Manager state",
@@ -1775,6 +1237,10 @@ const HWREF_HUB_DATA = [
           [
             "One rack = one system",
             "NVLink switch trays join compute trays; a tray fault affects the domain"
+          ],
+          [
+            "Liquid",
+            "Coolant and leak alarms are part of triage (Cooling sheet)"
           ]
         ],
         "tip": "On NVL72, check the NVLink switch trays before blaming one GPU",
@@ -1787,36 +1253,6 @@ const HWREF_HUB_DATA = [
           "gb300",
           "rack-scale",
           "liquid"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "gpuform-flags-3",
-    "badge": "gpu",
-    "title": "GPU form factors: More options",
-    "subtitle": "More options for: Rack-scale: GB200 / GB300 NVL72",
-    "commands": [
-      {
-        "id": "gpu-forms-nvl72-flags-card",
-        "desc": "More options and gotchas for: Rack-scale: GB200 / GB300 NVL72",
-        "cmd": "nvidia-smi -q | grep -iA3 fabric",
-        "hideCode": false,
-        "flags": [
-          [
-            "Liquid",
-            "Coolant and leak alarms are part of triage (Cooling sheet)"
-          ]
-        ],
-        "tags": [
-          "hardware",
-          "reference",
-          "gpuform",
-          "flags",
-          "options",
-          "nvl72",
-          "gb200",
-          "gb300"
         ]
       }
     ]
@@ -1876,6 +1312,10 @@ const HWREF_HUB_DATA = [
           [
             "chassis-asset-tag",
             "Your asset tag, if set"
+          ],
+          [
+            "ipmitool fru print 0",
+            "Same data through the BMC, even with the OS down"
           ]
         ],
         "tip": "Blink the ID LED before you touch a server in a full rack",
@@ -1889,45 +1329,7 @@ const HWREF_HUB_DATA = [
           "fru",
           "dmidecode"
         ]
-      }
-    ]
-  },
-  {
-    "id": "rack-flags-1",
-    "badge": "rack",
-    "title": "Racks & labelling: More options",
-    "subtitle": "More options for: Who is this server? Serial, model and asset tag",
-    "commands": [
-      {
-        "id": "rack-identity-flags-card",
-        "desc": "More options and gotchas for: Who is this server? Serial, model and asset tag",
-        "cmd": "sudo dmidecode -s system-serial-number; sudo dmidecode -s system-product-name",
-        "hideCode": false,
-        "flags": [
-          [
-            "ipmitool fru print 0",
-            "Same data through the BMC, even with the OS down"
-          ]
-        ],
-        "tags": [
-          "hardware",
-          "reference",
-          "rack",
-          "flags",
-          "options",
-          "serial",
-          "asset",
-          "identify"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "rack-recipes-1",
-    "badge": "rack",
-    "title": "Racks & labelling: Related commands",
-    "subtitle": "Related commands for: Who is this server? Serial, model and asset tag",
-    "commands": [
+      },
       {
         "id": "rack-identity-sub-1",
         "desc": "FRU through the BMC",
@@ -1981,6 +1383,14 @@ const HWREF_HUB_DATA = [
           [
             "42U",
             "The common full-height rack"
+          ],
+          [
+            "OCP Open Rack V3",
+            "21-inch bay; supports 48 mm OpenU and 44.45 mm EIA units; 48 V busbar power"
+          ],
+          [
+            "Busbar",
+            "ORv3 gear takes power from the rear busbar, not PDU cords"
           ]
         ],
         "tip": "Count U from the bottom, the way the rack's numbering does",
@@ -1993,40 +1403,6 @@ const HWREF_HUB_DATA = [
           "ocp",
           "open-rack",
           "busbar"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "rack-flags-2",
-    "badge": "rack",
-    "title": "Racks & labelling: More options",
-    "subtitle": "More options for: Rack units and rack types",
-    "commands": [
-      {
-        "id": "rack-units-flags-card",
-        "desc": "More options and gotchas for: Rack units and rack types",
-        "cmd": "awk 'BEGIN{u=42; printf \"%dU = %.1f mm = %.2f in\\n\", u, u*44.45, u*1.75}'",
-        "hideCode": false,
-        "flags": [
-          [
-            "OCP Open Rack V3",
-            "21-inch bay; supports 48 mm OpenU and 44.45 mm EIA units; 48 V busbar power"
-          ],
-          [
-            "Busbar",
-            "ORv3 gear takes power from the rear busbar, not PDU cords"
-          ]
-        ],
-        "tags": [
-          "hardware",
-          "reference",
-          "rack",
-          "flags",
-          "options",
-          "rack-unit",
-          "eia-310",
-          "ocp"
         ]
       }
     ]
@@ -2054,6 +1430,10 @@ const HWREF_HUB_DATA = [
           [
             "Both ends",
             "Every cable labelled at both ends with both endpoints"
+          ],
+          [
+            "Site-Row/Rack-U",
+            "A sortable, unique ID for every position"
           ]
         ],
         "tip": "If the label and the CMDB disagree, trust neither until you trace the cable",
@@ -2065,36 +1445,6 @@ const HWREF_HUB_DATA = [
           "tia-606",
           "cabling",
           "cmdb"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "rack-flags-3",
-    "badge": "rack",
-    "title": "Racks & labelling: More options",
-    "subtitle": "More options for: A labelling scheme",
-    "commands": [
-      {
-        "id": "rack-labels-flags-card",
-        "desc": "More options and gotchas for: A labelling scheme",
-        "cmd": "printf '%s\\n' 'DC1-R12-U24' 'DC1-R12-U24-PSU1->PDU-R12-A-07' 'DC1-R12-U24-ib0->SW-R12-01:p17'",
-        "hideCode": false,
-        "flags": [
-          [
-            "Site-Row/Rack-U",
-            "A sortable, unique ID for every position"
-          ]
-        ],
-        "tags": [
-          "hardware",
-          "reference",
-          "rack",
-          "flags",
-          "options",
-          "labels",
-          "tia-606",
-          "cabling"
         ]
       }
     ]

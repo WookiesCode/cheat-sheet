@@ -36,15 +36,7 @@ const CTR_DOCKER_IMAGES_DATA = [
           "size",
           "df"
         ]
-      }
-    ]
-  },
-  {
-    "id": "docker-images-recipes-1",
-    "badge": "img",
-    "title": "Docker Images: Related commands",
-    "subtitle": "Related commands for: List local images with their size and digest",
-    "commands": [
+      },
       {
         "id": "docker-image-ls-sub-1",
         "desc": "Disk used by images, containers, volumes and build cache, and how much is reclaimable",
@@ -96,33 +88,7 @@ const CTR_DOCKER_IMAGES_DATA = [
           [
             "-f <path>",
             "Use a Dockerfile with a different name or location"
-          ]
-        ],
-        "tip": "Add a .dockerignore so .git and data aren't uploaded",
-        "tags": [
-          "docker",
-          "containers",
-          "build",
-          "buildkit",
-          "buildx",
-          "dockerfile",
-          "tag"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "docker-images-flags-2",
-    "badge": "img",
-    "title": "Docker Images: More options",
-    "subtitle": "More options for: Build an image from the Dockerfile in the current directory and tag it",
-    "commands": [
-      {
-        "id": "docker-build-tag-flags-card",
-        "desc": "More options and gotchas for: Build an image from the Dockerfile in the current directory and tag it",
-        "cmd": "docker build -t <name>:<tag> .",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "--no-cache",
             "Rebuild every step instead of reusing cached layers"
@@ -136,24 +102,17 @@ const CTR_DOCKER_IMAGES_DATA = [
             "Build for another CPU architecture (needs buildx/QEMU for cross builds)"
           ]
         ],
+        "tip": "Add a .dockerignore so .git and data aren't uploaded",
         "tags": [
           "docker",
           "containers",
-          "flags",
-          "options",
           "build",
           "buildkit",
-          "buildx"
+          "buildx",
+          "dockerfile",
+          "tag"
         ]
-      }
-    ]
-  },
-  {
-    "id": "docker-images-recipes-2",
-    "badge": "img",
-    "title": "Docker Images: Related commands",
-    "subtitle": "Related commands for: Build an image from the Dockerfile in the current directory and tag it",
-    "commands": [
+      },
       {
         "id": "docker-build-tag-sub-1",
         "desc": "List builders and the platforms they can build for",
@@ -205,6 +164,14 @@ const CTR_DOCKER_IMAGES_DATA = [
           [
             "RUN",
             "Runs at build time and creates a layer. Each RUN, COPY and ADD adds a layer"
+          ],
+          [
+            "USER 1000",
+            "Run as a non-root user; root in a container is still root on shared kernels"
+          ],
+          [
+            "CMD [\"...\"] (exec form)",
+            "JSON array form: the app gets signals directly, so docker stop works cleanly"
           ]
         ],
         "tip": "Order steps from least to most often changed",
@@ -218,39 +185,6 @@ const CTR_DOCKER_IMAGES_DATA = [
           "cmd",
           "layers",
           "cache"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "docker-images-flags-3",
-    "badge": "img",
-    "title": "Docker Images: More options",
-    "subtitle": "More options for: Minimal Dockerfile for a small Python tool, with the layer-caching order explained",
-    "commands": [
-      {
-        "id": "dockerfile-minimal-flags-card",
-        "desc": "More options and gotchas for: Minimal Dockerfile for a small Python tool, with the layer-caching order explained",
-        "cmd": "FROM python:3.12-slim\nWORKDIR /app\nCOPY requirements.txt .\nRUN pip install --no-cache-dir -r requirements.txt\nCOPY . .\nUSER 1000\nCMD [\"python\", \"main.py\"]",
-        "hideCode": true,
-        "flags": [
-          [
-            "USER 1000",
-            "Run as a non-root user; root in a container is still root on shared kernels"
-          ],
-          [
-            "CMD [\"...\"] (exec form)",
-            "JSON array form: the app gets signals directly, so docker stop works cleanly"
-          ]
-        ],
-        "tags": [
-          "docker",
-          "containers",
-          "flags",
-          "options",
-          "dockerfile",
-          "from",
-          "run"
         ]
       }
     ]
@@ -289,15 +223,7 @@ const CTR_DOCKER_IMAGES_DATA = [
           "tag",
           "registry"
         ]
-      }
-    ]
-  },
-  {
-    "id": "docker-images-recipes-4",
-    "badge": "img",
-    "title": "Docker Images: Related commands",
-    "subtitle": "Related commands for: Pull an image, retag it for a private registry and push it",
-    "commands": [
+      },
       {
         "id": "docker-pull-tag-push-sub-1",
         "desc": "Retag for your own registry",
@@ -362,6 +288,10 @@ const CTR_DOCKER_IMAGES_DATA = [
           [
             "gzip / zstd",
             "Compress for transfer: docker save <image> | zstd > <file>.tar.zst"
+          ],
+          [
+            "save vs export",
+            "save keeps layers and tags (an image); export flattens a container's filesystem and loses them"
           ]
         ],
         "tip": "Checksum the tar on both ends",
@@ -377,44 +307,7 @@ const CTR_DOCKER_IMAGES_DATA = [
           "ctr",
           "containerd"
         ]
-      }
-    ]
-  },
-  {
-    "id": "docker-images-flags-5",
-    "badge": "img",
-    "title": "Docker Images: More options",
-    "subtitle": "More options for: Move an image to an air-gapped host as a tar file",
-    "commands": [
-      {
-        "id": "docker-save-load-airgap-flags-card",
-        "desc": "More options and gotchas for: Move an image to an air-gapped host as a tar file",
-        "cmd": "docker save -o <name>.tar <image>:<tag>",
-        "hideCode": false,
-        "flags": [
-          [
-            "save vs export",
-            "save keeps layers and tags (an image); export flattens a container's filesystem and loses them"
-          ]
-        ],
-        "tags": [
-          "docker",
-          "containers",
-          "flags",
-          "options",
-          "save",
-          "load",
-          "airgap"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "docker-images-recipes-5",
-    "badge": "img",
-    "title": "Docker Images: Related commands",
-    "subtitle": "Related commands for: Move an image to an air-gapped host as a tar file",
-    "commands": [
+      },
       {
         "id": "docker-save-load-airgap-sub-1",
         "desc": "Import the image on the target host (changes state)",
@@ -479,6 +372,10 @@ const CTR_DOCKER_IMAGES_DATA = [
           [
             "--volumes",
             "Also removes unused volumes: this deletes data. Never use it casually"
+          ],
+          [
+            "-f",
+            "Skip the confirmation prompt; avoid in scripts unless you are sure"
           ]
         ],
         "tip": "Run docker system df first; never add --volumes blindly",
@@ -491,44 +388,7 @@ const CTR_DOCKER_IMAGES_DATA = [
           "space",
           "df"
         ]
-      }
-    ]
-  },
-  {
-    "id": "docker-images-flags-6",
-    "badge": "img",
-    "title": "Docker Images: More options",
-    "subtitle": "More options for: Reclaim disk space from stopped containers, unused images and build cache",
-    "commands": [
-      {
-        "id": "docker-prune-flags-card",
-        "desc": "More options and gotchas for: Reclaim disk space from stopped containers, unused images and build cache",
-        "cmd": "docker system prune",
-        "hideCode": false,
-        "flags": [
-          [
-            "-f",
-            "Skip the confirmation prompt; avoid in scripts unless you are sure"
-          ]
-        ],
-        "tags": [
-          "docker",
-          "containers",
-          "flags",
-          "options",
-          "prune",
-          "cleanup",
-          "disk"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "docker-images-recipes-6",
-    "badge": "img",
-    "title": "Docker Images: Related commands",
-    "subtitle": "Related commands for: Reclaim disk space from stopped containers, unused images and build cache",
-    "commands": [
+      },
       {
         "id": "docker-prune-sub-1",
         "desc": "See exactly what is using space before you prune",

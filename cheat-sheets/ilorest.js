@@ -24,6 +24,14 @@ const BMC_ILOREST_DATA = [
           [
             "--usercert / --userkey",
             "Certificate login, no password at all"
+          ],
+          [
+            "--logout",
+            "Append to any one-off command to end the session afterwards"
+          ],
+          [
+            "Special characters",
+            "Single-quote a password that contains ! on Linux"
           ]
         ],
         "tip": "Always logout: iLO has a limited number of sessions",
@@ -37,49 +45,7 @@ const BMC_ILOREST_DATA = [
           "session",
           "logout"
         ]
-      }
-    ]
-  },
-  {
-    "id": "ilorest-flags-1",
-    "badge": "ilorest",
-    "title": "HPE iLOrest: More options",
-    "subtitle": "More options for: Log in to an iLO",
-    "commands": [
-      {
-        "id": "ilorest-login-flags-card",
-        "desc": "More options and gotchas for: Log in to an iLO",
-        "cmd": "ilorest login $BMC -u $BMC_USER -p \"$BMC_PASS\"",
-        "hideCode": false,
-        "flags": [
-          [
-            "--logout",
-            "Append to any one-off command to end the session afterwards"
-          ],
-          [
-            "Special characters",
-            "Single-quote a password that contains ! on Linux"
-          ]
-        ],
-        "tags": [
-          "bmc",
-          "remote-management",
-          "ilorest",
-          "flags",
-          "options",
-          "hpe",
-          "ilo",
-          "login"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "ilorest-recipes-1",
-    "badge": "ilorest",
-    "title": "HPE iLOrest: Related commands",
-    "subtitle": "Related commands for: Log in to an iLO",
-    "commands": [
+      },
       {
         "id": "ilorest-login-sub-1",
         "desc": "End the session",
@@ -133,6 +99,14 @@ const BMC_ILOREST_DATA = [
           [
             "--firmware --software",
             "Firmware inventory and installed software"
+          ],
+          [
+            "--all -j",
+            "Everything, as JSON"
+          ],
+          [
+            "-f <file>",
+            "Save to a file (default ilorest.json)"
           ]
         ],
         "tip": "serverstate FinishedPost means the OS is booting or up",
@@ -147,49 +121,7 @@ const BMC_ILOREST_DATA = [
           "power",
           "firmware"
         ]
-      }
-    ]
-  },
-  {
-    "id": "ilorest-flags-2",
-    "badge": "ilorest",
-    "title": "HPE iLOrest: More options",
-    "subtitle": "More options for: Server summary: system, firmware, memory, CPUs, fans, power, thermals",
-    "commands": [
-      {
-        "id": "ilorest-serverinfo-flags-card",
-        "desc": "More options and gotchas for: Server summary: system, firmware, memory, CPUs, fans, power, thermals",
-        "cmd": "ilorest serverinfo --system --firmware",
-        "hideCode": false,
-        "flags": [
-          [
-            "--all -j",
-            "Everything, as JSON"
-          ],
-          [
-            "-f <file>",
-            "Save to a file (default ilorest.json)"
-          ]
-        ],
-        "tags": [
-          "bmc",
-          "remote-management",
-          "ilorest",
-          "flags",
-          "options",
-          "serverinfo",
-          "inventory",
-          "thermals"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "ilorest-recipes-2",
-    "badge": "ilorest",
-    "title": "HPE iLOrest: Related commands",
-    "subtitle": "Related commands for: Server summary: system, firmware, memory, CPUs, fans, power, thermals",
-    "commands": [
+      },
       {
         "id": "ilorest-serverinfo-sub-1",
         "desc": "POST state: InPost, FinishedPost, PowerOff…",
@@ -257,35 +189,7 @@ const BMC_ILOREST_DATA = [
           [
             "--selectlog=AHS",
             "Active Health System log for HPE support; the file name is built from serial and date"
-          ]
-        ],
-        "tip": "HPE support asks for the AHS log first; IML is the one to read yourself",
-        "tags": [
-          "bmc",
-          "remote-management",
-          "ilorest",
-          "iml",
-          "iel",
-          "ahs",
-          "logs",
-          "events",
-          "rma"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "ilorest-flags-3",
-    "badge": "ilorest",
-    "title": "HPE iLOrest: More options",
-    "subtitle": "More options for: IML, iLO event log and AHS download",
-    "commands": [
-      {
-        "id": "ilorest-serverlogs-flags-card",
-        "desc": "More options and gotchas for: IML, iLO event log and AHS download",
-        "cmd": "ilorest serverlogs --selectlog=IML",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "--directorypath=<dir>",
             "Where to save the AHS file"
@@ -303,25 +207,19 @@ const BMC_ILOREST_DATA = [
             "Clear the selected log (changes state)"
           ]
         ],
+        "tip": "HPE support asks for the AHS log first; IML is the one to read yourself",
         "tags": [
           "bmc",
           "remote-management",
           "ilorest",
-          "flags",
-          "options",
           "iml",
           "iel",
-          "ahs"
+          "ahs",
+          "logs",
+          "events",
+          "rma"
         ]
-      }
-    ]
-  },
-  {
-    "id": "ilorest-recipes-3",
-    "badge": "ilorest",
-    "title": "HPE iLOrest: Related commands",
-    "subtitle": "Related commands for: IML, iLO event log and AHS download",
-    "commands": [
+      },
       {
         "id": "ilorest-serverlogs-sub-1",
         "desc": "iLO's own event log",
@@ -389,6 +287,14 @@ const BMC_ILOREST_DATA = [
           [
             "--physicaldrives / --drives",
             "Drives behind it"
+          ],
+          [
+            "--volumes / --logicaldrives",
+            "Volumes"
+          ],
+          [
+            "Scope",
+            "PLDM RDE controllers (MR, SR, NS). For NVMe use select/get or Redfish"
           ]
         ],
         "tip": "If storage looks empty, check serverstate: discovery finishes at InPostDiscoveryComplete",
@@ -402,49 +308,7 @@ const BMC_ILOREST_DATA = [
           "volumes",
           "smartarray"
         ]
-      }
-    ]
-  },
-  {
-    "id": "ilorest-flags-4",
-    "badge": "ilorest",
-    "title": "HPE iLOrest: More options",
-    "subtitle": "More options for: Storage controllers, drives and volumes",
-    "commands": [
-      {
-        "id": "ilorest-storage-flags-card",
-        "desc": "More options and gotchas for: Storage controllers, drives and volumes",
-        "cmd": "ilorest storagecontroller",
-        "hideCode": false,
-        "flags": [
-          [
-            "--volumes / --logicaldrives",
-            "Volumes"
-          ],
-          [
-            "Scope",
-            "PLDM RDE controllers (MR, SR, NS). For NVMe use select/get or Redfish"
-          ]
-        ],
-        "tags": [
-          "bmc",
-          "remote-management",
-          "ilorest",
-          "flags",
-          "options",
-          "storage",
-          "raid",
-          "drives"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "ilorest-recipes-4",
-    "badge": "ilorest",
-    "title": "HPE iLOrest: Related commands",
-    "subtitle": "Related commands for: Storage controllers, drives and volumes",
-    "commands": [
+      },
       {
         "id": "ilorest-storage-sub-1",
         "desc": "Drives on one controller",
@@ -498,6 +362,14 @@ const BMC_ILOREST_DATA = [
           [
             "list",
             "Like get, but includes @odata, Actions and Links"
+          ],
+          [
+            "set <prop>=<value>",
+            "Stage a change (changes state); quote the whole pair: \"Name=Two Words\""
+          ],
+          [
+            "commit",
+            "Apply staged changes (changes state); BIOS changes take effect after reboot"
           ]
         ],
         "tip": "set only stages: nothing changes until commit",
@@ -512,49 +384,7 @@ const BMC_ILOREST_DATA = [
           "bios",
           "redfish"
         ]
-      }
-    ]
-  },
-  {
-    "id": "ilorest-flags-5",
-    "badge": "ilorest",
-    "title": "HPE iLOrest: More options",
-    "subtitle": "More options for: Read any Redfish property with select and get",
-    "commands": [
-      {
-        "id": "ilorest-select-get-flags-card",
-        "desc": "More options and gotchas for: Read any Redfish property with select and get",
-        "cmd": "ilorest get BootOrderPolicy --select Bios.",
-        "hideCode": false,
-        "flags": [
-          [
-            "set <prop>=<value>",
-            "Stage a change (changes state); quote the whole pair: \"Name=Two Words\""
-          ],
-          [
-            "commit",
-            "Apply staged changes (changes state); BIOS changes take effect after reboot"
-          ]
-        ],
-        "tags": [
-          "bmc",
-          "remote-management",
-          "ilorest",
-          "flags",
-          "options",
-          "select",
-          "get",
-          "set"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "ilorest-recipes-5",
-    "badge": "ilorest",
-    "title": "HPE iLOrest: Related commands",
-    "subtitle": "Related commands for: Read any Redfish property with select and get",
-    "commands": [
+      },
       {
         "id": "ilorest-select-get-sub-1",
         "desc": "System resource paths",
@@ -608,34 +438,7 @@ const BMC_ILOREST_DATA = [
           [
             "PushPowerButton / Press",
             "Momentary press: the OS gets an ACPI shutdown"
-          ]
-        ],
-        "tip": "Every reboot form changes state: drain and get approval first",
-        "tags": [
-          "bmc",
-          "remote-management",
-          "ilorest",
-          "power",
-          "reboot",
-          "iloreset",
-          "forceoff",
-          "nmi"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "ilorest-flags-6",
-    "badge": "ilorest",
-    "title": "HPE iLOrest: More options",
-    "subtitle": "More options for: Power control",
-    "commands": [
-      {
-        "id": "ilorest-reboot-flags-card",
-        "desc": "More options and gotchas for: Power control",
-        "cmd": "ilorest reboot PushPowerButton",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "PressAndHold",
             "Hold the button: hard off"
@@ -649,25 +452,18 @@ const BMC_ILOREST_DATA = [
             "Restart the iLO; the session ends (changes state)"
           ]
         ],
+        "tip": "Every reboot form changes state: drain and get approval first",
         "tags": [
           "bmc",
           "remote-management",
           "ilorest",
-          "flags",
-          "options",
           "power",
           "reboot",
-          "iloreset"
+          "iloreset",
+          "forceoff",
+          "nmi"
         ]
-      }
-    ]
-  },
-  {
-    "id": "ilorest-recipes-6",
-    "badge": "ilorest",
-    "title": "HPE iLOrest: Related commands",
-    "subtitle": "Related commands for: Power control",
-    "commands": [
+      },
       {
         "id": "ilorest-reboot-sub-1",
         "desc": "Hard off (changes state)",
@@ -721,6 +517,14 @@ const BMC_ILOREST_DATA = [
           [
             "flashfwpkg <file>.fwpkg",
             "Upload and flash a package (changes state)"
+          ],
+          [
+            "uploadcomp --component <file>",
+            "Upload to the repository; needs iLO 5 1.48(a)+"
+          ],
+          [
+            "firmwareupdate <URI>",
+            "iLO and UEFI firmware from a URL (changes state)"
           ]
         ],
         "tip": "Read versions with serverinfo --firmware before and after an update",
@@ -734,49 +538,7 @@ const BMC_ILOREST_DATA = [
           "update",
           "fwpkg"
         ]
-      }
-    ]
-  },
-  {
-    "id": "ilorest-flags-7",
-    "badge": "ilorest",
-    "title": "HPE iLOrest: More options",
-    "subtitle": "More options for: Firmware integrity and the iLO repository",
-    "commands": [
-      {
-        "id": "ilorest-firmware-flags-card",
-        "desc": "More options and gotchas for: Firmware integrity and the iLO repository",
-        "cmd": "ilorest fwintegritycheck --results",
-        "hideCode": false,
-        "flags": [
-          [
-            "uploadcomp --component <file>",
-            "Upload to the repository; needs iLO 5 1.48(a)+"
-          ],
-          [
-            "firmwareupdate <URI>",
-            "iLO and UEFI firmware from a URL (changes state)"
-          ]
-        ],
-        "tags": [
-          "bmc",
-          "remote-management",
-          "ilorest",
-          "flags",
-          "options",
-          "firmware",
-          "integrity",
-          "repository"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "ilorest-recipes-7",
-    "badge": "ilorest",
-    "title": "HPE iLOrest: Related commands",
-    "subtitle": "Related commands for: Firmware integrity and the iLO repository",
-    "commands": [
+      },
       {
         "id": "ilorest-firmware-sub-1",
         "desc": "Installed firmware versions",
@@ -830,33 +592,7 @@ const BMC_ILOREST_DATA = [
           [
             "--network_ipv4 / --nameservers",
             "Change the address or DNS; needs an iLO reset (changes state)"
-          ]
-        ],
-        "tip": "Don't put credentials in the ISO URL; use a share that doesn't need them",
-        "tags": [
-          "bmc",
-          "remote-management",
-          "ilorest",
-          "ethernet",
-          "network",
-          "virtualmedia",
-          "iso"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "ilorest-flags-8",
-    "badge": "ilorest",
-    "title": "HPE iLOrest: More options",
-    "subtitle": "More options for: iLO network settings and virtual media",
-    "commands": [
-      {
-        "id": "ilorest-network-media-flags-card",
-        "desc": "More options and gotchas for: iLO network settings and virtual media",
-        "cmd": "ilorest ethernet",
-        "hideCode": false,
-        "flags": [
+          ],
           [
             "virtualmedia",
             "Show mounted media"
@@ -870,25 +606,17 @@ const BMC_ILOREST_DATA = [
             "Eject"
           ]
         ],
+        "tip": "Don't put credentials in the ISO URL; use a share that doesn't need them",
         "tags": [
           "bmc",
           "remote-management",
           "ilorest",
-          "flags",
-          "options",
           "ethernet",
           "network",
-          "virtualmedia"
+          "virtualmedia",
+          "iso"
         ]
-      }
-    ]
-  },
-  {
-    "id": "ilorest-recipes-8",
-    "badge": "ilorest",
-    "title": "HPE iLOrest: Related commands",
-    "subtitle": "Related commands for: iLO network settings and virtual media",
-    "commands": [
+      },
       {
         "id": "ilorest-network-media-sub-1",
         "desc": "What is mounted now",

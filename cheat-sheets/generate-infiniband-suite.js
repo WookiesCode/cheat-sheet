@@ -2,6 +2,7 @@
 // Generates all 17 standalone InfiniBand / RDMA cheat sheets and updates the InfiniBand dropdown across all HTML sheets.
 const fs = require('fs');
 const path = require('path');
+const { mergeCommandCards } = require('./generate-card-utils');
 const vm = require('vm');
 
 // 1. Read infiniband.js to extract IB_DATA
@@ -177,7 +178,7 @@ function buildIbSectionCards(sec) {
     ]
   });
 
-  return cards;
+  return mergeCommandCards(cards);
 }
 
 // 6. Generate JS file for each InfiniBand sub-sheet

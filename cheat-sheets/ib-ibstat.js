@@ -24,6 +24,10 @@ const IB_IB_IBSTAT_DATA = [
           [
             "-p",
             "Display a list of port GUIDs only"
+          ],
+          [
+            "ibstatus",
+            "Concise shell script wrapper showing active state, LID, SM LID, rate (400 Gbps NDR), and link_layer"
           ]
         ],
         "tip": "LinkUp + State:Init = Subnet Manager (OpenSM/UFM) is not active!",
@@ -33,41 +37,7 @@ const IB_IB_IBSTAT_DATA = [
           "triage",
           "rdma"
         ]
-      }
-    ]
-  },
-  {
-    "id": "ibstat-flags",
-    "badge": "ibs",
-    "title": "ibstat: Flags & Options Reference",
-    "subtitle": "Key arguments, parameters, and filtering flags for ibstat",
-    "commands": [
-      {
-        "id": "ibstat-flags-card",
-        "desc": "Full options breakdown and parameter syntax for ibstat",
-        "cmd": "ibstat -h",
-        "flags": [
-          [
-            "ibstatus",
-            "Concise shell script wrapper showing active state, LID, SM LID, rate (400 Gbps NDR), and link_layer"
-          ]
-        ],
-        "details": "Common diagnostic, verbose, and targeting flags for ibstat in high-performance cluster environments.",
-        "tags": [
-          "ibstat",
-          "flags",
-          "options",
-          "syntax"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "ibstat-subcmds",
-    "badge": "ibs",
-    "title": "ibstat: Common Recipes & Pipelines",
-    "subtitle": "Verified production bash one-liners and automation pipelines using ibstat",
-    "commands": [
+      },
       {
         "id": "ibstat-sub-1",
         "desc": "Condensed multi-HCA summary of all 8 GPU-facing rail HCAs on a compute node",

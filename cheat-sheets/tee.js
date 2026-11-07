@@ -10,8 +10,8 @@ const TEE_DATA = [
       {
         "id": "tee-sudo-sysfs-logging-main",
         "desc": "Write to root-owned /sys, /proc, or /etc files via sudo or capture live command output to a log file while watching it",
-        "cmd": "echo 'performance' | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor",
-        "details": "'echo val > /sys/...' fails with Permission Denied because the shell performs the '>' redirection as your unprivileged user BEFORE invoking sudo. Piping into 'tee' runs the file open() syscall as root AND supports writing to multiple wildcard files at once.",
+        "cmd": "echo 'performance' | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor",
+        "details": "'echo val > /sys/...' fails with Permission Denied because the shell performs the '>' redirection as your unprivileged user BEFORE invoking sudo. Piping into 'sudo tee' runs the file open() syscall as root AND supports writing to multiple wildcard files at once. Why root is dangerous, and how to use sudo well: see the sudo & root sheet.",
         "flags": [
           [
             "-a",

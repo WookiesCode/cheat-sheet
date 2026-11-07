@@ -24,6 +24,14 @@ const HWREF_HW_MEMORY_DATA = [
           [
             "Speed vs Configured Memory Speed",
             "What the DIMM supports vs what it runs at now"
+          ],
+          [
+            "Size: No Module Installed",
+            "An empty slot"
+          ],
+          [
+            "Serial Number",
+            "Goes in the RMA"
           ]
         ],
         "tip": "Compare installed DIMMs with the order: a missing DIMM shows as an empty Locator",
@@ -37,49 +45,7 @@ const HWREF_HW_MEMORY_DATA = [
           "serial",
           "memory"
         ]
-      }
-    ]
-  },
-  {
-    "id": "memory-flags-1",
-    "badge": "memory",
-    "title": "Memory population: More options",
-    "subtitle": "More options for: Every DIMM slot: populated, size, speed, part and serial",
-    "commands": [
-      {
-        "id": "mem-dmidecode-flags-card",
-        "desc": "More options and gotchas for: Every DIMM slot: populated, size, speed, part and serial",
-        "cmd": "sudo dmidecode -t memory | grep -E 'Locator|Size|Speed|Part Number|Serial Number'",
-        "hideCode": false,
-        "flags": [
-          [
-            "Size: No Module Installed",
-            "An empty slot"
-          ],
-          [
-            "Serial Number",
-            "Goes in the RMA"
-          ]
-        ],
-        "tags": [
-          "hardware",
-          "reference",
-          "memory",
-          "flags",
-          "options",
-          "dimm",
-          "dmidecode",
-          "locator"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "memory-recipes-1",
-    "badge": "memory",
-    "title": "Memory population: Related commands",
-    "subtitle": "Related commands for: Every DIMM slot: populated, size, speed, part and serial",
-    "commands": [
+      },
       {
         "id": "mem-dmidecode-sub-1",
         "desc": "How many DIMMs are installed",
@@ -147,6 +113,14 @@ const HWREF_HW_MEMORY_DATA = [
           [
             "Intel Xeon 6700P",
             "8 channels, DDR5-6400, MRDIMM up to 8000 MT/s"
+          ],
+          [
+            "Highest common speed",
+            "The system runs every DIMM at the speed the slowest DIMM and the layout allow"
+          ],
+          [
+            "2 DPC",
+            "Two DIMMs per channel usually lowers the speed; check the server's memory guide"
           ]
         ],
         "tip": "One DIMM per channel on every channel is usually the fastest layout",
@@ -160,40 +134,6 @@ const HWREF_HW_MEMORY_DATA = [
           "xeon",
           "ddr5",
           "mrdimm"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "memory-flags-2",
-    "badge": "memory",
-    "title": "Memory population: More options",
-    "subtitle": "More options for: Channels per socket on current CPUs",
-    "commands": [
-      {
-        "id": "mem-channels-flags-card",
-        "desc": "More options and gotchas for: Channels per socket on current CPUs",
-        "cmd": "lscpu | grep -E 'Model name|Socket|NUMA node\\(s\\)'",
-        "hideCode": false,
-        "flags": [
-          [
-            "Highest common speed",
-            "The system runs every DIMM at the speed the slowest DIMM and the layout allow"
-          ],
-          [
-            "2 DPC",
-            "Two DIMMs per channel usually lowers the speed; check the server's memory guide"
-          ]
-        ],
-        "tags": [
-          "hardware",
-          "reference",
-          "memory",
-          "flags",
-          "options",
-          "channels",
-          "dpc",
-          "epyc"
         ]
       }
     ]
@@ -221,6 +161,10 @@ const HWREF_HW_MEMORY_DATA = [
           [
             "Mixed part numbers",
             "Avoid: the system falls back to the slowest common timing"
+          ],
+          [
+            "After a swap",
+            "Replacement DIMM: same part number, same slot"
           ]
         ],
         "tip": "Check balance after every DIMM replacement",
@@ -233,45 +177,7 @@ const HWREF_HW_MEMORY_DATA = [
           "population",
           "dimm"
         ]
-      }
-    ]
-  },
-  {
-    "id": "memory-flags-3",
-    "badge": "memory",
-    "title": "Memory population: More options",
-    "subtitle": "More options for: Balanced population check",
-    "commands": [
-      {
-        "id": "mem-balance-flags-card",
-        "desc": "More options and gotchas for: Balanced population check",
-        "cmd": "sudo dmidecode -t memory | awk -F: '/Size:/{s=$2} /Bank Locator/{print $2 \" ->\" s}' | sort",
-        "hideCode": false,
-        "flags": [
-          [
-            "After a swap",
-            "Replacement DIMM: same part number, same slot"
-          ]
-        ],
-        "tags": [
-          "hardware",
-          "reference",
-          "memory",
-          "flags",
-          "options",
-          "balance",
-          "numa",
-          "population"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "memory-recipes-3",
-    "badge": "memory",
-    "title": "Memory population: Related commands",
-    "subtitle": "Related commands for: Balanced population check",
-    "commands": [
+      },
       {
         "id": "mem-balance-sub-1",
         "desc": "Memory per NUMA node",
@@ -311,6 +217,10 @@ const HWREF_HW_MEMORY_DATA = [
           [
             "Map to slot",
             "Match the EDAC row/channel to the dmidecode Locator"
+          ],
+          [
+            "BMC SEL",
+            "Also check ipmitool sel elist for memory events"
           ]
         ],
         "tip": "The ECC sheet under Server internals goes deeper",
@@ -323,45 +233,7 @@ const HWREF_HW_MEMORY_DATA = [
           "errors",
           "rma"
         ]
-      }
-    ]
-  },
-  {
-    "id": "memory-flags-4",
-    "badge": "memory",
-    "title": "Memory population: More options",
-    "subtitle": "More options for: Correctable errors per DIMM",
-    "commands": [
-      {
-        "id": "mem-errors-flags-card",
-        "desc": "More options and gotchas for: Correctable errors per DIMM",
-        "cmd": "sudo edac-util -v",
-        "hideCode": false,
-        "flags": [
-          [
-            "BMC SEL",
-            "Also check ipmitool sel elist for memory events"
-          ]
-        ],
-        "tags": [
-          "hardware",
-          "reference",
-          "memory",
-          "flags",
-          "options",
-          "ecc",
-          "edac",
-          "errors"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "memory-recipes-4",
-    "badge": "memory",
-    "title": "Memory population: Related commands",
-    "subtitle": "Related commands for: Correctable errors per DIMM",
-    "commands": [
+      },
       {
         "id": "mem-errors-sub-1",
         "desc": "EDAC's slot labels",

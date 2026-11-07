@@ -24,6 +24,14 @@ const MB_MB_EPYC_AGESA_DATA = [
           [
             "0xE6 / 0xE7 / 0xE8",
             "ABL2/ABL3: PMU (PHY Microcontroller Unit) DDR4/DDR5 training across populated DIMM channels"
+          ],
+          [
+            "0xEA / 0xEB / 0xED",
+            "ABL Memory Training Error: PMU failed to train a DDR4/DDR5 channel (reseat DIMMs, check CPU socket torque of 12.0–13.5 in-lbs on Torx T20)"
+          ],
+          [
+            "0xEE / 0xEF",
+            "ABL Stage complete — releasing x86 Zen cores from reset to begin AMI Aptio V SEC/PEI (0x10+)"
           ]
         ],
         "tip": "EPYC SP3/SP5 sockets are extremely torque-sensitive: uneven Torx T20 screws cause 0xEA/0x55!",
@@ -48,36 +56,6 @@ const MB_MB_EPYC_AGESA_DATA = [
           "sp5",
           "genoa",
           "turin"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "amd-epyc-agesa-flags-1",
-    "badge": "epyc",
-    "title": "AMD EPYC AGESA & PSP: POST Hex Codes & Options",
-    "subtitle": "Key hex codes, parameters, and error indicators for Understand the 2-Stage POST sequence on GIGABYTE & ASUS AMD EPYC (Rome/Milan/Genoa/Turin) boards",
-    "commands": [
-      {
-        "id": "epyc-2stage-abl-post-flags-card",
-        "desc": "Hex code lookup and diagnostics breakdown for Understand the 2-Stage POST sequence on GIGABYTE & ASUS AMD EPYC (Rome/Milan/Genoa/Turin) boards",
-        "cmd": "Stage 1: AMD PSP & AGESA BootLoader (0xE0..0xFF / 0xD0..0xDF)   -->   Stage 2: AMI Aptio V UEFI (0x10..0xAD)",
-        "flags": [
-          [
-            "0xEA / 0xEB / 0xED",
-            "ABL Memory Training Error: PMU failed to train a DDR4/DDR5 channel (reseat DIMMs, check CPU socket torque of 12.0–13.5 in-lbs on Torx T20)"
-          ],
-          [
-            "0xEE / 0xEF",
-            "ABL Stage complete — releasing x86 Zen cores from reset to begin AMI Aptio V SEC/PEI (0x10+)"
-          ]
-        ],
-        "details": "Common operational and diagnostic POST / Q-Codes on ASUS and GIGABYTE server motherboards.",
-        "tags": [
-          "AMD EPYC AGESA & PSP",
-          "flags",
-          "options",
-          "syntax"
         ]
       }
     ]

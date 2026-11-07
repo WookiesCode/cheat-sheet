@@ -24,6 +24,14 @@ const SRE_INCIDENT_RESPONSE_DATA = [
           [
             "Communications lead (CL)",
             "Regular updates to stakeholders; fields questions"
+          ],
+          [
+            "Handoff",
+            "Explicit: \"You're now IC, okay?\", and wait for the yes"
+          ],
+          [
+            "Declare early",
+            "Declaring and standing down costs less than a late incident"
           ]
         ],
         "tip": "One person changes production at a time: the Ops lead",
@@ -36,40 +44,6 @@ const SRE_INCIDENT_RESPONSE_DATA = [
           "ic",
           "comms",
           "sre"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "incident-flags-1",
-    "badge": "incident",
-    "title": "Incident response: More options",
-    "subtitle": "More options for: Roles",
-    "commands": [
-      {
-        "id": "ir-roles-flags-card",
-        "desc": "More options and gotchas for: Roles",
-        "cmd": "printf '%s\\n' 'IC: <name>' 'Ops lead: <name>' 'Comms lead: <name>' 'Started (UTC): '\"$(date -u +%FT%TZ)\"",
-        "hideCode": false,
-        "flags": [
-          [
-            "Handoff",
-            "Explicit: \"You're now IC, okay?\", and wait for the yes"
-          ],
-          [
-            "Declare early",
-            "Declaring and standing down costs less than a late incident"
-          ]
-        ],
-        "tags": [
-          "sre",
-          "devops",
-          "incident",
-          "flags",
-          "options",
-          "incident",
-          "roles",
-          "ic"
         ]
       }
     ]
@@ -97,6 +71,14 @@ const SRE_INCIDENT_RESPONSE_DATA = [
           [
             "journalctl -p err -b",
             "Errors since boot"
+          ],
+          [
+            "dmesg -T --level=err,crit",
+            "Kernel errors (Xid, MCE, link down)"
+          ],
+          [
+            "Scheduler",
+            "Is it already drained? sinfo -R / kubectl get node"
           ]
         ],
         "tip": "Mitigate first (drain, fail over), find the root cause after",
@@ -110,49 +92,7 @@ const SRE_INCIDENT_RESPONSE_DATA = [
           "journalctl",
           "dmesg"
         ]
-      }
-    ]
-  },
-  {
-    "id": "incident-flags-2",
-    "badge": "incident",
-    "title": "Incident response: More options",
-    "subtitle": "More options for: First 15 minutes on a node: facts, in UTC",
-    "commands": [
-      {
-        "id": "ir-first15-flags-card",
-        "desc": "More options and gotchas for: First 15 minutes on a node: facts, in UTC",
-        "cmd": "date -u; uptime; journalctl -p err -b --since '-1h' --no-pager | tail -n 50",
-        "hideCode": false,
-        "flags": [
-          [
-            "dmesg -T --level=err,crit",
-            "Kernel errors (Xid, MCE, link down)"
-          ],
-          [
-            "Scheduler",
-            "Is it already drained? sinfo -R / kubectl get node"
-          ]
-        ],
-        "tags": [
-          "sre",
-          "devops",
-          "incident",
-          "flags",
-          "options",
-          "triage",
-          "timeline",
-          "utc"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "incident-recipes-2",
-    "badge": "incident",
-    "title": "Incident response: Related commands",
-    "subtitle": "Related commands for: First 15 minutes on a node: facts, in UTC",
-    "commands": [
+      },
       {
         "id": "ir-first15-sub-1",
         "desc": "Kernel errors",
@@ -220,6 +160,10 @@ const SRE_INCIDENT_RESPONSE_DATA = [
           [
             "Field notes",
             "The home page's Field notes log entries per server, in Markdown"
+          ],
+          [
+            "Feeds the postmortem",
+            "A good timeline writes half the postmortem"
           ]
         ],
         "tip": "Replace the placeholders before you run it",
@@ -231,36 +175,6 @@ const SRE_INCIDENT_RESPONSE_DATA = [
           "notes",
           "case",
           "postmortem"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "incident-flags-3",
-    "badge": "incident",
-    "title": "Incident response: More options",
-    "subtitle": "More options for: Keep a timeline as you go",
-    "commands": [
-      {
-        "id": "ir-timeline-flags-card",
-        "desc": "More options and gotchas for: Keep a timeline as you go",
-        "cmd": "echo \"$(date -u +%FT%TZ) <what you saw or did>\" >> cases/<ticket>/timeline.md",
-        "hideCode": false,
-        "flags": [
-          [
-            "Feeds the postmortem",
-            "A good timeline writes half the postmortem"
-          ]
-        ],
-        "tags": [
-          "sre",
-          "devops",
-          "incident",
-          "flags",
-          "options",
-          "timeline",
-          "notes",
-          "case"
         ]
       }
     ]
@@ -288,6 +202,10 @@ const SRE_INCIDENT_RESPONSE_DATA = [
           [
             "Root cause vs trigger",
             "Why it was possible vs what set it off"
+          ],
+          [
+            "Action items",
+            "Each with one owner and a date"
           ]
         ],
         "tip": "Action items without owners don't get done",
@@ -299,36 +217,6 @@ const SRE_INCIDENT_RESPONSE_DATA = [
           "blameless",
           "rca",
           "actions"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "incident-flags-4",
-    "badge": "incident",
-    "title": "Incident response: More options",
-    "subtitle": "More options for: Blameless postmortem outline",
-    "commands": [
-      {
-        "id": "ir-postmortem-flags-card",
-        "desc": "More options and gotchas for: Blameless postmortem outline",
-        "cmd": "## Summary\n## Impact (who, how long)\n## Timeline (UTC)\n## Root cause and trigger\n## What went well / what didn't\n## Action items (owner, due date)",
-        "hideCode": true,
-        "flags": [
-          [
-            "Action items",
-            "Each with one owner and a date"
-          ]
-        ],
-        "tags": [
-          "sre",
-          "devops",
-          "incident",
-          "flags",
-          "options",
-          "postmortem",
-          "blameless",
-          "rca"
         ]
       }
     ]

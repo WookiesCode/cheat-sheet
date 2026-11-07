@@ -2,6 +2,7 @@
 // Generates all 8 standalone DMTF Redfish cheat sheets and updates the Redfish dropdown across all HTML sheets.
 const fs = require('fs');
 const path = require('path');
+const { mergeCommandCards } = require('./generate-card-utils');
 
 // 1. Read redfish.js to extract REDFISH_CHEAT_SHEET_DATA
 const rfJs = fs.readFileSync(path.join(__dirname, 'redfish.js'), 'utf8');
@@ -289,7 +290,7 @@ function buildRfSectionCards(sec) {
     });
   }
 
-  return cards;
+  return mergeCommandCards(cards);
 }
 
 // 6. Generate JS file for each Redfish sub-sheet

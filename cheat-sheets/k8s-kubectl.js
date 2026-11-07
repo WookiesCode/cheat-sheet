@@ -37,15 +37,7 @@ const CTR_K8S_KUBECTL_DATA = [
           "cluster",
           "namespace"
         ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-kubectl-recipes-1",
-    "badge": "ctx",
-    "title": "kubectl Basics & Contexts: Related commands",
-    "subtitle": "Related commands for: Show which cluster and namespace kubectl is pointed at",
-    "commands": [
+      },
       {
         "id": "kubectl-contexts-sub-1",
         "desc": "Just the active context name",
@@ -116,6 +108,18 @@ const CTR_K8S_KUBECTL_DATA = [
           [
             "-o wide",
             "Adds NODE and IP columns: which server is the pod on?"
+          ],
+          [
+            "READY 1/2",
+            "One of two containers in the pod isn't ready"
+          ],
+          [
+            "RESTARTS",
+            "A climbing number means a crash loop"
+          ],
+          [
+            "-l app=<label>",
+            "Filter by label"
           ]
         ],
         "tip": "-o wide shows the node",
@@ -130,54 +134,7 @@ const CTR_K8S_KUBECTL_DATA = [
           "namespace",
           "list"
         ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-kubectl-flags-2",
-    "badge": "ctx",
-    "title": "kubectl Basics & Contexts: More options",
-    "subtitle": "More options for: List pods in every namespace with their node and IP",
-    "commands": [
-      {
-        "id": "kubectl-get-wide-flags-card",
-        "desc": "More options and gotchas for: List pods in every namespace with their node and IP",
-        "cmd": "kubectl get pods -A -o wide",
-        "hideCode": false,
-        "flags": [
-          [
-            "READY 1/2",
-            "One of two containers in the pod isn't ready"
-          ],
-          [
-            "RESTARTS",
-            "A climbing number means a crash loop"
-          ],
-          [
-            "-l app=<label>",
-            "Filter by label"
-          ]
-        ],
-        "tags": [
-          "kubernetes",
-          "k8s",
-          "kubectl",
-          "containers",
-          "flags",
-          "options",
-          "get",
-          "pods",
-          "wide"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-kubectl-recipes-2",
-    "badge": "ctx",
-    "title": "kubectl Basics & Contexts: Related commands",
-    "subtitle": "Related commands for: List pods in every namespace with their node and IP",
-    "commands": [
+      },
       {
         "id": "kubectl-get-wide-sub-1",
         "desc": "Pods, services, deployments and replica sets in one namespace (not literally all kinds)",
@@ -233,6 +190,10 @@ const CTR_K8S_KUBECTL_DATA = [
           [
             "-o custom-columns=HEADER:.path,...",
             "Your own table; paths are the same as in -o yaml"
+          ],
+          [
+            "--sort-by=.metadata.creationTimestamp",
+            "Sort rows by any field"
           ]
         ],
         "tip": "Find the path in -o yaml, then use it in jsonpath",
@@ -248,46 +209,7 @@ const CTR_K8S_KUBECTL_DATA = [
           "jq",
           "sort"
         ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-kubectl-flags-3",
-    "badge": "ctx",
-    "title": "kubectl Basics & Contexts: More options",
-    "subtitle": "More options for: Print exactly the fields you need with jsonpath or custom columns",
-    "commands": [
-      {
-        "id": "kubectl-output-formats-flags-card",
-        "desc": "More options and gotchas for: Print exactly the fields you need with jsonpath or custom columns",
-        "cmd": "kubectl get pods -n <ns> -o custom-columns=NAME:.metadata.name,NODE:.spec.nodeName,PHASE:.status.phase",
-        "hideCode": false,
-        "flags": [
-          [
-            "--sort-by=.metadata.creationTimestamp",
-            "Sort rows by any field"
-          ]
-        ],
-        "tags": [
-          "kubernetes",
-          "k8s",
-          "kubectl",
-          "containers",
-          "flags",
-          "options",
-          "output",
-          "jsonpath",
-          "custom-columns"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-kubectl-recipes-3",
-    "badge": "ctx",
-    "title": "kubectl Basics & Contexts: Related commands",
-    "subtitle": "Related commands for: Print exactly the fields you need with jsonpath or custom columns",
-    "commands": [
+      },
       {
         "id": "kubectl-output-formats-sub-1",
         "desc": "Full pod definition and status",
@@ -372,15 +294,7 @@ const CTR_K8S_KUBECTL_DATA = [
           "docs",
           "auth"
         ]
-      }
-    ]
-  },
-  {
-    "id": "k8s-kubectl-recipes-4",
-    "badge": "ctx",
-    "title": "kubectl Basics & Contexts: Related commands",
-    "subtitle": "Related commands for: Look up what a field means without leaving the terminal",
-    "commands": [
+      },
       {
         "id": "kubectl-explain-sub-1",
         "desc": "All kinds the cluster knows, with short names",

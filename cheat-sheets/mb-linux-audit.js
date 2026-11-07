@@ -111,6 +111,10 @@ const MB_MB_LINUX_AUDIT_DATA = [
           [
             "ACS (Access Control Services)",
             "Set ACS Control = Disabled in BIOS so GPUDirect RDMA & P2P stay on PCIe switches instead of bottlenecking through the CPU"
+          ],
+          [
+            "CPU Power / C-States",
+            "Set Power Profile = Performance, Package C-State = C0/C1, and DF C-States = Disabled to prevent NCCL latency jitter"
           ]
         ],
         "tip": "After clearing CMOS or flashing BIOS, re-verify Above 4G, MMIO 56T & ACS Disabled!",
@@ -129,32 +133,6 @@ const MB_MB_LINUX_AUDIT_DATA = [
           "hgx",
           "asus",
           "gigabyte"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "inband-board-audit-flags-3",
-    "badge": "dmi",
-    "title": "In-Band DMI & ACPI Audit: POST Hex Codes & Options",
-    "subtitle": "Key hex codes, parameters, and error indicators for Mandatory BIOS settings on ASUS (ESC N8 / ESC8000 / K14 / Z13) & GIGABYTE (G593 / G493 / MZ / MS) 8-GPU AI servers",
-    "commands": [
-      {
-        "id": "ai-server-bios-checklist-flags-card",
-        "desc": "Hex code lookup and diagnostics breakdown for Mandatory BIOS settings on ASUS (ESC N8 / ESC8000 / K14 / Z13) & GIGABYTE (G593 / G493 / MZ / MS) 8-GPU AI servers",
-        "cmd": "Above 4G Decoding = Enabled  |  MMIO High Base = 56T  |  ACS = Disabled  |  IOMMU = Disabled (or iommu=pt)",
-        "flags": [
-          [
-            "CPU Power / C-States",
-            "Set Power Profile = Performance, Package C-State = C0/C1, and DF C-States = Disabled to prevent NCCL latency jitter"
-          ]
-        ],
-        "details": "Common operational and diagnostic POST / Q-Codes on ASUS and GIGABYTE server motherboards.",
-        "tags": [
-          "In-Band DMI & ACPI Audit",
-          "flags",
-          "options",
-          "syntax"
         ]
       }
     ]

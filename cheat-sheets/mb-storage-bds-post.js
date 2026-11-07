@@ -24,6 +24,18 @@ const MB_MB_STORAGE_BDS_POST_DATA = [
           [
             "0xA0 / 0xA1",
             "IDE / SATA AHCI controller initialization started (A0) and reset (A1)"
+          ],
+          [
+            "0xA2 / 0xA3",
+            "IDE / SATA / M.2 Drive Detect (A2) and Enable (A3): Hang at 0xA2 = dead SATA DOM, failing M.2 SSD, or bad backplane SATA cable!"
+          ],
+          [
+            "0xA4 / 0xA5 / 0xA6",
+            "SCSI / SAS / NVMe backplane bus initialization (A4), reset (A5), and detect (A6)"
+          ],
+          [
+            "0xB4",
+            "USB Hot-Plug: Frequent pause point when a faulty USB flash drive or corrupted BMC Virtual Media ISO is mounted"
           ]
         ],
         "tip": "Stuck on 0xA2 = unplug SATA/M.2 drives one by one to find the bad drive!",
@@ -51,40 +63,6 @@ const MB_MB_STORAGE_BDS_POST_DATA = [
     ]
   },
   {
-    "id": "storage-bds-post-flags-1",
-    "badge": "bds",
-    "title": "Storage & Boot BDS: POST Hex Codes & Options",
-    "subtitle": "Key hex codes, parameters, and error indicators for Decode SATA, SAS, M",
-    "commands": [
-      {
-        "id": "post-a0-a7-storage-usb-flags-card",
-        "desc": "Hex code lookup and diagnostics breakdown for Decode SATA, SAS, M",
-        "cmd": "POST 0x99 (Super IO)  ->  0x9C (USB Detect)  ->  0xA0 (IDE/AHCI Init)  ->  0xA2 (Drive Detect)  ->  0xB4 (USB Hotplug)",
-        "flags": [
-          [
-            "0xA2 / 0xA3",
-            "IDE / SATA / M.2 Drive Detect (A2) and Enable (A3): Hang at 0xA2 = dead SATA DOM, failing M.2 SSD, or bad backplane SATA cable!"
-          ],
-          [
-            "0xA4 / 0xA5 / 0xA6",
-            "SCSI / SAS / NVMe backplane bus initialization (A4), reset (A5), and detect (A6)"
-          ],
-          [
-            "0xB4",
-            "USB Hot-Plug: Frequent pause point when a faulty USB flash drive or corrupted BMC Virtual Media ISO is mounted"
-          ]
-        ],
-        "details": "Common operational and diagnostic POST / Q-Codes on ASUS and GIGABYTE server motherboards.",
-        "tags": [
-          "Storage & Boot BDS",
-          "flags",
-          "options",
-          "syntax"
-        ]
-      }
-    ]
-  },
-  {
     "id": "storage-bds-post-cmd-2",
     "badge": "bds",
     "title": "Storage & Boot BDS: Decode UEFI Setup entry, PXE/NVMe boot selection, and OS handoff codes",
@@ -107,6 +85,18 @@ const MB_MB_STORAGE_BDS_POST_DATA = [
           [
             "0xAD",
             "Ready To Boot Event: UEFI POST is 100% finished and handing control to GRUB / Linux EFI stub / PXE NBP"
+          ],
+          [
+            "0xAE",
+            "Legacy Boot Event: Handing control to a legacy MBR bootloader"
+          ],
+          [
+            "0xAA / 0xA0 (Normal Run)",
+            "System has transitioned into ACPI APIC mode — OS is booted and running normally (ASUS Q-Code often rests on AA or A0 in Ubuntu)"
+          ],
+          [
+            "0x00 / 0xFF (At Power-On)",
+            "If stuck on 0x00 or 0xFF the instant power is pressed: CPU not executing reset vector (check 8-pin EPS12V cables, CPU VRMs, or BIOS flash)"
           ]
         ],
         "tip": "0xAB means the board is waiting at the BIOS prompt (connect BMC KVM/SOL)!",
@@ -129,40 +119,6 @@ const MB_MB_STORAGE_BDS_POST_DATA = [
           "grub",
           "boot",
           "acpi"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "storage-bds-post-flags-2",
-    "badge": "bds",
-    "title": "Storage & Boot BDS: POST Hex Codes & Options",
-    "subtitle": "Key hex codes, parameters, and error indicators for Decode UEFI Setup entry, PXE/NVMe boot selection, and OS handoff codes (`0xA9`–`0xAE`, `0xAA`, `0x00`)",
-    "commands": [
-      {
-        "id": "post-a9-ae-boot-handoff-flags-card",
-        "desc": "Hex code lookup and diagnostics breakdown for Decode UEFI Setup entry, PXE/NVMe boot selection, and OS handoff codes (`0xA9`–`0xAE`, `0xAA`, `0x00`)",
-        "cmd": "POST 0xA9 (Start Setup)  ->  0xAB (Setup Input Wait)  ->  0xAD (Ready To Boot)  ->  0xAA / 0x00 (OS Running)",
-        "flags": [
-          [
-            "0xAE",
-            "Legacy Boot Event: Handing control to a legacy MBR bootloader"
-          ],
-          [
-            "0xAA / 0xA0 (Normal Run)",
-            "System has transitioned into ACPI APIC mode — OS is booted and running normally (ASUS Q-Code often rests on AA or A0 in Ubuntu)"
-          ],
-          [
-            "0x00 / 0xFF (At Power-On)",
-            "If stuck on 0x00 or 0xFF the instant power is pressed: CPU not executing reset vector (check 8-pin EPS12V cables, CPU VRMs, or BIOS flash)"
-          ]
-        ],
-        "details": "Common operational and diagnostic POST / Q-Codes on ASUS and GIGABYTE server motherboards.",
-        "tags": [
-          "Storage & Boot BDS",
-          "flags",
-          "options",
-          "syntax"
         ]
       }
     ]

@@ -70,6 +70,10 @@ const MB_MB_GIGABYTE_SERVERS_DATA = [
           [
             "CLR_CMOS / BAT",
             "Short CLR_CMOS jumper for 10 seconds (with standby power off) to reset NVRAM settings if stuck at POST 0x61 or 0x94"
+          ],
+          [
+            "SYS_ERR / ID_LED",
+            "Front/Rear Blue UID LED (chassis identify) and Amber System Fault LED (triggered by PSU fault, fan fail, ECC uncorrectable, or thermal trip)"
           ]
         ],
         "tip": "If a GIGABYTE board won't POST after a failed BIOS flash, flip SW_BIOS to the backup ROM!",
@@ -86,32 +90,6 @@ const MB_MB_GIGABYTE_SERVERS_DATA = [
           "clr_cmos",
           "jumper",
           "dip-switch"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "gigabyte-server-board-flags-2",
-    "badge": "giga",
-    "title": "GIGABYTE Server Boards: POST Hex Codes & Options",
-    "subtitle": "Key hex codes, parameters, and error indicators for GIGABYTE server motherboard status LEDs (`BMC_RDY`, `CPU_ERR`), Dual-BIOS switches & CMOS jumpers",
-    "commands": [
-      {
-        "id": "gigabyte-leds-switches-jumpers-flags-card",
-        "desc": "Hex code lookup and diagnostics breakdown for GIGABYTE server motherboard status LEDs (`BMC_RDY`, `CPU_ERR`), Dual-BIOS switches & CMOS jumpers",
-        "cmd": "BMC_RDY LED (Blinking Green)   |   SW_BIOS / BIOS_SW (Dual-BIOS ROM Select)   |   CLR_CMOS (Pins 1-2 Short)",
-        "flags": [
-          [
-            "SYS_ERR / ID_LED",
-            "Front/Rear Blue UID LED (chassis identify) and Amber System Fault LED (triggered by PSU fault, fan fail, ECC uncorrectable, or thermal trip)"
-          ]
-        ],
-        "details": "Common operational and diagnostic POST / Q-Codes on ASUS and GIGABYTE server motherboards.",
-        "tags": [
-          "GIGABYTE Server Boards",
-          "flags",
-          "options",
-          "syntax"
         ]
       }
     ]
