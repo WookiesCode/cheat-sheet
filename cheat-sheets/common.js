@@ -853,6 +853,7 @@
           <footer class="board-foot">
             <button type="button" class="board-primary" data-board-act="copy">Copy shift handoff</button>
             <button type="button" data-board-act="print">Print handoff</button>
+            <button type="button" data-board-act="rack">▤ Rack view</button>
             <button type="button" data-board-act="new">+ New node</button>
           </footer>
         </div>`;
@@ -864,6 +865,7 @@
           const nodes = boardNodes();
           if (act.dataset.boardAct === 'copy') { copyVerbatim(handoffMarkdown(nodes)); showGlobalToast(`Copied the shift handoff (${nodes.length} nodes).`); }
           if (act.dataset.boardAct === 'print') printHandoff(nodes);
+          if (act.dataset.boardAct === 'rack') { closeBoard(); return openRack(); }
           if (act.dataset.boardAct === 'new') { closeBoard(); const chip = document.querySelector('.node-chip'); if (chip) openNodePicker(chip); }
           return;
         }
@@ -3260,6 +3262,7 @@
       { icon: '📖', label: 'Open manuals', sub: 'Offline man pages', kw: 'man manual manuals pages docs offline', run: () => openManuals() },
       { icon: '⚙', label: 'Capture script: kit or trail → one bash file', sub: 'Read-only commands, sudo -n, time limits; outputs saved to cases/<case>/logs/ and tarred', kw: 'capture script bash collect collection logs export kit trail run node sh download automate batch', run: () => openCapture() },
       { icon: '🔎', label: 'Explain a command', sub: 'Paste one from a ticket, KB or chat: what each part does and whether it is safe (e)', kw: 'explain explainer explainshell what does this command do flags meaning safe pasted understand decode', run: () => openExplain() },
+      { icon: '▤', label: 'Rack view: where is everything', sub: 'Every server and switch at its real U position, coloured by your node workspaces; click one to work on it', kw: 'rack view elevation where is location u position row cabinet inventory find server locate datacenter floor map', run: () => openRack() },
       { icon: '▦', label: 'Switch front panel: find a port', sub: 'Where is Ethernet33 / swp14 / ib 1/14/2 on the real panel, and how this switch numbers its ports', kw: 'front panel port find locate count numbering odd even cage osfp qsfp where is port switch face diagram layout', run: () => openPanel('find') },
       { icon: '🔌', label: 'Cable check: LLDP vs wiring manifest', sub: 'Wrong server, swapped pair, wrong NIC, missing, unexpected: on the front panel, with a fix list', kw: 'cable check cabling wiring manifest lldp neighbors miscabled swapped verify trace patch audit', run: () => openPanel('check') },
       { icon: '⇄', label: 'Switch Rosetta: same task, every network OS', sub: 'Optics, errors, LLDP, MAC, logs, bounce and save in Arista EOS, Cumulus NVUE, NX-OS, SONiC and Quantum MLNX-OS, plus the server end', kw: 'rosetta switch switches nos network os arista eos cumulus nvue nx-os nexus cisco sonic quantum mlnx-os infiniband optics transceiver lldp mac counters bounce save matrix', run: () => openRosetta('', 'sw') },
@@ -3304,6 +3307,10 @@
       });
       const set = quickSetEntity(q);
       if (set) out.push(set);
+      const gl = glossaryPaletteEntry(query);
+      if (gl) out.push(gl);
+      const rk = rackPaletteEntry(query);
+      if (rk) out.push(rk);
       if (looksLikeCommand(query)) { const cmd = query.trim(); out.push({ kind: 'set', strong: !set, icon: '🔎', label: `Explain: ${cmd.length > 60 ? cmd.slice(0, 60) + '…' : cmd}`, sub: 'What each part does, and whether it is safe to run', run: () => openExplain(cmd) }); }
       const sheets = paletteSheets()
         .map(sh => {
@@ -4636,8 +4643,9 @@ ${rmaTrailSection()}#### Action Requested:
     document.body.classList.toggle('keep-variants', KEEPS_VARIANTS.test(file));
     // index.html is Mission Control: no command cards, so the sheet chrome is hidden.
     document.body.classList.toggle('is-home', file === 'index.html' || file === '');
+    document.body.classList.toggle('is-notes', file === 'notes.html');
     // The portable build swaps <main> in place: re-add the Rosetta strip after the swap.
-    if (changed && !IN_WIDGET_FRAME) setTimeout(() => mountRosettaStrip(file), 60);
+    if (changed && !IN_WIDGET_FRAME) setTimeout(() => { mountRosettaStrip(file); mountNotesPage(file); }, 60);
   }
 
   function initCompact() {
@@ -7568,6 +7576,14 @@ ${rmaTrailSection()}#### Action Requested:
       safeInit('initCaseTrail', () => initCaseTrail());
       safeInit('initPractice', () => initPractice());
       safeInit('initExplain', () => initExplain());
+      safeInit('initRack', () => initRack());
+      safeInit('initGlossary', () => initGlossary());
+      safeInit('initNotesPage', () => {
+        const file = anatSheetFile || window.location.pathname.split('/').pop() || 'index.html';
+        // Old links to the home page's notes land on the notes page.
+        if ((file === 'index.html' || file === '') && location.hash === '#field-notes' && !window.portableOpenSheet) { location.replace('notes.html'); return; }
+        mountNotesPage(file);
+      });
       safeInit('initRosetta', () => initRosetta());
       safeInit('initKit', () => initKit());
       safeInit('initConsole', () => initConsole());
@@ -8808,19 +8824,19 @@ ${rmaTrailSection()}#### Action Requested:
   }
 
   function openFieldNotes() {
-    const lp = document.getElementById('launchpad');
-    if (fnEl && lp && !lp.hidden && fnEl.isConnected) {
+    const page = document.getElementById('notes-page');
+    if (fnEl && page && !page.hidden && fnEl.isConnected) {
       fnEl.scrollIntoView({ block: 'start', behavior: 'smooth' });
       const target = fnHost() ? fnEl.querySelector(fnActive() ? '.fn-editor' : '.fn-name') : fnEl.querySelector('.fn-host');
       setTimeout(() => target && target.focus({ preventScroll: true }), 350);
       return;
     }
-    if (window.portableOpenSheet) { window.portableOpenSheet('index.html', ''); setTimeout(openFieldNotes, 400); }
-    else window.location.href = 'index.html#field-notes';
+    if (window.portableOpenSheet) { window.portableOpenSheet('notes.html', ''); setTimeout(openFieldNotes, 400); }
+    else window.location.href = 'notes.html';
   }
 
-  function mountFieldNotes(lp) {
-    const slot = lp && lp.querySelector('.lp-notes-slot');
+  function mountFieldNotes(container) {
+    const slot = container && (container.querySelector('.lp-notes-slot') || container);
     if (!slot) return;
     if (!fnEl) {
       fnEl = document.createElement('section');
@@ -8931,7 +8947,8 @@ ${rmaTrailSection()}#### Action Requested:
   // stay visible; Compact, Theme, Manuals and the offline file move
   // into a More menu. Field Mode (phones) shows them all flat, as before.
   // -------------------------------------------------------------
-  const TOOLBAR_PRIMARY = ['global-search-btn', 'triage-modal-btn', 'kit-btn', 'trail-btn', 'practice-btn', 'explain-btn', 'console-btn'];
+  // Trail and Practice live in More (t and q still open them); Compact and the theme menu sit in the bar.
+  const TOOLBAR_PRIMARY = ['global-search-btn', 'triage-modal-btn', 'kit-btn', 'explain-btn', 'rack-btn', 'console-btn', 'density-toggle', 'theme-menu-wrapper'];
 
   function initToolbar() {
     const actions = document.querySelector('.top-bar .header-actions');
@@ -8949,13 +8966,21 @@ ${rmaTrailSection()}#### Action Requested:
       <div class="hdr-more-menu" role="menu"></div>`;
     const menu = wrap.querySelector('.hdr-more-menu');
     secondary.forEach(el => menu.appendChild(el));
+    // Field notes have their own page (notes.html); the More menu is where they are opened.
+    const notesBtn = document.createElement('button');
+    notesBtn.type = 'button';
+    notesBtn.id = 'notes-menu-btn';
+    notesBtn.className = 'action-btn notes-menu-btn';
+    notesBtn.innerHTML = '<span aria-hidden="true">📝</span><span>Field notes</span>';
+    notesBtn.addEventListener('click', () => openFieldNotes());
+    menu.appendChild(notesBtn);
     const tourBtn = document.createElement('button');
     tourBtn.type = 'button';
     tourBtn.className = 'action-btn tour-menu-btn';
     tourBtn.innerHTML = '<span aria-hidden="true">🧭</span><span>Take the tour</span>';
     tourBtn.addEventListener('click', () => startTour());
     menu.appendChild(tourBtn);
-    // Primary order: Search All, Triage, My kit, Trail, Practice, Explain, Terminal, More.
+    // Primary order: Search All, Triage, My kit, Explain, Rack, Terminal, Compact, Theme, More.
     TOOLBAR_PRIMARY.forEach(id => { const el = document.getElementById(id); if (el && el.parentNode === actions) actions.appendChild(el); });
     actions.appendChild(wrap);
     actions.classList.add('has-more');
@@ -9399,6 +9424,629 @@ ${rmaTrailSection()}#### Action Requested:
       queued = true;
       requestAnimationFrame(() => { queued = false; if (run()) repack(); });
     }).observe(document.body, { childList: true, subtree: true });
+  }
+
+  // -------------------------------------------------------------
+  // ACRONYM GLOSSARY
+  // The sheets are dense with acronyms (BMC, SEL, FRU, DOM, BER, FEC, PFC, MLAG…). Every one
+  // in the readable text gets a dotted underline and a fast hover card: what it stands for,
+  // and one plain line on what it is. Applied automatically to cards, page subtitles and the
+  // tool dialogs, never inside commands, code, inputs, the notes editor, buttons or links, so
+  // nothing changes what gets copied. Matching is case-sensitive and whole-word; ambiguous
+  // ones (SM: Subnet Manager or GPU multiprocessor; SCP: secure copy or Dell profile) are
+  // left out on purpose. Ctrl+K answers "BMC" or "what is BMC" too.
+  // -------------------------------------------------------------
+  const GLOSSARY = {
+    // Server hardware and management
+    BMC: ['Baseboard Management Controller', 'A small separate computer on the motherboard that powers, monitors and gives a console to the server over the network, even when the OS is down.'],
+    IPMI: ['Intelligent Platform Management Interface', 'The older standard protocol for talking to a BMC: power, sensors, event log, serial console.'],
+    DCMI: ['Data Center Manageability Interface', 'An IPMI extension for power readings and power capping.'],
+    SEL: ['System Event Log', 'The BMC’s log of hardware events: fan, PSU, memory and temperature alarms, power changes.'],
+    SDR: ['Sensor Data Record', 'The BMC’s list of sensors (temperatures, fans, voltages) and their thresholds.'],
+    FRU: ['Field Replaceable Unit', 'A part you can swap on site; also the stored record of its model, part and serial number.'],
+    SOL: ['Serial over LAN', 'The server’s serial console carried over the network by the BMC.'],
+    KVM: ['Keyboard, Video, Mouse', 'Remote screen and keyboard of a server, usually through the BMC web page.'],
+    OOB: ['Out of band', 'Managing a server through its BMC network instead of through its own OS.'],
+    iDRAC: ['integrated Dell Remote Access Controller', 'Dell’s BMC.'],
+    iLO: ['integrated Lights-Out', 'HPE’s BMC.'],
+    XCC: ['XClarity Controller', 'Lenovo’s BMC.'],
+    FQDD: ['Fully Qualified Device Descriptor', 'Dell’s stable name for a component, such as RAID.Integrated.1-1 or NIC.Slot.3-1.'],
+    IML: ['Integrated Management Log', 'HPE’s hardware event log (DIMMs, PSUs, fans).'],
+    IEL: ['iLO Event Log', 'HPE’s log of events about the iLO itself: logins, resets, settings.'],
+    AHS: ['Active Health System', 'HPE’s always-on telemetry log; the file HPE support asks for first.'],
+    TSR: ['Technical Support Report', 'Dell’s support bundle, now called SupportAssist collection.'],
+    FFDC: ['First Failure Data Capture', 'Lenovo’s service-data bundle for a support case.'],
+    PSU: ['Power Supply Unit', 'A server or switch power supply; most have two for redundancy.'],
+    PDU: ['Power Distribution Unit', 'The power strip in the rack that feeds the PSUs.'],
+    UPS: ['Uninterruptible Power Supply', 'Battery backup that carries the load through a short power cut.'],
+    DIMM: ['Dual Inline Memory Module', 'A memory stick.'],
+    RDIMM: ['Registered DIMM', 'Server memory with a register chip that buffers the address lines.'],
+    MRDIMM: ['Multiplexed Rank DIMM', 'A faster server DIMM that reads two ranks at once.'],
+    DPC: ['DIMMs Per Channel', 'How many memory sticks share one memory channel; more usually means slower.'],
+    ECC: ['Error-Correcting Code', 'Extra bits that let memory fix single-bit errors and detect worse ones.'],
+    EDAC: ['Error Detection And Correction', 'The Linux kernel subsystem that reports memory ECC errors.'],
+    MCE: ['Machine Check Exception', 'A hardware error the CPU reports to the OS (memory, cache, bus).'],
+    CPU: ['Central Processing Unit', 'The processor.'],
+    GPU: ['Graphics Processing Unit', 'The accelerator that runs AI and HPC work.'],
+    NUMA: ['Non-Uniform Memory Access', 'Each CPU socket has its own memory; reaching the other socket’s memory or devices is slower.'],
+    PCIe: ['PCI Express', 'The high-speed bus that connects GPUs, NICs and NVMe drives to the CPU.'],
+    BDF: ['Bus:Device.Function', 'A PCIe device’s address, such as 0000:8a:00.0.'],
+    AER: ['Advanced Error Reporting', 'PCIe’s error reporting: correctable and uncorrectable link errors.'],
+    ACS: ['Access Control Services', 'A PCIe feature that controls whether devices can talk to each other directly.'],
+    BIOS: ['Basic Input/Output System', 'The firmware that starts the server; on modern servers this is UEFI.'],
+    UEFI: ['Unified Extensible Firmware Interface', 'The modern firmware that replaced the BIOS.'],
+    POST: ['Power-On Self-Test', 'The firmware’s checks when the server starts, before the OS loads.'],
+    TPM: ['Trusted Platform Module', 'A security chip that stores keys and boot measurements.'],
+    SMBIOS: ['System Management BIOS', 'The firmware’s table of hardware facts that dmidecode reads.'],
+    DMI: ['Desktop Management Interface', 'The older name for the SMBIOS hardware table; hence dmidecode.'],
+    CPLD: ['Complex Programmable Logic Device', 'A small chip handling board-level logic such as power sequencing.'],
+    ASIC: ['Application-Specific Integrated Circuit', 'A chip built for one job, such as a switch’s packet engine.'],
+    FPGA: ['Field-Programmable Gate Array', 'A chip whose logic can be reprogrammed after manufacture.'],
+    NVRAM: ['Non-Volatile RAM', 'Memory that keeps its contents with the power off, such as firmware settings.'],
+    EEPROM: ['Electrically Erasable Programmable Read-Only Memory', 'Small rewritable memory, such as the chip in a transceiver that holds its identity.'],
+    CMOS: ['Complementary Metal-Oxide-Semiconductor', 'On a motherboard, the battery-backed settings memory.'],
+    ACPI: ['Advanced Configuration and Power Interface', 'The standard the OS uses for power states and hardware description.'],
+    NMI: ['Non-Maskable Interrupt', 'An interrupt the OS can’t ignore; used to force a crash dump of a hung server.'],
+    LED: ['Light-Emitting Diode', 'A status light.'],
+    UID: ['Unit Identification', 'The blue locator light that helps you find a server in the rack.'],
+    TDP: ['Thermal Design Power', 'The power a chip is designed to draw and the cooling must remove.'],
+    RU: ['Rack Unit', 'The height unit of rack gear: 1U is 1.75 in (44.45 mm).'],
+    RMA: ['Return Merchandise Authorization', 'The vendor’s approval to send a failed part back for replacement.'],
+    ASHRAE: ['American Society of Heating, Refrigerating and Air-Conditioning Engineers', 'Publishes the datacenter temperature and humidity guidelines.'],
+    CRAH: ['Computer Room Air Handler', 'The unit that cools the air in a datacenter room.'],
+    // GPUs
+    SXM: ['Server PCI Express Module', 'NVIDIA’s GPU module that plugs into an HGX baseboard with NVLink, instead of a PCIe slot.'],
+    HGX: ['NVIDIA HGX', 'NVIDIA’s 8-GPU baseboard platform that server makers build systems around.'],
+    DGX: ['NVIDIA DGX', 'NVIDIA’s own complete AI server systems.'],
+    MIG: ['Multi-Instance GPU', 'Splitting one GPU into several isolated smaller GPUs.'],
+    DCGM: ['Data Center GPU Manager', 'NVIDIA’s GPU health, diagnostics and telemetry tool (dcgmi).'],
+    HBM: ['High Bandwidth Memory', 'The stacked memory on a datacenter GPU.'],
+    CUDA: ['Compute Unified Device Architecture', 'NVIDIA’s GPU programming platform.'],
+    NCCL: ['NVIDIA Collective Communications Library', 'The library GPUs use to exchange data in multi-GPU training; nccl-tests measures it.'],
+    GSP: ['GPU System Processor', 'A processor on the GPU that runs part of the driver’s firmware.'],
+    VBIOS: ['Video BIOS', 'The GPU’s own firmware.'],
+    Xid: ['NVIDIA Xid error', 'An error code the NVIDIA driver writes to the kernel log; the number says what went wrong.'],
+    XID: ['NVIDIA Xid error', 'An error code the NVIDIA driver writes to the kernel log; the number says what went wrong.'],
+    SXid: ['NVSwitch Xid', 'An error code from an NVSwitch, logged by the driver or Fabric Manager.'],
+    // Storage
+    NVMe: ['Non-Volatile Memory Express', 'The protocol for SSDs attached over PCIe.'],
+    SMART: ['Self-Monitoring, Analysis and Reporting Technology', 'A drive’s own health counters (smartctl reads them).'],
+    SSD: ['Solid-State Drive', 'A flash drive.'],
+    HDD: ['Hard Disk Drive', 'A spinning disk.'],
+    SAS: ['Serial Attached SCSI', 'An enterprise drive interface.'],
+    SATA: ['Serial ATA', 'The common desktop drive interface.'],
+    RAID: ['Redundant Array of Independent Disks', 'Combining disks for redundancy, speed or both.'],
+    HBA: ['Host Bus Adapter', 'A card that connects drives or storage to the server without RAID logic.'],
+    JBOD: ['Just a Bunch Of Disks', 'A drive enclosure with no RAID controller of its own.'],
+    JBOF: ['Just a Bunch Of Flash', 'A JBOD full of NVMe flash drives.'],
+    SES: ['SCSI Enclosure Services', 'How a host reads an enclosure’s slots, LEDs, fans and PSUs.'],
+    LVM: ['Logical Volume Manager', 'Linux layer that pools disks into flexible volumes.'],
+    EDSFF: ['Enterprise and Datacenter Standard Form Factor', 'The E1.S / E1.L / E3.S / E3.L family of NVMe drive shapes.'],
+    IOPS: ['Input/Output Operations Per Second', 'How many reads or writes a drive handles per second.'],
+    TRIM: ['TRIM', 'The command that tells an SSD which blocks are no longer used.'],
+    // Networking and fabrics
+    NIC: ['Network Interface Card', 'The server’s network adapter.'],
+    HCA: ['Host Channel Adapter', 'An InfiniBand network adapter (such as a ConnectX card).'],
+    DPU: ['Data Processing Unit', 'A NIC with its own CPU cores that offloads networking and security (BlueField).'],
+    RDMA: ['Remote Direct Memory Access', 'Moving data between servers’ memory without the CPU copying it.'],
+    RoCE: ['RDMA over Converged Ethernet', 'RDMA carried over Ethernet instead of InfiniBand.'],
+    RoCEv2: ['RDMA over Converged Ethernet, version 2', 'RDMA over routable UDP/IP Ethernet.'],
+    IB: ['InfiniBand', 'A low-latency network for HPC and AI clusters.'],
+    NDR: ['Next Data Rate', 'InfiniBand at 400 Gb/s per port.'],
+    HDR: ['High Data Rate', 'InfiniBand at 200 Gb/s per port.'],
+    XDR: ['eXtended Data Rate', 'InfiniBand at 800 Gb/s per port.'],
+    LID: ['Local Identifier', 'The address the Subnet Manager gives each InfiniBand port.'],
+    GUID: ['Globally Unique Identifier', 'A fixed 64-bit ID burned into each InfiniBand device and port.'],
+    UFM: ['Unified Fabric Manager', 'NVIDIA’s InfiniBand fabric management software.'],
+    LLDP: ['Link Layer Discovery Protocol', 'Each device announces its name and port to the device at the other end of the cable.'],
+    LACP: ['Link Aggregation Control Protocol', 'Bundling several links into one logical link (a bond or port-channel).'],
+    MLAG: ['Multi-chassis Link Aggregation', 'One bond spread across two switches, so either switch can fail.'],
+    BGP: ['Border Gateway Protocol', 'The routing protocol datacenter fabrics use between switches.'],
+    EVPN: ['Ethernet VPN', 'BGP-based control plane for VXLAN overlays.'],
+    VXLAN: ['Virtual Extensible LAN', 'Carrying layer-2 networks over a routed layer-3 fabric.'],
+    VLAN: ['Virtual LAN', 'Splitting one physical network into separate logical ones.'],
+    VRF: ['Virtual Routing and Forwarding', 'Separate routing tables on one router or switch.'],
+    ECMP: ['Equal-Cost Multi-Path', 'Spreading traffic across several equally good routes.'],
+    MTU: ['Maximum Transmission Unit', 'The largest packet a link carries; mismatched MTUs cause odd failures.'],
+    PFC: ['Priority Flow Control', 'Pausing one traffic class to make Ethernet lossless for RoCE.'],
+    ECN: ['Explicit Congestion Notification', 'Switches mark packets to tell senders to slow down instead of dropping them.'],
+    QoS: ['Quality of Service', 'Giving some traffic classes priority over others.'],
+    ACL: ['Access Control List', 'Rules that permit or deny traffic (or file access).'],
+    MAC: ['Media Access Control address', 'A network interface’s hardware address.'],
+    ARP: ['Address Resolution Protocol', 'IPv4’s way of finding the MAC address for an IP address.'],
+    NDP: ['Neighbor Discovery Protocol', 'IPv6’s replacement for ARP.'],
+    SLAAC: ['Stateless Address Autoconfiguration', 'IPv6 hosts building their own address from router announcements.'],
+    DHCP: ['Dynamic Host Configuration Protocol', 'Handing out IP addresses automatically.'],
+    DNS: ['Domain Name System', 'Turning names into IP addresses.'],
+    NTP: ['Network Time Protocol', 'Keeping clocks in sync.'],
+    TCP: ['Transmission Control Protocol', 'Reliable, ordered network connections.'],
+    UDP: ['User Datagram Protocol', 'Simple, connectionless network packets.'],
+    ICMP: ['Internet Control Message Protocol', 'Ping and network error messages.'],
+    IP: ['Internet Protocol', 'The addressing layer of the internet.'],
+    LAN: ['Local Area Network', 'A network within a site.'],
+    ToR: ['Top of Rack', 'The switch at the top of a rack that the servers plug into.'],
+    NOS: ['Network Operating System', 'The OS on a switch: EOS, Cumulus, NX-OS, SONiC, MLNX-OS.'],
+    FDB: ['Forwarding Database', 'A switch’s table of which MAC address lives on which port.'],
+    SNMP: ['Simple Network Management Protocol', 'An older protocol for polling and alerting on devices.'],
+    CDP: ['Cisco Discovery Protocol', 'Cisco’s own version of LLDP.'],
+    PXE: ['Preboot Execution Environment', 'Booting a server over the network.'],
+    // Optics and cabling
+    DOM: ['Digital Optical Monitoring', 'A transceiver’s live readings: Tx/Rx light power, temperature, voltage.'],
+    DDM: ['Digital Diagnostic Monitoring', 'Another name for DOM.'],
+    BER: ['Bit Error Rate', 'The fraction of bits that arrive wrong; the key health number of a link.'],
+    FEC: ['Forward Error Correction', 'Extra bits that let the receiver fix errors without resending.'],
+    SFP: ['Small Form-factor Pluggable', 'A small single-lane transceiver (1–25G; SFP28, SFP56).'],
+    QSFP: ['Quad Small Form-factor Pluggable', 'A four-lane transceiver (QSFP28, QSFP56, QSFP112).'],
+    OSFP: ['Octal Small Form-factor Pluggable', 'An eight-lane transceiver for 400G and 800G.'],
+    DAC: ['Direct Attach Copper', 'A copper cable with transceivers built into both ends; short reach.'],
+    AOC: ['Active Optical Cable', 'A fiber cable with the optics built into both ends.'],
+    AEC: ['Active Electrical Cable', 'A copper cable with signal-boosting chips, longer than a DAC.'],
+    MPO: ['Multi-fiber Push-On', 'A connector carrying many fibers at once (8, 12, 16, 24).'],
+    APC: ['Angled Physical Contact', 'A fiber end polished at an angle (green connectors); never mate it with UPC.'],
+    UPC: ['Ultra Physical Contact', 'A fiber end polished flat (blue connectors).'],
+    OTDR: ['Optical Time-Domain Reflectometer', 'A tester that finds breaks and bad joints along a fiber.'],
+    TDR: ['Time-Domain Reflectometer', 'A tester that finds faults along a copper cable.'],
+    CMIS: ['Common Management Interface Specification', 'The standard way hosts read and manage modern transceivers.'],
+    SerDes: ['Serializer/Deserializer', 'The circuit that turns parallel data into the fast serial signal on each lane.'],
+    PAM4: ['Pulse Amplitude Modulation, 4 levels', 'Sending two bits per symbol; used for 50G-per-lane links and faster.'],
+    // Software, cloud and operations
+    OS: ['Operating System', 'Linux, Windows, macOS…'],
+    CLI: ['Command-Line Interface', 'Typing commands instead of clicking.'],
+    API: ['Application Programming Interface', 'The way programs talk to a service.'],
+    REST: ['Representational State Transfer', 'The common style of web APIs (GET, POST, PATCH, DELETE).'],
+    JSON: ['JavaScript Object Notation', 'A text format for structured data.'],
+    YAML: ['YAML Ain’t Markup Language', 'An indentation-based text format for configuration.'],
+    TOML: ['Tom’s Obvious Minimal Language', 'A simple key = value configuration format.'],
+    CSV: ['Comma-Separated Values', 'A spreadsheet as plain text.'],
+    SSH: ['Secure Shell', 'Encrypted remote login.'],
+    TLS: ['Transport Layer Security', 'The encryption behind HTTPS.'],
+    HTTP: ['Hypertext Transfer Protocol', 'How browsers and APIs talk to web servers.'],
+    URL: ['Uniform Resource Locator', 'A web address.'],
+    UUID: ['Universally Unique Identifier', 'A 128-bit ID that is practically never repeated.'],
+    PID: ['Process ID', 'The number Linux gives each running process.'],
+    UTC: ['Coordinated Universal Time', 'The time zone-free clock to use in timelines.'],
+    LTS: ['Long-Term Support', 'A release that gets fixes for years.'],
+    EOL: ['End of Life', 'When a product stops getting fixes.'],
+    RBAC: ['Role-Based Access Control', 'Permissions granted by role instead of per person.'],
+    SSO: ['Single Sign-On', 'One login for many services.'],
+    SRE: ['Site Reliability Engineering', 'Running services reliably with engineering practices: monitoring, automation, incidents.'],
+    CI: ['Continuous Integration', 'Automatically building and testing every change.'],
+    OOM: ['Out Of Memory', 'The kernel ran out of memory and killed a process.'],
+    GRUB: ['GRand Unified Bootloader', 'The Linux boot menu.'],
+    APT: ['Advanced Package Tool', 'Debian and Ubuntu’s package manager.'],
+    WSL: ['Windows Subsystem for Linux', 'Running Linux on Windows.'],
+    POSIX: ['Portable Operating System Interface', 'The standard that makes Unix-like systems behave alike.'],
+    JQL: ['Jira Query Language', 'Jira’s search language.'],
+    PromQL: ['Prometheus Query Language', 'The query language for Prometheus metrics.'],
+    VM: ['Virtual Machine', 'A computer emulated in software.'],
+    ISO: ['ISO image', 'A disk image file, such as an OS installer.']
+  };
+  // Same letters, different meaning on some pages.
+  const GL_OVERRIDES = [
+    [/^(javascript|typescript|scripting)\.html$/, { DOM: ['Document Object Model', 'The browser\u2019s tree of a page\u2019s elements, which JavaScript reads and changes.'] }],
+    [/^(rf-[\w-]+|redfish|curl|http-server)\.html$/, { POST: ['HTTP POST', 'The HTTP request method that creates something or triggers an action, such as a Redfish reset.'] }],
+    [/^(linux|cli-tools|files|users|permissions|ls|stat|processes|ps|namei|find|lsof)\.html$/, { UID: ['User ID', 'The number Linux uses for a user account; 0 is root.'] }],
+    [/^grafana[\w-]*\.html$/, { UID: ['Unique Identifier', 'A dashboard\u2019s or data source\u2019s fixed ID in Grafana, used in its URL and API.'] }]
+  ];
+  function glDef(key) {
+    const file = anatSheetFile || window.location.pathname.split('/').pop() || 'index.html';
+    const o = GL_OVERRIDES.find(([re, defs]) => re.test(file) && defs[key]);
+    return o ? o[1][key] : GLOSSARY[key];
+  }
+  const GL_KEYS = Object.keys(GLOSSARY).sort((a, b) => b.length - a.length);
+  // Whole word, exact case, optional plural "s" (GPUs, NICs, DIMMs).
+  const GL_RE = new RegExp(`(?<![\\w./-])(${GL_KEYS.map(escapeRegex).join('|')})(s?)(?![\\w-])`, 'g');
+  // Where acronyms are explained, and where they must never be touched.
+  const GL_ROOTS = '.section-card, .brand-subtitle, .suite-dir, .an-dialog, .lp-flow, .lp-sub';
+  const GL_SKIP = 'code, pre, kbd, samp, abbr, script, style, textarea, input, select, option, button, a, svg, [contenteditable], .cmd-code-box, .fn, .ex-map, .ex-input-wrap, .ros-cell, .cs-preview, .pn-svg, .gl-tip, .an-head h2';
+
+  function glWrapText(node) {
+    const text = node.nodeValue;
+    if (!text || text.length < 2 || !/[A-Z]/.test(text)) return;
+    GL_RE.lastIndex = 0;
+    if (!GL_RE.test(text)) return;
+    GL_RE.lastIndex = 0;
+    const frag = document.createDocumentFragment();
+    let last = 0, m;
+    while ((m = GL_RE.exec(text))) {
+      if (m.index > last) frag.appendChild(document.createTextNode(text.slice(last, m.index)));
+      const abbr = document.createElement('abbr');
+      abbr.className = 'gl';
+      abbr.dataset.gl = m[1];
+      abbr.title = glDef(m[1])[0];
+      abbr.textContent = m[0];
+      frag.appendChild(abbr);
+      last = m.index + m[0].length;
+    }
+    if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+    node.parentNode.replaceChild(frag, node);
+  }
+  function glScan(root) {
+    if (!root || !root.isConnected) return;
+    if (root.nodeType === 3) {
+      const p = root.parentElement;
+      if (p && p.closest(GL_ROOTS) && !p.closest(GL_SKIP)) glWrapText(root);
+      return;
+    }
+    if (root.nodeType !== 1 || root.closest(GL_SKIP)) return;
+    if (!root.closest(GL_ROOTS) && !root.querySelector(GL_ROOTS)) return;
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: (n) => {
+        const p = n.parentElement;
+        return p && p.closest(GL_ROOTS) && !p.closest(GL_SKIP) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+      }
+    });
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach(glWrapText);
+  }
+
+  // One shared hover card: quicker and easier to read than the browser's own tooltip.
+  let glTip = null, glTimer = null;
+  function glShow(abbr) {
+    const key = abbr.dataset.gl;
+    const g = glDef(key);
+    if (!g) return;
+    if (!glTip) {
+      glTip = document.createElement('div');
+      glTip.className = 'gl-tip';
+      glTip.setAttribute('role', 'tooltip');
+      document.body.appendChild(glTip);
+    }
+    glTip.innerHTML = `<b>${escapeHtml(key)}</b><span>${escapeHtml(g[0])}</span><p>${escapeHtml(g[1])}</p>`;
+    // The native title would pop up too: park it while the card shows.
+    if (abbr.title) { abbr.dataset.glTitle = abbr.title; abbr.removeAttribute('title'); }
+    glTip.classList.add('show');
+    const r = abbr.getBoundingClientRect(), t = glTip.getBoundingClientRect();
+    let x = Math.min(Math.max(8, r.left + r.width / 2 - t.width / 2), innerWidth - t.width - 8);
+    let y = r.bottom + 8;
+    if (y + t.height > innerHeight - 8) y = r.top - t.height - 8;
+    glTip.style.left = `${Math.round(x)}px`;
+    glTip.style.top = `${Math.round(y)}px`;
+  }
+  function glHide(abbr) {
+    clearTimeout(glTimer);
+    if (glTip) glTip.classList.remove('show');
+    if (abbr && abbr.dataset.glTitle) { abbr.title = abbr.dataset.glTitle; delete abbr.dataset.glTitle; }
+  }
+
+  function initGlossary() {
+    if (IN_WIDGET_FRAME) return;
+    glScan(document.body);
+    // Cards re-render when you filter, and dialogs draw their content when opened.
+    const pending = new Set();
+    let queued = false;
+    new MutationObserver((muts) => {
+      muts.forEach(m => m.addedNodes.forEach(n => { if (!(n.nodeType === 1 && n.classList && (n.classList.contains('gl') || n.classList.contains('gl-tip')))) pending.add(n); }));
+      if (queued || !pending.size) return;
+      queued = true;
+      requestAnimationFrame(() => { queued = false; const list = [...pending]; pending.clear(); list.forEach(glScan); });
+    }).observe(document.body, { childList: true, subtree: true });
+    document.addEventListener('mouseover', (e) => {
+      const a = e.target instanceof Element ? e.target.closest('abbr.gl') : null;
+      if (!a) return;
+      clearTimeout(glTimer);
+      glTimer = setTimeout(() => glShow(a), 90);
+    });
+    document.addEventListener('mouseout', (e) => {
+      const a = e.target instanceof Element ? e.target.closest('abbr.gl') : null;
+      if (a && !(e.relatedTarget instanceof Element && a.contains(e.relatedTarget))) glHide(a);
+    });
+    window.addEventListener('scroll', () => glHide(document.querySelector('abbr.gl[data-gl-title]')), { passive: true, capture: true });
+  }
+
+  // Ctrl+K: "BMC", "what is BMC", "what does FEC mean".
+  function glossaryPaletteEntry(query) {
+    const m = String(query || '').trim().match(/^(?:what\s+(?:is|does|are)\s+(?:an?\s+)?)?([A-Za-z0-9.-]{2,8})(?:\s+mean)?\??$/i);
+    if (!m) return null;
+    const key = Object.keys(GLOSSARY).find(k => k.toLowerCase() === m[1].toLowerCase().replace(/s$/, '') || k.toLowerCase() === m[1].toLowerCase());
+    if (!key) return null;
+    const [full, line] = GLOSSARY[key];
+    return { kind: 'set', strong: /^what/i.test(query.trim()), icon: '📖', label: `${key}: ${full}`, sub: line, run: () => { copyVerbatim(`${key}: ${full}. ${line}`); showGlobalToast(`Copied: ${key} = ${full}.`); } };
+  }
+
+  // -------------------------------------------------------------
+  // RACK VIEW: where is everything?
+  // Node workspaces, Rack Targets and the Shift board know WHICH servers you work on, not
+  // WHERE they are. Paste the inventory (spreadsheet rows: host, rack, U, height, model,
+  // serial, BMC) and every rack is drawn as an elevation at its true U positions, coloured by
+  // the node workspaces and their last checkup. "Where is gpu-node07" answers in words (row,
+  // rack, U range, counted from the bottom or the top). Clicking a server starts its node
+  // workspace with its BMC in Rack Targets, copies the ID-LED blink, copies the location for
+  // the ticket, or opens the switch front panel. Overlapping U ranges are flagged: an
+  // inventory that puts two servers in one U is wrong somewhere.
+  // -------------------------------------------------------------
+  const RACK_KEY = 'cs_racks_v1';
+  const RK_U = 15;   // pixels per U
+  const RK_SAMPLE = [
+    'host,row,rack,u,height,type,model,serial,bmc',
+    'leaf01,3,R12,42,1,switch,Arista 7060DX5-64E,JPE23410001,',
+    'leaf02,3,R12,41,1,switch,Arista 7060DX5-64E,JPE23410002,',
+    'gpu-node01,3,R12,34,4,server,8-GPU HGX server,S1A01,10.20.4.11',
+    'gpu-node02,3,R12,30,4,server,8-GPU HGX server,S1A02,10.20.4.12',
+    'gpu-node03,3,R12,26,4,server,8-GPU HGX server,S1A03,10.20.4.13',
+    'gpu-node04,3,R12,22,4,server,8-GPU HGX server,S1A04,10.20.4.14',
+    'stor01,3,R12,10,2,storage,NVMe JBOF,S1B01,10.20.4.21',
+    'ib-leaf01,3,R13,1,1,switch,NVIDIA QM9700,MT2401X0001,',
+    'gpu-node05,3,R13,3,4,server,8-GPU HGX server,S1A05,10.20.4.15',
+    'gpu-node06,3,R13,7,4,server,8-GPU HGX server,S1A06,10.20.4.16',
+    'gpu-node07,3,R13,11,4,server,8-GPU HGX server,S1A07,10.20.4.17',
+    'gpu-node08,3,R13,15,4,server,8-GPU HGX server,S1A08,10.20.4.18'
+  ].join('\n');
+
+  let rkEl = null, rkSel = '', rkQuery = '';
+  const rkRead = () => { try { const v = JSON.parse(localStorage.getItem(RACK_KEY) || '{}'); return v && typeof v === 'object' ? v : {}; } catch (e) { return {}; } };
+  const rkWrite = (patch) => { try { localStorage.setItem(RACK_KEY, JSON.stringify(Object.assign(rkRead(), patch))); } catch (e) {} };
+  const rkNatural = (a, b) => String(a).localeCompare(String(b), undefined, { numeric: true, sensitivity: 'base' });
+  const rkKey = (h) => String(h || '').trim().toLowerCase();
+
+  function rkParse(text) {
+    const lines = String(text || '').split(/\r?\n/).map(l => l.trim()).filter(l => l && !l.startsWith('#'));
+    if (!lines.length) return { devices: [], errors: [] };
+    const delim = lines[0].includes('\t') ? '\t' : lines[0].includes(',') ? ',' : lines[0].includes(';') ? ';' : /\s+/;
+    const split = (l) => l.split(delim).map(s => s.trim().replace(/^"|"$/g, ''));
+    const head = split(lines[0]).map(h => h.toLowerCase());
+    let map;
+    if (head.some(h => /^(host|hostname|name|device|rack|u|ru|position)$/.test(h))) {
+      const f = (re) => head.findIndex(h => re.test(h));
+      map = { host: f(/^(host|hostname|name|device|node)$/), row: f(/^(row|aisle)$/), rack: f(/^(rack|cabinet)$/), u: f(/^(u|ru|position|unit|u_position|start_u)$/), h: f(/^(height|size|units|u_height|ru_height|h)$/), type: f(/^(type|role|kind)$/), model: f(/^(model|platform)$/), serial: f(/^(serial|sn|serial_number|service_tag)$/), bmc: f(/^(bmc|bmc_ip|ipmi|idrac|ilo|xcc|oob)$/) };
+      lines.shift();
+    } else {
+      map = { host: 0, rack: 1, u: 2, h: 3, row: -1, type: -1, model: -1, serial: -1, bmc: -1 };
+    }
+    const get = (c, k) => (map[k] >= 0 ? (c[map[k]] || '').trim() : '');
+    const errors = [];
+    const devices = lines.map((l, i) => {
+      const c = split(l);
+      const host = get(c, 'host'), rack = get(c, 'rack');
+      // "24", "U24" or a range "24-27".
+      const um = get(c, 'u').match(/(\d+)(?:\s*[-–]\s*U?(\d+))?/i);
+      if (!host || !rack || !um) { errors.push(`Line ${i + 2}: needs a host, a rack and a U position.`); return null; }
+      const a = Number(um[1]), b = um[2] ? Number(um[2]) : null;
+      const h = b ? Math.abs(b - a) + 1 : Math.max(1, parseInt(get(c, 'h'), 10) || 1);
+      return { host, rack, row: get(c, 'row'), u: b ? Math.min(a, b) : a, h, type: get(c, 'type').toLowerCase(), model: get(c, 'model'), serial: get(c, 'serial'), bmc: get(c, 'bmc') };
+    }).filter(Boolean);
+    // Two devices claiming one U means the inventory is wrong somewhere.
+    const byRack = {};
+    devices.forEach(d => (byRack[d.rack] = byRack[d.rack] || []).push(d));
+    Object.entries(byRack).forEach(([rack, list]) => list.forEach((a, i) => list.slice(i + 1).forEach(b => {
+      if (a.u <= b.u + b.h - 1 && b.u <= a.u + a.h - 1) errors.push(`${rack}: ${a.host} (U${a.u}–U${a.u + a.h - 1}) overlaps ${b.host} (U${b.u}–U${b.u + b.h - 1}).`);
+    })));
+    return { devices, errors };
+  }
+
+  function rkLayout() {
+    const st = rkRead();
+    const { devices, errors } = rkParse(st.text || '');
+    const racks = {};
+    devices.forEach(d => {
+      const r = racks[d.rack] || (racks[d.rack] = { name: d.rack, row: d.row, devices: [], height: 42 });
+      r.devices.push(d);
+      if (!r.row && d.row) r.row = d.row;
+      r.height = Math.max(r.height, d.u + d.h - 1);
+    });
+    const opts = st.racks || {};
+    Object.values(racks).forEach(r => { r.topDown = !!(opts[r.name] && opts[r.name].topDown); });
+    const list = Object.values(racks).sort((a, b) => rkNatural(a.row, b.row) || rkNatural(a.name, b.name));
+    return { racks: list, devices, errors };
+  }
+
+  // A device's state from the node workspaces: current, its last checkup, or just "open".
+  function rkState(host) {
+    const reg = readNodes();
+    const name = cleanNodeName(host);
+    const live = reg.active === name;
+    const data = live ? null : reg.nodes[name] && reg.nodes[name].data;
+    if (!live && !data) return { kind: '' };
+    let v = {};
+    try { v = JSON.parse((live ? readStored(VITALS_KEY) : data[VITALS_KEY]) || '{}') || {}; } catch (e) {}
+    const ck = v.checkup;
+    const sev = ck ? (ck.crit ? 'crit' : ck.warn ? 'warn' : 'ok') : '';
+    return { kind: live ? 'current' : 'open', sev, score: ck ? ck.score : null };
+  }
+
+  const rkSpan = (d) => (d.h > 1 ? `U${d.u}–U${d.u + d.h - 1}` : `U${d.u}`);
+  function rkWhere(d, rack) {
+    return [d.row && `Row ${d.row}`, `rack ${d.rack}`, `${rkSpan(d)}${d.h > 1 ? ` (${d.h}U)` : ''}`, `counted from the ${rack && rack.topDown ? 'top' : 'bottom'}`].filter(Boolean).join(' · ');
+  }
+  // Switch models the front panel knows, matched on the model name.
+  function rkPanelModel(model) {
+    const m = String(model || '').toLowerCase();
+    return Object.keys(PANEL_MODELS).find(k => !k.startsWith('generic') && m.includes(k.split('-').slice(1).join('-'))) || '';
+  }
+
+  function rkRender() {
+    const { racks, devices, errors } = rkLayout();
+    const q = rkKey(rkQuery);
+    const hit = q ? devices.find(d => rkKey(d.host) === q) || devices.find(d => rkKey(d.host).includes(q) || rkKey(d.serial) === q) : null;
+    const selHost = hit ? hit.host : rkSel;
+    const sel = devices.find(d => d.host === selHost);
+    const st = rkRead();
+    rkEl.querySelector('.rk-import').hidden = !!devices.length && !rkEl._editing;
+    rkEl.querySelector('.rk-text').value = rkEl.querySelector('.rk-text').value || st.text || '';
+    const errBox = rkEl.querySelector('.rk-errors');
+    errBox.hidden = !errors.length;
+    errBox.innerHTML = errors.length ? `<b>Check the inventory:</b><ul>${errors.slice(0, 8).map(e => `<li>${escapeHtml(e)}</li>`).join('')}</ul>` : '';
+    rkEl.querySelector('.rk-answer').innerHTML = !q ? `${devices.length} devices in ${racks.length} rack${racks.length === 1 ? '' : 's'}. Search a host or serial, or click a device.`
+      : hit ? `<b>${escapeHtml(hit.host)}</b>: ${escapeHtml(rkWhere(hit, racks.find(r => r.name === hit.rack)))}` : `No device matches “${escapeHtml(rkQuery)}”.`;
+    let lastRow = null;
+    rkEl.querySelector('.rk-floor').innerHTML = racks.length ? racks.map(r => {
+      const rowHead = r.row !== lastRow ? `<div class="rk-rowlabel">${r.row ? `Row ${escapeHtml(r.row)}` : 'Racks'}</div>` : '';
+      lastRow = r.row;
+      const H = r.height;
+      const yOf = (u, h) => (r.topDown ? (u - 1) : (H - (u + h - 1))) * RK_U;
+      const rails = Array.from({ length: H }, (_, i) => { const u = r.topDown ? i + 1 : H - i; return `<span class="${u === 1 || u % 5 === 0 ? 'is-major' : ''}" style="top:${i * RK_U}px">${u}</span>`; }).join('');
+      const boxes = r.devices.map(d => {
+        const s = rkState(d.host);
+        const cls = ['rk-dev', `rk-${d.type || 'other'}`, s.kind ? `is-${s.kind}` : '', s.sev ? `sev-${s.sev}` : '', sel && sel.host === d.host ? 'is-sel' : ''].join(' ');
+        return `<button type="button" class="${cls}" data-rk-host="${escapeHtml(d.host)}" style="top:${yOf(d.u, d.h)}px;height:${d.h * RK_U - 2}px" title="${escapeHtml(`${d.host} · ${rkSpan(d)}${d.model ? ` · ${d.model}` : ''}`)}">`
+          + `<b>${escapeHtml(d.host)}</b>${d.h > 1 && d.model ? `<small>${escapeHtml(d.model)}</small>` : ''}${s.sev ? `<i class="rk-dot" aria-hidden="true"></i>` : ''}</button>`;
+      }).join('');
+      return `${rowHead}<section class="rk-rack">
+        <header><b>${escapeHtml(r.name)}</b><button type="button" class="rk-dir" data-rk-dir="${escapeHtml(r.name)}" title="Which end is U1 on this rack's rails?">U1 ${r.topDown ? 'top ↑' : 'bottom ↓'}</button></header>
+        <div class="rk-body" style="height:${H * RK_U}px"><div class="rk-rails">${rails}</div><div class="rk-slots">${boxes}</div></div>
+      </section>`;
+    }).join('') : '';
+    const side = rkEl.querySelector('.rk-side');
+    if (!sel) { side.innerHTML = devices.length ? '<p class="rk-hint">Click a device to work on it.</p>' : ''; return; }
+    const rack = racks.find(r => r.name === sel.rack);
+    const s = rkState(sel.host);
+    const pm = sel.type === 'switch' ? rkPanelModel(sel.model) : '';
+    side.innerHTML = `<h3>${escapeHtml(sel.host)}</h3>
+      <p class="rk-where">${escapeHtml(rkWhere(sel, rack))}</p>
+      <dl>${[['Model', sel.model], ['Type', sel.type], ['Serial', sel.serial], ['BMC', sel.bmc], ['Workspace', s.kind === 'current' ? 'current node' : s.kind === 'open' ? 'open' : 'none'], ['Last checkup', s.sev ? `${s.sev}${s.score != null ? ` (score ${s.score})` : ''}` : '']].filter(([, v]) => v).map(([k, v]) => `<dt>${k}</dt><dd>${escapeHtml(String(v))}</dd>`).join('')}</dl>
+      <div class="rk-acts">
+        ${sel.type !== 'switch' ? `<button type="button" class="rk-primary" data-rk-act="work">${s.kind === 'current' ? '✓ Current node' : 'Work on this node'}</button>` : ''}
+        ${sel.type !== 'switch' ? '<button type="button" data-rk-act="blink">Copy: blink its ID LED</button>' : ''}
+        ${pm ? '<button type="button" data-rk-act="panel">▦ Front panel</button>' : ''}
+        <button type="button" data-rk-act="where">Copy location</button>
+      </div>
+      <p class="rk-count">Count U from the ${rack && rack.topDown ? 'top' : 'bottom'} of this rack: U1 is the ${rack && rack.topDown ? 'top' : 'bottom'} position. Use the U numbers printed on the rails if there are any, and blink the ID LED to be sure before you touch anything.</p>`;
+  }
+
+  function rkClick(e) {
+    const t = e.target instanceof Element ? e.target : null;
+    if (!t) return;
+    if (t === rkEl || t.closest('[data-rk-close]')) return closeRack();
+    const dev = t.closest('[data-rk-host]');
+    if (dev) { rkSel = dev.dataset.rkHost; rkQuery = ''; rkEl.querySelector('.rk-find').value = ''; return rkRender(); }
+    const dir = t.closest('[data-rk-dir]');
+    if (dir) { const st = rkRead(); const racks = st.racks || {}; const r = racks[dir.dataset.rkDir] || {}; r.topDown = !r.topDown; racks[dir.dataset.rkDir] = r; rkWrite({ racks }); return rkRender(); }
+    if (t.closest('[data-rk-edit]')) { rkEl._editing = true; rkEl.querySelector('.rk-import').hidden = false; rkEl.querySelector('.rk-text').focus(); return; }
+    if (t.closest('[data-rk-sample]')) { rkEl.querySelector('.rk-text').value = RK_SAMPLE; return rkSave(); }
+    if (t.closest('[data-rk-save]')) return rkSave();
+    const act = t.closest('[data-rk-act]');
+    if (!act) return;
+    const { racks, devices } = rkLayout();
+    const sel = devices.find(d => d.host === rkSel || (rkQuery && rkKey(d.host) === rkKey(rkQuery)));
+    if (!sel) return;
+    const rack = racks.find(r => r.name === sel.rack);
+    if (act.dataset.rkAct === 'work') {
+      if (readNodes().active !== cleanNodeName(sel.host)) switchNode(sel.host);
+      if (sel.bmc) {
+        targetState.vars.bmc = sel.bmc;
+        saveTargetState();
+        const real = document.getElementById('var-bmc');
+        if (real) real.value = sel.bmc;
+        refreshSlots();
+        showGlobalToast(`Working on ${sel.host}: BMC ${sel.bmc} is in Rack Targets.`);
+      }
+      return rkRender();
+    }
+    if (act.dataset.rkAct === 'blink') {
+      navigator.clipboard.writeText(`ipmitool -I lanplus -H ${sel.bmc || '"$BMC"'} -U "$BMC_USER" -E chassis identify 60`);
+      return showGlobalToast(`Copied: blinks ${sel.host}'s ID LED for 60 s (IPMI_PASSWORD from your environment).`);
+    }
+    if (act.dataset.rkAct === 'where') {
+      copyVerbatim(`${sel.host} · ${rkWhere(sel, rack)}${sel.serial ? ` · S/N ${sel.serial}` : ''}${sel.model ? ` · ${sel.model}` : ''}`);
+      return showGlobalToast('Copied the location for the ticket.');
+    }
+    if (act.dataset.rkAct === 'panel') { pnWrite({ model: rkPanelModel(sel.model) }); closeRack(); return openPanel('find'); }
+  }
+
+  function rkSave() {
+    const text = rkEl.querySelector('.rk-text').value;
+    rkWrite({ text });
+    rkEl._editing = false;
+    const { devices, errors } = rkLayout();
+    rkRender();
+    showGlobalToast(`${devices.length} devices read${errors.length ? `, ${errors.length} to check` : ''}.`);
+  }
+
+  function openRack(query) {
+    if (IN_WIDGET_FRAME) return;
+    if (!rkEl) {
+      rkEl = document.createElement('div');
+      rkEl.className = 'an-backdrop rk-backdrop';
+      rkEl.innerHTML = `
+        <div class="an-dialog rk-dialog" role="dialog" aria-modal="true" aria-labelledby="rk-title">
+          <header class="an-head rk-head">
+            <div><h2 id="rk-title">Rack view</h2><p>Where every server and switch is, at its real U position. Click one to work on it.</p></div>
+            <button type="button" class="trail-close" data-rk-close aria-label="Close">✕</button>
+          </header>
+          <div class="rk-bar">
+            <label class="rk-search"><span>Where is</span><input type="text" class="rk-find" placeholder="gpu-node07, leaf01, a serial…" spellcheck="false" autocomplete="off" /></label>
+            <p class="rk-answer"></p>
+            <button type="button" class="rk-edit" data-rk-edit>Edit inventory</button>
+          </div>
+          <div class="rk-import" hidden>
+            <label><span>Inventory <small>spreadsheet or CSV rows. Columns: host, rack, u (or a range like 24-27), height; optional row, type (server / switch / storage), model, serial, bmc</small></span>
+              <textarea class="rk-text" spellcheck="false" placeholder="host,row,rack,u,height,type,model,serial,bmc&#10;gpu-node07,3,R13,11,4,server,8-GPU HGX server,S1A07,10.20.4.17"></textarea></label>
+            <div class="rk-import-acts"><button type="button" class="rk-primary" data-rk-save>Show the racks</button><button type="button" data-rk-sample>Try a sample</button><small>Saved in this browser only.</small></div>
+          </div>
+          <div class="rk-errors" hidden></div>
+          <div class="rk-main"><div class="rk-floor"></div><aside class="rk-side"></aside></div>
+        </div>`;
+      document.body.appendChild(rkEl);
+      rkEl.addEventListener('click', rkClick);
+      rkEl.addEventListener('keydown', (e) => { if (e.key === 'Escape') { e.stopPropagation(); closeRack(); } });
+      rkEl.querySelector('.rk-find').addEventListener('input', (e) => { rkQuery = e.target.value; rkRender(); });
+    }
+    rkQuery = query || '';
+    rkEl.querySelector('.rk-find').value = rkQuery;
+    rkEl._back = document.activeElement;
+    rkRender();
+    rkEl.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => { const f = rkEl.querySelector(rkLayout().devices.length ? '.rk-find' : '.rk-text'); if (f) f.focus({ preventScroll: true }); const s = rkEl.querySelector('.rk-dev.is-sel'); if (s) s.scrollIntoView({ block: 'center', inline: 'center' }); }, 40);
+  }
+
+  function closeRack() {
+    if (!rkEl) return;
+    rkEl.classList.remove('show');
+    document.body.style.overflow = '';
+    if (rkEl._back && rkEl._back.focus) rkEl._back.focus({ preventScroll: true });
+  }
+
+  // Toolbar button: the Rack view was only reachable from Ctrl+K, the Shift board and the home page.
+  function initRack() {
+    const actions = document.querySelector('.header-actions');
+    if (!actions || document.getElementById('rack-btn')) return;
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.id = 'rack-btn';
+    btn.className = 'action-btn rack-header-btn';
+    btn.title = 'Rack view: where every server and switch is, at its real U position';
+    btn.innerHTML = `
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="5" y="2.5" width="14" height="19" rx="1.5"/><path d="M5 8h14M5 13.5h14M8 5.3h.01M8 10.8h.01M8 16.3h.01"/>
+        </svg>
+        <span>Rack</span>`;
+    btn.addEventListener('click', () => openRack(readNodes().active || ''));
+    actions.appendChild(btn);
+  }
+
+  // Field notes have their own page (notes.html, the Notes tab): the editor sat under the
+  // home launchpad and looked out of place there. The portable build swaps pages in place, so
+  // this runs on every page change and hides the section elsewhere.
+  function mountNotesPage(file) {
+    if (IN_WIDGET_FRAME) return;
+    const on = file === 'notes.html';
+    let page = document.getElementById('notes-page');
+    if (!on) { if (page) page.hidden = true; return; }
+    const main = document.querySelector('main');
+    if (!main) return;
+    if (!page) {
+      page = document.createElement('section');
+      page.id = 'notes-page';
+      page.className = 'container notes-page';
+      page.setAttribute('aria-label', 'Field notes');
+      main.parentNode.insertBefore(page, main);
+    }
+    page.hidden = false;
+    mountFieldNotes(page);
+  }
+
+  // Ctrl+K: "where is gpu-node07", or just a host name that is in the inventory.
+  function rackPaletteEntry(query) {
+    const raw = String(query || '').trim();
+    const m = raw.match(/^where\s+is\s+(\S+)/i);
+    const name = m ? m[1] : raw;
+    if (!name || name.length < 3) return null;
+    const { racks, devices } = rkLayout();
+    const d = devices.find(x => rkKey(x.host) === rkKey(name));
+    if (!d) return m ? { kind: 'set', strong: true, icon: '▤', label: `Where is ${name}?`, sub: 'Not in the rack inventory yet: open the Rack view to add it', run: () => openRack(name) } : null;
+    return { kind: 'set', strong: !!m, icon: '▤', label: `Where is ${d.host}: ${rkWhere(d, racks.find(r => r.name === d.rack))}`, sub: 'Open the Rack view at this device', run: () => openRack(d.host) };
   }
 
   // -------------------------------------------------------------
@@ -11006,8 +11654,6 @@ ${rmaTrailSection()}#### Action Requested:
         <div class="lp-cockpit-slot"></div>
       </div>
 
-      <div class="lp-notes-slot"></div>
-
       <section class="lp-flow" aria-label="Incident flow"></section>
 
       ${(() => {
@@ -11048,7 +11694,6 @@ ${rmaTrailSection()}#### Action Requested:
     const input = lp.querySelector('#lp-omni-input');
     renderFlow(lp, true);
     renderCockpit(lp, true);
-    mountFieldNotes(lp);
     interceptOutputPaste(input);
     const preview = lp.querySelector('.lp-preview');
     const updatePreview = () => {
@@ -11099,7 +11744,7 @@ ${rmaTrailSection()}#### Action Requested:
     const stages = [
       { id: 'identify', n: 1, title: 'Identify', what: 'Which node, which BMC, is it drained?',
         done: !!node, status: node ? `${node}${bmc ? ` · BMC ${bmc}` : ' · no BMC set'}` : 'No node named yet',
-        acts: [['node', node ? 'Switch node' : 'Name this node'], ['drain', 'Copy drain check'], ['targets', 'Rack Targets'], ['rosetta', 'BMC Rosetta']] },
+        acts: [['node', node ? 'Switch node' : 'Name this node'], ['rack', 'Where is it?'], ['drain', 'Copy drain check'], ['targets', 'Rack Targets'], ['rosetta', 'BMC Rosetta']] },
       { id: 'collect', n: 2, title: 'Collect', what: 'Read-only evidence: dmesg, SEL, telemetry.',
         done: trail.length >= 1 || collected > 0, status: trail.length || collected ? `${trail.length} command${trail.length === 1 ? '' : 's'} run · ${collected} analys${collected === 1 ? 'is' : 'es'} pinned` : 'Paste an error or a whole dump',
         acts: [['checkup', 'Node checkup'], ['capture', 'Capture script'], ['paste', 'Paste a log'], ['timeline', 'Incident timeline'], ['console', 'Terminal']] },
@@ -11145,6 +11790,7 @@ ${rmaTrailSection()}#### Action Requested:
     if (a === 'rosetta') return openRosetta('', 'bmc');
     if (a === 'capture') return openCapture();
     if (a === 'cable') return openPanel('check');
+    if (a === 'rack') return openRack(readNodes().active || '');
     if (a === 'console') return toggleConsole(true);
     if (a === 'diff') return openGoldenDiff();
     if (a === 'fleet') return openFleet();
