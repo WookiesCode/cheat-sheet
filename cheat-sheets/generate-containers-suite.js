@@ -1019,7 +1019,9 @@ ${navCol('k8s', 'Kubernetes')}
 // 3. Insert (or replace) the Containers dropdown in every sheet's nav.
 const htmlFiles = fs.readdirSync(__dirname).filter(f => f.endsWith('.html') && f !== 'datacenter-cheatsheet-portable.html');
 const existingDropdown = /<div class="nav-dropdown" id="containers-nav-dropdown">[\s\S]*?<\/div>\s*<\/div>\s*<\/div>\s*<\/div>\s*/;
-const omarchyLink = /<a href="omarchy\.html" class="sheet-link(?: active)?">/;
+// Fallback insertion point (the menu is missing once build-nav-groups.js has filed it in a tab):
+// just before the Home link. build-nav-groups.js then moves it into its tab again.
+const omarchyLink = /<a href="index\.html" class="sheet-link nav-home(?: active)?">/;
 let navUpdated = 0, navMissing = [];
 for (const file of htmlFiles) {
   const p = path.join(__dirname, file);

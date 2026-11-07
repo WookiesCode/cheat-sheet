@@ -26,6 +26,8 @@ const STEPS = [
   'generate-motherboards-suite.js',
   'generate-containers-suite.js',
   'generate-grafana-suite.js',
+  'generate-editors-suite.js',
+  'build-nav-groups.js',
   'build-man-data.js',
   'build-index.js',
   'build-portable.js'

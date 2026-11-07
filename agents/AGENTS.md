@@ -63,6 +63,8 @@ Maintain a clean, reproducible directory structure in `/home/jason/Work/cheat-sh
 ├── cases/
 │   └── <ticket-or-hostname>/        # Per-incident working folder (auto-create when troubleshooting)
 │       ├── summary.md               # Live triage notes, timeline, root cause, and RMA block
+│       ├── <hostname>.md            # Host note written once by the site's Field notes (Obsidian link target)
+│       ├── YYYY-MM-DD <title>.md    # Field notes from the site (YAML properties, host: "[[hostname]]")
 │       └── logs/                    # Raw outputs (nvidia-smi-q.txt, dmesg.txt, sel.txt, mlxlink.txt)
 └── scripts/                         # Reusable read-only diagnostic collection helpers
 ```

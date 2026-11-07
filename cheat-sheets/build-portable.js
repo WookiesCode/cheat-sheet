@@ -8,7 +8,9 @@ const path = require('path');
 const vm = require('vm');
 
 const SHEETS_CONFIG = [
-  { key: 'linux', file: 'index.html', js: 'app.js', name: 'Linux', varName: 'CHEAT_SHEET_DATA', prompt: '$', cursor: '_', title: 'Ubuntu Linux Reference', subtitle: 'Interactive command cheat sheet, flag breakdown & pipe recipes', pill: 'Ubuntu / APT / systemd' },
+  // Home (Mission Control) has no command data; common.js renders it.
+  { key: 'home', file: 'index.html', js: null, name: 'Home', varName: null, prompt: '◆', cursor: '_', title: 'Mission Control', subtitle: 'Decode an error, document the node you are on, run a runbook, keep your notes for Obsidian', pill: 'Triage · Notes · Practice' },
+  { key: 'linux', file: 'linux.html', js: 'app.js', name: 'Linux', varName: 'CHEAT_SHEET_DATA', prompt: '$', cursor: '_', title: 'Ubuntu Linux Reference', subtitle: 'Interactive command cheat sheet, flag breakdown & pipe recipes', pill: 'Ubuntu / APT / systemd' },
   { key: 'cli-tools', file: 'cli-tools.html', js: 'cli-tools.js', name: 'CLI Tools', varName: 'CLI_TOOLS_DATA', prompt: 'CLI', cursor: '>', title: 'Modern CLI Tools Reference', subtitle: 'ripgrep, bat, fzf, fd, eza, zoxide, jq, dust, btop, delta, gum & modern shell utilities', pill: 'Rust / Go / Modern TUI' },
   { key: 'scripting', file: 'scripting.html', js: 'scripting.js', name: 'Scripting', varName: 'SCRIPTING_DATA', prompt: '#!/', cursor: '>', title: 'Scripting & Formats Reference', subtitle: 'Bash, Python 3.10+, JavaScript, TypeScript, PowerShell, Lua, JSON, YAML, TOML, Regex, AWK, SQLite, Git & Markdown', pill: 'Polyglot / Dev & Sysadmin' },
   { key: 'neovim', file: 'neovim.html', js: 'neovim.js', name: 'Neovim', varName: 'NEOVIM_CHEAT_SHEET_DATA', prompt: 'NV', cursor: ':', title: 'Neovim (NVIM) Reference', subtitle: 'Motions, operators, text objects, visual mode, windows, buffers, macros & Lua config', pill: 'v0.10+ / Lua / LSP' },
@@ -94,6 +96,7 @@ navLinksHtml = navLinksHtml.replace(/href="([^"#]+\.html)"/g, (attr, file) => {
 // 3. Collect datasets
 const allDatasets = {};
 SHEETS_CONFIG.forEach(cfg => {
+  if (!cfg.js) { allDatasets[cfg.key] = []; return; }
   const jsContent = fs.readFileSync(path.join(__dirname, cfg.js), 'utf8');
   const regex = new RegExp(`const\\s+${cfg.varName}\\s*=\\s*(\\[[\\s\\S]*?\\n\\]);`);
   const match = jsContent.match(regex);
@@ -117,7 +120,7 @@ const escapeScriptClose = source => source.replace(/<\/script/gi, '<\\/script');
 const widgetPages = {};
 SHEETS_CONFIG.forEach(cfg => {
   const html = fs.readFileSync(path.join(__dirname, cfg.file), 'utf8');
-  if (!html.includes('class="quick-widgets"')) return;
+  if (!cfg.js || !html.includes('class="quick-widgets"')) return;
   const body = html
     .slice(html.indexOf('<body'), html.lastIndexOf('</body>'))
     .replace(/^<body[^>]*>/, '')
@@ -289,7 +292,7 @@ ${escapeScriptClose(commonJs)}
   const DATASETS = window.PORTABLE_DATASETS;
 
   const state = {
-    currentSheet: 'linux',
+    currentSheet: 'home',
     searchQuery: '',
     activeCategory: 'all',
     savedOnly: false,
@@ -798,10 +801,10 @@ ${escapeScriptClose(commonJs)}
       const sKey = hash.replace('sheet-', '');
       switchSheet(sKey);
     } else if (hash === 'man' || hash.startsWith('man-')) {
-      switchSheet('linux');
+      switchSheet('home');
       window.CheatSheetCommon.openManuals(hash.replace(/^man-?/, ''));
     } else {
-      switchSheet('linux');
+      switchSheet('home');
     }
   }
 
