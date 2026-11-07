@@ -21,7 +21,7 @@ I built this mainly for myself, for two reasons:
 
 | Part | What it is |
 |---|---|
-| [`cheat-sheets/`](cheat-sheets/) | The cheat-sheet site: about 200 offline HTML sheets (Linux, CLI tools, scripting, NVIDIA DC, InfiniBand, switches, Redfish, ipmitool, fiber, Ethernet, motherboards, Docker & Kubernetes, Grafana dashboards and more), plus triage tools, a terminal dock and a single-file offline bundle. See [`cheat-sheets/README.md`](cheat-sheets/README.md). |
+| [`cheat-sheets/`](cheat-sheets/) | The cheat-sheet site: about 200 offline HTML sheets (Linux, CLI tools, scripting, NVIDIA DC, InfiniBand, switches, Redfish, ipmitool, fiber, Ethernet, motherboards, Docker & Kubernetes, Grafana dashboards, editors (nano, VS Code, Zed, Cursor) and more, grouped into tabs), plus triage tools, a terminal dock and a single-file offline bundle. See [`cheat-sheets/README.md`](cheat-sheets/README.md). |
 | [`docs/playbooks/`](docs/playbooks/) | Troubleshooting playbooks for GPU/NVLink, network and optics, storage and JBODs, BMC hardware, and RMA templates. |
 | [`agents/AGENTS.md`](agents/AGENTS.md) | Instructions for an AI agent working as my datacenter troubleshooting partner in this repo: safety rules, read-only vs. ask-first commands, and the 5-step triage method. The root `CLAUDE.md` is a symlink to it. |
 | [`agents/AGENTS-portable.md`](agents/AGENTS-portable.md) | A copy of `AGENTS.md` with `<WORKSPACE>` placeholders, for dropping into another repo. |
@@ -31,7 +31,7 @@ I built this mainly for myself, for two reasons:
 | `scripts/` | Read-only diagnostic collection helpers (still empty). |
 
 ### Open the Site
-- **Normally:** open `cheat-sheets/index.html` in a browser.
+- **Normally:** open `cheat-sheets/index.html` in a browser. It opens on Mission Control, with Field notes for the server you are working on (saved as Markdown to `cases/` or an Obsidian vault).
 - **Offline or on another machine:** copy `cheat-sheets/datacenter-cheatsheet-portable.html`. It's one file and needs no network.
 
 ---

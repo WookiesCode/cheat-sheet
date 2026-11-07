@@ -1,9 +1,9 @@
-// Auto-generated Global Search Index across all 206 cheat sheets
-// Total indexed items: 2950
+// Auto-generated Global Search Index across all 211 cheat sheets
+// Total indexed items: 3086
 window.GLOBAL_SEARCH_INDEX = [
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "dmi",
     "id": "dmidecode-system-bios",
     "sec": "DMI / SMBIOS, FRU & Motherboard Inventory",
@@ -14,7 +14,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "dmi",
     "id": "dmidecode-system-bios",
     "sec": "DMI / SMBIOS, FRU & Motherboard Inventory",
@@ -25,7 +25,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "dmi",
     "id": "dmidecode-system-bios",
     "sec": "DMI / SMBIOS, FRU & Motherboard Inventory",
@@ -36,7 +36,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "dmi",
     "id": "dmidecode-system-bios",
     "sec": "DMI / SMBIOS, FRU & Motherboard Inventory",
@@ -47,7 +47,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "dmi",
     "id": "dmidecode-system-bios",
     "sec": "DMI / SMBIOS, FRU & Motherboard Inventory",
@@ -58,7 +58,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "dmi",
     "id": "dmidecode-memory-dimms",
     "sec": "DMI / SMBIOS, FRU & Motherboard Inventory",
@@ -69,7 +69,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "dmi",
     "id": "dmidecode-memory-dimms",
     "sec": "DMI / SMBIOS, FRU & Motherboard Inventory",
@@ -80,7 +80,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "dmi",
     "id": "dmidecode-memory-dimms",
     "sec": "DMI / SMBIOS, FRU & Motherboard Inventory",
@@ -91,7 +91,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "dmi",
     "id": "dmidecode-memory-dimms",
     "sec": "DMI / SMBIOS, FRU & Motherboard Inventory",
@@ -102,7 +102,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "dmi",
     "id": "dmidecode-psu-cpu",
     "sec": "DMI / SMBIOS, FRU & Motherboard Inventory",
@@ -113,7 +113,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "dmi",
     "id": "dmidecode-psu-cpu",
     "sec": "DMI / SMBIOS, FRU & Motherboard Inventory",
@@ -124,7 +124,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "dmi",
     "id": "dmidecode-psu-cpu",
     "sec": "DMI / SMBIOS, FRU & Motherboard Inventory",
@@ -135,7 +135,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "dmi",
     "id": "lshw-hardware-tree",
     "sec": "DMI / SMBIOS, FRU & Motherboard Inventory",
@@ -146,7 +146,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "dmi",
     "id": "lshw-hardware-tree",
     "sec": "DMI / SMBIOS, FRU & Motherboard Inventory",
@@ -157,7 +157,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "dmi",
     "id": "lshw-hardware-tree",
     "sec": "DMI / SMBIOS, FRU & Motherboard Inventory",
@@ -168,7 +168,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "dmi",
     "id": "lshw-hardware-tree",
     "sec": "DMI / SMBIOS, FRU & Motherboard Inventory",
@@ -179,7 +179,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "pci",
     "id": "lspci-link-speed-width",
     "sec": "PCIe Bus, Link Speed/Width, CPU & NUMA Topology",
@@ -190,7 +190,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "pci",
     "id": "lspci-link-speed-width",
     "sec": "PCIe Bus, Link Speed/Width, CPU & NUMA Topology",
@@ -201,7 +201,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "pci",
     "id": "lspci-link-speed-width",
     "sec": "PCIe Bus, Link Speed/Width, CPU & NUMA Topology",
@@ -212,7 +212,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "pci",
     "id": "lspci-link-speed-width",
     "sec": "PCIe Bus, Link Speed/Width, CPU & NUMA Topology",
@@ -223,7 +223,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "pci",
     "id": "lspci-aer-rescan",
     "sec": "PCIe Bus, Link Speed/Width, CPU & NUMA Topology",
@@ -234,7 +234,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "pci",
     "id": "lspci-aer-rescan",
     "sec": "PCIe Bus, Link Speed/Width, CPU & NUMA Topology",
@@ -245,7 +245,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "pci",
     "id": "lspci-aer-rescan",
     "sec": "PCIe Bus, Link Speed/Width, CPU & NUMA Topology",
@@ -256,7 +256,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "pci",
     "id": "lscpu-topology",
     "sec": "PCIe Bus, Link Speed/Width, CPU & NUMA Topology",
@@ -267,7 +267,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "pci",
     "id": "lscpu-topology",
     "sec": "PCIe Bus, Link Speed/Width, CPU & NUMA Topology",
@@ -278,7 +278,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "pci",
     "id": "lscpu-topology",
     "sec": "PCIe Bus, Link Speed/Width, CPU & NUMA Topology",
@@ -289,7 +289,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "pci",
     "id": "lscpu-topology",
     "sec": "PCIe Bus, Link Speed/Width, CPU & NUMA Topology",
@@ -300,7 +300,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "pci",
     "id": "numactl-topology",
     "sec": "PCIe Bus, Link Speed/Width, CPU & NUMA Topology",
@@ -311,7 +311,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "pci",
     "id": "numactl-topology",
     "sec": "PCIe Bus, Link Speed/Width, CPU & NUMA Topology",
@@ -322,7 +322,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "pci",
     "id": "numactl-topology",
     "sec": "PCIe Bus, Link Speed/Width, CPU & NUMA Topology",
@@ -333,7 +333,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "pci",
     "id": "numactl-topology",
     "sec": "PCIe Bus, Link Speed/Width, CPU & NUMA Topology",
@@ -344,7 +344,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "ecc",
     "id": "edac-dimm-errors",
     "sec": "ECC Memory, EDAC, MCE & Thermal Triage",
@@ -355,7 +355,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "ecc",
     "id": "edac-dimm-errors",
     "sec": "ECC Memory, EDAC, MCE & Thermal Triage",
@@ -366,7 +366,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "ecc",
     "id": "edac-dimm-errors",
     "sec": "ECC Memory, EDAC, MCE & Thermal Triage",
@@ -377,7 +377,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "ecc",
     "id": "rasdaemon-mce-triage",
     "sec": "ECC Memory, EDAC, MCE & Thermal Triage",
@@ -388,7 +388,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "ecc",
     "id": "rasdaemon-mce-triage",
     "sec": "ECC Memory, EDAC, MCE & Thermal Triage",
@@ -399,7 +399,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "ecc",
     "id": "rasdaemon-mce-triage",
     "sec": "ECC Memory, EDAC, MCE & Thermal Triage",
@@ -410,7 +410,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "ecc",
     "id": "rasdaemon-mce-triage",
     "sec": "ECC Memory, EDAC, MCE & Thermal Triage",
@@ -421,7 +421,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "ecc",
     "id": "sensors-thermals",
     "sec": "ECC Memory, EDAC, MCE & Thermal Triage",
@@ -432,7 +432,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "ecc",
     "id": "sensors-thermals",
     "sec": "ECC Memory, EDAC, MCE & Thermal Triage",
@@ -443,7 +443,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "ecc",
     "id": "sensors-thermals",
     "sec": "ECC Memory, EDAC, MCE & Thermal Triage",
@@ -454,7 +454,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "ecc",
     "id": "turbostat-power-clocks",
     "sec": "ECC Memory, EDAC, MCE & Thermal Triage",
@@ -465,7 +465,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "nvm",
     "id": "nvme-list-smart",
     "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
@@ -476,7 +476,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "nvm",
     "id": "nvme-list-smart",
     "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
@@ -487,7 +487,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "nvm",
     "id": "nvme-list-smart",
     "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
@@ -498,7 +498,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "nvm",
     "id": "nvme-list-smart",
     "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
@@ -509,7 +509,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "nvm",
     "id": "nvme-format-fw",
     "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
@@ -520,7 +520,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "nvm",
     "id": "nvme-format-fw",
     "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
@@ -531,7 +531,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "nvm",
     "id": "nvme-format-fw",
     "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
@@ -542,7 +542,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "nvm",
     "id": "nvme-format-fw",
     "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
@@ -553,7 +553,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "nvm",
     "id": "smartctl-disk-triage",
     "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
@@ -564,7 +564,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "nvm",
     "id": "smartctl-disk-triage",
     "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
@@ -575,7 +575,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "nvm",
     "id": "smartctl-disk-triage",
     "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
@@ -586,7 +586,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "nvm",
     "id": "smartctl-disk-triage",
     "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
@@ -597,7 +597,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "nvm",
     "id": "mdadm-raid-ops",
     "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
@@ -608,7 +608,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "nvm",
     "id": "mdadm-raid-ops",
     "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
@@ -619,7 +619,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "nvm",
     "id": "mdadm-raid-ops",
     "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
@@ -630,7 +630,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "nvm",
     "id": "mdadm-raid-ops",
     "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
@@ -641,7 +641,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "nvm",
     "id": "mdadm-raid-ops",
     "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
@@ -652,7 +652,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "nvm",
     "id": "ledctl-lsscsi-multipath",
     "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
@@ -663,7 +663,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "nvm",
     "id": "ledctl-lsscsi-multipath",
     "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
@@ -674,7 +674,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "nvm",
     "id": "ledctl-lsscsi-multipath",
     "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
@@ -685,7 +685,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "krn",
     "id": "lsmod-modinfo-modprobe",
     "sec": "Kernel Modules, GRUB, Serial Console & Burn-in",
@@ -696,7 +696,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "krn",
     "id": "lsmod-modinfo-modprobe",
     "sec": "Kernel Modules, GRUB, Serial Console & Burn-in",
@@ -707,7 +707,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "krn",
     "id": "lsmod-modinfo-modprobe",
     "sec": "Kernel Modules, GRUB, Serial Console & Burn-in",
@@ -718,7 +718,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "krn",
     "id": "lsmod-modinfo-modprobe",
     "sec": "Kernel Modules, GRUB, Serial Console & Burn-in",
@@ -729,7 +729,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "krn",
     "id": "grub-serial-initramfs",
     "sec": "Kernel Modules, GRUB, Serial Console & Burn-in",
@@ -740,7 +740,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "krn",
     "id": "grub-serial-initramfs",
     "sec": "Kernel Modules, GRUB, Serial Console & Burn-in",
@@ -751,7 +751,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "krn",
     "id": "grub-serial-initramfs",
     "sec": "Kernel Modules, GRUB, Serial Console & Burn-in",
@@ -762,7 +762,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "krn",
     "id": "grub-serial-initramfs",
     "sec": "Kernel Modules, GRUB, Serial Console & Burn-in",
@@ -773,7 +773,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "krn",
     "id": "coredumpctl-kdump",
     "sec": "Kernel Modules, GRUB, Serial Console & Burn-in",
@@ -784,7 +784,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "krn",
     "id": "coredumpctl-kdump",
     "sec": "Kernel Modules, GRUB, Serial Console & Burn-in",
@@ -795,7 +795,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "krn",
     "id": "coredumpctl-kdump",
     "sec": "Kernel Modules, GRUB, Serial Console & Burn-in",
@@ -806,7 +806,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "krn",
     "id": "stress-fio-burnin",
     "sec": "Kernel Modules, GRUB, Serial Console & Burn-in",
@@ -817,7 +817,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "krn",
     "id": "stress-fio-burnin",
     "sec": "Kernel Modules, GRUB, Serial Console & Burn-in",
@@ -828,7 +828,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "krn",
     "id": "stress-fio-burnin",
     "sec": "Kernel Modules, GRUB, Serial Console & Burn-in",
@@ -839,7 +839,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "fs",
     "id": "ls-lah",
     "sec": "Files & Directories",
@@ -850,7 +850,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "fs",
     "id": "ls-lah",
     "sec": "Files & Directories",
@@ -861,7 +861,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "fs",
     "id": "ls-lah",
     "sec": "Files & Directories",
@@ -872,7 +872,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "fs",
     "id": "ls-lah",
     "sec": "Files & Directories",
@@ -883,7 +883,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "fs",
     "id": "find-mtime-size",
     "sec": "Files & Directories",
@@ -894,7 +894,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "fs",
     "id": "find-mtime-size",
     "sec": "Files & Directories",
@@ -905,7 +905,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "fs",
     "id": "find-mtime-size",
     "sec": "Files & Directories",
@@ -916,7 +916,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "fs",
     "id": "mkdir-cp-ln",
     "sec": "Files & Directories",
@@ -927,7 +927,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "fs",
     "id": "mkdir-cp-ln",
     "sec": "Files & Directories",
@@ -938,7 +938,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "fs",
     "id": "mkdir-cp-ln",
     "sec": "Files & Directories",
@@ -949,7 +949,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "fs",
     "id": "rsync-mirror",
     "sec": "Files & Directories",
@@ -960,7 +960,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "fs",
     "id": "rsync-mirror",
     "sec": "Files & Directories",
@@ -971,7 +971,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "fs",
     "id": "rsync-mirror",
     "sec": "Files & Directories",
@@ -982,7 +982,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "perm",
     "id": "chmod-dirs-files",
     "sec": "Permissions, Ownership & ACLs",
@@ -993,7 +993,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "perm",
     "id": "chmod-dirs-files",
     "sec": "Permissions, Ownership & ACLs",
@@ -1004,7 +1004,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "perm",
     "id": "chmod-dirs-files",
     "sec": "Permissions, Ownership & ACLs",
@@ -1015,7 +1015,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "perm",
     "id": "chown-setgid",
     "sec": "Permissions, Ownership & ACLs",
@@ -1026,7 +1026,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "perm",
     "id": "chown-setgid",
     "sec": "Permissions, Ownership & ACLs",
@@ -1037,7 +1037,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "perm",
     "id": "setfacl-chattr",
     "sec": "Permissions, Ownership & ACLs",
@@ -1048,7 +1048,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "perm",
     "id": "setfacl-chattr",
     "sec": "Permissions, Ownership & ACLs",
@@ -1059,7 +1059,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "perm",
     "id": "setfacl-chattr",
     "sec": "Permissions, Ownership & ACLs",
@@ -1070,7 +1070,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "txt",
     "id": "grep-recursive-logs",
     "sec": "Text Processing, Log Triage & Streams",
@@ -1081,7 +1081,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "txt",
     "id": "grep-recursive-logs",
     "sec": "Text Processing, Log Triage & Streams",
@@ -1092,7 +1092,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "txt",
     "id": "grep-recursive-logs",
     "sec": "Text Processing, Log Triage & Streams",
@@ -1103,7 +1103,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "txt",
     "id": "grep-recursive-logs",
     "sec": "Text Processing, Log Triage & Streams",
@@ -1114,7 +1114,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "txt",
     "id": "awk-sed-pipelines",
     "sec": "Text Processing, Log Triage & Streams",
@@ -1125,7 +1125,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "txt",
     "id": "awk-sed-pipelines",
     "sec": "Text Processing, Log Triage & Streams",
@@ -1136,7 +1136,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "txt",
     "id": "awk-sed-pipelines",
     "sec": "Text Processing, Log Triage & Streams",
@@ -1147,7 +1147,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "txt",
     "id": "awk-sed-pipelines",
     "sec": "Text Processing, Log Triage & Streams",
@@ -1158,7 +1158,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "txt",
     "id": "tail-jq-streams",
     "sec": "Text Processing, Log Triage & Streams",
@@ -1169,7 +1169,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "txt",
     "id": "tail-jq-streams",
     "sec": "Text Processing, Log Triage & Streams",
@@ -1180,7 +1180,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "txt",
     "id": "tail-jq-streams",
     "sec": "Text Processing, Log Triage & Streams",
@@ -1191,7 +1191,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "proc",
     "id": "ps-top-cpu-mem",
     "sec": "Processes, Signals, Open Files & Performance",
@@ -1202,7 +1202,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "proc",
     "id": "ps-top-cpu-mem",
     "sec": "Processes, Signals, Open Files & Performance",
@@ -1213,7 +1213,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "proc",
     "id": "ps-top-cpu-mem",
     "sec": "Processes, Signals, Open Files & Performance",
@@ -1224,7 +1224,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "proc",
     "id": "lsof-deleted-proc",
     "sec": "Processes, Signals, Open Files & Performance",
@@ -1235,7 +1235,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "proc",
     "id": "lsof-deleted-proc",
     "sec": "Processes, Signals, Open Files & Performance",
@@ -1246,7 +1246,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "proc",
     "id": "lsof-deleted-proc",
     "sec": "Processes, Signals, Open Files & Performance",
@@ -1257,7 +1257,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "proc",
     "id": "free-vmstat-iostat",
     "sec": "Processes, Signals, Open Files & Performance",
@@ -1268,7 +1268,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "proc",
     "id": "free-vmstat-iostat",
     "sec": "Processes, Signals, Open Files & Performance",
@@ -1279,7 +1279,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "proc",
     "id": "free-vmstat-iostat",
     "sec": "Processes, Signals, Open Files & Performance",
@@ -1290,7 +1290,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "proc",
     "id": "strace-oom-debug",
     "sec": "Processes, Signals, Open Files & Performance",
@@ -1301,7 +1301,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "proc",
     "id": "strace-oom-debug",
     "sec": "Processes, Signals, Open Files & Performance",
@@ -1312,7 +1312,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "proc",
     "id": "strace-oom-debug",
     "sec": "Processes, Signals, Open Files & Performance",
@@ -1323,7 +1323,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "net",
     "id": "ss-listening-conns",
     "sec": "Networking, Sockets, DNS, UFW & SSH",
@@ -1334,7 +1334,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "net",
     "id": "ss-listening-conns",
     "sec": "Networking, Sockets, DNS, UFW & SSH",
@@ -1345,7 +1345,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "net",
     "id": "ss-listening-conns",
     "sec": "Networking, Sockets, DNS, UFW & SSH",
@@ -1356,7 +1356,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "net",
     "id": "ss-listening-conns",
     "sec": "Networking, Sockets, DNS, UFW & SSH",
@@ -1367,7 +1367,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "net",
     "id": "iproute2-interfaces-routes",
     "sec": "Networking, Sockets, DNS, UFW & SSH",
@@ -1378,7 +1378,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "net",
     "id": "iproute2-interfaces-routes",
     "sec": "Networking, Sockets, DNS, UFW & SSH",
@@ -1389,7 +1389,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "net",
     "id": "iproute2-interfaces-routes",
     "sec": "Networking, Sockets, DNS, UFW & SSH",
@@ -1400,7 +1400,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "net",
     "id": "iproute2-interfaces-routes",
     "sec": "Networking, Sockets, DNS, UFW & SSH",
@@ -1411,7 +1411,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "net",
     "id": "dig-curl-diagnostics",
     "sec": "Networking, Sockets, DNS, UFW & SSH",
@@ -1422,7 +1422,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "net",
     "id": "dig-curl-diagnostics",
     "sec": "Networking, Sockets, DNS, UFW & SSH",
@@ -1433,7 +1433,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "net",
     "id": "dig-curl-diagnostics",
     "sec": "Networking, Sockets, DNS, UFW & SSH",
@@ -1444,7 +1444,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "net",
     "id": "dig-curl-diagnostics",
     "sec": "Networking, Sockets, DNS, UFW & SSH",
@@ -1455,7 +1455,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "net",
     "id": "tcpdump-ufw-ssh",
     "sec": "Networking, Sockets, DNS, UFW & SSH",
@@ -1466,7 +1466,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "net",
     "id": "tcpdump-ufw-ssh",
     "sec": "Networking, Sockets, DNS, UFW & SSH",
@@ -1477,7 +1477,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "net",
     "id": "tcpdump-ufw-ssh",
     "sec": "Networking, Sockets, DNS, UFW & SSH",
@@ -1488,7 +1488,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "net",
     "id": "tcpdump-ufw-ssh",
     "sec": "Networking, Sockets, DNS, UFW & SSH",
@@ -1499,7 +1499,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "dsk",
     "id": "df-du-space",
     "sec": "Filesystems, Partitions, LVM & Mounts",
@@ -1510,7 +1510,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "dsk",
     "id": "df-du-space",
     "sec": "Filesystems, Partitions, LVM & Mounts",
@@ -1521,7 +1521,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "dsk",
     "id": "df-du-space",
     "sec": "Filesystems, Partitions, LVM & Mounts",
@@ -1532,7 +1532,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "dsk",
     "id": "df-du-space",
     "sec": "Filesystems, Partitions, LVM & Mounts",
@@ -1543,7 +1543,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "dsk",
     "id": "df-du-space",
     "sec": "Filesystems, Partitions, LVM & Mounts",
@@ -1554,7 +1554,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "dsk",
     "id": "lsblk-blkid-fstab",
     "sec": "Filesystems, Partitions, LVM & Mounts",
@@ -1565,7 +1565,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "dsk",
     "id": "lsblk-blkid-fstab",
     "sec": "Filesystems, Partitions, LVM & Mounts",
@@ -1576,7 +1576,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "dsk",
     "id": "lsblk-blkid-fstab",
     "sec": "Filesystems, Partitions, LVM & Mounts",
@@ -1587,7 +1587,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "dsk",
     "id": "lsblk-blkid-fstab",
     "sec": "Filesystems, Partitions, LVM & Mounts",
@@ -1598,7 +1598,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "dsk",
     "id": "lvm-resize-extend",
     "sec": "Filesystems, Partitions, LVM & Mounts",
@@ -1609,7 +1609,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "dsk",
     "id": "lvm-resize-extend",
     "sec": "Filesystems, Partitions, LVM & Mounts",
@@ -1620,7 +1620,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "dsk",
     "id": "lvm-resize-extend",
     "sec": "Filesystems, Partitions, LVM & Mounts",
@@ -1631,7 +1631,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "dsk",
     "id": "dd-parted-fsck",
     "sec": "Filesystems, Partitions, LVM & Mounts",
@@ -1642,7 +1642,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "dsk",
     "id": "dd-parted-fsck",
     "sec": "Filesystems, Partitions, LVM & Mounts",
@@ -1653,7 +1653,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "dsk",
     "id": "dd-parted-fsck",
     "sec": "Filesystems, Partitions, LVM & Mounts",
@@ -1664,7 +1664,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "tar",
     "id": "tar-create-extract",
     "sec": "Archives, Compression & Checksums",
@@ -1675,7 +1675,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "tar",
     "id": "tar-create-extract",
     "sec": "Archives, Compression & Checksums",
@@ -1686,7 +1686,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "tar",
     "id": "tar-create-extract",
     "sec": "Archives, Compression & Checksums",
@@ -1697,7 +1697,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "tar",
     "id": "tar-ssh-sha256",
     "sec": "Archives, Compression & Checksums",
@@ -1708,7 +1708,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "tar",
     "id": "tar-ssh-sha256",
     "sec": "Archives, Compression & Checksums",
@@ -1719,7 +1719,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "sys",
     "id": "systemctl-manage-units",
     "sec": "Systemd Services, Journald & Boot Analysis",
@@ -1730,7 +1730,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "sys",
     "id": "systemctl-manage-units",
     "sec": "Systemd Services, Journald & Boot Analysis",
@@ -1741,7 +1741,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "sys",
     "id": "systemctl-manage-units",
     "sec": "Systemd Services, Journald & Boot Analysis",
@@ -1752,7 +1752,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "sys",
     "id": "systemctl-manage-units",
     "sec": "Systemd Services, Journald & Boot Analysis",
@@ -1763,7 +1763,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "sys",
     "id": "systemctl-manage-units",
     "sec": "Systemd Services, Journald & Boot Analysis",
@@ -1774,7 +1774,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "sys",
     "id": "systemctl-manage-units",
     "sec": "Systemd Services, Journald & Boot Analysis",
@@ -1785,7 +1785,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "sys",
     "id": "journalctl-triage",
     "sec": "Systemd Services, Journald & Boot Analysis",
@@ -1796,7 +1796,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "sys",
     "id": "journalctl-triage",
     "sec": "Systemd Services, Journald & Boot Analysis",
@@ -1807,7 +1807,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "sys",
     "id": "journalctl-triage",
     "sec": "Systemd Services, Journald & Boot Analysis",
@@ -1818,7 +1818,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "sys",
     "id": "journalctl-triage",
     "sec": "Systemd Services, Journald & Boot Analysis",
@@ -1829,7 +1829,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "sys",
     "id": "journalctl-triage",
     "sec": "Systemd Services, Journald & Boot Analysis",
@@ -1840,7 +1840,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "usr",
     "id": "useradd-usermod-ubuntu",
     "sec": "Users, Groups, SSH Keys & Sudoers",
@@ -1851,7 +1851,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "usr",
     "id": "useradd-usermod-ubuntu",
     "sec": "Users, Groups, SSH Keys & Sudoers",
@@ -1862,7 +1862,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "usr",
     "id": "useradd-usermod-ubuntu",
     "sec": "Users, Groups, SSH Keys & Sudoers",
@@ -1873,7 +1873,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "usr",
     "id": "ssh-visudo-audit",
     "sec": "Users, Groups, SSH Keys & Sudoers",
@@ -1884,7 +1884,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "usr",
     "id": "ssh-visudo-audit",
     "sec": "Users, Groups, SSH Keys & Sudoers",
@@ -1895,7 +1895,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "usr",
     "id": "ssh-visudo-audit",
     "sec": "Users, Groups, SSH Keys & Sudoers",
@@ -1906,7 +1906,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "pkg",
     "id": "apt-update-upgrade",
     "sec": "Ubuntu APT, dpkg, Snap & Release Management",
@@ -1917,7 +1917,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "pkg",
     "id": "apt-update-upgrade",
     "sec": "Ubuntu APT, dpkg, Snap & Release Management",
@@ -1928,7 +1928,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "pkg",
     "id": "apt-update-upgrade",
     "sec": "Ubuntu APT, dpkg, Snap & Release Management",
@@ -1939,7 +1939,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "pkg",
     "id": "apt-search-policy",
     "sec": "Ubuntu APT, dpkg, Snap & Release Management",
@@ -1950,7 +1950,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "pkg",
     "id": "apt-search-policy",
     "sec": "Ubuntu APT, dpkg, Snap & Release Management",
@@ -1961,7 +1961,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "pkg",
     "id": "apt-search-policy",
     "sec": "Ubuntu APT, dpkg, Snap & Release Management",
@@ -1972,7 +1972,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "pkg",
     "id": "dpkg-query-files",
     "sec": "Ubuntu APT, dpkg, Snap & Release Management",
@@ -1983,7 +1983,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "pkg",
     "id": "dpkg-query-files",
     "sec": "Ubuntu APT, dpkg, Snap & Release Management",
@@ -1994,7 +1994,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "pkg",
     "id": "dpkg-query-files",
     "sec": "Ubuntu APT, dpkg, Snap & Release Management",
@@ -2005,7 +2005,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "pkg",
     "id": "dpkg-fix-needrestart",
     "sec": "Ubuntu APT, dpkg, Snap & Release Management",
@@ -2016,7 +2016,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "pkg",
     "id": "dpkg-fix-needrestart",
     "sec": "Ubuntu APT, dpkg, Snap & Release Management",
@@ -2027,7 +2027,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "pkg",
     "id": "dpkg-fix-needrestart",
     "sec": "Ubuntu APT, dpkg, Snap & Release Management",
@@ -2038,7 +2038,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "pkg",
     "id": "snap-ubuntu-release",
     "sec": "Ubuntu APT, dpkg, Snap & Release Management",
@@ -2049,7 +2049,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "pkg",
     "id": "snap-ubuntu-release",
     "sec": "Ubuntu APT, dpkg, Snap & Release Management",
@@ -2060,7 +2060,7 @@ window.GLOBAL_SEARCH_INDEX = [
   },
   {
     "sName": "linux",
-    "file": "index.html",
+    "file": "linux.html",
     "badge": "pkg",
     "id": "snap-ubuntu-release",
     "sec": "Ubuntu APT, dpkg, Snap & Release Management",
@@ -7134,6 +7134,160 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "curl ipv6 globoff fe80 resume resolve download iso firmware ttfb tips safety help"
   },
   {
+    "sName": "cursor",
+    "file": "cursor.html",
+    "badge": "cur",
+    "id": "cursor-panel",
+    "sec": "Cursor: Open the agent side panel and switch modes and models",
+    "cmd": "Ctrl+I  ·  Ctrl+.  ·  Shift+Tab",
+    "desc": "Open the agent side panel and switch modes and models",
+    "tip": "Shift+Tab to switch Agent / Plan / Ask",
+    "tags": "editor editors cursor agent side panel mode model"
+  },
+  {
+    "sName": "cursor",
+    "file": "cursor.html",
+    "badge": "cur",
+    "id": "cursor-panel-flags-card",
+    "sec": "Cursor: More options",
+    "cmd": "Ctrl+I  ·  Ctrl+.  ·  Shift+Tab",
+    "desc": "More options and gotchas for: Open the agent side panel and switch modes and models",
+    "tip": "",
+    "tags": "editor editors cursor flags options agent side panel mode"
+  },
+  {
+    "sName": "cursor",
+    "file": "cursor.html",
+    "badge": "cur",
+    "id": "cursor-chat",
+    "sec": "Cursor: In the chat box",
+    "cmd": "Ctrl+Enter  ·  Ctrl+Shift+Backspace",
+    "desc": "In the chat box: send, cancel, accept or reject changes",
+    "tip": "Review the diff before accepting all",
+    "tags": "editor editors cursor chat send accept reject cancel"
+  },
+  {
+    "sName": "cursor",
+    "file": "cursor.html",
+    "badge": "cur",
+    "id": "cursor-chat-flags-card",
+    "sec": "Cursor: More options",
+    "cmd": "Ctrl+Enter  ·  Ctrl+Shift+Backspace",
+    "desc": "More options and gotchas for: In the chat box: send, cancel, accept or reject changes",
+    "tip": "",
+    "tags": "editor editors cursor flags options chat send accept"
+  },
+  {
+    "sName": "cursor",
+    "file": "cursor.html",
+    "badge": "cur",
+    "id": "cursor-context",
+    "sec": "Cursor: Give the agent context",
+    "cmd": "Ctrl+Shift+L  ·  @",
+    "desc": "Give the agent context: selections, files, clipboard",
+    "tip": "@-mention the file instead of pasting it",
+    "tags": "editor editors cursor context mention selection clipboard"
+  },
+  {
+    "sName": "cursor",
+    "file": "cursor.html",
+    "badge": "cur",
+    "id": "cursor-context-flags-card",
+    "sec": "Cursor: More options",
+    "cmd": "Ctrl+Shift+L  ·  @",
+    "desc": "More options and gotchas for: Give the agent context: selections, files, clipboard",
+    "tip": "",
+    "tags": "editor editors cursor flags options context mention selection"
+  },
+  {
+    "sName": "cursor",
+    "file": "cursor.html",
+    "badge": "cur",
+    "id": "cursor-tab",
+    "sec": "Cursor: Tab completions",
+    "cmd": "Tab  ·  Ctrl+→",
+    "desc": "Tab completions",
+    "tip": "Ctrl+→ takes it one word at a time",
+    "tags": "editor editors cursor tab completion suggestion"
+  },
+  {
+    "sName": "cursor",
+    "file": "cursor.html",
+    "badge": "cur",
+    "id": "cursor-settings",
+    "sec": "Cursor: Settings, palette, keyboard shortcuts, voice",
+    "cmd": "Ctrl+Shift+J  ·  Ctrl+Shift+P",
+    "desc": "Settings, palette, keyboard shortcuts, voice",
+    "tip": "Ctrl+Shift+J is Cursor's own settings",
+    "tags": "editor editors cursor settings palette shortcuts voice"
+  },
+  {
+    "sName": "cursor",
+    "file": "cursor.html",
+    "badge": "cur",
+    "id": "cursor-settings-flags-card",
+    "sec": "Cursor: More options",
+    "cmd": "Ctrl+Shift+J  ·  Ctrl+Shift+P",
+    "desc": "More options and gotchas for: Settings, palette, keyboard shortcuts, voice",
+    "tip": "",
+    "tags": "editor editors cursor flags options settings palette shortcuts"
+  },
+  {
+    "sName": "cursor",
+    "file": "cursor.html",
+    "badge": "cur",
+    "id": "cursor-agent-cli",
+    "sec": "Cursor: Run the Cursor agent in a terminal",
+    "cmd": "agent \"explain why this service fails to start\"",
+    "desc": "Run the Cursor agent in a terminal (agent CLI)",
+    "tip": "-p for scripts, plain agent for a chat",
+    "tags": "editor editors cursor cli agent terminal print mode"
+  },
+  {
+    "sName": "cursor",
+    "file": "cursor.html",
+    "badge": "cur",
+    "id": "cursor-agent-cli-flags-card",
+    "sec": "Cursor: More options",
+    "cmd": "agent \"explain why this service fails to start\"",
+    "desc": "More options and gotchas for: Run the Cursor agent in a terminal",
+    "tip": "",
+    "tags": "editor editors cursor flags options cli agent terminal"
+  },
+  {
+    "sName": "cursor",
+    "file": "cursor.html",
+    "badge": "cur",
+    "id": "cursor-agent-cli-sub-1",
+    "sec": "Cursor: Related commands",
+    "cmd": "curl https://cursor.com/install -fsS | bash",
+    "desc": "Install the CLI (pipes a script into bash: read it first; changes state)",
+    "tip": "",
+    "tags": "editor editors cursor recipe cli agent terminal"
+  },
+  {
+    "sName": "cursor",
+    "file": "cursor.html",
+    "badge": "cur",
+    "id": "cursor-agent-cli-sub-2",
+    "sec": "Cursor: Related commands",
+    "cmd": "agent -p \"review these changes for security issues\" --output-format text",
+    "desc": "Non-interactive review",
+    "tip": "",
+    "tags": "editor editors cursor recipe cli agent terminal"
+  },
+  {
+    "sName": "cursor",
+    "file": "cursor.html",
+    "badge": "tip",
+    "id": "cursor-tips-card",
+    "sec": "Cursor: Pro Tip",
+    "cmd": "Ctrl+R Ctrl+S",
+    "desc": "Keys change often: check Cursor's own list",
+    "tip": "AI keys here, editing keys on the VS Code sheet",
+    "tags": "editor editors cursor tips best-practice"
+  },
+  {
     "sName": "cut",
     "file": "cut.html",
     "badge": "cut",
@@ -8619,6 +8773,755 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Real-time x86 CPU telemetry: actual core MHz, busy%, C-state residency, SMI interrupts & package wattage",
     "tip": "From linux-tools-common package",
     "tags": "turbostat power wattage mhz throttling smi msr"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "nano",
+    "id": "nano-open-line",
+    "sec": "GNU nano: Open a file at a given line",
+    "cmd": "nano -l +120 /etc/ssh/sshd_config",
+    "desc": "Open a file at a given line (with line numbers on)",
+    "tip": "Use -v when you only need to read",
+    "tags": "editor editors nano open line view flags"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "nano",
+    "id": "nano-open-line-flags-card",
+    "sec": "GNU nano: More options",
+    "cmd": "nano -l +120 /etc/ssh/sshd_config",
+    "desc": "More options and gotchas for: Open a file at a given line",
+    "tip": "",
+    "tags": "editor editors nano flags options open line view"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "nano",
+    "id": "nano-open-line-sub-1",
+    "sec": "GNU nano: Related commands",
+    "cmd": "nano -v /var/log/syslog",
+    "desc": "Page through a log without any risk of editing it",
+    "tip": "",
+    "tags": "editor editors nano recipe open line view"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "nano",
+    "id": "nano-open-line-sub-2",
+    "sec": "GNU nano: Related commands",
+    "cmd": "nano +/ListenAddress /etc/ssh/sshd_config",
+    "desc": "Open at the first match of a word",
+    "tip": "",
+    "tags": "editor editors nano recipe open line view"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "nano",
+    "id": "nano-sudoedit",
+    "sec": "GNU nano: Edit a root-owned file safely with sudoedit",
+    "cmd": "sudoedit /etc/fstab",
+    "desc": "Edit a root-owned file safely with sudoedit",
+    "tip": "Back up, sudoedit, then validate",
+    "tags": "editor editors nano sudoedit sudo root safe fstab validate"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "nano",
+    "id": "nano-sudoedit-sub-1",
+    "sec": "GNU nano: Related commands",
+    "cmd": "sudo cp -a /etc/fstab /etc/fstab.bak.$(date +%F)",
+    "desc": "Keep a dated copy before you touch it (changes state)",
+    "tip": "",
+    "tags": "editor editors nano recipe sudoedit sudo root"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "nano",
+    "id": "nano-sudoedit-sub-2",
+    "sec": "GNU nano: Related commands",
+    "cmd": "sudo findmnt --verify",
+    "desc": "Check /etc/fstab before the next reboot finds the mistake",
+    "tip": "",
+    "tags": "editor editors nano recipe sudoedit sudo root"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "nano",
+    "id": "nano-sudoedit-sub-3",
+    "sec": "GNU nano: Related commands",
+    "cmd": "sudo sshd -t",
+    "desc": "Check sshd_config before restarting sshd",
+    "tip": "",
+    "tags": "editor editors nano recipe sudoedit sudo root"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "nano",
+    "id": "nano-sudoedit-sub-4",
+    "sec": "GNU nano: Related commands",
+    "cmd": "sudo visudo -c",
+    "desc": "Check sudoers syntax",
+    "tip": "",
+    "tags": "editor editors nano recipe sudoedit sudo root"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "nano",
+    "id": "nano-save-exit",
+    "sec": "GNU nano: Save, exit and get help",
+    "cmd": "Ctrl+O  Enter  ·  Ctrl+X",
+    "desc": "Save, exit and get help (the bottom two lines list the rest)",
+    "tip": "^ = Ctrl, M- = Alt",
+    "tags": "editor editors nano save exit write out help keys"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "nano",
+    "id": "nano-save-exit-flags-card",
+    "sec": "GNU nano: More options",
+    "cmd": "Ctrl+O  Enter  ·  Ctrl+X",
+    "desc": "More options and gotchas for: Save, exit and get help",
+    "tip": "",
+    "tags": "editor editors nano flags options save exit write out"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "nano",
+    "id": "nano-search-replace",
+    "sec": "GNU nano: Search and replace",
+    "cmd": "Ctrl+W  ·  Ctrl+\\",
+    "desc": "Search and replace",
+    "tip": "A = replace all remaining matches",
+    "tags": "editor editors nano search find replace regex"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "nano",
+    "id": "nano-search-replace-flags-card",
+    "sec": "GNU nano: More options",
+    "cmd": "Ctrl+W  ·  Ctrl+\\",
+    "desc": "More options and gotchas for: Search and replace",
+    "tip": "",
+    "tags": "editor editors nano flags options search find replace"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "nano",
+    "id": "nano-cut-paste",
+    "sec": "GNU nano: Cut, copy and paste whole lines; undo and redo",
+    "cmd": "Ctrl+K  ·  Alt+6  ·  Ctrl+U",
+    "desc": "Cut, copy and paste whole lines; undo and redo",
+    "tip": "Ctrl+K several times, then Ctrl+U = move a block",
+    "tags": "editor editors nano cut copy paste undo redo mark"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "nano",
+    "id": "nano-cut-paste-flags-card",
+    "sec": "GNU nano: More options",
+    "cmd": "Ctrl+K  ·  Alt+6  ·  Ctrl+U",
+    "desc": "More options and gotchas for: Cut, copy and paste whole lines; undo and redo",
+    "tip": "",
+    "tags": "editor editors nano flags options cut copy paste"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "nano",
+    "id": "nano-navigate",
+    "sec": "GNU nano: Jump around a long file",
+    "cmd": "Ctrl+_  (go to line)",
+    "desc": "Jump around a long file",
+    "tip": "Ctrl+G lists the keys of your exact version",
+    "tags": "editor editors nano navigate go to line page position"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "nano",
+    "id": "nano-navigate-flags-card",
+    "sec": "GNU nano: More options",
+    "cmd": "Ctrl+_  (go to line)",
+    "desc": "More options and gotchas for: Jump around a long file",
+    "tip": "",
+    "tags": "editor editors nano flags options navigate go to line page"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "nano",
+    "id": "nano-nanorc",
+    "sec": "GNU nano: ~/.config/nano/nanorc",
+    "cmd": "set linenumbers\nset mouse\nset autoindent\nset tabsize 4\nset tabstospaces\nset constantshow\ninclude \"/usr/share/nano/*.nanorc\"",
+    "desc": "~/.config/nano/nanorc: sensible defaults for config files",
+    "tip": "One file, every server: keep it in your dotfiles",
+    "tags": "editor editors nano nanorc config syntax tabs dotfiles"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "nano",
+    "id": "nano-nanorc-flags-card",
+    "sec": "GNU nano: More options",
+    "cmd": "set linenumbers\nset mouse\nset autoindent\nset tabsize 4\nset tabstospaces\nset constantshow\ninclude \"/usr/share/nano/*.nanorc\"",
+    "desc": "More options and gotchas for: ~/.config/nano/nanorc: sensible defaults for config files",
+    "tip": "",
+    "tags": "editor editors nano flags options nanorc config syntax",
+    "noCopy": true
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "nano",
+    "id": "nano-default-editor",
+    "sec": "GNU nano: Make nano",
+    "cmd": "export EDITOR=nano VISUAL=nano",
+    "desc": "Make nano (or any editor) the default for git, crontab and visudo",
+    "tip": "Set EDITOR in ~/.bashrc",
+    "tags": "editor editors nano editor default git crontab visudo"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "tip",
+    "id": "nano-tips-card",
+    "sec": "GNU nano: Pro Tip",
+    "cmd": "sudo cp -a FILE FILE.bak.$(date +%F) && sudoedit FILE",
+    "desc": "Change a config the safe way",
+    "tip": "Backup → edit → validate → reload",
+    "tags": "editor editors nano tips best-practice"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "code",
+    "id": "vscode-palette",
+    "sec": "VS Code: Command Palette and Quick Open",
+    "cmd": "Ctrl+Shift+P  ·  Ctrl+P",
+    "desc": "Command Palette and Quick Open: find any command or file",
+    "tip": "Forgot a key? Search the palette",
+    "tags": "editor editors vscode command palette quick open settings shortcuts"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "code",
+    "id": "vscode-palette-flags-card",
+    "sec": "VS Code: More options",
+    "cmd": "Ctrl+Shift+P  ·  Ctrl+P",
+    "desc": "More options and gotchas for: Command Palette and Quick Open: find any command or file",
+    "tip": "",
+    "tags": "editor editors vscode flags options command palette quick open settings"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "code",
+    "id": "vscode-panels",
+    "sec": "VS Code: Show and hide the panels",
+    "cmd": "Ctrl+B  ·  Ctrl+`",
+    "desc": "Show and hide the panels",
+    "tip": "Ctrl+` keeps a shell one key away",
+    "tags": "editor editors vscode sidebar terminal explorer search git"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "code",
+    "id": "vscode-panels-flags-card",
+    "sec": "VS Code: More options",
+    "cmd": "Ctrl+B  ·  Ctrl+`",
+    "desc": "More options and gotchas for: Show and hide the panels",
+    "tip": "",
+    "tags": "editor editors vscode flags options sidebar terminal explorer"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "code",
+    "id": "vscode-navigate",
+    "sec": "VS Code: Move through code",
+    "cmd": "F12  ·  Ctrl+Shift+O  ·  Ctrl+G",
+    "desc": "Move through code: definitions, symbols, lines",
+    "tip": "F12 in, Ctrl+Alt+- back",
+    "tags": "editor editors vscode definition symbol rename go to line"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "code",
+    "id": "vscode-navigate-flags-card",
+    "sec": "VS Code: More options",
+    "cmd": "F12  ·  Ctrl+Shift+O  ·  Ctrl+G",
+    "desc": "More options and gotchas for: Move through code: definitions, symbols, lines",
+    "tip": "",
+    "tags": "editor editors vscode flags options definition symbol rename"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "code",
+    "id": "vscode-multicursor",
+    "sec": "VS Code: Multi-cursor and line editing",
+    "cmd": "Ctrl+D  ·  Shift+Alt+Down",
+    "desc": "Multi-cursor and line editing",
+    "tip": "Ctrl+D is the fastest bulk rename",
+    "tags": "editor editors vscode multi-cursor select move line comment format"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "code",
+    "id": "vscode-multicursor-flags-card",
+    "sec": "VS Code: More options",
+    "cmd": "Ctrl+D  ·  Shift+Alt+Down",
+    "desc": "More options and gotchas for: Multi-cursor and line editing",
+    "tip": "",
+    "tags": "editor editors vscode flags options multi-cursor select move line"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "code",
+    "id": "vscode-layout",
+    "sec": "VS Code: Split, close and focus",
+    "cmd": "Ctrl+\\  ·  Ctrl+W  ·  Ctrl+K Z",
+    "desc": "Split, close and focus",
+    "tip": "Zen mode for long write-ups",
+    "tags": "editor editors vscode split close zen layout"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "code",
+    "id": "vscode-cli",
+    "sec": "VS Code: The code command",
+    "cmd": "code -r -g /etc/netplan/50-cloud-init.yaml:12",
+    "desc": "The code command: open, jump to a line, diff",
+    "tip": "core.editor needs --wait",
+    "tags": "editor editors vscode code cli diff goto git extensions"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "code",
+    "id": "vscode-cli-flags-card",
+    "sec": "VS Code: More options",
+    "cmd": "code -r -g /etc/netplan/50-cloud-init.yaml:12",
+    "desc": "More options and gotchas for: The code command: open, jump to a line, diff",
+    "tip": "",
+    "tags": "editor editors vscode flags options code cli diff"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "code",
+    "id": "vscode-cli-sub-1",
+    "sec": "VS Code: Related commands",
+    "cmd": "code --diff running.conf backup.conf",
+    "desc": "Compare two configs",
+    "tip": "",
+    "tags": "editor editors vscode recipe code cli diff"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "code",
+    "id": "vscode-cli-sub-2",
+    "sec": "VS Code: Related commands",
+    "cmd": "git config --global core.editor \"code --wait\"",
+    "desc": "VS Code for commit messages and rebases",
+    "tip": "",
+    "tags": "editor editors vscode recipe code cli diff"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "code",
+    "id": "vscode-cli-sub-3",
+    "sec": "VS Code: Related commands",
+    "cmd": "code --list-extensions --show-versions",
+    "desc": "What is installed (and which versions)",
+    "tip": "",
+    "tags": "editor editors vscode recipe code cli diff"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "code",
+    "id": "vscode-cli-sub-4",
+    "sec": "VS Code: Related commands",
+    "cmd": "code --install-extension ms-vscode-remote.remote-ssh",
+    "desc": "Install an extension by ID (changes state)",
+    "tip": "",
+    "tags": "editor editors vscode recipe code cli diff"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "code",
+    "id": "vscode-remote",
+    "sec": "VS Code: Edit files on a server over SSH",
+    "cmd": "Ctrl+Shift+P → Remote-SSH: Connect to Host...",
+    "desc": "Edit files on a server over SSH (Remote-SSH)",
+    "tip": "Define hosts in ~/.ssh/config once",
+    "tags": "editor editors vscode remote ssh remote-ssh tunnel jumpbox"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "code",
+    "id": "vscode-remote-flags-card",
+    "sec": "VS Code: More options",
+    "cmd": "Ctrl+Shift+P → Remote-SSH: Connect to Host...",
+    "desc": "More options and gotchas for: Edit files on a server over SSH",
+    "tip": "",
+    "tags": "editor editors vscode flags options remote ssh remote-ssh"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "tip",
+    "id": "vscode-tips-card",
+    "sec": "VS Code: Pro Tip",
+    "cmd": "Ctrl+K Ctrl+S",
+    "desc": "VS Code 1.145 (November 2026): keys above are the Linux defaults",
+    "tip": "Check your own bindings with Ctrl+K Ctrl+S",
+    "tags": "editor editors vscode tips best-practice"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "zed",
+    "id": "zed-palette",
+    "sec": "Zed: Command palette, file finder, settings and keymap",
+    "cmd": "ctrl-shift-p  ·  ctrl-p",
+    "desc": "Command palette, file finder, settings and keymap",
+    "tip": "zed: open default keymap shows every binding",
+    "tags": "editor editors zed palette file finder settings keymap"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "zed",
+    "id": "zed-palette-flags-card",
+    "sec": "Zed: More options",
+    "cmd": "ctrl-shift-p  ·  ctrl-p",
+    "desc": "More options and gotchas for: Command palette, file finder, settings and keymap",
+    "tip": "",
+    "tags": "editor editors zed flags options palette file finder settings"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "zed",
+    "id": "zed-panels",
+    "sec": "Zed: Docks, terminal and project search",
+    "cmd": "ctrl-b  ·  ctrl-`",
+    "desc": "Docks, terminal and project search",
+    "tip": "Same keys as VS Code by default",
+    "tags": "editor editors zed dock terminal project search"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "zed",
+    "id": "zed-panels-flags-card",
+    "sec": "Zed: More options",
+    "cmd": "ctrl-b  ·  ctrl-`",
+    "desc": "More options and gotchas for: Docks, terminal and project search",
+    "tip": "",
+    "tags": "editor editors zed flags options dock terminal project"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "zed",
+    "id": "zed-navigate",
+    "sec": "Zed: Definitions, references, symbols",
+    "cmd": "f12  ·  alt-shift-f12",
+    "desc": "Definitions, references, symbols",
+    "tip": "ctrl-shift-o for a quick file outline",
+    "tags": "editor editors zed definition references symbols go to line"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "zed",
+    "id": "zed-navigate-flags-card",
+    "sec": "Zed: More options",
+    "cmd": "f12  ·  alt-shift-f12",
+    "desc": "More options and gotchas for: Definitions, references, symbols",
+    "tip": "",
+    "tags": "editor editors zed flags options definition references symbols"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "zed",
+    "id": "zed-editing",
+    "sec": "Zed: Multi-cursor and line editing",
+    "cmd": "ctrl-d  ·  shift-alt-down",
+    "desc": "Multi-cursor and line editing",
+    "tip": "Muscle memory from VS Code carries over",
+    "tags": "editor editors zed multi-cursor move line duplicate comment format split"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "zed",
+    "id": "zed-editing-flags-card",
+    "sec": "Zed: More options",
+    "cmd": "ctrl-d  ·  shift-alt-down",
+    "desc": "More options and gotchas for: Multi-cursor and line editing",
+    "tip": "",
+    "tags": "editor editors zed flags options multi-cursor move line duplicate"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "zed",
+    "id": "zed-agent",
+    "sec": "Zed: AI",
+    "cmd": "ctrl-?  ·  ctrl-enter",
+    "desc": "AI: agent panel and inline assist",
+    "tip": "Select code first, then ctrl-enter",
+    "tags": "editor editors zed ai agent inline assist assistant"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "zed",
+    "id": "zed-cli",
+    "sec": "Zed: The zed command",
+    "cmd": "zed /etc/netplan/50-cloud-init.yaml:12:5",
+    "desc": "The zed command: open a folder, a line, a diff",
+    "tip": "core.editor needs --wait",
+    "tags": "editor editors zed zed cli diff git"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "zed",
+    "id": "zed-cli-flags-card",
+    "sec": "Zed: More options",
+    "cmd": "zed /etc/netplan/50-cloud-init.yaml:12:5",
+    "desc": "More options and gotchas for: The zed command: open a folder, a line, a diff",
+    "tip": "",
+    "tags": "editor editors zed flags options zed cli diff"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "zed",
+    "id": "zed-cli-sub-1",
+    "sec": "Zed: Related commands",
+    "cmd": "git config --global core.editor \"zed --wait\"",
+    "desc": "Zed for commit messages",
+    "tip": "",
+    "tags": "editor editors zed recipe zed cli diff"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "zed",
+    "id": "zed-cli-sub-2",
+    "sec": "Zed: Related commands",
+    "cmd": "zed --version",
+    "desc": "Installed version",
+    "tip": "",
+    "tags": "editor editors zed recipe zed cli diff"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "zed",
+    "id": "zed-config",
+    "sec": "Zed: Keymap file, base keymap and vim mode",
+    "cmd": "~/.config/zed/keymap.json",
+    "desc": "Keymap file, base keymap and vim mode",
+    "tip": "Keymap editor writes keymap.json for you",
+    "tags": "editor editors zed keymap settings vim base keymap config"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "tip",
+    "id": "zed-tips-card",
+    "sec": "Zed: Pro Tip",
+    "cmd": "ctrl-shift-p → zed: open default keymap",
+    "desc": "Zed 1.27 (November 2026): check the bindings your build ships",
+    "tip": "The default keymap is the reference",
+    "tags": "editor editors zed tips best-practice"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "cur",
+    "id": "cursor-panel",
+    "sec": "Cursor: Open the agent side panel and switch modes and models",
+    "cmd": "Ctrl+I  ·  Ctrl+.  ·  Shift+Tab",
+    "desc": "Open the agent side panel and switch modes and models",
+    "tip": "Shift+Tab to switch Agent / Plan / Ask",
+    "tags": "editor editors cursor agent side panel mode model"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "cur",
+    "id": "cursor-panel-flags-card",
+    "sec": "Cursor: More options",
+    "cmd": "Ctrl+I  ·  Ctrl+.  ·  Shift+Tab",
+    "desc": "More options and gotchas for: Open the agent side panel and switch modes and models",
+    "tip": "",
+    "tags": "editor editors cursor flags options agent side panel mode"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "cur",
+    "id": "cursor-chat",
+    "sec": "Cursor: In the chat box",
+    "cmd": "Ctrl+Enter  ·  Ctrl+Shift+Backspace",
+    "desc": "In the chat box: send, cancel, accept or reject changes",
+    "tip": "Review the diff before accepting all",
+    "tags": "editor editors cursor chat send accept reject cancel"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "cur",
+    "id": "cursor-chat-flags-card",
+    "sec": "Cursor: More options",
+    "cmd": "Ctrl+Enter  ·  Ctrl+Shift+Backspace",
+    "desc": "More options and gotchas for: In the chat box: send, cancel, accept or reject changes",
+    "tip": "",
+    "tags": "editor editors cursor flags options chat send accept"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "cur",
+    "id": "cursor-context",
+    "sec": "Cursor: Give the agent context",
+    "cmd": "Ctrl+Shift+L  ·  @",
+    "desc": "Give the agent context: selections, files, clipboard",
+    "tip": "@-mention the file instead of pasting it",
+    "tags": "editor editors cursor context mention selection clipboard"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "cur",
+    "id": "cursor-context-flags-card",
+    "sec": "Cursor: More options",
+    "cmd": "Ctrl+Shift+L  ·  @",
+    "desc": "More options and gotchas for: Give the agent context: selections, files, clipboard",
+    "tip": "",
+    "tags": "editor editors cursor flags options context mention selection"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "cur",
+    "id": "cursor-tab",
+    "sec": "Cursor: Tab completions",
+    "cmd": "Tab  ·  Ctrl+→",
+    "desc": "Tab completions",
+    "tip": "Ctrl+→ takes it one word at a time",
+    "tags": "editor editors cursor tab completion suggestion"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "cur",
+    "id": "cursor-settings",
+    "sec": "Cursor: Settings, palette, keyboard shortcuts, voice",
+    "cmd": "Ctrl+Shift+J  ·  Ctrl+Shift+P",
+    "desc": "Settings, palette, keyboard shortcuts, voice",
+    "tip": "Ctrl+Shift+J is Cursor's own settings",
+    "tags": "editor editors cursor settings palette shortcuts voice"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "cur",
+    "id": "cursor-settings-flags-card",
+    "sec": "Cursor: More options",
+    "cmd": "Ctrl+Shift+J  ·  Ctrl+Shift+P",
+    "desc": "More options and gotchas for: Settings, palette, keyboard shortcuts, voice",
+    "tip": "",
+    "tags": "editor editors cursor flags options settings palette shortcuts"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "cur",
+    "id": "cursor-agent-cli",
+    "sec": "Cursor: Run the Cursor agent in a terminal",
+    "cmd": "agent \"explain why this service fails to start\"",
+    "desc": "Run the Cursor agent in a terminal (agent CLI)",
+    "tip": "-p for scripts, plain agent for a chat",
+    "tags": "editor editors cursor cli agent terminal print mode"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "cur",
+    "id": "cursor-agent-cli-flags-card",
+    "sec": "Cursor: More options",
+    "cmd": "agent \"explain why this service fails to start\"",
+    "desc": "More options and gotchas for: Run the Cursor agent in a terminal",
+    "tip": "",
+    "tags": "editor editors cursor flags options cli agent terminal"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "cur",
+    "id": "cursor-agent-cli-sub-1",
+    "sec": "Cursor: Related commands",
+    "cmd": "curl https://cursor.com/install -fsS | bash",
+    "desc": "Install the CLI (pipes a script into bash: read it first; changes state)",
+    "tip": "",
+    "tags": "editor editors cursor recipe cli agent terminal"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "cur",
+    "id": "cursor-agent-cli-sub-2",
+    "sec": "Cursor: Related commands",
+    "cmd": "agent -p \"review these changes for security issues\" --output-format text",
+    "desc": "Non-interactive review",
+    "tip": "",
+    "tags": "editor editors cursor recipe cli agent terminal"
+  },
+  {
+    "sName": "editors",
+    "file": "editors.html",
+    "badge": "tip",
+    "id": "cursor-tips-card",
+    "sec": "Cursor: Pro Tip",
+    "cmd": "Ctrl+R Ctrl+S",
+    "desc": "Keys change often: check Cursor's own list",
+    "tip": "AI keys here, editing keys on the VS Code sheet",
+    "tags": "editor editors cursor tips best-practice"
   },
   {
     "sName": "efibootmgr",
@@ -22155,6 +23058,238 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "namei symlink permissions path traversal debug tips safety help"
   },
   {
+    "sName": "nano",
+    "file": "nano.html",
+    "badge": "nano",
+    "id": "nano-open-line",
+    "sec": "GNU nano: Open a file at a given line",
+    "cmd": "nano -l +120 /etc/ssh/sshd_config",
+    "desc": "Open a file at a given line (with line numbers on)",
+    "tip": "Use -v when you only need to read",
+    "tags": "editor editors nano open line view flags"
+  },
+  {
+    "sName": "nano",
+    "file": "nano.html",
+    "badge": "nano",
+    "id": "nano-open-line-flags-card",
+    "sec": "GNU nano: More options",
+    "cmd": "nano -l +120 /etc/ssh/sshd_config",
+    "desc": "More options and gotchas for: Open a file at a given line",
+    "tip": "",
+    "tags": "editor editors nano flags options open line view"
+  },
+  {
+    "sName": "nano",
+    "file": "nano.html",
+    "badge": "nano",
+    "id": "nano-open-line-sub-1",
+    "sec": "GNU nano: Related commands",
+    "cmd": "nano -v /var/log/syslog",
+    "desc": "Page through a log without any risk of editing it",
+    "tip": "",
+    "tags": "editor editors nano recipe open line view"
+  },
+  {
+    "sName": "nano",
+    "file": "nano.html",
+    "badge": "nano",
+    "id": "nano-open-line-sub-2",
+    "sec": "GNU nano: Related commands",
+    "cmd": "nano +/ListenAddress /etc/ssh/sshd_config",
+    "desc": "Open at the first match of a word",
+    "tip": "",
+    "tags": "editor editors nano recipe open line view"
+  },
+  {
+    "sName": "nano",
+    "file": "nano.html",
+    "badge": "nano",
+    "id": "nano-sudoedit",
+    "sec": "GNU nano: Edit a root-owned file safely with sudoedit",
+    "cmd": "sudoedit /etc/fstab",
+    "desc": "Edit a root-owned file safely with sudoedit",
+    "tip": "Back up, sudoedit, then validate",
+    "tags": "editor editors nano sudoedit sudo root safe fstab validate"
+  },
+  {
+    "sName": "nano",
+    "file": "nano.html",
+    "badge": "nano",
+    "id": "nano-sudoedit-sub-1",
+    "sec": "GNU nano: Related commands",
+    "cmd": "sudo cp -a /etc/fstab /etc/fstab.bak.$(date +%F)",
+    "desc": "Keep a dated copy before you touch it (changes state)",
+    "tip": "",
+    "tags": "editor editors nano recipe sudoedit sudo root"
+  },
+  {
+    "sName": "nano",
+    "file": "nano.html",
+    "badge": "nano",
+    "id": "nano-sudoedit-sub-2",
+    "sec": "GNU nano: Related commands",
+    "cmd": "sudo findmnt --verify",
+    "desc": "Check /etc/fstab before the next reboot finds the mistake",
+    "tip": "",
+    "tags": "editor editors nano recipe sudoedit sudo root"
+  },
+  {
+    "sName": "nano",
+    "file": "nano.html",
+    "badge": "nano",
+    "id": "nano-sudoedit-sub-3",
+    "sec": "GNU nano: Related commands",
+    "cmd": "sudo sshd -t",
+    "desc": "Check sshd_config before restarting sshd",
+    "tip": "",
+    "tags": "editor editors nano recipe sudoedit sudo root"
+  },
+  {
+    "sName": "nano",
+    "file": "nano.html",
+    "badge": "nano",
+    "id": "nano-sudoedit-sub-4",
+    "sec": "GNU nano: Related commands",
+    "cmd": "sudo visudo -c",
+    "desc": "Check sudoers syntax",
+    "tip": "",
+    "tags": "editor editors nano recipe sudoedit sudo root"
+  },
+  {
+    "sName": "nano",
+    "file": "nano.html",
+    "badge": "nano",
+    "id": "nano-save-exit",
+    "sec": "GNU nano: Save, exit and get help",
+    "cmd": "Ctrl+O  Enter  ·  Ctrl+X",
+    "desc": "Save, exit and get help (the bottom two lines list the rest)",
+    "tip": "^ = Ctrl, M- = Alt",
+    "tags": "editor editors nano save exit write out help keys"
+  },
+  {
+    "sName": "nano",
+    "file": "nano.html",
+    "badge": "nano",
+    "id": "nano-save-exit-flags-card",
+    "sec": "GNU nano: More options",
+    "cmd": "Ctrl+O  Enter  ·  Ctrl+X",
+    "desc": "More options and gotchas for: Save, exit and get help",
+    "tip": "",
+    "tags": "editor editors nano flags options save exit write out"
+  },
+  {
+    "sName": "nano",
+    "file": "nano.html",
+    "badge": "nano",
+    "id": "nano-search-replace",
+    "sec": "GNU nano: Search and replace",
+    "cmd": "Ctrl+W  ·  Ctrl+\\",
+    "desc": "Search and replace",
+    "tip": "A = replace all remaining matches",
+    "tags": "editor editors nano search find replace regex"
+  },
+  {
+    "sName": "nano",
+    "file": "nano.html",
+    "badge": "nano",
+    "id": "nano-search-replace-flags-card",
+    "sec": "GNU nano: More options",
+    "cmd": "Ctrl+W  ·  Ctrl+\\",
+    "desc": "More options and gotchas for: Search and replace",
+    "tip": "",
+    "tags": "editor editors nano flags options search find replace"
+  },
+  {
+    "sName": "nano",
+    "file": "nano.html",
+    "badge": "nano",
+    "id": "nano-cut-paste",
+    "sec": "GNU nano: Cut, copy and paste whole lines; undo and redo",
+    "cmd": "Ctrl+K  ·  Alt+6  ·  Ctrl+U",
+    "desc": "Cut, copy and paste whole lines; undo and redo",
+    "tip": "Ctrl+K several times, then Ctrl+U = move a block",
+    "tags": "editor editors nano cut copy paste undo redo mark"
+  },
+  {
+    "sName": "nano",
+    "file": "nano.html",
+    "badge": "nano",
+    "id": "nano-cut-paste-flags-card",
+    "sec": "GNU nano: More options",
+    "cmd": "Ctrl+K  ·  Alt+6  ·  Ctrl+U",
+    "desc": "More options and gotchas for: Cut, copy and paste whole lines; undo and redo",
+    "tip": "",
+    "tags": "editor editors nano flags options cut copy paste"
+  },
+  {
+    "sName": "nano",
+    "file": "nano.html",
+    "badge": "nano",
+    "id": "nano-navigate",
+    "sec": "GNU nano: Jump around a long file",
+    "cmd": "Ctrl+_  (go to line)",
+    "desc": "Jump around a long file",
+    "tip": "Ctrl+G lists the keys of your exact version",
+    "tags": "editor editors nano navigate go to line page position"
+  },
+  {
+    "sName": "nano",
+    "file": "nano.html",
+    "badge": "nano",
+    "id": "nano-navigate-flags-card",
+    "sec": "GNU nano: More options",
+    "cmd": "Ctrl+_  (go to line)",
+    "desc": "More options and gotchas for: Jump around a long file",
+    "tip": "",
+    "tags": "editor editors nano flags options navigate go to line page"
+  },
+  {
+    "sName": "nano",
+    "file": "nano.html",
+    "badge": "nano",
+    "id": "nano-nanorc",
+    "sec": "GNU nano: ~/.config/nano/nanorc",
+    "cmd": "set linenumbers\nset mouse\nset autoindent\nset tabsize 4\nset tabstospaces\nset constantshow\ninclude \"/usr/share/nano/*.nanorc\"",
+    "desc": "~/.config/nano/nanorc: sensible defaults for config files",
+    "tip": "One file, every server: keep it in your dotfiles",
+    "tags": "editor editors nano nanorc config syntax tabs dotfiles"
+  },
+  {
+    "sName": "nano",
+    "file": "nano.html",
+    "badge": "nano",
+    "id": "nano-nanorc-flags-card",
+    "sec": "GNU nano: More options",
+    "cmd": "set linenumbers\nset mouse\nset autoindent\nset tabsize 4\nset tabstospaces\nset constantshow\ninclude \"/usr/share/nano/*.nanorc\"",
+    "desc": "More options and gotchas for: ~/.config/nano/nanorc: sensible defaults for config files",
+    "tip": "",
+    "tags": "editor editors nano flags options nanorc config syntax",
+    "noCopy": true
+  },
+  {
+    "sName": "nano",
+    "file": "nano.html",
+    "badge": "nano",
+    "id": "nano-default-editor",
+    "sec": "GNU nano: Make nano",
+    "cmd": "export EDITOR=nano VISUAL=nano",
+    "desc": "Make nano (or any editor) the default for git, crontab and visudo",
+    "tip": "Set EDITOR in ~/.bashrc",
+    "tags": "editor editors nano editor default git crontab visudo"
+  },
+  {
+    "sName": "nano",
+    "file": "nano.html",
+    "badge": "tip",
+    "id": "nano-tips-card",
+    "sec": "GNU nano: Pro Tip",
+    "cmd": "sudo cp -a FILE FILE.bak.$(date +%F) && sudoedit FILE",
+    "desc": "Change a config the safe way",
+    "tip": "Backup → edit → validate → reload",
+    "tags": "editor editors nano tips best-practice"
+  },
+  {
     "sName": "neovim",
     "file": "neovim.html",
     "badge": "mov",
@@ -31433,6 +32568,204 @@ window.GLOBAL_SEARCH_INDEX = [
     "tags": "users tips triage diagnostics"
   },
   {
+    "sName": "vscode",
+    "file": "vscode.html",
+    "badge": "code",
+    "id": "vscode-palette",
+    "sec": "VS Code: Command Palette and Quick Open",
+    "cmd": "Ctrl+Shift+P  ·  Ctrl+P",
+    "desc": "Command Palette and Quick Open: find any command or file",
+    "tip": "Forgot a key? Search the palette",
+    "tags": "editor editors vscode command palette quick open settings shortcuts"
+  },
+  {
+    "sName": "vscode",
+    "file": "vscode.html",
+    "badge": "code",
+    "id": "vscode-palette-flags-card",
+    "sec": "VS Code: More options",
+    "cmd": "Ctrl+Shift+P  ·  Ctrl+P",
+    "desc": "More options and gotchas for: Command Palette and Quick Open: find any command or file",
+    "tip": "",
+    "tags": "editor editors vscode flags options command palette quick open settings"
+  },
+  {
+    "sName": "vscode",
+    "file": "vscode.html",
+    "badge": "code",
+    "id": "vscode-panels",
+    "sec": "VS Code: Show and hide the panels",
+    "cmd": "Ctrl+B  ·  Ctrl+`",
+    "desc": "Show and hide the panels",
+    "tip": "Ctrl+` keeps a shell one key away",
+    "tags": "editor editors vscode sidebar terminal explorer search git"
+  },
+  {
+    "sName": "vscode",
+    "file": "vscode.html",
+    "badge": "code",
+    "id": "vscode-panels-flags-card",
+    "sec": "VS Code: More options",
+    "cmd": "Ctrl+B  ·  Ctrl+`",
+    "desc": "More options and gotchas for: Show and hide the panels",
+    "tip": "",
+    "tags": "editor editors vscode flags options sidebar terminal explorer"
+  },
+  {
+    "sName": "vscode",
+    "file": "vscode.html",
+    "badge": "code",
+    "id": "vscode-navigate",
+    "sec": "VS Code: Move through code",
+    "cmd": "F12  ·  Ctrl+Shift+O  ·  Ctrl+G",
+    "desc": "Move through code: definitions, symbols, lines",
+    "tip": "F12 in, Ctrl+Alt+- back",
+    "tags": "editor editors vscode definition symbol rename go to line"
+  },
+  {
+    "sName": "vscode",
+    "file": "vscode.html",
+    "badge": "code",
+    "id": "vscode-navigate-flags-card",
+    "sec": "VS Code: More options",
+    "cmd": "F12  ·  Ctrl+Shift+O  ·  Ctrl+G",
+    "desc": "More options and gotchas for: Move through code: definitions, symbols, lines",
+    "tip": "",
+    "tags": "editor editors vscode flags options definition symbol rename"
+  },
+  {
+    "sName": "vscode",
+    "file": "vscode.html",
+    "badge": "code",
+    "id": "vscode-multicursor",
+    "sec": "VS Code: Multi-cursor and line editing",
+    "cmd": "Ctrl+D  ·  Shift+Alt+Down",
+    "desc": "Multi-cursor and line editing",
+    "tip": "Ctrl+D is the fastest bulk rename",
+    "tags": "editor editors vscode multi-cursor select move line comment format"
+  },
+  {
+    "sName": "vscode",
+    "file": "vscode.html",
+    "badge": "code",
+    "id": "vscode-multicursor-flags-card",
+    "sec": "VS Code: More options",
+    "cmd": "Ctrl+D  ·  Shift+Alt+Down",
+    "desc": "More options and gotchas for: Multi-cursor and line editing",
+    "tip": "",
+    "tags": "editor editors vscode flags options multi-cursor select move line"
+  },
+  {
+    "sName": "vscode",
+    "file": "vscode.html",
+    "badge": "code",
+    "id": "vscode-layout",
+    "sec": "VS Code: Split, close and focus",
+    "cmd": "Ctrl+\\  ·  Ctrl+W  ·  Ctrl+K Z",
+    "desc": "Split, close and focus",
+    "tip": "Zen mode for long write-ups",
+    "tags": "editor editors vscode split close zen layout"
+  },
+  {
+    "sName": "vscode",
+    "file": "vscode.html",
+    "badge": "code",
+    "id": "vscode-cli",
+    "sec": "VS Code: The code command",
+    "cmd": "code -r -g /etc/netplan/50-cloud-init.yaml:12",
+    "desc": "The code command: open, jump to a line, diff",
+    "tip": "core.editor needs --wait",
+    "tags": "editor editors vscode code cli diff goto git extensions"
+  },
+  {
+    "sName": "vscode",
+    "file": "vscode.html",
+    "badge": "code",
+    "id": "vscode-cli-flags-card",
+    "sec": "VS Code: More options",
+    "cmd": "code -r -g /etc/netplan/50-cloud-init.yaml:12",
+    "desc": "More options and gotchas for: The code command: open, jump to a line, diff",
+    "tip": "",
+    "tags": "editor editors vscode flags options code cli diff"
+  },
+  {
+    "sName": "vscode",
+    "file": "vscode.html",
+    "badge": "code",
+    "id": "vscode-cli-sub-1",
+    "sec": "VS Code: Related commands",
+    "cmd": "code --diff running.conf backup.conf",
+    "desc": "Compare two configs",
+    "tip": "",
+    "tags": "editor editors vscode recipe code cli diff"
+  },
+  {
+    "sName": "vscode",
+    "file": "vscode.html",
+    "badge": "code",
+    "id": "vscode-cli-sub-2",
+    "sec": "VS Code: Related commands",
+    "cmd": "git config --global core.editor \"code --wait\"",
+    "desc": "VS Code for commit messages and rebases",
+    "tip": "",
+    "tags": "editor editors vscode recipe code cli diff"
+  },
+  {
+    "sName": "vscode",
+    "file": "vscode.html",
+    "badge": "code",
+    "id": "vscode-cli-sub-3",
+    "sec": "VS Code: Related commands",
+    "cmd": "code --list-extensions --show-versions",
+    "desc": "What is installed (and which versions)",
+    "tip": "",
+    "tags": "editor editors vscode recipe code cli diff"
+  },
+  {
+    "sName": "vscode",
+    "file": "vscode.html",
+    "badge": "code",
+    "id": "vscode-cli-sub-4",
+    "sec": "VS Code: Related commands",
+    "cmd": "code --install-extension ms-vscode-remote.remote-ssh",
+    "desc": "Install an extension by ID (changes state)",
+    "tip": "",
+    "tags": "editor editors vscode recipe code cli diff"
+  },
+  {
+    "sName": "vscode",
+    "file": "vscode.html",
+    "badge": "code",
+    "id": "vscode-remote",
+    "sec": "VS Code: Edit files on a server over SSH",
+    "cmd": "Ctrl+Shift+P → Remote-SSH: Connect to Host...",
+    "desc": "Edit files on a server over SSH (Remote-SSH)",
+    "tip": "Define hosts in ~/.ssh/config once",
+    "tags": "editor editors vscode remote ssh remote-ssh tunnel jumpbox"
+  },
+  {
+    "sName": "vscode",
+    "file": "vscode.html",
+    "badge": "code",
+    "id": "vscode-remote-flags-card",
+    "sec": "VS Code: More options",
+    "cmd": "Ctrl+Shift+P → Remote-SSH: Connect to Host...",
+    "desc": "More options and gotchas for: Edit files on a server over SSH",
+    "tip": "",
+    "tags": "editor editors vscode flags options remote ssh remote-ssh"
+  },
+  {
+    "sName": "vscode",
+    "file": "vscode.html",
+    "badge": "tip",
+    "id": "vscode-tips-card",
+    "sec": "VS Code: Pro Tip",
+    "cmd": "Ctrl+K Ctrl+S",
+    "desc": "VS Code 1.145 (November 2026): keys above are the Linux defaults",
+    "tip": "Check your own bindings with Ctrl+K Ctrl+S",
+    "tags": "editor editors vscode tips best-practice"
+  },
+  {
     "sName": "watch",
     "file": "watch.html",
     "badge": "wtc",
@@ -32652,6 +33985,171 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Deep-merge two YAML files together",
     "tip": "",
     "tags": "yq yaml cli json mutate convert inplace"
+  },
+  {
+    "sName": "zed",
+    "file": "zed.html",
+    "badge": "zed",
+    "id": "zed-palette",
+    "sec": "Zed: Command palette, file finder, settings and keymap",
+    "cmd": "ctrl-shift-p  ·  ctrl-p",
+    "desc": "Command palette, file finder, settings and keymap",
+    "tip": "zed: open default keymap shows every binding",
+    "tags": "editor editors zed palette file finder settings keymap"
+  },
+  {
+    "sName": "zed",
+    "file": "zed.html",
+    "badge": "zed",
+    "id": "zed-palette-flags-card",
+    "sec": "Zed: More options",
+    "cmd": "ctrl-shift-p  ·  ctrl-p",
+    "desc": "More options and gotchas for: Command palette, file finder, settings and keymap",
+    "tip": "",
+    "tags": "editor editors zed flags options palette file finder settings"
+  },
+  {
+    "sName": "zed",
+    "file": "zed.html",
+    "badge": "zed",
+    "id": "zed-panels",
+    "sec": "Zed: Docks, terminal and project search",
+    "cmd": "ctrl-b  ·  ctrl-`",
+    "desc": "Docks, terminal and project search",
+    "tip": "Same keys as VS Code by default",
+    "tags": "editor editors zed dock terminal project search"
+  },
+  {
+    "sName": "zed",
+    "file": "zed.html",
+    "badge": "zed",
+    "id": "zed-panels-flags-card",
+    "sec": "Zed: More options",
+    "cmd": "ctrl-b  ·  ctrl-`",
+    "desc": "More options and gotchas for: Docks, terminal and project search",
+    "tip": "",
+    "tags": "editor editors zed flags options dock terminal project"
+  },
+  {
+    "sName": "zed",
+    "file": "zed.html",
+    "badge": "zed",
+    "id": "zed-navigate",
+    "sec": "Zed: Definitions, references, symbols",
+    "cmd": "f12  ·  alt-shift-f12",
+    "desc": "Definitions, references, symbols",
+    "tip": "ctrl-shift-o for a quick file outline",
+    "tags": "editor editors zed definition references symbols go to line"
+  },
+  {
+    "sName": "zed",
+    "file": "zed.html",
+    "badge": "zed",
+    "id": "zed-navigate-flags-card",
+    "sec": "Zed: More options",
+    "cmd": "f12  ·  alt-shift-f12",
+    "desc": "More options and gotchas for: Definitions, references, symbols",
+    "tip": "",
+    "tags": "editor editors zed flags options definition references symbols"
+  },
+  {
+    "sName": "zed",
+    "file": "zed.html",
+    "badge": "zed",
+    "id": "zed-editing",
+    "sec": "Zed: Multi-cursor and line editing",
+    "cmd": "ctrl-d  ·  shift-alt-down",
+    "desc": "Multi-cursor and line editing",
+    "tip": "Muscle memory from VS Code carries over",
+    "tags": "editor editors zed multi-cursor move line duplicate comment format split"
+  },
+  {
+    "sName": "zed",
+    "file": "zed.html",
+    "badge": "zed",
+    "id": "zed-editing-flags-card",
+    "sec": "Zed: More options",
+    "cmd": "ctrl-d  ·  shift-alt-down",
+    "desc": "More options and gotchas for: Multi-cursor and line editing",
+    "tip": "",
+    "tags": "editor editors zed flags options multi-cursor move line duplicate"
+  },
+  {
+    "sName": "zed",
+    "file": "zed.html",
+    "badge": "zed",
+    "id": "zed-agent",
+    "sec": "Zed: AI",
+    "cmd": "ctrl-?  ·  ctrl-enter",
+    "desc": "AI: agent panel and inline assist",
+    "tip": "Select code first, then ctrl-enter",
+    "tags": "editor editors zed ai agent inline assist assistant"
+  },
+  {
+    "sName": "zed",
+    "file": "zed.html",
+    "badge": "zed",
+    "id": "zed-cli",
+    "sec": "Zed: The zed command",
+    "cmd": "zed /etc/netplan/50-cloud-init.yaml:12:5",
+    "desc": "The zed command: open a folder, a line, a diff",
+    "tip": "core.editor needs --wait",
+    "tags": "editor editors zed zed cli diff git"
+  },
+  {
+    "sName": "zed",
+    "file": "zed.html",
+    "badge": "zed",
+    "id": "zed-cli-flags-card",
+    "sec": "Zed: More options",
+    "cmd": "zed /etc/netplan/50-cloud-init.yaml:12:5",
+    "desc": "More options and gotchas for: The zed command: open a folder, a line, a diff",
+    "tip": "",
+    "tags": "editor editors zed flags options zed cli diff"
+  },
+  {
+    "sName": "zed",
+    "file": "zed.html",
+    "badge": "zed",
+    "id": "zed-cli-sub-1",
+    "sec": "Zed: Related commands",
+    "cmd": "git config --global core.editor \"zed --wait\"",
+    "desc": "Zed for commit messages",
+    "tip": "",
+    "tags": "editor editors zed recipe zed cli diff"
+  },
+  {
+    "sName": "zed",
+    "file": "zed.html",
+    "badge": "zed",
+    "id": "zed-cli-sub-2",
+    "sec": "Zed: Related commands",
+    "cmd": "zed --version",
+    "desc": "Installed version",
+    "tip": "",
+    "tags": "editor editors zed recipe zed cli diff"
+  },
+  {
+    "sName": "zed",
+    "file": "zed.html",
+    "badge": "zed",
+    "id": "zed-config",
+    "sec": "Zed: Keymap file, base keymap and vim mode",
+    "cmd": "~/.config/zed/keymap.json",
+    "desc": "Keymap file, base keymap and vim mode",
+    "tip": "Keymap editor writes keymap.json for you",
+    "tags": "editor editors zed keymap settings vim base keymap config"
+  },
+  {
+    "sName": "zed",
+    "file": "zed.html",
+    "badge": "tip",
+    "id": "zed-tips-card",
+    "sec": "Zed: Pro Tip",
+    "cmd": "ctrl-shift-p → zed: open default keymap",
+    "desc": "Zed 1.27 (November 2026): check the bindings your build ships",
+    "tip": "The default keymap is the reference",
+    "tags": "editor editors zed tips best-practice"
   },
   {
     "sName": "zstd",

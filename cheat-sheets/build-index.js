@@ -4,9 +4,9 @@ const fs = require('fs');
 const path = require('path');
 const { isReference } = require('./build-reference-rules.js');
 
-// Tooling never holds sheet data. app.js does: it backs index.html.
+// Tooling never holds sheet data. app.js does: it backs linux.html (index.html is the home page).
 const isTooling = f => /^(build-|generate-|create-)/.test(f) || f === 'common.js' || f === 'global-search-index.js' || f === 'man-pages-data.js';
-const htmlFor = f => (f === 'app.js' ? 'index.html' : f.replace(/\.js$/, '.html'));
+const htmlFor = f => (f === 'app.js' ? 'linux.html' : f.replace(/\.js$/, '.html'));
 
 const jsFiles = fs.readdirSync(__dirname).filter(f => f.endsWith('.js') && !isTooling(f));
 

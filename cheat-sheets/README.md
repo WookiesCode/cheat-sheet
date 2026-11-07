@@ -1,10 +1,10 @@
 # Datacenter Cheat Sheets
 
-Offline command reference sheets for datacenter work: 206 linked pages, plus one file that bundles them all.
+Offline command reference sheets for datacenter work: 212 linked pages, plus one file that bundles them all.
 
 ## Open it
 
-- **Normal use:** open `index.html` in a browser.
+- **Normal use:** open `index.html` in a browser. It is **Mission Control**: decode an error, keep **Field notes** for the server you are on, start a runbook, practise commands. The Linux reference itself is `linux.html`.
 - **Offline or on another machine:** copy `datacenter-cheatsheet-portable.html` and open it. It's a single file that works with no network. The **1-File Offline** button opens it too.
 
 ## Find what you need
@@ -15,7 +15,15 @@ Offline command reference sheets for datacenter work: 206 linked pages, plus one
 | Filter the current sheet | `/`, and `Esc` clears it |
 | Jump to a topic | Top nav menus, or the **Section** dropdown |
 
-**The menus:** Linux, CLI Tools, Scripting, Neovim, macOS, Windows, NVIDIA DC, InfiniBand, Switches, Redfish, ipmitool, Fiber, Ethernet, Motherboards, Containers (Docker & Kubernetes), Grafana (building dashboards), Omarchy and Jira.
+**The menus:** Home · Operating Systems (Linux, macOS, Windows, Omarchy) · Editors (Neovim; nano, VS Code, Zed, Cursor) · CLI Tools · Scripting · Networking (InfiniBand, Ethernet, Fiber, Switches) · Remote Management (Redfish, ipmitool) · Hardware (NVIDIA DC, Motherboards, Server internals) · DevOps (Containers, Grafana, Jira). `build-nav-groups.js` builds these tabs from each suite's own menu; edit `TABS` there to move a suite.
+
+## Field notes (Mission Control)
+
+- Type the **Server** you are working on (it becomes the active node workspace, so Rack Targets, the Case Trail and the Case file follow it) and an optional **Ticket**.
+- Write in the editor: toolbar or Markdown as you type (`# `, `- `, `1. `, `[ ] `, `> `, ```` ``` ````, `**bold**`, `` `code` ``). **⏱ Log** adds a timestamped line, **⧉ Commands** pastes what you copied (from the Case Trail, passwords masked), **▤ Template** adds the five-step outline.
+- **📁 Connect** a folder once (this repo's `cases/` or an Obsidian vault). Each note is written to `<folder>/<server>/<YYYY-MM-DD> <title>.md` with YAML properties (`host: "[[server]]"`, `ticket`, `status`, `tags`), plus a `<server>.md` host note created once, so Obsidian links every note to its server. Without a folder, notes stay as drafts in the browser and **⬇ .md** downloads them.
+- A note that looks like it holds a credential (`-P`, `password=`, `curl -u user:pass`, tokens, keys) is not written to disk until you remove it.
+- The Case file's **💾 Save to folder** writes `<folder>/<case>/summary.md` the same way (it asks before replacing one).
 
 ## Use it on a rack
 

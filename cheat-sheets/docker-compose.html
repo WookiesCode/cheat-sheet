@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=bdf620e533" />
+  <link rel="stylesheet" href="styles.css?v=14a4083d16" />
 </head>
 <body>
   <header class="top-bar">
@@ -21,39 +21,103 @@
             <h1>Docker Compose</h1>
             <span class="version-pill">Docker Engine 29 / Compose plugin</span>
             <nav class="sheet-switcher" aria-label="Switch cheat sheet">
-              <div class="nav-dropdown" id="linux-nav-dropdown">
-                <a href="index.html" class="sheet-link dropdown-toggle" aria-haspopup="true">
-                  <svg class="nav-logo" viewBox="0 0 24 24" width="14" height="14" fill="none" aria-hidden="true"><path d="M12 2C8.8 2 7.2 4.3 7.2 7.2c0 1.4-.4 2.4-1.3 3.7-1.1 1.6-1.9 3.6-1.4 5.2.3.9 1.1 1.2 1.8.8.4 1.8 2.4 3.6 5.7 3.6s5.3-1.8 5.7-3.6c.7.4 1.5.1 1.8-.8.5-1.6-.3-3.6-1.4-5.2-.9-1.3-1.3-2.3-1.3-3.7C16.8 4.3 15.2 2 12 2z" fill="#1e293b" stroke="#94a3b8" stroke-width="1.2"/><ellipse cx="12" cy="14.5" rx="4.1" ry="5" fill="#f8fafc"/><circle cx="10.2" cy="6.5" r="1.4" fill="#fff"/><circle cx="13.8" cy="6.5" r="1.4" fill="#fff"/><circle cx="10.5" cy="6.6" r="0.7" fill="#0f172a"/><circle cx="13.5" cy="6.6" r="0.7" fill="#0f172a"/><path d="M9.6 8.3c1.3-.5 3.5-.5 4.8 0L12 10.6 9.6 8.3z" fill="#f59e0b"/><ellipse cx="8.5" cy="20.5" rx="2.6" ry="1.3" fill="#f59e0b"/><ellipse cx="15.5" cy="20.5" rx="2.6" ry="1.3" fill="#f59e0b"/></svg>
-                  <span>Linux</span> <span class="dropdown-caret">▾</span>
+              <a href="index.html" class="sheet-link nav-home"><svg class="nav-logo" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 9.5V20h5v-6h4v6h5V9.5"/></svg><span>Home</span></a>
+              <div class="nav-dropdown nav-group" id="navgroup-os">
+                <a href="linux.html" class="sheet-link dropdown-toggle" aria-haspopup="true">
+                  <svg class="nav-logo" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4" width="19" height="12.5" rx="2"/><path d="M8 20.5h8M12 16.5v4"/></svg>
+                  <span>Operating Systems</span> <span class="dropdown-caret">▾</span>
                 </a>
-                <div class="nav-dropdown-menu linux-dropdown-menu" role="menu">
-                  <a href="index.html" class="dropdown-item dropdown-hub-link" role="menuitem">📑 Ubuntu Linux Hub</a>
-                  <div class="dropdown-divider"></div>
-                  <div class="linux-dropdown-grid">
-                    <div class="linux-dropdown-col">
-                      <div class="linux-dropdown-heading">Hardware &amp; Architecture</div>
-                      <a href="dmi-hw.html" class="dropdown-item" role="menuitem"><code>dmi</code> <span class="cmd-desc">DMI / SMBIOS / FRU</span></a>
-                      <a href="pcie-numa.html" class="dropdown-item" role="menuitem"><code>pci</code> <span class="cmd-desc">PCIe &amp; NUMA Topology</span></a>
-                      <a href="ecc-edac.html" class="dropdown-item" role="menuitem"><code>ecc</code> <span class="cmd-desc">ECC Memory &amp; MCE</span></a>
-                      <a href="nvme-smart.html" class="dropdown-item" role="menuitem"><code>nvm</code> <span class="cmd-desc">Enterprise NVMe / SMART</span></a>
+                <div class="nav-dropdown-menu ng-menu" role="menu" style="--ng-cols:3">
+                  <div class="ng-grid">
+                  <div class="ng-col">
+                    <div class="ng-group" data-suite-key="linux" data-suite-name="Linux" data-suite-hub="linux.html">
+                      <a href="linux.html" class="dropdown-item dropdown-hub-link ng-head" role="menuitem"><svg class="ng-logo" viewBox="0 0 24 24" width="14" height="14" fill="none" aria-hidden="true"><path d="M12 2C8.8 2 7.2 4.3 7.2 7.2c0 1.4-.4 2.4-1.3 3.7-1.1 1.6-1.9 3.6-1.4 5.2.3.9 1.1 1.2 1.8.8.4 1.8 2.4 3.6 5.7 3.6s5.3-1.8 5.7-3.6c.7.4 1.5.1 1.8-.8.5-1.6-.3-3.6-1.4-5.2-.9-1.3-1.3-2.3-1.3-3.7C16.8 4.3 15.2 2 12 2z" fill="#1e293b" stroke="#94a3b8" stroke-width="1.2"/><ellipse cx="12" cy="14.5" rx="4.1" ry="5" fill="#f8fafc"/><circle cx="10.2" cy="6.5" r="1.4" fill="#fff"/><circle cx="13.8" cy="6.5" r="1.4" fill="#fff"/><circle cx="10.5" cy="6.6" r="0.7" fill="#0f172a"/><circle cx="13.5" cy="6.6" r="0.7" fill="#0f172a"/><path d="M9.6 8.3c1.3-.5 3.5-.5 4.8 0L12 10.6 9.6 8.3z" fill="#f59e0b"/><ellipse cx="8.5" cy="20.5" rx="2.6" ry="1.3" fill="#f59e0b"/><ellipse cx="15.5" cy="20.5" rx="2.6" ry="1.3" fill="#f59e0b"/></svg><b>Linux</b><small>Ubuntu Linux Hub</small></a>
+                      <div class="ng-heading">Hardware &amp; Architecture</div>
                       <a href="kernel-boot.html" class="dropdown-item" role="menuitem"><code>krn</code> <span class="cmd-desc">Kernel &amp; Bootloader</span></a>
-                    </div>
-                    <div class="linux-dropdown-col">
-                      <div class="linux-dropdown-heading">System &amp; Services</div>
+                      <div class="ng-heading">System &amp; Services</div>
                       <a href="systemd.html" class="dropdown-item" role="menuitem"><code>sys</code> <span class="cmd-desc">systemd &amp; journald</span></a>
                       <a href="processes.html" class="dropdown-item" role="menuitem"><code>proc</code> <span class="cmd-desc">Processes &amp; Signals</span></a>
                       <a href="storage.html" class="dropdown-item" role="menuitem"><code>dsk</code> <span class="cmd-desc">Filesystems &amp; LVM</span></a>
                       <a href="archives.html" class="dropdown-item" role="menuitem"><code>tar</code> <span class="cmd-desc">Archives &amp; Compress</span></a>
                       <a href="packages.html" class="dropdown-item" role="menuitem"><code>pkg</code> <span class="cmd-desc">APT &amp; Release Mgmt</span></a>
-                    </div>
-                    <div class="linux-dropdown-col">
-                      <div class="linux-dropdown-heading">Core OS &amp; Security</div>
+                      <div class="ng-heading">Core OS &amp; Security</div>
                       <a href="files.html" class="dropdown-item" role="menuitem"><code>fs</code> <span class="cmd-desc">Files &amp; Directories</span></a>
                       <a href="permissions.html" class="dropdown-item" role="menuitem"><code>perm</code> <span class="cmd-desc">Permissions &amp; ACLs</span></a>
                       <a href="users.html" class="dropdown-item" role="menuitem"><code>usr</code> <span class="cmd-desc">Users, Sudo &amp; SSH</span></a>
                       <a href="network.html" class="dropdown-item" role="menuitem"><code>net</code> <span class="cmd-desc">Network &amp; Firewalls</span></a>
                       <a href="text.html" class="dropdown-item" role="menuitem"><code>txt</code> <span class="cmd-desc">Text &amp; Log Triage</span></a>
                     </div>
+                  </div>
+                  <div class="ng-col">
+                    <div class="ng-group" data-suite-key="macos" data-suite-name="macOS" data-suite-hub="macos.html">
+                      <a href="macos.html" class="dropdown-item dropdown-hub-link ng-head" role="menuitem"><svg class="ng-logo" viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg><b>macOS</b><small>macOS Hub &amp; Tweak Generator</small></a>
+                      <div class="ng-heading">Shortcuts &amp; UI</div>
+                      <a href="macos-system-keys.html" class="dropdown-item" role="menuitem"><code>keys</code> <span class="cmd-desc">System &amp; Screenshots</span></a>
+                      <a href="macos-finder-keys.html" class="dropdown-item" role="menuitem"><code>fndr</code> <span class="cmd-desc">Finder &amp; Quick Look</span></a>
+                      <a href="macos-text-editing.html" class="dropdown-item" role="menuitem"><code>txt</code> <span class="cmd-desc">Text &amp; Selection</span></a>
+                      <a href="macos-trackpad.html" class="dropdown-item" role="menuitem"><code>pad</code> <span class="cmd-desc">Trackpad &amp; Gestures</span></a>
+                      <div class="ng-heading">Terminal &amp; Sysadmin</div>
+                      <a href="macos-darwin-cli.html" class="dropdown-item" role="menuitem"><code>cli</code> <span class="cmd-desc">Darwin &amp; Clipboard CLI</span></a>
+                      <a href="macos-homebrew.html" class="dropdown-item" role="menuitem"><code>brew</code> <span class="cmd-desc">Homebrew Packages</span></a>
+                      <a href="macos-system-admin.html" class="dropdown-item" role="menuitem"><code>sys</code> <span class="cmd-desc">Defaults &amp; Launchd</span></a>
+                      <a href="macos-net-disk-sec.html" class="dropdown-item" role="menuitem"><code>net</code> <span class="cmd-desc">Network, Disks &amp; Security</span></a>
+                    </div>
+                    <div class="ng-group" data-suite-key="omarchy" data-suite-name="Omarchy" data-suite-hub="omarchy.html">
+                      <a href="omarchy.html" class="dropdown-item dropdown-hub-link ng-head ng-wordmark" role="menuitem"><svg class="omarchy-wordmark" viewBox="0 0 1215 285" width="47" height="11" role="img"><title>Omarchy</title><g fill="currentColor"><path clip-rule="evenodd" d="m720 120h-15v15h-14.998v14.999l-60.002.001v15.002l90-.002v.002h.002l-.002 89.998h-15v15h-13v15h-17v-89.998h-45v90l-45-.002v-89.998h-14.998v-30h14.998v-15.002h-14.998v-30.001h14.998v-75h15v-14.997h15v-15.002h105.002zm-90-.001h45v-74.997h-45z" fill-rule="evenodd"/><path clip-rule="evenodd" d="m105 30.002h15v14.997h15v180.001h-15v15h-15v15.002h-75v-15.002h-15v-15h-15v-180.001h15v-14.997h15v-15.002h75zm-60 194.998h45v-179.998h-45z" fill-rule="evenodd"/><path d="m300 15h60v15h15v14.999h15v180.001h-15v15h-15v15h-15l-.004-209.998h-44.994v-.002h-.002v210.002h-45v-210h-44.998v179.997h-.002v30.003h-15v-15.002h-15v-15h-14.998v-180.001h14.998v-14.999h15v-15h60v-15h45z"/><path clip-rule="evenodd" d="m555 225h-15v15h-15v15h-15v-105.001l-44.998.001v105.002h-45.002v-105.002h-15v-30.001h15v-75h15.002v-14.997h15v-15.002h105zm-89.998-105.001h44.998v-74.997h-44.998z" fill-rule="evenodd"/><path d="m885 75h-15v15h-15v15h-15v-59.998h-45v179.998h45v-59.998h15v14.997h15v15.001h15v30h-15v15h-15v15.002l-105-.002v-210.001h14.998v-14.997h15.002v-15.002h105z"/><path d="m960 119.999h45v-104.999h15v15h15v14.999h15v75.001h15v15h-15v90h-15v15h-15v15h-15v-105h-45v105.002l-45-.002v-105h-30v-15h15v-15.001h15v-75h15v-14.997h15v-15.002h15z"/><path d="m1125 119.999h45v-104.999h15v15h15v15h15v180h-15v15h-15v15.002l-75-.002v-15h-15v-15h-15v-45.001h15v-14.997-.002h30v60h45v-75h-90v-105.001h15v-14.997h15v-15.002h15z"/></g></svg><small>Hyprland desktop</small></a>
+                    </div>
+                  </div>
+                  <div class="ng-col">
+                    <div class="ng-group" data-suite-key="windows" data-suite-name="Windows" data-suite-hub="windows.html">
+                      <a href="windows.html" class="dropdown-item dropdown-hub-link ng-head" role="menuitem"><svg class="ng-logo" viewBox="0 0 24 24" width="13" height="13" fill="#00a4ef" aria-hidden="true"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/></svg><b>Windows</b><small>Windows Hub &amp; Quick Admin</small></a>
+                      <div class="ng-heading">OS &amp; Desktop</div>
+                      <a href="win-shortcuts.html" class="dropdown-item" role="menuitem"><code>keys</code> <span class="cmd-desc">Snap &amp; Explorer Keys</span></a>
+                      <a href="win-storage.html" class="dropdown-item" role="menuitem"><code>dsk</code> <span class="cmd-desc">Disks &amp; BitLocker</span></a>
+                      <a href="win-packages.html" class="dropdown-item" role="menuitem"><code>pkg</code> <span class="cmd-desc">Winget &amp; PS Modules</span></a>
+                      <a href="win-wsl.html" class="dropdown-item" role="menuitem"><code>wsl</code> <span class="cmd-desc">WSL 2 &amp; Interop</span></a>
+                      <div class="ng-heading">Sysadmin &amp; Triage</div>
+                      <a href="win-processes.html" class="dropdown-item" role="menuitem"><code>proc</code> <span class="cmd-desc">Processes &amp; Services</span></a>
+                      <a href="win-network.html" class="dropdown-item" role="menuitem"><code>net</code> <span class="cmd-desc">Network, Ports &amp; DNS</span></a>
+                      <a href="win-registry.html" class="dropdown-item" role="menuitem"><code>reg</code> <span class="cmd-desc">Registry &amp; Environment</span></a>
+                      <a href="win-sysadmin.html" class="dropdown-item" role="menuitem"><code>adm</code> <span class="cmd-desc">System Repair &amp; Robocopy</span></a>
+                    </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+              <div class="nav-dropdown nav-group" id="navgroup-editors">
+                <a href="editors.html" class="sheet-link dropdown-toggle" aria-haspopup="true">
+                  <svg class="nav-logo" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/><path d="M13.5 4l-3 16"/></svg>
+                  <span>Editors</span> <span class="dropdown-caret">▾</span>
+                </a>
+                <div class="nav-dropdown-menu ng-menu" role="menu" style="--ng-cols:2">
+                  <div class="ng-grid">
+                  <div class="ng-col">
+                    <div class="ng-group" data-suite-key="neovim" data-suite-name="Neovim" data-suite-hub="neovim.html">
+                      <a href="neovim.html" class="dropdown-item dropdown-hub-link ng-head" role="menuitem"><svg class="ng-logo" viewBox="0 0 24 24" width="13" height="13" fill="none" aria-hidden="true"><path d="M2.5 5.2L7.3.5v23l-4.8-4.7V5.2z" fill="#16b0ed"/><path d="M16.7.5l4.8 4.7v13.6l-4.8 4.7V.5z" fill="#57a143"/><path d="M7.3.5l12 18.2-2.6 4.8L4.7 5.3 7.3.5z" fill="#7db643"/></svg><b>Neovim</b><small>Neovim Hub &amp; Composer</small></a>
+                      <div class="ng-heading">Editing &amp; Motions</div>
+                      <a href="nvim-motions.html" class="dropdown-item" role="menuitem"><code>mov</code> <span class="cmd-desc">Motions &amp; Jumps</span></a>
+                      <a href="nvim-operators.html" class="dropdown-item" role="menuitem"><code>edit</code> <span class="cmd-desc">Operators &amp; Objects</span></a>
+                      <a href="nvim-visual.html" class="dropdown-item" role="menuitem"><code>vis</code> <span class="cmd-desc">Visual &amp; Block Mode</span></a>
+                      <a href="nvim-search.html" class="dropdown-item" role="menuitem"><code>srch</code> <span class="cmd-desc">Search &amp; Substitute</span></a>
+                      <a href="nvim-macros.html" class="dropdown-item" role="menuitem"><code>mac</code> <span class="cmd-desc">Macros &amp; Registers</span></a>
+                      <div class="ng-heading">Workspace &amp; Ecosystem</div>
+                      <a href="nvim-windows.html" class="dropdown-item" role="menuitem"><code>win</code> <span class="cmd-desc">Windows, Splits &amp; Tabs</span></a>
+                      <a href="nvim-lsp.html" class="dropdown-item" role="menuitem"><code>lsp</code> <span class="cmd-desc">Built-in LSP &amp; Treesitter</span></a>
+                      <a href="nvim-lazyvim.html" class="dropdown-item" role="menuitem"><code>lazy</code> <span class="cmd-desc">LazyVim, Picker &amp; Git</span></a>
+                      <a href="nvim-ex-shell.html" class="dropdown-item" role="menuitem"><code>ex</code> <span class="cmd-desc">Ex Commands &amp; Shell</span></a>
+                    </div>
+                  </div>
+                  <div class="ng-col">
+                    <div class="ng-group" data-suite-key="editors" data-suite-name="Editors" data-suite-hub="editors.html">
+                      <a href="editors.html" class="dropdown-item dropdown-hub-link ng-head" role="menuitem"><svg class="ng-logo" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/><path d="M13.5 4l-3 16" stroke="#a78bfa"/></svg><b>Editors</b><small>Editors Hub</small></a>
+                      <div class="ng-heading">Terminal</div>
+                      <a href="nano.html" class="dropdown-item" role="menuitem"><svg class="menu-logo logo-chip" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path fill="#A42E2B" d="M5.072 13.931a.62.62 0 00-.52.338c-.114.211-.388.242-.516.201-.21-.07-.48-.119-.744.068-.263.187-.546.045-.495-.297.05-.34.172-.645.5-.83.713-.41.216-.695.607-1.108.394-.412.307-.537.293-1.1-1.326-.2-2.077-.58-2.915-1.63C.442 8.528.117 7.664.03 6.35-.057 5.033.02 4.18.588 3.09 1.156 2 1.756 1.475 2.788.93 3.825.383 4.84.254 5.78.271c.938.014 1.563.082 2.093.386.53.303 1.016.684 1.324.685.24.015.477-.053.673-.192.04 1.02-.878 1.108-1.698 1.13-.82.02-1.324-.317-2.08-.192-.754.128-1.992.47-2.595 1.52-.603 1.05-.624 1.42-.573 2.3.05.879.806 1.535 1.234 1.543.428.007.523-.117.898-.36.374-.246 2.284-2.61 2.934-3.14.653-.53 1.296-.696 1.99-.705.695-.008.87.015 1.433.246.56.229.903.652 1.355.91.23-.135.375-.34.584-.495.76-.552 1.152-.702 2.053-.615.518.052 1.17.347 1.56.686.693.604 1.265 1.44 1.727 2.079.36.497.785 1.09 1.392 1.277.66.2 1.157-.652 1.23-1.13.043-.27.097-.505.097-.8 0-.297-.03-.655-.115-.965a3.453 3.453 0 00-.392-.87c-.258-.415-.68-.85-1.116-1.071-.246-.125-.826-.353-1.19-.36-.449-.01-.79.14-1.202.168-.5.034-1.396.146-1.786-.24-.25-.246-.283-.41-.324-.73a.76.76 0 00.4.162c.314.026.606-.23.86-.378.21-.123.504-.34.778-.45.704-.285 1.567-.278 2.31-.2.594.06 1.367.324 1.89.62.525.297 1.03.798 1.4 1.269.465.594.72 1.104.888 1.844.216.945.277 2.365.015 3.299-.205.734-.887 1.86-1.467 2.414-.573.547-1.235.81-1.986.955.03.149.033.29.071.416.056.178.163.375.38.313.086-.025.133-.047.246.053.115.1.056.484-.266.66-.164.085-.334.103-.595.11a5.61 5.61 0 01-.953-.046c-.283-.047-.45-.272-.765-.308-.484-.055-.854-.404-1.244-.653-.162-.104-.218-.104-.31-.158.05.154.117.314.15.465.034.145.02.284.037.403.02.12.052.21.07.308.077.068.103.173.233.207.13.035.334-.018.468-.037.135-.018.224-.09.327-.07.105.02.204.096.292.166s.164.08.234.254c.07.178.135.537.146.777.01.24-.018.455-.089.648-.07.19-.135.273-.327.463s-.505.465-.818.66c.058.084.083.162.173.254.09.094.277.197.36.295.083.098.126.168.126.277a.587.587 0 01-.092.373c-.223.3-.483.352-.803.492.054.334.098.572.02.906-.03.137-.102.445-.27.525-.17.08-.492.041-.698.074-.205.031-.32.063-.48.094-.097.141-.24.297-.29.422-.05.127-.034.172.006.3.042.128.185.315.225.468a.93.93 0 01.01.463.834.834 0 01-.23.396c-.128.135-.38.24-.508.346-.125.11-.252.123-.217.303.047.248.41.646.67.744a.793.793 0 00.557-.04c-.014.208-.195.353-.315.493.322-.094.636-.27.854-.504-.067.203-.3.529-.645.816-.345.287-.343.229-.517.344.314.06.606.045.85.002a1.69 1.69 0 01-.64.207 1.876 1.876 0 01-.73-.055c-.26-.063-.499-.301-.814-.465.03.119.053.26.185.38.136.12.335.183.55.284-.273-.03-.559-.037-.825-.096a2.083 2.083 0 01-.478-.164c-.144-.07-.255-.176-.384-.264.06.117.08.256.184.352.104.098.275.135.412.199-.143-.004-.28.029-.43-.01a1.166 1.166 0 01-.443-.21 3.165 3.165 0 01-.445-.395c-.132-.145-.296-.332-.345-.463-.048-.133.03-.225.044-.338-.09.06-.2.094-.272.18-.07.088-.131.166-.1.318.03.15.171.338.27.506-.295-.242-.46-.336-.53-.625-.064-.273.104-.52.233-.725.064-.104.161-.2.22-.3-.134-.128-.284-.24-.4-.388-.112-.15-.161-.352-.276-.492-.117-.143-.274-.232-.41-.348.119.256.317.572.359.77.044.2-.048.323-.12.43-.07.108-.183.134-.291.198-.11.068-.277.016-.342.113s-.083.246-.021.344l.256.398a1.173 1.173 0 01-.327-.28c-.074-.097-.186-.189-.2-.317-.015-.13-.022-.246.064-.363.084-.117.318-.156.422-.246.105-.09.162-.148.156-.264-.006-.117-.12-.2-.217-.273-.3-.225-.68-.43-.934-.699a.931.931 0 01-.24-.379c-.03-.105.002-.188.072-.314.072-.13.315-.305.346-.443.029-.14-.095-.172-.205-.22-.111-.05-.322.024-.425-.062-.103-.086.03-.266-.086-.365-.116-.099-.38-.045-.52-.15a.724.724 0 01-.24-.395.828.828 0 01-.02-.436c.032-.113.128-.133.187-.19.06-.058.108-.105.03-.192-.074-.088-.33.004-.476-.105-.15-.113-.06-.38-.163-.494-.104-.109-.287-.066-.386-.104-.097-.035-.135.09-.194-.109-.06-.199-.063-.797-.143-1.02-.08-.223-.238-.016-.31-.236-.076-.22-.005-.574-.038-.908l-.15-.91c-.52.352-.867.463-1.428.561-.047 1.373-.176 2.182.29 3.705.466 1.521 1.409 2.42 2.68 3.707-1.68-1.256-2.478-2.279-2.98-3.588-.501-1.31-.406-2.407-.356-3.666zm8.918-.553a.837.837 0 01.376.098c.09.061.188.107.27.19.206.21.36.462.428.751.044.186.05.422.064.64-.062-.2-.103-.409-.192-.589-.14-.285-.376-.56-.672-.688a.35.35 0 00-.214-.027c.023.041.063.076.065.133 0 .06-.012.174-.112.223-.16.078-.34.021-.464-.086a.414.414 0 01-.102-.459c.08-.194.375-.194.553-.186zm-1.62-.272c.016-.332.134-.609.432-.77.187-.107.392-.18.604-.215.207-.026.713-.008 1.018.13.232.105.39.271.597.394.205.121.35.201.546.338.3.211.475.44.682.576.1.066.24.057.374.098-.104.03-.24.064-.35.03a1.565 1.565 0 01-.438-.265 2.946 2.946 0 00-.497-.359c-.124-.072-.33-.158-.466-.246-.135-.09-.37-.283-.502-.349a1.618 1.618 0 00-.65-.125c-.256.008-.626.05-.822.228-.197.18-.27.336-.227.566.073-.084.123-.19.195-.254.154-.133.33-.139.52-.113.216.027.323.15.394.354-.047-.033-.135-.109-.204-.135a.495.495 0 00-.438.043c-.18.098-.13.24-.154.396-.013.076-.04.133-.06.2a.39.39 0 01-.18-.099c0 .076-.01.141.005.223.014.084.055.184.084.273-.126-.125-.256-.24-.335-.402a1.058 1.058 0 01-.13-.517zm.218-2.4c.09-.134.12-.343.174-.515-.02.217.02.453-.083.609-.105.158-.292.129-.443.176.118-.09.258-.131.352-.268zm-2.206 3.203c.119-.096.438-.02.676-.002l-.514.133c-.017.06-.01.123-.048.174-.04.051-.114.068-.171.104.006-.155-.062-.313.057-.409zm1.682-6.65c.143.075.32.178.45.18.123.004.157-.08.231-.131.115.38.25.797.448 1.142.083.146.136.079.2.224.063.145.09.439.15.626s.137.32.207.483c-.174-.25-.4-.566-.5-.773-.098-.207-.035-.225-.115-.421-.078-.198-.238-.504-.357-.756-.086.01-.19.026-.255.006-.065-.021-.054-.091-.112-.134-.06-.045-.158-.027-.24-.1-.08-.07-.1-.217-.107-.346zm-.766 1.875c.135-.012.299.023.425.017.126-.006.216-.04.324-.06-.02-.19-.002-.537-.175-.664-.115-.08-.578-.02-.701.006-.28.06-.604.227-.873.33.258-.18.48-.346.79-.44.189-.054.622-.128.814-.075.089.023.104.06.158.135.183.255.183.475.23.773.046.07.095.119.134.194a.91.91 0 01.068.289c-.048-.07-.018-.155-.15-.206-.134-.053-.335-.005-.515.014.13.096.195.186.2.384.007.233-.19.4-.397.417-.285.022-.434-.041-.55-.285-.05-.107-.015-.236-.017-.341-.346.024-.34.013-.592.222.139.2.224.315.45.436.126.066.27.133.426.16.157.027.415.053.58.027a.629.629 0 00.38-.187c.122-.112.134-.274.181-.403a1.2 1.2 0 01-.07.37c-.14.27-.38.353-.667.353-.275 0-.616-.063-.873-.17-.205-.084-.545-.324-.625-.533-.056-.143-.012-.318-.018-.477.285-.19.354-.143.689-.198.14-.025.239-.076.374-.088zm-1.655-1.28c.007-.113.02-.11.03-.166-.26-.07-.36.099-.514.41-.057.116 0 .187-.062.264-.06.076-.16.065-.257.139-.098.074-.196.215-.29.292-.188.156-.446.25-.666.358.15-.111.443-.28.538-.44.05-.085.042-.246.12-.324.078-.075.105-.13.205-.15.1-.018.06-.135.093-.228.032-.091.097-.158.165-.251s.156-.23.29-.282c.136-.05.348.005.45-.023.103-.03.044-.105.119-.15s.219-.023.32-.072c.176-.084.26-.227.367-.377.015.326.01.56-.107.869-.131.346-.266.55-.641.763-.128.072-.257.098-.365.137.062-.086.152-.123.188-.256.034-.136.009-.4.017-.512zM15.7 9.447c-.177.014-.22-.012-.363.09l.232.36c-.006-.236.018-.284.133-.45zm-.465-.172c.246-.104.46-.19.73-.207.107-.008.274.009.383.016.094-.137.21-.244.256-.4.028-.104.015-.584-.038-.71-.146-.36-.29-.376-.495-.584-.146-.15-.152-.38-.197-.638-.015-.094-.062-.213-.084-.31a3.9 3.9 0 00-.857-.045c.148-.143.29-.271.334-.486a.959.959 0 00-.113-.667c-.12-.191-.315-.36-.494-.517-.178-.155-.436-.284-.604-.412.22-.077.444-.194.66-.235.56-.108 1.043.057 1.584.384.315.19.573.37.902.716.33.344.735.975 1.053 1.348.317.375.575.67.853.893.276.226.528.289.792.43l.412.439.335-.413.535.06.111-.601.49-.136-.079-.811.354-.252-.267-.504.27-.553-.352-.63.135-.607-.407-.348-.053-.646-.569-.217-.227-.56-.64-.008-.315-.417-.43.03-.48-.053-.27-.2-.395.26-.477-.247-.947.36.618-.538.64-.102.49-.126.662.218.582-.147.563.33.596-.03.293.525.591.067.32.58.372.206.1.746.333.315-.148.653.39.494-.363.529.39.332-.499.443.506.529-.613.2.398.566-.5.088.327.622-.563-.008.285.466-.62-.074.147.672-.468-.411-.159.814-.322-.585-.175.73-.397-.537.011.765-.439-.688c.091.39.073.817.33 1.185.793-.107 1.311-.307 1.92-.892.552-.533 1.214-1.644 1.394-2.35.204-.802.21-2.281.01-3.101-.195-.787-.447-1.163-.897-1.807-.43-.455-.853-.94-1.399-1.264-.8-.48-1.828-.608-2.74-.596a3.22 3.22 0 00-1.147.215c-.527.19-.95.61-1.487.818-.175.067-.315.068-.454-.004.135.27.28.39.62.49.243.07.824.025 1.226-.012.43-.04.654-.167 1.238-.16.57.01 1.024.225 1.272.368.511.292.877.614 1.196 1.13.175.28.298.6.383.924.086.324.124.688.13 1.006.006.318-.019.602-.097.888-.182.669-.583 1.35-1.407 1.245-.504-.063-1.263-1.01-1.518-1.357-.514-.701-1.042-1.477-1.687-2.06a2.587 2.587 0 00-1.463-.65c-.992-.09-1.287.099-2.033.716.15.047.3.074.455.145.346.156.662.357.938.615.29.27.42.442.43.829.007.259-.204.465-.4.649-.117.114-.274.218-.37.307-.128.117-.286.246-.125.432.06.07.165.123.252.189.14.103.075.488-.108.592a.61.61 0 01-.713-.061c.246-.035.402-.068.395-.27-.002-.115-.15-.213-.297-.28-.35-.16-.614-.134-.963-.386-.353-.254-.36-.393-.455-.79-.17.017-.327.02-.554.097-.226.074-.478.254-.684.299-.52.11-.623.078-.907.006-.501-.132-1.15.09-1.8.299-.107.033-.543 0-.836.102a5.518 5.518 0 00-1.457.853c-.556.469-1.286 1.869-1.698 3.477-.045.49.095.817-.213 1.055-.308.24-.3.851-.405 1.023-.103.17-.225.094-.45.336-.223.24-.337.201-.332.654.195-.125.477-.273.725-.285.22-.006.222.283.785-.273.3-.299.88-.309 1.283-.439.402-.13 1.125-.402 1.85-1.21.725-.81 1.072-1.664 1.213-2.896.02.215.06.463-.033 1.065-.095.604-.296 1.28.13 2.092l.264.504c-.157-.215-.465-.566-.56-.815l-.21-.577c-.48.752-.59.885-1.256 1.423-.026.334-.033.682.076 1.002.108.32-.064.688.02.9.082.21.273.09.336.303s-.032.635.064.842c.1.207.337.082.453.15.115.066.154.158.215.246.063.088-.023.297.103.365.126.066.32.01.453.074.13.066.15.223.12.361-.033.141-.173.205-.234.348a.365.365 0 00.02.373c.074.131.236.201.4.27.162.064.39.027.559.12.169.09.32.272.408.405a.542.542 0 01.109.363 1.038 1.038 0 01-.137.434c-.074.135-.236.3.02.555.254.254.246.145.393.313-.017-.289-.135-.52-.05-.738.089-.217.35-.256.485-.352.139-.1.219-.232.326-.348 0 .148.015.31-.002.42-.033.227-.102.432.237.467.153.016.299-.082.458-.14-.084.147-.23.27-.252.45a.793.793 0 00.13.56c.123.18.34.312.498.415.158.105.244.115.365.174.006.176-.03.363-.01.53a.962.962 0 00.17.454c.098.14.252.22.398.32-.08-.188-.242-.365-.24-.56.002-.197.06-.335.252-.51.19-.175.64-.325.85-.495a1.03 1.03 0 00.355-.436c.075-.164.055-.43.07-.576.068.205.078.27.102.486.02.217-.127.521-.19.68a1.02 1.02 0 00.51-.525c.058.035.03.125.05.301.094-.092.2-.162.293-.25.094-.088.195-.164.243-.287.046-.12.027-.252-.007-.393-.035-.143-.193-.307-.28-.463-.083-.152.017-.305.01-.492-.17-.029-.313-.117-.51-.088-.196.03-.42.248-.622.252-.2 0-.314-.188-.478-.238-.165-.053-.33-.045-.495-.07.21-.199 1.02-.295 1.576-.385a9.794 9.794 0 011.47-.133c.22-.006.506.068.66.025.153-.045.12-.15.165-.264.13-.318.066-.604-.004-.924-.444-.053-.908-.115-1.356-.082-.438.033-.956.242-1.41.256-.39.014-.975-.074-1.31-.28-.414-.25-.732-.79-.846-.966-.184-.28-.415-.836-.56-1.088-.14-.254-.171-.324-.29-.43-.116-.105-.276-.113-.417-.17.16.014.336-.035.482.047.22.127.465.648.601.877.145-.486.11-.676.53-.95-.337.378-.347.665-.429 1.11.28.46.67 1.193 1.18 1.396.186.074.502.12.7.145.622.076 1.22-.119 1.83-.27.444-.11.896-.066 1.437-.035.183.012.616-.1.707-.283a.33.33 0 00-.024-.33c-.07-.105-.255-.158-.355-.254-.1-.098-.156-.21-.235-.314a6.51 6.51 0 01-1.062.115c.22-.09.433-.14.66-.23.237-.098.463-.219.676-.359.186-.123.303-.193.438-.334.133-.143.304-.289.403-.463.1-.174.114-.369.12-.584.004-.215-.005-.516-.088-.69-.084-.173-.243-.226-.37-.265-.128-.04-.217.063-.35.076-.134.014-.258.096-.452.006a1.68 1.68 0 01-.617-.548c-.196-.274-.335-.722-.534-1.067-.343-.596-.77-1.15-1.18-1.702a3.392 3.392 0 01-.1-.508c-.032-.322-.036-.656.064-.97.075-.24.188-.493.438-.591a.48.48 0 01.317-.022c.09.032.18.135.142.252-.04.129-.127.134-.188.198a.693.693 0 00-.183.33c.11-.004.262-.011.354.013.12.03.23.11.29.279-.142-.126-.212-.185-.39-.188-.082-.002-.18.026-.27.04-.034.109-.054.244-.1.33-.05.084-.142.063-.177.16a.992.992 0 00-.02.392h.004zm1.242-.15c.056.022.075.028.146.08.07.053.165.105.22.23a.878.878 0 01.04.4c-.048-.015-.113-.005-.163-.047-.05-.043-.08-.14-.143-.18-.065-.043-.117-.034-.188-.043.038.096.05.199.036.3-.036.204-.156.308-.352.33-.084.013-.22-.015-.292-.028.034.075.09.143.126.219.164-.023.285-.02.375-.061.088-.041.183-.135.296-.173.113-.04.214-.04.338-.06-.098.085-.162.168-.26.254l.215.623c.152.096.294.146.485.263.19.116.42.327.67.44.248.112.395.176.656.224.26.05.467.262.722.295.255.032.735.041.932.021.225-.02.516-.135.542-.38-.188.044-.475.004-.619-.35-.064-.156-.034-.446-.132-.63-.099-.187-.236-.246-.4-.475-.164-.23-.43-.59-.58-.895-.15-.308-.188-.654-.313-.93-.128-.273-.319-.494-.469-.707-.323-.463-.584-.777-1.12-1.011-.257-.112-.55-.143-.823-.213-.113.05-.268.104-.295.237a.536.536 0 00.12.42c.16.166.395.343.487.604.06.168.076.73.025.883-.054.16-.178.257-.282.36zm.052 1.332c-.05.043-.087.087-.167.122-.08.036-.19.045-.295.07.148.232.305.467.447.71.143.242.266.51.4.764-.006-.147.003-.301-.018-.437-.02-.136-.083-.254-.145-.461-.06-.206-.135-.484-.222-.768zm-4-5.087a3.32 3.32 0 00.065.806c.058.267.11.404.328.564.396.295.648.245.955.416.145.08.328.217.382.359.053.146-.036.3-.146.363.192.029.408-.19.318-.41-.045-.11-.255-.16-.32-.271a.41.41 0 01-.033-.335c.053-.202.454-.388.597-.546.218-.248.3-.453.177-.77-.172-.445-.842-.804-1.242-.98-.183-.08-.287-.083-.43-.128.293.174.602.31.75.69.124.32.016.444.022.72.002.13.172.197.248.277.064.072.06.125.008.223a.256.256 0 00-.11-.2c-.113-.08-.235-.062-.295-.224-.09-.248.09-.484-.112-.762-.15-.208-.353-.441-.625-.447a1.073 1.073 0 00-.36.058l-.183-.22-.005-.003c-.372-.34-.626-.62-1.146-.852-.522-.234-.78-.27-1.38-.256-.596.013-1.19.063-1.882.66-.694.6-2.48 2.888-2.915 3.177-.43.289-.527.389-1.068.389-.54 0-1.387-.766-1.42-1.723-.032-.956-.045-1.297.62-2.45.665-1.151 1.867-1.504 2.762-1.624.895-.12 1.432.194 2.092.195.66.002 1.314-.11 1.508-.637-.095.056-.221.12-.577.1-.355-.018-.85-.43-1.402-.705C7.157.548 6.54.515 5.75.501c-.79-.015-1.777.045-2.755.574C2.018 1.6 1.35 2.16.783 3.195.215 4.228.13 5.07.223 6.322.313 7.57.7 8.5 1.442 9.42c.744.914 1.485 1.363 2.823 1.529l.283-1.242-.504.72.014-.802-.455.565-.202-.767-.367.615-.183-.855-.535.432.17-.705-.707.078.324-.491-.644.006.375-.653-.57-.091.454-.596-.698-.206.578-.555-.573-.467.448-.348-.42-.56.448-.52-.167-.684.379-.33.113-.785.426-.214.365-.61.677-.073.334-.553.68.035.642-.348.666.154.756-.228.562.13.73.108.706.564-1.08-.377-.545.26-.45-.273-.31.21-.55.056-.492-.03-.358.436-.732.007-.26.59-.65.227-.06.678-.468.366.155.637-.401.664.31.58-.305.53.403.264-.09.853.563.14.125.634.613-.063.38.434.47-.461c.859-.428 1.213-.668 1.883-1.391.76-.823 1.196-1.584 2.208-2.147.73-.405 1.32-.551 2.139-.408.766.132 1.024.593 1.59 1.077.06-.11.07-.14.168-.218-.03.142-.08.287-.093.423z"/></svg> <code>nano</code> <span class="cmd-desc">GNU nano: edit configs on a server</span></a>
+                      <div class="ng-heading">GUI &amp; AI</div>
+                      <a href="vscode.html" class="dropdown-item" role="menuitem"><svg class="menu-logo" viewBox="0 0 128 128" width="14" height="14" aria-hidden="true"><mask id="scr-vscode-a" width="128" height="128" x="0" y="0" maskUnits="userSpaceOnUse" style="mask-type:alpha"><path fill="#fff" fill-rule="evenodd" d="M90.767 127.126a7.968 7.968 0 0 0 6.35-.244l26.353-12.681a8 8 0 0 0 4.53-7.209V21.009a8 8 0 0 0-4.53-7.21L97.117 1.12a7.97 7.97 0 0 0-9.093 1.548l-50.45 46.026L15.6 32.013a5.328 5.328 0 0 0-6.807.302l-7.048 6.411a5.335 5.335 0 0 0-.006 7.888L20.796 64 1.74 81.387a5.336 5.336 0 0 0 .006 7.887l7.048 6.411a5.327 5.327 0 0 0 6.807.303l21.974-16.68 50.45 46.025a7.96 7.96 0 0 0 2.743 1.793Zm5.252-92.183L57.74 64l38.28 29.058V34.943Z" clip-rule="evenodd"/></mask><g mask="url(#scr-vscode-a)"><path fill="#0065A9" d="M123.471 13.82 97.097 1.12A7.973 7.973 0 0 0 88 2.668L1.662 81.387a5.333 5.333 0 0 0 .006 7.887l7.052 6.411a5.333 5.333 0 0 0 6.811.303l103.971-78.875c3.488-2.646 8.498-.158 8.498 4.22v-.306a8.001 8.001 0 0 0-4.529-7.208Z"/><g filter="url(#scr-vscode-b)"><path fill="#007ACC" d="m123.471 114.181-26.374 12.698A7.973 7.973 0 0 1 88 125.333L1.662 46.613a5.333 5.333 0 0 1 .006-7.887l7.052-6.411a5.333 5.333 0 0 1 6.811-.303l103.971 78.874c3.488 2.647 8.498.159 8.498-4.219v.306a8.001 8.001 0 0 1-4.529 7.208Z"/></g><g filter="url(#scr-vscode-c)"><path fill="#1F9CF0" d="M97.098 126.882A7.977 7.977 0 0 1 88 125.333c2.952 2.952 8 .861 8-3.314V5.98c0-4.175-5.048-6.266-8-3.313a7.977 7.977 0 0 1 9.098-1.549L123.467 13.8A8 8 0 0 1 128 21.01v85.982a8 8 0 0 1-4.533 7.21l-26.369 12.681Z"/></g><path fill="url(#scr-vscode-d)" fill-rule="evenodd" d="M90.69 127.126a7.968 7.968 0 0 0 6.349-.244l26.353-12.681a8 8 0 0 0 4.53-7.21V21.009a8 8 0 0 0-4.53-7.21L97.039 1.12a7.97 7.97 0 0 0-9.093 1.548l-50.45 46.026-21.974-16.68a5.328 5.328 0 0 0-6.807.302l-7.048 6.411a5.336 5.336 0 0 0-.006 7.888L20.718 64 1.662 81.386a5.335 5.335 0 0 0 .006 7.888l7.048 6.411a5.328 5.328 0 0 0 6.807.303l21.975-16.681 50.45 46.026a7.959 7.959 0 0 0 2.742 1.793Zm5.252-92.184L57.662 64l38.28 29.057V34.943Z" clip-rule="evenodd" opacity="0.25" style="mix-blend-mode:overlay"/></g><defs><filter id="scr-vscode-b" width="144.744" height="113.408" x="-8.41115" y="22.5944" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feColorMatrix in="SourceAlpha" result="hardAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/><feOffset/><feGaussianBlur stdDeviation="4.16667"/><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/><feBlend in2="BackgroundImageFix" mode="overlay" result="effect1_dropShadow_1_36"/><feBlend in="SourceGraphic" in2="effect1_dropShadow_1_36" result="shape"/></filter><filter id="scr-vscode-c" width="56.6667" height="144.007" x="79.6667" y="-8.0035" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feColorMatrix in="SourceAlpha" result="hardAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/><feOffset/><feGaussianBlur stdDeviation="4.16667"/><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/><feBlend in2="BackgroundImageFix" mode="overlay" result="effect1_dropShadow_1_36"/><feBlend in="SourceGraphic" in2="effect1_dropShadow_1_36" result="shape"/></filter><linearGradient id="scr-vscode-d" x1="63.9222" x2="63.9222" y1="0.329902" y2="127.67" gradientUnits="userSpaceOnUse"><stop stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient></defs></svg> <code>code</code> <span class="cmd-desc">VS Code: palette, navigation, multi-cursor, CLI, Remote-SSH</span></a>
+                      <a href="zed.html" class="dropdown-item" role="menuitem"><svg class="menu-logo logo-chip" viewBox="0 0 128 128" width="14" height="14" aria-hidden="true"><path fill="#084CCF" d="M12 8a4 4 0 0 0-4 4v88H0V12C0 5.373 5.373 0 12 0h107.172c5.345 0 8.022 6.463 4.242 10.243L57.407 76.25H76V68h8v10.25a6 6 0 0 1-6 6H49.407L35.657 98H98V48h8v50a8 8 0 0 1-8 8H27.657l-14 14H116a4 4 0 0 0 4-4V28h8v88c0 6.627-5.373 12-12 12H8.828c-5.345 0-8.022-6.463-4.242-10.243L70.343 52H52v8h-8V50a6 6 0 0 1 6-6h28.343l14-14H30v50h-8V30a8 8 0 0 1 8-8h70.343l14-14Z"/></svg> <code>zed</code> <span class="cmd-desc">Zed: fast native editor, agent panel</span></a>
+                      <a href="cursor.html" class="dropdown-item" role="menuitem"><svg class="menu-logo logo-chip" viewBox="0 0 128 128" width="14" height="14" aria-hidden="true"><path fill="url(#scr-cursor-a)" d="m64 128 55.6-32L64 64 8.4 96Z"/><path fill="url(#scr-cursor-b)" d="M119.6 96V32L64 0v64Z"/><path fill="url(#scr-cursor-c)" d="M64 0 8.4 32v64L64 64Z"/><path fill="#555" d="M119.6 32 64 128V64Z"/><path d="M119.6 32 64 64 8.4 32Z"/><defs><linearGradient id="scr-cursor-a" x1="11.925" x2="11.925" y1="12" y2="24" gradientTransform="translate(.4) scale(5.33333)" gradientUnits="userSpaceOnUse"><stop offset=".16" stop-opacity=".39"/><stop offset=".658" stop-opacity=".8"/></linearGradient><linearGradient id="scr-cursor-b" x1="22.35" x2="11.925" y1="6.037" y2="12.15" gradientTransform="translate(.4) scale(5.33333)" gradientUnits="userSpaceOnUse"><stop offset=".182" stop-opacity=".31"/><stop offset=".715" stop-opacity="0"/></linearGradient><linearGradient id="scr-cursor-c" x1="11.925" x2="1.5" y1="0" y2="18" gradientTransform="translate(.4) scale(5.33333)" gradientUnits="userSpaceOnUse"><stop stop-opacity=".6"/><stop offset=".667" stop-opacity=".22"/></linearGradient></defs></svg> <code>cur</code> <span class="cmd-desc">Cursor: AI editor: agent, inline edit, CLI agent</span></a>
+                    </div>
+                  </div>
                   </div>
                 </div>
               </div>
@@ -153,140 +217,31 @@
                   <a href="markdown.html" class="dropdown-item" role="menuitem"><svg class="menu-logo" viewBox="0 0 128 128" width="14" height="14" fill="currentColor" aria-hidden="true"><path style="line-height:normal;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000;text-transform:none;text-orientation:mixed;white-space:normal;shape-padding:0;shape-margin:0;inline-size:0;isolation:auto;mix-blend-mode:normal;solid-color:#000;solid-opacity:1" d="M11.95 24.348c-5.836 0-10.618 4.867-10.618 10.681v57.942c0 5.814 4.782 10.681 10.617 10.681h104.102c5.835 0 10.617-4.867 10.617-10.681V35.03c0-5.814-4.783-10.681-10.617-10.681H14.898l-.002-.002H11.95zm-.007 9.543h104.108c.625 0 1.076.423 1.076 1.14v57.94c0 .717-.453 1.14-1.076 1.14H11.949c-.623 0-1.076-.423-1.076-1.14V35.029c0-.715.451-1.135 1.07-1.138z" color="#000" font-weight="400" font-family="sans-serif" overflow="visible"/><path d="M20.721 84.1V43.9H32.42l11.697 14.78L55.81 43.9h11.696v40.2H55.81V61.044l-11.694 14.78-11.698-14.78V84.1H20.722zm73.104 0L76.28 64.591h11.697V43.9h11.698v20.69h11.698zm0 0"/></svg> Markdown</a>
                 </div>
               </div>
-                            <div class="nav-dropdown" id="nvim-nav-dropdown">
-                <a href="neovim.html" class="sheet-link dropdown-toggle" aria-haspopup="true">
-                  <svg class="nav-logo" viewBox="0 0 24 24" width="13" height="13" fill="none" aria-hidden="true"><path d="M2.5 5.2L7.3.5v23l-4.8-4.7V5.2z" fill="#16b0ed"/><path d="M16.7.5l4.8 4.7v13.6l-4.8 4.7V.5z" fill="#57a143"/><path d="M7.3.5l12 18.2-2.6 4.8L4.7 5.3 7.3.5z" fill="#7db643"/></svg>
-                  <span>Neovim</span> <span class="dropdown-caret">▾</span>
-                </a>
-                <div class="nav-dropdown-menu nvim-dropdown-menu" role="menu">
-                  <a href="neovim.html" class="dropdown-item dropdown-hub-link" role="menuitem">📑 Neovim Hub &amp; Composer</a>
-                  <div class="dropdown-divider"></div>
-                  <div class="nvim-dropdown-grid">
-                    <div class="nvim-dropdown-col">
-                      <div class="nvim-dropdown-heading">Editing &amp; Motions</div>
-                      <a href="nvim-motions.html" class="dropdown-item" role="menuitem"><code>mov</code> <span class="cmd-desc">Motions &amp; Jumps</span></a>
-                      <a href="nvim-operators.html" class="dropdown-item" role="menuitem"><code>edit</code> <span class="cmd-desc">Operators &amp; Objects</span></a>
-                      <a href="nvim-visual.html" class="dropdown-item" role="menuitem"><code>vis</code> <span class="cmd-desc">Visual &amp; Block Mode</span></a>
-                      <a href="nvim-search.html" class="dropdown-item" role="menuitem"><code>srch</code> <span class="cmd-desc">Search &amp; Substitute</span></a>
-                      <a href="nvim-macros.html" class="dropdown-item" role="menuitem"><code>mac</code> <span class="cmd-desc">Macros &amp; Registers</span></a>
-                    </div>
-                    <div class="nvim-dropdown-col">
-                      <div class="nvim-dropdown-heading">Workspace &amp; Ecosystem</div>
-                      <a href="nvim-windows.html" class="dropdown-item" role="menuitem"><code>win</code> <span class="cmd-desc">Windows, Splits &amp; Tabs</span></a>
-                      <a href="nvim-lsp.html" class="dropdown-item" role="menuitem"><code>lsp</code> <span class="cmd-desc">Built-in LSP &amp; Treesitter</span></a>
-                      <a href="nvim-lazyvim.html" class="dropdown-item" role="menuitem"><code>lazy</code> <span class="cmd-desc">LazyVim, Picker &amp; Git</span></a>
-                      <a href="nvim-ex-shell.html" class="dropdown-item" role="menuitem"><code>ex</code> <span class="cmd-desc">Ex Commands &amp; Shell</span></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="nav-dropdown" id="macos-nav-dropdown">
-                <a href="macos.html" class="sheet-link dropdown-toggle" aria-haspopup="true">
-                  <svg class="nav-logo" viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg>
-                  <span>macOS</span> <span class="dropdown-caret">▾</span>
-                </a>
-                <div class="nav-dropdown-menu macos-dropdown-menu" role="menu">
-                  <a href="macos.html" class="dropdown-item dropdown-hub-link" role="menuitem">📑 macOS Hub &amp; Tweak Generator</a>
-                  <div class="dropdown-divider"></div>
-                  <div class="macos-dropdown-grid">
-                    <div class="macos-dropdown-col">
-                      <div class="macos-dropdown-heading">Shortcuts &amp; UI</div>
-                      <a href="macos-system-keys.html" class="dropdown-item" role="menuitem"><code>keys</code> <span class="cmd-desc">System &amp; Screenshots</span></a>
-                      <a href="macos-finder-keys.html" class="dropdown-item" role="menuitem"><code>fndr</code> <span class="cmd-desc">Finder &amp; Quick Look</span></a>
-                      <a href="macos-text-editing.html" class="dropdown-item" role="menuitem"><code>txt</code> <span class="cmd-desc">Text &amp; Selection</span></a>
-                      <a href="macos-trackpad.html" class="dropdown-item" role="menuitem"><code>pad</code> <span class="cmd-desc">Trackpad &amp; Gestures</span></a>
-                    </div>
-                    <div class="macos-dropdown-col">
-                      <div class="macos-dropdown-heading">Terminal &amp; Sysadmin</div>
-                      <a href="macos-darwin-cli.html" class="dropdown-item" role="menuitem"><code>cli</code> <span class="cmd-desc">Darwin &amp; Clipboard CLI</span></a>
-                      <a href="macos-homebrew.html" class="dropdown-item" role="menuitem"><code>brew</code> <span class="cmd-desc">Homebrew Packages</span></a>
-                      <a href="macos-system-admin.html" class="dropdown-item" role="menuitem"><code>sys</code> <span class="cmd-desc">Defaults &amp; Launchd</span></a>
-                      <a href="macos-net-disk-sec.html" class="dropdown-item" role="menuitem"><code>net</code> <span class="cmd-desc">Network, Disks &amp; Security</span></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="nav-dropdown" id="win-nav-dropdown">
-                <a href="windows.html" class="sheet-link dropdown-toggle" aria-haspopup="true">
-                  <svg class="nav-logo" viewBox="0 0 24 24" width="13" height="13" fill="#00a4ef" aria-hidden="true"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/></svg>
-                  <span>Windows</span> <span class="dropdown-caret">▾</span>
-                </a>
-                <div class="nav-dropdown-menu win-dropdown-menu" role="menu">
-                  <a href="windows.html" class="dropdown-item dropdown-hub-link" role="menuitem">📑 Windows Hub &amp; Quick Admin</a>
-                  <div class="dropdown-divider"></div>
-                  <div class="win-dropdown-grid">
-                    <div class="win-dropdown-col">
-                      <div class="win-dropdown-heading">OS &amp; Desktop</div>
-                      <a href="win-shortcuts.html" class="dropdown-item" role="menuitem"><code>keys</code> <span class="cmd-desc">Snap &amp; Explorer Keys</span></a>
-                      <a href="win-storage.html" class="dropdown-item" role="menuitem"><code>dsk</code> <span class="cmd-desc">Disks &amp; BitLocker</span></a>
-                      <a href="win-packages.html" class="dropdown-item" role="menuitem"><code>pkg</code> <span class="cmd-desc">Winget &amp; PS Modules</span></a>
-                      <a href="win-wsl.html" class="dropdown-item" role="menuitem"><code>wsl</code> <span class="cmd-desc">WSL 2 &amp; Interop</span></a>
-                    </div>
-                    <div class="win-dropdown-col">
-                      <div class="win-dropdown-heading">Sysadmin &amp; Triage</div>
-                      <a href="win-processes.html" class="dropdown-item" role="menuitem"><code>proc</code> <span class="cmd-desc">Processes &amp; Services</span></a>
-                      <a href="win-network.html" class="dropdown-item" role="menuitem"><code>net</code> <span class="cmd-desc">Network, Ports &amp; DNS</span></a>
-                      <a href="win-registry.html" class="dropdown-item" role="menuitem"><code>reg</code> <span class="cmd-desc">Registry &amp; Environment</span></a>
-                      <a href="win-sysadmin.html" class="dropdown-item" role="menuitem"><code>adm</code> <span class="cmd-desc">System Repair &amp; Robocopy</span></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="nav-dropdown" id="nvidia-nav-dropdown">
-                <a href="nvidia.html" class="sheet-link dropdown-toggle" aria-haspopup="true">
-                  <svg class="nav-logo" viewBox="0 0 24 24" width="15" height="15" fill="#76b900" aria-hidden="true"><path d="M8.948 8.798v-1.43a6.7 6.7 0 0 1 .424-.018c3.922-.124 6.493 3.374 6.493 3.374s-2.774 3.851-5.75 3.851c-.398 0-.787-.062-1.158-.185v-4.346c1.528.185 1.837.857 2.747 2.385l2.04-1.714s-1.492-1.952-4.01-1.952a6.016 6.016 0 0 0-.786.035m0-4.735v2.138l.424-.027c5.45-.185 9.01 4.47 9.01 4.47s-4.08 4.964-8.33 4.964c-.37 0-.742-.035-1.104-.097v1.325c.292.035.6.062.91.062 3.957 0 6.82-2.023 9.593-4.408.459.371 2.34 1.263 2.73 1.652-2.633 2.208-8.772 3.984-12.253 3.984-.335 0-.653-.018-.98-.053v1.864H24V4.063zm0 10.326v1.166c-3.657-.654-4.673-4.46-4.673-4.46s1.758-1.944 4.673-2.262v1.237h-.008c-1.528-.186-2.73 1.245-2.73 1.245s.68 2.412 2.738 3.074M2.456 10.9s2.164-3.197 6.5-3.533V6.201C4.153 6.59 0 10.653 0 10.653s2.35 6.802 8.948 7.42v-1.237c-4.84-.6-6.492-5.936-6.492-5.936Z"/></svg>
-                  <span>NVIDIA DC</span> <span class="dropdown-caret">▾</span>
-                </a>
-                <div class="nav-dropdown-menu nvidia-dropdown-menu" role="menu">
-                  <a href="nvidia.html" class="dropdown-item dropdown-hub-link" role="menuitem">📑 NVIDIA DC Hub &amp; Telemetry</a>
-                  <div class="dropdown-divider"></div>
-                  <div class="nvidia-dropdown-grid">
-                    <div class="nvidia-dropdown-col">
-                      <div class="nvidia-dropdown-heading">Telemetry &amp; Fabric</div>
-                      <a href="nv-smi.html" class="dropdown-item" role="menuitem"><code>smi</code> <span class="cmd-desc">Telemetry &amp; Topology</span></a>
-                      <a href="nv-nvlink.html" class="dropdown-item" role="menuitem"><code>nvl</code> <span class="cmd-desc">NVLink &amp; Fabric Manager</span></a>
-                      <a href="nv-dcgm.html" class="dropdown-item" role="menuitem"><code>dcgm</code> <span class="cmd-desc">DCGM Diagnostics &amp; Health</span></a>
-                      <a href="nv-gpudirect.html" class="dropdown-item" role="menuitem"><code>rdma</code> <span class="cmd-desc">GPUDirect RDMA &amp; NCCL</span></a>
-                    </div>
-                    <div class="nvidia-dropdown-col">
-                      <div class="nvidia-dropdown-heading">Management &amp; Triage</div>
-                      <a href="nv-admin.html" class="dropdown-item" role="menuitem"><code>adm</code> <span class="cmd-desc">GPU Reset, ECC &amp; Row Remap</span></a>
-                      <a href="nv-mig.html" class="dropdown-item" role="menuitem"><code>mig</code> <span class="cmd-desc">MIG Partitioning &amp; Slices</span></a>
-                      <a href="nv-pcie.html" class="dropdown-item" role="menuitem"><code>pcie</code> <span class="cmd-desc">PCIe AER &amp; Xid Triage</span></a>
-                      <a href="nv-ops.html" class="dropdown-item" role="menuitem"><code>ops</code> <span class="cmd-desc">Slurm Drain &amp; NVSM Health</span></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="nav-dropdown" id="infiniband-nav-dropdown">
+              <div class="nav-dropdown nav-group" id="navgroup-net">
                 <a href="infiniband.html" class="sheet-link dropdown-toggle" aria-haspopup="true">
-                  <svg class="nav-logo" viewBox="0 0 24 24" width="14" height="14" fill="none" aria-hidden="true"><circle cx="5" cy="6" r="2.5" stroke="#38bdf8" stroke-width="1.8"/><circle cx="19" cy="6" r="2.5" stroke="#38bdf8" stroke-width="1.8"/><circle cx="5" cy="18" r="2.5" stroke="#4ade80" stroke-width="1.8"/><circle cx="19" cy="18" r="2.5" stroke="#4ade80" stroke-width="1.8"/><path d="M7.5 6h9M7.5 18h9M5 8.5v7M19 8.5v7M7 7.5l10 9M17 7.5l-10 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-                  <span>InfiniBand</span> <span class="dropdown-caret">▾</span>
+                  <svg class="nav-logo" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="2.2"/><circle cx="5" cy="19" r="2.2"/><circle cx="19" cy="19" r="2.2"/><path d="M12 7.2v4.3M12 11.5l-5.6 5.6M12 11.5l5.6 5.6"/></svg>
+                  <span>Networking</span> <span class="dropdown-caret">▾</span>
                 </a>
-                <div class="nav-dropdown-menu ib-dropdown-menu" role="menu">
-                  <a href="infiniband.html" class="dropdown-item dropdown-hub-link" role="menuitem">📑 InfiniBand Hub &amp; Fabric Diagnostics</a>
-                  <div class="dropdown-divider"></div>
-                  <div class="ib-dropdown-grid">
-                    <div class="ib-dropdown-col">
-                      <div class="ib-dropdown-heading">HCA, Port &amp; Topology</div>
+                <div class="nav-dropdown-menu ng-menu" role="menu" style="--ng-cols:3">
+                  <div class="ng-grid">
+                  <div class="ng-col">
+                    <div class="ng-group" data-suite-key="infiniband" data-suite-name="InfiniBand" data-suite-hub="infiniband.html">
+                      <a href="infiniband.html" class="dropdown-item dropdown-hub-link ng-head" role="menuitem"><svg class="ng-logo" viewBox="0 0 24 24" width="14" height="14" fill="none" aria-hidden="true"><circle cx="5" cy="6" r="2.5" stroke="#38bdf8" stroke-width="1.8"/><circle cx="19" cy="6" r="2.5" stroke="#38bdf8" stroke-width="1.8"/><circle cx="5" cy="18" r="2.5" stroke="#4ade80" stroke-width="1.8"/><circle cx="19" cy="18" r="2.5" stroke="#4ade80" stroke-width="1.8"/><path d="M7.5 6h9M7.5 18h9M5 8.5v7M19 8.5v7M7 7.5l10 9M17 7.5l-10 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><b>InfiniBand</b><small>InfiniBand Hub &amp; Fabric Diagnostics</small></a>
+                      <div class="ng-heading">HCA, Port &amp; Topology</div>
                       <a href="ib-ibstat.html" class="dropdown-item" role="menuitem"><code>ibs</code> <span class="cmd-desc">ibstat: Port State &amp; LID</span></a>
                       <a href="ib-ibv-devinfo.html" class="dropdown-item" role="menuitem"><code>ibv</code> <span class="cmd-desc">ibv_devinfo: Verbs &amp; GIDs</span></a>
                       <a href="ib-rdma.html" class="dropdown-item" role="menuitem"><code>rdm</code> <span class="cmd-desc">rdma: Kernel Netdev Mapping</span></a>
                       <a href="ib-iblinkinfo.html" class="dropdown-item" role="menuitem"><code>lnk</code> <span class="cmd-desc">iblinkinfo: Fabric Topology</span></a>
                       <a href="ib-ibswitches.html" class="dropdown-item" role="menuitem"><code>sw</code> <span class="cmd-desc">ibswitches: Switch Inventory</span></a>
                       <a href="ib-sminfo.html" class="dropdown-item" role="menuitem"><code>sm</code> <span class="cmd-desc">sminfo: Subnet Manager</span></a>
-                    </div>
-                    <div class="ib-dropdown-col">
-                      <div class="ib-dropdown-heading">Errors &amp; Diagnostics</div>
+                      <div class="ng-heading">Errors &amp; Diagnostics</div>
                       <a href="ib-perfquery.html" class="dropdown-item" role="menuitem"><code>prf</code> <span class="cmd-desc">perfquery: Port Counters</span></a>
                       <a href="ib-ibqueryerrors.html" class="dropdown-item" role="menuitem"><code>err</code> <span class="cmd-desc">ibqueryerrors: Flap Scanner</span></a>
                       <a href="ib-ibdiagnet.html" class="dropdown-item" role="menuitem"><code>dgn</code> <span class="cmd-desc">ibdiagnet: BER &amp; Health</span></a>
                       <a href="ib-ibping.html" class="dropdown-item" role="menuitem"><code>png</code> <span class="cmd-desc">ibping: L2 Ping &amp; Trace</span></a>
                       <a href="ib-mlxlink.html" class="dropdown-item" role="menuitem"><code>mlx</code> <span class="cmd-desc">mlxlink: Optical DOM &amp; Eye</span></a>
                       <a href="ib-mlxcables.html" class="dropdown-item" role="menuitem"><code>cbl</code> <span class="cmd-desc">mlxcables: Cable EEPROM/DDM</span></a>
-                    </div>
-                    <div class="ib-dropdown-col">
-                      <div class="ib-dropdown-heading">Firmware &amp; BlueField</div>
+                      <div class="ng-heading">Firmware &amp; BlueField</div>
                       <a href="ib-mst.html" class="dropdown-item" role="menuitem"><code>mst</code> <span class="cmd-desc">mst: MFT Device Manager</span></a>
                       <a href="ib-mlxconfig.html" class="dropdown-item" role="menuitem"><code>cfg</code> <span class="cmd-desc">mlxconfig: VPI &amp; NVRAM</span></a>
                       <a href="ib-mlxfwmanager.html" class="dropdown-item" role="menuitem"><code>fwm</code> <span class="cmd-desc">mlxfwmanager: Firmware Flash</span></a>
@@ -294,35 +249,44 @@
                       <a href="ib-bluefield.html" class="dropdown-item" role="menuitem"><code>dpu</code> <span class="cmd-desc">BlueField-3: DPU &amp; SuperNIC</span></a>
                     </div>
                   </div>
-                </div>
-              </div>
-              <div class="nav-dropdown" id="switches-nav-dropdown">
-                <a href="switches.html" class="sheet-link dropdown-toggle" aria-haspopup="true">
-                  <svg class="nav-logo" viewBox="0 0 24 24" width="15" height="14" fill="none" aria-hidden="true"><path d="M1 8h1.5v8H1V8zm20.5 0H23v8h-1.5V8z" fill="currentColor" opacity="0.7"/><rect x="2.5" y="6" width="19" height="12" rx="1.5" fill="#0f172a" stroke="currentColor" stroke-width="1.6"/><circle cx="5.3" cy="9.5" r="1.1" fill="#22c55e"/><circle cx="5.3" cy="14.5" r="1.1" fill="#38bdf8"/><rect x="8.2" y="8" width="2.4" height="2.8" rx="0.4" fill="currentColor"/><rect x="11.6" y="8" width="2.4" height="2.8" rx="0.4" fill="currentColor"/><rect x="15" y="8" width="2.4" height="2.8" rx="0.4" fill="currentColor"/><rect x="18.4" y="8" width="2" height="2.8" rx="0.4" fill="#22c55e"/><rect x="8.2" y="13.2" width="2.4" height="2.8" rx="0.4" fill="#22c55e"/><rect x="11.6" y="13.2" width="2.4" height="2.8" rx="0.4" fill="currentColor"/><rect x="15" y="13.2" width="2.4" height="2.8" rx="0.4" fill="#22c55e"/><rect x="18.4" y="13.2" width="2" height="2.8" rx="0.4" fill="currentColor"/></svg>
-                  <span>Switches</span> <span class="dropdown-caret">▾</span>
-                </a>
-                <div class="nav-dropdown-menu sw-dropdown-menu" role="menu">
-                  <a href="switches.html" class="dropdown-item dropdown-hub-link" role="menuitem">📑 DC Switch Hub &amp; Multi-NOS Translator</a>
-                  <div class="dropdown-divider"></div>
-                  <div class="sw-dropdown-grid">
-                    <div class="sw-dropdown-col">
-                      <div class="sw-dropdown-heading">NVIDIA Quantum &amp; SONiC</div>
+                  <div class="ng-col">
+                    <div class="ng-group" data-suite-key="ethernet" data-suite-name="Ethernet" data-suite-hub="ethernet.html">
+                      <a href="ethernet.html" class="dropdown-item dropdown-hub-link ng-head" role="menuitem"><svg class="ng-logo" viewBox="0 0 24 24" width="14" height="14" fill="none" aria-hidden="true"><rect x="5" y="2" width="14" height="10" rx="1.5" stroke="currentColor" stroke-width="1.8"/><path d="M8 2v3.5M10.67 2v3.5M13.33 2v3.5M16 2v3.5" stroke="#fbbf24" stroke-width="1.5" stroke-linecap="round"/><path d="M9.5 8.5h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M8 12h8l-1 4.5H9L8 12z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M12 16.5V22" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><b>Ethernet</b><small>Ethernet Hub &amp; Netplan Generator</small></a>
+                      <div class="ng-heading">Physical, PHY &amp; Netplan</div>
+                      <a href="eth-rj45-tdr.html" class="dropdown-item" role="menuitem"><code>rj45</code> <span class="cmd-desc">RJ45 Pinouts &amp; TDR Testing</span></a>
+                      <a href="eth-ethtool-tuning.html" class="dropdown-item" role="menuitem"><code>eth</code> <span class="cmd-desc">ethtool, Speed &amp; Ring Buffers</span></a>
+                      <a href="eth-netplan-systemd.html" class="dropdown-item" role="menuitem"><code>netp</code> <span class="cmd-desc">Netplan &amp; networkctl</span></a>
+                      <div class="ng-heading">Protocol, Bonds &amp; Triage</div>
+                      <a href="eth-iproute2-ip6.html" class="dropdown-item" role="menuitem"><code>ip6</code> <span class="cmd-desc">iproute2 &amp; IPv6 Routing</span></a>
+                      <a href="eth-bonding-vlans.html" class="dropdown-item" role="menuitem"><code>bond</code> <span class="cmd-desc">LACP Bonds, VLANs &amp; Bridges</span></a>
+                      <a href="eth-lldp-perf.html" class="dropdown-item" role="menuitem"><code>diag</code> <span class="cmd-desc">LLDP Discovery &amp; iperf3</span></a>
+                    </div>
+                    <div class="ng-group" data-suite-key="fiber" data-suite-name="Fiber" data-suite-hub="fiber.html">
+                      <a href="fiber.html" class="dropdown-item dropdown-hub-link ng-head" role="menuitem"><svg class="ng-logo" viewBox="0 0 24 24" width="14" height="14" fill="none" aria-hidden="true"><rect x="2" y="8" width="7" height="8" rx="1.2" stroke="currentColor" stroke-width="1.8"/><path d="M9 10h3v4H9" stroke="currentColor" stroke-width="1.6"/><circle cx="14.5" cy="12" r="1.5" fill="#fbbf24"/><path d="M16 12h6M15.5 9.5l5.5-3.5M15.5 14.5l5.5 3.5" stroke="#22d3ee" stroke-width="1.8" stroke-linecap="round"/></svg><b>Fiber</b><small>Fiber Optics Hub &amp; Link Budget Calculator</small></a>
+                      <div class="ng-heading">Transceivers &amp; Optics</div>
+                      <a href="fo-dom-cli.html" class="dropdown-item" role="menuitem"><code>dom</code> <span class="cmd-desc">DOM / DDM CLI Diagnostics</span></a>
+                      <a href="fo-form-factors.html" class="dropdown-item" role="menuitem"><code>xcvr</code> <span class="cmd-desc">400G/800G Form Factors</span></a>
+                      <div class="ng-heading">Connectors &amp; Field Triage</div>
+                      <a href="fo-mpo-polarity.html" class="dropdown-item" role="menuitem"><code>conn</code> <span class="cmd-desc">MPO Pinning &amp; Polarity</span></a>
+                      <a href="fo-cleaning-testing.html" class="dropdown-item" role="menuitem"><code>phy</code> <span class="cmd-desc">Cleaning, FEC &amp; Testing</span></a>
+                    </div>
+                  </div>
+                  <div class="ng-col">
+                    <div class="ng-group" data-suite-key="switches" data-suite-name="Switches" data-suite-hub="switches.html">
+                      <a href="switches.html" class="dropdown-item dropdown-hub-link ng-head" role="menuitem"><svg class="ng-logo" viewBox="0 0 24 24" width="15" height="14" fill="none" aria-hidden="true"><path d="M1 8h1.5v8H1V8zm20.5 0H23v8h-1.5V8z" fill="currentColor" opacity="0.7"/><rect x="2.5" y="6" width="19" height="12" rx="1.5" fill="#0f172a" stroke="currentColor" stroke-width="1.6"/><circle cx="5.3" cy="9.5" r="1.1" fill="#22c55e"/><circle cx="5.3" cy="14.5" r="1.1" fill="#38bdf8"/><rect x="8.2" y="8" width="2.4" height="2.8" rx="0.4" fill="currentColor"/><rect x="11.6" y="8" width="2.4" height="2.8" rx="0.4" fill="currentColor"/><rect x="15" y="8" width="2.4" height="2.8" rx="0.4" fill="currentColor"/><rect x="18.4" y="8" width="2" height="2.8" rx="0.4" fill="#22c55e"/><rect x="8.2" y="13.2" width="2.4" height="2.8" rx="0.4" fill="#22c55e"/><rect x="11.6" y="13.2" width="2.4" height="2.8" rx="0.4" fill="currentColor"/><rect x="15" y="13.2" width="2.4" height="2.8" rx="0.4" fill="#22c55e"/><rect x="18.4" y="13.2" width="2" height="2.8" rx="0.4" fill="currentColor"/></svg><b>Switches</b><small>DC Switch Hub &amp; Multi-NOS Translator</small></a>
+                      <div class="ng-heading">NVIDIA Quantum &amp; SONiC</div>
                       <a href="sw-quantum-ports.html" class="dropdown-item" role="menuitem"><code>qtm</code> <span class="cmd-desc">Quantum IB: Ports &amp; Optics</span></a>
                       <a href="sw-quantum-hw-sm.html" class="dropdown-item" role="menuitem"><code>qsm</code> <span class="cmd-desc">Quantum IB: SM, UFM &amp; HW</span></a>
                       <a href="sw-quantum-inband.html" class="dropdown-item" role="menuitem"><code>qib</code> <span class="cmd-desc">Quantum IB: In-Band MFT</span></a>
                       <a href="sw-sonic.html" class="dropdown-item" role="menuitem"><code>snc</code> <span class="cmd-desc">SONiC: Cloud NOS CLI</span></a>
-                    </div>
-                    <div class="sw-dropdown-col">
-                      <div class="sw-dropdown-heading">Cumulus Linux (NVUE)</div>
+                      <div class="ng-heading">Cumulus Linux (NVUE)</div>
                       <a href="sw-cumulus-ports.html" class="dropdown-item" role="menuitem"><code>nvu</code> <span class="cmd-desc">Cumulus: Port Status &amp; Bounce</span></a>
                       <a href="sw-cumulus-optics.html" class="dropdown-item" role="menuitem"><code>dom</code> <span class="cmd-desc">Cumulus: Optics DOM &amp; FEC</span></a>
                       <a href="sw-cumulus-lldp.html" class="dropdown-item" role="menuitem"><code>lld</code> <span class="cmd-desc">Cumulus: LLDP, MAC &amp; ARP</span></a>
                       <a href="sw-cumulus-bonds.html" class="dropdown-item" role="menuitem"><code>lcp</code> <span class="cmd-desc">Cumulus: MLAG Bonds &amp; VLAN</span></a>
                       <a href="sw-cumulus-bgp.html" class="dropdown-item" role="menuitem"><code>bgp</code> <span class="cmd-desc">Cumulus: BGP, EVPN &amp; RoCEv2</span></a>
                       <a href="sw-cumulus-hw.html" class="dropdown-item" role="menuitem"><code>psu</code> <span class="cmd-desc">Cumulus: PSU, Fans &amp; Config</span></a>
-                    </div>
-                    <div class="sw-dropdown-col">
-                      <div class="sw-dropdown-heading">Arista EOS &amp; Cisco NX-OS</div>
+                      <div class="ng-heading">Arista EOS &amp; Cisco NX-OS</div>
                       <a href="sw-arista-ports.html" class="dropdown-item" role="menuitem"><code>eos</code> <span class="cmd-desc">Arista EOS: Ports &amp; DOM</span></a>
                       <a href="sw-arista-mlag.html" class="dropdown-item" role="menuitem"><code>mlg</code> <span class="cmd-desc">Arista EOS: LLDP &amp; MLAG</span></a>
                       <a href="sw-arista-bgp.html" class="dropdown-item" role="menuitem"><code>env</code> <span class="cmd-desc">Arista EOS: BGP &amp; Health</span></a>
@@ -330,149 +294,111 @@
                       <a href="sw-nxos-vpc.html" class="dropdown-item" role="menuitem"><code>vpc</code> <span class="cmd-desc">Cisco NX-OS: LLDP &amp; vPC</span></a>
                     </div>
                   </div>
+                  </div>
                 </div>
               </div>
-              <div class="nav-dropdown" id="redfish-nav-dropdown">
+              <div class="nav-dropdown nav-group" id="navgroup-remote">
                 <a href="redfish.html" class="sheet-link dropdown-toggle" aria-haspopup="true">
-                  <svg class="nav-logo" viewBox="0 0 30 20" width="17" height="13" fill="none" aria-hidden="true"><path d="M.2 9.5C.3 8.8 1.8 7.8 5.5 4.7L11.6.5l3.6 2.6L17.9 1l3 2.3-2.4 1.9 2.2 1.7 5.4-4 3.3 2.6-5.3 4.3 5.3 4.3-3.3 2.6-5.4-4-2.2 1.7 2.4 1.9-3 2.3-2.7-2.1-3.6 2.6L.4 10.3l3.1.4L.2 9.5z" fill="#e11d48"/><circle cx="5.6" cy="6.6" r="1.95" fill="#fff"/><circle cx="5.6" cy="6.6" r="1" fill="#e11d48"/></svg>
-                  <span>Redfish</span> <span class="dropdown-caret">▾</span>
+                  <svg class="nav-logo" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3.5" width="18" height="7" rx="1.5"/><rect x="3" y="13.5" width="18" height="7" rx="1.5"/><path d="M7 7h.01M7 17h.01M11 7h6M11 17h6"/></svg>
+                  <span>Remote Management</span> <span class="dropdown-caret">▾</span>
                 </a>
-                <div class="nav-dropdown-menu rf-dropdown-menu" role="menu">
-                  <a href="redfish.html" class="dropdown-item dropdown-hub-link" role="menuitem">📑 Redfish Hub &amp; Request Builder</a>
-                  <div class="dropdown-divider"></div>
-                  <div class="rf-dropdown-grid">
-                    <div class="rf-dropdown-col">
-                      <div class="rf-dropdown-heading">Discovery, Power &amp; Platform</div>
+                <div class="nav-dropdown-menu ng-menu" role="menu" style="--ng-cols:2">
+                  <div class="ng-grid">
+                  <div class="ng-col">
+                    <div class="ng-group" data-suite-key="redfish" data-suite-name="Redfish" data-suite-hub="redfish.html">
+                      <a href="redfish.html" class="dropdown-item dropdown-hub-link ng-head" role="menuitem"><svg class="ng-logo" viewBox="0 0 30 20" width="17" height="13" fill="none" aria-hidden="true"><path d="M.2 9.5C.3 8.8 1.8 7.8 5.5 4.7L11.6.5l3.6 2.6L17.9 1l3 2.3-2.4 1.9 2.2 1.7 5.4-4 3.3 2.6-5.3 4.3 5.3 4.3-3.3 2.6-5.4-4-2.2 1.7 2.4 1.9-3 2.3-2.7-2.1-3.6 2.6L.4 10.3l3.1.4L.2 9.5z" fill="#e11d48"/><circle cx="5.6" cy="6.6" r="1.95" fill="#fff"/><circle cx="5.6" cy="6.6" r="1" fill="#e11d48"/></svg><b>Redfish</b><small>Redfish Hub &amp; Request Builder</small></a>
+                      <div class="ng-heading">Discovery, Power &amp; Platform</div>
                       <a href="rf-discovery.html" class="dropdown-item" role="menuitem"><code>auth</code> <span class="cmd-desc">ServiceRoot, Tokens &amp; ETag</span></a>
                       <a href="rf-power-boot.html" class="dropdown-item" role="menuitem"><code>pwr</code> <span class="cmd-desc">Power Actions &amp; Boot Override</span></a>
                       <a href="rf-inventory.html" class="dropdown-item" role="menuitem"><code>inv</code> <span class="cmd-desc">Hardware: CPU, RAM &amp; PCIe</span></a>
                       <a href="rf-thermals-power.html" class="dropdown-item" role="menuitem"><code>sns</code> <span class="cmd-desc">Thermals, PSUs &amp; UID LED</span></a>
-                    </div>
-                    <div class="rf-dropdown-col">
-                      <div class="rf-dropdown-heading">Operations, Firmware &amp; GPU</div>
+                      <div class="ng-heading">Operations, Firmware &amp; GPU</div>
                       <a href="rf-logs-sel.html" class="dropdown-item" role="menuitem"><code>log</code> <span class="cmd-desc">SEL Logs &amp; Fault Triage</span></a>
                       <a href="rf-bios-bmc.html" class="dropdown-item" role="menuitem"><code>bmc</code> <span class="cmd-desc">BIOS Settings &amp; Virtual Media</span></a>
                       <a href="rf-firmware.html" class="dropdown-item" role="menuitem"><code>fw</code> <span class="cmd-desc">Firmware &amp; Task Service</span></a>
                       <a href="rf-hgx-dlc.html" class="dropdown-item" role="menuitem"><code>hgx</code> <span class="cmd-desc">HGX Baseboard &amp; DLC Leaks</span></a>
                     </div>
                   </div>
-                </div>
-              </div>
-              <div class="nav-dropdown" id="ipmi-nav-dropdown">
-                <a href="ipmi.html" class="sheet-link dropdown-toggle" aria-haspopup="true">
-                  <svg class="nav-logo" viewBox="0 0 24 24" width="14" height="14" fill="none" aria-hidden="true"><rect x="5" y="5" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M7.5 12h2l1.5-3 2 6 1.5-3h2" stroke="#4ade80" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  <span>ipmitool</span> <span class="dropdown-caret">▾</span>
-                </a>
-                <div class="nav-dropdown-menu ipmi-dropdown-menu" role="menu">
-                  <a href="ipmi.html" class="dropdown-item dropdown-hub-link" role="menuitem">📑 ipmitool Hub &amp; Command Builder</a>
-                  <div class="dropdown-divider"></div>
-                  <div class="ipmi-dropdown-grid">
-                    <div class="ipmi-dropdown-col">
-                      <div class="ipmi-dropdown-heading">Power, Boot &amp; Sensors</div>
+                  <div class="ng-col">
+                    <div class="ng-group" data-suite-key="ipmi" data-suite-name="ipmitool" data-suite-hub="ipmi.html">
+                      <a href="ipmi.html" class="dropdown-item dropdown-hub-link ng-head" role="menuitem"><svg class="ng-logo" viewBox="0 0 24 24" width="14" height="14" fill="none" aria-hidden="true"><rect x="5" y="5" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M7.5 12h2l1.5-3 2 6 1.5-3h2" stroke="#4ade80" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><b>ipmitool</b><small>ipmitool Hub &amp; Command Builder</small></a>
+                      <div class="ng-heading">Power, Boot &amp; Sensors</div>
                       <a href="ipmi-chassis-power.html" class="dropdown-item" role="menuitem"><code>pwr</code> <span class="cmd-desc">Chassis Power &amp; UID</span></a>
                       <a href="ipmi-boot-override.html" class="dropdown-item" role="menuitem"><code>boot</code> <span class="cmd-desc">Bootdev &amp; Boot Flags</span></a>
                       <a href="ipmi-sensors-sdr.html" class="dropdown-item" role="menuitem"><code>sdr</code> <span class="cmd-desc">SDR Sensors &amp; DCMI Power</span></a>
-                    </div>
-                    <div class="ipmi-dropdown-col">
-                      <div class="ipmi-dropdown-heading">Console, Network &amp; Hardware</div>
+                      <div class="ng-heading">Console, Network &amp; Hardware</div>
                       <a href="ipmi-sel-logs.html" class="dropdown-item" role="menuitem"><code>sel</code> <span class="cmd-desc">SEL Event Logs &amp; Triage</span></a>
                       <a href="ipmi-sol-console.html" class="dropdown-item" role="menuitem"><code>sol</code> <span class="cmd-desc">SOL Serial Console</span></a>
                       <a href="ipmi-bmc-lan-users.html" class="dropdown-item" role="menuitem"><code>lan</code> <span class="cmd-desc">BMC Network &amp; Users</span></a>
                       <a href="ipmi-fru-mc.html" class="dropdown-item" role="menuitem"><code>fru</code> <span class="cmd-desc">FRU, BMC Reset &amp; Watchdog</span></a>
                     </div>
                   </div>
-                </div>
-              </div>
-              <div class="nav-dropdown" id="fiber-nav-dropdown">
-                <a href="fiber.html" class="sheet-link dropdown-toggle" aria-haspopup="true">
-                  <svg class="nav-logo" viewBox="0 0 24 24" width="14" height="14" fill="none" aria-hidden="true"><rect x="2" y="8" width="7" height="8" rx="1.2" stroke="currentColor" stroke-width="1.8"/><path d="M9 10h3v4H9" stroke="currentColor" stroke-width="1.6"/><circle cx="14.5" cy="12" r="1.5" fill="#fbbf24"/><path d="M16 12h6M15.5 9.5l5.5-3.5M15.5 14.5l5.5 3.5" stroke="#22d3ee" stroke-width="1.8" stroke-linecap="round"/></svg>
-                  <span>Fiber</span> <span class="dropdown-caret">▾</span>
-                </a>
-                <div class="nav-dropdown-menu fo-dropdown-menu" role="menu">
-                  <a href="fiber.html" class="dropdown-item dropdown-hub-link" role="menuitem">📑 Fiber Optics Hub &amp; Link Budget Calculator</a>
-                  <div class="dropdown-divider"></div>
-                  <div class="fo-dropdown-grid">
-                    <div class="fo-dropdown-col">
-                      <div class="fo-dropdown-heading">Transceivers &amp; Optics</div>
-                      <a href="fo-dom-cli.html" class="dropdown-item" role="menuitem"><code>dom</code> <span class="cmd-desc">DOM / DDM CLI Diagnostics</span></a>
-                      <a href="fo-form-factors.html" class="dropdown-item" role="menuitem"><code>xcvr</code> <span class="cmd-desc">400G/800G Form Factors</span></a>
-                    </div>
-                    <div class="fo-dropdown-col">
-                      <div class="fo-dropdown-heading">Connectors &amp; Field Triage</div>
-                      <a href="fo-mpo-polarity.html" class="dropdown-item" role="menuitem"><code>conn</code> <span class="cmd-desc">MPO Pinning &amp; Polarity</span></a>
-                      <a href="fo-cleaning-testing.html" class="dropdown-item" role="menuitem"><code>phy</code> <span class="cmd-desc">Cleaning, FEC &amp; Testing</span></a>
-                    </div>
                   </div>
                 </div>
               </div>
-              <div class="nav-dropdown" id="ethernet-nav-dropdown">
-                <a href="ethernet.html" class="sheet-link dropdown-toggle" aria-haspopup="true">
-                  <svg class="nav-logo" viewBox="0 0 24 24" width="14" height="14" fill="none" aria-hidden="true"><rect x="5" y="2" width="14" height="10" rx="1.5" stroke="currentColor" stroke-width="1.8"/><path d="M8 2v3.5M10.67 2v3.5M13.33 2v3.5M16 2v3.5" stroke="#fbbf24" stroke-width="1.5" stroke-linecap="round"/><path d="M9.5 8.5h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M8 12h8l-1 4.5H9L8 12z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M12 16.5V22" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
-                  <span>Ethernet</span> <span class="dropdown-caret">▾</span>
-                </a>
-                <div class="nav-dropdown-menu eth-dropdown-menu" role="menu">
-                  <a href="ethernet.html" class="dropdown-item dropdown-hub-link" role="menuitem">📑 Ethernet Hub &amp; Netplan Generator</a>
-                  <div class="dropdown-divider"></div>
-                  <div class="eth-dropdown-grid">
-                    <div class="eth-dropdown-col">
-                      <div class="eth-dropdown-heading">Physical, PHY &amp; Netplan</div>
-                      <a href="eth-rj45-tdr.html" class="dropdown-item" role="menuitem"><code>rj45</code> <span class="cmd-desc">RJ45 Pinouts &amp; TDR Testing</span></a>
-                      <a href="eth-ethtool-tuning.html" class="dropdown-item" role="menuitem"><code>eth</code> <span class="cmd-desc">ethtool, Speed &amp; Ring Buffers</span></a>
-                      <a href="eth-netplan-systemd.html" class="dropdown-item" role="menuitem"><code>netp</code> <span class="cmd-desc">Netplan &amp; networkctl</span></a>
-                    </div>
-                    <div class="eth-dropdown-col">
-                      <div class="eth-dropdown-heading">Protocol, Bonds &amp; Triage</div>
-                      <a href="eth-iproute2-ip6.html" class="dropdown-item" role="menuitem"><code>ip6</code> <span class="cmd-desc">iproute2 &amp; IPv6 Routing</span></a>
-                      <a href="eth-bonding-vlans.html" class="dropdown-item" role="menuitem"><code>bond</code> <span class="cmd-desc">LACP Bonds, VLANs &amp; Bridges</span></a>
-                      <a href="eth-lldp-perf.html" class="dropdown-item" role="menuitem"><code>diag</code> <span class="cmd-desc">LLDP Discovery &amp; iperf3</span></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="nav-dropdown" id="motherboards-nav-dropdown">
+              <div class="nav-dropdown nav-group" id="navgroup-hw">
                 <a href="motherboards.html" class="sheet-link dropdown-toggle" aria-haspopup="true">
-                  <svg class="nav-logo" viewBox="0 0 24 24" width="14" height="14" fill="none" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="2" stroke="currentColor" stroke-width="1.7"/><rect x="6.5" y="5.5" width="6" height="6" rx="0.8" stroke="#38bdf8" stroke-width="1.6"/><circle cx="9.5" cy="8.5" r="1.2" fill="#38bdf8"/><path d="M15.5 5.5v6M18 5.5v6" stroke="#fbbf24" stroke-width="1.6" stroke-linecap="round"/><path d="M6 15h12M6 18h9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
-                  <span>Motherboards</span> <span class="dropdown-caret">▾</span>
+                  <svg class="nav-logo" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="1.5"/><rect x="9.5" y="9.5" width="5" height="5"/><path d="M9 2.5v3.5M15 2.5v3.5M9 18v3.5M15 18v3.5M2.5 9h3.5M2.5 15h3.5M18 9h3.5M18 15h3.5"/></svg>
+                  <span>Hardware</span> <span class="dropdown-caret">▾</span>
                 </a>
-                <div class="nav-dropdown-menu mb-dropdown-menu" role="menu">
-                  <a href="motherboards.html" class="dropdown-item dropdown-hub-link" role="menuitem">📑 Motherboards Hub &amp; POST Code Decoder</a>
-                  <div class="dropdown-divider"></div>
-                  <div class="mb-dropdown-grid">
-                    <div class="mb-dropdown-col">
-                      <div class="mb-dropdown-heading">POST &amp; CPU Architecture</div>
+                <div class="nav-dropdown-menu ng-menu" role="menu" style="--ng-cols:2">
+                  <div class="ng-grid">
+                  <div class="ng-col">
+                    <div class="ng-group" data-suite-key="nvidia" data-suite-name="NVIDIA DC" data-suite-hub="nvidia.html">
+                      <a href="nvidia.html" class="dropdown-item dropdown-hub-link ng-head" role="menuitem"><svg class="ng-logo" viewBox="0 0 24 24" width="15" height="15" fill="#76b900" aria-hidden="true"><path d="M8.948 8.798v-1.43a6.7 6.7 0 0 1 .424-.018c3.922-.124 6.493 3.374 6.493 3.374s-2.774 3.851-5.75 3.851c-.398 0-.787-.062-1.158-.185v-4.346c1.528.185 1.837.857 2.747 2.385l2.04-1.714s-1.492-1.952-4.01-1.952a6.016 6.016 0 0 0-.786.035m0-4.735v2.138l.424-.027c5.45-.185 9.01 4.47 9.01 4.47s-4.08 4.964-8.33 4.964c-.37 0-.742-.035-1.104-.097v1.325c.292.035.6.062.91.062 3.957 0 6.82-2.023 9.593-4.408.459.371 2.34 1.263 2.73 1.652-2.633 2.208-8.772 3.984-12.253 3.984-.335 0-.653-.018-.98-.053v1.864H24V4.063zm0 10.326v1.166c-3.657-.654-4.673-4.46-4.673-4.46s1.758-1.944 4.673-2.262v1.237h-.008c-1.528-.186-2.73 1.245-2.73 1.245s.68 2.412 2.738 3.074M2.456 10.9s2.164-3.197 6.5-3.533V6.201C4.153 6.59 0 10.653 0 10.653s2.35 6.802 8.948 7.42v-1.237c-4.84-.6-6.492-5.936-6.492-5.936Z"/></svg><b>NVIDIA DC</b><small>NVIDIA DC Hub &amp; Telemetry</small></a>
+                      <div class="ng-heading">Telemetry &amp; Fabric</div>
+                      <a href="nv-smi.html" class="dropdown-item" role="menuitem"><code>smi</code> <span class="cmd-desc">Telemetry &amp; Topology</span></a>
+                      <a href="nv-nvlink.html" class="dropdown-item" role="menuitem"><code>nvl</code> <span class="cmd-desc">NVLink &amp; Fabric Manager</span></a>
+                      <a href="nv-dcgm.html" class="dropdown-item" role="menuitem"><code>dcgm</code> <span class="cmd-desc">DCGM Diagnostics &amp; Health</span></a>
+                      <a href="nv-gpudirect.html" class="dropdown-item" role="menuitem"><code>rdma</code> <span class="cmd-desc">GPUDirect RDMA &amp; NCCL</span></a>
+                      <div class="ng-heading">Management &amp; Triage</div>
+                      <a href="nv-admin.html" class="dropdown-item" role="menuitem"><code>adm</code> <span class="cmd-desc">GPU Reset, ECC &amp; Row Remap</span></a>
+                      <a href="nv-mig.html" class="dropdown-item" role="menuitem"><code>mig</code> <span class="cmd-desc">MIG Partitioning &amp; Slices</span></a>
+                      <a href="nv-pcie.html" class="dropdown-item" role="menuitem"><code>pcie</code> <span class="cmd-desc">PCIe AER &amp; Xid Triage</span></a>
+                      <a href="nv-ops.html" class="dropdown-item" role="menuitem"><code>ops</code> <span class="cmd-desc">Slurm Drain &amp; NVSM Health</span></a>
+                    </div>
+                  </div>
+                  <div class="ng-col">
+                    <div class="ng-group" data-suite-key="motherboards" data-suite-name="Motherboards" data-suite-hub="motherboards.html">
+                      <a href="motherboards.html" class="dropdown-item dropdown-hub-link ng-head" role="menuitem"><svg class="ng-logo" viewBox="0 0 24 24" width="14" height="14" fill="none" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="2" stroke="currentColor" stroke-width="1.7"/><rect x="6.5" y="5.5" width="6" height="6" rx="0.8" stroke="#38bdf8" stroke-width="1.6"/><circle cx="9.5" cy="8.5" r="1.2" fill="#38bdf8"/><path d="M15.5 5.5v6M18 5.5v6" stroke="#fbbf24" stroke-width="1.6" stroke-linecap="round"/><path d="M6 15h12M6 18h9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><b>Motherboards</b><small>Motherboards Hub &amp; POST Code Decoder</small></a>
+                      <div class="ng-heading">POST &amp; CPU Architecture</div>
                       <a href="mb-memory-post.html" class="dropdown-item" role="menuitem"><code>mrc</code> <span class="cmd-desc">Memory MRC Codes (50–55)</span></a>
                       <a href="mb-pcie-dxe-post.html" class="dropdown-item" role="menuitem"><code>pci</code> <span class="cmd-desc">PCIe &amp; DXE Codes (60–99)</span></a>
                       <a href="mb-storage-bds-post.html" class="dropdown-item" role="menuitem"><code>bds</code> <span class="cmd-desc">Storage &amp; Boot BDS (A0–AA)</span></a>
                       <a href="mb-epyc-agesa.html" class="dropdown-item" role="menuitem"><code>epyc</code> <span class="cmd-desc">AMD EPYC AGESA &amp; PSP</span></a>
-                    </div>
-                    <div class="mb-dropdown-col">
-                      <div class="mb-dropdown-heading">Vendor Boards &amp; Linux Triage</div>
+                      <div class="ng-heading">Vendor Boards &amp; Linux Triage</div>
                       <a href="mb-asus-servers.html" class="dropdown-item" role="menuitem"><code>asus</code> <span class="cmd-desc">ASUS Server Boards &amp; ASMB</span></a>
                       <a href="mb-gigabyte-servers.html" class="dropdown-item" role="menuitem"><code>giga</code> <span class="cmd-desc">GIGABYTE Server Boards</span></a>
                       <a href="mb-linux-audit.html" class="dropdown-item" role="menuitem"><code>dmi</code> <span class="cmd-desc">In-Band DMI &amp; ACPI Audit</span></a>
                     </div>
+                    <div class="ng-group" data-suite-key="internals" data-suite-name="Server internals" data-suite-hub="">
+                      <div class="ng-head ng-head-static"><svg class="ng-logo" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="1.5"/><rect x="9.5" y="9.5" width="5" height="5"/><path d="M9 2.5v3.5M15 2.5v3.5M9 18v3.5M15 18v3.5M2.5 9h3.5M2.5 15h3.5M18 9h3.5M18 15h3.5"/></svg><b>Server internals</b><small>inventory, PCIe, ECC, NVMe</small></div>
+                      <a href="dmi-hw.html" class="dropdown-item" role="menuitem"><code>dmi</code> <span class="cmd-desc">DMI / SMBIOS / FRU</span></a>
+                      <a href="pcie-numa.html" class="dropdown-item" role="menuitem"><code>pci</code> <span class="cmd-desc">PCIe &amp; NUMA Topology</span></a>
+                      <a href="ecc-edac.html" class="dropdown-item" role="menuitem"><code>ecc</code> <span class="cmd-desc">ECC Memory &amp; MCE</span></a>
+                      <a href="nvme-smart.html" class="dropdown-item" role="menuitem"><code>nvm</code> <span class="cmd-desc">Enterprise NVMe / SMART</span></a>
+                    </div>
+                  </div>
                   </div>
                 </div>
               </div>
-              <div class="nav-dropdown" id="containers-nav-dropdown">
+              <div class="nav-dropdown nav-group" id="navgroup-devops">
                 <a href="containers.html" class="sheet-link dropdown-toggle" aria-haspopup="true">
-                  <svg class="nav-logo" viewBox="0 0 24 24" width="14" height="14" fill="none" aria-hidden="true"><path d="M12 2.5l8.5 4.75v9.5L12 21.5l-8.5-4.75v-9.5L12 2.5z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M3.5 7.25L12 12l8.5-4.75M12 12v9.5" stroke="#38bdf8" stroke-width="1.6" stroke-linejoin="round"/></svg>
-                  <span>Containers</span> <span class="dropdown-caret">▾</span>
+                  <svg class="nav-logo" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 8.5c-2 0-3.5 1.6-3.5 3.5s1.5 3.5 3.5 3.5c3.5 0 7.5-7 11-7 2 0 3.5 1.6 3.5 3.5s-1.5 3.5-3.5 3.5c-3.5 0-7.5-7-11-7z"/></svg>
+                  <span>DevOps</span> <span class="dropdown-caret">▾</span>
                 </a>
-                <div class="nav-dropdown-menu ctr-dropdown-menu" role="menu">
-                  <a href="containers.html" class="dropdown-item dropdown-hub-link" role="menuitem">📑 Containers Hub (Docker &amp; Kubernetes)</a>
-                  <div class="dropdown-divider"></div>
-                  <div class="ctr-dropdown-grid">
-                    <div class="ctr-dropdown-col">
-                      <div class="ctr-dropdown-heading">Docker</div>
+                <div class="nav-dropdown-menu ng-menu" role="menu" style="--ng-cols:2">
+                  <div class="ng-grid">
+                  <div class="ng-col">
+                    <div class="ng-group" data-suite-key="containers" data-suite-name="Containers" data-suite-hub="containers.html">
+                      <a href="containers.html" class="dropdown-item dropdown-hub-link ng-head" role="menuitem"><svg class="ng-logo" viewBox="0 0 24 24" width="14" height="14" fill="none" aria-hidden="true"><path d="M12 2.5l8.5 4.75v9.5L12 21.5l-8.5-4.75v-9.5L12 2.5z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M3.5 7.25L12 12l8.5-4.75M12 12v9.5" stroke="#38bdf8" stroke-width="1.6" stroke-linejoin="round"/></svg><b>Containers</b><small>Containers Hub (Docker &amp; Kubernetes)</small></a>
+                      <div class="ng-heading">Docker</div>
                       <a href="docker-containers.html" class="dropdown-item" role="menuitem"><code>run</code> <span class="cmd-desc">run, ps, logs, exec, inspect</span></a>
                       <a href="docker-images.html" class="dropdown-item" role="menuitem"><code>img</code> <span class="cmd-desc">build, pull, save/load, prune</span></a>
                       <a href="docker-compose.html" class="dropdown-item" role="menuitem"><code>cmp</code> <span class="cmd-desc">multi-container apps</span></a>
                       <a href="docker-network-storage.html" class="dropdown-item" role="menuitem"><code>net</code> <span class="cmd-desc">networks, ports, volumes</span></a>
                       <a href="docker-gpu-daemon.html" class="dropdown-item" role="menuitem"><code>gpu</code> <span class="cmd-desc">NVIDIA toolkit, daemon, events</span></a>
-                    </div>
-                    <div class="ctr-dropdown-col">
-                      <div class="ctr-dropdown-heading">Kubernetes</div>
+                      <div class="ng-heading">Kubernetes</div>
                       <a href="k8s-kubectl.html" class="dropdown-item" role="menuitem"><code>ctx</code> <span class="cmd-desc">contexts, get, output formats</span></a>
                       <a href="k8s-workloads.html" class="dropdown-item" role="menuitem"><code>wl</code> <span class="cmd-desc">apply, rollout, scale, jobs</span></a>
                       <a href="k8s-troubleshoot.html" class="dropdown-item" role="menuitem"><code>dbg</code> <span class="cmd-desc">describe, logs, events, debug</span></a>
@@ -480,34 +406,25 @@
                       <a href="k8s-gpu.html" class="dropdown-item" role="menuitem"><code>gpu</code> <span class="cmd-desc">GPU operator, device plugin</span></a>
                     </div>
                   </div>
-                </div>
-              </div>
-              <div class="nav-dropdown" id="grafana-nav-dropdown">
-                <a href="grafana.html" class="sheet-link dropdown-toggle" aria-haspopup="true">
-                  <svg class="nav-logo" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path fill="#F46800" d="M23.02 10.59a8.578 8.578 0 0 0-.862-3.034 8.911 8.911 0 0 0-1.789-2.445c.337-1.342-.413-2.505-.413-2.505-1.292-.08-2.113.4-2.416.62-.052-.02-.102-.044-.154-.064-.22-.089-.446-.172-.677-.247-.231-.073-.47-.14-.711-.197a9.867 9.867 0 0 0-.875-.161C14.557.753 12.94 0 12.94 0c-1.804 1.145-2.147 2.744-2.147 2.744l-.018.093c-.098.029-.2.057-.298.088-.138.042-.275.094-.413.143-.138.055-.275.107-.41.166a8.869 8.869 0 0 0-1.557.87l-.063-.029c-2.497-.955-4.716.195-4.716.195-.203 2.658.996 4.33 1.235 4.636a11.608 11.608 0 0 0-.607 2.635C1.636 12.677.953 15.014.953 15.014c1.926 2.214 4.171 2.351 4.171 2.351.003-.002.006-.002.006-.005.285.509.615.994.986 1.446.156.19.32.371.488.548-.704 2.009.099 3.68.099 3.68 2.144.08 3.553-.937 3.849-1.173a9.784 9.784 0 0 0 3.164.501h.08l.055-.003.107-.002.103-.005.003.002c1.01 1.44 2.788 1.646 2.788 1.646 1.264-1.332 1.337-2.653 1.337-2.94v-.058c0-.02-.003-.039-.003-.06.265-.187.52-.387.758-.6a7.875 7.875 0 0 0 1.415-1.7c1.43.083 2.437-.885 2.437-.885-.236-1.49-1.085-2.216-1.264-2.354l-.018-.013-.016-.013a.217.217 0 0 1-.031-.02c.008-.092.016-.18.02-.27.011-.162.016-.323.016-.48v-.253l-.005-.098-.008-.135a1.891 1.891 0 0 0-.01-.13c-.003-.042-.008-.083-.013-.125l-.016-.124-.018-.122a6.215 6.215 0 0 0-2.032-3.73 6.015 6.015 0 0 0-3.222-1.46 6.292 6.292 0 0 0-.85-.048l-.107.002h-.063l-.044.003-.104.008a4.777 4.777 0 0 0-3.335 1.695c-.332.4-.592.84-.768 1.297a4.594 4.594 0 0 0-.312 1.817l.003.091c.005.055.007.11.013.164a3.615 3.615 0 0 0 .698 1.82 3.53 3.53 0 0 0 1.827 1.282c.33.098.66.14.971.137.039 0 .078 0 .114-.002l.063-.003c.02 0 .041-.003.062-.003.034-.002.065-.007.099-.01.007 0 .018-.003.028-.003l.031-.005.06-.008a1.18 1.18 0 0 0 .112-.02c.036-.008.072-.013.109-.024a2.634 2.634 0 0 0 .914-.415c.028-.02.056-.041.085-.065a.248.248 0 0 0 .039-.35.244.244 0 0 0-.309-.06l-.078.042c-.09.044-.184.083-.283.116a2.476 2.476 0 0 1-.475.096c-.028.003-.054.006-.083.006l-.083.002c-.026 0-.054 0-.08-.002l-.102-.006h-.012l-.024.006c-.016-.003-.031-.003-.044-.006-.031-.002-.06-.007-.091-.01a2.59 2.59 0 0 1-.724-.213 2.557 2.557 0 0 1-.667-.438 2.52 2.52 0 0 1-.805-1.475 2.306 2.306 0 0 1-.029-.444l.006-.122v-.023l.002-.031c.003-.021.003-.04.005-.06a3.163 3.163 0 0 1 1.352-2.29 3.12 3.12 0 0 1 .937-.43 2.946 2.946 0 0 1 .776-.101h.06l.07.002.045.003h.026l.07.005a4.041 4.041 0 0 1 1.635.49 3.94 3.94 0 0 1 1.602 1.662 3.77 3.77 0 0 1 .397 1.414l.005.076.003.075c.002.026.002.05.002.075 0 .024.003.052 0 .07v.065l-.002.073-.008.174a6.195 6.195 0 0 1-.08.639 5.1 5.1 0 0 1-.267.927 5.31 5.31 0 0 1-.624 1.13 5.052 5.052 0 0 1-3.237 2.014 4.82 4.82 0 0 1-.649.066l-.039.003h-.287a6.607 6.607 0 0 1-1.716-.265 6.776 6.776 0 0 1-3.4-2.274 6.75 6.75 0 0 1-.746-1.15 6.616 6.616 0 0 1-.714-2.596l-.005-.083-.002-.02v-.056l-.003-.073v-.096l-.003-.104v-.07l.003-.163c.008-.22.026-.45.054-.678a8.707 8.707 0 0 1 .28-1.355c.128-.444.286-.872.473-1.277a7.04 7.04 0 0 1 1.456-2.1 5.925 5.925 0 0 1 .953-.763c.169-.111.343-.213.524-.306.089-.05.182-.091.273-.135.047-.02.093-.042.138-.062a7.177 7.177 0 0 1 .714-.267l.145-.045c.049-.015.098-.026.148-.041.098-.029.197-.052.296-.076.049-.013.1-.02.15-.033l.15-.032.151-.028.076-.013.075-.01.153-.024c.057-.01.114-.013.171-.023l.169-.021c.036-.003.073-.008.106-.01l.073-.008.036-.003.042-.002c.057-.003.114-.008.171-.01l.086-.006h.023l.037-.003.145-.007a7.999 7.999 0 0 1 1.708.125 7.917 7.917 0 0 1 2.048.68 8.253 8.253 0 0 1 1.672 1.09l.09.077.089.078c.06.052.114.107.171.159.057.052.112.106.166.16.052.055.107.107.159.164a8.671 8.671 0 0 1 1.41 1.978c.012.026.028.052.04.078l.04.078.075.156c.023.051.05.1.07.153l.065.15a8.848 8.848 0 0 1 .45 1.34.19.19 0 0 0 .201.142.186.186 0 0 0 .172-.184c.01-.246.002-.532-.024-.856z"/></svg>
-                  <span>Grafana</span> <span class="dropdown-caret">▾</span>
-                </a>
-                <div class="nav-dropdown-menu graf-dropdown-menu" role="menu">
-                  <a href="grafana.html" class="dropdown-item dropdown-hub-link" role="menuitem">📑 Grafana Hub (Building Dashboards)</a>
-                  <div class="dropdown-divider"></div>
-                  <div class="graf-dropdown-grid">
-                    <div class="graf-dropdown-col">
-                      <div class="graf-dropdown-heading">Build</div>
+                  <div class="ng-col">
+                    <div class="ng-group" data-suite-key="grafana" data-suite-name="Grafana" data-suite-hub="grafana.html">
+                      <a href="grafana.html" class="dropdown-item dropdown-hub-link ng-head" role="menuitem"><svg class="ng-logo" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path fill="#F46800" d="M23.02 10.59a8.578 8.578 0 0 0-.862-3.034 8.911 8.911 0 0 0-1.789-2.445c.337-1.342-.413-2.505-.413-2.505-1.292-.08-2.113.4-2.416.62-.052-.02-.102-.044-.154-.064-.22-.089-.446-.172-.677-.247-.231-.073-.47-.14-.711-.197a9.867 9.867 0 0 0-.875-.161C14.557.753 12.94 0 12.94 0c-1.804 1.145-2.147 2.744-2.147 2.744l-.018.093c-.098.029-.2.057-.298.088-.138.042-.275.094-.413.143-.138.055-.275.107-.41.166a8.869 8.869 0 0 0-1.557.87l-.063-.029c-2.497-.955-4.716.195-4.716.195-.203 2.658.996 4.33 1.235 4.636a11.608 11.608 0 0 0-.607 2.635C1.636 12.677.953 15.014.953 15.014c1.926 2.214 4.171 2.351 4.171 2.351.003-.002.006-.002.006-.005.285.509.615.994.986 1.446.156.19.32.371.488.548-.704 2.009.099 3.68.099 3.68 2.144.08 3.553-.937 3.849-1.173a9.784 9.784 0 0 0 3.164.501h.08l.055-.003.107-.002.103-.005.003.002c1.01 1.44 2.788 1.646 2.788 1.646 1.264-1.332 1.337-2.653 1.337-2.94v-.058c0-.02-.003-.039-.003-.06.265-.187.52-.387.758-.6a7.875 7.875 0 0 0 1.415-1.7c1.43.083 2.437-.885 2.437-.885-.236-1.49-1.085-2.216-1.264-2.354l-.018-.013-.016-.013a.217.217 0 0 1-.031-.02c.008-.092.016-.18.02-.27.011-.162.016-.323.016-.48v-.253l-.005-.098-.008-.135a1.891 1.891 0 0 0-.01-.13c-.003-.042-.008-.083-.013-.125l-.016-.124-.018-.122a6.215 6.215 0 0 0-2.032-3.73 6.015 6.015 0 0 0-3.222-1.46 6.292 6.292 0 0 0-.85-.048l-.107.002h-.063l-.044.003-.104.008a4.777 4.777 0 0 0-3.335 1.695c-.332.4-.592.84-.768 1.297a4.594 4.594 0 0 0-.312 1.817l.003.091c.005.055.007.11.013.164a3.615 3.615 0 0 0 .698 1.82 3.53 3.53 0 0 0 1.827 1.282c.33.098.66.14.971.137.039 0 .078 0 .114-.002l.063-.003c.02 0 .041-.003.062-.003.034-.002.065-.007.099-.01.007 0 .018-.003.028-.003l.031-.005.06-.008a1.18 1.18 0 0 0 .112-.02c.036-.008.072-.013.109-.024a2.634 2.634 0 0 0 .914-.415c.028-.02.056-.041.085-.065a.248.248 0 0 0 .039-.35.244.244 0 0 0-.309-.06l-.078.042c-.09.044-.184.083-.283.116a2.476 2.476 0 0 1-.475.096c-.028.003-.054.006-.083.006l-.083.002c-.026 0-.054 0-.08-.002l-.102-.006h-.012l-.024.006c-.016-.003-.031-.003-.044-.006-.031-.002-.06-.007-.091-.01a2.59 2.59 0 0 1-.724-.213 2.557 2.557 0 0 1-.667-.438 2.52 2.52 0 0 1-.805-1.475 2.306 2.306 0 0 1-.029-.444l.006-.122v-.023l.002-.031c.003-.021.003-.04.005-.06a3.163 3.163 0 0 1 1.352-2.29 3.12 3.12 0 0 1 .937-.43 2.946 2.946 0 0 1 .776-.101h.06l.07.002.045.003h.026l.07.005a4.041 4.041 0 0 1 1.635.49 3.94 3.94 0 0 1 1.602 1.662 3.77 3.77 0 0 1 .397 1.414l.005.076.003.075c.002.026.002.05.002.075 0 .024.003.052 0 .07v.065l-.002.073-.008.174a6.195 6.195 0 0 1-.08.639 5.1 5.1 0 0 1-.267.927 5.31 5.31 0 0 1-.624 1.13 5.052 5.052 0 0 1-3.237 2.014 4.82 4.82 0 0 1-.649.066l-.039.003h-.287a6.607 6.607 0 0 1-1.716-.265 6.776 6.776 0 0 1-3.4-2.274 6.75 6.75 0 0 1-.746-1.15 6.616 6.616 0 0 1-.714-2.596l-.005-.083-.002-.02v-.056l-.003-.073v-.096l-.003-.104v-.07l.003-.163c.008-.22.026-.45.054-.678a8.707 8.707 0 0 1 .28-1.355c.128-.444.286-.872.473-1.277a7.04 7.04 0 0 1 1.456-2.1 5.925 5.925 0 0 1 .953-.763c.169-.111.343-.213.524-.306.089-.05.182-.091.273-.135.047-.02.093-.042.138-.062a7.177 7.177 0 0 1 .714-.267l.145-.045c.049-.015.098-.026.148-.041.098-.029.197-.052.296-.076.049-.013.1-.02.15-.033l.15-.032.151-.028.076-.013.075-.01.153-.024c.057-.01.114-.013.171-.023l.169-.021c.036-.003.073-.008.106-.01l.073-.008.036-.003.042-.002c.057-.003.114-.008.171-.01l.086-.006h.023l.037-.003.145-.007a7.999 7.999 0 0 1 1.708.125 7.917 7.917 0 0 1 2.048.68 8.253 8.253 0 0 1 1.672 1.09l.09.077.089.078c.06.052.114.107.171.159.057.052.112.106.166.16.052.055.107.107.159.164a8.671 8.671 0 0 1 1.41 1.978c.012.026.028.052.04.078l.04.078.075.156c.023.051.05.1.07.153l.065.15a8.848 8.848 0 0 1 .45 1.34.19.19 0 0 0 .201.142.186.186 0 0 0 .172-.184c.01-.246.002-.532-.024-.856z"/></svg><b>Grafana</b><small>Grafana Hub (Building Dashboards)</small></a>
+                      <div class="ng-heading">Build</div>
                       <a href="grafana-setup.html" class="dropdown-item" role="menuitem"><code>lab</code> <span class="cmd-desc">run Grafana, Prometheus, data sources</span></a>
                       <a href="grafana-panels.html" class="dropdown-item" role="menuitem"><code>pnl</code> <span class="cmd-desc">first dashboard, visualizations, units, thresholds</span></a>
                       <a href="grafana-promql.html" class="dropdown-item" role="menuitem"><code>pql</code> <span class="cmd-desc">rate, sum by, topk, joins, $__rate_interval</span></a>
                       <a href="grafana-variables.html" class="dropdown-item" role="menuitem"><code>var</code> <span class="cmd-desc">dropdowns, chained variables, repeat panels</span></a>
-                    </div>
-                    <div class="graf-dropdown-col">
-                      <div class="graf-dropdown-heading">Ship &amp; Recipes</div>
+                      <div class="ng-heading">Ship &amp; Recipes</div>
                       <a href="grafana-as-code.html" class="dropdown-item" role="menuitem"><code>code</code> <span class="cmd-desc">JSON model, provisioning, API, gcx, Git Sync</span></a>
                       <a href="grafana-gpu-dashboard.html" class="dropdown-item" role="menuitem"><code>gpu</code> <span class="cmd-desc">DCGM panels: health, temp, power, XID</span></a>
                     </div>
+                    <div class="ng-group" data-suite-key="jira" data-suite-name="Jira" data-suite-hub="jira.html">
+                      <a href="jira.html" class="dropdown-item dropdown-hub-link ng-head" role="menuitem"><svg class="ng-logo" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path fill="#0052CC" d="M11.571 11.513H0a5.218 5.218 0 0 0 5.232 5.215h2.13v2.057A5.215 5.215 0 0 0 12.575 24V12.518a1.005 1.005 0 0 0-1.005-1.005zm5.723-5.756H5.736a5.215 5.215 0 0 0 5.215 5.214h2.129v2.058a5.218 5.218 0 0 0 5.215 5.214V6.758a1.001 1.001 0 0 0-1.001-1.001zM23.013 0H11.455a5.215 5.215 0 0 0 5.215 5.215h2.129v2.057A5.215 5.215 0 0 0 24 12.483V1.005A1.001 1.001 0 0 0 23.013 0Z"/></svg><b>Jira</b><small>JQL: tickets per server, rack, RMA</small></a>
+                    </div>
+                  </div>
                   </div>
                 </div>
               </div>
-              <a href="omarchy.html" class="sheet-link"><svg class="omarchy-wordmark" viewBox="0 0 1215 285" width="47" height="11" role="img"><title>Omarchy</title><g fill="currentColor"><path clip-rule="evenodd" d="m720 120h-15v15h-14.998v14.999l-60.002.001v15.002l90-.002v.002h.002l-.002 89.998h-15v15h-13v15h-17v-89.998h-45v90l-45-.002v-89.998h-14.998v-30h14.998v-15.002h-14.998v-30.001h14.998v-75h15v-14.997h15v-15.002h105.002zm-90-.001h45v-74.997h-45z" fill-rule="evenodd"/><path clip-rule="evenodd" d="m105 30.002h15v14.997h15v180.001h-15v15h-15v15.002h-75v-15.002h-15v-15h-15v-180.001h15v-14.997h15v-15.002h75zm-60 194.998h45v-179.998h-45z" fill-rule="evenodd"/><path d="m300 15h60v15h15v14.999h15v180.001h-15v15h-15v15h-15l-.004-209.998h-44.994v-.002h-.002v210.002h-45v-210h-44.998v179.997h-.002v30.003h-15v-15.002h-15v-15h-14.998v-180.001h14.998v-14.999h15v-15h60v-15h45z"/><path clip-rule="evenodd" d="m555 225h-15v15h-15v15h-15v-105.001l-44.998.001v105.002h-45.002v-105.002h-15v-30.001h15v-75h15.002v-14.997h15v-15.002h105zm-89.998-105.001h44.998v-74.997h-44.998z" fill-rule="evenodd"/><path d="m885 75h-15v15h-15v15h-15v-59.998h-45v179.998h45v-59.998h15v14.997h15v15.001h15v30h-15v15h-15v15.002l-105-.002v-210.001h14.998v-14.997h15.002v-15.002h105z"/><path d="m960 119.999h45v-104.999h15v15h15v14.999h15v75.001h15v15h-15v90h-15v15h-15v15h-15v-105h-45v105.002l-45-.002v-105h-30v-15h15v-15.001h15v-75h15v-14.997h15v-15.002h15z"/><path d="m1125 119.999h45v-104.999h15v15h15v15h15v180h-15v15h-15v15.002l-75-.002v-15h-15v-15h-15v-45.001h15v-14.997-.002h30v60h45v-75h-90v-105.001h15v-14.997h15v-15.002h15z"/></g></svg></a>
-              <a href="jira.html" class="sheet-link"><svg class="nav-logo" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path fill="#0052CC" d="M11.571 11.513H0a5.218 5.218 0 0 0 5.232 5.215h2.13v2.057A5.215 5.215 0 0 0 12.575 24V12.518a1.005 1.005 0 0 0-1.005-1.005zm5.723-5.756H5.736a5.215 5.215 0 0 0 5.215 5.214h2.129v2.058a5.218 5.218 0 0 0 5.215 5.214V6.758a1.001 1.001 0 0 0-1.001-1.001zM23.013 0H11.455a5.215 5.215 0 0 0 5.215 5.215h2.129v2.057A5.215 5.215 0 0 0 24 12.483V1.005A1.001 1.001 0 0 0 23.013 0Z"/></svg> <span>Jira</span></a>
             </nav>
           </div>
           <p class="brand-subtitle">Define several containers in one compose.yaml and start, inspect and stop them together with docker compose</p>
@@ -567,7 +484,7 @@
     </div>
   </footer>
   <script src="global-search-index.js"></script>
-  <script src="common.js?v=b28462fe78"></script>
+  <script src="common.js?v=026338eceb"></script>
   <script src="docker-compose.js"></script>
 </body>
 </html>

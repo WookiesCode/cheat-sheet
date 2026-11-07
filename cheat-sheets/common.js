@@ -311,7 +311,7 @@
   }
 
   // Commands that change state get a visible tag and a reminder when copied.
-  const DANGER_RE = /\b(nvme\s+(format|sanitize|delete-ns|fw-activate|fw-commit)|mkfs(\.\w+)?|wipefs|sgdisk\s+(-Z|--zap)|parted\b[^|;&]*\bmklabel|dd\b[^|;&]*\bof=\/dev|mdadm\b[^|;&]*--(fail|remove|zero-superblock|create|stop)|zpool\s+(destroy|offline|replace|labelclear)|rm\s+-[a-z]*r[a-z]*f|nvidia-smi\b[^|;&]*\s(-r|--gpu-reset)\b|reboot\b|shutdown\b|poweroff\b|chassis\s+power\s+(off|cycle|reset)|power\s+(off|cycle|reset)\b|scontrol\s+update\b[^|;&]*state=|\bkubectl\b[^|;&]*\s(drain|cordon|uncordon|delete|apply|create|replace|patch|edit|scale|autoscale|set|label|annotate|taint|expose|run|cp|debug)\b|\bkubectl\b[^|;&]*\brollout\s+(restart|undo|pause|resume)\b|\bkubectl\s+config\s+(use-context|set-context|delete-context|set)\b|\bdocker\s+(rm|rmi|kill|stop|restart|pause|unpause|run|create|start|build|push|pull|load|import|commit|update|rename|tag|login)\b|\bdocker\s+(container|image|volume|network|system|builder|buildx|swarm|node|service|stack|plugin|context)\s+(rm|prune|create|remove|kill|stop|restart|run|start|build|push|pull|load|import|connect|disconnect|update|scale|install|enable|disable|use|bake)\b|\bdocker\s+compose\b[^|;&]*\s(up|down|restart|stop|start|rm|kill|pull|build|push|create|run|scale|pause|unpause|watch)\b|\bprune\b|\bnvidia-ctk\s+(runtime\s+configure|cdi\s+generate)\b|\bgcx\s+resources\s+(push|delete|edit)\b|\bgrafana(-cli)?\b[^|;&]*\b(plugins\s+(install|uninstall|remove|update(-all)?)|reset-admin-password)\b|\bhelm\s+(install|upgrade|uninstall|delete|rollback)\b|\bcrictl\s+(rm|rmi|rmp|stop|stopp|runp|create|start|pull)\b|\bctr\b[^|;&]*\s(rm|delete|import|pull|kill)\b|ip\s+link\s+set\b[^|;&]*\bdown\b|mlxfwmanager\b[^|;&]*(-u|--update)|flint\b[^|;&]*\bburn|fwupdmgr\s+(update|install)|sg_reset|echo\s+1\s*>\s*\S*\/remove|rmmod|modprobe\s+-r|sel\s+clear|systemctl\s+(stop|restart)\b|mlxlink\b[^|;&]*--(port_state|rx_prbs|tx_prbs)|mlxconfig\b[^|;&]*\bset\b|mlxfwreset|ethtool\s+(-s|-K|-G|-A|-L|--set-\S+|--change)\s|ip\s+link\s+set\b[^|;&]*\bmtu\b|ipmitool\b[^|;&]*\b(lan\s+set|user\s+set|mc\s+reset|chassis\s+bootdev)|dcgmi\s+diag\s+-r\s*[234]|\b(ib_write_bw|ib_read_bw|ib_send_bw|nvbandwidth|all_reduce_perf|fio)\b|(?<=-)X\s*(POST|PATCH|PUT|DELETE)\b(?![^|;&]*SessionService)|ComputerSystem\.Reset|Manager\.Reset|nv\s+(set|unset)\b|nv\s+config\s+apply|(?<![\w-])config\s+(interface|save|reload|load|apply|qos|vlan|portchannel|bgp)\b|\bclear\s+(counters|ib|interface|mac|arp|ip)\b|\bsonic-clear\b|\bperfquery\b[^|;&]*\s-R\b)/i;
+  const DANGER_RE = /\b(nvme\s+(format|sanitize|delete-ns|fw-activate|fw-commit)|mkfs(\.\w+)?|wipefs|sgdisk\s+(-Z|--zap)|parted\b[^|;&]*\bmklabel|dd\b[^|;&]*\bof=\/dev|mdadm\b[^|;&]*--(fail|remove|zero-superblock|create|stop)|zpool\s+(destroy|offline|replace|labelclear)|rm\s+-[a-z]*r[a-z]*f|nvidia-smi\b[^|;&]*\s(-r|--gpu-reset)\b|reboot\b|shutdown\b|poweroff\b|chassis\s+power\s+(off|cycle|reset)|power\s+(off|cycle|reset)\b|scontrol\s+update\b[^|;&]*state=|\bkubectl\b[^|;&]*\s(drain|cordon|uncordon|delete|apply|create|replace|patch|edit|scale|autoscale|set|label|annotate|taint|expose|run|cp|debug)\b|\bkubectl\b[^|;&]*\brollout\s+(restart|undo|pause|resume)\b|\bkubectl\s+config\s+(use-context|set-context|delete-context|set)\b|\bdocker\s+(rm|rmi|kill|stop|restart|pause|unpause|run|create|start|build|push|pull|load|import|commit|update|rename|tag|login)\b|\bdocker\s+(container|image|volume|network|system|builder|buildx|swarm|node|service|stack|plugin|context)\s+(rm|prune|create|remove|kill|stop|restart|run|start|build|push|pull|load|import|connect|disconnect|update|scale|install|enable|disable|use|bake)\b|\bdocker\s+compose\b[^|;&]*\s(up|down|restart|stop|start|rm|kill|pull|build|push|create|run|scale|pause|unpause|watch)\b|\bprune\b|\bnvidia-ctk\s+(runtime\s+configure|cdi\s+generate)\b|\b(curl|wget)\b[^;&]*\|\s*(sudo\s+)?(ba|z)?sh\b|\bgcx\s+resources\s+(push|delete|edit)\b|\bgrafana(-cli)?\b[^|;&]*\b(plugins\s+(install|uninstall|remove|update(-all)?)|reset-admin-password)\b|\bhelm\s+(install|upgrade|uninstall|delete|rollback)\b|\bcrictl\s+(rm|rmi|rmp|stop|stopp|runp|create|start|pull)\b|\bctr\b[^|;&]*\s(rm|delete|import|pull|kill)\b|ip\s+link\s+set\b[^|;&]*\bdown\b|mlxfwmanager\b[^|;&]*(-u|--update)|flint\b[^|;&]*\bburn|fwupdmgr\s+(update|install)|sg_reset|echo\s+1\s*>\s*\S*\/remove|rmmod|modprobe\s+-r|sel\s+clear|systemctl\s+(stop|restart)\b|mlxlink\b[^|;&]*--(port_state|rx_prbs|tx_prbs)|mlxconfig\b[^|;&]*\bset\b|mlxfwreset|ethtool\s+(-s|-K|-G|-A|-L|--set-\S+|--change)\s|ip\s+link\s+set\b[^|;&]*\bmtu\b|ipmitool\b[^|;&]*\b(lan\s+set|user\s+set|mc\s+reset|chassis\s+bootdev)|dcgmi\s+diag\s+-r\s*[234]|\b(ib_write_bw|ib_read_bw|ib_send_bw|nvbandwidth|all_reduce_perf|fio)\b|(?<=-)X\s*(POST|PATCH|PUT|DELETE)\b(?![^|;&]*SessionService)|ComputerSystem\.Reset|Manager\.Reset|nv\s+(set|unset)\b|nv\s+config\s+apply|(?<![\w-])config\s+(interface|save|reload|load|apply|qos|vlan|portchannel|bgp)\b|\bclear\s+(counters|ib|interface|mac|arp|ip)\b|\bsonic-clear\b|\bperfquery\b[^|;&]*\s-R\b)/i;
 
   // Hook clipboard to automatically substitute variables if active
   // Placeholders are uppercase on purpose: lowercase $disk or $hca is a script's
@@ -2682,7 +2682,7 @@
               ${row(['↵'], 'Copy (targets and values filled in)')}${row(['c'], 'Copy')}${row(['y'], 'Copy (yank)')}${row(['b'], 'Bookmark to My kit')}${row(['v'], 'Set its first value chip')}${row(['p'], 'Show it as a QR code for your phone')}
             </ul></section>
             <section><h3>Anywhere</h3><ul>
-              ${row(['Ctrl', 'K'], 'Command Center: search, sheets, runbooks, actions, quick-set')}${row(['/'], 'Filter this sheet')}${row(['Esc'], 'Clear / close')}${row(['t'], 'Case trail')}${row(['s'], 'My kit')}${row(['n'], 'Node workspaces')}${row(['m'], 'Manuals')}${row(['?'], 'This sheet')}${row(['Ctrl', 'P'], 'Print')}
+              ${row(['Ctrl', 'K'], 'Command Center: search, sheets, runbooks, actions, quick-set')}${row(['/'], 'Filter this sheet')}${row(['Esc'], 'Clear / close')}${row(['t'], 'Case trail')}${row(['s'], 'My kit')}${row(['q'], 'Practice: drill commands from memory')}${row(['n'], 'Node workspaces')}${row(['m'], 'Manuals')}${row(['?'], 'This sheet')}${row(['Ctrl', 'P'], 'Print')}
             </ul></section>
             <section><h3>In Ctrl+K</h3><ul>
               ${row(['↑', '↓'], 'Move')}${row(['↵'], 'Copy, open or run')}${row(['>'], 'List actions')}${row(['gpu 3'], 'Quick-set a target')}${row(['node …'], 'Switch node')}
@@ -2742,6 +2742,7 @@
       if (k === 'v' && box) { const chip = box.querySelector('.slot[data-slot]'); if (chip) { e.preventDefault(); openSlotEditor(chip); } return; }
       if (k === 't') { e.preventDefault(); return openTrail(); }
       if (k === 's') { e.preventDefault(); return openKit(); }
+      if (k === 'q') { e.preventDefault(); return openPractice(); }
       if (k === 'n') { const chip = document.querySelector('.node-chip'); if (chip && chip.offsetParent) { e.preventDefault(); openNodePicker(chip); } }
     });
 
@@ -2796,24 +2797,38 @@
     return html.replace(/(\bid="|url\(#|href="#)(scr-[\w-]+)/g, (_, pre, id) => `${pre}${id}-c${n}`);
   }
 
-  function suiteFor(file) {
+  // Every suite in the nav. A menu is normally one suite; a menu with [data-suite-hub]
+  // groups (Operating Systems) holds one suite per group.
+  function navSuites() {
     const nav = document.querySelector('.top-bar .sheet-switcher');
-    if (!nav) return null;
+    if (!nav) return [];
+    const itemsOf = (root, hub) => Array.from(root.querySelectorAll('.dropdown-item')).map(a => {
+      const code = a.querySelector('code');
+      const desc = a.querySelector('.cmd-desc');
+      const logo = a.querySelector('.menu-logo');
+      return { file: navItemFile(a), code: code ? code.textContent.trim() : '', logo: logo ? uniqueSvgIds(logo.outerHTML) : '', desc: (desc ? desc.textContent : a.textContent).replace(/📑/g, '').trim() };
+    }).filter(it => it.file && it.file !== hub);
+    const out = [];
     for (const dd of nav.querySelectorAll(':scope > .nav-dropdown')) {
+      const groups = dd.querySelectorAll('[data-suite-hub]');
+      if (groups.length) {
+        groups.forEach(g => {
+          const svg = g.querySelector('svg');
+          out.push({ name: g.dataset.suiteName, icon: svg ? svg.outerHTML : '', hub: g.dataset.suiteHub, sheets: itemsOf(g, g.dataset.suiteHub) });
+        });
+        continue;
+      }
       const toggle = dd.querySelector('.dropdown-toggle');
       if (!toggle) continue;
       const hub = navItemFile(toggle);
-      const items = Array.from(dd.querySelectorAll('.dropdown-item')).map(a => {
-        const code = a.querySelector('code');
-        const desc = a.querySelector('.cmd-desc');
-        const logo = a.querySelector('.menu-logo');
-        return { file: navItemFile(a), code: code ? code.textContent.trim() : '', logo: logo ? uniqueSvgIds(logo.outerHTML) : '', desc: (desc ? desc.textContent : a.textContent).replace(/📑/g, '').trim() };
-      }).filter(it => it.file && it.file !== hub);
-      if (hub === file || items.some(it => it.file === file)) {
-        return { name: toggle.textContent.replace(/[▾•]/g, '').trim(), icon: toggle.querySelector('svg, img') ? toggle.querySelector('svg, img').outerHTML : '', hub, sheets: items, isHub: hub === file };
-      }
+      out.push({ name: toggle.textContent.replace(/[▾•]/g, '').trim(), icon: toggle.querySelector('svg, img') ? toggle.querySelector('svg, img').outerHTML : '', hub, sheets: itemsOf(dd, hub) });
     }
-    return null;
+    return out;
+  }
+
+  function suiteFor(file) {
+    const s = navSuites().find(x => (x.hub && x.hub === file) || x.sheets.some(it => it.file === file));
+    return s ? Object.assign({}, s, { isHub: !!s.hub && s.hub === file }) : null;
   }
 
   function sheetCmdCounts() {
@@ -2868,15 +2883,16 @@
     }
 
     const i = suite.sheets.findIndex(s => s.file === file);
-    const prev = i > 0 ? suite.sheets[i - 1] : { file: suite.hub, desc: `${suite.name} hub`, code: '' };
+    const hubGo = suite.hub || suite.sheets[0].file;   // a group with no hub page starts at its first sheet
+    const prev = i > 0 ? suite.sheets[i - 1] : suite.hub ? { file: suite.hub, desc: `${suite.name} hub`, code: '' } : null;
     const next = i < suite.sheets.length - 1 ? suite.sheets[i + 1] : null;
     const rail = document.createElement('nav');
     rail.className = 'container suite-rail';
     rail.setAttribute('aria-label', `${suite.name} suite`);
     rail.innerHTML = `
       <div class="suite-rail-pager">
-        <button type="button" class="suite-pg prev" data-suite-go="${escapeHtml(prev.file)}"><small>← ${i > 0 ? 'Previous' : 'Back to hub'}</small><b>${escapeHtml(prev.desc)}</b></button>
-        <button type="button" class="suite-pg hub" data-suite-go="${escapeHtml(suite.hub)}"><span aria-hidden="true">${suite.icon}</span><b>${escapeHtml(suite.name)}</b><small>sheet ${i + 1} of ${suite.sheets.length}</small></button>
+        ${prev ? `<button type="button" class="suite-pg prev" data-suite-go="${escapeHtml(prev.file)}"><small>← ${i > 0 ? 'Previous' : 'Back to hub'}</small><b>${escapeHtml(prev.desc)}</b></button>` : `<span class="suite-pg prev is-end"><small>Start of ${escapeHtml(suite.name)}</small><b>${suite.sheets.length} sheets</b></span>`}
+        <button type="button" class="suite-pg hub" data-suite-go="${escapeHtml(hubGo)}"><span aria-hidden="true">${suite.icon}</span><b>${escapeHtml(suite.name)}</b><small>sheet ${i + 1} of ${suite.sheets.length}</small></button>
         ${next ? `<button type="button" class="suite-pg next" data-suite-go="${escapeHtml(next.file)}"><small>Next →</small><b>${escapeHtml(next.desc)}</b></button>` : `<span class="suite-pg next is-end"><small>End of suite</small><b>${suite.sheets.filter(s => visited.has(s.file)).length}/${suite.sheets.length} visited</b></span>`}
       </div>
       <div class="suite-rail-chips">
@@ -3242,6 +3258,7 @@
       { icon: '☰', label: 'Toggle compact view', sub: 'Hide or show explanations and variants', kw: 'compact density detailed dense view', run: () => { const b = document.getElementById('density-toggle'); if (b) b.click(); } },
       { icon: '📖', label: 'Open manuals', sub: 'Offline man pages', kw: 'man manual manuals pages docs offline', run: () => openManuals() },
       { icon: '◆', label: 'Go to Mission Control', sub: 'Home: decode an error, start a runbook', kw: 'home launchpad mission control start index', run: () => goToSheet('index.html') },
+      { icon: '📝', label: 'Write field notes', sub: 'Markdown notes for the server you are on, saved to cases/ or your Obsidian vault', kw: 'notes note notebook journal document markdown obsidian write log second brain field', run: () => openFieldNotes() },
       { icon: '🎯', label: `Turn Rack Targets ${targetState.active ? 'off' : 'on'}`, sub: 'Substitution of targets into copied commands', kw: 'targets substitution variables rack toggle on off', run: () => { const t = document.getElementById('target-active-toggle'); if (t) { t.checked = !t.checked; t.dispatchEvent(new Event('change', { bubbles: true })); refreshSlots(); } } }
     ];
     if (!window.PORTABLE_SHEETS) list.push({ icon: '⬇', label: 'Open the 1-file offline suite', sub: 'Everything in one HTML file', kw: 'offline portable download single file', run: () => { window.location.href = 'datacenter-cheatsheet-portable.html'; } });
@@ -3540,6 +3557,7 @@
     [/^(eth-|ethernet$)/, 'badge-eth'],
     [/^(docker-|k8s-|containers$)/, 'badge-ctr'],
     [/^grafana(-|$)/, 'badge-graf'],
+    [/^(editors|nano|vscode|zed|cursor)$/, 'badge-ed'],
     [/^(nvim-|neovim$)/, 'badge-nvim'],
     [/^macos/, 'badge-mac'],
     [/^(win-|windows$)/, 'badge-win'],
@@ -4605,6 +4623,8 @@ ${rmaTrailSection()}#### Action Requested:
     // The portable build swaps sheets in place: keep recents and the launchpad in step.
     if (changed && !IN_WIDGET_FRAME) queueVisit(file);
     document.body.classList.toggle('keep-variants', KEEPS_VARIANTS.test(file));
+    // index.html is Mission Control: no command cards, so the sheet chrome is hidden.
+    document.body.classList.toggle('is-home', file === 'index.html' || file === '');
   }
 
   function initCompact() {
@@ -5228,7 +5248,7 @@ ${rmaTrailSection()}#### Action Requested:
     ].filter(Boolean);
     rail.innerHTML = `
       ${suite ? `<div class="rail-block rail-suite">
-        <button type="button" class="rail-suite-head ${suite.isHub ? 'is-current' : ''}" data-suite-go="${escapeHtml(suite.hub)}" ${suite.isHub ? 'aria-current="page"' : ''}>
+        <button type="button" class="rail-suite-head ${suite.isHub ? 'is-current' : ''}" data-suite-go="${escapeHtml(suite.hub || suite.sheets[0].file)}" ${suite.isHub ? 'aria-current="page"' : ''}>
           <span class="rail-suite-icon" aria-hidden="true">${suite.icon}</span><b>${escapeHtml(suite.name)}</b><small>${done}/${suite.sheets.length}</small>
         </button>
         <span class="rb-meter rail-meter" aria-hidden="true"><span style="width:${Math.round(done / suite.sheets.length * 100)}%"></span></span>
@@ -5238,6 +5258,7 @@ ${rmaTrailSection()}#### Action Requested:
           </button></li>`).join('')}
         </ul>
       </div>` : ''}
+      ${(() => { const n = pracPool().filter(i => i.file === file).length; return n >= 4 ? `<button type="button" class="rail-practice" data-prac-start="sheet:${escapeHtml(file)}"><span aria-hidden="true">◎</span><b>Practice this sheet</b><small>${n} commands</small></button>` : ''; })()}
       <div class="rail-block rail-outline-block">
         <div class="rail-h">On this sheet</div>
         <ol class="rail-outline"></ol>
@@ -7405,7 +7426,7 @@ ${rmaTrailSection()}#### Action Requested:
             <div class="case-right">
               <div class="case-h">summary.md <span class="case-bytes"></span></div>
               <pre class="case-md" tabindex="0"></pre>
-              <div class="an-actions"><button type="button" class="an-primary" data-case="download">⬇ Download summary.md</button><button type="button" data-case="copy">Copy</button><button type="button" data-case="phone">📱 To phone</button><button type="button" class="case-clear" data-case="clear">Close case…</button></div>
+              <div class="an-actions"><button type="button" class="an-primary" data-case="save">💾 Save to folder</button><button type="button" data-case="download">⬇ Download summary.md</button><button type="button" data-case="copy">Copy</button><button type="button" data-case="phone">📱 To phone</button><button type="button" class="case-clear" data-case="clear">Close case…</button></div>
             </div>
           </div>
         </div>`;
@@ -7428,6 +7449,7 @@ ${rmaTrailSection()}#### Action Requested:
         if (b.dataset.caseSug) { const [k, v] = b.dataset.caseSug.split('\u0001'); const c = readCase(); c.rma[k] = v; writeCase(c); caseRenderAll(); return; }
         const act = b.dataset.case;
         if (act === 'close') closeCaseFile();
+        if (act === 'save') caseSaveToFolder(b);
         if (act === 'copy') { copyVerbatim(caseMarkdown()); showGlobalToast('Copied summary.md.'); }
         if (act === 'phone') openPhone(caseMarkdown(), 'Case summary to your phone', caseName());
         if (act === 'download') {
@@ -7531,6 +7553,7 @@ ${rmaTrailSection()}#### Action Requested:
     if (!IN_WIDGET_FRAME) {
       safeInit('retireSheetFilters', () => retireSheetFilters());
       safeInit('initCaseTrail', () => initCaseTrail());
+      safeInit('initPractice', () => initPractice());
       safeInit('initKit', () => initKit());
       safeInit('initConsole', () => initConsole());
       safeInit('initLiveSheets', () => initLiveSheets());
@@ -7555,13 +7578,1345 @@ ${rmaTrailSection()}#### Action Requested:
   });
 
   // -------------------------------------------------------------
+  // PRACTICE MODE
+  // The sheets are built for lookup; this turns them into a drill. A card shows
+  // what a command does, you type the command from memory, a word-by-word check
+  // shows what you got and what you missed, and you grade yourself. Leitner boxes
+  // schedule the next review, so missed commands come back sooner than known ones.
+  // Progress is per browser (localStorage), like My kit and the case trail.
+  // -------------------------------------------------------------
+  const PRAC_KEY = 'cs_practice_v1';
+  const PRAC_DAYS = [0, 1, 3, 7, 16, 35];   // days until the next review, by box 0-5
+  const PRAC_ROUND = 10;
+  const PRAC_MASTERED = 4;                   // box at which a command counts as mastered
+  const DAY_MS = 86400000;
+  let pracEl = null;
+  let pracSession = null;
+  let pracFocusBack = null;
+
+  function pracLoad() {
+    try {
+      const d = JSON.parse(localStorage.getItem(PRAC_KEY) || '{}');
+      return { cards: d.cards || {}, days: Array.isArray(d.days) ? d.days : [] };
+    } catch (e) { return { cards: {}, days: [] }; }
+  }
+  function pracSave(d) {
+    try { localStorage.setItem(PRAC_KEY, JSON.stringify(d)); } catch (e) { /* private window: progress is not kept */ }
+  }
+
+  // Stable across rebuilds: the sheet plus the command text, hashed (djb2) to keep storage small.
+  function pracKey(item) {
+    const s = `${item.file}|${String(item.cmd).replace(/\s+/g, ' ').trim()}`;
+    let h = 5381;
+    for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0;
+    return (h >>> 0).toString(36);
+  }
+
+  function pracDay(t = Date.now()) {
+    const d = new Date(t);
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  }
+  // Consecutive practice days ending today (or yesterday, so the streak survives until you practise today).
+  function pracStreak(days) {
+    const set = new Set(days);
+    let t = Date.now();
+    if (!set.has(pracDay(t))) t -= DAY_MS;
+    let n = 0;
+    while (set.has(pracDay(t))) { n++; t -= DAY_MS; }
+    return n;
+  }
+
+  // Commands that make a fair flashcard: one line, not huge, with a description that isn't the command.
+  function pracPool() {
+    const index = window.GLOBAL_SEARCH_INDEX || [];
+    if (pracPool.src === index && pracPool.list) return pracPool.list;
+    pracPool.src = index;
+    pracPool.list = searchIndexUnique().filter(i => {
+      const c = String(i.cmd || '').trim();
+      const d = String(i.desc || '').trim();
+      return c.length >= 4 && c.length <= 160 && !/\n/.test(c) && d.length > 6 && d !== c;
+    });
+    return pracPool.list;
+  }
+
+  function pracSuites() {
+    return navSuites().map(x => ({ name: x.name, icon: x.icon, files: new Set([x.hub, ...x.sheets.map(it => it.file)].filter(Boolean)) }))
+      .filter(x => x.name && x.files.size);
+  }
+
+  // Scope strings: 'due', 'all', 'sheet:<file>', 'suite:<name>'.
+  function pracScope(spec) {
+    const file = anatSheetFile || window.location.pathname.split('/').pop() || 'index.html';
+    if (!spec) {
+      const here = pracPool().filter(i => i.file === file).length;
+      if (here >= 4) spec = `sheet:${file}`;
+      else { const s = suiteFor(file); spec = s ? `suite:${s.name}` : 'all'; }
+    }
+    if (spec === 'due') return { spec, kind: 'due', label: 'Due for review' };
+    if (spec.startsWith('sheet:')) {
+      const f = spec.slice(6);
+      const hit = pracPool().find(i => i.file === f);
+      return { spec, kind: 'sheet', label: hit ? (hit.sec || f).replace(/:.*$/, '') : f.replace(/\.html$/, ''), files: new Set([f]) };
+    }
+    if (spec.startsWith('suite:')) {
+      const s = pracSuites().find(x => x.name === spec.slice(6));
+      if (s) return { spec, kind: 'suite', label: s.name, files: s.files };
+    }
+    return { spec: 'all', kind: 'all', label: 'Everything' };
+  }
+
+  function pracShuffle(a) {
+    for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+    return a;
+  }
+
+  function pracStats(files) {
+    const data = pracLoad();
+    const now = Date.now();
+    let pool = pracPool();
+    if (files) pool = pool.filter(i => files.has(i.file));
+    let due = 0, mastered = 0, seen = 0;
+    pool.forEach(i => {
+      const r = data.cards[pracKey(i)];
+      if (!r) return;
+      seen++;
+      if (r.due <= now) due++;
+      if (r.b >= PRAC_MASTERED) mastered++;
+    });
+    return { total: pool.length, due, mastered, seen, streak: pracStreak(data.days) };
+  }
+
+  function pracBuildRound(scope) {
+    const data = pracLoad();
+    const now = Date.now();
+    let pool = pracPool();
+    if (scope.files) pool = pool.filter(i => scope.files.has(i.file));
+    const cards = pool.map(i => ({ item: i, key: pracKey(i), rec: data.cards[pracKey(i)] }));
+    const due = cards.filter(c => c.rec && c.rec.due <= now).sort((a, b) => a.rec.due - b.rec.due);
+    if (scope.kind === 'due') return due.slice(0, PRAC_ROUND);
+    const fresh = pracShuffle(cards.filter(c => !c.rec));
+    let round = [...due, ...fresh];
+    // Everything here is learned and nothing is due: review the weakest ones early.
+    if (!round.length) round = cards.slice().sort((a, b) => a.rec.b - b.rec.b || a.rec.due - b.rec.due);
+    return round.slice(0, PRAC_ROUND);
+  }
+
+  // ---- Checking an answer ------------------------------------------------
+  // Placeholders (<node>, $BMC, ${GPU}) accept any word you typed in their place.
+  const pracIsSlot = w => /<[^>]+>/.test(w) || /^["']?\$\{?[A-Z_][A-Z0-9_]*\}?["']?$/.test(w);
+  const pracNorm = s => String(s).replace(/\s+/g, ' ').trim();
+
+  function pracCheck(answer, typed) {
+    const stages = anatSplit(pracNorm(answer));
+    const tokens = [];
+    stages.forEach((st, si) => anatWords(st.text).forEach(w => tokens.push({ w, si, hit: false, slot: pracIsSlot(w) })));
+    const userStages = anatSplit(pracNorm(typed));
+    const user = [];
+    userStages.forEach(st => anatWords(st.text).forEach(w => user.push({ w, used: false })));
+    // Exact words first, then placeholders soak up whatever is left over.
+    tokens.forEach(t => {
+      if (t.slot) return;
+      const u = user.find(x => !x.used && x.w === t.w);
+      if (u) { u.used = true; t.hit = true; }
+    });
+    tokens.forEach(t => {
+      if (!t.slot) return;
+      const u = user.find(x => !x.used);
+      if (u) { u.used = true; t.hit = true; }
+    });
+    const hits = tokens.filter(t => t.hit).length;
+    const extra = user.filter(x => !x.used).map(x => x.w);
+    const exact = pracNorm(answer) === pracNorm(typed) || (hits === tokens.length && !extra.length && stages.length === userStages.length);
+    const ratio = tokens.length ? hits / tokens.length : 0;
+    const verdict = !typed.trim() ? 'shown' : exact ? 'exact' : ratio >= 0.75 ? 'close' : 'miss';
+    return { stages, tokens, hits, extra, verdict };
+  }
+
+  function pracAnswerHtml(check) {
+    return check.stages.map((st, si) => {
+      let seenCmd = false;
+      const words = check.tokens.filter(t => t.si === si).map(t => {
+        let cls = 'anat-arg';
+        if (/^['"]/.test(t.w)) cls = 'anat-str';
+        else if (/^-/.test(t.w)) cls = 'anat-flag';
+        else if (!seenCmd && !ANAT_PREFIXES.test(t.w)) { cls = 'anat-cmd'; seenCmd = true; }
+        else if (/\$/.test(t.w)) cls = 'anat-var';
+        const state = check.verdict === 'shown' ? '' : t.hit ? (t.slot ? ' prac-slot' : ' prac-hit') : ' prac-miss';
+        return `<span class="${cls}${state}">${escapeHtml(t.w)}</span>`;
+      }).join(' ');
+      return `<span class="prac-line">${check.stages.length > 1 ? `<span class="prac-op">${escapeHtml(st.op || '')}</span>` : ''}<span>${words}</span></span>`;
+    }).join('');
+  }
+
+  // ---- Dialog ------------------------------------------------------------
+  function pracDue(box) {
+    const d = PRAC_DAYS[Math.min(box, PRAC_DAYS.length - 1)];
+    return d === 0 ? 'again today' : d === 1 ? 'tomorrow' : `in ${d} days`;
+  }
+
+  function pracScopeChips(scope) {
+    const file = anatSheetFile || window.location.pathname.split('/').pop() || 'index.html';
+    const suite = suiteFor(file);
+    const chips = [];
+    const here = pracPool().filter(i => i.file === file).length;
+    if (here >= 4) chips.push([`sheet:${file}`, 'This sheet', here]);
+    if (suite) chips.push([`suite:${suite.name}`, suite.name, pracStats(pracScope(`suite:${suite.name}`).files).total]);
+    chips.push(['all', 'Everything', pracPool().length]);
+    chips.push(['due', 'Due now', pracStats().due]);
+    return chips.map(([spec, label, n]) => `<button type="button" class="prac-scope ${spec === scope.spec ? 'is-on' : ''}" data-prac-scope="${escapeHtml(spec)}">${escapeHtml(label)}<small>${n}</small></button>`).join('');
+  }
+
+  function openPractice(spec) {
+    if (IN_WIDGET_FRAME) return;
+    if (!pracEl) {
+      pracEl = document.createElement('div');
+      pracEl.className = 'an-backdrop prac-backdrop';
+      pracEl.innerHTML = `
+        <div class="an-dialog prac-dialog" role="dialog" aria-modal="true" aria-labelledby="prac-title">
+          <header class="an-head prac-head">
+            <div><h2 id="prac-title">Practice</h2><p>Type each command from memory. <kbd>↵</kbd> checks (empty shows the answer), then grade yourself with <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd>.</p></div>
+            <div class="prac-stats" aria-live="polite"></div>
+            <button type="button" class="trail-close" data-prac-close aria-label="Close">✕</button>
+          </header>
+          <div class="prac-scopes" role="group" aria-label="What to practise"></div>
+          <div class="prac-progress" aria-hidden="true"><span></span></div>
+          <div class="prac-stage"></div>
+        </div>`;
+      document.body.appendChild(pracEl);
+      pracEl.addEventListener('click', pracClick);
+      pracEl.addEventListener('submit', (e) => { e.preventDefault(); pracSubmit(); });
+      pracEl.addEventListener('keydown', pracKeys);
+    }
+    pracFocusBack = document.activeElement;
+    pracStart(pracScope(spec));
+    pracEl.classList.add('show');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closePractice() {
+    if (!pracEl) return;
+    pracEl.classList.remove('show');
+    document.body.style.overflow = '';
+    pracSession = null;
+    pracRefreshUi();
+    if (pracFocusBack && pracFocusBack.focus) pracFocusBack.focus({ preventScroll: true });
+  }
+
+  function pracStart(scope) {
+    pracSession = { scope, cards: pracBuildRound(scope), i: 0, results: [], requeued: new Set(), phase: 'ask' };
+    pracEl.querySelector('.prac-scopes').innerHTML = pracScopeChips(scope);
+    pracRender();
+  }
+
+  function pracHeader() {
+    const s = pracSession;
+    const st = pracStats(s.scope.files);
+    pracEl.querySelector('#prac-title').innerHTML = `Practice <span>· ${escapeHtml(s.scope.label)}</span>`;
+    pracEl.querySelector('.prac-stats').innerHTML = `
+      <span title="Days in a row with practice"><b>🔥 ${st.streak}</b>day streak</span>
+      <span title="Reviews due now in this scope"><b>${st.due}</b>due</span>
+      <span title="Commands in box ${PRAC_MASTERED}+ (reviewed correctly several times, spaced out)"><b>${st.mastered}<i>/${st.total}</i></b>mastered</span>`;
+    const pct = s.cards.length ? Math.round(Math.min(s.i, s.cards.length) / s.cards.length * 100) : 0;
+    pracEl.querySelector('.prac-progress span').style.width = `${pct}%`;
+  }
+
+  function pracRender() {
+    const s = pracSession;
+    pracHeader();
+    const stage = pracEl.querySelector('.prac-stage');
+    if (!s.cards.length) {
+      stage.innerHTML = `<div class="prac-empty"><b>${s.scope.kind === 'due' ? 'Nothing is due.' : 'No commands to practise here.'}</b><p>${s.scope.kind === 'due' ? 'Every command you have practised is scheduled for later. Start a round on new ones instead.' : 'This scope has no single-line commands to drill.'}</p><button type="button" class="prac-primary" data-prac-scope="all">Practise everything →</button></div>`;
+      setTimeout(() => stage.querySelector('button').focus(), 30);
+      return;
+    }
+    if (s.i >= s.cards.length) return pracRenderDone();
+    const c = s.cards[s.i];
+    const box = c.rec ? c.rec.b : -1;
+    const sheet = c.item.file.replace(/\.html$/, '');
+    s.phase = 'ask';
+    s.hint = false;
+    stage.innerHTML = `
+      <article class="prac-card">
+        <div class="prac-meta">
+          <span class="prac-sheet">${escapeHtml(sheet)}</span>
+          <span class="prac-sec">${escapeHtml(String(c.item.sec || '').replace(/^[^:]+:\s*/, ''))}</span>
+          <span class="prac-box ${box < 0 ? 'is-new' : ''}">${box < 0 ? 'New' : `Box ${box}`}</span>
+          <span class="prac-count">${s.i + 1} / ${s.cards.length}</span>
+        </div>
+        <p class="prac-task">${escapeHtml(c.item.desc)}</p>
+        <div class="prac-hint" hidden></div>
+        <form class="prac-form" autocomplete="off">
+          <span class="prac-prompt" aria-hidden="true">$</span>
+          <input class="prac-input" type="text" spellcheck="false" autocapitalize="off" aria-label="Type the command" placeholder="type the command from memory…" />
+          <button type="submit" class="prac-primary">Check <kbd>↵</kbd></button>
+        </form>
+        <div class="prac-actions">
+          <button type="button" data-prac="hint">Hint</button>
+          <button type="button" data-prac="show">Show answer</button>
+          <button type="button" data-prac="skip">Skip</button>
+        </div>
+      </article>`;
+    setTimeout(() => { const inp = stage.querySelector('.prac-input'); if (inp) inp.focus(); }, 30);
+  }
+
+  function pracHint() {
+    const s = pracSession;
+    const c = s.cards[s.i];
+    const words = anatWords(pracNorm(c.item.cmd));
+    const stages = anatSplit(pracNorm(c.item.cmd)).length;
+    const el = pracEl.querySelector('.prac-hint');
+    el.hidden = false;
+    el.innerHTML = s.hint
+      ? `Starts with <code>${escapeHtml(words.slice(0, 2).join(' '))}</code> · ${words.length} words${stages > 1 ? ` · ${stages} stages joined by pipes or operators` : ''}`
+      : `Starts with <code>${escapeHtml(words[0])}</code> · ${words.length} words`;
+    s.hint = true;
+    pracEl.querySelector('.prac-input').focus();
+  }
+
+  function pracSubmit() {
+    const s = pracSession;
+    if (!s || s.phase !== 'ask') return;
+    const c = s.cards[s.i];
+    const inp = pracEl.querySelector('.prac-input');
+    const typed = inp ? inp.value : '';
+    const check = pracCheck(c.item.cmd, typed);
+    s.phase = 'graded';
+    s.current = { typed, check };
+    const box = c.rec ? c.rec.b : 0;
+    const suggest = check.verdict === 'exact' ? 1 : check.verdict === 'close' ? 1 : 0;
+    const verdict = {
+      exact: '✓ Exactly right',
+      close: `≈ Close: ${check.hits} of ${check.tokens.length} words`,
+      miss: `✗ Not yet: ${check.hits} of ${check.tokens.length} words`,
+      shown: 'Here is the answer'
+    }[check.verdict];
+    const danger = DANGER_RE.test(c.item.cmd) ? '<span class="danger-tag">⚠ Changes state · drain &amp; get approval first</span>' : '';
+    const next = [0, Math.min(box + 1, 5), Math.min(box + 2, 5)];
+    pracEl.querySelector('.prac-stage').innerHTML = `
+      <article class="prac-card prac-result is-${check.verdict}">
+        <div class="prac-meta">
+          <span class="prac-sheet">${escapeHtml(c.item.file.replace(/\.html$/, ''))}</span>
+          <span class="prac-sec">${escapeHtml(String(c.item.sec || '').replace(/^[^:]+:\s*/, ''))}</span>
+          <span class="prac-count">${s.i + 1} / ${s.cards.length}</span>
+        </div>
+        <p class="prac-task">${escapeHtml(c.item.desc)}</p>
+        <div class="prac-verdict">${verdict}</div>
+        <div class="prac-answer">${danger}${pracAnswerHtml(check)}</div>
+        ${typed.trim() && check.verdict !== 'exact' ? `<div class="prac-typed"><span>You typed</span><code>${escapeHtml(typed)}</code>${check.extra.length ? `<small>Not in the answer: ${check.extra.map(w => `<s>${escapeHtml(w)}</s>`).join(' ')}</small>` : ''}</div>` : ''}
+        ${c.item.tip ? `<p class="prac-tip"><span>Tip</span>${escapeHtml(c.item.tip)}</p>` : ''}
+        <div class="prac-foot">
+          <a href="${escapeHtml(c.item.file)}#${escapeHtml(c.item.id || '')}" data-prac-open="${escapeHtml(c.item.file)}" data-prac-id="${escapeHtml(c.item.id || '')}">Open it on its sheet →</a>
+          <div class="prac-grade" role="group" aria-label="How well did you know it?">
+            <button type="button" data-grade="0" class="g-again ${suggest === 0 ? 'is-suggested' : ''}">Again <kbd>1</kbd><small>${pracDue(next[0])}</small></button>
+            <button type="button" data-grade="1" class="g-good ${suggest === 1 ? 'is-suggested' : ''}">Good <kbd>2</kbd><small>${pracDue(next[1])}</small></button>
+            <button type="button" data-grade="2" class="g-easy">Easy <kbd>3</kbd><small>${pracDue(next[2])}</small></button>
+          </div>
+        </div>
+      </article>`;
+    setTimeout(() => { const b = pracEl.querySelector('.prac-grade .is-suggested'); if (b) b.focus(); }, 30);
+  }
+
+  function pracGrade(g) {
+    const s = pracSession;
+    if (!s || s.phase !== 'graded') return;
+    const c = s.cards[s.i];
+    const data = pracLoad();
+    const prev = data.cards[c.key] || { b: 0, n: 0, ok: 0 };
+    const b = g === 0 ? 0 : Math.min(prev.b + g, PRAC_DAYS.length - 1);
+    data.cards[c.key] = { b, due: Date.now() + PRAC_DAYS[b] * DAY_MS, n: (prev.n || 0) + 1, ok: (prev.ok || 0) + (g > 0 ? 1 : 0) };
+    const today = pracDay();
+    if (!data.days.includes(today)) data.days = [...data.days, today].slice(-400);
+    pracSave(data);
+    c.rec = data.cards[c.key];
+    s.results.push({ c, g, verdict: s.current.check.verdict });
+    // A miss comes back once at the end of this round, while it is fresh.
+    if (g === 0 && !s.requeued.has(c.key)) { s.requeued.add(c.key); s.cards.push({ ...c }); }
+    s.i++;
+    pracRender();
+  }
+
+  function pracRenderDone() {
+    const s = pracSession;
+    s.phase = 'done';
+    const unique = new Map();
+    s.results.forEach(r => { if (!unique.has(r.c.key)) unique.set(r.c.key, r); });
+    const firstTry = [...unique.values()];
+    const known = firstTry.filter(r => r.g > 0).length;
+    const missed = firstTry.filter(r => r.g === 0);
+    const st = pracStats(s.scope.files);
+    pracHeader();
+    pracEl.querySelector('.prac-progress span').style.width = '100%';
+    pracEl.querySelector('.prac-stage').innerHTML = `
+      <div class="prac-done">
+        <div class="prac-ring" style="--p:${firstTry.length ? Math.round(known / firstTry.length * 100) : 0}"><b>${known}<i>/${firstTry.length}</i></b><small>knew it first time</small></div>
+        <div class="prac-done-text">
+          <h3>${known === firstTry.length ? 'Clean round.' : known >= firstTry.length / 2 ? 'Good round.' : 'Worth another pass.'}</h3>
+          <p>🔥 ${st.streak}-day streak · ${st.mastered} of ${st.total} mastered in ${escapeHtml(s.scope.label)} · ${st.due} due now</p>
+          ${missed.length ? `<div class="prac-missed"><span>Coming back soon</span>${missed.map(r => `<code>${escapeHtml(r.c.item.cmd)}</code>`).join('')}</div>` : ''}
+          <div class="prac-done-actions">
+            <button type="button" class="prac-primary" data-prac="again">Another round <kbd>↵</kbd></button>
+            <button type="button" data-prac-close>Done</button>
+          </div>
+        </div>
+      </div>`;
+    setTimeout(() => { const b = pracEl.querySelector('[data-prac="again"]'); if (b) b.focus(); }, 30);
+  }
+
+  function pracClick(e) {
+    const el = e.target instanceof Element ? e.target : null;
+    if (!el) return;
+    if (e.target === pracEl || el.closest('[data-prac-close]')) return closePractice();
+    const scope = el.closest('[data-prac-scope]');
+    if (scope) return pracStart(pracScope(scope.dataset.pracScope));
+    const grade = el.closest('[data-grade]');
+    if (grade) return pracGrade(Number(grade.dataset.grade));
+    const open = el.closest('[data-prac-open]');
+    if (open) {
+      e.preventDefault();
+      const file = open.dataset.pracOpen, id = open.dataset.pracId;
+      closePractice();
+      const here = anatSheetFile || window.location.pathname.split('/').pop() || 'index.html';
+      if (file === here) scrollToCard(id);
+      else if (window.portableOpenSheet) window.portableOpenSheet(file, id);
+      else window.location.href = `${file}${id ? `#${id}` : ''}`;
+      return;
+    }
+    const act = el.closest('[data-prac]');
+    if (!act) return;
+    const a = act.dataset.prac;
+    if (a === 'hint') return pracHint();
+    if (a === 'show') { const i = pracEl.querySelector('.prac-input'); if (i) i.value = ''; return pracSubmit(); }
+    if (a === 'skip') { pracSession.i++; return pracRender(); }
+    if (a === 'again') return pracStart(pracSession.scope);
+  }
+
+  function pracKeys(e) {
+    if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); return closePractice(); }
+    const s = pracSession;
+    if (!s || e.ctrlKey || e.metaKey || e.altKey) return;
+    if (s.phase === 'graded' && ['1', '2', '3'].includes(e.key)) { e.preventDefault(); return pracGrade(Number(e.key) - 1); }
+    if (s.phase === 'done' && e.key === 'Enter' && !(e.target instanceof Element && e.target.closest('[data-prac-close]'))) { e.preventDefault(); return pracStart(s.scope); }
+  }
+
+  // ---- Entry points ------------------------------------------------------
+  function pracRefreshUi() {
+    const st = pracStats();
+    const badge = document.querySelector('#practice-btn .prac-badge');
+    if (badge) { badge.textContent = String(st.due); badge.classList.toggle('is-due', st.due > 0); }
+    const lp = document.querySelector('.lp-practice');
+    if (lp) lp.outerHTML = pracLaunchpadHtml();
+  }
+
+  function pracLaunchpadHtml() {
+    const st = pracStats();
+    const data = pracLoad();
+    const suites = pracSuites().map(s => {
+      const pool = pracPool().filter(i => s.files.has(i.file));
+      const seen = pool.filter(i => data.cards[pracKey(i)]).length;
+      return { ...s, total: pool.length, seen };
+    }).filter(s => s.total >= 4);
+    return `<div class="lp-section lp-practice">
+      <div class="lp-section-head"><h3>Practice</h3><span>Learn the commands instead of copying them: type each one from memory, and spaced repetition brings back the ones you miss</span></div>
+      <div class="prac-lp">
+        <div class="prac-lp-stats">
+          <div><b>🔥 ${st.streak}</b><small>day streak</small></div>
+          <div><b>${st.due}</b><small>due now</small></div>
+          <div><b>${st.mastered}<i>/${st.total}</i></b><small>mastered</small></div>
+          <button type="button" class="prac-primary" data-prac-start="${st.due ? 'due' : 'all'}">${st.due ? `Review ${st.due} due →` : 'Start a round →'}</button>
+        </div>
+        <div class="prac-lp-suites">${suites.map(s => `<button type="button" data-prac-start="suite:${escapeHtml(s.name)}" title="Practise ${escapeHtml(s.name)}: ${s.seen} of ${s.total} commands practised">
+          <span class="prac-lp-icon" aria-hidden="true">${s.icon}</span><b>${escapeHtml(s.name)}</b>
+          <span class="rb-meter" aria-hidden="true"><span style="width:${Math.round(s.seen / s.total * 100)}%"></span></span><small>${s.seen}/${s.total}</small>
+        </button>`).join('')}</div>
+      </div>
+    </div>`;
+  }
+
+  function initPractice() {
+    const actions = document.querySelector('.header-actions');
+    if (actions && !document.getElementById('practice-btn')) {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.id = 'practice-btn';
+      btn.className = 'action-btn practice-header-btn';
+      btn.title = 'Practice (q): drill commands from memory with spaced repetition';
+      btn.innerHTML = `
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/>
+        </svg>
+        <span>Practice</span>
+        <span class="count-badge prac-badge" title="Reviews due">0</span>`;
+      btn.addEventListener('click', () => openPractice());
+      actions.appendChild(btn);
+    }
+    document.addEventListener('click', (e) => {
+      const el = e.target instanceof Element ? e.target.closest('[data-prac-start]') : null;
+      if (!el) return;
+      e.preventDefault();
+      openPractice(el.dataset.pracStart);
+    });
+    // Another tab practised: keep the badge and launchpad in step.
+    window.addEventListener('storage', (e) => { if (e.key === PRAC_KEY) pracRefreshUi(); });
+    pracRefreshUi();
+  }
+
+  // -------------------------------------------------------------
+  // FIELD NOTES
+  // A Markdown notebook for the server you are on, on the home page (Mission
+  // Control). It belongs to the active node workspace, so the server name, BMC
+  // and ticket come from the same place as Rack Targets, the Case Trail and the
+  // Case file. You write in a WYSIWYG editor; the note is kept as Markdown.
+  //
+  // Saving: drafts live in localStorage. Connect a folder once (the repo's cases/
+  // or an Obsidian vault) and each note is also written to
+  //   <folder>/<server>/<YYYY-MM-DD> <title>.md
+  // with YAML properties Obsidian reads (host is a [[link]] to <server>.md, which
+  // is created once so the graph ties notes to their server). The folder handle is
+  // kept in IndexedDB; the browser asks again for access after a restart.
+  // Notes that look like they hold a credential are never written to disk
+  // (AGENTS.md §3): the bar says which line, and you remove it first.
+  // -------------------------------------------------------------
+  const FN_KEY = 'dc_field_notes';
+  const FN_DB = 'cheat-sheet-notes';
+  let fnEl = null;
+  let fnDir = null;          // FileSystemDirectoryHandle, once connected
+  let fnDirOk = false;       // readwrite permission granted this session
+  let fnTimer = null;
+  let fnShowAll = false;
+
+  // ---- local store --------------------------------------------------------
+  function fnLoad() {
+    try {
+      const d = JSON.parse(localStorage.getItem(FN_KEY) || '{}');
+      return { notes: Array.isArray(d.notes) ? d.notes : [], active: d.active || null };
+    } catch (e) { return { notes: [], active: null }; }
+  }
+  function fnSave(d) {
+    try { localStorage.setItem(FN_KEY, JSON.stringify(d)); } catch (e) { showGlobalToast('Could not keep the note in this browser (storage full or blocked).'); }
+  }
+  const fnHost = () => readNodes().active || '';
+  const fnId = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+
+  // ---- folder handle (IndexedDB) -----------------------------------------
+  function fnIdb(mode, fn) {
+    return new Promise((resolve, reject) => {
+      let req;
+      try { req = indexedDB.open(FN_DB, 1); } catch (e) { reject(e); return; }
+      req.onupgradeneeded = () => req.result.createObjectStore('kv');
+      req.onerror = () => reject(req.error);
+      req.onsuccess = () => {
+        const tx = req.result.transaction('kv', mode);
+        const r = fn(tx.objectStore('kv'));
+        tx.oncomplete = () => resolve(r && 'result' in r ? r.result : undefined);
+        tx.onerror = () => reject(tx.error);
+      };
+    });
+  }
+  async function fnRestoreDir() {
+    try {
+      fnDir = await fnIdb('readonly', s => s.get('dir')) || null;
+      if (fnDir) fnDirOk = (await fnDir.queryPermission({ mode: 'readwrite' })) === 'granted';
+    } catch (e) { fnDir = null; fnDirOk = false; }
+    fnRenderFolder();
+  }
+  async function fnPickDir() {
+    if (!window.showDirectoryPicker) { showGlobalToast('This browser cannot write to a folder. Use ⬇ .md to download notes instead (Chrome and Edge can).'); return; }
+    try {
+      const dir = await window.showDirectoryPicker({ id: 'field-notes', mode: 'readwrite', startIn: 'documents' });
+      fnDir = dir; fnDirOk = true;
+      await fnIdb('readwrite', s => s.put(dir, 'dir')).catch(() => {});
+      fnRenderFolder();
+      showGlobalToast(`Notes now save to ${dir.name}/<server>/.`);
+      fnWrite(true);
+    } catch (e) { if (e && e.name !== 'AbortError') showGlobalToast(`Folder not connected: ${e.message}`); }
+  }
+  // Needs a click or key press when the browser has forgotten the grant.
+  async function fnEnsureDir(fromGesture) {
+    if (!fnDir) return false;
+    if (fnDirOk) return true;
+    try {
+      let p = await fnDir.queryPermission({ mode: 'readwrite' });
+      if (p !== 'granted' && fromGesture) p = await fnDir.requestPermission({ mode: 'readwrite' });
+      fnDirOk = p === 'granted';
+    } catch (e) { fnDirOk = false; }
+    fnRenderFolder();
+    return fnDirOk;
+  }
+
+  // ---- Markdown: editor HTML -> Markdown ---------------------------------
+  const fnEsc = t => t.replace(/\\/g, '\\\\').replace(/([*`<])/g, '\\$1');
+  function fnInline(node) {
+    let s = '';
+    node.childNodes.forEach(n => {
+      if (n.nodeType === 3) { s += fnEsc(n.nodeValue.replace(/ /g, ' ')); return; }
+      if (n.nodeType !== 1) return;
+      const tag = n.tagName;
+      if (tag === 'BR') { s += '\n'; return; }
+      if (tag === 'CODE') { const t = n.textContent; const tick = t.includes('`') ? '``' : '`'; s += `${tick}${t}${tick}`; return; }
+      const inner = fnInline(n);
+      if (!inner.trim()) { s += inner; return; }
+      if (tag === 'STRONG' || tag === 'B') s += `**${inner}**`;
+      else if (tag === 'EM' || tag === 'I') s += `*${inner}*`;
+      else if (tag === 'S' || tag === 'STRIKE' || tag === 'DEL') s += `~~${inner}~~`;
+      else if (tag === 'A') s += `[${inner}](${n.getAttribute('href') || ''})`;
+      else s += inner;
+    });
+    return s;
+  }
+  // A line that would read as a block marker in Markdown keeps its literal text.
+  const fnGuardLine = l => l.replace(/^(\s*)(#{1,6}\s|>|[-+]\s|\d+[.)]\s|---\s*$)/, '$1\\$2');
+  function fnList(el, depth) {
+    const lines = [];
+    let i = 1;
+    Array.from(el.children).forEach(li => {
+      if (li.tagName !== 'LI') return;
+      const pad = '  '.repeat(depth);
+      const ordered = el.tagName === 'OL';
+      const task = li.classList.contains('fn-task') ? (li.dataset.done === '1' ? '[x] ' : '[ ] ') : '';
+      const own = document.createElement('div');
+      li.childNodes.forEach(c => { if (!(c.nodeType === 1 && (c.tagName === 'UL' || c.tagName === 'OL'))) own.appendChild(c.cloneNode(true)); });
+      const text = fnInline(own).trim().replace(/\n/g, `\n${pad}  `);
+      lines.push(`${pad}${ordered ? `${i++}.` : '-'} ${task}${text}`);
+      Array.from(li.children).forEach(c => { if (c.tagName === 'UL' || c.tagName === 'OL') lines.push(...fnList(c, depth + 1)); });
+    });
+    return lines;
+  }
+  function fnToMd(root) {
+    const blocks = [];
+    const walk = (parent) => {
+      let loose = document.createElement('div');
+      const flush = () => { const t = fnInline(loose).trim(); if (t) blocks.push(t.split('\n').map(fnGuardLine).join('\n')); loose = document.createElement('div'); };
+      parent.childNodes.forEach(n => {
+        if (n.nodeType === 3 || (n.nodeType === 1 && /^(STRONG|B|EM|I|CODE|A|S|DEL|STRIKE|SPAN|BR)$/.test(n.tagName))) { loose.appendChild(n.cloneNode(true)); return; }
+        if (n.nodeType !== 1) return;
+        flush();
+        const tag = n.tagName;
+        if (/^H[1-6]$/.test(tag)) { const t = fnInline(n).trim(); if (t) blocks.push(`${'#'.repeat(Math.min(3, Number(tag[1])))} ${t.replace(/\n/g, ' ')}`); }
+        else if (tag === 'UL' || tag === 'OL') { const l = fnList(n, 0); if (l.length) blocks.push(l.join('\n')); }
+        else if (tag === 'PRE') { const lang = n.dataset.lang || ''; blocks.push('```' + lang + '\n' + (n.innerText || n.textContent).replace(/\n+$/, '') + '\n```'); }
+        else if (tag === 'BLOCKQUOTE') { const inner = fnToMd(n); if (inner) blocks.push(inner.split('\n').map(l => l ? `> ${l}` : '>').join('\n')); }
+        else if (tag === 'HR') blocks.push('---');
+        else if (n.querySelector(':scope > div, :scope > p, :scope > ul, :scope > ol, :scope > pre, :scope > h1, :scope > h2, :scope > h3, :scope > blockquote, :scope > hr')) walk(n);
+        else { const t = fnInline(n).trim(); if (t) blocks.push(t.split('\n').map(fnGuardLine).join('\n')); }
+      });
+      flush();
+    };
+    walk(root);
+    return blocks.join('\n\n');
+  }
+
+  // ---- Markdown -> editor HTML (the subset the editor writes, plus common extras) ----
+  function fnInlineHtml(text) {
+    const codes = [];
+    let s = String(text).replace(/(`+)([\s\S]*?[^`])\1(?!`)/g, (_, t, c) => { codes.push(c); return `\u0000${codes.length - 1}\u0000`; });
+    const keep = [];
+    s = s.replace(/\\([\\`*_{}\[\]()#+\-.!<>~|])/g, (_, ch) => { keep.push(ch); return `\u0001${keep.length - 1}\u0001`; });
+    s = escapeHtml(s);
+    s = s.replace(/\*\*([^*]+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/(^|[^*\w])\*([^*\s][^*]*?)\*(?!\w)/g, '$1<em>$2</em>')
+      .replace(/(^|[^\w])_([^_\s][^_]*?)_(?!\w)/g, '$1<em>$2</em>')
+      .replace(/~~([^~]+?)~~/g, '<s>$1</s>')
+      .replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (_, t, u) => `<a href="${/^(https?:|mailto:|#|\.{0,2}\/)/i.test(u) ? u : '#'}">${t}</a>`);
+    s = s.replace(/\u0001(\d+)\u0001/g, (_, i) => escapeHtml(keep[i]));
+    return s.replace(/\u0000(\d+)\u0000/g, (_, i) => `<code>${escapeHtml(codes[i])}</code>`);
+  }
+  function fnFromMd(md) {
+    const lines = String(md || '').replace(/\r\n?/g, '\n').split('\n');
+    const html = [];
+    let para = [];
+    const flushPara = () => { if (para.length) { html.push(`<p>${para.map(fnInlineHtml).join('<br>')}</p>`); para = []; } };
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+      const fence = line.match(/^\s*```\s*([\w+-]*)\s*$/);
+      if (fence) {
+        flushPara();
+        const body = [];
+        while (++i < lines.length && !/^\s*```\s*$/.test(lines[i])) body.push(lines[i]);
+        html.push(`<pre${fence[1] ? ` data-lang="${escapeHtml(fence[1])}"` : ''}>${escapeHtml(body.join('\n'))}\n</pre>`);
+        continue;
+      }
+      if (!line.trim()) { flushPara(); continue; }
+      const h = line.match(/^(#{1,6})\s+(.*)$/);
+      if (h) { flushPara(); const n = Math.min(3, h[1].length); html.push(`<h${n}>${fnInlineHtml(h[2])}</h${n}>`); continue; }
+      if (/^\s*(---|\*\*\*|___)\s*$/.test(line)) { flushPara(); html.push('<hr>'); continue; }
+      if (/^\s*>/.test(line)) {
+        flushPara();
+        const q = [];
+        while (i < lines.length && /^\s*>/.test(lines[i])) { q.push(lines[i].replace(/^\s*>\s?/, '')); i++; }
+        i--;
+        html.push(`<blockquote>${fnFromMd(q.join('\n'))}</blockquote>`);
+        continue;
+      }
+      if (/^\s*([-*+]|\d+[.)])\s+/.test(line)) {
+        flushPara();
+        const items = [];
+        while (i < lines.length && (/^\s*([-*+]|\d+[.)])\s+/.test(lines[i]) || (/^\s{2,}\S/.test(lines[i]) && items.length))) {
+          const m = lines[i].match(/^(\s*)([-*+]|\d+[.)])\s+(?:\[( |x|X)\]\s+)?(.*)$/);
+          if (m) items.push({ depth: Math.floor(m[1].replace(/\t/g, '  ').length / 2), ordered: /\d/.test(m[2]), task: m[3], text: m[4] });
+          else items[items.length - 1].text += '\n' + lines[i].trim();
+          i++;
+        }
+        i--;
+        html.push(fnListHtml(items, 0, { i: 0 }));
+        continue;
+      }
+      para.push(line);
+    }
+    flushPara();
+    return html.join('');
+  }
+  function fnListHtml(items, depth, cur) {
+    const first = items[cur.i];
+    const tag = first && first.ordered ? 'ol' : 'ul';
+    let out = `<${tag}>`;
+    while (cur.i < items.length && items[cur.i].depth >= depth) {
+      const it = items[cur.i];
+      if (it.depth > depth) { out = out.replace(/<\/li>$/, '') + fnListHtml(items, it.depth, cur) + '</li>'; continue; }
+      const task = it.task !== undefined ? ` class="fn-task" data-done="${/x/i.test(it.task) ? 1 : 0}"` : '';
+      out += `<li${task}>${it.text.split('\n').map(fnInlineHtml).join('<br>')}</li>`;
+      cur.i++;
+    }
+    return out + `</${tag}>`;
+  }
+
+  // ---- file format (YAML properties + body) ------------------------------
+  const fnYaml = v => JSON.stringify(String(v));          // a JSON string is valid YAML
+  const fnTag = v => String(v).trim().replace(/[^\w/-]+/g, '-').replace(/^-+|-+$/g, '');
+  function fnLocalIso(t) {
+    const d = new Date(t);
+    return `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}T${pad2(d.getHours())}:${pad2(d.getMinutes())}:${pad2(d.getSeconds())}`;
+  }
+  const fnSafeName = s => String(s || '').replace(/[\\/:*?"<>|#^\[\]]+/g, '-').replace(/\s+/g, ' ').trim().slice(0, 80) || 'note';
+  const fnFileName = n => `${fnLocalIso(n.created).slice(0, 10)} ${fnSafeName(n.title || 'Untitled')}.md`;
+  function fnFileText(n) {
+    const kase = n.host === fnHost() ? readCase() : null;
+    const props = [
+      '---',
+      `title: ${fnYaml(n.title || 'Untitled')}`,
+      `host: ${fnYaml(`[[${n.host}]]`)}`,
+      n.ticket ? `ticket: ${fnYaml(n.ticket)}` : '',
+      n.bmc ? `bmc: ${fnYaml(n.bmc)}` : '',
+      kase ? `status: ${fnYaml(kase.status)}` : '',
+      `created: ${fnLocalIso(n.created)}`,
+      `updated: ${fnLocalIso(n.updated)}`,
+      'tags:',
+      '  - field-note',
+      `  - host/${fnTag(n.host)}`,
+      n.ticket ? `  - ticket/${fnTag(n.ticket)}` : '',
+      '---'
+    ].filter(Boolean);
+    return `${props.join('\n')}\n\n${(n.md || '').trim()}\n`;
+  }
+  function fnParseFile(text) {
+    const m = String(text).match(/^---\n([\s\S]*?)\n---\n?/);
+    const props = {};
+    if (m) m[1].split('\n').forEach(l => {
+      const kv = l.match(/^(\w+):\s*(.*)$/);
+      if (!kv || !kv[2]) return;
+      let v = kv[2].trim();
+      try { if (/^"/.test(v)) v = JSON.parse(v); } catch (e) { v = v.replace(/^"|"$/g, ''); }
+      props[kv[1]] = v;
+    });
+    return { props, body: m ? text.slice(m[0].length).trim() : String(text).trim() };
+  }
+
+  // Lines that look like they hold a credential (AGENTS.md §3: never written to case files).
+  function fnSecretLine(md) {
+    const pass = targetState.pass;
+    const rx = /(\b(password|passwd|pwd|secret|api[_-]?key|token)\b\s*[:=]\s*\S+)|(\bipmitool\b[^\n]*\s-P\s+\S+)|(\bcurl\b[^\n]*\s(-u|--user)\s+[^\s:]+:\S+)|(\b(ghp_[A-Za-z0-9]{20,}|glsa_[A-Za-z0-9_]{20,}|AKIA[0-9A-Z]{16}|xox[bp]-[A-Za-z0-9-]{10,}|eyJ[A-Za-z0-9_-]{15,}\.[A-Za-z0-9_-]{15,}))|(-----BEGIN [A-Z ]*PRIVATE KEY)/i;
+    const lines = String(md).split('\n');
+    for (let i = 0; i < lines.length; i++) {
+      if (rx.test(lines[i]) || (pass && pass.length >= 4 && lines[i].includes(pass))) return { n: i + 1, text: lines[i].replace(pass || '\u0000', '••••').slice(0, 90) };
+    }
+    return null;
+  }
+
+  // ---- notes for the current server ---------------------------------------
+  function fnActive() {
+    const d = fnLoad();
+    const host = fnHost();
+    let n = d.notes.find(x => x.id === d.active && x.host === host);
+    if (!n && host) n = d.notes.filter(x => x.host === host).sort((a, b) => b.updated - a.updated)[0];
+    return n || null;
+  }
+  function fnNew(title) {
+    const host = fnHost();
+    if (!host) { fnFocusServer(); showGlobalToast('Name the server first: notes are filed under it.'); return null; }
+    const d = fnLoad();
+    const v = targetState.vars || {};
+    const n = {
+      id: fnId(), host, ticket: trailMeta().caseId && trailMeta().caseId !== host ? trailMeta().caseId : '',
+      bmc: v.bmc && v.bmc !== DEFAULT_TARGET_VARS.bmc ? v.bmc : '',
+      title: title || '', md: '', created: Date.now(), updated: Date.now(), file: '', savedAt: 0
+    };
+    d.notes.push(n);
+    d.active = n.id;
+    fnSave(d);
+    return n;
+  }
+  function fnUpdate(id, patch) {
+    const d = fnLoad();
+    const n = d.notes.find(x => x.id === id);
+    if (!n) return null;
+    Object.assign(n, patch, { updated: Date.now() });
+    d.active = id;
+    fnSave(d);
+    return n;
+  }
+
+  async function fnWrite(fromGesture) {
+    const n = fnActive();
+    if (!n || !n.md.trim() && !n.title.trim()) return;
+    const secret = fnSecretLine(`${n.title}\n${n.md}`);
+    fnRenderStatus(secret);
+    if (secret) return;
+    if (!(await fnEnsureDir(fromGesture))) { fnRenderStatus(null); return; }
+    try {
+      const hostDir = await fnDir.getDirectoryHandle(fnSafeName(n.host), { create: true });
+      const name = fnFileName(n);
+      const fh = await hostDir.getFileHandle(name, { create: true });
+      const w = await fh.createWritable();
+      await w.write(fnFileText(n));
+      await w.close();
+      // The title changed since the last save: drop the file this note wrote before.
+      if (n.file && n.file !== name) { try { await hostDir.removeEntry(n.file); } catch (e) { /* already gone */ } }
+      // One host note per server, created once and never overwritten, so [[host]] links resolve in Obsidian.
+      const hostNote = `${fnSafeName(n.host)}.md`;
+      try { await hostDir.getFileHandle(hostNote); } catch (e) {
+        const hw = await (await hostDir.getFileHandle(hostNote, { create: true })).createWritable();
+        await hw.write(`---\ntitle: ${fnYaml(n.host)}\ntype: host\n${n.bmc ? `bmc: ${fnYaml(n.bmc)}\n` : ''}tags:\n  - host\n---\n\n# ${n.host}\n\nServer notes. Every field note about this server links here as [[${n.host}]], so they show up under Backlinks.\n`);
+        await hw.close();
+      }
+      const d = fnLoad();
+      const cur = d.notes.find(x => x.id === n.id);
+      if (cur) { cur.file = name; cur.savedAt = Date.now(); fnSave(d); }
+      fnRenderStatus(null);
+      fnRenderList();
+    } catch (e) {
+      fnDirOk = false;
+      fnRenderFolder();
+      fnRenderStatus(null, `Not saved to the folder: ${e.message}`);
+    }
+  }
+
+  function fnDownload() {
+    const n = fnActive();
+    if (!n) return;
+    const secret = fnSecretLine(`${n.title}\n${n.md}`);
+    if (secret) { fnRenderStatus(secret); return; }
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([fnFileText(n)], { type: 'text/markdown' }));
+    a.download = fnFileName(n);
+    document.body.appendChild(a); a.click();
+    setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+    showGlobalToast(`Downloaded ${fnFileName(n)}. It belongs in cases/${fnSafeName(n.host)}/.`);
+  }
+
+  // Notes for this server that are on disk but not in this browser (written elsewhere, or by hand).
+  async function fnDiskOnly() {
+    const host = fnHost();
+    if (!host || !fnDir || !fnDirOk) return [];
+    const known = new Set(fnLoad().notes.filter(x => x.host === host).map(x => x.file));
+    const out = [];
+    try {
+      const hostDir = await fnDir.getDirectoryHandle(fnSafeName(host));
+      for await (const [name, h] of hostDir.entries()) {
+        if (h.kind === 'file' && /\.md$/.test(name) && name !== `${fnSafeName(host)}.md` && !known.has(name)) out.push(name);
+      }
+    } catch (e) { /* no folder for this server yet */ }
+    return out.sort().reverse();
+  }
+  async function fnImport(name) {
+    if (!(await fnEnsureDir(true))) return;
+    try {
+      const host = fnHost();
+      const file = await (await (await fnDir.getDirectoryHandle(fnSafeName(host))).getFileHandle(name)).getFile();
+      const { props, body } = fnParseFile(await file.text());
+      const d = fnLoad();
+      const n = {
+        id: fnId(), host, ticket: props.ticket || '', bmc: props.bmc || '', title: props.title || name.replace(/^\d{4}-\d{2}-\d{2}\s*|\.md$/g, ''),
+        md: body, created: Date.parse(props.created) || file.lastModified, updated: Date.parse(props.updated) || file.lastModified, file: name, savedAt: file.lastModified
+      };
+      d.notes.push(n); d.active = n.id; fnSave(d);
+      fnOpen(n.id);
+    } catch (e) { showGlobalToast(`Could not open ${name}: ${e.message}`); }
+  }
+
+  // ---- UI -------------------------------------------------------------------
+  const FN_TOOLS = [
+    ['h1', 'H1', 'Heading 1  (# )'], ['h2', 'H2', 'Heading 2  (## )'], ['h3', 'H3', 'Heading 3  (### )'], ['|'],
+    ['bold', '<b>B</b>', 'Bold  (Ctrl+B)'], ['italic', '<i>I</i>', 'Italic  (Ctrl+I)'], ['code', '&lt;/&gt;', 'Inline code'], ['strike', '<s>S</s>', 'Strikethrough'], ['|'],
+    ['ul', '•', 'Bulleted list  (- )'], ['ol', '1.', 'Numbered list  (1. )'], ['task', '☐', 'Checklist  ([ ] )'], ['quote', '❝', 'Quote  (> )'], ['pre', '{ }', 'Code block  (```)'], ['link', '🔗', 'Link'], ['hr', '—', 'Divider'], ['|'],
+    ['log', '⏱ Log', 'Timestamped log line'], ['trail', '⧉ Commands', 'Insert the commands you copied (Case Trail)'], ['template', '▤ Template', 'Five-step troubleshooting outline']
+  ];
+
+  function fnMarkup() {
+    return `
+      <div class="fn-head">
+        <div class="fn-title"><h3>Field notes</h3><span>Write as you work. Markdown files per server, ready for Obsidian.</span></div>
+        <form class="fn-server" autocomplete="off">
+          <label>Server<input class="fn-host" spellcheck="false" placeholder="name this server…" /></label>
+          <label>Ticket<input class="fn-ticket" spellcheck="false" placeholder="INC-1234" /></label>
+          <span class="fn-bmc"></span>
+        </form>
+        <div class="fn-folder"></div>
+      </div>
+      <div class="fn-body">
+        <aside class="fn-side">
+          <button type="button" class="fn-new" data-fn="new">＋ New note</button>
+          <div class="fn-list" role="list"></div>
+          <button type="button" class="fn-all" data-fn="all"></button>
+        </aside>
+        <div class="fn-main">
+          <input class="fn-name" spellcheck="true" placeholder="Note title: what is this about?" aria-label="Note title" />
+          <div class="fn-toolbar" role="toolbar" aria-label="Formatting">${FN_TOOLS.map(t => t[0] === '|' ? '<span class="fn-sep"></span>' : `<button type="button" data-fx="${t[0]}" title="${t[2]}">${t[1]}</button>`).join('')}</div>
+          <div class="fn-linkpop" hidden><input placeholder="https://…  then Enter" aria-label="Link URL" /></div>
+          <div class="fn-editor" contenteditable="true" spellcheck="true" role="textbox" aria-multiline="true" aria-label="Note" data-placeholder="What happened, what you checked, what you changed. # heading, - list, [ ] checkbox, \`\`\` code all work as you type."></div>
+          <div class="fn-status" aria-live="polite"></div>
+          <div class="fn-actions">
+            <button type="button" class="fn-save" data-fn="save">💾 Save <kbd>Ctrl S</kbd></button>
+            <button type="button" data-fn="download">⬇ .md</button>
+            <button type="button" data-fn="copy">Copy Markdown</button>
+            <button type="button" data-fn="pin">📌 Pin to case</button>
+            <button type="button" class="fn-del" data-fn="delete">Delete…</button>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  function fnFocusServer() { const i = fnEl && fnEl.querySelector('.fn-host'); if (i) { i.scrollIntoView({ block: 'center' }); i.focus(); } }
+
+  function fnRenderFolder() {
+    if (!fnEl) return;
+    const box = fnEl.querySelector('.fn-folder');
+    if (!window.showDirectoryPicker) { box.innerHTML = '<span class="fn-dot off"></span>Browser drafts only <small>(this browser cannot write folders; use ⬇ .md)</small>'; return; }
+    box.innerHTML = fnDir
+      ? `<span class="fn-dot ${fnDirOk ? 'on' : 'warn'}"></span><span>📁 <b>${escapeHtml(fnDir.name)}</b>/${escapeHtml(fnSafeName(fnHost() || '<server>'))}/</span>${fnDirOk ? '' : '<button type="button" data-fn="grant">Allow access</button>'}<button type="button" data-fn="folder">Change</button>`
+      : '<span class="fn-dot off"></span><span>Drafts in this browser</span><button type="button" class="fn-connect" data-fn="folder">📁 Connect cases/ or vault folder</button>';
+  }
+
+  function fnRenderStatus(secret, error) {
+    if (!fnEl) return;
+    const st = fnEl.querySelector('.fn-status');
+    const n = fnActive();
+    const save = fnEl.querySelector('.fn-save');
+    if (save) save.classList.toggle('is-blocked', !!secret);
+    if (secret) {
+      st.className = 'fn-status is-secret';
+      st.innerHTML = `⚠ Line ${secret.n} looks like a credential: <code>${escapeHtml(secret.text)}</code> Not written to disk. Remove it (use <code>$BMC_PASS</code> or <code>-E</code> instead).`;
+      return;
+    }
+    if (error) { st.className = 'fn-status is-error'; st.textContent = error; return; }
+    st.className = 'fn-status';
+    if (!n) { st.textContent = fnHost() ? 'Start a note for this server.' : 'Name the server you are working on to start.'; return; }
+    const words = (n.md.match(/\S+/g) || []).length;
+    const where = n.savedAt && fnDir ? `Saved ${lpAgo(n.savedAt)} to ${escapeHtml(fnDir.name)}/${escapeHtml(fnSafeName(n.host))}/${escapeHtml(n.file)}` : 'Draft kept in this browser';
+    st.innerHTML = `${where}${n.savedAt && n.updated > n.savedAt + 1500 ? ' · <b>edited since</b>' : ''} · ${words} words`;
+  }
+
+  function fnRenderList() {
+    if (!fnEl) return;
+    const host = fnHost();
+    const d = fnLoad();
+    const cur = fnActive();
+    const mine = d.notes.filter(n => fnShowAll || n.host === host).sort((a, b) => b.updated - a.updated);
+    const list = fnEl.querySelector('.fn-list');
+    list.innerHTML = mine.length ? mine.map(n => `<button type="button" role="listitem" class="fn-item ${cur && n.id === cur.id ? 'is-on' : ''}" data-fn-open="${n.id}">
+        <b>${escapeHtml(n.title || 'Untitled')}</b><small>${fnShowAll ? `${escapeHtml(n.host)} · ` : ''}${escapeHtml(fnLocalIso(n.created).slice(0, 10))}${n.savedAt ? ' · 💾' : ''}</small></button>`).join('')
+      : `<p class="fn-empty">${host ? 'No notes for this server yet.' : 'No server named yet.'}</p>`;
+    const others = d.notes.filter(n => n.host !== host).length;
+    const all = fnEl.querySelector('.fn-all');
+    all.hidden = !others && !fnShowAll;
+    all.textContent = fnShowAll ? 'Only this server' : `All servers (${d.notes.length})`;
+    fnDiskOnly().then(files => {
+      if (!files.length || fnShowAll) return;
+      list.insertAdjacentHTML('beforeend', `<div class="fn-disk"><span>In the folder</span>${files.map(f => `<button type="button" data-fn-import="${escapeHtml(f)}">${escapeHtml(f.replace(/\.md$/, ''))}</button>`).join('')}</div>`);
+    });
+  }
+
+  function fnRenderHead() {
+    if (!fnEl) return;
+    const host = fnHost();
+    const hi = fnEl.querySelector('.fn-host');
+    if (document.activeElement !== hi) hi.value = host;
+    const ti = fnEl.querySelector('.fn-ticket');
+    const meta = trailMeta();
+    if (document.activeElement !== ti) ti.value = meta.caseId && meta.caseId !== host ? meta.caseId : '';
+    const v = targetState.vars || {};
+    fnEl.querySelector('.fn-bmc').innerHTML = v.bmc && v.bmc !== DEFAULT_TARGET_VARS.bmc ? `BMC <code>${escapeHtml(v.bmc)}</code>` : '';
+  }
+
+  function fnOpen(id) {
+    const d = fnLoad();
+    if (id) { d.active = id; fnSave(d); }
+    const n = fnActive();
+    const ed = fnEl.querySelector('.fn-editor');
+    ed.innerHTML = n ? fnFromMd(n.md) : '';
+    ed.querySelectorAll('pre, code').forEach(el => { el.spellcheck = false; });
+    fnEl.querySelector('.fn-name').value = n ? n.title : '';
+    fnEl.classList.toggle('has-note', !!n);
+    const host = !!fnHost();
+    fnEl.classList.toggle('no-host', !host);
+    ed.contentEditable = host ? 'true' : 'false';
+    fnEl.querySelector('.fn-name').disabled = !host;
+    fnRenderHead();
+    fnRenderList();
+    fnRenderStatus(n ? fnSecretLine(`${n.title}\n${n.md}`) : null);
+  }
+
+  function fnRenderAll() {
+    if (!fnEl) return;
+    fnRenderFolder();
+    fnOpen();
+  }
+
+  // Store the editor as Markdown (every keystroke, debounced), then write the file.
+  function fnChanged() {
+    let n = fnActive();
+    if (!n) n = fnNew(fnEl.querySelector('.fn-name').value.trim());
+    if (!n) return;
+    const md = fnToMd(fnEl.querySelector('.fn-editor'));
+    fnUpdate(n.id, { md, title: fnEl.querySelector('.fn-name').value.trim() });
+    fnEl.classList.add('has-note');
+    clearTimeout(fnTimer);
+    fnTimer = setTimeout(() => { fnRenderStatus(fnSecretLine(`${fnActive().title}\n${md}`)); fnRenderList(); fnWrite(false); }, 1200);
+  }
+
+  // ---- editing helpers ---------------------------------------------------
+  function fnBlock() {
+    const sel = window.getSelection();
+    if (!sel.rangeCount) return null;
+    let n = sel.anchorNode;
+    const ed = fnEl.querySelector('.fn-editor');
+    while (n && n !== ed && !(n.nodeType === 1 && /^(P|DIV|H1|H2|H3|LI|PRE|BLOCKQUOTE)$/.test(n.tagName))) n = n.parentNode;
+    return n && n !== ed ? n : null;
+  }
+  // Inserted blocks (log lines, commands, template) start on their own line.
+  function fnFreshLine() {
+    const b = fnBlock();
+    if (b && b.textContent.trim()) {
+      const sel = window.getSelection();
+      const r = document.createRange(); r.selectNodeContents(b); r.collapse(false);
+      sel.removeAllRanges(); sel.addRange(r);
+      document.execCommand('insertParagraph');
+    }
+  }
+  function fnInsertHtml(html) {
+    fnEl.querySelector('.fn-editor').focus();
+    fnFreshLine();
+    document.execCommand('insertHTML', false, html);
+    fnNormalize();
+    fnChanged();
+  }
+  function fnFx(fx) {
+    const ed = fnEl.querySelector('.fn-editor');
+    ed.focus();
+    const sel = window.getSelection();
+    const exec = (c, v) => document.execCommand(c, false, v);
+    if (/^h[123]$/.test(fx)) { const b = fnBlock(); exec('formatBlock', b && b.tagName === fx.toUpperCase() ? 'p' : fx); }
+    else if (fx === 'bold' || fx === 'italic') exec(fx);
+    else if (fx === 'strike') exec('strikeThrough');
+    else if (fx === 'code') { const t = sel.toString(); exec('insertHTML', `<code>${escapeHtml(t || 'code')}</code>&#8203;`); }
+    else if (fx === 'ul') exec('insertUnorderedList');
+    else if (fx === 'ol') exec('insertOrderedList');
+    else if (fx === 'task') {
+      let li = fnBlock();
+      if (!li || li.tagName !== 'LI') { exec('insertUnorderedList'); li = fnBlock(); }
+      if (li && li.tagName === 'LI') { li.classList.toggle('fn-task'); if (li.classList.contains('fn-task')) li.dataset.done = li.dataset.done || '0'; }
+    }
+    else if (fx === 'quote') { const b = fnBlock(); exec('formatBlock', b && b.closest('blockquote') ? 'p' : 'blockquote'); }
+    else if (fx === 'pre') { const t = sel.toString(); if (t) exec('insertHTML', `<pre>${escapeHtml(t)}\n</pre><p><br></p>`); else exec('formatBlock', 'pre'); }
+    else if (fx === 'hr') exec('insertHTML', '<hr><p><br></p>');
+    else if (fx === 'link') return fnLinkPop();
+    else if (fx === 'log') { const d = new Date(); fnFreshLine(); exec('insertHTML', `<strong>${pad2(d.getHours())}:${pad2(d.getMinutes())}</strong>&nbsp;`); }
+    else if (fx === 'trail') return fnInsertTrail();
+    else if (fx === 'template') return fnInsertTemplate();
+    fnNormalize();
+    fnChanged();
+  }
+
+  let fnSavedRange = null;
+  function fnLinkPop() {
+    const sel = window.getSelection();
+    fnSavedRange = sel.rangeCount ? sel.getRangeAt(0).cloneRange() : null;
+    const pop = fnEl.querySelector('.fn-linkpop');
+    pop.hidden = false;
+    const inp = pop.querySelector('input');
+    inp.value = '';
+    inp.focus();
+  }
+  function fnLinkApply(url) {
+    const pop = fnEl.querySelector('.fn-linkpop');
+    pop.hidden = true;
+    const ed = fnEl.querySelector('.fn-editor');
+    ed.focus();
+    if (fnSavedRange) { const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(fnSavedRange); }
+    if (!url) return;
+    const safe = /^(https?:|mailto:|\.{0,2}\/)/i.test(url) ? url : `https://${url}`;
+    if (window.getSelection().toString()) document.execCommand('createLink', false, safe);
+    else document.execCommand('insertHTML', false, `<a href="${escapeHtml(safe)}">${escapeHtml(url)}</a>&nbsp;`);
+    fnChanged();
+  }
+
+  function fnInsertTrail() {
+    const n = fnActive();
+    const since = n ? n.created - 10 * 60000 : 0;
+    let list = readTrail().filter(e => e.t >= since);
+    if (!list.length) list = readTrail().slice(-5);
+    if (!list.length) { showGlobalToast('The Case Trail is empty: copy or run a command first and it lands here.'); return; }
+    const html = list.map(e => {
+      const d = new Date(e.t);
+      return `<p><strong>${pad2(d.getHours())}:${pad2(d.getMinutes())}</strong> ${escapeHtml(e.sheet || '')}${e.note ? ` · ${escapeHtml(e.note)}` : ''}</p><pre data-lang="bash">${escapeHtml(e.cmd)}\n</pre>`;
+    }).join('') + '<p><br></p>';
+    fnInsertHtml(html);
+    showGlobalToast(`Inserted ${list.length} command${list.length === 1 ? '' : 's'} from the Case Trail (passwords already masked).`);
+  }
+
+  function fnInsertTemplate() {
+    const v = targetState.vars || {};
+    const host = fnHost() || '<server>';
+    fnInsertHtml(`<h2>Symptom</h2><p>What was reported, by whom, and when.</p>
+      <h2>Identify</h2><ul><li class="fn-task" data-done="0">Server <code>${escapeHtml(host)}</code>${v.bmc && v.bmc !== DEFAULT_TARGET_VARS.bmc ? `, BMC <code>${escapeHtml(v.bmc)}</code>` : ''}</li><li class="fn-task" data-done="0">Drained in Slurm / Kubernetes before anything intrusive</li><li class="fn-task" data-done="0">Platform and serial (<code>dmidecode -t system</code>)</li></ul>
+      <h2>Evidence</h2><p>dmesg, SEL, vendor telemetry. Paste what mattered.</p>
+      <h2>Correlation</h2><p>Logical ID ↔ PCIe BDF ↔ physical slot. Software, physical, or failed hardware?</p>
+      <h2>Physical isolation</h2><ul><li class="fn-task" data-done="0">Clean / reseat / A-B swap</li></ul>
+      <h2>Resolution</h2><p>What fixed it, or the RMA it needs.</p><p><br></p>`);
+  }
+
+  // Markdown typed at the start of a line turns into the block it describes.
+  function fnShortcut(e) {
+    const b = fnBlock();
+    if (!b || b.tagName === 'PRE') return false;
+    const sel = window.getSelection();
+    const r = sel.getRangeAt(0);
+    const pre = document.createRange();
+    pre.selectNodeContents(b);
+    pre.setEnd(r.startContainer, r.startOffset);
+    const typed = pre.toString();
+    const map = { '#': 'h1', '##': 'h2', '###': 'h3', '-': 'ul', '*': 'ul', '1.': 'ol', '>': 'quote', '[]': 'task', '[ ]': 'task', '```': 'pre' };
+    const fx = map[typed];
+    if (!fx || (e.key === 'Enter') !== (fx === 'pre')) return false;
+    e.preventDefault();
+    sel.removeAllRanges(); sel.addRange(pre);
+    document.execCommand('delete');
+    if (fx === 'task') { document.execCommand('insertUnorderedList'); const li = fnBlock(); if (li && li.tagName === 'LI') { li.classList.add('fn-task'); li.dataset.done = '0'; } }
+    else if (/^h/.test(fx)) document.execCommand('formatBlock', false, fx);
+    else if (fx === 'quote') document.execCommand('formatBlock', false, 'blockquote');
+    else if (fx === 'pre') document.execCommand('formatBlock', false, 'pre');
+    else document.execCommand(fx === 'ul' ? 'insertUnorderedList' : 'insertOrderedList');
+    fnChanged();
+    return true;
+  }
+
+  // Chrome leaves the first line as bare text and nests new lists inside <p>; keep one block per line.
+  function fnNormalize() {
+    const ed = fnEl.querySelector('.fn-editor');
+    ed.querySelectorAll('pre, code').forEach(el => { el.spellcheck = false; });
+    ed.querySelectorAll('p').forEach(p => {
+      if (p.querySelector(':scope > ul, :scope > ol, :scope > pre, :scope > h1, :scope > h2, :scope > h3, :scope > blockquote, :scope > hr')) p.replaceWith(...p.childNodes);
+    });
+  }
+  function fnWrapBareLine() {
+    const ed = fnEl.querySelector('.fn-editor');
+    const sel = window.getSelection();
+    if (!sel.rangeCount) return;
+    const a = sel.anchorNode;
+    if (a === ed || (a && a.parentNode === ed && a.nodeType === 3)) document.execCommand('formatBlock', false, 'p');
+  }
+  // **bold**, *italic* and `code` become formatting when the space after them is typed.
+  function fnInlineShortcut(e) {
+    const sel = window.getSelection();
+    if (!sel.rangeCount || !sel.isCollapsed) return false;
+    const node = sel.anchorNode;
+    if (!node || node.nodeType !== 3 || (node.parentNode && node.parentNode.closest && node.parentNode.closest('pre, code'))) return false;
+    const before = node.nodeValue.slice(0, sel.anchorOffset);
+    const m = before.match(/\*\*([^*\n]+)\*\*$/) || before.match(/(?:^|[^*])\*([^*\s][^*\n]*)\*$/) || before.match(/`([^`\n]+)`$/);
+    if (!m) return false;
+    const whole = m[0].replace(/^[^*`]/, '');
+    const tag = whole.startsWith('**') ? 'strong' : whole.startsWith('`') ? 'code' : 'em';
+    e.preventDefault();
+    const r = document.createRange();
+    r.setStart(node, sel.anchorOffset - whole.length);
+    r.setEnd(node, sel.anchorOffset);
+    sel.removeAllRanges(); sel.addRange(r);
+    document.execCommand('insertHTML', false, `<${tag}>${escapeHtml(m[1])}</${tag}>&nbsp;`);
+    fnChanged();
+    return true;
+  }
+
+  function fnEditorKeys(e) {
+    if (e.key.length === 1 || e.key === 'Enter') fnWrapBareLine();
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') { e.preventDefault(); fnChanged(); clearTimeout(fnTimer); fnWrite(true).then(() => showGlobalToast(fnDirOk ? 'Saved.' : 'Draft kept. Connect a folder to write the .md file.')); return; }
+    if (e.key === ' ' || e.key === 'Enter') { if (fnShortcut(e)) { fnNormalize(); return; } }
+    if (e.key === ' ' && fnInlineShortcut(e)) return;
+    const b = fnBlock();
+    if (e.key === 'Enter' && b && b.tagName === 'PRE' && !e.shiftKey) {
+      e.preventDefault();
+      const sel = window.getSelection();
+      const r = sel.getRangeAt(0);
+      r.deleteContents();
+      const head = document.createRange(); head.selectNodeContents(b); head.setEnd(r.startContainer, r.startOffset);
+      const tail = document.createRange(); tail.selectNodeContents(b); tail.setStart(r.endContainer, r.endOffset);
+      if (/(^|\n)$/.test(head.toString()) && !tail.toString().trim()) {
+        // Enter on an empty last line leaves the code block.
+        b.textContent = b.textContent.replace(/\n+$/, '') + '\n';
+        const p = document.createElement('p'); p.innerHTML = '<br>';
+        b.after(p);
+        const nr = document.createRange(); nr.setStart(p, 0); nr.collapse(true);
+        sel.removeAllRanges(); sel.addRange(nr);
+      } else {
+        // A plain newline text node (Chrome's insertText may add a <br>, which breaks the check above).
+        const t = document.createTextNode('\n');
+        r.insertNode(t);
+        // A trailing newline only renders as a new line when something follows it.
+        if (!t.nextSibling || (t.nextSibling.nodeType === 3 && !t.nextSibling.nodeValue)) t.after(document.createTextNode('\n'));
+        const nr = document.createRange(); nr.setStartAfter(t); nr.collapse(true);
+        sel.removeAllRanges(); sel.addRange(nr);
+      }
+      fnChanged();
+      return;
+    }
+    if (e.key === 'Tab') {
+      e.preventDefault();
+      if (b && b.tagName === 'LI') document.execCommand(e.shiftKey ? 'outdent' : 'indent');
+      else document.execCommand('insertText', false, '  ');
+      fnChanged();
+    }
+  }
+
+  function fnSetServer(raw) {
+    const name = cleanNodeName(raw);
+    if (!name || name === fnHost()) { fnRenderHead(); return; }
+    clearTimeout(fnTimer);
+    if (fnActive()) fnWrite(false);
+    switchNode(name);   // the whole workspace follows: targets, trail, case file, runbooks
+  }
+
+  function openFieldNotes() {
+    const lp = document.getElementById('launchpad');
+    if (fnEl && lp && !lp.hidden && fnEl.isConnected) {
+      fnEl.scrollIntoView({ block: 'start', behavior: 'smooth' });
+      const target = fnHost() ? fnEl.querySelector(fnActive() ? '.fn-editor' : '.fn-name') : fnEl.querySelector('.fn-host');
+      setTimeout(() => target && target.focus({ preventScroll: true }), 350);
+      return;
+    }
+    if (window.portableOpenSheet) { window.portableOpenSheet('index.html', ''); setTimeout(openFieldNotes, 400); }
+    else window.location.href = 'index.html#field-notes';
+  }
+
+  function mountFieldNotes(lp) {
+    const slot = lp && lp.querySelector('.lp-notes-slot');
+    if (!slot) return;
+    if (!fnEl) {
+      fnEl = document.createElement('section');
+      fnEl.className = 'fn';
+      fnEl.id = 'field-notes';
+      fnEl.setAttribute('aria-label', 'Field notes');
+      fnEl.innerHTML = fnMarkup();
+      const ed = fnEl.querySelector('.fn-editor');
+      // New lines become <p>, not Chrome's default <div>.
+      ed.addEventListener('focus', () => { try { document.execCommand('defaultParagraphSeparator', false, 'p'); } catch (e) { /* older engines */ } });
+      ed.addEventListener('input', () => { fnNormalize(); fnChanged(); });
+      ed.addEventListener('keydown', fnEditorKeys);
+      ed.addEventListener('paste', (e) => {
+        // Plain text only: pasted web pages bring styles and markup that do not survive Markdown.
+        const t = e.clipboardData && e.clipboardData.getData('text/plain');
+        if (t == null) return;
+        e.preventDefault();
+        const b = fnBlock();
+        if (b && b.tagName === 'PRE') document.execCommand('insertText', false, t);
+        else if (/\n/.test(t) && /^\s*(\$ |sudo |[\w./-]+ -)/m.test(t) && t.split('\n').length > 1) document.execCommand('insertHTML', false, `<pre>${escapeHtml(t.replace(/\n$/, ''))}\n</pre><p><br></p>`);
+        else document.execCommand('insertText', false, t);
+        fnChanged();
+      });
+      ed.addEventListener('click', (e) => {
+        const li = e.target instanceof Element ? e.target.closest('li.fn-task') : null;
+        if (li && e.clientX - li.getBoundingClientRect().left < 22) { li.dataset.done = li.dataset.done === '1' ? '0' : '1'; fnChanged(); }
+      });
+      fnEl.querySelector('.fn-name').addEventListener('input', fnChanged);
+      fnEl.querySelector('.fn-name').addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); ed.focus(); } });
+      fnEl.querySelector('.fn-toolbar').addEventListener('mousedown', (e) => {
+        const b = e.target instanceof Element ? e.target.closest('[data-fx]') : null;
+        if (!b) return;
+        e.preventDefault();   // keep the selection in the editor
+        fnFx(b.dataset.fx);
+      });
+      fnEl.querySelector('.fn-linkpop input').addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') { e.preventDefault(); fnLinkApply(e.target.value.trim()); }
+        if (e.key === 'Escape') { e.preventDefault(); fnLinkApply(''); }
+      });
+      const server = fnEl.querySelector('.fn-server');
+      server.addEventListener('submit', (e) => { e.preventDefault(); fnSetServer(fnEl.querySelector('.fn-host').value); });
+      fnEl.querySelector('.fn-host').addEventListener('change', (e) => fnSetServer(e.target.value));
+      fnEl.querySelector('.fn-ticket').addEventListener('change', (e) => {
+        const t = e.target.value.trim();
+        saveTrailMeta({ caseId: t || fnHost() });
+        const cur = fnActive();
+        if (cur) fnUpdate(cur.id, { ticket: t });
+        fnWrite(false);
+      });
+      fnEl.addEventListener('click', async (e) => {
+        const el = e.target instanceof Element ? e.target : null;
+        if (!el) return;
+        const open = el.closest('[data-fn-open]');
+        if (open) return fnOpen(open.dataset.fnOpen);
+        const imp = el.closest('[data-fn-import]');
+        if (imp) return fnImport(imp.dataset.fnImport);
+        const b = el.closest('[data-fn]');
+        if (!b) return;
+        const a = b.dataset.fn;
+        if (a === 'new') { if (fnNew('')) { fnOpen(); fnEl.querySelector('.fn-name').focus(); } }
+        if (a === 'folder') fnPickDir();
+        if (a === 'grant') { if (await fnEnsureDir(true)) { showGlobalToast('Folder access allowed.'); fnWrite(false); fnRenderList(); } }
+        if (a === 'save') { fnChanged(); clearTimeout(fnTimer); await fnWrite(true); if (!fnSecretLine(`${(fnActive() || {}).title}\n${(fnActive() || {}).md}`)) showGlobalToast(fnDirOk ? 'Saved.' : 'Draft kept. Connect a folder to write the .md file.'); }
+        if (a === 'download') fnDownload();
+        if (a === 'copy') { const n = fnActive(); if (n) { copyVerbatim(fnFileText(n)); showGlobalToast('Copied the note as Markdown.'); } }
+        if (a === 'pin') { const n = fnActive(); if (n && n.md.trim()) casePin({ kind: 'Field note', title: n.title || 'Field note', sev: 'info', md: `### ${n.title || 'Field note'}\n\n${n.md}` }); }
+        if (a === 'all') { fnShowAll = !fnShowAll; fnRenderList(); }
+        if (a === 'delete') {
+          if (!b.dataset.armed) { b.dataset.armed = '1'; b.textContent = 'Click again: delete from this browser'; setTimeout(() => { delete b.dataset.armed; b.textContent = 'Delete…'; }, 4000); return; }
+          const d = fnLoad();
+          d.notes = d.notes.filter(x => x.id !== d.active);
+          d.active = null; fnSave(d);
+          showGlobalToast('Deleted from this browser. A file already saved to the folder is kept.');
+          fnOpen();
+        }
+      });
+      document.addEventListener('dc:node-changed', () => { fnShowAll = false; fnRenderAll(); });
+      window.addEventListener('storage', (e) => { if (e.key === FN_KEY && fnEl && !fnEl.contains(document.activeElement)) fnOpen(); });
+      fnRestoreDir();
+      fnRenderAll();
+    }
+    if (fnEl.parentNode !== slot) slot.appendChild(fnEl);
+  }
+
+  // Case file: write summary.md next to the notes (asks before replacing an existing one).
+  async function caseSaveToFolder(btn) {
+    if (!fnDir) { await fnPickDir(); if (!fnDir) return; }
+    if (!(await fnEnsureDir(true))) return;
+    const md = caseMarkdown() + '\n';
+    const secret = fnSecretLine(md);
+    if (secret) { showGlobalToast(`Line ${secret.n} of summary.md looks like a credential; not written.`); return; }
+    try {
+      const dir = await fnDir.getDirectoryHandle(fnSafeName(caseName()), { create: true });
+      let exists = true;
+      try { await dir.getFileHandle('summary.md'); } catch (e) { exists = false; }
+      if (exists && !btn.dataset.armed) { btn.dataset.armed = '1'; btn.textContent = 'summary.md exists: click again to replace'; setTimeout(() => { delete btn.dataset.armed; btn.textContent = '💾 Save to folder'; }, 5000); return; }
+      const w = await (await dir.getFileHandle('summary.md', { create: true })).createWritable();
+      await w.write(md); await w.close();
+      delete btn.dataset.armed; btn.textContent = '💾 Save to folder';
+      showGlobalToast(`Saved ${fnDir.name}/${fnSafeName(caseName())}/summary.md`);
+    } catch (e) { showGlobalToast(`Not saved: ${e.message}`); }
+  }
+
+  // -------------------------------------------------------------
   // SLIM HEADER TOOLBAR (desktop)
   // Nine equal-weight buttons wrapped the toolbar onto its own row, so the
   // header grew to 393px at 1440 wide and 490px at 1024. Four primary tools
   // stay visible; Compact, Theme, Manuals and the offline file move
   // into a More menu. Field Mode (phones) shows them all flat, as before.
   // -------------------------------------------------------------
-  const TOOLBAR_PRIMARY = ['global-search-btn', 'triage-modal-btn', 'kit-btn', 'trail-btn', 'console-btn'];
+  const TOOLBAR_PRIMARY = ['global-search-btn', 'triage-modal-btn', 'kit-btn', 'trail-btn', 'practice-btn', 'console-btn'];
 
   function initToolbar() {
     const actions = document.querySelector('.top-bar .header-actions');
@@ -7646,7 +9001,7 @@ ${rmaTrailSection()}#### Action Requested:
 
   function kitFileForKey(key) {
     const name = key.replace(KIT_KEY_RE, '$1');
-    if (name === 'linux_cs') return 'index.html';
+    if (name === 'linux_cs') return 'linux.html';
     if (name === 'portable') return null;   // ids only; resolved by id
     return `${name}.html`;
   }
@@ -8095,7 +9450,8 @@ ${rmaTrailSection()}#### Action Requested:
     const hidden = readStored(LP_HIDDEN_KEY) === '1';
     lp.classList.toggle('is-collapsed', hidden);
     if (hidden) {
-      lp.innerHTML = `<div class="lp-collapsed"><button type="button" data-lp="show">◆ Mission Control: decode an error, start a runbook, jump to a suite</button></div>`;
+      lp.innerHTML = `<div class="lp-collapsed"><button type="button" data-lp="show">◆ Mission Control: decode an error, start a runbook, jump to a suite</button></div><div class="lp-notes-slot"></div>`;
+      mountFieldNotes(lp);
       return;
     }
     const recents = readRecents().filter(r => r.file !== 'index.html').slice(0, 5);
@@ -8118,6 +9474,8 @@ ${rmaTrailSection()}#### Action Requested:
         <div class="lp-cockpit-slot"></div>
       </div>
 
+      <div class="lp-notes-slot"></div>
+
       <section class="lp-flow" aria-label="Incident flow"></section>
 
       ${(() => {
@@ -8128,6 +9486,8 @@ ${rmaTrailSection()}#### Action Requested:
           <div class="board-grid board-grid-compact">${nodes.slice(0, 4).map(d => boardCardHtml(d, true)).join('')}</div>
         </div>`;
       })()}
+
+      ${pracLaunchpadHtml()}
 
       <div class="lp-section">
         <div class="lp-section-head"><h3>Guided runbooks</h3><span>Safety → evidence → decision → physical isolation → RMA</span></div>
@@ -8157,6 +9517,7 @@ ${rmaTrailSection()}#### Action Requested:
     const input = lp.querySelector('#lp-omni-input');
     renderFlow(lp, true);
     renderCockpit(lp, true);
+    mountFieldNotes(lp);
     interceptOutputPaste(input);
     const preview = lp.querySelector('.lp-preview');
     const updatePreview = () => {
@@ -8212,7 +9573,7 @@ ${rmaTrailSection()}#### Action Requested:
         acts: [['runbook', runs[0] ? 'Resume runbook' : 'Guided runbooks'], ['atlas', 'Healthy ranges']] },
       { id: 'document', n: 5, title: 'Document', what: 'summary.md, RMA block, handoff.',
         done: /RMA filed|Resolved|Monitoring/.test(kase.status) || !!(kase.root || '').trim(), status: pins.length || trail.length ? `Case: ${kase.status} · ${pins.length} pinned` : 'Pin evidence as you go',
-        acts: [['case', `Case file${pins.length ? ` (${pins.length})` : ''}`], ['phone', 'To phone'], ['rma', 'RMA formatter']] }
+        acts: [['notes', 'Field notes'], ['case', `Case file${pins.length ? ` (${pins.length})` : ''}`], ['phone', 'To phone'], ['rma', 'RMA formatter']] }
     ];
     const next = stages.find(st => !st.done);
     stages.forEach(st => { st.state = st.done ? 'done' : st === next ? 'next' : 'todo'; });
@@ -8252,6 +9613,7 @@ ${rmaTrailSection()}#### Action Requested:
     if (a === 'runbook') { const r = flowState().runs[0]; return openRunbook(r ? r.rb.id : undefined); }
     if (a === 'atlas') return openHealthAtlas();
     if (a === 'case') return openCaseFile();
+    if (a === 'notes') return openFieldNotes();
     if (a === 'phone') return openPhone(caseMarkdown(), 'Case summary to your phone', caseName());
     if (a === 'rma') { openTriageModal(); setTimeout(() => { const t = [...document.querySelectorAll('.triage-modal-backdrop button, .triage-modal-backdrop [role=tab]')].find(x => /RMA Ticket/.test(x.textContent)); if (t) t.click(); }, 60); }
   }
