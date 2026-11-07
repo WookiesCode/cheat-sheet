@@ -53,6 +53,7 @@ Your targets carry across pages, and **Reset** puts them back to defaults.
 - **Switch front panel (▦ on switch sheets, or Ctrl+K → "front panel" / "cable check"):** two jobs that go wrong at the rack. **Find a port**: pick the switch model, type a port name the way the switch prints it (`Ethernet14`, `Et33`, `swp7`, `ib 1/14/2`), and the cage lights up on a drawing of the real front panel, with where it is ("1st column, row 3 of 4, directly below 2") and how that switch counts its ports. Layouts come from the vendors' own front-panel figures: Arista 7060DX5-64E, 7060PX5-64E, 7060DX5-32, 7060DX5-64S (2RU: 33 sits under 2), and NVIDIA QM9700/QM9790 (two NDR ports per cage); two generic patterns are labelled as patterns, not drawings. **Cable check**: paste the wiring manifest (CSV or spreadsheet rows: switch, port, host, nic) and the switch's LLDP output (Arista `show lldp neighbors`, SONiC `show lldp table`, NX-OS-style tables, or `lldpctl` blocks); every port is classed correct / wrong NIC / wrong server / swapped / in the wrong port / no neighbor / not in the manifest, painted on the panel, and turned into a tick-off fix list you can copy or pin to the case.
 - **Switch Rosetta (`Shift+R` on a switch sheet, or the Switch tab in the Rosetta):** the same task across Arista EOS, Cumulus NVUE, Cisco NX-OS, SONiC and NVIDIA Quantum MLNX-OS, plus the server end of the same link (`ethtool`, `lldpctl`, `ip`, using your Rack Targets `$IFACE` and `$HCA`). Rows: version, port status, optics DOM, error counters, LLDP, find a MAC, PSUs/fans/temps, serials, logs, BGP or the IB Subnet Manager, and the risky ones (bounce a port, clear counters, save config) in red. Paste a switch's `show version` to detect the OS. Commands the vendor reference didn't confirm are marked **check on your release**; InfiniBand gaps (no LLDP, no MAC table) say what to use instead.
 - **BMC Rosetta (`Shift+R`):** one matrix for the dozen jobs every BMC does (power state, event log, sensors, power draw, serials, firmware, console, support bundle, shutdown, power cycle, clear SEL, BMC restart). Columns are ipmitool, FreeIPMI and Redfish plus your vendor's own CLI (racadm, iLOrest, OneCLI or SAA). Pick the vendor, or paste `dmidecode -s system-manufacturer` output to detect it; it's remembered per node and also read from the last Node checkup. Redfish paths use the vendor's IDs (Dell `System.Embedded.1`). Click a command to copy it with Rack Targets filled in; state-changing ones are marked red. **Compare all 7 tools** shows every column. It opens from the strip on BMC sheets, from Ctrl+K, and from the Identify step on the home page.
+- **Change plan (+ Change plan on any red ⚠ command, More → Change plan, Ctrl+K → "change plan", or Home → Isolate):** a method of procedure for state-changing work, one per node workspace. Adding a change fills in pre-checks (drain state, plus the SEL or service state before), verify steps and a rollback derived from the command itself: power off ↔ on, Slurm drain ↔ resume, cordon/drain ↔ uncordon, taint ↔ taint-, systemctl stop ↔ start, link down ↔ up, mdadm fail → re-add. Resets, reboots, data wipes and firmware say plainly that there is no undo. The change steps stay locked until every pre-check is ticked and an approval (who, and when) is recorded. Root-only steps are marked "needs root", never prefixed with sudo, and a password typed into a step is swapped for a variable. Export it as Markdown for the ticket, download a `.md`, or pin it to the case.
 - **Capture script (⚙ in My kit and the Case trail, or Ctrl+K → "capture"):** turns your kit, your copied commands or the current sheet into one bash script for the node. Only read-only commands go in: anything that changes state, never returns (`-f`, `watch`) or has an unfilled `<placeholder>` is left out, with the reason shown. `sudo` becomes `sudo -n`, each command runs under `timeout` (default 2 min, or `TIMEOUT=` when you run it) with `pipefail`, and each output is saved as `cases/<case>/logs/<UTC time>/NN-name.txt` with the command, time, host and exit code, then tarred. Commands are written as quoted heredocs, so nothing in them is expanded or needs escaping, and passwords stay `$BMC_PASS`: the script checks the variables it needs before it starts. Run it with `bash capture-<case>.sh [case-name]`.
 - **My kit (★):** star a command on any sheet to bookmark it. My kit collects them from every sheet, with the current sheet's bookmarks first, and prints them as a pocket card.
 - **Manuals:** click **Manuals** or press `M` to search offline manuals by name, category or full text. Ubuntu 24.04 pages come first, and open-source projects fill the gaps. Vendor tools such as `nvidia-smi` aren't included because of their licenses. Keep `man-pages-data.js` with the pages; the offline copy has them built in.
@@ -140,20 +141,7 @@ On screens wider than 768px, the header uses three short lines:
 2. **Suite nav** on one line. It tightens until it fits: carets go first, then logos.
 3. **Rack Targets** on one line, faded at the edge if it overflows.
 
-At 1280×800 the header ends at 141px instead of 313px. The sheet's tagline is now the title's tooltip. Phones keep Field Mode exactly as before.
-
-## To phone (QR handoff, offline)
-
-Move text from this screen to your phone without a network:
-
-- **One command:** hover it and click **📱** (or press `p` in keyboard mode). Rack Targets are filled in, and Fleet fan-out is applied if it's on.
-- **Ticket notes:** **📱 To phone** in the Case Trail. Also in My kit, the Output Analyzer and Compare nodes, plus Ctrl+K → "phone".
-
-Point the phone camera at the code, tap the text, then Copy.
-
-- **Long text:** split into numbered pages (← → to flip).
-- **Full screen:** click the code to scan it from further away.
-- **Privacy:** codes are generated in the browser with no library or upload. The BMC password is never put in a code.
+At 1280×800 the header ends at 141px instead of 313px. The sheet's tagline is now the title's tooltip. Narrower windows keep the stacked header.
 
 ## Fleet results (which node is the odd one out?)
 
@@ -167,7 +155,7 @@ After a fan-out, paste what came back. Pasting multi-node output into the home b
   - **Errors only that group printed:** decoded, for example "Xid 79" or "Power supply fault".
   - **Column changes:** for one-line CSV.
 - **Unreachable nodes:** listed separately (ssh or IPMI session failures). Nodes in your Fleet list that never answered are flagged too.
-- **Follow-up:** **Compare in full →** opens the full node comparison, plus **Copy summary** and **📱 To phone**.
+- **Follow-up:** **Compare in full →** opens the full node comparison, plus **Copy summary**.
 
 ## Case file → summary.md
 
@@ -180,7 +168,7 @@ Open the case file from **📁 Case file** in the Trail drawer, Ctrl+K → "case
 - **Evidence:** every pin, with chips that copy a serial, part number or BDF found in it into the RMA block.
 - **A live `summary.md`:** a header table, then hypothesis, root cause, next action, a timeline merging pins and copied commands, the evidence, the commands run and an RMA block.
 
-**Download summary.md** to save it as `cases/<host>/summary.md`. You can also Copy it or send it with **📱 To phone**. **Close case…** clears the pins and notes and keeps the trail.
+**Download summary.md** to save it as `cases/<host>/summary.md`. You can also Copy it. **Close case…** clears the pins and notes and keeps the trail.
 
 ## Incident flow (home hub)
 
@@ -191,7 +179,7 @@ Under "What's broken?" the hub shows the team method from AGENTS.md §5 as five 
 | **Identify** | name or switch node, copy the drain check, Rack Targets |
 | **Collect** | paste a log, Incident timeline, Terminal |
 | **Correlate** | Node X-ray, Compare nodes, Fleet mode, Fleet results |
-| **Isolate** | guided runbooks, healthy ranges |
-| **Document** | Case file, To phone, RMA formatter |
+| **Isolate** | guided runbooks, Cable check, Change plan, healthy ranges |
+| **Document** | Field notes, Case file, RMA formatter |
 
 Each card shows live status for the current node, such as `gpu-node-12 · BMC …`, `4 commands run · 2 analyses pinned`, `Fleet on · ×16 nodes`, `GPU missing: 7/13` or `Case: RMA filed`. Finished steps tick green and the next step is highlighted. **+ New incident** starts a fresh node workspace.

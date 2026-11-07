@@ -495,7 +495,7 @@
   // command to a different BMC.
   // -------------------------------------------------------------
   const NODES_KEY = 'dc_nodes';
-  const NODE_DATA_KEYS = ['dc_target_vars', 'dc_case_trail', 'dc_case_trail_meta', 'dc_runbook_runs', 'dc_slot_values', 'dc_case_file', 'dc_node_vitals'];
+  const NODE_DATA_KEYS = ['dc_target_vars', 'dc_case_trail', 'dc_case_trail_meta', 'dc_runbook_runs', 'dc_slot_values', 'dc_case_file', 'dc_node_vitals', 'dc_change_plan'];
 
   function readNodes() {
     try {
@@ -2490,7 +2490,7 @@
         <div class="an-actions">
           <button type="button" class="an-primary" data-an="copy">Copy findings</button>
           <button type="button" data-an="pin" class="pin-btn" title="Add this report to the node's case file">📌 Pin to case</button>
-          <button type="button" data-an="phone" title="Findings as QR codes for your phone">📱 To phone</button>
+          
           ${rb ? `<button type="button" data-an="runbook" data-rb="${rb.id}">▶ ${escapeHtml(rb.title)} runbook</button>` : ''}
           ${r.sheet ? `<button type="button" data-an="sheet" data-sheet="${escapeHtml(r.sheet)}">Open ${escapeHtml(r.sheet.replace(/\.html$/, ''))} sheet →</button>` : ''}
           <button type="button" data-an="diff" title="Compare this output with the same command from a healthy node">⚖ Compare with a healthy node</button>
@@ -2553,7 +2553,6 @@
         if (act === 'decode') { closeAnalyzer(); openGlobalSearch(b.dataset.raw); }
         if (act === 'diff') { const t = input.value; closeAnalyzer(); openGoldenDiff(t); }
         if (act === 'pin' && anBackdrop._result) pinAnalysis(anBackdrop._result);
-        if (act === 'phone' && anBackdrop._result) openPhone(analysisMarkdown(anBackdrop._result), 'Findings to your phone', anBackdrop._result.title);
       });
       anBackdrop.addEventListener('keydown', (e) => { if (e.key === 'Escape') { e.stopPropagation(); closeAnalyzer(); } });
       anBackdrop._run = run;
@@ -2601,7 +2600,7 @@
   const KB_BOXES = '.cmd-code-box:not(.is-reference), .subcmd-row:not(.is-reference)';
   const kbTyping = el => !!el && (el.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName));
   function kbOverlayOpen() {
-    return document.body.style.overflow === 'hidden' || !!document.querySelector('#global-search-modal:not(.hidden), .triage-modal-backdrop:not(.hidden), .an-backdrop.show, .trail-drawer.open, .tour.show, .fd-sheet.show, .slot-pop.show, .node-pop.show, .kb-help.show, .hdr-more.open');
+    return document.body.style.overflow === 'hidden' || !!document.querySelector('#global-search-modal:not(.hidden), .triage-modal-backdrop:not(.hidden), .an-backdrop.show, .trail-drawer.open, .tour.show, .slot-pop.show, .node-pop.show, .kb-help.show, .hdr-more.open');
   }
 
   function kbEnhance() {
@@ -2681,7 +2680,7 @@
               ${row(['j'], 'Next command')}${row(['k'], 'Previous command')}${row(['J'], 'Next card')}${row(['K'], 'Previous card')}${row(['g'], 'First command')}${row(['G'], 'Last command')}${row(['Tab'], 'Every command is a tab stop too')}
             </ul></section>
             <section><h3>On the focused command</h3><ul>
-              ${row(['↵'], 'Copy (targets and values filled in)')}${row(['c'], 'Copy')}${row(['y'], 'Copy (yank)')}${row(['b'], 'Bookmark to My kit')}${row(['v'], 'Set its first value chip')}${row(['p'], 'Show it as a QR code for your phone')}
+              ${row(['↵'], 'Copy (targets and values filled in)')}${row(['c'], 'Copy')}${row(['y'], 'Copy (yank)')}${row(['b'], 'Bookmark to My kit')}${row(['v'], 'Set its first value chip')}
             </ul></section>
             <section><h3>Anywhere</h3><ul>
               ${row(['Ctrl', 'K'], 'Command Center: search, sheets, runbooks, actions, quick-set')}${row(['/'], 'Filter this sheet')}${row(['Esc'], 'Clear / close')}${row(['t'], 'Case trail')}${row(['s'], 'My kit')}${row(['q'], 'Practice: drill commands from memory')}${row(['e'], 'Explain a command you paste')}${row(['Shift', 'R'], 'BMC Rosetta: same task in every BMC tool')}${row(['n'], 'Node workspaces')}${row(['m'], 'Manuals')}${row(['?'], 'This sheet')}${row(['Ctrl', 'P'], 'Print')}
@@ -2740,7 +2739,6 @@
         if (btn) { e.preventDefault(); btn.click(); showGlobalToast(btn.classList.contains('bookmarked') || btn.classList.contains('active') ? 'Saved to My kit.' : 'Bookmark toggled (My kit).'); box.focus({ preventScroll: true }); }
         return;
       }
-      if (k === 'p' && box) { e.preventDefault(); phoneCommand(box); return; }
       if (k === 'v' && box) { const chip = box.querySelector('.slot[data-slot]'); if (chip) { e.preventDefault(); openSlotEditor(chip); } return; }
       if (k === 't') { e.preventDefault(); return openTrail(); }
       if (k === 's') { e.preventDefault(); return openKit(); }
@@ -2986,7 +2984,7 @@
   // node chip, Ctrl+K quick-sets, runbooks in a modal tab. Of eight checked, the
   // home page mentioned two. The tour spotlights the real controls one at a
   // time, with a "Try it" that performs the action. Steps whose control is not
-  // on this page (or not visible on a phone) are skipped.
+  // on this page (or not visible) are skipped.
   // -------------------------------------------------------------
   const TOUR_SEEN_KEY = 'dc_tour_seen';
   // Bumped when the tour gains steps: anyone who saw an older one is offered "What's new" (the isNew steps).
@@ -2998,8 +2996,8 @@
       try: { label: 'Try an Xid 79 line', run: () => { const i = document.getElementById('lp-omni-input'); if (i) { i.value = 'NVRM: Xid (PCI:0000:8a:00): 79, pid=48213, name=python, GPU has fallen off the bus.'; i.dispatchEvent(new Event('input')); } } } },
     { target: '.lp-cockpit', isNew: true, title: 'This node, at a glance', body: 'The cockpit keeps the latest readings for the node you are on: checkup score, a mini GPU tray with NIC lights, the top problems and the terminal link, with how old each reading is. It follows the node workspace, so switching nodes switches the cockpit. Click the ring or the tray to reopen the full report.' },
     { target: '.lp-flow', isNew: true, title: 'Your incident, step by step', body: 'Identify → Collect → Correlate → Isolate → Document: the team method, each step holding its tools. The cards follow the current node and tick green as you name it, run commands, compare, work a runbook and file the case; the next step is highlighted.' },
-    { target: '.node-chip, [data-fd="targets"]', title: 'One workspace per machine', body: 'Name the node you are on. Its targets, Case Trail, pinned evidence and runbook progress stay with it, so switching to the next node is one click and nothing leaks between tickets.' },
-    { target: '.target-summary, .target-inputs-row, [data-fd="targets"]', title: 'Your targets go into every command', body: 'BMC, interface, HCA, disk and GPU are filled in when you copy or send a command. Dashed chips inside commands are those values: click one to change it. The BMC password is never stored. Red-tagged commands change state and need a drained node and approval.' },
+    { target: '.node-chip', title: 'One workspace per machine', body: 'Name the node you are on. Its targets, Case Trail, pinned evidence and runbook progress stay with it, so switching to the next node is one click and nothing leaks between tickets.' },
+    { target: '.target-summary, .target-inputs-row', title: 'Your targets go into every command', body: 'BMC, interface, HCA, disk and GPU are filled in when you copy or send a command. Dashed chips inside commands are those values: click one to change it. The BMC password is never stored. Red-tagged commands change state and need a drained node and approval.' },
     { target: '#console-btn, .con-cbar', center: true, isNew: true, title: 'A real terminal under every sheet', body: 'Ctrl+` opens a shell on this jumpbox (start python3 term-bridge.py once and paste its token). Hover a read-only command and press ▶ Run: it runs and the output appears right under it, like a notebook, with Copy, 📌 Pin and the ✦ tool that can read it. ⏎ Send types any command into the dock instead; state-changing ones ask first.',
       try: { label: 'Open the terminal', run: () => { endTour(); toggleConsole(true); } } },
     { target: '[data-lp="checkup"], [data-flow="checkup"]', center: true, isNew: true, title: 'Node checkup: the whole node in one click', body: 'One read-only sweep through the terminal (no root): scheduler drain state, GPUs, kernel errors, memory ECC, InfiniBand ports, NVMe, failed services and full disks, scored in a single report. Every red row opens the tool or runbook that explains it, and the report pins to the case.',
@@ -3008,15 +3006,15 @@
       try: { label: 'Watch a demo tray heat up', run: () => { endTour(); openXray(XR_SAMPLE); xrLiveStart(true); } } },
     { target: '[data-flow="diff"], .fleet-chip', center: true, isNew: true, title: 'One node, or the whole rack?', body: 'Compare nodes puts a suspect next to a known-good twin and shows only real differences (firmware, link width, missing devices), not serials and temperatures. Fleet mode fans any command out over pdsh / clush; paste what comes back and Fleet results groups the nodes and points at the odd one out.',
       try: { label: 'Try Fleet results with 12 nodes', run: () => { endTour(); openFleetResults(FR_SAMPLE); } } },
-    { target: '.hdr-search-pill, #global-search-btn, [data-fd="search"]', title: 'One search for everything', body: 'Ctrl+K, / or the search pill: search 1,500 commands, open any sheet or runbook, run actions (> lists them), switch themes, or quick-set values: "gpu 3", "hca mlx5_4", "node gpu-node-08".',
+    { target: '.hdr-search-pill, #global-search-btn', title: 'One search for everything', body: 'Ctrl+K, / or the search pill: search 1,500 commands, open any sheet or runbook, run actions (> lists them), switch themes, or quick-set values: "gpu 3", "hca mlx5_4", "node gpu-node-08".',
       try: { label: 'Open Ctrl+K with "gpu 3"', run: () => { endTour(); openGlobalSearch('gpu 3'); } } },
-    { target: '#triage-modal-btn, [data-fd="triage"]', isNew: true, title: 'Runbooks that run themselves', body: 'Step-by-step runs of the team playbooks: safety, evidence, decisions, physical isolation. With the terminal connected, ▶ Run executes a step, shows its output under it, ticks it and suggests the finding; ▶ Run all safe steps does the whole evidence collection. Gates, state changes and live views stay manual, and intrusive steps stay locked until you confirm the drain. The verdict and findings fill the RMA ticket.',
+    { target: '#triage-modal-btn', isNew: true, title: 'Runbooks that run themselves', body: 'Step-by-step runs of the team playbooks: safety, evidence, decisions, physical isolation. With the terminal connected, ▶ Run executes a step, shows its output under it, ticks it and suggests the finding; ▶ Run all safe steps does the whole evidence collection. Gates, state changes and live views stay manual, and intrusive steps stay locked until you confirm the drain. The verdict and findings fill the RMA ticket.',
       try: { label: 'Open the runbooks', run: () => { endTour(); openRunbook(); } } },
-    { target: '#trail-btn, [data-fd="more"]', center: true, isNew: true, title: 'Pin evidence, get summary.md', body: 'Every command you copy or send lands in the Case Trail. Every result (decoded error, analyzer report, X-ray, comparison, fleet board) has 📌 Pin. The Case file turns pins and trail into cases/<host>/summary.md with timeline, root cause and a filled RMA block, and 📱 To phone hands any of it over as QR codes, no network needed.',
+    { target: '#trail-btn', center: true, isNew: true, title: 'Pin evidence, get summary.md', body: 'Every command you copy or send lands in the Case Trail. Every result (decoded error, analyzer report, X-ray, comparison, fleet board) has 📌 Pin. The Case file turns pins and trail into cases/<host>/summary.md with timeline, root cause and a filled RMA block.',
       try: { label: 'Open the case file', run: () => { endTour(); openCaseFile(); } } },
     { target: '.lp-board, .lp-runbooks', title: 'Your nodes, worst first', body: 'The home page shows every node workspace with its verdict and next steps. The Shift board turns them into one handoff for the next shift.',
       try: { label: 'Open the Shift board', run: () => { endTour(); openBoard(); } } },
-    { target: '.hdr-more-btn, [data-fd="more"]', title: 'Replay this anytime', body: 'My kit (★) collects bookmarked commands into a printable pocket card. Themes, Manuals and the offline 1-file copy live under More. j/k move between commands, Enter copies, ? lists every shortcut. Ctrl+K → "tour" or "what’s new" brings this back.' }
+    { target: '.hdr-more-btn', title: 'Replay this anytime', body: 'My kit (★) collects bookmarked commands into a printable pocket card. Themes, Manuals and the offline 1-file copy live under More. j/k move between commands, Enter copies, ? lists every shortcut. Ctrl+K → "tour" or "what’s new" brings this back.' }
   ];
   const tourSeenVersion = () => { try { return localStorage.getItem(TOUR_SEEN_KEY); } catch (e) { return null; } };
   const tourMarkSeen = () => { try { localStorage.setItem(TOUR_SEEN_KEY, TOUR_VERSION); } catch (e) {} };
@@ -3033,8 +3031,8 @@
       for (const el of document.querySelectorAll(sel)) {
         const r = el.getBoundingClientRect();
         if (el.offsetParent === null || !r.width || !r.height) continue;
-        // On phones the toolbar lives in a closed Field Mode panel: present, sized, but not on screen.
-        if (el.closest('.fd-sheet:not(.show), .hdr-more:not(.open) .hdr-more-menu')) continue;
+        // Buttons inside the closed More menu are present and sized, but not on screen.
+        if (el.closest('.hdr-more:not(.open) .hdr-more-menu')) continue;
         if (el.checkVisibility && !el.checkVisibility({ visibilityProperty: true, opacityProperty: true })) continue;
         return el;
       }
@@ -3240,8 +3238,6 @@
       { icon: '★', label: 'Open My kit', sub: `${readKit().length} bookmarked commands from every sheet`, kw: 'kit bookmarks saved favorites starred mine', run: openKit },
       { icon: '🖨', label: 'Print pocket card', sub: 'Your kit as a two-column printable card', kw: 'print kit pocket card laminate crash cart', run: () => kitPrint(readKit()) },
       { icon: '📁', label: `Open case file (${readCase().evidence.length} pinned)`, sub: 'Pinned evidence + Case Trail → cases/<host>/summary.md with timeline, root cause and RMA block', kw: 'case file summary summary.md evidence pinned rma root cause hypothesis ticket report handoff', run: openCaseFile },
-      { icon: '📱', label: 'Send ticket notes to my phone', sub: 'The Case Trail as QR codes: scan with the phone camera, no network needed', kw: 'phone qr code mobile handoff send scan camera crash cart notes trail', run: () => { const l = readTrail(); return l.length ? openPhone(trailMarkdown(l), 'Ticket notes to your phone', `${l.length} commands from the Case Trail`) : showGlobalToast('The trail is empty: copy a command first.'); } },
-      { icon: '📱', label: 'Send last copied command to my phone', sub: 'QR code of the most recent command in the Case Trail', kw: 'phone qr last command mobile scan', run: () => { const l = readTrail(); return l.length ? openPhone(l[l.length - 1].cmd, 'Last copied command', l[l.length - 1].sheet) : showGlobalToast('Copy a command first.'); } },
       { icon: '♥', label: 'Node checkup: one-click health report', sub: 'Read-only sweep in the terminal: scheduler, GPUs, kernel errors, ECC, InfiniBand, NVMe, services, disks', kw: 'checkup check health report sweep scan node status triage collect telemetry doctor overview everything', run: () => openCheckup() },
       { icon: '▦', label: 'Node X-ray: see the GPU tray', sub: 'One read-only command → every GPU and NIC as a tile, red where it needs you; click one for its commands', kw: 'xray x-ray tray map gpu map baseboard sxm slot position which gpu bdf serial physical layout nic cage missing gpu fallen off bus', run: () => openXray() },
       { icon: '⇉', label: 'Read fleet results', sub: 'Paste pdsh / dshbak / clush / BMC-loop output: group nodes, spot the odd one out', kw: 'fleet results pdsh dshbak clush odd node outlier compare many nodes which node differs', run: () => openFleetResults() },
@@ -3261,6 +3257,7 @@
       { icon: '☰', label: 'Toggle compact view', sub: 'Hide or show explanations and variants', kw: 'compact density detailed dense view', run: () => { const b = document.getElementById('density-toggle'); if (b) b.click(); } },
       { icon: '📖', label: 'Open manuals', sub: 'Offline man pages', kw: 'man manual manuals pages docs offline', run: () => openManuals() },
       { icon: '⚙', label: 'Capture script: kit or trail → one bash file', sub: 'Read-only commands, sudo -n, time limits; outputs saved to cases/<case>/logs/ and tarred', kw: 'capture script bash collect collection logs export kit trail run node sh download automate batch', run: () => openCapture() },
+      { icon: '🛡', label: 'Change plan: pre-checks, approval, verify, rollback', sub: 'A method of procedure for state-changing work; the change unlocks after pre-checks and approval', kw: 'change plan mop method of procedure maintenance approval approve rollback back out verify cab change request window risky dangerous state changing', run: () => openPlan() },
       { icon: '🔎', label: 'Explain a command', sub: 'Paste one from a ticket, KB or chat: what each part does and whether it is safe (e)', kw: 'explain explainer explainshell what does this command do flags meaning safe pasted understand decode', run: () => openExplain() },
       { icon: '▤', label: 'Rack view: where is everything', sub: 'Every server and switch at its real U position, coloured by your node workspaces; click one to work on it', kw: 'rack view elevation where is location u position row cabinet inventory find server locate datacenter floor map', run: () => openRack() },
       { icon: '▦', label: 'Switch front panel: find a port', sub: 'Where is Ethernet33 / swp14 / ib 1/14/2 on the real panel, and how this switch numbers its ports', kw: 'front panel port find locate count numbering odd even cage osfp qsfp where is port switch face diagram layout', run: () => openPanel('find') },
@@ -5075,7 +5072,7 @@ ${rmaTrailSection()}#### Action Requested:
   // the ✦ tool that can read it, Copy, 📌 Pin to case, Re-run.
   // -------------------------------------------------------------
   function conBoxRaw(box) {
-    const raw = box.dataset.copy ?? box.dataset.cmd ?? box.dataset.subcmd ?? (() => { const c = box.cloneNode(true); c.querySelectorAll('.con-send, .con-run, .fleet-badge, .phone-send').forEach(x => x.remove()); return c.textContent; })();
+    const raw = box.dataset.copy ?? box.dataset.cmd ?? box.dataset.subcmd ?? (() => { const c = box.cloneNode(true); c.querySelectorAll('.con-send, .con-run, .fleet-badge').forEach(x => x.remove()); return c.textContent; })();
     return String(raw || '').trim();
   }
   function liveRunnable(raw) {
@@ -5214,7 +5211,7 @@ ${rmaTrailSection()}#### Action Requested:
   // NVIDIA. On wide screens the suite directory and an outline of this sheet
   // now live in a sticky left rail (scrollspy, visited ticks, runbooks), and
   // the reference panels fold into one-line strips that remember being opened.
-  // Narrow screens keep the stacked layout; Field Mode is untouched.
+  // Narrow windows keep the stacked layout.
   // -------------------------------------------------------------
   const REF_OPEN_KEY = 'dc_ref_open';
   function refOpen(id) {
@@ -5532,7 +5529,7 @@ ${rmaTrailSection()}#### Action Requested:
         <div><dt>Noise folded</dt><dd>${r.volatile.length}</dd></div>
       </dl>
       ${groups || '<p class="an-hint">Every field matches.</p>'}
-      <div class="an-actions"><button type="button" class="an-primary" data-gd="copy">Copy as Markdown</button><button type="button" data-gd="pin" class="pin-btn">📌 Pin to case</button><button type="button" data-gd="phone" title="The comparison as QR codes for your phone">📱 To phone</button><button type="button" data-gd="swap">⇄ Swap sides</button><button type="button" data-gd="clear">Compare another</button></div>
+      <div class="an-actions"><button type="button" class="an-primary" data-gd="copy">Copy as Markdown</button><button type="button" data-gd="pin" class="pin-btn">📌 Pin to case</button><button type="button" data-gd="swap">⇄ Swap sides</button><button type="button" data-gd="clear">Compare another</button></div>
     </div>`;
   }
 
@@ -5637,7 +5634,6 @@ ${rmaTrailSection()}#### Action Requested:
         if (act === 'swap') { [tGood.value, tBad.value] = [tBad.value, tGood.value]; [nGood.value, nBad.value] = [nBad.value, nGood.value]; run(); }
         if (act === 'clear') { tGood.value = ''; tBad.value = ''; run(); tGood.focus(); }
         if (act === 'pin' && gdEl._res) { const rr = gdEl._res.rows, n = names(); const crit = rr.missing.length + rr.counter.length + rr.cfgCrit.length; casePin({ kind: 'Node comparison', title: `${n.bad} vs known-good ${n.good}: ${crit ? `${crit} critical difference${crit === 1 ? '' : 's'}` : `${rr.cfg.length + rr.other.length} drift(s)`}`, sev: crit ? 'crit' : rr.cfg.length + rr.other.length ? 'warn' : 'ok', md: gdMarkdown(gdEl._res, n), facts: [['Compared with', n.good]] }); }
-        if (act === 'phone' && gdEl._res) openPhone(gdMarkdown(gdEl._res, names()), 'Comparison to your phone', `${names().bad} vs ${names().good}`);
         if (act === 'copy' && gdEl._res) { copyVerbatim(gdMarkdown(gdEl._res, names())); showGlobalToast('Copied the comparison as Markdown, ready for the ticket.'); }
       });
       gdEl.addEventListener('keydown', (e) => { if (e.key === 'Escape') { e.stopPropagation(); closeGoldenDiff(); } });
@@ -5920,13 +5916,13 @@ ${rmaTrailSection()}#### Action Requested:
   // On a 1280×800 crash-cart laptop the header stack (title row with a
   // two-line suite nav, a tagline, search + tools, a Topic row, the Rack
   // Targets row) ended at y=313: 39% of the screen before the first command,
-  // three commands visible. Above Field Mode's breakpoint the same controls are
+  // three commands visible. Above 768px wide the same controls are
   // re-flowed, not removed: title · search · topic · tools on one row, the suite
   // nav on one line underneath (tightened step by step until it fits), and the
   // Rack Targets summary on one line. The tagline becomes the title's tooltip.
-  // Nodes are moved with markers so Field Mode (≤768px) gets them back in place.
+  // Nodes are moved with markers so a narrow window (≤768px) gets them back in place.
   // -------------------------------------------------------------
-  const HDR_QUERY = '(min-width: 769px)';
+  const HDR_QUERY = 'all';   // laptop-only site: the compact header applies at every width
   const hdrHomes = new Map();
   function hdrMove(node, into, before) {
     if (!node || !into) return;
@@ -5976,336 +5972,6 @@ ${rmaTrailSection()}#### Action Requested:
     window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(hdrFit, 120); });
     // Web fonts change label widths after first paint.
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(hdrFit);
-  }
-
-  // -------------------------------------------------------------
-  // TO PHONE (offline QR handoff)
-  // Everything this suite produces ends on the workstation's clipboard, and the
-  // work then moves somewhere that clipboard can't follow: the phone in the
-  // tech's pocket at the rack, the crash-cart laptop, the KVM with no paste.
-  // Any command (targets filled in, password never), the Case Trail as ticket
-  // notes, a kit or an analysis renders as a QR code the phone camera reads as
-  // plain text. Encoded locally (no network, no library); long text is split
-  // into numbered pages on line boundaries.
-  // -------------------------------------------------------------
-  // Minimal QR Code encoder (ISO/IEC 18004): byte mode, ECC L/M/Q/H, versions 1–40,
-  // all 8 masks scored by the standard penalty rules. Structure follows Project
-  // Nayuki's reference implementation (MIT). Returns a boolean matrix [y][x].
-  const QR_ECC_PER_BLOCK = [
-    [-1, 7, 10, 15, 20, 26, 18, 20, 24, 30, 18, 20, 24, 26, 30, 22, 24, 28, 30, 28, 28, 28, 28, 30, 30, 26, 28, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30],
-    [-1, 10, 16, 26, 18, 24, 16, 18, 22, 22, 26, 30, 22, 22, 24, 24, 28, 28, 26, 26, 26, 26, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28],
-    [-1, 13, 22, 18, 26, 18, 24, 18, 22, 20, 24, 28, 26, 24, 20, 30, 24, 28, 28, 26, 30, 28, 30, 30, 30, 30, 28, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30],
-    [-1, 17, 28, 22, 16, 22, 28, 26, 26, 24, 28, 24, 28, 22, 24, 24, 30, 28, 28, 26, 28, 30, 24, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30]
-  ];
-  const QR_NUM_BLOCKS = [
-    [-1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 4, 4, 4, 4, 4, 6, 6, 6, 6, 7, 8, 8, 9, 9, 10, 12, 12, 12, 13, 14, 15, 16, 17, 18, 19, 19, 20, 21, 22, 24, 25],
-    [-1, 1, 1, 1, 2, 2, 4, 4, 4, 5, 5, 5, 8, 9, 9, 10, 10, 11, 13, 14, 16, 17, 17, 18, 20, 21, 23, 25, 26, 28, 29, 31, 33, 35, 37, 38, 40, 43, 45, 47, 49],
-    [-1, 1, 1, 2, 2, 4, 4, 6, 6, 8, 8, 8, 10, 12, 16, 12, 17, 16, 18, 21, 20, 23, 23, 25, 27, 29, 34, 34, 35, 38, 40, 43, 45, 48, 51, 53, 56, 59, 62, 65, 68],
-    [-1, 1, 1, 2, 4, 4, 4, 5, 6, 8, 8, 11, 11, 16, 16, 18, 16, 19, 21, 25, 25, 25, 34, 30, 32, 35, 37, 40, 42, 45, 48, 51, 54, 57, 60, 63, 66, 70, 74, 77, 81]
-  ];
-  const QR_ECL_FORMAT = [1, 0, 3, 2]; // L, M, Q, H
-  const qrRawModules = (ver) => {
-    let r = (16 * ver + 128) * ver + 64;
-    if (ver >= 2) { const n = Math.floor(ver / 7) + 2; r -= (25 * n - 10) * n - 55; if (ver >= 7) r -= 36; }
-    return r;
-  };
-  const qrDataCodewords = (ver, ecl) => Math.floor(qrRawModules(ver) / 8) - QR_ECC_PER_BLOCK[ecl][ver] * QR_NUM_BLOCKS[ecl][ver];
-  function qrRsDivisor(degree) {
-    const res = new Array(degree).fill(0); res[degree - 1] = 1;
-    let root = 1;
-    for (let i = 0; i < degree; i++) {
-      for (let j = 0; j < res.length; j++) { res[j] = qrMul(res[j], root); if (j + 1 < res.length) res[j] ^= res[j + 1]; }
-      root = qrMul(root, 0x02);
-    }
-    return res;
-  }
-  function qrRsRemainder(data, divisor) {
-    const res = divisor.map(() => 0);
-    for (const b of data) {
-      const factor = b ^ res.shift(); res.push(0);
-      divisor.forEach((coef, i) => { res[i] ^= qrMul(coef, factor); });
-    }
-    return res;
-  }
-  function qrMul(x, y) {
-    let z = 0;
-    for (let i = 7; i >= 0; i--) { z = (z << 1) ^ ((z >>> 7) * 0x11D); z ^= ((y >>> i) & 1) * x; }
-    return z & 0xFF;
-  }
-  const qrBit = (x, i) => ((x >>> i) & 1) !== 0;
-
-  // eclPref: 0=L 1=M 2=Q 3=H (minimum); boosted while the version stays the same.
-  function qrEncode(text, eclPref = 1) {
-    const bytes = Array.from(new TextEncoder().encode(String(text)));
-    let ver, ecl = eclPref, bitsNeeded;
-    for (ver = 1; ver <= 40; ver++) {
-      bitsNeeded = 4 + (ver <= 9 ? 8 : 16) + bytes.length * 8;
-      if (bitsNeeded <= qrDataCodewords(ver, ecl) * 8) break;
-    }
-    if (ver > 40) return null;
-    for (let e = ecl + 1; e <= 3; e++) if (bitsNeeded <= qrDataCodewords(ver, e) * 8) ecl = e;
-    // Data bit stream
-    const bb = [];
-    const push = (val, len) => { for (let i = len - 1; i >= 0; i--) bb.push((val >>> i) & 1); };
-    push(0x4, 4); push(bytes.length, ver <= 9 ? 8 : 16); bytes.forEach(b => push(b, 8));
-    const cap = qrDataCodewords(ver, ecl) * 8;
-    push(0, Math.min(4, cap - bb.length)); push(0, (8 - bb.length % 8) % 8);
-    for (let pad = 0xEC; bb.length < cap; pad ^= 0xEC ^ 0x11) push(pad, 8);
-    const data = [];
-    for (let i = 0; i < bb.length; i += 8) data.push(parseInt(bb.slice(i, i + 8).join(''), 2));
-    // Blocks + ECC, interleaved
-    const numBlocks = QR_NUM_BLOCKS[ecl][ver], eccLen = QR_ECC_PER_BLOCK[ecl][ver];
-    const rawCw = Math.floor(qrRawModules(ver) / 8);
-    const numShort = numBlocks - rawCw % numBlocks, shortLen = Math.floor(rawCw / numBlocks);
-    const div = qrRsDivisor(eccLen);
-    const blocks = [];
-    for (let i = 0, k = 0; i < numBlocks; i++) {
-      const dat = data.slice(k, k + shortLen - eccLen + (i < numShort ? 0 : 1));
-      k += dat.length;
-      const ecc = qrRsRemainder(dat, div);
-      if (i < numShort) dat.push(0);
-      blocks.push(dat.concat(ecc));
-    }
-    const cw = [];
-    for (let i = 0; i < blocks[0].length; i++) blocks.forEach((b, j) => { if (i !== shortLen - eccLen || j >= numShort) cw.push(b[i]); });
-    // Matrix
-    const size = ver * 4 + 17;
-    const mod = Array.from({ length: size }, () => new Array(size).fill(false));
-    const fn = Array.from({ length: size }, () => new Array(size).fill(false));
-    const setF = (x, y, d) => { mod[y][x] = d; fn[y][x] = true; };
-    for (let i = 0; i < size; i++) { setF(6, i, i % 2 === 0); setF(i, 6, i % 2 === 0); }
-    const finder = (cx, cy) => { for (let dy = -4; dy <= 4; dy++) for (let dx = -4; dx <= 4; dx++) { const d = Math.max(Math.abs(dx), Math.abs(dy)), x = cx + dx, y = cy + dy; if (x >= 0 && x < size && y >= 0 && y < size) setF(x, y, d !== 2 && d !== 4); } };
-    finder(3, 3); finder(size - 4, 3); finder(3, size - 4);
-    const align = [];
-    if (ver > 1) {
-      const n = Math.floor(ver / 7) + 2;
-      const step = ver === 32 ? 26 : Math.ceil((ver * 4 + 4) / (n * 2 - 2)) * 2;
-      align.push(6);
-      for (let pos = size - 7; align.length < n; pos -= step) align.splice(1, 0, pos);
-    }
-    align.forEach((ay, i) => align.forEach((ax, j) => {
-      if ((i === 0 && j === 0) || (i === 0 && j === align.length - 1) || (i === align.length - 1 && j === 0)) return;
-      for (let dy = -2; dy <= 2; dy++) for (let dx = -2; dx <= 2; dx++) setF(ax + dx, ay + dy, Math.max(Math.abs(dx), Math.abs(dy)) !== 1);
-    }));
-    const drawFormat = (mask) => {
-      const d = QR_ECL_FORMAT[ecl] << 3 | mask;
-      let rem = d;
-      for (let i = 0; i < 10; i++) rem = (rem << 1) ^ ((rem >>> 9) * 0x537);
-      const bits = (d << 10 | rem) ^ 0x5412;
-      for (let i = 0; i <= 5; i++) setF(8, i, qrBit(bits, i));
-      setF(8, 7, qrBit(bits, 6)); setF(8, 8, qrBit(bits, 7)); setF(7, 8, qrBit(bits, 8));
-      for (let i = 9; i < 15; i++) setF(14 - i, 8, qrBit(bits, i));
-      for (let i = 0; i < 8; i++) setF(size - 1 - i, 8, qrBit(bits, i));
-      for (let i = 8; i < 15; i++) setF(8, size - 15 + i, qrBit(bits, i));
-      setF(8, size - 8, true);
-    };
-    drawFormat(0);
-    if (ver >= 7) {
-      let rem = ver;
-      for (let i = 0; i < 12; i++) rem = (rem << 1) ^ ((rem >>> 11) * 0x1F25);
-      const bits = ver << 12 | rem;
-      for (let i = 0; i < 18; i++) { const a = size - 11 + i % 3, b = Math.floor(i / 3); setF(a, b, qrBit(bits, i)); setF(b, a, qrBit(bits, i)); }
-    }
-    let bi = 0;
-    for (let right = size - 1; right >= 1; right -= 2) {
-      if (right === 6) right = 5;
-      for (let v = 0; v < size; v++) for (let j = 0; j < 2; j++) {
-        const x = right - j, up = ((right + 1) & 2) === 0, y = up ? size - 1 - v : v;
-        if (!fn[y][x] && bi < cw.length * 8) { mod[y][x] = qrBit(cw[bi >>> 3], 7 - (bi & 7)); bi++; }
-      }
-    }
-    const maskFn = [
-      (x, y) => (x + y) % 2 === 0, (x, y) => y % 2 === 0, (x) => x % 3 === 0, (x, y) => (x + y) % 3 === 0,
-      (x, y) => (Math.floor(x / 3) + Math.floor(y / 2)) % 2 === 0, (x, y) => x * y % 2 + x * y % 3 === 0,
-      (x, y) => (x * y % 2 + x * y % 3) % 2 === 0, (x, y) => ((x + y) % 2 + x * y % 3) % 2 === 0
-    ];
-    const applyMask = (m) => { for (let y = 0; y < size; y++) for (let x = 0; x < size; x++) if (!fn[y][x] && maskFn[m](x, y)) mod[y][x] = !mod[y][x]; };
-    // Penalty: runs (N1), 2×2 blocks (N2), finder-like 1:1:3:1:1 (N3), dark balance (N4).
-    const penalty = () => {
-      let p = 0, dark = 0;
-      const lineScore = (get) => {
-        let s = 0;
-        for (let a = 0; a < size; a++) {
-          let run = 1;
-          for (let b = 1; b <= size; b++) {
-            if (b < size && get(a, b) === get(a, b - 1)) run++;
-            else { if (run >= 5) s += 3 + run - 5; run = 1; }
-          }
-          for (let b = 0; b + 10 < size; b++) {
-            const seq = [];
-            for (let k = 0; k < 11; k++) seq.push(get(a, b + k) ? 1 : 0);
-            const str = seq.join('');
-            if (str === '10111010000' || str === '00001011101') s += 40;
-          }
-        }
-        return s;
-      };
-      p += lineScore((a, b) => mod[a][b]) + lineScore((a, b) => mod[b][a]);
-      for (let y = 0; y < size - 1; y++) for (let x = 0; x < size - 1; x++) { const c = mod[y][x]; if (c === mod[y][x + 1] && c === mod[y + 1][x] && c === mod[y + 1][x + 1]) p += 3; }
-      mod.forEach(r => r.forEach(c => { if (c) dark++; }));
-      p += Math.floor(Math.abs(dark * 20 - size * size * 10) / (size * size)) * 10;
-      return p;
-    };
-    let best = 0, bestP = Infinity;
-    for (let m = 0; m < 8; m++) { applyMask(m); drawFormat(m); const s = penalty(); if (s < bestP) { bestP = s; best = m; } applyMask(m); }
-    applyMask(best); drawFormat(best);
-    return { size, modules: mod, version: ver, ecl: 'LMQH'[ecl], mask: best };
-  }
-
-  function qrSvg(q) {
-    const n = q.size + 8;
-    let d = '';
-    for (let y = 0; y < q.size; y++) {
-      let x = 0;
-      while (x < q.size) {
-        if (!q.modules[y][x]) { x++; continue; }
-        let w = 1;
-        while (x + w < q.size && q.modules[y][x + w]) w++;
-        d += `M${x + 4} ${y + 4}h${w}v1h-${w}z`;
-        x += w;
-      }
-    }
-    return `<svg viewBox="0 0 ${n} ${n}" shape-rendering="crispEdges" role="img" aria-label="QR code"><rect width="${n}" height="${n}" fill="#fff"/><path d="${d}" fill="#000"/></svg>`;
-  }
-
-  // ≤ 900 UTF-8 bytes per code keeps it at version ≤ 25 (M): easy for any phone camera.
-  const PHONE_PAGE_BYTES = 900;
-  function phonePages(text) {
-    const enc = new TextEncoder();
-    const bytes = s => enc.encode(s).length;
-    text = String(text).replace(/\r/g, '').trim();
-    if (bytes(text) <= PHONE_PAGE_BYTES) return [text];
-    const pages = [];
-    let cur = '';
-    const flush = () => { if (cur) pages.push(cur); cur = ''; };
-    text.split('\n').forEach(line => {
-      while (bytes(line) > PHONE_PAGE_BYTES - 20) {
-        // A single very long line: cut it (by characters, safely under the byte budget).
-        let cut = Math.floor((PHONE_PAGE_BYTES - 20) / 3);
-        flush(); pages.push(line.slice(0, cut)); line = line.slice(cut);
-      }
-      if (bytes(cur ? `${cur}\n${line}` : line) > PHONE_PAGE_BYTES - 20) flush();
-      cur = cur ? `${cur}\n${line}` : line;
-    });
-    flush();
-    return pages.length > 1 ? pages.map((p, i) => `[${i + 1}/${pages.length}]\n${p.replace(/\s+$/, '')}`) : pages;
-  }
-
-  let phoneEl = null;
-  function openPhone(text, title = 'Scan with your phone', sub = '') {
-    const pages = phonePages(text);
-    if (!pages[0]) { showGlobalToast('Nothing to send yet.'); return; }
-    if (!phoneEl) {
-      phoneEl = document.createElement('div');
-      phoneEl.className = 'an-backdrop phone-backdrop';
-      phoneEl.innerHTML = `
-        <div class="an-dialog phone-dialog" role="dialog" aria-modal="true" aria-labelledby="phone-title">
-          <header class="an-head">
-            <div><h2 id="phone-title"></h2><p class="phone-sub"></p></div>
-            <button type="button" class="trail-close" data-ph="close" aria-label="Close">✕</button>
-          </header>
-          <div class="phone-body">
-            <div class="phone-qr-wrap"><button type="button" class="phone-qr" data-ph="big" title="Click to fill the screen (scan from further away)"></button>
-              <div class="phone-pager"><button type="button" data-ph="prev" aria-label="Previous page">◀</button><span class="phone-page"></span><button type="button" data-ph="next" aria-label="Next page">▶</button></div></div>
-            <div class="phone-side">
-              <ol class="phone-steps"><li>Open the phone camera and point it at the code.</li><li>Tap the text it finds, then <b>Copy</b>.</li><li>Paste into the terminal, ticket or chat on the phone.</li></ol>
-              <div class="phone-meta"></div>
-              <pre class="phone-text" tabindex="0"></pre>
-              <div class="an-actions"><button type="button" class="an-primary" data-ph="big">⛶ Full screen</button><button type="button" data-ph="copy">Copy text</button></div>
-              <p class="phone-note">Made in this browser; nothing is uploaded. Passwords are never put in a code.</p>
-            </div>
-          </div>
-        </div>`;
-      document.body.appendChild(phoneEl);
-      phoneEl.addEventListener('click', (e) => {
-        if (e.target === phoneEl) return closePhone();
-        const b = e.target instanceof Element ? e.target.closest('[data-ph]') : null;
-        if (!b) return;
-        const act = b.dataset.ph;
-        if (act === 'close') closePhone();
-        if (act === 'prev') phoneShow(phoneEl._i - 1);
-        if (act === 'next') phoneShow(phoneEl._i + 1);
-        if (act === 'big') phoneEl.classList.toggle('is-big');
-        if (act === 'copy') { copyVerbatim(phoneEl._pages[phoneEl._i]); showGlobalToast('Copied this page’s text.'); }
-      });
-      phoneEl.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') { e.stopPropagation(); if (phoneEl.classList.contains('is-big')) phoneEl.classList.remove('is-big'); else closePhone(); }
-        if (e.key === 'ArrowRight' || e.key === 'PageDown') { e.preventDefault(); phoneShow(phoneEl._i + 1); }
-        if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); phoneShow(phoneEl._i - 1); }
-        if (e.key === 'f') phoneEl.classList.toggle('is-big');
-      });
-    }
-    phoneEl._pages = pages;
-    phoneEl.querySelector('#phone-title').textContent = title;
-    phoneEl.querySelector('.phone-sub').textContent = sub || (pages.length > 1 ? `Too long for one code, so it's split into ${pages.length} pages: scan them in order (← → to flip).` : 'One code, scanned as plain text by any phone camera.');
-    phoneEl.classList.toggle('is-multi', pages.length > 1);
-    phoneEl.classList.remove('is-big');
-    phoneShow(0);
-    phoneEl._focus = document.activeElement;
-    phoneEl.classList.add('show');
-    document.body.style.overflow = 'hidden';
-    setTimeout(() => phoneEl.querySelector('.phone-qr').focus(), 40);
-  }
-  function phoneShow(i) {
-    const pages = phoneEl._pages;
-    i = Math.max(0, Math.min(pages.length - 1, i));
-    phoneEl._i = i;
-    const q = qrEncode(pages[i], 1);
-    phoneEl.querySelector('.phone-qr').innerHTML = q ? qrSvg(q) : '<p>Too long for a QR code.</p>';
-    phoneEl.querySelector('.phone-page').textContent = `${i + 1} / ${pages.length}`;
-    phoneEl.querySelector('[data-ph="prev"]').disabled = i === 0;
-    phoneEl.querySelector('[data-ph="next"]').disabled = i === pages.length - 1;
-    const bytes = new TextEncoder().encode(pages[i]).length;
-    phoneEl.querySelector('.phone-meta').textContent = `${bytes.toLocaleString('en-US')} bytes · QR version ${q ? q.version : '—'}-${q ? q.ecl : ''}${pages.length > 1 ? ` · page ${i + 1} of ${pages.length}` : ''}`;
-    phoneEl.querySelector('.phone-text').textContent = pages[i];
-  }
-  function closePhone() {
-    if (!phoneEl || !phoneEl.classList.contains('show')) return;
-    phoneEl.classList.remove('show', 'is-big');
-    document.body.style.overflow = '';
-    if (phoneEl._focus && phoneEl._focus.focus) phoneEl._focus.focus();
-  }
-
-  // A command box → its command with Rack Targets and slots filled in, password masked.
-  function phoneTextForBox(box) {
-    const raw = box.dataset.copy ?? box.dataset.cmd ?? box.dataset.subcmd ?? (() => { const c = box.cloneNode(true); c.querySelectorAll('.con-send, .con-run, .fleet-badge, .phone-send').forEach(x => x.remove()); return c.textContent; })();
-    const cmd = firstCommand(String(raw).trim());
-    const fleet = fleetWrap(cmd);
-    return fleet ? trailSafeText(fleet.kind === 'skip' ? cmd : fleet.text) : trailSafeText(cmd);
-  }
-  function phoneCommand(box) {
-    const text = phoneTextForBox(box);
-    const card = box.closest('.section-card, .hx-card');
-    const t = card && card.querySelector('.section-title, h3');
-    openPhone(text, 'Send this command to your phone', t ? (t.innerText || t.textContent).trim().replace(/\s*\n+\s*/g, ' · ') : '');
-  }
-
-  const PHONE_BOXES = '.cmd-code-box:not(.is-reference), .subcmd-row:not(.is-reference)';
-  function initPhone() {
-    if (IN_WIDGET_FRAME) return;
-    document.addEventListener('click', (e) => { if (e.target instanceof Element && e.target.closest('[data-case-from-rma]')) { closeTriageModal(); openCaseFile(); } });
-    // The 📱 chip is added the first time a command is hovered or focused (cheap on 50-card sheets).
-    const ensure = (e) => {
-      const box = e.target instanceof Element ? e.target.closest(PHONE_BOXES) : null;
-      if (!box || box.querySelector(':scope > .phone-send')) return;
-      const b = document.createElement('button');
-      b.type = 'button';
-      b.className = 'phone-send';
-      b.tabIndex = -1;
-      b.title = 'Show as a QR code for your phone (p)';
-      b.setAttribute('aria-label', 'Send to phone as QR code');
-      b.innerHTML = '<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/></svg>';
-      box.appendChild(b);
-    };
-    document.addEventListener('pointerover', ensure, { passive: true });
-    document.addEventListener('focusin', ensure);
-    document.addEventListener('click', (e) => {
-      const b = e.target instanceof Element ? e.target.closest('.phone-send') : null;
-      if (!b) return;
-      e.preventDefault();
-      e.stopPropagation();
-      phoneCommand(b.parentElement);
-    }, true);
   }
 
   // -------------------------------------------------------------
@@ -6498,7 +6164,7 @@ ${rmaTrailSection()}#### Action Requested:
         <p class="fr-sum">The command never ran there. Check the node is up (BMC power state, console) before reading anything into its silence.</p><ul class="fr-why">${r.unreachable.slice(0, 8).map(u => `<li><b>${escapeHtml(u.host)}</b> ${escapeHtml(u.why)}</li>`).join('')}</ul></section>` : ''}
       ${r.groups.filter(g => !g.base).map(groupCard).join('')}
       ${r.groups[0] ? groupCard(r.groups[0]) : ''}
-      <div class="an-actions"><button type="button" class="an-primary" data-fr="copy">Copy summary</button><button type="button" data-fr="pin" class="pin-btn">📌 Pin to case</button><button type="button" data-fr="phone">📱 To phone</button><button type="button" data-fr="clear">Paste other results</button></div>
+      <div class="an-actions"><button type="button" class="an-primary" data-fr="copy">Copy summary</button><button type="button" data-fr="pin" class="pin-btn">📌 Pin to case</button><button type="button" data-fr="clear">Paste other results</button></div>
     </div>`;
   }
 
@@ -6587,7 +6253,6 @@ ${rmaTrailSection()}#### Action Requested:
         if (act === 'clear') { input.value = ''; run(); input.focus(); }
         if (act === 'copy' && frEl._r) { copyVerbatim(frMarkdown(frEl._r)); showGlobalToast('Copied the fleet summary as Markdown.'); }
         if (act === 'pin' && frEl._r) { const r = frEl._r, odd = r.groups.filter(g => !g.base); casePin({ kind: 'Fleet results', title: `Fleet: ${r.hosts.length} nodes, ${odd.reduce((n, g) => n + g.hosts.length, 0)} differ${r.unreachable.length ? `, ${r.unreachable.length} unreachable` : ''}`, sev: r.unreachable.length || odd.some(g => g.sev === 'crit') ? 'crit' : odd.length ? 'warn' : 'ok', md: frMarkdown(r), facts: [] }); }
-        if (act === 'phone' && frEl._r) openPhone(frMarkdown(frEl._r), 'Fleet results to your phone', `${frEl._r.hosts.length} nodes`);
         if (act === 'compare' && frEl._r) {
           const g = frEl._r.groups.find(x => x.letter === b.dataset.g);
           const base = frEl._r.base;
@@ -6900,7 +6565,7 @@ ${rmaTrailSection()}#### Action Requested:
         <p class="xr-note">Logical order by PCIe BDF. The physical SXM position differs per OEM: confirm on the baseboard silkscreen / OEM slot map before pulling a module.</p>
       </div>
       <div class="xr-detail">${xrDetailHtml(sel)}</div>
-      <div class="an-actions xr-actions">${!con.live && xrEl && xrEl.querySelector('.xr-input').value === XR_SAMPLE || xrLive && xrLive.demo ? (xrLive && xrLive.on ? '<button type="button" class="xr-live-btn is-on" data-xr="live">■ Stop demo</button>' : '<button type="button" class="xr-live-btn" data-xr="demo">● Watch live (demo load)</button>') : ''}${con.live && !(xrLive && xrLive.demo) ? (xrLive && xrLive.on ? '<button type="button" class="xr-live-btn is-on" data-xr="live">■ Stop live</button>' : '<button type="button" class="xr-live-btn" data-xr="live">● Watch live</button><button type="button" class="xr-run" data-xr="run">▶ Re-run in terminal</button>') : ''}<button type="button" data-xr="copy">Copy as Markdown</button><button type="button" data-xr="pin">📌 Pin tray to case</button><button type="button" data-xr="phone">📱 To phone</button><button type="button" data-xr="clear">Paste another node</button></div>`;
+      <div class="an-actions xr-actions">${!con.live && xrEl && xrEl.querySelector('.xr-input').value === XR_SAMPLE || xrLive && xrLive.demo ? (xrLive && xrLive.on ? '<button type="button" class="xr-live-btn is-on" data-xr="live">■ Stop demo</button>' : '<button type="button" class="xr-live-btn" data-xr="demo">● Watch live (demo load)</button>') : ''}${con.live && !(xrLive && xrLive.demo) ? (xrLive && xrLive.on ? '<button type="button" class="xr-live-btn is-on" data-xr="live">■ Stop live</button>' : '<button type="button" class="xr-live-btn" data-xr="live">● Watch live</button><button type="button" class="xr-run" data-xr="run">▶ Re-run in terminal</button>') : ''}<button type="button" data-xr="copy">Copy as Markdown</button><button type="button" data-xr="pin">📌 Pin tray to case</button><button type="button" data-xr="clear">Paste another node</button></div>`;
   }
 
   // Run the collection command in the docked terminal and draw the tray from what it prints.
@@ -6995,7 +6660,6 @@ ${rmaTrailSection()}#### Action Requested:
         if (act === 'sample') { xrLiveStop(); xrLive = null; input.value = XR_SAMPLE; run(); }
         if (act === 'clear') { xrLiveStop(); xrLive = null; input.value = ''; xrEl._sel = null; run(); input.focus(); }
         if (act === 'copy' && r) { copyVerbatim(xrMarkdown(r)); showGlobalToast('Copied the tray as Markdown.'); }
-        if (act === 'phone' && r) openPhone(xrMarkdown(r), 'Tray map to your phone', r.verdict);
         if (act === 'pin' && r) casePin({ kind: 'Node X-ray', title: `Tray: ${r.verdict}`, sev: r.bad || r.nicDown ? 'crit' : r.warn ? 'warn' : 'ok', md: xrMarkdown(r), facts: [['GPUs seen', `${r.seen}/${r.expected}`], ['Model', r.model]] });
         const s = selected();
         if (act === 'setgpu' && s) { setSlotStore('gpu', String(s.idx)); try { refreshSlots(); } catch (err) {} showGlobalToast(`$GPU is now ${s.idx}: commands with nvidia-smi -i copy for this GPU.`); }
@@ -7218,7 +6882,7 @@ ${rmaTrailSection()}#### Action Requested:
             ${c.details.length && c.sev !== 'ok' ? `<ul>${c.details.slice(0, 5).map(d => `<li>${escapeHtml(d)}</li>`).join('')}</ul>` : ''}</div>
           ${c.open ? `<button type="button" class="ck-open" data-ck-open="${escapeHtml(c.id)}">${escapeHtml(c.open.label)} →</button>` : ''}
         </li>`).join('')}</ol>
-      <div class="an-actions ck-actions"><button type="button" class="xr-run" data-ck="run">${con.live ? '▶ Run again' : '▶ Connect &amp; run'}</button><button type="button" data-ck="copy">Copy as Markdown</button><button type="button" data-ck="pin">📌 Pin to case</button><button type="button" data-ck="phone">📱 To phone</button></div>`;
+      <div class="an-actions ck-actions"><button type="button" class="xr-run" data-ck="run">${con.live ? '▶ Run again' : '▶ Connect &amp; run'}</button><button type="button" data-ck="copy">Copy as Markdown</button><button type="button" data-ck="pin">📌 Pin to case</button></div>`;
   }
   function ckScanHtml(who) {
     const steps = ['Scheduler', 'GPUs', 'Kernel log', 'Memory ECC', 'InfiniBand', 'NVMe', 'Services', 'Filesystems'];
@@ -7265,7 +6929,6 @@ ${rmaTrailSection()}#### Action Requested:
         if (act === 'sample') { ckEl._r = ckAnalyze(CK_SAMPLE); ckEl._draw(); }
         if (act === 'copycmd') { copyVerbatim(CK_CMD); b.textContent = 'Copied ✓'; showGlobalToast('Copied the checkup command: paste its output into the hub box or Ctrl+K.'); }
         if (act === 'copy' && r) { copyVerbatim(ckMarkdown(r)); showGlobalToast('Copied the checkup as Markdown.'); }
-        if (act === 'phone' && r) openPhone(ckMarkdown(r), 'Checkup to your phone', `${r.host}: ${r.verdict}`);
         if (act === 'pin' && r) casePin({ kind: 'Node checkup', title: `Checkup ${r.host}: ${r.verdict} (score ${r.score})`, sev: r.crit ? 'crit' : r.warn ? 'warn' : 'ok', md: ckMarkdown(r), facts: [['Host', r.host], ...(r.ident[1] ? [['Model', r.ident.slice(0, 2).join(' ')]] : []), ...(r.ident[2] ? [['BIOS', r.ident[2]]] : [])] });
       });
       ckEl.addEventListener('keydown', (e) => { if (e.key === 'Escape') { e.stopPropagation(); closeCheckup(); } });
@@ -7450,7 +7113,7 @@ ${rmaTrailSection()}#### Action Requested:
             <div class="case-right">
               <div class="case-h">summary.md <span class="case-bytes"></span></div>
               <pre class="case-md" tabindex="0"></pre>
-              <div class="an-actions"><button type="button" class="an-primary" data-case="save">💾 Save to folder</button><button type="button" data-case="download">⬇ Download summary.md</button><button type="button" data-case="copy">Copy</button><button type="button" data-case="phone">📱 To phone</button><button type="button" class="case-clear" data-case="clear">Close case…</button></div>
+              <div class="an-actions"><button type="button" class="an-primary" data-case="save">💾 Save to folder</button><button type="button" data-case="download">⬇ Download summary.md</button><button type="button" data-case="copy">Copy</button><button type="button" class="case-clear" data-case="clear">Close case…</button></div>
             </div>
           </div>
         </div>`;
@@ -7475,7 +7138,6 @@ ${rmaTrailSection()}#### Action Requested:
         if (act === 'close') closeCaseFile();
         if (act === 'save') caseSaveToFolder(b);
         if (act === 'copy') { copyVerbatim(caseMarkdown()); showGlobalToast('Copied summary.md.'); }
-        if (act === 'phone') openPhone(caseMarkdown(), 'Case summary to your phone', caseName());
         if (act === 'download') {
           const a = document.createElement('a');
           a.href = URL.createObjectURL(new Blob([caseMarkdown() + '\n'], { type: 'text/markdown' }));
@@ -7581,6 +7243,7 @@ ${rmaTrailSection()}#### Action Requested:
       safeInit('initExplain', () => initExplain());
       safeInit('initRack', () => initRack());
       safeInit('initHubLanding', () => initHubLanding());
+      safeInit('initChangePlan', () => initChangePlan());
       safeInit('initGlossary', () => initGlossary());
       safeInit('initNotesPage', () => {
         const file = anatSheetFile || window.location.pathname.split('/').pop() || 'index.html';
@@ -7593,10 +7256,8 @@ ${rmaTrailSection()}#### Action Requested:
       safeInit('initConsole', () => initConsole());
       safeInit('initLiveSheets', () => initLiveSheets());
       safeInit('initFleet', () => initFleet());
-      safeInit('initPhone', () => initPhone());
       safeInit('initToolbar', () => initToolbar());
       safeInit('initCompactHeader', () => initCompactHeader());
-      safeInit('initFieldDock', () => initFieldDock());
       safeInit('initCommandBar', () => initCommandBar());
       safeInit('initLaunchpad', () => initLaunchpad());
       safeInit('initSuiteNav', () => initSuiteNav());
@@ -8949,7 +8610,7 @@ ${rmaTrailSection()}#### Action Requested:
   // Nine equal-weight buttons wrapped the toolbar onto its own row, so the
   // header grew to 393px at 1440 wide and 490px at 1024. Four primary tools
   // stay visible; Compact, Theme, Manuals and the offline file move
-  // into a More menu. Field Mode (phones) shows them all flat, as before.
+  // into a More menu.
   // -------------------------------------------------------------
   // Trail and Practice live in More (t and q still open them); Compact and the theme menu sit in the bar.
   const TOOLBAR_PRIMARY = ['global-search-btn', 'triage-modal-btn', 'kit-btn', 'explain-btn', 'rack-btn', 'console-btn', 'density-toggle', 'theme-menu-wrapper'];
@@ -8978,6 +8639,13 @@ ${rmaTrailSection()}#### Action Requested:
     notesBtn.innerHTML = '<span aria-hidden="true">📝</span><span>Field notes</span>';
     notesBtn.addEventListener('click', () => openFieldNotes());
     menu.appendChild(notesBtn);
+    const planBtn = document.createElement('button');
+    planBtn.type = 'button';
+    planBtn.id = 'plan-menu-btn';
+    planBtn.className = 'action-btn plan-menu-btn';
+    planBtn.innerHTML = '<span aria-hidden="true">🛡</span><span>Change plan</span><small></small>';
+    planBtn.addEventListener('click', () => openPlan());
+    menu.appendChild(planBtn);
     const tourBtn = document.createElement('button');
     tourBtn.type = 'button';
     tourBtn.className = 'action-btn tour-menu-btn';
@@ -9203,7 +8871,7 @@ ${rmaTrailSection()}#### Action Requested:
       </label></div>
       <div class="trail-list"></div>
       <footer class="trail-foot">
-        <button type="button" class="trail-primary kit-primary" data-kit-act="print">Print pocket card</button><button type="button" class="trail-phone" data-kit-act="phone" title="Your kit as QR codes for your phone">📱 To phone</button>
+        <button type="button" class="trail-primary kit-primary" data-kit-act="print">Print pocket card</button>
         <button type="button" data-kit-act="md">Copy as Markdown</button>
         <button type="button" class="kit-script" data-kit-act="script" title="One read-only bash script that saves every output to cases/<case>/logs/">⚙ Capture script</button>
       </footer>`;
@@ -9221,7 +8889,6 @@ ${rmaTrailSection()}#### Action Requested:
       if (act === 'print') return kitPrint(list);
       if (act === 'md') { copyVerbatim(kitMarkdown(list)); return showGlobalToast(`Copied your kit (${list.length} commands) as Markdown.`); }
       if (act === 'script') { closeKit(); return openCapture('kit'); }
-      if (act === 'phone') return list.length ? openPhone(kitMarkdown(list), 'My kit to your phone', `${list.length} bookmarked commands`) : showGlobalToast('Your kit is empty: bookmark a command first.');
       const row = btn.closest('[data-kit]');
       if (!row) return;
       const [key, ...idParts] = row.dataset.kit.split('|');
@@ -10626,7 +10293,7 @@ ${rmaTrailSection()}#### Action Requested:
 
   // -------------------------------------------------------------
   // CAPTURE SCRIPT BUILDER
-  // My kit and the Case Trail could be printed, phoned or copied as Markdown, but not run:
+  // My kit and the Case Trail could be printed or copied as Markdown, but not run:
   // a tech still pasted twelve commands one at a time and saved each output by hand. This
   // turns the kit, the trail or the current sheet into one bash script for the node. Only
   // read-only commands go in (state-changing, never-ending and unfilled ones are left out,
@@ -10839,6 +10506,391 @@ ${rmaTrailSection()}#### Action Requested:
     csEl.classList.remove('show');
     document.body.style.overflow = '';
     if (csEl._back && csEl._back.focus) csEl._back.focus({ preventScroll: true });
+  }
+
+  // -------------------------------------------------------------
+  // CHANGE PLAN (method of procedure)
+  // Hundreds of commands say "⚠ Changes state · drain & get approval first", but nothing
+  // helped do that. "+ Change plan" on any red command starts a plan for the active node:
+  // pre-checks (drain state and the SEL, added for you), the change, how to verify it and
+  // how to back out, with verify and rollback steps derived from the command itself
+  // (power off ↔ on, drain ↔ resume, cordon ↔ uncordon, stop ↔ start, link down ↔ up; data
+  // wipes and firmware say plainly there is no undo). The change steps stay locked until
+  // every pre-check is ticked and an approval is recorded. Exports as Markdown for the
+  // ticket, or pins to the case. One plan per node workspace (dc_change_plan).
+  // -------------------------------------------------------------
+  const CP_KEY = 'dc_change_plan';
+  const CP_PHASES = [
+    ['pre', 'Pre-checks', 'Read-only. Prove the node is safe to touch and save the state before.'],
+    ['change', 'Change', 'Locked until every pre-check is ticked and an approval is recorded.'],
+    ['verify', 'Verify', 'Prove the change did what it should.'],
+    ['rollback', 'Rollback', 'How to back out if verify fails.']
+  ];
+  let cpEl = null, cpClearArm = 0;
+  const cpBlank = () => ({ title: '', ticket: '', node: '', window: '', approver: '', approvedAt: 0, steps: [] });
+  function cpRead() {
+    try { const p = JSON.parse(localStorage.getItem(CP_KEY) || 'null'); if (p && Array.isArray(p.steps)) return Object.assign(cpBlank(), p); } catch (e) {}
+    return cpBlank();
+  }
+  function cpWrite(p) {
+    try { if (p.steps.length || p.title || p.ticket) localStorage.setItem(CP_KEY, JSON.stringify(p)); else localStorage.removeItem(CP_KEY); } catch (e) {}
+    cpSyncButtons();
+  }
+  const cpId = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+  const cpNorm = s => String(s || '').replace(/\s+/g, ' ').trim();
+  const cpHas = (cmd) => cpRead().steps.some(s => s.phase === 'change' && cpNorm(s.cmd) === cpNorm(cmd));
+  // A merged card shows alternatives ("power status   |   power cycle"): plan the one that changes state.
+  const cpPick = (raw) => { const alts = String(raw || '').split(/\s{3}\|\s{3}/).map(x => x.trim()).filter(Boolean).map((x, i, all) => i ? altFull(x, all[0]) : x); return alts.find(a => DANGER_RE.test(a)) || alts[0] || ''; };
+  function cpBoxCmd(box) {
+    const alts = [...box.querySelectorAll('.anat-line[data-alt]')].map(l => l.dataset.alt);
+    return alts.length ? cpPick(alts.join('   |   ')) : cpPick(conBoxRaw(box));
+  }
+  // Local commands that only work as root: shown as a note, never as a sudo prefix.
+  const CP_ROOT = /^(?!sudo\s)(mdadm|nvme|dmesg|mlxfwmanager|flint|fwupdmgr\s+(update|install)|reboot|shutdown|poweroff|halt|mkfs\S*|wipefs|blkdiscard|sgdisk|dd|zpool|parted|ip\s+link\s+set|ethtool\s+(-s|--change)|systemctl\s+(restart|reload|stop|start|enable|disable|mask|unmask|reboot|poweroff|halt|kexec)|nvidia-smi\b.*\s(-r|--gpu-reset)|ipmitool(?!.*\s-I\s+lanplus))\b/;
+  const cpRoot = c => CP_ROOT.test(String(c || '').trim());
+  const cpNode = (p) => (p && p.node) || (() => { try { return readNodes().active || ''; } catch (e) { return ''; } })() || '<node>';
+
+  // Verify and rollback steps for a change, derived from the command's own text so the
+  // host, BMC and flags carry over. [verify[], rollback[], warning, extra pre-checks[]]
+  function cpSuggest(cmd) {
+    const c = String(cmd);
+    const out = { verify: [], rollback: [], warn: '', pre: [] };
+    let m;
+    if ((m = c.match(/chassis\s+power\s+(cycle|reset|off|on|soft)\b/i))) {
+      const base = c.slice(0, m.index);
+      out.pre.push([`${base}sel elist | tail -n 30`, 'SEL before the change, to compare after']);
+      out.verify.push([`${base}chassis power status`, 'Power state is what you expect']);
+      out.verify.push([`${base}sel elist | tail -n 30`, 'No new critical events after the change']);
+      const back = { off: 'on', soft: 'on', on: 'off' }[m[1].toLowerCase()];
+      if (back) out.rollback.push([`${base}chassis power ${back}`, `Power it ${back} again`]);
+      else out.warn = 'A power cycle or reset can’t be undone. If the node does not come back, open the SOL console and read the SEL.';
+    } else if ((m = c.match(/scontrol\s+update\s+(?:nodename|node)=(\S+).*?state=(\w+)/i))) {
+      const node = m[1];
+      out.verify.push([`sinfo -N -n ${node} -o "%N %T %E"`, 'Scheduler shows the state you set']);
+      if (/^(drain|down)$/i.test(m[2])) out.rollback.push([`scontrol update NodeName=${node} State=RESUME`, 'Return the node to the scheduler']);
+      else if (/^resume$/i.test(m[2])) out.rollback.push([`scontrol update NodeName=${node} State=DRAIN Reason="rollback"`, 'Drain it again']);
+    } else if ((m = c.match(/kubectl\s+(cordon|drain|uncordon)\s+(?:node\/)?([^\s-][^\s]*)/i))) {
+      const node = m[2];
+      out.verify.push([`kubectl get node ${node} -o wide`, m[1] === 'uncordon' ? 'Ready, without SchedulingDisabled' : 'Ready,SchedulingDisabled']);
+      out.rollback.push(m[1] === 'uncordon' ? [`kubectl cordon ${node}`, 'Stop scheduling on it again'] : [`kubectl uncordon ${node}`, 'Allow scheduling again (evicted pods do not come back by themselves)']);
+    } else if ((m = c.match(/kubectl\s+taint\s+(?:nodes?|no)\s+(\S+)\s+(\S+:(?:NoSchedule|PreferNoSchedule|NoExecute))(-?)(?=\s|$)/))) {
+      out.verify.push([`kubectl describe node ${m[1]} | grep -A3 Taints`, m[3] ? 'The taint is gone' : 'The taint is listed']);
+      out.rollback.push([`kubectl taint nodes ${m[1]} ${m[2]}${m[3] ? '' : '-'}`, m[3] ? 'Put the taint back' : 'Remove the taint (the trailing - removes it)']);
+      if (/NoExecute/.test(m[2]) && !m[3]) out.warn = 'NoExecute evicts running pods now; removing the taint does not bring them back.';
+    } else if ((m = c.match(/systemctl\s+(restart|reload|stop|start|enable|disable|mask|unmask)\s+(?:--now\s+)?([\w@.:-]+)/i))) {
+      const pre = c.slice(0, m.index), svc = m[2];
+      out.pre.push([`${pre}systemctl status ${svc} --no-pager`, 'State before the change']);
+      out.verify.push([`${pre}systemctl status ${svc} --no-pager`, 'Active (or inactive) as intended, no failed state']);
+      out.verify.push([`${pre}journalctl -u ${svc} -n 50 --no-pager`, 'No errors since the change']);
+      const back = { stop: 'start', start: 'stop', enable: 'disable', disable: 'enable', mask: 'unmask', unmask: 'mask' }[m[1].toLowerCase()];
+      if (back) out.rollback.push([`${pre}systemctl ${back} ${svc}`, `Undo: ${back} it`]);
+      else out.warn = `A ${m[1]} can’t be undone. If ${svc} fails to start, read its journal and restore the previous config.`;
+    } else if ((m = c.match(/ip\s+link\s+set\s+(?:dev\s+)?(\S+)\s+(down|up)\b/i))) {
+      const pre = c.slice(0, m.index);
+      out.verify.push([`ip -s link show ${m[1]}`, `State ${m[2].toUpperCase()}, error counters not climbing`]);
+      out.rollback.push([`${pre}ip link set ${m[1]} ${m[2] === 'down' ? 'up' : 'down'}`, 'Flip it back']);
+      if (m[2] === 'down') out.warn = `If you are logged in over ${m[1]}, taking it down cuts your own session. Use the BMC console.`;
+    } else if ((m = c.match(/ethtool\s+(?:-s|--change)\s+(\S+)/i))) {
+      out.pre.push([`ethtool ${m[1]}`, 'Speed, duplex and autoneg before: the rollback values']);
+      out.verify.push([`ethtool ${m[1]}`, 'Link detected, at the speed you set']);
+      out.warn = 'Rollback: set the values ethtool showed in the pre-check.';
+    } else if (/nvidia-smi\b.*\s(-r|--gpu-reset)\b/.test(c)) {
+      out.verify.push(['nvidia-smi', 'Every GPU listed, no ERR!']);
+      out.verify.push(['dmesg -T | grep -iE "xid|nvrm" | tail -n 20', 'No new Xid since the reset']);
+      out.warn = 'A GPU reset can’t be undone. If the GPU stays missing, the next step is a node reboot.';
+    } else if (/\b(reboot|shutdown|poweroff|halt)\b|systemctl\s+(reboot|poweroff|halt|kexec)/.test(c)) {
+      out.verify.push(['uptime', 'Uptime restarted: the node came back']);
+      out.verify.push(['dmesg -T --level=err,crit,alert,emerg | tail -n 30', 'No new hardware errors at boot']);
+      out.warn = 'A reboot can’t be undone. If the node does not come back, use the BMC: power status, SOL console, SEL.';
+    } else if (/\b(nvme\s+(format|sanitize)|mkfs(\.\w+)?|wipefs|blkdiscard|sgdisk\s+-[Zo]|dd\s+[^|]*\bof=\/dev\/|zpool\s+(destroy|labelclear)|mdadm\s+--zero-superblock|parted\b.*\bmklabel)\b/.test(c)) {
+      out.pre.push(['lsblk -o NAME,MODEL,SERIAL,SIZE,MOUNTPOINT', 'The device name matches the serial you mean to wipe']);
+      out.verify.push(['lsblk -o NAME,MODEL,SERIAL,SIZE,MOUNTPOINT', 'Device present with the expected layout']);
+      out.warn = 'Destroys data. There is no rollback: confirm the backup and the device serial twice.';
+    } else if ((m = c.match(/mdadm\s+(?:--manage\s+)?(\/dev\/md\w+)\s+.*--(fail|remove)\s+(\/dev\/\S+)/))) {
+      out.pre.push([`mdadm --detail ${m[1]}`, 'Array state and members before']);
+      out.verify.push(['cat /proc/mdstat', 'Array degraded as expected, not failed']);
+      out.rollback.push([m[2] === 'fail' ? `mdadm --manage ${m[1]} --remove ${m[3]} && mdadm --manage ${m[1]} --add ${m[3]}` : `mdadm --manage ${m[1]} --add ${m[3]}`, 'Add it back (it resyncs)']);
+    } else if ((m = c.match(/\b(mlxfwmanager|flint|fwupdmgr|racadm\s+update|ilorest\s+flashfwpkg|onecli\s+update)\b/i))) {
+      const q = /mlxfwmanager|flint/i.test(m[1]) ? 'mlxfwmanager --query' : /fwupdmgr/i.test(m[1]) ? 'fwupdmgr get-devices' : '';
+      if (q) { out.pre.push([q, 'Firmware version before: write it in the ticket']); out.verify.push([q, 'New version reported (some need a reboot or reset first)']); }
+      out.warn = 'Rollback means flashing the previous image: keep it. Some firmware can’t be downgraded.';
+    }
+    if (!out.verify.length) out.verify.push(['', 'Re-run the read-only check that showed the problem, and compare.']);
+    if (!out.rollback.length && !out.warn) out.warn = 'Write how to undo this, or why it can’t be undone.';
+    return out;
+  }
+
+  function cpAdd(cmd, note) {
+    cmd = cpPick(cmd);
+    if (!cmd) return;
+    const sec = exSecrets(cmd);
+    if (sec.hits.length) { cmd = sec.safe; showGlobalToast('Password taken out of the command: it reads a variable instead.'); }
+    const p = cpRead();
+    if (cpHas(cmd)) { openPlan(); return; }
+    if (!p.node) p.node = cpNode(p) === '<node>' ? '' : cpNode(p);
+    const have = (ph, c) => c && p.steps.some(s => s.phase === ph && cpNorm(s.cmd) === cpNorm(c));
+    const push = (phase, c, n, auto) => { if (!have(phase, c)) p.steps.push({ id: cpId(), phase, cmd: c, note: n || '', auto: !!auto, done: false }); };
+    if (!p.steps.some(s => s.phase === 'pre')) {
+      push('pre', DRAIN_CHECK.cmd, 'No compute PIDs and the node drained', true);
+    }
+    const sg = cpSuggest(cmd);
+    sg.pre.forEach(([c, n]) => push('pre', c, n, true));
+    push('change', cmd, note || '');
+    sg.verify.forEach(([c, n]) => { if (c) push('verify', c, n, true); else if (!p.steps.some(s => s.phase === 'verify')) push('verify', '', n, true); });
+    sg.rollback.forEach(([c, n]) => push('rollback', c, n, true));
+    if (sg.warn) push('rollback', '', sg.warn, true);
+    if (!p.title) p.title = note ? note.replace(/\.$/, '') : cmd.slice(0, 60);
+    // A new change needs a fresh approval.
+    p.approvedAt = 0;
+    cpWrite(p);
+    openPlan();
+    showGlobalToast(`Added to the change plan for ${cpNode(p)}: verify and rollback steps suggested.`);
+  }
+
+  function cpSyncButtons() {
+    document.querySelectorAll('.mop-add').forEach(b => {
+      const box = b.closest('.cmd-code-box');
+      const on = !!box && cpHas(cpBoxCmd(box));
+      b.classList.toggle('is-in', on);
+      b.textContent = on ? '✓ In change plan' : '+ Change plan';
+    });
+    const m = document.getElementById('plan-menu-btn');
+    if (m) { const n = cpRead().steps.filter(s => s.phase === 'change').length; m.querySelector('small').textContent = n ? `${n}` : ''; }
+  }
+
+  function cpGate(p) {
+    const pre = p.steps.filter(s => s.phase === 'pre' && s.cmd);
+    const ticked = pre.filter(s => s.done).length;
+    return { pre, ticked, preOk: ticked === pre.length, approved: !!p.approvedAt, open: ticked === pre.length && !!p.approvedAt };
+  }
+  const cpTime = t => new Date(t).toISOString().replace('T', ' ').slice(0, 16) + ' UTC';
+
+  function cpRender() {
+    if (!cpEl) return;
+    const p = cpRead();
+    const g = cpGate(p);
+    const node = cpNode(p);
+    ['title', 'ticket', 'node', 'window', 'approver'].forEach(k => { const i = cpEl.querySelector(`[data-mop-field="${k}"]`); if (i && document.activeElement !== i) i.value = p[k] || ''; });
+    cpEl.querySelector('[data-mop-field="node"]').placeholder = node;
+    let n = 0;
+    const stepHtml = (s) => {
+      const locked = s.phase === 'change' && !g.open;
+      if (!s.cmd) return `<li class="mop-step is-note" data-mop-id="${s.id}"><span class="mop-warn" aria-hidden="true">${s.phase === 'rollback' ? '⚠' : 'ℹ'}</span><p>${escapeHtml(s.note)}</p><button type="button" class="mop-x" data-mop-del="${s.id}" aria-label="Remove">✕</button></li>`;
+      n += 1;
+      return `<li class="mop-step ${s.done ? 'is-done' : ''} ${locked ? 'is-locked' : ''} ${DANGER_RE.test(s.cmd) ? 'is-danger' : ''}" data-mop-id="${s.id}">
+        <label class="mop-tick" title="${locked ? 'Locked: tick the pre-checks and record an approval first' : 'Mark done'}"><input type="checkbox" data-mop-done="${s.id}" ${s.done ? 'checked' : ''} ${locked ? 'disabled' : ''} /><span>${n}</span></label>
+        <div class="mop-main">
+          ${s.note ? `<b>${escapeHtml(s.note)}</b>` : ''}${s.auto || cpRoot(s.cmd) ? `<span class="mop-tags">${s.auto ? '<em>suggested</em>' : ''}${cpRoot(s.cmd) ? '<em class="mop-root">needs root</em>' : ''}</span>` : ''}
+          <code>${escapeHtml(s.cmd)}</code>
+        </div>
+        <div class="mop-acts">
+          <button type="button" data-mop-copy="${s.id}" ${locked ? 'aria-disabled="true"' : ''}>${locked ? '🔒 Locked' : 'Copy'}</button>
+          <button type="button" data-mop-explain="${s.id}" title="What each part does">🔎</button>
+          <button type="button" class="mop-x" data-mop-del="${s.id}" aria-label="Remove step">✕</button>
+        </div>
+      </li>`;
+    };
+    const gate = `<div class="mop-gate ${g.open ? 'is-open' : ''}">
+        <span class="mop-gate-lock" aria-hidden="true">${g.open ? '🔓' : '🔒'}</span>
+        <div class="mop-gate-text">
+          <b>${g.open ? 'Approved: the change steps are unlocked' : 'Gate: the change stays locked until'}</b>
+          <ul>
+            <li class="${g.preOk ? 'ok' : ''}">${g.preOk ? '✓' : '○'} Pre-checks ticked: ${g.ticked}/${g.pre.length}</li>
+            <li class="${g.approved ? 'ok' : ''}">${g.approved ? `✓ Approved by <b>${escapeHtml(p.approver)}</b> at ${cpTime(p.approvedAt)}` : '○ Approval recorded'}</li>
+          </ul>
+        </div>
+        ${g.approved
+          ? '<button type="button" data-mop-act="revoke">Revoke approval</button>'
+          : `<label class="mop-approve">Approved by <input type="text" data-mop-field="approver" placeholder="name, from the ticket" spellcheck="false" autocomplete="off" value="${escapeHtml(p.approver)}" /></label><button type="button" class="mop-primary" data-mop-act="approve">Record approval</button>`}
+      </div>`;
+    const phases = CP_PHASES.map(([ph, label, hint]) => {
+      const steps = p.steps.filter(s => s.phase === ph);
+      return `${ph === 'change' ? gate : ''}<section class="mop-phase mop-${ph}">
+        <header><h3>${label}</h3><span>${hint}</span></header>
+        ${steps.length ? `<ol class="mop-steps">${steps.map(stepHtml).join('')}</ol>` : `<p class="mop-empty">${ph === 'change' ? 'Nothing to change yet. Click <b>+ Change plan</b> on any red ⚠ command, or type one below.' : 'None yet.'}</p>`}
+        <form class="mop-addrow" data-mop-phase="${ph}"><input type="text" placeholder="Add a ${label.toLowerCase().replace(/s$/, '')} command" spellcheck="false" autocomplete="off" /><input type="text" class="mop-addnote" placeholder="what it checks / does" autocomplete="off" /><button type="submit">Add</button></form>
+      </section>`;
+    }).join('');
+    const body = cpEl.querySelector('.mop-phases');
+    const keep = body.scrollTop;
+    body.innerHTML = phases;
+    body.scrollTop = keep;
+    const changes = p.steps.filter(s => s.phase === 'change').length;
+    cpEl.querySelector('.mop-sum').textContent = `${node} · ${changes} change${changes === 1 ? '' : 's'} · ${g.open ? 'approved' : 'awaiting approval'}`;
+    const clr = cpEl.querySelector('[data-mop-act="clear"]');
+    clr.textContent = Date.now() - cpClearArm < 4000 ? 'Click again to clear' : 'Clear plan';
+  }
+
+  function cpMarkdown() {
+    const p = cpRead();
+    const g = cpGate(p);
+    const fill = s => trailSafeText(s);
+    const lines = [`# Change plan: ${p.title || 'untitled'}`, ''];
+    [['Ticket', p.ticket], ['Node', cpNode(p)], ['Window', p.window], ['Approved by', g.approved ? `${p.approver} at ${cpTime(p.approvedAt)}` : 'not yet approved']].forEach(([k, v]) => { if (v) lines.push(`- **${k}:** ${v}`); });
+    CP_PHASES.forEach(([ph, label], i) => {
+      const steps = p.steps.filter(s => s.phase === ph);
+      if (!steps.length) return;
+      lines.push('', `## ${i + 1}. ${label}`, '');
+      steps.forEach(s => {
+        if (!s.cmd) { lines.push(`> ${ph === 'rollback' ? '⚠ ' : ''}${s.note}`, ''); return; }
+        lines.push(`- [${s.done ? 'x' : ' '}] ${s.note || 'Run'}${DANGER_RE.test(s.cmd) ? ' (changes state)' : ''}`, '', '  ```bash', ...(cpRoot(s.cmd) ? ['  # needs root'] : []), `  ${fill(s.cmd)}`, '  ```', '');
+      });
+    });
+    lines.push('', `_Built ${cpTime(Date.now())} with the datacenter cheat-sheet change plan._`);
+    return lines.join('\n').replace(/\n{3,}/g, '\n\n');
+  }
+
+  function cpClick(e) {
+    const t = e.target instanceof Element ? e.target : null;
+    if (!t) return;
+    if (t.closest('[data-mop-close]') || t === cpEl) return closePlan();
+    const p = cpRead();
+    const find = id => p.steps.find(s => s.id === id);
+    const copyBtn = t.closest('[data-mop-copy]');
+    if (copyBtn) {
+      const s = find(copyBtn.dataset.mopCopy);
+      if (!s) return;
+      if (s.phase === 'change' && !cpGate(p).open) {
+        showGlobalToast(cpGate(p).preOk ? 'Locked: record who approved the change first.' : 'Locked: run and tick every pre-check first.');
+        cpEl.querySelector('.mop-gate')?.classList.add('is-shake');
+        setTimeout(() => cpEl.querySelector('.mop-gate')?.classList.remove('is-shake'), 500);
+        return;
+      }
+      navigator.clipboard.writeText(s.cmd);   // Rack Targets fill in, as everywhere
+      copyBtn.textContent = 'Copied ✓';
+      setTimeout(cpRender, 900);
+      return;
+    }
+    const ex = t.closest('[data-mop-explain]');
+    if (ex) { const s = find(ex.dataset.mopExplain); if (s) { closePlan(); openExplain(s.cmd); } return; }
+    const del = t.closest('[data-mop-del]');
+    if (del) { p.steps = p.steps.filter(s => s.id !== del.dataset.mopDel); cpWrite(p); cpRender(); return; }
+    const act = t.closest('[data-mop-act]');
+    if (!act) return;
+    const a = act.dataset.mopAct;
+    if (a === 'approve') {
+      const who = cpNorm(cpEl.querySelector('.mop-gate [data-mop-field="approver"]')?.value);
+      if (!who) { showGlobalToast('Type who approved it: the name from the ticket or change board.'); cpEl.querySelector('.mop-gate input')?.focus(); return; }
+      p.approver = who; p.approvedAt = Date.now(); cpWrite(p); cpRender();
+      if (!cpGate(p).preOk) showGlobalToast('Approval recorded. Tick the pre-checks to unlock the change.');
+    } else if (a === 'revoke') {
+      p.approvedAt = 0; cpWrite(p); cpRender();
+    } else if (a === 'md') {
+      navigator.clipboard.writeText(cpMarkdown());
+      showGlobalToast('Change plan copied as Markdown: paste it into the ticket.');
+    } else if (a === 'download') {
+      const blob = new Blob([cpMarkdown() + '\n'], { type: 'text/markdown' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `change-plan-${cleanNodeName(cpNode(p)) || 'node'}-${new Date().toISOString().slice(0, 10)}.md`;
+      document.body.appendChild(link); link.click(); link.remove();
+      setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+    } else if (a === 'pin') {
+      casePin({ kind: 'Change plan', title: p.title || 'Change plan', sev: cpGate(p).open ? 'info' : 'warn', md: cpMarkdown(), facts: [['Changes', String(p.steps.filter(s => s.phase === 'change').length)], ['Approved', cpGate(p).approved ? p.approver : 'no']] });
+    } else if (a === 'clear') {
+      if (Date.now() - cpClearArm < 4000) { cpClearArm = 0; cpWrite(cpBlank()); cpRender(); showGlobalToast('Change plan cleared.'); }
+      else { cpClearArm = Date.now(); cpRender(); setTimeout(cpRender, 4100); }
+    }
+  }
+
+  function openPlan() {
+    if (IN_WIDGET_FRAME) return;
+    if (!cpEl) {
+      cpEl = document.createElement('div');
+      cpEl.className = 'an-backdrop mop-backdrop';
+      cpEl.innerHTML = `
+        <div class="an-dialog mop-dialog" role="dialog" aria-modal="true" aria-labelledby="mop-title">
+          <header class="an-head mop-head">
+            <div><h2 id="mop-title">Change plan</h2><p>Pre-checks, the change, how to verify it and how to back out. The change unlocks once the pre-checks are ticked and an approval is recorded. <span class="mop-sum"></span></p></div>
+            <button type="button" class="trail-close" data-mop-close aria-label="Close">✕</button>
+          </header>
+          <div class="mop-meta">
+            <label class="mop-wide">What <input type="text" data-mop-field="title" placeholder="Power cycle gpu-node07 to clear Xid 79" autocomplete="off" /></label>
+            <label>Ticket <input type="text" data-mop-field="ticket" placeholder="INC-1234" spellcheck="false" autocomplete="off" /></label>
+            <label>Node <input type="text" data-mop-field="node" spellcheck="false" autocomplete="off" /></label>
+            <label>Window <input type="text" data-mop-field="window" placeholder="Tue 02:00–03:00 UTC" autocomplete="off" /></label>
+          </div>
+          <div class="mop-phases"></div>
+          <footer class="mop-foot">
+            <button type="button" class="mop-primary" data-mop-act="md">Copy as Markdown</button>
+            <button type="button" data-mop-act="download">⬇ Download .md</button>
+            <button type="button" data-mop-act="pin">📌 Pin to case</button>
+            <span class="mop-spacer"></span>
+            <button type="button" class="mop-clear" data-mop-act="clear">Clear plan</button>
+          </footer>
+        </div>`;
+      document.body.appendChild(cpEl);
+      cpEl.addEventListener('click', cpClick);
+      cpEl.addEventListener('change', (e) => {
+        const box = e.target instanceof Element ? e.target.closest('[data-mop-done]') : null;
+        if (!box) return;
+        const p = cpRead();
+        const s = p.steps.find(x => x.id === box.dataset.mopDone);
+        if (s) { s.done = box.checked; cpWrite(p); cpRender(); }
+      });
+      cpEl.addEventListener('input', (e) => {
+        const f = e.target instanceof Element ? e.target.dataset.mopField : '';
+        if (!f) return;
+        const p = cpRead();
+        p[f] = e.target.value;
+        if (f === 'approver' && p.approvedAt) p.approvedAt = 0;
+        cpWrite(p);
+        if (f === 'node') cpEl.querySelector('.mop-sum').textContent = cpEl.querySelector('.mop-sum').textContent.replace(/^[^·]*/, `${cpNode(p)} `);
+      });
+      cpEl.addEventListener('submit', (e) => {
+        const form = e.target.closest('.mop-addrow');
+        if (!form) return;
+        e.preventDefault();
+        const [ci, ni] = form.querySelectorAll('input');
+        const cmd = ci.value.trim();
+        if (!cmd) { ci.focus(); return; }
+        if (form.dataset.mopPhase === 'change') { cpAdd(cmd, ni.value.trim()); return; }
+        const sec = exSecrets(cmd);
+        const p = cpRead();
+        p.steps = p.steps.filter(x => !(x.phase === form.dataset.mopPhase && x.auto && !x.cmd && x.phase === 'verify'));
+        p.steps.push({ id: cpId(), phase: form.dataset.mopPhase, cmd: sec.safe, note: ni.value.trim(), auto: false, done: false });
+        cpWrite(p);
+        cpRender();
+        if (sec.hits.length) showGlobalToast('Password taken out of the command: it reads a variable instead.');
+        cpEl.querySelector(`.mop-addrow[data-mop-phase="${form.dataset.mopPhase}"] input`)?.focus();
+      });
+      cpEl.addEventListener('keydown', (e) => { if (e.key === 'Escape') { e.stopPropagation(); closePlan(); } });
+    }
+    cpEl._back = cpEl.classList.contains('show') ? cpEl._back : document.activeElement;
+    cpRender();
+    cpEl.classList.add('show');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closePlan() {
+    if (!cpEl) return;
+    cpEl.classList.remove('show');
+    document.body.style.overflow = '';
+    if (cpEl._back && cpEl._back.focus) cpEl._back.focus({ preventScroll: true });
+  }
+
+  function initChangePlan() {
+    // "+ Change plan" sits inside a copy box: capture phase so it wins over click-to-copy.
+    window.addEventListener('click', (e) => {
+      const b = e.target instanceof Element ? e.target.closest('.mop-add') : null;
+      if (!b) return;
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      const box = b.closest('.cmd-code-box');
+      if (!box) return;
+      const raw = cpBoxCmd(box);
+      if (b.classList.contains('is-in')) { openPlan(); return; }
+      const item = box.closest('.cmd-item');
+      const desc = item && item.querySelector('.cmd-desc') ? item.querySelector('.cmd-desc').textContent.trim() : '';
+      cpAdd(raw, desc.length > 90 ? desc.slice(0, 88) + '…' : desc);
+    }, true);
+    window.addEventListener('keydown', (e) => {
+      const b = e.target instanceof Element ? e.target.closest('.mop-add') : null;
+      if (b && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); e.stopImmediatePropagation(); b.click(); }
+    }, true);
+    document.addEventListener('dc:node-changed', () => { cpSyncButtons(); if (cpEl && cpEl.classList.contains('show')) cpRender(); });
+    window.addEventListener('storage', (e) => { if (e.key === CP_KEY) { cpSyncButtons(); if (cpEl && cpEl.classList.contains('show')) cpRender(); } });
+    cpSyncButtons();
   }
 
   // -------------------------------------------------------------
@@ -11894,10 +11946,10 @@ ${rmaTrailSection()}#### Action Requested:
         acts: [['xray', 'Node X-ray'], ['diff', 'Compare nodes'], ['fleet', fl.active ? 'Fleet settings' : 'Fleet mode'], ['fleetres', 'Fleet results']] },
       { id: 'isolate', n: 4, title: 'Isolate', what: 'Physical checks before declaring a part dead.',
         done: runs.some(x => x.p.done >= Math.ceil(x.p.total / 2)), status: runs[0] ? `${runs[0].rb.title.split(/[/(]/)[0].trim()}: ${runs[0].p.done}/${runs[0].p.total}` : 'Clean, reseat, A/B swap',
-        acts: [['runbook', runs[0] ? 'Resume runbook' : 'Guided runbooks'], ['cable', 'Cable check'], ['atlas', 'Healthy ranges']] },
+        acts: [['runbook', runs[0] ? 'Resume runbook' : 'Guided runbooks'], ['cable', 'Cable check'], ['plan', 'Change plan'], ['atlas', 'Healthy ranges']] },
       { id: 'document', n: 5, title: 'Document', what: 'summary.md, RMA block, handoff.',
         done: /RMA filed|Resolved|Monitoring/.test(kase.status) || !!(kase.root || '').trim(), status: pins.length || trail.length ? `Case: ${kase.status} · ${pins.length} pinned` : 'Pin evidence as you go',
-        acts: [['notes', 'Field notes'], ['case', `Case file${pins.length ? ` (${pins.length})` : ''}`], ['phone', 'To phone'], ['rma', 'RMA formatter']] }
+        acts: [['notes', 'Field notes'], ['case', `Case file${pins.length ? ` (${pins.length})` : ''}`], ['rma', 'RMA formatter']] }
     ];
     const next = stages.find(st => !st.done);
     stages.forEach(st => { st.state = st.done ? 'done' : st === next ? 'next' : 'todo'; });
@@ -11931,6 +11983,7 @@ ${rmaTrailSection()}#### Action Requested:
     if (a === 'rosetta') return openRosetta('', 'bmc');
     if (a === 'capture') return openCapture();
     if (a === 'cable') return openPanel('check');
+    if (a === 'plan') return openPlan();
     if (a === 'rack') return openRack(readNodes().active || '');
     if (a === 'console') return toggleConsole(true);
     if (a === 'diff') return openGoldenDiff();
@@ -11942,7 +11995,6 @@ ${rmaTrailSection()}#### Action Requested:
     if (a === 'atlas') return openHealthAtlas();
     if (a === 'case') return openCaseFile();
     if (a === 'notes') return openFieldNotes();
-    if (a === 'phone') return openPhone(caseMarkdown(), 'Case summary to your phone', caseName());
     if (a === 'rma') { openTriageModal(); setTimeout(() => { const t = [...document.querySelectorAll('.triage-modal-backdrop button, .triage-modal-backdrop [role=tab]')].find(x => /RMA Ticket/.test(x.textContent)); if (t) t.click(); }, 60); }
   }
 
@@ -12652,7 +12704,7 @@ ${rmaTrailSection()}#### Action Requested:
   // in-sheet search, topic, a live target chip and the tool buttons.
   // Every control proxies the real one, so the sheets' own handlers run.
   // -------------------------------------------------------------
-  const CBAR_QUERY = '(min-width: 769px)';
+  const CBAR_QUERY = 'all';
   const CBAR_HEIGHT = 60;
   const CBAR_ICONS = {
     term: '<path d="M4 17l6-5-6-5"/><path d="M12 19h8"/>',
@@ -13044,7 +13096,7 @@ ${rmaTrailSection()}#### Action Requested:
         <button type="button" class="trail-primary" data-act="md">Copy ticket notes</button>
         <button type="button" data-act="plain">Copy commands</button>
         <button type="button" class="trail-case" data-act="case" title="Pinned evidence + this trail as summary.md">📁 Case file <span class="case-count" hidden>0</span></button>
-        <button type="button" class="trail-phone" data-act="phone" title="Show the ticket notes as QR codes for your phone">📱 To phone</button>
+        
         <button type="button" data-act="script" title="Re-run these commands later as one read-only capture script">⚙ Capture script</button>
         <button type="button" class="trail-danger" data-act="clear">Clear</button>
       </footer>`;
@@ -13076,7 +13128,6 @@ ${rmaTrailSection()}#### Action Requested:
       if (act === 'md') return trailCopy(trailMarkdown(list), `Copied ticket notes (${list.length} commands).`);
       if (act === 'case') { closeTrail(); return openCaseFile(); }
       if (act === 'script') { closeTrail(); return openCapture('trail'); }
-      if (act === 'phone') return list.length ? openPhone(trailMarkdown(list), 'Ticket notes to your phone', `${list.length} command${list.length === 1 ? '' : 's'} from the Case Trail${trailMeta().caseId ? ` · ${trailMeta().caseId}` : ''}`) : showGlobalToast('The trail is empty: copy a command first.');
       if (act === 'plain') return trailCopy(list.map(x => x.cmd).join('\n'), `Copied ${list.length} commands.`);
       if (act === 'clear') {
         if (btn.dataset.confirm !== '1') {
@@ -13320,7 +13371,7 @@ ${rmaTrailSection()}#### Action Requested:
     });
     const gutter = lines.some(l => l.op);
     const danger = DANGER_RE.test(raw);
-    const inner = (danger ? '<span class="danger-tag" aria-label="Changes state">⚠ Changes state · drain &amp; get approval first</span>' : '')
+    const inner = (danger ? `<span class="danger-tag" aria-label="Changes state">⚠ Changes state · drain &amp; get approval first</span><button type="button" class="mop-add ${cpHas(cpPick(raw)) ? 'is-in' : ''}" title="Plan it: pre-checks, approval, verify and rollback">${cpHas(cpPick(raw)) ? '✓ In change plan' : '+ Change plan'}</button>` : '')
       + lines.map(l => `<span class="anat-line"${alternatives.length > 1 ? ` data-alt="${escapeHtml(l.alt)}" title="Click to copy this alternative"` : ''}>${gutter ? `<span class="anat-op">${escapeHtml(l.op)}</span>` : ''}<span class="anat-body">${l.html}</span></span>`).join('');
     if (danger) box.classList.add('anat-danger');
     const target = codeEl.tagName === 'PRE' ? codeEl : codeEl;
@@ -13373,7 +13424,7 @@ ${rmaTrailSection()}#### Action Requested:
         openSlotEditor(chip);
         return;
       }
-      const box = e.target instanceof Element ? e.target.closest('.cmd-code-box.anat-danger') : null;
+      const box = e.target instanceof Element && !e.target.closest('.mop-add') ? e.target.closest('.cmd-code-box.anat-danger') : null;
       if (box) setTimeout(() => showGlobalToast('⚠ State-changing command copied: confirm the node is drained and the action approved before running it.'), 2400);
     }, true);
     window.addEventListener('keydown', (e) => {
@@ -13382,7 +13433,7 @@ ${rmaTrailSection()}#### Action Requested:
       const chip = e.target instanceof Element ? e.target.closest('.slot[data-slot]') : null;
       if (chip && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); e.stopImmediatePropagation(); openSlotEditor(chip); }
     }, true);
-    // Rack Targets edited in the bar, the command bar popover, Field Mode or Reset.
+    // Rack Targets edited in the bar, the command bar popover or Reset.
     document.addEventListener('input', (e) => { if (e.target instanceof Element && e.target.closest('#target-vars-container')) refreshSlots(); });
     document.addEventListener('change', (e) => { if (e.target instanceof Element && e.target.closest('#target-vars-container')) setTimeout(refreshSlots, 0); });
     document.addEventListener('click', (e) => { if (e.target instanceof Element && e.target.closest('#target-reset-btn')) setTimeout(refreshSlots, 0); });
@@ -13403,6 +13454,17 @@ ${rmaTrailSection()}#### Action Requested:
   const ALT_SPLIT = /\s{2,}\|\s{2,}/g;
   const ALT_LABEL = /^[A-Z][A-Za-z0-9 .\/()+-]{0,22}:\s+(?=\S)/;
   const altClean = (a) => String(a || '').trim().replace(ALT_LABEL, '').replace(/\s+\|\s*$/, '').trim();
+  // "status   |   ... chassis power cycle": the "..." stands for the first alternative's
+  // prefix up to the same word. Expand it, or the copy pastes a literal "...".
+  function altFull(alt, first) {
+    const a = String(alt || '').trim();
+    const rest = a.replace(/^(\.\.\.|…)\s*/, '');
+    if (rest === a || !first) return a;
+    const f = altClean(first);
+    const w = rest.split(/\s+/)[0].replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const m = f.match(new RegExp(`(^|\\s)${w}(\\s|$)`));
+    return m ? `${f.slice(0, m.index).trimEnd()} ${rest}` : a;
+  }
   function altSegments(text) {
     const segs = []; let last = 0, m;
     ALT_SPLIT.lastIndex = 0;
@@ -13502,9 +13564,9 @@ ${rmaTrailSection()}#### Action Requested:
         if (!el || el.closest('button, a, input, select, textarea, .slot')) return;
         const box = el.closest('.cmd-code-box, .subcmd-row');
         if (!box || box.classList.contains('is-reference')) return;
-        let alt = null;
+        let alt = null, first = '';
         const line = el.closest('[data-alt]');
-        if (line && box.contains(line)) alt = line.dataset.alt;
+        if (line && box.contains(line)) { alt = line.dataset.alt; first = (box.querySelector('[data-alt]') || line).dataset.alt; }
         else {
           const code = box.querySelector('.cmd-code, .subcmd-code') || box;
           const segs = altSegments(code.textContent);
@@ -13512,8 +13574,9 @@ ${rmaTrailSection()}#### Action Requested:
           const off = altClickOffset(code, e);
           if (off < 0) return;                                   // padding: the sheet copies its default
           alt = (segs.find(x => off <= x.to) || segs[segs.length - 1]).text;
+          first = segs[0].text;
         }
-        const clean = altClean(alt);
+        const clean = altClean(altFull(alt, first));
         const sheetCopies = String(box.dataset.copy ?? box.dataset.cmd ?? box.dataset.subcmd ?? '').trim();
         if (!clean || clean === sheetCopies) return;             // the sheet already copies exactly this
         e.preventDefault();
@@ -13590,259 +13653,6 @@ ${rmaTrailSection()}#### Action Requested:
     window.addEventListener('scroll', () => anatTip && anatTip.classList.remove('show'), { passive: true });
   }
 
-  // -------------------------------------------------------------
-  // FIELD MODE: phone layout for the cold aisle.
-  // Below 768px the header chrome (sheet nav, action buttons, Rack Targets)
-  // used to fill the first screen and a half before any command showed.
-  // Field Mode moves those into slide-up sheets behind a thumb dock, so the
-  // first screen is the sheet's search and its commands.
-  // -------------------------------------------------------------
-  const FIELD_QUERY = '(max-width: 768px)';
-  const ICONS = {
-    search: '<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.6-4.6"/>',
-    sheets: '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',
-    targets: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/>',
-    triage: '<path d="M22 12h-4l-3 9L9 3l-3 9H2"/>',
-    more: '<circle cx="5" cy="12" r="1.4" fill="currentColor"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/><circle cx="19" cy="12" r="1.4" fill="currentColor"/>'
-  };
-
-  function dockIcon(name) {
-    return `<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[name]}</svg>`;
-  }
-
-  function initFieldDock() {
-    if (document.getElementById('field-dock') || !window.matchMedia) return;
-    const nav = document.querySelector('.sheet-switcher');
-    const actions = document.querySelector('.header-actions');
-    if (!nav && !actions) return;
-
-    const dock = document.createElement('nav');
-    dock.id = 'field-dock';
-    dock.className = 'fd-dock';
-    dock.setAttribute('aria-label', 'Quick actions');
-    dock.innerHTML = `
-      <button type="button" class="fd-btn" data-fd="search">${dockIcon('search')}<span>Search</span></button>
-      <button type="button" class="fd-btn" data-fd="sheets" aria-controls="fd-sheet-sheets">${dockIcon('sheets')}<span>Sheets</span></button>
-      <button type="button" class="fd-btn fd-btn-targets" data-fd="targets" aria-controls="fd-sheet-targets">${dockIcon('targets')}<span class="fd-target-label">Targets</span></button>
-      <button type="button" class="fd-btn fd-btn-triage" data-fd="triage">${dockIcon('triage')}<span>Triage</span></button>
-      <button type="button" class="fd-btn" data-fd="more" aria-controls="fd-sheet-more">${dockIcon('more')}<span>Tools</span></button>`;
-
-    const scrim = document.createElement('div');
-    scrim.className = 'fd-scrim';
-
-    function makeSheet(id, title, extra = '') {
-      const el = document.createElement('section');
-      el.id = id;
-      el.className = 'fd-sheet';
-      el.setAttribute('role', 'dialog');
-      el.setAttribute('aria-modal', 'true');
-      el.setAttribute('aria-label', title);
-      el.innerHTML = `
-        <div class="fd-grabber" aria-hidden="true"></div>
-        <div class="fd-sheet-head"><h2>${title}</h2><button type="button" class="fd-close" aria-label="Close">✕</button></div>
-        ${extra}
-        <div class="fd-sheet-body"></div>`;
-      el.querySelector('.fd-close').addEventListener('click', closeSheets);
-      return el;
-    }
-
-    const sheetsPanel = makeSheet('fd-sheet-sheets', 'Jump to a sheet',
-      '<div class="fd-filter"><input type="search" placeholder="Filter sheets… (mlxlink, sel, nvme)" aria-label="Filter sheets" autocomplete="off" spellcheck="false"></div>');
-    const targetsPanel = makeSheet('fd-sheet-targets', 'Rack targets');
-    const morePanel = makeSheet('fd-sheet-more', 'Tools & view');
-    document.body.append(scrim, sheetsPanel, targetsPanel, morePanel, dock);
-
-    // Remember where moved nodes live so desktop gets them back untouched.
-    const homes = new Map();
-    function borrow(node, into) {
-      if (!node || node.parentNode === into) return;
-      if (!homes.has(node)) {
-        const marker = document.createComment('field-dock-home');
-        node.parentNode.insertBefore(marker, node);
-        homes.set(node, marker);
-      }
-      into.appendChild(node);
-    }
-    function giveBack() {
-      homes.forEach((marker, node) => {
-        if (marker.parentNode) marker.parentNode.insertBefore(node, marker.nextSibling);
-      });
-    }
-
-    let openSheet = null;
-    let lastFocus = null;
-    function open(panel) {
-      if (openSheet === panel) return closeSheets();
-      closeSheets(false);
-      lastFocus = document.activeElement;
-      openSheet = panel;
-      document.body.classList.add('fd-locked');
-      scrim.classList.add('show');
-      panel.classList.add('show');
-      dock.querySelectorAll('.fd-btn').forEach(b => b.classList.toggle('active', b.getAttribute('aria-controls') === panel.id));
-      const focusEl = panel.querySelector('.fd-filter input') || panel.querySelector('input, button');
-      if (focusEl && panel !== sheetsPanel) focusEl.focus({ preventScroll: true });
-    }
-    function closeSheets(restoreFocus = true) {
-      if (!openSheet) return;
-      openSheet.classList.remove('show');
-      openSheet = null;
-      scrim.classList.remove('show');
-      document.body.classList.remove('fd-locked');
-      dock.querySelectorAll('.fd-btn').forEach(b => b.classList.remove('active'));
-      if (restoreFocus && lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
-    }
-    scrim.addEventListener('click', () => closeSheets());
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && openSheet) { e.stopPropagation(); closeSheets(); }
-    }, true);
-
-    // Swipe a sheet down by its handle to dismiss it.
-    [sheetsPanel, targetsPanel, morePanel].forEach(panel => {
-      let startY = null;
-      panel.addEventListener('touchstart', (e) => {
-        startY = e.target.closest('.fd-grabber, .fd-sheet-head') ? e.touches[0].clientY : null;
-      }, { passive: true });
-      panel.addEventListener('touchmove', (e) => {
-        if (startY === null) return;
-        const dy = Math.max(0, e.touches[0].clientY - startY);
-        panel.style.transform = `translateY(${dy}px)`;
-      }, { passive: true });
-      panel.addEventListener('touchend', (e) => {
-        if (startY === null) return;
-        const dy = e.changedTouches[0].clientY - startY;
-        panel.style.transform = '';
-        startY = null;
-        if (dy > 80) closeSheets();
-      });
-    });
-
-    // ---- Sheets panel: a flat, touch-sized directory built from the header nav.
-    const currentFile = () => (window.location.pathname.split('/').pop() || 'index.html');
-    function itemLabel(a) {
-      const code = a.querySelector('code');
-      const desc = a.querySelector('.cmd-desc');
-      if (code || desc) return { name: code ? code.textContent.trim() : '', desc: desc ? desc.textContent.trim() : '' };
-      return { name: a.textContent.replace(/[▾•]/g, '').trim(), desc: '' };
-    }
-    function isCurrent(a) {
-      const portableHash = window.location.hash.replace(/^#sheet-/, '');
-      if (a.dataset.sheet) return a.dataset.sheet === portableHash;
-      return (a.getAttribute('href') || '').split('#')[0] === currentFile();
-    }
-    function buildSheetList() {
-      const body = sheetsPanel.querySelector('.fd-sheet-body');
-      body.innerHTML = '';
-      if (!nav) return;
-      const groups = [];
-      Array.from(nav.children).forEach(child => {
-        if (child.classList.contains('nav-dropdown')) {
-          const toggle = child.querySelector('.dropdown-toggle');
-          const items = Array.from(child.querySelectorAll('.dropdown-item'));
-          groups.push({ title: toggle ? toggle.textContent.replace('▾', '').trim() : 'Sheets', icon: toggle && toggle.querySelector('svg, img'), items });
-        } else if (child.matches('a')) {
-          let loose = groups.find(g => g.loose);
-          if (!loose) { loose = { title: 'More', loose: true, items: [] }; groups.push(loose); }
-          loose.items.push(child);
-        }
-      });
-      groups.forEach(g => {
-        const details = document.createElement('details');
-        details.className = 'fd-group';
-        const hasCurrent = g.items.some(isCurrent);
-        if (hasCurrent) details.open = true;
-        const summary = document.createElement('summary');
-        if (g.icon) summary.appendChild(g.icon.cloneNode(true));
-        summary.insertAdjacentHTML('beforeend', `<span class="fd-group-title">${escapeHtml(g.title)}</span><span class="fd-group-count">${g.items.length}</span>`);
-        details.appendChild(summary);
-        const list = document.createElement('div');
-        list.className = 'fd-group-list';
-        g.items.forEach(orig => {
-          const { name, desc } = itemLabel(orig);
-          const link = document.createElement('a');
-          link.className = 'fd-item' + (isCurrent(orig) ? ' current' : '');
-          link.href = orig.getAttribute('href') || '#';
-          link.dataset.search = `${g.title} ${name} ${desc}`.toLowerCase();
-          link.innerHTML = `<code>${escapeHtml(name)}</code>${desc ? `<span>${escapeHtml(desc)}</span>` : ''}`;
-          link.addEventListener('click', (e) => {
-            e.preventDefault();
-            closeSheets(false);
-            orig.click();
-          });
-          list.appendChild(link);
-        });
-        details.appendChild(list);
-        body.appendChild(details);
-      });
-      const current = body.querySelector('.fd-item.current');
-      if (current) requestAnimationFrame(() => current.scrollIntoView({ block: 'center' }));
-    }
-    const filterInput = sheetsPanel.querySelector('.fd-filter input');
-    filterInput.addEventListener('input', () => {
-      const q = filterInput.value.trim().toLowerCase();
-      sheetsPanel.querySelectorAll('.fd-group').forEach(group => {
-        let shown = 0;
-        group.querySelectorAll('.fd-item').forEach(item => {
-          const hit = !q || q.split(/\s+/).every(t => item.dataset.search.includes(t));
-          item.hidden = !hit;
-          if (hit) shown++;
-        });
-        group.hidden = shown === 0;
-        if (q) group.open = shown > 0;
-      });
-    });
-
-    // ---- Targets: show the live $BMC on the dock so the tech knows which box commands hit.
-    function syncTargetLabel() {
-      const label = dock.querySelector('.fd-target-label');
-      const bmc = document.getElementById('var-bmc');
-      const value = bmc && bmc.value.trim();
-      label.textContent = value || 'Targets';
-      dock.querySelector('.fd-btn-targets').classList.toggle('has-value', !!value);
-    }
-    document.addEventListener('input', (e) => {
-      if (e.target && e.target.id === 'var-bmc') syncTargetLabel();
-    });
-
-    dock.addEventListener('click', (e) => {
-      const btn = e.target.closest('.fd-btn');
-      if (!btn) return;
-      switch (btn.dataset.fd) {
-        case 'search': closeSheets(false); openGlobalSearch(); break;
-        case 'sheets':
-          if (openSheet !== sheetsPanel) { filterInput.value = ''; buildSheetList(); filterInput.dispatchEvent(new Event('input')); }
-          open(sheetsPanel);
-          break;
-        case 'targets': open(targetsPanel); break;
-        case 'triage': closeSheets(false); openTriageModal(); break;
-        case 'more': open(morePanel); break;
-      }
-    });
-    // A tool inside the Tools sheet that opens a modal should not leave the sheet on top.
-    morePanel.addEventListener('click', (e) => {
-      const btn = e.target.closest('#global-search-btn, #triage-modal-btn, #manuals-btn, #trail-btn, #kit-btn, .tour-menu-btn');
-      if (btn) closeSheets(false);
-    });
-
-    const mq = window.matchMedia(FIELD_QUERY);
-    function apply() {
-      const on = mq.matches;
-      document.body.classList.toggle('field-mode', on);
-      if (on) {
-        borrow(actions, morePanel.querySelector('.fd-sheet-body'));
-        borrow(document.getElementById('target-vars-container'), targetsPanel.querySelector('.fd-sheet-body'));
-      } else {
-        closeSheets(false);
-        giveBack();
-      }
-      syncTargetLabel();
-      repack();
-    }
-    if (mq.addEventListener) mq.addEventListener('change', apply);
-    else if (mq.addListener) mq.addListener(apply);
-    apply();
-  }
-
   // Expose global methods (aliased across Antigravity, Claude, Codex, and neutral CheatSheetCommon)
   const commonExports = {
     openGlobalSearch,
@@ -13863,7 +13673,6 @@ ${rmaTrailSection()}#### Action Requested:
     analyzeOutput,
     openGoldenDiff,
     openFleet,
-    openPhone,
     openFleetResults,
     openXray,
     openCheckup,
@@ -13872,7 +13681,6 @@ ${rmaTrailSection()}#### Action Requested:
     caseMarkdown,
     frAnalyze,
     fleetCompress,
-    qrEncode,
     fleetWrap,
     fleetExpand,
     toggleConsole,
