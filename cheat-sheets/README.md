@@ -1,6 +1,6 @@
 # Datacenter Cheat Sheets
 
-Offline command reference sheets for datacenter work: 188 linked pages, plus one file that bundles them all.
+Offline command reference sheets for datacenter work: 206 linked pages, plus one file that bundles them all.
 
 ## Open it
 
@@ -15,7 +15,7 @@ Offline command reference sheets for datacenter work: 188 linked pages, plus one
 | Filter the current sheet | `/`, and `Esc` clears it |
 | Jump to a topic | Top nav menus, or the **Section** dropdown |
 
-**The menus:** Linux, CLI Tools, Scripting, Neovim, macOS, Windows, NVIDIA DC, InfiniBand, Switches, Redfish, ipmitool, Fiber, Ethernet, Motherboards, Omarchy and Jira.
+**The menus:** Linux, CLI Tools, Scripting, Neovim, macOS, Windows, NVIDIA DC, InfiniBand, Switches, Redfish, ipmitool, Fiber, Ethernet, Motherboards, Containers (Docker & Kubernetes), Grafana (building dashboards), Omarchy and Jira.
 
 ## Use it on a rack
 

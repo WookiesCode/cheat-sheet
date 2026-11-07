@@ -21,7 +21,7 @@ I built this mainly for myself, for two reasons:
 
 | Part | What it is |
 |---|---|
-| [`cheat-sheets/`](cheat-sheets/) | The cheat-sheet site: about 188 offline HTML sheets (Linux, CLI tools, scripting, NVIDIA DC, InfiniBand, switches, Redfish, ipmitool, fiber, Ethernet, motherboards and more), plus triage tools, a terminal dock and a single-file offline bundle. See [`cheat-sheets/README.md`](cheat-sheets/README.md). |
+| [`cheat-sheets/`](cheat-sheets/) | The cheat-sheet site: about 200 offline HTML sheets (Linux, CLI tools, scripting, NVIDIA DC, InfiniBand, switches, Redfish, ipmitool, fiber, Ethernet, motherboards, Docker & Kubernetes, Grafana dashboards and more), plus triage tools, a terminal dock and a single-file offline bundle. See [`cheat-sheets/README.md`](cheat-sheets/README.md). |
 | [`docs/playbooks/`](docs/playbooks/) | Troubleshooting playbooks for GPU/NVLink, network and optics, storage and JBODs, BMC hardware, and RMA templates. |
 | [`agents/AGENTS.md`](agents/AGENTS.md) | Instructions for an AI agent working as my datacenter troubleshooting partner in this repo: safety rules, read-only vs. ask-first commands, and the 5-step triage method. The root `CLAUDE.md` is a symlink to it. |
 | [`agents/AGENTS-portable.md`](agents/AGENTS-portable.md) | A copy of `AGENTS.md` with `<WORKSPACE>` placeholders, for dropping into another repo. |

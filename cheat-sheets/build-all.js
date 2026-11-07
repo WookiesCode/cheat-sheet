@@ -24,6 +24,8 @@ const STEPS = [
   'generate-fiber-suite.js',
   'generate-ethernet-suite.js',
   'generate-motherboards-suite.js',
+  'generate-containers-suite.js',
+  'generate-grafana-suite.js',
   'build-man-data.js',
   'build-index.js',
   'build-portable.js'

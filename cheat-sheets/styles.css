@@ -2201,6 +2201,8 @@ code, kbd, pre {
 .badge-ipmi { background: rgba(74, 222, 128, 0.15); color: #4ade80; border: 1px solid rgba(74, 222, 128, 0.3); }
 .badge-fiber { background: rgba(251, 191, 36, 0.15); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.3); }
 .badge-eth { background: rgba(251, 146, 60, 0.15); color: #fb923c; border: 1px solid rgba(251, 146, 60, 0.3); }
+.badge-ctr { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
+.badge-graf { background: rgba(244, 104, 0, 0.15); color: #f46800; border: 1px solid rgba(244, 104, 0, 0.3); }
 .badge-mb { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
 .badge-omarchy { background: rgba(158, 206, 106, 0.15); color: #a3e635; border: 1px solid rgba(158, 206, 106, 0.3); }
 .badge-nvim { background: rgba(87, 161, 67, 0.15); color: #4ade80; border: 1px solid rgba(87, 161, 67, 0.3); }
@@ -3560,6 +3562,174 @@ code, kbd, pre {
     max-width: 95vw;
   }
   .eth-dropdown-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Containers Dropdown Menu */
+.ctr-dropdown-menu {
+  min-width: 540px;
+  max-width: 680px;
+  max-height: 82vh;
+  overflow-y: auto;
+  padding: 0.65rem 0.8rem;
+}
+
+#containers-nav-dropdown .nav-dropdown-menu {
+  left: -260px;
+}
+
+.ctr-dropdown-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+.ctr-dropdown-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.12rem;
+}
+
+.ctr-dropdown-heading {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #38bdf8;
+  padding: 0.25rem 0.45rem 0.25rem;
+  border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: 0.25rem;
+}
+
+.ctr-dropdown-col .dropdown-item {
+  font-size: 0.73rem;
+  padding: 0.25rem 0.45rem;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.ctr-dropdown-col .dropdown-item code {
+  color: #38bdf8;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  background: var(--bg-code);
+  padding: 0.08rem 0.28rem;
+  border-radius: 3px;
+  border: 1px solid var(--border-subtle);
+}
+
+.ctr-dropdown-col .dropdown-item span.cmd-desc {
+  color: var(--text-muted);
+  font-size: 0.69rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 900px) {
+  #containers-nav-dropdown .nav-dropdown-menu {
+    left: 0;
+  }
+  .ctr-dropdown-menu {
+    min-width: 320px;
+    max-width: 95vw;
+  }
+  .ctr-dropdown-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Official language / format logos in the Scripting menu, rail chips and hub tiles. */
+.menu-logo { flex: none; width: 14px; height: 14px; vertical-align: -2px; }
+/* Dark logos (Bash, Lua, JSON, YAML, TOML) sit on a light tile so they stay visible on dark themes. */
+.menu-logo.logo-chip { box-sizing: border-box; padding: 1px; border-radius: 3px; background: #f1f5f9; }
+.suite-tile-logo { display: inline-flex; align-items: center; justify-content: center; }
+.suite-tile-logo .menu-logo { width: 18px; height: 18px; }
+
+/* Omarchy nav link: the official wordmark replaces the text label */
+.sheet-link .omarchy-wordmark {
+  display: block;
+  height: 0.8rem;
+  width: auto;
+}
+
+/* Grafana Dropdown Menu */
+.graf-dropdown-menu {
+  min-width: 540px;
+  max-width: 680px;
+  max-height: 82vh;
+  overflow-y: auto;
+  padding: 0.65rem 0.8rem;
+}
+
+#grafana-nav-dropdown .nav-dropdown-menu {
+  left: auto;
+  right: 0;
+}
+
+.graf-dropdown-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+.graf-dropdown-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.12rem;
+}
+
+.graf-dropdown-heading {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #f46800;
+  padding: 0.25rem 0.45rem 0.25rem;
+  border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: 0.25rem;
+}
+
+.graf-dropdown-col .dropdown-item {
+  font-size: 0.73rem;
+  padding: 0.25rem 0.45rem;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.graf-dropdown-col .dropdown-item code {
+  color: #f46800;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  background: var(--bg-code);
+  padding: 0.08rem 0.28rem;
+  border-radius: 3px;
+  border: 1px solid var(--border-subtle);
+}
+
+.graf-dropdown-col .dropdown-item span.cmd-desc {
+  color: var(--text-muted);
+  font-size: 0.69rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 900px) {
+  #grafana-nav-dropdown .nav-dropdown-menu {
+    left: 0;
+    right: auto;
+  }
+  .graf-dropdown-menu {
+    min-width: 320px;
+    max-width: 95vw;
+  }
+  .graf-dropdown-grid {
     grid-template-columns: 1fr;
   }
 }
@@ -5873,6 +6043,32 @@ code, kbd, pre {
   .suite-dir, .suite-rail { padding-left: 16px; padding-right: 16px; }
   .suite-rail-pager { grid-template-columns: 1fr 1fr; }
   .suite-pg.hub { grid-column: 1 / -1; order: -1; }
+}
+/* Pin the prev / hub / next pager to the bottom of the window so it sits in the same
+   place on every sheet, however long the sheet is. Phones keep it in the page flow
+   because they already have the bottom dock. */
+@media (min-width: 769px) {
+  body.has-suite-pager { --pager-h: 60px; padding-bottom: var(--pager-h); }
+  body.has-suite-pager.con-open { padding-bottom: calc(var(--con-pad, 38vh) + var(--pager-h)); }
+  .suite-rail-pager {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 880;
+    height: var(--pager-h); box-sizing: border-box; padding: 0.45rem 1.5rem;
+    background: color-mix(in srgb, var(--bg-base) 88%, transparent);
+    backdrop-filter: blur(8px);
+    border-top: 1px solid var(--border-subtle);
+    box-shadow: 0 -10px 24px -18px rgba(0, 0, 0, 0.6);
+  }
+  /* The terminal drawer also docks at the bottom: sit on top of it, not under it. */
+  body.con-open .suite-rail-pager { bottom: var(--con-pad, 38vh); }
+  .suite-rail-pager .suite-pg { gap: 0.05rem; padding: 0.3rem 0.8rem; border-radius: 9px; }
+  .suite-rail-pager .suite-pg.hub { grid-auto-flow: column; align-items: center; column-gap: 0.45rem; padding: 0.3rem 1rem; }
+  .suite-rail-pager .suite-pg b { font-size: 0.84rem; }
+  .suite-rail-pager .suite-pg small { font-size: 0.64rem; }
+  body.has-suite-pager .toast,
+  body.has-suite-pager .case-toast,
+  body.has-suite-pager .tour-invite { bottom: calc(var(--pager-h) + 0.9rem); }
+  /* The sticky "On this sheet" sidebar must end above the pinned pager. */
+  body.has-suite-pager .sheet-rail { max-height: calc(100vh - 76px - var(--pager-h)); }
 }
 @media print { .suite-dir, .suite-rail { display: none !important; } }
 
