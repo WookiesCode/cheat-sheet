@@ -311,7 +311,7 @@
   }
 
   // Commands that change state get a visible tag and a reminder when copied.
-  const DANGER_RE = /\b(nvme\s+(format|sanitize|delete-ns|fw-activate|fw-commit)|mkfs(\.\w+)?|wipefs|sgdisk\s+(-Z|--zap)|parted\b[^|;&]*\bmklabel|dd\b[^|;&]*\bof=\/dev|mdadm\b[^|;&]*--(fail|remove|zero-superblock|create|stop)|zpool\s+(destroy|offline|replace|labelclear)|rm\s+-[a-z]*r[a-z]*f|nvidia-smi\b[^|;&]*\s(-r|--gpu-reset)\b|reboot\b|shutdown\b|poweroff\b|chassis\s+power\s+(off|cycle|reset)|power\s+(off|cycle|reset)\b|scontrol\s+update\b[^|;&]*state=|kubectl\s+(drain|cordon|uncordon|delete)|ip\s+link\s+set\b[^|;&]*\bdown\b|mlxfwmanager\b[^|;&]*(-u|--update)|flint\b[^|;&]*\bburn|fwupdmgr\s+(update|install)|sg_reset|echo\s+1\s*>\s*\S*\/remove|rmmod|modprobe\s+-r|sel\s+clear|systemctl\s+(stop|restart)\b|mlxlink\b[^|;&]*--(port_state|rx_prbs|tx_prbs)|mlxconfig\b[^|;&]*\bset\b|mlxfwreset|ethtool\s+(-s|-K|-G|-A|-L|--set-\S+|--change)\s|ip\s+link\s+set\b[^|;&]*\bmtu\b|ipmitool\b[^|;&]*\b(lan\s+set|user\s+set|mc\s+reset|chassis\s+bootdev)|dcgmi\s+diag\s+-r\s*[234]|\b(ib_write_bw|ib_read_bw|ib_send_bw|nvbandwidth|all_reduce_perf|fio)\b|(?<=-)X\s*(POST|PATCH|PUT|DELETE)\b(?![^|;&]*SessionService)|ComputerSystem\.Reset|Manager\.Reset|nv\s+(set|unset)\b|nv\s+config\s+apply|(?<![\w-])config\s+(interface|save|reload|load|apply|qos|vlan|portchannel|bgp)\b|\bclear\s+(counters|ib|interface|mac|arp|ip)\b|\bsonic-clear\b|\bperfquery\b[^|;&]*\s-R\b)/i;
+  const DANGER_RE = /\b(nvme\s+(format|sanitize|delete-ns|fw-activate|fw-commit)|mkfs(\.\w+)?|wipefs|sgdisk\s+(-Z|--zap)|parted\b[^|;&]*\bmklabel|dd\b[^|;&]*\bof=\/dev|mdadm\b[^|;&]*--(fail|remove|zero-superblock|create|stop)|zpool\s+(destroy|offline|replace|labelclear)|rm\s+-[a-z]*r[a-z]*f|nvidia-smi\b[^|;&]*\s(-r|--gpu-reset)\b|reboot\b|shutdown\b|poweroff\b|chassis\s+power\s+(off|cycle|reset)|power\s+(off|cycle|reset)\b|scontrol\s+update\b[^|;&]*state=|\bkubectl\b[^|;&]*\s(drain|cordon|uncordon|delete|apply|create|replace|patch|edit|scale|autoscale|set|label|annotate|taint|expose|run|cp|debug)\b|\bkubectl\b[^|;&]*\brollout\s+(restart|undo|pause|resume)\b|\bkubectl\s+config\s+(use-context|set-context|delete-context|set)\b|\bdocker\s+(rm|rmi|kill|stop|restart|pause|unpause|run|create|start|build|push|pull|load|import|commit|update|rename|tag|login)\b|\bdocker\s+(container|image|volume|network|system|builder|buildx|swarm|node|service|stack|plugin|context)\s+(rm|prune|create|remove|kill|stop|restart|run|start|build|push|pull|load|import|connect|disconnect|update|scale|install|enable|disable|use|bake)\b|\bdocker\s+compose\b[^|;&]*\s(up|down|restart|stop|start|rm|kill|pull|build|push|create|run|scale|pause|unpause|watch)\b|\bprune\b|\bnvidia-ctk\s+(runtime\s+configure|cdi\s+generate)\b|\bgcx\s+resources\s+(push|delete|edit)\b|\bgrafana(-cli)?\b[^|;&]*\b(plugins\s+(install|uninstall|remove|update(-all)?)|reset-admin-password)\b|\bhelm\s+(install|upgrade|uninstall|delete|rollback)\b|\bcrictl\s+(rm|rmi|rmp|stop|stopp|runp|create|start|pull)\b|\bctr\b[^|;&]*\s(rm|delete|import|pull|kill)\b|ip\s+link\s+set\b[^|;&]*\bdown\b|mlxfwmanager\b[^|;&]*(-u|--update)|flint\b[^|;&]*\bburn|fwupdmgr\s+(update|install)|sg_reset|echo\s+1\s*>\s*\S*\/remove|rmmod|modprobe\s+-r|sel\s+clear|systemctl\s+(stop|restart)\b|mlxlink\b[^|;&]*--(port_state|rx_prbs|tx_prbs)|mlxconfig\b[^|;&]*\bset\b|mlxfwreset|ethtool\s+(-s|-K|-G|-A|-L|--set-\S+|--change)\s|ip\s+link\s+set\b[^|;&]*\bmtu\b|ipmitool\b[^|;&]*\b(lan\s+set|user\s+set|mc\s+reset|chassis\s+bootdev)|dcgmi\s+diag\s+-r\s*[234]|\b(ib_write_bw|ib_read_bw|ib_send_bw|nvbandwidth|all_reduce_perf|fio)\b|(?<=-)X\s*(POST|PATCH|PUT|DELETE)\b(?![^|;&]*SessionService)|ComputerSystem\.Reset|Manager\.Reset|nv\s+(set|unset)\b|nv\s+config\s+apply|(?<![\w-])config\s+(interface|save|reload|load|apply|qos|vlan|portchannel|bgp)\b|\bclear\s+(counters|ib|interface|mac|arp|ip)\b|\bsonic-clear\b|\bperfquery\b[^|;&]*\s-R\b)/i;
 
   // Hook clipboard to automatically substitute variables if active
   // Placeholders are uppercase on purpose: lowercase $disk or $hca is a script's
@@ -2788,6 +2788,14 @@
     return (a.getAttribute('href') || '').split('#')[0];
   }
 
+  // Copies of a gradient logo must not reuse the menu's ids: url(#id) resolves to the first
+  // match, which sits in the hidden menu, and Chrome paints nothing for it.
+  let svgIdSeq = 0;
+  function uniqueSvgIds(html) {
+    const n = ++svgIdSeq;
+    return html.replace(/(\bid="|url\(#|href="#)(scr-[\w-]+)/g, (_, pre, id) => `${pre}${id}-c${n}`);
+  }
+
   function suiteFor(file) {
     const nav = document.querySelector('.top-bar .sheet-switcher');
     if (!nav) return null;
@@ -2798,7 +2806,8 @@
       const items = Array.from(dd.querySelectorAll('.dropdown-item')).map(a => {
         const code = a.querySelector('code');
         const desc = a.querySelector('.cmd-desc');
-        return { file: navItemFile(a), code: code ? code.textContent.trim() : '', desc: (desc ? desc.textContent : a.textContent).replace(/📑/g, '').trim() };
+        const logo = a.querySelector('.menu-logo');
+        return { file: navItemFile(a), code: code ? code.textContent.trim() : '', logo: logo ? uniqueSvgIds(logo.outerHTML) : '', desc: (desc ? desc.textContent : a.textContent).replace(/📑/g, '').trim() };
       }).filter(it => it.file && it.file !== hub);
       if (hub === file || items.some(it => it.file === file)) {
         return { name: toggle.textContent.replace(/[▾•]/g, '').trim(), icon: toggle.querySelector('svg, img') ? toggle.querySelector('svg, img').outerHTML : '', hub, sheets: items, isHub: hub === file };
@@ -2824,6 +2833,8 @@
     const file = anatSheetFile || window.location.pathname.split('/').pop() || 'index.html';
     const main = document.querySelector('main');
     document.querySelectorAll('.suite-dir, .suite-rail').forEach(el => el.remove());
+    // Tells the CSS to pin the prev/next pager and reserve room for it at the bottom.
+    document.body.classList.remove('has-suite-pager');
     if (!main) return;
     const suite = suiteFor(file);
     if (!suite || !suite.sheets.length) return;
@@ -2846,7 +2857,7 @@
         <div class="suite-dir-grid">
           ${suite.sheets.map(s => `
             <button type="button" class="suite-tile ${visited.has(s.file) ? 'is-visited' : ''}" data-suite-go="${escapeHtml(s.file)}">
-              ${s.code ? `<span class="suite-tile-code">${escapeHtml(s.code)}</span>` : ''}
+              ${s.logo ? `<span class="suite-tile-code suite-tile-logo">${s.logo}</span>` : s.code ? `<span class="suite-tile-code">${escapeHtml(s.code)}</span>` : ''}
               <span class="suite-tile-text"><b>${escapeHtml(s.desc)}</b><small>${counts[s.file] ? `${counts[s.file]} commands` : 'reference'}${visited.has(s.file) ? ' · ✓ visited' : ''}</small></span>
             </button>`).join('')}
         </div>
@@ -2869,9 +2880,10 @@
         ${next ? `<button type="button" class="suite-pg next" data-suite-go="${escapeHtml(next.file)}"><small>Next →</small><b>${escapeHtml(next.desc)}</b></button>` : `<span class="suite-pg next is-end"><small>End of suite</small><b>${suite.sheets.filter(s => visited.has(s.file)).length}/${suite.sheets.length} visited</b></span>`}
       </div>
       <div class="suite-rail-chips">
-        ${suite.sheets.map(s => `<button type="button" class="suite-chip ${s.file === file ? 'is-current' : ''} ${visited.has(s.file) ? 'is-visited' : ''}" data-suite-go="${escapeHtml(s.file)}" ${s.file === file ? 'aria-current="page"' : ''}>${s.code ? `<code>${escapeHtml(s.code)}</code>` : ''}${escapeHtml(s.desc.replace(/^[^:]+:\s*/, ''))}</button>`).join('')}
+        ${suite.sheets.map(s => `<button type="button" class="suite-chip ${s.file === file ? 'is-current' : ''} ${visited.has(s.file) ? 'is-visited' : ''}" data-suite-go="${escapeHtml(s.file)}" ${s.file === file ? 'aria-current="page"' : ''}>${s.logo || ''}${s.code ? `<code>${escapeHtml(s.code)}</code>` : ''}${escapeHtml(s.desc.replace(/^[^:]+:\s*/, ''))}</button>`).join('')}
       </div>`;
     main.insertAdjacentElement('afterend', rail);
+    document.body.classList.add('has-suite-pager');
   }
 
   function initSuiteNav() {
@@ -3526,6 +3538,8 @@
     [/^ipmi/, 'badge-ipmi'],
     [/^(fo-|fiber$)/, 'badge-fiber'],
     [/^(eth-|ethernet$)/, 'badge-eth'],
+    [/^(docker-|k8s-|containers$)/, 'badge-ctr'],
+    [/^grafana(-|$)/, 'badge-graf'],
     [/^(nvim-|neovim$)/, 'badge-nvim'],
     [/^macos/, 'badge-mac'],
     [/^(win-|windows$)/, 'badge-win'],
@@ -4170,7 +4184,30 @@ ${rmaTrailSection()}#### Action Requested:
     const dropdowns = document.querySelectorAll(".nav-dropdown");
     if (dropdowns.length === 0) return;
 
+    // The nav wraps onto two lines on narrower windows, so a fixed CSS offset can push
+    // a wide menu off either edge. Measure once it is shown and shift it back inside.
+    const fitMenu = (dropdown) => {
+      const menu = dropdown.querySelector(":scope > .nav-dropdown-menu");
+      if (!menu) return;
+      menu.style.left = "";
+      menu.style.right = "";
+      requestAnimationFrame(() => {
+        const r = menu.getBoundingClientRect();
+        if (!r.width) return; // not shown (hover already left)
+        const pad = 8, vw = document.documentElement.clientWidth;
+        let shift = 0;
+        if (r.right > vw - pad) shift = vw - pad - r.right;
+        if (r.left + shift < pad) shift = pad - r.left;
+        if (!shift) return;
+        const base = parseFloat(getComputedStyle(menu).left) || 0;
+        menu.style.left = `${base + shift}px`;
+        menu.style.right = "auto";
+      });
+    };
+
     dropdowns.forEach(dropdown => {
+      dropdown.addEventListener("mouseenter", () => fitMenu(dropdown));
+      dropdown.addEventListener("focusin", () => fitMenu(dropdown));
       const toggle = dropdown.querySelector(".dropdown-toggle");
       if (toggle) {
         toggle.addEventListener("click", (e) => {
@@ -4181,6 +4218,7 @@ ${rmaTrailSection()}#### Action Requested:
             if (d !== dropdown) d.classList.remove("open");
           });
           dropdown.classList.toggle("open", !isOpen);
+          if (!isOpen) fitMenu(dropdown);
         });
       }
 
@@ -5219,7 +5257,12 @@ ${rmaTrailSection()}#### Action Requested:
     list.innerHTML = cards.length ? cards.map(c => {
       const t = c.querySelector('.section-title');
       const n = c.querySelectorAll('.cmd-code-box:not(.is-reference)').length;
-      return `<li><a href="#${escapeHtml(c.id)}" data-rail-sec="${escapeHtml(c.id)}"><span>${escapeHtml((t ? t.textContent : c.id).replace(/^[^:]+:\s*/, '').trim())}</span>${n ? `<small>${n}</small>` : ''}</a></li>`;
+      // tidyCard may already have moved the "Topic:" prefix into an eyebrow span; then the
+      // rest of the title is the label as-is (it can contain colons of its own).
+      const label = !t ? c.id
+        : t.querySelector('.tidy-eyebrow') ? Array.from(t.childNodes).filter(x => !(x.classList && x.classList.contains('tidy-eyebrow'))).map(x => x.textContent).join('')
+        : t.textContent.replace(/^[^:]+:\s*/, '');
+      return `<li><a href="#${escapeHtml(c.id)}" data-rail-sec="${escapeHtml(c.id)}"><span>${escapeHtml(label.trim())}</span>${n ? `<small>${n}</small>` : ''}</a></li>`;
     }).join('') : '<li class="rail-empty">No cards match the filter</li>';
     railSpyUpdate();
   }
@@ -8584,7 +8627,7 @@ ${rmaTrailSection()}#### Action Requested:
   // and commands that never return (watch, top, -f, loops). sudo runs as
   // sudo -n, so a missing password fails fast instead of hanging the prompt.
   // -------------------------------------------------------------
-  const RB_NEVER_RETURNS = /(^|[;&|]\s*)(watch|top|htop|btop|less|more|man|vim?|nano|tmux|screen|minicom|tio)\b|\s-f\b(?!\S)|\btail\s+-[a-z]*f|\bjournalctl\b[^|;&]*\s-f\b|\bping\b(?![^|;&]*\s-c\s*\d)|\s-l\s+\d+\b|\bdmon\b|\bpmon\b|\bwhile\s+true\b|\bnvidia-smi\b[^|;&]*\s(-l|--loop|-lms)\b|\bdmesg\b[^|;&]*\s(-w|-W|--follow(-new)?)\b|--follow\b|\bsol\s+activate\b|\bipmitool\b[^|;&]*\bshell\b|\b(nvidia-bug-report|sosreport|sos\s+report|dcgmi\s+diag|ibdiagnet|fio|stress(-ng)?|memtester|nccl-tests|all_reduce_perf)\b/i;
+  const RB_NEVER_RETURNS = /(^|[;&|]\s*)(watch|top|htop|btop|less|more|man|vim?|nano|tmux|screen|minicom|tio)\b|\s-f\b(?!\S)|\btail\s+-[a-z]*f|\bjournalctl\b[^|;&]*\s-f\b|\bping\b(?![^|;&]*\s-c\s*\d)|\s-l\s+\d+\b|\bdmon\b|\bpmon\b|\bwhile\s+true\b|\bnvidia-smi\b[^|;&]*\s(-l|--loop|-lms)\b|\bdmesg\b[^|;&]*\s(-w|-W|--follow(-new)?)\b|--follow\b|\bsol\s+activate\b|\s-(it|ti)\b|\bkubectl\b[^|;&]*\s(-w|--watch)\b|\bport-forward\b|\bkubectl\s+(attach|proxy)\b|\bdocker\s+(attach|events(?![^|;&]*--until))\b|\bdocker\s+stats\b(?![^|;&]*--no-stream)|\bk9s\b|\bgcx\s+dev\s+serve\b|\bipmitool\b[^|;&]*\bshell\b|\b(nvidia-bug-report|sosreport|sos\s+report|dcgmi\s+diag|ibdiagnet|fio|stress(-ng)?|memtester|nccl-tests|all_reduce_perf)\b/i;
   let rbBusy = null, rbAutoStop = false;
   function rbSafe(st) {
     if (!st.cmd || st.type === 'gate' || st.type === 'decide') return false;
