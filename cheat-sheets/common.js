@@ -4126,6 +4126,7 @@ ${rmaTrailSection()}#### Action Requested:
 
   function scrollToCard(cardId) {
     if (!cardId) return;
+    hubUnfold(true);   // a folded suite hub hides the card you are jumping to
     const cleanId = cardId.replace(/^#/, '');
     const el = document.getElementById(cleanId);
     if (el) {
@@ -4645,7 +4646,7 @@ ${rmaTrailSection()}#### Action Requested:
     document.body.classList.toggle('is-home', file === 'index.html' || file === '');
     document.body.classList.toggle('is-notes', file === 'notes.html');
     // The portable build swaps <main> in place: re-add the Rosetta strip after the swap.
-    if (changed && !IN_WIDGET_FRAME) setTimeout(() => { mountRosettaStrip(file); mountNotesPage(file); }, 60);
+    if (changed && !IN_WIDGET_FRAME) setTimeout(() => { mountRosettaStrip(file); mountNotesPage(file); mountHubLanding(file); }, 60);
   }
 
   function initCompact() {
@@ -5305,7 +5306,9 @@ ${rmaTrailSection()}#### Action Requested:
         : t.querySelector('.tidy-eyebrow') ? Array.from(t.childNodes).filter(x => !(x.classList && x.classList.contains('tidy-eyebrow'))).map(x => x.textContent).join('')
         : t.textContent.replace(/^[^:]+:\s*/, '');
       return `<li><a href="#${escapeHtml(c.id)}" data-rail-sec="${escapeHtml(c.id)}"><span>${escapeHtml(label.trim())}</span>${n ? `<small>${n}</small>` : ''}</a></li>`;
-    }).join('') : '<li class="rail-empty">No cards match the filter</li>';
+    }).join('') : document.body.classList.contains('hub-folded')
+      ? '<li class="rail-empty">The cards are folded under the sheet tiles. <button type="button" class="rail-unfold" data-hub-unfold>Show every command</button></li>'
+      : '<li class="rail-empty">No cards match the filter</li>';
     railSpyUpdate();
   }
 
@@ -7577,6 +7580,7 @@ ${rmaTrailSection()}#### Action Requested:
       safeInit('initPractice', () => initPractice());
       safeInit('initExplain', () => initExplain());
       safeInit('initRack', () => initRack());
+      safeInit('initHubLanding', () => initHubLanding());
       safeInit('initGlossary', () => initGlossary());
       safeInit('initNotesPage', () => {
         const file = anatSheetFile || window.location.pathname.split('/').pop() || 'index.html';
@@ -9425,6 +9429,143 @@ ${rmaTrailSection()}#### Action Requested:
       requestAnimationFrame(() => { queued = false; if (run()) repack(); });
     }).observe(document.body, { childList: true, subtree: true });
   }
+
+  // -------------------------------------------------------------
+  // SUITE LANDING PAGES
+  // A suite hub opened straight into its first card and then stacked every card of every
+  // sheet (Containers: 158 commands, 28,000 px). Now a hub opens on a landing: what the suite
+  // covers, sheets / commands / visited, Practice and its runbooks, and one tile per sheet
+  // with its top three commands ready to copy. Where the hub's cards only repeat its sheets
+  // (measured from the search index, not assumed), the wall folds behind "Every command in
+  // this suite ▸"; it opens by itself when search jumps to one of its cards, and the
+  // choice is remembered per suite. Hubs with their own content (the Linux reference) keep
+  // their cards open; interactive widgets are outside the wall and always visible.
+  // -------------------------------------------------------------
+  const HUB_KEY = 'cs_hub_open';
+  const hubRead = () => { try { const v = JSON.parse(localStorage.getItem(HUB_KEY) || '{}'); return v && typeof v === 'object' ? v : {}; } catch (e) { return {}; } };
+  const hubWrite = (v) => { try { localStorage.setItem(HUB_KEY, JSON.stringify(v)); } catch (e) {} };
+  let hubSuite = null;
+
+  // True when (nearly) every command on the hub also lives on one of its sheets.
+  function hubRepeatsSheets(suite) {
+    const idx = window.GLOBAL_SEARCH_INDEX || [];
+    const files = new Set(suite.sheets.map(s => s.file));
+    const onSheets = new Set(idx.filter(i => files.has(i.file)).map(i => i.cmd));
+    const own = idx.filter(i => i.file === suite.hub);
+    if (!own.length) return false;
+    return own.filter(i => onSheets.has(i.cmd)).length / own.length >= 0.9;
+  }
+
+  function hubUnfold(temp) {
+    if (!document.body.classList.contains('hub-folded')) return;
+    document.body.classList.remove('hub-folded');
+    const bar = document.getElementById('hub-wall');
+    if (bar) bar.classList.toggle('is-temp', !!temp);
+    hubWallLabel();
+    repack();
+  }
+  function hubWallLabel() {
+    const bar = document.getElementById('hub-wall');
+    if (!bar || !hubSuite) return;
+    const folded = document.body.classList.contains('hub-folded');
+    const n = (window.GLOBAL_SEARCH_INDEX || []).filter(i => i.file === hubSuite.hub).length;
+    bar.querySelector('button').innerHTML = `<span aria-hidden="true">${folded ? '▸' : '▾'}</span> ${folded ? 'Show' : 'Hide'} every command in this suite <small>${n.toLocaleString('en-US')} commands from ${hubSuite.sheets.length} sheets, in one long page</small>`;
+    bar.querySelector('button').setAttribute('aria-expanded', String(!folded));
+  }
+
+  function mountHubLanding(file) {
+    if (IN_WIDGET_FRAME) return;
+    ['hub-landing', 'hub-wall'].forEach(id => { const el = document.getElementById(id); if (el) el.remove(); });
+    document.body.classList.remove('hub-folded', 'is-hub');
+    hubSuite = null;
+    const suite = suiteFor(file);
+    const main = document.querySelector('main');
+    if (!suite || !suite.isHub || suite.sheets.length < 2 || !main || document.body.classList.contains('is-home')) return;
+    hubSuite = suite;
+    document.body.classList.add('is-hub');
+    const idx = window.GLOBAL_SEARCH_INDEX || [];
+    const counts = sheetCmdCounts();
+    const visited = readVisited();
+    const done = suite.sheets.filter(s => visited.has(s.file)).length;
+    const total = suite.sheets.reduce((n, s) => n + (counts[s.file] || 0), 0);
+    const about = (document.querySelector('.brand-subtitle') || {}).textContent || '';
+    const rbs = (SUITE_RUNBOOKS[suite.name] || []).map(id => RUNBOOKS.find(r => r.id === id)).filter(Boolean);
+    const practiceN = pracPool().filter(i => suite.sheets.some(s => s.file === i.file)).length;
+    const tiles = suite.sheets.map(s => {
+      const [title, sub] = String(s.desc || s.name || s.file).split(/:\s+(.+)/);
+      const top = [];
+      idx.forEach(i => { if (i.file === s.file && !i.noCopy && top.length < 3) { const c = firstCommand(i.cmd); if (c && c.length < 140 && !top.some(t => t.cmd === c)) top.push({ cmd: c, desc: i.desc }); } });
+      return `<article class="hub-tile ${visited.has(s.file) ? 'is-visited' : ''}">
+        <header data-suite-go="${escapeHtml(s.file)}" title="Open ${escapeHtml(title)}">
+          <span class="hub-tile-mark">${s.logo || `<code>${escapeHtml(s.code || '')}</code>`}</span>
+          <span class="hub-tile-text"><b>${escapeHtml(title)}</b>${sub ? `<small>${escapeHtml(sub)}</small>` : ''}</span>
+          <span class="hub-tile-n">${counts[s.file] ? `${counts[s.file]}` : 'ref'}${visited.has(s.file) ? ' ✓' : ''}</span>
+        </header>
+        ${top.length ? `<div class="hub-tile-cmds">${top.map(t => `<button type="button" class="hub-cmd ${DANGER_RE.test(t.cmd) ? 'is-danger' : ''}" data-hub-copy="${escapeHtml(t.cmd)}" title="${escapeHtml(t.desc)}: click to copy"><code>${escapeHtml(t.cmd)}</code></button>`).join('')}</div>` : '<p class="hub-tile-ref">Reference: tables and diagrams</p>'}
+        <button type="button" class="hub-open" data-suite-go="${escapeHtml(s.file)}">Open sheet →</button>
+      </article>`;
+    }).join('');
+    const landing = document.createElement('section');
+    landing.id = 'hub-landing';
+    landing.className = 'hub-landing';
+    landing.setAttribute('aria-label', `${suite.name} overview`);
+    landing.innerHTML = `
+      <div class="hub-hero">
+        <span class="hub-hero-icon" aria-hidden="true">${suite.icon || ''}</span>
+        <div class="hub-hero-text">
+          <h2>${escapeHtml(suite.name)}</h2>
+          ${about ? `<p>${escapeHtml(about)}</p>` : ''}
+          <div class="hub-stats"><span><b>${suite.sheets.length}</b> sheets</span><span><b>${total.toLocaleString('en-US')}</b> commands</span><span><b>${done}/${suite.sheets.length}</b> visited<i class="hub-meter"><i style="width:${Math.round(done / suite.sheets.length * 100)}%"></i></i></span></div>
+        </div>
+        <div class="hub-hero-acts">
+          <button type="button" class="hub-primary" data-suite-go="${escapeHtml((suite.sheets.find(s => !visited.has(s.file)) || suite.sheets[0]).file)}">${done ? 'Next unvisited sheet' : 'Start with the first sheet'} →</button>
+          ${practiceN >= 4 ? `<button type="button" data-prac-start="suite:${escapeHtml(suite.name)}">◎ Practice this suite <small>${practiceN}</small></button>` : ''}
+          ${rbs.map(rb => `<button type="button" data-suite-rb="${rb.id}">${rb.icon} ${escapeHtml(rb.title)}</button>`).join('')}
+        </div>
+      </div>
+      <div class="hub-tiles">${tiles}</div>`;
+    landing.addEventListener('click', (e) => {
+      const b = e.target instanceof Element ? e.target.closest('[data-hub-copy]') : null;
+      if (!b) return;
+      navigator.clipboard.writeText(b.dataset.hubCopy);   // Rack Targets fill in, as everywhere
+      b.classList.add('did-copy');
+      setTimeout(() => b.classList.remove('did-copy'), 900);
+      if (b.classList.contains('is-danger')) showGlobalToast('Copied a state-changing command: drain the node and get approval first.');
+    });
+    const anchor = main.querySelector('#quick-widgets, #sections-container, .sections-grid, .sections-container');
+    main.insertBefore(landing, anchor || main.firstChild);
+    // Fold the wall only where it repeats the sheets.
+    const wall = main.querySelector('#sections-container');
+    if (!wall || !hubRepeatsSheets(suite)) return;
+    const bar = document.createElement('div');
+    bar.id = 'hub-wall';
+    bar.className = 'hub-wall';
+    bar.innerHTML = '<button type="button" aria-controls="sections-container"></button>';
+    bar.querySelector('button').addEventListener('click', () => {
+      const open = document.body.classList.contains('hub-folded');
+      document.body.classList.toggle('hub-folded', !open);
+      bar.classList.remove('is-temp');
+      const st = hubRead(); st[suite.name] = open; hubWrite(st);
+      hubWallLabel();
+      repack();
+      if (open) wall.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    wall.parentNode.insertBefore(bar, wall);
+    const hash = location.hash.replace(/^#/, '');
+    const wantsCard = hash && document.getElementById(hash) && wall.contains(document.getElementById(hash));
+    document.body.classList.toggle('hub-folded', !hubRead()[suite.name] && !wantsCard);
+    hubWallLabel();
+  }
+
+  function initHubLanding() {
+    mountHubLanding(anatSheetFile || window.location.pathname.split('/').pop() || 'index.html');
+    document.addEventListener('click', (e) => {
+      if (!(e.target instanceof Element) || !e.target.closest('[data-hub-unfold]')) return;
+      const b = document.querySelector('#hub-wall button');
+      if (b) b.click();
+    });
+  }
+
 
   // -------------------------------------------------------------
   // ACRONYM GLOSSARY
