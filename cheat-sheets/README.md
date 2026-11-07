@@ -1,6 +1,6 @@
 # Datacenter Cheat Sheets
 
-Offline command reference sheets for datacenter work: 212 linked pages, plus one file that bundles them all.
+Offline command reference sheets for datacenter work: 233 linked pages, plus one file that bundles them all.
 
 ## Open it
 
@@ -15,7 +15,7 @@ Offline command reference sheets for datacenter work: 212 linked pages, plus one
 | Filter the current sheet | `/`, and `Esc` clears it |
 | Jump to a topic | Top nav menus, or the **Section** dropdown |
 
-**The menus:** Home · Operating Systems (Linux, macOS, Windows, Omarchy) · Editors (Neovim; nano, VS Code, Zed, Cursor) · CLI Tools · Scripting · Networking (InfiniBand, Ethernet, Fiber, Switches) · Remote Management (Redfish, ipmitool) · Hardware (NVIDIA DC, Motherboards, Server internals) · DevOps (Containers, Grafana, Jira). `build-nav-groups.js` builds these tabs from each suite's own menu; edit `TABS` there to move a suite.
+**The menus:** Home · Operating Systems (Linux, macOS, Windows, Omarchy) · Editors (Neovim; nano, VS Code, Zed, Cursor) · CLI Tools · Scripting · Networking (InfiniBand, Ethernet, Fiber, Switches) · Remote Management (Redfish, ipmitool, BMC vendor tools: racadm, iLOrest, Supermicro SAA, OneCLI, FreeIPMI, serial consoles) · Hardware (NVIDIA DC, Motherboards, Server internals, Rack & hardware reference: power, cooling, memory, drives, GPU form factors, racks) · DevOps (Containers, Grafana, Jira, SRE toolkit: Prometheus, Ansible, Terraform/OpenTofu, Helm, Argo CD, incident response). `build-nav-groups.js` builds these tabs from each suite's own menu; edit `TABS` there to move a suite.
 
 ## Field notes (Mission Control)
 
@@ -45,6 +45,8 @@ Your targets carry across pages, and **Reset** puts them back to defaults.
 ## Other tools
 
 - **Triage & RMA:** gives you a crash-cart diagnostic script and a formatter for RMA tickets.
+- **Explain a command (🔍 Explain button, or `e`):** paste a command from a ticket, a vendor KB, a chat or someone's history. It's split into stages (`|`, `&&`, `;`, new lines, and the command inside `ssh host '…'`), and each tool, subcommand and flag is explained from the sheets' own flag notes (`flag-index.js`, built by `build-index.js`), then from the offline manuals. Bundled flags like `-czf` are split. A verdict on top says whether it changes state, never returns, runs a script from the internet, holds a password or token in clear (with **Copy the safe version**, which swaps it for `-E`, `$BMC_PASS` or `$TOKEN`), has unfilled placeholders, runs as root, writes files, or targets another machine. Hover a word to light up its explanation; **📌 Pin to case** files the breakdown. Pasting a command into the home page's "What's broken?" box or Ctrl+K offers it too.
+- **BMC Rosetta (`Shift+R`):** one matrix for the dozen jobs every BMC does (power state, event log, sensors, power draw, serials, firmware, console, support bundle, shutdown, power cycle, clear SEL, BMC restart). Columns are ipmitool, FreeIPMI and Redfish plus your vendor's own CLI (racadm, iLOrest, OneCLI or SAA). Pick the vendor, or paste `dmidecode -s system-manufacturer` output to detect it; it's remembered per node and also read from the last Node checkup. Redfish paths use the vendor's IDs (Dell `System.Embedded.1`). Click a command to copy it with Rack Targets filled in; state-changing ones are marked red. **Compare all 7 tools** shows every column. It opens from the strip on BMC sheets, from Ctrl+K, and from the Identify step on the home page.
 - **My kit (★):** star a command on any sheet to bookmark it. My kit collects them from every sheet, with the current sheet's bookmarks first, and prints them as a pocket card.
 - **Manuals:** click **Manuals** or press `M` to search offline manuals by name, category or full text. Ubuntu 24.04 pages come first, and open-source projects fill the gaps. Vendor tools such as `nvidia-smi` aren't included because of their licenses. Keep `man-pages-data.js` with the pages; the offline copy has them built in.
 - **Theme:** More → theme (or Ctrl+K → "theme") opens a gallery of all 24 themes with previews; click one to apply it. Shift+click the theme button cycles without opening it.

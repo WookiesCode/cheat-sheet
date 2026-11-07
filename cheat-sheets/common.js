@@ -311,7 +311,7 @@
   }
 
   // Commands that change state get a visible tag and a reminder when copied.
-  const DANGER_RE = /\b(nvme\s+(format|sanitize|delete-ns|fw-activate|fw-commit)|mkfs(\.\w+)?|wipefs|sgdisk\s+(-Z|--zap)|parted\b[^|;&]*\bmklabel|dd\b[^|;&]*\bof=\/dev|mdadm\b[^|;&]*--(fail|remove|zero-superblock|create|stop)|zpool\s+(destroy|offline|replace|labelclear)|rm\s+-[a-z]*r[a-z]*f|nvidia-smi\b[^|;&]*\s(-r|--gpu-reset)\b|reboot\b|shutdown\b|poweroff\b|chassis\s+power\s+(off|cycle|reset)|power\s+(off|cycle|reset)\b|scontrol\s+update\b[^|;&]*state=|\bkubectl\b[^|;&]*\s(drain|cordon|uncordon|delete|apply|create|replace|patch|edit|scale|autoscale|set|label|annotate|taint|expose|run|cp|debug)\b|\bkubectl\b[^|;&]*\brollout\s+(restart|undo|pause|resume)\b|\bkubectl\s+config\s+(use-context|set-context|delete-context|set)\b|\bdocker\s+(rm|rmi|kill|stop|restart|pause|unpause|run|create|start|build|push|pull|load|import|commit|update|rename|tag|login)\b|\bdocker\s+(container|image|volume|network|system|builder|buildx|swarm|node|service|stack|plugin|context)\s+(rm|prune|create|remove|kill|stop|restart|run|start|build|push|pull|load|import|connect|disconnect|update|scale|install|enable|disable|use|bake)\b|\bdocker\s+compose\b[^|;&]*\s(up|down|restart|stop|start|rm|kill|pull|build|push|create|run|scale|pause|unpause|watch)\b|\bprune\b|\bnvidia-ctk\s+(runtime\s+configure|cdi\s+generate)\b|\b(curl|wget)\b[^;&]*\|\s*(sudo\s+)?(ba|z)?sh\b|\bgcx\s+resources\s+(push|delete|edit)\b|\bgrafana(-cli)?\b[^|;&]*\b(plugins\s+(install|uninstall|remove|update(-all)?)|reset-admin-password)\b|\bhelm\s+(install|upgrade|uninstall|delete|rollback)\b|\bcrictl\s+(rm|rmi|rmp|stop|stopp|runp|create|start|pull)\b|\bctr\b[^|;&]*\s(rm|delete|import|pull|kill)\b|ip\s+link\s+set\b[^|;&]*\bdown\b|mlxfwmanager\b[^|;&]*(-u|--update)|flint\b[^|;&]*\bburn|fwupdmgr\s+(update|install)|sg_reset|echo\s+1\s*>\s*\S*\/remove|rmmod|modprobe\s+-r|sel\s+clear|systemctl\s+(stop|restart)\b|mlxlink\b[^|;&]*--(port_state|rx_prbs|tx_prbs)|mlxconfig\b[^|;&]*\bset\b|mlxfwreset|ethtool\s+(-s|-K|-G|-A|-L|--set-\S+|--change)\s|ip\s+link\s+set\b[^|;&]*\bmtu\b|ipmitool\b[^|;&]*\b(lan\s+set|user\s+set|mc\s+reset|chassis\s+bootdev)|dcgmi\s+diag\s+-r\s*[234]|\b(ib_write_bw|ib_read_bw|ib_send_bw|nvbandwidth|all_reduce_perf|fio)\b|(?<=-)X\s*(POST|PATCH|PUT|DELETE)\b(?![^|;&]*SessionService)|ComputerSystem\.Reset|Manager\.Reset|nv\s+(set|unset)\b|nv\s+config\s+apply|(?<![\w-])config\s+(interface|save|reload|load|apply|qos|vlan|portchannel|bgp)\b|\bclear\s+(counters|ib|interface|mac|arp|ip)\b|\bsonic-clear\b|\bperfquery\b[^|;&]*\s-R\b)/i;
+  const DANGER_RE = /\b(nvme\s+(format|sanitize|delete-ns|fw-activate|fw-commit)|mkfs(\.\w+)?|wipefs|sgdisk\s+(-Z|--zap)|parted\b[^|;&]*\bmklabel|dd\b[^|;&]*\bof=\/dev|mdadm\b[^|;&]*--(fail|remove|zero-superblock|create|stop)|zpool\s+(destroy|offline|replace|labelclear)|rm\s+-[a-z]*r[a-z]*f|nvidia-smi\b[^|;&]*\s(-r|--gpu-reset)\b|reboot\b|shutdown\b|poweroff\b|chassis\s+power\s+(off|cycle|reset)|power\s+(off|cycle|reset)\b|scontrol\s+update\b[^|;&]*state=|\bkubectl\b[^|;&]*\s(drain|cordon|uncordon|delete|apply|create|replace|patch|edit|scale|autoscale|set|label|annotate|taint|expose|run|cp|debug)\b|\bkubectl\b[^|;&]*\brollout\s+(restart|undo|pause|resume)\b|\bkubectl\s+config\s+(use-context|set-context|delete-context|set)\b|\bdocker\s+(rm|rmi|kill|stop|restart|pause|unpause|run|create|start|build|push|pull|load|import|commit|update|rename|tag|login)\b|\bdocker\s+(container|image|volume|network|system|builder|buildx|swarm|node|service|stack|plugin|context)\s+(rm|prune|create|remove|kill|stop|restart|run|start|build|push|pull|load|import|connect|disconnect|update|scale|install|enable|disable|use|bake)\b|\bdocker\s+compose\b[^|;&]*\s(up|down|restart|stop|start|rm|kill|pull|build|push|create|run|scale|pause|unpause|watch)\b|\bprune\b|\bfind\b[^|;&]*\s(-delete|-exec(dir)?\s+rm)\b|\bnvidia-ctk\s+(runtime\s+configure|cdi\s+generate)\b|\b(curl|wget)\b[^;&]*\|\s*(sudo\s+)?(ba|z)?sh\b|\bgcx\s+resources\s+(push|delete|edit)\b|\bgrafana(-cli)?\b[^|;&]*\b(plugins\s+(install|uninstall|remove|update(-all)?)|reset-admin-password)\b|\bhelm\s+(install|upgrade|uninstall|delete|rollback)\b|\bracadm\b[^|;&]*\b(serveraction\s+(powercycle|powerdown|powerup|graceshutdown|hardreset)|racreset|clrsel|set|update|jobqueue\s+(create|delete))\b|\bilorest\b[^|;&]*\b(reboot|iloreset|commit|set|flashfwpkg|firmwareupdate|uploadcomp|deletecomp|createvolume|deletevolume|drivesanitize|clearcontrollerconfig|factoryresetcontroller|--clearlog|--network_ipv4|--nameservers)\b|\bilorest\s+virtualmedia\s+\d|\bsaa\b(?![^|;&]*\s-h\b)[^|;&]*-c\s+(Update\w*|ClearEventLog|ClearMaintenEventLog|BmcReset|Change\w*|Restore\w*|LoadDefaultBmcCfg|EditDmiInfo|RawCommand)\b|\bOneCli\b[^|;&]*\b(power\s+(on|forceoff|forcerestart|normaloff|normalrestart|accycle|dccycle|boottosetup|triggernmi|schedule\w+)|rebootbmc|config\s+(set|restore|batch|import)|update\s+flash|logmgr\s+clear\w*)\b|\bipmipower\b[^|;&]*\s(--on|--off|--cycle|--reset|--pulse|--soft|--on-if-off|-[nfcr])\b|\bipmi-sel\b[^|;&]*--(clear|post-clear|delete)|\bipmi-chassis\b[^|;&]*--chassis-control|\bipmi-dcmi\b[^|;&]*--set-power-limit|\b(terraform|tofu)\s+(apply|destroy|import|taint|untaint|force-unlock)\b|\b(terraform|tofu)\s+state\s+(mv|rm|push|replace-provider)\b|\bansible\b[^|;&]*\s(-b|--become)\b|\bansible-playbook\b(?![^|;&]*(--check|\s-C\b|--syntax-check|--list-))|\bargocd\s+app\s+(sync|rollback|delete|set|create|patch|terminate-op)\b|\bamtool\s+silence\s+(add|expire|import)\b|\bcrictl\s+(rm|rmi|rmp|stop|stopp|runp|create|start|pull)\b|\bctr\b[^|;&]*\s(rm|delete|import|pull|kill)\b|ip\s+link\s+set\b[^|;&]*\bdown\b|mlxfwmanager\b[^|;&]*(-u|--update)|flint\b[^|;&]*\bburn|fwupdmgr\s+(update|install)|sg_reset|echo\s+1\s*>\s*\S*\/remove|rmmod|modprobe\s+-r|sel\s+clear|systemctl\s+(stop|restart)\b|mlxlink\b[^|;&]*--(port_state|rx_prbs|tx_prbs)|mlxconfig\b[^|;&]*\bset\b|mlxfwreset|ethtool\s+(-s|-K|-G|-A|-L|--set-\S+|--change)\s|ip\s+link\s+set\b[^|;&]*\bmtu\b|ipmitool\b[^|;&]*\b(lan\s+set|user\s+set|mc\s+reset|chassis\s+bootdev)|dcgmi\s+diag\s+-r\s*[234]|\b(ib_write_bw|ib_read_bw|ib_send_bw|nvbandwidth|all_reduce_perf|fio)\b|(?<=-)X\s*(POST|PATCH|PUT|DELETE)\b(?![^|;&]*SessionService)|ComputerSystem\.Reset|Manager\.Reset|nv\s+(set|unset)\b|nv\s+config\s+apply|(?<![\w-])config\s+(interface|save|reload|load|apply|qos|vlan|portchannel|bgp)\b|\bclear\s+(counters|ib|interface|mac|arp|ip)\b|\bsonic-clear\b|\bperfquery\b[^|;&]*\s-R\b)/i;
 
   // Hook clipboard to automatically substitute variables if active
   // Placeholders are uppercase on purpose: lowercase $disk or $hca is a script's
@@ -2682,7 +2682,7 @@
               ${row(['↵'], 'Copy (targets and values filled in)')}${row(['c'], 'Copy')}${row(['y'], 'Copy (yank)')}${row(['b'], 'Bookmark to My kit')}${row(['v'], 'Set its first value chip')}${row(['p'], 'Show it as a QR code for your phone')}
             </ul></section>
             <section><h3>Anywhere</h3><ul>
-              ${row(['Ctrl', 'K'], 'Command Center: search, sheets, runbooks, actions, quick-set')}${row(['/'], 'Filter this sheet')}${row(['Esc'], 'Clear / close')}${row(['t'], 'Case trail')}${row(['s'], 'My kit')}${row(['q'], 'Practice: drill commands from memory')}${row(['n'], 'Node workspaces')}${row(['m'], 'Manuals')}${row(['?'], 'This sheet')}${row(['Ctrl', 'P'], 'Print')}
+              ${row(['Ctrl', 'K'], 'Command Center: search, sheets, runbooks, actions, quick-set')}${row(['/'], 'Filter this sheet')}${row(['Esc'], 'Clear / close')}${row(['t'], 'Case trail')}${row(['s'], 'My kit')}${row(['q'], 'Practice: drill commands from memory')}${row(['e'], 'Explain a command you paste')}${row(['Shift', 'R'], 'BMC Rosetta: same task in every BMC tool')}${row(['n'], 'Node workspaces')}${row(['m'], 'Manuals')}${row(['?'], 'This sheet')}${row(['Ctrl', 'P'], 'Print')}
             </ul></section>
             <section><h3>In Ctrl+K</h3><ul>
               ${row(['↑', '↓'], 'Move')}${row(['↵'], 'Copy, open or run')}${row(['>'], 'List actions')}${row(['gpu 3'], 'Quick-set a target')}${row(['node …'], 'Switch node')}
@@ -2743,6 +2743,7 @@
       if (k === 't') { e.preventDefault(); return openTrail(); }
       if (k === 's') { e.preventDefault(); return openKit(); }
       if (k === 'q') { e.preventDefault(); return openPractice(); }
+      if (k === 'e') { e.preventDefault(); return openExplain(); }
       if (k === 'n') { const chip = document.querySelector('.node-chip'); if (chip && chip.offsetParent) { e.preventDefault(); openNodePicker(chip); } }
     });
 
@@ -3257,6 +3258,8 @@
       { icon: '📈', label: 'Analyze command output', sub: 'Paste mlxlink, nvme smart-log or nvidia-smi topo -m output for a report', kw: 'analyze analyzer output paste mlxlink smart-log smartlog dom ber optics nvme report topo topology nvlink pix numa affinity', run: () => openAnalyzer() },
       { icon: '☰', label: 'Toggle compact view', sub: 'Hide or show explanations and variants', kw: 'compact density detailed dense view', run: () => { const b = document.getElementById('density-toggle'); if (b) b.click(); } },
       { icon: '📖', label: 'Open manuals', sub: 'Offline man pages', kw: 'man manual manuals pages docs offline', run: () => openManuals() },
+      { icon: '🔎', label: 'Explain a command', sub: 'Paste one from a ticket, KB or chat: what each part does and whether it is safe (e)', kw: 'explain explainer explainshell what does this command do flags meaning safe pasted understand decode', run: () => openExplain() },
+      { icon: '⇄', label: 'BMC Rosetta: same task, every BMC tool', sub: 'Power, SEL, sensors, serials, firmware and resets in ipmitool, FreeIPMI, Redfish, racadm, iLOrest, OneCLI and SAA (⇧R)', kw: 'rosetta bmc vendor matrix equivalent translate ipmitool freeipmi redfish racadm idrac ilorest ilo onecli xcc saa supermicro dell hpe lenovo power sel', run: () => openRosetta() },
       { icon: '◆', label: 'Go to Mission Control', sub: 'Home: decode an error, start a runbook', kw: 'home launchpad mission control start index', run: () => goToSheet('index.html') },
       { icon: '📝', label: 'Write field notes', sub: 'Markdown notes for the server you are on, saved to cases/ or your Obsidian vault', kw: 'notes note notebook journal document markdown obsidian write log second brain field', run: () => openFieldNotes() },
       { icon: '🎯', label: `Turn Rack Targets ${targetState.active ? 'off' : 'on'}`, sub: 'Substitution of targets into copied commands', kw: 'targets substitution variables rack toggle on off', run: () => { const t = document.getElementById('target-active-toggle'); if (t) { t.checked = !t.checked; t.dispatchEvent(new Event('change', { bubbles: true })); refreshSlots(); } } }
@@ -3297,6 +3300,7 @@
       });
       const set = quickSetEntity(q);
       if (set) out.push(set);
+      if (looksLikeCommand(query)) { const cmd = query.trim(); out.push({ kind: 'set', strong: !set, icon: '🔎', label: `Explain: ${cmd.length > 60 ? cmd.slice(0, 60) + '…' : cmd}`, sub: 'What each part does, and whether it is safe to run', run: () => openExplain(cmd) }); }
       const sheets = paletteSheets()
         .map(sh => {
           const name = sh.name.toLowerCase();
@@ -3558,6 +3562,9 @@
     [/^(docker-|k8s-|containers$)/, 'badge-ctr'],
     [/^grafana(-|$)/, 'badge-graf'],
     [/^(editors|nano|vscode|zed|cursor)$/, 'badge-ed'],
+    [/^(bmc-tools|racadm|ilorest|supermicro-saa|onecli|freeipmi|serial-console)$/, 'badge-bmc'],
+    [/^hw-/, 'badge-hwref'],
+    [/^(sre|prometheus|ansible|terraform|helm|argocd|incident-response)$/, 'badge-sre'],
     [/^(nvim-|neovim$)/, 'badge-nvim'],
     [/^macos/, 'badge-mac'],
     [/^(win-|windows$)/, 'badge-win'],
@@ -4625,6 +4632,8 @@ ${rmaTrailSection()}#### Action Requested:
     document.body.classList.toggle('keep-variants', KEEPS_VARIANTS.test(file));
     // index.html is Mission Control: no command cards, so the sheet chrome is hidden.
     document.body.classList.toggle('is-home', file === 'index.html' || file === '');
+    // The portable build swaps <main> in place: re-add the Rosetta strip after the swap.
+    if (changed && !IN_WIDGET_FRAME) setTimeout(() => mountRosettaStrip(file), 60);
   }
 
   function initCompact() {
@@ -7554,6 +7563,8 @@ ${rmaTrailSection()}#### Action Requested:
       safeInit('retireSheetFilters', () => retireSheetFilters());
       safeInit('initCaseTrail', () => initCaseTrail());
       safeInit('initPractice', () => initPractice());
+      safeInit('initExplain', () => initExplain());
+      safeInit('initRosetta', () => initRosetta());
       safeInit('initKit', () => initKit());
       safeInit('initConsole', () => initConsole());
       safeInit('initLiveSheets', () => initLiveSheets());
@@ -8916,7 +8927,7 @@ ${rmaTrailSection()}#### Action Requested:
   // stay visible; Compact, Theme, Manuals and the offline file move
   // into a More menu. Field Mode (phones) shows them all flat, as before.
   // -------------------------------------------------------------
-  const TOOLBAR_PRIMARY = ['global-search-btn', 'triage-modal-btn', 'kit-btn', 'trail-btn', 'practice-btn', 'console-btn'];
+  const TOOLBAR_PRIMARY = ['global-search-btn', 'triage-modal-btn', 'kit-btn', 'trail-btn', 'practice-btn', 'explain-btn', 'console-btn'];
 
   function initToolbar() {
     const actions = document.querySelector('.top-bar .header-actions');
@@ -8940,7 +8951,7 @@ ${rmaTrailSection()}#### Action Requested:
     tourBtn.innerHTML = '<span aria-hidden="true">🧭</span><span>Take the tour</span>';
     tourBtn.addEventListener('click', () => startTour());
     menu.appendChild(tourBtn);
-    // Primary order: Search All, Triage, My kit, Trail, More.
+    // Primary order: Search All, Triage, My kit, Trail, Practice, Explain, Terminal, More.
     TOOLBAR_PRIMARY.forEach(id => { const el = document.getElementById(id); if (el && el.parentNode === actions) actions.appendChild(el); });
     actions.appendChild(wrap);
     actions.classList.add('has-more');
@@ -9374,13 +9385,747 @@ ${rmaTrailSection()}#### Action Requested:
   }
 
   // -------------------------------------------------------------
+  // EXPLAIN A COMMAND
+  // The site decodes errors you paste, but not commands: the line in a ticket, a vendor KB,
+  // a chat or someone's shell history. This explains one offline: the line is split into
+  // stages (pipes, &&, ;), each stage's tool, subcommands and flags are explained from the
+  // site's own flag notes (flag-index.js, built by build-index.js), then from the offline
+  // man pages, and a verdict says what it would do: changes state, never returns, holds a
+  // password in clear (with a copy that swaps it for a variable), unfilled placeholders,
+  // root, remote target, files written.
+  // -------------------------------------------------------------
+  let exEl = null, exFlags = null, exFlagsLoading = null, exTimer = null, exLast = null;
+  const EX_WRAPPERS = { sudo: 'Run the rest as root. In scripts use sudo -n: fail instead of hanging on a password prompt.', doas: 'Run the rest as root (OpenBSD-style sudo).', env: 'Run the rest with extra environment variables.', time: 'Run the rest, then report how long it took.', nohup: 'Keep running after you log out.', nice: 'Run at a lower CPU priority.', ionice: 'Run at a lower disk priority.', stdbuf: 'Change output buffering of the rest.', timeout: 'Kill the rest if it runs longer than the given time.', watch: 'Re-run the rest every 2 seconds until Ctrl+C: never returns on its own.', exec: 'Replace the shell with the rest.', xargs: 'Read lines from the pipe and pass them as arguments to the rest.' };
+  const EX_WRAP_ARGS = { sudo: /^-[ugCDhpr]$/, doas: /^-u$/, watch: /^-n$/, timeout: /^-[sk]$/, nice: /^-n$/, ionice: /^-[cn]$/, xargs: /^-[nIdPLs]$/, env: /^-u$/ };
+  const EX_OPS = { '|': 'Pipe: the output of the left side becomes the input of the right side.', '||': 'Or: run the right side only if the left side failed.', '&&': 'And: run the right side only if the left side succeeded.', ';': 'Then: run the next command whatever happened.', '&': 'Run the left side in the background.', '>': 'Write the output to a file, replacing what is there.', '>>': 'Append the output to a file.', '<': 'Read the input from a file.', '2>': 'Send errors (stderr) to a file.', '2>>': 'Append errors (stderr) to a file.', '2>&1': 'Send errors to the same place as normal output.', '&>': 'Send output and errors to a file.', '1>': 'Write the output to a file.' };
+  const EX_SAMPLES = [
+    ['GPU errors in the kernel log', "sudo dmesg -T | grep -iE 'xid|nvrm' | tail -n 20"],
+    ['Power cycle with a password inline', 'ipmitool -I lanplus -H 10.20.4.17 -U admin -P Hunter2 chassis power cycle'],
+    ['Install script from the internet', 'curl -fsSL https://get.example.com/install.sh | sudo bash'],
+    ['Pack logs for a case', 'sudo tar -czf /tmp/node07-logs.tgz -C /var/log journal syslog'],
+    ['Drain for maintenance', 'kubectl drain node07 --ignore-daemonsets --delete-emptydir-data']
+  ];
+
+  function exLoadFlags() {
+    if (exFlags) return Promise.resolve(exFlags);
+    if (exFlagsLoading) return exFlagsLoading;
+    exFlagsLoading = new Promise((resolve) => {
+      const embedded = document.getElementById('portable-flag-index');
+      if (embedded) { try { exFlags = JSON.parse(embedded.textContent); } catch (e) { exFlags = {}; } return resolve(exFlags); }
+      const script = document.createElement('script');
+      script.src = 'flag-index.js';
+      script.onload = () => { exFlags = window.FLAG_INDEX || {}; delete window.FLAG_INDEX; resolve(exFlags); };
+      script.onerror = () => { exFlags = {}; resolve(exFlags); };
+      document.head.appendChild(script);
+    });
+    return exFlagsLoading;
+  }
+
+  // Shell-ish tokenizer: quotes, escapes, $(…) and backticks stay inside one word;
+  // operators and redirections become their own tokens.
+  function exTokenize(src) {
+    const out = [];
+    let i = 0, w = '', quoted = false;
+    const push = () => { if (w !== '' || quoted) out.push({ t: 'word', v: w }); w = ''; quoted = false; };
+    while (i < src.length) {
+      const c = src[i];
+      if (c === '\\' && src[i + 1] === '\n') { i += 2; continue; }
+      if (c === '\n') { push(); out.push({ t: 'op', v: ';' , nl: true }); i++; continue; }
+      if (/\s/.test(c)) { push(); i++; continue; }
+      if (c === "'" || c === '"') {
+        const end = src.indexOf(c, i + 1);
+        const stop = end < 0 ? src.length : end;
+        w += src.slice(i, stop + 1); quoted = true; i = stop + 1; continue;
+      }
+      if (c === '$' && src[i + 1] === '(') {
+        let depth = 0, j = i;
+        for (; j < src.length; j++) { if (src[j] === '(') depth++; else if (src[j] === ')' && --depth === 0) break; }
+        w += src.slice(i, j + 1); i = j + 1; continue;
+      }
+      if (c === '`') { const end = src.indexOf('`', i + 1); const stop = end < 0 ? src.length : end; w += src.slice(i, stop + 1); i = stop + 1; continue; }
+      const op = src.slice(i).match(/^(2>&1|&>|2>>|2>|1>|>>|\|\||&&|[|;&<>])/);
+      if (op && !(op[0] === '&' && w.endsWith('>'))) {
+        if (/^\d$/.test(w) && /^>/.test(op[0])) { w += op[0]; out.push({ t: 'op', v: w }); w = ''; i += op[0].length; continue; }
+        push(); out.push({ t: 'op', v: op[0] }); i += op[0].length; continue;
+      }
+      w += c; i++;
+    }
+    push();
+    return out;
+  }
+
+  const exIsLiteral = (v) => v && !/^["']?[$<]/.test(v);
+  const exUnquote = (v) => String(v).replace(/^(['"])([\s\S]*)\1$/, '$2');
+
+  // Split tokens into stages; each stage keeps its own words, redirections and the operator after it.
+  function exStages(tokens) {
+    const stages = [];
+    let cur = { words: [], redirs: [], op: '' };
+    for (let k = 0; k < tokens.length; k++) {
+      const tk = tokens[k];
+      if (tk.t === 'op' && /^(\|\||&&|\||;|&)$/.test(tk.v)) {
+        cur.op = tk.nl ? '\n' : tk.v;
+        if (cur.words.length || cur.redirs.length) stages.push(cur);
+        cur = { words: [], redirs: [], op: '' };
+      } else if (tk.t === 'op') {
+        const target = tokens[k + 1] && tokens[k + 1].t === 'word' && tk.v !== '2>&1' ? tokens[++k].v : '';
+        cur.redirs.push({ op: tk.v, target });
+      } else cur.words.push(tk.v);
+    }
+    if (cur.words.length || cur.redirs.length) stages.push(cur);
+    return stages;
+  }
+
+  // Which word is the tool: skip env assignments and wrappers (sudo -n, timeout 30, watch -n 5).
+  function exToolIndex(words) {
+    const wrappers = [];
+    let i = 0;
+    while (i < words.length) {
+      const w = words[i];
+      if (/^[A-Za-z_][A-Za-z0-9_]*=/.test(w)) { wrappers.push({ w, kind: 'env' }); i++; continue; }
+      const base = w.replace(/^.*\//, '');
+      if (EX_WRAPPERS[base]) {
+        wrappers.push({ w: base, kind: 'wrap' });
+        i++;
+        // Skip the wrapper's own options, and the value of those that take one (sudo -u root, watch -n 5).
+        while (i < words.length && /^-/.test(words[i])) { const f = words[i++]; if (EX_WRAP_ARGS[base] && EX_WRAP_ARGS[base].test(f) && i < words.length) i++; }
+        if (base === 'timeout' && /^\d/.test(words[i] || '')) i++;
+        continue;
+      }
+      break;
+    }
+    return { i, wrappers };
+  }
+
+  function exManPage(tool) {
+    if (!manuals) return null;
+    return manuals.list.find(m => m.name === tool && m.text) || null;
+  }
+  function exManName(page) {
+    const m = page.text.match(/\nNAME\n\s+([^\n]+(?:\n\s{6,}[^\n]+)?)/);
+    return m ? m[1].replace(/\s+/g, ' ').replace(/^.*?\s-\s/, '').trim() : '';
+  }
+  // Find an option header ("-z, --gzip", "--since=", "-mtime n") and its paragraph.
+  function exManFlag(page, flag) {
+    const lines = page.text.split('\n');
+    for (let n = 0; n < lines.length; n++) {
+      const line = lines[n];
+      const ind = line.search(/\S/);
+      if (ind < 0 || line[ind] !== '-') continue;
+      const headerEnd = line.slice(ind).search(/\s{2,}/);
+      const header = headerEnd < 0 ? line.slice(ind) : line.slice(ind, ind + headerEnd);
+      const items = header.split(/,\s*/);
+      if (!items.some(it => it === flag || (it.startsWith(flag) && /^[\s=<\[]/.test(it.slice(flag.length))))) continue;
+      let text = headerEnd < 0 ? '' : line.slice(ind + headerEnd).trim();
+      for (let m = n + 1; m < lines.length && m < n + 14; m++) {
+        const l = lines[m], li = l.search(/\S/);
+        if (li < 0) { if (text) break; continue; }
+        if (li <= ind && text) break;
+        if (li <= ind && l.trim()[0] === '-') break;
+        text += ' ' + l.trim();
+      }
+      text = text.replace(/‐\s+/g, '').replace(/\s+/g, ' ').trim();
+      if (!text) continue;
+      const sentences = text.match(/[^.!?]+[.!?]+(\s|$)/g) || [text];
+      return sentences.slice(0, 2).join('').trim().slice(0, 280);
+    }
+    return '';
+  }
+
+  function exSheetFor(tool) {
+    const counts = {};
+    (window.GLOBAL_SEARCH_INDEX || []).forEach(it => {
+      const words = String(it.cmd || '').trim().split(/\s+/);
+      const { i } = exToolIndex(words);
+      if ((words[i] || '').replace(/^.*\//, '') === tool) counts[it.file] = (counts[it.file] || 0) + 1;
+    });
+    // The tool's own suite (ipmitool → ipmi*.html, racadm → racadm.html) beats a sheet that just uses it a lot.
+    const stem = tool.replace(/tool$|ctl$|-smi$/, '').slice(0, 4);
+    const own = f => (stem.length >= 3 && f.startsWith(stem)) ? 1 : 0;
+    const best = Object.entries(counts).sort((a, b) => own(b[0]) - own(a[0]) || b[1] - a[1])[0];
+    return best ? best[0] : '';
+  }
+
+  // Explain one stage: tool, subcommand words (longest site match), flags and values.
+  function exExplainStage(st) {
+    const { i: ti, wrappers } = exToolIndex(st.words);
+    const toolWord = st.words[ti] || '';
+    const tool = toolWord.replace(/^.*\//, '');
+    const site = (exFlags && exFlags[tool]) || {};
+    const page = exManPage(tool);
+    const rows = [];
+    wrappers.forEach(wr => rows.push({ tok: wr.w, kind: wr.kind === 'env' ? 'var' : 'wrap', text: wr.kind === 'env' ? `Sets ${wr.w.split('=')[0]} for this command only.` : EX_WRAPPERS[wr.w], src: 'shell' }));
+    const args = st.words.slice(ti + 1);
+    const used = new Set();
+    // Subcommands: the longest run of plain words the site knows ("chassis power cycle", "app sync").
+    for (let a = 0; a < args.length; a++) {
+      if (used.has(a) || /^-/.test(args[a])) continue;
+      for (let len = 3; len >= 1; len--) {
+        const seq = args.slice(a, a + len);
+        if (seq.length < len || seq.some(x => /^-/.test(x))) continue;
+        const key = seq.join(' ');
+        if (site[key]) { for (let z = a; z < a + len; z++) used.add(z); rows.push({ tok: key, kind: 'sub', text: site[key][0], src: site[key][1] }); break; }
+      }
+    }
+    for (let a = 0; a < args.length; a++) {
+      const w = args[a];
+      if (!/^-/.test(w) || w === '-' || w === '--') continue;
+      used.add(a);
+      const flag = w.match(/^--?[^=\s]+/)[0];
+      const value = w.includes('=') ? w.slice(w.indexOf('=') + 1) : (args[a + 1] !== undefined && !/^-/.test(args[a + 1]) && !used.has(a + 1) && (site[flag] || (page && exManFlag(page, flag))) ? null : undefined);
+      let text = site[flag] ? site[flag][0] : '', src = site[flag] ? site[flag][1] : '';
+      // A sheet note can describe its own example ("the last 100 lines"): if it quotes numbers
+      // this command doesn't have, the manual's general wording is the better explanation.
+      if (text && page && (text.match(/\b\d+\b/g) || []).some(n => !st.words.join(' ').includes(n))) {
+        const general = exManFlag(page, flag);
+        if (general) { text = general; src = `man ${tool}`; }
+      }
+      if (!text && page) { text = exManFlag(page, flag); if (text) src = `man ${tool}`; }
+      // Bundled short flags: -czf → -c -z -f, -iE → -i -E.
+      if (!text && /^-[A-Za-z]{2,}$/.test(w)) {
+        const parts = w.slice(1).split('').map(ch => {
+          const f = `-${ch}`;
+          const t = site[f] ? site[f][0] : page ? exManFlag(page, f) : '';
+          return t ? `<b>${escapeHtml(f)}</b> ${escapeHtml(t)}` : '';
+        }).filter(Boolean);
+        if (parts.length) { rows.push({ tok: w, kind: 'flag', html: parts.join('<br>'), src: site[`-${w[1]}`] ? site[`-${w[1]}`][1] : `man ${tool}` }); continue; }
+      }
+      rows.push({ tok: w, kind: 'flag', text: text || `Not described on the sheets or in an offline manual. Run ${tool} --help, or check its manual.`, src, unknown: !text });
+      if (value === null) used.add(a + 1);
+    }
+    const leftovers = args.filter((w, a) => !used.has(a));
+    st.redirs.forEach(r => rows.push({ tok: `${r.op}${r.target ? ' ' + r.target : ''}`, kind: 'op', text: EX_OPS[r.op] + (r.target === '/dev/null' ? ' /dev/null throws it away.' : ''), src: 'shell' }));
+    return { tool, toolWord, page, site, rows, leftovers, sheet: tool ? exSheetFor(tool) : '', name: page ? exManName(page) : '' };
+  }
+
+  // Passwords and tokens typed in clear, with a copy that swaps them for variables.
+  function exSecrets(text) {
+    const hits = [];
+    let safe = text;
+    const rules = [
+      [/(\bipmitool\b[^|;&\n]*?\s)-P\s+(?!["']?\$)("[^"]*"|'[^']*'|\S+)/g, (m, pre) => `${pre}-E`, 'ipmitool -P: the password lands in your shell history (ipmitool only tries to hide it from ps). -E reads it from IPMI_PASSWORD instead.'],
+      [/(\b(?:racadm|ilorest|saa|smcipmitool|ipmicfg|redfishtool|mysql|mysqladmin)\b[^|;&\n]*?\s)(-p|--password|--passwd)(\s+|=)(?!["']?\$)("[^"]*"|'[^']*'|\S+)/gi, (m, pre, f, sep) => `${pre}${f}${sep}"$BMC_PASS"`, 'Password on the command line: keep it in $BMC_PASS (read -rs BMC_PASS; export BMC_PASS).'],
+      [/(\s--(?:password|passwd|pass)(?:\s+|=))(?!["']?\$)("[^"]*"|'[^']*'|\S+)/g, (m, pre) => `${pre}"$BMC_PASS"`, '--password in clear: use a variable or the tool’s config file.'],
+      [/(\bcurl\b[^|;&\n]*?\s(?:-u|--user)\s+)(["']?)([^\s:"']+):(?!\$)[^\s"']+\2/g, (m, pre, q, user) => `${pre}${user}`, 'curl -u user:password: with just -u user curl prompts; better, use -K ~/.bmc-curlrc or a netrc file.'],
+      [/(https?:\/\/)([^\s:@\/]+):(?!\$)[^\s@\/]+@/g, (m, pre, user) => `${pre}${user}@`, 'Credentials inside a URL end up in logs and history.'],
+      [/(--bmc\s+["']?)([^\s:@"']+):(?!\$)[^\s@"']+@/g, (m, pre) => `${pre}$BMC_USER:$BMC_PASS@`, 'OneCLI --bmc user:password@host: use variables, or an encrypted --configfile.'],
+      [/((?:Authorization:\s*(?:Bearer|Basic)|X-Auth-Token:)\s*)(?!\$)[A-Za-z0-9._~+\/=-]{8,}/gi, (m, pre) => `${pre}$TOKEN`, 'A token in a header: keep it in $TOKEN.'],
+      [/(\b(?:password|passwd|token|secret|api_key)=)(?!["']?\$)("[^"]*"|'[^']*'|[^\s&]+)/gi, (m, pre) => `${pre}"$SECRET"`, 'A secret as a parameter: use a variable.']
+    ];
+    rules.forEach(([re, rep, why]) => {
+      if (re.test(safe)) { hits.push(why); re.lastIndex = 0; safe = safe.replace(re, rep); }
+      re.lastIndex = 0;
+    });
+    return { hits: [...new Set(hits)], safe };
+  }
+
+  function exAnalyze(text) {
+    const src = text.replace(/^\s*\$\s+/gm, '').trim();
+    const tokens = exTokenize(src);
+    const stages = exStages(tokens).map(st => ({ st, ex: exExplainStage(st), raw: st.words.join(' ') }));
+    // ssh host 'command': explain the quoted command too, as running on the remote host.
+    stages.slice().forEach((s, idx) => {
+      if (s.ex.tool !== 'ssh') return;
+      const last = s.st.words[s.st.words.length - 1];
+      if (s.st.words.length > 2 && /^['"]/.test(last)) {
+        const inner = exAnalyze(exUnquote(last));
+        inner.stages.forEach(x => { x.remote = s.st.words.find((w, k) => k > 0 && !/^-/.test(w) && !/^['"]/.test(w)) || 'the remote host'; });
+        stages.splice(idx + 1, 0, ...inner.stages);
+      }
+    });
+    const findings = [];
+    const danger = stages.filter(s => DANGER_RE.test(s.raw));
+    const pipeSh = /\b(curl|wget)\b[^;&]*\|\s*(sudo\s+)?(ba|z)?sh\b/.test(src);
+    if (pipeSh) findings.push({ sev: 'crit', title: 'Runs a script straight from the internet', text: 'Whatever the server sends runs, as root if sudo is there. Download it, read it, then run the file.' });
+    if (danger.length) findings.push({ sev: 'crit', title: 'Changes state', text: `${danger.map(s => s.ex.tool || s.raw.split(' ')[0]).filter((v, i, a) => a.indexOf(v) === i).join(', ')}: drain the node and get approval before running it.` });
+    const sec = exSecrets(src);
+    if (sec.hits.length) findings.push({ sev: 'crit', title: 'Password or token in clear', text: sec.hits.join(' '), safe: sec.safe });
+    if (stages.some(s => RB_NEVER_RETURNS.test(s.raw))) findings.push({ sev: 'warn', title: 'Never returns on its own', text: 'A live view, follow or console: stop it with Ctrl+C (or its escape sequence).' });
+    const ph = src.match(/<[A-Za-z_][\w -]*>/g);
+    if (ph) findings.push({ sev: 'warn', title: 'Unfilled placeholders', text: `${[...new Set(ph)].join(', ')}: replace them before running.` });
+    const writes = stages.flatMap(s => s.st.redirs.filter(r => /^(>|>>|1>|&>)$/.test(r.op) && r.target && r.target !== '/dev/null').map(r => r.target));
+    if (writes.length) findings.push({ sev: 'info', title: 'Writes files', text: [...new Set(writes)].join(', ') });
+    // -h means "help" or "human" for most tools: only the IPMI tools and racadm take a host there.
+    const sshHost = stages.find(s => s.ex.tool === 'ssh' && !s.remote);
+    const remote = (src.match(/\b(?:ipmitool|ipmi-[\w-]+|ipmipower|ipmiconsole|bmc-info)\b[^|;&]*?\s-[Hh]\s+("[^"]*"|\S+)/)
+      || src.match(/\bracadm\b[^|;&]*?\s-r\s+("[^"]*"|\S+)/)
+      || src.match(/\s(?:--host|--url|--bmc)[\s=]+("[^"]*"|\S+)/)
+      || [])[1] || (sshHost ? sshHost.st.words.slice(1).find(w => !/^-/.test(w) && !/^['"]/.test(w)) : '');
+    if (remote) findings.push({ sev: 'info', title: 'Acts on another machine', text: exUnquote(remote) });
+    if (/(^|[\s;|&])sudo\b/.test(src)) findings.push({ sev: 'info', title: 'Runs as root', text: 'sudo: double-check the target before you press Enter.' });
+    const verdict = findings.find(f => f.sev === 'crit') ? 'crit' : findings.find(f => f.sev === 'warn') ? 'warn' : 'ok';
+    return { src, tokens, stages, findings, verdict, safe: sec.hits.length ? sec.safe : '' };
+  }
+
+  // The command as colored chips; explained words carry the number of their row.
+  function exMapHtml(r) {
+    const out = [];
+    r.stages.forEach((s, si) => {
+      if (s.remote) return;
+      const ex = s.ex;
+      const subWords = new Set(ex.rows.filter(x => x.kind === 'sub').flatMap(x => x.tok.split(' ')));
+      const toolIdx = s.st.words.indexOf(ex.toolWord);
+      s.st.words.forEach((w, k) => {
+        let kind = 'arg';
+        if (k === toolIdx) kind = 'tool';
+        else if (k < toolIdx) kind = /=/.test(w) ? 'var' : 'wrap';
+        else if (/^-/.test(w)) kind = 'flag';
+        else if (subWords.has(w)) kind = 'sub';
+        else if (/^["']/.test(w)) kind = 'str';
+        else if (/\$/.test(w)) kind = 'var';
+        const row = ex.rows.findIndex(x => x.tok === w || (kind === 'sub' && x.tok.split(' ').includes(w)));
+        const ref = row >= 0 ? `data-ex-ref="${si}-${row}"` : kind === 'tool' ? `data-ex-ref="${si}-tool"` : '';
+        out.push(`<span class="ex-tok ex-${kind}" ${ref}>${escapeHtml(w)}</span>`);
+      });
+      s.st.redirs.forEach(rd => { const row = ex.rows.findIndex(x => x.kind === 'op' && x.tok.startsWith(rd.op)); out.push(`<span class="ex-tok ex-op" data-ex-ref="${si}-${row}">${escapeHtml(rd.op)}</span>${rd.target ? `<span class="ex-tok ex-arg">${escapeHtml(rd.target)}</span>` : ''}`); });
+      if (s.st.op && s.st.op !== '\n') out.push(`<span class="ex-tok ex-op" data-ex-ref="op-${si}" title="${escapeHtml(EX_OPS[s.st.op] || '')}">${escapeHtml(s.st.op)}</span>`);
+      if (s.st.op === '\n') out.push('<br>');
+    });
+    return out.join(' ');
+  }
+
+  function exRender() {
+    const input = exEl.querySelector('.ex-input');
+    const res = exEl.querySelector('.ex-result');
+    const text = input.value;
+    if (!text.trim()) {
+      exLast = null;
+      res.innerHTML = `<div class="ex-empty"><p>Paste a command from a ticket, a vendor KB, a chat or someone's history. It's explained offline: from these sheets first, then the manuals.</p><div class="ex-samples">${EX_SAMPLES.map(([label, cmd]) => `<button type="button" data-ex-sample="${escapeHtml(cmd)}"><b>${escapeHtml(label)}</b><code>${escapeHtml(cmd)}</code></button>`).join('')}</div></div>`;
+      return;
+    }
+    const r = exAnalyze(text);
+    exLast = r;
+    const VERDICT = { crit: ['⛔', 'Stop and check before running'], warn: ['⚠', 'Run with care'], ok: ['✓', 'Read-only as far as these sheets can tell'] };
+    const sevIcon = { crit: '●', warn: '●', info: '○' };
+    const findings = r.findings.length ? r.findings.map(f => `<li class="ex-f-${f.sev}"><span aria-hidden="true">${sevIcon[f.sev]}</span><div><b>${escapeHtml(f.title)}</b> ${escapeHtml(f.text)}${f.safe ? `<div class="ex-safe"><code>${escapeHtml(f.safe)}</code><button type="button" data-ex-copy-safe>Copy the safe version</button></div>` : ''}</div></li>`).join('') : '<li class="ex-f-ok"><span aria-hidden="true">●</span><div><b>Nothing risky found.</b> No state change, secret or placeholder that the site’s rules know about.</div></li>';
+    const cards = r.stages.map((s, si) => {
+      const ex = s.ex;
+      const op = s.st.op && s.st.op !== '\n' ? `<div class="ex-op-row" data-ex-row="op-${si}"><code>${escapeHtml(s.st.op)}</code><span>${escapeHtml(EX_OPS[s.st.op] || '')}</span></div>` : '';
+      const head = `<header><span class="ex-stage-n">${si + 1}</span><code class="ex-tool" data-ex-row="${si}-tool">${escapeHtml(ex.tool || s.raw.split(' ')[0] || '?')}</code><span class="ex-name">${escapeHtml(ex.name || (ex.sheet ? '' : 'Not on the sheets or in the offline manuals'))}</span>${s.remote ? `<span class="ex-remote">on ${escapeHtml(s.remote)}</span>` : ''}
+        <span class="ex-links">${ex.sheet ? `<button type="button" data-ex-sheet="${escapeHtml(ex.sheet)}">Sheet: ${escapeHtml(ex.sheet.replace(/\.html$/, ''))} →</button>` : ''}${ex.page ? `<button type="button" data-ex-man="${escapeHtml(ex.tool)}">Manual</button>` : ''}</span></header>`;
+      const rows = ex.rows.map((x, ri) => `<div class="ex-row ex-k-${x.kind}${x.unknown ? ' is-unknown' : ''}" data-ex-row="${si}-${ri}"><code>${escapeHtml(x.tok)}</code><span>${x.html || escapeHtml(x.text)}</span><small>${x.src === 'shell' ? 'shell' : /^man /.test(x.src || '') ? escapeHtml(x.src) : x.src ? `sheet: ${escapeHtml(String(x.src).replace(/\.html$/, ''))}` : ''}</small></div>`).join('');
+      const rest = ex.leftovers.length ? `<div class="ex-row ex-k-arg"><code>${escapeHtml(ex.leftovers.join(' '))}</code><span>Arguments: values, names, patterns or paths the command works on.</span><small></small></div>` : '';
+      return `<article class="ex-stage">${head}${rows}${rest}</article>${op}`;
+    }).join('');
+    res.innerHTML = `
+      <div class="ex-verdict ex-v-${r.verdict}"><span class="ex-v-icon" aria-hidden="true">${VERDICT[r.verdict][0]}</span><div><b>${VERDICT[r.verdict][1]}</b><ul>${findings}</ul></div></div>
+      <div class="ex-map" aria-label="The command, word by word">${exMapHtml(r)}</div>
+      <div class="ex-stages">${cards}</div>
+      <div class="ex-actions"><button type="button" data-ex-copy>Copy command</button><button type="button" data-ex-pin>📌 Pin to case</button><button type="button" data-ex-search>Search the sheets for ${escapeHtml(r.stages[0] && r.stages[0].ex.tool || 'it')}</button></div>`;
+  }
+
+  function exMarkdown(r) {
+    const lines = [`\`\`\`bash\n${r.safe || r.src}\n\`\`\``, ''];
+    r.findings.forEach(f => lines.push(`- **${f.title}:** ${f.text}`));
+    r.stages.forEach((s, i) => {
+      lines.push('', `**${i + 1}. ${s.ex.tool}**${s.ex.name ? ` — ${s.ex.name}` : ''}`);
+      s.ex.rows.forEach(x => lines.push(`- \`${x.tok}\`: ${(x.text || x.html.replace(/<[^>]+>/g, '')).replace(/\n/g, ' ')}`));
+    });
+    return lines.join('\n');
+  }
+
+  function exClick(e) {
+    const t = e.target instanceof Element ? e.target : null;
+    if (!t) return;
+    if (t === exEl || t.closest('[data-ex-close]')) return closeExplain();
+    const sample = t.closest('[data-ex-sample]');
+    if (sample) { const i = exEl.querySelector('.ex-input'); i.value = sample.dataset.exSample; exAutoSize(i); return exRender(); }
+    if (t.closest('[data-ex-copy-safe]') && exLast) { navigator.clipboard.writeText(exLast.safe); return showGlobalToast('Copied with the secret replaced by a variable: set it with read -rs first.'); }
+    if (t.closest('[data-ex-copy]') && exLast) { navigator.clipboard.writeText(exLast.src); return showGlobalToast(exLast.verdict === 'crit' ? 'Copied. It changes state or holds a secret: read the verdict first.' : 'Copied.'); }
+    if (t.closest('[data-ex-pin]') && exLast) {
+      casePin({ kind: 'Command explained', title: exLast.src.length > 70 ? exLast.src.slice(0, 70) + '…' : exLast.src, sev: exLast.verdict === 'ok' ? 'info' : exLast.verdict, md: exMarkdown(exLast), facts: [['Verdict', exLast.findings.map(f => f.title).join(', ') || 'nothing risky found']] });
+      return;
+    }
+    const sr = t.closest('[data-ex-search]');
+    if (sr && exLast) { const q = exLast.stages[0] ? exLast.stages[0].ex.tool : ''; closeExplain(); return openGlobalSearch(q); }
+    const sh = t.closest('[data-ex-sheet]');
+    if (sh) { closeExplain(); return goToSheet(sh.dataset.exSheet); }
+    const man = t.closest('[data-ex-man]');
+    if (man) { closeExplain(); return openManuals(man.dataset.exMan); }
+  }
+
+  function exHover(e) {
+    const el = e.target instanceof Element ? e.target.closest('[data-ex-ref], [data-ex-row]') : null;
+    exEl.querySelectorAll('.is-lit').forEach(x => x.classList.remove('is-lit'));
+    if (!el) return;
+    const key = el.dataset.exRef || el.dataset.exRow;
+    exEl.querySelectorAll(`[data-ex-ref="${key}"], [data-ex-row="${key}"]`).forEach(x => x.classList.add('is-lit'));
+  }
+
+  const exAutoSize = (i) => { i.style.height = 'auto'; i.style.height = `${Math.min(220, i.scrollHeight + 2)}px`; };
+
+  function openExplain(text) {
+    if (IN_WIDGET_FRAME) return;
+    if (!exEl) {
+      exEl = document.createElement('div');
+      exEl.className = 'an-backdrop ex-backdrop';
+      exEl.innerHTML = `
+        <div class="an-dialog ex-dialog" role="dialog" aria-modal="true" aria-labelledby="ex-title">
+          <header class="an-head ex-head">
+            <div><h2 id="ex-title">Explain a command</h2><p>What it does, word by word, and whether it is safe to run. Offline: from these sheets, then the manuals.</p></div>
+            <button type="button" class="trail-close" data-ex-close aria-label="Close">✕</button>
+          </header>
+          <div class="ex-input-wrap"><span aria-hidden="true">$</span><textarea class="ex-input" rows="1" spellcheck="false" autocomplete="off" placeholder="Paste a command, a pipeline, or a few lines of history"></textarea></div>
+          <div class="ex-result" aria-live="polite"></div>
+        </div>`;
+      document.body.appendChild(exEl);
+      exEl.addEventListener('click', exClick);
+      exEl.addEventListener('mouseover', exHover);
+      exEl.addEventListener('keydown', (e) => { if (e.key === 'Escape') { e.stopPropagation(); closeExplain(); } });
+      const input = exEl.querySelector('.ex-input');
+      input.addEventListener('input', () => { exAutoSize(input); clearTimeout(exTimer); exTimer = setTimeout(exRender, 160); });
+    }
+    const input = exEl.querySelector('.ex-input');
+    if (typeof text === 'string') input.value = text;
+    exEl._back = document.activeElement;
+    exEl.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    exAutoSize(input);
+    exRender();
+    setTimeout(() => input.focus({ preventScroll: true }), 30);
+    // Site notes first; manuals load in the background and fill in the rest.
+    exLoadFlags().then(() => { if (exEl.classList.contains('show')) exRender(); });
+    loadManuals().then(() => { if (exEl.classList.contains('show')) exRender(); }).catch(() => {});
+  }
+
+  function closeExplain() {
+    if (!exEl) return;
+    exEl.classList.remove('show');
+    document.body.style.overflow = '';
+    if (exEl._back && exEl._back.focus) exEl._back.focus({ preventScroll: true });
+  }
+
+  // Toolbar button: the explainer was only reachable by e, Ctrl+K or the home box.
+  function initExplain() {
+    const actions = document.querySelector('.header-actions');
+    if (!actions || document.getElementById('explain-btn')) return;
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.id = 'explain-btn';
+    btn.className = 'action-btn explain-header-btn';
+    btn.title = 'Explain a command (e): paste one from a ticket, KB or chat to see what it does and whether it is safe';
+    btn.innerHTML = `
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/><path d="M8 9l2 1.5L8 12"/>
+        </svg>
+        <span>Explain</span>`;
+    btn.addEventListener('click', () => openExplain());
+    actions.appendChild(btn);
+  }
+
+  // A pasted line that reads like a command rather than an error message.
+  function looksLikeCommand(text) {
+    const t = String(text || '').trim().replace(/^\$\s+/, '');
+    if (!t || t.length > 2000 || /^\[?\s*\d+\.\d+\]|^[A-Z][a-z]{2} +\d+ \d\d:|NVRM:|^\w+:\s/.test(t)) return false;
+    const first = t.split(/\s+/)[0].replace(/^.*\//, '');
+    if (!/^[a-z][\w.+-]*$/.test(first)) return false;
+    return EX_WRAPPERS[first] !== undefined || /\s-{1,2}[A-Za-z]/.test(t) || /\s(\||&&)\s/.test(t);
+  }
+
+  // -------------------------------------------------------------
+  // BMC ROSETTA
+  // Seven BMC tools (ipmitool, FreeIPMI, Redfish, racadm, iLOrest, OneCLI, SAA) answer the
+  // same dozen questions with seven syntaxes, spread over seven sheets. The Rosetta is one
+  // task × tool matrix: pick (or detect) the node's vendor once, and every row shows the
+  // universal tools next to that vendor's own CLI, with Redfish paths using the vendor's
+  // resource IDs. Cells copy through the clipboard hook, so Rack Targets fill in $BMC and
+  // $BMC_USER; state-changing cells carry the danger label. The vendor is remembered per node.
+  // -------------------------------------------------------------
+  const ROS_KEY = 'cs_rosetta_v1';
+  const ROS_VENDORS = {
+    dell: { name: 'Dell iDRAC', tool: 'dell', re: /\bdell\b/i, note: 'racadm documents only -p for the password: keep it in $BMC_PASS, or run racadm in-band on the host (no password).' },
+    hpe: { name: 'HPE iLO', tool: 'hpe', re: /\bhpe\b|hewlett/i, note: 'Each iLOrest command carries --url … --logout, so it runs on its own and leaves no session behind.' },
+    lenovo: { name: 'Lenovo XCC', tool: 'lenovo', re: /lenovo/i, note: 'Prefer --configfile with an encrypted credentials file (OneCli misc encrypt) over --bmc user:password.' },
+    smc: { name: 'Supermicro', tool: 'smc', re: /super\s?micro/i, note: 'SAA commands here are in-band (on the host, as root), as documented in the SAA guide. For remote use, check ./saa -h.' }
+  };
+  const ROS_TOOLS = {
+    ipmi: { name: 'ipmitool', sheet: 'ipmi.html', logoFrom: '[data-suite-hub="ipmi.html"] .ng-logo' },
+    fipmi: { name: 'FreeIPMI', sheet: 'freeipmi.html', logoFrom: 'a.dropdown-item[href="freeipmi.html"] svg' },
+    rf: { name: 'Redfish', sheet: 'redfish.html', logoFrom: '[data-suite-hub="redfish.html"] .ng-logo' },
+    dell: { name: 'racadm', sheet: 'racadm.html', logoFrom: 'a.dropdown-item[href="racadm.html"] svg' },
+    hpe: { name: 'iLOrest', sheet: 'ilorest.html', logoFrom: 'a.dropdown-item[href="ilorest.html"] svg' },
+    lenovo: { name: 'OneCLI', sheet: 'onecli.html', logoFrom: 'a.dropdown-item[href="onecli.html"] svg' },
+    smc: { name: 'SAA', sheet: 'supermicro-saa.html', logoFrom: 'a.dropdown-item[href="supermicro-saa.html"] svg' }
+  };
+  // Redfish resource IDs: Dell names its members; HPE, Lenovo and Supermicro use 1.
+  const ROS_RF_IDS = { dell: { SYS: 'System.Embedded.1', MGR: 'iDRAC.Embedded.1', CH: 'System.Embedded.1' } };
+  const IPMI = 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E';
+  const FIPMI = '-h "$BMC" -u "$BMC_USER" -P';
+  const RF = 'curl -g -6 -sk -K ~/.bmc-curlrc';
+  const RFU = '"https://[$BMC]/redfish/v1';
+  const RAC = 'racadm -r "$BMC" -u "$BMC_USER" -p "$BMC_PASS"';
+  const ILO = '--url "$BMC" --user "$BMC_USER" --password "$BMC_PASS" --logout';
+  const ONE = '--bmc "$BMC_USER:$BMC_PASS@$BMC"';
+  const RF_POST = (path, body) => `${RF} -X POST ${RFU}${path}" -H "Content-Type: application/json" -d '${body}'`;
+  const ROS_TASKS = [
+    { group: 'Look', id: 'power', task: 'Power state', hint: 'Is it on?', cells: {
+      ipmi: `${IPMI} chassis power status`, fipmi: `ipmipower ${FIPMI} --stat`,
+      rf: `${RF} ${RFU}/Systems/SYS" | jq -r .PowerState`,
+      dell: `${RAC} serveraction powerstatus`, hpe: `ilorest get PowerState --select ComputerSystem. ${ILO}`,
+      lenovo: `./OneCli misc power state ${ONE}`, smc: null },
+      gaps: { smc: 'No power-state command in the SAA guide: use Redfish or ipmitool.' } },
+    { group: 'Look', id: 'sel', task: 'Read the event log', hint: 'SEL / IML / Lifecycle log', cells: {
+      ipmi: `${IPMI} sel elist`, fipmi: `ipmi-sel ${FIPMI} --output-event-state --interpret-oem-data`,
+      rf: `${RF} ${RFU}/Managers/MGR/LogServices" | jq -r '.Members[]."@odata.id"'`,
+      dell: `${RAC} getsel -o`, hpe: `ilorest serverlogs --selectlog=IML ${ILO}`,
+      lenovo: `./OneCli misc logmgr showsel ${ONE}`, smc: 'sudo ./saa -c GetEventLog --info' },
+      notes: { rf: 'Lists the log services; append /Entries to the one you want.', dell: 'racadm lclog view has the richer Lifecycle log.' } },
+    { group: 'Look', id: 'sensors', task: 'Temperatures & fans', hint: 'Sensors with state', cells: {
+      ipmi: `${IPMI} sdr elist full`, fipmi: `ipmi-sensors ${FIPMI} --output-sensor-state --ignore-not-available-sensors`,
+      rf: `${RF} ${RFU}/Chassis/CH/Thermal" | jq '.Temperatures[] | {Name, ReadingCelsius}'`,
+      dell: `${RAC} getsensorinfo -c`, hpe: `ilorest serverinfo --thermals --fans ${ILO}`,
+      lenovo: `./OneCli misc syshealth ${ONE}`, smc: 'sudo ./saa -c CheckSensorData --action Show' } },
+    { group: 'Look', id: 'watts', task: 'Power draw', hint: 'Watts and PSUs', cells: {
+      ipmi: `${IPMI} dcmi power reading`, fipmi: `ipmi-dcmi ${FIPMI} --get-system-power-statistics`,
+      rf: `${RF} ${RFU}/Chassis/CH/Power" | jq '.PowerControl[].PowerConsumedWatts'`,
+      dell: `${RAC} getsensorinfo -c`, hpe: `ilorest serverinfo --power ${ILO}`,
+      lenovo: `./OneCli misc syshealth --device power ${ONE}`, smc: 'sudo ./saa -c GetPsuInfo' },
+      notes: { dell: 'Read the POWER section.' } },
+    { group: 'Look', id: 'ident', task: 'Model & serial numbers', hint: 'For the RMA', cells: {
+      ipmi: `${IPMI} fru print`, fipmi: `ipmi-fru ${FIPMI}`,
+      rf: `${RF} ${RFU}/Systems/SYS" | jq '{Manufacturer, Model, SerialNumber, SKU}'`,
+      dell: `${RAC} getsysinfo`, hpe: `ilorest serverinfo --system ${ILO}`,
+      lenovo: 'sudo ./OneCli inventory getinfor --device system_overview --output ./inventory', smc: 'sudo ./saa -c GetFruInfo' },
+      notes: { lenovo: 'In-band, on the host.' } },
+    { group: 'Look', id: 'fw', task: 'Firmware versions', hint: 'BMC, BIOS and more', cells: {
+      ipmi: `${IPMI} mc info`, fipmi: `bmc-info ${FIPMI} --get-device-id`,
+      rf: `${RF} ${RFU}/UpdateService/FirmwareInventory?\\$expand=.(\\$levels=1)" | jq -r '.Members[] | "\\(.Name)  \\(.Version)"'`,
+      dell: `${RAC} getversion`, hpe: `ilorest serverinfo --firmware ${ILO}`,
+      lenovo: `./OneCli update scan ${ONE} --output ./scan`, smc: 'sudo ./saa -c GetSystemInfo' } },
+    { group: 'Collect', id: 'console', task: 'Serial console (SOL)', hint: 'Hung OS, BMC alive', cells: {
+      ipmi: `${IPMI} sol activate`, fipmi: `ipmiconsole ${FIPMI} --dont-steal`,
+      rf: null, dell: null, hpe: null, lenovo: null, smc: null },
+      gaps: { rf: 'Redfish has no standard serial console: use SOL.', dell: 'Use SOL (ipmitool or FreeIPMI) or the iDRAC web console.', hpe: 'Use SOL or the iLO web console.', lenovo: 'Use SOL or the XCC web console.', smc: 'Use SOL or the BMC web console.' } },
+    { group: 'Collect', id: 'bundle', task: 'Vendor support bundle', hint: 'What the RMA desk asks for', cells: {
+      ipmi: null, fipmi: null, rf: null,
+      dell: `${RAC} techsupreport collect -t SysInfo,TTYLog`, hpe: `ilorest serverlogs --selectlog=AHS --directorypath=./logs ${ILO}`,
+      lenovo: `./OneCli misc ffdc ${ONE}`, smc: null },
+      gaps: { ipmi: 'Vendor-specific: save sel elist and fru print instead.', fipmi: 'Vendor-specific: save ipmi-sel and ipmi-fru output instead.', rf: 'Vendor-specific (OEM actions).', smc: 'No collection command in the SAA guide: send the event log and GetSystemInfo output.' },
+      notes: { dell: 'Then jobqueue view, and techsupreport export -f tsr.zip.' } },
+    { group: 'Act', id: 'soft', task: 'Graceful shutdown', hint: 'Drain first', danger: true, cells: {
+      ipmi: `${IPMI} chassis power soft`, fipmi: `ipmipower ${FIPMI} --soft`,
+      rf: RF_POST('/Systems/SYS/Actions/ComputerSystem.Reset', '{"ResetType":"GracefulShutdown"}'),
+      dell: `${RAC} serveraction graceshutdown`, hpe: `ilorest reboot PushPowerButton ${ILO}`,
+      lenovo: `./OneCli misc power normaloff ${ONE}`, smc: null },
+      gaps: { smc: 'No power command in the SAA guide: use Redfish or ipmitool.' } },
+    { group: 'Act', id: 'cycle', task: 'Power cycle', hint: 'Drain first', danger: true, cells: {
+      ipmi: `${IPMI} chassis power cycle`, fipmi: `ipmipower ${FIPMI} --cycle`,
+      rf: RF_POST('/Systems/SYS/Actions/ComputerSystem.Reset', '{"ResetType":"ForceRestart"}'),
+      dell: `${RAC} serveraction powercycle`, hpe: `ilorest reboot ForceRestart ${ILO}`,
+      lenovo: `./OneCli misc power forcerestart ${ONE}`, smc: null },
+      gaps: { smc: 'No power command in the SAA guide: use Redfish or ipmitool.' } },
+    { group: 'Act', id: 'clrsel', task: 'Clear the event log', hint: 'Save it first', danger: true, cells: {
+      ipmi: `${IPMI} sel clear`, fipmi: `ipmi-sel ${FIPMI} --clear`,
+      rf: RF_POST('/Managers/MGR/LogServices/Sel/Actions/LogService.ClearLog', '{}'),
+      dell: `${RAC} clrsel`, hpe: `ilorest serverlogs --selectlog=IML --clearlog ${ILO}`,
+      lenovo: `./OneCli misc logmgr clearsel ${ONE}`, smc: 'sudo ./saa -c ClearEventLog' },
+      notes: { rf: 'The log service name varies (Sel, IEL…): list them first.' } },
+    { group: 'Act', id: 'bmcreset', task: 'Restart the BMC', hint: 'BMC hung or stale', danger: true, cells: {
+      ipmi: `${IPMI} mc reset cold`, fipmi: null,
+      rf: RF_POST('/Managers/MGR/Actions/Manager.Reset', '{"ResetType":"GracefulRestart"}'),
+      dell: `${RAC} racreset`, hpe: `ilorest iloreset ${ILO}`,
+      lenovo: `./OneCli misc rebootbmc ${ONE}`, smc: 'sudo ./saa -c BmcReset --boot_check' },
+      gaps: { fipmi: 'Use ipmitool mc reset cold or Redfish.' } }
+  ];
+
+  let rosEl = null, rosAll = false, rosFilter = '';
+  const rosRead = () => { try { const v = JSON.parse(localStorage.getItem(ROS_KEY) || '{}'); return v && typeof v === 'object' ? v : {}; } catch (e) { return {}; } };
+  const rosWrite = (v) => { try { localStorage.setItem(ROS_KEY, JSON.stringify(v)); } catch (e) {} };
+  const rosNode = () => { try { return readNodes().active || ''; } catch (e) { return ''; } };
+  const rosDetect = (text) => Object.keys(ROS_VENDORS).find(k => ROS_VENDORS[k].re.test(text || '')) || '';
+  // Remembered for this node → last vendor picked → manufacturer in the last checkup.
+  function rosVendor() {
+    const st = rosRead(), node = rosNode();
+    if (node && st.byNode && st.byNode[node]) return { v: st.byNode[node], why: `remembered for ${node}` };
+    let ck = '';
+    try { const v = vitalsRead(); ck = v.checkup && v.checkup.text ? rosDetect(v.checkup.text.slice(0, 20000)) : ''; } catch (e) {}
+    if (ck) return { v: ck, why: 'from the last Node checkup' };
+    if (st.last) return { v: st.last, why: 'last vendor you picked' };
+    return { v: '', why: '' };
+  }
+  function rosSetVendor(v) {
+    const st = rosRead(), node = rosNode();
+    st.last = v;
+    if (node) { st.byNode = st.byNode || {}; if (v) st.byNode[node] = v; else delete st.byNode[node]; }
+    rosWrite(st);
+  }
+  function rosLogo(tool) {
+    const src = document.querySelector(ROS_TOOLS[tool].logoFrom);
+    if (!src) return '';
+    const chip = src.classList.contains('logo-chip') ? ' logo-chip' : '';
+    return uniqueSvgIds(src.outerHTML.replace(/class="[^"]*"/, `class="ros-logo${chip}"`));
+  }
+  const rosFill = (cmd, vendor) => {
+    const ids = ROS_RF_IDS[vendor] || { SYS: '1', MGR: '1', CH: '1' };
+    return cmd.replace(/\/(Systems|Managers|Chassis)\/(SYS|MGR|CH)\b/g, (m, coll, k) => `/${coll}/${ids[k]}`);
+  };
+
+  // Display only: the connection and credential part every command of a tool shares becomes
+  // a dim ⋯, so the part that differs per task (sel elist, getsysinfo) is what you read.
+  const ROS_CONN = [` -I lanplus -H "$BMC" -U "$BMC_USER" -E`, ` ${FIPMI}`, ` -g -6 -sk -K ~/.bmc-curlrc`, ` -r "$BMC" -u "$BMC_USER" -p "$BMC_PASS"`, ` ${ILO}`, ` ${ONE}`];
+  function rosDisplay(cmd) {
+    const conn = '<i class="ros-conn" aria-hidden="true">⋯</i>';
+    return escapeHtml(cmd)
+      .split(escapeHtml('"https://[$BMC]/redfish/v1')).join(`${conn}`)
+      .replace(new RegExp(ROS_CONN.map(f => escapeHtml(f).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|'), 'g'), ` ${conn}`)
+      .replace(/(⋯<\/i>\/[^&\s]*)&quot;/g, '$1')
+      .split(` ${conn}${conn}`).join(` ${conn}`);
+  }
+
+  function rosColumns(vendor) {
+    if (rosAll) return ['ipmi', 'fipmi', 'rf', 'dell', 'hpe', 'lenovo', 'smc'];
+    return vendor ? [ROS_VENDORS[vendor].tool, 'rf', 'ipmi', 'fipmi'] : ['ipmi', 'fipmi', 'rf'];
+  }
+
+  function rosRender() {
+    const { v: vendor, why } = rosVendor();
+    const cols = rosColumns(vendor);
+    const node = rosNode();
+    const q = rosFilter.trim().toLowerCase();
+    const tasks = ROS_TASKS.filter(t => !q || `${t.task} ${t.hint} ${t.group} ${Object.values(t.cells).join(' ')}`.toLowerCase().includes(q));
+    const chips = Object.entries(ROS_VENDORS).map(([k, o]) => `<button type="button" class="ros-vendor ${k === vendor ? 'is-on' : ''}" data-ros-vendor="${k}" aria-pressed="${k === vendor}">${rosLogo(o.tool)}<span>${escapeHtml(o.name)}</span></button>`).join('')
+      + `<button type="button" class="ros-vendor ${!vendor ? 'is-on' : ''}" data-ros-vendor="" aria-pressed="${!vendor}"><span>Other / unknown</span></button>`;
+    const head = cols.map(c => `<th scope="col" class="${vendor && c === ROS_VENDORS[vendor].tool ? 'is-vendor' : ''}"><a href="${ROS_TOOLS[c].sheet}" data-ros-sheet="${ROS_TOOLS[c].sheet}">${rosLogo(c)}${escapeHtml(ROS_TOOLS[c].name)}</a></th>`).join('');
+    let lastGroup = '';
+    const rows = tasks.map(t => {
+      const sep = t.group !== lastGroup ? `<tr class="ros-group"><th colspan="${cols.length + 1}">${escapeHtml(t.group)}${t.group === 'Act' ? ' <span>changes state · drain the node and get approval first</span>' : ''}</th></tr>` : '';
+      lastGroup = t.group;
+      const cells = cols.map(c => {
+        const raw = t.cells[c];
+        const isVendorCol = vendor && c === ROS_VENDORS[vendor].tool;
+        if (!raw) return `<td class="ros-gap ${isVendorCol ? 'is-vendor' : ''}"><span>${escapeHtml((t.gaps && t.gaps[c]) || 'No equivalent')}</span></td>`;
+        const cmd = rosFill(raw, vendor || (['dell', 'hpe', 'lenovo', 'smc'].includes(c) ? c : ''));
+        const danger = t.danger || DANGER_RE.test(cmd);
+        const note = t.notes && t.notes[c];
+        return `<td class="${isVendorCol ? 'is-vendor' : ''}"><button type="button" class="ros-cell ${danger ? 'is-danger' : ''}" data-ros-copy="${escapeHtml(cmd)}" title="${escapeHtml(cmd)}"><code>${rosDisplay(cmd)}</code><span class="ros-copied" aria-hidden="true">Copied</span></button>${note ? `<small>${escapeHtml(note)}</small>` : ''}</td>`;
+      }).join('');
+      return `${sep}<tr class="${t.danger ? 'is-act' : ''}"><th scope="row"><b>${escapeHtml(t.task)}</b><small>${escapeHtml(t.hint)}</small></th>${cells}</tr>`;
+    }).join('');
+    rosEl.querySelector('.ros-vendors').innerHTML = chips;
+    rosEl.querySelector('.ros-why').innerHTML = vendor
+      ? `<b>${escapeHtml(ROS_VENDORS[vendor].name)}</b>${why ? ` · ${escapeHtml(why)}` : ''}${node ? '' : ' · name a node to remember it per server'}<br><span>${escapeHtml(ROS_VENDORS[vendor].note)}</span>`
+      : `No vendor yet: showing the tools that work on any BMC. Pick one above, or paste <code>dmidecode -s system-manufacturer</code> output below.`;
+    rosEl.querySelector('.ros-all').setAttribute('aria-pressed', String(rosAll));
+    rosEl.querySelector('.ros-all').textContent = rosAll ? 'Show my vendor only' : 'Compare all 7 tools';
+    rosEl.querySelector('.ros-table').innerHTML = tasks.length
+      ? `<thead><tr><th scope="col">Task</th>${head}</tr></thead><tbody>${rows}</tbody>`
+      : `<tbody><tr><td class="ros-none">No task matches “${escapeHtml(rosFilter)}”.</td></tr></tbody>`;
+    rosEl.querySelector('.ros-table').classList.toggle('is-wide', cols.length > 4);
+  }
+
+  function rosClick(e) {
+    const t = e.target instanceof Element ? e.target : null;
+    if (!t) return;
+    if (t === rosEl || t.closest('[data-ros-close]')) return closeRosetta();
+    const vb = t.closest('[data-ros-vendor]');
+    if (vb) { rosSetVendor(vb.dataset.rosVendor); rosAll = false; return rosRender(); }
+    if (t.closest('.ros-all')) { rosAll = !rosAll; return rosRender(); }
+    if (t.closest('[data-ros-detect-copy]')) {
+      navigator.clipboard.writeText('sudo dmidecode -s system-manufacturer');
+      showGlobalToast('Copied: run it on the host, then paste the output here.');
+      return;
+    }
+    const sh = t.closest('[data-ros-sheet]');
+    if (sh) { e.preventDefault(); closeRosetta(); return goToSheet(sh.dataset.rosSheet); }
+    const cell = t.closest('[data-ros-copy]');
+    if (cell) {
+      navigator.clipboard.writeText(cell.dataset.rosCopy);
+      cell.classList.add('did-copy');
+      setTimeout(() => cell.classList.remove('did-copy'), 1100);
+      if (cell.classList.contains('is-danger')) showGlobalToast('Copied a state-changing command: drain the node and get approval before running it.');
+    }
+  }
+
+  function openRosetta(query) {
+    if (IN_WIDGET_FRAME) return;
+    if (!rosEl) {
+      rosEl = document.createElement('div');
+      rosEl.className = 'an-backdrop ros-backdrop';
+      rosEl.innerHTML = `
+        <div class="an-dialog ros-dialog" role="dialog" aria-modal="true" aria-labelledby="ros-title">
+          <header class="an-head ros-head">
+            <div><h2 id="ros-title">BMC Rosetta</h2><p>One task, every BMC tool. Pick the vendor once per node; click a command to copy it with your Rack Targets filled in.</p></div>
+            <button type="button" class="trail-close" data-ros-close aria-label="Close">✕</button>
+          </header>
+          <div class="ros-bar">
+            <div class="ros-vendors" role="group" aria-label="Server vendor"></div>
+            <button type="button" class="ros-all" aria-pressed="false"></button>
+          </div>
+          <div class="ros-info">
+            <p class="ros-why"></p>
+            <label class="ros-detect"><span>Detect</span><input type="text" placeholder="Paste dmidecode -s system-manufacturer, or a FRU dump" spellcheck="false" autocomplete="off" /><button type="button" data-ros-detect-copy title="Copy the command that prints the manufacturer">Copy command</button></label>
+            <label class="ros-find"><span>Find</span><input type="search" placeholder="sel, power, serial, firmware…" spellcheck="false" autocomplete="off" /></label>
+          </div>
+          <div class="ros-scroll"><table class="ros-table"></table></div>
+          <footer class="ros-foot"><i class="ros-conn">⋯</i> is the connection and credentials part (hover a command to see it all; the copy is always complete). Passwords stay in <code>$BMC_PASS</code> or a prompt (<code>-E</code>, <code>-P</code>, <code>~/.bmc-curlrc</code>): never type them inline. Redfish IDs follow the vendor; list <code>/redfish/v1/Systems</code> if yours differ.</footer>
+        </div>`;
+      document.body.appendChild(rosEl);
+      rosEl.addEventListener('click', rosClick);
+      rosEl.addEventListener('keydown', (e) => { if (e.key === 'Escape') { e.stopPropagation(); closeRosetta(); } });
+      rosEl.querySelector('.ros-detect input').addEventListener('input', (e) => {
+        const v = rosDetect(e.target.value);
+        if (!v) return;
+        rosSetVendor(v); rosAll = false; rosRender();
+        showGlobalToast(`Detected ${ROS_VENDORS[v].name}${rosNode() ? ` · remembered for ${rosNode()}` : ''}.`);
+        e.target.value = '';
+      });
+      rosEl.querySelector('.ros-find input').addEventListener('input', (e) => { rosFilter = e.target.value; rosRender(); });
+    }
+    rosFilter = query || '';
+    rosEl.querySelector('.ros-find input').value = rosFilter;
+    rosEl._back = document.activeElement;
+    rosRender();
+    rosEl.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => { const f = rosEl.querySelector(rosVendor().v ? '.ros-find input' : '.ros-detect input'); if (f) f.focus({ preventScroll: true }); }, 30);
+  }
+
+  function closeRosetta() {
+    if (!rosEl) return;
+    rosEl.classList.remove('show');
+    document.body.style.overflow = '';
+    if (rosEl._back && rosEl._back.focus) rosEl._back.focus({ preventScroll: true });
+  }
+
+  // On BMC-related sheets, a strip at the top of the page leads into the Rosetta.
+  const ROS_STRIP_SHEETS = /^(bmc-tools|racadm|ilorest|supermicro-saa|onecli|freeipmi|serial-console|ipmi[\w-]*|redfish|rf-[\w-]+|hw-power)\.html$/;
+  function mountRosettaStrip(file) {
+    if (IN_WIDGET_FRAME) return;
+    const old = document.getElementById('ros-strip');
+    if (old) old.remove();
+    if (!ROS_STRIP_SHEETS.test(file)) return;
+    const main = document.querySelector('main.main-layout');
+    if (!main) return;
+    const { v } = rosVendor();
+    const strip = document.createElement('div');
+    strip.id = 'ros-strip';
+    strip.className = 'ros-strip';
+    strip.innerHTML = `<span class="ros-strip-glyph" aria-hidden="true">⇄</span>
+      <div><b>BMC Rosetta</b><span>The same task in ipmitool, FreeIPMI, Redfish${v ? ` and ${escapeHtml(ROS_TOOLS[ROS_VENDORS[v].tool].name)}` : ' and your vendor’s CLI'}: power, SEL, sensors, serials, firmware, resets.</span></div>
+      ${v ? `<span class="ros-strip-vendor">${rosLogo(ROS_VENDORS[v].tool)}${escapeHtml(ROS_VENDORS[v].name)}</span>` : ''}
+      <button type="button" class="ros-strip-open">Open the matrix <kbd>⇧R</kbd></button>`;
+    strip.querySelector('.ros-strip-open').addEventListener('click', () => openRosetta());
+    main.insertBefore(strip, main.firstChild);
+  }
+
+  function initRosetta() {
+    mountRosettaStrip(anatSheetFile || window.location.pathname.split('/').pop() || 'index.html');
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'R' || !e.shiftKey || e.ctrlKey || e.metaKey || e.altKey) return;
+      const el = document.activeElement;
+      if (el && (el.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName))) return;
+      e.preventDefault();
+      openRosetta();
+    });
+  }
+
+  // -------------------------------------------------------------
   // MISSION CONTROL (home launchpad)
   // The home page used to open on a chmod calculator, so nothing told a new
   // visitor this is a 188-sheet datacenter suite that can decode a pasted
   // error, run a playbook or build an RMA. The launchpad leads with "what's
   // broken?" and surfaces the decoder, runbooks, recents and suites.
   // -------------------------------------------------------------
-  const LP_HIDDEN_KEY = 'dc_launchpad_hidden';
   const RECENT_KEY = 'dc_recent_sheets';
 
   const IN_WIDGET_FRAME = window.location.href === 'about:srcdoc';
@@ -9447,13 +10192,6 @@ ${rmaTrailSection()}#### Action Requested:
   function renderLaunchpad(lp) {
     const index = searchIndexUnique();
     const sheets = new Set(index.map(i => i.file)).size;
-    const hidden = readStored(LP_HIDDEN_KEY) === '1';
-    lp.classList.toggle('is-collapsed', hidden);
-    if (hidden) {
-      lp.innerHTML = `<div class="lp-collapsed"><button type="button" data-lp="show">◆ Mission Control: decode an error, start a runbook, jump to a suite</button></div><div class="lp-notes-slot"></div>`;
-      mountFieldNotes(lp);
-      return;
-    }
     const recents = readRecents().filter(r => r.file !== 'index.html').slice(0, 5);
     const trail = readTrail().slice(-3).reverse();
     const kit = readKit();
@@ -9511,8 +10249,7 @@ ${rmaTrailSection()}#### Action Requested:
             ${kit.length ? `<div class="lp-trail lp-kit"><div class="lp-trail-head">My kit · ${kit.length} bookmarked <button type="button" data-lp="kit">Open kit →</button></div>${kit.slice(0, 3).map(e => `<code title="${escapeHtml(e.item.sName)}">${escapeHtml(firstCommand(trailSafeText(e.item.cmd)))}</code>`).join('')}</div>` : ''}
             ${trail.length ? `<div class="lp-trail"><div class="lp-trail-head">Last copied <button type="button" data-lp="trail">Open trail (${readTrail().length}) →</button></div>${trail.map(e => `<code title="${escapeHtml(e.sheet)} · ${trailTime(e.t)}">${escapeHtml(e.cmd)}</code>`).join('')}</div>` : ''}
           ` : `<p class="lp-empty">Sheets you open and commands you copy show up here, so you can get back to them mid-incident.</p>`}
-      </div>
-      <button type="button" class="lp-hide" data-lp="hide" title="Collapse the launchpad (remembered)">Hide launchpad ▴</button>`;
+      </div>`;
 
     const input = lp.querySelector('#lp-omni-input');
     renderFlow(lp, true);
@@ -9522,6 +10259,12 @@ ${rmaTrailSection()}#### Action Requested:
     const preview = lp.querySelector('.lp-preview');
     const updatePreview = () => {
       const d = decodeSymptom(input.value);
+      if (!d && looksLikeCommand(input.value)) {
+        preview.classList.add('show');
+        preview.innerHTML = `<span class="lp-pv-sev sev-info">COMMAND</span><b>Looks like a command, not an error</b><span class="lp-pv-layer">↵ explains it word by word</span>
+          <span class="lp-pv-actions"><button type="button" data-lp="search">Search the sheets</button><button type="button" data-lp="explain">Explain ↵</button></span>`;
+        return;
+      }
       if (!d) { preview.innerHTML = ''; preview.classList.remove('show'); return; }
       const rbId = runbookForDecoded(d);
       preview.classList.add('show');
@@ -9531,6 +10274,7 @@ ${rmaTrailSection()}#### Action Requested:
     input.addEventListener('input', updatePreview);
     lp.querySelector('.lp-omni').addEventListener('submit', (e) => {
       e.preventDefault();
+      if (!decodeSymptom(input.value) && looksLikeCommand(input.value)) return openExplain(input.value.trim());
       openGlobalSearch(input.value.trim());
     });
   }
@@ -9561,7 +10305,7 @@ ${rmaTrailSection()}#### Action Requested:
     const stages = [
       { id: 'identify', n: 1, title: 'Identify', what: 'Which node, which BMC, is it drained?',
         done: !!node, status: node ? `${node}${bmc ? ` · BMC ${bmc}` : ' · no BMC set'}` : 'No node named yet',
-        acts: [['node', node ? 'Switch node' : 'Name this node'], ['drain', 'Copy drain check'], ['targets', 'Rack Targets']] },
+        acts: [['node', node ? 'Switch node' : 'Name this node'], ['drain', 'Copy drain check'], ['targets', 'Rack Targets'], ['rosetta', 'BMC Rosetta']] },
       { id: 'collect', n: 2, title: 'Collect', what: 'Read-only evidence: dmesg, SEL, telemetry.',
         done: trail.length >= 1 || collected > 0, status: trail.length || collected ? `${trail.length} command${trail.length === 1 ? '' : 's'} run · ${collected} analys${collected === 1 ? 'is' : 'es'} pinned` : 'Paste an error or a whole dump',
         acts: [['checkup', 'Node checkup'], ['paste', 'Paste a log'], ['timeline', 'Incident timeline'], ['console', 'Terminal']] },
@@ -9604,6 +10348,7 @@ ${rmaTrailSection()}#### Action Requested:
     if (a === 'targets') { const t = document.querySelector('#target-collapse-btn'); if (t && /Expand/.test(t.textContent)) t.click(); setTimeout(() => { const i = document.getElementById('var-bmc'); if (i) { i.scrollIntoView({ block: 'center' }); i.focus(); } }, 30); return; }
     if (a === 'paste') { const i = lp.querySelector('#lp-omni-input'); if (i) { i.scrollIntoView({ block: 'center' }); i.focus(); showGlobalToast('Paste a log line, or a whole dmesg / SEL dump, then press Enter.'); } return; }
     if (a === 'timeline') return openAnalyzer('');
+    if (a === 'rosetta') return openRosetta();
     if (a === 'console') return toggleConsole(true);
     if (a === 'diff') return openGoldenDiff();
     if (a === 'fleet') return openFleet();
@@ -9729,14 +10474,14 @@ ${rmaTrailSection()}#### Action Requested:
       if (cp) return cockpitAct(cp.dataset.cp);
       if (!act) return;
       if (act.dataset.lp === 'open') return openGlobalSearch(input ? input.value.trim() : '');
+      if (act.dataset.lp === 'explain') return openExplain(input ? input.value.trim() : '');
+      if (act.dataset.lp === 'search') return openGlobalSearch(input ? input.value.trim() : '');
       if (act.dataset.lp === 'trail') return openTrail();
       if (act.dataset.lp === 'timeline') return openAnalyzer(AN_SAMPLES.timeline);
       if (act.dataset.lp === 'diff') return openGoldenDiff();
       if (act.dataset.lp === 'fleetres') return openFleetResults();
       if (act.dataset.lp === 'kit') return openKit();
       if (act.dataset.lp === 'board') return openBoard();
-      if (act.dataset.lp === 'hide') { try { localStorage.setItem(LP_HIDDEN_KEY, '1'); } catch (err) {} return renderLaunchpad(lp); }
-      if (act.dataset.lp === 'show') { try { localStorage.removeItem(LP_HIDDEN_KEY); } catch (err) {} return renderLaunchpad(lp); }
     });
 
     const sync = () => {
@@ -9989,7 +10734,7 @@ ${rmaTrailSection()}#### Action Requested:
   // and commands that never return (watch, top, -f, loops). sudo runs as
   // sudo -n, so a missing password fails fast instead of hanging the prompt.
   // -------------------------------------------------------------
-  const RB_NEVER_RETURNS = /(^|[;&|]\s*)(watch|top|htop|btop|less|more|man|vim?|nano|tmux|screen|minicom|tio)\b|\s-f\b(?!\S)|\btail\s+-[a-z]*f|\bjournalctl\b[^|;&]*\s-f\b|\bping\b(?![^|;&]*\s-c\s*\d)|\s-l\s+\d+\b|\bdmon\b|\bpmon\b|\bwhile\s+true\b|\bnvidia-smi\b[^|;&]*\s(-l|--loop|-lms)\b|\bdmesg\b[^|;&]*\s(-w|-W|--follow(-new)?)\b|--follow\b|\bsol\s+activate\b|\s-(it|ti)\b|\bkubectl\b[^|;&]*\s(-w|--watch)\b|\bport-forward\b|\bkubectl\s+(attach|proxy)\b|\bdocker\s+(attach|events(?![^|;&]*--until))\b|\bdocker\s+stats\b(?![^|;&]*--no-stream)|\bk9s\b|\bgcx\s+dev\s+serve\b|\bipmitool\b[^|;&]*\bshell\b|\b(nvidia-bug-report|sosreport|sos\s+report|dcgmi\s+diag|ibdiagnet|fio|stress(-ng)?|memtester|nccl-tests|all_reduce_perf)\b/i;
+  const RB_NEVER_RETURNS = /(^|[;&|]\s*)(watch|top|htop|btop|less|more|man|vim?|nano|tmux|screen|minicom|tio)\b|\s-f\b(?!\S)|\btail\s+-[a-z]*f|\bjournalctl\b[^|;&]*\s-f\b|\bping\b(?![^|;&]*\s-c\s*\d)|\s-l\s+\d+\b|\bdmon\b|\bpmon\b|\bwhile\s+true\b|\bnvidia-smi\b[^|;&]*\s(-l|--loop|-lms)\b|\bdmesg\b[^|;&]*\s(-w|-W|--follow(-new)?)\b|--follow\b|\bsol\s+activate\b|\s-(it|ti)\b|\bkubectl\b[^|;&]*\s(-w|--watch)\b|\bport-forward\b|\bkubectl\s+(attach|proxy)\b|\bdocker\s+(attach|events(?![^|;&]*--until))\b|\bdocker\s+stats\b(?![^|;&]*--no-stream)|\bk9s\b|\bgcx\s+dev\s+serve\b|\bipmitool\b[^|;&]*\bshell\b|\bipmiconsole\b|\bpicocom\b|\bgensiot\b|\bconsole\s+(-s\s+)?(?!-)[\w.-]+$|\bargocd\s+app\s+wait\b|\b(nvidia-bug-report|sosreport|sos\s+report|dcgmi\s+diag|ibdiagnet|fio|stress(-ng)?|memtester|nccl-tests|all_reduce_perf)\b/i;
   let rbBusy = null, rbAutoStop = false;
   function rbSafe(st) {
     if (!st.cmd || st.type === 'gate' || st.type === 'decide') return false;
