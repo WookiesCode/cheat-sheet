@@ -22,6 +22,7 @@ I built this mainly for myself, for two reasons:
 | Part | What it is |
 |---|---|
 | [`cheat-sheets/`](cheat-sheets/) | The cheat-sheet site: about 200 offline HTML sheets (Linux, CLI tools, scripting, NVIDIA DC, InfiniBand, switches, Redfish, ipmitool, fiber, Ethernet, motherboards, Docker & Kubernetes, Grafana dashboards, editors (nano, VS Code, Zed, Cursor) and more, grouped into tabs), plus triage tools, a terminal dock and a single-file offline bundle. See [`cheat-sheets/README.md`](cheat-sheets/README.md). |
+| [`tui/`](tui/) | `dc-cheat`, the same commands in the terminal: one static Go binary (Bubble Tea) to copy onto any Ubuntu server. Search, copy, explain flags. |
 | [`docs/playbooks/`](docs/playbooks/) | Troubleshooting playbooks for GPU/NVLink, network and optics, storage and JBODs, BMC hardware, and RMA templates. |
 | [`agents/AGENTS.md`](agents/AGENTS.md) | Instructions for an AI agent working as my datacenter troubleshooting partner in this repo: safety rules, read-only vs. ask-first commands, and the 5-step triage method. The root `CLAUDE.md` is a symlink to it. |
 | [`agents/AGENTS-portable.md`](agents/AGENTS-portable.md) | A copy of `AGENTS.md` with `<WORKSPACE>` placeholders, for dropping into another repo. |
@@ -33,6 +34,15 @@ I built this mainly for myself, for two reasons:
 ### Open the Site
 - **Normally:** open `cheat-sheets/index.html` in a browser. It opens on Mission Control, with Field notes for the server you are working on (saved as Markdown to `cases/` or an Obsidian vault).
 - **Offline or on another machine:** copy `cheat-sheets/datacenter-cheatsheet-portable.html`. It's one file and needs no network.
+
+### Use It in the Terminal (`dc-cheat`)
+The same commands as the site, for SSH sessions on servers. Nothing needs installing on the server: copy one file.
+
+- **Build** (on the workstation; needs Go 1.26.7+ and Node): `tui/build.sh` refreshes the data from the site, runs the tests, and writes static binaries to `tui/dist/` (`dc-cheat-linux-amd64`, `dc-cheat-linux-arm64`, `SHA256SUMS`).
+- **Install on a server:** `scp tui/dist/dc-cheat-linux-amd64 <host>:~/bin/dc-cheat` (use `arm64` for Grace/ARM nodes).
+- **Use:** `dc-cheat [query]` opens the search. Typing filters; `tab` / `shift+tab` picks a suite; `enter` prints the command to stdout and exits (so `cmd=$(dc-cheat)` works); `ctrl+y` copies through OSC 52 (in tmux: `set -g set-clipboard on`); `ctrl+e` explains each flag; `ctrl+t` steps through alternatives; `esc` steps back, then quits.
+- **Without the UI:** `dc-cheat -q "ib link down"` prints matches; `dc-cheat explain "mlxlink -d mlx5_0 -m -c -e"` explains a command.
+- Danger and needs-root badges come from the site's own rules (`common.js`), evaluated when the data is built, so the two never disagree. Root commands copy with a `# needs root` line and no `sudo`.
 
 ---
 
@@ -61,6 +71,7 @@ cheat-sheet/
 │   ├── coding-agent.md           # Preferences for coding agents (incl. teach-as-you-go)
 │   └── chat-instructions.md      # Preferences for chat assistants (full + short version)
 ├── cheat-sheets/                 # The cheat-sheet site, build scripts, and backups (git-ignored)
+├── tui/                          # dc-cheat: terminal version (Go + Bubble Tea), dist/ git-ignored
 ├── docs/playbooks/               # GPU, network/optics, storage, BMC, and RMA playbooks
 ├── cases/                        # Per-incident working folders
 └── scripts/                      # Read-only diagnostic helpers

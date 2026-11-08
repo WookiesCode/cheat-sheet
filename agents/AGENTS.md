@@ -53,6 +53,7 @@ Maintain a clean, reproducible directory structure in `/home/jason/Work/cheat-sh
 │   ├── coding-agent.md              # General coding-agent preferences (teach-as-you-go)
 │   └── chat-instructions.md         # General chat-assistant preferences (full + short)
 ├── cheat-sheets/                    # The offline cheat-sheet site, build scripts, backups/ (git-ignored)
+├── tui/                             # dc-cheat terminal version (Go + Bubble Tea); data from cheat-sheets/build-tui-data.js
 ├── docs/
 │   └── playbooks/
 │       ├── gpu-nvlink.md            # H200, B200, RTX, Xid/SXid, ECC/Row-Remap, NVLink/NVSwitch

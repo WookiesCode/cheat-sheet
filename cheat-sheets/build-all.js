@@ -33,6 +33,7 @@ const STEPS = [
   'build-nav-groups.js',
   'build-man-data.js',
   'build-index.js',
+  'build-tui-data.js', // data for the terminal version in ../tui (dc-cheat)
   'build-portable.js'
 ];
 
