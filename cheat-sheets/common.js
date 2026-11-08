@@ -465,6 +465,11 @@
     copyVerbatim = writeOut;
     navigator.clipboard.writeText = function(text) {
       text = String(text ?? '');
+      const rooted = step('root', () => privCopy(text, !!fleetState().active), text);
+      if (rooted !== text) {
+        text = rooted;
+        step('root-hint', () => { if (!readStored('dc_root_hint')) { localStorage.setItem('dc_root_hint', '1'); setTimeout(() => showGlobalToast(rootStyle() === 'note' ? 'Needs root: copied with a "# needs root" line and no sudo. Click the root tag on any command to change this.' : 'Needs root: copied with sudo. Click the root tag on any command to change this.'), 200); } });
+      }
       const fleet = step('fleet', () => fleetWrap(text), null);
       if (fleet) {
         setTimeout(() => showGlobalToast(fleet.note), 160);
@@ -656,6 +661,7 @@
         if (rm) { e.stopPropagation(); removeNode(rm.dataset.nodeRemove); return renderNodePop(); }
         if (sw) { nodePop.classList.remove('show'); return switchNode(sw.dataset.nodeSwitch); }
         if (el.closest('[data-node-board]')) { nodePop.classList.remove('show'); return openBoard(); }
+        if (el.closest('[data-node-intake]')) { nodePop.classList.remove('show'); return openIntake(); }
         if (act) submitNodeForm(act.dataset.nodeAct);
       });
       nodePop.addEventListener('keydown', (e) => {
@@ -705,6 +711,7 @@
       ${names.length ? `<ul class="node-list">${names.map(n => row(n, false)).join('')}</ul>` : ''}
       <div class="node-form"><label>${reg.active ? 'Switch to a new node' : 'Or start a fresh node'}<span>Starts with empty targets and an empty trail.</span></label>
         <div class="node-form-row"><input type="text" data-node-input="new" placeholder="gpu-node-08" spellcheck="false" autocomplete="off" /><button type="button" data-node-act="new">Start</button></div></div>
+      <button type="button" class="node-board-link" data-node-intake>🎫 Start from a ticket: paste it, the node is set up →</button>
       <button type="button" class="node-board-link" data-node-board>Shift board &amp; handoff for all nodes →</button>
       ${reg.active ? `<div class="node-form node-rename"><div class="node-form-row"><input type="text" data-node-input="rename" placeholder="Rename ${escapeHtml(reg.active)}…" spellcheck="false" autocomplete="off" /><button type="button" data-node-act="rename">Rename</button></div></div>` : ''}`;
   }
@@ -1356,8 +1363,11 @@
   function extractEntities(raw) {
     const ent = { raw };
     // AER lines name the root port first and the device that erred after "received:".
+    // Elsewhere a BDF needs its domain (0000:8a:00) or its function (8a:00.0): a bare
+    // "02:14" is a clock time, as in every dmesg -T line.
+    const any = raw.match(/(?<![\w:])(?:PCI:)?(?:([0-9a-f]{4}:[0-9a-f]{2}:[0-9a-f]{2})(?:(\.[0-7])(?!\d)|(?![:\w]))|([0-9a-f]{2}:[0-9a-f]{2})(\.[0-7])(?!\d))/i);
     const bdf = raw.match(/received:\s*((?:[0-9a-f]{4}:)?[0-9a-f]{2}:[0-9a-f]{2})(\.[0-7])?\b/i)
-      || raw.match(/\b(?:PCI:)?((?:[0-9a-f]{4}:)?[0-9a-f]{2}:[0-9a-f]{2})(\.[0-7])?\b/i);
+      || (any && [any[0], any[1] || any[3], any[2] || any[4]]);
     if (bdf) {
       const base = bdf[1].length === 5 ? `0000:${bdf[1]}` : bdf[1];
       ent.bdf = (base + (bdf[2] || '.0')).toLowerCase();
@@ -2579,6 +2589,8 @@
     input.addEventListener('paste', (e) => {
       const text = e.clipboardData ? e.clipboardData.getData('text') : '';
       if (!text || !/\n/.test(text.trim())) return;
+      if (tkLooksLike(text)) { e.preventDefault(); if (before) before(); openIntake(text); return; }
+      if (fmLooksLike(text)) { e.preventDefault(); if (before) before(); openFabric(text); return; }
       if (frLooksLike(text)) { e.preventDefault(); if (before) before(); openFleetResults(text); return; }
       if (ckLooksLike(text)) { e.preventDefault(); if (before) before(); openCheckup(text); return; }
       if (xrLooksLike(text)) { e.preventDefault(); if (before) before(); openXray(text); return; }
@@ -2600,7 +2612,7 @@
   const KB_BOXES = '.cmd-code-box:not(.is-reference), .subcmd-row:not(.is-reference)';
   const kbTyping = el => !!el && (el.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName));
   function kbOverlayOpen() {
-    return document.body.style.overflow === 'hidden' || !!document.querySelector('#global-search-modal:not(.hidden), .triage-modal-backdrop:not(.hidden), .an-backdrop.show, .trail-drawer.open, .tour.show, .slot-pop.show, .node-pop.show, .kb-help.show, .hdr-more.open');
+    return document.body.style.overflow === 'hidden' || !!document.querySelector('#global-search-modal:not(.hidden), .triage-modal-backdrop:not(.hidden), .an-backdrop.show:not(.is-side), .trail-drawer.open, .tour.show, .slot-pop.show, .node-pop.show, .kb-help.show, .hdr-more.open');
   }
 
   function kbEnhance() {
@@ -2988,7 +3000,7 @@
   // -------------------------------------------------------------
   const TOUR_SEEN_KEY = 'dc_tour_seen';
   // Bumped when the tour gains steps: anyone who saw an older one is offered "What's new" (the isNew steps).
-  const TOUR_VERSION = '6';
+  const TOUR_VERSION = '8';
   // center: the step still shows (centred) when its control is not on this page.
   const TOUR_STEPS = [
     { title: 'This reference does more than list commands', body: 'A short tour that follows an incident: diagnose the error, set up the node, run commands in the built-in terminal, see the GPU tray, compare against healthy nodes, and file the case. Use ← → or the buttons; Esc ends it.' },
@@ -2996,6 +3008,10 @@
       try: { label: 'Try an Xid 79 line', run: () => { const i = document.getElementById('lp-omni-input'); if (i) { i.value = 'NVRM: Xid (PCI:0000:8a:00): 79, pid=48213, name=python, GPU has fallen off the bus.'; i.dispatchEvent(new Event('input')); } } } },
     { target: '.lp-cockpit', isNew: true, title: 'This node, at a glance', body: 'The cockpit keeps the latest readings for the node you are on: checkup score, a mini GPU tray with NIC lights, the top problems and the terminal link, with how old each reading is. It follows the node workspace, so switching nodes switches the cockpit. Click the ring or the tray to reopen the full report.' },
     { target: '.lp-flow', isNew: true, title: 'Your incident, step by step', body: 'Identify → Collect → Correlate → Isolate → Document: the team method, each step holding its tools. The cards follow the current node and tick green as you name it, run commands, compare, work a runbook and file the case; the next step is highlighted.' },
+    { target: '[data-flow="intake"]', center: true, isNew: true, title: 'Start from the ticket', body: 'Paste the whole ticket once. The ticket number, host, BMC, devices, serials and every log line the decoder knows are picked out for you to check (the rack inventory fills in the BMC and location it knows). One click sets up the node workspace, Rack Targets and the case, with the diagnoses pinned and the first read-only commands ready. Passwords in the ticket are masked, never kept.',
+      try: { label: 'Open it with a sample ticket', run: () => { endTour(); openIntake(TK_SAMPLE); } } },
+    { target: '[data-flow="fabric"]', center: true, isNew: true, title: 'See the whole InfiniBand fabric', body: 'Paste iblinkinfo (or just paste it anywhere you would paste an error). Spines and leaves are drawn with every inter-switch link coloured, each switch shows its ports, and the links that trained narrow or slow, never came up, or were disabled are listed first. Type a host or HCA to see which switch port it is cabled to; every port hands you perfquery, ibportstate and mlxlink with the LID and port filled in.',
+      try: { label: 'Open it with a sample fabric', run: () => { endTour(); openFabric(fmSample()); } } },
     { target: '.node-chip', title: 'One workspace per machine', body: 'Name the node you are on. Its targets, Case Trail, pinned evidence and runbook progress stay with it, so switching to the next node is one click and nothing leaks between tickets.' },
     { target: '.target-summary, .target-inputs-row', title: 'Your targets go into every command', body: 'BMC, interface, HCA, disk and GPU are filled in when you copy or send a command. Dashed chips inside commands are those values: click one to change it. The BMC password is never stored. Red-tagged commands change state and need a drained node and approval.' },
     { target: '#console-btn, .con-cbar', center: true, isNew: true, title: 'A real terminal under every sheet', body: 'Ctrl+` opens a shell on this jumpbox (start python3 term-bridge.py once and paste its token). Hover a read-only command and press ▶ Run: it runs and the output appears right under it, like a notebook, with Copy, 📌 Pin and the ✦ tool that can read it. ⏎ Send types any command into the dock instead; state-changing ones ask first.',
@@ -3251,12 +3267,16 @@
       { icon: '📶', label: 'BER: healthy vs unhealthy', sub: 'What raw and effective BER look like on a clean, degraded and failing link', kw: 'ber bit error rate fec raw effective mlxlink healthy unhealthy reference thresholds', run: () => openBerReference() },
       { icon: '⌨', label: 'Keyboard shortcuts', sub: 'j/k move between commands, ↵ copy, b save, ? for the full map', kw: 'keyboard shortcuts keys hotkeys vim navigation help accessibility', run: () => toggleKbHelp(true) },
       { icon: '🧭', label: 'Take the tour', sub: 'Walkthrough of what this reference can do, following an incident', kw: 'tour help guide getting started onboarding features walkthrough', run: () => startTour() },
-      { icon: '✨', label: 'What\u2019s new', sub: 'Only the newest additions: terminal, Node X-ray + live watch, fleet tools, case file', kw: 'whats new what\'s new changes changelog latest updates recent features', run: () => startTour('new') },
+      { icon: '✨', label: 'What\u2019s new', sub: 'Only the newest additions: start from a ticket, terminal, Node X-ray + live watch, fleet tools, case file', kw: 'whats new what\'s new changes changelog latest updates recent features', run: () => startTour('new') },
       { icon: '📋', label: 'Shift board & handoff', sub: 'All node workspaces at a glance; copy or print the handoff', kw: 'board shift handoff handover incidents nodes overview status report', run: () => openBoard() },
       { icon: '📈', label: 'Analyze command output', sub: 'Paste mlxlink, nvme smart-log or nvidia-smi topo -m output for a report', kw: 'analyze analyzer output paste mlxlink smart-log smartlog dom ber optics nvme report topo topology nvlink pix numa affinity', run: () => openAnalyzer() },
       { icon: '☰', label: 'Toggle compact view', sub: 'Hide or show explanations and variants', kw: 'compact density detailed dense view', run: () => { const b = document.getElementById('density-toggle'); if (b) b.click(); } },
       { icon: '📖', label: 'Open manuals', sub: 'Offline man pages', kw: 'man manual manuals pages docs offline', run: () => openManuals() },
       { icon: '⚙', label: 'Capture script: kit or trail → one bash file', sub: 'Read-only commands, sudo -n, time limits; outputs saved to cases/<case>/logs/ and tarred', kw: 'capture script bash collect collection logs export kit trail run node sh download automate batch', run: () => openCapture() },
+      ...Object.entries(ROOT_STYLES).map(([k, v]) => ({ icon: '🔒', label: `Root commands copy as: ${v.label}`, sub: v.sub, kw: `root sudo needs root privilege elevate copy style ${k} ${v.label}`, run: () => { try { localStorage.setItem(ROOT_STYLE_KEY, k); } catch (e) {} privApplyStyle(); showGlobalToast(`Root commands now copy: ${v.label}.`); } })),
+      { icon: '⚒', label: 'Workbench: every tool on one page', sub: 'All the tools in incident-flow order, a paste box that opens the right one, and an address for each', kw: 'workbench tools all tools page launcher toolbox apps paste anything bookmark', run: () => goToSheet('tools.html') },
+      { icon: '🕸', label: 'Fabric map: paste iblinkinfo, see the InfiniBand fabric', sub: 'Spines and leaves drawn, degraded and down links first, and the switch port behind every HCA', kw: 'fabric map iblinkinfo infiniband ib topology switch port leaf spine degraded link width speed could be polling down hca cabled where is', run: () => openFabric() },
+      { icon: '🎫', label: 'Start from a ticket: paste it, get the workspace set up', sub: 'Reads the ticket number, host, BMC, devices and log lines; fills Rack Targets, the case and the first commands', kw: 'ticket intake new incident paste ticket jira servicenow inc setup set up workspace start node host bmc case', run: () => openIntake() },
       { icon: '🛡', label: 'Change plan: pre-checks, approval, verify, rollback', sub: 'A method of procedure for state-changing work; the change unlocks after pre-checks and approval', kw: 'change plan mop method of procedure maintenance approval approve rollback back out verify cab change request window risky dangerous state changing', run: () => openPlan() },
       { icon: '🔎', label: 'Explain a command', sub: 'Paste one from a ticket, KB or chat: what each part does and whether it is safe (e)', kw: 'explain explainer explainshell what does this command do flags meaning safe pasted understand decode', run: () => openExplain() },
       { icon: '▤', label: 'Rack view: where is everything', sub: 'Every server and switch at its real U position, coloured by your node workspaces; click one to work on it', kw: 'rack view elevation where is location u position row cabinet inventory find server locate datacenter floor map', run: () => openRack() },
@@ -4642,8 +4662,9 @@ ${rmaTrailSection()}#### Action Requested:
     // index.html is Mission Control: no command cards, so the sheet chrome is hidden.
     document.body.classList.toggle('is-home', file === 'index.html' || file === '');
     document.body.classList.toggle('is-notes', file === 'notes.html');
+    document.body.classList.toggle('is-tools', file === 'tools.html');
     // The portable build swaps <main> in place: re-add the Rosetta strip after the swap.
-    if (changed && !IN_WIDGET_FRAME) setTimeout(() => { mountRosettaStrip(file); mountNotesPage(file); mountHubLanding(file); }, 60);
+    if (changed && !IN_WIDGET_FRAME) setTimeout(() => { mountRosettaStrip(file); mountFabricStrip(file); mountNotesPage(file); mountWorkbench(file); mountHubLanding(file); }, 60);
   }
 
   function initCompact() {
@@ -7244,6 +7265,7 @@ ${rmaTrailSection()}#### Action Requested:
       safeInit('initRack', () => initRack());
       safeInit('initHubLanding', () => initHubLanding());
       safeInit('initChangePlan', () => initChangePlan());
+      safeInit('mountFabricStrip', () => mountFabricStrip(anatSheetFile || window.location.pathname.split('/').pop() || 'index.html'));
       safeInit('initGlossary', () => initGlossary());
       safeInit('initNotesPage', () => {
         const file = anatSheetFile || window.location.pathname.split('/').pop() || 'index.html';
@@ -7251,6 +7273,9 @@ ${rmaTrailSection()}#### Action Requested:
         if ((file === 'index.html' || file === '') && location.hash === '#field-notes' && !window.portableOpenSheet) { location.replace('notes.html'); return; }
         mountNotesPage(file);
       });
+      safeInit('initSideDock', () => initSideDock());
+      safeInit('initRootLens', () => initRootLens());
+      safeInit('mountWorkbench', () => mountWorkbench(anatSheetFile || window.location.pathname.split('/').pop() || 'index.html'));
       safeInit('initRosetta', () => initRosetta());
       safeInit('initKit', () => initKit());
       safeInit('initConsole', () => initConsole());
@@ -8646,6 +8671,20 @@ ${rmaTrailSection()}#### Action Requested:
     planBtn.innerHTML = '<span aria-hidden="true">🛡</span><span>Change plan</span><small></small>';
     planBtn.addEventListener('click', () => openPlan());
     menu.appendChild(planBtn);
+    const tkBtn = document.createElement('button');
+    tkBtn.type = 'button';
+    tkBtn.id = 'intake-menu-btn';
+    tkBtn.className = 'action-btn intake-menu-btn';
+    tkBtn.innerHTML = '<span aria-hidden="true">🎫</span><span>Start from a ticket</span>';
+    tkBtn.addEventListener('click', () => openIntake());
+    menu.appendChild(tkBtn);
+    const fmBtn = document.createElement('button');
+    fmBtn.type = 'button';
+    fmBtn.id = 'fabric-menu-btn';
+    fmBtn.className = 'action-btn fabric-menu-btn';
+    fmBtn.innerHTML = '<span aria-hidden="true">🕸</span><span>Fabric map</span>';
+    fmBtn.addEventListener('click', () => openFabric());
+    menu.appendChild(fmBtn);
     const tourBtn = document.createElement('button');
     tourBtn.type = 'button';
     tourBtn.className = 'action-btn tour-menu-btn';
@@ -8960,7 +8999,7 @@ ${rmaTrailSection()}#### Action Requested:
         if (e.key !== '/' || e.ctrlKey || e.metaKey || e.altKey) return;
         const t = e.target;
         if (t instanceof Element && (t.closest('input, textarea, select, [contenteditable="true"], .xterm') )) return;
-        if (document.querySelector('.an-backdrop.show, .tour.show')) return;
+        if (document.querySelector('.an-backdrop.show:not(.is-side), .tour.show')) return;
         e.preventDefault();
         e.stopImmediatePropagation();
         openGlobalSearch();
@@ -10894,6 +10933,1522 @@ ${rmaTrailSection()}#### Action Requested:
   }
 
   // -------------------------------------------------------------
+  // TICKET INTAKE
+  // Every incident started the same way: read the ticket, then retype it into the site.
+  // Name the node, paste the BMC into Rack Targets, set the HCA and GPU, name the case,
+  // copy the log lines into the decoder one at a time, look the host up in the rack.
+  // Now the whole ticket is pasted once. It is read offline for the ticket number, host,
+  // BMC, devices, serials, location and every log line the decoder knows. You check and
+  // correct the fields, and one click sets up the node workspace, Rack Targets, the case
+  // (ticket pinned, diagnoses pinned, hypothesis filled) and hands you the first read-only
+  // commands. Passwords in the ticket are masked before anything is shown or stored.
+  // -------------------------------------------------------------
+  const TK_FIELDS = [
+    ['ticket', 'Ticket', 'INC0012345'],
+    ['node', 'Node', 'gpu-node07'],
+    ['bmc', 'BMC address', '10.20.4.17'],
+    ['user', 'BMC user', 'ADMIN'],
+    ['gpu', 'GPU', '3'],
+    ['hca', 'HCA', 'mlx5_4'],
+    ['iface', 'Interface', 'ib0'],
+    ['disk', 'Disk', '/dev/nvme1n1']
+  ];
+  const TK_SAMPLE = [
+    'INC0048213 · P2 · GPU node failing jobs',
+    'Reported by: scheduler-bot',
+    'Host: gpu-node07.dc1.example.com',
+    'BMC: 10.20.4.17 (user ADMIN, password: Summer2026)',
+    '',
+    'Jobs on gpu-node07 keep failing since 02:14. dmesg shows:',
+    "[Mon Nov  3 02:14:07 2026] NVRM: Xid (PCI:0000:8a:00): 79, pid='<unknown>', name=<unknown>, GPU has fallen off the bus.",
+    '[Mon Nov  3 02:14:09 2026] pcieport 0000:80:01.0: AER: Uncorrected (Fatal) error received: 0000:8a:00.0',
+    'GPU 3 serial 1654923008841. Please investigate and RMA if needed.'
+  ].join('\n');
+  // Words that look like Jira keys but are part names.
+  const TK_NOT_TICKET = /^(PCI|PCIE|CPU|DIMM|UTF|SHA|ISO|RFC|MT|SN|OSFP|QSFP|SFP|PSU|NVME|GPU|HCA|ECC|DDR|UEFI|CX|SXM|HGX|DGX|IPV|X|RJ|CAT|OM|OS|PO|SAS|SATA|USB|AOC|DAC|MPO|NDR|HDR|XDR|EDR|FW|BIOS|SEL|SDR|IB|MLX)$/i;
+  // Device and tool names that look like host names.
+  const TK_NOT_HOST = /^(mlx5_\d+|nvme\d+(n\d+)?|ib\d+|eth\d+|en[ops]\w*|bond\d+|sd[a-z]+|x86-64|utf-8|pci-e|sha-\d+|h[12]00|b[23]00|gb[23]00|cuda-\d+|p[1-5]|sev-?\d)$/i;
+
+  // Passwords never reach the dialog, the case or storage.
+  function tkMask(text) {
+    const sec = exSecrets(String(text || ''));
+    let hit = sec.hits.length > 0;
+    const safe = sec.safe.replace(/\b(pass(?:word|wd|phrase)?|pw|pwd|secret|token|api[ _-]?key)(\s*(?::|=|\bis\b)\s*)(["']?)([^\s"',;)]+)\3/gi, (m, k, sep) => { hit = true; return `${k}${sep}[redacted]`; });
+    return { safe, masked: hit };
+  }
+
+  function tkInventory() {
+    try { return rkLayout(); } catch (e) { return { racks: [], devices: [] }; }
+  }
+
+  function tkParse(rawText) {
+    const { safe, masked } = tkMask(rawText);
+    const text = safe;
+    const lines = text.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+    const out = { text, masked, src: {}, facts: [], symptoms: [] };
+    const set = (k, v, src) => { if (v && !out[k]) { out[k] = String(v).trim(); out.src[k] = src; } };
+
+    // Ticket number: ServiceNow, then a labelled one, then a Jira key.
+    const sn = text.match(/\b((?:INC|RITM|REQ|CHG|PRB|TASK|SCTASK|CS)\d{5,})\b/);
+    if (sn) set('ticket', sn[1], 'ticket');
+    const lab = text.match(/\b(?:ticket|case|incident|issue)\s*(?:no\.?|number|id)?\s*[:#]\s*([A-Za-z0-9][\w-]{2,})/i);
+    if (lab) set('ticket', lab[1], 'ticket');
+    for (const m of text.matchAll(/\b([A-Z][A-Z0-9]{1,9})-(\d{1,7})\b/g)) {
+      if (!TK_NOT_TICKET.test(m[1])) { set('ticket', m[0], 'ticket'); break; }
+    }
+
+    // Host: a labelled one, else one the rack inventory knows, else the most frequent node-like name.
+    const inv = tkInventory();
+    const hostLab = text.match(/\b(?:host(?:name)?|node(?:name)?|server|system|machine)\s*[:=]\s*([A-Za-z0-9][\w.-]{1,62})/i);
+    if (hostLab) set('node', hostLab[1].replace(/\.$/, ''), 'ticket');
+    if (!out.node) {
+      const known = inv.devices.find(d => new RegExp(`(^|[^\\w-])${d.host.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}([^\\w-]|$)`, 'i').test(text));
+      if (known) set('node', known.host, 'rack inventory');
+    }
+    if (!out.node) {
+      const counts = {};
+      for (const m of text.matchAll(/\b[a-z][a-z0-9]{1,15}(?:-[a-z0-9]{1,12}){1,4}\b/gi)) {
+        const w = m[0];
+        if (!/\d/.test(w) || TK_NOT_HOST.test(w) || /bmc|ipmi|idrac|ilo|xcc/i.test(w) || w === out.ticket || /^[A-Z][A-Z0-9]+-\d+$/.test(w)) continue;
+        counts[w] = (counts[w] || 0) + 1;
+      }
+      const best = Object.entries(counts).sort((a, b) => b[1] - a[1])[0];
+      if (best) set('node', best[0], 'ticket');
+    }
+    // Slurm and the workspace use short names.
+    const fqdn = out.node && /\./.test(out.node) && !/^\d+(\.\d+){3}$/.test(out.node) ? out.node : '';
+    if (fqdn) out.node = fqdn.split('.')[0];
+    if (fqdn) out.facts.push(['FQDN', fqdn]);
+    const dev = out.node ? inv.devices.find(d => rkKey(d.host) === rkKey(out.node)) : null;
+
+    // BMC: labelled, then a *-bmc host name, then the inventory.
+    const ADDR = String.raw`(\[?(?:[0-9a-f]{0,4}:){2,7}[0-9a-f]{0,4}\]?|\d{1,3}(?:\.\d{1,3}){3}|[a-z0-9][\w-]*(?:\.[a-z0-9][\w-]*)+|[a-z0-9][\w-]*-(?:bmc|ipmi|idrac|ilo|xcc)[\w-]*)`;
+    const bmcLab = text.match(new RegExp(String.raw`\b(?:bmc|ipmi|idrac|ilo|xcc|oob)(?:[ _-]?(?:ip|addr(?:ess)?|host(?:name)?))?\s*(?:[:=]|is|at)?\s*` + ADDR, 'i'));
+    if (bmcLab && (bmcLab[1].includes(':') ? /\d/.test(bmcLab[1]) && (bmcLab[1].match(/:/g) || []).length >= 2 : true)) set('bmc', bmcLab[1].replace(/^\[|\]$/g, ''), 'ticket');
+    const bmcHost = text.match(/\b[a-z0-9][\w.-]*-(?:bmc|ipmi|idrac|ilo|xcc)\b[\w.-]*/i);
+    if (bmcHost) set('bmc', bmcHost[0], 'ticket');
+    if (dev && dev.bmc) set('bmc', dev.bmc, 'rack inventory');
+
+    // BMC login name, only from a line about the BMC (a bare "user:" is usually the reporter).
+    const bmcLine = lines.find(l => /\b(bmc|ipmi|idrac|ilo|xcc|redfish)\b/i.test(l) && /\b(user(?:name)?|login)\b/i.test(l));
+    const user = bmcLine && bmcLine.match(/\b(?:user(?:name)?|login)\s*[:=]?\s*([A-Za-z_][\w.-]{1,31})/i);
+    if (user && !/^(name|is|and)$/i.test(user[1])) set('user', user[1], 'ticket');
+
+    // Devices: from the decoder's entity reader, line by line, so the first real mention wins.
+    const gpu = text.match(/\bGPU\s*(?:index\s*|id\s*|#\s*)?(\d{1,2})\b(?![:.]\d)/i);
+    if (gpu) set('gpu', gpu[1], 'ticket');
+    lines.forEach(l => {
+      const e = extractEntities(l);
+      if (e.hca) set('hca', e.hca, 'ticket');
+      if (e.iface) set('iface', e.iface, 'ticket');
+      if (e.nvme) set('disk', `/dev/${e.nvme}`, 'ticket');
+      else if (e.disk) set('disk', `/dev/${e.disk}`, 'ticket');
+      if (e.bdf && !out.facts.some(f => f[0] === 'BDF')) out.facts.push(['BDF', e.bdf]);
+      if (e.dimm && !out.facts.some(f => f[0] === 'DIMM')) out.facts.push(['DIMM', e.dimm]);
+    });
+
+    // Facts for the case and the RMA block.
+    const serials = [...text.matchAll(/\b(?:s\/n|serial(?:\s*(?:number|no\.?|#))?|service\s*tag)\s*[:#]?\s*([A-Z0-9][A-Z0-9-]{4,})/gi)].map(m => m[1]);
+    [...new Set(serials)].slice(0, 3).forEach(s => out.facts.push(['Serial', s]));
+    const loc = text.match(/\b(?:location|loc|position|rack location)\s*[:=]\s*([^\n]{3,60})/i);
+    if (dev) out.facts.push(['Location', rkWhere(dev, inv.racks.find(r => r.name === dev.rack))]);
+    else if (loc) out.facts.push(['Location', loc[1].trim()]);
+    if (dev && dev.model) out.facts.push(['Model', dev.model]);
+    if (dev && dev.serial) out.facts.push(['Chassis serial', dev.serial]);
+    const pri = text.match(/\b(?:priority|severity|sev)\s*[:=]?\s*(P[1-5]|[1-5]|critical|high|medium|low)\b/i) || text.match(/\b(P[1-5])\b/);
+    if (pri) out.facts.push(['Priority', pri[1].toUpperCase()]);
+    out.inInventory = !!dev;
+
+    // Summary: a labelled one, else the first line without the ticket number.
+    const sum = text.match(/^\s*(?:summary|title|subject|short description)\s*[:=]\s*(.+)$/im);
+    const first = (lines[0] || '').replace(out.ticket || '\u0000', '').replace(/^[\s·:|#-]+|[\s·:|#-]+$/g, '').replace(/^P[1-5]\s*[·:|-]\s*/i, '');
+    out.summary = (sum ? sum[1] : first).trim().slice(0, 100);
+
+    // Every line the decoder knows, worst first, one per diagnosis.
+    const seen = new Set();
+    lines.forEach(l => {
+      const d = decodeSymptom(l);
+      if (d && !seen.has(d.title)) { seen.add(d.title); out.symptoms.push({ line: l, d }); }
+    });
+    out.symptoms.sort((a, b) => (CASE_SEV_RANK[b.d.sev] || 0) - (CASE_SEV_RANK[a.d.sev] || 0));
+    out.symptoms = out.symptoms.slice(0, 6);
+    return out;
+  }
+
+  // A pasted ticket, not a log dump: a ticket number, prose, and few log-shaped lines.
+  function tkLooksLike(text) {
+    const t = String(text || '');
+    if (t.length < 40 || t.length > 20000) return false;
+    const hasId = /\b(?:INC|RITM|REQ|CHG|PRB|SCTASK)\d{5,}\b/.test(t) || [...t.matchAll(/\b([A-Z][A-Z0-9]{1,9})-\d{1,7}\b/g)].some(m => !TK_NOT_TICKET.test(m[1])) || /\b(?:ticket|incident)\s*(?:no\.?|number|id)?\s*[:#]/i.test(t);
+    if (!hasId) return false;
+    const lines = t.split(/\r?\n/).filter(l => l.trim());
+    const logish = lines.filter(l => /^\s*\[[\s\d.]+\]|^\s*\[\w{3} \w{3}|^\w{3}\s+\d+ \d\d:\d\d|^\s*\|?\s*\d+\s*\|\s*\d\d\/\d\d|^\s*\d{4}-\d\d-\d\dT/.test(l)).length;
+    return logish / lines.length < 0.6 && /\b(please|investigate|report(?:ed)?|issue|failing|down|host|node|server|customer|priority|summary|description)\b/i.test(t);
+  }
+
+  let tkEl = null;
+  let tkState = { parsed: null, edits: {}, pins: {}, done: null };
+
+  function tkValue(k) {
+    if (k in tkState.edits) return tkState.edits[k];
+    return (tkState.parsed && tkState.parsed[k]) || '';
+  }
+
+  function tkRenderFound() {
+    const p = tkState.parsed;
+    const box = tkEl.querySelector('.tk-found');
+    const go = tkEl.querySelector('[data-tk-act="setup"]');
+    if (!p || !p.text.trim()) {
+      box.innerHTML = `<div class="tk-empty"><b>Paste the ticket on the left.</b><span>The whole thing: subject, description, the log lines. The ticket number, host, BMC, devices, serials and every log line the decoder knows are picked out here, for you to check.</span><button type="button" data-tk-act="sample">Try a sample ticket</button></div>`;
+      go.disabled = true;
+      go.textContent = 'Set up the workspace';
+      return;
+    }
+    const reg = readNodes();
+    const node = cleanNodeName(tkValue('node'));
+    const exists = node && (reg.active === node || reg.nodes[node]);
+    const field = ([k, label, ph]) => {
+      const v = tkValue(k);
+      const src = k in tkState.edits ? 'edited' : p.src[k] || '';
+      return `<label class="tk-field ${v ? 'is-set' : ''}"><span>${label}${src ? `<em class="tk-src">${escapeHtml(src)}</em>` : '<em class="tk-src is-none">not found</em>'}</span>
+        <input type="text" data-tk-field="${k}" value="${escapeHtml(v)}" placeholder="e.g. ${escapeHtml(ph)}" spellcheck="false" autocomplete="off" /></label>`;
+    };
+    box.innerHTML = `
+      ${p.masked ? '<p class="tk-secret">🔒 The ticket had a password in it. It was masked and is not kept anywhere. Type it into the Rack Targets password field if you need it: that one lasts only for this tab.</p>' : ''}
+      ${p.summary ? `<p class="tk-summary">${escapeHtml(p.summary)}</p>` : ''}
+      <div class="tk-fields">${TK_FIELDS.map(field).join('')}</div>
+      ${p.facts.length ? `<div class="tk-facts">${p.facts.map(([k, v]) => `<span><b>${escapeHtml(k)}</b> ${escapeHtml(v)}</span>`).join('')}</div>` : ''}
+      <h3 class="tk-h">Log lines the decoder knows <small>${p.symptoms.length ? 'ticked ones are pinned to the case' : 'none in this ticket'}</small></h3>
+      ${p.symptoms.length ? `<ul class="tk-syms">${p.symptoms.map((s, i) => `<li class="sev-${s.d.sev}">
+          <label><input type="checkbox" data-tk-pin="${i}" ${tkState.pins[i] === false ? '' : 'checked'} />
+          <span class="tk-sev">${SEV[s.d.sev]}</span><b>${escapeHtml(s.d.title)}</b></label>
+          <code title="${escapeHtml(s.line)}">${escapeHtml(s.line)}</code></li>`).join('')}</ul>` : '<p class="tk-none">Nothing to decode: the case starts with the ticket alone. Paste log lines later on the home page.</p>'}`;
+    go.disabled = !node;
+    go.textContent = !node ? 'Name the node to continue' : exists ? `Set up ${node} (existing workspace)` : `Set up ${node}`;
+  }
+
+  // What the dialog shows once the workspace is ready: the first read-only commands.
+  function tkRenderDone() {
+    const r = tkState.done;
+    const box = tkEl.querySelector('.tk-found');
+    const rb = r.runbook ? RUNBOOKS.find(x => x.id === r.runbook) : null;
+    const host = r.node;
+    const step = (n, title, why, cmd) => `<li><span class="tk-n">${n}</span><div><b>${title}</b><small>${why}</small>${cmd ? `<div class="tk-cmd"><code>${escapeHtml(cmd)}</code><button type="button" data-tk-copy="${escapeHtml(cmd)}">Copy</button></div>` : ''}</div></li>`;
+    box.innerHTML = `
+      <div class="tk-ready">
+        <p class="tk-ready-head"><b>✓ ${escapeHtml(host)} is set up.</b> ${escapeHtml(r.summary)}</p>
+        <ol class="tk-steps">
+          ${step(1, 'Is anything running? Is it drained?', 'Run on the jumpbox. Nothing intrusive until the node is drained and you have the OK.', `sinfo -N -n ${host} -o "%N %T %E"; scontrol show node ${host} | grep -E "State|Reason"`)}
+          ${step(2, 'Kubernetes instead of Slurm?', 'Same question for a Kubernetes node.', `kubectl get node ${host} -o wide`)}
+          ${step(3, 'Can you reach the BMC? What does the SEL say?', r.bmc ? `Rack Targets now point at ${escapeHtml(r.bmc)}. The password comes from IPMI_PASSWORD (-E).` : 'Set the BMC address in Rack Targets first.', 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E sel elist | tail -n 40')}
+        </ol>
+        <div class="tk-next">
+          ${rb ? `<button type="button" class="tk-primary" data-tk-act="runbook" data-tk-rb="${rb.id}">${rb.icon} Start runbook: ${escapeHtml(rb.title)}</button>` : ''}
+          <button type="button" ${rb ? '' : 'class="tk-primary"'} data-tk-act="checkup">♥ Node checkup</button>
+          <button type="button" data-tk-act="case">📁 Open the case</button>
+          ${r.inInventory ? '<button type="button" data-tk-act="rack">▤ Where is it?</button>' : ''}
+          <button type="button" data-tk-act="another">Another ticket</button>
+        </div>
+      </div>`;
+    const go = tkEl.querySelector('[data-tk-act="setup"]');
+    go.disabled = true;
+    go.textContent = `✓ ${host} ready`;
+    const first = box.querySelector('[data-tk-copy]');
+    if (first) first.focus({ preventScroll: true });
+  }
+
+  function tkSetup() {
+    const p = tkState.parsed;
+    if (!p) return;
+    const v = {};
+    TK_FIELDS.forEach(([k]) => { v[k] = String(tkValue(k) || '').trim(); });
+    const node = cleanNodeName(v.node);
+    if (!node) return;
+    // A typed password in an edited field is masked too.
+    TK_FIELDS.forEach(([k]) => { v[k] = tkMask(v[k]).safe; });
+    if (readNodes().active !== node) switchNode(node);
+    // Only what was found or typed replaces a target; the rest of the node is left alone.
+    const tv = { bmc: v.bmc, user: v.user, gpu: v.gpu, hca: v.hca, iface: v.iface, disk: v.disk };
+    let nTargets = 0;
+    Object.entries(tv).forEach(([k, val]) => { if (val) { targetState.vars[k] = val; nTargets++; } });
+    saveTargetState();
+    if (v.ticket) saveTrailMeta({ caseId: cleanNodeName(v.ticket) || node });
+    applyNodeState();
+
+    const c = readCase();
+    const ticketMd = `### Ticket ${v.ticket || '(no number)'}${p.summary ? `: ${p.summary}` : ''}\n\n- **Node:** ${node}${v.bmc ? `\n- **BMC:** ${v.bmc}` : ''}${p.facts.map(([k, val]) => `\n- **${k}:** ${val}`).join('')}\n\n${p.text.trim().slice(0, 2000).split('\n').map(l => `> ${l}`).join('\n')}`;
+    const picked = p.symptoms.filter((s, i) => tkState.pins[i] !== false);
+    if (!c.evidence.some(e => e.md === ticketMd)) {
+      c.evidence.push({ id: Date.now().toString(36) + 'tk', t: Date.now(), kind: 'Ticket', title: `Ticket ${v.ticket || node}${p.summary ? `: ${p.summary}` : ''}`, sev: picked.length ? picked[0].d.sev : 'info', md: ticketMd, facts: p.facts });
+    }
+    if (!c.hypothesis && picked.length) c.hypothesis = `${picked[0].d.title} (${picked[0].d.layer})`;
+    if (!c.next && picked.length) c.next = picked[0].d.next;
+    const chassis = p.facts.find(f => f[0] === 'Chassis serial');
+    if (chassis && !c.rma.chassis) c.rma.chassis = chassis[1];
+    if (picked.length && !c.rma.component) c.rma.component = picked[0].d.layer;
+    writeCase(c);
+    picked.forEach(s => pinDecoded(s.line));
+
+    const parts = [nTargets && `${nTargets} Rack Target${nTargets === 1 ? '' : 's'} filled`, v.ticket && `case ${v.ticket}`, `${1 + picked.length} pinned`].filter(Boolean);
+    tkState.done = { node, bmc: v.bmc, summary: parts.join(' · ') + '.', runbook: picked.length ? runbookForDecoded(picked[0].d) : null, inInventory: p.inInventory };
+    tkRenderDone();
+    showGlobalToast(`${node} is ready: ${parts.join(', ')}.`);
+  }
+
+  function tkClick(e) {
+    const t = e.target instanceof Element ? e.target : null;
+    if (!t) return;
+    if (t === tkEl || t.closest('[data-tk-close]')) return closeIntake();
+    const copy = t.closest('[data-tk-copy]');
+    if (copy) {
+      navigator.clipboard.writeText(copy.dataset.tkCopy);   // Rack Targets fill in and the trail records it
+      copy.textContent = 'Copied';
+      setTimeout(() => { copy.textContent = 'Copy'; }, 1200);
+      return;
+    }
+    const act = t.closest('[data-tk-act]');
+    if (!act) return;
+    const a = act.dataset.tkAct;
+    const ta = tkEl.querySelector('.tk-text');
+    if (a === 'sample') { ta.value = TK_SAMPLE; tkReparse(true); ta.focus(); return; }
+    if (a === 'setup') return tkSetup();
+    if (a === 'another') { ta.value = ''; tkReparse(true); ta.focus(); return; }
+    if (a === 'runbook') { closeIntake(); return openRunbook(act.dataset.tkRb); }
+    if (a === 'checkup') { closeIntake(); return openCheckup(); }
+    if (a === 'case') { closeIntake(); return openCaseFile(); }
+    if (a === 'rack') { const n = tkState.done && tkState.done.node; closeIntake(); return openRack(n || ''); }
+  }
+
+  function tkReparse(reset) {
+    const ta = tkEl.querySelector('.tk-text');
+    if (reset) tkState = { parsed: null, edits: {}, pins: {}, done: null };
+    tkState.done = null;
+    const before = tkState.parsed;
+    tkState.parsed = tkParse(ta.value);
+    // A different ticket pasted over the last one: its edits and ticks must not carry over,
+    // or the new ticket would be set up under the old node name.
+    if (before && (before.ticket !== tkState.parsed.ticket || before.node !== tkState.parsed.node)) { tkState.edits = {}; tkState.pins = {}; }
+    // The masked text replaces what was pasted, so the password is gone from the page too.
+    if (tkState.parsed.masked && ta.value !== tkState.parsed.text) {
+      const pos = ta.selectionStart;
+      ta.value = tkState.parsed.text;
+      try { ta.setSelectionRange(pos, pos); } catch (err) {}
+    }
+    tkRenderFound();
+  }
+
+  function openIntake(text) {
+    if (IN_WIDGET_FRAME) return;
+    if (!tkEl) {
+      tkEl = document.createElement('div');
+      tkEl.className = 'an-backdrop tk-backdrop';
+      tkEl.innerHTML = `
+        <div class="an-dialog tk-dialog" role="dialog" aria-modal="true" aria-labelledby="tk-title">
+          <header class="an-head">
+            <div><h2 id="tk-title">Start from a ticket</h2><p>Paste the ticket once. The node workspace, Rack Targets and the case are set up from it, and you get the first read-only commands. Nothing leaves this browser.</p></div>
+            <button type="button" class="trail-close" data-tk-close aria-label="Close">✕</button>
+          </header>
+          <div class="tk-body">
+            <label class="tk-paste"><span>Ticket text</span><textarea class="tk-text" spellcheck="false" placeholder="INC0048213 · P2 · GPU node failing jobs&#10;Host: gpu-node07&#10;BMC: 10.20.4.17&#10;&#10;dmesg: NVRM: Xid (PCI:0000:8a:00): 79 …"></textarea></label>
+            <div class="tk-found" aria-live="polite"></div>
+          </div>
+          <footer class="tk-foot">
+            <span class="tk-foot-note">Switches to the node's workspace (its own trail, targets and case), so the last node's work stays where it was.</span>
+            <button type="button" class="tk-primary" data-tk-act="setup" disabled>Set up the workspace</button>
+          </footer>
+        </div>`;
+      document.body.appendChild(tkEl);
+      tkEl.addEventListener('click', tkClick);
+      let timer = 0;
+      tkEl.addEventListener('input', (e) => {
+        const el = e.target instanceof Element ? e.target : null;
+        if (!el) return;
+        if (el.classList.contains('tk-text')) { clearTimeout(timer); timer = setTimeout(() => tkReparse(false), 180); return; }
+        if (el.dataset.tkField) {
+          tkState.edits[el.dataset.tkField] = el.value;
+          if (el.dataset.tkField === 'node') {
+            // Only the button label depends on the node name: keep focus in the field.
+            const node = cleanNodeName(el.value);
+            const reg = readNodes();
+            const go = tkEl.querySelector('[data-tk-act="setup"]');
+            go.disabled = !node;
+            go.textContent = !node ? 'Name the node to continue' : (reg.active === node || reg.nodes[node]) ? `Set up ${node} (existing workspace)` : `Set up ${node}`;
+          }
+        }
+      });
+      tkEl.addEventListener('change', (e) => {
+        const box = e.target instanceof Element ? e.target.closest('[data-tk-pin]') : null;
+        if (box) tkState.pins[box.dataset.tkPin] = box.checked;
+      });
+      // On the document: after setup the focused field is gone and focus falls back to <body>.
+      document.addEventListener('keydown', (e) => {
+        if (!tkEl.classList.contains('show')) return;
+        if (tkEl.classList.contains('is-side') && !tkEl.contains(document.activeElement)) return;
+        if (e.key === 'Escape') { e.stopPropagation(); closeIntake(); }
+        if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); const go = tkEl.querySelector('[data-tk-act="setup"]'); if (!go.disabled) tkSetup(); }
+      }, true);
+    }
+    tkEl._back = tkEl.classList.contains('show') ? tkEl._back : document.activeElement;
+    const ta = tkEl.querySelector('.tk-text');
+    if (typeof text === 'string' && text) ta.value = text;
+    tkReparse(typeof text === 'string' && !!text);
+    tkEl.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => (text ? tkEl.querySelector('[data-tk-act="setup"]') : ta).focus(), 30);
+  }
+
+  function closeIntake() {
+    if (!tkEl) return;
+    tkEl.classList.remove('show');
+    document.body.style.overflow = '';
+    if (tkEl._back && tkEl._back.focus) tkEl._back.focus({ preventScroll: true });
+  }
+
+  // -------------------------------------------------------------
+  // FABRIC MAP
+  // iblinkinfo is the one command that sees the whole InfiniBand fabric, and it prints it as
+  // hundreds of near-identical lines: 64 per switch, most of them idle "Down/ Polling". The
+  // three that matter (a link trained at 2X, one at half speed, an HCA with no link) hide in
+  // the wall. Paste the output and it is drawn: spines over leaves with every inter-switch
+  // link coloured, each switch as a grid of its logical ports, and a problem list worst
+  // first. "Where is gpu-node07 mlx5_4 cabled?" answers with the switch and port. Every port
+  // hands out read-only commands (perfquery, mlxlink in-band, ibportstate query) with the
+  // LID and port filled in. The line format follows rdma-core's iblinkinfo.c print_port().
+  // -------------------------------------------------------------
+  const FM_KEY = 'dc_fabric_last';
+  const FM_LINE = /^\s*(?:0x([0-9a-f]{1,16})\s+)?(?:"\s*([^"]*?)\s*"\s+)?(\d+)\s+(\d+)\[\s*(\w*)\s*\]\s+==\(\s*(?:(\d+X)\s+((?:[\d.]+\s+Gbps)(?:\s+\(FDR10\))?)\s+)?(\w+)\/\s*(\w+)[^)]*\)(?:\s*\([^)]*\))?==>\s*(.*)$/i;
+  const FM_REMOTE = /^(?:0x([0-9a-f]{1,16})\s+)?(\d+)\s+(\d+)\[\s*(\w*)\s*\]\s+"([^"]*)"\s+\(\s*(.*?)\s*\)\s*$/i;
+  const FM_HEAD = /^\s*(Switch|CA|Router)\s*:\s+(?:0x([0-9a-f]{1,16})\s+)?(.*?):?\s*$/i;
+
+  // "MF0;sw-ib-leaf01:MQM9700/U1" → name and model; a CA's "gpu-node07 mlx5_4" → host and HCA.
+  function fmName(desc) {
+    const m = String(desc || '').match(/^[^;]*;([^:]+):([^/]+)/);
+    if (m) return { name: m[1].trim(), model: m[2].trim() };
+    return { name: String(desc || '').trim() || '(no description)', model: '' };
+  }
+  function fmHost(desc) {
+    const m = String(desc || '').match(/^(\S+)\s+(mlx\d+_\d+|ibp\S+|hfi\d+_\d+|qib\d+|bnxt_re\d+|irdma\d+|\S+)$/);
+    return m ? { host: m[1], hca: m[2] } : { host: String(desc || '').trim(), hca: '' };
+  }
+
+  function fmLooksLike(text) {
+    const lines = String(text || '').split(/\r?\n/);
+    return lines.filter(l => /==\(.*\)==>/.test(l)).length >= 3;
+  }
+
+  function fmParse(text) {
+    const nodes = new Map();
+    let cur = null;
+    String(text || '').split(/\r?\n/).forEach(raw => {
+      const line = raw.replace(/\s+$/, '');
+      if (!line.trim()) return;
+      const h = line.match(FM_HEAD);
+      if (h && !/==\(/.test(line)) {
+        cur = { type: h[1].toLowerCase() === 'switch' ? 'switch' : h[1].toLowerCase() === 'ca' ? 'ca' : 'router', guid: h[2] || '', desc: h[3].trim(), ports: [] };
+        nodes.set(cur.desc, cur);
+        return;
+      }
+      const m = line.match(FM_LINE);
+      if (!m) return;
+      // --line mode carries the node in quotes on every line, with no header.
+      let node = cur;
+      if (m[2] != null) {
+        node = nodes.get(m[2]) || { type: '', guid: '', desc: m[2], ports: [] };
+        nodes.set(m[2], node);
+      }
+      if (!node) return;
+      const rest = m[10] || '';
+      const r = rest.match(FM_REMOTE);
+      const could = r ? (r[6].match(/Could be [^C]+/gi) || []).map(s => s.trim()) : [];
+      node.ports.push({
+        lid: +m[3], port: +m[4], ext: m[5] || '', width: m[6] || '', speed: (m[7] || '').replace(/\s+/g, ' '),
+        state: m[8], phys: m[9], could,
+        peer: r ? { lid: +r[2], port: +r[3], desc: r[5] } : null,
+        notAvail: /Port not available/i.test(rest)
+      });
+    });
+    // Nodes seen only in --line mode: a switch is the one with many ports.
+    nodes.forEach(n => { if (!n.type) n.type = n.ports.length > 4 ? 'switch' : 'ca'; });
+    const all = [...nodes.values()];
+    const switches = all.filter(n => n.type === 'switch');
+    const cas = all.filter(n => n.type !== 'switch');
+    const isSwitch = desc => { const n = nodes.get(desc); return n ? n.type === 'switch' : /MF0;|switch|quantum|^SwitchIB/i.test(desc); };
+
+    // Classify every port.
+    const sevOf = (n, p) => {
+      if (/^active$/i.test(p.state)) {
+        if (p.could.length) return 'warn';
+        if (p.notAvail) return 'warn';
+        return 'ok';
+      }
+      if (/^(init|armed)$/i.test(p.state)) return 'warn';
+      if (/disabled/i.test(p.phys)) return 'off';
+      if (/polling|sleep/i.test(p.phys)) return n.type === 'switch' ? 'idle' : 'crit';
+      return 'warn';   // LinkErrorRecovery, PortConfigurationTraining: training or flapping
+    };
+    all.forEach(n => n.ports.forEach(p => { p.sev = sevOf(n, p); }));
+
+    // One problem per link: both ends report it, keep the worse / switch-side copy.
+    const problems = [];
+    const seen = new Set();
+    const linkKey = (a, ap, b, bp) => [`${a}#${ap}`, `${b}#${bp}`].sort().join('|');
+    all.forEach(n => n.ports.forEach(p => {
+      if (p.sev === 'ok' || p.sev === 'idle') return;
+      const key = p.peer ? linkKey(n.desc, p.port, p.peer.desc, p.peer.port) : `${n.desc}#${p.port}`;
+      if (seen.has(key)) return;
+      seen.add(key);
+      let what;
+      if (p.could.length) what = `Trained at ${p.width} ${p.speed}: ${p.could.join(', ').replace(/Could be/gi, 'could be')}`;
+      else if (p.notAvail) what = 'Link is up but the far end was not discovered';
+      else if (/^(init|armed)$/i.test(p.state)) what = `${p.state}/${p.phys}: the cable is good, but the subnet manager has not brought the port up`;
+      else if (p.sev === 'off') what = 'Disabled: someone turned this port off';
+      else if (p.sev === 'crit') what = `${p.state}/${p.phys}: this HCA port has no link`;
+      else what = `${p.state}/${p.phys}: the link is training or recovering, often a flapping cable`;
+      problems.push({ node: n, port: p, what, sev: p.sev === 'off' ? 'info' : p.sev });
+    }));
+    const rank = { crit: 0, warn: 1, info: 2 };
+    problems.sort((a, b) => rank[a.sev] - rank[b.sev]);
+
+    // Where each HCA is cabled.
+    const where = {};
+    switches.forEach(s => s.ports.forEach(p => { if (p.peer && !isSwitch(p.peer.desc)) where[p.peer.desc] = { sw: s, port: p }; }));
+    cas.forEach(c => c.ports.forEach(p => { if (!where[c.desc] && p.peer) { const s = nodes.get(p.peer.desc); if (s) where[c.desc] = { sw: s, port: s.ports.find(q => q.port === p.peer.port) || { port: p.peer.port, lid: p.peer.lid, sev: p.sev, width: p.width, speed: p.speed, state: p.state, phys: p.phys, could: p.could } }; } }));
+
+    // Tiers: a switch with hosts on it is a leaf; the rest are spines.
+    switches.forEach(s => {
+      const peers = s.ports.filter(p => p.peer);
+      s.hosts = peers.filter(p => !isSwitch(p.peer.desc)).length;
+      s.uplinks = peers.filter(p => isSwitch(p.peer.desc)).length;
+      s.role = s.hosts ? 'leaf' : 'spine';
+      s.lid = (s.ports[0] || {}).lid;
+      s.worst = s.ports.reduce((w, p) => Math.min(w, { crit: 0, warn: 1, off: 2, ok: 3, idle: 4 }[p.sev]), 4);
+      Object.assign(s, fmName(s.desc));
+    });
+    // Speeds in use, for the summary.
+    const speeds = {};
+    let active = 0;
+    const links = new Set();
+    all.forEach(n => n.ports.forEach(p => {
+      if (!/^active$/i.test(p.state) || !p.peer) return;
+      const k = linkKey(n.desc, p.port, p.peer.desc, p.peer.port);
+      if (links.has(k)) return;
+      links.add(k);
+      active++;
+      const s = `${p.width} ${p.speed}`;
+      speeds[s] = (speeds[s] || 0) + 1;
+    }));
+    const hostDescs = new Set([...cas.map(c => c.desc), ...Object.keys(where)]);
+    return {
+      nodes, switches, cas, problems, where, speeds, active,
+      hosts: [...hostDescs],
+      idle: switches.reduce((n, s) => n + s.ports.filter(p => p.sev === 'idle').length, 0),
+      count: { crit: problems.filter(p => p.sev === 'crit').length, warn: problems.filter(p => p.sev === 'warn').length, info: problems.filter(p => p.sev === 'info').length }
+    };
+  }
+
+  // A small two-tier fabric with the faults people actually meet, in iblinkinfo's own layout.
+  function fmSample() {
+    const pad = (v, n) => String(v).padStart(n);
+    const guid = (i) => '0xb83fd20300' + String(i).padStart(6, '0');
+    const sw = [
+      { desc: 'MF0;sw-ib-spine01:MQM9700/U1', lid: 1 }, { desc: 'MF0;sw-ib-spine02:MQM9700/U1', lid: 2 },
+      { desc: 'MF0;sw-ib-leaf01:MQM9700/U1', lid: 3 }, { desc: 'MF0;sw-ib-leaf02:MQM9700/U1', lid: 4 }
+    ];
+    const ports = new Map(sw.map(s => [s.desc, {}]));
+    const NDR = ['4X', '106.25 Gbps'];
+    const link = (a, ap, b, bp, o = {}) => {
+      ports.get(a.desc)[ap] = Object.assign({ peer: b, pport: bp }, o);
+      if (ports.has(b.desc)) ports.get(b.desc)[bp] = Object.assign({ peer: a, pport: ap }, o);
+    };
+    // Uplinks: each leaf has two links to each spine (leaf ports 33–36).
+    [[2, 0], [3, 0], [2, 1], [3, 1]].forEach(([l, s], i) => {
+      const leaf = sw[l], spine = sw[s];
+      const base = l === 2 ? 1 : 3;
+      link(leaf, 33 + s * 2, spine, base, {});
+      link(leaf, 34 + s * 2, spine, base + 1, l === 2 && s === 1 ? { state: 'Init', phys: 'LinkUp' } : {});
+    });
+    ports.get(sw[1].desc)[10] = { disabled: true };
+    // Hosts: mlx5_0 of every node on leaf01, mlx5_1 on leaf02.
+    const cas = [];
+    for (let n = 1; n <= 8; n++) {
+      const host = `gpu-node${String(n).padStart(2, '0')}`;
+      [0, 1].forEach(h => {
+        const ca = { desc: `${host} mlx5_${h}`, lid: 10 + n * 2 + h, guid: guid(n * 10 + h) };
+        cas.push(ca);
+        const leaf = sw[2 + h];
+        if (n === 7 && h === 1) { ca.down = true; return; }   // HCA with no link
+        const o = n === 5 && h === 0 ? { width: '2X', could: 'Could be 4X ' } : n === 3 && h === 1 ? { speed: '53.125 Gbps', could: ' Could be 106.25 Gbps' } : {};
+        link(leaf, n, ca, 1, o);
+      });
+    }
+    const out = [];
+    const linkStr = (o) => o.disabled ? `(              ${pad('Down', 6)}/${pad('Disabled', 8)})` : `(${pad(o.width || NDR[0], 3)} ${pad(o.speed || NDR[1], 18)} ${pad(o.state || 'Active', 6)}/${pad(o.phys || 'LinkUp', 8)})`;
+    const downStr = `(              ${pad('Down', 6)}/${pad('Polling', 8)})`;
+    sw.forEach(s => {
+      out.push(`Switch: ${guid(s.lid)} ${s.desc}:`);
+      for (let p = 1; p <= 64; p++) {
+        const o = ports.get(s.desc)[p];
+        if (!o || o.disabled) { out.push(`      ${pad(s.lid, 6)} ${pad(p, 4)}[  ] ==${o ? linkStr(o) : downStr}==>             [  ] "" ( )`); continue; }
+        out.push(`      ${pad(s.lid, 6)} ${pad(p, 4)}[  ] ==${linkStr(o)}==>  ${pad(o.peer.lid, 6)} ${pad(o.pport, 4)}[  ] "${o.peer.desc}" (${o.could || ' '})`);
+      }
+    });
+    cas.forEach(c => {
+      out.push(`CA: ${c.desc}:`);
+      if (c.down) { out.push(`      ${c.guid} ${pad(c.lid, 6)} ${pad(1, 4)}[  ] ==${downStr}==>             [  ] "" ( )`); return; }
+      const leaf = sw.find(s => Object.values(ports.get(s.desc)).some(o => o.peer === c));
+      const lp = +Object.keys(ports.get(leaf.desc)).find(k => ports.get(leaf.desc)[k].peer === c);
+      const o = ports.get(leaf.desc)[lp];
+      out.push(`      ${c.guid} ${pad(c.lid, 6)} ${pad(1, 4)}[  ] ==${linkStr(o)}==>  ${pad(leaf.lid, 6)} ${pad(lp, 4)}[  ] "${leaf.desc}" (${o.could || ' '})`);
+    });
+    return out.join('\n');
+  }
+
+  let fmEl = null;
+  let fmData = null;
+  let fmSel = null;     // { sw: desc, port: n }
+  let fmQuery = '';
+
+  const FM_SEV_LABEL = { crit: 'No link', warn: 'Degraded', info: 'Disabled', ok: 'Active', idle: 'Idle', off: 'Disabled' };
+
+  function fmDiagram(d) {
+    const spines = d.switches.filter(s => s.role === 'spine');
+    const leaves = d.switches.filter(s => s.role === 'leaf');
+    if (!d.switches.length) return '';
+    const W = 1000, rowH = 110, boxW = 150, boxH = 44;
+    const tiers = spines.length ? [spines, leaves] : [leaves];
+    const H = (tiers.length - 1) * rowH + boxH + 60;
+    const pos = new Map();
+    tiers.forEach((row, ti) => row.forEach((s, i) => {
+      const x = (W / (row.length + 1)) * (i + 1);
+      pos.set(s.desc, { x, y: 30 + ti * rowH + boxH / 2 });
+    }));
+    // One line per switch pair, coloured by its worst link, with the link count.
+    const pairs = new Map();
+    d.switches.forEach(s => s.ports.forEach(p => {
+      if (!p.peer || !pos.has(p.peer.desc)) return;
+      const k = [s.desc, p.peer.desc].sort().join('|');
+      const e = pairs.get(k) || { a: s.desc, b: p.peer.desc, n: 0, worst: 3, ports: new Set() };
+      const key = [`${s.desc}#${p.port}`, `${p.peer.desc}#${p.peer.port}`].sort().join('|');
+      if (!e.ports.has(key)) { e.ports.add(key); e.n++; }
+      e.worst = Math.min(e.worst, { crit: 0, warn: 1, off: 2, ok: 3, idle: 3 }[p.sev]);
+      pairs.set(k, e);
+    }));
+    const col = ['crit', 'warn', 'info', 'ok'];
+    const lines = [...pairs.values()].map(e => {
+      const a = pos.get(e.a), b = pos.get(e.b);
+      const top = a.y < b.y ? a : b, bot = a.y < b.y ? b : a;
+      const y1 = top.y + boxH / 2, y2 = bot.y - boxH / 2;
+      const mx = (top.x + bot.x) / 2, my = (y1 + y2) / 2;
+      return `<g class="fm-edge is-${col[e.worst]}"><line x1="${top.x}" y1="${y1}" x2="${bot.x}" y2="${y2}"/>${e.n > 1 ? `<text x="${mx}" y="${my}" dy="0.35em">×${e.n}</text>` : ''}</g>`;
+    }).join('');
+    const boxes = d.switches.map(s => {
+      const p = pos.get(s.desc);
+      const sev = col[Math.min(s.worst, 3)];
+      return `<g class="fm-node is-${sev}" data-fm-goto="${escapeHtml(s.desc)}" tabindex="0" role="button" aria-label="${escapeHtml(s.name)}">
+        <rect x="${p.x - boxW / 2}" y="${p.y - boxH / 2}" width="${boxW}" height="${boxH}" rx="9"/>
+        <text x="${p.x}" y="${p.y - 4}" class="fm-node-name">${escapeHtml(s.name.length > 18 ? s.name.slice(0, 17) + '…' : s.name)}</text>
+        <text x="${p.x}" y="${p.y + 12}" class="fm-node-sub">${s.role} · LID ${s.lid}${s.hosts ? ` · ${s.hosts} host${s.hosts === 1 ? '' : 's'}` : ''}</text></g>`;
+    }).join('');
+    return `<svg class="fm-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="Fabric diagram: ${spines.length} spines, ${leaves.length} leaves">${lines}${boxes}</svg>`;
+  }
+
+  const fmIsSwitch = (desc) => { const n = fmData && fmData.nodes.get(desc); return n ? n.type === 'switch' : /MF0;/.test(desc); };
+  const fmLabel = (desc) => (fmIsSwitch(desc) ? fmName(desc).name : desc);
+
+  function fmPortCmds(node, p) {
+    const up = /^active$/i.test(p.state);
+    if (node.type !== 'switch') {
+      // An HCA port: the useful commands run on the host itself.
+      const h = fmHost(node.desc);
+      return [
+        [`On ${h.host}: port state and rate`, `ibstat ${h.hca || '$HCA'}`],
+        [`On ${h.host}: cable, eye and BER`, `mlxlink -d ${h.hca || '$HCA'} -m -c -e`],
+        ...(up ? [['Error counters on this port', `perfquery -x ${p.lid} ${p.port}`]] : [])
+      ];
+    }
+    const cmds = [
+      ...(up ? [['Error counters on this port', `perfquery -x ${p.lid} ${p.port}`]] : []),
+      ['Port state, width and speed (query only)', `ibportstate ${p.lid} ${p.port}`],
+      ['Cable, eye and BER through the fabric (after mst ib add)', `mlxlink -d lid-${p.lid} -p ${p.port} -m -c -e`]
+    ];
+    if (p.peer && !fmIsSwitch(p.peer.desc)) {
+      const h = fmHost(p.peer.desc);
+      if (h.hca) cmds.push([`On ${h.host}: the HCA side`, `ibstat ${h.hca}; mlxlink -d ${h.hca} -m -c -e`]);
+    }
+    return cmds;
+  }
+
+  function fmDetail() {
+    const box = fmEl.querySelector('.fm-detail');
+    if (!fmSel) { box.innerHTML = '<p class="fm-hint">Click a port, a problem or a host to see the link and the commands for it.</p>'; return; }
+    const sw = fmData.nodes.get(fmSel.sw);
+    const p = sw && sw.ports.find(x => x.port === fmSel.port);
+    if (!p) { box.innerHTML = ''; return; }
+    const nm = fmLabel(sw.desc);
+    const peer = p.peer ? fmLabel(p.peer.desc) : '';
+    // The host this link belongs to: the HCA itself, or the HCA on the far end of a switch port.
+    const hostDesc = sw.type !== 'switch' ? sw.desc : p.peer && !fmIsSwitch(p.peer.desc) ? p.peer.desc : '';
+    const h = hostDesc ? fmHost(hostDesc) : null;
+    const inRack = (name) => { try { return rkLayout().devices.some(dv => rkKey(dv.host) === rkKey(name)); } catch (e) { return false; } };
+    box.innerHTML = `
+      <div class="fm-d-head is-${p.sev}"><span class="fm-d-sev">${FM_SEV_LABEL[p.sev]}</span><b>${escapeHtml(nm)} · port ${p.port}${p.ext ? ` [${escapeHtml(p.ext)}]` : ''}</b><small>LID ${p.lid}</small></div>
+      <dl class="fm-d-facts">
+        <dt>Link</dt><dd>${p.width ? `${escapeHtml(p.width)} ${escapeHtml(p.speed)} · ` : ''}${escapeHtml(p.state)}/${escapeHtml(p.phys)}</dd>
+        ${p.could.length ? `<dt>Capable of</dt><dd class="fm-could">${escapeHtml(p.could.join(', ').replace(/Could be /gi, ''))}</dd>` : ''}
+        <dt>Far end</dt><dd>${p.peer ? `${escapeHtml(peer)} · port ${p.peer.port} · LID ${p.peer.lid}` : p.sev === 'idle' ? 'Nothing: unused port, or a cable with no light' : '—'}</dd>
+      </dl>
+      ${p.sev === 'warn' && p.could.length ? '<p class="fm-advice">Below what both ends support: reseat both ends, clean or swap the cable/optic, then compare BER with mlxlink. If it follows the cable, replace the cable.</p>' : ''}
+      ${/^(init|armed)$/i.test(p.state) ? '<p class="fm-advice">Physically up, logically not: check the subnet manager (sminfo, and the SM log) before touching the cable.</p>' : ''}
+      ${p.sev === 'crit' ? '<p class="fm-advice">No link at all: check the cable is seated at both ends and the switch port LED, then try a known-good cable.</p>' : ''}
+      <ol class="fm-cmds">${fmPortCmds(sw, p).map(([l, c]) => `<li><span>${escapeHtml(l)}</span><div class="fm-cmd"><code>${escapeHtml(c)}</code><button type="button" data-fm-copy="${escapeHtml(c)}">Copy</button></div></li>`).join('')}</ol>
+      <div class="fm-d-acts">
+        ${h && h.host ? `<button type="button" data-fm-work="${escapeHtml(hostDesc)}">Work on ${escapeHtml(h.host)}${h.hca ? ` (HCA ${escapeHtml(h.hca)})` : ''}</button>` : ''}
+        ${sw.type === 'switch' && inRack(nm) ? `<button type="button" data-fm-rack="${escapeHtml(nm)}">▤ Where is ${escapeHtml(nm)}?</button>` : ''}
+        <button type="button" data-fm-loc>Copy for the ticket</button>
+      </div>`;
+  }
+
+  function fmRender() {
+    const d = fmData;
+    const out = fmEl.querySelector('.fm-out');
+    const input = fmEl.querySelector('.fm-input');
+    if (!d || !d.switches.length && !d.cas.length) {
+      input.hidden = false;
+      out.innerHTML = d ? '<p class="fm-none">No iblinkinfo lines found. Paste the output of <code>iblinkinfo</code> (any version; <code>--line</code> works too).</p>' : '';
+      fmEl.querySelector('.fm-tools').hidden = true;
+      return;
+    }
+    input.hidden = true;
+    fmEl.querySelector('.fm-tools').hidden = false;
+    const q = fmQuery.trim().toLowerCase();
+    const onlyProblems = fmEl.querySelector('[data-fm-only]').getAttribute('aria-pressed') === 'true';
+    const hits = q ? d.hosts.filter(h => h.toLowerCase().includes(q)).slice(0, 12) : [];
+    const speedTxt = Object.entries(d.speeds).sort((a, b) => b[1] - a[1]).map(([s, n]) => `${n} × ${s}`).join(' · ');
+    const tile = (n, l, cls) => `<div class="fm-tile ${cls || ''}"><b>${n}</b><span>${l}</span></div>`;
+    const sws = d.switches.slice().sort((a, b) => a.worst - b.worst || (a.role === b.role ? rkNatural(a.name, b.name) : a.role === 'spine' ? -1 : 1));
+    out.innerHTML = `
+      <div class="fm-tiles">
+        ${tile(d.switches.length, `switch${d.switches.length === 1 ? '' : 'es'}`)}
+        ${tile(d.hosts.length, 'HCA ports')}
+        ${tile(d.active, 'active links')}
+        ${tile(d.count.crit, 'HCA ports down', d.count.crit ? 'is-crit' : 'is-zero')}
+        ${tile(d.count.warn, 'degraded / not up', d.count.warn ? 'is-warn' : 'is-zero')}
+        ${tile(d.count.info, 'disabled', d.count.info ? 'is-info' : 'is-zero')}
+        ${tile(d.idle, 'idle switch ports', 'is-idle')}
+      </div>
+      ${speedTxt ? `<p class="fm-speeds">Link rates: ${escapeHtml(speedTxt)}</p>` : ''}
+      ${hits.length ? `<ul class="fm-hits">${hits.map(hd => { const w = d.where[hd]; return `<li><button type="button" ${w ? `data-fm-sel="${escapeHtml(w.sw.desc)}#${w.port.port}"` : d.nodes.get(hd) && d.nodes.get(hd).ports[0] ? `data-fm-sel="${escapeHtml(hd)}#${d.nodes.get(hd).ports[0].port}"` : 'disabled'}><b>${escapeHtml(hd)}</b><span>${w ? `→ ${escapeHtml(w.sw.name || fmName(w.sw.desc).name)} port ${w.port.port} · ${FM_SEV_LABEL[w.port.sev] || ''}` : (() => { const c = d.nodes.get(hd); const dp = c && c.ports.find(x => !x.peer); return dp ? `no link (${escapeHtml(dp.state)}/${escapeHtml(dp.phys)}): the far end can't be seen` : 'not seen on any switch in this output'; })()}</span></button></li>`; }).join('')}</ul>` : q ? '<p class="fm-none">No host or HCA matches.</p>' : ''}
+      <div class="fm-grid">
+        <div class="fm-main">
+          ${fmDiagram(d)}
+          ${d.problems.length ? `<h3 class="fm-h">Problems <small>${d.problems.length}, worst first, one per link</small></h3>
+            <ul class="fm-probs">${d.problems.map(pr => { const sw = pr.node; const nm = sw.type === 'switch' ? fmName(sw.desc).name : sw.desc; const peer = pr.port.peer ? (d.nodes.get(pr.port.peer.desc) && d.nodes.get(pr.port.peer.desc).type === 'switch' ? fmName(pr.port.peer.desc).name : pr.port.peer.desc) : ''; return `<li class="is-${pr.sev}"><button type="button" data-fm-sel="${escapeHtml(sw.desc)}#${pr.port.port}"><span class="fm-sev">${pr.sev === 'crit' ? 'Critical' : pr.sev === 'warn' ? 'Warning' : 'Info'}</span><b>${escapeHtml(nm)} p${pr.port.port}${peer ? ` ⇄ ${escapeHtml(peer)} p${pr.port.peer.port}` : ''}</b><span>${escapeHtml(pr.what)}</span></button></li>`; }).join('')}</ul>`
+            : '<p class="fm-clean">✓ Every cabled port is Active at the rate both ends support.</p>'}
+          <h3 class="fm-h">Switches <small>logical IB port numbers (not the cage layout: see the switch manual's logical map)</small></h3>
+          <div class="fm-switches">${sws.filter(s => !onlyProblems || s.worst < 3).map(s => `
+            <section class="fm-sw is-${['crit', 'warn', 'info', 'ok', 'ok'][s.worst]}" id="fm-sw-${escapeHtml(s.lid)}" data-fm-sw="${escapeHtml(s.desc)}">
+              <header><b>${escapeHtml(s.name)}</b><span>${escapeHtml(s.model || '')} · ${s.role} · LID ${s.lid} · ${s.hosts} host${s.hosts === 1 ? '' : 's'}, ${s.uplinks} uplink${s.uplinks === 1 ? '' : 's'}</span></header>
+              <div class="fm-ports" style="--fm-cols:${Math.min(32, Math.max(8, Math.ceil(s.ports.length / 2)))}">${s.ports.map(p => {
+                const peer = p.peer ? (d.nodes.get(p.peer.desc) && d.nodes.get(p.peer.desc).type === 'switch' ? fmName(p.peer.desc).name : p.peer.desc) : '';
+                const sel = fmSel && fmSel.sw === s.desc && fmSel.port === p.port;
+                const hit = q && p.peer && p.peer.desc.toLowerCase().includes(q);
+                return `<button type="button" class="fm-port is-${p.sev}${sel ? ' is-sel' : ''}${hit ? ' is-hit' : ''}" data-fm-sel="${escapeHtml(s.desc)}#${p.port}" title="Port ${p.port}: ${escapeHtml(p.state)}/${escapeHtml(p.phys)}${p.width ? ` ${escapeHtml(p.width)} ${escapeHtml(p.speed)}` : ''}${peer ? ` ⇄ ${escapeHtml(peer)} p${p.peer.port}` : ''}${p.could.length ? ` · ${escapeHtml(p.could.join(', '))}` : ''}">${p.port}</button>`;
+              }).join('')}</div>
+            </section>`).join('')}</div>
+          <div class="fm-legend"><span class="is-ok">Active</span><span class="is-warn">Degraded / not up</span><span class="is-crit">HCA no link</span><span class="is-off">Disabled</span><span class="is-idle">Idle (Down/Polling)</span></div>
+        </div>
+        <aside class="fm-detail" aria-live="polite"></aside>
+      </div>`;
+    fmDetail();
+  }
+
+  function fmMarkdown() {
+    const d = fmData;
+    const rows = d.problems.map(pr => {
+      const nm = pr.node.type === 'switch' ? fmName(pr.node.desc).name : pr.node.desc;
+      const peer = pr.port.peer ? (d.nodes.get(pr.port.peer.desc) && d.nodes.get(pr.port.peer.desc).type === 'switch' ? fmName(pr.port.peer.desc).name : pr.port.peer.desc) : '';
+      return `| ${pr.sev === 'crit' ? 'Critical' : pr.sev === 'warn' ? 'Warning' : 'Info'} | ${nm} port ${pr.port.port} (LID ${pr.port.lid}) | ${peer ? `${peer} port ${pr.port.peer.port}` : '—'} | ${pr.what} |`;
+    });
+    return `### InfiniBand fabric (iblinkinfo)\n\n- **Switches:** ${d.switches.length} · **HCA ports:** ${d.hosts.length} · **Active links:** ${d.active}\n- **Link rates:** ${Object.entries(d.speeds).map(([s, n]) => `${n} × ${s}`).join(', ') || '—'}\n- **Problems:** ${d.count.crit} HCA ports down, ${d.count.warn} degraded or not up, ${d.count.info} disabled\n\n${rows.length ? `| Severity | Port | Far end | Finding |\n|---|---|---|---|\n${rows.join('\n')}` : 'Every cabled port is Active at the rate both ends support.'}`;
+  }
+
+  function fmLoad(text, keep) {
+    fmData = fmParse(text);
+    fmSel = null;
+    if (!keep) { fmQuery = ''; const f = fmEl.querySelector('.fm-find'); if (f) f.value = ''; }
+    if (fmData.problems.length) fmSel = { sw: fmData.problems[0].node.desc, port: fmData.problems[0].port.port };
+    if (fmData.switches.length || fmData.cas.length) { try { localStorage.setItem(FM_KEY, String(text).slice(0, 600000)); } catch (e) {} }
+    fmRender();
+  }
+
+  function fmClick(e) {
+    const t = e.target instanceof Element ? e.target : null;
+    if (!t) return;
+    if (t === fmEl || t.closest('[data-fm-close]')) return closeFabric();
+    const sel = t.closest('[data-fm-sel]');
+    if (sel) {
+      const i = sel.dataset.fmSel.lastIndexOf('#');
+      fmSel = { sw: sel.dataset.fmSel.slice(0, i), port: +sel.dataset.fmSel.slice(i + 1) };
+      fmEl.querySelectorAll('.fm-port.is-sel').forEach(b => b.classList.remove('is-sel'));
+      const swEl = [...fmEl.querySelectorAll('[data-fm-sw]')].find(x => x.dataset.fmSw === fmSel.sw);
+      const portEl = swEl && [...swEl.querySelectorAll('.fm-port')].find(b => b.dataset.fmSel === sel.dataset.fmSel);
+      if (portEl) { portEl.classList.add('is-sel'); if (!sel.classList.contains('fm-port')) portEl.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); }
+      fmDetail();
+      return;
+    }
+    const go = t.closest('[data-fm-goto]');
+    if (go) { const swEl = [...fmEl.querySelectorAll('[data-fm-sw]')].find(x => x.dataset.fmSw === go.dataset.fmGoto); if (swEl) { swEl.scrollIntoView({ block: 'start', behavior: 'smooth' }); swEl.classList.add('is-flash'); setTimeout(() => swEl.classList.remove('is-flash'), 900); } return; }
+    const copy = t.closest('[data-fm-copy]');
+    if (copy) { navigator.clipboard.writeText(copy.dataset.fmCopy); copy.textContent = 'Copied'; setTimeout(() => { copy.textContent = 'Copy'; }, 1200); return; }
+    const work = t.closest('[data-fm-work]');
+    if (work) {
+      const h = fmHost(work.dataset.fmWork);
+      if (readNodes().active !== cleanNodeName(h.host)) switchNode(h.host);
+      if (h.hca) { targetState.vars.hca = h.hca; saveTargetState(); applyNodeState(); }
+      showGlobalToast(`Working on ${h.host}${h.hca ? `: HCA ${h.hca} is in Rack Targets` : ''}.`);
+      return;
+    }
+    const rk = t.closest('[data-fm-rack]');
+    if (rk) { const n = rk.dataset.fmRack; closeFabric(); return openRack(n); }
+    if (t.closest('[data-fm-loc]') && fmSel) {
+      const sw = fmData.nodes.get(fmSel.sw);
+      const p = sw.ports.find(x => x.port === fmSel.port);
+      const nm = sw.type === 'switch' ? fmName(sw.desc).name : sw.desc;
+      const peer = p.peer ? (fmData.nodes.get(p.peer.desc) && fmData.nodes.get(p.peer.desc).type === 'switch' ? fmName(p.peer.desc).name : p.peer.desc) : '';
+      copyVerbatim(`${nm} port ${p.port} (LID ${p.lid})${peer ? ` ⇄ ${peer} port ${p.peer.port}` : ''}: ${p.width ? `${p.width} ${p.speed} ` : ''}${p.state}/${p.phys}${p.could.length ? ` (${p.could.join(', ')})` : ''}`);
+      return showGlobalToast('Copied the link for the ticket.');
+    }
+    const act = t.closest('[data-fm-act]');
+    if (!act) return;
+    const a = act.dataset.fmAct;
+    const ta = fmEl.querySelector('.fm-text');
+    if (a === 'sample') { ta.value = fmSample(); return fmLoad(ta.value); }
+    if (a === 'read') return fmLoad(ta.value);
+    if (a === 'edit') { fmEl.querySelector('.fm-input').hidden = false; ta.focus(); return; }
+    if (a === 'only') { act.setAttribute('aria-pressed', String(act.getAttribute('aria-pressed') !== 'true')); return fmRender(); }
+    if (a === 'md') { copyVerbatim(fmMarkdown()); return showGlobalToast('Copied the fabric summary as Markdown.'); }
+    if (a === 'pin') { const d = fmData; return casePin({ kind: 'Fabric map', title: `InfiniBand fabric: ${d.count.crit} down, ${d.count.warn} degraded`, sev: d.count.crit ? 'crit' : d.count.warn ? 'warn' : 'ok', md: fmMarkdown(), facts: d.problems.slice(0, 6).map(pr => ['Port', `${pr.node.type === 'switch' ? fmName(pr.node.desc).name : pr.node.desc} p${pr.port.port}`]) }); }
+  }
+
+  function openFabric(text) {
+    if (IN_WIDGET_FRAME) return;
+    if (!fmEl) {
+      fmEl = document.createElement('div');
+      fmEl.className = 'an-backdrop fm-backdrop';
+      fmEl.innerHTML = `
+        <div class="an-dialog fm-dialog" role="dialog" aria-modal="true" aria-labelledby="fm-title">
+          <header class="an-head">
+            <div><h2 id="fm-title">Fabric map</h2><p>Paste <code>iblinkinfo</code>: the InfiniBand fabric drawn, problems first, and where every HCA is cabled. Read offline; nothing is sent anywhere.</p></div>
+            <button type="button" class="trail-close" data-fm-close aria-label="Close">✕</button>
+          </header>
+          <div class="fm-tools" hidden>
+            <label class="fm-findbox"><span aria-hidden="true">⌕</span><input type="text" class="fm-find" placeholder="Where is… gpu-node07, mlx5_4" spellcheck="false" autocomplete="off" aria-label="Find a host or HCA" /></label>
+            <button type="button" data-fm-act="only" data-fm-only aria-pressed="false">Only switches with problems</button>
+            <span class="fm-spacer"></span>
+            <button type="button" data-fm-act="md">Copy as Markdown</button>
+            <button type="button" data-fm-act="pin">📌 Pin to case</button>
+            <button type="button" data-fm-act="edit">Paste new output</button>
+          </div>
+          <div class="fm-body">
+            <div class="fm-input">
+              <textarea class="fm-text" spellcheck="false" placeholder="Switch: 0x... MF0;sw-ib-leaf01:MQM9700/U1:&#10;           3    1[  ] ==( 4X       106.25 Gbps Active/  LinkUp)==>      12    1[  ] &quot;gpu-node01 mlx5_0&quot; ( )&#10;…"></textarea>
+              <div class="fm-input-acts">
+                <span>Run <code>iblinkinfo</code> on any host in the fabric (or <code>iblinkinfo --switches-only</code>) and paste all of it.</span>
+                <button type="button" data-fm-act="sample">Try a sample fabric</button>
+                <button type="button" class="fm-primary" data-fm-act="read">Draw the fabric</button>
+              </div>
+            </div>
+            <div class="fm-out"></div>
+          </div>
+        </div>`;
+      document.body.appendChild(fmEl);
+      fmEl.addEventListener('click', fmClick);
+      fmEl.addEventListener('input', (e) => {
+        if (!(e.target instanceof Element) || !e.target.classList.contains('fm-find')) return;
+        fmQuery = e.target.value;
+        const pos = e.target.selectionStart;
+        fmRender();
+        const f = fmEl.querySelector('.fm-find');
+        f.focus(); try { f.setSelectionRange(pos, pos); } catch (err) {}
+      });
+      fmEl.addEventListener('keydown', (e) => {
+        const node = e.target instanceof Element ? e.target.closest('[data-fm-goto]') : null;
+        if (node && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); node.dispatchEvent(new MouseEvent('click', { bubbles: true })); }
+        if (e.target instanceof Element && e.target.classList.contains('fm-text') && e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); fmLoad(e.target.value); }
+      });
+      document.addEventListener('keydown', (e) => {
+        if (fmEl.classList.contains('is-side') && !fmEl.contains(document.activeElement)) return;
+        if (fmEl.classList.contains('show') && e.key === 'Escape') { e.stopPropagation(); closeFabric(); }
+      }, true);
+    }
+    fmEl._back = fmEl.classList.contains('show') ? fmEl._back : document.activeElement;
+    const ta = fmEl.querySelector('.fm-text');
+    let src = typeof text === 'string' && text ? text : '';
+    if (!src && !fmData) { try { src = localStorage.getItem(FM_KEY) || ''; } catch (e) {} }
+    if (src) { ta.value = src; fmLoad(src); }
+    else if (!fmData) fmRender();
+    fmEl.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => (fmData && fmData.switches.length ? fmEl.querySelector('.fm-find') : ta).focus(), 30);
+  }
+
+  function closeFabric() {
+    if (!fmEl) return;
+    fmEl.classList.remove('show');
+    document.body.style.overflow = '';
+    if (fmEl._back && fmEl._back.focus) fmEl._back.focus({ preventScroll: true });
+  }
+
+  // On the InfiniBand sheets, a strip leads into the map.
+  function mountFabricStrip(file) {
+    if (IN_WIDGET_FRAME) return;
+    const old = document.getElementById('fm-strip');
+    if (old) old.remove();
+    if (!/^(ib-|infiniband\.html|sw-quantum)/.test(file)) return;
+    const main = document.querySelector('main.main-layout');
+    if (!main) return;
+    const strip = document.createElement('div');
+    strip.id = 'fm-strip';
+    strip.className = 'ros-strip fm-strip';
+    strip.innerHTML = `<span class="ros-strip-glyph" aria-hidden="true">🕸</span>
+      <div><b>Fabric map</b><span>Paste iblinkinfo: spines and leaves drawn, degraded and down links first, and the switch port behind every HCA.</span></div>
+      <button type="button" class="ros-strip-open">Open the fabric map</button>`;
+    strip.querySelector('.ros-strip-open').addEventListener('click', () => openFabric());
+    const ros = document.getElementById('ros-strip');
+    if (ros && ros.parentNode === main) ros.after(strip); else main.insertBefore(strip, main.firstChild);
+  }
+
+  // -------------------------------------------------------------
+  // WORKBENCH (tools.html)
+  // Twenty tools had grown up behind a More menu, Ctrl+K and the home flow: Ticket intake,
+  // Fabric map, Node X-ray, Change plan… Every one was a pop-up, so none had an address,
+  // none showed what it held, and the only way to learn one existed was to stumble on it.
+  // The Workbench is their page: every tool as a card in incident-flow order, each showing
+  // its live state (pins, plan steps, devices, the saved fabric), and one paste box that
+  // routes anything (a ticket, dmesg, iblinkinfo, an nvidia-smi table, a command) to the
+  // tool that reads it. Opening a tool here docks it into the page at tools.html#<tool>,
+  // so it can be bookmarked, reloaded and left with Back. The same dialogs, not copies:
+  // closing one (✕ or Esc) returns to the cards. In the portable build the route stays in
+  // memory, because the bundle owns the URL hash.
+  // -------------------------------------------------------------
+  const WB_RECENT_KEY = 'dc_wb_recent';
+  const WB_STAGES = [
+    ['identify', 'Identify', 'Which node, which BMC, is it drained?'],
+    ['collect', 'Collect', 'Read-only evidence: dmesg, SEL, telemetry.'],
+    ['correlate', 'Correlate', 'Across layers, nodes and the fabric.'],
+    ['isolate', 'Isolate', 'Physical checks and planned changes.'],
+    ['document', 'Document', 'The case, the notes, the RMA.']
+  ];
+  const wbTry = (fn) => { try { return fn() || ''; } catch (e) { return ''; } };
+  const wbNum = (n, one, many) => (n ? `${n} ${n === 1 ? one : many || one + 's'}` : '');
+  // cls: the dialog's class, so a dialog opened by a paste can be docked under its own address.
+  const WB_TOOLS = [
+    { id: 'intake', stage: 'identify', icon: '🎫', name: 'Start from a ticket', what: 'Paste the ticket: node workspace, Rack Targets, case and first commands set up in one go.', takes: 'ticket text', cls: 'tk-backdrop', open: () => openIntake() },
+    { id: 'rack', stage: 'identify', icon: '▤', name: 'Rack view', what: 'Every rack drawn from your inventory: where a server is, its BMC, the ID-LED blink.', takes: 'inventory CSV', cls: 'rk-backdrop', open: () => openRack(readNodes().active || ''), status: () => wbNum(rkLayout().devices.length, 'device') },
+    { id: 'rosetta', stage: 'identify', icon: '⇄', name: 'BMC Rosetta', what: 'The same task in ipmitool, Redfish, racadm, ilorest and the rest, side by side.', takes: 'a task', cls: 'ros-backdrop', open: () => openRosetta('', 'bmc') },
+    { id: 'board', stage: 'identify', icon: '◫', name: 'Shift board & handoff', what: 'Every node workspace, worst first, and the handoff note for the next shift.', takes: 'your nodes', cls: 'board-backdrop', open: () => openBoard(), status: () => wbNum(boardNodes().length, 'node') },
+    { id: 'checkup', stage: 'collect', icon: '♥', name: 'Node checkup', what: 'One read-only sweep: drain state, GPUs, kernel errors, ECC, IB ports, NVMe, services, scored.', takes: 'terminal or pasted output', cls: 'ck-backdrop', open: () => openCheckup(), status: () => { const v = vitalsRead().checkup; return v ? `last score ${v.score}` : ''; } },
+    { id: 'capture', stage: 'collect', icon: '⬇', name: 'Capture script', what: 'One script that collects the evidence for a case into cases/<host>/logs.', takes: 'what to collect', cls: 'cs-backdrop', open: () => openCapture() },
+    { id: 'timeline', stage: 'collect', icon: '⏱', name: 'Incident timeline', what: 'Paste dmesg, SEL or a journal: the events in order and what failed first.', takes: 'dmesg · SEL · journal', cls: '', open: () => openAnalyzer('') },
+    { id: 'explain', stage: 'collect', icon: '?', name: 'Explain a command', what: 'Any command from a ticket or a KB, explained word by word, with passwords taken out.', takes: 'a command', cls: 'ex-backdrop', open: () => openExplain() },
+    { id: 'xray', stage: 'correlate', icon: '▦', name: 'Node X-ray', what: 'The GPU tray and NICs as tiles, red where it needs you, hollow where a GPU fell off.', takes: 'nvidia-smi table', cls: 'xr-backdrop', open: () => openXray(), status: () => { const v = vitalsRead().xray; return v ? v.verdict : ''; } },
+    { id: 'diff', stage: 'correlate', icon: '⚖', name: 'Compare nodes', what: 'A suspect next to a known-good twin: only the real differences.', takes: 'two outputs', cls: 'gd-backdrop', open: () => openGoldenDiff() },
+    { id: 'fabric', stage: 'correlate', icon: '🕸', name: 'Fabric map', what: 'iblinkinfo drawn: spines, leaves, degraded and down links, the port behind every HCA.', takes: 'iblinkinfo', cls: 'fm-backdrop', open: () => openFabric(), status: () => (readStored(FM_KEY) ? 'last fabric saved' : '') },
+    { id: 'fleetres', stage: 'correlate', icon: '☷', name: 'Fleet results', what: 'pdsh / clush output grouped by answer, pointing at the odd node out.', takes: 'pdsh output', cls: 'fr-backdrop', open: () => openFleetResults() },
+    { id: 'fleet', stage: 'correlate', icon: '⇶', name: 'Fleet mode', what: 'Every copied command fanned out over a host list with pdsh or clush.', takes: 'a host list', cls: 'fleet-backdrop', open: () => openFleet(), status: () => (fleetState().active ? 'on' : '') },
+    { id: 'plan', stage: 'isolate', icon: '🛡', name: 'Change plan', what: 'Pre-checks, approval, the change, verify and rollback for anything state-changing.', takes: 'a risky command', cls: 'mop-backdrop', open: () => openPlan(), status: () => wbNum(cpRead().steps.filter(s => s.cmd).length, 'step') },
+    { id: 'panel', stage: 'isolate', icon: '▥', name: 'Switch front panel', what: 'Find a port on the real layout: odd on top, even below, which cage is 1/14/2.', takes: 'a port name', cls: 'pn-backdrop', open: () => openPanel('find') },
+    { id: 'cable', stage: 'isolate', icon: '⌁', name: 'Cable check', what: 'The wiring manifest against LLDP: wrong NIC, wrong host, swapped, missing.', takes: 'manifest + LLDP', cls: 'pn-backdrop', open: () => openPanel('check') },
+    { id: 'atlas', stage: 'isolate', icon: '♒', name: 'Healthy ranges', what: 'What normal looks like for temperatures, BER, DOM light levels, ECC and more.', takes: 'a reading', cls: 'atlas-backdrop', open: () => openHealthAtlas() },
+    { id: 'runbook', stage: 'isolate', icon: '▶', name: 'Guided runbooks', what: 'Safety, evidence, decision, physical isolation, RMA: step by step, with progress kept.', takes: 'a symptom', open: () => openRunbook(), overlay: true },
+    { id: 'case', stage: 'document', icon: '📁', name: 'Case file', what: 'Pins and the Case Trail as one timeline, the RMA block filled, summary.md ready.', takes: 'pinned evidence', cls: 'case-backdrop', open: () => openCaseFile(), status: () => wbNum((readCase().evidence || []).length, 'pin') },
+    { id: 'trail', stage: 'document', icon: '⌚', name: 'Case Trail', what: 'Every command you copied, in order, turned into ticket notes.', takes: 'what you copy', open: () => openTrail(), overlay: true, status: () => wbNum(readTrail().length, 'command') },
+    { id: 'notes', stage: 'document', icon: '📝', name: 'Field notes', what: 'One Markdown note per server and ticket, saved to cases/ or your Obsidian vault.', takes: 'your notes', href: 'notes.html' },
+    { id: 'rma', stage: 'document', icon: '✉', name: 'RMA formatter', what: 'The RMA ticket from serials, part numbers, slot and the log lines.', takes: 'evidence', open: () => flowAct('rma'), overlay: true }
+  ];
+
+  let wbPage = null;
+  let wbDocked = null;      // { el, tool }
+  let wbRoute = '';         // the docked tool in the portable build, where the hash is not ours
+  let wbPushed = false;     // this visit added the #tool history entry, so closing goes Back
+  const wbPortable = () => !!window.portableOpenSheet;
+  const wbOn = () => (anatSheetFile || window.location.pathname.split('/').pop()) === 'tools.html';
+
+  function wbRecent() { try { const v = JSON.parse(readStored(WB_RECENT_KEY) || '[]'); return Array.isArray(v) ? v : []; } catch (e) { return []; } }
+  function wbTouch(id) { try { localStorage.setItem(WB_RECENT_KEY, JSON.stringify([id, ...wbRecent().filter(x => x !== id)].slice(0, 5))); } catch (e) {} }
+
+  function wbCard(t) {
+    const st = t.status ? wbTry(t.status) : '';
+    return `<button type="button" class="wb-card" data-wb-open="${t.id}">
+      <span class="wb-ico" aria-hidden="true">${t.icon}</span>
+      <span class="wb-txt"><b>${escapeHtml(t.name)}</b><span>${escapeHtml(t.what)}</span>
+        <small><em>Takes</em> ${escapeHtml(t.takes)}${st ? `<i class="wb-st">${escapeHtml(st)}</i>` : ''}</small></span>
+    </button>`;
+  }
+
+  function wbRender() {
+    if (!wbPage) return;
+    const recent = wbRecent().map(id => WB_TOOLS.find(t => t.id === id)).filter(Boolean);
+    wbPage.querySelector('.wb-grid-wrap').innerHTML = `
+      ${recent.length ? `<div class="wb-recent"><span>Recent</span>${recent.map(t => `<button type="button" data-wb-open="${t.id}"><i aria-hidden="true">${t.icon}</i>${escapeHtml(t.name)}</button>`).join('')}</div>` : ''}
+      <div class="wb-stages">${WB_STAGES.map(([id, title, what], i) => `
+        <section class="wb-stage" aria-label="${title}">
+          <header><span class="wb-n">${i + 1}</span><b>${title}</b><span>${escapeHtml(what)}</span></header>
+          <div class="wb-cards">${WB_TOOLS.filter(t => t.stage === id).map(wbCard).join('')}</div>
+        </section>`).join('')}</div>`;
+  }
+
+  function wbShowGrid(show) {
+    if (!wbPage) return;
+    wbPage.querySelector('.wb-home').hidden = !show;
+    wbPage.querySelector('.wb-dock').hidden = show;
+  }
+
+  // Move an open tool dialog into the page and let it fill it.
+  function wbDock(el, tool) {
+    if (!wbPage || !el) return;
+    if (wbDocked && wbDocked.el !== el) wbUndock(true);
+    if (el.classList.contains('is-side')) sdUndock(false);
+    const slot = wbPage.querySelector('.wb-slot');
+    slot.appendChild(el);
+    el.classList.add('is-docked');
+    document.body.style.overflow = '';
+    document.body.classList.add('wb-is-docked');
+    wbDocked = { el, tool };
+    const crumb = wbPage.querySelector('.wb-crumb b');
+    crumb.textContent = tool ? tool.name : 'Tool';
+    wbShowGrid(false);
+    if (tool) { wbTouch(tool.id); wbSetRoute(tool.id); }
+    const close = el.querySelector('.trail-close');
+    if (close) { close.title = 'Back to the Workbench'; close.setAttribute('aria-label', 'Back to the Workbench'); }
+    sdSyncPins();
+    window.scrollTo(0, 0);
+    // Keyboard lands in the tool, as it would in the pop-up (the card that opened it is hidden now).
+    setTimeout(() => {
+      if (el.contains(document.activeElement)) return;
+      const f = el.querySelector('textarea:not([disabled]), input:not([type=hidden]):not([disabled]), select, button:not(.trail-close)');
+      const dlg = el.querySelector('.an-dialog');
+      if (f) f.focus({ preventScroll: true });
+      else if (dlg) { dlg.setAttribute('tabindex', '-1'); dlg.focus({ preventScroll: true }); }
+    }, 40);
+    // The tool closes itself (✕, Esc, its own buttons): that is the way back to the cards.
+    if (!el._wbObs) {
+      el._wbObs = new MutationObserver(() => { if (wbDocked && wbDocked.el === el && !el.classList.contains('show')) wbUndock(); });
+      el._wbObs.observe(el, { attributes: true, attributeFilter: ['class'] });
+    }
+  }
+
+  function wbUndock(keepRoute) {
+    if (!wbDocked) return;
+    const { el } = wbDocked;
+    wbDocked = null;
+    el.classList.remove('is-docked');
+    document.body.appendChild(el);
+    document.body.classList.remove('wb-is-docked');
+    const close = el.querySelector('.trail-close');
+    if (close) { close.title = 'Close'; close.setAttribute('aria-label', 'Close'); }
+    if (el.classList.contains('show')) { el.classList.remove('show'); }
+    document.body.style.overflow = '';
+    if (!keepRoute) { wbSetRoute(''); wbRender(); wbShowGrid(true); }
+  }
+
+  function wbSetRoute(id) {
+    if (wbPortable()) { wbRoute = id; return; }
+    const want = id ? `#${id}` : '';
+    if (location.hash === want) return;
+    // A tool is a place: opening one adds a history entry, so Back returns to the cards.
+    if (id) { history.pushState(null, '', `${location.pathname}${location.search}${want}`); wbPushed = true; }
+    else if (wbPushed) { wbPushed = false; history.back(); }
+    else history.replaceState(null, '', `${location.pathname}${location.search}`);
+  }
+
+  // Open a tool, then dock whichever dialog it showed.
+  function wbOpen(id, fromRoute) {
+    const t = WB_TOOLS.find(x => x.id === id);
+    if (!t) return;
+    if (t.href) { goToSheet(t.href); return; }
+    const before = new Set(document.querySelectorAll('.an-backdrop.show'));
+    if (wbDocked && !fromRoute) wbUndock(true);
+    t.open();
+    wbTouch(t.id);
+    if (t.overlay) { wbRender(); return; }
+    const el = [...document.querySelectorAll('.an-backdrop.show')].find(x => !before.has(x) && !x.classList.contains('kb-help'))
+      || (t.cls ? document.querySelector(`.an-backdrop.show.${t.cls}`) : null);
+    if (el) wbDock(el, t);
+  }
+
+  // Which tool a dialog belongs to (the analyzer's dialog has no class of its own).
+  function wbToolFor(el) {
+    return WB_TOOLS.find(t => t.cls && el.classList.contains(t.cls)) || (el.className.replace(/\b(an-backdrop|show|is-docked|is-side)\b/g, '').trim() === '' ? WB_TOOLS.find(t => t.id === 'timeline') : null);
+  }
+
+  // The paste box: route the text, then dock whatever opened.
+  function wbRouteText(text) {
+    const s = String(text || '').trim();
+    if (!s) return;
+    const before = new Set(document.querySelectorAll('.an-backdrop.show'));
+    if (/\n/.test(s)) {
+      if (tkLooksLike(s)) openIntake(s);
+      else if (fmLooksLike(s)) openFabric(s);
+      else if (frLooksLike(s)) openFleetResults(s);
+      else if (ckLooksLike(s)) openCheckup(s);
+      else if (xrLooksLike(s)) openXray(s);
+      else if (detectOutput(s)) openAnalyzer(s);
+      else { openGlobalSearch(s.split('\n')[0]); return; }
+    } else if (!decodeSymptom(s) && looksLikeCommand(s)) openExplain(s);
+    else { openGlobalSearch(s); return; }   // an error line: the decoder card lives in Ctrl+K
+    const el = [...document.querySelectorAll('.an-backdrop.show')].find(x => !before.has(x) && !x.classList.contains('kb-help'));
+    if (el) wbDock(el, wbToolFor(el));
+  }
+
+  function wbFollowRoute() {
+    if (!wbPage || wbPortable()) return;
+    const id = location.hash.replace(/^#/, '');
+    if (!id) wbPushed = false;
+    if (id && WB_TOOLS.some(t => t.id === id && !t.href && !t.overlay)) {
+      if (!wbDocked || !wbDocked.tool || wbDocked.tool.id !== id) wbOpen(id, true);
+    } else if (wbDocked) {
+      // Back from a tool: close it, which undocks it and shows the cards.
+      const el = wbDocked.el;
+      wbUndock(true);
+      wbRender();
+      wbShowGrid(true);
+      if (el) el.classList.remove('show');
+    }
+  }
+
+  function mountWorkbench(file) {
+    if (IN_WIDGET_FRAME) return;
+    const on = file === 'tools.html';
+    if (!on) {
+      if (wbDocked) wbUndock(true);
+      if (wbPage) wbPage.hidden = true;
+      document.body.classList.remove('wb-is-docked');
+      return;
+    }
+    const main = document.querySelector('main');
+    if (!main) return;
+    if (!wbPage) {
+      wbPage = document.createElement('section');
+      wbPage.id = 'wb-page';
+      wbPage.className = 'container wb-page';
+      wbPage.setAttribute('aria-label', 'Workbench');
+      wbPage.innerHTML = `
+        <div class="wb-home">
+          <div class="wb-hero">
+            <div class="wb-hero-text">
+              <h2>Workbench</h2>
+              <p>Every tool on the site, in the order of an incident. Paste anything into the box and it goes to the tool that reads it; open a tool and it fills this page, with its own address you can bookmark.</p>
+            </div>
+            <form class="wb-paste" autocomplete="off">
+              <textarea class="wb-paste-text" rows="3" spellcheck="false" aria-label="Paste anything" placeholder="Paste anything: a ticket, dmesg or SEL, iblinkinfo, an nvidia-smi table, pdsh output, an error line, a command…"></textarea>
+              <div class="wb-paste-row"><span>Multi-line pastes open by themselves. A single line: press <kbd>Enter</kbd>.</span><button type="submit">Open the right tool ↵</button></div>
+            </form>
+          </div>
+          <div class="wb-grid-wrap"></div>
+        </div>
+        <div class="wb-dock" hidden>
+          <nav class="wb-crumb" aria-label="Breadcrumb"><button type="button" data-wb-back>← Workbench</button><span aria-hidden="true">/</span><b></b><span class="wb-crumb-note">Esc or ✕ returns here · this page's address opens this tool</span></nav>
+          <div class="wb-slot"></div>
+        </div>`;
+      main.parentNode.insertBefore(wbPage, main);
+      wbPage.addEventListener('click', (e) => {
+        const t = e.target instanceof Element ? e.target : null;
+        if (!t) return;
+        const o = t.closest('[data-wb-open]');
+        if (o) return wbOpen(o.dataset.wbOpen);
+        if (t.closest('[data-wb-back]')) { const el = wbDocked && wbDocked.el; if (el) el.classList.remove('show'); return; }
+      });
+      const ta = wbPage.querySelector('.wb-paste-text');
+      ta.addEventListener('paste', (e) => {
+        const text = e.clipboardData ? e.clipboardData.getData('text') : '';
+        if (!text || !/\n/.test(text.trim())) return;
+        e.preventDefault();
+        wbRouteText(text);
+      });
+      ta.addEventListener('keydown', (e) => { if (e.key === 'Enter' && !e.shiftKey && !/\n/.test(ta.value.trim())) { e.preventDefault(); wbRouteText(ta.value); } });
+      wbPage.querySelector('.wb-paste').addEventListener('submit', (e) => { e.preventDefault(); wbRouteText(ta.value); });
+      window.addEventListener('popstate', () => { if (wbOn()) wbFollowRoute(); });
+      // Esc that no tool handled (focus outside it): close the docked tool through its own ✕.
+      document.addEventListener('keydown', (e) => {
+        if (e.key !== 'Escape' || !wbDocked || e.defaultPrevented) return;
+        const el = wbDocked.el;
+        if (el.contains(document.activeElement) && el._wbEscSeen) return;
+        const x = el.querySelector('.trail-close, [data-close], [aria-label="Close"], [aria-label="Back to the Workbench"]');
+        if (x) x.click(); else el.classList.remove('show');
+      });
+      window.addEventListener('hashchange', () => { if (wbOn()) wbFollowRoute(); });
+    }
+    wbPage.hidden = false;
+    wbRender();
+    wbShowGrid(!wbDocked);
+    if (!wbPortable()) setTimeout(wbFollowRoute, 0);
+    else if (wbRoute && !wbDocked) setTimeout(() => wbOpen(wbRoute, true), 0);
+  }
+
+  // -------------------------------------------------------------
+  // SIDE DOCK
+  // On a laptop the work is two things at once: a sheet to copy from, and a tool to write
+  // into (the Case file, the Change plan, Field notes' cousin the Explain box, the Fabric
+  // map). Every tool was a modal, so using one hid the sheet, and going back to the sheet
+  // meant closing the tool. "⇥ Side" in any tool's header pins it to a resizable panel on
+  // the right; the page reflows beside it, and the pinned tool comes back on every page you
+  // open until you close it. Same dialog element, moved, so its state and listeners carry
+  // over; "⤢ Full" turns it back into the pop-up.
+  // -------------------------------------------------------------
+  const SD_KEY = 'dc_side_dock';
+  let sdPanel = null;
+  let sdDocked = null;      // { el, tool }
+  const sdRead = () => { try { const v = JSON.parse(readStored(SD_KEY) || '{}'); return v && typeof v === 'object' ? v : {}; } catch (e) { return {}; } };
+  const sdSave = (patch) => { try { localStorage.setItem(SD_KEY, JSON.stringify(Object.assign(sdRead(), patch))); } catch (e) {} };
+  const sdClampW = (w) => Math.round(Math.max(340, Math.min(w || 0, Math.min(900, window.innerWidth - 520))));
+  const sdDefaultW = () => sdClampW(Math.min(560, window.innerWidth * 0.4));
+
+  // A real modal (not the pinned tool) is open: keyboard shortcuts and scroll locks belong to it.
+  function sdOtherModalOpen() {
+    return !!document.querySelector('#global-search-modal:not(.hidden), .triage-modal-backdrop:not(.hidden), .an-backdrop.show:not(.is-side):not(.is-docked), .trail-drawer.open, .kit-drawer.open, .tour.show');
+  }
+
+  function sdEnsurePanel() {
+    if (sdPanel) return sdPanel;
+    sdPanel = document.createElement('aside');
+    sdPanel.id = 'side-dock';
+    sdPanel.className = 'side-dock';
+    sdPanel.setAttribute('aria-label', 'Pinned tool');
+    sdPanel.innerHTML = '<div class="sd-grip" role="separator" aria-orientation="vertical" aria-label="Resize the pinned tool" tabindex="0" title="Drag to resize · double-click to reset"></div><div class="sd-slot"></div>';
+    document.body.appendChild(sdPanel);
+    const grip = sdPanel.querySelector('.sd-grip');
+    grip.addEventListener('pointerdown', (e) => {
+      e.preventDefault();
+      grip.setPointerCapture(e.pointerId);
+      document.body.classList.add('sd-resizing');
+      const move = (ev) => sdSetWidth(window.innerWidth - ev.clientX, false);
+      const up = () => { grip.removeEventListener('pointermove', move); grip.removeEventListener('pointerup', up); document.body.classList.remove('sd-resizing'); sdSave({ w: sdWidth() }); repack(); };
+      grip.addEventListener('pointermove', move);
+      grip.addEventListener('pointerup', up);
+    });
+    grip.addEventListener('dblclick', () => { sdSetWidth(sdDefaultW(), true); });
+    grip.addEventListener('keydown', (e) => {
+      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+      e.preventDefault();
+      sdSetWidth(sdWidth() + (e.key === 'ArrowLeft' ? 40 : -40), true);
+    });
+    return sdPanel;
+  }
+  const sdWidth = () => parseInt(getComputedStyle(document.body).getPropertyValue('--side-w'), 10) || sdDefaultW();
+  function sdSetWidth(w, save) {
+    document.body.style.setProperty('--side-w', `${sdClampW(w)}px`);
+    if (save) { sdSave({ w: sdClampW(w) }); repack(); }
+  }
+
+  function sdDock(el, tool) {
+    if (!el || IN_WIDGET_FRAME) return;
+    // Out of the Workbench page first, if it was docked there.
+    if (typeof wbDocked !== 'undefined' && wbDocked && wbDocked.el === el) { wbUndock(true); wbSetRoute(''); wbRender(); wbShowGrid(true); }
+    if (sdDocked && sdDocked.el !== el) sdUndock(true);
+    sdEnsurePanel().querySelector('.sd-slot').appendChild(el);
+    el.classList.add('show', 'is-side');
+    document.body.classList.add('has-side');
+    sdSetWidth(sdRead().w || sdDefaultW(), false);
+    if (!sdOtherModalOpen()) document.body.style.overflow = '';
+    sdDocked = { el, tool };
+    sdSave({ id: tool ? tool.id : '' });
+    sdSyncPins();
+    repack();
+    if (!el._sdObs) {
+      el._sdObs = new MutationObserver(() => { if (sdDocked && sdDocked.el === el && !el.classList.contains('show')) sdUndock(true); });
+      el._sdObs.observe(el, { attributes: true, attributeFilter: ['class'] });
+    }
+  }
+
+  // clear: the tool was closed, so forget it; otherwise it becomes a pop-up again.
+  function sdUndock(clear) {
+    if (!sdDocked) return;
+    const { el } = sdDocked;
+    sdDocked = null;
+    el.classList.remove('is-side');
+    document.body.appendChild(el);
+    document.body.classList.remove('has-side');
+    if (clear) { sdSave({ id: '' }); el.classList.remove('show'); }
+    else if (el.classList.contains('show')) document.body.style.overflow = 'hidden';
+    sdSyncPins();
+    repack();
+  }
+
+  // "⇥ Side" / "⤢ Full" in the header of every tool the Workbench knows.
+  function sdSyncPins() {
+    document.querySelectorAll('.an-backdrop').forEach(el => {
+      const head = el.querySelector('.an-head');
+      const tool = typeof wbToolFor === 'function' ? wbToolFor(el) : null;
+      if (!head || !tool || el.classList.contains('kb-help')) return;
+      let b = head.querySelector('.sd-pin');
+      if (!b) {
+        b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'sd-pin';
+        const close = head.querySelector('.trail-close');
+        if (close) close.before(b); else head.appendChild(b);
+        b.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (el.classList.contains('is-side')) { sdUndock(false); return; }
+          sdDock(el, wbToolFor(el));
+          showGlobalToast(`${wbToolFor(el).name} stays beside the page, on every page, until you close it.`);
+        });
+      }
+      const side = el.classList.contains('is-side');
+      b.textContent = side ? '⤢ Full' : '⇥ Side';
+      b.title = side ? 'Back to a pop-up over the page' : 'Pin beside the page: keep it open while you use the sheets';
+    });
+  }
+
+  // Reopen the pinned tool on this page.
+  function sdRestore() {
+    const id = sdRead().id;
+    if (!id || IN_WIDGET_FRAME) return;
+    // The Workbench already opened this tool full-page from its address: leave it there.
+    if (wbDocked && wbDocked.tool && wbDocked.tool.id === id) return;
+    const t = WB_TOOLS.find(x => x.id === id && !x.overlay && !x.href);
+    if (!t) return;
+    const before = new Set(document.querySelectorAll('.an-backdrop.show'));
+    try { t.open(); } catch (e) { return; }
+    const el = [...document.querySelectorAll('.an-backdrop.show')].find(x => !before.has(x) && !x.classList.contains('kb-help')) || (t.cls ? document.querySelector(`.an-backdrop.show.${t.cls}`) : null);
+    if (el) {
+      sdDock(el, t);
+      // Opening it took focus (some tools focus a field a moment later); on a page load the page keeps it.
+      const give = () => { if (el.contains(document.activeElement)) document.activeElement.blur(); };
+      give(); setTimeout(give, 60); setTimeout(give, 250); setTimeout(give, 600);
+    }
+  }
+
+  function initSideDock() {
+    if (IN_WIDGET_FRAME) return;
+    // Pins appear on every tool dialog as it opens.
+    new MutationObserver((muts) => {
+      // (Some tools build their dialog already shown, then append it: watch additions too.)
+      if (muts.some(m => (m.type === 'attributes' && m.target instanceof Element && m.target.classList.contains('an-backdrop') && m.target.classList.contains('show') && !m.target.querySelector('.sd-pin'))
+        || (m.type === 'childList' && [...m.addedNodes].some(n => n instanceof Element && n.classList.contains('an-backdrop') && !n.querySelector('.sd-pin'))))) sdSyncPins();
+      // A pinned tool reopened from a menu locks the page as a modal would: it is not one.
+      if (sdDocked && document.body.style.overflow === 'hidden' && sdDocked.el.classList.contains('show') && !sdOtherModalOpen()) document.body.style.overflow = '';
+    }).observe(document.body, { subtree: true, childList: true, attributes: true, attributeFilter: ['class', 'style'] });
+    window.addEventListener('resize', () => { if (sdDocked) sdSetWidth(sdWidth(), false); });
+    setTimeout(sdRestore, 120);
+  }
+
+  // -------------------------------------------------------------
+  // ROOT LENS: which commands need root, and how they are copied
+  // 120 of 3,392 commands said "sudo", and not the ones you would guess: `sudo nvme list`
+  // had it, `dmidecode`, `smartctl`, `perfquery` and `mlxlink` (all root-only) did not.
+  // Nothing told you a command would fail with "Permission denied" until it did. Every
+  // command is now checked stage by stage against the rules below; root-only ones carry a
+  // "root" tag that says why (the device node, the firmware table, the umad port), and
+  // "maybe" where it depends on the box (dmesg_restrict, the docker group). Copying follows
+  // one site-wide choice: the house rule from AGENTS.md (a "# needs root" line, no sudo:
+  // you elevate your own way), a sudo prefix on the stages that need it, or as written.
+  // Facts checked 2026-11-08: Ubuntu 20.10+ builds with CONFIG_SECURITY_DMESG_RESTRICT;
+  // /sys/firmware/dmi/tables/DMI is 0400 root and /dev/nvme0 is 0600 root on a current
+  // kernel; infiniband-diags write MADs through root-only /dev/infiniband/umad*; lspci shows
+  // capabilities as <access denied> to non-root.
+  // -------------------------------------------------------------
+  const ROOT_STYLE_KEY = 'dc_root_style';
+  const ROOT_STYLES = {
+    note: { label: '# needs root, no sudo', sub: 'The house rule: a "# needs root" line above the command, sudo taken off. You elevate your own way (sudo, a root shell).' },
+    sudo: { label: 'Add sudo', sub: 'sudo in front of each part of the command that needs root.' },
+    asis: { label: 'As written', sub: 'Exactly what the sheet shows.' }
+  };
+  const rootStyle = () => { const v = readStored(ROOT_STYLE_KEY); return ROOT_STYLES[v] ? v : 'note'; };
+  // [pattern at the start of a pipeline stage, level, why]
+  const PRIV_RULES = [
+    [/^dmidecode\b/, 'root', 'reads the firmware DMI tables (/sys/firmware/dmi/tables/DMI is 0400 root)'],
+    [/^smartctl\b(?!\s+(-h|--help|-V|--version)\b)/, 'root', 'opens the drive and sends raw SMART / pass-through commands'],
+    [/^nvme\s+list\b/, 'maybe', 'depends on the nvme-cli version and what it reads; every other nvme command opens /dev/nvmeX (0600 root)'],
+    [/^nvme\b(?!\s+(version|help|--help|-h|list)\b)/, 'root', 'opens the NVMe controller node (/dev/nvmeX is 0600 root)'],
+    [/^lspci\b[^|;&]*\s-(v{2,3}|x{2,4}|[a-zA-Z]*v{2})/, 'root', 'capabilities (LnkSta, AER, DevCtl) show <access denied> unless root'],
+    [/^(perfquery|iblinkinfo|ibnetdiscover|ibqueryerrors|ibswitches|ibhosts|ibrouters|ibnodes|ibroute|ibtracert|sminfo|smpquery|smpdump|saquery|ibportstate|ibdiagnet|ibping|ibaddr|ibclearcounters|ibclearerrors|ibcheck\w*|ibsysstat|vendstat|dump_fts|ibcacheedit)\b/, 'root', 'sends MADs through /dev/infiniband/umad*, which is root-only by default'],
+    [/^(mst|mlxlink|mlxconfig|flint|mstflint|mlxfwmanager|mlxcables|mlxdump|mlxfwreset|mlxreg|mlxtrace|mlxuptime|mlxmcg|mlxi2c|mlxprivhost|mlx_fs_dump)\b(?!\s+(-h|--help|-v|--version)\b)/, 'root', 'MFT reaches the adapter through mst / PCI config space: root'],
+    [/^ipmitool\b(?![^|;&]*\s-H\b)/, 'root', 'in-band IPMI goes through /dev/ipmi0, root-only (over the network with -H it is not)'],
+    [/^(ipmi-sensors|ipmi-sel|ipmi-fru|ipmi-chassis|ipmi-dcmi|ipmi-oem|ipmi-raw|bmc-info|bmc-config|ipmi-config|ipmipower|ipmiconsole)\b(?![^|;&]*\s(-h\s|--hostname))/, 'root', 'in-band FreeIPMI uses the local IPMI driver, root-only (with -h <bmc> it is not)'],
+    [/^(saa|\.\/saa|ipmicfg|\.\/ipmicfg)\b(?![^|;&]*\s-i\s)/, 'root', 'Supermicro in-band tools talk to the BMC through the host driver: root'],
+    [/^(racadm)\b(?![^|;&]*\s-r\s)/, 'root', 'local racadm talks to the iDRAC through the host driver: root (remote with -r is not)'],
+    [/^(ilorest)\b(?![^|;&]*--url)/, 'root', 'local ilorest uses the CHIF driver to reach iLO: root (with --url it is not)'],
+    [/^(OneCli|onecli|\.\/OneCli)\b(?![^|;&]*--bmc)/, 'root', 'local OneCLI reaches the XCC in-band: root (with --bmc it is not)'],
+    [/^(modprobe|rmmod|insmod|depmod)\b/, 'root', 'loads or unloads kernel modules'],
+    [/^(fdisk|sfdisk|cfdisk|gdisk|sgdisk|parted|wipefs|blkdiscard|mkfs\S*|mkswap|swapon|swapoff|mdadm|pvcreate|pvremove|pvs|pvdisplay|vgcreate|vgextend|vgs|vgdisplay|lvcreate|lvextend|lvs|lvdisplay|multipath|dmsetup|cryptsetup|hdparm|nvme-cli|e2fsck|fsck\S*|xfs_repair|tune2fs|resize2fs|xfs_growfs)\b/, 'root', 'works on block devices or device-mapper, which are root-only'],
+    [/^sg_\w+\b/, 'root', 'SCSI generic /dev/sg* nodes are root (or disk group) only'],
+    [/^(mount|umount)\s+\S/, 'root', 'mounting and unmounting need root'],
+    [/^(tcpdump|tshark|dumpcap|arp-scan|nmap\b[^|;&]*\s-s[SUAFNXO])\b/, 'root', 'captures or crafts raw packets (CAP_NET_RAW)'],
+    [/^(iptables|ip6tables|nft|ebtables|firewall-cmd|ufw)\b/, 'root', 'changes the firewall'],
+    [/^ip\s+(-\S+\s+)*(link|l|addr|address|a|route|r|neigh|n|rule|tunnel|netns|xfrm)\s+(add|del|delete|set|change|replace|flush|append)\b/, 'root', 'changes interfaces, addresses or routes (CAP_NET_ADMIN)'],
+    [/^ethtool\s+(-[sKGALCErfU]|--set-\S+|--change|--reset|--flash|--identify|-p)\b/, 'root', 'changes NIC settings or blinks its LED (CAP_NET_ADMIN)'],
+    [/^sysctl\b[^|;&]*(\s-w\b|\s--write\b|\s-p\b|\s--system\b|\s[\w.]+=\S)/, 'root', 'writes kernel parameters'],
+    [/^systemctl\b(?![^|;&]*--user)[^|;&]*\s(start|stop|restart|reload|try-restart|reload-or-restart|enable|disable|mask|unmask|daemon-reload|daemon-reexec|edit|kill|isolate|set-property|reboot|poweroff|halt|kexec|reset-failed|preset)\b/, 'root', 'changes system services'],
+    [/^(apt|apt-get|aptitude|dnf|yum|zypper|snap)\s+(install|remove|purge|upgrade|update|full-upgrade|dist-upgrade|autoremove|reinstall|downgrade|refresh|makecache|clean)\b/, 'root', 'installs or changes system packages'],
+    [/^(dpkg\s+(-i|--install|-r|--remove|-P|--purge|--configure)|rpm\s+(-i|-U|-F|-e|--install|--upgrade|--erase)|pacman\s+-[SRU])/, 'root', 'installs or changes system packages'],
+    [/^(reboot|shutdown|poweroff|halt|init\s+[0-6]|telinit)\b/, 'root', 'restarts or stops the machine'],
+    [/^(useradd|usermod|userdel|groupadd|groupmod|groupdel|chpasswd|newusers|visudo|vipw|chage)\b/, 'root', 'changes accounts or sudo rules'],
+    [/^passwd\s+\w/, 'root', "changes another user's password"],
+    [/^chown\b/, 'root', 'gives files to another owner'],
+    [/^(ras-mc-ctl|mcelog|edac-ctl)\b/, 'root', 'reads the machine-check / rasdaemon records'],
+    [/^efibootmgr\b[^|;&]*\s-(c|b|B|o|n|N|a|A|O|t|T|D)\b/, 'root', 'writes UEFI boot variables'],
+    [/^nvidia-smi\b[^|;&]*\s(-r|--gpu-reset|-pm|--persistence-mode|-pl|--power-limit|-lgc|--lock-gpu-clocks|-rgc|--reset-gpu-clocks|-lmc|--lock-memory-clocks|-rmc|-ac|--applications-clocks|-rac|-mig|--multi-instance-gpu|-e|--ecc-config|-c|--compute-mode|-p|--reset-ecc-errors)\b/, 'root', 'changes GPU state (reset, persistence, clocks, power, MIG, ECC)'],
+    [/^nvidia-bug-report\.sh\b/, 'root', 'collects logs and device state only root can read'],
+    [/^(dd)\b[^|;&]*\b(if|of)=\/dev\/(sd|nvme|md|dm-|hd|vd|xvd|mapper)/, 'root', 'reads or writes a raw disk'],
+    [/^(crictl|ctr)\b/, 'root', 'talks to the container runtime socket, root-only'],
+    [/^tee\s+(-a\s+)?\/(etc|sys|proc|boot|dev)\//, 'root', 'writes into /etc, /sys, /proc or /boot'],
+    [/^(echo|printf)\b[^|;&]*>\s*\/(sys|proc|etc|dev)\//, 'root', 'writes into /sys, /proc or /etc'],
+    [/^(scontrol\s+(update|create|delete|reconfigure|reboot|shutdown|takeover)|sacctmgr\s+(-i\s+)?(add|create|modify|update|delete|remove)|sreport\b.*--all)\b/, 'admin', 'Slurm changes need root, SlurmUser or a Slurm operator/admin'],
+    [/^dmesg\b/, 'maybe', 'root where kernel.dmesg_restrict = 1 (Ubuntu 20.10+, Arch); check: sysctl kernel.dmesg_restrict'],
+    [/^journalctl\b(?![^|;&]*--user)/, 'maybe', 'the system journal needs root or the systemd-journal / adm group'],
+    [/^docker\b/, 'maybe', 'root, or membership of the docker group (which is root-equivalent)'],
+    [/^lshw\b/, 'maybe', 'runs as a user but leaves most hardware out: run as root for the full picture'],
+    [/^(ss|netstat)\b[^|;&]*\s-[a-zA-Z]*p/, 'maybe', "process names for other users' sockets need root"],
+    [/^(strace|ltrace|gdb)\b[^|;&]*\s-p\b/, 'maybe', 'attaching to another process needs root (kernel.yama.ptrace_scope)'],
+    [/^perf\s+(record|top|stat|trace)\b/, 'maybe', 'system-wide profiling needs root (kernel.perf_event_paranoid)']
+  ];
+  const PRIV_RANK = { root: 3, admin: 2, maybe: 1 };
+  // sudo used for something else than "run this as root".
+  const SUDO_OTHER = /^sudo\s+(-[a-zA-Z]*[uglkKvisVhe]\b|--user|--list|--validate|--login|--shell|--edit|--reset-timestamp|--version|--help|-u\s)/;
+
+  // Stages with the operator before each: [{ op, text }]. Quotes and $() are kept whole.
+  function privStages(cmd) {
+    const out = [];
+    let cur = '', op = '', q = '', depth = 0;
+    const s = String(cmd || '');
+    for (let i = 0; i < s.length; i++) {
+      const c = s[i], two = s.slice(i, i + 2);
+      if (q) { cur += c; if (c === q && s[i - 1] !== '\\') q = ''; continue; }
+      if (c === '"' || c === "'") { q = c; cur += c; continue; }
+      if (c === '(' || c === '{') depth++;
+      if ((c === ')' || c === '}') && depth) depth--;
+      if (!depth && (two === '&&' || two === '||')) { out.push({ op, text: cur }); op = two; cur = ''; i++; continue; }
+      if (!depth && (c === '|' || c === ';' || c === '\n')) { out.push({ op, text: cur }); op = c; cur = ''; continue; }
+      cur += c;
+    }
+    out.push({ op, text: cur });
+    return out;
+  }
+  // The command word of a stage: without sudo, env assignments and wrappers.
+  function privBare(stage) {
+    let t = stage.trim().replace(/^\$\s+/, '');
+    let sudo = false;
+    for (let guard = 0; guard < 6; guard++) {
+      const before = t;
+      if (/^sudo\b/.test(t) && !SUDO_OTHER.test(t)) { sudo = true; t = t.replace(/^sudo(\s+-[nEHAbP]+)*\s+/, ''); }
+      t = t.replace(/^([A-Za-z_]\w*=("[^"]*"|'[^']*'|\S*)\s+)+/, '')
+        .replace(/^(env|nohup|time|stdbuf(\s+-\S+)*|nice(\s+-n\s*-?\d+)?|ionice(\s+-c\s*\d)?(\s+-n\s*\d)?|timeout(\s+-\S+)*\s+\d+[smhd]?|watch(\s+-\S+(\s+\d+(\.\d+)?)?)*)\s+/, '');
+      if (t === before) break;
+    }
+    return { bare: t, sudo };
+  }
+
+  function privOf(cmd) {
+    const res = { level: '', why: '', tool: '', sudo: false };
+    if (!cmd || /\bsudo\.html$/.test(anatSheetFile || window.location.pathname)) return res;
+    privStages(cmd).forEach(st => {
+      const { bare, sudo } = privBare(st.text);
+      if (sudo) res.sudo = true;
+      const hit = PRIV_RULES.find(([re]) => re.test(bare));
+      let level = hit ? hit[1] : '', why = hit ? hit[2] : '';
+      // The sheet's own author said sudo: trust it, with no rule to explain why.
+      if (!level && sudo) { level = 'root'; why = 'this sheet runs it with sudo'; }
+      if (level && (PRIV_RANK[level] || 0) > (PRIV_RANK[res.level] || 0)) { res.level = level; res.why = why; res.tool = (bare.match(/^\S+/) || [''])[0]; }
+    });
+    return res;
+  }
+
+  // The copy, in the chosen style. One line only: scripts and heredocs go out as written.
+  function privCopy(text, fleetOn) {
+    const s = String(text || '');
+    if (/\n/.test(s.trim()) || !s.trim()) return s;
+    const p = privOf(s);
+    if (p.level !== 'root') return s;
+    const style = rootStyle();
+    if (style === 'asis') return s;
+    const stages = privStages(s);
+    if (style === 'sudo') {
+      return stages.map(st => {
+        const { bare, sudo } = privBare(st.text);
+        const needs = PRIV_RULES.some(([re, lv]) => lv === 'root' && re.test(bare));
+        const lead = (st.text.match(/^\s*/) || [''])[0];
+        const body = st.text.slice(lead.length);
+        return st.op + lead + (needs && !sudo ? `sudo ${body}` : body);
+      }).join('');
+    }
+    // note: take sudo off every stage, say it once above.
+    const stripped = stages.map(st => {
+      const lead = (st.text.match(/^\s*/) || [''])[0];
+      const body = st.text.slice(lead.length);
+      return st.op + lead + (/^sudo\b/.test(body) && !SUDO_OTHER.test(body) ? body.replace(/^sudo(\s+-[nEHAbP]+)*\s+/, '') : body);
+    }).join('');
+    // Fleet wraps the line in pdsh quotes: a comment line would break it.
+    return fleetOn ? stripped : `# needs root\n${stripped}`;
+  }
+
+  function privTagHtml(raw) {
+    const p = privOf(raw);
+    if (!p.level) return '';
+    const label = p.level === 'root' ? 'root' : p.level === 'admin' ? 'Slurm admin' : 'maybe root';
+    return `<button type="button" class="priv-tag priv-${p.level}" data-priv-why="${escapeHtml(p.why)}" data-priv-tool="${escapeHtml(p.tool)}" title="${escapeHtml(`${p.tool}: ${p.why}`)}"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>${label}</button>`;
+  }
+
+  let privPop = null;
+  function privOpen(btn) {
+    if (!privPop) {
+      privPop = document.createElement('div');
+      privPop.className = 'priv-pop';
+      privPop.setAttribute('role', 'dialog');
+      privPop.setAttribute('aria-label', 'Root commands');
+      document.body.appendChild(privPop);
+      document.addEventListener('mousedown', (e) => { if (privPop.classList.contains('show') && !privPop.contains(e.target) && !(e.target instanceof Element && e.target.closest('.priv-tag'))) privPop.classList.remove('show'); });
+      privPop.addEventListener('keydown', (e) => { if (e.key === 'Escape') { e.stopPropagation(); privPop.classList.remove('show'); if (privPop._btn) privPop._btn.focus(); } });
+      privPop.addEventListener('change', (e) => {
+        const r = e.target instanceof HTMLInputElement && e.target.name === 'priv-style' ? e.target : null;
+        if (!r) return;
+        try { localStorage.setItem(ROOT_STYLE_KEY, r.value); } catch (err) {}
+        privApplyStyle();
+        showGlobalToast(`Root commands now copy: ${ROOT_STYLES[r.value].label}.`);
+      });
+    }
+    const level = (btn.className.match(/priv-(root|admin|maybe)/) || [])[1];
+    const style = rootStyle();
+    privPop._btn = btn;
+    privPop.innerHTML = `
+      <div class="priv-pop-head"><b>${level === 'root' ? 'Needs root' : level === 'admin' ? 'Needs Slurm admin rights' : 'May need root'}</b><code>${escapeHtml(btn.dataset.privTool || '')}</code></div>
+      <p class="priv-why">${escapeHtml(btn.dataset.privWhy || '')}</p>
+      ${level === 'root' ? `<fieldset class="priv-styles"><legend>Copy root commands, everywhere on the site</legend>
+        ${Object.entries(ROOT_STYLES).map(([k, v]) => `<label><input type="radio" name="priv-style" value="${k}" ${k === style ? 'checked' : ''} /><span><b>${escapeHtml(v.label)}</b><small>${escapeHtml(v.sub)}</small></span></label>`).join('')}
+      </fieldset>` : '<p class="priv-note">Copied as written: whether it needs root depends on how this machine is set up.</p>'}`;
+    privPop.classList.add('show');
+    const r = btn.getBoundingClientRect();
+    const w = privPop.offsetWidth, h = privPop.offsetHeight;
+    privPop.style.left = `${Math.max(8, Math.min(r.left, window.innerWidth - w - 8))}px`;
+    privPop.style.top = `${r.bottom + 6 + h > window.innerHeight ? Math.max(8, r.top - h - 6) : r.bottom + 6}px`;
+    const first = privPop.querySelector('input:checked') || privPop.querySelector('input');
+    if (first) first.focus();
+  }
+
+  function privApplyStyle() {
+    document.body.dataset.rootStyle = rootStyle();
+  }
+
+  function initRootLens() {
+    privApplyStyle();
+    // The tag sits inside a copy box: capture phase, so it opens the explanation instead of copying.
+    window.addEventListener('click', (e) => {
+      const b = e.target instanceof Element ? e.target.closest('.priv-tag') : null;
+      if (!b) return;
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      if (privPop && privPop.classList.contains('show') && privPop._btn === b) { privPop.classList.remove('show'); return; }
+      privOpen(b);
+    }, true);
+    window.addEventListener('keydown', (e) => {
+      const b = e.target instanceof Element ? e.target.closest('.priv-tag') : null;
+      if (b && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); e.stopImmediatePropagation(); b.click(); }
+    }, true);
+    window.addEventListener('storage', (e) => { if (e.key === ROOT_STYLE_KEY) privApplyStyle(); });
+  }
+
+  // -------------------------------------------------------------
   // EXPLAIN A COMMAND
   // The site decodes errors you paste, but not commands: the line in a ticket, a vendor KB,
   // a chat or someone's shell history. This explains one offline: the line is split into
@@ -11937,13 +13492,13 @@ ${rmaTrailSection()}#### Action Requested:
     const stages = [
       { id: 'identify', n: 1, title: 'Identify', what: 'Which node, which BMC, is it drained?',
         done: !!node, status: node ? `${node}${bmc ? ` · BMC ${bmc}` : ' · no BMC set'}` : 'No node named yet',
-        acts: [['node', node ? 'Switch node' : 'Name this node'], ['rack', 'Where is it?'], ['drain', 'Copy drain check'], ['targets', 'Rack Targets'], ['rosetta', 'BMC Rosetta']] },
+        acts: [['intake', 'Paste the ticket'], ['node', node ? 'Switch node' : 'Name this node'], ['rack', 'Where is it?'], ['drain', 'Copy drain check'], ['targets', 'Rack Targets'], ['rosetta', 'BMC Rosetta']] },
       { id: 'collect', n: 2, title: 'Collect', what: 'Read-only evidence: dmesg, SEL, telemetry.',
         done: trail.length >= 1 || collected > 0, status: trail.length || collected ? `${trail.length} command${trail.length === 1 ? '' : 's'} run · ${collected} analys${collected === 1 ? 'is' : 'es'} pinned` : 'Paste an error or a whole dump',
         acts: [['checkup', 'Node checkup'], ['capture', 'Capture script'], ['paste', 'Paste a log'], ['timeline', 'Incident timeline'], ['console', 'Terminal']] },
       { id: 'correlate', n: 3, title: 'Correlate', what: 'Across layers, nodes and a healthy twin.',
         done: kinds.has('Node X-ray') || kinds.has('Node comparison') || kinds.has('Fleet results') || kinds.has('Incident timeline'), status: fl.active ? `Fleet on · ×${fleetExpand(fl.hosts).length} nodes` : [kinds.has('Node comparison') && 'compared', kinds.has('Fleet results') && 'fleet checked', kinds.has('Incident timeline') && 'timeline pinned'].filter(Boolean).join(' · ') || 'One node, or many?',
-        acts: [['xray', 'Node X-ray'], ['diff', 'Compare nodes'], ['fleet', fl.active ? 'Fleet settings' : 'Fleet mode'], ['fleetres', 'Fleet results']] },
+        acts: [['xray', 'Node X-ray'], ['diff', 'Compare nodes'], ['fleet', fl.active ? 'Fleet settings' : 'Fleet mode'], ['fleetres', 'Fleet results'], ['fabric', 'Fabric map']] },
       { id: 'isolate', n: 4, title: 'Isolate', what: 'Physical checks before declaring a part dead.',
         done: runs.some(x => x.p.done >= Math.ceil(x.p.total / 2)), status: runs[0] ? `${runs[0].rb.title.split(/[/(]/)[0].trim()}: ${runs[0].p.done}/${runs[0].p.total}` : 'Clean, reseat, A/B swap',
         acts: [['runbook', runs[0] ? 'Resume runbook' : 'Guided runbooks'], ['cable', 'Cable check'], ['plan', 'Change plan'], ['atlas', 'Healthy ranges']] },
@@ -11957,7 +13512,7 @@ ${rmaTrailSection()}#### Action Requested:
   }
   function flowHtml(f) {
     const done = f.stages.filter(st => st.done).length;
-    return `<div class="lp-flow-head"><h3>Incident flow</h3><span>${done ? `${done} of 5 steps done for this node` : 'The five-step method: each step holds its tools'}</span>${done ? '<button type="button" class="lp-flow-reset" data-flow="newnode" title="Start a fresh node workspace">+ New incident</button>' : ''}</div>
+    return `<div class="lp-flow-head"><h3>Incident flow</h3><span>${done ? `${done} of 5 steps done for this node` : 'The five-step method: each step holds its tools'}</span>${done ? '<button type="button" class="lp-flow-reset" data-flow="newnode" title="Start a fresh node workspace">+ New incident</button>' : ''}<button type="button" class="lp-flow-reset lp-flow-all" data-lp-go="tools.html" title="Every tool on one page">All tools →</button></div>
       <ol class="lp-flow-track">${f.stages.map(st => `
         <li class="lp-stage is-${st.state}">
           <div class="lp-stage-top"><span class="lp-stage-n" aria-hidden="true">${st.done ? '✓' : st.n}</span><b>${st.title}</b>${st.state === 'next' ? '<em>next</em>' : ''}</div>
@@ -11984,6 +13539,8 @@ ${rmaTrailSection()}#### Action Requested:
     if (a === 'capture') return openCapture();
     if (a === 'cable') return openPanel('check');
     if (a === 'plan') return openPlan();
+    if (a === 'intake') return openIntake();
+    if (a === 'fabric') return openFabric();
     if (a === 'rack') return openRack(readNodes().active || '');
     if (a === 'console') return toggleConsole(true);
     if (a === 'diff') return openGoldenDiff();
@@ -13371,11 +14928,13 @@ ${rmaTrailSection()}#### Action Requested:
     });
     const gutter = lines.some(l => l.op);
     const danger = DANGER_RE.test(raw);
-    const inner = (danger ? `<span class="danger-tag" aria-label="Changes state">⚠ Changes state · drain &amp; get approval first</span><button type="button" class="mop-add ${cpHas(cpPick(raw)) ? 'is-in' : ''}" title="Plan it: pre-checks, approval, verify and rollback">${cpHas(cpPick(raw)) ? '✓ In change plan' : '+ Change plan'}</button>` : '')
+    const inner = privTagHtml(raw) + (danger ? `<span class="danger-tag" aria-label="Changes state">⚠ Changes state · drain &amp; get approval first</span><button type="button" class="mop-add ${cpHas(cpPick(raw)) ? 'is-in' : ''}" title="Plan it: pre-checks, approval, verify and rollback">${cpHas(cpPick(raw)) ? '✓ In change plan' : '+ Change plan'}</button>` : '')
       + lines.map(l => `<span class="anat-line"${alternatives.length > 1 ? ` data-alt="${escapeHtml(l.alt)}" title="Click to copy this alternative"` : ''}>${gutter ? `<span class="anat-op">${escapeHtml(l.op)}</span>` : ''}<span class="anat-body">${l.html}</span></span>`).join('');
     if (danger) box.classList.add('anat-danger');
     const target = codeEl.tagName === 'PRE' ? codeEl : codeEl;
     target.innerHTML = codeEl.tagName === 'PRE' ? `<code>${inner}</code>` : inner;
+    // In the house style a leading sudo is not copied: show it struck through.
+    if (privOf(raw).level === 'root') target.querySelectorAll('.anat-body > .anat-pre:first-child').forEach(t => { if (t.textContent === 'sudo') t.classList.add('is-sudo'); });
     codeEl.classList.add('anat', gutter ? 'anat-gutter' : 'anat-flat');
     box.classList.add('anat-on');
     if (map.size) box.closest('.cmd-item')?.classList.add('anat-linked');

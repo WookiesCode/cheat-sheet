@@ -10,6 +10,7 @@ const vm = require('vm');
 const SHEETS_CONFIG = [
   // Home (Mission Control) has no command data; common.js renders it.
   { key: 'home', file: 'index.html', js: null, name: 'Home', varName: null, prompt: '◆', cursor: '_', title: 'Mission Control', subtitle: 'Decode an error, check the node you are on, run a runbook, practise the commands', pill: 'Triage · Runbooks · Practice' },
+  { key: 'tools', file: 'tools.html', js: null, name: 'Workbench', varName: null, prompt: '⚒', cursor: '_', title: 'Workbench', subtitle: 'Every tool in incident order, a paste box that opens the right one, and an address for each', pill: 'Every tool · one page' },
   { key: 'notes', file: 'notes.html', js: null, name: 'Notes', varName: null, prompt: '✎', cursor: '_', title: 'Field Notes', subtitle: 'Write as you work: one Markdown note per server and ticket, saved to cases/ or your Obsidian vault', pill: 'Markdown · per server · Obsidian' },
   { key: 'linux', file: 'linux.html', js: 'app.js', name: 'Linux', varName: 'CHEAT_SHEET_DATA', prompt: '$', cursor: '_', title: 'Ubuntu Linux Reference', subtitle: 'Interactive command cheat sheet, flag breakdown & pipe recipes', pill: 'Ubuntu / APT / systemd' },
   { key: 'cli-tools', file: 'cli-tools.html', js: 'cli-tools.js', name: 'CLI Tools', varName: 'CLI_TOOLS_DATA', prompt: 'CLI', cursor: '>', title: 'Modern CLI Tools Reference', subtitle: 'ripgrep, bat, fzf, fd, eza, zoxide, jq, dust, btop, delta, gum & modern shell utilities', pill: 'Rust / Go / Modern TUI' },

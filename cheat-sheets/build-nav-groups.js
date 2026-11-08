@@ -72,7 +72,7 @@ const TABS = [
   { key: 'tickets', label: 'Ticketing', href: 'jira.html', cols: [['jira']] }
 ];
 // Top-level order; strings are tabs, { id } are menus kept as they are.
-const ORDER = ['home', 'os', 'editors', { id: 'cli-nav-dropdown' }, { id: 'scripting-nav-dropdown' }, 'net', 'remote', 'hw', 'devops', 'tickets'];
+const ORDER = ['home', 'tools', 'os', 'editors', { id: 'cli-nav-dropdown' }, { id: 'scripting-nav-dropdown' }, 'net', 'remote', 'hw', 'devops', 'tickets'];
 
 // ---- parsing -------------------------------------------------------------
 function balancedDivEnd(s, start) {
@@ -153,6 +153,8 @@ ${tab.cols.map(col => `                  <div class="ng-col">\n${col.map(k => gr
 }
 
 const HOME_LINK = '<a href="index.html" class="sheet-link nav-home"><svg class="nav-logo" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 9.5V20h5v-6h4v6h5V9.5"/></svg><span>Home</span></a>';
+// Every tool on one page (tools.html), next to Home.
+const TOOLS_LINK = '<a href="tools.html" class="sheet-link nav-tools"><svg class="nav-logo" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M17.5 14v7M14 17.5h7"/></svg><span>Workbench</span></a>';
 
 // ---- per page ----------------------------------------------------------------
 const NAV = /(<nav class="sheet-switcher" aria-label="Switch cheat sheet">)([\s\S]*?)(\n\s*<\/nav>)/;
@@ -209,10 +211,12 @@ for (const file of fs.readdirSync(__dirname).filter(f => f.endsWith('.html') && 
   const rendered = Object.fromEntries(Object.entries(groups).map(([k, g]) => [k, groupHtml(k, g)]));
 
   byHref('index.html');
+  byHref('tools.html');
   byHref('notes.html');   // retired Notes tab: recognise it so it is removed, not kept as unknown
   const out = [];
   for (const slot of ORDER) {
     if (slot === 'home') out.push(HOME_LINK);
+    else if (slot === 'tools') out.push(TOOLS_LINK);
     else if (typeof slot === 'string') out.push(tabHtml(TABS.find(t => t.key === slot), rendered));
     else { const keep = byId(slot.id); if (keep) out.push(keep); }
   }
