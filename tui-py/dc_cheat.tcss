@@ -1,0 +1,89 @@
+/* dc_cheat.tcss: the site's dark theme (cheat-sheets/styles.css :root tokens) in Textual CSS. */
+$bg-base: #0b0e14;
+$bg-surface: #111621;
+$bg-elevated: #171e2c;
+$bg-code: #080b10;
+$bg-hover: #1e2738;
+$border-subtle: #1f293a;
+$border-strong: #2d3b54;
+$text-primary: #e6edf3;
+$text-secondary: #9aa7b8;
+$text-muted: #64748b;
+$accent: #38bdf8;
+$accent-green: #4ade80;
+$accent-amber: #fbbf24;
+$accent-red: #f87171;
+$accent-purple: #c084fc;
+
+Screen { background: $bg-base; color: $text-primary; layers: base; }
+
+/* ---- header: brand, search, toolbar ---------------------------------- */
+#topbar { height: 3; padding: 0 1; background: $bg-base; }
+#brand { width: auto; height: 3; content-align: left middle; padding: 0 1 0 0; }
+#brand-chip { width: auto; height: 3; border: round $border-strong; color: $accent-green; text-style: bold; padding: 0 1; }
+#brand-title { width: auto; height: 3; content-align: left middle; text-style: bold; padding: 0 2 0 1; }
+#search { width: 1fr; min-width: 24; height: 3; background: $bg-surface; border: round $border-strong; color: $text-primary; }
+#search:focus { border: round $accent; }
+.tbtn { width: auto; height: 3; border: round $border-strong; color: $text-primary; padding: 0 1; margin-left: 1; }
+.tbtn:hover { background: $bg-hover; }
+.tbtn.-danger { border: round #7f1d1d; color: $accent-red; }
+Screen.-narrow .tbtn.-wide-only { display: none; }
+
+/* ---- nav tabs ---------------------------------------------------------- */
+#tabs { height: 3; margin: 0 1; border: round $border-subtle; background: $bg-surface; padding: 0 1; }
+.tab { width: auto; height: 1; padding: 0 1; color: $text-secondary; }
+.tab:hover { background: $bg-hover; color: $text-primary; }
+.tab.-active { background: #0c2a3a; color: $accent; text-style: bold; }
+
+/* ---- rack targets ------------------------------------------------------ */
+#targets { height: 1; margin: 1 1 0 1; }
+.tgt { width: auto; height: 1; margin-right: 1; padding: 0 1; background: $bg-surface; color: $text-secondary; }
+.tgt.-label { background: #0c2a3a; color: $accent; text-style: bold; }
+.tgt.-dashed { color: $text-secondary; }
+
+/* ---- body: sidebar + cards -------------------------------------------- */
+#body { height: 1fr; margin-top: 1; }
+#sidebar { width: 34; padding: 0 1 0 1; scrollbar-size-vertical: 1; }
+#suite-head { height: 3; border: round $border-strong; background: $bg-surface; padding: 0 1; }
+.side-group { height: 1; color: $text-muted; text-style: bold; margin-top: 1; padding-left: 1; }
+.side-item { height: 1; padding-left: 1; color: $text-secondary; }
+.side-item:hover { background: $bg-hover; color: $text-primary; }
+.side-item.-active { background: #0c2a3a; color: $text-primary; text-style: bold; border-left: outer $accent; }
+
+#main { width: 1fr; padding: 0 1 0 1; scrollbar-size-vertical: 1; }
+#cols { height: auto; }
+.col { width: 1fr; height: auto; }
+Screen.-narrow .col.-second { display: none; }
+
+/* ---- cards ------------------------------------------------------------- */
+.card { height: auto; border: round $border-strong; background: $bg-surface; margin: 0 1 1 0; padding: 0 1 1 1; }
+.card-head { height: auto; margin-bottom: 1; }
+.chip { width: auto; height: 3; border: round $border-strong; color: $accent; text-style: bold; padding: 0 1; }
+.card-titles { width: 1fr; height: auto; padding: 0 0 0 1; }
+.card-title { text-style: bold; color: $text-primary; height: auto; }
+.card-sub { color: $text-muted; height: auto; }
+
+.desc { color: $text-primary; text-style: bold; height: auto; margin-top: 1; }
+.cmdbox { height: auto; background: $bg-code; border: round $border-subtle; padding: 0 1; }
+.cmdbox:hover { border: round $border-strong; background: #0d121b; }
+.cmdbox:focus { border: round $accent; }
+.cmdbox.-danger { border: round #7f1d1d; }
+.cmdbox.-danger:focus { border: round $accent-red; }
+.details { height: auto; color: $text-secondary; background: $bg-elevated; border-left: outer $accent; padding: 0 1; margin-top: 1; }
+.flagrow { height: auto; background: $bg-elevated; margin-top: 1; padding: 0 1; }
+.flag { width: auto; max-width: 26; min-width: 6; height: auto; margin-right: 2; color: $accent; text-style: bold; }
+.flagdesc { width: 1fr; height: auto; color: $text-secondary; }
+.sub { height: auto; padding: 0 1; margin-top: 1; background: $bg-code; }
+.sub:hover { background: $bg-hover; }
+.sub:focus { background: $bg-hover; border-left: outer $accent; }
+.tip { height: auto; margin-top: 1; color: $text-secondary; }
+
+/* ---- pager + footer ---------------------------------------------------- */
+#pager { height: 4; margin: 0 1; }
+.page { width: 1fr; height: 4; border: round $border-strong; background: $bg-surface; padding: 0 1; }
+.page:hover { background: $bg-hover; }
+#page-suite { width: 30; margin: 0 1; content-align: center middle; }
+#page-next { content-align: right top; }
+#hints { height: 1; padding: 0 1; color: $text-muted; background: $bg-surface; }
+#tip-text { width: 1fr; }
+#keys { width: auto; color: $text-secondary; }
