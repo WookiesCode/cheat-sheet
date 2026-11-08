@@ -500,7 +500,7 @@
   // command to a different BMC.
   // -------------------------------------------------------------
   const NODES_KEY = 'dc_nodes';
-  const NODE_DATA_KEYS = ['dc_target_vars', 'dc_case_trail', 'dc_case_trail_meta', 'dc_runbook_runs', 'dc_slot_values', 'dc_case_file', 'dc_node_vitals', 'dc_change_plan'];
+  const NODE_DATA_KEYS = ['dc_target_vars', 'dc_case_trail', 'dc_case_trail_meta', 'dc_runbook_runs', 'dc_slot_values', 'dc_case_file', 'dc_node_vitals', 'dc_change_plan', 'dc_cmd_outputs'];
 
   function readNodes() {
     try {
@@ -5093,7 +5093,7 @@ ${rmaTrailSection()}#### Action Requested:
   // the ✦ tool that can read it, Copy, 📌 Pin to case, Re-run.
   // -------------------------------------------------------------
   function conBoxRaw(box) {
-    const raw = box.dataset.copy ?? box.dataset.cmd ?? box.dataset.subcmd ?? (() => { const c = box.cloneNode(true); c.querySelectorAll('.con-send, .con-run, .fleet-badge').forEach(x => x.remove()); return c.textContent; })();
+    const raw = box.dataset.copy ?? box.dataset.cmd ?? box.dataset.subcmd ?? (() => { const c = box.cloneNode(true); c.querySelectorAll('.con-send, .con-run, .pb-btn, .fleet-badge').forEach(x => x.remove()); return c.textContent; })();
     return String(raw || '').trim();
   }
   function liveRunnable(raw) {
@@ -5122,6 +5122,9 @@ ${rmaTrailSection()}#### Action Requested:
     conRun(cmd, { timeout: 60000 }).then(text => {
       panel._out = { text, cmd, who, at: Date.now() };
       liveRender(panel);
+      // Kept for this node, like a pasted output.
+      pbSave(box, panel._out);
+      panel.classList.add('is-kept');
     }).catch(e => {
       panel.className = 'cmd-out is-failed';
       panel.innerHTML = `<div class="cmd-out-head"><span class="cmd-out-k">Failed</span><span>${escapeHtml(e.message)}</span><button type="button" data-out="close" aria-label="Close output">✕</button></div>`;
@@ -6888,7 +6891,7 @@ ${rmaTrailSection()}#### Action Requested:
     return [`### Node checkup: ${r.host} · ${r.verdict} (score ${r.score})`, '', `${r.ident.join(' · ')}${r.up ? `  \n${r.up}` : ''}`, '', '| Area | Result | Detail |', '|---|---|---|',
       ...r.checks.map(c => `| ${icon[c.sev]} ${c.title} | ${c.summary} | ${c.details.slice(0, 3).join('<br>') || ''} |`), '', `_Read-only sweep run ${new Date(r.at).toLocaleString()}._`].join('\n');
   }
-  function ckRender(r) {
+  function ckRender(r, prev, demo) {
     const order = { crit: 0, warn: 1, info: 2, ok: 3, skip: 4 };
     const rows = r.checks.slice().sort((a, b) => order[a.sev] - order[b.sev]);
     return `<div class="ck-head is-${r.crit ? 'crit' : r.warn ? 'warn' : 'ok'}">
@@ -6897,13 +6900,14 @@ ${rmaTrailSection()}#### Action Requested:
           <p>${escapeHtml(r.ident.join(' · '))}${r.up ? `<br><span>${escapeHtml(r.up.replace(/^\s*[\d:]+\s+/, ''))}</span>` : ''}</p>
           <div class="ck-tally"><span class="is-crit">${r.crit} critical</span><span class="is-warn">${r.warn} watch</span><span class="is-ok">${r.ok} healthy</span><span class="is-skip">${r.checks.filter(c => c.sev === 'skip').length} n/a</span></div></div>
       </div>
+      ${prev ? ckDeltaHtml(prev, r, demo) : ''}
       <ol class="ck-list">${rows.map((c, i) => `<li class="ck-row is-${c.sev}" style="--i:${i}">
           <span class="ck-ico" aria-hidden="true">${c.icon}</span>
           <div class="ck-main"><div class="ck-line"><b>${escapeHtml(c.title)}</b><em>${{ crit: 'Critical', warn: 'Watch', ok: 'OK', info: 'Info', skip: 'n/a' }[c.sev]}</em></div><p>${escapeHtml(c.summary)}</p>
             ${c.details.length && c.sev !== 'ok' ? `<ul>${c.details.slice(0, 5).map(d => `<li>${escapeHtml(d)}</li>`).join('')}</ul>` : ''}</div>
           ${c.open ? `<button type="button" class="ck-open" data-ck-open="${escapeHtml(c.id)}">${escapeHtml(c.open.label)} →</button>` : ''}
         </li>`).join('')}</ol>
-      <div class="an-actions ck-actions"><button type="button" class="xr-run" data-ck="run">${con.live ? '▶ Run again' : '▶ Connect &amp; run'}</button><button type="button" data-ck="copy">Copy as Markdown</button><button type="button" data-ck="pin">📌 Pin to case</button></div>`;
+      <div class="an-actions ck-actions">${r.host === 'gpu-node-12' && !prev && r.checks.some(c => c.id === 'svc' && c.sev !== 'ok') ? '<button type="button" data-ck="sample-ba">See it after the fix →</button>' : ''}<button type="button" class="xr-run" data-ck="run">${con.live ? '▶ Run again' : '▶ Connect &amp; run'}</button><button type="button" data-ck="copy">Copy as Markdown</button><button type="button" data-ck="pin">📌 Pin to case</button></div>`;
   }
   function ckScanHtml(who) {
     const steps = ['Scheduler', 'GPUs', 'Kernel log', 'Memory ECC', 'InfiniBand', 'NVMe', 'Services', 'Filesystems'];
@@ -6928,12 +6932,12 @@ ${rmaTrailSection()}#### Action Requested:
       document.body.appendChild(ckEl);
       const out = ckEl.querySelector('.ck-out');
       ckEl._draw = () => {
-        if (ckEl._r) { out.innerHTML = ckRender(ckEl._r); return; }
+        if (ckEl._r) { out.innerHTML = ckRender(ckEl._r, ckEl._prev, ckEl._demo); return; }
         out.innerHTML = `<div class="ck-start">
             <div class="ck-start-ring" aria-hidden="true">♥</div>
             <div><h3>${con.live ? `Check ${escapeHtml(con.hello ? `${con.hello.user}@${con.hello.host}` : 'the connected shell')}` : 'Connect the terminal to check a node'}</h3>
             <p>${con.live ? 'Reads /sys, nvidia-smi, dmesg / journalctl, systemctl, sinfo and df. Nothing is changed.' : 'The checkup runs at the terminal prompt: Connect &amp; run opens it and starts as soon as the shell is up.'}</p>
-            <div class="ck-start-acts"><button type="button" class="xr-run ck-go" data-ck="run">${con.live ? '▶ Run checkup' : '▶ Connect &amp; run'}</button><button type="button" data-ck="copycmd">Copy the command</button><button type="button" data-ck="sample">See a sample report</button></div></div>
+            <div class="ck-start-acts"><button type="button" class="xr-run ck-go" data-ck="run">${con.live ? '▶ Run checkup' : '▶ Connect &amp; run'}</button><button type="button" data-ck="copycmd">Copy the command</button><button type="button" data-ck="sample">See a sample report</button><button type="button" data-ck="sample-ba">See a before/after sample</button></div></div>
           </div>`;
       };
       ckEl.addEventListener('click', (e) => {
@@ -6947,7 +6951,17 @@ ${rmaTrailSection()}#### Action Requested:
         const act = b.dataset.ck, r = ckEl._r;
         if (act === 'close') closeCheckup();
         if (act === 'run') ckRun();
-        if (act === 'sample') { ckEl._r = ckAnalyze(CK_SAMPLE); ckEl._draw(); }
+        if (act === 'sample') { ckEl._r = ckAnalyze(CK_SAMPLE); ckEl._prev = null; ckEl._demo = false; ckEl._draw(); }
+        if (act === 'sample-ba') {
+          // Two samples, two hours apart: never stored.
+          const before = ckAnalyze(CK_SAMPLE);
+          before.at = Date.now() - 2 * 3600 * 1000;
+          ckEl._prev = ckSnap(before, 'sample');
+          ckEl._r = ckAnalyze(CK_SAMPLE_AFTER);
+          ckEl._demo = true;
+          ckEl._draw();
+        }
+        if (act === 'pinba' && r && ckEl._prev) casePin({ kind: 'Before / after', title: `Before/after ${r.host}: score ${ckEl._prev.score} → ${r.score}`, sev: r.crit ? 'crit' : r.warn ? 'warn' : 'ok', md: ckDeltaMarkdown(ckEl._prev, r), facts: [['Host', r.host]] });
         if (act === 'copycmd') { copyVerbatim(CK_CMD); b.textContent = 'Copied ✓'; showGlobalToast('Copied the checkup command: paste its output into the hub box or Ctrl+K.'); }
         if (act === 'copy' && r) { copyVerbatim(ckMarkdown(r)); showGlobalToast('Copied the checkup as Markdown.'); }
         if (act === 'pin' && r) casePin({ kind: 'Node checkup', title: `Checkup ${r.host}: ${r.verdict} (score ${r.score})`, sev: r.crit ? 'crit' : r.warn ? 'warn' : 'ok', md: ckMarkdown(r), facts: [['Host', r.host], ...(r.ident[1] ? [['Model', r.ident.slice(0, 2).join(' ')]] : []), ...(r.ident[2] ? [['BIOS', r.ident[2]]] : [])] });
@@ -6955,7 +6969,13 @@ ${rmaTrailSection()}#### Action Requested:
       ckEl.addEventListener('keydown', (e) => { if (e.key === 'Escape') { e.stopPropagation(); closeCheckup(); } });
     }
     ckEl._focus = document.activeElement;
-    if (text) { ckEl._r = ckAnalyze(text); if (text !== CK_SAMPLE && !(vitalsRead().checkup && vitalsRead().checkup.text === text)) vitalsSave('checkup', ckEl._r, text); }
+    if (text) {
+      ckEl._r = ckAnalyze(text);
+      ckEl._demo = false;
+      const sample = text === CK_SAMPLE || text === CK_SAMPLE_AFTER;
+      if (ckEl._r && !sample && !(vitalsRead().checkup && vitalsRead().checkup.text === text)) vitalsSave('checkup', ckEl._r, text);
+      ckEl._prev = ckEl._r && !sample ? ckPrevFor(ckEl._r, ckSig(text)) : null;
+    }
     ckEl._draw();
     ckEl.classList.add('show');
     document.body.style.overflow = 'hidden';
@@ -6982,11 +7002,115 @@ ${rmaTrailSection()}#### Action Requested:
     conRun(CK_CMD, { timeout: 120000 }).then(text => {
       ckEl._r = ckAnalyze(text);
       vitalsSave('checkup', ckEl._r, text);
+      ckEl._demo = false;
+      ckEl._prev = ckPrevFor(ckEl._r, ckSig(text));
       if (!ckEl._r) { out.innerHTML = `<p class="an-hint">The sweep ran but printed nothing usable. First lines:</p><pre class="xr-raw">${escapeHtml(text.split('\n').slice(0, 10).join('\n') || '(no output)')}</pre>`; return; }
       ckEl._draw();
       showGlobalToast(`Checkup of ${ckEl._r.host}: ${ckEl._r.verdict}.`);
       const f = ckEl.querySelector('.ck-open, [data-ck="copy"]'); if (f) f.focus();
     }).catch(e => { out.innerHTML = `<p class="an-hint">Checkup failed: ${escapeHtml(e.message)}.</p>`; });
+  }
+
+  // -------------------------------------------------------------
+  // BEFORE / AFTER (checkup history)
+  // The method ends in "verify": after a reseat, a clean or a swap, run the checkup again.
+  // But only the latest checkup was kept, so the question that closes the ticket ("what did
+  // my fix change?") was answered by memory. Every checkup is now kept per node (the last
+  // 12), and a report shows what changed since the one before: fixed, better, new, worse
+  // and still failing, with the score trend; one click pins the before/after table to the
+  // case. Samples are never stored; "See a before/after sample" shows the idea with two.
+  // -------------------------------------------------------------
+  const CK_HIST_MAX = 12;
+  const CK_SAMPLE_AFTER = CK_SAMPLE
+    .split('\n')
+    .filter(l => !/Xid|fallen off the bus|AER: (Corrected|Uncorrected)|Cable unplugged|fabricmanager\.service|\/var$/.test(l))
+    .map(l => l.replace('mlx5_3/1 | 1: DOWN | 3: Disabled | 10 Gb/sec (4X SDR)', 'mlx5_3/1 | 4: ACTIVE | 5: LinkUp | 400 Gb/sec (4X NDR)')
+      .replace('(DOWN) ==> ibp94s0 (Down)', '(ACTIVE) ==> ibp94s0 (Up)')
+      .replace(' 03:20:11 up 41 days,  6:02', ' 05:41:37 up 0 days,  0:38')
+      .replace('0000:db:00.0 3D controller: NVIDIA Corporation GH100 [H200 SXM 141GB] (rev ff)', '0000:db:00.0 3D controller: NVIDIA Corporation GH100 [H200 SXM 141GB] (rev a1)'))
+    .reduce((out, l) => {
+      out.push(l);
+      // The GPU that fell off the bus is back after the reseat.
+      if (/^6, 00000000:BA:00\.0/.test(l)) out.push('7, 00000000:DB:00.0, 1652823051344, NVIDIA H200, 39, 47, 302.18 W, 0, No, No, 5, 16, 0x0000000000000000');
+      return out;
+    }, [])
+    .join('\n');
+
+  // A short fingerprint of a checkup's raw output: the same run is recognised again.
+  const ckSig = (t) => { const s = String(t || ''); let h = 5381; for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0; return (h >>> 0).toString(36) + s.length.toString(36); };
+  const ckSnap = (r, sig) => ({ at: r.at, sig, host: r.host, score: r.score, crit: r.crit, warn: r.warn, ok: r.ok, verdict: r.verdict, rows: r.checks.map(c => ({ id: c.id, title: c.title, sev: c.sev, summary: c.summary })) });
+  const ckHist = () => { const v = vitalsRead(); return Array.isArray(v.ckHist) ? v.ckHist : []; };
+
+  // The checkup this one should be compared with: the one before it, for the same host.
+  function ckPrevFor(r, sig) {
+    if (!r) return null;
+    const h = ckHist().filter(e => e.host === r.host);
+    const i = h.findIndex(e => e.sig === sig);
+    if (i > 0) return h[i - 1];
+    if (i === 0) return null;
+    return h.length ? h[h.length - 1] : null;
+  }
+
+  function ckDelta(prev, r) {
+    const rank = { crit: 2, warn: 1, ok: 0, info: 0 };
+    const g = { fixed: [], better: [], fresh: [], worse: [], still: [] };
+    r.checks.forEach(c => {
+      const p = prev.rows.find(x => x.id === c.id);
+      if (!p || p.sev === 'skip' || c.sev === 'skip') {
+        if ((!p || p.sev === 'skip') && (c.sev === 'crit' || c.sev === 'warn')) g.fresh.push({ c, p });
+        return;
+      }
+      const a = rank[p.sev] ?? 0, b = rank[c.sev] ?? 0;
+      if (a > 0 && b === 0) g.fixed.push({ c, p });
+      else if (a === 2 && b === 1) g.better.push({ c, p });
+      else if (a === 0 && b > 0) g.fresh.push({ c, p });
+      else if (a === 1 && b === 2) g.worse.push({ c, p });
+      else if (a > 0 && a === b) g.still.push({ c, p });
+    });
+    return g;
+  }
+
+  const CK_SEV_WORD = { crit: 'Critical', warn: 'Watch', ok: 'OK', info: 'Info', skip: 'n/a' };
+  function ckTrendSvg(points, w = 132, h = 30) {
+    if (!points || points.length < 2) return '';
+    const pts = points.slice(-CK_HIST_MAX);
+    const x = (i) => 4 + (i * (w - 8)) / (pts.length - 1);
+    const y = (s) => h - 4 - (Math.max(0, Math.min(100, s)) / 100) * (h - 8);
+    const sev = (e) => (e.crit ? 'crit' : e.warn ? 'warn' : 'ok');
+    return `<svg class="ck-trend" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" role="img" aria-label="Health score over the last ${pts.length} checkups: ${pts.map(p => p.score).join(', ')}">
+      <polyline points="${pts.map((p, i) => `${x(i).toFixed(1)},${y(p.score).toFixed(1)}`).join(' ')}"/>
+      ${pts.map((p, i) => `<circle class="is-${sev(p)}" cx="${x(i).toFixed(1)}" cy="${y(p.score).toFixed(1)}" r="${i === pts.length - 1 ? 3.4 : 2.4}"><title>${escapeHtml(`${p.score} · ${p.verdict || ''} · ${new Date(p.at).toLocaleString()}`)}</title></circle>`).join('')}
+    </svg>`;
+  }
+
+  function ckDeltaHtml(prev, r, demo) {
+    const g = ckDelta(prev, r);
+    const d = r.score - prev.score;
+    const trend = demo ? [prev, ckSnap(r, '')] : ckHist().filter(e => e.host === r.host);
+    const row = ({ c, p }, kind) => `<li class="ba-row ba-${kind}"><b>${escapeHtml(c.title)}</b>
+        <span class="ba-before"><em class="is-${p ? p.sev : 'skip'}">${CK_SEV_WORD[p ? p.sev : 'skip']}</em>${escapeHtml(p ? p.summary : 'not checked')}</span>
+        <span class="ba-arrow" aria-hidden="true">→</span>
+        <span class="ba-after"><em class="is-${c.sev}">${CK_SEV_WORD[c.sev]}</em>${escapeHtml(c.summary)}</span></li>`;
+    const group = (k, label) => g[k].length ? `<h4 class="ba-h ba-h-${k}">${label} <small>${g[k].length}</small></h4><ul class="ba-list">${g[k].map(x => row(x, k)).join('')}</ul>` : '';
+    const any = Object.values(g).some(a => a.length);
+    return `<section class="ba" aria-label="Changes since the previous checkup">
+      <header class="ba-head">
+        <div><span class="an-type">Since the previous checkup${demo ? ' · sample' : ''}</span>
+          <b>${escapeHtml(lpAgo(prev.at))}: score ${prev.score} → ${r.score} <i class="ba-d ${d > 0 ? 'is-up' : d < 0 ? 'is-down' : ''}">${d > 0 ? `▲ ${d}` : d < 0 ? `▼ ${-d}` : '±0'}</i></b>
+          <span class="ba-sum">${[g.fixed.length && `${g.fixed.length} fixed`, g.better.length && `${g.better.length} better`, g.fresh.length && `${g.fresh.length} new`, g.worse.length && `${g.worse.length} worse`, g.still.length && `${g.still.length} still failing`].filter(Boolean).join(' · ') || 'No change'}</span></div>
+        ${ckTrendSvg(trend)}
+        <button type="button" data-ck="pinba">📌 Pin before/after</button>
+      </header>
+      ${any ? `${group('fixed', '✓ Fixed')}${group('better', '↗ Better')}${group('fresh', '✱ New')}${group('worse', '↘ Worse')}${group('still', '● Still failing')}` : '<p class="ba-none">Every area reads the same as last time.</p>'}
+    </section>`;
+  }
+
+  function ckDeltaMarkdown(prev, r) {
+    const g = ckDelta(prev, r);
+    const lines = [`### Before / after: ${r.host}`, '', `Checkup ${new Date(prev.at).toLocaleString()} (score ${prev.score}) → ${new Date(r.at).toLocaleString()} (score ${r.score})`, '', '| Area | Before | After | Change |', '|---|---|---|---|'];
+    [['fixed', 'Fixed'], ['better', 'Better'], ['fresh', 'New'], ['worse', 'Worse'], ['still', 'Still failing']].forEach(([k, label]) => g[k].forEach(({ c, p }) => lines.push(`| ${c.title} | ${p ? `${CK_SEV_WORD[p.sev]}: ${p.summary}` : 'not checked'} | ${CK_SEV_WORD[c.sev]}: ${c.summary} | ${label} |`)));
+    if (lines.length === 6) lines.push('| — | — | — | No change |');
+    return lines.join('\n');
   }
 
   // -------------------------------------------------------------
@@ -7275,6 +7399,8 @@ ${rmaTrailSection()}#### Action Requested:
       });
       safeInit('initSideDock', () => initSideDock());
       safeInit('initRootLens', () => initRootLens());
+      safeInit('initSelectionActions', () => initSelectionActions());
+      safeInit('initPasteBack', () => initPasteBack());
       safeInit('mountWorkbench', () => mountWorkbench(anatSheetFile || window.location.pathname.split('/').pop() || 'index.html'));
       safeInit('initRosetta', () => initRosetta());
       safeInit('initKit', () => initKit());
@@ -12449,6 +12575,312 @@ ${rmaTrailSection()}#### Action Requested:
   }
 
   // -------------------------------------------------------------
+  // SELECTION ACTIONS
+  // The site reads a lot back to you: decoded errors, X-ray tiles, fabric problems, ticket
+  // text, terminal output, runbook findings. Using any of it meant select, copy, find the
+  // right box, paste: mlx5_4 into Rack Targets, the BMC address from a ticket, an Xid line
+  // into the decoder. Now selecting text anywhere brings up a small bar with what that text
+  // can be: an HCA or interface or disk or BMC for Rack Targets, a host to work on, an error
+  // to decode, a command to explain, output for the tool that reads it; and always Search,
+  // Pin to case and Copy as a code block. Inputs, editors and the terminal keep their own
+  // selection behaviour.
+  // -------------------------------------------------------------
+  const SEL_SKIP = 'input, textarea, select, [contenteditable=""], [contenteditable="true"], .xterm, .fn-editor, .sel-bar, .cbar, .priv-pop, .node-pop, .slot-pop';
+  let selBar = null;
+  let selText = '';
+  let selTimer = 0;
+
+  // What a piece of text can be, most specific first: [{ id, label, title, run }]
+  function selActions(raw) {
+    const text = String(raw || '').trim();
+    const one = !/\n/.test(text);
+    const acts = [];
+    const target = (k, v, what) => acts.push({ id: `t-${k}`, label: `$${k.toUpperCase()} = ${v.length > 22 ? v.slice(0, 21) + '…' : v}`, title: `Set ${what} in Rack Targets: every command fills it in`, run: () => selSetTarget(k, v, what) });
+    if (one && text.length <= 120) {
+      const w = text.replace(/^["'(\[]|["',.:;)\]]$/g, '');
+      if (/^mlx\d+_\d+$/.test(w)) target('hca', w, 'the HCA');
+      else if (/^(ib\d+|ib[a-z]\d\w*|en[ops]\w+|eth\d+|bond\d+|ens\d\w*)$/.test(w)) target('iface', w, 'the interface');
+      else if (/^(\/dev\/)?(nvme\d+n\d+|sd[a-z]{1,2}|md\d+|vd[a-z])$/.test(w)) target('disk', w.startsWith('/dev/') ? w : `/dev/${w}`, 'the disk');
+      else if (/^(?:[0-9a-f]{4}:)?[0-9a-f]{2}:[0-9a-f]{2}\.[0-7]$/i.test(w)) target('gpu', w.length === 7 ? `0000:${w}` : w, 'the GPU (by BDF)');
+      else if (/^GPU\s*#?\s*(\d{1,2})$/i.test(w)) target('gpu', w.match(/(\d{1,2})$/)[1], 'the GPU');
+      else if (/^\d{1,3}(\.\d{1,3}){3}$/.test(w) || (/^[0-9a-f:]+$/i.test(w) && (w.match(/:/g) || []).length >= 2 && /\d/.test(w)) || /^[a-z0-9][\w.-]*-(bmc|ipmi|idrac|ilo|xcc)\b[\w.-]*$/i.test(w)) target('bmc', w, 'the BMC address');
+      // A host: one the rack inventory knows, or a node-like name.
+      let dev = null;
+      try { dev = rkLayout().devices.find(d => rkKey(d.host) === rkKey(w)); } catch (e) {}
+      const hostish = dev || (/^[a-z][a-z0-9]*(-[a-z0-9]+){1,4}$/i.test(w) && /\d/.test(w) && !/^(mlx|nvme|ib|en|eth|sd|bond)/i.test(w) && !/^[A-Z][A-Z0-9]+-\d+$/.test(w));
+      if (hostish) {
+        acts.push({ id: 'work', label: `Work on ${w}`, title: `Switch to the ${w} node workspace`, run: () => { if (readNodes().active !== cleanNodeName(w)) switchNode(w); else showGlobalToast(`Already on ${w}.`); } });
+        if (dev) acts.push({ id: 'where', label: 'Where is it?', title: 'Open the Rack view at this device', run: () => openRack(dev.host) });
+      }
+    }
+    if (one && decodeSymptom(text)) acts.push({ id: 'decode', label: '⚡ Decode', title: 'What it means, how bad, the next read-only commands', run: () => openGlobalSearch(text) });
+    else if (one && looksLikeCommand(text)) acts.push({ id: 'explain', label: '? Explain', title: 'Explain this command word by word', run: () => openExplain(text) });
+    if (!one) {
+      const route = tkLooksLike(text) ? ['Start from this ticket', () => openIntake(text)]
+        : fmLooksLike(text) ? ['Draw the fabric', () => openFabric(text)]
+        : frLooksLike(text) ? ['Fleet results', () => openFleetResults(text)]
+        : ckLooksLike(text) ? ['Node checkup', () => openCheckup(text)]
+        : xrLooksLike(text) ? ['Node X-ray', () => openXray(text)]
+        : detectOutput(text) ? ['Read this output', () => openAnalyzer(text)] : null;
+      if (route) acts.push({ id: 'route', label: `↗ ${route[0]}`, title: 'Open it in the tool that reads it', run: route[1] });
+    }
+    if (one && text.length <= 200) acts.push({ id: 'search', label: '🔍 Search', title: 'Search every sheet for this', run: () => openGlobalSearch(text) });
+    acts.push({ id: 'pin', label: '📌 Pin', title: "Pin this text to the node's case file", run: () => selPin(text) });
+    acts.push({ id: 'code', label: '⧉ Code block', title: 'Copy as a Markdown code block, for the ticket', run: () => { copyVerbatim('```\n' + tkMask(text).safe + '\n```'); showGlobalToast('Copied as a code block.'); } });
+    return acts;
+  }
+
+  function selSetTarget(k, v, what) {
+    targetState.vars[k] = v;
+    saveTargetState();
+    renderTargetVarsBar();
+    refreshSlots();
+    showGlobalToast(`${what.replace(/^the /, '').replace(/^./, c => c.toUpperCase())} set: $${k.toUpperCase()} = ${v}. Every command fills it in.`);
+  }
+
+  function selPin(text) {
+    const { safe, masked } = tkMask(text);
+    const where = (document.querySelector('.an-backdrop.show .an-head h2') || document.querySelector('.brand-title-row h1') || {}).textContent || currentSheetName();
+    const first = safe.split('\n')[0].trim();
+    casePin({ kind: 'Selection', title: `${first.length > 60 ? first.slice(0, 58) + '…' : first}`, sev: 'info', md: `### From ${String(where).trim()}\n\n\`\`\`\n${safe}\n\`\`\``, facts: [] });
+    if (masked) setTimeout(() => showGlobalToast('A password in the selection was masked before pinning.'), 400);
+  }
+
+  function selHide() {
+    if (selBar) selBar.classList.remove('show');
+    selText = '';
+  }
+
+  function selShow() {
+    const sel = window.getSelection();
+    if (!sel || sel.isCollapsed || !sel.rangeCount) return selHide();
+    const text = sel.toString();
+    if (!text.trim() || text.length > 20000) return selHide();
+    const anchor = sel.anchorNode && (sel.anchorNode.nodeType === 1 ? sel.anchorNode : sel.anchorNode.parentElement);
+    const focus = sel.focusNode && (sel.focusNode.nodeType === 1 ? sel.focusNode : sel.focusNode.parentElement);
+    if ((anchor && anchor.closest(SEL_SKIP)) || (focus && focus.closest(SEL_SKIP))) return selHide();
+    const acts = selActions(text);
+    if (!selBar) {
+      selBar = document.createElement('div');
+      selBar.className = 'sel-bar';
+      selBar.setAttribute('role', 'toolbar');
+      selBar.setAttribute('aria-label', 'Do something with the selected text');
+      document.body.appendChild(selBar);
+      // Keep the selection: buttons must not take it away on mousedown.
+      selBar.addEventListener('mousedown', (e) => e.preventDefault());
+      selBar.addEventListener('click', (e) => {
+        const b = e.target instanceof Element ? e.target.closest('[data-sel]') : null;
+        if (!b || !selBar._acts) return;
+        const a = selBar._acts.find(x => x.id === b.dataset.sel);
+        selHide();
+        if (a) { try { a.run(); } catch (err) { console.error('[cheat-sheet] selection action failed:', err); } }
+      });
+    }
+    selBar._acts = acts;
+    selText = text;
+    selBar.innerHTML = acts.map(a => `<button type="button" data-sel="${a.id}" class="sel-${a.id.replace(/^t-.*/, 'target')}" title="${escapeHtml(a.title)}">${escapeHtml(a.label)}</button>`).join('');
+    selBar.classList.add('show');
+    selPlace(sel);
+  }
+
+  function selPlace(sel) {
+    if (!selBar || !selBar.classList.contains('show')) return;
+    sel = sel || window.getSelection();
+    if (!sel || !sel.rangeCount) return selHide();
+    const rects = [...sel.getRangeAt(0).getClientRects()].filter(r => r.width || r.height);
+    const r = rects[0] || sel.getRangeAt(0).getBoundingClientRect();
+    if (!r || (!r.width && !r.height)) return selHide();
+    const w = selBar.offsetWidth, h = selBar.offsetHeight;
+    let top = r.top - h - 8;
+    if (top < 8) { const last = rects[rects.length - 1] || r; top = last.bottom + 8; }
+    selBar.style.left = `${Math.round(Math.max(8, Math.min(r.left, window.innerWidth - w - 8)))}px`;
+    selBar.style.top = `${Math.round(Math.max(8, Math.min(top, window.innerHeight - h - 8)))}px`;
+  }
+
+  function initSelectionActions() {
+    if (IN_WIDGET_FRAME) return;
+    // After the selection settles (mouse up, shift+arrows), not on every change while dragging.
+    const later = () => { clearTimeout(selTimer); selTimer = setTimeout(selShow, 180); };
+    document.addEventListener('mouseup', (e) => { if (!(e.target instanceof Element && e.target.closest('.sel-bar'))) later(); });
+    document.addEventListener('keyup', (e) => { if (e.shiftKey || e.key === 'Shift') later(); });
+    document.addEventListener('selectionchange', () => {
+      const sel = window.getSelection();
+      if (selBar && selBar.classList.contains('show') && (!sel || sel.isCollapsed || sel.toString() !== selText)) selHide();
+    });
+    // Esc closes the bar only, not the dialog under it.
+    // (window, capture: before any dialog's own Esc listener; stopImmediatePropagation stops those too)
+    window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && selBar && selBar.classList.contains('show')) { e.stopImmediatePropagation(); selHide(); } }, true);
+    // Selecting part of a command is not a click to copy all of it.
+    window.addEventListener('click', (e) => {
+      const box = e.target instanceof Element ? e.target.closest('.cmd-code-box, .subcmd-row') : null;
+      if (!box || e.target.closest('button, a, .slot')) return;
+      const sel = window.getSelection();
+      if (sel && !sel.isCollapsed && sel.toString().trim() && box.contains(sel.anchorNode)) { e.preventDefault(); e.stopImmediatePropagation(); }
+    }, true);
+    window.addEventListener('scroll', () => selPlace(), true);
+    window.addEventListener('resize', () => selPlace());
+  }
+
+  // -------------------------------------------------------------
+  // PASTE-BACK NOTEBOOK
+  // Most of the time the command runs in your own ssh session, not the docked terminal, so
+  // its output had nowhere to go: the card that explains the command never saw what it
+  // printed. Now: click a command (it copies and takes focus), run it, copy what it
+  // printed, come back and press Ctrl+V. The output lands under that command as a notebook
+  // cell, read by the tool that understands it (mlxlink BER, smart-log, a GPU table, dmesg),
+  // with the worrying line flagged, Copy and 📌 Pin. "⤵ Output" on any command does the same.
+  // Cells are kept per node workspace and come back when you reopen the sheet, so a sheet
+  // shows what each command said on this node. Passwords are masked before anything is kept.
+  // -------------------------------------------------------------
+  const PB_KEY = 'dc_cmd_outputs';
+  const PB_MAX = 40;           // cells kept per node
+  const PB_TEXT_MAX = 20000;   // characters kept per cell
+  const PB_RECENT_MS = 30 * 60 * 1000;
+  let pbLast = null;           // { box, at }: the command copied last
+
+  const pbRead = () => { try { const v = JSON.parse(readStored(PB_KEY) || '{}'); return v && typeof v === 'object' ? v : {}; } catch (e) { return {}; } };
+  const pbWrite = (v) => { try { localStorage.setItem(PB_KEY, JSON.stringify(v)); } catch (e) { showGlobalToast('Could not keep this output: browser storage is full.'); } };
+  const pbFile = () => anatSheetFile || window.location.pathname.split('/').pop() || 'index.html';
+  // The same command can sit on a sheet twice (a card and its Pro tips): the key carries
+  // which occurrence, so the output stays under the box it was pasted into.
+  const pbKey = (box) => {
+    const raw = conBoxRaw(box);
+    const same = [...document.querySelectorAll(CON_BOXES)].filter(b => conBoxRaw(b) === raw);
+    const n = Math.max(0, same.indexOf(box));
+    return `${pbFile()}\u0001${raw}${n ? `\u0001${n}` : ''}`;
+  };
+  function pbShow(box, o) {
+    const panel = livePanel(box);
+    panel._out = o;
+    liveRender(panel);
+    panel.classList.add(o.pasted ? 'is-pasted' : 'is-kept');
+  }
+
+  function pbSave(box, out) {
+    const all = pbRead();
+    all[pbKey(box)] = { text: String(out.text).slice(0, PB_TEXT_MAX), cmd: out.cmd, who: out.who, at: out.at, pasted: !!out.pasted, cut: String(out.text).length > PB_TEXT_MAX };
+    // Oldest go first when the node has too many.
+    const keys = Object.keys(all).sort((a, b) => (all[a].at || 0) - (all[b].at || 0));
+    while (keys.length > PB_MAX) delete all[keys.shift()];
+    pbWrite(all);
+  }
+  function pbForget(box) {
+    const all = pbRead();
+    if (all[pbKey(box)]) { delete all[pbKey(box)]; pbWrite(all); }
+  }
+
+  function pbAttach(box, rawText, how) {
+    const { safe, masked } = tkMask(String(rawText || '').replace(/\r\n?/g, '\n').replace(/\s+$/, ''));
+    if (!safe.trim()) return;
+    const cmd = substituteVariables(firstCommand(conBoxRaw(box))).text;
+    // Pasting the command itself back is not output.
+    if (safe.trim() === cmd.trim() || safe.trim() === conBoxRaw(box).trim()) { showGlobalToast('That is the command itself: paste what it printed.'); return; }
+    const panel = livePanel(box);
+    panel._out = { text: safe, cmd, who: how || readNodes().active || 'this node', at: Date.now(), pasted: true };
+    liveRender(panel);
+    panel.classList.add('is-pasted');
+    pbSave(box, panel._out);
+    const r = conReader(safe);
+    showGlobalToast(`Output kept under ${cmd.length > 40 ? cmd.slice(0, 40) + '…' : cmd}${r ? ` · ✦ ${r.label} can read it` : ''}${masked ? ' · a password was masked' : ''}.`);
+    panel.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  }
+
+  // An empty cell with a paste box, for "⤵ Output".
+  function pbAsk(box) {
+    const panel = livePanel(box);
+    panel._out = null;
+    panel.className = 'cmd-out is-asking';
+    panel.innerHTML = `<div class="cmd-out-head"><span class="cmd-out-k">Output</span><span>run it where you are, then paste what it printed</span><button type="button" data-out="close" aria-label="Close">✕</button></div>
+      <textarea class="pb-input" rows="4" spellcheck="false" placeholder="Paste the output here (Ctrl+V). It is read, flagged and kept for this node."></textarea>`;
+    const ta = panel.querySelector('.pb-input');
+    ta.addEventListener('paste', (e) => {
+      const t = e.clipboardData ? e.clipboardData.getData('text') : '';
+      if (!t) return;
+      e.preventDefault();
+      pbAttach(box, t);
+    });
+    ta.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && (e.ctrlKey || e.metaKey) && ta.value.trim()) { e.preventDefault(); pbAttach(box, ta.value); }
+      if (e.key === 'Escape') { e.stopPropagation(); panel.remove(); const o = pbRead()[pbKey(box)]; if (o) pbShow(box, o); box.focus(); }
+    });
+    ta.focus();
+  }
+
+  function pbInject() {
+    document.querySelectorAll(CON_BOXES).forEach(box => {
+      if (box.querySelector(':scope > .pb-btn')) return;
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'pb-btn';
+      b.tabIndex = -1;
+      b.title = 'Paste what this command printed: it is kept under the command for this node (or click the command, run it, and press Ctrl+V here)';
+      b.textContent = '⤵ Output';
+      box.appendChild(b);
+    });
+  }
+
+  // Bring back the cells this node has for this sheet.
+  function pbRestore() {
+    document.querySelectorAll('.cmd-out.is-pasted, .cmd-out.is-kept').forEach(p => p.remove());
+    const all = pbRead();
+    const file = pbFile();
+    if (!Object.keys(all).some(k => k.startsWith(`${file}\u0001`))) return;
+    document.querySelectorAll(CON_BOXES).forEach(box => { const o = all[pbKey(box)]; if (o) pbShow(box, o); });
+  }
+
+  const pbEditable = (el) => !!(el && el.closest && el.closest('input, textarea, select, [contenteditable=""], [contenteditable="true"], .xterm'));
+
+  function initPasteBack() {
+    if (IN_WIDGET_FRAME) return;
+    // Remember the command copied last (a plain click on a box copies it).
+    window.addEventListener('click', (e) => {
+      const el = e.target instanceof Element ? e.target : null;
+      if (!el) return;
+      const btn = el.closest('.pb-btn');
+      if (btn) { e.preventDefault(); e.stopImmediatePropagation(); pbAsk(btn.parentElement); return; }
+      const cell = el.closest('.cmd-out [data-out]');
+      if (cell) {
+        const panel = cell.closest('.cmd-out'), box = panel.previousElementSibling;
+        if (cell.dataset.out === 'close' && box) {
+          // ✕ on the paste box cancels: the kept output (if any) comes back.
+          if (panel.classList.contains('is-asking')) {
+            e.preventDefault(); e.stopImmediatePropagation();
+            panel.remove();
+            const o = pbRead()[pbKey(box)];
+            if (o) pbShow(box, o);
+            return;
+          }
+          pbForget(box);
+        }
+        // ↻ on a pasted cell means "paste a newer output", not "run it in the terminal".
+        if (cell.dataset.out === 'again' && panel._out && panel._out.pasted && box) { e.preventDefault(); e.stopImmediatePropagation(); pbAsk(box); }
+        return;
+      }
+      const box = el.closest(CON_BOXES);
+      if (box && !el.closest('button, .slot')) pbLast = { box, at: Date.now() };
+    }, true);
+    // Ctrl+V on the page (not in a field): under the focused command, or the one copied last.
+    document.addEventListener('paste', (e) => {
+      if (pbEditable(e.target) || pbEditable(document.activeElement)) return;
+      if (document.querySelector('.an-backdrop.show:not(.is-side):not(.is-docked), #global-search-modal:not(.hidden), .triage-modal-backdrop:not(.hidden)')) return;
+      const text = e.clipboardData ? e.clipboardData.getData('text') : '';
+      if (!text || !text.trim()) return;
+      const focused = document.activeElement && document.activeElement.closest ? document.activeElement.closest(CON_BOXES) : null;
+      const recent = pbLast && Date.now() - pbLast.at < PB_RECENT_MS && document.contains(pbLast.box) ? pbLast.box : null;
+      const box = focused || recent;
+      if (!box) { showGlobalToast('Click the command you ran first, then press Ctrl+V: the output goes under it.'); return; }
+      e.preventDefault();
+      pbAttach(box, text);
+    });
+    document.addEventListener('dc:node-changed', () => setTimeout(pbRestore, 0));
+    pbInject();
+    pbRestore();
+    // Sheets render their cards after load (and the portable build swaps them in place).
+    new MutationObserver(() => { clearTimeout(initPasteBack._t); initPasteBack._t = setTimeout(() => { pbInject(); if (!document.querySelector('.cmd-out')) pbRestore(); }, 250); })
+      .observe(document.body, { childList: true, subtree: true });
+  }
+
+  // -------------------------------------------------------------
   // EXPLAIN A COMMAND
   // The site decodes errors you paste, but not commands: the line in a ticket, a vendor KB,
   // a chat or someone's shell history. This explains one offline: the line is split into
@@ -13571,6 +14003,12 @@ ${rmaTrailSection()}#### Action Requested:
     if (!r) return;
     const v = vitalsRead();
     const keep = String(text || '').slice(0, 200000);
+    if (kind === 'checkup') {
+      const h = Array.isArray(v.ckHist) ? v.ckHist : [];
+      const sig = ckSig(text);
+      if (!h.some(e => e.sig === sig)) h.push(ckSnap(r, sig));
+      v.ckHist = h.slice(-CK_HIST_MAX);
+    }
     if (kind === 'checkup') v.checkup = { host: r.host, score: r.score, crit: r.crit, warn: r.warn, ok: r.ok, verdict: r.verdict, at: Date.now(), rows: r.checks.map(c => ({ title: c.title, sev: c.sev, summary: c.summary })), text: keep };
     // A checkup carries the GPU table: it refreshes the mini tray too (never the built-in sample's).
     if (kind === 'checkup' && r.xr && r.gpuText && r.gpuText !== XR_SAMPLE) {
@@ -13604,7 +14042,7 @@ ${rmaTrailSection()}#### Action Requested:
           <button type="button" class="cp-ring" data-cp="${ck ? 'checkup-last' : 'checkup'}" title="${ck ? 'Open the last checkup' : 'Run a checkup'}">${ring}</button>
           <div class="cp-facts">
             ${ck ? `<b class="cp-verdict">${escapeHtml(ck.verdict)}</b><span class="cp-when${cpStale(ck.at) ? ' is-stale' : ''}">Checkup ${cpAgo(ck.at)}${ck.host && node && ck.host !== node ? ` · on ${escapeHtml(ck.host)}` : ''}${cpStale(ck.at) ? ' · re-run' : ''}</span>
-              <span class="ck-tally"><span class="is-crit">${ck.crit}</span><span class="is-warn">${ck.warn}</span><span class="is-ok">${ck.ok}</span></span>`
+              <span class="ck-tally"><span class="is-crit">${ck.crit}</span><span class="is-warn">${ck.warn}</span><span class="is-ok">${ck.ok}</span></span>${ckTrendSvg((v.ckHist || []).filter(e => e.host === ck.host), 120, 26)}`
             : `<b class="cp-verdict">No readings yet</b><span class="cp-when">Run a checkup to fill this panel: score, GPUs, links and problems for this node.</span>`}
           </div>
         </div>
