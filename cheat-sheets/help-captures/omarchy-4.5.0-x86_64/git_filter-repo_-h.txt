@@ -1,0 +1,7 @@
+# dc-help-capture 1
+# command: git filter-repo -h
+# label: omarchy-4.5.0-x86_64
+# version: git version 2.56.0
+# captured: 2026-11-08
+
+git: 'filter-repo' is not a git command. See 'git --help'.

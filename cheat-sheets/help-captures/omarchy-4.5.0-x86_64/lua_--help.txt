@@ -1,0 +1,18 @@
+# dc-help-capture 1
+# command: lua --help
+# label: omarchy-4.5.0-x86_64
+# version: 
+# captured: 2026-11-08
+
+lua: unrecognized option '--help'
+usage: lua [options] [script [args]]
+Available options are:
+  -e stat   execute string 'stat'
+  -i        enter interactive mode after executing 'script'
+  -l mod    require library 'mod' into global 'mod'
+  -l g=mod  require library 'mod' into global 'g'
+  -v        show version information
+  -E        ignore environment variables
+  -W        turn warnings on
+  --        stop handling options
+  -         stop handling options and execute stdin

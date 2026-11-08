@@ -7620,6 +7620,7 @@ body.is-home .sheet-shell { display: block; }
 .ex-row > span b { font-family: var(--font-mono); color: var(--syn-flag); }
 .ex-row small { font: 600 0.62rem var(--font-sans); text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); white-space: nowrap; }
 .ex-row.is-unknown > span { color: var(--text-muted); font-style: italic; }
+.ex-row .ex-general { display: block; margin-top: 0.3rem; color: var(--text-muted); }
 .ex-op-row { display: flex; align-items: center; gap: 0.7rem; padding: 0.35rem 0.8rem 0.35rem 1.05rem; font-size: 0.76rem; color: var(--text-muted); }
 .ex-op-row code { font: 700 0.9rem var(--font-mono); color: var(--syn-pipe); min-width: 1.4rem; text-align: center; }
 .ex-actions { display: flex; gap: 0.5rem; margin-top: 0.9rem; }

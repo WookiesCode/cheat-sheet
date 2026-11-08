@@ -1,0 +1,22 @@
+# dc-help-capture 1
+# command: nvidia-ctk runtime --help
+# label: ubuntu-24.04-aarch64
+# version: NVIDIA Container Toolkit CLI version 1.20.1
+# captured: 2026-11-08
+
+NAME:
+   NVIDIA Container Toolkit CLI runtime - A collection of runtime-related utilities for the NVIDIA Container Toolkit
+
+USAGE:
+   NVIDIA Container Toolkit CLI runtime [command [command options]]
+
+COMMANDS:
+   configure  Add a runtime to the specified container engine
+
+OPTIONS:
+   --help, -h  show help
+
+GLOBAL OPTIONS:
+   --debug, -d      Enable debug-level logging [$NVIDIA_CTK_DEBUG]
+   --quiet          Suppress all output except for errors; overrides --debug [$NVIDIA_CTK_QUIET]
+   --config string  Path to the config file [$NVIDIA_CTK_CONFIG]

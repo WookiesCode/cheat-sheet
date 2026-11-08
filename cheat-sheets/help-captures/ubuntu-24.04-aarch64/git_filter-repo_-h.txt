@@ -1,0 +1,7 @@
+# dc-help-capture 1
+# command: git filter-repo -h
+# label: ubuntu-24.04-aarch64
+# version: git version 2.43.0
+# captured: 2026-11-08
+
+git: 'filter-repo' is not a git command. See 'git --help'.

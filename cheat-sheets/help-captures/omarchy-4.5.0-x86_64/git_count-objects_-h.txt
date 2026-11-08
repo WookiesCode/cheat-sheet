@@ -1,0 +1,11 @@
+# dc-help-capture 1
+# command: git count-objects -h
+# label: omarchy-4.5.0-x86_64
+# version: git version 2.56.0
+# captured: 2026-11-08
+
+usage: git count-objects [-v] [-H | --human-readable]
+
+    -v, --[no-]verbose    be verbose
+    -H, --[no-]human-readable
+                          print sizes in human readable format

@@ -1,0 +1,7 @@
+# dc-help-capture 1
+# command: sh --help
+# label: ubuntu-24.04-aarch64
+# version: sh: 0: Illegal option --
+# captured: 2026-11-08
+
+sh: 0: Illegal option --

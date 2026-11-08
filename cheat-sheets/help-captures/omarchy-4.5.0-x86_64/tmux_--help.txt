@@ -1,0 +1,9 @@
+# dc-help-capture 1
+# command: tmux --help
+# label: omarchy-4.5.0-x86_64
+# version: usage: tmux [-2CDhlNuVv] [-c shell-command] [-f file] [-L socket-name]
+# captured: 2026-11-08
+
+tmux: unknown option -- -
+usage: tmux [-2CDhlNuVv] [-c shell-command] [-f file] [-L socket-name]
+            [-S socket-path] [-T features] [command [flags]]

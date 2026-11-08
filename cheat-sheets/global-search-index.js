@@ -25504,7 +25504,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "tip",
     "id": "gpu-admin-ecc-tips-card",
     "sec": "GPU Admin: Pro Tips & Best Practices",
-    "cmd": "nvidia-smi --query-remmapped-rows=gpu_name,gpu_bus_id,remapped_rows.correctable,remapped_rows.uncorrectable,remapped_rows.pending,remapped_rows.failure --format=csv",
+    "cmd": "nvidia-smi --query-remapped-rows=gpu_name,gpu_bus_id,remapped_rows.correctable,remapped_rows.uncorrectable,remapped_rows.pending,remapped_rows.failure --format=csv",
     "desc": "HBM Row Remapper RMA inspection, persistent daemon & secondary bus reset",
     "tip": "Always drain holding processes with fuser -v /dev/nvidia* before running --gpu-reset!",
     "tags": "gpu-admin-ecc tips pro nvidia gpu datacenter best-practices"

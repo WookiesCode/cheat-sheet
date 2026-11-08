@@ -1,0 +1,98 @@
+# dc-help-capture 1
+# command: findmnt --help
+# label: ubuntu-24.04-aarch64
+# version: findmnt from util-linux 2.39.3
+# captured: 2026-11-08
+
+
+Usage:
+ findmnt [options]
+ findmnt [options] <device> | <mountpoint>
+ findmnt [options] <device> <mountpoint>
+ findmnt [options] [--source <device>] [--target <path> | --mountpoint <dir>]
+
+Find a (mounted) filesystem.
+
+Options:
+ -s, --fstab            search in static table of filesystems
+ -m, --mtab             search in table of mounted filesystems
+                          (includes user space mount options)
+ -k, --kernel           search in kernel table of mounted
+                          filesystems (default)
+
+ -p, --poll[=<list>]    monitor changes in table of mounted filesystems
+ -w, --timeout <num>    upper limit in milliseconds that --poll will block
+
+ -A, --all              disable all built-in filters, print all filesystems
+ -a, --ascii            use ASCII chars for tree formatting
+ -b, --bytes            print sizes in bytes rather than in human readable format
+ -C, --nocanonicalize   don't canonicalize when comparing paths
+ -c, --canonicalize     canonicalize printed paths
+ -D, --df               imitate the output of df(1)
+ -d, --direction <word> direction of search, 'forward' or 'backward'
+ -e, --evaluate         convert tags (LABEL,UUID,PARTUUID,PARTLABEL) 
+                          to device names
+ -F, --tab-file <path>  alternative file for -s, -m or -k options
+ -f, --first-only       print the first found filesystem only
+ -i, --invert           invert the sense of matching
+ -J, --json             use JSON output format
+ -l, --list             use list format output
+ -N, --task <tid>       use alternative namespace (/proc/<tid>/mountinfo file)
+ -n, --noheadings       don't print column headings
+ -O, --options <list>   limit the set of filesystems by mount options
+ -o, --output <list>    the output columns to be shown
+     --output-all       output all available columns
+ -P, --pairs            use key="value" output format
+     --pseudo           print only pseudo-filesystems
+     --shadowed         print only filesystems over-mounted by another filesystem
+ -R, --submounts        print all submounts for the matching filesystems
+ -r, --raw              use raw output format
+     --real             print only real filesystems
+ -S, --source <string>  the device to mount (by name, maj:min, 
+                          LABEL=, UUID=, PARTUUID=, PARTLABEL=)
+ -T, --target <path>    the path to the filesystem to use
+     --tree             enable tree format output if possible
+ -M, --mountpoint <dir> the mountpoint directory
+ -t, --types <list>     limit the set of filesystems by FS types
+ -U, --uniq             ignore filesystems with duplicate target
+ -u, --notruncate       don't truncate text in columns
+ -v, --nofsroot         don't print [/dir] for bind or btrfs mounts
+ -y, --shell            use column names to be usable as shell variable identifiers
+
+ -x, --verify           verify mount table content (default is fstab)
+     --verbose          print more details
+     --vfs-all          print all VFS options
+
+ -h, --help             display this help
+ -V, --version          display version
+
+Available output columns:
+      ACTION  action detected by --poll
+       AVAIL  filesystem size available
+        FREQ  dump(8) period in days [fstab only]
+      FSROOT  filesystem root
+      FSTYPE  filesystem type
+  FS-OPTIONS  FS specific mount options
+          ID  mount ID
+       LABEL  filesystem label
+     MAJ:MIN  major:minor device number
+ OLD-OPTIONS  old mount options saved by --poll
+  OLD-TARGET  old mountpoint saved by --poll
+     OPTIONS  all mount options
+  OPT-FIELDS  optional mount fields
+      PARENT  mount parent ID
+   PARTLABEL  partition label
+    PARTUUID  partition UUID
+      PASSNO  pass number on parallel fsck(8) [fstab only]
+ PROPAGATION  VFS propagation flags
+        SIZE  filesystem size
+      SOURCE  source device
+     SOURCES  all possible source devices
+      TARGET  mountpoint
+         TID  task ID
+        USED  filesystem size used
+        USE%  filesystem use percentage
+        UUID  filesystem UUID
+ VFS-OPTIONS  VFS specific mount options
+
+For more details see findmnt(8).

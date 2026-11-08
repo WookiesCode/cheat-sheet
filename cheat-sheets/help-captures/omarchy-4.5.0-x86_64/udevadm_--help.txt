@@ -1,0 +1,32 @@
+# dc-help-capture 1
+# command: udevadm --help
+# label: omarchy-4.5.0-x86_64
+# version: 262
+# captured: 2026-11-08
+
+> udevadm [OPTION…] COMMAND [COMMAND OPTION…]
+
+Send control commands or test the device manager.
+
+Commands:
+  help                  Show this help
+  info [DEVPATH|FILE]   Query sysfs or the udev database
+  trigger DEVPATH       Request events from the kernel
+  settle                Wait for pending udev events
+  control OPTION        Control the udev daemon
+  monitor               Listen to kernel and udev events
+  test DEVPATH          Test an event run
+  test-builtin COMMAND  Test a built-in command
+    DEVPATH             
+  verify [FILE…]        Verify udev rules files
+  cat [FILE…]           Show udev rules files
+  wait DEVICE [DEVICE…] Wait for device or device symlink
+  lock COMMAND          Lock a block device and run a command
+  lock --print          
+
+Options:
+  -h --help             Show this help
+  -V --version          Show package version
+  -d --debug            Enable debug logging
+
+See the udevadm(8) man page for details.

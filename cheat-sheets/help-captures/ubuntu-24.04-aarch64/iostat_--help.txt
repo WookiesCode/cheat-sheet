@@ -1,0 +1,13 @@
+# dc-help-capture 1
+# command: iostat --help
+# label: ubuntu-24.04-aarch64
+# version: [ --compact ] [ --dec={ 0 | 1 | 2 } ] [ --human ] [ --pretty ] [ -o JSON ]
+# captured: 2026-11-08
+
+Usage: iostat [ options ] [ <interval> [ <count> ] ]
+Options are:
+[ -c ] [ -d ] [ -h ] [ -k | -m ] [ -N ] [ -s ] [ -t ] [ -V ] [ -x ] [ -y ] [ -z ]
+[ { -f | +f } <directory> ] [ -j { ID | LABEL | PATH | UUID | ... } ]
+[ --compact ] [ --dec={ 0 | 1 | 2 } ] [ --human ] [ --pretty ] [ -o JSON ]
+[ [ -H ] -g <group_name> ] [ -p [ <device> [,...] | ALL ] ]
+[ <device> [...] | ALL ]

@@ -1,0 +1,25 @@
+# dc-help-capture 1
+# command: docker logs --help
+# label: ubuntu-24.04-aarch64
+# version: Docker version 29.1.3, build 29.1.3-0ubuntu3~24.04.2
+# captured: 2026-11-08
+
+Usage:  docker logs [OPTIONS] CONTAINER
+
+Fetch the logs of a container
+
+Aliases:
+  docker container logs, docker logs
+
+Options:
+      --details        Show extra details provided to logs
+  -f, --follow         Follow log output
+      --since string   Show logs since timestamp (e.g.
+                       "2013-01-02T13:23:37Z") or relative (e.g. "42m"
+                       for 42 minutes)
+  -n, --tail string    Number of lines to show from the end of the logs
+                       (default "all")
+  -t, --timestamps     Show timestamps
+      --until string   Show logs before a timestamp (e.g.
+                       "2013-01-02T13:23:37Z") or relative (e.g. "42m"
+                       for 42 minutes)

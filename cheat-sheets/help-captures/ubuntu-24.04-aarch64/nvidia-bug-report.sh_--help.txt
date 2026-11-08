@@ -1,0 +1,71 @@
+# dc-help-capture 1
+# command: nvidia-bug-report.sh --help
+# label: ubuntu-24.04-aarch64
+# version: 38392526
+# captured: 2026-11-08
+
+
+nvidia-bug-report.sh: NVIDIA Linux Graphics Driver bug reporting shell script.
+
+Please include the 'nvidia-bug-report.log.gz' log file when reporting
+your bug via the NVIDIA Linux forum (see forums.developer.nvidia.com)
+or by sending email to 'linux-bugs@nvidia.com'.
+
+By delivering 'nvidia-bug-report.log.gz' to NVIDIA, you acknowledge
+and agree that personal information may inadvertently be included in
+the output.  Notwithstanding the foregoing, NVIDIA will use the
+output only for the purpose of investigating your reported issue.
+Usage:
+  nvidia-bug-report.sh [OPTIONS]
+
+Options:
+  -h, --help
+    Print this help message and exit.
+
+  --output-file <file>
+    Write output to <file>. If 'gzip' is available, the file will
+    automatically be compressed to <file>.gz.
+    Default: nvidia-bug-report.log(.gz).
+
+  --safe-mode
+    Disable certain queries that might hang the system. Useful if you
+    experience freezes, high CPU usage, or suspect problematic kernel modules.
+
+  --extra-system-data
+    Gather additional system information and CPU backtraces for deeper
+    debugging. Consider using this if the script hangs without --safe-mode
+    or you need more extensive kernel data.
+
+  -v, --version
+    Show the current version of nvidia-bug-report.sh and exit.
+  -V, --versions
+    Show the current versions of NVIDIA software and firmware on the node.
+
+Description:
+  This script collects logs and configuration details—covering kernel
+  messages, GPU driver info, Xorg logs, hypervisor data (if applicable),
+  and more—to help diagnose NVIDIA driver or GPU-related issues. Run it
+  as root or with sudo for the most complete data.
+
+  If certain tools (e.g., 'nvidia-smi', 'lspci', 'mstflint') are missing,
+  the script will note "Skipping..." in the final report but continue
+  collecting other data.
+
+Troubleshooting Tips:
+  - If the script hangs, try using '--safe-mode'.
+  - If you need deeper system info (e.g., CPU backtraces), use '--extra-system-data'.
+  - Check final '.log' or '.log.gz' for 'Skipping...' lines to see if any
+    dependencies were missing or commands failed.
+  - Ensure you have installed recommended dependencies (see the full documentation
+    or 'system_requirements.rst'). Official releases of the NVIDIA driver/firmware
+    reduce hangs and incomplete captures.
+
+Examples:
+  1) sudo ./nvidia-bug-report.sh
+     Creates 'nvidia-bug-report.log.gz' if 'gzip' is installed.
+
+  2) sudo ./nvidia-bug-report.sh --safe-mode
+     Skips queries known to cause hangs on certain systems.
+
+  3) sudo ./nvidia-bug-report.sh --extra-system-data --output-file custom_report
+     Gathers extended kernel info into 'custom_report.log.gz' (compressed if possible).

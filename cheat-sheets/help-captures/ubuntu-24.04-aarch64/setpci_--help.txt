@@ -1,0 +1,31 @@
+# dc-help-capture 1
+# command: setpci --help
+# label: ubuntu-24.04-aarch64
+# version: setpci version 3.10.0
+# captured: 2026-11-08
+
+Usage: setpci [<options>] (<device>+ <reg>[=<values>]*)*
+
+General options:
+-f		Don't complain if there's nothing to do
+-v		Be verbose
+-D		List changes, don't commit them
+-r		Use raw access without bus scan if possible
+--dumpregs	Dump all known register names and exit
+
+PCI access options:
+-A <method>	Use the specified PCI access method (see `-A help' for a list)
+-O <par>=<val>	Set PCI access parameter (see `-O help' for a list)
+-G		Enable PCI access debugging
+
+Setting commands:
+<device>:	-s [[[<domain>]:][<bus>]:][<slot>][.[<func>]]
+		-d [<vendor>]:[<device>]
+<reg>:		<base>[+<offset>][.(B|W|L)][@<number>]
+<base>:		<address>
+		<named-register>
+		[E]CAP_<capability-name>
+		[E]CAP<capability-number>
+<values>:	<value>[,<value>...]
+<value>:	<hex>
+		<hex>:<mask>

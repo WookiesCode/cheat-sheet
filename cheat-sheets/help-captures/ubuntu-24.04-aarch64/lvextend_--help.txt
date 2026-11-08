@@ -1,0 +1,71 @@
+# dc-help-capture 1
+# command: lvextend --help
+# label: ubuntu-24.04-aarch64
+# version:   LVM version:     2.03.16(2) (2022-05-18)
+# captured: 2026-11-08
+
+  WARNING: Running as a non-root user. Functionality may be unavailable.
+  lvextend - Add space to a logical volume
+
+  Extend an LV by a specified size.
+  lvextend -L|--size [+]Size[m|UNIT] LV
+	[ -l|--extents [+]Number[PERCENT] ]
+	[ -r|--resizefs ]
+	[ -i|--stripes Number ]
+	[ -I|--stripesize Size[k|UNIT] ]
+	[    --poolmetadatasize [+]Size[m|UNIT] ]
+	[ COMMON_OPTIONS ]
+	[ PV ... ]
+
+  Extend an LV by specified PV extents.
+  lvextend LV PV ...
+	[ -r|--resizefs ]
+	[ -i|--stripes Number ]
+	[ -I|--stripesize Size[k|UNIT] ]
+	[ COMMON_OPTIONS ]
+
+  Extend a pool metadata SubLV by a specified size.
+  lvextend --poolmetadatasize [+]Size[m|UNIT] LV
+	[ -i|--stripes Number ]
+	[ -I|--stripesize Size[k|UNIT] ]
+	[ COMMON_OPTIONS ]
+	[ PV ... ]
+
+  Extend an LV according to a predefined policy.
+  lvextend --usepolicies LV
+	[ -r|--resizefs ]
+	[ COMMON_OPTIONS ]
+	[ PV ... ]
+
+  Common options for command:
+	[ -A|--autobackup y|n ]
+	[ -f|--force ]
+	[ -m|--mirrors Number ]
+	[ -n|--nofsck ]
+	[    --alloc contiguous|cling|cling_by_tags|normal|anywhere|inherit ]
+	[    --nosync ]
+	[    --noudevsync ]
+	[    --reportformat basic|json ]
+	[    --type linear|striped|snapshot|raid|mirror|thin|thin-pool|vdo|vdo-pool|cache|cache-pool|writecache ]
+
+  Common options for lvm:
+	[ -d|--debug ]
+	[ -h|--help ]
+	[ -q|--quiet ]
+	[ -v|--verbose ]
+	[ -y|--yes ]
+	[ -t|--test ]
+	[    --commandprofile String ]
+	[    --config String ]
+	[    --driverloaded y|n ]
+	[    --nolocking ]
+	[    --lockopt String ]
+	[    --longhelp ]
+	[    --profile String ]
+	[    --version ]
+	[    --devicesfile String ]
+	[    --devices PV ]
+	[    --nohints ]
+	[    --journal String ]
+
+  Use --longhelp to show all options and advanced commands.

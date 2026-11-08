@@ -1,0 +1,36 @@
+# dc-help-capture 1
+# command: lscpu --help
+# label: omarchy-4.5.0-x86_64
+# version: lscpu from util-linux 2.42.4
+# captured: 2026-11-08
+
+
+Usage:
+ lscpu [options]
+
+Display information about the CPU architecture.
+
+Options:
+ -a, --all               print both online and offline CPUs (default for -e)
+ -b, --online            print online CPUs only (default for -p)
+ -B, --bytes             print sizes in bytes rather than in human readable format
+ -C, --caches[=<list>]   info about caches in extended readable format
+ -c, --offline           print offline CPUs only
+ -J, --json              use JSON for default or extended format
+ -e, --extended[=<list>] print out an extended readable format
+ -p, --parse[=<list>]    print out a parsable format
+ -r, --raw               use raw output format (for -e, -p and -C)
+ -s, --sysroot <dir>     use specified directory as system root
+ -x, --hex               print hexadecimal masks rather than lists of CPUs
+     --annotate[=<when>] annotate columns with a tooltip (always|never|auto)
+ -y, --physical          print physical instead of logical IDs
+     --hierarchic[=when] use subsections in summary (auto, never, always)
+     --output-all        print all available columns for -e, -p or -C
+     --arm-id[=<id>]     print the known ARM implementers and their names. If an id is given, print all the cores for that implementer.
+     --arm-model <id>    print the name of the given ARM implementer and model. Requires --arm-id=<id>.
+
+ -H, --list-columns      list the available columns
+ -h, --help              display this help
+ -V, --version           display version
+
+For more details see lscpu(1).

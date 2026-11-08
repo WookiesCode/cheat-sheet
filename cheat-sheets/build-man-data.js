@@ -32,6 +32,11 @@ for (const [name, page] of Object.entries(extra.pages)) {
 }
 const missing = Object.fromEntries(Object.entries(ubuntu.missing).filter(([name]) => !pages[name]));
 
-const data = { source: ubuntu.source, captured: ubuntu.captured, pages, missing };
+// --help output for tools with no man page (build-help-pages.js), for "Explain a command".
+// Keyed "tool" or "tool subcommand"; not listed in the Manuals reader.
+const helpFile = path.join(__dirname, 'help-pages.json');
+const helps = fs.existsSync(helpFile) ? read('help-pages.json').pages : {};
+
+const data = { source: ubuntu.source, captured: ubuntu.captured, pages, missing, helps };
 fs.writeFileSync(path.join(__dirname, 'man-pages-data.js'), `window.MAN_PAGES_DATA = ${JSON.stringify(data)};\n`, 'utf8');
-console.log(`Wrote man-pages-data.js with ${Object.keys(pages).length} manuals.`);
+console.log(`Wrote man-pages-data.js with ${Object.keys(pages).length} manuals and ${Object.keys(helps).length} --help pages.`);

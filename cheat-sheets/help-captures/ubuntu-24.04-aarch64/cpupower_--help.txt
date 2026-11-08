@@ -1,0 +1,21 @@
+# dc-help-capture 1
+# command: cpupower --help
+# label: ubuntu-24.04-aarch64
+# version: cpupower 7.0.14
+# captured: 2026-11-08
+
+Usage:	cpupower [-d|--debug] [-c|--cpu cpulist ] <command> [<args>]
+Supported commands are:
+	frequency-info
+	frequency-set
+	idle-info
+	idle-set
+	powercap-info
+	set
+	info
+	monitor
+	help
+
+Not all commands can make use of the -c cpulist option.
+
+Use 'cpupower help <command>' for getting help for above commands.

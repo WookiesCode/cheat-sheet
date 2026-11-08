@@ -1,0 +1,11 @@
+# dc-help-capture 1
+# command: sshd --help
+# label: ubuntu-24.04-aarch64
+# version: OpenSSH_9.6p1 Ubuntu-3ubuntu13.20, OpenSSL 3.0.13 30 Jan 2024
+# captured: 2026-11-08
+
+unknown option -- -
+OpenSSH_9.6p1 Ubuntu-3ubuntu13.20, OpenSSL 3.0.13 30 Jan 2024
+usage: sshd [-46DdeGiqTtV] [-C connection_spec] [-c host_cert_file]
+            [-E log_file] [-f config_file] [-g login_grace_time]
+            [-h host_key_file] [-o option] [-p port] [-u len]

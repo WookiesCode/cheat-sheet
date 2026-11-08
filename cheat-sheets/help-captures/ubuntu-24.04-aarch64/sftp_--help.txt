@@ -1,0 +1,12 @@
+# dc-help-capture 1
+# command: sftp --help
+# label: ubuntu-24.04-aarch64
+# version: usage: sftp [-46AaCfNpqrv] [-B buffer_size] [-b batchfile] [-c cipher]
+# captured: 2026-11-08
+
+unknown option -- -
+usage: sftp [-46AaCfNpqrv] [-B buffer_size] [-b batchfile] [-c cipher]
+          [-D sftp_server_command] [-F ssh_config] [-i identity_file]
+          [-J destination] [-l limit] [-o ssh_option] [-P port]
+          [-R num_requests] [-S program] [-s subsystem | sftp_server]
+          [-X sftp_option] destination

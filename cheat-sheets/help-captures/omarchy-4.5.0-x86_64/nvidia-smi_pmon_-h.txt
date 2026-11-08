@@ -1,0 +1,34 @@
+# dc-help-capture 1
+# command: nvidia-smi pmon -h
+# label: omarchy-4.5.0-x86_64
+# version: NVIDIA-SMI version  : 615.78.08
+# captured: 2026-11-08
+
+
+    Process statistics are displayed in scrolling format per sampling
+    interval. This tool lists the statistics for all the compute and 
+    graphics processes running on each device. Metrics to be monitored
+     can be adjusted based on the width of terminal window. Monitoring
+    is limited to a maximum of 4 devices. If no devices are specified,
+    then up to first four supported devices under natural enumeration
+    (starting with GPU index 0) are used for monitoring purpose.
+    It is supported on Tesla, GRID, Quadro and limited GeForce products
+    for Kepler or newer GPUs under x64 and ppc64 bare metal Linux.
+    Note: On MIG-enabled GPUs, querying the utilization of encoder,
+    decoder, jpeg, ofa, gpu, and memory is not currently supported.
+
+    Usage: nvidia-smi pmon [options]
+
+    Options include:
+    [-i | --id]:          Comma separated Enumeration index, PCI bus ID or UUID
+    [-d | --delay]:       Collection delay/interval in seconds [default=1sec, max=10secs]
+    [-c | --count]:       Collect specified number of samples and exit
+    [-s | --select]:      One or more metrics [default=u]
+                          Can be any of the following:
+                              u - Utilization
+                              m - FB and CC Protected memory usage
+    [-o | --options]:     One or more from the following:
+                              D - Include Date (YYYYMMDD) in scrolling output
+                              T - Include Time (HH:MM:SS) in scrolling output
+    [-f | --filename]:    Log to a specified file, rather than to stdout
+    [-h | --help]:        Display help information

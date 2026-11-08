@@ -1,0 +1,28 @@
+# dc-help-capture 1
+# command: vmstat --help
+# label: ubuntu-24.04-aarch64
+# version: vmstat from procps-ng 4.0.4
+# captured: 2026-11-08
+
+
+Usage:
+ vmstat [options] [delay [count]]
+
+Options:
+ -a, --active           active/inactive memory
+ -f, --forks            number of forks since boot
+ -m, --slabs            slabinfo
+ -n, --one-header       do not redisplay header
+ -s, --stats            event counter statistics
+ -d, --disk             disk statistics
+ -D, --disk-sum         summarize disk statistics
+ -p, --partition <dev>  partition specific statistics
+ -S, --unit <char>      define display unit
+ -w, --wide             wide output
+ -t, --timestamp        show timestamp
+ -y, --no-first         skips first line of output
+
+ -h, --help     display this help and exit
+ -V, --version  output version information and exit
+
+For more details see vmstat(8).

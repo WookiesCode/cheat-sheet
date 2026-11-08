@@ -1,0 +1,24 @@
+# dc-help-capture 1
+# command: docker events --help
+# label: ubuntu-24.04-aarch64
+# version: Docker version 29.1.3, build 29.1.3-0ubuntu3~24.04.2
+# captured: 2026-11-08
+
+Usage:  docker events [OPTIONS]
+
+Get real time events from the server
+
+Aliases:
+  docker system events, docker events
+
+Options:
+  -f, --filter filter   Filter output based on conditions provided
+      --format string   Format output using a custom template:
+                        'json':             Print in JSON format
+                        'TEMPLATE':         Print output using the given
+                        Go template.
+                        Refer to https://docs.docker.com/go/formatting/
+                        for more information about formatting output with
+                        templates
+      --since string    Show all events created since timestamp
+      --until string    Stream events until this timestamp

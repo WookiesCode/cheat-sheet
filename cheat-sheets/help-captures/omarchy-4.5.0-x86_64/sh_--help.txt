@@ -1,0 +1,35 @@
+# dc-help-capture 1
+# command: sh --help
+# label: omarchy-4.5.0-x86_64
+# version: GNU bash, version 5.3.20(1)-release (x86_64-pc-linux-gnu)
+# captured: 2026-11-08
+
+GNU bash, version 5.3.20(1)-release-(x86_64-pc-linux-gnu)
+Usage:	sh [GNU long option] [option] ...
+	sh [GNU long option] [option] script-file ...
+GNU long options:
+	--debug
+	--debugger
+	--dump-po-strings
+	--dump-strings
+	--help
+	--init-file
+	--login
+	--noediting
+	--noprofile
+	--norc
+	--posix
+	--pretty-print
+	--rcfile
+	--restricted
+	--verbose
+	--version
+Shell options:
+	-ilrsD or -c command or -O shopt_option		(invocation only)
+	-abefhkmnptuvxBCEHPT or -o option
+Type `sh -c "help set"' for more information about shell options.
+Type `sh -c help' for more information about shell builtin commands.
+Use the `bashbug' command to report bugs.
+
+bash home page: <http://www.gnu.org/software/bash>
+General help using GNU software: <http://www.gnu.org/gethelp/>

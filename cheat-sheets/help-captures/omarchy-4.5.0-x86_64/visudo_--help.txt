@@ -1,0 +1,18 @@
+# dc-help-capture 1
+# command: visudo --help
+# label: omarchy-4.5.0-x86_64
+# version: visudo version 1.9.17p2
+# captured: 2026-11-08
+
+visudo - safely edit the sudoers file
+
+usage: visudo [-chqsV] [[-f] sudoers ]
+
+Options:
+  -c, --check              check-only mode
+  -f, --file=sudoers       specify sudoers file location
+  -h, --help               display help message and exit
+  -I, --no-includes        do not edit include files
+  -q, --quiet              less verbose (quiet) syntax error messages
+  -s, --strict             strict syntax checking
+  -V, --version            display version information and exit

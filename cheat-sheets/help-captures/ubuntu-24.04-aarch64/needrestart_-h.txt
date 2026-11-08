@@ -1,0 +1,36 @@
+# dc-help-capture 1
+# command: needrestart -h
+# label: ubuntu-24.04-aarch64
+# version: needrestart 3.6 - Restart daemons after library updates.
+# captured: 2026-11-08
+
+Unknown option: h
+Usage:
+
+  needrestart [-vn] [-c <cfg>] [-r <mode>] [-f <fe>] [-u <ui>] [-bkl]
+
+    -v		be more verbose
+    -q		be quiet
+    -m <mode>	set detail level
+	e	(e)asy mode
+	a	(a)dvanced mode
+	u   (u)buntu mode for the APT hook, see /usr/share/doc/needrestart/README.Ubuntu
+    -n		set default answer to 'no'
+    -c <cfg>	config filename
+    -r <mode>	set restart mode
+	l	(l)ist only
+	i	(i)nteractive restart
+	a	(a)utomatically restart
+    -b		enable batch mode
+    -p          enable nagios plugin mode
+    -f <fe>	override debconf frontend (DEBIAN_FRONTEND, debconf(7))
+    -t <seconds> tolerate interpreter process start times within this value
+    -u <ui>     use preferred UI package (-u ? shows available packages)
+
+  By using the following options only the specified checks are performed:
+    -k          check for obsolete kernel
+    -l          check for obsolete libraries
+    -w          check for obsolete CPU microcode
+
+    --help      show this help
+    --version   show version information

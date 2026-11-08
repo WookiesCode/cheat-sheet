@@ -1,0 +1,11 @@
+# dc-help-capture 1
+# command: git rev-parse -h
+# label: omarchy-4.5.0-x86_64
+# version: git version 2.56.0
+# captured: 2026-11-08
+
+usage: git rev-parse --parseopt [<options>] -- [<args>...]
+   or: git rev-parse --sq-quote [<arg>...]
+   or: git rev-parse [<options>] [<arg>...]
+
+Run "git rev-parse --parseopt -h" for more information on the first usage.

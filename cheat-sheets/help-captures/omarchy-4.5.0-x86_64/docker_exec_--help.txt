@@ -1,0 +1,25 @@
+# dc-help-capture 1
+# command: docker exec --help
+# label: omarchy-4.5.0-x86_64
+# version: Docker version 29.9.2, build a82e528901
+# captured: 2026-11-08
+
+Usage:  docker exec [OPTIONS] CONTAINER COMMAND [ARG...]
+
+Execute a command in a running container
+
+Aliases:
+  docker container exec, docker exec
+
+Options:
+  -d, --detach               Detached mode: run command in the background
+      --detach-keys string   Override the key sequence for detaching a
+                             container
+  -e, --env list             Set environment variables
+      --env-file list        Read in a file of environment variables
+  -i, --interactive          Keep STDIN open even if not attached
+      --privileged           Give extended privileges to the command
+  -t, --tty                  Allocate a pseudo-TTY
+  -u, --user string          Username or UID (format:
+                             "<name|uid>[:<group|gid>]")
+  -w, --workdir string       Working directory inside the container

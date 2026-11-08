@@ -1,0 +1,8 @@
+# dc-help-capture 1
+# command: tmux --help
+# label: ubuntu-24.04-aarch64
+# version: usage: tmux [-2CDlNuVv] [-c shell-command] [-f file] [-L socket-name]
+# captured: 2026-11-08
+
+usage: tmux [-2CDlNuVv] [-c shell-command] [-f file] [-L socket-name]
+            [-S socket-path] [-T features] [command [flags]]

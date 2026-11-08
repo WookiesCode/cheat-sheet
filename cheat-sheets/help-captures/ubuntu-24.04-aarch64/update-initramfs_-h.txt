@@ -1,0 +1,18 @@
+# dc-help-capture 1
+# command: update-initramfs -h
+# label: ubuntu-24.04-aarch64
+# version: See update-initramfs(8) for further details.
+# captured: 2026-11-08
+
+
+Usage: update-initramfs {-c|-d|-u} [-k version] [-v] [-b directory]
+
+Options:
+ -k version	Specify kernel version or 'all'
+ -c		Create a new initramfs
+ -u		Update an existing initramfs
+ -d		Remove an existing initramfs
+ -b directory	Set alternate boot directory
+ -v		Be verbose
+
+See update-initramfs(8) for further details.

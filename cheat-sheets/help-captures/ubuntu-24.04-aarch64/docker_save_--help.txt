@@ -1,0 +1,19 @@
+# dc-help-capture 1
+# command: docker save --help
+# label: ubuntu-24.04-aarch64
+# version: Docker version 29.1.3, build 29.1.3-0ubuntu3~24.04.2
+# captured: 2026-11-08
+
+Usage:  docker save [OPTIONS] IMAGE [IMAGE...]
+
+Save one or more images to a tar archive (streamed to STDOUT by default)
+
+Aliases:
+  docker image save, docker save
+
+Options:
+  -o, --output string      Write to a file, instead of STDOUT
+      --platform strings   Save only the given platform(s). Formatted as
+                           a comma-separated list of
+                           "os[/arch[/variant]]" (e.g.,
+                           "linux/amd64,linux/arm64/v8")

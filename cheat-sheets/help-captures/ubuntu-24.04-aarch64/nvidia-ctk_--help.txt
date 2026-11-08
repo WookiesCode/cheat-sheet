@@ -1,0 +1,31 @@
+# dc-help-capture 1
+# command: nvidia-ctk --help
+# label: ubuntu-24.04-aarch64
+# version: NVIDIA Container Toolkit CLI version 1.20.1
+# captured: 2026-11-08
+
+NAME:
+   NVIDIA Container Toolkit CLI - Tools to configure the NVIDIA Container Toolkit
+
+USAGE:
+   NVIDIA Container Toolkit CLI [global options] [command [command options]]
+
+VERSION:
+   1.20.1
+commit: dffc40b4f820ce5c512633bac9e0418d0e05a2ee
+
+COMMANDS:
+   hook     A collection of hooks that may be injected into an OCI spec
+   runtime  A collection of runtime-related utilities for the NVIDIA Container Toolkit
+   info     Provide information about the system
+   cdi      Provide tools for interacting with Container Device Interface specifications
+   system   A collection of system-related utilities for the NVIDIA Container Toolkit
+   config   Interact with the NVIDIA Container Toolkit configuration
+   help, h  Shows a list of commands or help for one command
+
+GLOBAL OPTIONS:
+   --debug, -d      Enable debug-level logging [$NVIDIA_CTK_DEBUG]
+   --quiet          Suppress all output except for errors; overrides --debug [$NVIDIA_CTK_QUIET]
+   --config string  Path to the config file [$NVIDIA_CTK_CONFIG]
+   --help, -h       show help
+   --version, -v    print the version

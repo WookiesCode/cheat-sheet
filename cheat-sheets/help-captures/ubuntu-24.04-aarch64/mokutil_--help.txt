@@ -1,0 +1,50 @@
+# dc-help-capture 1
+# command: mokutil --help
+# label: ubuntu-24.04-aarch64
+# version: 0.6.0
+# captured: 2026-11-08
+
+Usage:
+  mokutil OPTIONS [ARGS...]
+
+Options:
+  --help				Show help
+  --list-enrolled			List the enrolled keys
+  --list-new				List the keys to be enrolled
+  --list-delete				List the keys to be deleted
+  --import <der file...>		Import keys
+  --delete <der file...>		Delete specific keys
+  --revoke-import			Revoke the import request
+  --revoke-delete			Revoke the delete request
+  --export				Export keys to files
+  --password				Set MOK password
+  --clear-password			Clear MOK password
+  --disable-validation			Disable signature validation
+  --enable-validation			Enable signature validation
+  --sb-state				Show SecureBoot State
+  --test-key <der file>			Test if the key is enrolled or not
+  --reset				Reset MOK list
+  --generate-hash[=password]		Generate the password hash
+  --ignore-db				Ignore DB for validation
+  --use-db				Use DB for validation
+  --import-hash <hash>			Import a hash into MOK or MOKX
+  --delete-hash <hash>			Delete a hash in MOK or MOKX
+  --set-verbosity <true/false>		Set the verbosity bit for shim
+  --set-fallback-verbosity <true/false>		Set the verbosity bit for fallback
+  --set-fallback-noreboot <true/false>		Prevent fallback from automatically rebooting
+  --trust-mok				Trust MOK keys within the kernel keyring
+  --untrust-mok				Do not trust MOK keys
+  --set-sbat-policy <latest/previous/delete>		Apply Latest, Previous, or Blank SBAT revocations
+  --pk					List the keys in PK
+  --kek					List the keys in KEK
+  --db					List the keys in db
+  --dbx					List the keys in dbx
+  --timeout <-1,0..0x7fff>		Set the timeout for MOK prompt
+  --list-sbat-revocations				List the entries in SBAT
+
+Supplimentary Options:
+  --hash-file <hash file>		Use the specific password hash
+  --root-pw				Use the root password
+  --mokx				Manipulate the MOK blacklist
+  --ca-check				Check if CA of the key is enrolled/blocked
+  --ignore-keyring			Don't check if the key is the kernel keyring

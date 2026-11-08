@@ -1,0 +1,10 @@
+# dc-help-capture 1
+# command: scp --help
+# label: omarchy-4.5.0-x86_64
+# version: usage: scp [-346ABCOpqRrTv] [-c cipher] [-D sftp_server_path] [-F ssh_config]
+# captured: 2026-11-08
+
+scp: unknown option -- -
+usage: scp [-346ABCOpqRrTv] [-c cipher] [-D sftp_server_path] [-F ssh_config]
+           [-i identity_file] [-J destination] [-l limit] [-o ssh_option]
+           [-P port] [-S program] [-X sftp_option] source ... target

@@ -1,0 +1,22 @@
+# dc-help-capture 1
+# command: npx --help
+# label: ubuntu-24.04-aarch64
+# version: 9.2.0
+# captured: 2026-11-08
+
+Run a command from a local or remote npm package
+
+Usage:
+npm exec -- <pkg>[@<version>] [args...]
+npm exec --package=<pkg>[@<version>] -- <cmd> [args...]
+npm exec -c '<cmd> [args...]'
+npm exec --package=foo -c '<cmd> [args...]'
+
+Options:
+[--package <package-spec> [--package <package-spec> ...]] [-c|--call <call>]
+[-w|--workspace <workspace-name> [-w|--workspace <workspace-name> ...]]
+[-ws|--workspaces] [--include-workspace-root]
+
+alias: x
+
+Run "npm help exec" for more info

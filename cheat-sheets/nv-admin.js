@@ -195,7 +195,7 @@ const NV_NV_ADMIN_DATA = [
       {
         "id": "gpu-admin-ecc-tips-card",
         "desc": "HBM Row Remapper RMA inspection, persistent daemon & secondary bus reset",
-        "cmd": "nvidia-smi --query-remmapped-rows=gpu_name,gpu_bus_id,remapped_rows.correctable,remapped_rows.uncorrectable,remapped_rows.pending,remapped_rows.failure --format=csv",
+        "cmd": "nvidia-smi --query-remapped-rows=gpu_name,gpu_bus_id,remapped_rows.correctable,remapped_rows.uncorrectable,remapped_rows.pending,remapped_rows.failure --format=csv",
         "details": "HBM memory uses hardware Row Remapping to replace failing memory banks with spares. If remapped_rows.failure is true or pending remaps persist, the GPU has exhausted spares and qualifies for vendor RMA.",
         "flags": [
           [

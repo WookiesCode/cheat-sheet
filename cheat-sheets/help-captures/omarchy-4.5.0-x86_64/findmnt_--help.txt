@@ -1,0 +1,79 @@
+# dc-help-capture 1
+# command: findmnt --help
+# label: omarchy-4.5.0-x86_64
+# version: findmnt from util-linux 2.42.4
+# captured: 2026-11-08
+
+
+Usage:
+ findmnt [options]
+ findmnt [options] <device> | <mountpoint>
+ findmnt [options] <device> <mountpoint>
+ findmnt [options] [--source <device>] [--target <path> | --mountpoint <dir>]
+
+Find a (mounted) filesystem.
+
+Data sources:
+ -F, --tab-file <path>  alternative file for -s, -m or -k options
+ -m, --mtab             search in table of mounted filesystems
+                          (includes user space mount options)
+ -k                     an alias for '--kernel=mountinfo'
+ --kernel[=<method>]    search in kernel mount table (default behavior);
+                          <method> is mountinfo or listmount
+ -N, --task <tid>       use alternative namespace (/proc/<tid>/mountinfo file)
+ -p, --poll[=<list>]    monitor changes in table of mounted filesystems
+ -s, --fstab            search in static table of filesystems
+
+Data filters:
+ -A, --all              disable all built-in filters, print all filesystems
+ -d, --direction <word> direction of search, 'forward' or 'backward'
+ -f, --first-only       print the first found filesystem only
+ -i, --invert           invert the sense of matching
+     --id <num>         filter by mount node ID
+     --uniq-id <num>    filter by mount node 64-bit ID (requires --kernel=listmount)
+     --pseudo           print only pseudo-filesystems
+ -Q, --filter <expr>    apply display filter
+ -M, --mountpoint <dir> the mountpoint directory
+     --shadowed         print only filesystems over-mounted by another filesystem
+ -R, --submounts        print all submounts for the matching filesystems
+     --real             print only real filesystems
+ -S, --source <string>  the device to mount (by name, maj:min, 
+                          LABEL=, UUID=, PARTUUID=, PARTLABEL=)
+ -T, --target <path>    the path to the filesystem to use
+ -t, --types <list>     limit the set of filesystems by FS types
+ -U, --uniq             ignore filesystems with duplicate target
+
+Options:
+ -a, --ascii            use ASCII chars for tree formatting
+ -b, --bytes            print sizes in bytes rather than in human readable format
+ -C, --nocanonicalize   don't canonicalize when comparing paths
+ -c, --canonicalize     canonicalize printed paths
+ -D, --df               imitate the output of df(1)
+ -e, --evaluate         convert tags (LABEL,UUID,PARTUUID,PARTLABEL) 
+                          to device names
+     --hyperlink[=<when>]
+                        print paths as hyperlinks (always|never|auto)
+ -I, --dfi              imitate the output of df(1) with -i option
+ -J, --json             use JSON output format
+ -l, --list             use list format output
+ -n, --noheadings       don't print column headings
+ -O, --options <list>   limit the set of filesystems by mount options
+ -o, --output <list>    output columns (see --list-columns)
+     --output-all       output all available columns
+ -P, --pairs            use key="value" output format
+ -r, --raw              use raw output format
+     --tree             enable tree format output if possible
+ -u, --notruncate       don't truncate text in columns
+ -v, --nofsroot         don't print [/dir] for bind or btrfs mounts
+ -w, --timeout <num>    upper limit in milliseconds that --poll will block
+ -y, --shell            use column names to be usable as shell variable identifiers
+
+ -x, --verify           verify mount table content (default is fstab)
+     --verbose          print more details
+     --vfs-all          print all VFS options
+
+ -H, --list-columns     list the available columns
+ -h, --help             display this help
+ -V, --version          display version
+
+For more details see findmnt(8).

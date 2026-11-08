@@ -4450,7 +4450,8 @@ ${rmaTrailSection()}#### Action Requested:
   function buildManuals(data) {
     const pages = Object.entries(data.pages).map(([name, page]) => ({ name, ...page }));
     const absent = Object.entries(data.missing || {}).map(([name, reason]) => ({ name, reason, category: 'Not included' }));
-    return { count: pages.length, list: [...pages, ...absent].sort((a, b) => a.name.localeCompare(b.name)) };
+    // helps: --help output for tools with no man page ("tool" or "tool subcommand"), for Explain.
+    return { count: pages.length, list: [...pages, ...absent].sort((a, b) => a.name.localeCompare(b.name)), helps: data.helps || {} };
   }
 
   function loadManuals() {
@@ -13007,12 +13008,25 @@ ${rmaTrailSection()}#### Action Requested:
     for (let n = 0; n < lines.length; n++) {
       const line = lines[n];
       const ind = line.search(/\S/);
-      if (ind < 0 || line[ind] !== '-') continue;
-      const headerEnd = line.slice(ind).search(/\s{2,}/);
-      const header = headerEnd < 0 ? line.slice(ind) : line.slice(ind, ind + headerEnd);
-      const items = header.split(/,\s*/);
+      // nvidia-smi subcommands write "[-m | --matrix]: Display the ... matrix".
+      const bracket = ind >= 0 && line.slice(ind).match(/^\[(-[^\]]+)\]:\s*(.*)$/); // the colon: man SYNOPSIS lines ("[--verbose | -v]") have none
+      if (ind < 0 || (line[ind] !== '-' && !bracket)) continue;
+      const headerEnd = bracket ? -1 : line.slice(ind).search(/\s{2,}/);
+      // util-linux --help leaves one space before the text ("--summary[=when] print summary
+      // information"); only taken with 3+ words after it, so "-mtime n" stays a header.
+      const oneSpace = !bracket && headerEnd < 0 && line.slice(ind).match(/^(-{1,2}[^\s\[<=,]+(?:\[[^\]]*\])?(?:,\s*-{1,2}[^\s\[<=,]+(?:\[[^\]]*\])?)*)\s(\S+(?:\s\S+){2,})$/);
+      const header = bracket ? '' : oneSpace ? oneSpace[1] : headerEnd < 0 ? line.slice(ind) : line.slice(ind, ind + headerEnd);
+      const items = bracket ? bracket[1].split(/\s*\|\s*/) : header.split(/,\s*/);
+      let text = bracket ? bracket[2].trim() : oneSpace ? oneSpace[2] : headerEnd < 0 ? '' : line.slice(ind + headerEnd).trim();
+      // --help layouts put the long form after spaces, not a comma
+      // ("-r    --gpu-reset    Trigger reset of the GPU."): those belong to the header too.
+      let more;
+      while ((more = text.match(/^(-{1,2}[A-Za-z?][^\s,]*)(?:,?\s{2,}|,\s*|$)/))) { items.push(more[1]); text = text.slice(more[0].length); }
+      // jq writes "--raw-output / -r:"; git writes "--[no-]depth <depth>" for --depth and --no-depth.
+      const forms = items.flatMap(it => it.split(/\s+\/\s+/)).map(it => it.replace(/:$/, ''))
+        .flatMap(it => /^--\[no-\]/.test(it) ? [it.replace('[no-]', ''), it.replace('[no-]', 'no-')] : [it]);
+      items.length = 0; items.push(...forms);
       if (!items.some(it => it === flag || (it.startsWith(flag) && /^[\s=<\[]/.test(it.slice(flag.length))))) continue;
-      let text = headerEnd < 0 ? '' : line.slice(ind + headerEnd).trim();
       for (let m = n + 1; m < lines.length && m < n + 14; m++) {
         const l = lines[m], li = l.search(/\S/);
         if (li < 0) { if (text) break; continue; }
@@ -13052,6 +13066,30 @@ ${rmaTrailSection()}#### Action Requested:
     const rows = [];
     wrappers.forEach(wr => rows.push({ tok: wr.w, kind: wr.kind === 'env' ? 'var' : 'wrap', text: wr.kind === 'env' ? `Sets ${wr.w.split('=')[0]} for this command only.` : EX_WRAPPERS[wr.w], src: 'shell' }));
     const args = st.words.slice(ti + 1);
+    const leadSubs = [];
+    for (const w of args) { if (/^-/.test(w) || leadSubs.length === 2) break; leadSubs.push(w); }
+    // Subcommands with their own manual (nvme smart-log → nvme-smart-log, ip address → ip-address).
+    const subPage = leadSubs[0] ? exManPage(`${tool}-${leadSubs[0]}`) : null;
+    const helps = exHelpPages(tool, leadSubs);
+    // Where a flag is described, after the sheets: the subcommand's manual, the tool's
+    // manual, then captured --help output (the subcommand's own help first).
+    const docFlag = (f) => {
+      if (subPage) { const t = exManFlag(subPage, f); if (t) return { text: t, src: `man ${subPage.name}` }; }
+      if (page) { const t = exManFlag(page, f); if (t) return { text: t, src: `man ${tool}` }; }
+      for (const h of helps) { const t = exManFlag(h, f); if (t) return { text: t, src: `$ ${h.source}` }; }
+      return null;
+    };
+    // The site's flag notes are kept per tool, not per subcommand: a note for "nvidia-smi dmon -s"
+    // would also answer "nvidia-smi nvlink -s". The subcommand's own documentation wins.
+    const topHelp = manuals && manuals.helps ? manuals.helps[tool] : null;
+    const subDoc = (f) => {
+      if (subPage) { const t = exManFlag(subPage, f); if (t) return { text: t, src: `man ${subPage.name}` }; }
+      for (const h of helps) { if (h === topHelp) continue; const t = exManFlag(h, f); if (t) return { text: t, src: `$ ${h.source}` }; }
+      return null;
+    };
+    const anyFlag = (f) => subDoc(f) || (site[f] ? { text: site[f][0], src: site[f][1] } : docFlag(f));
+    // Words of 4+ letters two descriptions share; none means they describe different things.
+    const overlap = (a, b) => { const w = s => new Set(String(s).toLowerCase().match(/[a-z]{4,}/g) || []); const B = w(b); return [...w(a)].some(x => B.has(x)); };
     const used = new Set();
     // Subcommands: the longest run of plain words the site knows ("chassis power cycle", "app sync").
     for (let a = 0; a < args.length; a++) {
@@ -13066,32 +13104,72 @@ ${rmaTrailSection()}#### Action Requested:
     for (let a = 0; a < args.length; a++) {
       const w = args[a];
       if (!/^-/.test(w) || w === '-' || w === '--') continue;
+      // "-=" (Python's count -= 1) starts with a dash but isn't a flag.
+      const fm = w.match(/^--?[^=\s]+/);
+      if (!fm) continue;
       used.add(a);
-      const flag = w.match(/^--?[^=\s]+/)[0];
-      const value = w.includes('=') ? w.slice(w.indexOf('=') + 1) : (args[a + 1] !== undefined && !/^-/.test(args[a + 1]) && !used.has(a + 1) && (site[flag] || (page && exManFlag(page, flag))) ? null : undefined);
-      let text = site[flag] ? site[flag][0] : '', src = site[flag] ? site[flag][1] : '';
+      const flag = fm[0];
+      const value = w.includes('=') ? w.slice(w.indexOf('=') + 1) : (args[a + 1] !== undefined && !/^-/.test(args[a + 1]) && !used.has(a + 1) && anyFlag(flag) ? null : undefined);
+      const sub = subDoc(flag);
+      let text = sub ? sub.text : site[flag] ? site[flag][0] : '', src = sub ? sub.src : site[flag] ? site[flag][1] : '';
       // A sheet note can describe its own example ("the last 100 lines"): if it quotes numbers
       // this command doesn't have, the manual's general wording is the better explanation.
-      if (text && page && (text.match(/\b\d+\b/g) || []).some(n => !st.words.join(' ').includes(n))) {
-        const general = exManFlag(page, flag);
-        if (general) { text = general; src = `man ${tool}`; }
+      if (text && !sub && (text.match(/\b\d+\b/g) || []).some(n => !st.words.join(' ').includes(n))) {
+        const general = docFlag(flag);
+        if (general) ({ text, src } = general);
       }
-      if (!text && page) { text = exManFlag(page, flag); if (text) src = `man ${tool}`; }
-      // Bundled short flags: -czf → -c -z -f, -iE → -i -E.
-      if (!text && /^-[A-Za-z]{2,}$/.test(w)) {
-        const parts = w.slice(1).split('').map(ch => {
-          const f = `-${ch}`;
-          const t = site[f] ? site[f][0] : page ? exManFlag(page, f) : '';
-          return t ? `<b>${escapeHtml(f)}</b> ${escapeHtml(t)}` : '';
-        }).filter(Boolean);
-        if (parts.length) { rows.push({ tok: w, kind: 'flag', html: parts.join('<br>'), src: site[`-${w[1]}`] ? site[`-${w[1]}`][1] : `man ${tool}` }); continue; }
+      if (!text) { const d = docFlag(flag); if (d) ({ text, src } = d); }
+      // A sheet note written for one use (--gpu-reset on the MIG sheet: "activates pending MIG
+      // mode change") can miss the flag's general meaning: when the documentation says something
+      // else entirely, show both.
+      if (text && site[flag] && src === site[flag][1]) {
+        const d = docFlag(flag);
+        if (d && !overlap(text, d.text)) {
+          rows.push({ tok: w, kind: 'flag', html: `${escapeHtml(text)}<br><span class="ex-general">In general (<code>${escapeHtml(d.src.replace(/^\$ /, ''))}</code>): ${escapeHtml(d.text)}</span>`, src });
+          if (value === null) used.add(a + 1);
+          continue;
+        }
       }
-      rows.push({ tok: w, kind: 'flag', text: text || `Not described on the sheets or in an offline manual. Run ${tool} --help, or check its manual.`, src, unknown: !text });
+      // Bundled short flags: -czf → -c -z -f, -iE → -i -E, -iA3 → -i -A with the value 3.
+      // Only when every letter is a known flag: -iTCP:8080 is -i with a value, not -i -T -C -P.
+      const bundle = !text && w.match(/^-([A-Za-z]{2,})([^A-Za-z].*)?$/);
+      if (bundle) {
+        const found = bundle[1].split('').map(ch => ({ f: `-${ch}`, d: anyFlag(`-${ch}`) }));
+        if (found.every(x => x.d)) {
+          const html = found.map(x => `<b>${escapeHtml(x.f)}</b> ${escapeHtml(x.d.text)}`).join('<br>') + (bundle[2] ? `<br>Value: <code>${escapeHtml(bundle[2])}</code>` : '');
+          rows.push({ tok: w, kind: 'flag', html, src: found[0].d.src });
+          continue;
+        }
+      }
+      // A short flag with its value attached: -d':' -F',' -k2 -A3 -iTCP:8080.
+      const attached = !text && w.match(/^(-[A-Za-z])(.+)$/);
+      if (attached) {
+        const d = anyFlag(attached[1]);
+        if (d) { rows.push({ tok: w, kind: 'flag', html: `<b>${escapeHtml(attached[1])}</b> ${escapeHtml(d.text)}<br>Value: <code>${escapeHtml(attached[2])}</code>`, src: d.src }); continue; }
+      }
+      // Documented somewhere, but not this flag: worth a second look at the spelling.
+      const docs = subPage ? `man ${subPage.name}` : page ? `man ${tool}` : helps.length ? helps[0].source : '';
+      rows.push({ tok: w, kind: 'flag', text: text || (docs ? `Not on the sheets, and ${docs} doesn't list it: check the spelling, or the tool's version.` : `Not described on the sheets or in an offline manual. Run ${tool} --help, or check its manual.`), src, unknown: !text });
       if (value === null) used.add(a + 1);
     }
     const leftovers = args.filter((w, a) => !used.has(a));
     st.redirs.forEach(r => rows.push({ tok: `${r.op}${r.target ? ' ' + r.target : ''}`, kind: 'op', text: EX_OPS[r.op] + (r.target === '/dev/null' ? ' /dev/null throws it away.' : ''), src: 'shell' }));
-    return { tool, toolWord, page, site, rows, leftovers, sheet: tool ? exSheetFor(tool) : '', name: page ? exManName(page) : '' };
+    return { tool, toolWord, page, site, rows, leftovers, sheet: tool ? exSheetFor(tool) : '', name: page ? exManName(page) : helps.length ? exHelpName(helps) : '' };
+  }
+
+  // Captured --help pages for a tool: "tool sub1 sub2", "tool sub1", then "tool".
+  function exHelpPages(tool, subs) {
+    const helps = manuals && manuals.helps;
+    if (!helps || !tool) return [];
+    return [subs.length > 1 && helps[`${tool} ${subs[0]} ${subs[1]}`], subs.length && helps[`${tool} ${subs[0]}`], helps[tool]].filter(Boolean);
+  }
+  // A one-line title from --help: its first line that isn't usage or an option.
+  function exHelpName(helps) {
+    for (const h of helps) {
+      const line = h.text.split('\n').map(l => l.trim()).find(l => l && !/^(usage|or:|-|\[|options|commands|flags)/i.test(l));
+      if (line) return line.replace(/[.:]$/, '').slice(0, 100);
+    }
+    return '';
   }
 
   // Passwords and tokens typed in clear, with a copy that swaps them for variables.
@@ -13199,7 +13277,7 @@ ${rmaTrailSection()}#### Action Requested:
       const op = s.st.op && s.st.op !== '\n' ? `<div class="ex-op-row" data-ex-row="op-${si}"><code>${escapeHtml(s.st.op)}</code><span>${escapeHtml(EX_OPS[s.st.op] || '')}</span></div>` : '';
       const head = `<header><span class="ex-stage-n">${si + 1}</span><code class="ex-tool" data-ex-row="${si}-tool">${escapeHtml(ex.tool || s.raw.split(' ')[0] || '?')}</code><span class="ex-name">${escapeHtml(ex.name || (ex.sheet ? '' : 'Not on the sheets or in the offline manuals'))}</span>${s.remote ? `<span class="ex-remote">on ${escapeHtml(s.remote)}</span>` : ''}
         <span class="ex-links">${ex.sheet ? `<button type="button" data-ex-sheet="${escapeHtml(ex.sheet)}">Sheet: ${escapeHtml(ex.sheet.replace(/\.html$/, ''))} →</button>` : ''}${ex.page ? `<button type="button" data-ex-man="${escapeHtml(ex.tool)}">Manual</button>` : ''}</span></header>`;
-      const rows = ex.rows.map((x, ri) => `<div class="ex-row ex-k-${x.kind}${x.unknown ? ' is-unknown' : ''}" data-ex-row="${si}-${ri}"><code>${escapeHtml(x.tok)}</code><span>${x.html || escapeHtml(x.text)}</span><small>${x.src === 'shell' ? 'shell' : /^man /.test(x.src || '') ? escapeHtml(x.src) : x.src ? `sheet: ${escapeHtml(String(x.src).replace(/\.html$/, ''))}` : ''}</small></div>`).join('');
+      const rows = ex.rows.map((x, ri) => `<div class="ex-row ex-k-${x.kind}${x.unknown ? ' is-unknown' : ''}" data-ex-row="${si}-${ri}"><code>${escapeHtml(x.tok)}</code><span>${x.html || escapeHtml(x.text)}</span><small>${x.src === 'shell' ? 'shell' : /^(man |\$ )/.test(x.src || '') ? escapeHtml(x.src) : x.src ? `sheet: ${escapeHtml(String(x.src).replace(/\.html$/, ''))}` : ''}</small></div>`).join('');
       const rest = ex.leftovers.length ? `<div class="ex-row ex-k-arg"><code>${escapeHtml(ex.leftovers.join(' '))}</code><span>Arguments: values, names, patterns or paths the command works on.</span><small></small></div>` : '';
       return `<article class="ex-stage">${head}${rows}${rest}</article>${op}`;
     }).join('');
