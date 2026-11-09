@@ -27,7 +27,9 @@ Screen { background: $bg-base; color: $text-primary; layers: base; }
 .tbtn { width: auto; height: 3; border: round $border-strong; color: $text-primary; padding: 0 1; margin-left: 1; }
 .tbtn:hover { background: $bg-hover; }
 .tbtn.-danger { border: round #7f1d1d; color: $accent-red; }
-Screen.-narrow .tbtn.-wide-only { display: none; }
+Screen.-narrow .tbtn.-wide-only, Screen.-tight .tbtn.-wide-only { display: none; }
+/* Under 110 columns the unwired placeholders give way, so Explain stays on screen. */
+Screen.-tight .tbtn.-tight-hide { display: none; }
 
 /* ---- nav tabs ---------------------------------------------------------- */
 #tabs { height: 3; margin: 0 1; border: round $border-subtle; background: $bg-surface; padding: 0 1; }
@@ -53,7 +55,7 @@ Screen.-narrow .tbtn.-wide-only { display: none; }
 #main { width: 1fr; padding: 0 1 0 1; scrollbar-size-vertical: 1; }
 #cols { height: auto; }
 .col { width: 1fr; height: auto; }
-Screen.-narrow .col.-second { display: none; }
+Screen.-narrow .col.-second, Screen.-tight .col.-second { display: none; }
 
 /* ---- cards ------------------------------------------------------------- */
 .card { height: auto; border: round $border-strong; background: $bg-surface; margin: 0 1 1 0; padding: 0 1 1 1; }
@@ -87,3 +89,48 @@ Screen.-narrow .col.-second { display: none; }
 #hints { height: 1; padding: 0 1; color: $text-muted; background: $bg-surface; }
 #tip-text { width: 1fr; }
 #keys { width: auto; color: $text-secondary; }
+
+/* ---- Explain a command (the site's .ex-dialog) --------------------------- */
+ExplainScreen { align: center middle; background: $bg-base 70%; }
+#ex-dialog { width: 92%; max-width: 132; height: 94%; background: $bg-surface; border: round $border-strong; padding: 0 1; }
+#ex-head { height: auto; border-bottom: solid $border-subtle; }
+#ex-title { width: 1fr; height: auto; }
+#ex-close { margin-left: 1; }
+.exbtn { width: auto; height: 1; padding: 0 1; color: $accent; background: $bg-elevated; text-style: bold; }
+.exbtn:hover { background: $bg-hover; }
+.exbtn:focus { background: #0c2a3a; text-style: bold underline; }
+#ex-input-wrap { height: auto; margin: 1 0 0 0; border: round $border-strong; background: $bg-code; }
+#ex-input-wrap:focus-within { border: round $accent; }
+#ex-prompt { width: 2; color: $accent-green; text-style: bold; }
+#ex-input { width: 1fr; height: auto; max-height: 8; padding: 0; background: $bg-code; color: $text-primary; }
+#ex-result { height: 1fr; margin-top: 1; scrollbar-size-vertical: 1; }
+
+.ex-empty { color: $text-secondary; height: auto; margin-bottom: 1; }
+#ex-samples { grid-size: 2; grid-gutter: 1 1; grid-rows: auto; height: auto; }
+.ex-sample { height: auto; padding: 0 1; background: $bg-elevated; border: round $border-subtle; }
+.ex-sample:hover, .ex-sample:focus { border: round $accent; }
+
+.ex-verdict { height: auto; padding: 0 1; border: round $border-strong; margin-bottom: 1; }
+.ex-verdict.-crit { border: round $accent-red; background: #1c1216; }
+.ex-verdict.-warn { border: round $accent-amber; background: #1b1810; }
+.ex-verdict.-ok { border: round $accent-green; background: #0f1b16; }
+.ex-v-title { height: auto; }
+.ex-finding { height: auto; padding-left: 2; }
+.ex-mark { width: 2; }
+.ex-ftext { width: 1fr; height: auto; }
+.ex-safe { height: auto; margin: 0 0 0 4; padding: 0 1; background: $bg-code; border: dashed #2f6b46; }
+.ex-safe-code { width: 1fr; height: auto; }
+
+#ex-map { height: auto; padding: 0 1; margin-bottom: 1; background: $bg-code; border: round $border-subtle; }
+
+.ex-stage { height: auto; border: round $border-subtle; background: $bg-elevated; }
+.ex-stage-head { height: auto; padding: 0 1; background: $bg-surface; border-bottom: solid $border-subtle; }
+.ex-stage-name { width: 1fr; height: auto; }
+.ex-remote { width: auto; margin-right: 1; }
+.ex-row { height: auto; padding: 0 1; }
+.ex-tok { height: auto; margin-right: 2; }
+.ex-text { width: 1fr; height: auto; }
+.ex-src { width: auto; max-width: 30; height: auto; margin-left: 2; color: $text-muted; text-style: bold; }
+.ex-op-row { height: 1; padding-left: 2; }
+#ex-actions { height: 1; margin-top: 1; }
+#ex-actions .exbtn { margin-right: 2; }

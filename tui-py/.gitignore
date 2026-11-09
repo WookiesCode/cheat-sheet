@@ -1,3 +1,5 @@
 .venv/
 __pycache__/
 dist/
+# Built by export.js from cheat-sheets/man-pages-data.js (~10 MB); build_pyz.sh makes it.
+data/explain.json

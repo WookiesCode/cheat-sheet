@@ -20,8 +20,11 @@ from rich.text import Text
 from textual import events
 from textual.app import App, ComposeResult
 from textual.binding import Binding
-from textual.containers import Horizontal, Vertical, VerticalScroll
-from textual.widgets import Input, Static
+from textual.containers import Grid, Horizontal, Vertical, VerticalScroll
+from textual.screen import ModalScreen
+from textual.widgets import Input, Static, TextArea
+
+import explain
 
 HERE = Path(__file__).resolve().parent
 
@@ -215,11 +218,299 @@ class Dummy(Static):
         self.app.notify(f"“{self.content}” isn't wired up in the prototype.", timeout=2)
 
 
+class Button(Static):
+    """A small site-style button: click it, or Tab to it and press Enter or Space."""
+
+    can_focus = True
+    BINDINGS = [Binding("enter,space", "press", "press", show=False)]
+
+    def __init__(self, label, press, **kw) -> None:
+        self.press = press
+        super().__init__(label, **kw)
+
+    def action_press(self) -> None:
+        self.press()
+
+    def on_click(self, event: events.Click) -> None:
+        event.stop()
+        self.press()
+
+
+# ---- Explain a command -------------------------------------------------------------
+# The site's dialog (common.js openExplain / exRender) as a screen over the sheet; the
+# analysis itself is explain.py, a port of the site's code checked by test_explain.py.
+EX_MAP_STYLE = {
+    "tool": f"bold underline {C['cmd']}", "sub": f"underline {C['purple']}", "flag": f"underline {C['flag']}",
+    "op": f"bold {C['pipe']}", "str": C["string"], "var": C["amber"], "wrap": f"underline {C['red']}", "arg": C["arg"],
+}
+EX_ROW_STYLE = {"flag": C["flag"], "sub": C["purple"], "wrap": C["red"], "var": C["amber"], "op": C["pipe"], "arg": C["arg"]}
+EX_SEV = {"crit": ("●", C["red"]), "warn": ("●", C["amber"]), "info": ("○", C["accent"]), "ok": ("●", C["green"])}
+EX_VERDICT_COLOUR = {"crit": C["red"], "warn": C["amber"], "ok": C["green"]}
+_explain_ready = False
+
+
+def explain_ready() -> bool:
+    """Load the manuals and sheet notes the first time Explain opens (about 10 MB)."""
+    global _explain_ready
+    if not _explain_ready:
+        try:
+            explain.load(resource("data/explain.json"))
+        except OSError:
+            return False
+        _explain_ready = True
+    return True
+
+
+def ex_map(r: explain.Analysis) -> Text:
+    """The command word by word in the site's colours (exMapHtml)."""
+    out = Text()
+
+    def add(word: str, kind: str) -> None:
+        if out.plain and not out.plain.endswith("\n"):
+            out.append("  ")
+        out.append(word, style=EX_MAP_STYLE[kind])
+
+    for s in r.stages:
+        if s.remote:
+            continue
+        sub_words = {w for x in s.rows if x.kind == "sub" for w in x.tok.split(" ")}
+        tool_idx = s.st.words.index(s.tool_word) if s.tool_word in s.st.words else -1
+        for k, w in enumerate(s.st.words):
+            if k == tool_idx:
+                kind = "tool"
+            elif k < tool_idx:
+                kind = "var" if "=" in w else "wrap"
+            elif w.startswith("-"):
+                kind = "flag"
+            elif w in sub_words:
+                kind = "sub"
+            elif w[:1] in ("'", '"'):
+                kind = "str"
+            elif "$" in w:
+                kind = "var"
+            else:
+                kind = "arg"
+            add(w, kind)
+        for op, target in s.st.redirs:
+            add(op, "op")
+            if target:
+                add(target, "arg")
+        if s.st.op == "\n":
+            out.append("\n")
+        elif s.st.op:
+            add(s.st.op, "op")
+    return out
+
+
+def ex_row_text(x: explain.Row) -> Text:
+    if x.parts:  # bundled or attached short flags
+        t = Text()
+        for k, (f, d) in enumerate(x.parts):
+            if k:
+                t.append("\n")
+            t.append(f, style=f"bold {C['flag']}")
+            t.append(" " + d, style=C["secondary"])
+        if x.value:
+            t.append("\nValue: ", style=C["secondary"])
+            t.append(x.value, style=C["arg"])
+        return t
+    t = Text(x.text, style=f"italic {C['muted']}" if x.unknown else C["secondary"])
+    if x.general:
+        t.append(f"\nIn general ({x.general[0]}): {x.general[1]}", style=C["muted"])
+    return t
+
+
+def ex_src_label(src: str) -> str:
+    if not src:
+        return ""
+    if src == "shell" or src.startswith(("man ", "$ ")):
+        return src.upper()
+    return "SHEET: " + re.sub(r"\.html$", "", src).upper()
+
+
+# Suite hub pages (nvidia.html, ipmi.html) aren't in the terminal version: their first sheet stands in.
+HUB_FIRST = {suite["hub"]: (suite["name"], suite["sheets"][0]["file"]) for tab in DATA["tabs"] for suite in tab["suites"] if suite["hub"] and suite["sheets"]}
+
+
+def ex_sheet_link(sheet: str) -> tuple[str, str] | None:
+    """The stage's "Sheet: x →" button: (label, file to open), or None."""
+    if sheet in WHERE:
+        return f"Sheet: {sheet.removesuffix('.html')} →", sheet
+    if sheet in HUB_FIRST:
+        name, first = HUB_FIRST[sheet]
+        return f"Suite: {name} →", first
+    return None
+
+
+class ExplainScreen(ModalScreen):
+    """Paste a command: what each part does and whether it is safe to run."""
+
+    BINDINGS = [
+        Binding("escape", "close", "close", show=False),
+        Binding("pageup", "scroll(-1)", "scroll up", show=False),
+        Binding("pagedown", "scroll(1)", "scroll down", show=False),
+    ]
+
+    def __init__(self, text: str = "") -> None:
+        super().__init__()
+        self.start_text = text
+        self.last: explain.Analysis | None = None
+        self.timer = None
+
+    def compose(self) -> ComposeResult:
+        with Vertical(id="ex-dialog"):
+            with Horizontal(id="ex-head"):
+                yield Static(Text.assemble(("🔎 Explain a command\n", "bold"), ("What it does, word by word, and whether it is safe to run. Offline: from these sheets, then the manuals.", C["secondary"])), id="ex-title")
+                yield Button("Esc ✕", self.action_close, id="ex-close", classes="exbtn")
+            with Horizontal(id="ex-input-wrap"):
+                yield Static("$", id="ex-prompt")
+                # A TextArea, not an Input: Input keeps only the first line of a paste, and the
+                # site takes "a few lines of history" and commands continued with a backslash.
+                yield TextArea(self.start_text, id="ex-input", compact=True, soft_wrap=True, tab_behavior="focus",
+                               highlight_cursor_line=False, placeholder="Paste a command, a pipeline, or a few lines of history")
+            # Not a Tab stop (Tab goes input → buttons, as on the site); PgUp/PgDn scroll it.
+            yield VerticalScroll(id="ex-result", can_focus=False)
+
+    async def on_mount(self) -> None:
+        box = self.query_one("#ex-input", TextArea)
+        box.focus()
+        box.move_cursor(box.document.end)
+        await self.show_result()
+
+    def on_text_area_changed(self, event: TextArea.Changed) -> None:
+        # Like the site: explain as you type, a moment after the last key.
+        if self.timer:
+            self.timer.stop()
+        self.timer = self.set_timer(0.16, self.show_result)
+
+    def action_close(self) -> None:
+        self.dismiss()
+
+    def action_scroll(self, step: int) -> None:
+        res = self.query_one("#ex-result", VerticalScroll)
+        (res.scroll_page_down if step > 0 else res.scroll_page_up)(animate=False)
+
+    async def show_result(self) -> None:
+        text = self.query_one("#ex-input", TextArea).text
+        res = self.query_one("#ex-result", VerticalScroll)
+        await res.remove_children()
+        if not text.strip():
+            self.last = None
+            samples = [
+                Button(Text.assemble((label + "\n", "bold"), (cmd, C["cmd"])), lambda c=cmd: self.use_sample(c), classes="ex-sample")
+                for label, cmd in explain.data()["samples"]
+            ]
+            await res.mount(
+                Static("Paste a command from a ticket, a vendor KB, a chat or someone's history. It's explained offline: from these sheets first, then the manuals.", classes="ex-empty"),
+                Grid(*samples, id="ex-samples"),
+            )
+            return
+        r = explain.analyze(text)
+        self.last = r
+        await res.mount_all([self.verdict(r), Static(ex_map(r), id="ex-map")] + self.stage_widgets(r) + [self.actions(r)])
+
+    def use_sample(self, cmd: str) -> None:
+        box = self.query_one("#ex-input", TextArea)
+        box.text = cmd  # fires Changed, which explains it
+        box.focus()
+        box.move_cursor(box.document.end)
+
+    def verdict(self, r: explain.Analysis) -> Vertical:
+        icon, label = explain.VERDICT[r.verdict]
+        colour = EX_VERDICT_COLOUR[r.verdict]
+        kids: list = [Static(Text(f"{icon} {label}", style=f"bold {colour}"), classes="ex-v-title")]
+        findings = r.findings or [explain.Finding("ok", "Nothing risky found.", "No state change, secret or placeholder that the site’s rules know about.")]
+        for f in findings:
+            mark, mcol = EX_SEV[f.sev]
+            kids.append(Horizontal(
+                Static(Text(mark, style=mcol), classes="ex-mark"),
+                Static(Text.assemble((f.title, f"bold {C['arg']}"), " ", (f.text, C["secondary"])), classes="ex-ftext"),
+                classes="ex-finding",
+            ))
+            if f.safe:
+                kids.append(Horizontal(
+                    Static(Text(f.safe, style=C["green"]), classes="ex-safe-code"),
+                    Button("Copy the safe version", self.copy_safe, classes="exbtn"),
+                    classes="ex-safe",
+                ))
+        return Vertical(*kids, classes=f"ex-verdict -{r.verdict}")
+
+    def stage_widgets(self, r: explain.Analysis) -> list:
+        out: list = []
+        tok_w = min(24, max([len(x.tok) for s in r.stages for x in s.rows] + [len(" ".join(s.leftovers)) for s in r.stages] + [8]) + 2)
+        for si, s in enumerate(r.stages):
+            name = s.name or ("" if s.sheet else "Not on the sheets or in the offline manuals")
+            head_txt = Text.assemble((f" {si + 1} ", f"bold {C['accent']} on #0c2a3a"), " ", (s.tool or (s.raw.split(" ")[0] if s.raw else "?"), f"bold {C['cmd']}"), "  ", (name, C["secondary"]))
+            head: list = [Static(head_txt, classes="ex-stage-name")]
+            if s.remote:
+                head.append(Static(Text(f" on {s.remote} ", style=f"bold {C['amber']}"), classes="ex-remote"))
+            link = ex_sheet_link(s.sheet)
+            if link:
+                head.append(Button(link[0], lambda f=link[1]: self.go_sheet(f), classes="exbtn"))
+            rows: list = [Horizontal(*head, classes="ex-stage-head")]
+            for x in s.rows:
+                rows.append(Horizontal(
+                    self.tok_cell(Text(x.tok, style=f"bold {EX_ROW_STYLE.get(x.kind, C['arg'])}"), tok_w),
+                    Static(ex_row_text(x), classes="ex-text"),
+                    Static(ex_src_label(x.src), classes="ex-src", markup=False),
+                    classes="ex-row",
+                ))
+            if s.leftovers:
+                rows.append(Horizontal(
+                    self.tok_cell(Text(" ".join(s.leftovers), style=f"bold {C['arg']}"), tok_w),
+                    Static(Text("Arguments: values, names, patterns or paths the command works on.", style=C["secondary"]), classes="ex-text"),
+                    classes="ex-row",
+                ))
+            out.append(Vertical(*rows, classes="ex-stage"))
+            if s.st.op and s.st.op != "\n":
+                out.append(Static(Text.assemble((f" {s.st.op:<3}", f"bold {C['pipe']}"), (explain.data()["ops"].get(s.st.op, ""), C["muted"])), classes="ex-op-row"))
+        return out
+
+    @staticmethod
+    def tok_cell(text: Text, width: int) -> Static:
+        """The word column: one width per result, from its longest word (the site's grid column)."""
+        cell = Static(text, classes="ex-tok")
+        cell.styles.width = width
+        return cell
+
+    def actions(self, r: explain.Analysis) -> Horizontal:
+        tool = r.stages[0].tool if r.stages and r.stages[0].tool else ""
+        kids = [Button("Copy command", self.copy_cmd, classes="exbtn")]
+        kids.append(Button(f"Search the sheets for {tool or 'it'}", lambda: self.search(tool), classes="exbtn"))
+        return Horizontal(*kids, id="ex-actions")
+
+    # ---- buttons -------------------------------------------------------------------------
+    def copy_cmd(self) -> None:
+        if not self.last:
+            return
+        self.app.copy_to_clipboard(self.last.src)
+        if self.last.verdict == "crit":
+            self.app.notify("It changes state or holds a secret: read the verdict first.", title="⚠ Copied", severity="warning", timeout=4)
+        else:
+            self.app.notify("Copied.", timeout=2)
+
+    def copy_safe(self) -> None:
+        if self.last and self.last.safe:
+            self.app.copy_to_clipboard(self.last.safe)
+            self.app.notify("Copied with the secret replaced by a variable: set it with read -rs first.", timeout=4)
+
+    def go_sheet(self, file: str) -> None:
+        if file not in WHERE:
+            self.app.notify(f"{file} isn't in the terminal version yet.", timeout=3)
+            return
+        self.dismiss()
+        self.app.open_sheet(file)
+
+    def search(self, query: str) -> None:
+        self.dismiss()
+        self.app.search_for(query)
+
+
 # ---- the app ---------------------------------------------------------------------
 class CheatSheet(App):
     CSS = resource("dc_cheat.tcss")  # not CSS_PATH: Textual reads that from disk, which fails inside a .pyz
     TITLE = "dc-cheat"
-    HORIZONTAL_BREAKPOINTS = [(0, "-narrow"), (150, "-wide")]
+    HORIZONTAL_BREAKPOINTS = [(0, "-tight"), (110, "-narrow"), (150, "-wide")]
     BINDINGS = [
         Binding("j", "move(1)", "next command", show=False),
         Binding("k", "move(-1)", "previous command", show=False),
@@ -228,6 +519,7 @@ class CheatSheet(App):
         Binding("escape", "leave", "clear", show=False),
         Binding("right_square_bracket", "page(1)", "next sheet", show=False),
         Binding("left_square_bracket", "page(-1)", "previous sheet", show=False),
+        Binding("e", "explain", "explain", show=False),
         Binding("q", "quit", "quit", show=False),
     ]
 
@@ -245,9 +537,9 @@ class CheatSheet(App):
             yield Static(id="brand-chip")
             yield Static(id="brand-title")
             yield Input(placeholder="Search all sheets…   Ctrl K", id="search")
-            yield Dummy("⚡ Triage & RMA", classes="tbtn -danger")
-            yield Dummy("☆ My kit 0", classes="tbtn")
-            yield Dummy("Explain", classes="tbtn")
+            yield Dummy("⚡ Triage & RMA", classes="tbtn -danger -tight-hide")
+            yield Dummy("☆ My kit 0", classes="tbtn -tight-hide")
+            yield Button("🔎 Explain", lambda: self.action_explain(blank=True), id="explain-btn", classes="tbtn")
             yield Dummy("Rack", classes="tbtn -wide-only")
             yield Dummy(">_ Terminal", classes="tbtn -wide-only")
             yield Dummy("Theme ▾", classes="tbtn -wide-only")
@@ -271,7 +563,7 @@ class CheatSheet(App):
             yield Link("", "", id="page-next", classes="page")
         with Horizontal(id="hints"):
             yield Static("Tip: Click any command or code box to copy it to your clipboard.", id="tip-text")
-            yield Static(Text.assemble((" / ", "bold"), "search  ", (" j k ", "bold"), "move  ", (" ↵ ", "bold"), "copy  ", (" [ ] ", "bold"), "sheet  ", (" q ", "bold"), "quit"), id="keys")
+            yield Static(Text.assemble((" / ", "bold"), "search  ", (" j k ", "bold"), "move  ", (" ↵ ", "bold"), "copy  ", (" [ ] ", "bold"), "sheet  ", (" e ", "bold"), "explain  ", (" q ", "bold"), "quit"), id="keys")
 
     async def on_mount(self) -> None:
         await self.render_sheet()
@@ -397,7 +689,28 @@ class CheatSheet(App):
         return [w for w in getattr(self, "order", []) if w.is_attached]
 
     # ---- actions -----------------------------------------------------------------------
+    def on_sheet(self) -> bool:
+        """Sheet keys (j k [ ] c Enter) do nothing while Explain is open over the sheet."""
+        return self.screen is self.screen_stack[0]
+
+    def action_explain(self, blank: bool = False) -> None:
+        """Open Explain: with the focused command in it (e), or empty (the toolbar button)."""
+        if not self.on_sheet():
+            return
+        if not explain_ready():
+            self.notify("data/explain.json is missing: run node export.js (build_pyz.sh does it).", severity="error", timeout=5)
+            return
+        text = ""
+        if not blank and isinstance(self.focused, CommandBox):
+            copies = self.focused.entry.get("copy") or []
+            text = copies[self.focused.alt].removeprefix("# needs root\n") if copies else self.focused.entry["cmd"]
+        elif not blank and isinstance(self.focused, SubBox):
+            text = self.focused.cmd
+        self.push_screen(ExplainScreen(text))
+
     def action_move(self, step: int) -> None:
+        if not self.on_sheet():
+            return
         boxes = self.boxes()
         if not boxes:
             return
@@ -407,7 +720,7 @@ class CheatSheet(App):
         target.scroll_visible(animate=False)
 
     def action_copy(self) -> None:
-        if isinstance(self.focused, (CommandBox, SubBox)):
+        if self.on_sheet() and isinstance(self.focused, (CommandBox, SubBox)):
             self.focused.copy()
 
     def action_search(self) -> None:
@@ -420,6 +733,8 @@ class CheatSheet(App):
             self.action_move(0)
 
     def action_page(self, step: int) -> None:
+        if not self.on_sheet():
+            return
         ti, si, ki = WHERE[self.file]
         sheets = DATA["tabs"][ti]["suites"][si]["sheets"]
         k = ki + step
@@ -427,8 +742,20 @@ class CheatSheet(App):
             self.open_sheet(sheets[k]["file"])
 
     def on_input_submitted(self, event: Input.Submitted) -> None:
+        if event.input.id == "search":
+            self.run_search(event.value)
+
+    def search_for(self, query: str) -> None:
+        """Put a query in the search box and jump to its first match (Explain's search button)."""
+        search = self.query_one("#search", Input)
+        search.value = query
+        search.focus()
+        self.last_query = None
+        self.run_search(query)
+
+    def run_search(self, value: str) -> None:
         """Enter in search jumps to the first match; Enter again goes to the next one."""
-        words = event.value.lower().split()
+        words = value.lower().split()
         if not words:
             return
         key = " ".join(words)
@@ -447,7 +774,7 @@ class CheatSheet(App):
                                 n += 1 + len(e.get("subs", []))
             self.match_i = -1
         if not self.matches:
-            self.notify(f"No command matches “{event.value}”.", timeout=2)
+            self.notify(f"No command matches “{value}”.", timeout=2)
             return
         self.match_i = (self.match_i + 1) % len(self.matches)
         file, n = self.matches[self.match_i]

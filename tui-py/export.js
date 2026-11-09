@@ -119,3 +119,43 @@ fs.mkdirSync(path.join(__dirname, 'data'), { recursive: true });
 fs.writeFileSync(path.join(__dirname, 'data', 'site.json'), JSON.stringify({ tabs, sheets }));
 const nSuites = tabs.reduce((n, t) => n + t.suites.length, 0);
 console.log(`site.json: ${tabs.length} tabs, ${nSuites} suites, ${Object.keys(sheets).length} sheets.`);
+
+// ---- Explain: what explain.py needs to explain a command the way the site does ------
+// The site's own tables (wrappers, operators, samples) and rule regexes are taken from
+// common.js, so a change there reaches the terminal on the next export. Python's re reads
+// these JS patterns as they are (lookbehinds included); test_explain.py checks the results.
+const exCtx = { window: {}, manuals: null, exFlags: null };
+vm.runInNewContext(read('global-search-index.js'), exCtx);
+vm.runInNewContext(read('flag-index.js'), exCtx);
+vm.runInNewContext(read('man-pages-data.js'), exCtx);
+vm.runInNewContext([
+  region('const EX_WRAPPERS = ', 'function exLoadFlags('),
+  region('function exTokenize(', 'function exSecrets('),
+  region('const RB_NEVER_RETURNS = '),
+  'globalThis.ex = { EX_WRAPPERS, EX_WRAP_ARGS, EX_OPS, EX_SAMPLES, RB_NEVER_RETURNS, exToolIndex, exSheetFor };'
+].join('\n'), exCtx);
+const ex = exCtx.ex;
+const man = exCtx.window.MAN_PAGES_DATA;
+// exSheetFor counts the search index; only tools that appear in it can get a sheet.
+const sheetFor = {};
+for (const it of exCtx.window.GLOBAL_SEARCH_INDEX) {
+  const words = String(it.cmd || '').trim().split(/\s+/);
+  const tool = (words[ex.exToolIndex(words).i] || '').replace(/^.*\//, '');
+  if (tool && !(tool in sheetFor)) sheetFor[tool] = ex.exSheetFor(tool);
+}
+const pages = {};
+for (const [name, p] of Object.entries(man.pages)) if (p.text) pages[name] = p.text;
+const explain = {
+  wrappers: ex.EX_WRAPPERS,
+  wrapArgs: Object.fromEntries(Object.entries(ex.EX_WRAP_ARGS).map(([k, re]) => [k, re.source])),
+  ops: ex.EX_OPS,
+  samples: ex.EX_SAMPLES,
+  danger: api.DANGER_RE.source,
+  neverReturns: ex.RB_NEVER_RETURNS.source,
+  flags: exCtx.window.FLAG_INDEX,
+  sheetFor,
+  pages,
+  helps: man.helps || {}
+};
+fs.writeFileSync(path.join(__dirname, 'data', 'explain.json'), JSON.stringify(explain));
+console.log(`explain.json: ${Object.keys(explain.flags).length} tools with sheet notes, ${Object.keys(pages).length} man pages, ${Object.keys(explain.helps).length} --help pages.`);

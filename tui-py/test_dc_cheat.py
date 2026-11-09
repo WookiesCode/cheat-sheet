@@ -5,7 +5,10 @@ Run: .venv/bin/python -m pytest -q test_dc_cheat.py   (or: .venv/bin/python test
 
 import asyncio
 
-from dc_cheat import CheatSheet, CommandBox, Link
+from textual import events
+from textual.widgets import Input, TextArea
+
+from dc_cheat import CheatSheet, CommandBox, ExplainScreen, Link
 
 
 async def scenario() -> list[str]:
@@ -90,11 +93,118 @@ async def scenario() -> list[str]:
         await pilot.click(box, offset=(10, rows.get(0, 0)))
         check(app.clipboard.endswith("chassis power status"), "click on the 1st copies status")
 
+    # Explain: e on a focused command opens it with that command, explained.
+    app = CheatSheet("ib-mlxlink.html")
+    async with app.run_test(size=(160, 48)) as pilot:
+        await pilot.pause(0.5)
+        await pilot.press("e")
+        await pilot.pause(0.6)
+        scr = app.screen
+        check(isinstance(scr, ExplainScreen), "e opens Explain")
+        inp = scr.query_one("#ex-input", TextArea)
+        check(inp.text == "mlxlink -d mlx5_0 -m -c -e", f"e fills in the focused command (no root note): {inp.text!r}")
+        check(scr.last is not None and scr.last.stages[0].tool == "mlxlink", "it is explained straight away")
+        # Sheet keys don't act on the page behind the dialog.
+        file = app.file
+        await pilot.press("escape")
+        await pilot.pause(0.3)
+        check(not isinstance(app.screen, ExplainScreen), "Esc closes Explain")
+        check(isinstance(app.focused, CommandBox), "focus goes back to the sheet's command")
+
+        # The toolbar button opens it empty, with the site's samples; clicking one explains it.
+        await pilot.click("#explain-btn")
+        await pilot.pause(0.6)
+        scr = app.screen
+        check(isinstance(scr, ExplainScreen) and scr.query_one("#ex-input", TextArea).text == "", "Explain button opens it empty")
+        scr.query_one("#ex-close").focus()  # off the input, so the keys aren't typed into it
+        await pilot.press("j", "right_square_bracket", "c")
+        await pilot.pause(0.3)
+        check(app.file == file and isinstance(app.screen, ExplainScreen), "j ] c do nothing to the sheet while Explain is open")
+        sample = scr.query(".ex-sample")[1]  # the ipmitool power cycle with -P Hunter2
+        await pilot.click(sample)
+        await pilot.pause(0.6)
+        check(scr.last is not None and scr.last.verdict == "crit", "a sample click explains it: stop verdict")
+        check(len(scr.query(".ex-finding")) == 3, "three findings: changes state, password, remote")
+
+        # Tab from the input goes straight to the first button (the results aren't a Tab stop).
+        scr.query_one("#ex-input", TextArea).focus()
+        await pilot.press("tab")
+        check("safe version" in str(getattr(app.focused, "content", "")), f"Tab from the input reaches the first button ({type(app.focused).__name__})")
+
+        # Copy the safe version: the password swapped for -E.
+        btn = next(b for b in scr.query(".exbtn") if "safe version" in str(b.render()))
+        btn.scroll_visible(animate=False)
+        await pilot.pause(0.2)
+        await pilot.click(btn)
+        check(app.clipboard == "ipmitool -I lanplus -H 10.20.4.17 -U admin -E chassis power cycle", f"safe copy: {app.clipboard!r}")
+
+        # Typing updates it, a moment after the last key.
+        inp = scr.query_one("#ex-input", TextArea)
+        inp.focus()
+        inp.text = ""
+        for ch in "nvidia-smi -r":
+            await pilot.press({"-": "minus", " ": "space"}.get(ch, ch))
+        await pilot.pause(0.6)
+        rows = [r for s in scr.last.stages for r in s.rows]
+        check(any(r.tok == "-r" and "reset" in r.plain().lower() for r in rows), "typing nvidia-smi -r explains -r as a GPU reset")
+        check(scr.last.verdict == "crit", "nvidia-smi -r: changes state")
+
+        # A paste keeps its lines: history with a "$ " prompt and a backslash continuation.
+        inp.text = ""
+        inp.focus()
+        app.post_message(events.Paste(  # as a terminal delivers it: to the app, which hands it to the focused widget
+            "$ dmesg -T \\\n  --level=err\n$ journalctl -k -f"))
+        await pilot.pause(0.6)
+        tools = [s.tool for s in scr.last.stages]
+        check(tools == ["dmesg", "journalctl"] and "--level=err" in scr.last.stages[0].raw, f"pasted lines kept: {tools} {inp.text!r}")
+        check(any(f.title == "Never returns on its own" for f in scr.last.findings), "journalctl -f: never returns")
+        inp.text = "nvidia-smi -r"
+        await pilot.pause(0.6)
+
+        # Copy command, with the keyboard: Tab to the button and press Enter.
+        copy = next(b for b in scr.query(".exbtn") if "Copy command" in str(b.render()))
+        copy.focus()
+        await pilot.press("enter")
+        check(app.clipboard == "nvidia-smi -r", "Copy command (Enter on the button)")
+
+        # Sheet: … → closes Explain and opens that sheet.
+        # nvidia-smi's sheet is the NVIDIA hub, which the terminal lacks: the button opens the suite.
+        sheet_btn = next(b for b in scr.query(".exbtn") if "Suite: NVIDIA" in str(b.render()))
+        sheet_btn.scroll_visible(animate=False)
+        await pilot.pause(0.2)
+        await pilot.click(sheet_btn)
+        await pilot.pause(0.6)
+        check(not isinstance(app.screen, ExplainScreen) and app.file.startswith("nv-"), f"Suite button opens the NVIDIA suite ({app.file})")
+
+        # Search the sheets for <tool>: closes Explain and jumps to the first match.
+        await pilot.press("e")
+        await pilot.pause(0.6)
+        scr = app.screen
+        scr.query_one("#ex-input", TextArea).text = "ibstat -v"
+        await pilot.pause(0.6)
+        srch = next(b for b in scr.query(".exbtn") if "Search the sheets" in str(b.render()))
+        srch.scroll_visible(animate=False)
+        await pilot.pause(0.2)
+        await pilot.click(srch)
+        await pilot.pause(0.8)
+        f = app.focused
+        check(app.query_one("#search", Input).value == "ibstat" and isinstance(f, CommandBox) and "ibstat" in f.entry["cmd"], f"search button jumps to an ibstat command ({app.file})")
+
     # Narrow window: one column, nothing wider than the screen.
     app = CheatSheet("ib-mlxlink.html")
     async with app.run_test(size=(120, 40)) as pilot:
         await pilot.pause(0.5)
         check(not app.query_one("#col2").display, "120 columns: cards in one column")
+
+    # A small laptop window: the Explain button is still on screen and works.
+    app = CheatSheet("nv-smi.html")
+    async with app.run_test(size=(90, 36)) as pilot:
+        await pilot.pause(0.5)
+        btn = app.query_one("#explain-btn")
+        check(btn.region.right <= 90 and btn.region.width > 0, f"90 columns: Explain button visible ({btn.region})")
+        await pilot.click(btn)
+        await pilot.pause(0.6)
+        check(isinstance(app.screen, ExplainScreen), "90 columns: clicking it opens Explain")
     return fails
 
 

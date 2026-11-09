@@ -32,9 +32,9 @@ fi
 find "${stage}" -name '__pycache__' -type d -prune -exec rm -rf {} +
 
 # 2. The app.
-cp dc_cheat.py dc_cheat.tcss "${stage}/"
+cp dc_cheat.py explain.py dc_cheat.tcss "${stage}/"
 mkdir -p "${stage}/data"
-cp data/site.json "${stage}/data/"
+cp data/site.json data/explain.json "${stage}/data/"
 cat >"${stage}/__main__.py" <<'EOF'
 import sys
 
