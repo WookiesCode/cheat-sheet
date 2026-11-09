@@ -37,6 +37,7 @@ Everything the site keeps lives in this browser only: Field notes drafts, the ca
 - **⬆ Choose a backup file** shows each item in the file as *not here yet*, *replaces what is here* or *same as here*. Untick anything you want to keep as it is, then **Restore**. Items not in the file are left alone. The page reloads to pick everything up.
 - **↶ Undo the last restore** puts back what the restore replaced, until you close the tab.
 - If the browser refuses to store any item (storage full or blocked), nothing is restored.
+- **When a save fails anywhere on the site** (a star, a pin, a note, the inventory), an amber bar at the top says so and stays until you close it: storage full, storage blocked for the page (nothing is kept after you leave), or refused. **💾 Backup & restore** on the bar opens this panel. It shows once per page and never for tab-only data.
 - Only this site's own data is included, never other pages that share the `file://` origin.
 - **Keeping it:** the panel says whether the browser has agreed to keep this data (**✓ Kept**) or may clear it when the disk runs low (**⚠ Not guaranteed**, with **Ask the browser to keep it**). The site also asks once per tab when you first save something: a pin to the case, a field note, the rack inventory, a backup or a restore. It never asks on page load. Chromium browsers (Brave, Chrome) answer silently from how much you use the site, and bookmarking the page helps; Firefox shows a prompt. Either way, a backup is the copy you control.
 

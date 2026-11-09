@@ -8530,3 +8530,22 @@ body.con-live .pb-btn { right: 128px; }
   border: 1px solid var(--border-subtle); background: var(--bg-elevated); color: var(--text-primary); font: 600 0.78rem var(--font-sans);
 }
 .bk-persist button:hover { border-color: var(--accent-primary); }
+
+/* Storage write failed (common.js warnStorage): stays until dismissed. */
+.storage-warn {
+  position: fixed; top: 0.75rem; left: 50%; transform: translateX(-50%); z-index: 14500; /* above every dialog and the tour */
+  display: flex; align-items: center; gap: 0.6rem;
+  width: min(760px, calc(100vw - 2rem)); padding: 0.6rem 0.75rem;
+  border-radius: 8px; border: 1px solid var(--accent-amber);
+  background: color-mix(in srgb, var(--accent-amber) 14%, var(--bg-elevated));
+  color: var(--text-primary); font: 500 0.84rem/1.4 var(--font-sans);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+}
+.storage-warn .sw-icon { color: var(--accent-amber); font-size: 1.1rem; }
+.storage-warn .sw-text { flex: 1; }
+.storage-warn button {
+  flex: none; padding: 0.3rem 0.65rem; border-radius: 6px; cursor: pointer;
+  border: 1px solid var(--border-subtle); background: var(--bg-elevated); color: var(--text-primary); font: 600 0.78rem var(--font-sans);
+}
+.storage-warn button:hover { border-color: var(--accent-primary); }
+@media print { .storage-warn { display: none; } }

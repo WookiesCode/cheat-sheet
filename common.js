@@ -2,8 +2,35 @@
 (function() {
   'use strict';
 
+  // A lost write used to vanish without a sign (a pin, a note, a kit star). Now the first
+  // one on a page raises a bar that stays until it is closed: a toast would be replaced
+  // at once by the caller's own "Pinned" or "Saved". Declared before guardStorage() runs.
+  let storageWarned = false;
+  function warnStorage(kind, err) {
+    if (storageWarned) return;
+    storageWarned = true;
+    const why = kind === 'blocked'
+      ? 'This browser is blocking storage for this page, so nothing you save is kept after you leave it. Allow site data for it, or download a backup before you close the tab.'
+      : kind === 'full'
+        ? 'Not saved: the browser’s storage for this site is full. Download a backup, then remove what you no longer need (old pasted outputs, closed node workspaces).'
+        : `Not saved: the browser refused to store it (${String((err && err.name) || 'error')}). Download a backup so nothing is lost.`;
+    const show = () => {
+      const bar = document.createElement('div');
+      bar.className = 'storage-warn';
+      bar.setAttribute('role', 'alert');
+      bar.innerHTML = '<span class="sw-icon" aria-hidden="true">⚠</span><span class="sw-text"></span><button type="button" class="sw-backup">💾 Backup &amp; restore</button><button type="button" class="sw-close" aria-label="Dismiss">✕</button>';
+      bar.querySelector('.sw-text').textContent = why;
+      bar.querySelector('.sw-backup').addEventListener('click', () => { try { openBackup(); } catch (e) {} });
+      bar.querySelector('.sw-close').addEventListener('click', () => bar.remove());
+      document.body.appendChild(bar);
+    };
+    if (document.body) setTimeout(show, 0);
+    else document.addEventListener('DOMContentLoaded', show, { once: true });
+  }
+  const isQuotaError = (e) => !!e && (/quota/i.test(e.name || '') || e.code === 22 || e.code === 1014);
+
   // Sheets read and write storage directly, so make it safe once here. If the browser
-  // blocks storage, use a copy held in memory; if it's full, skip the write.
+  // blocks storage, use a copy held in memory; if it's full, skip the write (and say so).
   function guardStorage() {
     ['localStorage', 'sessionStorage'].forEach(name => {
       try {
@@ -12,7 +39,7 @@
         const values = new Map();
         const memory = {
           getItem: key => (values.has(String(key)) ? values.get(String(key)) : null),
-          setItem: (key, value) => { values.set(String(key), String(value)); },
+          setItem: (key, value) => { values.set(String(key), String(value)); if (name === 'localStorage') warnStorage('blocked'); },
           removeItem: key => { values.delete(String(key)); },
           clear: () => values.clear()
         };
@@ -22,7 +49,15 @@
     if (window.Storage) {
       const setItem = Storage.prototype.setItem;
       Storage.prototype.setItem = function(key, value) {
-        try { setItem.call(this, key, value); } catch (e) {}
+        try {
+          setItem.call(this, key, value);
+        } catch (e) {
+          // Callers never see the error (sheet scripts don't catch); tab-only sessionStorage helpers stay quiet.
+          if (this === window.localStorage) {
+            console.warn('[cheat-sheet] not saved:', key, e);
+            warnStorage(isQuotaError(e) ? 'full' : 'refused', e);
+          }
+        }
       };
     }
   }
