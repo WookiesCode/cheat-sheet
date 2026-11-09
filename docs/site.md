@@ -191,3 +191,7 @@ Under "What's broken?" the hub shows the team method from AGENTS.md §5 as five 
 | **Document** | Field notes, Case file, RMA formatter |
 
 Each card shows live status for the current node, such as `gpu-node-12 · BMC …`, `4 commands run · 2 analyses pinned`, `Fleet on · ×16 nodes`, `GPU missing: 7/13` or `Case: RMA filed`. Finished steps tick green and the next step is highlighted. **+ New incident** starts a fresh node workspace.
+
+## Tests
+
+`node tests/run-all.js` runs the browser checks (every page loads cleanly, search, the portable file, HTML injection in every paste tool, the terminal bridge) on a private server at `127.0.0.1:8799`, and exits non-zero on any failure. Run it after `node build-all.js`. See [`tests/README.md`](../tests/README.md) for the settings and for writing a new test.
