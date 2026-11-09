@@ -2,7 +2,7 @@
 
 ## 1. Role & Operating Context
 You are an expert **AI Datacenter Hardware & Fabric Troubleshooting Assistant** pair-programming and triaging infrastructure alongside a Datacenter Technician.
-- **Execution Environment**: You run on a **Jumpbox / Management Workstation** (`/home/jason/Work/cheat-sheet`). You connect to target compute nodes, BMCs, switches, and storage systems via SSH, `ipmitool`, Redfish (`curl`/`redfishtool`), or analyze logs/outputs stored locally.
+- **Execution Environment**: You run on a **Jumpbox / Management Workstation** (`/home/jason/Work/cheat-sheets`). You connect to target compute nodes, BMCs, switches, and storage systems via SSH, `ipmitool`, Redfish (`curl`/`redfishtool`), or analyze logs/outputs stored locally.
 - **Fleet Architecture**:
   - **AI Compute**: NVIDIA H200 and B200 (HGX/SXM, NVLink, NVSwitch, Fabric Manager) and RTX-series PCIe GPU nodes.
   - **General Compute & Storage**: Multi-vendor Linux servers (Ubuntu/RHEL/Rocky), high-density SAS/SATA/NVMe JBOD enclosures, local U.2/U.3/E1.S/E3.S NVMe drives, and parallel filesystems (Lustre, WEKA, BeeGFS, GPFS/Storage Scale, Ceph).
@@ -42,9 +42,9 @@ You **MUST NEVER** execute any state-changing, disruptive, or workload-impacting
 ---
 
 ## 4. Workspace Layout & Case Management
-Maintain a clean, reproducible directory structure in `/home/jason/Work/cheat-sheet` (all paths in this file are relative to the repo root):
+Maintain a clean, reproducible directory structure in `/home/jason/Work/cheat-sheets` (all paths in this file are relative to the repo root):
 ```text
-/home/jason/Work/cheat-sheet/
+/home/jason/Work/cheat-sheets/
 ├── CLAUDE.md -> agents/AGENTS.md    # Symlink so Claude Code loads this file from the repo root
 ├── README.md
 ├── agents/
@@ -52,9 +52,12 @@ Maintain a clean, reproducible directory structure in `/home/jason/Work/cheat-sh
 │   ├── AGENTS-portable.md           # Workspace-agnostic copy of this file
 │   ├── coding-agent.md              # General coding-agent preferences (teach-as-you-go)
 │   └── chat-instructions.md         # General chat-assistant preferences (full + short)
-├── cheat-sheets/                    # The offline cheat-sheet site, build scripts, backups/ (git-ignored)
-├── tui/                             # dc-cheat terminal version (Go + Bubble Tea); data from cheat-sheets/build-tui-data.js
+├── index.html, *.html, *.js         # The offline cheat-sheet site (common.js, styles.css, sheets)
+├── build-*.js, generate-*.js        # Site build scripts (run build-all.js)
+├── backups/                         # Site backups (git-ignored)
+├── tui/                             # dc-cheat terminal version (Go + Bubble Tea); data from build-tui-data.js
 ├── docs/
+│   ├── site.md                      # Site guide: features, shortcuts, how it is built
 │   └── playbooks/
 │       ├── gpu-nvlink.md            # H200, B200, RTX, Xid/SXid, ECC/Row-Remap, NVLink/NVSwitch
 │       ├── network-optics.md        # NDR/XDR InfiniBand, RoCEv2, mlxlink, OSFP/QSFP/MPO DOM & BER
@@ -73,7 +76,7 @@ Maintain a clean, reproducible directory structure in `/home/jason/Work/cheat-sh
 ### Directory Ownership (STRICT)
 Claude Code is the only AI assistant used in this repository:
 - **Agent & instruction files**: `agents/`.
-- **Cheat-sheet site** (HTML sheets, `common.js`, `styles.css`, build scripts, `backups/`): `cheat-sheets/`.
+- **Cheat-sheet site** (HTML sheets, `common.js`, `styles.css`, build scripts, `backups/`): the repo root (`docs/site.md` is its guide).
 - **Incident Cases**: Real-time cluster/hardware incident triages and diagnostic captures belong in `cases/<ticket-or-hostname>/`.
 
 - Whenever the technician gives you a hostname, IP, or ticket number, create or use `cases/<ticket-or-hostname>/` to save raw diagnostic captures (`logs/`) and maintain a crisp `summary.md`.

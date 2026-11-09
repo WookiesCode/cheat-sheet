@@ -12,8 +12,8 @@
 #   scripts/capture-help.sh                 # writes ./help-capture-<label>/
 #   scripts/capture-help.sh -o DIR -l LABEL
 #   scripts/capture-help.sh --tar > x.tgz   # tarball on stdout (for ssh)
-# Then copy the folder to cheat-sheets/help-captures/<label>/ and run
-#   node cheat-sheets/build-all.js
+# Then copy the folder to help-captures/<label>/ and run
+#   node build-all.js
 #
 # List format (help-tools.txt): one command per line.
 #   nvidia-smi             a bare tool: tries --help, then -h, then -?, stops at real help

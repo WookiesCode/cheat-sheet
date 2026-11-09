@@ -9,7 +9,7 @@ const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
 
-const site = path.join(__dirname, '..', 'cheat-sheets');
+const site = path.join(__dirname, '..');
 const read = f => fs.readFileSync(path.join(site, f), 'utf8');
 const strip = s => s.replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&#39;/g, "'").replace(/&quot;/g, '"').replace(/\s+/g, ' ').trim();
 

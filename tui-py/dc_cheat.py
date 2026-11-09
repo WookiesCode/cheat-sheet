@@ -43,7 +43,7 @@ DATA = json.loads(resource("data/site.json"))
 TARGETS = [("$BMC", "2001:db8:dc::50"), ("$BMC_USER", "ADMIN"), ("$IFACE", "eno1"), ("$HCA", "mlx5_0"), ("$DISK", "/dev/nvme0n1")]
 SLOT_VALUES = {v for _, v in TARGETS}
 
-# Site colours (cheat-sheets/styles.css :root), for Rich text inside widgets.
+# Site colours (styles.css :root), for Rich text inside widgets.
 C = {
     "cmd": "#4ade80", "flag": "#38bdf8", "arg": "#e2e8f0", "pipe": "#f472b6", "string": "#fbbf24",
     "comment": "#64748b", "muted": "#64748b", "secondary": "#9aa7b8", "accent": "#38bdf8",

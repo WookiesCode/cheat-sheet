@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-// Ported from scoreEntry() in cheat-sheets/common.js so the terminal ranks results
+// Ported from scoreEntry() in common.js so the terminal ranks results
 // the same way the site's search does. Every word of the query must match somewhere.
 var genericSheets = regexp.MustCompile(`^(markdown|json|yaml|toml|regex|text|scripting|javascript|typescript|python|lua|sql|jira)$`)
 

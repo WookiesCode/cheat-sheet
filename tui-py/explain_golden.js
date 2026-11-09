@@ -5,7 +5,7 @@ const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
 
-const site = path.join(__dirname, '..', 'cheat-sheets');
+const site = path.join(__dirname, '..');
 const read = f => fs.readFileSync(path.join(site, f), 'utf8');
 const common = read('common.js');
 const cut = (a, b) => {

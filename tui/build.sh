@@ -8,7 +8,7 @@ here="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$here"
 
 if [[ "${SKIP_DATA:-}" != 1 ]]; then
-  node ../cheat-sheets/build-tui-data.js
+  node ../build-tui-data.js
 fi
 
 go vet ./...

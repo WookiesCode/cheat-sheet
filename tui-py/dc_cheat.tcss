@@ -1,4 +1,4 @@
-/* dc_cheat.tcss: the site's dark theme (cheat-sheets/styles.css :root tokens) in Textual CSS. */
+/* dc_cheat.tcss: the site's dark theme (styles.css :root tokens) in Textual CSS. */
 $bg-base: #0b0e14;
 $bg-surface: #111621;
 $bg-elevated: #171e2c;

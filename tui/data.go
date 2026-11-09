@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-// tui-data.json is written by cheat-sheets/build-tui-data.js from the site's own
+// tui-data.json is written by build-tui-data.js from the site's own
 // search index, flag index and safety rules, then compiled into the binary.
 //
 //go:embed data/tui-data.json
