@@ -38,6 +38,7 @@ Everything the site keeps lives in this browser only: Field notes drafts, the ca
 - **↶ Undo the last restore** puts back what the restore replaced, until you close the tab.
 - If the browser refuses to store any item (storage full or blocked), nothing is restored.
 - Only this site's own data is included, never other pages that share the `file://` origin.
+- **Keeping it:** the panel says whether the browser has agreed to keep this data (**✓ Kept**) or may clear it when the disk runs low (**⚠ Not guaranteed**, with **Ask the browser to keep it**). The site also asks once per tab when you first save something: a pin to the case, a field note, the rack inventory, a backup or a restore. It never asks on page load. Chromium browsers (Brave, Chrome) answer silently from how much you use the site, and bookmarking the page helps; Firefox shows a prompt. Either way, a backup is the copy you control.
 
 ## Use it on a rack
 

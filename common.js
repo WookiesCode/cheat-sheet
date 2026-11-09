@@ -7178,6 +7178,7 @@ ${rmaTrailSection()}#### Action Requested:
   const caseName = () => trailMeta().caseId || readNodes().active || 'this node';
 
   function casePin(item) {
+    bkAskPersist();
     const c = readCase();
     const md = String(item.md || '').trim();
     if (c.evidence.some(e => e.md === md)) { showGlobalToast('Already pinned to this case.'); return; }
@@ -7980,6 +7981,7 @@ ${rmaTrailSection()}#### Action Requested:
     } catch (e) { return { notes: [], active: null }; }
   }
   function fnSave(d) {
+    bkAskPersist();
     try { localStorage.setItem(FN_KEY, JSON.stringify(d)); } catch (e) { showGlobalToast('Could not keep the note in this browser (storage full or blocked).'); }
   }
   const fnHost = () => readNodes().active || '';
@@ -9968,6 +9970,7 @@ ${rmaTrailSection()}#### Action Requested:
   function rkSave() {
     const text = rkEl.querySelector('.rk-text').value;
     rkWrite({ text });
+    bkAskPersist();
     rkEl._editing = false;
     const { devices, errors } = rkLayout();
     rkRender();
@@ -12273,7 +12276,7 @@ ${rmaTrailSection()}#### Action Requested:
   const BK_DONE_KEY = 'dc_restore_done';  // sessionStorage: toast after the reload
   // Only this site's keys: on file:// every local page shares one storage area.
   const BK_KEY_RE = /^(dc_|cs_|linux_cs|jira_cs_|mb_sheet_)|^portable_bookmarks$|_bookmarks$/;
-  const BK_SKIP = new Set(['dc_storage_probe', 'dc_target_pass', BK_UNDO_KEY, BK_DONE_KEY]);
+  const BK_SKIP = new Set(['dc_storage_probe', 'dc_target_pass', BK_UNDO_KEY, BK_DONE_KEY, 'dc_persist_asked']);
   const BK_LABELS = {
     dc_field_notes: 'Field notes (drafts)', dc_case_file: 'Case file', dc_case_trail: 'Case trail', dc_case_trail_meta: 'Case trail details',
     dc_nodes: 'Node workspaces', dc_target_vars: 'Rack Targets', dc_change_plan: 'Change plan', dc_cmd_outputs: 'Pasted command outputs',
@@ -12310,6 +12313,33 @@ ${rmaTrailSection()}#### Action Requested:
     .replace(/(\s-P\s+)\S+/g, '$1••••')
     .replace(/(\s(-u|--user)\s+[^\s:]+:)\S+/g, '$1••••')
     .replace(/\b(ghp_|glsa_|AKIA|xox[bp]-|eyJ)[A-Za-z0-9_.-]+/g, '$1••••');
+
+  // Ask the browser not to clear this site's storage on its own (navigator.storage.persist).
+  // A granted request covers localStorage too. Chromium decides silently from how much the
+  // site is used (and whether it is bookmarked); Firefox shows a prompt, so this is only
+  // called when the person saves something, never on page load, and once per tab.
+  const BK_PERSIST_ASKED = 'dc_persist_asked';  // sessionStorage
+  function bkPersistState() {
+    const sm = navigator.storage;
+    if (!sm || typeof sm.persisted !== 'function' || typeof sm.persist !== 'function') return Promise.resolve('unavailable');
+    return sm.persisted().then(p => (p ? 'kept' : 'not-kept'), () => 'unavailable');
+  }
+  function bkAskPersist(force) {
+    if (!force) {
+      try { if (sessionStorage.getItem(BK_PERSIST_ASKED)) return Promise.resolve(null); sessionStorage.setItem(BK_PERSIST_ASKED, '1'); } catch (e) {}
+    }
+    return bkPersistState().then(st => (st === 'not-kept' ? navigator.storage.persist().then(ok => (ok ? 'kept' : 'not-kept'), () => 'not-kept') : st));
+  }
+  function bkRenderPersist(state, asked) {
+    const box = bkEl && bkEl.querySelector('.bk-persist');
+    if (!box) return;
+    box.className = `bk-persist is-${state}`;
+    box.innerHTML = state === 'kept'
+      ? '<b>✓ Kept.</b> This browser has agreed not to clear the site’s data on its own; only you can, by clearing site data.'
+      : state === 'unavailable'
+        ? '<b>No promise available.</b> This browser can’t be asked to keep the data. Download a backup at the end of a shift.'
+        : `<b>⚠ Not guaranteed.</b> The browser may clear this data when the disk runs low. ${asked ? 'It said no this time: Chromium browsers decide from how much you use the site, so bookmarking the page helps. Keep a backup meanwhile.' : 'Ask it to keep it:'} <button type="button" data-bk="persist">${asked ? 'Ask again' : 'Ask the browser to keep it'}</button>`;
+  }
 
   // Build the export: every own key, minus anything that looks like it holds a credential.
   function bkCollect() {
@@ -12402,6 +12432,7 @@ ${rmaTrailSection()}#### Action Requested:
         <h3>Back up</h3>
         <p>${keys.length ? `${keys.length} items, ${bkSize(total)}: ${work.length ? work.map(k => escapeHtml(bkLabel(k))).join(', ') : 'settings only'}${stars ? `, and My kit stars from ${stars} sheet${stars === 1 ? '' : 's'}` : ''}.` : 'Nothing saved in this browser yet.'}</p>
         <p class="an-hint">Never in the file: the BMC password (this tab only) and the terminal token.</p>
+        <p class="bk-persist" aria-live="polite">Checking whether this browser will keep the data…</p>
         ${held.length ? `<div class="bk-held"><b>Held back: looks like a credential.</b> Remove it (use <code>$BMC_PASS</code> or <code>-E</code>), then back up again.<ul>${held.map(h => `<li>${escapeHtml(bkLabel(h.key))}: <code>${escapeHtml(h.text)}</code></li>`).join('')}</ul></div>` : ''}
         <div class="bk-actions"><button type="button" class="bk-primary" data-bk="export" ${keys.length ? '' : 'disabled'}>⬇ Download backup (.json)</button></div>
       </section>
@@ -12471,7 +12502,9 @@ ${rmaTrailSection()}#### Action Requested:
       return;
     }
     try { sessionStorage.setItem(BK_DONE_KEY, String(entries.length)); } catch (e) {}
-    location.reload();
+    // Restored work is worth keeping: ask before the reload (the answer is the browser's, not this page's).
+    const reload = () => location.reload();
+    bkAskPersist().then(reload, reload);
   }
 
   function openBackup() {
@@ -12493,7 +12526,8 @@ ${rmaTrailSection()}#### Action Requested:
         if (!b) return;
         const act = b.dataset.bk;
         if (act === 'close') closeBackup();
-        if (act === 'export') bkDownload();
+        if (act === 'export') { bkDownload(); bkAskPersist().then(st => { if (st) bkRenderPersist(st, true); }); }
+        if (act === 'persist') bkAskPersist(true).then(st => bkRenderPersist(st, true));
         if (act === 'pick') bkEl.querySelector('.bk-file').click();
         if (act === 'undo') bkUndo();
         if (act === 'restore') bkRestoreSelected();
@@ -12518,6 +12552,7 @@ ${rmaTrailSection()}#### Action Requested:
     bkFocus = document.activeElement;
     bkPending = null;
     bkEl.querySelector('.bk-body').innerHTML = bkRenderExport();
+    bkPersistState().then(st => bkRenderPersist(st, false));
     bkEl.classList.add('show');
     document.body.style.overflow = 'hidden';
     setTimeout(() => { const b = bkEl.querySelector('[data-bk="export"]:not([disabled]), [data-bk="pick"]'); if (b) b.focus(); }, 40);

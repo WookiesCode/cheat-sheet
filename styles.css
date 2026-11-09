@@ -8519,3 +8519,14 @@ body.con-live .pb-btn { right: 128px; }
 .bk-row.is-differs .bk-state { color: var(--accent-amber); }
 .bk-row.is-new .bk-state { color: var(--accent-green); }
 .bk-row.is-same { opacity: 0.6; }
+.bk-persist { padding: 0.45rem 0.65rem; border-radius: 6px; border: 1px solid var(--border-subtle); font-size: 0.82rem; }
+.bk-persist.is-kept { border-color: color-mix(in srgb, var(--accent-green) 45%, transparent); }
+.bk-persist.is-not-kept { border-color: color-mix(in srgb, var(--accent-amber) 50%, transparent); }
+.bk-persist b { color: var(--text-primary); }
+.bk-persist.is-kept b { color: var(--accent-green); }
+.bk-persist.is-not-kept b { color: var(--accent-amber); }
+.bk-persist button {
+  margin-left: 0.3rem; padding: 0.2rem 0.6rem; border-radius: 5px; cursor: pointer;
+  border: 1px solid var(--border-subtle); background: var(--bg-elevated); color: var(--text-primary); font: 600 0.78rem var(--font-sans);
+}
+.bk-persist button:hover { border-color: var(--accent-primary); }
