@@ -1108,6 +1108,9 @@
   let searchCount = null;
   let searchActiveIndex = 0;
   let currentSearchResults = [];
+  // Index of a state-changing result waiting for its second Enter; -1 when none is armed.
+  let paletteArmed = -1;
+  const paletteIsDanger = (item) => !!item && !item.run && !item.noCopy && DANGER_RE.test(item.cmd || '');
 
   function initGlobalSearchModal() {
     if (document.getElementById('global-search-modal')) return;
@@ -3396,6 +3399,7 @@
 
   function renderGlobalSearchResults(query) {
     if (!window.GLOBAL_SEARCH_INDEX || !searchResults) return;
+    paletteArmed = -1;
     const cleanQuery = query.trim().toLowerCase();
     let tokens = cleanQuery.split(/\s+/).filter(Boolean);
     const decoded = decodeSymptom(query);
@@ -3457,14 +3461,18 @@
       const sheetColor = getSheetColorClass(item.sName);
       const highlightedCmd = highlightMatches(item.cmd, tokens);
       const highlightedDesc = highlightMatches(item.desc, tokens);
+      // Same rule the sheets use to paint a command red; Enter has to be pressed twice for these.
+      const danger = paletteIsDanger(item);
+      const hint = item.noCopy ? 'Enter or Click to Open' : danger ? 'Enter twice to Copy • Click to Open' : 'Enter to Copy • Click to Open';
 
       return `
-        <div class="palette-item ${isSelected ? 'is-selected' : ''}" data-index="${idx}" data-file="${escapeHtml(item.file)}" data-id="${escapeHtml(item.id)}" data-cmd="${escapeHtml(item.cmd)}">
+        <div class="palette-item ${isSelected ? 'is-selected' : ''} ${danger ? 'is-danger' : ''}" data-index="${idx}" data-file="${escapeHtml(item.file)}" data-id="${escapeHtml(item.id)}" data-cmd="${escapeHtml(item.cmd)}">
           <div class="palette-item-top">
             <span class="palette-sheet-badge ${sheetColor}">${escapeHtml(item.sName)}</span>
             <span class="palette-sec">${escapeHtml(item.sec)}</span>
-            <span class="palette-action-hint">${item.noCopy ? 'Enter or Click to Open' : 'Enter to Copy • Click to Open'}</span>
+            <span class="palette-action-hint">${hint}</span>
           </div>
+          ${danger ? '<span class="danger-tag">⚠ Changes state · drain &amp; get approval first</span>' : ''}
           <div class="palette-cmd-code">${highlightedCmd}</div>
           <div class="palette-desc">${highlightedDesc}</div>
         </div>
@@ -3481,6 +3489,7 @@
     const items = searchResults.querySelectorAll('.palette-item');
     items.forEach((itemEl, idx) => {
       itemEl.addEventListener('mouseenter', () => {
+        if (idx !== searchActiveIndex) disarmPalette();
         searchActiveIndex = idx;
         updatePaletteHighlightClasses();
       });
@@ -3492,8 +3501,10 @@
         const id = itemEl.dataset.id;
         const cmd = itemEl.dataset.cmd;
 
-        // If target is copy or user wants to copy
-        if (!currentSearchResults[idx].noCopy) {
+        // A state-changing command is not copied on click: the sheet shows it in red with its change plan.
+        if (paletteIsDanger(currentSearchResults[idx])) {
+          showGlobalToast('Opened, not copied: this command changes state. Drain and get approval first.');
+        } else if (!currentSearchResults[idx].noCopy) {
           navigator.clipboard.writeText(firstCommand(cmd));
           showGlobalToast(`Copied command from ${itemEl.querySelector('.palette-sheet-badge').textContent}!`);
         }
@@ -3504,8 +3515,19 @@
     });
   }
 
+  function disarmPalette() {
+    if (paletteArmed < 0 || !searchResults) return;
+    const el = searchResults.querySelector(`.palette-item[data-index="${paletteArmed}"]`);
+    paletteArmed = -1;
+    if (!el) return;
+    el.classList.remove('is-armed');
+    const confirm = el.querySelector('.palette-confirm');
+    if (confirm) confirm.remove();
+  }
+
   function movePaletteHighlight(delta) {
     if (!currentSearchResults.length) return;
+    disarmPalette();
     searchActiveIndex = (searchActiveIndex + delta + currentSearchResults.length) % currentSearchResults.length;
     updatePaletteHighlightClasses();
     const activeEl = searchResults.querySelector(`.palette-item[data-index="${searchActiveIndex}"]`);
@@ -3531,9 +3553,24 @@
     if (!item) return;
     if (item.run) return runPaletteEntity(item);
 
+    // First Enter on a state-changing command only arms it; the second copies.
+    const danger = paletteIsDanger(item);
+    if (danger && paletteArmed !== searchActiveIndex) {
+      disarmPalette();
+      paletteArmed = searchActiveIndex;
+      const el = searchResults.querySelector(`.palette-item[data-index="${searchActiveIndex}"]`);
+      if (el) {
+        el.classList.add('is-armed');
+        el.insertAdjacentHTML('beforeend', '<div class="palette-confirm" role="alert">This changes state. Press <kbd>Enter</kbd> again to copy it, or move away to cancel.</div>');
+        el.scrollIntoView({ block: 'nearest' });
+      }
+      return;
+    }
+    paletteArmed = -1;
+
     if (!item.noCopy) {
       navigator.clipboard.writeText(firstCommand(item.cmd));
-      showGlobalToast(`Copied command: ${item.cmd.slice(0, 40)}…`);
+      showGlobalToast(`${danger ? 'Copied (changes state, drain first)' : 'Copied command'}: ${item.cmd.slice(0, 40)}…`);
     }
 
     openSearchResult(item.file, item.id);

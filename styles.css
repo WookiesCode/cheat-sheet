@@ -2192,6 +2192,26 @@ code, kbd, pre {
   font-size: 0.68rem;
 }
 
+/* State-changing results: red edge, and a confirm line after the first Enter (common.js executeActivePaletteItem). */
+.palette-item.is-danger { border-left: 3px solid var(--accent-red); }
+.palette-item.is-danger .danger-tag { align-self: flex-start; margin-bottom: 0; }
+.palette-item.is-armed,
+.palette-item.is-armed.is-selected {
+  border-color: var(--accent-red);
+  box-shadow: 0 0 0 1px var(--accent-red);
+}
+.palette-confirm {
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--accent-red);
+}
+.palette-confirm kbd {
+  padding: 0 0.3rem;
+  border: 1px solid currentColor;
+  border-radius: 3px;
+  font: inherit;
+}
+
 /* Badges for Sheets */
 .badge-linux { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
 .badge-nvidia { background: rgba(118, 185, 0, 0.15); color: #84cc16; border: 1px solid rgba(118, 185, 0, 0.3); }
