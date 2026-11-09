@@ -18,6 +18,19 @@ First time only (creates `tui-py/.venv`, nothing system-wide):
 uv venv .venv --python 3.12 && uv pip install --python .venv/bin/python 'textual==8.2.8'
 ```
 
+## One file for servers (`.pyz`)
+
+```bash
+./build_pyz.sh                       # → dist/dc-cheat.pyz (~7 MB) + .sha256
+scp dist/dc-cheat.pyz <host>:bin/dc-cheat
+```
+
+On the server it needs only **python3 3.9 or newer** (Ubuntu 22.04 and 24.04 yes; 20.04's 3.8 no,
+and it says so). No pip, no internet, nothing written to disk; run it as `dc-cheat` or
+`python3 dc-cheat.pyz`. It holds Textual and its dependencies (all pure Python) plus the app,
+stylesheet and data. Bytecode is built for Python 3.12, so 3.12 starts fastest (~0.4 s to the
+first screen); other versions compile from source each start (~0.7 s).
+
 ## Keys and mouse
 
 | Key / mouse | Does |
@@ -41,9 +54,10 @@ uv venv .venv --python 3.12 && uv pip install --python .venv/bin/python 'textual
 | `test_dc_cheat.py` | clicks and keys driven headless (`.venv/bin/python test_dc_cheat.py`) |
 | `sweep.py` | opens every sheet: crashes and render time |
 | `shot.py` | SVG screenshot of any sheet at any size |
+| `build_pyz.sh` | builds `dist/dc-cheat.pyz` (git-ignored) |
 
 ## Not in the prototype yet
 
 Toolbar buttons (Triage, My kit, Explain, Rack, Terminal, Theme, More) are shown but not wired;
 hub pages, Home/Workbench, Ticketing and Omarchy aren't exported; Rack Targets are the
-site's defaults and not editable; no light theme; no single-file `.pyz` packaging yet.
+site's defaults and not editable; no light theme.

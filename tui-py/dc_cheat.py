@@ -11,6 +11,7 @@ Run:  .venv/bin/python dc_cheat.py [sheet.html]
 from __future__ import annotations
 
 import json
+import os
 import re
 import sys
 from pathlib import Path
@@ -23,7 +24,17 @@ from textual.containers import Horizontal, Vertical, VerticalScroll
 from textual.widgets import Input, Static
 
 HERE = Path(__file__).resolve().parent
-DATA = json.loads((HERE / "data" / "site.json").read_text(encoding="utf-8"))
+
+
+def resource(name: str) -> str:
+    """Read a file shipped next to this module: from the folder, or from inside the .pyz.
+    A plain open() can't look inside a zip, but the module's own loader can do both.
+    The path is joined as a plain string on purpose: pathlib would tidy "./dist/x.pyz"
+    into "dist/x.pyz", and the zip loader then no longer sees it as inside its archive."""
+    return __loader__.get_data(os.path.join(os.path.dirname(__file__), name)).decode("utf-8")
+
+
+DATA = json.loads(resource("data/site.json"))
 
 # The site's default Rack Targets. Values like mlx5_0 are drawn as "slots", as on the site.
 TARGETS = [("$BMC", "2001:db8:dc::50"), ("$BMC_USER", "ADMIN"), ("$IFACE", "eno1"), ("$HCA", "mlx5_0"), ("$DISK", "/dev/nvme0n1")]
@@ -206,7 +217,7 @@ class Dummy(Static):
 
 # ---- the app ---------------------------------------------------------------------
 class CheatSheet(App):
-    CSS_PATH = "dc_cheat.tcss"
+    CSS = resource("dc_cheat.tcss")  # not CSS_PATH: Textual reads that from disk, which fails inside a .pyz
     TITLE = "dc-cheat"
     HORIZONTAL_BREAKPOINTS = [(0, "-narrow"), (150, "-wide")]
     BINDINGS = [
@@ -444,5 +455,11 @@ class CheatSheet(App):
         self.open_sheet(file, focus=n)
 
 
-if __name__ == "__main__":
+def main() -> None:
+    if sys.version_info < (3, 9):
+        sys.exit(f"dc-cheat needs Python 3.9 or newer (this is {sys.version.split()[0]}).")
     CheatSheet(sys.argv[1] if len(sys.argv) > 1 else "ib-mlxlink.html").run()
+
+
+if __name__ == "__main__":
+    main()
