@@ -55,7 +55,6 @@ Maintain a clean, reproducible directory structure in `/home/jason/Work/cheat-sh
 ├── index.html, *.html, *.js         # The offline cheat-sheet site (common.js, styles.css, sheets)
 ├── build-*.js, generate-*.js        # Site build scripts (run build-all.js)
 ├── backups/                         # Site backups (git-ignored)
-├── tui/                             # dc-cheat terminal version (Go + Bubble Tea); data from build-tui-data.js
 ├── docs/
 │   ├── site.md                      # Site guide: features, shortcuts, how it is built
 │   └── playbooks/

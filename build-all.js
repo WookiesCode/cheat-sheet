@@ -34,7 +34,6 @@ const STEPS = [
   'build-help-pages.js', // help-captures/ → help-pages.json, shipped by build-man-data.js
   'build-man-data.js',
   'build-index.js',
-  'build-tui-data.js', // data for the terminal version in tui/ (dc-cheat)
   'build-portable.js'
 ];
 
