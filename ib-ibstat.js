@@ -36,7 +36,20 @@ const IB_IB_IBSTAT_DATA = [
           "infiniband",
           "triage",
           "rdma"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibstat.8.in.rst",
+              "title": "ibstat man page (rdma-core)"
+            },
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibstatus.8.in.rst",
+              "title": "ibstatus man page (rdma-core)"
+            }
+          ]
+        }
       },
       {
         "id": "ibstat-sub-1",
@@ -47,7 +60,20 @@ const IB_IB_IBSTAT_DATA = [
           "recipe",
           "automation",
           "pipeline"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibstat.8.in.rst",
+              "title": "ibstat man page (rdma-core)"
+            },
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibstatus.8.in.rst",
+              "title": "ibstatus man page (rdma-core)"
+            }
+          ]
+        }
       },
       {
         "id": "ibstat-sub-2",
@@ -58,7 +84,20 @@ const IB_IB_IBSTAT_DATA = [
           "recipe",
           "automation",
           "pipeline"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibstat.8.in.rst",
+              "title": "ibstat man page (rdma-core)"
+            },
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibstatus.8.in.rst",
+              "title": "ibstatus man page (rdma-core)"
+            }
+          ]
+        }
       }
     ]
   },

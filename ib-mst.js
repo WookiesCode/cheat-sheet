@@ -28,7 +28,20 @@ const IB_IB_MST_DATA = [
           "infiniband",
           "triage",
           "rdma"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/mftswum/4330/linux",
+              "title": "MFT: mst"
+            },
+            {
+              "url": "https://networking-docs.nvidia.com/mftswum/4330/cable-utilities",
+              "title": "MFT: cable utilities"
+            }
+          ]
+        }
       },
       {
         "id": "mst-sub-1",
@@ -39,7 +52,20 @@ const IB_IB_MST_DATA = [
           "recipe",
           "automation",
           "pipeline"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/mftswum/4330/linux",
+              "title": "MFT: mst"
+            },
+            {
+              "url": "https://networking-docs.nvidia.com/mftswum/4330/cable-utilities",
+              "title": "MFT: cable utilities"
+            }
+          ]
+        }
       }
     ]
   },

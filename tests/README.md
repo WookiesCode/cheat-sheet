@@ -36,7 +36,7 @@ Run the tests after `node build-all.js`. The tests read the built pages and the 
 | `storage-warn.test.js` | A refused save raises one persistent bar (full / blocked / refused); tab-only data stays quiet |
 | `focus-visible.test.js` | Tab, Shift+Tab and j/k never leave focus fully hidden under the fixed bars at 1280 and 800 px |
 | `skip-link.test.js` | The first Tab shows the skip link; Enter lands on the first command or the content, on every page type |
-| `sources.test.js` | All 31 NVIDIA commands show a source line; the corrected commands; amber after a year; survives a re-render; the portable copy; no injection through `src` |
+| `sources.test.js` | All 31 NVIDIA and 51 InfiniBand commands show a source line; the corrected commands; amber after a year; survives a re-render; the portable copy; no injection through `src` |
 | `doc-counts.test.js` | The counts in `README.md` and `docs/site.md` match the home page (run after `node build-all.js`) |
 | `portable-icon.test.js` | The portable file's favicon data URI decodes |
 | `bridge.test.py` | `term-bridge.py` survives a large paste and bad or oversized resize messages (it uses a throwaway `HOME`) |

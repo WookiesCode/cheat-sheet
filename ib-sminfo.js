@@ -19,7 +19,7 @@ const IB_IB_SMINFO_DATA = [
           ],
           [
             "saquery -s",
-            "Query the Subnet Administrator (SA) for all registered SMInfo records (shows both Master and Standby SMs!)"
+            "Ask the SA for the PortInfo records of ports that run an SM (isSM capability bit): every Master and Standby SM port"
           ]
         ],
         "tip": "saquery -s lists both the Master SM and all Standby SMs",
@@ -28,7 +28,21 @@ const IB_IB_SMINFO_DATA = [
           "infiniband",
           "triage",
           "rdma"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/sminfo.8.in.rst",
+              "title": "sminfo man page (rdma-core)"
+            },
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/saquery.8.in.rst",
+              "title": "saquery man page (rdma-core)"
+            }
+          ],
+          "note": "State numbers (2 = standby, 3 = master) come from sminfo -s; the page does not describe its output fields."
+        }
       },
       {
         "id": "sminfo-sub-1",
@@ -39,7 +53,12 @@ const IB_IB_SMINFO_DATA = [
           "recipe",
           "automation",
           "pipeline"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [],
+          "note": "The OpenSM service name is not documented in the OpenSM repo read; it depends on your distro/package."
+        }
       },
       {
         "id": "sminfo-sub-2",
@@ -50,7 +69,16 @@ const IB_IB_SMINFO_DATA = [
           "recipe",
           "automation",
           "pipeline"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/saquery.8.in.rst",
+              "title": "saquery man page (rdma-core)"
+            }
+          ]
+        }
       }
     ]
   },

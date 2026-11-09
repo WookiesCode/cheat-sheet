@@ -119,7 +119,9 @@ function buildIbSectionCards(sec) {
         details: cmd.details || '',
         flags: cmd.flags ? cmd.flags.slice(0, 3) : [],
         tip: cmd.tip || '',
-        tags: [cfg.name, 'infiniband', 'triage', 'rdma']
+        tags: [cfg.name, 'infiniband', 'triage', 'rdma'],
+        // Where the command was checked (drawn under the card by common.js initSources).
+        ...(cmd.src ? { src: cmd.src } : {})
       }
     ]
   });
@@ -155,7 +157,9 @@ function buildIbSectionCards(sec) {
         id: `${sec.id}-sub-${idx + 1}`,
         desc: sub[1],
         cmd: sub[0],
-        tags: [cfg.name, 'recipe', 'automation', 'pipeline']
+        tags: [cfg.name, 'recipe', 'automation', 'pipeline'],
+        // A recipe's own source (third element) wins; otherwise it shares the command's.
+        ...((sub[2] || cmd.src) ? { src: sub[2] || cmd.src } : {})
       }))
     });
   }

@@ -27,7 +27,7 @@ const IB_IB_PERFQUERY_DATA = [
           ],
           [
             "-a",
-            "Query or reset all ports on the target switch LID"
+            "Aggregated counters for all ports of the target LID (-l lists each port separately)"
           ]
         ],
         "tip": "16-bit IB counters saturate at 65535 — use -R to clear after fixing!",
@@ -36,7 +36,17 @@ const IB_IB_PERFQUERY_DATA = [
           "infiniband",
           "triage",
           "rdma"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/perfquery.8.in.rst",
+              "title": "perfquery man page (rdma-core)"
+            }
+          ],
+          "note": "Corrected 2026-11-09: --oprcv is --oprcvcounters (per-opcode receive counters)."
+        }
       },
       {
         "id": "perfquery-sub-1",
@@ -47,18 +57,38 @@ const IB_IB_PERFQUERY_DATA = [
           "recipe",
           "automation",
           "pipeline"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/perfquery.8.in.rst",
+              "title": "perfquery man page (rdma-core)"
+            }
+          ],
+          "note": "Combining -R with -a is not shown as an example; -R is \"only reset counters\"."
+        }
       },
       {
         "id": "perfquery-sub-2",
-        "desc": "Query per-VL (Virtual Lane) receive/transmit congestion counters",
-        "cmd": "perfquery --oprcv <LID> <PORT>",
+        "desc": "Receive counters per opcode (an optional counter: not every device has it)",
+        "cmd": "perfquery --oprcvcounters <LID> <PORT>",
         "tags": [
           "perfquery",
           "recipe",
           "automation",
           "pipeline"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/perfquery.8.in.rst",
+              "title": "perfquery man page (rdma-core)"
+            }
+          ],
+          "note": "Corrected 2026-11-09: --oprcv is --oprcvcounters (per-opcode receive counters)."
+        }
       }
     ]
   },

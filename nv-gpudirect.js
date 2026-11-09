@@ -60,7 +60,7 @@ const NV_NV_GPUDIRECT_DATA = [
         "mode": "RDMA TEST",
         "modeClass": "mode-v",
         "desc": "Test line-rate GPUDirect RDMA bandwidth directly from GPU memory (`--use_cuda`) between two nodes",
-        "cmd": "# Server: ib_write_bw -d mlx5_0 --use_cuda=0 -a -F --report_gbits --ipv6   |   # Client: ib_write_bw -d mlx5_0 --use_cuda=0 -a -F --report_gbits --ipv6 2001:db8:dc::1",
+        "cmd": "# Server: ib_write_bw -d mlx5_0 --use_cuda=0 -a -F --report_gbits --ipv6-addr   |   # Client: ib_write_bw -d mlx5_0 --use_cuda=0 -a -F --report_gbits --ipv6-addr 2001:db8:dc::1",
         "flags": [
           [
             "-d mlx5_0 --use_cuda=0",
@@ -92,7 +92,7 @@ const NV_NV_GPUDIRECT_DATA = [
               "title": "perftest"
             }
           ],
-          "note": "Expected Gb/s and latency figures are rules of thumb, not from perftest."
+          "note": "Corrected 2026-11-09: --ipv6-addr (not --ipv6) for an IPv6 server address, on both ends. Gb/s and latency figures are rules of thumb."
         }
       }
     ]

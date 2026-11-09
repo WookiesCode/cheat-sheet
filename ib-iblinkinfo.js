@@ -36,7 +36,21 @@ const IB_IB_IBLINKINFO_DATA = [
           "infiniband",
           "triage",
           "rdma"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/iblinkinfo.8.in.rst",
+              "title": "iblinkinfo man page (rdma-core)"
+            },
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibnetdiscover.8.in.rst",
+              "title": "ibnetdiscover man page (rdma-core)"
+            }
+          ],
+          "note": "-C/-P/-D come from the shared infiniband-diags options; the iblinkinfo page does not list them."
+        }
       },
       {
         "id": "iblinkinfo-sub-1",
@@ -47,7 +61,21 @@ const IB_IB_IBLINKINFO_DATA = [
           "recipe",
           "automation",
           "pipeline"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/iblinkinfo.8.in.rst",
+              "title": "iblinkinfo man page (rdma-core)"
+            },
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibnetdiscover.8.in.rst",
+              "title": "ibnetdiscover man page (rdma-core)"
+            }
+          ],
+          "note": "-C/-P/-D come from the shared infiniband-diags options; the iblinkinfo page does not list them."
+        }
       },
       {
         "id": "iblinkinfo-sub-2",
@@ -58,7 +86,21 @@ const IB_IB_IBLINKINFO_DATA = [
           "recipe",
           "automation",
           "pipeline"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/iblinkinfo.8.in.rst",
+              "title": "iblinkinfo man page (rdma-core)"
+            },
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibnetdiscover.8.in.rst",
+              "title": "ibnetdiscover man page (rdma-core)"
+            }
+          ],
+          "note": "-C/-P/-D come from the shared infiniband-diags options; the iblinkinfo page does not list them."
+        }
       }
     ]
   },

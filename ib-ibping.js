@@ -19,7 +19,7 @@ const IB_IB_IBPING_DATA = [
           ],
           [
             "-G <sGUID> <dGUID>",
-            "Use port GUIDs instead of LIDs for ibtracert or ibping"
+            "ibtracert by port GUIDs instead of LIDs (ibping takes a LID or GUID as its destination)"
           ],
           [
             "ibping -S",
@@ -32,7 +32,20 @@ const IB_IB_IBPING_DATA = [
           "infiniband",
           "triage",
           "rdma"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibtracert.8.in.rst",
+              "title": "ibtracert man page (rdma-core)"
+            },
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibping.8.in.rst",
+              "title": "ibping man page (rdma-core)"
+            }
+          ]
+        }
       },
       {
         "id": "ibping-sub-1",
@@ -43,7 +56,20 @@ const IB_IB_IBPING_DATA = [
           "recipe",
           "automation",
           "pipeline"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibtracert.8.in.rst",
+              "title": "ibtracert man page (rdma-core)"
+            },
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibping.8.in.rst",
+              "title": "ibping man page (rdma-core)"
+            }
+          ]
+        }
       }
     ]
   },

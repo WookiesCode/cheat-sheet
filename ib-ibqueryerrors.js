@@ -27,7 +27,7 @@ const IB_IB_IBQUERYERRORS_DATA = [
           ],
           [
             "-k / -K",
-            "Clear (-k) error counters across the fabric after reporting them"
+            "Clear error counters (-k) or data counters (-K) after reading, whether or not they were printed"
           ]
         ],
         "tip": "Suppress RcvSwRelayErrors to focus on real physical bad cables",
@@ -36,7 +36,16 @@ const IB_IB_IBQUERYERRORS_DATA = [
           "infiniband",
           "triage",
           "rdma"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibqueryerrors.8.in.rst",
+              "title": "ibqueryerrors man page (rdma-core)"
+            }
+          ]
+        }
       },
       {
         "id": "ibqueryerrors-sub-1",
@@ -47,7 +56,16 @@ const IB_IB_IBQUERYERRORS_DATA = [
           "recipe",
           "automation",
           "pipeline"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibqueryerrors.8.in.rst",
+              "title": "ibqueryerrors man page (rdma-core)"
+            }
+          ]
+        }
       },
       {
         "id": "ibqueryerrors-sub-2",
@@ -58,7 +76,17 @@ const IB_IB_IBQUERYERRORS_DATA = [
           "recipe",
           "automation",
           "pipeline"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibqueryerrors.8.in.rst",
+              "title": "ibqueryerrors man page (rdma-core)"
+            }
+          ],
+          "note": "-G comes from the shared infiniband-diags options (port GUID)."
+        }
       }
     ]
   },

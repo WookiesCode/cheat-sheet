@@ -10,20 +10,20 @@ const IB_IB_IBDIAGNET_DATA = [
       {
         "id": "ibdiagnet-cmd",
         "desc": "Run full InfiniBand fabric verification: link speeds, Bit Error Rate (BER) thresholds, routing loops & transceiver temps",
-        "cmd": "ibdiagnet -o /tmp/ibdiagnet2 --get_cable_info --ber_test",
+        "cmd": "ibdiagnet -o /tmp/ibdiagnet2 --get_cable_info --get_phy_info",
         "details": "'ibdiagnet' is NVIDIA's comprehensive fabric validation suite. It checks SM status, duplicate GUIDs, LFT routing credit loops, degraded link speeds/widths, and dumps detailed CSV/DB files into '/tmp/ibdiagnet2/' (including 'ibdiagnet2.log', 'ibdiagnet2.cables', and 'ibdiagnet2.ber').",
         "flags": [
           [
             "-o <dir>",
-            "Output directory for diagnostic reports (default /var/tmp/ibdiagnet2)"
+            "Output directory for the reports (NVIDIA's examples read results from /var/tmp/ibdiagnet2)"
           ],
           [
             "--get_cable_info",
-            "Read EEPROM & DOM temperature/power info from every optical transceiver/AOC/DAC in the fabric"
+            "Query every QSFP cable; results in ibdiagnet2.cables. NVIDIA marks this plugin deprecated"
           ],
           [
-            "--ber_test",
-            "Measure Raw and Effective (post-FEC) Bit Error Rate across all fabric links"
+            "--get_phy_info",
+            "Physical-layer info including BER: NVIDIA's BER check for ConnectX-5 and later / Quantum (--ber_test is SwitchX, ConnectX-3/4 only)"
           ],
           [
             "--pc",
@@ -36,7 +36,21 @@ const IB_IB_IBDIAGNET_DATA = [
           "infiniband",
           "triage",
           "rdma"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/ibdiagnetutilityum/2.27.0/basic-commands",
+              "title": "ibdiagnet commands"
+            },
+            {
+              "url": "https://networking-docs.nvidia.com/ibdiagnetutilityum/2.27.0/ibdiagnet-dump-files",
+              "title": "ibdiagnet output files"
+            }
+          ],
+          "note": "Corrected 2026-11-09: --ber_test is for SwitchX/ConnectX-3/4 only; NVIDIA says to use --get_phy_info on later devices."
+        }
       },
       {
         "id": "ibdiagnet-sub-1",
@@ -47,7 +61,21 @@ const IB_IB_IBDIAGNET_DATA = [
           "recipe",
           "automation",
           "pipeline"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/ibdiagnetutilityum/2.27.0/basic-commands",
+              "title": "ibdiagnet commands"
+            },
+            {
+              "url": "https://networking-docs.nvidia.com/ibdiagnetutilityum/2.27.0/ibdiagnet-dump-files",
+              "title": "ibdiagnet output files"
+            }
+          ],
+          "note": "Corrected 2026-11-09: --ber_test is for SwitchX/ConnectX-3/4 only; NVIDIA says to use --get_phy_info on later devices."
+        }
       },
       {
         "id": "ibdiagnet-sub-2",
@@ -58,7 +86,12 @@ const IB_IB_IBDIAGNET_DATA = [
           "recipe",
           "automation",
           "pipeline"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [],
+          "note": "The -E- / -W- line prefixes are not described in the ibdiagnet docs read."
+        }
       }
     ]
   },
@@ -71,7 +104,7 @@ const IB_IB_IBDIAGNET_DATA = [
       {
         "id": "ibdiagnet-tips-card",
         "desc": "Production recommendations, fabric stability tips & triage advice for ibdiagnet",
-        "cmd": "ibdiagnet -o /tmp/ibdiagnet2 --get_cable_info --ber_test",
+        "cmd": "ibdiagnet -o /tmp/ibdiagnet2 --get_cable_info --get_phy_info",
         "tip": "Check /tmp/ibdiagnet2/ibdiagnet2.cables for overtemp optics!",
         "details": "In multi-tier Quantum/Quantum-2 topologies, always cross-reference ibdiagnet telemetry with adjacent switch ports and Subnet Manager topology databases.",
         "tags": [

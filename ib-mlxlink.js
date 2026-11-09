@@ -15,7 +15,7 @@ const IB_IB_MLXLINK_DATA = [
         "flags": [
           [
             "-d <dev> -p <port>",
-            "Target HCA device (mlx5_0 or BDF) or switch LID and port number"
+            "Device (mst device, BDF or mlx5_X alias). -p is for switches: on an adapter, pick the per-port device instead"
           ],
           [
             "-m",
@@ -40,7 +40,16 @@ const IB_IB_MLXLINK_DATA = [
           "infiniband",
           "triage",
           "rdma"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxlink-utility",
+              "title": "MFT: mlxlink"
+            }
+          ]
+        }
       },
       {
         "id": "mlxlink-sub-1",
@@ -51,18 +60,36 @@ const IB_IB_MLXLINK_DATA = [
           "recipe",
           "automation",
           "pipeline"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxlink-utility",
+              "title": "MFT: mlxlink"
+            }
+          ]
+        }
       },
       {
         "id": "mlxlink-sub-2",
-        "desc": "Configure PRBS31 physical layer bit-pattern link testing",
-        "cmd": "mlxlink -d mlx5_0 --rx_prbs PRBS31 --tx_prbs PRBS31",
+        "desc": "PRBS31 bit-pattern test: takes the link out of service; end it with --test_mode DS",
+        "cmd": "mlxlink -d mlx5_0 --test_mode EN --rx_prbs PRBS31 --tx_prbs PRBS31",
         "tags": [
           "mlxlink",
           "recipe",
           "automation",
           "pipeline"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxlink-utility",
+              "title": "MFT: mlxlink"
+            }
+          ]
+        }
       },
       {
         "id": "mlxlink-sub-3",
@@ -73,7 +100,16 @@ const IB_IB_MLXLINK_DATA = [
           "recipe",
           "automation",
           "pipeline"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/mftswum/4330/mget_temp-utility",
+              "title": "MFT: mget_temp"
+            }
+          ]
+        }
       }
     ]
   },

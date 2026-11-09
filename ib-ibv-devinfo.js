@@ -32,7 +32,17 @@ const IB_IB_IBV_DEVINFO_DATA = [
           "infiniband",
           "triage",
           "rdma"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/libibverbs/man/ibv_devinfo.1",
+              "title": "ibv_devinfo man page (rdma-core)"
+            }
+          ],
+          "note": "The ibv_devices man page does not mention node GUIDs."
+        }
       },
       {
         "id": "ibv-devinfo-sub-1",
@@ -43,7 +53,12 @@ const IB_IB_IBV_DEVINFO_DATA = [
           "recipe",
           "automation",
           "pipeline"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [],
+          "note": "show_gids is not described in the MLNX_OFED docs read; the sysfs GID table below is."
+        }
       },
       {
         "id": "ibv-devinfo-sub-2",
@@ -54,7 +69,16 @@ const IB_IB_IBV_DEVINFO_DATA = [
           "recipe",
           "automation",
           "pipeline"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/mlnxofedswum/24.10-5.1.6.1lts/rdma-over-converged-ethernet-roce",
+              "title": "MLNX_OFED: RoCE"
+            }
+          ]
+        }
       }
     ]
   },

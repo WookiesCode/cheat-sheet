@@ -26,8 +26,8 @@ const IB_IB_MLXFWMANAGER_DATA = [
             "Low-level firmware flash query showing FW version, FW release date, Product Version, and GUID/MACs"
           ],
           [
-            "mlxfwreset -d <dev> r",
-            "Reset NIC ASIC and reload updated firmware live without rebooting the Ubuntu host"
+            "mlxfwreset -d <dev> reset",
+            "Reset the adapter to load new firmware; the level decides how far (-l 4 reboots the host)"
           ]
         ],
         "tip": "Always match the 16-char PSID when downloading NIC firmware!",
@@ -36,7 +36,25 @@ const IB_IB_MLXFWMANAGER_DATA = [
           "infiniband",
           "triage",
           "rdma"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxfwmanager-firmware-update-and-query-tool",
+              "title": "MFT: mlxfwmanager"
+            },
+            {
+              "url": "https://networking-docs.nvidia.com/mftswum/4330/flint-firmware-burning-tool",
+              "title": "MFT: flint"
+            },
+            {
+              "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxfwreset-loading-firmware-on-5th-generation-devices-tool",
+              "title": "MFT: mlxfwreset"
+            }
+          ],
+          "note": "Corrected 2026-11-09: mlxfwreset is written \"reset -y\" as in NVIDIA's example."
+        }
       },
       {
         "id": "mlxfwmanager-sub-1",
@@ -47,18 +65,54 @@ const IB_IB_MLXFWMANAGER_DATA = [
           "recipe",
           "automation",
           "pipeline"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxfwmanager-firmware-update-and-query-tool",
+              "title": "MFT: mlxfwmanager"
+            },
+            {
+              "url": "https://networking-docs.nvidia.com/mftswum/4330/flint-firmware-burning-tool",
+              "title": "MFT: flint"
+            },
+            {
+              "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxfwreset-loading-firmware-on-5th-generation-devices-tool",
+              "title": "MFT: mlxfwreset"
+            }
+          ],
+          "note": "Corrected 2026-11-09: mlxfwreset is written \"reset -y\" as in NVIDIA's example."
+        }
       },
       {
         "id": "mlxfwmanager-sub-2",
-        "desc": "Perform a live firmware reset on mlx5_0 to activate new firmware or mlxconfig changes",
-        "cmd": "mlxfwreset -d mlx5_0 -y r",
+        "desc": "Reset mlx5_0 to activate newly burned firmware (NVIDIA says reboot to apply mlxconfig changes)",
+        "cmd": "mlxfwreset -d mlx5_0 reset -y",
         "tags": [
           "mlxfwmanager",
           "recipe",
           "automation",
           "pipeline"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxfwmanager-firmware-update-and-query-tool",
+              "title": "MFT: mlxfwmanager"
+            },
+            {
+              "url": "https://networking-docs.nvidia.com/mftswum/4330/flint-firmware-burning-tool",
+              "title": "MFT: flint"
+            },
+            {
+              "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxfwreset-loading-firmware-on-5th-generation-devices-tool",
+              "title": "MFT: mlxfwreset"
+            }
+          ],
+          "note": "Corrected 2026-11-09: mlxfwreset is written \"reset -y\" as in NVIDIA's example."
+        }
       }
     ]
   },

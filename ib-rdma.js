@@ -36,7 +36,28 @@ const IB_IB_RDMA_DATA = [
           "infiniband",
           "triage",
           "rdma"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/rdma-link.8.html",
+              "title": "rdma link (iproute2)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/rdma-dev.8.html",
+              "title": "rdma dev"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/rdma-resource.8.html",
+              "title": "rdma resource"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/rdma-statistic.8.html",
+              "title": "rdma statistic"
+            }
+          ]
+        }
       },
       {
         "id": "rdma-sub-1",
@@ -47,7 +68,28 @@ const IB_IB_RDMA_DATA = [
           "recipe",
           "automation",
           "pipeline"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/rdma-link.8.html",
+              "title": "rdma link (iproute2)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/rdma-dev.8.html",
+              "title": "rdma dev"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/rdma-resource.8.html",
+              "title": "rdma resource"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/rdma-statistic.8.html",
+              "title": "rdma statistic"
+            }
+          ]
+        }
       },
       {
         "id": "rdma-sub-2",
@@ -58,7 +100,16 @@ const IB_IB_RDMA_DATA = [
           "recipe",
           "automation",
           "pipeline"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/rdma-system.8.html",
+              "title": "rdma system (iproute2)"
+            }
+          ]
+        }
       }
     ]
   },

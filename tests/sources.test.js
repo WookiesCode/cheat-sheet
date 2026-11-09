@@ -53,6 +53,42 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     await ctx.close();
   }
 
+  // 2b. InfiniBand: the 17 tool sheets (main command + recipes) and their corrections.
+  {
+    const IB = ['ib-ibstat', 'ib-ibv-devinfo', 'ib-rdma', 'ib-iblinkinfo', 'ib-ibswitches', 'ib-sminfo', 'ib-perfquery', 'ib-ibqueryerrors', 'ib-ibdiagnet', 'ib-ibping', 'ib-mst', 'ib-mlxconfig', 'ib-mlxlink', 'ib-mlxfwmanager', 'ib-perftest', 'ib-mlxcables', 'ib-bluefield'];
+    const ctx = await newContext(browser);
+    const p = await ctx.newPage();
+    let total = 0, sourced = 0;
+    const all = {};
+    for (const f of IB) {
+      await p.goto(BASE + f + '.html', { waitUntil: 'load' });
+      await p.waitForTimeout(400);
+      for (const l of await lines(p)) {
+        if (/-(tips|flags)-card$/.test(l.id)) continue;  // advice and "-h" cards, not checked commands
+        total++;
+        all[l.id] = l;
+        if (l.text) sourced++;
+      }
+    }
+    check(total === 51 && sourced === 51, `all 51 InfiniBand commands and recipes show a source line (${sourced}/${total})`);
+    const unverified = Object.values(all).filter(l => /is-unverified/.test(l.cls)).map(l => l.id).sort();
+    check(unverified.join(' ') === 'ibdiagnet-sub-2 ibswitches-sub-1 ibv-devinfo-sub-1 sminfo-sub-1', `the 4 unconfirmed recipes say "Not verified" (${unverified.join(', ')})`);
+    const pt = all['perftest-cmd'];
+    check(/--ipv6-addr 2001:db8:dc::1/.test(pt.cmd) && (pt.cmd.match(/--ipv6-addr/g) || []).length === 2 && !/--ipv6\s/.test(pt.cmd), 'perftest passes --ipv6-addr on both server and client (not --ipv6)');
+    check(/--test_mode EN/.test(all['mlxlink-sub-2'].cmd) && all['mlxlink-sub-2'].danger, 'PRBS test has --test_mode EN and is flagged');
+    check(/--oprcvcounters/.test(all['perfquery-sub-2'].cmd), 'perfquery uses --oprcvcounters');
+    check(/--get_phy_info/.test(all['ibdiagnet-cmd'].cmd) && !/--ber_test/.test(all['ibdiagnet-cmd'].cmd), 'ibdiagnet uses --get_phy_info (--ber_test is for old devices)');
+    check(!/INTERNAL_CPU_MODEL/.test(all['bluefield-dpu-cmd'].cmd), 'BlueField query no longer asks for INTERNAL_CPU_MODEL');
+    check(all['bluefield-dpu-sub-1'].danger && /bfb-install -r rshim0 -b/.test(all['bluefield-dpu-sub-2'].cmd) && all['bluefield-dpu-sub-2'].danger, 'BlueField mode switch and bfb-install are flagged; bfb-install uses -r / -b');
+    check(all['mlxconfig-sub-3'].danger && !all['mlxconfig-cmd'].danger, 'mlxconfig reset is flagged; mlxconfig query is not');
+    // The NVIDIA card had the same perftest mistake.
+    await p.goto(BASE + 'nv-gpudirect.html', { waitUntil: 'load' });
+    await p.waitForTimeout(400);
+    const nv = (await lines(p)).find(l => l.id === 'ib-write-bw-cuda');
+    check(nv && (nv.cmd.match(/--ipv6-addr/g) || []).length === 2 && /Corrected 2026-11-09: --ipv6-addr/.test(nv.text), 'NVIDIA ib_write_bw card fixed too, with a corrected note');
+    await ctx.close();
+  }
+
   // 3. Over a year old → amber "re-check"; and src can't inject markup or javascript: links.
   {
     const ctx = await newContext(browser);

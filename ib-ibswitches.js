@@ -32,7 +32,24 @@ const IB_IB_IBSWITCHES_DATA = [
           "infiniband",
           "triage",
           "rdma"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibswitches.8.in.rst",
+              "title": "ibswitches man page (rdma-core)"
+            },
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibhosts.8.in.rst",
+              "title": "ibhosts man page (rdma-core)"
+            },
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibnodes.8.in.rst",
+              "title": "ibnodes man page (rdma-core)"
+            }
+          ]
+        }
       },
       {
         "id": "ibswitches-sub-1",
@@ -43,7 +60,12 @@ const IB_IB_IBSWITCHES_DATA = [
           "recipe",
           "automation",
           "pipeline"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [],
+          "note": "ibhosts does not document -C/-P (they are shared infiniband-diags options): check ibhosts -h."
+        }
       }
     ]
   },

@@ -17224,10 +17224,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "dpu",
     "id": "bluefield-dpu-cmd",
     "sec": "BlueField-3: DPU & SuperNIC Mode Provisioning",
-    "cmd": "mlxconfig -d /dev/mst/mt41692_pciconf0 q INTERNAL_CPU_MODEL INTERNAL_CPU_OFFLOAD_ENGINE",
+    "cmd": "mlxconfig -d /dev/mst/mt41692_pciconf0 q INTERNAL_CPU_OFFLOAD_ENGINE",
     "desc": "Check or switch BlueField-2/3 between DPU mode and NIC (SuperNIC) mode, access ARM console via rshim, or push a BFB image",
-    "tip": "Switching BlueField DPU <-> SuperNIC mode requires a cold AC power cycle!",
-    "tags": "BlueField-3 infiniband triage rdma"
+    "tip": "DPU <-> NIC mode: reset Arm and NIC, power cycle recommended. SuperNIC SKUs ship in NIC mode",
+    "tags": "BlueField-3 infiniband triage rdma",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/bsp/4.16.0/modes-of-operation",
+          "title": "BlueField modes of operation"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/bsp/4.16.0/soc-management-interface-rshim",
+          "title": "BlueField RShim"
+        }
+      ],
+      "note": "Corrected 2026-11-09: BlueField-3 mode is INTERNAL_CPU_OFFLOAD_ENGINE only (0 = DPU, 1 = NIC); bfb-install takes -r and -b."
+    }
   },
   {
     "sName": "ib-bluefield",
@@ -17236,9 +17250,23 @@ window.GLOBAL_SEARCH_INDEX = [
     "id": "bluefield-dpu-sub-1",
     "sec": "BlueField-3: DPU & SuperNIC Mode Provisioning",
     "cmd": "mlxconfig -y -d /dev/mst/mt41692_pciconf0 s INTERNAL_CPU_OFFLOAD_ENGINE=1",
-    "desc": "Switch BlueField-3 into NIC / SuperNIC mode (requires full AC chassis power cycle to take effect!)",
+    "desc": "Switch BlueField-3 to NIC mode (=0 for DPU mode). Arm and NIC must reset; NVIDIA recommends a power cycle",
     "tip": "",
-    "tags": "BlueField-3 recipe automation pipeline"
+    "tags": "BlueField-3 recipe automation pipeline",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/bsp/4.16.0/modes-of-operation",
+          "title": "BlueField modes of operation"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/bsp/4.16.0/soc-management-interface-rshim",
+          "title": "BlueField RShim"
+        }
+      ],
+      "note": "Corrected 2026-11-09: BlueField-3 mode is INTERNAL_CPU_OFFLOAD_ENGINE only (0 = DPU, 1 = NIC); bfb-install takes -r and -b."
+    }
   },
   {
     "sName": "ib-bluefield",
@@ -17246,10 +17274,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "dpu",
     "id": "bluefield-dpu-sub-2",
     "sec": "BlueField-3: DPU & SuperNIC Mode Provisioning",
-    "cmd": "bfb-install --bfb DOCA_2.9.0_Ubuntu_22.04-arm64.bfb --rshim rshim0",
+    "cmd": "bfb-install -r rshim0 -b DOCA_2.9.0_Ubuntu_22.04-arm64.bfb",
     "desc": "Flash a fresh DOCA Ubuntu BFB OS image onto BlueField ARM storage over rshim0",
     "tip": "",
-    "tags": "BlueField-3 recipe automation pipeline"
+    "tags": "BlueField-3 recipe automation pipeline",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/bsp/4.16.0/modes-of-operation",
+          "title": "BlueField modes of operation"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/bsp/4.16.0/soc-management-interface-rshim",
+          "title": "BlueField RShim"
+        }
+      ],
+      "note": "Corrected 2026-11-09: BlueField-3 mode is INTERNAL_CPU_OFFLOAD_ENGINE only (0 = DPU, 1 = NIC); bfb-install takes -r and -b."
+    }
   },
   {
     "sName": "ib-bluefield",
@@ -17260,7 +17302,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tio -b 115200 /dev/rshim0/console",
     "desc": "Open serial console directly into the embedded BlueField ARM processor over PCIe rshim",
     "tip": "",
-    "tags": "BlueField-3 recipe automation pipeline"
+    "tags": "BlueField-3 recipe automation pipeline",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/bsp/4.16.0/modes-of-operation",
+          "title": "BlueField modes of operation"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/bsp/4.16.0/soc-management-interface-rshim",
+          "title": "BlueField RShim"
+        }
+      ],
+      "note": "Corrected 2026-11-09: BlueField-3 mode is INTERNAL_CPU_OFFLOAD_ENGINE only (0 = DPU, 1 = NIC); bfb-install takes -r and -b."
+    }
   },
   {
     "sName": "ib-bluefield",
@@ -17268,9 +17324,9 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "tip",
     "id": "bluefield-dpu-tips-card",
     "sec": "BlueField-3: Pro Tips & Fabric Triage",
-    "cmd": "mlxconfig -d /dev/mst/mt41692_pciconf0 q INTERNAL_CPU_MODEL INTERNAL_CPU_OFFLOAD_ENGINE",
+    "cmd": "mlxconfig -d /dev/mst/mt41692_pciconf0 q INTERNAL_CPU_OFFLOAD_ENGINE",
     "desc": "Production recommendations, fabric stability tips & triage advice for BlueField-3",
-    "tip": "Switching BlueField DPU <-> SuperNIC mode requires a cold AC power cycle!",
+    "tip": "DPU <-> NIC mode: reset Arm and NIC, power cycle recommended. SuperNIC SKUs ship in NIC mode",
     "tags": "BlueField-3 tips pro infiniband best-practice"
   },
   {
@@ -17279,10 +17335,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "dgn",
     "id": "ibdiagnet-cmd",
     "sec": "ibdiagnet: Full Fabric Diagnostic & BER Audit",
-    "cmd": "ibdiagnet -o /tmp/ibdiagnet2 --get_cable_info --ber_test",
+    "cmd": "ibdiagnet -o /tmp/ibdiagnet2 --get_cable_info --get_phy_info",
     "desc": "Run full InfiniBand fabric verification: link speeds, Bit Error Rate (BER) thresholds, routing loops & transceiver temps",
     "tip": "Check /tmp/ibdiagnet2/ibdiagnet2.cables for overtemp optics!",
-    "tags": "ibdiagnet infiniband triage rdma"
+    "tags": "ibdiagnet infiniband triage rdma",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/ibdiagnetutilityum/2.27.0/basic-commands",
+          "title": "ibdiagnet commands"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/ibdiagnetutilityum/2.27.0/ibdiagnet-dump-files",
+          "title": "ibdiagnet output files"
+        }
+      ],
+      "note": "Corrected 2026-11-09: --ber_test is for SwitchX/ConnectX-3/4 only; NVIDIA says to use --get_phy_info on later devices."
+    }
   },
   {
     "sName": "ib-ibdiagnet",
@@ -17293,7 +17363,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ibdiagnet -i mlx5_0 -p 1 -o /tmp/ibdiag_rail0",
     "desc": "Run fabric diagnostics specifically on Rail 0 (mlx5_0 port 1)",
     "tip": "",
-    "tags": "ibdiagnet recipe automation pipeline"
+    "tags": "ibdiagnet recipe automation pipeline",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/ibdiagnetutilityum/2.27.0/basic-commands",
+          "title": "ibdiagnet commands"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/ibdiagnetutilityum/2.27.0/ibdiagnet-dump-files",
+          "title": "ibdiagnet output files"
+        }
+      ],
+      "note": "Corrected 2026-11-09: --ber_test is for SwitchX/ConnectX-3/4 only; NVIDIA says to use --get_phy_info on later devices."
+    }
   },
   {
     "sName": "ib-ibdiagnet",
@@ -17304,7 +17388,12 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep -E '^-E-|^-W-' /tmp/ibdiagnet2/ibdiagnet2.log",
     "desc": "Extract all Error (-E-) and Warning (-W-) summary lines from an ibdiagnet report",
     "tip": "",
-    "tags": "ibdiagnet recipe automation pipeline"
+    "tags": "ibdiagnet recipe automation pipeline",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [],
+      "note": "The -E- / -W- line prefixes are not described in the ibdiagnet docs read."
+    }
   },
   {
     "sName": "ib-ibdiagnet",
@@ -17312,7 +17401,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "tip",
     "id": "ibdiagnet-tips-card",
     "sec": "ibdiagnet: Pro Tips & Fabric Triage",
-    "cmd": "ibdiagnet -o /tmp/ibdiagnet2 --get_cable_info --ber_test",
+    "cmd": "ibdiagnet -o /tmp/ibdiagnet2 --get_cable_info --get_phy_info",
     "desc": "Production recommendations, fabric stability tips & triage advice for ibdiagnet",
     "tip": "Check /tmp/ibdiagnet2/ibdiagnet2.cables for overtemp optics!",
     "tags": "ibdiagnet tips pro infiniband best-practice"
@@ -17326,7 +17415,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "iblinkinfo -l",
     "desc": "Query the InfiniBand fabric and print every switch port's link speed, width (4X), state, and connected neighbor HCA/switch",
     "tip": "iblinkinfo -l maps exact switch port to server hostname!",
-    "tags": "iblinkinfo infiniband triage rdma"
+    "tags": "iblinkinfo infiniband triage rdma",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/iblinkinfo.8.in.rst",
+          "title": "iblinkinfo man page (rdma-core)"
+        },
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibnetdiscover.8.in.rst",
+          "title": "ibnetdiscover man page (rdma-core)"
+        }
+      ],
+      "note": "-C/-P/-D come from the shared infiniband-diags options; the iblinkinfo page does not list them."
+    }
   },
   {
     "sName": "ib-iblinkinfo",
@@ -17337,7 +17440,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "iblinkinfo -l | grep -vE '4X.*Active|Down'",
     "desc": "Find any active fabric links running at degraded lane width (1X/2X) or stuck in Init/Armed state",
     "tip": "",
-    "tags": "iblinkinfo recipe automation pipeline"
+    "tags": "iblinkinfo recipe automation pipeline",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/iblinkinfo.8.in.rst",
+          "title": "iblinkinfo man page (rdma-core)"
+        },
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibnetdiscover.8.in.rst",
+          "title": "ibnetdiscover man page (rdma-core)"
+        }
+      ],
+      "note": "-C/-P/-D come from the shared infiniband-diags options; the iblinkinfo page does not list them."
+    }
   },
   {
     "sName": "ib-iblinkinfo",
@@ -17348,7 +17465,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ibnetdiscover -p",
     "desc": "Generate a concise port-by-port topology map of all switches (SW) and Channel Adapters (CA) in the subnet",
     "tip": "",
-    "tags": "iblinkinfo recipe automation pipeline"
+    "tags": "iblinkinfo recipe automation pipeline",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/iblinkinfo.8.in.rst",
+          "title": "iblinkinfo man page (rdma-core)"
+        },
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibnetdiscover.8.in.rst",
+          "title": "ibnetdiscover man page (rdma-core)"
+        }
+      ],
+      "note": "-C/-P/-D come from the shared infiniband-diags options; the iblinkinfo page does not list them."
+    }
   },
   {
     "sName": "ib-iblinkinfo",
@@ -17370,7 +17501,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ibtracert <src_LID> <dst_LID> && ibping -c 10 <dst_LID>",
     "desc": "Test Layer-2 InfiniBand reachability (ibping) and trace the exact switch port hop path between two LIDs (ibtracert)",
     "tip": "ibtracert works immediately without any daemon on the remote node!",
-    "tags": "ibping infiniband triage rdma"
+    "tags": "ibping infiniband triage rdma",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibtracert.8.in.rst",
+          "title": "ibtracert man page (rdma-core)"
+        },
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibping.8.in.rst",
+          "title": "ibping man page (rdma-core)"
+        }
+      ]
+    }
   },
   {
     "sName": "ib-ibping",
@@ -17381,7 +17525,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ibtracert -G 0x1070fd0300123456 0x1070fd0300654321",
     "desc": "Trace the fabric switch path between two HCA Port GUIDs",
     "tip": "",
-    "tags": "ibping recipe automation pipeline"
+    "tags": "ibping recipe automation pipeline",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibtracert.8.in.rst",
+          "title": "ibtracert man page (rdma-core)"
+        },
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibping.8.in.rst",
+          "title": "ibping man page (rdma-core)"
+        }
+      ]
+    }
   },
   {
     "sName": "ib-ibping",
@@ -17403,7 +17560,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ibqueryerrors --data --details",
     "desc": "Scan the entire InfiniBand fabric and report only switch/HCA ports with non-zero error counters and their connected peer",
     "tip": "Suppress RcvSwRelayErrors to focus on real physical bad cables",
-    "tags": "ibqueryerrors infiniband triage rdma"
+    "tags": "ibqueryerrors infiniband triage rdma",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibqueryerrors.8.in.rst",
+          "title": "ibqueryerrors man page (rdma-core)"
+        }
+      ]
+    }
   },
   {
     "sName": "ib-ibqueryerrors",
@@ -17414,7 +17580,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ibqueryerrors -s RcvSwRelayErrors,XmitDiscard,XmitWait",
     "desc": "Show only physical-layer symbol, link-down, and receive CRC errors across the fabric",
     "tip": "",
-    "tags": "ibqueryerrors recipe automation pipeline"
+    "tags": "ibqueryerrors recipe automation pipeline",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibqueryerrors.8.in.rst",
+          "title": "ibqueryerrors man page (rdma-core)"
+        }
+      ]
+    }
   },
   {
     "sName": "ib-ibqueryerrors",
@@ -17425,7 +17600,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ibqueryerrors -G <Switch_GUID>",
     "desc": "Check error counters on a single specific InfiniBand switch GUID",
     "tip": "",
-    "tags": "ibqueryerrors recipe automation pipeline"
+    "tags": "ibqueryerrors recipe automation pipeline",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibqueryerrors.8.in.rst",
+          "title": "ibqueryerrors man page (rdma-core)"
+        }
+      ],
+      "note": "-G comes from the shared infiniband-diags options (port GUID)."
+    }
   },
   {
     "sName": "ib-ibqueryerrors",
@@ -17447,7 +17632,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ibstat && ibstatus",
     "desc": "Inspect all local InfiniBand/RoCE Host Channel Adapters (HCAs), port state, negotiated link rate, LID, and GUIDs",
     "tip": "LinkUp + State:Init = Subnet Manager (OpenSM/UFM) is not active!",
-    "tags": "ibstat infiniband triage rdma"
+    "tags": "ibstat infiniband triage rdma",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibstat.8.in.rst",
+          "title": "ibstat man page (rdma-core)"
+        },
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibstatus.8.in.rst",
+          "title": "ibstatus man page (rdma-core)"
+        }
+      ]
+    }
   },
   {
     "sName": "ib-ibstat",
@@ -17458,7 +17656,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ibstat | grep -E 'CA |Port |State:|Physical state:|Rate:|Base lid:|Link layer:'",
     "desc": "Condensed multi-HCA summary of all 8 GPU-facing rail HCAs on a compute node",
     "tip": "",
-    "tags": "ibstat recipe automation pipeline"
+    "tags": "ibstat recipe automation pipeline",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibstat.8.in.rst",
+          "title": "ibstat man page (rdma-core)"
+        },
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibstatus.8.in.rst",
+          "title": "ibstatus man page (rdma-core)"
+        }
+      ]
+    }
   },
   {
     "sName": "ib-ibstat",
@@ -17469,7 +17680,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ibstat -l",
     "desc": "Print a simple list of all local HCA device names (mlx5_0 .. mlx5_7)",
     "tip": "",
-    "tags": "ibstat recipe automation pipeline"
+    "tags": "ibstat recipe automation pipeline",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibstat.8.in.rst",
+          "title": "ibstat man page (rdma-core)"
+        },
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibstatus.8.in.rst",
+          "title": "ibstatus man page (rdma-core)"
+        }
+      ]
+    }
   },
   {
     "sName": "ib-ibstat",
@@ -17491,7 +17715,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ibswitches && ibhosts",
     "desc": "List all InfiniBand switches and all compute host HCAs visible on the current InfiniBand rail/subnet",
     "tip": "Run per rail (-C mlx5_0 .. mlx5_7) on multi-rail GPU clusters",
-    "tags": "ibswitches infiniband triage rdma"
+    "tags": "ibswitches infiniband triage rdma",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibswitches.8.in.rst",
+          "title": "ibswitches man page (rdma-core)"
+        },
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibhosts.8.in.rst",
+          "title": "ibhosts man page (rdma-core)"
+        },
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibnodes.8.in.rst",
+          "title": "ibnodes man page (rdma-core)"
+        }
+      ]
+    }
   },
   {
     "sName": "ib-ibswitches",
@@ -17502,7 +17743,12 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ibhosts -C mlx5_0 -P 1 | wc -l",
     "desc": "Count total compute HCA ports visible on Rail 0 (mlx5_0) to verify all servers are online",
     "tip": "",
-    "tags": "ibswitches recipe automation pipeline"
+    "tags": "ibswitches recipe automation pipeline",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [],
+      "note": "ibhosts does not document -C/-P (they are shared infiniband-diags options): check ibhosts -h."
+    }
   },
   {
     "sName": "ib-ibswitches",
@@ -17524,7 +17770,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ibv_devinfo -v && ibv_devices",
     "desc": "Verify RDMA Verbs layer health, active MTU (4096), transport type, and RoCEv2 GID index table",
     "tip": "RoCEv2 requires GID index matching 'RoCE v2' + IPv4 address",
-    "tags": "ibv_devinfo infiniband triage rdma"
+    "tags": "ibv_devinfo infiniband triage rdma",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/libibverbs/man/ibv_devinfo.1",
+          "title": "ibv_devinfo man page (rdma-core)"
+        }
+      ],
+      "note": "The ibv_devices man page does not mention node GUIDs."
+    }
   },
   {
     "sName": "ib-ibv-devinfo",
@@ -17535,7 +17791,12 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show_gids",
     "desc": "Display full Global Identifier (GID) table across all mlx5 ports with IPv4/IPv6 addresses and RoCE v1/v2 version",
     "tip": "",
-    "tags": "ibv_devinfo recipe automation pipeline"
+    "tags": "ibv_devinfo recipe automation pipeline",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [],
+      "note": "show_gids is not described in the MLNX_OFED docs read; the sysfs GID table below is."
+    }
   },
   {
     "sName": "ib-ibv-devinfo",
@@ -17546,7 +17807,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep -H . /sys/class/infiniband/mlx5_*/ports/1/gid_attrs/types/* 2>/dev/null | grep 'RoCE v2'",
     "desc": "Find which GID index numbers are configured for 'RoCE v2' directly via sysfs (when show_gids is absent)",
     "tip": "",
-    "tags": "ibv_devinfo recipe automation pipeline"
+    "tags": "ibv_devinfo recipe automation pipeline",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mlnxofedswum/24.10-5.1.6.1lts/rdma-over-converged-ethernet-roce",
+          "title": "MLNX_OFED: RoCE"
+        }
+      ]
+    }
   },
   {
     "sName": "ib-ibv-devinfo",
@@ -17568,7 +17838,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mst start && mst cable add && mlxcables",
     "desc": "Discover all local and fabric-attached OSFP/QSFP transceivers, AOCs, and DACs and dump DDM optical telemetry",
     "tip": "Run 'mst cable add' first so mlxcables can see all transceivers!",
-    "tags": "mlxcables infiniband triage rdma"
+    "tags": "mlxcables infiniband triage rdma",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxcables-cables-tool",
+          "title": "MFT: mlxcables"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/linux",
+          "title": "MFT: mst"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/cable-utilities",
+          "title": "MFT: cable utilities"
+        }
+      ],
+      "note": "What mlxcables prints with no options is not documented; -q queries a cable."
+    }
   },
   {
     "sName": "ib-mlxcables",
@@ -17579,7 +17867,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mlxcables -d mt4129_pciconf0_cable_0 --DDM",
     "desc": "Read detailed vendor part number, serial number, FW version, and per-lane DDM power on cable 0",
     "tip": "",
-    "tags": "mlxcables recipe automation pipeline"
+    "tags": "mlxcables recipe automation pipeline",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxcables-cables-tool",
+          "title": "MFT: mlxcables"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/linux",
+          "title": "MFT: mst"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/cable-utilities",
+          "title": "MFT: cable utilities"
+        }
+      ],
+      "note": "What mlxcables prints with no options is not documented; -q queries a cable."
+    }
   },
   {
     "sName": "ib-mlxcables",
@@ -17590,7 +17896,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mlxcables --read_all_regs -d mt4129_pciconf0_cable_0",
     "desc": "Dump all CMIS control and status registers from an OSFP/QSFP-DD transceiver",
     "tip": "",
-    "tags": "mlxcables recipe automation pipeline"
+    "tags": "mlxcables recipe automation pipeline",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxcables-cables-tool",
+          "title": "MFT: mlxcables"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/linux",
+          "title": "MFT: mst"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/cable-utilities",
+          "title": "MFT: cable utilities"
+        }
+      ],
+      "note": "What mlxcables prints with no options is not documented; -q queries a cable."
+    }
   },
   {
     "sName": "ib-mlxcables",
@@ -17611,8 +17935,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "mlxconfig: ConnectX / BlueField NVRAM Config",
     "cmd": "mlxconfig -d /dev/mst/mt4129_pciconf0 query | grep -E 'LINK_TYPE|SRIOV|NUM_OF_VFS|PCI'",
     "desc": "Query ConnectX/BlueField non-volatile configuration and switch VPI port protocol between InfiniBand (IB) and Ethernet (ETH)",
-    "tip": "LINK_TYPE: 1 = InfiniBand, 2 = Ethernet (requires reboot/mlxfwreset)",
-    "tags": "mlxconfig infiniband triage rdma"
+    "tip": "LINK_TYPE: 1 = InfiniBand, 2 = Ethernet; reboot for it to take effect",
+    "tags": "mlxconfig infiniband triage rdma",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxconfig-changing-device-configuration-tool",
+          "title": "MFT: mlxconfig"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mft-supported-configurations-and-parameters",
+          "title": "MFT: mlxconfig parameters"
+        }
+      ]
+    }
   },
   {
     "sName": "ib-mlxconfig",
@@ -17623,7 +17960,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mlxconfig -y -d mlx5_0 set LINK_TYPE_P1=1 LINK_TYPE_P2=1",
     "desc": "Configure both ports of a dual-port ConnectX VPI adapter for native InfiniBand mode (1)",
     "tip": "",
-    "tags": "mlxconfig recipe automation pipeline"
+    "tags": "mlxconfig recipe automation pipeline",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxconfig-changing-device-configuration-tool",
+          "title": "MFT: mlxconfig"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mft-supported-configurations-and-parameters",
+          "title": "MFT: mlxconfig parameters"
+        }
+      ],
+      "note": "NVIDIA documents 2 = ETH (text values like ETH also work); 1 = IB is not spelled out: check mlxconfig show_confs."
+    }
   },
   {
     "sName": "ib-mlxconfig",
@@ -17634,7 +17985,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mlxconfig -y -d mlx5_0 set LINK_TYPE_P1=2 LINK_TYPE_P2=2",
     "desc": "Configure both ports of a ConnectX VPI adapter for Ethernet / RoCEv2 mode (2)",
     "tip": "",
-    "tags": "mlxconfig recipe automation pipeline"
+    "tags": "mlxconfig recipe automation pipeline",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxconfig-changing-device-configuration-tool",
+          "title": "MFT: mlxconfig"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mft-supported-configurations-and-parameters",
+          "title": "MFT: mlxconfig parameters"
+        }
+      ],
+      "note": "NVIDIA documents LINK_TYPE_P1=ETH as the same as 2. Reboot to apply."
+    }
   },
   {
     "sName": "ib-mlxconfig",
@@ -17645,7 +18010,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mlxconfig -y -d mlx5_0 reset",
     "desc": "Reset all NVRAM configuration parameters on the adapter back to factory defaults",
     "tip": "",
-    "tags": "mlxconfig recipe automation pipeline"
+    "tags": "mlxconfig recipe automation pipeline",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxconfig-changing-device-configuration-tool",
+          "title": "MFT: mlxconfig"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mft-supported-configurations-and-parameters",
+          "title": "MFT: mlxconfig parameters"
+        }
+      ]
+    }
   },
   {
     "sName": "ib-mlxconfig",
@@ -17655,7 +18033,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "mlxconfig: Pro Tips & Fabric Triage",
     "cmd": "mlxconfig -d /dev/mst/mt4129_pciconf0 query | grep -E 'LINK_TYPE|SRIOV|NUM_OF_VFS|PCI'",
     "desc": "Production recommendations, fabric stability tips & triage advice for mlxconfig",
-    "tip": "LINK_TYPE: 1 = InfiniBand, 2 = Ethernet (requires reboot/mlxfwreset)",
+    "tip": "LINK_TYPE: 1 = InfiniBand, 2 = Ethernet; reboot for it to take effect",
     "tags": "mlxconfig tips pro infiniband best-practice"
   },
   {
@@ -17667,7 +18045,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mlxfwmanager --query && flint -d /dev/mst/mt4129_pciconf0 q",
     "desc": "Query ConnectX / BlueField firmware version and PSID, burn firmware updates, and reset NIC firmware without rebooting",
     "tip": "Always match the 16-char PSID when downloading NIC firmware!",
-    "tags": "mlxfwmanager infiniband triage rdma"
+    "tags": "mlxfwmanager infiniband triage rdma",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxfwmanager-firmware-update-and-query-tool",
+          "title": "MFT: mlxfwmanager"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/flint-firmware-burning-tool",
+          "title": "MFT: flint"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxfwreset-loading-firmware-on-5th-generation-devices-tool",
+          "title": "MFT: mlxfwreset"
+        }
+      ],
+      "note": "Corrected 2026-11-09: mlxfwreset is written \"reset -y\" as in NVIDIA's example."
+    }
   },
   {
     "sName": "ib-mlxfwmanager",
@@ -17678,7 +18074,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "flint -d /dev/mst/mt4129_pciconf0 -i fw-ConnectX7.bin burn",
     "desc": "Burn a specific .bin firmware image onto a target adapter using flint",
     "tip": "",
-    "tags": "mlxfwmanager recipe automation pipeline"
+    "tags": "mlxfwmanager recipe automation pipeline",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxfwmanager-firmware-update-and-query-tool",
+          "title": "MFT: mlxfwmanager"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/flint-firmware-burning-tool",
+          "title": "MFT: flint"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxfwreset-loading-firmware-on-5th-generation-devices-tool",
+          "title": "MFT: mlxfwreset"
+        }
+      ],
+      "note": "Corrected 2026-11-09: mlxfwreset is written \"reset -y\" as in NVIDIA's example."
+    }
   },
   {
     "sName": "ib-mlxfwmanager",
@@ -17686,10 +18100,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "fwm",
     "id": "mlxfwmanager-sub-2",
     "sec": "mlxfwmanager: NIC Firmware Flash & Online Reset",
-    "cmd": "mlxfwreset -d mlx5_0 -y r",
-    "desc": "Perform a live firmware reset on mlx5_0 to activate new firmware or mlxconfig changes",
+    "cmd": "mlxfwreset -d mlx5_0 reset -y",
+    "desc": "Reset mlx5_0 to activate newly burned firmware (NVIDIA says reboot to apply mlxconfig changes)",
     "tip": "",
-    "tags": "mlxfwmanager recipe automation pipeline"
+    "tags": "mlxfwmanager recipe automation pipeline",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxfwmanager-firmware-update-and-query-tool",
+          "title": "MFT: mlxfwmanager"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/flint-firmware-burning-tool",
+          "title": "MFT: flint"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxfwreset-loading-firmware-on-5th-generation-devices-tool",
+          "title": "MFT: mlxfwreset"
+        }
+      ],
+      "note": "Corrected 2026-11-09: mlxfwreset is written \"reset -y\" as in NVIDIA's example."
+    }
   },
   {
     "sName": "ib-mlxfwmanager",
@@ -17711,7 +18143,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mlxlink -d mlx5_0 -m -c -e",
     "desc": "Perform deep physical-layer diagnostics on ConnectX HCAs or Quantum switches: DOM power, BER, FEC & Eye grades",
     "tip": "ethtool -m doesn't work on IB interfaces — always use mlxlink -m!",
-    "tags": "mlxlink infiniband triage rdma"
+    "tags": "mlxlink infiniband triage rdma",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxlink-utility",
+          "title": "MFT: mlxlink"
+        }
+      ]
+    }
   },
   {
     "sName": "ib-mlxlink",
@@ -17722,7 +18163,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mlxlink -d mlx5_0 --port_state TG",
     "desc": "Toggle (bounce/flap) the physical port link down and back up to force link retraining",
     "tip": "",
-    "tags": "mlxlink recipe automation pipeline"
+    "tags": "mlxlink recipe automation pipeline",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxlink-utility",
+          "title": "MFT: mlxlink"
+        }
+      ]
+    }
   },
   {
     "sName": "ib-mlxlink",
@@ -17730,10 +18180,19 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "mlx",
     "id": "mlxlink-sub-2",
     "sec": "mlxlink: Optical DOM, SerDes Eyes & BER",
-    "cmd": "mlxlink -d mlx5_0 --rx_prbs PRBS31 --tx_prbs PRBS31",
-    "desc": "Configure PRBS31 physical layer bit-pattern link testing",
+    "cmd": "mlxlink -d mlx5_0 --test_mode EN --rx_prbs PRBS31 --tx_prbs PRBS31",
+    "desc": "PRBS31 bit-pattern test: takes the link out of service; end it with --test_mode DS",
     "tip": "",
-    "tags": "mlxlink recipe automation pipeline"
+    "tags": "mlxlink recipe automation pipeline",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxlink-utility",
+          "title": "MFT: mlxlink"
+        }
+      ]
+    }
   },
   {
     "sName": "ib-mlxlink",
@@ -17744,7 +18203,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mget_temp -d mlx5_0",
     "desc": "Read the on-die ASIC temperature (°C) of the ConnectX / BlueField network adapter",
     "tip": "",
-    "tags": "mlxlink recipe automation pipeline"
+    "tags": "mlxlink recipe automation pipeline",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mget_temp-utility",
+          "title": "MFT: mget_temp"
+        }
+      ]
+    }
   },
   {
     "sName": "ib-mlxlink",
@@ -17766,7 +18234,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mst start && mst status -v",
     "desc": "Start Mellanox Firmware Tools (MFT) device nodes and display the full mapping of PCIe BDF, mst device, RDMA mlx5_X & netdev",
     "tip": "Run 'mst status -v' first to map BDF <-> mlx5_X <-> netdev",
-    "tags": "mst infiniband triage rdma"
+    "tags": "mst infiniband triage rdma",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/linux",
+          "title": "MFT: mst"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/cable-utilities",
+          "title": "MFT: cable utilities"
+        }
+      ]
+    }
   },
   {
     "sName": "ib-mst",
@@ -17777,7 +18258,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mst cable add && mst status -v",
     "desc": "Discover and create MST device nodes for attached optical transceivers and active cables",
     "tip": "",
-    "tags": "mst recipe automation pipeline"
+    "tags": "mst recipe automation pipeline",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/linux",
+          "title": "MFT: mst"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/cable-utilities",
+          "title": "MFT: cable utilities"
+        }
+      ]
+    }
   },
   {
     "sName": "ib-mst",
@@ -17799,7 +18293,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "perfquery -x && perfquery -x <LID> <PORT>",
     "desc": "Read or reset hardware Performance Management (PMA) error and throughput counters on local or remote IB LIDs",
     "tip": "16-bit IB counters saturate at 65535 — use -R to clear after fixing!",
-    "tags": "perfquery infiniband triage rdma"
+    "tags": "perfquery infiniband triage rdma",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/perfquery.8.in.rst",
+          "title": "perfquery man page (rdma-core)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: --oprcv is --oprcvcounters (per-opcode receive counters)."
+    }
   },
   {
     "sName": "ib-perfquery",
@@ -17810,7 +18314,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "perfquery -R -a <LID>",
     "desc": "Clear all latched PMA error counters across all ports on target LID",
     "tip": "",
-    "tags": "perfquery recipe automation pipeline"
+    "tags": "perfquery recipe automation pipeline",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/perfquery.8.in.rst",
+          "title": "perfquery man page (rdma-core)"
+        }
+      ],
+      "note": "Combining -R with -a is not shown as an example; -R is \"only reset counters\"."
+    }
   },
   {
     "sName": "ib-perfquery",
@@ -17818,10 +18332,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "prf",
     "id": "perfquery-sub-2",
     "sec": "perfquery: Port Error Counters & PMA Reset",
-    "cmd": "perfquery --oprcv <LID> <PORT>",
-    "desc": "Query per-VL (Virtual Lane) receive/transmit congestion counters",
+    "cmd": "perfquery --oprcvcounters <LID> <PORT>",
+    "desc": "Receive counters per opcode (an optional counter: not every device has it)",
     "tip": "",
-    "tags": "perfquery recipe automation pipeline"
+    "tags": "perfquery recipe automation pipeline",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/perfquery.8.in.rst",
+          "title": "perfquery man page (rdma-core)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: --oprcv is --oprcvcounters (per-opcode receive counters)."
+    }
   },
   {
     "sName": "ib-perfquery",
@@ -17840,10 +18364,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "bch",
     "id": "perftest-cmd",
     "sec": "perftest: RDMA Line-Rate Bandwidth & Latency",
-    "cmd": "ib_write_bw -d mlx5_0 -F --report_gbits -q 4 --ipv6   # Server;   ib_write_bw -d mlx5_0 -F --report_gbits -q 4 --ipv6 2001:db8:dc::1   # Client",
+    "cmd": "ib_write_bw -d mlx5_0 -F --report_gbits -q 4 --ipv6-addr   # Server;   ib_write_bw -d mlx5_0 -F --report_gbits -q 4 --ipv6-addr 2001:db8:dc::1   # Client",
     "desc": "Measure point-to-point RDMA Write/Read bandwidth (Gb/s) and latency (usec) over IPv6 between two HCAs or GPUs",
-    "tip": "400G NDR = ~392 Gb/s; pass --ipv6 for IPv6 QP handshake!",
-    "tags": "perftest infiniband triage rdma"
+    "tip": "400G NDR = ~392 Gb/s; pass --ipv6-addr on both ends for an IPv6 server address",
+    "tags": "perftest infiniband triage rdma",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/perftest/blob/master/man/perftest.1",
+          "title": "perftest man page"
+        },
+        {
+          "url": "https://github.com/linux-rdma/perftest/blob/master/src/perftest_parameters.c",
+          "title": "perftest source"
+        }
+      ],
+      "note": "Corrected 2026-11-09: --ipv6 only selects an IPv6 GID; an IPv6 server address needs --ipv6-addr on both ends. Bandwidth and latency figures are rules of thumb."
+    }
   },
   {
     "sName": "ib-perftest",
@@ -17851,10 +18389,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "bch",
     "id": "perftest-sub-1",
     "sec": "perftest: RDMA Line-Rate Bandwidth & Latency",
-    "cmd": "ib_write_lat -d mlx5_0 -F --ipv6   # Server;   ib_write_lat -d mlx5_0 -F --ipv6 2001:db8:dc::1   # Client",
+    "cmd": "ib_write_lat -d mlx5_0 -F --ipv6-addr   # Server;   ib_write_lat -d mlx5_0 -F --ipv6-addr 2001:db8:dc::1   # Client",
     "desc": "Measure half-round-trip RDMA Write latency in microseconds (usec) over IPv6",
     "tip": "",
-    "tags": "perftest recipe automation pipeline"
+    "tags": "perftest recipe automation pipeline",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/perftest/blob/master/man/perftest.1",
+          "title": "perftest man page"
+        },
+        {
+          "url": "https://github.com/linux-rdma/perftest/blob/master/src/perftest_parameters.c",
+          "title": "perftest source"
+        }
+      ],
+      "note": "Corrected 2026-11-09: --ipv6 only selects an IPv6 GID; an IPv6 server address needs --ipv6-addr on both ends. Bandwidth and latency figures are rules of thumb."
+    }
   },
   {
     "sName": "ib-perftest",
@@ -17862,10 +18414,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "bch",
     "id": "perftest-sub-2",
     "sec": "perftest: RDMA Line-Rate Bandwidth & Latency",
-    "cmd": "ib_write_bw -d mlx5_0 -F --report_gbits --use_cuda=0 --ipv6 2001:db8:dc::1",
+    "cmd": "ib_write_bw -d mlx5_0 -F --report_gbits --use_cuda=0 --ipv6-addr 2001:db8:dc::1",
     "desc": "Benchmark GPUDirect RDMA (GDR) directly between GPU 0 HBM and HCA mlx5_0 bypassing host RAM",
     "tip": "",
-    "tags": "perftest recipe automation pipeline"
+    "tags": "perftest recipe automation pipeline",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/perftest/blob/master/man/perftest.1",
+          "title": "perftest man page"
+        },
+        {
+          "url": "https://github.com/linux-rdma/perftest/blob/master/src/perftest_parameters.c",
+          "title": "perftest source"
+        }
+      ],
+      "note": "Corrected 2026-11-09: --ipv6 only selects an IPv6 GID; an IPv6 server address needs --ipv6-addr on both ends. Bandwidth and latency figures are rules of thumb."
+    }
   },
   {
     "sName": "ib-perftest",
@@ -17873,9 +18439,9 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "tip",
     "id": "perftest-tips-card",
     "sec": "perftest: Pro Tips & Fabric Triage",
-    "cmd": "ib_write_bw -d mlx5_0 -F --report_gbits -q 4 --ipv6   # Server;   ib_write_bw -d mlx5_0 -F --report_gbits -q 4 --ipv6 2001:db8:dc::1   # Client",
+    "cmd": "ib_write_bw -d mlx5_0 -F --report_gbits -q 4 --ipv6-addr   # Server;   ib_write_bw -d mlx5_0 -F --report_gbits -q 4 --ipv6-addr 2001:db8:dc::1   # Client",
     "desc": "Production recommendations, fabric stability tips & triage advice for perftest",
-    "tip": "400G NDR = ~392 Gb/s; pass --ipv6 for IPv6 QP handshake!",
+    "tip": "400G NDR = ~392 Gb/s; pass --ipv6-addr on both ends for an IPv6 server address",
     "tags": "perftest tips pro infiniband best-practice"
   },
   {
@@ -17887,7 +18453,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "rdma link show && rdma dev show && rdma statistic show",
     "desc": "Map RDMA devices (mlx5_0/1) to their corresponding Linux network interfaces (ib0/enp*s0) and inspect active QPs/MRs",
     "tip": "rdma link show maps mlx5_X directly to netdev ibX/ethX",
-    "tags": "rdma infiniband triage rdma"
+    "tags": "rdma infiniband triage rdma",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/rdma-link.8.html",
+          "title": "rdma link (iproute2)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/rdma-dev.8.html",
+          "title": "rdma dev"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/rdma-resource.8.html",
+          "title": "rdma resource"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/rdma-statistic.8.html",
+          "title": "rdma statistic"
+        }
+      ]
+    }
   },
   {
     "sName": "ib-rdma",
@@ -17898,7 +18485,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "rdma res show cm_id",
     "desc": "Show active RDMA Connection Manager IDs, local/remote IPs, and owning process PIDs",
     "tip": "",
-    "tags": "rdma recipe automation pipeline"
+    "tags": "rdma recipe automation pipeline",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/rdma-link.8.html",
+          "title": "rdma link (iproute2)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/rdma-dev.8.html",
+          "title": "rdma dev"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/rdma-resource.8.html",
+          "title": "rdma resource"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/rdma-statistic.8.html",
+          "title": "rdma statistic"
+        }
+      ]
+    }
   },
   {
     "sName": "ib-rdma",
@@ -17909,7 +18517,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "rdma system show",
     "desc": "Check whether the kernel RDMA netns mode is set to 'exclusive' or 'shared'",
     "tip": "",
-    "tags": "rdma recipe automation pipeline"
+    "tags": "rdma recipe automation pipeline",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/rdma-system.8.html",
+          "title": "rdma system (iproute2)"
+        }
+      ]
+    }
   },
   {
     "sName": "ib-rdma",
@@ -17931,7 +18548,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sminfo && saquery -s",
     "desc": "Query the active InfiniBand Subnet Manager (SM) LID, GUID, priority, and state (MASTER vs STANDBY)",
     "tip": "saquery -s lists both the Master SM and all Standby SMs",
-    "tags": "sminfo infiniband triage rdma"
+    "tags": "sminfo infiniband triage rdma",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/sminfo.8.in.rst",
+          "title": "sminfo man page (rdma-core)"
+        },
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/saquery.8.in.rst",
+          "title": "saquery man page (rdma-core)"
+        }
+      ],
+      "note": "State numbers (2 = standby, 3 = master) come from sminfo -s; the page does not describe its output fields."
+    }
   },
   {
     "sName": "ib-sminfo",
@@ -17942,7 +18573,12 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "systemctl status opensm.service",
     "desc": "Check if the local OpenSM Subnet Manager daemon is running on this host",
     "tip": "",
-    "tags": "sminfo recipe automation pipeline"
+    "tags": "sminfo recipe automation pipeline",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [],
+      "note": "The OpenSM service name is not documented in the OpenSM repo read; it depends on your distro/package."
+    }
   },
   {
     "sName": "ib-sminfo",
@@ -17953,7 +18589,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "saquery -m",
     "desc": "Query Subnet Administrator for all InfiniBand multicast group memberships",
     "tip": "",
-    "tags": "sminfo recipe automation pipeline"
+    "tags": "sminfo recipe automation pipeline",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/saquery.8.in.rst",
+          "title": "saquery man page (rdma-core)"
+        }
+      ]
+    }
   },
   {
     "sName": "ib-sminfo",
@@ -18349,7 +18994,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ibstat && ibstatus",
     "desc": "Inspect all local InfiniBand/RoCE Host Channel Adapters (HCAs), port state, negotiated link rate, LID, and GUIDs",
     "tip": "LinkUp + State:Init = Subnet Manager (OpenSM/UFM) is not active!",
-    "tags": "ibstat ibstatus hca linkup active init ndr hdr lid guid"
+    "tags": "ibstat ibstatus hca linkup active init ndr hdr lid guid",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibstat.8.in.rst",
+          "title": "ibstat man page (rdma-core)"
+        },
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibstatus.8.in.rst",
+          "title": "ibstatus man page (rdma-core)"
+        }
+      ]
+    }
   },
   {
     "sName": "infiniband",
@@ -18382,7 +19040,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ibv_devinfo -v && ibv_devices",
     "desc": "Verify RDMA Verbs layer health, active MTU (4096), transport type, and RoCEv2 GID index table",
     "tip": "RoCEv2 requires GID index matching 'RoCE v2' + IPv4 address",
-    "tags": "ibv_devinfo ibv_devices show_gids rdma verbs gid rocev2 mtu"
+    "tags": "ibv_devinfo ibv_devices show_gids rdma verbs gid rocev2 mtu",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/libibverbs/man/ibv_devinfo.1",
+          "title": "ibv_devinfo man page (rdma-core)"
+        }
+      ],
+      "note": "The ibv_devices man page does not mention node GUIDs."
+    }
   },
   {
     "sName": "infiniband",
@@ -18415,7 +19083,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "rdma link show && rdma dev show && rdma statistic show",
     "desc": "Map RDMA devices (mlx5_0/1) to their corresponding Linux network interfaces (ib0/enp*s0) and inspect active QPs/MRs",
     "tip": "rdma link show maps mlx5_X directly to netdev ibX/ethX",
-    "tags": "rdma mlx5 netdev ib0 qp mr counters"
+    "tags": "rdma mlx5 netdev ib0 qp mr counters",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/rdma-link.8.html",
+          "title": "rdma link (iproute2)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/rdma-dev.8.html",
+          "title": "rdma dev"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/rdma-resource.8.html",
+          "title": "rdma resource"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/rdma-statistic.8.html",
+          "title": "rdma statistic"
+        }
+      ]
+    }
   },
   {
     "sName": "infiniband",
@@ -18448,7 +19137,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "iblinkinfo -l",
     "desc": "Query the InfiniBand fabric and print every switch port's link speed, width (4X), state, and connected neighbor HCA/switch",
     "tip": "iblinkinfo -l maps exact switch port to server hostname!",
-    "tags": "iblinkinfo ibnetdiscover topology fabric switch 4x downgraded"
+    "tags": "iblinkinfo ibnetdiscover topology fabric switch 4x downgraded",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/iblinkinfo.8.in.rst",
+          "title": "iblinkinfo man page (rdma-core)"
+        },
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibnetdiscover.8.in.rst",
+          "title": "ibnetdiscover man page (rdma-core)"
+        }
+      ],
+      "note": "-C/-P/-D come from the shared infiniband-diags options; the iblinkinfo page does not list them."
+    }
   },
   {
     "sName": "infiniband",
@@ -18481,7 +19184,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ibswitches && ibhosts",
     "desc": "List all InfiniBand switches and all compute host HCAs visible on the current InfiniBand rail/subnet",
     "tip": "Run per rail (-C mlx5_0 .. mlx5_7) on multi-rail GPU clusters",
-    "tags": "ibswitches ibhosts ibnodes inventory quantum lid guid"
+    "tags": "ibswitches ibhosts ibnodes inventory quantum lid guid",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibswitches.8.in.rst",
+          "title": "ibswitches man page (rdma-core)"
+        },
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibhosts.8.in.rst",
+          "title": "ibhosts man page (rdma-core)"
+        },
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibnodes.8.in.rst",
+          "title": "ibnodes man page (rdma-core)"
+        }
+      ]
+    }
   },
   {
     "sName": "infiniband",
@@ -18503,7 +19223,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sminfo && saquery -s",
     "desc": "Query the active InfiniBand Subnet Manager (SM) LID, GUID, priority, and state (MASTER vs STANDBY)",
     "tip": "saquery -s lists both the Master SM and all Standby SMs",
-    "tags": "sminfo saquery opensm ufm subnet-manager master lid"
+    "tags": "sminfo saquery opensm ufm subnet-manager master lid",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/sminfo.8.in.rst",
+          "title": "sminfo man page (rdma-core)"
+        },
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/saquery.8.in.rst",
+          "title": "saquery man page (rdma-core)"
+        }
+      ],
+      "note": "State numbers (2 = standby, 3 = master) come from sminfo -s; the page does not describe its output fields."
+    }
   },
   {
     "sName": "infiniband",
@@ -18536,7 +19270,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "perfquery -x && perfquery -x <LID> <PORT>",
     "desc": "Read or reset hardware Performance Management (PMA) error and throughput counters on local or remote IB LIDs",
     "tip": "16-bit IB counters saturate at 65535 — use -R to clear after fixing!",
-    "tags": "perfquery counters errors symbolerror linkdowned xmitdiscards reset"
+    "tags": "perfquery counters errors symbolerror linkdowned xmitdiscards reset",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/perfquery.8.in.rst",
+          "title": "perfquery man page (rdma-core)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: --oprcv is --oprcvcounters (per-opcode receive counters)."
+    }
   },
   {
     "sName": "infiniband",
@@ -18555,8 +19299,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "prf",
     "id": "perfquery-counters-reset",
     "sec": "perfquery — IB Port Error & Traffic Counters",
-    "cmd": "perfquery --oprcv <LID> <PORT>",
-    "desc": "Query per-VL (Virtual Lane) receive/transmit congestion counters",
+    "cmd": "perfquery --oprcvcounters <LID> <PORT>",
+    "desc": "Receive counters per opcode (an optional counter: not every device has it)",
     "tip": "",
     "tags": "perfquery counters errors symbolerror linkdowned xmitdiscards reset"
   },
@@ -18569,7 +19313,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ibqueryerrors --data --details",
     "desc": "Scan the entire InfiniBand fabric and report only switch/HCA ports with non-zero error counters and their connected peer",
     "tip": "Suppress RcvSwRelayErrors to focus on real physical bad cables",
-    "tags": "ibqueryerrors fabric errors cables flaps symbol-errors"
+    "tags": "ibqueryerrors fabric errors cables flaps symbol-errors",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibqueryerrors.8.in.rst",
+          "title": "ibqueryerrors man page (rdma-core)"
+        }
+      ]
+    }
   },
   {
     "sName": "infiniband",
@@ -18599,10 +19352,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "dgn",
     "id": "ibdiagnet-ber-cables",
     "sec": "ibdiagnet — Comprehensive Fabric Health, BER & Cable Audit",
-    "cmd": "ibdiagnet -o /tmp/ibdiagnet2 --get_cable_info --ber_test",
+    "cmd": "ibdiagnet -o /tmp/ibdiagnet2 --get_cable_info --get_phy_info",
     "desc": "Run full InfiniBand fabric verification: link speeds, Bit Error Rate (BER) thresholds, routing loops & transceiver temps",
     "tip": "Check /tmp/ibdiagnet2/ibdiagnet2.cables for overtemp optics!",
-    "tags": "ibdiagnet ber cables optics routing diagnostics"
+    "tags": "ibdiagnet ber cables optics routing diagnostics",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/ibdiagnetutilityum/2.27.0/basic-commands",
+          "title": "ibdiagnet commands"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/ibdiagnetutilityum/2.27.0/ibdiagnet-dump-files",
+          "title": "ibdiagnet output files"
+        }
+      ],
+      "note": "Corrected 2026-11-09: --ber_test is for SwitchX/ConnectX-3/4 only; NVIDIA says to use --get_phy_info on later devices."
+    }
   },
   {
     "sName": "infiniband",
@@ -18635,7 +19402,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ibtracert <src_LID> <dst_LID> && ibping -c 10 <dst_LID>",
     "desc": "Test Layer-2 InfiniBand reachability (ibping) and trace the exact switch port hop path between two LIDs (ibtracert)",
     "tip": "ibtracert works immediately without any daemon on the remote node!",
-    "tags": "ibping ibtracert lid guid trace hops routing"
+    "tags": "ibping ibtracert lid guid trace hops routing",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibtracert.8.in.rst",
+          "title": "ibtracert man page (rdma-core)"
+        },
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibping.8.in.rst",
+          "title": "ibping man page (rdma-core)"
+        }
+      ]
+    }
   },
   {
     "sName": "infiniband",
@@ -18657,7 +19437,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mst start && mst status -v",
     "desc": "Start Mellanox Firmware Tools (MFT) device nodes and display the full mapping of PCIe BDF, mst device, RDMA mlx5_X & netdev",
     "tip": "Run 'mst status -v' first to map BDF <-> mlx5_X <-> netdev",
-    "tags": "mst mft mellanox connectx bluefield bdf mlx5"
+    "tags": "mst mft mellanox connectx bluefield bdf mlx5",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/linux",
+          "title": "MFT: mst"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/cable-utilities",
+          "title": "MFT: cable utilities"
+        }
+      ]
+    }
   },
   {
     "sName": "infiniband",
@@ -18678,8 +19471,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "mlxconfig — ConnectX / BlueField NVRAM Configuration",
     "cmd": "mlxconfig -d /dev/mst/mt4129_pciconf0 query | grep -E 'LINK_TYPE|SRIOV|NUM_OF_VFS|PCI'",
     "desc": "Query ConnectX/BlueField non-volatile configuration and switch VPI port protocol between InfiniBand (IB) and Ethernet (ETH)",
-    "tip": "LINK_TYPE: 1 = InfiniBand, 2 = Ethernet (requires reboot/mlxfwreset)",
-    "tags": "mlxconfig vpi link_type infiniband ethernet roce sriov"
+    "tip": "LINK_TYPE: 1 = InfiniBand, 2 = Ethernet; reboot for it to take effect",
+    "tags": "mlxconfig vpi link_type infiniband ethernet roce sriov",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxconfig-changing-device-configuration-tool",
+          "title": "MFT: mlxconfig"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mft-supported-configurations-and-parameters",
+          "title": "MFT: mlxconfig parameters"
+        }
+      ]
+    }
   },
   {
     "sName": "infiniband",
@@ -18723,7 +19529,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mlxlink -d mlx5_0 -m -c -e",
     "desc": "Perform deep physical-layer diagnostics on ConnectX HCAs or Quantum switches: DOM power, BER, FEC & Eye grades",
     "tip": "ethtool -m doesn't work on IB interfaces — always use mlxlink -m!",
-    "tags": "mlxlink mget_temp optics dom ber eye osfp qsfp fec"
+    "tags": "mlxlink mget_temp optics dom ber eye osfp qsfp fec",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxlink-utility",
+          "title": "MFT: mlxlink"
+        }
+      ]
+    }
   },
   {
     "sName": "infiniband",
@@ -18742,8 +19557,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "mlx",
     "id": "mlxlink-optics-ber-eye",
     "sec": "mlxlink — Optical DOM, BER, FEC & SerDes Eye Grades",
-    "cmd": "mlxlink -d mlx5_0 --rx_prbs PRBS31 --tx_prbs PRBS31",
-    "desc": "Configure PRBS31 physical layer bit-pattern link testing",
+    "cmd": "mlxlink -d mlx5_0 --test_mode EN --rx_prbs PRBS31 --tx_prbs PRBS31",
+    "desc": "PRBS31 bit-pattern test: takes the link out of service; end it with --test_mode DS",
     "tip": "",
     "tags": "mlxlink mget_temp optics dom ber eye osfp qsfp fec"
   },
@@ -18767,7 +19582,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mlxfwmanager --query && flint -d /dev/mst/mt4129_pciconf0 q",
     "desc": "Query ConnectX / BlueField firmware version and PSID, burn firmware updates, and reset NIC firmware without rebooting",
     "tip": "Always match the 16-char PSID when downloading NIC firmware!",
-    "tags": "mlxfwmanager flint mlxfwreset firmware psid burn connectx"
+    "tags": "mlxfwmanager flint mlxfwreset firmware psid burn connectx",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxfwmanager-firmware-update-and-query-tool",
+          "title": "MFT: mlxfwmanager"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/flint-firmware-burning-tool",
+          "title": "MFT: flint"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxfwreset-loading-firmware-on-5th-generation-devices-tool",
+          "title": "MFT: mlxfwreset"
+        }
+      ],
+      "note": "Corrected 2026-11-09: mlxfwreset is written \"reset -y\" as in NVIDIA's example."
+    }
   },
   {
     "sName": "infiniband",
@@ -18786,8 +19619,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "fwm",
     "id": "mlxfwmanager-flint-fw",
     "sec": "mlxfwmanager & flint — NIC Firmware Query, Burn & Reset",
-    "cmd": "mlxfwreset -d mlx5_0 -y r",
-    "desc": "Perform a live firmware reset on mlx5_0 to activate new firmware or mlxconfig changes",
+    "cmd": "mlxfwreset -d mlx5_0 reset -y",
+    "desc": "Reset mlx5_0 to activate newly burned firmware (NVIDIA says reboot to apply mlxconfig changes)",
     "tip": "",
     "tags": "mlxfwmanager flint mlxfwreset firmware psid burn connectx"
   },
@@ -18797,10 +19630,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "bch",
     "id": "perftest-rdma-bw-lat",
     "sec": "ib_write_bw & ib_read_lat — RDMA Bandwidth & Latency",
-    "cmd": "ib_write_bw -d mlx5_0 -F --report_gbits -q 4 --ipv6   # Server;   ib_write_bw -d mlx5_0 -F --report_gbits -q 4 --ipv6 2001:db8:dc::1   # Client",
+    "cmd": "ib_write_bw -d mlx5_0 -F --report_gbits -q 4 --ipv6-addr   # Server;   ib_write_bw -d mlx5_0 -F --report_gbits -q 4 --ipv6-addr 2001:db8:dc::1   # Client",
     "desc": "Measure point-to-point RDMA Write/Read bandwidth (Gb/s) and latency (usec) over IPv6 between two HCAs or GPUs",
-    "tip": "400G NDR = ~392 Gb/s; pass --ipv6 for IPv6 QP handshake!",
-    "tags": "perftest ipv6 ib_write_bw ib_write_lat rdma gpudirect bandwidth latency"
+    "tip": "400G NDR = ~392 Gb/s; pass --ipv6-addr on both ends for an IPv6 server address",
+    "tags": "perftest ipv6 ib_write_bw ib_write_lat rdma gpudirect bandwidth latency",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/perftest/blob/master/man/perftest.1",
+          "title": "perftest man page"
+        },
+        {
+          "url": "https://github.com/linux-rdma/perftest/blob/master/src/perftest_parameters.c",
+          "title": "perftest source"
+        }
+      ],
+      "note": "Corrected 2026-11-09: --ipv6 only selects an IPv6 GID; an IPv6 server address needs --ipv6-addr on both ends. Bandwidth and latency figures are rules of thumb."
+    }
   },
   {
     "sName": "infiniband",
@@ -18808,7 +19655,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "bch",
     "id": "perftest-rdma-bw-lat",
     "sec": "ib_write_bw & ib_read_lat — RDMA Bandwidth & Latency",
-    "cmd": "ib_write_lat -d mlx5_0 -F --ipv6   # Server;   ib_write_lat -d mlx5_0 -F --ipv6 2001:db8:dc::1   # Client",
+    "cmd": "ib_write_lat -d mlx5_0 -F --ipv6-addr   # Server;   ib_write_lat -d mlx5_0 -F --ipv6-addr 2001:db8:dc::1   # Client",
     "desc": "Measure half-round-trip RDMA Write latency in microseconds (usec) over IPv6",
     "tip": "",
     "tags": "perftest ipv6 ib_write_bw ib_write_lat rdma gpudirect bandwidth latency"
@@ -18819,7 +19666,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "bch",
     "id": "perftest-rdma-bw-lat",
     "sec": "ib_write_bw & ib_read_lat — RDMA Bandwidth & Latency",
-    "cmd": "ib_write_bw -d mlx5_0 -F --report_gbits --use_cuda=0 --ipv6 2001:db8:dc::1",
+    "cmd": "ib_write_bw -d mlx5_0 -F --report_gbits --use_cuda=0 --ipv6-addr 2001:db8:dc::1",
     "desc": "Benchmark GPUDirect RDMA (GDR) directly between GPU 0 HBM and HCA mlx5_0 bypassing host RAM",
     "tip": "",
     "tags": "perftest ipv6 ib_write_bw ib_write_lat rdma gpudirect bandwidth latency"
@@ -18833,7 +19680,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mst start && mst cable add && mlxcables",
     "desc": "Discover all local and fabric-attached OSFP/QSFP transceivers, AOCs, and DACs and dump DDM optical telemetry",
     "tip": "Run 'mst cable add' first so mlxcables can see all transceivers!",
-    "tags": "mlxcables mst osfp qsfp aoc dac serial ddm transceiver"
+    "tags": "mlxcables mst osfp qsfp aoc dac serial ddm transceiver",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxcables-cables-tool",
+          "title": "MFT: mlxcables"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/linux",
+          "title": "MFT: mst"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/cable-utilities",
+          "title": "MFT: cable utilities"
+        }
+      ],
+      "note": "What mlxcables prints with no options is not documented; -q queries a cable."
+    }
   },
   {
     "sName": "infiniband",
@@ -18863,10 +19728,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "dpu",
     "id": "bluefield-mode-rshim-bfb",
     "sec": "BlueField-3 DPU & SuperNIC Mode (rshim, mlxconfig & bfb)",
-    "cmd": "mlxconfig -d /dev/mst/mt41692_pciconf0 q INTERNAL_CPU_MODEL INTERNAL_CPU_OFFLOAD_ENGINE",
+    "cmd": "mlxconfig -d /dev/mst/mt41692_pciconf0 q INTERNAL_CPU_OFFLOAD_ENGINE",
     "desc": "Check or switch BlueField-2/3 between DPU mode and NIC (SuperNIC) mode, access ARM console via rshim, or push a BFB image",
-    "tip": "Switching BlueField DPU <-> SuperNIC mode requires a cold AC power cycle!",
-    "tags": "bluefield bf3 dpu supernic rshim bfb-install doca mlxconfig"
+    "tip": "DPU <-> NIC mode: reset Arm and NIC, power cycle recommended. SuperNIC SKUs ship in NIC mode",
+    "tags": "bluefield bf3 dpu supernic rshim bfb-install doca mlxconfig",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/bsp/4.16.0/modes-of-operation",
+          "title": "BlueField modes of operation"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/bsp/4.16.0/soc-management-interface-rshim",
+          "title": "BlueField RShim"
+        }
+      ],
+      "note": "Corrected 2026-11-09: BlueField-3 mode is INTERNAL_CPU_OFFLOAD_ENGINE only (0 = DPU, 1 = NIC); bfb-install takes -r and -b."
+    }
   },
   {
     "sName": "infiniband",
@@ -18875,7 +19754,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "id": "bluefield-mode-rshim-bfb",
     "sec": "BlueField-3 DPU & SuperNIC Mode (rshim, mlxconfig & bfb)",
     "cmd": "mlxconfig -y -d /dev/mst/mt41692_pciconf0 s INTERNAL_CPU_OFFLOAD_ENGINE=1",
-    "desc": "Switch BlueField-3 into NIC / SuperNIC mode (requires full AC chassis power cycle to take effect!)",
+    "desc": "Switch BlueField-3 to NIC mode (=0 for DPU mode). Arm and NIC must reset; NVIDIA recommends a power cycle",
     "tip": "",
     "tags": "bluefield bf3 dpu supernic rshim bfb-install doca mlxconfig"
   },
@@ -18885,7 +19764,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "dpu",
     "id": "bluefield-mode-rshim-bfb",
     "sec": "BlueField-3 DPU & SuperNIC Mode (rshim, mlxconfig & bfb)",
-    "cmd": "bfb-install --bfb DOCA_2.9.0_Ubuntu_22.04-arm64.bfb --rshim rshim0",
+    "cmd": "bfb-install -r rshim0 -b DOCA_2.9.0_Ubuntu_22.04-arm64.bfb",
     "desc": "Flash a fresh DOCA Ubuntu BFB OS image onto BlueField ARM storage over rshim0",
     "tip": "",
     "tags": "bluefield bf3 dpu supernic rshim bfb-install doca mlxconfig"
@@ -25699,7 +26578,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "rdma",
     "id": "ib-write-bw-cuda",
     "sec": "GPUDirect RDMA: GPUDirect RDMA Line-Rate Bandwidth (--use_cuda)",
-    "cmd": "# Server: ib_write_bw -d mlx5_0 --use_cuda=0 -a -F --report_gbits --ipv6   |   # Client: ib_write_bw -d mlx5_0 --use_cuda=0 -a -F --report_gbits --ipv6 2001:db8:dc::1",
+    "cmd": "# Server: ib_write_bw -d mlx5_0 --use_cuda=0 -a -F --report_gbits --ipv6-addr   |   # Client: ib_write_bw -d mlx5_0 --use_cuda=0 -a -F --report_gbits --ipv6-addr 2001:db8:dc::1",
     "desc": "Test line-rate GPUDirect RDMA bandwidth directly from GPU memory (`--use_cuda`) between two nodes",
     "tip": "Pair mlx5_X with its PIX-local GPU",
     "tags": "ib_write_bw perftest cuda gpudirect bandwidth latency",
@@ -25711,7 +26590,7 @@ window.GLOBAL_SEARCH_INDEX = [
           "title": "perftest"
         }
       ],
-      "note": "Expected Gb/s and latency figures are rules of thumb, not from perftest."
+      "note": "Corrected 2026-11-09: --ipv6-addr (not --ipv6) for an IPv6 server address, on both ends. Gb/s and latency figures are rules of thumb."
     }
   },
   {
@@ -26695,7 +27574,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "rdma",
     "id": "ib-write-bw-cuda",
     "sec": "GPUDirect RDMA, Perftest & NCCL Validation",
-    "cmd": "# Server: ib_write_bw -d mlx5_0 --use_cuda=0 -a -F --report_gbits --ipv6   |   # Client: ib_write_bw -d mlx5_0 --use_cuda=0 -a -F --report_gbits --ipv6 2001:db8:dc::1",
+    "cmd": "# Server: ib_write_bw -d mlx5_0 --use_cuda=0 -a -F --report_gbits --ipv6-addr   |   # Client: ib_write_bw -d mlx5_0 --use_cuda=0 -a -F --report_gbits --ipv6-addr 2001:db8:dc::1",
     "desc": "Test line-rate GPUDirect RDMA bandwidth directly from GPU memory (`--use_cuda`) between two nodes",
     "tip": "Pair mlx5_X with its PIX-local GPU",
     "tags": "ib_write_bw perftest cuda gpudirect bandwidth latency",
@@ -26707,7 +27586,7 @@ window.GLOBAL_SEARCH_INDEX = [
           "title": "perftest"
         }
       ],
-      "note": "Expected Gb/s and latency figures are rules of thumb, not from perftest."
+      "note": "Corrected 2026-11-09: --ipv6-addr (not --ipv6) for an IPv6 server address, on both ends. Gb/s and latency figures are rules of thumb."
     }
   },
   {

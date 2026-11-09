@@ -14,16 +14,16 @@ Product review started 2026-11-09. Phases 1–3 are below. Nine items (#8 for th
 | 3 | Say so when a save fails | ✅ Built | `improve/storage-warn` | `cbb0dd9` |
 | 5 | Keep keyboard focus out from under the fixed bars | ✅ Built | `improve/focus-visible` | `de6ac2e` |
 | 14 | Skip link (found while building #5) | ✅ Built | `improve/skip-link` | `220d5c9` |
-| 8 | Source and last-verified date on core suites | ✅ NVIDIA suite built; other suites open | `improve/sources` | (this branch) |
+| 8 | Source and last-verified date on core suites | ✅ NVIDIA (`3320dc0`) and InfiniBand suites built; others open | `improve/sources`, `improve/sources-ib` | (this branch) |
 | 9 | Stop duplicating the nav into every page | Open | | |
 | 10 | Practice what I actually use | Open | | |
 | 11 | Local usage meter | Open | | |
 | 12 | Export My kit as a navi `.cheat` file | Open (needs navi installed: ask first) | | |
 | 13 | Make the doc counts agree | ✅ Built | `improve/doc-counts` | (this branch) |
 
-**The branches are stacked**, each built on the one before, in the order of the table, with `improve/sources` on top. Merging `improve/sources` brings in all ten. None are pushed or merged yet.
+**The branches are stacked**, each built on the one before, in the order of the table, with `improve/sources-ib` on top. Merging `improve/sources-ib` brings in all eleven. None are pushed or merged yet.
 
-**Tests:** `node tests/run-all.js` runs 15 test files. All pass on `improve/sources`. Every built item has its own regression test, and I checked that the tests for #2 and #5 fail on the commit before their fix.
+**Tests:** `node tests/run-all.js` runs 15 test files. All pass on `improve/sources-ib`. Every built item has its own regression test, and I checked that the tests for #2 and #5 fail on the commit before their fix.
 
 ## What the built items changed (measured)
 
@@ -37,6 +37,7 @@ Product review started 2026-11-09. Phases 1–3 are below. Nine items (#8 for th
 | #5 Focus hidden | Up to 37 fully-hidden Tab stops per page; `j`/`k` hid 36 of 80 at 800 px | 0 fully and 0 partly hidden on every page and size tested |
 | #14 Skip link | 287 Tab presses before the first command | 2 key presses (Tab, Enter) |
 | #8 Sources (NVIDIA) | 0 of 31 NVIDIA commands cited a source; nothing had been checked against the vendor docs | 31 of 31 show a source line (30 verified, 1 marked Not verified); 8 errors corrected (below) |
+| #8 Sources (InfiniBand) | 0 of 51 InfiniBand commands and recipes cited a source | 51 of 51 show one (47 verified, 4 marked Not verified); 9 errors corrected (below), one of them also on an NVIDIA card |
 | #13 Doc counts | README "about 200 sheets", guide "235 linked pages", home "214 sheets" | Both docs say "236 pages, 214 of them command sheets with 2,043 commands", rewritten by `build-index.js` on every build |
 
 ## Errors found by #8 (corrected 2026-11-09, NVIDIA suite)
@@ -57,6 +58,26 @@ Each was checked against NVIDIA's own docs; the card's source line links the pag
 Also: `DANGER_RE` now flags `nvidia-smi -p`/`--reset-ecc-errors`, `nvlink -re`/`--reseterrorcounters` and `setpci … =` (PCIe config writes), and no longer flags the read-only `nvidia-smi nvlink -R`.
 
 **Not verified (said on the card):** `lspci` (no vendor doc checked), NVSM commands (NVIDIA's NVSM pages returned no content), `nvidia-ctk system create-dev-char-symlinks`, `NVreg_EnableGpuFirmware=0`, `nvidia-bug-report.sh --output-file`, and the `--query-gpu` / `--query-compute-apps` field names (not on the docs page). Not covered by #8: the NVIDIA builder profiles other than the NVLink reset, e.g. `dcgmi diag -r '…,pulse_test'` (the docs table names the test `pulse`) and the dmon field IDs 140/150/155/393–395.
+
+## Errors found by #8 (corrected 2026-11-09, InfiniBand suite)
+
+Checked against the rdma-core man pages, perftest source, iproute2 `rdma` man pages and NVIDIA's MFT, ibdiagnet and BlueField docs.
+
+| Card | Was | Now |
+|---|---|---|
+| perftest (3 commands + builder) | `--ipv6` with an IPv6 server address | `--ipv6-addr` on **both** server and client. `--ipv6` only picks an IPv6 GID (perftest source: `ai_family = AF_INET6` is set by `--ipv6-addr`). **The NVIDIA `ib_write_bw` card had the same mistake** and was marked verified in the NVIDIA round; corrected here with a note |
+| ibdiagnet | `--ber_test` | `--get_phy_info`: NVIDIA says `--ber_test` is SwitchX/ConnectX-3/4 only. `--get_cable_info` is marked deprecated |
+| perfquery recipe | `--oprcv`, "per-VL congestion counters" | `--oprcvcounters`: receive counters per opcode (optional) |
+| mlxlink PRBS | `--rx_prbs PRBS31 --tx_prbs PRBS31` | adds `--test_mode EN` (every NVIDIA example has it); end with `--test_mode DS` |
+| BlueField-3 | `q INTERNAL_CPU_MODEL INTERNAL_CPU_OFFLOAD_ENGINE`; "AC power cycle required" | BF3 uses `INTERNAL_CPU_OFFLOAD_ENGINE` only (0 = DPU, 1 = NIC); Arm and NIC reset, power cycle *recommended* |
+| bfb-install | `--bfb … --rshim rshim0` | `bfb-install -r rshim0 -b <file>` |
+| saquery `-s` | "SMInfo records" | PortInfo records of ports with the isSM bit (Master and Standby SM ports) |
+| mlxfwreset / mlxconfig | `-y r`; "reboot/mlxfwreset applies mlxconfig" | `reset -y` (NVIDIA's form); NVIDIA says reboot to apply mlxconfig changes |
+| Smaller | ibqueryerrors `-K`, iblinkinfo/ibtracert `-G`, mlxlink `-p` on adapters, rshim `misc` | Described as the man pages and MFT docs say |
+
+`DANGER_RE` now also flags `mlxconfig … s` / `r` / `reset` (the BlueField mode switch used the short `s` and copied with no warning), `mlxlink --test_mode` and `bfb-install`.
+
+**Not verified (said on the card):** `show_gids` (not in the MLNX_OFED docs read), `ibhosts -C/-P` (shared options, not on its page), the OpenSM service name, ibdiagnet's `-E-`/`-W-` prefixes. Notes also flag `LINK_TYPE_P1=1` = IB (only 2 = ETH is documented) and the default ibdiagnet output directory.
 
 ## Found while building (not fixed)
 
@@ -153,7 +174,8 @@ Impact (H/M/L) · Effort (S/M/L) · Risk (H/M/L). The ranking is by user impact 
 - Impact **H** · Effort **L** (the research is the cost, so this is incremental by suite) · Risk **L**.
 - ✅ **Built for the NVIDIA suite** (`improve/sources`, `tests/sources.test.js`): an optional `src` field on a command, carried by `build-index.js` into the search index and drawn by `common.js`, so any suite only needs data. Checking the 31 commands found 8 errors (table above).
 - ⚠ **Flag (schema):** the optional `src` field is a new, additive part of the card data and of the search-index entries.
-- **Next:** InfiniBand, then Redfish/IPMI and the BMC tools, one suite at a time.
+- ✅ **InfiniBand** done on `improve/sources-ib` (51 commands and recipes, 9 errors fixed).
+- **Next:** Redfish/IPMI, then the BMC tools, one suite at a time.
 
 **9. Stop duplicating the full nav into every page**
 - **Why:** mostly maintenance and the portable file's size. The direct user gain is small, because pages already load in ~250 ms.
@@ -184,7 +206,7 @@ Impact (H/M/L) · Effort (S/M/L) · Risk (H/M/L). The ranking is by user impact 
 - Impact **L** · Effort **S** · Risk **L** · Built: `improve/doc-counts`. `build-index.js` writes the counts between `<!-- counts -->` markers, counting the way the home page does; `tests/doc-counts.test.js` compares them with the live home page.
 
 ## Recommended next
-**#8 for the InfiniBand suite** (mlxlink, ibstat, iblinkinfo, perfquery), then Redfish/IPMI. Each suite is a data-only change now.
+**#8 for Redfish and IPMI** (DMTF Redfish spec + ipmitool man page), then the BMC vendor tools. A suite whose generator builds commands field by field (as InfiniBand's did) needs a one-line `src` pass-through first.
 
 Considered and dropped: a shift handoff export (it already exists: "Shift board & handoff" in `common.js`), a phone layout (laptop-only by your decision), and variable prompts in the style of navi (Rack Targets and slot chips already do this).
 
@@ -215,3 +237,11 @@ Considered and dropped: a shift handoff export (it already exists: "Shift board 
 - [nvbandwidth](https://github.com/NVIDIA/nvbandwidth)
 - [NVIDIA Container Toolkit sample workload](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/sample-workload.html)
 - [Slurm scontrol](https://slurm.schedmd.com/scontrol.html)
+- [rdma-core infiniband-diags man pages](https://github.com/linux-rdma/rdma-core/tree/master/infiniband-diags/man)
+- [ibv_devinfo man page](https://github.com/linux-rdma/rdma-core/blob/master/libibverbs/man/ibv_devinfo.1)
+- [iproute2 rdma-link](https://man7.org/linux/man-pages/man8/rdma-link.8.html) · [rdma-resource](https://man7.org/linux/man-pages/man8/rdma-resource.8.html) · [rdma-system](https://man7.org/linux/man-pages/man8/rdma-system.8.html)
+- [perftest man page](https://github.com/linux-rdma/perftest/blob/master/man/perftest.1) · [perftest_parameters.c](https://github.com/linux-rdma/perftest/blob/master/src/perftest_parameters.c)
+- [NVIDIA MFT 4.33 documentation](https://networking-docs.nvidia.com/mftswum/4330)
+- [ibdiagnet basic commands](https://networking-docs.nvidia.com/ibdiagnetutilityum/2.27.0/basic-commands) · [ibdiagnet output files](https://networking-docs.nvidia.com/ibdiagnetutilityum/2.27.0/ibdiagnet-dump-files)
+- [BlueField modes of operation](https://networking-docs.nvidia.com/bsp/4.16.0/modes-of-operation) · [BlueField RShim](https://networking-docs.nvidia.com/bsp/4.16.0/soc-management-interface-rshim)
+- [MLNX_OFED RoCE](https://networking-docs.nvidia.com/mlnxofedswum/24.10-5.1.6.1lts/rdma-over-converged-ethernet-roce)

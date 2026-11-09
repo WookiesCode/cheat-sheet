@@ -10,8 +10,8 @@ const IB_IB_BLUEFIELD_DATA = [
       {
         "id": "bluefield-dpu-cmd",
         "desc": "Check or switch BlueField-2/3 between DPU mode and NIC (SuperNIC) mode, access ARM console via rshim, or push a BFB image",
-        "cmd": "mlxconfig -d /dev/mst/mt41692_pciconf0 q INTERNAL_CPU_MODEL INTERNAL_CPU_OFFLOAD_ENGINE",
-        "details": "In AI clusters (Spectrum-X / Quantum-2), BlueField-3 often runs in SuperNIC / NIC mode ('INTERNAL_CPU_MODEL=1' with 'INTERNAL_CPU_OFFLOAD_ENGINE=1' Disabled) so the host x86 OS controls RDMA directly, or in DPU mode ('INTERNAL_CPU_OFFLOAD_ENGINE=0' Enabled) where the embedded ARM cores manage networking via '/dev/rshim0'.",
+        "cmd": "mlxconfig -d /dev/mst/mt41692_pciconf0 q INTERNAL_CPU_OFFLOAD_ENGINE",
+        "details": "In AI clusters (Spectrum-X / Quantum-2), BlueField-3 often runs in SuperNIC / NIC mode ('INTERNAL_CPU_OFFLOAD_ENGINE=1' DISABLED) so the host x86 OS controls RDMA directly, or in DPU mode ('INTERNAL_CPU_OFFLOAD_ENGINE=0' Enabled) where the embedded ARM cores manage networking via '/dev/rshim0'.",
         "flags": [
           [
             "INTERNAL_CPU_OFFLOAD_ENGINE",
@@ -19,42 +19,84 @@ const IB_IB_BLUEFIELD_DATA = [
           ],
           [
             "/dev/rshim0/misc",
-            "Host-to-DPU RShim management channel (check 'cat /dev/rshim0/misc' for DISPLAY_LEVEL=2 boot status)"
+            "RShim status: cat it for BF_MODE (DPU or NIC mode); echo 'DISPLAY_LEVEL 2' > /dev/rshim0/misc adds the boot log"
           ],
           [
             "bfb-install",
             "Stream a BlueField Bootstream (.bfb) Ubuntu DOCA OS image onto the DPU over rshim0"
           ]
         ],
-        "tip": "Switching BlueField DPU <-> SuperNIC mode requires a cold AC power cycle!",
+        "tip": "DPU <-> NIC mode: reset Arm and NIC, power cycle recommended. SuperNIC SKUs ship in NIC mode",
         "tags": [
           "BlueField-3",
           "infiniband",
           "triage",
           "rdma"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/bsp/4.16.0/modes-of-operation",
+              "title": "BlueField modes of operation"
+            },
+            {
+              "url": "https://networking-docs.nvidia.com/bsp/4.16.0/soc-management-interface-rshim",
+              "title": "BlueField RShim"
+            }
+          ],
+          "note": "Corrected 2026-11-09: BlueField-3 mode is INTERNAL_CPU_OFFLOAD_ENGINE only (0 = DPU, 1 = NIC); bfb-install takes -r and -b."
+        }
       },
       {
         "id": "bluefield-dpu-sub-1",
-        "desc": "Switch BlueField-3 into NIC / SuperNIC mode (requires full AC chassis power cycle to take effect!)",
+        "desc": "Switch BlueField-3 to NIC mode (=0 for DPU mode). Arm and NIC must reset; NVIDIA recommends a power cycle",
         "cmd": "mlxconfig -y -d /dev/mst/mt41692_pciconf0 s INTERNAL_CPU_OFFLOAD_ENGINE=1",
         "tags": [
           "BlueField-3",
           "recipe",
           "automation",
           "pipeline"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/bsp/4.16.0/modes-of-operation",
+              "title": "BlueField modes of operation"
+            },
+            {
+              "url": "https://networking-docs.nvidia.com/bsp/4.16.0/soc-management-interface-rshim",
+              "title": "BlueField RShim"
+            }
+          ],
+          "note": "Corrected 2026-11-09: BlueField-3 mode is INTERNAL_CPU_OFFLOAD_ENGINE only (0 = DPU, 1 = NIC); bfb-install takes -r and -b."
+        }
       },
       {
         "id": "bluefield-dpu-sub-2",
         "desc": "Flash a fresh DOCA Ubuntu BFB OS image onto BlueField ARM storage over rshim0",
-        "cmd": "bfb-install --bfb DOCA_2.9.0_Ubuntu_22.04-arm64.bfb --rshim rshim0",
+        "cmd": "bfb-install -r rshim0 -b DOCA_2.9.0_Ubuntu_22.04-arm64.bfb",
         "tags": [
           "BlueField-3",
           "recipe",
           "automation",
           "pipeline"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/bsp/4.16.0/modes-of-operation",
+              "title": "BlueField modes of operation"
+            },
+            {
+              "url": "https://networking-docs.nvidia.com/bsp/4.16.0/soc-management-interface-rshim",
+              "title": "BlueField RShim"
+            }
+          ],
+          "note": "Corrected 2026-11-09: BlueField-3 mode is INTERNAL_CPU_OFFLOAD_ENGINE only (0 = DPU, 1 = NIC); bfb-install takes -r and -b."
+        }
       },
       {
         "id": "bluefield-dpu-sub-3",
@@ -65,7 +107,21 @@ const IB_IB_BLUEFIELD_DATA = [
           "recipe",
           "automation",
           "pipeline"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/bsp/4.16.0/modes-of-operation",
+              "title": "BlueField modes of operation"
+            },
+            {
+              "url": "https://networking-docs.nvidia.com/bsp/4.16.0/soc-management-interface-rshim",
+              "title": "BlueField RShim"
+            }
+          ],
+          "note": "Corrected 2026-11-09: BlueField-3 mode is INTERNAL_CPU_OFFLOAD_ENGINE only (0 = DPU, 1 = NIC); bfb-install takes -r and -b."
+        }
       }
     ]
   },
@@ -78,8 +134,8 @@ const IB_IB_BLUEFIELD_DATA = [
       {
         "id": "bluefield-dpu-tips-card",
         "desc": "Production recommendations, fabric stability tips & triage advice for BlueField-3",
-        "cmd": "mlxconfig -d /dev/mst/mt41692_pciconf0 q INTERNAL_CPU_MODEL INTERNAL_CPU_OFFLOAD_ENGINE",
-        "tip": "Switching BlueField DPU <-> SuperNIC mode requires a cold AC power cycle!",
+        "cmd": "mlxconfig -d /dev/mst/mt41692_pciconf0 q INTERNAL_CPU_OFFLOAD_ENGINE",
+        "tip": "DPU <-> NIC mode: reset Arm and NIC, power cycle recommended. SuperNIC SKUs ship in NIC mode",
         "details": "In multi-tier Quantum/Quantum-2 topologies, always cross-reference BlueField-3 telemetry with adjacent switch ports and Subnet Manager topology databases.",
         "tags": [
           "BlueField-3",

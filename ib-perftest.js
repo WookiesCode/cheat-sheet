@@ -10,12 +10,12 @@ const IB_IB_PERFTEST_DATA = [
       {
         "id": "perftest-cmd",
         "desc": "Measure point-to-point RDMA Write/Read bandwidth (Gb/s) and latency (usec) over IPv6 between two HCAs or GPUs",
-        "cmd": "ib_write_bw -d mlx5_0 -F --report_gbits -q 4 --ipv6   # Server;   ib_write_bw -d mlx5_0 -F --report_gbits -q 4 --ipv6 2001:db8:dc::1   # Client",
-        "details": "From the Ubuntu 'perftest' package. Pass '--ipv6' so the TCP out-of-band QP handshake uses IPv6! On 400G NDR (4X 100G), a healthy PCIe Gen5 x16 ConnectX-7 reaches ~390+ Gb/s (~48.8 GB/s) unidirectional RDMA Write bandwidth and ~1.2–1.8 us latency. If bandwidth is capped around ~250 Gb/s, check 'lspci -vvv' to see if the slot downgraded to PCIe Gen4!",
+        "cmd": "ib_write_bw -d mlx5_0 -F --report_gbits -q 4 --ipv6-addr   # Server;   ib_write_bw -d mlx5_0 -F --report_gbits -q 4 --ipv6-addr 2001:db8:dc::1   # Client",
+        "details": "From the Ubuntu 'perftest' package. Pass '--ipv6-addr' on BOTH server and client so the out-of-band parameter exchange uses an IPv6 address ('--ipv6' only selects an IPv6 GID). On 400G NDR (4X 100G), a healthy PCIe Gen5 x16 ConnectX-7 reaches ~390+ Gb/s (~48.8 GB/s) unidirectional RDMA Write bandwidth and ~1.2–1.8 us latency. If bandwidth is capped around ~250 Gb/s, check 'lspci -vvv' to see if the slot downgraded to PCIe Gen4!",
         "flags": [
           [
-            "--ipv6",
-            "Use IPv6 socket for initial out-of-band Queue Pair (QP) exchange between server and client"
+            "--ipv6-addr",
+            "Use an IPv6 address for the out-of-band parameter exchange (symmetric: pass it on server and client). --ipv6 is different: it selects an IPv6 GID"
           ],
           [
             "-d <mlx5_X>",
@@ -35,42 +35,84 @@ const IB_IB_PERFTEST_DATA = [
           ],
           [
             "-x <gid_idx>",
-            "Specify RoCEv2 IPv6 GID index (check 'show_gids' on Ethernet RoCEv2 fabrics)"
+            "Use the GID at this index (on RoCE, find the RoCE v2 index in the GID table)"
           ],
           [
             "--use_cuda=<gpu>",
             "Allocate RDMA buffer directly in NVIDIA GPU HBM memory to test GPUDirect RDMA (GDR)!"
           ]
         ],
-        "tip": "400G NDR = ~392 Gb/s; pass --ipv6 for IPv6 QP handshake!",
+        "tip": "400G NDR = ~392 Gb/s; pass --ipv6-addr on both ends for an IPv6 server address",
         "tags": [
           "perftest",
           "infiniband",
           "triage",
           "rdma"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/linux-rdma/perftest/blob/master/man/perftest.1",
+              "title": "perftest man page"
+            },
+            {
+              "url": "https://github.com/linux-rdma/perftest/blob/master/src/perftest_parameters.c",
+              "title": "perftest source"
+            }
+          ],
+          "note": "Corrected 2026-11-09: --ipv6 only selects an IPv6 GID; an IPv6 server address needs --ipv6-addr on both ends. Bandwidth and latency figures are rules of thumb."
+        }
       },
       {
         "id": "perftest-sub-1",
         "desc": "Measure half-round-trip RDMA Write latency in microseconds (usec) over IPv6",
-        "cmd": "ib_write_lat -d mlx5_0 -F --ipv6   # Server;   ib_write_lat -d mlx5_0 -F --ipv6 2001:db8:dc::1   # Client",
+        "cmd": "ib_write_lat -d mlx5_0 -F --ipv6-addr   # Server;   ib_write_lat -d mlx5_0 -F --ipv6-addr 2001:db8:dc::1   # Client",
         "tags": [
           "perftest",
           "recipe",
           "automation",
           "pipeline"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/linux-rdma/perftest/blob/master/man/perftest.1",
+              "title": "perftest man page"
+            },
+            {
+              "url": "https://github.com/linux-rdma/perftest/blob/master/src/perftest_parameters.c",
+              "title": "perftest source"
+            }
+          ],
+          "note": "Corrected 2026-11-09: --ipv6 only selects an IPv6 GID; an IPv6 server address needs --ipv6-addr on both ends. Bandwidth and latency figures are rules of thumb."
+        }
       },
       {
         "id": "perftest-sub-2",
         "desc": "Benchmark GPUDirect RDMA (GDR) directly between GPU 0 HBM and HCA mlx5_0 bypassing host RAM",
-        "cmd": "ib_write_bw -d mlx5_0 -F --report_gbits --use_cuda=0 --ipv6 2001:db8:dc::1",
+        "cmd": "ib_write_bw -d mlx5_0 -F --report_gbits --use_cuda=0 --ipv6-addr 2001:db8:dc::1",
         "tags": [
           "perftest",
           "recipe",
           "automation",
           "pipeline"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/linux-rdma/perftest/blob/master/man/perftest.1",
+              "title": "perftest man page"
+            },
+            {
+              "url": "https://github.com/linux-rdma/perftest/blob/master/src/perftest_parameters.c",
+              "title": "perftest source"
+            }
+          ],
+          "note": "Corrected 2026-11-09: --ipv6 only selects an IPv6 GID; an IPv6 server address needs --ipv6-addr on both ends. Bandwidth and latency figures are rules of thumb."
+        }
       }
     ]
   },
@@ -83,8 +125,8 @@ const IB_IB_PERFTEST_DATA = [
       {
         "id": "perftest-tips-card",
         "desc": "Production recommendations, fabric stability tips & triage advice for perftest",
-        "cmd": "ib_write_bw -d mlx5_0 -F --report_gbits -q 4 --ipv6   # Server;   ib_write_bw -d mlx5_0 -F --report_gbits -q 4 --ipv6 2001:db8:dc::1   # Client",
-        "tip": "400G NDR = ~392 Gb/s; pass --ipv6 for IPv6 QP handshake!",
+        "cmd": "ib_write_bw -d mlx5_0 -F --report_gbits -q 4 --ipv6-addr   # Server;   ib_write_bw -d mlx5_0 -F --report_gbits -q 4 --ipv6-addr 2001:db8:dc::1   # Client",
+        "tip": "400G NDR = ~392 Gb/s; pass --ipv6-addr on both ends for an IPv6 server address",
         "details": "In multi-tier Quantum/Quantum-2 topologies, always cross-reference perftest telemetry with adjacent switch ports and Subnet Manager topology databases.",
         "tags": [
           "perftest",

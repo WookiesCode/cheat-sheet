@@ -32,7 +32,25 @@ const IB_IB_MLXCABLES_DATA = [
           "infiniband",
           "triage",
           "rdma"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxcables-cables-tool",
+              "title": "MFT: mlxcables"
+            },
+            {
+              "url": "https://networking-docs.nvidia.com/mftswum/4330/linux",
+              "title": "MFT: mst"
+            },
+            {
+              "url": "https://networking-docs.nvidia.com/mftswum/4330/cable-utilities",
+              "title": "MFT: cable utilities"
+            }
+          ],
+          "note": "What mlxcables prints with no options is not documented; -q queries a cable."
+        }
       },
       {
         "id": "mlxcables-sub-1",
@@ -43,7 +61,25 @@ const IB_IB_MLXCABLES_DATA = [
           "recipe",
           "automation",
           "pipeline"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxcables-cables-tool",
+              "title": "MFT: mlxcables"
+            },
+            {
+              "url": "https://networking-docs.nvidia.com/mftswum/4330/linux",
+              "title": "MFT: mst"
+            },
+            {
+              "url": "https://networking-docs.nvidia.com/mftswum/4330/cable-utilities",
+              "title": "MFT: cable utilities"
+            }
+          ],
+          "note": "What mlxcables prints with no options is not documented; -q queries a cable."
+        }
       },
       {
         "id": "mlxcables-sub-2",
@@ -54,7 +90,25 @@ const IB_IB_MLXCABLES_DATA = [
           "recipe",
           "automation",
           "pipeline"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxcables-cables-tool",
+              "title": "MFT: mlxcables"
+            },
+            {
+              "url": "https://networking-docs.nvidia.com/mftswum/4330/linux",
+              "title": "MFT: mst"
+            },
+            {
+              "url": "https://networking-docs.nvidia.com/mftswum/4330/cable-utilities",
+              "title": "MFT: cable utilities"
+            }
+          ],
+          "note": "What mlxcables prints with no options is not documented; -q queries a cable."
+        }
       }
     ]
   },
