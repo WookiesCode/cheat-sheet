@@ -4499,9 +4499,13 @@ ${rmaTrailSection()}#### Action Requested:
         box.classList.add('is-reference');
         box.removeAttribute('title');
         // Host reboot/shutdown commands stay as documentation; say why a click does nothing.
-        if (why === 'reboot') {
+        const REF_WHY = {
+          reboot: '🔒 Reference only: reboots or shuts down the machine you run it on. Not copyable.',
+          nmi: '🔒 Reference only: deliberately crashes the host kernel (NMI → panic / kdump). Not copyable.'
+        };
+        if (REF_WHY[why]) {
           box.classList.add('is-reboot-ref');
-          box.insertAdjacentHTML('beforeend', '<span class="ref-why">🔒 Reference only: reboots or shuts down the machine you run it on. Not copyable.</span>');
+          box.insertAdjacentHTML('beforeend', `<span class="ref-why">${REF_WHY[why]}</span>`);
         }
       }
     });

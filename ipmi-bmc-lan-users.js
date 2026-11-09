@@ -39,7 +39,21 @@ const IPMI_IPMI_BMC_LAN_USERS_DATA = [
           "discover",
           "slaac",
           "dhcpv6"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool man page"
+            },
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_lanp6.c",
+              "title": "ipmitool source (ipmi_lanp6.c)"
+            }
+          ],
+          "note": "lan6 is in ipmitool's source but not its man page."
+        }
       }
     ]
   },
@@ -52,16 +66,16 @@ const IPMI_IPMI_BMC_LAN_USERS_DATA = [
       {
         "id": "ipmi-lan-set-static-dhcp",
         "desc": "Configure static IPv6 address & prefix (or enable SLAAC/DHCPv6 dynamic addressing) and 802.1Q VLAN on the BMC",
-        "cmd": "ipmitool lan6 set 1 enabler ipv6_only && ipmitool lan6 set 1 static_addr 0 enable 2001:db8:dc:1::100 64",
+        "cmd": "ipmitool lan6 set 1 enables ipv6 && ipmitool lan6 set 1 static_addr 0 enable 2001:db8:dc:1::100 64",
         "details": "",
         "flags": [
           [
-            "lan6 set 1 enabler both / ipv6_only",
-            "Enable dual-stack ('both') or strict 'ipv6_only' on BMC Channel 1"
+            "lan6 set 1 enables ipv4 / ipv6 / both",
+            "IPv4 only, IPv6 only, or dual-stack on BMC channel 1"
           ],
           [
-            "lan6 set 1 addr_src <slaac|dhcpv6>",
-            "Enable IPv6 Stateless Address Autoconfiguration (SLAAC) or stateful DHCPv6"
+            "lan6 print 1",
+            "Shows the dynamic (SLAAC/DHCPv6) addresses; ipmitool has no lan6 addr_src setting (dynamic_addr is read-only)"
           ],
           [
             "lan set 1 vlan id 200",
@@ -83,7 +97,21 @@ const IPMI_IPMI_BMC_LAN_USERS_DATA = [
           "gateway",
           "vlan",
           "ipaddr"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_lanp6.c",
+              "title": "ipmitool source (ipmi_lanp6.c)"
+            },
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool man page"
+            }
+          ],
+          "note": "Corrected 2026-11-09: the parameter is enables (ipv4|ipv6|both), not enabler ipv6_only; there is no addr_src."
+        }
       }
     ]
   },
@@ -96,7 +124,7 @@ const IPMI_IPMI_BMC_LAN_USERS_DATA = [
       {
         "id": "ipmi-user-password-admin",
         "desc": "List BMC user accounts, reset forgotten BMC admin password from host OS, or grant Admin privilege",
-        "cmd": "ipmitool user list 1   |   ipmitool user set password 2 'NewStrongPass!'   |   ipmitool channel setaccess 1 2 link=on ipmi=on callin=on privilege=4",
+        "cmd": "ipmitool user list 1   |   ipmitool user set password 2 '<new-password>'   |   ipmitool channel setaccess 1 2 link=on ipmi=on callin=on privilege=4",
         "details": "",
         "flags": [
           [
@@ -121,7 +149,17 @@ const IPMI_IPMI_BMC_LAN_USERS_DATA = [
           "admin",
           "privilege",
           "channel"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool man page"
+            }
+          ],
+          "note": "Fill <new-password> yourself; the sample password was removed."
+        }
       }
     ]
   },

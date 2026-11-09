@@ -39,7 +39,21 @@ const RF_RF_POWER_BOOT_DATA = [
           "powercycle",
           "forceoff",
           "on"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/Resource.json",
+              "title": "Redfish schema: ResetType"
+            },
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/ComputerSystem.json",
+              "title": "Redfish schema: ComputerSystem"
+            }
+          ],
+          "note": "ResetType@Redfish.AllowableValues was not confirmed in the schema text read; GET the system to see what your BMC offers."
+        }
       }
     ]
   },
@@ -77,7 +91,16 @@ const RF_RF_POWER_BOOT_DATA = [
           "override",
           "once",
           "network"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/ComputerSystem.json",
+              "title": "Redfish schema: ComputerSystem"
+            }
+          ]
+        }
       }
     ]
   },
@@ -109,7 +132,16 @@ const RF_RF_POWER_BOOT_DATA = [
           "setup",
           "boot",
           "uefi"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/ComputerSystem.json",
+              "title": "Redfish schema: ComputerSystem"
+            }
+          ]
+        }
       }
     ]
   },
@@ -143,7 +175,16 @@ const RF_RF_POWER_BOOT_DATA = [
           "hang",
           "panic",
           "diagnostic"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/Resource.json",
+              "title": "Redfish schema: ResetType"
+            }
+          ]
+        }
       }
     ]
   },

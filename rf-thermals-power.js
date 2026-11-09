@@ -15,7 +15,7 @@ const RF_RF_THERMALS_POWER_DATA = [
         "flags": [
           [
             "/Chassis/1/Sensors",
-            "Note: Newer Redfish 2021+ schemas also expose individual sensor URIs under /Chassis/1/Sensors?$expand=.($levels=1)"
+            "Thermal and Power are deprecated in the schema (ThermalSubsystem, PowerSubsystem and Sensors replace them); many BMCs still serve them"
           ]
         ],
         "tip": "",
@@ -31,7 +31,21 @@ const RF_RF_THERMALS_POWER_DATA = [
           "rpm",
           "cooling",
           "inlet"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/Thermal.json",
+              "title": "Redfish schema: Thermal (deprecated)"
+            },
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/Chassis.v1_29_0.json",
+              "title": "Redfish schema: Chassis"
+            }
+          ],
+          "note": "Thermal is deprecated (ThermalSubsystem/Sensors); it still works on many BMCs."
+        }
       }
     ]
   },
@@ -69,7 +83,21 @@ const RF_RF_THERMALS_POWER_DATA = [
           "voltage",
           "redundant",
           "chassis"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/Power.json",
+              "title": "Redfish schema: Power (deprecated)"
+            },
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/Chassis.v1_29_0.json",
+              "title": "Redfish schema: Chassis"
+            }
+          ],
+          "note": "Power is deprecated (PowerSubsystem/Sensors); it still works on many BMCs."
+        }
       }
     ]
   },
@@ -103,7 +131,16 @@ const RF_RF_THERMALS_POWER_DATA = [
           "locate",
           "blink",
           "chassis"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/Chassis.v1_29_0.json",
+              "title": "Redfish schema: Chassis"
+            }
+          ]
+        }
       }
     ]
   },

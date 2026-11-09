@@ -19,11 +19,11 @@ const RF_RF_BIOS_BMC_DATA = [
           ],
           [
             "/Bios/Settings",
-            "Staging URI where PATCH changes are written (applied on next System reboot!)"
+            "The settings object: its URI is in @Redfish.Settings.SettingsObject from GET /Bios (often /Bios/Settings); changes apply on the next reboot"
           ],
           [
             "If-Match",
-            "If BMC returns HTTP 412, pass -H 'If-Match: *' or the ETag from GET /Bios/Settings"
+            "HTTP 428 = If-Match missing; HTTP 412 = stale ETag: GET it again and send the fresh ETag in If-Match (some BMCs also accept *)"
           ]
         ],
         "tip": "PATCH goes to /Bios/Settings",
@@ -39,7 +39,21 @@ const RF_RF_BIOS_BMC_DATA = [
           "sriov",
           "iommu",
           "patch"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/Bios.v1_3_0.json",
+              "title": "Redfish schema: Bios"
+            },
+            {
+              "url": "https://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.25.0.pdf",
+              "title": "Redfish Specification DSP0266 1.25"
+            }
+          ],
+          "note": "Corrected 2026-11-09: the settings URI comes from @Redfish.Settings; 412 means a stale ETag, 428 a missing one."
+        }
       }
     ]
   },
@@ -77,7 +91,16 @@ const RF_RF_BIOS_BMC_DATA = [
           "cdrom",
           "install",
           "http"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/VirtualMedia.v1_7_0.json",
+              "title": "Redfish schema: VirtualMedia"
+            }
+          ]
+        }
       }
     ]
   },
@@ -111,7 +134,16 @@ const RF_RF_BIOS_BMC_DATA = [
           "idrac",
           "ilo",
           "reboot"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/Manager.v1_25_0.json",
+              "title": "Redfish schema: Manager"
+            }
+          ]
+        }
       }
     ]
   },

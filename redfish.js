@@ -12,12 +12,13 @@ const REDFISH_CHEAT_SHEET_DATA = [
         desc: "Query `/redfish/v1` ServiceRoot over IPv6 (`-g -6`) and dynamically discover System & Manager URIs",
         cmd: 'SYS_URI=$(curl -g -6 -sk -K ~/.bmc-curlrc "https://[$BMC]/redfish/v1/Systems" | jq -r \'.Members[0]."@odata.id"\') && echo "$SYS_URI"',
         flags: [
-          ["-g -6", "-g (--globoff) prevents curl from failing on IPv6 brackets [2001:db8::1]; -6 forces IPv6 transport"],
+          ["-g -6", "-g turns off URL globbing (curl already accepts numeric [IPv6] addresses without it; -g matters when a URL has other [ ] or { }); -6 resolves names to IPv6 only"],
           ['.Members[0]."@odata.id"', "Extracts exact vendor-specific URI (/redfish/v1/Systems/1 vs /redfish/v1/Systems/System.Embedded.1)"],
           ["-sk", "-s silent mode, -k ignore self-signed BMC TLS certificate (use %25eth0 for link-local fe80:: addresses)"]
         ],
-        tip: "Always pass -g to curl when using [IPv6] brackets!",
-        tags: ["discover", "serviceroot", "systems", "uri", "members", "jq", "ipv6"]
+        tip: "Link-local BMC address? Write the zone as %25, e.g. [fe80::1%25eth0]",
+        tags: ["discover", "serviceroot", "systems", "uri", "members", "jq", "ipv6"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://curl.se/docs/manpage.html", "title": "curl man page"}, {"url": "https://curl.se/docs/url-syntax.html", "title": "curl URL syntax"}], "note": "Corrected 2026-11-09: -g is not needed for numeric IPv6 addresses (curl detects them); kept because it is harmless."}
       },
       {
         id: "rf-session-token-create",
@@ -30,7 +31,8 @@ const REDFISH_CHEAT_SHEET_DATA = [
           ["Location:", "Session URI (e.g. .../Sessions/1) — send HTTP DELETE to this URI when done to avoid exhausting BMC session slots!"]
         ],
         tip: "10x faster than Basic Auth",
-        tags: ["session", "token", "x-auth-token", "login", "auth", "delete"]
+        tags: ["session", "token", "x-auth-token", "login", "auth", "delete"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.25.0.pdf", "title": "Redfish Specification DSP0266 1.25"}], "note": "\"Faster than Basic Auth\" is a rule of thumb, not from the spec."}
       },
       {
         id: "rf-expand-query-param",
@@ -40,10 +42,11 @@ const REDFISH_CHEAT_SHEET_DATA = [
         cmd: 'curl -g -6 -sk -K ~/.bmc-curlrc "https://[$BMC]/redfish/v1/Systems/1/Memory?\\$expand=.(\\$levels=1)" | jq \'.Members[] | {Name, CapacityMiB, Manufacturer, SerialNumber, Status}\'',
         flags: [
           ["$expand=.($levels=1)", "Inlines all Member objects instead of returning only @odata.id links"],
-          ["$only", "Return the single member directly if collection only has 1 item"]
+          ["only", "Query parameter only (no $): if the collection has exactly one member, return that member instead of the collection"]
         ],
         tip: "Avoids N+1 HTTP loop",
-        tags: ["expand", "levels", "collection", "batch", "fast"]
+        tags: ["expand", "levels", "collection", "batch", "fast"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.25.0.pdf", "title": "Redfish Specification DSP0266 1.25"}], "note": "Corrected 2026-11-09: the single-member parameter is only, not $only."}
       }
     ]
   },
@@ -64,7 +67,8 @@ const REDFISH_CHEAT_SHEET_DATA = [
           ["ForceRestart / GracefulRestart", "Immediate warm reset vs ACPI OS reboot"],
           ["ResetType@Redfish.AllowableValues", "Inspect Actions.#ComputerSystem.Reset in GET /Systems/1 to see supported ResetTypes"]
         ],
-        tags: ["power", "reset", "reboot", "powercycle", "forceoff", "on"]
+        tags: ["power", "reset", "reboot", "powercycle", "forceoff", "on"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://redfish.dmtf.org/schemas/v1/Resource.json", "title": "Redfish schema: ResetType"}, {"url": "https://redfish.dmtf.org/schemas/v1/ComputerSystem.json", "title": "Redfish schema: ComputerSystem"}], "note": "ResetType@Redfish.AllowableValues was not confirmed in the schema text read; GET the system to see what your BMC offers."}
       },
       {
         id: "rf-boot-override-pxe",
@@ -77,7 +81,8 @@ const REDFISH_CHEAT_SHEET_DATA = [
           ["BootSourceOverrideTarget", "'Pxe', 'BiosSetup', 'Cd', 'Hdd', 'UefiHttp', 'UefiShell', 'None'"]
         ],
         tip: "Follow with ForceRestart",
-        tags: ["pxe", "boot", "uefi", "override", "once", "network"]
+        tags: ["pxe", "boot", "uefi", "override", "once", "network"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://redfish.dmtf.org/schemas/v1/ComputerSystem.json", "title": "Redfish schema: ComputerSystem"}]}
       },
       {
         id: "rf-boot-into-bios",
@@ -88,7 +93,8 @@ const REDFISH_CHEAT_SHEET_DATA = [
         flags: [
           ["BiosSetup", "Enters BIOS setup automatically on next boot (viewable via SOL or HTML5 KVM)"]
         ],
-        tags: ["bios", "setup", "boot", "uefi"]
+        tags: ["bios", "setup", "boot", "uefi"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://redfish.dmtf.org/schemas/v1/ComputerSystem.json", "title": "Redfish schema: ComputerSystem"}]}
       },
       {
         id: "rf-trigger-nmi",
@@ -100,7 +106,8 @@ const REDFISH_CHEAT_SHEET_DATA = [
           ["Nmi", "Triggers kernel panic/kdump when Linux kernel is hard-locked (`kernel.unknown_nmi_panic=1`)"]
         ],
         danger: "Panics OS kernel for kdump",
-        tags: ["nmi", "kdump", "crash", "hang", "panic", "diagnostic"]
+        tags: ["nmi", "kdump", "crash", "hang", "panic", "diagnostic"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://redfish.dmtf.org/schemas/v1/Resource.json", "title": "Redfish schema: ResetType"}]}
       }
     ]
   },
@@ -118,10 +125,11 @@ const REDFISH_CHEAT_SHEET_DATA = [
         cmd: 'curl -g -6 -sk -K ~/.bmc-curlrc "https://[$BMC]/redfish/v1/Systems/1/Memory?\\$expand=.(\\$levels=1)" | jq \'.Members[] | select(.Status.State=="Enabled") | {Id, DeviceLocator, CapacityMiB, OperatingSpeedMhz, Manufacturer, PartNumber, SerialNumber, Health: .Status.Health}\'',
         flags: [
           ["select(.Status.State==\"Enabled\")", "Filters out empty/unpopulated DIMM sockets (`State: Absent`)"],
-          ["DeviceLocator", "Prints silkscreen motherboard slot label (e.g. DIMM_A1, P1-DIMMA1)"]
+          ["DeviceLocator", "Slot label (e.g. DIMM_A1). Deprecated in the schema in favor of Location.PartLocation.ServiceLabel; many BMCs still fill it"]
         ],
         tip: "Pinpoints faulty DIMM slot label",
-        tags: ["memory", "dimm", "ram", "serial", "ecc", "slot", "health"]
+        tags: ["memory", "dimm", "ram", "serial", "ecc", "slot", "health"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://redfish.dmtf.org/schemas/v1/Memory.v1_24_0.json", "title": "Redfish schema: Memory"}], "note": "DeviceLocator is deprecated in favor of Location.PartLocation.ServiceLabel."}
       },
       {
         id: "rf-processors-cpu-gpu",
@@ -130,10 +138,11 @@ const REDFISH_CHEAT_SHEET_DATA = [
         desc: "Inspect all CPUs and baseboard GPUs (`ProcessorType: CPU` vs `Accelerator`) with core counts and health",
         cmd: 'curl -g -6 -sk -K ~/.bmc-curlrc "https://[$BMC]/redfish/v1/Systems/1/Processors?\\$expand=.(\\$levels=1)" | jq \'.Members[] | {Id, ProcessorType, Model, TotalCores, TotalThreads, SerialNumber, Status}\'',
         flags: [
-          ["ProcessorType", "'CPU', 'GPU', 'Accelerator', 'FPGA', or 'DPU'"],
+          ["ProcessorType", "'CPU', 'GPU', 'FPGA', 'DSP', 'Accelerator', 'Core', 'Thread', 'Partition' or 'OEM' (the schema has no DPU type)"],
           ["ProcessorMetrics", "Follow ProcessorMetrics.@odata.id for out-of-band GPU/CPU bandwidth, temp & ECC metrics"]
         ],
-        tags: ["cpu", "gpu", "processors", "cores", "model", "serial"]
+        tags: ["cpu", "gpu", "processors", "cores", "model", "serial"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://redfish.dmtf.org/schemas/v1/Processor.v1_24_0.json", "title": "Redfish schema: Processor"}, {"url": "https://redfish.dmtf.org/schemas/v1/ComputerSystem.json", "title": "Redfish schema: ComputerSystem"}], "note": "Corrected 2026-11-09: there is no DPU ProcessorType."}
       },
       {
         id: "rf-storage-nvme-drives",
@@ -145,7 +154,8 @@ const REDFISH_CHEAT_SHEET_DATA = [
           ["PredictedMediaLifeLeftPercent", "SSD/NVMe wear-out indicator (100 = new, 0 = worn out)"],
           ["FailurePredicted", "Boolean SMART pre-fail warning flag"]
         ],
-        tags: ["storage", "nvme", "ssd", "drives", "smart", "wear", "raid"]
+        tags: ["storage", "nvme", "ssd", "drives", "smart", "wear", "raid"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://redfish.dmtf.org/schemas/v1/Drive.v1_22_0.json", "title": "Redfish schema: Drive"}]}
       },
       {
         id: "rf-network-mac-addresses",
@@ -158,7 +168,8 @@ const REDFISH_CHEAT_SHEET_DATA = [
           ["MACAddress", "Hardware MAC address of onboard LOM and PCIe network adapters (for DHCPv6 DUID / PXEv6)"]
         ],
         tip: "Essential for zero-touch IPv6 PXE",
-        tags: ["mac", "nic", "ethernet", "pxe", "ipv6", "dhcpv6", "slaac", "provisioning"]
+        tags: ["mac", "nic", "ethernet", "pxe", "ipv6", "dhcpv6", "slaac", "provisioning"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://redfish.dmtf.org/schemas/v1/EthernetInterface.v1_12_6.json", "title": "Redfish schema: EthernetInterface"}]}
       }
     ]
   },
@@ -175,9 +186,10 @@ const REDFISH_CHEAT_SHEET_DATA = [
         desc: "Read all Chassis temperature sensors (°C) and cooling fan speeds (RPM / %)",
         cmd: 'curl -g -6 -sk -K ~/.bmc-curlrc "https://[$BMC]/redfish/v1/Chassis/1/Thermal" | jq \'{Temps: [.Temperatures[] | {Name, ReadingCelsius, UpperThresholdCritical, Health: .Status.Health}], Fans: [.Fans[] | {Name, Reading, ReadingUnits, Health: .Status.Health}]}\'',
         flags: [
-          ["/Chassis/1/Sensors", "Note: Newer Redfish 2021+ schemas also expose individual sensor URIs under /Chassis/1/Sensors?$expand=.($levels=1)"]
+          ["/Chassis/1/Sensors", "Thermal and Power are deprecated in the schema (ThermalSubsystem, PowerSubsystem and Sensors replace them); many BMCs still serve them"]
         ],
-        tags: ["thermal", "temperature", "fans", "rpm", "cooling", "inlet"]
+        tags: ["thermal", "temperature", "fans", "rpm", "cooling", "inlet"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://redfish.dmtf.org/schemas/v1/Thermal.json", "title": "Redfish schema: Thermal (deprecated)"}, {"url": "https://redfish.dmtf.org/schemas/v1/Chassis.v1_29_0.json", "title": "Redfish schema: Chassis"}], "note": "Thermal is deprecated (ThermalSubsystem/Sensors); it still works on many BMCs."}
       },
       {
         id: "rf-chassis-power-psus",
@@ -190,7 +202,8 @@ const REDFISH_CHEAT_SHEET_DATA = [
           ["LineInputVoltage", "Verify both PSUs have active AC/HVDC input voltage (catches unplugged B-feed cords!)"]
         ],
         tip: "Catches dead A/B PDU feeds",
-        tags: ["power", "psu", "watts", "voltage", "redundant", "chassis"]
+        tags: ["power", "psu", "watts", "voltage", "redundant", "chassis"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://redfish.dmtf.org/schemas/v1/Power.json", "title": "Redfish schema: Power (deprecated)"}, {"url": "https://redfish.dmtf.org/schemas/v1/Chassis.v1_29_0.json", "title": "Redfish schema: Chassis"}], "note": "Power is deprecated (PowerSubsystem/Sensors); it still works on many BMCs."}
       },
       {
         id: "rf-chassis-uid-led",
@@ -201,7 +214,8 @@ const REDFISH_CHEAT_SHEET_DATA = [
         flags: [
           ["LocationIndicatorActive", "true = turn on / blink blue UID LED; false = turn off (replaces deprecated IndicatorLED)"]
         ],
-        tags: ["led", "uid", "identify", "locate", "blink", "chassis"]
+        tags: ["led", "uid", "identify", "locate", "blink", "chassis"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://redfish.dmtf.org/schemas/v1/Chassis.v1_29_0.json", "title": "Redfish schema: Chassis"}]}
       }
     ]
   },
@@ -221,7 +235,8 @@ const REDFISH_CHEAT_SHEET_DATA = [
           ["/Managers/1/LogServices", "Query /LogServices first to see vendor log IDs (e.g. Sel, Lclog, Log1, EventLog, FaultList)"],
           ["/Systems/1/LogServices", "Some BMCs (HPE iLO IML, OpenBMC HostLogger, NVIDIA HGX) also mount host/FDR logs under /Systems/<id>/LogServices"]
         ],
-        tags: ["sel", "logs", "events", "history", "lclog", "iml"]
+        tags: ["sel", "logs", "events", "history", "lclog", "iml"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://redfish.dmtf.org/schemas/v1/LogService.v1_9_0.json", "title": "Redfish schema: LogService"}, {"url": "https://redfish.dmtf.org/schemas/v1/LogEntry.v1_22_0.json", "title": "Redfish schema: LogEntry"}], "note": "The log service ID (Sel here) is vendor-specific: list /LogServices first."}
       },
       {
         id: "rf-sel-filter-critical",
@@ -233,7 +248,8 @@ const REDFISH_CHEAT_SHEET_DATA = [
           ["Severity", "'OK', 'Warning', or 'Critical'"]
         ],
         tip: "Fast root-cause triage",
-        tags: ["critical", "warning", "faults", "filter", "triage"]
+        tags: ["critical", "warning", "faults", "filter", "triage"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://redfish.dmtf.org/schemas/v1/LogEntry.v1_22_0.json", "title": "Redfish schema: LogEntry"}]}
       },
       {
         id: "rf-sel-clear-log",
@@ -244,7 +260,8 @@ const REDFISH_CHEAT_SHEET_DATA = [
         flags: [
           ["LogService.ClearLog", "Resets SEL capacity counter after hardware replacement/repair"]
         ],
-        tags: ["clear", "sel", "reset", "logs"]
+        tags: ["clear", "sel", "reset", "logs"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://redfish.dmtf.org/schemas/v1/LogService.v1_9_0.json", "title": "Redfish schema: LogService"}], "note": "ClearLog may require the LogEntriesETag parameter (HTTP 428 without it)."}
       }
     ]
   },
@@ -262,11 +279,12 @@ const REDFISH_CHEAT_SHEET_DATA = [
         cmd: 'curl -g -6 -sk -K ~/.bmc-curlrc "https://[$BMC]/redfish/v1/Systems/1/Bios" | jq \'.Attributes\'   |   curl -g -6 -sk -K ~/.bmc-curlrc -X PATCH "https://[$BMC]/redfish/v1/Systems/1/Bios/Settings" -H "Content-Type: application/json" -d \'{"Attributes": {"SriovGlobalEnable": "Enabled"}}\'',
         flags: [
           ["/Bios", "Shows currently active BIOS attributes from last boot"],
-          ["/Bios/Settings", "Staging URI where PATCH changes are written (applied on next System reboot!)"],
-          ["If-Match", "If BMC returns HTTP 412, pass -H 'If-Match: *' or the ETag from GET /Bios/Settings"]
+          ["/Bios/Settings", "The settings object: its URI is in @Redfish.Settings.SettingsObject from GET /Bios (often /Bios/Settings); changes apply on the next reboot"],
+          ["If-Match", "HTTP 428 = If-Match missing; HTTP 412 = stale ETag: GET it again and send the fresh ETag in If-Match (some BMCs also accept *)"]
         ],
         tip: "PATCH goes to /Bios/Settings",
-        tags: ["bios", "attributes", "settings", "sriov", "iommu", "patch"]
+        tags: ["bios", "attributes", "settings", "sriov", "iommu", "patch"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://redfish.dmtf.org/schemas/v1/Bios.v1_3_0.json", "title": "Redfish schema: Bios"}, {"url": "https://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.25.0.pdf", "title": "Redfish Specification DSP0266 1.25"}], "note": "Corrected 2026-11-09: the settings URI comes from @Redfish.Settings; 412 means a stale ETag, 428 a missing one."}
       },
       {
         id: "rf-virtual-media-mount",
@@ -279,7 +297,8 @@ const REDFISH_CHEAT_SHEET_DATA = [
           ["VirtualMedia.EjectMedia", "POST '{}' to .../Actions/VirtualMedia.EjectMedia to unmount ISO"]
         ],
         tip: "Pair with BootTarget: Cd",
-        tags: ["virtualmedia", "iso", "mount", "cdrom", "install", "http"]
+        tags: ["virtualmedia", "iso", "mount", "cdrom", "install", "http"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://redfish.dmtf.org/schemas/v1/VirtualMedia.v1_7_0.json", "title": "Redfish schema: VirtualMedia"}]}
       },
       {
         id: "rf-bmc-manager-reset",
@@ -290,7 +309,8 @@ const REDFISH_CHEAT_SHEET_DATA = [
         flags: [
           ["GracefulRestart / ForceRestart", "Reboots only the BMC management processor (host OS & workloads keep running)"]
         ],
-        tags: ["bmc", "manager", "reset", "idrac", "ilo", "reboot"]
+        tags: ["bmc", "manager", "reset", "idrac", "ilo", "reboot"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://redfish.dmtf.org/schemas/v1/Manager.v1_25_0.json", "title": "Redfish schema: Manager"}]}
       }
     ]
   },
@@ -309,7 +329,8 @@ const REDFISH_CHEAT_SHEET_DATA = [
         flags: [
           ["Updateable", "Boolean indicating whether component can be flashed via UpdateService"]
         ],
-        tags: ["firmware", "version", "bios", "bmc", "cpld", "inventory"]
+        tags: ["firmware", "version", "bios", "bmc", "cpld", "inventory"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://redfish.dmtf.org/schemas/v1/UpdateService.v1_17_1.json", "title": "Redfish schema: UpdateService"}], "note": "Updateable lives on SoftwareInventory, not checked here."}
       },
       {
         id: "rf-firmware-multipart-push",
@@ -321,7 +342,8 @@ const REDFISH_CHEAT_SHEET_DATA = [
           ["MultipartHttpPushUri", "Check GET /redfish/v1/UpdateService for exact MultipartHttpPushUri path"],
           ["@Redfish.OperationApplyTime", "'Immediate' (for BMC) or 'OnReset' (for BIOS/CPLD/GPU firmware)"]
         ],
-        tags: ["update", "flash", "upload", "multipart", "fwpkg", "updateservice"]
+        tags: ["update", "flash", "upload", "multipart", "fwpkg", "updateservice"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.25.0.pdf", "title": "Redfish Specification DSP0266 1.25"}, {"url": "https://redfish.dmtf.org/schemas/v1/UpdateService.v1_17_1.json", "title": "Redfish schema: UpdateService"}], "note": "/UpdateService/upload is an example: POST to the MultipartHttpPushUri your BMC reports."}
       },
       {
         id: "rf-poll-task-service",
@@ -330,10 +352,11 @@ const REDFISH_CHEAT_SHEET_DATA = [
         desc: "Monitor progress percentage and status of asynchronous Redfish jobs (`TaskService`)",
         cmd: 'curl -g -6 -sk -K ~/.bmc-curlrc "https://[$BMC]/redfish/v1/TaskService/Tasks/1" | jq \'{Id, Name, TaskState, PercentComplete, TaskStatus, Messages}\'',
         flags: [
-          ["TaskState", "'Running', 'Pending', 'Completed', 'Exception', or 'Killed'"],
+          ["TaskState", "'Running', 'Pending', 'Completed', 'Exception', 'Cancelled'… ('Killed' is deprecated in favor of 'Cancelled')"],
           ["PercentComplete", "0 to 100 integer progress indicator"]
         ],
-        tags: ["task", "job", "progress", "async", "poll", "taskservice"]
+        tags: ["task", "job", "progress", "async", "poll", "taskservice"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://redfish.dmtf.org/schemas/v1/Task.v1_7_4.json", "title": "Redfish schema: Task"}]}
       }
     ]
   },
@@ -348,14 +371,15 @@ const REDFISH_CHEAT_SHEET_DATA = [
         mode: "GET",
         modeClass: "mode-n",
         desc: "Query NVIDIA HGX SXM GPU Baseboard, SXM GPU health, and NVSwitch status out-of-band when the host OS is hung",
-        cmd: 'curl -g -6 -sk -K ~/.bmc-curlrc "https://[$BMC]/redfish/v1/Chassis" | jq \'.Members[]["@odata.id"] | select(contains("HGX"))\' && curl -g -6 -sk -K ~/.bmc-curlrc "https://[$BMC]/redfish/v1/Chassis/HGX_GPU_SXM_1" | jq \'{Id, PartNumber, SerialNumber, Status}\'',
+        cmd: 'curl -g -6 -sk -K ~/.bmc-curlrc "https://[$BMC]/redfish/v1/Chassis" | jq \'.Members[]["@odata.id"] | select(contains("HGX"))\' && curl -g -6 -sk -K ~/.bmc-curlrc "https://[$BMC]/redfish/v1/Systems/HGX_Baseboard_0/Processors/GPU_SXM_1" | jq \'{Id, PartNumber, SerialNumber, Status}\'',
         flags: [
-          ["HGX_Baseboard_0", "Dedicated HMC (Hardware Management Controller) on ASUS ESC N8 / GIGABYTE G593 / DGX HGX trays"],
-          ["HGX_GPU_SXM_1..8", "Out-of-band SXM GPU health, serial number, and thermals readable even when the x86 host is powered off or kernel-panicked!"],
-          ["HGX_NVSwitch_0..3", "Check NVSwitch ASIC health and thermal status out-of-band via Redfish"]
+          ["HGX_Baseboard_0", "The GPU baseboard as a Redfish system on NVIDIA DGX H100/H200/B200 (the HMC serves it)"],
+          ["GPU_SXM_1..8", "Each SXM GPU under /Systems/HGX_Baseboard_0/Processors (EnvironmentMetrics for power and thermals), read through the BMC"],
+          ["Chassis members", "Names containing HGX vary by vendor and generation: list them first, as the first command does"]
         ],
         tip: "Lets you check GPU serials & health even if the server won't boot into Ubuntu!",
-        tags: ["hgx", "sxm", "nvswitch", "hmc", "gpu", "out-of-band", "asus", "gigabyte"]
+        tags: ["hgx", "sxm", "nvswitch", "hmc", "gpu", "out-of-band", "asus", "gigabyte"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://docs.nvidia.com/dgx/dgxh100-user-guide/redfish-api-supp.html", "title": "NVIDIA DGX H100/H200 Redfish"}, {"url": "https://docs.nvidia.com/dgx/dgxb200-user-guide/redfish-api-supp.html", "title": "NVIDIA DGX B200 Redfish"}], "note": "Corrected 2026-11-09: GPUs are /Systems/HGX_Baseboard_0/Processors/GPU_SXM_<n> on DGX; other HGX vendors may differ. Reading GPUs with the host off is not documented."}
       },
       {
         id: "rf-dlc-leak-sensors",
@@ -368,7 +392,8 @@ const REDFISH_CHEAT_SHEET_DATA = [
           ["Status.Health = Critical", "Triggered immediately if conductive coolant touches the coldplate drip-tray leak rope sensor"]
         ],
         tip: "Inspect leak sensors immediately if a liquid-cooled node shuts down unexpectedly!",
-        tags: ["dlc", "liquid-cooling", "leak", "coolant", "coldplate", "manifold", "sensors"]
+        tags: ["dlc", "liquid-cooling", "leak", "coolant", "coldplate", "manifold", "sensors"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://redfish.dmtf.org/schemas/v1/Chassis.v1_29_0.json", "title": "Redfish schema: Chassis"}, {"url": "https://redfish.dmtf.org/schemas/v1/LeakDetection.json", "title": "Redfish schema: LeakDetection"}]}
       }
     ]
   }

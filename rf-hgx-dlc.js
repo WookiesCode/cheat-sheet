@@ -10,20 +10,20 @@ const RF_RF_HGX_DLC_DATA = [
       {
         "id": "rf-hgx-chassis-gpus",
         "desc": "Query NVIDIA HGX SXM GPU Baseboard, SXM GPU health, and NVSwitch status out-of-band when the host OS is hung",
-        "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Chassis\" | jq '.Members[][\"@odata.id\"] | select(contains(\"HGX\"))' && curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Chassis/HGX_GPU_SXM_1\" | jq '{Id, PartNumber, SerialNumber, Status}'",
+        "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Chassis\" | jq '.Members[][\"@odata.id\"] | select(contains(\"HGX\"))' && curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems/HGX_Baseboard_0/Processors/GPU_SXM_1\" | jq '{Id, PartNumber, SerialNumber, Status}'",
         "details": "",
         "flags": [
           [
             "HGX_Baseboard_0",
-            "Dedicated HMC (Hardware Management Controller) on ASUS ESC N8 / GIGABYTE G593 / DGX HGX trays"
+            "The GPU baseboard as a Redfish system on NVIDIA DGX H100/H200/B200 (the HMC serves it)"
           ],
           [
-            "HGX_GPU_SXM_1..8",
-            "Out-of-band SXM GPU health, serial number, and thermals readable even when the x86 host is powered off or kernel-panicked!"
+            "GPU_SXM_1..8",
+            "Each SXM GPU under /Systems/HGX_Baseboard_0/Processors (EnvironmentMetrics for power and thermals), read through the BMC"
           ],
           [
-            "HGX_NVSwitch_0..3",
-            "Check NVSwitch ASIC health and thermal status out-of-band via Redfish"
+            "Chassis members",
+            "Names containing HGX vary by vendor and generation: list them first, as the first command does"
           ]
         ],
         "tip": "Lets you check GPU serials & health even if the server won't boot into Ubuntu!",
@@ -41,7 +41,21 @@ const RF_RF_HGX_DLC_DATA = [
           "out-of-band",
           "asus",
           "gigabyte"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/dgx/dgxh100-user-guide/redfish-api-supp.html",
+              "title": "NVIDIA DGX H100/H200 Redfish"
+            },
+            {
+              "url": "https://docs.nvidia.com/dgx/dgxb200-user-guide/redfish-api-supp.html",
+              "title": "NVIDIA DGX B200 Redfish"
+            }
+          ],
+          "note": "Corrected 2026-11-09: GPUs are /Systems/HGX_Baseboard_0/Processors/GPU_SXM_<n> on DGX; other HGX vendors may differ. Reading GPUs with the host off is not documented."
+        }
       }
     ]
   },
@@ -80,7 +94,20 @@ const RF_RF_HGX_DLC_DATA = [
           "coldplate",
           "manifold",
           "sensors"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/Chassis.v1_29_0.json",
+              "title": "Redfish schema: Chassis"
+            },
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/LeakDetection.json",
+              "title": "Redfish schema: LeakDetection"
+            }
+          ]
+        }
       }
     ]
   },

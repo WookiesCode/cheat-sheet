@@ -35,7 +35,21 @@ const RF_RF_LOGS_SEL_DATA = [
           "history",
           "lclog",
           "iml"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/LogService.v1_9_0.json",
+              "title": "Redfish schema: LogService"
+            },
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/LogEntry.v1_22_0.json",
+              "title": "Redfish schema: LogEntry"
+            }
+          ],
+          "note": "The log service ID (Sel here) is vendor-specific: list /LogServices first."
+        }
       }
     ]
   },
@@ -68,7 +82,16 @@ const RF_RF_LOGS_SEL_DATA = [
           "faults",
           "filter",
           "triage"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/LogEntry.v1_22_0.json",
+              "title": "Redfish schema: LogEntry"
+            }
+          ]
+        }
       }
     ]
   },
@@ -100,7 +123,17 @@ const RF_RF_LOGS_SEL_DATA = [
           "sel",
           "reset",
           "logs"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/LogService.v1_9_0.json",
+              "title": "Redfish schema: LogService"
+            }
+          ],
+          "note": "ClearLog may require the LogEntriesETag parameter (HTTP 428 without it)."
+        }
       }
     ]
   },

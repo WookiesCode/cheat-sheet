@@ -89,6 +89,34 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     await ctx.close();
   }
 
+  // 2c. Redfish and IPMI: every command and recipe sourced, and the corrections.
+  {
+    const PAGES = ['rf-discovery', 'rf-power-boot', 'rf-inventory', 'rf-thermals-power', 'rf-logs-sel', 'rf-bios-bmc', 'rf-firmware', 'rf-hgx-dlc',
+      'ipmi-chassis-power', 'ipmi-boot-override', 'ipmi-sensors-sdr', 'ipmi-sel-logs', 'ipmi-sol-console', 'ipmi-bmc-lan-users', 'ipmi-fru-mc'];
+    const ctx = await newContext(browser);
+    const p = await ctx.newPage();
+    let total = 0, sourced = 0;
+    const all = {};
+    for (const f of PAGES) {
+      await p.goto(BASE + f + '.html', { waitUntil: 'load' });
+      await p.waitForTimeout(400);
+      for (const l of await lines(p)) {
+        if (/-(tips|flags)-card$/.test(l.id)) continue;
+        total++;
+        all[l.id] = l;
+        if (l.text) sourced++;
+      }
+    }
+    check(total === 45 && sourced === 45, `all 45 Redfish and IPMI commands and recipes show a source line (${sourced}/${total})`);
+    const unverified = Object.values(all).filter(l => /is-unverified/.test(l.cls)).map(l => l.id);
+    check(unverified.join(' ') === 'ipmi-bootparam-no-timeout', `only the bootparam no-timeout command says "Not verified" (${unverified.join(', ')})`);
+    check(/enables ipv6/.test(all['ipmi-lan-set-static-dhcp'].cmd) && !/enabler/.test(all['ipmi-lan-set-static-dhcp'].cmd), 'ipmitool lan6 uses "enables ipv6" (not "enabler ipv6_only")');
+    check(/<new-password>/.test(all['ipmi-user-password-admin'].cmd) && !/NewStrongPass/.test(all['ipmi-user-password-admin'].cmd), 'no literal sample password in the ipmitool user command');
+    check(/Systems\/HGX_Baseboard_0\/Processors\/GPU_SXM_1/.test(all['rf-hgx-chassis-gpus'].cmd), 'HGX GPU path is the one NVIDIA documents');
+    check(!/power diag/.test(all['ipmi-chassis-identify-nmi'].cmd) && !all['ipmi-chassis-identify-nmi'].danger, 'the identify box no longer carries the NMI and stays a plain command');
+    await ctx.close();
+  }
+
   // 3. Over a year old → amber "re-check"; and src can't inject markup or javascript: links.
   {
     const ctx = await newContext(browser);

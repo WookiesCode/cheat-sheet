@@ -18,6 +18,11 @@ const REBOOTS = [
   ['windows.html', 'shutdown /r /fw /t 0'],
   ['win-sysadmin.html', 'shutdown /r /fw /t 0'],
 ];
+// NMI injection through the BMC (deliberately panics the host kernel), reference only too.
+const NMIS = [
+  ['ipmi-chassis-power.html', 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E chassis power diag'],
+  ['rf-power-boot.html', 'curl -g -6 -sk -K ~/.bmc-curlrc -X POST "https://[$BMC]/redfish/v1/Systems/1/Actions/ComputerSystem.Reset" -H "Content-Type: application/json" -d \'{"ResetType": "Nmi"}\''],
+];
 
 async function context(browser) {
   const ctx = await newContext(browser);
@@ -68,8 +73,20 @@ async function realClick(p, handle) {
       `${file}: "${cmd}" is reference, says why, and a click copies nothing`);
   }
 
+  // 1b. NMI commands: same treatment, with their own reason.
+  for (const [file, cmd] of NMIS) {
+    await p.goto(BASE + file, { waitUntil: 'load' });
+    await p.waitForTimeout(500);
+    const h = await boxFor(p, cmd);
+    if (!(await h.evaluate(x => !!x))) { check(false, `${file}: NMI box not found`); continue; }
+    const state = await h.evaluate(b => ({ ref: b.classList.contains('is-reference'), why: (b.querySelector('.ref-why') || {}).textContent || '' }));
+    writes.length = 0;
+    await realClick(p, h);
+    check(state.ref && /crashes the host kernel/.test(state.why) && writes.length === 0, `${file}: NMI command is reference, says it crashes the kernel, copies nothing`);
+  }
+
   // 2. Neighbours still copy: an out-of-band BMC power command and a read-only systemctl command.
-  for (const [file, cmd] of [['ipmi-chassis-power.html', 'ipmitool'], ['linux.html', 'systemctl status']]) {
+  for (const [file, cmd] of [['ipmi-chassis-power.html', 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E chassis power status'], ['ipmi-chassis-power.html', 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E chassis identify force'], ['linux.html', 'systemctl status']]) {
     await p.goto(BASE + file, { waitUntil: 'load' });
     await p.waitForTimeout(500);
     const h = await boxFor(p, cmd);

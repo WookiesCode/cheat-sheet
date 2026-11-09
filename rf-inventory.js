@@ -19,7 +19,7 @@ const RF_RF_INVENTORY_DATA = [
           ],
           [
             "DeviceLocator",
-            "Prints silkscreen motherboard slot label (e.g. DIMM_A1, P1-DIMMA1)"
+            "Slot label (e.g. DIMM_A1). Deprecated in the schema in favor of Location.PartLocation.ServiceLabel; many BMCs still fill it"
           ]
         ],
         "tip": "Pinpoints faulty DIMM slot label",
@@ -36,7 +36,17 @@ const RF_RF_INVENTORY_DATA = [
           "ecc",
           "slot",
           "health"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/Memory.v1_24_0.json",
+              "title": "Redfish schema: Memory"
+            }
+          ],
+          "note": "DeviceLocator is deprecated in favor of Location.PartLocation.ServiceLabel."
+        }
       }
     ]
   },
@@ -54,7 +64,7 @@ const RF_RF_INVENTORY_DATA = [
         "flags": [
           [
             "ProcessorType",
-            "'CPU', 'GPU', 'Accelerator', 'FPGA', or 'DPU'"
+            "'CPU', 'GPU', 'FPGA', 'DSP', 'Accelerator', 'Core', 'Thread', 'Partition' or 'OEM' (the schema has no DPU type)"
           ],
           [
             "ProcessorMetrics",
@@ -74,7 +84,21 @@ const RF_RF_INVENTORY_DATA = [
           "cores",
           "model",
           "serial"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/Processor.v1_24_0.json",
+              "title": "Redfish schema: Processor"
+            },
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/ComputerSystem.json",
+              "title": "Redfish schema: ComputerSystem"
+            }
+          ],
+          "note": "Corrected 2026-11-09: there is no DPU ProcessorType."
+        }
       }
     ]
   },
@@ -113,7 +137,16 @@ const RF_RF_INVENTORY_DATA = [
           "smart",
           "wear",
           "raid"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/Drive.v1_22_0.json",
+              "title": "Redfish schema: Drive"
+            }
+          ]
+        }
       }
     ]
   },
@@ -153,7 +186,16 @@ const RF_RF_INVENTORY_DATA = [
           "dhcpv6",
           "slaac",
           "provisioning"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/EthernetInterface.v1_12_6.json",
+              "title": "Redfish schema: EthernetInterface"
+            }
+          ]
+        }
       }
     ]
   },

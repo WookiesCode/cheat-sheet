@@ -1,6 +1,6 @@
 # Datacenter Cheat Sheets
 
-Offline command reference sheets for datacenter work: <!-- counts -->236 pages, 214 of them command sheets with 2,043 commands<!-- /counts -->, plus one file that bundles them all.
+Offline command reference sheets for datacenter work: <!-- counts -->236 pages, 214 of them command sheets with 2,044 commands<!-- /counts -->, plus one file that bundles them all.
 
 ## Open it
 
@@ -43,9 +43,9 @@ Everything the site keeps lives in this browser only: Field notes drafts, the ca
 - Only this site's own data is included, never other pages that share the `file://` origin.
 - **Keeping it:** the panel says whether the browser has agreed to keep this data (**✓ Kept**) or may clear it when the disk runs low (**⚠ Not guaranteed**, with **Ask the browser to keep it**). The site also asks once per tab when you first save something: a pin to the case, a field note, the rack inventory, a backup or a restore. It never asks on page load. Chromium browsers (Brave, Chrome) answer silently from how much you use the site, and bookmarking the page helps; Firefox shows a prompt. Either way, a backup is the copy you control.
 
-## Command sources (NVIDIA DC and InfiniBand sheets)
+## Command sources (NVIDIA DC, InfiniBand, Redfish and ipmitool sheets)
 
-Every command on the eight NVIDIA DC sheets and the 17 InfiniBand sheets (including each recipe) ends with a line saying where it was checked and when: **Source** with links to the vendor pages (nvidia-smi docs, DCGM, Fabric Manager guide, Xid catalog, MIG guide, NCCL, perftest, the rdma-core man pages, NVIDIA MFT, ibdiagnet and BlueField docs…) and **verified Nov 2026**. A note says what the docs did not confirm (for example a `--query-gpu` field name to check with `nvidia-smi --help-query-gpu` on your driver), and **⚠ Not verified** marks a command that has not been checked yet. After a year the line turns amber and says **re-check**. The links need a network; the line itself works offline.
+Every command on the NVIDIA DC, InfiniBand, Redfish and ipmitool sheets (including each recipe) ends with a line saying where it was checked and when: **Source** with links to the vendor pages (nvidia-smi docs, DCGM, Fabric Manager guide, Xid catalog, MIG guide, NCCL, perftest, the rdma-core man pages, NVIDIA MFT, ibdiagnet and BlueField docs, the DMTF Redfish specification and schemas, the ipmitool man page and source…) and **verified Nov 2026**. A note says what the docs did not confirm (for example a `--query-gpu` field name to check with `nvidia-smi --help-query-gpu` on your driver), and **⚠ Not verified** marks a command that has not been checked yet. After a year the line turns amber and says **re-check**. The links need a network; the line itself works offline.
 
 To add sources to another suite, give a command in its generator data a `src` field, then run `node build-all.js`:
 
@@ -64,6 +64,8 @@ A recipe in a generator's `subcommands` list can carry its own source as a third
 Only real commands copy. Reference information such as POST codes, wire colors and keyboard shortcuts is read-only, and `build-reference-rules.js` lists what counts as reference.
 
 **Host reboot and shutdown commands are reference only.** Anything that reboots or powers off the machine you type it on (`reboot`, `systemctl reboot`, `… && reboot`, `shutdown`, `Restart-Computer`, in-band `ilorest reboot`) stays on its sheet as documentation, marked **🔒 Reference only: reboots or shuts down the machine you run it on**. It can't be copied, sent to the terminal, run, drilled in Practice, or copied from My kit. Out-of-band power control through a BMC (`ipmitool -H … chassis power`, `racadm -r … serveraction`, `ilorest --url …`, Redfish) still copies, marked red as a state change. The rule is `HOST_REBOOT` in `build-reference-rules.js`.
+
+**Kernel-crash commands are reference only too.** Commands that inject an NMI to panic the host on purpose (Redfish `ComputerSystem.Reset` with `"ResetType": "Nmi"`, `ipmitool chassis power diag`, OneCLI `triggernmi`) show **🔒 Reference only: deliberately crashes the host kernel (NMI → panic / kdump)** and cannot be copied or run. The rule is `KERNEL_PANIC` in the same file.
 
 Your targets carry across pages, and **Reset** puts them back to defaults.
 

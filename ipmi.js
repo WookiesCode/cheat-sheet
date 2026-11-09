@@ -12,13 +12,14 @@ const IPMI_CHEAT_SHEET_DATA = [
         desc: "Check chassis power state or execute hard power off, cold power cycle, warm reset, or ACPI shutdown",
         cmd: 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E chassis power status   |   ... chassis power cycle   |   ... chassis power reset   |   ... chassis power soft',
         flags: [
-          ["power cycle", "Cold DC power off, wait ~1–3s, then power on (must power already be ON)"],
+          ["power cycle", "Power off, then on again, with an off interval of at least 1 second"],
           ["power reset", "Warm hard reset (pulses motherboard reset line without dropping DC power rails)"],
           ["power soft", "Send ACPI power button signal for graceful OS shutdown"],
           ["power off / on", "Immediate hard DC power off / power on"]
         ],
         tip: "Prefer cycle over reset after BIOS/PCIe hangs",
-        tags: ["power", "cycle", "reset", "soft", "on", "off", "status"]
+        tags: ["power", "cycle", "reset", "soft", "on", "off", "status"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in", "title": "ipmitool man page"}, {"url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_chassis.c", "title": "ipmitool source (ipmi_chassis.c)"}]}
       },
       {
         id: "ipmi-chassis-status",
@@ -27,23 +28,28 @@ const IPMI_CHEAT_SHEET_DATA = [
         desc: "Inspect detailed chassis state: Last Power Event (AC failed, overload, thermal trip), power restore policy & intrusion",
         cmd: 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E chassis status   |   ... chassis policy always-on',
         flags: [
-          ["Last Power Event", "Shows why server turned off: 'ac-failed', 'power-overload', 'power-interlock', 'power-fault'"],
+          ["Last Power Event", "Why it last went off: 'ac-failed', 'overload', 'interlock', 'fault' or 'command'"],
           ["chassis policy", "Set AC power recovery mode: 'always-on', 'previous', or 'always-off'"]
         ],
         tip: "Check 'Last Power Event' after unexpected reboot",
-        tags: ["chassis", "status", "policy", "ac-failed", "overload", "fault"]
+        tags: ["chassis", "status", "policy", "ac-failed", "overload", "fault"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in", "title": "ipmitool man page"}, {"url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_chassis.c", "title": "ipmitool source (ipmi_chassis.c)"}], "note": "Corrected 2026-11-09: Last Power Event names as ipmitool prints them."}
       },
       {
         id: "ipmi-chassis-identify-nmi",
         mode: "CHASSIS",
         modeClass: "mode-c",
         desc: "Blink the physical blue Chassis UID Locator LED or pulse diagnostic NMI for kernel kdump",
-        cmd: 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E chassis identify force   |   ... chassis identify 0   |   ... chassis power diag',
+        cmd: 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E chassis identify force   |   ... chassis identify 0',
         flags: [
           ["identify force / 60", "Turn UID LED on indefinitely ('force') or blink for 60 seconds ('0' turns it off)"],
-          ["chassis power diag", "Assert hardware Non-Maskable Interrupt (NMI) to trigger Linux kdump on hung node"]
+          ["chassis power diag", "Pulse a diagnostic interrupt (NMI): a hung Linux host panics and writes a kdump if one is set up"]
         ],
-        tags: ["identify", "uid", "led", "blink", "diag", "nmi", "kdump"]
+        subcommands: [
+          ['ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E chassis power diag', "Pulse an NMI to a hung host so it panics and writes a kdump (reference only: it crashes the kernel)", {"verified": "2026-11-09", "refs": [{"url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in", "title": "ipmitool man page"}, {"url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_chassis.c", "title": "ipmitool source (ipmi_chassis.c)"}]}]
+        ],
+        tags: ["identify", "uid", "led", "blink", "diag", "nmi", "kdump"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in", "title": "ipmitool man page"}]}
       }
     ]
   },
@@ -64,7 +70,8 @@ const IPMI_CHEAT_SHEET_DATA = [
           ["options=persistent", "Add comma-separated 'options=efiboot,persistent' to make PXE first permanently"]
         ],
         tip: "Always include options=efiboot",
-        tags: ["pxe", "bootdev", "efiboot", "uefi", "network", "reinstall"]
+        tags: ["pxe", "bootdev", "efiboot", "uefi", "network", "reinstall"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in", "title": "ipmitool man page"}, {"url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_chassis.c", "title": "ipmitool source (ipmi_chassis.c)"}], "note": "options=efiboot,persistent are in ipmitool's source, not its man page."}
       },
       {
         id: "ipmi-bootdev-bios-cdrom",
@@ -78,7 +85,8 @@ const IPMI_CHEAT_SHEET_DATA = [
           ["bootdev disk", "Boots from primary local disk"],
           ["bootdev none", "Clears any pending one-time boot override"]
         ],
-        tags: ["bios", "cdrom", "disk", "none", "bootdev", "setup"]
+        tags: ["bios", "cdrom", "disk", "none", "bootdev", "setup"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in", "title": "ipmitool man page"}]}
       },
       {
         id: "ipmi-bootparam-no-timeout",
@@ -89,7 +97,8 @@ const IPMI_CHEAT_SHEET_DATA = [
         flags: [
           ["options=no-timeout", "Prevents BMC from clearing the one-time boot flag if chassis power cycle happens >60 seconds later"]
         ],
-        tags: ["bootparam", "timeout", "bootflag", "force_pxe"]
+        tags: ["bootparam", "timeout", "bootflag", "force_pxe"],
+        src: {"verified": "2026-11-09", "refs": [], "note": "ipmitool's source rejects options=no-timeout as written (it only matches a bare \"no-\"), and the man page lists PEF, timeout, watchdog, reset, power. Test on a lab node before relying on it."}
       }
     ]
   },
@@ -110,7 +119,8 @@ const IPMI_CHEAT_SHEET_DATA = [
           ["sdr type list", "Print all valid sensor type strings (Temperature, Voltage, Current, Fan, Memory, Processor)"]
         ],
         tip: "sdr elist is much faster than sensor list",
-        tags: ["sdr", "sensor", "temperature", "fan", "psu", "voltage", "elist"]
+        tags: ["sdr", "sensor", "temperature", "fan", "psu", "voltage", "elist"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in", "title": "ipmitool man page"}], "note": "Type names: list them with sdr type list."}
       },
       {
         id: "ipmi-dcmi-power-reading",
@@ -123,7 +133,8 @@ const IPMI_CHEAT_SHEET_DATA = [
           ["dcmi power set_limit", "Configure out-of-band node power cap in Watts"]
         ],
         tip: "Works on almost all datacenter BMCs",
-        tags: ["dcmi", "power", "watts", "consumption", "limit", "wattage"]
+        tags: ["dcmi", "power", "watts", "consumption", "limit", "wattage"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in", "title": "ipmitool man page"}], "note": "\"Works on almost all BMCs\" is a rule of thumb."}
       },
       {
         id: "ipmi-sensor-thresholds",
@@ -135,7 +146,8 @@ const IPMI_CHEAT_SHEET_DATA = [
           ["unr / ucr / unc", "Upper Non-Recoverable / Upper Critical / Upper Non-Critical thresholds"],
           ["lnr / lcr / lnc", "Lower Non-Recoverable / Lower Critical / Lower Non-Critical thresholds"]
         ],
-        tags: ["thresholds", "critical", "inlet", "fan", "sensor"]
+        tags: ["thresholds", "critical", "inlet", "fan", "sensor"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in", "title": "ipmitool man page"}]}
       }
     ]
   },
@@ -157,7 +169,8 @@ const IPMI_CHEAT_SHEET_DATA = [
           ["sel get <0xID>", "Inspect detailed extended record data for a specific SEL entry ID"]
         ],
         tip: "Always use 'sel elist' (not 'sel list')",
-        tags: ["sel", "elist", "logs", "events", "ecc", "pcie", "triage"]
+        tags: ["sel", "elist", "logs", "events", "ecc", "pcie", "triage"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in", "title": "ipmitool man page"}, {"url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_sel.c", "title": "ipmitool source (ipmi_sel.c)"}]}
       },
       {
         id: "ipmi-sel-info-clear",
@@ -167,9 +180,10 @@ const IPMI_CHEAT_SHEET_DATA = [
         cmd: 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E sel info   |   ... sel save sel_backup.log   |   ... sel clear',
         flags: [
           ["Overflow : true", "Indicates SEL hit 100% capacity and dropped newer hardware events — clear after saving!"],
-          ["sel time get / now", "Check BMC real-time clock or sync it to host clock"]
+          ["sel time get / set", "Read the SEL clock, or set it: sel time set \"mm/dd/yyyy hh:mm:ss\""]
         ],
-        tags: ["clear", "overflow", "save", "backup", "time", "sel"]
+        tags: ["clear", "overflow", "save", "backup", "time", "sel"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in", "title": "ipmitool man page"}, {"url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_sel.c", "title": "ipmitool source (ipmi_sel.c)"}], "note": "Corrected 2026-11-09: there is no \"sel time set now\"; give a date and time."}
       }
     ]
   },
@@ -190,7 +204,8 @@ const IPMI_CHEAT_SHEET_DATA = [
           ["Linux kernel args", "Ensure GRUB has 'console=tty0 console=ttyS1,115200n8' (or ttyS0 depending on motherboard)"]
         ],
         tip: "Use -e @ inside SSH sessions!",
-        tags: ["sol", "serial", "console", "activate", "escape", "ttys0", "ttys1"]
+        tags: ["sol", "serial", "console", "activate", "escape", "ttys0", "ttys1"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in", "title": "ipmitool man page"}]}
       },
       {
         id: "ipmi-sol-deactivate-info",
@@ -202,7 +217,8 @@ const IPMI_CHEAT_SHEET_DATA = [
           ["sol deactivate", "Frees the SOL channel when 'SOL payload already active on another session' error occurs"],
           ["115.2", "Standard 115200 bps serial baud rate (9.6, 19.2, 38.4, 57.6, 115.2)"]
         ],
-        tags: ["deactivate", "baud", "bitrate", "hung", "sol"]
+        tags: ["deactivate", "baud", "bitrate", "hung", "sol"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in", "title": "ipmitool man page"}], "note": "The trailing channel argument of sol set is not confirmed in the man page."}
       }
     ]
   },
@@ -223,33 +239,36 @@ const IPMI_CHEAT_SHEET_DATA = [
           ["Channel 1 vs 8", "Most servers use Channel 1 for dedicated BMC; some use Channel 8 for shared LOM"]
         ],
         tip: "Use 'lan6 print 1' to see BMC IPv6 SLAAC/DHCPv6 addresses!",
-        tags: ["lan6", "lan", "ipv6", "ip", "mac", "gateway", "channel", "discover", "slaac", "dhcpv6"]
+        tags: ["lan6", "lan", "ipv6", "ip", "mac", "gateway", "channel", "discover", "slaac", "dhcpv6"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in", "title": "ipmitool man page"}, {"url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_lanp6.c", "title": "ipmitool source (ipmi_lanp6.c)"}], "note": "lan6 is in ipmitool's source but not its man page."}
       },
       {
         id: "ipmi-lan-set-static-dhcp",
         mode: "NETWORK",
         modeClass: "mode-c",
         desc: "Configure static IPv6 address & prefix (or enable SLAAC/DHCPv6 dynamic addressing) and 802.1Q VLAN on the BMC",
-        cmd: "ipmitool lan6 set 1 enabler ipv6_only && ipmitool lan6 set 1 static_addr 0 enable 2001:db8:dc:1::100 64",
+        cmd: "ipmitool lan6 set 1 enables ipv6 && ipmitool lan6 set 1 static_addr 0 enable 2001:db8:dc:1::100 64",
         flags: [
-          ["lan6 set 1 enabler both / ipv6_only", "Enable dual-stack ('both') or strict 'ipv6_only' on BMC Channel 1"],
-          ["lan6 set 1 addr_src <slaac|dhcpv6>", "Enable IPv6 Stateless Address Autoconfiguration (SLAAC) or stateful DHCPv6"],
+          ["lan6 set 1 enables ipv4 / ipv6 / both", "IPv4 only, IPv6 only, or dual-stack on BMC channel 1"],
+          ["lan6 print 1", "Shows the dynamic (SLAAC/DHCPv6) addresses; ipmitool has no lan6 addr_src setting (dynamic_addr is read-only)"],
           ["lan set 1 vlan id 200", "Enable 802.1Q VLAN tagging on VLAN 200 (use 'vlan id off' to disable)"]
         ],
-        tags: ["lan6", "ipv6", "static", "dhcpv6", "slaac", "gateway", "vlan", "ipaddr"]
+        tags: ["lan6", "ipv6", "static", "dhcpv6", "slaac", "gateway", "vlan", "ipaddr"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_lanp6.c", "title": "ipmitool source (ipmi_lanp6.c)"}, {"url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in", "title": "ipmitool man page"}], "note": "Corrected 2026-11-09: the parameter is enables (ipv4|ipv6|both), not enabler ipv6_only; there is no addr_src."}
       },
       {
         id: "ipmi-user-password-admin",
         mode: "USERS",
         modeClass: "mode-c",
         desc: "List BMC user accounts, reset forgotten BMC admin password from host OS, or grant Admin privilege",
-        cmd: "ipmitool user list 1   |   ipmitool user set password 2 'NewStrongPass!'   |   ipmitool channel setaccess 1 2 link=on ipmi=on callin=on privilege=4",
+        cmd: "ipmitool user list 1   |   ipmitool user set password 2 '<new-password>'   |   ipmitool channel setaccess 1 2 link=on ipmi=on callin=on privilege=4",
         flags: [
           ["user list 1", "List all user slot IDs (ID 2 is typically 'admin' or 'root')"],
           ["privilege=4", "Grant ADMINISTRATOR (4) privilege on Channel 1 and enable user via 'ipmitool user enable <id>'"]
         ],
         tip: "Reset BMC password without rebooting!",
-        tags: ["user", "password", "reset", "admin", "privilege", "channel"]
+        tags: ["user", "password", "reset", "admin", "privilege", "channel"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in", "title": "ipmitool man page"}], "note": "Fill <new-password> yourself; the sample password was removed."}
       }
     ]
   },
@@ -268,7 +287,8 @@ const IPMI_CHEAT_SHEET_DATA = [
         flags: [
           ["Board Serial / Product Serial", "Reads factory-programmed EEPROM serials for chassis, backplane, motherboard, and PSUs"]
         ],
-        tags: ["fru", "serial", "part-number", "motherboard", "chassis", "inventory"]
+        tags: ["fru", "serial", "part-number", "motherboard", "chassis", "inventory"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in", "title": "ipmitool man page"}]}
       },
       {
         id: "ipmi-mc-info-reset",
@@ -281,7 +301,8 @@ const IPMI_CHEAT_SHEET_DATA = [
           ["mc reset cold", "Reboots the BMC controller completely (does NOT reboot the host server or interrupt workloads!)"]
         ],
         tip: "Fixes hung BMC web UI / Redfish",
-        tags: ["mc", "bmc", "reset", "cold", "firmware", "version"]
+        tags: ["mc", "bmc", "reset", "cold", "firmware", "version"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in", "title": "ipmitool man page"}]}
       },
       {
         id: "ipmi-mc-watchdog-kernel",
@@ -293,7 +314,8 @@ const IPMI_CHEAT_SHEET_DATA = [
           ["mc watchdog off", "Stops active BMC hardware watchdog timer so it doesn't hard-reset the host if OS daemon stops patting it"],
           ["modprobe ipmi_devintf ipmi_si", "Load Linux kernel OpenIPMI drivers to create /dev/ipmi0"]
         ],
-        tags: ["watchdog", "asr", "reboot", "kernel", "ipmi_devintf", "ipmi_si"]
+        tags: ["watchdog", "asr", "reboot", "kernel", "ipmi_devintf", "ipmi_si"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in", "title": "ipmitool man page"}, {"url": "https://docs.kernel.org/driver-api/ipmi.html", "title": "Linux kernel IPMI driver"}], "note": "The kernel doc does not name /dev/ipmi0 itself."}
       }
     ]
   }

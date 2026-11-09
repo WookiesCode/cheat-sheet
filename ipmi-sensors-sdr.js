@@ -36,7 +36,17 @@ const IPMI_IPMI_SENSORS_SDR_DATA = [
           "psu",
           "voltage",
           "elist"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool man page"
+            }
+          ],
+          "note": "Type names: list them with sdr type list."
+        }
       }
     ]
   },
@@ -74,7 +84,17 @@ const IPMI_IPMI_SENSORS_SDR_DATA = [
           "consumption",
           "limit",
           "wattage"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool man page"
+            }
+          ],
+          "note": "\"Works on almost all BMCs\" is a rule of thumb."
+        }
       }
     ]
   },
@@ -111,7 +131,16 @@ const IPMI_IPMI_SENSORS_SDR_DATA = [
           "inlet",
           "fan",
           "sensor"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool man page"
+            }
+          ]
+        }
       }
     ]
   },

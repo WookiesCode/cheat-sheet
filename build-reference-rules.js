@@ -33,6 +33,20 @@ const HOST_REBOOT = [
   /^ilorest\s+reboot\b(?![^|;&]*--url)/   // in-band ilorest acts on this server
 ];
 
+// Commands that inject an NMI to crash the host kernel on purpose (panic + kdump of a hung
+// node). Out-of-band, but the user asked for "kernel panic type" commands to be reference only.
+const KERNEL_PANIC = [
+  /"ResetType"\s*:\s*"Nmi"/i,
+  /\bchassis\s+power\s+diag\b/,
+  /\btriggernmi\b/i,
+  /--diagnostic-interrupt\b/,
+  /\bilorest\s+reboot\s+Nmi\b/i
+];
+
+function isKernelPanic(text) {
+  return String(text).split('   |   ').some(alt => KERNEL_PANIC.some(re => re.test(alt.trim())));
+}
+
 function isHostReboot(text) {
   return String(text).split('   |   ').some(alt => HOST_REBOOT.some(re => re.test(alt.trim())));
 }
@@ -44,6 +58,7 @@ function isNeovimKeystrokes(text) {
 
 // Why an entry is read-only: 'reboot' (host reboot/shutdown), 'reference' (not a command), or null.
 function referenceReason(text, file) {
+  if (isKernelPanic(text)) return 'nmi';
   if (isHostReboot(text)) return 'reboot';
   if (OMARCHY_FILE.test(file)) return 'reference';
   if (NEOVIM_FILE.test(file) && isNeovimKeystrokes(text)) return 'reference';
@@ -54,4 +69,4 @@ function isReference(text, file) {
   return referenceReason(text, file) !== null;
 }
 
-module.exports = { isReference, referenceReason, isHostReboot };
+module.exports = { isReference, referenceReason, isHostReboot, isKernelPanic };

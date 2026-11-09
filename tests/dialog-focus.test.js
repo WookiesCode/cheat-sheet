@@ -38,7 +38,7 @@ const TOOLS = [
   await page.waitForTimeout(600);
 
   for (const t of TOOLS) {
-    await page.evaluate(() => { document.activeElement && document.activeElement.blur(); window.scrollTo(0, 0); });
+    await page.evaluate(() => { document.activeElement && document.activeElement.blur(); window.scrollTo({ top: 0, behavior: 'instant' }); });
     if (t.opener) {
       const has = await page.$(t.opener);
       if (!has) { check(false, `${t.name}: opener ${t.opener} not found`); continue; }

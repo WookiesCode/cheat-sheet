@@ -15,7 +15,7 @@ const RF_RF_DISCOVERY_DATA = [
         "flags": [
           [
             "-g -6",
-            "-g (--globoff) prevents curl from failing on IPv6 brackets [2001:db8::1]; -6 forces IPv6 transport"
+            "-g turns off URL globbing (curl already accepts numeric [IPv6] addresses without it; -g matters when a URL has other [ ] or { }); -6 resolves names to IPv6 only"
           ],
           [
             ".Members[0].\"@odata.id\"",
@@ -26,7 +26,7 @@ const RF_RF_DISCOVERY_DATA = [
             "-s silent mode, -k ignore self-signed BMC TLS certificate (use %25eth0 for link-local fe80:: addresses)"
           ]
         ],
-        "tip": "Always pass -g to curl when using [IPv6] brackets!",
+        "tip": "Link-local BMC address? Write the zone as %25, e.g. [fe80::1%25eth0]",
         "tags": [
           "Discovery & Auth",
           "redfish",
@@ -40,7 +40,21 @@ const RF_RF_DISCOVERY_DATA = [
           "members",
           "jq",
           "ipv6"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://curl.se/docs/manpage.html",
+              "title": "curl man page"
+            },
+            {
+              "url": "https://curl.se/docs/url-syntax.html",
+              "title": "curl URL syntax"
+            }
+          ],
+          "note": "Corrected 2026-11-09: -g is not needed for numeric IPv6 addresses (curl detects them); kept because it is harmless."
+        }
       }
     ]
   },
@@ -78,7 +92,17 @@ const RF_RF_DISCOVERY_DATA = [
           "login",
           "auth",
           "delete"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.25.0.pdf",
+              "title": "Redfish Specification DSP0266 1.25"
+            }
+          ],
+          "note": "\"Faster than Basic Auth\" is a rule of thumb, not from the spec."
+        }
       }
     ]
   },
@@ -99,8 +123,8 @@ const RF_RF_DISCOVERY_DATA = [
             "Inlines all Member objects instead of returning only @odata.id links"
           ],
           [
-            "$only",
-            "Return the single member directly if collection only has 1 item"
+            "only",
+            "Query parameter only (no $): if the collection has exactly one member, return that member instead of the collection"
           ]
         ],
         "tip": "Avoids N+1 HTTP loop",
@@ -115,7 +139,17 @@ const RF_RF_DISCOVERY_DATA = [
           "collection",
           "batch",
           "fast"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.25.0.pdf",
+              "title": "Redfish Specification DSP0266 1.25"
+            }
+          ],
+          "note": "Corrected 2026-11-09: the single-member parameter is only, not $only."
+        }
       }
     ]
   },

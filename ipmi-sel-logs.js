@@ -40,7 +40,20 @@ const IPMI_IPMI_SEL_LOGS_DATA = [
           "ecc",
           "pcie",
           "triage"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool man page"
+            },
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_sel.c",
+              "title": "ipmitool source (ipmi_sel.c)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -61,8 +74,8 @@ const IPMI_IPMI_SEL_LOGS_DATA = [
             "Indicates SEL hit 100% capacity and dropped newer hardware events — clear after saving!"
           ],
           [
-            "sel time get / now",
-            "Check BMC real-time clock or sync it to host clock"
+            "sel time get / set",
+            "Read the SEL clock, or set it: sel time set \"mm/dd/yyyy hh:mm:ss\""
           ]
         ],
         "tip": "",
@@ -78,7 +91,21 @@ const IPMI_IPMI_SEL_LOGS_DATA = [
           "backup",
           "time",
           "sel"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool man page"
+            },
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_sel.c",
+              "title": "ipmitool source (ipmi_sel.c)"
+            }
+          ],
+          "note": "Corrected 2026-11-09: there is no \"sel time set now\"; give a date and time."
+        }
       }
     ]
   },

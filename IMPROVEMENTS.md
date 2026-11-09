@@ -14,16 +14,16 @@ Product review started 2026-11-09. Phases 1–3 are below. Nine items (#8 for th
 | 3 | Say so when a save fails | ✅ Built | `improve/storage-warn` | `cbb0dd9` |
 | 5 | Keep keyboard focus out from under the fixed bars | ✅ Built | `improve/focus-visible` | `de6ac2e` |
 | 14 | Skip link (found while building #5) | ✅ Built | `improve/skip-link` | `220d5c9` |
-| 8 | Source and last-verified date on core suites | ✅ NVIDIA (`3320dc0`) and InfiniBand suites built; others open | `improve/sources`, `improve/sources-ib` | (this branch) |
+| 8 | Source and last-verified date on core suites | ✅ NVIDIA, InfiniBand, Redfish and IPMI built (merged to `main` up to `7cf0f68`); BMC vendor tools open | `improve/sources-redfish-ipmi` | (this branch) |
 | 9 | Stop duplicating the nav into every page | Open | | |
 | 10 | Practice what I actually use | Open | | |
 | 11 | Local usage meter | Open | | |
 | 12 | Export My kit as a navi `.cheat` file | Open (needs navi installed: ask first) | | |
 | 13 | Make the doc counts agree | ✅ Built | `improve/doc-counts` | (this branch) |
 
-**The branches are stacked**, each built on the one before, in the order of the table, with `improve/sources-ib` on top. Merging `improve/sources-ib` brings in all eleven. None are pushed or merged yet.
+**The branches are stacked**, each built on the one before, in the order of the table, **Merged to `main` on 2026-11-09 up to `7cf0f68`** (fast-forward, not pushed). `improve/sources-redfish-ipmi` sits on top of `main`. None are pushed or merged yet.
 
-**Tests:** `node tests/run-all.js` runs 15 test files. All pass on `improve/sources-ib`. Every built item has its own regression test, and I checked that the tests for #2 and #5 fail on the commit before their fix.
+**Tests:** `node tests/run-all.js` runs 15 test files. All 16 pass on `improve/sources-redfish-ipmi`. Every built item has its own regression test, and I checked that the tests for #2 and #5 fail on the commit before their fix.
 
 ## What the built items changed (measured)
 
@@ -82,6 +82,32 @@ Checked against the rdma-core man pages, perftest source, iproute2 `rdma` man pa
 ## Host reboot/shutdown commands made reference-only (2026-11-09, `improve/reboot-reference`)
 
 Requested before further work: remove commands that reboot or crash a system. **No kernel-crash commands exist on the site** (no sysrq, `/dev/mem` or PCI-remove commands). Of the reboot/power commands, the chosen scope was **host OS reboot/shutdown only, kept as non-copyable reference**: 10 entries (4 commands: `systemctl reboot --firmware-setup`, `efibootmgr -n 0004 && reboot`, in-band `ilorest reboot PushPowerButton/ForceOff`, Windows `shutdown /r /fw|/o /t 0`). Kept copyable (red, state-changing): out-of-band BMC power control (~25), BMC/switch reloads (~14) and GPU/PCIe resets (7). Practice no longer drills reference entries, and My kit shows no Copy button for them.
+
+## Errors found by #8 (corrected 2026-11-09, Redfish and IPMI)
+
+Checked against the DMTF Redfish Specification DSP0266 1.25.0 (PDF text; the HTML returns 403 to automated fetches), the DMTF JSON schemas, the curl docs, NVIDIA's DGX Redfish pages, and the ipmitool man page and source.
+
+| Card | Was | Now |
+|---|---|---|
+| ipmitool lan6 | `lan6 set 1 enabler ipv6_only`; `addr_src` | `lan6 set 1 enables ipv6` (`ipv4`/`ipv6`/`both`); there is no `addr_src` |
+| ipmitool bootparam | `options=no-timeout` "keeps the boot flag" | Marked **Not verified**: ipmitool's source rejects it as written |
+| ipmitool SEL clock | `sel time set now` | `sel time set "mm/dd/yyyy hh:mm:ss"` |
+| ipmitool chassis status | `power-overload`, `power-interlock`, `power-fault` | `overload`, `interlock`, `fault`, `command` (as printed) |
+| ipmitool user | sample password `'NewStrongPass!'` | `'<new-password>'` placeholder (never copied unfilled) |
+| Redfish `$only` | `$only` | the parameter is `only` (no `$`) |
+| Redfish ETag | "412 → send `If-Match: *`" | 428 = If-Match missing, 412 = stale ETag: send a fresh one |
+| Redfish BIOS settings | "`/Bios/Settings` is the staging URI" | read it from `@Redfish.Settings.SettingsObject` |
+| Redfish HGX | `/Chassis/HGX_GPU_SXM_1`; "readable with the host off" | `/Systems/HGX_Baseboard_0/Processors/GPU_SXM_<n>` (NVIDIA DGX docs); host-off claim dropped |
+| Redfish schema | ProcessorType `DPU`; TaskState `Killed`; Thermal/Power as current; DeviceLocator | no DPU type; `Killed` deprecated for `Cancelled`; Thermal/Power deprecated (ThermalSubsystem/PowerSubsystem/Sensors); DeviceLocator deprecated |
+| curl `-g` | "always needed for [IPv6]" | curl accepts numeric IPv6 without it (kept, harmless) |
+
+**Confirmed, worth knowing:** ipmitool `-E` reads `IPMITOOL_PASSWORD` first, then `IPMI_PASSWORD`, so the site and AGENTS.md are right.
+
+**NMI commands made reference-only (user decision):** Redfish `ResetType: Nmi` and `ipmitool chassis power diag` deliberately panic the host kernel; the earlier claim "no kernel-panic commands on the site" was wrong because the scan missed BMC-injected NMIs. `chassis power diag` moved out of the `chassis identify` box into its own recipe so the identify commands stay copyable.
+
+**Test flake fixed:** `focus-visible` and `dialog-focus` used `window.scrollTo(0, 0)`, which animates on this site (smooth scrolling); a `j` pressed mid-animation could leave the focused command under the footer. They now scroll with `behavior: 'instant'`.
+
+**Not covered:** the Redfish builder's vendor presets (e.g. `hgx: HGX_Chassis_0 / HGX_BMC_0`), and `rf-firmware-inventory`'s `Updateable` (SoftwareInventory schema not read).
 
 ## Found while building (not fixed)
 
@@ -179,7 +205,8 @@ Impact (H/M/L) · Effort (S/M/L) · Risk (H/M/L). The ranking is by user impact 
 - ✅ **Built for the NVIDIA suite** (`improve/sources`, `tests/sources.test.js`): an optional `src` field on a command, carried by `build-index.js` into the search index and drawn by `common.js`, so any suite only needs data. Checking the 31 commands found 8 errors (table above).
 - ⚠ **Flag (schema):** the optional `src` field is a new, additive part of the card data and of the search-index entries.
 - ✅ **InfiniBand** done on `improve/sources-ib` (51 commands and recipes, 9 errors fixed).
-- **Next:** Redfish/IPMI, then the BMC tools, one suite at a time.
+- ✅ **Redfish and IPMI** done on `improve/sources-redfish-ipmi` (45 commands and recipes).
+- **Next:** the BMC vendor tools (racadm, iLOrest, Supermicro SAA, OneCLI, FreeIPMI).
 
 **9. Stop duplicating the full nav into every page**
 - **Why:** mostly maintenance and the portable file's size. The direct user gain is small, because pages already load in ~250 ms.
@@ -210,7 +237,7 @@ Impact (H/M/L) · Effort (S/M/L) · Risk (H/M/L). The ranking is by user impact 
 - Impact **L** · Effort **S** · Risk **L** · Built: `improve/doc-counts`. `build-index.js` writes the counts between `<!-- counts -->` markers, counting the way the home page does; `tests/doc-counts.test.js` compares them with the live home page.
 
 ## Recommended next
-**#8 for Redfish and IPMI** (DMTF Redfish spec + ipmitool man page), then the BMC vendor tools. A suite whose generator builds commands field by field (as InfiniBand's did) needs a one-line `src` pass-through first.
+**#8 for the BMC vendor tools** (racadm, iLOrest, Supermicro SAA, OneCLI, FreeIPMI): these live in `generate-bmc-tools-suite.js` / `generate-suite-kit.js`, so check how that kit copies command fields first.
 
 Considered and dropped: a shift handoff export (it already exists: "Shift board & handoff" in `common.js`), a phone layout (laptop-only by your decision), and variable prompts in the style of navi (Rack Targets and slot chips already do this).
 
@@ -249,3 +276,9 @@ Considered and dropped: a shift handoff export (it already exists: "Shift board 
 - [ibdiagnet basic commands](https://networking-docs.nvidia.com/ibdiagnetutilityum/2.27.0/basic-commands) · [ibdiagnet output files](https://networking-docs.nvidia.com/ibdiagnetutilityum/2.27.0/ibdiagnet-dump-files)
 - [BlueField modes of operation](https://networking-docs.nvidia.com/bsp/4.16.0/modes-of-operation) · [BlueField RShim](https://networking-docs.nvidia.com/bsp/4.16.0/soc-management-interface-rshim)
 - [MLNX_OFED RoCE](https://networking-docs.nvidia.com/mlnxofedswum/24.10-5.1.6.1lts/rdma-over-converged-ethernet-roce)
+- [DMTF Redfish Specification DSP0266 1.25.0 (PDF)](https://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.25.0.pdf)
+- [DMTF Redfish JSON schemas](https://redfish.dmtf.org/schemas/v1/)
+- [curl man page](https://curl.se/docs/manpage.html) · [curl URL syntax](https://curl.se/docs/url-syntax.html)
+- [NVIDIA DGX H100/H200 Redfish](https://docs.nvidia.com/dgx/dgxh100-user-guide/redfish-api-supp.html) · [NVIDIA DGX B200 Redfish](https://docs.nvidia.com/dgx/dgxb200-user-guide/redfish-api-supp.html)
+- [ipmitool man page](https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in) · [ipmitool source](https://github.com/ipmitool/ipmitool/tree/master/lib)
+- [Linux kernel IPMI driver](https://docs.kernel.org/driver-api/ipmi.html)

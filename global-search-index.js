@@ -1,5 +1,5 @@
 // Auto-generated Global Search Index across all 233 cheat sheets
-// Total indexed items: 3392
+// Total indexed items: 3394
 window.GLOBAL_SEARCH_INDEX = [
   {
     "sName": "ansible",
@@ -19880,7 +19880,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmitool lan6 print 1 && ipmitool lan print 1",
     "desc": "Print current BMC IPv6 (Global/SLAAC/DHCPv6/Link-Local) and IPv4 address, MAC, gateway, and VLAN from inside the host OS",
     "tip": "Use 'lan6 print 1' to see BMC IPv6 SLAAC/DHCPv6 addresses!",
-    "tags": "BMC Network & Users ipmi ipmitool bmc hardware lan6 lan ipv6 ip mac gateway channel discover slaac dhcpv6"
+    "tags": "BMC Network & Users ipmi ipmitool bmc hardware lan6 lan ipv6 ip mac gateway channel discover slaac dhcpv6",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+          "title": "ipmitool man page"
+        },
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_lanp6.c",
+          "title": "ipmitool source (ipmi_lanp6.c)"
+        }
+      ],
+      "note": "lan6 is in ipmitool's source but not its man page."
+    }
   },
   {
     "sName": "ipmi-bmc-lan-users",
@@ -19888,10 +19902,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "lan",
     "id": "ipmi-lan-set-static-dhcp",
     "sec": "BMC Network & Users: Configure static IPv6 address & prefix",
-    "cmd": "ipmitool lan6 set 1 enabler ipv6_only && ipmitool lan6 set 1 static_addr 0 enable 2001:db8:dc:1::100 64",
+    "cmd": "ipmitool lan6 set 1 enables ipv6 && ipmitool lan6 set 1 static_addr 0 enable 2001:db8:dc:1::100 64",
     "desc": "Configure static IPv6 address & prefix (or enable SLAAC/DHCPv6 dynamic addressing) and 802.1Q VLAN on the BMC",
     "tip": "",
-    "tags": "BMC Network & Users ipmi ipmitool bmc hardware lan6 ipv6 static dhcpv6 slaac gateway vlan ipaddr"
+    "tags": "BMC Network & Users ipmi ipmitool bmc hardware lan6 ipv6 static dhcpv6 slaac gateway vlan ipaddr",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_lanp6.c",
+          "title": "ipmitool source (ipmi_lanp6.c)"
+        },
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+          "title": "ipmitool man page"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the parameter is enables (ipv4|ipv6|both), not enabler ipv6_only; there is no addr_src."
+    }
   },
   {
     "sName": "ipmi-bmc-lan-users",
@@ -19899,10 +19927,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "lan",
     "id": "ipmi-user-password-admin",
     "sec": "BMC Network & Users: List BMC user accounts, reset forgotten BMC admin password from host OS, or grant Admin privilege",
-    "cmd": "ipmitool user list 1   |   ipmitool user set password 2 'NewStrongPass!'   |   ipmitool channel setaccess 1 2 link=on ipmi=on callin=on privilege=4",
+    "cmd": "ipmitool user list 1   |   ipmitool user set password 2 '<new-password>'   |   ipmitool channel setaccess 1 2 link=on ipmi=on callin=on privilege=4",
     "desc": "List BMC user accounts, reset forgotten BMC admin password from host OS, or grant Admin privilege",
     "tip": "Reset BMC password without rebooting!",
-    "tags": "BMC Network & Users ipmi ipmitool bmc hardware user password reset admin privilege channel"
+    "tags": "BMC Network & Users ipmi ipmitool bmc hardware user password reset admin privilege channel",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+          "title": "ipmitool man page"
+        }
+      ],
+      "note": "Fill <new-password> yourself; the sample password was removed."
+    }
   },
   {
     "sName": "ipmi-bmc-lan-users",
@@ -19924,7 +19962,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis bootdev pxe options=efiboot && ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis power cycle",
     "desc": "Force one-time UEFI PXE network boot on the next reboot and immediately power-cycle",
     "tip": "Always include options=efiboot",
-    "tags": "Boot Device Override ipmi ipmitool bmc hardware pxe bootdev efiboot uefi network reinstall"
+    "tags": "Boot Device Override ipmi ipmitool bmc hardware pxe bootdev efiboot uefi network reinstall",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+          "title": "ipmitool man page"
+        },
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_chassis.c",
+          "title": "ipmitool source (ipmi_chassis.c)"
+        }
+      ],
+      "note": "options=efiboot,persistent are in ipmitool's source, not its man page."
+    }
   },
   {
     "sName": "ipmi-boot-override",
@@ -19935,7 +19987,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis bootdev bios   |   ... chassis bootdev cdrom options=efiboot   |   ... chassis bootdev none",
     "desc": "Boot directly into BIOS/UEFI Setup utility, Virtual CD-ROM ISO, or clear boot override",
     "tip": "",
-    "tags": "Boot Device Override ipmi ipmitool bmc hardware bios cdrom disk none bootdev setup"
+    "tags": "Boot Device Override ipmi ipmitool bmc hardware bios cdrom disk none bootdev setup",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+          "title": "ipmitool man page"
+        }
+      ]
+    }
   },
   {
     "sName": "ipmi-boot-override",
@@ -19946,7 +20007,12 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis bootparam set bootflag force_pxe options=no-timeout",
     "desc": "Disable the IPMI 60-second boot flag watchdog timer so `bootdev` isn't cleared if reboot takes >60s",
     "tip": "",
-    "tags": "Boot Device Override ipmi ipmitool bmc hardware bootparam timeout bootflag force_pxe"
+    "tags": "Boot Device Override ipmi ipmitool bmc hardware bootparam timeout bootflag force_pxe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [],
+      "note": "ipmitool's source rejects options=no-timeout as written (it only matches a bare \"no-\"), and the man page lists PEF, timeout, watchdog, reset, power. Test on a lab node before relying on it."
+    }
   },
   {
     "sName": "ipmi-boot-override",
@@ -19968,7 +20034,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis power status   |   ... chassis power cycle   |   ... chassis power reset   |   ... chassis power soft",
     "desc": "Check chassis power state or execute hard power off, cold power cycle, warm reset, or ACPI shutdown",
     "tip": "Prefer cycle over reset after BIOS/PCIe hangs",
-    "tags": "Chassis Power & UID ipmi ipmitool bmc hardware power cycle reset soft on off status"
+    "tags": "Chassis Power & UID ipmi ipmitool bmc hardware power cycle reset soft on off status",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+          "title": "ipmitool man page"
+        },
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_chassis.c",
+          "title": "ipmitool source (ipmi_chassis.c)"
+        }
+      ]
+    }
   },
   {
     "sName": "ipmi-chassis-power",
@@ -19979,7 +20058,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis status   |   ... chassis policy always-on",
     "desc": "Inspect detailed chassis state: Last Power Event (AC failed, overload, thermal trip), power restore policy & intrusion",
     "tip": "Check 'Last Power Event' after unexpected reboot",
-    "tags": "Chassis Power & UID ipmi ipmitool bmc hardware chassis status policy ac-failed overload fault"
+    "tags": "Chassis Power & UID ipmi ipmitool bmc hardware chassis status policy ac-failed overload fault",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+          "title": "ipmitool man page"
+        },
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_chassis.c",
+          "title": "ipmitool source (ipmi_chassis.c)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: Last Power Event names as ipmitool prints them."
+    }
   },
   {
     "sName": "ipmi-chassis-power",
@@ -19987,10 +20080,45 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "pwr",
     "id": "ipmi-chassis-identify-nmi",
     "sec": "Chassis Power & UID: Blink the physical blue Chassis UID Locator LED or pulse diagnostic NMI for kernel kdump",
-    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis identify force   |   ... chassis identify 0   |   ... chassis power diag",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis identify force   |   ... chassis identify 0",
     "desc": "Blink the physical blue Chassis UID Locator LED or pulse diagnostic NMI for kernel kdump",
     "tip": "",
-    "tags": "Chassis Power & UID ipmi ipmitool bmc hardware identify uid led blink diag nmi kdump"
+    "tags": "Chassis Power & UID ipmi ipmitool bmc hardware identify uid led blink diag nmi kdump",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+          "title": "ipmitool man page"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "ipmi-chassis-power",
+    "file": "ipmi-chassis-power.html",
+    "badge": "pwr",
+    "id": "ipmi-chassis-identify-nmi-sub-1",
+    "sec": "Chassis Power & UID: Blink the physical blue Chassis UID Locator LED or pulse diagnostic NMI for kernel kdump",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis power diag",
+    "desc": "Pulse an NMI to a hung host so it panics and writes a kdump (reference only: it crashes the kernel)",
+    "tip": "",
+    "tags": "Chassis Power & UID recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+          "title": "ipmitool man page"
+        },
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_chassis.c",
+          "title": "ipmitool source (ipmi_chassis.c)"
+        }
+      ]
+    },
+    "noCopy": true,
+    "refWhy": "nmi"
   },
   {
     "sName": "ipmi-chassis-power",
@@ -20012,7 +20140,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E fru print",
     "desc": "Dump Field Replaceable Unit (FRU) EEPROM data: Board/Chassis/Product part & serial numbers",
     "tip": "",
-    "tags": "FRU, BMC Reset & Watchdog ipmi ipmitool bmc hardware fru serial part-number motherboard chassis inventory"
+    "tags": "FRU, BMC Reset & Watchdog ipmi ipmitool bmc hardware fru serial part-number motherboard chassis inventory",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+          "title": "ipmitool man page"
+        }
+      ]
+    }
   },
   {
     "sName": "ipmi-fru-mc",
@@ -20023,7 +20160,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E mc info   |   ... mc reset cold   |   ... mc reset warm",
     "desc": "Check BMC firmware version or perform a non-disruptive cold reset of the BMC processor",
     "tip": "Fixes hung BMC web UI / Redfish",
-    "tags": "FRU, BMC Reset & Watchdog ipmi ipmitool bmc hardware mc bmc reset cold firmware version"
+    "tags": "FRU, BMC Reset & Watchdog ipmi ipmitool bmc hardware mc bmc reset cold firmware version",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+          "title": "ipmitool man page"
+        }
+      ]
+    }
   },
   {
     "sName": "ipmi-fru-mc",
@@ -20034,7 +20180,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmitool mc watchdog get   |   ipmitool mc watchdog off   |   modprobe ipmi_devintf ipmi_si",
     "desc": "Inspect or disable the BMC hardware watchdog timer (prevents unexpected ASR reboots during maintenance)",
     "tip": "",
-    "tags": "FRU, BMC Reset & Watchdog ipmi ipmitool bmc hardware watchdog asr reboot kernel ipmi_devintf ipmi_si"
+    "tags": "FRU, BMC Reset & Watchdog ipmi ipmitool bmc hardware watchdog asr reboot kernel ipmi_devintf ipmi_si",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+          "title": "ipmitool man page"
+        },
+        {
+          "url": "https://docs.kernel.org/driver-api/ipmi.html",
+          "title": "Linux kernel IPMI driver"
+        }
+      ],
+      "note": "The kernel doc does not name /dev/ipmi0 itself."
+    }
   },
   {
     "sName": "ipmi-fru-mc",
@@ -20056,7 +20216,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sel elist   |   ... sel elist last 25",
     "desc": "Display System Event Log cross-referenced with SDR sensor names for human-readable hardware triage",
     "tip": "Always use 'sel elist' (not 'sel list')",
-    "tags": "SEL Logs & Faults ipmi ipmitool bmc hardware sel elist logs events ecc pcie triage"
+    "tags": "SEL Logs & Faults ipmi ipmitool bmc hardware sel elist logs events ecc pcie triage",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+          "title": "ipmitool man page"
+        },
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_sel.c",
+          "title": "ipmitool source (ipmi_sel.c)"
+        }
+      ]
+    }
   },
   {
     "sName": "ipmi-sel-logs",
@@ -20067,7 +20240,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sel info   |   ... sel save sel_backup.log   |   ... sel clear",
     "desc": "Check SEL fullness percentage (`Percent Used`), backup SEL to file, and clear the log",
     "tip": "",
-    "tags": "SEL Logs & Faults ipmi ipmitool bmc hardware clear overflow save backup time sel"
+    "tags": "SEL Logs & Faults ipmi ipmitool bmc hardware clear overflow save backup time sel",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+          "title": "ipmitool man page"
+        },
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_sel.c",
+          "title": "ipmitool source (ipmi_sel.c)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: there is no \"sel time set now\"; give a date and time."
+    }
   },
   {
     "sName": "ipmi-sel-logs",
@@ -20089,7 +20276,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sdr elist full   |   ... sdr type Temperature   |   ... sdr type Fan   |   ... sdr type \"Power Supply\"",
     "desc": "Read all Sensor Data Repository (SDR) entries or filter specifically by Temperature, Fan, or Power Supply",
     "tip": "sdr elist is much faster than sensor list",
-    "tags": "Sensors & DCMI Power ipmi ipmitool bmc hardware sdr sensor temperature fan psu voltage elist"
+    "tags": "Sensors & DCMI Power ipmi ipmitool bmc hardware sdr sensor temperature fan psu voltage elist",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+          "title": "ipmitool man page"
+        }
+      ],
+      "note": "Type names: list them with sdr type list."
+    }
   },
   {
     "sName": "ipmi-sensors-sdr",
@@ -20100,7 +20297,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E dcmi power reading   |   ... dcmi power get_limit",
     "desc": "Read real-time server power consumption (Watts), min/max/avg power, and thermal status via DCMI",
     "tip": "Works on almost all datacenter BMCs",
-    "tags": "Sensors & DCMI Power ipmi ipmitool bmc hardware dcmi power watts consumption limit wattage"
+    "tags": "Sensors & DCMI Power ipmi ipmitool bmc hardware dcmi power watts consumption limit wattage",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+          "title": "ipmitool man page"
+        }
+      ],
+      "note": "\"Works on almost all BMCs\" is a rule of thumb."
+    }
   },
   {
     "sName": "ipmi-sensors-sdr",
@@ -20111,7 +20318,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sensor get \"Inlet Temp\" \"FAN1\"",
     "desc": "Inspect lower/upper non-critical, critical, and non-recoverable thresholds for a specific sensor",
     "tip": "",
-    "tags": "Sensors & DCMI Power ipmi ipmitool bmc hardware thresholds critical inlet fan sensor"
+    "tags": "Sensors & DCMI Power ipmi ipmitool bmc hardware thresholds critical inlet fan sensor",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+          "title": "ipmitool man page"
+        }
+      ]
+    }
   },
   {
     "sName": "ipmi-sensors-sdr",
@@ -20133,7 +20349,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E -e @ sol activate",
     "desc": "Connect to the server's live serial console (BIOS POST, GRUB, Linux ttyS0/ttyS1) over the network",
     "tip": "Use -e @ inside SSH sessions!",
-    "tags": "SOL Serial Console ipmi ipmitool bmc hardware sol serial console activate escape ttys0 ttys1"
+    "tags": "SOL Serial Console ipmi ipmitool bmc hardware sol serial console activate escape ttys0 ttys1",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+          "title": "ipmitool man page"
+        }
+      ]
+    }
   },
   {
     "sName": "ipmi-sol-console",
@@ -20144,7 +20369,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sol deactivate   |   ... sol info 1   |   ... sol set non-volatile-bit-rate 115.2 1",
     "desc": "Force-close a hung or active SOL session and inspect SOL baud rate configuration",
     "tip": "",
-    "tags": "SOL Serial Console ipmi ipmitool bmc hardware deactivate baud bitrate hung sol"
+    "tags": "SOL Serial Console ipmi ipmitool bmc hardware deactivate baud bitrate hung sol",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+          "title": "ipmitool man page"
+        }
+      ],
+      "note": "The trailing channel argument of sol set is not confirmed in the man page."
+    }
   },
   {
     "sName": "ipmi-sol-console",
@@ -20166,7 +20401,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis power status   |   ... chassis power cycle   |   ... chassis power reset   |   ... chassis power soft",
     "desc": "Check chassis power state or execute hard power off, cold power cycle, warm reset, or ACPI shutdown",
     "tip": "Prefer cycle over reset after BIOS/PCIe hangs",
-    "tags": "power cycle reset soft on off status"
+    "tags": "power cycle reset soft on off status",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+          "title": "ipmitool man page"
+        },
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_chassis.c",
+          "title": "ipmitool source (ipmi_chassis.c)"
+        }
+      ]
+    }
   },
   {
     "sName": "ipmi",
@@ -20177,7 +20425,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis status   |   ... chassis policy always-on",
     "desc": "Inspect detailed chassis state: Last Power Event (AC failed, overload, thermal trip), power restore policy & intrusion",
     "tip": "Check 'Last Power Event' after unexpected reboot",
-    "tags": "chassis status policy ac-failed overload fault"
+    "tags": "chassis status policy ac-failed overload fault",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+          "title": "ipmitool man page"
+        },
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_chassis.c",
+          "title": "ipmitool source (ipmi_chassis.c)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: Last Power Event names as ipmitool prints them."
+    }
   },
   {
     "sName": "ipmi",
@@ -20185,10 +20447,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "pwr",
     "id": "ipmi-chassis-identify-nmi",
     "sec": "Chassis Power, Status & UID Identify",
-    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis identify force   |   ... chassis identify 0   |   ... chassis power diag",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis identify force   |   ... chassis identify 0",
     "desc": "Blink the physical blue Chassis UID Locator LED or pulse diagnostic NMI for kernel kdump",
     "tip": "",
-    "tags": "identify uid led blink diag nmi kdump"
+    "tags": "identify uid led blink diag nmi kdump",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+          "title": "ipmitool man page"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "ipmi",
+    "file": "ipmi.html",
+    "badge": "pwr",
+    "id": "ipmi-chassis-identify-nmi",
+    "sec": "Chassis Power, Status & UID Identify",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis power diag",
+    "desc": "Pulse an NMI to a hung host so it panics and writes a kdump (reference only: it crashes the kernel)",
+    "tip": "",
+    "tags": "identify uid led blink diag nmi kdump",
+    "noCopy": true,
+    "refWhy": "nmi"
   },
   {
     "sName": "ipmi",
@@ -20199,7 +20483,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis bootdev pxe options=efiboot && ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis power cycle",
     "desc": "Force one-time UEFI PXE network boot on the next reboot and immediately power-cycle",
     "tip": "Always include options=efiboot",
-    "tags": "pxe bootdev efiboot uefi network reinstall"
+    "tags": "pxe bootdev efiboot uefi network reinstall",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+          "title": "ipmitool man page"
+        },
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_chassis.c",
+          "title": "ipmitool source (ipmi_chassis.c)"
+        }
+      ],
+      "note": "options=efiboot,persistent are in ipmitool's source, not its man page."
+    }
   },
   {
     "sName": "ipmi",
@@ -20210,7 +20508,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis bootdev bios   |   ... chassis bootdev cdrom options=efiboot   |   ... chassis bootdev none",
     "desc": "Boot directly into BIOS/UEFI Setup utility, Virtual CD-ROM ISO, or clear boot override",
     "tip": "",
-    "tags": "bios cdrom disk none bootdev setup"
+    "tags": "bios cdrom disk none bootdev setup",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+          "title": "ipmitool man page"
+        }
+      ]
+    }
   },
   {
     "sName": "ipmi",
@@ -20221,7 +20528,12 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis bootparam set bootflag force_pxe options=no-timeout",
     "desc": "Disable the IPMI 60-second boot flag watchdog timer so `bootdev` isn't cleared if reboot takes >60s",
     "tip": "",
-    "tags": "bootparam timeout bootflag force_pxe"
+    "tags": "bootparam timeout bootflag force_pxe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [],
+      "note": "ipmitool's source rejects options=no-timeout as written (it only matches a bare \"no-\"), and the man page lists PEF, timeout, watchdog, reset, power. Test on a lab node before relying on it."
+    }
   },
   {
     "sName": "ipmi",
@@ -20232,7 +20544,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sdr elist full   |   ... sdr type Temperature   |   ... sdr type Fan   |   ... sdr type \"Power Supply\"",
     "desc": "Read all Sensor Data Repository (SDR) entries or filter specifically by Temperature, Fan, or Power Supply",
     "tip": "sdr elist is much faster than sensor list",
-    "tags": "sdr sensor temperature fan psu voltage elist"
+    "tags": "sdr sensor temperature fan psu voltage elist",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+          "title": "ipmitool man page"
+        }
+      ],
+      "note": "Type names: list them with sdr type list."
+    }
   },
   {
     "sName": "ipmi",
@@ -20243,7 +20565,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E dcmi power reading   |   ... dcmi power get_limit",
     "desc": "Read real-time server power consumption (Watts), min/max/avg power, and thermal status via DCMI",
     "tip": "Works on almost all datacenter BMCs",
-    "tags": "dcmi power watts consumption limit wattage"
+    "tags": "dcmi power watts consumption limit wattage",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+          "title": "ipmitool man page"
+        }
+      ],
+      "note": "\"Works on almost all BMCs\" is a rule of thumb."
+    }
   },
   {
     "sName": "ipmi",
@@ -20254,7 +20586,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sensor get \"Inlet Temp\" \"FAN1\"",
     "desc": "Inspect lower/upper non-critical, critical, and non-recoverable thresholds for a specific sensor",
     "tip": "",
-    "tags": "thresholds critical inlet fan sensor"
+    "tags": "thresholds critical inlet fan sensor",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+          "title": "ipmitool man page"
+        }
+      ]
+    }
   },
   {
     "sName": "ipmi",
@@ -20265,7 +20606,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sel elist   |   ... sel elist last 25",
     "desc": "Display System Event Log cross-referenced with SDR sensor names for human-readable hardware triage",
     "tip": "Always use 'sel elist' (not 'sel list')",
-    "tags": "sel elist logs events ecc pcie triage"
+    "tags": "sel elist logs events ecc pcie triage",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+          "title": "ipmitool man page"
+        },
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_sel.c",
+          "title": "ipmitool source (ipmi_sel.c)"
+        }
+      ]
+    }
   },
   {
     "sName": "ipmi",
@@ -20276,7 +20630,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sel info   |   ... sel save sel_backup.log   |   ... sel clear",
     "desc": "Check SEL fullness percentage (`Percent Used`), backup SEL to file, and clear the log",
     "tip": "",
-    "tags": "clear overflow save backup time sel"
+    "tags": "clear overflow save backup time sel",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+          "title": "ipmitool man page"
+        },
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_sel.c",
+          "title": "ipmitool source (ipmi_sel.c)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: there is no \"sel time set now\"; give a date and time."
+    }
   },
   {
     "sName": "ipmi",
@@ -20287,7 +20655,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E -e @ sol activate",
     "desc": "Connect to the server's live serial console (BIOS POST, GRUB, Linux ttyS0/ttyS1) over the network",
     "tip": "Use -e @ inside SSH sessions!",
-    "tags": "sol serial console activate escape ttys0 ttys1"
+    "tags": "sol serial console activate escape ttys0 ttys1",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+          "title": "ipmitool man page"
+        }
+      ]
+    }
   },
   {
     "sName": "ipmi",
@@ -20298,7 +20675,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sol deactivate   |   ... sol info 1   |   ... sol set non-volatile-bit-rate 115.2 1",
     "desc": "Force-close a hung or active SOL session and inspect SOL baud rate configuration",
     "tip": "",
-    "tags": "deactivate baud bitrate hung sol"
+    "tags": "deactivate baud bitrate hung sol",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+          "title": "ipmitool man page"
+        }
+      ],
+      "note": "The trailing channel argument of sol set is not confirmed in the man page."
+    }
   },
   {
     "sName": "ipmi",
@@ -20309,7 +20696,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmitool lan6 print 1 && ipmitool lan print 1",
     "desc": "Print current BMC IPv6 (Global/SLAAC/DHCPv6/Link-Local) and IPv4 address, MAC, gateway, and VLAN from inside the host OS",
     "tip": "Use 'lan6 print 1' to see BMC IPv6 SLAAC/DHCPv6 addresses!",
-    "tags": "lan6 lan ipv6 ip mac gateway channel discover slaac dhcpv6"
+    "tags": "lan6 lan ipv6 ip mac gateway channel discover slaac dhcpv6",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+          "title": "ipmitool man page"
+        },
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_lanp6.c",
+          "title": "ipmitool source (ipmi_lanp6.c)"
+        }
+      ],
+      "note": "lan6 is in ipmitool's source but not its man page."
+    }
   },
   {
     "sName": "ipmi",
@@ -20317,10 +20718,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "lan6",
     "id": "ipmi-lan-set-static-dhcp",
     "sec": "BMC Network (lan6 / lan) & User Management",
-    "cmd": "ipmitool lan6 set 1 enabler ipv6_only && ipmitool lan6 set 1 static_addr 0 enable 2001:db8:dc:1::100 64",
+    "cmd": "ipmitool lan6 set 1 enables ipv6 && ipmitool lan6 set 1 static_addr 0 enable 2001:db8:dc:1::100 64",
     "desc": "Configure static IPv6 address & prefix (or enable SLAAC/DHCPv6 dynamic addressing) and 802.1Q VLAN on the BMC",
     "tip": "",
-    "tags": "lan6 ipv6 static dhcpv6 slaac gateway vlan ipaddr"
+    "tags": "lan6 ipv6 static dhcpv6 slaac gateway vlan ipaddr",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_lanp6.c",
+          "title": "ipmitool source (ipmi_lanp6.c)"
+        },
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+          "title": "ipmitool man page"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the parameter is enables (ipv4|ipv6|both), not enabler ipv6_only; there is no addr_src."
+    }
   },
   {
     "sName": "ipmi",
@@ -20328,10 +20743,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "lan6",
     "id": "ipmi-user-password-admin",
     "sec": "BMC Network (lan6 / lan) & User Management",
-    "cmd": "ipmitool user list 1   |   ipmitool user set password 2 'NewStrongPass!'   |   ipmitool channel setaccess 1 2 link=on ipmi=on callin=on privilege=4",
+    "cmd": "ipmitool user list 1   |   ipmitool user set password 2 '<new-password>'   |   ipmitool channel setaccess 1 2 link=on ipmi=on callin=on privilege=4",
     "desc": "List BMC user accounts, reset forgotten BMC admin password from host OS, or grant Admin privilege",
     "tip": "Reset BMC password without rebooting!",
-    "tags": "user password reset admin privilege channel"
+    "tags": "user password reset admin privilege channel",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+          "title": "ipmitool man page"
+        }
+      ],
+      "note": "Fill <new-password> yourself; the sample password was removed."
+    }
   },
   {
     "sName": "ipmi",
@@ -20342,7 +20767,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E fru print",
     "desc": "Dump Field Replaceable Unit (FRU) EEPROM data: Board/Chassis/Product part & serial numbers",
     "tip": "",
-    "tags": "fru serial part-number motherboard chassis inventory"
+    "tags": "fru serial part-number motherboard chassis inventory",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+          "title": "ipmitool man page"
+        }
+      ]
+    }
   },
   {
     "sName": "ipmi",
@@ -20353,7 +20787,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E mc info   |   ... mc reset cold   |   ... mc reset warm",
     "desc": "Check BMC firmware version or perform a non-disruptive cold reset of the BMC processor",
     "tip": "Fixes hung BMC web UI / Redfish",
-    "tags": "mc bmc reset cold firmware version"
+    "tags": "mc bmc reset cold firmware version",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+          "title": "ipmitool man page"
+        }
+      ]
+    }
   },
   {
     "sName": "ipmi",
@@ -20364,7 +20807,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmitool mc watchdog get   |   ipmitool mc watchdog off   |   modprobe ipmi_devintf ipmi_si",
     "desc": "Inspect or disable the BMC hardware watchdog timer (prevents unexpected ASR reboots during maintenance)",
     "tip": "",
-    "tags": "watchdog asr reboot kernel ipmi_devintf ipmi_si"
+    "tags": "watchdog asr reboot kernel ipmi_devintf ipmi_si",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+          "title": "ipmitool man page"
+        },
+        {
+          "url": "https://docs.kernel.org/driver-api/ipmi.html",
+          "title": "Linux kernel IPMI driver"
+        }
+      ],
+      "note": "The kernel doc does not name /dev/ipmi0 itself."
+    }
   },
   {
     "sName": "javascript",
@@ -30676,8 +31133,22 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "Discovery, Session Tokens & ETag Headers",
     "cmd": "SYS_URI=$(curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems\" | jq -r '.Members[0].\"@odata.id\"') && echo \"$SYS_URI\"",
     "desc": "Query `/redfish/v1` ServiceRoot over IPv6 (`-g -6`) and dynamically discover System & Manager URIs",
-    "tip": "Always pass -g to curl when using [IPv6] brackets!",
-    "tags": "discover serviceroot systems uri members jq ipv6"
+    "tip": "Link-local BMC address? Write the zone as %25, e.g. [fe80::1%25eth0]",
+    "tags": "discover serviceroot systems uri members jq ipv6",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://curl.se/docs/manpage.html",
+          "title": "curl man page"
+        },
+        {
+          "url": "https://curl.se/docs/url-syntax.html",
+          "title": "curl URL syntax"
+        }
+      ],
+      "note": "Corrected 2026-11-09: -g is not needed for numeric IPv6 addresses (curl detects them); kept because it is harmless."
+    }
   },
   {
     "sName": "redfish",
@@ -30688,7 +31159,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk -D - -X POST \"https://[$BMC]/redfish/v1/SessionService/Sessions\" -H \"Content-Type: application/json\" -d \"{\\\"UserName\\\":\\\"$BMC_USER\\\",\\\"Password\\\":\\\"$BMC_PASS\\\"}\"",
     "desc": "Create a Redfish Session Token (`X-Auth-Token`) to avoid slow Basic Auth hashing on every request",
     "tip": "10x faster than Basic Auth",
-    "tags": "session token x-auth-token login auth delete"
+    "tags": "session token x-auth-token login auth delete",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.25.0.pdf",
+          "title": "Redfish Specification DSP0266 1.25"
+        }
+      ],
+      "note": "\"Faster than Basic Auth\" is a rule of thumb, not from the spec."
+    }
   },
   {
     "sName": "redfish",
@@ -30699,7 +31180,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems/1/Memory?\\$expand=.(\\$levels=1)\" | jq '.Members[] | {Name, CapacityMiB, Manufacturer, SerialNumber, Status}'",
     "desc": "Use `$expand=.($levels=1)` to fetch an entire collection's child objects in a single HTTP call",
     "tip": "Avoids N+1 HTTP loop",
-    "tags": "expand levels collection batch fast"
+    "tags": "expand levels collection batch fast",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.25.0.pdf",
+          "title": "Redfish Specification DSP0266 1.25"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the single-member parameter is only, not $only."
+    }
   },
   {
     "sName": "redfish",
@@ -30710,7 +31201,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc -X POST \"https://[$BMC]/redfish/v1/Systems/1/Actions/ComputerSystem.Reset\" -H \"Content-Type: application/json\" -d '{\"ResetType\": \"PowerCycle\"}'",
     "desc": "Check current server power state or execute `ComputerSystem.Reset` (On, ForceOff, ForceRestart, PowerCycle)",
     "tip": "",
-    "tags": "power reset reboot powercycle forceoff on"
+    "tags": "power reset reboot powercycle forceoff on",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/Resource.json",
+          "title": "Redfish schema: ResetType"
+        },
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/ComputerSystem.json",
+          "title": "Redfish schema: ComputerSystem"
+        }
+      ],
+      "note": "ResetType@Redfish.AllowableValues was not confirmed in the schema text read; GET the system to see what your BMC offers."
+    }
   },
   {
     "sName": "redfish",
@@ -30721,7 +31226,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc -X PATCH \"https://[$BMC]/redfish/v1/Systems/1\" -H \"Content-Type: application/json\" -d '{\"Boot\": {\"BootSourceOverrideTarget\": \"Pxe\", \"BootSourceOverrideEnabled\": \"Once\", \"BootSourceOverrideMode\": \"UEFI\"}}'",
     "desc": "Set one-time UEFI PXE network boot on next restart (`BootSourceOverrideTarget: Pxe`)",
     "tip": "Follow with ForceRestart",
-    "tags": "pxe boot uefi override once network"
+    "tags": "pxe boot uefi override once network",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/ComputerSystem.json",
+          "title": "Redfish schema: ComputerSystem"
+        }
+      ]
+    }
   },
   {
     "sName": "redfish",
@@ -30732,7 +31246,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc -X PATCH \"https://[$BMC]/redfish/v1/Systems/1\" -H \"Content-Type: application/json\" -d '{\"Boot\": {\"BootSourceOverrideTarget\": \"BiosSetup\", \"BootSourceOverrideEnabled\": \"Once\"}}'",
     "desc": "Force server to boot directly into UEFI/BIOS Setup utility on next reboot",
     "tip": "",
-    "tags": "bios setup boot uefi"
+    "tags": "bios setup boot uefi",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/ComputerSystem.json",
+          "title": "Redfish schema: ComputerSystem"
+        }
+      ]
+    }
   },
   {
     "sName": "redfish",
@@ -30743,7 +31266,18 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc -X POST \"https://[$BMC]/redfish/v1/Systems/1/Actions/ComputerSystem.Reset\" -H \"Content-Type: application/json\" -d '{\"ResetType\": \"Nmi\"}'",
     "desc": "Send diagnostic Non-Maskable Interrupt (`Nmi`) to hung OS to trigger kernel kdump crash dump",
     "tip": "",
-    "tags": "nmi kdump crash hang panic diagnostic"
+    "tags": "nmi kdump crash hang panic diagnostic",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/Resource.json",
+          "title": "Redfish schema: ResetType"
+        }
+      ]
+    },
+    "noCopy": true,
+    "refWhy": "nmi"
   },
   {
     "sName": "redfish",
@@ -30754,7 +31288,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems/1/Memory?\\$expand=.(\\$levels=1)\" | jq '.Members[] | select(.Status.State==\"Enabled\") | {Id, DeviceLocator, CapacityMiB, OperatingSpeedMhz, Manufacturer, PartNumber, SerialNumber, Health: .Status.Health}'",
     "desc": "Audit all populated RAM DIMM slots, capacity, speed, part/serial numbers, and ECC health status",
     "tip": "Pinpoints faulty DIMM slot label",
-    "tags": "memory dimm ram serial ecc slot health"
+    "tags": "memory dimm ram serial ecc slot health",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/Memory.v1_24_0.json",
+          "title": "Redfish schema: Memory"
+        }
+      ],
+      "note": "DeviceLocator is deprecated in favor of Location.PartLocation.ServiceLabel."
+    }
   },
   {
     "sName": "redfish",
@@ -30765,7 +31309,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems/1/Processors?\\$expand=.(\\$levels=1)\" | jq '.Members[] | {Id, ProcessorType, Model, TotalCores, TotalThreads, SerialNumber, Status}'",
     "desc": "Inspect all CPUs and baseboard GPUs (`ProcessorType: CPU` vs `Accelerator`) with core counts and health",
     "tip": "",
-    "tags": "cpu gpu processors cores model serial"
+    "tags": "cpu gpu processors cores model serial",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/Processor.v1_24_0.json",
+          "title": "Redfish schema: Processor"
+        },
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/ComputerSystem.json",
+          "title": "Redfish schema: ComputerSystem"
+        }
+      ],
+      "note": "Corrected 2026-11-09: there is no DPU ProcessorType."
+    }
   },
   {
     "sName": "redfish",
@@ -30776,7 +31334,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems/1/Storage?\\$expand=.(\\$levels=2)\" | jq '.Members[].Drives[]? | {Id, Name, Model, SerialNumber, CapacityBytes, MediaType, PredictedMediaLifeLeftPercent, Status}'",
     "desc": "Inspect storage controllers, NVMe/SAS/SATA drive health, wear life remaining, and serial numbers",
     "tip": "",
-    "tags": "storage nvme ssd drives smart wear raid"
+    "tags": "storage nvme ssd drives smart wear raid",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/Drive.v1_22_0.json",
+          "title": "Redfish schema: Drive"
+        }
+      ]
+    }
   },
   {
     "sName": "redfish",
@@ -30787,7 +31354,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Managers/1/EthernetInterfaces?\\$expand=.(\\$levels=1)\" | jq '.Members[] | {Id, MACAddress, IPv6DefaultGateway, IPv6Addresses}'",
     "desc": "Collect host & BMC NIC MAC addresses, IPv6 addresses, SLAAC/DHCPv6 state, and link status out-of-band",
     "tip": "Essential for zero-touch IPv6 PXE",
-    "tags": "mac nic ethernet pxe ipv6 dhcpv6 slaac provisioning"
+    "tags": "mac nic ethernet pxe ipv6 dhcpv6 slaac provisioning",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/EthernetInterface.v1_12_6.json",
+          "title": "Redfish schema: EthernetInterface"
+        }
+      ]
+    }
   },
   {
     "sName": "redfish",
@@ -30798,7 +31374,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Chassis/1/Thermal\" | jq '{Temps: [.Temperatures[] | {Name, ReadingCelsius, UpperThresholdCritical, Health: .Status.Health}], Fans: [.Fans[] | {Name, Reading, ReadingUnits, Health: .Status.Health}]}'",
     "desc": "Read all Chassis temperature sensors (°C) and cooling fan speeds (RPM / %)",
     "tip": "",
-    "tags": "thermal temperature fans rpm cooling inlet"
+    "tags": "thermal temperature fans rpm cooling inlet",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/Thermal.json",
+          "title": "Redfish schema: Thermal (deprecated)"
+        },
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/Chassis.v1_29_0.json",
+          "title": "Redfish schema: Chassis"
+        }
+      ],
+      "note": "Thermal is deprecated (ThermalSubsystem/Sensors); it still works on many BMCs."
+    }
   },
   {
     "sName": "redfish",
@@ -30809,7 +31399,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Chassis/1/Power\" | jq '{PowerConsumedWatts: .PowerControl[0].PowerConsumedWatts, PSUs: [.PowerSupplies[] | {Name, Model, SerialNumber, PowerInputWatts, LineInputVoltage, Status}]}'",
     "desc": "Check live server power consumption (Watts), power cap, and redundant Power Supply (PSU) health",
     "tip": "Catches dead A/B PDU feeds",
-    "tags": "power psu watts voltage redundant chassis"
+    "tags": "power psu watts voltage redundant chassis",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/Power.json",
+          "title": "Redfish schema: Power (deprecated)"
+        },
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/Chassis.v1_29_0.json",
+          "title": "Redfish schema: Chassis"
+        }
+      ],
+      "note": "Power is deprecated (PowerSubsystem/Sensors); it still works on many BMCs."
+    }
   },
   {
     "sName": "redfish",
@@ -30820,7 +31424,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc -X PATCH \"https://[$BMC]/redfish/v1/Chassis/1\" -H \"Content-Type: application/json\" -d '{\"LocationIndicatorActive\": true}'",
     "desc": "Turn on or blink the physical Chassis UID Locator LED to help datacenter techs find the server",
     "tip": "",
-    "tags": "led uid identify locate blink chassis"
+    "tags": "led uid identify locate blink chassis",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/Chassis.v1_29_0.json",
+          "title": "Redfish schema: Chassis"
+        }
+      ]
+    }
   },
   {
     "sName": "redfish",
@@ -30831,7 +31444,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Managers/1/LogServices/Sel/Entries\" | jq -r '.Members[] | \"\\(.Created) [\\(.Severity)] \\(.Message)\"' | tail -n 30",
     "desc": "Fetch BMC System Event Log (SEL) entries and format timestamp, severity, and message",
     "tip": "",
-    "tags": "sel logs events history lclog iml"
+    "tags": "sel logs events history lclog iml",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/LogService.v1_9_0.json",
+          "title": "Redfish schema: LogService"
+        },
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/LogEntry.v1_22_0.json",
+          "title": "Redfish schema: LogEntry"
+        }
+      ],
+      "note": "The log service ID (Sel here) is vendor-specific: list /LogServices first."
+    }
   },
   {
     "sName": "redfish",
@@ -30842,7 +31469,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Managers/1/LogServices/Sel/Entries\" | jq '.Members[] | select(.Severity == \"Critical\" or .Severity == \"Warning\") | {Id, Created, Severity, Message, SensorType}'",
     "desc": "Filter SEL entries to show only `Critical` or `Warning` hardware assertions",
     "tip": "Fast root-cause triage",
-    "tags": "critical warning faults filter triage"
+    "tags": "critical warning faults filter triage",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/LogEntry.v1_22_0.json",
+          "title": "Redfish schema: LogEntry"
+        }
+      ]
+    }
   },
   {
     "sName": "redfish",
@@ -30853,7 +31489,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc -X POST \"https://[$BMC]/redfish/v1/Managers/1/LogServices/Sel/Actions/LogService.ClearLog\" -H \"Content-Type: application/json\" -d '{}'",
     "desc": "Clear all entries in the BMC System Event Log via `LogService.ClearLog` action",
     "tip": "",
-    "tags": "clear sel reset logs"
+    "tags": "clear sel reset logs",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/LogService.v1_9_0.json",
+          "title": "Redfish schema: LogService"
+        }
+      ],
+      "note": "ClearLog may require the LogEntriesETag parameter (HTTP 428 without it)."
+    }
   },
   {
     "sName": "redfish",
@@ -30864,7 +31510,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems/1/Bios\" | jq '.Attributes'   |   curl -g -6 -sk -K ~/.bmc-curlrc -X PATCH \"https://[$BMC]/redfish/v1/Systems/1/Bios/Settings\" -H \"Content-Type: application/json\" -d '{\"Attributes\": {\"SriovGlobalEnable\": \"Enabled\"}}'",
     "desc": "Inspect current BIOS attributes or stage pending BIOS settings for next server reboot",
     "tip": "PATCH goes to /Bios/Settings",
-    "tags": "bios attributes settings sriov iommu patch"
+    "tags": "bios attributes settings sriov iommu patch",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/Bios.v1_3_0.json",
+          "title": "Redfish schema: Bios"
+        },
+        {
+          "url": "https://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.25.0.pdf",
+          "title": "Redfish Specification DSP0266 1.25"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the settings URI comes from @Redfish.Settings; 412 means a stale ETag, 428 a missing one."
+    }
   },
   {
     "sName": "redfish",
@@ -30875,7 +31535,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc -X POST \"https://[$BMC]/redfish/v1/Managers/1/VirtualMedia/CD1/Actions/VirtualMedia.InsertMedia\" -H \"Content-Type: application/json\" -d '{\"Image\": \"http://[2001:db8:dc::5]:8000/ubuntu-24.04-live-server-amd64.iso\", \"Inserted\": true, \"WriteProtected\": true}'",
     "desc": "Mount a remote OS installer ISO over IPv6 HTTP/HTTPS via BMC Virtual Media (`InsertMedia`)",
     "tip": "Pair with BootTarget: Cd",
-    "tags": "virtualmedia iso mount cdrom install http"
+    "tags": "virtualmedia iso mount cdrom install http",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/VirtualMedia.v1_7_0.json",
+          "title": "Redfish schema: VirtualMedia"
+        }
+      ]
+    }
   },
   {
     "sName": "redfish",
@@ -30886,7 +31555,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc -X POST \"https://[$BMC]/redfish/v1/Managers/1/Actions/Manager.Reset\" -H \"Content-Type: application/json\" -d '{\"ResetType\": \"GracefulRestart\"}'",
     "desc": "Reboot the Out-of-Band BMC controller itself without disrupting the running host OS",
     "tip": "",
-    "tags": "bmc manager reset idrac ilo reboot"
+    "tags": "bmc manager reset idrac ilo reboot",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/Manager.v1_25_0.json",
+          "title": "Redfish schema: Manager"
+        }
+      ]
+    }
   },
   {
     "sName": "redfish",
@@ -30897,7 +31575,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/UpdateService/FirmwareInventory?\\$expand=.(\\$levels=1)\" | jq '.Members[] | {Id, Name, Version, Updateable, Status}'",
     "desc": "List all installed firmware components (BMC, BIOS, CPLD, PSU, NVMe, GPU, NIC) and versions",
     "tip": "",
-    "tags": "firmware version bios bmc cpld inventory"
+    "tags": "firmware version bios bmc cpld inventory",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/UpdateService.v1_17_1.json",
+          "title": "Redfish schema: UpdateService"
+        }
+      ],
+      "note": "Updateable lives on SoftwareInventory, not checked here."
+    }
   },
   {
     "sName": "redfish",
@@ -30908,7 +31596,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc -X POST \"https://[$BMC]/redfish/v1/UpdateService/upload\" -F 'UpdateParameters={\"Targets\":[],\"@Redfish.OperationApplyTime\":\"OnReset\"};type=application/json' -F \"UpdateFile=@./firmware.fwpkg;type=application/octet-stream\"",
     "desc": "Upload a local firmware bundle (`.bin` / `.fwpkg` / `.exe`) via Redfish `MultipartHttpPushUri`",
     "tip": "",
-    "tags": "update flash upload multipart fwpkg updateservice"
+    "tags": "update flash upload multipart fwpkg updateservice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.25.0.pdf",
+          "title": "Redfish Specification DSP0266 1.25"
+        },
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/UpdateService.v1_17_1.json",
+          "title": "Redfish schema: UpdateService"
+        }
+      ],
+      "note": "/UpdateService/upload is an example: POST to the MultipartHttpPushUri your BMC reports."
+    }
   },
   {
     "sName": "redfish",
@@ -30919,7 +31621,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/TaskService/Tasks/1\" | jq '{Id, Name, TaskState, PercentComplete, TaskStatus, Messages}'",
     "desc": "Monitor progress percentage and status of asynchronous Redfish jobs (`TaskService`)",
     "tip": "",
-    "tags": "task job progress async poll taskservice"
+    "tags": "task job progress async poll taskservice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/Task.v1_7_4.json",
+          "title": "Redfish schema: Task"
+        }
+      ]
+    }
   },
   {
     "sName": "redfish",
@@ -30927,10 +31638,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "HGX / DLC",
     "id": "rf-hgx-chassis-gpus",
     "sec": "HGX GPU Baseboard, NVSwitch & Liquid-Cooling Leak Sensors",
-    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Chassis\" | jq '.Members[][\"@odata.id\"] | select(contains(\"HGX\"))' && curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Chassis/HGX_GPU_SXM_1\" | jq '{Id, PartNumber, SerialNumber, Status}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Chassis\" | jq '.Members[][\"@odata.id\"] | select(contains(\"HGX\"))' && curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems/HGX_Baseboard_0/Processors/GPU_SXM_1\" | jq '{Id, PartNumber, SerialNumber, Status}'",
     "desc": "Query NVIDIA HGX SXM GPU Baseboard, SXM GPU health, and NVSwitch status out-of-band when the host OS is hung",
     "tip": "Lets you check GPU serials & health even if the server won't boot into Ubuntu!",
-    "tags": "hgx sxm nvswitch hmc gpu out-of-band asus gigabyte"
+    "tags": "hgx sxm nvswitch hmc gpu out-of-band asus gigabyte",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/dgx/dgxh100-user-guide/redfish-api-supp.html",
+          "title": "NVIDIA DGX H100/H200 Redfish"
+        },
+        {
+          "url": "https://docs.nvidia.com/dgx/dgxb200-user-guide/redfish-api-supp.html",
+          "title": "NVIDIA DGX B200 Redfish"
+        }
+      ],
+      "note": "Corrected 2026-11-09: GPUs are /Systems/HGX_Baseboard_0/Processors/GPU_SXM_<n> on DGX; other HGX vendors may differ. Reading GPUs with the host off is not documented."
+    }
   },
   {
     "sName": "redfish",
@@ -30941,7 +31666,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Chassis/1/Sensors?\\$expand=.(\\$levels=1)\" | jq '.Members[] | select(.Name | test(\"Leak|Coolant|Liquid|Flow|Manifold\"; \"i\")) | {Name, Reading, ReadingUnits, Status}'",
     "desc": "Check Direct Liquid Cooling (DLC) coldplate leak detection sensors, coolant flow & inlet/outlet temperatures",
     "tip": "Inspect leak sensors immediately if a liquid-cooled node shuts down unexpectedly!",
-    "tags": "dlc liquid-cooling leak coolant coldplate manifold sensors"
+    "tags": "dlc liquid-cooling leak coolant coldplate manifold sensors",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/Chassis.v1_29_0.json",
+          "title": "Redfish schema: Chassis"
+        },
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/LeakDetection.json",
+          "title": "Redfish schema: LeakDetection"
+        }
+      ]
+    }
   },
   {
     "sName": "regex",
@@ -31029,7 +31767,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems/1/Bios\" | jq '.Attributes'   |   curl -g -6 -sk -K ~/.bmc-curlrc -X PATCH \"https://[$BMC]/redfish/v1/Systems/1/Bios/Settings\" -H \"Content-Type: application/json\" -d '{\"Attributes\": {\"SriovGlobalEnable\": \"Enabled\"}}'",
     "desc": "Inspect current BIOS attributes or stage pending BIOS settings for next server reboot",
     "tip": "PATCH goes to /Bios/Settings",
-    "tags": "BIOS & BMC Control redfish rest api bmc bios attributes settings sriov iommu patch"
+    "tags": "BIOS & BMC Control redfish rest api bmc bios attributes settings sriov iommu patch",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/Bios.v1_3_0.json",
+          "title": "Redfish schema: Bios"
+        },
+        {
+          "url": "https://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.25.0.pdf",
+          "title": "Redfish Specification DSP0266 1.25"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the settings URI comes from @Redfish.Settings; 412 means a stale ETag, 428 a missing one."
+    }
   },
   {
     "sName": "rf-bios-bmc",
@@ -31040,7 +31792,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc -X POST \"https://[$BMC]/redfish/v1/Managers/1/VirtualMedia/CD1/Actions/VirtualMedia.InsertMedia\" -H \"Content-Type: application/json\" -d '{\"Image\": \"http://[2001:db8:dc::5]:8000/ubuntu-24.04-live-server-amd64.iso\", \"Inserted\": true, \"WriteProtected\": true}'",
     "desc": "Mount a remote OS installer ISO over IPv6 HTTP/HTTPS via BMC Virtual Media (`InsertMedia`)",
     "tip": "Pair with BootTarget: Cd",
-    "tags": "BIOS & BMC Control redfish rest api bmc virtualmedia iso mount cdrom install http"
+    "tags": "BIOS & BMC Control redfish rest api bmc virtualmedia iso mount cdrom install http",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/VirtualMedia.v1_7_0.json",
+          "title": "Redfish schema: VirtualMedia"
+        }
+      ]
+    }
   },
   {
     "sName": "rf-bios-bmc",
@@ -31051,7 +31812,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc -X POST \"https://[$BMC]/redfish/v1/Managers/1/Actions/Manager.Reset\" -H \"Content-Type: application/json\" -d '{\"ResetType\": \"GracefulRestart\"}'",
     "desc": "Reboot the Out-of-Band BMC controller itself without disrupting the running host OS",
     "tip": "",
-    "tags": "BIOS & BMC Control redfish rest api bmc bmc manager reset idrac ilo reboot"
+    "tags": "BIOS & BMC Control redfish rest api bmc bmc manager reset idrac ilo reboot",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/Manager.v1_25_0.json",
+          "title": "Redfish schema: Manager"
+        }
+      ]
+    }
   },
   {
     "sName": "rf-bios-bmc",
@@ -31072,8 +31842,22 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "Discovery & Auth: Query `/redfish/v1` ServiceRoot over IPv6",
     "cmd": "SYS_URI=$(curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems\" | jq -r '.Members[0].\"@odata.id\"') && echo \"$SYS_URI\"",
     "desc": "Query `/redfish/v1` ServiceRoot over IPv6 (`-g -6`) and dynamically discover System & Manager URIs",
-    "tip": "Always pass -g to curl when using [IPv6] brackets!",
-    "tags": "Discovery & Auth redfish rest api bmc discover serviceroot systems uri members jq ipv6"
+    "tip": "Link-local BMC address? Write the zone as %25, e.g. [fe80::1%25eth0]",
+    "tags": "Discovery & Auth redfish rest api bmc discover serviceroot systems uri members jq ipv6",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://curl.se/docs/manpage.html",
+          "title": "curl man page"
+        },
+        {
+          "url": "https://curl.se/docs/url-syntax.html",
+          "title": "curl URL syntax"
+        }
+      ],
+      "note": "Corrected 2026-11-09: -g is not needed for numeric IPv6 addresses (curl detects them); kept because it is harmless."
+    }
   },
   {
     "sName": "rf-discovery",
@@ -31084,7 +31868,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk -D - -X POST \"https://[$BMC]/redfish/v1/SessionService/Sessions\" -H \"Content-Type: application/json\" -d \"{\\\"UserName\\\":\\\"$BMC_USER\\\",\\\"Password\\\":\\\"$BMC_PASS\\\"}\"",
     "desc": "Create a Redfish Session Token (`X-Auth-Token`) to avoid slow Basic Auth hashing on every request",
     "tip": "10x faster than Basic Auth",
-    "tags": "Discovery & Auth redfish rest api bmc session token x-auth-token login auth delete"
+    "tags": "Discovery & Auth redfish rest api bmc session token x-auth-token login auth delete",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.25.0.pdf",
+          "title": "Redfish Specification DSP0266 1.25"
+        }
+      ],
+      "note": "\"Faster than Basic Auth\" is a rule of thumb, not from the spec."
+    }
   },
   {
     "sName": "rf-discovery",
@@ -31095,7 +31889,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems/1/Memory?\\$expand=.(\\$levels=1)\" | jq '.Members[] | {Name, CapacityMiB, Manufacturer, SerialNumber, Status}'",
     "desc": "Use `$expand=.($levels=1)` to fetch an entire collection's child objects in a single HTTP call",
     "tip": "Avoids N+1 HTTP loop",
-    "tags": "Discovery & Auth redfish rest api bmc expand levels collection batch fast"
+    "tags": "Discovery & Auth redfish rest api bmc expand levels collection batch fast",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.25.0.pdf",
+          "title": "Redfish Specification DSP0266 1.25"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the single-member parameter is only, not $only."
+    }
   },
   {
     "sName": "rf-discovery",
@@ -31117,7 +31921,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/UpdateService/FirmwareInventory?\\$expand=.(\\$levels=1)\" | jq '.Members[] | {Id, Name, Version, Updateable, Status}'",
     "desc": "List all installed firmware components (BMC, BIOS, CPLD, PSU, NVMe, GPU, NIC) and versions",
     "tip": "",
-    "tags": "Firmware & Tasks redfish rest api bmc firmware version bios bmc cpld inventory"
+    "tags": "Firmware & Tasks redfish rest api bmc firmware version bios bmc cpld inventory",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/UpdateService.v1_17_1.json",
+          "title": "Redfish schema: UpdateService"
+        }
+      ],
+      "note": "Updateable lives on SoftwareInventory, not checked here."
+    }
   },
   {
     "sName": "rf-firmware",
@@ -31128,7 +31942,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc -X POST \"https://[$BMC]/redfish/v1/UpdateService/upload\" -F 'UpdateParameters={\"Targets\":[],\"@Redfish.OperationApplyTime\":\"OnReset\"};type=application/json' -F \"UpdateFile=@./firmware.fwpkg;type=application/octet-stream\"",
     "desc": "Upload a local firmware bundle (`.bin` / `.fwpkg` / `.exe`) via Redfish `MultipartHttpPushUri`",
     "tip": "",
-    "tags": "Firmware & Tasks redfish rest api bmc update flash upload multipart fwpkg updateservice"
+    "tags": "Firmware & Tasks redfish rest api bmc update flash upload multipart fwpkg updateservice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.25.0.pdf",
+          "title": "Redfish Specification DSP0266 1.25"
+        },
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/UpdateService.v1_17_1.json",
+          "title": "Redfish schema: UpdateService"
+        }
+      ],
+      "note": "/UpdateService/upload is an example: POST to the MultipartHttpPushUri your BMC reports."
+    }
   },
   {
     "sName": "rf-firmware",
@@ -31139,7 +31967,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/TaskService/Tasks/1\" | jq '{Id, Name, TaskState, PercentComplete, TaskStatus, Messages}'",
     "desc": "Monitor progress percentage and status of asynchronous Redfish jobs (`TaskService`)",
     "tip": "",
-    "tags": "Firmware & Tasks redfish rest api bmc task job progress async poll taskservice"
+    "tags": "Firmware & Tasks redfish rest api bmc task job progress async poll taskservice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/Task.v1_7_4.json",
+          "title": "Redfish schema: Task"
+        }
+      ]
+    }
   },
   {
     "sName": "rf-firmware",
@@ -31158,10 +31995,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "hgx",
     "id": "rf-hgx-chassis-gpus",
     "sec": "HGX Baseboard & DLC: Query NVIDIA HGX SXM GPU Baseboard, SXM GPU health, and NVSwitch status out-of-band when the host OS is hung",
-    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Chassis\" | jq '.Members[][\"@odata.id\"] | select(contains(\"HGX\"))' && curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Chassis/HGX_GPU_SXM_1\" | jq '{Id, PartNumber, SerialNumber, Status}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Chassis\" | jq '.Members[][\"@odata.id\"] | select(contains(\"HGX\"))' && curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems/HGX_Baseboard_0/Processors/GPU_SXM_1\" | jq '{Id, PartNumber, SerialNumber, Status}'",
     "desc": "Query NVIDIA HGX SXM GPU Baseboard, SXM GPU health, and NVSwitch status out-of-band when the host OS is hung",
     "tip": "Lets you check GPU serials & health even if the server won't boot into Ubuntu!",
-    "tags": "HGX Baseboard & DLC redfish rest api bmc hgx sxm nvswitch hmc gpu out-of-band asus gigabyte"
+    "tags": "HGX Baseboard & DLC redfish rest api bmc hgx sxm nvswitch hmc gpu out-of-band asus gigabyte",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/dgx/dgxh100-user-guide/redfish-api-supp.html",
+          "title": "NVIDIA DGX H100/H200 Redfish"
+        },
+        {
+          "url": "https://docs.nvidia.com/dgx/dgxb200-user-guide/redfish-api-supp.html",
+          "title": "NVIDIA DGX B200 Redfish"
+        }
+      ],
+      "note": "Corrected 2026-11-09: GPUs are /Systems/HGX_Baseboard_0/Processors/GPU_SXM_<n> on DGX; other HGX vendors may differ. Reading GPUs with the host off is not documented."
+    }
   },
   {
     "sName": "rf-hgx-dlc",
@@ -31172,7 +32023,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Chassis/1/Sensors?\\$expand=.(\\$levels=1)\" | jq '.Members[] | select(.Name | test(\"Leak|Coolant|Liquid|Flow|Manifold\"; \"i\")) | {Name, Reading, ReadingUnits, Status}'",
     "desc": "Check Direct Liquid Cooling (DLC) coldplate leak detection sensors, coolant flow & inlet/outlet temperatures",
     "tip": "Inspect leak sensors immediately if a liquid-cooled node shuts down unexpectedly!",
-    "tags": "HGX Baseboard & DLC redfish rest api bmc dlc liquid-cooling leak coolant coldplate manifold sensors"
+    "tags": "HGX Baseboard & DLC redfish rest api bmc dlc liquid-cooling leak coolant coldplate manifold sensors",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/Chassis.v1_29_0.json",
+          "title": "Redfish schema: Chassis"
+        },
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/LeakDetection.json",
+          "title": "Redfish schema: LeakDetection"
+        }
+      ]
+    }
   },
   {
     "sName": "rf-hgx-dlc",
@@ -31194,7 +32058,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems/1/Memory?\\$expand=.(\\$levels=1)\" | jq '.Members[] | select(.Status.State==\"Enabled\") | {Id, DeviceLocator, CapacityMiB, OperatingSpeedMhz, Manufacturer, PartNumber, SerialNumber, Health: .Status.Health}'",
     "desc": "Audit all populated RAM DIMM slots, capacity, speed, part/serial numbers, and ECC health status",
     "tip": "Pinpoints faulty DIMM slot label",
-    "tags": "Hardware Inventory redfish rest api bmc memory dimm ram serial ecc slot health"
+    "tags": "Hardware Inventory redfish rest api bmc memory dimm ram serial ecc slot health",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/Memory.v1_24_0.json",
+          "title": "Redfish schema: Memory"
+        }
+      ],
+      "note": "DeviceLocator is deprecated in favor of Location.PartLocation.ServiceLabel."
+    }
   },
   {
     "sName": "rf-inventory",
@@ -31205,7 +32079,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems/1/Processors?\\$expand=.(\\$levels=1)\" | jq '.Members[] | {Id, ProcessorType, Model, TotalCores, TotalThreads, SerialNumber, Status}'",
     "desc": "Inspect all CPUs and baseboard GPUs (`ProcessorType: CPU` vs `Accelerator`) with core counts and health",
     "tip": "",
-    "tags": "Hardware Inventory redfish rest api bmc cpu gpu processors cores model serial"
+    "tags": "Hardware Inventory redfish rest api bmc cpu gpu processors cores model serial",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/Processor.v1_24_0.json",
+          "title": "Redfish schema: Processor"
+        },
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/ComputerSystem.json",
+          "title": "Redfish schema: ComputerSystem"
+        }
+      ],
+      "note": "Corrected 2026-11-09: there is no DPU ProcessorType."
+    }
   },
   {
     "sName": "rf-inventory",
@@ -31216,7 +32104,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems/1/Storage?\\$expand=.(\\$levels=2)\" | jq '.Members[].Drives[]? | {Id, Name, Model, SerialNumber, CapacityBytes, MediaType, PredictedMediaLifeLeftPercent, Status}'",
     "desc": "Inspect storage controllers, NVMe/SAS/SATA drive health, wear life remaining, and serial numbers",
     "tip": "",
-    "tags": "Hardware Inventory redfish rest api bmc storage nvme ssd drives smart wear raid"
+    "tags": "Hardware Inventory redfish rest api bmc storage nvme ssd drives smart wear raid",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/Drive.v1_22_0.json",
+          "title": "Redfish schema: Drive"
+        }
+      ]
+    }
   },
   {
     "sName": "rf-inventory",
@@ -31227,7 +32124,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Managers/1/EthernetInterfaces?\\$expand=.(\\$levels=1)\" | jq '.Members[] | {Id, MACAddress, IPv6DefaultGateway, IPv6Addresses}'",
     "desc": "Collect host & BMC NIC MAC addresses, IPv6 addresses, SLAAC/DHCPv6 state, and link status out-of-band",
     "tip": "Essential for zero-touch IPv6 PXE",
-    "tags": "Hardware Inventory redfish rest api bmc mac nic ethernet pxe ipv6 dhcpv6 slaac provisioning"
+    "tags": "Hardware Inventory redfish rest api bmc mac nic ethernet pxe ipv6 dhcpv6 slaac provisioning",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/EthernetInterface.v1_12_6.json",
+          "title": "Redfish schema: EthernetInterface"
+        }
+      ]
+    }
   },
   {
     "sName": "rf-inventory",
@@ -31249,7 +32155,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Managers/1/LogServices/Sel/Entries\" | jq -r '.Members[] | \"\\(.Created) [\\(.Severity)] \\(.Message)\"' | tail -n 30",
     "desc": "Fetch BMC System Event Log (SEL) entries and format timestamp, severity, and message",
     "tip": "",
-    "tags": "Logs & SEL Triage redfish rest api bmc sel logs events history lclog iml"
+    "tags": "Logs & SEL Triage redfish rest api bmc sel logs events history lclog iml",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/LogService.v1_9_0.json",
+          "title": "Redfish schema: LogService"
+        },
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/LogEntry.v1_22_0.json",
+          "title": "Redfish schema: LogEntry"
+        }
+      ],
+      "note": "The log service ID (Sel here) is vendor-specific: list /LogServices first."
+    }
   },
   {
     "sName": "rf-logs-sel",
@@ -31260,7 +32180,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Managers/1/LogServices/Sel/Entries\" | jq '.Members[] | select(.Severity == \"Critical\" or .Severity == \"Warning\") | {Id, Created, Severity, Message, SensorType}'",
     "desc": "Filter SEL entries to show only `Critical` or `Warning` hardware assertions",
     "tip": "Fast root-cause triage",
-    "tags": "Logs & SEL Triage redfish rest api bmc critical warning faults filter triage"
+    "tags": "Logs & SEL Triage redfish rest api bmc critical warning faults filter triage",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/LogEntry.v1_22_0.json",
+          "title": "Redfish schema: LogEntry"
+        }
+      ]
+    }
   },
   {
     "sName": "rf-logs-sel",
@@ -31271,7 +32200,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc -X POST \"https://[$BMC]/redfish/v1/Managers/1/LogServices/Sel/Actions/LogService.ClearLog\" -H \"Content-Type: application/json\" -d '{}'",
     "desc": "Clear all entries in the BMC System Event Log via `LogService.ClearLog` action",
     "tip": "",
-    "tags": "Logs & SEL Triage redfish rest api bmc clear sel reset logs"
+    "tags": "Logs & SEL Triage redfish rest api bmc clear sel reset logs",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/LogService.v1_9_0.json",
+          "title": "Redfish schema: LogService"
+        }
+      ],
+      "note": "ClearLog may require the LogEntriesETag parameter (HTTP 428 without it)."
+    }
   },
   {
     "sName": "rf-logs-sel",
@@ -31293,7 +32232,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc -X POST \"https://[$BMC]/redfish/v1/Systems/1/Actions/ComputerSystem.Reset\" -H \"Content-Type: application/json\" -d '{\"ResetType\": \"PowerCycle\"}'",
     "desc": "Check current server power state or execute `ComputerSystem.Reset` (On, ForceOff, ForceRestart, PowerCycle)",
     "tip": "",
-    "tags": "Power & Boot redfish rest api bmc power reset reboot powercycle forceoff on"
+    "tags": "Power & Boot redfish rest api bmc power reset reboot powercycle forceoff on",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/Resource.json",
+          "title": "Redfish schema: ResetType"
+        },
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/ComputerSystem.json",
+          "title": "Redfish schema: ComputerSystem"
+        }
+      ],
+      "note": "ResetType@Redfish.AllowableValues was not confirmed in the schema text read; GET the system to see what your BMC offers."
+    }
   },
   {
     "sName": "rf-power-boot",
@@ -31304,7 +32257,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc -X PATCH \"https://[$BMC]/redfish/v1/Systems/1\" -H \"Content-Type: application/json\" -d '{\"Boot\": {\"BootSourceOverrideTarget\": \"Pxe\", \"BootSourceOverrideEnabled\": \"Once\", \"BootSourceOverrideMode\": \"UEFI\"}}'",
     "desc": "Set one-time UEFI PXE network boot on next restart (`BootSourceOverrideTarget: Pxe`)",
     "tip": "Follow with ForceRestart",
-    "tags": "Power & Boot redfish rest api bmc pxe boot uefi override once network"
+    "tags": "Power & Boot redfish rest api bmc pxe boot uefi override once network",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/ComputerSystem.json",
+          "title": "Redfish schema: ComputerSystem"
+        }
+      ]
+    }
   },
   {
     "sName": "rf-power-boot",
@@ -31315,7 +32277,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc -X PATCH \"https://[$BMC]/redfish/v1/Systems/1\" -H \"Content-Type: application/json\" -d '{\"Boot\": {\"BootSourceOverrideTarget\": \"BiosSetup\", \"BootSourceOverrideEnabled\": \"Once\"}}'",
     "desc": "Force server to boot directly into UEFI/BIOS Setup utility on next reboot",
     "tip": "",
-    "tags": "Power & Boot redfish rest api bmc bios setup boot uefi"
+    "tags": "Power & Boot redfish rest api bmc bios setup boot uefi",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/ComputerSystem.json",
+          "title": "Redfish schema: ComputerSystem"
+        }
+      ]
+    }
   },
   {
     "sName": "rf-power-boot",
@@ -31326,7 +32297,18 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc -X POST \"https://[$BMC]/redfish/v1/Systems/1/Actions/ComputerSystem.Reset\" -H \"Content-Type: application/json\" -d '{\"ResetType\": \"Nmi\"}'",
     "desc": "Send diagnostic Non-Maskable Interrupt (`Nmi`) to hung OS to trigger kernel kdump crash dump",
     "tip": "",
-    "tags": "Power & Boot redfish rest api bmc nmi kdump crash hang panic diagnostic"
+    "tags": "Power & Boot redfish rest api bmc nmi kdump crash hang panic diagnostic",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/Resource.json",
+          "title": "Redfish schema: ResetType"
+        }
+      ]
+    },
+    "noCopy": true,
+    "refWhy": "nmi"
   },
   {
     "sName": "rf-power-boot",
@@ -31348,7 +32330,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Chassis/1/Thermal\" | jq '{Temps: [.Temperatures[] | {Name, ReadingCelsius, UpperThresholdCritical, Health: .Status.Health}], Fans: [.Fans[] | {Name, Reading, ReadingUnits, Health: .Status.Health}]}'",
     "desc": "Read all Chassis temperature sensors (°C) and cooling fan speeds (RPM / %)",
     "tip": "",
-    "tags": "Thermals & Sensors redfish rest api bmc thermal temperature fans rpm cooling inlet"
+    "tags": "Thermals & Sensors redfish rest api bmc thermal temperature fans rpm cooling inlet",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/Thermal.json",
+          "title": "Redfish schema: Thermal (deprecated)"
+        },
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/Chassis.v1_29_0.json",
+          "title": "Redfish schema: Chassis"
+        }
+      ],
+      "note": "Thermal is deprecated (ThermalSubsystem/Sensors); it still works on many BMCs."
+    }
   },
   {
     "sName": "rf-thermals-power",
@@ -31359,7 +32355,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Chassis/1/Power\" | jq '{PowerConsumedWatts: .PowerControl[0].PowerConsumedWatts, PSUs: [.PowerSupplies[] | {Name, Model, SerialNumber, PowerInputWatts, LineInputVoltage, Status}]}'",
     "desc": "Check live server power consumption (Watts), power cap, and redundant Power Supply (PSU) health",
     "tip": "Catches dead A/B PDU feeds",
-    "tags": "Thermals & Sensors redfish rest api bmc power psu watts voltage redundant chassis"
+    "tags": "Thermals & Sensors redfish rest api bmc power psu watts voltage redundant chassis",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/Power.json",
+          "title": "Redfish schema: Power (deprecated)"
+        },
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/Chassis.v1_29_0.json",
+          "title": "Redfish schema: Chassis"
+        }
+      ],
+      "note": "Power is deprecated (PowerSubsystem/Sensors); it still works on many BMCs."
+    }
   },
   {
     "sName": "rf-thermals-power",
@@ -31370,7 +32380,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc -X PATCH \"https://[$BMC]/redfish/v1/Chassis/1\" -H \"Content-Type: application/json\" -d '{\"LocationIndicatorActive\": true}'",
     "desc": "Turn on or blink the physical Chassis UID Locator LED to help datacenter techs find the server",
     "tip": "",
-    "tags": "Thermals & Sensors redfish rest api bmc led uid identify locate blink chassis"
+    "tags": "Thermals & Sensors redfish rest api bmc led uid identify locate blink chassis",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/Chassis.v1_29_0.json",
+          "title": "Redfish schema: Chassis"
+        }
+      ]
+    }
   },
   {
     "sName": "rf-thermals-power",

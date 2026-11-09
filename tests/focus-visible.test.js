@@ -50,7 +50,7 @@ async function sweep(p, keys) {
       await p.waitForTimeout(1200); // the invite appears after 900 ms
       const tab = await sweep(p, [...Array(160).fill('Tab'), ...Array(160).fill('Shift+Tab')]);
       check(!tab.length, `${w}x${h} ${f}: Tab / Shift+Tab never fully hidden${tab.length ? ` (${tab.length}: ${tab[0]})` : ''}`);
-      await p.evaluate(() => { document.activeElement && document.activeElement.blur(); window.scrollTo(0, 0); });
+      await p.evaluate(() => { document.activeElement && document.activeElement.blur(); window.scrollTo({ top: 0, behavior: 'instant' }); });  // the site scrolls smoothly: an animated scroll would move the focused command after the check
       const jk = await sweep(p, [...Array(40).fill('j'), ...Array(40).fill('k')]);
       check(!jk.length, `${w}x${h} ${f}: j / k never fully hidden${jk.length ? ` (${jk.length}: ${jk[0]})` : ''}`);
       await ctx.close();
@@ -88,7 +88,7 @@ async function sweep(p, keys) {
     const p = await ctx.newPage();
     await p.goto(BASE + 'nv-smi.html', { waitUntil: 'load' });
     await p.waitForTimeout(1200);
-    await p.evaluate(() => window.scrollTo(0, 300));
+    await p.evaluate(() => window.scrollTo({ top: 300, behavior: 'instant' }));
     await p.waitForTimeout(200);
     const box = p.locator('.cmd-code-box').nth(3);
     const b = await box.boundingBox();

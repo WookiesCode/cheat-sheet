@@ -2,7 +2,9 @@
 // Generates global-search-index.js across every interactive cheat sheet JS data file.
 const fs = require('fs');
 const path = require('path');
-const { isReference, isHostReboot } = require('./build-reference-rules.js');
+const { isReference, referenceReason } = require('./build-reference-rules.js');
+// 'reboot' / 'nmi' entries say why they are read-only on the page.
+const refWhyOf = (text, file) => { const r = referenceReason(text, file); return r && r !== 'reference' ? { refWhy: r } : {}; };
 
 // Tooling never holds sheet data. app.js does: it backs linux.html (index.html is the home page).
 const isTooling = f => /^(build-|generate-|create-)/.test(f) || f === 'common.js' || f === 'global-search-index.js' || f === 'man-pages-data.js' || f === 'flag-index.js';
@@ -87,7 +89,7 @@ for (const jsFile of jsFiles) {
         ...(c.src && typeof c.src === 'object' ? { src: c.src } : {}),
         // Reference entries keep their text for search but have nothing to copy.
         ...((c.diagram || c.hideCode || isReference(c.cmd || '', jsFile)) ? { noCopy: true } : {}),
-        ...(isHostReboot(c.cmd || '') ? { refWhy: 'reboot' } : {})
+        ...refWhyOf(c.cmd || '', jsFile)
       });
       if (Array.isArray(c.subcommands)) {
         for (const sub of c.subcommands) {
@@ -103,7 +105,7 @@ for (const jsFile of jsFiles) {
               tip: '',
               tags: Array.isArray(c.tags) ? c.tags.join(' ') : '',
               ...(isReference(String(sub[0]), jsFile) ? { noCopy: true } : {}),
-              ...(isHostReboot(String(sub[0])) ? { refWhy: 'reboot' } : {})
+              ...refWhyOf(String(sub[0]), jsFile)
             });
           }
         }

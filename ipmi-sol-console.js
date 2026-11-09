@@ -36,7 +36,16 @@ const IPMI_IPMI_SOL_CONSOLE_DATA = [
           "escape",
           "ttys0",
           "ttys1"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool man page"
+            }
+          ]
+        }
       }
     ]
   },
@@ -73,7 +82,17 @@ const IPMI_IPMI_SOL_CONSOLE_DATA = [
           "bitrate",
           "hung",
           "sol"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool man page"
+            }
+          ],
+          "note": "The trailing channel argument of sol set is not confirmed in the man page."
+        }
       }
     ]
   },

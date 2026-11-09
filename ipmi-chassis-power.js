@@ -15,7 +15,7 @@ const IPMI_IPMI_CHASSIS_POWER_DATA = [
         "flags": [
           [
             "power cycle",
-            "Cold DC power off, wait ~1–3s, then power on (must power already be ON)"
+            "Power off, then on again, with an off interval of at least 1 second"
           ],
           [
             "power reset",
@@ -44,7 +44,20 @@ const IPMI_IPMI_CHASSIS_POWER_DATA = [
           "on",
           "off",
           "status"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool man page"
+            },
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_chassis.c",
+              "title": "ipmitool source (ipmi_chassis.c)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -62,7 +75,7 @@ const IPMI_IPMI_CHASSIS_POWER_DATA = [
         "flags": [
           [
             "Last Power Event",
-            "Shows why server turned off: 'ac-failed', 'power-overload', 'power-interlock', 'power-fault'"
+            "Why it last went off: 'ac-failed', 'overload', 'interlock', 'fault' or 'command'"
           ],
           [
             "chassis policy",
@@ -82,7 +95,21 @@ const IPMI_IPMI_CHASSIS_POWER_DATA = [
           "ac-failed",
           "overload",
           "fault"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool man page"
+            },
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_chassis.c",
+              "title": "ipmitool source (ipmi_chassis.c)"
+            }
+          ],
+          "note": "Corrected 2026-11-09: Last Power Event names as ipmitool prints them."
+        }
       }
     ]
   },
@@ -95,7 +122,7 @@ const IPMI_IPMI_CHASSIS_POWER_DATA = [
       {
         "id": "ipmi-chassis-identify-nmi",
         "desc": "Blink the physical blue Chassis UID Locator LED or pulse diagnostic NMI for kernel kdump",
-        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis identify force   |   ... chassis identify 0   |   ... chassis power diag",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis identify force   |   ... chassis identify 0",
         "details": "",
         "flags": [
           [
@@ -104,7 +131,7 @@ const IPMI_IPMI_CHASSIS_POWER_DATA = [
           ],
           [
             "chassis power diag",
-            "Assert hardware Non-Maskable Interrupt (NMI) to trigger Linux kdump on hung node"
+            "Pulse a diagnostic interrupt (NMI): a hung Linux host panics and writes a kdump if one is set up"
           ]
         ],
         "tip": "",
@@ -121,7 +148,40 @@ const IPMI_IPMI_CHASSIS_POWER_DATA = [
           "diag",
           "nmi",
           "kdump"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool man page"
+            }
+          ]
+        }
+      },
+      {
+        "id": "ipmi-chassis-identify-nmi-sub-1",
+        "desc": "Pulse an NMI to a hung host so it panics and writes a kdump (reference only: it crashes the kernel)",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis power diag",
+        "tags": [
+          "Chassis Power & UID",
+          "recipe",
+          "automation",
+          "cli"
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool man page"
+            },
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_chassis.c",
+              "title": "ipmitool source (ipmi_chassis.c)"
+            }
+          ]
+        }
       }
     ]
   },

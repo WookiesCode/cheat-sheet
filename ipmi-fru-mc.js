@@ -31,7 +31,16 @@ const IPMI_IPMI_FRU_MC_DATA = [
           "motherboard",
           "chassis",
           "inventory"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool man page"
+            }
+          ]
+        }
       }
     ]
   },
@@ -69,7 +78,16 @@ const IPMI_IPMI_FRU_MC_DATA = [
           "cold",
           "firmware",
           "version"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool man page"
+            }
+          ]
+        }
       }
     ]
   },
@@ -107,7 +125,21 @@ const IPMI_IPMI_FRU_MC_DATA = [
           "kernel",
           "ipmi_devintf",
           "ipmi_si"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool man page"
+            },
+            {
+              "url": "https://docs.kernel.org/driver-api/ipmi.html",
+              "title": "Linux kernel IPMI driver"
+            }
+          ],
+          "note": "The kernel doc does not name /dev/ipmi0 itself."
+        }
       }
     ]
   },

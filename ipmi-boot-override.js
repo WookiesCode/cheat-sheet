@@ -35,7 +35,21 @@ const IPMI_IPMI_BOOT_OVERRIDE_DATA = [
           "uefi",
           "network",
           "reinstall"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool man page"
+            },
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_chassis.c",
+              "title": "ipmitool source (ipmi_chassis.c)"
+            }
+          ],
+          "note": "options=efiboot,persistent are in ipmitool's source, not its man page."
+        }
       }
     ]
   },
@@ -81,7 +95,16 @@ const IPMI_IPMI_BOOT_OVERRIDE_DATA = [
           "none",
           "bootdev",
           "setup"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool man page"
+            }
+          ]
+        }
       }
     ]
   },
@@ -113,7 +136,12 @@ const IPMI_IPMI_BOOT_OVERRIDE_DATA = [
           "timeout",
           "bootflag",
           "force_pxe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [],
+          "note": "ipmitool's source rejects options=no-timeout as written (it only matches a bare \"no-\"), and the man page lists PEF, timeout, watchdog, reset, power. Test on a lab node before relying on it."
+        }
       }
     ]
   },

@@ -31,7 +31,17 @@ const RF_RF_FIRMWARE_DATA = [
           "bmc",
           "cpld",
           "inventory"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/UpdateService.v1_17_1.json",
+              "title": "Redfish schema: UpdateService"
+            }
+          ],
+          "note": "Updateable lives on SoftwareInventory, not checked here."
+        }
       }
     ]
   },
@@ -69,7 +79,21 @@ const RF_RF_FIRMWARE_DATA = [
           "multipart",
           "fwpkg",
           "updateservice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.25.0.pdf",
+              "title": "Redfish Specification DSP0266 1.25"
+            },
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/UpdateService.v1_17_1.json",
+              "title": "Redfish schema: UpdateService"
+            }
+          ],
+          "note": "/UpdateService/upload is an example: POST to the MultipartHttpPushUri your BMC reports."
+        }
       }
     ]
   },
@@ -87,7 +111,7 @@ const RF_RF_FIRMWARE_DATA = [
         "flags": [
           [
             "TaskState",
-            "'Running', 'Pending', 'Completed', 'Exception', or 'Killed'"
+            "'Running', 'Pending', 'Completed', 'Exception', 'Cancelled'… ('Killed' is deprecated in favor of 'Cancelled')"
           ],
           [
             "PercentComplete",
@@ -107,7 +131,16 @@ const RF_RF_FIRMWARE_DATA = [
           "async",
           "poll",
           "taskservice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/Task.v1_7_4.json",
+              "title": "Redfish schema: Task"
+            }
+          ]
+        }
       }
     ]
   },
