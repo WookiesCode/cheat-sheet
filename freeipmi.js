@@ -48,7 +48,29 @@ const BMC_FREEIPMI_DATA = [
           "sdr",
           "bmc-info",
           "fru"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-sensors.8.en.html",
+              "title": "FreeIPMI ipmi-sensors(8)"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/bmc-info.8.en.html",
+              "title": "FreeIPMI bmc-info(8)"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-fru.8.en.html",
+              "title": "FreeIPMI ipmi-fru(8)"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-common/freeipmi.7.en.html",
+              "title": "FreeIPMI freeipmi(7)"
+            }
+          ],
+          "note": "Sensor type names: list them with ipmi-sensors -L."
+        }
       },
       {
         "id": "freeipmi-sensors-sub-1",
@@ -62,7 +84,29 @@ const BMC_FREEIPMI_DATA = [
           "freeipmi",
           "sensors",
           "sdr"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-sensors.8.en.html",
+              "title": "FreeIPMI ipmi-sensors(8)"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/bmc-info.8.en.html",
+              "title": "FreeIPMI bmc-info(8)"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-fru.8.en.html",
+              "title": "FreeIPMI ipmi-fru(8)"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-common/freeipmi.7.en.html",
+              "title": "FreeIPMI freeipmi(7)"
+            }
+          ],
+          "note": "Sensor type names: list them with ipmi-sensors -L."
+        }
       },
       {
         "id": "freeipmi-sensors-sub-2",
@@ -76,7 +120,29 @@ const BMC_FREEIPMI_DATA = [
           "freeipmi",
           "sensors",
           "sdr"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-sensors.8.en.html",
+              "title": "FreeIPMI ipmi-sensors(8)"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/bmc-info.8.en.html",
+              "title": "FreeIPMI bmc-info(8)"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-fru.8.en.html",
+              "title": "FreeIPMI ipmi-fru(8)"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-common/freeipmi.7.en.html",
+              "title": "FreeIPMI freeipmi(7)"
+            }
+          ],
+          "note": "Sensor type names: list them with ipmi-sensors -L."
+        }
       },
       {
         "id": "freeipmi-sensors-sub-3",
@@ -90,7 +156,29 @@ const BMC_FREEIPMI_DATA = [
           "freeipmi",
           "sensors",
           "sdr"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-sensors.8.en.html",
+              "title": "FreeIPMI ipmi-sensors(8)"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/bmc-info.8.en.html",
+              "title": "FreeIPMI bmc-info(8)"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-fru.8.en.html",
+              "title": "FreeIPMI ipmi-fru(8)"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-common/freeipmi.7.en.html",
+              "title": "FreeIPMI freeipmi(7)"
+            }
+          ],
+          "note": "Sensor type names: list them with ipmi-sensors -L."
+        }
       }
     ]
   },
@@ -136,7 +224,16 @@ const BMC_FREEIPMI_DATA = [
           "events",
           "logs",
           "oem"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-sel.8.en.html",
+              "title": "FreeIPMI ipmi-sel(8)"
+            }
+          ]
+        }
       },
       {
         "id": "freeipmi-sel-sub-1",
@@ -150,7 +247,16 @@ const BMC_FREEIPMI_DATA = [
           "sel",
           "events",
           "logs"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-sel.8.en.html",
+              "title": "FreeIPMI ipmi-sel(8)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -201,7 +307,21 @@ const BMC_FREEIPMI_DATA = [
           "chassis",
           "hostrange",
           "rack"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmipower.8.en.html",
+              "title": "FreeIPMI ipmipower(8)"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-chassis.8.en.html",
+              "title": "FreeIPMI ipmi-chassis(8)"
+            }
+          ],
+          "note": "A host range with text after the brackets ([01-16]-bmc) is not shown in the man page; the fan-out default 64 is stated on the sibling tools' pages."
+        }
       },
       {
         "id": "freeipmi-power-sub-1",
@@ -215,7 +335,17 @@ const BMC_FREEIPMI_DATA = [
           "power",
           "ipmipower",
           "chassis"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-chassis.8.en.html",
+              "title": "FreeIPMI ipmi-chassis(8)"
+            }
+          ],
+          "note": "The man page does not list what the status shows (power, last event, intrusion)."
+        }
       },
       {
         "id": "freeipmi-power-sub-2",
@@ -229,7 +359,21 @@ const BMC_FREEIPMI_DATA = [
           "power",
           "ipmipower",
           "chassis"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmipower.8.en.html",
+              "title": "FreeIPMI ipmipower(8)"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-chassis.8.en.html",
+              "title": "FreeIPMI ipmi-chassis(8)"
+            }
+          ],
+          "note": "A host range with text after the brackets ([01-16]-bmc) is not shown in the man page; the fan-out default 64 is stated on the sibling tools' pages."
+        }
       }
     ]
   },
@@ -283,7 +427,16 @@ const BMC_FREEIPMI_DATA = [
           "console",
           "serial",
           "ipmiconsole"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmiconsole.8.en.html",
+              "title": "FreeIPMI ipmiconsole(8)"
+            }
+          ]
+        }
       },
       {
         "id": "freeipmi-sol-sub-1",
@@ -297,7 +450,16 @@ const BMC_FREEIPMI_DATA = [
           "sol",
           "console",
           "serial"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmiconsole.8.en.html",
+              "title": "FreeIPMI ipmiconsole(8)"
+            }
+          ]
+        }
       },
       {
         "id": "freeipmi-sol-sub-2",
@@ -311,7 +473,16 @@ const BMC_FREEIPMI_DATA = [
           "sol",
           "console",
           "serial"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmiconsole.8.en.html",
+              "title": "FreeIPMI ipmiconsole(8)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -353,7 +524,16 @@ const BMC_FREEIPMI_DATA = [
           "power",
           "watts",
           "cap"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-dcmi.8.en.html",
+              "title": "FreeIPMI ipmi-dcmi(8)"
+            }
+          ]
+        }
       },
       {
         "id": "freeipmi-dcmi-sub-1",
@@ -367,7 +547,16 @@ const BMC_FREEIPMI_DATA = [
           "dcmi",
           "power",
           "watts"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-dcmi.8.en.html",
+              "title": "FreeIPMI ipmi-dcmi(8)"
+            }
+          ]
+        }
       }
     ]
   },

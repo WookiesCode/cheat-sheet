@@ -3037,7 +3037,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" getsysinfo",
     "desc": "System and iDRAC summary, remote or in-band",
     "tip": "-p shows up in ps; on a shared jumpbox, run racadm in-band or over SSH to the iDRAC",
-    "tags": "bmc remote-management racadm dell idrac sysinfo version sensors service-tag"
+    "tags": "bmc remote-management racadm dell idrac sysinfo version sensors service-tag",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/remote-racadm?guid=guid-7b78457f-c280-4d99-a17e-73d0929409bc&lang=en-us",
+          "title": "Dell RACADM 7.xx: remote RACADM"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsysinfo?guid=guid-1e0a055a-f2a9-4daf-a12c-44bc7dbd1a30&lang=en-us",
+          "title": "Dell RACADM 7.xx: getsysinfo"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getversion?guid=guid-70acf03a-0937-4ec8-be57-277e7ce6ca7c&lang=en-us",
+          "title": "Dell RACADM 7.xx: getversion"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsensorinfo?guid=guid-a0d65099-56ce-460b-baef-18ff746ffd02&lang=en-us",
+          "title": "Dell RACADM 7.xx: getsensorinfo"
+        }
+      ],
+      "note": "The guide documents no password prompt or environment variable for remote RACADM."
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3048,7 +3070,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" getsysinfo -c",
     "desc": "Common settings only",
     "tip": "",
-    "tags": "bmc remote-management racadm recipe dell idrac sysinfo"
+    "tags": "bmc remote-management racadm recipe dell idrac sysinfo",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/remote-racadm?guid=guid-7b78457f-c280-4d99-a17e-73d0929409bc&lang=en-us",
+          "title": "Dell RACADM 7.xx: remote RACADM"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsysinfo?guid=guid-1e0a055a-f2a9-4daf-a12c-44bc7dbd1a30&lang=en-us",
+          "title": "Dell RACADM 7.xx: getsysinfo"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getversion?guid=guid-70acf03a-0937-4ec8-be57-277e7ce6ca7c&lang=en-us",
+          "title": "Dell RACADM 7.xx: getversion"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsensorinfo?guid=guid-a0d65099-56ce-460b-baef-18ff746ffd02&lang=en-us",
+          "title": "Dell RACADM 7.xx: getsensorinfo"
+        }
+      ],
+      "note": "The guide documents no password prompt or environment variable for remote RACADM."
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3059,7 +3103,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" getversion",
     "desc": "BIOS, iDRAC and Lifecycle Controller versions",
     "tip": "",
-    "tags": "bmc remote-management racadm recipe dell idrac sysinfo"
+    "tags": "bmc remote-management racadm recipe dell idrac sysinfo",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/remote-racadm?guid=guid-7b78457f-c280-4d99-a17e-73d0929409bc&lang=en-us",
+          "title": "Dell RACADM 7.xx: remote RACADM"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsysinfo?guid=guid-1e0a055a-f2a9-4daf-a12c-44bc7dbd1a30&lang=en-us",
+          "title": "Dell RACADM 7.xx: getsysinfo"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getversion?guid=guid-70acf03a-0937-4ec8-be57-277e7ce6ca7c&lang=en-us",
+          "title": "Dell RACADM 7.xx: getversion"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsensorinfo?guid=guid-a0d65099-56ce-460b-baef-18ff746ffd02&lang=en-us",
+          "title": "Dell RACADM 7.xx: getsensorinfo"
+        }
+      ],
+      "note": "The guide documents no password prompt or environment variable for remote RACADM."
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3070,7 +3136,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" getversion -f bios",
     "desc": "One component: bios, idrac, lc or idsdm",
     "tip": "",
-    "tags": "bmc remote-management racadm recipe dell idrac sysinfo"
+    "tags": "bmc remote-management racadm recipe dell idrac sysinfo",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/remote-racadm?guid=guid-7b78457f-c280-4d99-a17e-73d0929409bc&lang=en-us",
+          "title": "Dell RACADM 7.xx: remote RACADM"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsysinfo?guid=guid-1e0a055a-f2a9-4daf-a12c-44bc7dbd1a30&lang=en-us",
+          "title": "Dell RACADM 7.xx: getsysinfo"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getversion?guid=guid-70acf03a-0937-4ec8-be57-277e7ce6ca7c&lang=en-us",
+          "title": "Dell RACADM 7.xx: getversion"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsensorinfo?guid=guid-a0d65099-56ce-460b-baef-18ff746ffd02&lang=en-us",
+          "title": "Dell RACADM 7.xx: getsensorinfo"
+        }
+      ],
+      "note": "The guide documents no password prompt or environment variable for remote RACADM."
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3081,7 +3169,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" getsensorinfo -c",
     "desc": "Every sensor, compact, grouped by type (power, temp, fan, voltage)",
     "tip": "",
-    "tags": "bmc remote-management racadm recipe dell idrac sysinfo"
+    "tags": "bmc remote-management racadm recipe dell idrac sysinfo",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/remote-racadm?guid=guid-7b78457f-c280-4d99-a17e-73d0929409bc&lang=en-us",
+          "title": "Dell RACADM 7.xx: remote RACADM"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsysinfo?guid=guid-1e0a055a-f2a9-4daf-a12c-44bc7dbd1a30&lang=en-us",
+          "title": "Dell RACADM 7.xx: getsysinfo"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getversion?guid=guid-70acf03a-0937-4ec8-be57-277e7ce6ca7c&lang=en-us",
+          "title": "Dell RACADM 7.xx: getversion"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsensorinfo?guid=guid-a0d65099-56ce-460b-baef-18ff746ffd02&lang=en-us",
+          "title": "Dell RACADM 7.xx: getsensorinfo"
+        }
+      ],
+      "note": "The guide documents no password prompt or environment variable for remote RACADM."
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3092,7 +3202,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" lclog view -c storage,system -s warning,critical -n 50",
     "desc": "Lifecycle log, filtered to storage and system warnings",
     "tip": "The Lifecycle log has more than the SEL: config changes, updates, and storage events",
-    "tags": "bmc remote-management racadm lclog sel logs events storage audit"
+    "tags": "bmc remote-management racadm lclog sel logs events storage audit",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/lclog?guid=guid-8ac7dcaa-5d30-4eb6-93e9-b58b388b4d49&lang=en-us",
+          "title": "Dell RACADM 7.xx: lclog"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsel?guid=guid-d7c7d4e2-eb61-4c84-a26e-5f2c8e05ba98&lang=en-us",
+          "title": "Dell RACADM 7.xx: getsel"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/clrsel?guid=guid-101112ea-7ad1-4a51-8e26-0933aff51503&lang=en-us",
+          "title": "Dell RACADM 7.xx: clrsel"
+        }
+      ],
+      "note": "The \"100 records without -n\" default is not in the 7.xx guide text read."
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3103,7 +3231,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" getsel -i",
     "desc": "How many SEL entries there are",
     "tip": "",
-    "tags": "bmc remote-management racadm recipe lclog sel logs"
+    "tags": "bmc remote-management racadm recipe lclog sel logs",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/lclog?guid=guid-8ac7dcaa-5d30-4eb6-93e9-b58b388b4d49&lang=en-us",
+          "title": "Dell RACADM 7.xx: lclog"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsel?guid=guid-d7c7d4e2-eb61-4c84-a26e-5f2c8e05ba98&lang=en-us",
+          "title": "Dell RACADM 7.xx: getsel"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/clrsel?guid=guid-101112ea-7ad1-4a51-8e26-0933aff51503&lang=en-us",
+          "title": "Dell RACADM 7.xx: clrsel"
+        }
+      ],
+      "note": "The \"100 records without -n\" default is not in the 7.xx guide text read."
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3114,7 +3260,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" getsel -s 1 -c 25 -o",
     "desc": "First 25 SEL records, one per line",
     "tip": "",
-    "tags": "bmc remote-management racadm recipe lclog sel logs"
+    "tags": "bmc remote-management racadm recipe lclog sel logs",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/lclog?guid=guid-8ac7dcaa-5d30-4eb6-93e9-b58b388b4d49&lang=en-us",
+          "title": "Dell RACADM 7.xx: lclog"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsel?guid=guid-d7c7d4e2-eb61-4c84-a26e-5f2c8e05ba98&lang=en-us",
+          "title": "Dell RACADM 7.xx: getsel"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/clrsel?guid=guid-101112ea-7ad1-4a51-8e26-0933aff51503&lang=en-us",
+          "title": "Dell RACADM 7.xx: clrsel"
+        }
+      ],
+      "note": "The \"100 records without -n\" default is not in the 7.xx guide text read."
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3125,7 +3289,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" clrsel",
     "desc": "Clear the SEL (changes state; save it to the case first)",
     "tip": "",
-    "tags": "bmc remote-management racadm recipe lclog sel logs"
+    "tags": "bmc remote-management racadm recipe lclog sel logs",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/lclog?guid=guid-8ac7dcaa-5d30-4eb6-93e9-b58b388b4d49&lang=en-us",
+          "title": "Dell RACADM 7.xx: lclog"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsel?guid=guid-d7c7d4e2-eb61-4c84-a26e-5f2c8e05ba98&lang=en-us",
+          "title": "Dell RACADM 7.xx: getsel"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/clrsel?guid=guid-101112ea-7ad1-4a51-8e26-0933aff51503&lang=en-us",
+          "title": "Dell RACADM 7.xx: clrsel"
+        }
+      ],
+      "note": "The \"100 records without -n\" default is not in the 7.xx guide text read."
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3136,7 +3318,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" hwinventory",
     "desc": "Hardware inventory: every component with FQDDs",
     "tip": "iDRAC allows at most 12 parallel hardware-inventory sessions",
-    "tags": "bmc remote-management racadm inventory fqdd nic transceiver serial rma"
+    "tags": "bmc remote-management racadm inventory fqdd nic transceiver serial rma",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/hwinventory?guid=guid-ce4113d2-9f80-4682-8b89-5f6f97d6ff55&lang=en-us",
+          "title": "Dell RACADM 7.xx: hwinventory"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3147,7 +3338,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" hwinventory networktransceiver",
     "desc": "Transceiver part and serial numbers",
     "tip": "",
-    "tags": "bmc remote-management racadm recipe inventory fqdd nic"
+    "tags": "bmc remote-management racadm recipe inventory fqdd nic",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/hwinventory?guid=guid-ce4113d2-9f80-4682-8b89-5f6f97d6ff55&lang=en-us",
+          "title": "Dell RACADM 7.xx: hwinventory"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3158,7 +3358,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" hwinventory Infiniband",
     "desc": "InfiniBand adapters only",
     "tip": "",
-    "tags": "bmc remote-management racadm recipe inventory fqdd nic"
+    "tags": "bmc remote-management racadm recipe inventory fqdd nic",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/hwinventory?guid=guid-ce4113d2-9f80-4682-8b89-5f6f97d6ff55&lang=en-us",
+          "title": "Dell RACADM 7.xx: hwinventory"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3169,7 +3378,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" storage get controllers -o",
     "desc": "RAID controllers, physical and virtual disks",
     "tip": "Run -o once to learn the property names, then use -p for a short table",
-    "tags": "bmc remote-management racadm storage raid pdisk vdisk perc disk"
+    "tags": "bmc remote-management racadm storage raid pdisk vdisk perc disk",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/storage?guid=guid-ddeb9619-85cc-4f1e-b4f9-c69babb518e0&lang=en-us",
+          "title": "Dell RACADM 7.xx: storage"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3180,7 +3398,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" storage get pdisks -o",
     "desc": "Every physical disk with state and slot",
     "tip": "",
-    "tags": "bmc remote-management racadm recipe storage raid pdisk"
+    "tags": "bmc remote-management racadm recipe storage raid pdisk",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/storage?guid=guid-ddeb9619-85cc-4f1e-b4f9-c69babb518e0&lang=en-us",
+          "title": "Dell RACADM 7.xx: storage"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3191,7 +3418,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" storage get vdisks --refkey RAID.Integrated.1-1 -o",
     "desc": "Virtual disks on the integrated controller",
     "tip": "",
-    "tags": "bmc remote-management racadm recipe storage raid pdisk"
+    "tags": "bmc remote-management racadm recipe storage raid pdisk",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/storage?guid=guid-ddeb9619-85cc-4f1e-b4f9-c69babb518e0&lang=en-us",
+          "title": "Dell RACADM 7.xx: storage"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3202,7 +3438,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" storage get status",
     "desc": "Quick storage health",
     "tip": "",
-    "tags": "bmc remote-management racadm recipe storage raid pdisk"
+    "tags": "bmc remote-management racadm recipe storage raid pdisk",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/storage?guid=guid-ddeb9619-85cc-4f1e-b4f9-c69babb518e0&lang=en-us",
+          "title": "Dell RACADM 7.xx: storage"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3213,7 +3458,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" serveraction powerstatus",
     "desc": "Power state, and power actions after a drain",
     "tip": "Prefer graceshutdown; powercycle skips the OS",
-    "tags": "bmc remote-management racadm power serveraction powercycle shutdown racreset"
+    "tags": "bmc remote-management racadm power serveraction powercycle shutdown racreset",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/serveraction?guid=guid-16197034-e2a3-4174-a96d-7dae9afd66aa&lang=en-us",
+          "title": "Dell RACADM 7.xx: serveraction"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/racreset?guid=guid-a5b943ea-b4b5-415a-bd3c-09a02dfed465&lang=en-us",
+          "title": "Dell RACADM 7.xx: racreset"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3224,7 +3482,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" serveraction graceshutdown",
     "desc": "Clean OS shutdown (changes state)",
     "tip": "",
-    "tags": "bmc remote-management racadm recipe power serveraction powercycle"
+    "tags": "bmc remote-management racadm recipe power serveraction powercycle",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/serveraction?guid=guid-16197034-e2a3-4174-a96d-7dae9afd66aa&lang=en-us",
+          "title": "Dell RACADM 7.xx: serveraction"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/racreset?guid=guid-a5b943ea-b4b5-415a-bd3c-09a02dfed465&lang=en-us",
+          "title": "Dell RACADM 7.xx: racreset"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3235,7 +3506,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" serveraction powercycle",
     "desc": "Power cycle (changes state)",
     "tip": "",
-    "tags": "bmc remote-management racadm recipe power serveraction powercycle"
+    "tags": "bmc remote-management racadm recipe power serveraction powercycle",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/serveraction?guid=guid-16197034-e2a3-4174-a96d-7dae9afd66aa&lang=en-us",
+          "title": "Dell RACADM 7.xx: serveraction"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/racreset?guid=guid-a5b943ea-b4b5-415a-bd3c-09a02dfed465&lang=en-us",
+          "title": "Dell RACADM 7.xx: racreset"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3246,7 +3530,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" racreset",
     "desc": "Restart the iDRAC itself; up to 2 minutes unreachable (changes state)",
     "tip": "",
-    "tags": "bmc remote-management racadm recipe power serveraction powercycle"
+    "tags": "bmc remote-management racadm recipe power serveraction powercycle",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/serveraction?guid=guid-16197034-e2a3-4174-a96d-7dae9afd66aa&lang=en-us",
+          "title": "Dell RACADM 7.xx: serveraction"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/racreset?guid=guid-a5b943ea-b4b5-415a-bd3c-09a02dfed465&lang=en-us",
+          "title": "Dell RACADM 7.xx: racreset"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3257,7 +3554,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" get system.location.rack.name",
     "desc": "Read and change attributes; BIOS changes need a job",
     "tip": "A set that seems to do nothing is usually a staged change waiting for its job",
-    "tags": "bmc remote-management racadm get set bios jobqueue job attributes"
+    "tags": "bmc remote-management racadm get set bios jobqueue job attributes",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/get?guid=guid-7c7f809b-3618-4fc8-9d39-f52694220f6f&lang=en-us",
+          "title": "Dell RACADM 7.xx: get"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/set?guid=guid-799c4585-0d9f-4e27-8c79-38525e9d5643&lang=en-us",
+          "title": "Dell RACADM 7.xx: set"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/jobqueue?guid=guid-a57b0f48-1ebe-4cbe-9681-458e3348301d&lang=en-us",
+          "title": "Dell RACADM 7.xx: jobqueue"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3268,7 +3582,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" jobqueue view",
     "desc": "Pending and finished jobs",
     "tip": "",
-    "tags": "bmc remote-management racadm recipe get set bios"
+    "tags": "bmc remote-management racadm recipe get set bios",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/get?guid=guid-7c7f809b-3618-4fc8-9d39-f52694220f6f&lang=en-us",
+          "title": "Dell RACADM 7.xx: get"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/set?guid=guid-799c4585-0d9f-4e27-8c79-38525e9d5643&lang=en-us",
+          "title": "Dell RACADM 7.xx: set"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/jobqueue?guid=guid-a57b0f48-1ebe-4cbe-9681-458e3348301d&lang=en-us",
+          "title": "Dell RACADM 7.xx: jobqueue"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3279,7 +3610,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" jobqueue create BIOS.Setup.1-1 -r graceful -s TIME_NOW",
     "desc": "Apply staged BIOS changes with a graceful reboot (changes state)",
     "tip": "",
-    "tags": "bmc remote-management racadm recipe get set bios"
+    "tags": "bmc remote-management racadm recipe get set bios",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/get?guid=guid-7c7f809b-3618-4fc8-9d39-f52694220f6f&lang=en-us",
+          "title": "Dell RACADM 7.xx: get"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/set?guid=guid-799c4585-0d9f-4e27-8c79-38525e9d5643&lang=en-us",
+          "title": "Dell RACADM 7.xx: set"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/jobqueue?guid=guid-a57b0f48-1ebe-4cbe-9681-458e3348301d&lang=en-us",
+          "title": "Dell RACADM 7.xx: jobqueue"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3290,7 +3638,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" jobqueue delete -i JID_CLEARALL",
     "desc": "Clear a stuck job queue (changes state)",
     "tip": "",
-    "tags": "bmc remote-management racadm recipe get set bios"
+    "tags": "bmc remote-management racadm recipe get set bios",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/get?guid=guid-7c7f809b-3618-4fc8-9d39-f52694220f6f&lang=en-us",
+          "title": "Dell RACADM 7.xx: get"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/set?guid=guid-799c4585-0d9f-4e27-8c79-38525e9d5643&lang=en-us",
+          "title": "Dell RACADM 7.xx: set"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/jobqueue?guid=guid-a57b0f48-1ebe-4cbe-9681-458e3348301d&lang=en-us",
+          "title": "Dell RACADM 7.xx: jobqueue"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3301,7 +3666,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" get -f server-config.xml -t xml -l 192.0.2.50:/exports/scp",
     "desc": "Export the whole server configuration (SCP) to a share",
     "tip": "Export before and after a change, then diff the two files",
-    "tags": "bmc remote-management racadm scp export config clone backup"
+    "tags": "bmc remote-management racadm scp export config clone backup",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/get?guid=guid-7c7f809b-3618-4fc8-9d39-f52694220f6f&lang=en-us",
+          "title": "Dell RACADM 7.xx: get"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/set?guid=guid-799c4585-0d9f-4e27-8c79-38525e9d5643&lang=en-us",
+          "title": "Dell RACADM 7.xx: set"
+        }
+      ],
+      "note": "set -f -w accepts 300–3600 seconds (default 1800); -b and -w do not combine with --preview."
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3312,7 +3691,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" set -f server-config.xml -t xml -l 192.0.2.50:/exports/scp --preview",
     "desc": "Dry-run an import",
     "tip": "",
-    "tags": "bmc remote-management racadm recipe scp export config"
+    "tags": "bmc remote-management racadm recipe scp export config",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/get?guid=guid-7c7f809b-3618-4fc8-9d39-f52694220f6f&lang=en-us",
+          "title": "Dell RACADM 7.xx: get"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/set?guid=guid-799c4585-0d9f-4e27-8c79-38525e9d5643&lang=en-us",
+          "title": "Dell RACADM 7.xx: set"
+        }
+      ],
+      "note": "set -f -w accepts 300–3600 seconds (default 1800); -b and -w do not combine with --preview."
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3323,7 +3716,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" techsupreport collect -t SysInfo,TTYLog",
     "desc": "SupportAssist collection (formerly TSR) for Dell support",
     "tip": "Attach the SupportAssist zip to every Dell RMA: it is what they ask for first",
-    "tags": "bmc remote-management racadm tsr supportassist rma logs collect"
+    "tags": "bmc remote-management racadm tsr supportassist rma logs collect",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/techsupreport?guid=guid-168e5beb-9a71-4d37-af2a-04b73ec11a99&lang=en-us",
+          "title": "Dell RACADM 7.xx: techsupreport"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/jobqueue?guid=guid-a57b0f48-1ebe-4cbe-9681-458e3348301d&lang=en-us",
+          "title": "Dell RACADM 7.xx: jobqueue"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3334,7 +3740,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" jobqueue view -i <JID>",
     "desc": "Wait for the collection job to finish",
     "tip": "",
-    "tags": "bmc remote-management racadm recipe tsr supportassist rma"
+    "tags": "bmc remote-management racadm recipe tsr supportassist rma",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/techsupreport?guid=guid-168e5beb-9a71-4d37-af2a-04b73ec11a99&lang=en-us",
+          "title": "Dell RACADM 7.xx: techsupreport"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/jobqueue?guid=guid-a57b0f48-1ebe-4cbe-9681-458e3348301d&lang=en-us",
+          "title": "Dell RACADM 7.xx: jobqueue"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3345,7 +3764,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" techsupreport export -f tsr_report.zip",
     "desc": "Download it for the RMA case",
     "tip": "",
-    "tags": "bmc remote-management racadm recipe tsr supportassist rma"
+    "tags": "bmc remote-management racadm recipe tsr supportassist rma",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/techsupreport?guid=guid-168e5beb-9a71-4d37-af2a-04b73ec11a99&lang=en-us",
+          "title": "Dell RACADM 7.xx: techsupreport"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/jobqueue?guid=guid-a57b0f48-1ebe-4cbe-9681-458e3348301d&lang=en-us",
+          "title": "Dell RACADM 7.xx: jobqueue"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3367,7 +3799,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest login $BMC -u $BMC_USER -p \"$BMC_PASS\"",
     "desc": "Log in to an iLO (the session is reused by later commands)",
     "tip": "Always logout: iLO has a limited number of sessions",
-    "tags": "bmc remote-management ilorest hpe ilo login session logout"
+    "tags": "bmc remote-management ilorest hpe ilo login session logout",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/globalcommands.md",
+          "title": "HPE iLOrest 7.4: global commands"
+        },
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/usage.md",
+          "title": "HPE iLOrest 7.4: usage"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3378,7 +3823,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest logout",
     "desc": "End the session",
     "tip": "",
-    "tags": "bmc remote-management ilorest recipe hpe ilo login"
+    "tags": "bmc remote-management ilorest recipe hpe ilo login",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/globalcommands.md",
+          "title": "HPE iLOrest 7.4: global commands"
+        },
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/usage.md",
+          "title": "HPE iLOrest 7.4: usage"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3389,7 +3847,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest types",
     "desc": "What resource types this iLO exposes",
     "tip": "",
-    "tags": "bmc remote-management ilorest recipe hpe ilo login"
+    "tags": "bmc remote-management ilorest recipe hpe ilo login",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/globalcommands.md",
+          "title": "HPE iLOrest 7.4: global commands"
+        },
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/usage.md",
+          "title": "HPE iLOrest 7.4: usage"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3400,7 +3871,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest serverinfo --system --firmware",
     "desc": "Server summary: system, firmware, memory, CPUs, fans, power, thermals",
     "tip": "serverstate FinishedPost means the OS is booting or up",
-    "tags": "bmc remote-management ilorest serverinfo inventory thermals fans power firmware"
+    "tags": "bmc remote-management ilorest serverinfo inventory thermals fans power firmware",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+          "title": "HPE iLOrest 7.4: iLO commands"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3411,7 +3891,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest serverstate",
     "desc": "POST state: InPost, FinishedPost, PowerOff…",
     "tip": "",
-    "tags": "bmc remote-management ilorest recipe serverinfo inventory thermals"
+    "tags": "bmc remote-management ilorest recipe serverinfo inventory thermals",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+          "title": "HPE iLOrest 7.4: iLO commands"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3422,7 +3911,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest serverinfo --thermals --fans",
     "desc": "Thermal check",
     "tip": "",
-    "tags": "bmc remote-management ilorest recipe serverinfo inventory thermals"
+    "tags": "bmc remote-management ilorest recipe serverinfo inventory thermals",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+          "title": "HPE iLOrest 7.4: iLO commands"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3433,7 +3931,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest serverinfo --all -j -f serverinfo.json",
     "desc": "Full snapshot for the case folder",
     "tip": "",
-    "tags": "bmc remote-management ilorest recipe serverinfo inventory thermals"
+    "tags": "bmc remote-management ilorest recipe serverinfo inventory thermals",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+          "title": "HPE iLOrest 7.4: iLO commands"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3444,7 +3951,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest serverlogs --selectlog=IML",
     "desc": "IML, iLO event log and AHS download",
     "tip": "HPE support asks for the AHS log first; IML is the one to read yourself",
-    "tags": "bmc remote-management ilorest iml iel ahs logs events rma"
+    "tags": "bmc remote-management ilorest iml iel ahs logs events rma",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+          "title": "HPE iLOrest 7.4: iLO commands"
+        }
+      ],
+      "note": "AHS downloads must use the default file name (-f is not supported for AHS)."
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3455,7 +3972,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest serverlogs --selectlog=IEL",
     "desc": "iLO's own event log",
     "tip": "",
-    "tags": "bmc remote-management ilorest recipe iml iel ahs"
+    "tags": "bmc remote-management ilorest recipe iml iel ahs",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+          "title": "HPE iLOrest 7.4: iLO commands"
+        }
+      ],
+      "note": "AHS downloads must use the default file name (-f is not supported for AHS)."
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3466,7 +3993,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest serverlogs --selectlog=AHS --directorypath=./logs",
     "desc": "AHS file for an HPE case",
     "tip": "",
-    "tags": "bmc remote-management ilorest recipe iml iel ahs"
+    "tags": "bmc remote-management ilorest recipe iml iel ahs",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+          "title": "HPE iLOrest 7.4: iLO commands"
+        }
+      ],
+      "note": "AHS downloads must use the default file name (-f is not supported for AHS)."
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3477,7 +4014,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest serverlogs --selectlog=IML -f iml.json",
     "desc": "Save the IML to a file",
     "tip": "",
-    "tags": "bmc remote-management ilorest recipe iml iel ahs"
+    "tags": "bmc remote-management ilorest recipe iml iel ahs",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+          "title": "HPE iLOrest 7.4: iLO commands"
+        }
+      ],
+      "note": "AHS downloads must use the default file name (-f is not supported for AHS)."
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3488,7 +4035,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest storagecontroller",
     "desc": "Storage controllers, drives and volumes (Gen10 and later)",
     "tip": "If storage looks empty, check serverstate: discovery finishes at InPostDiscoveryComplete",
-    "tags": "bmc remote-management ilorest storage raid drives volumes smartarray"
+    "tags": "bmc remote-management ilorest storage raid drives volumes smartarray",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/smartarraycommands.md",
+          "title": "HPE iLOrest 7.4: storage commands"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3499,7 +4055,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest storagecontroller --storageid=DE00F000 --controller=0 --physicaldrives",
     "desc": "Drives on one controller",
     "tip": "",
-    "tags": "bmc remote-management ilorest recipe storage raid drives"
+    "tags": "bmc remote-management ilorest recipe storage raid drives",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/smartarraycommands.md",
+          "title": "HPE iLOrest 7.4: storage commands"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3510,7 +4075,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest storagecontroller --storageid=DE00D000 --controller=0 --volumes",
     "desc": "Volumes on one controller",
     "tip": "",
-    "tags": "bmc remote-management ilorest recipe storage raid drives"
+    "tags": "bmc remote-management ilorest recipe storage raid drives",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/smartarraycommands.md",
+          "title": "HPE iLOrest 7.4: storage commands"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3521,7 +4095,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest get BootOrderPolicy --select Bios.",
     "desc": "Read any Redfish property with select and get",
     "tip": "set only stages: nothing changes until commit",
-    "tags": "bmc remote-management ilorest select get set commit bios redfish"
+    "tags": "bmc remote-management ilorest select get set commit bios redfish",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/globalcommands.md",
+          "title": "HPE iLOrest 7.4: global commands"
+        },
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/usage.md",
+          "title": "HPE iLOrest 7.4: usage"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3532,7 +4119,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest list Name @odata.id --json --select ComputerSystem.",
     "desc": "System resource paths",
     "tip": "",
-    "tags": "bmc remote-management ilorest recipe select get set"
+    "tags": "bmc remote-management ilorest recipe select get set",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/globalcommands.md",
+          "title": "HPE iLOrest 7.4: global commands"
+        },
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/usage.md",
+          "title": "HPE iLOrest 7.4: usage"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3543,7 +4143,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest get --select Bios. --noreadonly",
     "desc": "Every BIOS setting you can change",
     "tip": "",
-    "tags": "bmc remote-management ilorest recipe select get set"
+    "tags": "bmc remote-management ilorest recipe select get set",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/globalcommands.md",
+          "title": "HPE iLOrest 7.4: global commands"
+        },
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/usage.md",
+          "title": "HPE iLOrest 7.4: usage"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3555,6 +4168,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Power control (after a drain)",
     "tip": "Every reboot form changes state: drain and get approval first",
     "tags": "bmc remote-management ilorest power reboot iloreset forceoff nmi",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+          "title": "HPE iLOrest 7.4: iLO commands"
+        }
+      ]
+    },
     "noCopy": true,
     "refWhy": "reboot"
   },
@@ -3568,6 +4190,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Hard off (changes state)",
     "tip": "",
     "tags": "bmc remote-management ilorest recipe power reboot iloreset",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+          "title": "HPE iLOrest 7.4: iLO commands"
+        }
+      ]
+    },
     "noCopy": true,
     "refWhy": "reboot"
   },
@@ -3580,7 +4211,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest iloreset",
     "desc": "Restart iLO (changes state)",
     "tip": "",
-    "tags": "bmc remote-management ilorest recipe power reboot iloreset"
+    "tags": "bmc remote-management ilorest recipe power reboot iloreset",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+          "title": "HPE iLOrest 7.4: iLO commands"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3591,7 +4231,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest fwintegritycheck --results",
     "desc": "Firmware integrity and the iLO repository",
     "tip": "Read versions with serverinfo --firmware before and after an update",
-    "tags": "bmc remote-management ilorest firmware integrity repository update fwpkg"
+    "tags": "bmc remote-management ilorest firmware integrity repository update fwpkg",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+          "title": "HPE iLOrest 7.4: iLO commands"
+        },
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilorepositorycommands.md",
+          "title": "HPE iLOrest 7.4: iLO repository commands"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3602,7 +4255,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest serverinfo --firmware",
     "desc": "Installed firmware versions",
     "tip": "",
-    "tags": "bmc remote-management ilorest recipe firmware integrity repository"
+    "tags": "bmc remote-management ilorest recipe firmware integrity repository",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+          "title": "HPE iLOrest 7.4: iLO commands"
+        },
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilorepositorycommands.md",
+          "title": "HPE iLOrest 7.4: iLO repository commands"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3613,7 +4279,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest listcomp",
     "desc": "What is staged in the repository",
     "tip": "",
-    "tags": "bmc remote-management ilorest recipe firmware integrity repository"
+    "tags": "bmc remote-management ilorest recipe firmware integrity repository",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+          "title": "HPE iLOrest 7.4: iLO commands"
+        },
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilorepositorycommands.md",
+          "title": "HPE iLOrest 7.4: iLO repository commands"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3624,7 +4303,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest ethernet",
     "desc": "iLO network settings and virtual media",
     "tip": "Don't put credentials in the ISO URL; use a share that doesn't need them",
-    "tags": "bmc remote-management ilorest ethernet network virtualmedia iso"
+    "tags": "bmc remote-management ilorest ethernet network virtualmedia iso",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+          "title": "HPE iLOrest 7.4: iLO commands"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3635,7 +4323,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest virtualmedia",
     "desc": "What is mounted now",
     "tip": "",
-    "tags": "bmc remote-management ilorest recipe ethernet network virtualmedia"
+    "tags": "bmc remote-management ilorest recipe ethernet network virtualmedia",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+          "title": "HPE iLOrest 7.4: iLO commands"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3657,7 +4354,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "./saa -h -c GetEventLog",
     "desc": "List the commands, and the options for one command",
     "tip": "Check -h -c on your SAA version before scripting: options change between releases",
-    "tags": "bmc remote-management saa supermicro saa sum help usage"
+    "tags": "bmc remote-management saa supermicro saa sum help usage",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+          "title": "SAA for UEFI User's Guide 1.1.0"
+        },
+        {
+          "url": "https://www.supermicro.com/en/solutions/management-software/superserver-automation-assistant",
+          "title": "Supermicro SAA"
+        }
+      ],
+      "note": "Checked against the UEFI build's guide; the -l list form (Supermicro FAQ 42925) was not re-read."
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3668,7 +4379,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "./saa -h -c UpdateBios",
     "desc": "Options for a BIOS update",
     "tip": "",
-    "tags": "bmc remote-management saa recipe supermicro saa sum"
+    "tags": "bmc remote-management saa recipe supermicro saa sum",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+          "title": "SAA for UEFI User's Guide 1.1.0"
+        },
+        {
+          "url": "https://www.supermicro.com/en/solutions/management-software/superserver-automation-assistant",
+          "title": "Supermicro SAA"
+        }
+      ],
+      "note": "Checked against the UEFI build's guide; the -l list form (Supermicro FAQ 42925) was not re-read."
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3679,7 +4404,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo ./saa -c GetSystemInfo",
     "desc": "System, BIOS and BMC firmware information",
     "tip": "In-band commands need root; help (-h) doesn't",
-    "tags": "bmc remote-management saa sysinfo bios bmc fru dmi inventory"
+    "tags": "bmc remote-management saa sysinfo bios bmc fru dmi inventory",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+          "title": "SAA for UEFI User's Guide 1.1.0"
+        },
+        {
+          "url": "https://www.supermicro.com/en/solutions/management-software/superserver-automation-assistant",
+          "title": "Supermicro SAA"
+        }
+      ],
+      "note": "The UEFI guide says \"SAA, formerly known as SUM\"; the product page says SAA brings SUM and the IPMI utilities together. Root for in-band use is not stated in the pages read."
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3690,7 +4429,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo ./saa -c GetBiosInfo",
     "desc": "BIOS version and build date",
     "tip": "",
-    "tags": "bmc remote-management saa recipe sysinfo bios bmc"
+    "tags": "bmc remote-management saa recipe sysinfo bios bmc",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+          "title": "SAA for UEFI User's Guide 1.1.0"
+        },
+        {
+          "url": "https://www.supermicro.com/en/solutions/management-software/superserver-automation-assistant",
+          "title": "Supermicro SAA"
+        }
+      ],
+      "note": "The UEFI guide says \"SAA, formerly known as SUM\"; the product page says SAA brings SUM and the IPMI utilities together. Root for in-band use is not stated in the pages read."
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3701,7 +4454,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo ./saa -c GetBmcInfo",
     "desc": "BMC firmware version",
     "tip": "",
-    "tags": "bmc remote-management saa recipe sysinfo bios bmc"
+    "tags": "bmc remote-management saa recipe sysinfo bios bmc",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+          "title": "SAA for UEFI User's Guide 1.1.0"
+        },
+        {
+          "url": "https://www.supermicro.com/en/solutions/management-software/superserver-automation-assistant",
+          "title": "Supermicro SAA"
+        }
+      ],
+      "note": "The UEFI guide says \"SAA, formerly known as SUM\"; the product page says SAA brings SUM and the IPMI utilities together. Root for in-band use is not stated in the pages read."
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3712,7 +4479,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo ./saa -c GetFruInfo",
     "desc": "Serial numbers for the RMA",
     "tip": "",
-    "tags": "bmc remote-management saa recipe sysinfo bios bmc"
+    "tags": "bmc remote-management saa recipe sysinfo bios bmc",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+          "title": "SAA for UEFI User's Guide 1.1.0"
+        },
+        {
+          "url": "https://www.supermicro.com/en/solutions/management-software/superserver-automation-assistant",
+          "title": "Supermicro SAA"
+        }
+      ],
+      "note": "The UEFI guide says \"SAA, formerly known as SUM\"; the product page says SAA brings SUM and the IPMI utilities together. Root for in-band use is not stated in the pages read."
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3723,7 +4504,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo ./saa -c GetEventLog --info",
     "desc": "BMC event log and sensor status",
     "tip": "Save the event log before any clear or firmware update",
-    "tags": "bmc remote-management saa eventlog sel sensors psu intrusion"
+    "tags": "bmc remote-management saa eventlog sel sensors psu intrusion",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+          "title": "SAA for UEFI User's Guide 1.1.0"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3734,7 +4524,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo ./saa -c GetEventLog --info --file EventLog.txt --overwrite",
     "desc": "Save the log for the case",
     "tip": "",
-    "tags": "bmc remote-management saa recipe eventlog sel sensors"
+    "tags": "bmc remote-management saa recipe eventlog sel sensors",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+          "title": "SAA for UEFI User's Guide 1.1.0"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3745,7 +4544,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo ./saa -c CheckSensorData --action Show",
     "desc": "Sensors",
     "tip": "",
-    "tags": "bmc remote-management saa recipe eventlog sel sensors"
+    "tags": "bmc remote-management saa recipe eventlog sel sensors",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+          "title": "SAA for UEFI User's Guide 1.1.0"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3756,7 +4564,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo ./saa -c GetPsuInfo",
     "desc": "PSU status",
     "tip": "",
-    "tags": "bmc remote-management saa recipe eventlog sel sensors"
+    "tags": "bmc remote-management saa recipe eventlog sel sensors",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+          "title": "SAA for UEFI User's Guide 1.1.0"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3767,7 +4584,12 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "./saa -l SList.txt -u $BMC_USER -p \"$BMC_PASS\" -c GetBmcCfg --file BmcCfg.xml --overwrite",
     "desc": "Same command across many BMCs (Supermicro FAQ form)",
     "tip": "Export the config from a known-good node and diff it against the suspect one",
-    "tags": "bmc remote-management saa multi fleet bmccfg export"
+    "tags": "bmc remote-management saa multi fleet bmccfg export",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [],
+      "note": "GetBmcCfg and the -l host-list form are not in the SAA UEFI guide; the full OS guide was not found. Check ./saa -h."
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3778,7 +4600,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo ./saa -c GetGpuInfo",
     "desc": "GPU and CPLD firmware information",
     "tip": "Compare GPU baseboard firmware across the nodes of one cluster",
-    "tags": "bmc remote-management saa gpu hgx cpld firmware"
+    "tags": "bmc remote-management saa gpu hgx cpld firmware",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+          "title": "SAA for UEFI User's Guide 1.1.0"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3789,7 +4620,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo ./saa -c GetCpldInfo",
     "desc": "Motherboard CPLD version",
     "tip": "",
-    "tags": "bmc remote-management saa recipe gpu hgx cpld"
+    "tags": "bmc remote-management saa recipe gpu hgx cpld",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+          "title": "SAA for UEFI User's Guide 1.1.0"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3811,7 +4651,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "./OneCli misc syshealth --bmc \"$BMC_USER:$BMC_PASS@$BMC\"",
     "desc": "System health summary through the XCC",
     "tip": "Encrypt the credentials file with misc encrypt instead of passing --bmc on the command line",
-    "tags": "bmc remote-management onecli lenovo xcc health syshealth"
+    "tags": "bmc remote-management onecli lenovo xcc health syshealth",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_misc_syshealth_command",
+          "title": "Lenovo OneCLI: syshealth"
+        },
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_c_technical_overview",
+          "title": "Lenovo OneCLI: global parameters"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3822,7 +4675,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "./OneCli misc syshealth --device power --bmc \"$BMC_USER:$BMC_PASS@$BMC\"",
     "desc": "Power subsystem only",
     "tip": "",
-    "tags": "bmc remote-management onecli recipe lenovo xcc health"
+    "tags": "bmc remote-management onecli recipe lenovo xcc health",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_misc_syshealth_command",
+          "title": "Lenovo OneCLI: syshealth"
+        },
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_c_technical_overview",
+          "title": "Lenovo OneCLI: global parameters"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3833,7 +4699,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "./OneCli misc syshealth --device dimm --bmc \"$BMC_USER:$BMC_PASS@$BMC\"",
     "desc": "Memory only",
     "tip": "",
-    "tags": "bmc remote-management onecli recipe lenovo xcc health"
+    "tags": "bmc remote-management onecli recipe lenovo xcc health",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_misc_syshealth_command",
+          "title": "Lenovo OneCLI: syshealth"
+        },
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_c_technical_overview",
+          "title": "Lenovo OneCLI: global parameters"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3844,7 +4723,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "./OneCli misc logmgr showsel --bmc \"$BMC_USER:$BMC_PASS@$BMC\"",
     "desc": "SEL, BMC and audit logs",
     "tip": "There is no getsel: showsel is the command",
-    "tags": "bmc remote-management onecli sel logs logmgr audit"
+    "tags": "bmc remote-management onecli sel logs logmgr audit",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_logmgr_command",
+          "title": "Lenovo OneCLI: logmgr"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3855,7 +4743,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "./OneCli misc logmgr showbmclog --bmc \"$BMC_USER:$BMC_PASS@$BMC\"",
     "desc": "XCC event log",
     "tip": "",
-    "tags": "bmc remote-management onecli recipe sel logs logmgr"
+    "tags": "bmc remote-management onecli recipe sel logs logmgr",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_logmgr_command",
+          "title": "Lenovo OneCLI: logmgr"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3866,7 +4763,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo ./OneCli inventory getinfor --output ./inventory --htmlreport",
     "desc": "Full inventory report (in-band)",
     "tip": "Attach the HTML report to the case",
-    "tags": "bmc remote-management onecli inventory getinfor report"
+    "tags": "bmc remote-management onecli inventory getinfor report",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_getinfor_command",
+          "title": "Lenovo OneCLI: inventory getinfor"
+        },
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_getdevices_command",
+          "title": "Lenovo OneCLI: getdevices"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3877,7 +4787,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo ./OneCli inventory getdevices",
     "desc": "Categories: system_overview, bmc_event_logs, …",
     "tip": "",
-    "tags": "bmc remote-management onecli recipe inventory getinfor report"
+    "tags": "bmc remote-management onecli recipe inventory getinfor report",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_getinfor_command",
+          "title": "Lenovo OneCLI: inventory getinfor"
+        },
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_getdevices_command",
+          "title": "Lenovo OneCLI: getdevices"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3888,7 +4811,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "./OneCli config show IMM --bmc \"$BMC_USER:$BMC_PASS@$BMC\"",
     "desc": "Read and save settings (XCC, UEFI)",
     "tip": "Save before you set, and keep the file in the case folder",
-    "tags": "bmc remote-management onecli config settings uefi imm xcc"
+    "tags": "bmc remote-management onecli config settings uefi imm xcc",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_commands_display_config_settings",
+          "title": "Lenovo OneCLI: config show/compare"
+        },
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_commands_save_replicate_system_config",
+          "title": "Lenovo OneCLI: config save"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3899,7 +4835,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "./OneCli config save --file saved.txt --bmc \"$BMC_USER:$BMC_PASS@$BMC\"",
     "desc": "Save every setting for a later diff",
     "tip": "",
-    "tags": "bmc remote-management onecli recipe config settings uefi"
+    "tags": "bmc remote-management onecli recipe config settings uefi",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_commands_save_replicate_system_config",
+          "title": "Lenovo OneCLI: config save"
+        }
+      ],
+      "note": "The --file option of config save was not confirmed on the page read."
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3910,7 +4856,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "./OneCli config show UEFI --bmc \"$BMC_USER:$BMC_PASS@$BMC\"",
     "desc": "BIOS (UEFI) settings",
     "tip": "",
-    "tags": "bmc remote-management onecli recipe config settings uefi"
+    "tags": "bmc remote-management onecli recipe config settings uefi",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_commands_display_config_settings",
+          "title": "Lenovo OneCLI: config show/compare"
+        },
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_commands_save_replicate_system_config",
+          "title": "Lenovo OneCLI: config save"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3921,7 +4880,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "./OneCli update scan --bmc \"$BMC_USER:$BMC_PASS@$BMC\" --output ./scan",
     "desc": "What firmware is installed, and what is newer",
     "tip": "scan and compare are read-only; flash needs a drain and approval",
-    "tags": "bmc remote-management onecli firmware update scan compare flash"
+    "tags": "bmc remote-management onecli firmware update scan compare flash",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_up_compare_command",
+          "title": "Lenovo OneCLI: update compare"
+        },
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_flash_command",
+          "title": "Lenovo OneCLI: update flash"
+        }
+      ],
+      "note": "update scan --output: the scan page was not read."
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3932,7 +4905,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "./OneCli update compare --scope latest --bmc \"$BMC_USER:$BMC_PASS@$BMC\" --dir ./packages --output ./compare",
     "desc": "What would be updated",
     "tip": "",
-    "tags": "bmc remote-management onecli recipe firmware update scan"
+    "tags": "bmc remote-management onecli recipe firmware update scan",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_up_compare_command",
+          "title": "Lenovo OneCLI: update compare"
+        },
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_flash_command",
+          "title": "Lenovo OneCLI: update flash"
+        }
+      ],
+      "note": "update scan --output: the scan page was not read."
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3943,7 +4930,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "./OneCli misc power state --bmc \"$BMC_USER:$BMC_PASS@$BMC\"",
     "desc": "Power state and control (after a drain)",
     "tip": "Prefer normalrestart over forcerestart",
-    "tags": "bmc remote-management onecli power restart rebootbmc boottosetup"
+    "tags": "bmc remote-management onecli power restart rebootbmc boottosetup",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/misc_power_command",
+          "title": "Lenovo OneCLI: misc power"
+        },
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_imm_rebootimm_command",
+          "title": "Lenovo OneCLI: rebootbmc"
+        },
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_c_misc",
+          "title": "Lenovo OneCLI: misc commands"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3954,7 +4958,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "./OneCli misc power normalrestart --bmc \"$BMC_USER:$BMC_PASS@$BMC\"",
     "desc": "Clean restart (changes state)",
     "tip": "",
-    "tags": "bmc remote-management onecli recipe power restart rebootbmc"
+    "tags": "bmc remote-management onecli recipe power restart rebootbmc",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/misc_power_command",
+          "title": "Lenovo OneCLI: misc power"
+        },
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_imm_rebootimm_command",
+          "title": "Lenovo OneCLI: rebootbmc"
+        },
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_c_misc",
+          "title": "Lenovo OneCLI: misc commands"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3965,7 +4986,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "./OneCli misc rebootbmc --bmc \"$BMC_USER:$BMC_PASS@$BMC\"",
     "desc": "Restart the XCC (changes state)",
     "tip": "",
-    "tags": "bmc remote-management onecli recipe power restart rebootbmc"
+    "tags": "bmc remote-management onecli recipe power restart rebootbmc",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/misc_power_command",
+          "title": "Lenovo OneCLI: misc power"
+        },
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_imm_rebootimm_command",
+          "title": "Lenovo OneCLI: rebootbmc"
+        },
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_c_misc",
+          "title": "Lenovo OneCLI: misc commands"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3987,7 +5025,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmi-sensors -h $BMC -u $BMC_USER -P --output-sensor-state --ignore-not-available-sensors",
     "desc": "Sensors with a health state, password prompted",
     "tip": "-P (prompt) is the safe default; -p puts the password in ps",
-    "tags": "bmc remote-management freeipmi freeipmi sensors sdr bmc-info fru"
+    "tags": "bmc remote-management freeipmi freeipmi sensors sdr bmc-info fru",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-sensors.8.en.html",
+          "title": "FreeIPMI ipmi-sensors(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/bmc-info.8.en.html",
+          "title": "FreeIPMI bmc-info(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-fru.8.en.html",
+          "title": "FreeIPMI ipmi-fru(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-common/freeipmi.7.en.html",
+          "title": "FreeIPMI freeipmi(7)"
+        }
+      ],
+      "note": "Sensor type names: list them with ipmi-sensors -L."
+    }
   },
   {
     "sName": "bmc-tools",
@@ -3998,7 +5058,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmi-sensors -h $BMC -u $BMC_USER -P -t Temperature,Fan",
     "desc": "Only temperatures and fans",
     "tip": "",
-    "tags": "bmc remote-management freeipmi recipe freeipmi sensors sdr"
+    "tags": "bmc remote-management freeipmi recipe freeipmi sensors sdr",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-sensors.8.en.html",
+          "title": "FreeIPMI ipmi-sensors(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/bmc-info.8.en.html",
+          "title": "FreeIPMI bmc-info(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-fru.8.en.html",
+          "title": "FreeIPMI ipmi-fru(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-common/freeipmi.7.en.html",
+          "title": "FreeIPMI freeipmi(7)"
+        }
+      ],
+      "note": "Sensor type names: list them with ipmi-sensors -L."
+    }
   },
   {
     "sName": "bmc-tools",
@@ -4009,7 +5091,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "bmc-info -h $BMC -u $BMC_USER -P --get-device-id",
     "desc": "BMC firmware and IPMI version",
     "tip": "",
-    "tags": "bmc remote-management freeipmi recipe freeipmi sensors sdr"
+    "tags": "bmc remote-management freeipmi recipe freeipmi sensors sdr",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-sensors.8.en.html",
+          "title": "FreeIPMI ipmi-sensors(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/bmc-info.8.en.html",
+          "title": "FreeIPMI bmc-info(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-fru.8.en.html",
+          "title": "FreeIPMI ipmi-fru(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-common/freeipmi.7.en.html",
+          "title": "FreeIPMI freeipmi(7)"
+        }
+      ],
+      "note": "Sensor type names: list them with ipmi-sensors -L."
+    }
   },
   {
     "sName": "bmc-tools",
@@ -4020,7 +5124,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmi-fru -h $BMC -u $BMC_USER -P",
     "desc": "FRU serials for the RMA",
     "tip": "",
-    "tags": "bmc remote-management freeipmi recipe freeipmi sensors sdr"
+    "tags": "bmc remote-management freeipmi recipe freeipmi sensors sdr",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-sensors.8.en.html",
+          "title": "FreeIPMI ipmi-sensors(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/bmc-info.8.en.html",
+          "title": "FreeIPMI bmc-info(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-fru.8.en.html",
+          "title": "FreeIPMI ipmi-fru(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-common/freeipmi.7.en.html",
+          "title": "FreeIPMI freeipmi(7)"
+        }
+      ],
+      "note": "Sensor type names: list them with ipmi-sensors -L."
+    }
   },
   {
     "sName": "bmc-tools",
@@ -4031,7 +5157,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmi-sel -h $BMC -u $BMC_USER -P --tail=50 --interpret-oem-data --output-event-state",
     "desc": "Last SEL entries, interpreted",
     "tip": "Save the SEL before anyone clears it",
-    "tags": "bmc remote-management freeipmi sel events logs oem"
+    "tags": "bmc remote-management freeipmi sel events logs oem",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-sel.8.en.html",
+          "title": "FreeIPMI ipmi-sel(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -4042,7 +5177,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmi-sel -h $BMC -u $BMC_USER -P --output-event-state > sel.txt",
     "desc": "Save the whole SEL to the case folder",
     "tip": "",
-    "tags": "bmc remote-management freeipmi recipe sel events logs"
+    "tags": "bmc remote-management freeipmi recipe sel events logs",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-sel.8.en.html",
+          "title": "FreeIPMI ipmi-sel(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -4053,7 +5197,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmipower -h \"rack12-node[01-16]-bmc\" -u $BMC_USER -P --stat",
     "desc": "Power status for a whole rack at once",
     "tip": "Host ranges make rack-wide status checks one command",
-    "tags": "bmc remote-management freeipmi power ipmipower chassis hostrange rack"
+    "tags": "bmc remote-management freeipmi power ipmipower chassis hostrange rack",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmipower.8.en.html",
+          "title": "FreeIPMI ipmipower(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-chassis.8.en.html",
+          "title": "FreeIPMI ipmi-chassis(8)"
+        }
+      ],
+      "note": "A host range with text after the brackets ([01-16]-bmc) is not shown in the man page; the fan-out default 64 is stated on the sibling tools' pages."
+    }
   },
   {
     "sName": "bmc-tools",
@@ -4064,7 +5222,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmi-chassis -h $BMC -u $BMC_USER -P --get-chassis-status",
     "desc": "Power, last power event, intrusion",
     "tip": "",
-    "tags": "bmc remote-management freeipmi recipe power ipmipower chassis"
+    "tags": "bmc remote-management freeipmi recipe power ipmipower chassis",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-chassis.8.en.html",
+          "title": "FreeIPMI ipmi-chassis(8)"
+        }
+      ],
+      "note": "The man page does not list what the status shows (power, last event, intrusion)."
+    }
   },
   {
     "sName": "bmc-tools",
@@ -4075,7 +5243,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmipower -h $BMC -u $BMC_USER -P --soft",
     "desc": "Clean OS shutdown (changes state)",
     "tip": "",
-    "tags": "bmc remote-management freeipmi recipe power ipmipower chassis"
+    "tags": "bmc remote-management freeipmi recipe power ipmipower chassis",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmipower.8.en.html",
+          "title": "FreeIPMI ipmipower(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-chassis.8.en.html",
+          "title": "FreeIPMI ipmi-chassis(8)"
+        }
+      ],
+      "note": "A host range with text after the brackets ([01-16]-bmc) is not shown in the man page; the fan-out default 64 is stated on the sibling tools' pages."
+    }
   },
   {
     "sName": "bmc-tools",
@@ -4086,7 +5268,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmiconsole -h $BMC -u $BMC_USER -P",
     "desc": "Serial-over-LAN console",
     "tip": "Use --dont-steal on a node someone else may be working on",
-    "tags": "bmc remote-management freeipmi sol console serial ipmiconsole"
+    "tags": "bmc remote-management freeipmi sol console serial ipmiconsole",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmiconsole.8.en.html",
+          "title": "FreeIPMI ipmiconsole(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -4097,7 +5288,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmiconsole -h $BMC -u $BMC_USER -P --deactivate",
     "desc": "Free a stuck SOL session",
     "tip": "",
-    "tags": "bmc remote-management freeipmi recipe sol console serial"
+    "tags": "bmc remote-management freeipmi recipe sol console serial",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmiconsole.8.en.html",
+          "title": "FreeIPMI ipmiconsole(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -4108,7 +5308,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmiconsole -h $BMC -u $BMC_USER -P --dont-steal",
     "desc": "Watch only if nobody else is attached",
     "tip": "",
-    "tags": "bmc remote-management freeipmi recipe sol console serial"
+    "tags": "bmc remote-management freeipmi recipe sol console serial",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmiconsole.8.en.html",
+          "title": "FreeIPMI ipmiconsole(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -4119,7 +5328,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmi-dcmi -h $BMC -u $BMC_USER -P --get-system-power-statistics",
     "desc": "Power draw from the BMC (DCMI)",
     "tip": "A power cap can explain GPUs that never reach full clocks",
-    "tags": "bmc remote-management freeipmi dcmi power watts cap"
+    "tags": "bmc remote-management freeipmi dcmi power watts cap",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-dcmi.8.en.html",
+          "title": "FreeIPMI ipmi-dcmi(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -4130,7 +5348,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmi-dcmi -h $BMC -u $BMC_USER -P --get-power-limit",
     "desc": "Is a power cap active?",
     "tip": "",
-    "tags": "bmc remote-management freeipmi recipe dcmi power watts"
+    "tags": "bmc remote-management freeipmi recipe dcmi power watts",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-dcmi.8.en.html",
+          "title": "FreeIPMI ipmi-dcmi(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -4152,7 +5379,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "picocom -b 115200 /dev/ttyUSB0",
     "desc": "Open a USB serial console",
     "tip": "Use /dev/serial/by-id paths: ttyUSB numbers change on replug",
-    "tags": "bmc remote-management serial serial picocom console usb tty"
+    "tags": "bmc remote-management serial serial picocom console usb tty",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/npat-efault/picocom/blob/master/picocom.1.md",
+          "title": "picocom(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -4163,7 +5399,12 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ls -l /dev/serial/by-id/",
     "desc": "Stable names for USB serial adapters",
     "tip": "",
-    "tags": "bmc remote-management serial recipe serial picocom console"
+    "tags": "bmc remote-management serial recipe serial picocom console",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [],
+      "note": "A standard Linux path, not checked against a document."
+    }
   },
   {
     "sName": "bmc-tools",
@@ -4174,7 +5415,12 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo dmesg -T | grep -i tty",
     "desc": "Which ttyUSB the adapter just became",
     "tip": "",
-    "tags": "bmc remote-management serial recipe serial picocom console"
+    "tags": "bmc remote-management serial recipe serial picocom console",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [],
+      "note": "Standard Linux commands, not checked against a document."
+    }
   },
   {
     "sName": "bmc-tools",
@@ -4185,7 +5431,12 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "id -nG",
     "desc": "Are you in the dialout (or uucp) group that owns the port?",
     "tip": "",
-    "tags": "bmc remote-management serial recipe serial picocom console"
+    "tags": "bmc remote-management serial recipe serial picocom console",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [],
+      "note": "Standard command; the group name (dialout or uucp) depends on the distribution."
+    }
   },
   {
     "sName": "bmc-tools",
@@ -4196,7 +5447,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "connection: &rack12-sw1\n  accepter: telnet(rfc2217),tcp,3001\n  connector: serialdev,/dev/ttyUSB0,115200N81\n  options:\n    kickolduser: false\n    banner: \"rack12-sw1 console\\r\\n\"",
     "desc": "Share a serial port on the network with ser2net (YAML)",
     "tip": "Bind ser2net to a management VLAN only: it has no login by default",
-    "tags": "bmc remote-management serial ser2net serial network yaml rfc2217"
+    "tags": "bmc remote-management serial ser2net serial network yaml rfc2217",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/cminyard/ser2net/blob/master/README.rst",
+          "title": "ser2net README"
+        }
+      ],
+      "note": "kickolduser, max-connections and the *{file} include are in ser2net.yaml(5), which could not be read."
+    }
   },
   {
     "sName": "bmc-tools",
@@ -4207,7 +5468,12 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "systemctl status ser2net --no-pager",
     "desc": "Is it running?",
     "tip": "",
-    "tags": "bmc remote-management serial recipe ser2net serial network"
+    "tags": "bmc remote-management serial recipe ser2net serial network",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [],
+      "note": "The service name depends on your ser2net package."
+    }
   },
   {
     "sName": "bmc-tools",
@@ -4218,7 +5484,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "gensiot telnet(rfc2217),tcp,localhost,3001",
     "desc": "Connect (the README recommends gensiot over telnet)",
     "tip": "",
-    "tags": "bmc remote-management serial recipe ser2net serial network"
+    "tags": "bmc remote-management serial recipe ser2net serial network",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/cminyard/ser2net/blob/master/README.rst",
+          "title": "ser2net README"
+        },
+        {
+          "url": "https://github.com/cminyard/gensio",
+          "title": "gensio / gensiot"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -4229,7 +5508,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "console -u",
     "desc": "List and attach to logged consoles (conserver)",
     "tip": "conserver logs every console, so the boot that crashed at 3 a.m. is in the log",
-    "tags": "bmc remote-management serial conserver console serial logging"
+    "tags": "bmc remote-management serial conserver console serial logging",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.conserver.com/docs/console.man.html",
+          "title": "conserver console(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -4240,7 +5528,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "console -s rack12-node07",
     "desc": "Watch a console without typing into it",
     "tip": "",
-    "tags": "bmc remote-management serial recipe conserver console serial"
+    "tags": "bmc remote-management serial recipe conserver console serial",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.conserver.com/docs/console.man.html",
+          "title": "conserver console(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -4251,7 +5548,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "console -w",
     "desc": "Who is attached where",
     "tip": "",
-    "tags": "bmc remote-management serial recipe conserver console serial"
+    "tags": "bmc remote-management serial recipe conserver console serial",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.conserver.com/docs/console.man.html",
+          "title": "conserver console(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -4262,7 +5568,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "console rack12-node07 {\n  master localhost;\n  type ipmi;\n  host rack12-node07-bmc.example.com;\n  username <bmc_user>;\n  rw *;\n}",
     "desc": "conserver console for an IPMI SOL target",
     "tip": "chmod 600 conserver.cf when it holds BMC passwords",
-    "tags": "bmc remote-management serial conserver ipmi sol config"
+    "tags": "bmc remote-management serial conserver ipmi sol config",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.conserver.com/docs/conserver.cf.man.html",
+          "title": "conserver.cf(5)"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -11759,7 +13074,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmi-sensors -h $BMC -u $BMC_USER -P --output-sensor-state --ignore-not-available-sensors",
     "desc": "Sensors with a health state, password prompted",
     "tip": "-P (prompt) is the safe default; -p puts the password in ps",
-    "tags": "bmc remote-management freeipmi freeipmi sensors sdr bmc-info fru"
+    "tags": "bmc remote-management freeipmi freeipmi sensors sdr bmc-info fru",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-sensors.8.en.html",
+          "title": "FreeIPMI ipmi-sensors(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/bmc-info.8.en.html",
+          "title": "FreeIPMI bmc-info(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-fru.8.en.html",
+          "title": "FreeIPMI ipmi-fru(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-common/freeipmi.7.en.html",
+          "title": "FreeIPMI freeipmi(7)"
+        }
+      ],
+      "note": "Sensor type names: list them with ipmi-sensors -L."
+    }
   },
   {
     "sName": "freeipmi",
@@ -11770,7 +13107,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmi-sensors -h $BMC -u $BMC_USER -P -t Temperature,Fan",
     "desc": "Only temperatures and fans",
     "tip": "",
-    "tags": "bmc remote-management freeipmi recipe freeipmi sensors sdr"
+    "tags": "bmc remote-management freeipmi recipe freeipmi sensors sdr",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-sensors.8.en.html",
+          "title": "FreeIPMI ipmi-sensors(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/bmc-info.8.en.html",
+          "title": "FreeIPMI bmc-info(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-fru.8.en.html",
+          "title": "FreeIPMI ipmi-fru(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-common/freeipmi.7.en.html",
+          "title": "FreeIPMI freeipmi(7)"
+        }
+      ],
+      "note": "Sensor type names: list them with ipmi-sensors -L."
+    }
   },
   {
     "sName": "freeipmi",
@@ -11781,7 +13140,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "bmc-info -h $BMC -u $BMC_USER -P --get-device-id",
     "desc": "BMC firmware and IPMI version",
     "tip": "",
-    "tags": "bmc remote-management freeipmi recipe freeipmi sensors sdr"
+    "tags": "bmc remote-management freeipmi recipe freeipmi sensors sdr",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-sensors.8.en.html",
+          "title": "FreeIPMI ipmi-sensors(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/bmc-info.8.en.html",
+          "title": "FreeIPMI bmc-info(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-fru.8.en.html",
+          "title": "FreeIPMI ipmi-fru(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-common/freeipmi.7.en.html",
+          "title": "FreeIPMI freeipmi(7)"
+        }
+      ],
+      "note": "Sensor type names: list them with ipmi-sensors -L."
+    }
   },
   {
     "sName": "freeipmi",
@@ -11792,7 +13173,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmi-fru -h $BMC -u $BMC_USER -P",
     "desc": "FRU serials for the RMA",
     "tip": "",
-    "tags": "bmc remote-management freeipmi recipe freeipmi sensors sdr"
+    "tags": "bmc remote-management freeipmi recipe freeipmi sensors sdr",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-sensors.8.en.html",
+          "title": "FreeIPMI ipmi-sensors(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/bmc-info.8.en.html",
+          "title": "FreeIPMI bmc-info(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-fru.8.en.html",
+          "title": "FreeIPMI ipmi-fru(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-common/freeipmi.7.en.html",
+          "title": "FreeIPMI freeipmi(7)"
+        }
+      ],
+      "note": "Sensor type names: list them with ipmi-sensors -L."
+    }
   },
   {
     "sName": "freeipmi",
@@ -11803,7 +13206,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmi-sel -h $BMC -u $BMC_USER -P --tail=50 --interpret-oem-data --output-event-state",
     "desc": "Last SEL entries, interpreted",
     "tip": "Save the SEL before anyone clears it",
-    "tags": "bmc remote-management freeipmi sel events logs oem"
+    "tags": "bmc remote-management freeipmi sel events logs oem",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-sel.8.en.html",
+          "title": "FreeIPMI ipmi-sel(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "freeipmi",
@@ -11814,7 +13226,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmi-sel -h $BMC -u $BMC_USER -P --output-event-state > sel.txt",
     "desc": "Save the whole SEL to the case folder",
     "tip": "",
-    "tags": "bmc remote-management freeipmi recipe sel events logs"
+    "tags": "bmc remote-management freeipmi recipe sel events logs",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-sel.8.en.html",
+          "title": "FreeIPMI ipmi-sel(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "freeipmi",
@@ -11825,7 +13246,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmipower -h \"rack12-node[01-16]-bmc\" -u $BMC_USER -P --stat",
     "desc": "Power status for a whole rack at once",
     "tip": "Host ranges make rack-wide status checks one command",
-    "tags": "bmc remote-management freeipmi power ipmipower chassis hostrange rack"
+    "tags": "bmc remote-management freeipmi power ipmipower chassis hostrange rack",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmipower.8.en.html",
+          "title": "FreeIPMI ipmipower(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-chassis.8.en.html",
+          "title": "FreeIPMI ipmi-chassis(8)"
+        }
+      ],
+      "note": "A host range with text after the brackets ([01-16]-bmc) is not shown in the man page; the fan-out default 64 is stated on the sibling tools' pages."
+    }
   },
   {
     "sName": "freeipmi",
@@ -11836,7 +13271,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmi-chassis -h $BMC -u $BMC_USER -P --get-chassis-status",
     "desc": "Power, last power event, intrusion",
     "tip": "",
-    "tags": "bmc remote-management freeipmi recipe power ipmipower chassis"
+    "tags": "bmc remote-management freeipmi recipe power ipmipower chassis",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-chassis.8.en.html",
+          "title": "FreeIPMI ipmi-chassis(8)"
+        }
+      ],
+      "note": "The man page does not list what the status shows (power, last event, intrusion)."
+    }
   },
   {
     "sName": "freeipmi",
@@ -11847,7 +13292,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmipower -h $BMC -u $BMC_USER -P --soft",
     "desc": "Clean OS shutdown (changes state)",
     "tip": "",
-    "tags": "bmc remote-management freeipmi recipe power ipmipower chassis"
+    "tags": "bmc remote-management freeipmi recipe power ipmipower chassis",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmipower.8.en.html",
+          "title": "FreeIPMI ipmipower(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-chassis.8.en.html",
+          "title": "FreeIPMI ipmi-chassis(8)"
+        }
+      ],
+      "note": "A host range with text after the brackets ([01-16]-bmc) is not shown in the man page; the fan-out default 64 is stated on the sibling tools' pages."
+    }
   },
   {
     "sName": "freeipmi",
@@ -11858,7 +13317,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmiconsole -h $BMC -u $BMC_USER -P",
     "desc": "Serial-over-LAN console",
     "tip": "Use --dont-steal on a node someone else may be working on",
-    "tags": "bmc remote-management freeipmi sol console serial ipmiconsole"
+    "tags": "bmc remote-management freeipmi sol console serial ipmiconsole",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmiconsole.8.en.html",
+          "title": "FreeIPMI ipmiconsole(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "freeipmi",
@@ -11869,7 +13337,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmiconsole -h $BMC -u $BMC_USER -P --deactivate",
     "desc": "Free a stuck SOL session",
     "tip": "",
-    "tags": "bmc remote-management freeipmi recipe sol console serial"
+    "tags": "bmc remote-management freeipmi recipe sol console serial",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmiconsole.8.en.html",
+          "title": "FreeIPMI ipmiconsole(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "freeipmi",
@@ -11880,7 +13357,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmiconsole -h $BMC -u $BMC_USER -P --dont-steal",
     "desc": "Watch only if nobody else is attached",
     "tip": "",
-    "tags": "bmc remote-management freeipmi recipe sol console serial"
+    "tags": "bmc remote-management freeipmi recipe sol console serial",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmiconsole.8.en.html",
+          "title": "FreeIPMI ipmiconsole(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "freeipmi",
@@ -11891,7 +13377,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmi-dcmi -h $BMC -u $BMC_USER -P --get-system-power-statistics",
     "desc": "Power draw from the BMC (DCMI)",
     "tip": "A power cap can explain GPUs that never reach full clocks",
-    "tags": "bmc remote-management freeipmi dcmi power watts cap"
+    "tags": "bmc remote-management freeipmi dcmi power watts cap",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-dcmi.8.en.html",
+          "title": "FreeIPMI ipmi-dcmi(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "freeipmi",
@@ -11902,7 +13397,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmi-dcmi -h $BMC -u $BMC_USER -P --get-power-limit",
     "desc": "Is a power cap active?",
     "tip": "",
-    "tags": "bmc remote-management freeipmi recipe dcmi power watts"
+    "tags": "bmc remote-management freeipmi recipe dcmi power watts",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-dcmi.8.en.html",
+          "title": "FreeIPMI ipmi-dcmi(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "freeipmi",
@@ -18630,7 +20134,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest login $BMC -u $BMC_USER -p \"$BMC_PASS\"",
     "desc": "Log in to an iLO (the session is reused by later commands)",
     "tip": "Always logout: iLO has a limited number of sessions",
-    "tags": "bmc remote-management ilorest hpe ilo login session logout"
+    "tags": "bmc remote-management ilorest hpe ilo login session logout",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/globalcommands.md",
+          "title": "HPE iLOrest 7.4: global commands"
+        },
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/usage.md",
+          "title": "HPE iLOrest 7.4: usage"
+        }
+      ]
+    }
   },
   {
     "sName": "ilorest",
@@ -18641,7 +20158,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest logout",
     "desc": "End the session",
     "tip": "",
-    "tags": "bmc remote-management ilorest recipe hpe ilo login"
+    "tags": "bmc remote-management ilorest recipe hpe ilo login",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/globalcommands.md",
+          "title": "HPE iLOrest 7.4: global commands"
+        },
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/usage.md",
+          "title": "HPE iLOrest 7.4: usage"
+        }
+      ]
+    }
   },
   {
     "sName": "ilorest",
@@ -18652,7 +20182,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest types",
     "desc": "What resource types this iLO exposes",
     "tip": "",
-    "tags": "bmc remote-management ilorest recipe hpe ilo login"
+    "tags": "bmc remote-management ilorest recipe hpe ilo login",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/globalcommands.md",
+          "title": "HPE iLOrest 7.4: global commands"
+        },
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/usage.md",
+          "title": "HPE iLOrest 7.4: usage"
+        }
+      ]
+    }
   },
   {
     "sName": "ilorest",
@@ -18663,7 +20206,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest serverinfo --system --firmware",
     "desc": "Server summary: system, firmware, memory, CPUs, fans, power, thermals",
     "tip": "serverstate FinishedPost means the OS is booting or up",
-    "tags": "bmc remote-management ilorest serverinfo inventory thermals fans power firmware"
+    "tags": "bmc remote-management ilorest serverinfo inventory thermals fans power firmware",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+          "title": "HPE iLOrest 7.4: iLO commands"
+        }
+      ]
+    }
   },
   {
     "sName": "ilorest",
@@ -18674,7 +20226,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest serverstate",
     "desc": "POST state: InPost, FinishedPost, PowerOff…",
     "tip": "",
-    "tags": "bmc remote-management ilorest recipe serverinfo inventory thermals"
+    "tags": "bmc remote-management ilorest recipe serverinfo inventory thermals",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+          "title": "HPE iLOrest 7.4: iLO commands"
+        }
+      ]
+    }
   },
   {
     "sName": "ilorest",
@@ -18685,7 +20246,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest serverinfo --thermals --fans",
     "desc": "Thermal check",
     "tip": "",
-    "tags": "bmc remote-management ilorest recipe serverinfo inventory thermals"
+    "tags": "bmc remote-management ilorest recipe serverinfo inventory thermals",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+          "title": "HPE iLOrest 7.4: iLO commands"
+        }
+      ]
+    }
   },
   {
     "sName": "ilorest",
@@ -18696,7 +20266,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest serverinfo --all -j -f serverinfo.json",
     "desc": "Full snapshot for the case folder",
     "tip": "",
-    "tags": "bmc remote-management ilorest recipe serverinfo inventory thermals"
+    "tags": "bmc remote-management ilorest recipe serverinfo inventory thermals",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+          "title": "HPE iLOrest 7.4: iLO commands"
+        }
+      ]
+    }
   },
   {
     "sName": "ilorest",
@@ -18707,7 +20286,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest serverlogs --selectlog=IML",
     "desc": "IML, iLO event log and AHS download",
     "tip": "HPE support asks for the AHS log first; IML is the one to read yourself",
-    "tags": "bmc remote-management ilorest iml iel ahs logs events rma"
+    "tags": "bmc remote-management ilorest iml iel ahs logs events rma",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+          "title": "HPE iLOrest 7.4: iLO commands"
+        }
+      ],
+      "note": "AHS downloads must use the default file name (-f is not supported for AHS)."
+    }
   },
   {
     "sName": "ilorest",
@@ -18718,7 +20307,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest serverlogs --selectlog=IEL",
     "desc": "iLO's own event log",
     "tip": "",
-    "tags": "bmc remote-management ilorest recipe iml iel ahs"
+    "tags": "bmc remote-management ilorest recipe iml iel ahs",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+          "title": "HPE iLOrest 7.4: iLO commands"
+        }
+      ],
+      "note": "AHS downloads must use the default file name (-f is not supported for AHS)."
+    }
   },
   {
     "sName": "ilorest",
@@ -18729,7 +20328,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest serverlogs --selectlog=AHS --directorypath=./logs",
     "desc": "AHS file for an HPE case",
     "tip": "",
-    "tags": "bmc remote-management ilorest recipe iml iel ahs"
+    "tags": "bmc remote-management ilorest recipe iml iel ahs",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+          "title": "HPE iLOrest 7.4: iLO commands"
+        }
+      ],
+      "note": "AHS downloads must use the default file name (-f is not supported for AHS)."
+    }
   },
   {
     "sName": "ilorest",
@@ -18740,7 +20349,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest serverlogs --selectlog=IML -f iml.json",
     "desc": "Save the IML to a file",
     "tip": "",
-    "tags": "bmc remote-management ilorest recipe iml iel ahs"
+    "tags": "bmc remote-management ilorest recipe iml iel ahs",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+          "title": "HPE iLOrest 7.4: iLO commands"
+        }
+      ],
+      "note": "AHS downloads must use the default file name (-f is not supported for AHS)."
+    }
   },
   {
     "sName": "ilorest",
@@ -18751,7 +20370,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest storagecontroller",
     "desc": "Storage controllers, drives and volumes (Gen10 and later)",
     "tip": "If storage looks empty, check serverstate: discovery finishes at InPostDiscoveryComplete",
-    "tags": "bmc remote-management ilorest storage raid drives volumes smartarray"
+    "tags": "bmc remote-management ilorest storage raid drives volumes smartarray",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/smartarraycommands.md",
+          "title": "HPE iLOrest 7.4: storage commands"
+        }
+      ]
+    }
   },
   {
     "sName": "ilorest",
@@ -18762,7 +20390,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest storagecontroller --storageid=DE00F000 --controller=0 --physicaldrives",
     "desc": "Drives on one controller",
     "tip": "",
-    "tags": "bmc remote-management ilorest recipe storage raid drives"
+    "tags": "bmc remote-management ilorest recipe storage raid drives",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/smartarraycommands.md",
+          "title": "HPE iLOrest 7.4: storage commands"
+        }
+      ]
+    }
   },
   {
     "sName": "ilorest",
@@ -18773,7 +20410,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest storagecontroller --storageid=DE00D000 --controller=0 --volumes",
     "desc": "Volumes on one controller",
     "tip": "",
-    "tags": "bmc remote-management ilorest recipe storage raid drives"
+    "tags": "bmc remote-management ilorest recipe storage raid drives",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/smartarraycommands.md",
+          "title": "HPE iLOrest 7.4: storage commands"
+        }
+      ]
+    }
   },
   {
     "sName": "ilorest",
@@ -18784,7 +20430,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest get BootOrderPolicy --select Bios.",
     "desc": "Read any Redfish property with select and get",
     "tip": "set only stages: nothing changes until commit",
-    "tags": "bmc remote-management ilorest select get set commit bios redfish"
+    "tags": "bmc remote-management ilorest select get set commit bios redfish",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/globalcommands.md",
+          "title": "HPE iLOrest 7.4: global commands"
+        },
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/usage.md",
+          "title": "HPE iLOrest 7.4: usage"
+        }
+      ]
+    }
   },
   {
     "sName": "ilorest",
@@ -18795,7 +20454,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest list Name @odata.id --json --select ComputerSystem.",
     "desc": "System resource paths",
     "tip": "",
-    "tags": "bmc remote-management ilorest recipe select get set"
+    "tags": "bmc remote-management ilorest recipe select get set",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/globalcommands.md",
+          "title": "HPE iLOrest 7.4: global commands"
+        },
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/usage.md",
+          "title": "HPE iLOrest 7.4: usage"
+        }
+      ]
+    }
   },
   {
     "sName": "ilorest",
@@ -18806,7 +20478,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest get --select Bios. --noreadonly",
     "desc": "Every BIOS setting you can change",
     "tip": "",
-    "tags": "bmc remote-management ilorest recipe select get set"
+    "tags": "bmc remote-management ilorest recipe select get set",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/globalcommands.md",
+          "title": "HPE iLOrest 7.4: global commands"
+        },
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/usage.md",
+          "title": "HPE iLOrest 7.4: usage"
+        }
+      ]
+    }
   },
   {
     "sName": "ilorest",
@@ -18818,6 +20503,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Power control (after a drain)",
     "tip": "Every reboot form changes state: drain and get approval first",
     "tags": "bmc remote-management ilorest power reboot iloreset forceoff nmi",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+          "title": "HPE iLOrest 7.4: iLO commands"
+        }
+      ]
+    },
     "noCopy": true,
     "refWhy": "reboot"
   },
@@ -18831,6 +20525,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Hard off (changes state)",
     "tip": "",
     "tags": "bmc remote-management ilorest recipe power reboot iloreset",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+          "title": "HPE iLOrest 7.4: iLO commands"
+        }
+      ]
+    },
     "noCopy": true,
     "refWhy": "reboot"
   },
@@ -18843,7 +20546,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest iloreset",
     "desc": "Restart iLO (changes state)",
     "tip": "",
-    "tags": "bmc remote-management ilorest recipe power reboot iloreset"
+    "tags": "bmc remote-management ilorest recipe power reboot iloreset",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+          "title": "HPE iLOrest 7.4: iLO commands"
+        }
+      ]
+    }
   },
   {
     "sName": "ilorest",
@@ -18854,7 +20566,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest fwintegritycheck --results",
     "desc": "Firmware integrity and the iLO repository",
     "tip": "Read versions with serverinfo --firmware before and after an update",
-    "tags": "bmc remote-management ilorest firmware integrity repository update fwpkg"
+    "tags": "bmc remote-management ilorest firmware integrity repository update fwpkg",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+          "title": "HPE iLOrest 7.4: iLO commands"
+        },
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilorepositorycommands.md",
+          "title": "HPE iLOrest 7.4: iLO repository commands"
+        }
+      ]
+    }
   },
   {
     "sName": "ilorest",
@@ -18865,7 +20590,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest serverinfo --firmware",
     "desc": "Installed firmware versions",
     "tip": "",
-    "tags": "bmc remote-management ilorest recipe firmware integrity repository"
+    "tags": "bmc remote-management ilorest recipe firmware integrity repository",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+          "title": "HPE iLOrest 7.4: iLO commands"
+        },
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilorepositorycommands.md",
+          "title": "HPE iLOrest 7.4: iLO repository commands"
+        }
+      ]
+    }
   },
   {
     "sName": "ilorest",
@@ -18876,7 +20614,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest listcomp",
     "desc": "What is staged in the repository",
     "tip": "",
-    "tags": "bmc remote-management ilorest recipe firmware integrity repository"
+    "tags": "bmc remote-management ilorest recipe firmware integrity repository",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+          "title": "HPE iLOrest 7.4: iLO commands"
+        },
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilorepositorycommands.md",
+          "title": "HPE iLOrest 7.4: iLO repository commands"
+        }
+      ]
+    }
   },
   {
     "sName": "ilorest",
@@ -18887,7 +20638,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest ethernet",
     "desc": "iLO network settings and virtual media",
     "tip": "Don't put credentials in the ISO URL; use a share that doesn't need them",
-    "tags": "bmc remote-management ilorest ethernet network virtualmedia iso"
+    "tags": "bmc remote-management ilorest ethernet network virtualmedia iso",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+          "title": "HPE iLOrest 7.4: iLO commands"
+        }
+      ]
+    }
   },
   {
     "sName": "ilorest",
@@ -18898,7 +20658,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest virtualmedia",
     "desc": "What is mounted now",
     "tip": "",
-    "tags": "bmc remote-management ilorest recipe ethernet network virtualmedia"
+    "tags": "bmc remote-management ilorest recipe ethernet network virtualmedia",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+          "title": "HPE iLOrest 7.4: iLO commands"
+        }
+      ]
+    }
   },
   {
     "sName": "ilorest",
@@ -29374,7 +31143,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "./OneCli misc syshealth --bmc \"$BMC_USER:$BMC_PASS@$BMC\"",
     "desc": "System health summary through the XCC",
     "tip": "Encrypt the credentials file with misc encrypt instead of passing --bmc on the command line",
-    "tags": "bmc remote-management onecli lenovo xcc health syshealth"
+    "tags": "bmc remote-management onecli lenovo xcc health syshealth",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_misc_syshealth_command",
+          "title": "Lenovo OneCLI: syshealth"
+        },
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_c_technical_overview",
+          "title": "Lenovo OneCLI: global parameters"
+        }
+      ]
+    }
   },
   {
     "sName": "onecli",
@@ -29385,7 +31167,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "./OneCli misc syshealth --device power --bmc \"$BMC_USER:$BMC_PASS@$BMC\"",
     "desc": "Power subsystem only",
     "tip": "",
-    "tags": "bmc remote-management onecli recipe lenovo xcc health"
+    "tags": "bmc remote-management onecli recipe lenovo xcc health",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_misc_syshealth_command",
+          "title": "Lenovo OneCLI: syshealth"
+        },
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_c_technical_overview",
+          "title": "Lenovo OneCLI: global parameters"
+        }
+      ]
+    }
   },
   {
     "sName": "onecli",
@@ -29396,7 +31191,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "./OneCli misc syshealth --device dimm --bmc \"$BMC_USER:$BMC_PASS@$BMC\"",
     "desc": "Memory only",
     "tip": "",
-    "tags": "bmc remote-management onecli recipe lenovo xcc health"
+    "tags": "bmc remote-management onecli recipe lenovo xcc health",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_misc_syshealth_command",
+          "title": "Lenovo OneCLI: syshealth"
+        },
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_c_technical_overview",
+          "title": "Lenovo OneCLI: global parameters"
+        }
+      ]
+    }
   },
   {
     "sName": "onecli",
@@ -29407,7 +31215,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "./OneCli misc logmgr showsel --bmc \"$BMC_USER:$BMC_PASS@$BMC\"",
     "desc": "SEL, BMC and audit logs",
     "tip": "There is no getsel: showsel is the command",
-    "tags": "bmc remote-management onecli sel logs logmgr audit"
+    "tags": "bmc remote-management onecli sel logs logmgr audit",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_logmgr_command",
+          "title": "Lenovo OneCLI: logmgr"
+        }
+      ]
+    }
   },
   {
     "sName": "onecli",
@@ -29418,7 +31235,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "./OneCli misc logmgr showbmclog --bmc \"$BMC_USER:$BMC_PASS@$BMC\"",
     "desc": "XCC event log",
     "tip": "",
-    "tags": "bmc remote-management onecli recipe sel logs logmgr"
+    "tags": "bmc remote-management onecli recipe sel logs logmgr",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_logmgr_command",
+          "title": "Lenovo OneCLI: logmgr"
+        }
+      ]
+    }
   },
   {
     "sName": "onecli",
@@ -29429,7 +31255,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo ./OneCli inventory getinfor --output ./inventory --htmlreport",
     "desc": "Full inventory report (in-band)",
     "tip": "Attach the HTML report to the case",
-    "tags": "bmc remote-management onecli inventory getinfor report"
+    "tags": "bmc remote-management onecli inventory getinfor report",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_getinfor_command",
+          "title": "Lenovo OneCLI: inventory getinfor"
+        },
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_getdevices_command",
+          "title": "Lenovo OneCLI: getdevices"
+        }
+      ]
+    }
   },
   {
     "sName": "onecli",
@@ -29440,7 +31279,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo ./OneCli inventory getdevices",
     "desc": "Categories: system_overview, bmc_event_logs, …",
     "tip": "",
-    "tags": "bmc remote-management onecli recipe inventory getinfor report"
+    "tags": "bmc remote-management onecli recipe inventory getinfor report",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_getinfor_command",
+          "title": "Lenovo OneCLI: inventory getinfor"
+        },
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_getdevices_command",
+          "title": "Lenovo OneCLI: getdevices"
+        }
+      ]
+    }
   },
   {
     "sName": "onecli",
@@ -29451,7 +31303,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "./OneCli config show IMM --bmc \"$BMC_USER:$BMC_PASS@$BMC\"",
     "desc": "Read and save settings (XCC, UEFI)",
     "tip": "Save before you set, and keep the file in the case folder",
-    "tags": "bmc remote-management onecli config settings uefi imm xcc"
+    "tags": "bmc remote-management onecli config settings uefi imm xcc",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_commands_display_config_settings",
+          "title": "Lenovo OneCLI: config show/compare"
+        },
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_commands_save_replicate_system_config",
+          "title": "Lenovo OneCLI: config save"
+        }
+      ]
+    }
   },
   {
     "sName": "onecli",
@@ -29462,7 +31327,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "./OneCli config save --file saved.txt --bmc \"$BMC_USER:$BMC_PASS@$BMC\"",
     "desc": "Save every setting for a later diff",
     "tip": "",
-    "tags": "bmc remote-management onecli recipe config settings uefi"
+    "tags": "bmc remote-management onecli recipe config settings uefi",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_commands_save_replicate_system_config",
+          "title": "Lenovo OneCLI: config save"
+        }
+      ],
+      "note": "The --file option of config save was not confirmed on the page read."
+    }
   },
   {
     "sName": "onecli",
@@ -29473,7 +31348,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "./OneCli config show UEFI --bmc \"$BMC_USER:$BMC_PASS@$BMC\"",
     "desc": "BIOS (UEFI) settings",
     "tip": "",
-    "tags": "bmc remote-management onecli recipe config settings uefi"
+    "tags": "bmc remote-management onecli recipe config settings uefi",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_commands_display_config_settings",
+          "title": "Lenovo OneCLI: config show/compare"
+        },
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_commands_save_replicate_system_config",
+          "title": "Lenovo OneCLI: config save"
+        }
+      ]
+    }
   },
   {
     "sName": "onecli",
@@ -29484,7 +31372,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "./OneCli update scan --bmc \"$BMC_USER:$BMC_PASS@$BMC\" --output ./scan",
     "desc": "What firmware is installed, and what is newer",
     "tip": "scan and compare are read-only; flash needs a drain and approval",
-    "tags": "bmc remote-management onecli firmware update scan compare flash"
+    "tags": "bmc remote-management onecli firmware update scan compare flash",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_up_compare_command",
+          "title": "Lenovo OneCLI: update compare"
+        },
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_flash_command",
+          "title": "Lenovo OneCLI: update flash"
+        }
+      ],
+      "note": "update scan --output: the scan page was not read."
+    }
   },
   {
     "sName": "onecli",
@@ -29495,7 +31397,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "./OneCli update compare --scope latest --bmc \"$BMC_USER:$BMC_PASS@$BMC\" --dir ./packages --output ./compare",
     "desc": "What would be updated",
     "tip": "",
-    "tags": "bmc remote-management onecli recipe firmware update scan"
+    "tags": "bmc remote-management onecli recipe firmware update scan",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_up_compare_command",
+          "title": "Lenovo OneCLI: update compare"
+        },
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_flash_command",
+          "title": "Lenovo OneCLI: update flash"
+        }
+      ],
+      "note": "update scan --output: the scan page was not read."
+    }
   },
   {
     "sName": "onecli",
@@ -29506,7 +31422,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "./OneCli misc power state --bmc \"$BMC_USER:$BMC_PASS@$BMC\"",
     "desc": "Power state and control (after a drain)",
     "tip": "Prefer normalrestart over forcerestart",
-    "tags": "bmc remote-management onecli power restart rebootbmc boottosetup"
+    "tags": "bmc remote-management onecli power restart rebootbmc boottosetup",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/misc_power_command",
+          "title": "Lenovo OneCLI: misc power"
+        },
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_imm_rebootimm_command",
+          "title": "Lenovo OneCLI: rebootbmc"
+        },
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_c_misc",
+          "title": "Lenovo OneCLI: misc commands"
+        }
+      ]
+    }
   },
   {
     "sName": "onecli",
@@ -29517,7 +31450,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "./OneCli misc power normalrestart --bmc \"$BMC_USER:$BMC_PASS@$BMC\"",
     "desc": "Clean restart (changes state)",
     "tip": "",
-    "tags": "bmc remote-management onecli recipe power restart rebootbmc"
+    "tags": "bmc remote-management onecli recipe power restart rebootbmc",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/misc_power_command",
+          "title": "Lenovo OneCLI: misc power"
+        },
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_imm_rebootimm_command",
+          "title": "Lenovo OneCLI: rebootbmc"
+        },
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_c_misc",
+          "title": "Lenovo OneCLI: misc commands"
+        }
+      ]
+    }
   },
   {
     "sName": "onecli",
@@ -29528,7 +31478,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "./OneCli misc rebootbmc --bmc \"$BMC_USER:$BMC_PASS@$BMC\"",
     "desc": "Restart the XCC (changes state)",
     "tip": "",
-    "tags": "bmc remote-management onecli recipe power restart rebootbmc"
+    "tags": "bmc remote-management onecli recipe power restart rebootbmc",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/misc_power_command",
+          "title": "Lenovo OneCLI: misc power"
+        },
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_imm_rebootimm_command",
+          "title": "Lenovo OneCLI: rebootbmc"
+        },
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_c_misc",
+          "title": "Lenovo OneCLI: misc commands"
+        }
+      ]
+    }
   },
   {
     "sName": "onecli",
@@ -30804,7 +32771,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" getsysinfo",
     "desc": "System and iDRAC summary, remote or in-band",
     "tip": "-p shows up in ps; on a shared jumpbox, run racadm in-band or over SSH to the iDRAC",
-    "tags": "bmc remote-management racadm dell idrac sysinfo version sensors service-tag"
+    "tags": "bmc remote-management racadm dell idrac sysinfo version sensors service-tag",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/remote-racadm?guid=guid-7b78457f-c280-4d99-a17e-73d0929409bc&lang=en-us",
+          "title": "Dell RACADM 7.xx: remote RACADM"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsysinfo?guid=guid-1e0a055a-f2a9-4daf-a12c-44bc7dbd1a30&lang=en-us",
+          "title": "Dell RACADM 7.xx: getsysinfo"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getversion?guid=guid-70acf03a-0937-4ec8-be57-277e7ce6ca7c&lang=en-us",
+          "title": "Dell RACADM 7.xx: getversion"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsensorinfo?guid=guid-a0d65099-56ce-460b-baef-18ff746ffd02&lang=en-us",
+          "title": "Dell RACADM 7.xx: getsensorinfo"
+        }
+      ],
+      "note": "The guide documents no password prompt or environment variable for remote RACADM."
+    }
   },
   {
     "sName": "racadm",
@@ -30815,7 +32804,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" getsysinfo -c",
     "desc": "Common settings only",
     "tip": "",
-    "tags": "bmc remote-management racadm recipe dell idrac sysinfo"
+    "tags": "bmc remote-management racadm recipe dell idrac sysinfo",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/remote-racadm?guid=guid-7b78457f-c280-4d99-a17e-73d0929409bc&lang=en-us",
+          "title": "Dell RACADM 7.xx: remote RACADM"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsysinfo?guid=guid-1e0a055a-f2a9-4daf-a12c-44bc7dbd1a30&lang=en-us",
+          "title": "Dell RACADM 7.xx: getsysinfo"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getversion?guid=guid-70acf03a-0937-4ec8-be57-277e7ce6ca7c&lang=en-us",
+          "title": "Dell RACADM 7.xx: getversion"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsensorinfo?guid=guid-a0d65099-56ce-460b-baef-18ff746ffd02&lang=en-us",
+          "title": "Dell RACADM 7.xx: getsensorinfo"
+        }
+      ],
+      "note": "The guide documents no password prompt or environment variable for remote RACADM."
+    }
   },
   {
     "sName": "racadm",
@@ -30826,7 +32837,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" getversion",
     "desc": "BIOS, iDRAC and Lifecycle Controller versions",
     "tip": "",
-    "tags": "bmc remote-management racadm recipe dell idrac sysinfo"
+    "tags": "bmc remote-management racadm recipe dell idrac sysinfo",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/remote-racadm?guid=guid-7b78457f-c280-4d99-a17e-73d0929409bc&lang=en-us",
+          "title": "Dell RACADM 7.xx: remote RACADM"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsysinfo?guid=guid-1e0a055a-f2a9-4daf-a12c-44bc7dbd1a30&lang=en-us",
+          "title": "Dell RACADM 7.xx: getsysinfo"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getversion?guid=guid-70acf03a-0937-4ec8-be57-277e7ce6ca7c&lang=en-us",
+          "title": "Dell RACADM 7.xx: getversion"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsensorinfo?guid=guid-a0d65099-56ce-460b-baef-18ff746ffd02&lang=en-us",
+          "title": "Dell RACADM 7.xx: getsensorinfo"
+        }
+      ],
+      "note": "The guide documents no password prompt or environment variable for remote RACADM."
+    }
   },
   {
     "sName": "racadm",
@@ -30837,7 +32870,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" getversion -f bios",
     "desc": "One component: bios, idrac, lc or idsdm",
     "tip": "",
-    "tags": "bmc remote-management racadm recipe dell idrac sysinfo"
+    "tags": "bmc remote-management racadm recipe dell idrac sysinfo",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/remote-racadm?guid=guid-7b78457f-c280-4d99-a17e-73d0929409bc&lang=en-us",
+          "title": "Dell RACADM 7.xx: remote RACADM"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsysinfo?guid=guid-1e0a055a-f2a9-4daf-a12c-44bc7dbd1a30&lang=en-us",
+          "title": "Dell RACADM 7.xx: getsysinfo"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getversion?guid=guid-70acf03a-0937-4ec8-be57-277e7ce6ca7c&lang=en-us",
+          "title": "Dell RACADM 7.xx: getversion"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsensorinfo?guid=guid-a0d65099-56ce-460b-baef-18ff746ffd02&lang=en-us",
+          "title": "Dell RACADM 7.xx: getsensorinfo"
+        }
+      ],
+      "note": "The guide documents no password prompt or environment variable for remote RACADM."
+    }
   },
   {
     "sName": "racadm",
@@ -30848,7 +32903,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" getsensorinfo -c",
     "desc": "Every sensor, compact, grouped by type (power, temp, fan, voltage)",
     "tip": "",
-    "tags": "bmc remote-management racadm recipe dell idrac sysinfo"
+    "tags": "bmc remote-management racadm recipe dell idrac sysinfo",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/remote-racadm?guid=guid-7b78457f-c280-4d99-a17e-73d0929409bc&lang=en-us",
+          "title": "Dell RACADM 7.xx: remote RACADM"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsysinfo?guid=guid-1e0a055a-f2a9-4daf-a12c-44bc7dbd1a30&lang=en-us",
+          "title": "Dell RACADM 7.xx: getsysinfo"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getversion?guid=guid-70acf03a-0937-4ec8-be57-277e7ce6ca7c&lang=en-us",
+          "title": "Dell RACADM 7.xx: getversion"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsensorinfo?guid=guid-a0d65099-56ce-460b-baef-18ff746ffd02&lang=en-us",
+          "title": "Dell RACADM 7.xx: getsensorinfo"
+        }
+      ],
+      "note": "The guide documents no password prompt or environment variable for remote RACADM."
+    }
   },
   {
     "sName": "racadm",
@@ -30859,7 +32936,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" lclog view -c storage,system -s warning,critical -n 50",
     "desc": "Lifecycle log, filtered to storage and system warnings",
     "tip": "The Lifecycle log has more than the SEL: config changes, updates, and storage events",
-    "tags": "bmc remote-management racadm lclog sel logs events storage audit"
+    "tags": "bmc remote-management racadm lclog sel logs events storage audit",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/lclog?guid=guid-8ac7dcaa-5d30-4eb6-93e9-b58b388b4d49&lang=en-us",
+          "title": "Dell RACADM 7.xx: lclog"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsel?guid=guid-d7c7d4e2-eb61-4c84-a26e-5f2c8e05ba98&lang=en-us",
+          "title": "Dell RACADM 7.xx: getsel"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/clrsel?guid=guid-101112ea-7ad1-4a51-8e26-0933aff51503&lang=en-us",
+          "title": "Dell RACADM 7.xx: clrsel"
+        }
+      ],
+      "note": "The \"100 records without -n\" default is not in the 7.xx guide text read."
+    }
   },
   {
     "sName": "racadm",
@@ -30870,7 +32965,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" getsel -i",
     "desc": "How many SEL entries there are",
     "tip": "",
-    "tags": "bmc remote-management racadm recipe lclog sel logs"
+    "tags": "bmc remote-management racadm recipe lclog sel logs",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/lclog?guid=guid-8ac7dcaa-5d30-4eb6-93e9-b58b388b4d49&lang=en-us",
+          "title": "Dell RACADM 7.xx: lclog"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsel?guid=guid-d7c7d4e2-eb61-4c84-a26e-5f2c8e05ba98&lang=en-us",
+          "title": "Dell RACADM 7.xx: getsel"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/clrsel?guid=guid-101112ea-7ad1-4a51-8e26-0933aff51503&lang=en-us",
+          "title": "Dell RACADM 7.xx: clrsel"
+        }
+      ],
+      "note": "The \"100 records without -n\" default is not in the 7.xx guide text read."
+    }
   },
   {
     "sName": "racadm",
@@ -30881,7 +32994,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" getsel -s 1 -c 25 -o",
     "desc": "First 25 SEL records, one per line",
     "tip": "",
-    "tags": "bmc remote-management racadm recipe lclog sel logs"
+    "tags": "bmc remote-management racadm recipe lclog sel logs",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/lclog?guid=guid-8ac7dcaa-5d30-4eb6-93e9-b58b388b4d49&lang=en-us",
+          "title": "Dell RACADM 7.xx: lclog"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsel?guid=guid-d7c7d4e2-eb61-4c84-a26e-5f2c8e05ba98&lang=en-us",
+          "title": "Dell RACADM 7.xx: getsel"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/clrsel?guid=guid-101112ea-7ad1-4a51-8e26-0933aff51503&lang=en-us",
+          "title": "Dell RACADM 7.xx: clrsel"
+        }
+      ],
+      "note": "The \"100 records without -n\" default is not in the 7.xx guide text read."
+    }
   },
   {
     "sName": "racadm",
@@ -30892,7 +33023,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" clrsel",
     "desc": "Clear the SEL (changes state; save it to the case first)",
     "tip": "",
-    "tags": "bmc remote-management racadm recipe lclog sel logs"
+    "tags": "bmc remote-management racadm recipe lclog sel logs",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/lclog?guid=guid-8ac7dcaa-5d30-4eb6-93e9-b58b388b4d49&lang=en-us",
+          "title": "Dell RACADM 7.xx: lclog"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsel?guid=guid-d7c7d4e2-eb61-4c84-a26e-5f2c8e05ba98&lang=en-us",
+          "title": "Dell RACADM 7.xx: getsel"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/clrsel?guid=guid-101112ea-7ad1-4a51-8e26-0933aff51503&lang=en-us",
+          "title": "Dell RACADM 7.xx: clrsel"
+        }
+      ],
+      "note": "The \"100 records without -n\" default is not in the 7.xx guide text read."
+    }
   },
   {
     "sName": "racadm",
@@ -30903,7 +33052,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" hwinventory",
     "desc": "Hardware inventory: every component with FQDDs",
     "tip": "iDRAC allows at most 12 parallel hardware-inventory sessions",
-    "tags": "bmc remote-management racadm inventory fqdd nic transceiver serial rma"
+    "tags": "bmc remote-management racadm inventory fqdd nic transceiver serial rma",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/hwinventory?guid=guid-ce4113d2-9f80-4682-8b89-5f6f97d6ff55&lang=en-us",
+          "title": "Dell RACADM 7.xx: hwinventory"
+        }
+      ]
+    }
   },
   {
     "sName": "racadm",
@@ -30914,7 +33072,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" hwinventory networktransceiver",
     "desc": "Transceiver part and serial numbers",
     "tip": "",
-    "tags": "bmc remote-management racadm recipe inventory fqdd nic"
+    "tags": "bmc remote-management racadm recipe inventory fqdd nic",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/hwinventory?guid=guid-ce4113d2-9f80-4682-8b89-5f6f97d6ff55&lang=en-us",
+          "title": "Dell RACADM 7.xx: hwinventory"
+        }
+      ]
+    }
   },
   {
     "sName": "racadm",
@@ -30925,7 +33092,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" hwinventory Infiniband",
     "desc": "InfiniBand adapters only",
     "tip": "",
-    "tags": "bmc remote-management racadm recipe inventory fqdd nic"
+    "tags": "bmc remote-management racadm recipe inventory fqdd nic",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/hwinventory?guid=guid-ce4113d2-9f80-4682-8b89-5f6f97d6ff55&lang=en-us",
+          "title": "Dell RACADM 7.xx: hwinventory"
+        }
+      ]
+    }
   },
   {
     "sName": "racadm",
@@ -30936,7 +33112,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" storage get controllers -o",
     "desc": "RAID controllers, physical and virtual disks",
     "tip": "Run -o once to learn the property names, then use -p for a short table",
-    "tags": "bmc remote-management racadm storage raid pdisk vdisk perc disk"
+    "tags": "bmc remote-management racadm storage raid pdisk vdisk perc disk",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/storage?guid=guid-ddeb9619-85cc-4f1e-b4f9-c69babb518e0&lang=en-us",
+          "title": "Dell RACADM 7.xx: storage"
+        }
+      ]
+    }
   },
   {
     "sName": "racadm",
@@ -30947,7 +33132,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" storage get pdisks -o",
     "desc": "Every physical disk with state and slot",
     "tip": "",
-    "tags": "bmc remote-management racadm recipe storage raid pdisk"
+    "tags": "bmc remote-management racadm recipe storage raid pdisk",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/storage?guid=guid-ddeb9619-85cc-4f1e-b4f9-c69babb518e0&lang=en-us",
+          "title": "Dell RACADM 7.xx: storage"
+        }
+      ]
+    }
   },
   {
     "sName": "racadm",
@@ -30958,7 +33152,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" storage get vdisks --refkey RAID.Integrated.1-1 -o",
     "desc": "Virtual disks on the integrated controller",
     "tip": "",
-    "tags": "bmc remote-management racadm recipe storage raid pdisk"
+    "tags": "bmc remote-management racadm recipe storage raid pdisk",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/storage?guid=guid-ddeb9619-85cc-4f1e-b4f9-c69babb518e0&lang=en-us",
+          "title": "Dell RACADM 7.xx: storage"
+        }
+      ]
+    }
   },
   {
     "sName": "racadm",
@@ -30969,7 +33172,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" storage get status",
     "desc": "Quick storage health",
     "tip": "",
-    "tags": "bmc remote-management racadm recipe storage raid pdisk"
+    "tags": "bmc remote-management racadm recipe storage raid pdisk",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/storage?guid=guid-ddeb9619-85cc-4f1e-b4f9-c69babb518e0&lang=en-us",
+          "title": "Dell RACADM 7.xx: storage"
+        }
+      ]
+    }
   },
   {
     "sName": "racadm",
@@ -30980,7 +33192,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" serveraction powerstatus",
     "desc": "Power state, and power actions after a drain",
     "tip": "Prefer graceshutdown; powercycle skips the OS",
-    "tags": "bmc remote-management racadm power serveraction powercycle shutdown racreset"
+    "tags": "bmc remote-management racadm power serveraction powercycle shutdown racreset",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/serveraction?guid=guid-16197034-e2a3-4174-a96d-7dae9afd66aa&lang=en-us",
+          "title": "Dell RACADM 7.xx: serveraction"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/racreset?guid=guid-a5b943ea-b4b5-415a-bd3c-09a02dfed465&lang=en-us",
+          "title": "Dell RACADM 7.xx: racreset"
+        }
+      ]
+    }
   },
   {
     "sName": "racadm",
@@ -30991,7 +33216,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" serveraction graceshutdown",
     "desc": "Clean OS shutdown (changes state)",
     "tip": "",
-    "tags": "bmc remote-management racadm recipe power serveraction powercycle"
+    "tags": "bmc remote-management racadm recipe power serveraction powercycle",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/serveraction?guid=guid-16197034-e2a3-4174-a96d-7dae9afd66aa&lang=en-us",
+          "title": "Dell RACADM 7.xx: serveraction"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/racreset?guid=guid-a5b943ea-b4b5-415a-bd3c-09a02dfed465&lang=en-us",
+          "title": "Dell RACADM 7.xx: racreset"
+        }
+      ]
+    }
   },
   {
     "sName": "racadm",
@@ -31002,7 +33240,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" serveraction powercycle",
     "desc": "Power cycle (changes state)",
     "tip": "",
-    "tags": "bmc remote-management racadm recipe power serveraction powercycle"
+    "tags": "bmc remote-management racadm recipe power serveraction powercycle",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/serveraction?guid=guid-16197034-e2a3-4174-a96d-7dae9afd66aa&lang=en-us",
+          "title": "Dell RACADM 7.xx: serveraction"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/racreset?guid=guid-a5b943ea-b4b5-415a-bd3c-09a02dfed465&lang=en-us",
+          "title": "Dell RACADM 7.xx: racreset"
+        }
+      ]
+    }
   },
   {
     "sName": "racadm",
@@ -31013,7 +33264,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" racreset",
     "desc": "Restart the iDRAC itself; up to 2 minutes unreachable (changes state)",
     "tip": "",
-    "tags": "bmc remote-management racadm recipe power serveraction powercycle"
+    "tags": "bmc remote-management racadm recipe power serveraction powercycle",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/serveraction?guid=guid-16197034-e2a3-4174-a96d-7dae9afd66aa&lang=en-us",
+          "title": "Dell RACADM 7.xx: serveraction"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/racreset?guid=guid-a5b943ea-b4b5-415a-bd3c-09a02dfed465&lang=en-us",
+          "title": "Dell RACADM 7.xx: racreset"
+        }
+      ]
+    }
   },
   {
     "sName": "racadm",
@@ -31024,7 +33288,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" get system.location.rack.name",
     "desc": "Read and change attributes; BIOS changes need a job",
     "tip": "A set that seems to do nothing is usually a staged change waiting for its job",
-    "tags": "bmc remote-management racadm get set bios jobqueue job attributes"
+    "tags": "bmc remote-management racadm get set bios jobqueue job attributes",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/get?guid=guid-7c7f809b-3618-4fc8-9d39-f52694220f6f&lang=en-us",
+          "title": "Dell RACADM 7.xx: get"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/set?guid=guid-799c4585-0d9f-4e27-8c79-38525e9d5643&lang=en-us",
+          "title": "Dell RACADM 7.xx: set"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/jobqueue?guid=guid-a57b0f48-1ebe-4cbe-9681-458e3348301d&lang=en-us",
+          "title": "Dell RACADM 7.xx: jobqueue"
+        }
+      ]
+    }
   },
   {
     "sName": "racadm",
@@ -31035,7 +33316,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" jobqueue view",
     "desc": "Pending and finished jobs",
     "tip": "",
-    "tags": "bmc remote-management racadm recipe get set bios"
+    "tags": "bmc remote-management racadm recipe get set bios",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/get?guid=guid-7c7f809b-3618-4fc8-9d39-f52694220f6f&lang=en-us",
+          "title": "Dell RACADM 7.xx: get"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/set?guid=guid-799c4585-0d9f-4e27-8c79-38525e9d5643&lang=en-us",
+          "title": "Dell RACADM 7.xx: set"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/jobqueue?guid=guid-a57b0f48-1ebe-4cbe-9681-458e3348301d&lang=en-us",
+          "title": "Dell RACADM 7.xx: jobqueue"
+        }
+      ]
+    }
   },
   {
     "sName": "racadm",
@@ -31046,7 +33344,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" jobqueue create BIOS.Setup.1-1 -r graceful -s TIME_NOW",
     "desc": "Apply staged BIOS changes with a graceful reboot (changes state)",
     "tip": "",
-    "tags": "bmc remote-management racadm recipe get set bios"
+    "tags": "bmc remote-management racadm recipe get set bios",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/get?guid=guid-7c7f809b-3618-4fc8-9d39-f52694220f6f&lang=en-us",
+          "title": "Dell RACADM 7.xx: get"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/set?guid=guid-799c4585-0d9f-4e27-8c79-38525e9d5643&lang=en-us",
+          "title": "Dell RACADM 7.xx: set"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/jobqueue?guid=guid-a57b0f48-1ebe-4cbe-9681-458e3348301d&lang=en-us",
+          "title": "Dell RACADM 7.xx: jobqueue"
+        }
+      ]
+    }
   },
   {
     "sName": "racadm",
@@ -31057,7 +33372,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" jobqueue delete -i JID_CLEARALL",
     "desc": "Clear a stuck job queue (changes state)",
     "tip": "",
-    "tags": "bmc remote-management racadm recipe get set bios"
+    "tags": "bmc remote-management racadm recipe get set bios",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/get?guid=guid-7c7f809b-3618-4fc8-9d39-f52694220f6f&lang=en-us",
+          "title": "Dell RACADM 7.xx: get"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/set?guid=guid-799c4585-0d9f-4e27-8c79-38525e9d5643&lang=en-us",
+          "title": "Dell RACADM 7.xx: set"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/jobqueue?guid=guid-a57b0f48-1ebe-4cbe-9681-458e3348301d&lang=en-us",
+          "title": "Dell RACADM 7.xx: jobqueue"
+        }
+      ]
+    }
   },
   {
     "sName": "racadm",
@@ -31068,7 +33400,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" get -f server-config.xml -t xml -l 192.0.2.50:/exports/scp",
     "desc": "Export the whole server configuration (SCP) to a share",
     "tip": "Export before and after a change, then diff the two files",
-    "tags": "bmc remote-management racadm scp export config clone backup"
+    "tags": "bmc remote-management racadm scp export config clone backup",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/get?guid=guid-7c7f809b-3618-4fc8-9d39-f52694220f6f&lang=en-us",
+          "title": "Dell RACADM 7.xx: get"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/set?guid=guid-799c4585-0d9f-4e27-8c79-38525e9d5643&lang=en-us",
+          "title": "Dell RACADM 7.xx: set"
+        }
+      ],
+      "note": "set -f -w accepts 300–3600 seconds (default 1800); -b and -w do not combine with --preview."
+    }
   },
   {
     "sName": "racadm",
@@ -31079,7 +33425,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" set -f server-config.xml -t xml -l 192.0.2.50:/exports/scp --preview",
     "desc": "Dry-run an import",
     "tip": "",
-    "tags": "bmc remote-management racadm recipe scp export config"
+    "tags": "bmc remote-management racadm recipe scp export config",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/get?guid=guid-7c7f809b-3618-4fc8-9d39-f52694220f6f&lang=en-us",
+          "title": "Dell RACADM 7.xx: get"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/set?guid=guid-799c4585-0d9f-4e27-8c79-38525e9d5643&lang=en-us",
+          "title": "Dell RACADM 7.xx: set"
+        }
+      ],
+      "note": "set -f -w accepts 300–3600 seconds (default 1800); -b and -w do not combine with --preview."
+    }
   },
   {
     "sName": "racadm",
@@ -31090,7 +33450,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" techsupreport collect -t SysInfo,TTYLog",
     "desc": "SupportAssist collection (formerly TSR) for Dell support",
     "tip": "Attach the SupportAssist zip to every Dell RMA: it is what they ask for first",
-    "tags": "bmc remote-management racadm tsr supportassist rma logs collect"
+    "tags": "bmc remote-management racadm tsr supportassist rma logs collect",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/techsupreport?guid=guid-168e5beb-9a71-4d37-af2a-04b73ec11a99&lang=en-us",
+          "title": "Dell RACADM 7.xx: techsupreport"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/jobqueue?guid=guid-a57b0f48-1ebe-4cbe-9681-458e3348301d&lang=en-us",
+          "title": "Dell RACADM 7.xx: jobqueue"
+        }
+      ]
+    }
   },
   {
     "sName": "racadm",
@@ -31101,7 +33474,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" jobqueue view -i <JID>",
     "desc": "Wait for the collection job to finish",
     "tip": "",
-    "tags": "bmc remote-management racadm recipe tsr supportassist rma"
+    "tags": "bmc remote-management racadm recipe tsr supportassist rma",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/techsupreport?guid=guid-168e5beb-9a71-4d37-af2a-04b73ec11a99&lang=en-us",
+          "title": "Dell RACADM 7.xx: techsupreport"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/jobqueue?guid=guid-a57b0f48-1ebe-4cbe-9681-458e3348301d&lang=en-us",
+          "title": "Dell RACADM 7.xx: jobqueue"
+        }
+      ]
+    }
   },
   {
     "sName": "racadm",
@@ -31112,7 +33498,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" techsupreport export -f tsr_report.zip",
     "desc": "Download it for the RMA case",
     "tip": "",
-    "tags": "bmc remote-management racadm recipe tsr supportassist rma"
+    "tags": "bmc remote-management racadm recipe tsr supportassist rma",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/techsupreport?guid=guid-168e5beb-9a71-4d37-af2a-04b73ec11a99&lang=en-us",
+          "title": "Dell RACADM 7.xx: techsupreport"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/jobqueue?guid=guid-a57b0f48-1ebe-4cbe-9681-458e3348301d&lang=en-us",
+          "title": "Dell RACADM 7.xx: jobqueue"
+        }
+      ]
+    }
   },
   {
     "sName": "racadm",
@@ -33863,7 +36262,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "picocom -b 115200 /dev/ttyUSB0",
     "desc": "Open a USB serial console",
     "tip": "Use /dev/serial/by-id paths: ttyUSB numbers change on replug",
-    "tags": "bmc remote-management serial serial picocom console usb tty"
+    "tags": "bmc remote-management serial serial picocom console usb tty",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/npat-efault/picocom/blob/master/picocom.1.md",
+          "title": "picocom(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "serial-console",
@@ -33874,7 +36282,12 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ls -l /dev/serial/by-id/",
     "desc": "Stable names for USB serial adapters",
     "tip": "",
-    "tags": "bmc remote-management serial recipe serial picocom console"
+    "tags": "bmc remote-management serial recipe serial picocom console",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [],
+      "note": "A standard Linux path, not checked against a document."
+    }
   },
   {
     "sName": "serial-console",
@@ -33885,7 +36298,12 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo dmesg -T | grep -i tty",
     "desc": "Which ttyUSB the adapter just became",
     "tip": "",
-    "tags": "bmc remote-management serial recipe serial picocom console"
+    "tags": "bmc remote-management serial recipe serial picocom console",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [],
+      "note": "Standard Linux commands, not checked against a document."
+    }
   },
   {
     "sName": "serial-console",
@@ -33896,7 +36314,12 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "id -nG",
     "desc": "Are you in the dialout (or uucp) group that owns the port?",
     "tip": "",
-    "tags": "bmc remote-management serial recipe serial picocom console"
+    "tags": "bmc remote-management serial recipe serial picocom console",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [],
+      "note": "Standard command; the group name (dialout or uucp) depends on the distribution."
+    }
   },
   {
     "sName": "serial-console",
@@ -33907,7 +36330,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "connection: &rack12-sw1\n  accepter: telnet(rfc2217),tcp,3001\n  connector: serialdev,/dev/ttyUSB0,115200N81\n  options:\n    kickolduser: false\n    banner: \"rack12-sw1 console\\r\\n\"",
     "desc": "Share a serial port on the network with ser2net (YAML)",
     "tip": "Bind ser2net to a management VLAN only: it has no login by default",
-    "tags": "bmc remote-management serial ser2net serial network yaml rfc2217"
+    "tags": "bmc remote-management serial ser2net serial network yaml rfc2217",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/cminyard/ser2net/blob/master/README.rst",
+          "title": "ser2net README"
+        }
+      ],
+      "note": "kickolduser, max-connections and the *{file} include are in ser2net.yaml(5), which could not be read."
+    }
   },
   {
     "sName": "serial-console",
@@ -33918,7 +36351,12 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "systemctl status ser2net --no-pager",
     "desc": "Is it running?",
     "tip": "",
-    "tags": "bmc remote-management serial recipe ser2net serial network"
+    "tags": "bmc remote-management serial recipe ser2net serial network",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [],
+      "note": "The service name depends on your ser2net package."
+    }
   },
   {
     "sName": "serial-console",
@@ -33929,7 +36367,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "gensiot telnet(rfc2217),tcp,localhost,3001",
     "desc": "Connect (the README recommends gensiot over telnet)",
     "tip": "",
-    "tags": "bmc remote-management serial recipe ser2net serial network"
+    "tags": "bmc remote-management serial recipe ser2net serial network",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/cminyard/ser2net/blob/master/README.rst",
+          "title": "ser2net README"
+        },
+        {
+          "url": "https://github.com/cminyard/gensio",
+          "title": "gensio / gensiot"
+        }
+      ]
+    }
   },
   {
     "sName": "serial-console",
@@ -33940,7 +36391,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "console -u",
     "desc": "List and attach to logged consoles (conserver)",
     "tip": "conserver logs every console, so the boot that crashed at 3 a.m. is in the log",
-    "tags": "bmc remote-management serial conserver console serial logging"
+    "tags": "bmc remote-management serial conserver console serial logging",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.conserver.com/docs/console.man.html",
+          "title": "conserver console(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "serial-console",
@@ -33951,7 +36411,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "console -s rack12-node07",
     "desc": "Watch a console without typing into it",
     "tip": "",
-    "tags": "bmc remote-management serial recipe conserver console serial"
+    "tags": "bmc remote-management serial recipe conserver console serial",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.conserver.com/docs/console.man.html",
+          "title": "conserver console(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "serial-console",
@@ -33962,7 +36431,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "console -w",
     "desc": "Who is attached where",
     "tip": "",
-    "tags": "bmc remote-management serial recipe conserver console serial"
+    "tags": "bmc remote-management serial recipe conserver console serial",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.conserver.com/docs/console.man.html",
+          "title": "conserver console(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "serial-console",
@@ -33973,7 +36451,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "console rack12-node07 {\n  master localhost;\n  type ipmi;\n  host rack12-node07-bmc.example.com;\n  username <bmc_user>;\n  rw *;\n}",
     "desc": "conserver console for an IPMI SOL target",
     "tip": "chmod 600 conserver.cf when it holds BMC passwords",
-    "tags": "bmc remote-management serial conserver ipmi sol config"
+    "tags": "bmc remote-management serial conserver ipmi sol config",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.conserver.com/docs/conserver.cf.man.html",
+          "title": "conserver.cf(5)"
+        }
+      ]
+    }
   },
   {
     "sName": "serial-console",
@@ -35601,7 +38088,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "./saa -h -c GetEventLog",
     "desc": "List the commands, and the options for one command",
     "tip": "Check -h -c on your SAA version before scripting: options change between releases",
-    "tags": "bmc remote-management saa supermicro saa sum help usage"
+    "tags": "bmc remote-management saa supermicro saa sum help usage",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+          "title": "SAA for UEFI User's Guide 1.1.0"
+        },
+        {
+          "url": "https://www.supermicro.com/en/solutions/management-software/superserver-automation-assistant",
+          "title": "Supermicro SAA"
+        }
+      ],
+      "note": "Checked against the UEFI build's guide; the -l list form (Supermicro FAQ 42925) was not re-read."
+    }
   },
   {
     "sName": "supermicro-saa",
@@ -35612,7 +38113,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "./saa -h -c UpdateBios",
     "desc": "Options for a BIOS update",
     "tip": "",
-    "tags": "bmc remote-management saa recipe supermicro saa sum"
+    "tags": "bmc remote-management saa recipe supermicro saa sum",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+          "title": "SAA for UEFI User's Guide 1.1.0"
+        },
+        {
+          "url": "https://www.supermicro.com/en/solutions/management-software/superserver-automation-assistant",
+          "title": "Supermicro SAA"
+        }
+      ],
+      "note": "Checked against the UEFI build's guide; the -l list form (Supermicro FAQ 42925) was not re-read."
+    }
   },
   {
     "sName": "supermicro-saa",
@@ -35623,7 +38138,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo ./saa -c GetSystemInfo",
     "desc": "System, BIOS and BMC firmware information",
     "tip": "In-band commands need root; help (-h) doesn't",
-    "tags": "bmc remote-management saa sysinfo bios bmc fru dmi inventory"
+    "tags": "bmc remote-management saa sysinfo bios bmc fru dmi inventory",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+          "title": "SAA for UEFI User's Guide 1.1.0"
+        },
+        {
+          "url": "https://www.supermicro.com/en/solutions/management-software/superserver-automation-assistant",
+          "title": "Supermicro SAA"
+        }
+      ],
+      "note": "The UEFI guide says \"SAA, formerly known as SUM\"; the product page says SAA brings SUM and the IPMI utilities together. Root for in-band use is not stated in the pages read."
+    }
   },
   {
     "sName": "supermicro-saa",
@@ -35634,7 +38163,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo ./saa -c GetBiosInfo",
     "desc": "BIOS version and build date",
     "tip": "",
-    "tags": "bmc remote-management saa recipe sysinfo bios bmc"
+    "tags": "bmc remote-management saa recipe sysinfo bios bmc",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+          "title": "SAA for UEFI User's Guide 1.1.0"
+        },
+        {
+          "url": "https://www.supermicro.com/en/solutions/management-software/superserver-automation-assistant",
+          "title": "Supermicro SAA"
+        }
+      ],
+      "note": "The UEFI guide says \"SAA, formerly known as SUM\"; the product page says SAA brings SUM and the IPMI utilities together. Root for in-band use is not stated in the pages read."
+    }
   },
   {
     "sName": "supermicro-saa",
@@ -35645,7 +38188,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo ./saa -c GetBmcInfo",
     "desc": "BMC firmware version",
     "tip": "",
-    "tags": "bmc remote-management saa recipe sysinfo bios bmc"
+    "tags": "bmc remote-management saa recipe sysinfo bios bmc",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+          "title": "SAA for UEFI User's Guide 1.1.0"
+        },
+        {
+          "url": "https://www.supermicro.com/en/solutions/management-software/superserver-automation-assistant",
+          "title": "Supermicro SAA"
+        }
+      ],
+      "note": "The UEFI guide says \"SAA, formerly known as SUM\"; the product page says SAA brings SUM and the IPMI utilities together. Root for in-band use is not stated in the pages read."
+    }
   },
   {
     "sName": "supermicro-saa",
@@ -35656,7 +38213,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo ./saa -c GetFruInfo",
     "desc": "Serial numbers for the RMA",
     "tip": "",
-    "tags": "bmc remote-management saa recipe sysinfo bios bmc"
+    "tags": "bmc remote-management saa recipe sysinfo bios bmc",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+          "title": "SAA for UEFI User's Guide 1.1.0"
+        },
+        {
+          "url": "https://www.supermicro.com/en/solutions/management-software/superserver-automation-assistant",
+          "title": "Supermicro SAA"
+        }
+      ],
+      "note": "The UEFI guide says \"SAA, formerly known as SUM\"; the product page says SAA brings SUM and the IPMI utilities together. Root for in-band use is not stated in the pages read."
+    }
   },
   {
     "sName": "supermicro-saa",
@@ -35667,7 +38238,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo ./saa -c GetEventLog --info",
     "desc": "BMC event log and sensor status",
     "tip": "Save the event log before any clear or firmware update",
-    "tags": "bmc remote-management saa eventlog sel sensors psu intrusion"
+    "tags": "bmc remote-management saa eventlog sel sensors psu intrusion",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+          "title": "SAA for UEFI User's Guide 1.1.0"
+        }
+      ]
+    }
   },
   {
     "sName": "supermicro-saa",
@@ -35678,7 +38258,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo ./saa -c GetEventLog --info --file EventLog.txt --overwrite",
     "desc": "Save the log for the case",
     "tip": "",
-    "tags": "bmc remote-management saa recipe eventlog sel sensors"
+    "tags": "bmc remote-management saa recipe eventlog sel sensors",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+          "title": "SAA for UEFI User's Guide 1.1.0"
+        }
+      ]
+    }
   },
   {
     "sName": "supermicro-saa",
@@ -35689,7 +38278,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo ./saa -c CheckSensorData --action Show",
     "desc": "Sensors",
     "tip": "",
-    "tags": "bmc remote-management saa recipe eventlog sel sensors"
+    "tags": "bmc remote-management saa recipe eventlog sel sensors",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+          "title": "SAA for UEFI User's Guide 1.1.0"
+        }
+      ]
+    }
   },
   {
     "sName": "supermicro-saa",
@@ -35700,7 +38298,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo ./saa -c GetPsuInfo",
     "desc": "PSU status",
     "tip": "",
-    "tags": "bmc remote-management saa recipe eventlog sel sensors"
+    "tags": "bmc remote-management saa recipe eventlog sel sensors",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+          "title": "SAA for UEFI User's Guide 1.1.0"
+        }
+      ]
+    }
   },
   {
     "sName": "supermicro-saa",
@@ -35711,7 +38318,12 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "./saa -l SList.txt -u $BMC_USER -p \"$BMC_PASS\" -c GetBmcCfg --file BmcCfg.xml --overwrite",
     "desc": "Same command across many BMCs (Supermicro FAQ form)",
     "tip": "Export the config from a known-good node and diff it against the suspect one",
-    "tags": "bmc remote-management saa multi fleet bmccfg export"
+    "tags": "bmc remote-management saa multi fleet bmccfg export",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [],
+      "note": "GetBmcCfg and the -l host-list form are not in the SAA UEFI guide; the full OS guide was not found. Check ./saa -h."
+    }
   },
   {
     "sName": "supermicro-saa",
@@ -35722,7 +38334,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo ./saa -c GetGpuInfo",
     "desc": "GPU and CPLD firmware information",
     "tip": "Compare GPU baseboard firmware across the nodes of one cluster",
-    "tags": "bmc remote-management saa gpu hgx cpld firmware"
+    "tags": "bmc remote-management saa gpu hgx cpld firmware",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+          "title": "SAA for UEFI User's Guide 1.1.0"
+        }
+      ]
+    }
   },
   {
     "sName": "supermicro-saa",
@@ -35733,7 +38354,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo ./saa -c GetCpldInfo",
     "desc": "Motherboard CPLD version",
     "tip": "",
-    "tags": "bmc remote-management saa recipe gpu hgx cpld"
+    "tags": "bmc remote-management saa recipe gpu hgx cpld",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+          "title": "SAA for UEFI User's Guide 1.1.0"
+        }
+      ]
+    }
   },
   {
     "sName": "supermicro-saa",

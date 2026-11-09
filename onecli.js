@@ -47,7 +47,20 @@ const BMC_ONECLI_DATA = [
           "xcc",
           "health",
           "syshealth"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_misc_syshealth_command",
+              "title": "Lenovo OneCLI: syshealth"
+            },
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_c_technical_overview",
+              "title": "Lenovo OneCLI: global parameters"
+            }
+          ]
+        }
       },
       {
         "id": "onecli-syshealth-sub-1",
@@ -61,7 +74,20 @@ const BMC_ONECLI_DATA = [
           "lenovo",
           "xcc",
           "health"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_misc_syshealth_command",
+              "title": "Lenovo OneCLI: syshealth"
+            },
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_c_technical_overview",
+              "title": "Lenovo OneCLI: global parameters"
+            }
+          ]
+        }
       },
       {
         "id": "onecli-syshealth-sub-2",
@@ -75,7 +101,20 @@ const BMC_ONECLI_DATA = [
           "lenovo",
           "xcc",
           "health"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_misc_syshealth_command",
+              "title": "Lenovo OneCLI: syshealth"
+            },
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_c_technical_overview",
+              "title": "Lenovo OneCLI: global parameters"
+            }
+          ]
+        }
       }
     ]
   },
@@ -101,7 +140,7 @@ const BMC_ONECLI_DATA = [
           ],
           [
             "--type AEL|PEL|ALL",
-            "Audit, Platform, or both event logs"
+            "Audit, Platform, or both event logs (documented for the clear commands)"
           ],
           [
             "clearsel / clearbmclog / clearall",
@@ -121,7 +160,16 @@ const BMC_ONECLI_DATA = [
           "logs",
           "logmgr",
           "audit"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_logmgr_command",
+              "title": "Lenovo OneCLI: logmgr"
+            }
+          ]
+        }
       },
       {
         "id": "onecli-logmgr-sub-1",
@@ -135,7 +183,16 @@ const BMC_ONECLI_DATA = [
           "sel",
           "logs",
           "logmgr"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_logmgr_command",
+              "title": "Lenovo OneCLI: logmgr"
+            }
+          ]
+        }
       }
     ]
   },
@@ -180,7 +237,20 @@ const BMC_ONECLI_DATA = [
           "inventory",
           "getinfor",
           "report"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_getinfor_command",
+              "title": "Lenovo OneCLI: inventory getinfor"
+            },
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_getdevices_command",
+              "title": "Lenovo OneCLI: getdevices"
+            }
+          ]
+        }
       },
       {
         "id": "onecli-inventory-sub-1",
@@ -194,7 +264,20 @@ const BMC_ONECLI_DATA = [
           "inventory",
           "getinfor",
           "report"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_getinfor_command",
+              "title": "Lenovo OneCLI: inventory getinfor"
+            },
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_getdevices_command",
+              "title": "Lenovo OneCLI: getdevices"
+            }
+          ]
+        }
       }
     ]
   },
@@ -237,7 +320,20 @@ const BMC_ONECLI_DATA = [
           "uefi",
           "imm",
           "xcc"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_commands_display_config_settings",
+              "title": "Lenovo OneCLI: config show/compare"
+            },
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_commands_save_replicate_system_config",
+              "title": "Lenovo OneCLI: config save"
+            }
+          ]
+        }
       },
       {
         "id": "onecli-config-sub-1",
@@ -251,7 +347,17 @@ const BMC_ONECLI_DATA = [
           "config",
           "settings",
           "uefi"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_commands_save_replicate_system_config",
+              "title": "Lenovo OneCLI: config save"
+            }
+          ],
+          "note": "The --file option of config save was not confirmed on the page read."
+        }
       },
       {
         "id": "onecli-config-sub-2",
@@ -265,7 +371,20 @@ const BMC_ONECLI_DATA = [
           "config",
           "settings",
           "uefi"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_commands_display_config_settings",
+              "title": "Lenovo OneCLI: config show/compare"
+            },
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_commands_save_replicate_system_config",
+              "title": "Lenovo OneCLI: config save"
+            }
+          ]
+        }
       }
     ]
   },
@@ -308,7 +427,21 @@ const BMC_ONECLI_DATA = [
           "scan",
           "compare",
           "flash"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_up_compare_command",
+              "title": "Lenovo OneCLI: update compare"
+            },
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_flash_command",
+              "title": "Lenovo OneCLI: update flash"
+            }
+          ],
+          "note": "update scan --output: the scan page was not read."
+        }
       },
       {
         "id": "onecli-update-sub-1",
@@ -322,7 +455,21 @@ const BMC_ONECLI_DATA = [
           "firmware",
           "update",
           "scan"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_up_compare_command",
+              "title": "Lenovo OneCLI: update compare"
+            },
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_flash_command",
+              "title": "Lenovo OneCLI: update flash"
+            }
+          ],
+          "note": "update scan --output: the scan page was not read."
+        }
       }
     ]
   },
@@ -360,7 +507,7 @@ const BMC_ONECLI_DATA = [
           ],
           [
             "ospower",
-            "Replaced by power in OneCLI 5.3.0"
+            "OneCLI 5.2.0 and earlier only; use power"
           ]
         ],
         "tip": "Prefer normalrestart over forcerestart",
@@ -372,7 +519,24 @@ const BMC_ONECLI_DATA = [
           "restart",
           "rebootbmc",
           "boottosetup"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/misc_power_command",
+              "title": "Lenovo OneCLI: misc power"
+            },
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_imm_rebootimm_command",
+              "title": "Lenovo OneCLI: rebootbmc"
+            },
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_c_misc",
+              "title": "Lenovo OneCLI: misc commands"
+            }
+          ]
+        }
       },
       {
         "id": "onecli-power-sub-1",
@@ -386,7 +550,24 @@ const BMC_ONECLI_DATA = [
           "power",
           "restart",
           "rebootbmc"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/misc_power_command",
+              "title": "Lenovo OneCLI: misc power"
+            },
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_imm_rebootimm_command",
+              "title": "Lenovo OneCLI: rebootbmc"
+            },
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_c_misc",
+              "title": "Lenovo OneCLI: misc commands"
+            }
+          ]
+        }
       },
       {
         "id": "onecli-power-sub-2",
@@ -400,7 +581,24 @@ const BMC_ONECLI_DATA = [
           "power",
           "restart",
           "rebootbmc"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/misc_power_command",
+              "title": "Lenovo OneCLI: misc power"
+            },
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_imm_rebootimm_command",
+              "title": "Lenovo OneCLI: rebootbmc"
+            },
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_c_misc",
+              "title": "Lenovo OneCLI: misc commands"
+            }
+          ]
+        }
       }
     ]
   },

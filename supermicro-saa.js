@@ -48,7 +48,21 @@ const BMC_SUPERMICRO_SAA_DATA = [
           "sum",
           "help",
           "usage"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+              "title": "SAA for UEFI User's Guide 1.1.0"
+            },
+            {
+              "url": "https://www.supermicro.com/en/solutions/management-software/superserver-automation-assistant",
+              "title": "Supermicro SAA"
+            }
+          ],
+          "note": "Checked against the UEFI build's guide; the -l list form (Supermicro FAQ 42925) was not re-read."
+        }
       },
       {
         "id": "saa-help-sub-1",
@@ -62,7 +76,21 @@ const BMC_SUPERMICRO_SAA_DATA = [
           "supermicro",
           "saa",
           "sum"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+              "title": "SAA for UEFI User's Guide 1.1.0"
+            },
+            {
+              "url": "https://www.supermicro.com/en/solutions/management-software/superserver-automation-assistant",
+              "title": "Supermicro SAA"
+            }
+          ],
+          "note": "Checked against the UEFI build's guide; the -l list form (Supermicro FAQ 42925) was not re-read."
+        }
       }
     ]
   },
@@ -114,7 +142,21 @@ const BMC_SUPERMICRO_SAA_DATA = [
           "fru",
           "dmi",
           "inventory"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+              "title": "SAA for UEFI User's Guide 1.1.0"
+            },
+            {
+              "url": "https://www.supermicro.com/en/solutions/management-software/superserver-automation-assistant",
+              "title": "Supermicro SAA"
+            }
+          ],
+          "note": "The UEFI guide says \"SAA, formerly known as SUM\"; the product page says SAA brings SUM and the IPMI utilities together. Root for in-band use is not stated in the pages read."
+        }
       },
       {
         "id": "saa-sysinfo-sub-1",
@@ -128,7 +170,21 @@ const BMC_SUPERMICRO_SAA_DATA = [
           "sysinfo",
           "bios",
           "bmc"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+              "title": "SAA for UEFI User's Guide 1.1.0"
+            },
+            {
+              "url": "https://www.supermicro.com/en/solutions/management-software/superserver-automation-assistant",
+              "title": "Supermicro SAA"
+            }
+          ],
+          "note": "The UEFI guide says \"SAA, formerly known as SUM\"; the product page says SAA brings SUM and the IPMI utilities together. Root for in-band use is not stated in the pages read."
+        }
       },
       {
         "id": "saa-sysinfo-sub-2",
@@ -142,7 +198,21 @@ const BMC_SUPERMICRO_SAA_DATA = [
           "sysinfo",
           "bios",
           "bmc"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+              "title": "SAA for UEFI User's Guide 1.1.0"
+            },
+            {
+              "url": "https://www.supermicro.com/en/solutions/management-software/superserver-automation-assistant",
+              "title": "Supermicro SAA"
+            }
+          ],
+          "note": "The UEFI guide says \"SAA, formerly known as SUM\"; the product page says SAA brings SUM and the IPMI utilities together. Root for in-band use is not stated in the pages read."
+        }
       },
       {
         "id": "saa-sysinfo-sub-3",
@@ -156,7 +226,21 @@ const BMC_SUPERMICRO_SAA_DATA = [
           "sysinfo",
           "bios",
           "bmc"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+              "title": "SAA for UEFI User's Guide 1.1.0"
+            },
+            {
+              "url": "https://www.supermicro.com/en/solutions/management-software/superserver-automation-assistant",
+              "title": "Supermicro SAA"
+            }
+          ],
+          "note": "The UEFI guide says \"SAA, formerly known as SUM\"; the product page says SAA brings SUM and the IPMI utilities together. Root for in-band use is not stated in the pages read."
+        }
       }
     ]
   },
@@ -207,7 +291,16 @@ const BMC_SUPERMICRO_SAA_DATA = [
           "sensors",
           "psu",
           "intrusion"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+              "title": "SAA for UEFI User's Guide 1.1.0"
+            }
+          ]
+        }
       },
       {
         "id": "saa-eventlog-sub-1",
@@ -221,7 +314,16 @@ const BMC_SUPERMICRO_SAA_DATA = [
           "eventlog",
           "sel",
           "sensors"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+              "title": "SAA for UEFI User's Guide 1.1.0"
+            }
+          ]
+        }
       },
       {
         "id": "saa-eventlog-sub-2",
@@ -235,7 +337,16 @@ const BMC_SUPERMICRO_SAA_DATA = [
           "eventlog",
           "sel",
           "sensors"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+              "title": "SAA for UEFI User's Guide 1.1.0"
+            }
+          ]
+        }
       },
       {
         "id": "saa-eventlog-sub-3",
@@ -249,7 +360,16 @@ const BMC_SUPERMICRO_SAA_DATA = [
           "eventlog",
           "sel",
           "sensors"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+              "title": "SAA for UEFI User's Guide 1.1.0"
+            }
+          ]
+        }
       }
     ]
   },
@@ -291,7 +411,12 @@ const BMC_SUPERMICRO_SAA_DATA = [
           "fleet",
           "bmccfg",
           "export"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [],
+          "note": "GetBmcCfg and the -l host-list form are not in the SAA UEFI guide; the full OS guide was not found. Check ./saa -h."
+        }
       }
     ]
   },
@@ -329,7 +454,16 @@ const BMC_SUPERMICRO_SAA_DATA = [
           "hgx",
           "cpld",
           "firmware"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+              "title": "SAA for UEFI User's Guide 1.1.0"
+            }
+          ]
+        }
       },
       {
         "id": "saa-gpu-sub-1",
@@ -343,7 +477,16 @@ const BMC_SUPERMICRO_SAA_DATA = [
           "gpu",
           "hgx",
           "cpld"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+              "title": "SAA for UEFI User's Guide 1.1.0"
+            }
+          ]
+        }
       }
     ]
   },

@@ -48,7 +48,16 @@ const BMC_SERIAL_CONSOLE_DATA = [
           "console",
           "usb",
           "tty"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/npat-efault/picocom/blob/master/picocom.1.md",
+              "title": "picocom(1)"
+            }
+          ]
+        }
       },
       {
         "id": "serial-picocom-sub-1",
@@ -62,7 +71,12 @@ const BMC_SERIAL_CONSOLE_DATA = [
           "serial",
           "picocom",
           "console"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [],
+          "note": "A standard Linux path, not checked against a document."
+        }
       },
       {
         "id": "serial-picocom-sub-2",
@@ -76,7 +90,12 @@ const BMC_SERIAL_CONSOLE_DATA = [
           "serial",
           "picocom",
           "console"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [],
+          "note": "Standard Linux commands, not checked against a document."
+        }
       },
       {
         "id": "serial-picocom-sub-3",
@@ -90,7 +109,12 @@ const BMC_SERIAL_CONSOLE_DATA = [
           "serial",
           "picocom",
           "console"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [],
+          "note": "Standard command; the group name (dialout or uucp) depends on the distribution."
+        }
       }
     ]
   },
@@ -107,8 +131,8 @@ const BMC_SERIAL_CONSOLE_DATA = [
         "details": "",
         "flags": [
           [
-            "/etc/ser2net.yaml",
-            "Config file since ser2net 4 (YAML)"
+            "/etc/ser2net/ser2net.yaml",
+            "The YAML config path in the ser2net README (some distro packages put it elsewhere: check your package)"
           ],
           [
             "accepter",
@@ -141,7 +165,17 @@ const BMC_SERIAL_CONSOLE_DATA = [
           "network",
           "yaml",
           "rfc2217"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/cminyard/ser2net/blob/master/README.rst",
+              "title": "ser2net README"
+            }
+          ],
+          "note": "kickolduser, max-connections and the *{file} include are in ser2net.yaml(5), which could not be read."
+        }
       },
       {
         "id": "serial-ser2net-sub-1",
@@ -155,7 +189,12 @@ const BMC_SERIAL_CONSOLE_DATA = [
           "ser2net",
           "serial",
           "network"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [],
+          "note": "The service name depends on your ser2net package."
+        }
       },
       {
         "id": "serial-ser2net-sub-2",
@@ -169,7 +208,20 @@ const BMC_SERIAL_CONSOLE_DATA = [
           "ser2net",
           "serial",
           "network"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/cminyard/ser2net/blob/master/README.rst",
+              "title": "ser2net README"
+            },
+            {
+              "url": "https://github.com/cminyard/gensio",
+              "title": "gensio / gensiot"
+            }
+          ]
+        }
       }
     ]
   },
@@ -219,7 +271,16 @@ const BMC_SERIAL_CONSOLE_DATA = [
           "console",
           "serial",
           "logging"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.conserver.com/docs/console.man.html",
+              "title": "conserver console(1)"
+            }
+          ]
+        }
       },
       {
         "id": "serial-conserver-sub-1",
@@ -233,7 +294,16 @@ const BMC_SERIAL_CONSOLE_DATA = [
           "conserver",
           "console",
           "serial"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.conserver.com/docs/console.man.html",
+              "title": "conserver console(1)"
+            }
+          ]
+        }
       },
       {
         "id": "serial-conserver-sub-2",
@@ -247,7 +317,16 @@ const BMC_SERIAL_CONSOLE_DATA = [
           "conserver",
           "console",
           "serial"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.conserver.com/docs/console.man.html",
+              "title": "conserver console(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -289,7 +368,16 @@ const BMC_SERIAL_CONSOLE_DATA = [
           "ipmi",
           "sol",
           "config"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.conserver.com/docs/conserver.cf.man.html",
+              "title": "conserver.cf(5)"
+            }
+          ]
+        }
       }
     ]
   },

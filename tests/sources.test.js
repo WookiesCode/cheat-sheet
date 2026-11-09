@@ -117,6 +117,32 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     await ctx.close();
   }
 
+  // 2d. BMC vendor tools (racadm, iLOrest, SAA, OneCLI, FreeIPMI, serial consoles).
+  {
+    const PAGES = ['racadm', 'ilorest', 'supermicro-saa', 'onecli', 'freeipmi', 'serial-console'];
+    const ctx = await newContext(browser);
+    const p = await ctx.newPage();
+    let total = 0, sourced = 0;
+    const all = {};
+    for (const f of PAGES) {
+      await p.goto(BASE + f + '.html', { waitUntil: 'load' });
+      await p.waitForTimeout(400);
+      for (const l of await lines(p)) {
+        if (/-(tips|flags)-card$/.test(l.id)) continue;
+        total++;
+        all[l.id] = l;
+        if (l.text) sourced++;
+      }
+    }
+    check(total === 107 && sourced === 107, `all 107 BMC-tool commands and recipes show a source line (${sourced}/${total})`);
+    const unverified = Object.values(all).filter(l => /is-unverified/.test(l.cls)).map(l => l.id).sort();
+    check(unverified.join(' ') === 'saa-multi serial-picocom-sub-1 serial-picocom-sub-2 serial-picocom-sub-3 serial-ser2net-sub-1',
+      `the 5 unconfirmed entries say "Not verified" (${unverified.join(', ')})`);
+    check(/racadm-getsysinfo/.test(Object.keys(all).join(' ')) && /Dell RACADM 7\.xx/.test(all['racadm-getsysinfo'].text), 'racadm cites the Dell RACADM 7.xx guide');
+    check(/HPE iLOrest 7\.4/.test(all['ilorest-reboot'].text), 'iLOrest cites the HPE iLOrest 7.4 guide (even on the reference-only reboot card)');
+    await ctx.close();
+  }
+
   // 3. Over a year old → amber "re-check"; and src can't inject markup or javascript: links.
   {
     const ctx = await newContext(browser);

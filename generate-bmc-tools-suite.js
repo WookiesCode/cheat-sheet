@@ -41,6 +41,7 @@ const BMC_SECTIONS = [
     commands: [
       {
         id: "racadm-getsysinfo",
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/remote-racadm?guid=guid-7b78457f-c280-4d99-a17e-73d0929409bc&lang=en-us", "title": "Dell RACADM 7.xx: remote RACADM"}, {"url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsysinfo?guid=guid-1e0a055a-f2a9-4daf-a12c-44bc7dbd1a30&lang=en-us", "title": "Dell RACADM 7.xx: getsysinfo"}, {"url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getversion?guid=guid-70acf03a-0937-4ec8-be57-277e7ce6ca7c&lang=en-us", "title": "Dell RACADM 7.xx: getversion"}, {"url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsensorinfo?guid=guid-a0d65099-56ce-460b-baef-18ff746ffd02&lang=en-us", "title": "Dell RACADM 7.xx: getsensorinfo"}], "note": "The guide documents no password prompt or environment variable for remote RACADM."},
         desc: "System and iDRAC summary, remote or in-band",
         cmd: "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" getsysinfo",
         flags: [
@@ -62,6 +63,7 @@ const BMC_SECTIONS = [
       },
       {
         id: "racadm-lclog",
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/lclog?guid=guid-8ac7dcaa-5d30-4eb6-93e9-b58b388b4d49&lang=en-us", "title": "Dell RACADM 7.xx: lclog"}, {"url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsel?guid=guid-d7c7d4e2-eb61-4c84-a26e-5f2c8e05ba98&lang=en-us", "title": "Dell RACADM 7.xx: getsel"}, {"url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/clrsel?guid=guid-101112ea-7ad1-4a51-8e26-0933aff51503&lang=en-us", "title": "Dell RACADM 7.xx: clrsel"}], "note": "The \"100 records without -n\" default is not in the 7.xx guide text read."},
         desc: "Lifecycle log, filtered to storage and system warnings",
         cmd: "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" lclog view -c storage,system -s warning,critical -n 50",
         flags: [
@@ -82,6 +84,7 @@ const BMC_SECTIONS = [
       },
       {
         id: "racadm-hwinventory",
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/hwinventory?guid=guid-ce4113d2-9f80-4682-8b89-5f6f97d6ff55&lang=en-us", "title": "Dell RACADM 7.xx: hwinventory"}]},
         desc: "Hardware inventory: every component with FQDDs",
         cmd: "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" hwinventory",
         flags: [
@@ -99,6 +102,7 @@ const BMC_SECTIONS = [
       },
       {
         id: "racadm-storage",
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/storage?guid=guid-ddeb9619-85cc-4f1e-b4f9-c69babb518e0&lang=en-us", "title": "Dell RACADM 7.xx: storage"}]},
         desc: "RAID controllers, physical and virtual disks",
         cmd: "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" storage get controllers -o",
         flags: [
@@ -119,6 +123,7 @@ const BMC_SECTIONS = [
       },
       {
         id: "racadm-serveraction",
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/serveraction?guid=guid-16197034-e2a3-4174-a96d-7dae9afd66aa&lang=en-us", "title": "Dell RACADM 7.xx: serveraction"}, {"url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/racreset?guid=guid-a5b943ea-b4b5-415a-bd3c-09a02dfed465&lang=en-us", "title": "Dell RACADM 7.xx: racreset"}]},
         desc: "Power state, and power actions after a drain",
         cmd: "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" serveraction powerstatus",
         flags: [
@@ -138,6 +143,7 @@ const BMC_SECTIONS = [
       },
       {
         id: "racadm-get-set-job",
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/get?guid=guid-7c7f809b-3618-4fc8-9d39-f52694220f6f&lang=en-us", "title": "Dell RACADM 7.xx: get"}, {"url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/set?guid=guid-799c4585-0d9f-4e27-8c79-38525e9d5643&lang=en-us", "title": "Dell RACADM 7.xx: set"}, {"url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/jobqueue?guid=guid-a57b0f48-1ebe-4cbe-9681-458e3348301d&lang=en-us", "title": "Dell RACADM 7.xx: jobqueue"}]},
         desc: "Read and change attributes; BIOS changes need a job",
         cmd: "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" get system.location.rack.name",
         flags: [
@@ -158,6 +164,7 @@ const BMC_SECTIONS = [
       },
       {
         id: "racadm-scp",
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/get?guid=guid-7c7f809b-3618-4fc8-9d39-f52694220f6f&lang=en-us", "title": "Dell RACADM 7.xx: get"}, {"url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/set?guid=guid-799c4585-0d9f-4e27-8c79-38525e9d5643&lang=en-us", "title": "Dell RACADM 7.xx: set"}], "note": "set -f -w accepts 300–3600 seconds (default 1800); -b and -w do not combine with --preview."},
         desc: "Export the whole server configuration (SCP) to a share",
         cmd: "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" get -f server-config.xml -t xml -l 192.0.2.50:/exports/scp",
         flags: [
@@ -174,6 +181,7 @@ const BMC_SECTIONS = [
       },
       {
         id: "racadm-tsr",
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/techsupreport?guid=guid-168e5beb-9a71-4d37-af2a-04b73ec11a99&lang=en-us", "title": "Dell RACADM 7.xx: techsupreport"}, {"url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/jobqueue?guid=guid-a57b0f48-1ebe-4cbe-9681-458e3348301d&lang=en-us", "title": "Dell RACADM 7.xx: jobqueue"}]},
         desc: "SupportAssist collection (formerly TSR) for Dell support",
         cmd: "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" techsupreport collect -t SysInfo,TTYLog",
         flags: [
@@ -205,6 +213,7 @@ const BMC_SECTIONS = [
     commands: [
       {
         id: "ilorest-login",
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/globalcommands.md", "title": "HPE iLOrest 7.4: global commands"}, {"url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/usage.md", "title": "HPE iLOrest 7.4: usage"}]},
         desc: "Log in to an iLO (the session is reused by later commands)",
         cmd: "ilorest login $BMC -u $BMC_USER -p \"$BMC_PASS\"",
         flags: [
@@ -223,6 +232,7 @@ const BMC_SECTIONS = [
       },
       {
         id: "ilorest-serverinfo",
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md", "title": "HPE iLOrest 7.4: iLO commands"}]},
         desc: "Server summary: system, firmware, memory, CPUs, fans, power, thermals",
         cmd: "ilorest serverinfo --system --firmware",
         flags: [
@@ -242,6 +252,7 @@ const BMC_SECTIONS = [
       },
       {
         id: "ilorest-serverlogs",
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md", "title": "HPE iLOrest 7.4: iLO commands"}], "note": "AHS downloads must use the default file name (-f is not supported for AHS)."},
         desc: "IML, iLO event log and AHS download",
         cmd: "ilorest serverlogs --selectlog=IML",
         flags: [
@@ -263,6 +274,7 @@ const BMC_SECTIONS = [
       },
       {
         id: "ilorest-storage",
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/smartarraycommands.md", "title": "HPE iLOrest 7.4: storage commands"}]},
         desc: "Storage controllers, drives and volumes (Gen10 and later)",
         cmd: "ilorest storagecontroller",
         flags: [
@@ -281,6 +293,7 @@ const BMC_SECTIONS = [
       },
       {
         id: "ilorest-select-get",
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/globalcommands.md", "title": "HPE iLOrest 7.4: global commands"}, {"url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/usage.md", "title": "HPE iLOrest 7.4: usage"}]},
         desc: "Read any Redfish property with select and get",
         cmd: "ilorest get BootOrderPolicy --select Bios.",
         flags: [
@@ -299,6 +312,7 @@ const BMC_SECTIONS = [
       },
       {
         id: "ilorest-reboot",
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md", "title": "HPE iLOrest 7.4: iLO commands"}]},
         desc: "Power control (after a drain)",
         cmd: "ilorest reboot PushPowerButton",
         flags: [
@@ -318,6 +332,7 @@ const BMC_SECTIONS = [
       },
       {
         id: "ilorest-firmware",
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md", "title": "HPE iLOrest 7.4: iLO commands"}, {"url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilorepositorycommands.md", "title": "HPE iLOrest 7.4: iLO repository commands"}]},
         desc: "Firmware integrity and the iLO repository",
         cmd: "ilorest fwintegritycheck --results",
         flags: [
@@ -325,7 +340,7 @@ const BMC_SECTIONS = [
           ["listcomp", "Components in the iLO repository"],
           ["flashfwpkg <file>.fwpkg", "Upload and flash a package (changes state)"],
           ["uploadcomp --component <file>", "Upload to the repository; needs iLO 5 1.48(a)+"],
-          ["firmwareupdate <URI>", "iLO and UEFI firmware from a URL (changes state)"]
+          ["firmwareupdate <URI>", "iLO and UEFI firmware (.bin images) from a URL (changes state)"]
         ],
         subcommands: [
           ["ilorest serverinfo --firmware", "Installed firmware versions"],
@@ -336,6 +351,7 @@ const BMC_SECTIONS = [
       },
       {
         id: "ilorest-network-media",
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md", "title": "HPE iLOrest 7.4: iLO commands"}]},
         desc: "iLO network settings and virtual media",
         cmd: "ilorest ethernet",
         flags: [
@@ -369,6 +385,7 @@ const BMC_SECTIONS = [
     commands: [
       {
         id: "saa-help",
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf", "title": "SAA for UEFI User's Guide 1.1.0"}, {"url": "https://www.supermicro.com/en/solutions/management-software/superserver-automation-assistant", "title": "Supermicro SAA"}], "note": "Checked against the UEFI build's guide; the -l list form (Supermicro FAQ 42925) was not re-read."},
         desc: "List the commands, and the options for one command",
         cmd: "./saa -h -c GetEventLog",
         flags: [
@@ -387,6 +404,7 @@ const BMC_SECTIONS = [
       },
       {
         id: "saa-sysinfo",
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf", "title": "SAA for UEFI User's Guide 1.1.0"}, {"url": "https://www.supermicro.com/en/solutions/management-software/superserver-automation-assistant", "title": "Supermicro SAA"}], "note": "The UEFI guide says \"SAA, formerly known as SUM\"; the product page says SAA brings SUM and the IPMI utilities together. Root for in-band use is not stated in the pages read."},
         desc: "System, BIOS and BMC firmware information",
         cmd: "sudo ./saa -c GetSystemInfo",
         flags: [
@@ -407,6 +425,7 @@ const BMC_SECTIONS = [
       },
       {
         id: "saa-eventlog",
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf", "title": "SAA for UEFI User's Guide 1.1.0"}]},
         desc: "BMC event log and sensor status",
         cmd: "sudo ./saa -c GetEventLog --info",
         flags: [
@@ -427,6 +446,7 @@ const BMC_SECTIONS = [
       },
       {
         id: "saa-multi",
+        src: {"verified": "2026-11-09", "refs": [], "note": "GetBmcCfg and the -l host-list form are not in the SAA UEFI guide; the full OS guide was not found. Check ./saa -h."},
         desc: "Same command across many BMCs (Supermicro FAQ form)",
         cmd: "./saa -l SList.txt -u $BMC_USER -p \"$BMC_PASS\" -c GetBmcCfg --file BmcCfg.xml --overwrite",
         flags: [
@@ -441,6 +461,7 @@ const BMC_SECTIONS = [
       },
       {
         id: "saa-gpu",
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf", "title": "SAA for UEFI User's Guide 1.1.0"}]},
         desc: "GPU and CPLD firmware information",
         cmd: "sudo ./saa -c GetGpuInfo",
         flags: [
@@ -471,6 +492,7 @@ const BMC_SECTIONS = [
     commands: [
       {
         id: "onecli-syshealth",
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://pubs.lenovo.com/lxce-onecli/onecli_misc_syshealth_command", "title": "Lenovo OneCLI: syshealth"}, {"url": "https://pubs.lenovo.com/lxce-onecli/onecli_c_technical_overview", "title": "Lenovo OneCLI: global parameters"}]},
         desc: "System health summary through the XCC",
         cmd: "./OneCli misc syshealth --bmc \"$BMC_USER:$BMC_PASS@$BMC\"",
         flags: [
@@ -490,12 +512,13 @@ const BMC_SECTIONS = [
       },
       {
         id: "onecli-logmgr",
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_logmgr_command", "title": "Lenovo OneCLI: logmgr"}]},
         desc: "SEL, BMC and audit logs",
         cmd: "./OneCli misc logmgr showsel --bmc \"$BMC_USER:$BMC_PASS@$BMC\"",
         flags: [
           ["showsel", "System event log"],
           ["showbmclog / showauditlog / showmaintlog", "XCC event log, audit log, maintenance log"],
-          ["--type AEL|PEL|ALL", "Audit, Platform, or both event logs"],
+          ["--type AEL|PEL|ALL", "Audit, Platform, or both event logs (documented for the clear commands)"],
           ["clearsel / clearbmclog / clearall", "Clear logs (changes state)"],
           ["In-band too", "logmgr works in-band and out-of-band"]
         ],
@@ -507,6 +530,7 @@ const BMC_SECTIONS = [
       },
       {
         id: "onecli-inventory",
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_getinfor_command", "title": "Lenovo OneCLI: inventory getinfor"}, {"url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_getdevices_command", "title": "Lenovo OneCLI: getdevices"}]},
         desc: "Full inventory report (in-band)",
         cmd: "sudo ./OneCli inventory getinfor --output ./inventory --htmlreport",
         flags: [
@@ -524,6 +548,7 @@ const BMC_SECTIONS = [
       },
       {
         id: "onecli-config",
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_commands_display_config_settings", "title": "Lenovo OneCLI: config show/compare"}, {"url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_commands_save_replicate_system_config", "title": "Lenovo OneCLI: config save"}]},
         desc: "Read and save settings (XCC, UEFI)",
         cmd: "./OneCli config show IMM --bmc \"$BMC_USER:$BMC_PASS@$BMC\"",
         flags: [
@@ -533,7 +558,7 @@ const BMC_SECTIONS = [
           ["config compare / comparedefault", "Compare against a file or the defaults"]
         ],
         subcommands: [
-          ["./OneCli config save --file saved.txt --bmc \"$BMC_USER:$BMC_PASS@$BMC\"", "Save every setting for a later diff"],
+          ["./OneCli config save --file saved.txt --bmc \"$BMC_USER:$BMC_PASS@$BMC\"", "Save every setting for a later diff", {"verified": "2026-11-09", "refs": [{"url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_commands_save_replicate_system_config", "title": "Lenovo OneCLI: config save"}], "note": "The --file option of config save was not confirmed on the page read."}],
           ["./OneCli config show UEFI --bmc \"$BMC_USER:$BMC_PASS@$BMC\"", "BIOS (UEFI) settings"]
         ],
         tip: "Save before you set, and keep the file in the case folder",
@@ -541,6 +566,7 @@ const BMC_SECTIONS = [
       },
       {
         id: "onecli-update",
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_up_compare_command", "title": "Lenovo OneCLI: update compare"}, {"url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_flash_command", "title": "Lenovo OneCLI: update flash"}], "note": "update scan --output: the scan page was not read."},
         desc: "What firmware is installed, and what is newer",
         cmd: "./OneCli update scan --bmc \"$BMC_USER:$BMC_PASS@$BMC\" --output ./scan",
         flags: [
@@ -557,6 +583,7 @@ const BMC_SECTIONS = [
       },
       {
         id: "onecli-power",
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://pubs.lenovo.com/lxce-onecli/misc_power_command", "title": "Lenovo OneCLI: misc power"}, {"url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_imm_rebootimm_command", "title": "Lenovo OneCLI: rebootbmc"}, {"url": "https://pubs.lenovo.com/lxce-onecli/onecli_c_misc", "title": "Lenovo OneCLI: misc commands"}]},
         desc: "Power state and control (after a drain)",
         cmd: "./OneCli misc power state --bmc \"$BMC_USER:$BMC_PASS@$BMC\"",
         flags: [
@@ -565,7 +592,7 @@ const BMC_SECTIONS = [
           ["power forceoff / forcerestart / on", "Hard actions (change state)"],
           ["power boottosetup", "Restart into UEFI setup (changes state)"],
           ["rebootbmc", "Restart the XCC (changes state)"],
-          ["ospower", "Replaced by power in OneCLI 5.3.0"]
+          ["ospower", "OneCLI 5.2.0 and earlier only; use power"]
         ],
         subcommands: [
           ["./OneCli misc power normalrestart --bmc \"$BMC_USER:$BMC_PASS@$BMC\"", "Clean restart (changes state)"],
@@ -591,6 +618,7 @@ const BMC_SECTIONS = [
     commands: [
       {
         id: "freeipmi-sensors",
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-sensors.8.en.html", "title": "FreeIPMI ipmi-sensors(8)"}, {"url": "https://manpages.debian.org/trixie/freeipmi-tools/bmc-info.8.en.html", "title": "FreeIPMI bmc-info(8)"}, {"url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-fru.8.en.html", "title": "FreeIPMI ipmi-fru(8)"}, {"url": "https://manpages.debian.org/trixie/freeipmi-common/freeipmi.7.en.html", "title": "FreeIPMI freeipmi(7)"}], "note": "Sensor type names: list them with ipmi-sensors -L."},
         desc: "Sensors with a health state, password prompted",
         cmd: "ipmi-sensors -h $BMC -u $BMC_USER -P --output-sensor-state --ignore-not-available-sensors",
         flags: [
@@ -611,6 +639,7 @@ const BMC_SECTIONS = [
       },
       {
         id: "freeipmi-sel",
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-sel.8.en.html", "title": "FreeIPMI ipmi-sel(8)"}]},
         desc: "Last SEL entries, interpreted",
         cmd: "ipmi-sel -h $BMC -u $BMC_USER -P --tail=50 --interpret-oem-data --output-event-state",
         flags: [
@@ -628,6 +657,7 @@ const BMC_SECTIONS = [
       },
       {
         id: "freeipmi-power",
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmipower.8.en.html", "title": "FreeIPMI ipmipower(8)"}, {"url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-chassis.8.en.html", "title": "FreeIPMI ipmi-chassis(8)"}], "note": "A host range with text after the brackets ([01-16]-bmc) is not shown in the man page; the fan-out default 64 is stated on the sibling tools' pages."},
         desc: "Power status for a whole rack at once",
         cmd: "ipmipower -h \"rack12-node[01-16]-bmc\" -u $BMC_USER -P --stat",
         flags: [
@@ -639,7 +669,7 @@ const BMC_SECTIONS = [
           ["-F <n>", "Fan-out: hosts in parallel (default 64)"]
         ],
         subcommands: [
-          ["ipmi-chassis -h $BMC -u $BMC_USER -P --get-chassis-status", "Power, last power event, intrusion"],
+          ["ipmi-chassis -h $BMC -u $BMC_USER -P --get-chassis-status", "Power, last power event, intrusion", {"verified": "2026-11-09", "refs": [{"url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-chassis.8.en.html", "title": "FreeIPMI ipmi-chassis(8)"}], "note": "The man page does not list what the status shows (power, last event, intrusion)."}],
           ["ipmipower -h $BMC -u $BMC_USER -P --soft", "Clean OS shutdown (changes state)"]
         ],
         tip: "Host ranges make rack-wide status checks one command",
@@ -647,6 +677,7 @@ const BMC_SECTIONS = [
       },
       {
         id: "freeipmi-sol",
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmiconsole.8.en.html", "title": "FreeIPMI ipmiconsole(8)"}]},
         desc: "Serial-over-LAN console",
         cmd: "ipmiconsole -h $BMC -u $BMC_USER -P",
         flags: [
@@ -667,6 +698,7 @@ const BMC_SECTIONS = [
       },
       {
         id: "freeipmi-dcmi",
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-dcmi.8.en.html", "title": "FreeIPMI ipmi-dcmi(8)"}]},
         desc: "Power draw from the BMC (DCMI)",
         cmd: "ipmi-dcmi -h $BMC -u $BMC_USER -P --get-system-power-statistics",
         flags: [
@@ -698,6 +730,7 @@ const BMC_SECTIONS = [
     commands: [
       {
         id: "serial-picocom",
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://github.com/npat-efault/picocom/blob/master/picocom.1.md", "title": "picocom(1)"}]},
         desc: "Open a USB serial console",
         cmd: "picocom -b 115200 /dev/ttyUSB0",
         flags: [
@@ -709,19 +742,20 @@ const BMC_SECTIONS = [
           ["-g <file>", "Log the session to a file"]
         ],
         subcommands: [
-          ["ls -l /dev/serial/by-id/", "Stable names for USB serial adapters"],
-          ["sudo dmesg -T | grep -i tty", "Which ttyUSB the adapter just became"],
-          ["id -nG", "Are you in the dialout (or uucp) group that owns the port?"]
+          ["ls -l /dev/serial/by-id/", "Stable names for USB serial adapters", {"verified": "2026-11-09", "refs": [], "note": "A standard Linux path, not checked against a document."}],
+          ["sudo dmesg -T | grep -i tty", "Which ttyUSB the adapter just became", {"verified": "2026-11-09", "refs": [], "note": "Standard Linux commands, not checked against a document."}],
+          ["id -nG", "Are you in the dialout (or uucp) group that owns the port?", {"verified": "2026-11-09", "refs": [], "note": "Standard command; the group name (dialout or uucp) depends on the distribution."}]
         ],
         tip: "Use /dev/serial/by-id paths: ttyUSB numbers change on replug",
         tags: ["serial", "picocom", "console", "usb", "tty"]
       },
       {
         id: "serial-ser2net",
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://github.com/cminyard/ser2net/blob/master/README.rst", "title": "ser2net README"}], "note": "kickolduser, max-connections and the *{file} include are in ser2net.yaml(5), which could not be read."},
         desc: "Share a serial port on the network with ser2net (YAML)",
         cmd: "connection: &rack12-sw1\n  accepter: telnet(rfc2217),tcp,3001\n  connector: serialdev,/dev/ttyUSB0,115200N81\n  options:\n    kickolduser: false\n    banner: \"rack12-sw1 console\\r\\n\"",
         flags: [
-          ["/etc/ser2net.yaml", "Config file since ser2net 4 (YAML)"],
+          ["/etc/ser2net/ser2net.yaml", "The YAML config path in the ser2net README (some distro packages put it elsewhere: check your package)"],
           ["accepter", "What clients connect to: tcp,<port> or telnet(rfc2217),tcp,<port>"],
           ["connector", "The device: serialdev,<path>,<baud><parity><bits><stop>"],
           ["kickolduser", "true: a new user takes over from the old one"],
@@ -729,14 +763,15 @@ const BMC_SECTIONS = [
           ["*{file}", "YAML v1: insert a file's contents, so secrets stay out of the config"]
         ],
         subcommands: [
-          ["systemctl status ser2net --no-pager", "Is it running?"],
-          ["gensiot telnet(rfc2217),tcp,localhost,3001", "Connect (the README recommends gensiot over telnet)"]
+          ["systemctl status ser2net --no-pager", "Is it running?", {"verified": "2026-11-09", "refs": [], "note": "The service name depends on your ser2net package."}],
+          ["gensiot telnet(rfc2217),tcp,localhost,3001", "Connect (the README recommends gensiot over telnet)", {"verified": "2026-11-09", "refs": [{"url": "https://github.com/cminyard/ser2net/blob/master/README.rst", "title": "ser2net README"}, {"url": "https://github.com/cminyard/gensio", "title": "gensio / gensiot"}]}]
         ],
         tip: "Bind ser2net to a management VLAN only: it has no login by default",
         tags: ["ser2net", "serial", "network", "yaml", "rfc2217"]
       },
       {
         id: "serial-conserver",
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://www.conserver.com/docs/console.man.html", "title": "conserver console(1)"}]},
         desc: "List and attach to logged consoles (conserver)",
         cmd: "console -u",
         flags: [
@@ -756,6 +791,7 @@ const BMC_SECTIONS = [
       },
       {
         id: "serial-conserver-ipmi",
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://www.conserver.com/docs/conserver.cf.man.html", "title": "conserver.cf(5)"}]},
         desc: "conserver console for an IPMI SOL target",
         cmd: "console rack12-node07 {\n  master localhost;\n  type ipmi;\n  host rack12-node07-bmc.example.com;\n  username <bmc_user>;\n  rw *;\n}",
         flags: [

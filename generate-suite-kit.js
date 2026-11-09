@@ -39,7 +39,9 @@ function buildSectionCards(sec, suiteTags) {
       commands: [{
         id: cmd.id, desc: cmd.desc, cmd: cmd.cmd, details: cmd.details || '',
         flags: cmd.flags ? cmd.flags.slice(0, 3) : [], tip: cmd.tip || '',
-        tags: [...baseTags, ...(cmd.tags || [])]
+        tags: [...baseTags, ...(cmd.tags || [])],
+        // Where the command was checked (drawn under the card by common.js initSources).
+        ...(cmd.src ? { src: cmd.src } : {})
       }]
     });
     if (cmd.flags && cmd.flags.length > 3) {
@@ -65,7 +67,9 @@ function buildSectionCards(sec, suiteTags) {
         subtitle: `Related commands for: ${cmd.desc.split('(')[0].trim()}`,
         commands: cmd.subcommands.map((sub, idx) => ({
           id: `${cmd.id}-sub-${idx + 1}`, desc: sub[1], cmd: sub[0],
-          tags: [...baseTags, 'recipe', ...(cmd.tags || []).slice(0, 3)]
+          tags: [...baseTags, 'recipe', ...(cmd.tags || []).slice(0, 3)],
+          // A recipe's own source (third element) wins; otherwise it shares the command's.
+          ...((sub[2] || cmd.src) ? { src: sub[2] || cmd.src } : {})
         }))
       });
     }

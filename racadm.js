@@ -49,7 +49,29 @@ const BMC_RACADM_DATA = [
           "version",
           "sensors",
           "service-tag"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/remote-racadm?guid=guid-7b78457f-c280-4d99-a17e-73d0929409bc&lang=en-us",
+              "title": "Dell RACADM 7.xx: remote RACADM"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsysinfo?guid=guid-1e0a055a-f2a9-4daf-a12c-44bc7dbd1a30&lang=en-us",
+              "title": "Dell RACADM 7.xx: getsysinfo"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getversion?guid=guid-70acf03a-0937-4ec8-be57-277e7ce6ca7c&lang=en-us",
+              "title": "Dell RACADM 7.xx: getversion"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsensorinfo?guid=guid-a0d65099-56ce-460b-baef-18ff746ffd02&lang=en-us",
+              "title": "Dell RACADM 7.xx: getsensorinfo"
+            }
+          ],
+          "note": "The guide documents no password prompt or environment variable for remote RACADM."
+        }
       },
       {
         "id": "racadm-getsysinfo-sub-1",
@@ -63,7 +85,29 @@ const BMC_RACADM_DATA = [
           "dell",
           "idrac",
           "sysinfo"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/remote-racadm?guid=guid-7b78457f-c280-4d99-a17e-73d0929409bc&lang=en-us",
+              "title": "Dell RACADM 7.xx: remote RACADM"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsysinfo?guid=guid-1e0a055a-f2a9-4daf-a12c-44bc7dbd1a30&lang=en-us",
+              "title": "Dell RACADM 7.xx: getsysinfo"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getversion?guid=guid-70acf03a-0937-4ec8-be57-277e7ce6ca7c&lang=en-us",
+              "title": "Dell RACADM 7.xx: getversion"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsensorinfo?guid=guid-a0d65099-56ce-460b-baef-18ff746ffd02&lang=en-us",
+              "title": "Dell RACADM 7.xx: getsensorinfo"
+            }
+          ],
+          "note": "The guide documents no password prompt or environment variable for remote RACADM."
+        }
       },
       {
         "id": "racadm-getsysinfo-sub-2",
@@ -77,7 +121,29 @@ const BMC_RACADM_DATA = [
           "dell",
           "idrac",
           "sysinfo"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/remote-racadm?guid=guid-7b78457f-c280-4d99-a17e-73d0929409bc&lang=en-us",
+              "title": "Dell RACADM 7.xx: remote RACADM"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsysinfo?guid=guid-1e0a055a-f2a9-4daf-a12c-44bc7dbd1a30&lang=en-us",
+              "title": "Dell RACADM 7.xx: getsysinfo"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getversion?guid=guid-70acf03a-0937-4ec8-be57-277e7ce6ca7c&lang=en-us",
+              "title": "Dell RACADM 7.xx: getversion"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsensorinfo?guid=guid-a0d65099-56ce-460b-baef-18ff746ffd02&lang=en-us",
+              "title": "Dell RACADM 7.xx: getsensorinfo"
+            }
+          ],
+          "note": "The guide documents no password prompt or environment variable for remote RACADM."
+        }
       },
       {
         "id": "racadm-getsysinfo-sub-3",
@@ -91,7 +157,29 @@ const BMC_RACADM_DATA = [
           "dell",
           "idrac",
           "sysinfo"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/remote-racadm?guid=guid-7b78457f-c280-4d99-a17e-73d0929409bc&lang=en-us",
+              "title": "Dell RACADM 7.xx: remote RACADM"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsysinfo?guid=guid-1e0a055a-f2a9-4daf-a12c-44bc7dbd1a30&lang=en-us",
+              "title": "Dell RACADM 7.xx: getsysinfo"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getversion?guid=guid-70acf03a-0937-4ec8-be57-277e7ce6ca7c&lang=en-us",
+              "title": "Dell RACADM 7.xx: getversion"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsensorinfo?guid=guid-a0d65099-56ce-460b-baef-18ff746ffd02&lang=en-us",
+              "title": "Dell RACADM 7.xx: getsensorinfo"
+            }
+          ],
+          "note": "The guide documents no password prompt or environment variable for remote RACADM."
+        }
       },
       {
         "id": "racadm-getsysinfo-sub-4",
@@ -105,7 +193,29 @@ const BMC_RACADM_DATA = [
           "dell",
           "idrac",
           "sysinfo"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/remote-racadm?guid=guid-7b78457f-c280-4d99-a17e-73d0929409bc&lang=en-us",
+              "title": "Dell RACADM 7.xx: remote RACADM"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsysinfo?guid=guid-1e0a055a-f2a9-4daf-a12c-44bc7dbd1a30&lang=en-us",
+              "title": "Dell RACADM 7.xx: getsysinfo"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getversion?guid=guid-70acf03a-0937-4ec8-be57-277e7ce6ca7c&lang=en-us",
+              "title": "Dell RACADM 7.xx: getversion"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsensorinfo?guid=guid-a0d65099-56ce-460b-baef-18ff746ffd02&lang=en-us",
+              "title": "Dell RACADM 7.xx: getsensorinfo"
+            }
+          ],
+          "note": "The guide documents no password prompt or environment variable for remote RACADM."
+        }
       }
     ]
   },
@@ -157,7 +267,25 @@ const BMC_RACADM_DATA = [
           "events",
           "storage",
           "audit"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/lclog?guid=guid-8ac7dcaa-5d30-4eb6-93e9-b58b388b4d49&lang=en-us",
+              "title": "Dell RACADM 7.xx: lclog"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsel?guid=guid-d7c7d4e2-eb61-4c84-a26e-5f2c8e05ba98&lang=en-us",
+              "title": "Dell RACADM 7.xx: getsel"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/clrsel?guid=guid-101112ea-7ad1-4a51-8e26-0933aff51503&lang=en-us",
+              "title": "Dell RACADM 7.xx: clrsel"
+            }
+          ],
+          "note": "The \"100 records without -n\" default is not in the 7.xx guide text read."
+        }
       },
       {
         "id": "racadm-lclog-sub-1",
@@ -171,7 +299,25 @@ const BMC_RACADM_DATA = [
           "lclog",
           "sel",
           "logs"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/lclog?guid=guid-8ac7dcaa-5d30-4eb6-93e9-b58b388b4d49&lang=en-us",
+              "title": "Dell RACADM 7.xx: lclog"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsel?guid=guid-d7c7d4e2-eb61-4c84-a26e-5f2c8e05ba98&lang=en-us",
+              "title": "Dell RACADM 7.xx: getsel"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/clrsel?guid=guid-101112ea-7ad1-4a51-8e26-0933aff51503&lang=en-us",
+              "title": "Dell RACADM 7.xx: clrsel"
+            }
+          ],
+          "note": "The \"100 records without -n\" default is not in the 7.xx guide text read."
+        }
       },
       {
         "id": "racadm-lclog-sub-2",
@@ -185,7 +331,25 @@ const BMC_RACADM_DATA = [
           "lclog",
           "sel",
           "logs"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/lclog?guid=guid-8ac7dcaa-5d30-4eb6-93e9-b58b388b4d49&lang=en-us",
+              "title": "Dell RACADM 7.xx: lclog"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsel?guid=guid-d7c7d4e2-eb61-4c84-a26e-5f2c8e05ba98&lang=en-us",
+              "title": "Dell RACADM 7.xx: getsel"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/clrsel?guid=guid-101112ea-7ad1-4a51-8e26-0933aff51503&lang=en-us",
+              "title": "Dell RACADM 7.xx: clrsel"
+            }
+          ],
+          "note": "The \"100 records without -n\" default is not in the 7.xx guide text read."
+        }
       },
       {
         "id": "racadm-lclog-sub-3",
@@ -199,7 +363,25 @@ const BMC_RACADM_DATA = [
           "lclog",
           "sel",
           "logs"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/lclog?guid=guid-8ac7dcaa-5d30-4eb6-93e9-b58b388b4d49&lang=en-us",
+              "title": "Dell RACADM 7.xx: lclog"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsel?guid=guid-d7c7d4e2-eb61-4c84-a26e-5f2c8e05ba98&lang=en-us",
+              "title": "Dell RACADM 7.xx: getsel"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/clrsel?guid=guid-101112ea-7ad1-4a51-8e26-0933aff51503&lang=en-us",
+              "title": "Dell RACADM 7.xx: clrsel"
+            }
+          ],
+          "note": "The \"100 records without -n\" default is not in the 7.xx guide text read."
+        }
       }
     ]
   },
@@ -243,7 +425,16 @@ const BMC_RACADM_DATA = [
           "transceiver",
           "serial",
           "rma"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/hwinventory?guid=guid-ce4113d2-9f80-4682-8b89-5f6f97d6ff55&lang=en-us",
+              "title": "Dell RACADM 7.xx: hwinventory"
+            }
+          ]
+        }
       },
       {
         "id": "racadm-hwinventory-sub-1",
@@ -257,7 +448,16 @@ const BMC_RACADM_DATA = [
           "inventory",
           "fqdd",
           "nic"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/hwinventory?guid=guid-ce4113d2-9f80-4682-8b89-5f6f97d6ff55&lang=en-us",
+              "title": "Dell RACADM 7.xx: hwinventory"
+            }
+          ]
+        }
       },
       {
         "id": "racadm-hwinventory-sub-2",
@@ -271,7 +471,16 @@ const BMC_RACADM_DATA = [
           "inventory",
           "fqdd",
           "nic"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/hwinventory?guid=guid-ce4113d2-9f80-4682-8b89-5f6f97d6ff55&lang=en-us",
+              "title": "Dell RACADM 7.xx: hwinventory"
+            }
+          ]
+        }
       }
     ]
   },
@@ -323,7 +532,16 @@ const BMC_RACADM_DATA = [
           "vdisk",
           "perc",
           "disk"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/storage?guid=guid-ddeb9619-85cc-4f1e-b4f9-c69babb518e0&lang=en-us",
+              "title": "Dell RACADM 7.xx: storage"
+            }
+          ]
+        }
       },
       {
         "id": "racadm-storage-sub-1",
@@ -337,7 +555,16 @@ const BMC_RACADM_DATA = [
           "storage",
           "raid",
           "pdisk"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/storage?guid=guid-ddeb9619-85cc-4f1e-b4f9-c69babb518e0&lang=en-us",
+              "title": "Dell RACADM 7.xx: storage"
+            }
+          ]
+        }
       },
       {
         "id": "racadm-storage-sub-2",
@@ -351,7 +578,16 @@ const BMC_RACADM_DATA = [
           "storage",
           "raid",
           "pdisk"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/storage?guid=guid-ddeb9619-85cc-4f1e-b4f9-c69babb518e0&lang=en-us",
+              "title": "Dell RACADM 7.xx: storage"
+            }
+          ]
+        }
       },
       {
         "id": "racadm-storage-sub-3",
@@ -365,7 +601,16 @@ const BMC_RACADM_DATA = [
           "storage",
           "raid",
           "pdisk"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/storage?guid=guid-ddeb9619-85cc-4f1e-b4f9-c69babb518e0&lang=en-us",
+              "title": "Dell RACADM 7.xx: storage"
+            }
+          ]
+        }
       }
     ]
   },
@@ -412,7 +657,20 @@ const BMC_RACADM_DATA = [
           "powercycle",
           "shutdown",
           "racreset"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/serveraction?guid=guid-16197034-e2a3-4174-a96d-7dae9afd66aa&lang=en-us",
+              "title": "Dell RACADM 7.xx: serveraction"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/racreset?guid=guid-a5b943ea-b4b5-415a-bd3c-09a02dfed465&lang=en-us",
+              "title": "Dell RACADM 7.xx: racreset"
+            }
+          ]
+        }
       },
       {
         "id": "racadm-serveraction-sub-1",
@@ -426,7 +684,20 @@ const BMC_RACADM_DATA = [
           "power",
           "serveraction",
           "powercycle"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/serveraction?guid=guid-16197034-e2a3-4174-a96d-7dae9afd66aa&lang=en-us",
+              "title": "Dell RACADM 7.xx: serveraction"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/racreset?guid=guid-a5b943ea-b4b5-415a-bd3c-09a02dfed465&lang=en-us",
+              "title": "Dell RACADM 7.xx: racreset"
+            }
+          ]
+        }
       },
       {
         "id": "racadm-serveraction-sub-2",
@@ -440,7 +711,20 @@ const BMC_RACADM_DATA = [
           "power",
           "serveraction",
           "powercycle"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/serveraction?guid=guid-16197034-e2a3-4174-a96d-7dae9afd66aa&lang=en-us",
+              "title": "Dell RACADM 7.xx: serveraction"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/racreset?guid=guid-a5b943ea-b4b5-415a-bd3c-09a02dfed465&lang=en-us",
+              "title": "Dell RACADM 7.xx: racreset"
+            }
+          ]
+        }
       },
       {
         "id": "racadm-serveraction-sub-3",
@@ -454,7 +738,20 @@ const BMC_RACADM_DATA = [
           "power",
           "serveraction",
           "powercycle"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/serveraction?guid=guid-16197034-e2a3-4174-a96d-7dae9afd66aa&lang=en-us",
+              "title": "Dell RACADM 7.xx: serveraction"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/racreset?guid=guid-a5b943ea-b4b5-415a-bd3c-09a02dfed465&lang=en-us",
+              "title": "Dell RACADM 7.xx: racreset"
+            }
+          ]
+        }
       }
     ]
   },
@@ -506,7 +803,24 @@ const BMC_RACADM_DATA = [
           "jobqueue",
           "job",
           "attributes"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/get?guid=guid-7c7f809b-3618-4fc8-9d39-f52694220f6f&lang=en-us",
+              "title": "Dell RACADM 7.xx: get"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/set?guid=guid-799c4585-0d9f-4e27-8c79-38525e9d5643&lang=en-us",
+              "title": "Dell RACADM 7.xx: set"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/jobqueue?guid=guid-a57b0f48-1ebe-4cbe-9681-458e3348301d&lang=en-us",
+              "title": "Dell RACADM 7.xx: jobqueue"
+            }
+          ]
+        }
       },
       {
         "id": "racadm-get-set-job-sub-1",
@@ -520,7 +834,24 @@ const BMC_RACADM_DATA = [
           "get",
           "set",
           "bios"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/get?guid=guid-7c7f809b-3618-4fc8-9d39-f52694220f6f&lang=en-us",
+              "title": "Dell RACADM 7.xx: get"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/set?guid=guid-799c4585-0d9f-4e27-8c79-38525e9d5643&lang=en-us",
+              "title": "Dell RACADM 7.xx: set"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/jobqueue?guid=guid-a57b0f48-1ebe-4cbe-9681-458e3348301d&lang=en-us",
+              "title": "Dell RACADM 7.xx: jobqueue"
+            }
+          ]
+        }
       },
       {
         "id": "racadm-get-set-job-sub-2",
@@ -534,7 +865,24 @@ const BMC_RACADM_DATA = [
           "get",
           "set",
           "bios"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/get?guid=guid-7c7f809b-3618-4fc8-9d39-f52694220f6f&lang=en-us",
+              "title": "Dell RACADM 7.xx: get"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/set?guid=guid-799c4585-0d9f-4e27-8c79-38525e9d5643&lang=en-us",
+              "title": "Dell RACADM 7.xx: set"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/jobqueue?guid=guid-a57b0f48-1ebe-4cbe-9681-458e3348301d&lang=en-us",
+              "title": "Dell RACADM 7.xx: jobqueue"
+            }
+          ]
+        }
       },
       {
         "id": "racadm-get-set-job-sub-3",
@@ -548,7 +896,24 @@ const BMC_RACADM_DATA = [
           "get",
           "set",
           "bios"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/get?guid=guid-7c7f809b-3618-4fc8-9d39-f52694220f6f&lang=en-us",
+              "title": "Dell RACADM 7.xx: get"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/set?guid=guid-799c4585-0d9f-4e27-8c79-38525e9d5643&lang=en-us",
+              "title": "Dell RACADM 7.xx: set"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/jobqueue?guid=guid-a57b0f48-1ebe-4cbe-9681-458e3348301d&lang=en-us",
+              "title": "Dell RACADM 7.xx: jobqueue"
+            }
+          ]
+        }
       }
     ]
   },
@@ -591,7 +956,21 @@ const BMC_RACADM_DATA = [
           "config",
           "clone",
           "backup"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/get?guid=guid-7c7f809b-3618-4fc8-9d39-f52694220f6f&lang=en-us",
+              "title": "Dell RACADM 7.xx: get"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/set?guid=guid-799c4585-0d9f-4e27-8c79-38525e9d5643&lang=en-us",
+              "title": "Dell RACADM 7.xx: set"
+            }
+          ],
+          "note": "set -f -w accepts 300–3600 seconds (default 1800); -b and -w do not combine with --preview."
+        }
       },
       {
         "id": "racadm-scp-sub-1",
@@ -605,7 +984,21 @@ const BMC_RACADM_DATA = [
           "scp",
           "export",
           "config"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/get?guid=guid-7c7f809b-3618-4fc8-9d39-f52694220f6f&lang=en-us",
+              "title": "Dell RACADM 7.xx: get"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/set?guid=guid-799c4585-0d9f-4e27-8c79-38525e9d5643&lang=en-us",
+              "title": "Dell RACADM 7.xx: set"
+            }
+          ],
+          "note": "set -f -w accepts 300–3600 seconds (default 1800); -b and -w do not combine with --preview."
+        }
       }
     ]
   },
@@ -644,7 +1037,20 @@ const BMC_RACADM_DATA = [
           "rma",
           "logs",
           "collect"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/techsupreport?guid=guid-168e5beb-9a71-4d37-af2a-04b73ec11a99&lang=en-us",
+              "title": "Dell RACADM 7.xx: techsupreport"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/jobqueue?guid=guid-a57b0f48-1ebe-4cbe-9681-458e3348301d&lang=en-us",
+              "title": "Dell RACADM 7.xx: jobqueue"
+            }
+          ]
+        }
       },
       {
         "id": "racadm-tsr-sub-1",
@@ -658,7 +1064,20 @@ const BMC_RACADM_DATA = [
           "tsr",
           "supportassist",
           "rma"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/techsupreport?guid=guid-168e5beb-9a71-4d37-af2a-04b73ec11a99&lang=en-us",
+              "title": "Dell RACADM 7.xx: techsupreport"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/jobqueue?guid=guid-a57b0f48-1ebe-4cbe-9681-458e3348301d&lang=en-us",
+              "title": "Dell RACADM 7.xx: jobqueue"
+            }
+          ]
+        }
       },
       {
         "id": "racadm-tsr-sub-2",
@@ -672,7 +1091,20 @@ const BMC_RACADM_DATA = [
           "tsr",
           "supportassist",
           "rma"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/techsupreport?guid=guid-168e5beb-9a71-4d37-af2a-04b73ec11a99&lang=en-us",
+              "title": "Dell RACADM 7.xx: techsupreport"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/jobqueue?guid=guid-a57b0f48-1ebe-4cbe-9681-458e3348301d&lang=en-us",
+              "title": "Dell RACADM 7.xx: jobqueue"
+            }
+          ]
+        }
       }
     ]
   },

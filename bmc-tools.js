@@ -49,7 +49,29 @@ const BMC_HUB_DATA = [
           "version",
           "sensors",
           "service-tag"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/remote-racadm?guid=guid-7b78457f-c280-4d99-a17e-73d0929409bc&lang=en-us",
+              "title": "Dell RACADM 7.xx: remote RACADM"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsysinfo?guid=guid-1e0a055a-f2a9-4daf-a12c-44bc7dbd1a30&lang=en-us",
+              "title": "Dell RACADM 7.xx: getsysinfo"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getversion?guid=guid-70acf03a-0937-4ec8-be57-277e7ce6ca7c&lang=en-us",
+              "title": "Dell RACADM 7.xx: getversion"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsensorinfo?guid=guid-a0d65099-56ce-460b-baef-18ff746ffd02&lang=en-us",
+              "title": "Dell RACADM 7.xx: getsensorinfo"
+            }
+          ],
+          "note": "The guide documents no password prompt or environment variable for remote RACADM."
+        }
       },
       {
         "id": "racadm-getsysinfo-sub-1",
@@ -63,7 +85,29 @@ const BMC_HUB_DATA = [
           "dell",
           "idrac",
           "sysinfo"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/remote-racadm?guid=guid-7b78457f-c280-4d99-a17e-73d0929409bc&lang=en-us",
+              "title": "Dell RACADM 7.xx: remote RACADM"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsysinfo?guid=guid-1e0a055a-f2a9-4daf-a12c-44bc7dbd1a30&lang=en-us",
+              "title": "Dell RACADM 7.xx: getsysinfo"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getversion?guid=guid-70acf03a-0937-4ec8-be57-277e7ce6ca7c&lang=en-us",
+              "title": "Dell RACADM 7.xx: getversion"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsensorinfo?guid=guid-a0d65099-56ce-460b-baef-18ff746ffd02&lang=en-us",
+              "title": "Dell RACADM 7.xx: getsensorinfo"
+            }
+          ],
+          "note": "The guide documents no password prompt or environment variable for remote RACADM."
+        }
       },
       {
         "id": "racadm-getsysinfo-sub-2",
@@ -77,7 +121,29 @@ const BMC_HUB_DATA = [
           "dell",
           "idrac",
           "sysinfo"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/remote-racadm?guid=guid-7b78457f-c280-4d99-a17e-73d0929409bc&lang=en-us",
+              "title": "Dell RACADM 7.xx: remote RACADM"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsysinfo?guid=guid-1e0a055a-f2a9-4daf-a12c-44bc7dbd1a30&lang=en-us",
+              "title": "Dell RACADM 7.xx: getsysinfo"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getversion?guid=guid-70acf03a-0937-4ec8-be57-277e7ce6ca7c&lang=en-us",
+              "title": "Dell RACADM 7.xx: getversion"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsensorinfo?guid=guid-a0d65099-56ce-460b-baef-18ff746ffd02&lang=en-us",
+              "title": "Dell RACADM 7.xx: getsensorinfo"
+            }
+          ],
+          "note": "The guide documents no password prompt or environment variable for remote RACADM."
+        }
       },
       {
         "id": "racadm-getsysinfo-sub-3",
@@ -91,7 +157,29 @@ const BMC_HUB_DATA = [
           "dell",
           "idrac",
           "sysinfo"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/remote-racadm?guid=guid-7b78457f-c280-4d99-a17e-73d0929409bc&lang=en-us",
+              "title": "Dell RACADM 7.xx: remote RACADM"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsysinfo?guid=guid-1e0a055a-f2a9-4daf-a12c-44bc7dbd1a30&lang=en-us",
+              "title": "Dell RACADM 7.xx: getsysinfo"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getversion?guid=guid-70acf03a-0937-4ec8-be57-277e7ce6ca7c&lang=en-us",
+              "title": "Dell RACADM 7.xx: getversion"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsensorinfo?guid=guid-a0d65099-56ce-460b-baef-18ff746ffd02&lang=en-us",
+              "title": "Dell RACADM 7.xx: getsensorinfo"
+            }
+          ],
+          "note": "The guide documents no password prompt or environment variable for remote RACADM."
+        }
       },
       {
         "id": "racadm-getsysinfo-sub-4",
@@ -105,7 +193,29 @@ const BMC_HUB_DATA = [
           "dell",
           "idrac",
           "sysinfo"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/remote-racadm?guid=guid-7b78457f-c280-4d99-a17e-73d0929409bc&lang=en-us",
+              "title": "Dell RACADM 7.xx: remote RACADM"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsysinfo?guid=guid-1e0a055a-f2a9-4daf-a12c-44bc7dbd1a30&lang=en-us",
+              "title": "Dell RACADM 7.xx: getsysinfo"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getversion?guid=guid-70acf03a-0937-4ec8-be57-277e7ce6ca7c&lang=en-us",
+              "title": "Dell RACADM 7.xx: getversion"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsensorinfo?guid=guid-a0d65099-56ce-460b-baef-18ff746ffd02&lang=en-us",
+              "title": "Dell RACADM 7.xx: getsensorinfo"
+            }
+          ],
+          "note": "The guide documents no password prompt or environment variable for remote RACADM."
+        }
       }
     ]
   },
@@ -157,7 +267,25 @@ const BMC_HUB_DATA = [
           "events",
           "storage",
           "audit"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/lclog?guid=guid-8ac7dcaa-5d30-4eb6-93e9-b58b388b4d49&lang=en-us",
+              "title": "Dell RACADM 7.xx: lclog"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsel?guid=guid-d7c7d4e2-eb61-4c84-a26e-5f2c8e05ba98&lang=en-us",
+              "title": "Dell RACADM 7.xx: getsel"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/clrsel?guid=guid-101112ea-7ad1-4a51-8e26-0933aff51503&lang=en-us",
+              "title": "Dell RACADM 7.xx: clrsel"
+            }
+          ],
+          "note": "The \"100 records without -n\" default is not in the 7.xx guide text read."
+        }
       },
       {
         "id": "racadm-lclog-sub-1",
@@ -171,7 +299,25 @@ const BMC_HUB_DATA = [
           "lclog",
           "sel",
           "logs"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/lclog?guid=guid-8ac7dcaa-5d30-4eb6-93e9-b58b388b4d49&lang=en-us",
+              "title": "Dell RACADM 7.xx: lclog"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsel?guid=guid-d7c7d4e2-eb61-4c84-a26e-5f2c8e05ba98&lang=en-us",
+              "title": "Dell RACADM 7.xx: getsel"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/clrsel?guid=guid-101112ea-7ad1-4a51-8e26-0933aff51503&lang=en-us",
+              "title": "Dell RACADM 7.xx: clrsel"
+            }
+          ],
+          "note": "The \"100 records without -n\" default is not in the 7.xx guide text read."
+        }
       },
       {
         "id": "racadm-lclog-sub-2",
@@ -185,7 +331,25 @@ const BMC_HUB_DATA = [
           "lclog",
           "sel",
           "logs"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/lclog?guid=guid-8ac7dcaa-5d30-4eb6-93e9-b58b388b4d49&lang=en-us",
+              "title": "Dell RACADM 7.xx: lclog"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsel?guid=guid-d7c7d4e2-eb61-4c84-a26e-5f2c8e05ba98&lang=en-us",
+              "title": "Dell RACADM 7.xx: getsel"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/clrsel?guid=guid-101112ea-7ad1-4a51-8e26-0933aff51503&lang=en-us",
+              "title": "Dell RACADM 7.xx: clrsel"
+            }
+          ],
+          "note": "The \"100 records without -n\" default is not in the 7.xx guide text read."
+        }
       },
       {
         "id": "racadm-lclog-sub-3",
@@ -199,7 +363,25 @@ const BMC_HUB_DATA = [
           "lclog",
           "sel",
           "logs"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/lclog?guid=guid-8ac7dcaa-5d30-4eb6-93e9-b58b388b4d49&lang=en-us",
+              "title": "Dell RACADM 7.xx: lclog"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/getsel?guid=guid-d7c7d4e2-eb61-4c84-a26e-5f2c8e05ba98&lang=en-us",
+              "title": "Dell RACADM 7.xx: getsel"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/clrsel?guid=guid-101112ea-7ad1-4a51-8e26-0933aff51503&lang=en-us",
+              "title": "Dell RACADM 7.xx: clrsel"
+            }
+          ],
+          "note": "The \"100 records without -n\" default is not in the 7.xx guide text read."
+        }
       }
     ]
   },
@@ -243,7 +425,16 @@ const BMC_HUB_DATA = [
           "transceiver",
           "serial",
           "rma"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/hwinventory?guid=guid-ce4113d2-9f80-4682-8b89-5f6f97d6ff55&lang=en-us",
+              "title": "Dell RACADM 7.xx: hwinventory"
+            }
+          ]
+        }
       },
       {
         "id": "racadm-hwinventory-sub-1",
@@ -257,7 +448,16 @@ const BMC_HUB_DATA = [
           "inventory",
           "fqdd",
           "nic"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/hwinventory?guid=guid-ce4113d2-9f80-4682-8b89-5f6f97d6ff55&lang=en-us",
+              "title": "Dell RACADM 7.xx: hwinventory"
+            }
+          ]
+        }
       },
       {
         "id": "racadm-hwinventory-sub-2",
@@ -271,7 +471,16 @@ const BMC_HUB_DATA = [
           "inventory",
           "fqdd",
           "nic"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/hwinventory?guid=guid-ce4113d2-9f80-4682-8b89-5f6f97d6ff55&lang=en-us",
+              "title": "Dell RACADM 7.xx: hwinventory"
+            }
+          ]
+        }
       }
     ]
   },
@@ -323,7 +532,16 @@ const BMC_HUB_DATA = [
           "vdisk",
           "perc",
           "disk"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/storage?guid=guid-ddeb9619-85cc-4f1e-b4f9-c69babb518e0&lang=en-us",
+              "title": "Dell RACADM 7.xx: storage"
+            }
+          ]
+        }
       },
       {
         "id": "racadm-storage-sub-1",
@@ -337,7 +555,16 @@ const BMC_HUB_DATA = [
           "storage",
           "raid",
           "pdisk"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/storage?guid=guid-ddeb9619-85cc-4f1e-b4f9-c69babb518e0&lang=en-us",
+              "title": "Dell RACADM 7.xx: storage"
+            }
+          ]
+        }
       },
       {
         "id": "racadm-storage-sub-2",
@@ -351,7 +578,16 @@ const BMC_HUB_DATA = [
           "storage",
           "raid",
           "pdisk"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/storage?guid=guid-ddeb9619-85cc-4f1e-b4f9-c69babb518e0&lang=en-us",
+              "title": "Dell RACADM 7.xx: storage"
+            }
+          ]
+        }
       },
       {
         "id": "racadm-storage-sub-3",
@@ -365,7 +601,16 @@ const BMC_HUB_DATA = [
           "storage",
           "raid",
           "pdisk"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/storage?guid=guid-ddeb9619-85cc-4f1e-b4f9-c69babb518e0&lang=en-us",
+              "title": "Dell RACADM 7.xx: storage"
+            }
+          ]
+        }
       }
     ]
   },
@@ -412,7 +657,20 @@ const BMC_HUB_DATA = [
           "powercycle",
           "shutdown",
           "racreset"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/serveraction?guid=guid-16197034-e2a3-4174-a96d-7dae9afd66aa&lang=en-us",
+              "title": "Dell RACADM 7.xx: serveraction"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/racreset?guid=guid-a5b943ea-b4b5-415a-bd3c-09a02dfed465&lang=en-us",
+              "title": "Dell RACADM 7.xx: racreset"
+            }
+          ]
+        }
       },
       {
         "id": "racadm-serveraction-sub-1",
@@ -426,7 +684,20 @@ const BMC_HUB_DATA = [
           "power",
           "serveraction",
           "powercycle"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/serveraction?guid=guid-16197034-e2a3-4174-a96d-7dae9afd66aa&lang=en-us",
+              "title": "Dell RACADM 7.xx: serveraction"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/racreset?guid=guid-a5b943ea-b4b5-415a-bd3c-09a02dfed465&lang=en-us",
+              "title": "Dell RACADM 7.xx: racreset"
+            }
+          ]
+        }
       },
       {
         "id": "racadm-serveraction-sub-2",
@@ -440,7 +711,20 @@ const BMC_HUB_DATA = [
           "power",
           "serveraction",
           "powercycle"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/serveraction?guid=guid-16197034-e2a3-4174-a96d-7dae9afd66aa&lang=en-us",
+              "title": "Dell RACADM 7.xx: serveraction"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/racreset?guid=guid-a5b943ea-b4b5-415a-bd3c-09a02dfed465&lang=en-us",
+              "title": "Dell RACADM 7.xx: racreset"
+            }
+          ]
+        }
       },
       {
         "id": "racadm-serveraction-sub-3",
@@ -454,7 +738,20 @@ const BMC_HUB_DATA = [
           "power",
           "serveraction",
           "powercycle"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/serveraction?guid=guid-16197034-e2a3-4174-a96d-7dae9afd66aa&lang=en-us",
+              "title": "Dell RACADM 7.xx: serveraction"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/racreset?guid=guid-a5b943ea-b4b5-415a-bd3c-09a02dfed465&lang=en-us",
+              "title": "Dell RACADM 7.xx: racreset"
+            }
+          ]
+        }
       }
     ]
   },
@@ -506,7 +803,24 @@ const BMC_HUB_DATA = [
           "jobqueue",
           "job",
           "attributes"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/get?guid=guid-7c7f809b-3618-4fc8-9d39-f52694220f6f&lang=en-us",
+              "title": "Dell RACADM 7.xx: get"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/set?guid=guid-799c4585-0d9f-4e27-8c79-38525e9d5643&lang=en-us",
+              "title": "Dell RACADM 7.xx: set"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/jobqueue?guid=guid-a57b0f48-1ebe-4cbe-9681-458e3348301d&lang=en-us",
+              "title": "Dell RACADM 7.xx: jobqueue"
+            }
+          ]
+        }
       },
       {
         "id": "racadm-get-set-job-sub-1",
@@ -520,7 +834,24 @@ const BMC_HUB_DATA = [
           "get",
           "set",
           "bios"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/get?guid=guid-7c7f809b-3618-4fc8-9d39-f52694220f6f&lang=en-us",
+              "title": "Dell RACADM 7.xx: get"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/set?guid=guid-799c4585-0d9f-4e27-8c79-38525e9d5643&lang=en-us",
+              "title": "Dell RACADM 7.xx: set"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/jobqueue?guid=guid-a57b0f48-1ebe-4cbe-9681-458e3348301d&lang=en-us",
+              "title": "Dell RACADM 7.xx: jobqueue"
+            }
+          ]
+        }
       },
       {
         "id": "racadm-get-set-job-sub-2",
@@ -534,7 +865,24 @@ const BMC_HUB_DATA = [
           "get",
           "set",
           "bios"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/get?guid=guid-7c7f809b-3618-4fc8-9d39-f52694220f6f&lang=en-us",
+              "title": "Dell RACADM 7.xx: get"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/set?guid=guid-799c4585-0d9f-4e27-8c79-38525e9d5643&lang=en-us",
+              "title": "Dell RACADM 7.xx: set"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/jobqueue?guid=guid-a57b0f48-1ebe-4cbe-9681-458e3348301d&lang=en-us",
+              "title": "Dell RACADM 7.xx: jobqueue"
+            }
+          ]
+        }
       },
       {
         "id": "racadm-get-set-job-sub-3",
@@ -548,7 +896,24 @@ const BMC_HUB_DATA = [
           "get",
           "set",
           "bios"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/get?guid=guid-7c7f809b-3618-4fc8-9d39-f52694220f6f&lang=en-us",
+              "title": "Dell RACADM 7.xx: get"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/set?guid=guid-799c4585-0d9f-4e27-8c79-38525e9d5643&lang=en-us",
+              "title": "Dell RACADM 7.xx: set"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/jobqueue?guid=guid-a57b0f48-1ebe-4cbe-9681-458e3348301d&lang=en-us",
+              "title": "Dell RACADM 7.xx: jobqueue"
+            }
+          ]
+        }
       }
     ]
   },
@@ -591,7 +956,21 @@ const BMC_HUB_DATA = [
           "config",
           "clone",
           "backup"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/get?guid=guid-7c7f809b-3618-4fc8-9d39-f52694220f6f&lang=en-us",
+              "title": "Dell RACADM 7.xx: get"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/set?guid=guid-799c4585-0d9f-4e27-8c79-38525e9d5643&lang=en-us",
+              "title": "Dell RACADM 7.xx: set"
+            }
+          ],
+          "note": "set -f -w accepts 300–3600 seconds (default 1800); -b and -w do not combine with --preview."
+        }
       },
       {
         "id": "racadm-scp-sub-1",
@@ -605,7 +984,21 @@ const BMC_HUB_DATA = [
           "scp",
           "export",
           "config"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/get?guid=guid-7c7f809b-3618-4fc8-9d39-f52694220f6f&lang=en-us",
+              "title": "Dell RACADM 7.xx: get"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/set?guid=guid-799c4585-0d9f-4e27-8c79-38525e9d5643&lang=en-us",
+              "title": "Dell RACADM 7.xx: set"
+            }
+          ],
+          "note": "set -f -w accepts 300–3600 seconds (default 1800); -b and -w do not combine with --preview."
+        }
       }
     ]
   },
@@ -644,7 +1037,20 @@ const BMC_HUB_DATA = [
           "rma",
           "logs",
           "collect"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/techsupreport?guid=guid-168e5beb-9a71-4d37-af2a-04b73ec11a99&lang=en-us",
+              "title": "Dell RACADM 7.xx: techsupreport"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/jobqueue?guid=guid-a57b0f48-1ebe-4cbe-9681-458e3348301d&lang=en-us",
+              "title": "Dell RACADM 7.xx: jobqueue"
+            }
+          ]
+        }
       },
       {
         "id": "racadm-tsr-sub-1",
@@ -658,7 +1064,20 @@ const BMC_HUB_DATA = [
           "tsr",
           "supportassist",
           "rma"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/techsupreport?guid=guid-168e5beb-9a71-4d37-af2a-04b73ec11a99&lang=en-us",
+              "title": "Dell RACADM 7.xx: techsupreport"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/jobqueue?guid=guid-a57b0f48-1ebe-4cbe-9681-458e3348301d&lang=en-us",
+              "title": "Dell RACADM 7.xx: jobqueue"
+            }
+          ]
+        }
       },
       {
         "id": "racadm-tsr-sub-2",
@@ -672,7 +1091,20 @@ const BMC_HUB_DATA = [
           "tsr",
           "supportassist",
           "rma"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/techsupreport?guid=guid-168e5beb-9a71-4d37-af2a-04b73ec11a99&lang=en-us",
+              "title": "Dell RACADM 7.xx: techsupreport"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/jobqueue?guid=guid-a57b0f48-1ebe-4cbe-9681-458e3348301d&lang=en-us",
+              "title": "Dell RACADM 7.xx: jobqueue"
+            }
+          ]
+        }
       }
     ]
   },
@@ -751,7 +1183,20 @@ const BMC_HUB_DATA = [
           "login",
           "session",
           "logout"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/globalcommands.md",
+              "title": "HPE iLOrest 7.4: global commands"
+            },
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/usage.md",
+              "title": "HPE iLOrest 7.4: usage"
+            }
+          ]
+        }
       },
       {
         "id": "ilorest-login-sub-1",
@@ -765,7 +1210,20 @@ const BMC_HUB_DATA = [
           "hpe",
           "ilo",
           "login"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/globalcommands.md",
+              "title": "HPE iLOrest 7.4: global commands"
+            },
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/usage.md",
+              "title": "HPE iLOrest 7.4: usage"
+            }
+          ]
+        }
       },
       {
         "id": "ilorest-login-sub-2",
@@ -779,7 +1237,20 @@ const BMC_HUB_DATA = [
           "hpe",
           "ilo",
           "login"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/globalcommands.md",
+              "title": "HPE iLOrest 7.4: global commands"
+            },
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/usage.md",
+              "title": "HPE iLOrest 7.4: usage"
+            }
+          ]
+        }
       }
     ]
   },
@@ -827,7 +1298,16 @@ const BMC_HUB_DATA = [
           "fans",
           "power",
           "firmware"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+              "title": "HPE iLOrest 7.4: iLO commands"
+            }
+          ]
+        }
       },
       {
         "id": "ilorest-serverinfo-sub-1",
@@ -841,7 +1321,16 @@ const BMC_HUB_DATA = [
           "serverinfo",
           "inventory",
           "thermals"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+              "title": "HPE iLOrest 7.4: iLO commands"
+            }
+          ]
+        }
       },
       {
         "id": "ilorest-serverinfo-sub-2",
@@ -855,7 +1344,16 @@ const BMC_HUB_DATA = [
           "serverinfo",
           "inventory",
           "thermals"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+              "title": "HPE iLOrest 7.4: iLO commands"
+            }
+          ]
+        }
       },
       {
         "id": "ilorest-serverinfo-sub-3",
@@ -869,7 +1367,16 @@ const BMC_HUB_DATA = [
           "serverinfo",
           "inventory",
           "thermals"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+              "title": "HPE iLOrest 7.4: iLO commands"
+            }
+          ]
+        }
       }
     ]
   },
@@ -925,7 +1432,17 @@ const BMC_HUB_DATA = [
           "logs",
           "events",
           "rma"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+              "title": "HPE iLOrest 7.4: iLO commands"
+            }
+          ],
+          "note": "AHS downloads must use the default file name (-f is not supported for AHS)."
+        }
       },
       {
         "id": "ilorest-serverlogs-sub-1",
@@ -939,7 +1456,17 @@ const BMC_HUB_DATA = [
           "iml",
           "iel",
           "ahs"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+              "title": "HPE iLOrest 7.4: iLO commands"
+            }
+          ],
+          "note": "AHS downloads must use the default file name (-f is not supported for AHS)."
+        }
       },
       {
         "id": "ilorest-serverlogs-sub-2",
@@ -953,7 +1480,17 @@ const BMC_HUB_DATA = [
           "iml",
           "iel",
           "ahs"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+              "title": "HPE iLOrest 7.4: iLO commands"
+            }
+          ],
+          "note": "AHS downloads must use the default file name (-f is not supported for AHS)."
+        }
       },
       {
         "id": "ilorest-serverlogs-sub-3",
@@ -967,7 +1504,17 @@ const BMC_HUB_DATA = [
           "iml",
           "iel",
           "ahs"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+              "title": "HPE iLOrest 7.4: iLO commands"
+            }
+          ],
+          "note": "AHS downloads must use the default file name (-f is not supported for AHS)."
+        }
       }
     ]
   },
@@ -1014,7 +1561,16 @@ const BMC_HUB_DATA = [
           "drives",
           "volumes",
           "smartarray"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/smartarraycommands.md",
+              "title": "HPE iLOrest 7.4: storage commands"
+            }
+          ]
+        }
       },
       {
         "id": "ilorest-storage-sub-1",
@@ -1028,7 +1584,16 @@ const BMC_HUB_DATA = [
           "storage",
           "raid",
           "drives"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/smartarraycommands.md",
+              "title": "HPE iLOrest 7.4: storage commands"
+            }
+          ]
+        }
       },
       {
         "id": "ilorest-storage-sub-2",
@@ -1042,7 +1607,16 @@ const BMC_HUB_DATA = [
           "storage",
           "raid",
           "drives"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/smartarraycommands.md",
+              "title": "HPE iLOrest 7.4: storage commands"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1090,7 +1664,20 @@ const BMC_HUB_DATA = [
           "commit",
           "bios",
           "redfish"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/globalcommands.md",
+              "title": "HPE iLOrest 7.4: global commands"
+            },
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/usage.md",
+              "title": "HPE iLOrest 7.4: usage"
+            }
+          ]
+        }
       },
       {
         "id": "ilorest-select-get-sub-1",
@@ -1104,7 +1691,20 @@ const BMC_HUB_DATA = [
           "select",
           "get",
           "set"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/globalcommands.md",
+              "title": "HPE iLOrest 7.4: global commands"
+            },
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/usage.md",
+              "title": "HPE iLOrest 7.4: usage"
+            }
+          ]
+        }
       },
       {
         "id": "ilorest-select-get-sub-2",
@@ -1118,7 +1718,20 @@ const BMC_HUB_DATA = [
           "select",
           "get",
           "set"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/globalcommands.md",
+              "title": "HPE iLOrest 7.4: global commands"
+            },
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/usage.md",
+              "title": "HPE iLOrest 7.4: usage"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1169,7 +1782,16 @@ const BMC_HUB_DATA = [
           "iloreset",
           "forceoff",
           "nmi"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+              "title": "HPE iLOrest 7.4: iLO commands"
+            }
+          ]
+        }
       },
       {
         "id": "ilorest-reboot-sub-1",
@@ -1183,7 +1805,16 @@ const BMC_HUB_DATA = [
           "power",
           "reboot",
           "iloreset"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+              "title": "HPE iLOrest 7.4: iLO commands"
+            }
+          ]
+        }
       },
       {
         "id": "ilorest-reboot-sub-2",
@@ -1197,7 +1828,16 @@ const BMC_HUB_DATA = [
           "power",
           "reboot",
           "iloreset"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+              "title": "HPE iLOrest 7.4: iLO commands"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1231,7 +1871,7 @@ const BMC_HUB_DATA = [
           ],
           [
             "firmwareupdate <URI>",
-            "iLO and UEFI firmware from a URL (changes state)"
+            "iLO and UEFI firmware (.bin images) from a URL (changes state)"
           ]
         ],
         "tip": "Read versions with serverinfo --firmware before and after an update",
@@ -1244,7 +1884,20 @@ const BMC_HUB_DATA = [
           "repository",
           "update",
           "fwpkg"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+              "title": "HPE iLOrest 7.4: iLO commands"
+            },
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilorepositorycommands.md",
+              "title": "HPE iLOrest 7.4: iLO repository commands"
+            }
+          ]
+        }
       },
       {
         "id": "ilorest-firmware-sub-1",
@@ -1258,7 +1911,20 @@ const BMC_HUB_DATA = [
           "firmware",
           "integrity",
           "repository"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+              "title": "HPE iLOrest 7.4: iLO commands"
+            },
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilorepositorycommands.md",
+              "title": "HPE iLOrest 7.4: iLO repository commands"
+            }
+          ]
+        }
       },
       {
         "id": "ilorest-firmware-sub-2",
@@ -1272,7 +1938,20 @@ const BMC_HUB_DATA = [
           "firmware",
           "integrity",
           "repository"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+              "title": "HPE iLOrest 7.4: iLO commands"
+            },
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilorepositorycommands.md",
+              "title": "HPE iLOrest 7.4: iLO repository commands"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1322,7 +2001,16 @@ const BMC_HUB_DATA = [
           "network",
           "virtualmedia",
           "iso"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+              "title": "HPE iLOrest 7.4: iLO commands"
+            }
+          ]
+        }
       },
       {
         "id": "ilorest-network-media-sub-1",
@@ -1336,7 +2024,16 @@ const BMC_HUB_DATA = [
           "ethernet",
           "network",
           "virtualmedia"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+              "title": "HPE iLOrest 7.4: iLO commands"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1419,7 +2116,21 @@ const BMC_HUB_DATA = [
           "sum",
           "help",
           "usage"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+              "title": "SAA for UEFI User's Guide 1.1.0"
+            },
+            {
+              "url": "https://www.supermicro.com/en/solutions/management-software/superserver-automation-assistant",
+              "title": "Supermicro SAA"
+            }
+          ],
+          "note": "Checked against the UEFI build's guide; the -l list form (Supermicro FAQ 42925) was not re-read."
+        }
       },
       {
         "id": "saa-help-sub-1",
@@ -1433,7 +2144,21 @@ const BMC_HUB_DATA = [
           "supermicro",
           "saa",
           "sum"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+              "title": "SAA for UEFI User's Guide 1.1.0"
+            },
+            {
+              "url": "https://www.supermicro.com/en/solutions/management-software/superserver-automation-assistant",
+              "title": "Supermicro SAA"
+            }
+          ],
+          "note": "Checked against the UEFI build's guide; the -l list form (Supermicro FAQ 42925) was not re-read."
+        }
       }
     ]
   },
@@ -1485,7 +2210,21 @@ const BMC_HUB_DATA = [
           "fru",
           "dmi",
           "inventory"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+              "title": "SAA for UEFI User's Guide 1.1.0"
+            },
+            {
+              "url": "https://www.supermicro.com/en/solutions/management-software/superserver-automation-assistant",
+              "title": "Supermicro SAA"
+            }
+          ],
+          "note": "The UEFI guide says \"SAA, formerly known as SUM\"; the product page says SAA brings SUM and the IPMI utilities together. Root for in-band use is not stated in the pages read."
+        }
       },
       {
         "id": "saa-sysinfo-sub-1",
@@ -1499,7 +2238,21 @@ const BMC_HUB_DATA = [
           "sysinfo",
           "bios",
           "bmc"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+              "title": "SAA for UEFI User's Guide 1.1.0"
+            },
+            {
+              "url": "https://www.supermicro.com/en/solutions/management-software/superserver-automation-assistant",
+              "title": "Supermicro SAA"
+            }
+          ],
+          "note": "The UEFI guide says \"SAA, formerly known as SUM\"; the product page says SAA brings SUM and the IPMI utilities together. Root for in-band use is not stated in the pages read."
+        }
       },
       {
         "id": "saa-sysinfo-sub-2",
@@ -1513,7 +2266,21 @@ const BMC_HUB_DATA = [
           "sysinfo",
           "bios",
           "bmc"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+              "title": "SAA for UEFI User's Guide 1.1.0"
+            },
+            {
+              "url": "https://www.supermicro.com/en/solutions/management-software/superserver-automation-assistant",
+              "title": "Supermicro SAA"
+            }
+          ],
+          "note": "The UEFI guide says \"SAA, formerly known as SUM\"; the product page says SAA brings SUM and the IPMI utilities together. Root for in-band use is not stated in the pages read."
+        }
       },
       {
         "id": "saa-sysinfo-sub-3",
@@ -1527,7 +2294,21 @@ const BMC_HUB_DATA = [
           "sysinfo",
           "bios",
           "bmc"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+              "title": "SAA for UEFI User's Guide 1.1.0"
+            },
+            {
+              "url": "https://www.supermicro.com/en/solutions/management-software/superserver-automation-assistant",
+              "title": "Supermicro SAA"
+            }
+          ],
+          "note": "The UEFI guide says \"SAA, formerly known as SUM\"; the product page says SAA brings SUM and the IPMI utilities together. Root for in-band use is not stated in the pages read."
+        }
       }
     ]
   },
@@ -1578,7 +2359,16 @@ const BMC_HUB_DATA = [
           "sensors",
           "psu",
           "intrusion"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+              "title": "SAA for UEFI User's Guide 1.1.0"
+            }
+          ]
+        }
       },
       {
         "id": "saa-eventlog-sub-1",
@@ -1592,7 +2382,16 @@ const BMC_HUB_DATA = [
           "eventlog",
           "sel",
           "sensors"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+              "title": "SAA for UEFI User's Guide 1.1.0"
+            }
+          ]
+        }
       },
       {
         "id": "saa-eventlog-sub-2",
@@ -1606,7 +2405,16 @@ const BMC_HUB_DATA = [
           "eventlog",
           "sel",
           "sensors"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+              "title": "SAA for UEFI User's Guide 1.1.0"
+            }
+          ]
+        }
       },
       {
         "id": "saa-eventlog-sub-3",
@@ -1620,7 +2428,16 @@ const BMC_HUB_DATA = [
           "eventlog",
           "sel",
           "sensors"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+              "title": "SAA for UEFI User's Guide 1.1.0"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1662,7 +2479,12 @@ const BMC_HUB_DATA = [
           "fleet",
           "bmccfg",
           "export"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [],
+          "note": "GetBmcCfg and the -l host-list form are not in the SAA UEFI guide; the full OS guide was not found. Check ./saa -h."
+        }
       }
     ]
   },
@@ -1700,7 +2522,16 @@ const BMC_HUB_DATA = [
           "hgx",
           "cpld",
           "firmware"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+              "title": "SAA for UEFI User's Guide 1.1.0"
+            }
+          ]
+        }
       },
       {
         "id": "saa-gpu-sub-1",
@@ -1714,7 +2545,16 @@ const BMC_HUB_DATA = [
           "gpu",
           "hgx",
           "cpld"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+              "title": "SAA for UEFI User's Guide 1.1.0"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1796,7 +2636,20 @@ const BMC_HUB_DATA = [
           "xcc",
           "health",
           "syshealth"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_misc_syshealth_command",
+              "title": "Lenovo OneCLI: syshealth"
+            },
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_c_technical_overview",
+              "title": "Lenovo OneCLI: global parameters"
+            }
+          ]
+        }
       },
       {
         "id": "onecli-syshealth-sub-1",
@@ -1810,7 +2663,20 @@ const BMC_HUB_DATA = [
           "lenovo",
           "xcc",
           "health"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_misc_syshealth_command",
+              "title": "Lenovo OneCLI: syshealth"
+            },
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_c_technical_overview",
+              "title": "Lenovo OneCLI: global parameters"
+            }
+          ]
+        }
       },
       {
         "id": "onecli-syshealth-sub-2",
@@ -1824,7 +2690,20 @@ const BMC_HUB_DATA = [
           "lenovo",
           "xcc",
           "health"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_misc_syshealth_command",
+              "title": "Lenovo OneCLI: syshealth"
+            },
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_c_technical_overview",
+              "title": "Lenovo OneCLI: global parameters"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1850,7 +2729,7 @@ const BMC_HUB_DATA = [
           ],
           [
             "--type AEL|PEL|ALL",
-            "Audit, Platform, or both event logs"
+            "Audit, Platform, or both event logs (documented for the clear commands)"
           ],
           [
             "clearsel / clearbmclog / clearall",
@@ -1870,7 +2749,16 @@ const BMC_HUB_DATA = [
           "logs",
           "logmgr",
           "audit"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_logmgr_command",
+              "title": "Lenovo OneCLI: logmgr"
+            }
+          ]
+        }
       },
       {
         "id": "onecli-logmgr-sub-1",
@@ -1884,7 +2772,16 @@ const BMC_HUB_DATA = [
           "sel",
           "logs",
           "logmgr"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_logmgr_command",
+              "title": "Lenovo OneCLI: logmgr"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1929,7 +2826,20 @@ const BMC_HUB_DATA = [
           "inventory",
           "getinfor",
           "report"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_getinfor_command",
+              "title": "Lenovo OneCLI: inventory getinfor"
+            },
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_getdevices_command",
+              "title": "Lenovo OneCLI: getdevices"
+            }
+          ]
+        }
       },
       {
         "id": "onecli-inventory-sub-1",
@@ -1943,7 +2853,20 @@ const BMC_HUB_DATA = [
           "inventory",
           "getinfor",
           "report"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_getinfor_command",
+              "title": "Lenovo OneCLI: inventory getinfor"
+            },
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_getdevices_command",
+              "title": "Lenovo OneCLI: getdevices"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1986,7 +2909,20 @@ const BMC_HUB_DATA = [
           "uefi",
           "imm",
           "xcc"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_commands_display_config_settings",
+              "title": "Lenovo OneCLI: config show/compare"
+            },
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_commands_save_replicate_system_config",
+              "title": "Lenovo OneCLI: config save"
+            }
+          ]
+        }
       },
       {
         "id": "onecli-config-sub-1",
@@ -2000,7 +2936,17 @@ const BMC_HUB_DATA = [
           "config",
           "settings",
           "uefi"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_commands_save_replicate_system_config",
+              "title": "Lenovo OneCLI: config save"
+            }
+          ],
+          "note": "The --file option of config save was not confirmed on the page read."
+        }
       },
       {
         "id": "onecli-config-sub-2",
@@ -2014,7 +2960,20 @@ const BMC_HUB_DATA = [
           "config",
           "settings",
           "uefi"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_commands_display_config_settings",
+              "title": "Lenovo OneCLI: config show/compare"
+            },
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_commands_save_replicate_system_config",
+              "title": "Lenovo OneCLI: config save"
+            }
+          ]
+        }
       }
     ]
   },
@@ -2057,7 +3016,21 @@ const BMC_HUB_DATA = [
           "scan",
           "compare",
           "flash"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_up_compare_command",
+              "title": "Lenovo OneCLI: update compare"
+            },
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_flash_command",
+              "title": "Lenovo OneCLI: update flash"
+            }
+          ],
+          "note": "update scan --output: the scan page was not read."
+        }
       },
       {
         "id": "onecli-update-sub-1",
@@ -2071,7 +3044,21 @@ const BMC_HUB_DATA = [
           "firmware",
           "update",
           "scan"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_up_compare_command",
+              "title": "Lenovo OneCLI: update compare"
+            },
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_flash_command",
+              "title": "Lenovo OneCLI: update flash"
+            }
+          ],
+          "note": "update scan --output: the scan page was not read."
+        }
       }
     ]
   },
@@ -2109,7 +3096,7 @@ const BMC_HUB_DATA = [
           ],
           [
             "ospower",
-            "Replaced by power in OneCLI 5.3.0"
+            "OneCLI 5.2.0 and earlier only; use power"
           ]
         ],
         "tip": "Prefer normalrestart over forcerestart",
@@ -2121,7 +3108,24 @@ const BMC_HUB_DATA = [
           "restart",
           "rebootbmc",
           "boottosetup"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/misc_power_command",
+              "title": "Lenovo OneCLI: misc power"
+            },
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_imm_rebootimm_command",
+              "title": "Lenovo OneCLI: rebootbmc"
+            },
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_c_misc",
+              "title": "Lenovo OneCLI: misc commands"
+            }
+          ]
+        }
       },
       {
         "id": "onecli-power-sub-1",
@@ -2135,7 +3139,24 @@ const BMC_HUB_DATA = [
           "power",
           "restart",
           "rebootbmc"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/misc_power_command",
+              "title": "Lenovo OneCLI: misc power"
+            },
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_imm_rebootimm_command",
+              "title": "Lenovo OneCLI: rebootbmc"
+            },
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_c_misc",
+              "title": "Lenovo OneCLI: misc commands"
+            }
+          ]
+        }
       },
       {
         "id": "onecli-power-sub-2",
@@ -2149,7 +3170,24 @@ const BMC_HUB_DATA = [
           "power",
           "restart",
           "rebootbmc"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/misc_power_command",
+              "title": "Lenovo OneCLI: misc power"
+            },
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_imm_rebootimm_command",
+              "title": "Lenovo OneCLI: rebootbmc"
+            },
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_c_misc",
+              "title": "Lenovo OneCLI: misc commands"
+            }
+          ]
+        }
       }
     ]
   },
@@ -2232,7 +3270,29 @@ const BMC_HUB_DATA = [
           "sdr",
           "bmc-info",
           "fru"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-sensors.8.en.html",
+              "title": "FreeIPMI ipmi-sensors(8)"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/bmc-info.8.en.html",
+              "title": "FreeIPMI bmc-info(8)"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-fru.8.en.html",
+              "title": "FreeIPMI ipmi-fru(8)"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-common/freeipmi.7.en.html",
+              "title": "FreeIPMI freeipmi(7)"
+            }
+          ],
+          "note": "Sensor type names: list them with ipmi-sensors -L."
+        }
       },
       {
         "id": "freeipmi-sensors-sub-1",
@@ -2246,7 +3306,29 @@ const BMC_HUB_DATA = [
           "freeipmi",
           "sensors",
           "sdr"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-sensors.8.en.html",
+              "title": "FreeIPMI ipmi-sensors(8)"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/bmc-info.8.en.html",
+              "title": "FreeIPMI bmc-info(8)"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-fru.8.en.html",
+              "title": "FreeIPMI ipmi-fru(8)"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-common/freeipmi.7.en.html",
+              "title": "FreeIPMI freeipmi(7)"
+            }
+          ],
+          "note": "Sensor type names: list them with ipmi-sensors -L."
+        }
       },
       {
         "id": "freeipmi-sensors-sub-2",
@@ -2260,7 +3342,29 @@ const BMC_HUB_DATA = [
           "freeipmi",
           "sensors",
           "sdr"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-sensors.8.en.html",
+              "title": "FreeIPMI ipmi-sensors(8)"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/bmc-info.8.en.html",
+              "title": "FreeIPMI bmc-info(8)"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-fru.8.en.html",
+              "title": "FreeIPMI ipmi-fru(8)"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-common/freeipmi.7.en.html",
+              "title": "FreeIPMI freeipmi(7)"
+            }
+          ],
+          "note": "Sensor type names: list them with ipmi-sensors -L."
+        }
       },
       {
         "id": "freeipmi-sensors-sub-3",
@@ -2274,7 +3378,29 @@ const BMC_HUB_DATA = [
           "freeipmi",
           "sensors",
           "sdr"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-sensors.8.en.html",
+              "title": "FreeIPMI ipmi-sensors(8)"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/bmc-info.8.en.html",
+              "title": "FreeIPMI bmc-info(8)"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-fru.8.en.html",
+              "title": "FreeIPMI ipmi-fru(8)"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-common/freeipmi.7.en.html",
+              "title": "FreeIPMI freeipmi(7)"
+            }
+          ],
+          "note": "Sensor type names: list them with ipmi-sensors -L."
+        }
       }
     ]
   },
@@ -2320,7 +3446,16 @@ const BMC_HUB_DATA = [
           "events",
           "logs",
           "oem"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-sel.8.en.html",
+              "title": "FreeIPMI ipmi-sel(8)"
+            }
+          ]
+        }
       },
       {
         "id": "freeipmi-sel-sub-1",
@@ -2334,7 +3469,16 @@ const BMC_HUB_DATA = [
           "sel",
           "events",
           "logs"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-sel.8.en.html",
+              "title": "FreeIPMI ipmi-sel(8)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -2385,7 +3529,21 @@ const BMC_HUB_DATA = [
           "chassis",
           "hostrange",
           "rack"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmipower.8.en.html",
+              "title": "FreeIPMI ipmipower(8)"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-chassis.8.en.html",
+              "title": "FreeIPMI ipmi-chassis(8)"
+            }
+          ],
+          "note": "A host range with text after the brackets ([01-16]-bmc) is not shown in the man page; the fan-out default 64 is stated on the sibling tools' pages."
+        }
       },
       {
         "id": "freeipmi-power-sub-1",
@@ -2399,7 +3557,17 @@ const BMC_HUB_DATA = [
           "power",
           "ipmipower",
           "chassis"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-chassis.8.en.html",
+              "title": "FreeIPMI ipmi-chassis(8)"
+            }
+          ],
+          "note": "The man page does not list what the status shows (power, last event, intrusion)."
+        }
       },
       {
         "id": "freeipmi-power-sub-2",
@@ -2413,7 +3581,21 @@ const BMC_HUB_DATA = [
           "power",
           "ipmipower",
           "chassis"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmipower.8.en.html",
+              "title": "FreeIPMI ipmipower(8)"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-chassis.8.en.html",
+              "title": "FreeIPMI ipmi-chassis(8)"
+            }
+          ],
+          "note": "A host range with text after the brackets ([01-16]-bmc) is not shown in the man page; the fan-out default 64 is stated on the sibling tools' pages."
+        }
       }
     ]
   },
@@ -2467,7 +3649,16 @@ const BMC_HUB_DATA = [
           "console",
           "serial",
           "ipmiconsole"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmiconsole.8.en.html",
+              "title": "FreeIPMI ipmiconsole(8)"
+            }
+          ]
+        }
       },
       {
         "id": "freeipmi-sol-sub-1",
@@ -2481,7 +3672,16 @@ const BMC_HUB_DATA = [
           "sol",
           "console",
           "serial"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmiconsole.8.en.html",
+              "title": "FreeIPMI ipmiconsole(8)"
+            }
+          ]
+        }
       },
       {
         "id": "freeipmi-sol-sub-2",
@@ -2495,7 +3695,16 @@ const BMC_HUB_DATA = [
           "sol",
           "console",
           "serial"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmiconsole.8.en.html",
+              "title": "FreeIPMI ipmiconsole(8)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -2537,7 +3746,16 @@ const BMC_HUB_DATA = [
           "power",
           "watts",
           "cap"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-dcmi.8.en.html",
+              "title": "FreeIPMI ipmi-dcmi(8)"
+            }
+          ]
+        }
       },
       {
         "id": "freeipmi-dcmi-sub-1",
@@ -2551,7 +3769,16 @@ const BMC_HUB_DATA = [
           "dcmi",
           "power",
           "watts"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmi-dcmi.8.en.html",
+              "title": "FreeIPMI ipmi-dcmi(8)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -2634,7 +3861,16 @@ const BMC_HUB_DATA = [
           "console",
           "usb",
           "tty"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/npat-efault/picocom/blob/master/picocom.1.md",
+              "title": "picocom(1)"
+            }
+          ]
+        }
       },
       {
         "id": "serial-picocom-sub-1",
@@ -2648,7 +3884,12 @@ const BMC_HUB_DATA = [
           "serial",
           "picocom",
           "console"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [],
+          "note": "A standard Linux path, not checked against a document."
+        }
       },
       {
         "id": "serial-picocom-sub-2",
@@ -2662,7 +3903,12 @@ const BMC_HUB_DATA = [
           "serial",
           "picocom",
           "console"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [],
+          "note": "Standard Linux commands, not checked against a document."
+        }
       },
       {
         "id": "serial-picocom-sub-3",
@@ -2676,7 +3922,12 @@ const BMC_HUB_DATA = [
           "serial",
           "picocom",
           "console"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [],
+          "note": "Standard command; the group name (dialout or uucp) depends on the distribution."
+        }
       }
     ]
   },
@@ -2693,8 +3944,8 @@ const BMC_HUB_DATA = [
         "details": "",
         "flags": [
           [
-            "/etc/ser2net.yaml",
-            "Config file since ser2net 4 (YAML)"
+            "/etc/ser2net/ser2net.yaml",
+            "The YAML config path in the ser2net README (some distro packages put it elsewhere: check your package)"
           ],
           [
             "accepter",
@@ -2727,7 +3978,17 @@ const BMC_HUB_DATA = [
           "network",
           "yaml",
           "rfc2217"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/cminyard/ser2net/blob/master/README.rst",
+              "title": "ser2net README"
+            }
+          ],
+          "note": "kickolduser, max-connections and the *{file} include are in ser2net.yaml(5), which could not be read."
+        }
       },
       {
         "id": "serial-ser2net-sub-1",
@@ -2741,7 +4002,12 @@ const BMC_HUB_DATA = [
           "ser2net",
           "serial",
           "network"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [],
+          "note": "The service name depends on your ser2net package."
+        }
       },
       {
         "id": "serial-ser2net-sub-2",
@@ -2755,7 +4021,20 @@ const BMC_HUB_DATA = [
           "ser2net",
           "serial",
           "network"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/cminyard/ser2net/blob/master/README.rst",
+              "title": "ser2net README"
+            },
+            {
+              "url": "https://github.com/cminyard/gensio",
+              "title": "gensio / gensiot"
+            }
+          ]
+        }
       }
     ]
   },
@@ -2805,7 +4084,16 @@ const BMC_HUB_DATA = [
           "console",
           "serial",
           "logging"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.conserver.com/docs/console.man.html",
+              "title": "conserver console(1)"
+            }
+          ]
+        }
       },
       {
         "id": "serial-conserver-sub-1",
@@ -2819,7 +4107,16 @@ const BMC_HUB_DATA = [
           "conserver",
           "console",
           "serial"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.conserver.com/docs/console.man.html",
+              "title": "conserver console(1)"
+            }
+          ]
+        }
       },
       {
         "id": "serial-conserver-sub-2",
@@ -2833,7 +4130,16 @@ const BMC_HUB_DATA = [
           "conserver",
           "console",
           "serial"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.conserver.com/docs/console.man.html",
+              "title": "conserver console(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -2875,7 +4181,16 @@ const BMC_HUB_DATA = [
           "ipmi",
           "sol",
           "config"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.conserver.com/docs/conserver.cf.man.html",
+              "title": "conserver.cf(5)"
+            }
+          ]
+        }
       }
     ]
   },

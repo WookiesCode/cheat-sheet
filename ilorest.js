@@ -44,7 +44,20 @@ const BMC_ILOREST_DATA = [
           "login",
           "session",
           "logout"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/globalcommands.md",
+              "title": "HPE iLOrest 7.4: global commands"
+            },
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/usage.md",
+              "title": "HPE iLOrest 7.4: usage"
+            }
+          ]
+        }
       },
       {
         "id": "ilorest-login-sub-1",
@@ -58,7 +71,20 @@ const BMC_ILOREST_DATA = [
           "hpe",
           "ilo",
           "login"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/globalcommands.md",
+              "title": "HPE iLOrest 7.4: global commands"
+            },
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/usage.md",
+              "title": "HPE iLOrest 7.4: usage"
+            }
+          ]
+        }
       },
       {
         "id": "ilorest-login-sub-2",
@@ -72,7 +98,20 @@ const BMC_ILOREST_DATA = [
           "hpe",
           "ilo",
           "login"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/globalcommands.md",
+              "title": "HPE iLOrest 7.4: global commands"
+            },
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/usage.md",
+              "title": "HPE iLOrest 7.4: usage"
+            }
+          ]
+        }
       }
     ]
   },
@@ -120,7 +159,16 @@ const BMC_ILOREST_DATA = [
           "fans",
           "power",
           "firmware"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+              "title": "HPE iLOrest 7.4: iLO commands"
+            }
+          ]
+        }
       },
       {
         "id": "ilorest-serverinfo-sub-1",
@@ -134,7 +182,16 @@ const BMC_ILOREST_DATA = [
           "serverinfo",
           "inventory",
           "thermals"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+              "title": "HPE iLOrest 7.4: iLO commands"
+            }
+          ]
+        }
       },
       {
         "id": "ilorest-serverinfo-sub-2",
@@ -148,7 +205,16 @@ const BMC_ILOREST_DATA = [
           "serverinfo",
           "inventory",
           "thermals"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+              "title": "HPE iLOrest 7.4: iLO commands"
+            }
+          ]
+        }
       },
       {
         "id": "ilorest-serverinfo-sub-3",
@@ -162,7 +228,16 @@ const BMC_ILOREST_DATA = [
           "serverinfo",
           "inventory",
           "thermals"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+              "title": "HPE iLOrest 7.4: iLO commands"
+            }
+          ]
+        }
       }
     ]
   },
@@ -218,7 +293,17 @@ const BMC_ILOREST_DATA = [
           "logs",
           "events",
           "rma"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+              "title": "HPE iLOrest 7.4: iLO commands"
+            }
+          ],
+          "note": "AHS downloads must use the default file name (-f is not supported for AHS)."
+        }
       },
       {
         "id": "ilorest-serverlogs-sub-1",
@@ -232,7 +317,17 @@ const BMC_ILOREST_DATA = [
           "iml",
           "iel",
           "ahs"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+              "title": "HPE iLOrest 7.4: iLO commands"
+            }
+          ],
+          "note": "AHS downloads must use the default file name (-f is not supported for AHS)."
+        }
       },
       {
         "id": "ilorest-serverlogs-sub-2",
@@ -246,7 +341,17 @@ const BMC_ILOREST_DATA = [
           "iml",
           "iel",
           "ahs"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+              "title": "HPE iLOrest 7.4: iLO commands"
+            }
+          ],
+          "note": "AHS downloads must use the default file name (-f is not supported for AHS)."
+        }
       },
       {
         "id": "ilorest-serverlogs-sub-3",
@@ -260,7 +365,17 @@ const BMC_ILOREST_DATA = [
           "iml",
           "iel",
           "ahs"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+              "title": "HPE iLOrest 7.4: iLO commands"
+            }
+          ],
+          "note": "AHS downloads must use the default file name (-f is not supported for AHS)."
+        }
       }
     ]
   },
@@ -307,7 +422,16 @@ const BMC_ILOREST_DATA = [
           "drives",
           "volumes",
           "smartarray"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/smartarraycommands.md",
+              "title": "HPE iLOrest 7.4: storage commands"
+            }
+          ]
+        }
       },
       {
         "id": "ilorest-storage-sub-1",
@@ -321,7 +445,16 @@ const BMC_ILOREST_DATA = [
           "storage",
           "raid",
           "drives"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/smartarraycommands.md",
+              "title": "HPE iLOrest 7.4: storage commands"
+            }
+          ]
+        }
       },
       {
         "id": "ilorest-storage-sub-2",
@@ -335,7 +468,16 @@ const BMC_ILOREST_DATA = [
           "storage",
           "raid",
           "drives"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/smartarraycommands.md",
+              "title": "HPE iLOrest 7.4: storage commands"
+            }
+          ]
+        }
       }
     ]
   },
@@ -383,7 +525,20 @@ const BMC_ILOREST_DATA = [
           "commit",
           "bios",
           "redfish"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/globalcommands.md",
+              "title": "HPE iLOrest 7.4: global commands"
+            },
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/usage.md",
+              "title": "HPE iLOrest 7.4: usage"
+            }
+          ]
+        }
       },
       {
         "id": "ilorest-select-get-sub-1",
@@ -397,7 +552,20 @@ const BMC_ILOREST_DATA = [
           "select",
           "get",
           "set"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/globalcommands.md",
+              "title": "HPE iLOrest 7.4: global commands"
+            },
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/usage.md",
+              "title": "HPE iLOrest 7.4: usage"
+            }
+          ]
+        }
       },
       {
         "id": "ilorest-select-get-sub-2",
@@ -411,7 +579,20 @@ const BMC_ILOREST_DATA = [
           "select",
           "get",
           "set"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/globalcommands.md",
+              "title": "HPE iLOrest 7.4: global commands"
+            },
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/usage.md",
+              "title": "HPE iLOrest 7.4: usage"
+            }
+          ]
+        }
       }
     ]
   },
@@ -462,7 +643,16 @@ const BMC_ILOREST_DATA = [
           "iloreset",
           "forceoff",
           "nmi"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+              "title": "HPE iLOrest 7.4: iLO commands"
+            }
+          ]
+        }
       },
       {
         "id": "ilorest-reboot-sub-1",
@@ -476,7 +666,16 @@ const BMC_ILOREST_DATA = [
           "power",
           "reboot",
           "iloreset"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+              "title": "HPE iLOrest 7.4: iLO commands"
+            }
+          ]
+        }
       },
       {
         "id": "ilorest-reboot-sub-2",
@@ -490,7 +689,16 @@ const BMC_ILOREST_DATA = [
           "power",
           "reboot",
           "iloreset"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+              "title": "HPE iLOrest 7.4: iLO commands"
+            }
+          ]
+        }
       }
     ]
   },
@@ -524,7 +732,7 @@ const BMC_ILOREST_DATA = [
           ],
           [
             "firmwareupdate <URI>",
-            "iLO and UEFI firmware from a URL (changes state)"
+            "iLO and UEFI firmware (.bin images) from a URL (changes state)"
           ]
         ],
         "tip": "Read versions with serverinfo --firmware before and after an update",
@@ -537,7 +745,20 @@ const BMC_ILOREST_DATA = [
           "repository",
           "update",
           "fwpkg"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+              "title": "HPE iLOrest 7.4: iLO commands"
+            },
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilorepositorycommands.md",
+              "title": "HPE iLOrest 7.4: iLO repository commands"
+            }
+          ]
+        }
       },
       {
         "id": "ilorest-firmware-sub-1",
@@ -551,7 +772,20 @@ const BMC_ILOREST_DATA = [
           "firmware",
           "integrity",
           "repository"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+              "title": "HPE iLOrest 7.4: iLO commands"
+            },
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilorepositorycommands.md",
+              "title": "HPE iLOrest 7.4: iLO repository commands"
+            }
+          ]
+        }
       },
       {
         "id": "ilorest-firmware-sub-2",
@@ -565,7 +799,20 @@ const BMC_ILOREST_DATA = [
           "firmware",
           "integrity",
           "repository"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+              "title": "HPE iLOrest 7.4: iLO commands"
+            },
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilorepositorycommands.md",
+              "title": "HPE iLOrest 7.4: iLO repository commands"
+            }
+          ]
+        }
       }
     ]
   },
@@ -615,7 +862,16 @@ const BMC_ILOREST_DATA = [
           "network",
           "virtualmedia",
           "iso"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+              "title": "HPE iLOrest 7.4: iLO commands"
+            }
+          ]
+        }
       },
       {
         "id": "ilorest-network-media-sub-1",
@@ -629,7 +885,16 @@ const BMC_ILOREST_DATA = [
           "ethernet",
           "network",
           "virtualmedia"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md",
+              "title": "HPE iLOrest 7.4: iLO commands"
+            }
+          ]
+        }
       }
     ]
   },

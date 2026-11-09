@@ -14,16 +14,16 @@ Product review started 2026-11-09. Phases 1–3 are below. Nine items (#8 for th
 | 3 | Say so when a save fails | ✅ Built | `improve/storage-warn` | `cbb0dd9` |
 | 5 | Keep keyboard focus out from under the fixed bars | ✅ Built | `improve/focus-visible` | `de6ac2e` |
 | 14 | Skip link (found while building #5) | ✅ Built | `improve/skip-link` | `220d5c9` |
-| 8 | Source and last-verified date on core suites | ✅ NVIDIA, InfiniBand, Redfish and IPMI built (merged to `main` up to `7cf0f68`); BMC vendor tools open | `improve/sources-redfish-ipmi` | (this branch) |
+| 8 | Source and last-verified date on core suites | ✅ NVIDIA, InfiniBand, Redfish, IPMI (merged to `main` up to `d16e8b2`) and BMC vendor tools | `improve/sources-bmc-tools` | (this branch) |
 | 9 | Stop duplicating the nav into every page | Open | | |
 | 10 | Practice what I actually use | Open | | |
 | 11 | Local usage meter | Open | | |
 | 12 | Export My kit as a navi `.cheat` file | Open (needs navi installed: ask first) | | |
 | 13 | Make the doc counts agree | ✅ Built | `improve/doc-counts` | (this branch) |
 
-**The branches are stacked**, each built on the one before, in the order of the table, **Merged to `main` on 2026-11-09 up to `7cf0f68`** (fast-forward, not pushed). `improve/sources-redfish-ipmi` sits on top of `main`. None are pushed or merged yet.
+**The branches are stacked**, each built on the one before, in the order of the table, **Merged to `main` on 2026-11-09 up to `d16e8b2`** (fast-forward, not pushed). `improve/sources-bmc-tools` sits on top of `main`. None are pushed or merged yet.
 
-**Tests:** `node tests/run-all.js` runs 15 test files. All 16 pass on `improve/sources-redfish-ipmi`. Every built item has its own regression test, and I checked that the tests for #2 and #5 fail on the commit before their fix.
+**Tests:** `node tests/run-all.js` runs 15 test files. All 16 pass on `improve/sources-bmc-tools`. Every built item has its own regression test, and I checked that the tests for #2 and #5 fail on the commit before their fix.
 
 ## What the built items changed (measured)
 
@@ -108,6 +108,18 @@ Checked against the DMTF Redfish Specification DSP0266 1.25.0 (PDF text; the HTM
 **Test flake fixed:** `focus-visible` and `dialog-focus` used `window.scrollTo(0, 0)`, which animates on this site (smooth scrolling); a `j` pressed mid-animation could leave the focused command under the footer. They now scroll with `behavior: 'instant'`.
 
 **Not covered:** the Redfish builder's vendor presets (e.g. `hgx: HGX_Chassis_0 / HGX_BMC_0`), and `rf-firmware-inventory`'s `Updateable` (SoftwareInventory schema not read).
+
+## #8 for the BMC vendor tools (2026-11-09, `improve/sources-bmc-tools`)
+
+All 107 commands and recipes on the racadm, iLOrest, SAA, OneCLI, FreeIPMI and serial-console sheets now cite their source: Dell iDRAC9 7.xx RACADM guide, HPE iLOrest 7.4.0.0 guide, Supermicro SAA for UEFI guide 1.1.0 (PDF, text extracted locally) and product page, Lenovo OneCLI docs, FreeIPMI man pages (Debian trixie copies, 1.6.15, because gnu.org rate-limited fetches), picocom(1), ser2net README, conserver console(1)/conserver.cf(5). This suite had been fact-checked on 2026-11-07, and it showed: **no command errors**, only wording fixes:
+
+- OneCLI `--type AEL|PEL|ALL` is documented for the clear commands; `ospower` is "5.2.0 and earlier" (not "replaced in 5.3.0").
+- ser2net's README path is `/etc/ser2net/ser2net.yaml`.
+- iLOrest `firmwareupdate` takes `.bin` images only.
+
+**Not verified (said on the card):** SAA `GetBmcCfg` and the `-l` host list (not in the UEFI guide; the OS guide was not found), and four standard Linux helpers on the serial sheet (`ls /dev/serial/by-id`, `dmesg | grep tty`, `id -nG`, `systemctl status ser2net`). Notes flag the unconfirmed details: racadm's 100-record default, OneCLI `config save --file` and `update scan --output`, the FreeIPMI host range with a suffix, and what `ipmi-chassis --get-chassis-status` prints.
+
+`generate-suite-kit.js` now passes `src` through, so the hardware-reference and SRE suites (also built on it) only need data.
 
 ## Found while building (not fixed)
 
@@ -206,7 +218,8 @@ Impact (H/M/L) · Effort (S/M/L) · Risk (H/M/L). The ranking is by user impact 
 - ⚠ **Flag (schema):** the optional `src` field is a new, additive part of the card data and of the search-index entries.
 - ✅ **InfiniBand** done on `improve/sources-ib` (51 commands and recipes, 9 errors fixed).
 - ✅ **Redfish and IPMI** done on `improve/sources-redfish-ipmi` (45 commands and recipes).
-- **Next:** the BMC vendor tools (racadm, iLOrest, Supermicro SAA, OneCLI, FreeIPMI).
+- ✅ **BMC vendor tools** done on `improve/sources-bmc-tools` (107 commands and recipes, no command errors).
+- **Next:** the remaining suites (Linux, CLI tools, Ethernet/switches, storage) as needed; each is data-only for suite-kit and the four patched generators.
 
 **9. Stop duplicating the full nav into every page**
 - **Why:** mostly maintenance and the portable file's size. The direct user gain is small, because pages already load in ~250 ms.
@@ -237,7 +250,7 @@ Impact (H/M/L) · Effort (S/M/L) · Risk (H/M/L). The ranking is by user impact 
 - Impact **L** · Effort **S** · Risk **L** · Built: `improve/doc-counts`. `build-index.js` writes the counts between `<!-- counts -->` markers, counting the way the home page does; `tests/doc-counts.test.js` compares them with the live home page.
 
 ## Recommended next
-**#8 for the BMC vendor tools** (racadm, iLOrest, Supermicro SAA, OneCLI, FreeIPMI): these live in `generate-bmc-tools-suite.js` / `generate-suite-kit.js`, so check how that kit copies command fields first.
+The small fixes found along the way (Explain's cut-off `--help` text, the two unreachable "could not keep" toasts, `TOUR_VERSION` "What's new", the NVIDIA builder presets), then a `j`/`k` edge case: pressing `j` during a smooth scroll can leave the focused command under the footer (stop in-flight scrolling in `kbFocus`).
 
 Considered and dropped: a shift handoff export (it already exists: "Shift board & handoff" in `common.js`), a phone layout (laptop-only by your decision), and variable prompts in the style of navi (Rack Targets and slot chips already do this).
 
@@ -282,3 +295,9 @@ Considered and dropped: a shift handoff export (it already exists: "Shift board 
 - [NVIDIA DGX H100/H200 Redfish](https://docs.nvidia.com/dgx/dgxh100-user-guide/redfish-api-supp.html) · [NVIDIA DGX B200 Redfish](https://docs.nvidia.com/dgx/dgxb200-user-guide/redfish-api-supp.html)
 - [ipmitool man page](https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in) · [ipmitool source](https://github.com/ipmitool/ipmitool/tree/master/lib)
 - [Linux kernel IPMI driver](https://docs.kernel.org/driver-api/ipmi.html)
+- [Dell iDRAC9 7.xx RACADM CLI Guide](https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/introduction)
+- [HPE iLOrest 7.4 user guide: global commands](https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/globalcommands.md) · [iLO commands](https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md)
+- [Supermicro SAA](https://www.supermicro.com/en/solutions/management-software/superserver-automation-assistant) · [SAA for UEFI User's Guide (PDF)](https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf)
+- [Lenovo XClarity Essentials OneCLI](https://pubs.lenovo.com/lxce-onecli/)
+- [FreeIPMI man pages (Debian trixie)](https://manpages.debian.org/trixie/freeipmi-tools/index.html)
+- [picocom(1)](https://github.com/npat-efault/picocom/blob/master/picocom.1.md) · [ser2net README](https://github.com/cminyard/ser2net/blob/master/README.rst) · [conserver console(1)](https://www.conserver.com/docs/console.man.html) · [conserver.cf(5)](https://www.conserver.com/docs/conserver.cf.man.html)
