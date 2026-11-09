@@ -7436,6 +7436,7 @@ ${rmaTrailSection()}#### Action Requested:
         mountNotesPage(file);
       });
       safeInit('initSideDock', () => initSideDock());
+      safeInit('initModalFocus', () => initModalFocus());
       safeInit('initRootLens', () => initRootLens());
       safeInit('initSelectionActions', () => initSelectionActions());
       safeInit('initPasteBack', () => initPasteBack());
@@ -12248,6 +12249,73 @@ ${rmaTrailSection()}#### Action Requested:
     wbShowGrid(!wbDocked);
     if (!wbPortable()) setTimeout(wbFollowRoute, 0);
     else if (wbRoute && !wbDocked) setTimeout(() => wbOpen(wbRoute, true), 0);
+  }
+
+  // -------------------------------------------------------------
+  // MODAL FOCUS
+  // Every tool opens as a modal over the page, but Tab used to walk out of it onto the
+  // header buttons hidden under the backdrop. Following the WAI-ARIA dialog pattern, Tab
+  // and Shift+Tab now wrap inside the topmost open modal, and when the last one closes,
+  // focus returns to what had it before. A tool pinned in the side dock or docked in the
+  // Workbench is part of the page, so it is never trapped.
+  // -------------------------------------------------------------
+  // Same list as sdOtherModalOpen() below, plus the Manuals reader.
+  const MODAL_OPEN_SEL = '#global-search-modal:not(.hidden), .triage-modal-backdrop:not(.hidden), .an-backdrop.show:not(.is-side):not(.is-docked), .trail-drawer.open, .kit-drawer.open, .tour.show, #manuals-modal:not(.hidden)';
+  const FOCUSABLE_SEL = 'a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), summary, [contenteditable="true"], [tabindex]:not([tabindex="-1"])';
+
+  const mfVisible = (el) => !!el && el.getClientRects().length > 0 && getComputedStyle(el).visibility !== 'hidden' && !el.closest('[hidden], [inert]');
+
+  // The modal on top: highest z-index, then the one added last.
+  function mfTopModal() {
+    let top = null;
+    let topZ = -Infinity;
+    for (const el of document.querySelectorAll(MODAL_OPEN_SEL)) {
+      if (!mfVisible(el)) continue;
+      const z = parseInt(getComputedStyle(el).zIndex, 10) || 0;
+      if (z >= topZ) { top = el; topZ = z; }
+    }
+    return top;
+  }
+
+  function initModalFocus() {
+    let opener = null;    // what had focus before a modal opened
+    let wasOpen = false;
+    let pending = false;
+
+    // Remember focus outside modals; a key press on the bare page clears it (nothing to return to).
+    document.addEventListener('focusin', (e) => {
+      if (e.target instanceof Element && !e.target.closest(MODAL_OPEN_SEL)) opener = e.target;
+    }, true);
+    document.addEventListener('keydown', (e) => {
+      if (!mfTopModal() && document.activeElement === document.body) opener = null;
+      if (e.key !== 'Tab' || e.defaultPrevented || e.ctrlKey || e.altKey || e.metaKey) return;
+      const modal = mfTopModal();
+      if (!modal) return;
+      const items = [...modal.querySelectorAll(FOCUSABLE_SEL)].filter(mfVisible);
+      if (!items.length) { e.preventDefault(); return; }
+      const first = items[0];
+      const last = items[items.length - 1];
+      const at = items.indexOf(document.activeElement);
+      // Outside the modal, or on something not in the tab order: start at the matching end.
+      if (at === -1) { e.preventDefault(); (e.shiftKey ? last : first).focus(); return; }
+      if (e.shiftKey && at === 0) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && at === items.length - 1) { e.preventDefault(); first.focus(); }
+    });
+
+    // Tools close by toggling a class, from many places (✕, Esc, their own buttons), so watch for it.
+    const check = () => {
+      pending = false;
+      const open = !!mfTopModal();
+      if (wasOpen && !open) {
+        const now = document.activeElement;
+        const lost = !now || now === document.body || !mfVisible(now);
+        if (lost && opener && opener.isConnected && mfVisible(opener)) opener.focus({ preventScroll: true });
+      }
+      wasOpen = open;
+    };
+    new MutationObserver(() => {
+      if (!pending) { pending = true; requestAnimationFrame(check); }
+    }).observe(document.body, { attributes: true, attributeFilter: ['class', 'hidden'], subtree: true });
   }
 
   // -------------------------------------------------------------
