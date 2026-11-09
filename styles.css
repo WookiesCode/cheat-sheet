@@ -2666,6 +2666,10 @@ code, kbd, pre {
   display: flex;
 }
 
+/* The header is its own stacking layer (z-index 40), which capped its open menus under the
+   fixed pager, footer and tour invite. Lift it above them only while a menu is open. */
+header.top-bar:has(.nav-dropdown:hover, .nav-dropdown:focus-within, .nav-dropdown.open) { z-index: 950; }
+
 .dropdown-item {
   display: flex;
   align-items: center;
@@ -5848,6 +5852,8 @@ code, kbd, pre {
    everything that has to clear them (body padding, toasts, the sidebar) adds both. */
 @media all {
   body { --foot-h: 0px; --pager-h: 0px; padding-bottom: calc(var(--pager-h) + var(--foot-h)); }
+  /* While the tour invite shows, the page end can scroll clear of it (common.js sets --invite-h). */
+  body:has(.tour-invite.show):not(.con-open) { padding-bottom: calc(var(--pager-h) + var(--foot-h) + var(--invite-h, 0px) + 0.9rem); }
   body:has(> footer.footer, > footer.page-footer, > footer.site-footer) { --foot-h: 34px; }
   body.has-suite-pager { --pager-h: 60px; }
   body > footer.footer, body > footer.page-footer, body > footer.site-footer {

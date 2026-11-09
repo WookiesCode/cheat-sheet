@@ -2689,8 +2689,9 @@
     if (!el) return;
     el.focus({ preventScroll: true });
     const r = el.getBoundingClientRect();
-    const top = document.body.classList.contains('cbar-on') ? 70 : 10;
-    if (r.top < top || r.bottom > window.innerHeight - 10) el.scrollIntoView({ block: 'center', behavior: 'instant' });
+    // The free band between the bars that stay on screen (command bar above; pager, footer, terminal below).
+    const band = fnhBand(r);
+    if (r.top < band.top + FNH_GAP || r.bottom > band.bottom - FNH_GAP) el.scrollIntoView({ block: 'center', behavior: 'instant' });
     requestAnimationFrame(() => kbHint(el));
   }
 
@@ -3208,7 +3209,11 @@
     document.body.appendChild(inv);
     inv.querySelector('.tour-invite-go').addEventListener('click', () => startTour(returning ? 'new' : undefined));
     inv.querySelector('.tour-invite-x').addEventListener('click', () => { tourMarkSeen(); inv.remove(); });
-    setTimeout(() => inv.classList.add('show'), 900);
+    setTimeout(() => {
+      inv.classList.add('show');
+      // Room at the page end for the invite, so keyboard focus can scroll out from under it.
+      document.body.style.setProperty('--invite-h', `${inv.offsetHeight}px`);
+    }, 900);
   }
 
   // -------------------------------------------------------------
@@ -7474,6 +7479,7 @@ ${rmaTrailSection()}#### Action Requested:
       });
       safeInit('initSideDock', () => initSideDock());
       safeInit('initModalFocus', () => initModalFocus());
+      safeInit('initFocusNotHidden', () => initFocusNotHidden());
       safeInit('initBackup', () => initBackup());
       safeInit('initRootLens', () => initRootLens());
       safeInit('initSelectionActions', () => initSelectionActions());
@@ -12675,6 +12681,62 @@ ${rmaTrailSection()}#### Action Requested:
     new MutationObserver(() => {
       if (!pending) { pending = true; requestAnimationFrame(check); }
     }).observe(document.body, { attributes: true, attributeFilter: ['class', 'hidden'], subtree: true });
+  }
+
+  // -------------------------------------------------------------
+  // FOCUS NOT HIDDEN
+  // The command bar, the pager, the footer, the terminal and the tour invite stay on screen
+  // while the page scrolls. Chrome does not scroll an element that is already partly in view
+  // when it takes focus, so Shift+Tab could land on a command hidden under one of them (WCAG
+  // 2.2 SC 2.4.11). After keyboard focus moves, scroll just enough to bring it clear.
+  // -------------------------------------------------------------
+  const FNH_LAYERS = '#command-bar, .storage-warn, .suite-rail-pager, .footer, .con-drawer, .tour-invite, .rma-case-cta';
+  const FNH_GAP = 8;
+
+  function fnhInFixedLayer(el) {
+    for (let x = el; x && x !== document.body; x = x.parentElement) {
+      const p = getComputedStyle(x).position;
+      if (p === 'fixed' || p === 'sticky') return true;
+    }
+    return false;
+  }
+
+  // Free band of the window for this element: below the top bars, above the bottom ones,
+  // counting only bars that overlap it horizontally (the tour invite covers the left only).
+  function fnhBand(rc) {
+    let top = 0;
+    let bottom = window.innerHeight;
+    for (const L of document.querySelectorAll(FNH_LAYERS)) {
+      if (!L.getClientRects().length || getComputedStyle(L).visibility === 'hidden') continue;
+      const r = L.getBoundingClientRect();
+      if (!r.height || r.right <= rc.left || r.left >= rc.right) continue;
+      if (r.top + r.height / 2 < window.innerHeight / 2) top = Math.max(top, r.bottom);
+      else bottom = Math.min(bottom, r.top);
+    }
+    return { top, bottom };
+  }
+
+  function fnhReveal(el) {
+    if (!(el instanceof Element) || el === document.body || fnhInFixedLayer(el)) return;
+    const rc = el.getBoundingClientRect();
+    if (!rc.height) return;
+    const band = fnhBand(rc);
+    let dy = 0;
+    if (rc.top < band.top) dy = rc.top - band.top - FNH_GAP;
+    else if (rc.bottom > band.bottom) dy = Math.min(rc.bottom - band.bottom + FNH_GAP, rc.top - band.top - FNH_GAP);
+    if (dy) window.scrollBy({ top: dy, behavior: 'instant' });
+  }
+
+  function initFocusNotHidden() {
+    // Keyboard focus only: a click already lands where the pointer is.
+    let viaKeyboard = false;
+    document.addEventListener('keydown', (e) => { if (e.key === 'Tab') viaKeyboard = true; }, true);
+    document.addEventListener('pointerdown', () => { viaKeyboard = false; }, true);
+    document.addEventListener('focusin', (e) => {
+      if (!viaKeyboard || document.querySelector(MODAL_OPEN_SEL)) return;
+      // After the browser's own focus scrolling has settled.
+      requestAnimationFrame(() => fnhReveal(e.target));
+    });
   }
 
   // -------------------------------------------------------------
