@@ -219,9 +219,16 @@ class Handler(socketserver.BaseRequestHandler):
                         msg = json.loads(data.decode())
                     except ValueError:
                         continue
-                    if msg.get('type') == 'resize':
-                        cols, rows = int(msg.get('cols', 80)), int(msg.get('rows', 24))
-                        fcntl.ioctl(fd, termios.TIOCSWINSZ, struct.pack('HHHH', max(2, rows), max(2, cols), 0, 0))
+                    if isinstance(msg, dict) and msg.get('type') == 'resize':
+                        # A malformed size must not end the session: skip it. Clamp to what
+                        # struct winsize (unsigned short) holds.
+                        try:
+                            cols, rows = int(msg.get('cols', 80)), int(msg.get('rows', 24))
+                        except (TypeError, ValueError):
+                            log(f'ignored bad resize {msg!r}')
+                            continue
+                        cols, rows = min(max(2, cols), 65535), min(max(2, rows), 65535)
+                        fcntl.ioctl(fd, termios.TIOCSWINSZ, struct.pack('HHHH', rows, cols, 0, 0))
         except (OSError, ConnectionError):
             pass
         finally:

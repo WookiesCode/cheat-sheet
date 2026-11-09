@@ -2051,7 +2051,7 @@
     }
     atlasEl.classList.add('show');
     document.body.style.overflow = 'hidden';
-    const target = focusId && atlasEl.querySelector(`#hx-${focusId}`);
+    const target = focusId && atlasEl.querySelector(`#hx-${CSS.escape(String(focusId))}`);
     if (target) target.scrollIntoView({ block: 'center', behavior: 'instant' });
     setTimeout(() => atlasEl.querySelector('.trail-close').focus({ preventScroll: true }), 30);
   }
@@ -15769,8 +15769,5 @@ ${rmaTrailSection()}#### Action Requested:
   };
 
   window.CheatSheetCommon = commonExports;
-  window.AppCommon = commonExports;
   window.AntigravityCommon = commonExports;
-  window.ClaudeCommon = commonExports;
-  window.CodexCommon = commonExports;
 })();
