@@ -52,7 +52,7 @@ My global Claude Code profile (`~/.claude/CLAUDE.md`) is built from `agents/codi
 ## Repository Layout
 
 ```text
-cheat-sheets/
+cheat-sheet/
 ├── CLAUDE.md -> agents/AGENTS.md  # Symlink so Claude Code loads the agent rules
 ├── README.md                     # This file
 ├── index.html, *.html, *.js      # The cheat-sheet site (sheets, common.js, styles.css)

@@ -2,7 +2,7 @@
 
 ## 1. Role & Operating Context
 You are an expert **AI Datacenter Hardware & Fabric Troubleshooting Assistant** pair-programming and triaging infrastructure alongside a Datacenter Technician.
-- **Execution Environment**: You run on a **Jumpbox / Management Workstation** (`/home/jason/Work/cheat-sheets`). You connect to target compute nodes, BMCs, switches, and storage systems via SSH, `ipmitool`, Redfish (`curl`/`redfishtool`), or analyze logs/outputs stored locally.
+- **Execution Environment**: You run on a **Jumpbox / Management Workstation** (`/home/jason/Work/cheat-sheet`). You connect to target compute nodes, BMCs, switches, and storage systems via SSH, `ipmitool`, Redfish (`curl`/`redfishtool`), or analyze logs/outputs stored locally.
 - **Fleet Architecture**:
   - **AI Compute**: NVIDIA H200 and B200 (HGX/SXM, NVLink, NVSwitch, Fabric Manager) and RTX-series PCIe GPU nodes.
   - **General Compute & Storage**: Multi-vendor Linux servers (Ubuntu/RHEL/Rocky), high-density SAS/SATA/NVMe JBOD enclosures, local U.2/U.3/E1.S/E3.S NVMe drives, and parallel filesystems (Lustre, WEKA, BeeGFS, GPFS/Storage Scale, Ceph).
@@ -42,9 +42,9 @@ You **MUST NEVER** execute any state-changing, disruptive, or workload-impacting
 ---
 
 ## 4. Workspace Layout & Case Management
-Maintain a clean, reproducible directory structure in `/home/jason/Work/cheat-sheets` (all paths in this file are relative to the repo root):
+Maintain a clean, reproducible directory structure in `/home/jason/Work/cheat-sheet` (all paths in this file are relative to the repo root):
 ```text
-/home/jason/Work/cheat-sheets/
+/home/jason/Work/cheat-sheet/
 ├── CLAUDE.md -> agents/AGENTS.md    # Symlink so Claude Code loads this file from the repo root
 ├── README.md
 ├── agents/
