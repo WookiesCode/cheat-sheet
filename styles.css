@@ -8582,3 +8582,11 @@ body.con-live .pb-btn { right: 128px; }
 .cmd-source.is-stale .src-when,
 .cmd-source.is-unverified .src-label { color: var(--accent-amber); }
 @media print { .cmd-source a { color: inherit; } .cmd-source a::after { content: " (" attr(href) ")"; } }
+
+/* Host reboot/shutdown commands kept as reference (build-reference-rules.js HOST_REBOOT). */
+.is-reboot-ref .ref-why {
+  display: block; margin-top: 0.35rem;
+  font: 600 0.72rem/1.4 var(--font-sans); color: var(--accent-amber);
+  user-select: none;
+}
+.kit-ref { font: 600 0.72rem var(--font-sans); color: var(--text-muted); align-self: center; }

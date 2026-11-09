@@ -63,6 +63,8 @@ A recipe in a generator's `subcommands` list can carry its own source as a third
 
 Only real commands copy. Reference information such as POST codes, wire colors and keyboard shortcuts is read-only, and `build-reference-rules.js` lists what counts as reference.
 
+**Host reboot and shutdown commands are reference only.** Anything that reboots or powers off the machine you type it on (`reboot`, `systemctl reboot`, `… && reboot`, `shutdown`, `Restart-Computer`, in-band `ilorest reboot`) stays on its sheet as documentation, marked **🔒 Reference only: reboots or shuts down the machine you run it on**. It can't be copied, sent to the terminal, run, drilled in Practice, or copied from My kit. Out-of-band power control through a BMC (`ipmitool -H … chassis power`, `racadm -r … serveraction`, `ilorest --url …`, Redfish) still copies, marked red as a state change. The rule is `HOST_REBOOT` in `build-reference-rules.js`.
+
 Your targets carry across pages, and **Reset** puts them back to defaults.
 
 ## The password field

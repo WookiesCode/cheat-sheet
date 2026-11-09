@@ -1957,7 +1957,9 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "systemctl reboot --firmware-setup",
     "desc": "Reboot the server directly into the motherboard UEFI/BIOS setup utility",
     "tip": "",
-    "tags": "systemctl service daemon failed timers systemd"
+    "tags": "systemctl service daemon failed timers systemd",
+    "noCopy": true,
+    "refWhy": "reboot"
   },
   {
     "sName": "linux",
@@ -3552,7 +3554,9 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest reboot PushPowerButton",
     "desc": "Power control (after a drain)",
     "tip": "Every reboot form changes state: drain and get approval first",
-    "tags": "bmc remote-management ilorest power reboot iloreset forceoff nmi"
+    "tags": "bmc remote-management ilorest power reboot iloreset forceoff nmi",
+    "noCopy": true,
+    "refWhy": "reboot"
   },
   {
     "sName": "bmc-tools",
@@ -3563,7 +3567,9 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest reboot ForceOff",
     "desc": "Hard off (changes state)",
     "tip": "",
-    "tags": "bmc remote-management ilorest recipe power reboot iloreset"
+    "tags": "bmc remote-management ilorest recipe power reboot iloreset",
+    "noCopy": true,
+    "refWhy": "reboot"
   },
   {
     "sName": "bmc-tools",
@@ -5961,7 +5967,9 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "efibootmgr -n 0004 && reboot",
     "desc": "Set UEFI NextBoot to entry 0004 (e.g. PXE IPv6 NIC) for the upcoming reboot only and reboot",
     "tip": "",
-    "tags": "efibootmgr uefi bios pxe bootorder nextboot mokutil"
+    "tags": "efibootmgr uefi bios pxe bootorder nextboot mokutil",
+    "noCopy": true,
+    "refWhy": "reboot"
   },
   {
     "sName": "cli-tools",
@@ -10504,7 +10512,9 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "efibootmgr -n 0004 && reboot",
     "desc": "Set UEFI NextBoot to entry 0004 (e.g. PXE IPv6 NIC) for the upcoming reboot only and reboot",
     "tip": "Frequently used with efibootmgr in production workflows",
-    "tags": "efibootmgr uefi bios pxe bootorder nextboot mokutil variation recipe"
+    "tags": "efibootmgr uefi bios pxe bootorder nextboot mokutil variation recipe",
+    "noCopy": true,
+    "refWhy": "reboot"
   },
   {
     "sName": "efibootmgr",
@@ -18807,7 +18817,9 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest reboot PushPowerButton",
     "desc": "Power control (after a drain)",
     "tip": "Every reboot form changes state: drain and get approval first",
-    "tags": "bmc remote-management ilorest power reboot iloreset forceoff nmi"
+    "tags": "bmc remote-management ilorest power reboot iloreset forceoff nmi",
+    "noCopy": true,
+    "refWhy": "reboot"
   },
   {
     "sName": "ilorest",
@@ -18818,7 +18830,9 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest reboot ForceOff",
     "desc": "Hard off (changes state)",
     "tip": "",
-    "tags": "bmc remote-management ilorest recipe power reboot iloreset"
+    "tags": "bmc remote-management ilorest recipe power reboot iloreset",
+    "noCopy": true,
+    "refWhy": "reboot"
   },
   {
     "sName": "ilorest",
@@ -36471,7 +36485,9 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "systemctl reboot --firmware-setup",
     "desc": "Reboot the server directly into the motherboard UEFI/BIOS setup utility",
     "tip": "",
-    "tags": "systemctl service daemon failed timers systemd"
+    "tags": "systemctl service daemon failed timers systemd",
+    "noCopy": true,
+    "refWhy": "reboot"
   },
   {
     "sName": "systemd",
@@ -38226,7 +38242,9 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "shutdown /r /fw /t 0   |   shutdown /r /o /t 0",
     "desc": "Reboot directly into motherboard UEFI / BIOS setup without mashing Del/F2 on boot",
     "tip": "No more mashing F2/Del!",
-    "tags": "bios uefi firmware reboot recovery safemode"
+    "tags": "bios uefi firmware reboot recovery safemode",
+    "noCopy": true,
+    "refWhy": "reboot"
   },
   {
     "sName": "win-sysadmin",
@@ -38737,7 +38755,9 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "shutdown /r /fw /t 0   |   shutdown /r /o /t 0",
     "desc": "Reboot directly into motherboard UEFI / BIOS setup without mashing Del/F2 on boot",
     "tip": "No more mashing F2/Del!",
-    "tags": "bios uefi firmware reboot recovery safemode"
+    "tags": "bios uefi firmware reboot recovery safemode",
+    "noCopy": true,
+    "refWhy": "reboot"
   },
   {
     "sName": "xargs",

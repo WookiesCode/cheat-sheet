@@ -20,15 +20,38 @@ const REFERENCE_PATTERNS = [
   /^3\/4-Finger /, /^Force Click/, /^Hold ⇧/, /^System Settings /
 ];
 
+// Commands that reboot or shut down the machine you type them on. They stay on the sheets as
+// documentation but cannot be copied or run from the page (decided 2026-11-09). Out-of-band
+// power control through a BMC (ipmitool -H, racadm -r, ilorest --url, Redfish) is not covered.
+const HOST_REBOOT = [
+  /^(sudo\s+)?(reboot|poweroff|halt)\b/,
+  /&&\s*(sudo\s+)?(reboot|poweroff|halt)\b/,
+  /^(sudo\s+)?systemctl\s+(reboot|poweroff|halt|kexec|soft-reboot)\b/,
+  /^(sudo\s+)?shutdown(\.exe)?\s/i,
+  /^(sudo\s+)?(init|telinit)\s+[06]\b/,
+  /^(Restart|Stop)-Computer\b/i,
+  /^ilorest\s+reboot\b(?![^|;&]*--url)/   // in-band ilorest acts on this server
+];
+
+function isHostReboot(text) {
+  return String(text).split('   |   ').some(alt => HOST_REBOOT.some(re => re.test(alt.trim())));
+}
+
 function isNeovimKeystrokes(text) {
   const first = text.split('   |   ')[0].trim();
   return !first.startsWith(':') || /\s{3}/.test(first);
 }
 
-function isReference(text, file) {
-  if (OMARCHY_FILE.test(file)) return true;
-  if (NEOVIM_FILE.test(file) && isNeovimKeystrokes(text)) return true;
-  return REFERENCE_PATTERNS.some(pattern => pattern.test(text.trim()));
+// Why an entry is read-only: 'reboot' (host reboot/shutdown), 'reference' (not a command), or null.
+function referenceReason(text, file) {
+  if (isHostReboot(text)) return 'reboot';
+  if (OMARCHY_FILE.test(file)) return 'reference';
+  if (NEOVIM_FILE.test(file) && isNeovimKeystrokes(text)) return 'reference';
+  return REFERENCE_PATTERNS.some(pattern => pattern.test(text.trim())) ? 'reference' : null;
 }
 
-module.exports = { isReference };
+function isReference(text, file) {
+  return referenceReason(text, file) !== null;
+}
+
+module.exports = { isReference, referenceReason, isHostReboot };

@@ -79,6 +79,10 @@ Checked against the rdma-core man pages, perftest source, iproute2 `rdma` man pa
 
 **Not verified (said on the card):** `show_gids` (not in the MLNX_OFED docs read), `ibhosts -C/-P` (shared options, not on its page), the OpenSM service name, ibdiagnet's `-E-`/`-W-` prefixes. Notes also flag `LINK_TYPE_P1=1` = IB (only 2 = ETH is documented) and the default ibdiagnet output directory.
 
+## Host reboot/shutdown commands made reference-only (2026-11-09, `improve/reboot-reference`)
+
+Requested before further work: remove commands that reboot or crash a system. **No kernel-crash commands exist on the site** (no sysrq, `/dev/mem` or PCI-remove commands). Of the reboot/power commands, the chosen scope was **host OS reboot/shutdown only, kept as non-copyable reference**: 10 entries (4 commands: `systemctl reboot --firmware-setup`, `efibootmgr -n 0004 && reboot`, in-band `ilorest reboot PushPowerButton/ForceOff`, Windows `shutdown /r /fw|/o /t 0`). Kept copyable (red, state-changing): out-of-band BMC power control (~25), BMC/switch reloads (~14) and GPU/PCIe resets (7). Practice no longer drills reference entries, and My kit shows no Copy button for them.
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |

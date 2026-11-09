@@ -4477,12 +4477,14 @@ ${rmaTrailSection()}#### Action Requested:
   const COPY_BOXES = '.cmd-code-box:not([data-ref-checked]), .subcmd-row:not([data-ref-checked])';
   let referenceText = null;
 
+  // Text → why it is read-only ('reboot' or 'reference').
   function getReferenceText() {
     if (!referenceText) {
-      referenceText = new Set();
+      referenceText = new Map();
       (window.GLOBAL_SEARCH_INDEX || []).filter(item => item.noCopy).forEach(item => {
-        referenceText.add(item.cmd);
-        referenceText.add(firstCommand(item.cmd));
+        const why = item.refWhy || 'reference';
+        referenceText.set(item.cmd, why);
+        referenceText.set(firstCommand(item.cmd), why);
       });
     }
     return referenceText;
@@ -4492,9 +4494,15 @@ ${rmaTrailSection()}#### Action Requested:
     document.querySelectorAll(COPY_BOXES).forEach(box => {
       box.dataset.refChecked = '1';
       const text = box.dataset.copy ?? box.dataset.cmd ?? box.dataset.subcmd;
-      if (text !== undefined && getReferenceText().has(text)) {
+      const why = text !== undefined ? getReferenceText().get(text) : undefined;
+      if (why) {
         box.classList.add('is-reference');
         box.removeAttribute('title');
+        // Host reboot/shutdown commands stay as documentation; say why a click does nothing.
+        if (why === 'reboot') {
+          box.classList.add('is-reboot-ref');
+          box.insertAdjacentHTML('beforeend', '<span class="ref-why">🔒 Reference only: reboots or shuts down the machine you run it on. Not copyable.</span>');
+        }
       }
     });
   }
@@ -7564,6 +7572,7 @@ ${rmaTrailSection()}#### Action Requested:
     if (pracPool.src === index && pracPool.list) return pracPool.list;
     pracPool.src = index;
     pracPool.list = searchIndexUnique().filter(i => {
+      if (i.noCopy) return false;  // reference entries (and host reboots) are not commands to drill
       const c = String(i.cmd || '').trim();
       const d = String(i.desc || '').trim();
       return c.length >= 4 && c.length <= 160 && !/\n/.test(c) && d.length > 6 && d !== c;
@@ -9100,7 +9109,7 @@ ${rmaTrailSection()}#### Action Requested:
             <div class="kit-desc">${escapeHtml(e.item.desc)}</div>
             <code class="trail-cmd">${escapeHtml(firstCommand(trailSafeText(e.item.cmd)))}</code>
             <div class="kit-actions">
-              <button type="button" data-kit-act="copy">Copy</button>
+              ${e.item.noCopy ? '<span class="kit-ref">Reference only: not copyable</span>' : '<button type="button" data-kit-act="copy">Copy</button>'}
               <button type="button" data-kit-act="open">Open in ${escapeHtml(e.item.file.replace(/\.html$/, ''))} →</button>
               <button type="button" data-kit-act="remove" title="Remove bookmark" aria-label="Remove bookmark">✕</button>
             </div>
