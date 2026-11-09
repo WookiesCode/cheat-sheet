@@ -13,6 +13,7 @@ Offline command reference sheets for datacenter work: 235 linked pages, plus one
 |---|---|
 | Search every sheet | `Ctrl+K`, `/` or the search pill in the header, then arrow keys and `Enter`. A result that changes state (a port bounce, a reset, a power cycle) is edged in red with **⚠ Changes state**: the first `Enter` only asks, the second copies, and clicking it opens its sheet without copying. It is the only search now: the per-page search box and the All Sections dropdown were retired (the rail's **On this sheet** outline jumps between sections). |
 | Move around an open tool | `Tab` and `Shift+Tab` stay inside it and wrap; `Esc` closes it and puts focus back where it was. A tool pinned beside the page (**⇥ Side**) or docked in the Workbench is part of the page, so `Tab` moves on out of it. |
+| Skip the menus | The first `Tab` on any page shows **Skip to commands** (or **Skip to content** on the home page, Field notes and the Workbench); `Enter` lands on the first command, so `j`/`k` and `Tab` carry on from there. |
 | Keep your place with the keyboard | `Tab`, `Shift+Tab`, `j` and `k` never leave the focused command hidden under the command bar, the pager, the footer or the tour invite: the page scrolls just enough to show it. Open nav menus draw above the pager. |
 | Filter the current sheet | `/`, and `Esc` clears it |
 | Jump to a topic | Top nav menus, or the **Section** dropdown |

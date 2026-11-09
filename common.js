@@ -7480,6 +7480,7 @@ ${rmaTrailSection()}#### Action Requested:
       safeInit('initSideDock', () => initSideDock());
       safeInit('initModalFocus', () => initModalFocus());
       safeInit('initFocusNotHidden', () => initFocusNotHidden());
+      safeInit('initSkipLink', () => initSkipLink());
       safeInit('initBackup', () => initBackup());
       safeInit('initRootLens', () => initRootLens());
       safeInit('initSelectionActions', () => initSelectionActions());
@@ -12707,6 +12708,9 @@ ${rmaTrailSection()}#### Action Requested:
     let top = 0;
     let bottom = window.innerHeight;
     for (const L of document.querySelectorAll(FNH_LAYERS)) {
+      // The command bar slides in as soon as the header scrolls away, which any reveal
+      // scroll can cause: always keep room for it, shown or not.
+      if (L.id === 'command-bar') { if (L.getClientRects().length) top = Math.max(top, L.offsetHeight); continue; }
       if (!L.getClientRects().length || getComputedStyle(L).visibility === 'hidden') continue;
       const r = L.getBoundingClientRect();
       if (!r.height || r.right <= rc.left || r.left >= rc.right) continue;
@@ -12722,8 +12726,11 @@ ${rmaTrailSection()}#### Action Requested:
     if (!rc.height) return;
     const band = fnhBand(rc);
     let dy = 0;
-    if (rc.top < band.top) dy = rc.top - band.top - FNH_GAP;
-    else if (rc.bottom > band.bottom) dy = Math.min(rc.bottom - band.bottom + FNH_GAP, rc.top - band.top - FNH_GAP);
+    if (rc.height > band.bottom - band.top - 2 * FNH_GAP) {
+      // Taller than the free band (a whole section): only its start matters, and only if it is out of view.
+      if (rc.top < band.top || rc.top > band.bottom - 48) dy = rc.top - band.top - FNH_GAP;
+    } else if (rc.top < band.top) dy = rc.top - band.top - FNH_GAP;
+    else if (rc.bottom > band.bottom) dy = rc.bottom - band.bottom + FNH_GAP;
     if (dy) window.scrollBy({ top: dy, behavior: 'instant' });
   }
 
@@ -12737,6 +12744,39 @@ ${rmaTrailSection()}#### Action Requested:
       // After the browser's own focus scrolling has settled.
       requestAnimationFrame(() => fnhReveal(e.target));
     });
+  }
+
+  // -------------------------------------------------------------
+  // SKIP LINK
+  // Every page opens with the header and nine nav menus: 287 Tab presses before the first
+  // command on a sheet (WCAG 2.2 SC 2.4.1). The first Tab now shows "Skip to commands"
+  // (or "Skip to content" where a page has none). The target is picked when it is used, so
+  // folded hub lists and the portable file's sheet switching are always current. The link
+  // never changes the URL hash: the portable build routes on it.
+  // -------------------------------------------------------------
+  function initSkipLink() {
+    if (document.querySelector('.skip-link')) return;
+    const a = document.createElement('a');
+    a.className = 'skip-link';
+    a.href = '#main';
+    a.textContent = 'Skip to commands';
+    // Name it for what is on the page right now, as it gets focus.
+    a.addEventListener('focus', () => { a.textContent = kbList().length ? 'Skip to commands' : 'Skip to content'; });
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      const first = kbList()[0];
+      if (first) return kbFocus(first);  // same path as j: clears the bars, shows the key hint
+      // The home page, Field notes and the Workbench hide <main> and draw their own section.
+      const main = [...document.querySelectorAll('main, #launchpad, #notes-page, #wb-page')].find(m => m.getClientRects().length > 0);
+      if (!main) return;
+      if (!main.hasAttribute('tabindex')) main.setAttribute('tabindex', '-1');
+      main.focus({ preventScroll: true });
+      // It starts just under the header, usually already in view: scroll only if it is not.
+      const r = main.getBoundingClientRect();
+      if (r.top < 0 || r.top > window.innerHeight * 0.6) main.scrollIntoView({ block: 'start', behavior: 'instant' });
+      requestAnimationFrame(() => fnhReveal(main));
+    });
+    document.body.prepend(a);
   }
 
   // -------------------------------------------------------------

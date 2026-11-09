@@ -8555,3 +8555,16 @@ body.con-live .pb-btn { right: 128px; }
 }
 .storage-warn button:hover { border-color: var(--accent-primary); }
 @media print { .storage-warn { display: none; } }
+
+/* Skip link (common.js initSkipLink): off screen until the first Tab focuses it. */
+.skip-link {
+  position: fixed; top: 0.6rem; left: 0.6rem; z-index: 14600;
+  padding: 0.55rem 0.9rem; border-radius: 8px;
+  background: var(--accent-primary); color: var(--bg-base);
+  font: 700 0.9rem var(--font-sans); text-decoration: none;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  transform: translateY(-200%);
+}
+.skip-link:focus { transform: none; outline: 2px solid var(--text-primary); outline-offset: 2px; }
+@media (prefers-reduced-motion: no-preference) { .skip-link { transition: transform 0.12s ease; } }
+@media print { .skip-link { display: none; } }
