@@ -43,6 +43,18 @@ Everything the site keeps lives in this browser only: Field notes drafts, the ca
 - Only this site's own data is included, never other pages that share the `file://` origin.
 - **Keeping it:** the panel says whether the browser has agreed to keep this data (**✓ Kept**) or may clear it when the disk runs low (**⚠ Not guaranteed**, with **Ask the browser to keep it**). The site also asks once per tab when you first save something: a pin to the case, a field note, the rack inventory, a backup or a restore. It never asks on page load. Chromium browsers (Brave, Chrome) answer silently from how much you use the site, and bookmarking the page helps; Firefox shows a prompt. Either way, a backup is the copy you control.
 
+## Command sources (NVIDIA DC sheets)
+
+Every command on the eight NVIDIA DC sheets ends with a line saying where it was checked and when: **Source** with links to the vendor pages (nvidia-smi docs, DCGM, Fabric Manager guide, Xid catalog, MIG guide, NCCL, perftest…) and **verified Nov 2026**. A note says what the docs did not confirm (for example a `--query-gpu` field name to check with `nvidia-smi --help-query-gpu` on your driver), and **⚠ Not verified** marks a command that has not been checked yet. After a year the line turns amber and says **re-check**. The links need a network; the line itself works offline.
+
+To add sources to another suite, give a command in its generator data a `src` field, then run `node build-all.js`:
+
+```js
+src: { verified: '2026-11-09', refs: [{ url: 'https://docs.vendor.com/…', title: 'Vendor CLI guide' }], note: 'What the docs did not confirm' }
+```
+
+`build-index.js` carries it into the search index and `common.js` draws the line under the command (`initSources`), on the sheets, the hub and the portable copy. Only `https://` links are shown.
+
 ## Use it on a rack
 
 1. Fill in **Rack Targets** at the top: BMC address, user, password, NIC, HCA, disk and GPU index.

@@ -19,8 +19,8 @@ const NV_NV_SMI_DATA = [
             "Print topology matrix (NV18 = 18 NVLinks, PIX = same PCIe switch, PHB = same host bridge, SYS = cross-NUMA/QPI)"
           ],
           [
-            "topo -p2p r/w/a",
-            "Check Peer-to-Peer Read / Write / Atomic support matrix across all GPUs"
+            "topo -p2p r|w|n|a|p",
+            "Peer-to-peer capability matrix: r = read, w = write, n = NVLink, a = atomics, p = PCIe"
           ]
         ],
         "tip": "Verify NIC-to-GPU PIX alignment",
@@ -33,7 +33,16 @@ const NV_NV_SMI_DATA = [
           "pxb",
           "mlx5",
           "p2p"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            }
+          ]
+        }
       }
     ]
   },
@@ -52,7 +61,7 @@ const NV_NV_SMI_DATA = [
         "flags": [
           [
             "-s pucvmet",
-            "p=Power/Temp, u=Util, c=Clocks, v=Violations, m=FB/Bar1, e=ECC, t=PCIe throughput"
+            "p=Power/Temp, u=Util, c=Clocks, v=Violations, m=FB/BAR1, e=ECC + PCIe replay errors, t=PCIe Rx/Tx throughput"
           ],
           [
             "pmon -s um",
@@ -69,7 +78,16 @@ const NV_NV_SMI_DATA = [
           "utilization",
           "power",
           "temp"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            }
+          ]
+        }
       }
     ]
   },
@@ -110,7 +128,17 @@ const NV_NV_SMI_DATA = [
           "gen5",
           "inventory",
           "csv"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            }
+          ],
+          "note": "The --query field names are not listed on the docs page: check them with nvidia-smi --help-query-gpu on your driver."
+        }
       }
     ]
   },
@@ -136,11 +164,11 @@ const NV_NV_SMI_DATA = [
             "GPU or HBM memory temperature exceeded thermal slowdown threshold"
           ],
           [
-            "HW Power Brake Slowdown",
-            "PSU/chassis asserted external power brake signal to GPU"
+            "HW Power Brake",
+            "External power brake asserted (e.g. by the system power supply)"
           ],
           [
-            "Sw Power Cap",
+            "SW Power Cap",
             "Clocks capped because GPU hit configured power limit (normal under full load)"
           ]
         ],
@@ -151,7 +179,17 @@ const NV_NV_SMI_DATA = [
           "power-brake",
           "clocks",
           "performance"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            }
+          ],
+          "note": "NVIDIA marks \"HW Slowdown\" for future removal."
+        }
       }
     ]
   },
@@ -184,7 +222,17 @@ const NV_NV_SMI_DATA = [
           "memory",
           "fuser",
           "zombie"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            }
+          ],
+          "note": "Field names: check with nvidia-smi --help-query-compute-apps on your driver."
+        }
       }
     ]
   },

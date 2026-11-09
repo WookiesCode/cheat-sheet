@@ -8568,3 +8568,17 @@ body.con-live .pb-btn { right: 128px; }
 .skip-link:focus { transform: none; outline: 2px solid var(--text-primary); outline-offset: 2px; }
 @media (prefers-reduced-motion: no-preference) { .skip-link { transition: transform 0.12s ease; } }
 @media print { .skip-link { display: none; } }
+
+/* Command sources (common.js initSources): where a command was checked, and when. */
+.cmd-source {
+  margin-top: 0.45rem; padding-top: 0.35rem;
+  border-top: 1px dashed var(--border-subtle);
+  font: 0.72rem/1.45 var(--font-sans); color: var(--text-muted);
+}
+.cmd-source .src-label { font-weight: 700; color: var(--text-secondary); }
+.cmd-source a { color: var(--accent-primary); text-decoration: none; }
+.cmd-source a:hover { text-decoration: underline; }
+.cmd-source .src-note { margin-top: 0.15rem; color: var(--text-secondary); }
+.cmd-source.is-stale .src-when,
+.cmd-source.is-unverified .src-label { color: var(--accent-amber); }
+@media print { .cmd-source a { color: inherit; } .cmd-source a::after { content: " (" attr(href) ")"; } }

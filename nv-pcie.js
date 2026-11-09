@@ -24,7 +24,7 @@ const NV_NV_PCIE_DATA = [
           ],
           [
             "Xid 48 / 64 / 95",
-            "Uncorrectable HBM ECC / Row Remap Failure — run nvidia-smi -q -d ROW_REMAPPER"
+            "48 = double-bit ECC, 64 = memory remapping failure, 95 = uncontained memory error (reset the GPU) — run nvidia-smi -q -d ROW_REMAPPER"
           ]
         ],
         "tip": "Match PCI BDF to physical slot",
@@ -38,7 +38,20 @@ const NV_NV_PCIE_DATA = [
           "79",
           "48",
           "64"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/deploy/xid-errors/analyzing-xid-catalog.html",
+              "title": "NVIDIA Xid catalog"
+            },
+            {
+              "url": "https://docs.nvidia.com/datacenter/tesla/fabric-manager-user-guide/index.html",
+              "title": "Fabric Manager user guide"
+            }
+          ]
+        }
       }
     ]
   },
@@ -73,7 +86,12 @@ const NV_NV_PCIE_DATA = [
           "gen5",
           "gen4",
           "numa"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [],
+          "note": "Not checked against vendor docs yet (pciutils lspci)."
+        }
       }
     ]
   },
@@ -96,7 +114,7 @@ const NV_NV_PCIE_DATA = [
           ],
           [
             "IOMMU / VT-d",
-            "If P2P still routes via SYS, verify kernel booted with 'iommu=pt' (passthrough)"
+            "NVIDIA: avoid translated IOMMU mode for GPU P2P (dmesg 'Default domain type: Translated'); pass-through (e.g. iommu=pt) or disable it. ACS changes reset on reboot"
           ]
         ],
         "tip": "Fixes slow SYS P2P on PCIe servers",
@@ -108,7 +126,21 @@ const NV_NV_PCIE_DATA = [
           "iommu",
           "bridge",
           "switch"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/troubleshooting/gpu_troubleshooting.html",
+              "title": "NCCL troubleshooting"
+            },
+            {
+              "url": "https://docs.nvidia.com/cuda/gpudirect-rdma/index.html",
+              "title": "GPUDirect RDMA"
+            }
+          ],
+          "note": "setpci ECAP_ACS+0x6.w=0000 is NVIDIA's; NVIDIA finds the bridges with lspci | grep PLX, and selecting class 0604 here also matches CPU root ports."
+        }
       }
     ]
   },
@@ -142,7 +174,17 @@ const NV_NV_PCIE_DATA = [
           "firmware",
           "support",
           "proc"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/deploy/xid-errors/analyzing-xid-catalog.html",
+              "title": "NVIDIA Xid catalog"
+            }
+          ],
+          "note": "Xid 119/120 (GSP) checked; nvidia-bug-report.sh --output-file and NVreg_EnableGpuFirmware=0 were not found in the docs read. Newer GPUs may require GSP: check the driver README."
+        }
       }
     ]
   },

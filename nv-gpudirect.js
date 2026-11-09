@@ -19,8 +19,8 @@ const NV_NV_GPUDIRECT_DATA = [
             "Allows InfiniBand HCA (mlx5) to DMA directly to/from GPU HBM BAR1 over PCIe without CPU bounce buffers"
           ],
           [
-            "/proc/driver/nvidia/params",
-            "Ensure PeerMappingOverride or BAR1 sizing permits GPUDirect mappings"
+            "DMA-BUF",
+            "With DMA-BUF (open kernel modules) NCCL does not need nvidia-peermem; otherwise it must be loaded on every boot"
           ]
         ],
         "tip": "Required for full multi-node NCCL speed",
@@ -31,7 +31,21 @@ const NV_NV_GPUDIRECT_DATA = [
           "nvidia-peermem",
           "bar1",
           "dma"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/troubleshooting/gpu_troubleshooting.html",
+              "title": "NCCL troubleshooting"
+            },
+            {
+              "url": "https://docs.nvidia.com/cuda/gpudirect-rdma/index.html",
+              "title": "GPUDirect RDMA"
+            }
+          ],
+          "note": "NVIDIA's pages write the module as nvidia-peermem; lsmod prints module names with underscores, so grep nvidia_peermem."
+        }
       }
     ]
   },
@@ -69,7 +83,17 @@ const NV_NV_GPUDIRECT_DATA = [
           "gpudirect",
           "bandwidth",
           "latency"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/linux-rdma/perftest",
+              "title": "perftest"
+            }
+          ],
+          "note": "Expected Gb/s and latency figures are rules of thumb, not from perftest."
+        }
       }
     ]
   },
@@ -111,7 +135,21 @@ const NV_NV_GPUDIRECT_DATA = [
           "nvls",
           "sharp",
           "benchmark"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/NVIDIA/nccl-tests",
+              "title": "nccl-tests"
+            },
+            {
+              "url": "https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/env.html",
+              "title": "NCCL environment variables"
+            }
+          ],
+          "note": "NCCL_IB_HCA=mlx5 is a prefix match (mlx5_*); use =mlx5_0 for an exact device. busbw figures are rules of thumb."
+        }
       }
     ]
   },

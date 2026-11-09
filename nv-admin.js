@@ -20,11 +20,11 @@ const NV_NV_ADMIN_DATA = [
           ],
           [
             "Remapping Failure Occurred : Yes",
-            "Hardware HBM bank exhausted spare rows (Xid 64) — qualifies GPU for RMA!"
+            "A row remapping has failed (Xid 64: GPU memory remapping failure) — RMA candidate"
           ],
           [
             "Bank Remap Availability",
-            "Shows Max / High / Partial / Low / None spare rows remaining across HBM banks"
+            "Classifies each bank's remap availability as Maximum / High / Partial / Low / None"
           ]
         ],
         "tip": "Primary A100/H100 HBM RMA check",
@@ -37,7 +37,20 @@ const NV_NV_ADMIN_DATA = [
           "hbm",
           "rma",
           "page-retirement"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            },
+            {
+              "url": "https://docs.nvidia.com/deploy/xid-errors/analyzing-xid-catalog.html",
+              "title": "NVIDIA Xid catalog"
+            }
+          ]
+        }
       }
     ]
   },
@@ -63,8 +76,8 @@ const NV_NV_ADMIN_DATA = [
             "Reset specific GPU (clears Xid 95/48, applies pending row remaps or MIG changes)"
           ],
           [
-            " Note on SXM/NVSwitch",
-            "On HGX SXM systems with active Fabric Manager, stop fabricmanager or reset all GPUs together"
+            "NVSwitch systems",
+            "Ampere (A100) NVSwitch systems need Fabric Manager to reset a GPU; Hopper and later (H100/H200/B200) do not. NVIDIA: reset is not guaranteed to work in all cases"
           ]
         ],
         "danger": "Kills active CUDA contexts on target GPU",
@@ -75,7 +88,16 @@ const NV_NV_ADMIN_DATA = [
           "fuser",
           "hang",
           "xid"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            }
+          ]
+        }
       }
     ]
   },
@@ -98,7 +120,7 @@ const NV_NV_ADMIN_DATA = [
           ],
           [
             "-pm 1",
-            "Legacy persistence mode flag (prevents 3–5s driver init latency & preserves power/clock settings)"
+            "Legacy persistence mode: NVIDIA calls it near end-of-life and recommends nvidia-persistenced; -pm does not persist across reboots"
           ]
         ],
         "tip": "Mandatory on datacenter nodes",
@@ -108,7 +130,20 @@ const NV_NV_ADMIN_DATA = [
           "daemon",
           "init",
           "latency"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/deploy/driver-persistence/persistence-daemon.html",
+              "title": "NVIDIA driver persistence"
+            },
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            }
+          ]
+        }
       }
     ]
   },
@@ -146,7 +181,16 @@ const NV_NV_ADMIN_DATA = [
           "lock",
           "lgc",
           "benchmark"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            }
+          ]
+        }
       }
     ]
   },
@@ -161,28 +205,39 @@ const NV_NV_ADMIN_DATA = [
         "mode": "ECC / HBM",
         "modeClass": "mode-t",
         "desc": "Clear volatile/aggregate ECC counters or enable ECC mode on workstation/L40S GPUs",
-        "cmd": "nvidia-smi --clear-ecc-error-counts=0   |   nvidia-smi --clear-ecc-error-counts=1   |   nvidia-smi -e 1",
+        "cmd": "nvidia-smi -p 0   |   nvidia-smi -p 1   |   nvidia-smi -e 1",
         "flags": [
           [
-            "--clear-ecc-error-counts=0",
-            "Reset volatile ECC error counters (since last driver load)"
+            "-p 0 (--reset-ecc-errors=0)",
+            "Reset the volatile ECC error counters"
           ],
           [
-            "--clear-ecc-error-counts=1",
-            "Reset aggregate (lifetime non-volatile) ECC counters"
+            "-p 1 (--reset-ecc-errors=1)",
+            "Reset the aggregate ECC counters: not supported on Ampere and later (A100/H100/H200/B200)"
           ],
           [
             "-e 1",
-            "Enable ECC (always enabled and locked ON for A100/H100/H200)"
+            "Enable ECC: takes effect after the next reboot and is persistent"
           ]
         ],
+        "danger": "Clears ECC counts that an RMA needs: save nvidia-smi -q -d ECC,ROW_REMAPPER first",
         "tags": [
           "ecc",
           "clear",
           "counters",
           "volatile",
           "aggregate"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            }
+          ],
+          "note": "Corrected 2026-11-09: --clear-ecc-error-counts does not exist; the option is -p / --reset-ecc-errors."
+        }
       }
     ]
   },

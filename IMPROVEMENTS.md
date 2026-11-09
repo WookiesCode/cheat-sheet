@@ -1,6 +1,6 @@
 # Improvements: ranked proposals and status
 
-Product review started 2026-11-09. Phases 1–3 are below. Eight items and one follow-up are built.
+Product review started 2026-11-09. Phases 1–3 are below. Nine items (#8 for the NVIDIA suite) and one follow-up are built.
 
 ## Status
 
@@ -14,16 +14,16 @@ Product review started 2026-11-09. Phases 1–3 are below. Eight items and one f
 | 3 | Say so when a save fails | ✅ Built | `improve/storage-warn` | `cbb0dd9` |
 | 5 | Keep keyboard focus out from under the fixed bars | ✅ Built | `improve/focus-visible` | `de6ac2e` |
 | 14 | Skip link (found while building #5) | ✅ Built | `improve/skip-link` | `220d5c9` |
-| 8 | Source and last-verified date on core suites | Open | | |
+| 8 | Source and last-verified date on core suites | ✅ NVIDIA suite built; other suites open | `improve/sources` | (this branch) |
 | 9 | Stop duplicating the nav into every page | Open | | |
 | 10 | Practice what I actually use | Open | | |
 | 11 | Local usage meter | Open | | |
 | 12 | Export My kit as a navi `.cheat` file | Open (needs navi installed: ask first) | | |
 | 13 | Make the doc counts agree | ✅ Built | `improve/doc-counts` | (this branch) |
 
-**The branches are stacked**, each built on the one before, in the order of the table, with `improve/doc-counts` on top. Merging `improve/doc-counts` brings in all nine. None are pushed or merged yet.
+**The branches are stacked**, each built on the one before, in the order of the table, with `improve/sources` on top. Merging `improve/sources` brings in all ten. None are pushed or merged yet.
 
-**Tests:** `node tests/run-all.js` runs 14 test files. All pass on `improve/doc-counts`. Every built item has its own regression test, and I checked that the tests for #2 and #5 fail on the commit before their fix.
+**Tests:** `node tests/run-all.js` runs 15 test files. All pass on `improve/sources`. Every built item has its own regression test, and I checked that the tests for #2 and #5 fail on the commit before their fix.
 
 ## What the built items changed (measured)
 
@@ -36,7 +36,27 @@ Product review started 2026-11-09. Phases 1–3 are below. Eight items and one f
 | #3 Save failures | A failed save was silent; a pin even reported "Pinned to case" | An amber bar that stays until closed, says why, and links to Backup |
 | #5 Focus hidden | Up to 37 fully-hidden Tab stops per page; `j`/`k` hid 36 of 80 at 800 px | 0 fully and 0 partly hidden on every page and size tested |
 | #14 Skip link | 287 Tab presses before the first command | 2 key presses (Tab, Enter) |
+| #8 Sources (NVIDIA) | 0 of 31 NVIDIA commands cited a source; nothing had been checked against the vendor docs | 31 of 31 show a source line (30 verified, 1 marked Not verified); 8 errors corrected (below) |
 | #13 Doc counts | README "about 200 sheets", guide "235 linked pages", home "214 sheets" | Both docs say "236 pages, 214 of them command sheets with 2,043 commands", rewritten by `build-index.js` on every build |
+
+## Errors found by #8 (corrected 2026-11-09, NVIDIA suite)
+
+Each was checked against NVIDIA's own docs; the card's source line links the page.
+
+| Card | Was | Now |
+|---|---|---|
+| ECC counters | `nvidia-smi --clear-ecc-error-counts=0/1` (no such option) | `nvidia-smi -p 0` / `-p 1` (`--reset-ecc-errors`); aggregate reset not supported on Ampere+; flagged as a state change (wipes RMA evidence) |
+| NVLink counters | `nvidia-smi nvlink -R` "reset" (`-R` is remote link info) | `nvidia-smi nvlink -re`; not supported on NVLink 5 (B200); flagged. Also fixed in the NVLink builder profile |
+| GPU reset | "stop Fabric Manager first" on NVSwitch | Only Ampere NVSwitch systems need FM for a reset; Hopper and later don't |
+| MIG enable | `-mig 1 && --gpu-reset` | Reset only on Ampere; Hopper+ enables MIG without one |
+| MIG profiles | "9 = 3g.40gb on H100" | IDs 9/19 documented for A100 40GB only: read yours with `-lgip`, or pass names (H200: 3g.71gb, 1g.18gb) |
+| DCGM run levels | r4 "~60+ min" | r2 < 2.5/10.5 min, r3 < 10/35 min, r4 < 45 min/2.25 h on 4/8 GPUs |
+| Fabric Manager | "must match the driver exactly"; SXid "in fabricmanager.log" | Match only before driver 620; SXid in the kernel log, not used on DGX/HGX B200/B300 |
+| Labels | "HW Power Brake Slowdown", "Max", `docker run --gpus all …` | "HW Power Brake", "Maximum", `--runtime=nvidia --gpus all` |
+
+Also: `DANGER_RE` now flags `nvidia-smi -p`/`--reset-ecc-errors`, `nvlink -re`/`--reseterrorcounters` and `setpci … =` (PCIe config writes), and no longer flags the read-only `nvidia-smi nvlink -R`.
+
+**Not verified (said on the card):** `lspci` (no vendor doc checked), NVSM commands (NVIDIA's NVSM pages returned no content), `nvidia-ctk system create-dev-char-symlinks`, `NVreg_EnableGpuFirmware=0`, `nvidia-bug-report.sh --output-file`, and the `--query-gpu` / `--query-compute-apps` field names (not on the docs page). Not covered by #8: the NVIDIA builder profiles other than the NVLink reset, e.g. `dcgmi diag -r '…,pulse_test'` (the docs table names the test `pulse`) and the dmon field IDs 140/150/155/393–395.
 
 ## Found while building (not fixed)
 
@@ -130,8 +150,10 @@ Impact (H/M/L) · Effort (S/M/L) · Risk (H/M/L). The ranking is by user impact 
 - **Why:** J5 and J2. Your own rule is "check every command against vendor docs", but the sheets that matter most don't say where a command came from.
 - **Evidence:** `generate-nvidia-suite.js`, `generate-redfish-suite.js`, `generate-ipmi-suite.js` and `generate-bmc-tools-suite.js` each have 0 source URLs. Newer suites (grafana, sre, containers) carry "verified" notes, and the DCGM rename (dcgm-exporter 4.9.0) shows how fast this material drifts.
 - **Plan:** add an optional `src` field (`{url, verified}`) to card data. It renders as a small "Source · verified 2026-11" link and turns amber after 12 months. Fill in NVIDIA first, verified by web search per card.
-- Impact **H** · Effort **L** (the research is the cost, so this is incremental by suite) · Risk **L** · Files: generator scripts, `generate-suite-kit.js`, `common.js`, `styles.css`, then `build-all.js`.
-- ⚠ **Flag:** this adds a field to the generators' card schema (additive and optional).
+- Impact **H** · Effort **L** (the research is the cost, so this is incremental by suite) · Risk **L**.
+- ✅ **Built for the NVIDIA suite** (`improve/sources`, `tests/sources.test.js`): an optional `src` field on a command, carried by `build-index.js` into the search index and drawn by `common.js`, so any suite only needs data. Checking the 31 commands found 8 errors (table above).
+- ⚠ **Flag (schema):** the optional `src` field is a new, additive part of the card data and of the search-index entries.
+- **Next:** InfiniBand, then Redfish/IPMI and the BMC tools, one suite at a time.
 
 **9. Stop duplicating the full nav into every page**
 - **Why:** mostly maintenance and the portable file's size. The direct user gain is small, because pages already load in ~250 ms.
@@ -162,7 +184,7 @@ Impact (H/M/L) · Effort (S/M/L) · Risk (H/M/L). The ranking is by user impact 
 - Impact **L** · Effort **S** · Risk **L** · Built: `improve/doc-counts`. `build-index.js` writes the counts between `<!-- counts -->` markers, counting the way the home page does; `tests/doc-counts.test.js` compares them with the live home page.
 
 ## Recommended next
-**#8**, source links and verified dates, starting with the NVIDIA suite. The other DC suites can follow one at a time.
+**#8 for the InfiniBand suite** (mlxlink, ibstat, iblinkinfo, perfquery), then Redfish/IPMI. Each suite is a data-only change now.
 
 Considered and dropped: a shift handoff export (it already exists: "Shift board & handoff" in `common.js`), a phone layout (laptop-only by your decision), and variable prompts in the style of navi (Rack Targets and slot chips already do this).
 
@@ -176,3 +198,20 @@ Considered and dropped: a shift handoff export (it already exists: "Shift board 
 - [MDN: StorageManager.persist()](https://developer.mozilla.org/en-US/docs/Web/API/StorageManager/persist)
 - [MDN: Secure contexts](https://developer.mozilla.org/en-US/docs/Web/Security/Defenses/Secure_Contexts)
 - [web.dev: Persistent storage](https://web.dev/articles/persistent-storage)
+- [NVIDIA nvidia-smi documentation](https://docs.nvidia.com/deploy/nvidia-smi/index.html)
+- [NVIDIA DCGM diagnostics](https://docs.nvidia.com/datacenter/dcgm/latest/user-guide/dcgm-diagnostics.html)
+- [NVIDIA DCGM field IDs](https://docs.nvidia.com/datacenter/dcgm/latest/dcgm-api/dcgm-api-field-ids.html)
+- [NVIDIA Fabric Manager user guide](https://docs.nvidia.com/datacenter/tesla/fabric-manager-user-guide/index.html)
+- [NVIDIA Xid catalog](https://docs.nvidia.com/deploy/xid-errors/analyzing-xid-catalog.html)
+- [NVIDIA MIG user guide: getting started](https://docs.nvidia.com/datacenter/tesla/mig-user-guide/getting-started-with-mig.html)
+- [NVIDIA MIG supported profiles](https://docs.nvidia.com/datacenter/tesla/mig-user-guide/supported-mig-profiles.html)
+- [NVIDIA driver persistence daemon](https://docs.nvidia.com/deploy/driver-persistence/persistence-daemon.html)
+- [CUDA runtime API error types](https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html)
+- [NCCL GPU troubleshooting](https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/troubleshooting/gpu_troubleshooting.html)
+- [NCCL environment variables](https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/env.html)
+- [GPUDirect RDMA](https://docs.nvidia.com/cuda/gpudirect-rdma/index.html)
+- [perftest](https://github.com/linux-rdma/perftest)
+- [nccl-tests](https://github.com/NVIDIA/nccl-tests)
+- [nvbandwidth](https://github.com/NVIDIA/nvbandwidth)
+- [NVIDIA Container Toolkit sample workload](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/sample-workload.html)
+- [Slurm scontrol](https://slurm.schedmd.com/scontrol.html)

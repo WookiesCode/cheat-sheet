@@ -12,7 +12,7 @@ const NV_NV_NVLINK_DATA = [
         "mode": "NVLINK",
         "modeClass": "mode-v",
         "desc": "Verify all NVLink lanes are active at full rate and inspect CRC/Replay/Recovery error counters",
-        "cmd": "nvidia-smi nvlink -s   |   nvidia-smi nvlink -e   |   nvidia-smi nvlink -R",
+        "cmd": "nvidia-smi nvlink -s   |   nvidia-smi nvlink -e   |   nvidia-smi nvlink -re",
         "flags": [
           [
             "nvlink -s",
@@ -23,8 +23,12 @@ const NV_NV_NVLINK_DATA = [
             "Display CRC Flit, CRC Data, Replay, and Recovery error counters per link"
           ],
           [
+            "nvlink -re",
+            "Reset all NVLink error counters to zero (--reseterrorcounters). Not supported on NVLink 5 (B200)"
+          ],
+          [
             "nvlink -R",
-            "Reset all NVLink error counters to zero"
+            "Not a reset: shows the remote end (PCI bus ID and link ID) of each link"
           ]
         ],
         "tip": "Any inactive lane breaks NCCL ring",
@@ -35,7 +39,17 @@ const NV_NV_NVLINK_DATA = [
           "errors",
           "lanes",
           "status"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            }
+          ],
+          "note": "Corrected 2026-11-09: the reset flag is -re, not -R (which shows remote link info)."
+        }
       }
     ]
   },
@@ -54,15 +68,15 @@ const NV_NV_NVLINK_DATA = [
         "flags": [
           [
             "nvidia-fabricmanager",
-            "Initializes NVSwitch routing tables; CUDA returns Error 802 (system not yet initialized) if stopped!"
+            "Initializes the NVSwitch fabric; until it has, CUDA fails with cudaErrorSystemNotReady (802)"
           ],
           [
             "SXid",
-            "NVSwitch hardware error code logged in /var/log/fabricmanager.log and dmesg"
+            "NVSwitch errors carry the SXid prefix in the kernel log; FM logs the GPU behind fatal ones. Not used on DGX/HGX B200/B300"
           ],
           [
-            "Version Lock",
-            "Fabric Manager version MUST match exact installed NVIDIA kernel driver version"
+            "Version",
+            "Before driver 620 (pre-4th-gen NVSwitch) FM must match the driver version; from 620 FM has its own 2.0.x version"
           ]
         ],
         "tip": "CUDA Error 802 = check Fabric Manager",
@@ -73,7 +87,20 @@ const NV_NV_NVLINK_DATA = [
           "sxm",
           "sxid",
           "802"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/tesla/fabric-manager-user-guide/index.html",
+              "title": "Fabric Manager user guide"
+            },
+            {
+              "url": "https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html",
+              "title": "CUDA runtime error codes"
+            }
+          ]
+        }
       }
     ]
   },
@@ -106,7 +133,17 @@ const NV_NV_NVLINK_DATA = [
           "memcpy",
           "benchmark",
           "nvlink"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/NVIDIA/nvbandwidth",
+              "title": "nvbandwidth (NVIDIA)"
+            }
+          ],
+          "note": "The two read_ce names are built in the source, not listed in the README: list yours with nvbandwidth -l. Bandwidth figures are rules of thumb."
+        }
       }
     ]
   },

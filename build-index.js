@@ -83,6 +83,8 @@ for (const jsFile of jsFiles) {
         desc: c.desc || '',
         tip: c.tip || '',
         tags: Array.isArray(c.tags) ? c.tags.join(' ') : '',
+        // Where the command was checked and when (shown under the card by common.js).
+        ...(c.src && typeof c.src === 'object' ? { src: c.src } : {}),
         // Reference entries keep their text for search but have nothing to copy.
         ...((c.diagram || c.hideCode || isReference(c.cmd || '', jsFile)) ? { noCopy: true } : {})
       });

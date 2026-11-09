@@ -36,7 +36,17 @@ const NV_NV_OPS_DATA = [
           "drain",
           "resume",
           "maintenance"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://slurm.schedmd.com/scontrol.html",
+              "title": "Slurm scontrol"
+            }
+          ],
+          "note": "The scontrol page does not say whether State=DOWN ends running jobs."
+        }
       }
     ]
   },
@@ -63,7 +73,7 @@ const NV_NV_OPS_DATA = [
           ],
           [
             "nv-fabricmanager -v",
-            "Check installed NVIDIA Fabric Manager version (must match exact NVIDIA driver version!)"
+            "Print the Fabric Manager version (must match the driver before driver 620)"
           ]
         ],
         "tip": "Fabric Manager version mismatch stops multi-GPU jobs from starting!",
@@ -74,7 +84,17 @@ const NV_NV_OPS_DATA = [
           "health",
           "alerts",
           "fabricmanager"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/tesla/fabric-manager-user-guide/index.html",
+              "title": "Fabric Manager user guide"
+            }
+          ],
+          "note": "NVSM commands not verified: NVIDIA's NVSM docs pages returned no content. Only nv-fabricmanager -v is checked (Fabric Manager guide)."
+        }
       }
     ]
   },
@@ -113,7 +133,17 @@ const NV_NV_OPS_DATA = [
           "temperature",
           "coldplate",
           "tim"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            }
+          ],
+          "note": "The --query field names are not listed on the docs page: check them with nvidia-smi --help-query-gpu on your driver. clocks_event_reasons.* may be clocks_throttle_reasons.* on older drivers. Temperature limits are rules of thumb."
+        }
       }
     ]
   },
@@ -139,8 +169,8 @@ const NV_NV_OPS_DATA = [
             "Required device nodes for MIG instances and nvlink/imex fabric channels"
           ],
           [
-            "docker run --rm --gpus all ubuntu nvidia-smi",
-            "Quick smoke test verifying container runtime can access all 8 GPUs"
+            "docker run --rm --runtime=nvidia --gpus all ubuntu nvidia-smi",
+            "NVIDIA's sample workload: the container runtime can see the GPUs"
           ]
         ],
         "tip": "Run 'nvidia-modprobe -u -c=0' if containers fail to open /dev/nvidia-uvm",
@@ -151,7 +181,17 @@ const NV_NV_OPS_DATA = [
           "nvidia-uvm",
           "nvidia-ctk",
           "nvidia-modprobe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/sample-workload.html",
+              "title": "Container Toolkit sample workload"
+            }
+          ],
+          "note": "nvidia-ctk system create-dev-char-symlinks is not in the Container Toolkit docs read: check nvidia-ctk system --help."
+        }
       }
     ]
   },

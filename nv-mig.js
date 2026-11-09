@@ -12,7 +12,7 @@ const NV_NV_MIG_DATA = [
         "mode": "MIG ADMIN",
         "modeClass": "mode-c",
         "desc": "Enable or disable MIG mode on A100/H100/H200 GPUs and apply pending mode change",
-        "cmd": "nvidia-smi -i 0 -mig 1   &&   nvidia-smi --gpu-reset -i 0",
+        "cmd": "nvidia-smi -i 0 -mig 1   |   nvidia-smi --gpu-reset -i 0",
         "flags": [
           [
             "-mig 1 / -mig 0",
@@ -20,7 +20,7 @@ const NV_NV_MIG_DATA = [
           ],
           [
             "--gpu-reset",
-            "Activates pending MIG mode change (if no processes hold /dev/nvidia*)"
+            "Ampere (A100) only: applies a pending MIG mode. Hopper and later (H100/H200) enable MIG without a reset, and the mode does not survive a reboot"
           ]
         ],
         "tags": [
@@ -29,7 +29,21 @@ const NV_NV_MIG_DATA = [
           "disable",
           "partition",
           "reset"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/tesla/mig-user-guide/getting-started-with-mig.html",
+              "title": "MIG user guide"
+            },
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            }
+          ],
+          "note": "Corrected 2026-11-09: the reset is only needed on Ampere."
+        }
       }
     ]
   },
@@ -52,11 +66,11 @@ const NV_NV_MIG_DATA = [
           ],
           [
             "-cgi 9,9 -C",
-            "Create two 3g.40gb (H100) / 3g.20gb (A100) GPU Instances and (-C) matching Compute Instances"
+            "Profile IDs differ by GPU: on A100 40GB, 9 = 3g.20gb (two fit). Read yours from -lgip, or pass names (H200 141GB: 3g.71gb). -C adds matching Compute Instances"
           ],
           [
             "-cgi 19,19,... -C",
-            "Create seven 1g.10gb (H100) / 1g.5gb (A100) instances"
+            "Seven 1g instances: 19 = 1g.5gb on A100 40GB; H100 80GB 1g.10gb and H200 1g.18gb also fit 7 (check the ID with -lgip)"
           ]
         ],
         "tip": "Use -C to auto-create Compute Instances",
@@ -68,7 +82,25 @@ const NV_NV_MIG_DATA = [
           "profile",
           "1g",
           "3g"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/tesla/mig-user-guide/getting-started-with-mig.html",
+              "title": "MIG user guide"
+            },
+            {
+              "url": "https://docs.nvidia.com/datacenter/tesla/mig-user-guide/supported-mig-profiles.html",
+              "title": "MIG profiles"
+            },
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            }
+          ],
+          "note": "NVIDIA documents profile IDs 9 and 19 for A100 40GB only; on H100/H200 read them from -lgip."
+        }
       }
     ]
   },
@@ -101,7 +133,16 @@ const NV_NV_MIG_DATA = [
           "dci",
           "dgi",
           "cleanup"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/tesla/mig-user-guide/getting-started-with-mig.html",
+              "title": "MIG user guide"
+            }
+          ]
+        }
       }
     ]
   },

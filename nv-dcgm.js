@@ -15,20 +15,20 @@ const NV_NV_DCGM_DATA = [
         "cmd": "dcgmi diag -r 1   |   dcgmi diag -r 2   |   dcgmi diag -r 3   |   dcgmi diag -r 4",
         "flags": [
           [
-            "-r 1 (~5 sec)",
-            "Basic software, driver, NVML, and presence sanity check (pre-job prologue)"
+            "-r 1 (< 2.5 s)",
+            "Quick: system validation (software, driver, deployment). Good as a job prologue"
           ],
           [
-            "-r 2 (~2 min)",
-            "Medium check: PCIe bandwidth, basic memory & deployment validation"
+            "-r 2 (< 2.5 min on 4 GPUs, < 10.5 min on 8)",
+            "Medium: adds the memory test and PCIe/NVLink"
           ],
           [
-            "-r 3 (~15 min)",
-            "Full HW burn-in: EUD, 90%+ HBM memtest, targeted stress, power & NVLink"
+            "-r 3 (< 10 min on 4 GPUs, < 35 min on 8)",
+            "Long: adds memory bandwidth, diagnostic, targeted stress and targeted power"
           ],
           [
-            "-r 4 (~60+ min)",
-            "Extended burn-in including pulse power stress & extended memtest"
+            "-r 4 (< 45 min on 4 GPUs, < 2.25 h on 8)",
+            "Extended: longer-running hardware diagnostics; each level includes the ones below"
           ]
         ],
         "tip": "Run -r 3 before returning node to prod",
@@ -40,7 +40,21 @@ const NV_NV_DCGM_DATA = [
           "qualification",
           "eud",
           "memtest"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/dcgm/latest/user-guide/dcgm-diagnostics.html",
+              "title": "DCGM diagnostics"
+            },
+            {
+              "url": "https://docs.nvidia.com/datacenter/dcgm/latest/user-guide/feature-overview.html",
+              "title": "DCGM feature overview"
+            }
+          ],
+          "note": "Corrected 2026-11-09: run times now from the DCGM docs (they grow with GPU count)."
+        }
       }
     ]
   },
@@ -48,13 +62,13 @@ const NV_NV_DCGM_DATA = [
     "id": "dcgm-card-2",
     "badge": "dcgm",
     "title": "DCGM (dcgmi) Diagnostics: Targeted Stress, PCIe & Memtest Plugins",
-    "subtitle": "Run specific DCGM diagnostic plugins (`pcie`, `memtest`, `targeted_stress`, `pulse_test`)",
+    "subtitle": "Run specific DCGM diagnostic tests by name (`pcie`, `memtest`, `targeted_stress`, `targeted_power`)",
     "commands": [
       {
         "id": "dcgmi-diag-targeted",
         "mode": "DIAGNOSTIC",
         "modeClass": "mode-t",
-        "desc": "Run specific DCGM diagnostic plugins (`pcie`, `memtest`, `targeted_stress`, `pulse_test`)",
+        "desc": "Run specific DCGM diagnostic tests by name (`pcie`, `memtest`, `targeted_stress`, `targeted_power`)",
         "cmd": "dcgmi diag -r 'pcie,memtest,targeted_stress,targeted_power' -i 0 -v",
         "flags": [
           [
@@ -82,7 +96,16 @@ const NV_NV_DCGM_DATA = [
           "power",
           "pulse",
           "dcgmi"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/dcgm/latest/user-guide/dcgm-diagnostics.html",
+              "title": "DCGM diagnostics"
+            }
+          ]
+        }
       }
     ]
   },
@@ -101,11 +124,11 @@ const NV_NV_DCGM_DATA = [
         "flags": [
           [
             "discovery -l",
-            "List all GPUs, NVSwitches, and CPU sockets tracked by nv-hostengine"
+            "List the active GPUs and any NVSwitches tracked by nv-hostengine (-a shows all GPUs)"
           ],
           [
             "health -g 0 -s a",
-            "Enable all passive health watches (PCIe, NVLink, PMU, MCU, Mem, Thermal) on default group 0"
+            "Enable all health watches (a = p PCIe, m memory, i InfoROM, t thermal/power, n NVLink, d driver, x ConnectX)"
           ],
           [
             "health -g 0 -c",
@@ -118,7 +141,21 @@ const NV_NV_DCGM_DATA = [
           "hostengine",
           "watches",
           "nvswitch"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/dcgm/latest/user-guide/getting-started.html",
+              "title": "DCGM getting started"
+            },
+            {
+              "url": "https://docs.nvidia.com/datacenter/dcgm/latest/user-guide/feature-overview.html",
+              "title": "DCGM feature overview"
+            }
+          ],
+          "note": "The docs name the default all-GPU group but not its ID: confirm group 0 with dcgmi group -l."
+        }
       }
     ]
   },
@@ -162,7 +199,20 @@ const NV_NV_DCGM_DATA = [
           "fp64",
           "profiling",
           "counters"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/dcgm/latest/dcgm-api/dcgm-api-field-ids.html",
+              "title": "DCGM field IDs"
+            },
+            {
+              "url": "https://docs.nvidia.com/datacenter/dcgm/latest/user-guide/feature-overview.html",
+              "title": "DCGM feature overview"
+            }
+          ]
+        }
       }
     ]
   },
