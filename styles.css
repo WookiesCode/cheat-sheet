@@ -8478,3 +8478,44 @@ body.con-live .pb-btn { right: 128px; }
 .cmd-out.is-pasted .cmd-out-k::after { content: ' · pasted'; font-weight: 600; letter-spacing: 0.04em; color: var(--text-muted); }
 .cmd-out.is-kept .cmd-out-k::after { content: ' · kept'; font-weight: 600; letter-spacing: 0.04em; color: var(--text-muted); }
 @media print { .pb-btn { display: none !important; } }
+
+/* =============================================================
+   BACKUP & RESTORE (common.js openBackup)
+   ============================================================= */
+.bk-dialog { width: min(720px, 100%); }
+.bk-sec + .bk-sec { margin-top: 1.1rem; padding-top: 1rem; border-top: 1px solid var(--border-subtle); }
+.bk-sec h3 { margin: 0 0 0.35rem; font-size: 0.95rem; color: var(--text-primary); }
+.bk-sec p { margin: 0 0 0.5rem; color: var(--text-secondary); font-size: 0.85rem; }
+.bk-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.6rem 0; }
+.bk-actions button {
+  padding: 0.45rem 0.85rem;
+  border-radius: 6px;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+  font: 600 0.82rem var(--font-sans);
+  cursor: pointer;
+}
+.bk-actions button:hover:not([disabled]) { border-color: var(--accent-primary); }
+.bk-actions .bk-primary { background: var(--accent-primary); border-color: var(--accent-primary); color: var(--bg-base); }
+.bk-actions button[disabled] { opacity: 0.5; cursor: default; }
+.bk-held, .bk-error {
+  padding: 0.55rem 0.7rem;
+  border-radius: 6px;
+  border: 1px solid color-mix(in srgb, var(--accent-red) 45%, transparent);
+  background: color-mix(in srgb, var(--accent-red) 10%, transparent);
+  color: var(--text-primary);
+  font-size: 0.82rem;
+}
+.bk-held ul { margin: 0.35rem 0 0; padding-left: 1.1rem; }
+.bk-held code { word-break: break-all; }
+.bk-from { font-size: 0.8rem; }
+.bk-list { list-style: none; margin: 0.4rem 0; padding: 0; max-height: 40vh; overflow: auto; border: 1px solid var(--border-subtle); border-radius: 6px; }
+.bk-row + .bk-row { border-top: 1px solid var(--border-subtle); }
+.bk-row label { display: grid; grid-template-columns: auto 1fr auto auto; gap: 0.6rem; align-items: center; padding: 0.4rem 0.6rem; cursor: pointer; font-size: 0.82rem; }
+.bk-name { color: var(--text-primary); }
+.bk-state, .bk-size { color: var(--text-muted); font-size: 0.75rem; }
+.bk-size { min-width: 4.5rem; text-align: right; font-variant-numeric: tabular-nums; }
+.bk-row.is-differs .bk-state { color: var(--accent-amber); }
+.bk-row.is-new .bk-state { color: var(--accent-green); }
+.bk-row.is-same { opacity: 0.6; }

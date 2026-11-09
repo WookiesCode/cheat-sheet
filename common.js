@@ -3274,6 +3274,7 @@
       { icon: '📋', label: 'Shift board & handoff', sub: 'All node workspaces at a glance; copy or print the handoff', kw: 'board shift handoff handover incidents nodes overview status report', run: () => openBoard() },
       { icon: '📈', label: 'Analyze command output', sub: 'Paste mlxlink, nvme smart-log or nvidia-smi topo -m output for a report', kw: 'analyze analyzer output paste mlxlink smart-log smartlog dom ber optics nvme report topo topology nvlink pix numa affinity', run: () => openAnalyzer() },
       { icon: '☰', label: 'Toggle compact view', sub: 'Hide or show explanations and variants', kw: 'compact density detailed dense view', run: () => { const b = document.getElementById('density-toggle'); if (b) b.click(); } },
+      { icon: '💾', label: 'Backup & restore: everything this browser keeps', sub: 'Notes, case files, node workspaces, kit stars, rack inventory and settings in one JSON file', kw: 'backup restore export import save load json file move transfer portable another laptop browser reset data', run: () => openBackup() },
       { icon: '📖', label: 'Open manuals', sub: 'Offline man pages', kw: 'man manual manuals pages docs offline', run: () => openManuals() },
       { icon: '⚙', label: 'Capture script: kit or trail → one bash file', sub: 'Read-only commands, sudo -n, time limits; outputs saved to cases/<case>/logs/ and tarred', kw: 'capture script bash collect collection logs export kit trail run node sh download automate batch', run: () => openCapture() },
       ...Object.entries(ROOT_STYLES).map(([k, v]) => ({ icon: '🔒', label: `Root commands copy as: ${v.label}`, sub: v.sub, kw: `root sudo needs root privilege elevate copy style ${k} ${v.label}`, run: () => { try { localStorage.setItem(ROOT_STYLE_KEY, k); } catch (e) {} privApplyStyle(); showGlobalToast(`Root commands now copy: ${v.label}.`); } })),
@@ -7437,6 +7438,7 @@ ${rmaTrailSection()}#### Action Requested:
       });
       safeInit('initSideDock', () => initSideDock());
       safeInit('initModalFocus', () => initModalFocus());
+      safeInit('initBackup', () => initBackup());
       safeInit('initRootLens', () => initRootLens());
       safeInit('initSelectionActions', () => initSelectionActions());
       safeInit('initPasteBack', () => initPasteBack());
@@ -8829,6 +8831,13 @@ ${rmaTrailSection()}#### Action Requested:
     notesBtn.innerHTML = '<span aria-hidden="true">📝</span><span>Field notes</span>';
     notesBtn.addEventListener('click', () => openFieldNotes());
     menu.appendChild(notesBtn);
+    const bkBtn = document.createElement('button');
+    bkBtn.type = 'button';
+    bkBtn.id = 'backup-menu-btn';
+    bkBtn.className = 'action-btn backup-menu-btn';
+    bkBtn.innerHTML = '<span aria-hidden="true">💾</span><span>Backup &amp; restore</span>';
+    bkBtn.addEventListener('click', () => openBackup());
+    menu.appendChild(bkBtn);
     const planBtn = document.createElement('button');
     planBtn.type = 'button';
     planBtn.id = 'plan-menu-btn';
@@ -12249,6 +12258,286 @@ ${rmaTrailSection()}#### Action Requested:
     wbShowGrid(!wbDocked);
     if (!wbPortable()) setTimeout(wbFollowRoute, 0);
     else if (wbRoute && !wbDocked) setTimeout(() => wbOpen(wbRoute, true), 0);
+  }
+
+  // -------------------------------------------------------------
+  // BACKUP & RESTORE
+  // Everything this site keeps (notes, case files, kit stars, rack inventory, practice
+  // progress, node workspaces) lives in one browser's storage, and the localhost site
+  // and the portable file:// copy each have their own. One JSON file moves it all:
+  // between those two, to another laptop, or past a browser reset.
+  // -------------------------------------------------------------
+  const BK_APP = 'dc-cheatsheet';
+  const BK_VERSION = 1;
+  const BK_UNDO_KEY = 'dc_restore_undo';  // sessionStorage: this tab only
+  const BK_DONE_KEY = 'dc_restore_done';  // sessionStorage: toast after the reload
+  // Only this site's keys: on file:// every local page shares one storage area.
+  const BK_KEY_RE = /^(dc_|cs_|linux_cs|jira_cs_|mb_sheet_)|^portable_bookmarks$|_bookmarks$/;
+  const BK_SKIP = new Set(['dc_storage_probe', 'dc_target_pass', BK_UNDO_KEY, BK_DONE_KEY]);
+  const BK_LABELS = {
+    dc_field_notes: 'Field notes (drafts)', dc_case_file: 'Case file', dc_case_trail: 'Case trail', dc_case_trail_meta: 'Case trail details',
+    dc_nodes: 'Node workspaces', dc_target_vars: 'Rack Targets', dc_change_plan: 'Change plan', dc_cmd_outputs: 'Pasted command outputs',
+    dc_node_vitals: 'Checkup readings', dc_runbook_runs: 'Runbook runs', dc_fabric_last: 'Last fabric map', dc_fleet: 'Fleet mode',
+    dc_slot_values: 'Placeholder values', cs_racks_v1: 'Rack inventory', cs_practice_v1: 'Practice progress', cs_rosetta_v1: 'Rosetta choices',
+    cs_panel_v1: 'Front panel & cable check', dc_terminal_prefs: 'Terminal settings (token left out)', linux_cs_theme: 'Theme',
+    linux_cs_compact: 'Compact view', dc_root_style: 'Root copy style', dc_side_dock: 'Side dock', dc_visited_sheets: 'Visited sheets',
+    dc_recent_sheets: 'Recent sheets', dc_wb_recent: 'Recent tools', dc_tour_seen: 'Tour seen', jira_cs_targets: 'Jira form'
+  };
+  // What the person made, listed first; the rest are settings and history.
+  const BK_WORK = ['dc_field_notes', 'dc_case_file', 'dc_nodes', 'dc_case_trail', 'cs_racks_v1', 'dc_change_plan', 'dc_cmd_outputs', 'cs_practice_v1', 'dc_target_vars'];
+
+  const bkLabel = (k) => BK_LABELS[k] || (/_bookmarks$/.test(k) ? `My kit stars: ${k.replace(/(_cs)?_bookmarks$/, '').replace(/[_-]/g, ' ')}` : k);
+  const bkSize = (n) => n < 1024 ? `${n} B` : n < 1048576 ? `${(n / 1024).toFixed(1)} KB` : `${(n / 1048576).toFixed(1)} MB`;
+  const bkRank = (k) => { const i = BK_WORK.indexOf(k); return i === -1 ? (/_bookmarks$/.test(k) ? 100 : 200) : i; };
+  const bkSort = (keys) => keys.sort((a, b) => bkRank(a) - bkRank(b) || bkLabel(a).localeCompare(bkLabel(b)));
+  const bkOwnKey = (k) => BK_KEY_RE.test(k) && !BK_SKIP.has(k);
+
+  function bkLocalKeys() {
+    const keys = [];
+    try { for (let i = 0; i < localStorage.length; i++) { const k = localStorage.key(i); if (k && bkOwnKey(k)) keys.push(k); } } catch (e) {}
+    return keys;
+  }
+
+  // The terminal token unlocks a shell on this machine: never in a file.
+  function bkStripToken(value) {
+    try { const v = JSON.parse(value); if (v && typeof v === 'object') { delete v.token; return JSON.stringify(v); } } catch (e) {}
+    return value;
+  }
+
+  // Enough of the line to find it, without putting the secret on screen.
+  const bkMask = (line) => String(line)
+    .replace(/(\b(password|passwd|pwd|secret|api[_-]?key|token)\b\s*[:=]\s*)[^\s",}]+/gi, '$1••••')
+    .replace(/(\s-P\s+)\S+/g, '$1••••')
+    .replace(/(\s(-u|--user)\s+[^\s:]+:)\S+/g, '$1••••')
+    .replace(/\b(ghp_|glsa_|AKIA|xox[bp]-|eyJ)[A-Za-z0-9_.-]+/g, '$1••••');
+
+  // Build the export: every own key, minus anything that looks like it holds a credential.
+  function bkCollect() {
+    const items = {};
+    const held = [];
+    for (const k of bkSort(bkLocalKeys())) {
+      let v = readStored(k);
+      if (v == null) continue;
+      if (k === 'dc_terminal_prefs') v = bkStripToken(v);
+      // JSON escapes newlines; unescape so the check sees the lines a person typed.
+      const secret = fnSecretLine(v.replace(/\\n/g, '\n'));
+      if (secret) { held.push({ key: k, text: bkMask(secret.text) }); continue; }
+      items[k] = v;
+    }
+    return { items, held };
+  }
+
+  function bkDownload() {
+    const { items, held } = bkCollect();
+    const now = new Date();
+    // Local time in the name, so it matches the clock you looked at.
+    const pad = (n) => String(n).padStart(2, '0');
+    const stamp = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}-${pad(now.getHours())}${pad(now.getMinutes())}`;
+    const file = { app: BK_APP, kind: 'backup', version: BK_VERSION, exported: now.toISOString(), from: location.protocol === 'file:' ? 'portable file' : location.host, items };
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(file, null, 1) + '\n'], { type: 'application/json' }));
+    a.download = `dc-cheatsheet-backup-${stamp}.json`;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+    showGlobalToast(`Backup saved: ${Object.keys(items).length} items${held.length ? `, ${held.length} held back (credential)` : ''}.`);
+  }
+
+  // Parse and check a backup file; returns { items } or { error }.
+  function bkParse(text) {
+    let data;
+    try { data = JSON.parse(text); } catch (e) { return { error: 'This is not a JSON file.' }; }
+    if (!data || data.app !== BK_APP || data.kind !== 'backup') return { error: 'This is not a backup from this cheat sheet.' };
+    if (data.version !== BK_VERSION) return { error: `This backup is format version ${escapeHtml(String(data.version))}; this site reads version ${BK_VERSION}.` };
+    if (!data.items || typeof data.items !== 'object') return { error: 'The backup has no items.' };
+    const items = {};
+    const ignored = [];
+    for (const [k, v] of Object.entries(data.items)) {
+      if (bkOwnKey(k) && typeof v === 'string') items[k] = v; else ignored.push(k);
+    }
+    return { items, ignored, exported: typeof data.exported === 'string' ? data.exported : '', from: typeof data.from === 'string' ? data.from : '' };
+  }
+
+  // Writes are verified by reading back: guardStorage() makes a failed setItem silent.
+  function bkWrite(entries) {
+    const before = {};
+    for (const [k] of entries) before[k] = readStored(k);
+    try { sessionStorage.setItem(BK_UNDO_KEY, JSON.stringify({ at: Date.now(), items: before })); } catch (e) {}
+    const failed = [];
+    for (const [k, v] of entries) {
+      try { localStorage.setItem(k, v); } catch (e) {}
+      if (readStored(k) !== v) failed.push(k);
+    }
+    if (failed.length) {
+      // All or nothing: put every key back as it was.
+      for (const [k] of entries) { try { if (before[k] == null) localStorage.removeItem(k); else localStorage.setItem(k, before[k]); } catch (e) {} }
+      try { sessionStorage.removeItem(BK_UNDO_KEY); } catch (e) {}
+    }
+    return failed;
+  }
+
+  function bkUndo() {
+    let snap = null;
+    try { snap = JSON.parse(sessionStorage.getItem(BK_UNDO_KEY) || 'null'); } catch (e) {}
+    if (!snap || !snap.items) return;
+    for (const [k, v] of Object.entries(snap.items)) { try { if (v == null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch (e) {} }
+    try { sessionStorage.removeItem(BK_UNDO_KEY); sessionStorage.setItem(BK_DONE_KEY, 'undo'); } catch (e) {}
+    location.reload();
+  }
+
+  let bkEl = null;
+  let bkFocus = null;
+  let bkPending = null;  // parsed backup waiting for the person to choose
+
+  function bkRenderExport() {
+    const { items, held } = bkCollect();
+    const keys = Object.keys(items);
+    const total = keys.reduce((n, k) => n + items[k].length, 0);
+    const work = keys.filter(k => bkRank(k) < 100);
+    const stars = keys.filter(k => /_bookmarks$/.test(k)).length;
+    let undo = null;
+    try { undo = JSON.parse(sessionStorage.getItem(BK_UNDO_KEY) || 'null'); } catch (e) {}
+    return `
+      <section class="bk-sec">
+        <h3>Back up</h3>
+        <p>${keys.length ? `${keys.length} items, ${bkSize(total)}: ${work.length ? work.map(k => escapeHtml(bkLabel(k))).join(', ') : 'settings only'}${stars ? `, and My kit stars from ${stars} sheet${stars === 1 ? '' : 's'}` : ''}.` : 'Nothing saved in this browser yet.'}</p>
+        <p class="an-hint">Never in the file: the BMC password (this tab only) and the terminal token.</p>
+        ${held.length ? `<div class="bk-held"><b>Held back: looks like a credential.</b> Remove it (use <code>$BMC_PASS</code> or <code>-E</code>), then back up again.<ul>${held.map(h => `<li>${escapeHtml(bkLabel(h.key))}: <code>${escapeHtml(h.text)}</code></li>`).join('')}</ul></div>` : ''}
+        <div class="bk-actions"><button type="button" class="bk-primary" data-bk="export" ${keys.length ? '' : 'disabled'}>⬇ Download backup (.json)</button></div>
+      </section>
+      <section class="bk-sec">
+        <h3>Restore</h3>
+        <p>Choose a backup file. You see what it holds and pick what to restore before anything changes. Items not in the file are left alone.</p>
+        <div class="bk-actions">
+          <button type="button" data-bk="pick">⬆ Choose a backup file…</button>
+          ${undo && undo.items ? `<button type="button" data-bk="undo">↶ Undo the last restore</button>` : ''}
+        </div>
+        <input type="file" accept=".json,application/json" class="bk-file" hidden />
+        <div class="bk-preview" aria-live="polite"></div>
+      </section>`;
+  }
+
+  function bkRenderPreview(parsed) {
+    const box = bkEl.querySelector('.bk-preview');
+    if (parsed.error) { box.innerHTML = `<p class="bk-error" role="alert">${parsed.error}</p>`; return; }
+    const keys = bkSort(Object.keys(parsed.items));
+    if (!keys.length) { box.innerHTML = '<p class="bk-error" role="alert">The backup has no items this site can restore.</p>'; return; }
+    const rows = keys.map(k => {
+      const here = readStored(k);
+      const incoming = k === 'dc_terminal_prefs' ? bkMergePrefs(parsed.items[k], here) : parsed.items[k];
+      const state = here == null ? 'new' : here === incoming ? 'same' : 'differs';
+      const label = { new: 'not here yet', same: 'same as here', differs: 'replaces what is here' }[state];
+      return `<li class="bk-row is-${state}"><label><input type="checkbox" data-bk-key="${escapeHtml(k)}" ${state === 'same' ? 'disabled' : 'checked'} />
+        <span class="bk-name">${escapeHtml(bkLabel(k))}</span><span class="bk-state">${label}</span><span class="bk-size">${bkSize(incoming.length)}</span></label></li>`;
+    }).join('');
+    const when = parsed.exported ? new Date(parsed.exported) : null;
+    box.innerHTML = `
+      <p class="bk-from">From ${escapeHtml(parsed.from || 'unknown')}${when && !isNaN(when) ? `, saved ${escapeHtml(when.toLocaleString())}` : ''}.${parsed.ignored.length ? ` ${parsed.ignored.length} unknown item${parsed.ignored.length === 1 ? '' : 's'} skipped.` : ''}</p>
+      <ul class="bk-list">${rows}</ul>
+      <div class="bk-actions"><button type="button" class="bk-primary" data-bk="restore"></button><button type="button" data-bk="cancel">Cancel</button></div>
+      <p class="an-hint">The page reloads after a restore. Until you close this tab, <b>Undo the last restore</b> puts everything back.</p>`;
+    bkSyncRestoreBtn();
+  }
+
+  // Restoring terminal settings keeps this browser's own token.
+  function bkMergePrefs(incoming, here) {
+    try {
+      const a = JSON.parse(incoming) || {};
+      const b = JSON.parse(here || '{}') || {};
+      delete a.token;
+      if (b.token) a.token = b.token;
+      return JSON.stringify(a);
+    } catch (e) { return incoming; }
+  }
+
+  function bkSyncRestoreBtn() {
+    const btn = bkEl.querySelector('[data-bk="restore"]');
+    if (!btn) return;
+    const n = bkEl.querySelectorAll('[data-bk-key]:checked').length;
+    btn.textContent = n ? `Restore ${n} item${n === 1 ? '' : 's'}` : 'Nothing selected';
+    btn.disabled = !n;
+  }
+
+  function bkRestoreSelected() {
+    if (!bkPending || bkPending.error) return;
+    const entries = [...bkEl.querySelectorAll('[data-bk-key]:checked')].map(cb => {
+      const k = cb.dataset.bkKey;
+      return [k, k === 'dc_terminal_prefs' ? bkMergePrefs(bkPending.items[k], readStored(k)) : bkPending.items[k]];
+    });
+    if (!entries.length) return;
+    const failed = bkWrite(entries);
+    if (failed.length) {
+      bkEl.querySelector('.bk-preview').insertAdjacentHTML('afterbegin', `<p class="bk-error" role="alert">Nothing was restored: the browser refused to store ${escapeHtml(bkLabel(failed[0]))}${failed.length > 1 ? ` and ${failed.length - 1} more` : ''} (storage full or blocked).</p>`);
+      return;
+    }
+    try { sessionStorage.setItem(BK_DONE_KEY, String(entries.length)); } catch (e) {}
+    location.reload();
+  }
+
+  function openBackup() {
+    if (!bkEl) {
+      bkEl = document.createElement('div');
+      bkEl.className = 'an-backdrop bk-backdrop';
+      bkEl.innerHTML = `
+        <div class="an-dialog bk-dialog" role="dialog" aria-modal="true" aria-labelledby="bk-title">
+          <header class="an-head">
+            <div><h2 id="bk-title">Backup &amp; restore</h2><p>Everything this browser keeps for the cheat sheet, in one file: notes, case files, node workspaces, kit stars, rack inventory, practice progress and settings. Use it to move between the localhost site and the portable copy, or to another laptop.</p></div>
+            <button type="button" class="trail-close" data-bk="close" aria-label="Close backup and restore">✕</button>
+          </header>
+          <div class="an-body bk-body"></div>
+        </div>`;
+      document.body.appendChild(bkEl);
+      bkEl.addEventListener('click', (e) => {
+        if (e.target === bkEl) return closeBackup();
+        const b = e.target instanceof Element ? e.target.closest('[data-bk]') : null;
+        if (!b) return;
+        const act = b.dataset.bk;
+        if (act === 'close') closeBackup();
+        if (act === 'export') bkDownload();
+        if (act === 'pick') bkEl.querySelector('.bk-file').click();
+        if (act === 'undo') bkUndo();
+        if (act === 'restore') bkRestoreSelected();
+        if (act === 'cancel') { bkPending = null; bkEl.querySelector('.bk-preview').innerHTML = ''; bkEl.querySelector('[data-bk="pick"]').focus(); }
+      });
+      bkEl.addEventListener('change', (e) => {
+        if (e.target.matches('[data-bk-key]')) return bkSyncRestoreBtn();
+        if (!e.target.matches('.bk-file')) return;
+        const f = e.target.files && e.target.files[0];
+        e.target.value = '';
+        if (!f) return;
+        if (f.size > 20 * 1048576) { bkPending = { error: 'That file is larger than any backup of this site can be.' }; bkRenderPreview(bkPending); return; }
+        f.text().then(text => {
+          bkPending = bkParse(text);
+          bkRenderPreview(bkPending);
+          const first = bkEl.querySelector('[data-bk="restore"], .bk-error');
+          if (first && first.focus) first.focus();
+        });
+      });
+      bkEl.addEventListener('keydown', (e) => { if (e.key === 'Escape') { e.stopPropagation(); closeBackup(); } });
+    }
+    bkFocus = document.activeElement;
+    bkPending = null;
+    bkEl.querySelector('.bk-body').innerHTML = bkRenderExport();
+    bkEl.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => { const b = bkEl.querySelector('[data-bk="export"]:not([disabled]), [data-bk="pick"]'); if (b) b.focus(); }, 40);
+  }
+
+  function closeBackup() {
+    if (!bkEl || !bkEl.classList.contains('show')) return;
+    bkEl.classList.remove('show');
+    document.body.style.overflow = '';
+    if (bkFocus && bkFocus.focus) bkFocus.focus();
+  }
+
+  // After the reload that follows a restore or undo, say what happened.
+  function initBackup() {
+    let done = null;
+    try { done = sessionStorage.getItem(BK_DONE_KEY); sessionStorage.removeItem(BK_DONE_KEY); } catch (e) {}
+    if (!done) return;
+    setTimeout(() => showGlobalToast(done === 'undo'
+      ? 'Restore undone: everything is back as it was.'
+      : `Restored ${done} item${done === '1' ? '' : 's'} from the backup. More → Backup & restore can undo it until you close this tab.`), 300);
   }
 
   // -------------------------------------------------------------

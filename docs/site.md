@@ -29,6 +29,16 @@ Field notes have their own page, `notes.html`, opened from **More → Field note
 - A note that looks like it holds a credential (`-P`, `password=`, `curl -u user:pass`, tokens, keys) is not written to disk until you remove it.
 - The Case file's **💾 Save to folder** writes `<folder>/<case>/summary.md` the same way (it asks before replacing one).
 
+## Backup & restore (More → Backup & restore)
+
+Everything the site keeps lives in this browser only: Field notes drafts, the case file, node workspaces, the Case trail, kit stars, the rack inventory, practice progress and settings. The localhost site and the portable `file://` copy each keep their own, so one doesn't see the other's.
+
+- **⬇ Download backup** saves all of it as `dc-cheatsheet-backup-<date>-<time>.json`. It never contains the BMC password (kept for this tab only) or the terminal token. An item that looks like it holds a credential is left out and listed, with the secret masked, so you can fix it and back up again.
+- **⬆ Choose a backup file** shows each item in the file as *not here yet*, *replaces what is here* or *same as here*. Untick anything you want to keep as it is, then **Restore**. Items not in the file are left alone. The page reloads to pick everything up.
+- **↶ Undo the last restore** puts back what the restore replaced, until you close the tab.
+- If the browser refuses to store any item (storage full or blocked), nothing is restored.
+- Only this site's own data is included, never other pages that share the `file://` origin.
+
 ## Use it on a rack
 
 1. Fill in **Rack Targets** at the top: BMC address, user, password, NIC, HCA, disk and GPU index.
@@ -69,7 +79,7 @@ Your targets carry across pages, and **Reset** puts them back to defaults.
 - **Theme:** the theme button in the top bar (or Ctrl+K → "theme") opens a gallery of all 24 themes with previews; click one to apply it. Shift+click the theme button cycles without opening it.
 - **Suite landing pages:** every suite hub (Containers, Grafana, BMC tools, NVIDIA DC, InfiniBand…) opens on an overview: what the suite covers, its sheets / commands / how many you've visited, **Practice this suite** and its guided runbooks, then one tile per sheet with its top three commands ready to copy. Where the hub only repeats its sheets, the long list of every card folds behind **Show every command in this suite** (remembered per suite; it opens by itself when you follow a link to a card). Hubs with their own content (Linux, Scripting, Motherboards) keep their cards open.
 - **Acronyms:** every acronym in the readable text (BMC, SEL, FRU, DOM, BER, FEC, PFC, MLAG… about 170 of them) has a dotted underline; hover it for what it stands for and one plain line on what it is. Commands, code and the notes editor are never touched, so copying is unchanged. A few depend on the page (UID is the locator LED on IPMI pages, a user ID on Linux pages, a dashboard ID on Grafana pages). Ctrl+K → "what is FEC" answers too.
-- **Toolbar:** Search, Triage & RMA, My kit, Explain, Rack, Terminal, Compact and the theme button sit in the top bar; **More** holds Manuals, the 1-file offline copy, Trail (`t`), Practice (`q`), Field notes and the tour.
+- **Toolbar:** Search, Triage & RMA, My kit, Explain, Rack, Terminal, Compact and the theme button sit in the top bar; **More** holds Manuals, the 1-file offline copy, Trail (`t`), Practice (`q`), Field notes, Backup & restore and the tour.
 - **Compact:** fits more on screen by hiding notes, tips, flag explanations and extra command variants. Click **Detailed** on the same button to bring them back. The setting carries across pages. Jira and the Scripting sheets keep their variants, because those are the main content. Searching shows everything hidden, and printing always includes it.
 - **Theme menu:** 24 color themes, and your choice is remembered. Everforest is a good pick for long sessions.
 - **Print:** `Ctrl+P` prints the current sheet.
