@@ -1,6 +1,6 @@
 # Improvements: ranked proposals and status
 
-Product review started 2026-11-09. Phases 1–3 are below. Seven items and one follow-up are built.
+Product review started 2026-11-09. Phases 1–3 are below. Eight items and one follow-up are built.
 
 ## Status
 
@@ -19,11 +19,11 @@ Product review started 2026-11-09. Phases 1–3 are below. Seven items and one f
 | 10 | Practice what I actually use | Open | | |
 | 11 | Local usage meter | Open | | |
 | 12 | Export My kit as a navi `.cheat` file | Open (needs navi installed: ask first) | | |
-| 13 | Make the doc counts agree | Open | | |
+| 13 | Make the doc counts agree | ✅ Built | `improve/doc-counts` | (this branch) |
 
-**The branches are stacked**, each built on the one before, in the order of the table. Merging `improve/skip-link` brings in all eight. None are pushed or merged yet.
+**The branches are stacked**, each built on the one before, in the order of the table, with `improve/doc-counts` on top. Merging `improve/doc-counts` brings in all nine. None are pushed or merged yet.
 
-**Tests:** `node tests/run-all.js` runs 13 test files. All pass on `improve/skip-link`. Every built item has its own regression test, and I checked that the tests for #2 and #5 fail on the commit before their fix.
+**Tests:** `node tests/run-all.js` runs 14 test files. All pass on `improve/doc-counts`. Every built item has its own regression test, and I checked that the tests for #2 and #5 fail on the commit before their fix.
 
 ## What the built items changed (measured)
 
@@ -36,6 +36,7 @@ Product review started 2026-11-09. Phases 1–3 are below. Seven items and one f
 | #3 Save failures | A failed save was silent; a pin even reported "Pinned to case" | An amber bar that stays until closed, says why, and links to Backup |
 | #5 Focus hidden | Up to 37 fully-hidden Tab stops per page; `j`/`k` hid 36 of 80 at 800 px | 0 fully and 0 partly hidden on every page and size tested |
 | #14 Skip link | 287 Tab presses before the first command | 2 key presses (Tab, Enter) |
+| #13 Doc counts | README "about 200 sheets", guide "235 linked pages", home "214 sheets" | Both docs say "236 pages, 214 of them command sheets with 2,043 commands", rewritten by `build-index.js` on every build |
 
 ## Found while building (not fixed)
 
@@ -156,12 +157,12 @@ Impact (H/M/L) · Effort (S/M/L) · Risk (H/M/L). The ranking is by user impact 
 - Impact **M** · Effort **S** · Risk **L** · Files: `common.js`.
 - ⚠ **Ask:** navi isn't installed here, and installing it is a package change. Its default cheat directory isn't confirmed yet.
 
-**13. Make the doc counts agree**
-- **Why:** trust in J5. The README says "about 200" sheets, `docs/site.md` says "235 linked pages", and the home hero says "214 sheets".
-- Impact **L** · Effort **S** · Risk **L** · Files: `README.md`, `docs/site.md`, optionally `build-index.js`.
+**13. ✅ Make the doc counts agree**
+- **Why:** trust in J5. The README said "about 200" sheets, `docs/site.md` said "235 linked pages", and the home hero said "214 sheets". They counted different things: 236 pages, of which 214 hold commands.
+- Impact **L** · Effort **S** · Risk **L** · Built: `improve/doc-counts`. `build-index.js` writes the counts between `<!-- counts -->` markers, counting the way the home page does; `tests/doc-counts.test.js` compares them with the live home page.
 
 ## Recommended next
-**#13** (5 minutes), then **#8** for the NVIDIA suite first. The other DC suites can follow one at a time.
+**#8**, source links and verified dates, starting with the NVIDIA suite. The other DC suites can follow one at a time.
 
 Considered and dropped: a shift handoff export (it already exists: "Shift board & handoff" in `common.js`), a phone layout (laptop-only by your decision), and variable prompts in the style of navi (Rack Targets and slot chips already do this).
 
