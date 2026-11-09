@@ -115,6 +115,8 @@ const commonJs = fs.readFileSync(path.join(__dirname, 'common.js'), 'utf8');
 // The Terminal dock's emulator; pages load it on demand from vendor/, the 1-file copy carries it.
 const xtermJs = ['xterm.js', 'addon-fit.js'].map(f => fs.readFileSync(path.join(__dirname, 'vendor', 'xterm', f), 'utf8')).join('\n');
 const xtermCss = fs.readFileSync(path.join(__dirname, 'vendor', 'xterm', 'xterm.css'), 'utf8');
+// Inlined: a file:// page never asks for favicon.ico beside it, and the 1-file copy travels alone.
+const faviconUri = 'data:image/svg+xml;base64,' + fs.readFileSync(path.join(__dirname, 'favicon.svg')).toString('base64');
 
 // 4b. Pages with interactive tools run their own unmodified code in a srcdoc frame,
 // so each tool's globals stay isolated from the shell and from other tools.
@@ -152,6 +154,7 @@ const portableHtml = `<!DOCTYPE html>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Datacenter &amp; Sysadmin Reference Suite — 100% Portable Air-Gapped Edition</title>
+  <link rel="icon" type="image/svg+xml" href="${faviconUri}" />
   <style id="portable-css">
 ${css}
 
