@@ -3039,36 +3039,41 @@
   // -------------------------------------------------------------
   const TOUR_SEEN_KEY = 'dc_tour_seen';
   // Bumped when the tour gains steps: anyone who saw an older one is offered "What's new" (the isNew steps).
-  const TOUR_VERSION = '8';
+  const TOUR_VERSION = '9';
   // center: the step still shows (centred) when its control is not on this page.
   const TOUR_STEPS = [
     { title: 'This reference does more than list commands', body: 'A short tour that follows an incident: diagnose the error, set up the node, run commands in the built-in terminal, see the GPU tray, compare against healthy nodes, and file the case. Use ← → or the buttons; Esc ends it.' },
     { target: '#lp-omni-input', title: 'Paste an error, get a diagnosis', body: 'Drop a raw dmesg, SEL or EDAC line here: what it means, how bad it is, the next read-only commands and a matching runbook. Whole dumps open the right tool by themselves: dmesg/SEL → incident timeline, mlxlink / smart-log / topo -m → visual report, an nvidia-smi GPU table → Node X-ray, pdsh output → Fleet results.',
       try: { label: 'Try an Xid 79 line', run: () => { const i = document.getElementById('lp-omni-input'); if (i) { i.value = 'NVRM: Xid (PCI:0000:8a:00): 79, pid=48213, name=python, GPU has fallen off the bus.'; i.dispatchEvent(new Event('input')); } } } },
-    { target: '.lp-cockpit', isNew: true, title: 'This node, at a glance', body: 'The cockpit keeps the latest readings for the node you are on: checkup score, a mini GPU tray with NIC lights, the top problems and the terminal link, with how old each reading is. It follows the node workspace, so switching nodes switches the cockpit. Click the ring or the tray to reopen the full report.' },
-    { target: '.lp-flow', isNew: true, title: 'Your incident, step by step', body: 'Identify → Collect → Correlate → Isolate → Document: the team method, each step holding its tools. The cards follow the current node and tick green as you name it, run commands, compare, work a runbook and file the case; the next step is highlighted.' },
-    { target: '[data-flow="intake"]', center: true, isNew: true, title: 'Start from the ticket', body: 'Paste the whole ticket once. The ticket number, host, BMC, devices, serials and every log line the decoder knows are picked out for you to check (the rack inventory fills in the BMC and location it knows). One click sets up the node workspace, Rack Targets and the case, with the diagnoses pinned and the first read-only commands ready. Passwords in the ticket are masked, never kept.',
+    { target: '.lp-cockpit', title: 'This node, at a glance', body: 'The cockpit keeps the latest readings for the node you are on: checkup score, a mini GPU tray with NIC lights, the top problems and the terminal link, with how old each reading is. It follows the node workspace, so switching nodes switches the cockpit. Click the ring or the tray to reopen the full report.' },
+    { target: '.lp-flow', title: 'Your incident, step by step', body: 'Identify → Collect → Correlate → Isolate → Document: the team method, each step holding its tools. The cards follow the current node and tick green as you name it, run commands, compare, work a runbook and file the case; the next step is highlighted.' },
+    { target: '[data-flow="intake"]', center: true, title: 'Start from the ticket', body: 'Paste the whole ticket once. The ticket number, host, BMC, devices, serials and every log line the decoder knows are picked out for you to check (the rack inventory fills in the BMC and location it knows). One click sets up the node workspace, Rack Targets and the case, with the diagnoses pinned and the first read-only commands ready. Passwords in the ticket are masked, never kept.',
       try: { label: 'Open it with a sample ticket', run: () => { endTour(); openIntake(TK_SAMPLE); } } },
-    { target: '[data-flow="fabric"]', center: true, isNew: true, title: 'See the whole InfiniBand fabric', body: 'Paste iblinkinfo (or just paste it anywhere you would paste an error). Spines and leaves are drawn with every inter-switch link coloured, each switch shows its ports, and the links that trained narrow or slow, never came up, or were disabled are listed first. Type a host or HCA to see which switch port it is cabled to; every port hands you perfquery, ibportstate and mlxlink with the LID and port filled in.',
+    { target: '[data-flow="fabric"]', center: true, title: 'See the whole InfiniBand fabric', body: 'Paste iblinkinfo (or just paste it anywhere you would paste an error). Spines and leaves are drawn with every inter-switch link coloured, each switch shows its ports, and the links that trained narrow or slow, never came up, or were disabled are listed first. Type a host or HCA to see which switch port it is cabled to; every port hands you perfquery, ibportstate and mlxlink with the LID and port filled in.',
       try: { label: 'Open it with a sample fabric', run: () => { endTour(); openFabric(fmSample()); } } },
     { target: '.node-chip', title: 'One workspace per machine', body: 'Name the node you are on. Its targets, Case Trail, pinned evidence and runbook progress stay with it, so switching to the next node is one click and nothing leaks between tickets.' },
     { target: '.target-summary, .target-inputs-row', title: 'Your targets go into every command', body: 'BMC, interface, HCA, disk and GPU are filled in when you copy or send a command. Dashed chips inside commands are those values: click one to change it. The BMC password is never stored. Red-tagged commands change state and need a drained node and approval.' },
-    { target: '#console-btn, .con-cbar', center: true, isNew: true, title: 'A real terminal under every sheet', body: 'Ctrl+` opens a shell on this jumpbox (start python3 term-bridge.py once and paste its token). Hover a read-only command and press ▶ Run: it runs and the output appears right under it, like a notebook, with Copy, 📌 Pin and the ✦ tool that can read it. ⏎ Send types any command into the dock instead; state-changing ones ask first.',
+    { target: '#console-btn, .con-cbar', center: true, title: 'A real terminal under every sheet', body: 'Ctrl+` opens a shell on this jumpbox (start python3 term-bridge.py once and paste its token). Hover a read-only command and press ▶ Run: it runs and the output appears right under it, like a notebook, with Copy, 📌 Pin and the ✦ tool that can read it. ⏎ Send types any command into the dock instead; state-changing ones ask first.',
       try: { label: 'Open the terminal', run: () => { endTour(); toggleConsole(true); } } },
-    { target: '[data-lp="checkup"], [data-flow="checkup"]', center: true, isNew: true, title: 'Node checkup: the whole node in one click', body: 'One read-only sweep through the terminal (no root): scheduler drain state, GPUs, kernel errors, memory ECC, InfiniBand ports, NVMe, failed services and full disks, scored in a single report. Every red row opens the tool or runbook that explains it, and the report pins to the case.',
+    { target: '[data-lp="checkup"], [data-flow="checkup"]', center: true, title: 'Node checkup: the whole node in one click', body: 'One read-only sweep through the terminal (no root): scheduler drain state, GPUs, kernel errors, memory ECC, InfiniBand ports, NVMe, failed services and full disks, scored in a single report. Every red row opens the tool or runbook that explains it, and the report pins to the case.',
       try: { label: 'See a sample checkup', run: () => { endTour(); openCheckup(CK_SAMPLE); } } },
-    { target: '[data-lp="xray"], [data-flow="xray"]', center: true, isNew: true, title: 'Node X-ray: see the GPU tray', body: 'One read-only command draws the node: every GPU and NIC as a tile, red where it needs you, with hollow slots for GPUs that fell off the bus. ▶ Run in terminal fills it with no copy-paste; ● Watch live streams nvidia-smi every 2 s with a temperature trace and peaks per GPU, so a fault under load is caught in the act.',
+    { target: '[data-lp="xray"], [data-flow="xray"]', center: true, title: 'Node X-ray: see the GPU tray', body: 'One read-only command draws the node: every GPU and NIC as a tile, red where it needs you, with hollow slots for GPUs that fell off the bus. ▶ Run in terminal fills it with no copy-paste; ● Watch live streams nvidia-smi every 2 s with a temperature trace and peaks per GPU, so a fault under load is caught in the act.',
       try: { label: 'Watch a demo tray heat up', run: () => { endTour(); openXray(XR_SAMPLE); xrLiveStart(true); } } },
-    { target: '[data-flow="diff"], .fleet-chip', center: true, isNew: true, title: 'One node, or the whole rack?', body: 'Compare nodes puts a suspect next to a known-good twin and shows only real differences (firmware, link width, missing devices), not serials and temperatures. Fleet mode fans any command out over pdsh / clush; paste what comes back and Fleet results groups the nodes and points at the odd one out.',
+    { target: '[data-flow="diff"], .fleet-chip', center: true, title: 'One node, or the whole rack?', body: 'Compare nodes puts a suspect next to a known-good twin and shows only real differences (firmware, link width, missing devices), not serials and temperatures. Fleet mode fans any command out over pdsh / clush; paste what comes back and Fleet results groups the nodes and points at the odd one out.',
       try: { label: 'Try Fleet results with 12 nodes', run: () => { endTour(); openFleetResults(FR_SAMPLE); } } },
     { target: '.hdr-search-pill, #global-search-btn', title: 'One search for everything', body: 'Ctrl+K, / or the search pill: search 1,500 commands, open any sheet or runbook, run actions (> lists them), switch themes, or quick-set values: "gpu 3", "hca mlx5_4", "node gpu-node-08".',
       try: { label: 'Open Ctrl+K with "gpu 3"', run: () => { endTour(); openGlobalSearch('gpu 3'); } } },
-    { target: '#triage-modal-btn', isNew: true, title: 'Runbooks that run themselves', body: 'Step-by-step runs of the team playbooks: safety, evidence, decisions, physical isolation. With the terminal connected, ▶ Run executes a step, shows its output under it, ticks it and suggests the finding; ▶ Run all safe steps does the whole evidence collection. Gates, state changes and live views stay manual, and intrusive steps stay locked until you confirm the drain. The verdict and findings fill the RMA ticket.',
+    { target: '#triage-modal-btn', title: 'Runbooks that run themselves', body: 'Step-by-step runs of the team playbooks: safety, evidence, decisions, physical isolation. With the terminal connected, ▶ Run executes a step, shows its output under it, ticks it and suggests the finding; ▶ Run all safe steps does the whole evidence collection. Gates, state changes and live views stay manual, and intrusive steps stay locked until you confirm the drain. The verdict and findings fill the RMA ticket.',
       try: { label: 'Open the runbooks', run: () => { endTour(); openRunbook(); } } },
-    { target: '#trail-btn', center: true, isNew: true, title: 'Pin evidence, get summary.md', body: 'Every command you copy or send lands in the Case Trail. Every result (decoded error, analyzer report, X-ray, comparison, fleet board) has 📌 Pin. The Case file turns pins and trail into cases/<host>/summary.md with timeline, root cause and a filled RMA block.',
+    { target: '#trail-btn', center: true, title: 'Pin evidence, get summary.md', body: 'Every command you copy or send lands in the Case Trail. Every result (decoded error, analyzer report, X-ray, comparison, fleet board) has 📌 Pin. The Case file turns pins and trail into cases/<host>/summary.md with timeline, root cause and a filled RMA block.',
       try: { label: 'Open the case file', run: () => { endTour(); openCaseFile(); } } },
     { target: '.lp-board, .lp-runbooks', title: 'Your nodes, worst first', body: 'The home page shows every node workspace with its verdict and next steps. The Shift board turns them into one handoff for the next shift.',
       try: { label: 'Open the Shift board', run: () => { endTour(); openBoard(); } } },
+    { target: '.hdr-search-pill', isNew: true, title: 'Search warns before risky copies', body: 'In Ctrl+K a command that changes state (a port bounce, a reset, a power cycle) is edged in red: the first Enter asks, the second copies, and a click opens its sheet without copying.' },
+    { target: '.hdr-more-btn', center: true, isNew: true, title: 'Back up everything you keep', body: 'More → Backup & restore saves notes, case files, node workspaces, kit stars and the rack inventory in one JSON file (never passwords or the terminal token) and restores them on the portable copy or another laptop. If the browser refuses a save, an amber bar says so.' },
+    { center: true, isNew: true, title: 'Every command shows where it was checked', body: 'On the NVIDIA, InfiniBand, Redfish, ipmitool and BMC tool sheets each command ends with its source and the date it was verified; amber means re-check. Checking them corrected commands that were wrong, such as the ECC and NVLink counter resets.' },
+    { center: true, isNew: true, title: 'Reboot and crash commands are read-only', body: 'Commands that reboot or shut down the machine you type them on, and BMC NMIs that panic a kernel, stay on the sheets as reference with a 🔒 note but cannot be copied or run.' },
+    { center: true, isNew: true, title: 'Keyboard: skip the menus', body: 'The first Tab offers Skip to commands. Tab stays inside an open tool and Esc puts you back where you were; Tab and j/k never leave the command you are on hidden under a bar.' },
     { target: '.hdr-more-btn', title: 'Replay this anytime', body: 'My kit (★) collects bookmarked commands into a printable pocket card. Themes, Manuals and the offline 1-file copy live under More. j/k move between commands, Enter copies, ? lists every shortcut. Ctrl+K → "tour" or "what’s new" brings this back.' }
   ];
   const tourSeenVersion = () => { try { return localStorage.getItem(TOUR_SEEN_KEY); } catch (e) { return null; } };
@@ -3202,7 +3207,7 @@
     inv.className = `tour-invite${returning ? ' is-whatsnew' : ''}`;
     inv.setAttribute('role', 'status');
     inv.innerHTML = returning
-      ? `<span class="tour-invite-dot" aria-hidden="true"></span><div><b>New since your last tour</b><span>Run commands inline, runbook autopilot, node cockpit, checkup, terminal, Node X-ray with live watch and the case file.</span></div>
+      ? `<span class="tour-invite-dot" aria-hidden="true"></span><div><b>New since your last tour</b><span>Risky-command warnings in search, backup &amp; restore, a source on every NVIDIA, InfiniBand and BMC command, read-only reboot commands and keyboard fixes.</span></div>
       <button type="button" class="tour-invite-go">What\u2019s new</button><button type="button" class="tour-invite-x" aria-label="Dismiss">✕</button>`
       : `<span class="tour-invite-dot" aria-hidden="true"></span><div><b>New here?</b><span>Two-minute tour of what this reference can do.</span></div>
       <button type="button" class="tour-invite-go">Take the tour</button><button type="button" class="tour-invite-x" aria-label="Dismiss">✕</button>`;
@@ -3310,7 +3315,7 @@
       { icon: '📶', label: 'BER: healthy vs unhealthy', sub: 'What raw and effective BER look like on a clean, degraded and failing link', kw: 'ber bit error rate fec raw effective mlxlink healthy unhealthy reference thresholds', run: () => openBerReference() },
       { icon: '⌨', label: 'Keyboard shortcuts', sub: 'j/k move between commands, ↵ copy, b save, ? for the full map', kw: 'keyboard shortcuts keys hotkeys vim navigation help accessibility', run: () => toggleKbHelp(true) },
       { icon: '🧭', label: 'Take the tour', sub: 'Walkthrough of what this reference can do, following an incident', kw: 'tour help guide getting started onboarding features walkthrough', run: () => startTour() },
-      { icon: '✨', label: 'What\u2019s new', sub: 'Only the newest additions: start from a ticket, terminal, Node X-ray + live watch, fleet tools, case file', kw: 'whats new what\'s new changes changelog latest updates recent features', run: () => startTour('new') },
+      { icon: '✨', label: 'What\u2019s new', sub: 'Only the newest additions: risky-command warnings, backup & restore, command sources, read-only reboots, keyboard fixes', kw: 'whats new what\'s new changes changelog latest updates recent features', run: () => startTour('new') },
       { icon: '📋', label: 'Shift board & handoff', sub: 'All node workspaces at a glance; copy or print the handoff', kw: 'board shift handoff handover incidents nodes overview status report', run: () => openBoard() },
       { icon: '📈', label: 'Analyze command output', sub: 'Paste mlxlink, nvme smart-log or nvidia-smi topo -m output for a report', kw: 'analyze analyzer output paste mlxlink smart-log smartlog dom ber optics nvme report topo topology nvlink pix numa affinity', run: () => openAnalyzer() },
       { icon: '☰', label: 'Toggle compact view', sub: 'Hide or show explanations and variants', kw: 'compact density detailed dense view', run: () => { const b = document.getElementById('density-toggle'); if (b) b.click(); } },
@@ -8038,7 +8043,8 @@ ${rmaTrailSection()}#### Action Requested:
   }
   function fnSave(d) {
     bkAskPersist();
-    try { localStorage.setItem(FN_KEY, JSON.stringify(d)); } catch (e) { showGlobalToast('Could not keep the note in this browser (storage full or blocked).'); }
+    // A refused write never throws here (guardStorage); warnStorage raises the save-failure bar instead.
+    localStorage.setItem(FN_KEY, JSON.stringify(d));
   }
   const fnHost = () => readNodes().active || '';
   const fnId = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
@@ -13370,7 +13376,8 @@ ${rmaTrailSection()}#### Action Requested:
   let pbLast = null;           // { box, at }: the command copied last
 
   const pbRead = () => { try { const v = JSON.parse(readStored(PB_KEY) || '{}'); return v && typeof v === 'object' ? v : {}; } catch (e) { return {}; } };
-  const pbWrite = (v) => { try { localStorage.setItem(PB_KEY, JSON.stringify(v)); } catch (e) { showGlobalToast('Could not keep this output: browser storage is full.'); } };
+  // A refused write never throws here (guardStorage); warnStorage raises the save-failure bar instead.
+  const pbWrite = (v) => { localStorage.setItem(PB_KEY, JSON.stringify(v)); };
   const pbFile = () => anatSheetFile || window.location.pathname.split('/').pop() || 'index.html';
   // The same command can sit on a sheet twice (a card and its Pro tips): the key carries
   // which occurrence, so the output stays under the box it was pasted into.
@@ -13666,8 +13673,12 @@ ${rmaTrailSection()}#### Action Requested:
       }
       text = text.replace(/‐\s+/g, '').replace(/\s+/g, ' ').trim();
       if (!text) continue;
-      const sentences = text.match(/[^.!?]+[.!?]+(\s|$)/g) || [text];
-      return sentences.slice(0, 2).join('').trim().slice(0, 280);
+      // Split (never match) at ". " so no text is dropped, and keep "e.g." / "i.e." whole:
+      // matching restarted after the dot in "e.g." and turned nvidia-smi -d into "g. ECC,POWER.".
+      const ABBR_DOT = '․';
+      const kept = text.replace(/\b(e\.g|i\.e|etc|vs|cf|approx|incl)\./gi, m => m.replace(/\./g, ABBR_DOT));
+      const sentences = kept.split(/(?<=[.!?])\s+/);
+      return sentences.slice(0, 2).join(' ').replace(new RegExp(ABBR_DOT, 'g'), '.').trim().slice(0, 280);
     }
     return '';
   }

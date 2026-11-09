@@ -21,9 +21,9 @@ Product review started 2026-11-09. Phases 1–3 are below. Nine items (#8 for th
 | 12 | Export My kit as a navi `.cheat` file | Open (needs navi installed: ask first) | | |
 | 13 | Make the doc counts agree | ✅ Built | `improve/doc-counts` | (this branch) |
 
-**The branches are stacked**, each built on the one before, in the order of the table, **Merged to `main` on 2026-11-09 up to `d16e8b2`** (fast-forward, not pushed). `improve/sources-bmc-tools` sits on top of `main`. None are pushed or merged yet.
+**The branches are stacked**, each built on the one before, in the order of the table, **Merged to `main` on 2026-11-09 up to `2e11e21`** (fast-forward, not pushed). `improve/small-fixes` sits on top of `main`. None are pushed or merged yet.
 
-**Tests:** `node tests/run-all.js` runs 15 test files. All 16 pass on `improve/sources-bmc-tools`. Every built item has its own regression test, and I checked that the tests for #2 and #5 fail on the commit before their fix.
+**Tests:** `node tests/run-all.js` runs 15 test files. All 18 pass on `improve/small-fixes`. Every built item has its own regression test, and I checked that the tests for #2 and #5 fail on the commit before their fix.
 
 ## What the built items changed (measured)
 
@@ -57,7 +57,7 @@ Each was checked against NVIDIA's own docs; the card's source line links the pag
 
 Also: `DANGER_RE` now flags `nvidia-smi -p`/`--reset-ecc-errors`, `nvlink -re`/`--reseterrorcounters` and `setpci … =` (PCIe config writes), and no longer flags the read-only `nvidia-smi nvlink -R`.
 
-**Not verified (said on the card):** `lspci` (no vendor doc checked), NVSM commands (NVIDIA's NVSM pages returned no content), `nvidia-ctk system create-dev-char-symlinks`, `NVreg_EnableGpuFirmware=0`, `nvidia-bug-report.sh --output-file`, and the `--query-gpu` / `--query-compute-apps` field names (not on the docs page). Not covered by #8: the NVIDIA builder profiles other than the NVLink reset, e.g. `dcgmi diag -r '…,pulse_test'` (the docs table names the test `pulse`) and the dmon field IDs 140/150/155/393–395.
+**Not verified (said on the card):** `lspci` (no vendor doc checked), NVSM commands (NVIDIA's NVSM pages returned no content), `nvidia-ctk system create-dev-char-symlinks`, `NVreg_EnableGpuFirmware=0`, `nvidia-bug-report.sh --output-file`, and the `--query-gpu` / `--query-compute-apps` field names (not on the docs page). NVIDIA builder presets checked 2026-11-09 (`improve/small-fixes`): **no change needed**. The DCGM field IDs match what the presets say (140/150 temperatures, 155 power, 393–395 row remapping, 1009/1010 PCIe bytes), and `pulse_test` is right: every `dcgmi diag -r` example and the config key use `pulse_test` (only the test table writes `pulse`). The earlier suggestion to rename it was wrong.
 
 ## Errors found by #8 (corrected 2026-11-09, InfiniBand suite)
 
@@ -125,9 +125,9 @@ All 107 commands and recipes on the racadm, iLOrest, SAA, OneCLI, FreeIPMI and s
 
 | Finding | Where | Note |
 |---|---|---|
-| Explain describes `nvidia-smi -d` as "g. ECC,POWER." | `build-help-pages.js` (help capture parsing) | The `--help` text seems to be split at "e.g.". It probably affects other flags too |
-| Two "could not keep" toasts can never appear | `fnSave` and `pbWrite` in `common.js` | `guardStorage()` swallows the error first. The #3 bar replaces them; they can be removed |
-| Tour "What's new" not updated | `TOUR_VERSION` in `common.js` | Returning users get no prompt about the built items; `docs/site.md` documents them |
+| ✅ Fixed (`improve/small-fixes`): Explain described `nvidia-smi -d` as "g. ECC,POWER." | `common.js` flag-description extraction | Sentence *matching* restarted after the dot in "e.g.", "i.e." or "1.2" and dropped everything before it. It now splits at ". " and protects abbreviations. `tests/explain-help.test.js` |
+| ✅ Fixed (`improve/small-fixes`): two "could not keep" toasts could never appear | `fnSave` and `pbWrite` in `common.js` | Removed; the #3 save-failure bar reports refused writes |
+| ✅ Fixed (`improve/small-fixes`): tour "What's new" not updated | `TOUR_VERSION` in `common.js` | Now version 9 with 5 new steps (search warnings, backup, sources, read-only reboots/NMI, keyboard); the old steps are no longer flagged new. `tests/whats-new.test.js` |
 | Original test scripts left behind | `backups/scratch/t-*.js` | Stale copies of what is now in `tests/`. Safe to delete (ask first) |
 | `scroll-padding` alone doesn't stop focus hiding in Chrome | `styles.css` | Tested: Chrome doesn't scroll an element that is already partly in view. Hence the script in #5 |
 
@@ -250,7 +250,7 @@ Impact (H/M/L) · Effort (S/M/L) · Risk (H/M/L). The ranking is by user impact 
 - Impact **L** · Effort **S** · Risk **L** · Built: `improve/doc-counts`. `build-index.js` writes the counts between `<!-- counts -->` markers, counting the way the home page does; `tests/doc-counts.test.js` compares them with the live home page.
 
 ## Recommended next
-The small fixes found along the way (Explain's cut-off `--help` text, the two unreachable "could not keep" toasts, `TOUR_VERSION` "What's new", the NVIDIA builder presets), then a `j`/`k` edge case: pressing `j` during a smooth scroll can leave the focused command under the footer (stop in-flight scrolling in `kbFocus`).
+The `j`/`k` edge case: pressing `j` during a smooth scroll can leave the focused command under the footer (stop in-flight scrolling in `kbFocus`). Then the Redfish builder's unverified `hgx` preset (`HGX_Chassis_0`, `HGX_BMC_0`), and the stale `backups/scratch/` test copies (ask first: deletes files).
 
 Considered and dropped: a shift handoff export (it already exists: "Shift board & handoff" in `common.js`), a phone layout (laptop-only by your decision), and variable prompts in the style of navi (Rack Targets and slot chips already do this).
 
