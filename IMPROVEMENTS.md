@@ -246,6 +246,7 @@ All 37 entries were written against SchedMD's Slurm 26.05 docs and cite them. Ch
 | `pfs-lustre` | Lustre manual; 2.17 current, 2.15 maintenance | `lfs check servers`, `lfs df -h/-i`, `lctl dl`, `lnetctl net show`, `lctl ping <nid>`, `lfs getstripe` / `find --obd`, client mount, server `health_check` |
 | `pfs-weka` | WEKA 6.0 CLI | `weka status` (+ `rebuild`), `weka alerts`, `weka cluster container` / `drive`, `weka local ps` / `local events`, the wekafs mount |
 | `pfs-beegfs` | BeeGFS 8.4, with 7.4.6 recipes | `beegfs health check|df|net`, `beegfs target list --state` (state meanings), `beegfs node list --with-nics`; the 7.x `beegfs-ctl` / `beegfs-df` / `beegfs-net` / `beegfs-check-servers` beside each |
+| `pfs-scale` | IBM Storage Scale 5.2.3 command reference (6.0.0 matches) | `mmgetstate -a [-L]` (active/arbitrating/down/unknown/unresponsive), `mmhealth node show --verbose`/`--unhealthy`, `cluster show`, `mmlsdisk -e` (availability vs status), `mmdf --block-size auto`, `mmlsnsd -m`, `mmlsmount all -L`; flagged: `mmchdisk start`, `mmshutdown`/`mmstartup -N`, `mmumount` (added later the same day, `improve/storage-scale`) |
 | `pfs-ceph` | Ceph docs; 21.2 Umbrella current | `ceph -s` / `health detail`, `osd tree` (up/down, in/out), PG states and inconsistent PGs, `device ls-by-host`, `noout`, `orch ps`, crash reports |
 
 `DANGER_RE` now flags `umount`, `lfs setstripe`, the Ceph state changes (`osd set|unset|out|in|…`, `crash archive|rm|prune`, `pg repair`, `health mute`, `orch apply|rm|host …|daemon …`), WEKA drive and container (de)activation and removal, `cluster stop-io|start-io`, `fs remove`, `local stop|rm`, and BeeGFS node delete and migrate (8.x and 7.x).
@@ -254,6 +255,8 @@ All 37 entries were written against SchedMD's Slurm 26.05 docs and cite them. Ch
 - `weka cluster nodes` doesn't exist in the WEKA 6.0 CLI; use `weka cluster container` (or `cluster server list`).
 - `ceph osd df tree` isn't in the current Ceph docs; use `ceph osd df <host>`.
 - The BeeGFS lines are 7.x-only. On 8.x they are `beegfs health check`, `beegfs node list --with-nics` and `beegfs health df`.
+
+Storage Scale also fixed the playbook's `mmhealth node show -v` (the option is `--verbose`) and added `mmlsdisk <fs> -e`. `DANGER_RE` flags `mmshutdown|mmstartup|mmchdisk|mmumount|mmmount|mmdeldisk|mmdelnode|mmdelfs|mmrpldisk|mmrestripefs|mmchconfig|mmchfs|mmchmgr`, and a root rule covers the admin `mm*` commands. IBM's docs landing page is a JavaScript app, so the newest release (5.2 or 6.0) wasn't confirmed.
 
 **Not verified:** WEKA's drive status values (the CLI reference doesn't list them); the arguments of BeeGFS 8's `beegfs entry info`; whether BeeGFS 8 still ships `beegfs-ctl`; `lnetctl ping` (not in the Lustre manual, so the sheet uses `lctl ping`).
 
@@ -270,7 +273,7 @@ The site marks root commands itself (the ROOT badge, and `# needs root` on copy)
 | ✅ Fixed (`improve/small-fixes`): Explain described `nvidia-smi -d` as "g. ECC,POWER." | `common.js` flag-description extraction | Sentence *matching* restarted after the dot in "e.g.", "i.e." or "1.2" and dropped everything before it. It now splits at ". " and protects abbreviations. `tests/explain-help.test.js` |
 | ✅ Fixed (`improve/small-fixes`): two "could not keep" toasts could never appear | `fnSave` and `pbWrite` in `common.js` | Removed; the #3 save-failure bar reports refused writes |
 | ✅ Fixed (`improve/small-fixes`): tour "What's new" not updated | `TOUR_VERSION` in `common.js` | Now version 9 with 5 new steps (search warnings, backup, sources, read-only reboots/NMI, keyboard); the old steps are no longer flagged new. `tests/whats-new.test.js` |
-| Original test scripts left behind | `backups/scratch/t-*.js` | Stale copies of what is now in `tests/`. Safe to delete (ask first) |
+| ✅ Deleted 2026-11-09 (user OK): original test scripts left behind | `backups/scratch/` | 24 files (old `t-*.js` scripts, each superseded in `tests/`; screenshots; an `nv-smi.js.orig`; favicon renders), 3.7 MB |
 | `scroll-padding` alone doesn't stop focus hiding in Chrome | `styles.css` | Tested: Chrome doesn't scroll an element that is already partly in view. Hence the script in #5 |
 
 ---
@@ -404,7 +407,7 @@ Impact (H/M/L) · Effort (S/M/L) · Risk (H/M/L). The ranking is by user impact 
 - DGX `Chassis/DGX/Thermal` and `/Power` are not in NVIDIA's DGX pages (only `Chassis/DGX/Sensors`).
 - The Standard option's label says "Supermicro/HPE/OpenBMC" for id `1`; OpenBMC is believed to use `system`/`bmc` instead (not verified).
 - The portable file carries the Redfish hub's builder markup but does not render the builder (existing behaviour).
-- The stale `backups/scratch/` test copies (ask first: deletes files).
+- ✅ The stale `backups/scratch/` test copies: deleted 2026-11-09 with the user's OK.
 
 Considered and dropped: a shift handoff export (it already exists: "Shift board & handoff" in `common.js`), a phone layout (laptop-only by your decision), and variable prompts in the style of navi (Rack Targets and slot chips already do this).
 

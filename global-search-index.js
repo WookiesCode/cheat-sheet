@@ -1,5 +1,5 @@
-// Auto-generated Global Search Index across all 242 cheat sheets
-// Total indexed items: 3626
+// Auto-generated Global Search Index across all 243 cheat sheets
+// Total indexed items: 3662
 window.GLOBAL_SEARCH_INDEX = [
   {
     "sName": "ansible",
@@ -38698,6 +38698,472 @@ window.GLOBAL_SEARCH_INDEX = [
     }
   },
   {
+    "sName": "pfs-scale",
+    "file": "pfs-scale.html",
+    "badge": "gpfs",
+    "id": "scale-getstate",
+    "sec": "IBM Storage Scale: Is the GPFS daemon active on every node?",
+    "cmd": "mmgetstate -a",
+    "desc": "Is the GPFS daemon active on every node?",
+    "tip": "Lost quorum = the whole filesystem stops",
+    "tags": "storage filesystem pfs pfs-scale gpfs storage-scale mmgetstate quorum daemon",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmgetstate-command",
+          "title": "IBM Storage Scale 5.2.3: mmgetstate"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmlscluster-command",
+          "title": "IBM Storage Scale 5.2.3: mmlscluster"
+        }
+      ],
+      "note": "Commands live in /usr/lpp/mmfs/bin and run as root."
+    }
+  },
+  {
+    "sName": "pfs-scale",
+    "file": "pfs-scale.html",
+    "badge": "gpfs",
+    "id": "scale-getstate-sub-1",
+    "sec": "IBM Storage Scale: Is the GPFS daemon active on every node?",
+    "cmd": "mmgetstate -a -L",
+    "desc": "Daemon state plus quorum details",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-scale recipe gpfs storage-scale mmgetstate",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmgetstate-command",
+          "title": "IBM Storage Scale 5.2.3: mmgetstate"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmlscluster-command",
+          "title": "IBM Storage Scale 5.2.3: mmlscluster"
+        }
+      ],
+      "note": "Commands live in /usr/lpp/mmfs/bin and run as root."
+    }
+  },
+  {
+    "sName": "pfs-scale",
+    "file": "pfs-scale.html",
+    "badge": "gpfs",
+    "id": "scale-getstate-sub-2",
+    "sec": "IBM Storage Scale: Is the GPFS daemon active on every node?",
+    "cmd": "mmlscluster",
+    "desc": "Cluster name, nodes, quorum and manager designations",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-scale recipe gpfs storage-scale mmgetstate",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmgetstate-command",
+          "title": "IBM Storage Scale 5.2.3: mmgetstate"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmlscluster-command",
+          "title": "IBM Storage Scale 5.2.3: mmlscluster"
+        }
+      ],
+      "note": "Commands live in /usr/lpp/mmfs/bin and run as root."
+    }
+  },
+  {
+    "sName": "pfs-scale",
+    "file": "pfs-scale.html",
+    "badge": "gpfs",
+    "id": "scale-health",
+    "sec": "IBM Storage Scale: What the health monitor flags on this node and across the cluster",
+    "cmd": "mmhealth node show --verbose",
+    "desc": "What the health monitor flags on this node and across the cluster",
+    "tip": "Start with --unhealthy",
+    "tags": "storage filesystem pfs pfs-scale gpfs storage-scale mmhealth health events",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmhealth-command",
+          "title": "IBM Storage Scale 5.2.3: mmhealth"
+        }
+      ],
+      "note": "The verbose option is --verbose; -v is not in the synopsis."
+    }
+  },
+  {
+    "sName": "pfs-scale",
+    "file": "pfs-scale.html",
+    "badge": "gpfs",
+    "id": "scale-health-sub-1",
+    "sec": "IBM Storage Scale: What the health monitor flags on this node and across the cluster",
+    "cmd": "mmhealth node show --unhealthy",
+    "desc": "Only what is wrong on this node",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-scale recipe gpfs storage-scale mmhealth",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmhealth-command",
+          "title": "IBM Storage Scale 5.2.3: mmhealth"
+        }
+      ],
+      "note": "The verbose option is --verbose; -v is not in the synopsis."
+    }
+  },
+  {
+    "sName": "pfs-scale",
+    "file": "pfs-scale.html",
+    "badge": "gpfs",
+    "id": "scale-health-sub-2",
+    "sec": "IBM Storage Scale: What the health monitor flags on this node and across the cluster",
+    "cmd": "mmhealth cluster show",
+    "desc": "Health across the whole cluster",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-scale recipe gpfs storage-scale mmhealth",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmhealth-command",
+          "title": "IBM Storage Scale 5.2.3: mmhealth"
+        }
+      ],
+      "note": "The verbose option is --verbose; -v is not in the synopsis."
+    }
+  },
+  {
+    "sName": "pfs-scale",
+    "file": "pfs-scale.html",
+    "badge": "gpfs",
+    "id": "scale-health-sub-3",
+    "sec": "IBM Storage Scale: What the health monitor flags on this node and across the cluster",
+    "cmd": "mmhealth node eventlog --day",
+    "desc": "Health events on this node over the last day",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-scale recipe gpfs storage-scale mmhealth",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmhealth-command",
+          "title": "IBM Storage Scale 5.2.3: mmhealth"
+        }
+      ],
+      "note": "The verbose option is --verbose; -v is not in the synopsis."
+    }
+  },
+  {
+    "sName": "pfs-scale",
+    "file": "pfs-scale.html",
+    "badge": "gpfs",
+    "id": "scale-lsdisk",
+    "sec": "IBM Storage Scale: Disks in a filesystem that are not up and ready",
+    "cmd": "mmlsdisk <fs> -e",
+    "desc": "Disks in a filesystem that are not up and ready",
+    "tip": "A disk down after a path flap: mmchdisk start once the path is back",
+    "tags": "storage filesystem pfs pfs-scale gpfs storage-scale mmlsdisk mmdf disk nsd",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmlsdisk-command",
+          "title": "IBM Storage Scale 5.2.3: mmlsdisk"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmdf-command",
+          "title": "IBM Storage Scale 5.2.3: mmdf"
+        }
+      ],
+      "note": "mmdf is I/O heavy: run it when the filesystem is lightly loaded."
+    }
+  },
+  {
+    "sName": "pfs-scale",
+    "file": "pfs-scale.html",
+    "badge": "gpfs",
+    "id": "scale-lsdisk-sub-1",
+    "sec": "IBM Storage Scale: Disks in a filesystem that are not up and ready",
+    "cmd": "mmlsdisk <fs> -L",
+    "desc": "Every disk with its failure group, pool and state, plus the filesystem descriptor quorum",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-scale recipe gpfs storage-scale mmlsdisk",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmlsdisk-command",
+          "title": "IBM Storage Scale 5.2.3: mmlsdisk"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmdf-command",
+          "title": "IBM Storage Scale 5.2.3: mmdf"
+        }
+      ],
+      "note": "mmdf is I/O heavy: run it when the filesystem is lightly loaded."
+    }
+  },
+  {
+    "sName": "pfs-scale",
+    "file": "pfs-scale.html",
+    "badge": "gpfs",
+    "id": "scale-lsdisk-sub-2",
+    "sec": "IBM Storage Scale: Disks in a filesystem that are not up and ready",
+    "cmd": "mmdf <fs> --block-size auto",
+    "desc": "Free space per disk and storage pool, in readable units",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-scale recipe gpfs storage-scale mmlsdisk",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmlsdisk-command",
+          "title": "IBM Storage Scale 5.2.3: mmlsdisk"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmdf-command",
+          "title": "IBM Storage Scale 5.2.3: mmdf"
+        }
+      ],
+      "note": "mmdf is I/O heavy: run it when the filesystem is lightly loaded."
+    }
+  },
+  {
+    "sName": "pfs-scale",
+    "file": "pfs-scale.html",
+    "badge": "gpfs",
+    "id": "scale-nsd",
+    "sec": "IBM Storage Scale: Which local device is behind each NSD",
+    "cmd": "mmlsnsd -m",
+    "desc": "Which local device is behind each NSD",
+    "tip": "NSD → /dev name → drive serial before a swap",
+    "tags": "storage filesystem pfs pfs-scale gpfs storage-scale mmlsnsd nsd device mmlsmount",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmlsnsd-command",
+          "title": "IBM Storage Scale 5.2.3: mmlsnsd"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmlsmount-command",
+          "title": "IBM Storage Scale 5.2.3: mmlsmount"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-scale",
+    "file": "pfs-scale.html",
+    "badge": "gpfs",
+    "id": "scale-nsd-sub-1",
+    "sec": "IBM Storage Scale: Which local device is behind each NSD",
+    "cmd": "mmlsnsd -X",
+    "desc": "Extended NSD detail for problem determination (slow)",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-scale recipe gpfs storage-scale mmlsnsd",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmlsnsd-command",
+          "title": "IBM Storage Scale 5.2.3: mmlsnsd"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmlsmount-command",
+          "title": "IBM Storage Scale 5.2.3: mmlsmount"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-scale",
+    "file": "pfs-scale.html",
+    "badge": "gpfs",
+    "id": "scale-nsd-sub-2",
+    "sec": "IBM Storage Scale: Which local device is behind each NSD",
+    "cmd": "mmlsmount all -L",
+    "desc": "Which nodes have which filesystems mounted",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-scale recipe gpfs storage-scale mmlsnsd",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmlsnsd-command",
+          "title": "IBM Storage Scale 5.2.3: mmlsnsd"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmlsmount-command",
+          "title": "IBM Storage Scale 5.2.3: mmlsmount"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-scale",
+    "file": "pfs-scale.html",
+    "badge": "gpfs",
+    "id": "scale-change",
+    "sec": "IBM Storage Scale: Bring a down disk back",
+    "cmd": "mmchdisk <fs> start -d \"<nsd-name>\"",
+    "desc": "Bring a down disk back (changes state: ask first)",
+    "tip": "mmshutdown with no node stops only this one",
+    "tags": "storage filesystem pfs pfs-scale gpfs storage-scale mmchdisk mmshutdown mmstartup mmumount",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmchdisk-command",
+          "title": "IBM Storage Scale 5.2.3: mmchdisk"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmshutdown-command",
+          "title": "IBM Storage Scale 5.2.3: mmshutdown"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmstartup-command",
+          "title": "IBM Storage Scale 5.2.3: mmstartup"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmumount-command",
+          "title": "IBM Storage Scale 5.2.3: mmumount"
+        }
+      ],
+      "note": "Before stopping the cluster manager node, move the role with mmchmgr."
+    }
+  },
+  {
+    "sName": "pfs-scale",
+    "file": "pfs-scale.html",
+    "badge": "gpfs",
+    "id": "scale-change-sub-1",
+    "sec": "IBM Storage Scale: Bring a down disk back",
+    "cmd": "mmshutdown -N <node>",
+    "desc": "Stop GPFS on one node before hardware work (changes state)",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-scale recipe gpfs storage-scale mmchdisk",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmchdisk-command",
+          "title": "IBM Storage Scale 5.2.3: mmchdisk"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmshutdown-command",
+          "title": "IBM Storage Scale 5.2.3: mmshutdown"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmstartup-command",
+          "title": "IBM Storage Scale 5.2.3: mmstartup"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmumount-command",
+          "title": "IBM Storage Scale 5.2.3: mmumount"
+        }
+      ],
+      "note": "Before stopping the cluster manager node, move the role with mmchmgr."
+    }
+  },
+  {
+    "sName": "pfs-scale",
+    "file": "pfs-scale.html",
+    "badge": "gpfs",
+    "id": "scale-change-sub-2",
+    "sec": "IBM Storage Scale: Bring a down disk back",
+    "cmd": "mmstartup -N <node>",
+    "desc": "Start GPFS on it again afterwards (changes state)",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-scale recipe gpfs storage-scale mmchdisk",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmchdisk-command",
+          "title": "IBM Storage Scale 5.2.3: mmchdisk"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmshutdown-command",
+          "title": "IBM Storage Scale 5.2.3: mmshutdown"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmstartup-command",
+          "title": "IBM Storage Scale 5.2.3: mmstartup"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmumount-command",
+          "title": "IBM Storage Scale 5.2.3: mmumount"
+        }
+      ],
+      "note": "Before stopping the cluster manager node, move the role with mmchmgr."
+    }
+  },
+  {
+    "sName": "pfs-scale",
+    "file": "pfs-scale.html",
+    "badge": "gpfs",
+    "id": "scale-change-sub-3",
+    "sec": "IBM Storage Scale: Bring a down disk back",
+    "cmd": "mmumount <fs> -N <node>",
+    "desc": "Unmount the filesystem on one node (changes state)",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-scale recipe gpfs storage-scale mmchdisk",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmchdisk-command",
+          "title": "IBM Storage Scale 5.2.3: mmchdisk"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmshutdown-command",
+          "title": "IBM Storage Scale 5.2.3: mmshutdown"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmstartup-command",
+          "title": "IBM Storage Scale 5.2.3: mmstartup"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmumount-command",
+          "title": "IBM Storage Scale 5.2.3: mmumount"
+        }
+      ],
+      "note": "Before stopping the cluster manager node, move the role with mmchmgr."
+    }
+  },
+  {
+    "sName": "pfs-scale",
+    "file": "pfs-scale.html",
+    "badge": "tip",
+    "id": "pfs-scale-tips-card",
+    "sec": "IBM Storage Scale: Pro Tip",
+    "cmd": "mmgetstate -a -L",
+    "desc": "Hardware work on a Storage Scale node",
+    "tip": "Never take down enough quorum nodes to lose quorum",
+    "tags": "storage filesystem pfs pfs-scale tips best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmgetstate-command",
+          "title": "IBM Storage Scale 5.2.3: mmgetstate"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmshutdown-command",
+          "title": "IBM Storage Scale 5.2.3: mmshutdown"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmhealth-command",
+          "title": "IBM Storage Scale 5.2.3: mmhealth"
+        }
+      ]
+    }
+  },
+  {
     "sName": "pfs-weka",
     "file": "pfs-weka.html",
     "badge": "weka",
@@ -40177,6 +40643,472 @@ window.GLOBAL_SEARCH_INDEX = [
         {
           "url": "https://doc.beegfs.io/7.4.6/quick_start_guide/quick_start_guide.html",
           "title": "BeeGFS 7.4.6 quick start"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "gpfs",
+    "id": "scale-getstate",
+    "sec": "IBM Storage Scale: Is the GPFS daemon active on every node?",
+    "cmd": "mmgetstate -a",
+    "desc": "Is the GPFS daemon active on every node?",
+    "tip": "Lost quorum = the whole filesystem stops",
+    "tags": "storage filesystem pfs pfs-scale gpfs storage-scale mmgetstate quorum daemon",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmgetstate-command",
+          "title": "IBM Storage Scale 5.2.3: mmgetstate"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmlscluster-command",
+          "title": "IBM Storage Scale 5.2.3: mmlscluster"
+        }
+      ],
+      "note": "Commands live in /usr/lpp/mmfs/bin and run as root."
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "gpfs",
+    "id": "scale-getstate-sub-1",
+    "sec": "IBM Storage Scale: Is the GPFS daemon active on every node?",
+    "cmd": "mmgetstate -a -L",
+    "desc": "Daemon state plus quorum details",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-scale recipe gpfs storage-scale mmgetstate",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmgetstate-command",
+          "title": "IBM Storage Scale 5.2.3: mmgetstate"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmlscluster-command",
+          "title": "IBM Storage Scale 5.2.3: mmlscluster"
+        }
+      ],
+      "note": "Commands live in /usr/lpp/mmfs/bin and run as root."
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "gpfs",
+    "id": "scale-getstate-sub-2",
+    "sec": "IBM Storage Scale: Is the GPFS daemon active on every node?",
+    "cmd": "mmlscluster",
+    "desc": "Cluster name, nodes, quorum and manager designations",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-scale recipe gpfs storage-scale mmgetstate",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmgetstate-command",
+          "title": "IBM Storage Scale 5.2.3: mmgetstate"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmlscluster-command",
+          "title": "IBM Storage Scale 5.2.3: mmlscluster"
+        }
+      ],
+      "note": "Commands live in /usr/lpp/mmfs/bin and run as root."
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "gpfs",
+    "id": "scale-health",
+    "sec": "IBM Storage Scale: What the health monitor flags on this node and across the cluster",
+    "cmd": "mmhealth node show --verbose",
+    "desc": "What the health monitor flags on this node and across the cluster",
+    "tip": "Start with --unhealthy",
+    "tags": "storage filesystem pfs pfs-scale gpfs storage-scale mmhealth health events",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmhealth-command",
+          "title": "IBM Storage Scale 5.2.3: mmhealth"
+        }
+      ],
+      "note": "The verbose option is --verbose; -v is not in the synopsis."
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "gpfs",
+    "id": "scale-health-sub-1",
+    "sec": "IBM Storage Scale: What the health monitor flags on this node and across the cluster",
+    "cmd": "mmhealth node show --unhealthy",
+    "desc": "Only what is wrong on this node",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-scale recipe gpfs storage-scale mmhealth",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmhealth-command",
+          "title": "IBM Storage Scale 5.2.3: mmhealth"
+        }
+      ],
+      "note": "The verbose option is --verbose; -v is not in the synopsis."
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "gpfs",
+    "id": "scale-health-sub-2",
+    "sec": "IBM Storage Scale: What the health monitor flags on this node and across the cluster",
+    "cmd": "mmhealth cluster show",
+    "desc": "Health across the whole cluster",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-scale recipe gpfs storage-scale mmhealth",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmhealth-command",
+          "title": "IBM Storage Scale 5.2.3: mmhealth"
+        }
+      ],
+      "note": "The verbose option is --verbose; -v is not in the synopsis."
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "gpfs",
+    "id": "scale-health-sub-3",
+    "sec": "IBM Storage Scale: What the health monitor flags on this node and across the cluster",
+    "cmd": "mmhealth node eventlog --day",
+    "desc": "Health events on this node over the last day",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-scale recipe gpfs storage-scale mmhealth",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmhealth-command",
+          "title": "IBM Storage Scale 5.2.3: mmhealth"
+        }
+      ],
+      "note": "The verbose option is --verbose; -v is not in the synopsis."
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "gpfs",
+    "id": "scale-lsdisk",
+    "sec": "IBM Storage Scale: Disks in a filesystem that are not up and ready",
+    "cmd": "mmlsdisk <fs> -e",
+    "desc": "Disks in a filesystem that are not up and ready",
+    "tip": "A disk down after a path flap: mmchdisk start once the path is back",
+    "tags": "storage filesystem pfs pfs-scale gpfs storage-scale mmlsdisk mmdf disk nsd",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmlsdisk-command",
+          "title": "IBM Storage Scale 5.2.3: mmlsdisk"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmdf-command",
+          "title": "IBM Storage Scale 5.2.3: mmdf"
+        }
+      ],
+      "note": "mmdf is I/O heavy: run it when the filesystem is lightly loaded."
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "gpfs",
+    "id": "scale-lsdisk-sub-1",
+    "sec": "IBM Storage Scale: Disks in a filesystem that are not up and ready",
+    "cmd": "mmlsdisk <fs> -L",
+    "desc": "Every disk with its failure group, pool and state, plus the filesystem descriptor quorum",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-scale recipe gpfs storage-scale mmlsdisk",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmlsdisk-command",
+          "title": "IBM Storage Scale 5.2.3: mmlsdisk"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmdf-command",
+          "title": "IBM Storage Scale 5.2.3: mmdf"
+        }
+      ],
+      "note": "mmdf is I/O heavy: run it when the filesystem is lightly loaded."
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "gpfs",
+    "id": "scale-lsdisk-sub-2",
+    "sec": "IBM Storage Scale: Disks in a filesystem that are not up and ready",
+    "cmd": "mmdf <fs> --block-size auto",
+    "desc": "Free space per disk and storage pool, in readable units",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-scale recipe gpfs storage-scale mmlsdisk",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmlsdisk-command",
+          "title": "IBM Storage Scale 5.2.3: mmlsdisk"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmdf-command",
+          "title": "IBM Storage Scale 5.2.3: mmdf"
+        }
+      ],
+      "note": "mmdf is I/O heavy: run it when the filesystem is lightly loaded."
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "gpfs",
+    "id": "scale-nsd",
+    "sec": "IBM Storage Scale: Which local device is behind each NSD",
+    "cmd": "mmlsnsd -m",
+    "desc": "Which local device is behind each NSD",
+    "tip": "NSD → /dev name → drive serial before a swap",
+    "tags": "storage filesystem pfs pfs-scale gpfs storage-scale mmlsnsd nsd device mmlsmount",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmlsnsd-command",
+          "title": "IBM Storage Scale 5.2.3: mmlsnsd"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmlsmount-command",
+          "title": "IBM Storage Scale 5.2.3: mmlsmount"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "gpfs",
+    "id": "scale-nsd-sub-1",
+    "sec": "IBM Storage Scale: Which local device is behind each NSD",
+    "cmd": "mmlsnsd -X",
+    "desc": "Extended NSD detail for problem determination (slow)",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-scale recipe gpfs storage-scale mmlsnsd",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmlsnsd-command",
+          "title": "IBM Storage Scale 5.2.3: mmlsnsd"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmlsmount-command",
+          "title": "IBM Storage Scale 5.2.3: mmlsmount"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "gpfs",
+    "id": "scale-nsd-sub-2",
+    "sec": "IBM Storage Scale: Which local device is behind each NSD",
+    "cmd": "mmlsmount all -L",
+    "desc": "Which nodes have which filesystems mounted",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-scale recipe gpfs storage-scale mmlsnsd",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmlsnsd-command",
+          "title": "IBM Storage Scale 5.2.3: mmlsnsd"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmlsmount-command",
+          "title": "IBM Storage Scale 5.2.3: mmlsmount"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "gpfs",
+    "id": "scale-change",
+    "sec": "IBM Storage Scale: Bring a down disk back",
+    "cmd": "mmchdisk <fs> start -d \"<nsd-name>\"",
+    "desc": "Bring a down disk back (changes state: ask first)",
+    "tip": "mmshutdown with no node stops only this one",
+    "tags": "storage filesystem pfs pfs-scale gpfs storage-scale mmchdisk mmshutdown mmstartup mmumount",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmchdisk-command",
+          "title": "IBM Storage Scale 5.2.3: mmchdisk"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmshutdown-command",
+          "title": "IBM Storage Scale 5.2.3: mmshutdown"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmstartup-command",
+          "title": "IBM Storage Scale 5.2.3: mmstartup"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmumount-command",
+          "title": "IBM Storage Scale 5.2.3: mmumount"
+        }
+      ],
+      "note": "Before stopping the cluster manager node, move the role with mmchmgr."
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "gpfs",
+    "id": "scale-change-sub-1",
+    "sec": "IBM Storage Scale: Bring a down disk back",
+    "cmd": "mmshutdown -N <node>",
+    "desc": "Stop GPFS on one node before hardware work (changes state)",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-scale recipe gpfs storage-scale mmchdisk",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmchdisk-command",
+          "title": "IBM Storage Scale 5.2.3: mmchdisk"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmshutdown-command",
+          "title": "IBM Storage Scale 5.2.3: mmshutdown"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmstartup-command",
+          "title": "IBM Storage Scale 5.2.3: mmstartup"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmumount-command",
+          "title": "IBM Storage Scale 5.2.3: mmumount"
+        }
+      ],
+      "note": "Before stopping the cluster manager node, move the role with mmchmgr."
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "gpfs",
+    "id": "scale-change-sub-2",
+    "sec": "IBM Storage Scale: Bring a down disk back",
+    "cmd": "mmstartup -N <node>",
+    "desc": "Start GPFS on it again afterwards (changes state)",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-scale recipe gpfs storage-scale mmchdisk",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmchdisk-command",
+          "title": "IBM Storage Scale 5.2.3: mmchdisk"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmshutdown-command",
+          "title": "IBM Storage Scale 5.2.3: mmshutdown"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmstartup-command",
+          "title": "IBM Storage Scale 5.2.3: mmstartup"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmumount-command",
+          "title": "IBM Storage Scale 5.2.3: mmumount"
+        }
+      ],
+      "note": "Before stopping the cluster manager node, move the role with mmchmgr."
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "gpfs",
+    "id": "scale-change-sub-3",
+    "sec": "IBM Storage Scale: Bring a down disk back",
+    "cmd": "mmumount <fs> -N <node>",
+    "desc": "Unmount the filesystem on one node (changes state)",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-scale recipe gpfs storage-scale mmchdisk",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmchdisk-command",
+          "title": "IBM Storage Scale 5.2.3: mmchdisk"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmshutdown-command",
+          "title": "IBM Storage Scale 5.2.3: mmshutdown"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmstartup-command",
+          "title": "IBM Storage Scale 5.2.3: mmstartup"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmumount-command",
+          "title": "IBM Storage Scale 5.2.3: mmumount"
+        }
+      ],
+      "note": "Before stopping the cluster manager node, move the role with mmchmgr."
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "tip",
+    "id": "pfs-scale-tips-card",
+    "sec": "IBM Storage Scale: Pro Tip",
+    "cmd": "mmgetstate -a -L",
+    "desc": "Hardware work on a Storage Scale node",
+    "tip": "Never take down enough quorum nodes to lose quorum",
+    "tags": "storage filesystem pfs pfs-scale tips best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmgetstate-command",
+          "title": "IBM Storage Scale 5.2.3: mmgetstate"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmshutdown-command",
+          "title": "IBM Storage Scale 5.2.3: mmshutdown"
+        },
+        {
+          "url": "https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-mmhealth-command",
+          "title": "IBM Storage Scale 5.2.3: mmhealth"
         }
       ]
     }

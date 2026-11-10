@@ -1,6 +1,6 @@
 # Datacenter Cheat Sheets
 
-Offline command reference sheets for datacenter work: <!-- counts -->245 pages, 221 of them command sheets with 2,155 commands<!-- /counts -->, plus one file that bundles them all.
+Offline command reference sheets for datacenter work: <!-- counts -->246 pages, 222 of them command sheets with 2,172 commands<!-- /counts -->, plus one file that bundles them all.
 
 ## Open it
 
@@ -18,7 +18,7 @@ Offline command reference sheets for datacenter work: <!-- counts -->245 pages, 
 | Filter the current sheet | `/`, and `Esc` clears it |
 | Jump to a topic | Top nav menus, or the **Section** dropdown |
 
-**The menus:** Home · Operating Systems (Linux, macOS, Windows, Omarchy) · Editors (Neovim; nano, VS Code, Zed, Cursor) · CLI Tools · Scripting · Networking (InfiniBand, Ethernet, Fiber, Switches) · Remote Management (Redfish, ipmitool, BMC vendor tools: racadm, iLOrest, Supermicro SAA, OneCLI, FreeIPMI, serial consoles) · Hardware (NVIDIA DC, Motherboards, Server internals, Rack & hardware reference: power, cooling, memory, drives, GPU form factors, racks; Parallel filesystems: Lustre, WEKA, BeeGFS, Ceph) · DevOps (Containers, Slurm, Grafana, SRE toolkit: Prometheus, Ansible, Terraform/OpenTofu, Helm, Argo CD, incident response) · Ticketing (Jira). `build-nav-groups.js` builds these tabs from each suite's own menu; edit `TABS` there to move a suite.
+**The menus:** Home · Operating Systems (Linux, macOS, Windows, Omarchy) · Editors (Neovim; nano, VS Code, Zed, Cursor) · CLI Tools · Scripting · Networking (InfiniBand, Ethernet, Fiber, Switches) · Remote Management (Redfish, ipmitool, BMC vendor tools: racadm, iLOrest, Supermicro SAA, OneCLI, FreeIPMI, serial consoles) · Hardware (NVIDIA DC, Motherboards, Server internals, Rack & hardware reference: power, cooling, memory, drives, GPU form factors, racks; Parallel filesystems: Lustre, WEKA, BeeGFS, IBM Storage Scale, Ceph) · DevOps (Containers, Slurm, Grafana, SRE toolkit: Prometheus, Ansible, Terraform/OpenTofu, Helm, Argo CD, incident response) · Ticketing (Jira). `build-nav-groups.js` builds these tabs from each suite's own menu; edit `TABS` there to move a suite.
 
 ## Field notes (More → Field notes)
 

@@ -1,6 +1,6 @@
 // generate-pfs-suite.js
-// Generates the "Parallel filesystems" suite under the Hardware tab: Lustre, WEKA, BeeGFS and
-// Ceph, plus the pfs.html hub. The client- and admin-side checks for a storage ticket: is
+// Generates the "Parallel filesystems" suite under the Hardware tab: Lustre, WEKA, BeeGFS,
+// IBM Storage Scale (GPFS) and Ceph, plus the pfs.html hub. The client- and admin-side checks for a storage ticket: is
 // every server and target up, where is the space, which device or node is behind it, and the
 // few commands that change state (flagged).
 //
@@ -10,6 +10,7 @@
 // - WEKA 6.0 CLI reference (the new weka CLI; "cluster host" is now "cluster container",
 //   "events list-local" is now "events local").
 // - BeeGFS 8.4 docs (the beegfs CLI) and 7.4.6 docs (beegfs-ctl and friends) for older sites.
+// - IBM Storage Scale (GPFS) command reference 5.2.3 (6.0.0 pages match where checked).
 // - Ceph docs (latest; Umbrella 21.2 is the newest release, Tentacle 20.2 and Squid 19.2 are
 //   still supported).
 // Every command carries its source line. Menu logos: generic line icons.
@@ -23,6 +24,7 @@ const LOGOS = {
   'pfs-lustre': icon(DISKS, '#38bdf8'),
   'pfs-weka': icon(DISKS, '#a78bfa'),
   'pfs-beegfs': icon(DISKS, '#facc15'),
+  'pfs-scale': icon(DISKS, '#4ade80'),
   'pfs-ceph': icon(DISKS, '#f87171')
 };
 
@@ -32,6 +34,7 @@ const WEKA = 'https://docs.weka.io/getting-started-with-weka/weka-cli-overview/c
 const BEE8 = 'https://doc.beegfs.io/latest/';
 const BEE7 = 'https://doc.beegfs.io/7.4.6/';
 const CEPH = 'https://docs.ceph.com/en/latest/';
+const SCALE = (cmd) => [`https://www.ibm.com/docs/en/storage-scale/5.2.3?topic=reference-${cmd}-command`, `IBM Storage Scale 5.2.3: ${cmd}`];
 
 const PFS_SECTIONS = [
   // ------------------------------------------------------------ LUSTRE
@@ -369,6 +372,112 @@ const PFS_SECTIONS = [
       src: SRC([[BEE8 + 'quick_start_guide/quick_start_guide.html', 'BeeGFS 8.4 quick start'], [BEE7 + 'quick_start_guide/quick_start_guide.html', 'BeeGFS 7.4.6 quick start']])
     }
   },
+  // ------------------------------------------------------------ IBM STORAGE SCALE (GPFS)
+  {
+    id: 'pfs-scale', group: 'pfs', file: 'pfs-scale', badge: 'gpfs', code: 'mm',
+    name: 'IBM Storage Scale', navDesc: 'mmgetstate, mmhealth, disks, NSDs', pill: 'Storage Scale 5.2 · 6.0 (GPFS)',
+    title: 'IBM Storage Scale (GPFS): Daemon State, Health, Disks & NSDs',
+    subtitle: 'Is GPFS active on every node, what mmhealth flags, which disk is down, which device is behind an NSD, and the commands that change state',
+    commands: [
+      {
+        id: 'scale-getstate',
+        desc: 'Is the GPFS daemon active on every node?',
+        cmd: 'mmgetstate -a',
+        flags: [
+          ['active', 'The daemon is up and the node is in the cluster'],
+          ['arbitrating / down', 'Trying to form or join a quorum / not running'],
+          ['unknown / unresponsive', 'The node could not be reached, or did not answer in time'],
+          ['-L', 'Adds the quorum count, nodes up, and total nodes']
+        ],
+        subcommands: [
+          ['mmgetstate -a -L', 'Daemon state plus quorum details'],
+          ['mmlscluster', 'Cluster name, nodes, quorum and manager designations']
+        ],
+        tip: 'Lost quorum = the whole filesystem stops',
+        tags: ['gpfs', 'storage-scale', 'mmgetstate', 'quorum', 'daemon'],
+        src: SRC([SCALE('mmgetstate'), SCALE('mmlscluster')], 'Commands live in /usr/lpp/mmfs/bin and run as root.')
+      },
+      {
+        id: 'scale-health',
+        desc: 'What the health monitor flags on this node and across the cluster',
+        cmd: 'mmhealth node show --verbose',
+        flags: [
+          ['node show', 'Each component on this node (network, disk, filesystem, GPFS) and its state'],
+          ['--unhealthy', 'Only the components that are not healthy'],
+          ['cluster show', 'The same, summed over every node']
+        ],
+        subcommands: [
+          ['mmhealth node show --unhealthy', 'Only what is wrong on this node'],
+          ['mmhealth cluster show', 'Health across the whole cluster'],
+          ['mmhealth node eventlog --day', 'Health events on this node over the last day']
+        ],
+        tip: 'Start with --unhealthy',
+        tags: ['gpfs', 'storage-scale', 'mmhealth', 'health', 'events'],
+        src: SRC([SCALE('mmhealth')], 'The verbose option is --verbose; -v is not in the synopsis.')
+      },
+      {
+        id: 'scale-lsdisk',
+        desc: 'Disks in a filesystem that are not up and ready',
+        cmd: 'mmlsdisk <fs> -e',
+        flags: [
+          ['-e', 'Only disks whose availability is not up or whose status is not ready ("All disks up and ready" when fine)'],
+          ['availability', 'up · down · recovering · unrecovered'],
+          ['status', 'ready · suspended · to be emptied · being emptied · emptied · replacing · replacement'],
+          ['GPFS down', 'mmlsdisk needs the daemon running']
+        ],
+        subcommands: [
+          ['mmlsdisk <fs> -L', 'Every disk with its failure group, pool and state, plus the filesystem descriptor quorum'],
+          ['mmdf <fs> --block-size auto', 'Free space per disk and storage pool, in readable units']
+        ],
+        tip: 'A disk down after a path flap: mmchdisk start once the path is back',
+        tags: ['gpfs', 'storage-scale', 'mmlsdisk', 'mmdf', 'disk', 'nsd'],
+        src: SRC([SCALE('mmlsdisk'), SCALE('mmdf')], 'mmdf is I/O heavy: run it when the filesystem is lightly loaded.')
+      },
+      {
+        id: 'scale-nsd',
+        desc: 'Which local device is behind each NSD',
+        cmd: 'mmlsnsd -m',
+        flags: [
+          ['-m', 'NSD name → device name on this node (and on its NSD servers)'],
+          ['-M', 'The same on every node: slow, meant for problem determination'],
+          ['-X', 'Adds volume IDs, server status and Persistent Reserve: also slow']
+        ],
+        subcommands: [
+          ['mmlsnsd -X', 'Extended NSD detail for problem determination (slow)'],
+          ['mmlsmount all -L', 'Which nodes have which filesystems mounted']
+        ],
+        tip: 'NSD → /dev name → drive serial before a swap',
+        tags: ['gpfs', 'storage-scale', 'mmlsnsd', 'nsd', 'device', 'mmlsmount'],
+        src: SRC([SCALE('mmlsnsd'), SCALE('mmlsmount')])
+      },
+      {
+        id: 'scale-change',
+        desc: 'Bring a down disk back (changes state: ask first)',
+        cmd: 'mmchdisk <fs> start -d "<nsd-name>"',
+        flags: [
+          ['start', 'Tells GPFS to use a disk again after its path or server is fixed'],
+          ['-a', 'mmchdisk <fs> start -a: all down disks; disks that went down together should start together'],
+          ['stop / suspend', 'Stop using a disk, or stop new allocations on it; stop is refused with replication 1']
+        ],
+        subcommands: [
+          ['mmshutdown -N <node>', 'Stop GPFS on one node before hardware work (changes state)'],
+          ['mmstartup -N <node>', 'Start GPFS on it again afterwards (changes state)'],
+          ['mmumount <fs> -N <node>', 'Unmount the filesystem on one node (changes state)']
+        ],
+        tip: 'mmshutdown with no node stops only this one',
+        tags: ['gpfs', 'storage-scale', 'mmchdisk', 'mmshutdown', 'mmstartup', 'mmumount'],
+        src: SRC([SCALE('mmchdisk'), SCALE('mmshutdown'), SCALE('mmstartup'), SCALE('mmumount')], 'Before stopping the cluster manager node, move the role with mmchmgr.')
+      }
+    ],
+    proTip: {
+      desc: 'Hardware work on a Storage Scale node',
+      cmd: 'mmgetstate -a -L',
+      details: 'Check quorum first: if this node is a quorum node, make sure the rest keep quorum without it. Drain the node in the scheduler, mmshutdown -N <node>, do the work, mmstartup -N <node>, then confirm mmgetstate shows active, mmlsdisk <fs> -e is clean and mmhealth node show --unhealthy is empty.',
+      flags: [['Quorum', 'mmgetstate -a -L'], ['After', 'mmlsdisk -e and mmhealth --unhealthy']],
+      tip: 'Never take down enough quorum nodes to lose quorum',
+      src: SRC([SCALE('mmgetstate'), SCALE('mmshutdown'), SCALE('mmhealth')])
+    }
+  },
   // ------------------------------------------------------------ CEPH
   {
     id: 'pfs-ceph', group: 'pfs', file: 'pfs-ceph', badge: 'ceph', code: 'ceph',
@@ -511,9 +620,9 @@ const PFS_SECTIONS = [
 
 buildSuite({
   name: 'Parallel filesystems', menuId: 'pfs-nav-dropdown', hubFile: 'pfs',
-  hubLabel: 'Parallel Filesystems Hub', hubTitle: 'Parallel Filesystems Hub (Lustre, WEKA, BeeGFS, Ceph)',
-  hubDocTitle: 'Parallel Filesystems: Lustre, WEKA, BeeGFS & Ceph Hub',
-  hubPill: 'Lustre · WEKA · BeeGFS · Ceph',
+  hubLabel: 'Parallel Filesystems Hub', hubTitle: 'Parallel Filesystems Hub (Lustre, WEKA, BeeGFS, Storage Scale, Ceph)',
+  hubDocTitle: 'Parallel Filesystems: Lustre, WEKA, BeeGFS, IBM Storage Scale & Ceph Hub',
+  hubPill: 'Lustre · WEKA · BeeGFS · GPFS · Ceph',
   hubSubtitle: 'Server and target health, space, the device behind a failure, and the few commands that change state',
   prompt: 'FS', cursor: '$', varPrefix: 'PFS', tags: ['storage', 'filesystem', 'pfs'],
   menuIcon: '<svg class="nav-logo" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5.5" rx="7.5" ry="2.5"/><path d="M4.5 5.5v6c0 1.4 3.4 2.5 7.5 2.5s7.5-1.1 7.5-2.5v-6M4.5 11.5v6c0 1.4 3.4 2.5 7.5 2.5s7.5-1.1 7.5-2.5v-6"/></svg>',
