@@ -21,9 +21,9 @@ Product review started 2026-11-09. Phases 1–3 are below. Nine items (#8 for th
 | 12 | Export My kit as a navi `.cheat` file | Open (needs navi installed: ask first) | | |
 | 13 | Make the doc counts agree | ✅ Built | `improve/doc-counts` | (this branch) |
 
-**The branches are stacked**, each built on the one before, in the order of the table, **Merged to `main` on 2026-11-09 up to `d95059a`** (fast-forward, not pushed). `improve/jk-smooth-scroll` sits on top of `main`. None are pushed or merged yet.
+**The branches are stacked**, each built on the one before, in the order of the table, **Merged to `main` on 2026-11-09 up to `7b809e7`** (fast-forward, not pushed). `improve/redfish-hgx-preset` sits on top of `main`. None are pushed or merged yet.
 
-**Tests:** `node tests/run-all.js` runs 15 test files. All 19 pass on `improve/jk-smooth-scroll`. Every built item has its own regression test, and I checked that the tests for #2 and #5 fail on the commit before their fix.
+**Tests:** `node tests/run-all.js` runs 15 test files. All 20 pass on `improve/redfish-hgx-preset`. Every built item has its own regression test, and I checked that the tests for #2 and #5 fail on the commit before their fix.
 
 ## What the built items changed (measured)
 
@@ -250,7 +250,14 @@ Impact (H/M/L) · Effort (S/M/L) · Risk (H/M/L). The ranking is by user impact 
 - Impact **L** · Effort **S** · Risk **L** · Built: `improve/doc-counts`. `build-index.js` writes the counts between `<!-- counts -->` markers, counting the way the home page does; `tests/doc-counts.test.js` compares them with the live home page.
 
 ## Recommended next
-✅ The `j`/`k` edge case is fixed (`improve/jk-smooth-scroll`): `j`/`k` now stop an in-flight smooth scroll before measuring, so a key pressed mid-animation (after Home, an outline link or a script scroll) no longer leaves the focused command off screen; `tests/jk-smooth-scroll.test.js` reproduced it 5/5 before the fix. Next: the Redfish builder's unverified `hgx` preset (`HGX_Chassis_0`, `HGX_BMC_0`), and the stale `backups/scratch/` test copies (ask first: deletes files).
+✅ The `j`/`k` edge case is fixed (`improve/jk-smooth-scroll`): `j`/`k` now stop an in-flight smooth scroll before measuring, so a key pressed mid-animation (after Home, an outline link or a script scroll) no longer leaves the focused command off screen; `tests/jk-smooth-scroll.test.js` reproduced it 5/5 before the fix. ✅ The Redfish builder's `hgx` preset is replaced (`improve/redfish-hgx-preset`, user's choice): it aimed host commands (power reset, SEL, memory, BMC reset) at the GPU baseboard (`HGX_Baseboard_0`), and `HGX_BMC_0` is undocumented. It is now an **NVIDIA DGX** preset with the ids NVIDIA documents for DGX H100/H200/B200 (`Systems/DGX`, `Chassis/DGX`, `Managers/BMC`) and a per-vendor SEL log id (`SEL` on DGX; Redfish paths are case-sensitive). `tests/redfish-builder.test.js`.
+
+**Still open, found while checking it:**
+- The Dell preset's ids (`System.Embedded.1`, `iDRAC.Embedded.1`) are not confirmed: Dell's Redfish reference would not load (JavaScript app, PDF 403).
+- DGX `Chassis/DGX/Thermal` and `/Power` are not in NVIDIA's DGX pages (only `Chassis/DGX/Sensors`).
+- The Standard option's label says "Supermicro/HPE/OpenBMC" for id `1`; OpenBMC is believed to use `system`/`bmc` instead (not verified).
+- The portable file carries the Redfish hub's builder markup but does not render the builder (existing behaviour).
+- The stale `backups/scratch/` test copies (ask first: deletes files).
 
 Considered and dropped: a shift handoff export (it already exists: "Shift board & handoff" in `common.js`), a phone layout (laptop-only by your decision), and variable prompts in the style of navi (Rack Targets and slot chips already do this).
 
@@ -295,6 +302,7 @@ Considered and dropped: a shift handoff export (it already exists: "Shift board 
 - [NVIDIA DGX H100/H200 Redfish](https://docs.nvidia.com/dgx/dgxh100-user-guide/redfish-api-supp.html) · [NVIDIA DGX B200 Redfish](https://docs.nvidia.com/dgx/dgxb200-user-guide/redfish-api-supp.html)
 - [ipmitool man page](https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in) · [ipmitool source](https://github.com/ipmitool/ipmitool/tree/master/lib)
 - [Linux kernel IPMI driver](https://docs.kernel.org/driver-api/ipmi.html)
+- [Dell iDRAC9 Redfish API (developer portal, 7.xx)](https://developer.dell.com/apis/2978/versions/7.xx/)
 - [Dell iDRAC9 7.xx RACADM CLI Guide](https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/introduction)
 - [HPE iLOrest 7.4 user guide: global commands](https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/globalcommands.md) · [iLO commands](https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/ilocommands.md)
 - [Supermicro SAA](https://www.supermicro.com/en/solutions/management-software/superserver-automation-assistant) · [SAA for UEFI User's Guide (PDF)](https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf)

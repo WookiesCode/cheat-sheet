@@ -459,8 +459,8 @@ const RF_BUILDER_ACTIONS = {
       id: "sel-entries",
       label: "GET System Event Log (SEL) Entries",
       desc: "Dump recent System Event Log (SEL) hardware events from the BMC",
-      build: (_sysId, _chasId, mgrId) =>
-        `curl -g -6 -sk -K ~/.bmc-curlrc "https://[$BMC]/redfish/v1/Managers/${mgrId}/LogServices/Sel/Entries" | jq -r '.Members[] | "\\(.Created) [\\(.Severity)] \\(.Message)"' | tail -n 25`
+      build: (_sysId, _chasId, mgrId, selId = "Sel") =>
+        `curl -g -6 -sk -K ~/.bmc-curlrc "https://[$BMC]/redfish/v1/Managers/${mgrId}/LogServices/${selId}/Entries" | jq -r '.Members[] | "\\(.Created) [\\(.Severity)] \\(.Message)"' | tail -n 25`
     },
     {
       id: "bmc-reboot",
@@ -481,10 +481,16 @@ const RF_BUILDER_ACTIONS = {
   ]
 };
 
+// Resource ids per vendor, plus the SEL log service id (Redfish paths are case-sensitive).
+// DGX (checked 2026-11-09, NVIDIA DGX H100/H200 and B200 Redfish pages): the host is Systems/DGX,
+// Chassis/DGX, Managers/BMC, and the SEL is LogServices/SEL. This replaced an "HGX" preset whose
+// ids (HGX_Baseboard_0 / HGX_Chassis_0 / HGX_BMC_0) pointed host commands at the GPU baseboard;
+// HGX_BMC_0 is not documented. GPU-tray queries live on the rf-hgx-dlc sheet. The Dell ids were
+// not confirmed against Dell's Redfish reference (it would not load); check /redfish/v1/Systems.
 const VENDOR_IDS = {
-  standard: { sys: "1", chas: "1", mgr: "1" },
-  dell: { sys: "System.Embedded.1", chas: "System.Embedded.1", mgr: "iDRAC.Embedded.1" },
-  hgx: { sys: "HGX_Baseboard_0", chas: "HGX_Chassis_0", mgr: "HGX_BMC_0" }
+  standard: { sys: "1", chas: "1", mgr: "1", sel: "Sel" },
+  dell: { sys: "System.Embedded.1", chas: "System.Embedded.1", mgr: "iDRAC.Embedded.1", sel: "Sel" },
+  dgx: { sys: "DGX", chas: "DGX", mgr: "BMC", sel: "SEL" }
 };
 
 // Application State
@@ -796,7 +802,7 @@ function initRfBuilder() {
 
     const venKey = venEl.value;
     const ids = VENDOR_IDS[venKey] || VENDOR_IDS.standard;
-    const fullCmd = current.build(ids.sys, ids.chas, ids.mgr);
+    const fullCmd = current.build(ids.sys, ids.chas, ids.mgr, ids.sel);
 
     cmdOutputEl.innerHTML = highlightRfCmd(fullCmd);
     previewBox.dataset.copy = fullCmd;
