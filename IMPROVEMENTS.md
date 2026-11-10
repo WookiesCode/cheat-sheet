@@ -221,6 +221,22 @@ Also: `kubectl debug node/…` notes `--profile=sysadmin` for `chroot /host`, an
 
 **Not confirmed (said in the notes):** the `--gpus '"device=0,1"'` quoting (Docker's GPU page is 404), filtering events by `type=Warning`, and the dcgm-exporter service name and port 9400.
 
+## New: Slurm suite (2026-11-09, `improve/slurm-sheet`)
+
+The fleet schedules on Slurm, and the agent rules ask for drain checks before intrusive work, but the site had no Slurm sheet. `generate-slurm-suite.js` (suite-kit) adds a hub, `slurm.html`, and three sheets in the DevOps tab:
+- **`slurm-nodes`**: state, reason and who set it (`sinfo -N -n <node> -o "%N %T %E %u %H"`); node states and state suffixes; `scontrol show node`; drain with the ticket in the reason; RESUME vs UNDRAIN; `scontrol reboot ASAP nextstate=RESUME`.
+- **`slurm-jobs`**: jobs on a node, pending reasons, `scontrol show job`, `sacct` outcome and "what ran on this node in the last day", `scancel`.
+- **`slurm-gpus`**: GRES per node, `slurmd -C` (the node's real hardware in slurm.conf form), a one-GPU test job, the daemons and `sdiag`.
+
+All 37 entries were written against SchedMD's Slurm 26.05 docs and cite them. Checking them changed the first draft:
+- `squeue -t PD -w <node>` would always print nothing: `-w` matches allocated nodes, and pending jobs have none.
+- `%u` gives the name of who drained a node.
+- `ASAP` without `nextstate` comes back UNDRAIN.
+- The job state is `OUT_OF_MEMORY`, not `OOM`.
+- An unconfirmed `StateLong` field was dropped.
+
+`DANGER_RE` now flags `scancel` and `scontrol reboot | cancel_reboot | reconfigure`, and the Slurm admin badge covers `cancel_reboot`. `scontrol reboot` stays copyable: it reboots compute nodes through the scheduler, not the machine you type on.
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |

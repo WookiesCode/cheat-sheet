@@ -1,5 +1,5 @@
-// Auto-generated Global Search Index across all 233 cheat sheets
-// Total indexed items: 3406
+// Auto-generated Global Search Index across all 237 cheat sheets
+// Total indexed items: 3480
 window.GLOBAL_SEARCH_INDEX = [
   {
     "sName": "ansible",
@@ -41962,6 +41962,1730 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Verify binary path and installed version in current environment",
     "tip": "",
     "tags": "sftp ipv6 ssh resume reget reput interactive tips safety help"
+  },
+  {
+    "sName": "slurm-gpus",
+    "file": "slurm-gpus.html",
+    "badge": "gpus",
+    "id": "slurm-gres-nodes",
+    "sec": "GPUs & daemons: GPUs configured and in use, per node",
+    "cmd": "sinfo -N -O NodeList:20,Gres:30,GresUsed:0",
+    "desc": "GPUs configured and in use, per node",
+    "tip": "A drained GPU node: count its GPUs first",
+    "tags": "slurm hpc scheduler slurm-gpus gres gpu sinfo nvml",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/gres.html",
+          "title": "Slurm: generic resources (GRES)"
+        },
+        {
+          "url": "https://slurm.schedmd.com/sinfo.html",
+          "title": "sinfo (Slurm 26.05)"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "slurm-gpus",
+    "file": "slurm-gpus.html",
+    "badge": "gpus",
+    "id": "slurm-gres-nodes-sub-1",
+    "sec": "GPUs & daemons: GPUs configured and in use, per node",
+    "cmd": "scontrol show node -d <node>",
+    "desc": "Per-GPU usage on one node",
+    "tip": "",
+    "tags": "slurm hpc scheduler slurm-gpus recipe gres gpu sinfo",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/gres.html",
+          "title": "Slurm: generic resources (GRES)"
+        },
+        {
+          "url": "https://slurm.schedmd.com/sinfo.html",
+          "title": "sinfo (Slurm 26.05)"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "slurm-gpus",
+    "file": "slurm-gpus.html",
+    "badge": "gpus",
+    "id": "slurm-slurmd-c",
+    "sec": "GPUs & daemons: What this node really has, in slurm.conf format",
+    "cmd": "slurmd -C",
+    "desc": "What this node really has, in slurm.conf format (run on the node)",
+    "tip": "Run after every DIMM or GPU swap",
+    "tags": "slurm hpc scheduler slurm-gpus slurmd hardware gres memory config",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/slurmd.html",
+          "title": "slurmd (Slurm 26.05)"
+        },
+        {
+          "url": "https://slurm.schedmd.com/gres.html",
+          "title": "Slurm: generic resources (GRES)"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "slurm-gpus",
+    "file": "slurm-gpus.html",
+    "badge": "gpus",
+    "id": "slurm-slurmd-c-sub-1",
+    "sec": "GPUs & daemons: What this node really has, in slurm.conf format",
+    "cmd": "slurmd -G",
+    "desc": "Test and print the node's GRES setup",
+    "tip": "",
+    "tags": "slurm hpc scheduler slurm-gpus recipe slurmd hardware gres",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/slurmd.html",
+          "title": "slurmd (Slurm 26.05)"
+        },
+        {
+          "url": "https://slurm.schedmd.com/gres.html",
+          "title": "Slurm: generic resources (GRES)"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "slurm-gpus",
+    "file": "slurm-gpus.html",
+    "badge": "gpus",
+    "id": "slurm-gpu-test",
+    "sec": "GPUs & daemons: Run a one-GPU test job on a specific node",
+    "cmd": "srun -N 1 -w <node> --gpus=1 nvidia-smi -L",
+    "desc": "Run a one-GPU test job on a specific node",
+    "tip": "After RESUME, prove the GPUs work",
+    "tags": "slurm hpc scheduler slurm-gpus srun gpu test gres",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/srun.html",
+          "title": "srun (Slurm 26.05)"
+        },
+        {
+          "url": "https://slurm.schedmd.com/gres.html",
+          "title": "Slurm: generic resources (GRES)"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "slurm-gpus",
+    "file": "slurm-gpus.html",
+    "badge": "gpus",
+    "id": "slurm-gpu-test-sub-1",
+    "sec": "GPUs & daemons: Run a one-GPU test job on a specific node",
+    "cmd": "srun -N 1 -w <node> --gres=gpu:8 nvidia-smi -L",
+    "desc": "Ask for all 8 GPUs on the node: one fails to appear = a GPU problem",
+    "tip": "",
+    "tags": "slurm hpc scheduler slurm-gpus recipe srun gpu test",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/srun.html",
+          "title": "srun (Slurm 26.05)"
+        },
+        {
+          "url": "https://slurm.schedmd.com/gres.html",
+          "title": "Slurm: generic resources (GRES)"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "slurm-gpus",
+    "file": "slurm-gpus.html",
+    "badge": "gpus",
+    "id": "slurm-daemons",
+    "sec": "GPUs & daemons: Is Slurm itself healthy",
+    "cmd": "scontrol ping",
+    "desc": "Is Slurm itself healthy: controller, node daemon, scheduler",
+    "tip": "Node DOWN*? Check slurmd first",
+    "tags": "slurm hpc scheduler slurm-gpus slurmctld slurmd sdiag ping daemon",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/scontrol.html",
+          "title": "scontrol (Slurm 26.05)"
+        },
+        {
+          "url": "https://slurm.schedmd.com/sdiag.html",
+          "title": "sdiag (Slurm 26.05)"
+        }
+      ],
+      "note": "systemctl and journalctl are systemd tools; the slurmd unit name depends on your packaging."
+    }
+  },
+  {
+    "sName": "slurm-gpus",
+    "file": "slurm-gpus.html",
+    "badge": "gpus",
+    "id": "slurm-daemons-sub-1",
+    "sec": "GPUs & daemons: Is Slurm itself healthy",
+    "cmd": "systemctl status slurmd --no-pager",
+    "desc": "Is slurmd running on this node",
+    "tip": "",
+    "tags": "slurm hpc scheduler slurm-gpus recipe slurmctld slurmd sdiag",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/scontrol.html",
+          "title": "scontrol (Slurm 26.05)"
+        },
+        {
+          "url": "https://slurm.schedmd.com/sdiag.html",
+          "title": "sdiag (Slurm 26.05)"
+        }
+      ],
+      "note": "systemctl and journalctl are systemd tools; the slurmd unit name depends on your packaging."
+    }
+  },
+  {
+    "sName": "slurm-gpus",
+    "file": "slurm-gpus.html",
+    "badge": "gpus",
+    "id": "slurm-daemons-sub-2",
+    "sec": "GPUs & daemons: Is Slurm itself healthy",
+    "cmd": "journalctl -u slurmd --since '1 hour ago' --no-pager",
+    "desc": "slurmd log: GRES detection, registration, errors",
+    "tip": "",
+    "tags": "slurm hpc scheduler slurm-gpus recipe slurmctld slurmd sdiag",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/scontrol.html",
+          "title": "scontrol (Slurm 26.05)"
+        },
+        {
+          "url": "https://slurm.schedmd.com/sdiag.html",
+          "title": "sdiag (Slurm 26.05)"
+        }
+      ],
+      "note": "systemctl and journalctl are systemd tools; the slurmd unit name depends on your packaging."
+    }
+  },
+  {
+    "sName": "slurm-gpus",
+    "file": "slurm-gpus.html",
+    "badge": "gpus",
+    "id": "slurm-daemons-sub-3",
+    "sec": "GPUs & daemons: Is Slurm itself healthy",
+    "cmd": "sdiag",
+    "desc": "Scheduler and RPC statistics from slurmctld",
+    "tip": "",
+    "tags": "slurm hpc scheduler slurm-gpus recipe slurmctld slurmd sdiag",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/scontrol.html",
+          "title": "scontrol (Slurm 26.05)"
+        },
+        {
+          "url": "https://slurm.schedmd.com/sdiag.html",
+          "title": "sdiag (Slurm 26.05)"
+        }
+      ],
+      "note": "systemctl and journalctl are systemd tools; the slurmd unit name depends on your packaging."
+    }
+  },
+  {
+    "sName": "slurm-gpus",
+    "file": "slurm-gpus.html",
+    "badge": "tip",
+    "id": "slurm-gpus-tips-card",
+    "sec": "GPUs & daemons: Pro Tip",
+    "cmd": "scontrol show node <node>",
+    "desc": "GPU node drained by Slurm itself",
+    "tip": "Slurm drains a node that lost a GPU",
+    "tags": "slurm hpc scheduler slurm-gpus tips best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/gres.html",
+          "title": "Slurm: generic resources (GRES)"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "slurm-jobs",
+    "file": "slurm-jobs.html",
+    "badge": "jobs",
+    "id": "slurm-squeue-node",
+    "sec": "Jobs & accounting: Jobs on one node",
+    "cmd": "squeue -w <node> -o \"%.10i %.9u %.8T %.10M %.10l %.6D %R\"",
+    "desc": "Jobs on one node: who, state, run time and node list",
+    "tip": "Empty squeue -w = safe to work on the node",
+    "tags": "slurm hpc scheduler slurm-jobs squeue jobs node running",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/squeue.html",
+          "title": "squeue (Slurm 26.05)"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "slurm-jobs",
+    "file": "slurm-jobs.html",
+    "badge": "jobs",
+    "id": "slurm-squeue-node-sub-1",
+    "sec": "Jobs & accounting: Jobs on one node",
+    "cmd": "squeue -u $USER",
+    "desc": "Your own jobs",
+    "tip": "",
+    "tags": "slurm hpc scheduler slurm-jobs recipe squeue jobs node",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/squeue.html",
+          "title": "squeue (Slurm 26.05)"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "slurm-jobs",
+    "file": "slurm-jobs.html",
+    "badge": "jobs",
+    "id": "slurm-squeue-node-sub-2",
+    "sec": "Jobs & accounting: Jobs on one node",
+    "cmd": "squeue --start",
+    "desc": "When pending jobs are expected to start",
+    "tip": "",
+    "tags": "slurm hpc scheduler slurm-jobs recipe squeue jobs node",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/squeue.html",
+          "title": "squeue (Slurm 26.05)"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "slurm-jobs",
+    "file": "slurm-jobs.html",
+    "badge": "jobs",
+    "id": "slurm-pending",
+    "sec": "Jobs & accounting: Pending jobs and why they wait",
+    "cmd": "squeue -t PD -o \"%.10i %.9u %.10l %R\"",
+    "desc": "Pending jobs and why they wait",
+    "tip": "ReqNodeNotAvail often means your drained node",
+    "tags": "slurm hpc scheduler slurm-jobs squeue pending reason priority resources",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/squeue.html",
+          "title": "squeue (Slurm 26.05)"
+        },
+        {
+          "url": "https://slurm.schedmd.com/job_reason_codes.html",
+          "title": "Slurm: job reason codes"
+        },
+        {
+          "url": "https://slurm.schedmd.com/scontrol.html",
+          "title": "scontrol (Slurm 26.05)"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "slurm-jobs",
+    "file": "slurm-jobs.html",
+    "badge": "jobs",
+    "id": "slurm-pending-sub-1",
+    "sec": "Jobs & accounting: Pending jobs and why they wait",
+    "cmd": "squeue -t PD -o \"%.10i %.9u %R\" | grep <node>",
+    "desc": "Pending jobs held up by this node (it appears in their ReqNodeNotAvail reason)",
+    "tip": "",
+    "tags": "slurm hpc scheduler slurm-jobs recipe squeue pending reason",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/squeue.html",
+          "title": "squeue (Slurm 26.05)"
+        },
+        {
+          "url": "https://slurm.schedmd.com/job_reason_codes.html",
+          "title": "Slurm: job reason codes"
+        },
+        {
+          "url": "https://slurm.schedmd.com/scontrol.html",
+          "title": "scontrol (Slurm 26.05)"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "slurm-jobs",
+    "file": "slurm-jobs.html",
+    "badge": "jobs",
+    "id": "slurm-pending-sub-2",
+    "sec": "Jobs & accounting: Pending jobs and why they wait",
+    "cmd": "scontrol show job <jobid>",
+    "desc": "Full job record: reason, requested TRES and GRES, node list, times",
+    "tip": "",
+    "tags": "slurm hpc scheduler slurm-jobs recipe squeue pending reason",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/squeue.html",
+          "title": "squeue (Slurm 26.05)"
+        },
+        {
+          "url": "https://slurm.schedmd.com/job_reason_codes.html",
+          "title": "Slurm: job reason codes"
+        },
+        {
+          "url": "https://slurm.schedmd.com/scontrol.html",
+          "title": "scontrol (Slurm 26.05)"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "slurm-jobs",
+    "file": "slurm-jobs.html",
+    "badge": "jobs",
+    "id": "slurm-sacct-job",
+    "sec": "Jobs & accounting: How a job ended",
+    "cmd": "sacct -j <jobid> --format=JobID,JobName,State,ExitCode,NodeList,Elapsed,Start,End",
+    "desc": "How a job ended: state, exit code, nodes and times",
+    "tip": "NODE_FAIL jobs point at the hardware",
+    "tags": "slurm hpc scheduler slurm-jobs sacct accounting exit-code node_fail history",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/sacct.html",
+          "title": "sacct (Slurm 26.05)"
+        },
+        {
+          "url": "https://slurm.schedmd.com/job_state_codes.html",
+          "title": "Slurm: job state codes"
+        }
+      ],
+      "note": "sacct reads job accounting (AccountingStorageType); -a shows other users' jobs only for root or when PrivateData allows."
+    }
+  },
+  {
+    "sName": "slurm-jobs",
+    "file": "slurm-jobs.html",
+    "badge": "jobs",
+    "id": "slurm-sacct-job-sub-1",
+    "sec": "Jobs & accounting: How a job ended",
+    "cmd": "sacct -N <node> -S now-1days -X -a --format=JobID,User,State,ExitCode,Start,End",
+    "desc": "Every job that ran on a node in the last day: line it up with dmesg and the SEL",
+    "tip": "",
+    "tags": "slurm hpc scheduler slurm-jobs recipe sacct accounting exit-code",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/sacct.html",
+          "title": "sacct (Slurm 26.05)"
+        },
+        {
+          "url": "https://slurm.schedmd.com/job_state_codes.html",
+          "title": "Slurm: job state codes"
+        }
+      ],
+      "note": "sacct reads job accounting (AccountingStorageType); -a shows other users' jobs only for root or when PrivateData allows."
+    }
+  },
+  {
+    "sName": "slurm-jobs",
+    "file": "slurm-jobs.html",
+    "badge": "jobs",
+    "id": "slurm-sacct-job-sub-2",
+    "sec": "Jobs & accounting: How a job ended",
+    "cmd": "sacct -j <jobid> -X --format=JobID,State,ExitCode,NodeList",
+    "desc": "Just the allocation's outcome",
+    "tip": "",
+    "tags": "slurm hpc scheduler slurm-jobs recipe sacct accounting exit-code",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/sacct.html",
+          "title": "sacct (Slurm 26.05)"
+        },
+        {
+          "url": "https://slurm.schedmd.com/job_state_codes.html",
+          "title": "Slurm: job state codes"
+        }
+      ],
+      "note": "sacct reads job accounting (AccountingStorageType); -a shows other users' jobs only for root or when PrivateData allows."
+    }
+  },
+  {
+    "sName": "slurm-jobs",
+    "file": "slurm-jobs.html",
+    "badge": "jobs",
+    "id": "slurm-scancel",
+    "sec": "Jobs & accounting: Cancel a job",
+    "cmd": "scancel <jobid>",
+    "desc": "Cancel a job (changes state: ask the owner first)",
+    "tip": "Drain and wait beats scancel",
+    "tags": "slurm hpc scheduler slurm-jobs scancel cancel jobs",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/scancel.html",
+          "title": "scancel (Slurm 26.05)"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "slurm-jobs",
+    "file": "slurm-jobs.html",
+    "badge": "jobs",
+    "id": "slurm-scancel-sub-1",
+    "sec": "Jobs & accounting: Cancel a job",
+    "cmd": "scancel -u <user> -w <node>",
+    "desc": "That user's jobs on that node only (changes state)",
+    "tip": "",
+    "tags": "slurm hpc scheduler slurm-jobs recipe scancel cancel jobs",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/scancel.html",
+          "title": "scancel (Slurm 26.05)"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "slurm-jobs",
+    "file": "slurm-jobs.html",
+    "badge": "tip",
+    "id": "slurm-jobs-tips-card",
+    "sec": "Jobs & accounting: Pro Tip",
+    "cmd": "sacct -N <node> -S now-1days -X -a --format=JobID,User,State,ExitCode,Start,End",
+    "desc": "Was it the job or the node?",
+    "tip": "Many users failing on one node = the node",
+    "tags": "slurm hpc scheduler slurm-jobs tips best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/sacct.html",
+          "title": "sacct (Slurm 26.05)"
+        },
+        {
+          "url": "https://slurm.schedmd.com/job_state_codes.html",
+          "title": "Slurm: job state codes"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "slurm-nodes",
+    "file": "slurm-nodes.html",
+    "badge": "nodes",
+    "id": "slurm-sinfo-node",
+    "sec": "Nodes & drain: One node's state, the drain reason, who set it and when",
+    "cmd": "sinfo -N -n <node> -o \"%N %T %E %u %H\"",
+    "desc": "One node's state, the drain reason, who set it and when",
+    "tip": "DRAINED, not DRAINING, before you touch hardware",
+    "tags": "slurm hpc scheduler slurm-nodes sinfo node state drain reason slurm",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/sinfo.html",
+          "title": "sinfo (Slurm 26.05)"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "slurm-nodes",
+    "file": "slurm-nodes.html",
+    "badge": "nodes",
+    "id": "slurm-sinfo-node-sub-1",
+    "sec": "Nodes & drain: One node's state, the drain reason, who set it and when",
+    "cmd": "sinfo -R",
+    "desc": "Every down, drained or failing node with the reason (first 20 characters)",
+    "tip": "",
+    "tags": "slurm hpc scheduler slurm-nodes recipe sinfo node state",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/sinfo.html",
+          "title": "sinfo (Slurm 26.05)"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "slurm-nodes",
+    "file": "slurm-nodes.html",
+    "badge": "nodes",
+    "id": "slurm-sinfo-node-sub-2",
+    "sec": "Nodes & drain: One node's state, the drain reason, who set it and when",
+    "cmd": "sinfo -N -t drain,down -o \"%N %T %E\"",
+    "desc": "Only drained/draining and down nodes, one per line",
+    "tip": "",
+    "tags": "slurm hpc scheduler slurm-nodes recipe sinfo node state",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/sinfo.html",
+          "title": "sinfo (Slurm 26.05)"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "slurm-nodes",
+    "file": "slurm-nodes.html",
+    "badge": "nodes",
+    "id": "slurm-sinfo-node-sub-3",
+    "sec": "Nodes & drain: One node's state, the drain reason, who set it and when",
+    "cmd": "sinfo -N -l",
+    "desc": "Long, node-oriented view: CPUs, memory, state and reason per node and partition",
+    "tip": "",
+    "tags": "slurm hpc scheduler slurm-nodes recipe sinfo node state",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/sinfo.html",
+          "title": "sinfo (Slurm 26.05)"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "slurm-nodes",
+    "file": "slurm-nodes.html",
+    "badge": "nodes",
+    "id": "slurm-show-node",
+    "sec": "Nodes & drain: Everything slurmctld knows about one node",
+    "cmd": "scontrol show node <node>",
+    "desc": "Everything slurmctld knows about one node",
+    "tip": "State shows DRAIN as a flag on the base state",
+    "tags": "slurm hpc scheduler slurm-nodes scontrol node state reason gres",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/scontrol.html",
+          "title": "scontrol (Slurm 26.05)"
+        },
+        {
+          "url": "https://slurm.schedmd.com/gres.html",
+          "title": "Slurm: generic resources (GRES)"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "slurm-nodes",
+    "file": "slurm-nodes.html",
+    "badge": "nodes",
+    "id": "slurm-show-node-sub-1",
+    "sec": "Nodes & drain: Everything slurmctld knows about one node",
+    "cmd": "scontrol show node -d <node>",
+    "desc": "Node details including per-GPU GRES usage",
+    "tip": "",
+    "tags": "slurm hpc scheduler slurm-nodes recipe scontrol node state",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/scontrol.html",
+          "title": "scontrol (Slurm 26.05)"
+        },
+        {
+          "url": "https://slurm.schedmd.com/gres.html",
+          "title": "Slurm: generic resources (GRES)"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "slurm-nodes",
+    "file": "slurm-nodes.html",
+    "badge": "nodes",
+    "id": "slurm-drain",
+    "sec": "Nodes & drain: Drain a node before hardware work",
+    "cmd": "scontrol update NodeName=<node> State=DRAIN Reason=\"<ticket>: <why>\"",
+    "desc": "Drain a node before hardware work (changes state: ask first)",
+    "tip": "Ticket number in the reason",
+    "tags": "slurm hpc scheduler slurm-nodes scontrol drain maintenance rma node",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/scontrol.html",
+          "title": "scontrol (Slurm 26.05)"
+        },
+        {
+          "url": "https://slurm.schedmd.com/sinfo.html",
+          "title": "sinfo (Slurm 26.05)"
+        }
+      ],
+      "note": "Reason is optional to Slurm; your site rules (and sinfo -R readers) need it."
+    }
+  },
+  {
+    "sName": "slurm-nodes",
+    "file": "slurm-nodes.html",
+    "badge": "nodes",
+    "id": "slurm-drain-sub-1",
+    "sec": "Nodes & drain: Drain a node before hardware work",
+    "cmd": "squeue -w <node>",
+    "desc": "Jobs still running on the node: wait for them, or get the owners' OK",
+    "tip": "",
+    "tags": "slurm hpc scheduler slurm-nodes recipe scontrol drain maintenance",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/scontrol.html",
+          "title": "scontrol (Slurm 26.05)"
+        },
+        {
+          "url": "https://slurm.schedmd.com/sinfo.html",
+          "title": "sinfo (Slurm 26.05)"
+        }
+      ],
+      "note": "Reason is optional to Slurm; your site rules (and sinfo -R readers) need it."
+    }
+  },
+  {
+    "sName": "slurm-nodes",
+    "file": "slurm-nodes.html",
+    "badge": "nodes",
+    "id": "slurm-drain-sub-2",
+    "sec": "Nodes & drain: Drain a node before hardware work",
+    "cmd": "sinfo -N -n <node> -o \"%N %T %E\"",
+    "desc": "Confirm the node reached DRAINED before you start",
+    "tip": "",
+    "tags": "slurm hpc scheduler slurm-nodes recipe scontrol drain maintenance",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/scontrol.html",
+          "title": "scontrol (Slurm 26.05)"
+        },
+        {
+          "url": "https://slurm.schedmd.com/sinfo.html",
+          "title": "sinfo (Slurm 26.05)"
+        }
+      ],
+      "note": "Reason is optional to Slurm; your site rules (and sinfo -R readers) need it."
+    }
+  },
+  {
+    "sName": "slurm-nodes",
+    "file": "slurm-nodes.html",
+    "badge": "nodes",
+    "id": "slurm-resume",
+    "sec": "Nodes & drain: Return a node to service after the work",
+    "cmd": "scontrol update NodeName=<node> State=RESUME",
+    "desc": "Return a node to service after the work (changes state: ask first)",
+    "tip": "Verify the fix before RESUME",
+    "tags": "slurm hpc scheduler slurm-nodes scontrol resume undrain reboot node",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/scontrol.html",
+          "title": "scontrol (Slurm 26.05)"
+        }
+      ],
+      "note": "With ASAP and no nextstate, a rebooted node comes back UNDRAIN (still drained), not RESUME."
+    }
+  },
+  {
+    "sName": "slurm-nodes",
+    "file": "slurm-nodes.html",
+    "badge": "nodes",
+    "id": "slurm-resume-sub-1",
+    "sec": "Nodes & drain: Return a node to service after the work",
+    "cmd": "scontrol update NodeName=<node> State=UNDRAIN",
+    "desc": "Clear only the drain flag (changes state)",
+    "tip": "",
+    "tags": "slurm hpc scheduler slurm-nodes recipe scontrol resume undrain",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/scontrol.html",
+          "title": "scontrol (Slurm 26.05)"
+        }
+      ],
+      "note": "With ASAP and no nextstate, a rebooted node comes back UNDRAIN (still drained), not RESUME."
+    }
+  },
+  {
+    "sName": "slurm-nodes",
+    "file": "slurm-nodes.html",
+    "badge": "nodes",
+    "id": "slurm-resume-sub-2",
+    "sec": "Nodes & drain: Return a node to service after the work",
+    "cmd": "scontrol reboot ASAP nextstate=RESUME reason=\"<ticket>: <why>\" <node>",
+    "desc": "Reboot the node through Slurm once its jobs end, then return it to service (changes state)",
+    "tip": "",
+    "tags": "slurm hpc scheduler slurm-nodes recipe scontrol resume undrain",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/scontrol.html",
+          "title": "scontrol (Slurm 26.05)"
+        }
+      ],
+      "note": "With ASAP and no nextstate, a rebooted node comes back UNDRAIN (still drained), not RESUME."
+    }
+  },
+  {
+    "sName": "slurm-nodes",
+    "file": "slurm-nodes.html",
+    "badge": "nodes",
+    "id": "slurm-resume-sub-3",
+    "sec": "Nodes & drain: Return a node to service after the work",
+    "cmd": "scontrol cancel_reboot <node>",
+    "desc": "Cancel a pending Slurm reboot (changes state)",
+    "tip": "",
+    "tags": "slurm hpc scheduler slurm-nodes recipe scontrol resume undrain",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/scontrol.html",
+          "title": "scontrol (Slurm 26.05)"
+        }
+      ],
+      "note": "With ASAP and no nextstate, a rebooted node comes back UNDRAIN (still drained), not RESUME."
+    }
+  },
+  {
+    "sName": "slurm-nodes",
+    "file": "slurm-nodes.html",
+    "badge": "tip",
+    "id": "slurm-nodes-tips-card",
+    "sec": "Nodes & drain: Pro Tip",
+    "cmd": "sinfo -N -n <node> -o \"%N %T %E %u %H\"",
+    "desc": "Hardware work on a Slurm node",
+    "tip": "Drain → DRAINED → work → verify → RESUME",
+    "tags": "slurm hpc scheduler slurm-nodes tips best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/sinfo.html",
+          "title": "sinfo (Slurm 26.05)"
+        },
+        {
+          "url": "https://slurm.schedmd.com/scontrol.html",
+          "title": "scontrol (Slurm 26.05)"
+        },
+        {
+          "url": "https://slurm.schedmd.com/squeue.html",
+          "title": "squeue (Slurm 26.05)"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "slurm",
+    "file": "slurm.html",
+    "badge": "nodes",
+    "id": "slurm-sinfo-node",
+    "sec": "Nodes & drain: One node's state, the drain reason, who set it and when",
+    "cmd": "sinfo -N -n <node> -o \"%N %T %E %u %H\"",
+    "desc": "One node's state, the drain reason, who set it and when",
+    "tip": "DRAINED, not DRAINING, before you touch hardware",
+    "tags": "slurm hpc scheduler slurm-nodes sinfo node state drain reason slurm",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/sinfo.html",
+          "title": "sinfo (Slurm 26.05)"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "slurm",
+    "file": "slurm.html",
+    "badge": "nodes",
+    "id": "slurm-sinfo-node-sub-1",
+    "sec": "Nodes & drain: One node's state, the drain reason, who set it and when",
+    "cmd": "sinfo -R",
+    "desc": "Every down, drained or failing node with the reason (first 20 characters)",
+    "tip": "",
+    "tags": "slurm hpc scheduler slurm-nodes recipe sinfo node state",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/sinfo.html",
+          "title": "sinfo (Slurm 26.05)"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "slurm",
+    "file": "slurm.html",
+    "badge": "nodes",
+    "id": "slurm-sinfo-node-sub-2",
+    "sec": "Nodes & drain: One node's state, the drain reason, who set it and when",
+    "cmd": "sinfo -N -t drain,down -o \"%N %T %E\"",
+    "desc": "Only drained/draining and down nodes, one per line",
+    "tip": "",
+    "tags": "slurm hpc scheduler slurm-nodes recipe sinfo node state",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/sinfo.html",
+          "title": "sinfo (Slurm 26.05)"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "slurm",
+    "file": "slurm.html",
+    "badge": "nodes",
+    "id": "slurm-sinfo-node-sub-3",
+    "sec": "Nodes & drain: One node's state, the drain reason, who set it and when",
+    "cmd": "sinfo -N -l",
+    "desc": "Long, node-oriented view: CPUs, memory, state and reason per node and partition",
+    "tip": "",
+    "tags": "slurm hpc scheduler slurm-nodes recipe sinfo node state",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/sinfo.html",
+          "title": "sinfo (Slurm 26.05)"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "slurm",
+    "file": "slurm.html",
+    "badge": "nodes",
+    "id": "slurm-show-node",
+    "sec": "Nodes & drain: Everything slurmctld knows about one node",
+    "cmd": "scontrol show node <node>",
+    "desc": "Everything slurmctld knows about one node",
+    "tip": "State shows DRAIN as a flag on the base state",
+    "tags": "slurm hpc scheduler slurm-nodes scontrol node state reason gres",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/scontrol.html",
+          "title": "scontrol (Slurm 26.05)"
+        },
+        {
+          "url": "https://slurm.schedmd.com/gres.html",
+          "title": "Slurm: generic resources (GRES)"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "slurm",
+    "file": "slurm.html",
+    "badge": "nodes",
+    "id": "slurm-show-node-sub-1",
+    "sec": "Nodes & drain: Everything slurmctld knows about one node",
+    "cmd": "scontrol show node -d <node>",
+    "desc": "Node details including per-GPU GRES usage",
+    "tip": "",
+    "tags": "slurm hpc scheduler slurm-nodes recipe scontrol node state",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/scontrol.html",
+          "title": "scontrol (Slurm 26.05)"
+        },
+        {
+          "url": "https://slurm.schedmd.com/gres.html",
+          "title": "Slurm: generic resources (GRES)"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "slurm",
+    "file": "slurm.html",
+    "badge": "nodes",
+    "id": "slurm-drain",
+    "sec": "Nodes & drain: Drain a node before hardware work",
+    "cmd": "scontrol update NodeName=<node> State=DRAIN Reason=\"<ticket>: <why>\"",
+    "desc": "Drain a node before hardware work (changes state: ask first)",
+    "tip": "Ticket number in the reason",
+    "tags": "slurm hpc scheduler slurm-nodes scontrol drain maintenance rma node",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/scontrol.html",
+          "title": "scontrol (Slurm 26.05)"
+        },
+        {
+          "url": "https://slurm.schedmd.com/sinfo.html",
+          "title": "sinfo (Slurm 26.05)"
+        }
+      ],
+      "note": "Reason is optional to Slurm; your site rules (and sinfo -R readers) need it."
+    }
+  },
+  {
+    "sName": "slurm",
+    "file": "slurm.html",
+    "badge": "nodes",
+    "id": "slurm-drain-sub-1",
+    "sec": "Nodes & drain: Drain a node before hardware work",
+    "cmd": "squeue -w <node>",
+    "desc": "Jobs still running on the node: wait for them, or get the owners' OK",
+    "tip": "",
+    "tags": "slurm hpc scheduler slurm-nodes recipe scontrol drain maintenance",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/scontrol.html",
+          "title": "scontrol (Slurm 26.05)"
+        },
+        {
+          "url": "https://slurm.schedmd.com/sinfo.html",
+          "title": "sinfo (Slurm 26.05)"
+        }
+      ],
+      "note": "Reason is optional to Slurm; your site rules (and sinfo -R readers) need it."
+    }
+  },
+  {
+    "sName": "slurm",
+    "file": "slurm.html",
+    "badge": "nodes",
+    "id": "slurm-drain-sub-2",
+    "sec": "Nodes & drain: Drain a node before hardware work",
+    "cmd": "sinfo -N -n <node> -o \"%N %T %E\"",
+    "desc": "Confirm the node reached DRAINED before you start",
+    "tip": "",
+    "tags": "slurm hpc scheduler slurm-nodes recipe scontrol drain maintenance",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/scontrol.html",
+          "title": "scontrol (Slurm 26.05)"
+        },
+        {
+          "url": "https://slurm.schedmd.com/sinfo.html",
+          "title": "sinfo (Slurm 26.05)"
+        }
+      ],
+      "note": "Reason is optional to Slurm; your site rules (and sinfo -R readers) need it."
+    }
+  },
+  {
+    "sName": "slurm",
+    "file": "slurm.html",
+    "badge": "nodes",
+    "id": "slurm-resume",
+    "sec": "Nodes & drain: Return a node to service after the work",
+    "cmd": "scontrol update NodeName=<node> State=RESUME",
+    "desc": "Return a node to service after the work (changes state: ask first)",
+    "tip": "Verify the fix before RESUME",
+    "tags": "slurm hpc scheduler slurm-nodes scontrol resume undrain reboot node",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/scontrol.html",
+          "title": "scontrol (Slurm 26.05)"
+        }
+      ],
+      "note": "With ASAP and no nextstate, a rebooted node comes back UNDRAIN (still drained), not RESUME."
+    }
+  },
+  {
+    "sName": "slurm",
+    "file": "slurm.html",
+    "badge": "nodes",
+    "id": "slurm-resume-sub-1",
+    "sec": "Nodes & drain: Return a node to service after the work",
+    "cmd": "scontrol update NodeName=<node> State=UNDRAIN",
+    "desc": "Clear only the drain flag (changes state)",
+    "tip": "",
+    "tags": "slurm hpc scheduler slurm-nodes recipe scontrol resume undrain",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/scontrol.html",
+          "title": "scontrol (Slurm 26.05)"
+        }
+      ],
+      "note": "With ASAP and no nextstate, a rebooted node comes back UNDRAIN (still drained), not RESUME."
+    }
+  },
+  {
+    "sName": "slurm",
+    "file": "slurm.html",
+    "badge": "nodes",
+    "id": "slurm-resume-sub-2",
+    "sec": "Nodes & drain: Return a node to service after the work",
+    "cmd": "scontrol reboot ASAP nextstate=RESUME reason=\"<ticket>: <why>\" <node>",
+    "desc": "Reboot the node through Slurm once its jobs end, then return it to service (changes state)",
+    "tip": "",
+    "tags": "slurm hpc scheduler slurm-nodes recipe scontrol resume undrain",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/scontrol.html",
+          "title": "scontrol (Slurm 26.05)"
+        }
+      ],
+      "note": "With ASAP and no nextstate, a rebooted node comes back UNDRAIN (still drained), not RESUME."
+    }
+  },
+  {
+    "sName": "slurm",
+    "file": "slurm.html",
+    "badge": "nodes",
+    "id": "slurm-resume-sub-3",
+    "sec": "Nodes & drain: Return a node to service after the work",
+    "cmd": "scontrol cancel_reboot <node>",
+    "desc": "Cancel a pending Slurm reboot (changes state)",
+    "tip": "",
+    "tags": "slurm hpc scheduler slurm-nodes recipe scontrol resume undrain",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/scontrol.html",
+          "title": "scontrol (Slurm 26.05)"
+        }
+      ],
+      "note": "With ASAP and no nextstate, a rebooted node comes back UNDRAIN (still drained), not RESUME."
+    }
+  },
+  {
+    "sName": "slurm",
+    "file": "slurm.html",
+    "badge": "tip",
+    "id": "slurm-nodes-tips-card",
+    "sec": "Nodes & drain: Pro Tip",
+    "cmd": "sinfo -N -n <node> -o \"%N %T %E %u %H\"",
+    "desc": "Hardware work on a Slurm node",
+    "tip": "Drain → DRAINED → work → verify → RESUME",
+    "tags": "slurm hpc scheduler slurm-nodes tips best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/sinfo.html",
+          "title": "sinfo (Slurm 26.05)"
+        },
+        {
+          "url": "https://slurm.schedmd.com/scontrol.html",
+          "title": "scontrol (Slurm 26.05)"
+        },
+        {
+          "url": "https://slurm.schedmd.com/squeue.html",
+          "title": "squeue (Slurm 26.05)"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "slurm",
+    "file": "slurm.html",
+    "badge": "jobs",
+    "id": "slurm-squeue-node",
+    "sec": "Jobs & accounting: Jobs on one node",
+    "cmd": "squeue -w <node> -o \"%.10i %.9u %.8T %.10M %.10l %.6D %R\"",
+    "desc": "Jobs on one node: who, state, run time and node list",
+    "tip": "Empty squeue -w = safe to work on the node",
+    "tags": "slurm hpc scheduler slurm-jobs squeue jobs node running",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/squeue.html",
+          "title": "squeue (Slurm 26.05)"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "slurm",
+    "file": "slurm.html",
+    "badge": "jobs",
+    "id": "slurm-squeue-node-sub-1",
+    "sec": "Jobs & accounting: Jobs on one node",
+    "cmd": "squeue -u $USER",
+    "desc": "Your own jobs",
+    "tip": "",
+    "tags": "slurm hpc scheduler slurm-jobs recipe squeue jobs node",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/squeue.html",
+          "title": "squeue (Slurm 26.05)"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "slurm",
+    "file": "slurm.html",
+    "badge": "jobs",
+    "id": "slurm-squeue-node-sub-2",
+    "sec": "Jobs & accounting: Jobs on one node",
+    "cmd": "squeue --start",
+    "desc": "When pending jobs are expected to start",
+    "tip": "",
+    "tags": "slurm hpc scheduler slurm-jobs recipe squeue jobs node",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/squeue.html",
+          "title": "squeue (Slurm 26.05)"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "slurm",
+    "file": "slurm.html",
+    "badge": "jobs",
+    "id": "slurm-pending",
+    "sec": "Jobs & accounting: Pending jobs and why they wait",
+    "cmd": "squeue -t PD -o \"%.10i %.9u %.10l %R\"",
+    "desc": "Pending jobs and why they wait",
+    "tip": "ReqNodeNotAvail often means your drained node",
+    "tags": "slurm hpc scheduler slurm-jobs squeue pending reason priority resources",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/squeue.html",
+          "title": "squeue (Slurm 26.05)"
+        },
+        {
+          "url": "https://slurm.schedmd.com/job_reason_codes.html",
+          "title": "Slurm: job reason codes"
+        },
+        {
+          "url": "https://slurm.schedmd.com/scontrol.html",
+          "title": "scontrol (Slurm 26.05)"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "slurm",
+    "file": "slurm.html",
+    "badge": "jobs",
+    "id": "slurm-pending-sub-1",
+    "sec": "Jobs & accounting: Pending jobs and why they wait",
+    "cmd": "squeue -t PD -o \"%.10i %.9u %R\" | grep <node>",
+    "desc": "Pending jobs held up by this node (it appears in their ReqNodeNotAvail reason)",
+    "tip": "",
+    "tags": "slurm hpc scheduler slurm-jobs recipe squeue pending reason",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/squeue.html",
+          "title": "squeue (Slurm 26.05)"
+        },
+        {
+          "url": "https://slurm.schedmd.com/job_reason_codes.html",
+          "title": "Slurm: job reason codes"
+        },
+        {
+          "url": "https://slurm.schedmd.com/scontrol.html",
+          "title": "scontrol (Slurm 26.05)"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "slurm",
+    "file": "slurm.html",
+    "badge": "jobs",
+    "id": "slurm-pending-sub-2",
+    "sec": "Jobs & accounting: Pending jobs and why they wait",
+    "cmd": "scontrol show job <jobid>",
+    "desc": "Full job record: reason, requested TRES and GRES, node list, times",
+    "tip": "",
+    "tags": "slurm hpc scheduler slurm-jobs recipe squeue pending reason",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/squeue.html",
+          "title": "squeue (Slurm 26.05)"
+        },
+        {
+          "url": "https://slurm.schedmd.com/job_reason_codes.html",
+          "title": "Slurm: job reason codes"
+        },
+        {
+          "url": "https://slurm.schedmd.com/scontrol.html",
+          "title": "scontrol (Slurm 26.05)"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "slurm",
+    "file": "slurm.html",
+    "badge": "jobs",
+    "id": "slurm-sacct-job",
+    "sec": "Jobs & accounting: How a job ended",
+    "cmd": "sacct -j <jobid> --format=JobID,JobName,State,ExitCode,NodeList,Elapsed,Start,End",
+    "desc": "How a job ended: state, exit code, nodes and times",
+    "tip": "NODE_FAIL jobs point at the hardware",
+    "tags": "slurm hpc scheduler slurm-jobs sacct accounting exit-code node_fail history",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/sacct.html",
+          "title": "sacct (Slurm 26.05)"
+        },
+        {
+          "url": "https://slurm.schedmd.com/job_state_codes.html",
+          "title": "Slurm: job state codes"
+        }
+      ],
+      "note": "sacct reads job accounting (AccountingStorageType); -a shows other users' jobs only for root or when PrivateData allows."
+    }
+  },
+  {
+    "sName": "slurm",
+    "file": "slurm.html",
+    "badge": "jobs",
+    "id": "slurm-sacct-job-sub-1",
+    "sec": "Jobs & accounting: How a job ended",
+    "cmd": "sacct -N <node> -S now-1days -X -a --format=JobID,User,State,ExitCode,Start,End",
+    "desc": "Every job that ran on a node in the last day: line it up with dmesg and the SEL",
+    "tip": "",
+    "tags": "slurm hpc scheduler slurm-jobs recipe sacct accounting exit-code",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/sacct.html",
+          "title": "sacct (Slurm 26.05)"
+        },
+        {
+          "url": "https://slurm.schedmd.com/job_state_codes.html",
+          "title": "Slurm: job state codes"
+        }
+      ],
+      "note": "sacct reads job accounting (AccountingStorageType); -a shows other users' jobs only for root or when PrivateData allows."
+    }
+  },
+  {
+    "sName": "slurm",
+    "file": "slurm.html",
+    "badge": "jobs",
+    "id": "slurm-sacct-job-sub-2",
+    "sec": "Jobs & accounting: How a job ended",
+    "cmd": "sacct -j <jobid> -X --format=JobID,State,ExitCode,NodeList",
+    "desc": "Just the allocation's outcome",
+    "tip": "",
+    "tags": "slurm hpc scheduler slurm-jobs recipe sacct accounting exit-code",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/sacct.html",
+          "title": "sacct (Slurm 26.05)"
+        },
+        {
+          "url": "https://slurm.schedmd.com/job_state_codes.html",
+          "title": "Slurm: job state codes"
+        }
+      ],
+      "note": "sacct reads job accounting (AccountingStorageType); -a shows other users' jobs only for root or when PrivateData allows."
+    }
+  },
+  {
+    "sName": "slurm",
+    "file": "slurm.html",
+    "badge": "jobs",
+    "id": "slurm-scancel",
+    "sec": "Jobs & accounting: Cancel a job",
+    "cmd": "scancel <jobid>",
+    "desc": "Cancel a job (changes state: ask the owner first)",
+    "tip": "Drain and wait beats scancel",
+    "tags": "slurm hpc scheduler slurm-jobs scancel cancel jobs",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/scancel.html",
+          "title": "scancel (Slurm 26.05)"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "slurm",
+    "file": "slurm.html",
+    "badge": "jobs",
+    "id": "slurm-scancel-sub-1",
+    "sec": "Jobs & accounting: Cancel a job",
+    "cmd": "scancel -u <user> -w <node>",
+    "desc": "That user's jobs on that node only (changes state)",
+    "tip": "",
+    "tags": "slurm hpc scheduler slurm-jobs recipe scancel cancel jobs",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/scancel.html",
+          "title": "scancel (Slurm 26.05)"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "slurm",
+    "file": "slurm.html",
+    "badge": "tip",
+    "id": "slurm-jobs-tips-card",
+    "sec": "Jobs & accounting: Pro Tip",
+    "cmd": "sacct -N <node> -S now-1days -X -a --format=JobID,User,State,ExitCode,Start,End",
+    "desc": "Was it the job or the node?",
+    "tip": "Many users failing on one node = the node",
+    "tags": "slurm hpc scheduler slurm-jobs tips best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/sacct.html",
+          "title": "sacct (Slurm 26.05)"
+        },
+        {
+          "url": "https://slurm.schedmd.com/job_state_codes.html",
+          "title": "Slurm: job state codes"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "slurm",
+    "file": "slurm.html",
+    "badge": "gpus",
+    "id": "slurm-gres-nodes",
+    "sec": "GPUs & daemons: GPUs configured and in use, per node",
+    "cmd": "sinfo -N -O NodeList:20,Gres:30,GresUsed:0",
+    "desc": "GPUs configured and in use, per node",
+    "tip": "A drained GPU node: count its GPUs first",
+    "tags": "slurm hpc scheduler slurm-gpus gres gpu sinfo nvml",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/gres.html",
+          "title": "Slurm: generic resources (GRES)"
+        },
+        {
+          "url": "https://slurm.schedmd.com/sinfo.html",
+          "title": "sinfo (Slurm 26.05)"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "slurm",
+    "file": "slurm.html",
+    "badge": "gpus",
+    "id": "slurm-gres-nodes-sub-1",
+    "sec": "GPUs & daemons: GPUs configured and in use, per node",
+    "cmd": "scontrol show node -d <node>",
+    "desc": "Per-GPU usage on one node",
+    "tip": "",
+    "tags": "slurm hpc scheduler slurm-gpus recipe gres gpu sinfo",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/gres.html",
+          "title": "Slurm: generic resources (GRES)"
+        },
+        {
+          "url": "https://slurm.schedmd.com/sinfo.html",
+          "title": "sinfo (Slurm 26.05)"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "slurm",
+    "file": "slurm.html",
+    "badge": "gpus",
+    "id": "slurm-slurmd-c",
+    "sec": "GPUs & daemons: What this node really has, in slurm.conf format",
+    "cmd": "slurmd -C",
+    "desc": "What this node really has, in slurm.conf format (run on the node)",
+    "tip": "Run after every DIMM or GPU swap",
+    "tags": "slurm hpc scheduler slurm-gpus slurmd hardware gres memory config",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/slurmd.html",
+          "title": "slurmd (Slurm 26.05)"
+        },
+        {
+          "url": "https://slurm.schedmd.com/gres.html",
+          "title": "Slurm: generic resources (GRES)"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "slurm",
+    "file": "slurm.html",
+    "badge": "gpus",
+    "id": "slurm-slurmd-c-sub-1",
+    "sec": "GPUs & daemons: What this node really has, in slurm.conf format",
+    "cmd": "slurmd -G",
+    "desc": "Test and print the node's GRES setup",
+    "tip": "",
+    "tags": "slurm hpc scheduler slurm-gpus recipe slurmd hardware gres",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/slurmd.html",
+          "title": "slurmd (Slurm 26.05)"
+        },
+        {
+          "url": "https://slurm.schedmd.com/gres.html",
+          "title": "Slurm: generic resources (GRES)"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "slurm",
+    "file": "slurm.html",
+    "badge": "gpus",
+    "id": "slurm-gpu-test",
+    "sec": "GPUs & daemons: Run a one-GPU test job on a specific node",
+    "cmd": "srun -N 1 -w <node> --gpus=1 nvidia-smi -L",
+    "desc": "Run a one-GPU test job on a specific node",
+    "tip": "After RESUME, prove the GPUs work",
+    "tags": "slurm hpc scheduler slurm-gpus srun gpu test gres",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/srun.html",
+          "title": "srun (Slurm 26.05)"
+        },
+        {
+          "url": "https://slurm.schedmd.com/gres.html",
+          "title": "Slurm: generic resources (GRES)"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "slurm",
+    "file": "slurm.html",
+    "badge": "gpus",
+    "id": "slurm-gpu-test-sub-1",
+    "sec": "GPUs & daemons: Run a one-GPU test job on a specific node",
+    "cmd": "srun -N 1 -w <node> --gres=gpu:8 nvidia-smi -L",
+    "desc": "Ask for all 8 GPUs on the node: one fails to appear = a GPU problem",
+    "tip": "",
+    "tags": "slurm hpc scheduler slurm-gpus recipe srun gpu test",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/srun.html",
+          "title": "srun (Slurm 26.05)"
+        },
+        {
+          "url": "https://slurm.schedmd.com/gres.html",
+          "title": "Slurm: generic resources (GRES)"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "slurm",
+    "file": "slurm.html",
+    "badge": "gpus",
+    "id": "slurm-daemons",
+    "sec": "GPUs & daemons: Is Slurm itself healthy",
+    "cmd": "scontrol ping",
+    "desc": "Is Slurm itself healthy: controller, node daemon, scheduler",
+    "tip": "Node DOWN*? Check slurmd first",
+    "tags": "slurm hpc scheduler slurm-gpus slurmctld slurmd sdiag ping daemon",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/scontrol.html",
+          "title": "scontrol (Slurm 26.05)"
+        },
+        {
+          "url": "https://slurm.schedmd.com/sdiag.html",
+          "title": "sdiag (Slurm 26.05)"
+        }
+      ],
+      "note": "systemctl and journalctl are systemd tools; the slurmd unit name depends on your packaging."
+    }
+  },
+  {
+    "sName": "slurm",
+    "file": "slurm.html",
+    "badge": "gpus",
+    "id": "slurm-daemons-sub-1",
+    "sec": "GPUs & daemons: Is Slurm itself healthy",
+    "cmd": "systemctl status slurmd --no-pager",
+    "desc": "Is slurmd running on this node",
+    "tip": "",
+    "tags": "slurm hpc scheduler slurm-gpus recipe slurmctld slurmd sdiag",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/scontrol.html",
+          "title": "scontrol (Slurm 26.05)"
+        },
+        {
+          "url": "https://slurm.schedmd.com/sdiag.html",
+          "title": "sdiag (Slurm 26.05)"
+        }
+      ],
+      "note": "systemctl and journalctl are systemd tools; the slurmd unit name depends on your packaging."
+    }
+  },
+  {
+    "sName": "slurm",
+    "file": "slurm.html",
+    "badge": "gpus",
+    "id": "slurm-daemons-sub-2",
+    "sec": "GPUs & daemons: Is Slurm itself healthy",
+    "cmd": "journalctl -u slurmd --since '1 hour ago' --no-pager",
+    "desc": "slurmd log: GRES detection, registration, errors",
+    "tip": "",
+    "tags": "slurm hpc scheduler slurm-gpus recipe slurmctld slurmd sdiag",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/scontrol.html",
+          "title": "scontrol (Slurm 26.05)"
+        },
+        {
+          "url": "https://slurm.schedmd.com/sdiag.html",
+          "title": "sdiag (Slurm 26.05)"
+        }
+      ],
+      "note": "systemctl and journalctl are systemd tools; the slurmd unit name depends on your packaging."
+    }
+  },
+  {
+    "sName": "slurm",
+    "file": "slurm.html",
+    "badge": "gpus",
+    "id": "slurm-daemons-sub-3",
+    "sec": "GPUs & daemons: Is Slurm itself healthy",
+    "cmd": "sdiag",
+    "desc": "Scheduler and RPC statistics from slurmctld",
+    "tip": "",
+    "tags": "slurm hpc scheduler slurm-gpus recipe slurmctld slurmd sdiag",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/scontrol.html",
+          "title": "scontrol (Slurm 26.05)"
+        },
+        {
+          "url": "https://slurm.schedmd.com/sdiag.html",
+          "title": "sdiag (Slurm 26.05)"
+        }
+      ],
+      "note": "systemctl and journalctl are systemd tools; the slurmd unit name depends on your packaging."
+    }
+  },
+  {
+    "sName": "slurm",
+    "file": "slurm.html",
+    "badge": "tip",
+    "id": "slurm-gpus-tips-card",
+    "sec": "GPUs & daemons: Pro Tip",
+    "cmd": "scontrol show node <node>",
+    "desc": "GPU node drained by Slurm itself",
+    "tip": "Slurm drains a node that lost a GPU",
+    "tags": "slurm hpc scheduler slurm-gpus tips best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/gres.html",
+          "title": "Slurm: generic resources (GRES)"
+        }
+      ]
+    }
   },
   {
     "sName": "sort",

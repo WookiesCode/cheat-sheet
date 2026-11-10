@@ -345,6 +345,34 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     await ctx.close();
   }
 
+  // 2j. Slurm suite (new sheets, written sourced): every entry has a source; state changes are
+  // flagged and carry the Slurm admin badge; read-only checks are neither; it sits in the DevOps tab.
+  {
+    const PAGES = ['slurm-nodes', 'slurm-jobs', 'slurm-gpus'];
+    const ctx = await newContext(browser);
+    const p = await ctx.newPage();
+    const all = [];
+    for (const f of PAGES) {
+      await p.goto(BASE + f + '.html', { waitUntil: 'load' });
+      await p.waitForTimeout(500);
+      all.push(...await p.evaluate(() => [...document.querySelectorAll('.cmd-item[data-cmd-id]')].filter(it => !/-flags-card$/.test(it.dataset.cmdId)).map(it => {
+        const b = it.querySelector('.cmd-code-box');
+        return { id: it.dataset.cmdId, code: b ? (b.dataset.cmd || b.dataset.copy || '') : '', src: !!it.querySelector('.cmd-source:not(.is-unverified)'),
+          danger: !!(b && /Changes state/.test(b.getAttribute('aria-label') || '')), admin: !!it.querySelector('.priv-tag.priv-admin') };
+      })));
+    }
+    check(all.length >= 30 && all.every(x => x.src), `every Slurm entry shows a verified source line (${all.filter(x => x.src).length}/${all.length})`);
+    const muts = all.filter(x => /^(scontrol (update|reboot|cancel_reboot)|scancel)\b/.test(x.code));
+    check(muts.length === 7 && muts.every(x => x.danger), `drain, resume, undrain, reboot, cancel_reboot and scancel are flagged (${muts.filter(x => x.danger).length}/${muts.length})`);
+    check(muts.filter(x => /^scontrol/.test(x.code)).every(x => x.admin), 'the scontrol changes carry the Slurm admin badge');
+    const reads = all.filter(x => /^(sinfo|squeue|sacct|scontrol (show|ping))\b/.test(x.code));
+    check(reads.length >= 10 && !reads.some(x => x.danger), `read-only checks are not flagged (${reads.length})`);
+    check(!all.some(x => /squeue -t PD -w/.test(x.code)), 'no squeue -t PD -w (pending jobs have no allocated node)');
+    const inTab = await p.evaluate(() => !!document.querySelector('#navgroup-devops .ng-group[data-suite-key="slurm"]'));
+    check(inTab, 'Slurm is a group in the DevOps tab');
+    await ctx.close();
+  }
+
   // 3. Over a year old → amber "re-check"; and src can't inject markup or javascript: links.
   {
     const ctx = await newContext(browser);

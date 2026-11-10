@@ -1,6 +1,6 @@
 # Datacenter Cheat Sheets
 
-Offline command reference sheets for datacenter work: <!-- counts -->236 pages, 214 of them command sheets with 2,050 commands<!-- /counts -->, plus one file that bundles them all.
+Offline command reference sheets for datacenter work: <!-- counts -->240 pages, 217 of them command sheets with 2,082 commands<!-- /counts -->, plus one file that bundles them all.
 
 ## Open it
 
@@ -18,7 +18,7 @@ Offline command reference sheets for datacenter work: <!-- counts -->236 pages, 
 | Filter the current sheet | `/`, and `Esc` clears it |
 | Jump to a topic | Top nav menus, or the **Section** dropdown |
 
-**The menus:** Home · Operating Systems (Linux, macOS, Windows, Omarchy) · Editors (Neovim; nano, VS Code, Zed, Cursor) · CLI Tools · Scripting · Networking (InfiniBand, Ethernet, Fiber, Switches) · Remote Management (Redfish, ipmitool, BMC vendor tools: racadm, iLOrest, Supermicro SAA, OneCLI, FreeIPMI, serial consoles) · Hardware (NVIDIA DC, Motherboards, Server internals, Rack & hardware reference: power, cooling, memory, drives, GPU form factors, racks) · DevOps (Containers, Grafana, SRE toolkit: Prometheus, Ansible, Terraform/OpenTofu, Helm, Argo CD, incident response) · Ticketing (Jira). `build-nav-groups.js` builds these tabs from each suite's own menu; edit `TABS` there to move a suite.
+**The menus:** Home · Operating Systems (Linux, macOS, Windows, Omarchy) · Editors (Neovim; nano, VS Code, Zed, Cursor) · CLI Tools · Scripting · Networking (InfiniBand, Ethernet, Fiber, Switches) · Remote Management (Redfish, ipmitool, BMC vendor tools: racadm, iLOrest, Supermicro SAA, OneCLI, FreeIPMI, serial consoles) · Hardware (NVIDIA DC, Motherboards, Server internals, Rack & hardware reference: power, cooling, memory, drives, GPU form factors, racks) · DevOps (Containers, Slurm, Grafana, SRE toolkit: Prometheus, Ansible, Terraform/OpenTofu, Helm, Argo CD, incident response) · Ticketing (Jira). `build-nav-groups.js` builds these tabs from each suite's own menu; edit `TABS` there to move a suite.
 
 ## Field notes (More → Field notes)
 
@@ -43,7 +43,7 @@ Everything the site keeps lives in this browser only: Field notes drafts, the ca
 - Only this site's own data is included, never other pages that share the `file://` origin.
 - **Keeping it:** the panel says whether the browser has agreed to keep this data (**✓ Kept**) or may clear it when the disk runs low (**⚠ Not guaranteed**, with **Ask the browser to keep it**). The site also asks once per tab when you first save something: a pin to the case, a field note, the rack inventory, a backup or a restore. It never asks on page load. Chromium browsers (Brave, Chrome) answer silently from how much you use the site, and bookmarking the page helps; Firefox shows a prompt. Either way, a backup is the copy you control.
 
-## Command sources (NVIDIA DC, InfiniBand, Redfish, ipmitool, BMC vendor tool, switch, Ethernet, Linux storage, Linux hardware, hardware-reference, Kubernetes and GPU-container sheets)
+## Command sources (NVIDIA DC, InfiniBand, Redfish, ipmitool, BMC vendor tool, switch, Ethernet, Linux storage, Linux hardware, hardware-reference, Kubernetes, GPU-container and Slurm sheets)
 
 Every command on the NVIDIA DC, InfiniBand, Redfish, ipmitool, BMC vendor tool (racadm, iLOrest, SAA, OneCLI, FreeIPMI, serial consoles), switch (Quantum, Cumulus, Arista, NX-OS, SONiC), Ethernet and Linux storage and hardware sheets (NVMe/SMART/RAID, filesystems/LVM, DMI, PCIe/NUMA, ECC/EDAC, kernel/boot) the Rack & hardware reference sheets, and the Kubernetes and Docker GPU sheets (including each recipe and Pro Tip) ends with a line saying where it was checked and when: **Source** with links to the vendor pages (nvidia-smi docs, DCGM, Fabric Manager guide, Xid catalog, MIG guide, NCCL, perftest, the rdma-core man pages, NVIDIA MFT, ibdiagnet and BlueField docs, the DMTF Redfish specification and schemas, the ipmitool man page and source, Dell's RACADM guide, HPE's iLOrest guide, Supermicro's SAA guide, Lenovo's OneCLI docs, the FreeIPMI and serial-console man pages, the MLNX-OS, Cumulus/NVUE, Arista EOS, NX-OS and SONiC references, the iproute2/ethtool man pages and netplan docs, nvme-cli, smartctl, mdadm, ledctl and the util-linux/coreutils/LVM man pages…) and **verified Nov 2026**. A note says what the docs did not confirm (for example a `--query-gpu` field name to check with `nvidia-smi --help-query-gpu` on your driver), and **⚠ Not verified** marks a command that has not been checked yet. After a year the line turns amber and says **re-check**. The links need a network; the line itself works offline.
 
