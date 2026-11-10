@@ -3051,7 +3051,7 @@
   // -------------------------------------------------------------
   const TOUR_SEEN_KEY = 'dc_tour_seen';
   // Bumped when the tour gains steps: anyone who saw an older one is offered "What's new" (the isNew steps).
-  const TOUR_VERSION = '10';
+  const TOUR_VERSION = '11';
   // center: the step still shows (centred) when its control is not on this page.
   const TOUR_STEPS = [
     { title: 'This reference does more than list commands', body: 'A short tour that follows an incident: diagnose the error, set up the node, run commands in the built-in terminal, see the GPU tray, compare against healthy nodes, and file the case. Use ← → or the buttons; Esc ends it.' },
@@ -3086,10 +3086,12 @@
     { center: true, title: 'Every command shows where it was checked', body: 'On the NVIDIA, InfiniBand, Redfish, ipmitool and BMC tool sheets each command ends with its source and the date it was verified; amber means re-check. Checking them corrected commands that were wrong, such as the ECC and NVLink counter resets.' },
     { center: true, title: 'Reboot and crash commands are read-only', body: 'Commands that reboot or shut down the machine you type them on, and BMC NMIs that panic a kernel, stay on the sheets as reference with a 🔒 note but cannot be copied or run.' },
     { center: true, title: 'Keyboard: skip the menus', body: 'The first Tab offers Skip to commands. Tab stays inside an open tool and Esc puts you back where you were; Tab and j/k never leave the command you are on hidden under a bar.' },
-    { center: true, isNew: true, title: 'Practice what you actually run', body: 'Practice (q) has a From my trail round: the commands you copied on real tickets, from every node workspace, most-copied first, scheduled with the same review boxes.' },
-    { target: '.nav-tools', isNew: true, title: 'See what you never open', body: 'The Workbench counts how often you open each tool and sheet (in this browser only, included in Backup). Its Unused in 30 days fold lists the ones you skip, to guide what to keep.' },
-    { center: true, isNew: true, title: 'My kit in the terminal', body: 'My kit (s) → Export for navi saves your starred commands as a navi cheatsheet, with each <placeholder> as a navi variable, so you can search and run them from tmux or ssh.' },
-    { center: true, isNew: true, title: 'More sheets checked against the docs', body: 'Switch, Ethernet, Linux storage and hardware, hardware-reference and Kubernetes commands now show their source too. Checking them corrected dozens of wrong flags and claims.' },
+    { center: true, title: 'Practice what you actually run', body: 'Practice (q) has a From my trail round: the commands you copied on real tickets, from every node workspace, most-copied first, scheduled with the same review boxes.' },
+    { target: '.nav-tools', title: 'See what you never open', body: 'The Workbench counts how often you open each tool and sheet (in this browser only, included in Backup). Its Unused in 30 days fold lists the ones you skip, to guide what to keep.' },
+    { center: true, title: 'My kit in the terminal', body: 'My kit (s) → Export for navi saves your starred commands as a navi cheatsheet, with each <placeholder> as a navi variable, so you can search and run them from tmux or ssh.' },
+    { center: true, title: 'More sheets checked against the docs', body: 'Switch, Ethernet, Linux storage and hardware, hardware-reference and Kubernetes commands now show their source too. Checking them corrected dozens of wrong flags and claims.' },
+    { target: '#navgroup-devops', isNew: true, title: 'Slurm: drain, resume, what ran there', body: 'DevOps → Slurm covers the scheduler side of a hardware ticket: a node\u2019s state and who drained it, drain and resume (RESUME vs UNDRAIN), the jobs that ran on it, and slurmd -C to check its hardware after a swap.' },
+    { target: '#navgroup-hw', isNew: true, title: 'Lustre, WEKA, BeeGFS and Ceph', body: 'Hardware → Parallel filesystems: are all the servers and targets up, which one is full, which disk sits behind a failed Ceph OSD, and noout for a swap. BeeGFS cards give both the 8.x and 7.x commands.' },
     { target: '.hdr-more-btn', title: 'Replay this anytime', body: 'My kit (★) collects bookmarked commands into a printable pocket card. Themes, Manuals and the offline 1-file copy live under More. j/k move between commands, Enter copies, ? lists every shortcut. Ctrl+K → "tour" or "what’s new" brings this back.' }
   ];
   const tourSeenVersion = () => { try { return localStorage.getItem(TOUR_SEEN_KEY); } catch (e) { return null; } };
@@ -3223,7 +3225,7 @@
     inv.className = `tour-invite${returning ? ' is-whatsnew' : ''}`;
     inv.setAttribute('role', 'status');
     inv.innerHTML = returning
-      ? `<span class="tour-invite-dot" aria-hidden="true"></span><div><b>New since your last tour</b><span>Practice from your Case Trail, a usage meter on the Workbench, My kit as a navi cheatsheet, and sources on many more sheets.</span></div>
+      ? `<span class="tour-invite-dot" aria-hidden="true"></span><div><b>New since your last tour</b><span>A Slurm suite (drain, resume, jobs, GPUs) and Lustre, WEKA, BeeGFS and Ceph sheets.</span></div>
       <button type="button" class="tour-invite-go">What\u2019s new</button><button type="button" class="tour-invite-x" aria-label="Dismiss">✕</button>`
       : `<span class="tour-invite-dot" aria-hidden="true"></span><div><b>New here?</b><span>Two-minute tour of what this reference can do.</span></div>
       <button type="button" class="tour-invite-go">Take the tour</button><button type="button" class="tour-invite-x" aria-label="Dismiss">✕</button>`;
@@ -3331,7 +3333,7 @@
       { icon: '📶', label: 'BER: healthy vs unhealthy', sub: 'What raw and effective BER look like on a clean, degraded and failing link', kw: 'ber bit error rate fec raw effective mlxlink healthy unhealthy reference thresholds', run: () => openBerReference() },
       { icon: '⌨', label: 'Keyboard shortcuts', sub: 'j/k move between commands, ↵ copy, b save, ? for the full map', kw: 'keyboard shortcuts keys hotkeys vim navigation help accessibility', run: () => toggleKbHelp(true) },
       { icon: '🧭', label: 'Take the tour', sub: 'Walkthrough of what this reference can do, following an incident', kw: 'tour help guide getting started onboarding features walkthrough', run: () => startTour() },
-      { icon: '✨', label: 'What\u2019s new', sub: 'Only the newest additions: practice from your trail, the usage meter, navi export, sources on more sheets', kw: 'whats new what\'s new changes changelog latest updates recent features', run: () => startTour('new') },
+      { icon: '✨', label: 'What\u2019s new', sub: 'Only the newest additions: the Slurm suite and the parallel filesystem sheets', kw: 'whats new what\'s new changes changelog latest updates recent features', run: () => startTour('new') },
       { icon: '📋', label: 'Shift board & handoff', sub: 'All node workspaces at a glance; copy or print the handoff', kw: 'board shift handoff handover incidents nodes overview status report', run: () => openBoard() },
       { icon: '📈', label: 'Analyze command output', sub: 'Paste mlxlink, nvme smart-log or nvidia-smi topo -m output for a report', kw: 'analyze analyzer output paste mlxlink smart-log smartlog dom ber optics nvme report topo topology nvlink pix numa affinity', run: () => openAnalyzer() },
       { icon: '☰', label: 'Toggle compact view', sub: 'Hide or show explanations and variants', kw: 'compact density detailed dense view', run: () => { const b = document.getElementById('density-toggle'); if (b) b.click(); } },

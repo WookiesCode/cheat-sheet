@@ -54,6 +54,7 @@ Maintain a clean, reproducible directory structure in `/home/jason/Work/cheat-sh
 │   └── chat-instructions.md         # General chat-assistant preferences (full + short)
 ├── index.html, *.html, *.js         # The offline cheat-sheet site (common.js, styles.css, sheets)
 ├── build-*.js, generate-*.js        # Site build scripts (run build-all.js)
+├── nav/nav-source.html              # The one copy of the top nav → nav.js (never edit a page's own nav)
 ├── backups/                         # Site backups (git-ignored)
 ├── docs/
 │   ├── site.md                      # Site guide: features, shortcuts, how it is built
