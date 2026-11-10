@@ -1,5 +1,5 @@
 // Auto-generated Global Search Index across all 233 cheat sheets
-// Total indexed items: 3398
+// Total indexed items: 3404
 window.GLOBAL_SEARCH_INDEX = [
   {
     "sName": "ansible",
@@ -186,7 +186,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dmidecode -t system -t bios -t baseboard -t chassis",
     "desc": "Query system manufacturer, product name, service tag / serial number, UUID & BIOS revision",
     "tip": "Instant FRU / Serial lookup",
-    "tags": "dmidecode serial bios motherboard fru asset datacenter"
+    "tags": "dmidecode serial bios motherboard fru asset datacenter",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+          "title": "dmidecode(8)"
+        }
+      ],
+      "note": "dmidecode reads the SMBIOS table from sysfs first and falls back to /dev/mem."
+    }
   },
   {
     "sName": "linux",
@@ -241,7 +251,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dmidecode -t memory | grep -E 'Size:|Locator:|Bank Locator:|Type:|Speed:|Configured Memory Speed:|Manufacturer:|Serial Number:|Part Number:'",
     "desc": "Inspect physical RAM DIMM slots, populated vs empty sockets, DDR speed, manufacturer & part numbers",
     "tip": "Maps OS to motherboard silkscreen",
-    "tags": "dimm ram memory ddr5 ddr4 slot part-number dmidecode"
+    "tags": "dimm ram memory ddr5 ddr4 slot part-number dmidecode",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+          "title": "dmidecode(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/lshw/lshw.1.en.html",
+          "title": "lshw(1)"
+        }
+      ],
+      "note": "Slot labels (Locator) come from the vendor's SMBIOS table and vary by board."
+    }
   },
   {
     "sName": "linux",
@@ -285,7 +309,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dmidecode -t 39 && dmidecode -t processor",
     "desc": "Inspect redundant Power Supply Units (PSU wattage, serial, status) and CPU socket population",
     "tip": "",
-    "tags": "psu power-supply cpu socket dmidecode datacenter"
+    "tags": "psu power-supply cpu socket dmidecode datacenter",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+          "title": "dmidecode(8)"
+        },
+        {
+          "url": "https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-class-dmi",
+          "title": "Kernel ABI: sysfs-class-dmi"
+        }
+      ],
+      "note": "Many servers leave DMI Type 39 empty: check PSUs in the BMC (ipmitool sdr type 'Power Supply') if it prints nothing. product_serial in /sys/class/dmi/id is usually root-only."
+    }
   },
   {
     "sName": "linux",
@@ -315,10 +353,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "dmi",
     "id": "lshw-hardware-tree",
     "sec": "DMI / SMBIOS, FRU & Motherboard Inventory",
-    "cmd": "lshw -short -businfo",
+    "cmd": "lshw -businfo",
     "desc": "Generate complete hardware inventory tree with bus addresses (PCI/USB/SCSI/NVMe) and driver status",
     "tip": "Look for UNCLAIMED devices",
-    "tags": "lshw inventory businfo unclaimed driver manifest"
+    "tags": "lshw inventory businfo unclaimed driver manifest",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/lshw/lshw.1.en.html",
+          "title": "lshw(1)"
+        },
+        {
+          "url": "https://github.com/lyonel/lshw/blob/master/src/core/print.cc",
+          "title": "lshw source: print.cc (UNCLAIMED)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: lshw -short -businfo → lshw -businfo (they are two output formats; the man page doesn't say what both together do)."
+    }
   },
   {
     "sName": "linux",
@@ -362,7 +414,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lspci -vvv -s 0000:3b:00.0 | grep -E 'LnkCap:|LnkSta:|DevSta:|AERCap:'",
     "desc": "Verify PCIe negotiated link speed (GT/s) and lane width (x16/x8) vs device capability (LnkCap vs LnkSta)",
     "tip": "Detects bad risers / unseated cards",
-    "tags": "lspci pcie lnksta lnkcap downgraded lanes gen4 gen5 riser"
+    "tags": "lspci pcie lnksta lnkcap downgraded lanes gen4 gen5 riser",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/lspci.8.html",
+          "title": "lspci(8)"
+        },
+        {
+          "url": "https://github.com/pciutils/pciutils/blob/master/ls-caps.c",
+          "title": "pciutils source: ls-caps.c (downgraded)"
+        }
+      ],
+      "note": "lspci adds (downgraded) to LnkSta on endpoints only, not on root or downstream ports. Without root, lspci can't read the capability registers."
+    }
   },
   {
     "sName": "linux",
@@ -403,8 +469,37 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "pci",
     "id": "lspci-aer-rescan",
     "sec": "PCIe Bus, Link Speed/Width, CPU & NUMA Topology",
-    "cmd": "lspci -vvv | grep -E '^[0-9a-f]|UESta:|CESta:' && echo 1 | tee /sys/bus/pci/rescan",
+    "cmd": "lspci -vvv | grep -E '^[0-9a-f]|UESta:|CESta:'",
     "desc": "Inspect PCIe Advanced Error Reporting (AER) counters and hot-rescan the PCIe bus",
+    "tip": "",
+    "tags": "aer pcie errors rescan hotplug tlp lspci",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/lspci.8.html",
+          "title": "lspci(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/setpci.8.html",
+          "title": "setpci(8)"
+        },
+        {
+          "url": "https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-bus-pci",
+          "title": "Kernel ABI: sysfs-bus-pci"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the read-only AER check also ran a bus rescan (… && echo 1 | tee /sys/bus/pci/rescan); the rescan is now its own recipe."
+    }
+  },
+  {
+    "sName": "linux",
+    "file": "linux.html",
+    "badge": "pci",
+    "id": "lspci-aer-rescan",
+    "sec": "PCIe Bus, Link Speed/Width, CPU & NUMA Topology",
+    "cmd": "echo 1 | tee /sys/bus/pci/rescan",
+    "desc": "Rescan every PCI bus and re-discover removed devices (after a card or U.2 drive dropped off)",
     "tip": "",
     "tags": "aer pcie errors rescan hotplug tlp lspci"
   },
@@ -436,10 +531,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "pci",
     "id": "lscpu-topology",
     "sec": "PCIe Bus, Link Speed/Width, CPU & NUMA Topology",
-    "cmd": "lscpu && lscpu -e=CPU,NODE,SOCKET,CORE,L1d:L1i:L2:L3,ONLINE,MAXMHZ,MINMHZ",
+    "cmd": "lscpu && lscpu -e=CPU,NODE,SOCKET,CORE,CACHE,ONLINE,MAXMHZ,MINMHZ",
     "desc": "Inspect CPU socket topology, physical cores vs SMT threads, cache hierarchy, and CPU flags",
     "tip": "",
-    "tags": "lscpu cpu cores numa governor microcode smt"
+    "tags": "lscpu cpu cores numa governor microcode smt",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/lscpu.1.html",
+          "title": "lscpu(1)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/linux-cpupower/cpupower-frequency-set.1.en.html",
+          "title": "cpupower-frequency-set(1)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/linux-cpupower/cpupower-frequency-info.1.en.html",
+          "title": "cpupower-frequency-info(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: lscpu -e=…,L1d:L1i:L2:L3,… fails with 'unknown column' (tested, util-linux 2.42): the column is CACHE. Which governors exist depends on the cpufreq driver: cpupower frequency-info -g lists them."
+    }
   },
   {
     "sName": "linux",
@@ -483,7 +596,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "numactl --hardware && numastat -m",
     "desc": "View NUMA node memory allocation, inter-socket latency matrix, and pin processes to a NUMA node",
     "tip": "Match NIC/GPU to local NUMA node",
-    "tags": "numa numactl numastat lstopo socket affinity latency"
+    "tags": "numa numactl numastat lstopo socket affinity latency",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/numactl.8.html",
+          "title": "numactl(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/numastat.8.html",
+          "title": "numastat(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/hwloc/lstopo-no-graphics.1.en.html",
+          "title": "lstopo-no-graphics(1)"
+        },
+        {
+          "url": "https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-bus-pci",
+          "title": "Kernel ABI: sysfs-bus-pci"
+        }
+      ],
+      "note": "numa_node reads -1 when the firmware doesn't report a node, and virtual NICs have no device link."
+    }
   },
   {
     "sName": "linux",
@@ -527,7 +662,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "edac-util -v && grep -H . /sys/devices/system/edac/mc/mc*/csrow*/ch*_ce_count /sys/devices/system/edac/mc/mc*/dimm*/dimm_*",
     "desc": "Check Error Detection and Correction (EDAC) memory controllers for Correctable (CE) & Uncorrectable (UE) ECC errors",
     "tip": "Pinpoints bad DIMM slot in OS",
-    "tags": "ecc edac dimm memory-error ce ue ram"
+    "tags": "ecc edac dimm memory-error ce ue ram",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/edac-utils/edac-util.1.en.html",
+          "title": "edac-util(1)"
+        },
+        {
+          "url": "https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-devices-edac",
+          "title": "Kernel ABI: sysfs-devices-edac"
+        }
+      ],
+      "note": "The dimm*/dimm_label, dimm_location, dimm_ce_count and dimm_ue_count files are in the kernel ABI; the older csrow*/ch*_ce_count files are not documented there and exist only on some drivers."
+    }
   },
   {
     "sName": "linux",
@@ -560,7 +709,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ras-mc-ctl --summary && ras-mc-ctl --errors",
     "desc": "Query Ubuntu rasdaemon hardware error database for Memory ECC, PCIe AER, and CPU Machine Check Exceptions (MCE)",
     "tip": "",
-    "tags": "rasdaemon ras-mc-ctl mce mcelog apei ghes hardware-error"
+    "tags": "rasdaemon ras-mc-ctl mce mcelog apei ghes hardware-error",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/rasdaemon/ras-mc-ctl.8.en.html",
+          "title": "ras-mc-ctl(8)"
+        },
+        {
+          "url": "https://github.com/mchehab/rasdaemon",
+          "title": "rasdaemon README"
+        }
+      ],
+      "note": "Corrected 2026-11-09: removed the claims that rasdaemon 'replaces' mcelog and that the database is /var/lib/rasdaemon/ras-mc_event.db; neither is in its docs."
+    }
   },
   {
     "sName": "linux",
@@ -604,7 +767,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sensors && cat /sys/class/thermal/thermal_zone*/{type,temp} 2>/dev/null | paste - -",
     "desc": "Monitor CPU package/core temperatures, NVMe composite temps, VRM voltages & chassis sensors",
     "tip": "",
-    "tags": "sensors temperature thermal overheating throttling fan hwmon"
+    "tags": "sensors temperature thermal overheating throttling fan hwmon",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/lm-sensors/sensors.1.en.html",
+          "title": "sensors(1)"
+        },
+        {
+          "url": "https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-class-thermal",
+          "title": "Kernel ABI: sysfs-class-thermal"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/linux-cpupower/turbostat.8.en.html",
+          "title": "turbostat(8)"
+        }
+      ],
+      "note": "The thermal_throttle/*_count files are Intel-only and not in the kernel ABI docs; turbostat(8) points to them for throttle events since boot."
+    }
   },
   {
     "sName": "linux",
@@ -636,8 +817,22 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "ECC Memory, EDAC, MCE & Thermal Triage",
     "cmd": "turbostat --Summary --quiet --show Busy%,Bzy_MHz,TSC_MHz,IRQ,SMI,PkgTmp,PkgWatt,RAMWatt --interval 2",
     "desc": "Real-time x86 CPU telemetry: actual core MHz, busy%, C-state residency, SMI interrupts & package wattage",
-    "tip": "From linux-tools-common package",
-    "tags": "turbostat power wattage mhz throttling smi msr"
+    "tip": "Ubuntu: linux-tools-common · Debian: linux-cpupower",
+    "tags": "turbostat power wattage mhz throttling smi msr",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/linux-cpupower/turbostat.8.en.html",
+          "title": "turbostat(8)"
+        },
+        {
+          "url": "https://manpages.ubuntu.com/manpages/noble/man8/turbostat.8.html",
+          "title": "turbostat(8), Ubuntu 24.04"
+        }
+      ],
+      "note": "Some columns (SMI, RAMWatt) exist only on CPUs that report them."
+    }
   },
   {
     "sName": "linux",
@@ -980,6 +1175,35 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lsmod | head -n 15 && modinfo mlx5_core | grep -E 'filename:|version:|srcversion:|parm:'",
     "desc": "Inspect loaded kernel modules, check driver version/parameters, and load or unload modules live",
     "tip": "",
+    "tags": "lsmod modinfo modprobe dkms driver kernel-module",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/modinfo.8.html",
+          "title": "modinfo(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/modprobe.8.html",
+          "title": "modprobe(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/dkms/dkms.8.en.html",
+          "title": "dkms(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: load and unload were one line (modprobe -v … && modprobe -rv …), so copying it loaded the module and removed it again."
+    }
+  },
+  {
+    "sName": "linux",
+    "file": "linux.html",
+    "badge": "krn",
+    "id": "lsmod-modinfo-modprobe",
+    "sec": "Kernel Modules, GRUB, Serial Console & Burn-in",
+    "cmd": "modprobe -v <module_name>",
+    "desc": "Load a kernel module and its dependencies, printing what it does (-v)",
+    "tip": "",
     "tags": "lsmod modinfo modprobe dkms driver kernel-module"
   },
   {
@@ -988,8 +1212,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "krn",
     "id": "lsmod-modinfo-modprobe",
     "sec": "Kernel Modules, GRUB, Serial Console & Burn-in",
-    "cmd": "modprobe -v <module_name> && modprobe -rv <module_name>",
-    "desc": "Load (-v) or unload (-rv) a kernel module and its unused dependencies",
+    "cmd": "modprobe -rv <module_name>",
+    "desc": "Unload a kernel module and its now-unused dependencies",
     "tip": "",
     "tags": "lsmod modinfo modprobe dkms driver kernel-module"
   },
@@ -1024,7 +1248,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "cat /proc/cmdline && grep -E '^GRUB_CMDLINE_LINUX|^GRUB_TERMINAL' /etc/default/grub",
     "desc": "Inspect kernel boot cmdline, configure SOL serial console (ttyS0) in GRUB, and rebuild Ubuntu initramfs",
     "tip": "Essential for IPMI Serial-over-LAN",
-    "tags": "grub cmdline serial ttys0 sol initramfs boot"
+    "tags": "grub cmdline serial ttys0 sol initramfs boot",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.kernel.org/admin-guide/serial-console.html",
+          "title": "Kernel: Linux serial console"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/grub2-common/update-grub.8.en.html",
+          "title": "update-grub(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/initramfs-tools/update-initramfs.8.en.html",
+          "title": "update-initramfs(8)"
+        },
+        {
+          "url": "https://www.freedesktop.org/software/systemd/man/latest/systemd-getty-generator.html",
+          "title": "systemd-getty-generator(8)"
+        }
+      ],
+      "note": "With console=tty0 console=ttyS0,115200n8 the kernel writes to both and /dev/console is the last one (ttyS0). The GRUB manual (GRUB_CMDLINE_LINUX, GRUB_TERMINAL) could not be fetched."
+    }
   },
   {
     "sName": "linux",
@@ -1055,7 +1301,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "id": "grub-serial-initramfs",
     "sec": "Kernel Modules, GRUB, Serial Console & Burn-in",
     "cmd": "systemctl enable --now serial-getty@ttyS0.service",
-    "desc": "Enable interactive login prompt on serial console ttyS0 without rebooting",
+    "desc": "Start a login prompt on ttyS0 now (with console=ttyS0 on the kernel command line, systemd starts one by itself at boot)",
     "tip": "",
     "tags": "grub cmdline serial ttys0 sol initramfs boot"
   },
@@ -1068,7 +1314,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "coredumpctl list | tail -n 10 && kdump-config status",
     "desc": "Inspect application crashes (systemd-coredump) and verify Ubuntu kernel crash dump (kdump) readiness",
     "tip": "",
-    "tags": "coredumpctl kdump crash panic segfault vmcore"
+    "tags": "coredumpctl kdump crash panic segfault vmcore",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.freedesktop.org/software/systemd/man/latest/coredumpctl.html",
+          "title": "coredumpctl(1)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/kdump-tools/kdump-config.8.en.html",
+          "title": "kdump-config(8)"
+        },
+        {
+          "url": "https://ubuntu.com/server/docs/how-to/software/kernel-crash-dump/",
+          "title": "Ubuntu Server: kernel crash dump"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -1101,7 +1364,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "stress-ng --cpu 0 --vm 4 --vm-bytes 80% --verify -t 10m --metrics-brief",
     "desc": "Run post-repair hardware burn-in tests on CPU, ECC Memory (stress-ng), and NVMe storage IOPS (fio)",
     "tip": "Run after CPU/RAM/Motherboard swap",
-    "tags": "stress-ng fio iperf3 burnin benchmark iops testing"
+    "tags": "stress-ng fio iperf3 burnin benchmark iops testing",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/stress-ng/stress-ng.1.en.html",
+          "title": "stress-ng(1)"
+        },
+        {
+          "url": "https://fio.readthedocs.io/en/latest/fio_doc.html",
+          "title": "fio documentation"
+        },
+        {
+          "url": "https://software.es.net/iperf/invoking.html",
+          "title": "iperf3: invoking"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the iperf3 recipe was 'iperf3 -s # on target node && iperf3 -c …': everything after # is a comment, so copying it only started the server. Now two recipes."
+    }
   },
   {
     "sName": "linux",
@@ -1120,8 +1401,19 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "krn",
     "id": "stress-fio-burnin",
     "sec": "Kernel Modules, GRUB, Serial Console & Burn-in",
-    "cmd": "iperf3 -s   # on target node   &&   iperf3 -6 -c 2001:db8:dc:10::1 -P 8 -t 30",
-    "desc": "Verify IPv6 (-6) 10G/25G/100G/400G NIC throughput across 8 parallel TCP streams for 30 seconds",
+    "cmd": "iperf3 -s",
+    "desc": "Start the iperf3 server on the target node (run this first, there)",
+    "tip": "",
+    "tags": "stress-ng fio iperf3 burnin benchmark iops testing"
+  },
+  {
+    "sName": "linux",
+    "file": "linux.html",
+    "badge": "krn",
+    "id": "stress-fio-burnin",
+    "sec": "Kernel Modules, GRUB, Serial Console & Burn-in",
+    "cmd": "iperf3 -6 -c 2001:db8:dc:10::1 -P 8 -t 30",
+    "desc": "From the other node: verify IPv6 (-6) NIC throughput across 8 parallel TCP streams for 30 seconds",
     "tip": "",
     "tags": "stress-ng fio iperf3 burnin benchmark iops testing"
   },
@@ -10342,7 +10634,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dmidecode -t system -t bios -t baseboard -t chassis",
     "desc": "Query system manufacturer, product name, service tag / serial number, UUID & BIOS revision",
     "tip": "Instant FRU / Serial lookup",
-    "tags": "dmidecode serial bios motherboard fru asset datacenter"
+    "tags": "dmidecode serial bios motherboard fru asset datacenter",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+          "title": "dmidecode(8)"
+        }
+      ],
+      "note": "dmidecode reads the SMBIOS table from sysfs first and falls back to /dev/mem."
+    }
   },
   {
     "sName": "dmi-hw",
@@ -10397,7 +10699,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dmidecode -t memory | grep -E 'Size:|Locator:|Bank Locator:|Type:|Speed:|Configured Memory Speed:|Manufacturer:|Serial Number:|Part Number:'",
     "desc": "Inspect physical RAM DIMM slots, populated vs empty sockets, DDR speed, manufacturer & part numbers",
     "tip": "Maps OS to motherboard silkscreen",
-    "tags": "dimm ram memory ddr5 ddr4 slot part-number dmidecode"
+    "tags": "dimm ram memory ddr5 ddr4 slot part-number dmidecode",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+          "title": "dmidecode(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/lshw/lshw.1.en.html",
+          "title": "lshw(1)"
+        }
+      ],
+      "note": "Slot labels (Locator) come from the vendor's SMBIOS table and vary by board."
+    }
   },
   {
     "sName": "dmi-hw",
@@ -10441,7 +10757,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dmidecode -t 39 && dmidecode -t processor",
     "desc": "Inspect redundant Power Supply Units (PSU wattage, serial, status) and CPU socket population",
     "tip": "",
-    "tags": "psu power-supply cpu socket dmidecode datacenter"
+    "tags": "psu power-supply cpu socket dmidecode datacenter",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+          "title": "dmidecode(8)"
+        },
+        {
+          "url": "https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-class-dmi",
+          "title": "Kernel ABI: sysfs-class-dmi"
+        }
+      ],
+      "note": "Many servers leave DMI Type 39 empty: check PSUs in the BMC (ipmitool sdr type 'Power Supply') if it prints nothing. product_serial in /sys/class/dmi/id is usually root-only."
+    }
   },
   {
     "sName": "dmi-hw",
@@ -10471,10 +10801,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "dmi",
     "id": "lshw-hardware-tree",
     "sec": "DMI / SMBIOS: Complete hardware inventory tree with bus addres...",
-    "cmd": "lshw -short -businfo",
+    "cmd": "lshw -businfo",
     "desc": "Generate complete hardware inventory tree with bus addresses (PCI/USB/SCSI/NVMe) and driver status",
     "tip": "Look for UNCLAIMED devices",
-    "tags": "lshw inventory businfo unclaimed driver manifest"
+    "tags": "lshw inventory businfo unclaimed driver manifest",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/lshw/lshw.1.en.html",
+          "title": "lshw(1)"
+        },
+        {
+          "url": "https://github.com/lyonel/lshw/blob/master/src/core/print.cc",
+          "title": "lshw source: print.cc (UNCLAIMED)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: lshw -short -businfo → lshw -businfo (they are two output formats; the man page doesn't say what both together do)."
+    }
   },
   {
     "sName": "dmi-hw",
@@ -11376,7 +11720,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "edac-util -v && grep -H . /sys/devices/system/edac/mc/mc*/csrow*/ch*_ce_count /sys/devices/system/edac/mc/mc*/dimm*/dimm_*",
     "desc": "Check Error Detection and Correction (EDAC) memory controllers for Correctable (CE) & Uncorrectable (UE) ECC errors",
     "tip": "Pinpoints bad DIMM slot in OS",
-    "tags": "ecc edac dimm memory-error ce ue ram"
+    "tags": "ecc edac dimm memory-error ce ue ram",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/edac-utils/edac-util.1.en.html",
+          "title": "edac-util(1)"
+        },
+        {
+          "url": "https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-devices-edac",
+          "title": "Kernel ABI: sysfs-devices-edac"
+        }
+      ],
+      "note": "The dimm*/dimm_label, dimm_location, dimm_ce_count and dimm_ue_count files are in the kernel ABI; the older csrow*/ch*_ce_count files are not documented there and exist only on some drivers."
+    }
   },
   {
     "sName": "ecc-edac",
@@ -11409,7 +11767,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ras-mc-ctl --summary && ras-mc-ctl --errors",
     "desc": "Query Ubuntu rasdaemon hardware error database for Memory ECC, PCIe AER, and CPU Machine Check Exceptions (MCE)",
     "tip": "",
-    "tags": "rasdaemon ras-mc-ctl mce mcelog apei ghes hardware-error"
+    "tags": "rasdaemon ras-mc-ctl mce mcelog apei ghes hardware-error",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/rasdaemon/ras-mc-ctl.8.en.html",
+          "title": "ras-mc-ctl(8)"
+        },
+        {
+          "url": "https://github.com/mchehab/rasdaemon",
+          "title": "rasdaemon README"
+        }
+      ],
+      "note": "Corrected 2026-11-09: removed the claims that rasdaemon 'replaces' mcelog and that the database is /var/lib/rasdaemon/ras-mc_event.db; neither is in its docs."
+    }
   },
   {
     "sName": "ecc-edac",
@@ -11453,7 +11825,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sensors && cat /sys/class/thermal/thermal_zone*/{type,temp} 2>/dev/null | paste - -",
     "desc": "Monitor CPU package/core temperatures, NVMe composite temps, VRM voltages & chassis sensors",
     "tip": "",
-    "tags": "sensors temperature thermal overheating throttling fan hwmon"
+    "tags": "sensors temperature thermal overheating throttling fan hwmon",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/lm-sensors/sensors.1.en.html",
+          "title": "sensors(1)"
+        },
+        {
+          "url": "https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-class-thermal",
+          "title": "Kernel ABI: sysfs-class-thermal"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/linux-cpupower/turbostat.8.en.html",
+          "title": "turbostat(8)"
+        }
+      ],
+      "note": "The thermal_throttle/*_count files are Intel-only and not in the kernel ABI docs; turbostat(8) points to them for throttle events since boot."
+    }
   },
   {
     "sName": "ecc-edac",
@@ -11485,8 +11875,22 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "ECC Memory: Real-time x86 CPU telemetry: actual core MHz, bu...",
     "cmd": "turbostat --Summary --quiet --show Busy%,Bzy_MHz,TSC_MHz,IRQ,SMI,PkgTmp,PkgWatt,RAMWatt --interval 2",
     "desc": "Real-time x86 CPU telemetry: actual core MHz, busy%, C-state residency, SMI interrupts & package wattage",
-    "tip": "From linux-tools-common package",
-    "tags": "turbostat power wattage mhz throttling smi msr"
+    "tip": "Ubuntu: linux-tools-common · Debian: linux-cpupower",
+    "tags": "turbostat power wattage mhz throttling smi msr",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/linux-cpupower/turbostat.8.en.html",
+          "title": "turbostat(8)"
+        },
+        {
+          "url": "https://manpages.ubuntu.com/manpages/noble/man8/turbostat.8.html",
+          "title": "turbostat(8), Ubuntu 24.04"
+        }
+      ],
+      "note": "Some columns (SMI, RAMWatt) exist only on CPUs that report them."
+    }
   },
   {
     "sName": "editors",
@@ -25266,6 +25670,35 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lsmod | head -n 15 && modinfo mlx5_core | grep -E 'filename:|version:|srcversion:|parm:'",
     "desc": "Inspect loaded kernel modules, check driver version/parameters, and load or unload modules live",
     "tip": "",
+    "tags": "lsmod modinfo modprobe dkms driver kernel-module",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/modinfo.8.html",
+          "title": "modinfo(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/modprobe.8.html",
+          "title": "modprobe(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/dkms/dkms.8.en.html",
+          "title": "dkms(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: load and unload were one line (modprobe -v … && modprobe -rv …), so copying it loaded the module and removed it again."
+    }
+  },
+  {
+    "sName": "kernel-boot",
+    "file": "kernel-boot.html",
+    "badge": "krn",
+    "id": "lsmod-modinfo-modprobe",
+    "sec": "Kernel Modules: Loaded kernel modules, check driver version/para...",
+    "cmd": "modprobe -v <module_name>",
+    "desc": "Load a kernel module and its dependencies, printing what it does (-v)",
+    "tip": "",
     "tags": "lsmod modinfo modprobe dkms driver kernel-module"
   },
   {
@@ -25274,8 +25707,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "krn",
     "id": "lsmod-modinfo-modprobe",
     "sec": "Kernel Modules: Loaded kernel modules, check driver version/para...",
-    "cmd": "modprobe -v <module_name> && modprobe -rv <module_name>",
-    "desc": "Load (-v) or unload (-rv) a kernel module and its unused dependencies",
+    "cmd": "modprobe -rv <module_name>",
+    "desc": "Unload a kernel module and its now-unused dependencies",
     "tip": "",
     "tags": "lsmod modinfo modprobe dkms driver kernel-module"
   },
@@ -25310,7 +25743,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "cat /proc/cmdline && grep -E '^GRUB_CMDLINE_LINUX|^GRUB_TERMINAL' /etc/default/grub",
     "desc": "Inspect kernel boot cmdline, configure SOL serial console (ttyS0) in GRUB, and rebuild Ubuntu initramfs",
     "tip": "Essential for IPMI Serial-over-LAN",
-    "tags": "grub cmdline serial ttys0 sol initramfs boot"
+    "tags": "grub cmdline serial ttys0 sol initramfs boot",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.kernel.org/admin-guide/serial-console.html",
+          "title": "Kernel: Linux serial console"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/grub2-common/update-grub.8.en.html",
+          "title": "update-grub(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/initramfs-tools/update-initramfs.8.en.html",
+          "title": "update-initramfs(8)"
+        },
+        {
+          "url": "https://www.freedesktop.org/software/systemd/man/latest/systemd-getty-generator.html",
+          "title": "systemd-getty-generator(8)"
+        }
+      ],
+      "note": "With console=tty0 console=ttyS0,115200n8 the kernel writes to both and /dev/console is the last one (ttyS0). The GRUB manual (GRUB_CMDLINE_LINUX, GRUB_TERMINAL) could not be fetched."
+    }
   },
   {
     "sName": "kernel-boot",
@@ -25341,7 +25796,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "id": "grub-serial-initramfs",
     "sec": "Kernel Modules: Kernel boot cmdline, configure SOL serial consol...",
     "cmd": "systemctl enable --now serial-getty@ttyS0.service",
-    "desc": "Enable interactive login prompt on serial console ttyS0 without rebooting",
+    "desc": "Start a login prompt on ttyS0 now (with console=ttyS0 on the kernel command line, systemd starts one by itself at boot)",
     "tip": "",
     "tags": "grub cmdline serial ttys0 sol initramfs boot"
   },
@@ -25354,7 +25809,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "coredumpctl list | tail -n 10 && kdump-config status",
     "desc": "Inspect application crashes (systemd-coredump) and verify Ubuntu kernel crash dump (kdump) readiness",
     "tip": "",
-    "tags": "coredumpctl kdump crash panic segfault vmcore"
+    "tags": "coredumpctl kdump crash panic segfault vmcore",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.freedesktop.org/software/systemd/man/latest/coredumpctl.html",
+          "title": "coredumpctl(1)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/kdump-tools/kdump-config.8.en.html",
+          "title": "kdump-config(8)"
+        },
+        {
+          "url": "https://ubuntu.com/server/docs/how-to/software/kernel-crash-dump/",
+          "title": "Ubuntu Server: kernel crash dump"
+        }
+      ]
+    }
   },
   {
     "sName": "kernel-boot",
@@ -25387,7 +25859,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "stress-ng --cpu 0 --vm 4 --vm-bytes 80% --verify -t 10m --metrics-brief",
     "desc": "Run post-repair hardware burn-in tests on CPU, ECC Memory (stress-ng), and NVMe storage IOPS (fio)",
     "tip": "Run after CPU/RAM/Motherboard swap",
-    "tags": "stress-ng fio iperf3 burnin benchmark iops testing"
+    "tags": "stress-ng fio iperf3 burnin benchmark iops testing",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/stress-ng/stress-ng.1.en.html",
+          "title": "stress-ng(1)"
+        },
+        {
+          "url": "https://fio.readthedocs.io/en/latest/fio_doc.html",
+          "title": "fio documentation"
+        },
+        {
+          "url": "https://software.es.net/iperf/invoking.html",
+          "title": "iperf3: invoking"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the iperf3 recipe was 'iperf3 -s # on target node && iperf3 -c …': everything after # is a comment, so copying it only started the server. Now two recipes."
+    }
   },
   {
     "sName": "kernel-boot",
@@ -25406,8 +25896,19 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "krn",
     "id": "stress-fio-burnin",
     "sec": "Kernel Modules: Run post-repair hardware burn-in tests on CPU, E...",
-    "cmd": "iperf3 -s   # on target node   &&   iperf3 -6 -c 2001:db8:dc:10::1 -P 8 -t 30",
-    "desc": "Verify IPv6 (-6) 10G/25G/100G/400G NIC throughput across 8 parallel TCP streams for 30 seconds",
+    "cmd": "iperf3 -s",
+    "desc": "Start the iperf3 server on the target node (run this first, there)",
+    "tip": "",
+    "tags": "stress-ng fio iperf3 burnin benchmark iops testing"
+  },
+  {
+    "sName": "kernel-boot",
+    "file": "kernel-boot.html",
+    "badge": "krn",
+    "id": "stress-fio-burnin",
+    "sec": "Kernel Modules: Run post-repair hardware burn-in tests on CPU, E...",
+    "cmd": "iperf3 -6 -c 2001:db8:dc:10::1 -P 8 -t 30",
+    "desc": "From the other node: verify IPv6 (-6) NIC throughput across 8 parallel TCP streams for 30 seconds",
     "tip": "",
     "tags": "stress-ng fio iperf3 burnin benchmark iops testing"
   },
@@ -32512,7 +33013,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lspci -vvv -s 0000:3b:00.0 | grep -E 'LnkCap:|LnkSta:|DevSta:|AERCap:'",
     "desc": "Verify PCIe negotiated link speed (GT/s) and lane width (x16/x8) vs device capability (LnkCap vs LnkSta)",
     "tip": "Detects bad risers / unseated cards",
-    "tags": "lspci pcie lnksta lnkcap downgraded lanes gen4 gen5 riser"
+    "tags": "lspci pcie lnksta lnkcap downgraded lanes gen4 gen5 riser",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/lspci.8.html",
+          "title": "lspci(8)"
+        },
+        {
+          "url": "https://github.com/pciutils/pciutils/blob/master/ls-caps.c",
+          "title": "pciutils source: ls-caps.c (downgraded)"
+        }
+      ],
+      "note": "lspci adds (downgraded) to LnkSta on endpoints only, not on root or downstream ports. Without root, lspci can't read the capability registers."
+    }
   },
   {
     "sName": "pcie-numa",
@@ -32553,8 +33068,37 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "pci",
     "id": "lspci-aer-rescan",
     "sec": "PCIe Bus: PCIe Advanced Error Reporting (AER) counters and...",
-    "cmd": "lspci -vvv | grep -E '^[0-9a-f]|UESta:|CESta:' && echo 1 | tee /sys/bus/pci/rescan",
+    "cmd": "lspci -vvv | grep -E '^[0-9a-f]|UESta:|CESta:'",
     "desc": "Inspect PCIe Advanced Error Reporting (AER) counters and hot-rescan the PCIe bus",
+    "tip": "",
+    "tags": "aer pcie errors rescan hotplug tlp lspci",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/lspci.8.html",
+          "title": "lspci(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/setpci.8.html",
+          "title": "setpci(8)"
+        },
+        {
+          "url": "https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-bus-pci",
+          "title": "Kernel ABI: sysfs-bus-pci"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the read-only AER check also ran a bus rescan (… && echo 1 | tee /sys/bus/pci/rescan); the rescan is now its own recipe."
+    }
+  },
+  {
+    "sName": "pcie-numa",
+    "file": "pcie-numa.html",
+    "badge": "pci",
+    "id": "lspci-aer-rescan",
+    "sec": "PCIe Bus: PCIe Advanced Error Reporting (AER) counters and...",
+    "cmd": "echo 1 | tee /sys/bus/pci/rescan",
+    "desc": "Rescan every PCI bus and re-discover removed devices (after a card or U.2 drive dropped off)",
     "tip": "",
     "tags": "aer pcie errors rescan hotplug tlp lspci"
   },
@@ -32586,10 +33130,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "pci",
     "id": "lscpu-topology",
     "sec": "PCIe Bus: CPU socket topology, physical cores vs SMT threa...",
-    "cmd": "lscpu && lscpu -e=CPU,NODE,SOCKET,CORE,L1d:L1i:L2:L3,ONLINE,MAXMHZ,MINMHZ",
+    "cmd": "lscpu && lscpu -e=CPU,NODE,SOCKET,CORE,CACHE,ONLINE,MAXMHZ,MINMHZ",
     "desc": "Inspect CPU socket topology, physical cores vs SMT threads, cache hierarchy, and CPU flags",
     "tip": "",
-    "tags": "lscpu cpu cores numa governor microcode smt"
+    "tags": "lscpu cpu cores numa governor microcode smt",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/lscpu.1.html",
+          "title": "lscpu(1)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/linux-cpupower/cpupower-frequency-set.1.en.html",
+          "title": "cpupower-frequency-set(1)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/linux-cpupower/cpupower-frequency-info.1.en.html",
+          "title": "cpupower-frequency-info(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: lscpu -e=…,L1d:L1i:L2:L3,… fails with 'unknown column' (tested, util-linux 2.42): the column is CACHE. Which governors exist depends on the cpufreq driver: cpupower frequency-info -g lists them."
+    }
   },
   {
     "sName": "pcie-numa",
@@ -32633,7 +33195,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "numactl --hardware && numastat -m",
     "desc": "View NUMA node memory allocation, inter-socket latency matrix, and pin processes to a NUMA node",
     "tip": "Match NIC/GPU to local NUMA node",
-    "tags": "numa numactl numastat lstopo socket affinity latency"
+    "tags": "numa numactl numastat lstopo socket affinity latency",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/numactl.8.html",
+          "title": "numactl(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/numastat.8.html",
+          "title": "numastat(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/hwloc/lstopo-no-graphics.1.en.html",
+          "title": "lstopo-no-graphics(1)"
+        },
+        {
+          "url": "https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-bus-pci",
+          "title": "Kernel ABI: sysfs-bus-pci"
+        }
+      ],
+      "note": "numa_node reads -1 when the firmware doesn't report a node, and virtual NICs have no device link."
+    }
   },
   {
     "sName": "pcie-numa",

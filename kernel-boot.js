@@ -24,8 +24,12 @@ const KERNEL_BOOT_DATA = [
         ],
         "subcommands": [
           [
-            "modprobe -v <module_name> && modprobe -rv <module_name>",
-            "Load (-v) or unload (-rv) a kernel module and its unused dependencies"
+            "modprobe -v <module_name>",
+            "Load a kernel module and its dependencies, printing what it does (-v)"
+          ],
+          [
+            "modprobe -rv <module_name>",
+            "Unload a kernel module and its now-unused dependencies"
           ],
           [
             "grep -H . /sys/module/mlx5_core/parameters/*",
@@ -43,7 +47,25 @@ const KERNEL_BOOT_DATA = [
           "dkms",
           "driver",
           "kernel-module"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/modinfo.8.html",
+              "title": "modinfo(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/modprobe.8.html",
+              "title": "modprobe(8)"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/dkms/dkms.8.en.html",
+              "title": "dkms(8)"
+            }
+          ],
+          "note": "Corrected 2026-11-09: load and unload were one line (modprobe -v … && modprobe -rv …), so copying it loaded the module and removed it again."
+        }
       }
     ]
   },
@@ -79,7 +101,7 @@ const KERNEL_BOOT_DATA = [
           ],
           [
             "systemctl enable --now serial-getty@ttyS0.service",
-            "Enable interactive login prompt on serial console ttyS0 without rebooting"
+            "Start a login prompt on ttyS0 now (with console=ttyS0 on the kernel command line, systemd starts one by itself at boot)"
           ]
         ],
         "tip": "Essential for IPMI Serial-over-LAN",
@@ -91,7 +113,29 @@ const KERNEL_BOOT_DATA = [
           "sol",
           "initramfs",
           "boot"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.kernel.org/admin-guide/serial-console.html",
+              "title": "Kernel: Linux serial console"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/grub2-common/update-grub.8.en.html",
+              "title": "update-grub(8)"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/initramfs-tools/update-initramfs.8.en.html",
+              "title": "update-initramfs(8)"
+            },
+            {
+              "url": "https://www.freedesktop.org/software/systemd/man/latest/systemd-getty-generator.html",
+              "title": "systemd-getty-generator(8)"
+            }
+          ],
+          "note": "With console=tty0 console=ttyS0,115200n8 the kernel writes to both and /dev/console is the last one (ttyS0). The GRUB manual (GRUB_CMDLINE_LINUX, GRUB_TERMINAL) could not be fetched."
+        }
       }
     ]
   },
@@ -133,7 +177,24 @@ const KERNEL_BOOT_DATA = [
           "panic",
           "segfault",
           "vmcore"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.freedesktop.org/software/systemd/man/latest/coredumpctl.html",
+              "title": "coredumpctl(1)"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/kdump-tools/kdump-config.8.en.html",
+              "title": "kdump-config(8)"
+            },
+            {
+              "url": "https://ubuntu.com/server/docs/how-to/software/kernel-crash-dump/",
+              "title": "Ubuntu Server: kernel crash dump"
+            }
+          ]
+        }
       }
     ]
   },
@@ -155,7 +216,7 @@ const KERNEL_BOOT_DATA = [
           ],
           [
             "--vm-bytes 80%",
-            "Test 80% of available RAM with active read/write bit verification (--verify)"
+            "80% of available RAM in total, shared across the 4 vm workers, with read/write bit verification (--verify)"
           ],
           [
             "-t 10m",
@@ -168,8 +229,12 @@ const KERNEL_BOOT_DATA = [
             "Benchmark 4K random read IOPS and tail latency (direct I/O bypassing page cache)"
           ],
           [
-            "iperf3 -s   # on target node   &&   iperf3 -6 -c 2001:db8:dc:10::1 -P 8 -t 30",
-            "Verify IPv6 (-6) 10G/25G/100G/400G NIC throughput across 8 parallel TCP streams for 30 seconds"
+            "iperf3 -s",
+            "Start the iperf3 server on the target node (run this first, there)"
+          ],
+          [
+            "iperf3 -6 -c 2001:db8:dc:10::1 -P 8 -t 30",
+            "From the other node: verify IPv6 (-6) NIC throughput across 8 parallel TCP streams for 30 seconds"
           ]
         ],
         "tip": "Run after CPU/RAM/Motherboard swap",
@@ -181,7 +246,25 @@ const KERNEL_BOOT_DATA = [
           "benchmark",
           "iops",
           "testing"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/stress-ng/stress-ng.1.en.html",
+              "title": "stress-ng(1)"
+            },
+            {
+              "url": "https://fio.readthedocs.io/en/latest/fio_doc.html",
+              "title": "fio documentation"
+            },
+            {
+              "url": "https://software.es.net/iperf/invoking.html",
+              "title": "iperf3: invoking"
+            }
+          ],
+          "note": "Corrected 2026-11-09: the iperf3 recipe was 'iperf3 -s # on target node && iperf3 -c …': everything after # is a comment, so copying it only started the server. Now two recipes."
+        }
       }
     ]
   }

@@ -15,15 +15,15 @@ const DMI_HW_DATA = [
         "flags": [
           [
             "-t system",
-            "DMI Type 1: System Manufacturer, Product Name, Serial Number, SKU & UUID"
+            "DMI Types 1, 12, 15, 23, 32: System Manufacturer, Product Name, Serial Number, SKU & UUID"
           ],
           [
             "-t bios",
-            "DMI Type 0: BIOS Vendor, Version, Release Date & firmware revision"
+            "DMI Types 0 & 13: BIOS Vendor, Version, Release Date & firmware revision"
           ],
           [
             "-t baseboard",
-            "DMI Type 2: Motherboard model, serial, asset tag & physical location"
+            "DMI Types 2, 10, 41: Motherboard model, serial, asset tag & physical location"
           ],
           [
             "-t chassis",
@@ -57,7 +57,17 @@ const DMI_HW_DATA = [
           "fru",
           "asset",
           "datacenter"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+              "title": "dmidecode(8)"
+            }
+          ],
+          "note": "dmidecode reads the SMBIOS table from sysfs first and falls back to /dev/mem."
+        }
       }
     ]
   },
@@ -75,7 +85,7 @@ const DMI_HW_DATA = [
         "flags": [
           [
             "-t memory",
-            "DMI Types 16 & 17: Physical memory array capacity and individual DIMM slot details"
+            "DMI Types 5, 6, 16 & 17: Physical memory array capacity and individual DIMM slot details"
           ],
           [
             "Locator",
@@ -110,7 +120,21 @@ const DMI_HW_DATA = [
           "slot",
           "part-number",
           "dmidecode"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+              "title": "dmidecode(8)"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/lshw/lshw.1.en.html",
+              "title": "lshw(1)"
+            }
+          ],
+          "note": "Slot labels (Locator) come from the vendor's SMBIOS table and vary by board."
+        }
       }
     ]
   },
@@ -152,7 +176,21 @@ const DMI_HW_DATA = [
           "socket",
           "dmidecode",
           "datacenter"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+              "title": "dmidecode(8)"
+            },
+            {
+              "url": "https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-class-dmi",
+              "title": "Kernel ABI: sysfs-class-dmi"
+            }
+          ],
+          "note": "Many servers leave DMI Type 39 empty: check PSUs in the BMC (ipmitool sdr type 'Power Supply') if it prints nothing. product_serial in /sys/class/dmi/id is usually root-only."
+        }
       }
     ]
   },
@@ -165,16 +203,16 @@ const DMI_HW_DATA = [
       {
         "id": "lshw-hardware-tree",
         "desc": "Generate complete hardware inventory tree with bus addresses (PCI/USB/SCSI/NVMe) and driver status",
-        "cmd": "lshw -short -businfo",
+        "cmd": "lshw -businfo",
         "details": "Probes DMI, sysfs, PCI, USB, and storage subsystems to map physical hardware paths (e.g., pci@0000:3b:00.0) to Linux device names (eth0, nvme0n1) and hardware classes. Spots 'UNCLAIMED' devices missing a kernel driver.",
         "flags": [
           [
-            "-short",
-            "Compact tabular hardware tree"
+            "-businfo",
+            "Compact device list with PCI/USB/SCSI/NVMe bus addresses for physical slot tracing"
           ],
           [
-            "-businfo",
-            "Include PCI/USB/SCSI/NVMe bus addresses for physical slot tracing"
+            "-short",
+            "A different compact view: the device tree by hardware path (use one or the other)"
           ]
         ],
         "subcommands": [
@@ -199,7 +237,21 @@ const DMI_HW_DATA = [
           "unclaimed",
           "driver",
           "manifest"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/lshw/lshw.1.en.html",
+              "title": "lshw(1)"
+            },
+            {
+              "url": "https://github.com/lyonel/lshw/blob/master/src/core/print.cc",
+              "title": "lshw source: print.cc (UNCLAIMED)"
+            }
+          ],
+          "note": "Corrected 2026-11-09: lshw -short -businfo → lshw -businfo (they are two output formats; the man page doesn't say what both together do)."
+        }
       }
     ]
   }

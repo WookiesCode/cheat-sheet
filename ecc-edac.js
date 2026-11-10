@@ -45,7 +45,21 @@ const ECC_EDAC_DATA = [
           "ce",
           "ue",
           "ram"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/edac-utils/edac-util.1.en.html",
+              "title": "edac-util(1)"
+            },
+            {
+              "url": "https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-devices-edac",
+              "title": "Kernel ABI: sysfs-devices-edac"
+            }
+          ],
+          "note": "The dimm*/dimm_label, dimm_location, dimm_ce_count and dimm_ue_count files are in the kernel ABI; the older csrow*/ch*_ce_count files are not documented there and exist only on some drivers."
+        }
       }
     ]
   },
@@ -59,7 +73,7 @@ const ECC_EDAC_DATA = [
         "id": "rasdaemon-mce-triage",
         "desc": "Query Ubuntu rasdaemon hardware error database for Memory ECC, PCIe AER, and CPU Machine Check Exceptions (MCE)",
         "cmd": "ras-mc-ctl --summary && ras-mc-ctl --errors",
-        "details": "On modern Ubuntu servers, 'rasdaemon' replaces legacy 'mcelog' to record all hardware Reliability, Availability, and Serviceability (RAS) trace events into a persistent SQLite database (/var/lib/rasdaemon/ras-mc_event.db), preserving errors across reboots.",
+        "details": "'rasdaemon' records the kernel's Reliability, Availability, and Serviceability (RAS) trace events (memory, PCIe AER, MCE) into a SQLite database, so the errors survive a reboot. Ubuntu and RHEL ship it as the usual alternative to the older 'mcelog'.",
         "flags": [
           [
             "--summary",
@@ -92,7 +106,21 @@ const ECC_EDAC_DATA = [
           "apei",
           "ghes",
           "hardware-error"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/rasdaemon/ras-mc-ctl.8.en.html",
+              "title": "ras-mc-ctl(8)"
+            },
+            {
+              "url": "https://github.com/mchehab/rasdaemon",
+              "title": "rasdaemon README"
+            }
+          ],
+          "note": "Corrected 2026-11-09: removed the claims that rasdaemon 'replaces' mcelog and that the database is /var/lib/rasdaemon/ras-mc_event.db; neither is in its docs."
+        }
       }
     ]
   },
@@ -135,7 +163,25 @@ const ECC_EDAC_DATA = [
           "throttling",
           "fan",
           "hwmon"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/lm-sensors/sensors.1.en.html",
+              "title": "sensors(1)"
+            },
+            {
+              "url": "https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-class-thermal",
+              "title": "Kernel ABI: sysfs-class-thermal"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/linux-cpupower/turbostat.8.en.html",
+              "title": "turbostat(8)"
+            }
+          ],
+          "note": "The thermal_throttle/*_count files are Intel-only and not in the kernel ABI docs; turbostat(8) points to them for throttle events since boot."
+        }
       }
     ]
   },
@@ -168,7 +214,7 @@ const ECC_EDAC_DATA = [
             "Real-time RAPL power consumption in Watts for CPU sockets and DRAM"
           ]
         ],
-        "tip": "From linux-tools-common package",
+        "tip": "Ubuntu: linux-tools-common · Debian: linux-cpupower",
         "tags": [
           "turbostat",
           "power",
@@ -177,7 +223,21 @@ const ECC_EDAC_DATA = [
           "throttling",
           "smi",
           "msr"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/linux-cpupower/turbostat.8.en.html",
+              "title": "turbostat(8)"
+            },
+            {
+              "url": "https://manpages.ubuntu.com/manpages/noble/man8/turbostat.8.html",
+              "title": "turbostat(8), Ubuntu 24.04"
+            }
+          ],
+          "note": "Some columns (SMI, RAMWatt) exist only on CPUs that report them."
+        }
       }
     ]
   }

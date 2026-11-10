@@ -55,7 +55,21 @@ const PCIE_NUMA_DATA = [
           "gen4",
           "gen5",
           "riser"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/lspci.8.html",
+              "title": "lspci(8)"
+            },
+            {
+              "url": "https://github.com/pciutils/pciutils/blob/master/ls-caps.c",
+              "title": "pciutils source: ls-caps.c (downgraded)"
+            }
+          ],
+          "note": "lspci adds (downgraded) to LnkSta on endpoints only, not on root or downstream ports. Without root, lspci can't read the capability registers."
+        }
       }
     ]
   },
@@ -68,7 +82,7 @@ const PCIE_NUMA_DATA = [
       {
         "id": "lspci-aer-rescan",
         "desc": "Inspect PCIe Advanced Error Reporting (AER) counters and hot-rescan the PCIe bus",
-        "cmd": "lspci -vvv | grep -E '^[0-9a-f]|UESta:|CESta:' && echo 1 | tee /sys/bus/pci/rescan",
+        "cmd": "lspci -vvv | grep -E '^[0-9a-f]|UESta:|CESta:'",
         "details": "UESta (Uncorrectable Error Status) and CESta (Correctable Error Status) show PCIe link-level CRC errors, receiver errors, bad TLP/DLLP, or surprise link down events. Writing '1' to /sys/bus/pci/rescan re-enumerates the PCIe bus if a card or U.2 NVMe drive dropped offline.",
         "flags": [
           [
@@ -86,6 +100,10 @@ const PCIE_NUMA_DATA = [
         ],
         "subcommands": [
           [
+            "echo 1 | tee /sys/bus/pci/rescan",
+            "Rescan every PCI bus and re-discover removed devices (after a card or U.2 drive dropped off)"
+          ],
+          [
             "echo 1 | tee /sys/bus/pci/devices/0000:3b:00.0/remove",
             "Safely hot-remove a specific PCIe BDF device before hot-swapping or rescanning"
           ],
@@ -102,7 +120,25 @@ const PCIE_NUMA_DATA = [
           "hotplug",
           "tlp",
           "lspci"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/lspci.8.html",
+              "title": "lspci(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/setpci.8.html",
+              "title": "setpci(8)"
+            },
+            {
+              "url": "https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-bus-pci",
+              "title": "Kernel ABI: sysfs-bus-pci"
+            }
+          ],
+          "note": "Corrected 2026-11-09: the read-only AER check also ran a bus rescan (… && echo 1 | tee /sys/bus/pci/rescan); the rescan is now its own recipe."
+        }
       }
     ]
   },
@@ -115,12 +151,16 @@ const PCIE_NUMA_DATA = [
       {
         "id": "lscpu-topology",
         "desc": "Inspect CPU socket topology, physical cores vs SMT threads, cache hierarchy, and CPU flags",
-        "cmd": "lscpu && lscpu -e=CPU,NODE,SOCKET,CORE,L1d:L1i:L2:L3,ONLINE,MAXMHZ,MINMHZ",
+        "cmd": "lscpu && lscpu -e=CPU,NODE,SOCKET,CORE,CACHE,ONLINE,MAXMHZ,MINMHZ",
         "details": "Displays complete processor architecture, sockets, NUMA nodes, L1/L2/L3 cache sizes, virtualization support (VT-x / AMD-V), and per-core frequency scaling limits. Use 'lscpu -e' to verify all cores are ONLINE and running at expected boost clocks.",
         "flags": [
           [
             "-e",
-            "Extended human-readable table mapping every logical vCPU to NUMA node, Socket, and Core"
+            "Extended human-readable table mapping every logical vCPU to NUMA node, Socket, and Core (lscpu --list-columns shows the names)"
+          ],
+          [
+            "CACHE",
+            "Shared cache IDs per CPU, printed under the heading L1d:L1i:L2:L3"
           ],
           [
             "ONLINE",
@@ -153,7 +193,25 @@ const PCIE_NUMA_DATA = [
           "governor",
           "microcode",
           "smt"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/lscpu.1.html",
+              "title": "lscpu(1)"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/linux-cpupower/cpupower-frequency-set.1.en.html",
+              "title": "cpupower-frequency-set(1)"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/linux-cpupower/cpupower-frequency-info.1.en.html",
+              "title": "cpupower-frequency-info(1)"
+            }
+          ],
+          "note": "Corrected 2026-11-09: lscpu -e=…,L1d:L1i:L2:L3,… fails with 'unknown column' (tested, util-linux 2.42): the column is CACHE. Which governors exist depends on the cpufreq driver: cpupower frequency-info -g lists them."
+        }
       }
     ]
   },
@@ -201,7 +259,29 @@ const PCIE_NUMA_DATA = [
           "socket",
           "affinity",
           "latency"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/numactl.8.html",
+              "title": "numactl(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/numastat.8.html",
+              "title": "numastat(8)"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/hwloc/lstopo-no-graphics.1.en.html",
+              "title": "lstopo-no-graphics(1)"
+            },
+            {
+              "url": "https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-bus-pci",
+              "title": "Kernel ABI: sysfs-bus-pci"
+            }
+          ],
+          "note": "numa_node reads -1 when the firmware doesn't report a node, and virtual NICs have no device link."
+        }
       }
     ]
   }

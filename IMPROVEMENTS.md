@@ -166,6 +166,25 @@ All 9 commands on the two Linux storage sheets (`nvme-smart`: NVMe, SMART, mdadm
 
 **Not covered:** the hw-reference drive cards still put `sudo` in front of their commands (a sheet-wide convention, not changed here); `zpool`/ZFS has no storage card to source.
 
+## #8 for the Linux hardware sections (2026-11-09, `improve/sources-linux-hw`)
+
+All 16 commands in `dmi-hw`, `pcie-numa`, `ecc-edac` and `kernel-boot` (in `app.js`) now cite a source: dmidecode(8), lshw(1) and its source, lspci(8)/setpci(8) and pciutils' ls-caps.c, the kernel ABI files (sysfs-bus-pci, sysfs-class-dmi, sysfs-devices-edac, sysfs-class-thermal), lscpu(1), cpupower, numactl/numastat, lstopo, edac-util, ras-mc-ctl and the rasdaemon README, sensors, turbostat, modinfo/modprobe/dkms, the kernel serial-console doc, update-grub, update-initramfs, systemd-getty-generator, coredumpctl, kdump-config, Ubuntu's kernel crash dump page, stress-ng, fio and iperf3.
+
+| Was | Now | Why |
+|---|---|---|
+| `lscpu -e=CPU,NODE,SOCKET,CORE,L1d:L1i:L2:L3,…` | `lscpu -e=…,CACHE,…` | fails with "unknown column" (tested, util-linux 2.42); `L1d:L1i:L2:L3` is the CACHE column's heading |
+| AER check `lspci … && echo 1 \| tee /sys/bus/pci/rescan` | read-only check; the rescan is its own recipe | copying a "check errors" command re-enumerated the PCI bus |
+| `iperf3 -s   # on target node   &&   iperf3 -6 -c …` | two recipes: server, then client | after `#` the rest is a comment, so only the server started |
+| `modprobe -v <m> && modprobe -rv <m>` | two recipes: load, unload | copying it loaded the module and removed it again |
+| `lshw -short -businfo` | `lshw -businfo` | two output formats; together is undocumented |
+| rasdaemon "replaces mcelog", DB at `/var/lib/rasdaemon/ras-mc_event.db` | neither claim | not in rasdaemon's docs |
+
+Wording: dmidecode `-t` keywords map to several types (bios 0+13, system 1/12/15/23/32, baseboard 2/10/41, memory 5/6/16/17); `--vm-bytes 80%` is the total shared by the vm workers; turbostat is in `linux-tools-common` on Ubuntu and `linux-cpupower` on Debian; with `console=ttyS0` systemd starts the serial getty by itself.
+
+**Now flagged as changing state** (`DANGER_RE`): `modprobe` loads (dry-run/show-config forms excepted), `stress-ng`, `cpupower frequency-set`. This also flags `modprobe ipmi_devintf ipmi_si` (ipmitool sheets), `modprobe nvidia-peermem` (NVIDIA sheets) and the tmux burn-in example.
+
+**Not confirmed (said in the notes):** the EDAC `csrow*/ch*_ce_count` files (not in the kernel ABI docs; the `dimm*` files are); the Intel `thermal_throttle/*_count` files (only turbostat(8) points to them); the GRUB manual (rate-limited); the `(downgraded)` and `UNCLAIMED` markers are confirmed from pciutils and lshw source, not their man pages.
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |

@@ -243,6 +243,38 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     await ctx.close();
   }
 
+  // 2g. Linux hardware sections (DMI, PCIe/NUMA, ECC/EDAC, kernel/boot): sources, corrections, and
+  // the burn-in / module / governor commands flagged.
+  {
+    const PAGES = ['dmi-hw', 'pcie-numa', 'ecc-edac', 'kernel-boot'];
+    const ctx = await newContext(browser);
+    const p = await ctx.newPage();
+    const got = {};
+    let text = '';
+    const rows = [];
+    for (const f of PAGES) {
+      await p.goto(BASE + f + '.html', { waitUntil: 'load' });
+      await p.waitForTimeout(400);
+      for (const l of await lines(p)) got[l.id] = l;
+      text += await p.evaluate(() => { const c = document.body.cloneNode(true); c.querySelectorAll('.cmd-source, .cmd-details').forEach(n => n.remove()); return c.textContent; }) + '\n';
+      rows.push(...await p.evaluate(() => [...document.querySelectorAll('.subcmd-row, .cmd-code-box')].map(b => ({ t: b.textContent, aria: b.getAttribute('aria-label') || '' }))));
+    }
+    const list = Object.values(got);
+    check(list.length === 16 && list.every(l => l.text && !/is-unverified/.test(l.cls)), `all 16 hardware commands show a verified source line (${list.filter(l => l.text).length}/${list.length})`);
+    check(/lscpu -e=CPU,NODE,SOCKET,CORE,CACHE,/.test(got['lscpu-topology'].cmd) && !/-e=[^ ]*L1d:L1i/.test(text), 'lscpu -e uses the CACHE column (L1d:L1i:L2:L3 is only its heading)');
+    check(!/rescan/.test(got['lspci-aer-rescan'].cmd), 'the read-only AER check no longer runs a bus rescan');
+    check(!/iperf3 -s\s+#/.test(text) && /iperf3 -6 -c 2001:db8:dc:10::1/.test(text), 'iperf3 server and client are separate recipes (no # swallowing the client)');
+    check(!/modprobe -v <module_name> &&/.test(text), 'module load and unload are separate recipes');
+    check(/^lshw -businfo$/m.test(got['lshw-hardware-tree'].cmd) && !/lshw -short -businfo/.test(text), 'lshw uses one output format (-businfo)');
+    const flagged = (re) => rows.some(r => re.test(r.t)) && rows.filter(r => re.test(r.t)).every(r => /Changes state/.test(r.aria));
+    check(flagged(/stress-ng --cpu 0/), 'stress-ng burn-in is flagged as changing state');
+    check(flagged(/cpupower frequency-set/), 'cpupower frequency-set is flagged');
+    check(flagged(/^\s*modprobe -v </), 'modprobe (load) is flagged');
+    check(flagged(/tee \/sys\/bus\/pci\/rescan/), 'the PCI rescan recipe is flagged');
+    check(!rows.filter(r => /cpupower frequency-info|lspci -vvv \||lscpu &&/.test(r.t)).some(r => /Changes state/.test(r.aria)), 'read-only commands are not flagged');
+    await ctx.close();
+  }
+
   // 3. Over a year old → amber "re-check"; and src can't inject markup or javascript: links.
   {
     const ctx = await newContext(browser);
