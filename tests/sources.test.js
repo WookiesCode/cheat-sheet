@@ -311,6 +311,40 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     await ctx.close();
   }
 
+  // 2i. Kubernetes and GPU-container sheets: every command, recipe and Pro Tip sourced; corrections;
+  // no sudo (root badges instead); drain/cordon still flagged.
+  {
+    const PAGES = ['docker-gpu-daemon', 'k8s-kubectl', 'k8s-workloads', 'k8s-troubleshoot', 'k8s-nodes', 'k8s-gpu'];
+    const ctx = await newContext(browser);
+    const p = await ctx.newPage();
+    const got = {};
+    let text = '';
+    const boxes = [];
+    for (const f of PAGES) {
+      await p.goto(BASE + f + '.html', { waitUntil: 'load' });
+      await p.waitForTimeout(500);
+      for (const l of await lines(p)) if (!/-flags-card$/.test(l.id)) got[l.id] = l;
+      text += await p.evaluate(() => { const c = document.body.cloneNode(true); c.querySelectorAll('.cmd-source').forEach(n => n.remove()); return c.textContent; }) + '\n';
+      boxes.push(...await p.evaluate(() => [...document.querySelectorAll('.cmd-item[data-cmd-id]')].map(it => {
+        const b = it.querySelector('.cmd-code-box');
+        return { id: it.dataset.cmdId, code: b ? (b.dataset.cmd || b.dataset.copy || b.innerText) : '', root: !!it.querySelector('.priv-tag.priv-root'), danger: !!(b && /Changes state/.test(b.getAttribute('aria-label') || '')) };
+      })));
+    }
+    const list = Object.values(got);
+    check(list.length === 96 && list.every(l => l.text), `all 96 Kubernetes/GPU-container entries show a source line (${list.filter(l => l.text).length}/${list.length})`);
+    check(!list.some(l => /is-unverified/.test(l.cls)), 'none of them is unverified');
+    check(!boxes.some(b => /(^|[\s;(|&$])sudo\s/.test(b.code)), 'no command on these sheets uses sudo');
+    const all = (re, key) => boxes.filter(b => re.test(b.code)).length > 0 && boxes.filter(b => re.test(b.code)).every(b => b[key]);
+    check(all(/^nvidia-ctk runtime configure/, 'root') && all(/^crictl /, 'root'), 'nvidia-ctk configure and crictl carry the root badge');
+    check(all(/^kubectl (drain|cordon|uncordon) /, 'danger') && all(/^nvidia-ctk runtime configure/, 'danger'), 'drain/cordon/uncordon and nvidia-ctk configure are flagged as changing state');
+    check(!/\/etc\/cdi\/nvidia\.yaml/.test(text) && /nvidia-cdi-refresh/.test(text), 'CDI: /var/run/cdi and nvidia-cdi-refresh, not /etc/cdi');
+    check(!/--until now/.test(text) && /--until "\$\(date \+%s\)"/.test(text), 'docker events --until takes a timestamp');
+    check(!/1\.37 (refuses|nodes refuse)|required by kubelet 1\.37/.test(text), 'no unsupported "kubelet 1.37 refuses cgroup v1"');
+    check(!/no requests are the first to be evicted/.test(text), 'eviction order matches the kubelet docs');
+    check(!/nvidia\.com\/gpu\.present/.test(text) && /pci-10de\.present=true/.test(text), 'GPU nodes found by the documented pci-10de label');
+    await ctx.close();
+  }
+
   // 3. Over a year old → amber "re-check"; and src can't inject markup or javascript: links.
   {
     const ctx = await newContext(browser);

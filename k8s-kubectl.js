@@ -36,7 +36,20 @@ const CTR_K8S_KUBECTL_DATA = [
           "kubeconfig",
           "cluster",
           "namespace"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_config/kubectl_config_get-contexts/",
+              "title": "kubectl config get-contexts"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/",
+              "title": "Kubernetes: kubeconfig files"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-contexts-sub-1",
@@ -51,7 +64,20 @@ const CTR_K8S_KUBECTL_DATA = [
           "context",
           "kubeconfig",
           "cluster"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_config/kubectl_config_get-contexts/",
+              "title": "kubectl config get-contexts"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/",
+              "title": "Kubernetes: kubeconfig files"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-contexts-sub-2",
@@ -66,7 +92,20 @@ const CTR_K8S_KUBECTL_DATA = [
           "context",
           "kubeconfig",
           "cluster"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_config/kubectl_config_get-contexts/",
+              "title": "kubectl config get-contexts"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/",
+              "title": "Kubernetes: kubeconfig files"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-contexts-sub-3",
@@ -81,7 +120,20 @@ const CTR_K8S_KUBECTL_DATA = [
           "context",
           "kubeconfig",
           "cluster"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_config/kubectl_config_get-contexts/",
+              "title": "kubectl config get-contexts"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/",
+              "title": "Kubernetes: kubeconfig files"
+            }
+          ]
+        }
       }
     ]
   },
@@ -133,7 +185,16 @@ const CTR_K8S_KUBECTL_DATA = [
           "wide",
           "namespace",
           "list"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+              "title": "kubectl get"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-get-wide-sub-1",
@@ -148,7 +209,16 @@ const CTR_K8S_KUBECTL_DATA = [
           "get",
           "pods",
           "wide"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+              "title": "kubectl get"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-get-wide-sub-2",
@@ -163,7 +233,16 @@ const CTR_K8S_KUBECTL_DATA = [
           "get",
           "pods",
           "wide"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+              "title": "kubectl get"
+            }
+          ]
+        }
       }
     ]
   },
@@ -208,7 +287,20 @@ const CTR_K8S_KUBECTL_DATA = [
           "yaml",
           "jq",
           "sort"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+              "title": "kubectl get"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/jsonpath/",
+              "title": "kubectl JSONPath support"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-output-formats-sub-1",
@@ -223,7 +315,20 @@ const CTR_K8S_KUBECTL_DATA = [
           "output",
           "jsonpath",
           "custom-columns"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+              "title": "kubectl get"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/jsonpath/",
+              "title": "kubectl JSONPath support"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-output-formats-sub-2",
@@ -238,7 +343,20 @@ const CTR_K8S_KUBECTL_DATA = [
           "output",
           "jsonpath",
           "custom-columns"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+              "title": "kubectl get"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/jsonpath/",
+              "title": "kubectl JSONPath support"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-output-formats-sub-3",
@@ -253,7 +371,20 @@ const CTR_K8S_KUBECTL_DATA = [
           "output",
           "jsonpath",
           "custom-columns"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+              "title": "kubectl get"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/jsonpath/",
+              "title": "kubectl JSONPath support"
+            }
+          ]
+        }
       }
     ]
   },
@@ -293,7 +424,20 @@ const CTR_K8S_KUBECTL_DATA = [
           "version",
           "docs",
           "auth"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_explain/",
+              "title": "kubectl explain"
+            },
+            {
+              "url": "https://kubernetes.io/releases/version-skew-policy/",
+              "title": "Kubernetes version skew policy"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-explain-sub-1",
@@ -308,7 +452,20 @@ const CTR_K8S_KUBECTL_DATA = [
           "explain",
           "api-resources",
           "version"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_explain/",
+              "title": "kubectl explain"
+            },
+            {
+              "url": "https://kubernetes.io/releases/version-skew-policy/",
+              "title": "Kubernetes version skew policy"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-explain-sub-2",
@@ -323,7 +480,20 @@ const CTR_K8S_KUBECTL_DATA = [
           "explain",
           "api-resources",
           "version"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_explain/",
+              "title": "kubectl explain"
+            },
+            {
+              "url": "https://kubernetes.io/releases/version-skew-policy/",
+              "title": "Kubernetes version skew policy"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-explain-sub-3",
@@ -338,7 +508,20 @@ const CTR_K8S_KUBECTL_DATA = [
           "explain",
           "api-resources",
           "version"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_explain/",
+              "title": "kubectl explain"
+            },
+            {
+              "url": "https://kubernetes.io/releases/version-skew-policy/",
+              "title": "Kubernetes version skew policy"
+            }
+          ]
+        }
       }
     ]
   },
@@ -375,7 +558,16 @@ const CTR_K8S_KUBECTL_DATA = [
           "containers",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/",
+              "title": "Kubernetes: kubeconfig files"
+            }
+          ]
+        }
       }
     ]
   }

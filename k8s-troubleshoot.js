@@ -40,7 +40,20 @@ const CTR_K8S_TROUBLESHOOT_DATA = [
           "events",
           "pod",
           "state"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_describe/",
+              "title": "kubectl describe"
+            },
+            {
+              "url": "https://kubernetes.io/docs/tasks/debug/debug-application/debug-pods/",
+              "title": "Kubernetes: debug pods"
+            }
+          ]
+        }
       }
     ]
   },
@@ -97,7 +110,20 @@ const CTR_K8S_TROUBLESHOOT_DATA = [
           "imagepullbackoff",
           "oomkilled",
           "evicted"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/",
+              "title": "Kubernetes: pod lifecycle"
+            },
+            {
+              "url": "https://kubernetes.io/docs/tasks/debug/debug-application/debug-pods/",
+              "title": "Kubernetes: debug pods"
+            }
+          ]
+        }
       }
     ]
   },
@@ -144,7 +170,16 @@ const CTR_K8S_TROUBLESHOOT_DATA = [
           "previous",
           "crashloop",
           "container"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_logs/",
+              "title": "kubectl logs"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-logs-previous-sub-1",
@@ -159,7 +194,16 @@ const CTR_K8S_TROUBLESHOOT_DATA = [
           "logs",
           "previous",
           "crashloop"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_logs/",
+              "title": "kubectl logs"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-logs-previous-sub-2",
@@ -174,7 +218,16 @@ const CTR_K8S_TROUBLESHOOT_DATA = [
           "logs",
           "previous",
           "crashloop"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_logs/",
+              "title": "kubectl logs"
+            }
+          ]
+        }
       }
     ]
   },
@@ -213,7 +266,25 @@ const CTR_K8S_TROUBLESHOOT_DATA = [
           "warning",
           "sort",
           "timeline"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+              "title": "kubectl get"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_events/",
+              "title": "kubectl events"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/",
+              "title": "kube-apiserver (--event-ttl 1h)"
+            }
+          ],
+          "note": "kubectl get documents --sort-by with braces ('{.lastTimestamp}'); the bare form works too. Filtering events by type=Warning isn't shown in the docs read. kubectl events has no --sort-by."
+        }
       },
       {
         "id": "kubectl-events-sorted-sub-1",
@@ -228,7 +299,25 @@ const CTR_K8S_TROUBLESHOOT_DATA = [
           "events",
           "warning",
           "sort"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+              "title": "kubectl get"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_events/",
+              "title": "kubectl events"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/",
+              "title": "kube-apiserver (--event-ttl 1h)"
+            }
+          ],
+          "note": "kubectl get documents --sort-by with braces ('{.lastTimestamp}'); the bare form works too. Filtering events by type=Warning isn't shown in the docs read. kubectl events has no --sort-by."
+        }
       },
       {
         "id": "kubectl-events-sorted-sub-2",
@@ -243,7 +332,25 @@ const CTR_K8S_TROUBLESHOOT_DATA = [
           "events",
           "warning",
           "sort"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+              "title": "kubectl get"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_events/",
+              "title": "kubectl events"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/",
+              "title": "kube-apiserver (--event-ttl 1h)"
+            }
+          ],
+          "note": "kubectl get documents --sort-by with braces ('{.lastTimestamp}'); the bare form works too. Filtering events by type=Warning isn't shown in the docs read. kubectl events has no --sort-by."
+        }
       }
     ]
   },
@@ -273,7 +380,7 @@ const CTR_K8S_TROUBLESHOOT_DATA = [
           ],
           [
             "kubectl debug node/<node> -it --image=busybox",
-            "A pod on the node with the host filesystem at /host"
+            "A pod on the node with the host filesystem at /host (add --profile=sysadmin to chroot /host)"
           ]
         ],
         "tip": "No shell in the image? kubectl debug --target",
@@ -287,7 +394,25 @@ const CTR_K8S_TROUBLESHOOT_DATA = [
           "ephemeral",
           "shell",
           "distroless"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/tasks/debug/debug-application/debug-running-pod/",
+              "title": "Kubernetes: debug running pods"
+            },
+            {
+              "url": "https://kubernetes.io/docs/tasks/debug/debug-cluster/kubectl-node-debug/",
+              "title": "Kubernetes: debug a node with kubectl"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_debug/",
+              "title": "kubectl debug"
+            }
+          ],
+          "note": "With the default profile, chroot /host fails in a node debug pod: use --profile=sysadmin."
+        }
       },
       {
         "id": "kubectl-exec-debug-sub-1",
@@ -302,7 +427,25 @@ const CTR_K8S_TROUBLESHOOT_DATA = [
           "exec",
           "debug",
           "ephemeral"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/tasks/debug/debug-application/debug-running-pod/",
+              "title": "Kubernetes: debug running pods"
+            },
+            {
+              "url": "https://kubernetes.io/docs/tasks/debug/debug-cluster/kubectl-node-debug/",
+              "title": "Kubernetes: debug a node with kubectl"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_debug/",
+              "title": "kubectl debug"
+            }
+          ],
+          "note": "With the default profile, chroot /host fails in a node debug pod: use --profile=sysadmin."
+        }
       },
       {
         "id": "kubectl-exec-debug-sub-2",
@@ -317,7 +460,25 @@ const CTR_K8S_TROUBLESHOOT_DATA = [
           "exec",
           "debug",
           "ephemeral"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/tasks/debug/debug-application/debug-running-pod/",
+              "title": "Kubernetes: debug running pods"
+            },
+            {
+              "url": "https://kubernetes.io/docs/tasks/debug/debug-cluster/kubectl-node-debug/",
+              "title": "Kubernetes: debug a node with kubectl"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_debug/",
+              "title": "kubectl debug"
+            }
+          ],
+          "note": "With the default profile, chroot /host fails in a node debug pod: use --profile=sysadmin."
+        }
       },
       {
         "id": "kubectl-exec-debug-sub-3",
@@ -332,7 +493,25 @@ const CTR_K8S_TROUBLESHOOT_DATA = [
           "exec",
           "debug",
           "ephemeral"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/tasks/debug/debug-application/debug-running-pod/",
+              "title": "Kubernetes: debug running pods"
+            },
+            {
+              "url": "https://kubernetes.io/docs/tasks/debug/debug-cluster/kubectl-node-debug/",
+              "title": "Kubernetes: debug a node with kubectl"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_debug/",
+              "title": "kubectl debug"
+            }
+          ],
+          "note": "With the default profile, chroot /host fails in a node debug pod: use --profile=sysadmin."
+        }
       }
     ]
   },
@@ -372,7 +551,24 @@ const CTR_K8S_TROUBLESHOOT_DATA = [
           "metrics",
           "service",
           "endpoints"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_port-forward/",
+              "title": "kubectl port-forward"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_top/",
+              "title": "kubectl top"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/services-networking/endpoint-slices/",
+              "title": "Kubernetes: EndpointSlices"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-port-forward-top-sub-1",
@@ -387,7 +583,24 @@ const CTR_K8S_TROUBLESHOOT_DATA = [
           "port-forward",
           "top",
           "metrics"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_port-forward/",
+              "title": "kubectl port-forward"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_top/",
+              "title": "kubectl top"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/services-networking/endpoint-slices/",
+              "title": "Kubernetes: EndpointSlices"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-port-forward-top-sub-2",
@@ -402,7 +615,24 @@ const CTR_K8S_TROUBLESHOOT_DATA = [
           "port-forward",
           "top",
           "metrics"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_port-forward/",
+              "title": "kubectl port-forward"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_top/",
+              "title": "kubectl top"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/services-networking/endpoint-slices/",
+              "title": "Kubernetes: EndpointSlices"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-port-forward-top-sub-3",
@@ -417,7 +647,24 @@ const CTR_K8S_TROUBLESHOOT_DATA = [
           "port-forward",
           "top",
           "metrics"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_port-forward/",
+              "title": "kubectl port-forward"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_top/",
+              "title": "kubectl top"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/services-networking/endpoint-slices/",
+              "title": "Kubernetes: EndpointSlices"
+            }
+          ]
+        }
       }
     ]
   },
@@ -458,7 +705,16 @@ const CTR_K8S_TROUBLESHOOT_DATA = [
           "containers",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/tasks/debug/debug-application/debug-pods/",
+              "title": "Kubernetes: debug pods"
+            }
+          ]
+        }
       }
     ]
   }

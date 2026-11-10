@@ -1,5 +1,5 @@
 // Auto-generated Global Search Index across all 233 cheat sheets
-// Total indexed items: 3404
+// Total indexed items: 3406
 window.GLOBAL_SEARCH_INDEX = [
   {
     "sName": "ansible",
@@ -9259,7 +9259,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker run --rm --gpus all nvidia/cuda:<tag> nvidia-smi",
     "desc": "Smoke test: run nvidia-smi inside a CUDA container with every GPU attached",
     "tip": "Quote device lists: '\"device=0,1\"'",
-    "tags": "docker containers gpu nvidia cuda nvidia-smi toolkit"
+    "tags": "docker containers gpu nvidia cuda nvidia-smi toolkit",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html",
+          "title": "NVIDIA Container Toolkit: install guide"
+        }
+      ],
+      "note": "Docker's own GPU page could not be fetched (404); the --gpus device-list quoting is not confirmed against Docker's docs."
+    }
   },
   {
     "sName": "containers",
@@ -9270,7 +9280,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker run --rm --gpus '\"device=0,1\"' nvidia/cuda:<tag> nvidia-smi -L",
     "desc": "List only the GPUs that were passed in",
     "tip": "",
-    "tags": "docker containers recipe gpu nvidia cuda"
+    "tags": "docker containers recipe gpu nvidia cuda",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html",
+          "title": "NVIDIA Container Toolkit: install guide"
+        }
+      ],
+      "note": "Docker's own GPU page could not be fetched (404); the --gpus device-list quoting is not confirmed against Docker's docs."
+    }
   },
   {
     "sName": "containers",
@@ -9281,7 +9301,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker run --rm --gpus all --ipc=host nvidia/cuda:<tag> nvidia-smi topo -m",
     "desc": "NVLink/PCIe topology as seen from inside a container",
     "tip": "",
-    "tags": "docker containers recipe gpu nvidia cuda"
+    "tags": "docker containers recipe gpu nvidia cuda",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html",
+          "title": "NVIDIA Container Toolkit: install guide"
+        }
+      ],
+      "note": "Docker's own GPU page could not be fetched (404); the --gpus device-list quoting is not confirmed against Docker's docs."
+    }
   },
   {
     "sName": "containers",
@@ -9289,10 +9319,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "dgpu",
     "id": "nvidia-ctk-configure",
     "sec": "Docker GPUs & Daemon: Register the NVIDIA runtime with Docker, then restart Docker",
-    "cmd": "sudo nvidia-ctk runtime configure --runtime=docker",
+    "cmd": "nvidia-ctk runtime configure --runtime=docker",
     "desc": "Register the NVIDIA runtime with Docker, then restart Docker (changes state: restarts every container on the host)",
     "tip": "Drain the node before restarting Docker",
-    "tags": "docker containers nvidia-ctk toolkit runtime daemon.json"
+    "tags": "docker containers nvidia-ctk toolkit runtime daemon.json",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html",
+          "title": "NVIDIA Container Toolkit: install guide"
+        }
+      ],
+      "note": "Checked against Container Toolkit 1.20.1."
+    }
   },
   {
     "sName": "containers",
@@ -9300,10 +9340,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "dgpu",
     "id": "nvidia-ctk-configure-sub-1",
     "sec": "Docker GPUs & Daemon: Register the NVIDIA runtime with Docker, then restart Docker",
-    "cmd": "sudo systemctl restart docker",
+    "cmd": "systemctl restart docker",
     "desc": "Apply the new daemon.json (changes state)",
     "tip": "",
-    "tags": "docker containers recipe nvidia-ctk toolkit runtime"
+    "tags": "docker containers recipe nvidia-ctk toolkit runtime",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html",
+          "title": "NVIDIA Container Toolkit: install guide"
+        }
+      ],
+      "note": "Checked against Container Toolkit 1.20.1."
+    }
   },
   {
     "sName": "containers",
@@ -9314,7 +9364,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker info | grep -i -A3 runtimes",
     "desc": "Confirm the nvidia runtime is now listed",
     "tip": "",
-    "tags": "docker containers recipe nvidia-ctk toolkit runtime"
+    "tags": "docker containers recipe nvidia-ctk toolkit runtime",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html",
+          "title": "NVIDIA Container Toolkit: install guide"
+        }
+      ],
+      "note": "Checked against Container Toolkit 1.20.1."
+    }
   },
   {
     "sName": "containers",
@@ -9324,8 +9384,22 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "Docker GPUs & Daemon: List the CDI",
     "cmd": "nvidia-ctk cdi list",
     "desc": "List the CDI (Container Device Interface) GPU devices NVIDIA has defined on this host",
-    "tip": "Regenerate the CDI spec after a driver upgrade",
-    "tags": "docker containers cdi nvidia-ctk device gpu"
+    "tip": "Toolkit 1.18+ refreshes the CDI spec for you",
+    "tags": "docker containers cdi nvidia-ctk device gpu",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/cdi-support.html",
+          "title": "NVIDIA Container Toolkit: CDI support"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/dockerd/",
+          "title": "dockerd reference (CDI)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the spec lives in /var/run/cdi/nvidia.yaml (not /etc/cdi), toolkit 1.18+ regenerates it with nvidia-cdi-refresh, and Docker enables CDI by default from 28.3.0 (not 25)."
+    }
   },
   {
     "sName": "containers",
@@ -9333,10 +9407,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "dgpu",
     "id": "nvidia-cdi-sub-1",
     "sec": "Docker GPUs & Daemon: List the CDI",
-    "cmd": "sudo nvidia-ctk cdi generate --output=/etc/cdi/nvidia.yaml",
-    "desc": "Rebuild the CDI spec (changes state)",
+    "cmd": "systemctl restart nvidia-cdi-refresh.service",
+    "desc": "Regenerate the CDI spec, e.g. after a driver removal or MIG change (changes state)",
     "tip": "",
-    "tags": "docker containers recipe cdi nvidia-ctk device"
+    "tags": "docker containers recipe cdi nvidia-ctk device",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/cdi-support.html",
+          "title": "NVIDIA Container Toolkit: CDI support"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/dockerd/",
+          "title": "dockerd reference (CDI)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the spec lives in /var/run/cdi/nvidia.yaml (not /etc/cdi), toolkit 1.18+ regenerates it with nvidia-cdi-refresh, and Docker enables CDI by default from 28.3.0 (not 25)."
+    }
   },
   {
     "sName": "containers",
@@ -9344,10 +9432,49 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "dgpu",
     "id": "nvidia-cdi-sub-2",
     "sec": "Docker GPUs & Daemon: List the CDI",
+    "cmd": "nvidia-ctk cdi generate --output=/var/run/cdi/nvidia.yaml",
+    "desc": "Generate the spec by hand on toolkits older than 1.18 (changes state)",
+    "tip": "",
+    "tags": "docker containers recipe cdi nvidia-ctk device",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/cdi-support.html",
+          "title": "NVIDIA Container Toolkit: CDI support"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/dockerd/",
+          "title": "dockerd reference (CDI)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the spec lives in /var/run/cdi/nvidia.yaml (not /etc/cdi), toolkit 1.18+ regenerates it with nvidia-cdi-refresh, and Docker enables CDI by default from 28.3.0 (not 25)."
+    }
+  },
+  {
+    "sName": "containers",
+    "file": "containers.html",
+    "badge": "dgpu",
+    "id": "nvidia-cdi-sub-3",
+    "sec": "Docker GPUs & Daemon: List the CDI",
     "cmd": "docker run --rm --device nvidia.com/gpu=all ubuntu:24.04 nvidia-smi -L",
     "desc": "Use CDI device names from Docker",
     "tip": "",
-    "tags": "docker containers recipe cdi nvidia-ctk device"
+    "tags": "docker containers recipe cdi nvidia-ctk device",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/cdi-support.html",
+          "title": "NVIDIA Container Toolkit: CDI support"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/dockerd/",
+          "title": "dockerd reference (CDI)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the spec lives in /var/run/cdi/nvidia.yaml (not /etc/cdi), toolkit 1.18+ regenerates it with nvidia-cdi-refresh, and Docker enables CDI by default from 28.3.0 (not 25)."
+    }
   },
   {
     "sName": "containers",
@@ -9357,8 +9484,22 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "Docker GPUs & Daemon: Check the Docker daemon",
     "cmd": "docker info",
     "desc": "Check the Docker daemon: version, storage and cgroup driver, runtimes, and recent errors",
-    "tip": "docker events --until now returns instead of following",
-    "tags": "docker containers daemon info journalctl events cgroup systemd"
+    "tip": "docker events with --until returns instead of following",
+    "tags": "docker containers daemon info journalctl events cgroup systemd",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/system/events/",
+          "title": "docker events"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/architecture/cgroups/",
+          "title": "Kubernetes: about cgroup v2"
+        }
+      ],
+      "note": "Corrected 2026-11-09: docker events --until now → --until \"$(date +%s)\" (now isn't a documented format); 'Kubernetes 1.37 refuses cgroup v1' → deprecated since 1.35, won't start by default."
+    }
   },
   {
     "sName": "containers",
@@ -9369,7 +9510,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "systemctl status docker --no-pager",
     "desc": "Is the daemon running, and its last log lines",
     "tip": "",
-    "tags": "docker containers recipe daemon info journalctl"
+    "tags": "docker containers recipe daemon info journalctl",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/system/events/",
+          "title": "docker events"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/architecture/cgroups/",
+          "title": "Kubernetes: about cgroup v2"
+        }
+      ],
+      "note": "Corrected 2026-11-09: docker events --until now → --until \"$(date +%s)\" (now isn't a documented format); 'Kubernetes 1.37 refuses cgroup v1' → deprecated since 1.35, won't start by default."
+    }
   },
   {
     "sName": "containers",
@@ -9380,7 +9535,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "journalctl -u docker --since '1 hour ago' --no-pager",
     "desc": "Daemon log for the last hour",
     "tip": "",
-    "tags": "docker containers recipe daemon info journalctl"
+    "tags": "docker containers recipe daemon info journalctl",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/system/events/",
+          "title": "docker events"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/architecture/cgroups/",
+          "title": "Kubernetes: about cgroup v2"
+        }
+      ],
+      "note": "Corrected 2026-11-09: docker events --until now → --until \"$(date +%s)\" (now isn't a documented format); 'Kubernetes 1.37 refuses cgroup v1' → deprecated since 1.35, won't start by default."
+    }
   },
   {
     "sName": "containers",
@@ -9391,7 +9560,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "cat /etc/docker/daemon.json",
     "desc": "The daemon's config file (runtimes, data-root, log limits)",
     "tip": "",
-    "tags": "docker containers recipe daemon info journalctl"
+    "tags": "docker containers recipe daemon info journalctl",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/system/events/",
+          "title": "docker events"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/architecture/cgroups/",
+          "title": "Kubernetes: about cgroup v2"
+        }
+      ],
+      "note": "Corrected 2026-11-09: docker events --until now → --until \"$(date +%s)\" (now isn't a documented format); 'Kubernetes 1.37 refuses cgroup v1' → deprecated since 1.35, won't start by default."
+    }
   },
   {
     "sName": "containers",
@@ -9399,10 +9582,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "dgpu",
     "id": "docker-daemon-health-sub-4",
     "sec": "Docker GPUs & Daemon: Check the Docker daemon",
-    "cmd": "docker events --since 1h --until now",
-    "desc": "Container start/stop/die/oom events from the last hour, then exit",
+    "cmd": "docker events --since 1h --until \"$(date +%s)\"",
+    "desc": "Container start/stop/die/oom events from the last hour, then exit (--until takes a timestamp)",
     "tip": "",
-    "tags": "docker containers recipe daemon info journalctl"
+    "tags": "docker containers recipe daemon info journalctl",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/system/events/",
+          "title": "docker events"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/architecture/cgroups/",
+          "title": "Kubernetes: about cgroup v2"
+        }
+      ],
+      "note": "Corrected 2026-11-09: docker events --until now → --until \"$(date +%s)\" (now isn't a documented format); 'Kubernetes 1.37 refuses cgroup v1' → deprecated since 1.35, won't start by default."
+    }
   },
   {
     "sName": "containers",
@@ -9413,7 +9610,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nvidia-smi && nvidia-ctk --version && docker info | grep -i runtimes",
     "desc": "Container sees no GPUs: check in this order",
     "tip": "Host nvidia-smi fails → not a Docker problem",
-    "tags": "docker containers tips best-practice"
+    "tags": "docker containers tips best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html",
+          "title": "NVIDIA Container Toolkit: install guide"
+        },
+        {
+          "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+          "title": "nvidia-smi documentation"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -9424,7 +9634,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl config get-contexts",
     "desc": "Show which cluster and namespace kubectl is pointed at",
     "tip": "Check the context before every change",
-    "tags": "kubernetes k8s kubectl containers context kubeconfig cluster namespace"
+    "tags": "kubernetes k8s kubectl containers context kubeconfig cluster namespace",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_config/kubectl_config_get-contexts/",
+          "title": "kubectl config get-contexts"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/",
+          "title": "Kubernetes: kubeconfig files"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -9435,7 +9658,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl config current-context",
     "desc": "Just the active context name",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe context kubeconfig cluster"
+    "tags": "kubernetes k8s kubectl containers recipe context kubeconfig cluster",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_config/kubectl_config_get-contexts/",
+          "title": "kubectl config get-contexts"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/",
+          "title": "Kubernetes: kubeconfig files"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -9446,7 +9682,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl config use-context <context>",
     "desc": "Switch clusters for every later command (changes local state)",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe context kubeconfig cluster"
+    "tags": "kubernetes k8s kubectl containers recipe context kubeconfig cluster",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_config/kubectl_config_get-contexts/",
+          "title": "kubectl config get-contexts"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/",
+          "title": "Kubernetes: kubeconfig files"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -9457,7 +9706,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl config set-context --current --namespace=<ns>",
     "desc": "Change the default namespace of the current context (changes local state)",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe context kubeconfig cluster"
+    "tags": "kubernetes k8s kubectl containers recipe context kubeconfig cluster",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_config/kubectl_config_get-contexts/",
+          "title": "kubectl config get-contexts"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/",
+          "title": "Kubernetes: kubeconfig files"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -9468,7 +9730,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get pods -A -o wide",
     "desc": "List pods in every namespace with their node and IP",
     "tip": "-o wide shows the node",
-    "tags": "kubernetes k8s kubectl containers get pods wide namespace list"
+    "tags": "kubernetes k8s kubectl containers get pods wide namespace list",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+          "title": "kubectl get"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -9479,7 +9750,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get all -n <ns>",
     "desc": "Pods, services, deployments and replica sets in one namespace (not literally all kinds)",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe get pods wide"
+    "tags": "kubernetes k8s kubectl containers recipe get pods wide",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+          "title": "kubectl get"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -9490,7 +9770,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get pods -A --field-selector=status.phase!=Running",
     "desc": "Everything that isn't Running",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe get pods wide"
+    "tags": "kubernetes k8s kubectl containers recipe get pods wide",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+          "title": "kubectl get"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -9501,7 +9790,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get pods -n <ns> -o custom-columns=NAME:.metadata.name,NODE:.spec.nodeName,PHASE:.status.phase",
     "desc": "Print exactly the fields you need with jsonpath or custom columns",
     "tip": "Find the path in -o yaml, then use it in jsonpath",
-    "tags": "kubernetes k8s kubectl containers output jsonpath custom-columns yaml jq sort"
+    "tags": "kubernetes k8s kubectl containers output jsonpath custom-columns yaml jq sort",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+          "title": "kubectl get"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/jsonpath/",
+          "title": "kubectl JSONPath support"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -9512,7 +9814,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get pod <pod> -n <ns> -o yaml",
     "desc": "Full pod definition and status",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe output jsonpath custom-columns"
+    "tags": "kubernetes k8s kubectl containers recipe output jsonpath custom-columns",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+          "title": "kubectl get"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/jsonpath/",
+          "title": "kubectl JSONPath support"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -9523,7 +9838,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get pods -n <ns> -o jsonpath='{range .items[*]}{.metadata.name}{\"\\t\"}{.status.phase}{\"\\n\"}{end}'",
     "desc": "Name and phase, one pod per line",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe output jsonpath custom-columns"
+    "tags": "kubernetes k8s kubectl containers recipe output jsonpath custom-columns",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+          "title": "kubectl get"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/jsonpath/",
+          "title": "kubectl JSONPath support"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -9534,7 +9862,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get pods -n <ns> -o json | jq -r '.items[] | select(.status.phase != \"Running\") | .metadata.name'",
     "desc": "Same idea with jq, which is easier to read for complex filters",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe output jsonpath custom-columns"
+    "tags": "kubernetes k8s kubectl containers recipe output jsonpath custom-columns",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+          "title": "kubectl get"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/jsonpath/",
+          "title": "kubectl JSONPath support"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -9545,7 +9886,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl explain pod.spec.containers.resources",
     "desc": "Look up what a field means without leaving the terminal",
     "tip": "kubectl explain matches your cluster's version",
-    "tags": "kubernetes k8s kubectl containers explain api-resources version docs auth"
+    "tags": "kubernetes k8s kubectl containers explain api-resources version docs auth",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_explain/",
+          "title": "kubectl explain"
+        },
+        {
+          "url": "https://kubernetes.io/releases/version-skew-policy/",
+          "title": "Kubernetes version skew policy"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -9556,7 +9910,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl api-resources",
     "desc": "All kinds the cluster knows, with short names",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe explain api-resources version"
+    "tags": "kubernetes k8s kubectl containers recipe explain api-resources version",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_explain/",
+          "title": "kubectl explain"
+        },
+        {
+          "url": "https://kubernetes.io/releases/version-skew-policy/",
+          "title": "Kubernetes version skew policy"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -9567,7 +9934,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl version",
     "desc": "Client and server versions; kubectl should be within one minor version of the server",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe explain api-resources version"
+    "tags": "kubernetes k8s kubectl containers recipe explain api-resources version",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_explain/",
+          "title": "kubectl explain"
+        },
+        {
+          "url": "https://kubernetes.io/releases/version-skew-policy/",
+          "title": "Kubernetes version skew policy"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -9578,7 +9958,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl auth can-i --list -n <ns>",
     "desc": "What you're allowed to do in a namespace",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe explain api-resources version"
+    "tags": "kubernetes k8s kubectl containers recipe explain api-resources version",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_explain/",
+          "title": "kubectl explain"
+        },
+        {
+          "url": "https://kubernetes.io/releases/version-skew-policy/",
+          "title": "Kubernetes version skew policy"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -9589,7 +9982,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl config current-context",
     "desc": "Make the active context impossible to miss",
     "tip": "Right command, wrong cluster is the classic mistake",
-    "tags": "kubernetes k8s kubectl containers tips best-practice"
+    "tags": "kubernetes k8s kubectl containers tips best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/",
+          "title": "Kubernetes: kubeconfig files"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -9600,7 +10002,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl diff -f <file>.yaml",
     "desc": "Preview what a manifest would change, then apply it (apply changes state)",
     "tip": "diff before apply",
-    "tags": "kubernetes k8s kubectl containers apply diff manifest yaml declarative dry-run"
+    "tags": "kubernetes k8s kubectl containers apply diff manifest yaml declarative dry-run",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_diff/",
+          "title": "kubectl diff"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_apply/",
+          "title": "kubectl apply"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -9611,7 +10026,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl apply -f <file>.yaml",
     "desc": "Apply the manifest (changes state)",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe apply diff manifest"
+    "tags": "kubernetes k8s kubectl containers recipe apply diff manifest",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_diff/",
+          "title": "kubectl diff"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_apply/",
+          "title": "kubectl apply"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -9622,7 +10050,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl apply -f <file>.yaml --dry-run=server",
     "desc": "Validate against the live cluster without changing anything",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe apply diff manifest"
+    "tags": "kubernetes k8s kubectl containers recipe apply diff manifest",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_diff/",
+          "title": "kubectl diff"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_apply/",
+          "title": "kubectl apply"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -9633,7 +10074,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: web\n  labels:\n    app: web\nspec:\n  replicas: 2\n  selector:\n    matchLabels:\n      app: web\n  template:\n    metadata:\n      labels:\n        app: web\n    spec:\n      containers:\n        - name: web\n          image: nginx:1.27\n          ports:\n            - containerPort: 80\n          resources:\n            requests:\n              cpu: 100m\n              memory: 128Mi\n            limits:\n              memory: 256Mi",
     "desc": "Minimal Deployment manifest with resource requests and limits",
     "tip": "Labels connect Deployment → pods → Service",
-    "tags": "kubernetes k8s kubectl containers deployment yaml manifest requests limits labels"
+    "tags": "kubernetes k8s kubectl containers deployment yaml manifest requests limits labels",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/",
+          "title": "Kubernetes: Deployments"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/",
+          "title": "Kubernetes: resources for containers"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -9644,7 +10098,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl rollout status deployment/<name> -n <ns> --timeout=120s",
     "desc": "Watch a deployment roll out and check its history",
     "tip": "rollout undo is your fast rollback",
-    "tags": "kubernetes k8s kubectl containers rollout status history undo restart deployment"
+    "tags": "kubernetes k8s kubectl containers rollout status history undo restart deployment",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_rollout/",
+          "title": "kubectl rollout"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -9655,7 +10118,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl rollout history deployment/<name> -n <ns>",
     "desc": "List revisions",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe rollout status history"
+    "tags": "kubernetes k8s kubectl containers recipe rollout status history",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_rollout/",
+          "title": "kubectl rollout"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -9666,7 +10138,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl rollout undo deployment/<name> -n <ns>",
     "desc": "Roll back to the previous revision (changes state)",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe rollout status history"
+    "tags": "kubernetes k8s kubectl containers recipe rollout status history",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_rollout/",
+          "title": "kubectl rollout"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -9677,7 +10158,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl rollout restart deployment/<name> -n <ns>",
     "desc": "Rolling restart of every pod (changes state)",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe rollout status history"
+    "tags": "kubernetes k8s kubectl containers recipe rollout status history",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_rollout/",
+          "title": "kubectl rollout"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -9688,7 +10178,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl scale deployment/<name> -n <ns> --replicas=3",
     "desc": "Change the number of replicas (changes state)",
     "tip": "Scaling by hand drifts from your YAML",
-    "tags": "kubernetes k8s kubectl containers scale replicas hpa deployment"
+    "tags": "kubernetes k8s kubectl containers scale replicas hpa deployment",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_scale/",
+          "title": "kubectl scale"
+        },
+        {
+          "url": "https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/",
+          "title": "Kubernetes: HPA"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -9699,7 +10202,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get deploy,rs,pods -n <ns> -l app=<label>",
     "desc": "The Deployment, its ReplicaSets and pods together",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe scale replicas hpa"
+    "tags": "kubernetes k8s kubectl containers recipe scale replicas hpa",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_scale/",
+          "title": "kubectl scale"
+        },
+        {
+          "url": "https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/",
+          "title": "Kubernetes: HPA"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -9710,7 +10226,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get hpa -n <ns>",
     "desc": "Autoscalers that may override your change",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe scale replicas hpa"
+    "tags": "kubernetes k8s kubectl containers recipe scale replicas hpa",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_scale/",
+          "title": "kubectl scale"
+        },
+        {
+          "url": "https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/",
+          "title": "Kubernetes: HPA"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -9721,7 +10250,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get jobs,cronjobs -A",
     "desc": "Check batch Jobs and CronJobs",
     "tip": "Trigger a CronJob by hand with --from=cronjob/",
-    "tags": "kubernetes k8s kubectl containers job cronjob batch"
+    "tags": "kubernetes k8s kubectl containers job cronjob batch",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_create/kubectl_create_job/",
+          "title": "kubectl create job"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_logs/",
+          "title": "kubectl logs"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -9732,7 +10274,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl logs job/<job> -n <ns>",
     "desc": "Logs from a Job's pod",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe job cronjob batch"
+    "tags": "kubernetes k8s kubectl containers recipe job cronjob batch",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_create/kubectl_create_job/",
+          "title": "kubectl create job"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_logs/",
+          "title": "kubectl logs"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -9743,7 +10298,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl create job <name>-manual --from=cronjob/<cronjob> -n <ns>",
     "desc": "Run a CronJob now, outside its schedule (changes state)",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe job cronjob batch"
+    "tags": "kubernetes k8s kubectl containers recipe job cronjob batch",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_create/kubectl_create_job/",
+          "title": "kubectl create job"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_logs/",
+          "title": "kubectl logs"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -9754,7 +10322,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get pod <pod> -n <ns> -o jsonpath='{.status.containerStatuses[*].lastState.terminated.reason}'",
     "desc": "Requests, limits and what OOMKilled means",
     "tip": "Memory over limit = killed; CPU over limit = slowed",
-    "tags": "kubernetes k8s kubectl containers tips best-practice"
+    "tags": "kubernetes k8s kubectl containers tips best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/",
+          "title": "Kubernetes: resources for containers"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/",
+          "title": "Kubernetes: node-pressure eviction"
+        }
+      ],
+      "note": "Corrected 2026-11-09: 'pods with no requests are evicted first' → the kubelet orders by usage over requests, then priority; it doesn't use QoS class for the order."
+    }
   },
   {
     "sName": "containers",
@@ -9765,7 +10347,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl describe pod <pod> -n <ns>",
     "desc": "Describe a pod: read the Events section at the bottom first",
     "tip": "Read Events first",
-    "tags": "kubernetes k8s kubectl containers describe events pod state"
+    "tags": "kubernetes k8s kubectl containers describe events pod state",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_describe/",
+          "title": "kubectl describe"
+        },
+        {
+          "url": "https://kubernetes.io/docs/tasks/debug/debug-application/debug-pods/",
+          "title": "Kubernetes: debug pods"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -9776,7 +10371,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get pods -n <ns>",
     "desc": "What the common pod statuses mean and where to look next",
     "tip": "Pending → Events; CrashLoop → logs --previous",
-    "tags": "kubernetes k8s kubectl containers status pending crashloopbackoff imagepullbackoff oomkilled evicted"
+    "tags": "kubernetes k8s kubectl containers status pending crashloopbackoff imagepullbackoff oomkilled evicted",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/",
+          "title": "Kubernetes: pod lifecycle"
+        },
+        {
+          "url": "https://kubernetes.io/docs/tasks/debug/debug-application/debug-pods/",
+          "title": "Kubernetes: debug pods"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -9787,7 +10395,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl logs <pod> -n <ns> --previous --tail=200",
     "desc": "Logs from the previous (crashed) instance of a container",
     "tip": "CrashLoopBackOff? Always add --previous",
-    "tags": "kubernetes k8s kubectl containers logs previous crashloop container"
+    "tags": "kubernetes k8s kubectl containers logs previous crashloop container",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_logs/",
+          "title": "kubectl logs"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -9798,7 +10415,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl logs <pod> -n <ns> -c <container> --tail=200",
     "desc": "One container in a multi-container pod",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe logs previous crashloop"
+    "tags": "kubernetes k8s kubectl containers recipe logs previous crashloop",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_logs/",
+          "title": "kubectl logs"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -9809,7 +10435,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl logs deploy/<name> -n <ns> --tail=100",
     "desc": "Logs from one pod of a Deployment",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe logs previous crashloop"
+    "tags": "kubernetes k8s kubectl containers recipe logs previous crashloop",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_logs/",
+          "title": "kubectl logs"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -9820,7 +10455,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get events -n <ns> --sort-by=.lastTimestamp",
     "desc": "Recent events in a namespace, oldest first",
     "tip": "Events expire after about an hour",
-    "tags": "kubernetes k8s kubectl containers events warning sort timeline"
+    "tags": "kubernetes k8s kubectl containers events warning sort timeline",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+          "title": "kubectl get"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_events/",
+          "title": "kubectl events"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/",
+          "title": "kube-apiserver (--event-ttl 1h)"
+        }
+      ],
+      "note": "kubectl get documents --sort-by with braces ('{.lastTimestamp}'); the bare form works too. Filtering events by type=Warning isn't shown in the docs read. kubectl events has no --sort-by."
+    }
   },
   {
     "sName": "containers",
@@ -9831,7 +10484,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get events -A --field-selector type=Warning --sort-by=.lastTimestamp",
     "desc": "Warnings across the whole cluster",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe events warning sort"
+    "tags": "kubernetes k8s kubectl containers recipe events warning sort",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+          "title": "kubectl get"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_events/",
+          "title": "kubectl events"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/",
+          "title": "kube-apiserver (--event-ttl 1h)"
+        }
+      ],
+      "note": "kubectl get documents --sort-by with braces ('{.lastTimestamp}'); the bare form works too. Filtering events by type=Warning isn't shown in the docs read. kubectl events has no --sort-by."
+    }
   },
   {
     "sName": "containers",
@@ -9842,7 +10513,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl events -n <ns> --for pod/<pod>",
     "desc": "Events for one object (newer kubectl events command)",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe events warning sort"
+    "tags": "kubernetes k8s kubectl containers recipe events warning sort",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+          "title": "kubectl get"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_events/",
+          "title": "kubectl events"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/",
+          "title": "kube-apiserver (--event-ttl 1h)"
+        }
+      ],
+      "note": "kubectl get documents --sort-by with braces ('{.lastTimestamp}'); the bare form works too. Filtering events by type=Warning isn't shown in the docs read. kubectl events has no --sort-by."
+    }
   },
   {
     "sName": "containers",
@@ -9853,7 +10542,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl exec -it <pod> -n <ns> -- sh",
     "desc": "Get a shell in a running pod, or attach a debug container to one that has no shell",
     "tip": "No shell in the image? kubectl debug --target",
-    "tags": "kubernetes k8s kubectl containers exec debug ephemeral shell distroless"
+    "tags": "kubernetes k8s kubectl containers exec debug ephemeral shell distroless",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/tasks/debug/debug-application/debug-running-pod/",
+          "title": "Kubernetes: debug running pods"
+        },
+        {
+          "url": "https://kubernetes.io/docs/tasks/debug/debug-cluster/kubectl-node-debug/",
+          "title": "Kubernetes: debug a node with kubectl"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_debug/",
+          "title": "kubectl debug"
+        }
+      ],
+      "note": "With the default profile, chroot /host fails in a node debug pod: use --profile=sysadmin."
+    }
   },
   {
     "sName": "containers",
@@ -9864,7 +10571,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl exec <pod> -n <ns> -- env",
     "desc": "Environment variables the app sees",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe exec debug ephemeral"
+    "tags": "kubernetes k8s kubectl containers recipe exec debug ephemeral",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/tasks/debug/debug-application/debug-running-pod/",
+          "title": "Kubernetes: debug running pods"
+        },
+        {
+          "url": "https://kubernetes.io/docs/tasks/debug/debug-cluster/kubectl-node-debug/",
+          "title": "Kubernetes: debug a node with kubectl"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_debug/",
+          "title": "kubectl debug"
+        }
+      ],
+      "note": "With the default profile, chroot /host fails in a node debug pod: use --profile=sysadmin."
+    }
   },
   {
     "sName": "containers",
@@ -9875,7 +10600,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl debug -it <pod> -n <ns> --image=busybox --target=<container>",
     "desc": "Ephemeral debug container (changes state: adds a container to the pod)",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe exec debug ephemeral"
+    "tags": "kubernetes k8s kubectl containers recipe exec debug ephemeral",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/tasks/debug/debug-application/debug-running-pod/",
+          "title": "Kubernetes: debug running pods"
+        },
+        {
+          "url": "https://kubernetes.io/docs/tasks/debug/debug-cluster/kubectl-node-debug/",
+          "title": "Kubernetes: debug a node with kubectl"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_debug/",
+          "title": "kubectl debug"
+        }
+      ],
+      "note": "With the default profile, chroot /host fails in a node debug pod: use --profile=sysadmin."
+    }
   },
   {
     "sName": "containers",
@@ -9886,7 +10629,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl debug node/<node> -it --image=busybox",
     "desc": "Debug pod on a node, host filesystem under /host (changes state)",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe exec debug ephemeral"
+    "tags": "kubernetes k8s kubectl containers recipe exec debug ephemeral",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/tasks/debug/debug-application/debug-running-pod/",
+          "title": "Kubernetes: debug running pods"
+        },
+        {
+          "url": "https://kubernetes.io/docs/tasks/debug/debug-cluster/kubectl-node-debug/",
+          "title": "Kubernetes: debug a node with kubectl"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_debug/",
+          "title": "kubectl debug"
+        }
+      ],
+      "note": "With the default profile, chroot /host fails in a node debug pod: use --profile=sysadmin."
+    }
   },
   {
     "sName": "containers",
@@ -9897,7 +10658,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl port-forward svc/<service> 8080:80 -n <ns>",
     "desc": "Reach a service from your workstation, and see live resource usage",
     "tip": "Service has no endpoints? Its selector doesn't match any ready pod",
-    "tags": "kubernetes k8s kubectl containers port-forward top metrics service endpoints"
+    "tags": "kubernetes k8s kubectl containers port-forward top metrics service endpoints",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_port-forward/",
+          "title": "kubectl port-forward"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_top/",
+          "title": "kubectl top"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/services-networking/endpoint-slices/",
+          "title": "Kubernetes: EndpointSlices"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -9908,7 +10686,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl top pods -n <ns> --sort-by=memory",
     "desc": "Memory hogs in a namespace",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe port-forward top metrics"
+    "tags": "kubernetes k8s kubectl containers recipe port-forward top metrics",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_port-forward/",
+          "title": "kubectl port-forward"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_top/",
+          "title": "kubectl top"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/services-networking/endpoint-slices/",
+          "title": "Kubernetes: EndpointSlices"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -9919,7 +10714,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl top nodes",
     "desc": "CPU and memory per node",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe port-forward top metrics"
+    "tags": "kubernetes k8s kubectl containers recipe port-forward top metrics",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_port-forward/",
+          "title": "kubectl port-forward"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_top/",
+          "title": "kubectl top"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/services-networking/endpoint-slices/",
+          "title": "Kubernetes: EndpointSlices"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -9930,7 +10742,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get endpointslices -n <ns> -l kubernetes.io/service-name=<service>",
     "desc": "Which pod IPs a service actually sends traffic to",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe port-forward top metrics"
+    "tags": "kubernetes k8s kubectl containers recipe port-forward top metrics",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_port-forward/",
+          "title": "kubectl port-forward"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_top/",
+          "title": "kubectl top"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/services-networking/endpoint-slices/",
+          "title": "Kubernetes: EndpointSlices"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -9941,7 +10770,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl describe pod <pod> -n <ns> | sed -n '/^Events:/,$p'",
     "desc": "A fixed order for any broken pod",
     "tip": "Status → Events → previous logs → node",
-    "tags": "kubernetes k8s kubectl containers tips best-practice"
+    "tags": "kubernetes k8s kubectl containers tips best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/tasks/debug/debug-application/debug-pods/",
+          "title": "Kubernetes: debug pods"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -9952,7 +10790,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get nodes -o wide",
     "desc": "List nodes with status, version, OS and container runtime",
     "tip": "NotReady = kubelet stopped reporting",
-    "tags": "kubernetes k8s kubectl containers nodes ready notready describe wide"
+    "tags": "kubernetes k8s kubectl containers nodes ready notready describe wide",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+          "title": "kubectl get"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_describe/",
+          "title": "kubectl describe"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/architecture/nodes/",
+          "title": "Kubernetes: nodes"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -9963,7 +10818,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl describe node <node>",
     "desc": "Conditions, capacity, allocated resources, taints and recent events",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe nodes ready notready"
+    "tags": "kubernetes k8s kubectl containers recipe nodes ready notready",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+          "title": "kubectl get"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_describe/",
+          "title": "kubectl describe"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/architecture/nodes/",
+          "title": "Kubernetes: nodes"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -9974,7 +10846,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get pods -A -o wide --field-selector spec.nodeName=<node>",
     "desc": "Every pod on one node, e.g. before draining it",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe nodes ready notready"
+    "tags": "kubernetes k8s kubectl containers recipe nodes ready notready",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+          "title": "kubectl get"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_describe/",
+          "title": "kubectl describe"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/architecture/nodes/",
+          "title": "Kubernetes: nodes"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -9985,7 +10874,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl drain <node> --ignore-daemonsets --delete-emptydir-data --timeout=10m",
     "desc": "Take a node out of service for hardware work: cordon, then drain (changes state: ask first)",
     "tip": "Approval first; check the active context",
-    "tags": "kubernetes k8s kubectl containers drain cordon uncordon maintenance pdb rma"
+    "tags": "kubernetes k8s kubectl containers drain cordon uncordon maintenance pdb rma",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_drain/",
+          "title": "kubectl drain"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/workloads/pods/disruptions/",
+          "title": "Kubernetes: disruptions and PDBs"
+        },
+        {
+          "url": "https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/",
+          "title": "Kubernetes: safely drain a node"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -9996,7 +10902,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl cordon <node>",
     "desc": "Mark unschedulable (changes state)",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe drain cordon uncordon"
+    "tags": "kubernetes k8s kubectl containers recipe drain cordon uncordon",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_drain/",
+          "title": "kubectl drain"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/workloads/pods/disruptions/",
+          "title": "Kubernetes: disruptions and PDBs"
+        },
+        {
+          "url": "https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/",
+          "title": "Kubernetes: safely drain a node"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10007,7 +10930,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl uncordon <node>",
     "desc": "Return to service (changes state)",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe drain cordon uncordon"
+    "tags": "kubernetes k8s kubectl containers recipe drain cordon uncordon",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_drain/",
+          "title": "kubectl drain"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/workloads/pods/disruptions/",
+          "title": "Kubernetes: disruptions and PDBs"
+        },
+        {
+          "url": "https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/",
+          "title": "Kubernetes: safely drain a node"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10018,7 +10958,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get node <node> -o jsonpath='{.spec.unschedulable}'",
     "desc": "true = still cordoned",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe drain cordon uncordon"
+    "tags": "kubernetes k8s kubectl containers recipe drain cordon uncordon",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_drain/",
+          "title": "kubectl drain"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/workloads/pods/disruptions/",
+          "title": "Kubernetes: disruptions and PDBs"
+        },
+        {
+          "url": "https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/",
+          "title": "Kubernetes: safely drain a node"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10029,7 +10986,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get node <node> -o jsonpath='{.spec.taints}'",
     "desc": "Show a node's taints and labels",
     "tip": "Trailing dash removes a taint",
-    "tags": "kubernetes k8s kubectl containers taint toleration label noschedule"
+    "tags": "kubernetes k8s kubectl containers taint toleration label noschedule",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/",
+          "title": "Kubernetes: taints and tolerations"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_taint/",
+          "title": "kubectl taint"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10040,7 +11010,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get nodes --show-labels",
     "desc": "All node labels",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe taint toleration label"
+    "tags": "kubernetes k8s kubectl containers recipe taint toleration label",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/",
+          "title": "Kubernetes: taints and tolerations"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_taint/",
+          "title": "kubectl taint"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10051,7 +11034,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl taint nodes <node> <key>=<value>:NoSchedule",
     "desc": "Add a taint (changes state)",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe taint toleration label"
+    "tags": "kubernetes k8s kubectl containers recipe taint toleration label",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/",
+          "title": "Kubernetes: taints and tolerations"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_taint/",
+          "title": "kubectl taint"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10062,7 +11058,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl label node <node> <key>=<value>",
     "desc": "Add or change a label (changes state)",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe taint toleration label"
+    "tags": "kubernetes k8s kubectl containers recipe taint toleration label",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/",
+          "title": "Kubernetes: taints and tolerations"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_taint/",
+          "title": "kubectl taint"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10073,7 +11082,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "journalctl -u kubelet --since '30 min ago' --no-pager",
     "desc": "On the node itself: kubelet logs and containers via crictl (works when the API is unreachable)",
     "tip": "API down? crictl on the node still works",
-    "tags": "kubernetes k8s kubectl containers kubelet crictl containerd journalctl cgroup node"
+    "tags": "kubernetes k8s kubectl containers kubelet crictl containerd journalctl cgroup node",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/tasks/debug/debug-cluster/crictl/",
+          "title": "Kubernetes: debugging with crictl"
+        },
+        {
+          "url": "https://kubernetes.io/docs/tasks/administer-cluster/migrating-from-dockershim/",
+          "title": "Kubernetes: migrating from dockershim (removed in 1.24)"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/architecture/cgroups/",
+          "title": "Kubernetes: about cgroup v2"
+        }
+      ],
+      "note": "Corrected 2026-11-09: 'kubelet 1.37 refuses cgroup v1' → cgroup v1 deprecated since 1.35; the kubelet won't start on it by default (failCgroupV1)."
+    }
   },
   {
     "sName": "containers",
@@ -10084,7 +11111,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "systemctl status kubelet containerd --no-pager",
     "desc": "Are kubelet and containerd running",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe kubelet crictl containerd"
+    "tags": "kubernetes k8s kubectl containers recipe kubelet crictl containerd",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/tasks/debug/debug-cluster/crictl/",
+          "title": "Kubernetes: debugging with crictl"
+        },
+        {
+          "url": "https://kubernetes.io/docs/tasks/administer-cluster/migrating-from-dockershim/",
+          "title": "Kubernetes: migrating from dockershim (removed in 1.24)"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/architecture/cgroups/",
+          "title": "Kubernetes: about cgroup v2"
+        }
+      ],
+      "note": "Corrected 2026-11-09: 'kubelet 1.37 refuses cgroup v1' → cgroup v1 deprecated since 1.35; the kubelet won't start on it by default (failCgroupV1)."
+    }
   },
   {
     "sName": "containers",
@@ -10092,10 +11137,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "node",
     "id": "node-kubelet-crictl-sub-2",
     "sec": "Kubernetes Nodes & Maintenance: On the node itself",
-    "cmd": "sudo crictl ps -a",
+    "cmd": "crictl ps -a",
     "desc": "All containers on this node",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe kubelet crictl containerd"
+    "tags": "kubernetes k8s kubectl containers recipe kubelet crictl containerd",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/tasks/debug/debug-cluster/crictl/",
+          "title": "Kubernetes: debugging with crictl"
+        },
+        {
+          "url": "https://kubernetes.io/docs/tasks/administer-cluster/migrating-from-dockershim/",
+          "title": "Kubernetes: migrating from dockershim (removed in 1.24)"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/architecture/cgroups/",
+          "title": "Kubernetes: about cgroup v2"
+        }
+      ],
+      "note": "Corrected 2026-11-09: 'kubelet 1.37 refuses cgroup v1' → cgroup v1 deprecated since 1.35; the kubelet won't start on it by default (failCgroupV1)."
+    }
   },
   {
     "sName": "containers",
@@ -10103,10 +11166,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "node",
     "id": "node-kubelet-crictl-sub-3",
     "sec": "Kubernetes Nodes & Maintenance: On the node itself",
-    "cmd": "sudo crictl logs --tail 100 <container-id>",
+    "cmd": "crictl logs --tail 100 <container-id>",
     "desc": "Container logs without going through the API server",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe kubelet crictl containerd"
+    "tags": "kubernetes k8s kubectl containers recipe kubelet crictl containerd",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/tasks/debug/debug-cluster/crictl/",
+          "title": "Kubernetes: debugging with crictl"
+        },
+        {
+          "url": "https://kubernetes.io/docs/tasks/administer-cluster/migrating-from-dockershim/",
+          "title": "Kubernetes: migrating from dockershim (removed in 1.24)"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/architecture/cgroups/",
+          "title": "Kubernetes: about cgroup v2"
+        }
+      ],
+      "note": "Corrected 2026-11-09: 'kubelet 1.37 refuses cgroup v1' → cgroup v1 deprecated since 1.35; the kubelet won't start on it by default (failCgroupV1)."
+    }
   },
   {
     "sName": "containers",
@@ -10114,10 +11195,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "node",
     "id": "node-kubelet-crictl-sub-4",
     "sec": "Kubernetes Nodes & Maintenance: On the node itself",
-    "cmd": "sudo crictl pods",
+    "cmd": "crictl pods",
     "desc": "Pod sandboxes on this node",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe kubelet crictl containerd"
+    "tags": "kubernetes k8s kubectl containers recipe kubelet crictl containerd",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/tasks/debug/debug-cluster/crictl/",
+          "title": "Kubernetes: debugging with crictl"
+        },
+        {
+          "url": "https://kubernetes.io/docs/tasks/administer-cluster/migrating-from-dockershim/",
+          "title": "Kubernetes: migrating from dockershim (removed in 1.24)"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/architecture/cgroups/",
+          "title": "Kubernetes: about cgroup v2"
+        }
+      ],
+      "note": "Corrected 2026-11-09: 'kubelet 1.37 refuses cgroup v1' → cgroup v1 deprecated since 1.35; the kubelet won't start on it by default (failCgroupV1)."
+    }
   },
   {
     "sName": "containers",
@@ -10126,9 +11225,27 @@ window.GLOBAL_SEARCH_INDEX = [
     "id": "node-kubelet-crictl-sub-5",
     "sec": "Kubernetes Nodes & Maintenance: On the node itself",
     "cmd": "stat -fc %T /sys/fs/cgroup",
-    "desc": "cgroup2fs = cgroup v2 (required by kubelet 1.37 by default)",
+    "desc": "cgroup2fs = cgroup v2 (the kubelet refuses cgroup v1 by default)",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe kubelet crictl containerd"
+    "tags": "kubernetes k8s kubectl containers recipe kubelet crictl containerd",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/tasks/debug/debug-cluster/crictl/",
+          "title": "Kubernetes: debugging with crictl"
+        },
+        {
+          "url": "https://kubernetes.io/docs/tasks/administer-cluster/migrating-from-dockershim/",
+          "title": "Kubernetes: migrating from dockershim (removed in 1.24)"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/architecture/cgroups/",
+          "title": "Kubernetes: about cgroup v2"
+        }
+      ],
+      "note": "Corrected 2026-11-09: 'kubelet 1.37 refuses cgroup v1' → cgroup v1 deprecated since 1.35; the kubelet won't start on it by default (failCgroupV1)."
+    }
   },
   {
     "sName": "containers",
@@ -10139,7 +11256,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get pods -A -o wide --field-selector spec.nodeName=<node>",
     "desc": "Hardware work on a Kubernetes GPU node",
     "tip": "List → approve → cordon → drain → work → verify → uncordon",
-    "tags": "kubernetes k8s kubectl containers tips best-practice"
+    "tags": "kubernetes k8s kubectl containers tips best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/",
+          "title": "Kubernetes: safely drain a node"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10150,7 +11276,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get nodes -o custom-columns=NAME:.metadata.name,GPUS:.status.allocatable.nvidia\\.com/gpu",
     "desc": "How many GPUs each node advertises to the scheduler",
     "tip": "7 of 8 GPUs? Check the node, not Kubernetes",
-    "tags": "kubernetes k8s kubectl containers gpu allocatable nvidia.com/gpu custom-columns capacity"
+    "tags": "kubernetes k8s kubectl containers gpu allocatable nvidia.com/gpu custom-columns capacity",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/",
+          "title": "Kubernetes: schedule GPUs"
+        },
+        {
+          "url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html",
+          "title": "NVIDIA GPU Operator: getting started"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the GPU-node label is feature.node.kubernetes.io/pci-10de.present=true, the one the GPU Operator docs use (nvidia.com/gpu.present isn't on that page)."
+    }
   },
   {
     "sName": "containers",
@@ -10161,7 +11301,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl describe node <node> | grep -A10 'Allocated resources'",
     "desc": "GPUs requested by pods vs. available on one node",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe gpu allocatable nvidia.com/gpu"
+    "tags": "kubernetes k8s kubectl containers recipe gpu allocatable nvidia.com/gpu",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/",
+          "title": "Kubernetes: schedule GPUs"
+        },
+        {
+          "url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html",
+          "title": "NVIDIA GPU Operator: getting started"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the GPU-node label is feature.node.kubernetes.io/pci-10de.present=true, the one the GPU Operator docs use (nvidia.com/gpu.present isn't on that page)."
+    }
   },
   {
     "sName": "containers",
@@ -10169,10 +11323,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "kgpu",
     "id": "k8s-gpu-allocatable-sub-2",
     "sec": "Kubernetes GPUs: How many GPUs each node advertises to the scheduler",
-    "cmd": "kubectl get nodes -l nvidia.com/gpu.present=true",
-    "desc": "Nodes that GPU feature discovery labelled as having GPUs",
+    "cmd": "kubectl get nodes -l feature.node.kubernetes.io/pci-10de.present=true",
+    "desc": "Nodes with an NVIDIA PCI device (the label the GPU Operator uses to find GPU nodes)",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe gpu allocatable nvidia.com/gpu"
+    "tags": "kubernetes k8s kubectl containers recipe gpu allocatable nvidia.com/gpu",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/",
+          "title": "Kubernetes: schedule GPUs"
+        },
+        {
+          "url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html",
+          "title": "NVIDIA GPU Operator: getting started"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the GPU-node label is feature.node.kubernetes.io/pci-10de.present=true, the one the GPU Operator docs use (nvidia.com/gpu.present isn't on that page)."
+    }
   },
   {
     "sName": "containers",
@@ -10183,7 +11351,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get pods -n gpu-operator -o wide",
     "desc": "Check the NVIDIA GPU Operator components",
     "tip": "Validator not Completed = stack not ready",
-    "tags": "kubernetes k8s kubectl containers gpu-operator device-plugin driver dcgm validator"
+    "tags": "kubernetes k8s kubectl containers gpu-operator device-plugin driver dcgm validator",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html",
+          "title": "NVIDIA GPU Operator: getting started"
+        }
+      ],
+      "note": "Pod names in the docs: nvidia-driver-daemonset, nvidia-container-toolkit-daemonset, nvidia-device-plugin-daemonset, nvidia-dcgm-exporter, nvidia-operator-validator, gpu-feature-discovery. Checked against GPU Operator v26.7."
+    }
   },
   {
     "sName": "containers",
@@ -10194,7 +11372,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl logs -n gpu-operator <device-plugin-pod>",
     "desc": "Why GPUs aren't being advertised",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe gpu-operator device-plugin driver"
+    "tags": "kubernetes k8s kubectl containers recipe gpu-operator device-plugin driver",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html",
+          "title": "NVIDIA GPU Operator: getting started"
+        }
+      ],
+      "note": "Pod names in the docs: nvidia-driver-daemonset, nvidia-container-toolkit-daemonset, nvidia-device-plugin-daemonset, nvidia-dcgm-exporter, nvidia-operator-validator, gpu-feature-discovery. Checked against GPU Operator v26.7."
+    }
   },
   {
     "sName": "containers",
@@ -10205,7 +11393,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl exec -n gpu-operator <driver-pod> -- nvidia-smi",
     "desc": "Run nvidia-smi through the driver container",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe gpu-operator device-plugin driver"
+    "tags": "kubernetes k8s kubectl containers recipe gpu-operator device-plugin driver",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html",
+          "title": "NVIDIA GPU Operator: getting started"
+        }
+      ],
+      "note": "Pod names in the docs: nvidia-driver-daemonset, nvidia-container-toolkit-daemonset, nvidia-device-plugin-daemonset, nvidia-dcgm-exporter, nvidia-operator-validator, gpu-feature-discovery. Checked against GPU Operator v26.7."
+    }
   },
   {
     "sName": "containers",
@@ -10216,7 +11414,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "apiVersion: v1\nkind: Pod\nmetadata:\n  name: gpu-test\nspec:\n  restartPolicy: Never\n  containers:\n    - name: cuda\n      image: nvidia/cuda:<tag>\n      command: [\"nvidia-smi\", \"-L\"]\n      resources:\n        limits:\n          nvidia.com/gpu: 1",
     "desc": "Test pod that requests one GPU and runs nvidia-smi",
     "tip": "GPUs go under limits, in whole numbers",
-    "tags": "kubernetes k8s kubectl containers gpu pod test limits nvidia-smi"
+    "tags": "kubernetes k8s kubectl containers gpu pod test limits nvidia-smi",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/",
+          "title": "Kubernetes: schedule GPUs"
+        },
+        {
+          "url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html",
+          "title": "NVIDIA GPU Operator: getting started"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10227,7 +11438,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl apply -f gpu-test.yaml",
     "desc": "Create the test pod (changes state)",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe gpu pod test"
+    "tags": "kubernetes k8s kubectl containers recipe gpu pod test",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/",
+          "title": "Kubernetes: schedule GPUs"
+        },
+        {
+          "url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html",
+          "title": "NVIDIA GPU Operator: getting started"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10238,7 +11462,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl logs gpu-test",
     "desc": "Should list one GPU",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe gpu pod test"
+    "tags": "kubernetes k8s kubectl containers recipe gpu pod test",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/",
+          "title": "Kubernetes: schedule GPUs"
+        },
+        {
+          "url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html",
+          "title": "NVIDIA GPU Operator: getting started"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10249,7 +11486,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl delete pod gpu-test",
     "desc": "Clean up (changes state)",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe gpu pod test"
+    "tags": "kubernetes k8s kubectl containers recipe gpu pod test",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/",
+          "title": "Kubernetes: schedule GPUs"
+        },
+        {
+          "url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html",
+          "title": "NVIDIA GPU Operator: getting started"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10260,7 +11510,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl port-forward -n gpu-operator svc/nvidia-dcgm-exporter 9400:9400",
     "desc": "Read GPU metrics from DCGM exporter",
     "tip": "Xid in DCGM → check the NVIDIA DC Xid sheet",
-    "tags": "kubernetes k8s kubectl containers dcgm metrics prometheus xid temperature"
+    "tags": "kubernetes k8s kubectl containers dcgm metrics prometheus xid temperature",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/NVIDIA/dcgm-exporter/blob/main/etc/default-counters.csv",
+          "title": "dcgm-exporter default counters"
+        },
+        {
+          "url": "https://github.com/NVIDIA/dcgm-exporter/releases",
+          "title": "dcgm-exporter releases (4.9.0 renames)"
+        }
+      ],
+      "note": "The service name nvidia-dcgm-exporter and port 9400 aren't stated on the pages read: kubectl get svc -A | grep -i dcgm shows yours."
+    }
   },
   {
     "sName": "containers",
@@ -10271,7 +11535,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -s localhost:9400/metrics | grep -E 'XID|GPU_TEMP'",
     "desc": "Xid errors and temperatures",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe dcgm metrics prometheus"
+    "tags": "kubernetes k8s kubectl containers recipe dcgm metrics prometheus",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/NVIDIA/dcgm-exporter/blob/main/etc/default-counters.csv",
+          "title": "dcgm-exporter default counters"
+        },
+        {
+          "url": "https://github.com/NVIDIA/dcgm-exporter/releases",
+          "title": "dcgm-exporter releases (4.9.0 renames)"
+        }
+      ],
+      "note": "The service name nvidia-dcgm-exporter and port 9400 aren't stated on the pages read: kubectl get svc -A | grep -i dcgm shows yours."
+    }
   },
   {
     "sName": "containers",
@@ -10282,7 +11560,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get svc -A | grep -i dcgm",
     "desc": "Find the exporter service if it's in another namespace",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe dcgm metrics prometheus"
+    "tags": "kubernetes k8s kubectl containers recipe dcgm metrics prometheus",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/NVIDIA/dcgm-exporter/blob/main/etc/default-counters.csv",
+          "title": "dcgm-exporter default counters"
+        },
+        {
+          "url": "https://github.com/NVIDIA/dcgm-exporter/releases",
+          "title": "dcgm-exporter releases (4.9.0 renames)"
+        }
+      ],
+      "note": "The service name nvidia-dcgm-exporter and port 9400 aren't stated on the pages read: kubectl get svc -A | grep -i dcgm shows yours."
+    }
   },
   {
     "sName": "containers",
@@ -10293,7 +11585,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get nodes -o custom-columns=NAME:.metadata.name,GPUS:.status.allocatable.nvidia\\.com/gpu",
     "desc": "GPU missing in Kubernetes: check from the hardware up",
     "tip": "Hardware → operator pods → allocatable → scheduling",
-    "tags": "kubernetes k8s kubectl containers tips best-practice"
+    "tags": "kubernetes k8s kubectl containers tips best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html",
+          "title": "NVIDIA GPU Operator: getting started"
+        },
+        {
+          "url": "https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/",
+          "title": "Kubernetes: schedule GPUs"
+        }
+      ]
+    }
   },
   {
     "sName": "curl",
@@ -11203,7 +12508,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker run --rm --gpus all nvidia/cuda:<tag> nvidia-smi",
     "desc": "Smoke test: run nvidia-smi inside a CUDA container with every GPU attached",
     "tip": "Quote device lists: '\"device=0,1\"'",
-    "tags": "docker containers gpu nvidia cuda nvidia-smi toolkit"
+    "tags": "docker containers gpu nvidia cuda nvidia-smi toolkit",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html",
+          "title": "NVIDIA Container Toolkit: install guide"
+        }
+      ],
+      "note": "Docker's own GPU page could not be fetched (404); the --gpus device-list quoting is not confirmed against Docker's docs."
+    }
   },
   {
     "sName": "docker-gpu-daemon",
@@ -11214,7 +12529,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker run --rm --gpus '\"device=0,1\"' nvidia/cuda:<tag> nvidia-smi -L",
     "desc": "List only the GPUs that were passed in",
     "tip": "",
-    "tags": "docker containers recipe gpu nvidia cuda"
+    "tags": "docker containers recipe gpu nvidia cuda",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html",
+          "title": "NVIDIA Container Toolkit: install guide"
+        }
+      ],
+      "note": "Docker's own GPU page could not be fetched (404); the --gpus device-list quoting is not confirmed against Docker's docs."
+    }
   },
   {
     "sName": "docker-gpu-daemon",
@@ -11225,7 +12550,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker run --rm --gpus all --ipc=host nvidia/cuda:<tag> nvidia-smi topo -m",
     "desc": "NVLink/PCIe topology as seen from inside a container",
     "tip": "",
-    "tags": "docker containers recipe gpu nvidia cuda"
+    "tags": "docker containers recipe gpu nvidia cuda",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html",
+          "title": "NVIDIA Container Toolkit: install guide"
+        }
+      ],
+      "note": "Docker's own GPU page could not be fetched (404); the --gpus device-list quoting is not confirmed against Docker's docs."
+    }
   },
   {
     "sName": "docker-gpu-daemon",
@@ -11233,10 +12568,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "dgpu",
     "id": "nvidia-ctk-configure",
     "sec": "Docker GPUs & Daemon: Register the NVIDIA runtime with Docker, then restart Docker",
-    "cmd": "sudo nvidia-ctk runtime configure --runtime=docker",
+    "cmd": "nvidia-ctk runtime configure --runtime=docker",
     "desc": "Register the NVIDIA runtime with Docker, then restart Docker (changes state: restarts every container on the host)",
     "tip": "Drain the node before restarting Docker",
-    "tags": "docker containers nvidia-ctk toolkit runtime daemon.json"
+    "tags": "docker containers nvidia-ctk toolkit runtime daemon.json",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html",
+          "title": "NVIDIA Container Toolkit: install guide"
+        }
+      ],
+      "note": "Checked against Container Toolkit 1.20.1."
+    }
   },
   {
     "sName": "docker-gpu-daemon",
@@ -11244,10 +12589,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "dgpu",
     "id": "nvidia-ctk-configure-sub-1",
     "sec": "Docker GPUs & Daemon: Register the NVIDIA runtime with Docker, then restart Docker",
-    "cmd": "sudo systemctl restart docker",
+    "cmd": "systemctl restart docker",
     "desc": "Apply the new daemon.json (changes state)",
     "tip": "",
-    "tags": "docker containers recipe nvidia-ctk toolkit runtime"
+    "tags": "docker containers recipe nvidia-ctk toolkit runtime",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html",
+          "title": "NVIDIA Container Toolkit: install guide"
+        }
+      ],
+      "note": "Checked against Container Toolkit 1.20.1."
+    }
   },
   {
     "sName": "docker-gpu-daemon",
@@ -11258,7 +12613,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker info | grep -i -A3 runtimes",
     "desc": "Confirm the nvidia runtime is now listed",
     "tip": "",
-    "tags": "docker containers recipe nvidia-ctk toolkit runtime"
+    "tags": "docker containers recipe nvidia-ctk toolkit runtime",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html",
+          "title": "NVIDIA Container Toolkit: install guide"
+        }
+      ],
+      "note": "Checked against Container Toolkit 1.20.1."
+    }
   },
   {
     "sName": "docker-gpu-daemon",
@@ -11268,8 +12633,22 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "Docker GPUs & Daemon: List the CDI",
     "cmd": "nvidia-ctk cdi list",
     "desc": "List the CDI (Container Device Interface) GPU devices NVIDIA has defined on this host",
-    "tip": "Regenerate the CDI spec after a driver upgrade",
-    "tags": "docker containers cdi nvidia-ctk device gpu"
+    "tip": "Toolkit 1.18+ refreshes the CDI spec for you",
+    "tags": "docker containers cdi nvidia-ctk device gpu",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/cdi-support.html",
+          "title": "NVIDIA Container Toolkit: CDI support"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/dockerd/",
+          "title": "dockerd reference (CDI)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the spec lives in /var/run/cdi/nvidia.yaml (not /etc/cdi), toolkit 1.18+ regenerates it with nvidia-cdi-refresh, and Docker enables CDI by default from 28.3.0 (not 25)."
+    }
   },
   {
     "sName": "docker-gpu-daemon",
@@ -11277,10 +12656,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "dgpu",
     "id": "nvidia-cdi-sub-1",
     "sec": "Docker GPUs & Daemon: List the CDI",
-    "cmd": "sudo nvidia-ctk cdi generate --output=/etc/cdi/nvidia.yaml",
-    "desc": "Rebuild the CDI spec (changes state)",
+    "cmd": "systemctl restart nvidia-cdi-refresh.service",
+    "desc": "Regenerate the CDI spec, e.g. after a driver removal or MIG change (changes state)",
     "tip": "",
-    "tags": "docker containers recipe cdi nvidia-ctk device"
+    "tags": "docker containers recipe cdi nvidia-ctk device",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/cdi-support.html",
+          "title": "NVIDIA Container Toolkit: CDI support"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/dockerd/",
+          "title": "dockerd reference (CDI)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the spec lives in /var/run/cdi/nvidia.yaml (not /etc/cdi), toolkit 1.18+ regenerates it with nvidia-cdi-refresh, and Docker enables CDI by default from 28.3.0 (not 25)."
+    }
   },
   {
     "sName": "docker-gpu-daemon",
@@ -11288,10 +12681,49 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "dgpu",
     "id": "nvidia-cdi-sub-2",
     "sec": "Docker GPUs & Daemon: List the CDI",
+    "cmd": "nvidia-ctk cdi generate --output=/var/run/cdi/nvidia.yaml",
+    "desc": "Generate the spec by hand on toolkits older than 1.18 (changes state)",
+    "tip": "",
+    "tags": "docker containers recipe cdi nvidia-ctk device",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/cdi-support.html",
+          "title": "NVIDIA Container Toolkit: CDI support"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/dockerd/",
+          "title": "dockerd reference (CDI)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the spec lives in /var/run/cdi/nvidia.yaml (not /etc/cdi), toolkit 1.18+ regenerates it with nvidia-cdi-refresh, and Docker enables CDI by default from 28.3.0 (not 25)."
+    }
+  },
+  {
+    "sName": "docker-gpu-daemon",
+    "file": "docker-gpu-daemon.html",
+    "badge": "dgpu",
+    "id": "nvidia-cdi-sub-3",
+    "sec": "Docker GPUs & Daemon: List the CDI",
     "cmd": "docker run --rm --device nvidia.com/gpu=all ubuntu:24.04 nvidia-smi -L",
     "desc": "Use CDI device names from Docker",
     "tip": "",
-    "tags": "docker containers recipe cdi nvidia-ctk device"
+    "tags": "docker containers recipe cdi nvidia-ctk device",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/cdi-support.html",
+          "title": "NVIDIA Container Toolkit: CDI support"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/dockerd/",
+          "title": "dockerd reference (CDI)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the spec lives in /var/run/cdi/nvidia.yaml (not /etc/cdi), toolkit 1.18+ regenerates it with nvidia-cdi-refresh, and Docker enables CDI by default from 28.3.0 (not 25)."
+    }
   },
   {
     "sName": "docker-gpu-daemon",
@@ -11301,8 +12733,22 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "Docker GPUs & Daemon: Check the Docker daemon",
     "cmd": "docker info",
     "desc": "Check the Docker daemon: version, storage and cgroup driver, runtimes, and recent errors",
-    "tip": "docker events --until now returns instead of following",
-    "tags": "docker containers daemon info journalctl events cgroup systemd"
+    "tip": "docker events with --until returns instead of following",
+    "tags": "docker containers daemon info journalctl events cgroup systemd",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/system/events/",
+          "title": "docker events"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/architecture/cgroups/",
+          "title": "Kubernetes: about cgroup v2"
+        }
+      ],
+      "note": "Corrected 2026-11-09: docker events --until now → --until \"$(date +%s)\" (now isn't a documented format); 'Kubernetes 1.37 refuses cgroup v1' → deprecated since 1.35, won't start by default."
+    }
   },
   {
     "sName": "docker-gpu-daemon",
@@ -11313,7 +12759,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "systemctl status docker --no-pager",
     "desc": "Is the daemon running, and its last log lines",
     "tip": "",
-    "tags": "docker containers recipe daemon info journalctl"
+    "tags": "docker containers recipe daemon info journalctl",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/system/events/",
+          "title": "docker events"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/architecture/cgroups/",
+          "title": "Kubernetes: about cgroup v2"
+        }
+      ],
+      "note": "Corrected 2026-11-09: docker events --until now → --until \"$(date +%s)\" (now isn't a documented format); 'Kubernetes 1.37 refuses cgroup v1' → deprecated since 1.35, won't start by default."
+    }
   },
   {
     "sName": "docker-gpu-daemon",
@@ -11324,7 +12784,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "journalctl -u docker --since '1 hour ago' --no-pager",
     "desc": "Daemon log for the last hour",
     "tip": "",
-    "tags": "docker containers recipe daemon info journalctl"
+    "tags": "docker containers recipe daemon info journalctl",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/system/events/",
+          "title": "docker events"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/architecture/cgroups/",
+          "title": "Kubernetes: about cgroup v2"
+        }
+      ],
+      "note": "Corrected 2026-11-09: docker events --until now → --until \"$(date +%s)\" (now isn't a documented format); 'Kubernetes 1.37 refuses cgroup v1' → deprecated since 1.35, won't start by default."
+    }
   },
   {
     "sName": "docker-gpu-daemon",
@@ -11335,7 +12809,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "cat /etc/docker/daemon.json",
     "desc": "The daemon's config file (runtimes, data-root, log limits)",
     "tip": "",
-    "tags": "docker containers recipe daemon info journalctl"
+    "tags": "docker containers recipe daemon info journalctl",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/system/events/",
+          "title": "docker events"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/architecture/cgroups/",
+          "title": "Kubernetes: about cgroup v2"
+        }
+      ],
+      "note": "Corrected 2026-11-09: docker events --until now → --until \"$(date +%s)\" (now isn't a documented format); 'Kubernetes 1.37 refuses cgroup v1' → deprecated since 1.35, won't start by default."
+    }
   },
   {
     "sName": "docker-gpu-daemon",
@@ -11343,10 +12831,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "dgpu",
     "id": "docker-daemon-health-sub-4",
     "sec": "Docker GPUs & Daemon: Check the Docker daemon",
-    "cmd": "docker events --since 1h --until now",
-    "desc": "Container start/stop/die/oom events from the last hour, then exit",
+    "cmd": "docker events --since 1h --until \"$(date +%s)\"",
+    "desc": "Container start/stop/die/oom events from the last hour, then exit (--until takes a timestamp)",
     "tip": "",
-    "tags": "docker containers recipe daemon info journalctl"
+    "tags": "docker containers recipe daemon info journalctl",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/system/events/",
+          "title": "docker events"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/architecture/cgroups/",
+          "title": "Kubernetes: about cgroup v2"
+        }
+      ],
+      "note": "Corrected 2026-11-09: docker events --until now → --until \"$(date +%s)\" (now isn't a documented format); 'Kubernetes 1.37 refuses cgroup v1' → deprecated since 1.35, won't start by default."
+    }
   },
   {
     "sName": "docker-gpu-daemon",
@@ -11357,7 +12859,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nvidia-smi && nvidia-ctk --version && docker info | grep -i runtimes",
     "desc": "Container sees no GPUs: check in this order",
     "tip": "Host nvidia-smi fails → not a Docker problem",
-    "tags": "docker containers tips best-practice"
+    "tags": "docker containers tips best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html",
+          "title": "NVIDIA Container Toolkit: install guide"
+        },
+        {
+          "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+          "title": "nvidia-smi documentation"
+        }
+      ]
+    }
   },
   {
     "sName": "docker-images",
@@ -26256,7 +27771,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get nodes -o custom-columns=NAME:.metadata.name,GPUS:.status.allocatable.nvidia\\.com/gpu",
     "desc": "How many GPUs each node advertises to the scheduler",
     "tip": "7 of 8 GPUs? Check the node, not Kubernetes",
-    "tags": "kubernetes k8s kubectl containers gpu allocatable nvidia.com/gpu custom-columns capacity"
+    "tags": "kubernetes k8s kubectl containers gpu allocatable nvidia.com/gpu custom-columns capacity",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/",
+          "title": "Kubernetes: schedule GPUs"
+        },
+        {
+          "url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html",
+          "title": "NVIDIA GPU Operator: getting started"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the GPU-node label is feature.node.kubernetes.io/pci-10de.present=true, the one the GPU Operator docs use (nvidia.com/gpu.present isn't on that page)."
+    }
   },
   {
     "sName": "k8s-gpu",
@@ -26267,7 +27796,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl describe node <node> | grep -A10 'Allocated resources'",
     "desc": "GPUs requested by pods vs. available on one node",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe gpu allocatable nvidia.com/gpu"
+    "tags": "kubernetes k8s kubectl containers recipe gpu allocatable nvidia.com/gpu",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/",
+          "title": "Kubernetes: schedule GPUs"
+        },
+        {
+          "url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html",
+          "title": "NVIDIA GPU Operator: getting started"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the GPU-node label is feature.node.kubernetes.io/pci-10de.present=true, the one the GPU Operator docs use (nvidia.com/gpu.present isn't on that page)."
+    }
   },
   {
     "sName": "k8s-gpu",
@@ -26275,10 +27818,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "kgpu",
     "id": "k8s-gpu-allocatable-sub-2",
     "sec": "Kubernetes GPUs: How many GPUs each node advertises to the scheduler",
-    "cmd": "kubectl get nodes -l nvidia.com/gpu.present=true",
-    "desc": "Nodes that GPU feature discovery labelled as having GPUs",
+    "cmd": "kubectl get nodes -l feature.node.kubernetes.io/pci-10de.present=true",
+    "desc": "Nodes with an NVIDIA PCI device (the label the GPU Operator uses to find GPU nodes)",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe gpu allocatable nvidia.com/gpu"
+    "tags": "kubernetes k8s kubectl containers recipe gpu allocatable nvidia.com/gpu",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/",
+          "title": "Kubernetes: schedule GPUs"
+        },
+        {
+          "url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html",
+          "title": "NVIDIA GPU Operator: getting started"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the GPU-node label is feature.node.kubernetes.io/pci-10de.present=true, the one the GPU Operator docs use (nvidia.com/gpu.present isn't on that page)."
+    }
   },
   {
     "sName": "k8s-gpu",
@@ -26289,7 +27846,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get pods -n gpu-operator -o wide",
     "desc": "Check the NVIDIA GPU Operator components",
     "tip": "Validator not Completed = stack not ready",
-    "tags": "kubernetes k8s kubectl containers gpu-operator device-plugin driver dcgm validator"
+    "tags": "kubernetes k8s kubectl containers gpu-operator device-plugin driver dcgm validator",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html",
+          "title": "NVIDIA GPU Operator: getting started"
+        }
+      ],
+      "note": "Pod names in the docs: nvidia-driver-daemonset, nvidia-container-toolkit-daemonset, nvidia-device-plugin-daemonset, nvidia-dcgm-exporter, nvidia-operator-validator, gpu-feature-discovery. Checked against GPU Operator v26.7."
+    }
   },
   {
     "sName": "k8s-gpu",
@@ -26300,7 +27867,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl logs -n gpu-operator <device-plugin-pod>",
     "desc": "Why GPUs aren't being advertised",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe gpu-operator device-plugin driver"
+    "tags": "kubernetes k8s kubectl containers recipe gpu-operator device-plugin driver",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html",
+          "title": "NVIDIA GPU Operator: getting started"
+        }
+      ],
+      "note": "Pod names in the docs: nvidia-driver-daemonset, nvidia-container-toolkit-daemonset, nvidia-device-plugin-daemonset, nvidia-dcgm-exporter, nvidia-operator-validator, gpu-feature-discovery. Checked against GPU Operator v26.7."
+    }
   },
   {
     "sName": "k8s-gpu",
@@ -26311,7 +27888,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl exec -n gpu-operator <driver-pod> -- nvidia-smi",
     "desc": "Run nvidia-smi through the driver container",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe gpu-operator device-plugin driver"
+    "tags": "kubernetes k8s kubectl containers recipe gpu-operator device-plugin driver",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html",
+          "title": "NVIDIA GPU Operator: getting started"
+        }
+      ],
+      "note": "Pod names in the docs: nvidia-driver-daemonset, nvidia-container-toolkit-daemonset, nvidia-device-plugin-daemonset, nvidia-dcgm-exporter, nvidia-operator-validator, gpu-feature-discovery. Checked against GPU Operator v26.7."
+    }
   },
   {
     "sName": "k8s-gpu",
@@ -26322,7 +27909,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "apiVersion: v1\nkind: Pod\nmetadata:\n  name: gpu-test\nspec:\n  restartPolicy: Never\n  containers:\n    - name: cuda\n      image: nvidia/cuda:<tag>\n      command: [\"nvidia-smi\", \"-L\"]\n      resources:\n        limits:\n          nvidia.com/gpu: 1",
     "desc": "Test pod that requests one GPU and runs nvidia-smi",
     "tip": "GPUs go under limits, in whole numbers",
-    "tags": "kubernetes k8s kubectl containers gpu pod test limits nvidia-smi"
+    "tags": "kubernetes k8s kubectl containers gpu pod test limits nvidia-smi",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/",
+          "title": "Kubernetes: schedule GPUs"
+        },
+        {
+          "url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html",
+          "title": "NVIDIA GPU Operator: getting started"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-gpu",
@@ -26333,7 +27933,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl apply -f gpu-test.yaml",
     "desc": "Create the test pod (changes state)",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe gpu pod test"
+    "tags": "kubernetes k8s kubectl containers recipe gpu pod test",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/",
+          "title": "Kubernetes: schedule GPUs"
+        },
+        {
+          "url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html",
+          "title": "NVIDIA GPU Operator: getting started"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-gpu",
@@ -26344,7 +27957,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl logs gpu-test",
     "desc": "Should list one GPU",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe gpu pod test"
+    "tags": "kubernetes k8s kubectl containers recipe gpu pod test",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/",
+          "title": "Kubernetes: schedule GPUs"
+        },
+        {
+          "url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html",
+          "title": "NVIDIA GPU Operator: getting started"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-gpu",
@@ -26355,7 +27981,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl delete pod gpu-test",
     "desc": "Clean up (changes state)",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe gpu pod test"
+    "tags": "kubernetes k8s kubectl containers recipe gpu pod test",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/",
+          "title": "Kubernetes: schedule GPUs"
+        },
+        {
+          "url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html",
+          "title": "NVIDIA GPU Operator: getting started"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-gpu",
@@ -26366,7 +28005,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl port-forward -n gpu-operator svc/nvidia-dcgm-exporter 9400:9400",
     "desc": "Read GPU metrics from DCGM exporter",
     "tip": "Xid in DCGM → check the NVIDIA DC Xid sheet",
-    "tags": "kubernetes k8s kubectl containers dcgm metrics prometheus xid temperature"
+    "tags": "kubernetes k8s kubectl containers dcgm metrics prometheus xid temperature",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/NVIDIA/dcgm-exporter/blob/main/etc/default-counters.csv",
+          "title": "dcgm-exporter default counters"
+        },
+        {
+          "url": "https://github.com/NVIDIA/dcgm-exporter/releases",
+          "title": "dcgm-exporter releases (4.9.0 renames)"
+        }
+      ],
+      "note": "The service name nvidia-dcgm-exporter and port 9400 aren't stated on the pages read: kubectl get svc -A | grep -i dcgm shows yours."
+    }
   },
   {
     "sName": "k8s-gpu",
@@ -26377,7 +28030,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -s localhost:9400/metrics | grep -E 'XID|GPU_TEMP'",
     "desc": "Xid errors and temperatures",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe dcgm metrics prometheus"
+    "tags": "kubernetes k8s kubectl containers recipe dcgm metrics prometheus",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/NVIDIA/dcgm-exporter/blob/main/etc/default-counters.csv",
+          "title": "dcgm-exporter default counters"
+        },
+        {
+          "url": "https://github.com/NVIDIA/dcgm-exporter/releases",
+          "title": "dcgm-exporter releases (4.9.0 renames)"
+        }
+      ],
+      "note": "The service name nvidia-dcgm-exporter and port 9400 aren't stated on the pages read: kubectl get svc -A | grep -i dcgm shows yours."
+    }
   },
   {
     "sName": "k8s-gpu",
@@ -26388,7 +28055,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get svc -A | grep -i dcgm",
     "desc": "Find the exporter service if it's in another namespace",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe dcgm metrics prometheus"
+    "tags": "kubernetes k8s kubectl containers recipe dcgm metrics prometheus",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/NVIDIA/dcgm-exporter/blob/main/etc/default-counters.csv",
+          "title": "dcgm-exporter default counters"
+        },
+        {
+          "url": "https://github.com/NVIDIA/dcgm-exporter/releases",
+          "title": "dcgm-exporter releases (4.9.0 renames)"
+        }
+      ],
+      "note": "The service name nvidia-dcgm-exporter and port 9400 aren't stated on the pages read: kubectl get svc -A | grep -i dcgm shows yours."
+    }
   },
   {
     "sName": "k8s-gpu",
@@ -26399,7 +28080,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get nodes -o custom-columns=NAME:.metadata.name,GPUS:.status.allocatable.nvidia\\.com/gpu",
     "desc": "GPU missing in Kubernetes: check from the hardware up",
     "tip": "Hardware → operator pods → allocatable → scheduling",
-    "tags": "kubernetes k8s kubectl containers tips best-practice"
+    "tags": "kubernetes k8s kubectl containers tips best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html",
+          "title": "NVIDIA GPU Operator: getting started"
+        },
+        {
+          "url": "https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/",
+          "title": "Kubernetes: schedule GPUs"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-kubectl",
@@ -26410,7 +28104,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl config get-contexts",
     "desc": "Show which cluster and namespace kubectl is pointed at",
     "tip": "Check the context before every change",
-    "tags": "kubernetes k8s kubectl containers context kubeconfig cluster namespace"
+    "tags": "kubernetes k8s kubectl containers context kubeconfig cluster namespace",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_config/kubectl_config_get-contexts/",
+          "title": "kubectl config get-contexts"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/",
+          "title": "Kubernetes: kubeconfig files"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-kubectl",
@@ -26421,7 +28128,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl config current-context",
     "desc": "Just the active context name",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe context kubeconfig cluster"
+    "tags": "kubernetes k8s kubectl containers recipe context kubeconfig cluster",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_config/kubectl_config_get-contexts/",
+          "title": "kubectl config get-contexts"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/",
+          "title": "Kubernetes: kubeconfig files"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-kubectl",
@@ -26432,7 +28152,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl config use-context <context>",
     "desc": "Switch clusters for every later command (changes local state)",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe context kubeconfig cluster"
+    "tags": "kubernetes k8s kubectl containers recipe context kubeconfig cluster",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_config/kubectl_config_get-contexts/",
+          "title": "kubectl config get-contexts"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/",
+          "title": "Kubernetes: kubeconfig files"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-kubectl",
@@ -26443,7 +28176,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl config set-context --current --namespace=<ns>",
     "desc": "Change the default namespace of the current context (changes local state)",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe context kubeconfig cluster"
+    "tags": "kubernetes k8s kubectl containers recipe context kubeconfig cluster",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_config/kubectl_config_get-contexts/",
+          "title": "kubectl config get-contexts"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/",
+          "title": "Kubernetes: kubeconfig files"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-kubectl",
@@ -26454,7 +28200,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get pods -A -o wide",
     "desc": "List pods in every namespace with their node and IP",
     "tip": "-o wide shows the node",
-    "tags": "kubernetes k8s kubectl containers get pods wide namespace list"
+    "tags": "kubernetes k8s kubectl containers get pods wide namespace list",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+          "title": "kubectl get"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-kubectl",
@@ -26465,7 +28220,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get all -n <ns>",
     "desc": "Pods, services, deployments and replica sets in one namespace (not literally all kinds)",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe get pods wide"
+    "tags": "kubernetes k8s kubectl containers recipe get pods wide",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+          "title": "kubectl get"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-kubectl",
@@ -26476,7 +28240,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get pods -A --field-selector=status.phase!=Running",
     "desc": "Everything that isn't Running",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe get pods wide"
+    "tags": "kubernetes k8s kubectl containers recipe get pods wide",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+          "title": "kubectl get"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-kubectl",
@@ -26487,7 +28260,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get pods -n <ns> -o custom-columns=NAME:.metadata.name,NODE:.spec.nodeName,PHASE:.status.phase",
     "desc": "Print exactly the fields you need with jsonpath or custom columns",
     "tip": "Find the path in -o yaml, then use it in jsonpath",
-    "tags": "kubernetes k8s kubectl containers output jsonpath custom-columns yaml jq sort"
+    "tags": "kubernetes k8s kubectl containers output jsonpath custom-columns yaml jq sort",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+          "title": "kubectl get"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/jsonpath/",
+          "title": "kubectl JSONPath support"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-kubectl",
@@ -26498,7 +28284,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get pod <pod> -n <ns> -o yaml",
     "desc": "Full pod definition and status",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe output jsonpath custom-columns"
+    "tags": "kubernetes k8s kubectl containers recipe output jsonpath custom-columns",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+          "title": "kubectl get"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/jsonpath/",
+          "title": "kubectl JSONPath support"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-kubectl",
@@ -26509,7 +28308,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get pods -n <ns> -o jsonpath='{range .items[*]}{.metadata.name}{\"\\t\"}{.status.phase}{\"\\n\"}{end}'",
     "desc": "Name and phase, one pod per line",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe output jsonpath custom-columns"
+    "tags": "kubernetes k8s kubectl containers recipe output jsonpath custom-columns",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+          "title": "kubectl get"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/jsonpath/",
+          "title": "kubectl JSONPath support"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-kubectl",
@@ -26520,7 +28332,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get pods -n <ns> -o json | jq -r '.items[] | select(.status.phase != \"Running\") | .metadata.name'",
     "desc": "Same idea with jq, which is easier to read for complex filters",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe output jsonpath custom-columns"
+    "tags": "kubernetes k8s kubectl containers recipe output jsonpath custom-columns",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+          "title": "kubectl get"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/jsonpath/",
+          "title": "kubectl JSONPath support"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-kubectl",
@@ -26531,7 +28356,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl explain pod.spec.containers.resources",
     "desc": "Look up what a field means without leaving the terminal",
     "tip": "kubectl explain matches your cluster's version",
-    "tags": "kubernetes k8s kubectl containers explain api-resources version docs auth"
+    "tags": "kubernetes k8s kubectl containers explain api-resources version docs auth",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_explain/",
+          "title": "kubectl explain"
+        },
+        {
+          "url": "https://kubernetes.io/releases/version-skew-policy/",
+          "title": "Kubernetes version skew policy"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-kubectl",
@@ -26542,7 +28380,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl api-resources",
     "desc": "All kinds the cluster knows, with short names",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe explain api-resources version"
+    "tags": "kubernetes k8s kubectl containers recipe explain api-resources version",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_explain/",
+          "title": "kubectl explain"
+        },
+        {
+          "url": "https://kubernetes.io/releases/version-skew-policy/",
+          "title": "Kubernetes version skew policy"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-kubectl",
@@ -26553,7 +28404,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl version",
     "desc": "Client and server versions; kubectl should be within one minor version of the server",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe explain api-resources version"
+    "tags": "kubernetes k8s kubectl containers recipe explain api-resources version",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_explain/",
+          "title": "kubectl explain"
+        },
+        {
+          "url": "https://kubernetes.io/releases/version-skew-policy/",
+          "title": "Kubernetes version skew policy"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-kubectl",
@@ -26564,7 +28428,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl auth can-i --list -n <ns>",
     "desc": "What you're allowed to do in a namespace",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe explain api-resources version"
+    "tags": "kubernetes k8s kubectl containers recipe explain api-resources version",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_explain/",
+          "title": "kubectl explain"
+        },
+        {
+          "url": "https://kubernetes.io/releases/version-skew-policy/",
+          "title": "Kubernetes version skew policy"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-kubectl",
@@ -26575,7 +28452,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl config current-context",
     "desc": "Make the active context impossible to miss",
     "tip": "Right command, wrong cluster is the classic mistake",
-    "tags": "kubernetes k8s kubectl containers tips best-practice"
+    "tags": "kubernetes k8s kubectl containers tips best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/",
+          "title": "Kubernetes: kubeconfig files"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-nodes",
@@ -26586,7 +28472,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get nodes -o wide",
     "desc": "List nodes with status, version, OS and container runtime",
     "tip": "NotReady = kubelet stopped reporting",
-    "tags": "kubernetes k8s kubectl containers nodes ready notready describe wide"
+    "tags": "kubernetes k8s kubectl containers nodes ready notready describe wide",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+          "title": "kubectl get"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_describe/",
+          "title": "kubectl describe"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/architecture/nodes/",
+          "title": "Kubernetes: nodes"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-nodes",
@@ -26597,7 +28500,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl describe node <node>",
     "desc": "Conditions, capacity, allocated resources, taints and recent events",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe nodes ready notready"
+    "tags": "kubernetes k8s kubectl containers recipe nodes ready notready",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+          "title": "kubectl get"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_describe/",
+          "title": "kubectl describe"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/architecture/nodes/",
+          "title": "Kubernetes: nodes"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-nodes",
@@ -26608,7 +28528,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get pods -A -o wide --field-selector spec.nodeName=<node>",
     "desc": "Every pod on one node, e.g. before draining it",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe nodes ready notready"
+    "tags": "kubernetes k8s kubectl containers recipe nodes ready notready",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+          "title": "kubectl get"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_describe/",
+          "title": "kubectl describe"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/architecture/nodes/",
+          "title": "Kubernetes: nodes"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-nodes",
@@ -26619,7 +28556,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl drain <node> --ignore-daemonsets --delete-emptydir-data --timeout=10m",
     "desc": "Take a node out of service for hardware work: cordon, then drain (changes state: ask first)",
     "tip": "Approval first; check the active context",
-    "tags": "kubernetes k8s kubectl containers drain cordon uncordon maintenance pdb rma"
+    "tags": "kubernetes k8s kubectl containers drain cordon uncordon maintenance pdb rma",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_drain/",
+          "title": "kubectl drain"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/workloads/pods/disruptions/",
+          "title": "Kubernetes: disruptions and PDBs"
+        },
+        {
+          "url": "https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/",
+          "title": "Kubernetes: safely drain a node"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-nodes",
@@ -26630,7 +28584,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl cordon <node>",
     "desc": "Mark unschedulable (changes state)",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe drain cordon uncordon"
+    "tags": "kubernetes k8s kubectl containers recipe drain cordon uncordon",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_drain/",
+          "title": "kubectl drain"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/workloads/pods/disruptions/",
+          "title": "Kubernetes: disruptions and PDBs"
+        },
+        {
+          "url": "https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/",
+          "title": "Kubernetes: safely drain a node"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-nodes",
@@ -26641,7 +28612,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl uncordon <node>",
     "desc": "Return to service (changes state)",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe drain cordon uncordon"
+    "tags": "kubernetes k8s kubectl containers recipe drain cordon uncordon",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_drain/",
+          "title": "kubectl drain"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/workloads/pods/disruptions/",
+          "title": "Kubernetes: disruptions and PDBs"
+        },
+        {
+          "url": "https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/",
+          "title": "Kubernetes: safely drain a node"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-nodes",
@@ -26652,7 +28640,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get node <node> -o jsonpath='{.spec.unschedulable}'",
     "desc": "true = still cordoned",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe drain cordon uncordon"
+    "tags": "kubernetes k8s kubectl containers recipe drain cordon uncordon",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_drain/",
+          "title": "kubectl drain"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/workloads/pods/disruptions/",
+          "title": "Kubernetes: disruptions and PDBs"
+        },
+        {
+          "url": "https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/",
+          "title": "Kubernetes: safely drain a node"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-nodes",
@@ -26663,7 +28668,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get node <node> -o jsonpath='{.spec.taints}'",
     "desc": "Show a node's taints and labels",
     "tip": "Trailing dash removes a taint",
-    "tags": "kubernetes k8s kubectl containers taint toleration label noschedule"
+    "tags": "kubernetes k8s kubectl containers taint toleration label noschedule",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/",
+          "title": "Kubernetes: taints and tolerations"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_taint/",
+          "title": "kubectl taint"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-nodes",
@@ -26674,7 +28692,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get nodes --show-labels",
     "desc": "All node labels",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe taint toleration label"
+    "tags": "kubernetes k8s kubectl containers recipe taint toleration label",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/",
+          "title": "Kubernetes: taints and tolerations"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_taint/",
+          "title": "kubectl taint"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-nodes",
@@ -26685,7 +28716,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl taint nodes <node> <key>=<value>:NoSchedule",
     "desc": "Add a taint (changes state)",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe taint toleration label"
+    "tags": "kubernetes k8s kubectl containers recipe taint toleration label",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/",
+          "title": "Kubernetes: taints and tolerations"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_taint/",
+          "title": "kubectl taint"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-nodes",
@@ -26696,7 +28740,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl label node <node> <key>=<value>",
     "desc": "Add or change a label (changes state)",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe taint toleration label"
+    "tags": "kubernetes k8s kubectl containers recipe taint toleration label",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/",
+          "title": "Kubernetes: taints and tolerations"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_taint/",
+          "title": "kubectl taint"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-nodes",
@@ -26707,7 +28764,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "journalctl -u kubelet --since '30 min ago' --no-pager",
     "desc": "On the node itself: kubelet logs and containers via crictl (works when the API is unreachable)",
     "tip": "API down? crictl on the node still works",
-    "tags": "kubernetes k8s kubectl containers kubelet crictl containerd journalctl cgroup node"
+    "tags": "kubernetes k8s kubectl containers kubelet crictl containerd journalctl cgroup node",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/tasks/debug/debug-cluster/crictl/",
+          "title": "Kubernetes: debugging with crictl"
+        },
+        {
+          "url": "https://kubernetes.io/docs/tasks/administer-cluster/migrating-from-dockershim/",
+          "title": "Kubernetes: migrating from dockershim (removed in 1.24)"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/architecture/cgroups/",
+          "title": "Kubernetes: about cgroup v2"
+        }
+      ],
+      "note": "Corrected 2026-11-09: 'kubelet 1.37 refuses cgroup v1' → cgroup v1 deprecated since 1.35; the kubelet won't start on it by default (failCgroupV1)."
+    }
   },
   {
     "sName": "k8s-nodes",
@@ -26718,7 +28793,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "systemctl status kubelet containerd --no-pager",
     "desc": "Are kubelet and containerd running",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe kubelet crictl containerd"
+    "tags": "kubernetes k8s kubectl containers recipe kubelet crictl containerd",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/tasks/debug/debug-cluster/crictl/",
+          "title": "Kubernetes: debugging with crictl"
+        },
+        {
+          "url": "https://kubernetes.io/docs/tasks/administer-cluster/migrating-from-dockershim/",
+          "title": "Kubernetes: migrating from dockershim (removed in 1.24)"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/architecture/cgroups/",
+          "title": "Kubernetes: about cgroup v2"
+        }
+      ],
+      "note": "Corrected 2026-11-09: 'kubelet 1.37 refuses cgroup v1' → cgroup v1 deprecated since 1.35; the kubelet won't start on it by default (failCgroupV1)."
+    }
   },
   {
     "sName": "k8s-nodes",
@@ -26726,10 +28819,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "node",
     "id": "node-kubelet-crictl-sub-2",
     "sec": "Kubernetes Nodes & Maintenance: On the node itself",
-    "cmd": "sudo crictl ps -a",
+    "cmd": "crictl ps -a",
     "desc": "All containers on this node",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe kubelet crictl containerd"
+    "tags": "kubernetes k8s kubectl containers recipe kubelet crictl containerd",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/tasks/debug/debug-cluster/crictl/",
+          "title": "Kubernetes: debugging with crictl"
+        },
+        {
+          "url": "https://kubernetes.io/docs/tasks/administer-cluster/migrating-from-dockershim/",
+          "title": "Kubernetes: migrating from dockershim (removed in 1.24)"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/architecture/cgroups/",
+          "title": "Kubernetes: about cgroup v2"
+        }
+      ],
+      "note": "Corrected 2026-11-09: 'kubelet 1.37 refuses cgroup v1' → cgroup v1 deprecated since 1.35; the kubelet won't start on it by default (failCgroupV1)."
+    }
   },
   {
     "sName": "k8s-nodes",
@@ -26737,10 +28848,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "node",
     "id": "node-kubelet-crictl-sub-3",
     "sec": "Kubernetes Nodes & Maintenance: On the node itself",
-    "cmd": "sudo crictl logs --tail 100 <container-id>",
+    "cmd": "crictl logs --tail 100 <container-id>",
     "desc": "Container logs without going through the API server",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe kubelet crictl containerd"
+    "tags": "kubernetes k8s kubectl containers recipe kubelet crictl containerd",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/tasks/debug/debug-cluster/crictl/",
+          "title": "Kubernetes: debugging with crictl"
+        },
+        {
+          "url": "https://kubernetes.io/docs/tasks/administer-cluster/migrating-from-dockershim/",
+          "title": "Kubernetes: migrating from dockershim (removed in 1.24)"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/architecture/cgroups/",
+          "title": "Kubernetes: about cgroup v2"
+        }
+      ],
+      "note": "Corrected 2026-11-09: 'kubelet 1.37 refuses cgroup v1' → cgroup v1 deprecated since 1.35; the kubelet won't start on it by default (failCgroupV1)."
+    }
   },
   {
     "sName": "k8s-nodes",
@@ -26748,10 +28877,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "node",
     "id": "node-kubelet-crictl-sub-4",
     "sec": "Kubernetes Nodes & Maintenance: On the node itself",
-    "cmd": "sudo crictl pods",
+    "cmd": "crictl pods",
     "desc": "Pod sandboxes on this node",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe kubelet crictl containerd"
+    "tags": "kubernetes k8s kubectl containers recipe kubelet crictl containerd",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/tasks/debug/debug-cluster/crictl/",
+          "title": "Kubernetes: debugging with crictl"
+        },
+        {
+          "url": "https://kubernetes.io/docs/tasks/administer-cluster/migrating-from-dockershim/",
+          "title": "Kubernetes: migrating from dockershim (removed in 1.24)"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/architecture/cgroups/",
+          "title": "Kubernetes: about cgroup v2"
+        }
+      ],
+      "note": "Corrected 2026-11-09: 'kubelet 1.37 refuses cgroup v1' → cgroup v1 deprecated since 1.35; the kubelet won't start on it by default (failCgroupV1)."
+    }
   },
   {
     "sName": "k8s-nodes",
@@ -26760,9 +28907,27 @@ window.GLOBAL_SEARCH_INDEX = [
     "id": "node-kubelet-crictl-sub-5",
     "sec": "Kubernetes Nodes & Maintenance: On the node itself",
     "cmd": "stat -fc %T /sys/fs/cgroup",
-    "desc": "cgroup2fs = cgroup v2 (required by kubelet 1.37 by default)",
+    "desc": "cgroup2fs = cgroup v2 (the kubelet refuses cgroup v1 by default)",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe kubelet crictl containerd"
+    "tags": "kubernetes k8s kubectl containers recipe kubelet crictl containerd",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/tasks/debug/debug-cluster/crictl/",
+          "title": "Kubernetes: debugging with crictl"
+        },
+        {
+          "url": "https://kubernetes.io/docs/tasks/administer-cluster/migrating-from-dockershim/",
+          "title": "Kubernetes: migrating from dockershim (removed in 1.24)"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/architecture/cgroups/",
+          "title": "Kubernetes: about cgroup v2"
+        }
+      ],
+      "note": "Corrected 2026-11-09: 'kubelet 1.37 refuses cgroup v1' → cgroup v1 deprecated since 1.35; the kubelet won't start on it by default (failCgroupV1)."
+    }
   },
   {
     "sName": "k8s-nodes",
@@ -26773,7 +28938,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get pods -A -o wide --field-selector spec.nodeName=<node>",
     "desc": "Hardware work on a Kubernetes GPU node",
     "tip": "List → approve → cordon → drain → work → verify → uncordon",
-    "tags": "kubernetes k8s kubectl containers tips best-practice"
+    "tags": "kubernetes k8s kubectl containers tips best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/",
+          "title": "Kubernetes: safely drain a node"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-troubleshoot",
@@ -26784,7 +28958,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl describe pod <pod> -n <ns>",
     "desc": "Describe a pod: read the Events section at the bottom first",
     "tip": "Read Events first",
-    "tags": "kubernetes k8s kubectl containers describe events pod state"
+    "tags": "kubernetes k8s kubectl containers describe events pod state",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_describe/",
+          "title": "kubectl describe"
+        },
+        {
+          "url": "https://kubernetes.io/docs/tasks/debug/debug-application/debug-pods/",
+          "title": "Kubernetes: debug pods"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-troubleshoot",
@@ -26795,7 +28982,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get pods -n <ns>",
     "desc": "What the common pod statuses mean and where to look next",
     "tip": "Pending → Events; CrashLoop → logs --previous",
-    "tags": "kubernetes k8s kubectl containers status pending crashloopbackoff imagepullbackoff oomkilled evicted"
+    "tags": "kubernetes k8s kubectl containers status pending crashloopbackoff imagepullbackoff oomkilled evicted",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/",
+          "title": "Kubernetes: pod lifecycle"
+        },
+        {
+          "url": "https://kubernetes.io/docs/tasks/debug/debug-application/debug-pods/",
+          "title": "Kubernetes: debug pods"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-troubleshoot",
@@ -26806,7 +29006,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl logs <pod> -n <ns> --previous --tail=200",
     "desc": "Logs from the previous (crashed) instance of a container",
     "tip": "CrashLoopBackOff? Always add --previous",
-    "tags": "kubernetes k8s kubectl containers logs previous crashloop container"
+    "tags": "kubernetes k8s kubectl containers logs previous crashloop container",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_logs/",
+          "title": "kubectl logs"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-troubleshoot",
@@ -26817,7 +29026,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl logs <pod> -n <ns> -c <container> --tail=200",
     "desc": "One container in a multi-container pod",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe logs previous crashloop"
+    "tags": "kubernetes k8s kubectl containers recipe logs previous crashloop",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_logs/",
+          "title": "kubectl logs"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-troubleshoot",
@@ -26828,7 +29046,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl logs deploy/<name> -n <ns> --tail=100",
     "desc": "Logs from one pod of a Deployment",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe logs previous crashloop"
+    "tags": "kubernetes k8s kubectl containers recipe logs previous crashloop",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_logs/",
+          "title": "kubectl logs"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-troubleshoot",
@@ -26839,7 +29066,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get events -n <ns> --sort-by=.lastTimestamp",
     "desc": "Recent events in a namespace, oldest first",
     "tip": "Events expire after about an hour",
-    "tags": "kubernetes k8s kubectl containers events warning sort timeline"
+    "tags": "kubernetes k8s kubectl containers events warning sort timeline",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+          "title": "kubectl get"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_events/",
+          "title": "kubectl events"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/",
+          "title": "kube-apiserver (--event-ttl 1h)"
+        }
+      ],
+      "note": "kubectl get documents --sort-by with braces ('{.lastTimestamp}'); the bare form works too. Filtering events by type=Warning isn't shown in the docs read. kubectl events has no --sort-by."
+    }
   },
   {
     "sName": "k8s-troubleshoot",
@@ -26850,7 +29095,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get events -A --field-selector type=Warning --sort-by=.lastTimestamp",
     "desc": "Warnings across the whole cluster",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe events warning sort"
+    "tags": "kubernetes k8s kubectl containers recipe events warning sort",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+          "title": "kubectl get"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_events/",
+          "title": "kubectl events"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/",
+          "title": "kube-apiserver (--event-ttl 1h)"
+        }
+      ],
+      "note": "kubectl get documents --sort-by with braces ('{.lastTimestamp}'); the bare form works too. Filtering events by type=Warning isn't shown in the docs read. kubectl events has no --sort-by."
+    }
   },
   {
     "sName": "k8s-troubleshoot",
@@ -26861,7 +29124,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl events -n <ns> --for pod/<pod>",
     "desc": "Events for one object (newer kubectl events command)",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe events warning sort"
+    "tags": "kubernetes k8s kubectl containers recipe events warning sort",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+          "title": "kubectl get"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_events/",
+          "title": "kubectl events"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/",
+          "title": "kube-apiserver (--event-ttl 1h)"
+        }
+      ],
+      "note": "kubectl get documents --sort-by with braces ('{.lastTimestamp}'); the bare form works too. Filtering events by type=Warning isn't shown in the docs read. kubectl events has no --sort-by."
+    }
   },
   {
     "sName": "k8s-troubleshoot",
@@ -26872,7 +29153,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl exec -it <pod> -n <ns> -- sh",
     "desc": "Get a shell in a running pod, or attach a debug container to one that has no shell",
     "tip": "No shell in the image? kubectl debug --target",
-    "tags": "kubernetes k8s kubectl containers exec debug ephemeral shell distroless"
+    "tags": "kubernetes k8s kubectl containers exec debug ephemeral shell distroless",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/tasks/debug/debug-application/debug-running-pod/",
+          "title": "Kubernetes: debug running pods"
+        },
+        {
+          "url": "https://kubernetes.io/docs/tasks/debug/debug-cluster/kubectl-node-debug/",
+          "title": "Kubernetes: debug a node with kubectl"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_debug/",
+          "title": "kubectl debug"
+        }
+      ],
+      "note": "With the default profile, chroot /host fails in a node debug pod: use --profile=sysadmin."
+    }
   },
   {
     "sName": "k8s-troubleshoot",
@@ -26883,7 +29182,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl exec <pod> -n <ns> -- env",
     "desc": "Environment variables the app sees",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe exec debug ephemeral"
+    "tags": "kubernetes k8s kubectl containers recipe exec debug ephemeral",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/tasks/debug/debug-application/debug-running-pod/",
+          "title": "Kubernetes: debug running pods"
+        },
+        {
+          "url": "https://kubernetes.io/docs/tasks/debug/debug-cluster/kubectl-node-debug/",
+          "title": "Kubernetes: debug a node with kubectl"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_debug/",
+          "title": "kubectl debug"
+        }
+      ],
+      "note": "With the default profile, chroot /host fails in a node debug pod: use --profile=sysadmin."
+    }
   },
   {
     "sName": "k8s-troubleshoot",
@@ -26894,7 +29211,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl debug -it <pod> -n <ns> --image=busybox --target=<container>",
     "desc": "Ephemeral debug container (changes state: adds a container to the pod)",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe exec debug ephemeral"
+    "tags": "kubernetes k8s kubectl containers recipe exec debug ephemeral",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/tasks/debug/debug-application/debug-running-pod/",
+          "title": "Kubernetes: debug running pods"
+        },
+        {
+          "url": "https://kubernetes.io/docs/tasks/debug/debug-cluster/kubectl-node-debug/",
+          "title": "Kubernetes: debug a node with kubectl"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_debug/",
+          "title": "kubectl debug"
+        }
+      ],
+      "note": "With the default profile, chroot /host fails in a node debug pod: use --profile=sysadmin."
+    }
   },
   {
     "sName": "k8s-troubleshoot",
@@ -26905,7 +29240,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl debug node/<node> -it --image=busybox",
     "desc": "Debug pod on a node, host filesystem under /host (changes state)",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe exec debug ephemeral"
+    "tags": "kubernetes k8s kubectl containers recipe exec debug ephemeral",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/tasks/debug/debug-application/debug-running-pod/",
+          "title": "Kubernetes: debug running pods"
+        },
+        {
+          "url": "https://kubernetes.io/docs/tasks/debug/debug-cluster/kubectl-node-debug/",
+          "title": "Kubernetes: debug a node with kubectl"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_debug/",
+          "title": "kubectl debug"
+        }
+      ],
+      "note": "With the default profile, chroot /host fails in a node debug pod: use --profile=sysadmin."
+    }
   },
   {
     "sName": "k8s-troubleshoot",
@@ -26916,7 +29269,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl port-forward svc/<service> 8080:80 -n <ns>",
     "desc": "Reach a service from your workstation, and see live resource usage",
     "tip": "Service has no endpoints? Its selector doesn't match any ready pod",
-    "tags": "kubernetes k8s kubectl containers port-forward top metrics service endpoints"
+    "tags": "kubernetes k8s kubectl containers port-forward top metrics service endpoints",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_port-forward/",
+          "title": "kubectl port-forward"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_top/",
+          "title": "kubectl top"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/services-networking/endpoint-slices/",
+          "title": "Kubernetes: EndpointSlices"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-troubleshoot",
@@ -26927,7 +29297,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl top pods -n <ns> --sort-by=memory",
     "desc": "Memory hogs in a namespace",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe port-forward top metrics"
+    "tags": "kubernetes k8s kubectl containers recipe port-forward top metrics",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_port-forward/",
+          "title": "kubectl port-forward"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_top/",
+          "title": "kubectl top"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/services-networking/endpoint-slices/",
+          "title": "Kubernetes: EndpointSlices"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-troubleshoot",
@@ -26938,7 +29325,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl top nodes",
     "desc": "CPU and memory per node",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe port-forward top metrics"
+    "tags": "kubernetes k8s kubectl containers recipe port-forward top metrics",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_port-forward/",
+          "title": "kubectl port-forward"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_top/",
+          "title": "kubectl top"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/services-networking/endpoint-slices/",
+          "title": "Kubernetes: EndpointSlices"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-troubleshoot",
@@ -26949,7 +29353,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get endpointslices -n <ns> -l kubernetes.io/service-name=<service>",
     "desc": "Which pod IPs a service actually sends traffic to",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe port-forward top metrics"
+    "tags": "kubernetes k8s kubectl containers recipe port-forward top metrics",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_port-forward/",
+          "title": "kubectl port-forward"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_top/",
+          "title": "kubectl top"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/services-networking/endpoint-slices/",
+          "title": "Kubernetes: EndpointSlices"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-troubleshoot",
@@ -26960,7 +29381,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl describe pod <pod> -n <ns> | sed -n '/^Events:/,$p'",
     "desc": "A fixed order for any broken pod",
     "tip": "Status → Events → previous logs → node",
-    "tags": "kubernetes k8s kubectl containers tips best-practice"
+    "tags": "kubernetes k8s kubectl containers tips best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/tasks/debug/debug-application/debug-pods/",
+          "title": "Kubernetes: debug pods"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-workloads",
@@ -26971,7 +29401,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl diff -f <file>.yaml",
     "desc": "Preview what a manifest would change, then apply it (apply changes state)",
     "tip": "diff before apply",
-    "tags": "kubernetes k8s kubectl containers apply diff manifest yaml declarative dry-run"
+    "tags": "kubernetes k8s kubectl containers apply diff manifest yaml declarative dry-run",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_diff/",
+          "title": "kubectl diff"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_apply/",
+          "title": "kubectl apply"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-workloads",
@@ -26982,7 +29425,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl apply -f <file>.yaml",
     "desc": "Apply the manifest (changes state)",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe apply diff manifest"
+    "tags": "kubernetes k8s kubectl containers recipe apply diff manifest",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_diff/",
+          "title": "kubectl diff"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_apply/",
+          "title": "kubectl apply"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-workloads",
@@ -26993,7 +29449,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl apply -f <file>.yaml --dry-run=server",
     "desc": "Validate against the live cluster without changing anything",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe apply diff manifest"
+    "tags": "kubernetes k8s kubectl containers recipe apply diff manifest",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_diff/",
+          "title": "kubectl diff"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_apply/",
+          "title": "kubectl apply"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-workloads",
@@ -27004,7 +29473,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: web\n  labels:\n    app: web\nspec:\n  replicas: 2\n  selector:\n    matchLabels:\n      app: web\n  template:\n    metadata:\n      labels:\n        app: web\n    spec:\n      containers:\n        - name: web\n          image: nginx:1.27\n          ports:\n            - containerPort: 80\n          resources:\n            requests:\n              cpu: 100m\n              memory: 128Mi\n            limits:\n              memory: 256Mi",
     "desc": "Minimal Deployment manifest with resource requests and limits",
     "tip": "Labels connect Deployment → pods → Service",
-    "tags": "kubernetes k8s kubectl containers deployment yaml manifest requests limits labels"
+    "tags": "kubernetes k8s kubectl containers deployment yaml manifest requests limits labels",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/",
+          "title": "Kubernetes: Deployments"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/",
+          "title": "Kubernetes: resources for containers"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-workloads",
@@ -27015,7 +29497,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl rollout status deployment/<name> -n <ns> --timeout=120s",
     "desc": "Watch a deployment roll out and check its history",
     "tip": "rollout undo is your fast rollback",
-    "tags": "kubernetes k8s kubectl containers rollout status history undo restart deployment"
+    "tags": "kubernetes k8s kubectl containers rollout status history undo restart deployment",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_rollout/",
+          "title": "kubectl rollout"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-workloads",
@@ -27026,7 +29517,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl rollout history deployment/<name> -n <ns>",
     "desc": "List revisions",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe rollout status history"
+    "tags": "kubernetes k8s kubectl containers recipe rollout status history",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_rollout/",
+          "title": "kubectl rollout"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-workloads",
@@ -27037,7 +29537,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl rollout undo deployment/<name> -n <ns>",
     "desc": "Roll back to the previous revision (changes state)",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe rollout status history"
+    "tags": "kubernetes k8s kubectl containers recipe rollout status history",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_rollout/",
+          "title": "kubectl rollout"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-workloads",
@@ -27048,7 +29557,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl rollout restart deployment/<name> -n <ns>",
     "desc": "Rolling restart of every pod (changes state)",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe rollout status history"
+    "tags": "kubernetes k8s kubectl containers recipe rollout status history",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_rollout/",
+          "title": "kubectl rollout"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-workloads",
@@ -27059,7 +29577,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl scale deployment/<name> -n <ns> --replicas=3",
     "desc": "Change the number of replicas (changes state)",
     "tip": "Scaling by hand drifts from your YAML",
-    "tags": "kubernetes k8s kubectl containers scale replicas hpa deployment"
+    "tags": "kubernetes k8s kubectl containers scale replicas hpa deployment",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_scale/",
+          "title": "kubectl scale"
+        },
+        {
+          "url": "https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/",
+          "title": "Kubernetes: HPA"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-workloads",
@@ -27070,7 +29601,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get deploy,rs,pods -n <ns> -l app=<label>",
     "desc": "The Deployment, its ReplicaSets and pods together",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe scale replicas hpa"
+    "tags": "kubernetes k8s kubectl containers recipe scale replicas hpa",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_scale/",
+          "title": "kubectl scale"
+        },
+        {
+          "url": "https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/",
+          "title": "Kubernetes: HPA"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-workloads",
@@ -27081,7 +29625,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get hpa -n <ns>",
     "desc": "Autoscalers that may override your change",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe scale replicas hpa"
+    "tags": "kubernetes k8s kubectl containers recipe scale replicas hpa",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_scale/",
+          "title": "kubectl scale"
+        },
+        {
+          "url": "https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/",
+          "title": "Kubernetes: HPA"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-workloads",
@@ -27092,7 +29649,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get jobs,cronjobs -A",
     "desc": "Check batch Jobs and CronJobs",
     "tip": "Trigger a CronJob by hand with --from=cronjob/",
-    "tags": "kubernetes k8s kubectl containers job cronjob batch"
+    "tags": "kubernetes k8s kubectl containers job cronjob batch",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_create/kubectl_create_job/",
+          "title": "kubectl create job"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_logs/",
+          "title": "kubectl logs"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-workloads",
@@ -27103,7 +29673,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl logs job/<job> -n <ns>",
     "desc": "Logs from a Job's pod",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe job cronjob batch"
+    "tags": "kubernetes k8s kubectl containers recipe job cronjob batch",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_create/kubectl_create_job/",
+          "title": "kubectl create job"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_logs/",
+          "title": "kubectl logs"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-workloads",
@@ -27114,7 +29697,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl create job <name>-manual --from=cronjob/<cronjob> -n <ns>",
     "desc": "Run a CronJob now, outside its schedule (changes state)",
     "tip": "",
-    "tags": "kubernetes k8s kubectl containers recipe job cronjob batch"
+    "tags": "kubernetes k8s kubectl containers recipe job cronjob batch",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_create/kubectl_create_job/",
+          "title": "kubectl create job"
+        },
+        {
+          "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_logs/",
+          "title": "kubectl logs"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-workloads",
@@ -27125,7 +29721,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kubectl get pod <pod> -n <ns> -o jsonpath='{.status.containerStatuses[*].lastState.terminated.reason}'",
     "desc": "Requests, limits and what OOMKilled means",
     "tip": "Memory over limit = killed; CPU over limit = slowed",
-    "tags": "kubernetes k8s kubectl containers tips best-practice"
+    "tags": "kubernetes k8s kubectl containers tips best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/",
+          "title": "Kubernetes: resources for containers"
+        },
+        {
+          "url": "https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/",
+          "title": "Kubernetes: node-pressure eviction"
+        }
+      ],
+      "note": "Corrected 2026-11-09: 'pods with no requests are evicted first' → the kubelet orders by usage over requests, then priority; it doesn't use QoS class for the order."
+    }
   },
   {
     "sName": "kernel-boot",

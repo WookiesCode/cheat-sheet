@@ -37,7 +37,21 @@ const CTR_K8S_GPU_DATA = [
           "nvidia.com/gpu",
           "custom-columns",
           "capacity"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/",
+              "title": "Kubernetes: schedule GPUs"
+            },
+            {
+              "url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html",
+              "title": "NVIDIA GPU Operator: getting started"
+            }
+          ],
+          "note": "Corrected 2026-11-09: the GPU-node label is feature.node.kubernetes.io/pci-10de.present=true, the one the GPU Operator docs use (nvidia.com/gpu.present isn't on that page)."
+        }
       },
       {
         "id": "k8s-gpu-allocatable-sub-1",
@@ -52,12 +66,26 @@ const CTR_K8S_GPU_DATA = [
           "gpu",
           "allocatable",
           "nvidia.com/gpu"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/",
+              "title": "Kubernetes: schedule GPUs"
+            },
+            {
+              "url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html",
+              "title": "NVIDIA GPU Operator: getting started"
+            }
+          ],
+          "note": "Corrected 2026-11-09: the GPU-node label is feature.node.kubernetes.io/pci-10de.present=true, the one the GPU Operator docs use (nvidia.com/gpu.present isn't on that page)."
+        }
       },
       {
         "id": "k8s-gpu-allocatable-sub-2",
-        "desc": "Nodes that GPU feature discovery labelled as having GPUs",
-        "cmd": "kubectl get nodes -l nvidia.com/gpu.present=true",
+        "desc": "Nodes with an NVIDIA PCI device (the label the GPU Operator uses to find GPU nodes)",
+        "cmd": "kubectl get nodes -l feature.node.kubernetes.io/pci-10de.present=true",
         "tags": [
           "kubernetes",
           "k8s",
@@ -67,7 +95,21 @@ const CTR_K8S_GPU_DATA = [
           "gpu",
           "allocatable",
           "nvidia.com/gpu"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/",
+              "title": "Kubernetes: schedule GPUs"
+            },
+            {
+              "url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html",
+              "title": "NVIDIA GPU Operator: getting started"
+            }
+          ],
+          "note": "Corrected 2026-11-09: the GPU-node label is feature.node.kubernetes.io/pci-10de.present=true, the one the GPU Operator docs use (nvidia.com/gpu.present isn't on that page)."
+        }
       }
     ]
   },
@@ -85,7 +127,7 @@ const CTR_K8S_GPU_DATA = [
         "flags": [
           [
             "gpu-operator namespace",
-            "The usual install namespace; yours may differ (kubectl get pods -A | grep -i nvidia)"
+            "The namespace NVIDIA's install examples use (Helm's default is default); yours may differ: kubectl get pods -A | grep -i nvidia"
           ],
           [
             "driver daemonset",
@@ -119,7 +161,17 @@ const CTR_K8S_GPU_DATA = [
           "driver",
           "dcgm",
           "validator"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html",
+              "title": "NVIDIA GPU Operator: getting started"
+            }
+          ],
+          "note": "Pod names in the docs: nvidia-driver-daemonset, nvidia-container-toolkit-daemonset, nvidia-device-plugin-daemonset, nvidia-dcgm-exporter, nvidia-operator-validator, gpu-feature-discovery. Checked against GPU Operator v26.7."
+        }
       },
       {
         "id": "k8s-gpu-operator-pods-sub-1",
@@ -134,7 +186,17 @@ const CTR_K8S_GPU_DATA = [
           "gpu-operator",
           "device-plugin",
           "driver"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html",
+              "title": "NVIDIA GPU Operator: getting started"
+            }
+          ],
+          "note": "Pod names in the docs: nvidia-driver-daemonset, nvidia-container-toolkit-daemonset, nvidia-device-plugin-daemonset, nvidia-dcgm-exporter, nvidia-operator-validator, gpu-feature-discovery. Checked against GPU Operator v26.7."
+        }
       },
       {
         "id": "k8s-gpu-operator-pods-sub-2",
@@ -149,7 +211,17 @@ const CTR_K8S_GPU_DATA = [
           "gpu-operator",
           "device-plugin",
           "driver"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html",
+              "title": "NVIDIA GPU Operator: getting started"
+            }
+          ],
+          "note": "Pod names in the docs: nvidia-driver-daemonset, nvidia-container-toolkit-daemonset, nvidia-device-plugin-daemonset, nvidia-dcgm-exporter, nvidia-operator-validator, gpu-feature-discovery. Checked against GPU Operator v26.7."
+        }
       }
     ]
   },
@@ -193,7 +265,20 @@ const CTR_K8S_GPU_DATA = [
           "test",
           "limits",
           "nvidia-smi"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/",
+              "title": "Kubernetes: schedule GPUs"
+            },
+            {
+              "url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html",
+              "title": "NVIDIA GPU Operator: getting started"
+            }
+          ]
+        }
       },
       {
         "id": "k8s-gpu-test-pod-sub-1",
@@ -208,7 +293,20 @@ const CTR_K8S_GPU_DATA = [
           "gpu",
           "pod",
           "test"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/",
+              "title": "Kubernetes: schedule GPUs"
+            },
+            {
+              "url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html",
+              "title": "NVIDIA GPU Operator: getting started"
+            }
+          ]
+        }
       },
       {
         "id": "k8s-gpu-test-pod-sub-2",
@@ -223,7 +321,20 @@ const CTR_K8S_GPU_DATA = [
           "gpu",
           "pod",
           "test"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/",
+              "title": "Kubernetes: schedule GPUs"
+            },
+            {
+              "url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html",
+              "title": "NVIDIA GPU Operator: getting started"
+            }
+          ]
+        }
       },
       {
         "id": "k8s-gpu-test-pod-sub-3",
@@ -238,7 +349,20 @@ const CTR_K8S_GPU_DATA = [
           "gpu",
           "pod",
           "test"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/",
+              "title": "Kubernetes: schedule GPUs"
+            },
+            {
+              "url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html",
+              "title": "NVIDIA GPU Operator: getting started"
+            }
+          ]
+        }
       }
     ]
   },
@@ -282,7 +406,21 @@ const CTR_K8S_GPU_DATA = [
           "prometheus",
           "xid",
           "temperature"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/blob/main/etc/default-counters.csv",
+              "title": "dcgm-exporter default counters"
+            },
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/releases",
+              "title": "dcgm-exporter releases (4.9.0 renames)"
+            }
+          ],
+          "note": "The service name nvidia-dcgm-exporter and port 9400 aren't stated on the pages read: kubectl get svc -A | grep -i dcgm shows yours."
+        }
       },
       {
         "id": "k8s-dcgm-metrics-sub-1",
@@ -297,7 +435,21 @@ const CTR_K8S_GPU_DATA = [
           "dcgm",
           "metrics",
           "prometheus"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/blob/main/etc/default-counters.csv",
+              "title": "dcgm-exporter default counters"
+            },
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/releases",
+              "title": "dcgm-exporter releases (4.9.0 renames)"
+            }
+          ],
+          "note": "The service name nvidia-dcgm-exporter and port 9400 aren't stated on the pages read: kubectl get svc -A | grep -i dcgm shows yours."
+        }
       },
       {
         "id": "k8s-dcgm-metrics-sub-2",
@@ -312,7 +464,21 @@ const CTR_K8S_GPU_DATA = [
           "dcgm",
           "metrics",
           "prometheus"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/blob/main/etc/default-counters.csv",
+              "title": "dcgm-exporter default counters"
+            },
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/releases",
+              "title": "dcgm-exporter releases (4.9.0 renames)"
+            }
+          ],
+          "note": "The service name nvidia-dcgm-exporter and port 9400 aren't stated on the pages read: kubectl get svc -A | grep -i dcgm shows yours."
+        }
       }
     ]
   },
@@ -353,7 +519,20 @@ const CTR_K8S_GPU_DATA = [
           "containers",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html",
+              "title": "NVIDIA GPU Operator: getting started"
+            },
+            {
+              "url": "https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/",
+              "title": "Kubernetes: schedule GPUs"
+            }
+          ]
+        }
       }
     ]
   }

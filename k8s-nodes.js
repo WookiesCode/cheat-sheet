@@ -41,7 +41,24 @@ const CTR_K8S_NODES_DATA = [
           "notready",
           "describe",
           "wide"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+              "title": "kubectl get"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_describe/",
+              "title": "kubectl describe"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/architecture/nodes/",
+              "title": "Kubernetes: nodes"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-nodes-wide-sub-1",
@@ -56,7 +73,24 @@ const CTR_K8S_NODES_DATA = [
           "nodes",
           "ready",
           "notready"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+              "title": "kubectl get"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_describe/",
+              "title": "kubectl describe"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/architecture/nodes/",
+              "title": "Kubernetes: nodes"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-nodes-wide-sub-2",
@@ -71,7 +105,24 @@ const CTR_K8S_NODES_DATA = [
           "nodes",
           "ready",
           "notready"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+              "title": "kubectl get"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_describe/",
+              "title": "kubectl describe"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/architecture/nodes/",
+              "title": "Kubernetes: nodes"
+            }
+          ]
+        }
       }
     ]
   },
@@ -124,7 +175,24 @@ const CTR_K8S_NODES_DATA = [
           "maintenance",
           "pdb",
           "rma"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_drain/",
+              "title": "kubectl drain"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/workloads/pods/disruptions/",
+              "title": "Kubernetes: disruptions and PDBs"
+            },
+            {
+              "url": "https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/",
+              "title": "Kubernetes: safely drain a node"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-cordon-drain-sub-1",
@@ -139,7 +207,24 @@ const CTR_K8S_NODES_DATA = [
           "drain",
           "cordon",
           "uncordon"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_drain/",
+              "title": "kubectl drain"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/workloads/pods/disruptions/",
+              "title": "Kubernetes: disruptions and PDBs"
+            },
+            {
+              "url": "https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/",
+              "title": "Kubernetes: safely drain a node"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-cordon-drain-sub-2",
@@ -154,7 +239,24 @@ const CTR_K8S_NODES_DATA = [
           "drain",
           "cordon",
           "uncordon"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_drain/",
+              "title": "kubectl drain"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/workloads/pods/disruptions/",
+              "title": "Kubernetes: disruptions and PDBs"
+            },
+            {
+              "url": "https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/",
+              "title": "Kubernetes: safely drain a node"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-cordon-drain-sub-3",
@@ -169,7 +271,24 @@ const CTR_K8S_NODES_DATA = [
           "drain",
           "cordon",
           "uncordon"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_drain/",
+              "title": "kubectl drain"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/workloads/pods/disruptions/",
+              "title": "Kubernetes: disruptions and PDBs"
+            },
+            {
+              "url": "https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/",
+              "title": "Kubernetes: safely drain a node"
+            }
+          ]
+        }
       }
     ]
   },
@@ -212,7 +331,20 @@ const CTR_K8S_NODES_DATA = [
           "toleration",
           "label",
           "noschedule"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/",
+              "title": "Kubernetes: taints and tolerations"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_taint/",
+              "title": "kubectl taint"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-taints-labels-sub-1",
@@ -227,7 +359,20 @@ const CTR_K8S_NODES_DATA = [
           "taint",
           "toleration",
           "label"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/",
+              "title": "Kubernetes: taints and tolerations"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_taint/",
+              "title": "kubectl taint"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-taints-labels-sub-2",
@@ -242,7 +387,20 @@ const CTR_K8S_NODES_DATA = [
           "taint",
           "toleration",
           "label"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/",
+              "title": "Kubernetes: taints and tolerations"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_taint/",
+              "title": "kubectl taint"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-taints-labels-sub-3",
@@ -257,7 +415,20 @@ const CTR_K8S_NODES_DATA = [
           "taint",
           "toleration",
           "label"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/",
+              "title": "Kubernetes: taints and tolerations"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_taint/",
+              "title": "kubectl taint"
+            }
+          ]
+        }
       }
     ]
   },
@@ -287,7 +458,7 @@ const CTR_K8S_NODES_DATA = [
           ],
           [
             "cgroup v2",
-            "stat -fc %T /sys/fs/cgroup must print cgroup2fs; kubelet 1.37 refuses cgroup v1 by default"
+            "stat -fc %T /sys/fs/cgroup must print cgroup2fs; the kubelet won't start on cgroup v1 by default (deprecated since 1.35)"
           ]
         ],
         "tip": "API down? crictl on the node still works",
@@ -302,7 +473,25 @@ const CTR_K8S_NODES_DATA = [
           "journalctl",
           "cgroup",
           "node"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/tasks/debug/debug-cluster/crictl/",
+              "title": "Kubernetes: debugging with crictl"
+            },
+            {
+              "url": "https://kubernetes.io/docs/tasks/administer-cluster/migrating-from-dockershim/",
+              "title": "Kubernetes: migrating from dockershim (removed in 1.24)"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/architecture/cgroups/",
+              "title": "Kubernetes: about cgroup v2"
+            }
+          ],
+          "note": "Corrected 2026-11-09: 'kubelet 1.37 refuses cgroup v1' → cgroup v1 deprecated since 1.35; the kubelet won't start on it by default (failCgroupV1)."
+        }
       },
       {
         "id": "node-kubelet-crictl-sub-1",
@@ -317,12 +506,30 @@ const CTR_K8S_NODES_DATA = [
           "kubelet",
           "crictl",
           "containerd"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/tasks/debug/debug-cluster/crictl/",
+              "title": "Kubernetes: debugging with crictl"
+            },
+            {
+              "url": "https://kubernetes.io/docs/tasks/administer-cluster/migrating-from-dockershim/",
+              "title": "Kubernetes: migrating from dockershim (removed in 1.24)"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/architecture/cgroups/",
+              "title": "Kubernetes: about cgroup v2"
+            }
+          ],
+          "note": "Corrected 2026-11-09: 'kubelet 1.37 refuses cgroup v1' → cgroup v1 deprecated since 1.35; the kubelet won't start on it by default (failCgroupV1)."
+        }
       },
       {
         "id": "node-kubelet-crictl-sub-2",
         "desc": "All containers on this node",
-        "cmd": "sudo crictl ps -a",
+        "cmd": "crictl ps -a",
         "tags": [
           "kubernetes",
           "k8s",
@@ -332,12 +539,30 @@ const CTR_K8S_NODES_DATA = [
           "kubelet",
           "crictl",
           "containerd"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/tasks/debug/debug-cluster/crictl/",
+              "title": "Kubernetes: debugging with crictl"
+            },
+            {
+              "url": "https://kubernetes.io/docs/tasks/administer-cluster/migrating-from-dockershim/",
+              "title": "Kubernetes: migrating from dockershim (removed in 1.24)"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/architecture/cgroups/",
+              "title": "Kubernetes: about cgroup v2"
+            }
+          ],
+          "note": "Corrected 2026-11-09: 'kubelet 1.37 refuses cgroup v1' → cgroup v1 deprecated since 1.35; the kubelet won't start on it by default (failCgroupV1)."
+        }
       },
       {
         "id": "node-kubelet-crictl-sub-3",
         "desc": "Container logs without going through the API server",
-        "cmd": "sudo crictl logs --tail 100 <container-id>",
+        "cmd": "crictl logs --tail 100 <container-id>",
         "tags": [
           "kubernetes",
           "k8s",
@@ -347,12 +572,30 @@ const CTR_K8S_NODES_DATA = [
           "kubelet",
           "crictl",
           "containerd"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/tasks/debug/debug-cluster/crictl/",
+              "title": "Kubernetes: debugging with crictl"
+            },
+            {
+              "url": "https://kubernetes.io/docs/tasks/administer-cluster/migrating-from-dockershim/",
+              "title": "Kubernetes: migrating from dockershim (removed in 1.24)"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/architecture/cgroups/",
+              "title": "Kubernetes: about cgroup v2"
+            }
+          ],
+          "note": "Corrected 2026-11-09: 'kubelet 1.37 refuses cgroup v1' → cgroup v1 deprecated since 1.35; the kubelet won't start on it by default (failCgroupV1)."
+        }
       },
       {
         "id": "node-kubelet-crictl-sub-4",
         "desc": "Pod sandboxes on this node",
-        "cmd": "sudo crictl pods",
+        "cmd": "crictl pods",
         "tags": [
           "kubernetes",
           "k8s",
@@ -362,11 +605,29 @@ const CTR_K8S_NODES_DATA = [
           "kubelet",
           "crictl",
           "containerd"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/tasks/debug/debug-cluster/crictl/",
+              "title": "Kubernetes: debugging with crictl"
+            },
+            {
+              "url": "https://kubernetes.io/docs/tasks/administer-cluster/migrating-from-dockershim/",
+              "title": "Kubernetes: migrating from dockershim (removed in 1.24)"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/architecture/cgroups/",
+              "title": "Kubernetes: about cgroup v2"
+            }
+          ],
+          "note": "Corrected 2026-11-09: 'kubelet 1.37 refuses cgroup v1' → cgroup v1 deprecated since 1.35; the kubelet won't start on it by default (failCgroupV1)."
+        }
       },
       {
         "id": "node-kubelet-crictl-sub-5",
-        "desc": "cgroup2fs = cgroup v2 (required by kubelet 1.37 by default)",
+        "desc": "cgroup2fs = cgroup v2 (the kubelet refuses cgroup v1 by default)",
         "cmd": "stat -fc %T /sys/fs/cgroup",
         "tags": [
           "kubernetes",
@@ -377,7 +638,25 @@ const CTR_K8S_NODES_DATA = [
           "kubelet",
           "crictl",
           "containerd"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/tasks/debug/debug-cluster/crictl/",
+              "title": "Kubernetes: debugging with crictl"
+            },
+            {
+              "url": "https://kubernetes.io/docs/tasks/administer-cluster/migrating-from-dockershim/",
+              "title": "Kubernetes: migrating from dockershim (removed in 1.24)"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/architecture/cgroups/",
+              "title": "Kubernetes: about cgroup v2"
+            }
+          ],
+          "note": "Corrected 2026-11-09: 'kubelet 1.37 refuses cgroup v1' → cgroup v1 deprecated since 1.35; the kubelet won't start on it by default (failCgroupV1)."
+        }
       }
     ]
   },
@@ -414,7 +693,16 @@ const CTR_K8S_NODES_DATA = [
           "containers",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/",
+              "title": "Kubernetes: safely drain a node"
+            }
+          ]
+        }
       }
     ]
   }

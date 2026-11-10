@@ -39,7 +39,17 @@ const CTR_DOCKER_GPU_DAEMON_DATA = [
           "cuda",
           "nvidia-smi",
           "toolkit"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html",
+              "title": "NVIDIA Container Toolkit: install guide"
+            }
+          ],
+          "note": "Docker's own GPU page could not be fetched (404); the --gpus device-list quoting is not confirmed against Docker's docs."
+        }
       },
       {
         "id": "docker-gpu-smoke-test-sub-1",
@@ -52,7 +62,17 @@ const CTR_DOCKER_GPU_DAEMON_DATA = [
           "gpu",
           "nvidia",
           "cuda"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html",
+              "title": "NVIDIA Container Toolkit: install guide"
+            }
+          ],
+          "note": "Docker's own GPU page could not be fetched (404); the --gpus device-list quoting is not confirmed against Docker's docs."
+        }
       },
       {
         "id": "docker-gpu-smoke-test-sub-2",
@@ -65,7 +85,17 @@ const CTR_DOCKER_GPU_DAEMON_DATA = [
           "gpu",
           "nvidia",
           "cuda"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html",
+              "title": "NVIDIA Container Toolkit: install guide"
+            }
+          ],
+          "note": "Docker's own GPU page could not be fetched (404); the --gpus device-list quoting is not confirmed against Docker's docs."
+        }
       }
     ]
   },
@@ -78,7 +108,7 @@ const CTR_DOCKER_GPU_DAEMON_DATA = [
       {
         "id": "nvidia-ctk-configure",
         "desc": "Register the NVIDIA runtime with Docker, then restart Docker (changes state: restarts every container on the host)",
-        "cmd": "sudo nvidia-ctk runtime configure --runtime=docker",
+        "cmd": "nvidia-ctk runtime configure --runtime=docker",
         "details": "",
         "flags": [
           [
@@ -86,7 +116,7 @@ const CTR_DOCKER_GPU_DAEMON_DATA = [
             "Adds the nvidia runtime to /etc/docker/daemon.json"
           ],
           [
-            "sudo systemctl restart docker",
+            "systemctl restart docker",
             "Required afterwards; restarts all containers, so drain the node first"
           ],
           [
@@ -102,12 +132,22 @@ const CTR_DOCKER_GPU_DAEMON_DATA = [
           "toolkit",
           "runtime",
           "daemon.json"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html",
+              "title": "NVIDIA Container Toolkit: install guide"
+            }
+          ],
+          "note": "Checked against Container Toolkit 1.20.1."
+        }
       },
       {
         "id": "nvidia-ctk-configure-sub-1",
         "desc": "Apply the new daemon.json (changes state)",
-        "cmd": "sudo systemctl restart docker",
+        "cmd": "systemctl restart docker",
         "tags": [
           "docker",
           "containers",
@@ -115,7 +155,17 @@ const CTR_DOCKER_GPU_DAEMON_DATA = [
           "nvidia-ctk",
           "toolkit",
           "runtime"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html",
+              "title": "NVIDIA Container Toolkit: install guide"
+            }
+          ],
+          "note": "Checked against Container Toolkit 1.20.1."
+        }
       },
       {
         "id": "nvidia-ctk-configure-sub-2",
@@ -128,7 +178,17 @@ const CTR_DOCKER_GPU_DAEMON_DATA = [
           "nvidia-ctk",
           "toolkit",
           "runtime"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html",
+              "title": "NVIDIA Container Toolkit: install guide"
+            }
+          ],
+          "note": "Checked against Container Toolkit 1.20.1."
+        }
       }
     ]
   },
@@ -146,18 +206,18 @@ const CTR_DOCKER_GPU_DAEMON_DATA = [
         "flags": [
           [
             "CDI",
-            "A standard spec file (e.g. /etc/cdi/nvidia.yaml) that describes devices, used by Docker 25+, Podman and containerd"
+            "A standard spec file (NVIDIA writes /var/run/cdi/nvidia.yaml) that describes devices, used by Docker, Podman and containerd"
           ],
           [
-            "nvidia-ctk cdi generate --output=/etc/cdi/nvidia.yaml",
-            "Regenerate the spec, e.g. after a driver upgrade (changes state)"
+            "nvidia-cdi-refresh",
+            "Toolkit 1.18+: a systemd service keeps the spec up to date after driver changes; restart it after a driver removal or MIG change"
           ],
           [
             "--device nvidia.com/gpu=all",
-            "Request GPUs by CDI name instead of --gpus, once CDI is enabled in Docker"
+            "Request GPUs by CDI name instead of --gpus; CDI is on by default from Docker Engine 28.3.0"
           ]
         ],
-        "tip": "Regenerate the CDI spec after a driver upgrade",
+        "tip": "Toolkit 1.18+ refreshes the CDI spec for you",
         "tags": [
           "docker",
           "containers",
@@ -165,12 +225,26 @@ const CTR_DOCKER_GPU_DAEMON_DATA = [
           "nvidia-ctk",
           "device",
           "gpu"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/cdi-support.html",
+              "title": "NVIDIA Container Toolkit: CDI support"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/dockerd/",
+              "title": "dockerd reference (CDI)"
+            }
+          ],
+          "note": "Corrected 2026-11-09: the spec lives in /var/run/cdi/nvidia.yaml (not /etc/cdi), toolkit 1.18+ regenerates it with nvidia-cdi-refresh, and Docker enables CDI by default from 28.3.0 (not 25)."
+        }
       },
       {
         "id": "nvidia-cdi-sub-1",
-        "desc": "Rebuild the CDI spec (changes state)",
-        "cmd": "sudo nvidia-ctk cdi generate --output=/etc/cdi/nvidia.yaml",
+        "desc": "Regenerate the CDI spec, e.g. after a driver removal or MIG change (changes state)",
+        "cmd": "systemctl restart nvidia-cdi-refresh.service",
         "tags": [
           "docker",
           "containers",
@@ -178,10 +252,51 @@ const CTR_DOCKER_GPU_DAEMON_DATA = [
           "cdi",
           "nvidia-ctk",
           "device"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/cdi-support.html",
+              "title": "NVIDIA Container Toolkit: CDI support"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/dockerd/",
+              "title": "dockerd reference (CDI)"
+            }
+          ],
+          "note": "Corrected 2026-11-09: the spec lives in /var/run/cdi/nvidia.yaml (not /etc/cdi), toolkit 1.18+ regenerates it with nvidia-cdi-refresh, and Docker enables CDI by default from 28.3.0 (not 25)."
+        }
       },
       {
         "id": "nvidia-cdi-sub-2",
+        "desc": "Generate the spec by hand on toolkits older than 1.18 (changes state)",
+        "cmd": "nvidia-ctk cdi generate --output=/var/run/cdi/nvidia.yaml",
+        "tags": [
+          "docker",
+          "containers",
+          "recipe",
+          "cdi",
+          "nvidia-ctk",
+          "device"
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/cdi-support.html",
+              "title": "NVIDIA Container Toolkit: CDI support"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/dockerd/",
+              "title": "dockerd reference (CDI)"
+            }
+          ],
+          "note": "Corrected 2026-11-09: the spec lives in /var/run/cdi/nvidia.yaml (not /etc/cdi), toolkit 1.18+ regenerates it with nvidia-cdi-refresh, and Docker enables CDI by default from 28.3.0 (not 25)."
+        }
+      },
+      {
+        "id": "nvidia-cdi-sub-3",
         "desc": "Use CDI device names from Docker",
         "cmd": "docker run --rm --device nvidia.com/gpu=all ubuntu:24.04 nvidia-smi -L",
         "tags": [
@@ -191,7 +306,21 @@ const CTR_DOCKER_GPU_DAEMON_DATA = [
           "cdi",
           "nvidia-ctk",
           "device"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/cdi-support.html",
+              "title": "NVIDIA Container Toolkit: CDI support"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/dockerd/",
+              "title": "dockerd reference (CDI)"
+            }
+          ],
+          "note": "Corrected 2026-11-09: the spec lives in /var/run/cdi/nvidia.yaml (not /etc/cdi), toolkit 1.18+ regenerates it with nvidia-cdi-refresh, and Docker enables CDI by default from 28.3.0 (not 25)."
+        }
       }
     ]
   },
@@ -213,7 +342,7 @@ const CTR_DOCKER_GPU_DAEMON_DATA = [
           ],
           [
             "Cgroup Driver / Version",
-            "Should be systemd / 2 on current Ubuntu; Kubernetes 1.37 nodes refuse cgroup v1 by default"
+            "Should be systemd / 2 on current Ubuntu; cgroup v1 is deprecated in Kubernetes (1.35+) and the kubelet won't start on it by default"
           ],
           [
             "Runtimes",
@@ -224,7 +353,7 @@ const CTR_DOCKER_GPU_DAEMON_DATA = [
             "overlay2 on current kernels"
           ]
         ],
-        "tip": "docker events --until now returns instead of following",
+        "tip": "docker events with --until returns instead of following",
         "tags": [
           "docker",
           "containers",
@@ -234,7 +363,21 @@ const CTR_DOCKER_GPU_DAEMON_DATA = [
           "events",
           "cgroup",
           "systemd"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/system/events/",
+              "title": "docker events"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/architecture/cgroups/",
+              "title": "Kubernetes: about cgroup v2"
+            }
+          ],
+          "note": "Corrected 2026-11-09: docker events --until now → --until \"$(date +%s)\" (now isn't a documented format); 'Kubernetes 1.37 refuses cgroup v1' → deprecated since 1.35, won't start by default."
+        }
       },
       {
         "id": "docker-daemon-health-sub-1",
@@ -247,7 +390,21 @@ const CTR_DOCKER_GPU_DAEMON_DATA = [
           "daemon",
           "info",
           "journalctl"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/system/events/",
+              "title": "docker events"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/architecture/cgroups/",
+              "title": "Kubernetes: about cgroup v2"
+            }
+          ],
+          "note": "Corrected 2026-11-09: docker events --until now → --until \"$(date +%s)\" (now isn't a documented format); 'Kubernetes 1.37 refuses cgroup v1' → deprecated since 1.35, won't start by default."
+        }
       },
       {
         "id": "docker-daemon-health-sub-2",
@@ -260,7 +417,21 @@ const CTR_DOCKER_GPU_DAEMON_DATA = [
           "daemon",
           "info",
           "journalctl"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/system/events/",
+              "title": "docker events"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/architecture/cgroups/",
+              "title": "Kubernetes: about cgroup v2"
+            }
+          ],
+          "note": "Corrected 2026-11-09: docker events --until now → --until \"$(date +%s)\" (now isn't a documented format); 'Kubernetes 1.37 refuses cgroup v1' → deprecated since 1.35, won't start by default."
+        }
       },
       {
         "id": "docker-daemon-health-sub-3",
@@ -273,12 +444,26 @@ const CTR_DOCKER_GPU_DAEMON_DATA = [
           "daemon",
           "info",
           "journalctl"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/system/events/",
+              "title": "docker events"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/architecture/cgroups/",
+              "title": "Kubernetes: about cgroup v2"
+            }
+          ],
+          "note": "Corrected 2026-11-09: docker events --until now → --until \"$(date +%s)\" (now isn't a documented format); 'Kubernetes 1.37 refuses cgroup v1' → deprecated since 1.35, won't start by default."
+        }
       },
       {
         "id": "docker-daemon-health-sub-4",
-        "desc": "Container start/stop/die/oom events from the last hour, then exit",
-        "cmd": "docker events --since 1h --until now",
+        "desc": "Container start/stop/die/oom events from the last hour, then exit (--until takes a timestamp)",
+        "cmd": "docker events --since 1h --until \"$(date +%s)\"",
         "tags": [
           "docker",
           "containers",
@@ -286,7 +471,21 @@ const CTR_DOCKER_GPU_DAEMON_DATA = [
           "daemon",
           "info",
           "journalctl"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/system/events/",
+              "title": "docker events"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/architecture/cgroups/",
+              "title": "Kubernetes: about cgroup v2"
+            }
+          ],
+          "note": "Corrected 2026-11-09: docker events --until now → --until \"$(date +%s)\" (now isn't a documented format); 'Kubernetes 1.37 refuses cgroup v1' → deprecated since 1.35, won't start by default."
+        }
       }
     ]
   },
@@ -325,7 +524,20 @@ const CTR_DOCKER_GPU_DAEMON_DATA = [
           "containers",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html",
+              "title": "NVIDIA Container Toolkit: install guide"
+            },
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "nvidia-smi documentation"
+            }
+          ]
+        }
       }
     ]
   }

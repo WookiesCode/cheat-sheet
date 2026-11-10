@@ -201,6 +201,25 @@ All 50 entries on the six hardware-reference sheets (power, cooling, memory, dri
 
 **Not verified (said on the card, 5):** the circuit card and its recipe (NEC 210.20(A) is paywalled), the labelling card (ANSI/TIA-606-D is sold), the NVMe link-width loop (the sysfs files exist on a live system but aren't in the kernel ABI docs), and the nvidia-bug-report tip (not in the nvidia-smi docs). Notes also flag the ASHRAE ranges and W classes (ASHRAE refuses automated fetches), the AMD EPYC 9005 memory figures and HPE's "highest common speed" rule (vendor pages refused or timed out), and the nvidia-smi `--query-gpu` field names (use `--help-query-gpu`).
 
+## #8 for the Kubernetes and GPU-container sheets (2026-11-09, `improve/sources-k8s`)
+
+All 96 entries (commands, recipes, Pro Tips) on `docker-gpu-daemon`, `k8s-kubectl`, `k8s-workloads`, `k8s-troubleshoot`, `k8s-nodes` and `k8s-gpu` now cite a source: kubernetes.io (the kubectl reference, debugging, drain, eviction, cgroups, version-skew pages), the NVIDIA Container Toolkit install and CDI pages (1.20.1), Docker's dockerd and `docker events` references, the GPU Operator getting-started page (v26.7) and dcgm-exporter's default counters and releases (4.9.0). `generate-containers-suite.js` now passes `src` through (commands, recipes, Pro Tips). The other four Docker sheets aren't sourced yet.
+
+| Was | Now | Why |
+|---|---|---|
+| `nvidia-ctk cdi generate --output=/etc/cdi/nvidia.yaml`, "regenerate after a driver upgrade" | `systemctl restart nvidia-cdi-refresh.service` (toolkit 1.18+); manual generate to `/var/run/cdi/nvidia.yaml` for older toolkits | NVIDIA's CDI page: the refresh service keeps `/var/run/cdi/nvidia.yaml` current |
+| CDI "used by Docker 25+" | on by default from Docker Engine 28.3.0 | dockerd reference |
+| `docker events --since 1h --until now` | `--until "$(date +%s)"` | `now` isn't a documented `--until` format |
+| "kubelet 1.37 refuses cgroup v1" (3 places) | deprecated since 1.35; the kubelet won't start on cgroup v1 by default | Kubernetes cgroups page |
+| "Pods with no requests are evicted first" | evicted in order of usage over requests, then priority; QoS class doesn't set the order | node-pressure eviction page |
+| `kubectl get nodes -l nvidia.com/gpu.present=true` | `-l feature.node.kubernetes.io/pci-10de.present=true` | the label the GPU Operator docs use |
+
+Also: `kubectl debug node/…` notes `--profile=sysadmin` for `chroot /host`, and the gpu-operator namespace is described as the one NVIDIA's examples use (Helm defaults to `default`). The dcgm-exporter metric names on the sheet (`DCGM_FI_DEV_XID_ERROR`, `…_GPU_TEMP_CELSIUS`, `…_BOARD_POWER_WATTS`) are confirmed as the 4.9.0 defaults.
+
+**`sudo` removed** from 6 commands (`nvidia-ctk`, `systemctl restart docker`, `crictl`). `nvidia-ctk runtime configure` / `cdi generate` got a root rule in `PRIV_RULES`.
+
+**Not confirmed (said in the notes):** the `--gpus '"device=0,1"'` quoting (Docker's GPU page is 404), filtering events by `type=Warning`, and the dcgm-exporter service name and port 9400.
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |

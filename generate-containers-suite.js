@@ -433,39 +433,43 @@ const CONTAINER_SECTIONS = [
           ["docker run --rm --gpus all --ipc=host nvidia/cuda:<tag> nvidia-smi topo -m", "NVLink/PCIe topology as seen from inside a container"]
         ],
         tip: "Quote device lists: '\"device=0,1\"'",
-        tags: ["gpu", "nvidia", "cuda", "nvidia-smi", "toolkit"]
+        tags: ["gpu", "nvidia", "cuda", "nvidia-smi", "toolkit"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html", "title": "NVIDIA Container Toolkit: install guide"}], "note": "Docker's own GPU page could not be fetched (404); the --gpus device-list quoting is not confirmed against Docker's docs."}
       },
       {
         id: "nvidia-ctk-configure",
         desc: "Register the NVIDIA runtime with Docker, then restart Docker (changes state: restarts every container on the host)",
-        cmd: "sudo nvidia-ctk runtime configure --runtime=docker",
+        cmd: "nvidia-ctk runtime configure --runtime=docker",
         flags: [
           ["runtime configure --runtime=docker", "Adds the nvidia runtime to /etc/docker/daemon.json"],
-          ["sudo systemctl restart docker", "Required afterwards; restarts all containers, so drain the node first"],
+          ["systemctl restart docker", "Required afterwards; restarts all containers, so drain the node first"],
           ["nvidia-ctk --version", "Check the installed toolkit version against NVIDIA's release notes"]
         ],
         subcommands: [
-          ["sudo systemctl restart docker", "Apply the new daemon.json (changes state)"],
+          ["systemctl restart docker", "Apply the new daemon.json (changes state)"],
           ["docker info | grep -i -A3 runtimes", "Confirm the nvidia runtime is now listed"]
         ],
         tip: "Drain the node before restarting Docker",
-        tags: ["nvidia-ctk", "toolkit", "runtime", "daemon.json"]
+        tags: ["nvidia-ctk", "toolkit", "runtime", "daemon.json"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html", "title": "NVIDIA Container Toolkit: install guide"}], "note": "Checked against Container Toolkit 1.20.1."}
       },
       {
         id: "nvidia-cdi",
         desc: "List the CDI (Container Device Interface) GPU devices NVIDIA has defined on this host",
         cmd: "nvidia-ctk cdi list",
         flags: [
-          ["CDI", "A standard spec file (e.g. /etc/cdi/nvidia.yaml) that describes devices, used by Docker 25+, Podman and containerd"],
-          ["nvidia-ctk cdi generate --output=/etc/cdi/nvidia.yaml", "Regenerate the spec, e.g. after a driver upgrade (changes state)"],
-          ["--device nvidia.com/gpu=all", "Request GPUs by CDI name instead of --gpus, once CDI is enabled in Docker"]
+          ["CDI", "A standard spec file (NVIDIA writes /var/run/cdi/nvidia.yaml) that describes devices, used by Docker, Podman and containerd"],
+          ["nvidia-cdi-refresh", "Toolkit 1.18+: a systemd service keeps the spec up to date after driver changes; restart it after a driver removal or MIG change"],
+          ["--device nvidia.com/gpu=all", "Request GPUs by CDI name instead of --gpus; CDI is on by default from Docker Engine 28.3.0"]
         ],
         subcommands: [
-          ["sudo nvidia-ctk cdi generate --output=/etc/cdi/nvidia.yaml", "Rebuild the CDI spec (changes state)"],
+          ["systemctl restart nvidia-cdi-refresh.service", "Regenerate the CDI spec, e.g. after a driver removal or MIG change (changes state)"],
+          ["nvidia-ctk cdi generate --output=/var/run/cdi/nvidia.yaml", "Generate the spec by hand on toolkits older than 1.18 (changes state)"],
           ["docker run --rm --device nvidia.com/gpu=all ubuntu:24.04 nvidia-smi -L", "Use CDI device names from Docker"]
         ],
-        tip: "Regenerate the CDI spec after a driver upgrade",
-        tags: ["cdi", "nvidia-ctk", "device", "gpu"]
+        tip: "Toolkit 1.18+ refreshes the CDI spec for you",
+        tags: ["cdi", "nvidia-ctk", "device", "gpu"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/cdi-support.html", "title": "NVIDIA Container Toolkit: CDI support"}, {"url": "https://docs.docker.com/reference/cli/dockerd/", "title": "dockerd reference (CDI)"}], "note": "Corrected 2026-11-09: the spec lives in /var/run/cdi/nvidia.yaml (not /etc/cdi), toolkit 1.18+ regenerates it with nvidia-cdi-refresh, and Docker enables CDI by default from 28.3.0 (not 25)."}
       },
       {
         id: "docker-daemon-health",
@@ -473,7 +477,7 @@ const CONTAINER_SECTIONS = [
         cmd: "docker info",
         flags: [
           ["Server Version", "The Engine version; compare with the release notes before upgrading"],
-          ["Cgroup Driver / Version", "Should be systemd / 2 on current Ubuntu; Kubernetes 1.37 nodes refuse cgroup v1 by default"],
+          ["Cgroup Driver / Version", "Should be systemd / 2 on current Ubuntu; cgroup v1 is deprecated in Kubernetes (1.35+) and the kubelet won't start on it by default"],
           ["Runtimes", "Should include nvidia on GPU nodes"],
           ["Storage Driver", "overlay2 on current kernels"]
         ],
@@ -481,10 +485,11 @@ const CONTAINER_SECTIONS = [
           ["systemctl status docker --no-pager", "Is the daemon running, and its last log lines"],
           ["journalctl -u docker --since '1 hour ago' --no-pager", "Daemon log for the last hour"],
           ["cat /etc/docker/daemon.json", "The daemon's config file (runtimes, data-root, log limits)"],
-          ["docker events --since 1h --until now", "Container start/stop/die/oom events from the last hour, then exit"]
+          ["docker events --since 1h --until \"$(date +%s)\"", "Container start/stop/die/oom events from the last hour, then exit (--until takes a timestamp)"]
         ],
-        tip: "docker events --until now returns instead of following",
-        tags: ["daemon", "info", "journalctl", "events", "cgroup", "systemd"]
+        tip: "docker events with --until returns instead of following",
+        tags: ["daemon", "info", "journalctl", "events", "cgroup", "systemd"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://docs.docker.com/reference/cli/docker/system/events/", "title": "docker events"}, {"url": "https://kubernetes.io/docs/concepts/architecture/cgroups/", "title": "Kubernetes: about cgroup v2"}], "note": "Corrected 2026-11-09: docker events --until now → --until \"$(date +%s)\" (now isn't a documented format); 'Kubernetes 1.37 refuses cgroup v1' → deprecated since 1.35, won't start by default."}
       }
     ],
     proTip: {
@@ -492,6 +497,7 @@ const CONTAINER_SECTIONS = [
       cmd: "nvidia-smi && nvidia-ctk --version && docker info | grep -i runtimes",
       details: "Work from the host up. If nvidia-smi fails on the host, it's a driver or hardware problem (see the NVIDIA DC sheets), not Docker. If the host is fine but the container isn't, check the toolkit is installed, the nvidia runtime is registered, and the image's CUDA version is not newer than the driver supports.",
       tip: "Host nvidia-smi fails → not a Docker problem",
+      src: {"verified": "2026-11-09", "refs": [{"url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html", "title": "NVIDIA Container Toolkit: install guide"}, {"url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html", "title": "nvidia-smi documentation"}]},
       flags: [
         ["1. Host driver", "nvidia-smi on the host"],
         ["2. Toolkit", "nvidia-ctk --version"],
@@ -522,7 +528,8 @@ const CONTAINER_SECTIONS = [
           ["kubectl config set-context --current --namespace=<ns>", "Change the default namespace of the current context (changes local state)"]
         ],
         tip: "Check the context before every change",
-        tags: ["context", "kubeconfig", "cluster", "namespace"]
+        tags: ["context", "kubeconfig", "cluster", "namespace"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_config/kubectl_config_get-contexts/", "title": "kubectl config get-contexts"}, {"url": "https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/", "title": "Kubernetes: kubeconfig files"}]}
       },
       {
         id: "kubectl-get-wide",
@@ -541,7 +548,8 @@ const CONTAINER_SECTIONS = [
           ["kubectl get pods -A --field-selector=status.phase!=Running", "Everything that isn't Running"]
         ],
         tip: "-o wide shows the node",
-        tags: ["get", "pods", "wide", "namespace", "list"]
+        tags: ["get", "pods", "wide", "namespace", "list"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/", "title": "kubectl get"}]}
       },
       {
         id: "kubectl-output-formats",
@@ -559,7 +567,8 @@ const CONTAINER_SECTIONS = [
           ["kubectl get pods -n <ns> -o json | jq -r '.items[] | select(.status.phase != \"Running\") | .metadata.name'", "Same idea with jq, which is easier to read for complex filters"]
         ],
         tip: "Find the path in -o yaml, then use it in jsonpath",
-        tags: ["output", "jsonpath", "custom-columns", "yaml", "jq", "sort"]
+        tags: ["output", "jsonpath", "custom-columns", "yaml", "jq", "sort"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/", "title": "kubectl get"}, {"url": "https://kubernetes.io/docs/reference/kubectl/jsonpath/", "title": "kubectl JSONPath support"}]}
       },
       {
         id: "kubectl-explain",
@@ -576,7 +585,8 @@ const CONTAINER_SECTIONS = [
           ["kubectl auth can-i --list -n <ns>", "What you're allowed to do in a namespace"]
         ],
         tip: "kubectl explain matches your cluster's version",
-        tags: ["explain", "api-resources", "version", "docs", "auth"]
+        tags: ["explain", "api-resources", "version", "docs", "auth"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_explain/", "title": "kubectl explain"}, {"url": "https://kubernetes.io/releases/version-skew-policy/", "title": "Kubernetes version skew policy"}]}
       }
     ],
     proTip: {
@@ -584,6 +594,7 @@ const CONTAINER_SECTIONS = [
       cmd: "kubectl config current-context",
       details: "Most Kubernetes accidents are the right command against the wrong cluster. Put the current context in your shell prompt, or run kubectl config current-context before any apply, delete, drain or scale. Separate kubeconfig files per cluster (KUBECONFIG=...) make it harder still to cross wires.",
       tip: "Right command, wrong cluster is the classic mistake",
+      src: {"verified": "2026-11-09", "refs": [{"url": "https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/", "title": "Kubernetes: kubeconfig files"}]},
       flags: [
         ["kubectl config current-context", "Run it before every change"],
         ["KUBECONFIG=~/.kube/<cluster>.yaml", "One file per cluster"],
@@ -612,7 +623,8 @@ const CONTAINER_SECTIONS = [
           ["kubectl apply -f <file>.yaml --dry-run=server", "Validate against the live cluster without changing anything"]
         ],
         tip: "diff before apply",
-        tags: ["apply", "diff", "manifest", "yaml", "declarative", "dry-run"]
+        tags: ["apply", "diff", "manifest", "yaml", "declarative", "dry-run"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_diff/", "title": "kubectl diff"}, {"url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_apply/", "title": "kubectl apply"}]}
       },
       {
         id: "deployment-yaml-example",
@@ -626,7 +638,8 @@ const CONTAINER_SECTIONS = [
           ["Generate instead of typing", "kubectl create deployment web --image=nginx:1.27 --dry-run=client -o yaml > web.yaml"]
         ],
         tip: "Labels connect Deployment → pods → Service",
-        tags: ["deployment", "yaml", "manifest", "requests", "limits", "labels"]
+        tags: ["deployment", "yaml", "manifest", "requests", "limits", "labels"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/", "title": "Kubernetes: Deployments"}, {"url": "https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/", "title": "Kubernetes: resources for containers"}]}
       },
       {
         id: "kubectl-rollout",
@@ -644,7 +657,8 @@ const CONTAINER_SECTIONS = [
           ["kubectl rollout restart deployment/<name> -n <ns>", "Rolling restart of every pod (changes state)"]
         ],
         tip: "rollout undo is your fast rollback",
-        tags: ["rollout", "status", "history", "undo", "restart", "deployment"]
+        tags: ["rollout", "status", "history", "undo", "restart", "deployment"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_rollout/", "title": "kubectl rollout"}]}
       },
       {
         id: "kubectl-scale",
@@ -660,7 +674,8 @@ const CONTAINER_SECTIONS = [
           ["kubectl get hpa -n <ns>", "Autoscalers that may override your change"]
         ],
         tip: "Scaling by hand drifts from your YAML",
-        tags: ["scale", "replicas", "hpa", "deployment"]
+        tags: ["scale", "replicas", "hpa", "deployment"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_scale/", "title": "kubectl scale"}, {"url": "https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/", "title": "Kubernetes: HPA"}]}
       },
       {
         id: "kubectl-jobs",
@@ -676,14 +691,16 @@ const CONTAINER_SECTIONS = [
           ["kubectl create job <name>-manual --from=cronjob/<cronjob> -n <ns>", "Run a CronJob now, outside its schedule (changes state)"]
         ],
         tip: "Trigger a CronJob by hand with --from=cronjob/",
-        tags: ["job", "cronjob", "batch"]
+        tags: ["job", "cronjob", "batch"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_create/kubectl_create_job/", "title": "kubectl create job"}, {"url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_logs/", "title": "kubectl logs"}]}
       }
     ],
     proTip: {
       desc: "Requests, limits and what OOMKilled means",
       cmd: "kubectl get pod <pod> -n <ns> -o jsonpath='{.status.containerStatuses[*].lastState.terminated.reason}'",
-      details: "Requests decide where a pod can be scheduled; limits are enforced at runtime. A container above its memory limit is killed (reason OOMKilled) and restarted. A container above its CPU limit is only throttled. Pods with no requests are the first to be evicted when a node runs short of memory.",
+      details: "Requests decide where a pod can be scheduled; limits are enforced at runtime. A container above its memory limit is killed (reason OOMKilled) and restarted. A container above its CPU limit is only throttled. When a node runs short of memory, the kubelet first evicts pods using more than they requested (by priority, then by how far over), so pods with no requests at all go early.",
       tip: "Memory over limit = killed; CPU over limit = slowed",
+      src: {"verified": "2026-11-09", "refs": [{"url": "https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/", "title": "Kubernetes: resources for containers"}, {"url": "https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/", "title": "Kubernetes: node-pressure eviction"}], "note": "Corrected 2026-11-09: 'pods with no requests are evicted first' → the kubelet orders by usage over requests, then priority; it doesn't use QoS class for the order."},
       flags: [
         ["OOMKilled", "Raise limits.memory or fix the leak"],
         ["Pending: Insufficient cpu/memory", "Requests don't fit on any node"],
@@ -708,7 +725,8 @@ const CONTAINER_SECTIONS = [
           ["Node", "Which server it landed on; combine with the node sheets"]
         ],
         tip: "Read Events first",
-        tags: ["describe", "events", "pod", "state"]
+        tags: ["describe", "events", "pod", "state"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_describe/", "title": "kubectl describe"}, {"url": "https://kubernetes.io/docs/tasks/debug/debug-application/debug-pods/", "title": "Kubernetes: debug pods"}]}
       },
       {
         id: "kubectl-pod-status-meanings",
@@ -724,7 +742,8 @@ const CONTAINER_SECTIONS = [
           ["Terminating (stuck)", "A finalizer or an unreachable node; check the node first"]
         ],
         tip: "Pending → Events; CrashLoop → logs --previous",
-        tags: ["status", "pending", "crashloopbackoff", "imagepullbackoff", "oomkilled", "evicted"]
+        tags: ["status", "pending", "crashloopbackoff", "imagepullbackoff", "oomkilled", "evicted"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/", "title": "Kubernetes: pod lifecycle"}, {"url": "https://kubernetes.io/docs/tasks/debug/debug-application/debug-pods/", "title": "Kubernetes: debug pods"}]}
       },
       {
         id: "kubectl-logs-previous",
@@ -742,7 +761,8 @@ const CONTAINER_SECTIONS = [
           ["kubectl logs deploy/<name> -n <ns> --tail=100", "Logs from one pod of a Deployment"]
         ],
         tip: "CrashLoopBackOff? Always add --previous",
-        tags: ["logs", "previous", "crashloop", "container"]
+        tags: ["logs", "previous", "crashloop", "container"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_logs/", "title": "kubectl logs"}]}
       },
       {
         id: "kubectl-events-sorted",
@@ -758,7 +778,8 @@ const CONTAINER_SECTIONS = [
           ["kubectl events -n <ns> --for pod/<pod>", "Events for one object (newer kubectl events command)"]
         ],
         tip: "Events expire after about an hour",
-        tags: ["events", "warning", "sort", "timeline"]
+        tags: ["events", "warning", "sort", "timeline"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/", "title": "kubectl get"}, {"url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_events/", "title": "kubectl events"}, {"url": "https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/", "title": "kube-apiserver (--event-ttl 1h)"}], "note": "kubectl get documents --sort-by with braces ('{.lastTimestamp}'); the bare form works too. Filtering events by type=Warning isn't shown in the docs read. kubectl events has no --sort-by."}
       },
       {
         id: "kubectl-exec-debug",
@@ -768,7 +789,7 @@ const CONTAINER_SECTIONS = [
           ["-- (double dash)", "Everything after it is the command to run in the container, not kubectl flags"],
           ["-c <container>", "Choose the container in a multi-container pod"],
           ["kubectl debug -it <pod> --image=busybox --target=<container>", "Adds a temporary debug container that shares the target's process namespace; works for distroless images"],
-          ["kubectl debug node/<node> -it --image=busybox", "A pod on the node with the host filesystem at /host"]
+          ["kubectl debug node/<node> -it --image=busybox", "A pod on the node with the host filesystem at /host (add --profile=sysadmin to chroot /host)"]
         ],
         subcommands: [
           ["kubectl exec <pod> -n <ns> -- env", "Environment variables the app sees"],
@@ -776,7 +797,8 @@ const CONTAINER_SECTIONS = [
           ["kubectl debug node/<node> -it --image=busybox", "Debug pod on a node, host filesystem under /host (changes state)"]
         ],
         tip: "No shell in the image? kubectl debug --target",
-        tags: ["exec", "debug", "ephemeral", "shell", "distroless"]
+        tags: ["exec", "debug", "ephemeral", "shell", "distroless"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://kubernetes.io/docs/tasks/debug/debug-application/debug-running-pod/", "title": "Kubernetes: debug running pods"}, {"url": "https://kubernetes.io/docs/tasks/debug/debug-cluster/kubectl-node-debug/", "title": "Kubernetes: debug a node with kubectl"}, {"url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_debug/", "title": "kubectl debug"}], "note": "With the default profile, chroot /host fails in a node debug pod: use --profile=sysadmin."}
       },
       {
         id: "kubectl-port-forward-top",
@@ -793,7 +815,8 @@ const CONTAINER_SECTIONS = [
           ["kubectl get endpointslices -n <ns> -l kubernetes.io/service-name=<service>", "Which pod IPs a service actually sends traffic to"]
         ],
         tip: "Service has no endpoints? Its selector doesn't match any ready pod",
-        tags: ["port-forward", "top", "metrics", "service", "endpoints"]
+        tags: ["port-forward", "top", "metrics", "service", "endpoints"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_port-forward/", "title": "kubectl port-forward"}, {"url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_top/", "title": "kubectl top"}, {"url": "https://kubernetes.io/docs/concepts/services-networking/endpoint-slices/", "title": "Kubernetes: EndpointSlices"}]}
       }
     ],
     proTip: {
@@ -801,6 +824,7 @@ const CONTAINER_SECTIONS = [
       cmd: "kubectl describe pod <pod> -n <ns> | sed -n '/^Events:/,$p'",
       details: "1) get pods -o wide: status, restarts and node. 2) describe: Events and Last State. 3) logs --previous: the crash itself. 4) get events --sort-by: what else happened around it. 5) If the node is involved (NotReady, evictions, GPU missing), move to the Nodes and GPU sheets.",
       tip: "Status → Events → previous logs → node",
+      src: {"verified": "2026-11-09", "refs": [{"url": "https://kubernetes.io/docs/tasks/debug/debug-application/debug-pods/", "title": "Kubernetes: debug pods"}]},
       flags: [
         ["1. kubectl get pods -o wide", "Status, restarts, node"],
         ["2. kubectl describe pod", "Events and Last State"],
@@ -830,7 +854,8 @@ const CONTAINER_SECTIONS = [
           ["kubectl get pods -A -o wide --field-selector spec.nodeName=<node>", "Every pod on one node, e.g. before draining it"]
         ],
         tip: "NotReady = kubelet stopped reporting",
-        tags: ["nodes", "ready", "notready", "describe", "wide"]
+        tags: ["nodes", "ready", "notready", "describe", "wide"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/", "title": "kubectl get"}, {"url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_describe/", "title": "kubectl describe"}, {"url": "https://kubernetes.io/docs/concepts/architecture/nodes/", "title": "Kubernetes: nodes"}]}
       },
       {
         id: "kubectl-cordon-drain",
@@ -850,7 +875,8 @@ const CONTAINER_SECTIONS = [
           ["kubectl get node <node> -o jsonpath='{.spec.unschedulable}'", "true = still cordoned"]
         ],
         tip: "Approval first; check the active context",
-        tags: ["drain", "cordon", "uncordon", "maintenance", "pdb", "rma"]
+        tags: ["drain", "cordon", "uncordon", "maintenance", "pdb", "rma"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_drain/", "title": "kubectl drain"}, {"url": "https://kubernetes.io/docs/concepts/workloads/pods/disruptions/", "title": "Kubernetes: disruptions and PDBs"}, {"url": "https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/", "title": "Kubernetes: safely drain a node"}]}
       },
       {
         id: "kubectl-taints-labels",
@@ -868,7 +894,8 @@ const CONTAINER_SECTIONS = [
           ["kubectl label node <node> <key>=<value>", "Add or change a label (changes state)"]
         ],
         tip: "Trailing dash removes a taint",
-        tags: ["taint", "toleration", "label", "noschedule"]
+        tags: ["taint", "toleration", "label", "noschedule"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/", "title": "Kubernetes: taints and tolerations"}, {"url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_taint/", "title": "kubectl taint"}]}
       },
       {
         id: "node-kubelet-crictl",
@@ -878,17 +905,18 @@ const CONTAINER_SECTIONS = [
           ["journalctl -u kubelet", "kubelet's own log: registration, image pulls, eviction decisions, volume mounts"],
           ["crictl", "Talks to containerd directly through the CRI socket; Kubernetes no longer uses Docker (dockershim was removed in 1.24)"],
           ["crictl ps -a", "Containers including exited ones, with their pod names"],
-          ["cgroup v2", "stat -fc %T /sys/fs/cgroup must print cgroup2fs; kubelet 1.37 refuses cgroup v1 by default"]
+          ["cgroup v2", "stat -fc %T /sys/fs/cgroup must print cgroup2fs; the kubelet won't start on cgroup v1 by default (deprecated since 1.35)"]
         ],
         subcommands: [
           ["systemctl status kubelet containerd --no-pager", "Are kubelet and containerd running"],
-          ["sudo crictl ps -a", "All containers on this node"],
-          ["sudo crictl logs --tail 100 <container-id>", "Container logs without going through the API server"],
-          ["sudo crictl pods", "Pod sandboxes on this node"],
-          ["stat -fc %T /sys/fs/cgroup", "cgroup2fs = cgroup v2 (required by kubelet 1.37 by default)"]
+          ["crictl ps -a", "All containers on this node"],
+          ["crictl logs --tail 100 <container-id>", "Container logs without going through the API server"],
+          ["crictl pods", "Pod sandboxes on this node"],
+          ["stat -fc %T /sys/fs/cgroup", "cgroup2fs = cgroup v2 (the kubelet refuses cgroup v1 by default)"]
         ],
         tip: "API down? crictl on the node still works",
-        tags: ["kubelet", "crictl", "containerd", "journalctl", "cgroup", "node"]
+        tags: ["kubelet", "crictl", "containerd", "journalctl", "cgroup", "node"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://kubernetes.io/docs/tasks/debug/debug-cluster/crictl/", "title": "Kubernetes: debugging with crictl"}, {"url": "https://kubernetes.io/docs/tasks/administer-cluster/migrating-from-dockershim/", "title": "Kubernetes: migrating from dockershim (removed in 1.24)"}, {"url": "https://kubernetes.io/docs/concepts/architecture/cgroups/", "title": "Kubernetes: about cgroup v2"}], "note": "Corrected 2026-11-09: 'kubelet 1.37 refuses cgroup v1' → cgroup v1 deprecated since 1.35; the kubelet won't start on it by default (failCgroupV1)."}
       }
     ],
     proTip: {
@@ -896,6 +924,7 @@ const CONTAINER_SECTIONS = [
       cmd: "kubectl get pods -A -o wide --field-selector spec.nodeName=<node>",
       details: "Before an RMA or reseat: list what's running on the node, get approval, cordon, drain with --ignore-daemonsets, confirm only DaemonSet pods remain, then do the work. Afterwards check the node is Ready, the GPU count is back (see the GPU sheet), and uncordon. If Slurm also schedules on the node, drain it there as well.",
       tip: "List → approve → cordon → drain → work → verify → uncordon",
+      src: {"verified": "2026-11-09", "refs": [{"url": "https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/", "title": "Kubernetes: safely drain a node"}]},
       flags: [
         ["Before", "List pods on the node and get approval"],
         ["Drain", "--ignore-daemonsets --delete-emptydir-data"],
@@ -920,17 +949,18 @@ const CONTAINER_SECTIONS = [
         ],
         subcommands: [
           ["kubectl describe node <node> | grep -A10 'Allocated resources'", "GPUs requested by pods vs. available on one node"],
-          ["kubectl get nodes -l nvidia.com/gpu.present=true", "Nodes that GPU feature discovery labelled as having GPUs"]
+          ["kubectl get nodes -l feature.node.kubernetes.io/pci-10de.present=true", "Nodes with an NVIDIA PCI device (the label the GPU Operator uses to find GPU nodes)"]
         ],
         tip: "7 of 8 GPUs? Check the node, not Kubernetes",
-        tags: ["gpu", "allocatable", "nvidia.com/gpu", "custom-columns", "capacity"]
+        tags: ["gpu", "allocatable", "nvidia.com/gpu", "custom-columns", "capacity"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/", "title": "Kubernetes: schedule GPUs"}, {"url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html", "title": "NVIDIA GPU Operator: getting started"}], "note": "Corrected 2026-11-09: the GPU-node label is feature.node.kubernetes.io/pci-10de.present=true, the one the GPU Operator docs use (nvidia.com/gpu.present isn't on that page)."}
       },
       {
         id: "k8s-gpu-operator-pods",
         desc: "Check the NVIDIA GPU Operator components",
         cmd: "kubectl get pods -n gpu-operator -o wide",
         flags: [
-          ["gpu-operator namespace", "The usual install namespace; yours may differ (kubectl get pods -A | grep -i nvidia)"],
+          ["gpu-operator namespace", "The namespace NVIDIA's install examples use (Helm's default is default); yours may differ: kubectl get pods -A | grep -i nvidia"],
           ["driver daemonset", "Installs the driver in a container on each GPU node (if the operator manages the driver)"],
           ["container-toolkit daemonset", "Configures containerd for GPUs"],
           ["device-plugin daemonset", "Advertises nvidia.com/gpu to the scheduler"],
@@ -942,7 +972,8 @@ const CONTAINER_SECTIONS = [
           ["kubectl exec -n gpu-operator <driver-pod> -- nvidia-smi", "Run nvidia-smi through the driver container"]
         ],
         tip: "Validator not Completed = stack not ready",
-        tags: ["gpu-operator", "device-plugin", "driver", "dcgm", "validator"]
+        tags: ["gpu-operator", "device-plugin", "driver", "dcgm", "validator"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html", "title": "NVIDIA GPU Operator: getting started"}], "note": "Pod names in the docs: nvidia-driver-daemonset, nvidia-container-toolkit-daemonset, nvidia-device-plugin-daemonset, nvidia-dcgm-exporter, nvidia-operator-validator, gpu-feature-discovery. Checked against GPU Operator v26.7."}
       },
       {
         id: "k8s-gpu-test-pod",
@@ -960,7 +991,8 @@ const CONTAINER_SECTIONS = [
           ["kubectl delete pod gpu-test", "Clean up (changes state)"]
         ],
         tip: "GPUs go under limits, in whole numbers",
-        tags: ["gpu", "pod", "test", "limits", "nvidia-smi"]
+        tags: ["gpu", "pod", "test", "limits", "nvidia-smi"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/", "title": "Kubernetes: schedule GPUs"}, {"url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html", "title": "NVIDIA GPU Operator: getting started"}]}
       },
       {
         id: "k8s-dcgm-metrics",
@@ -977,7 +1009,8 @@ const CONTAINER_SECTIONS = [
           ["kubectl get svc -A | grep -i dcgm", "Find the exporter service if it's in another namespace"]
         ],
         tip: "Xid in DCGM → check the NVIDIA DC Xid sheet",
-        tags: ["dcgm", "metrics", "prometheus", "xid", "temperature"]
+        tags: ["dcgm", "metrics", "prometheus", "xid", "temperature"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://github.com/NVIDIA/dcgm-exporter/blob/main/etc/default-counters.csv", "title": "dcgm-exporter default counters"}, {"url": "https://github.com/NVIDIA/dcgm-exporter/releases", "title": "dcgm-exporter releases (4.9.0 renames)"}], "note": "The service name nvidia-dcgm-exporter and port 9400 aren't stated on the pages read: kubectl get svc -A | grep -i dcgm shows yours."}
       }
     ],
     proTip: {
@@ -985,6 +1018,7 @@ const CONTAINER_SECTIONS = [
       cmd: "kubectl get nodes -o custom-columns=NAME:.metadata.name,GPUS:.status.allocatable.nvidia\\.com/gpu",
       details: "Start at the bottom. On the node: does nvidia-smi see every GPU, and is dmesg free of Xid or 'fallen off the bus' errors? Then the GPU Operator: driver, toolkit and device-plugin pods Running, validator Completed. Then the node's allocatable count. Only after all three are right is it a scheduling problem.",
       tip: "Hardware → operator pods → allocatable → scheduling",
+      src: {"verified": "2026-11-09", "refs": [{"url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html", "title": "NVIDIA GPU Operator: getting started"}, {"url": "https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/", "title": "Kubernetes: schedule GPUs"}]},
       flags: [
         ["1. Node", "nvidia-smi and dmesg -T | grep -i xid"],
         ["2. Operator", "kubectl get pods -n gpu-operator"],
@@ -1054,7 +1088,8 @@ function buildSectionCards(sec) {
       commands: [{
         id: cmd.id, desc: cmd.desc, cmd: cmd.cmd, details: cmd.details || '',
         flags: cmd.flags ? cmd.flags.slice(0, 3) : [], tip: cmd.tip || '',
-        tags: [...baseTags, ...(cmd.tags || [])]
+        tags: [...baseTags, ...(cmd.tags || [])],
+        ...(cmd.src ? { src: cmd.src } : {})
       }]
     });
     if (cmd.flags && cmd.flags.length > 3) {
@@ -1080,7 +1115,8 @@ function buildSectionCards(sec) {
         subtitle: `Related commands for: ${cmd.desc.split('(')[0].trim()}`,
         commands: cmd.subcommands.map((sub, idx) => ({
           id: `${cmd.id}-sub-${idx + 1}`, desc: sub[1], cmd: sub[0],
-          tags: [...baseTags, 'recipe', ...(cmd.tags || []).slice(0, 3)]
+          tags: [...baseTags, 'recipe', ...(cmd.tags || []).slice(0, 3)],
+          ...((sub[2] || cmd.src) ? { src: sub[2] || cmd.src } : {})
         }))
       });
     }
@@ -1094,7 +1130,8 @@ function buildSectionCards(sec) {
       commands: [{
         id: `${sec.id}-tips-card`, desc: sec.proTip.desc, cmd: sec.proTip.cmd,
         details: sec.proTip.details, flags: sec.proTip.flags, tip: sec.proTip.tip,
-        tags: [...baseTags, 'tips', 'best-practice']
+        tags: [...baseTags, 'tips', 'best-practice'],
+        ...(sec.proTip.src ? { src: sec.proTip.src } : {})
       }]
     });
   }

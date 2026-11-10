@@ -42,7 +42,20 @@ const CTR_K8S_WORKLOADS_DATA = [
           "yaml",
           "declarative",
           "dry-run"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_diff/",
+              "title": "kubectl diff"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_apply/",
+              "title": "kubectl apply"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-diff-apply-sub-1",
@@ -57,7 +70,20 @@ const CTR_K8S_WORKLOADS_DATA = [
           "apply",
           "diff",
           "manifest"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_diff/",
+              "title": "kubectl diff"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_apply/",
+              "title": "kubectl apply"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-diff-apply-sub-2",
@@ -72,7 +98,20 @@ const CTR_K8S_WORKLOADS_DATA = [
           "apply",
           "diff",
           "manifest"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_diff/",
+              "title": "kubectl diff"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_apply/",
+              "title": "kubectl apply"
+            }
+          ]
+        }
       }
     ]
   },
@@ -121,7 +160,20 @@ const CTR_K8S_WORKLOADS_DATA = [
           "requests",
           "limits",
           "labels"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/",
+              "title": "Kubernetes: Deployments"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/",
+              "title": "Kubernetes: resources for containers"
+            }
+          ]
+        }
       }
     ]
   },
@@ -166,7 +218,16 @@ const CTR_K8S_WORKLOADS_DATA = [
           "undo",
           "restart",
           "deployment"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_rollout/",
+              "title": "kubectl rollout"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-rollout-sub-1",
@@ -181,7 +242,16 @@ const CTR_K8S_WORKLOADS_DATA = [
           "rollout",
           "status",
           "history"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_rollout/",
+              "title": "kubectl rollout"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-rollout-sub-2",
@@ -196,7 +266,16 @@ const CTR_K8S_WORKLOADS_DATA = [
           "rollout",
           "status",
           "history"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_rollout/",
+              "title": "kubectl rollout"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-rollout-sub-3",
@@ -211,7 +290,16 @@ const CTR_K8S_WORKLOADS_DATA = [
           "rollout",
           "status",
           "history"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_rollout/",
+              "title": "kubectl rollout"
+            }
+          ]
+        }
       }
     ]
   },
@@ -250,7 +338,20 @@ const CTR_K8S_WORKLOADS_DATA = [
           "replicas",
           "hpa",
           "deployment"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_scale/",
+              "title": "kubectl scale"
+            },
+            {
+              "url": "https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/",
+              "title": "Kubernetes: HPA"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-scale-sub-1",
@@ -265,7 +366,20 @@ const CTR_K8S_WORKLOADS_DATA = [
           "scale",
           "replicas",
           "hpa"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_scale/",
+              "title": "kubectl scale"
+            },
+            {
+              "url": "https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/",
+              "title": "Kubernetes: HPA"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-scale-sub-2",
@@ -280,7 +394,20 @@ const CTR_K8S_WORKLOADS_DATA = [
           "scale",
           "replicas",
           "hpa"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_scale/",
+              "title": "kubectl scale"
+            },
+            {
+              "url": "https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/",
+              "title": "Kubernetes: HPA"
+            }
+          ]
+        }
       }
     ]
   },
@@ -318,7 +445,20 @@ const CTR_K8S_WORKLOADS_DATA = [
           "job",
           "cronjob",
           "batch"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_create/kubectl_create_job/",
+              "title": "kubectl create job"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_logs/",
+              "title": "kubectl logs"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-jobs-sub-1",
@@ -333,7 +473,20 @@ const CTR_K8S_WORKLOADS_DATA = [
           "job",
           "cronjob",
           "batch"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_create/kubectl_create_job/",
+              "title": "kubectl create job"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_logs/",
+              "title": "kubectl logs"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-jobs-sub-2",
@@ -348,7 +501,20 @@ const CTR_K8S_WORKLOADS_DATA = [
           "job",
           "cronjob",
           "batch"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_create/kubectl_create_job/",
+              "title": "kubectl create job"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_logs/",
+              "title": "kubectl logs"
+            }
+          ]
+        }
       }
     ]
   },
@@ -362,7 +528,7 @@ const CTR_K8S_WORKLOADS_DATA = [
         "id": "k8s-workloads-tips-card",
         "desc": "Requests, limits and what OOMKilled means",
         "cmd": "kubectl get pod <pod> -n <ns> -o jsonpath='{.status.containerStatuses[*].lastState.terminated.reason}'",
-        "details": "Requests decide where a pod can be scheduled; limits are enforced at runtime. A container above its memory limit is killed (reason OOMKilled) and restarted. A container above its CPU limit is only throttled. Pods with no requests are the first to be evicted when a node runs short of memory.",
+        "details": "Requests decide where a pod can be scheduled; limits are enforced at runtime. A container above its memory limit is killed (reason OOMKilled) and restarted. A container above its CPU limit is only throttled. When a node runs short of memory, the kubelet first evicts pods using more than they requested (by priority, then by how far over), so pods with no requests at all go early.",
         "flags": [
           [
             "OOMKilled",
@@ -385,7 +551,21 @@ const CTR_K8S_WORKLOADS_DATA = [
           "containers",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/",
+              "title": "Kubernetes: resources for containers"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/",
+              "title": "Kubernetes: node-pressure eviction"
+            }
+          ],
+          "note": "Corrected 2026-11-09: 'pods with no requests are evicted first' → the kubelet orders by usage over requests, then priority; it doesn't use QoS class for the order."
+        }
       }
     ]
   }

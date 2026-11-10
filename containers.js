@@ -1492,7 +1492,17 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "cuda",
           "nvidia-smi",
           "toolkit"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html",
+              "title": "NVIDIA Container Toolkit: install guide"
+            }
+          ],
+          "note": "Docker's own GPU page could not be fetched (404); the --gpus device-list quoting is not confirmed against Docker's docs."
+        }
       },
       {
         "id": "docker-gpu-smoke-test-sub-1",
@@ -1505,7 +1515,17 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "gpu",
           "nvidia",
           "cuda"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html",
+              "title": "NVIDIA Container Toolkit: install guide"
+            }
+          ],
+          "note": "Docker's own GPU page could not be fetched (404); the --gpus device-list quoting is not confirmed against Docker's docs."
+        }
       },
       {
         "id": "docker-gpu-smoke-test-sub-2",
@@ -1518,7 +1538,17 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "gpu",
           "nvidia",
           "cuda"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html",
+              "title": "NVIDIA Container Toolkit: install guide"
+            }
+          ],
+          "note": "Docker's own GPU page could not be fetched (404); the --gpus device-list quoting is not confirmed against Docker's docs."
+        }
       }
     ]
   },
@@ -1531,7 +1561,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
       {
         "id": "nvidia-ctk-configure",
         "desc": "Register the NVIDIA runtime with Docker, then restart Docker (changes state: restarts every container on the host)",
-        "cmd": "sudo nvidia-ctk runtime configure --runtime=docker",
+        "cmd": "nvidia-ctk runtime configure --runtime=docker",
         "details": "",
         "flags": [
           [
@@ -1539,7 +1569,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
             "Adds the nvidia runtime to /etc/docker/daemon.json"
           ],
           [
-            "sudo systemctl restart docker",
+            "systemctl restart docker",
             "Required afterwards; restarts all containers, so drain the node first"
           ],
           [
@@ -1555,12 +1585,22 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "toolkit",
           "runtime",
           "daemon.json"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html",
+              "title": "NVIDIA Container Toolkit: install guide"
+            }
+          ],
+          "note": "Checked against Container Toolkit 1.20.1."
+        }
       },
       {
         "id": "nvidia-ctk-configure-sub-1",
         "desc": "Apply the new daemon.json (changes state)",
-        "cmd": "sudo systemctl restart docker",
+        "cmd": "systemctl restart docker",
         "tags": [
           "docker",
           "containers",
@@ -1568,7 +1608,17 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "nvidia-ctk",
           "toolkit",
           "runtime"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html",
+              "title": "NVIDIA Container Toolkit: install guide"
+            }
+          ],
+          "note": "Checked against Container Toolkit 1.20.1."
+        }
       },
       {
         "id": "nvidia-ctk-configure-sub-2",
@@ -1581,7 +1631,17 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "nvidia-ctk",
           "toolkit",
           "runtime"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html",
+              "title": "NVIDIA Container Toolkit: install guide"
+            }
+          ],
+          "note": "Checked against Container Toolkit 1.20.1."
+        }
       }
     ]
   },
@@ -1599,18 +1659,18 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
         "flags": [
           [
             "CDI",
-            "A standard spec file (e.g. /etc/cdi/nvidia.yaml) that describes devices, used by Docker 25+, Podman and containerd"
+            "A standard spec file (NVIDIA writes /var/run/cdi/nvidia.yaml) that describes devices, used by Docker, Podman and containerd"
           ],
           [
-            "nvidia-ctk cdi generate --output=/etc/cdi/nvidia.yaml",
-            "Regenerate the spec, e.g. after a driver upgrade (changes state)"
+            "nvidia-cdi-refresh",
+            "Toolkit 1.18+: a systemd service keeps the spec up to date after driver changes; restart it after a driver removal or MIG change"
           ],
           [
             "--device nvidia.com/gpu=all",
-            "Request GPUs by CDI name instead of --gpus, once CDI is enabled in Docker"
+            "Request GPUs by CDI name instead of --gpus; CDI is on by default from Docker Engine 28.3.0"
           ]
         ],
-        "tip": "Regenerate the CDI spec after a driver upgrade",
+        "tip": "Toolkit 1.18+ refreshes the CDI spec for you",
         "tags": [
           "docker",
           "containers",
@@ -1618,12 +1678,26 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "nvidia-ctk",
           "device",
           "gpu"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/cdi-support.html",
+              "title": "NVIDIA Container Toolkit: CDI support"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/dockerd/",
+              "title": "dockerd reference (CDI)"
+            }
+          ],
+          "note": "Corrected 2026-11-09: the spec lives in /var/run/cdi/nvidia.yaml (not /etc/cdi), toolkit 1.18+ regenerates it with nvidia-cdi-refresh, and Docker enables CDI by default from 28.3.0 (not 25)."
+        }
       },
       {
         "id": "nvidia-cdi-sub-1",
-        "desc": "Rebuild the CDI spec (changes state)",
-        "cmd": "sudo nvidia-ctk cdi generate --output=/etc/cdi/nvidia.yaml",
+        "desc": "Regenerate the CDI spec, e.g. after a driver removal or MIG change (changes state)",
+        "cmd": "systemctl restart nvidia-cdi-refresh.service",
         "tags": [
           "docker",
           "containers",
@@ -1631,10 +1705,51 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "cdi",
           "nvidia-ctk",
           "device"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/cdi-support.html",
+              "title": "NVIDIA Container Toolkit: CDI support"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/dockerd/",
+              "title": "dockerd reference (CDI)"
+            }
+          ],
+          "note": "Corrected 2026-11-09: the spec lives in /var/run/cdi/nvidia.yaml (not /etc/cdi), toolkit 1.18+ regenerates it with nvidia-cdi-refresh, and Docker enables CDI by default from 28.3.0 (not 25)."
+        }
       },
       {
         "id": "nvidia-cdi-sub-2",
+        "desc": "Generate the spec by hand on toolkits older than 1.18 (changes state)",
+        "cmd": "nvidia-ctk cdi generate --output=/var/run/cdi/nvidia.yaml",
+        "tags": [
+          "docker",
+          "containers",
+          "recipe",
+          "cdi",
+          "nvidia-ctk",
+          "device"
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/cdi-support.html",
+              "title": "NVIDIA Container Toolkit: CDI support"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/dockerd/",
+              "title": "dockerd reference (CDI)"
+            }
+          ],
+          "note": "Corrected 2026-11-09: the spec lives in /var/run/cdi/nvidia.yaml (not /etc/cdi), toolkit 1.18+ regenerates it with nvidia-cdi-refresh, and Docker enables CDI by default from 28.3.0 (not 25)."
+        }
+      },
+      {
+        "id": "nvidia-cdi-sub-3",
         "desc": "Use CDI device names from Docker",
         "cmd": "docker run --rm --device nvidia.com/gpu=all ubuntu:24.04 nvidia-smi -L",
         "tags": [
@@ -1644,7 +1759,21 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "cdi",
           "nvidia-ctk",
           "device"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/cdi-support.html",
+              "title": "NVIDIA Container Toolkit: CDI support"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/dockerd/",
+              "title": "dockerd reference (CDI)"
+            }
+          ],
+          "note": "Corrected 2026-11-09: the spec lives in /var/run/cdi/nvidia.yaml (not /etc/cdi), toolkit 1.18+ regenerates it with nvidia-cdi-refresh, and Docker enables CDI by default from 28.3.0 (not 25)."
+        }
       }
     ]
   },
@@ -1666,7 +1795,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           ],
           [
             "Cgroup Driver / Version",
-            "Should be systemd / 2 on current Ubuntu; Kubernetes 1.37 nodes refuse cgroup v1 by default"
+            "Should be systemd / 2 on current Ubuntu; cgroup v1 is deprecated in Kubernetes (1.35+) and the kubelet won't start on it by default"
           ],
           [
             "Runtimes",
@@ -1677,7 +1806,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
             "overlay2 on current kernels"
           ]
         ],
-        "tip": "docker events --until now returns instead of following",
+        "tip": "docker events with --until returns instead of following",
         "tags": [
           "docker",
           "containers",
@@ -1687,7 +1816,21 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "events",
           "cgroup",
           "systemd"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/system/events/",
+              "title": "docker events"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/architecture/cgroups/",
+              "title": "Kubernetes: about cgroup v2"
+            }
+          ],
+          "note": "Corrected 2026-11-09: docker events --until now → --until \"$(date +%s)\" (now isn't a documented format); 'Kubernetes 1.37 refuses cgroup v1' → deprecated since 1.35, won't start by default."
+        }
       },
       {
         "id": "docker-daemon-health-sub-1",
@@ -1700,7 +1843,21 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "daemon",
           "info",
           "journalctl"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/system/events/",
+              "title": "docker events"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/architecture/cgroups/",
+              "title": "Kubernetes: about cgroup v2"
+            }
+          ],
+          "note": "Corrected 2026-11-09: docker events --until now → --until \"$(date +%s)\" (now isn't a documented format); 'Kubernetes 1.37 refuses cgroup v1' → deprecated since 1.35, won't start by default."
+        }
       },
       {
         "id": "docker-daemon-health-sub-2",
@@ -1713,7 +1870,21 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "daemon",
           "info",
           "journalctl"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/system/events/",
+              "title": "docker events"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/architecture/cgroups/",
+              "title": "Kubernetes: about cgroup v2"
+            }
+          ],
+          "note": "Corrected 2026-11-09: docker events --until now → --until \"$(date +%s)\" (now isn't a documented format); 'Kubernetes 1.37 refuses cgroup v1' → deprecated since 1.35, won't start by default."
+        }
       },
       {
         "id": "docker-daemon-health-sub-3",
@@ -1726,12 +1897,26 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "daemon",
           "info",
           "journalctl"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/system/events/",
+              "title": "docker events"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/architecture/cgroups/",
+              "title": "Kubernetes: about cgroup v2"
+            }
+          ],
+          "note": "Corrected 2026-11-09: docker events --until now → --until \"$(date +%s)\" (now isn't a documented format); 'Kubernetes 1.37 refuses cgroup v1' → deprecated since 1.35, won't start by default."
+        }
       },
       {
         "id": "docker-daemon-health-sub-4",
-        "desc": "Container start/stop/die/oom events from the last hour, then exit",
-        "cmd": "docker events --since 1h --until now",
+        "desc": "Container start/stop/die/oom events from the last hour, then exit (--until takes a timestamp)",
+        "cmd": "docker events --since 1h --until \"$(date +%s)\"",
         "tags": [
           "docker",
           "containers",
@@ -1739,7 +1924,21 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "daemon",
           "info",
           "journalctl"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/system/events/",
+              "title": "docker events"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/architecture/cgroups/",
+              "title": "Kubernetes: about cgroup v2"
+            }
+          ],
+          "note": "Corrected 2026-11-09: docker events --until now → --until \"$(date +%s)\" (now isn't a documented format); 'Kubernetes 1.37 refuses cgroup v1' → deprecated since 1.35, won't start by default."
+        }
       }
     ]
   },
@@ -1778,7 +1977,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "containers",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html",
+              "title": "NVIDIA Container Toolkit: install guide"
+            },
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "nvidia-smi documentation"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1817,7 +2029,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "kubeconfig",
           "cluster",
           "namespace"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_config/kubectl_config_get-contexts/",
+              "title": "kubectl config get-contexts"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/",
+              "title": "Kubernetes: kubeconfig files"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-contexts-sub-1",
@@ -1832,7 +2057,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "context",
           "kubeconfig",
           "cluster"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_config/kubectl_config_get-contexts/",
+              "title": "kubectl config get-contexts"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/",
+              "title": "Kubernetes: kubeconfig files"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-contexts-sub-2",
@@ -1847,7 +2085,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "context",
           "kubeconfig",
           "cluster"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_config/kubectl_config_get-contexts/",
+              "title": "kubectl config get-contexts"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/",
+              "title": "Kubernetes: kubeconfig files"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-contexts-sub-3",
@@ -1862,7 +2113,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "context",
           "kubeconfig",
           "cluster"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_config/kubectl_config_get-contexts/",
+              "title": "kubectl config get-contexts"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/",
+              "title": "Kubernetes: kubeconfig files"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1914,7 +2178,16 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "wide",
           "namespace",
           "list"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+              "title": "kubectl get"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-get-wide-sub-1",
@@ -1929,7 +2202,16 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "get",
           "pods",
           "wide"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+              "title": "kubectl get"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-get-wide-sub-2",
@@ -1944,7 +2226,16 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "get",
           "pods",
           "wide"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+              "title": "kubectl get"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1989,7 +2280,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "yaml",
           "jq",
           "sort"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+              "title": "kubectl get"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/jsonpath/",
+              "title": "kubectl JSONPath support"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-output-formats-sub-1",
@@ -2004,7 +2308,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "output",
           "jsonpath",
           "custom-columns"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+              "title": "kubectl get"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/jsonpath/",
+              "title": "kubectl JSONPath support"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-output-formats-sub-2",
@@ -2019,7 +2336,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "output",
           "jsonpath",
           "custom-columns"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+              "title": "kubectl get"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/jsonpath/",
+              "title": "kubectl JSONPath support"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-output-formats-sub-3",
@@ -2034,7 +2364,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "output",
           "jsonpath",
           "custom-columns"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+              "title": "kubectl get"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/jsonpath/",
+              "title": "kubectl JSONPath support"
+            }
+          ]
+        }
       }
     ]
   },
@@ -2074,7 +2417,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "version",
           "docs",
           "auth"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_explain/",
+              "title": "kubectl explain"
+            },
+            {
+              "url": "https://kubernetes.io/releases/version-skew-policy/",
+              "title": "Kubernetes version skew policy"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-explain-sub-1",
@@ -2089,7 +2445,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "explain",
           "api-resources",
           "version"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_explain/",
+              "title": "kubectl explain"
+            },
+            {
+              "url": "https://kubernetes.io/releases/version-skew-policy/",
+              "title": "Kubernetes version skew policy"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-explain-sub-2",
@@ -2104,7 +2473,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "explain",
           "api-resources",
           "version"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_explain/",
+              "title": "kubectl explain"
+            },
+            {
+              "url": "https://kubernetes.io/releases/version-skew-policy/",
+              "title": "Kubernetes version skew policy"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-explain-sub-3",
@@ -2119,7 +2501,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "explain",
           "api-resources",
           "version"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_explain/",
+              "title": "kubectl explain"
+            },
+            {
+              "url": "https://kubernetes.io/releases/version-skew-policy/",
+              "title": "Kubernetes version skew policy"
+            }
+          ]
+        }
       }
     ]
   },
@@ -2156,7 +2551,16 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "containers",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/",
+              "title": "Kubernetes: kubeconfig files"
+            }
+          ]
+        }
       }
     ]
   },
@@ -2201,7 +2605,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "yaml",
           "declarative",
           "dry-run"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_diff/",
+              "title": "kubectl diff"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_apply/",
+              "title": "kubectl apply"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-diff-apply-sub-1",
@@ -2216,7 +2633,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "apply",
           "diff",
           "manifest"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_diff/",
+              "title": "kubectl diff"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_apply/",
+              "title": "kubectl apply"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-diff-apply-sub-2",
@@ -2231,7 +2661,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "apply",
           "diff",
           "manifest"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_diff/",
+              "title": "kubectl diff"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_apply/",
+              "title": "kubectl apply"
+            }
+          ]
+        }
       }
     ]
   },
@@ -2280,7 +2723,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "requests",
           "limits",
           "labels"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/",
+              "title": "Kubernetes: Deployments"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/",
+              "title": "Kubernetes: resources for containers"
+            }
+          ]
+        }
       }
     ]
   },
@@ -2325,7 +2781,16 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "undo",
           "restart",
           "deployment"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_rollout/",
+              "title": "kubectl rollout"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-rollout-sub-1",
@@ -2340,7 +2805,16 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "rollout",
           "status",
           "history"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_rollout/",
+              "title": "kubectl rollout"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-rollout-sub-2",
@@ -2355,7 +2829,16 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "rollout",
           "status",
           "history"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_rollout/",
+              "title": "kubectl rollout"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-rollout-sub-3",
@@ -2370,7 +2853,16 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "rollout",
           "status",
           "history"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_rollout/",
+              "title": "kubectl rollout"
+            }
+          ]
+        }
       }
     ]
   },
@@ -2409,7 +2901,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "replicas",
           "hpa",
           "deployment"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_scale/",
+              "title": "kubectl scale"
+            },
+            {
+              "url": "https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/",
+              "title": "Kubernetes: HPA"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-scale-sub-1",
@@ -2424,7 +2929,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "scale",
           "replicas",
           "hpa"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_scale/",
+              "title": "kubectl scale"
+            },
+            {
+              "url": "https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/",
+              "title": "Kubernetes: HPA"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-scale-sub-2",
@@ -2439,7 +2957,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "scale",
           "replicas",
           "hpa"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_scale/",
+              "title": "kubectl scale"
+            },
+            {
+              "url": "https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/",
+              "title": "Kubernetes: HPA"
+            }
+          ]
+        }
       }
     ]
   },
@@ -2477,7 +3008,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "job",
           "cronjob",
           "batch"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_create/kubectl_create_job/",
+              "title": "kubectl create job"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_logs/",
+              "title": "kubectl logs"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-jobs-sub-1",
@@ -2492,7 +3036,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "job",
           "cronjob",
           "batch"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_create/kubectl_create_job/",
+              "title": "kubectl create job"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_logs/",
+              "title": "kubectl logs"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-jobs-sub-2",
@@ -2507,7 +3064,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "job",
           "cronjob",
           "batch"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_create/kubectl_create_job/",
+              "title": "kubectl create job"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_logs/",
+              "title": "kubectl logs"
+            }
+          ]
+        }
       }
     ]
   },
@@ -2521,7 +3091,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
         "id": "k8s-workloads-tips-card",
         "desc": "Requests, limits and what OOMKilled means",
         "cmd": "kubectl get pod <pod> -n <ns> -o jsonpath='{.status.containerStatuses[*].lastState.terminated.reason}'",
-        "details": "Requests decide where a pod can be scheduled; limits are enforced at runtime. A container above its memory limit is killed (reason OOMKilled) and restarted. A container above its CPU limit is only throttled. Pods with no requests are the first to be evicted when a node runs short of memory.",
+        "details": "Requests decide where a pod can be scheduled; limits are enforced at runtime. A container above its memory limit is killed (reason OOMKilled) and restarted. A container above its CPU limit is only throttled. When a node runs short of memory, the kubelet first evicts pods using more than they requested (by priority, then by how far over), so pods with no requests at all go early.",
         "flags": [
           [
             "OOMKilled",
@@ -2544,7 +3114,21 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "containers",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/",
+              "title": "Kubernetes: resources for containers"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/",
+              "title": "Kubernetes: node-pressure eviction"
+            }
+          ],
+          "note": "Corrected 2026-11-09: 'pods with no requests are evicted first' → the kubelet orders by usage over requests, then priority; it doesn't use QoS class for the order."
+        }
       }
     ]
   },
@@ -2587,7 +3171,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "events",
           "pod",
           "state"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_describe/",
+              "title": "kubectl describe"
+            },
+            {
+              "url": "https://kubernetes.io/docs/tasks/debug/debug-application/debug-pods/",
+              "title": "Kubernetes: debug pods"
+            }
+          ]
+        }
       }
     ]
   },
@@ -2644,7 +3241,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "imagepullbackoff",
           "oomkilled",
           "evicted"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/",
+              "title": "Kubernetes: pod lifecycle"
+            },
+            {
+              "url": "https://kubernetes.io/docs/tasks/debug/debug-application/debug-pods/",
+              "title": "Kubernetes: debug pods"
+            }
+          ]
+        }
       }
     ]
   },
@@ -2691,7 +3301,16 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "previous",
           "crashloop",
           "container"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_logs/",
+              "title": "kubectl logs"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-logs-previous-sub-1",
@@ -2706,7 +3325,16 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "logs",
           "previous",
           "crashloop"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_logs/",
+              "title": "kubectl logs"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-logs-previous-sub-2",
@@ -2721,7 +3349,16 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "logs",
           "previous",
           "crashloop"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_logs/",
+              "title": "kubectl logs"
+            }
+          ]
+        }
       }
     ]
   },
@@ -2760,7 +3397,25 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "warning",
           "sort",
           "timeline"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+              "title": "kubectl get"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_events/",
+              "title": "kubectl events"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/",
+              "title": "kube-apiserver (--event-ttl 1h)"
+            }
+          ],
+          "note": "kubectl get documents --sort-by with braces ('{.lastTimestamp}'); the bare form works too. Filtering events by type=Warning isn't shown in the docs read. kubectl events has no --sort-by."
+        }
       },
       {
         "id": "kubectl-events-sorted-sub-1",
@@ -2775,7 +3430,25 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "events",
           "warning",
           "sort"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+              "title": "kubectl get"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_events/",
+              "title": "kubectl events"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/",
+              "title": "kube-apiserver (--event-ttl 1h)"
+            }
+          ],
+          "note": "kubectl get documents --sort-by with braces ('{.lastTimestamp}'); the bare form works too. Filtering events by type=Warning isn't shown in the docs read. kubectl events has no --sort-by."
+        }
       },
       {
         "id": "kubectl-events-sorted-sub-2",
@@ -2790,7 +3463,25 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "events",
           "warning",
           "sort"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+              "title": "kubectl get"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_events/",
+              "title": "kubectl events"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/",
+              "title": "kube-apiserver (--event-ttl 1h)"
+            }
+          ],
+          "note": "kubectl get documents --sort-by with braces ('{.lastTimestamp}'); the bare form works too. Filtering events by type=Warning isn't shown in the docs read. kubectl events has no --sort-by."
+        }
       }
     ]
   },
@@ -2820,7 +3511,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           ],
           [
             "kubectl debug node/<node> -it --image=busybox",
-            "A pod on the node with the host filesystem at /host"
+            "A pod on the node with the host filesystem at /host (add --profile=sysadmin to chroot /host)"
           ]
         ],
         "tip": "No shell in the image? kubectl debug --target",
@@ -2834,7 +3525,25 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "ephemeral",
           "shell",
           "distroless"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/tasks/debug/debug-application/debug-running-pod/",
+              "title": "Kubernetes: debug running pods"
+            },
+            {
+              "url": "https://kubernetes.io/docs/tasks/debug/debug-cluster/kubectl-node-debug/",
+              "title": "Kubernetes: debug a node with kubectl"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_debug/",
+              "title": "kubectl debug"
+            }
+          ],
+          "note": "With the default profile, chroot /host fails in a node debug pod: use --profile=sysadmin."
+        }
       },
       {
         "id": "kubectl-exec-debug-sub-1",
@@ -2849,7 +3558,25 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "exec",
           "debug",
           "ephemeral"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/tasks/debug/debug-application/debug-running-pod/",
+              "title": "Kubernetes: debug running pods"
+            },
+            {
+              "url": "https://kubernetes.io/docs/tasks/debug/debug-cluster/kubectl-node-debug/",
+              "title": "Kubernetes: debug a node with kubectl"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_debug/",
+              "title": "kubectl debug"
+            }
+          ],
+          "note": "With the default profile, chroot /host fails in a node debug pod: use --profile=sysadmin."
+        }
       },
       {
         "id": "kubectl-exec-debug-sub-2",
@@ -2864,7 +3591,25 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "exec",
           "debug",
           "ephemeral"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/tasks/debug/debug-application/debug-running-pod/",
+              "title": "Kubernetes: debug running pods"
+            },
+            {
+              "url": "https://kubernetes.io/docs/tasks/debug/debug-cluster/kubectl-node-debug/",
+              "title": "Kubernetes: debug a node with kubectl"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_debug/",
+              "title": "kubectl debug"
+            }
+          ],
+          "note": "With the default profile, chroot /host fails in a node debug pod: use --profile=sysadmin."
+        }
       },
       {
         "id": "kubectl-exec-debug-sub-3",
@@ -2879,7 +3624,25 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "exec",
           "debug",
           "ephemeral"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/tasks/debug/debug-application/debug-running-pod/",
+              "title": "Kubernetes: debug running pods"
+            },
+            {
+              "url": "https://kubernetes.io/docs/tasks/debug/debug-cluster/kubectl-node-debug/",
+              "title": "Kubernetes: debug a node with kubectl"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_debug/",
+              "title": "kubectl debug"
+            }
+          ],
+          "note": "With the default profile, chroot /host fails in a node debug pod: use --profile=sysadmin."
+        }
       }
     ]
   },
@@ -2919,7 +3682,24 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "metrics",
           "service",
           "endpoints"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_port-forward/",
+              "title": "kubectl port-forward"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_top/",
+              "title": "kubectl top"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/services-networking/endpoint-slices/",
+              "title": "Kubernetes: EndpointSlices"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-port-forward-top-sub-1",
@@ -2934,7 +3714,24 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "port-forward",
           "top",
           "metrics"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_port-forward/",
+              "title": "kubectl port-forward"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_top/",
+              "title": "kubectl top"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/services-networking/endpoint-slices/",
+              "title": "Kubernetes: EndpointSlices"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-port-forward-top-sub-2",
@@ -2949,7 +3746,24 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "port-forward",
           "top",
           "metrics"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_port-forward/",
+              "title": "kubectl port-forward"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_top/",
+              "title": "kubectl top"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/services-networking/endpoint-slices/",
+              "title": "Kubernetes: EndpointSlices"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-port-forward-top-sub-3",
@@ -2964,7 +3778,24 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "port-forward",
           "top",
           "metrics"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_port-forward/",
+              "title": "kubectl port-forward"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_top/",
+              "title": "kubectl top"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/services-networking/endpoint-slices/",
+              "title": "Kubernetes: EndpointSlices"
+            }
+          ]
+        }
       }
     ]
   },
@@ -3005,7 +3836,16 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "containers",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/tasks/debug/debug-application/debug-pods/",
+              "title": "Kubernetes: debug pods"
+            }
+          ]
+        }
       }
     ]
   },
@@ -3049,7 +3889,24 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "notready",
           "describe",
           "wide"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+              "title": "kubectl get"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_describe/",
+              "title": "kubectl describe"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/architecture/nodes/",
+              "title": "Kubernetes: nodes"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-nodes-wide-sub-1",
@@ -3064,7 +3921,24 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "nodes",
           "ready",
           "notready"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+              "title": "kubectl get"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_describe/",
+              "title": "kubectl describe"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/architecture/nodes/",
+              "title": "Kubernetes: nodes"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-nodes-wide-sub-2",
@@ -3079,7 +3953,24 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "nodes",
           "ready",
           "notready"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_get/",
+              "title": "kubectl get"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_describe/",
+              "title": "kubectl describe"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/architecture/nodes/",
+              "title": "Kubernetes: nodes"
+            }
+          ]
+        }
       }
     ]
   },
@@ -3132,7 +4023,24 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "maintenance",
           "pdb",
           "rma"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_drain/",
+              "title": "kubectl drain"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/workloads/pods/disruptions/",
+              "title": "Kubernetes: disruptions and PDBs"
+            },
+            {
+              "url": "https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/",
+              "title": "Kubernetes: safely drain a node"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-cordon-drain-sub-1",
@@ -3147,7 +4055,24 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "drain",
           "cordon",
           "uncordon"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_drain/",
+              "title": "kubectl drain"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/workloads/pods/disruptions/",
+              "title": "Kubernetes: disruptions and PDBs"
+            },
+            {
+              "url": "https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/",
+              "title": "Kubernetes: safely drain a node"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-cordon-drain-sub-2",
@@ -3162,7 +4087,24 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "drain",
           "cordon",
           "uncordon"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_drain/",
+              "title": "kubectl drain"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/workloads/pods/disruptions/",
+              "title": "Kubernetes: disruptions and PDBs"
+            },
+            {
+              "url": "https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/",
+              "title": "Kubernetes: safely drain a node"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-cordon-drain-sub-3",
@@ -3177,7 +4119,24 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "drain",
           "cordon",
           "uncordon"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_drain/",
+              "title": "kubectl drain"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/workloads/pods/disruptions/",
+              "title": "Kubernetes: disruptions and PDBs"
+            },
+            {
+              "url": "https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/",
+              "title": "Kubernetes: safely drain a node"
+            }
+          ]
+        }
       }
     ]
   },
@@ -3220,7 +4179,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "toleration",
           "label",
           "noschedule"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/",
+              "title": "Kubernetes: taints and tolerations"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_taint/",
+              "title": "kubectl taint"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-taints-labels-sub-1",
@@ -3235,7 +4207,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "taint",
           "toleration",
           "label"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/",
+              "title": "Kubernetes: taints and tolerations"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_taint/",
+              "title": "kubectl taint"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-taints-labels-sub-2",
@@ -3250,7 +4235,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "taint",
           "toleration",
           "label"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/",
+              "title": "Kubernetes: taints and tolerations"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_taint/",
+              "title": "kubectl taint"
+            }
+          ]
+        }
       },
       {
         "id": "kubectl-taints-labels-sub-3",
@@ -3265,7 +4263,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "taint",
           "toleration",
           "label"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/",
+              "title": "Kubernetes: taints and tolerations"
+            },
+            {
+              "url": "https://kubernetes.io/docs/reference/kubectl/generated/kubectl_taint/",
+              "title": "kubectl taint"
+            }
+          ]
+        }
       }
     ]
   },
@@ -3295,7 +4306,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           ],
           [
             "cgroup v2",
-            "stat -fc %T /sys/fs/cgroup must print cgroup2fs; kubelet 1.37 refuses cgroup v1 by default"
+            "stat -fc %T /sys/fs/cgroup must print cgroup2fs; the kubelet won't start on cgroup v1 by default (deprecated since 1.35)"
           ]
         ],
         "tip": "API down? crictl on the node still works",
@@ -3310,7 +4321,25 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "journalctl",
           "cgroup",
           "node"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/tasks/debug/debug-cluster/crictl/",
+              "title": "Kubernetes: debugging with crictl"
+            },
+            {
+              "url": "https://kubernetes.io/docs/tasks/administer-cluster/migrating-from-dockershim/",
+              "title": "Kubernetes: migrating from dockershim (removed in 1.24)"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/architecture/cgroups/",
+              "title": "Kubernetes: about cgroup v2"
+            }
+          ],
+          "note": "Corrected 2026-11-09: 'kubelet 1.37 refuses cgroup v1' → cgroup v1 deprecated since 1.35; the kubelet won't start on it by default (failCgroupV1)."
+        }
       },
       {
         "id": "node-kubelet-crictl-sub-1",
@@ -3325,12 +4354,30 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "kubelet",
           "crictl",
           "containerd"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/tasks/debug/debug-cluster/crictl/",
+              "title": "Kubernetes: debugging with crictl"
+            },
+            {
+              "url": "https://kubernetes.io/docs/tasks/administer-cluster/migrating-from-dockershim/",
+              "title": "Kubernetes: migrating from dockershim (removed in 1.24)"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/architecture/cgroups/",
+              "title": "Kubernetes: about cgroup v2"
+            }
+          ],
+          "note": "Corrected 2026-11-09: 'kubelet 1.37 refuses cgroup v1' → cgroup v1 deprecated since 1.35; the kubelet won't start on it by default (failCgroupV1)."
+        }
       },
       {
         "id": "node-kubelet-crictl-sub-2",
         "desc": "All containers on this node",
-        "cmd": "sudo crictl ps -a",
+        "cmd": "crictl ps -a",
         "tags": [
           "kubernetes",
           "k8s",
@@ -3340,12 +4387,30 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "kubelet",
           "crictl",
           "containerd"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/tasks/debug/debug-cluster/crictl/",
+              "title": "Kubernetes: debugging with crictl"
+            },
+            {
+              "url": "https://kubernetes.io/docs/tasks/administer-cluster/migrating-from-dockershim/",
+              "title": "Kubernetes: migrating from dockershim (removed in 1.24)"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/architecture/cgroups/",
+              "title": "Kubernetes: about cgroup v2"
+            }
+          ],
+          "note": "Corrected 2026-11-09: 'kubelet 1.37 refuses cgroup v1' → cgroup v1 deprecated since 1.35; the kubelet won't start on it by default (failCgroupV1)."
+        }
       },
       {
         "id": "node-kubelet-crictl-sub-3",
         "desc": "Container logs without going through the API server",
-        "cmd": "sudo crictl logs --tail 100 <container-id>",
+        "cmd": "crictl logs --tail 100 <container-id>",
         "tags": [
           "kubernetes",
           "k8s",
@@ -3355,12 +4420,30 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "kubelet",
           "crictl",
           "containerd"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/tasks/debug/debug-cluster/crictl/",
+              "title": "Kubernetes: debugging with crictl"
+            },
+            {
+              "url": "https://kubernetes.io/docs/tasks/administer-cluster/migrating-from-dockershim/",
+              "title": "Kubernetes: migrating from dockershim (removed in 1.24)"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/architecture/cgroups/",
+              "title": "Kubernetes: about cgroup v2"
+            }
+          ],
+          "note": "Corrected 2026-11-09: 'kubelet 1.37 refuses cgroup v1' → cgroup v1 deprecated since 1.35; the kubelet won't start on it by default (failCgroupV1)."
+        }
       },
       {
         "id": "node-kubelet-crictl-sub-4",
         "desc": "Pod sandboxes on this node",
-        "cmd": "sudo crictl pods",
+        "cmd": "crictl pods",
         "tags": [
           "kubernetes",
           "k8s",
@@ -3370,11 +4453,29 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "kubelet",
           "crictl",
           "containerd"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/tasks/debug/debug-cluster/crictl/",
+              "title": "Kubernetes: debugging with crictl"
+            },
+            {
+              "url": "https://kubernetes.io/docs/tasks/administer-cluster/migrating-from-dockershim/",
+              "title": "Kubernetes: migrating from dockershim (removed in 1.24)"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/architecture/cgroups/",
+              "title": "Kubernetes: about cgroup v2"
+            }
+          ],
+          "note": "Corrected 2026-11-09: 'kubelet 1.37 refuses cgroup v1' → cgroup v1 deprecated since 1.35; the kubelet won't start on it by default (failCgroupV1)."
+        }
       },
       {
         "id": "node-kubelet-crictl-sub-5",
-        "desc": "cgroup2fs = cgroup v2 (required by kubelet 1.37 by default)",
+        "desc": "cgroup2fs = cgroup v2 (the kubelet refuses cgroup v1 by default)",
         "cmd": "stat -fc %T /sys/fs/cgroup",
         "tags": [
           "kubernetes",
@@ -3385,7 +4486,25 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "kubelet",
           "crictl",
           "containerd"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/tasks/debug/debug-cluster/crictl/",
+              "title": "Kubernetes: debugging with crictl"
+            },
+            {
+              "url": "https://kubernetes.io/docs/tasks/administer-cluster/migrating-from-dockershim/",
+              "title": "Kubernetes: migrating from dockershim (removed in 1.24)"
+            },
+            {
+              "url": "https://kubernetes.io/docs/concepts/architecture/cgroups/",
+              "title": "Kubernetes: about cgroup v2"
+            }
+          ],
+          "note": "Corrected 2026-11-09: 'kubelet 1.37 refuses cgroup v1' → cgroup v1 deprecated since 1.35; the kubelet won't start on it by default (failCgroupV1)."
+        }
       }
     ]
   },
@@ -3422,7 +4541,16 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "containers",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/",
+              "title": "Kubernetes: safely drain a node"
+            }
+          ]
+        }
       }
     ]
   },
@@ -3462,7 +4590,21 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "nvidia.com/gpu",
           "custom-columns",
           "capacity"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/",
+              "title": "Kubernetes: schedule GPUs"
+            },
+            {
+              "url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html",
+              "title": "NVIDIA GPU Operator: getting started"
+            }
+          ],
+          "note": "Corrected 2026-11-09: the GPU-node label is feature.node.kubernetes.io/pci-10de.present=true, the one the GPU Operator docs use (nvidia.com/gpu.present isn't on that page)."
+        }
       },
       {
         "id": "k8s-gpu-allocatable-sub-1",
@@ -3477,12 +4619,26 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "gpu",
           "allocatable",
           "nvidia.com/gpu"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/",
+              "title": "Kubernetes: schedule GPUs"
+            },
+            {
+              "url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html",
+              "title": "NVIDIA GPU Operator: getting started"
+            }
+          ],
+          "note": "Corrected 2026-11-09: the GPU-node label is feature.node.kubernetes.io/pci-10de.present=true, the one the GPU Operator docs use (nvidia.com/gpu.present isn't on that page)."
+        }
       },
       {
         "id": "k8s-gpu-allocatable-sub-2",
-        "desc": "Nodes that GPU feature discovery labelled as having GPUs",
-        "cmd": "kubectl get nodes -l nvidia.com/gpu.present=true",
+        "desc": "Nodes with an NVIDIA PCI device (the label the GPU Operator uses to find GPU nodes)",
+        "cmd": "kubectl get nodes -l feature.node.kubernetes.io/pci-10de.present=true",
         "tags": [
           "kubernetes",
           "k8s",
@@ -3492,7 +4648,21 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "gpu",
           "allocatable",
           "nvidia.com/gpu"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/",
+              "title": "Kubernetes: schedule GPUs"
+            },
+            {
+              "url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html",
+              "title": "NVIDIA GPU Operator: getting started"
+            }
+          ],
+          "note": "Corrected 2026-11-09: the GPU-node label is feature.node.kubernetes.io/pci-10de.present=true, the one the GPU Operator docs use (nvidia.com/gpu.present isn't on that page)."
+        }
       }
     ]
   },
@@ -3510,7 +4680,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
         "flags": [
           [
             "gpu-operator namespace",
-            "The usual install namespace; yours may differ (kubectl get pods -A | grep -i nvidia)"
+            "The namespace NVIDIA's install examples use (Helm's default is default); yours may differ: kubectl get pods -A | grep -i nvidia"
           ],
           [
             "driver daemonset",
@@ -3544,7 +4714,17 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "driver",
           "dcgm",
           "validator"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html",
+              "title": "NVIDIA GPU Operator: getting started"
+            }
+          ],
+          "note": "Pod names in the docs: nvidia-driver-daemonset, nvidia-container-toolkit-daemonset, nvidia-device-plugin-daemonset, nvidia-dcgm-exporter, nvidia-operator-validator, gpu-feature-discovery. Checked against GPU Operator v26.7."
+        }
       },
       {
         "id": "k8s-gpu-operator-pods-sub-1",
@@ -3559,7 +4739,17 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "gpu-operator",
           "device-plugin",
           "driver"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html",
+              "title": "NVIDIA GPU Operator: getting started"
+            }
+          ],
+          "note": "Pod names in the docs: nvidia-driver-daemonset, nvidia-container-toolkit-daemonset, nvidia-device-plugin-daemonset, nvidia-dcgm-exporter, nvidia-operator-validator, gpu-feature-discovery. Checked against GPU Operator v26.7."
+        }
       },
       {
         "id": "k8s-gpu-operator-pods-sub-2",
@@ -3574,7 +4764,17 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "gpu-operator",
           "device-plugin",
           "driver"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html",
+              "title": "NVIDIA GPU Operator: getting started"
+            }
+          ],
+          "note": "Pod names in the docs: nvidia-driver-daemonset, nvidia-container-toolkit-daemonset, nvidia-device-plugin-daemonset, nvidia-dcgm-exporter, nvidia-operator-validator, gpu-feature-discovery. Checked against GPU Operator v26.7."
+        }
       }
     ]
   },
@@ -3618,7 +4818,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "test",
           "limits",
           "nvidia-smi"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/",
+              "title": "Kubernetes: schedule GPUs"
+            },
+            {
+              "url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html",
+              "title": "NVIDIA GPU Operator: getting started"
+            }
+          ]
+        }
       },
       {
         "id": "k8s-gpu-test-pod-sub-1",
@@ -3633,7 +4846,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "gpu",
           "pod",
           "test"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/",
+              "title": "Kubernetes: schedule GPUs"
+            },
+            {
+              "url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html",
+              "title": "NVIDIA GPU Operator: getting started"
+            }
+          ]
+        }
       },
       {
         "id": "k8s-gpu-test-pod-sub-2",
@@ -3648,7 +4874,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "gpu",
           "pod",
           "test"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/",
+              "title": "Kubernetes: schedule GPUs"
+            },
+            {
+              "url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html",
+              "title": "NVIDIA GPU Operator: getting started"
+            }
+          ]
+        }
       },
       {
         "id": "k8s-gpu-test-pod-sub-3",
@@ -3663,7 +4902,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "gpu",
           "pod",
           "test"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/",
+              "title": "Kubernetes: schedule GPUs"
+            },
+            {
+              "url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html",
+              "title": "NVIDIA GPU Operator: getting started"
+            }
+          ]
+        }
       }
     ]
   },
@@ -3707,7 +4959,21 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "prometheus",
           "xid",
           "temperature"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/blob/main/etc/default-counters.csv",
+              "title": "dcgm-exporter default counters"
+            },
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/releases",
+              "title": "dcgm-exporter releases (4.9.0 renames)"
+            }
+          ],
+          "note": "The service name nvidia-dcgm-exporter and port 9400 aren't stated on the pages read: kubectl get svc -A | grep -i dcgm shows yours."
+        }
       },
       {
         "id": "k8s-dcgm-metrics-sub-1",
@@ -3722,7 +4988,21 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "dcgm",
           "metrics",
           "prometheus"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/blob/main/etc/default-counters.csv",
+              "title": "dcgm-exporter default counters"
+            },
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/releases",
+              "title": "dcgm-exporter releases (4.9.0 renames)"
+            }
+          ],
+          "note": "The service name nvidia-dcgm-exporter and port 9400 aren't stated on the pages read: kubectl get svc -A | grep -i dcgm shows yours."
+        }
       },
       {
         "id": "k8s-dcgm-metrics-sub-2",
@@ -3737,7 +5017,21 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "dcgm",
           "metrics",
           "prometheus"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/blob/main/etc/default-counters.csv",
+              "title": "dcgm-exporter default counters"
+            },
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/releases",
+              "title": "dcgm-exporter releases (4.9.0 renames)"
+            }
+          ],
+          "note": "The service name nvidia-dcgm-exporter and port 9400 aren't stated on the pages read: kubectl get svc -A | grep -i dcgm shows yours."
+        }
       }
     ]
   },
@@ -3778,7 +5072,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "containers",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/getting-started.html",
+              "title": "NVIDIA GPU Operator: getting started"
+            },
+            {
+              "url": "https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/",
+              "title": "Kubernetes: schedule GPUs"
+            }
+          ]
+        }
       }
     ]
   }
