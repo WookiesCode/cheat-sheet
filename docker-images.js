@@ -337,7 +337,7 @@ const CTR_DOCKER_IMAGES_DATA = [
       {
         "id": "docker-save-load-airgap-sub-3",
         "desc": "Import into containerd's Kubernetes namespace on a node with no Docker (changes state)",
-        "cmd": "sudo ctr -n k8s.io images import <name>.tar",
+        "cmd": "ctr -n k8s.io images import <name>.tar",
         "tags": [
           "docker",
           "containers",

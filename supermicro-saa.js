@@ -103,7 +103,7 @@ const BMC_SUPERMICRO_SAA_DATA = [
       {
         "id": "saa-sysinfo",
         "desc": "System, BIOS and BMC firmware information",
-        "cmd": "sudo ./saa -c GetSystemInfo",
+        "cmd": "./saa -c GetSystemInfo",
         "details": "",
         "flags": [
           [
@@ -161,7 +161,7 @@ const BMC_SUPERMICRO_SAA_DATA = [
       {
         "id": "saa-sysinfo-sub-1",
         "desc": "BIOS version and build date",
-        "cmd": "sudo ./saa -c GetBiosInfo",
+        "cmd": "./saa -c GetBiosInfo",
         "tags": [
           "bmc",
           "remote-management",
@@ -189,7 +189,7 @@ const BMC_SUPERMICRO_SAA_DATA = [
       {
         "id": "saa-sysinfo-sub-2",
         "desc": "BMC firmware version",
-        "cmd": "sudo ./saa -c GetBmcInfo",
+        "cmd": "./saa -c GetBmcInfo",
         "tags": [
           "bmc",
           "remote-management",
@@ -217,7 +217,7 @@ const BMC_SUPERMICRO_SAA_DATA = [
       {
         "id": "saa-sysinfo-sub-3",
         "desc": "Serial numbers for the RMA",
-        "cmd": "sudo ./saa -c GetFruInfo",
+        "cmd": "./saa -c GetFruInfo",
         "tags": [
           "bmc",
           "remote-management",
@@ -253,7 +253,7 @@ const BMC_SUPERMICRO_SAA_DATA = [
       {
         "id": "saa-eventlog",
         "desc": "BMC event log and sensor status",
-        "cmd": "sudo ./saa -c GetEventLog --info",
+        "cmd": "./saa -c GetEventLog --info",
         "details": "",
         "flags": [
           [
@@ -305,7 +305,7 @@ const BMC_SUPERMICRO_SAA_DATA = [
       {
         "id": "saa-eventlog-sub-1",
         "desc": "Save the log for the case",
-        "cmd": "sudo ./saa -c GetEventLog --info --file EventLog.txt --overwrite",
+        "cmd": "./saa -c GetEventLog --info --file EventLog.txt --overwrite",
         "tags": [
           "bmc",
           "remote-management",
@@ -328,7 +328,7 @@ const BMC_SUPERMICRO_SAA_DATA = [
       {
         "id": "saa-eventlog-sub-2",
         "desc": "Sensors",
-        "cmd": "sudo ./saa -c CheckSensorData --action Show",
+        "cmd": "./saa -c CheckSensorData --action Show",
         "tags": [
           "bmc",
           "remote-management",
@@ -351,7 +351,7 @@ const BMC_SUPERMICRO_SAA_DATA = [
       {
         "id": "saa-eventlog-sub-3",
         "desc": "PSU status",
-        "cmd": "sudo ./saa -c GetPsuInfo",
+        "cmd": "./saa -c GetPsuInfo",
         "tags": [
           "bmc",
           "remote-management",
@@ -429,7 +429,7 @@ const BMC_SUPERMICRO_SAA_DATA = [
       {
         "id": "saa-gpu",
         "desc": "GPU and CPLD firmware information",
-        "cmd": "sudo ./saa -c GetGpuInfo",
+        "cmd": "./saa -c GetGpuInfo",
         "details": "",
         "flags": [
           [
@@ -468,7 +468,7 @@ const BMC_SUPERMICRO_SAA_DATA = [
       {
         "id": "saa-gpu-sub-1",
         "desc": "Motherboard CPLD version",
-        "cmd": "sudo ./saa -c GetCpldInfo",
+        "cmd": "./saa -c GetCpldInfo",
         "tags": [
           "bmc",
           "remote-management",
@@ -499,7 +499,7 @@ const BMC_SUPERMICRO_SAA_DATA = [
       {
         "id": "saa-tips-card",
         "desc": "Firmware updates and BMC reset (change state)",
-        "cmd": "sudo ./saa -c UpdateBios --file <bios-image>",
+        "cmd": "./saa -c UpdateBios --file <bios-image>",
         "details": "UpdateBios, UpdateBmc, UpdateGpu and UpdateCpld flash firmware; BmcReset restarts the BMC (--boot_check waits for it). Read the options with ./saa -h -c <command> first, save the event log, drain the node and get approval. Licences: standard update and management need none; remote management features need SFT-OOB-LIC or SFT-DCMS-SINGLE (Supermicro's SAA page).",
         "flags": [
           [

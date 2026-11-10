@@ -42,6 +42,7 @@ Run the tests after `node build-all.js`. The tests read the built pages and the 
 | `whats-new.test.js` | A returning user's "What's new" invite and tour walk only the 4 newest additions and mark version 9 seen |
 | `jk-smooth-scroll.test.js` | `j` pressed while the page is still smooth-scrolling leaves the focused command visible (runs the race inside the page: driven step by step, headless Chrome finishes the animation between calls) |
 | `redfish-builder.test.js` | The Redfish request builder's vendor presets: DGX uses Systems/DGX, Managers/BMC, LogServices/SEL; no HGX-baseboard preset; Standard and Dell unchanged |
+| `no-sudo.test.js` | No command outside the sheets that teach sudo (and the `sudoedit` / `\| sudo tee` idioms) starts with `sudo`; the commands that lost it still show their root or maybe-root badge |
 | `kit-navi.test.js` | My kit's Export for navi: the `.cheat` file's groups, variables, danger marks and left-out multi-line commands; the installed navi parses it and returns each command unchanged (skips the navi step if navi isn't installed) |
 | `usage-meter.test.js` | Opening a sheet, Explain, the Case Trail and the triage tabs each counts once in `dc_usage`; the Workbench's Unused in 30 days fold lists exactly the stale tools and sheets; a young meter says so |
 | `practice-trail.test.js` | Practice's From my trail scope: matches filled-in trail entries (live and other nodes) back to sheet commands, most-copied first; no chip when the trail is empty |

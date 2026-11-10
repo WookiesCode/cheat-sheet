@@ -761,7 +761,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
       {
         "id": "docker-save-load-airgap-sub-3",
         "desc": "Import into containerd's Kubernetes namespace on a node with no Docker (changes state)",
-        "cmd": "sudo ctr -n k8s.io images import <name>.tar",
+        "cmd": "ctr -n k8s.io images import <name>.tar",
         "tags": [
           "docker",
           "containers",
@@ -1313,7 +1313,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
       {
         "id": "docker-port-check-sub-1",
         "desc": "Confirm what is listening on the host side",
-        "cmd": "sudo ss -ltnp | grep <port>",
+        "cmd": "ss -ltnp | grep <port>",
         "tags": [
           "docker",
           "containers",

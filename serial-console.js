@@ -81,7 +81,7 @@ const BMC_SERIAL_CONSOLE_DATA = [
       {
         "id": "serial-picocom-sub-2",
         "desc": "Which ttyUSB the adapter just became",
-        "cmd": "sudo dmesg -T | grep -i tty",
+        "cmd": "dmesg -T | grep -i tty",
         "tags": [
           "bmc",
           "remote-management",

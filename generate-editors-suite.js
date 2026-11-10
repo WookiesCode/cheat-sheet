@@ -69,10 +69,10 @@ const EDITOR_SECTIONS = [
           ["SUDO_EDITOR=nano", "Pick the editor sudoedit uses (it also honours VISUAL and EDITOR)"]
         ],
         subcommands: [
-          ["sudo cp -a /etc/fstab /etc/fstab.bak.$(date +%F)", "Keep a dated copy before you touch it (changes state)"],
-          ["sudo findmnt --verify", "Check /etc/fstab before the next reboot finds the mistake"],
-          ["sudo sshd -t", "Check sshd_config before restarting sshd"],
-          ["sudo visudo -c", "Check sudoers syntax"]
+          ["cp -a /etc/fstab /etc/fstab.bak.$(date +%F)", "Keep a dated copy before you touch it (changes state)"],
+          ["findmnt --verify", "Check /etc/fstab before the next reboot finds the mistake"],
+          ["sshd -t", "Check sshd_config before restarting sshd"],
+          ["visudo -c", "Check sudoers syntax"]
         ],
         tip: "Back up, sudoedit, then validate",
         tags: ["sudoedit", "sudo", "root", "safe", "fstab", "validate"]
@@ -159,7 +159,7 @@ include "/usr/share/nano/*.nanorc"`,
         flags: [
           ["EDITOR / VISUAL", "Most tools (crontab -e, visudo, git, sudoedit) read these; put the line in ~/.bashrc"],
           ["git config --global core.editor nano", "Only git"],
-          ["sudo update-alternatives --config editor", "System-wide default on Debian/Ubuntu (changes state)"]
+          ["update-alternatives --config editor", "System-wide default on Debian/Ubuntu (changes state)"]
         ],
         tip: "Set EDITOR in ~/.bashrc",
         tags: ["editor", "default", "git", "crontab", "visudo"]

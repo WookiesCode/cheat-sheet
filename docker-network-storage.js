@@ -120,7 +120,7 @@ const CTR_DOCKER_NETWORK_STORAGE_DATA = [
       {
         "id": "docker-port-check-sub-1",
         "desc": "Confirm what is listening on the host side",
-        "cmd": "sudo ss -ltnp | grep <port>",
+        "cmd": "ss -ltnp | grep <port>",
         "tags": [
           "docker",
           "containers",

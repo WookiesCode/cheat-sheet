@@ -96,7 +96,7 @@ const SRE_INCIDENT_RESPONSE_DATA = [
       {
         "id": "ir-first15-sub-1",
         "desc": "Kernel errors",
-        "cmd": "sudo dmesg -T --level=err,crit | tail -n 40",
+        "cmd": "dmesg -T --level=err,crit | tail -n 40",
         "tags": [
           "sre",
           "devops",

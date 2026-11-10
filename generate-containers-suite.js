@@ -220,7 +220,7 @@ const CONTAINER_SECTIONS = [
         subcommands: [
           ["docker load -i <name>.tar", "Import the image on the target host (changes state)"],
           ["sha256sum <name>.tar", "Checksum before and after copying, to catch a truncated transfer"],
-          ["sudo ctr -n k8s.io images import <name>.tar", "Import into containerd's Kubernetes namespace on a node with no Docker (changes state)"]
+          ["ctr -n k8s.io images import <name>.tar", "Import into containerd's Kubernetes namespace on a node with no Docker (changes state)"]
         ],
         tip: "Checksum the tar on both ends",
         tags: ["save", "load", "airgap", "offline", "tar", "transfer", "ctr", "containerd"]
@@ -375,7 +375,7 @@ const CONTAINER_SECTIONS = [
           ["Firewall note", "Published ports are added to iptables/nftables by Docker and can bypass ufw rules"]
         ],
         subcommands: [
-          ["sudo ss -ltnp | grep <port>", "Confirm what is listening on the host side"],
+          ["ss -ltnp | grep <port>", "Confirm what is listening on the host side"],
           ["docker exec <container> getent hosts <other-container>", "Test name resolution from inside a container"]
         ],
         tip: "Docker-published ports can bypass ufw",

@@ -569,7 +569,7 @@ const BMC_FREEIPMI_DATA = [
       {
         "id": "freeipmi-tips-card",
         "desc": "Credentials in a config file instead of on the command line",
-        "cmd": "sudo install -m 600 /dev/null /etc/freeipmi/freeipmi.conf",
+        "cmd": "install -m 600 /dev/null /etc/freeipmi/freeipmi.conf",
         "details": "freeipmi.conf takes one option per line: username <user>, password <pass>, driver-type LAN_2_0, cipher-suite-id 3. Tool-specific keys such as ipmi-sel-password override the general ones. Keep the file mode 600, or point a tool at your own file with --config-file. Never commit it, and never paste it into a case.",
         "flags": [
           [

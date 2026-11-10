@@ -406,7 +406,7 @@ const BMC_SECTIONS = [
         id: "saa-sysinfo",
         src: {"verified": "2026-11-09", "refs": [{"url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf", "title": "SAA for UEFI User's Guide 1.1.0"}, {"url": "https://www.supermicro.com/en/solutions/management-software/superserver-automation-assistant", "title": "Supermicro SAA"}], "note": "The UEFI guide says \"SAA, formerly known as SUM\"; the product page says SAA brings SUM and the IPMI utilities together. Root for in-band use is not stated in the pages read."},
         desc: "System, BIOS and BMC firmware information",
-        cmd: "sudo ./saa -c GetSystemInfo",
+        cmd: "./saa -c GetSystemInfo",
         flags: [
           ["GetSystemInfo", "System-wide firmware summary"],
           ["GetBiosInfo", "BIOS image info"],
@@ -416,9 +416,9 @@ const BMC_SECTIONS = [
           ["Out-of-band", "SAA is SUM renamed (UEFI guide), so remote use follows SUM's -i <BMC IP> -u -p form: confirm with ./saa -h"]
         ],
         subcommands: [
-          ["sudo ./saa -c GetBiosInfo", "BIOS version and build date"],
-          ["sudo ./saa -c GetBmcInfo", "BMC firmware version"],
-          ["sudo ./saa -c GetFruInfo", "Serial numbers for the RMA"]
+          ["./saa -c GetBiosInfo", "BIOS version and build date"],
+          ["./saa -c GetBmcInfo", "BMC firmware version"],
+          ["./saa -c GetFruInfo", "Serial numbers for the RMA"]
         ],
         tip: "In-band commands need root; help (-h) doesn't",
         tags: ["sysinfo", "bios", "bmc", "fru", "dmi", "inventory"]
@@ -427,7 +427,7 @@ const BMC_SECTIONS = [
         id: "saa-eventlog",
         src: {"verified": "2026-11-09", "refs": [{"url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf", "title": "SAA for UEFI User's Guide 1.1.0"}]},
         desc: "BMC event log and sensor status",
-        cmd: "sudo ./saa -c GetEventLog --info",
+        cmd: "./saa -c GetEventLog --info",
         flags: [
           ["GetEventLog --info [--file <f>]", "Read the event log; --file saves it"],
           ["ClearEventLog", "Clear it (changes state; save it to the case first)"],
@@ -437,9 +437,9 @@ const BMC_SECTIONS = [
           ["ChassisIntrusion", "Chassis intrusion status"]
         ],
         subcommands: [
-          ["sudo ./saa -c GetEventLog --info --file EventLog.txt --overwrite", "Save the log for the case"],
-          ["sudo ./saa -c CheckSensorData --action Show", "Sensors"],
-          ["sudo ./saa -c GetPsuInfo", "PSU status"]
+          ["./saa -c GetEventLog --info --file EventLog.txt --overwrite", "Save the log for the case"],
+          ["./saa -c CheckSensorData --action Show", "Sensors"],
+          ["./saa -c GetPsuInfo", "PSU status"]
         ],
         tip: "Save the event log before any clear or firmware update",
         tags: ["eventlog", "sel", "sensors", "psu", "intrusion"]
@@ -463,14 +463,14 @@ const BMC_SECTIONS = [
         id: "saa-gpu",
         src: {"verified": "2026-11-09", "refs": [{"url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf", "title": "SAA for UEFI User's Guide 1.1.0"}]},
         desc: "GPU and CPLD firmware information",
-        cmd: "sudo ./saa -c GetGpuInfo",
+        cmd: "./saa -c GetGpuInfo",
         flags: [
           ["GetGpuInfo", "GPU baseboard firmware info (with --file <pkg> --file_only it reads a package instead)"],
           ["GetCpldInfo", "CPLD versions (also backplane, fan board, switch board variants)"],
           ["UpdateGpu / UpdateCpld", "Firmware updates (change state)"]
         ],
         subcommands: [
-          ["sudo ./saa -c GetCpldInfo", "Motherboard CPLD version"]
+          ["./saa -c GetCpldInfo", "Motherboard CPLD version"]
         ],
         tip: "Compare GPU baseboard firmware across the nodes of one cluster",
         tags: ["gpu", "hgx", "cpld", "firmware"]
@@ -478,7 +478,7 @@ const BMC_SECTIONS = [
     ],
     proTip: {
       desc: "Firmware updates and BMC reset (change state)",
-      cmd: "sudo ./saa -c UpdateBios --file <bios-image>",
+      cmd: "./saa -c UpdateBios --file <bios-image>",
       details: "UpdateBios, UpdateBmc, UpdateGpu and UpdateCpld flash firmware; BmcReset restarts the BMC (--boot_check waits for it). Read the options with ./saa -h -c <command> first, save the event log, drain the node and get approval. Licences: standard update and management need none; remote management features need SFT-OOB-LIC or SFT-DCMS-SINGLE (Supermicro's SAA page).",
       flags: [["BmcReset --boot_check", "Restart the BMC and wait for it"], ["X13/H13 and older", "Supermicro still points these to SUM and the IPMI utilities"]],
       tip: "Firmware changes need a drain and approval"
@@ -532,7 +532,7 @@ const BMC_SECTIONS = [
         id: "onecli-inventory",
         src: {"verified": "2026-11-09", "refs": [{"url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_getinfor_command", "title": "Lenovo OneCLI: inventory getinfor"}, {"url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_getdevices_command", "title": "Lenovo OneCLI: getdevices"}]},
         desc: "Full inventory report (in-band)",
-        cmd: "sudo ./OneCli inventory getinfor --output ./inventory --htmlreport",
+        cmd: "./OneCli inventory getinfor --output ./inventory --htmlreport",
         flags: [
           ["--output <dir>", "Where to write the report"],
           ["--htmlreport", "Also write an HTML report"],
@@ -541,7 +541,7 @@ const BMC_SECTIONS = [
           ["getdevices", "In-band only: the device categories getinfor accepts"]
         ],
         subcommands: [
-          ["sudo ./OneCli inventory getdevices", "Categories: system_overview, bmc_event_logs, …"]
+          ["./OneCli inventory getdevices", "Categories: system_overview, bmc_event_logs, …"]
         ],
         tip: "Attach the HTML report to the case",
         tags: ["inventory", "getinfor", "report"]
@@ -716,7 +716,7 @@ const BMC_SECTIONS = [
     ],
     proTip: {
       desc: "Credentials in a config file instead of on the command line",
-      cmd: "sudo install -m 600 /dev/null /etc/freeipmi/freeipmi.conf",
+      cmd: "install -m 600 /dev/null /etc/freeipmi/freeipmi.conf",
       details: "freeipmi.conf takes one option per line: username <user>, password <pass>, driver-type LAN_2_0, cipher-suite-id 3. Tool-specific keys such as ipmi-sel-password override the general ones. Keep the file mode 600, or point a tool at your own file with --config-file. Never commit it, and never paste it into a case.",
       flags: [["--config-file <file>", "Use another config file"], ["Command line wins", "Options on the command line override the file"]],
       tip: "Mode 600, and keep it out of git"
@@ -743,7 +743,7 @@ const BMC_SECTIONS = [
         ],
         subcommands: [
           ["ls -l /dev/serial/by-id/", "Stable names for USB serial adapters", {"verified": "2026-11-09", "refs": [], "note": "A standard Linux path, not checked against a document."}],
-          ["sudo dmesg -T | grep -i tty", "Which ttyUSB the adapter just became", {"verified": "2026-11-09", "refs": [], "note": "Standard Linux commands, not checked against a document."}],
+          ["dmesg -T | grep -i tty", "Which ttyUSB the adapter just became", {"verified": "2026-11-09", "refs": [], "note": "Standard Linux commands, not checked against a document."}],
           ["id -nG", "Are you in the dialout (or uucp) group that owns the port?", {"verified": "2026-11-09", "refs": [], "note": "Standard command; the group name (dialout or uucp) depends on the distribution."}]
         ],
         tip: "Use /dev/serial/by-id paths: ttyUSB numbers change on replug",

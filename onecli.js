@@ -205,7 +205,7 @@ const BMC_ONECLI_DATA = [
       {
         "id": "onecli-inventory",
         "desc": "Full inventory report (in-band)",
-        "cmd": "sudo ./OneCli inventory getinfor --output ./inventory --htmlreport",
+        "cmd": "./OneCli inventory getinfor --output ./inventory --htmlreport",
         "details": "",
         "flags": [
           [
@@ -255,7 +255,7 @@ const BMC_ONECLI_DATA = [
       {
         "id": "onecli-inventory-sub-1",
         "desc": "Categories: system_overview, bmc_event_logs, …",
-        "cmd": "sudo ./OneCli inventory getdevices",
+        "cmd": "./OneCli inventory getdevices",
         "tags": [
           "bmc",
           "remote-management",

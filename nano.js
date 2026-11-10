@@ -120,7 +120,7 @@ const ED_NANO_DATA = [
       {
         "id": "nano-sudoedit-sub-1",
         "desc": "Keep a dated copy before you touch it (changes state)",
-        "cmd": "sudo cp -a /etc/fstab /etc/fstab.bak.$(date +%F)",
+        "cmd": "cp -a /etc/fstab /etc/fstab.bak.$(date +%F)",
         "tags": [
           "editor",
           "editors",
@@ -134,7 +134,7 @@ const ED_NANO_DATA = [
       {
         "id": "nano-sudoedit-sub-2",
         "desc": "Check /etc/fstab before the next reboot finds the mistake",
-        "cmd": "sudo findmnt --verify",
+        "cmd": "findmnt --verify",
         "tags": [
           "editor",
           "editors",
@@ -148,7 +148,7 @@ const ED_NANO_DATA = [
       {
         "id": "nano-sudoedit-sub-3",
         "desc": "Check sshd_config before restarting sshd",
-        "cmd": "sudo sshd -t",
+        "cmd": "sshd -t",
         "tags": [
           "editor",
           "editors",
@@ -162,7 +162,7 @@ const ED_NANO_DATA = [
       {
         "id": "nano-sudoedit-sub-4",
         "desc": "Check sudoers syntax",
-        "cmd": "sudo visudo -c",
+        "cmd": "visudo -c",
         "tags": [
           "editor",
           "editors",
@@ -426,7 +426,7 @@ const ED_NANO_DATA = [
             "Only git"
           ],
           [
-            "sudo update-alternatives --config editor",
+            "update-alternatives --config editor",
             "System-wide default on Debian/Ubuntu (changes state)"
           ]
         ],

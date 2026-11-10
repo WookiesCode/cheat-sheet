@@ -257,6 +257,12 @@ All 37 entries were written against SchedMD's Slurm 26.05 docs and cite them. Ch
 
 **Not verified:** WEKA's drive status values (the CLI reference doesn't list them); the arguments of BeeGFS 8's `beegfs entry info`; whether BeeGFS 8 still ships `beegfs-ctl`; `lnetctl ping` (not in the Lustre manual, so the sheet uses `lctl ping`).
 
+## Cleanup: no `sudo` prefixes (2026-11-09, `fix/no-sudo`)
+
+The site marks root commands itself (the ROOT badge, and `# needs root` on copy), so commands written for the technician don't carry `sudo`. The last 24 source commands that did are fixed. They show up as 47 commands across 13 sheets, because hubs repeat their sheets' commands. The fixed commands: Supermicro SAA (11), OneCLI (2), FreeIPMI's `install … /etc/freeipmi/freeipmi.conf`, two `dmesg` lines, `ctr` and `ss` on the Docker sheets, and the nano/editors checks (`cp -a /etc/fstab`, `findmnt --verify`, `sshd -t`, `visudo -c`, `update-alternatives --config editor`). New `PRIV_RULES` keep their badges: `install` into system dirs, `cp` under `/etc`, `sshd -t`, `findmnt --verify` (maybe) and `update-alternatives`.
+
+**Kept on purpose**, where `sudo` is what the card teaches: `sudo cp -a FILE … && sudoedit FILE` (back up, then edit as yourself), `echo … | sudo tee /sys/…` (why `sudo echo > file` fails), and the sudo, bash, CLI-tools and Linux sheets. `tests/no-sudo.test.js` holds the line.
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |

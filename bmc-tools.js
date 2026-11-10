@@ -2171,7 +2171,7 @@ const BMC_HUB_DATA = [
       {
         "id": "saa-sysinfo",
         "desc": "System, BIOS and BMC firmware information",
-        "cmd": "sudo ./saa -c GetSystemInfo",
+        "cmd": "./saa -c GetSystemInfo",
         "details": "",
         "flags": [
           [
@@ -2229,7 +2229,7 @@ const BMC_HUB_DATA = [
       {
         "id": "saa-sysinfo-sub-1",
         "desc": "BIOS version and build date",
-        "cmd": "sudo ./saa -c GetBiosInfo",
+        "cmd": "./saa -c GetBiosInfo",
         "tags": [
           "bmc",
           "remote-management",
@@ -2257,7 +2257,7 @@ const BMC_HUB_DATA = [
       {
         "id": "saa-sysinfo-sub-2",
         "desc": "BMC firmware version",
-        "cmd": "sudo ./saa -c GetBmcInfo",
+        "cmd": "./saa -c GetBmcInfo",
         "tags": [
           "bmc",
           "remote-management",
@@ -2285,7 +2285,7 @@ const BMC_HUB_DATA = [
       {
         "id": "saa-sysinfo-sub-3",
         "desc": "Serial numbers for the RMA",
-        "cmd": "sudo ./saa -c GetFruInfo",
+        "cmd": "./saa -c GetFruInfo",
         "tags": [
           "bmc",
           "remote-management",
@@ -2321,7 +2321,7 @@ const BMC_HUB_DATA = [
       {
         "id": "saa-eventlog",
         "desc": "BMC event log and sensor status",
-        "cmd": "sudo ./saa -c GetEventLog --info",
+        "cmd": "./saa -c GetEventLog --info",
         "details": "",
         "flags": [
           [
@@ -2373,7 +2373,7 @@ const BMC_HUB_DATA = [
       {
         "id": "saa-eventlog-sub-1",
         "desc": "Save the log for the case",
-        "cmd": "sudo ./saa -c GetEventLog --info --file EventLog.txt --overwrite",
+        "cmd": "./saa -c GetEventLog --info --file EventLog.txt --overwrite",
         "tags": [
           "bmc",
           "remote-management",
@@ -2396,7 +2396,7 @@ const BMC_HUB_DATA = [
       {
         "id": "saa-eventlog-sub-2",
         "desc": "Sensors",
-        "cmd": "sudo ./saa -c CheckSensorData --action Show",
+        "cmd": "./saa -c CheckSensorData --action Show",
         "tags": [
           "bmc",
           "remote-management",
@@ -2419,7 +2419,7 @@ const BMC_HUB_DATA = [
       {
         "id": "saa-eventlog-sub-3",
         "desc": "PSU status",
-        "cmd": "sudo ./saa -c GetPsuInfo",
+        "cmd": "./saa -c GetPsuInfo",
         "tags": [
           "bmc",
           "remote-management",
@@ -2497,7 +2497,7 @@ const BMC_HUB_DATA = [
       {
         "id": "saa-gpu",
         "desc": "GPU and CPLD firmware information",
-        "cmd": "sudo ./saa -c GetGpuInfo",
+        "cmd": "./saa -c GetGpuInfo",
         "details": "",
         "flags": [
           [
@@ -2536,7 +2536,7 @@ const BMC_HUB_DATA = [
       {
         "id": "saa-gpu-sub-1",
         "desc": "Motherboard CPLD version",
-        "cmd": "sudo ./saa -c GetCpldInfo",
+        "cmd": "./saa -c GetCpldInfo",
         "tags": [
           "bmc",
           "remote-management",
@@ -2567,7 +2567,7 @@ const BMC_HUB_DATA = [
       {
         "id": "saa-tips-card",
         "desc": "Firmware updates and BMC reset (change state)",
-        "cmd": "sudo ./saa -c UpdateBios --file <bios-image>",
+        "cmd": "./saa -c UpdateBios --file <bios-image>",
         "details": "UpdateBios, UpdateBmc, UpdateGpu and UpdateCpld flash firmware; BmcReset restarts the BMC (--boot_check waits for it). Read the options with ./saa -h -c <command> first, save the event log, drain the node and get approval. Licences: standard update and management need none; remote management features need SFT-OOB-LIC or SFT-DCMS-SINGLE (Supermicro's SAA page).",
         "flags": [
           [
@@ -2794,7 +2794,7 @@ const BMC_HUB_DATA = [
       {
         "id": "onecli-inventory",
         "desc": "Full inventory report (in-band)",
-        "cmd": "sudo ./OneCli inventory getinfor --output ./inventory --htmlreport",
+        "cmd": "./OneCli inventory getinfor --output ./inventory --htmlreport",
         "details": "",
         "flags": [
           [
@@ -2844,7 +2844,7 @@ const BMC_HUB_DATA = [
       {
         "id": "onecli-inventory-sub-1",
         "desc": "Categories: system_overview, bmc_event_logs, …",
-        "cmd": "sudo ./OneCli inventory getdevices",
+        "cmd": "./OneCli inventory getdevices",
         "tags": [
           "bmc",
           "remote-management",
@@ -3791,7 +3791,7 @@ const BMC_HUB_DATA = [
       {
         "id": "freeipmi-tips-card",
         "desc": "Credentials in a config file instead of on the command line",
-        "cmd": "sudo install -m 600 /dev/null /etc/freeipmi/freeipmi.conf",
+        "cmd": "install -m 600 /dev/null /etc/freeipmi/freeipmi.conf",
         "details": "freeipmi.conf takes one option per line: username <user>, password <pass>, driver-type LAN_2_0, cipher-suite-id 3. Tool-specific keys such as ipmi-sel-password override the general ones. Keep the file mode 600, or point a tool at your own file with --config-file. Never commit it, and never paste it into a case.",
         "flags": [
           [
@@ -3894,7 +3894,7 @@ const BMC_HUB_DATA = [
       {
         "id": "serial-picocom-sub-2",
         "desc": "Which ttyUSB the adapter just became",
-        "cmd": "sudo dmesg -T | grep -i tty",
+        "cmd": "dmesg -T | grep -i tty",
         "tags": [
           "bmc",
           "remote-management",

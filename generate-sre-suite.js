@@ -522,7 +522,7 @@ const SRE_SECTIONS = [
           ["Scheduler", "Is it already drained? sinfo -R / kubectl get node"]
         ],
         subcommands: [
-          ["sudo dmesg -T --level=err,crit | tail -n 40", "Kernel errors"],
+          ["dmesg -T --level=err,crit | tail -n 40", "Kernel errors"],
           ["sinfo -R", "Drained nodes and their reasons"],
           ["amtool alert query --alertmanager.url=http://localhost:9093", "What is firing"]
         ],
