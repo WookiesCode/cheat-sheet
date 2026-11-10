@@ -2850,7 +2850,9 @@
       const cfg = Array.isArray(window.PORTABLE_SHEETS) ? window.PORTABLE_SHEETS.find(c => c.key === key) : null;
       return cfg ? cfg.file : `${key}.html`;
     }
-    return (a.getAttribute('href') || '').split('#')[0];
+    // A merged group page's part keeps its hash (cli-tools.html#grep is a sheet of its own).
+    const href = a.getAttribute('href') || '';
+    return /^[\w.-]+\.html#[\w-]+$/.test(href) ? href : href.split('#')[0];
   }
 
   // Copies of a gradient logo must not reuse the menu's ids: url(#id) resolves to the first
@@ -2898,7 +2900,7 @@
   function sheetCmdCounts() {
     if (sheetCmdCounts.map) return sheetCmdCounts.map;
     const m = {};
-    (window.GLOBAL_SEARCH_INDEX || []).forEach(i => { m[i.file] = (m[i.file] || 0) + 1; });
+    (window.GLOBAL_SEARCH_INDEX || []).forEach(i => { m[i.file] = (m[i.file] || 0) + 1; if (i.sheet) m[i.sheet] = (m[i.sheet] || 0) + 1; });
     sheetCmdCounts.map = m;
     return m;
   }
@@ -2909,7 +2911,7 @@
   }
   function renderSuiteNavInner() {
     if (IN_WIDGET_FRAME) return;
-    const file = anatSheetFile || window.location.pathname.split('/').pop() || 'index.html';
+    const file = currentSheetFile();
     const main = document.querySelector('main');
     document.querySelectorAll('.suite-dir, .suite-rail').forEach(el => el.remove());
     // Tells the CSS to pin the prev/next pager and reserve room for it at the bottom.
@@ -2968,7 +2970,7 @@
 
   function initSuiteNav() {
     if (IN_WIDGET_FRAME) return;
-    markVisited(anatSheetFile || window.location.pathname.split('/').pop() || 'index.html');
+    markVisited(currentSheetFile());
     renderSuiteNav();
     document.addEventListener('click', (e) => {
       const el = e.target instanceof Element ? e.target : null;
@@ -3653,6 +3655,11 @@
       return;
     }
     const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+    if (currentPath === file && window.SHEET_FILTER && id) {
+      closeGlobalSearch();
+      if (location.hash === `#${id}`) applySheetFilter(); else location.hash = id;
+      return;
+    }
     if (currentPath !== file) {
       window.location.href = id ? `${file}#${id}` : file;
     } else {
@@ -5406,7 +5413,7 @@ ${rmaTrailSection()}#### Action Requested:
     const shell = ensureSheetShell();
     if (!shell) return;
     const rail = shell.querySelector('.sheet-rail');
-    const file = anatSheetFile || window.location.pathname.split('/').pop() || 'index.html';
+    const file = currentSheetFile();
     const suite = suiteFor(file);
     const visited = readVisited();
     const counts = sheetCmdCounts();
@@ -5428,7 +5435,7 @@ ${rmaTrailSection()}#### Action Requested:
           </button></li>`).join('')}
         </ul>
       </div>` : ''}
-      ${(() => { const n = pracPool().filter(i => i.file === file).length; return n >= 4 ? `<button type="button" class="rail-practice" data-prac-start="sheet:${escapeHtml(file)}"><span aria-hidden="true">◎</span><b>Practice this sheet</b><small>${n} commands</small></button>` : ''; })()}
+      ${(() => { const n = pracPool().filter(i => sheetOf(i) === file).length; return n >= 4 ? `<button type="button" class="rail-practice" data-prac-start="sheet:${escapeHtml(file)}"><span aria-hidden="true">◎</span><b>Practice this sheet</b><small>${n} commands</small></button>` : ''; })()}
       <div class="rail-block rail-outline-block">
         <div class="rail-h">On this sheet</div>
         <ol class="rail-outline"></ol>
@@ -7508,6 +7515,7 @@ ${rmaTrailSection()}#### Action Requested:
     safeInit('setupFullscreenObserver', () => setupFullscreenObserver());
     safeInit('injectHeaderControls', () => injectHeaderControls());
     safeInit('renderTargetVarsBar', () => renderTargetVarsBar());
+    safeInit('initSheetFilter', () => initSheetFilter());
     safeInit('initReferenceEntries', () => initReferenceEntries());
     safeInit('initCleanCards', () => initCleanCards());
     safeInit('initCommandAnatomy', () => initCommandAnatomy());
@@ -7675,9 +7683,9 @@ ${rmaTrailSection()}#### Action Requested:
 
   // Scope strings: 'due', 'all', 'trail', 'sheet:<file>', 'suite:<name>'.
   function pracScope(spec) {
-    const file = anatSheetFile || window.location.pathname.split('/').pop() || 'index.html';
+    const file = currentSheetFile();
     if (!spec) {
-      const here = pracPool().filter(i => i.file === file).length;
+      const here = pracPool().filter(i => sheetOf(i) === file).length;
       if (here >= 4) spec = `sheet:${file}`;
       else { const s = suiteFor(file); spec = s ? `suite:${s.name}` : 'all'; }
     }
@@ -7685,7 +7693,7 @@ ${rmaTrailSection()}#### Action Requested:
     if (spec === 'trail') { const counts = pracTrailCounts(); return { spec, kind: 'trail', label: 'From my trail', keys: new Set(counts.keys()), counts }; }
     if (spec.startsWith('sheet:')) {
       const f = spec.slice(6);
-      const hit = pracPool().find(i => i.file === f);
+      const hit = pracPool().find(i => sheetOf(i) === f);
       return { spec, kind: 'sheet', label: hit ? (hit.sec || f).replace(/:.*$/, '') : f.replace(/\.html$/, ''), files: new Set([f]) };
     }
     if (spec.startsWith('suite:')) {
@@ -7704,7 +7712,7 @@ ${rmaTrailSection()}#### Action Requested:
     const data = pracLoad();
     const now = Date.now();
     let pool = pracPool();
-    if (files) pool = pool.filter(i => files.has(i.file));
+    if (files) pool = pool.filter(i => files.has(i.file) || files.has(sheetOf(i)));
     if (keys) pool = pool.filter(i => keys.has(pracKey(i)));
     let due = 0, mastered = 0, seen = 0;
     pool.forEach(i => {
@@ -7721,7 +7729,7 @@ ${rmaTrailSection()}#### Action Requested:
     const data = pracLoad();
     const now = Date.now();
     let pool = pracPool();
-    if (scope.files) pool = pool.filter(i => scope.files.has(i.file));
+    if (scope.files) pool = pool.filter(i => scope.files.has(i.file) || scope.files.has(sheetOf(i)));
     if (scope.keys) pool = pool.filter(i => scope.keys.has(pracKey(i)));
     const cards = pool.map(i => ({ item: i, key: pracKey(i), rec: data.cards[pracKey(i)] }));
     const due = cards.filter(c => c.rec && c.rec.due <= now).sort((a, b) => a.rec.due - b.rec.due);
@@ -8051,7 +8059,7 @@ ${rmaTrailSection()}#### Action Requested:
     const st = pracStats();
     const data = pracLoad();
     const suites = pracSuites().map(s => {
-      const pool = pracPool().filter(i => s.files.has(i.file));
+      const pool = pracPool().filter(i => s.files.has(i.file) || s.files.has(sheetOf(i)));
       const seen = pool.filter(i => data.cards[pracKey(i)]).length;
       return { ...s, total: pool.length, seen };
     }).filter(s => s.total >= 4);
@@ -9064,6 +9072,119 @@ ${rmaTrailSection()}#### Action Requested:
     Storage.prototype.getItem = spy;
   })();
 
+  // -------------------------------------------------------------
+  // MERGED SHEETS
+  // A group page (cli-tools.html) can hold what used to be one page per tool. Its sheet
+  // script registers window.SHEET_FILTER = { sections, set(id) }, and the hash picks what
+  // shows: #grep = only grep's cards, #grep-pcre-extract = grep's cards scrolled to that
+  // command, no hash = everything. The rail, pager, visited ticks and practice treat
+  // "cli-tools.html#grep" as the sheet; the old grep.html is a redirect to it.
+  // -------------------------------------------------------------
+  let sheetFilterId = '';
+  const sheetOf = i => i.sheet || i.file;
+  function currentSheetFile() {
+    const file = anatSheetFile || window.location.pathname.split('/').pop() || 'index.html';
+    return window.SHEET_FILTER && sheetFilterId ? `${file}#${sheetFilterId}` : file;
+  }
+
+  // Runs from the merged sheet's script before it reads its stars, so stars made on the old
+  // per-tool pages show on the group page. Old visited ticks and practice progress move too.
+  window.migrateMergedSheet = function (hubFile, hubKey, sections) {
+    const flag = `cs_merged:${hubFile}`;
+    try { if (localStorage.getItem(flag)) return; } catch (e) { return; }
+    try {
+      const into = new Set(JSON.parse(localStorage.getItem(hubKey) || '[]'));
+      sections.forEach(sec => {
+        const key = `${sec.id}_bookmarks`;
+        const raw = localStorage.getItem(key);
+        if (raw === null) return;
+        try { JSON.parse(raw).forEach(id => into.add(id)); } catch (e) {}
+        localStorage.removeItem(key);
+      });
+      localStorage.setItem(hubKey, JSON.stringify([...into]));
+      const v = readVisited();
+      sections.forEach(sec => { if (v.has(`${sec.id}.html`)) v.add(`${hubFile}#${sec.id}`); });
+      localStorage.setItem(VISITED_KEY, JSON.stringify([...v]));
+      // Practice progress is keyed by sheet file + command text.
+      const d = pracLoad();
+      let moved = 0;
+      sections.forEach(sec => (sec.commands || []).forEach(c => {
+        const cmds = [c.cmd, ...(Array.isArray(c.subcommands) ? c.subcommands.map(x => Array.isArray(x) ? x[0] : '') : [])].filter(Boolean);
+        cmds.forEach(cmd => {
+          const oldK = pracKey({ file: `${sec.id}.html`, cmd }), newK = pracKey({ file: hubFile, cmd });
+          if (d.cards[oldK] && !d.cards[newK]) { d.cards[newK] = d.cards[oldK]; delete d.cards[oldK]; moved++; }
+        });
+      }));
+      if (moved) pracSave(d);
+      localStorage.setItem(flag, '1');
+    } catch (e) { /* storage blocked: nothing to move */ }
+  };
+
+  // Which part the hash asks for: a section id, or a command id inside one.
+  function sheetFilterTarget() {
+    const f = window.SHEET_FILTER;
+    let h = '';
+    try { h = decodeURIComponent(location.hash.slice(1)); } catch (e) { h = location.hash.slice(1); }
+    if (!f || !h) return { part: '', card: '' };
+    if (f.sections.some(s => s.id === h)) return { part: h, card: '' };
+    const sec = f.sections.find(s => (s.commands || []).some(c => c.id === h));
+    return sec ? { part: sec.id, card: h } : { part: '', card: '' };
+  }
+
+  function applySheetFilter() {
+    const f = window.SHEET_FILTER;
+    if (!f) return;
+    const { part, card } = sheetFilterTarget();
+    const changed = part !== sheetFilterId;
+    sheetFilterId = part;
+    f.set(part || 'all');
+    document.body.classList.toggle('sheet-filtered', !!part);
+    renderSheetFilterBar();
+    if (changed || !document.querySelector('.suite-rail, .sheet-rail .rail-list')) {
+      markVisited(currentSheetFile());
+      try { mountHubLanding(currentSheetFile()); } catch (e) {}
+      try { renderSuiteNav(); } catch (e) {}
+    }
+    requestAnimationFrame(() => {
+      window.dispatchEvent(new Event('resize'));   // masonry repacks the new set of cards
+      const el = card && document.querySelector(`.cmd-item[data-id="${CSS.escape(card)}"], .cmd-item[data-cmd-id="${CSS.escape(card)}"], #${CSS.escape(card)}`);
+      if (el) {
+        el.classList.add('card-revealed');
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        el.classList.add('cmd-highlight-flash');
+        setTimeout(() => el.classList.remove('cmd-highlight-flash'), 2500);
+      } else if (changed) {
+        window.scrollTo({ top: 0 });
+      }
+    });
+  }
+
+  // "Showing grep · All 47 CLI tools" above the cards while a part is picked.
+  function renderSheetFilterBar() {
+    let bar = document.getElementById('sheet-filter-bar');
+    const f = window.SHEET_FILTER;
+    if (!f || !sheetFilterId) { if (bar) bar.remove(); return; }
+    const sec = f.sections.find(s => s.id === sheetFilterId);
+    const host = document.getElementById('sections-container');
+    if (!sec || !host) return;
+    if (!bar) {
+      bar = document.createElement('div');
+      bar.id = 'sheet-filter-bar';
+      bar.className = 'sheet-filter-bar';
+      host.parentNode.insertBefore(bar, host);
+    }
+    const [name, about] = String(sec.title || sec.id).split(/\s+[—–-]\s+/);
+    bar.innerHTML = `<span class="sfb-label">Showing</span> <b>${escapeHtml(name)}</b>${about ? ` <span class="sfb-about">${escapeHtml(about)}</span>` : ''}
+      <a class="sfb-all" href="#">All ${f.sections.length} ${escapeHtml(f.label || 'sections')} →</a>`;
+  }
+
+  function initSheetFilter() {
+    if (!window.SHEET_FILTER || IN_WIDGET_FRAME) return;
+    document.body.classList.add('is-merged');
+    window.addEventListener('hashchange', applySheetFilter);
+    applySheetFilter();
+  }
+
   function kitIndex() {
     // First entry per file#id is the card's main command.
     if (kitIndex.map) return kitIndex.map;
@@ -9576,7 +9697,7 @@ ${rmaTrailSection()}#### Action Requested:
     const tiles = suite.sheets.map(s => {
       const [title, sub] = String(s.desc || s.name || s.file).split(/:\s+(.+)/);
       const top = [];
-      idx.forEach(i => { if (i.file === s.file && !i.noCopy && top.length < 3) { const c = firstCommand(i.cmd); if (c && c.length < 140 && !top.some(t => t.cmd === c)) top.push({ cmd: c, desc: i.desc }); } });
+      idx.forEach(i => { if (sheetOf(i) === s.file && !i.noCopy && top.length < 3) { const c = firstCommand(i.cmd); if (c && c.length < 140 && !top.some(t => t.cmd === c)) top.push({ cmd: c, desc: i.desc }); } });
       return `<article class="hub-tile ${visited.has(s.file) ? 'is-visited' : ''}">
         <header data-suite-go="${escapeHtml(s.file)}" title="Open ${escapeHtml(title)}">
           <span class="hub-tile-mark">${s.logo || `<code>${escapeHtml(s.code || '')}</code>`}</span>
@@ -9605,7 +9726,7 @@ ${rmaTrailSection()}#### Action Requested:
           ${rbs.map(rb => `<button type="button" data-suite-rb="${rb.id}">${rb.icon} ${escapeHtml(rb.title)}</button>`).join('')}
         </div>
       </div>
-      <div class="hub-tiles">${tiles}</div>`;
+      ${window.SHEET_FILTER ? '' : `<div class="hub-tiles">${tiles}</div>`}`;
     landing.addEventListener('click', (e) => {
       const b = e.target instanceof Element ? e.target.closest('[data-hub-copy]') : null;
       if (!b) return;
@@ -9640,7 +9761,7 @@ ${rmaTrailSection()}#### Action Requested:
   }
 
   function initHubLanding() {
-    mountHubLanding(anatSheetFile || window.location.pathname.split('/').pop() || 'index.html');
+    mountHubLanding(currentSheetFile());
     document.addEventListener('click', (e) => {
       if (!(e.target instanceof Element) || !e.target.closest('[data-hub-unfold]')) return;
       const b = document.querySelector('#hub-wall button');
@@ -14743,8 +14864,12 @@ ${rmaTrailSection()}#### Action Requested:
   }
 
   function goToSheet(file) {
-    if (window.portableOpenSheet) window.portableOpenSheet(file, '');
-    else window.location.href = file;
+    if (window.portableOpenSheet) return window.portableOpenSheet(file, '');
+    // On a merged group page, its own parts (and the page itself) only change the hash.
+    const [page, part] = String(file).split('#');
+    const here = window.location.pathname.split('/').pop() || 'index.html';
+    if (window.SHEET_FILTER && page === here) { location.hash = part || ''; return; }
+    window.location.href = file;
   }
 
   function lpAgo(t) {

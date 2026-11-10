@@ -434,38 +434,29 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     await ctx.close();
   }
 
-  // 2m. CLI tools (47 tool sheets + the hub): every card sourced (recipes, pipelines and tip cards
-  // too), the corrections, and the new state-change flags; read-only ip/sysctl/efibootmgr stay plain.
+  // 2m. CLI tools (one page, cli-tools.html; the old tool pages redirect to its #tool): every
+  // card sourced, the corrections, and the state-change flags; read-only ip/sysctl/efibootmgr stay plain.
   {
     // Load the tool list the way the generator does: a sandbox with a stub localStorage.
     const w = { localStorage: { getItem: () => null } };
     require('vm').runInNewContext(fs.readFileSync(path.join(ROOT, 'cli-tools.js'), 'utf8').split('const searchInput =')[0] + ';D = CLI_TOOLS_DATA;', w);
-    const PAGES = w.D.map(t => t.id);
     const ctx = await newContext(browser);
     const p = await ctx.newPage();
-    const all = [];
-    const rows = [];
-    let text = '';
-    for (const f of PAGES) {
-      await p.goto(BASE + f + '.html', { waitUntil: 'load' });
-      await p.waitForTimeout(250);
-      text += await p.evaluate(() => { const c = document.body.cloneNode(true); c.querySelectorAll('.cmd-source').forEach(n => n.remove()); return c.textContent; });
-      all.push(...await p.evaluate(() => [...document.querySelectorAll('.cmd-item[data-cmd-id]')].filter(it => !/-flags-card$/.test(it.dataset.cmdId)).map(it => {
-        const b = it.querySelector('.cmd-code-box');
-        return { id: it.dataset.cmdId, code: b ? (b.dataset.cmd || b.dataset.copy || '').trim() : '', src: !!it.querySelector('.cmd-source:not(.is-unverified)'), danger: !!(b && /Changes state/.test(b.getAttribute('aria-label') || '')), ref: !!(b && b.classList.contains('is-reference')) };
-      })));
-      // Multi-command tools keep their recipes as rows inside the card.
-      rows.push(...await p.evaluate(() => [...document.querySelectorAll('.subcmd-row')].map(r => ({ code: (r.dataset.copy || r.dataset.subcmd || '').trim(), danger: /Changes state/.test(r.getAttribute('aria-label') || '') }))));
-    }
-    check(all.length >= 190 && all.every(x => x.src), `every card on the 47 CLI tool sheets shows a verified source (${all.filter(x => x.src).length}/${all.length})`);
     await p.goto(BASE + 'cli-tools.html', { waitUntil: 'load' });
-    await p.waitForTimeout(700);
-    const hub = await p.evaluate(() => { const items = [...document.querySelectorAll('.cmd-item:is([data-id],[data-cmd-id])')]; return { n: items.length, src: items.filter(it => it.querySelector('.cmd-source')).length }; });
-    check(hub.n >= 60 && hub.src === hub.n, `every command on the CLI tools hub has a source line (${hub.src}/${hub.n})`);
+    await p.waitForTimeout(800);
+    const text = await p.evaluate(() => { const c = document.body.cloneNode(true); c.querySelectorAll('.cmd-source').forEach(n => n.remove()); return c.textContent; });
+    const all = await p.evaluate(() => [...document.querySelectorAll('#sections-container .cmd-item:is([data-cmd-id],[data-id])')].map(it => {
+      const b = it.querySelector('.cmd-code-box');
+      return { id: it.dataset.cmdId || it.dataset.id, code: b ? (b.dataset.cmd || b.dataset.copy || '').trim() : '', src: !!it.querySelector('.cmd-source:not(.is-unverified)'), danger: !!(b && /Changes state/.test(b.getAttribute('aria-label') || '')), ref: !!(b && b.classList.contains('is-reference')) };
+    }));
+    // Recipes are rows inside the cards.
+    const rows = await p.evaluate(() => [...document.querySelectorAll('#sections-container .subcmd-row')].map(r => ({ code: (r.dataset.copy || r.dataset.subcmd || '').trim(), danger: /Changes state/.test(r.getAttribute('aria-label') || ''), ref: r.classList.contains('is-reference') || !!r.querySelector('.is-reference') })));
+    const sections = await p.evaluate(() => document.querySelectorAll('#sections-container .section-card').length);
+    check(sections === w.D.length && all.length >= 60 && all.every(x => x.src), `all ${w.D.length} CLI tools are on cli-tools.html and every command shows a verified source (${all.filter(x => x.src).length}/${all.length})`);
     check(!/-P 0 for all CPU cores|logical CPU cores|reget -P|tio -L\b|-d=permanent|neigh flush all|5x–10x|exact binary name and signal|Run with sudo when/.test(text), 'corrections: xargs -P 0, zstd -T0, sftp reget, tio -l, watch --differences, ip neigh flush, unsourced claims');
-    check(all.some(x => x.code === "efibootmgr -c -d /dev/nvme0n1 -p 1 -L 'Ubuntu' -l '\\EFI\\ubuntu\\shimx64.efi'"), 'efibootmgr loader path renders with single backslashes');
     const byCode = re => [...all, ...rows].filter(x => re.test(x.code));
-    check(byCode(/^efibootmgr -n 0004 && reboot/).every(x => x.ref), 'efibootmgr -n … && reboot is reference-only (it reboots this machine)');
+    check(byCode(/^efibootmgr -c -d \/dev\/nvme0n1 -p 1 -L 'Ubuntu' -l '\\EFI\\ubuntu\\shimx64\.efi'$/).length > 0, 'efibootmgr loader path renders with single backslashes');
+    check(byCode(/^efibootmgr -n 0004 && reboot/).length > 0 && byCode(/^efibootmgr -n 0004 && reboot/).every(x => x.ref), 'efibootmgr -n … && reboot is reference-only (it reboots this machine)');
     const flagged = [/^fuser -v -k -TERM/, /^efibootmgr -c /, /^sysctl -w /, /^sysctl --system/, /^udevadm control --reload-rules && udevadm trigger/, /^ip -6 neigh flush dev/, /^ip -6 addr add/, /^: > \/proc\//];
     const fl = flagged.map(re => [re.source, byCode(re)]);
     fl.filter(([, l]) => !(l.length && l.every(x => x.danger))).forEach(([re, l]) => console.log(`     not flagged or missing: ${re} (${l.map(x => x.code.slice(0, 60)).join(' | ') || 'no card'})`));
@@ -795,6 +786,43 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     const res = await p.evaluate(() => [...document.querySelectorAll('#palette-results .palette-item[data-cmd]')].slice(0, 8).map(it => { const s = it.querySelector('.palette-src'); return s ? s.textContent : ''; }));
     check(res.length > 0 && res.every(t => /^Source: .+ · verified [A-Z][a-z]{2} \d{4}|Not verified/.test(t)), `Ctrl+K command results show a source line (${res.filter(Boolean).length}/${res.length})`);
     check(!(await p.evaluate(() => !!document.querySelector('#palette-results .palette-src a'))), 'the palette source line has no links (a click opens the sheet)');
+    await ctx.close();
+  }
+
+  // 2zc. Merged CLI page: the old tool pages redirect to cli-tools.html#tool, which shows only that
+  // tool; a command id picks its tool and flashes the card; the rail and pager follow; the All link
+  // shows everything again; stars from the old pages carry over.
+  {
+    const ctx = await newContext(browser);
+    await ctx.addInitScript(() => { try { if (!sessionStorage.getItem('seeded')) { sessionStorage.setItem('seeded', '1'); localStorage.setItem('grep_bookmarks', '["grep-pcre-extract"]'); } } catch (e) {} });
+    const p = await ctx.newPage();
+    const view = () => p.evaluate(() => ({ url: location.pathname.split('/').pop() + location.hash,
+      cards: [...document.querySelectorAll('#sections-container .section-card')].filter(c => c.offsetParent).length,
+      bar: ((document.getElementById('sheet-filter-bar') || {}).textContent || '').replace(/\s+/g, ' '),
+      rail: ((document.querySelector('.rail-sheet.is-current code') || {}).textContent || ''),
+      widgets: !!(document.getElementById('quick-widgets') || {}).offsetParent }));
+    await p.goto(BASE + 'grep.html', { waitUntil: 'load' });
+    await p.waitForTimeout(700);
+    let v = await view();
+    check(v.url === 'cli-tools.html#grep' && v.cards === 1 && /Showing grep/.test(v.bar) && v.rail === 'grep' && !v.widgets, `grep.html opens cli-tools.html#grep with only grep's card (${JSON.stringify(v)})`);
+    check(await p.evaluate(() => [...document.querySelectorAll('.bookmark-btn.bookmarked')].length === 1 && localStorage.getItem('grep_bookmarks') === null), 'a star from the old grep page shows on the merged page');
+    await p.locator('.rail-sheet', { hasText: 'Columns' }).click({ delay: 120 });
+    await p.waitForTimeout(500);
+    v = await view();
+    check(v.url === 'cli-tools.html#awk' && v.cards === 1 && v.rail === 'awk', 'clicking awk in the rail filters in place');
+    await p.goBack();
+    await p.waitForTimeout(500);
+    check((await view()).url === 'cli-tools.html#grep', 'Back returns to grep');
+    await p.locator('#sheet-filter-bar .sfb-all').click({ delay: 120 });
+    await p.waitForTimeout(600);
+    v = await view();
+    check(v.cards > 40 && !v.bar && v.widgets, 'the All link shows every tool and the widgets again');
+    await p.goto(BASE + 'sed.html#sed-range-slice-logs', { waitUntil: 'load' });
+    await p.waitForTimeout(700);
+    v = await view();
+    check(v.url === 'cli-tools.html#sed-range-slice-logs' && v.cards === 1 && v.rail === 'sed', 'an old card link lands on its tool, filtered');
+    const nav = fs.readFileSync(path.join(ROOT, 'nav', 'nav-source.html'), 'utf8');
+    check(/href="cli-tools\.html#grep"/.test(nav) && !/href="grep\.html"/.test(nav), 'the CLI menu links to cli-tools.html#tool');
     await ctx.close();
   }
 

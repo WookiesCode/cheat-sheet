@@ -957,7 +957,13 @@ const CLI_TOOLS_DATA = [
         ],
         subcommands: [
           ["scp -6 -3 \"root@[2001:db8:dc:4::10]:/etc/netplan/01-netcfg.yaml\" \"root@[2001:db8:dc:4::11]:/etc/netplan/01-netcfg.yaml\"", "Copy a file directly from remote Server A to remote Server B over IPv6 routed through your local jumpbox (-3)"],
-          ["scp -6 -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/dev/null bios.bin \"root@[2001:db8:dc:4::50]:/tmp/\"", "Copy firmware over IPv6 to a freshly imaged rack server without failing on changed/unknown known_hosts keys"]
+          ["scp -6 -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/dev/null bios.bin \"root@[2001:db8:dc:4::50]:/tmp/\"", "Copy firmware over IPv6 to a freshly imaged rack server without failing on changed/unknown known_hosts keys"],
+          // Recipe kept from the old scp.html page; its own source.
+          ["scp -r -p -P 22 -J user@bastion ./firmware/ root@10.20.4.15:/tmp/","Copy Directory via Bastion / Custom Port (-r -p -P -J)",{"verified":"2026-11-09","refs":[{"url":"https://man.openbsd.org/scp","title":"scp(1), OpenBSD"}]}],
+          // Recipe kept from the old scp.html page; its own source.
+          ["scp -3 root@10.20.4.15:/etc/netplan/01-netcfg.yaml root@10.20.4.16:/etc/netplan/","Copy Directly Between Two Remote Servers (-3)",{"verified":"2026-11-09","refs":[{"url":"https://man.openbsd.org/scp","title":"scp(1), OpenBSD"}]}],
+          // Recipe kept from the old scp.html page; its own source.
+          ["python3 -m http.server 8000 --directory /srv/firmware","Serve Current Directory over HTTP for BMC/ISO Pull (python3)",{"verified":"2026-11-09","refs":[{"url":"https://docs.python.org/3/library/http.server.html","title":"Python: http.server"},{"url":"https://manpages.debian.org/trixie/wget/wget.1.en.html","title":"wget(1), Debian"}]}]
         ],
         tip: "Always wrap literal IPv6 addresses in brackets: root@[2001:db8::1]:/path",
         tags: ["scp", "ipv6", "ssh", "transfer", "copy", "bastion", "proxyjump", "port"],
@@ -1149,7 +1155,13 @@ const CLI_TOOLS_DATA = [
         subcommands: [
           ["tmux set-window-option synchronize-panes on", "Broadcast everything you type into ALL split panes in the current window simultaneously (toggle off with 'off')"],
           ["tmux capture-pane -S - -E - -p > /tmp/tmux-scrollback.log", "Dump the entire scrollback history of the current tmux pane to a text file"],
-          ["tmux new-session -d -s burnin 'stress-ng --cpu 0 -t 4h > /tmp/burnin.log 2>&1'", "Launch a detached background tmux session running a 4-hour burn-in job"]
+          ["tmux new-session -d -s burnin 'stress-ng --cpu 0 -t 4h > /tmp/burnin.log 2>&1'", "Launch a detached background tmux session running a 4-hour burn-in job"],
+          // Recipe kept from the old tmux.html page; its own source.
+          ["tmux new -s rack04-maint \\; split-window -v \\; set-window-option synchronize-panes on","Start Named Session & Enable Synchronized Multi-Server Panes",{"verified":"2026-11-09","refs":[{"url":"https://man.openbsd.org/tmux","title":"tmux(1), OpenBSD"}]}],
+          // Recipe kept from the old tmux.html page; its own source.
+          ["tio -b 115200 -d 8 -f none -s 1 /dev/ttyUSB0","Connect USB-to-Serial Crash Cart at 115200 8N1 (tio)",{"verified":"2026-11-09","refs":[{"url":"https://manpages.debian.org/trixie/tio/tio.1.en.html","title":"tio(1), Debian"},{"url":"https://manpages.debian.org/trixie/picocom/picocom.1.en.html","title":"picocom(1), Debian"}],"note":"Corrected 2026-11-09: listing devices is tio -l (--list); -L is --log. Checked against tio 3.9."}],
+          // Recipe kept from the old tmux.html page; its own source.
+          ["gzip -c fix-net.sh | base64 -w0 && echo ''","Encode File as Single-Line Base64 for Serial/SOL Paste",{"verified":"2026-11-09","refs":[{"url":"https://man7.org/linux/man-pages/man1/base64.1.html","title":"base64(1)"}]}]
         ],
         tip: "synchronize-panes types across all split panes at once!",
         tags: ["tmux", "session", "synchronize-panes", "ssh", "keepalive"],
@@ -1883,6 +1895,10 @@ const CLI_COMPOSER_RECIPES = {
   ]
 };
 
+// One page for every CLI tool: stars, visited ticks and practice from the old per-tool
+// pages (grep.html, ...) move here once, before the stars are read below.
+if (typeof window !== "undefined" && window.migrateMergedSheet) window.migrateMergedSheet("cli-tools.html", "cli_tools_bookmarks", CLI_TOOLS_DATA);
+
 // State
 const state = {
   searchQuery: "",
@@ -2359,5 +2375,16 @@ function init() {
   initMiniTabs();
   initEvents();
 }
+
+// common.js filters this page by its hash (#grep, or a command id) through this hook.
+window.SHEET_FILTER = {
+  sections: CLI_TOOLS_DATA,
+  label: "CLI tools",
+  set(id) {
+    state.activeCategory = id || "all";
+    if (typeof renderCategoryTabs === "function") renderCategoryTabs();
+    renderSections();
+  }
+};
 
 init();

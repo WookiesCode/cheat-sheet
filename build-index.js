@@ -10,6 +10,9 @@ const refWhyOf = (text, file) => { const r = referenceReason(text, file); return
 const isTooling = f => /^(build-|generate-|create-)/.test(f) || f === 'common.js' || f === 'global-search-index.js' || f === 'man-pages-data.js' || f === 'flag-index.js' || f === 'nav.js';
 const htmlFor = f => (f === 'app.js' ? 'linux.html' : f.replace(/\.js$/, '.html'));
 
+const { isStub } = require('./build-redirect-stub');
+// Pages that merged their per-tool pages (the hash picks a part: cli-tools.html#grep).
+const MERGED_PAGES = new Set(['cli-tools.html']);
 const jsFiles = fs.readdirSync(__dirname).filter(f => f.endsWith('.js') && !isTooling(f));
 
 const index = [];
@@ -69,6 +72,8 @@ for (const jsFile of jsFiles) {
   }
 
   const sName = jsFile === 'app.js' ? 'linux' : jsFile.replace(/\.js$/, '');
+  // Group pages that hold one part per former page: each entry names its part.
+  const merged = MERGED_PAGES.has(htmlFile);
 
   for (const s of sections) {
     if (!s || !Array.isArray(s.commands)) continue;
@@ -85,6 +90,7 @@ for (const jsFile of jsFiles) {
         desc: c.desc || '',
         tip: c.tip || '',
         tags: Array.isArray(c.tags) ? c.tags.join(' ') : '',
+        ...(merged ? { sheet: `${htmlFile}#${s.id}` } : {}),
         // Where the command was checked and when (shown under the card by common.js).
         ...(c.src && typeof c.src === 'object' ? { src: c.src } : {}),
         // Reference entries keep their text for search but have nothing to copy.
@@ -104,6 +110,7 @@ for (const jsFile of jsFiles) {
               desc: sub[1],
               tip: '',
               tags: Array.isArray(c.tags) ? c.tags.join(' ') : '',
+              ...(merged ? { sheet: `${htmlFile}#${s.id}` } : {}),
               // A variant was checked with its card: its own source (third element) or the card's.
               ...((sub[2] && typeof sub[2] === 'object') ? { src: sub[2] } : (c.src && typeof c.src === 'object') ? { src: c.src } : {}),
               ...(isReference(String(sub[0]), jsFile) ? { noCopy: true } : {}),
@@ -148,7 +155,7 @@ function uniqueCommands(items) {
 }
 
 const unique = uniqueCommands(index);
-const pageCount = fs.readdirSync(__dirname).filter(f => f.endsWith('.html') && f !== 'datacenter-cheatsheet-portable.html').length;
+const pageCount = fs.readdirSync(__dirname).filter(f => f.endsWith('.html') && f !== 'datacenter-cheatsheet-portable.html' && !isStub(fs.readFileSync(path.join(__dirname, f), 'utf8'))).length;
 const sheetCount = new Set(unique.map(i => i.file)).size;
 const countsText = `${pageCount} pages, ${sheetCount} of them command sheets with ${unique.length.toLocaleString('en-US')} commands`;
 const COUNTS_RE = /<!-- counts -->[\s\S]*?<!-- \/counts -->/g;

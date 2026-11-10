@@ -89,6 +89,12 @@ let navLinksHtml = navMatch ? navMatch[1] : '';
 
 // Convert every nav link to an in-page sheet link.
 const keyForFile = file => (SHEETS_CONFIG.find(cfg => cfg.file === file) || {}).key;
+// A merged group page's menu item (cli-tools.html#grep) opens that sheet filtered to the part.
+navLinksHtml = navLinksHtml.replace(/href="([^"#]+\.html)#([a-z0-9-]+)"/g, (attr, file, part) => {
+  const key = keyForFile(file);
+  if (!key) throw new Error(`No portable sheet for nav link ${file}#${part}`);
+  return `href="#sheet-${key}--${part}" data-sheet="${key}" data-part="${part}"`;
+});
 navLinksHtml = navLinksHtml.replace(/href="([^"#]+\.html)"/g, (attr, file) => {
   const key = keyForFile(file);
   if (!key) throw new Error(`No portable sheet for nav link ${file}`);
@@ -414,13 +420,13 @@ ${escapeScriptClose(commonJs)}
     return tool ? '<button type="button" class="man-link-btn" data-man="' + escapeHtml(tool) + '" title="Open the man page reference">man</button>' : '';
   }
 
-  function switchSheet(sheetKey, targetHash = '') {
+  function switchSheet(sheetKey, targetHash = '', part = '') {
     const cfg = SHEETS.find(s => s.key === sheetKey);
     if (!cfg) return;
 
     state.currentSheet = sheetKey;
     window.CheatSheetCommon.setSheetContext(cfg.file);
-    state.activeCategory = 'all';
+    state.activeCategory = part || 'all';
     state.searchQuery = '';
     state.savedOnly = false;
     searchInput.value = '';
@@ -434,7 +440,7 @@ ${escapeScriptClose(commonJs)}
 
     // Update Nav links & dropdown items
     document.querySelectorAll('#portable-sheet-nav .sheet-link, #portable-sheet-nav .dropdown-item').forEach(link => {
-      link.classList.toggle('active', link.dataset.sheet === sheetKey);
+      link.classList.toggle('active', link.dataset.sheet === sheetKey && (link.dataset.part || '') === part);
     });
     document.querySelectorAll('#portable-sheet-nav .nav-dropdown').forEach(dropdown => {
       const toggle = dropdown.querySelector('.dropdown-toggle');
@@ -718,8 +724,9 @@ ${escapeScriptClose(commonJs)}
         if (sheet) {
           e.preventDefault();
           link.closest('.nav-dropdown')?.classList.remove('open');
-          switchSheet(sheet);
-          window.location.hash = 'sheet-' + sheet;
+          const part = link.dataset.part || '';
+          switchSheet(sheet, '', part);
+          window.location.hash = 'sheet-' + sheet + (part ? '--' + part : '');
         }
       });
     });
@@ -806,8 +813,8 @@ ${escapeScriptClose(commonJs)}
     // Hash check on load
     const hash = window.location.hash.replace(/^#/, '');
     if (hash.startsWith('sheet-')) {
-      const sKey = hash.replace('sheet-', '');
-      switchSheet(sKey);
+      const [sKey, part] = hash.replace('sheet-', '').split('--');
+      switchSheet(sKey, '', part || '');
     } else if (hash === 'man' || hash.startsWith('man-')) {
       switchSheet('home');
       window.CheatSheetCommon.openManuals(hash.replace(/^man-?/, ''));
@@ -817,10 +824,11 @@ ${escapeScriptClose(commonJs)}
   }
 
   window.portableOpenSheet = function (file, id) {
-    const cfg = SHEETS.find(s => s.file === file);
+    const [page, part] = String(file).split('#');
+    const cfg = SHEETS.find(s => s.file === page);
     if (cfg) {
-      switchSheet(cfg.key, id);
-      window.location.hash = 'sheet-' + cfg.key;
+      switchSheet(cfg.key, id, part || '');
+      window.location.hash = 'sheet-' + cfg.key + (part ? '--' + part : '');
     }
   };
 

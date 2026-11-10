@@ -537,6 +537,18 @@ Not checked: Arista `configure session` commands (Arista refused automated reads
 - **Ctrl+K:** each command result ends with one plain-text line, "Source: <first doc> +N · verified Nov 2026", or "⚠ Not verified"; amber when unverified or over a year old. No links, because clicking a result opens its sheet.
 - **Tour v12:** three new "What's new" steps (sources on every card, sources in search, the IBM Storage Scale sheet); the invite names them; "1,500 commands" → "2,000+"; the Slurm and filesystem steps are no longer flagged new.
 
+## #11 One page for CLI Tools (pilot, 2026-11-10, `merge-cli-tools`)
+
+The 47 CLI tool pages are now one page, `cli-tools.html`. The rail, the CLI menu and Ctrl+K filter it in place by hash (`#grep`, or a command id); **All 47 CLI tools →** shows everything.
+
+| Piece | Change |
+|---|---|
+| Pages | `grep.html` … `cloud-init.html` are redirects (`build-redirect-stub.js`); their 47 generated `.js` files are deleted; the generator only writes the menu and the redirects |
+| `common.js` | `initSheetFilter` / `applySheetFilter` (hash → part), `currentSheetFile()` (`cli-tools.html#grep` counts as a sheet for the rail, pager, visited ticks and practice), `migrateMergedSheet` (old stars, visited, practice keys), `goToSheet` stays on the page |
+| Search | entries carry `sheet`; the old per-tool duplicates are gone. 76 generic filler cards (`man X \|\| X --help`, `which X && X --version`) are dropped; the 6 real scp/tmux pipeline recipes moved onto the scp and tmux cards with their sources |
+| Portable | menu items become `#sheet-cli-tools--grep` and open the sheet filtered |
+| Counts | 246 → 199 pages (redirects not counted); 2,174 → 2,098 commands (the filler cards) |
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |

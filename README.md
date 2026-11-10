@@ -21,7 +21,7 @@ I built this mainly for myself, for two reasons:
 
 | Part | What it is |
 |---|---|
-| Repo root (`index.html`, `*.html`, `*.js`, `styles.css`, `build-*.js`) | The cheat-sheet site: <!-- counts -->246 pages, 222 of them command sheets with 2,174 commands<!-- /counts --> (Linux, CLI tools, scripting, NVIDIA DC, InfiniBand, switches, Redfish, ipmitool, fiber, Ethernet, motherboards, Docker & Kubernetes, Grafana dashboards, editors (nano, VS Code, Zed, Cursor) and more, grouped into tabs), plus triage tools, a terminal dock and a single-file offline bundle. See [`docs/site.md`](docs/site.md). |
+| Repo root (`index.html`, `*.html`, `*.js`, `styles.css`, `build-*.js`) | The cheat-sheet site: <!-- counts -->199 pages, 176 of them command sheets with 2,098 commands<!-- /counts --> (Linux, CLI tools, scripting, NVIDIA DC, InfiniBand, switches, Redfish, ipmitool, fiber, Ethernet, motherboards, Docker & Kubernetes, Grafana dashboards, editors (nano, VS Code, Zed, Cursor) and more, grouped into tabs), plus triage tools, a terminal dock and a single-file offline bundle. See [`docs/site.md`](docs/site.md). |
 | [`docs/playbooks/`](docs/playbooks/) | Troubleshooting playbooks for GPU/NVLink, network and optics, storage and JBODs, BMC hardware, and RMA templates. |
 | [`agents/AGENTS.md`](agents/AGENTS.md) | Instructions for an AI agent working as my datacenter troubleshooting partner in this repo: safety rules, read-only vs. ask-first commands, and the 5-step triage method. The root `CLAUDE.md` is a symlink to it. |
 | [`agents/AGENTS-portable.md`](agents/AGENTS-portable.md) | A copy of `AGENTS.md` with `<WORKSPACE>` placeholders, for dropping into another repo. |

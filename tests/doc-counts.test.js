@@ -16,7 +16,9 @@ const RE = /<!-- counts -->(\d+) pages, (\d+) of them command sheets with ([\d,]
     if (m) docs[doc] = { pages: +m[1], sheets: +m[2], commands: m[3] };
   }
 
-  const pages = fs.readdirSync(ROOT).filter(f => f.endsWith('.html') && f !== 'datacenter-cheatsheet-portable.html').length;
+  // Redirect stubs (old pages merged into a group page) are not pages of their own.
+  const { isStub } = require(path.join(ROOT, 'build-redirect-stub.js'));
+  const pages = fs.readdirSync(ROOT).filter(f => f.endsWith('.html') && f !== 'datacenter-cheatsheet-portable.html' && !isStub(fs.readFileSync(path.join(ROOT, f), 'utf8'))).length;
   const browser = await launch();
   const ctx = await newContext(browser);
   const p = await ctx.newPage();
@@ -27,7 +29,7 @@ const RE = /<!-- counts -->(\d+) pages, (\d+) of them command sheets with ([\d,]
   await browser.close();
 
   for (const [doc, d] of Object.entries(docs)) {
-    check(d.pages === pages, `${doc}: ${d.pages} pages = ${pages} .html files`);
+    check(d.pages === pages, `${doc}: ${d.pages} pages = ${pages} .html pages (redirects not counted)`);
     if (hero) check(d.commands === hero[1] && d.sheets === +hero[2], `${doc}: ${d.sheets} sheets / ${d.commands} commands = home page`);
   }
   console.log(failures.length ? `${failures.length} check(s) failed` : 'all checks passed');
