@@ -3051,7 +3051,7 @@
   // -------------------------------------------------------------
   const TOUR_SEEN_KEY = 'dc_tour_seen';
   // Bumped when the tour gains steps: anyone who saw an older one is offered "What's new" (the isNew steps).
-  const TOUR_VERSION = '9';
+  const TOUR_VERSION = '10';
   // center: the step still shows (centred) when its control is not on this page.
   const TOUR_STEPS = [
     { title: 'This reference does more than list commands', body: 'A short tour that follows an incident: diagnose the error, set up the node, run commands in the built-in terminal, see the GPU tray, compare against healthy nodes, and file the case. Use ← → or the buttons; Esc ends it.' },
@@ -3081,11 +3081,15 @@
       try: { label: 'Open the case file', run: () => { endTour(); openCaseFile(); } } },
     { target: '.lp-board, .lp-runbooks', title: 'Your nodes, worst first', body: 'The home page shows every node workspace with its verdict and next steps. The Shift board turns them into one handoff for the next shift.',
       try: { label: 'Open the Shift board', run: () => { endTour(); openBoard(); } } },
-    { target: '.hdr-search-pill', isNew: true, title: 'Search warns before risky copies', body: 'In Ctrl+K a command that changes state (a port bounce, a reset, a power cycle) is edged in red: the first Enter asks, the second copies, and a click opens its sheet without copying.' },
-    { target: '.hdr-more-btn', center: true, isNew: true, title: 'Back up everything you keep', body: 'More → Backup & restore saves notes, case files, node workspaces, kit stars and the rack inventory in one JSON file (never passwords or the terminal token) and restores them on the portable copy or another laptop. If the browser refuses a save, an amber bar says so.' },
-    { center: true, isNew: true, title: 'Every command shows where it was checked', body: 'On the NVIDIA, InfiniBand, Redfish, ipmitool and BMC tool sheets each command ends with its source and the date it was verified; amber means re-check. Checking them corrected commands that were wrong, such as the ECC and NVLink counter resets.' },
-    { center: true, isNew: true, title: 'Reboot and crash commands are read-only', body: 'Commands that reboot or shut down the machine you type them on, and BMC NMIs that panic a kernel, stay on the sheets as reference with a 🔒 note but cannot be copied or run.' },
-    { center: true, isNew: true, title: 'Keyboard: skip the menus', body: 'The first Tab offers Skip to commands. Tab stays inside an open tool and Esc puts you back where you were; Tab and j/k never leave the command you are on hidden under a bar.' },
+    { target: '.hdr-search-pill', title: 'Search warns before risky copies', body: 'In Ctrl+K a command that changes state (a port bounce, a reset, a power cycle) is edged in red: the first Enter asks, the second copies, and a click opens its sheet without copying.' },
+    { target: '.hdr-more-btn', center: true, title: 'Back up everything you keep', body: 'More → Backup & restore saves notes, case files, node workspaces, kit stars and the rack inventory in one JSON file (never passwords or the terminal token) and restores them on the portable copy or another laptop. If the browser refuses a save, an amber bar says so.' },
+    { center: true, title: 'Every command shows where it was checked', body: 'On the NVIDIA, InfiniBand, Redfish, ipmitool and BMC tool sheets each command ends with its source and the date it was verified; amber means re-check. Checking them corrected commands that were wrong, such as the ECC and NVLink counter resets.' },
+    { center: true, title: 'Reboot and crash commands are read-only', body: 'Commands that reboot or shut down the machine you type them on, and BMC NMIs that panic a kernel, stay on the sheets as reference with a 🔒 note but cannot be copied or run.' },
+    { center: true, title: 'Keyboard: skip the menus', body: 'The first Tab offers Skip to commands. Tab stays inside an open tool and Esc puts you back where you were; Tab and j/k never leave the command you are on hidden under a bar.' },
+    { center: true, isNew: true, title: 'Practice what you actually run', body: 'Practice (q) has a From my trail round: the commands you copied on real tickets, from every node workspace, most-copied first, scheduled with the same review boxes.' },
+    { target: '.nav-tools', isNew: true, title: 'See what you never open', body: 'The Workbench counts how often you open each tool and sheet (in this browser only, included in Backup). Its Unused in 30 days fold lists the ones you skip, to guide what to keep.' },
+    { center: true, isNew: true, title: 'My kit in the terminal', body: 'My kit (s) → Export for navi saves your starred commands as a navi cheatsheet, with each <placeholder> as a navi variable, so you can search and run them from tmux or ssh.' },
+    { center: true, isNew: true, title: 'More sheets checked against the docs', body: 'Switch, Ethernet, Linux storage and hardware, hardware-reference and Kubernetes commands now show their source too. Checking them corrected dozens of wrong flags and claims.' },
     { target: '.hdr-more-btn', title: 'Replay this anytime', body: 'My kit (★) collects bookmarked commands into a printable pocket card. Themes, Manuals and the offline 1-file copy live under More. j/k move between commands, Enter copies, ? lists every shortcut. Ctrl+K → "tour" or "what’s new" brings this back.' }
   ];
   const tourSeenVersion = () => { try { return localStorage.getItem(TOUR_SEEN_KEY); } catch (e) { return null; } };
@@ -3219,7 +3223,7 @@
     inv.className = `tour-invite${returning ? ' is-whatsnew' : ''}`;
     inv.setAttribute('role', 'status');
     inv.innerHTML = returning
-      ? `<span class="tour-invite-dot" aria-hidden="true"></span><div><b>New since your last tour</b><span>Risky-command warnings in search, backup &amp; restore, a source on every NVIDIA, InfiniBand and BMC command, read-only reboot commands and keyboard fixes.</span></div>
+      ? `<span class="tour-invite-dot" aria-hidden="true"></span><div><b>New since your last tour</b><span>Practice from your Case Trail, a usage meter on the Workbench, My kit as a navi cheatsheet, and sources on many more sheets.</span></div>
       <button type="button" class="tour-invite-go">What\u2019s new</button><button type="button" class="tour-invite-x" aria-label="Dismiss">✕</button>`
       : `<span class="tour-invite-dot" aria-hidden="true"></span><div><b>New here?</b><span>Two-minute tour of what this reference can do.</span></div>
       <button type="button" class="tour-invite-go">Take the tour</button><button type="button" class="tour-invite-x" aria-label="Dismiss">✕</button>`;
@@ -3327,7 +3331,7 @@
       { icon: '📶', label: 'BER: healthy vs unhealthy', sub: 'What raw and effective BER look like on a clean, degraded and failing link', kw: 'ber bit error rate fec raw effective mlxlink healthy unhealthy reference thresholds', run: () => openBerReference() },
       { icon: '⌨', label: 'Keyboard shortcuts', sub: 'j/k move between commands, ↵ copy, b save, ? for the full map', kw: 'keyboard shortcuts keys hotkeys vim navigation help accessibility', run: () => toggleKbHelp(true) },
       { icon: '🧭', label: 'Take the tour', sub: 'Walkthrough of what this reference can do, following an incident', kw: 'tour help guide getting started onboarding features walkthrough', run: () => startTour() },
-      { icon: '✨', label: 'What\u2019s new', sub: 'Only the newest additions: risky-command warnings, backup & restore, command sources, read-only reboots, keyboard fixes', kw: 'whats new what\'s new changes changelog latest updates recent features', run: () => startTour('new') },
+      { icon: '✨', label: 'What\u2019s new', sub: 'Only the newest additions: practice from your trail, the usage meter, navi export, sources on more sheets', kw: 'whats new what\'s new changes changelog latest updates recent features', run: () => startTour('new') },
       { icon: '📋', label: 'Shift board & handoff', sub: 'All node workspaces at a glance; copy or print the handoff', kw: 'board shift handoff handover incidents nodes overview status report', run: () => openBoard() },
       { icon: '📈', label: 'Analyze command output', sub: 'Paste mlxlink, nvme smart-log or nvidia-smi topo -m output for a report', kw: 'analyze analyzer output paste mlxlink smart-log smartlog dom ber optics nvme report topo topology nvlink pix numa affinity', run: () => openAnalyzer() },
       { icon: '☰', label: 'Toggle compact view', sub: 'Hide or show explanations and variants', kw: 'compact density detailed dense view', run: () => { const b = document.getElementById('density-toggle'); if (b) b.click(); } },
@@ -9134,6 +9138,52 @@ ${rmaTrailSection()}#### Action Requested:
     return lines.join('\n').trim();
   }
 
+  // Export as a navi cheatsheet (#12), for the terminal: tmux, ssh, no browser.
+  // navi syntax: "% tags" starts a group, "# description" names the next command, and
+  // <name> is a variable it prompts for (names: letters, digits and _ only). Commands go
+  // out as written on the sheet, not with your targets filled in, because navi's job is to
+  // ask for the <values>; $BMC-style names stay shell variables. Multi-line commands are
+  // left out (a script line starting with # or $ would be read as navi syntax), and so are
+  // reference-only entries. https://github.com/denisidoro/navi/blob/master/docs/cheatsheet/syntax/README.md
+  function kitNaviVar(slot) {
+    const name = slot.slice(1, -1).replace(/[^A-Za-z0-9_]+/g, '_').replace(/^_+|_+$/g, '');
+    return `<${name || 'value'}>`;
+  }
+  function kitNavi(list) {
+    const skipped = { multi: 0, ref: 0, marker: 0 };
+    const groups = new Map();
+    list.forEach(e => {
+      if (e.item.noCopy) { skipped.ref++; return; }
+      const cmd = firstCommand(e.item.cmd);
+      if (/\n/.test(cmd)) { skipped.multi++; return; }
+      if (/^[%#;$@]/.test(cmd)) { skipped.marker++; return; }   // navi would read it as one of its own lines
+      const sheet = e.item.sName || e.item.file.replace(/\.html$/, '');
+      if (!groups.has(sheet)) groups.set(sheet, []);
+      const desc = String(e.item.desc).replace(/\s+/g, ' ').trim();
+      groups.get(sheet).push({ desc: DANGER_RE.test(cmd) ? `${desc} [changes state: drain and get approval first]` : desc, cmd: cmd.replace(/<[^<>\s][^<>]*>/g, kitNaviVar) });
+    });
+    const n = [...groups.values()].reduce((a, g) => a + g.length, 0);
+    const out = [`; My kit from the datacenter cheat sheet: ${n} commands, exported ${trailDate(Date.now())}.`,
+      '; Put this file in the folder `navi info cheats-path` prints (navi 2.25+: `navi info default-cheats-path`), then run navi.',
+      '; <name> values are asked for when you run a command; $BMC and friends come from your shell.'];
+    groups.forEach((cmds, sheet) => {
+      out.push('', `% ${sheet}, cheat-sheet`);
+      cmds.forEach(c => out.push('', `# ${c.desc}`, c.cmd));
+    });
+    return { text: out.join('\n') + '\n', n, skipped };
+  }
+  function kitNaviSave(list) {
+    const r = kitNavi(list);
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([r.text], { type: 'text/plain' }));
+    a.download = 'my-kit.cheat';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+    const left = [r.skipped.multi && `${r.skipped.multi} multi-line`, r.skipped.ref && `${r.skipped.ref} reference-only`, r.skipped.marker && `${r.skipped.marker} starting with a navi symbol`].filter(Boolean).join(', ');
+    showGlobalToast(`Saved my-kit.cheat (${r.n} commands${left ? `; left out ${left}` : ''}). Move it into the folder \`navi info cheats-path\` prints (navi 2.25+: \`default-cheats-path\`).`);
+  }
+
   function kitPrint(list) {
     const groups = kitGroups(list, '');
     const body = [...groups.entries()].map(([sheet, entries]) => `
@@ -9229,6 +9279,7 @@ ${rmaTrailSection()}#### Action Requested:
       <footer class="trail-foot">
         <button type="button" class="trail-primary kit-primary" data-kit-act="print">Print pocket card</button>
         <button type="button" data-kit-act="md">Copy as Markdown</button>
+        <button type="button" data-kit-act="navi" title="A navi .cheat file, for the terminal (tmux, ssh)">Export for navi</button>
         <button type="button" class="kit-script" data-kit-act="script" title="One read-only bash script that saves every output to cases/<case>/logs/">⚙ Capture script</button>
       </footer>`;
     document.body.append(scrim, kitDrawer);
@@ -9244,6 +9295,7 @@ ${rmaTrailSection()}#### Action Requested:
       const list = readKit();
       if (act === 'print') return kitPrint(list);
       if (act === 'md') { copyVerbatim(kitMarkdown(list)); return showGlobalToast(`Copied your kit (${list.length} commands) as Markdown.`); }
+      if (act === 'navi') return kitNaviSave(list);
       if (act === 'script') { closeKit(); return openCapture('kit'); }
       const row = btn.closest('[data-kit]');
       if (!row) return;

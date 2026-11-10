@@ -1,6 +1,6 @@
 # Improvements: ranked proposals and status
 
-Product review started 2026-11-09. Phases 1–3 are below. Eleven items are built, #8 across 11 suites; #10, #11 and #12 are open.
+Product review started 2026-11-09. Phases 1–3 are below. All 14 items are built (#8 across 11 suites).
 
 ## Status
 
@@ -16,9 +16,9 @@ Product review started 2026-11-09. Phases 1–3 are below. Eleven items are buil
 | 14 | Skip link (found while building #5) | ✅ Built | `improve/skip-link` | `220d5c9` |
 | 8 | Source and last-verified date on core suites | ✅ NVIDIA, InfiniBand, Redfish, IPMI, BMC vendor tools, switches, Ethernet, Linux storage and hardware, hardware reference, Kubernetes and GPU containers | `improve/sources-*` | `3320dc0` … `7ab92ed` |
 | 9 | Stop duplicating the nav into every page | ✅ Built | `improve/nav-once` | (this branch) |
-| 10 | Practice what I actually use | ✅ Built | `improve/practice-trail` | (this branch) |
-| 11 | Local usage meter | ✅ Built | `improve/usage-meter` | (this branch) |
-| 12 | Export My kit as a navi `.cheat` file | Open (needs navi installed: ask first) | | |
+| 10 | Practice what I actually use | ✅ Built | `improve/practice-trail` | `f8e0111` |
+| 11 | Local usage meter | ✅ Built | `improve/usage-meter` | `6722fb1` |
+| 12 | Export My kit as a navi `.cheat` file | ✅ Built | `improve/navi-export` | (this branch) |
 | 13 | Make the doc counts agree | ✅ Built | `improve/doc-counts` | `0d6d0f5` |
 
 Every built item up to #8 is fast-forward merged to `main` and pushed to GitHub (`7ab92ed`, 2026-11-09). #9 is on `improve/nav-once`.
@@ -348,7 +348,7 @@ Impact (H/M/L) · Effort (S/M/L) · Risk (H/M/L). The ranking is by user impact 
 - **Why:** J1 from inside tmux and ssh, without the browser. A **data export only**; it doesn't revive the removed TUIs.
 - **Evidence:** navi's syntax is `% tags`, `# description`, the command line, `<var>` placeholders and `$ var: <suggest-cmd>` lines ([syntax doc](https://github.com/denisidoro/navi/blob/master/docs/cheatsheet/syntax/README.md)).
 - Impact **M** · Effort **S** · Risk **L** · Files: `common.js`.
-- ⚠ **Ask:** navi isn't installed here, and installing it is a package change. Its default cheat directory isn't confirmed yet.
+- ✅ **Built** (`improve/navi-export`, `tests/kit-navi.test.js`). My kit → **Export for navi** downloads `my-kit.cheat`. It has one `% <sheet>, cheat-sheet` group per sheet and a `# description` above each command. Commands go out as written on the sheet, so navi prompts for them; `<placeholder>` names are rewritten to navi's letters, digits and `_` (`<sm-node>` → `<sm_node>`), and `$BMC`-style names stay shell variables. State-changing commands say so in their description. Multi-line commands, reference-only entries and commands starting with a navi marker (`% # ; $ @`) are left out, and the toast counts them. The test exports a kit, then runs the installed **navi 2.24.0** (`--best-match --print --prevent-interpolation`): every command comes back exactly as exported. Note: navi matches a truncated description column, so search by the first words. `navi info cheats-path` gives the folder; navi 2.25+ renamed it `default-cheats-path`.
 
 **13. ✅ Make the doc counts agree**
 - **Why:** trust in J5. The README said "about 200" sheets, `docs/site.md` said "235 linked pages", and the home hero said "214 sheets". They counted different things: 236 pages, of which 214 hold commands.
