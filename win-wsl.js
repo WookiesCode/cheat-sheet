@@ -34,7 +34,16 @@ const WIN_WIN_WSL_DATA = [
           "install",
           "distro",
           "update"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://learn.microsoft.com/en-us/windows/wsl/basic-commands",
+              "title": "WSL basic commands"
+            }
+          ]
+        }
       }
     ]
   },
@@ -68,7 +77,16 @@ const WIN_WIN_WSL_DATA = [
           "memory",
           "restart",
           "vm"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://learn.microsoft.com/en-us/windows/wsl/basic-commands",
+              "title": "WSL basic commands"
+            }
+          ]
+        }
       }
     ]
   },
@@ -105,7 +123,16 @@ const WIN_WIN_WSL_DATA = [
           "move",
           "drive",
           "vhdx"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://learn.microsoft.com/en-us/windows/wsl/basic-commands",
+              "title": "WSL basic commands"
+            }
+          ]
+        }
       }
     ]
   },
@@ -142,7 +169,16 @@ const WIN_WIN_WSL_DATA = [
           "clip",
           "wslpath",
           "bridge"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://learn.microsoft.com/en-us/windows/wsl/filesystems",
+              "title": "WSL: working across file systems"
+            }
+          ]
+        }
       }
     ]
   },
@@ -176,6 +212,19 @@ const WIN_WIN_WSL_DATA = [
           ]
         ],
         "tip": "You can run Windows commands from inside Linux bash (e.g. clip.exe < file.txt)!",
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://learn.microsoft.com/en-us/windows/wsl/basic-commands",
+              "title": "WSL basic commands"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/windows/wsl/filesystems",
+              "title": "WSL: working across file systems"
+            }
+          ]
+        },
         "tags": [
           "wsl",
           "tips",

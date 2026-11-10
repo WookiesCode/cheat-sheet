@@ -68200,7 +68200,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Get-NetTCPConnection -LocalPort 3000 -ErrorAction SilentlyContinue | Select-Object LocalPort,State,OwningProcess,@{N='Process';E={(Get-Process -Id $_.OwningProcess).ProcessName}}",
     "desc": "Find which process owns a listening TCP port (PowerShell & netstat one-liners)",
     "tip": "Windows equivalent of lsof -i",
-    "tags": "ports listen pid netstat lsof tcp"
+    "tags": "ports listen pid netstat lsof tcp",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/nettcpip/get-nettcpconnection",
+          "title": "Get-NetTCPConnection"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/netstat",
+          "title": "netstat"
+        }
+      ]
+    }
   },
   {
     "sName": "win-network",
@@ -68211,7 +68224,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Test-NetConnection -ComputerName github.com -Port 443   |   tnc 2606:4700:4700::1111 -TraceRoute",
     "desc": "Test remote TCP port connectivity, IPv6/IPv4 ping latency, or trace route (nc / traceroute)",
     "tip": "Alias: tnc host -Port 443",
-    "tags": "ping ipv6 port telnet nc traceroute tnc"
+    "tags": "ping ipv6 port telnet nc traceroute tnc",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/nettcpip/test-netconnection",
+          "title": "Test-NetConnection"
+        }
+      ]
+    }
   },
   {
     "sName": "win-network",
@@ -68222,7 +68244,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Resolve-DnsName -Name example.com -Type AAAA -Server 2606:4700:4700::1111   |   Clear-DnsClientCache",
     "desc": "Query specific DNS record types (`AAAA`, `TXT`, `MX`) or flush Windows DNS cache",
     "tip": "",
-    "tags": "dns ipv6 aaaa dig nslookup flush txt mx"
+    "tags": "dns ipv6 aaaa dig nslookup flush txt mx",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/dnsclient/resolve-dnsname",
+          "title": "Resolve-DnsName"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/dnsclient/clear-dnsclientcache",
+          "title": "Clear-DnsClientCache"
+        }
+      ]
+    }
   },
   {
     "sName": "win-network",
@@ -68233,7 +68268,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Invoke-RestMethod -Uri 'https://ifconfig.me/all.json'   |   Invoke-WebRequest -Uri $url -OutFile app.zip",
     "desc": "Fetch JSON REST APIs directly into PowerShell objects or download files via HTTP",
     "tip": "Note: use curl.exe for real curl",
-    "tags": "curl http api rest download irm"
+    "tags": "curl http api rest download irm",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/invoke-restmethod",
+          "title": "Invoke-RestMethod"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/invoke-webrequest",
+          "title": "Invoke-WebRequest"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/scripting/whats-new/differences-from-windows-powershell",
+          "title": "PowerShell 7 vs Windows PowerShell (curl alias)"
+        }
+      ]
+    }
   },
   {
     "sName": "win-network",
@@ -68244,7 +68296,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Get-NetIPAddress -AddressFamily IPv4 | Select-Object InterfaceAlias, IPAddress   |   New-NetFirewallRule -DisplayName 'Dev 8080' -Direction Inbound -LocalPort 8080 -Protocol TCP -Action Allow",
     "desc": "List clean IPv4 addresses, network interfaces, or open a Windows Firewall port",
     "tip": "",
-    "tags": "ip ipconfig firewall adapter nic port"
+    "tags": "ip ipconfig firewall adapter nic port",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/nettcpip/get-netipaddress",
+          "title": "Get-NetIPAddress"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/netadapter/get-netadapter",
+          "title": "Get-NetAdapter"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/netsecurity/new-netfirewallrule",
+          "title": "New-NetFirewallRule"
+        }
+      ]
+    }
   },
   {
     "sName": "win-network",
@@ -68255,7 +68324,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Get-NetTCPConnection -State Listen | Select LocalPort, OwningProcess   |   Test-NetConnection",
     "desc": "Instant listening port ownership mapping & PowerShell netcat replacement",
     "tip": "Use Invoke-RestMethod instead of curl to parse JSON REST endpoints directly into PowerShell objects!",
-    "tags": "ps-net tips pro windows powershell best-practices"
+    "tags": "ps-net tips pro windows powershell best-practices",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/nettcpip/get-nettcpconnection",
+          "title": "Get-NetTCPConnection"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/nettcpip/test-netconnection",
+          "title": "Test-NetConnection"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/dnsclient/resolve-dnsname",
+          "title": "Resolve-DnsName"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/dnsclient/clear-dnsclientcache",
+          "title": "Clear-DnsClientCache"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/invoke-restmethod",
+          "title": "Invoke-RestMethod"
+        }
+      ],
+      "note": "Corrected 2026-11-10: Resolve-DnsName reads the hosts file unless you pass -NoHostsFile."
+    }
   },
   {
     "sName": "win-packages",
@@ -68266,7 +68361,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "winget search neovim   |   winget install -e --id Neovim.Neovim   |   winget install --id Git.Git -s winget",
     "desc": "Search and install applications silently using the official Windows Package Manager",
     "tip": "Built into Windows 10/11",
-    "tags": "winget install package app search"
+    "tags": "winget install package app search",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/windows/package-manager/winget/search",
+          "title": "winget search"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/windows/package-manager/winget/install",
+          "title": "winget install"
+        }
+      ]
+    }
   },
   {
     "sName": "win-packages",
@@ -68277,7 +68385,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "winget upgrade   |   winget upgrade --all --include-unknown --silent",
     "desc": "List all outdated applications on the PC and upgrade everything in one command",
     "tip": "",
-    "tags": "upgrade update patch winget uninstall"
+    "tags": "upgrade update patch winget uninstall",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/windows/package-manager/winget/upgrade",
+          "title": "winget upgrade"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/windows/package-manager/winget/uninstall",
+          "title": "winget uninstall"
+        }
+      ]
+    }
   },
   {
     "sName": "win-packages",
@@ -68288,7 +68409,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "winget export -o winget-pkgs.json   |   winget import -i winget-pkgs.json --accept-package-agreements",
     "desc": "Export all installed software to a JSON manifest and restore on a fresh Windows install",
     "tip": "Reproducible PC setup",
-    "tags": "export import backup migrate manifest"
+    "tags": "export import backup migrate manifest",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/windows/package-manager/winget/export",
+          "title": "winget export"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/windows/package-manager/winget/import",
+          "title": "winget import"
+        }
+      ]
+    }
   },
   {
     "sName": "win-packages",
@@ -68299,7 +68433,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser   |   Unblock-File .\\script.ps1",
     "desc": "Allow local PowerShell scripts (.ps1) to run, unblock downloaded scripts, or install modules",
     "tip": "",
-    "tags": "executionpolicy scripts unblock security ps1"
+    "tags": "executionpolicy scripts unblock security ps1",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy",
+          "title": "Set-ExecutionPolicy"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/unblock-file",
+          "title": "Unblock-File"
+        }
+      ]
+    }
   },
   {
     "sName": "win-packages",
@@ -68309,8 +68456,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "Winget: Pro Tips & Best Practices",
     "cmd": "winget upgrade --all --include-unknown   |   winget export -o winget.json",
     "desc": "Silent batch application upgrades & reproducible JSON machine manifests",
-    "tip": "Pass --accept-package-agreements --accept-source-agreements for 100% unattended installs!",
-    "tags": "winget-pkg tips pro windows powershell best-practices"
+    "tip": "Pass --accept-package-agreements --accept-source-agreements so installs never stop at a license prompt",
+    "tags": "winget-pkg tips pro windows powershell best-practices",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/windows/package-manager/winget/upgrade",
+          "title": "winget upgrade"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/windows/package-manager/winget/export",
+          "title": "winget export"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/windows/package-manager/winget/import",
+          "title": "winget import"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy",
+          "title": "Set-ExecutionPolicy"
+        }
+      ]
+    }
   },
   {
     "sName": "win-processes",
@@ -68321,7 +68489,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Get-Process | Sort-Object WorkingSet64 -Descending | Select-Object -First 10 Name,Id,CPU,WorkingSet64   |   Stop-Process -Name 'node' -Force",
     "desc": "List top memory-consuming processes or forcefully terminate processes by name/PID",
     "tip": "",
-    "tags": "process kill memory cpu top stop-process"
+    "tags": "process kill memory cpu top stop-process",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-process",
+          "title": "Get-Process"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/stop-process",
+          "title": "Stop-Process"
+        }
+      ]
+    }
   },
   {
     "sName": "win-processes",
@@ -68332,7 +68513,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Get-CimInstance Win32_Process -Filter \"Name LIKE '%python%'\" | Select-Object ProcessId, ParentProcessId, CommandLine",
     "desc": "Inspect full command-line arguments and parent PID of running processes via CIM",
     "tip": "Shows full CLI args",
-    "tags": "commandline arguments parent pid cim wmi"
+    "tags": "commandline arguments parent pid cim wmi",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/cimcmdlets/get-ciminstance",
+          "title": "Get-CimInstance"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-process",
+          "title": "Win32_Process class"
+        }
+      ]
+    }
   },
   {
     "sName": "win-processes",
@@ -68343,7 +68537,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Get-Service | Where-Object {$_.Status -eq 'Running'}   |   Restart-Service -Name 'Spooler' -Force",
     "desc": "Query, restart, or change startup type of Windows background services",
     "tip": "",
-    "tags": "service daemon restart running startup"
+    "tags": "service daemon restart running startup",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-service",
+          "title": "Get-Service"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/restart-service",
+          "title": "Restart-Service"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/set-service",
+          "title": "Set-Service"
+        }
+      ],
+      "note": "Corrected 2026-11-10: -Force skips the confirmation prompt."
+    }
   },
   {
     "sName": "win-processes",
@@ -68354,7 +68566,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Get-WinEvent -FilterHashtable @{LogName='System'; Level=2; StartTime=(Get-Date).AddHours(-24)} -MaxEvents 25",
     "desc": "Query Windows Event Logs for recent System or Application crashes/errors",
     "tip": "",
-    "tags": "logs event-viewer errors crash winevent"
+    "tags": "logs event-viewer errors crash winevent",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.diagnostics/get-winevent",
+          "title": "Get-WinEvent"
+        }
+      ]
+    }
   },
   {
     "sName": "win-processes",
@@ -68365,7 +68586,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "(Get-Date) - (Get-CimInstance Win32_OperatingSystem).LastBootUpTime   |   Get-ComputerInfo",
     "desc": "Check system boot time / uptime, motherboard/BIOS info, and RAM DIMM slots",
     "tip": "",
-    "tags": "uptime boot hardware ram bios serial"
+    "tags": "uptime boot hardware ram bios serial",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-operatingsystem",
+          "title": "Win32_OperatingSystem class"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/cimcmdlets/get-ciminstance",
+          "title": "Get-CimInstance"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-computerinfo",
+          "title": "Get-ComputerInfo"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/windows-hardware/drivers/kernel/distinguishing-fast-startup-from-wake-from-hibernation",
+          "title": "Microsoft: fast startup vs hibernation"
+        }
+      ],
+      "note": "Corrected 2026-11-10: Fast Startup shutdown is a kernel hibernate, so LastBootUpTime does not reset on Shut down."
+    }
   },
   {
     "sName": "win-processes",
@@ -68376,7 +68619,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "(Get-CimInstance Win32_OperatingSystem).LastBootUpTime   |   Get-Service | Where Status -eq \"Running\"",
     "desc": "Accurate system uptime, parent process tree inspection & crash triage",
     "tip": "Use Get-CimInstance Win32_Process to inspect full command-line arguments and parent PIDs!",
-    "tags": "ps-sys tips pro windows powershell best-practices"
+    "tags": "ps-sys tips pro windows powershell best-practices",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-operatingsystem",
+          "title": "Win32_OperatingSystem class"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/windows-hardware/drivers/kernel/distinguishing-fast-startup-from-wake-from-hibernation",
+          "title": "Microsoft: fast startup vs hibernation"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-process",
+          "title": "Get-Process"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/stop-process",
+          "title": "Stop-Process"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.diagnostics/get-winevent",
+          "title": "Get-WinEvent"
+        }
+      ],
+      "note": "Corrected 2026-11-10: LastBootUpTime does not bypass Fast Startup; it is not reset by a Fast Startup shutdown."
+    }
   },
   {
     "sName": "win-registry",
@@ -68384,10 +68653,27 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "reg",
     "id": "env-vars-path",
     "sec": "Environment: Environment Variables & $env:PATH Splitting",
-    "cmd": "$env:PATH -split ';'   |   Get-ChildItem Env:   |   [Environment]::SetEnvironmentVariable('API_KEY', '123', 'User')",
+    "cmd": "$env:PATH -split ';'   |   Get-ChildItem Env:   |   [Environment]::SetEnvironmentVariable('EDITOR', 'code --wait', 'User')",
     "desc": "Inspect environment variables, split PATH cleanly, or persist user/machine env vars",
     "tip": "Use where.exe (not where alias)",
-    "tags": "path env environment which where variables"
+    "tags": "path env environment which where variables",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/api/system.environment.setenvironmentvariable",
+          "title": "Environment.SetEnvironmentVariable"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_environment_variables",
+          "title": "about_Environment_Variables"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/where",
+          "title": "where"
+        }
+      ]
+    }
   },
   {
     "sName": "win-registry",
@@ -68398,7 +68684,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "if (!(Test-Path $PROFILE)) { New-Item -Type File -Path $PROFILE -Force }; notepad $PROFILE",
     "desc": "Create or edit your PowerShell startup profile ($PROFILE) and inspect command history",
     "tip": "",
-    "tags": "profile bashrc history psreadline startup"
+    "tags": "profile bashrc history psreadline startup",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_profiles",
+          "title": "about_Profiles"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/psreadline/about/about_psreadline",
+          "title": "about_PSReadLine"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/get-command",
+          "title": "Get-Command"
+        }
+      ]
+    }
   },
   {
     "sName": "win-registry",
@@ -68409,7 +68712,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Get-ItemProperty -Path 'HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Run'   |   Set-ItemProperty -Path $reg -Name 'Dark' -Value 0",
     "desc": "Navigate and edit the Windows Registry just like a filesystem via HKCU: and HKLM:",
     "tip": "",
-    "tags": "registry regedit hkcu hklm startup"
+    "tags": "registry regedit hkcu hklm startup",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_registry_provider",
+          "title": "about_Registry_Provider"
+        }
+      ]
+    }
   },
   {
     "sName": "win-registry",
@@ -68417,10 +68729,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "reg",
     "id": "elevate-runas-admin",
     "sec": "Environment: Administrator Elevation & Token Verification",
-    "cmd": "Start-Process wt -Verb RunAs   |   ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole('Administrator')",
+    "cmd": "Start-Process wt -Verb RunAs   |   ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)",
     "desc": "Spawn an elevated Administrator Windows Terminal or check if current shell is Admin",
     "tip": "",
-    "tags": "sudo runas admin uac elevate"
+    "tags": "sudo runas admin uac elevate",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/start-process",
+          "title": "Start-Process"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/api/system.security.principal.windowsprincipal.isinrole",
+          "title": "WindowsPrincipal.IsInRole"
+        }
+      ],
+      "note": "Corrected 2026-11-10: IsInRole('Administrator') matches a group named Administrator; use WindowsBuiltInRole."
+    }
   },
   {
     "sName": "win-registry",
@@ -68431,7 +68757,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "[Environment]::SetEnvironmentVariable(\"NAME\", \"VAL\", \"User\")   |   cd HKCU:\\Software",
     "desc": "Persistent environment variables, Registry PSDrives & Admin elevation",
     "tip": "Edit your startup profile with notepad $PROFILE to define custom functions and persistent aliases!",
-    "tags": "reg-env tips pro windows powershell best-practices"
+    "tags": "reg-env tips pro windows powershell best-practices",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/api/system.environment.setenvironmentvariable",
+          "title": "Environment.SetEnvironmentVariable"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_registry_provider",
+          "title": "about_Registry_Provider"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/start-process",
+          "title": "Start-Process"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_profiles",
+          "title": "about_Profiles"
+        }
+      ]
+    }
   },
   {
     "sName": "win-shortcuts",
@@ -68439,10 +68786,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "keys",
     "id": "win-power-user-admin",
     "sec": "Windows 11: Power User Menu & Task Manager (Win+X)",
-    "cmd": "Win+X   |   Win+X then I (Admin Terminal)   |   Ctrl+Shift+Esc   |   Ctrl+Shift+Enter",
+    "cmd": "Win+X   |   Ctrl+Shift+Esc   |   Ctrl+Shift+Enter",
     "desc": "Open Quick Link admin menu, Task Manager, or launch any app as Administrator",
-    "tip": "Win+X then I = Admin PS",
+    "tip": "Win+X = right-click on Start",
     "tags": "admin elevate task-manager shutdown menu terminal",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.microsoft.com/en-us/windows/keyboard-shortcuts-in-windows-dcc61a57-8ff0-cffe-9796-cb9706c75eec",
+          "title": "Microsoft: keyboard shortcuts in Windows"
+        }
+      ],
+      "note": "Corrected 2026-11-10: the Win+X letter shortcuts were wrong (I is Terminal, not Terminal (Admin)) and are not in Microsoft's list; Ctrl+Shift+Enter (run elevated) isn't in it either."
+    },
     "noCopy": true
   },
   {
@@ -68455,6 +68812,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Snap windows into halves/quadrants, open Snap Layouts, or move window across monitors",
     "tip": "",
     "tags": "snap tile monitor layout minimize desktop",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.microsoft.com/en-us/windows/keyboard-shortcuts-in-windows-dcc61a57-8ff0-cffe-9796-cb9706c75eec",
+          "title": "Microsoft: keyboard shortcuts in Windows"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -68467,6 +68833,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Create, switch between, and close Virtual Desktops (Workspaces)",
     "tip": "",
     "tags": "virtual-desktop workspaces task-view switch",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.microsoft.com/en-us/windows/keyboard-shortcuts-in-windows-dcc61a57-8ff0-cffe-9796-cb9706c75eec",
+          "title": "Microsoft: keyboard shortcuts in Windows"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -68479,6 +68854,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Clipboard history, region screenshot/screen-record, text OCR, and GPU driver reset",
     "tip": "Win+Ctrl+Shift+B fixes black screens",
     "tags": "clipboard screenshot snip record gpu audio",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.microsoft.com/en-us/windows/keyboard-shortcuts-in-windows-dcc61a57-8ff0-cffe-9796-cb9706c75eec",
+          "title": "Microsoft: keyboard shortcuts in Windows"
+        },
+        {
+          "url": "https://support.microsoft.com/en-us/windows/use-snipping-tool-to-capture-screenshots-00246869-1843-655f-f220-97299b865f6b",
+          "title": "Microsoft: Snipping Tool"
+        },
+        {
+          "url": "https://support.microsoft.com/en-us/windows/clipboard-in-windows-c436501e-985d-1c8d-97ea-fe46ddf338c6",
+          "title": "Microsoft: clipboard history"
+        }
+      ],
+      "note": "Microsoft describes Win+Ctrl+Shift+B as waking the PC from a blank or black screen."
+    },
     "noCopy": true
   },
   {
@@ -68491,6 +68884,19 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Open Terminal in current Explorer folder, copy full file path, or toggle preview panes",
     "tip": "Alt+D -> wt opens shell here",
     "tags": "explorer path copy terminal folder preview",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.microsoft.com/en-us/windows/keyboard-shortcuts-in-windows-dcc61a57-8ff0-cffe-9796-cb9706c75eec",
+          "title": "Microsoft: keyboard shortcuts in Windows"
+        },
+        {
+          "url": "https://blogs.windows.com/windows-insider/2021/09/22/announcing-windows-11-insider-preview-build-22463/",
+          "title": "Windows Insider build 22463 (Ctrl+Shift+C)"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -68501,8 +68907,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "Windows 11: Pro Tips & Best Practices",
     "cmd": "Win+Ctrl+Shift+B   |   Win+Shift+S   |   Ctrl+Shift+Esc   |   Win+X",
     "desc": "Instant graphics driver reset, Snipping Tool OCR & Task Manager shortcut",
-    "tip": "Press Win+X then A to launch an elevated Administrator PowerShell prompt in 1 second!",
+    "tip": "Win+X opens the same menu as right-clicking Start: Terminal (Admin) is one click away",
     "tags": "win-keys tips pro windows powershell best-practices",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.microsoft.com/en-us/windows/keyboard-shortcuts-in-windows-dcc61a57-8ff0-cffe-9796-cb9706c75eec",
+          "title": "Microsoft: keyboard shortcuts in Windows"
+        },
+        {
+          "url": "https://support.microsoft.com/en-us/windows/use-snipping-tool-to-capture-screenshots-00246869-1843-655f-f220-97299b865f6b",
+          "title": "Microsoft: Snipping Tool"
+        },
+        {
+          "url": "https://support.microsoft.com/en-us/windows/clipboard-in-windows-c436501e-985d-1c8d-97ea-fe46ddf338c6",
+          "title": "Microsoft: clipboard history"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -68514,7 +68937,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Get-Disk | Select-Object Number, FriendlyName, OperationalStatus, BusType, PartitionStyle, @{Name='Size_GB'; Expression={[math]::Round($_.Size/1GB, 1)}}",
     "desc": "List all physical disks, bus types (NVMe/SATA), partition styles (GPT/MBR) and health",
     "tip": "Native alternative to diskmgmt.msc",
-    "tags": "disk storage nvme ssd smart partition"
+    "tags": "disk storage nvme ssd smart partition",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/get-disk",
+          "title": "Get-Disk"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/get-physicaldisk",
+          "title": "Get-PhysicalDisk"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/get-storagereliabilitycounter",
+          "title": "Get-StorageReliabilityCounter"
+        }
+      ]
+    }
   },
   {
     "sName": "win-storage",
@@ -68544,10 +68984,40 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "dsk",
     "id": "disk-partition-format",
     "sec": "Disks: Disk Initialization & Partition Format",
-    "cmd": "Initialize-Disk -Number 1 -PartitionStyle GPT && New-Partition -DiskNumber 1 -UseMaximumSize -AssignDriveLetter | Format-Volume -FileSystem NTFS -NewFileSystemLabel 'Data' -Confirm:$false",
+    "cmd": "Initialize-Disk -Number 1 -PartitionStyle GPT; New-Partition -DiskNumber 1 -UseMaximumSize -AssignDriveLetter | Format-Volume -FileSystem NTFS -NewFileSystemLabel 'Data' -Confirm:$false",
     "desc": "Initialize raw disk as GPT, create partition using maximum space and format with NTFS/ReFS",
     "tip": "Pass -Confirm:$false for automated non-interactive scripting",
-    "tags": "format partition volume ntfs refs gpt trim"
+    "tags": "format partition volume ntfs refs gpt trim",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/initialize-disk",
+          "title": "Initialize-Disk"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/new-partition",
+          "title": "New-Partition"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/format-volume",
+          "title": "Format-Volume"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/get-volume",
+          "title": "Get-Volume"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/optimize-volume",
+          "title": "Optimize-Volume"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_pipeline_chain_operators",
+          "title": "about_Pipeline_Chain_Operators (&& is PowerShell 7+)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: && needs PowerShell 7 (now ;), and -Defrag is not TRIM."
+    }
   },
   {
     "sName": "win-storage",
@@ -68566,8 +69036,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "dsk",
     "id": "disk-partition-format",
     "sec": "Disks: Disk Initialization & Partition Format",
-    "cmd": "Optimize-Volume -DriveLetter C -Defrag -Verbose",
-    "desc": "Run TRIM optimization on SSD or defragment HDD",
+    "cmd": "Optimize-Volume -DriveLetter C -Verbose",
+    "desc": "Optimize the volume the right way for its media: retrim on an SSD, analyze and defrag on an HDD (-Defrag alone always defragments)",
     "tip": "",
     "tags": "format partition volume ntfs refs gpt trim"
   },
@@ -68580,7 +69050,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Get-BitLockerVolume -MountPoint C: | Select-Object MountPoint, VolumeStatus, EncryptionPercentage, ProtectionStatus, KeyProtector",
     "desc": "Inspect BitLocker encryption status, key protectors (TPM / Recovery Password) and backup keys",
     "tip": "Always backup BitLocker 48-digit recovery keys before BIOS/TPM updates",
-    "tags": "bitlocker encryption tpm recovery-key manage-bde security"
+    "tags": "bitlocker encryption tpm recovery-key manage-bde security",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/bitlocker/get-bitlockervolume",
+          "title": "Get-BitLockerVolume"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/manage-bde-protectors",
+          "title": "manage-bde -protectors"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/manage-bde-status",
+          "title": "manage-bde -status"
+        }
+      ]
+    }
   },
   {
     "sName": "win-storage",
@@ -68612,8 +69099,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "Disks: Pro Tips & Best Practices",
     "cmd": "manage-bde -protectors -get C:   |   Get-Disk | Where-Object OperationalStatus -ne \"OK\"",
     "desc": "Retrieve 48-digit BitLocker recovery password & clean disk wipe",
-    "tip": "Use ReFS formatting for dedicated Hyper-V, WSL 2, or dev storage for instant block cloning!",
-    "tags": "win-storage tips pro windows powershell best-practices"
+    "tip": "For source trees and build output, a Dev Drive (ReFS) is the supported fast option on Windows 11",
+    "tags": "win-storage tips pro windows powershell best-practices",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/manage-bde-protectors",
+          "title": "manage-bde -protectors"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/clear-disk",
+          "title": "Clear-Disk"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/initialize-disk",
+          "title": "Initialize-Disk"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/get-volume",
+          "title": "Get-Volume"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/windows/dev-drive/",
+          "title": "Dev Drive (ReFS)"
+        }
+      ]
+    }
   },
   {
     "sName": "win-sysadmin",
@@ -68621,10 +69133,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "adm",
     "id": "dism-sfc-repair",
     "sec": "System Repair: DISM & SFC System Image Corruption Repair",
-    "cmd": "DISM.exe /Online /Cleanup-Image /RestoreHealth   &&   sfc /scannow",
+    "cmd": "DISM.exe /Online /Cleanup-Image /RestoreHealth",
     "desc": "Repair corrupted Windows system image files using DISM and System File Checker (SFC)",
     "tip": "Run DISM first, then sfc",
-    "tags": "repair dism sfc corrupt health windows"
+    "tags": "repair dism sfc corrupt health windows",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/repair-a-windows-image",
+          "title": "Repair a Windows image (DISM)"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/sfc",
+          "title": "sfc"
+        }
+      ],
+      "note": "Corrected 2026-11-10: DISM and sfc are now separate lines (&& fails in Windows PowerShell 5.1)."
+    }
   },
   {
     "sName": "win-sysadmin",
@@ -68635,7 +69161,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "robocopy C:\\Source D:\\Backup /MIR /Z /MT:16 /R:2 /W:5 /XD node_modules .git /NFL /NDL",
     "desc": "High-speed multi-threaded directory sync/backup (Windows built-in rsync alternative)",
     "tip": "",
-    "tags": "robocopy rsync backup sync mirror copy"
+    "tags": "robocopy rsync backup sync mirror copy",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/robocopy",
+          "title": "robocopy"
+        }
+      ]
+    }
   },
   {
     "sName": "win-sysadmin",
@@ -68646,7 +69181,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "powercfg /batteryreport /output C:\\battery.html   |   powercfg /requests   |   powercfg /lastwake",
     "desc": "Generate detailed HTML laptop battery health report or see what is waking/keeping PC awake",
     "tip": "Great laptop health check",
-    "tags": "battery powercfg sleep wake laptop power"
+    "tags": "battery powercfg sleep wake laptop power",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/windows-hardware/design/device-experiences/powercfg-command-line-options",
+          "title": "powercfg options"
+        }
+      ]
+    }
   },
   {
     "sName": "win-sysadmin",
@@ -68658,6 +69202,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Reboot directly into motherboard UEFI / BIOS setup without mashing Del/F2 on boot",
     "tip": "No more mashing F2/Del!",
     "tags": "bios uefi firmware reboot recovery safemode",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/shutdown",
+          "title": "shutdown"
+        }
+      ]
+    },
     "noCopy": true,
     "refWhy": "reboot"
   },
@@ -68670,7 +69223,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "robocopy <src> <dst> /MIR /MT:16 /R:1 /W:1   |   DISM /Online /Cleanup-Image /RestoreHealth",
     "desc": "High-speed 16-thread Robocopy directory mirror & corruption repair",
     "tip": "Generate a detailed laptop battery degradation report with: powercfg /batteryreport",
-    "tags": "sysadmin-repair tips pro windows powershell best-practices"
+    "tags": "sysadmin-repair tips pro windows powershell best-practices",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/robocopy",
+          "title": "robocopy"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/repair-a-windows-image",
+          "title": "Repair a Windows image (DISM)"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/sfc",
+          "title": "sfc"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/shutdown",
+          "title": "shutdown"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/windows-hardware/design/device-experiences/powercfg-command-line-options",
+          "title": "powercfg options"
+        }
+      ]
+    }
   },
   {
     "sName": "win-wsl",
@@ -68681,7 +69259,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "wsl --install -d Ubuntu   |   wsl --list --verbose   |   wsl --update   |   wsl --status",
     "desc": "Install WSL 2 and Linux distributions, check running state, or update the WSL kernel",
     "tip": "",
-    "tags": "wsl ubuntu linux install distro update"
+    "tags": "wsl ubuntu linux install distro update",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/windows/wsl/basic-commands",
+          "title": "WSL basic commands"
+        }
+      ]
+    }
   },
   {
     "sName": "win-wsl",
@@ -68692,7 +69279,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "wsl --shutdown   |   wsl --terminate Ubuntu   |   wsl -d Ubuntu -u root",
     "desc": "Shut down the WSL 2 lightweight VM (reclaims RAM), terminate a distro, or log in as root",
     "tip": "wsl --shutdown frees cached RAM",
-    "tags": "shutdown stop root memory restart vm"
+    "tags": "shutdown stop root memory restart vm",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/windows/wsl/basic-commands",
+          "title": "WSL basic commands"
+        }
+      ]
+    }
   },
   {
     "sName": "win-wsl",
@@ -68703,7 +69299,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "wsl --export Ubuntu D:\\backups\\ubuntu.tar   |   wsl --import UbuntuDev D:\\WSL\\UbuntuDev D:\\backups\\ubuntu.tar",
     "desc": "Snapshot a WSL distribution to a .tar archive or move it to another drive (e.g. D:\\)",
     "tip": "",
-    "tags": "backup export import move drive vhdx"
+    "tags": "backup export import move drive vhdx",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/windows/wsl/basic-commands",
+          "title": "WSL basic commands"
+        }
+      ]
+    }
   },
   {
     "sName": "win-wsl",
@@ -68714,7 +69319,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "explorer.exe .   |   cat ~/.ssh/id_ed25519.pub | clip.exe   |   pwsh.exe -c 'Get-Date'",
     "desc": "Call Windows executables from Linux bash or access Linux files from File Explorer",
     "tip": "Works directly inside WSL bash!",
-    "tags": "interop explorer clip wslpath bridge"
+    "tags": "interop explorer clip wslpath bridge",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/windows/wsl/filesystems",
+          "title": "WSL: working across file systems"
+        }
+      ]
+    }
   },
   {
     "sName": "win-wsl",
@@ -68725,7 +69339,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "wsl --shutdown   |   explorer.exe \\\\wsl$\\Ubuntu\\   |   wsl --export Ubuntu D:\\backup.tar",
     "desc": "Reclaim RAM instantly with VM shutdown & Windows-Linux filesystem interop",
     "tip": "You can run Windows commands from inside Linux bash (e.g. clip.exe < file.txt)!",
-    "tags": "wsl tips pro windows powershell best-practices"
+    "tags": "wsl tips pro windows powershell best-practices",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/windows/wsl/basic-commands",
+          "title": "WSL basic commands"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/windows/wsl/filesystems",
+          "title": "WSL: working across file systems"
+        }
+      ]
+    }
   },
   {
     "sName": "windows",
@@ -68733,10 +69360,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "keys",
     "id": "win-power-user-admin",
     "sec": "Windows 11, Snap & Explorer Shortcuts",
-    "cmd": "Win+X   |   Win+X then I (Admin Terminal)   |   Ctrl+Shift+Esc   |   Ctrl+Shift+Enter",
+    "cmd": "Win+X   |   Ctrl+Shift+Esc   |   Ctrl+Shift+Enter",
     "desc": "Open Quick Link admin menu, Task Manager, or launch any app as Administrator",
-    "tip": "Win+X then I = Admin PS",
+    "tip": "Win+X = right-click on Start",
     "tags": "admin elevate task-manager shutdown menu terminal",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.microsoft.com/en-us/windows/keyboard-shortcuts-in-windows-dcc61a57-8ff0-cffe-9796-cb9706c75eec",
+          "title": "Microsoft: keyboard shortcuts in Windows"
+        }
+      ],
+      "note": "Corrected 2026-11-10: the Win+X letter shortcuts were wrong (I is Terminal, not Terminal (Admin)) and are not in Microsoft's list; Ctrl+Shift+Enter (run elevated) isn't in it either."
+    },
     "noCopy": true
   },
   {
@@ -68749,6 +69386,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Snap windows into halves/quadrants, open Snap Layouts, or move window across monitors",
     "tip": "",
     "tags": "snap tile monitor layout minimize desktop",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.microsoft.com/en-us/windows/keyboard-shortcuts-in-windows-dcc61a57-8ff0-cffe-9796-cb9706c75eec",
+          "title": "Microsoft: keyboard shortcuts in Windows"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -68761,6 +69407,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Create, switch between, and close Virtual Desktops (Workspaces)",
     "tip": "",
     "tags": "virtual-desktop workspaces task-view switch",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.microsoft.com/en-us/windows/keyboard-shortcuts-in-windows-dcc61a57-8ff0-cffe-9796-cb9706c75eec",
+          "title": "Microsoft: keyboard shortcuts in Windows"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -68773,6 +69428,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Clipboard history, region screenshot/screen-record, text OCR, and GPU driver reset",
     "tip": "Win+Ctrl+Shift+B fixes black screens",
     "tags": "clipboard screenshot snip record gpu audio",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.microsoft.com/en-us/windows/keyboard-shortcuts-in-windows-dcc61a57-8ff0-cffe-9796-cb9706c75eec",
+          "title": "Microsoft: keyboard shortcuts in Windows"
+        },
+        {
+          "url": "https://support.microsoft.com/en-us/windows/use-snipping-tool-to-capture-screenshots-00246869-1843-655f-f220-97299b865f6b",
+          "title": "Microsoft: Snipping Tool"
+        },
+        {
+          "url": "https://support.microsoft.com/en-us/windows/clipboard-in-windows-c436501e-985d-1c8d-97ea-fe46ddf338c6",
+          "title": "Microsoft: clipboard history"
+        }
+      ],
+      "note": "Microsoft describes Win+Ctrl+Shift+B as waking the PC from a blank or black screen."
+    },
     "noCopy": true
   },
   {
@@ -68785,6 +69458,19 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Open Terminal in current Explorer folder, copy full file path, or toggle preview panes",
     "tip": "Alt+D -> wt opens shell here",
     "tags": "explorer path copy terminal folder preview",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.microsoft.com/en-us/windows/keyboard-shortcuts-in-windows-dcc61a57-8ff0-cffe-9796-cb9706c75eec",
+          "title": "Microsoft: keyboard shortcuts in Windows"
+        },
+        {
+          "url": "https://blogs.windows.com/windows-insider/2021/09/22/announcing-windows-11-insider-preview-build-22463/",
+          "title": "Windows Insider build 22463 (Ctrl+Shift+C)"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -68796,7 +69482,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Get-Disk | Select-Object Number, FriendlyName, OperationalStatus, BusType, PartitionStyle, @{Name='Size_GB'; Expression={[math]::Round($_.Size/1GB, 1)}}",
     "desc": "List all physical disks, bus types (NVMe/SATA), partition styles (GPT/MBR) and health",
     "tip": "Native alternative to diskmgmt.msc",
-    "tags": "disk storage nvme ssd smart partition"
+    "tags": "disk storage nvme ssd smart partition",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/get-disk",
+          "title": "Get-Disk"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/get-physicaldisk",
+          "title": "Get-PhysicalDisk"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/get-storagereliabilitycounter",
+          "title": "Get-StorageReliabilityCounter"
+        }
+      ]
+    }
   },
   {
     "sName": "windows",
@@ -68826,10 +69529,40 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "storage",
     "id": "disk-partition-format",
     "sec": "Disks, Volumes & BitLocker Encryption",
-    "cmd": "Initialize-Disk -Number 1 -PartitionStyle GPT && New-Partition -DiskNumber 1 -UseMaximumSize -AssignDriveLetter | Format-Volume -FileSystem NTFS -NewFileSystemLabel 'Data' -Confirm:$false",
+    "cmd": "Initialize-Disk -Number 1 -PartitionStyle GPT; New-Partition -DiskNumber 1 -UseMaximumSize -AssignDriveLetter | Format-Volume -FileSystem NTFS -NewFileSystemLabel 'Data' -Confirm:$false",
     "desc": "Initialize raw disk as GPT, create partition using maximum space and format with NTFS/ReFS",
     "tip": "Pass -Confirm:$false for automated non-interactive scripting",
-    "tags": "format partition volume ntfs refs gpt trim"
+    "tags": "format partition volume ntfs refs gpt trim",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/initialize-disk",
+          "title": "Initialize-Disk"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/new-partition",
+          "title": "New-Partition"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/format-volume",
+          "title": "Format-Volume"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/get-volume",
+          "title": "Get-Volume"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/optimize-volume",
+          "title": "Optimize-Volume"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_pipeline_chain_operators",
+          "title": "about_Pipeline_Chain_Operators (&& is PowerShell 7+)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: && needs PowerShell 7 (now ;), and -Defrag is not TRIM."
+    }
   },
   {
     "sName": "windows",
@@ -68848,8 +69581,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "storage",
     "id": "disk-partition-format",
     "sec": "Disks, Volumes & BitLocker Encryption",
-    "cmd": "Optimize-Volume -DriveLetter C -Defrag -Verbose",
-    "desc": "Run TRIM optimization on SSD or defragment HDD",
+    "cmd": "Optimize-Volume -DriveLetter C -Verbose",
+    "desc": "Optimize the volume the right way for its media: retrim on an SSD, analyze and defrag on an HDD (-Defrag alone always defragments)",
     "tip": "",
     "tags": "format partition volume ntfs refs gpt trim"
   },
@@ -68862,7 +69595,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Get-BitLockerVolume -MountPoint C: | Select-Object MountPoint, VolumeStatus, EncryptionPercentage, ProtectionStatus, KeyProtector",
     "desc": "Inspect BitLocker encryption status, key protectors (TPM / Recovery Password) and backup keys",
     "tip": "Always backup BitLocker 48-digit recovery keys before BIOS/TPM updates",
-    "tags": "bitlocker encryption tpm recovery-key manage-bde security"
+    "tags": "bitlocker encryption tpm recovery-key manage-bde security",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/bitlocker/get-bitlockervolume",
+          "title": "Get-BitLockerVolume"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/manage-bde-protectors",
+          "title": "manage-bde -protectors"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/manage-bde-status",
+          "title": "manage-bde -status"
+        }
+      ]
+    }
   },
   {
     "sName": "windows",
@@ -68895,7 +69645,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Get-Process | Sort-Object WorkingSet64 -Descending | Select-Object -First 10 Name,Id,CPU,WorkingSet64   |   Stop-Process -Name 'node' -Force",
     "desc": "List top memory-consuming processes or forcefully terminate processes by name/PID",
     "tip": "",
-    "tags": "process kill memory cpu top stop-process"
+    "tags": "process kill memory cpu top stop-process",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-process",
+          "title": "Get-Process"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/stop-process",
+          "title": "Stop-Process"
+        }
+      ]
+    }
   },
   {
     "sName": "windows",
@@ -68906,7 +69669,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Get-CimInstance Win32_Process -Filter \"Name LIKE '%python%'\" | Select-Object ProcessId, ParentProcessId, CommandLine",
     "desc": "Inspect full command-line arguments and parent PID of running processes via CIM",
     "tip": "Shows full CLI args",
-    "tags": "commandline arguments parent pid cim wmi"
+    "tags": "commandline arguments parent pid cim wmi",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/cimcmdlets/get-ciminstance",
+          "title": "Get-CimInstance"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-process",
+          "title": "Win32_Process class"
+        }
+      ]
+    }
   },
   {
     "sName": "windows",
@@ -68917,7 +69693,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Get-Service | Where-Object {$_.Status -eq 'Running'}   |   Restart-Service -Name 'Spooler' -Force",
     "desc": "Query, restart, or change startup type of Windows background services",
     "tip": "",
-    "tags": "service daemon restart running startup"
+    "tags": "service daemon restart running startup",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-service",
+          "title": "Get-Service"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/restart-service",
+          "title": "Restart-Service"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/set-service",
+          "title": "Set-Service"
+        }
+      ],
+      "note": "Corrected 2026-11-10: -Force skips the confirmation prompt."
+    }
   },
   {
     "sName": "windows",
@@ -68928,7 +69722,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Get-WinEvent -FilterHashtable @{LogName='System'; Level=2; StartTime=(Get-Date).AddHours(-24)} -MaxEvents 25",
     "desc": "Query Windows Event Logs for recent System or Application crashes/errors",
     "tip": "",
-    "tags": "logs event-viewer errors crash winevent"
+    "tags": "logs event-viewer errors crash winevent",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.diagnostics/get-winevent",
+          "title": "Get-WinEvent"
+        }
+      ]
+    }
   },
   {
     "sName": "windows",
@@ -68939,7 +69742,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "(Get-Date) - (Get-CimInstance Win32_OperatingSystem).LastBootUpTime   |   Get-ComputerInfo",
     "desc": "Check system boot time / uptime, motherboard/BIOS info, and RAM DIMM slots",
     "tip": "",
-    "tags": "uptime boot hardware ram bios serial"
+    "tags": "uptime boot hardware ram bios serial",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-operatingsystem",
+          "title": "Win32_OperatingSystem class"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/cimcmdlets/get-ciminstance",
+          "title": "Get-CimInstance"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-computerinfo",
+          "title": "Get-ComputerInfo"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/windows-hardware/drivers/kernel/distinguishing-fast-startup-from-wake-from-hibernation",
+          "title": "Microsoft: fast startup vs hibernation"
+        }
+      ],
+      "note": "Corrected 2026-11-10: Fast Startup shutdown is a kernel hibernate, so LastBootUpTime does not reset on Shut down."
+    }
   },
   {
     "sName": "windows",
@@ -68950,7 +69775,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Get-NetTCPConnection -LocalPort 3000 -ErrorAction SilentlyContinue | Select-Object LocalPort,State,OwningProcess,@{N='Process';E={(Get-Process -Id $_.OwningProcess).ProcessName}}",
     "desc": "Find which process owns a listening TCP port (PowerShell & netstat one-liners)",
     "tip": "Windows equivalent of lsof -i",
-    "tags": "ports listen pid netstat lsof tcp"
+    "tags": "ports listen pid netstat lsof tcp",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/nettcpip/get-nettcpconnection",
+          "title": "Get-NetTCPConnection"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/netstat",
+          "title": "netstat"
+        }
+      ]
+    }
   },
   {
     "sName": "windows",
@@ -68961,7 +69799,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Test-NetConnection -ComputerName github.com -Port 443   |   tnc 2606:4700:4700::1111 -TraceRoute",
     "desc": "Test remote TCP port connectivity, IPv6/IPv4 ping latency, or trace route (nc / traceroute)",
     "tip": "Alias: tnc host -Port 443",
-    "tags": "ping ipv6 port telnet nc traceroute tnc"
+    "tags": "ping ipv6 port telnet nc traceroute tnc",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/nettcpip/test-netconnection",
+          "title": "Test-NetConnection"
+        }
+      ]
+    }
   },
   {
     "sName": "windows",
@@ -68972,7 +69819,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Resolve-DnsName -Name example.com -Type AAAA -Server 2606:4700:4700::1111   |   Clear-DnsClientCache",
     "desc": "Query specific DNS record types (`AAAA`, `TXT`, `MX`) or flush Windows DNS cache",
     "tip": "",
-    "tags": "dns ipv6 aaaa dig nslookup flush txt mx"
+    "tags": "dns ipv6 aaaa dig nslookup flush txt mx",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/dnsclient/resolve-dnsname",
+          "title": "Resolve-DnsName"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/dnsclient/clear-dnsclientcache",
+          "title": "Clear-DnsClientCache"
+        }
+      ]
+    }
   },
   {
     "sName": "windows",
@@ -68983,7 +69843,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Invoke-RestMethod -Uri 'https://ifconfig.me/all.json'   |   Invoke-WebRequest -Uri $url -OutFile app.zip",
     "desc": "Fetch JSON REST APIs directly into PowerShell objects or download files via HTTP",
     "tip": "Note: use curl.exe for real curl",
-    "tags": "curl http api rest download irm"
+    "tags": "curl http api rest download irm",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/invoke-restmethod",
+          "title": "Invoke-RestMethod"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/invoke-webrequest",
+          "title": "Invoke-WebRequest"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/scripting/whats-new/differences-from-windows-powershell",
+          "title": "PowerShell 7 vs Windows PowerShell (curl alias)"
+        }
+      ]
+    }
   },
   {
     "sName": "windows",
@@ -68994,7 +69871,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Get-NetIPAddress -AddressFamily IPv4 | Select-Object InterfaceAlias, IPAddress   |   New-NetFirewallRule -DisplayName 'Dev 8080' -Direction Inbound -LocalPort 8080 -Protocol TCP -Action Allow",
     "desc": "List clean IPv4 addresses, network interfaces, or open a Windows Firewall port",
     "tip": "",
-    "tags": "ip ipconfig firewall adapter nic port"
+    "tags": "ip ipconfig firewall adapter nic port",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/nettcpip/get-netipaddress",
+          "title": "Get-NetIPAddress"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/netadapter/get-netadapter",
+          "title": "Get-NetAdapter"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/netsecurity/new-netfirewallrule",
+          "title": "New-NetFirewallRule"
+        }
+      ]
+    }
   },
   {
     "sName": "windows",
@@ -69005,7 +69899,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "winget search neovim   |   winget install -e --id Neovim.Neovim   |   winget install --id Git.Git -s winget",
     "desc": "Search and install applications silently using the official Windows Package Manager",
     "tip": "Built into Windows 10/11",
-    "tags": "winget install package app search"
+    "tags": "winget install package app search",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/windows/package-manager/winget/search",
+          "title": "winget search"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/windows/package-manager/winget/install",
+          "title": "winget install"
+        }
+      ]
+    }
   },
   {
     "sName": "windows",
@@ -69016,7 +69923,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "winget upgrade   |   winget upgrade --all --include-unknown --silent",
     "desc": "List all outdated applications on the PC and upgrade everything in one command",
     "tip": "",
-    "tags": "upgrade update patch winget uninstall"
+    "tags": "upgrade update patch winget uninstall",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/windows/package-manager/winget/upgrade",
+          "title": "winget upgrade"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/windows/package-manager/winget/uninstall",
+          "title": "winget uninstall"
+        }
+      ]
+    }
   },
   {
     "sName": "windows",
@@ -69027,7 +69947,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "winget export -o winget-pkgs.json   |   winget import -i winget-pkgs.json --accept-package-agreements",
     "desc": "Export all installed software to a JSON manifest and restore on a fresh Windows install",
     "tip": "Reproducible PC setup",
-    "tags": "export import backup migrate manifest"
+    "tags": "export import backup migrate manifest",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/windows/package-manager/winget/export",
+          "title": "winget export"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/windows/package-manager/winget/import",
+          "title": "winget import"
+        }
+      ]
+    }
   },
   {
     "sName": "windows",
@@ -69038,7 +69971,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser   |   Unblock-File .\\script.ps1",
     "desc": "Allow local PowerShell scripts (.ps1) to run, unblock downloaded scripts, or install modules",
     "tip": "",
-    "tags": "executionpolicy scripts unblock security ps1"
+    "tags": "executionpolicy scripts unblock security ps1",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy",
+          "title": "Set-ExecutionPolicy"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/unblock-file",
+          "title": "Unblock-File"
+        }
+      ]
+    }
   },
   {
     "sName": "windows",
@@ -69049,7 +69995,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "wsl --install -d Ubuntu   |   wsl --list --verbose   |   wsl --update   |   wsl --status",
     "desc": "Install WSL 2 and Linux distributions, check running state, or update the WSL kernel",
     "tip": "",
-    "tags": "wsl ubuntu linux install distro update"
+    "tags": "wsl ubuntu linux install distro update",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/windows/wsl/basic-commands",
+          "title": "WSL basic commands"
+        }
+      ]
+    }
   },
   {
     "sName": "windows",
@@ -69060,7 +70015,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "wsl --shutdown   |   wsl --terminate Ubuntu   |   wsl -d Ubuntu -u root",
     "desc": "Shut down the WSL 2 lightweight VM (reclaims RAM), terminate a distro, or log in as root",
     "tip": "wsl --shutdown frees cached RAM",
-    "tags": "shutdown stop root memory restart vm"
+    "tags": "shutdown stop root memory restart vm",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/windows/wsl/basic-commands",
+          "title": "WSL basic commands"
+        }
+      ]
+    }
   },
   {
     "sName": "windows",
@@ -69071,7 +70035,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "wsl --export Ubuntu D:\\backups\\ubuntu.tar   |   wsl --import UbuntuDev D:\\WSL\\UbuntuDev D:\\backups\\ubuntu.tar",
     "desc": "Snapshot a WSL distribution to a .tar archive or move it to another drive (e.g. D:\\)",
     "tip": "",
-    "tags": "backup export import move drive vhdx"
+    "tags": "backup export import move drive vhdx",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/windows/wsl/basic-commands",
+          "title": "WSL basic commands"
+        }
+      ]
+    }
   },
   {
     "sName": "windows",
@@ -69082,7 +70055,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "explorer.exe .   |   cat ~/.ssh/id_ed25519.pub | clip.exe   |   pwsh.exe -c 'Get-Date'",
     "desc": "Call Windows executables from Linux bash or access Linux files from File Explorer",
     "tip": "Works directly inside WSL bash!",
-    "tags": "interop explorer clip wslpath bridge"
+    "tags": "interop explorer clip wslpath bridge",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/windows/wsl/filesystems",
+          "title": "WSL: working across file systems"
+        }
+      ]
+    }
   },
   {
     "sName": "windows",
@@ -69090,10 +70072,27 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "reg",
     "id": "env-vars-path",
     "sec": "Environment, Profile, Registry & Admin",
-    "cmd": "$env:PATH -split ';'   |   Get-ChildItem Env:   |   [Environment]::SetEnvironmentVariable('API_KEY', '123', 'User')",
+    "cmd": "$env:PATH -split ';'   |   Get-ChildItem Env:   |   [Environment]::SetEnvironmentVariable('EDITOR', 'code --wait', 'User')",
     "desc": "Inspect environment variables, split PATH cleanly, or persist user/machine env vars",
     "tip": "Use where.exe (not where alias)",
-    "tags": "path env environment which where variables"
+    "tags": "path env environment which where variables",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/api/system.environment.setenvironmentvariable",
+          "title": "Environment.SetEnvironmentVariable"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_environment_variables",
+          "title": "about_Environment_Variables"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/where",
+          "title": "where"
+        }
+      ]
+    }
   },
   {
     "sName": "windows",
@@ -69104,7 +70103,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "if (!(Test-Path $PROFILE)) { New-Item -Type File -Path $PROFILE -Force }; notepad $PROFILE",
     "desc": "Create or edit your PowerShell startup profile ($PROFILE) and inspect command history",
     "tip": "",
-    "tags": "profile bashrc history psreadline startup"
+    "tags": "profile bashrc history psreadline startup",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_profiles",
+          "title": "about_Profiles"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/psreadline/about/about_psreadline",
+          "title": "about_PSReadLine"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/get-command",
+          "title": "Get-Command"
+        }
+      ]
+    }
   },
   {
     "sName": "windows",
@@ -69115,7 +70131,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Get-ItemProperty -Path 'HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Run'   |   Set-ItemProperty -Path $reg -Name 'Dark' -Value 0",
     "desc": "Navigate and edit the Windows Registry just like a filesystem via HKCU: and HKLM:",
     "tip": "",
-    "tags": "registry regedit hkcu hklm startup"
+    "tags": "registry regedit hkcu hklm startup",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_registry_provider",
+          "title": "about_Registry_Provider"
+        }
+      ]
+    }
   },
   {
     "sName": "windows",
@@ -69123,10 +70148,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "reg",
     "id": "elevate-runas-admin",
     "sec": "Environment, Profile, Registry & Admin",
-    "cmd": "Start-Process wt -Verb RunAs   |   ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole('Administrator')",
+    "cmd": "Start-Process wt -Verb RunAs   |   ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)",
     "desc": "Spawn an elevated Administrator Windows Terminal or check if current shell is Admin",
     "tip": "",
-    "tags": "sudo runas admin uac elevate"
+    "tags": "sudo runas admin uac elevate",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/start-process",
+          "title": "Start-Process"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/dotnet/api/system.security.principal.windowsprincipal.isinrole",
+          "title": "WindowsPrincipal.IsInRole"
+        }
+      ],
+      "note": "Corrected 2026-11-10: IsInRole('Administrator') matches a group named Administrator; use WindowsBuiltInRole."
+    }
   },
   {
     "sName": "windows",
@@ -69134,10 +70173,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "adm",
     "id": "dism-sfc-repair",
     "sec": "System Repair, Robocopy, Power & UEFI",
-    "cmd": "DISM.exe /Online /Cleanup-Image /RestoreHealth   &&   sfc /scannow",
+    "cmd": "DISM.exe /Online /Cleanup-Image /RestoreHealth",
     "desc": "Repair corrupted Windows system image files using DISM and System File Checker (SFC)",
     "tip": "Run DISM first, then sfc",
-    "tags": "repair dism sfc corrupt health windows"
+    "tags": "repair dism sfc corrupt health windows",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/repair-a-windows-image",
+          "title": "Repair a Windows image (DISM)"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/sfc",
+          "title": "sfc"
+        }
+      ],
+      "note": "Corrected 2026-11-10: DISM and sfc are now separate lines (&& fails in Windows PowerShell 5.1)."
+    }
   },
   {
     "sName": "windows",
@@ -69148,7 +70201,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "robocopy C:\\Source D:\\Backup /MIR /Z /MT:16 /R:2 /W:5 /XD node_modules .git /NFL /NDL",
     "desc": "High-speed multi-threaded directory sync/backup (Windows built-in rsync alternative)",
     "tip": "",
-    "tags": "robocopy rsync backup sync mirror copy"
+    "tags": "robocopy rsync backup sync mirror copy",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/robocopy",
+          "title": "robocopy"
+        }
+      ]
+    }
   },
   {
     "sName": "windows",
@@ -69159,7 +70221,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "powercfg /batteryreport /output C:\\battery.html   |   powercfg /requests   |   powercfg /lastwake",
     "desc": "Generate detailed HTML laptop battery health report or see what is waking/keeping PC awake",
     "tip": "Great laptop health check",
-    "tags": "battery powercfg sleep wake laptop power"
+    "tags": "battery powercfg sleep wake laptop power",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/windows-hardware/design/device-experiences/powercfg-command-line-options",
+          "title": "powercfg options"
+        }
+      ]
+    }
   },
   {
     "sName": "windows",
@@ -69171,6 +70242,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Reboot directly into motherboard UEFI / BIOS setup without mashing Del/F2 on boot",
     "tip": "No more mashing F2/Del!",
     "tags": "bios uefi firmware reboot recovery safemode",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/shutdown",
+          "title": "shutdown"
+        }
+      ]
+    },
     "noCopy": true,
     "refWhy": "reboot"
   },

@@ -45,7 +45,24 @@ const WIN_WIN_STORAGE_DATA = [
           "ssd",
           "smart",
           "partition"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/storage/get-disk",
+              "title": "Get-Disk"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/storage/get-physicaldisk",
+              "title": "Get-PhysicalDisk"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/storage/get-storagereliabilitycounter",
+              "title": "Get-StorageReliabilityCounter"
+            }
+          ]
+        }
       }
     ]
   },
@@ -60,7 +77,7 @@ const WIN_WIN_STORAGE_DATA = [
         "mode": "POWERSHELL",
         "modeClass": "mode-n",
         "desc": "Initialize raw disk as GPT, create partition using maximum space and format with NTFS/ReFS",
-        "cmd": "Initialize-Disk -Number 1 -PartitionStyle GPT && New-Partition -DiskNumber 1 -UseMaximumSize -AssignDriveLetter | Format-Volume -FileSystem NTFS -NewFileSystemLabel 'Data' -Confirm:$false",
+        "cmd": "Initialize-Disk -Number 1 -PartitionStyle GPT; New-Partition -DiskNumber 1 -UseMaximumSize -AssignDriveLetter | Format-Volume -FileSystem NTFS -NewFileSystemLabel 'Data' -Confirm:$false",
         "flags": [
           [
             "Initialize-Disk",
@@ -81,8 +98,8 @@ const WIN_WIN_STORAGE_DATA = [
             "List all mounted logical volumes and free capacity"
           ],
           [
-            "Optimize-Volume -DriveLetter C -Defrag -Verbose",
-            "Run TRIM optimization on SSD or defragment HDD"
+            "Optimize-Volume -DriveLetter C -Verbose",
+            "Optimize the volume the right way for its media: retrim on an SSD, analyze and defrag on an HDD (-Defrag alone always defragments)"
           ]
         ],
         "tip": "Pass -Confirm:$false for automated non-interactive scripting",
@@ -94,7 +111,37 @@ const WIN_WIN_STORAGE_DATA = [
           "refs",
           "gpt",
           "trim"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/storage/initialize-disk",
+              "title": "Initialize-Disk"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/storage/new-partition",
+              "title": "New-Partition"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/storage/format-volume",
+              "title": "Format-Volume"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/storage/get-volume",
+              "title": "Get-Volume"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/storage/optimize-volume",
+              "title": "Optimize-Volume"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_pipeline_chain_operators",
+              "title": "about_Pipeline_Chain_Operators (&& is PowerShell 7+)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: && needs PowerShell 7 (now ;), and -Defrag is not TRIM."
+        }
       }
     ]
   },
@@ -142,7 +189,24 @@ const WIN_WIN_STORAGE_DATA = [
           "recovery-key",
           "manage-bde",
           "security"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/bitlocker/get-bitlockervolume",
+              "title": "Get-BitLockerVolume"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/manage-bde-protectors",
+              "title": "manage-bde -protectors"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/manage-bde-status",
+              "title": "manage-bde -status"
+            }
+          ]
+        }
       }
     ]
   },
@@ -175,7 +239,32 @@ const WIN_WIN_STORAGE_DATA = [
             "List all drive letters, file system types (NTFS/ReFS), and free space"
           ]
         ],
-        "tip": "Use ReFS formatting for dedicated Hyper-V, WSL 2, or dev storage for instant block cloning!",
+        "tip": "For source trees and build output, a Dev Drive (ReFS) is the supported fast option on Windows 11",
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/manage-bde-protectors",
+              "title": "manage-bde -protectors"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/storage/clear-disk",
+              "title": "Clear-Disk"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/storage/initialize-disk",
+              "title": "Initialize-Disk"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/storage/get-volume",
+              "title": "Get-Volume"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/windows/dev-drive/",
+              "title": "Dev Drive (ReFS)"
+            }
+          ]
+        },
         "tags": [
           "win-storage",
           "tips",

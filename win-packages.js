@@ -34,7 +34,20 @@ const WIN_WIN_PACKAGES_DATA = [
           "package",
           "app",
           "search"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://learn.microsoft.com/en-us/windows/package-manager/winget/search",
+              "title": "winget search"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/windows/package-manager/winget/install",
+              "title": "winget install"
+            }
+          ]
+        }
       }
     ]
   },
@@ -70,7 +83,20 @@ const WIN_WIN_PACKAGES_DATA = [
           "patch",
           "winget",
           "uninstall"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://learn.microsoft.com/en-us/windows/package-manager/winget/upgrade",
+              "title": "winget upgrade"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/windows/package-manager/winget/uninstall",
+              "title": "winget uninstall"
+            }
+          ]
+        }
       }
     ]
   },
@@ -103,7 +129,20 @@ const WIN_WIN_PACKAGES_DATA = [
           "backup",
           "migrate",
           "manifest"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://learn.microsoft.com/en-us/windows/package-manager/winget/export",
+              "title": "winget export"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/windows/package-manager/winget/import",
+              "title": "winget import"
+            }
+          ]
+        }
       }
     ]
   },
@@ -139,7 +178,20 @@ const WIN_WIN_PACKAGES_DATA = [
           "unblock",
           "security",
           "ps1"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy",
+              "title": "Set-ExecutionPolicy"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/unblock-file",
+              "title": "Unblock-File"
+            }
+          ]
+        }
       }
     ]
   },
@@ -172,7 +224,28 @@ const WIN_WIN_PACKAGES_DATA = [
             "Allows running local .ps1 scripts without admin rights"
           ]
         ],
-        "tip": "Pass --accept-package-agreements --accept-source-agreements for 100% unattended installs!",
+        "tip": "Pass --accept-package-agreements --accept-source-agreements so installs never stop at a license prompt",
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://learn.microsoft.com/en-us/windows/package-manager/winget/upgrade",
+              "title": "winget upgrade"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/windows/package-manager/winget/export",
+              "title": "winget export"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/windows/package-manager/winget/import",
+              "title": "winget import"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy",
+              "title": "Set-ExecutionPolicy"
+            }
+          ]
+        },
         "tags": [
           "winget-pkg",
           "tips",

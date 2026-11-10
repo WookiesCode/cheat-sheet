@@ -31,7 +31,20 @@ const WIN_WIN_NETWORK_DATA = [
           "netstat",
           "lsof",
           "tcp"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/nettcpip/get-nettcpconnection",
+              "title": "Get-NetTCPConnection"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/netstat",
+              "title": "netstat"
+            }
+          ]
+        }
       }
     ]
   },
@@ -70,7 +83,16 @@ const WIN_WIN_NETWORK_DATA = [
           "nc",
           "traceroute",
           "tnc"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/nettcpip/test-netconnection",
+              "title": "Test-NetConnection"
+            }
+          ]
+        }
       }
     ]
   },
@@ -109,7 +131,20 @@ const WIN_WIN_NETWORK_DATA = [
           "flush",
           "txt",
           "mx"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/dnsclient/resolve-dnsname",
+              "title": "Resolve-DnsName"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/dnsclient/clear-dnsclientcache",
+              "title": "Clear-DnsClientCache"
+            }
+          ]
+        }
       }
     ]
   },
@@ -143,7 +178,24 @@ const WIN_WIN_NETWORK_DATA = [
           "rest",
           "download",
           "irm"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/invoke-restmethod",
+              "title": "Invoke-RestMethod"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/invoke-webrequest",
+              "title": "Invoke-WebRequest"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/scripting/whats-new/differences-from-windows-powershell",
+              "title": "PowerShell 7 vs Windows PowerShell (curl alias)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -176,7 +228,24 @@ const WIN_WIN_NETWORK_DATA = [
           "adapter",
           "nic",
           "port"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/nettcpip/get-netipaddress",
+              "title": "Get-NetIPAddress"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/netadapter/get-netadapter",
+              "title": "Get-NetAdapter"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/netsecurity/new-netfirewallrule",
+              "title": "New-NetFirewallRule"
+            }
+          ]
+        }
       }
     ]
   },
@@ -201,8 +270,8 @@ const WIN_WIN_NETWORK_DATA = [
             "Tests TCP handshake connectivity and reports ping RTT"
           ],
           [
-            "Resolve-DnsName -Name google.com -Type AAAA",
-            "Queries specific DNS records bypassing local hosts file"
+            "Resolve-DnsName -Name example.com -Type AAAA",
+            "Query one record type (add -NoHostsFile to skip the hosts file, -Server to ask one resolver)"
           ],
           [
             "Clear-DnsClientCache",
@@ -210,6 +279,32 @@ const WIN_WIN_NETWORK_DATA = [
           ]
         ],
         "tip": "Use Invoke-RestMethod instead of curl to parse JSON REST endpoints directly into PowerShell objects!",
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/nettcpip/get-nettcpconnection",
+              "title": "Get-NetTCPConnection"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/nettcpip/test-netconnection",
+              "title": "Test-NetConnection"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/dnsclient/resolve-dnsname",
+              "title": "Resolve-DnsName"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/dnsclient/clear-dnsclientcache",
+              "title": "Clear-DnsClientCache"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/invoke-restmethod",
+              "title": "Invoke-RestMethod"
+            }
+          ],
+          "note": "Corrected 2026-11-10: Resolve-DnsName reads the hosts file unless you pass -NoHostsFile."
+        },
         "tags": [
           "ps-net",
           "tips",

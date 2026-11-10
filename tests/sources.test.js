@@ -583,6 +583,28 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     await ctx.close();
   }
 
+  // 2s. Windows suite (hub + eight sheets): every card sourced; PowerShell 5.1-safe commands,
+  // the admin check, Fast Startup, Optimize-Volume and Resolve-DnsName corrections.
+  {
+    const PAGES = ['windows', 'win-shortcuts', 'win-storage', 'win-processes', 'win-network', 'win-packages', 'win-wsl', 'win-registry', 'win-sysadmin'];
+    const ctx = await newContext(browser);
+    const p = await ctx.newPage();
+    const all = [];
+    let text = '';
+    for (const f of PAGES) {
+      await p.goto(BASE + f + '.html', { waitUntil: 'load' });
+      await p.waitForTimeout(400);
+      text += await p.evaluate(() => { const c = document.body.cloneNode(true); c.querySelectorAll('.cmd-source').forEach(n => n.remove()); return c.textContent; });
+      all.push(...await p.evaluate(() => [...document.querySelectorAll('.cmd-item:is([data-cmd-id], [data-id])')].filter(it => !/-flags-card$/.test(it.dataset.cmdId || '')).map(it => ({ id: it.dataset.cmdId || it.dataset.id, src: !!it.querySelector('.cmd-source:not(.is-unverified)') }))));
+    }
+    check(all.length >= 70 && all.every(x => x.src), `every card on the Windows hub and sheets shows a verified source (${all.filter(x => x.src).length}/${all.length})`);
+    check(!/GPT && New-Partition/.test(text) && !/RestoreHealth\s+&&\s+sfc/.test(text), 'no && in commands meant for Windows PowerShell 5.1');
+    check(/WindowsBuiltInRole\]::Administrator/.test(text) && !/IsInRole\('Administrator'\)/.test(text), 'admin check uses WindowsBuiltInRole');
+    check(!/bypassing Fast Startup/.test(text) && /doesn't reset; Restart does/.test(text), 'LastBootUpTime and Fast Startup');
+    check(!/bypassing local hosts file/.test(text) && !/Win\+X then I/.test(text) && !/API_KEY', '123'/.test(text), 'hosts file, Win+X letters and the API_KEY example');
+    await ctx.close();
+  }
+
   // 3. Over a year old → amber "re-check"; and src can't inject markup or javascript: links.
   {
     const ctx = await newContext(browser);

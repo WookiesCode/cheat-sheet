@@ -30,7 +30,20 @@ const WIN_WIN_PROCESSES_DATA = [
           "cpu",
           "top",
           "stop-process"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-process",
+              "title": "Get-Process"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/stop-process",
+              "title": "Stop-Process"
+            }
+          ]
+        }
       }
     ]
   },
@@ -64,7 +77,20 @@ const WIN_WIN_PROCESSES_DATA = [
           "pid",
           "cim",
           "wmi"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/cimcmdlets/get-ciminstance",
+              "title": "Get-CimInstance"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-process",
+              "title": "Win32_Process class"
+            }
+          ]
+        }
       }
     ]
   },
@@ -83,7 +109,7 @@ const WIN_WIN_PROCESSES_DATA = [
         "flags": [
           [
             "Restart-Service -Force",
-            "Restart service and any dependent services"
+            "Restart without asking for confirmation"
           ],
           [
             "Set-Service -Name <svc> -StartupType Automatic",
@@ -96,7 +122,25 @@ const WIN_WIN_PROCESSES_DATA = [
           "restart",
           "running",
           "startup"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-service",
+              "title": "Get-Service"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/restart-service",
+              "title": "Restart-Service"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/set-service",
+              "title": "Set-Service"
+            }
+          ],
+          "note": "Corrected 2026-11-10: -Force skips the confirmation prompt."
+        }
       }
     ]
   },
@@ -128,7 +172,16 @@ const WIN_WIN_PROCESSES_DATA = [
           "errors",
           "crash",
           "winevent"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.diagnostics/get-winevent",
+              "title": "Get-WinEvent"
+            }
+          ]
+        }
       }
     ]
   },
@@ -147,7 +200,7 @@ const WIN_WIN_PROCESSES_DATA = [
         "flags": [
           [
             "LastBootUpTime",
-            "Exact timestamp when Windows last booted (or fast-startup resumed)"
+            "When Windows last did a full boot. With Fast Startup on, Shut down only hibernates the kernel, so this (like Task Manager's uptime) doesn't reset; Restart does"
           ],
           [
             "Get-CimInstance Win32_PhysicalMemory",
@@ -165,7 +218,29 @@ const WIN_WIN_PROCESSES_DATA = [
           "ram",
           "bios",
           "serial"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-operatingsystem",
+              "title": "Win32_OperatingSystem class"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/cimcmdlets/get-ciminstance",
+              "title": "Get-CimInstance"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-computerinfo",
+              "title": "Get-ComputerInfo"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/windows-hardware/drivers/kernel/distinguishing-fast-startup-from-wake-from-hibernation",
+              "title": "Microsoft: fast startup vs hibernation"
+            }
+          ],
+          "note": "Corrected 2026-11-10: Fast Startup shutdown is a kernel hibernate, so LastBootUpTime does not reset on Shut down."
+        }
       }
     ]
   },
@@ -179,11 +254,11 @@ const WIN_WIN_PROCESSES_DATA = [
         "id": "ps-sys-tips-card",
         "desc": "Accurate system uptime, parent process tree inspection & crash triage",
         "cmd": "(Get-CimInstance Win32_OperatingSystem).LastBootUpTime   |   Get-Service | Where Status -eq \"Running\"",
-        "details": "Windows Fast Startup causes Task Manager uptime to not reset on normal shutdown. Querying LastBootUpTime from CIM provides true hardware boot timestamp.",
+        "details": "With Fast Startup on, Shut down hibernates the kernel instead of ending it, so neither Task Manager's uptime nor LastBootUpTime resets. Use Restart (or turn Fast Startup off) when you need a real fresh boot.",
         "flags": [
           [
             "LastBootUpTime",
-            "Calculates true cold boot time bypassing Fast Startup hybrid hibernation"
+            "Time of the last full boot (a Fast Startup power-on is not one)"
           ],
           [
             "Get-Process | Sort-Object WorkingSet64 -Descending | Select -First 10",
@@ -199,6 +274,32 @@ const WIN_WIN_PROCESSES_DATA = [
           ]
         ],
         "tip": "Use Get-CimInstance Win32_Process to inspect full command-line arguments and parent PIDs!",
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-operatingsystem",
+              "title": "Win32_OperatingSystem class"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/windows-hardware/drivers/kernel/distinguishing-fast-startup-from-wake-from-hibernation",
+              "title": "Microsoft: fast startup vs hibernation"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-process",
+              "title": "Get-Process"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/stop-process",
+              "title": "Stop-Process"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.diagnostics/get-winevent",
+              "title": "Get-WinEvent"
+            }
+          ],
+          "note": "Corrected 2026-11-10: LastBootUpTime does not bypass Fast Startup; it is not reset by a Fast Startup shutdown."
+        },
         "tags": [
           "ps-sys",
           "tips",

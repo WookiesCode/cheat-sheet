@@ -386,6 +386,25 @@ All 47 commands (in `neovim.js`, copied whole into the nine sheets) and 9 Pro Ti
 
 The hub renders with `data-id`, not `data-cmd-id`; the test counts both (103 cards).
 
+## #8 for the Windows suite (2026-11-10, `windows-sources`)
+
+All 34 commands (in `windows.js`) and 8 Pro Tips (in `generate-windows-suite.js`, now passed through) cite Microsoft: the keyboard-shortcuts, Snipping Tool and clipboard support pages, the Windows Insider post for Ctrl+Shift+C, and Microsoft Learn reference pages for every cmdlet and command (Storage, BitLocker, CIM classes, services, events, networking, DNS, winget, WSL, registry, robocopy, DISM, sfc, powercfg, shutdown). Every link was checked to load. Corrections:
+
+| Was | Now |
+|---|---|
+| `Initialize-Disk … && New-Partition …`; `DISM … && sfc /scannow` | `&&` only exists in PowerShell 7; the disk card uses `;` and DISM / sfc are separate lines |
+| `IsInRole('Administrator')` checks for elevation | A string is matched as a group name; use `IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)` |
+| LastBootUpTime "bypasses Fast Startup" for the true boot time | The opposite: a Fast Startup shutdown hibernates the kernel, so LastBootUpTime doesn't reset; Restart does |
+| `Optimize-Volume -Defrag` "runs TRIM on SSD or defrags HDD" | `-Defrag` always defrags; with no switch the cmdlet retrims an SSD and defrags an HDD |
+| Resolve-DnsName "bypasses the hosts file" | It reads the hosts file unless you pass `-NoHostsFile` |
+| `Restart-Service -Force` "restarts dependents too" | It skips the confirmation prompt (Microsoft's wording) |
+| Win+X "then I (Admin Terminal)", "u, u / u, r" | Removed: I is the non-admin Terminal and Microsoft doesn't document the letters |
+| Win+Ctrl+Shift+B "restarts the graphics driver" | Microsoft: wakes the device from a blank or black screen (the driver-reset description is kept as "widely described") |
+| Clipboard "up to 25 items"; robocopy "10x faster"; ReFS "instant block cloning" tip | Unsourced numbers removed; robocopy's documented defaults (8 threads, 1,000,000 retries, 30 s); Dev Drive (ReFS) named instead |
+| `SetEnvironmentVariable('API_KEY', '123', 'User')` | `('EDITOR', 'code --wait', 'User')`, with a note that Machine needs elevation and secrets don't belong in env vars |
+
+Not confirmed by a Microsoft page (said in the card's note): Ctrl+Shift+Enter to run elevated from Start/Run.
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |

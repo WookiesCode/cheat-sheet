@@ -12,7 +12,7 @@ const WIN_WIN_REGISTRY_DATA = [
         "mode": "POWERSHELL",
         "modeClass": "mode-n",
         "desc": "Inspect environment variables, split PATH cleanly, or persist user/machine env vars",
-        "cmd": "$env:PATH -split ';'   |   Get-ChildItem Env:   |   [Environment]::SetEnvironmentVariable('API_KEY', '123', 'User')",
+        "cmd": "$env:PATH -split ';'   |   Get-ChildItem Env:   |   [Environment]::SetEnvironmentVariable('EDITOR', 'code --wait', 'User')",
         "flags": [
           [
             "$env:VAR_NAME",
@@ -20,7 +20,7 @@ const WIN_WIN_REGISTRY_DATA = [
           ],
           [
             "'User' / 'Machine'",
-            "Persist variable permanently in HKCU (User) or HKLM (System)"
+            "Persist the variable in HKCU (User) or HKLM (Machine; needs an elevated shell). Already-open shells don't see it; keep secrets out of env vars"
           ],
           [
             "where.exe git",
@@ -35,7 +35,24 @@ const WIN_WIN_REGISTRY_DATA = [
           "which",
           "where",
           "variables"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://learn.microsoft.com/en-us/dotnet/api/system.environment.setenvironmentvariable",
+              "title": "Environment.SetEnvironmentVariable"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_environment_variables",
+              "title": "about_Environment_Variables"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/where",
+              "title": "where"
+            }
+          ]
+        }
       }
     ]
   },
@@ -71,7 +88,24 @@ const WIN_WIN_REGISTRY_DATA = [
           "history",
           "psreadline",
           "startup"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_profiles",
+              "title": "about_Profiles"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/psreadline/about/about_psreadline",
+              "title": "about_PSReadLine"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/get-command",
+              "title": "Get-Command"
+            }
+          ]
+        }
       }
     ]
   },
@@ -107,7 +141,16 @@ const WIN_WIN_REGISTRY_DATA = [
           "hkcu",
           "hklm",
           "startup"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_registry_provider",
+              "title": "about_Registry_Provider"
+            }
+          ]
+        }
       }
     ]
   },
@@ -122,15 +165,15 @@ const WIN_WIN_REGISTRY_DATA = [
         "mode": "POWERSHELL",
         "modeClass": "mode-n",
         "desc": "Spawn an elevated Administrator Windows Terminal or check if current shell is Admin",
-        "cmd": "Start-Process wt -Verb RunAs   |   ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole('Administrator')",
+        "cmd": "Start-Process wt -Verb RunAs   |   ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)",
         "flags": [
           [
             "-Verb RunAs",
             "Trigger UAC prompt to launch process with Administrator privileges"
           ],
           [
-            "IsInRole('Administrator')",
-            "Returns True if current PowerShell session is elevated"
+            "IsInRole([...WindowsBuiltInRole]::Administrator)",
+            "True if this session is elevated. Use the built-in role, not the string 'Administrator': a string is matched against a group name"
           ]
         ],
         "tags": [
@@ -139,7 +182,21 @@ const WIN_WIN_REGISTRY_DATA = [
           "admin",
           "uac",
           "elevate"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/start-process",
+              "title": "Start-Process"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/dotnet/api/system.security.principal.windowsprincipal.isinrole",
+              "title": "WindowsPrincipal.IsInRole"
+            }
+          ],
+          "note": "Corrected 2026-11-10: IsInRole('Administrator') matches a group named Administrator; use WindowsBuiltInRole."
+        }
       }
     ]
   },
@@ -173,6 +230,27 @@ const WIN_WIN_REGISTRY_DATA = [
           ]
         ],
         "tip": "Edit your startup profile with notepad $PROFILE to define custom functions and persistent aliases!",
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://learn.microsoft.com/en-us/dotnet/api/system.environment.setenvironmentvariable",
+              "title": "Environment.SetEnvironmentVariable"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_registry_provider",
+              "title": "about_Registry_Provider"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/start-process",
+              "title": "Start-Process"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_profiles",
+              "title": "about_Profiles"
+            }
+          ]
+        },
         "tags": [
           "reg-env",
           "tips",

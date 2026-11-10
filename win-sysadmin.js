@@ -12,7 +12,7 @@ const WIN_WIN_SYSADMIN_DATA = [
         "mode": "ADMIN CLI",
         "modeClass": "mode-t",
         "desc": "Repair corrupted Windows system image files using DISM and System File Checker (SFC)",
-        "cmd": "DISM.exe /Online /Cleanup-Image /RestoreHealth   &&   sfc /scannow",
+        "cmd": "DISM.exe /Online /Cleanup-Image /RestoreHealth",
         "flags": [
           [
             "/RestoreHealth",
@@ -31,7 +31,21 @@ const WIN_WIN_SYSADMIN_DATA = [
           "corrupt",
           "health",
           "windows"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/repair-a-windows-image",
+              "title": "Repair a Windows image (DISM)"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/sfc",
+              "title": "sfc"
+            }
+          ],
+          "note": "Corrected 2026-11-10: DISM and sfc are now separate lines (&& fails in Windows PowerShell 5.1)."
+        }
       }
     ]
   },
@@ -77,7 +91,16 @@ const WIN_WIN_SYSADMIN_DATA = [
           "sync",
           "mirror",
           "copy"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/robocopy",
+              "title": "robocopy"
+            }
+          ]
+        }
       }
     ]
   },
@@ -115,7 +138,16 @@ const WIN_WIN_SYSADMIN_DATA = [
           "wake",
           "laptop",
           "power"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://learn.microsoft.com/en-us/windows-hardware/design/device-experiences/powercfg-command-line-options",
+              "title": "powercfg options"
+            }
+          ]
+        }
       }
     ]
   },
@@ -149,7 +181,16 @@ const WIN_WIN_SYSADMIN_DATA = [
           "reboot",
           "recovery",
           "safemode"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/shutdown",
+              "title": "shutdown"
+            }
+          ]
+        }
       }
     ]
   },
@@ -163,7 +204,7 @@ const WIN_WIN_SYSADMIN_DATA = [
         "id": "sysadmin-repair-tips-card",
         "desc": "High-speed 16-thread Robocopy directory mirror & corruption repair",
         "cmd": "robocopy <src> <dst> /MIR /MT:16 /R:1 /W:1   |   DISM /Online /Cleanup-Image /RestoreHealth",
-        "details": "Robocopy with /MT:16 copies files up to 10x faster than Windows Explorer by using multi-threaded execution. Use DISM /RestoreHealth followed by sfc /scannow to fix corrupted Windows files.",
+        "details": "Robocopy /MT copies with several threads (8 by default, up to 128), which helps most with many small files. To repair Windows, run DISM /RestoreHealth first, then sfc /scannow.",
         "flags": [
           [
             "robocopy /MIR /MT:16",
@@ -171,7 +212,7 @@ const WIN_WIN_SYSADMIN_DATA = [
           ],
           [
             "/R:1 /W:1",
-            "Wait only 1 second before retrying locked files instead of default 30 seconds"
+            "Retry a locked file once after 1 second (defaults: 1,000,000 retries, 30 seconds apart)"
           ],
           [
             "DISM /Online /Cleanup-Image /RestoreHealth",
@@ -187,6 +228,31 @@ const WIN_WIN_SYSADMIN_DATA = [
           ]
         ],
         "tip": "Generate a detailed laptop battery degradation report with: powercfg /batteryreport",
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/robocopy",
+              "title": "robocopy"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/repair-a-windows-image",
+              "title": "Repair a Windows image (DISM)"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/sfc",
+              "title": "sfc"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/shutdown",
+              "title": "shutdown"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/windows-hardware/design/device-experiences/powercfg-command-line-options",
+              "title": "powercfg options"
+            }
+          ]
+        },
         "tags": [
           "sysadmin-repair",
           "tips",

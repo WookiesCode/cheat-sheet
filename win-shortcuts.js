@@ -12,15 +12,15 @@ const WIN_WIN_SHORTCUTS_DATA = [
         "mode": "SHORTCUT",
         "modeClass": "mode-n",
         "desc": "Open Quick Link admin menu, Task Manager, or launch any app as Administrator",
-        "cmd": "Win+X   |   Win+X then I (Admin Terminal)   |   Ctrl+Shift+Esc   |   Ctrl+Shift+Enter",
+        "cmd": "Win+X   |   Ctrl+Shift+Esc   |   Ctrl+Shift+Enter",
         "flags": [
           [
             "Win+X",
             "Open Power User menu (Terminal, Disk Mgmt, Device Mgr, Event Viewer)"
           ],
           [
-            "Win+X then u, u / u, r",
-            "Instant Shutdown (u, u) or Restart (u, r) without mouse"
+            "Win+X → Terminal (Admin)",
+            "An elevated terminal from the same menu (the underlined letter in the menu is the key)"
           ],
           [
             "Ctrl+Shift+Esc",
@@ -31,7 +31,7 @@ const WIN_WIN_SHORTCUTS_DATA = [
             "Run selected Start Menu or Win+R command as Administrator (Elevated)"
           ]
         ],
-        "tip": "Win+X then I = Admin PS",
+        "tip": "Win+X = right-click on Start",
         "tags": [
           "admin",
           "elevate",
@@ -39,7 +39,17 @@ const WIN_WIN_SHORTCUTS_DATA = [
           "shutdown",
           "menu",
           "terminal"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://support.microsoft.com/en-us/windows/keyboard-shortcuts-in-windows-dcc61a57-8ff0-cffe-9796-cb9706c75eec",
+              "title": "Microsoft: keyboard shortcuts in Windows"
+            }
+          ],
+          "note": "Corrected 2026-11-10: the Win+X letter shortcuts were wrong (I is Terminal, not Terminal (Admin)) and are not in Microsoft's list; Ctrl+Shift+Enter (run elevated) isn't in it either."
+        }
       }
     ]
   },
@@ -80,7 +90,16 @@ const WIN_WIN_SHORTCUTS_DATA = [
           "layout",
           "minimize",
           "desktop"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://support.microsoft.com/en-us/windows/keyboard-shortcuts-in-windows-dcc61a57-8ff0-cffe-9796-cb9706c75eec",
+              "title": "Microsoft: keyboard shortcuts in Windows"
+            }
+          ]
+        }
       }
     ]
   },
@@ -119,7 +138,16 @@ const WIN_WIN_SHORTCUTS_DATA = [
           "workspaces",
           "task-view",
           "switch"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://support.microsoft.com/en-us/windows/keyboard-shortcuts-in-windows-dcc61a57-8ff0-cffe-9796-cb9706c75eec",
+              "title": "Microsoft: keyboard shortcuts in Windows"
+            }
+          ]
+        }
       }
     ]
   },
@@ -146,7 +174,7 @@ const WIN_WIN_SHORTCUTS_DATA = [
           ],
           [
             "Win+Ctrl+Shift+B",
-            "Restart graphics driver immediately when screen freezes or goes black"
+            "Wake the display from a blank or black screen (Microsoft's description; widely described as resetting the graphics driver)"
           ],
           [
             "Win+Ctrl+V",
@@ -161,7 +189,25 @@ const WIN_WIN_SHORTCUTS_DATA = [
           "record",
           "gpu",
           "audio"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://support.microsoft.com/en-us/windows/keyboard-shortcuts-in-windows-dcc61a57-8ff0-cffe-9796-cb9706c75eec",
+              "title": "Microsoft: keyboard shortcuts in Windows"
+            },
+            {
+              "url": "https://support.microsoft.com/en-us/windows/use-snipping-tool-to-capture-screenshots-00246869-1843-655f-f220-97299b865f6b",
+              "title": "Microsoft: Snipping Tool"
+            },
+            {
+              "url": "https://support.microsoft.com/en-us/windows/clipboard-in-windows-c436501e-985d-1c8d-97ea-fe46ddf338c6",
+              "title": "Microsoft: clipboard history"
+            }
+          ],
+          "note": "Microsoft describes Win+Ctrl+Shift+B as waking the PC from a blank or black screen."
+        }
       }
     ]
   },
@@ -203,7 +249,20 @@ const WIN_WIN_SHORTCUTS_DATA = [
           "terminal",
           "folder",
           "preview"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://support.microsoft.com/en-us/windows/keyboard-shortcuts-in-windows-dcc61a57-8ff0-cffe-9796-cb9706c75eec",
+              "title": "Microsoft: keyboard shortcuts in Windows"
+            },
+            {
+              "url": "https://blogs.windows.com/windows-insider/2021/09/22/announcing-windows-11-insider-preview-build-22463/",
+              "title": "Windows Insider build 22463 (Ctrl+Shift+C)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -221,7 +280,7 @@ const WIN_WIN_SHORTCUTS_DATA = [
         "flags": [
           [
             "Win+Ctrl+Shift+B",
-            "Beeps and restarts GPU display driver pipeline without closing apps"
+            "Beeps and wakes a blank or black display without closing apps"
           ],
           [
             "Win+Shift+S",
@@ -233,10 +292,27 @@ const WIN_WIN_SHORTCUTS_DATA = [
           ],
           [
             "Win+V",
-            "Open Clipboard History (press once to turn on, stores up to 25 items + pins)"
+            "Open Clipboard History (the first press offers to turn it on; pinned items stay)"
           ]
         ],
-        "tip": "Press Win+X then A to launch an elevated Administrator PowerShell prompt in 1 second!",
+        "tip": "Win+X opens the same menu as right-clicking Start: Terminal (Admin) is one click away",
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://support.microsoft.com/en-us/windows/keyboard-shortcuts-in-windows-dcc61a57-8ff0-cffe-9796-cb9706c75eec",
+              "title": "Microsoft: keyboard shortcuts in Windows"
+            },
+            {
+              "url": "https://support.microsoft.com/en-us/windows/use-snipping-tool-to-capture-screenshots-00246869-1843-655f-f220-97299b865f6b",
+              "title": "Microsoft: Snipping Tool"
+            },
+            {
+              "url": "https://support.microsoft.com/en-us/windows/clipboard-in-windows-c436501e-985d-1c8d-97ea-fe46ddf338c6",
+              "title": "Microsoft: clipboard history"
+            }
+          ]
+        },
         "tags": [
           "win-keys",
           "tips",

@@ -84,12 +84,13 @@ const PRO_TIPS = {
     cmd: 'Win+Ctrl+Shift+B   |   Win+Shift+S   |   Ctrl+Shift+Esc   |   Win+X',
     details: 'Press Win+Ctrl+Shift+B to instantly restart your graphics driver subsystem when experiencing screen flickering or black screen freezes without rebooting. Use Win+Shift+S for text OCR extraction from any image.',
     flags: [
-      ['Win+Ctrl+Shift+B', 'Beeps and restarts GPU display driver pipeline without closing apps'],
+      ['Win+Ctrl+Shift+B', 'Beeps and wakes a blank or black display without closing apps'],
       ['Win+Shift+S', 'Snipping Tool: capture region, window, screen recording, or extract text (OCR)'],
       ['Ctrl+Shift+Esc', 'Directly open Task Manager without going through Ctrl+Alt+Del lock screen'],
-      ['Win+V', 'Open Clipboard History (press once to turn on, stores up to 25 items + pins)']
+      ['Win+V', 'Open Clipboard History (the first press offers to turn it on; pinned items stay)']
     ],
-    tip: 'Press Win+X then A to launch an elevated Administrator PowerShell prompt in 1 second!'
+    tip: 'Win+X opens the same menu as right-clicking Start: Terminal (Admin) is one click away',
+    src: {"verified":"2026-11-10","refs":[{"url":"https://support.microsoft.com/en-us/windows/keyboard-shortcuts-in-windows-dcc61a57-8ff0-cffe-9796-cb9706c75eec","title":"Microsoft: keyboard shortcuts in Windows"},{"url":"https://support.microsoft.com/en-us/windows/use-snipping-tool-to-capture-screenshots-00246869-1843-655f-f220-97299b865f6b","title":"Microsoft: Snipping Tool"},{"url":"https://support.microsoft.com/en-us/windows/clipboard-in-windows-c436501e-985d-1c8d-97ea-fe46ddf338c6","title":"Microsoft: clipboard history"}]}
   },
   'win-storage': {
     desc: 'Retrieve 48-digit BitLocker recovery password & clean disk wipe',
@@ -101,19 +102,21 @@ const PRO_TIPS = {
       ['Initialize-Disk -Number 1 -PartitionStyle GPT', 'Initialize newly attached drive with modern GPT partition table'],
       ['Get-Volume | Format-Table -AutoSize', 'List all drive letters, file system types (NTFS/ReFS), and free space']
     ],
-    tip: 'Use ReFS formatting for dedicated Hyper-V, WSL 2, or dev storage for instant block cloning!'
+    tip: 'For source trees and build output, a Dev Drive (ReFS) is the supported fast option on Windows 11',
+    src: {"verified":"2026-11-10","refs":[{"url":"https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/manage-bde-protectors","title":"manage-bde -protectors"},{"url":"https://learn.microsoft.com/en-us/powershell/module/storage/clear-disk","title":"Clear-Disk"},{"url":"https://learn.microsoft.com/en-us/powershell/module/storage/initialize-disk","title":"Initialize-Disk"},{"url":"https://learn.microsoft.com/en-us/powershell/module/storage/get-volume","title":"Get-Volume"},{"url":"https://learn.microsoft.com/en-us/windows/dev-drive/","title":"Dev Drive (ReFS)"}]}
   },
   'ps-sys': {
     desc: 'Accurate system uptime, parent process tree inspection & crash triage',
     cmd: '(Get-CimInstance Win32_OperatingSystem).LastBootUpTime   |   Get-Service | Where Status -eq "Running"',
-    details: 'Windows Fast Startup causes Task Manager uptime to not reset on normal shutdown. Querying LastBootUpTime from CIM provides true hardware boot timestamp.',
+    details: 'With Fast Startup on, Shut down hibernates the kernel instead of ending it, so neither Task Manager\'s uptime nor LastBootUpTime resets. Use Restart (or turn Fast Startup off) when you need a real fresh boot.',
     flags: [
-      ['LastBootUpTime', 'Calculates true cold boot time bypassing Fast Startup hybrid hibernation'],
+      ['LastBootUpTime', 'Time of the last full boot (a Fast Startup power-on is not one)'],
       ['Get-Process | Sort-Object WorkingSet64 -Descending | Select -First 10', 'Identifies top RAM consumers in bytes'],
       ['Stop-Process -Name "target" -Force', 'Forcefully terminates all process instances immediately'],
       ['Get-WinEvent -FilterHashtable @{LogName=\'System\'; Level=1,2} -MaxEvents 20', 'Pulls recent Critical (1) and Error (2) events']
     ],
-    tip: 'Use Get-CimInstance Win32_Process to inspect full command-line arguments and parent PIDs!'
+    tip: 'Use Get-CimInstance Win32_Process to inspect full command-line arguments and parent PIDs!',
+    src: {"verified":"2026-11-10","refs":[{"url":"https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-operatingsystem","title":"Win32_OperatingSystem class"},{"url":"https://learn.microsoft.com/en-us/windows-hardware/drivers/kernel/distinguishing-fast-startup-from-wake-from-hibernation","title":"Microsoft: fast startup vs hibernation"},{"url":"https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-process","title":"Get-Process"},{"url":"https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/stop-process","title":"Stop-Process"},{"url":"https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.diagnostics/get-winevent","title":"Get-WinEvent"}],"note":"Corrected 2026-11-10: LastBootUpTime does not bypass Fast Startup; it is not reset by a Fast Startup shutdown."}
   },
   'ps-net': {
     desc: 'Instant listening port ownership mapping & PowerShell netcat replacement',
@@ -122,10 +125,11 @@ const PRO_TIPS = {
     flags: [
       ['Get-NetTCPConnection -State Listen', 'Returns all active listening TCP ports with OwningProcess PID'],
       ['Test-NetConnection -ComputerName 1.1.1.1 -Port 443', 'Tests TCP handshake connectivity and reports ping RTT'],
-      ['Resolve-DnsName -Name google.com -Type AAAA', 'Queries specific DNS records bypassing local hosts file'],
+      ['Resolve-DnsName -Name example.com -Type AAAA', 'Query one record type (add -NoHostsFile to skip the hosts file, -Server to ask one resolver)'],
       ['Clear-DnsClientCache', 'Immediately purges Windows DNS resolver cache']
     ],
-    tip: 'Use Invoke-RestMethod instead of curl to parse JSON REST endpoints directly into PowerShell objects!'
+    tip: 'Use Invoke-RestMethod instead of curl to parse JSON REST endpoints directly into PowerShell objects!',
+    src: {"verified":"2026-11-10","refs":[{"url":"https://learn.microsoft.com/en-us/powershell/module/nettcpip/get-nettcpconnection","title":"Get-NetTCPConnection"},{"url":"https://learn.microsoft.com/en-us/powershell/module/nettcpip/test-netconnection","title":"Test-NetConnection"},{"url":"https://learn.microsoft.com/en-us/powershell/module/dnsclient/resolve-dnsname","title":"Resolve-DnsName"},{"url":"https://learn.microsoft.com/en-us/powershell/module/dnsclient/clear-dnsclientcache","title":"Clear-DnsClientCache"},{"url":"https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/invoke-restmethod","title":"Invoke-RestMethod"}],"note":"Corrected 2026-11-10: Resolve-DnsName reads the hosts file unless you pass -NoHostsFile."}
   },
   'winget-pkg': {
     desc: 'Silent batch application upgrades & reproducible JSON machine manifests',
@@ -137,7 +141,8 @@ const PRO_TIPS = {
       ['winget import -i manifest.json', 'Batch installs all packages specified in manifest'],
       ['Set-ExecutionPolicy RemoteSigned -Scope CurrentUser', 'Allows running local .ps1 scripts without admin rights']
     ],
-    tip: 'Pass --accept-package-agreements --accept-source-agreements for 100% unattended installs!'
+    tip: 'Pass --accept-package-agreements --accept-source-agreements so installs never stop at a license prompt',
+    src: {"verified":"2026-11-10","refs":[{"url":"https://learn.microsoft.com/en-us/windows/package-manager/winget/upgrade","title":"winget upgrade"},{"url":"https://learn.microsoft.com/en-us/windows/package-manager/winget/export","title":"winget export"},{"url":"https://learn.microsoft.com/en-us/windows/package-manager/winget/import","title":"winget import"},{"url":"https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy","title":"Set-ExecutionPolicy"}]}
   },
   'wsl': {
     desc: 'Reclaim RAM instantly with VM shutdown & Windows-Linux filesystem interop',
@@ -149,7 +154,8 @@ const PRO_TIPS = {
       ['wsl -u root', 'Log into default distribution as root user to fix broken sudoers or permissions'],
       ['wsl --export <distro> <file.tar>', 'Create full portable backup snapshot of your Linux environment']
     ],
-    tip: 'You can run Windows commands from inside Linux bash (e.g. clip.exe < file.txt)!'
+    tip: 'You can run Windows commands from inside Linux bash (e.g. clip.exe < file.txt)!',
+    src: {"verified":"2026-11-10","refs":[{"url":"https://learn.microsoft.com/en-us/windows/wsl/basic-commands","title":"WSL basic commands"},{"url":"https://learn.microsoft.com/en-us/windows/wsl/filesystems","title":"WSL: working across file systems"}]}
   },
   'reg-env': {
     desc: 'Persistent environment variables, Registry PSDrives & Admin elevation',
@@ -161,20 +167,22 @@ const PRO_TIPS = {
       ['cd HKCU:\\', 'Navigate Current User Registry hive using standard cd, ls, dir, and Get-Item'],
       ['Start-Process wt -Verb RunAs', 'Launches an elevated Administrator Windows Terminal window']
     ],
-    tip: 'Edit your startup profile with notepad $PROFILE to define custom functions and persistent aliases!'
+    tip: 'Edit your startup profile with notepad $PROFILE to define custom functions and persistent aliases!',
+    src: {"verified":"2026-11-10","refs":[{"url":"https://learn.microsoft.com/en-us/dotnet/api/system.environment.setenvironmentvariable","title":"Environment.SetEnvironmentVariable"},{"url":"https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_registry_provider","title":"about_Registry_Provider"},{"url":"https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/start-process","title":"Start-Process"},{"url":"https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_profiles","title":"about_Profiles"}]}
   },
   'sysadmin-repair': {
     desc: 'High-speed 16-thread Robocopy directory mirror & corruption repair',
     cmd: 'robocopy <src> <dst> /MIR /MT:16 /R:1 /W:1   |   DISM /Online /Cleanup-Image /RestoreHealth',
-    details: 'Robocopy with /MT:16 copies files up to 10x faster than Windows Explorer by using multi-threaded execution. Use DISM /RestoreHealth followed by sfc /scannow to fix corrupted Windows files.',
+    details: 'Robocopy /MT copies with several threads (8 by default, up to 128), which helps most with many small files. To repair Windows, run DISM /RestoreHealth first, then sfc /scannow.',
     flags: [
       ['robocopy /MIR /MT:16', 'Mirrors directory structure using 16 concurrent worker threads'],
-      ['/R:1 /W:1', 'Wait only 1 second before retrying locked files instead of default 30 seconds'],
+      ['/R:1 /W:1', 'Retry a locked file once after 1 second (defaults: 1,000,000 retries, 30 seconds apart)'],
       ['DISM /Online /Cleanup-Image /RestoreHealth', 'Downloads clean replacement system files from Windows Update'],
       ['sfc /scannow', 'Scans and repairs local protected operating system files'],
       ['shutdown /r /fw /t 0', 'Instantly reboots directly into motherboard UEFI/BIOS configuration']
     ],
-    tip: 'Generate a detailed laptop battery degradation report with: powercfg /batteryreport'
+    tip: 'Generate a detailed laptop battery degradation report with: powercfg /batteryreport',
+    src: {"verified":"2026-11-10","refs":[{"url":"https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/robocopy","title":"robocopy"},{"url":"https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/repair-a-windows-image","title":"Repair a Windows image (DISM)"},{"url":"https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/sfc","title":"sfc"},{"url":"https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/shutdown","title":"shutdown"},{"url":"https://learn.microsoft.com/en-us/windows-hardware/design/device-experiences/powercfg-command-line-options","title":"powercfg options"}]}
   }
 };
 
@@ -250,6 +258,7 @@ function buildWindowsSectionCards(sec) {
           details: proTip.details,
           flags: proTip.flags,
           tip: proTip.tip,
+          ...(proTip.src ? { src: proTip.src } : {}),
           tags: [sec.id, 'tips', 'pro', 'windows', 'powershell', 'best-practices']
         }
       ]
