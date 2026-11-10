@@ -2685,8 +2685,16 @@
     kbHintEl.style.left = `${Math.min(window.innerWidth - kbHintEl.offsetWidth - 8, Math.max(8, r.right - kbHintEl.offsetWidth))}px`;
   }
 
+  // The page scrolls smoothly (html { scroll-behavior: smooth }). A key pressed mid-animation
+  // was measured against a page still moving, and the animation then carried the focused command
+  // out of view. Scrolling instantly to where the page is now cancels the animation in place.
+  function stopSmoothScroll() {
+    window.scrollTo({ top: window.scrollY, left: window.scrollX, behavior: 'instant' });
+  }
+
   function kbFocus(el) {
     if (!el) return;
+    stopSmoothScroll();
     el.focus({ preventScroll: true });
     const r = el.getBoundingClientRect();
     // The free band between the bars that stay on screen (command bar above; pager, footer, terminal below).
@@ -2696,6 +2704,7 @@
   }
 
   function kbMove(delta, byCard) {
+    stopSmoothScroll();  // "first command on screen" must be measured on a page that has stopped
     const list = kbList();
     if (!list.length) return;
     const active = document.activeElement && document.activeElement.closest ? document.activeElement.closest(KB_BOXES) : null;

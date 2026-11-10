@@ -40,6 +40,7 @@ Run the tests after `node build-all.js`. The tests read the built pages and the 
 | `reboot-reference.test.js` | The 10 host reboot/shutdown entries and the NMI (kernel panic) commands are reference-only on every page and the portable copy (real clicks, Ctrl+K, My kit); BMC power and read-only neighbours still copy |
 | `explain-help.test.js` | Explain reads a flag's description from its `--help` text without cutting at "e.g." (nvidia-smi `-d`) |
 | `whats-new.test.js` | A returning user's "What's new" invite and tour walk only the 5 newest additions and mark version 9 seen |
+| `jk-smooth-scroll.test.js` | `j` pressed while the page is still smooth-scrolling leaves the focused command visible (runs the race inside the page: driven step by step, headless Chrome finishes the animation between calls) |
 | `doc-counts.test.js` | The counts in `README.md` and `docs/site.md` match the home page (run after `node build-all.js`) |
 | `portable-icon.test.js` | The portable file's favicon data URI decodes |
 | `bridge.test.py` | `term-bridge.py` survives a large paste and bad or oversized resize messages (it uses a throwaway `HOME`) |

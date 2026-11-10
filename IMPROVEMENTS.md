@@ -21,9 +21,9 @@ Product review started 2026-11-09. Phases 1–3 are below. Nine items (#8 for th
 | 12 | Export My kit as a navi `.cheat` file | Open (needs navi installed: ask first) | | |
 | 13 | Make the doc counts agree | ✅ Built | `improve/doc-counts` | (this branch) |
 
-**The branches are stacked**, each built on the one before, in the order of the table, **Merged to `main` on 2026-11-09 up to `2e11e21`** (fast-forward, not pushed). `improve/small-fixes` sits on top of `main`. None are pushed or merged yet.
+**The branches are stacked**, each built on the one before, in the order of the table, **Merged to `main` on 2026-11-09 up to `d95059a`** (fast-forward, not pushed). `improve/jk-smooth-scroll` sits on top of `main`. None are pushed or merged yet.
 
-**Tests:** `node tests/run-all.js` runs 15 test files. All 18 pass on `improve/small-fixes`. Every built item has its own regression test, and I checked that the tests for #2 and #5 fail on the commit before their fix.
+**Tests:** `node tests/run-all.js` runs 15 test files. All 19 pass on `improve/jk-smooth-scroll`. Every built item has its own regression test, and I checked that the tests for #2 and #5 fail on the commit before their fix.
 
 ## What the built items changed (measured)
 
@@ -250,7 +250,7 @@ Impact (H/M/L) · Effort (S/M/L) · Risk (H/M/L). The ranking is by user impact 
 - Impact **L** · Effort **S** · Risk **L** · Built: `improve/doc-counts`. `build-index.js` writes the counts between `<!-- counts -->` markers, counting the way the home page does; `tests/doc-counts.test.js` compares them with the live home page.
 
 ## Recommended next
-The `j`/`k` edge case: pressing `j` during a smooth scroll can leave the focused command under the footer (stop in-flight scrolling in `kbFocus`). Then the Redfish builder's unverified `hgx` preset (`HGX_Chassis_0`, `HGX_BMC_0`), and the stale `backups/scratch/` test copies (ask first: deletes files).
+✅ The `j`/`k` edge case is fixed (`improve/jk-smooth-scroll`): `j`/`k` now stop an in-flight smooth scroll before measuring, so a key pressed mid-animation (after Home, an outline link or a script scroll) no longer leaves the focused command off screen; `tests/jk-smooth-scroll.test.js` reproduced it 5/5 before the fix. Next: the Redfish builder's unverified `hgx` preset (`HGX_Chassis_0`, `HGX_BMC_0`), and the stale `backups/scratch/` test copies (ask first: deletes files).
 
 Considered and dropped: a shift handoff export (it already exists: "Shift board & handoff" in `common.js`), a phone layout (laptop-only by your decision), and variable prompts in the style of navi (Rack Targets and slot chips already do this).
 
