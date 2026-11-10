@@ -22,8 +22,8 @@ const DD_DATA = [
             "Bypass kernel page cache and perform Direct I/O straight to storage controller"
           ],
           [
-            "oflag=sync / conv=fdatasync",
-            "Ensure all data and metadata are physically committed to disk before exiting"
+            "conv=fsync / conv=fdatasync",
+            "Physically write output data (fsync: plus metadata) before dd exits; oflag=sync instead makes every write synchronous"
           ],
           [
             "status=progress",

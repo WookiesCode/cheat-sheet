@@ -246,7 +246,8 @@ const CHEAT_SHEET_DATA = [
           ["nvme list-subsys", "Display NVMe multipath subsystems and PCIe BDF addresses for each controller"]
         ],
         tip: "Check media_errors & percentage_used",
-        tags: ["nvme", "nvme-cli", "smart", "ssd", "wear", "endurance", "firmware"]
+        tags: ["nvme", "nvme-cli", "smart", "ssd", "wear", "endurance", "firmware"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-list.txt", "title": "nvme-cli: nvme list"}, {"url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-log-smart.txt", "title": "nvme-cli: smart log"}, {"url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-log-error.txt", "title": "nvme-cli: error log"}, {"url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-list-subsys.txt", "title": "nvme-cli: list-subsys"}], "note": "nvme-cli 3.0 (Sep 2026) renamed smart-log, error-log and id-ctrl to nvme log smart, nvme log error and nvme id ctrl; the old names still work with a warning. The man pages don't list smart-log or id-ctrl output fields (critical_warning, media_errors, mn, sn, fr): those are nvme-cli's output names."}
       },
       {
         id: "nvme-format-fw",
@@ -259,11 +260,12 @@ const CHEAT_SHEET_DATA = [
         ],
         subcommands: [
           ["nvme id-ns /dev/nvme0n1 -H | grep 'LBA Format'", "Check supported sector sizes (512B vs 4096B 4Kn) and active LBA format"],
-          ["nvme fw-download /dev/nvme0 --fw=firmware.bin && nvme fw-commit /dev/nvme0 --slot=1 --action=1", "Download firmware image to NVMe controller and activate it on slot 1"],
-          ["blkdiscard -v /dev/nvme0n1", "Discard (TRIM/Deallocate) all blocks on an SSD/NVMe device prior to re-partitioning"]
+          ["nvme fw-download /dev/nvme0 --fw=firmware.bin && nvme fw-commit /dev/nvme0 --slot=1 --action=1", "Download a firmware image and commit it to slot 1; it activates at the next controller reset (--action=3 activates immediately, without a reset)"],
+          ["blkdiscard -v /dev/nvme0n1", "Discard (TRIM/Deallocate) every block on the device: all data is lost (-v only prints the offset and length)"]
         ],
         danger: "Irreversibly erases all data on target namespace",
-        tags: ["nvme", "secure-erase", "format", "firmware", "4kn", "blkdiscard", "wipe"]
+        tags: ["nvme", "secure-erase", "format", "firmware", "4kn", "blkdiscard", "wipe"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-format.txt", "title": "nvme-cli: format"}, {"url": "https://manpages.debian.org/trixie/nvme-cli/nvme-id-ns.1.en.html", "title": "nvme-id-ns(1) (nvme-cli 2.13)"}, {"url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-fw-commit.txt", "title": "nvme-cli: fw-commit"}, {"url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-fw-download.txt", "title": "nvme-cli: fw-download"}, {"url": "https://man7.org/linux/man-pages/man8/blkdiscard.8.html", "title": "blkdiscard(8)"}], "note": "Corrected 2026-11-09: fw-commit --action=1 activates at the next reset, not on the spot. nvme-cli 3.x moves these to nvme fw download / nvme fw commit / nvme id ns and deprecates -H; the 2.x forms shown still work. The man page doesn't name the 'LBA Format' lines."}
       },
       {
         id: "smartctl-disk-triage",
@@ -276,12 +278,14 @@ const CHEAT_SHEET_DATA = [
           ["-a", "Print standard SMART attributes, capabilities, and error logs"]
         ],
         subcommands: [
-          ["smartctl -t short /dev/sda && smartctl -l selftest /dev/sda", "Run a 2-minute captive/background short self-test and view test log results"],
+          ["smartctl -t short /dev/sda", "Start a short self-test (usually under ten minutes) while the drive stays in service"],
+          ["smartctl -l selftest /dev/sda", "Read the self-test log once the test has had time to finish (it shows the percentage left while one is running)"],
           ["smartctl -a -d megaraid,0 /dev/bus/0", "Query physical disk #0 behind a Broadcom/LSI MegaRAID hardware RAID controller"],
-          ["smartctl --scan", "Scan and list all SMART-capable storage devices and RAID enclosures"]
+          ["smartctl --scan", "Scan and list devices smartctl can open, with device type and protocol"]
         ],
         tip: "Watch Reallocated & Pending sectors",
-        tags: ["smartctl", "smart", "sata", "sas", "hdd", "ssd", "megaraid", "defects"]
+        tags: ["smartctl", "smart", "sata", "sas", "hdd", "ssd", "megaraid", "defects"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://manpages.debian.org/trixie/smartmontools/smartctl.8.en.html", "title": "smartctl(8)"}], "note": "Corrected 2026-11-09: the self-test and its log were one line (smartctl -t short && smartctl -l selftest), which reads the log before the new test finishes. The SATA attribute IDs and the SAS 'grown defect list' wording are drive-reported names, not from the man page."}
       },
       {
         id: "mdadm-raid-ops",
@@ -296,26 +300,30 @@ const CHEAT_SHEET_DATA = [
           ["mdadm --manage /dev/md0 --fail /dev/sdb1 --remove /dev/sdb1", "Mark a failing partition as faulty and detach it from /dev/md0 before physical drive pull"],
           ["mdadm --manage /dev/md0 --add /dev/sdb1", "Add newly inserted replacement drive partition into /dev/md0 to start rebuild"],
           ["mdadm --examine /dev/sd[a-z]1", "Inspect RAID superblocks directly on member partitions"],
-          ["mdadm --detail --scan | tee -a /etc/mdadm/mdadm.conf && update-initramfs -u", "Save active RAID array definitions to mdadm.conf and update Ubuntu initramfs"]
+          ["mdadm --detail --scan | tee -a /etc/mdadm/mdadm.conf && update-initramfs -u", "Append active array definitions to mdadm.conf and update the Ubuntu initramfs (run it twice and you get duplicate ARRAY lines: check the file first)"]
         ],
-        tags: ["mdadm", "raid", "mdstat", "degraded", "rebuild", "hotswap"]
+        tags: ["mdadm", "raid", "mdstat", "degraded", "rebuild", "hotswap"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man8/mdadm.8.html", "title": "mdadm(8)"}, {"url": "https://manpages.debian.org/trixie/initramfs-tools/update-initramfs.8.en.html", "title": "update-initramfs(8)"}], "note": "mdadm documents both /etc/mdadm.conf and /etc/mdadm/mdadm.conf; Debian and Ubuntu use the second. --manage is optional: mdadm assumes it when the first option is --add, --fail or --remove."}
       },
       {
         id: "ledctl-lsscsi-multipath",
         desc: "Blink physical drive bay Fault/Locate LEDs (ledctl) and map SCSI/SAS HBA enclosure slots",
-        cmd: "ledctl locate=/dev/nvme0n1 && lsscsi -g -s -t",
-        details: "In a 24-bay server chassis, pulling the wrong drive can take down an array. 'ledctl' (from 'ledmon' package) drives SGPIO/SES-2/VMD backplane LEDs so the technician can visually verify the blinking bay before ejecting the carrier.",
+        cmd: "ledctl --listed-only locate=/dev/nvme0n1 && lsscsi -g -s -t",
+        details: "In a 24-bay server chassis, pulling the wrong drive can take down an array. 'ledctl' (from 'ledmon' package) drives SGPIO/SES-2/SMP/VMD/NPEM backplane LEDs so the technician can visually verify the blinking bay before ejecting the carrier. Without --listed-only, ledctl turns off the LEDs of every other drive, including fault LEDs you may still need.",
         flags: [
+          ["--listed-only", "Change only the drives named on the command line; leave every other drive's LEDs alone"],
           ["locate=/dev/...", "Turn on the blue/amber Locate LED on the backplane slot for the specified block device"],
           ["locate_off=/dev/...", "Turn off the Locate LED once the drive has been identified"],
-          ["lsscsi -g -s -t", "Show SCSI/SAS [Host:Channel:Target:LUN] tuple, SAS transport address, sg device, and size"]
+          ["lsscsi -g -s -t", "Show [Host:Channel:Target:LUN], the sg device, the size, and transport details (SAS address) in place of vendor/model"]
         ],
         subcommands: [
-          ["ledctl normal=/dev/nvme0n1", "Reset the drive bay backplane LED back to normal state"],
-          ["multipath -ll", "Display Device-Mapper Multipath topology, active/passive HBA paths, and LUN WWIDs"]
+          ["ledctl --listed-only locate_off=/dev/nvme0n1", "Turn the Locate LED off once the drive is swapped (other drives' LEDs untouched)"],
+          ["ledctl --listed-only normal=/dev/nvme0n1", "Reset this bay's Status, Failure and Locate LEDs to off"],
+          ["multipath -ll", "Display Device-Mapper Multipath topology, path-checker states, and LUN WWIDs"]
         ],
         tip: "Never pull a drive without blinking LED",
-        tags: ["ledctl", "lsscsi", "multipath", "backplane", "led", "hotswap", "sas"]
+        tags: ["ledctl", "lsscsi", "multipath", "backplane", "led", "hotswap", "sas"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://manpages.debian.org/trixie/ledmon/ledctl.8.en.html", "title": "ledctl(8) (ledmon 0.97)"}, {"url": "https://manpages.debian.org/trixie/lsscsi/lsscsi.8.en.html", "title": "lsscsi(8)"}, {"url": "https://manpages.debian.org/trixie/multipath-tools/multipath.8.en.html", "title": "multipath(8)"}], "note": "Corrected 2026-11-09: added --listed-only; plain ledctl locate= turns off the LEDs of all other drives. Checked against ledmon 0.97; the 1.x changelog doesn't mention a syntax change."}
       }
     ]
   },
@@ -757,24 +765,26 @@ const CHEAT_SHEET_DATA = [
           ["ncdu -x /", "Launch interactive terminal disk usage analyzer on root '/' (staying on one filesystem)"]
         ],
         tip: "Always check both blocks (df -h) & inodes (df -i)",
-        tags: ["space", "free", "partition", "mount", "inodes", "du", "ncdu"]
+        tags: ["space", "free", "partition", "mount", "inodes", "du", "ncdu"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/df.1.html", "title": "df(1)"}, {"url": "https://man7.org/linux/man-pages/man1/du.1.html", "title": "du(1)"}, {"url": "https://dev.yorhel.nl/ncdu/man", "title": "ncdu manual"}]}
       },
       {
         id: "lsblk-blkid-fstab",
         desc: "Inspect block devices, partitions, LVM volumes, filesystem UUIDs & verify /etc/fstab before reboot",
-        cmd: "lsblk -f -o NAME,SIZE,TYPE,FSTYPE,LABEL,UUID,MOUNTPOINTS && findmnt --verify --verbose",
+        cmd: "lsblk -o NAME,SIZE,TYPE,FSTYPE,LABEL,UUID,MOUNTPOINTS && findmnt --verify --verbose",
         details: "Before rebooting an Ubuntu server after editing '/etc/fstab', always run 'findmnt --verify' and 'mount -a'. A typo or missing UUID in /etc/fstab without 'nofail' will drop the server into emergency single-user mode on boot.",
         flags: [
-          ["lsblk -f -o ...", "Tree view of physical disks, partitions, LVM/RAID, filesystem types, and UUIDs"],
+          ["lsblk -o ...", "Tree view of disks, partitions, LVM/RAID, filesystem types, and UUIDs, with the columns you list (-f alone gives a fixed filesystem set)"],
           ["findmnt --verify", "Parse /etc/fstab and validate that all UUIDs, mountpoints, and options are valid"]
         ],
         subcommands: [
           ["blkid", "Print block device attributes (UUID, PARTUUID, TYPE) formatted for /etc/fstab"],
-          ["lsblk -d -o NAME,SIZE,TRAN,ROTA,MODEL,SERIAL,WWN", "List only physical disks (-d) with transport type, rotational flag (1=HDD, 0=SSD), model, and serial"],
+          ["lsblk -d -o NAME,SIZE,TRAN,ROTA,MODEL,SERIAL,WWN", "List top-level devices only (-d: no partitions or holders) with transport type, rotational flag (1=HDD, 0=SSD), model, and serial"],
           ["mount -o remount,rw /", "Remount the root filesystem read-write if the system booted into read-only recovery mode"]
         ],
         tip: "Run 'findmnt --verify' before every reboot!",
-        tags: ["lsblk", "blkid", "uuid", "fstab", "findmnt", "mount"]
+        tags: ["lsblk", "blkid", "uuid", "fstab", "findmnt", "mount"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man8/lsblk.8.html", "title": "lsblk(8)"}, {"url": "https://man7.org/linux/man-pages/man8/findmnt.8.html", "title": "findmnt(8)"}, {"url": "https://man7.org/linux/man-pages/man8/blkid.8.html", "title": "blkid(8)"}, {"url": "https://man7.org/linux/man-pages/man8/mount.8.html", "title": "mount(8)"}], "note": "Corrected 2026-11-09: dropped -f from lsblk -f -o (-f is itself a column list; how the two combine isn't documented). TRAN, ROTA, MODEL, SERIAL and WWN checked with lsblk --list-columns (util-linux 2.42)."}
       },
       {
         id: "lvm-resize-extend",
@@ -790,24 +800,26 @@ const CHEAT_SHEET_DATA = [
           ["lvextend -r -L +50G /dev/ubuntu-vg/ubuntu-lv", "Add 50 GiB to the logical volume and grow the filesystem online without unmounting"]
         ],
         tip: "lvextend -r resizes LV + filesystem together",
-        tags: ["lvm", "lvextend", "vgs", "lvs", "pvs", "resize2fs", "xfs_growfs", "ubuntu-vg"]
+        tags: ["lvm", "lvextend", "vgs", "lvs", "pvs", "resize2fs", "xfs_growfs", "ubuntu-vg"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man8/lvextend.8.html", "title": "lvextend(8)"}, {"url": "https://man7.org/linux/man-pages/man8/lvs.8.html", "title": "lvs(8)"}], "note": "The names ubuntu-vg / ubuntu-lv and how much free space the Ubuntu installer leaves in the VG are not in Ubuntu's docs: run lvs and vgs to get yours."}
       },
       {
         id: "dd-parted-fsck",
         desc: "Partition disks >2TB with GPT (parted), check filesystems, or write raw disk images with dd",
-        cmd: "parted -l && dd if=ubuntu-server.iso of=/dev/sdX bs=4M status=progress oflag=sync",
-        details: "Uses 'parted' to inspect or create GUID Partition Tables (GPT, required for disks > 2 TiB). When using 'dd', always include 'oflag=sync' so the command does not return until dirty kernel page cache buffers are physically flushed to the target device.",
+        cmd: "parted -l && dd if=ubuntu-server.iso of=/dev/sdX bs=4M status=progress conv=fsync",
+        details: "Uses 'parted' to inspect or create GUID Partition Tables (GPT, required for disks > 2 TiB). When using 'dd', add 'conv=fsync' so dd does not exit until the data is physically written to the target device (oflag=sync instead makes every single write synchronous, which is much slower).",
         flags: [
           ["bs=4M", "Read and write 4 MiB blocks at a time for high throughput"],
           ["status=progress", "Display live transfer rate and bytes written"],
-          ["oflag=sync", "Synchronize data and metadata to physical storage before exiting"]
+          ["conv=fsync", "Physically write output data and metadata before dd finishes (not conv=sync, which pads blocks with NULs)"]
         ],
         subcommands: [
-          ["parted -s /dev/nvme1n1 mklabel gpt mkpart primary ext4 1MiB 100% && mkfs.ext4 -L data /dev/nvme1n1p1", "Create a 1MiB-aligned GPT partition across an entire new NVMe drive and format it as ext4"],
+          ["parted -s /dev/nvme1n1 mklabel gpt mkpart data ext4 1MiB 100% && mkfs.ext4 -L data /dev/nvme1n1p1", "Create a 1MiB-aligned GPT partition named 'data' across a new NVMe drive, then format it as ext4 (mkpart makes no filesystem)"],
           ["tune2fs -l /dev/sda1 | grep -E 'Filesystem state|Mount count|Last checked|Reserved block'", "Inspect ext4 superblock health state and reserved root block count"]
         ],
         danger: "dd/mklabel destroys all data on target disk",
-        tags: ["dd", "parted", "gpt", "mkfs", "ext4", "iso", "usb"]
+        tags: ["dd", "parted", "gpt", "mkfs", "ext4", "iso", "usb"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/dd.1.html", "title": "dd(1)"}, {"url": "https://www.gnu.org/software/parted/manual/parted.html", "title": "GNU Parted manual"}, {"url": "https://man7.org/linux/man-pages/man8/mke2fs.8.html", "title": "mke2fs(8)"}, {"url": "https://man7.org/linux/man-pages/man8/tune2fs.8.html", "title": "tune2fs(8)"}], "note": "Corrected 2026-11-09: oflag=sync → conv=fsync (the flush-before-exit flag), and mkpart primary → mkpart data (on GPT that word is the partition name). The tune2fs -l output labels aren't listed in the man page."}
       }
     ]
   },

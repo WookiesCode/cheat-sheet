@@ -147,6 +147,25 @@ All 67 switch commands and recipes (15 sheets: Quantum MLNX-OS and in-band, Cumu
 
 **Not covered:** the per-page tip/flag cards (they are quick-reference rows; four wrong rows were corrected anyway), Cumulus `nv show interface --view lldp` and `nv show router arp` there (not checked), and the Switch Rosetta table in `common.js`.
 
+## #8 for the Linux storage sheets (2026-11-09, `improve/sources-storage`)
+
+All 9 commands on the two Linux storage sheets (`nvme-smart`: NVMe, SMART, mdadm, drive LEDs; `storage`: df/du, lsblk/findmnt, LVM, dd/parted) now cite a source: the nvme-cli docs (and the Debian nvme-cli 2.13 page for `id-ns -H`), smartctl(8), mdadm(8), update-initramfs(8), ledctl(8) (ledmon 0.97), lsscsi(8), multipath(8), blkdiscard(8), and man7.org for df, du, dd, lsblk, findmnt, blkid, mount, lvextend, lvs, mke2fs and tune2fs, plus the GNU Parted manual and the ncdu manual. The data lives in `app.js`, whose Linux sheets keep recipes inside their command's card, so one line covers a command and its recipes; it shows on the sheets and on the Linux hub.
+
+| Was | Now | Why |
+|---|---|---|
+| `dd … oflag=sync`, "synchronize … before exiting" (storage sheet and the CLI-tools dd flag row) | `dd … conv=fsync` | dd(1): `oflag=sync` makes every write synchronous; `conv=fsync` writes data out before dd finishes |
+| `fw-commit --action=1` "activate it on slot 1" | activates at the next controller reset (`--action=3` activates at once) | nvme-cli fw-commit |
+| `ledctl locate=/dev/…` (storage sheet and hw-reference) | `ledctl --listed-only locate=/dev/…` (and `locate_off`, `normal`) | ledctl(8): without `--listed-only` it turns off every other drive's LEDs, fault LEDs included |
+| `smartctl -t short … && smartctl -l selftest …` | two recipes: start the test, then read the log after it finishes | the log is read before the new test has run |
+| `parted … mkpart primary ext4 …` on GPT | `mkpart data ext4 …` | on GPT that word is the partition name; part-type is msdos/dvh only |
+| `lsblk -f -o NAME,…` | `lsblk -o NAME,…` | `-f` is itself a column list; how the two combine isn't documented |
+
+**Now flagged as changing state** (`DANGER_RE` in `common.js`): `blkdiscard` (wipes the device), `mdadm … --add` (starts a rebuild) and `lvextend`/`lvreduce`/`lvresize`.
+
+**Not confirmed (said in the notes):** the smart-log and id-ctrl output field names (nvme-cli output, not in the man pages); the SATA attribute IDs and SAS "grown defect list" wording (drive-reported); the `tune2fs -l` output labels; Ubuntu's `ubuntu-vg`/`ubuntu-lv` names and how much VG space the installer leaves. nvme-cli 3.0 (Sep 2026) renames `smart-log`, `error-log`, `fw-commit`, `id-ns` and friends to `nvme log smart`, `nvme fw commit`, `nvme id ns` (old names still work with a warning) and 3.2 deprecates `-H`; the sheet keeps the 2.x forms that current distros ship.
+
+**Not covered:** the hw-reference drive cards still put `sudo` in front of their commands (a sheet-wide convention, not changed here); `zpool`/ZFS has no storage card to source.
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |

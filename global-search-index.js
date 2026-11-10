@@ -1,5 +1,5 @@
 // Auto-generated Global Search Index across all 233 cheat sheets
-// Total indexed items: 3394
+// Total indexed items: 3398
 window.GLOBAL_SEARCH_INDEX = [
   {
     "sName": "ansible",
@@ -648,7 +648,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nvme list && nvme smart-log /dev/nvme0",
     "desc": "List all NVMe namespaces (model, serial, FW) and inspect SMART health log for wear, spare & media errors",
     "tip": "Check media_errors & percentage_used",
-    "tags": "nvme nvme-cli smart ssd wear endurance firmware"
+    "tags": "nvme nvme-cli smart ssd wear endurance firmware",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-list.txt",
+          "title": "nvme-cli: nvme list"
+        },
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-log-smart.txt",
+          "title": "nvme-cli: smart log"
+        },
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-log-error.txt",
+          "title": "nvme-cli: error log"
+        },
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-list-subsys.txt",
+          "title": "nvme-cli: list-subsys"
+        }
+      ],
+      "note": "nvme-cli 3.0 (Sep 2026) renamed smart-log, error-log and id-ctrl to nvme log smart, nvme log error and nvme id ctrl; the old names still work with a warning. The man pages don't list smart-log or id-ctrl output fields (critical_warning, media_errors, mn, sn, fr): those are nvme-cli's output names."
+    }
   },
   {
     "sName": "linux",
@@ -692,7 +714,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nvme format /dev/nvme0n1 --ses=1 --force",
     "desc": "Cryptographically secure-erase an enterprise NVMe drive or update controller firmware online",
     "tip": "",
-    "tags": "nvme secure-erase format firmware 4kn blkdiscard wipe"
+    "tags": "nvme secure-erase format firmware 4kn blkdiscard wipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-format.txt",
+          "title": "nvme-cli: format"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/nvme-cli/nvme-id-ns.1.en.html",
+          "title": "nvme-id-ns(1) (nvme-cli 2.13)"
+        },
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-fw-commit.txt",
+          "title": "nvme-cli: fw-commit"
+        },
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-fw-download.txt",
+          "title": "nvme-cli: fw-download"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/blkdiscard.8.html",
+          "title": "blkdiscard(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: fw-commit --action=1 activates at the next reset, not on the spot. nvme-cli 3.x moves these to nvme fw download / nvme fw commit / nvme id ns and deprecates -H; the 2.x forms shown still work. The man page doesn't name the 'LBA Format' lines."
+    }
   },
   {
     "sName": "linux",
@@ -712,7 +760,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "id": "nvme-format-fw",
     "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
     "cmd": "nvme fw-download /dev/nvme0 --fw=firmware.bin && nvme fw-commit /dev/nvme0 --slot=1 --action=1",
-    "desc": "Download firmware image to NVMe controller and activate it on slot 1",
+    "desc": "Download a firmware image and commit it to slot 1; it activates at the next controller reset (--action=3 activates immediately, without a reset)",
     "tip": "",
     "tags": "nvme secure-erase format firmware 4kn blkdiscard wipe"
   },
@@ -723,7 +771,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "id": "nvme-format-fw",
     "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
     "cmd": "blkdiscard -v /dev/nvme0n1",
-    "desc": "Discard (TRIM/Deallocate) all blocks on an SSD/NVMe device prior to re-partitioning",
+    "desc": "Discard (TRIM/Deallocate) every block on the device: all data is lost (-v only prints the offset and length)",
     "tip": "",
     "tags": "nvme secure-erase format firmware 4kn blkdiscard wipe"
   },
@@ -736,6 +784,27 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "smartctl -x /dev/sda",
     "desc": "Inspect SATA/SAS/NVMe SMART health attributes, grown defect lists, and trigger background self-tests",
     "tip": "Watch Reallocated & Pending sectors",
+    "tags": "smartctl smart sata sas hdd ssd megaraid defects",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/smartmontools/smartctl.8.en.html",
+          "title": "smartctl(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the self-test and its log were one line (smartctl -t short && smartctl -l selftest), which reads the log before the new test finishes. The SATA attribute IDs and the SAS 'grown defect list' wording are drive-reported names, not from the man page."
+    }
+  },
+  {
+    "sName": "linux",
+    "file": "linux.html",
+    "badge": "nvm",
+    "id": "smartctl-disk-triage",
+    "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
+    "cmd": "smartctl -t short /dev/sda",
+    "desc": "Start a short self-test (usually under ten minutes) while the drive stays in service",
+    "tip": "",
     "tags": "smartctl smart sata sas hdd ssd megaraid defects"
   },
   {
@@ -744,8 +813,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "nvm",
     "id": "smartctl-disk-triage",
     "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
-    "cmd": "smartctl -t short /dev/sda && smartctl -l selftest /dev/sda",
-    "desc": "Run a 2-minute captive/background short self-test and view test log results",
+    "cmd": "smartctl -l selftest /dev/sda",
+    "desc": "Read the self-test log once the test has had time to finish (it shows the percentage left while one is running)",
     "tip": "",
     "tags": "smartctl smart sata sas hdd ssd megaraid defects"
   },
@@ -767,7 +836,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "id": "smartctl-disk-triage",
     "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
     "cmd": "smartctl --scan",
-    "desc": "Scan and list all SMART-capable storage devices and RAID enclosures",
+    "desc": "Scan and list devices smartctl can open, with device type and protocol",
     "tip": "",
     "tags": "smartctl smart sata sas hdd ssd megaraid defects"
   },
@@ -780,7 +849,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "cat /proc/mdstat && mdadm --detail /dev/md0",
     "desc": "Inspect Linux software RAID (mdadm) array health, sync progress, and hot-swap a failed disk",
     "tip": "",
-    "tags": "mdadm raid mdstat degraded rebuild hotswap"
+    "tags": "mdadm raid mdstat degraded rebuild hotswap",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/mdadm.8.html",
+          "title": "mdadm(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/initramfs-tools/update-initramfs.8.en.html",
+          "title": "update-initramfs(8)"
+        }
+      ],
+      "note": "mdadm documents both /etc/mdadm.conf and /etc/mdadm/mdadm.conf; Debian and Ubuntu use the second. --manage is optional: mdadm assumes it when the first option is --add, --fail or --remove."
+    }
   },
   {
     "sName": "linux",
@@ -822,7 +905,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "id": "mdadm-raid-ops",
     "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
     "cmd": "mdadm --detail --scan | tee -a /etc/mdadm/mdadm.conf && update-initramfs -u",
-    "desc": "Save active RAID array definitions to mdadm.conf and update Ubuntu initramfs",
+    "desc": "Append active array definitions to mdadm.conf and update the Ubuntu initramfs (run it twice and you get duplicate ARRAY lines: check the file first)",
     "tip": "",
     "tags": "mdadm raid mdstat degraded rebuild hotswap"
   },
@@ -832,9 +915,38 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "nvm",
     "id": "ledctl-lsscsi-multipath",
     "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
-    "cmd": "ledctl locate=/dev/nvme0n1 && lsscsi -g -s -t",
+    "cmd": "ledctl --listed-only locate=/dev/nvme0n1 && lsscsi -g -s -t",
     "desc": "Blink physical drive bay Fault/Locate LEDs (ledctl) and map SCSI/SAS HBA enclosure slots",
     "tip": "Never pull a drive without blinking LED",
+    "tags": "ledctl lsscsi multipath backplane led hotswap sas",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/ledmon/ledctl.8.en.html",
+          "title": "ledctl(8) (ledmon 0.97)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/lsscsi/lsscsi.8.en.html",
+          "title": "lsscsi(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/multipath-tools/multipath.8.en.html",
+          "title": "multipath(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: added --listed-only; plain ledctl locate= turns off the LEDs of all other drives. Checked against ledmon 0.97; the 1.x changelog doesn't mention a syntax change."
+    }
+  },
+  {
+    "sName": "linux",
+    "file": "linux.html",
+    "badge": "nvm",
+    "id": "ledctl-lsscsi-multipath",
+    "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
+    "cmd": "ledctl --listed-only locate_off=/dev/nvme0n1",
+    "desc": "Turn the Locate LED off once the drive is swapped (other drives' LEDs untouched)",
+    "tip": "",
     "tags": "ledctl lsscsi multipath backplane led hotswap sas"
   },
   {
@@ -843,8 +955,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "nvm",
     "id": "ledctl-lsscsi-multipath",
     "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
-    "cmd": "ledctl normal=/dev/nvme0n1",
-    "desc": "Reset the drive bay backplane LED back to normal state",
+    "cmd": "ledctl --listed-only normal=/dev/nvme0n1",
+    "desc": "Reset this bay's Status, Failure and Locate LEDs to off",
     "tip": "",
     "tags": "ledctl lsscsi multipath backplane led hotswap sas"
   },
@@ -855,7 +967,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "id": "ledctl-lsscsi-multipath",
     "sec": "Enterprise NVMe, SMART, RAID & Drive Bay LEDs",
     "cmd": "multipath -ll",
-    "desc": "Display Device-Mapper Multipath topology, active/passive HBA paths, and LUN WWIDs",
+    "desc": "Display Device-Mapper Multipath topology, path-checker states, and LUN WWIDs",
     "tip": "",
     "tags": "ledctl lsscsi multipath backplane led hotswap sas"
   },
@@ -1682,7 +1794,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "df -hT -x tmpfs -x devtmpfs -x squashfs && df -i /",
     "desc": "Check mounted filesystem capacity, inode exhaustion, and top largest directories",
     "tip": "Always check both blocks (df -h) & inodes (df -i)",
-    "tags": "space free partition mount inodes du ncdu"
+    "tags": "space free partition mount inodes du ncdu",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/df.1.html",
+          "title": "df(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/du.1.html",
+          "title": "du(1)"
+        },
+        {
+          "url": "https://dev.yorhel.nl/ncdu/man",
+          "title": "ncdu manual"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -1734,10 +1863,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "dsk",
     "id": "lsblk-blkid-fstab",
     "sec": "Filesystems, Partitions, LVM & Mounts",
-    "cmd": "lsblk -f -o NAME,SIZE,TYPE,FSTYPE,LABEL,UUID,MOUNTPOINTS && findmnt --verify --verbose",
+    "cmd": "lsblk -o NAME,SIZE,TYPE,FSTYPE,LABEL,UUID,MOUNTPOINTS && findmnt --verify --verbose",
     "desc": "Inspect block devices, partitions, LVM volumes, filesystem UUIDs & verify /etc/fstab before reboot",
     "tip": "Run 'findmnt --verify' before every reboot!",
-    "tags": "lsblk blkid uuid fstab findmnt mount"
+    "tags": "lsblk blkid uuid fstab findmnt mount",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/lsblk.8.html",
+          "title": "lsblk(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/findmnt.8.html",
+          "title": "findmnt(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/blkid.8.html",
+          "title": "blkid(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/mount.8.html",
+          "title": "mount(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: dropped -f from lsblk -f -o (-f is itself a column list; how the two combine isn't documented). TRAN, ROTA, MODEL, SERIAL and WWN checked with lsblk --list-columns (util-linux 2.42)."
+    }
   },
   {
     "sName": "linux",
@@ -1757,7 +1908,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "id": "lsblk-blkid-fstab",
     "sec": "Filesystems, Partitions, LVM & Mounts",
     "cmd": "lsblk -d -o NAME,SIZE,TRAN,ROTA,MODEL,SERIAL,WWN",
-    "desc": "List only physical disks (-d) with transport type, rotational flag (1=HDD, 0=SSD), model, and serial",
+    "desc": "List top-level devices only (-d: no partitions or holders) with transport type, rotational flag (1=HDD, 0=SSD), model, and serial",
     "tip": "",
     "tags": "lsblk blkid uuid fstab findmnt mount"
   },
@@ -1781,7 +1932,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "pvs && vgs && lvs",
     "desc": "Inspect Ubuntu LVM Physical Volumes (PV), Volume Groups (VG), and grow a Logical Volume (LV) online",
     "tip": "lvextend -r resizes LV + filesystem together",
-    "tags": "lvm lvextend vgs lvs pvs resize2fs xfs_growfs ubuntu-vg"
+    "tags": "lvm lvextend vgs lvs pvs resize2fs xfs_growfs ubuntu-vg",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/lvextend.8.html",
+          "title": "lvextend(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/lvs.8.html",
+          "title": "lvs(8)"
+        }
+      ],
+      "note": "The names ubuntu-vg / ubuntu-lv and how much free space the Ubuntu installer leaves in the VG are not in Ubuntu's docs: run lvs and vgs to get yours."
+    }
   },
   {
     "sName": "linux",
@@ -1811,10 +1976,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "dsk",
     "id": "dd-parted-fsck",
     "sec": "Filesystems, Partitions, LVM & Mounts",
-    "cmd": "parted -l && dd if=ubuntu-server.iso of=/dev/sdX bs=4M status=progress oflag=sync",
+    "cmd": "parted -l && dd if=ubuntu-server.iso of=/dev/sdX bs=4M status=progress conv=fsync",
     "desc": "Partition disks >2TB with GPT (parted), check filesystems, or write raw disk images with dd",
     "tip": "",
-    "tags": "dd parted gpt mkfs ext4 iso usb"
+    "tags": "dd parted gpt mkfs ext4 iso usb",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/dd.1.html",
+          "title": "dd(1)"
+        },
+        {
+          "url": "https://www.gnu.org/software/parted/manual/parted.html",
+          "title": "GNU Parted manual"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/mke2fs.8.html",
+          "title": "mke2fs(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/tune2fs.8.html",
+          "title": "tune2fs(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: oflag=sync → conv=fsync (the flush-before-exit flag), and mkpart primary → mkpart data (on GPT that word is the partition name). The tune2fs -l output labels aren't listed in the man page."
+    }
   },
   {
     "sName": "linux",
@@ -1822,8 +2009,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "dsk",
     "id": "dd-parted-fsck",
     "sec": "Filesystems, Partitions, LVM & Mounts",
-    "cmd": "parted -s /dev/nvme1n1 mklabel gpt mkpart primary ext4 1MiB 100% && mkfs.ext4 -L data /dev/nvme1n1p1",
-    "desc": "Create a 1MiB-aligned GPT partition across an entire new NVMe drive and format it as ext4",
+    "cmd": "parted -s /dev/nvme1n1 mklabel gpt mkpart data ext4 1MiB 100% && mkfs.ext4 -L data /dev/nvme1n1p1",
+    "desc": "Create a 1MiB-aligned GPT partition named 'data' across a new NVMe drive, then format it as ext4 (mkpart makes no filesystem)",
     "tip": "",
     "tags": "dd parted gpt mkfs ext4 iso usb"
   },
@@ -18290,7 +18477,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "tip",
     "id": "drives-tips-card",
     "sec": "Drive form factors: Pro Tip",
-    "cmd": "sudo ledctl locate=/dev/nvme0n1",
+    "cmd": "sudo ledctl --listed-only locate=/dev/nvme0n1",
     "desc": "Find the bay before you pull",
     "tip": "Wrong-drive pulls in a degraded array lose data",
     "tags": "hardware reference drives tips best-practice"
@@ -19060,7 +19247,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "tip",
     "id": "drives-tips-card",
     "sec": "Drive form factors: Pro Tip",
-    "cmd": "sudo ledctl locate=/dev/nvme0n1",
+    "cmd": "sudo ledctl --listed-only locate=/dev/nvme0n1",
     "desc": "Find the bay before you pull",
     "tip": "Wrong-drive pulls in a degraded array lose data",
     "tags": "hardware reference drives tips best-practice"
@@ -31171,7 +31358,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nvme list && nvme smart-log /dev/nvme0",
     "desc": "List all NVMe namespaces (model, serial, FW) and inspect SMART health log for wear, spare & media errors",
     "tip": "Check media_errors & percentage_used",
-    "tags": "nvme nvme-cli smart ssd wear endurance firmware"
+    "tags": "nvme nvme-cli smart ssd wear endurance firmware",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-list.txt",
+          "title": "nvme-cli: nvme list"
+        },
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-log-smart.txt",
+          "title": "nvme-cli: smart log"
+        },
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-log-error.txt",
+          "title": "nvme-cli: error log"
+        },
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-list-subsys.txt",
+          "title": "nvme-cli: list-subsys"
+        }
+      ],
+      "note": "nvme-cli 3.0 (Sep 2026) renamed smart-log, error-log and id-ctrl to nvme log smart, nvme log error and nvme id ctrl; the old names still work with a warning. The man pages don't list smart-log or id-ctrl output fields (critical_warning, media_errors, mn, sn, fr): those are nvme-cli's output names."
+    }
   },
   {
     "sName": "nvme-smart",
@@ -31215,7 +31424,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nvme format /dev/nvme0n1 --ses=1 --force",
     "desc": "Cryptographically secure-erase an enterprise NVMe drive or update controller firmware online",
     "tip": "",
-    "tags": "nvme secure-erase format firmware 4kn blkdiscard wipe"
+    "tags": "nvme secure-erase format firmware 4kn blkdiscard wipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-format.txt",
+          "title": "nvme-cli: format"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/nvme-cli/nvme-id-ns.1.en.html",
+          "title": "nvme-id-ns(1) (nvme-cli 2.13)"
+        },
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-fw-commit.txt",
+          "title": "nvme-cli: fw-commit"
+        },
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-fw-download.txt",
+          "title": "nvme-cli: fw-download"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/blkdiscard.8.html",
+          "title": "blkdiscard(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: fw-commit --action=1 activates at the next reset, not on the spot. nvme-cli 3.x moves these to nvme fw download / nvme fw commit / nvme id ns and deprecates -H; the 2.x forms shown still work. The man page doesn't name the 'LBA Format' lines."
+    }
   },
   {
     "sName": "nvme-smart",
@@ -31235,7 +31470,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "id": "nvme-format-fw",
     "sec": "Enterprise NVMe: Cryptographically secure-erase an enterprise NVM...",
     "cmd": "nvme fw-download /dev/nvme0 --fw=firmware.bin && nvme fw-commit /dev/nvme0 --slot=1 --action=1",
-    "desc": "Download firmware image to NVMe controller and activate it on slot 1",
+    "desc": "Download a firmware image and commit it to slot 1; it activates at the next controller reset (--action=3 activates immediately, without a reset)",
     "tip": "",
     "tags": "nvme secure-erase format firmware 4kn blkdiscard wipe"
   },
@@ -31246,7 +31481,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "id": "nvme-format-fw",
     "sec": "Enterprise NVMe: Cryptographically secure-erase an enterprise NVM...",
     "cmd": "blkdiscard -v /dev/nvme0n1",
-    "desc": "Discard (TRIM/Deallocate) all blocks on an SSD/NVMe device prior to re-partitioning",
+    "desc": "Discard (TRIM/Deallocate) every block on the device: all data is lost (-v only prints the offset and length)",
     "tip": "",
     "tags": "nvme secure-erase format firmware 4kn blkdiscard wipe"
   },
@@ -31259,6 +31494,27 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "smartctl -x /dev/sda",
     "desc": "Inspect SATA/SAS/NVMe SMART health attributes, grown defect lists, and trigger background self-tests",
     "tip": "Watch Reallocated & Pending sectors",
+    "tags": "smartctl smart sata sas hdd ssd megaraid defects",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/smartmontools/smartctl.8.en.html",
+          "title": "smartctl(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the self-test and its log were one line (smartctl -t short && smartctl -l selftest), which reads the log before the new test finishes. The SATA attribute IDs and the SAS 'grown defect list' wording are drive-reported names, not from the man page."
+    }
+  },
+  {
+    "sName": "nvme-smart",
+    "file": "nvme-smart.html",
+    "badge": "nvm",
+    "id": "smartctl-disk-triage",
+    "sec": "Enterprise NVMe: SATA/SAS/NVMe SMART health attributes, grown def...",
+    "cmd": "smartctl -t short /dev/sda",
+    "desc": "Start a short self-test (usually under ten minutes) while the drive stays in service",
+    "tip": "",
     "tags": "smartctl smart sata sas hdd ssd megaraid defects"
   },
   {
@@ -31267,8 +31523,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "nvm",
     "id": "smartctl-disk-triage",
     "sec": "Enterprise NVMe: SATA/SAS/NVMe SMART health attributes, grown def...",
-    "cmd": "smartctl -t short /dev/sda && smartctl -l selftest /dev/sda",
-    "desc": "Run a 2-minute captive/background short self-test and view test log results",
+    "cmd": "smartctl -l selftest /dev/sda",
+    "desc": "Read the self-test log once the test has had time to finish (it shows the percentage left while one is running)",
     "tip": "",
     "tags": "smartctl smart sata sas hdd ssd megaraid defects"
   },
@@ -31290,7 +31546,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "id": "smartctl-disk-triage",
     "sec": "Enterprise NVMe: SATA/SAS/NVMe SMART health attributes, grown def...",
     "cmd": "smartctl --scan",
-    "desc": "Scan and list all SMART-capable storage devices and RAID enclosures",
+    "desc": "Scan and list devices smartctl can open, with device type and protocol",
     "tip": "",
     "tags": "smartctl smart sata sas hdd ssd megaraid defects"
   },
@@ -31303,7 +31559,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "cat /proc/mdstat && mdadm --detail /dev/md0",
     "desc": "Inspect Linux software RAID (mdadm) array health, sync progress, and hot-swap a failed disk",
     "tip": "",
-    "tags": "mdadm raid mdstat degraded rebuild hotswap"
+    "tags": "mdadm raid mdstat degraded rebuild hotswap",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/mdadm.8.html",
+          "title": "mdadm(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/initramfs-tools/update-initramfs.8.en.html",
+          "title": "update-initramfs(8)"
+        }
+      ],
+      "note": "mdadm documents both /etc/mdadm.conf and /etc/mdadm/mdadm.conf; Debian and Ubuntu use the second. --manage is optional: mdadm assumes it when the first option is --add, --fail or --remove."
+    }
   },
   {
     "sName": "nvme-smart",
@@ -31345,7 +31615,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "id": "mdadm-raid-ops",
     "sec": "Enterprise NVMe: Linux software RAID (mdadm) array health, sync p...",
     "cmd": "mdadm --detail --scan | tee -a /etc/mdadm/mdadm.conf && update-initramfs -u",
-    "desc": "Save active RAID array definitions to mdadm.conf and update Ubuntu initramfs",
+    "desc": "Append active array definitions to mdadm.conf and update the Ubuntu initramfs (run it twice and you get duplicate ARRAY lines: check the file first)",
     "tip": "",
     "tags": "mdadm raid mdstat degraded rebuild hotswap"
   },
@@ -31355,9 +31625,38 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "nvm",
     "id": "ledctl-lsscsi-multipath",
     "sec": "Enterprise NVMe: Blink physical drive bay Fault/Locate LEDs (ledc...",
-    "cmd": "ledctl locate=/dev/nvme0n1 && lsscsi -g -s -t",
+    "cmd": "ledctl --listed-only locate=/dev/nvme0n1 && lsscsi -g -s -t",
     "desc": "Blink physical drive bay Fault/Locate LEDs (ledctl) and map SCSI/SAS HBA enclosure slots",
     "tip": "Never pull a drive without blinking LED",
+    "tags": "ledctl lsscsi multipath backplane led hotswap sas",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/ledmon/ledctl.8.en.html",
+          "title": "ledctl(8) (ledmon 0.97)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/lsscsi/lsscsi.8.en.html",
+          "title": "lsscsi(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/multipath-tools/multipath.8.en.html",
+          "title": "multipath(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: added --listed-only; plain ledctl locate= turns off the LEDs of all other drives. Checked against ledmon 0.97; the 1.x changelog doesn't mention a syntax change."
+    }
+  },
+  {
+    "sName": "nvme-smart",
+    "file": "nvme-smart.html",
+    "badge": "nvm",
+    "id": "ledctl-lsscsi-multipath",
+    "sec": "Enterprise NVMe: Blink physical drive bay Fault/Locate LEDs (ledc...",
+    "cmd": "ledctl --listed-only locate_off=/dev/nvme0n1",
+    "desc": "Turn the Locate LED off once the drive is swapped (other drives' LEDs untouched)",
+    "tip": "",
     "tags": "ledctl lsscsi multipath backplane led hotswap sas"
   },
   {
@@ -31366,8 +31665,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "nvm",
     "id": "ledctl-lsscsi-multipath",
     "sec": "Enterprise NVMe: Blink physical drive bay Fault/Locate LEDs (ledc...",
-    "cmd": "ledctl normal=/dev/nvme0n1",
-    "desc": "Reset the drive bay backplane LED back to normal state",
+    "cmd": "ledctl --listed-only normal=/dev/nvme0n1",
+    "desc": "Reset this bay's Status, Failure and Locate LEDs to off",
     "tip": "",
     "tags": "ledctl lsscsi multipath backplane led hotswap sas"
   },
@@ -31378,7 +31677,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "id": "ledctl-lsscsi-multipath",
     "sec": "Enterprise NVMe: Blink physical drive bay Fault/Locate LEDs (ledc...",
     "cmd": "multipath -ll",
-    "desc": "Display Device-Mapper Multipath topology, active/passive HBA paths, and LUN WWIDs",
+    "desc": "Display Device-Mapper Multipath topology, path-checker states, and LUN WWIDs",
     "tip": "",
     "tags": "ledctl lsscsi multipath backplane led hotswap sas"
   },
@@ -38058,7 +38357,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "df -hT -x tmpfs -x devtmpfs -x squashfs && df -i /",
     "desc": "Check mounted filesystem capacity, inode exhaustion, and top largest directories",
     "tip": "Always check both blocks (df -h) & inodes (df -i)",
-    "tags": "space free partition mount inodes du ncdu"
+    "tags": "space free partition mount inodes du ncdu",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/df.1.html",
+          "title": "df(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/du.1.html",
+          "title": "du(1)"
+        },
+        {
+          "url": "https://dev.yorhel.nl/ncdu/man",
+          "title": "ncdu manual"
+        }
+      ]
+    }
   },
   {
     "sName": "storage",
@@ -38110,10 +38426,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "dsk",
     "id": "lsblk-blkid-fstab",
     "sec": "Filesystems: Block devices, partitions, LVM volumes, filesyst...",
-    "cmd": "lsblk -f -o NAME,SIZE,TYPE,FSTYPE,LABEL,UUID,MOUNTPOINTS && findmnt --verify --verbose",
+    "cmd": "lsblk -o NAME,SIZE,TYPE,FSTYPE,LABEL,UUID,MOUNTPOINTS && findmnt --verify --verbose",
     "desc": "Inspect block devices, partitions, LVM volumes, filesystem UUIDs & verify /etc/fstab before reboot",
     "tip": "Run 'findmnt --verify' before every reboot!",
-    "tags": "lsblk blkid uuid fstab findmnt mount"
+    "tags": "lsblk blkid uuid fstab findmnt mount",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/lsblk.8.html",
+          "title": "lsblk(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/findmnt.8.html",
+          "title": "findmnt(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/blkid.8.html",
+          "title": "blkid(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/mount.8.html",
+          "title": "mount(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: dropped -f from lsblk -f -o (-f is itself a column list; how the two combine isn't documented). TRAN, ROTA, MODEL, SERIAL and WWN checked with lsblk --list-columns (util-linux 2.42)."
+    }
   },
   {
     "sName": "storage",
@@ -38133,7 +38471,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "id": "lsblk-blkid-fstab",
     "sec": "Filesystems: Block devices, partitions, LVM volumes, filesyst...",
     "cmd": "lsblk -d -o NAME,SIZE,TRAN,ROTA,MODEL,SERIAL,WWN",
-    "desc": "List only physical disks (-d) with transport type, rotational flag (1=HDD, 0=SSD), model, and serial",
+    "desc": "List top-level devices only (-d: no partitions or holders) with transport type, rotational flag (1=HDD, 0=SSD), model, and serial",
     "tip": "",
     "tags": "lsblk blkid uuid fstab findmnt mount"
   },
@@ -38157,7 +38495,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "pvs && vgs && lvs",
     "desc": "Inspect Ubuntu LVM Physical Volumes (PV), Volume Groups (VG), and grow a Logical Volume (LV) online",
     "tip": "lvextend -r resizes LV + filesystem together",
-    "tags": "lvm lvextend vgs lvs pvs resize2fs xfs_growfs ubuntu-vg"
+    "tags": "lvm lvextend vgs lvs pvs resize2fs xfs_growfs ubuntu-vg",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/lvextend.8.html",
+          "title": "lvextend(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/lvs.8.html",
+          "title": "lvs(8)"
+        }
+      ],
+      "note": "The names ubuntu-vg / ubuntu-lv and how much free space the Ubuntu installer leaves in the VG are not in Ubuntu's docs: run lvs and vgs to get yours."
+    }
   },
   {
     "sName": "storage",
@@ -38187,10 +38539,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "dsk",
     "id": "dd-parted-fsck",
     "sec": "Filesystems: Disks >2TB with GPT (parted), check filesystems,...",
-    "cmd": "parted -l && dd if=ubuntu-server.iso of=/dev/sdX bs=4M status=progress oflag=sync",
+    "cmd": "parted -l && dd if=ubuntu-server.iso of=/dev/sdX bs=4M status=progress conv=fsync",
     "desc": "Partition disks >2TB with GPT (parted), check filesystems, or write raw disk images with dd",
     "tip": "",
-    "tags": "dd parted gpt mkfs ext4 iso usb"
+    "tags": "dd parted gpt mkfs ext4 iso usb",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/dd.1.html",
+          "title": "dd(1)"
+        },
+        {
+          "url": "https://www.gnu.org/software/parted/manual/parted.html",
+          "title": "GNU Parted manual"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/mke2fs.8.html",
+          "title": "mke2fs(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/tune2fs.8.html",
+          "title": "tune2fs(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: oflag=sync → conv=fsync (the flush-before-exit flag), and mkpart primary → mkpart data (on GPT that word is the partition name). The tune2fs -l output labels aren't listed in the man page."
+    }
   },
   {
     "sName": "storage",
@@ -38198,8 +38572,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "dsk",
     "id": "dd-parted-fsck",
     "sec": "Filesystems: Disks >2TB with GPT (parted), check filesystems,...",
-    "cmd": "parted -s /dev/nvme1n1 mklabel gpt mkpart primary ext4 1MiB 100% && mkfs.ext4 -L data /dev/nvme1n1p1",
-    "desc": "Create a 1MiB-aligned GPT partition across an entire new NVMe drive and format it as ext4",
+    "cmd": "parted -s /dev/nvme1n1 mklabel gpt mkpart data ext4 1MiB 100% && mkfs.ext4 -L data /dev/nvme1n1p1",
+    "desc": "Create a 1MiB-aligned GPT partition named 'data' across a new NVMe drive, then format it as ext4 (mkpart makes no filesystem)",
     "tip": "",
     "tags": "dd parted gpt mkfs ext4 iso usb"
   },

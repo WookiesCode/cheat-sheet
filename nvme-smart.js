@@ -49,7 +49,29 @@ const NVME_SMART_DATA = [
           "wear",
           "endurance",
           "firmware"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-list.txt",
+              "title": "nvme-cli: nvme list"
+            },
+            {
+              "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-log-smart.txt",
+              "title": "nvme-cli: smart log"
+            },
+            {
+              "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-log-error.txt",
+              "title": "nvme-cli: error log"
+            },
+            {
+              "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-list-subsys.txt",
+              "title": "nvme-cli: list-subsys"
+            }
+          ],
+          "note": "nvme-cli 3.0 (Sep 2026) renamed smart-log, error-log and id-ctrl to nvme log smart, nvme log error and nvme id ctrl; the old names still work with a warning. The man pages don't list smart-log or id-ctrl output fields (critical_warning, media_errors, mn, sn, fr): those are nvme-cli's output names."
+        }
       }
     ]
   },
@@ -81,11 +103,11 @@ const NVME_SMART_DATA = [
           ],
           [
             "nvme fw-download /dev/nvme0 --fw=firmware.bin && nvme fw-commit /dev/nvme0 --slot=1 --action=1",
-            "Download firmware image to NVMe controller and activate it on slot 1"
+            "Download a firmware image and commit it to slot 1; it activates at the next controller reset (--action=3 activates immediately, without a reset)"
           ],
           [
             "blkdiscard -v /dev/nvme0n1",
-            "Discard (TRIM/Deallocate) all blocks on an SSD/NVMe device prior to re-partitioning"
+            "Discard (TRIM/Deallocate) every block on the device: all data is lost (-v only prints the offset and length)"
           ]
         ],
         "danger": "Irreversibly erases all data on target namespace",
@@ -97,7 +119,33 @@ const NVME_SMART_DATA = [
           "4kn",
           "blkdiscard",
           "wipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-format.txt",
+              "title": "nvme-cli: format"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/nvme-cli/nvme-id-ns.1.en.html",
+              "title": "nvme-id-ns(1) (nvme-cli 2.13)"
+            },
+            {
+              "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-fw-commit.txt",
+              "title": "nvme-cli: fw-commit"
+            },
+            {
+              "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-fw-download.txt",
+              "title": "nvme-cli: fw-download"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/blkdiscard.8.html",
+              "title": "blkdiscard(8)"
+            }
+          ],
+          "note": "Corrected 2026-11-09: fw-commit --action=1 activates at the next reset, not on the spot. nvme-cli 3.x moves these to nvme fw download / nvme fw commit / nvme id ns and deprecates -H; the 2.x forms shown still work. The man page doesn't name the 'LBA Format' lines."
+        }
       }
     ]
   },
@@ -128,8 +176,12 @@ const NVME_SMART_DATA = [
         ],
         "subcommands": [
           [
-            "smartctl -t short /dev/sda && smartctl -l selftest /dev/sda",
-            "Run a 2-minute captive/background short self-test and view test log results"
+            "smartctl -t short /dev/sda",
+            "Start a short self-test (usually under ten minutes) while the drive stays in service"
+          ],
+          [
+            "smartctl -l selftest /dev/sda",
+            "Read the self-test log once the test has had time to finish (it shows the percentage left while one is running)"
           ],
           [
             "smartctl -a -d megaraid,0 /dev/bus/0",
@@ -137,7 +189,7 @@ const NVME_SMART_DATA = [
           ],
           [
             "smartctl --scan",
-            "Scan and list all SMART-capable storage devices and RAID enclosures"
+            "Scan and list devices smartctl can open, with device type and protocol"
           ]
         ],
         "tip": "Watch Reallocated & Pending sectors",
@@ -150,7 +202,17 @@ const NVME_SMART_DATA = [
           "ssd",
           "megaraid",
           "defects"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/smartmontools/smartctl.8.en.html",
+              "title": "smartctl(8)"
+            }
+          ],
+          "note": "Corrected 2026-11-09: the self-test and its log were one line (smartctl -t short && smartctl -l selftest), which reads the log before the new test finishes. The SATA attribute IDs and the SAS 'grown defect list' wording are drive-reported names, not from the man page."
+        }
       }
     ]
   },
@@ -190,7 +252,7 @@ const NVME_SMART_DATA = [
           ],
           [
             "mdadm --detail --scan | tee -a /etc/mdadm/mdadm.conf && update-initramfs -u",
-            "Save active RAID array definitions to mdadm.conf and update Ubuntu initramfs"
+            "Append active array definitions to mdadm.conf and update the Ubuntu initramfs (run it twice and you get duplicate ARRAY lines: check the file first)"
           ]
         ],
         "tags": [
@@ -200,7 +262,21 @@ const NVME_SMART_DATA = [
           "degraded",
           "rebuild",
           "hotswap"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/mdadm.8.html",
+              "title": "mdadm(8)"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/initramfs-tools/update-initramfs.8.en.html",
+              "title": "update-initramfs(8)"
+            }
+          ],
+          "note": "mdadm documents both /etc/mdadm.conf and /etc/mdadm/mdadm.conf; Debian and Ubuntu use the second. --manage is optional: mdadm assumes it when the first option is --add, --fail or --remove."
+        }
       }
     ]
   },
@@ -213,9 +289,13 @@ const NVME_SMART_DATA = [
       {
         "id": "ledctl-lsscsi-multipath",
         "desc": "Blink physical drive bay Fault/Locate LEDs (ledctl) and map SCSI/SAS HBA enclosure slots",
-        "cmd": "ledctl locate=/dev/nvme0n1 && lsscsi -g -s -t",
-        "details": "In a 24-bay server chassis, pulling the wrong drive can take down an array. 'ledctl' (from 'ledmon' package) drives SGPIO/SES-2/VMD backplane LEDs so the technician can visually verify the blinking bay before ejecting the carrier.",
+        "cmd": "ledctl --listed-only locate=/dev/nvme0n1 && lsscsi -g -s -t",
+        "details": "In a 24-bay server chassis, pulling the wrong drive can take down an array. 'ledctl' (from 'ledmon' package) drives SGPIO/SES-2/SMP/VMD/NPEM backplane LEDs so the technician can visually verify the blinking bay before ejecting the carrier. Without --listed-only, ledctl turns off the LEDs of every other drive, including fault LEDs you may still need.",
         "flags": [
+          [
+            "--listed-only",
+            "Change only the drives named on the command line; leave every other drive's LEDs alone"
+          ],
           [
             "locate=/dev/...",
             "Turn on the blue/amber Locate LED on the backplane slot for the specified block device"
@@ -226,17 +306,21 @@ const NVME_SMART_DATA = [
           ],
           [
             "lsscsi -g -s -t",
-            "Show SCSI/SAS [Host:Channel:Target:LUN] tuple, SAS transport address, sg device, and size"
+            "Show [Host:Channel:Target:LUN], the sg device, the size, and transport details (SAS address) in place of vendor/model"
           ]
         ],
         "subcommands": [
           [
-            "ledctl normal=/dev/nvme0n1",
-            "Reset the drive bay backplane LED back to normal state"
+            "ledctl --listed-only locate_off=/dev/nvme0n1",
+            "Turn the Locate LED off once the drive is swapped (other drives' LEDs untouched)"
+          ],
+          [
+            "ledctl --listed-only normal=/dev/nvme0n1",
+            "Reset this bay's Status, Failure and Locate LEDs to off"
           ],
           [
             "multipath -ll",
-            "Display Device-Mapper Multipath topology, active/passive HBA paths, and LUN WWIDs"
+            "Display Device-Mapper Multipath topology, path-checker states, and LUN WWIDs"
           ]
         ],
         "tip": "Never pull a drive without blinking LED",
@@ -248,7 +332,25 @@ const NVME_SMART_DATA = [
           "led",
           "hotswap",
           "sas"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/ledmon/ledctl.8.en.html",
+              "title": "ledctl(8) (ledmon 0.97)"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/lsscsi/lsscsi.8.en.html",
+              "title": "lsscsi(8)"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/multipath-tools/multipath.8.en.html",
+              "title": "multipath(8)"
+            }
+          ],
+          "note": "Corrected 2026-11-09: added --listed-only; plain ledctl locate= turns off the LEDs of all other drives. Checked against ledmon 0.97; the 1.x changelog doesn't mention a syntax change."
+        }
       }
     ]
   }

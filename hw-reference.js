@@ -1058,8 +1058,8 @@ const HWREF_HUB_DATA = [
       {
         "id": "drives-tips-card",
         "desc": "Find the bay before you pull",
-        "cmd": "sudo ledctl locate=/dev/nvme0n1",
-        "details": "Light the bay LED (ledctl locate=..., then locate_off=... to switch it off) and match the serial on the drive label before pulling. The storage playbook (docs/playbooks/storage-jbod.md) covers SES slot mapping for JBODs.",
+        "cmd": "sudo ledctl --listed-only locate=/dev/nvme0n1",
+        "details": "Light the bay LED (ledctl --listed-only locate=..., then locate_off=... to switch it off; without --listed-only ledctl turns off every other drive's LEDs, fault LEDs included) and match the serial on the drive label before pulling. The storage playbook (docs/playbooks/storage-jbod.md) covers SES slot mapping for JBODs.",
         "flags": [
           [
             "locate_off=",

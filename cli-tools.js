@@ -803,7 +803,7 @@ const CLI_TOOLS_DATA = [
         flags: [
           ["bs=4M / bs=1G", "Read and write block size per I/O operation (default 512B is slow)"],
           ["iflag=direct / oflag=direct", "Bypass kernel page cache and perform Direct I/O straight to storage controller"],
-          ["oflag=sync / conv=fdatasync", "Ensure all data and metadata are physically committed to disk before exiting"],
+          ["conv=fsync / conv=fdatasync", "Physically write output data (fsync: plus metadata) before dd exits; oflag=sync instead makes every write synchronous"],
           ["status=progress", "Print periodic live transfer rate (MB/s) and total bytes copied"],
           ["conv=sparse", "Skip writing blocks of all-zeros on output to create a sparse file"]
         ],

@@ -204,6 +204,45 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     await ctx.close();
   }
 
+  // 2f. Linux storage sheets (NVMe/SMART/RAID/LEDs, filesystems/LVM): one source line per command
+  // (recipes sit inside their command's card), on the sheets and on the Linux hub; corrections;
+  // the data-destroying recipes are flagged.
+  {
+    const IDS = ['nvme-list-smart', 'nvme-format-fw', 'smartctl-disk-triage', 'mdadm-raid-ops', 'ledctl-lsscsi-multipath',
+      'df-du-space', 'lsblk-blkid-fstab', 'lvm-resize-extend', 'dd-parted-fsck'];
+    const ctx = await newContext(browser);
+    const p = await ctx.newPage();
+    const got = {};
+    let text = '';
+    const rows = [];
+    for (const f of ['nvme-smart', 'storage']) {
+      await p.goto(BASE + f + '.html', { waitUntil: 'load' });
+      await p.waitForTimeout(400);
+      for (const l of await lines(p)) got[l.id] = l;
+      text += await p.evaluate(() => { const c = document.body.cloneNode(true); c.querySelectorAll('.cmd-source, .cmd-details').forEach(n => n.remove()); return c.textContent; }) + '\n';
+      rows.push(...await p.evaluate(() => [...document.querySelectorAll('.subcmd-row, .cmd-code-box')].map(b => ({ t: b.textContent, aria: b.getAttribute('aria-label') || '' }))));
+    }
+    const list = IDS.map(id => got[id]).filter(Boolean);
+    check(list.length === 9 && list.every(l => l.text && !/is-unverified/.test(l.cls)), `all 9 storage commands show a verified source line (${list.filter(l => l.text).length}/${list.length})`);
+    check(/man7\.org\/linux\/man-pages\/man1\/dd\.1/.test(JSON.stringify(got['dd-parted-fsck'].links)), 'dd cites dd(1) on man7.org');
+    check(/conv=fsync/.test(got['dd-parted-fsck'].cmd) && !/oflag=sync/.test(text), 'dd flushes with conv=fsync, and oflag=sync is gone from commands and flag rows');
+    check(!/ledctl (locate|locate_off|normal)=/.test(text) && /ledctl --listed-only locate=/.test(text), 'every ledctl pattern uses --listed-only');
+    check(!/smartctl -t short \/dev\/sda &&/.test(text) && /smartctl -l selftest \/dev\/sda/.test(text), 'the self-test and its log are separate recipes');
+    check(!/mkpart primary/.test(text) && /mkpart data ext4 1MiB 100%/.test(text), 'GPT mkpart uses a partition name, not "primary"');
+    check(!/lsblk -f -o/.test(text), 'lsblk no longer mixes -f with -o');
+    check(/activates at the next controller reset/.test(text), 'fw-commit --action=1 says it activates at the next reset');
+    const flagged = (re) => rows.filter(r => re.test(r.t)).every(r => /Changes state/.test(r.aria)) && rows.some(r => re.test(r.t));
+    check(flagged(/blkdiscard/), 'blkdiscard is flagged as changing state');
+    check(flagged(/mdadm --manage \/dev\/md0 --add/), 'mdadm --add (starts a rebuild) is flagged as changing state');
+    check(flagged(/lvextend -r/), 'lvextend is flagged as changing state');
+    // The Linux hub renders the same data with its own renderer (cards marked data-id).
+    await p.goto(BASE + 'linux.html', { waitUntil: 'load' });
+    await p.waitForTimeout(600);
+    const hub = await p.evaluate((ids) => ids.filter(id => { const it = document.querySelector(`.cmd-item[data-id="${id}"]`); return it && it.querySelector('.cmd-source'); }), IDS);
+    check(hub.length === 9, `the Linux hub shows the same 9 source lines (${hub.length}/9)`);
+    await ctx.close();
+  }
+
   // 3. Over a year old → amber "re-check"; and src can't inject markup or javascript: links.
   {
     const ctx = await newContext(browser);

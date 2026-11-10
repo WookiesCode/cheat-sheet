@@ -53,7 +53,24 @@ const STORAGE_DATA = [
           "inodes",
           "du",
           "ncdu"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/df.1.html",
+              "title": "df(1)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/du.1.html",
+              "title": "du(1)"
+            },
+            {
+              "url": "https://dev.yorhel.nl/ncdu/man",
+              "title": "ncdu manual"
+            }
+          ]
+        }
       }
     ]
   },
@@ -66,12 +83,12 @@ const STORAGE_DATA = [
       {
         "id": "lsblk-blkid-fstab",
         "desc": "Inspect block devices, partitions, LVM volumes, filesystem UUIDs & verify /etc/fstab before reboot",
-        "cmd": "lsblk -f -o NAME,SIZE,TYPE,FSTYPE,LABEL,UUID,MOUNTPOINTS && findmnt --verify --verbose",
+        "cmd": "lsblk -o NAME,SIZE,TYPE,FSTYPE,LABEL,UUID,MOUNTPOINTS && findmnt --verify --verbose",
         "details": "Before rebooting an Ubuntu server after editing '/etc/fstab', always run 'findmnt --verify' and 'mount -a'. A typo or missing UUID in /etc/fstab without 'nofail' will drop the server into emergency single-user mode on boot.",
         "flags": [
           [
-            "lsblk -f -o ...",
-            "Tree view of physical disks, partitions, LVM/RAID, filesystem types, and UUIDs"
+            "lsblk -o ...",
+            "Tree view of disks, partitions, LVM/RAID, filesystem types, and UUIDs, with the columns you list (-f alone gives a fixed filesystem set)"
           ],
           [
             "findmnt --verify",
@@ -85,7 +102,7 @@ const STORAGE_DATA = [
           ],
           [
             "lsblk -d -o NAME,SIZE,TRAN,ROTA,MODEL,SERIAL,WWN",
-            "List only physical disks (-d) with transport type, rotational flag (1=HDD, 0=SSD), model, and serial"
+            "List top-level devices only (-d: no partitions or holders) with transport type, rotational flag (1=HDD, 0=SSD), model, and serial"
           ],
           [
             "mount -o remount,rw /",
@@ -100,7 +117,29 @@ const STORAGE_DATA = [
           "fstab",
           "findmnt",
           "mount"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/lsblk.8.html",
+              "title": "lsblk(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/findmnt.8.html",
+              "title": "findmnt(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/blkid.8.html",
+              "title": "blkid(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/mount.8.html",
+              "title": "mount(8)"
+            }
+          ],
+          "note": "Corrected 2026-11-09: dropped -f from lsblk -f -o (-f is itself a column list; how the two combine isn't documented). TRAN, ROTA, MODEL, SERIAL and WWN checked with lsblk --list-columns (util-linux 2.42)."
+        }
       }
     ]
   },
@@ -145,7 +184,21 @@ const STORAGE_DATA = [
           "resize2fs",
           "xfs_growfs",
           "ubuntu-vg"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/lvextend.8.html",
+              "title": "lvextend(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/lvs.8.html",
+              "title": "lvs(8)"
+            }
+          ],
+          "note": "The names ubuntu-vg / ubuntu-lv and how much free space the Ubuntu installer leaves in the VG are not in Ubuntu's docs: run lvs and vgs to get yours."
+        }
       }
     ]
   },
@@ -158,8 +211,8 @@ const STORAGE_DATA = [
       {
         "id": "dd-parted-fsck",
         "desc": "Partition disks >2TB with GPT (parted), check filesystems, or write raw disk images with dd",
-        "cmd": "parted -l && dd if=ubuntu-server.iso of=/dev/sdX bs=4M status=progress oflag=sync",
-        "details": "Uses 'parted' to inspect or create GUID Partition Tables (GPT, required for disks > 2 TiB). When using 'dd', always include 'oflag=sync' so the command does not return until dirty kernel page cache buffers are physically flushed to the target device.",
+        "cmd": "parted -l && dd if=ubuntu-server.iso of=/dev/sdX bs=4M status=progress conv=fsync",
+        "details": "Uses 'parted' to inspect or create GUID Partition Tables (GPT, required for disks > 2 TiB). When using 'dd', add 'conv=fsync' so dd does not exit until the data is physically written to the target device (oflag=sync instead makes every single write synchronous, which is much slower).",
         "flags": [
           [
             "bs=4M",
@@ -170,14 +223,14 @@ const STORAGE_DATA = [
             "Display live transfer rate and bytes written"
           ],
           [
-            "oflag=sync",
-            "Synchronize data and metadata to physical storage before exiting"
+            "conv=fsync",
+            "Physically write output data and metadata before dd finishes (not conv=sync, which pads blocks with NULs)"
           ]
         ],
         "subcommands": [
           [
-            "parted -s /dev/nvme1n1 mklabel gpt mkpart primary ext4 1MiB 100% && mkfs.ext4 -L data /dev/nvme1n1p1",
-            "Create a 1MiB-aligned GPT partition across an entire new NVMe drive and format it as ext4"
+            "parted -s /dev/nvme1n1 mklabel gpt mkpart data ext4 1MiB 100% && mkfs.ext4 -L data /dev/nvme1n1p1",
+            "Create a 1MiB-aligned GPT partition named 'data' across a new NVMe drive, then format it as ext4 (mkpart makes no filesystem)"
           ],
           [
             "tune2fs -l /dev/sda1 | grep -E 'Filesystem state|Mount count|Last checked|Reserved block'",
@@ -193,7 +246,29 @@ const STORAGE_DATA = [
           "ext4",
           "iso",
           "usb"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/dd.1.html",
+              "title": "dd(1)"
+            },
+            {
+              "url": "https://www.gnu.org/software/parted/manual/parted.html",
+              "title": "GNU Parted manual"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/mke2fs.8.html",
+              "title": "mke2fs(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/tune2fs.8.html",
+              "title": "tune2fs(8)"
+            }
+          ],
+          "note": "Corrected 2026-11-09: oflag=sync → conv=fsync (the flush-before-exit flag), and mkpart primary → mkpart data (on GPT that word is the partition name). The tune2fs -l output labels aren't listed in the man page."
+        }
       }
     ]
   }
