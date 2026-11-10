@@ -44,7 +44,20 @@ const SRE_HUB_DATA = [
           "check",
           "rules",
           "ci"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/command-line/promtool/",
+              "title": "promtool"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/configuration/unit_testing_rules/",
+              "title": "Prometheus: unit testing rules"
+            }
+          ]
+        }
       },
       {
         "id": "prom-check-sub-1",
@@ -58,7 +71,20 @@ const SRE_HUB_DATA = [
           "prometheus",
           "promtool",
           "check"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/command-line/promtool/",
+              "title": "promtool"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/configuration/unit_testing_rules/",
+              "title": "Prometheus: unit testing rules"
+            }
+          ]
+        }
       },
       {
         "id": "prom-check-sub-2",
@@ -72,7 +98,20 @@ const SRE_HUB_DATA = [
           "prometheus",
           "promtool",
           "check"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/command-line/promtool/",
+              "title": "promtool"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/configuration/unit_testing_rules/",
+              "title": "Prometheus: unit testing rules"
+            }
+          ]
+        }
       }
     ]
   },
@@ -115,7 +154,24 @@ const SRE_HUB_DATA = [
           "api",
           "targets",
           "curl"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/command-line/promtool/",
+              "title": "promtool"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/api/",
+              "title": "Prometheus HTTP API"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/management_api/",
+              "title": "Prometheus management API"
+            }
+          ]
+        }
       },
       {
         "id": "prom-query-sub-1",
@@ -129,7 +185,24 @@ const SRE_HUB_DATA = [
           "promql",
           "query",
           "api"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/command-line/promtool/",
+              "title": "promtool"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/api/",
+              "title": "Prometheus HTTP API"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/management_api/",
+              "title": "Prometheus management API"
+            }
+          ]
+        }
       },
       {
         "id": "prom-query-sub-2",
@@ -143,7 +216,24 @@ const SRE_HUB_DATA = [
           "promql",
           "query",
           "api"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/command-line/promtool/",
+              "title": "promtool"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/api/",
+              "title": "Prometheus HTTP API"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/management_api/",
+              "title": "Prometheus management API"
+            }
+          ]
+        }
       },
       {
         "id": "prom-query-sub-3",
@@ -157,7 +247,24 @@ const SRE_HUB_DATA = [
           "promql",
           "query",
           "api"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/command-line/promtool/",
+              "title": "promtool"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/api/",
+              "title": "Prometheus HTTP API"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/management_api/",
+              "title": "Prometheus management API"
+            }
+          ]
+        }
       }
     ]
   },
@@ -200,7 +307,16 @@ const SRE_HUB_DATA = [
           "yaml",
           "for",
           "severity"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/",
+              "title": "Prometheus: alerting rules"
+            }
+          ]
+        }
       }
     ]
   },
@@ -242,7 +358,20 @@ const SRE_HUB_DATA = [
           "rules",
           "naming",
           "dcgm"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/configuration/recording_rules/",
+              "title": "Prometheus: recording rules"
+            },
+            {
+              "url": "https://prometheus.io/docs/practices/rules/",
+              "title": "Prometheus: recording rule naming"
+            }
+          ]
+        }
       }
     ]
   },
@@ -292,7 +421,16 @@ const SRE_HUB_DATA = [
           "amtool",
           "silence",
           "routes"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/prometheus/alertmanager#amtool",
+              "title": "Alertmanager README: amtool"
+            }
+          ]
+        }
       },
       {
         "id": "prom-amtool-sub-1",
@@ -306,7 +444,16 @@ const SRE_HUB_DATA = [
           "alertmanager",
           "amtool",
           "silence"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/prometheus/alertmanager#amtool",
+              "title": "Alertmanager README: amtool"
+            }
+          ]
+        }
       },
       {
         "id": "prom-amtool-sub-2",
@@ -320,7 +467,16 @@ const SRE_HUB_DATA = [
           "alertmanager",
           "amtool",
           "silence"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/prometheus/alertmanager#amtool",
+              "title": "Alertmanager README: amtool"
+            }
+          ]
+        }
       },
       {
         "id": "prom-amtool-sub-3",
@@ -334,7 +490,16 @@ const SRE_HUB_DATA = [
           "alertmanager",
           "amtool",
           "silence"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/prometheus/alertmanager#amtool",
+              "title": "Alertmanager README: amtool"
+            }
+          ]
+        }
       }
     ]
   },
@@ -363,7 +528,7 @@ const SRE_HUB_DATA = [
             "promtool check config, then reload"
           ],
           [
-            "Alertmanager 0.34",
+            "Alertmanager 0.34.2+",
             "No CORS headers by default any more; --web.cors.origin restores them"
           ]
         ],
@@ -376,7 +541,21 @@ const SRE_HUB_DATA = [
           "lifecycle",
           "config",
           "sighup"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/management_api/",
+              "title": "Prometheus management API"
+            },
+            {
+              "url": "https://github.com/prometheus/alertmanager/blob/main/CHANGELOG.md",
+              "title": "Alertmanager changelog"
+            }
+          ],
+          "note": "The CORS change is in Alertmanager 0.34.2 (Oct 29, 2026); 0.35.0 is current."
+        }
       },
       {
         "id": "prom-reload-sub-1",
@@ -390,7 +569,21 @@ const SRE_HUB_DATA = [
           "reload",
           "lifecycle",
           "config"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/management_api/",
+              "title": "Prometheus management API"
+            },
+            {
+              "url": "https://github.com/prometheus/alertmanager/blob/main/CHANGELOG.md",
+              "title": "Alertmanager changelog"
+            }
+          ],
+          "note": "The CORS change is in Alertmanager 0.34.2 (Oct 29, 2026); 0.35.0 is current."
+        }
       }
     ]
   },
@@ -422,7 +615,17 @@ const SRE_HUB_DATA = [
           "prometheus",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/prometheus/node_exporter#textfile-collector",
+              "title": "node_exporter: textfile collector"
+            }
+          ],
+          "note": "node_exporter's README shows the write-then-mv pattern and says timestamps are not supported."
+        }
       }
     ]
   },
@@ -468,7 +671,24 @@ const SRE_HUB_DATA = [
           "ping",
           "inventory",
           "ad-hoc"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.ansible.com/ansible/latest/cli/ansible.html",
+              "title": "ansible CLI"
+            },
+            {
+              "url": "https://docs.ansible.com/ansible/latest/inventory_guide/intro_patterns.html",
+              "title": "Ansible: patterns"
+            },
+            {
+              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-inventory.html",
+              "title": "ansible-inventory"
+            }
+          ]
+        }
       },
       {
         "id": "ansible-ping-sub-1",
@@ -482,7 +702,24 @@ const SRE_HUB_DATA = [
           "ansible",
           "ping",
           "inventory"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.ansible.com/ansible/latest/cli/ansible.html",
+              "title": "ansible CLI"
+            },
+            {
+              "url": "https://docs.ansible.com/ansible/latest/inventory_guide/intro_patterns.html",
+              "title": "Ansible: patterns"
+            },
+            {
+              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-inventory.html",
+              "title": "ansible-inventory"
+            }
+          ]
+        }
       },
       {
         "id": "ansible-ping-sub-2",
@@ -496,7 +733,24 @@ const SRE_HUB_DATA = [
           "ansible",
           "ping",
           "inventory"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.ansible.com/ansible/latest/cli/ansible.html",
+              "title": "ansible CLI"
+            },
+            {
+              "url": "https://docs.ansible.com/ansible/latest/inventory_guide/intro_patterns.html",
+              "title": "Ansible: patterns"
+            },
+            {
+              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-inventory.html",
+              "title": "ansible-inventory"
+            }
+          ]
+        }
       }
     ]
   },
@@ -542,7 +796,20 @@ const SRE_HUB_DATA = [
           "shell",
           "fleet",
           "become"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.ansible.com/ansible/latest/cli/ansible.html",
+              "title": "ansible CLI"
+            },
+            {
+              "url": "https://docs.ansible.com/ansible/latest/collections/ansible/builtin/shell_module.html",
+              "title": "ansible.builtin.shell"
+            }
+          ]
+        }
       },
       {
         "id": "ansible-adhoc-sub-1",
@@ -556,7 +823,20 @@ const SRE_HUB_DATA = [
           "ad-hoc",
           "shell",
           "fleet"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.ansible.com/ansible/latest/cli/ansible.html",
+              "title": "ansible CLI"
+            },
+            {
+              "url": "https://docs.ansible.com/ansible/latest/collections/ansible/builtin/shell_module.html",
+              "title": "ansible.builtin.shell"
+            }
+          ]
+        }
       }
     ]
   },
@@ -607,7 +887,20 @@ const SRE_HUB_DATA = [
           "diff",
           "limit",
           "dry-run"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-playbook.html",
+              "title": "ansible-playbook"
+            },
+            {
+              "url": "https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_checkmode.html",
+              "title": "Ansible: check mode"
+            }
+          ]
+        }
       },
       {
         "id": "ansible-playbook-check-sub-1",
@@ -621,7 +914,20 @@ const SRE_HUB_DATA = [
           "playbook",
           "check",
           "diff"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-playbook.html",
+              "title": "ansible-playbook"
+            },
+            {
+              "url": "https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_checkmode.html",
+              "title": "Ansible: check mode"
+            }
+          ]
+        }
       },
       {
         "id": "ansible-playbook-check-sub-2",
@@ -635,7 +941,20 @@ const SRE_HUB_DATA = [
           "playbook",
           "check",
           "diff"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-playbook.html",
+              "title": "ansible-playbook"
+            },
+            {
+              "url": "https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_checkmode.html",
+              "title": "Ansible: check mode"
+            }
+          ]
+        }
       },
       {
         "id": "ansible-playbook-check-sub-3",
@@ -649,7 +968,20 @@ const SRE_HUB_DATA = [
           "playbook",
           "check",
           "diff"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-playbook.html",
+              "title": "ansible-playbook"
+            },
+            {
+              "url": "https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_checkmode.html",
+              "title": "Ansible: check mode"
+            }
+          ]
+        }
       }
     ]
   },
@@ -695,7 +1027,16 @@ const SRE_HUB_DATA = [
           "secrets",
           "encrypt",
           "password"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-vault.html",
+              "title": "ansible-vault"
+            }
+          ]
+        }
       },
       {
         "id": "ansible-vault-sub-1",
@@ -709,7 +1050,16 @@ const SRE_HUB_DATA = [
           "vault",
           "secrets",
           "encrypt"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-vault.html",
+              "title": "ansible-vault"
+            }
+          ]
+        }
       },
       {
         "id": "ansible-vault-sub-2",
@@ -723,7 +1073,16 @@ const SRE_HUB_DATA = [
           "vault",
           "secrets",
           "encrypt"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-vault.html",
+              "title": "ansible-vault"
+            }
+          ]
+        }
       }
     ]
   },
@@ -765,7 +1124,28 @@ const SRE_HUB_DATA = [
           "galaxy",
           "config",
           "lint"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-doc.html",
+              "title": "ansible-doc"
+            },
+            {
+              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-config.html",
+              "title": "ansible-config"
+            },
+            {
+              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-galaxy.html",
+              "title": "ansible-galaxy"
+            },
+            {
+              "url": "https://ansible.readthedocs.io/projects/lint/",
+              "title": "ansible-lint"
+            }
+          ]
+        }
       },
       {
         "id": "ansible-tools-sub-1",
@@ -779,7 +1159,28 @@ const SRE_HUB_DATA = [
           "ansible-doc",
           "galaxy",
           "config"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-doc.html",
+              "title": "ansible-doc"
+            },
+            {
+              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-config.html",
+              "title": "ansible-config"
+            },
+            {
+              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-galaxy.html",
+              "title": "ansible-galaxy"
+            },
+            {
+              "url": "https://ansible.readthedocs.io/projects/lint/",
+              "title": "ansible-lint"
+            }
+          ]
+        }
       },
       {
         "id": "ansible-tools-sub-2",
@@ -793,7 +1194,28 @@ const SRE_HUB_DATA = [
           "ansible-doc",
           "galaxy",
           "config"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-doc.html",
+              "title": "ansible-doc"
+            },
+            {
+              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-config.html",
+              "title": "ansible-config"
+            },
+            {
+              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-galaxy.html",
+              "title": "ansible-galaxy"
+            },
+            {
+              "url": "https://ansible.readthedocs.io/projects/lint/",
+              "title": "ansible-lint"
+            }
+          ]
+        }
       }
     ]
   },
@@ -825,7 +1247,16 @@ const SRE_HUB_DATA = [
           "ansible",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.ansible.com/ansible/latest/collections/ansible/builtin/setup_module.html",
+              "title": "ansible.builtin.setup"
+            }
+          ]
+        }
       }
     ]
   },
@@ -872,7 +1303,32 @@ const SRE_HUB_DATA = [
           "init",
           "fmt",
           "validate"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/init",
+              "title": "terraform init"
+            },
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/fmt",
+              "title": "terraform fmt"
+            },
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/validate",
+              "title": "terraform validate"
+            },
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/providers/lock",
+              "title": "terraform providers lock"
+            },
+            {
+              "url": "https://opentofu.org/docs/cli/commands/",
+              "title": "OpenTofu CLI"
+            }
+          ]
+        }
       },
       {
         "id": "tf-init-validate-sub-1",
@@ -886,7 +1342,32 @@ const SRE_HUB_DATA = [
           "terraform",
           "opentofu",
           "init"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/init",
+              "title": "terraform init"
+            },
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/fmt",
+              "title": "terraform fmt"
+            },
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/validate",
+              "title": "terraform validate"
+            },
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/providers/lock",
+              "title": "terraform providers lock"
+            },
+            {
+              "url": "https://opentofu.org/docs/cli/commands/",
+              "title": "OpenTofu CLI"
+            }
+          ]
+        }
       }
     ]
   },
@@ -928,7 +1409,24 @@ const SRE_HUB_DATA = [
           "apply",
           "destroy",
           "target"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/plan",
+              "title": "terraform plan"
+            },
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/apply",
+              "title": "terraform apply"
+            },
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/show",
+              "title": "terraform show"
+            }
+          ]
+        }
       },
       {
         "id": "tf-plan-apply-sub-1",
@@ -942,7 +1440,24 @@ const SRE_HUB_DATA = [
           "plan",
           "apply",
           "destroy"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/plan",
+              "title": "terraform plan"
+            },
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/apply",
+              "title": "terraform apply"
+            },
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/show",
+              "title": "terraform show"
+            }
+          ]
+        }
       },
       {
         "id": "tf-plan-apply-sub-2",
@@ -956,7 +1471,24 @@ const SRE_HUB_DATA = [
           "plan",
           "apply",
           "destroy"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/plan",
+              "title": "terraform plan"
+            },
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/apply",
+              "title": "terraform apply"
+            },
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/show",
+              "title": "terraform show"
+            }
+          ]
+        }
       }
     ]
   },
@@ -998,7 +1530,29 @@ const SRE_HUB_DATA = [
           "list",
           "show",
           "output"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/state/list",
+              "title": "terraform state list"
+            },
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/state/show",
+              "title": "terraform state show"
+            },
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/state/mv",
+              "title": "terraform state mv"
+            },
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/output",
+              "title": "terraform output"
+            }
+          ],
+          "note": "state show -json needs Terraform 1.16 or later."
+        }
       },
       {
         "id": "tf-state-sub-1",
@@ -1012,7 +1566,29 @@ const SRE_HUB_DATA = [
           "state",
           "list",
           "show"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/state/list",
+              "title": "terraform state list"
+            },
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/state/show",
+              "title": "terraform state show"
+            },
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/state/mv",
+              "title": "terraform state mv"
+            },
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/output",
+              "title": "terraform output"
+            }
+          ],
+          "note": "state show -json needs Terraform 1.16 or later."
+        }
       },
       {
         "id": "tf-state-sub-2",
@@ -1026,7 +1602,29 @@ const SRE_HUB_DATA = [
           "state",
           "list",
           "show"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/state/list",
+              "title": "terraform state list"
+            },
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/state/show",
+              "title": "terraform state show"
+            },
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/state/mv",
+              "title": "terraform state mv"
+            },
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/output",
+              "title": "terraform output"
+            }
+          ],
+          "note": "state show -json needs Terraform 1.16 or later."
+        }
       }
     ]
   },
@@ -1068,7 +1666,25 @@ const SRE_HUB_DATA = [
           "import",
           "refactor",
           "hcl"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://developer.hashicorp.com/terraform/language/moved",
+              "title": "Terraform: moved block"
+            },
+            {
+              "url": "https://developer.hashicorp.com/terraform/language/import",
+              "title": "Terraform: import block"
+            },
+            {
+              "url": "https://developer.hashicorp.com/terraform/language/import/generating-configuration",
+              "title": "Terraform: generating configuration"
+            }
+          ],
+          "note": "plan -generate-config-out is still experimental in Terraform 1.17."
+        }
       }
     ]
   },
@@ -1100,7 +1716,20 @@ const SRE_HUB_DATA = [
           "terraform",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/hashicorp/terraform/blob/main/LICENSE",
+              "title": "Terraform LICENSE (BUSL 1.1)"
+            },
+            {
+              "url": "https://opentofu.org/",
+              "title": "OpenTofu"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1142,7 +1771,24 @@ const SRE_HUB_DATA = [
           "repo",
           "values",
           "chart"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://helm.sh/docs/helm/helm_repo_add/",
+              "title": "helm repo add"
+            },
+            {
+              "url": "https://helm.sh/docs/helm/helm_search_repo/",
+              "title": "helm search repo"
+            },
+            {
+              "url": "https://helm.sh/docs/helm/helm_show_values/",
+              "title": "helm show values"
+            }
+          ]
+        }
       },
       {
         "id": "helm-repo-sub-1",
@@ -1156,7 +1802,24 @@ const SRE_HUB_DATA = [
           "helm",
           "repo",
           "values"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://helm.sh/docs/helm/helm_repo_add/",
+              "title": "helm repo add"
+            },
+            {
+              "url": "https://helm.sh/docs/helm/helm_search_repo/",
+              "title": "helm search repo"
+            },
+            {
+              "url": "https://helm.sh/docs/helm/helm_show_values/",
+              "title": "helm show values"
+            }
+          ]
+        }
       },
       {
         "id": "helm-repo-sub-2",
@@ -1170,7 +1833,24 @@ const SRE_HUB_DATA = [
           "helm",
           "repo",
           "values"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://helm.sh/docs/helm/helm_repo_add/",
+              "title": "helm repo add"
+            },
+            {
+              "url": "https://helm.sh/docs/helm/helm_search_repo/",
+              "title": "helm search repo"
+            },
+            {
+              "url": "https://helm.sh/docs/helm/helm_show_values/",
+              "title": "helm show values"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1208,7 +1888,24 @@ const SRE_HUB_DATA = [
           "lint",
           "diff",
           "render"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://helm.sh/docs/helm/helm_template/",
+              "title": "helm template"
+            },
+            {
+              "url": "https://helm.sh/docs/helm/helm_lint/",
+              "title": "helm lint"
+            },
+            {
+              "url": "https://github.com/databus23/helm-diff",
+              "title": "helm-diff plugin"
+            }
+          ]
+        }
       },
       {
         "id": "helm-template-sub-1",
@@ -1222,7 +1919,24 @@ const SRE_HUB_DATA = [
           "template",
           "lint",
           "diff"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://helm.sh/docs/helm/helm_template/",
+              "title": "helm template"
+            },
+            {
+              "url": "https://helm.sh/docs/helm/helm_lint/",
+              "title": "helm lint"
+            },
+            {
+              "url": "https://github.com/databus23/helm-diff",
+              "title": "helm-diff plugin"
+            }
+          ]
+        }
       },
       {
         "id": "helm-template-sub-2",
@@ -1236,7 +1950,24 @@ const SRE_HUB_DATA = [
           "template",
           "lint",
           "diff"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://helm.sh/docs/helm/helm_template/",
+              "title": "helm template"
+            },
+            {
+              "url": "https://helm.sh/docs/helm/helm_lint/",
+              "title": "helm lint"
+            },
+            {
+              "url": "https://github.com/databus23/helm-diff",
+              "title": "helm-diff plugin"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1287,7 +2018,21 @@ const SRE_HUB_DATA = [
           "atomic",
           "rollback-on-failure",
           "helm4"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://helm.sh/docs/helm/helm_upgrade/",
+              "title": "helm upgrade"
+            },
+            {
+              "url": "https://helm.sh/docs/overview/",
+              "title": "Helm 4 overview"
+            }
+          ],
+          "note": "Checked against Helm 4.3.1; the old flag names still work with a deprecation warning."
+        }
       }
     ]
   },
@@ -1333,7 +2078,24 @@ const SRE_HUB_DATA = [
           "rollback",
           "list",
           "get"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://helm.sh/docs/helm/helm_history/",
+              "title": "helm history"
+            },
+            {
+              "url": "https://helm.sh/docs/helm/helm_rollback/",
+              "title": "helm rollback"
+            },
+            {
+              "url": "https://helm.sh/docs/helm/helm_get_values/",
+              "title": "helm get values"
+            }
+          ]
+        }
       },
       {
         "id": "helm-history-sub-1",
@@ -1347,7 +2109,24 @@ const SRE_HUB_DATA = [
           "history",
           "rollback",
           "list"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://helm.sh/docs/helm/helm_history/",
+              "title": "helm history"
+            },
+            {
+              "url": "https://helm.sh/docs/helm/helm_rollback/",
+              "title": "helm rollback"
+            },
+            {
+              "url": "https://helm.sh/docs/helm/helm_get_values/",
+              "title": "helm get values"
+            }
+          ]
+        }
       },
       {
         "id": "helm-history-sub-2",
@@ -1361,7 +2140,24 @@ const SRE_HUB_DATA = [
           "history",
           "rollback",
           "list"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://helm.sh/docs/helm/helm_history/",
+              "title": "helm history"
+            },
+            {
+              "url": "https://helm.sh/docs/helm/helm_rollback/",
+              "title": "helm rollback"
+            },
+            {
+              "url": "https://helm.sh/docs/helm/helm_get_values/",
+              "title": "helm get values"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1375,7 +2171,7 @@ const SRE_HUB_DATA = [
         "id": "helm-tips-card",
         "desc": "Helm 3 end of support",
         "cmd": "helm version",
-        "details": "Helm 3's security fixes end on November 11, 2026. Helm 4 reads Helm 3 releases without conversion. Check CI scripts for --atomic and --force (renamed), and for helm version --client, which Helm 4 rejects.",
+        "details": "Helm 3 gets security patches through February 2027 (its last feature release was September 9, 2026). Helm 4 reads Helm 3 releases without conversion. Check CI scripts for --atomic and --force (renamed), and for helm version --client, which Helm 4 rejects.",
         "flags": [
           [
             "Helm 4.3.1",
@@ -1393,7 +2189,25 @@ const SRE_HUB_DATA = [
           "helm",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/helm/helm/releases",
+              "title": "Helm releases"
+            },
+            {
+              "url": "https://helm.sh/blog/",
+              "title": "Helm blog (Helm 3 end of life)"
+            },
+            {
+              "url": "https://helm.sh/docs/overview/",
+              "title": "Helm 4 overview"
+            }
+          ],
+          "note": "Corrected 2026-11-10: Helm 3 security patches run through February 2027 (not Nov 11, 2026). helm version --client was removed in Helm 4 (changelog, PR #31301)."
+        }
       }
     ]
   },
@@ -1434,7 +2248,17 @@ const SRE_HUB_DATA = [
           "argocd",
           "login",
           "sso"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_login/",
+              "title": "argocd login"
+            }
+          ],
+          "note": "The flags exist separately in the docs; --sso and --core aren't shown together."
+        }
       }
     ]
   },
@@ -1476,7 +2300,20 @@ const SRE_HUB_DATA = [
           "diff",
           "history",
           "drift"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_list/",
+              "title": "argocd app list"
+            },
+            {
+              "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_diff/",
+              "title": "argocd app diff"
+            }
+          ]
+        }
       },
       {
         "id": "argocd-status-sub-1",
@@ -1490,7 +2327,20 @@ const SRE_HUB_DATA = [
           "status",
           "diff",
           "history"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_list/",
+              "title": "argocd app list"
+            },
+            {
+              "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_diff/",
+              "title": "argocd app diff"
+            }
+          ]
+        }
       },
       {
         "id": "argocd-status-sub-2",
@@ -1504,7 +2354,20 @@ const SRE_HUB_DATA = [
           "status",
           "diff",
           "history"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_list/",
+              "title": "argocd app list"
+            },
+            {
+              "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_diff/",
+              "title": "argocd app diff"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1550,7 +2413,20 @@ const SRE_HUB_DATA = [
           "dry-run",
           "prune",
           "wait"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_sync/",
+              "title": "argocd app sync"
+            },
+            {
+              "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_wait/",
+              "title": "argocd app wait"
+            }
+          ]
+        }
       },
       {
         "id": "argocd-sync-sub-1",
@@ -1564,7 +2440,20 @@ const SRE_HUB_DATA = [
           "sync",
           "dry-run",
           "prune"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_sync/",
+              "title": "argocd app sync"
+            },
+            {
+              "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_wait/",
+              "title": "argocd app wait"
+            }
+          ]
+        }
       },
       {
         "id": "argocd-sync-sub-2",
@@ -1578,7 +2467,20 @@ const SRE_HUB_DATA = [
           "sync",
           "dry-run",
           "prune"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_sync/",
+              "title": "argocd app sync"
+            },
+            {
+              "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_wait/",
+              "title": "argocd app wait"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1620,7 +2522,24 @@ const SRE_HUB_DATA = [
           "auto-sync",
           "gitops",
           "revert"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_rollback/",
+              "title": "argocd app rollback"
+            },
+            {
+              "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_set/",
+              "title": "argocd app set"
+            },
+            {
+              "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/auto_sync/",
+              "title": "Argo CD: automated sync policy"
+            }
+          ]
+        }
       },
       {
         "id": "argocd-rollback-sub-1",
@@ -1634,7 +2553,24 @@ const SRE_HUB_DATA = [
           "rollback",
           "auto-sync",
           "gitops"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_rollback/",
+              "title": "argocd app rollback"
+            },
+            {
+              "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_set/",
+              "title": "argocd app set"
+            },
+            {
+              "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/auto_sync/",
+              "title": "Argo CD: automated sync policy"
+            }
+          ]
+        }
       },
       {
         "id": "argocd-rollback-sub-2",
@@ -1648,7 +2584,24 @@ const SRE_HUB_DATA = [
           "rollback",
           "auto-sync",
           "gitops"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_rollback/",
+              "title": "argocd app rollback"
+            },
+            {
+              "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_set/",
+              "title": "argocd app set"
+            },
+            {
+              "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/auto_sync/",
+              "title": "Argo CD: automated sync policy"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1680,7 +2633,16 @@ const SRE_HUB_DATA = [
           "argocd",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/auto_sync/",
+              "title": "Argo CD: automated sync policy"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1727,7 +2689,20 @@ const SRE_HUB_DATA = [
           "ic",
           "comms",
           "sre"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://sre.google/sre-book/managing-incidents/",
+              "title": "Google SRE book: managing incidents"
+            },
+            {
+              "url": "https://sre.google/workbook/incident-response/",
+              "title": "SRE workbook: incident response"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1774,7 +2749,20 @@ const SRE_HUB_DATA = [
           "utc",
           "journalctl",
           "dmesg"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://sre.google/workbook/incident-response/",
+              "title": "SRE workbook: incident response"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/journalctl.1.html",
+              "title": "journalctl(1)"
+            }
+          ]
+        }
       },
       {
         "id": "ir-first15-sub-1",
@@ -1788,7 +2776,20 @@ const SRE_HUB_DATA = [
           "triage",
           "timeline",
           "utc"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://sre.google/workbook/incident-response/",
+              "title": "SRE workbook: incident response"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/journalctl.1.html",
+              "title": "journalctl(1)"
+            }
+          ]
+        }
       },
       {
         "id": "ir-first15-sub-2",
@@ -1802,7 +2803,20 @@ const SRE_HUB_DATA = [
           "triage",
           "timeline",
           "utc"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://sre.google/workbook/incident-response/",
+              "title": "SRE workbook: incident response"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/journalctl.1.html",
+              "title": "journalctl(1)"
+            }
+          ]
+        }
       },
       {
         "id": "ir-first15-sub-3",
@@ -1816,7 +2830,20 @@ const SRE_HUB_DATA = [
           "triage",
           "timeline",
           "utc"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://sre.google/workbook/incident-response/",
+              "title": "SRE workbook: incident response"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/journalctl.1.html",
+              "title": "journalctl(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1858,7 +2885,16 @@ const SRE_HUB_DATA = [
           "notes",
           "case",
           "postmortem"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://sre.google/sre-book/managing-incidents/",
+              "title": "Google SRE book: managing incidents"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1900,7 +2936,16 @@ const SRE_HUB_DATA = [
           "blameless",
           "rca",
           "actions"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://sre.google/sre-book/postmortem-culture/",
+              "title": "Google SRE book: postmortem culture"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1932,7 +2977,16 @@ const SRE_HUB_DATA = [
           "incident",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/prometheus/alertmanager#amtool",
+              "title": "Alertmanager README: amtool"
+            }
+          ]
+        }
       }
     ]
   }

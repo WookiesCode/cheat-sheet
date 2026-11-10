@@ -2,13 +2,13 @@
 // Generates the "SRE toolkit" suite under the DevOps tab: Prometheus & Alertmanager, Ansible,
 // Terraform / OpenTofu, Helm, Argo CD and incident response, plus the sre.html hub.
 //
-// Facts checked 2026-11-07 against official sources: Prometheus 3.16.0 (Nov 4, 2026),
-// Alertmanager 0.34.2 (Oct 29, 2026; no CORS headers by default), node_exporter 1.12.1;
-// promtool, rule, Alertmanager config, amtool and HTTP API docs. ansible-core 2.21 (Ansible
+// Facts checked 2026-11-07, re-checked 2026-11-09/10 (each card's src lists the pages) against official sources: Prometheus 3.16.0 (Nov 4, 2026),
+// Alertmanager 0.34.2 (Oct 29, 2026; no CORS headers by default; 0.35.0 since Nov 9), node_exporter 1.12.1;
+// promtool, rule, Alertmanager config, amtool and HTTP API docs. ansible-core 2.21, 2.22 since Nov 2 (Ansible
 // 14.x community package) CLI docs. Terraform 1.17.1 (Oct 28, 2026, BUSL 1.1) and OpenTofu
 // 1.13.9 (Nov 5, 2026, MPL 2.0) CLI and language docs. Helm 4.3.1 (Oct 15, 2026; Helm 4 renames
-// --atomic to --rollback-on-failure and --force to --force-replace; Helm 3 security fixes end
-// Nov 11, 2026). Argo CD 3.6.1 (Nov 4, 2026) CLI and auto-sync docs. Google SRE book ch. 14 and
+// --atomic to --rollback-on-failure and --force to --force-replace; Helm 3 security patches
+// through February 2027). Argo CD 3.6.1 (Nov 4, 2026) CLI and auto-sync docs. Google SRE book ch. 14 and
 // SRE workbook ch. 9 (incident roles).
 // Menu logos: official marks from Simple Icons 15.0.0 (CC0): Prometheus, Ansible, Terraform,
 // Helm, Argo. Incident response uses a generic icon (it is a practice, not a product).
@@ -28,7 +28,7 @@ LOGOS.incident = '<svg class="menu-logo" viewBox="0 0 24 24" width="14" height="
 const SRE_SECTIONS = [
   {
     id: "prometheus", group: "observe", file: "prometheus", badge: "prometheus", code: "promtool",
-    name: "Prometheus", navDesc: "rules, queries, Alertmanager", pill: "Prometheus 3.16 · Alertmanager 0.34",
+    name: "Prometheus", navDesc: "rules, queries, Alertmanager", pill: "Prometheus 3.16 · Alertmanager 0.35",
     title: "Prometheus & Alertmanager: Rules, Queries, Silences",
     subtitle: "Validate config and rules, query from the shell, write alerting and recording rules, and silence alerts with amtool",
     commands: [
@@ -48,7 +48,8 @@ const SRE_SECTIONS = [
           ["promtool test rules tests/gpu-alerts-test.yml", "Run rule unit tests"]
         ],
         tip: "Run check config in CI so a typo never reaches the server",
-        tags: ["prometheus", "promtool", "check", "rules", "ci"]
+        tags: ["prometheus", "promtool", "check", "rules", "ci"],
+        src: {"verified": "2026-11-10", "refs": [{"url": "https://prometheus.io/docs/prometheus/latest/command-line/promtool/", "title": "promtool"}, {"url": "https://prometheus.io/docs/prometheus/latest/configuration/unit_testing_rules/", "title": "Prometheus: unit testing rules"}]}
       },
       {
         id: "prom-query",
@@ -66,7 +67,8 @@ const SRE_SECTIONS = [
           ["curl -s http://localhost:9090/-/ready", "Ready to answer queries? (/-/healthy is always 200)"]
         ],
         tip: "up == 0 is the first query in any monitoring incident",
-        tags: ["promql", "query", "api", "targets", "curl"]
+        tags: ["promql", "query", "api", "targets", "curl"],
+        src: {"verified": "2026-11-10", "refs": [{"url": "https://prometheus.io/docs/prometheus/latest/command-line/promtool/", "title": "promtool"}, {"url": "https://prometheus.io/docs/prometheus/latest/querying/api/", "title": "Prometheus HTTP API"}, {"url": "https://prometheus.io/docs/prometheus/latest/management_api/", "title": "Prometheus management API"}]}
       },
       {
         id: "prom-alert-rule",
@@ -80,7 +82,8 @@ const SRE_SECTIONS = [
         ],
         subcommands: [],
         tip: "Every paging alert needs a runbook link in its annotations",
-        tags: ["alerting", "rules", "yaml", "for", "severity"]
+        tags: ["alerting", "rules", "yaml", "for", "severity"],
+        src: {"verified": "2026-11-10", "refs": [{"url": "https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/", "title": "Prometheus: alerting rules"}]}
       },
       {
         id: "prom-recording",
@@ -94,7 +97,8 @@ const SRE_SECTIONS = [
         ],
         subcommands: [],
         tip: "Use the recorded series in dashboards and alerts, not the raw expression",
-        tags: ["recording", "rules", "naming", "dcgm"]
+        tags: ["recording", "rules", "naming", "dcgm"],
+        src: {"verified": "2026-11-10", "refs": [{"url": "https://prometheus.io/docs/prometheus/latest/configuration/recording_rules/", "title": "Prometheus: recording rules"}, {"url": "https://prometheus.io/docs/practices/rules/", "title": "Prometheus: recording rule naming"}]}
       },
       {
         id: "prom-amtool",
@@ -114,7 +118,8 @@ const SRE_SECTIONS = [
           ["amtool config routes --alertmanager.url=http://localhost:9093", "Show the routing tree"]
         ],
         tip: "Silence the drained node, not the alert name, during maintenance",
-        tags: ["alertmanager", "amtool", "silence", "routes"]
+        tags: ["alertmanager", "amtool", "silence", "routes"],
+        src: {"verified": "2026-11-10", "refs": [{"url": "https://github.com/prometheus/alertmanager#amtool", "title": "Alertmanager README: amtool"}]}
       },
       {
         id: "prom-reload",
@@ -124,13 +129,14 @@ const SRE_SECTIONS = [
           ["--web.enable-lifecycle", "Required for /-/reload; off by default"],
           ["SIGHUP", "The other way to reload: systemctl reload prometheus, or kill -HUP"],
           ["Check first", "promtool check config, then reload"],
-          ["Alertmanager 0.34", "No CORS headers by default any more; --web.cors.origin restores them"]
+          ["Alertmanager 0.34.2+", "No CORS headers by default any more; --web.cors.origin restores them"]
         ],
         subcommands: [
           ["curl -s http://localhost:9090/api/v1/status/config | jq -r .data.yaml | head", "The config Prometheus actually loaded"]
         ],
         tip: "A failed reload keeps the old config; check the log for the error",
-        tags: ["reload", "lifecycle", "config", "sighup"]
+        tags: ["reload", "lifecycle", "config", "sighup"],
+        src: {"verified": "2026-11-10", "refs": [{"url": "https://prometheus.io/docs/prometheus/latest/management_api/", "title": "Prometheus management API"}, {"url": "https://github.com/prometheus/alertmanager/blob/main/CHANGELOG.md", "title": "Alertmanager changelog"}], "note": "The CORS change is in Alertmanager 0.34.2 (Oct 29, 2026); 0.35.0 is current."}
       }
     ],
     proTip: {
@@ -138,12 +144,13 @@ const SRE_SECTIONS = [
       cmd: "echo \"gpu_burnin_last_success_timestamp $(date +%s)\" > /var/lib/node_exporter/textfile/burnin.prom.$$ && mv /var/lib/node_exporter/textfile/burnin.prom.$$ /var/lib/node_exporter/textfile/burnin.prom",
       details: "Start node_exporter with --collector.textfile.directory=/var/lib/node_exporter/textfile. It reads every *.prom file in that directory. Write to a temporary name and mv it into place, so a scrape never sees a half-written file. Timestamps inside the file are not supported.",
       flags: [["*.prom", "Files it reads"], ["Write then mv", "Atomic update"]],
-      tip: "Good for cron jobs: alert when the timestamp gets old"
+      tip: "Good for cron jobs: alert when the timestamp gets old",
+      src: {"verified": "2026-11-10", "refs": [{"url": "https://github.com/prometheus/node_exporter#textfile-collector", "title": "node_exporter: textfile collector"}], "note": "node_exporter's README shows the write-then-mv pattern and says timestamps are not supported."}
     }
   },
   {
     id: "ansible", group: "automate", file: "ansible", badge: "ansible", code: "ansible",
-    name: "Ansible", navDesc: "ad-hoc, playbooks, vault", pill: "ansible-core 2.21",
+    name: "Ansible", navDesc: "ad-hoc, playbooks, vault", pill: "ansible-core 2.22",
     title: "Ansible: Ad-hoc Commands, Playbooks and Vault",
     subtitle: "Run a read-only check across a fleet, dry-run a playbook with a diff, and keep BMC passwords encrypted with ansible-vault",
     commands: [
@@ -163,7 +170,8 @@ const SRE_SECTIONS = [
           ["ansible-inventory -i inventory.ini --host node07", "Variables for one host"]
         ],
         tip: "ping first: most failures are SSH or inventory, not the playbook",
-        tags: ["ansible", "ping", "inventory", "ad-hoc"]
+        tags: ["ansible", "ping", "inventory", "ad-hoc"],
+        src: {"verified": "2026-11-10", "refs": [{"url": "https://docs.ansible.com/ansible/latest/cli/ansible.html", "title": "ansible CLI"}, {"url": "https://docs.ansible.com/ansible/latest/inventory_guide/intro_patterns.html", "title": "Ansible: patterns"}, {"url": "https://docs.ansible.com/ansible/latest/cli/ansible-inventory.html", "title": "ansible-inventory"}]}
       },
       {
         id: "ansible-adhoc",
@@ -180,7 +188,8 @@ const SRE_SECTIONS = [
           ["ansible gpu -i inventory.ini -m ansible.builtin.shell -a 'uptime' -o", "Uptime per host, one line each"]
         ],
         tip: "Ad-hoc is for read-only checks; changes belong in a reviewed playbook",
-        tags: ["ad-hoc", "shell", "fleet", "become"]
+        tags: ["ad-hoc", "shell", "fleet", "become"],
+        src: {"verified": "2026-11-10", "refs": [{"url": "https://docs.ansible.com/ansible/latest/cli/ansible.html", "title": "ansible CLI"}, {"url": "https://docs.ansible.com/ansible/latest/collections/ansible/builtin/shell_module.html", "title": "ansible.builtin.shell"}]}
       },
       {
         id: "ansible-playbook-check",
@@ -200,7 +209,8 @@ const SRE_SECTIONS = [
           ["ansible-playbook -i inventory.ini site.yml --limit node07", "The real run on one host (changes state)"]
         ],
         tip: "check + diff on one host, then the real run on that host, then the rest",
-        tags: ["playbook", "check", "diff", "limit", "dry-run"]
+        tags: ["playbook", "check", "diff", "limit", "dry-run"],
+        src: {"verified": "2026-11-10", "refs": [{"url": "https://docs.ansible.com/ansible/latest/cli/ansible-playbook.html", "title": "ansible-playbook"}, {"url": "https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_checkmode.html", "title": "Ansible: check mode"}]}
       },
       {
         id: "ansible-vault",
@@ -218,7 +228,8 @@ const SRE_SECTIONS = [
           ["ansible-playbook -i inventory.ini site.yml --ask-vault-password --check", "Use it"]
         ],
         tip: "Never put a vault password file in the repo",
-        tags: ["vault", "secrets", "encrypt", "password"]
+        tags: ["vault", "secrets", "encrypt", "password"],
+        src: {"verified": "2026-11-10", "refs": [{"url": "https://docs.ansible.com/ansible/latest/cli/ansible-vault.html", "title": "ansible-vault"}]}
       },
       {
         id: "ansible-tools",
@@ -235,7 +246,8 @@ const SRE_SECTIONS = [
           ["ansible-galaxy collection install -r requirements.yml", "Same collections everywhere"]
         ],
         tip: "Pin collections in requirements.yml",
-        tags: ["ansible-doc", "galaxy", "config", "lint"]
+        tags: ["ansible-doc", "galaxy", "config", "lint"],
+        src: {"verified": "2026-11-10", "refs": [{"url": "https://docs.ansible.com/ansible/latest/cli/ansible-doc.html", "title": "ansible-doc"}, {"url": "https://docs.ansible.com/ansible/latest/cli/ansible-config.html", "title": "ansible-config"}, {"url": "https://docs.ansible.com/ansible/latest/cli/ansible-galaxy.html", "title": "ansible-galaxy"}, {"url": "https://ansible.readthedocs.io/projects/lint/", "title": "ansible-lint"}]}
       }
     ],
     proTip: {
@@ -243,7 +255,8 @@ const SRE_SECTIONS = [
       cmd: "ansible gpu -i inventory.ini -m ansible.builtin.setup -a 'filter=ansible_product_serial'",
       details: "The setup module collects facts without changing anything. Filter to the fact you need: ansible_product_serial, ansible_bios_version, ansible_kernel. Faster than SSHing to each node to compare BIOS versions.",
       flags: [["filter=", "Glob of fact names"], ["Read-only", "setup changes nothing"]],
-      tip: "Compare BIOS versions across a rack in one command"
+      tip: "Compare BIOS versions across a rack in one command",
+      src: {"verified": "2026-11-10", "refs": [{"url": "https://docs.ansible.com/ansible/latest/collections/ansible/builtin/setup_module.html", "title": "ansible.builtin.setup"}]}
     }
   },
   {
@@ -267,7 +280,8 @@ const SRE_SECTIONS = [
           ["terraform providers lock -platform=linux_amd64 -platform=darwin_arm64", "Lock-file hashes for every platform your team uses"]
         ],
         tip: "Commit .terraform.lock.hcl",
-        tags: ["terraform", "opentofu", "init", "fmt", "validate"]
+        tags: ["terraform", "opentofu", "init", "fmt", "validate"],
+        src: {"verified": "2026-11-10", "refs": [{"url": "https://developer.hashicorp.com/terraform/cli/commands/init", "title": "terraform init"}, {"url": "https://developer.hashicorp.com/terraform/cli/commands/fmt", "title": "terraform fmt"}, {"url": "https://developer.hashicorp.com/terraform/cli/commands/validate", "title": "terraform validate"}, {"url": "https://developer.hashicorp.com/terraform/cli/commands/providers/lock", "title": "terraform providers lock"}, {"url": "https://opentofu.org/docs/cli/commands/", "title": "OpenTofu CLI"}]}
       },
       {
         id: "tf-plan-apply",
@@ -284,7 +298,8 @@ const SRE_SECTIONS = [
           ["terraform apply tfplan", "Apply the reviewed plan (changes state)"]
         ],
         tip: "Read every - and -/+ (destroy) line in the plan before you apply",
-        tags: ["plan", "apply", "destroy", "target"]
+        tags: ["plan", "apply", "destroy", "target"],
+        src: {"verified": "2026-11-10", "refs": [{"url": "https://developer.hashicorp.com/terraform/cli/commands/plan", "title": "terraform plan"}, {"url": "https://developer.hashicorp.com/terraform/cli/commands/apply", "title": "terraform apply"}, {"url": "https://developer.hashicorp.com/terraform/cli/commands/show", "title": "terraform show"}]}
       },
       {
         id: "tf-state",
@@ -301,7 +316,8 @@ const SRE_SECTIONS = [
           ["terraform output -json | jq .", "Outputs for a script"]
         ],
         tip: "Prefer a moved block to state mv: it is reviewed in the plan",
-        tags: ["state", "list", "show", "output"]
+        tags: ["state", "list", "show", "output"],
+        src: {"verified": "2026-11-10", "refs": [{"url": "https://developer.hashicorp.com/terraform/cli/commands/state/list", "title": "terraform state list"}, {"url": "https://developer.hashicorp.com/terraform/cli/commands/state/show", "title": "terraform state show"}, {"url": "https://developer.hashicorp.com/terraform/cli/commands/state/mv", "title": "terraform state mv"}, {"url": "https://developer.hashicorp.com/terraform/cli/commands/output", "title": "terraform output"}], "note": "state show -json needs Terraform 1.16 or later."}
       },
       {
         id: "tf-moved-import",
@@ -315,7 +331,8 @@ const SRE_SECTIONS = [
         ],
         subcommands: [],
         tip: "Keep moved blocks until every workspace has applied them",
-        tags: ["moved", "import", "refactor", "hcl"]
+        tags: ["moved", "import", "refactor", "hcl"],
+        src: {"verified": "2026-11-10", "refs": [{"url": "https://developer.hashicorp.com/terraform/language/moved", "title": "Terraform: moved block"}, {"url": "https://developer.hashicorp.com/terraform/language/import", "title": "Terraform: import block"}, {"url": "https://developer.hashicorp.com/terraform/language/import/generating-configuration", "title": "Terraform: generating configuration"}], "note": "plan -generate-config-out is still experimental in Terraform 1.17."}
       }
     ],
     proTip: {
@@ -323,7 +340,8 @@ const SRE_SECTIONS = [
       cmd: "terraform version; tofu version",
       details: "Terraform is under the Business Source License 1.1 (production use allowed, except a competing hosted offering; each version becomes MPL 2.0 after four years). OpenTofu is the MPL 2.0 fork with the same workflow. Pick one per repository, and pin its version in CI.",
       flags: [["BUSL 1.1", "Terraform"], ["MPL 2.0", "OpenTofu"]],
-      tip: "Don't mix the two on one state file"
+      tip: "Don't mix the two on one state file",
+      src: {"verified": "2026-11-10", "refs": [{"url": "https://github.com/hashicorp/terraform/blob/main/LICENSE", "title": "Terraform LICENSE (BUSL 1.1)"}, {"url": "https://opentofu.org/", "title": "OpenTofu"}]}
     }
   },
   {
@@ -347,7 +365,8 @@ const SRE_SECTIONS = [
           ["helm show values prometheus-community/kube-prometheus-stack > values.yaml", "Defaults to edit"]
         ],
         tip: "Pin --version on every install",
-        tags: ["helm", "repo", "values", "chart"]
+        tags: ["helm", "repo", "values", "chart"],
+        src: {"verified": "2026-11-10", "refs": [{"url": "https://helm.sh/docs/helm/helm_repo_add/", "title": "helm repo add"}, {"url": "https://helm.sh/docs/helm/helm_search_repo/", "title": "helm search repo"}, {"url": "https://helm.sh/docs/helm/helm_show_values/", "title": "helm show values"}]}
       },
       {
         id: "helm-template",
@@ -363,7 +382,8 @@ const SRE_SECTIONS = [
           ["helm diff upgrade mon prometheus-community/kube-prometheus-stack -f values.yaml -n monitoring", "Diff against the live release"]
         ],
         tip: "Review rendered.yaml or the diff before every upgrade",
-        tags: ["template", "lint", "diff", "render"]
+        tags: ["template", "lint", "diff", "render"],
+        src: {"verified": "2026-11-10", "refs": [{"url": "https://helm.sh/docs/helm/helm_template/", "title": "helm template"}, {"url": "https://helm.sh/docs/helm/helm_lint/", "title": "helm lint"}, {"url": "https://github.com/databus23/helm-diff", "title": "helm-diff plugin"}]}
       },
       {
         id: "helm-upgrade",
@@ -379,7 +399,8 @@ const SRE_SECTIONS = [
         ],
         subcommands: [],
         tip: "Old names (--atomic, --force) still work in Helm 4 with a warning",
-        tags: ["upgrade", "install", "atomic", "rollback-on-failure", "helm4"]
+        tags: ["upgrade", "install", "atomic", "rollback-on-failure", "helm4"],
+        src: {"verified": "2026-11-10", "refs": [{"url": "https://helm.sh/docs/helm/helm_upgrade/", "title": "helm upgrade"}, {"url": "https://helm.sh/docs/overview/", "title": "Helm 4 overview"}], "note": "Checked against Helm 4.3.1; the old flag names still work with a deprecation warning."}
       },
       {
         id: "helm-history",
@@ -397,15 +418,17 @@ const SRE_SECTIONS = [
           ["helm rollback mon 3 -n monitoring", "Back to revision 3 (changes state)"]
         ],
         tip: "history tells you which revision last worked",
-        tags: ["history", "rollback", "list", "get"]
+        tags: ["history", "rollback", "list", "get"],
+        src: {"verified": "2026-11-10", "refs": [{"url": "https://helm.sh/docs/helm/helm_history/", "title": "helm history"}, {"url": "https://helm.sh/docs/helm/helm_rollback/", "title": "helm rollback"}, {"url": "https://helm.sh/docs/helm/helm_get_values/", "title": "helm get values"}]}
       }
     ],
     proTip: {
       desc: "Helm 3 end of support",
       cmd: "helm version",
-      details: "Helm 3's security fixes end on November 11, 2026. Helm 4 reads Helm 3 releases without conversion. Check CI scripts for --atomic and --force (renamed), and for helm version --client, which Helm 4 rejects.",
+      details: "Helm 3 gets security patches through February 2027 (its last feature release was September 9, 2026). Helm 4 reads Helm 3 releases without conversion. Check CI scripts for --atomic and --force (renamed), and for helm version --client, which Helm 4 rejects.",
       flags: [["Helm 4.3.1", "Current release"], ["helm version", "Client version"]],
-      tip: "Upgrade the CLI on jumpboxes and CI together"
+      tip: "Upgrade the CLI on jumpboxes and CI together",
+      src: {"verified": "2026-11-10", "refs": [{"url": "https://github.com/helm/helm/releases", "title": "Helm releases"}, {"url": "https://helm.sh/blog/", "title": "Helm blog (Helm 3 end of life)"}, {"url": "https://helm.sh/docs/overview/", "title": "Helm 4 overview"}], "note": "Corrected 2026-11-10: Helm 3 security patches run through February 2027 (not Nov 11, 2026). helm version --client was removed in Helm 4 (changelog, PR #31301)."}
     }
   },
   {
@@ -426,7 +449,8 @@ const SRE_SECTIONS = [
         ],
         subcommands: [],
         tip: "SSO keeps passwords off the jumpbox",
-        tags: ["argocd", "login", "sso"]
+        tags: ["argocd", "login", "sso"],
+        src: {"verified": "2026-11-10", "refs": [{"url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_login/", "title": "argocd login"}], "note": "The flags exist separately in the docs; --sso and --core aren't shown together."}
       },
       {
         id: "argocd-status",
@@ -443,7 +467,8 @@ const SRE_SECTIONS = [
           ["argocd app diff dcgm-exporter", "What would change on sync"]
         ],
         tip: "OutOfSync + Healthy is drift; Degraded is broken",
-        tags: ["status", "diff", "history", "drift"]
+        tags: ["status", "diff", "history", "drift"],
+        src: {"verified": "2026-11-10", "refs": [{"url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_list/", "title": "argocd app list"}, {"url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_diff/", "title": "argocd app diff"}]}
       },
       {
         id: "argocd-sync",
@@ -461,7 +486,8 @@ const SRE_SECTIONS = [
           ["argocd app wait dcgm-exporter --health --timeout 300", "Wait up to 5 minutes for health"]
         ],
         tip: "--prune deletes things: read the diff first",
-        tags: ["sync", "dry-run", "prune", "wait"]
+        tags: ["sync", "dry-run", "prune", "wait"],
+        src: {"verified": "2026-11-10", "refs": [{"url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_sync/", "title": "argocd app sync"}, {"url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_wait/", "title": "argocd app wait"}]}
       },
       {
         id: "argocd-rollback",
@@ -478,7 +504,8 @@ const SRE_SECTIONS = [
           ["argocd app rollback dcgm-exporter", "Previous revision (changes state)"]
         ],
         tip: "Revert in Git when you can; CLI rollback is for emergencies",
-        tags: ["rollback", "auto-sync", "gitops", "revert"]
+        tags: ["rollback", "auto-sync", "gitops", "revert"],
+        src: {"verified": "2026-11-10", "refs": [{"url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_rollback/", "title": "argocd app rollback"}, {"url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_set/", "title": "argocd app set"}, {"url": "https://argo-cd.readthedocs.io/en/stable/user-guide/auto_sync/", "title": "Argo CD: automated sync policy"}]}
       }
     ],
     proTip: {
@@ -486,7 +513,8 @@ const SRE_SECTIONS = [
       cmd: "spec:\n  syncPolicy:\n    automated:\n      prune: true\n      selfHeal: true",
       details: "automated: {} alone syncs on Git changes but never deletes; prune: true deletes resources removed from Git; selfHeal: true reverts manual changes in the cluster. The same from the CLI: argocd app set <app> --sync-policy automated --auto-prune --self-heal.",
       flags: [["prune", "Off by default"], ["selfHeal", "Undo kubectl edits"]],
-      tip: "With selfHeal on, a hotfix made with kubectl is undone: change Git instead"
+      tip: "With selfHeal on, a hotfix made with kubectl is undone: change Git instead",
+      src: {"verified": "2026-11-10", "refs": [{"url": "https://argo-cd.readthedocs.io/en/stable/user-guide/auto_sync/", "title": "Argo CD: automated sync policy"}]}
     }
   },
   {
@@ -508,7 +536,8 @@ const SRE_SECTIONS = [
         ],
         subcommands: [],
         tip: "One person changes production at a time: the Ops lead",
-        tags: ["incident", "roles", "ic", "comms", "sre"]
+        tags: ["incident", "roles", "ic", "comms", "sre"],
+        src: {"verified": "2026-11-10", "refs": [{"url": "https://sre.google/sre-book/managing-incidents/", "title": "Google SRE book: managing incidents"}, {"url": "https://sre.google/workbook/incident-response/", "title": "SRE workbook: incident response"}]}
       },
       {
         id: "ir-first15",
@@ -527,7 +556,8 @@ const SRE_SECTIONS = [
           ["amtool alert query --alertmanager.url=http://localhost:9093", "What is firing"]
         ],
         tip: "Mitigate first (drain, fail over), find the root cause after",
-        tags: ["triage", "timeline", "utc", "journalctl", "dmesg"]
+        tags: ["triage", "timeline", "utc", "journalctl", "dmesg"],
+        src: {"verified": "2026-11-10", "refs": [{"url": "https://sre.google/workbook/incident-response/", "title": "SRE workbook: incident response"}, {"url": "https://man7.org/linux/man-pages/man1/journalctl.1.html", "title": "journalctl(1)"}]}
       },
       {
         id: "ir-timeline",
@@ -541,7 +571,8 @@ const SRE_SECTIONS = [
         ],
         subcommands: [],
         tip: "Replace the placeholders before you run it",
-        tags: ["timeline", "notes", "case", "postmortem"]
+        tags: ["timeline", "notes", "case", "postmortem"],
+        src: {"verified": "2026-11-10", "refs": [{"url": "https://sre.google/sre-book/managing-incidents/", "title": "Google SRE book: managing incidents"}]}
       },
       {
         id: "ir-postmortem",
@@ -555,7 +586,8 @@ const SRE_SECTIONS = [
         ],
         subcommands: [],
         tip: "Action items without owners don't get done",
-        tags: ["postmortem", "blameless", "rca", "actions"]
+        tags: ["postmortem", "blameless", "rca", "actions"],
+        src: {"verified": "2026-11-10", "refs": [{"url": "https://sre.google/sre-book/postmortem-culture/", "title": "Google SRE book: postmortem culture"}]}
       }
     ],
     proTip: {
@@ -563,7 +595,8 @@ const SRE_SECTIONS = [
       cmd: "amtool silence add instance=~\"node07.*\" --alertmanager.url=http://localhost:9093",
       details: "Silence by the node (instance matcher), not by alert name, so other nodes still page. Check amtool silence add --help for the comment and duration flags in your version, and expire the silence when the node is back.",
       flags: [["silence query", "List silences"], ["silence expire <id>", "End it"]],
-      tip: "Put the ticket number in the silence comment"
+      tip: "Put the ticket number in the silence comment",
+      src: {"verified": "2026-11-10", "refs": [{"url": "https://github.com/prometheus/alertmanager#amtool", "title": "Alertmanager README: amtool"}]}
     }
   }
 ];

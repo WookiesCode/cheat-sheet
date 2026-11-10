@@ -44,7 +44,32 @@ const SRE_TERRAFORM_DATA = [
           "init",
           "fmt",
           "validate"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/init",
+              "title": "terraform init"
+            },
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/fmt",
+              "title": "terraform fmt"
+            },
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/validate",
+              "title": "terraform validate"
+            },
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/providers/lock",
+              "title": "terraform providers lock"
+            },
+            {
+              "url": "https://opentofu.org/docs/cli/commands/",
+              "title": "OpenTofu CLI"
+            }
+          ]
+        }
       },
       {
         "id": "tf-init-validate-sub-1",
@@ -58,7 +83,32 @@ const SRE_TERRAFORM_DATA = [
           "terraform",
           "opentofu",
           "init"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/init",
+              "title": "terraform init"
+            },
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/fmt",
+              "title": "terraform fmt"
+            },
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/validate",
+              "title": "terraform validate"
+            },
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/providers/lock",
+              "title": "terraform providers lock"
+            },
+            {
+              "url": "https://opentofu.org/docs/cli/commands/",
+              "title": "OpenTofu CLI"
+            }
+          ]
+        }
       }
     ]
   },
@@ -100,7 +150,24 @@ const SRE_TERRAFORM_DATA = [
           "apply",
           "destroy",
           "target"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/plan",
+              "title": "terraform plan"
+            },
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/apply",
+              "title": "terraform apply"
+            },
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/show",
+              "title": "terraform show"
+            }
+          ]
+        }
       },
       {
         "id": "tf-plan-apply-sub-1",
@@ -114,7 +181,24 @@ const SRE_TERRAFORM_DATA = [
           "plan",
           "apply",
           "destroy"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/plan",
+              "title": "terraform plan"
+            },
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/apply",
+              "title": "terraform apply"
+            },
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/show",
+              "title": "terraform show"
+            }
+          ]
+        }
       },
       {
         "id": "tf-plan-apply-sub-2",
@@ -128,7 +212,24 @@ const SRE_TERRAFORM_DATA = [
           "plan",
           "apply",
           "destroy"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/plan",
+              "title": "terraform plan"
+            },
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/apply",
+              "title": "terraform apply"
+            },
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/show",
+              "title": "terraform show"
+            }
+          ]
+        }
       }
     ]
   },
@@ -170,7 +271,29 @@ const SRE_TERRAFORM_DATA = [
           "list",
           "show",
           "output"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/state/list",
+              "title": "terraform state list"
+            },
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/state/show",
+              "title": "terraform state show"
+            },
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/state/mv",
+              "title": "terraform state mv"
+            },
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/output",
+              "title": "terraform output"
+            }
+          ],
+          "note": "state show -json needs Terraform 1.16 or later."
+        }
       },
       {
         "id": "tf-state-sub-1",
@@ -184,7 +307,29 @@ const SRE_TERRAFORM_DATA = [
           "state",
           "list",
           "show"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/state/list",
+              "title": "terraform state list"
+            },
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/state/show",
+              "title": "terraform state show"
+            },
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/state/mv",
+              "title": "terraform state mv"
+            },
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/output",
+              "title": "terraform output"
+            }
+          ],
+          "note": "state show -json needs Terraform 1.16 or later."
+        }
       },
       {
         "id": "tf-state-sub-2",
@@ -198,7 +343,29 @@ const SRE_TERRAFORM_DATA = [
           "state",
           "list",
           "show"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/state/list",
+              "title": "terraform state list"
+            },
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/state/show",
+              "title": "terraform state show"
+            },
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/state/mv",
+              "title": "terraform state mv"
+            },
+            {
+              "url": "https://developer.hashicorp.com/terraform/cli/commands/output",
+              "title": "terraform output"
+            }
+          ],
+          "note": "state show -json needs Terraform 1.16 or later."
+        }
       }
     ]
   },
@@ -240,7 +407,25 @@ const SRE_TERRAFORM_DATA = [
           "import",
           "refactor",
           "hcl"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://developer.hashicorp.com/terraform/language/moved",
+              "title": "Terraform: moved block"
+            },
+            {
+              "url": "https://developer.hashicorp.com/terraform/language/import",
+              "title": "Terraform: import block"
+            },
+            {
+              "url": "https://developer.hashicorp.com/terraform/language/import/generating-configuration",
+              "title": "Terraform: generating configuration"
+            }
+          ],
+          "note": "plan -generate-config-out is still experimental in Terraform 1.17."
+        }
       }
     ]
   },
@@ -272,7 +457,20 @@ const SRE_TERRAFORM_DATA = [
           "terraform",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/hashicorp/terraform/blob/main/LICENSE",
+              "title": "Terraform LICENSE (BUSL 1.1)"
+            },
+            {
+              "url": "https://opentofu.org/",
+              "title": "OpenTofu"
+            }
+          ]
+        }
       }
     ]
   }

@@ -316,6 +316,25 @@ All 63 cards on `docker-containers`, `docker-images`, `docker-compose` and `dock
 
 Notes on cards: Docker's current `docker run` reference shows neither the 125/126/127 exit codes nor `--device` with a directory (`/dev/infiniband`). Its migration page didn't state Compose v1's end-of-life when checked. Confirmed: published ports bypass ufw, the 10-second stop timeout, BuildKit as the default builder, default-bridge name resolution, `.env` interpolation. The GPU sheet's "Storage Driver: overlay2" row now mentions overlayfs too.
 
+## #8 for the SRE toolkit (2026-11-10, `improve/sources-sre`)
+
+All 72 cards on the six SRE sheets (Prometheus and Alertmanager, Ansible, Terraform/OpenTofu, Helm, Argo CD, incident response), including every Pro Tip, now cite their docs: prometheus.io, docs.ansible.com, developer.hashicorp.com, OpenTofu, helm.sh, Argo CD, the node_exporter and Alertmanager READMEs, and Google's SRE books. All 62 links were checked to resolve. The one rate-limited link, HashiCorp's BSL page, was replaced by Terraform's LICENSE file. The suite had been fact-checked on Nov 7, and re-checking it found:
+
+| Was | Now |
+|---|---|
+| "Helm 3's security fixes end on November 11, 2026" | Helm 3 gets security patches **through February 2027**; its last feature release was September 9, 2026. Nov 11 is only the next patch-release date |
+| Alertmanager 0.34; ansible-core 2.21 | Alertmanager 0.35.0 (Nov 9) and ansible-core 2.22.0 (Nov 2) are current; the CORS change is pinned to 0.34.2 |
+
+Confirmed as written:
+- `promtool --lint` values (including `too-long-scrape-interval`, for `check config` only) and `--lint-fatal`
+- `/-/healthy` always returns 200, and `/-/reload` needs `--web.enable-lifecycle`
+- node_exporter's textfile collector: write-then-mv, no timestamps
+- `terraform state show -json` needs 1.16+, and `-generate-config-out` is still experimental
+- the Helm 4 flag renames, server-side apply for new installs, and `helm version --client` removed (PR #31301)
+- Argo CD refuses a rollback while automated sync is on (auto-sync docs)
+
+**Gotcha found:** a sheet's version pill lives in its `.html` (pages own their header; generators only write new pages), so changing `pill:` in a generator doesn't reach an existing page. `ansible.html` and `prometheus.html` were edited directly.
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |

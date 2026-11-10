@@ -38,7 +38,17 @@ const SRE_ARGOCD_DATA = [
           "argocd",
           "login",
           "sso"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_login/",
+              "title": "argocd login"
+            }
+          ],
+          "note": "The flags exist separately in the docs; --sso and --core aren't shown together."
+        }
       }
     ]
   },
@@ -80,7 +90,20 @@ const SRE_ARGOCD_DATA = [
           "diff",
           "history",
           "drift"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_list/",
+              "title": "argocd app list"
+            },
+            {
+              "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_diff/",
+              "title": "argocd app diff"
+            }
+          ]
+        }
       },
       {
         "id": "argocd-status-sub-1",
@@ -94,7 +117,20 @@ const SRE_ARGOCD_DATA = [
           "status",
           "diff",
           "history"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_list/",
+              "title": "argocd app list"
+            },
+            {
+              "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_diff/",
+              "title": "argocd app diff"
+            }
+          ]
+        }
       },
       {
         "id": "argocd-status-sub-2",
@@ -108,7 +144,20 @@ const SRE_ARGOCD_DATA = [
           "status",
           "diff",
           "history"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_list/",
+              "title": "argocd app list"
+            },
+            {
+              "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_diff/",
+              "title": "argocd app diff"
+            }
+          ]
+        }
       }
     ]
   },
@@ -154,7 +203,20 @@ const SRE_ARGOCD_DATA = [
           "dry-run",
           "prune",
           "wait"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_sync/",
+              "title": "argocd app sync"
+            },
+            {
+              "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_wait/",
+              "title": "argocd app wait"
+            }
+          ]
+        }
       },
       {
         "id": "argocd-sync-sub-1",
@@ -168,7 +230,20 @@ const SRE_ARGOCD_DATA = [
           "sync",
           "dry-run",
           "prune"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_sync/",
+              "title": "argocd app sync"
+            },
+            {
+              "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_wait/",
+              "title": "argocd app wait"
+            }
+          ]
+        }
       },
       {
         "id": "argocd-sync-sub-2",
@@ -182,7 +257,20 @@ const SRE_ARGOCD_DATA = [
           "sync",
           "dry-run",
           "prune"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_sync/",
+              "title": "argocd app sync"
+            },
+            {
+              "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_wait/",
+              "title": "argocd app wait"
+            }
+          ]
+        }
       }
     ]
   },
@@ -224,7 +312,24 @@ const SRE_ARGOCD_DATA = [
           "auto-sync",
           "gitops",
           "revert"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_rollback/",
+              "title": "argocd app rollback"
+            },
+            {
+              "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_set/",
+              "title": "argocd app set"
+            },
+            {
+              "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/auto_sync/",
+              "title": "Argo CD: automated sync policy"
+            }
+          ]
+        }
       },
       {
         "id": "argocd-rollback-sub-1",
@@ -238,7 +343,24 @@ const SRE_ARGOCD_DATA = [
           "rollback",
           "auto-sync",
           "gitops"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_rollback/",
+              "title": "argocd app rollback"
+            },
+            {
+              "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_set/",
+              "title": "argocd app set"
+            },
+            {
+              "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/auto_sync/",
+              "title": "Argo CD: automated sync policy"
+            }
+          ]
+        }
       },
       {
         "id": "argocd-rollback-sub-2",
@@ -252,7 +374,24 @@ const SRE_ARGOCD_DATA = [
           "rollback",
           "auto-sync",
           "gitops"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_rollback/",
+              "title": "argocd app rollback"
+            },
+            {
+              "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_set/",
+              "title": "argocd app set"
+            },
+            {
+              "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/auto_sync/",
+              "title": "Argo CD: automated sync policy"
+            }
+          ]
+        }
       }
     ]
   },
@@ -284,7 +423,16 @@ const SRE_ARGOCD_DATA = [
           "argocd",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/auto_sync/",
+              "title": "Argo CD: automated sync policy"
+            }
+          ]
+        }
       }
     ]
   }

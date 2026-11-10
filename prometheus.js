@@ -44,7 +44,20 @@ const SRE_PROMETHEUS_DATA = [
           "check",
           "rules",
           "ci"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/command-line/promtool/",
+              "title": "promtool"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/configuration/unit_testing_rules/",
+              "title": "Prometheus: unit testing rules"
+            }
+          ]
+        }
       },
       {
         "id": "prom-check-sub-1",
@@ -58,7 +71,20 @@ const SRE_PROMETHEUS_DATA = [
           "prometheus",
           "promtool",
           "check"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/command-line/promtool/",
+              "title": "promtool"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/configuration/unit_testing_rules/",
+              "title": "Prometheus: unit testing rules"
+            }
+          ]
+        }
       },
       {
         "id": "prom-check-sub-2",
@@ -72,7 +98,20 @@ const SRE_PROMETHEUS_DATA = [
           "prometheus",
           "promtool",
           "check"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/command-line/promtool/",
+              "title": "promtool"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/configuration/unit_testing_rules/",
+              "title": "Prometheus: unit testing rules"
+            }
+          ]
+        }
       }
     ]
   },
@@ -115,7 +154,24 @@ const SRE_PROMETHEUS_DATA = [
           "api",
           "targets",
           "curl"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/command-line/promtool/",
+              "title": "promtool"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/api/",
+              "title": "Prometheus HTTP API"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/management_api/",
+              "title": "Prometheus management API"
+            }
+          ]
+        }
       },
       {
         "id": "prom-query-sub-1",
@@ -129,7 +185,24 @@ const SRE_PROMETHEUS_DATA = [
           "promql",
           "query",
           "api"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/command-line/promtool/",
+              "title": "promtool"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/api/",
+              "title": "Prometheus HTTP API"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/management_api/",
+              "title": "Prometheus management API"
+            }
+          ]
+        }
       },
       {
         "id": "prom-query-sub-2",
@@ -143,7 +216,24 @@ const SRE_PROMETHEUS_DATA = [
           "promql",
           "query",
           "api"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/command-line/promtool/",
+              "title": "promtool"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/api/",
+              "title": "Prometheus HTTP API"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/management_api/",
+              "title": "Prometheus management API"
+            }
+          ]
+        }
       },
       {
         "id": "prom-query-sub-3",
@@ -157,7 +247,24 @@ const SRE_PROMETHEUS_DATA = [
           "promql",
           "query",
           "api"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/command-line/promtool/",
+              "title": "promtool"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/api/",
+              "title": "Prometheus HTTP API"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/management_api/",
+              "title": "Prometheus management API"
+            }
+          ]
+        }
       }
     ]
   },
@@ -200,7 +307,16 @@ const SRE_PROMETHEUS_DATA = [
           "yaml",
           "for",
           "severity"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/",
+              "title": "Prometheus: alerting rules"
+            }
+          ]
+        }
       }
     ]
   },
@@ -242,7 +358,20 @@ const SRE_PROMETHEUS_DATA = [
           "rules",
           "naming",
           "dcgm"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/configuration/recording_rules/",
+              "title": "Prometheus: recording rules"
+            },
+            {
+              "url": "https://prometheus.io/docs/practices/rules/",
+              "title": "Prometheus: recording rule naming"
+            }
+          ]
+        }
       }
     ]
   },
@@ -292,7 +421,16 @@ const SRE_PROMETHEUS_DATA = [
           "amtool",
           "silence",
           "routes"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/prometheus/alertmanager#amtool",
+              "title": "Alertmanager README: amtool"
+            }
+          ]
+        }
       },
       {
         "id": "prom-amtool-sub-1",
@@ -306,7 +444,16 @@ const SRE_PROMETHEUS_DATA = [
           "alertmanager",
           "amtool",
           "silence"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/prometheus/alertmanager#amtool",
+              "title": "Alertmanager README: amtool"
+            }
+          ]
+        }
       },
       {
         "id": "prom-amtool-sub-2",
@@ -320,7 +467,16 @@ const SRE_PROMETHEUS_DATA = [
           "alertmanager",
           "amtool",
           "silence"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/prometheus/alertmanager#amtool",
+              "title": "Alertmanager README: amtool"
+            }
+          ]
+        }
       },
       {
         "id": "prom-amtool-sub-3",
@@ -334,7 +490,16 @@ const SRE_PROMETHEUS_DATA = [
           "alertmanager",
           "amtool",
           "silence"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/prometheus/alertmanager#amtool",
+              "title": "Alertmanager README: amtool"
+            }
+          ]
+        }
       }
     ]
   },
@@ -363,7 +528,7 @@ const SRE_PROMETHEUS_DATA = [
             "promtool check config, then reload"
           ],
           [
-            "Alertmanager 0.34",
+            "Alertmanager 0.34.2+",
             "No CORS headers by default any more; --web.cors.origin restores them"
           ]
         ],
@@ -376,7 +541,21 @@ const SRE_PROMETHEUS_DATA = [
           "lifecycle",
           "config",
           "sighup"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/management_api/",
+              "title": "Prometheus management API"
+            },
+            {
+              "url": "https://github.com/prometheus/alertmanager/blob/main/CHANGELOG.md",
+              "title": "Alertmanager changelog"
+            }
+          ],
+          "note": "The CORS change is in Alertmanager 0.34.2 (Oct 29, 2026); 0.35.0 is current."
+        }
       },
       {
         "id": "prom-reload-sub-1",
@@ -390,7 +569,21 @@ const SRE_PROMETHEUS_DATA = [
           "reload",
           "lifecycle",
           "config"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/management_api/",
+              "title": "Prometheus management API"
+            },
+            {
+              "url": "https://github.com/prometheus/alertmanager/blob/main/CHANGELOG.md",
+              "title": "Alertmanager changelog"
+            }
+          ],
+          "note": "The CORS change is in Alertmanager 0.34.2 (Oct 29, 2026); 0.35.0 is current."
+        }
       }
     ]
   },
@@ -422,7 +615,17 @@ const SRE_PROMETHEUS_DATA = [
           "prometheus",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/prometheus/node_exporter#textfile-collector",
+              "title": "node_exporter: textfile collector"
+            }
+          ],
+          "note": "node_exporter's README shows the write-then-mv pattern and says timestamps are not supported."
+        }
       }
     ]
   }

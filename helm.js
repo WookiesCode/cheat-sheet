@@ -39,7 +39,24 @@ const SRE_HELM_DATA = [
           "repo",
           "values",
           "chart"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://helm.sh/docs/helm/helm_repo_add/",
+              "title": "helm repo add"
+            },
+            {
+              "url": "https://helm.sh/docs/helm/helm_search_repo/",
+              "title": "helm search repo"
+            },
+            {
+              "url": "https://helm.sh/docs/helm/helm_show_values/",
+              "title": "helm show values"
+            }
+          ]
+        }
       },
       {
         "id": "helm-repo-sub-1",
@@ -53,7 +70,24 @@ const SRE_HELM_DATA = [
           "helm",
           "repo",
           "values"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://helm.sh/docs/helm/helm_repo_add/",
+              "title": "helm repo add"
+            },
+            {
+              "url": "https://helm.sh/docs/helm/helm_search_repo/",
+              "title": "helm search repo"
+            },
+            {
+              "url": "https://helm.sh/docs/helm/helm_show_values/",
+              "title": "helm show values"
+            }
+          ]
+        }
       },
       {
         "id": "helm-repo-sub-2",
@@ -67,7 +101,24 @@ const SRE_HELM_DATA = [
           "helm",
           "repo",
           "values"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://helm.sh/docs/helm/helm_repo_add/",
+              "title": "helm repo add"
+            },
+            {
+              "url": "https://helm.sh/docs/helm/helm_search_repo/",
+              "title": "helm search repo"
+            },
+            {
+              "url": "https://helm.sh/docs/helm/helm_show_values/",
+              "title": "helm show values"
+            }
+          ]
+        }
       }
     ]
   },
@@ -105,7 +156,24 @@ const SRE_HELM_DATA = [
           "lint",
           "diff",
           "render"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://helm.sh/docs/helm/helm_template/",
+              "title": "helm template"
+            },
+            {
+              "url": "https://helm.sh/docs/helm/helm_lint/",
+              "title": "helm lint"
+            },
+            {
+              "url": "https://github.com/databus23/helm-diff",
+              "title": "helm-diff plugin"
+            }
+          ]
+        }
       },
       {
         "id": "helm-template-sub-1",
@@ -119,7 +187,24 @@ const SRE_HELM_DATA = [
           "template",
           "lint",
           "diff"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://helm.sh/docs/helm/helm_template/",
+              "title": "helm template"
+            },
+            {
+              "url": "https://helm.sh/docs/helm/helm_lint/",
+              "title": "helm lint"
+            },
+            {
+              "url": "https://github.com/databus23/helm-diff",
+              "title": "helm-diff plugin"
+            }
+          ]
+        }
       },
       {
         "id": "helm-template-sub-2",
@@ -133,7 +218,24 @@ const SRE_HELM_DATA = [
           "template",
           "lint",
           "diff"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://helm.sh/docs/helm/helm_template/",
+              "title": "helm template"
+            },
+            {
+              "url": "https://helm.sh/docs/helm/helm_lint/",
+              "title": "helm lint"
+            },
+            {
+              "url": "https://github.com/databus23/helm-diff",
+              "title": "helm-diff plugin"
+            }
+          ]
+        }
       }
     ]
   },
@@ -184,7 +286,21 @@ const SRE_HELM_DATA = [
           "atomic",
           "rollback-on-failure",
           "helm4"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://helm.sh/docs/helm/helm_upgrade/",
+              "title": "helm upgrade"
+            },
+            {
+              "url": "https://helm.sh/docs/overview/",
+              "title": "Helm 4 overview"
+            }
+          ],
+          "note": "Checked against Helm 4.3.1; the old flag names still work with a deprecation warning."
+        }
       }
     ]
   },
@@ -230,7 +346,24 @@ const SRE_HELM_DATA = [
           "rollback",
           "list",
           "get"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://helm.sh/docs/helm/helm_history/",
+              "title": "helm history"
+            },
+            {
+              "url": "https://helm.sh/docs/helm/helm_rollback/",
+              "title": "helm rollback"
+            },
+            {
+              "url": "https://helm.sh/docs/helm/helm_get_values/",
+              "title": "helm get values"
+            }
+          ]
+        }
       },
       {
         "id": "helm-history-sub-1",
@@ -244,7 +377,24 @@ const SRE_HELM_DATA = [
           "history",
           "rollback",
           "list"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://helm.sh/docs/helm/helm_history/",
+              "title": "helm history"
+            },
+            {
+              "url": "https://helm.sh/docs/helm/helm_rollback/",
+              "title": "helm rollback"
+            },
+            {
+              "url": "https://helm.sh/docs/helm/helm_get_values/",
+              "title": "helm get values"
+            }
+          ]
+        }
       },
       {
         "id": "helm-history-sub-2",
@@ -258,7 +408,24 @@ const SRE_HELM_DATA = [
           "history",
           "rollback",
           "list"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://helm.sh/docs/helm/helm_history/",
+              "title": "helm history"
+            },
+            {
+              "url": "https://helm.sh/docs/helm/helm_rollback/",
+              "title": "helm rollback"
+            },
+            {
+              "url": "https://helm.sh/docs/helm/helm_get_values/",
+              "title": "helm get values"
+            }
+          ]
+        }
       }
     ]
   },
@@ -272,7 +439,7 @@ const SRE_HELM_DATA = [
         "id": "helm-tips-card",
         "desc": "Helm 3 end of support",
         "cmd": "helm version",
-        "details": "Helm 3's security fixes end on November 11, 2026. Helm 4 reads Helm 3 releases without conversion. Check CI scripts for --atomic and --force (renamed), and for helm version --client, which Helm 4 rejects.",
+        "details": "Helm 3 gets security patches through February 2027 (its last feature release was September 9, 2026). Helm 4 reads Helm 3 releases without conversion. Check CI scripts for --atomic and --force (renamed), and for helm version --client, which Helm 4 rejects.",
         "flags": [
           [
             "Helm 4.3.1",
@@ -290,7 +457,25 @@ const SRE_HELM_DATA = [
           "helm",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/helm/helm/releases",
+              "title": "Helm releases"
+            },
+            {
+              "url": "https://helm.sh/blog/",
+              "title": "Helm blog (Helm 3 end of life)"
+            },
+            {
+              "url": "https://helm.sh/docs/overview/",
+              "title": "Helm 4 overview"
+            }
+          ],
+          "note": "Corrected 2026-11-10: Helm 3 security patches run through February 2027 (not Nov 11, 2026). helm version --client was removed in Helm 4 (changelog, PR #31301)."
+        }
       }
     ]
   }

@@ -10,7 +10,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ansible all -i inventory.ini -m ansible.builtin.ping",
     "desc": "Can Ansible reach every host?",
     "tip": "ping first: most failures are SSH or inventory, not the playbook",
-    "tags": "sre devops ansible ansible ping inventory ad-hoc"
+    "tags": "sre devops ansible ansible ping inventory ad-hoc",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.ansible.com/ansible/latest/cli/ansible.html",
+          "title": "ansible CLI"
+        },
+        {
+          "url": "https://docs.ansible.com/ansible/latest/inventory_guide/intro_patterns.html",
+          "title": "Ansible: patterns"
+        },
+        {
+          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-inventory.html",
+          "title": "ansible-inventory"
+        }
+      ]
+    }
   },
   {
     "sName": "ansible",
@@ -21,7 +38,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ansible-inventory -i inventory.ini --graph",
     "desc": "Groups and hosts as a tree",
     "tip": "",
-    "tags": "sre devops ansible recipe ansible ping inventory"
+    "tags": "sre devops ansible recipe ansible ping inventory",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.ansible.com/ansible/latest/cli/ansible.html",
+          "title": "ansible CLI"
+        },
+        {
+          "url": "https://docs.ansible.com/ansible/latest/inventory_guide/intro_patterns.html",
+          "title": "Ansible: patterns"
+        },
+        {
+          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-inventory.html",
+          "title": "ansible-inventory"
+        }
+      ]
+    }
   },
   {
     "sName": "ansible",
@@ -32,7 +66,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ansible-inventory -i inventory.ini --host node07",
     "desc": "Variables for one host",
     "tip": "",
-    "tags": "sre devops ansible recipe ansible ping inventory"
+    "tags": "sre devops ansible recipe ansible ping inventory",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.ansible.com/ansible/latest/cli/ansible.html",
+          "title": "ansible CLI"
+        },
+        {
+          "url": "https://docs.ansible.com/ansible/latest/inventory_guide/intro_patterns.html",
+          "title": "Ansible: patterns"
+        },
+        {
+          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-inventory.html",
+          "title": "ansible-inventory"
+        }
+      ]
+    }
   },
   {
     "sName": "ansible",
@@ -43,7 +94,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ansible gpu -i inventory.ini -m ansible.builtin.shell -a 'nvidia-smi -L | wc -l'",
     "desc": "One read-only command across a group",
     "tip": "Ad-hoc is for read-only checks; changes belong in a reviewed playbook",
-    "tags": "sre devops ansible ad-hoc shell fleet become"
+    "tags": "sre devops ansible ad-hoc shell fleet become",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.ansible.com/ansible/latest/cli/ansible.html",
+          "title": "ansible CLI"
+        },
+        {
+          "url": "https://docs.ansible.com/ansible/latest/collections/ansible/builtin/shell_module.html",
+          "title": "ansible.builtin.shell"
+        }
+      ]
+    }
   },
   {
     "sName": "ansible",
@@ -54,7 +118,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ansible gpu -i inventory.ini -m ansible.builtin.shell -a 'uptime' -o",
     "desc": "Uptime per host, one line each",
     "tip": "",
-    "tags": "sre devops ansible recipe ad-hoc shell fleet"
+    "tags": "sre devops ansible recipe ad-hoc shell fleet",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.ansible.com/ansible/latest/cli/ansible.html",
+          "title": "ansible CLI"
+        },
+        {
+          "url": "https://docs.ansible.com/ansible/latest/collections/ansible/builtin/shell_module.html",
+          "title": "ansible.builtin.shell"
+        }
+      ]
+    }
   },
   {
     "sName": "ansible",
@@ -65,7 +142,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ansible-playbook -i inventory.ini site.yml --check --diff --limit node07",
     "desc": "Dry-run a playbook on one host with a diff",
     "tip": "check + diff on one host, then the real run on that host, then the rest",
-    "tags": "sre devops ansible playbook check diff limit dry-run"
+    "tags": "sre devops ansible playbook check diff limit dry-run",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-playbook.html",
+          "title": "ansible-playbook"
+        },
+        {
+          "url": "https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_checkmode.html",
+          "title": "Ansible: check mode"
+        }
+      ]
+    }
   },
   {
     "sName": "ansible",
@@ -76,7 +166,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ansible-playbook -i inventory.ini site.yml --syntax-check",
     "desc": "Parse only",
     "tip": "",
-    "tags": "sre devops ansible recipe playbook check diff"
+    "tags": "sre devops ansible recipe playbook check diff",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-playbook.html",
+          "title": "ansible-playbook"
+        },
+        {
+          "url": "https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_checkmode.html",
+          "title": "Ansible: check mode"
+        }
+      ]
+    }
   },
   {
     "sName": "ansible",
@@ -87,7 +190,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ansible-playbook -i inventory.ini site.yml --list-hosts",
     "desc": "Which hosts it targets",
     "tip": "",
-    "tags": "sre devops ansible recipe playbook check diff"
+    "tags": "sre devops ansible recipe playbook check diff",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-playbook.html",
+          "title": "ansible-playbook"
+        },
+        {
+          "url": "https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_checkmode.html",
+          "title": "Ansible: check mode"
+        }
+      ]
+    }
   },
   {
     "sName": "ansible",
@@ -98,7 +214,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ansible-playbook -i inventory.ini site.yml --limit node07",
     "desc": "The real run on one host (changes state)",
     "tip": "",
-    "tags": "sre devops ansible recipe playbook check diff"
+    "tags": "sre devops ansible recipe playbook check diff",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-playbook.html",
+          "title": "ansible-playbook"
+        },
+        {
+          "url": "https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_checkmode.html",
+          "title": "Ansible: check mode"
+        }
+      ]
+    }
   },
   {
     "sName": "ansible",
@@ -109,7 +238,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ansible-vault encrypt_string --prompt --name bmc_password",
     "desc": "Encrypt a secret for a playbook",
     "tip": "Never put a vault password file in the repo",
-    "tags": "sre devops ansible vault secrets encrypt password"
+    "tags": "sre devops ansible vault secrets encrypt password",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-vault.html",
+          "title": "ansible-vault"
+        }
+      ]
+    }
   },
   {
     "sName": "ansible",
@@ -120,7 +258,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ansible-vault create group_vars/bmc/vault.yml",
     "desc": "A new encrypted vars file",
     "tip": "",
-    "tags": "sre devops ansible recipe vault secrets encrypt"
+    "tags": "sre devops ansible recipe vault secrets encrypt",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-vault.html",
+          "title": "ansible-vault"
+        }
+      ]
+    }
   },
   {
     "sName": "ansible",
@@ -131,7 +278,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ansible-playbook -i inventory.ini site.yml --ask-vault-password --check",
     "desc": "Use it",
     "tip": "",
-    "tags": "sre devops ansible recipe vault secrets encrypt"
+    "tags": "sre devops ansible recipe vault secrets encrypt",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-vault.html",
+          "title": "ansible-vault"
+        }
+      ]
+    }
   },
   {
     "sName": "ansible",
@@ -142,7 +298,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ansible-doc -s ansible.builtin.copy",
     "desc": "Collections, config and module docs",
     "tip": "Pin collections in requirements.yml",
-    "tags": "sre devops ansible ansible-doc galaxy config lint"
+    "tags": "sre devops ansible ansible-doc galaxy config lint",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-doc.html",
+          "title": "ansible-doc"
+        },
+        {
+          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-config.html",
+          "title": "ansible-config"
+        },
+        {
+          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-galaxy.html",
+          "title": "ansible-galaxy"
+        },
+        {
+          "url": "https://ansible.readthedocs.io/projects/lint/",
+          "title": "ansible-lint"
+        }
+      ]
+    }
   },
   {
     "sName": "ansible",
@@ -153,7 +330,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ansible-config dump --only-changed",
     "desc": "Why does it behave differently here?",
     "tip": "",
-    "tags": "sre devops ansible recipe ansible-doc galaxy config"
+    "tags": "sre devops ansible recipe ansible-doc galaxy config",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-doc.html",
+          "title": "ansible-doc"
+        },
+        {
+          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-config.html",
+          "title": "ansible-config"
+        },
+        {
+          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-galaxy.html",
+          "title": "ansible-galaxy"
+        },
+        {
+          "url": "https://ansible.readthedocs.io/projects/lint/",
+          "title": "ansible-lint"
+        }
+      ]
+    }
   },
   {
     "sName": "ansible",
@@ -164,7 +362,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ansible-galaxy collection install -r requirements.yml",
     "desc": "Same collections everywhere",
     "tip": "",
-    "tags": "sre devops ansible recipe ansible-doc galaxy config"
+    "tags": "sre devops ansible recipe ansible-doc galaxy config",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-doc.html",
+          "title": "ansible-doc"
+        },
+        {
+          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-config.html",
+          "title": "ansible-config"
+        },
+        {
+          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-galaxy.html",
+          "title": "ansible-galaxy"
+        },
+        {
+          "url": "https://ansible.readthedocs.io/projects/lint/",
+          "title": "ansible-lint"
+        }
+      ]
+    }
   },
   {
     "sName": "ansible",
@@ -175,7 +394,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ansible gpu -i inventory.ini -m ansible.builtin.setup -a 'filter=ansible_product_serial'",
     "desc": "Gather facts as a read-only inventory",
     "tip": "Compare BIOS versions across a rack in one command",
-    "tags": "sre devops ansible tips best-practice"
+    "tags": "sre devops ansible tips best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.ansible.com/ansible/latest/collections/ansible/builtin/setup_module.html",
+          "title": "ansible.builtin.setup"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -3366,7 +3594,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "argocd login argocd.example.com --sso --grpc-web",
     "desc": "Log in with SSO",
     "tip": "SSO keeps passwords off the jumpbox",
-    "tags": "sre devops argocd argocd login sso"
+    "tags": "sre devops argocd argocd login sso",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_login/",
+          "title": "argocd login"
+        }
+      ],
+      "note": "The flags exist separately in the docs; --sso and --core aren't shown together."
+    }
   },
   {
     "sName": "argocd",
@@ -3377,7 +3615,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "argocd app list",
     "desc": "What is out of sync, and what differs",
     "tip": "OutOfSync + Healthy is drift; Degraded is broken",
-    "tags": "sre devops argocd status diff history drift"
+    "tags": "sre devops argocd status diff history drift",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_list/",
+          "title": "argocd app list"
+        },
+        {
+          "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_diff/",
+          "title": "argocd app diff"
+        }
+      ]
+    }
   },
   {
     "sName": "argocd",
@@ -3388,7 +3639,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "argocd app get dcgm-exporter",
     "desc": "One application in detail",
     "tip": "",
-    "tags": "sre devops argocd recipe status diff history"
+    "tags": "sre devops argocd recipe status diff history",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_list/",
+          "title": "argocd app list"
+        },
+        {
+          "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_diff/",
+          "title": "argocd app diff"
+        }
+      ]
+    }
   },
   {
     "sName": "argocd",
@@ -3399,7 +3663,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "argocd app diff dcgm-exporter",
     "desc": "What would change on sync",
     "tip": "",
-    "tags": "sre devops argocd recipe status diff history"
+    "tags": "sre devops argocd recipe status diff history",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_list/",
+          "title": "argocd app list"
+        },
+        {
+          "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_diff/",
+          "title": "argocd app diff"
+        }
+      ]
+    }
   },
   {
     "sName": "argocd",
@@ -3410,7 +3687,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "argocd app sync dcgm-exporter --dry-run",
     "desc": "Preview, then sync",
     "tip": "--prune deletes things: read the diff first",
-    "tags": "sre devops argocd sync dry-run prune wait"
+    "tags": "sre devops argocd sync dry-run prune wait",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_sync/",
+          "title": "argocd app sync"
+        },
+        {
+          "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_wait/",
+          "title": "argocd app wait"
+        }
+      ]
+    }
   },
   {
     "sName": "argocd",
@@ -3421,7 +3711,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "argocd app sync dcgm-exporter",
     "desc": "Real sync (changes state)",
     "tip": "",
-    "tags": "sre devops argocd recipe sync dry-run prune"
+    "tags": "sre devops argocd recipe sync dry-run prune",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_sync/",
+          "title": "argocd app sync"
+        },
+        {
+          "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_wait/",
+          "title": "argocd app wait"
+        }
+      ]
+    }
   },
   {
     "sName": "argocd",
@@ -3432,7 +3735,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "argocd app wait dcgm-exporter --health --timeout 300",
     "desc": "Wait up to 5 minutes for health",
     "tip": "",
-    "tags": "sre devops argocd recipe sync dry-run prune"
+    "tags": "sre devops argocd recipe sync dry-run prune",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_sync/",
+          "title": "argocd app sync"
+        },
+        {
+          "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_wait/",
+          "title": "argocd app wait"
+        }
+      ]
+    }
   },
   {
     "sName": "argocd",
@@ -3443,7 +3759,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "argocd app history dcgm-exporter",
     "desc": "Roll back, and the auto-sync gotcha",
     "tip": "Revert in Git when you can; CLI rollback is for emergencies",
-    "tags": "sre devops argocd rollback auto-sync gitops revert"
+    "tags": "sre devops argocd rollback auto-sync gitops revert",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_rollback/",
+          "title": "argocd app rollback"
+        },
+        {
+          "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_set/",
+          "title": "argocd app set"
+        },
+        {
+          "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/auto_sync/",
+          "title": "Argo CD: automated sync policy"
+        }
+      ]
+    }
   },
   {
     "sName": "argocd",
@@ -3454,7 +3787,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "argocd app set dcgm-exporter --sync-policy manual",
     "desc": "Pause auto-sync (changes state)",
     "tip": "",
-    "tags": "sre devops argocd recipe rollback auto-sync gitops"
+    "tags": "sre devops argocd recipe rollback auto-sync gitops",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_rollback/",
+          "title": "argocd app rollback"
+        },
+        {
+          "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_set/",
+          "title": "argocd app set"
+        },
+        {
+          "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/auto_sync/",
+          "title": "Argo CD: automated sync policy"
+        }
+      ]
+    }
   },
   {
     "sName": "argocd",
@@ -3465,7 +3815,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "argocd app rollback dcgm-exporter",
     "desc": "Previous revision (changes state)",
     "tip": "",
-    "tags": "sre devops argocd recipe rollback auto-sync gitops"
+    "tags": "sre devops argocd recipe rollback auto-sync gitops",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_rollback/",
+          "title": "argocd app rollback"
+        },
+        {
+          "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_set/",
+          "title": "argocd app set"
+        },
+        {
+          "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/auto_sync/",
+          "title": "Argo CD: automated sync policy"
+        }
+      ]
+    }
   },
   {
     "sName": "argocd",
@@ -3476,7 +3843,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "spec:\n  syncPolicy:\n    automated:\n      prune: true\n      selfHeal: true",
     "desc": "Automated sync with prune and self-heal",
     "tip": "With selfHeal on, a hotfix made with kubectl is undone: change Git instead",
-    "tags": "sre devops argocd tips best-practice"
+    "tags": "sre devops argocd tips best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/auto_sync/",
+          "title": "Argo CD: automated sync policy"
+        }
+      ]
+    }
   },
   {
     "sName": "arp-scan",
@@ -24095,7 +24471,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "helm repo add prometheus-community https://prometheus-community.github.io/helm-charts && helm repo update",
     "desc": "Add a chart repo and read its default values",
     "tip": "Pin --version on every install",
-    "tags": "sre devops helm helm repo values chart"
+    "tags": "sre devops helm helm repo values chart",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://helm.sh/docs/helm/helm_repo_add/",
+          "title": "helm repo add"
+        },
+        {
+          "url": "https://helm.sh/docs/helm/helm_search_repo/",
+          "title": "helm search repo"
+        },
+        {
+          "url": "https://helm.sh/docs/helm/helm_show_values/",
+          "title": "helm show values"
+        }
+      ]
+    }
   },
   {
     "sName": "helm",
@@ -24106,7 +24499,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "helm search repo prometheus-community/kube-prometheus-stack --versions | head",
     "desc": "Available versions",
     "tip": "",
-    "tags": "sre devops helm recipe helm repo values"
+    "tags": "sre devops helm recipe helm repo values",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://helm.sh/docs/helm/helm_repo_add/",
+          "title": "helm repo add"
+        },
+        {
+          "url": "https://helm.sh/docs/helm/helm_search_repo/",
+          "title": "helm search repo"
+        },
+        {
+          "url": "https://helm.sh/docs/helm/helm_show_values/",
+          "title": "helm show values"
+        }
+      ]
+    }
   },
   {
     "sName": "helm",
@@ -24117,7 +24527,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "helm show values prometheus-community/kube-prometheus-stack > values.yaml",
     "desc": "Defaults to edit",
     "tip": "",
-    "tags": "sre devops helm recipe helm repo values"
+    "tags": "sre devops helm recipe helm repo values",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://helm.sh/docs/helm/helm_repo_add/",
+          "title": "helm repo add"
+        },
+        {
+          "url": "https://helm.sh/docs/helm/helm_search_repo/",
+          "title": "helm search repo"
+        },
+        {
+          "url": "https://helm.sh/docs/helm/helm_show_values/",
+          "title": "helm show values"
+        }
+      ]
+    }
   },
   {
     "sName": "helm",
@@ -24128,7 +24555,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "helm template mon prometheus-community/kube-prometheus-stack -f values.yaml -n monitoring > rendered.yaml",
     "desc": "Render and lint before installing",
     "tip": "Review rendered.yaml or the diff before every upgrade",
-    "tags": "sre devops helm template lint diff render"
+    "tags": "sre devops helm template lint diff render",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://helm.sh/docs/helm/helm_template/",
+          "title": "helm template"
+        },
+        {
+          "url": "https://helm.sh/docs/helm/helm_lint/",
+          "title": "helm lint"
+        },
+        {
+          "url": "https://github.com/databus23/helm-diff",
+          "title": "helm-diff plugin"
+        }
+      ]
+    }
   },
   {
     "sName": "helm",
@@ -24139,7 +24583,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "helm plugin install https://github.com/databus23/helm-diff",
     "desc": "Install helm-diff (Helm 4 verifies plugin provenance)",
     "tip": "",
-    "tags": "sre devops helm recipe template lint diff"
+    "tags": "sre devops helm recipe template lint diff",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://helm.sh/docs/helm/helm_template/",
+          "title": "helm template"
+        },
+        {
+          "url": "https://helm.sh/docs/helm/helm_lint/",
+          "title": "helm lint"
+        },
+        {
+          "url": "https://github.com/databus23/helm-diff",
+          "title": "helm-diff plugin"
+        }
+      ]
+    }
   },
   {
     "sName": "helm",
@@ -24150,7 +24611,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "helm diff upgrade mon prometheus-community/kube-prometheus-stack -f values.yaml -n monitoring",
     "desc": "Diff against the live release",
     "tip": "",
-    "tags": "sre devops helm recipe template lint diff"
+    "tags": "sre devops helm recipe template lint diff",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://helm.sh/docs/helm/helm_template/",
+          "title": "helm template"
+        },
+        {
+          "url": "https://helm.sh/docs/helm/helm_lint/",
+          "title": "helm lint"
+        },
+        {
+          "url": "https://github.com/databus23/helm-diff",
+          "title": "helm-diff plugin"
+        }
+      ]
+    }
   },
   {
     "sName": "helm",
@@ -24161,7 +24639,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "helm upgrade --install mon prometheus-community/kube-prometheus-stack -n monitoring --create-namespace -f values.yaml --version <chart-version> --rollback-on-failure",
     "desc": "Install or upgrade, rolling back on failure",
     "tip": "Old names (--atomic, --force) still work in Helm 4 with a warning",
-    "tags": "sre devops helm upgrade install atomic rollback-on-failure helm4"
+    "tags": "sre devops helm upgrade install atomic rollback-on-failure helm4",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://helm.sh/docs/helm/helm_upgrade/",
+          "title": "helm upgrade"
+        },
+        {
+          "url": "https://helm.sh/docs/overview/",
+          "title": "Helm 4 overview"
+        }
+      ],
+      "note": "Checked against Helm 4.3.1; the old flag names still work with a deprecation warning."
+    }
   },
   {
     "sName": "helm",
@@ -24172,7 +24664,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "helm history mon -n monitoring",
     "desc": "Release history and rollback",
     "tip": "history tells you which revision last worked",
-    "tags": "sre devops helm history rollback list get"
+    "tags": "sre devops helm history rollback list get",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://helm.sh/docs/helm/helm_history/",
+          "title": "helm history"
+        },
+        {
+          "url": "https://helm.sh/docs/helm/helm_rollback/",
+          "title": "helm rollback"
+        },
+        {
+          "url": "https://helm.sh/docs/helm/helm_get_values/",
+          "title": "helm get values"
+        }
+      ]
+    }
   },
   {
     "sName": "helm",
@@ -24183,7 +24692,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "helm get values mon -n monitoring",
     "desc": "Values in use",
     "tip": "",
-    "tags": "sre devops helm recipe history rollback list"
+    "tags": "sre devops helm recipe history rollback list",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://helm.sh/docs/helm/helm_history/",
+          "title": "helm history"
+        },
+        {
+          "url": "https://helm.sh/docs/helm/helm_rollback/",
+          "title": "helm rollback"
+        },
+        {
+          "url": "https://helm.sh/docs/helm/helm_get_values/",
+          "title": "helm get values"
+        }
+      ]
+    }
   },
   {
     "sName": "helm",
@@ -24194,7 +24720,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "helm rollback mon 3 -n monitoring",
     "desc": "Back to revision 3 (changes state)",
     "tip": "",
-    "tags": "sre devops helm recipe history rollback list"
+    "tags": "sre devops helm recipe history rollback list",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://helm.sh/docs/helm/helm_history/",
+          "title": "helm history"
+        },
+        {
+          "url": "https://helm.sh/docs/helm/helm_rollback/",
+          "title": "helm rollback"
+        },
+        {
+          "url": "https://helm.sh/docs/helm/helm_get_values/",
+          "title": "helm get values"
+        }
+      ]
+    }
   },
   {
     "sName": "helm",
@@ -24205,7 +24748,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "helm version",
     "desc": "Helm 3 end of support",
     "tip": "Upgrade the CLI on jumpboxes and CI together",
-    "tags": "sre devops helm tips best-practice"
+    "tags": "sre devops helm tips best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/helm/helm/releases",
+          "title": "Helm releases"
+        },
+        {
+          "url": "https://helm.sh/blog/",
+          "title": "Helm blog (Helm 3 end of life)"
+        },
+        {
+          "url": "https://helm.sh/docs/overview/",
+          "title": "Helm 4 overview"
+        }
+      ],
+      "note": "Corrected 2026-11-10: Helm 3 security patches run through February 2027 (not Nov 11, 2026). helm version --client was removed in Helm 4 (changelog, PR #31301)."
+    }
   },
   {
     "sName": "http-server",
@@ -28837,7 +29398,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "printf '%s\\n' 'IC: <name>' 'Ops lead: <name>' 'Comms lead: <name>' 'Started (UTC): '\"$(date -u +%FT%TZ)\"",
     "desc": "Roles (Google SRE incident management)",
     "tip": "One person changes production at a time: the Ops lead",
-    "tags": "sre devops incident incident roles ic comms sre"
+    "tags": "sre devops incident incident roles ic comms sre",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://sre.google/sre-book/managing-incidents/",
+          "title": "Google SRE book: managing incidents"
+        },
+        {
+          "url": "https://sre.google/workbook/incident-response/",
+          "title": "SRE workbook: incident response"
+        }
+      ]
+    }
   },
   {
     "sName": "incident-response",
@@ -28848,7 +29422,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "date -u; uptime; journalctl -p err -b --since '-1h' --no-pager | tail -n 50",
     "desc": "First 15 minutes on a node: facts, in UTC",
     "tip": "Mitigate first (drain, fail over), find the root cause after",
-    "tags": "sre devops incident triage timeline utc journalctl dmesg"
+    "tags": "sre devops incident triage timeline utc journalctl dmesg",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://sre.google/workbook/incident-response/",
+          "title": "SRE workbook: incident response"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/journalctl.1.html",
+          "title": "journalctl(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "incident-response",
@@ -28859,7 +29446,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dmesg -T --level=err,crit | tail -n 40",
     "desc": "Kernel errors",
     "tip": "",
-    "tags": "sre devops incident recipe triage timeline utc"
+    "tags": "sre devops incident recipe triage timeline utc",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://sre.google/workbook/incident-response/",
+          "title": "SRE workbook: incident response"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/journalctl.1.html",
+          "title": "journalctl(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "incident-response",
@@ -28870,7 +29470,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sinfo -R",
     "desc": "Drained nodes and their reasons",
     "tip": "",
-    "tags": "sre devops incident recipe triage timeline utc"
+    "tags": "sre devops incident recipe triage timeline utc",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://sre.google/workbook/incident-response/",
+          "title": "SRE workbook: incident response"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/journalctl.1.html",
+          "title": "journalctl(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "incident-response",
@@ -28881,7 +29494,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "amtool alert query --alertmanager.url=http://localhost:9093",
     "desc": "What is firing",
     "tip": "",
-    "tags": "sre devops incident recipe triage timeline utc"
+    "tags": "sre devops incident recipe triage timeline utc",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://sre.google/workbook/incident-response/",
+          "title": "SRE workbook: incident response"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/journalctl.1.html",
+          "title": "journalctl(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "incident-response",
@@ -28892,7 +29518,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "echo \"$(date -u +%FT%TZ) <what you saw or did>\" >> cases/<ticket>/timeline.md",
     "desc": "Keep a timeline as you go",
     "tip": "Replace the placeholders before you run it",
-    "tags": "sre devops incident timeline notes case postmortem"
+    "tags": "sre devops incident timeline notes case postmortem",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://sre.google/sre-book/managing-incidents/",
+          "title": "Google SRE book: managing incidents"
+        }
+      ]
+    }
   },
   {
     "sName": "incident-response",
@@ -28903,7 +29538,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "## Summary\n## Impact (who, how long)\n## Timeline (UTC)\n## Root cause and trigger\n## What went well / what didn't\n## Action items (owner, due date)",
     "desc": "Blameless postmortem outline",
     "tip": "Action items without owners don't get done",
-    "tags": "sre devops incident postmortem blameless rca actions"
+    "tags": "sre devops incident postmortem blameless rca actions",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://sre.google/sre-book/postmortem-culture/",
+          "title": "Google SRE book: postmortem culture"
+        }
+      ]
+    }
   },
   {
     "sName": "incident-response",
@@ -28914,7 +29558,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "amtool silence add instance=~\"node07.*\" --alertmanager.url=http://localhost:9093",
     "desc": "Silence alerts for a node under maintenance",
     "tip": "Put the ticket number in the silence comment",
-    "tags": "sre devops incident tips best-practice"
+    "tags": "sre devops incident tips best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/prometheus/alertmanager#amtool",
+          "title": "Alertmanager README: amtool"
+        }
+      ]
+    }
   },
   {
     "sName": "infiniband",
@@ -46565,7 +47218,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "promtool check config /etc/prometheus/prometheus.yml",
     "desc": "Validate the config and rule files before reloading",
     "tip": "Run check config in CI so a typo never reaches the server",
-    "tags": "sre devops prometheus prometheus promtool check rules ci"
+    "tags": "sre devops prometheus prometheus promtool check rules ci",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://prometheus.io/docs/prometheus/latest/command-line/promtool/",
+          "title": "promtool"
+        },
+        {
+          "url": "https://prometheus.io/docs/prometheus/latest/configuration/unit_testing_rules/",
+          "title": "Prometheus: unit testing rules"
+        }
+      ]
+    }
   },
   {
     "sName": "prometheus",
@@ -46576,7 +47242,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "promtool check rules /etc/prometheus/rules/*.yml",
     "desc": "Rules only",
     "tip": "",
-    "tags": "sre devops prometheus recipe prometheus promtool check"
+    "tags": "sre devops prometheus recipe prometheus promtool check",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://prometheus.io/docs/prometheus/latest/command-line/promtool/",
+          "title": "promtool"
+        },
+        {
+          "url": "https://prometheus.io/docs/prometheus/latest/configuration/unit_testing_rules/",
+          "title": "Prometheus: unit testing rules"
+        }
+      ]
+    }
   },
   {
     "sName": "prometheus",
@@ -46587,7 +47266,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "promtool test rules tests/gpu-alerts-test.yml",
     "desc": "Run rule unit tests",
     "tip": "",
-    "tags": "sre devops prometheus recipe prometheus promtool check"
+    "tags": "sre devops prometheus recipe prometheus promtool check",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://prometheus.io/docs/prometheus/latest/command-line/promtool/",
+          "title": "promtool"
+        },
+        {
+          "url": "https://prometheus.io/docs/prometheus/latest/configuration/unit_testing_rules/",
+          "title": "Prometheus: unit testing rules"
+        }
+      ]
+    }
   },
   {
     "sName": "prometheus",
@@ -46598,7 +47290,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "promtool query instant http://localhost:9090 'up == 0'",
     "desc": "Query from the shell (instant query)",
     "tip": "up == 0 is the first query in any monitoring incident",
-    "tags": "sre devops prometheus promql query api targets curl"
+    "tags": "sre devops prometheus promql query api targets curl",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://prometheus.io/docs/prometheus/latest/command-line/promtool/",
+          "title": "promtool"
+        },
+        {
+          "url": "https://prometheus.io/docs/prometheus/latest/querying/api/",
+          "title": "Prometheus HTTP API"
+        },
+        {
+          "url": "https://prometheus.io/docs/prometheus/latest/management_api/",
+          "title": "Prometheus management API"
+        }
+      ]
+    }
   },
   {
     "sName": "prometheus",
@@ -46609,7 +47318,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -s http://localhost:9090/api/v1/query --data-urlencode 'query=up == 0' | jq '.data.result[].metric.instance'",
     "desc": "Same query with curl and jq",
     "tip": "",
-    "tags": "sre devops prometheus recipe promql query api"
+    "tags": "sre devops prometheus recipe promql query api",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://prometheus.io/docs/prometheus/latest/command-line/promtool/",
+          "title": "promtool"
+        },
+        {
+          "url": "https://prometheus.io/docs/prometheus/latest/querying/api/",
+          "title": "Prometheus HTTP API"
+        },
+        {
+          "url": "https://prometheus.io/docs/prometheus/latest/management_api/",
+          "title": "Prometheus management API"
+        }
+      ]
+    }
   },
   {
     "sName": "prometheus",
@@ -46620,7 +47346,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -s 'http://localhost:9090/api/v1/targets?state=active' | jq -r '.data.activeTargets[] | select(.health != \"up\") | .scrapeUrl'",
     "desc": "Targets that are not being scraped",
     "tip": "",
-    "tags": "sre devops prometheus recipe promql query api"
+    "tags": "sre devops prometheus recipe promql query api",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://prometheus.io/docs/prometheus/latest/command-line/promtool/",
+          "title": "promtool"
+        },
+        {
+          "url": "https://prometheus.io/docs/prometheus/latest/querying/api/",
+          "title": "Prometheus HTTP API"
+        },
+        {
+          "url": "https://prometheus.io/docs/prometheus/latest/management_api/",
+          "title": "Prometheus management API"
+        }
+      ]
+    }
   },
   {
     "sName": "prometheus",
@@ -46631,7 +47374,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -s http://localhost:9090/-/ready",
     "desc": "Ready to answer queries? (/-/healthy is always 200)",
     "tip": "",
-    "tags": "sre devops prometheus recipe promql query api"
+    "tags": "sre devops prometheus recipe promql query api",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://prometheus.io/docs/prometheus/latest/command-line/promtool/",
+          "title": "promtool"
+        },
+        {
+          "url": "https://prometheus.io/docs/prometheus/latest/querying/api/",
+          "title": "Prometheus HTTP API"
+        },
+        {
+          "url": "https://prometheus.io/docs/prometheus/latest/management_api/",
+          "title": "Prometheus management API"
+        }
+      ]
+    }
   },
   {
     "sName": "prometheus",
@@ -46642,7 +47402,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "groups:\n  - name: node\n    rules:\n      - alert: NodeExporterDown\n        expr: up{job=\"node\"} == 0\n        for: 5m\n        keep_firing_for: 5m\n        labels:\n          severity: page\n        annotations:\n          summary: \"{{ $labels.instance }} is not being scraped\"",
     "desc": "An alerting rule (YAML)",
     "tip": "Every paging alert needs a runbook link in its annotations",
-    "tags": "sre devops prometheus alerting rules yaml for severity"
+    "tags": "sre devops prometheus alerting rules yaml for severity",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/",
+          "title": "Prometheus: alerting rules"
+        }
+      ]
+    }
   },
   {
     "sName": "prometheus",
@@ -46653,7 +47422,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "groups:\n  - name: gpu\n    rules:\n      - record: instance:dcgm_fi_dev_gpu_util:avg\n        expr: avg by (instance) (DCGM_FI_DEV_GPU_UTIL)",
     "desc": "A recording rule and its naming convention",
     "tip": "Use the recorded series in dashboards and alerts, not the raw expression",
-    "tags": "sre devops prometheus recording rules naming dcgm"
+    "tags": "sre devops prometheus recording rules naming dcgm",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://prometheus.io/docs/prometheus/latest/configuration/recording_rules/",
+          "title": "Prometheus: recording rules"
+        },
+        {
+          "url": "https://prometheus.io/docs/practices/rules/",
+          "title": "Prometheus: recording rule naming"
+        }
+      ]
+    }
   },
   {
     "sName": "prometheus",
@@ -46664,7 +47446,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "amtool alert query --alertmanager.url=http://localhost:9093",
     "desc": "Alertmanager: check config, list alerts, silence",
     "tip": "Silence the drained node, not the alert name, during maintenance",
-    "tags": "sre devops prometheus alertmanager amtool silence routes"
+    "tags": "sre devops prometheus alertmanager amtool silence routes",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/prometheus/alertmanager#amtool",
+          "title": "Alertmanager README: amtool"
+        }
+      ]
+    }
   },
   {
     "sName": "prometheus",
@@ -46675,7 +47466,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "amtool check-config /etc/alertmanager/alertmanager.yml",
     "desc": "Validate before reload",
     "tip": "",
-    "tags": "sre devops prometheus recipe alertmanager amtool silence"
+    "tags": "sre devops prometheus recipe alertmanager amtool silence",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/prometheus/alertmanager#amtool",
+          "title": "Alertmanager README: amtool"
+        }
+      ]
+    }
   },
   {
     "sName": "prometheus",
@@ -46686,7 +47486,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "amtool silence query --alertmanager.url=http://localhost:9093",
     "desc": "What is silenced right now",
     "tip": "",
-    "tags": "sre devops prometheus recipe alertmanager amtool silence"
+    "tags": "sre devops prometheus recipe alertmanager amtool silence",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/prometheus/alertmanager#amtool",
+          "title": "Alertmanager README: amtool"
+        }
+      ]
+    }
   },
   {
     "sName": "prometheus",
@@ -46697,7 +47506,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "amtool config routes --alertmanager.url=http://localhost:9093",
     "desc": "Show the routing tree",
     "tip": "",
-    "tags": "sre devops prometheus recipe alertmanager amtool silence"
+    "tags": "sre devops prometheus recipe alertmanager amtool silence",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/prometheus/alertmanager#amtool",
+          "title": "Alertmanager README: amtool"
+        }
+      ]
+    }
   },
   {
     "sName": "prometheus",
@@ -46708,7 +47526,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -X POST http://localhost:9090/-/reload",
     "desc": "Reload the config after a check",
     "tip": "A failed reload keeps the old config; check the log for the error",
-    "tags": "sre devops prometheus reload lifecycle config sighup"
+    "tags": "sre devops prometheus reload lifecycle config sighup",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://prometheus.io/docs/prometheus/latest/management_api/",
+          "title": "Prometheus management API"
+        },
+        {
+          "url": "https://github.com/prometheus/alertmanager/blob/main/CHANGELOG.md",
+          "title": "Alertmanager changelog"
+        }
+      ],
+      "note": "The CORS change is in Alertmanager 0.34.2 (Oct 29, 2026); 0.35.0 is current."
+    }
   },
   {
     "sName": "prometheus",
@@ -46719,7 +47551,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -s http://localhost:9090/api/v1/status/config | jq -r .data.yaml | head",
     "desc": "The config Prometheus actually loaded",
     "tip": "",
-    "tags": "sre devops prometheus recipe reload lifecycle config"
+    "tags": "sre devops prometheus recipe reload lifecycle config",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://prometheus.io/docs/prometheus/latest/management_api/",
+          "title": "Prometheus management API"
+        },
+        {
+          "url": "https://github.com/prometheus/alertmanager/blob/main/CHANGELOG.md",
+          "title": "Alertmanager changelog"
+        }
+      ],
+      "note": "The CORS change is in Alertmanager 0.34.2 (Oct 29, 2026); 0.35.0 is current."
+    }
   },
   {
     "sName": "prometheus",
@@ -46730,7 +47576,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "echo \"gpu_burnin_last_success_timestamp $(date +%s)\" > /var/lib/node_exporter/textfile/burnin.prom.$$ && mv /var/lib/node_exporter/textfile/burnin.prom.$$ /var/lib/node_exporter/textfile/burnin.prom",
     "desc": "Export your own metrics with the node_exporter textfile collector",
     "tip": "Good for cron jobs: alert when the timestamp gets old",
-    "tags": "sre devops prometheus tips best-practice"
+    "tags": "sre devops prometheus tips best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/prometheus/node_exporter#textfile-collector",
+          "title": "node_exporter: textfile collector"
+        }
+      ],
+      "note": "node_exporter's README shows the write-then-mv pattern and says timestamps are not supported."
+    }
   },
   {
     "sName": "ps",
@@ -52970,7 +53826,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "promtool check config /etc/prometheus/prometheus.yml",
     "desc": "Validate the config and rule files before reloading",
     "tip": "Run check config in CI so a typo never reaches the server",
-    "tags": "sre devops prometheus prometheus promtool check rules ci"
+    "tags": "sre devops prometheus prometheus promtool check rules ci",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://prometheus.io/docs/prometheus/latest/command-line/promtool/",
+          "title": "promtool"
+        },
+        {
+          "url": "https://prometheus.io/docs/prometheus/latest/configuration/unit_testing_rules/",
+          "title": "Prometheus: unit testing rules"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -52981,7 +53850,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "promtool check rules /etc/prometheus/rules/*.yml",
     "desc": "Rules only",
     "tip": "",
-    "tags": "sre devops prometheus recipe prometheus promtool check"
+    "tags": "sre devops prometheus recipe prometheus promtool check",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://prometheus.io/docs/prometheus/latest/command-line/promtool/",
+          "title": "promtool"
+        },
+        {
+          "url": "https://prometheus.io/docs/prometheus/latest/configuration/unit_testing_rules/",
+          "title": "Prometheus: unit testing rules"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -52992,7 +53874,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "promtool test rules tests/gpu-alerts-test.yml",
     "desc": "Run rule unit tests",
     "tip": "",
-    "tags": "sre devops prometheus recipe prometheus promtool check"
+    "tags": "sre devops prometheus recipe prometheus promtool check",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://prometheus.io/docs/prometheus/latest/command-line/promtool/",
+          "title": "promtool"
+        },
+        {
+          "url": "https://prometheus.io/docs/prometheus/latest/configuration/unit_testing_rules/",
+          "title": "Prometheus: unit testing rules"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53003,7 +53898,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "promtool query instant http://localhost:9090 'up == 0'",
     "desc": "Query from the shell (instant query)",
     "tip": "up == 0 is the first query in any monitoring incident",
-    "tags": "sre devops prometheus promql query api targets curl"
+    "tags": "sre devops prometheus promql query api targets curl",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://prometheus.io/docs/prometheus/latest/command-line/promtool/",
+          "title": "promtool"
+        },
+        {
+          "url": "https://prometheus.io/docs/prometheus/latest/querying/api/",
+          "title": "Prometheus HTTP API"
+        },
+        {
+          "url": "https://prometheus.io/docs/prometheus/latest/management_api/",
+          "title": "Prometheus management API"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53014,7 +53926,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -s http://localhost:9090/api/v1/query --data-urlencode 'query=up == 0' | jq '.data.result[].metric.instance'",
     "desc": "Same query with curl and jq",
     "tip": "",
-    "tags": "sre devops prometheus recipe promql query api"
+    "tags": "sre devops prometheus recipe promql query api",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://prometheus.io/docs/prometheus/latest/command-line/promtool/",
+          "title": "promtool"
+        },
+        {
+          "url": "https://prometheus.io/docs/prometheus/latest/querying/api/",
+          "title": "Prometheus HTTP API"
+        },
+        {
+          "url": "https://prometheus.io/docs/prometheus/latest/management_api/",
+          "title": "Prometheus management API"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53025,7 +53954,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -s 'http://localhost:9090/api/v1/targets?state=active' | jq -r '.data.activeTargets[] | select(.health != \"up\") | .scrapeUrl'",
     "desc": "Targets that are not being scraped",
     "tip": "",
-    "tags": "sre devops prometheus recipe promql query api"
+    "tags": "sre devops prometheus recipe promql query api",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://prometheus.io/docs/prometheus/latest/command-line/promtool/",
+          "title": "promtool"
+        },
+        {
+          "url": "https://prometheus.io/docs/prometheus/latest/querying/api/",
+          "title": "Prometheus HTTP API"
+        },
+        {
+          "url": "https://prometheus.io/docs/prometheus/latest/management_api/",
+          "title": "Prometheus management API"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53036,7 +53982,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -s http://localhost:9090/-/ready",
     "desc": "Ready to answer queries? (/-/healthy is always 200)",
     "tip": "",
-    "tags": "sre devops prometheus recipe promql query api"
+    "tags": "sre devops prometheus recipe promql query api",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://prometheus.io/docs/prometheus/latest/command-line/promtool/",
+          "title": "promtool"
+        },
+        {
+          "url": "https://prometheus.io/docs/prometheus/latest/querying/api/",
+          "title": "Prometheus HTTP API"
+        },
+        {
+          "url": "https://prometheus.io/docs/prometheus/latest/management_api/",
+          "title": "Prometheus management API"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53047,7 +54010,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "groups:\n  - name: node\n    rules:\n      - alert: NodeExporterDown\n        expr: up{job=\"node\"} == 0\n        for: 5m\n        keep_firing_for: 5m\n        labels:\n          severity: page\n        annotations:\n          summary: \"{{ $labels.instance }} is not being scraped\"",
     "desc": "An alerting rule (YAML)",
     "tip": "Every paging alert needs a runbook link in its annotations",
-    "tags": "sre devops prometheus alerting rules yaml for severity"
+    "tags": "sre devops prometheus alerting rules yaml for severity",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/",
+          "title": "Prometheus: alerting rules"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53058,7 +54030,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "groups:\n  - name: gpu\n    rules:\n      - record: instance:dcgm_fi_dev_gpu_util:avg\n        expr: avg by (instance) (DCGM_FI_DEV_GPU_UTIL)",
     "desc": "A recording rule and its naming convention",
     "tip": "Use the recorded series in dashboards and alerts, not the raw expression",
-    "tags": "sre devops prometheus recording rules naming dcgm"
+    "tags": "sre devops prometheus recording rules naming dcgm",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://prometheus.io/docs/prometheus/latest/configuration/recording_rules/",
+          "title": "Prometheus: recording rules"
+        },
+        {
+          "url": "https://prometheus.io/docs/practices/rules/",
+          "title": "Prometheus: recording rule naming"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53069,7 +54054,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "amtool alert query --alertmanager.url=http://localhost:9093",
     "desc": "Alertmanager: check config, list alerts, silence",
     "tip": "Silence the drained node, not the alert name, during maintenance",
-    "tags": "sre devops prometheus alertmanager amtool silence routes"
+    "tags": "sre devops prometheus alertmanager amtool silence routes",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/prometheus/alertmanager#amtool",
+          "title": "Alertmanager README: amtool"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53080,7 +54074,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "amtool check-config /etc/alertmanager/alertmanager.yml",
     "desc": "Validate before reload",
     "tip": "",
-    "tags": "sre devops prometheus recipe alertmanager amtool silence"
+    "tags": "sre devops prometheus recipe alertmanager amtool silence",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/prometheus/alertmanager#amtool",
+          "title": "Alertmanager README: amtool"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53091,7 +54094,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "amtool silence query --alertmanager.url=http://localhost:9093",
     "desc": "What is silenced right now",
     "tip": "",
-    "tags": "sre devops prometheus recipe alertmanager amtool silence"
+    "tags": "sre devops prometheus recipe alertmanager amtool silence",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/prometheus/alertmanager#amtool",
+          "title": "Alertmanager README: amtool"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53102,7 +54114,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "amtool config routes --alertmanager.url=http://localhost:9093",
     "desc": "Show the routing tree",
     "tip": "",
-    "tags": "sre devops prometheus recipe alertmanager amtool silence"
+    "tags": "sre devops prometheus recipe alertmanager amtool silence",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/prometheus/alertmanager#amtool",
+          "title": "Alertmanager README: amtool"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53113,7 +54134,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -X POST http://localhost:9090/-/reload",
     "desc": "Reload the config after a check",
     "tip": "A failed reload keeps the old config; check the log for the error",
-    "tags": "sre devops prometheus reload lifecycle config sighup"
+    "tags": "sre devops prometheus reload lifecycle config sighup",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://prometheus.io/docs/prometheus/latest/management_api/",
+          "title": "Prometheus management API"
+        },
+        {
+          "url": "https://github.com/prometheus/alertmanager/blob/main/CHANGELOG.md",
+          "title": "Alertmanager changelog"
+        }
+      ],
+      "note": "The CORS change is in Alertmanager 0.34.2 (Oct 29, 2026); 0.35.0 is current."
+    }
   },
   {
     "sName": "sre",
@@ -53124,7 +54159,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -s http://localhost:9090/api/v1/status/config | jq -r .data.yaml | head",
     "desc": "The config Prometheus actually loaded",
     "tip": "",
-    "tags": "sre devops prometheus recipe reload lifecycle config"
+    "tags": "sre devops prometheus recipe reload lifecycle config",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://prometheus.io/docs/prometheus/latest/management_api/",
+          "title": "Prometheus management API"
+        },
+        {
+          "url": "https://github.com/prometheus/alertmanager/blob/main/CHANGELOG.md",
+          "title": "Alertmanager changelog"
+        }
+      ],
+      "note": "The CORS change is in Alertmanager 0.34.2 (Oct 29, 2026); 0.35.0 is current."
+    }
   },
   {
     "sName": "sre",
@@ -53135,7 +54184,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "echo \"gpu_burnin_last_success_timestamp $(date +%s)\" > /var/lib/node_exporter/textfile/burnin.prom.$$ && mv /var/lib/node_exporter/textfile/burnin.prom.$$ /var/lib/node_exporter/textfile/burnin.prom",
     "desc": "Export your own metrics with the node_exporter textfile collector",
     "tip": "Good for cron jobs: alert when the timestamp gets old",
-    "tags": "sre devops prometheus tips best-practice"
+    "tags": "sre devops prometheus tips best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/prometheus/node_exporter#textfile-collector",
+          "title": "node_exporter: textfile collector"
+        }
+      ],
+      "note": "node_exporter's README shows the write-then-mv pattern and says timestamps are not supported."
+    }
   },
   {
     "sName": "sre",
@@ -53146,7 +54205,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ansible all -i inventory.ini -m ansible.builtin.ping",
     "desc": "Can Ansible reach every host?",
     "tip": "ping first: most failures are SSH or inventory, not the playbook",
-    "tags": "sre devops ansible ansible ping inventory ad-hoc"
+    "tags": "sre devops ansible ansible ping inventory ad-hoc",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.ansible.com/ansible/latest/cli/ansible.html",
+          "title": "ansible CLI"
+        },
+        {
+          "url": "https://docs.ansible.com/ansible/latest/inventory_guide/intro_patterns.html",
+          "title": "Ansible: patterns"
+        },
+        {
+          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-inventory.html",
+          "title": "ansible-inventory"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53157,7 +54233,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ansible-inventory -i inventory.ini --graph",
     "desc": "Groups and hosts as a tree",
     "tip": "",
-    "tags": "sre devops ansible recipe ansible ping inventory"
+    "tags": "sre devops ansible recipe ansible ping inventory",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.ansible.com/ansible/latest/cli/ansible.html",
+          "title": "ansible CLI"
+        },
+        {
+          "url": "https://docs.ansible.com/ansible/latest/inventory_guide/intro_patterns.html",
+          "title": "Ansible: patterns"
+        },
+        {
+          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-inventory.html",
+          "title": "ansible-inventory"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53168,7 +54261,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ansible-inventory -i inventory.ini --host node07",
     "desc": "Variables for one host",
     "tip": "",
-    "tags": "sre devops ansible recipe ansible ping inventory"
+    "tags": "sre devops ansible recipe ansible ping inventory",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.ansible.com/ansible/latest/cli/ansible.html",
+          "title": "ansible CLI"
+        },
+        {
+          "url": "https://docs.ansible.com/ansible/latest/inventory_guide/intro_patterns.html",
+          "title": "Ansible: patterns"
+        },
+        {
+          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-inventory.html",
+          "title": "ansible-inventory"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53179,7 +54289,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ansible gpu -i inventory.ini -m ansible.builtin.shell -a 'nvidia-smi -L | wc -l'",
     "desc": "One read-only command across a group",
     "tip": "Ad-hoc is for read-only checks; changes belong in a reviewed playbook",
-    "tags": "sre devops ansible ad-hoc shell fleet become"
+    "tags": "sre devops ansible ad-hoc shell fleet become",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.ansible.com/ansible/latest/cli/ansible.html",
+          "title": "ansible CLI"
+        },
+        {
+          "url": "https://docs.ansible.com/ansible/latest/collections/ansible/builtin/shell_module.html",
+          "title": "ansible.builtin.shell"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53190,7 +54313,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ansible gpu -i inventory.ini -m ansible.builtin.shell -a 'uptime' -o",
     "desc": "Uptime per host, one line each",
     "tip": "",
-    "tags": "sre devops ansible recipe ad-hoc shell fleet"
+    "tags": "sre devops ansible recipe ad-hoc shell fleet",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.ansible.com/ansible/latest/cli/ansible.html",
+          "title": "ansible CLI"
+        },
+        {
+          "url": "https://docs.ansible.com/ansible/latest/collections/ansible/builtin/shell_module.html",
+          "title": "ansible.builtin.shell"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53201,7 +54337,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ansible-playbook -i inventory.ini site.yml --check --diff --limit node07",
     "desc": "Dry-run a playbook on one host with a diff",
     "tip": "check + diff on one host, then the real run on that host, then the rest",
-    "tags": "sre devops ansible playbook check diff limit dry-run"
+    "tags": "sre devops ansible playbook check diff limit dry-run",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-playbook.html",
+          "title": "ansible-playbook"
+        },
+        {
+          "url": "https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_checkmode.html",
+          "title": "Ansible: check mode"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53212,7 +54361,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ansible-playbook -i inventory.ini site.yml --syntax-check",
     "desc": "Parse only",
     "tip": "",
-    "tags": "sre devops ansible recipe playbook check diff"
+    "tags": "sre devops ansible recipe playbook check diff",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-playbook.html",
+          "title": "ansible-playbook"
+        },
+        {
+          "url": "https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_checkmode.html",
+          "title": "Ansible: check mode"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53223,7 +54385,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ansible-playbook -i inventory.ini site.yml --list-hosts",
     "desc": "Which hosts it targets",
     "tip": "",
-    "tags": "sre devops ansible recipe playbook check diff"
+    "tags": "sre devops ansible recipe playbook check diff",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-playbook.html",
+          "title": "ansible-playbook"
+        },
+        {
+          "url": "https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_checkmode.html",
+          "title": "Ansible: check mode"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53234,7 +54409,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ansible-playbook -i inventory.ini site.yml --limit node07",
     "desc": "The real run on one host (changes state)",
     "tip": "",
-    "tags": "sre devops ansible recipe playbook check diff"
+    "tags": "sre devops ansible recipe playbook check diff",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-playbook.html",
+          "title": "ansible-playbook"
+        },
+        {
+          "url": "https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_checkmode.html",
+          "title": "Ansible: check mode"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53245,7 +54433,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ansible-vault encrypt_string --prompt --name bmc_password",
     "desc": "Encrypt a secret for a playbook",
     "tip": "Never put a vault password file in the repo",
-    "tags": "sre devops ansible vault secrets encrypt password"
+    "tags": "sre devops ansible vault secrets encrypt password",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-vault.html",
+          "title": "ansible-vault"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53256,7 +54453,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ansible-vault create group_vars/bmc/vault.yml",
     "desc": "A new encrypted vars file",
     "tip": "",
-    "tags": "sre devops ansible recipe vault secrets encrypt"
+    "tags": "sre devops ansible recipe vault secrets encrypt",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-vault.html",
+          "title": "ansible-vault"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53267,7 +54473,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ansible-playbook -i inventory.ini site.yml --ask-vault-password --check",
     "desc": "Use it",
     "tip": "",
-    "tags": "sre devops ansible recipe vault secrets encrypt"
+    "tags": "sre devops ansible recipe vault secrets encrypt",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-vault.html",
+          "title": "ansible-vault"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53278,7 +54493,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ansible-doc -s ansible.builtin.copy",
     "desc": "Collections, config and module docs",
     "tip": "Pin collections in requirements.yml",
-    "tags": "sre devops ansible ansible-doc galaxy config lint"
+    "tags": "sre devops ansible ansible-doc galaxy config lint",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-doc.html",
+          "title": "ansible-doc"
+        },
+        {
+          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-config.html",
+          "title": "ansible-config"
+        },
+        {
+          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-galaxy.html",
+          "title": "ansible-galaxy"
+        },
+        {
+          "url": "https://ansible.readthedocs.io/projects/lint/",
+          "title": "ansible-lint"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53289,7 +54525,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ansible-config dump --only-changed",
     "desc": "Why does it behave differently here?",
     "tip": "",
-    "tags": "sre devops ansible recipe ansible-doc galaxy config"
+    "tags": "sre devops ansible recipe ansible-doc galaxy config",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-doc.html",
+          "title": "ansible-doc"
+        },
+        {
+          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-config.html",
+          "title": "ansible-config"
+        },
+        {
+          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-galaxy.html",
+          "title": "ansible-galaxy"
+        },
+        {
+          "url": "https://ansible.readthedocs.io/projects/lint/",
+          "title": "ansible-lint"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53300,7 +54557,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ansible-galaxy collection install -r requirements.yml",
     "desc": "Same collections everywhere",
     "tip": "",
-    "tags": "sre devops ansible recipe ansible-doc galaxy config"
+    "tags": "sre devops ansible recipe ansible-doc galaxy config",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-doc.html",
+          "title": "ansible-doc"
+        },
+        {
+          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-config.html",
+          "title": "ansible-config"
+        },
+        {
+          "url": "https://docs.ansible.com/ansible/latest/cli/ansible-galaxy.html",
+          "title": "ansible-galaxy"
+        },
+        {
+          "url": "https://ansible.readthedocs.io/projects/lint/",
+          "title": "ansible-lint"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53311,7 +54589,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ansible gpu -i inventory.ini -m ansible.builtin.setup -a 'filter=ansible_product_serial'",
     "desc": "Gather facts as a read-only inventory",
     "tip": "Compare BIOS versions across a rack in one command",
-    "tags": "sre devops ansible tips best-practice"
+    "tags": "sre devops ansible tips best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.ansible.com/ansible/latest/collections/ansible/builtin/setup_module.html",
+          "title": "ansible.builtin.setup"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53322,7 +54609,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "terraform init && terraform fmt -check -recursive && terraform validate",
     "desc": "Initialise, format and validate",
     "tip": "Commit .terraform.lock.hcl",
-    "tags": "sre devops terraform terraform opentofu init fmt validate"
+    "tags": "sre devops terraform terraform opentofu init fmt validate",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/init",
+          "title": "terraform init"
+        },
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/fmt",
+          "title": "terraform fmt"
+        },
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/validate",
+          "title": "terraform validate"
+        },
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/providers/lock",
+          "title": "terraform providers lock"
+        },
+        {
+          "url": "https://opentofu.org/docs/cli/commands/",
+          "title": "OpenTofu CLI"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53333,7 +54645,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "terraform providers lock -platform=linux_amd64 -platform=darwin_arm64",
     "desc": "Lock-file hashes for every platform your team uses",
     "tip": "",
-    "tags": "sre devops terraform recipe terraform opentofu init"
+    "tags": "sre devops terraform recipe terraform opentofu init",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/init",
+          "title": "terraform init"
+        },
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/fmt",
+          "title": "terraform fmt"
+        },
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/validate",
+          "title": "terraform validate"
+        },
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/providers/lock",
+          "title": "terraform providers lock"
+        },
+        {
+          "url": "https://opentofu.org/docs/cli/commands/",
+          "title": "OpenTofu CLI"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53344,7 +54681,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "terraform plan -out=tfplan",
     "desc": "Save a plan, review it, apply exactly that plan",
     "tip": "Read every - and -/+ (destroy) line in the plan before you apply",
-    "tags": "sre devops terraform plan apply destroy target"
+    "tags": "sre devops terraform plan apply destroy target",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/plan",
+          "title": "terraform plan"
+        },
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/apply",
+          "title": "terraform apply"
+        },
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/show",
+          "title": "terraform show"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53355,7 +54709,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "terraform show tfplan",
     "desc": "Review the saved plan",
     "tip": "",
-    "tags": "sre devops terraform recipe plan apply destroy"
+    "tags": "sre devops terraform recipe plan apply destroy",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/plan",
+          "title": "terraform plan"
+        },
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/apply",
+          "title": "terraform apply"
+        },
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/show",
+          "title": "terraform show"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53366,7 +54737,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "terraform apply tfplan",
     "desc": "Apply the reviewed plan (changes state)",
     "tip": "",
-    "tags": "sre devops terraform recipe plan apply destroy"
+    "tags": "sre devops terraform recipe plan apply destroy",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/plan",
+          "title": "terraform plan"
+        },
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/apply",
+          "title": "terraform apply"
+        },
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/show",
+          "title": "terraform show"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53377,7 +54765,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "terraform state list",
     "desc": "Inspect state",
     "tip": "Prefer a moved block to state mv: it is reviewed in the plan",
-    "tags": "sre devops terraform state list show output"
+    "tags": "sre devops terraform state list show output",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/state/list",
+          "title": "terraform state list"
+        },
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/state/show",
+          "title": "terraform state show"
+        },
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/state/mv",
+          "title": "terraform state mv"
+        },
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/output",
+          "title": "terraform output"
+        }
+      ],
+      "note": "state show -json needs Terraform 1.16 or later."
+    }
   },
   {
     "sName": "sre",
@@ -53388,7 +54798,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "terraform state show 'module.rack12.aws_instance.node[\"07\"]'",
     "desc": "Quote addresses with brackets",
     "tip": "",
-    "tags": "sre devops terraform recipe state list show"
+    "tags": "sre devops terraform recipe state list show",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/state/list",
+          "title": "terraform state list"
+        },
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/state/show",
+          "title": "terraform state show"
+        },
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/state/mv",
+          "title": "terraform state mv"
+        },
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/output",
+          "title": "terraform output"
+        }
+      ],
+      "note": "state show -json needs Terraform 1.16 or later."
+    }
   },
   {
     "sName": "sre",
@@ -53399,7 +54831,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "terraform output -json | jq .",
     "desc": "Outputs for a script",
     "tip": "",
-    "tags": "sre devops terraform recipe state list show"
+    "tags": "sre devops terraform recipe state list show",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/state/list",
+          "title": "terraform state list"
+        },
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/state/show",
+          "title": "terraform state show"
+        },
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/state/mv",
+          "title": "terraform state mv"
+        },
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/output",
+          "title": "terraform output"
+        }
+      ],
+      "note": "state show -json needs Terraform 1.16 or later."
+    }
   },
   {
     "sName": "sre",
@@ -53410,7 +54864,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "moved {\n  from = aws_instance.worker\n  to   = aws_instance.helper\n}\n\nimport {\n  to = aws_instance.legacy\n  id = \"i-0123456789abcdef0\"\n}",
     "desc": "moved and import blocks (reviewed in the plan)",
     "tip": "Keep moved blocks until every workspace has applied them",
-    "tags": "sre devops terraform moved import refactor hcl"
+    "tags": "sre devops terraform moved import refactor hcl",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://developer.hashicorp.com/terraform/language/moved",
+          "title": "Terraform: moved block"
+        },
+        {
+          "url": "https://developer.hashicorp.com/terraform/language/import",
+          "title": "Terraform: import block"
+        },
+        {
+          "url": "https://developer.hashicorp.com/terraform/language/import/generating-configuration",
+          "title": "Terraform: generating configuration"
+        }
+      ],
+      "note": "plan -generate-config-out is still experimental in Terraform 1.17."
+    }
   },
   {
     "sName": "sre",
@@ -53421,7 +54893,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "terraform version; tofu version",
     "desc": "Terraform or OpenTofu?",
     "tip": "Don't mix the two on one state file",
-    "tags": "sre devops terraform tips best-practice"
+    "tags": "sre devops terraform tips best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/hashicorp/terraform/blob/main/LICENSE",
+          "title": "Terraform LICENSE (BUSL 1.1)"
+        },
+        {
+          "url": "https://opentofu.org/",
+          "title": "OpenTofu"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53432,7 +54917,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "helm repo add prometheus-community https://prometheus-community.github.io/helm-charts && helm repo update",
     "desc": "Add a chart repo and read its default values",
     "tip": "Pin --version on every install",
-    "tags": "sre devops helm helm repo values chart"
+    "tags": "sre devops helm helm repo values chart",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://helm.sh/docs/helm/helm_repo_add/",
+          "title": "helm repo add"
+        },
+        {
+          "url": "https://helm.sh/docs/helm/helm_search_repo/",
+          "title": "helm search repo"
+        },
+        {
+          "url": "https://helm.sh/docs/helm/helm_show_values/",
+          "title": "helm show values"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53443,7 +54945,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "helm search repo prometheus-community/kube-prometheus-stack --versions | head",
     "desc": "Available versions",
     "tip": "",
-    "tags": "sre devops helm recipe helm repo values"
+    "tags": "sre devops helm recipe helm repo values",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://helm.sh/docs/helm/helm_repo_add/",
+          "title": "helm repo add"
+        },
+        {
+          "url": "https://helm.sh/docs/helm/helm_search_repo/",
+          "title": "helm search repo"
+        },
+        {
+          "url": "https://helm.sh/docs/helm/helm_show_values/",
+          "title": "helm show values"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53454,7 +54973,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "helm show values prometheus-community/kube-prometheus-stack > values.yaml",
     "desc": "Defaults to edit",
     "tip": "",
-    "tags": "sre devops helm recipe helm repo values"
+    "tags": "sre devops helm recipe helm repo values",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://helm.sh/docs/helm/helm_repo_add/",
+          "title": "helm repo add"
+        },
+        {
+          "url": "https://helm.sh/docs/helm/helm_search_repo/",
+          "title": "helm search repo"
+        },
+        {
+          "url": "https://helm.sh/docs/helm/helm_show_values/",
+          "title": "helm show values"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53465,7 +55001,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "helm template mon prometheus-community/kube-prometheus-stack -f values.yaml -n monitoring > rendered.yaml",
     "desc": "Render and lint before installing",
     "tip": "Review rendered.yaml or the diff before every upgrade",
-    "tags": "sre devops helm template lint diff render"
+    "tags": "sre devops helm template lint diff render",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://helm.sh/docs/helm/helm_template/",
+          "title": "helm template"
+        },
+        {
+          "url": "https://helm.sh/docs/helm/helm_lint/",
+          "title": "helm lint"
+        },
+        {
+          "url": "https://github.com/databus23/helm-diff",
+          "title": "helm-diff plugin"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53476,7 +55029,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "helm plugin install https://github.com/databus23/helm-diff",
     "desc": "Install helm-diff (Helm 4 verifies plugin provenance)",
     "tip": "",
-    "tags": "sre devops helm recipe template lint diff"
+    "tags": "sre devops helm recipe template lint diff",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://helm.sh/docs/helm/helm_template/",
+          "title": "helm template"
+        },
+        {
+          "url": "https://helm.sh/docs/helm/helm_lint/",
+          "title": "helm lint"
+        },
+        {
+          "url": "https://github.com/databus23/helm-diff",
+          "title": "helm-diff plugin"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53487,7 +55057,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "helm diff upgrade mon prometheus-community/kube-prometheus-stack -f values.yaml -n monitoring",
     "desc": "Diff against the live release",
     "tip": "",
-    "tags": "sre devops helm recipe template lint diff"
+    "tags": "sre devops helm recipe template lint diff",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://helm.sh/docs/helm/helm_template/",
+          "title": "helm template"
+        },
+        {
+          "url": "https://helm.sh/docs/helm/helm_lint/",
+          "title": "helm lint"
+        },
+        {
+          "url": "https://github.com/databus23/helm-diff",
+          "title": "helm-diff plugin"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53498,7 +55085,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "helm upgrade --install mon prometheus-community/kube-prometheus-stack -n monitoring --create-namespace -f values.yaml --version <chart-version> --rollback-on-failure",
     "desc": "Install or upgrade, rolling back on failure",
     "tip": "Old names (--atomic, --force) still work in Helm 4 with a warning",
-    "tags": "sre devops helm upgrade install atomic rollback-on-failure helm4"
+    "tags": "sre devops helm upgrade install atomic rollback-on-failure helm4",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://helm.sh/docs/helm/helm_upgrade/",
+          "title": "helm upgrade"
+        },
+        {
+          "url": "https://helm.sh/docs/overview/",
+          "title": "Helm 4 overview"
+        }
+      ],
+      "note": "Checked against Helm 4.3.1; the old flag names still work with a deprecation warning."
+    }
   },
   {
     "sName": "sre",
@@ -53509,7 +55110,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "helm history mon -n monitoring",
     "desc": "Release history and rollback",
     "tip": "history tells you which revision last worked",
-    "tags": "sre devops helm history rollback list get"
+    "tags": "sre devops helm history rollback list get",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://helm.sh/docs/helm/helm_history/",
+          "title": "helm history"
+        },
+        {
+          "url": "https://helm.sh/docs/helm/helm_rollback/",
+          "title": "helm rollback"
+        },
+        {
+          "url": "https://helm.sh/docs/helm/helm_get_values/",
+          "title": "helm get values"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53520,7 +55138,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "helm get values mon -n monitoring",
     "desc": "Values in use",
     "tip": "",
-    "tags": "sre devops helm recipe history rollback list"
+    "tags": "sre devops helm recipe history rollback list",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://helm.sh/docs/helm/helm_history/",
+          "title": "helm history"
+        },
+        {
+          "url": "https://helm.sh/docs/helm/helm_rollback/",
+          "title": "helm rollback"
+        },
+        {
+          "url": "https://helm.sh/docs/helm/helm_get_values/",
+          "title": "helm get values"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53531,7 +55166,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "helm rollback mon 3 -n monitoring",
     "desc": "Back to revision 3 (changes state)",
     "tip": "",
-    "tags": "sre devops helm recipe history rollback list"
+    "tags": "sre devops helm recipe history rollback list",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://helm.sh/docs/helm/helm_history/",
+          "title": "helm history"
+        },
+        {
+          "url": "https://helm.sh/docs/helm/helm_rollback/",
+          "title": "helm rollback"
+        },
+        {
+          "url": "https://helm.sh/docs/helm/helm_get_values/",
+          "title": "helm get values"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53542,7 +55194,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "helm version",
     "desc": "Helm 3 end of support",
     "tip": "Upgrade the CLI on jumpboxes and CI together",
-    "tags": "sre devops helm tips best-practice"
+    "tags": "sre devops helm tips best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/helm/helm/releases",
+          "title": "Helm releases"
+        },
+        {
+          "url": "https://helm.sh/blog/",
+          "title": "Helm blog (Helm 3 end of life)"
+        },
+        {
+          "url": "https://helm.sh/docs/overview/",
+          "title": "Helm 4 overview"
+        }
+      ],
+      "note": "Corrected 2026-11-10: Helm 3 security patches run through February 2027 (not Nov 11, 2026). helm version --client was removed in Helm 4 (changelog, PR #31301)."
+    }
   },
   {
     "sName": "sre",
@@ -53553,7 +55223,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "argocd login argocd.example.com --sso --grpc-web",
     "desc": "Log in with SSO",
     "tip": "SSO keeps passwords off the jumpbox",
-    "tags": "sre devops argocd argocd login sso"
+    "tags": "sre devops argocd argocd login sso",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_login/",
+          "title": "argocd login"
+        }
+      ],
+      "note": "The flags exist separately in the docs; --sso and --core aren't shown together."
+    }
   },
   {
     "sName": "sre",
@@ -53564,7 +55244,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "argocd app list",
     "desc": "What is out of sync, and what differs",
     "tip": "OutOfSync + Healthy is drift; Degraded is broken",
-    "tags": "sre devops argocd status diff history drift"
+    "tags": "sre devops argocd status diff history drift",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_list/",
+          "title": "argocd app list"
+        },
+        {
+          "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_diff/",
+          "title": "argocd app diff"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53575,7 +55268,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "argocd app get dcgm-exporter",
     "desc": "One application in detail",
     "tip": "",
-    "tags": "sre devops argocd recipe status diff history"
+    "tags": "sre devops argocd recipe status diff history",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_list/",
+          "title": "argocd app list"
+        },
+        {
+          "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_diff/",
+          "title": "argocd app diff"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53586,7 +55292,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "argocd app diff dcgm-exporter",
     "desc": "What would change on sync",
     "tip": "",
-    "tags": "sre devops argocd recipe status diff history"
+    "tags": "sre devops argocd recipe status diff history",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_list/",
+          "title": "argocd app list"
+        },
+        {
+          "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_diff/",
+          "title": "argocd app diff"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53597,7 +55316,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "argocd app sync dcgm-exporter --dry-run",
     "desc": "Preview, then sync",
     "tip": "--prune deletes things: read the diff first",
-    "tags": "sre devops argocd sync dry-run prune wait"
+    "tags": "sre devops argocd sync dry-run prune wait",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_sync/",
+          "title": "argocd app sync"
+        },
+        {
+          "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_wait/",
+          "title": "argocd app wait"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53608,7 +55340,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "argocd app sync dcgm-exporter",
     "desc": "Real sync (changes state)",
     "tip": "",
-    "tags": "sre devops argocd recipe sync dry-run prune"
+    "tags": "sre devops argocd recipe sync dry-run prune",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_sync/",
+          "title": "argocd app sync"
+        },
+        {
+          "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_wait/",
+          "title": "argocd app wait"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53619,7 +55364,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "argocd app wait dcgm-exporter --health --timeout 300",
     "desc": "Wait up to 5 minutes for health",
     "tip": "",
-    "tags": "sre devops argocd recipe sync dry-run prune"
+    "tags": "sre devops argocd recipe sync dry-run prune",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_sync/",
+          "title": "argocd app sync"
+        },
+        {
+          "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_wait/",
+          "title": "argocd app wait"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53630,7 +55388,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "argocd app history dcgm-exporter",
     "desc": "Roll back, and the auto-sync gotcha",
     "tip": "Revert in Git when you can; CLI rollback is for emergencies",
-    "tags": "sre devops argocd rollback auto-sync gitops revert"
+    "tags": "sre devops argocd rollback auto-sync gitops revert",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_rollback/",
+          "title": "argocd app rollback"
+        },
+        {
+          "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_set/",
+          "title": "argocd app set"
+        },
+        {
+          "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/auto_sync/",
+          "title": "Argo CD: automated sync policy"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53641,7 +55416,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "argocd app set dcgm-exporter --sync-policy manual",
     "desc": "Pause auto-sync (changes state)",
     "tip": "",
-    "tags": "sre devops argocd recipe rollback auto-sync gitops"
+    "tags": "sre devops argocd recipe rollback auto-sync gitops",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_rollback/",
+          "title": "argocd app rollback"
+        },
+        {
+          "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_set/",
+          "title": "argocd app set"
+        },
+        {
+          "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/auto_sync/",
+          "title": "Argo CD: automated sync policy"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53652,7 +55444,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "argocd app rollback dcgm-exporter",
     "desc": "Previous revision (changes state)",
     "tip": "",
-    "tags": "sre devops argocd recipe rollback auto-sync gitops"
+    "tags": "sre devops argocd recipe rollback auto-sync gitops",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_rollback/",
+          "title": "argocd app rollback"
+        },
+        {
+          "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_app_set/",
+          "title": "argocd app set"
+        },
+        {
+          "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/auto_sync/",
+          "title": "Argo CD: automated sync policy"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53663,7 +55472,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "spec:\n  syncPolicy:\n    automated:\n      prune: true\n      selfHeal: true",
     "desc": "Automated sync with prune and self-heal",
     "tip": "With selfHeal on, a hotfix made with kubectl is undone: change Git instead",
-    "tags": "sre devops argocd tips best-practice"
+    "tags": "sre devops argocd tips best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://argo-cd.readthedocs.io/en/stable/user-guide/auto_sync/",
+          "title": "Argo CD: automated sync policy"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53674,7 +55492,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "printf '%s\\n' 'IC: <name>' 'Ops lead: <name>' 'Comms lead: <name>' 'Started (UTC): '\"$(date -u +%FT%TZ)\"",
     "desc": "Roles (Google SRE incident management)",
     "tip": "One person changes production at a time: the Ops lead",
-    "tags": "sre devops incident incident roles ic comms sre"
+    "tags": "sre devops incident incident roles ic comms sre",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://sre.google/sre-book/managing-incidents/",
+          "title": "Google SRE book: managing incidents"
+        },
+        {
+          "url": "https://sre.google/workbook/incident-response/",
+          "title": "SRE workbook: incident response"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53685,7 +55516,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "date -u; uptime; journalctl -p err -b --since '-1h' --no-pager | tail -n 50",
     "desc": "First 15 minutes on a node: facts, in UTC",
     "tip": "Mitigate first (drain, fail over), find the root cause after",
-    "tags": "sre devops incident triage timeline utc journalctl dmesg"
+    "tags": "sre devops incident triage timeline utc journalctl dmesg",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://sre.google/workbook/incident-response/",
+          "title": "SRE workbook: incident response"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/journalctl.1.html",
+          "title": "journalctl(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53696,7 +55540,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dmesg -T --level=err,crit | tail -n 40",
     "desc": "Kernel errors",
     "tip": "",
-    "tags": "sre devops incident recipe triage timeline utc"
+    "tags": "sre devops incident recipe triage timeline utc",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://sre.google/workbook/incident-response/",
+          "title": "SRE workbook: incident response"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/journalctl.1.html",
+          "title": "journalctl(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53707,7 +55564,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sinfo -R",
     "desc": "Drained nodes and their reasons",
     "tip": "",
-    "tags": "sre devops incident recipe triage timeline utc"
+    "tags": "sre devops incident recipe triage timeline utc",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://sre.google/workbook/incident-response/",
+          "title": "SRE workbook: incident response"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/journalctl.1.html",
+          "title": "journalctl(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53718,7 +55588,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "amtool alert query --alertmanager.url=http://localhost:9093",
     "desc": "What is firing",
     "tip": "",
-    "tags": "sre devops incident recipe triage timeline utc"
+    "tags": "sre devops incident recipe triage timeline utc",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://sre.google/workbook/incident-response/",
+          "title": "SRE workbook: incident response"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/journalctl.1.html",
+          "title": "journalctl(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53729,7 +55612,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "echo \"$(date -u +%FT%TZ) <what you saw or did>\" >> cases/<ticket>/timeline.md",
     "desc": "Keep a timeline as you go",
     "tip": "Replace the placeholders before you run it",
-    "tags": "sre devops incident timeline notes case postmortem"
+    "tags": "sre devops incident timeline notes case postmortem",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://sre.google/sre-book/managing-incidents/",
+          "title": "Google SRE book: managing incidents"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53740,7 +55632,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "## Summary\n## Impact (who, how long)\n## Timeline (UTC)\n## Root cause and trigger\n## What went well / what didn't\n## Action items (owner, due date)",
     "desc": "Blameless postmortem outline",
     "tip": "Action items without owners don't get done",
-    "tags": "sre devops incident postmortem blameless rca actions"
+    "tags": "sre devops incident postmortem blameless rca actions",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://sre.google/sre-book/postmortem-culture/",
+          "title": "Google SRE book: postmortem culture"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -53751,7 +55652,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "amtool silence add instance=~\"node07.*\" --alertmanager.url=http://localhost:9093",
     "desc": "Silence alerts for a node under maintenance",
     "tip": "Put the ticket number in the silence comment",
-    "tags": "sre devops incident tips best-practice"
+    "tags": "sre devops incident tips best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/prometheus/alertmanager#amtool",
+          "title": "Alertmanager README: amtool"
+        }
+      ]
+    }
   },
   {
     "sName": "ss",
@@ -58488,7 +60398,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "terraform init && terraform fmt -check -recursive && terraform validate",
     "desc": "Initialise, format and validate",
     "tip": "Commit .terraform.lock.hcl",
-    "tags": "sre devops terraform terraform opentofu init fmt validate"
+    "tags": "sre devops terraform terraform opentofu init fmt validate",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/init",
+          "title": "terraform init"
+        },
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/fmt",
+          "title": "terraform fmt"
+        },
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/validate",
+          "title": "terraform validate"
+        },
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/providers/lock",
+          "title": "terraform providers lock"
+        },
+        {
+          "url": "https://opentofu.org/docs/cli/commands/",
+          "title": "OpenTofu CLI"
+        }
+      ]
+    }
   },
   {
     "sName": "terraform",
@@ -58499,7 +60434,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "terraform providers lock -platform=linux_amd64 -platform=darwin_arm64",
     "desc": "Lock-file hashes for every platform your team uses",
     "tip": "",
-    "tags": "sre devops terraform recipe terraform opentofu init"
+    "tags": "sre devops terraform recipe terraform opentofu init",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/init",
+          "title": "terraform init"
+        },
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/fmt",
+          "title": "terraform fmt"
+        },
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/validate",
+          "title": "terraform validate"
+        },
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/providers/lock",
+          "title": "terraform providers lock"
+        },
+        {
+          "url": "https://opentofu.org/docs/cli/commands/",
+          "title": "OpenTofu CLI"
+        }
+      ]
+    }
   },
   {
     "sName": "terraform",
@@ -58510,7 +60470,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "terraform plan -out=tfplan",
     "desc": "Save a plan, review it, apply exactly that plan",
     "tip": "Read every - and -/+ (destroy) line in the plan before you apply",
-    "tags": "sre devops terraform plan apply destroy target"
+    "tags": "sre devops terraform plan apply destroy target",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/plan",
+          "title": "terraform plan"
+        },
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/apply",
+          "title": "terraform apply"
+        },
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/show",
+          "title": "terraform show"
+        }
+      ]
+    }
   },
   {
     "sName": "terraform",
@@ -58521,7 +60498,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "terraform show tfplan",
     "desc": "Review the saved plan",
     "tip": "",
-    "tags": "sre devops terraform recipe plan apply destroy"
+    "tags": "sre devops terraform recipe plan apply destroy",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/plan",
+          "title": "terraform plan"
+        },
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/apply",
+          "title": "terraform apply"
+        },
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/show",
+          "title": "terraform show"
+        }
+      ]
+    }
   },
   {
     "sName": "terraform",
@@ -58532,7 +60526,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "terraform apply tfplan",
     "desc": "Apply the reviewed plan (changes state)",
     "tip": "",
-    "tags": "sre devops terraform recipe plan apply destroy"
+    "tags": "sre devops terraform recipe plan apply destroy",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/plan",
+          "title": "terraform plan"
+        },
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/apply",
+          "title": "terraform apply"
+        },
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/show",
+          "title": "terraform show"
+        }
+      ]
+    }
   },
   {
     "sName": "terraform",
@@ -58543,7 +60554,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "terraform state list",
     "desc": "Inspect state",
     "tip": "Prefer a moved block to state mv: it is reviewed in the plan",
-    "tags": "sre devops terraform state list show output"
+    "tags": "sre devops terraform state list show output",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/state/list",
+          "title": "terraform state list"
+        },
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/state/show",
+          "title": "terraform state show"
+        },
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/state/mv",
+          "title": "terraform state mv"
+        },
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/output",
+          "title": "terraform output"
+        }
+      ],
+      "note": "state show -json needs Terraform 1.16 or later."
+    }
   },
   {
     "sName": "terraform",
@@ -58554,7 +60587,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "terraform state show 'module.rack12.aws_instance.node[\"07\"]'",
     "desc": "Quote addresses with brackets",
     "tip": "",
-    "tags": "sre devops terraform recipe state list show"
+    "tags": "sre devops terraform recipe state list show",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/state/list",
+          "title": "terraform state list"
+        },
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/state/show",
+          "title": "terraform state show"
+        },
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/state/mv",
+          "title": "terraform state mv"
+        },
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/output",
+          "title": "terraform output"
+        }
+      ],
+      "note": "state show -json needs Terraform 1.16 or later."
+    }
   },
   {
     "sName": "terraform",
@@ -58565,7 +60620,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "terraform output -json | jq .",
     "desc": "Outputs for a script",
     "tip": "",
-    "tags": "sre devops terraform recipe state list show"
+    "tags": "sre devops terraform recipe state list show",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/state/list",
+          "title": "terraform state list"
+        },
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/state/show",
+          "title": "terraform state show"
+        },
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/state/mv",
+          "title": "terraform state mv"
+        },
+        {
+          "url": "https://developer.hashicorp.com/terraform/cli/commands/output",
+          "title": "terraform output"
+        }
+      ],
+      "note": "state show -json needs Terraform 1.16 or later."
+    }
   },
   {
     "sName": "terraform",
@@ -58576,7 +60653,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "moved {\n  from = aws_instance.worker\n  to   = aws_instance.helper\n}\n\nimport {\n  to = aws_instance.legacy\n  id = \"i-0123456789abcdef0\"\n}",
     "desc": "moved and import blocks (reviewed in the plan)",
     "tip": "Keep moved blocks until every workspace has applied them",
-    "tags": "sre devops terraform moved import refactor hcl"
+    "tags": "sre devops terraform moved import refactor hcl",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://developer.hashicorp.com/terraform/language/moved",
+          "title": "Terraform: moved block"
+        },
+        {
+          "url": "https://developer.hashicorp.com/terraform/language/import",
+          "title": "Terraform: import block"
+        },
+        {
+          "url": "https://developer.hashicorp.com/terraform/language/import/generating-configuration",
+          "title": "Terraform: generating configuration"
+        }
+      ],
+      "note": "plan -generate-config-out is still experimental in Terraform 1.17."
+    }
   },
   {
     "sName": "terraform",
@@ -58587,7 +60682,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "terraform version; tofu version",
     "desc": "Terraform or OpenTofu?",
     "tip": "Don't mix the two on one state file",
-    "tags": "sre devops terraform tips best-practice"
+    "tags": "sre devops terraform tips best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/hashicorp/terraform/blob/main/LICENSE",
+          "title": "Terraform LICENSE (BUSL 1.1)"
+        },
+        {
+          "url": "https://opentofu.org/",
+          "title": "OpenTofu"
+        }
+      ]
+    }
   },
   {
     "sName": "text",

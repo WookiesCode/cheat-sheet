@@ -496,6 +496,26 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     await ctx.close();
   }
 
+  // 2o. SRE toolkit (Prometheus, Ansible, Terraform/OpenTofu, Helm, Argo CD, incident response): every
+  // card and Pro Tip sourced; the Helm 3 end-of-life date and current versions corrected.
+  {
+    const PAGES = ['prometheus', 'ansible', 'terraform', 'helm', 'argocd', 'incident-response'];
+    const ctx = await newContext(browser);
+    const p = await ctx.newPage();
+    const all = [];
+    let text = '';
+    for (const f of PAGES) {
+      await p.goto(BASE + f + '.html', { waitUntil: 'load' });
+      await p.waitForTimeout(400);
+      text += await p.evaluate(() => { const c = document.body.cloneNode(true); c.querySelectorAll('.cmd-source').forEach(n => n.remove()); return c.textContent; });
+      all.push(...await p.evaluate(() => [...document.querySelectorAll('.cmd-item[data-cmd-id]')].filter(it => !/-flags-card$/.test(it.dataset.cmdId)).map(it => ({ id: it.dataset.cmdId, src: !!it.querySelector('.cmd-source:not(.is-unverified)') }))));
+    }
+    check(all.length >= 70 && all.every(x => x.src), `every card on the six SRE sheets shows a verified source (${all.filter(x => x.src).length}/${all.length})`);
+    check(!/security fixes end on November 11/.test(text) && /security patches through February 2027/.test(text), 'Helm 3: security patches through February 2027');
+    check(/Alertmanager 0\.35/.test(text) && /ansible-core 2\.22/.test(text), 'version labels: Alertmanager 0.35, ansible-core 2.22');
+    await ctx.close();
+  }
+
   // 3. Over a year old → amber "re-check"; and src can't inject markup or javascript: links.
   {
     const ctx = await newContext(browser);

@@ -43,7 +43,24 @@ const SRE_ANSIBLE_DATA = [
           "ping",
           "inventory",
           "ad-hoc"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.ansible.com/ansible/latest/cli/ansible.html",
+              "title": "ansible CLI"
+            },
+            {
+              "url": "https://docs.ansible.com/ansible/latest/inventory_guide/intro_patterns.html",
+              "title": "Ansible: patterns"
+            },
+            {
+              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-inventory.html",
+              "title": "ansible-inventory"
+            }
+          ]
+        }
       },
       {
         "id": "ansible-ping-sub-1",
@@ -57,7 +74,24 @@ const SRE_ANSIBLE_DATA = [
           "ansible",
           "ping",
           "inventory"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.ansible.com/ansible/latest/cli/ansible.html",
+              "title": "ansible CLI"
+            },
+            {
+              "url": "https://docs.ansible.com/ansible/latest/inventory_guide/intro_patterns.html",
+              "title": "Ansible: patterns"
+            },
+            {
+              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-inventory.html",
+              "title": "ansible-inventory"
+            }
+          ]
+        }
       },
       {
         "id": "ansible-ping-sub-2",
@@ -71,7 +105,24 @@ const SRE_ANSIBLE_DATA = [
           "ansible",
           "ping",
           "inventory"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.ansible.com/ansible/latest/cli/ansible.html",
+              "title": "ansible CLI"
+            },
+            {
+              "url": "https://docs.ansible.com/ansible/latest/inventory_guide/intro_patterns.html",
+              "title": "Ansible: patterns"
+            },
+            {
+              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-inventory.html",
+              "title": "ansible-inventory"
+            }
+          ]
+        }
       }
     ]
   },
@@ -117,7 +168,20 @@ const SRE_ANSIBLE_DATA = [
           "shell",
           "fleet",
           "become"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.ansible.com/ansible/latest/cli/ansible.html",
+              "title": "ansible CLI"
+            },
+            {
+              "url": "https://docs.ansible.com/ansible/latest/collections/ansible/builtin/shell_module.html",
+              "title": "ansible.builtin.shell"
+            }
+          ]
+        }
       },
       {
         "id": "ansible-adhoc-sub-1",
@@ -131,7 +195,20 @@ const SRE_ANSIBLE_DATA = [
           "ad-hoc",
           "shell",
           "fleet"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.ansible.com/ansible/latest/cli/ansible.html",
+              "title": "ansible CLI"
+            },
+            {
+              "url": "https://docs.ansible.com/ansible/latest/collections/ansible/builtin/shell_module.html",
+              "title": "ansible.builtin.shell"
+            }
+          ]
+        }
       }
     ]
   },
@@ -182,7 +259,20 @@ const SRE_ANSIBLE_DATA = [
           "diff",
           "limit",
           "dry-run"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-playbook.html",
+              "title": "ansible-playbook"
+            },
+            {
+              "url": "https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_checkmode.html",
+              "title": "Ansible: check mode"
+            }
+          ]
+        }
       },
       {
         "id": "ansible-playbook-check-sub-1",
@@ -196,7 +286,20 @@ const SRE_ANSIBLE_DATA = [
           "playbook",
           "check",
           "diff"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-playbook.html",
+              "title": "ansible-playbook"
+            },
+            {
+              "url": "https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_checkmode.html",
+              "title": "Ansible: check mode"
+            }
+          ]
+        }
       },
       {
         "id": "ansible-playbook-check-sub-2",
@@ -210,7 +313,20 @@ const SRE_ANSIBLE_DATA = [
           "playbook",
           "check",
           "diff"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-playbook.html",
+              "title": "ansible-playbook"
+            },
+            {
+              "url": "https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_checkmode.html",
+              "title": "Ansible: check mode"
+            }
+          ]
+        }
       },
       {
         "id": "ansible-playbook-check-sub-3",
@@ -224,7 +340,20 @@ const SRE_ANSIBLE_DATA = [
           "playbook",
           "check",
           "diff"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-playbook.html",
+              "title": "ansible-playbook"
+            },
+            {
+              "url": "https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_checkmode.html",
+              "title": "Ansible: check mode"
+            }
+          ]
+        }
       }
     ]
   },
@@ -270,7 +399,16 @@ const SRE_ANSIBLE_DATA = [
           "secrets",
           "encrypt",
           "password"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-vault.html",
+              "title": "ansible-vault"
+            }
+          ]
+        }
       },
       {
         "id": "ansible-vault-sub-1",
@@ -284,7 +422,16 @@ const SRE_ANSIBLE_DATA = [
           "vault",
           "secrets",
           "encrypt"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-vault.html",
+              "title": "ansible-vault"
+            }
+          ]
+        }
       },
       {
         "id": "ansible-vault-sub-2",
@@ -298,7 +445,16 @@ const SRE_ANSIBLE_DATA = [
           "vault",
           "secrets",
           "encrypt"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-vault.html",
+              "title": "ansible-vault"
+            }
+          ]
+        }
       }
     ]
   },
@@ -340,7 +496,28 @@ const SRE_ANSIBLE_DATA = [
           "galaxy",
           "config",
           "lint"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-doc.html",
+              "title": "ansible-doc"
+            },
+            {
+              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-config.html",
+              "title": "ansible-config"
+            },
+            {
+              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-galaxy.html",
+              "title": "ansible-galaxy"
+            },
+            {
+              "url": "https://ansible.readthedocs.io/projects/lint/",
+              "title": "ansible-lint"
+            }
+          ]
+        }
       },
       {
         "id": "ansible-tools-sub-1",
@@ -354,7 +531,28 @@ const SRE_ANSIBLE_DATA = [
           "ansible-doc",
           "galaxy",
           "config"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-doc.html",
+              "title": "ansible-doc"
+            },
+            {
+              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-config.html",
+              "title": "ansible-config"
+            },
+            {
+              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-galaxy.html",
+              "title": "ansible-galaxy"
+            },
+            {
+              "url": "https://ansible.readthedocs.io/projects/lint/",
+              "title": "ansible-lint"
+            }
+          ]
+        }
       },
       {
         "id": "ansible-tools-sub-2",
@@ -368,7 +566,28 @@ const SRE_ANSIBLE_DATA = [
           "ansible-doc",
           "galaxy",
           "config"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-doc.html",
+              "title": "ansible-doc"
+            },
+            {
+              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-config.html",
+              "title": "ansible-config"
+            },
+            {
+              "url": "https://docs.ansible.com/ansible/latest/cli/ansible-galaxy.html",
+              "title": "ansible-galaxy"
+            },
+            {
+              "url": "https://ansible.readthedocs.io/projects/lint/",
+              "title": "ansible-lint"
+            }
+          ]
+        }
       }
     ]
   },
@@ -400,7 +619,16 @@ const SRE_ANSIBLE_DATA = [
           "ansible",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.ansible.com/ansible/latest/collections/ansible/builtin/setup_module.html",
+              "title": "ansible.builtin.setup"
+            }
+          ]
+        }
       }
     ]
   }

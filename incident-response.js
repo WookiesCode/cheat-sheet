@@ -44,7 +44,20 @@ const SRE_INCIDENT_RESPONSE_DATA = [
           "ic",
           "comms",
           "sre"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://sre.google/sre-book/managing-incidents/",
+              "title": "Google SRE book: managing incidents"
+            },
+            {
+              "url": "https://sre.google/workbook/incident-response/",
+              "title": "SRE workbook: incident response"
+            }
+          ]
+        }
       }
     ]
   },
@@ -91,7 +104,20 @@ const SRE_INCIDENT_RESPONSE_DATA = [
           "utc",
           "journalctl",
           "dmesg"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://sre.google/workbook/incident-response/",
+              "title": "SRE workbook: incident response"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/journalctl.1.html",
+              "title": "journalctl(1)"
+            }
+          ]
+        }
       },
       {
         "id": "ir-first15-sub-1",
@@ -105,7 +131,20 @@ const SRE_INCIDENT_RESPONSE_DATA = [
           "triage",
           "timeline",
           "utc"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://sre.google/workbook/incident-response/",
+              "title": "SRE workbook: incident response"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/journalctl.1.html",
+              "title": "journalctl(1)"
+            }
+          ]
+        }
       },
       {
         "id": "ir-first15-sub-2",
@@ -119,7 +158,20 @@ const SRE_INCIDENT_RESPONSE_DATA = [
           "triage",
           "timeline",
           "utc"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://sre.google/workbook/incident-response/",
+              "title": "SRE workbook: incident response"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/journalctl.1.html",
+              "title": "journalctl(1)"
+            }
+          ]
+        }
       },
       {
         "id": "ir-first15-sub-3",
@@ -133,7 +185,20 @@ const SRE_INCIDENT_RESPONSE_DATA = [
           "triage",
           "timeline",
           "utc"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://sre.google/workbook/incident-response/",
+              "title": "SRE workbook: incident response"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/journalctl.1.html",
+              "title": "journalctl(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -175,7 +240,16 @@ const SRE_INCIDENT_RESPONSE_DATA = [
           "notes",
           "case",
           "postmortem"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://sre.google/sre-book/managing-incidents/",
+              "title": "Google SRE book: managing incidents"
+            }
+          ]
+        }
       }
     ]
   },
@@ -217,7 +291,16 @@ const SRE_INCIDENT_RESPONSE_DATA = [
           "blameless",
           "rca",
           "actions"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://sre.google/sre-book/postmortem-culture/",
+              "title": "Google SRE book: postmortem culture"
+            }
+          ]
+        }
       }
     ]
   },
@@ -249,7 +332,16 @@ const SRE_INCIDENT_RESPONSE_DATA = [
           "incident",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/prometheus/alertmanager#amtool",
+              "title": "Alertmanager README: amtool"
+            }
+          ]
+        }
       }
     ]
   }
