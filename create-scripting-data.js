@@ -19,7 +19,7 @@ const SCRIPTING_DATA = [
           ["set -e", "Exit immediately if any command returns a non-zero exit status"],
           ["set -u", "Treat unset variables and parameters as an error when expanding"],
           ["set -o pipefail", "Return value of a pipeline is the status of the last command to exit with non-zero"],
-          ["trap ... EXIT", "Guarantees temporary directory cleanup even if script is killed by SIGINT/SIGTERM"]
+          ["trap ... EXIT", "Cleans up the temporary directory even if the script is killed by SIGINT/SIGTERM (nothing runs on SIGKILL)"]
         ],
         subcommands: [
           ["SCRIPT_DIR=\"$(cd \"$(dirname \"${BASH_SOURCE[0]}\")\" && pwd)\"", "Resolve absolute directory path of the running script"],
@@ -27,14 +27,15 @@ const SCRIPTING_DATA = [
           ["exec 3>&1 4>&2", "Save original stdout/stderr descriptors before redirection"]
         ],
         tip: "Standard production bash preamble",
-        tags: ["bash", "strict-mode", "pipefail", "trap", "boilerplate", "errexit"]
+        tags: ["bash", "strict-mode", "pipefail", "trap", "boilerplate", "errexit"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://man7.org/linux/man-pages/man1/bash.1.html","title":"bash(1)"}]}
       },
       {
         id: "bash-parameter-expansion",
         mode: "BASH",
         modeClass: "mode-n",
         desc: "Parameter expansion recipes: defaults, string slicing, search/replace, and case modification",
-        cmd: "echo \"${VAR:-default_val}\" | echo \"${FILENAME%.*}\" | echo \"${PATH//:/\\n}\"",
+        cmd: "echo \"${VAR:-default_val}\"; echo \"${FILENAME%.*}\"; echo \"${PATH//:/$'\\n'}\"",
         flags: [
           ["${VAR:-default}", "Use default if VAR is unset or null (does not assign)"],
           ["${VAR:=default}", "Assign default to VAR if unset or null"],
@@ -49,7 +50,8 @@ const SCRIPTING_DATA = [
           ["${#VAR}", "Return character length of string variable"]
         ],
         tip: "Avoids slow subshell spawning with sed/cut",
-        tags: ["bash", "parameter-expansion", "string", "defaults", "trim", "extension"]
+        tags: ["bash", "parameter-expansion", "string", "defaults", "trim", "extension"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://man7.org/linux/man-pages/man1/bash.1.html","title":"bash(1)"}],"note":"Corrected 2026-11-10: the echo commands were piped into each other, and ${PATH//:/\\n} inserts a literal n; now $'\\n'."}
       },
       {
         id: "bash-arrays-associative",
@@ -70,7 +72,8 @@ const SCRIPTING_DATA = [
           ["unset 'SERVERS[node1]'", "Remove specific key/value pair from associative array"]
         ],
         tip: "Always quote \"${arr[@]}\" to prevent word-splitting!",
-        tags: ["bash", "arrays", "associative", "hashmap", "mapfile", "loops"]
+        tags: ["bash", "arrays", "associative", "hashmap", "mapfile", "loops"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://man7.org/linux/man-pages/man1/bash.1.html","title":"bash(1)"}]}
       },
       {
         id: "bash-heredoc-herestring",
@@ -85,11 +88,12 @@ const SCRIPTING_DATA = [
           ["cmd <<< \"$VAR\"", "Herestring: feeds variable directly to stdin without `echo | cmd` subshell"]
         ],
         subcommands: [
-          ["tee /etc/sysctl.d/99-custom.conf > /dev/null << 'EOF'\nnet.core.somaxconn = 65535\nEOF", "Write protected system files using sudo tee and heredoc"],
+          ["tee /etc/sysctl.d/99-custom.conf > /dev/null << 'EOF'\nnet.core.somaxconn = 65535\nEOF", "Write a root-owned file with tee and a heredoc (run it as root)"],
           ["bc <<< \"scale=2; 100 / 3\"", "Calculate floating-point arithmetic with herestring and bc"]
         ],
         tip: "Quoting 'EOF' prevents accidental shell injection",
-        tags: ["bash", "heredoc", "herestring", "template", "tee", "multiline"]
+        tags: ["bash", "heredoc", "herestring", "template", "tee", "multiline"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://man7.org/linux/man-pages/man1/bash.1.html","title":"bash(1)"}]}
       }
     ]
   },
@@ -116,7 +120,8 @@ const SCRIPTING_DATA = [
           ["proc = subprocess.Popen(['ping', '-c', '4', '8.8.8.8'], stdout=subprocess.PIPE, text=True)", "Stream real-time output line-by-line using Popen"]
         ],
         tip: "Avoid shell=True with user input to prevent injection",
-        tags: ["python", "subprocess", "cli", "exec", "timeout", "pipe"]
+        tags: ["python", "subprocess", "cli", "exec", "timeout", "pipe"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://docs.python.org/3/library/subprocess.html","title":"Python: subprocess"}]}
       },
       {
         id: "py-pathlib-file-ops",
@@ -127,7 +132,7 @@ const SCRIPTING_DATA = [
         flags: [
           ["Path.cwd() / Path.home()", "Current working directory or user home directory"],
           ["p.read_text(encoding='utf-8')", "Read entire file as string in one line"],
-          ["p.write_text('content', encoding='utf-8')", "Write string to file atomically"],
+          ["p.write_text('content', encoding='utf-8')", "Write a string to a file (not atomic: for that, write a temp file and Path.replace() it)"],
           ["p.parent.mkdir(parents=True, exist_ok=True)", "Create parent directories recursively without error if exists"]
         ],
         subcommands: [
@@ -135,7 +140,8 @@ const SCRIPTING_DATA = [
           ["data = json.loads(Path('config.json').read_text())", "One-liner JSON load directly from Path object"]
         ],
         tip: "Replaces legacy os.path.join and os.walk",
-        tags: ["python", "pathlib", "files", "glob", "filesystem", "path"]
+        tags: ["python", "pathlib", "files", "glob", "filesystem", "path"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://docs.python.org/3/library/pathlib.html","title":"Python: pathlib"},{"url":"https://docs.python.org/3/library/json.html","title":"Python: json (and json.tool)"}],"note":"Corrected 2026-11-10: Path.write_text() is not atomic."}
       },
       {
         id: "py-argparse-cli",
@@ -153,7 +159,8 @@ const SCRIPTING_DATA = [
           ["p.add_argument('targets', nargs='+', help='1 or more positional items')", "Accept one or more positional arguments into a list"]
         ],
         tip: "Built into Python standard library with zero external dependencies",
-        tags: ["python", "argparse", "cli", "flags", "options", "arguments"]
+        tags: ["python", "argparse", "cli", "flags", "options", "arguments"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://docs.python.org/3/library/argparse.html","title":"Python: argparse"}]}
       }
     ]
   },
@@ -180,7 +187,8 @@ const SCRIPTING_DATA = [
           ["await fs.stat('/path/file').then(s => s.size)", "Query file size, permissions (mode), and mtime"]
         ],
         tip: "Use 'node:' prefix for guaranteed built-in resolution",
-        tags: ["javascript", "nodejs", "fs", "async", "promises", "io"]
+        tags: ["javascript", "nodejs", "fs", "async", "promises", "io"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://nodejs.org/api/fs.html","title":"Node.js: fs"},{"url":"https://nodejs.org/api/readline.html","title":"Node.js: readline"}]}
       },
       {
         id: "node-child-process-exec",
@@ -198,7 +206,8 @@ const SCRIPTING_DATA = [
           ["const { values, positionals } = parseArgs({ options: { port: { type: 'string', short: 'p', default: '8080' } } });", "Built-in Node.js CLI argument parsing without npm dependencies"]
         ],
         tip: "Prefer execFile over exec to avoid shell injection",
-        tags: ["nodejs", "exec", "spawn", "child_process", "cli"]
+        tags: ["nodejs", "exec", "spawn", "child_process", "cli"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://nodejs.org/api/child_process.html","title":"Node.js: child_process"},{"url":"https://nodejs.org/api/util.html","title":"Node.js: util (promisify, parseArgs)"}]}
       }
     ]
   },
@@ -226,7 +235,8 @@ const SCRIPTING_DATA = [
           ["const isNode = (val: unknown): val is NodeConfig => typeof val === 'object' && val !== null && 'bmcIp' in val;", "Custom type predicate (User-defined Type Guard)"]
         ],
         tip: "Avoid 'any' — prefer 'unknown' with type narrowing",
-        tags: ["typescript", "generics", "partial", "record", "omit", "types"]
+        tags: ["typescript", "generics", "partial", "record", "omit", "types"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://www.typescriptlang.org/docs/handbook/utility-types.html","title":"TypeScript: utility types"},{"url":"https://www.typescriptlang.org/docs/handbook/2/narrowing.html","title":"TypeScript: narrowing"}]}
       },
       {
         id: "ts-runtime-runners",
@@ -237,10 +247,12 @@ const SCRIPTING_DATA = [
         flags: [
           ["npx tsx", "Modern esbuild-powered TypeScript runner (supports top-level await & ESM)"],
           ["bun run", "Native Bun engine executing TS/JSX with near-instant startup"],
-          ["--transpile-only", "Skips type-checking during development for 10x faster execution"]
+          ["--transpile-only", "Skips type checking, so it starts faster"],
+          ["node script.ts", "Node 22.18+ / 23.6+ strip types natively: no runner needed, but no enums or parameter properties"]
         ],
         tip: "Use 'tsx' for fast Node scripts without tsconfig headache",
-        tags: ["typescript", "tsx", "bun", "ts-node", "runtime", "runner"]
+        tags: ["typescript", "tsx", "bun", "ts-node", "runtime", "runner"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/privatenumber/tsx","title":"tsx"},{"url":"https://bun.sh/docs/runtime/typescript","title":"Bun: TypeScript"},{"url":"https://github.com/TypeStrong/ts-node","title":"ts-node"},{"url":"https://nodejs.org/api/typescript.html","title":"Node.js: TypeScript type stripping"}]}
       }
     ]
   },
@@ -258,7 +270,7 @@ const SCRIPTING_DATA = [
         cmd: "Get-Process | Where-Object WorkingSet64 -gt 200MB | Select-Object -First 10 ProcessName, @{Name='RAM_MB'; Expression={[math]::Round($_.WorkingSet64 / 1MB, 1)}} | Sort-Object RAM_MB -Descending",
         flags: [
           ["Where-Object ($_) / ?", "Filters pipeline objects by property value or scriptblock"],
-          ["Select-Object / %", "Projects properties or generates calculated fields @{Name=''; Expression={}}"],
+          ["Select-Object (select)", "Projects properties or generates calculated fields @{Name=''; Expression={}}"],
           ["[PSCustomObject]@{...}", "Creates strongly-typed structured object with named properties"],
           ["$_ (or $PSItem)", "Current pipeline object variable"]
         ],
@@ -267,7 +279,8 @@ const SCRIPTING_DATA = [
           ["$node | ConvertTo-Json -Depth 4", "Serialize object tree to formatted JSON string"]
         ],
         tip: "Pass objects through pipelines, not raw text!",
-        tags: ["powershell", "pipeline", "pscustomobject", "objects", "filter", "sort"]
+        tags: ["powershell", "pipeline", "pscustomobject", "objects", "filter", "sort"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/where-object","title":"Where-Object"},{"url":"https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/select-object","title":"Select-Object"},{"url":"https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_pscustomobject","title":"about_PSCustomObject"},{"url":"https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_automatic_variables","title":"about_Automatic_Variables ($_, $LASTEXITCODE)"},{"url":"https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/convertto-json","title":"ConvertTo-Json"}],"note":"Corrected 2026-11-10: % is ForEach-Object, not Select-Object."}
       },
       {
         id: "pwsh-error-handling-trap",
@@ -285,7 +298,8 @@ const SCRIPTING_DATA = [
           ["Test-Path -Path $Path -PathType Leaf", "Verify file exists before operating"]
         ],
         tip: "Set ErrorActionPreference = 'Stop' at top of scripts",
-        tags: ["powershell", "error", "try-catch", "exceptions", "exitcode"]
+        tags: ["powershell", "error", "try-catch", "exceptions", "exitcode"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_preference_variables","title":"about_Preference_Variables"},{"url":"https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_try_catch_finally","title":"about_Try_Catch_Finally"},{"url":"https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_automatic_variables","title":"about_Automatic_Variables ($_, $LASTEXITCODE)"},{"url":"https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/invoke-restmethod","title":"Invoke-RestMethod"}]}
       },
       {
         id: "pwsh-advanced-function",
@@ -294,12 +308,13 @@ const SCRIPTING_DATA = [
         desc: "Advanced cmdlet function with [CmdletBinding()], typed parameters, validation and pipeline support",
         cmd: "function Invoke-NodeTriage {\n  [CmdletBinding()]\n  param(\n    [Parameter(Mandatory, ValueFromPipeline)]\n    [string[]]$Hostname,\n    [ValidateRange(1, 60)][int]$Timeout = 10\n  )\n  process { Write-Host \"Checking node: $Hostname (timeout: ${Timeout}s)\" }\n}",
         flags: [
-          ["[CmdletBinding()]", "Enables common parameters (-Verbose, -Debug, -ErrorAction, -WhatIf)"],
+          ["[CmdletBinding()]", "Enables common parameters (-Verbose, -Debug, -ErrorAction…); -WhatIf and -Confirm need [CmdletBinding(SupportsShouldProcess)]"],
           ["ValueFromPipeline", "Allows function to consume streaming items directly from pipelined input"],
           ["[ValidateSet('dev', 'prod')]", "Enforces parameter value to match allowed enumeration"]
         ],
-        tip: "CmdletBinding unlocks -Verbose and -WhatIf flags",
-        tags: ["powershell", "function", "cmdlet", "param", "advanced", "pipeline"]
+        tip: "CmdletBinding unlocks -Verbose; add SupportsShouldProcess for -WhatIf",
+        tags: ["powershell", "function", "cmdlet", "param", "advanced", "pipeline"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_cmdletbindingattribute","title":"about_Functions_CmdletBindingAttribute"},{"url":"https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_advanced_parameters","title":"about_Functions_Advanced_Parameters"}],"note":"Corrected 2026-11-10: -WhatIf comes from SupportsShouldProcess, not CmdletBinding alone."}
       }
     ]
   },
@@ -329,7 +344,8 @@ const SCRIPTING_DATA = [
           ["local a, b = 1, 2", "Assign several values at once, or swap with a, b = b, a"],
           ["print(type(server), tostring(nil))", "Check a value's type, or turn it into a string"]
         ],
-        tags: ["lua", "variables", "tables", "local", "comments", "hyprland", "neovim"]
+        tags: ["lua", "variables", "tables", "local", "comments", "hyprland", "neovim"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://www.lua.org/manual/5.4/manual.html","title":"Lua 5.4 reference manual"}]}
       },
       {
         id: "lua-hub-flow-functions",
@@ -351,7 +367,8 @@ const SCRIPTING_DATA = [
           ["while retries > 0 do retries = retries - 1 end", "Loop until a condition changes"],
           ["local ok, err = pcall(check, temps)", "Catch an error: ok is false and err holds the message"]
         ],
-        tags: ["lua", "loops", "pairs", "ipairs", "functions", "pcall", "errors"]
+        tags: ["lua", "loops", "pairs", "ipairs", "functions", "pcall", "errors"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://www.lua.org/manual/5.4/manual.html","title":"Lua 5.4 reference manual"}]}
       },
       {
         id: "lua-hub-strings-tables",
@@ -373,7 +390,8 @@ const SCRIPTING_DATA = [
           ["local copy = { table.unpack(hosts) }", "Make a shallow copy of a list. In Neovim, use unpack(hosts) instead."]
         ],
         tip: "Lua patterns are not regex, so use %d instead of \\d and there is no | for alternatives",
-        tags: ["lua", "strings", "patterns", "match", "gsub", "format", "tables", "insert", "sort", "concat"]
+        tags: ["lua", "strings", "patterns", "match", "gsub", "format", "tables", "insert", "sort", "concat"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://www.lua.org/manual/5.4/manual.html","title":"Lua 5.4 reference manual"},{"url":"https://luajit.org/extensions.html","title":"LuaJIT (Lua 5.1 + extensions)"}]}
       },
       {
         id: "lua-hub-files-cli",
@@ -394,7 +412,8 @@ const SCRIPTING_DATA = [
           ["luac -p script.lua", "Check syntax without running it"]
         ],
         tip: "Always close what you open, or use for line in io.lines(path) do ... end, which closes the file for you",
-        tags: ["lua", "files", "io", "open", "read", "popen", "cli", "arg", "luac"]
+        tags: ["lua", "files", "io", "open", "read", "popen", "cli", "arg", "luac"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://www.lua.org/manual/5.4/manual.html","title":"Lua 5.4 reference manual"}]}
       },
       {
         id: "lua-hub-config",
@@ -414,7 +433,8 @@ const SCRIPTING_DATA = [
           [":lua print(vim.version().minor)", "Run Lua from Neovim's command line"]
         ],
         tip: "Neovim runs LuaJIT (Lua 5.1), so features from Lua 5.3 and later, such as // and bitwise operators, are unavailable",
-        tags: ["lua", "hyprland", "omarchy", "neovim", "config", "bindings", "keymap"]
+        tags: ["lua", "hyprland", "omarchy", "neovim", "config", "bindings", "keymap"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/basecamp/omarchy/blob/quattro/config/hypr/bindings.lua","title":"Omarchy: bindings.lua"},{"url":"https://neovim.io/doc/user/lua-guide/","title":"Neovim: Lua guide"},{"url":"https://wiki.hypr.land/configuring/core/advanced-configuration/using-hyprctl/","title":"Hyprland wiki: hyprctl"},{"url":"https://luajit.org/extensions.html","title":"LuaJIT (Lua 5.1 + extensions)"}],"note":"o.bind / hl.unbind checked against an Omarchy install and its bindings.lua; hyprctl configerrors is listed by hyprctl --help on Hyprland 0.56.2."}
       }
     ]
   },
@@ -437,12 +457,13 @@ const SCRIPTING_DATA = [
           ["@csv / @tsv", "Formats array of values into CSV or TSV compatible lines"]
         ],
         subcommands: [
-          ["jq -s 'add' *.json", "Slurp and merge multiple JSON files into a single array (-s)"],
+          ["jq -s 'add' *.json", "Slurp several files into one array (-s); add then merges them (objects merge, arrays concatenate)"],
           ["jq '.Members | map({id: .\"@odata.id\", name: .Name})'", "Map array elements into transformed schema objects"],
           ["jq 'keys'", "Return array of top-level key names in object"]
         ],
         tip: "Pass -r when assigning jq output into bash variables",
-        tags: ["json", "jq", "csv", "select", "transform", "filter", "array"]
+        tags: ["json", "jq", "csv", "select", "transform", "filter", "array"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://jqlang.org/manual/","title":"jq manual"}]}
       },
       {
         id: "json-formatting-validation",
@@ -456,7 +477,8 @@ const SCRIPTING_DATA = [
           ["JSON Strings", "MUST use double quotes (\"); single quotes (') are INVALID JSON!"]
         ],
         tip: "Trailing commas are strictly illegal in standard JSON",
-        tags: ["json", "validate", "minify", "pretty", "python", "schema"]
+        tags: ["json", "validate", "minify", "pretty", "python", "schema"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://jqlang.org/manual/","title":"jq manual"},{"url":"https://docs.python.org/3/library/json.html","title":"Python: json (and json.tool)"},{"url":"https://www.rfc-editor.org/rfc/rfc8259.html","title":"RFC 8259: JSON"}]}
       }
     ]
   },
@@ -483,7 +505,8 @@ const SCRIPTING_DATA = [
           ["yq eval '.production.nodes = 128' -i config.yaml", "Edit YAML file in-place with yq"]
         ],
         tip: "Always quote 'yes', 'no', 'on', 'off' to prevent boolean conversion!",
-        tags: ["yaml", "scalars", "anchors", "aliases", "yq", "multiline"]
+        tags: ["yaml", "scalars", "anchors", "aliases", "yq", "multiline"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://yaml.org/spec/1.2.2/","title":"YAML 1.2.2 spec (core schema booleans)"},{"url":"https://yaml.org/type/merge.html","title":"YAML 1.1 merge key (<<)"},{"url":"https://mikefarah.gitbook.io/yq","title":"yq documentation"}]}
       },
       {
         id: "yq-query-transform",
@@ -497,7 +520,8 @@ const SCRIPTING_DATA = [
           ["yq '.a.b += [\"item\"]' -i file.yaml", "Append element to YAML list in-place"]
         ],
         tip: "yq syntax mirrors jq for easy muscle memory",
-        tags: ["yq", "yaml", "convert", "json", "mutate", "compose"]
+        tags: ["yq", "yaml", "convert", "json", "mutate", "compose"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://mikefarah.gitbook.io/yq","title":"yq documentation"}]}
       }
     ]
   },
@@ -524,7 +548,8 @@ const SCRIPTING_DATA = [
           ["taplo fmt pyproject.toml", "Format and lint TOML configuration files using Taplo CLI"]
         ],
         tip: "Native standard in pyproject.toml, Cargo.toml & containerd config",
-        tags: ["toml", "config", "pyproject", "cargo", "tables", "schema"]
+        tags: ["toml", "config", "pyproject", "cargo", "tables", "schema"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://toml.io/en/v1.1.0","title":"TOML 1.1.0 spec"},{"url":"https://docs.python.org/3/library/tomllib.html","title":"Python: tomllib"},{"url":"https://taplo.tamasfe.dev/cli/usage/formatting.html","title":"Taplo: formatting"}]}
       }
     ]
   },
@@ -543,17 +568,18 @@ const SCRIPTING_DATA = [
         flags: [
           ["(?=...) (Positive Lookahead)", "Asserts that pattern matches directly ahead, without consuming characters"],
           ["(?!...) (Negative Lookahead)", "Asserts that pattern does NOT match directly ahead (e.g. foo(?!bar))"],
-          ["(?<=...) (Positive Lookbehind)", "Asserts that pattern matches directly behind (requires fixed length in PCRE)"],
+          ["(?<=...) (Positive Lookbehind)", "Asserts that pattern matches directly behind (PCRE2 before 10.43: fixed length; 10.43+: bounded variable length)"],
           ["(?<!...) (Negative Lookbehind)", "Asserts that pattern does NOT match directly behind"],
           ["(?:...) (Non-Capturing Group)", "Groups expression for repetition without creating match backreference"]
         ],
         subcommands: [
-          ["\\b(?:[0-9]{1,3}\\.){3}[0-9]{1,3}\\b", "Strict IPv4 address matcher with word boundaries"],
+          ["\\b(?:[0-9]{1,3}\\.){3}[0-9]{1,3}\\b", "IPv4-shaped matcher with word boundaries (shape only: also accepts 999.1.1.1)"],
           ["[0-9a-fA-F]{4}:[0-9a-fA-F]{2}:[0-9a-fA-F]{2}\\.[0-7]", "PCIe BDF identifier regex (e.g. 0000:41:00.0)"],
           ["([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})", "Standard MAC address matcher"]
         ],
         tip: "Pass -P to grep to enable full PCRE lookaround support",
-        tags: ["regex", "lookahead", "lookbehind", "pcre", "ipv4", "mac", "bdf"]
+        tags: ["regex", "lookahead", "lookbehind", "pcre", "ipv4", "mac", "bdf"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://www.pcre.org/current/doc/html/pcre2pattern.html","title":"PCRE2 pattern syntax"},{"url":"https://man7.org/linux/man-pages/man1/grep.1.html","title":"grep(1)"}],"note":"Corrected 2026-11-10: PCRE2 10.43+ allows bounded variable-length lookbehind."}
       }
     ]
   },
@@ -576,18 +602,19 @@ const SCRIPTING_DATA = [
           ["NR==FNR", "Idiomatic awk pattern for joining/filtering file 2 based on a map built from file 1"]
         ],
         subcommands: [
-          ["awk '!seen[$0]++' file.txt", "Deduplicate lines while preserving exact file order (faster than sort -u)"],
+          ["awk '!seen[$0]++' file.txt", "Deduplicate lines while preserving exact file order"],
           ["awk -F: '$3 >= 1000 {print $1, $3, $6}' /etc/passwd", "Filter system users with UID >= 1000"]
         ],
         tip: "awk '!seen[$0]++' keeps original order unlike sort -u",
-        tags: ["awk", "sum", "math", "columns", "dedup", "fields"]
+        tags: ["awk", "sum", "math", "columns", "dedup", "fields"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://man7.org/linux/man-pages/man1/gawk.1.html","title":"gawk(1)"},{"url":"https://man7.org/linux/man-pages/man1/ps.1.html","title":"ps(1) (RSS in KiB)"}]}
       },
       {
         id: "sed-in-place-recipes",
         mode: "SED",
         modeClass: "mode-n",
         desc: "In-place file editing, regex substitution, line deletion and range blocks",
-        cmd: "sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config",
+        cmd: "sed -i.bak 's/^PermitRootLogin yes/PermitRootLogin no/' /etc/ssh/sshd_config",
         flags: [
           ["-i (In-place)", "Modifies file directly on disk (on macOS pass -i '' to prevent backup file)"],
           ["-E (-r)", "Enables Extended Regular Expressions (ERE) without backslash escaping () and +"],
@@ -599,7 +626,8 @@ const SCRIPTING_DATA = [
           ["sed -n '20,40p' file.log", "Print specific line number range (lines 20 to 40)"]
         ],
         tip: "Use alternate delimiters like s|http://|https://|g to avoid escaping slashes",
-        tags: ["sed", "stream", "substitute", "regex", "inplace", "delete"]
+        tags: ["sed", "stream", "substitute", "regex", "inplace", "delete"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://man7.org/linux/man-pages/man1/sed.1.html","title":"sed(1)"}],"note":"Changed 2026-11-10: the example no longer disables SELinux."}
       }
     ]
   },
@@ -626,7 +654,8 @@ const SCRIPTING_DATA = [
           ["sqlite3 db.sqlite \"SELECT json_extract(metadata, '$.firmware.bios') FROM inventory;\"", "Extract nested attributes from SQLite JSON columns"]
         ],
         tip: "sqlite3 :memory: lets you run SQL on any CSV instantly",
-        tags: ["sqlite", "sql", "csv", "json", "database", "schema", "cli"]
+        tags: ["sqlite", "sql", "csv", "json", "database", "schema", "cli"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://sqlite.org/cli.html","title":"SQLite CLI"},{"url":"https://sqlite.org/json1.html","title":"SQLite JSON functions"}]}
       }
     ]
   },
@@ -654,7 +683,8 @@ const SCRIPTING_DATA = [
           ["git diff --staged", "Review what the next commit contains"]
         ],
         tip: "Run git diff --staged before committing to catch debug lines and secrets",
-        tags: ["git", "status", "add", "commit", "pull", "push", "branch"]
+        tags: ["git", "status", "add", "commit", "pull", "push", "branch"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://git-scm.com/docs/git-status","title":"git status"},{"url":"https://git-scm.com/docs/git-add","title":"git add"},{"url":"https://git-scm.com/docs/git-pull","title":"git pull"},{"url":"https://git-scm.com/docs/git-push","title":"git push"},{"url":"https://git-scm.com/docs/git-switch","title":"git switch"},{"url":"https://git-scm.com/docs/git-log","title":"git log"},{"url":"https://git-scm.com/docs/git-diff","title":"git diff"}]}
       },
       {
         id: "git-hub-undo",
@@ -674,7 +704,8 @@ const SCRIPTING_DATA = [
           ["git branch recovered HEAD@{2}", "Recover a commit found in the reflog"]
         ],
         tip: "Use git revert on shared branches, because git reset rewrites history",
-        tags: ["git", "undo", "restore", "reset", "revert", "reflog", "stash"]
+        tags: ["git", "undo", "restore", "reset", "revert", "reflog", "stash"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://git-scm.com/docs/git-restore","title":"git restore"},{"url":"https://git-scm.com/docs/git-reset","title":"git reset"},{"url":"https://git-scm.com/docs/git-revert","title":"git revert"},{"url":"https://git-scm.com/docs/git-reflog","title":"git reflog"},{"url":"https://git-scm.com/docs/git-stash","title":"git stash"},{"url":"https://git-scm.com/docs/git-clean","title":"git clean"}]}
       },
       {
         id: "git-hub-scripts",
@@ -694,7 +725,8 @@ const SCRIPTING_DATA = [
           ["git rev-parse --abbrev-ref HEAD", "Print the current branch name"]
         ],
         tip: "Parse --porcelain output, not plain git status, because the plain text can change between versions",
-        tags: ["git", "scripts", "porcelain", "rev-parse", "describe", "deploy", "automation"]
+        tags: ["git", "scripts", "porcelain", "rev-parse", "describe", "deploy", "automation"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://git-scm.com/docs/git-rev-parse","title":"git rev-parse"},{"url":"https://git-scm.com/docs/git-status","title":"git status"},{"url":"https://git-scm.com/docs/git-describe","title":"git describe"},{"url":"https://git-scm.com/docs/git","title":"git (-C)"},{"url":"https://git-scm.com/docs/git-diff","title":"git diff"}]}
       }
     ]
   },
@@ -722,7 +754,8 @@ const SCRIPTING_DATA = [
           ["\\*not italic\\*", "Backslash shows a special character literally"]
         ],
         tip: "Leave a blank line around headings, lists and code blocks so every renderer reads them the same way",
-        tags: ["markdown", "md", "headings", "lists", "links", "code", "gfm"]
+        tags: ["markdown", "md", "headings", "lists", "links", "code", "gfm"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://spec.commonmark.org/0.31.2/","title":"CommonMark 0.31.2 spec"},{"url":"https://github.github.com/gfm/","title":"GitHub Flavored Markdown spec (tables, task lists)"},{"url":"https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax","title":"GitHub: basic writing and formatting (alerts)"}]}
       },
       {
         id: "md-hub-tables",
@@ -739,7 +772,8 @@ const SCRIPTING_DATA = [
           ["pandoc -f csv -t gfm data.csv", "Convert a CSV to a Markdown table"]
         ],
         tip: "Right-align number columns so values are easy to compare",
-        tags: ["markdown", "tables", "awk", "nvidia-smi", "csv"]
+        tags: ["markdown", "tables", "awk", "nvidia-smi", "csv"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://github.github.com/gfm/","title":"GitHub Flavored Markdown spec (tables, task lists)"},{"url":"https://pandoc.org/MANUAL.html","title":"Pandoc manual"},{"url":"https://docs.nvidia.com/deploy/nvidia-smi/index.html","title":"nvidia-smi documentation"}]}
       },
       {
         id: "md-hub-details",
@@ -756,7 +790,8 @@ const SCRIPTING_DATA = [
           ["pandoc summary.md -o summary.docx", "Convert to Word"]
         ],
         tip: "Leave blank lines inside <details>, or the Markdown in it won't render",
-        tags: ["markdown", "details", "summary", "collapse", "logs", "ticket"]
+        tags: ["markdown", "details", "summary", "collapse", "logs", "ticket"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/organizing-information-with-collapsed-sections","title":"GitHub: collapsed sections"},{"url":"https://github.com/charmbracelet/glow","title":"glow"},{"url":"https://pandoc.org/MANUAL.html","title":"Pandoc manual"}]}
       }
     ]
   }

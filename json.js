@@ -49,7 +49,24 @@ const JSON_CHEAT_SHEET_DATA = [
           "validation",
           "quotes",
           "schema"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.rfc-editor.org/rfc/rfc8259.html",
+              "title": "RFC 8259: JSON"
+            },
+            {
+              "url": "https://docs.python.org/3/library/json.html",
+              "title": "Python: json (and json.tool)"
+            },
+            {
+              "url": "https://jqlang.org/manual/",
+              "title": "jq manual"
+            }
+          ]
+        }
       }
     ]
   },
@@ -116,7 +133,20 @@ const JSON_CHEAT_SHEET_DATA = [
           "json",
           "transform",
           "api"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://jqlang.org/manual/",
+              "title": "jq manual"
+            },
+            {
+              "url": "https://github.com/jqlang/jq/releases",
+              "title": "jq releases"
+            }
+          ]
+        }
       }
     ]
   }

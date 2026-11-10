@@ -49,7 +49,24 @@ const TS_CHEAT_SHEET_DATA = [
           "generics",
           "union",
           "schema"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.typescriptlang.org/docs/handbook/2/everyday-types.html",
+              "title": "TypeScript: everyday types"
+            },
+            {
+              "url": "https://www.typescriptlang.org/docs/handbook/2/generics.html",
+              "title": "TypeScript: generics"
+            },
+            {
+              "url": "https://www.typescriptlang.org/docs/handbook/utility-types.html",
+              "title": "TypeScript: utility types"
+            }
+          ]
+        }
       },
       {
         "id": "ts-narrowing-guards",
@@ -95,7 +112,16 @@ const TS_CHEAT_SHEET_DATA = [
           "discriminated-union",
           "typeof",
           "instanceof"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.typescriptlang.org/docs/handbook/2/narrowing.html",
+              "title": "TypeScript: narrowing"
+            }
+          ]
+        }
       }
     ]
   },
@@ -150,7 +176,16 @@ const TS_CHEAT_SHEET_DATA = [
           "omit",
           "record",
           "generics"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.typescriptlang.org/docs/handbook/utility-types.html",
+              "title": "TypeScript: utility types"
+            }
+          ]
+        }
       },
       {
         "id": "ts-classes-tooling",
@@ -163,7 +198,7 @@ const TS_CHEAT_SHEET_DATA = [
           ],
           [
             "readonly",
-            "Property can only be initialized in constructor"
+            "Property can only be set where it is declared or in the constructor"
           ],
           [
             "Promise<T>",
@@ -171,7 +206,7 @@ const TS_CHEAT_SHEET_DATA = [
           ],
           [
             "\"strict\": true",
-            "Essential tsconfig.json flag enabling all strict type checking options"
+            "Turns on every strict type-checking option (the default since TypeScript 6.0)"
           ],
           [
             "\"noImplicitAny\": true",
@@ -182,6 +217,10 @@ const TS_CHEAT_SHEET_DATA = [
           [
             "npx tsx script.ts",
             "Run TypeScript files directly without separate build step (instant execution)"
+          ],
+          [
+            "node script.ts",
+            "Node 22.18+ / 23.6+ runs .ts files by stripping types; parameter properties like the ones above and enums still need tsx"
           ],
           [
             "npx tsc --noEmit",
@@ -196,7 +235,33 @@ const TS_CHEAT_SHEET_DATA = [
           "tsconfig",
           "tooling",
           "tsx"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.typescriptlang.org/docs/handbook/2/classes.html",
+              "title": "TypeScript: classes"
+            },
+            {
+              "url": "https://www.typescriptlang.org/tsconfig/",
+              "title": "TypeScript: tsconfig reference"
+            },
+            {
+              "url": "https://devblogs.microsoft.com/typescript/announcing-typescript-6-0/",
+              "title": "Announcing TypeScript 6.0 (strict by default)"
+            },
+            {
+              "url": "https://nodejs.org/api/typescript.html",
+              "title": "Node.js: TypeScript type stripping"
+            },
+            {
+              "url": "https://github.com/privatenumber/tsx",
+              "title": "tsx"
+            }
+          ],
+          "note": "Added 2026-11-10: strict is on by default since TypeScript 6.0; Node can run .ts directly but not parameter properties."
+        }
       }
     ]
   }

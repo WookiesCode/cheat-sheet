@@ -1,5 +1,5 @@
 // Auto-generated Global Search Index across all 243 cheat sheets
-// Total indexed items: 3668
+// Total indexed items: 3669
 window.GLOBAL_SEARCH_INDEX = [
   {
     "sName": "ansible",
@@ -4006,7 +4006,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "# Print columns 1 and 3 from space-delimited text\nps aux | awk '{print $1, $3, $11}'\n\n# Sum column 5 across all rows and print total in END block\nls -l | awk '{sum += $5} END {print \"Total bytes:\", sum}'\n\n# Filter rows where 3rd column is greater than threshold\nawk -F',' '$3 > 80 {print $1, \"High Temp:\", $3}' temps.csv",
     "desc": "Field extraction, delimiter splitting, condition filtering and summary calculations",
     "tip": "AWK automatically splits on any whitespace sequence by default; specify -F for CSV or /etc/passwd.",
-    "tags": "awk columns math sum filter delimiter csv"
+    "tags": "awk columns math sum filter delimiter csv",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/gawk.1.html",
+          "title": "gawk(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "awk-sed",
@@ -4039,7 +4048,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "# Global replace in file in-place with backup\nsed -i.bak 's/PORT=8080/PORT=9000/g' /etc/server.conf\n\n# Delete all empty lines and comments\nsed -E '/^\\s*(#|$)/d' /etc/nginx/nginx.conf\n\n# Print lines between two patterns (address range)\nsed -n '/BEGIN CERTIFICATE/,/END CERTIFICATE/p' fullchain.pem",
     "desc": "Substitute patterns, modify files in-place, delete comment lines & match address ranges",
     "tip": "On macOS (BSD sed), -i requires an argument: sed -i '' 's/.../.../g' file. On Linux (GNU sed), sed -i '...' file works.",
-    "tags": "sed substitute regex inplace delete cleanup streams"
+    "tags": "sed substitute regex inplace delete cleanup streams",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sed.1.html",
+          "title": "sed(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "awk-sed",
@@ -4277,10 +4295,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "vars",
     "id": "bash-var-declare",
     "sec": "Variables, Data Types & Scope",
-    "cmd": "NAME=\"Server-01\"\nCOUNT=42\nreadonly PI=\"3.14159\"\nexport API_KEY=\"secret_token\"\necho \"Host: ${NAME}, Count: $((COUNT + 1))\"",
+    "cmd": "NAME=\"Server-01\"\nCOUNT=42\nreadonly PI=\"3.14159\"\nexport LOG_LEVEL=\"debug\"\necho \"Host: ${NAME}, Count: $((COUNT + 1))\"",
     "desc": "Variable assignment, quoting rules (single vs double vs raw), and string interpolation",
     "tip": "Always wrap variables in quotes: \"$VAR\" to prevent word-splitting and globbing!",
-    "tags": "bash variables types scope export readonly quotes"
+    "tags": "bash variables types scope export readonly quotes",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: the example no longer exports a secret-looking API_KEY."
+    }
   },
   {
     "sName": "bash",
@@ -4324,7 +4352,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "FILE=\"archive_2026.tar.gz\"\necho \"Ext: ${FILE##*.} | Base: ${FILE%%.*} | Len: ${#FILE}\"\nFALLBACK=\"${USER_PORT:-8080}\"\nUPPER=\"${FILE^^}\"",
     "desc": "Advanced parameter expansion: defaults, substring slicing, length & pattern replacement",
     "tip": "Parameter expansions execute natively in memory inside Bash without spawning subshells or sed processes.",
-    "tags": "bash parameter-expansion substring defaults string-manipulation"
+    "tags": "bash parameter-expansion substring defaults string-manipulation",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "bash",
@@ -4357,7 +4394,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "# Indexed array\nNODES=(\"node-01\" \"node-02\" \"node-03\")\nNODES+=(\"node-04\")\necho \"First: ${NODES[0]} | Total: ${#NODES[@]}\"\n\n# Associative array (Bash 4+)\ndeclare -A BMC_IPS\nBMC_IPS=([\"node-01\"]=\"10.0.0.10\" [\"node-02\"]=\"10.0.0.11\")\necho \"IP: ${BMC_IPS[\"node-01\"]}\"",
     "desc": "Indexed arrays, associative key-value maps, iteration & element manipulation",
     "tip": "Always use \"${ARRAY[@]}\" with quotes so items containing spaces aren't split into multiple arguments.",
-    "tags": "bash arrays associative hashmap collections"
+    "tags": "bash arrays associative hashmap collections",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "bash",
@@ -4390,7 +4436,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "PORT=8080\nif [[ -f \"/etc/server.conf\" && \"$PORT\" -gt 1024 ]]; then\n  echo \"Valid config on unprivileged port\"\nelif [[ ! -e \"/etc/server.conf\" ]]; then\n  echo \"Config missing\"\nelse\n  echo \"Port requires root\"\nfi",
     "desc": "Modern [[ ... ]] conditional branching with integer, string, file tests & regex matching",
     "tip": "Always use [[ ... ]] instead of legacy [ ... ] in Bash to prevent syntax errors on empty strings.",
-    "tags": "bash if conditionals comparison regex file-tests"
+    "tags": "bash if conditionals comparison regex file-tests",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "bash",
@@ -4399,7 +4454,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "id": "bash-if-conditions",
     "sec": "Conditionals & Comparison Operators",
     "cmd": "[[ condition ]] && true_action || false_action",
-    "desc": "Compact ternary-style short-circuit execution",
+    "desc": "Ternary-style shorthand, with a catch: false_action also runs if true_action fails. Use if/else when that matters",
     "tip": "",
     "tags": "bash if conditionals comparison regex file-tests"
   },
@@ -4423,7 +4478,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "case \"$1\" in\n  start|START)\n    echo \"Starting service...\" ;;\n  stop)\n    echo \"Stopping service...\" ;;\n  --port=*) \n    PORT=\"${1#*=}\" ;;\n  *)\n    echo \"Usage: $0 {start|stop|--port=N}\" >&2\n    exit 1 ;;\nesac",
     "desc": "Multi-branch pattern matching with case / esac statements and glob wildcards",
     "tip": "Use case statements for CLI argument parsing instead of nested if-elif-else blocks for clean code.",
-    "tags": "bash case switch branching cli-args"
+    "tags": "bash case switch branching cli-args",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "bash",
@@ -4445,7 +4509,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "# Loop over array or words\nfor HOST in \"node-01\" \"node-02\" \"node-03\"; do\n  ping -c 1 \"$HOST\" >/dev/null && echo \"$HOST online\"\ndone\n\n# Numeric range & C-style loop\nfor i in {1..5}; do echo \"Step $i\"; done\nfor ((i=0; i<10; i+=2)); do echo \"Even: $i\"; done",
     "desc": "Iterate over lists, file wildcards, brace expansions and C-style 3-expression loops",
     "tip": "Never use for line in $(cat file.txt); words with spaces will break into multiple loop iterations!",
-    "tags": "bash for loops range iteration brace-expansion"
+    "tags": "bash for loops range iteration brace-expansion",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "bash",
@@ -4478,7 +4551,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "while IFS= read -r LINE || [[ -n \"$LINE\" ]]; do\n  [[ \"$LINE\" =~ ^# || -z \"$LINE\" ]] && continue\n  echo \"Processing: $LINE\"\ndone < \"/etc/hosts\"",
     "desc": "Safe line-by-line file reading without trailing newline loss & stream iteration",
     "tip": "done < file runs in current shell so variables modified inside loop persist after loop finishes.",
-    "tags": "bash while read stream file-io csv"
+    "tags": "bash while read stream file-io csv",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "bash",
@@ -4511,7 +4593,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "#!/usr/bin/env bash\nset -euo pipefail\n\nlog_msg() {\n  local LEVEL=\"$1\"\n  local MESSAGE=\"$2\"\n  echo \"[$(date +%T)] [${LEVEL}] ${MESSAGE}\"\n}\n\nlog_msg \"INFO\" \"Script started with $# arguments (Args: $@)\"",
     "desc": "Function definitions, local variables, return status vs return values & CLI arguments",
     "tip": "set -euo pipefail at the top of your scripts catches uninitialized variables and pipe errors immediately.",
-    "tags": "bash functions local arguments flags getopts"
+    "tags": "bash functions local arguments flags getopts",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "bash",
@@ -4544,7 +4635,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "TMPDIR=$(mktemp -d)\ncleanup() {\n  echo \"Cleaning up temporary directory: $TMPDIR\"\n  rm -rf \"$TMPDIR\"\n}\ntrap cleanup EXIT ERR INT TERM\n\n# Your script logic below\necho \"Working in $TMPDIR...\"",
     "desc": "Automatic cleanup on script exit, interruption (Ctrl+C) and error handling",
     "tip": "Traps guarantee temporary scratch directories and lock files are cleaned up even if script crashes.",
-    "tags": "bash trap cleanup exit signals error-handling"
+    "tags": "bash trap cleanup exit signals error-handling",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ],
+      "note": "Checked on bash 5.3: an EXIT trap runs after SIGINT and SIGTERM. With EXIT plus INT/TERM traps, cleanup can run twice, so keep it idempotent."
+    }
   },
   {
     "sName": "bash",
@@ -35949,7 +36050,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "const serverName = 'node-01';\nlet connectionCount = 0;\nconst ports = [8000, 8080];\nconst [mainPort, backupPort = 9000] = ports;\n\n// Template literal with interpolation\nconsole.log(`Server: ${serverName}:${mainPort} (conns: ${++connectionCount})`);",
     "desc": "Block-scoped variable declarations, template literals, and destructuring assignment",
     "tip": "Default to const everywhere; only use let when a variable must be reassigned.",
-    "tags": "javascript const let variables template-literals destructuring spread"
+    "tags": "javascript const let variables template-literals destructuring spread",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let",
+          "title": "MDN: let"
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring",
+          "title": "MDN: destructuring"
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax",
+          "title": "MDN: spread syntax"
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals",
+          "title": "MDN: template literals"
+        }
+      ]
+    }
   },
   {
     "sName": "javascript",
@@ -35982,7 +36104,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "const timeout = config.timeout ?? 5000; // Only defaults on null/undefined\nconst bmcIp = node?.network?.bmc?.ip ?? '127.0.0.1';\n\nif (status === 'READY' && count !== 0) {\n  console.log('Operational');\n}",
     "desc": "Strict equality (===), nullish coalescing (??) and optional chaining (?.)",
     "tip": "Never use == or != in modern JavaScript. Always use strict === and !== to prevent type coercion bugs.",
-    "tags": "javascript operators nullish optional-chaining equality truthy"
+    "tags": "javascript operators nullish optional-chaining equality truthy",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Strict_equality",
+          "title": "MDN: strict equality (===)"
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing",
+          "title": "MDN: nullish coalescing (??)"
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining",
+          "title": "MDN: optional chaining (?.)"
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Glossary/Falsy",
+          "title": "MDN: falsy"
+        }
+      ]
+    }
   },
   {
     "sName": "javascript",
@@ -36015,7 +36158,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "const nodes = ['srv-01', 'srv-02', 'srv-03'];\n\n// for...of: best for arrays, strings, maps, sets\nfor (const node of nodes) {\n  if (node === 'srv-02') continue;\n  console.log(`Checking ${node}`);\n}\n\n// for...in: iterates enumerable object keys\nconst config = { host: 'localhost', port: 8080 };\nfor (const key in config) {\n  console.log(`${key}: ${config[key]}`);\n}",
     "desc": "Classic for loop, for...of (iterables), for...in (object keys), and loop control",
     "tip": "Use for...of for arrays and for...in for plain objects. Never use for...in on arrays.",
-    "tags": "javascript for for-of for-in while loops iteration"
+    "tags": "javascript for for-of for-in while loops iteration",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of",
+          "title": "MDN: for...of"
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...in",
+          "title": "MDN: for...in"
+        }
+      ]
+    }
   },
   {
     "sName": "javascript",
@@ -36048,7 +36204,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "const servers = [\n  { id: 's1', load: 45, online: true },\n  { id: 's2', load: 92, online: true },\n  { id: 's3', load: 10, online: false }\n];\n\n// Filter active and extract IDs\nconst activeIds = servers\n  .filter(s => s.online)\n  .map(s => s.id);\n\n// Find single item & calculate total load\nconst overloaded = servers.find(s => s.load > 90);\nconst avgLoad = servers.reduce((acc, s) => acc + s.load, 0) / servers.length;",
     "desc": "Modern functional array transformations: map, filter, find, some, every, reduce",
     "tip": "Array methods like map and filter return new arrays without mutating the original input.",
-    "tags": "javascript arrays map filter reduce find functional"
+    "tags": "javascript arrays map filter reduce find functional",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
+          "title": "MDN: Array methods"
+        }
+      ]
+    }
   },
   {
     "sName": "javascript",
@@ -36081,7 +36246,37 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "async function queryNode(ip) {\n  try {\n    const res = await fetch(`http://${ip}/health`, { signal: AbortSignal.timeout(3000) });\n    if (!res.ok) throw new Error(`HTTP error: ${res.status}`);\n    const data = await res.json();\n    return { ip, status: 'OK', data };\n  } catch (err) {\n    console.error(`Failed ${ip}: ${err.message}`);\n    return { ip, status: 'FAILED', error: err.message };\n  }\n}\n\n// Concurrent parallel execution across multiple nodes\nconst results = await Promise.all(['10.0.0.1', '10.0.0.2'].map(queryNode));",
     "desc": "Asynchronous programming with async/await, Promise concurrency & try/catch error handling",
     "tip": "Always wrap await calls in try...catch blocks to handle network timeouts and API errors gracefully.",
-    "tags": "javascript async await promises fetch try-catch concurrency"
+    "tags": "javascript async await promises fetch try-catch concurrency",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function",
+          "title": "MDN: async function"
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await",
+          "title": "MDN: await (top-level await in modules)"
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all",
+          "title": "MDN: Promise.all"
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettled",
+          "title": "MDN: Promise.allSettled"
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal/timeout_static",
+          "title": "MDN: AbortSignal.timeout()"
+        },
+        {
+          "url": "https://nodejs.org/en/about/previous-releases",
+          "title": "Node.js releases (LTS)"
+        }
+      ],
+      "note": "Node.js 20 reached end of life in 2026; 22, 24 and 26 are the maintained lines."
+    }
   },
   {
     "sName": "javascript",
@@ -37014,7 +37209,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "{\n  \"hostname\": \"gpu-node-01\",\n  \"rack_unit\": 42,\n  \"fans_healthy\": true,\n  \"ambient_temp\": 24.5,\n  \"firmware\": null,\n  \"gpus\": [\"gpu0\", \"gpu1\", \"gpu2\", \"gpu3\"],\n  \"network\": {\n    \"bmc_ip\": \"10.0.0.50\",\n    \"mac\": \"00:1A:2B:3C:4D:5E\"\n  }\n}",
     "desc": "Valid JSON syntax structure, data types, and common syntax errors to avoid",
     "tip": "Never put comments in standard JSON. If you need comments in configuration, use YAML or TOML.",
-    "tags": "json syntax types validation quotes schema"
+    "tags": "json syntax types validation quotes schema",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.rfc-editor.org/rfc/rfc8259.html",
+          "title": "RFC 8259: JSON"
+        },
+        {
+          "url": "https://docs.python.org/3/library/json.html",
+          "title": "Python: json (and json.tool)"
+        },
+        {
+          "url": "https://jqlang.org/manual/",
+          "title": "jq manual"
+        }
+      ]
+    }
   },
   {
     "sName": "json",
@@ -37047,7 +37259,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "# Pretty print & drill down nested field\ncurl -s https://api.nodes/status | jq '.nodes[0].network.bmc_ip'\n\n# Filter array where GPU temp > 80\ncat metrics.json | jq '.[] | select(.temp > 80) | {id: .id, temp: .temp}'\n\n# Convert JSON array to clean CSV\ncat inventory.json | jq -r '.[] | [.name, .ip, .status] | @csv'",
     "desc": "Essential jq recipes for querying APIs, filtering arrays, and extracting CSV",
     "tip": "Combine jq -r with bash loops: while IFS=',' read -r host ip; do ... done < <(jq -r '...' data.json).",
-    "tags": "jq filter select csv json transform api"
+    "tags": "jq filter select csv json transform api",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://jqlang.org/manual/",
+          "title": "jq manual"
+        },
+        {
+          "url": "https://github.com/jqlang/jq/releases",
+          "title": "jq releases"
+        }
+      ]
+    }
   },
   {
     "sName": "json",
@@ -53912,7 +54137,36 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "# Strongly-typed variable and hashtable (dictionary)\n[string]$Server = \"node-01\"\n[int]$Port = 8080\n$Config = @{ Host = $Server; Port = $Port; Active = $true }\n\n# Pipeline: Filter, select properties, and export to CSV\nGet-Service | Where-Object Status -eq 'Running' |\n  Select-Object Name, DisplayName, StartType |\n  Export-Csv -Path \"./services.csv\" -NoTypeInformation",
     "desc": "Variable declarations, typed variables, hashtables, and pipeline transformations",
     "tip": "In PowerShell, pipelines pass rich typed .NET objects, not raw strings. Use $_ to access current object.",
-    "tags": "powershell variables pipeline hashtable objects csv"
+    "tags": "powershell variables pipeline hashtable objects csv",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_variables",
+          "title": "about_Variables"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_hash_tables",
+          "title": "about_Hash_Tables"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_pipelines",
+          "title": "about_Pipelines"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/where-object",
+          "title": "Where-Object"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/select-object",
+          "title": "Select-Object"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_pscustomobject",
+          "title": "about_PSCustomObject"
+        }
+      ]
+    }
   },
   {
     "sName": "powershell",
@@ -53945,7 +54199,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "$Nodes = @('node-01', 'node-02', 'node-03')\n\n# foreach loop\nforeach ($Node in $Nodes) {\n  if ($Node -match '^node-(01|02)$') {\n    Write-Host \"[PRIMARY] Connecting to $Node\" -ForegroundColor Green\n  } else {\n    Write-Warning \"[STANDBY] Node $Node in standby\"\n  }\n}",
     "desc": "Comparison operators (-eq, -ne, -gt), foreach loops, and pipeline iteration",
     "tip": "Use -match for regex and -like for simple globbing (*.log). Use -eq for exact string and numeric equality.",
-    "tags": "powershell if comparison foreach switch loops regex"
+    "tags": "powershell if comparison foreach switch loops regex",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_comparison_operators",
+          "title": "about_Comparison_Operators"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_switch",
+          "title": "about_Switch"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/write-host",
+          "title": "Write-Host"
+        }
+      ]
+    }
   },
   {
     "sName": "powershell",
@@ -53975,10 +54246,44 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "control",
     "id": "pwsh-functions-error-handling",
     "sec": "Conditionals, Loops & Functions",
-    "cmd": "function Test-NodeConnection {\n  [CmdletBinding()]\n  param(\n    [Parameter(Mandatory = $true, ValueFromPipeline = $true)]\n    [string]$ComputerName,\n    [int]$TimeoutSeconds = 5\n  )\n  process {\n    $ErrorActionPreference = 'Stop'\n    try {\n      $res = Test-Connection -TargetName $ComputerName -Count 1 -TimeoutSeconds $TimeoutSeconds\n      [PSCustomObject]@{ Computer = $ComputerName; Status = 'ONLINE'; Latency = $res.Latency }\n    } catch {\n      Write-Error \"Failed to reach $ComputerName: $_\"\n      [PSCustomObject]@{ Computer = $ComputerName; Status = 'OFFLINE'; Latency = $null }\n    }\n  }\n}",
+    "cmd": "function Test-NodeConnection {\n  [CmdletBinding()]\n  param(\n    [Parameter(Mandatory = $true, ValueFromPipeline = $true)]\n    [string]$ComputerName,\n    [int]$TimeoutSeconds = 5\n  )\n  process {\n    $ErrorActionPreference = 'Stop'\n    try {\n      $res = Test-Connection -TargetName $ComputerName -Count 1 -TimeoutSeconds $TimeoutSeconds\n      [PSCustomObject]@{ Computer = $ComputerName; Status = 'ONLINE'; Latency = $res.Latency }\n    } catch {\n      Write-Error \"Failed to reach ${ComputerName}: $_\"\n      [PSCustomObject]@{ Computer = $ComputerName; Status = 'OFFLINE'; Latency = $null }\n    }\n  }\n}",
     "desc": "Cmdlet functions with param blocks and enterprise try/catch/finally error handling",
     "tip": "Set $ErrorActionPreference = 'Stop' at the top of functions so try/catch reliably intercepts every failure.",
-    "tags": "powershell functions param cmdlet try-catch json exceptions"
+    "tags": "powershell functions param cmdlet try-catch json exceptions",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_cmdletbindingattribute",
+          "title": "about_Functions_CmdletBindingAttribute"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_advanced_parameters",
+          "title": "about_Functions_Advanced_Parameters"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_try_catch_finally",
+          "title": "about_Try_Catch_Finally"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_preference_variables",
+          "title": "about_Preference_Variables"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_quoting_rules",
+          "title": "about_Quoting_Rules (${name}: in strings)"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/test-connection",
+          "title": "Test-Connection"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/convertfrom-json",
+          "title": "ConvertFrom-Json (Get-Content -Raw)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: \"$ComputerName: $_\" fails to parse (the colon makes a scope); now ${ComputerName}. Get-Content gets -Raw."
+    }
   },
   {
     "sName": "powershell",
@@ -53986,8 +54291,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "control",
     "id": "pwsh-functions-error-handling",
     "sec": "Conditionals, Loops & Functions",
-    "cmd": "Get-Content \"data.json\" | ConvertFrom-Json",
-    "desc": "Parse JSON file into structured PowerShell object",
+    "cmd": "Get-Content -Raw \"data.json\" | ConvertFrom-Json",
+    "desc": "Parse a JSON file into an object (-Raw passes the file as one string)",
     "tip": "",
     "tags": "powershell functions param cmdlet try-catch json exceptions"
   },
@@ -54727,7 +55032,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "# Variable assignment with type hints\nhost: str = \"node-01\"\nport: int = 8080\ntemp: float = 42.5\nis_active: bool = True\n\n# Formatted f-strings (Python 3.6+)\nprint(f\"Host: {host.upper()} | Port: {port} | Temp: {temp:.1f}°C\")",
     "desc": "Variable declarations, type annotations, and modern f-string formatting",
     "tip": "Type hints don't affect runtime speed, but prevent common bugs and enable autocomplete in editors.",
-    "tags": "python variables types f-strings annotations primitives"
+    "tags": "python variables types f-strings annotations primitives",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.python.org/3/library/stdtypes.html",
+          "title": "Python: built-in types"
+        },
+        {
+          "url": "https://docs.python.org/3/reference/lexical_analysis.html#f-strings",
+          "title": "Python: f-strings"
+        },
+        {
+          "url": "https://docs.python.org/3/library/typing.html",
+          "title": "Python: typing"
+        }
+      ]
+    }
   },
   {
     "sName": "python",
@@ -54771,7 +55093,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "# List & Tuple\nnodes: list[str] = [\"node-01\", \"node-02\", \"node-03\"]\ncoordinates: tuple[int, int] = (10, 20)\n\n# Dictionary (Hashmap)\nbmc_info: dict[str, str] = {\"ip\": \"10.0.0.10\", \"user\": \"ADMIN\"}\nbmc_info[\"status\"] = \"ONLINE\"\n\n# Unique Set\nsubnets: set[str] = {\"10.0.0.0/24\", \"192.168.1.0/24\"}",
     "desc": "Core collections: Lists (mutable), Dicts (hashmap), Tuples (immutable) & Sets (unique)",
     "tip": "Always use dict.get(\"key\", default) instead of dict[\"key\"] to avoid raising KeyError exceptions.",
-    "tags": "python collections list dict tuple set comprehensions"
+    "tags": "python collections list dict tuple set comprehensions",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.python.org/3/tutorial/datastructures.html",
+          "title": "Python tutorial: data structures"
+        },
+        {
+          "url": "https://docs.python.org/3/library/stdtypes.html",
+          "title": "Python: built-in types"
+        }
+      ]
+    }
   },
   {
     "sName": "python",
@@ -54815,7 +55150,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "status = \"CRITICAL\"\ntemp = 85.5\n\nif status == \"CRITICAL\" and temp > 80.0:\n    print(\"Emergency thermal throttling triggered!\")\nelif status in (\"WARNING\", \"DEGRADED\"):\n    print(\"Warning state detected\")\nelse:\n    print(\"Normal operation\")\n\n# Ternary expression\nmode = \"production\" if is_active else \"staging\"",
     "desc": "Conditional branching with boolean operators (and, or, not) and membership tests",
     "tip": "Never compare with 'if var == None:'. Always write 'if var is None:' for identity comparison.",
-    "tags": "python if else conditionals ternary truthy falsy"
+    "tags": "python if else conditionals ternary truthy falsy",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.python.org/3/reference/compound_stmts.html",
+          "title": "Python: compound statements (if, for, match, def)"
+        },
+        {
+          "url": "https://docs.python.org/3/library/functions.html",
+          "title": "Python: built-in functions (enumerate, zip, any, all)"
+        },
+        {
+          "url": "https://docs.python.org/3/library/stdtypes.html",
+          "title": "Python: built-in types"
+        }
+      ]
+    }
   },
   {
     "sName": "python",
@@ -54859,7 +55211,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "def handle_event(event: dict):\n    match event:\n        case {\"type\": \"alert\", \"level\": \"CRITICAL\", \"node\": node}:\n            print(f\"Critical alert on {node}!\")\n        case {\"type\": \"ping\", \"latency\": ms} if ms > 100:\n            print(f\"High latency detected: {ms}ms\")\n        case [\"ssh\", host, int(port)]:\n            print(f\"Connecting to {host}:{port}\")\n        case _:\n            print(\"Unknown event pattern\")",
     "desc": "Modern structural pattern matching (Python 3.10+ match-case with guards)",
     "tip": "match-case replaces complex nested isinstance checks and dictionary structure validators.",
-    "tags": "python match case pattern-matching switch"
+    "tags": "python match case pattern-matching switch",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.python.org/3/reference/compound_stmts.html",
+          "title": "Python: compound statements (if, for, match, def)"
+        },
+        {
+          "url": "https://peps.python.org/pep-0636/",
+          "title": "PEP 636: structural pattern matching tutorial"
+        }
+      ]
+    }
   },
   {
     "sName": "python",
@@ -54881,7 +55246,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nodes = [\"srv-01\", \"srv-02\", \"srv-03\"]\nips = [\"10.0.0.1\", \"10.0.0.2\", \"10.0.0.3\"]\n\n# Enumerate with custom start index\nfor idx, node in enumerate(nodes, start=1):\n    print(f\"#{idx}: {node}\")\n\n# Parallel iteration with zip\nfor node, ip in zip(nodes, ips):\n    print(f\"{node} -> {ip}\")",
     "desc": "Iterate over sequences with enumerate() for index tracking and zip() for parallel lists",
     "tip": "Never use for i in range(len(items)):. Use for item in items: or for i, item in enumerate(items):.",
-    "tags": "python for while loops enumerate zip iteration"
+    "tags": "python for while loops enumerate zip iteration",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.python.org/3/reference/compound_stmts.html",
+          "title": "Python: compound statements (if, for, match, def)"
+        },
+        {
+          "url": "https://docs.python.org/3/library/functions.html",
+          "title": "Python: built-in functions (enumerate, zip, any, all)"
+        }
+      ]
+    }
   },
   {
     "sName": "python",
@@ -54924,8 +55302,22 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "Functions, File I/O & Exception Handling",
     "cmd": "def deploy_node(name: str, port: int = 22, *tags: str, **metadata: str) -> bool:\n    \"\"\"Deploy a node with optional tags and arbitrary metadata.\"\"\"\n    print(f\"Deploying {name}:{port} | Tags: {tags} | Meta: {metadata}\")\n    return True\n\n# Calling with positional, variable, and keyword arguments\ndeploy_node(\"gpu-01\", 22, \"h100\", \"sxm5\", rack=\"R12\", zone=\"us-east\")",
     "desc": "Function definitions with typed parameters, default values, variable args and docstrings",
-    "tip": "Never use mutable objects (like [] or {}) as default arguments; use arg: list = None instead.",
-    "tags": "python functions args kwargs lambda typing"
+    "tip": "Never use mutable objects (like [] or {}) as default arguments; use arg: list | None = None and create the list inside the function.",
+    "tags": "python functions args kwargs lambda typing",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.python.org/3/reference/compound_stmts.html",
+          "title": "Python: compound statements (if, for, match, def)"
+        },
+        {
+          "url": "https://docs.python.org/3/faq/programming.html#why-are-default-values-shared-between-objects",
+          "title": "Python FAQ: shared default values"
+        }
+      ],
+      "note": "Corrected 2026-11-10: defaults are evaluated when the def runs, not at import."
+    }
   },
   {
     "sName": "python",
@@ -54958,7 +55350,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "import json\nfrom pathlib import Path\n\nfile_path = Path(\"/etc/datacenter/config.json\")\n\ntry:\n    # Safe context manager: auto-closes file even on error\n    with open(file_path, \"r\", encoding=\"utf-8\") as f:\n        data = json.load(f)\nexcept FileNotFoundError:\n    print(f\"Config file missing: {file_path}\")\n    data = {}\nexcept json.JSONDecodeError as err:\n    print(f\"Malformed JSON on line {err.lineno}: {err.msg}\")\n    raise SystemExit(1)\nfinally:\n    print(\"Execution finished\")",
     "desc": "Exception handling with try/except/else/finally and safe file I/O with context managers",
     "tip": "Use pathlib.Path for all file path operations instead of legacy os.path methods.",
-    "tags": "python file-io exceptions try-except json pathlib with"
+    "tags": "python file-io exceptions try-except json pathlib with",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.python.org/3/tutorial/errors.html",
+          "title": "Python tutorial: errors and exceptions"
+        },
+        {
+          "url": "https://docs.python.org/3/library/pathlib.html",
+          "title": "Python: pathlib"
+        },
+        {
+          "url": "https://docs.python.org/3/library/json.html",
+          "title": "Python: json (and json.tool)"
+        }
+      ]
+    }
   },
   {
     "sName": "python",
@@ -56306,10 +56715,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "syntax",
     "id": "regex-tokens-quantifiers",
     "sec": "Tokens, Quantifiers & Groups",
-    "cmd": "# Matches IPv4: 4 groups of 1-3 digits\n^([0-9]{1,3}\\.){3}[0-9]{1,3}$\n\n# Named capture groups (Python / JS / PCRE)\n(?<interface>[a-z0-9]+):\\s+(?<rx_bytes>\\d+)\\s+(?<tx_bytes>\\d+)",
+    "cmd": "# IPv4 shape: 4 groups of 1-3 digits (also accepts 999.1.1.1)\n^([0-9]{1,3}\\.){3}[0-9]{1,3}$\n\n# Named capture groups (JS / PCRE; Python writes (?P<name>...))\n(?<interface>[a-z0-9]+):\\s+(?<rx_bytes>\\d+)\\s+(?<tx_bytes>\\d+)",
     "desc": "Core regex tokens, character shorthands, quantifiers, and capturing groups",
     "tip": "Always test regex patterns with sample edge cases on regex101.com before deploying to production.",
-    "tags": "regex tokens quantifiers groups capture anchors"
+    "tags": "regex tokens quantifiers groups capture anchors",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.pcre.org/current/doc/html/pcre2pattern.html",
+          "title": "PCRE2 pattern syntax"
+        },
+        {
+          "url": "https://docs.python.org/3/library/re.html",
+          "title": "Python: re"
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Regular_expressions/Named_capturing_group",
+          "title": "MDN: named capturing group"
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Regular_expressions/Modifier",
+          "title": "MDN: regex modifiers (?i:...)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: Python needs (?P<name>...); JavaScript has no unscoped (?i)."
+    }
   },
   {
     "sName": "regex",
@@ -56318,7 +56749,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "id": "regex-tokens-quantifiers",
     "sec": "Tokens, Quantifiers & Groups",
     "cmd": "(?i)",
-    "desc": "Inline modifier flag enabling case-insensitive matching",
+    "desc": "Case-insensitive from here on (PCRE, Python); JavaScript only has the scoped (?i:...) form, or the i flag",
     "tip": "",
     "tags": "regex tokens quantifiers groups capture anchors"
   },
@@ -56342,7 +56773,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "# Positive lookahead: match 'node' only if followed by digits\nnode(?=\\d{2,3})\n\n# Negative lookahead: match 'error' NOT followed by 'timeout'\nerror(?!\\s+timeout)\n\n# Positive lookbehind: extract IP address after 'host='\n(?<=host=)[0-9.]+",
     "desc": "Zero-width lookaround assertions: positive/negative lookahead & lookbehind",
     "tip": "Lookarounds are zero-width: they test text ahead or behind without including it in the matched capture.",
-    "tags": "regex lookahead lookbehind lookaround assertions"
+    "tags": "regex lookahead lookbehind lookaround assertions",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.pcre.org/current/doc/html/pcre2pattern.html",
+          "title": "PCRE2 pattern syntax"
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Regular_expressions/Lookbehind_assertion",
+          "title": "MDN: lookbehind assertion"
+        },
+        {
+          "url": "https://docs.python.org/3/library/re.html",
+          "title": "Python: re"
+        }
+      ]
+    }
   },
   {
     "sName": "regex",
@@ -56361,10 +56809,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "recipes",
     "id": "regex-dc-patterns",
     "sec": "Datacenter & Production Pattern Recipes",
-    "cmd": "# MAC Address (colon or hyphen separated)\n^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$\n\n# PCIe BDF Address (e.g. 0000:04:00.0)\n^[0-9a-fA-F]{4}:[0-9a-fA-F]{2}:[0-9a-fA-F]{2}\\.[0-7]$\n\n# UUID / GUID (RFC 4122)\n^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$",
+    "cmd": "# MAC Address (colon or hyphen separated)\n^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$\n\n# PCIe BDF Address (e.g. 0000:04:00.0)\n^[0-9a-fA-F]{4}:[0-9a-fA-F]{2}:[0-9a-fA-F]{2}\\.[0-7]$\n\n# UUID / GUID, versions 1-5 (RFC 9562 adds 6-8: use [1-8])\n^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$",
     "desc": "Copy-pasteable regex recipes for common datacenter identifiers and network strings",
     "tip": "Use grep -P (Perl-compatible) or rg (ripgrep) when using these regex recipes in Linux terminals.",
-    "tags": "regex recipes mac pcie uuid ipv4 datacenter"
+    "tags": "regex recipes mac pcie uuid ipv4 datacenter",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.rfc-editor.org/rfc/rfc9562.html",
+          "title": "RFC 9562: UUIDs (obsoletes RFC 4122)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+          "title": "grep(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: RFC 9562 replaced RFC 4122 and adds UUID versions 6-8."
+    }
   },
   {
     "sName": "regex",
@@ -57276,7 +57738,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "set -euo pipefail\nIFS=$'\\n\\t'\nTMPDIR=$(mktemp -d) && trap 'rm -rf \"$TMPDIR\"' EXIT",
     "desc": "Strict mode header with safe errexit, nounset, pipefail and automatic cleanup trap",
     "tip": "Standard production bash preamble",
-    "tags": "bash strict-mode pipefail trap boilerplate errexit"
+    "tags": "bash strict-mode pipefail trap boilerplate errexit",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -57317,10 +57788,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "bash",
     "id": "bash-parameter-expansion",
     "sec": "Bash & POSIX Shell Scripting",
-    "cmd": "echo \"${VAR:-default_val}\" | echo \"${FILENAME%.*}\" | echo \"${PATH//:/\\n}\"",
+    "cmd": "echo \"${VAR:-default_val}\"; echo \"${FILENAME%.*}\"; echo \"${PATH//:/$'\\n'}\"",
     "desc": "Parameter expansion recipes: defaults, string slicing, search/replace, and case modification",
     "tip": "Avoids slow subshell spawning with sed/cut",
-    "tags": "bash parameter-expansion string defaults trim extension"
+    "tags": "bash parameter-expansion string defaults trim extension",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: the echo commands were piped into each other, and ${PATH//:/\\n} inserts a literal n; now $'\\n'."
+    }
   },
   {
     "sName": "scripting",
@@ -57364,7 +57845,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "declare -A SERVERS=([node1]=\"10.0.0.1\" [node2]=\"10.0.0.2\") && for k in \"${!SERVERS[@]}\"; do echo \"$k -> ${SERVERS[$k]}\"; done",
     "desc": "Indexed arrays, associative key-value maps (hash tables), slicing & length operations",
     "tip": "Always quote \"${arr[@]}\" to prevent word-splitting!",
-    "tags": "bash arrays associative hashmap mapfile loops"
+    "tags": "bash arrays associative hashmap mapfile loops",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -57408,7 +57898,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "cat << 'EOF' > /etc/systemd/system/app.service\n[Unit]\nDescription=App\nExecStart=/usr/bin/app\nEOF",
     "desc": "Quoted heredocs (preventing variable interpolation), indent-stripped `<<-`, and herestrings `<<<`",
     "tip": "Quoting 'EOF' prevents accidental shell injection",
-    "tags": "bash heredoc herestring template tee multiline"
+    "tags": "bash heredoc herestring template tee multiline",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -57417,7 +57916,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "id": "bash-heredoc-herestring",
     "sec": "Bash & POSIX Shell Scripting",
     "cmd": "tee /etc/sysctl.d/99-custom.conf > /dev/null << 'EOF'\nnet.core.somaxconn = 65535\nEOF",
-    "desc": "Write protected system files using sudo tee and heredoc",
+    "desc": "Write a root-owned file with tee and a heredoc (run it as root)",
     "tip": "",
     "tags": "bash heredoc herestring template tee multiline"
   },
@@ -57441,7 +57940,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "import subprocess\nres = subprocess.run(['ip', '-j', 'link'], capture_output=True, text=True, check=True, timeout=10)\nprint(res.stdout)",
     "desc": "Safe, non-blocking subprocess execution with timeout, captured stdout/stderr, and exit code checking",
     "tip": "Avoid shell=True with user input to prevent injection",
-    "tags": "python subprocess cli exec timeout pipe"
+    "tags": "python subprocess cli exec timeout pipe",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.python.org/3/library/subprocess.html",
+          "title": "Python: subprocess"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -57474,7 +57982,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "from pathlib import Path\nlog_dir = Path('/var/log')\nfor p in log_dir.rglob('*.log'):\n    if p.stat().st_size > 10 * 1024 * 1024:\n        print(f'{p}: {p.stat().st_size / 1e6:.1f} MB')",
     "desc": "Modern filesystem navigation, recursive globbing, atomic writes & permissions via pathlib.Path",
     "tip": "Replaces legacy os.path.join and os.walk",
-    "tags": "python pathlib files glob filesystem path"
+    "tags": "python pathlib files glob filesystem path",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.python.org/3/library/pathlib.html",
+          "title": "Python: pathlib"
+        },
+        {
+          "url": "https://docs.python.org/3/library/json.html",
+          "title": "Python: json (and json.tool)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: Path.write_text() is not atomic."
+    }
   },
   {
     "sName": "scripting",
@@ -57507,7 +58029,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "import argparse\np = argparse.ArgumentParser(description='Node Triage Tool')\np.add_argument('-n', '--node', required=True, help='Target hostname')\np.add_argument('-v', '--verbose', action='store_true', help='Verbose output')\np.add_argument('--retries', type=int, default=3, help='Max attempts')\nargs = p.parse_args()",
     "desc": "Production CLI argument parser with subcommands, typed flags, defaults and auto-generated help",
     "tip": "Built into Python standard library with zero external dependencies",
-    "tags": "python argparse cli flags options arguments"
+    "tags": "python argparse cli flags options arguments",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.python.org/3/library/argparse.html",
+          "title": "Python: argparse"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -57540,7 +58071,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "import fs from 'node:fs/promises';\nconst config = JSON.parse(await fs.readFile('./config.json', 'utf8'));\nawait fs.writeFile('./output.json', JSON.stringify(config, null, 2));",
     "desc": "Modern asynchronous filesystem I/O with async/await, streams & recursive directories",
     "tip": "Use 'node:' prefix for guaranteed built-in resolution",
-    "tags": "javascript nodejs fs async promises io"
+    "tags": "javascript nodejs fs async promises io",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://nodejs.org/api/fs.html",
+          "title": "Node.js: fs"
+        },
+        {
+          "url": "https://nodejs.org/api/readline.html",
+          "title": "Node.js: readline"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -57573,7 +58117,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "import { execFile } from 'node:child_process';\nimport { promisify } from 'node:util';\nconst execFileAsync = promisify(execFile);\nconst { stdout } = await execFileAsync('git', ['status', '--porcelain']);",
     "desc": "Promisified command execution with stdout/stderr capture and signal termination",
     "tip": "Prefer execFile over exec to avoid shell injection",
-    "tags": "nodejs exec spawn child_process cli"
+    "tags": "nodejs exec spawn child_process cli",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://nodejs.org/api/child_process.html",
+          "title": "Node.js: child_process"
+        },
+        {
+          "url": "https://nodejs.org/api/util.html",
+          "title": "Node.js: util (promisify, parseArgs)"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -57606,7 +58163,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "type NodeConfig = { id: string; bmcIp: string; gpus: number; tags?: string[] };\ntype UpdateConfig = Partial<NodeConfig>;\ntype HostLookup = Record<string, NodeConfig>;",
     "desc": "Core utility types: Record, Partial, Pick, Omit, Readonly, and generic API wrappers",
     "tip": "Avoid 'any' — prefer 'unknown' with type narrowing",
-    "tags": "typescript generics partial record omit types"
+    "tags": "typescript generics partial record omit types",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.typescriptlang.org/docs/handbook/utility-types.html",
+          "title": "TypeScript: utility types"
+        },
+        {
+          "url": "https://www.typescriptlang.org/docs/handbook/2/narrowing.html",
+          "title": "TypeScript: narrowing"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -57639,7 +58209,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "npx tsx script.ts   # Zero-config ESM/CJS runner\nbun run script.ts   # High-speed native TS runtime\nts-node --transpile-only script.ts",
     "desc": "Instant TypeScript execution without manual tsc build steps via tsx, bun or ts-node",
     "tip": "Use 'tsx' for fast Node scripts without tsconfig headache",
-    "tags": "typescript tsx bun ts-node runtime runner"
+    "tags": "typescript tsx bun ts-node runtime runner",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/privatenumber/tsx",
+          "title": "tsx"
+        },
+        {
+          "url": "https://bun.sh/docs/runtime/typescript",
+          "title": "Bun: TypeScript"
+        },
+        {
+          "url": "https://github.com/TypeStrong/ts-node",
+          "title": "ts-node"
+        },
+        {
+          "url": "https://nodejs.org/api/typescript.html",
+          "title": "Node.js: TypeScript type stripping"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -57650,7 +58241,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Get-Process | Where-Object WorkingSet64 -gt 200MB | Select-Object -First 10 ProcessName, @{Name='RAM_MB'; Expression={[math]::Round($_.WorkingSet64 / 1MB, 1)}} | Sort-Object RAM_MB -Descending",
     "desc": "Construct structured PSCustomObjects inside pipelines with Where-Object and Select-Object",
     "tip": "Pass objects through pipelines, not raw text!",
-    "tags": "powershell pipeline pscustomobject objects filter sort"
+    "tags": "powershell pipeline pscustomobject objects filter sort",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/where-object",
+          "title": "Where-Object"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/select-object",
+          "title": "Select-Object"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_pscustomobject",
+          "title": "about_PSCustomObject"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_automatic_variables",
+          "title": "about_Automatic_Variables ($_, $LASTEXITCODE)"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/convertto-json",
+          "title": "ConvertTo-Json"
+        }
+      ],
+      "note": "Corrected 2026-11-10: % is ForEach-Object, not Select-Object."
+    }
   },
   {
     "sName": "scripting",
@@ -57683,7 +58300,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "$ErrorActionPreference = 'Stop'\ntry {\n  $resp = Invoke-RestMethod -Uri \"https://$BMC/redfish/v1/Systems\" -TimeoutSec 5\n} catch {\n  Write-Error \"Failed: $($_.Exception.Message)\"\n  exit 1\n}",
     "desc": "Production error handling with try/catch/finally, ErrorAction Stop & exit codes",
     "tip": "Set ErrorActionPreference = 'Stop' at top of scripts",
-    "tags": "powershell error try-catch exceptions exitcode"
+    "tags": "powershell error try-catch exceptions exitcode",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_preference_variables",
+          "title": "about_Preference_Variables"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_try_catch_finally",
+          "title": "about_Try_Catch_Finally"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_automatic_variables",
+          "title": "about_Automatic_Variables ($_, $LASTEXITCODE)"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/invoke-restmethod",
+          "title": "Invoke-RestMethod"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -57715,8 +58353,22 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "PowerShell Core 7+ Scripting",
     "cmd": "function Invoke-NodeTriage {\n  [CmdletBinding()]\n  param(\n    [Parameter(Mandatory, ValueFromPipeline)]\n    [string[]]$Hostname,\n    [ValidateRange(1, 60)][int]$Timeout = 10\n  )\n  process { Write-Host \"Checking node: $Hostname (timeout: ${Timeout}s)\" }\n}",
     "desc": "Advanced cmdlet function with [CmdletBinding()], typed parameters, validation and pipeline support",
-    "tip": "CmdletBinding unlocks -Verbose and -WhatIf flags",
-    "tags": "powershell function cmdlet param advanced pipeline"
+    "tip": "CmdletBinding unlocks -Verbose; add SupportsShouldProcess for -WhatIf",
+    "tags": "powershell function cmdlet param advanced pipeline",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_cmdletbindingattribute",
+          "title": "about_Functions_CmdletBindingAttribute"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_advanced_parameters",
+          "title": "about_Functions_Advanced_Parameters"
+        }
+      ],
+      "note": "Corrected 2026-11-10: -WhatIf comes from SupportsShouldProcess, not CmdletBinding alone."
+    }
   },
   {
     "sName": "scripting",
@@ -57727,7 +58379,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "-- Comment: delete the -- to turn a line on\nlocal server = { host = \"10.0.0.1\", ports = { 22, 8080 } }\nprint(server.host .. \":\" .. server.ports[1])\nprint(#server.ports, server.missing == nil)",
     "desc": "Variables, comments, tables, and the rules that surprise newcomers",
     "tip": "Only false and nil are falsy; 0 and \"\" are true",
-    "tags": "lua variables tables local comments hyprland neovim"
+    "tags": "lua variables tables local comments hyprland neovim",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.4/manual.html",
+          "title": "Lua 5.4 reference manual"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -57771,7 +58432,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "local function check(temps)\n  for name, temp in pairs(temps) do\n    if temp >= 90 then error(name .. \" too hot\") end\n  end\n  return \"ok\"\nend\nprint(pcall(check, { gpu0 = 71, gpu1 = 95 }))",
     "desc": "Loop over tables, define functions, and catch errors with pcall",
     "tip": "luac -p file.lua checks syntax without running it",
-    "tags": "lua loops pairs ipairs functions pcall errors"
+    "tags": "lua loops pairs ipairs functions pcall errors",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.4/manual.html",
+          "title": "Lua 5.4 reference manual"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -57815,7 +58485,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "local line = \"gpu-node-014 degraded\"\nlocal host, state = line:match(\"^(%S+)%s+(%S+)$\")\nprint(string.format(\"%-14s %s\", host, state:upper()))\n\nlocal hosts = { \"node2\", \"node1\" }\ntable.insert(hosts, \"node3\")\ntable.sort(hosts)\nprint(table.concat(hosts, \",\"))",
     "desc": "Search and format strings, and change lists",
     "tip": "Lua patterns are not regex, so use %d instead of \\d and there is no | for alternatives",
-    "tags": "lua strings patterns match gsub format tables insert sort concat"
+    "tags": "lua strings patterns match gsub format tables insert sort concat",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.4/manual.html",
+          "title": "Lua 5.4 reference manual"
+        },
+        {
+          "url": "https://luajit.org/extensions.html",
+          "title": "LuaJIT (Lua 5.1 + extensions)"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -57870,7 +58553,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "local f = assert(io.open(\"/etc/hostname\", \"r\"))\nlocal name = f:read(\"l\")\nf:close()\nprint(name)\n\nlocal p = assert(io.popen(\"uname -r\"))\nprint(p:read(\"l\"))\np:close()",
     "desc": "Read files, run commands, and run scripts",
     "tip": "Always close what you open, or use for line in io.lines(path) do ... end, which closes the file for you",
-    "tags": "lua files io open read popen cli arg luac"
+    "tags": "lua files io open read popen cli arg luac",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.4/manual.html",
+          "title": "Lua 5.4 reference manual"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -57914,7 +58606,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "-- ~/.config/hypr/bindings.lua\nhl.unbind(\"SUPER + SHIFT + E\")\no.bind(\"SUPER + SHIFT + E\", \"Email\", { webapp = \"https://mail.google.com\" })\n\n-- ~/.config/nvim/init.lua\nvim.opt.number = true\nvim.keymap.set(\"n\", \"<leader>w\", \"<cmd>write<CR>\", { desc = \"Save file\" })",
     "desc": "Edit Hyprland and Neovim config files",
     "tip": "Neovim runs LuaJIT (Lua 5.1), so features from Lua 5.3 and later, such as // and bitwise operators, are unavailable",
-    "tags": "lua hyprland omarchy neovim config bindings keymap"
+    "tags": "lua hyprland omarchy neovim config bindings keymap",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/basecamp/omarchy/blob/quattro/config/hypr/bindings.lua",
+          "title": "Omarchy: bindings.lua"
+        },
+        {
+          "url": "https://neovim.io/doc/user/lua-guide/",
+          "title": "Neovim: Lua guide"
+        },
+        {
+          "url": "https://wiki.hypr.land/configuring/core/advanced-configuration/using-hyprctl/",
+          "title": "Hyprland wiki: hyprctl"
+        },
+        {
+          "url": "https://luajit.org/extensions.html",
+          "title": "LuaJIT (Lua 5.1 + extensions)"
+        }
+      ],
+      "note": "o.bind / hl.unbind checked against an Omarchy install and its bindings.lua; hyprctl configerrors is listed by hyprctl --help on Hyprland 0.56.2."
+    }
   },
   {
     "sName": "scripting",
@@ -57958,7 +58672,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -s https://api.example.com/nodes | jq -r '.items[] | select(.status == \"FAILED\") | [.name, .bmcIp, .errorCode] | @csv'",
     "desc": "Filter, slice and transform nested JSON arrays into custom objects or CSV rows",
     "tip": "Pass -r when assigning jq output into bash variables",
-    "tags": "json jq csv select transform filter array"
+    "tags": "json jq csv select transform filter array",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://jqlang.org/manual/",
+          "title": "jq manual"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -57967,7 +58690,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "id": "jq-filtering-transform",
     "sec": "JSON Syntax & jq Recipes",
     "cmd": "jq -s 'add' *.json",
-    "desc": "Slurp and merge multiple JSON files into a single array (-s)",
+    "desc": "Slurp several files into one array (-s); add then merges them (objects merge, arrays concatenate)",
     "tip": "",
     "tags": "json jq csv select transform filter array"
   },
@@ -58002,7 +58725,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "python3 -m json.tool input.json > pretty.json   # Pretty-print via standard library\njq empty < input.json && echo \"Valid JSON\"",
     "desc": "CLI validation, in-place minification/prettification and escaping rules",
     "tip": "Trailing commas are strictly illegal in standard JSON",
-    "tags": "json validate minify pretty python schema"
+    "tags": "json validate minify pretty python schema",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://jqlang.org/manual/",
+          "title": "jq manual"
+        },
+        {
+          "url": "https://docs.python.org/3/library/json.html",
+          "title": "Python: json (and json.tool)"
+        },
+        {
+          "url": "https://www.rfc-editor.org/rfc/rfc8259.html",
+          "title": "RFC 8259: JSON"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -58013,7 +58753,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "default_profile: &base_env\n  timeout: 30\n  retries: 3\nproduction:\n  <<: *base_env\n  nodes: 64",
     "desc": "Multiline block scalar chomping (| vs >) and node anchors/aliases for DRY configuration",
     "tip": "Always quote 'yes', 'no', 'on', 'off' to prevent boolean conversion!",
-    "tags": "yaml scalars anchors aliases yq multiline"
+    "tags": "yaml scalars anchors aliases yq multiline",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://yaml.org/spec/1.2.2/",
+          "title": "YAML 1.2.2 spec (core schema booleans)"
+        },
+        {
+          "url": "https://yaml.org/type/merge.html",
+          "title": "YAML 1.1 merge key (<<)"
+        },
+        {
+          "url": "https://mikefarah.gitbook.io/yq",
+          "title": "yq documentation"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -58046,7 +58803,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "yq -o=json '.services[] | select(.replicas > 1)' compose.yaml | jq .",
     "desc": "Query, mutate, and convert YAML documents directly from the terminal with yq",
     "tip": "yq syntax mirrors jq for easy muscle memory",
-    "tags": "yq yaml convert json mutate compose"
+    "tags": "yq yaml convert json mutate compose",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://mikefarah.gitbook.io/yq",
+          "title": "yq documentation"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -58057,7 +58823,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "[server]\nip = \"10.0.0.1\"\nports = [ 8000, 8001 ]\nconnection_max = 5000\nenabled = true\n\n[[servers]]\nname = \"alpha\"\nip = \"10.0.0.10\"\n\n[[servers]]\nname = \"beta\"\nip = \"10.0.0.11\"",
     "desc": "TOML table definitions, inline tables, array of tables and typed scalar syntax",
     "tip": "Native standard in pyproject.toml, Cargo.toml & containerd config",
-    "tags": "toml config pyproject cargo tables schema"
+    "tags": "toml config pyproject cargo tables schema",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://toml.io/en/v1.1.0",
+          "title": "TOML 1.1.0 spec"
+        },
+        {
+          "url": "https://docs.python.org/3/library/tomllib.html",
+          "title": "Python: tomllib"
+        },
+        {
+          "url": "https://taplo.tamasfe.dev/cli/usage/formatting.html",
+          "title": "Taplo: formatting"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -58090,7 +58873,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep -oP '(?<=Temperature:\\s)[0-9]+(?=\\sC)' sensors.log   # Matches numbers between 'Temperature: ' and ' C'",
     "desc": "Zero-width lookaround assertions: positive/negative lookaheads and lookbehinds",
     "tip": "Pass -P to grep to enable full PCRE lookaround support",
-    "tags": "regex lookahead lookbehind pcre ipv4 mac bdf"
+    "tags": "regex lookahead lookbehind pcre ipv4 mac bdf",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.pcre.org/current/doc/html/pcre2pattern.html",
+          "title": "PCRE2 pattern syntax"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+          "title": "grep(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: PCRE2 10.43+ allows bounded variable-length lookbehind."
+    }
   },
   {
     "sName": "scripting",
@@ -58099,7 +58896,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "id": "regex-lookaround-assertions",
     "sec": "Regex Patterns & Lookarounds",
     "cmd": "\\b(?:[0-9]{1,3}\\.){3}[0-9]{1,3}\\b",
-    "desc": "Strict IPv4 address matcher with word boundaries",
+    "desc": "IPv4-shaped matcher with word boundaries (shape only: also accepts 999.1.1.1)",
     "tip": "",
     "tags": "regex lookahead lookbehind pcre ipv4 mac bdf"
   },
@@ -58134,7 +58931,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ps aux | awk '{sum+=$6} END {printf \"Total Resident Memory: %.2f GB\\n\", sum/1024/1024}'",
     "desc": "Field extraction, delimiter splitting, conditions, running totals and END blocks",
     "tip": "awk '!seen[$0]++' keeps original order unlike sort -u",
-    "tags": "awk sum math columns dedup fields"
+    "tags": "awk sum math columns dedup fields",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/gawk.1.html",
+          "title": "gawk(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ps.1.html",
+          "title": "ps(1) (RSS in KiB)"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -58143,7 +58953,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "id": "awk-processing-recipes",
     "sec": "AWK & Sed Stream Processing",
     "cmd": "awk '!seen[$0]++' file.txt",
-    "desc": "Deduplicate lines while preserving exact file order (faster than sort -u)",
+    "desc": "Deduplicate lines while preserving exact file order",
     "tip": "",
     "tags": "awk sum math columns dedup fields"
   },
@@ -58164,10 +58974,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "awk/sed",
     "id": "sed-in-place-recipes",
     "sec": "AWK & Sed Stream Processing",
-    "cmd": "sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config",
+    "cmd": "sed -i.bak 's/^PermitRootLogin yes/PermitRootLogin no/' /etc/ssh/sshd_config",
     "desc": "In-place file editing, regex substitution, line deletion and range blocks",
     "tip": "Use alternate delimiters like s|http://|https://|g to avoid escaping slashes",
-    "tags": "sed stream substitute regex inplace delete"
+    "tags": "sed stream substitute regex inplace delete",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sed.1.html",
+          "title": "sed(1)"
+        }
+      ],
+      "note": "Changed 2026-11-10: the example no longer disables SELinux."
+    }
   },
   {
     "sName": "scripting",
@@ -58200,7 +59020,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sqlite3 -json database.db \"SELECT hostname, bmc_ip, gpus FROM nodes WHERE status='ONLINE';\"",
     "desc": "Execute queries directly from CLI with JSON or column formatting and import raw CSV files",
     "tip": "sqlite3 :memory: lets you run SQL on any CSV instantly",
-    "tags": "sqlite sql csv json database schema cli"
+    "tags": "sqlite sql csv json database schema cli",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://sqlite.org/cli.html",
+          "title": "SQLite CLI"
+        },
+        {
+          "url": "https://sqlite.org/json1.html",
+          "title": "SQLite JSON functions"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -58244,7 +59077,40 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git status -sb\ngit add -p\ngit commit -m \"Fix BMC timeout\"\ngit pull --rebase\ngit push -u origin HEAD",
     "desc": "The everyday loop: check, stage, commit, sync and branch",
     "tip": "Run git diff --staged before committing to catch debug lines and secrets",
-    "tags": "git status add commit pull push branch"
+    "tags": "git status add commit pull push branch",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-status",
+          "title": "git status"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-add",
+          "title": "git add"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-pull",
+          "title": "git pull"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-push",
+          "title": "git push"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-switch",
+          "title": "git switch"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-log",
+          "title": "git log"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-diff",
+          "title": "git diff"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -58288,7 +59154,36 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git restore --staged path/to/file\ngit reset --soft HEAD~1\ngit revert abc1234\ngit reflog -20",
     "desc": "Undo mistakes, from unstaging a file to recovering lost commits",
     "tip": "Use git revert on shared branches, because git reset rewrites history",
-    "tags": "git undo restore reset revert reflog stash"
+    "tags": "git undo restore reset revert reflog stash",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-restore",
+          "title": "git restore"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-reset",
+          "title": "git reset"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-revert",
+          "title": "git revert"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-reflog",
+          "title": "git reflog"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-stash",
+          "title": "git stash"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-clean",
+          "title": "git clean"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -58332,7 +59227,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "cd \"$(git rev-parse --show-toplevel)\"\nif [[ -n \"$(git status --porcelain)\" ]]; then\n  echo \"Refusing to deploy: uncommitted changes\" >&2\n  exit 1\nfi\nVERSION=\"$(git describe --tags --always --dirty)\"\necho \"Deploying $VERSION\"",
     "desc": "Use git in scripts: check for local edits and report the version",
     "tip": "Parse --porcelain output, not plain git status, because the plain text can change between versions",
-    "tags": "git scripts porcelain rev-parse describe deploy automation"
+    "tags": "git scripts porcelain rev-parse describe deploy automation",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-rev-parse",
+          "title": "git rev-parse"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-status",
+          "title": "git status"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-describe",
+          "title": "git describe"
+        },
+        {
+          "url": "https://git-scm.com/docs/git",
+          "title": "git (-C)"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-diff",
+          "title": "git diff"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -58376,7 +59296,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "# Title\n## Section\n\n**bold**  *italic*  `inline code`\n\n- Bullet\n  - Nested bullet\n1. Numbered step\n- [ ] Open task\n\n[Link text](https://example.com)\n\n```bash\nnvidia-smi -q -d ECC\n```",
     "desc": "The syntax you use every day: headings, emphasis, lists, links and code",
     "tip": "Leave a blank line around headings, lists and code blocks so every renderer reads them the same way",
-    "tags": "markdown md headings lists links code gfm"
+    "tags": "markdown md headings lists links code gfm",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://spec.commonmark.org/0.31.2/",
+          "title": "CommonMark 0.31.2 spec"
+        },
+        {
+          "url": "https://github.github.com/gfm/",
+          "title": "GitHub Flavored Markdown spec (tables, task lists)"
+        },
+        {
+          "url": "https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax",
+          "title": "GitHub: basic writing and formatting (alerts)"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -58420,7 +59357,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "| GPU | BDF          | Temp |\n|:----|:-------------|-----:|\n| 3   | 0000:8a:00.0 |  88C |\n\nnvidia-smi --query-gpu=index,pci.bus_id,temperature.gpu --format=csv,noheader \\\n  | awk -F', ' '{ printf \"| %s | %s | %sC |\\n\", $1, $2, $3 }'",
     "desc": "Tables with alignment, and a table built from command output",
     "tip": "Right-align number columns so values are easy to compare",
-    "tags": "markdown tables awk nvidia-smi csv"
+    "tags": "markdown tables awk nvidia-smi csv",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.github.com/gfm/",
+          "title": "GitHub Flavored Markdown spec (tables, task lists)"
+        },
+        {
+          "url": "https://pandoc.org/MANUAL.html",
+          "title": "Pandoc manual"
+        },
+        {
+          "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+          "title": "nvidia-smi documentation"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -58442,7 +59396,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "<details>\n<summary>Full dmesg output</summary>\n\n```text\n...\n```\n\n</details>",
     "desc": "Fold long logs into a collapsible section in a ticket or PR",
     "tip": "Leave blank lines inside <details>, or the Markdown in it won't render",
-    "tags": "markdown details summary collapse logs ticket"
+    "tags": "markdown details summary collapse logs ticket",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/organizing-information-with-collapsed-sections",
+          "title": "GitHub: collapsed sections"
+        },
+        {
+          "url": "https://github.com/charmbracelet/glow",
+          "title": "glow"
+        },
+        {
+          "url": "https://pandoc.org/MANUAL.html",
+          "title": "Pandoc manual"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -60739,10 +61710,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "sql",
     "id": "sql-select-joins",
     "sec": "Queries, Joins & Aggregations",
-    "cmd": "-- Query nodes with high GPU temperature and join rack info\nSELECT \n  n.hostname,\n  n.ip_address,\n  r.name AS rack_name,\n  COUNT(g.id) AS gpu_count,\n  AVG(g.temp_c) AS avg_temp\nFROM nodes n\nINNER JOIN racks r ON n.rack_id = r.id\nLEFT JOIN gpus g ON n.id = g.node_id\nWHERE n.status = 'ACTIVE'\nGROUP BY n.id\nHAVING avg_temp > 75.0\nORDER BY avg_temp DESC\nLIMIT 20;",
+    "cmd": "-- Query nodes with high GPU temperature and join rack info\nSELECT \n  n.hostname,\n  n.ip_address,\n  r.name AS rack_name,\n  COUNT(g.id) AS gpu_count,\n  AVG(g.temp_c) AS avg_temp\nFROM nodes n\nINNER JOIN racks r ON n.rack_id = r.id\nLEFT JOIN gpus g ON n.id = g.node_id\nWHERE n.status = 'ACTIVE'\nGROUP BY n.id, n.hostname, n.ip_address, r.name\nHAVING AVG(g.temp_c) > 75.0\nORDER BY avg_temp DESC\nLIMIT 20;",
     "desc": "Structured SELECT queries with filtering, table joins, and group by aggregations",
     "tip": "Always create indexes on columns used in foreign keys and WHERE/JOIN clauses (CREATE INDEX idx_... ON ...).",
-    "tags": "sql select join group-by aggregations having database"
+    "tags": "sql select join group-by aggregations having database",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.postgresql.org/docs/current/sql-select.html",
+          "title": "PostgreSQL: SELECT (GROUP BY, HAVING)"
+        },
+        {
+          "url": "https://sqlite.org/lang_select.html",
+          "title": "SQLite: SELECT (bare columns)"
+        },
+        {
+          "url": "https://sqlite.org/lang_transaction.html",
+          "title": "SQLite: transactions"
+        }
+      ],
+      "note": "Corrected 2026-11-10: GROUP BY now lists every selected column and HAVING repeats the aggregate, as standard SQL (PostgreSQL) requires; SQLite accepted the old form."
+    }
   },
   {
     "sName": "sql",
@@ -60786,7 +61775,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "# Open SQLite in-memory, import CSV directly, and execute SQL query\nsqlite3 :memory: \\\n  -cmd \".mode csv\" \\\n  -cmd \".import server_metrics.csv metrics\" \\\n  -cmd \".mode column\" \\\n  -cmd \".headers on\" \\\n  \"SELECT hostname, MAX(cpu_load) FROM metrics GROUP BY hostname;\"",
     "desc": "Run SQL directly on CSV files in-memory without installing database servers",
     "tip": "sqlite3 :memory: gives you the full power of SQL on any CSV file instantly without setting up PostgreSQL or MySQL.",
-    "tags": "sqlite csv json cli memory schema database"
+    "tags": "sqlite csv json cli memory schema database",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://sqlite.org/cli.html",
+          "title": "SQLite CLI"
+        },
+        {
+          "url": "https://sqlite.org/json1.html",
+          "title": "SQLite JSON functions"
+        }
+      ]
+    }
   },
   {
     "sName": "sql",
@@ -68162,7 +69164,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "[server]\nhost = \"10.0.0.1\"\nports = [ 8000, 8080, 9000 ]\nmax_conns = 5_000\ntimeout_seconds = 45.5\nenabled = true\ncreated_at = 2026-10-31T12:00:00Z\n\n# Array of Tables (Repeated records)\n[[nodes]]\nname = \"gpu-01\"\nmodel = \"H100\"\n\n[[nodes]]\nname = \"gpu-02\"\nmodel = \"H200\"",
     "desc": "Standard TOML syntax: tables, array of tables [[...]], and Python tomllib parsing",
     "tip": "Use TOML for configuration files (pyproject.toml, Cargo.toml) where clean, non-indented syntax is preferred.",
-    "tags": "toml tables arrays config tomllib syntax"
+    "tags": "toml tables arrays config tomllib syntax",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://toml.io/en/v1.1.0",
+          "title": "TOML 1.1.0 spec"
+        },
+        {
+          "url": "https://docs.python.org/3/library/tomllib.html",
+          "title": "Python: tomllib"
+        },
+        {
+          "url": "https://taplo.tamasfe.dev/cli/usage/formatting.html",
+          "title": "Taplo: formatting"
+        }
+      ]
+    }
   },
   {
     "sName": "toml",
@@ -68171,7 +69190,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "id": "toml-tables-arrays",
     "sec": "Tables, Arrays & Scalar Types",
     "cmd": "import tomllib; data = tomllib.loads(toml_str)",
-    "desc": "Parse TOML natively in Python 3.11+ without third-party packages",
+    "desc": "Parse TOML natively in Python 3.11+ without third-party packages (TOML 1.1 from 3.15)",
     "tip": "",
     "tags": "toml tables arrays config tomllib syntax"
   },
@@ -68306,7 +69325,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "interface ServerNode {\n  id: string;\n  bmcIp: string;\n  gpus: number;\n  status: 'ONLINE' | 'OFFLINE' | 'MAINTENANCE';\n  tags?: string[]; // Optional property\n}\n\n// Generic API response container\ninterface ApiResponse<T> {\n  data: T;\n  timestamp: number;\n  error?: string;\n}",
     "desc": "Declare structured interfaces, union types, and reusable generic functions",
     "tip": "Prefer literal union types over numeric enums for cleaner JS output and exact compile-time validation.",
-    "tags": "typescript interface type generics union schema"
+    "tags": "typescript interface type generics union schema",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.typescriptlang.org/docs/handbook/2/everyday-types.html",
+          "title": "TypeScript: everyday types"
+        },
+        {
+          "url": "https://www.typescriptlang.org/docs/handbook/2/generics.html",
+          "title": "TypeScript: generics"
+        },
+        {
+          "url": "https://www.typescriptlang.org/docs/handbook/utility-types.html",
+          "title": "TypeScript: utility types"
+        }
+      ]
+    }
   },
   {
     "sName": "typescript",
@@ -68339,7 +69375,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "type NetworkEvent = \n  | { kind: 'link_up'; speed: number }\n  | { kind: 'link_down'; reason: string };\n\nfunction handleEvent(e: NetworkEvent) {\n  if (e.kind === 'link_up') {\n    console.log(`Port active at ${e.speed}G`); // TS knows speed exists\n  } else {\n    console.log(`Down: ${e.reason}`);        // TS knows reason exists\n  }\n}",
     "desc": "Type guards and type narrowing with typeof, instanceof, in, and custom predicates",
     "tip": "Discriminated unions with exhaustive switch/if checks eliminate entire classes of runtime errors.",
-    "tags": "typescript narrowing typeguards discriminated-union typeof instanceof"
+    "tags": "typescript narrowing typeguards discriminated-union typeof instanceof",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.typescriptlang.org/docs/handbook/2/narrowing.html",
+          "title": "TypeScript: narrowing"
+        }
+      ]
+    }
   },
   {
     "sName": "typescript",
@@ -68372,7 +69417,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "interface MachineConfig {\n  hostname: string;\n  ip: string;\n  cores: number;\n  rackId: string;\n}\n\n// Update config: all fields optional\ntype MachineUpdate = Partial<MachineConfig>;\n\n// Public view: omit sensitive fields\ntype PublicMachine = Omit<MachineConfig, 'ip'>;\n\n// Dictionary mapping IDs to config\ntype MachineRegistry = Record<string, MachineConfig>;",
     "desc": "Built-in utility types: Partial, Required, Pick, Omit, Record & ReturnType",
     "tip": "Utility types prevent code duplication by deriving DTOs, updates, and subsets from a single interface.",
-    "tags": "typescript utility-types partial pick omit record generics"
+    "tags": "typescript utility-types partial pick omit record generics",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.typescriptlang.org/docs/handbook/utility-types.html",
+          "title": "TypeScript: utility types"
+        }
+      ]
+    }
   },
   {
     "sName": "typescript",
@@ -68405,7 +69459,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "class ServerManager {\n  // Parameter property: automatically assigns to private/public fields\n  constructor(\n    public readonly hostname: string,\n    private apiKey: string,\n    protected port: number = 22\n  ) {}\n\n  async ping(): Promise<boolean> {\n    return true;\n  }\n}",
     "desc": "Class parameter properties, async typing, and essential tsconfig.json options",
     "tip": "Use npx tsx for writing datacenter CLI scripts in TypeScript without needing a complex build setup.",
-    "tags": "typescript classes access-modifiers tsconfig tooling tsx"
+    "tags": "typescript classes access-modifiers tsconfig tooling tsx",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.typescriptlang.org/docs/handbook/2/classes.html",
+          "title": "TypeScript: classes"
+        },
+        {
+          "url": "https://www.typescriptlang.org/tsconfig/",
+          "title": "TypeScript: tsconfig reference"
+        },
+        {
+          "url": "https://devblogs.microsoft.com/typescript/announcing-typescript-6-0/",
+          "title": "Announcing TypeScript 6.0 (strict by default)"
+        },
+        {
+          "url": "https://nodejs.org/api/typescript.html",
+          "title": "Node.js: TypeScript type stripping"
+        },
+        {
+          "url": "https://github.com/privatenumber/tsx",
+          "title": "tsx"
+        }
+      ],
+      "note": "Added 2026-11-10: strict is on by default since TypeScript 6.0; Node can run .ts directly but not parameter properties."
+    }
   },
   {
     "sName": "typescript",
@@ -68415,6 +69495,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "Typed Functions, Classes & Utility Types",
     "cmd": "npx tsx script.ts",
     "desc": "Run TypeScript files directly without separate build step (instant execution)",
+    "tip": "",
+    "tags": "typescript classes access-modifiers tsconfig tooling tsx"
+  },
+  {
+    "sName": "typescript",
+    "file": "typescript.html",
+    "badge": "func",
+    "id": "ts-classes-tooling",
+    "sec": "Typed Functions, Classes & Utility Types",
+    "cmd": "node script.ts",
+    "desc": "Node 22.18+ / 23.6+ runs .ts files by stripping types; parameter properties like the ones above and enums still need tsx",
     "tip": "",
     "tags": "typescript classes access-modifiers tsconfig tooling tsx"
   },
@@ -71484,7 +72575,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "# Base template anchor\ndefault_settings: &base_cfg\n  timeout: 30\n  retries: 3\n  logging: verbose\n\n# Inherit from anchor using merge key (<<)\nproduction_node:\n  <<: *base_cfg\n  hostname: prod-gpu-01\n  motd: |\n    === AUTHORIZED ACCESS ONLY ===\n    All connections are logged and monitored.\n  description: >\n    This is a long description that wraps across\n    multiple lines but becomes a single space-separated string.",
     "desc": "Multi-line string styles: Literal (| preserves newlines) vs Folded (> replaces with spaces)",
     "tip": "Quote strings like \"yes\", \"no\", \"true\", \"false\" if they are meant to be string values, not booleans.",
-    "tags": "yaml syntax anchors aliases merge multiline strings"
+    "tags": "yaml syntax anchors aliases merge multiline strings",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://yaml.org/spec/1.2.2/",
+          "title": "YAML 1.2.2 spec (core schema booleans)"
+        },
+        {
+          "url": "https://yaml.org/type/merge.html",
+          "title": "YAML 1.1 merge key (<<)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: in YAML 1.2 only true/false are booleans."
+    }
   },
   {
     "sName": "yaml",
@@ -71493,7 +72598,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "id": "yaml-syntax-rules",
     "sec": "YAML Syntax, Scalars & Anchors",
     "cmd": "bool_val: true # True, false, yes, no",
-    "desc": "Booleans in YAML (prefer lowercase true/false)",
+    "desc": "YAML 1.2 booleans are only true/false (any case); yes/no/on/off are booleans only to YAML 1.1 parsers such as PyYAML",
     "tip": "",
     "tags": "yaml syntax anchors aliases merge multiline strings"
   },
@@ -71516,8 +72621,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "YAML Syntax, Scalars & Anchors",
     "cmd": "# Read property value\nyq '.production_node.hostname' config.yaml\n\n# Modify property in-place\nyq -i '.production_node.timeout = 60' config.yaml\n\n# Convert YAML to JSON (or JSON to YAML)\nyq -o=json config.yaml > config.json\nyq -p=json -o=yaml data.json > data.yaml",
     "desc": "Query, mutate, and convert YAML files directly in the terminal using yq (v4)",
-    "tip": "yq preserves comments and whitespace when modifying YAML files in-place with -i.",
-    "tags": "yq yaml cli json mutate convert inplace"
+    "tip": "yq -i keeps comments and most formatting, but not every bit of whitespace.",
+    "tags": "yq yaml cli json mutate convert inplace",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://mikefarah.gitbook.io/yq",
+          "title": "yq documentation"
+        },
+        {
+          "url": "https://mikefarah.gitbook.io/yq/operators/has",
+          "title": "yq: has operator"
+        },
+        {
+          "url": "https://github.com/mikefarah/yq#known-issues--missing-features",
+          "title": "yq README: known issues (whitespace)"
+        }
+      ]
+    }
   },
   {
     "sName": "yaml",

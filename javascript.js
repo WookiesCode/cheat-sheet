@@ -50,7 +50,28 @@ const JS_CHEAT_SHEET_DATA = [
           "template-literals",
           "destructuring",
           "spread"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let",
+              "title": "MDN: let"
+            },
+            {
+              "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring",
+              "title": "MDN: destructuring"
+            },
+            {
+              "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax",
+              "title": "MDN: spread syntax"
+            },
+            {
+              "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals",
+              "title": "MDN: template literals"
+            }
+          ]
+        }
       },
       {
         "id": "js-operators-truthiness",
@@ -96,7 +117,28 @@ const JS_CHEAT_SHEET_DATA = [
           "optional-chaining",
           "equality",
           "truthy"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Strict_equality",
+              "title": "MDN: strict equality (===)"
+            },
+            {
+              "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing",
+              "title": "MDN: nullish coalescing (??)"
+            },
+            {
+              "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining",
+              "title": "MDN: optional chaining (?.)"
+            },
+            {
+              "url": "https://developer.mozilla.org/en-US/docs/Glossary/Falsy",
+              "title": "MDN: falsy"
+            }
+          ]
+        }
       }
     ]
   },
@@ -151,7 +193,20 @@ const JS_CHEAT_SHEET_DATA = [
           "while",
           "loops",
           "iteration"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of",
+              "title": "MDN: for...of"
+            },
+            {
+              "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...in",
+              "title": "MDN: for...in"
+            }
+          ]
+        }
       },
       {
         "id": "js-functional-array-methods",
@@ -202,7 +257,16 @@ const JS_CHEAT_SHEET_DATA = [
           "reduce",
           "find",
           "functional"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
+              "title": "MDN: Array methods"
+            }
+          ]
+        }
       }
     ]
   },
@@ -236,6 +300,10 @@ const JS_CHEAT_SHEET_DATA = [
           [
             "AbortSignal.timeout(ms)",
             "Built-in automatic fetch timeout controller"
+          ],
+          [
+            "Top-level await",
+            "The last line only works in an ES module (.mjs or \"type\": \"module\"); in CommonJS, wrap it in an async function"
           ]
         ],
         "subcommands": [
@@ -257,7 +325,37 @@ const JS_CHEAT_SHEET_DATA = [
           "fetch",
           "try-catch",
           "concurrency"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function",
+              "title": "MDN: async function"
+            },
+            {
+              "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await",
+              "title": "MDN: await (top-level await in modules)"
+            },
+            {
+              "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all",
+              "title": "MDN: Promise.all"
+            },
+            {
+              "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettled",
+              "title": "MDN: Promise.allSettled"
+            },
+            {
+              "url": "https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal/timeout_static",
+              "title": "MDN: AbortSignal.timeout()"
+            },
+            {
+              "url": "https://nodejs.org/en/about/previous-releases",
+              "title": "Node.js releases (LTS)"
+            }
+          ],
+          "note": "Node.js 20 reached end of life in 2026; 22, 24 and 26 are the maintained lines."
+        }
       }
     ]
   }

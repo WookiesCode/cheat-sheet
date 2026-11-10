@@ -27,7 +27,7 @@ const SCRIPTING_LANGUAGES = [
           {
             id: "bash-var-declare",
             desc: "Variable assignment, quoting rules (single vs double vs raw), and string interpolation",
-            cmd: "NAME=\"Server-01\"\nCOUNT=42\nreadonly PI=\"3.14159\"\nexport API_KEY=\"secret_token\"\necho \"Host: ${NAME}, Count: $((COUNT + 1))\"",
+            cmd: "NAME=\"Server-01\"\nCOUNT=42\nreadonly PI=\"3.14159\"\nexport LOG_LEVEL=\"debug\"\necho \"Host: ${NAME}, Count: $((COUNT + 1))\"",
             flags: [
               ["No spaces around =", "NAME=\"val\" is valid; NAME = \"val\" fails with command not found"],
               ["\"$DOUBLE_QUOTES\"", "Expands variables ($VAR) and subshells ($(cmd))"],
@@ -41,7 +41,8 @@ const SCRIPTING_LANGUAGES = [
               ["RESULT=$(date +%Y-%m-%d)", "Command substitution: captures command stdout into variable"]
             ],
             tip: "Always wrap variables in quotes: \"$VAR\" to prevent word-splitting and globbing!",
-            tags: ["bash", "variables", "types", "scope", "export", "readonly", "quotes"]
+            tags: ["bash", "variables", "types", "scope", "export", "readonly", "quotes"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://man7.org/linux/man-pages/man1/bash.1.html","title":"bash(1)"}],"note":"Corrected 2026-11-10: the example no longer exports a secret-looking API_KEY."}
           },
           {
             id: "bash-param-expansion-deep",
@@ -61,7 +62,8 @@ const SCRIPTING_LANGUAGES = [
               ["${!PREFIX*}", "List all variable names currently defined starting with PREFIX"]
             ],
             tip: "Parameter expansions execute natively in memory inside Bash without spawning subshells or sed processes.",
-            tags: ["bash", "parameter-expansion", "substring", "defaults", "string-manipulation"]
+            tags: ["bash", "parameter-expansion", "substring", "defaults", "string-manipulation"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://man7.org/linux/man-pages/man1/bash.1.html","title":"bash(1)"}]}
           },
           {
             id: "bash-arrays",
@@ -79,7 +81,8 @@ const SCRIPTING_LANGUAGES = [
               ["for k in \"${!BMC_IPS[@]}\"; do echo \"$k -> ${BMC_IPS[$k]}\"; done", "Iterate over associative array key-value pairs"]
             ],
             tip: "Always use \"${ARRAY[@]}\" with quotes so items containing spaces aren't split into multiple arguments.",
-            tags: ["bash", "arrays", "associative", "hashmap", "collections"]
+            tags: ["bash", "arrays", "associative", "hashmap", "collections"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://man7.org/linux/man-pages/man1/bash.1.html","title":"bash(1)"}]}
           }
         ]
       },
@@ -103,11 +106,12 @@ const SCRIPTING_LANGUAGES = [
               ["[[ \"$STR\" =~ ^[0-9]+$ ]]", "Regex pattern matching natively supported inside [[ ... ]]"]
             ],
             subcommands: [
-              ["[[ condition ]] && true_action || false_action", "Compact ternary-style short-circuit execution"],
+              ["[[ condition ]] && true_action || false_action", "Ternary-style shorthand, with a catch: false_action also runs if true_action fails. Use if/else when that matters"],
               ["(( COUNT > 10 ))", "Arithmetic evaluation conditional without dollar signs"]
             ],
             tip: "Always use [[ ... ]] instead of legacy [ ... ] in Bash to prevent syntax errors on empty strings.",
-            tags: ["bash", "if", "conditionals", "comparison", "regex", "file-tests"]
+            tags: ["bash", "if", "conditionals", "comparison", "regex", "file-tests"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://man7.org/linux/man-pages/man1/bash.1.html","title":"bash(1)"}]}
           },
           {
             id: "bash-case-match",
@@ -123,7 +127,8 @@ const SCRIPTING_LANGUAGES = [
               ["case \"$OS\" in [Uu]buntu|[Dd]ebian) PKG=\"apt\" ;; [Rr][Hh][Ee][Ll]) PKG=\"dnf\" ;; esac", "Case-insensitive OS branching"]
             ],
             tip: "Use case statements for CLI argument parsing instead of nested if-elif-else blocks for clean code.",
-            tags: ["bash", "case", "switch", "branching", "cli-args"]
+            tags: ["bash", "case", "switch", "branching", "cli-args"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://man7.org/linux/man-pages/man1/bash.1.html","title":"bash(1)"}]}
           }
         ]
       },
@@ -148,7 +153,8 @@ const SCRIPTING_LANGUAGES = [
               ["for ((;;)); do echo \"Infinite\"; sleep 1; done", "Infinite loop with sleep interval"]
             ],
             tip: "Never use for line in $(cat file.txt); words with spaces will break into multiple loop iterations!",
-            tags: ["bash", "for", "loops", "range", "iteration", "brace-expansion"]
+            tags: ["bash", "for", "loops", "range", "iteration", "brace-expansion"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://man7.org/linux/man-pages/man1/bash.1.html","title":"bash(1)"}]}
           },
           {
             id: "bash-while-read",
@@ -165,7 +171,8 @@ const SCRIPTING_LANGUAGES = [
               ["while IFS=',' read -r col1 col2 col3; do ... done < data.csv", "Parse CSV columns directly into variables"]
             ],
             tip: "done < file runs in current shell so variables modified inside loop persist after loop finishes.",
-            tags: ["bash", "while", "read", "stream", "file-io", "csv"]
+            tags: ["bash", "while", "read", "stream", "file-io", "csv"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://man7.org/linux/man-pages/man1/bash.1.html","title":"bash(1)"}]}
           }
         ]
       },
@@ -193,14 +200,15 @@ const SCRIPTING_LANGUAGES = [
               ["getopts \"p:h\" opt", "Standard POSIX option parsing loop for flags like -p 8080 -h"]
             ],
             tip: "set -euo pipefail at the top of your scripts catches uninitialized variables and pipe errors immediately.",
-            tags: ["bash", "functions", "local", "arguments", "flags", "getopts"]
+            tags: ["bash", "functions", "local", "arguments", "flags", "getopts"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://man7.org/linux/man-pages/man1/bash.1.html","title":"bash(1)"}]}
           },
           {
             id: "bash-traps-cleanup",
             desc: "Automatic cleanup on script exit, interruption (Ctrl+C) and error handling",
             cmd: "TMPDIR=$(mktemp -d)\ncleanup() {\n  echo \"Cleaning up temporary directory: $TMPDIR\"\n  rm -rf \"$TMPDIR\"\n}\ntrap cleanup EXIT ERR INT TERM\n\n# Your script logic below\necho \"Working in $TMPDIR...\"",
             flags: [
-              ["trap cleanup EXIT", "Runs cleanup function whenever script terminates for ANY reason"],
+              ["trap cleanup EXIT", "Runs cleanup on every exit, including one caused by SIGINT or SIGTERM (nothing can run on SIGKILL)"],
               ["trap cleanup INT", "Runs cleanup when user interrupts with Ctrl+C (SIGINT)"],
               ["trap cleanup TERM", "Runs cleanup when killed by systemd or kill command (SIGTERM)"],
               ["trap cleanup ERR", "Triggers when any command fails with non-zero exit code"],
@@ -211,7 +219,8 @@ const SCRIPTING_LANGUAGES = [
               ["trap 'echo \"Error on line $LINENO\"' ERR", "Print file line number where an error occurred"]
             ],
             tip: "Traps guarantee temporary scratch directories and lock files are cleaned up even if script crashes.",
-            tags: ["bash", "trap", "cleanup", "exit", "signals", "error-handling"]
+            tags: ["bash", "trap", "cleanup", "exit", "signals", "error-handling"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://man7.org/linux/man-pages/man1/bash.1.html","title":"bash(1)"}],"note":"Checked on bash 5.3: an EXIT trap runs after SIGINT and SIGTERM. With EXIT plus INT/TERM traps, cleanup can run twice, so keep it idempotent."}
           }
         ]
       }
@@ -254,7 +263,8 @@ const SCRIPTING_LANGUAGES = [
               ["None", "Python's null/nil singleton representing absence of value"]
             ],
             tip: "Type hints don't affect runtime speed, but prevent common bugs and enable autocomplete in editors.",
-            tags: ["python", "variables", "types", "f-strings", "annotations", "primitives"]
+            tags: ["python", "variables", "types", "f-strings", "annotations", "primitives"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://docs.python.org/3/library/stdtypes.html","title":"Python: built-in types"},{"url":"https://docs.python.org/3/reference/lexical_analysis.html#f-strings","title":"Python: f-strings"},{"url":"https://docs.python.org/3/library/typing.html","title":"Python: typing"}]}
           },
           {
             id: "py-collections-deep",
@@ -273,7 +283,8 @@ const SCRIPTING_LANGUAGES = [
               ["a, b, *rest = [1, 2, 3, 4, 5]", "Extended iterable unpacking into variables"]
             ],
             tip: "Always use dict.get(\"key\", default) instead of dict[\"key\"] to avoid raising KeyError exceptions.",
-            tags: ["python", "collections", "list", "dict", "tuple", "set", "comprehensions"]
+            tags: ["python", "collections", "list", "dict", "tuple", "set", "comprehensions"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://docs.python.org/3/tutorial/datastructures.html","title":"Python tutorial: data structures"},{"url":"https://docs.python.org/3/library/stdtypes.html","title":"Python: built-in types"}]}
           }
         ]
       },
@@ -300,7 +311,8 @@ const SCRIPTING_LANGUAGES = [
               ["all([x > 0 for x in temps])", "Returns True only if every item satisfies condition"]
             ],
             tip: "Never compare with 'if var == None:'. Always write 'if var is None:' for identity comparison.",
-            tags: ["python", "if", "else", "conditionals", "ternary", "truthy", "falsy"]
+            tags: ["python", "if", "else", "conditionals", "ternary", "truthy", "falsy"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://docs.python.org/3/reference/compound_stmts.html","title":"Python: compound statements (if, for, match, def)"},{"url":"https://docs.python.org/3/library/functions.html","title":"Python: built-in functions (enumerate, zip, any, all)"},{"url":"https://docs.python.org/3/library/stdtypes.html","title":"Python: built-in types"}]}
           },
           {
             id: "py-match-case",
@@ -316,7 +328,8 @@ const SCRIPTING_LANGUAGES = [
               ["case int() | float():", "Union pattern matching multiple alternative types"]
             ],
             tip: "match-case replaces complex nested isinstance checks and dictionary structure validators.",
-            tags: ["python", "match", "case", "pattern-matching", "switch"]
+            tags: ["python", "match", "case", "pattern-matching", "switch"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://docs.python.org/3/reference/compound_stmts.html","title":"Python: compound statements (if, for, match, def)"},{"url":"https://peps.python.org/pep-0636/","title":"PEP 636: structural pattern matching tutorial"}]}
           }
         ]
       },
@@ -343,7 +356,8 @@ const SCRIPTING_LANGUAGES = [
               ["while count > 0: count -= 1", "Standard while loop condition"]
             ],
             tip: "Never use for i in range(len(items)):. Use for item in items: or for i, item in enumerate(items):.",
-            tags: ["python", "for", "while", "loops", "enumerate", "zip", "iteration"]
+            tags: ["python", "for", "while", "loops", "enumerate", "zip", "iteration"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://docs.python.org/3/reference/compound_stmts.html","title":"Python: compound statements (if, for, match, def)"},{"url":"https://docs.python.org/3/library/functions.html","title":"Python: built-in functions (enumerate, zip, any, all)"}]}
           }
         ]
       },
@@ -359,7 +373,7 @@ const SCRIPTING_LANGUAGES = [
             cmd: "def deploy_node(name: str, port: int = 22, *tags: str, **metadata: str) -> bool:\n    \"\"\"Deploy a node with optional tags and arbitrary metadata.\"\"\"\n    print(f\"Deploying {name}:{port} | Tags: {tags} | Meta: {metadata}\")\n    return True\n\n# Calling with positional, variable, and keyword arguments\ndeploy_node(\"gpu-01\", 22, \"h100\", \"sxm5\", rack=\"R12\", zone=\"us-east\")",
             flags: [
               ["def name(...) -> ReturnType:", "Function definition with parameter and return type hints"],
-              ["arg: int = 22", "Default parameter value (evaluated once at module import)"],
+              ["arg: int = 22", "Default parameter value (evaluated once, when the def statement runs)"],
               ["*args", "Collects arbitrary extra positional arguments as a tuple"],
               ["**kwargs", "Collects arbitrary extra keyword arguments as a dictionary"],
               ["lambda x: x * 2", "Anonymous inline function for callbacks or sorting keys"]
@@ -368,8 +382,9 @@ const SCRIPTING_LANGUAGES = [
               ["deploy_node(**config_dict)", "Unpack dictionary as keyword arguments into function call"],
               ["deploy_node(*arg_list)", "Unpack list as positional arguments into function call"]
             ],
-            tip: "Never use mutable objects (like [] or {}) as default arguments; use arg: list = None instead.",
-            tags: ["python", "functions", "args", "kwargs", "lambda", "typing"]
+            tip: "Never use mutable objects (like [] or {}) as default arguments; use arg: list | None = None and create the list inside the function.",
+            tags: ["python", "functions", "args", "kwargs", "lambda", "typing"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://docs.python.org/3/reference/compound_stmts.html","title":"Python: compound statements (if, for, match, def)"},{"url":"https://docs.python.org/3/faq/programming.html#why-are-default-values-shared-between-objects","title":"Python FAQ: shared default values"}],"note":"Corrected 2026-11-10: defaults are evaluated when the def runs, not at import."}
           },
           {
             id: "py-file-io-exceptions",
@@ -387,7 +402,8 @@ const SCRIPTING_LANGUAGES = [
               ["Path(\"out.txt\").write_text(\"hello\", encoding=\"utf-8\")", "Modern pathlib one-liner for writing text file"]
             ],
             tip: "Use pathlib.Path for all file path operations instead of legacy os.path methods.",
-            tags: ["python", "file-io", "exceptions", "try-except", "json", "pathlib", "with"]
+            tags: ["python", "file-io", "exceptions", "try-except", "json", "pathlib", "with"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://docs.python.org/3/tutorial/errors.html","title":"Python tutorial: errors and exceptions"},{"url":"https://docs.python.org/3/library/pathlib.html","title":"Python: pathlib"},{"url":"https://docs.python.org/3/library/json.html","title":"Python: json (and json.tool)"}]}
           }
         ]
       }
@@ -403,7 +419,7 @@ const SCRIPTING_LANGUAGES = [
     name: 'JavaScript',
     title: 'JavaScript (ES2024 / Node.js) Reference',
     subtitle: 'Variables, data types, operators, loops, functions, array methods, async/await & JSON',
-    pill: 'ES2024 / Node.js 20+',
+    pill: 'ES2024+ / Node.js 22+',
     prompt: 'js',
     cursor: '>',
     sections: [
@@ -429,7 +445,8 @@ const SCRIPTING_LANGUAGES = [
               ["const clone = [...originalArray, 'new_item'];", "Array spread: clones and appends elements"]
             ],
             tip: "Default to const everywhere; only use let when a variable must be reassigned.",
-            tags: ["javascript", "const", "let", "variables", "template-literals", "destructuring", "spread"]
+            tags: ["javascript", "const", "let", "variables", "template-literals", "destructuring", "spread"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let","title":"MDN: let"},{"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring","title":"MDN: destructuring"},{"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax","title":"MDN: spread syntax"},{"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals","title":"MDN: template literals"}]}
           },
           {
             id: "js-operators-truthiness",
@@ -447,7 +464,8 @@ const SCRIPTING_LANGUAGES = [
               ["isReady && startService();", "Short-circuit execution: runs startService only if isReady is true"]
             ],
             tip: "Never use == or != in modern JavaScript. Always use strict === and !== to prevent type coercion bugs.",
-            tags: ["javascript", "operators", "nullish", "optional-chaining", "equality", "truthy"]
+            tags: ["javascript", "operators", "nullish", "optional-chaining", "equality", "truthy"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Strict_equality","title":"MDN: strict equality (===)"},{"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing","title":"MDN: nullish coalescing (??)"},{"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining","title":"MDN: optional chaining (?.)"},{"url":"https://developer.mozilla.org/en-US/docs/Glossary/Falsy","title":"MDN: falsy"}]}
           }
         ]
       },
@@ -473,7 +491,8 @@ const SCRIPTING_LANGUAGES = [
               ["switch (status) { case 'UP': ... break; default: ... }", "Multi-branch switch statement"]
             ],
             tip: "Use for...of for arrays and for...in for plain objects. Never use for...in on arrays.",
-            tags: ["javascript", "for", "for-of", "for-in", "while", "loops", "iteration"]
+            tags: ["javascript", "for", "for-of", "for-in", "while", "loops", "iteration"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of","title":"MDN: for...of"},{"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...in","title":"MDN: for...in"}]}
           },
           {
             id: "js-functional-array-methods",
@@ -492,7 +511,8 @@ const SCRIPTING_LANGUAGES = [
               ["servers.sort((a, b) => b.load - a.load)", "Numeric sorting (b - a for descending order)"]
             ],
             tip: "Array methods like map and filter return new arrays without mutating the original input.",
-            tags: ["javascript", "arrays", "map", "filter", "reduce", "find", "functional"]
+            tags: ["javascript", "arrays", "map", "filter", "reduce", "find", "functional"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array","title":"MDN: Array methods"}]}
           }
         ]
       },
@@ -511,14 +531,16 @@ const SCRIPTING_LANGUAGES = [
               ["await promise", "Pauses execution until Promise resolves or rejects (valid in async functions)"],
               ["Promise.all([...])", "Executes promises concurrently; rejects immediately if any promise fails"],
               ["Promise.allSettled([...])", "Waits for all promises to finish, returning results of both success and failure"],
-              ["AbortSignal.timeout(ms)", "Built-in automatic fetch timeout controller"]
+              ["AbortSignal.timeout(ms)", "Built-in automatic fetch timeout controller"],
+              ["Top-level await", "The last line only works in an ES module (.mjs or \"type\": \"module\"); in CommonJS, wrap it in an async function"]
             ],
             subcommands: [
               ["const add = (a, b) => a + b;", "Concise arrow function with implicit return"],
               ["throw new Error('Custom failure message');", "Instantiate and throw standard Error object with stack trace"]
             ],
             tip: "Always wrap await calls in try...catch blocks to handle network timeouts and API errors gracefully.",
-            tags: ["javascript", "async", "await", "promises", "fetch", "try-catch", "concurrency"]
+            tags: ["javascript", "async", "await", "promises", "fetch", "try-catch", "concurrency"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function","title":"MDN: async function"},{"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await","title":"MDN: await (top-level await in modules)"},{"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all","title":"MDN: Promise.all"},{"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettled","title":"MDN: Promise.allSettled"},{"url":"https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal/timeout_static","title":"MDN: AbortSignal.timeout()"},{"url":"https://nodejs.org/en/about/previous-releases","title":"Node.js releases (LTS)"}],"note":"Node.js 20 reached end of life in 2026; 22, 24 and 26 are the maintained lines."}
           }
         ]
       }
@@ -534,7 +556,7 @@ const SCRIPTING_LANGUAGES = [
     name: 'TypeScript',
     title: 'TypeScript 5+ Reference & Types',
     subtitle: 'Primitives, interfaces, union types, type guards, generics, utility types & tsconfig',
-    pill: 'TypeScript 5.x / Strict',
+    pill: 'TypeScript 6 & 7 / Strict',
     prompt: 'ts',
     cursor: ':',
     sections: [
@@ -560,7 +582,8 @@ const SCRIPTING_LANGUAGES = [
               ["type ReadonlyNode = Readonly<ServerNode>;", "Built-in utility type: makes all properties immutable at compile time"]
             ],
             tip: "Prefer literal union types over numeric enums for cleaner JS output and exact compile-time validation.",
-            tags: ["typescript", "interface", "type", "generics", "union", "schema"]
+            tags: ["typescript", "interface", "type", "generics", "union", "schema"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://www.typescriptlang.org/docs/handbook/2/everyday-types.html","title":"TypeScript: everyday types"},{"url":"https://www.typescriptlang.org/docs/handbook/2/generics.html","title":"TypeScript: generics"},{"url":"https://www.typescriptlang.org/docs/handbook/utility-types.html","title":"TypeScript: utility types"}]}
           },
           {
             id: "ts-narrowing-guards",
@@ -578,7 +601,8 @@ const SCRIPTING_LANGUAGES = [
               ["const val = input!;", "Non-null assertion operator: asserts value is not null or undefined"]
             ],
             tip: "Discriminated unions with exhaustive switch/if checks eliminate entire classes of runtime errors.",
-            tags: ["typescript", "narrowing", "typeguards", "discriminated-union", "typeof", "instanceof"]
+            tags: ["typescript", "narrowing", "typeguards", "discriminated-union", "typeof", "instanceof"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://www.typescriptlang.org/docs/handbook/2/narrowing.html","title":"TypeScript: narrowing"}]}
           }
         ]
       },
@@ -604,7 +628,8 @@ const SCRIPTING_LANGUAGES = [
               ["type FuncReturn = ReturnType<typeof myFunction>;", "Extracts return type of a function signature"]
             ],
             tip: "Utility types prevent code duplication by deriving DTOs, updates, and subsets from a single interface.",
-            tags: ["typescript", "utility-types", "partial", "pick", "omit", "record", "generics"]
+            tags: ["typescript", "utility-types", "partial", "pick", "omit", "record", "generics"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://www.typescriptlang.org/docs/handbook/utility-types.html","title":"TypeScript: utility types"}]}
           },
           {
             id: "ts-classes-tooling",
@@ -612,17 +637,19 @@ const SCRIPTING_LANGUAGES = [
             cmd: "class ServerManager {\n  // Parameter property: automatically assigns to private/public fields\n  constructor(\n    public readonly hostname: string,\n    private apiKey: string,\n    protected port: number = 22\n  ) {}\n\n  async ping(): Promise<boolean> {\n    return true;\n  }\n}",
             flags: [
               ["public, private, protected", "Compile-time access control modifiers (private only accessible in class)"],
-              ["readonly", "Property can only be initialized in constructor"],
+              ["readonly", "Property can only be set where it is declared or in the constructor"],
               ["Promise<T>", "Explicit return type annotation for asynchronous methods"],
-              ["\"strict\": true", "Essential tsconfig.json flag enabling all strict type checking options"],
+              ["\"strict\": true", "Turns on every strict type-checking option (the default since TypeScript 6.0)"],
               ["\"noImplicitAny\": true", "Forces explicit typing when TypeScript cannot infer type"]
             ],
             subcommands: [
               ["npx tsx script.ts", "Run TypeScript files directly without separate build step (instant execution)"],
+              ["node script.ts", "Node 22.18+ / 23.6+ runs .ts files by stripping types; parameter properties like the ones above and enums still need tsx"],
               ["npx tsc --noEmit", "Run type checker on codebase without generating JavaScript output files"]
             ],
             tip: "Use npx tsx for writing datacenter CLI scripts in TypeScript without needing a complex build setup.",
-            tags: ["typescript", "classes", "access-modifiers", "tsconfig", "tooling", "tsx"]
+            tags: ["typescript", "classes", "access-modifiers", "tsconfig", "tooling", "tsx"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://www.typescriptlang.org/docs/handbook/2/classes.html","title":"TypeScript: classes"},{"url":"https://www.typescriptlang.org/tsconfig/","title":"TypeScript: tsconfig reference"},{"url":"https://devblogs.microsoft.com/typescript/announcing-typescript-6-0/","title":"Announcing TypeScript 6.0 (strict by default)"},{"url":"https://nodejs.org/api/typescript.html","title":"Node.js: TypeScript type stripping"},{"url":"https://github.com/privatenumber/tsx","title":"tsx"}],"note":"Added 2026-11-10: strict is on by default since TypeScript 6.0; Node can run .ts directly but not parameter properties."}
           }
         ]
       }
@@ -666,7 +693,8 @@ const SCRIPTING_LANGUAGES = [
               ["$var | Get-Member (gm)", "Inspect all properties, methods, and types available on object"]
             ],
             tip: "In PowerShell, pipelines pass rich typed .NET objects, not raw strings. Use $_ to access current object.",
-            tags: ["powershell", "variables", "pipeline", "hashtable", "objects", "csv"]
+            tags: ["powershell", "variables", "pipeline", "hashtable", "objects", "csv"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_variables","title":"about_Variables"},{"url":"https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_hash_tables","title":"about_Hash_Tables"},{"url":"https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_pipelines","title":"about_Pipelines"},{"url":"https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/where-object","title":"Where-Object"},{"url":"https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/select-object","title":"Select-Object"},{"url":"https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_pscustomobject","title":"about_PSCustomObject"}]}
           }
         ]
       },
@@ -692,12 +720,13 @@ const SCRIPTING_LANGUAGES = [
               ["1..5 | ForEach-Object { \"Step $_\" }", "Range operator and pipeline loop"]
             ],
             tip: "Use -match for regex and -like for simple globbing (*.log). Use -eq for exact string and numeric equality.",
-            tags: ["powershell", "if", "comparison", "foreach", "switch", "loops", "regex"]
+            tags: ["powershell", "if", "comparison", "foreach", "switch", "loops", "regex"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_comparison_operators","title":"about_Comparison_Operators"},{"url":"https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_switch","title":"about_Switch"},{"url":"https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/write-host","title":"Write-Host"}]}
           },
           {
             id: "pwsh-functions-error-handling",
             desc: "Cmdlet functions with param blocks and enterprise try/catch/finally error handling",
-            cmd: "function Test-NodeConnection {\n  [CmdletBinding()]\n  param(\n    [Parameter(Mandatory = $true, ValueFromPipeline = $true)]\n    [string]$ComputerName,\n    [int]$TimeoutSeconds = 5\n  )\n  process {\n    $ErrorActionPreference = 'Stop'\n    try {\n      $res = Test-Connection -TargetName $ComputerName -Count 1 -TimeoutSeconds $TimeoutSeconds\n      [PSCustomObject]@{ Computer = $ComputerName; Status = 'ONLINE'; Latency = $res.Latency }\n    } catch {\n      Write-Error \"Failed to reach $ComputerName: $_\"\n      [PSCustomObject]@{ Computer = $ComputerName; Status = 'OFFLINE'; Latency = $null }\n    }\n  }\n}",
+            cmd: "function Test-NodeConnection {\n  [CmdletBinding()]\n  param(\n    [Parameter(Mandatory = $true, ValueFromPipeline = $true)]\n    [string]$ComputerName,\n    [int]$TimeoutSeconds = 5\n  )\n  process {\n    $ErrorActionPreference = 'Stop'\n    try {\n      $res = Test-Connection -TargetName $ComputerName -Count 1 -TimeoutSeconds $TimeoutSeconds\n      [PSCustomObject]@{ Computer = $ComputerName; Status = 'ONLINE'; Latency = $res.Latency }\n    } catch {\n      Write-Error \"Failed to reach ${ComputerName}: $_\"\n      [PSCustomObject]@{ Computer = $ComputerName; Status = 'OFFLINE'; Latency = $null }\n    }\n  }\n}",
             flags: [
               ["[CmdletBinding()]", "Enables advanced cmdlet features (-Verbose, -Debug, -ErrorAction)"],
               ["param(...)", "Declares strongly typed function parameters and validation attributes"],
@@ -707,11 +736,12 @@ const SCRIPTING_LANGUAGES = [
               ["$_ (inside catch)", "Contains current error record and exception message"]
             ],
             subcommands: [
-              ["Get-Content \"data.json\" | ConvertFrom-Json", "Parse JSON file into structured PowerShell object"],
+              ["Get-Content -Raw \"data.json\" | ConvertFrom-Json", "Parse a JSON file into an object (-Raw passes the file as one string)"],
               ["$obj | ConvertTo-Json -Depth 5 | Out-File \"out.json\"", "Serialize object to formatted JSON file"]
             ],
             tip: "Set $ErrorActionPreference = 'Stop' at the top of functions so try/catch reliably intercepts every failure.",
-            tags: ["powershell", "functions", "param", "cmdlet", "try-catch", "json", "exceptions"]
+            tags: ["powershell", "functions", "param", "cmdlet", "try-catch", "json", "exceptions"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_cmdletbindingattribute","title":"about_Functions_CmdletBindingAttribute"},{"url":"https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_advanced_parameters","title":"about_Functions_Advanced_Parameters"},{"url":"https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_try_catch_finally","title":"about_Try_Catch_Finally"},{"url":"https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_preference_variables","title":"about_Preference_Variables"},{"url":"https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_quoting_rules","title":"about_Quoting_Rules (${name}: in strings)"},{"url":"https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/test-connection","title":"Test-Connection"},{"url":"https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/convertfrom-json","title":"ConvertFrom-Json (Get-Content -Raw)"}],"note":"Corrected 2026-11-10: \"$ComputerName: $_\" fails to parse (the colon makes a scope); now ${ComputerName}. Get-Content gets -Raw."}
           }
         ]
       }
@@ -727,7 +757,7 @@ const SCRIPTING_LANGUAGES = [
     name: 'JSON & jq',
     title: 'JSON Syntax & jq Query Reference',
     subtitle: 'JSON data types, quoting rules, validation, jq filters, slicing, formatting & transformations',
-    pill: 'RFC 8259 / jq 1.7',
+    pill: 'RFC 8259 / jq 1.8',
     prompt: 'jq',
     cursor: '.',
     sections: [
@@ -753,7 +783,8 @@ const SCRIPTING_LANGUAGES = [
               ["jq empty input.json", "Validates JSON syntax; exits 0 if valid, non-zero with error line number if invalid"]
             ],
             tip: "Never put comments in standard JSON. If you need comments in configuration, use YAML or TOML.",
-            tags: ["json", "syntax", "types", "validation", "quotes", "schema"]
+            tags: ["json", "syntax", "types", "validation", "quotes", "schema"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://www.rfc-editor.org/rfc/rfc8259.html","title":"RFC 8259: JSON"},{"url":"https://docs.python.org/3/library/json.html","title":"Python: json (and json.tool)"},{"url":"https://jqlang.org/manual/","title":"jq manual"}]}
           }
         ]
       },
@@ -782,7 +813,8 @@ const SCRIPTING_LANGUAGES = [
               ["jq 'keys'", "Return array of all property keys in object"]
             ],
             tip: "Combine jq -r with bash loops: while IFS=',' read -r host ip; do ... done < <(jq -r '...' data.json).",
-            tags: ["jq", "filter", "select", "csv", "json", "transform", "api"]
+            tags: ["jq", "filter", "select", "csv", "json", "transform", "api"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://jqlang.org/manual/","title":"jq manual"},{"url":"https://github.com/jqlang/jq/releases","title":"jq releases"}]}
           }
         ]
       }
@@ -818,14 +850,15 @@ const SCRIPTING_LANGUAGES = [
               ["> (Folded block)", "Replaces newlines within a paragraph with spaces (wraps text)"],
               ["&name (Anchor)", "Defines a reusable anchor referencing a node or dictionary"],
               ["*name (Alias)", "References and pastes the anchor contents"],
-              ["<<: *name (Merge key)", "Merges all properties from anchor into current mapping"]
+              ["<<: *name (Merge key)", "Merges all properties from anchor into current mapping (a YAML 1.1 feature; yq and most parsers accept it)"]
             ],
             subcommands: [
-              ["bool_val: true # True, false, yes, no", "Booleans in YAML (prefer lowercase true/false)"],
+              ["bool_val: true # True, false, yes, no", "YAML 1.2 booleans are only true/false (any case); yes/no/on/off are booleans only to YAML 1.1 parsers such as PyYAML"],
               ["list: [1, 2, 3] # or - 1 \\n - 2", "Inline flow list vs standard indented list"]
             ],
             tip: "Quote strings like \"yes\", \"no\", \"true\", \"false\" if they are meant to be string values, not booleans.",
-            tags: ["yaml", "syntax", "anchors", "aliases", "merge", "multiline", "strings"]
+            tags: ["yaml", "syntax", "anchors", "aliases", "merge", "multiline", "strings"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://yaml.org/spec/1.2.2/","title":"YAML 1.2.2 spec (core schema booleans)"},{"url":"https://yaml.org/type/merge.html","title":"YAML 1.1 merge key (<<)"}],"note":"Corrected 2026-11-10: in YAML 1.2 only true/false are booleans."}
           },
           {
             id: "yq-cli-operations",
@@ -841,8 +874,9 @@ const SCRIPTING_LANGUAGES = [
               ["yq '.. | select(has(\"timeout\"))' config.yaml", "Recursively search all objects containing a specific key"],
               ["yq eval-all 'select(fileIndex == 0) * select(fileIndex == 1)' f1.yaml f2.yaml", "Deep-merge two YAML files together"]
             ],
-            tip: "yq preserves comments and whitespace when modifying YAML files in-place with -i.",
-            tags: ["yq", "yaml", "cli", "json", "mutate", "convert", "inplace"]
+            tip: "yq -i keeps comments and most formatting, but not every bit of whitespace.",
+            tags: ["yq", "yaml", "cli", "json", "mutate", "convert", "inplace"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://mikefarah.gitbook.io/yq","title":"yq documentation"},{"url":"https://mikefarah.gitbook.io/yq/operators/has","title":"yq: has operator"},{"url":"https://github.com/mikefarah/yq#known-issues--missing-features","title":"yq README: known issues (whitespace)"}]}
           }
         ]
       }
@@ -858,7 +892,7 @@ const SCRIPTING_LANGUAGES = [
     name: 'TOML',
     title: 'TOML Reference (v1.0.0)',
     subtitle: 'Tables [table], sub-tables, array of tables [[items]], key-value pairs, dates & Python parsing',
-    pill: 'TOML v1.0.0 / tomllib',
+    pill: 'TOML 1.1 / tomllib',
     prompt: 'toml',
     cursor: '=',
     sections: [
@@ -881,11 +915,12 @@ const SCRIPTING_LANGUAGES = [
               ["RFC 3339 Timestamps", "Native datetime support: 1979-05-27T07:32:00Z"]
             ],
             subcommands: [
-              ["import tomllib; data = tomllib.loads(toml_str)", "Parse TOML natively in Python 3.11+ without third-party packages"],
+              ["import tomllib; data = tomllib.loads(toml_str)", "Parse TOML natively in Python 3.11+ without third-party packages (TOML 1.1 from 3.15)"],
               ["taplo fmt file.toml", "Format and lint TOML files with Taplo CLI"]
             ],
             tip: "Use TOML for configuration files (pyproject.toml, Cargo.toml) where clean, non-indented syntax is preferred.",
-            tags: ["toml", "tables", "arrays", "config", "tomllib", "syntax"]
+            tags: ["toml", "tables", "arrays", "config", "tomllib", "syntax"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://toml.io/en/v1.1.0","title":"TOML 1.1.0 spec"},{"url":"https://docs.python.org/3/library/tomllib.html","title":"Python: tomllib"},{"url":"https://taplo.tamasfe.dev/cli/usage/formatting.html","title":"Taplo: formatting"}]}
           }
         ]
       }
@@ -914,7 +949,7 @@ const SCRIPTING_LANGUAGES = [
           {
             id: "regex-tokens-quantifiers",
             desc: "Core regex tokens, character shorthands, quantifiers, and capturing groups",
-            cmd: "# Matches IPv4: 4 groups of 1-3 digits\n^([0-9]{1,3}\\.){3}[0-9]{1,3}$\n\n# Named capture groups (Python / JS / PCRE)\n(?<interface>[a-z0-9]+):\\s+(?<rx_bytes>\\d+)\\s+(?<tx_bytes>\\d+)",
+            cmd: "# IPv4 shape: 4 groups of 1-3 digits (also accepts 999.1.1.1)\n^([0-9]{1,3}\\.){3}[0-9]{1,3}$\n\n# Named capture groups (JS / PCRE; Python writes (?P<name>...))\n(?<interface>[a-z0-9]+):\\s+(?<rx_bytes>\\d+)\\s+(?<tx_bytes>\\d+)",
             flags: [
               ["^ and $", "^ asserts start of line; $ asserts end of line"],
               ["\\d, \\w, \\s", "\\d is digit [0-9]; \\w is word [a-zA-Z0-9_]; \\s is whitespace"],
@@ -923,14 +958,15 @@ const SCRIPTING_LANGUAGES = [
               ["{min,max}", "Explicit quantifier bounds: {3} exactly 3, {2,5} between 2 and 5"],
               ["*? or +? (Lazy)", "Lazy matching: matches as few characters as possible"],
               ["(?:...)", "Non-capturing group: groups tokens without consuming group index"],
-              ["(?<name>...)", "Named capture group for readable structured extraction"]
+              ["(?<name>...)", "Named capture group for readable structured extraction (Python: (?P<name>...))"]
             ],
             subcommands: [
-              ["(?i)", "Inline modifier flag enabling case-insensitive matching"],
+              ["(?i)", "Case-insensitive from here on (PCRE, Python); JavaScript only has the scoped (?i:...) form, or the i flag"],
               ["\\b", "Word boundary assertion: \\bword\\b prevents partial matches"]
             ],
             tip: "Always test regex patterns with sample edge cases on regex101.com before deploying to production.",
-            tags: ["regex", "tokens", "quantifiers", "groups", "capture", "anchors"]
+            tags: ["regex", "tokens", "quantifiers", "groups", "capture", "anchors"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://www.pcre.org/current/doc/html/pcre2pattern.html","title":"PCRE2 pattern syntax"},{"url":"https://docs.python.org/3/library/re.html","title":"Python: re"},{"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Regular_expressions/Named_capturing_group","title":"MDN: named capturing group"},{"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Regular_expressions/Modifier","title":"MDN: regex modifiers (?i:...)"}],"note":"Corrected 2026-11-10: Python needs (?P<name>...); JavaScript has no unscoped (?i)."}
           },
           {
             id: "regex-lookarounds",
@@ -946,7 +982,8 @@ const SCRIPTING_LANGUAGES = [
               ["\\d+(?=px)", "Matches number in '100px' without including 'px' in match result"]
             ],
             tip: "Lookarounds are zero-width: they test text ahead or behind without including it in the matched capture.",
-            tags: ["regex", "lookahead", "lookbehind", "lookaround", "assertions"]
+            tags: ["regex", "lookahead", "lookbehind", "lookaround", "assertions"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://www.pcre.org/current/doc/html/pcre2pattern.html","title":"PCRE2 pattern syntax"},{"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Regular_expressions/Lookbehind_assertion","title":"MDN: lookbehind assertion"},{"url":"https://docs.python.org/3/library/re.html","title":"Python: re"}]}
           }
         ]
       },
@@ -959,18 +996,19 @@ const SCRIPTING_LANGUAGES = [
           {
             id: "regex-dc-patterns",
             desc: "Copy-pasteable regex recipes for common datacenter identifiers and network strings",
-            cmd: "# MAC Address (colon or hyphen separated)\n^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$\n\n# PCIe BDF Address (e.g. 0000:04:00.0)\n^[0-9a-fA-F]{4}:[0-9a-fA-F]{2}:[0-9a-fA-F]{2}\\.[0-7]$\n\n# UUID / GUID (RFC 4122)\n^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$",
+            cmd: "# MAC Address (colon or hyphen separated)\n^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$\n\n# PCIe BDF Address (e.g. 0000:04:00.0)\n^[0-9a-fA-F]{4}:[0-9a-fA-F]{2}:[0-9a-fA-F]{2}\\.[0-7]$\n\n# UUID / GUID, versions 1-5 (RFC 9562 adds 6-8: use [1-8])\n^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$",
             flags: [
               ["MAC Regex", "Validates 6 pairs of hex digits separated by : or -"],
               ["PCIe BDF", "Validates Domain(4hex):Bus(2hex):Device(2hex).Function(0-7)"],
-              ["UUID v4", "Matches standard 36-character hyphenated UUID tokens"],
+              ["UUID", "36-character hyphenated UUID, versions 1-5; RFC 9562 (which replaced RFC 4122) adds versions 6-8"],
               ["IPv4 with Port", "(?:[0-9]{1,3}\\.){3}[0-9]{1,3}:[0-9]{1,5}"]
             ],
             subcommands: [
               ["grep -P '^[0-9a-f]{4}:[0-9a-f]{2}:[0-9a-f]{2}\\.[0-7]' lspci.txt", "Filter lspci output by PCIe address using ripgrep or grep -P"]
             ],
             tip: "Use grep -P (Perl-compatible) or rg (ripgrep) when using these regex recipes in Linux terminals.",
-            tags: ["regex", "recipes", "mac", "pcie", "uuid", "ipv4", "datacenter"]
+            tags: ["regex", "recipes", "mac", "pcie", "uuid", "ipv4", "datacenter"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://www.rfc-editor.org/rfc/rfc9562.html","title":"RFC 9562: UUIDs (obsoletes RFC 4122)"},{"url":"https://man7.org/linux/man-pages/man1/grep.1.html","title":"grep(1)"}],"note":"Corrected 2026-11-10: RFC 9562 replaced RFC 4122 and adds UUID versions 6-8."}
           }
         ]
       }
@@ -1014,7 +1052,8 @@ const SCRIPTING_LANGUAGES = [
               ["awk '{printf \"%-15s %5d\\n\", $1, $2}'", "Format output into fixed-width aligned columns"]
             ],
             tip: "AWK automatically splits on any whitespace sequence by default; specify -F for CSV or /etc/passwd.",
-            tags: ["awk", "columns", "math", "sum", "filter", "delimiter", "csv"]
+            tags: ["awk", "columns", "math", "sum", "filter", "delimiter", "csv"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://man7.org/linux/man-pages/man1/gawk.1.html","title":"gawk(1)"}]}
           }
         ]
       },
@@ -1041,7 +1080,8 @@ const SCRIPTING_LANGUAGES = [
               ["sed -i 's/[ \\t]*$//' file.txt", "Strip trailing whitespace from ends of lines"]
             ],
             tip: "On macOS (BSD sed), -i requires an argument: sed -i '' 's/.../.../g' file. On Linux (GNU sed), sed -i '...' file works.",
-            tags: ["sed", "substitute", "regex", "inplace", "delete", "cleanup", "streams"]
+            tags: ["sed", "substitute", "regex", "inplace", "delete", "cleanup", "streams"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://man7.org/linux/man-pages/man1/sed.1.html","title":"sed(1)"}]}
           }
         ]
       }
@@ -1057,7 +1097,7 @@ const SCRIPTING_LANGUAGES = [
     name: 'SQL & SQLite',
     title: 'SQL & SQLite CLI Reference',
     subtitle: 'SELECT queries, filtering, joins, GROUP BY, aggregations, DDL, transactions & SQLite CLI',
-    pill: 'ANSI SQL / SQLite 3.45',
+    pill: 'ANSI SQL / SQLite 3.54',
     prompt: 'sqlite>',
     cursor: ';',
     sections: [
@@ -1070,7 +1110,7 @@ const SCRIPTING_LANGUAGES = [
           {
             id: "sql-select-joins",
             desc: "Structured SELECT queries with filtering, table joins, and group by aggregations",
-            cmd: "-- Query nodes with high GPU temperature and join rack info\nSELECT \n  n.hostname,\n  n.ip_address,\n  r.name AS rack_name,\n  COUNT(g.id) AS gpu_count,\n  AVG(g.temp_c) AS avg_temp\nFROM nodes n\nINNER JOIN racks r ON n.rack_id = r.id\nLEFT JOIN gpus g ON n.id = g.node_id\nWHERE n.status = 'ACTIVE'\nGROUP BY n.id\nHAVING avg_temp > 75.0\nORDER BY avg_temp DESC\nLIMIT 20;",
+            cmd: "-- Query nodes with high GPU temperature and join rack info\nSELECT \n  n.hostname,\n  n.ip_address,\n  r.name AS rack_name,\n  COUNT(g.id) AS gpu_count,\n  AVG(g.temp_c) AS avg_temp\nFROM nodes n\nINNER JOIN racks r ON n.rack_id = r.id\nLEFT JOIN gpus g ON n.id = g.node_id\nWHERE n.status = 'ACTIVE'\nGROUP BY n.id, n.hostname, n.ip_address, r.name\nHAVING AVG(g.temp_c) > 75.0\nORDER BY avg_temp DESC\nLIMIT 20;",
             flags: [
               ["INNER JOIN", "Returns records that have matching values in both tables"],
               ["LEFT JOIN", "Returns all records from left table and matched records from right table"],
@@ -1085,7 +1125,8 @@ const SCRIPTING_LANGUAGES = [
               ["BEGIN TRANSACTION; ... COMMIT;", "Atomic transaction block (rolls back on failure with ROLLBACK)"]
             ],
             tip: "Always create indexes on columns used in foreign keys and WHERE/JOIN clauses (CREATE INDEX idx_... ON ...).",
-            tags: ["sql", "select", "join", "group-by", "aggregations", "having", "database"]
+            tags: ["sql", "select", "join", "group-by", "aggregations", "having", "database"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://www.postgresql.org/docs/current/sql-select.html","title":"PostgreSQL: SELECT (GROUP BY, HAVING)"},{"url":"https://sqlite.org/lang_select.html","title":"SQLite: SELECT (bare columns)"},{"url":"https://sqlite.org/lang_transaction.html","title":"SQLite: transactions"}],"note":"Corrected 2026-11-10: GROUP BY now lists every selected column and HAVING repeats the aggregate, as standard SQL (PostgreSQL) requires; SQLite accepted the old form."}
           }
         ]
       },
@@ -1112,7 +1153,8 @@ const SCRIPTING_LANGUAGES = [
               ["SELECT json_extract(metadata, '$.firmware.bios') FROM inventory;", "Extract nested JSON attributes from database columns"]
             ],
             tip: "sqlite3 :memory: gives you the full power of SQL on any CSV file instantly without setting up PostgreSQL or MySQL.",
-            tags: ["sqlite", "csv", "json", "cli", "memory", "schema", "database"]
+            tags: ["sqlite", "csv", "json", "cli", "memory", "schema", "database"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://sqlite.org/cli.html","title":"SQLite CLI"},{"url":"https://sqlite.org/json1.html","title":"SQLite JSON functions"}]}
           }
         ]
       }

@@ -32,13 +32,13 @@ const YAML_CHEAT_SHEET_DATA = [
           ],
           [
             "<<: *name (Merge key)",
-            "Merges all properties from anchor into current mapping"
+            "Merges all properties from anchor into current mapping (a YAML 1.1 feature; yq and most parsers accept it)"
           ]
         ],
         "subcommands": [
           [
             "bool_val: true # True, false, yes, no",
-            "Booleans in YAML (prefer lowercase true/false)"
+            "YAML 1.2 booleans are only true/false (any case); yes/no/on/off are booleans only to YAML 1.1 parsers such as PyYAML"
           ],
           [
             "list: [1, 2, 3] # or - 1 \\n - 2",
@@ -54,7 +54,21 @@ const YAML_CHEAT_SHEET_DATA = [
           "merge",
           "multiline",
           "strings"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://yaml.org/spec/1.2.2/",
+              "title": "YAML 1.2.2 spec (core schema booleans)"
+            },
+            {
+              "url": "https://yaml.org/type/merge.html",
+              "title": "YAML 1.1 merge key (<<)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: in YAML 1.2 only true/false are booleans."
+        }
       },
       {
         "id": "yq-cli-operations",
@@ -88,7 +102,7 @@ const YAML_CHEAT_SHEET_DATA = [
             "Deep-merge two YAML files together"
           ]
         ],
-        "tip": "yq preserves comments and whitespace when modifying YAML files in-place with -i.",
+        "tip": "yq -i keeps comments and most formatting, but not every bit of whitespace.",
         "tags": [
           "yq",
           "yaml",
@@ -97,7 +111,24 @@ const YAML_CHEAT_SHEET_DATA = [
           "mutate",
           "convert",
           "inplace"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://mikefarah.gitbook.io/yq",
+              "title": "yq documentation"
+            },
+            {
+              "url": "https://mikefarah.gitbook.io/yq/operators/has",
+              "title": "yq: has operator"
+            },
+            {
+              "url": "https://github.com/mikefarah/yq#known-issues--missing-features",
+              "title": "yq README: known issues (whitespace)"
+            }
+          ]
+        }
       }
     ]
   }

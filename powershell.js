@@ -57,7 +57,36 @@ const POWERSHELL_CHEAT_SHEET_DATA = [
           "hashtable",
           "objects",
           "csv"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_variables",
+              "title": "about_Variables"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_hash_tables",
+              "title": "about_Hash_Tables"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_pipelines",
+              "title": "about_Pipelines"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/where-object",
+              "title": "Where-Object"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/select-object",
+              "title": "Select-Object"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_pscustomobject",
+              "title": "about_PSCustomObject"
+            }
+          ]
+        }
       }
     ]
   },
@@ -112,12 +141,29 @@ const POWERSHELL_CHEAT_SHEET_DATA = [
           "switch",
           "loops",
           "regex"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_comparison_operators",
+              "title": "about_Comparison_Operators"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_switch",
+              "title": "about_Switch"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/write-host",
+              "title": "Write-Host"
+            }
+          ]
+        }
       },
       {
         "id": "pwsh-functions-error-handling",
         "desc": "Cmdlet functions with param blocks and enterprise try/catch/finally error handling",
-        "cmd": "function Test-NodeConnection {\n  [CmdletBinding()]\n  param(\n    [Parameter(Mandatory = $true, ValueFromPipeline = $true)]\n    [string]$ComputerName,\n    [int]$TimeoutSeconds = 5\n  )\n  process {\n    $ErrorActionPreference = 'Stop'\n    try {\n      $res = Test-Connection -TargetName $ComputerName -Count 1 -TimeoutSeconds $TimeoutSeconds\n      [PSCustomObject]@{ Computer = $ComputerName; Status = 'ONLINE'; Latency = $res.Latency }\n    } catch {\n      Write-Error \"Failed to reach $ComputerName: $_\"\n      [PSCustomObject]@{ Computer = $ComputerName; Status = 'OFFLINE'; Latency = $null }\n    }\n  }\n}",
+        "cmd": "function Test-NodeConnection {\n  [CmdletBinding()]\n  param(\n    [Parameter(Mandatory = $true, ValueFromPipeline = $true)]\n    [string]$ComputerName,\n    [int]$TimeoutSeconds = 5\n  )\n  process {\n    $ErrorActionPreference = 'Stop'\n    try {\n      $res = Test-Connection -TargetName $ComputerName -Count 1 -TimeoutSeconds $TimeoutSeconds\n      [PSCustomObject]@{ Computer = $ComputerName; Status = 'ONLINE'; Latency = $res.Latency }\n    } catch {\n      Write-Error \"Failed to reach ${ComputerName}: $_\"\n      [PSCustomObject]@{ Computer = $ComputerName; Status = 'OFFLINE'; Latency = $null }\n    }\n  }\n}",
         "flags": [
           [
             "[CmdletBinding()]",
@@ -146,8 +192,8 @@ const POWERSHELL_CHEAT_SHEET_DATA = [
         ],
         "subcommands": [
           [
-            "Get-Content \"data.json\" | ConvertFrom-Json",
-            "Parse JSON file into structured PowerShell object"
+            "Get-Content -Raw \"data.json\" | ConvertFrom-Json",
+            "Parse a JSON file into an object (-Raw passes the file as one string)"
           ],
           [
             "$obj | ConvertTo-Json -Depth 5 | Out-File \"out.json\"",
@@ -163,7 +209,41 @@ const POWERSHELL_CHEAT_SHEET_DATA = [
           "try-catch",
           "json",
           "exceptions"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_cmdletbindingattribute",
+              "title": "about_Functions_CmdletBindingAttribute"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_advanced_parameters",
+              "title": "about_Functions_Advanced_Parameters"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_try_catch_finally",
+              "title": "about_Try_Catch_Finally"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_preference_variables",
+              "title": "about_Preference_Variables"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_quoting_rules",
+              "title": "about_Quoting_Rules (${name}: in strings)"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/test-connection",
+              "title": "Test-Connection"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/convertfrom-json",
+              "title": "ConvertFrom-Json (Get-Content -Raw)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: \"$ComputerName: $_\" fails to parse (the colon makes a scope); now ${ComputerName}. Get-Content gets -Raw."
+        }
       }
     ]
   }

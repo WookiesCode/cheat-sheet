@@ -627,6 +627,29 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     await ctx.close();
   }
 
+  // 2u. Scripting hub + eleven language sheets (Lua, git and Markdown come later): every card
+  // sourced; the bash, PowerShell, regex, SQL, YAML and version corrections.
+  {
+    const PAGES = ['scripting', 'bash', 'python', 'javascript', 'typescript', 'powershell', 'json', 'yaml', 'toml', 'regex', 'awk-sed', 'sql'];
+    const ctx = await newContext(browser);
+    const p = await ctx.newPage();
+    const all = [];
+    let text = '';
+    for (const f of PAGES) {
+      await p.goto(BASE + f + '.html', { waitUntil: 'load' });
+      await p.waitForTimeout(400);
+      text += await p.evaluate(() => { const c = document.body.cloneNode(true); c.querySelectorAll('.cmd-source').forEach(n => n.remove()); return c.textContent; });
+      all.push(...await p.evaluate(() => [...document.querySelectorAll('.cmd-item:is([data-cmd-id], [data-id])')].filter(it => !/-flags-card$/.test(it.dataset.cmdId || '')).map(it => ({ id: it.dataset.cmdId || it.dataset.id, src: !!it.querySelector('.cmd-source:not(.is-unverified)') }))));
+    }
+    check(all.length >= 70 && all.every(x => x.src), `every card on the scripting hub and its eleven sheets shows a verified source (${all.filter(x => x.src).length}/${all.length})`);
+    check(/\$\{PATH\/\/:\/\$'\\n'\}/.test(text) && !/default_val}" \| echo/.test(text), 'bash: PATH split uses $\'\\n\'; no echo piped into echo');
+    check(/Failed to reach \$\{ComputerName\}: /.test(text) && /Get-Content -Raw/.test(text), 'PowerShell: ${ComputerName}: and Get-Content -Raw');
+    check(/\(\?P<name>\.\.\.\)/.test(text) && /HAVING AVG\(g\.temp_c\) > 75\.0/.test(text) && !/HAVING avg_temp/.test(text), 'regex: Python (?P<name>); SQL HAVING repeats the aggregate');
+    check(!/API_KEY="secret_token"/.test(text) && !/SELINUX=disabled/.test(text), 'no secret-looking export, no SELinux-disabling example');
+    check(/Node\.js 22\+/.test(text) && /TypeScript 6 & 7/.test(text) && /jq 1\.8/.test(text), 'version labels: Node 22+, TypeScript 6 & 7, jq 1.8');
+    await ctx.close();
+  }
+
   // 3. Over a year old → amber "re-check"; and src can't inject markup or javascript: links.
   {
     const ctx = await newContext(browser);

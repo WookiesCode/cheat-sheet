@@ -422,6 +422,27 @@ All 36 commands (in `macos.js`) and 8 Pro Tips (in `generate-macos-suite.js`, no
 
 Noted on the cards, not on Apple's shortcut page: ⇧⌘. hidden files, ⌘1–⌘4 views, ⌥⌘C Copy as Pathname, ⌥⌘⌫ Delete Immediately (all from Finder's menus), Shift+wheel horizontal scroll, ⌥-click Wi-Fi details, the ⌥ typography keys (U.S. layout).
 
+## #8 for the scripting hub and eleven language sheets (2026-11-10, `scripting-sources`)
+
+All 40 commands on the bash, Python, JavaScript, TypeScript, PowerShell, JSON, YAML, TOML, regex, awk/sed and SQL sheets (`generate-scripting-suite.js`) and all 34 on the scripting hub (`create-scripting-data.js`, including its Lua, git and Markdown cards) cite their references: bash(1), docs.python.org, MDN, nodejs.org, the TypeScript handbook and 6.0 notes, Microsoft Learn (PowerShell), RFC 8259, the jq manual, yq docs, YAML 1.2.2, TOML 1.1.0, PCRE2, RFC 9562, man7 (grep, gawk, sed, ps), SQLite, PostgreSQL, the Lua 5.4 manual, LuaJIT, git-scm.com, CommonMark, GFM, GitHub docs, Pandoc, glow and Omarchy's bindings.lua. Every link was checked to load (the Hyprland wiki had moved its hyprctl page). The sheets' JSON passes `src` through as is. The Lua, git and Markdown sheets come next. Corrections (several tested on this machine):
+
+| Was | Now |
+|---|---|
+| Hub: `echo "${VAR:-…}" \| echo … \| echo "${PATH//:/\n}"` | Separate commands; `\n` in a replacement is a literal `n` (tested), so `$'\n'` |
+| PowerShell: `Write-Error "Failed to reach $ComputerName: $_"` | `${ComputerName}:` (a colon after a variable name parses as a scope); `Get-Content -Raw` before ConvertFrom-Json |
+| Regex: named groups `(?<name>…)` "Python / JS / PCRE" | Python rejects it (tested on 3.14); it needs `(?P<name>…)`. `(?i)`: JavaScript only has scoped `(?i:…)` |
+| SQL "ANSI" example: `GROUP BY n.id` with other columns, `HAVING avg_temp` | Every selected column in GROUP BY and the aggregate repeated in HAVING (PostgreSQL rejects the alias); ran on SQLite 3.54 |
+| YAML: "yes, no" listed as booleans on a YAML 1.2 sheet | Only true/false in 1.2; yes/no/on/off are 1.1 (PyYAML); merge key `<<` noted as 1.1 |
+| UUID regex "UUID v4" / RFC 4122 | Versions 1–5; RFC 9562 replaced 4122 and adds 6–8 |
+| Python defaults "evaluated once at module import"; `arg: list = None` | Evaluated when the def runs; `list \| None = None` |
+| pathlib `write_text` "atomically" | Not atomic (write a temp file and `Path.replace()`) |
+| PowerShell `[CmdletBinding()]` gives -WhatIf; `Select-Object / %` | -WhatIf needs SupportsShouldProcess; `%` is ForEach-Object |
+| PCRE lookbehind "requires fixed length" | PCRE2 10.43+ allows bounded variable length |
+| Labels Node.js 20+, TypeScript 5.x, jq 1.7, TOML v1.0.0, SQLite 3.45 | Node.js 22+ (20 is end-of-life), TypeScript 6 & 7 (strict by default since 6.0), jq 1.8, TOML 1.1 (tomllib reads 1.1 from Python 3.15), SQLite 3.54 |
+| `export API_KEY="secret_token"`; `sed -i` that disables SELinux | `LOG_LEVEL=debug`; an sshd_config edit with a backup |
+
+Also added: `node script.ts` (type stripping since Node 22.18/23.6, not for enums or parameter properties), the top-level-await-needs-a-module note, and the `[[ ]] && a \|\| b` catch. Confirmed by test: an EXIT trap runs after SIGINT and SIGTERM (bash 5.3); `hyprctl configerrors` exists on Hyprland 0.56.2 though the current wiki page omits it.
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |

@@ -8,7 +8,7 @@ const SQL_CHEAT_SHEET_DATA = [
       {
         "id": "sql-select-joins",
         "desc": "Structured SELECT queries with filtering, table joins, and group by aggregations",
-        "cmd": "-- Query nodes with high GPU temperature and join rack info\nSELECT \n  n.hostname,\n  n.ip_address,\n  r.name AS rack_name,\n  COUNT(g.id) AS gpu_count,\n  AVG(g.temp_c) AS avg_temp\nFROM nodes n\nINNER JOIN racks r ON n.rack_id = r.id\nLEFT JOIN gpus g ON n.id = g.node_id\nWHERE n.status = 'ACTIVE'\nGROUP BY n.id\nHAVING avg_temp > 75.0\nORDER BY avg_temp DESC\nLIMIT 20;",
+        "cmd": "-- Query nodes with high GPU temperature and join rack info\nSELECT \n  n.hostname,\n  n.ip_address,\n  r.name AS rack_name,\n  COUNT(g.id) AS gpu_count,\n  AVG(g.temp_c) AS avg_temp\nFROM nodes n\nINNER JOIN racks r ON n.rack_id = r.id\nLEFT JOIN gpus g ON n.id = g.node_id\nWHERE n.status = 'ACTIVE'\nGROUP BY n.id, n.hostname, n.ip_address, r.name\nHAVING AVG(g.temp_c) > 75.0\nORDER BY avg_temp DESC\nLIMIT 20;",
         "flags": [
           [
             "INNER JOIN",
@@ -58,7 +58,25 @@ const SQL_CHEAT_SHEET_DATA = [
           "aggregations",
           "having",
           "database"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.postgresql.org/docs/current/sql-select.html",
+              "title": "PostgreSQL: SELECT (GROUP BY, HAVING)"
+            },
+            {
+              "url": "https://sqlite.org/lang_select.html",
+              "title": "SQLite: SELECT (bare columns)"
+            },
+            {
+              "url": "https://sqlite.org/lang_transaction.html",
+              "title": "SQLite: transactions"
+            }
+          ],
+          "note": "Corrected 2026-11-10: GROUP BY now lists every selected column and HAVING repeats the aggregate, as standard SQL (PostgreSQL) requires; SQLite accepted the old form."
+        }
       }
     ]
   },
@@ -117,7 +135,20 @@ const SQL_CHEAT_SHEET_DATA = [
           "memory",
           "schema",
           "database"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://sqlite.org/cli.html",
+              "title": "SQLite CLI"
+            },
+            {
+              "url": "https://sqlite.org/json1.html",
+              "title": "SQLite JSON functions"
+            }
+          ]
+        }
       }
     ]
   }

@@ -38,7 +38,7 @@ const TOML_CHEAT_SHEET_DATA = [
         "subcommands": [
           [
             "import tomllib; data = tomllib.loads(toml_str)",
-            "Parse TOML natively in Python 3.11+ without third-party packages"
+            "Parse TOML natively in Python 3.11+ without third-party packages (TOML 1.1 from 3.15)"
           ],
           [
             "taplo fmt file.toml",
@@ -53,7 +53,24 @@ const TOML_CHEAT_SHEET_DATA = [
           "config",
           "tomllib",
           "syntax"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://toml.io/en/v1.1.0",
+              "title": "TOML 1.1.0 spec"
+            },
+            {
+              "url": "https://docs.python.org/3/library/tomllib.html",
+              "title": "Python: tomllib"
+            },
+            {
+              "url": "https://taplo.tamasfe.dev/cli/usage/formatting.html",
+              "title": "Taplo: formatting"
+            }
+          ]
+        }
       }
     ]
   }

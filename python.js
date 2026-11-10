@@ -53,7 +53,24 @@ const PYTHON_CHEAT_SHEET_DATA = [
           "f-strings",
           "annotations",
           "primitives"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.python.org/3/library/stdtypes.html",
+              "title": "Python: built-in types"
+            },
+            {
+              "url": "https://docs.python.org/3/reference/lexical_analysis.html#f-strings",
+              "title": "Python: f-strings"
+            },
+            {
+              "url": "https://docs.python.org/3/library/typing.html",
+              "title": "Python: typing"
+            }
+          ]
+        }
       },
       {
         "id": "py-collections-deep",
@@ -104,7 +121,20 @@ const PYTHON_CHEAT_SHEET_DATA = [
           "tuple",
           "set",
           "comprehensions"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.python.org/3/tutorial/datastructures.html",
+              "title": "Python tutorial: data structures"
+            },
+            {
+              "url": "https://docs.python.org/3/library/stdtypes.html",
+              "title": "Python: built-in types"
+            }
+          ]
+        }
       }
     ]
   },
@@ -163,7 +193,24 @@ const PYTHON_CHEAT_SHEET_DATA = [
           "ternary",
           "truthy",
           "falsy"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.python.org/3/reference/compound_stmts.html",
+              "title": "Python: compound statements (if, for, match, def)"
+            },
+            {
+              "url": "https://docs.python.org/3/library/functions.html",
+              "title": "Python: built-in functions (enumerate, zip, any, all)"
+            },
+            {
+              "url": "https://docs.python.org/3/library/stdtypes.html",
+              "title": "Python: built-in types"
+            }
+          ]
+        }
       },
       {
         "id": "py-match-case",
@@ -200,7 +247,20 @@ const PYTHON_CHEAT_SHEET_DATA = [
           "case",
           "pattern-matching",
           "switch"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.python.org/3/reference/compound_stmts.html",
+              "title": "Python: compound statements (if, for, match, def)"
+            },
+            {
+              "url": "https://peps.python.org/pep-0636/",
+              "title": "PEP 636: structural pattern matching tutorial"
+            }
+          ]
+        }
       }
     ]
   },
@@ -259,7 +319,20 @@ const PYTHON_CHEAT_SHEET_DATA = [
           "enumerate",
           "zip",
           "iteration"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.python.org/3/reference/compound_stmts.html",
+              "title": "Python: compound statements (if, for, match, def)"
+            },
+            {
+              "url": "https://docs.python.org/3/library/functions.html",
+              "title": "Python: built-in functions (enumerate, zip, any, all)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -280,7 +353,7 @@ const PYTHON_CHEAT_SHEET_DATA = [
           ],
           [
             "arg: int = 22",
-            "Default parameter value (evaluated once at module import)"
+            "Default parameter value (evaluated once, when the def statement runs)"
           ],
           [
             "*args",
@@ -305,7 +378,7 @@ const PYTHON_CHEAT_SHEET_DATA = [
             "Unpack list as positional arguments into function call"
           ]
         ],
-        "tip": "Never use mutable objects (like [] or {}) as default arguments; use arg: list = None instead.",
+        "tip": "Never use mutable objects (like [] or {}) as default arguments; use arg: list | None = None and create the list inside the function.",
         "tags": [
           "python",
           "functions",
@@ -313,7 +386,21 @@ const PYTHON_CHEAT_SHEET_DATA = [
           "kwargs",
           "lambda",
           "typing"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.python.org/3/reference/compound_stmts.html",
+              "title": "Python: compound statements (if, for, match, def)"
+            },
+            {
+              "url": "https://docs.python.org/3/faq/programming.html#why-are-default-values-shared-between-objects",
+              "title": "Python FAQ: shared default values"
+            }
+          ],
+          "note": "Corrected 2026-11-10: defaults are evaluated when the def runs, not at import."
+        }
       },
       {
         "id": "py-file-io-exceptions",
@@ -360,7 +447,24 @@ const PYTHON_CHEAT_SHEET_DATA = [
           "json",
           "pathlib",
           "with"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.python.org/3/tutorial/errors.html",
+              "title": "Python tutorial: errors and exceptions"
+            },
+            {
+              "url": "https://docs.python.org/3/library/pathlib.html",
+              "title": "Python: pathlib"
+            },
+            {
+              "url": "https://docs.python.org/3/library/json.html",
+              "title": "Python: json (and json.tool)"
+            }
+          ]
+        }
       }
     ]
   }

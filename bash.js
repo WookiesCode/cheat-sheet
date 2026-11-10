@@ -8,7 +8,7 @@ const BASH_CHEAT_SHEET_DATA = [
       {
         "id": "bash-var-declare",
         "desc": "Variable assignment, quoting rules (single vs double vs raw), and string interpolation",
-        "cmd": "NAME=\"Server-01\"\nCOUNT=42\nreadonly PI=\"3.14159\"\nexport API_KEY=\"secret_token\"\necho \"Host: ${NAME}, Count: $((COUNT + 1))\"",
+        "cmd": "NAME=\"Server-01\"\nCOUNT=42\nreadonly PI=\"3.14159\"\nexport LOG_LEVEL=\"debug\"\necho \"Host: ${NAME}, Count: $((COUNT + 1))\"",
         "flags": [
           [
             "No spaces around =",
@@ -54,7 +54,17 @@ const BASH_CHEAT_SHEET_DATA = [
           "export",
           "readonly",
           "quotes"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+              "title": "bash(1)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: the example no longer exports a secret-looking API_KEY."
+        }
       },
       {
         "id": "bash-param-expansion-deep",
@@ -107,7 +117,16 @@ const BASH_CHEAT_SHEET_DATA = [
           "substring",
           "defaults",
           "string-manipulation"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+              "title": "bash(1)"
+            }
+          ]
+        }
       },
       {
         "id": "bash-arrays",
@@ -152,7 +171,16 @@ const BASH_CHEAT_SHEET_DATA = [
           "associative",
           "hashmap",
           "collections"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+              "title": "bash(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -199,7 +227,7 @@ const BASH_CHEAT_SHEET_DATA = [
         "subcommands": [
           [
             "[[ condition ]] && true_action || false_action",
-            "Compact ternary-style short-circuit execution"
+            "Ternary-style shorthand, with a catch: false_action also runs if true_action fails. Use if/else when that matters"
           ],
           [
             "(( COUNT > 10 ))",
@@ -214,7 +242,16 @@ const BASH_CHEAT_SHEET_DATA = [
           "comparison",
           "regex",
           "file-tests"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+              "title": "bash(1)"
+            }
+          ]
+        }
       },
       {
         "id": "bash-case-match",
@@ -251,7 +288,16 @@ const BASH_CHEAT_SHEET_DATA = [
           "switch",
           "branching",
           "cli-args"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+              "title": "bash(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -301,7 +347,16 @@ const BASH_CHEAT_SHEET_DATA = [
           "range",
           "iteration",
           "brace-expansion"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+              "title": "bash(1)"
+            }
+          ]
+        }
       },
       {
         "id": "bash-while-read",
@@ -343,7 +398,16 @@ const BASH_CHEAT_SHEET_DATA = [
           "stream",
           "file-io",
           "csv"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+              "title": "bash(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -405,7 +469,16 @@ const BASH_CHEAT_SHEET_DATA = [
           "arguments",
           "flags",
           "getopts"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+              "title": "bash(1)"
+            }
+          ]
+        }
       },
       {
         "id": "bash-traps-cleanup",
@@ -414,7 +487,7 @@ const BASH_CHEAT_SHEET_DATA = [
         "flags": [
           [
             "trap cleanup EXIT",
-            "Runs cleanup function whenever script terminates for ANY reason"
+            "Runs cleanup on every exit, including one caused by SIGINT or SIGTERM (nothing can run on SIGKILL)"
           ],
           [
             "trap cleanup INT",
@@ -451,7 +524,17 @@ const BASH_CHEAT_SHEET_DATA = [
           "exit",
           "signals",
           "error-handling"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+              "title": "bash(1)"
+            }
+          ],
+          "note": "Checked on bash 5.3: an EXIT trap runs after SIGINT and SIGTERM. With EXIT plus INT/TERM traps, cleanup can run twice, so keep it idempotent."
+        }
       }
     ]
   }

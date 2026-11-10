@@ -58,7 +58,16 @@ const AWK_SED_CHEAT_SHEET_DATA = [
           "filter",
           "delimiter",
           "csv"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/gawk.1.html",
+              "title": "gawk(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -117,7 +126,16 @@ const AWK_SED_CHEAT_SHEET_DATA = [
           "delete",
           "cleanup",
           "streams"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/sed.1.html",
+              "title": "sed(1)"
+            }
+          ]
+        }
       }
     ]
   }

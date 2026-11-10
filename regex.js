@@ -8,7 +8,7 @@ const REGEX_CHEAT_SHEET_DATA = [
       {
         "id": "regex-tokens-quantifiers",
         "desc": "Core regex tokens, character shorthands, quantifiers, and capturing groups",
-        "cmd": "# Matches IPv4: 4 groups of 1-3 digits\n^([0-9]{1,3}\\.){3}[0-9]{1,3}$\n\n# Named capture groups (Python / JS / PCRE)\n(?<interface>[a-z0-9]+):\\s+(?<rx_bytes>\\d+)\\s+(?<tx_bytes>\\d+)",
+        "cmd": "# IPv4 shape: 4 groups of 1-3 digits (also accepts 999.1.1.1)\n^([0-9]{1,3}\\.){3}[0-9]{1,3}$\n\n# Named capture groups (JS / PCRE; Python writes (?P<name>...))\n(?<interface>[a-z0-9]+):\\s+(?<rx_bytes>\\d+)\\s+(?<tx_bytes>\\d+)",
         "flags": [
           [
             "^ and $",
@@ -40,13 +40,13 @@ const REGEX_CHEAT_SHEET_DATA = [
           ],
           [
             "(?<name>...)",
-            "Named capture group for readable structured extraction"
+            "Named capture group for readable structured extraction (Python: (?P<name>...))"
           ]
         ],
         "subcommands": [
           [
             "(?i)",
-            "Inline modifier flag enabling case-insensitive matching"
+            "Case-insensitive from here on (PCRE, Python); JavaScript only has the scoped (?i:...) form, or the i flag"
           ],
           [
             "\\b",
@@ -61,7 +61,29 @@ const REGEX_CHEAT_SHEET_DATA = [
           "groups",
           "capture",
           "anchors"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.pcre.org/current/doc/html/pcre2pattern.html",
+              "title": "PCRE2 pattern syntax"
+            },
+            {
+              "url": "https://docs.python.org/3/library/re.html",
+              "title": "Python: re"
+            },
+            {
+              "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Regular_expressions/Named_capturing_group",
+              "title": "MDN: named capturing group"
+            },
+            {
+              "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Regular_expressions/Modifier",
+              "title": "MDN: regex modifiers (?i:...)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: Python needs (?P<name>...); JavaScript has no unscoped (?i)."
+        }
       },
       {
         "id": "regex-lookarounds",
@@ -98,7 +120,24 @@ const REGEX_CHEAT_SHEET_DATA = [
           "lookbehind",
           "lookaround",
           "assertions"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.pcre.org/current/doc/html/pcre2pattern.html",
+              "title": "PCRE2 pattern syntax"
+            },
+            {
+              "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Regular_expressions/Lookbehind_assertion",
+              "title": "MDN: lookbehind assertion"
+            },
+            {
+              "url": "https://docs.python.org/3/library/re.html",
+              "title": "Python: re"
+            }
+          ]
+        }
       }
     ]
   },
@@ -111,7 +150,7 @@ const REGEX_CHEAT_SHEET_DATA = [
       {
         "id": "regex-dc-patterns",
         "desc": "Copy-pasteable regex recipes for common datacenter identifiers and network strings",
-        "cmd": "# MAC Address (colon or hyphen separated)\n^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$\n\n# PCIe BDF Address (e.g. 0000:04:00.0)\n^[0-9a-fA-F]{4}:[0-9a-fA-F]{2}:[0-9a-fA-F]{2}\\.[0-7]$\n\n# UUID / GUID (RFC 4122)\n^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$",
+        "cmd": "# MAC Address (colon or hyphen separated)\n^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$\n\n# PCIe BDF Address (e.g. 0000:04:00.0)\n^[0-9a-fA-F]{4}:[0-9a-fA-F]{2}:[0-9a-fA-F]{2}\\.[0-7]$\n\n# UUID / GUID, versions 1-5 (RFC 9562 adds 6-8: use [1-8])\n^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$",
         "flags": [
           [
             "MAC Regex",
@@ -122,8 +161,8 @@ const REGEX_CHEAT_SHEET_DATA = [
             "Validates Domain(4hex):Bus(2hex):Device(2hex).Function(0-7)"
           ],
           [
-            "UUID v4",
-            "Matches standard 36-character hyphenated UUID tokens"
+            "UUID",
+            "36-character hyphenated UUID, versions 1-5; RFC 9562 (which replaced RFC 4122) adds versions 6-8"
           ],
           [
             "IPv4 with Port",
@@ -145,7 +184,21 @@ const REGEX_CHEAT_SHEET_DATA = [
           "uuid",
           "ipv4",
           "datacenter"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.rfc-editor.org/rfc/rfc9562.html",
+              "title": "RFC 9562: UUIDs (obsoletes RFC 4122)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+              "title": "grep(1)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: RFC 9562 replaced RFC 4122 and adds UUID versions 6-8."
+        }
       }
     ]
   }
