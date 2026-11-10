@@ -23,7 +23,7 @@ const FO_FO_FORM_FACTORS_DATA = [
           ],
           [
             "QSFP-DD vs OSFP",
-            "QSFP-DD is backward-compatible with QSFP28/56; OSFP is slightly wider with superior thermal dissipation (up to 30W+ for 800G/1.6T)"
+            "QSFP-DD is backward-compatible with QSFP28/56; OSFP is slightly wider with more room for heat dissipation (check each module's power rating in its datasheet)"
           ]
         ],
         "tip": "",
@@ -41,7 +41,21 @@ const FO_FO_FORM_FACTORS_DATA = [
           "qsfp112",
           "800g",
           "400g"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/nvidia-mms4x00-ns400-400gb-s-single-port-osfp-single-mode-dr4-transceivers-product-specifications.pdf",
+              "title": "NVIDIA MMS4X00-NS400 400G DR4 datasheet (RX power, RHS flat top)"
+            },
+            {
+              "url": "https://content.mellanox.com/LinkX/LinkX_Configuration_Maps.pdf",
+              "title": "NVIDIA LinkX configuration maps (DAC/ACC reach)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: removed an unsourced 30W figure."
+        }
       }
     ]
   },
@@ -84,7 +98,20 @@ const FO_FO_FORM_FACTORS_DATA = [
           "dr1",
           "pam4",
           "lanes"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://content.mellanox.com/LinkX/LinkX_Configuration_Maps.pdf",
+              "title": "NVIDIA LinkX configuration maps (DAC/ACC reach)"
+            },
+            {
+              "url": "https://networking-docs.nvidia.com/mfp7e30nxxxpub",
+              "title": "NVIDIA MFP7E30 MPO-12/APC cable (female-female, Type B)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -97,16 +124,16 @@ const FO_FO_FORM_FACTORS_DATA = [
       {
         "id": "dac-acc-aec-aoc",
         "desc": "Choosing between Passive DAC, Active AEC (Retimed Copper), AOC, SR, DR, and FR optics by distance",
-        "cmd": "0.5–2.5m: Passive DAC   |   2.5–7m: AEC (Retimed Copper)   |   ≤100m: SR4/SR8 (MMF)   |   ≤500m: DR4/DR8 (SMF)   |   ≤2km: FR4 (SMF)",
+        "cmd": "≤3m: Passive DAC   |   ≤5m: Active copper (ACC/AEC)   |   ≤100m: SR4/SR8 (MMF)   |   ≤500m: DR4/DR8 (SMF)   |   ≤2km: FR4 (SMF)",
         "details": "",
         "flags": [
           [
-            "Passive DAC (≤2.5m at 100G/lane)",
-            "Zero power draw, <0.1ns latency, cheapest, thick bend radius"
+            "Passive DAC (≤3m at 100G/lane, NVIDIA LinkX)",
+            "No power draw and the cheapest option; 26AWG for 2-3m is thick and stiff"
           ],
           [
-            "AEC (Active Electrical Cable)",
-            "Built-in DSP retimers on copper up to 7m, thinner gauge than DAC, ~50% less power than optics"
+            "ACC / AEC (active copper)",
+            "Copper with an equalizer (ACC) or retimer (AEC) chip in the plug; NVIDIA's 100G/lane ACC reaches 4-5m"
           ],
           [
             "AOC (Active Optical Cable)",
@@ -127,7 +154,21 @@ const FO_FO_FORM_FACTORS_DATA = [
           "copper",
           "distance",
           "reach"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://content.mellanox.com/LinkX/LinkX_Configuration_Maps.pdf",
+              "title": "NVIDIA LinkX configuration maps (DAC/ACC reach)"
+            },
+            {
+              "url": "https://docs.nvidia.com/mca7j60-nxxx-800gb-s-twin-port-osfp-to-2x400gb-s-osfp-acc-splitter-product-specifications.pdf",
+              "title": "NVIDIA MCA7J60 ACC splitter spec"
+            }
+          ],
+          "note": "Corrected 2026-11-10: NVIDIA lists passive DAC to 3m and active copper to 5m at 100G/lane (was 2.5m and 7m)."
+        }
       }
     ]
   },
@@ -141,7 +182,7 @@ const FO_FO_FORM_FACTORS_DATA = [
         "id": "form-factors-breakout-tips-card",
         "desc": "Transceiver Form Factors, Thermal Dissipation & Interconnect Selection",
         "cmd": "show interfaces transceiver detail && show cables",
-        "details": "NVIDIA Quantum-2 NDR switches use finned OSFP cages for top-down forced air cooling (dissipating up to 25W per module), whereas GPU servers use Flat-Top (RHS) OSFPs that insert flush into internal chassis heat sinks. Passive DAC is limited to 1.5–2m at 100G PAM4/lane; use Active AEC (retimed copper) up to 4–5m, or optical MPO transceivers for rack-to-rack runs.",
+        "details": "NVIDIA Quantum-2 NDR switches use finned OSFP cages for top-down forced air cooling , whereas GPU servers use Flat-Top (RHS) OSFPs that insert flush into internal chassis heat sinks. NVIDIA lists passive DAC up to 3m at 100G PAM4/lane and active copper (ACC) at 4-5m; use optical MPO transceivers for longer, rack-to-rack runs.",
         "flags": [
           [
             "OSFP Finned",
@@ -156,7 +197,25 @@ const FO_FO_FORM_FACTORS_DATA = [
             "Split dual-port 800G OSFP into two 400G DR4 MPO-12 links"
           ]
         ],
-        "tip": "Never insert a finned OSFP transceiver into a flat-top riding-heatsink (RHS) cage, as the fin collar will damage the internal server heat sink.",
+        "tip": "Finned OSFPs are for switch cages and flat-top (RHS) OSFPs for adapter cages with a riding heat sink: match the module to the cage.",
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://content.mellanox.com/LinkX/LinkX_Configuration_Maps.pdf",
+              "title": "NVIDIA LinkX configuration maps (DAC/ACC reach)"
+            },
+            {
+              "url": "https://docs.nvidia.com/mca7j60-nxxx-800gb-s-twin-port-osfp-to-2x400gb-s-osfp-acc-splitter-product-specifications.pdf",
+              "title": "NVIDIA MCA7J60 ACC splitter spec"
+            },
+            {
+              "url": "https://docs.nvidia.com/nvidia-mms4x00-ns400-400gb-s-single-port-osfp-single-mode-dr4-transceivers-product-specifications.pdf",
+              "title": "NVIDIA MMS4X00-NS400 400G DR4 datasheet (RX power, RHS flat top)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: DAC/ACC reach from NVIDIA (3m / 4-5m)."
+        },
         "tags": [
           "form-factors-breakout",
           "tips",

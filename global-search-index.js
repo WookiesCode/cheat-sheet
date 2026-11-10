@@ -20045,7 +20045,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ethtool -m eth0   |   ethtool --show-fec eth0   |   ethtool -S eth0 | grep -E 'rx_pcs|fec|crc|err'",
     "desc": "Read SFF-8636 / CMIS transceiver EEPROM & live DOM optical RX/TX power (dBm), temperature, and alarms",
     "tip": "Works on any Linux NIC driver",
-    "tags": "ethtool dom ddm eeprom dbm rx tx linux"
+    "tags": "ethtool dom ddm eeprom dbm rx tx linux",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ethtool.8.html",
+          "title": "ethtool(8)"
+        },
+        {
+          "url": "https://git.kernel.org/pub/scm/network/ethtool/ethtool.git/tree/cmis.c",
+          "title": "ethtool source: CMIS/QSFP DOM field names"
+        }
+      ]
+    }
   },
   {
     "sName": "fiber",
@@ -20056,7 +20069,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mlxlink -d mlx5_0 -m -c -e   |   mlxlink -d /dev/mst/mt4129_pciconf0 -p 1 -m -c",
     "desc": "Inspect ConnectX / Quantum / Spectrum optical transceiver DOM, PAM4 eye diagram, BER, and FEC histogram",
     "tip": "Best all-in-one 400G/800G optic check",
-    "tags": "mlxlink nvidia mellanox ber eye pam4 infiniband roce"
+    "tags": "mlxlink nvidia mellanox ber eye pam4 infiniband roce",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4320/mlxlink-utility",
+          "title": "NVIDIA MFT: mlxlink"
+        }
+      ]
+    }
   },
   {
     "sName": "fiber",
@@ -20067,7 +20089,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sfputil show eeprom -d -p Ethernet0   |   show interfaces transceiver eeprom Ethernet0 --dom",
     "desc": "Query transceiver presence, DOM optical power levels, and reset/low-power mode on SONiC switches",
     "tip": "",
-    "tags": "sonic sfputil lpmode reset switch dom"
+    "tags": "sonic sfputil lpmode reset switch dom",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/sonic-net/sonic-utilities/blob/master/doc/Command-Reference.md",
+          "title": "SONiC command reference"
+        },
+        {
+          "url": "https://github.com/sonic-net/sonic-utilities/blob/master/sfputil/main.py",
+          "title": "SONiC sfputil source"
+        }
+      ]
+    }
   },
   {
     "sName": "fiber",
@@ -20078,7 +20113,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Arista: show int Eth1/1 transceiver dom   |   NX-OS: show int eth1/1 transceiver details   |   Junos: show chassis pic fpc-slot 0 pic-slot 0",
     "desc": "Inspect optical transceiver DOM power levels and FEC counters on Arista EOS, Cisco NX-OS & Juniper Junos",
     "tip": "",
-    "tags": "arista eos cisco nxos juniper junos switch"
+    "tags": "arista eos cisco nxos juniper junos switch",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://juniper.net/documentation/en_US/junos13.2/topics/reference/command-summary/show-interfaces-diagnostics-optics-10-gigabit-ethernet.html",
+          "title": "Junos: show interfaces diagnostics optics"
+        },
+        {
+          "url": "https://www.juniper.net/documentation/us/en/software/junos/cli-reference/topics/ref/command/show-chassis-pic.html",
+          "title": "Junos: show chassis pic"
+        }
+      ],
+      "note": "Arista and Cisco documentation refuse automated requests; their syntax was not re-checked here."
+    }
   },
   {
     "sName": "fiber",
@@ -20090,6 +20139,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "OSFP Finned (Switch side) vs OSFP Flat-Top / RHS (Riding Heat Sink for ConnectX-7/8 PCIe NICs)",
     "tip": "",
     "tags": "osfp finned flattop rhs qsfp-dd qsfp112 800g 400g",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/nvidia-mms4x00-ns400-400gb-s-single-port-osfp-single-mode-dr4-transceivers-product-specifications.pdf",
+          "title": "NVIDIA MMS4X00-NS400 400G DR4 datasheet (RX power, RHS flat top)"
+        },
+        {
+          "url": "https://content.mellanox.com/LinkX/LinkX_Configuration_Maps.pdf",
+          "title": "NVIDIA LinkX configuration maps (DAC/ACC reach)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: removed an unsourced 30W figure."
+    },
     "noCopy": true
   },
   {
@@ -20102,6 +20165,19 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Common AI / Datacenter optical breakout patterns (800G 2xDR4 → 2× 400G DR4, 400G DR4 → 4× 100G DR1)",
     "tip": "Verify 100G/lane vs 50G/lane PAM4 before breakout!",
     "tags": "breakout fanout 2xdr4 dr4 dr1 pam4 lanes",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://content.mellanox.com/LinkX/LinkX_Configuration_Maps.pdf",
+          "title": "NVIDIA LinkX configuration maps (DAC/ACC reach)"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mfp7e30nxxxpub",
+          "title": "NVIDIA MFP7E30 MPO-12/APC cable (female-female, Type B)"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -20110,11 +20186,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "xcvr",
     "id": "dac-acc-aec-aoc",
     "sec": "Form Factors, 400G/800G Optics & Breakouts",
-    "cmd": "0.5–2.5m: Passive DAC   |   2.5–7m: AEC (Retimed Copper)   |   ≤100m: SR4/SR8 (MMF)   |   ≤500m: DR4/DR8 (SMF)   |   ≤2km: FR4 (SMF)",
+    "cmd": "≤3m: Passive DAC   |   ≤5m: Active copper (ACC/AEC)   |   ≤100m: SR4/SR8 (MMF)   |   ≤500m: DR4/DR8 (SMF)   |   ≤2km: FR4 (SMF)",
     "desc": "Choosing between Passive DAC, Active AEC (Retimed Copper), AOC, SR, DR, and FR optics by distance",
     "tip": "",
     "tags": "dac aec acc aoc copper distance reach",
-    "noCopy": true
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://content.mellanox.com/LinkX/LinkX_Configuration_Maps.pdf",
+          "title": "NVIDIA LinkX configuration maps (DAC/ACC reach)"
+        },
+        {
+          "url": "https://docs.nvidia.com/mca7j60-nxxx-800gb-s-twin-port-osfp-to-2x400gb-s-osfp-acc-splitter-product-specifications.pdf",
+          "title": "NVIDIA MCA7J60 ACC splitter spec"
+        }
+      ],
+      "note": "Corrected 2026-11-10: NVIDIA lists passive DAC to 3m and active copper to 5m at 100G/lane (was 2.5m and 7m)."
+    }
   },
   {
     "sName": "fiber",
@@ -20126,6 +20215,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Prevent transceiver damage: How Male (Pinned) and Female (Unpinned) MPO/MTP connectors mate",
     "tip": "",
     "tags": "mpo mtp male female pins pinned unpinned damage",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mfp7e30nxxxpub",
+          "title": "NVIDIA MFP7E30 MPO-12/APC cable (female-female, Type B)"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -20138,6 +20236,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "MPO-12 / MPO-16 Polarity Types (Type B rollover for direct patch vs Type A structured trunks)",
     "tip": "Direct jumper between 2 optics = Type B Female-Female",
     "tags": "polarity type-b type-a rollover key-up mpo12 mpo16",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mfp7e30nxxxpub",
+          "title": "NVIDIA MFP7E30 MPO-12/APC cable (female-female, Type B)"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -20150,6 +20257,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Distinguishing MPO-12 (4-lane SR4/DR4) from MPO-16 (8-lane 800G SR8/DR8) connectors",
     "tip": "",
     "tags": "mpo12 mpo16 key offset sr8 dr8 800g",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://res.cloudinary.com/sonepar-fr/raw/upload/s--35m40lxy--/v1/documents/156/111309231.pdf",
+          "title": "Base-16 (MPO-16) application guide: offset key"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -20162,6 +20278,19 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Duplex 2-fiber connectors (LC, CS, SN, MDC) and how to fix RX_LOS polarity swaps in the field",
     "tip": "TX ok + RX -40dBm on both sides = roll LC clip",
     "tags": "lc duplex cs sn mdc los swap roll upc apc",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/nvidia-mms4x00-ns400-400gb-s-single-port-osfp-single-mode-dr4-transceivers-product-specifications.pdf",
+          "title": "NVIDIA MMS4X00-NS400 400G DR4 datasheet (RX power, RHS flat top)"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mfp7e30nxxxpub",
+          "title": "NVIDIA MFP7E30 MPO-12/APC cable (female-female, Type B)"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -20171,9 +20300,19 @@ window.GLOBAL_SEARCH_INDEX = [
     "id": "inspect-clean-connect",
     "sec": "Cleaning, OTDR/OLTS Testing, FEC & Triage",
     "cmd": "1. Inspect w/ 400x Scope  ──►  2. Dry IBC Click-Cleaner (1–2 clicks)  ──►  3. Wet-to-Dry Clean (if oil/gel)  ──►  4. Re-Inspect",
-    "desc": "IEC 61300-3-35 Inspect-Before-You-Connect workflow (85%+ of datacenter link issues are dirty ferrules)",
+    "desc": "IEC 61300-3-35 Inspect-Before-You-Connect workflow (dirty end faces are a leading cause of link problems)",
     "tip": "New out of bag ≠ clean!",
     "tags": "clean ibc clicker scope ferrule dust contamination",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.flukenetworks.com/knowledge-base/fiber-inspection-and-cleaning/inspect-you-connect",
+          "title": "Fluke Networks: inspect before you connect"
+        }
+      ],
+      "note": "Changed 2026-11-10: dropped the unsourced 85% and outgassing claims."
+    },
     "noCopy": true
   },
   {
@@ -20186,6 +20325,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "When to install inline optical attenuators to prevent burning out receiver photodiodes (`RX High Alarm`)",
     "tip": "",
     "tags": "attenuator overload er4 zr lr4 burn damage pad",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/nvidia-mms4x00-ns400-400gb-s-single-port-osfp-single-mode-dr4-transceivers-product-specifications.pdf",
+          "title": "NVIDIA MMS4X00-NS400 400G DR4 datasheet (RX power, RHS flat top)"
+        }
+      ],
+      "note": "NVIDIA DR4: max launch +3.0 dBm, max receive +4.0 dBm, damage +5 dBm, so back-to-back DR4 needs no attenuator."
+    },
     "noCopy": true
   },
   {
@@ -20194,10 +20343,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "phy",
     "id": "fec-ber-fault-triage",
     "sec": "Cleaning, OTDR/OLTS Testing, FEC & Triage",
-    "cmd": "Check DOM RX dBm per lane  ──►  Check Lane Skew (<2.5 dB)  ──►  Clean Patch & Panel  ──►  Swap Patch Cord  ──►  Loopback Test Optic",
+    "cmd": "Check DOM RX dBm per lane  ──►  Compare lanes (one lane several dB down?)  ──►  Clean Patch & Panel  ──►  Swap Patch Cord  ──►  Loopback Test Optic",
     "desc": "Step-by-step field isolation for flapping links, high Pre-FEC BER, or uncorrectable FEC codeword errors",
     "tip": "1 weak lane on MPO = dirty outer fiber",
     "tags": "triage troubleshooting ber fec flap crc skew loopback",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/nvidia-mms4x00-ns400-400gb-s-single-port-osfp-single-mode-dr4-transceivers-product-specifications.pdf",
+          "title": "NVIDIA MMS4X00-NS400 400G DR4 datasheet (RX power, RHS flat top)"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4320/mlxlink-utility",
+          "title": "NVIDIA MFT: mlxlink"
+        },
+        {
+          "url": "https://grouper.ieee.org/groups/802/3/bs/public/adhoc/logic/oct23_15/anslow_01_1015_logic.pdf",
+          "title": "IEEE 802.3bs contribution: 2.4E-4 pre-FEC BER limit (KP4)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: low-RX example uses the DR4 datasheet minimum (-5.9 dBm average per lane)."
+    },
     "noCopy": true
   },
   {
@@ -20210,6 +20377,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Tier-1 OLTS (Optical Loss Test Set) vs Tier-2 OTDR (Optical Time-Domain Reflectometer) structured cabling tests",
     "tip": "",
     "tags": "otdr olts fluke exfo tier1 tier2 launch-cable dead-zone",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.flukenetworks.com/knowledge-base/fiber-inspection-and-cleaning/inspect-you-connect",
+          "title": "Fluke Networks: inspect before you connect"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -20613,9 +20789,19 @@ window.GLOBAL_SEARCH_INDEX = [
     "id": "inspect-clean-connect",
     "sec": "Cleaning & Testing Triage: IEC 61300-3-35 Inspect-Before-You-Connect workflow",
     "cmd": "1. Inspect w/ 400x Scope  ──►  2. Dry IBC Click-Cleaner (1–2 clicks)  ──►  3. Wet-to-Dry Clean (if oil/gel)  ──►  4. Re-Inspect",
-    "desc": "IEC 61300-3-35 Inspect-Before-You-Connect workflow (85%+ of datacenter link issues are dirty ferrules)",
+    "desc": "IEC 61300-3-35 Inspect-Before-You-Connect workflow (dirty end faces are a leading cause of link problems)",
     "tip": "New out of bag ≠ clean!",
     "tags": "Cleaning & Testing Triage fiber optics transceiver dom clean ibc clicker scope ferrule dust contamination",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.flukenetworks.com/knowledge-base/fiber-inspection-and-cleaning/inspect-you-connect",
+          "title": "Fluke Networks: inspect before you connect"
+        }
+      ],
+      "note": "Changed 2026-11-10: dropped the unsourced 85% and outgassing claims."
+    },
     "noCopy": true
   },
   {
@@ -20628,6 +20814,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "When to install inline optical attenuators to prevent burning out receiver photodiodes (`RX High Alarm`)",
     "tip": "",
     "tags": "Cleaning & Testing Triage fiber optics transceiver dom attenuator overload er4 zr lr4 burn damage pad",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/nvidia-mms4x00-ns400-400gb-s-single-port-osfp-single-mode-dr4-transceivers-product-specifications.pdf",
+          "title": "NVIDIA MMS4X00-NS400 400G DR4 datasheet (RX power, RHS flat top)"
+        }
+      ],
+      "note": "NVIDIA DR4: max launch +3.0 dBm, max receive +4.0 dBm, damage +5 dBm, so back-to-back DR4 needs no attenuator."
+    },
     "noCopy": true
   },
   {
@@ -20636,10 +20832,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "phy",
     "id": "fec-ber-fault-triage",
     "sec": "Cleaning & Testing Triage: Step-by-step field isolation for flapping links, high Pre-FEC BER, or uncorrectable FEC codeword errors",
-    "cmd": "Check DOM RX dBm per lane  ──►  Check Lane Skew (<2.5 dB)  ──►  Clean Patch & Panel  ──►  Swap Patch Cord  ──►  Loopback Test Optic",
+    "cmd": "Check DOM RX dBm per lane  ──►  Compare lanes (one lane several dB down?)  ──►  Clean Patch & Panel  ──►  Swap Patch Cord  ──►  Loopback Test Optic",
     "desc": "Step-by-step field isolation for flapping links, high Pre-FEC BER, or uncorrectable FEC codeword errors",
     "tip": "1 weak lane on MPO = dirty outer fiber",
     "tags": "Cleaning & Testing Triage fiber optics transceiver dom triage troubleshooting ber fec flap crc skew loopback",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/nvidia-mms4x00-ns400-400gb-s-single-port-osfp-single-mode-dr4-transceivers-product-specifications.pdf",
+          "title": "NVIDIA MMS4X00-NS400 400G DR4 datasheet (RX power, RHS flat top)"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4320/mlxlink-utility",
+          "title": "NVIDIA MFT: mlxlink"
+        },
+        {
+          "url": "https://grouper.ieee.org/groups/802/3/bs/public/adhoc/logic/oct23_15/anslow_01_1015_logic.pdf",
+          "title": "IEEE 802.3bs contribution: 2.4E-4 pre-FEC BER limit (KP4)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: low-RX example uses the DR4 datasheet minimum (-5.9 dBm average per lane)."
+    },
     "noCopy": true
   },
   {
@@ -20652,6 +20866,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Tier-1 OLTS (Optical Loss Test Set) vs Tier-2 OTDR (Optical Time-Domain Reflectometer) structured cabling tests",
     "tip": "",
     "tags": "Cleaning & Testing Triage fiber optics transceiver dom otdr olts fluke exfo tier1 tier2 launch-cable dead-zone",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.flukenetworks.com/knowledge-base/fiber-inspection-and-cleaning/inspect-you-connect",
+          "title": "Fluke Networks: inspect before you connect"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -20660,10 +20883,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "tip",
     "id": "cleaning-testing-triage-tips-card",
     "sec": "Cleaning & Testing Triage: Pro Tips & Best Practices",
-    "cmd": "ethtool --show-fec eth0 && mlxlink -d mlx5_0 -p 1 --show_ber",
+    "cmd": "ethtool --show-fec eth0 && mlxlink -d mlx5_0 -p 1 -c",
     "desc": "Inspect-Before-You-Connect Best Practices & Layer-1 Optical Flap Triage",
-    "tip": "Pre-FEC BER exceeding 10^-4 on PAM4 optics indicates dirty end-faces or excessive fiber bending; post-FEC uncorrectable codewords cause immediate packet drops.",
-    "tags": "cleaning-testing-triage tips pro fiber optics best-practice"
+    "tip": "KP4 FEC on PAM4 links is designed for a pre-FEC BER up to about 2.4e-4: a pre-FEC BER climbing toward that, or any uncorrectable codewords, means dirty end faces, bends or a failing optic.",
+    "tags": "cleaning-testing-triage tips pro fiber optics best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.flukenetworks.com/knowledge-base/fiber-inspection-and-cleaning/inspect-you-connect",
+          "title": "Fluke Networks: inspect before you connect"
+        },
+        {
+          "url": "https://docs.nvidia.com/nvidia-mms4x00-ns400-400gb-s-single-port-osfp-single-mode-dr4-transceivers-product-specifications.pdf",
+          "title": "NVIDIA MMS4X00-NS400 400G DR4 datasheet (RX power, RHS flat top)"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4320/mlxlink-utility",
+          "title": "NVIDIA MFT: mlxlink"
+        },
+        {
+          "url": "https://grouper.ieee.org/groups/802/3/bs/public/adhoc/logic/oct23_15/anslow_01_1015_logic.pdf",
+          "title": "IEEE 802.3bs contribution: 2.4E-4 pre-FEC BER limit (KP4)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: mlxlink has no --show_ber (BER is in -c); DR4 does not need attenuators back-to-back."
+    }
   },
   {
     "sName": "fo-dom-cli",
@@ -20674,7 +20919,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ethtool -m eth0   |   ethtool --show-fec eth0   |   ethtool -S eth0 | grep -E 'rx_pcs|fec|crc|err'",
     "desc": "Read SFF-8636 / CMIS transceiver EEPROM & live DOM optical RX/TX power (dBm), temperature, and alarms",
     "tip": "Works on any Linux NIC driver",
-    "tags": "DOM / DDM Telemetry fiber optics transceiver dom ethtool dom ddm eeprom dbm rx tx linux"
+    "tags": "DOM / DDM Telemetry fiber optics transceiver dom ethtool dom ddm eeprom dbm rx tx linux",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ethtool.8.html",
+          "title": "ethtool(8)"
+        },
+        {
+          "url": "https://git.kernel.org/pub/scm/network/ethtool/ethtool.git/tree/cmis.c",
+          "title": "ethtool source: CMIS/QSFP DOM field names"
+        }
+      ]
+    }
   },
   {
     "sName": "fo-dom-cli",
@@ -20685,7 +20943,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mlxlink -d mlx5_0 -m -c -e   |   mlxlink -d /dev/mst/mt4129_pciconf0 -p 1 -m -c",
     "desc": "Inspect ConnectX / Quantum / Spectrum optical transceiver DOM, PAM4 eye diagram, BER, and FEC histogram",
     "tip": "Best all-in-one 400G/800G optic check",
-    "tags": "DOM / DDM Telemetry fiber optics transceiver dom mlxlink nvidia mellanox ber eye pam4 infiniband roce"
+    "tags": "DOM / DDM Telemetry fiber optics transceiver dom mlxlink nvidia mellanox ber eye pam4 infiniband roce",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4320/mlxlink-utility",
+          "title": "NVIDIA MFT: mlxlink"
+        }
+      ]
+    }
   },
   {
     "sName": "fo-dom-cli",
@@ -20696,7 +20963,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sfputil show eeprom -d -p Ethernet0   |   show interfaces transceiver eeprom Ethernet0 --dom",
     "desc": "Query transceiver presence, DOM optical power levels, and reset/low-power mode on SONiC switches",
     "tip": "",
-    "tags": "DOM / DDM Telemetry fiber optics transceiver dom sonic sfputil lpmode reset switch dom"
+    "tags": "DOM / DDM Telemetry fiber optics transceiver dom sonic sfputil lpmode reset switch dom",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/sonic-net/sonic-utilities/blob/master/doc/Command-Reference.md",
+          "title": "SONiC command reference"
+        },
+        {
+          "url": "https://github.com/sonic-net/sonic-utilities/blob/master/sfputil/main.py",
+          "title": "SONiC sfputil source"
+        }
+      ]
+    }
   },
   {
     "sName": "fo-dom-cli",
@@ -20707,7 +20987,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Arista: show int Eth1/1 transceiver dom   |   NX-OS: show int eth1/1 transceiver details   |   Junos: show chassis pic fpc-slot 0 pic-slot 0",
     "desc": "Inspect optical transceiver DOM power levels and FEC counters on Arista EOS, Cisco NX-OS & Juniper Junos",
     "tip": "",
-    "tags": "DOM / DDM Telemetry fiber optics transceiver dom arista eos cisco nxos juniper junos switch"
+    "tags": "DOM / DDM Telemetry fiber optics transceiver dom arista eos cisco nxos juniper junos switch",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://juniper.net/documentation/en_US/junos13.2/topics/reference/command-summary/show-interfaces-diagnostics-optics-10-gigabit-ethernet.html",
+          "title": "Junos: show interfaces diagnostics optics"
+        },
+        {
+          "url": "https://www.juniper.net/documentation/us/en/software/junos/cli-reference/topics/ref/command/show-chassis-pic.html",
+          "title": "Junos: show chassis pic"
+        }
+      ],
+      "note": "Arista and Cisco documentation refuse automated requests; their syntax was not re-checked here."
+    }
   },
   {
     "sName": "fo-dom-cli",
@@ -20715,10 +21009,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "tip",
     "id": "dom-cli-tips-card",
     "sec": "DOM / DDM Telemetry: Pro Tips & Best Practices",
-    "cmd": "ethtool -m eth0 | grep -E \"Laser (rx|output) power\" && mlxlink -d mlx5_0 -p 1 --show_module",
+    "cmd": "ethtool -m eth0 | grep -Ei \"output power|optical power\" && mlxlink -d mlx5_0 -p 1 --show_module",
     "desc": "Production Optical DOM Diagnostic Workflow & Threshold Limits",
-    "tip": "An RX power reading of -40 dBm indicates total loss of signal (RX_LOS); check fiber seating, dust, or a reversed pair.",
-    "tags": "dom-cli tips pro fiber optics best-practice"
+    "tip": "RX at -40 dBm (or -inf) means no light at all (RX_LOS): check fiber seating, dust, or a reversed pair.",
+    "tags": "dom-cli tips pro fiber optics best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git.kernel.org/pub/scm/network/ethtool/ethtool.git/tree/cmis.c",
+          "title": "ethtool source: CMIS/QSFP DOM field names"
+        },
+        {
+          "url": "https://docs.nvidia.com/nvidia-mms4x00-ns400-400gb-s-single-port-osfp-single-mode-dr4-transceivers-product-specifications.pdf",
+          "title": "NVIDIA MMS4X00-NS400 400G DR4 datasheet (RX power, RHS flat top)"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4320/mlxlink-utility",
+          "title": "NVIDIA MFT: mlxlink"
+        },
+        {
+          "url": "https://github.com/sonic-net/sonic-utilities/blob/master/doc/Command-Reference.md",
+          "title": "SONiC command reference"
+        }
+      ],
+      "note": "Corrected 2026-11-10: the grep missed the RX line (ethtool labels it \"Receiver/Rcvr signal average optical power\") and the thresholds now come from the DR4 datasheet."
+    }
   },
   {
     "sName": "fo-form-factors",
@@ -20730,6 +21046,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "OSFP Finned (Switch side) vs OSFP Flat-Top / RHS (Riding Heat Sink for ConnectX-7/8 PCIe NICs)",
     "tip": "",
     "tags": "Form Factors & Breakouts fiber optics transceiver dom osfp finned flattop rhs qsfp-dd qsfp112 800g 400g",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/nvidia-mms4x00-ns400-400gb-s-single-port-osfp-single-mode-dr4-transceivers-product-specifications.pdf",
+          "title": "NVIDIA MMS4X00-NS400 400G DR4 datasheet (RX power, RHS flat top)"
+        },
+        {
+          "url": "https://content.mellanox.com/LinkX/LinkX_Configuration_Maps.pdf",
+          "title": "NVIDIA LinkX configuration maps (DAC/ACC reach)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: removed an unsourced 30W figure."
+    },
     "noCopy": true
   },
   {
@@ -20742,6 +21072,19 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Common AI / Datacenter optical breakout patterns (800G 2xDR4 → 2× 400G DR4, 400G DR4 → 4× 100G DR1)",
     "tip": "Verify 100G/lane vs 50G/lane PAM4 before breakout!",
     "tags": "Form Factors & Breakouts fiber optics transceiver dom breakout fanout 2xdr4 dr4 dr1 pam4 lanes",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://content.mellanox.com/LinkX/LinkX_Configuration_Maps.pdf",
+          "title": "NVIDIA LinkX configuration maps (DAC/ACC reach)"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mfp7e30nxxxpub",
+          "title": "NVIDIA MFP7E30 MPO-12/APC cable (female-female, Type B)"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -20750,11 +21093,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "xcvr",
     "id": "dac-acc-aec-aoc",
     "sec": "Form Factors & Breakouts: Choosing between Passive DAC, Active AEC",
-    "cmd": "0.5–2.5m: Passive DAC   |   2.5–7m: AEC (Retimed Copper)   |   ≤100m: SR4/SR8 (MMF)   |   ≤500m: DR4/DR8 (SMF)   |   ≤2km: FR4 (SMF)",
+    "cmd": "≤3m: Passive DAC   |   ≤5m: Active copper (ACC/AEC)   |   ≤100m: SR4/SR8 (MMF)   |   ≤500m: DR4/DR8 (SMF)   |   ≤2km: FR4 (SMF)",
     "desc": "Choosing between Passive DAC, Active AEC (Retimed Copper), AOC, SR, DR, and FR optics by distance",
     "tip": "",
     "tags": "Form Factors & Breakouts fiber optics transceiver dom dac aec acc aoc copper distance reach",
-    "noCopy": true
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://content.mellanox.com/LinkX/LinkX_Configuration_Maps.pdf",
+          "title": "NVIDIA LinkX configuration maps (DAC/ACC reach)"
+        },
+        {
+          "url": "https://docs.nvidia.com/mca7j60-nxxx-800gb-s-twin-port-osfp-to-2x400gb-s-osfp-acc-splitter-product-specifications.pdf",
+          "title": "NVIDIA MCA7J60 ACC splitter spec"
+        }
+      ],
+      "note": "Corrected 2026-11-10: NVIDIA lists passive DAC to 3m and active copper to 5m at 100G/lane (was 2.5m and 7m)."
+    }
   },
   {
     "sName": "fo-form-factors",
@@ -20764,8 +21120,26 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "Form Factors & Breakouts: Pro Tips & Best Practices",
     "cmd": "show interfaces transceiver detail && show cables",
     "desc": "Transceiver Form Factors, Thermal Dissipation & Interconnect Selection",
-    "tip": "Never insert a finned OSFP transceiver into a flat-top riding-heatsink (RHS) cage, as the fin collar will damage the internal server heat sink.",
-    "tags": "form-factors-breakout tips pro fiber optics best-practice"
+    "tip": "Finned OSFPs are for switch cages and flat-top (RHS) OSFPs for adapter cages with a riding heat sink: match the module to the cage.",
+    "tags": "form-factors-breakout tips pro fiber optics best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://content.mellanox.com/LinkX/LinkX_Configuration_Maps.pdf",
+          "title": "NVIDIA LinkX configuration maps (DAC/ACC reach)"
+        },
+        {
+          "url": "https://docs.nvidia.com/mca7j60-nxxx-800gb-s-twin-port-osfp-to-2x400gb-s-osfp-acc-splitter-product-specifications.pdf",
+          "title": "NVIDIA MCA7J60 ACC splitter spec"
+        },
+        {
+          "url": "https://docs.nvidia.com/nvidia-mms4x00-ns400-400gb-s-single-port-osfp-single-mode-dr4-transceivers-product-specifications.pdf",
+          "title": "NVIDIA MMS4X00-NS400 400G DR4 datasheet (RX power, RHS flat top)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: DAC/ACC reach from NVIDIA (3m / 4-5m)."
+    }
   },
   {
     "sName": "fo-mpo-polarity",
@@ -20777,6 +21151,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Prevent transceiver damage: How Male (Pinned) and Female (Unpinned) MPO/MTP connectors mate",
     "tip": "",
     "tags": "MPO Pinning & Polarity fiber optics transceiver dom mpo mtp male female pins pinned unpinned damage",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mfp7e30nxxxpub",
+          "title": "NVIDIA MFP7E30 MPO-12/APC cable (female-female, Type B)"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -20789,6 +21172,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "MPO-12 / MPO-16 Polarity Types (Type B rollover for direct patch vs Type A structured trunks)",
     "tip": "Direct jumper between 2 optics = Type B Female-Female",
     "tags": "MPO Pinning & Polarity fiber optics transceiver dom polarity type-b type-a rollover key-up mpo12 mpo16",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mfp7e30nxxxpub",
+          "title": "NVIDIA MFP7E30 MPO-12/APC cable (female-female, Type B)"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -20801,6 +21193,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Distinguishing MPO-12 (4-lane SR4/DR4) from MPO-16 (8-lane 800G SR8/DR8) connectors",
     "tip": "",
     "tags": "MPO Pinning & Polarity fiber optics transceiver dom mpo12 mpo16 key offset sr8 dr8 800g",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://res.cloudinary.com/sonepar-fr/raw/upload/s--35m40lxy--/v1/documents/156/111309231.pdf",
+          "title": "Base-16 (MPO-16) application guide: offset key"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -20813,6 +21214,19 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Duplex 2-fiber connectors (LC, CS, SN, MDC) and how to fix RX_LOS polarity swaps in the field",
     "tip": "TX ok + RX -40dBm on both sides = roll LC clip",
     "tags": "MPO Pinning & Polarity fiber optics transceiver dom lc duplex cs sn mdc los swap roll upc apc",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/nvidia-mms4x00-ns400-400gb-s-single-port-osfp-single-mode-dr4-transceivers-product-specifications.pdf",
+          "title": "NVIDIA MMS4X00-NS400 400G DR4 datasheet (RX power, RHS flat top)"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mfp7e30nxxxpub",
+          "title": "NVIDIA MFP7E30 MPO-12/APC cable (female-female, Type B)"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -20821,10 +21235,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "tip",
     "id": "mpo-polarity-connectors-tips-card",
     "sec": "MPO Pinning & Polarity: Pro Tips & Best Practices",
-    "cmd": "cat /sys/class/net/eth0/device/infiniband/*/ports/*/counters/link_downed_counter",
+    "cmd": "cat /sys/class/infiniband/*/ports/*/counters/link_downed",
     "desc": "MPO Mating Rules, Polarity Inversion & Connector Keying",
     "tip": "Never attempt to mate two pinned (male) MPO connectors; guide pins will collide and shatter the ceramic ferrule micro-lenses.",
-    "tags": "mpo-polarity-connectors tips pro fiber optics best-practice"
+    "tags": "mpo-polarity-connectors tips pro fiber optics best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mfp7e30nxxxpub",
+          "title": "NVIDIA MFP7E30 MPO-12/APC cable (female-female, Type B)"
+        },
+        {
+          "url": "https://www.kernel.org/doc/Documentation/ABI/stable/sysfs-class-infiniband",
+          "title": "Linux ABI: sysfs-class-infiniband (link_downed)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: transceivers are pinned (male), not female; the sysfs counter is link_downed."
+    }
   },
   {
     "sName": "freeipmi",

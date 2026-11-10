@@ -456,6 +456,23 @@ All 69 commands (Lua 12, git 31, Markdown 26) in `generate-scripting-suite.js` c
 
 Confirmed as written, for example: reflog expiry 90 / 30 days, `git bisect run` exit codes (0 good, 1–127 bad except 125 skip), `merge.conflictStyle zdiff3`, `push.autoSetupRemote`, `--ours`/`--theirs` swapping in a rebase, git-filter-repo removing `origin`; the Omarchy `o.bind` / `hl.unbind` / `hl.config` forms and `require("hypr.bindings")` (checked against an Omarchy install). Git is at 2.56.0.
 
+## #8 for the fiber optics suite (2026-11-10, `fiber-sources`)
+
+All 15 commands (in `fiber.js`) and 4 Pro Tips (in `generate-fiber-suite.js`) cite NVIDIA's DR4 datasheet, LinkX configuration maps, ACC spec and MPO cable spec, the mlxlink manual, ethtool(8) and its source, the kernel's sysfs-class-infiniband ABI, SONiC's command reference and sfputil source, Junos command pages, Fluke Networks, an IEEE 802.3bs KP4 contribution and a Base-16 (MPO-16) guide. The generator rebuilt each command field by field, so `src` is now passed through to the main, options and recipe cards (34 cards). Arista and Cisco docs refuse automated requests, so their syntax is noted as not re-checked. Corrections:
+
+| Was | Now |
+|---|---|
+| Pro Tip: "transceiver receptacles are always FEMALE; cables must be MALE" (contradicting its own card) | Transceivers are pinned (male); NVIDIA's transceiver-to-transceiver MPO-12/APC cable is female-to-female, Type B |
+| `ethtool -m … \| grep -E "Laser (rx\|output) power"` | `grep -Ei "output power\|optical power"`: ethtool labels the RX reading "Receiver/Rcvr signal average optical power" ("Laser rx power" is only on alarm lines) |
+| RX "sensitivity −8 to −10 dBm, overload +2 dBm"; "all lanes low −8 to −12 dBm" | NVIDIA 400G DR4: −5.9 to +4.0 dBm average per lane, damage above +5 dBm |
+| Short DR4/FR4 runs may need 3–5 dB attenuators | DR4 launches at most +3.0 dBm and accepts +4.0: safe back-to-back; attenuators are for ER4/ZR-class optics |
+| Passive DAC ≤2.5 m (card) / 1.5–2 m (Pro Tip); AEC to 7 m / 4–5 m | NVIDIA LinkX at 100G/lane: passive DAC up to 3 m, active copper (ACC) 4–5 m |
+| `mlxlink … --show_ber` | No such flag: BER is in `-c` / `--show_counters` |
+| `…/counters/link_downed_counter` | `/sys/class/infiniband/*/ports/*/counters/link_downed` |
+| Pre-FEC BER "normal 10^-7 to 10^-5", ">10^-4 = dirty" | KP4 FEC is designed for a pre-FEC BER up to about 2.4e-4; healthy links sit far below |
+| "85%+ of link issues are dirty ferrules"; dust caps "outgas plasticizer"; "30W+", "25W" OSFP figures; "lane skew <2.5 dB"; "<0.1 ns" DAC latency | Unsourced numbers removed; contamination described as a leading cause |
+| Finned OSFP "will damage the server heat sink" in an RHS cage | Match finned modules to switch cages and flat-top (RHS) modules to adapter cages |
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |

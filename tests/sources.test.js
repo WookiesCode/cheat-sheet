@@ -670,6 +670,28 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     await ctx.close();
   }
 
+  // 2w. Fiber optics (hub + four sheets): every card sourced; MPO gender, DOM grep, RX limits,
+  // DAC/ACC reach, mlxlink flags and the sysfs counter name.
+  {
+    const PAGES = ['fiber', 'fo-dom-cli', 'fo-form-factors', 'fo-mpo-polarity', 'fo-cleaning-testing'];
+    const ctx = await newContext(browser);
+    const p = await ctx.newPage();
+    const all = [];
+    let text = '';
+    for (const f of PAGES) {
+      await p.goto(BASE + f + '.html', { waitUntil: 'load' });
+      await p.waitForTimeout(400);
+      text += await p.evaluate(() => { const c = document.body.cloneNode(true); c.querySelectorAll('.cmd-source').forEach(n => n.remove()); return c.textContent; });
+      all.push(...await p.evaluate(() => [...document.querySelectorAll('.cmd-item:is([data-cmd-id], [data-id])')].filter(it => !/-flags-card$/.test(it.dataset.cmdId || '')).map(it => ({ id: it.dataset.cmdId || it.dataset.id, src: !!it.querySelector('.cmd-source:not(.is-unverified)') }))));
+    }
+    check(all.length >= 30 && all.every(x => x.src), `every card on the fiber hub and sheets shows a verified source (${all.filter(x => x.src).length}/${all.length})`);
+    check(!/receptacles are always FEMALE/.test(text) && /transceiver receptacles are pinned/.test(text), 'MPO: transceivers are pinned (male)');
+    check(!/Laser \(rx\|output\) power/.test(text) && /output power\|optical power/.test(text), 'ethtool DOM grep catches the RX line');
+    check(!/--show_ber/.test(text) && !/link_downed_counter/.test(text) && /counters\/link_downed/.test(text), 'mlxlink -c (no --show_ber); sysfs link_downed');
+    check(!/2\.5–7m: AEC/.test(text) && /≤3m: Passive DAC/.test(text) && !/typically -8 dBm to -10 dBm/.test(text), 'DAC/ACC reach and DR4 RX limits from NVIDIA');
+    await ctx.close();
+  }
+
   // 3. Over a year old → amber "re-check"; and src can't inject markup or javascript: links.
   {
     const ctx = await newContext(browser);

@@ -37,7 +37,20 @@ const FO_FO_DOM_CLI_DATA = [
           "rx",
           "tx",
           "linux"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ethtool.8.html",
+              "title": "ethtool(8)"
+            },
+            {
+              "url": "https://git.kernel.org/pub/scm/network/ethtool/ethtool.git/tree/cmis.c",
+              "title": "ethtool source: CMIS/QSFP DOM field names"
+            }
+          ]
+        }
       }
     ]
   },
@@ -81,7 +94,16 @@ const FO_FO_DOM_CLI_DATA = [
           "pam4",
           "infiniband",
           "roce"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/mftswum/4320/mlxlink-utility",
+              "title": "NVIDIA MFT: mlxlink"
+            }
+          ]
+        }
       }
     ]
   },
@@ -123,7 +145,20 @@ const FO_FO_DOM_CLI_DATA = [
           "reset",
           "switch",
           "dom"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/sonic-net/sonic-utilities/blob/master/doc/Command-Reference.md",
+              "title": "SONiC command reference"
+            },
+            {
+              "url": "https://github.com/sonic-net/sonic-utilities/blob/master/sfputil/main.py",
+              "title": "SONiC sfputil source"
+            }
+          ]
+        }
       }
     ]
   },
@@ -162,7 +197,21 @@ const FO_FO_DOM_CLI_DATA = [
           "juniper",
           "junos",
           "switch"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://juniper.net/documentation/en_US/junos13.2/topics/reference/command-summary/show-interfaces-diagnostics-optics-10-gigabit-ethernet.html",
+              "title": "Junos: show interfaces diagnostics optics"
+            },
+            {
+              "url": "https://www.juniper.net/documentation/us/en/software/junos/cli-reference/topics/ref/command/show-chassis-pic.html",
+              "title": "Junos: show chassis pic"
+            }
+          ],
+          "note": "Arista and Cisco documentation refuse automated requests; their syntax was not re-checked here."
+        }
       }
     ]
   },
@@ -175,8 +224,8 @@ const FO_FO_DOM_CLI_DATA = [
       {
         "id": "dom-cli-tips-card",
         "desc": "Production Optical DOM Diagnostic Workflow & Threshold Limits",
-        "cmd": "ethtool -m eth0 | grep -E \"Laser (rx|output) power\" && mlxlink -d mlx5_0 -p 1 --show_module",
-        "details": "DOM (Digital Optical Monitoring) / DDM reports real-time laser TX/RX power in dBm and mW, bias current, and module temperature. When bringing up a new link or investigating flaps, verify that RX power is comfortably above the sensitivity threshold (typically -8 dBm to -10 dBm for 400G/800G optical lanes) and well below the receiver overload ceiling (+2.0 dBm).",
+        "cmd": "ethtool -m eth0 | grep -Ei \"output power|optical power\" && mlxlink -d mlx5_0 -p 1 --show_module",
+        "details": "DOM (Digital Optical Monitoring) / DDM reports real-time laser TX/RX power in dBm and mW, bias current, and module temperature. When bringing up a new link or investigating flaps, check RX power against the module datasheet: for NVIDIA 400G DR4, -5.9 to +4.0 dBm average per lane, with damage above +5 dBm.",
         "flags": [
           [
             "ethtool -m <dev>",
@@ -191,7 +240,29 @@ const FO_FO_DOM_CLI_DATA = [
             "SONiC CLI utility to display optical transceiver EEPROM and DOM telemetry"
           ]
         ],
-        "tip": "An RX power reading of -40 dBm indicates total loss of signal (RX_LOS); check fiber seating, dust, or a reversed pair.",
+        "tip": "RX at -40 dBm (or -inf) means no light at all (RX_LOS): check fiber seating, dust, or a reversed pair.",
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://git.kernel.org/pub/scm/network/ethtool/ethtool.git/tree/cmis.c",
+              "title": "ethtool source: CMIS/QSFP DOM field names"
+            },
+            {
+              "url": "https://docs.nvidia.com/nvidia-mms4x00-ns400-400gb-s-single-port-osfp-single-mode-dr4-transceivers-product-specifications.pdf",
+              "title": "NVIDIA MMS4X00-NS400 400G DR4 datasheet (RX power, RHS flat top)"
+            },
+            {
+              "url": "https://networking-docs.nvidia.com/mftswum/4320/mlxlink-utility",
+              "title": "NVIDIA MFT: mlxlink"
+            },
+            {
+              "url": "https://github.com/sonic-net/sonic-utilities/blob/master/doc/Command-Reference.md",
+              "title": "SONiC command reference"
+            }
+          ],
+          "note": "Corrected 2026-11-10: the grep missed the RX line (ethtool labels it \"Receiver/Rcvr signal average optical power\") and the thresholds now come from the DR4 datasheet."
+        },
         "tags": [
           "dom-cli",
           "tips",

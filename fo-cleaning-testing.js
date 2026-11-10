@@ -5,11 +5,11 @@ const FO_FO_CLEANING_TESTING_DATA = [
     "id": "cleaning-testing-triage-cmd-1",
     "badge": "phy",
     "title": "Cleaning & Testing Triage: IEC 61300-3-35 Inspect-Before-You-Connect workflow",
-    "subtitle": "IEC 61300-3-35 Inspect-Before-You-Connect workflow (85%+ of datacenter link issues are dirty ferrules)",
+    "subtitle": "IEC 61300-3-35 Inspect-Before-You-Connect workflow (dirty end faces are a leading cause of link problems)",
     "commands": [
       {
         "id": "inspect-clean-connect",
-        "desc": "IEC 61300-3-35 Inspect-Before-You-Connect workflow (85%+ of datacenter link issues are dirty ferrules)",
+        "desc": "IEC 61300-3-35 Inspect-Before-You-Connect workflow (dirty end faces are a leading cause of link problems)",
         "cmd": "1. Inspect w/ 400x Scope  ──►  2. Dry IBC Click-Cleaner (1–2 clicks)  ──►  3. Wet-to-Dry Clean (if oil/gel)  ──►  4. Re-Inspect",
         "details": "",
         "flags": [
@@ -19,7 +19,7 @@ const FO_FO_CLEANING_TESTING_DATA = [
           ],
           [
             "Brand New Patch Cords",
-            "Factory dust caps outgas plasticizer residue onto ferrules — ALWAYS click-clean brand-new cables straight out of the bag!"
+            "A dust cap is not a guarantee of a clean end face: inspect and clean new cords straight out of the bag too"
           ],
           [
             "MPO vs LC Cleaners",
@@ -40,7 +40,17 @@ const FO_FO_CLEANING_TESTING_DATA = [
           "ferrule",
           "dust",
           "contamination"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.flukenetworks.com/knowledge-base/fiber-inspection-and-cleaning/inspect-you-connect",
+              "title": "Fluke Networks: inspect before you connect"
+            }
+          ],
+          "note": "Changed 2026-11-10: dropped the unsourced 85% and outgassing claims."
+        }
       }
     ]
   },
@@ -80,7 +90,17 @@ const FO_FO_CLEANING_TESTING_DATA = [
           "burn",
           "damage",
           "pad"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/nvidia-mms4x00-ns400-400gb-s-single-port-osfp-single-mode-dr4-transceivers-product-specifications.pdf",
+              "title": "NVIDIA MMS4X00-NS400 400G DR4 datasheet (RX power, RHS flat top)"
+            }
+          ],
+          "note": "NVIDIA DR4: max launch +3.0 dBm, max receive +4.0 dBm, damage +5 dBm, so back-to-back DR4 needs no attenuator."
+        }
       }
     ]
   },
@@ -93,7 +113,7 @@ const FO_FO_CLEANING_TESTING_DATA = [
       {
         "id": "fec-ber-fault-triage",
         "desc": "Step-by-step field isolation for flapping links, high Pre-FEC BER, or uncorrectable FEC codeword errors",
-        "cmd": "Check DOM RX dBm per lane  ──►  Check Lane Skew (<2.5 dB)  ──►  Clean Patch & Panel  ──►  Swap Patch Cord  ──►  Loopback Test Optic",
+        "cmd": "Check DOM RX dBm per lane  ──►  Compare lanes (one lane several dB down?)  ──►  Clean Patch & Panel  ──►  Swap Patch Cord  ──►  Loopback Test Optic",
         "details": "",
         "flags": [
           [
@@ -101,7 +121,7 @@ const FO_FO_CLEANING_TESTING_DATA = [
             "Classic symptom of contamination on fiber #3/#10 of an MPO ferrule or damaged individual sub-assembly"
           ],
           [
-            "All lanes low RX (-8 to -12 dBm)",
+            "All lanes low RX (near or below the module minimum, about -6 dBm per lane for 400G DR4)",
             "Excessive link insertion loss: pinched/macro-bent fiber (bend radius <30mm), Female-to-Female unpinned MPO coupler, or dirty trunk cassettes"
           ],
           [
@@ -124,7 +144,25 @@ const FO_FO_CLEANING_TESTING_DATA = [
           "crc",
           "skew",
           "loopback"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/nvidia-mms4x00-ns400-400gb-s-single-port-osfp-single-mode-dr4-transceivers-product-specifications.pdf",
+              "title": "NVIDIA MMS4X00-NS400 400G DR4 datasheet (RX power, RHS flat top)"
+            },
+            {
+              "url": "https://networking-docs.nvidia.com/mftswum/4320/mlxlink-utility",
+              "title": "NVIDIA MFT: mlxlink"
+            },
+            {
+              "url": "https://grouper.ieee.org/groups/802/3/bs/public/adhoc/logic/oct23_15/anslow_01_1015_logic.pdf",
+              "title": "IEEE 802.3bs contribution: 2.4E-4 pre-FEC BER limit (KP4)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: low-RX example uses the DR4 datasheet minimum (-5.9 dBm average per lane)."
+        }
       }
     ]
   },
@@ -164,7 +202,16 @@ const FO_FO_CLEANING_TESTING_DATA = [
           "tier2",
           "launch-cable",
           "dead-zone"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.flukenetworks.com/knowledge-base/fiber-inspection-and-cleaning/inspect-you-connect",
+              "title": "Fluke Networks: inspect before you connect"
+            }
+          ]
+        }
       }
     ]
   },
@@ -177,8 +224,8 @@ const FO_FO_CLEANING_TESTING_DATA = [
       {
         "id": "cleaning-testing-triage-tips-card",
         "desc": "Inspect-Before-You-Connect Best Practices & Layer-1 Optical Flap Triage",
-        "cmd": "ethtool --show-fec eth0 && mlxlink -d mlx5_0 -p 1 --show_ber",
-        "details": "Over 85% of optical network failures in production datacenters stem from microscopic dust contamination on fiber end-faces. Inspect end-faces using a fiber video microscope before connecting. For short single-mode fiber runs (<50m) with high-output DR4/FR4 optics, verify RX optical power does not exceed the receiver overload threshold (+2 dBm); install inline attenuators (typically 3dB–5dB) if needed.",
+        "cmd": "ethtool --show-fec eth0 && mlxlink -d mlx5_0 -p 1 -c",
+        "details": "Contaminated end faces are a leading cause of optical link problems. Inspect with a fiber microscope before connecting. DR4/FR4 optics are safe back-to-back (NVIDIA DR4 launches at most +3.0 dBm and accepts up to +4.0 dBm); attenuators are for long-reach ER4/ZR-class optics on short links.",
         "flags": [
           [
             "IEC 61300-3-35",
@@ -186,14 +233,36 @@ const FO_FO_CLEANING_TESTING_DATA = [
           ],
           [
             "Pre-FEC BER",
-            "Raw bit error rate before Reed-Solomon correction; normal PAM4 threshold is 10^-7 to 10^-5"
+            "Raw bit error rate before Reed-Solomon correction; healthy links sit orders of magnitude below the ~2.4e-4 KP4 limit"
           ],
           [
             "OTDR (Tier-2)",
             "Optical Time-Domain Reflectometer: pinpoints distance to micro-bends, breaks, and high-loss splices"
           ]
         ],
-        "tip": "Pre-FEC BER exceeding 10^-4 on PAM4 optics indicates dirty end-faces or excessive fiber bending; post-FEC uncorrectable codewords cause immediate packet drops.",
+        "tip": "KP4 FEC on PAM4 links is designed for a pre-FEC BER up to about 2.4e-4: a pre-FEC BER climbing toward that, or any uncorrectable codewords, means dirty end faces, bends or a failing optic.",
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.flukenetworks.com/knowledge-base/fiber-inspection-and-cleaning/inspect-you-connect",
+              "title": "Fluke Networks: inspect before you connect"
+            },
+            {
+              "url": "https://docs.nvidia.com/nvidia-mms4x00-ns400-400gb-s-single-port-osfp-single-mode-dr4-transceivers-product-specifications.pdf",
+              "title": "NVIDIA MMS4X00-NS400 400G DR4 datasheet (RX power, RHS flat top)"
+            },
+            {
+              "url": "https://networking-docs.nvidia.com/mftswum/4320/mlxlink-utility",
+              "title": "NVIDIA MFT: mlxlink"
+            },
+            {
+              "url": "https://grouper.ieee.org/groups/802/3/bs/public/adhoc/logic/oct23_15/anslow_01_1015_logic.pdf",
+              "title": "IEEE 802.3bs contribution: 2.4E-4 pre-FEC BER limit (KP4)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: mlxlink has no --show_ber (BER is in -c); DR4 does not need attenuators back-to-back."
+        },
         "tags": [
           "cleaning-testing-triage",
           "tips",

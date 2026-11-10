@@ -45,7 +45,16 @@ const FO_FO_MPO_POLARITY_DATA = [
           "pinned",
           "unpinned",
           "damage"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/mfp7e30nxxxpub",
+              "title": "NVIDIA MFP7E30 MPO-12/APC cable (female-female, Type B)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -88,7 +97,16 @@ const FO_FO_MPO_POLARITY_DATA = [
           "key-up",
           "mpo12",
           "mpo16"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/mfp7e30nxxxpub",
+              "title": "NVIDIA MFP7E30 MPO-12/APC cable (female-female, Type B)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -127,7 +145,16 @@ const FO_FO_MPO_POLARITY_DATA = [
           "sr8",
           "dr8",
           "800g"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://res.cloudinary.com/sonepar-fr/raw/upload/s--35m40lxy--/v1/documents/156/111309231.pdf",
+              "title": "Base-16 (MPO-16) application guide: offset key"
+            }
+          ]
+        }
       }
     ]
   },
@@ -149,7 +176,7 @@ const FO_FO_MPO_POLARITY_DATA = [
           ],
           [
             "UPC (Blue) vs APC (Green)",
-            "Duplex LR4/FR4/CWDM4 transceivers almost always use flat Blue LC/UPC; Single-Mode MPO (DR4/DR8) ALWAYS uses angled Green MPO/APC!"
+            "Duplex LR4/FR4/CWDM4 transceivers almost always use flat Blue LC/UPC; single-mode MPO (DR4/DR8) normally uses angled Green MPO/APC (NVIDIA's DR4 parts and cables are APC)"
           ]
         ],
         "tip": "TX ok + RX -40dBm on both sides = roll LC clip",
@@ -169,7 +196,20 @@ const FO_FO_MPO_POLARITY_DATA = [
           "roll",
           "upc",
           "apc"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/nvidia-mms4x00-ns400-400gb-s-single-port-osfp-single-mode-dr4-transceivers-product-specifications.pdf",
+              "title": "NVIDIA MMS4X00-NS400 400G DR4 datasheet (RX power, RHS flat top)"
+            },
+            {
+              "url": "https://networking-docs.nvidia.com/mfp7e30nxxxpub",
+              "title": "NVIDIA MFP7E30 MPO-12/APC cable (female-female, Type B)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -182,16 +222,16 @@ const FO_FO_MPO_POLARITY_DATA = [
       {
         "id": "mpo-polarity-connectors-tips-card",
         "desc": "MPO Mating Rules, Polarity Inversion & Connector Keying",
-        "cmd": "cat /sys/class/net/eth0/device/infiniband/*/ports/*/counters/link_downed_counter",
-        "details": "Transceiver optical receptacles are always FEMALE (unpinned). Connecting cables MUST BE MALE (pinned) to transceiver interfaces, and female-to-female patch cords require alignment pins inside the MPO bulkhead adapter. Direct transceiver-to-transceiver patch cables must use Type B (Key-Up to Key-Up rollover) polarity to ensure TX lanes cross to RX lanes.",
+        "cmd": "cat /sys/class/infiniband/*/ports/*/counters/link_downed",
+        "details": "Parallel-optic transceivers carry the guide pins (male), so the cords that plug into them are female (unpinned): NVIDIA's MPO-12/APC cable is female-to-female, Type-B crossover. Every mated pair needs exactly one pinned side. A direct transceiver-to-transceiver cord must be Type B so fiber 1 (TX) lands on fiber 12 (RX).",
         "flags": [
           [
             "MPO Female (Unpinned)",
-            "Smooth guide holes without pins; standard for all QSFP/OSFP optical receptacles"
+            "Smooth guide holes without pins; the normal end on cords that plug into transceivers"
           ],
           [
             "MPO Male (Pinned)",
-            "Metal guide alignment pins protruding from ferrule; mandatory for patch panels"
+            "Metal guide pins protruding from the ferrule; transceiver receptacles are pinned"
           ],
           [
             "Type-B Polarity",
@@ -199,6 +239,20 @@ const FO_FO_MPO_POLARITY_DATA = [
           ]
         ],
         "tip": "Never attempt to mate two pinned (male) MPO connectors; guide pins will collide and shatter the ceramic ferrule micro-lenses.",
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/mfp7e30nxxxpub",
+              "title": "NVIDIA MFP7E30 MPO-12/APC cable (female-female, Type B)"
+            },
+            {
+              "url": "https://www.kernel.org/doc/Documentation/ABI/stable/sysfs-class-infiniband",
+              "title": "Linux ABI: sysfs-class-infiniband (link_downed)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: transceivers are pinned (male), not female; the sysfs counter is link_downed."
+        },
         "tags": [
           "mpo-polarity-connectors",
           "tips",

@@ -72,9 +72,10 @@ const SECTION_MAP = {
     heading: 'Optical DOM/DDM Diagnostics: Linux ethtool, mlxlink, sfputil & EOS/NX-OS',
     proTip: {
       desc: 'Production Optical DOM Diagnostic Workflow & Threshold Limits',
-      cmd: 'ethtool -m eth0 | grep -E "Laser (rx|output) power" && mlxlink -d mlx5_0 -p 1 --show_module',
-      details: 'DOM (Digital Optical Monitoring) / DDM reports real-time laser TX/RX power in dBm and mW, bias current, and module temperature. When bringing up a new link or investigating flaps, verify that RX power is comfortably above the sensitivity threshold (typically -8 dBm to -10 dBm for 400G/800G optical lanes) and well below the receiver overload ceiling (+2.0 dBm).',
-      tip: 'An RX power reading of -40 dBm indicates total loss of signal (RX_LOS); check fiber seating, dust, or a reversed pair.',
+      cmd: 'ethtool -m eth0 | grep -Ei "output power|optical power" && mlxlink -d mlx5_0 -p 1 --show_module',
+      details: 'DOM (Digital Optical Monitoring) / DDM reports real-time laser TX/RX power in dBm and mW, bias current, and module temperature. When bringing up a new link or investigating flaps, check RX power against the module datasheet: for NVIDIA 400G DR4, -5.9 to +4.0 dBm average per lane, with damage above +5 dBm.',
+      tip: 'RX at -40 dBm (or -inf) means no light at all (RX_LOS): check fiber seating, dust, or a reversed pair.',
+      src: {"verified":"2026-11-10","refs":[{"url":"https://git.kernel.org/pub/scm/network/ethtool/ethtool.git/tree/cmis.c","title":"ethtool source: CMIS/QSFP DOM field names"},{"url":"https://docs.nvidia.com/nvidia-mms4x00-ns400-400gb-s-single-port-osfp-single-mode-dr4-transceivers-product-specifications.pdf","title":"NVIDIA MMS4X00-NS400 400G DR4 datasheet (RX power, RHS flat top)"},{"url":"https://networking-docs.nvidia.com/mftswum/4320/mlxlink-utility","title":"NVIDIA MFT: mlxlink"},{"url":"https://github.com/sonic-net/sonic-utilities/blob/master/doc/Command-Reference.md","title":"SONiC command reference"}],"note":"Corrected 2026-11-10: the grep missed the RX line (ethtool labels it \"Receiver/Rcvr signal average optical power\") and the thresholds now come from the DR4 datasheet."},
       flags: [
         ['ethtool -m <dev>', 'Dump SFF-8636 / CMIS transceiver EEPROM memory map and live DOM readings'],
         ['mlxlink -d <dev> -p 1 --show_module', 'Query ConnectX/BlueField HCA optical DOM power and SerDes eye health'],
@@ -90,8 +91,9 @@ const SECTION_MAP = {
     proTip: {
       desc: 'Transceiver Form Factors, Thermal Dissipation & Interconnect Selection',
       cmd: 'show interfaces transceiver detail && show cables',
-      details: 'NVIDIA Quantum-2 NDR switches use finned OSFP cages for top-down forced air cooling (dissipating up to 25W per module), whereas GPU servers use Flat-Top (RHS) OSFPs that insert flush into internal chassis heat sinks. Passive DAC is limited to 1.5–2m at 100G PAM4/lane; use Active AEC (retimed copper) up to 4–5m, or optical MPO transceivers for rack-to-rack runs.',
-      tip: 'Never insert a finned OSFP transceiver into a flat-top riding-heatsink (RHS) cage, as the fin collar will damage the internal server heat sink.',
+      details: 'NVIDIA Quantum-2 NDR switches use finned OSFP cages for top-down forced air cooling , whereas GPU servers use Flat-Top (RHS) OSFPs that insert flush into internal chassis heat sinks. NVIDIA lists passive DAC up to 3m at 100G PAM4/lane and active copper (ACC) at 4-5m; use optical MPO transceivers for longer, rack-to-rack runs.',
+      tip: 'Finned OSFPs are for switch cages and flat-top (RHS) OSFPs for adapter cages with a riding heat sink: match the module to the cage.',
+      src: {"verified":"2026-11-10","refs":[{"url":"https://content.mellanox.com/LinkX/LinkX_Configuration_Maps.pdf","title":"NVIDIA LinkX configuration maps (DAC/ACC reach)"},{"url":"https://docs.nvidia.com/mca7j60-nxxx-800gb-s-twin-port-osfp-to-2x400gb-s-osfp-acc-splitter-product-specifications.pdf","title":"NVIDIA MCA7J60 ACC splitter spec"},{"url":"https://docs.nvidia.com/nvidia-mms4x00-ns400-400gb-s-single-port-osfp-single-mode-dr4-transceivers-product-specifications.pdf","title":"NVIDIA MMS4X00-NS400 400G DR4 datasheet (RX power, RHS flat top)"}],"note":"Corrected 2026-11-10: DAC/ACC reach from NVIDIA (3m / 4-5m)."},
       flags: [
         ['OSFP Finned', 'Thermal fins integrated on transceiver body; required for external switch airflow'],
         ['OSFP Flat-Top / RHS', 'Smooth top surface designed to contact server internal heat sink clamps'],
@@ -106,12 +108,13 @@ const SECTION_MAP = {
     heading: 'MPO/MTP Pinning (Male vs Female), Polarity Types A/B/C & LC/CS/SN Connectors',
     proTip: {
       desc: 'MPO Mating Rules, Polarity Inversion & Connector Keying',
-      cmd: 'cat /sys/class/net/eth0/device/infiniband/*/ports/*/counters/link_downed_counter',
-      details: 'Transceiver optical receptacles are always FEMALE (unpinned). Connecting cables MUST BE MALE (pinned) to transceiver interfaces, and female-to-female patch cords require alignment pins inside the MPO bulkhead adapter. Direct transceiver-to-transceiver patch cables must use Type B (Key-Up to Key-Up rollover) polarity to ensure TX lanes cross to RX lanes.',
+      cmd: 'cat /sys/class/infiniband/*/ports/*/counters/link_downed',
+      details: 'Parallel-optic transceivers carry the guide pins (male), so the cords that plug into them are female (unpinned): NVIDIA\'s MPO-12/APC cable is female-to-female, Type-B crossover. Every mated pair needs exactly one pinned side. A direct transceiver-to-transceiver cord must be Type B so fiber 1 (TX) lands on fiber 12 (RX).',
       tip: 'Never attempt to mate two pinned (male) MPO connectors; guide pins will collide and shatter the ceramic ferrule micro-lenses.',
+      src: {"verified":"2026-11-10","refs":[{"url":"https://networking-docs.nvidia.com/mfp7e30nxxxpub","title":"NVIDIA MFP7E30 MPO-12/APC cable (female-female, Type B)"},{"url":"https://www.kernel.org/doc/Documentation/ABI/stable/sysfs-class-infiniband","title":"Linux ABI: sysfs-class-infiniband (link_downed)"}],"note":"Corrected 2026-11-10: transceivers are pinned (male), not female; the sysfs counter is link_downed."},
       flags: [
-        ['MPO Female (Unpinned)', 'Smooth guide holes without pins; standard for all QSFP/OSFP optical receptacles'],
-        ['MPO Male (Pinned)', 'Metal guide alignment pins protruding from ferrule; mandatory for patch panels'],
+        ['MPO Female (Unpinned)', 'Smooth guide holes without pins; the normal end on cords that plug into transceivers'],
+        ['MPO Male (Pinned)', 'Metal guide pins protruding from the ferrule; transceiver receptacles are pinned'],
         ['Type-B Polarity', 'Key-Up to Key-Up crossover; fiber 1 maps to fiber 12 (TX to RX)']
       ]
     }
@@ -123,12 +126,13 @@ const SECTION_MAP = {
     heading: 'IEC 61300-3-35 Inspect & Clean, Attenuators, Pre-FEC BER & OTDR/OLTS Field Triage',
     proTip: {
       desc: 'Inspect-Before-You-Connect Best Practices & Layer-1 Optical Flap Triage',
-      cmd: 'ethtool --show-fec eth0 && mlxlink -d mlx5_0 -p 1 --show_ber',
-      details: 'Over 85% of optical network failures in production datacenters stem from microscopic dust contamination on fiber end-faces. Inspect end-faces using a fiber video microscope before connecting. For short single-mode fiber runs (<50m) with high-output DR4/FR4 optics, verify RX optical power does not exceed the receiver overload threshold (+2 dBm); install inline attenuators (typically 3dB–5dB) if needed.',
-      tip: 'Pre-FEC BER exceeding 10^-4 on PAM4 optics indicates dirty end-faces or excessive fiber bending; post-FEC uncorrectable codewords cause immediate packet drops.',
+      cmd: 'ethtool --show-fec eth0 && mlxlink -d mlx5_0 -p 1 -c',
+      details: 'Contaminated end faces are a leading cause of optical link problems. Inspect with a fiber microscope before connecting. DR4/FR4 optics are safe back-to-back (NVIDIA DR4 launches at most +3.0 dBm and accepts up to +4.0 dBm); attenuators are for long-reach ER4/ZR-class optics on short links.',
+      tip: 'KP4 FEC on PAM4 links is designed for a pre-FEC BER up to about 2.4e-4: a pre-FEC BER climbing toward that, or any uncorrectable codewords, means dirty end faces, bends or a failing optic.',
+      src: {"verified":"2026-11-10","refs":[{"url":"https://www.flukenetworks.com/knowledge-base/fiber-inspection-and-cleaning/inspect-you-connect","title":"Fluke Networks: inspect before you connect"},{"url":"https://docs.nvidia.com/nvidia-mms4x00-ns400-400gb-s-single-port-osfp-single-mode-dr4-transceivers-product-specifications.pdf","title":"NVIDIA MMS4X00-NS400 400G DR4 datasheet (RX power, RHS flat top)"},{"url":"https://networking-docs.nvidia.com/mftswum/4320/mlxlink-utility","title":"NVIDIA MFT: mlxlink"},{"url":"https://grouper.ieee.org/groups/802/3/bs/public/adhoc/logic/oct23_15/anslow_01_1015_logic.pdf","title":"IEEE 802.3bs contribution: 2.4E-4 pre-FEC BER limit (KP4)"}],"note":"Corrected 2026-11-10: mlxlink has no --show_ber (BER is in -c); DR4 does not need attenuators back-to-back."},
       flags: [
         ['IEC 61300-3-35', 'International inspection standard defining acceptable scratches and contamination zones on core/cladding'],
-        ['Pre-FEC BER', 'Raw bit error rate before Reed-Solomon correction; normal PAM4 threshold is 10^-7 to 10^-5'],
+        ['Pre-FEC BER', 'Raw bit error rate before Reed-Solomon correction; healthy links sit orders of magnitude below the ~2.4e-4 KP4 limit'],
         ['OTDR (Tier-2)', 'Optical Time-Domain Reflectometer: pinpoints distance to micro-bends, breaks, and high-loss splices']
       ]
     }
@@ -155,7 +159,8 @@ function buildFoSectionCards(sec) {
           details: cmd.details || '',
           flags: cmd.flags ? cmd.flags.slice(0, 3) : [],
           tip: cmd.tip || '',
-          tags: [cfg.name, 'fiber', 'optics', 'transceiver', 'dom', ...(cmd.tags || [])]
+          tags: [cfg.name, 'fiber', 'optics', 'transceiver', 'dom', ...(cmd.tags || [])],
+          ...(cmd.src ? { src: cmd.src } : {})
         }
       ]
     });
@@ -174,7 +179,8 @@ function buildFoSectionCards(sec) {
             cmd: cmd.cmd,
             flags: cmd.flags.slice(3),
             details: `Common operational, diagnostic, and optical parameters for fiber optic testing and telemetry.`,
-            tags: [cfg.name, 'flags', 'options', 'syntax']
+            tags: [cfg.name, 'flags', 'options', 'syntax'],
+            ...(cmd.src ? { src: cmd.src } : {})
           }
         ]
       });
@@ -191,7 +197,8 @@ function buildFoSectionCards(sec) {
           id: `${cmd.id}-sub-${idx + 1}`,
           desc: sub[1],
           cmd: sub[0],
-          tags: [cfg.name, 'recipe', 'automation', 'cli']
+          tags: [cfg.name, 'recipe', 'automation', 'cli'],
+          ...(cmd.src ? { src: cmd.src } : {})
         }))
       });
     }
@@ -212,6 +219,7 @@ function buildFoSectionCards(sec) {
           details: cfg.proTip.details,
           flags: cfg.proTip.flags,
           tip: cfg.proTip.tip,
+          ...(cfg.proTip.src ? { src: cfg.proTip.src } : {}),
           tags: [sec.id, 'tips', 'pro', 'fiber', 'optics', 'best-practice']
         }
       ]
