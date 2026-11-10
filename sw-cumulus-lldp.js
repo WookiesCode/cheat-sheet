@@ -112,20 +112,20 @@ const SW_SW_CUMULUS_LLDP_DATA = [
       {
         "id": "cumulus-lldp-tips-card",
         "desc": "Cluster Cabling Verification & Host Discovery via LLDP",
-        "cmd": "nv show interface --view lldp && nv show bridge domain br_default mac-table",
-        "details": "LLDP is the cornerstone of automated datacenter cabling verification. Compare `nv show interface --view lldp` output against your cluster wiring manifest to detect mis-cabled GPU compute nodes before running distributed training jobs.",
+        "cmd": "nv show interface lldp && nv show bridge domain br_default mac-table",
+        "details": "Compare LLDP neighbours with the cabling plan to catch miswired GPU nodes before a job runs.",
         "flags": [
           [
-            "nv show interface --view lldp",
-            "List all discovered adjacent servers, spine switches, and storage nodes with port IDs"
+            "nv show interface lldp",
+            "LLDP neighbours on all ports"
+          ],
+          [
+            "nv show interface swp1 lldp",
+            "LLDP settings and neighbour for one port"
           ],
           [
             "nv show bridge domain br_default mac-table",
-            "Display learned MAC addresses, VLAN tags, and egress switch ports"
-          ],
-          [
-            "nv show router arp",
-            "Inspect IPv4 ARP table mapping host IPs to MAC addresses and physical links"
+            "Layer 2 forwarding table: MAC, VLAN, port"
           ]
         ],
         "tip": "Verify that server hostname, interface name, and switch port match the intended topology map.",
@@ -136,7 +136,21 @@ const SW_SW_CUMULUS_LLDP_DATA = [
           "switches",
           "fabric",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/LLDP/",
+              "title": "NVUE reference: LLDP"
+            },
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/Bridge/",
+              "title": "NVUE reference: bridge"
+            }
+          ],
+          "note": "Corrected 2026-11-10: NVUE has no --view lldp (the views are ber and dom); removed nv show router arp, not found in the NVUE reference."
+        }
       }
     ]
   }

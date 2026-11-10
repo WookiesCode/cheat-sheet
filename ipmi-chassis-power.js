@@ -195,7 +195,7 @@ const IPMI_IPMI_CHASSIS_POWER_DATA = [
         "id": "chassis-power-tips-card",
         "desc": "Chassis Power Cycling & Hard Freeze Triage",
         "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis power status",
-        "details": "Use \"power soft\" first to give ACPI OS time to cleanly shutdown daemons and unmount NVMe filesystems. If the OS kernel is hard frozen, use \"power cycle\" (powers off, waits 1s, powers on) or pulse an NMI diagnostics trigger to force a kernel crash dump.",
+        "details": "Try \"power soft\" first: it asks the OS for an ACPI shutdown. If the kernel is hard frozen, \"power diag\" pulses an NMI so a kdump-configured kernel writes a crash dump; \"power cycle\" powers off for at least 1 second, then back on.",
         "flags": [
           [
             "chassis power status",
@@ -203,11 +203,11 @@ const IPMI_IPMI_CHASSIS_POWER_DATA = [
           ],
           [
             "chassis power cycle",
-            "Perform a cold power cycle (drop main 12V rails and re-engage)"
+            "Hard power off for at least 1 s, then on (no clean OS shutdown)"
           ],
           [
             "chassis identify <seconds>",
-            "Blink front/rear blue UID LED to visually identify the physical chassis in a 42U rack"
+            "Blink the identify (UID) LED; default 15 s, 0 = off, force = on until turned off"
           ]
         ],
         "tip": "Run \"chassis status\" after unexpected node drops to inspect \"Last Power Event\" (e.g. AC failed, power overload, power interlock).",
@@ -218,7 +218,16 @@ const IPMI_IPMI_CHASSIS_POWER_DATA = [
           "ipmitool",
           "bmc",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool(1) man page"
+            }
+          ]
+        }
       }
     ]
   }

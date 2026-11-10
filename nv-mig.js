@@ -155,16 +155,16 @@ const NV_NV_MIG_DATA = [
       {
         "id": "mig-partition-tips-card",
         "desc": "Hardware slice partitioning into up to 7 isolated GPU Instances (GI) & Compute Instances (CI)",
-        "cmd": "nvidia-smi -i <ID> -mig 1   |   nvidia-smi mig -lgi   |   nvidia-smi mig -cgi 19,19 -C",
-        "details": "MIG partitions physical A100/H100 GPUs into isolated hardware instances with dedicated SMs, memory controllers, and PCIe paths. Slices cannot interfere with each other.",
+        "cmd": "nvidia-smi -i <ID> -mig 1   |   nvidia-smi mig -lgip   |   nvidia-smi mig -cgi <PROFILE_ID>,<PROFILE_ID> -C",
+        "details": "MIG splits a supported GPU (A100, H100 and later) into up to seven GPU instances, each with its own compute and memory resources. Profile IDs differ by GPU model: read them from -lgip, never copy them from another model.",
         "flags": [
           [
             "nvidia-smi -i 0 -mig 1",
             "Enables MIG mode on target GPU (all processes must be closed)"
           ],
           [
-            "nvidia-smi mig -lgi",
-            "Lists supported profile IDs (e.g. 1g.10gb, 2g.20gb, 3g.40gb, 7g.80gb)"
+            "nvidia-smi mig -lgip",
+            "Lists the GPU instance profiles and IDs this GPU supports (-lgi lists instances already created)"
           ],
           [
             "nvidia-smi mig -cgi <ID> -C",
@@ -184,7 +184,21 @@ const NV_NV_MIG_DATA = [
           "gpu",
           "datacenter",
           "best-practices"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/tesla/mig-user-guide/getting-started-with-mig.html",
+              "title": "NVIDIA MIG user guide: getting started"
+            },
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            }
+          ],
+          "note": "Corrected 2026-11-10: profiles are listed with -lgip; profile IDs such as 19 are model-specific."
+        }
       }
     ]
   }

@@ -512,6 +512,25 @@ All 22 cards in `jira.js` cite Atlassian's Jira Cloud JQL docs (fields, function
 
 Noted: Jira Cloud is renaming issue → work item and project → space (`workItemHistory()`, `linkedWorkItems()`); Atlassian says existing JQL with the old names keeps working, and Data Center keeps them, so the sheet keeps `issueHistory()` / `linkedIssues()` / `project`. `breached()` and `remaining()` need Jira Service Management.
 
+## #9 for the Pro Tip cards on the older suites (2026-11-10, `pro-tips-sources`)
+
+The last unsourced cards: 73 Pro Tip entries (67 sheets plus the same six on the BMC tools hub). Each now cites the docs its sheet's other cards use (NVIDIA, rdma-core/MFT, ipmitool, man7/kernel/netplan, DMTF Redfish schemas and DSP0266, NVIDIA Cumulus/MLNX-OS, Arista, Cisco, SONiC, Dell/HPE/Supermicro/Lenovo/FreeIPMI). The 17 InfiniBand tips repeat each sheet's first command, so they share its source. Fixes found on the way:
+
+| Area | Was | Now |
+|---|---|---|
+| MIG | `mig -lgi` "lists supported profiles"; `-cgi 19,19` | `-lgip` lists profiles (`-lgi` lists instances); profile IDs are model-specific |
+| DCGM | r3 "15 minutes", memtest in r3 | NVIDIA's table: r3 < 35 min, r4 < 2.25 h on 8 GPUs; memtest and pulse only at r4 |
+| Fabric Manager | must always match the driver; CRC errors mean "dirty optics" | Version match only before driver 620; HGX NVLink is not optical; B200/B300 need NVLSM |
+| Xid | 45 "driver reset required"; 62 "VBIOS/GSP timeout" | Xid catalog wording |
+| GPU tips | `--gpu-reset` "secondary-bus reset"; `nvidia-persistenced --user root`; "~450 GB/s AllReduce"; "GPU vs HBM delta > 15 °C" | Function Level Reset by default; systemd unit; the two invented numbers removed |
+| IPMI | `bootparam set bootflag no-timeout` (ipmitool rejects it) | Chain with `power cycle`, or `options=persistent` |
+| Ethernet | YAML needs "exact 2-space" indents; `-P 8` is "bidirectional"; layer3+4 balances "evenly" | Only tabs are forbidden; `--bidir`; one flow stays on one link |
+| Redfish | `$expand`/`$filter` unescaped in double quotes (the shell ate them); ForceRestart = "4 s button hold"; IndicatorLED; `LeakDetectionSensors`; `Processors/GPU_0..7` | Escaped / `--data-urlencode`; schema wording; LocationIndicatorActive; LeakDetection/LeakDetectors; `GPU_SXM_<n>` |
+| Switches | `nv set interface swp1 state up`; `--view lldp`; "Clause 91" for 400G; "-8 dBm" / "-14 dBm" / "-2..+2 dBm" limits; `orchagent` container | `link state up`; `nv show interface lldp`; RS FEC without a clause; module thresholds; orchagent runs inside swss |
+| RACADM | `update viewreport` "result of the last update" | The `--verifycatalog` comparison report; `--reboot` is for single-file updates |
+
+Not checked: Arista `configure session` commands (Arista refused automated reads) and the Cisco vPC configuration guide (404); `nvsm show health` (NVIDIA's NVSM pages are empty). The cards say so.
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |

@@ -744,6 +744,39 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     await ctx.close();
   }
 
+  // 2za. Pro Tip cards on the older suites (NVIDIA, InfiniBand, IPMI, Ethernet, Redfish, switches,
+  // BMC tools): each shows a source line; the main corrections stay fixed.
+  {
+    const PAGES = ['nv-smi', 'nv-admin', 'nv-dcgm', 'nv-nvlink', 'nv-mig', 'nv-gpudirect', 'nv-pcie', 'nv-ops',
+      'ib-ibstat', 'ib-ibv-devinfo', 'ib-rdma', 'ib-iblinkinfo', 'ib-ibswitches', 'ib-sminfo', 'ib-perfquery', 'ib-ibqueryerrors', 'ib-ibdiagnet',
+      'ib-ibping', 'ib-mst', 'ib-mlxconfig', 'ib-mlxlink', 'ib-mlxfwmanager', 'ib-perftest', 'ib-mlxcables', 'ib-bluefield',
+      'ipmi-chassis-power', 'ipmi-boot-override', 'ipmi-sensors-sdr', 'ipmi-sel-logs', 'ipmi-sol-console', 'ipmi-bmc-lan-users', 'ipmi-fru-mc',
+      'eth-rj45-tdr', 'eth-ethtool-tuning', 'eth-netplan-systemd', 'eth-iproute2-ip6', 'eth-bonding-vlans', 'eth-lldp-perf',
+      'rf-discovery', 'rf-power-boot', 'rf-inventory', 'rf-thermals-power', 'rf-logs-sel', 'rf-bios-bmc', 'rf-firmware', 'rf-hgx-dlc',
+      'sw-quantum-ports', 'sw-quantum-hw-sm', 'sw-quantum-inband', 'sw-cumulus-ports', 'sw-cumulus-optics', 'sw-cumulus-lldp', 'sw-cumulus-bonds',
+      'sw-cumulus-bgp', 'sw-cumulus-hw', 'sw-arista-ports', 'sw-arista-mlag', 'sw-arista-bgp', 'sw-nxos-ports', 'sw-nxos-vpc', 'sw-sonic',
+      'racadm', 'ilorest', 'supermicro-saa', 'onecli', 'freeipmi', 'serial-console'];
+    const ctx = await newContext(browser);
+    const p = await ctx.newPage();
+    const tips = {};
+    let text = '';
+    for (const f of PAGES) {
+      await p.goto(BASE + f + '.html', { waitUntil: 'load' });
+      await p.waitForTimeout(300);
+      for (const l of await lines(p)) if (/-tips-card$/.test(l.id)) tips[f] = l;
+      text += await p.evaluate(() => [...document.querySelectorAll('.cmd-item[data-cmd-id$="-tips-card"]')].map(it => { const c = it.cloneNode(true); c.querySelectorAll('.cmd-source').forEach(n => n.remove()); return c.textContent; }).join('\n')) + '\n';
+    }
+    const got = Object.values(tips);
+    check(got.length === PAGES.length && got.every(l => l.text && !/is-unverified/.test(l.cls)), `all ${PAGES.length} Pro Tip cards show a verified source (${got.filter(l => l.text).length}/${got.length})`);
+    check(/mig -lgip/.test(text) && !/Lists supported profile IDs/.test(text), 'MIG tip lists profiles with -lgip');
+    check(!/450\+ GB\/s|15°C|-14 dBm|-8\.0 dBm|-2 to \+2 dBm/.test(text), 'unsourced numbers (AllReduce target, HBM delta, dBm limits) are gone');
+    check(!/bootflag no-timeout/.test(text) && /options=persistent/.test(text), 'IPMI boot tip drops no-timeout for options=persistent');
+    check(!/4s hold/.test(text) && /LocationIndicatorActive/.test(text), 'Redfish tips: ForceRestart is not a 4 s hold; LocationIndicatorActive');
+    check(/\\\$expand=/.test(text) && /--data-urlencode/.test(text), 'Redfish tips escape $expand and URL-encode $filter');
+    check(!/--view lldp/.test(text) && /link state up/.test(text) && !/orchagent\)/.test(text), 'switch tips: real NVUE syntax; orchagent is not a container');
+    await ctx.close();
+  }
+
   // 3. Over a year old → amber "re-check"; and src can't inject markup or javascript: links.
   {
     const ctx = await newContext(browser);

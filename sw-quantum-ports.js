@@ -261,22 +261,22 @@ const SW_SW_QUANTUM_PORTS_DATA = [
         "id": "quantum-mlnxos-ports-tips-card",
         "desc": "NVIDIA Quantum & Quantum-2 (MLNX-OS) Port Provisioning & DOM Diagnostics",
         "cmd": "show interfaces ib 1/1 transceiver && show interfaces ib status",
-        "details": "On QM8700 (HDR 200G) and QM9700 (NDR 400G) switches, OSFP twin-port transceivers split a single 800G cage into two 400G NDR ports (1/1/1 and 1/1/2). If a link remains in \"Init\" state while physical link is LinkUp, verify the Subnet Manager (OpenSM or UFM) is active and reachable.",
+        "details": "Split ports show as three-part names (IB1/1/1, IB1/1/2) in show interfaces ib status; unsplit ports as IB1/2. A port that is Active/LinkUp physically but stuck in Init logically has no Subnet Manager configuring it: check that an SM (embedded, OpenSM or UFM) is running on the fabric.",
         "flags": [
           [
             "show interfaces ib status",
-            "View summary link state, physical state, speed and width across all IB ports"
+            "Link state, physical state, speed and width for every IB port"
           ],
           [
             "show interfaces ib 1/1 transceiver",
-            "Detailed optical DOM: Tx/Rx optical power (dBm), bias current, and module temperature"
+            "Module details and DOM for one port"
           ],
           [
-            "show cables",
-            "Verify cable type (AOC, passive copper DAC, optical MPO), vendor part number, and serial number"
+            "show interfaces ib 1/1/1 transceiver",
+            "Same for one half of a split port"
           ]
         ],
-        "tip": "Physical LinkUp + Logical Init = Subnet Manager unreachable. Check \"show ib sm\" or restart OpenSM.",
+        "tip": "Physical LinkUp + logical Init = no Subnet Manager has brought the port up. Check the SM, not the cable.",
         "tags": [
           "quantum-mlnxos-ports",
           "tips",
@@ -284,7 +284,17 @@ const SW_SW_QUANTUM_PORTS_DATA = [
           "switches",
           "fabric",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/infiniband-interface",
+              "title": "MLNX-OS 3.12.6200: InfiniBand interface"
+            }
+          ],
+          "note": "Corrected 2026-11-10: removed \"restart OpenSM\", an unsourced QM8700/QM9700 split description and the show cables flag (not in the MLNX-OS manual chapters read)."
+        }
       }
     ]
   }

@@ -84,14 +84,27 @@ const IB_IB_IBPING_DATA = [
         "desc": "Production recommendations, fabric stability tips & triage advice for ibping",
         "cmd": "ibtracert <src_LID> <dst_LID> && ibping -c 10 <dst_LID>",
         "tip": "ibtracert works immediately without any daemon on the remote node!",
-        "details": "In multi-tier Quantum/Quantum-2 topologies, always cross-reference ibping telemetry with adjacent switch ports and Subnet Manager topology databases.",
+        "details": "Recap of the first ibping card. Before replacing a part, check the far end too: the switch port, the cable and what the Subnet Manager sees.",
         "tags": [
           "ibping",
           "tips",
           "pro",
           "infiniband",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibtracert.8.in.rst",
+              "title": "ibtracert man page (rdma-core)"
+            },
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibping.8.in.rst",
+              "title": "ibping man page (rdma-core)"
+            }
+          ]
+        }
       }
     ]
   }

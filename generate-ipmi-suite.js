@@ -74,14 +74,15 @@ const SECTION_MAP = {
     name: 'Chassis Power & UID',
     heading: 'Power Actions (on/off/cycle/reset), Status & Chassis UID Locator',
     proTip: {
+      src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in","title":"ipmitool(1) man page"}]},
       desc: 'Chassis Power Cycling & Hard Freeze Triage',
       cmd: 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E chassis power status',
-      details: 'Use "power soft" first to give ACPI OS time to cleanly shutdown daemons and unmount NVMe filesystems. If the OS kernel is hard frozen, use "power cycle" (powers off, waits 1s, powers on) or pulse an NMI diagnostics trigger to force a kernel crash dump.',
+      details: 'Try "power soft" first: it asks the OS for an ACPI shutdown. If the kernel is hard frozen, "power diag" pulses an NMI so a kdump-configured kernel writes a crash dump; "power cycle" powers off for at least 1 second, then back on.',
       tip: 'Run "chassis status" after unexpected node drops to inspect "Last Power Event" (e.g. AC failed, power overload, power interlock).',
       flags: [
         ['chassis power status', 'Query whether the host motherboard is currently on or off'],
-        ['chassis power cycle', 'Perform a cold power cycle (drop main 12V rails and re-engage)'],
-        ['chassis identify <seconds>', 'Blink front/rear blue UID LED to visually identify the physical chassis in a 42U rack']
+        ['chassis power cycle', 'Hard power off for at least 1 s, then on (no clean OS shutdown)'],
+        ['chassis identify <seconds>', 'Blink the identify (UID) LED; default 15 s, 0 = off, force = on until turned off']
       ]
     }
   },
@@ -91,14 +92,15 @@ const SECTION_MAP = {
     name: 'Boot Device Override',
     heading: 'UEFI PXE, BIOS Setup, Virtual Media & Boot Flag Watchdog',
     proTip: {
+      src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in","title":"ipmitool(1) man page"},{"url":"https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_chassis.c","title":"ipmitool source: ipmi_chassis.c (boot options)"}],"note":"Corrected 2026-11-10: removed \"bootparam set bootflag no-timeout\"; ipmitool's parser rejects no-timeout. The 60-second timeout is from the man page."},
       desc: 'Automated PXE Re-imaging & Boot Flag Persistence',
       cmd: 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E chassis bootdev pxe options=efiboot',
-      details: 'By default, IPMI bootdev flags are volatile and expire after 60 seconds if the host does not reboot immediately. To avoid missing the boot flag window, run "chassis bootparam set bootflag no-timeout" or combine the bootdev command with "chassis power reset" on a single shell line.',
+      details: 'A boot override is cleared automatically if no chassis power command arrives within 60 seconds. Chain the bootdev command with "chassis power cycle" on one line, or add options=persistent to keep the device for all future boots (set it back with bootdev disk afterwards).',
       tip: 'Always specify "options=efiboot" on modern UEFI servers to avoid legacy BIOS CSM boot failure.',
       flags: [
         ['bootdev pxe', 'Direct next host boot to UEFI PXE network installer (HTTP/TFTP)'],
-        ['bootdev bios', 'Force the host server directly into UEFI BIOS Setup on the next boot'],
-        ['bootparam set bootflag no-timeout', 'Keep the boot override persistent until the machine actually executes the reboot']
+        ['bootdev bios', 'Boot into BIOS (UEFI) Setup next time'],
+        ['bootdev pxe options=persistent,efiboot', 'Keep PXE as the boot device for all future boots, in UEFI mode']
       ]
     }
   },
@@ -108,9 +110,10 @@ const SECTION_MAP = {
     name: 'Sensors & DCMI Power',
     heading: 'SDR Sensor Telemetry, Fan RPMs, Thermal Limits & DCMI Wattage',
     proTip: {
+      src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in","title":"ipmitool(1) man page"}]},
       desc: 'Hardware Environmental Triage & Thermal Throttling Detection',
       cmd: 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E sdr elist full',
-      details: 'SDR elist full prints real-time analog sensor values (volts, amps, RPMs, Celsius) with sensor state ("ok", "nc", "cr"). DCMI (Data Center Management Interface) commands query calibrated high-frequency power meters to monitor instantaneous wattage and rolling averages.',
+      details: 'sdr elist full prints each threshold sensor (volts, amps, RPM, degrees C) with its status (ok, nc, cr, nr), sensor number and entity. dcmi power reading reports the BMC\'s instantaneous, minimum, maximum and average power in watts, where the BMC supports DCMI.',
       tip: 'Filter SDR by sensor type using "sdr type Temperature" or "sdr type Fan" to cut through noisy SDR catalogs.',
       flags: [
         ['sdr elist full', 'Display all populated sensors with calibrated analog units and health status'],
@@ -125,9 +128,10 @@ const SECTION_MAP = {
     name: 'SEL Logs & Faults',
     heading: 'BMC System Event Log (SEL), Hardware Faults & Event Log Clearing',
     proTip: {
+      src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in","title":"ipmitool(1) man page"}]},
       desc: 'Out-of-Band Hardware Event Triage & Post-Mortem Crash Analysis',
       cmd: 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E sel elist',
-      details: 'The BMC System Event Log captures critical hardware events that bypass the host OS, such as uncorrectable multi-bit ECC errors, PCIe AER fatal timeouts, power supply failures, and CPU thermal trips. "sel elist" cross-references raw sensor numbers with human-readable SDR names.',
+      details: 'The BMC System Event Log records hardware events the BMC sees or BIOS reports to it (memory ECC errors, PSU failures, thermal trips, PCIe errors), even when the OS is down. "sel elist" adds the sensor names from the SDR to each entry.',
       tip: 'Back up SEL entries to a timestamped file before calling "sel clear", as cleared events cannot be recovered.',
       flags: [
         ['sel elist', 'Print human-readable SEL entries cross-referenced against the SDR catalog'],
@@ -142,14 +146,15 @@ const SECTION_MAP = {
     name: 'SOL Serial Console',
     heading: 'Serial-over-LAN (SOL) Console, Baud Rates & Session Deactivation',
     proTip: {
+      src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in","title":"ipmitool(1) man page"}],"note":"The default escape character is ~; ipmitool -e <char> changes it when ~ conflicts with ssh."},
       desc: 'Out-of-Band Serial Console Operations & Session Recovery',
       cmd: 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E sol activate',
-      details: 'Serial-over-LAN redirects the host server\'s UART serial port (COM1 / ttyS0 / ttyS1) over the encrypted IPMI 2.0 RMCP+ channel. If another administrator leaves an SOL session open, use "sol deactivate" to forcibly release the session.',
+      details: 'Serial-over-LAN carries the host serial console (COM1/ttyS0 or COM2/ttyS1, set in BIOS) over an IPMI 2.0 lanplus session. If someone left a session open, "sol deactivate" releases it.',
       tip: 'To disconnect an active SOL session without killing the terminal, press Enter, then ~ (tilde), then . (period).',
       flags: [
         ['sol activate', 'Open bidirectional Serial-over-LAN terminal to view BIOS POST and GRUB'],
         ['sol deactivate', 'Forcefully terminate a hung or abandoned SOL session on the BMC'],
-        ['sol info', 'Inspect SOL baud rate (typically 115200), character accumulation, and payload encryption']
+        ['sol info', 'SOL settings: bit rate, character accumulate/send thresholds, encryption and authentication']
       ]
     }
   },
@@ -159,10 +164,11 @@ const SECTION_MAP = {
     name: 'BMC Network & Users',
     heading: 'BMC IPv6/IPv4 Network Setup (lan6/lan), User Accounts & Password Reset',
     proTip: {
+      src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in","title":"ipmitool(1) man page"},{"url":"https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_lanp6.c","title":"ipmitool source: ipmi_lanp6.c (lan6)"},{"url":"https://docs.kernel.org/driver-api/ipmi.html","title":"Linux kernel IPMI driver"}]},
       desc: 'BMC Out-of-Band Network Provisioning & Root Password Recovery',
       cmd: 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E lan print 1',
-      details: 'Configure dedicated or shared BMC network interfaces across channel 1 (or channel 8). In-band access from the host OS via "ipmitool user set password 2 <newpass>" allows root administrators to recover lost BMC passwords without physical serial cables.',
-      tip: 'Modern AI clusters use IPv6 link-local and static ULA addressing; query channel 1 using "lan6 print 1".',
+      details: 'The BMC LAN channel is usually 1, but some vendors use another number: find it with "channel info <n>" (look for 802.3 LAN). From the host OS as root, in-band ipmitool (no -H) can reset a lost BMC password with "user set password <id>".',
+      tip: 'If the BMC has IPv6 enabled, "lan6 print 1" shows its static, SLAAC and DHCPv6 addresses',
       flags: [
         ['lan print 1', 'Display current BMC IP address, MAC address, subnet mask, and default gateway'],
         ['lan6 print 1', 'Display current BMC IPv6 global, link-local, SLAAC, and DHCPv6 addresses'],
@@ -176,14 +182,15 @@ const SECTION_MAP = {
     name: 'FRU, BMC Reset & Watchdog',
     heading: 'FRU Inventory EEPROM, BMC Controller Reset (mc) & Hardware Watchdog',
     proTip: {
+      src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in","title":"ipmitool(1) man page"}],"note":"\"The host stays up\" and fan ramp during a BMC reset are typical server behaviour, not stated in the ipmitool man page."},
       desc: 'Hardware Inventory Audit & BMC Health Maintenance',
       cmd: 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E fru print',
-      details: 'FRU (Field Replaceable Unit) EEPROMs store motherboard, chassis, and power supply part numbers, serial numbers, and asset tags. If the BMC becomes unresponsive or fails to serve Redfish/web traffic, use "mc reset cold" to reboot the BMC controller without interrupting host OS operations.',
+      details: 'FRU (Field Replaceable Unit) EEPROMs store board, chassis and PSU part numbers, serials and asset tags. If the BMC stops serving its web UI or Redfish, "mc reset cold" restarts the BMC; on most servers the host keeps running, but fans may ramp while it boots.',
       tip: 'Check "mc watchdog get" to verify hardware watchdog timer parameters; disable watchdog during prolonged debug sessions.',
       flags: [
         ['fru print', 'Dump board manufacturer, product name, serial number, and part number EEPROM data'],
         ['mc info', 'Display BMC firmware revision, IPMI version compliance (v2.0), and device ID'],
-        ['mc reset cold', 'Reboot the BMC processor without affecting host power or operating system payload']
+        ['mc reset cold', 'Restart the BMC (the host normally stays up)']
       ]
     }
   }
@@ -270,7 +277,8 @@ function buildIpmiSectionCards(sec) {
           details: cfg.proTip.details,
           flags: cfg.proTip.flags,
           tip: cfg.proTip.tip,
-          tags: [sec.id, 'tips', 'pro', 'ipmitool', 'bmc', 'best-practice']
+          tags: [sec.id, 'tips', 'pro', 'ipmitool', 'bmc', 'best-practice'],
+          ...(cfg.proTip.src ? { src: cfg.proTip.src } : {})
         }
       ]
     });

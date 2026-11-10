@@ -93,14 +93,28 @@ const IB_IB_SMINFO_DATA = [
         "desc": "Production recommendations, fabric stability tips & triage advice for sminfo",
         "cmd": "sminfo && saquery -s",
         "tip": "saquery -s lists both the Master SM and all Standby SMs",
-        "details": "In multi-tier Quantum/Quantum-2 topologies, always cross-reference sminfo telemetry with adjacent switch ports and Subnet Manager topology databases.",
+        "details": "Recap of the first sminfo card. Before replacing a part, check the far end too: the switch port, the cable and what the Subnet Manager sees.",
         "tags": [
           "sminfo",
           "tips",
           "pro",
           "infiniband",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/sminfo.8.in.rst",
+              "title": "sminfo man page (rdma-core)"
+            },
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/saquery.8.in.rst",
+              "title": "saquery man page (rdma-core)"
+            }
+          ],
+          "note": "State numbers (2 = standby, 3 = master) come from sminfo -s; the page does not describe its output fields."
+        }
       }
     ]
   }

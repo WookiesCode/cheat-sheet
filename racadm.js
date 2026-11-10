@@ -1118,15 +1118,15 @@ const BMC_RACADM_DATA = [
         "id": "racadm-tips-card",
         "desc": "Firmware from a Dell Update Package (changes state)",
         "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" update -f <update-file>",
-        "details": "update -f takes a Dell Update Package (.exe, .d9, .pm, .sc). update -f Catalog.xml -t HTTPS -l <repo> updates from a repository. update viewreport shows the result. Drain first, and check the job queue afterwards.",
+        "details": "update -f takes a Dell Update Package (.exe, .d9, .pm, .sc). update -f Catalog.xml -t <FTP|TFTP|HTTP|HTTPS|CIFS|NFS> -l <share> updates from a repository (Dell's HTTPS example uses -e <server/path> instead of -l); with --verifycatalog, update viewreport shows the comparison report. Drain first, and check the job queue afterwards.",
         "flags": [
           [
             "update viewreport",
-            "Result of the last update"
+            "Comparison report from a --verifycatalog run"
           ],
           [
             "--reboot",
-            "Graceful reboot after the update"
+            "Graceful reboot after a single-file update (repository updates use -a TRUE)"
           ]
         ],
         "tip": "Firmware changes need a drain and approval",
@@ -1136,7 +1136,21 @@ const BMC_RACADM_DATA = [
           "racadm",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/update?guid=guid-4bf8c7bd-3d8e-451f-8913-29433dd646cd&lang=en-us",
+              "title": "Dell RACADM 7.xx: update"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/jobqueue?guid=guid-a57b0f48-1ebe-4cbe-9681-458e3348301d&lang=en-us",
+              "title": "Dell RACADM 7.xx: jobqueue"
+            }
+          ],
+          "note": "Corrected 2026-11-10: viewreport shows the --verifycatalog comparison report; --reboot applies to single-file updates."
+        }
       }
     ]
   }

@@ -112,14 +112,27 @@ const IB_IB_IBSTAT_DATA = [
         "desc": "Production recommendations, fabric stability tips & triage advice for ibstat",
         "cmd": "ibstat && ibstatus",
         "tip": "LinkUp + State:Init = Subnet Manager (OpenSM/UFM) is not active!",
-        "details": "In multi-tier Quantum/Quantum-2 topologies, always cross-reference ibstat telemetry with adjacent switch ports and Subnet Manager topology databases.",
+        "details": "Recap of the first ibstat card. Before replacing a part, check the far end too: the switch port, the cable and what the Subnet Manager sees.",
         "tags": [
           "ibstat",
           "tips",
           "pro",
           "infiniband",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibstat.8.in.rst",
+              "title": "ibstat man page (rdma-core)"
+            },
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibstatus.8.in.rst",
+              "title": "ibstatus man page (rdma-core)"
+            }
+          ]
+        }
       }
     ]
   }

@@ -124,14 +124,35 @@ const IB_IB_RDMA_DATA = [
         "desc": "Production recommendations, fabric stability tips & triage advice for rdma",
         "cmd": "rdma link show && rdma dev show && rdma statistic show",
         "tip": "rdma link show maps mlx5_X directly to netdev ibX/ethX",
-        "details": "In multi-tier Quantum/Quantum-2 topologies, always cross-reference rdma telemetry with adjacent switch ports and Subnet Manager topology databases.",
+        "details": "Recap of the first rdma card. Before replacing a part, check the far end too: the switch port, the cable and what the Subnet Manager sees.",
         "tags": [
           "rdma",
           "tips",
           "pro",
           "infiniband",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/rdma-link.8.html",
+              "title": "rdma link (iproute2)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/rdma-dev.8.html",
+              "title": "rdma dev"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/rdma-resource.8.html",
+              "title": "rdma resource"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/rdma-statistic.8.html",
+              "title": "rdma statistic"
+            }
+          ]
+        }
       }
     ]
   }

@@ -219,11 +219,11 @@ const ETH_ETH_LLDP_PERF_DATA = [
         "id": "lldp-mtu-diag-tips-card",
         "desc": "Automated Switch Topology Discovery & Line-Rate Performance Validation",
         "cmd": "lldpcli show neighbors && ping -6 -M do -s 8952 <dest_ip>",
-        "details": "LLDP (Link Layer Discovery Protocol) queries the adjacent switch port name, chassis ID, and VLAN settings without needing switch CLI credentials. When validating newly provisioned 10G/25G/100G NICs, use iperf3 in bidirectional parallel stream mode (\"-P 8\") to verify line-rate throughput and identify single-core CPU interrupt bottlenecks.",
+        "details": "LLDP shows what the switch advertises on that port (chassis name, port ID, often VLAN and management IP) without switch credentials, if the switch sends LLDP. To check a new NIC's throughput, run iperf3 with several parallel streams (-P 8); add --bidir to test both directions at once.",
         "flags": [
           [
             "lldpcli show neighbors",
-            "Display upstream switch hostname, port identifier, and management IP"
+            "What the neighbour advertises: system name, port ID, management IP"
           ],
           [
             "ping -M do -s <bytes>",
@@ -242,7 +242,25 @@ const ETH_ETH_LLDP_PERF_DATA = [
           "ethernet",
           "nic",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/lldpd/lldpctl.8.en.html",
+              "title": "lldpctl(8) (lldpcli)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ping.8.html",
+              "title": "ping(8)"
+            },
+            {
+              "url": "https://software.es.net/iperf/invoking.html",
+              "title": "iperf3: invoking"
+            }
+          ],
+          "note": "Corrected 2026-11-10: -P sets parallel streams; both directions need --bidir."
+        }
       }
     ]
   }

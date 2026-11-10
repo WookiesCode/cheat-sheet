@@ -157,15 +157,15 @@ const NV_NV_NVLINK_DATA = [
         "id": "nvlink-fabric-tips-card",
         "desc": "SXM NVSwitch Fabric Manager required daemon, CRC error counters & bandwidth testing",
         "cmd": "systemctl status nvidia-fabricmanager   |   nvidia-smi nvlink -e -i 0   |   nvbandwidth",
-        "details": "HGX SXM systems (A100, H100, H200, B200) require nvidia-fabricmanager matching the exact driver version to configure the NVSwitch crossbar fabric. Rising CRC errors indicate dirty optics or connector degradation.",
+        "details": "NVSwitch HGX systems need nvidia-fabricmanager running before CUDA jobs start; without it new jobs fail with cudaErrorSystemNotReady. Before driver 620 the FM package must match the driver version exactly; from 620 FM is versioned on its own. HGX B200/B300 also need NVLSM and OFED.",
         "flags": [
           [
             "nvidia-fabricmanager",
-            "Must run on all NVSwitch baseboards; failure halts all multi-GPU jobs"
+            "Required on NVSwitch systems; if it stops, new CUDA jobs fail"
           ],
           [
             "nvidia-smi nvlink -e -i <ID>",
-            "Inspects per-lane CRC, Replay, and Recovery error counters"
+            "NVLink error counters (replay, recovery, CRC); rising counts point at the link or baseboard"
           ],
           [
             "nvbandwidth",
@@ -173,10 +173,10 @@ const NV_NV_NVLINK_DATA = [
           ],
           [
             "nvidia-smi nvlink -s -i <ID>",
-            "Confirms all NVLink physical links are in ACTIVE 100% line rate state"
+            "Link status; an active link shows its bandwidth"
           ]
         ],
-        "tip": "Never upgrade the NVIDIA display driver on HGX SXM nodes without upgrading nvidia-fabricmanager simultaneously!",
+        "tip": "On drivers before 620, upgrade the driver and nvidia-fabricmanager together: the versions must match",
         "tags": [
           "nvlink-fabric",
           "tips",
@@ -185,7 +185,25 @@ const NV_NV_NVLINK_DATA = [
           "gpu",
           "datacenter",
           "best-practices"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/tesla/fabric-manager-user-guide/index.html",
+              "title": "NVIDIA Fabric Manager user guide"
+            },
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            },
+            {
+              "url": "https://github.com/NVIDIA/nvbandwidth",
+              "title": "NVIDIA nvbandwidth"
+            }
+          ],
+          "note": "Corrected 2026-11-10: HGX NVLink is not optical, the version-match rule ends at driver 620, and B200/B300 need NVLSM."
+        }
       }
     ]
   }

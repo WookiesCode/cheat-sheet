@@ -173,7 +173,7 @@ const IPMI_IPMI_BMC_LAN_USERS_DATA = [
         "id": "bmc-lan-users-tips-card",
         "desc": "BMC Out-of-Band Network Provisioning & Root Password Recovery",
         "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E lan print 1",
-        "details": "Configure dedicated or shared BMC network interfaces across channel 1 (or channel 8). In-band access from the host OS via \"ipmitool user set password 2 <newpass>\" allows root administrators to recover lost BMC passwords without physical serial cables.",
+        "details": "The BMC LAN channel is usually 1, but some vendors use another number: find it with \"channel info <n>\" (look for 802.3 LAN). From the host OS as root, in-band ipmitool (no -H) can reset a lost BMC password with \"user set password <id>\".",
         "flags": [
           [
             "lan print 1",
@@ -188,7 +188,7 @@ const IPMI_IPMI_BMC_LAN_USERS_DATA = [
             "Change BMC user password directly from local host or over RMCP+"
           ]
         ],
-        "tip": "Modern AI clusters use IPv6 link-local and static ULA addressing; query channel 1 using \"lan6 print 1\".",
+        "tip": "If the BMC has IPv6 enabled, \"lan6 print 1\" shows its static, SLAAC and DHCPv6 addresses",
         "tags": [
           "bmc-lan-users",
           "tips",
@@ -196,7 +196,24 @@ const IPMI_IPMI_BMC_LAN_USERS_DATA = [
           "ipmitool",
           "bmc",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool(1) man page"
+            },
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_lanp6.c",
+              "title": "ipmitool source: ipmi_lanp6.c (lan6)"
+            },
+            {
+              "url": "https://docs.kernel.org/driver-api/ipmi.html",
+              "title": "Linux kernel IPMI driver"
+            }
+          ]
+        }
       }
     ]
   }

@@ -106,14 +106,28 @@ const IB_IB_IBDIAGNET_DATA = [
         "desc": "Production recommendations, fabric stability tips & triage advice for ibdiagnet",
         "cmd": "ibdiagnet -o /tmp/ibdiagnet2 --get_cable_info --get_phy_info",
         "tip": "Check /tmp/ibdiagnet2/ibdiagnet2.cables for overtemp optics!",
-        "details": "In multi-tier Quantum/Quantum-2 topologies, always cross-reference ibdiagnet telemetry with adjacent switch ports and Subnet Manager topology databases.",
+        "details": "Recap of the first ibdiagnet card. Before replacing a part, check the far end too: the switch port, the cable and what the Subnet Manager sees.",
         "tags": [
           "ibdiagnet",
           "tips",
           "pro",
           "infiniband",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/ibdiagnetutilityum/2.27.0/basic-commands",
+              "title": "ibdiagnet commands"
+            },
+            {
+              "url": "https://networking-docs.nvidia.com/ibdiagnetutilityum/2.27.0/ibdiagnet-dump-files",
+              "title": "ibdiagnet output files"
+            }
+          ],
+          "note": "Corrected 2026-11-09: --ber_test is for SwitchX/ConnectX-3/4 only; NVIDIA says to use --get_phy_info on later devices."
+        }
       }
     ]
   }

@@ -588,7 +588,16 @@ const BMC_FREEIPMI_DATA = [
           "freeipmi",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-common/freeipmi.conf.5.en.html",
+              "title": "FreeIPMI freeipmi.conf(5)"
+            }
+          ]
+        }
       }
     ]
   }

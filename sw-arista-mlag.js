@@ -147,7 +147,7 @@ const SW_SW_ARISTA_MLAG_DATA = [
         "id": "arista-lldp-mlag-tips-card",
         "desc": "Arista EOS MLAG Health & Dual-Homed Port-Channel Bundling",
         "cmd": "show mlag && show port-channel summary && show lldp neighbors",
-        "details": "Arista MLAG synchronizes state across two switches using an MLAG peer-link (typically a 2-port or 4-port 100G/400G Port-Channel). Both switches share a virtual MAC address and present a single logical switch to dual-homed servers.",
+        "details": "Arista MLAG joins two switches over a peer link so a dual-homed server sees one LACP partner. Each peer uses the MLAG System ID (MSI), the MLAG domain's MAC address, in its STP and LACP PDUs.",
         "flags": [
           [
             "show mlag",
@@ -162,7 +162,7 @@ const SW_SW_ARISTA_MLAG_DATA = [
             "Quick audit of adjacent hosts, switch spine nodes, and management IP addresses"
           ]
         ],
-        "tip": "Verify MLAG state is \"Active\" and \"Status: Active, Peer link status: Up\" before conducting maintenance.",
+        "tip": "Before maintenance, show mlag should report state : Active and peer-link status : Up.",
         "tags": [
           "arista-lldp-mlag",
           "tips",
@@ -170,7 +170,24 @@ const SW_SW_ARISTA_MLAG_DATA = [
           "switches",
           "fabric",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.arista.com/um-eos/eos-multi-chassis-link-aggregation",
+              "title": "Arista EOS 4.37: MLAG"
+            },
+            {
+              "url": "https://www.arista.com/um-eos/eos-port-channels-and-lacp",
+              "title": "Arista EOS 4.37: port channels"
+            },
+            {
+              "url": "https://www.arista.com/um-eos/eos-link-layer-discovery-protocol",
+              "title": "Arista EOS 4.37: LLDP"
+            }
+          ]
+        }
       }
     ]
   }

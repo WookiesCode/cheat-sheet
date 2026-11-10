@@ -518,7 +518,20 @@ const BMC_SUPERMICRO_SAA_DATA = [
           "saa",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+              "title": "SAA for UEFI User's Guide 1.1.0"
+            },
+            {
+              "url": "https://www.supermicro.com/en/solutions/management-software/superserver-automation-assistant",
+              "title": "Supermicro SAA"
+            }
+          ]
+        }
       }
     ]
   }

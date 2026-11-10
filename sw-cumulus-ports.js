@@ -135,23 +135,23 @@ const SW_SW_CUMULUS_PORTS_DATA = [
       {
         "id": "cumulus-ports-tips-card",
         "desc": "Cumulus Linux NVUE Interface Configuration & Link Bouncing",
-        "cmd": "nv show interface && nv set interface swp1 state up",
-        "details": "Cumulus Linux uses NVIDIA NVUE (Network Virtualization Underlay Engine) CLI for declarative network configuration. Changes made via `nv set` or `nv unset` stay in the pending candidate buffer until activated with `nv config apply`.",
+        "cmd": "nv show interface && nv set interface swp1 link state up",
+        "details": "Cumulus Linux is configured with the NVUE CLI. nv set and nv unset change a pending configuration that takes effect only after nv config apply.",
         "flags": [
           [
             "nv show interface",
-            "Show table of all physical (swp1..64) and logical interfaces with link state and speed"
+            "All interfaces with state, speed and MTU"
           ],
           [
-            "nv show interface swp1 counters",
-            "View hardware Rx/Tx byte counts, dropped packets, and CRC errors"
+            "nv show interface swp1 link stats",
+            "Rx/Tx bytes, packets, drops and errors for one port"
           ],
           [
             "nv set interface swp1 link mtu 9216",
-            "Configure jumbo frames (MTU 9216) required for high-throughput RoCEv2 storage"
+            "Set MTU explicitly (9216 is the default)"
           ]
         ],
-        "tip": "Always set MTU to 9216 for RoCEv2 lossless fabrics to accommodate Geneve/VXLAN encapsulation overhead.",
+        "tip": "Cumulus Linux already gives switch ports a 9216 MTU by default; set hosts to a matching jumbo MTU (for example 9000) end to end rather than raising the switch.",
         "tags": [
           "cumulus-ports",
           "tips",
@@ -159,7 +159,25 @@ const SW_SW_CUMULUS_PORTS_DATA = [
           "switches",
           "fabric",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Monitoring-and-Troubleshooting/Troubleshooting-Network-Interfaces/Monitoring-Interfaces-and-Transceivers-with-NVUE/",
+              "title": "Cumulus Linux 5.18: monitoring interfaces"
+            },
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Set-and-Unset-Commands/Interface/",
+              "title": "NVUE reference: interface set"
+            },
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Layer-1-and-Switch-Ports/Interface-Configuration-and-Management/Switch-Port-Attributes/",
+              "title": "Cumulus Linux 5.18: switch port attributes (MTU, FEC)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: the link state command needs \"link\"; NVUE is not \"Network Virtualization Underlay Engine\"; 9216 is already the Cumulus default MTU."
+        }
       }
     ]
   }

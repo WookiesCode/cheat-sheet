@@ -138,14 +138,27 @@ const IB_IB_MLXCONFIG_DATA = [
         "desc": "Production recommendations, fabric stability tips & triage advice for mlxconfig",
         "cmd": "mlxconfig -d /dev/mst/mt4129_pciconf0 query | grep -E 'LINK_TYPE|SRIOV|NUM_OF_VFS|PCI'",
         "tip": "LINK_TYPE: 1 = InfiniBand, 2 = Ethernet; reboot for it to take effect",
-        "details": "In multi-tier Quantum/Quantum-2 topologies, always cross-reference mlxconfig telemetry with adjacent switch ports and Subnet Manager topology databases.",
+        "details": "Recap of the first mlxconfig card. Before replacing a part, check the far end too: the switch port, the cable and what the Subnet Manager sees.",
         "tags": [
           "mlxconfig",
           "tips",
           "pro",
           "infiniband",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxconfig-changing-device-configuration-tool",
+              "title": "MFT: mlxconfig"
+            },
+            {
+              "url": "https://networking-docs.nvidia.com/mftswum/4330/mft-supported-configurations-and-parameters",
+              "title": "MFT: mlxconfig parameters"
+            }
+          ]
+        }
       }
     ]
   }

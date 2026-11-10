@@ -251,19 +251,19 @@ const NV_NV_ADMIN_DATA = [
         "id": "gpu-admin-ecc-tips-card",
         "desc": "HBM Row Remapper RMA inspection, persistent daemon & secondary bus reset",
         "cmd": "nvidia-smi --query-remapped-rows=gpu_name,gpu_bus_id,remapped_rows.correctable,remapped_rows.uncorrectable,remapped_rows.pending,remapped_rows.failure --format=csv",
-        "details": "HBM memory uses hardware Row Remapping to replace failing memory banks with spares. If remapped_rows.failure is true or pending remaps persist, the GPU has exhausted spares and qualifies for vendor RMA.",
+        "details": "HBM GPUs replace failing rows with spare rows (row remapping). Pending = a remap is waiting for a GPU reset to take effect. remapped_rows.failure = a remap has failed in the past (Xid 64): an RMA candidate.",
         "flags": [
           [
             "remapped_rows.failure",
-            "Returns true if hardware row remapper fails to allocate a spare bank (RMA trigger)"
+            "Yes if a row remapping has failed in the past (RMA candidate)"
           ],
           [
             "nvidia-smi --gpu-reset -i <ID>",
-            "Performs secondary-bus PCIe GPU reset without requiring host server reboot"
+            "Resets one GPU without a host reboot (the default method is usually a Function Level Reset); check its health afterwards"
           ],
           [
-            "nvidia-persistenced --user root",
-            "Maintains driver initialization state when no compute job is running"
+            "systemctl enable --now nvidia-persistenced",
+            "Keeps the driver loaded with no clients; the daemon drops root via --user (running it as root is not recommended)"
           ],
           [
             "nvidia-smi -i <ID> -pl <WATTS>",
@@ -279,7 +279,24 @@ const NV_NV_ADMIN_DATA = [
           "gpu",
           "datacenter",
           "best-practices"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            },
+            {
+              "url": "https://docs.nvidia.com/deploy/driver-persistence/persistence-daemon.html",
+              "title": "NVIDIA persistence daemon"
+            },
+            {
+              "url": "https://docs.nvidia.com/deploy/xid-errors/analyzing-xid-catalog.html",
+              "title": "NVIDIA Xid catalog"
+            }
+          ]
+        }
       }
     ]
   }

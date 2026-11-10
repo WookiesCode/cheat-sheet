@@ -199,19 +199,19 @@ const SW_SW_QUANTUM_INBAND_DATA = [
         "id": "quantum-unmanaged-inband-tips-card",
         "desc": "Out-of-Band vs In-Band Telemetry on Unmanaged QM8700/QM9700 Switches",
         "cmd": "mlxlink -d lid-0x0004 -p 1 --show_module --show_counters",
-        "details": "Unmanaged NVIDIA Quantum switches lack an onboard CPU and management IP. Cluster administrators query switch telemetry in-band directly from connected GPU servers using Mellanox Firmware Tools (MFT) with the target switch LID: `mlxlink -d lid-<LID> -p <Port>`.",
+        "details": "Externally managed (unmanaged) Quantum switches have no management CPU or IP, so you read them in-band from a connected host with MFT, addressing the switch by LID: mlxlink -d lid-<LID> -p <port>. On managed MLNX-OS switches, in-band management is blocked by default (system manage inband-ib enables it).",
         "flags": [
           [
-            "mlxlink -d lid-0x0004 -p 1",
-            "Query switch port 1 optics and SerDes physical layer state via in-band MADs"
+            "mlxlink -d lid-<LID> -p <port>",
+            "Read a switch port's module and PHY state in-band"
           ],
           [
-            "smpquery portinfo <LID> <Port>",
-            "Dump Subnet Management PortInfo including LinkSpeedActive, Width, and MTU"
+            "smpquery portinfo <LID> <port>",
+            "SMP PortInfo: link speed, width, state, MTU"
           ],
           [
-            "ibportstate <LID> <Port> reset",
-            "Remotely bounce a stubborn switch port directly from a host node"
+            "ibportstate <LID> <port> reset",
+            "Reset a switch port from a host (changes state)"
           ]
         ],
         "tip": "Obtain switch LIDs with \"ibswitches\" or \"ibnetdiscover\" before querying via host in-band MFT tools.",
@@ -222,7 +222,33 @@ const SW_SW_QUANTUM_INBAND_DATA = [
           "switches",
           "fabric",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxlink-utility",
+              "title": "MFT: mlxlink"
+            },
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibswitches.8.in.rst",
+              "title": "ibswitches man page (rdma-core)"
+            },
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/smpquery.8.in.rst",
+              "title": "smpquery man page (rdma-core)"
+            },
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibportstate.8.in.rst",
+              "title": "ibportstate man page (rdma-core)"
+            },
+            {
+              "url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/infiniband-interface",
+              "title": "MLNX-OS 3.12.6200: InfiniBand interface"
+            }
+          ],
+          "note": "The in-band block on managed switches is from the MLNX-OS InfiniBand interface chapter."
+        }
       }
     ]
   }

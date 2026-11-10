@@ -119,7 +119,7 @@ const IPMI_IPMI_SEL_LOGS_DATA = [
         "id": "sel-logs-tips-card",
         "desc": "Out-of-Band Hardware Event Triage & Post-Mortem Crash Analysis",
         "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sel elist",
-        "details": "The BMC System Event Log captures critical hardware events that bypass the host OS, such as uncorrectable multi-bit ECC errors, PCIe AER fatal timeouts, power supply failures, and CPU thermal trips. \"sel elist\" cross-references raw sensor numbers with human-readable SDR names.",
+        "details": "The BMC System Event Log records hardware events the BMC sees or BIOS reports to it (memory ECC errors, PSU failures, thermal trips, PCIe errors), even when the OS is down. \"sel elist\" adds the sensor names from the SDR to each entry.",
         "flags": [
           [
             "sel elist",
@@ -142,7 +142,16 @@ const IPMI_IPMI_SEL_LOGS_DATA = [
           "ipmitool",
           "bmc",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool(1) man page"
+            }
+          ]
+        }
       }
     ]
   }

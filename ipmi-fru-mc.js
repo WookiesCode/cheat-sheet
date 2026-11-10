@@ -153,7 +153,7 @@ const IPMI_IPMI_FRU_MC_DATA = [
         "id": "fru-mc-watchdog-tips-card",
         "desc": "Hardware Inventory Audit & BMC Health Maintenance",
         "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E fru print",
-        "details": "FRU (Field Replaceable Unit) EEPROMs store motherboard, chassis, and power supply part numbers, serial numbers, and asset tags. If the BMC becomes unresponsive or fails to serve Redfish/web traffic, use \"mc reset cold\" to reboot the BMC controller without interrupting host OS operations.",
+        "details": "FRU (Field Replaceable Unit) EEPROMs store board, chassis and PSU part numbers, serials and asset tags. If the BMC stops serving its web UI or Redfish, \"mc reset cold\" restarts the BMC; on most servers the host keeps running, but fans may ramp while it boots.",
         "flags": [
           [
             "fru print",
@@ -165,7 +165,7 @@ const IPMI_IPMI_FRU_MC_DATA = [
           ],
           [
             "mc reset cold",
-            "Reboot the BMC processor without affecting host power or operating system payload"
+            "Restart the BMC (the host normally stays up)"
           ]
         ],
         "tip": "Check \"mc watchdog get\" to verify hardware watchdog timer parameters; disable watchdog during prolonged debug sessions.",
@@ -176,7 +176,17 @@ const IPMI_IPMI_FRU_MC_DATA = [
           "ipmitool",
           "bmc",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool(1) man page"
+            }
+          ],
+          "note": "\"The host stays up\" and fan ramp during a BMC reset are typical server behaviour, not stated in the ipmitool man page."
+        }
       }
     ]
   }

@@ -409,7 +409,28 @@ const BMC_SERIAL_CONSOLE_DATA = [
           "serial",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmiconsole.8.en.html",
+              "title": "FreeIPMI ipmiconsole(8)"
+            },
+            {
+              "url": "https://github.com/npat-efault/picocom/blob/master/picocom.1.md",
+              "title": "picocom(1)"
+            },
+            {
+              "url": "https://github.com/cminyard/ser2net/blob/master/README.rst",
+              "title": "ser2net README"
+            },
+            {
+              "url": "https://www.conserver.com/docs/conserver.cf.man.html",
+              "title": "conserver.cf(5)"
+            }
+          ]
+        }
       }
     ]
   }

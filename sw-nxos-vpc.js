@@ -211,7 +211,21 @@ const SW_SW_NXOS_VPC_DATA = [
           "switches",
           "fabric",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_v_showcmds.html",
+              "title": "NX-OS 10.5 show commands: vPC"
+            },
+            {
+              "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_l_showcmds.html",
+              "title": "NX-OS 10.5 show commands: LLDP"
+            }
+          ],
+          "note": "The vPC configuration guide (Type 1/2 consistency, peer-keepalive role) could not be read; only the show command reference was checked."
+        }
       }
     ]
   }

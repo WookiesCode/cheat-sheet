@@ -146,23 +146,23 @@ const RF_RF_LOGS_SEL_DATA = [
       {
         "id": "logs-sel-tips-card",
         "desc": "Hardware Event Log Analysis & Pre-Failure Detection",
-        "cmd": "curl -k -sS -K ~/.bmc-curlrc \"https://${BMC_IP}/redfish/v1/Systems/1/LogServices/EventLog/Entries?$filter=Severity eq 'Critical'\" | jq .",
-        "details": "The BMC LogService captures out-of-band hardware events that the host OS cannot log, including memory uncorrectable multi-bit ECC errors, PCIe AER fatal errors, PSU loss, and thermal trip alarms. Use OData $filter or $top to inspect recent failures.",
+        "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc --get --data-urlencode \"\\$filter=Severity eq 'Critical'\" \"https://[$BMC]/redfish/v1/Managers/1/LogServices/Sel/Entries\" | jq .",
+        "details": "BMC event logs record hardware events the BMC sees even when the OS is down (memory ECC, PSU loss, thermal trips, PCIe errors). Log service names and places vary by vendor (Sel, SEL, EventLog; under Managers or Systems), so list .../LogServices first. $filter is optional in Redfish and a BMC that lacks it ignores it: if every entry comes back, filter with jq select(.Severity == \"Critical\") instead.",
         "flags": [
           [
-            "LogServices/EventLog",
-            "Standard DMTF collection path for BMC System Event Log entries"
+            "LogServices",
+            "List the log services this BMC has, then read each one's Entries"
           ],
           [
-            "$filter=Severity eq 'Critical'",
-            "Filter entries server-side to isolate urgent hardware failures"
+            "--data-urlencode \"\\$filter=Severity eq 'Critical'\"",
+            "Server-side filter, URL-encoded by curl (Severity is OK, Warning or Critical)"
           ],
           [
             "LogService.ClearLog",
-            "Action to purge log buffer after recording diagnostic trace"
+            "Action that clears the log (changes state)"
           ]
         ],
-        "tip": "Always export and archive SEL entries before calling LogService.ClearLog during RMA or node re-provisioning.",
+        "tip": "Export and archive the entries before LogService.ClearLog during an RMA or re-provisioning.",
         "tags": [
           "logs-sel",
           "tips",
@@ -170,7 +170,33 @@ const RF_RF_LOGS_SEL_DATA = [
           "redfish",
           "rest",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/LogService.v1_9_0.json",
+              "title": "DMTF LogService v1.9.0"
+            },
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/LogEntry.v1_22_0.json",
+              "title": "DMTF LogEntry v1.22.0"
+            },
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/Resource.json",
+              "title": "DMTF Resource schema (ResetType, Status)"
+            },
+            {
+              "url": "https://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.25.0.pdf",
+              "title": "DMTF DSP0266 Redfish Specification 1.25.0"
+            },
+            {
+              "url": "https://curl.se/docs/manpage.html",
+              "title": "curl man page"
+            }
+          ],
+          "note": "Corrected 2026-11-10: EventLog is not a standard path, and the old command lost $filter to the shell and sent spaces unencoded."
+        }
       }
     ]
   }

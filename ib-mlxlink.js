@@ -124,14 +124,23 @@ const IB_IB_MLXLINK_DATA = [
         "desc": "Production recommendations, fabric stability tips & triage advice for mlxlink",
         "cmd": "mlxlink -d mlx5_0 -m -c -e",
         "tip": "ethtool -m doesn't work on IB interfaces — always use mlxlink -m!",
-        "details": "In multi-tier Quantum/Quantum-2 topologies, always cross-reference mlxlink telemetry with adjacent switch ports and Subnet Manager topology databases.",
+        "details": "Recap of the first mlxlink card. Before replacing a part, check the far end too: the switch port, the cable and what the Subnet Manager sees.",
         "tags": [
           "mlxlink",
           "tips",
           "pro",
           "infiniband",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxlink-utility",
+              "title": "MFT: mlxlink"
+            }
+          ]
+        }
       }
     ]
   }

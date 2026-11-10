@@ -127,14 +127,32 @@ const IB_IB_MLXFWMANAGER_DATA = [
         "desc": "Production recommendations, fabric stability tips & triage advice for mlxfwmanager",
         "cmd": "mlxfwmanager --query && flint -d /dev/mst/mt4129_pciconf0 q",
         "tip": "Always match the 16-char PSID when downloading NIC firmware!",
-        "details": "In multi-tier Quantum/Quantum-2 topologies, always cross-reference mlxfwmanager telemetry with adjacent switch ports and Subnet Manager topology databases.",
+        "details": "Recap of the first mlxfwmanager card. Before replacing a part, check the far end too: the switch port, the cable and what the Subnet Manager sees.",
         "tags": [
           "mlxfwmanager",
           "tips",
           "pro",
           "infiniband",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxfwmanager-firmware-update-and-query-tool",
+              "title": "MFT: mlxfwmanager"
+            },
+            {
+              "url": "https://networking-docs.nvidia.com/mftswum/4330/flint-firmware-burning-tool",
+              "title": "MFT: flint"
+            },
+            {
+              "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxfwreset-loading-firmware-on-5th-generation-devices-tool",
+              "title": "MFT: mlxfwreset"
+            }
+          ],
+          "note": "Corrected 2026-11-09: mlxfwreset is written \"reset -y\" as in NVIDIA's example."
+        }
       }
     ]
   }

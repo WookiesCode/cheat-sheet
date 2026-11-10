@@ -630,7 +630,20 @@ const BMC_ONECLI_DATA = [
           "onecli",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_ffdc_command",
+              "title": "Lenovo OneCLI: ffdc"
+            },
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/misc_encrypt_command",
+              "title": "Lenovo OneCLI: misc encrypt"
+            }
+          ]
+        }
       }
     ]
   }

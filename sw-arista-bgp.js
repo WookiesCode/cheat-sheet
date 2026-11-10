@@ -128,7 +128,21 @@ const SW_SW_ARISTA_BGP_DATA = [
           "switches",
           "fabric",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.arista.com/um-eos/eos-border-gateway-protocol-bgp",
+              "title": "Arista EOS 4.37: BGP"
+            },
+            {
+              "url": "https://www.arista.com/um-eos/eos-environment-commands",
+              "title": "Arista EOS 4.37: environment"
+            }
+          ],
+          "note": "Arista refused automated reads of the configure session page, so the session commands (configure session, show session-config diffs, commit) are not checked."
+        }
       }
     ]
   }

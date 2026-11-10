@@ -156,23 +156,23 @@ const RF_RF_BIOS_BMC_DATA = [
       {
         "id": "bios-vmedia-bmc-tips-card",
         "desc": "Out-of-Band OS Deployment via Virtual Media & BIOS Tuning",
-        "cmd": "curl -k -sS -K ~/.bmc-curlrc -X POST \"https://${BMC_IP}/redfish/v1/Managers/1/VirtualMedia/CD/Actions/VirtualMedia.InsertMedia\" -d '{\"Image\":\"http://pxe.dc.internal/ubuntu-24.04.iso\"}'",
-        "details": "Virtual Media allows mounting remote ISO images over HTTP/HTTPS or NFS directly to the BMC's virtual USB drive for OS installation or firmware recovery without physical thumb drives. BIOS attributes can be patched via PATCH to /redfish/v1/Systems/1/Bios/Settings.",
+        "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc -X POST \"https://[$BMC]/redfish/v1/Managers/1/VirtualMedia/CD/Actions/VirtualMedia.InsertMedia\" -H \"Content-Type: application/json\" -d '{\"Image\":\"https://example.com/ubuntu-24.04.iso\"}'",
+        "details": "Virtual Media attaches a remote ISO (HTTP, HTTPS, NFS, CIFS and others, per TransferProtocolType) to the host as a virtual CD or USB drive, for OS installs or recovery without a USB stick. Newer services put VirtualMedia under Systems/{id}; the Managers/{id}/VirtualMedia link is deprecated. Media IDs (CD, Cd, 1, ...) vary, so list the collection first. BIOS changes are PATCHed to the settings object named in @Redfish.Settings on the Bios resource.",
         "flags": [
           [
             "InsertMedia",
-            "Action to connect remote HTTP/HTTPS ISO image to host virtual CD/DVD-ROM"
+            "Attach a remote image (Image URI, optional TransferProtocolType)"
           ],
           [
             "EjectMedia",
-            "Action to safely disconnect virtual media image after OS installation finishes"
+            "Detach the image after the install"
           ],
           [
             "Manager.Reset",
-            "Soft or hard reboot of BMC processor without interrupting running host OS payload"
+            "Restart the BMC; the host normally keeps running"
           ]
         ],
-        "tip": "Changes to BIOS settings are staged and only applied after the server executes an ACPI reboot cycle.",
+        "tip": "Staged BIOS settings take effect at the next host reset; @Redfish.SettingsApplyTime, where supported, says when.",
         "tags": [
           "bios-vmedia-bmc",
           "tips",
@@ -180,7 +180,33 @@ const RF_RF_BIOS_BMC_DATA = [
           "redfish",
           "rest",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/VirtualMedia.v1_7_0.json",
+              "title": "DMTF VirtualMedia v1.7.0"
+            },
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/Manager.v1_25_0.json",
+              "title": "DMTF Manager v1.25.0"
+            },
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_29_0.json",
+              "title": "DMTF ComputerSystem v1.29.0"
+            },
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/Bios.v1_3_0.json",
+              "title": "DMTF Bios v1.3.0"
+            },
+            {
+              "url": "https://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.25.0.pdf",
+              "title": "DMTF DSP0266 Redfish Specification 1.25.0"
+            }
+          ],
+          "note": "Corrected 2026-11-10: Managers/{id}/VirtualMedia is deprecated in favour of Systems/{id}/VirtualMedia, and the BIOS settings URI comes from @Redfish.Settings (Bios/Settings is only a common name)."
+        }
       }
     ]
   }

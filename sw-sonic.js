@@ -148,26 +148,26 @@ const SW_SW_SONIC_DATA = [
         "id": "sonic-cli-tips-card",
         "desc": "SONiC NOS Architecture, Interface Management & Container Diagnostics",
         "cmd": "show interfaces status && show interfaces transceiver eeprom --dom && docker ps",
-        "details": "Software for Open Networking in the Cloud (SONiC) runs Debian Linux with microservices deployed as Docker containers (swss, syncd, teamd, bgp). Switch physical interfaces are managed via SAI (Switch Abstraction Interface) and mapped to Linux network interfaces.",
+        "details": "SONiC runs on Debian Linux with its functions in Docker containers (swss, syncd, teamd, bgp, lldp, pmon, database and others). syncd programs the ASIC through SAI (Switch Abstraction Interface).",
         "flags": [
           [
             "show interfaces status",
-            "Table of Ethernet interfaces: admin and oper state, lanes, speed, MTU, alias and type (FEC: show interfaces fec status)"
+            "Admin and oper state, lanes, speed, MTU, alias and type (FEC: show interfaces fec status)"
           ],
           [
             "show interfaces transceiver eeprom --dom <port>",
-            "Display optical transceiver EEPROM, DOM Rx/Tx power levels, and vendor information"
+            "Module EEPROM, vendor info and DOM"
           ],
           [
             "show lldp table",
-            "Display discovered LLDP neighbors, remote ports, and system names"
+            "Summary of LLDP neighbours"
           ],
           [
             "docker ps",
-            "Inspect status and uptime of SONiC subsystem containers (swss, syncd, orchagent, bgp)"
+            "SONiC containers and their uptime (swss, syncd, teamd, bgp, ...)"
           ]
         ],
-        "tip": "Check \"docker ps\" if switch routing or telemetry stalls: verify swss, syncd, and bgp containers are healthy.",
+        "tip": "If forwarding or telemetry stalls, docker ps shows whether swss, syncd and bgp are up; orchagent runs inside swss.",
         "tags": [
           "sonic-cli",
           "tips",
@@ -175,7 +175,21 @@ const SW_SW_SONIC_DATA = [
           "switches",
           "fabric",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/sonic-net/sonic-utilities/blob/master/doc/Command-Reference.md",
+              "title": "SONiC command reference"
+            },
+            {
+              "url": "https://github.com/sonic-net/SONiC/wiki/Architecture",
+              "title": "SONiC architecture (containers)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: orchagent is a process in the swss container, not a container."
+        }
       }
     ]
   }

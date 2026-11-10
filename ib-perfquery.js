@@ -103,14 +103,24 @@ const IB_IB_PERFQUERY_DATA = [
         "desc": "Production recommendations, fabric stability tips & triage advice for perfquery",
         "cmd": "perfquery -x && perfquery -x <LID> <PORT>",
         "tip": "16-bit IB counters saturate at 65535 — use -R to clear after fixing!",
-        "details": "In multi-tier Quantum/Quantum-2 topologies, always cross-reference perfquery telemetry with adjacent switch ports and Subnet Manager topology databases.",
+        "details": "Recap of the first perfquery card. Before replacing a part, check the far end too: the switch port, the cable and what the Subnet Manager sees.",
         "tags": [
           "perfquery",
           "tips",
           "pro",
           "infiniband",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/perfquery.8.in.rst",
+              "title": "perfquery man page (rdma-core)"
+            }
+          ],
+          "note": "Corrected 2026-11-09: --oprcv is --oprcvcounters (per-opcode receive counters)."
+        }
       }
     ]
   }

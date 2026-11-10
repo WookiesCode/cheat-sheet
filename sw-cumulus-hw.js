@@ -182,7 +182,7 @@ const SW_SW_CUMULUS_HW_DATA = [
             "Go back to an earlier revision (nv config history lists them)"
           ]
         ],
-        "tip": "Inspect fan speeds and PSU redundancy: power supply failures in dense 800G switches cause immediate thermal throttling.",
+        "tip": "Check fans and both PSUs in nv show platform environment before and after hardware work.",
         "tags": [
           "cumulus-hw-cfg",
           "tips",
@@ -190,7 +190,21 @@ const SW_SW_CUMULUS_HW_DATA = [
           "switches",
           "fabric",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/Platform/",
+              "title": "NVUE reference: platform"
+            },
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Config-Commands/",
+              "title": "NVUE reference: config commands"
+            }
+          ],
+          "note": "nv config apply --confirm rolls back unless confirmed within ten minutes by default. Removed 2026-11-10: an unsourced claim that a PSU failure causes immediate thermal throttling."
+        }
       }
     ]
   }

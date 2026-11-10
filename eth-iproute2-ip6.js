@@ -244,7 +244,7 @@ const ETH_ETH_IPROUTE2_IP6_DATA = [
         "id": "iproute2-tips-card",
         "desc": "Production iproute2 CLI Operations & IPv6 Neighbor Discovery",
         "cmd": "ip -br -c a && ip -6 route show && ip -6 neigh show",
-        "details": "iproute2 replaces legacy ifconfig/netstat/arp. Use \"ip -br -c a\" for a quick, colorized summary of all interfaces, MACs, and IPv4/IPv6 addresses. In modern IPv6 datacenter fabrics, \"ip -6 neigh show\" inspects Neighbor Discovery Protocol (NDP) states (\"REACHABLE\", \"STALE\", \"DELAY\") without generating legacy ARP broadcasts.",
+        "details": "iproute2 replaces ifconfig, route and arp. \"ip -br -c a\" prints one coloured line per interface with its state and addresses. \"ip -6 neigh show\" lists the IPv6 neighbour (NDP) cache with each entry's state (REACHABLE, STALE, DELAY, FAILED, ...).",
         "flags": [
           [
             "ip -br -c link",
@@ -252,7 +252,7 @@ const ETH_ETH_IPROUTE2_IP6_DATA = [
           ],
           [
             "ip link set <dev> mtu 9000",
-            "Configure 9000-byte Jumbo Frames for high-throughput RoCEv2 and Ceph storage"
+            "Jumbo frames (changes state; every hop on the path must allow it)"
           ],
           [
             "ip -6 route get <ip>",
@@ -267,7 +267,29 @@ const ETH_ETH_IPROUTE2_IP6_DATA = [
           "ethernet",
           "nic",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ip-address.8.html",
+              "title": "ip-address(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ip-link.8.html",
+              "title": "ip-link(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ip-neighbour.8.html",
+              "title": "ip-neighbour(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ip-route.8.html",
+              "title": "ip-route(8)"
+            }
+          ],
+          "note": "The MTU mismatch symptom (handshake works, large transfers stall) is general practice, not from the man pages."
+        }
       }
     ]
   }

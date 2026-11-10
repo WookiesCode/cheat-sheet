@@ -184,22 +184,22 @@ const ETH_ETH_NETPLAN_SYSTEMD_DATA = [
         "id": "ubuntu-netplan-tips-card",
         "desc": "Safe Declarative Network Provisioning & Automated Rollback",
         "cmd": "netplan try --timeout 30 && networkctl status",
-        "details": "Always test remote network changes using \"netplan try --timeout 30\". If a configuration mistake isolates management connectivity, Netplan automatically reverts to the previous working configuration when the timer expires. Inspect real-time interface states and DHCPv6/SLAAC leases with \"networkctl status\".",
+        "details": "Test remote network changes with \"netplan try\": it applies the YAML and rolls it back unless you confirm within the timeout (default 120 seconds), so a change that cuts your SSH session undoes itself. \"networkctl status\" shows link state, addresses and DNS servers.",
         "flags": [
           [
             "netplan try",
-            "Apply candidate YAML with automatic revert if SSH session drops or user does not confirm"
+            "Apply the YAML and revert it unless you press Enter to confirm before the timeout"
           ],
           [
             "networkctl status <dev>",
-            "Display operational carrier state, DNS servers, search domains, and DHCP leases"
+            "Link type, state, driver, hardware and IP addresses, DNS servers"
           ],
           [
             "nmcli device show",
-            "Query NetworkManager device properties, hardware UUID, and active IP profiles"
+            "NetworkManager device details: MAC, state, active connection, IP settings"
           ]
         ],
-        "tip": "YAML indentation must use exact 2-space increments; tabs in /etc/netplan/*.yaml cause immediate syntax rejection.",
+        "tip": "YAML forbids tabs for indentation: use spaces (any consistent amount) in /etc/netplan/*.yaml",
         "tags": [
           "ubuntu-netplan",
           "tips",
@@ -207,7 +207,29 @@ const ETH_ETH_NETPLAN_SYSTEMD_DATA = [
           "ethernet",
           "nic",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://netplan.readthedocs.io/en/stable/netplan-try/",
+              "title": "netplan try"
+            },
+            {
+              "url": "https://yaml.org/spec/1.2.2/",
+              "title": "YAML 1.2.2 spec (no tabs in indentation)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/networkctl.1.html",
+              "title": "networkctl(1)"
+            },
+            {
+              "url": "https://networkmanager.dev/docs/api/latest/nmcli.html",
+              "title": "nmcli(1)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: YAML does not require 2-space indentation, only no tabs; netplan try defaults to 120 seconds."
+        }
       }
     ]
   }

@@ -163,15 +163,15 @@ const ETH_ETH_RJ45_TDR_DATA = [
         "id": "rj45-pinout-tdr-tips-card",
         "desc": "Physical Layer RJ45 Cable Certification & TDR Fault Locating",
         "cmd": "ethtool --cable-test eth0 && ethtool -p eth0 5",
-        "details": "TDR (Time-Domain Reflectometry) transmits electrical pulses into twisted pairs to measure impedance reflections, detecting open pairs, shorts, and distance to faults within 1 meter accuracy. In datacenter patching, an accidental 100Mbps fallback on a 1Gbps/10Gbps link almost always indicates damage or discontinuity on pins 4/5 (Blue) or 7/8 (Brown).",
+        "details": "ethtool --cable-test asks the PHY to test each pair; what it reports depends on the NIC, typically OK, open or short per pair and, for a fault, the approximate distance. 10/100BASE-TX use only pins 1-2 and 3-6, so a gigabit link that comes up at 100 Mb/s usually has a bad blue (4-5) or brown (7-8) pair.",
         "flags": [
           [
             "ethtool --cable-test <dev>",
-            "Trigger physical layer PHY TDR analysis on unlinked twisted copper pairs"
+            "PHY cable test per pair (needs PHY support; the link drops while it runs)"
           ],
           [
             "ethtool -p <dev> <sec>",
-            "Physically blink interface link/activity LED to trace cables in dense patch racks"
+            "Blink the port LED for <sec> seconds to find the port by sight"
           ],
           [
             "T568B Standard",
@@ -186,7 +186,17 @@ const ETH_ETH_RJ45_TDR_DATA = [
           "ethernet",
           "nic",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ethtool.8.html",
+              "title": "ethtool(8)"
+            }
+          ],
+          "note": "Wiring reference: the TIA-568 standard is not freely available, so the pinout was not checked against it. The 100 Mb/s pair rule is a rule of thumb. Removed 2026-11-10: an unsourced \"within 1 meter\" accuracy claim."
+        }
       }
     ]
   }

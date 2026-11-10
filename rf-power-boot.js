@@ -197,23 +197,23 @@ const RF_RF_POWER_BOOT_DATA = [
       {
         "id": "power-boot-tips-card",
         "desc": "Chassis Power State Triage & Boot Target Verification",
-        "cmd": "curl -k -sS -K ~/.bmc-curlrc -X POST \"https://${BMC_IP}/redfish/v1/Systems/1/Actions/ComputerSystem.Reset\" -d '{\"ResetType\":\"GracefulRestart\"}'",
-        "details": "Use GracefulShutdown or GracefulRestart to give the OS time to sync buffers and unmount filesystems cleanly. If the host kernel is frozen or panicked, fall back to ForceRestart or send an NMI to trigger a kdump kernel crash dump.",
+        "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc -X POST \"https://[$BMC]/redfish/v1/Systems/1/Actions/ComputerSystem.Reset\" -H \"Content-Type: application/json\" -d '{\"ResetType\":\"GracefulRestart\"}'",
+        "details": "GracefulShutdown and GracefulRestart ask the OS to shut down cleanly. If the kernel is hung, ForceRestart restarts without the OS, or Nmi sends a diagnostic interrupt so a kdump-configured kernel can write a crash dump. Read ResetType@Redfish.AllowableValues on the action first: each BMC supports a different subset.",
         "flags": [
           [
             "GracefulRestart",
-            "ACPI clean OS shutdown and reboot; allows daemons and disk caches to flush"
+            "Clean OS shutdown, then restart"
           ],
           [
             "ForceRestart",
-            "Immediate hard chassis reset without OS coordination (simulates front power button 4s hold)"
+            "Immediate non-graceful restart (no OS shutdown)"
           ],
           [
             "Nmi",
-            "Diagnostic interrupt injection that triggers Linux kernel sysrq crash/kdump"
+            "Diagnostic interrupt (usually an NMI on x86); typically halts the system"
           ]
         ],
-        "tip": "BootSourceOverrideTarget settings like Pxe or BiosSetup only apply for the immediate next boot cycle when BootSourceOverrideEnabled is set to \"Once\".",
+        "tip": "BootSourceOverrideEnabled \"Once\" goes back to Disabled after one boot; \"Continuous\" keeps the override until you cancel it.",
         "tags": [
           "power-boot",
           "tips",
@@ -221,7 +221,25 @@ const RF_RF_POWER_BOOT_DATA = [
           "redfish",
           "rest",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/Resource.json",
+              "title": "DMTF Resource schema (ResetType, Status)"
+            },
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_29_0.json",
+              "title": "DMTF ComputerSystem v1.29.0"
+            },
+            {
+              "url": "https://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.25.0.pdf",
+              "title": "DMTF DSP0266 Redfish Specification 1.25.0"
+            }
+          ],
+          "note": "Corrected 2026-11-10: ForceRestart was described as a 4-second power-button hold, and Nmi as a sysrq trigger. Systems/1 is a common ID; read /redfish/v1/Systems for yours."
+        }
       }
     ]
   }

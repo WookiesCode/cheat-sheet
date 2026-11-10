@@ -205,7 +205,7 @@ const NV_NV_OPS_DATA = [
         "id": "slurm-nvsm-burnin-tips-card",
         "desc": "Slurm GPU node drain, NVSM chassis diagnostics & HBM3 liquid cooling thermal triage",
         "cmd": "scontrol update nodename=node01 state=DRAIN reason=\"Xid triage\"   |   nvsm show health   |   nvidia-smi -q -d TEMPERATURE",
-        "details": "Safely drain Slurm compute nodes before performing physical or driver maintenance. On direct-liquid-cooled (DLC) nodes, monitor delta between GPU die and HBM3 memory temperatures.",
+        "details": "Drain Slurm nodes before physical or driver maintenance. On liquid-cooled nodes, compare GPU and memory temperatures across identical GPUs: one GPU running hotter than its neighbours points at its cold plate or coolant flow.",
         "flags": [
           [
             "scontrol update state=DRAIN",
@@ -220,11 +220,11 @@ const NV_NV_OPS_DATA = [
             "NVIDIA System Management: queries chassis fans, power supplies, BMC, and GPUs"
           ],
           [
-            "GPU vs HBM Delta > 15°C",
-            "Indicates cold-plate mounting contact degradation, TIM dry-out, or coolant bubble"
+            "nvidia-smi -q -d TEMPERATURE",
+            "GPU and memory (HBM) temperatures plus the slowdown and shutdown thresholds"
           ]
         ],
-        "tip": "Inspect container device mounts in /dev/nvidia* and /dev/nvidia-uvm for Docker/Kubernetes workloads!",
+        "tip": "Give containers GPUs with --gpus (NVIDIA Container Toolkit) or CDI rather than mounting /dev/nvidia* by hand",
         "tags": [
           "slurm-nvsm-burnin",
           "tips",
@@ -233,7 +233,25 @@ const NV_NV_OPS_DATA = [
           "gpu",
           "datacenter",
           "best-practices"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://slurm.schedmd.com/scontrol.html",
+              "title": "Slurm scontrol"
+            },
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            },
+            {
+              "url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/sample-workload.html",
+              "title": "NVIDIA Container Toolkit: sample workload"
+            }
+          ],
+          "note": "nvsm show health: NVIDIA's NVSM docs returned empty pages, so it is not checked. Removed 2026-11-10: an unsourced GPU vs HBM delta > 15°C rule."
+        }
       }
     ]
   }

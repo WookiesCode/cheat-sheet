@@ -155,7 +155,7 @@ const IPMI_IPMI_BOOT_OVERRIDE_DATA = [
         "id": "boot-override-tips-card",
         "desc": "Automated PXE Re-imaging & Boot Flag Persistence",
         "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis bootdev pxe options=efiboot",
-        "details": "By default, IPMI bootdev flags are volatile and expire after 60 seconds if the host does not reboot immediately. To avoid missing the boot flag window, run \"chassis bootparam set bootflag no-timeout\" or combine the bootdev command with \"chassis power reset\" on a single shell line.",
+        "details": "A boot override is cleared automatically if no chassis power command arrives within 60 seconds. Chain the bootdev command with \"chassis power cycle\" on one line, or add options=persistent to keep the device for all future boots (set it back with bootdev disk afterwards).",
         "flags": [
           [
             "bootdev pxe",
@@ -163,11 +163,11 @@ const IPMI_IPMI_BOOT_OVERRIDE_DATA = [
           ],
           [
             "bootdev bios",
-            "Force the host server directly into UEFI BIOS Setup on the next boot"
+            "Boot into BIOS (UEFI) Setup next time"
           ],
           [
-            "bootparam set bootflag no-timeout",
-            "Keep the boot override persistent until the machine actually executes the reboot"
+            "bootdev pxe options=persistent,efiboot",
+            "Keep PXE as the boot device for all future boots, in UEFI mode"
           ]
         ],
         "tip": "Always specify \"options=efiboot\" on modern UEFI servers to avoid legacy BIOS CSM boot failure.",
@@ -178,7 +178,21 @@ const IPMI_IPMI_BOOT_OVERRIDE_DATA = [
           "ipmitool",
           "bmc",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool(1) man page"
+            },
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_chassis.c",
+              "title": "ipmitool source: ipmi_chassis.c (boot options)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: removed \"bootparam set bootflag no-timeout\"; ipmitool's parser rejects no-timeout. The 60-second timeout is from the man page."
+        }
       }
     ]
   }

@@ -143,7 +143,7 @@ const SW_SW_ARISTA_PORTS_DATA = [
             "Identify interfaces accumulating FCS errors, alignment errors, or symbol errors"
           ]
         ],
-        "tip": "An interface showing \"notconnect\" usually indicates an unplugged cable, failed laser, or speed mismatch.",
+        "tip": "notconnect means the port has no link: check the cable, the optic and that both ends agree on speed.",
         "tags": [
           "arista-ports-dom",
           "tips",
@@ -151,7 +151,17 @@ const SW_SW_ARISTA_PORTS_DATA = [
           "switches",
           "fabric",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.arista.com/um-eos/eos-ethernet-ports",
+              "title": "Arista EOS 4.37: Ethernet ports"
+            }
+          ],
+          "note": "EOS shows notconnect in examples but the page read does not define it; the meaning here is general practice."
+        }
       }
     ]
   }

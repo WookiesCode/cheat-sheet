@@ -226,23 +226,23 @@ const NV_NV_DCGM_DATA = [
         "id": "dcgm-tips-card",
         "desc": "Official NVIDIA hardware burn-in qualification (Level 1–4) & stress tests",
         "cmd": "dcgmi diag -r 3   |   dcgmi diag -r pcie,targeted_stress,memtest   |   dcgmi health -c",
-        "details": "DCGM Level 3 runs comprehensive 15-minute qualification burn-in including memory bandwidth, stress, and PCIe link integrity. Level 4 performs extended multi-hour burn-in.",
+        "details": "Measured on Hopper: r1 < 2.5 s, r2 < 10.5 min, r3 < 35 min, r4 < 2.25 h on an 8-GPU system (about a quarter of that on 4 GPUs). r3 adds diagnostic, targeted_stress, targeted_power, nvbandwidth and nccl_tests; memtest and pulse run only at r4.",
         "flags": [
           [
             "dcgmi diag -r 1",
-            "Quick health check: basic blacklist, deployment, and permission verification"
+            "Short readiness check: software and deployment (seconds)"
           ],
           [
             "dcgmi diag -r 3",
-            "Production qualification: runs targeted_stress, memtest, PCIe bandwidth, and context"
+            "Long: adds stress, power, nvbandwidth and NCCL tests (drain first)"
           ],
           [
             "dcgmi diag -r 4",
-            "Extended burn-in qualification for newly racked HGX/DGX servers"
+            "Extra long: adds memtest and pulse; NVIDIA lists r3/r4 for post-mortem runs"
           ],
           [
-            "dcgmi health -c",
-            "Passive health check: monitors PCIe, memory, thermal, and power violations in background"
+            "dcgmi health -g <GROUP> -s mpi then -c",
+            "-s sets background watches (PCIe, memory, InfoROM, ...); -c reports what they caught"
           ]
         ],
         "tip": "Ensure nvidia-dcgm.service is active before executing dcgmi CLI commands!",
@@ -254,7 +254,21 @@ const NV_NV_DCGM_DATA = [
           "gpu",
           "datacenter",
           "best-practices"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/dcgm/latest/user-guide/dcgm-diagnostics.html",
+              "title": "NVIDIA DCGM diagnostics (run levels)"
+            },
+            {
+              "url": "https://docs.nvidia.com/datacenter/dcgm/latest/user-guide/feature-overview.html",
+              "title": "NVIDIA DCGM feature overview (health watches)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: run times and per-level tests now follow NVIDIA's table; memtest is r4 only."
+        }
       }
     ]
   }

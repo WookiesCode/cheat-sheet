@@ -153,23 +153,23 @@ const RF_RF_THERMALS_POWER_DATA = [
       {
         "id": "thermals-power-sensors-tips-card",
         "desc": "Thermal Triage & Power Supply Redundancy Telemetry",
-        "cmd": "curl -k -sS -K ~/.bmc-curlrc \"https://${BMC_IP}/redfish/v1/Chassis/1/Thermal\" | jq '.Temperatures[] | {Sensor: .Name, Reading: .ReadingCelsius, UpperThresh: .UpperThresholdCritical}'",
-        "details": "Chassis thermal readings provide immediate visibility into CPU die temperatures, intake air temps, and DIMM zone cooling. Verify redundant PSU load-sharing via /redfish/v1/Chassis/1/Power to ensure loss of one A/B feed will not cause an unexpected node drop.",
+        "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Chassis/1/Thermal\" | jq '.Temperatures[] | {Sensor: .Name, Reading: .ReadingCelsius, UpperThresh: .UpperThresholdCritical}'",
+        "details": "Chassis Thermal lists temperature sensors (CPU, inlet, DIMM zones, ...) and fans; Chassis Power lists power use and each PSU. Before trusting A/B feed redundancy, check that every PSU is healthy and shows input voltage. Both resources are deprecated in favour of ThermalSubsystem and PowerSubsystem but many BMCs still serve them.",
         "flags": [
           [
             "Thermal",
-            "Real-time intake, exhaust, CPU, DIMM temperatures and cooling fan RPM percentages"
+            "Temperatures[] with thresholds; Fans[] with Reading and ReadingUnits (RPM or Percent)"
           ],
           [
             "Power",
-            "Live power consumption (Watts), PSU input voltages, power factor, and redundant status"
+            "PowerControl (watts used), PowerSupplies[] (input voltage, health), Redundancy"
           ],
           [
-            "IndicatorLED",
-            "UID blue LED control: Lit, Blinking, or Off for physical data center floor locating"
+            "LocationIndicatorActive",
+            "true/false identify LED; replaces the deprecated IndicatorLED (Lit, Blinking, Off)"
           ]
         ],
-        "tip": "Toggle IndicatorLED to \"Blinking\" via PATCH to easily locate a troubled server in dense 42U rack rows.",
+        "tip": "To find the server in the rack, PATCH {\"LocationIndicatorActive\": true} on the Chassis (older BMCs: IndicatorLED \"Blinking\").",
         "tags": [
           "thermals-power-sensors",
           "tips",
@@ -177,7 +177,25 @@ const RF_RF_THERMALS_POWER_DATA = [
           "redfish",
           "rest",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/Thermal.json",
+              "title": "DMTF Thermal schema (deprecated)"
+            },
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/Power.json",
+              "title": "DMTF Power schema (deprecated)"
+            },
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/Chassis.v1_29_0.json",
+              "title": "DMTF Chassis v1.29.0"
+            }
+          ],
+          "note": "Corrected 2026-11-10: IndicatorLED is deprecated in favour of LocationIndicatorActive."
+        }
       }
     ]
   }

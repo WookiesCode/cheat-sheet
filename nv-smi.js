@@ -262,10 +262,10 @@ const NV_NV_SMI_DATA = [
           ],
           [
             "nvidia-smi dmon -s pucvmet -d 1",
-            "Scrolls live per-device power, utilization, clock, VRAM, and ECC metrics"
+            "One line per GPU per second: power/temp, utilization, clocks, violations, memory, ECC/PCIe, PCIe throughput"
           ]
         ],
-        "tip": "NVLink connections (NV#) provide up to 900 GB/s bidirectional P2P throughput per GPU!",
+        "tip": "NV# in topo -m means the pair talks over # NVLinks; H100 fourth-generation NVLink totals 900 GB/s per GPU",
         "tags": [
           "nvidia-smi",
           "tips",
@@ -274,7 +274,21 @@ const NV_NV_SMI_DATA = [
           "gpu",
           "datacenter",
           "best-practices"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            },
+            {
+              "url": "https://www.nvidia.com/en-us/data-center/h100/",
+              "title": "NVIDIA H100 (fourth-generation NVLink, 900 GB/s)"
+            }
+          ],
+          "note": "clocks_throttle_reasons.* is the older field name; newer drivers also list it as clocks_event_reasons.* (check nvidia-smi --help-query-gpu)."
+        }
       }
     ]
   }

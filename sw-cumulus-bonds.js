@@ -121,22 +121,22 @@ const SW_SW_CUMULUS_BONDS_DATA = [
         "id": "cumulus-bonds-tips-card",
         "desc": "High-Availability MLAG & LACP Dual-Homed Server Uplinks",
         "cmd": "nv show mlag && nv show interface bond1",
-        "details": "Multi-Chassis Link Aggregation (MLAG) enables a host server to connect redundant interfaces to two distinct leaf switches operating as an active-active pair. Verify that the peer-link between the two switches is fully synchronized and dual-connected.",
+        "details": "MLAG lets a server bond to two leaf switches as one LACP partner. The pair needs a peer link, a unique MLAG system MAC per pair and a backup IP that the switches use when the peer link is down.",
         "flags": [
           [
             "nv show mlag",
-            "Display MLAG status: peer link health, dual-connected bonds, and peer sync state"
+            "MLAG state, peer, backup and system MAC"
           ],
           [
             "nv show interface bond1",
-            "Inspect bond member interfaces, LACP partner system ID, and actor state"
+            "Bond members and state"
           ],
           [
-            "nv set interface bond1 bond member swp1,swp2",
-            "Aggregate multiple physical interfaces into an 802.3ad LACP bundle"
+            "nv set interface bond1 bond member swp1-2",
+            "Add members to a bond (changes state)"
           ]
         ],
-        "tip": "Ensure the MLAG peer-link is established with consistent system MAC and backup IP before activating host bonds.",
+        "tip": "Before enabling host bonds, check that nv show mlag reports the peer up and that both switches use the same MLAG system MAC and have the backup IP set.",
         "tags": [
           "cumulus-bonds",
           "tips",
@@ -144,7 +144,25 @@ const SW_SW_CUMULUS_BONDS_DATA = [
           "switches",
           "fabric",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/MLAG/",
+              "title": "NVUE reference: MLAG"
+            },
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Layer-2/Multi-Chassis-Link-Aggregation-MLAG/",
+              "title": "Cumulus Linux 5.18: MLAG"
+            },
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Set-and-Unset-Commands/Interface/",
+              "title": "NVUE reference: interface set"
+            }
+          ],
+          "note": "Corrected 2026-11-10: NVIDIA's bond member example uses a range (swp1-4), not a comma list."
+        }
       }
     ]
   }

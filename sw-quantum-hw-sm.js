@@ -189,22 +189,22 @@ const SW_SW_QUANTUM_HW_SM_DATA = [
         "id": "quantum-mlnxos-hw-sm-tips-card",
         "desc": "Quantum MLNX-OS Subnet Manager Redundancy & Chassis Health",
         "cmd": "show ib sm && show inventory",
-        "details": "In high-performance clusters, running OpenSM directly on leaf switches is recommended only for small dev clusters; large fabrics should designate dedicated SM management nodes or NVIDIA UFM appliances. Use \"configuration write\" to save the running configuration to non-volatile flash.",
+        "details": "NVIDIA documents the embedded MLNX-OS Subnet Manager for fabrics up to 2048 nodes on x86-based switches; larger fabrics usually run the SM on dedicated servers or UFM. The SM is disabled by default. configuration write saves the running configuration.",
         "flags": [
           [
             "ib smnode <sm-node> enable",
-            "Enable the embedded Subnet Manager on MLNX-OS (NVIDIA example: ib smnode my-sm enable)"
+            "Enable the embedded Subnet Manager (NVIDIA example: ib smnode my-sm enable)"
           ],
           [
-            "show ib sm",
-            "Display Subnet Manager state (Master vs Standby), priority, and managed LIDs"
+            "ib smnode <sm-node> sm-priority <n>",
+            "Set this SM's priority for master election"
           ],
           [
             "configuration write",
-            "Save running configuration to non-volatile memory (equivalent to write memory)"
+            "Save the running configuration"
           ]
         ],
-        "tip": "Never run multiple master Subnet Managers with identical priorities on the same fabric partition.",
+        "tip": "Run one master SM and standbys, with sm-priority set so the intended master wins; if SMs restart repeatedly, NVIDIA says to check that all SM nodes are in the same IB subnet.",
         "tags": [
           "quantum-mlnxos-hw-sm",
           "tips",
@@ -212,7 +212,25 @@ const SW_SW_QUANTUM_HW_SM_DATA = [
           "switches",
           "fabric",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/subnet-manager",
+              "title": "MLNX-OS 3.12.6200: subnet manager"
+            },
+            {
+              "url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/chassis-management",
+              "title": "MLNX-OS 3.12.6200: chassis management"
+            },
+            {
+              "url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/logging",
+              "title": "MLNX-OS 3.12.6200: logging"
+            }
+          ],
+          "note": "show ib sm and show inventory are not in the MLNX-OS chapters read."
+        }
       }
     ]
   }

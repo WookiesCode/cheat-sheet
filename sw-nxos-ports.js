@@ -133,7 +133,7 @@ const SW_SW_NXOS_PORTS_DATA = [
             "Display CRC, input error, and frame alignment error counts across all switch ports"
           ]
         ],
-        "tip": "If Rx power is in the alarm range (-14 dBm or lower), inspect fiber patch cords for micro-bends or dust contamination.",
+        "tip": "If Rx power is in the module's warning or alarm range, clean and inspect the fiber and check for tight bends before replacing the optic.",
         "tags": [
           "nxos-ports-dom",
           "tips",
@@ -141,7 +141,17 @@ const SW_SW_NXOS_PORTS_DATA = [
           "switches",
           "fabric",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_i_showcmds.html",
+              "title": "NX-OS 10.5 show commands: interface"
+            }
+          ],
+          "note": "Removed 2026-11-10: an unsourced \"-14 dBm\" alarm level; thresholds come from each transceiver."
+        }
       }
     ]
   }

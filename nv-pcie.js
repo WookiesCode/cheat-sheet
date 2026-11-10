@@ -198,7 +198,7 @@ const NV_NV_PCIE_DATA = [
         "id": "pcie-kernel-triage-tips-card",
         "desc": "Critical Xid error decoding, PCIe AER link errors & vendor RMA bug reports",
         "cmd": "dmesg -T | grep -E \"NVRM: Xid|AER\"   |   lspci -vvv -s <BUS_ID>   |   nvidia-bug-report.sh",
-        "details": "Xid errors are logged directly to dmesg. Xid 31 indicates page faults; Xid 43 indicates the GPU stopped processing, usually an application fault; Xid 79 indicates GPU fallen off PCIe bus. Always generate nvidia-bug-report.sh before host reboot.",
+        "details": "Xid errors are logged to dmesg. Xid 31 = GPU memory page fault (usually the application); Xid 43 = GPU stopped processing after an application fault, GPU still healthy; Xid 79 = GPU fallen off the bus. Run nvidia-bug-report.sh before rebooting.",
         "flags": [
           [
             "Xid 79",
@@ -206,18 +206,18 @@ const NV_NV_PCIE_DATA = [
           ],
           [
             "Xid 45",
-            "Preemptive cleanup: GPU driver reset required due to hardware or memory fault"
+            "Preemptive cleanup after an app aborted or earlier errors; if other Xids appear with it, follow those"
           ],
           [
             "Xid 62",
-            "Internal micro-controller halt: VBIOS or GSP firmware communication timeout"
+            "Internal micro-controller halt; NVIDIA's action is reset the GPU, then contact support"
           ],
           [
             "nvidia-bug-report.sh",
-            "Generates compressed diagnostic bundle required by NVIDIA Enterprise Support for RMA"
+            "Writes nvidia-bug-report.log.gz, the bundle NVIDIA support asks for"
           ]
         ],
-        "tip": "Disable PCIe ACS (Access Control Services) on PCIe switches to enable direct P2P peer transfers!",
+        "tip": "On bare metal, PCIe ACS on switches can block GPU peer-to-peer and GPUDirect; NCCL's guide shows how to check and disable it",
         "tags": [
           "pcie-kernel-triage",
           "tips",
@@ -226,7 +226,25 @@ const NV_NV_PCIE_DATA = [
           "gpu",
           "datacenter",
           "best-practices"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/deploy/xid-errors/analyzing-xid-catalog.html",
+              "title": "NVIDIA Xid catalog"
+            },
+            {
+              "url": "https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/troubleshooting/gpu_troubleshooting.html",
+              "title": "NCCL troubleshooting: ACS and IOMMU"
+            },
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            }
+          ],
+          "note": "Corrected 2026-11-10: Xid 45 and 62 now use the Xid catalog descriptions."
+        }
       }
     ]
   }

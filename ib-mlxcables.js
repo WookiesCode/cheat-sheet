@@ -123,14 +123,32 @@ const IB_IB_MLXCABLES_DATA = [
         "desc": "Production recommendations, fabric stability tips & triage advice for mlxcables",
         "cmd": "mst start && mst cable add && mlxcables",
         "tip": "Run 'mst cable add' first so mlxcables can see all transceivers!",
-        "details": "In multi-tier Quantum/Quantum-2 topologies, always cross-reference mlxcables telemetry with adjacent switch ports and Subnet Manager topology databases.",
+        "details": "Recap of the first mlxcables card. Before replacing a part, check the far end too: the switch port, the cable and what the Subnet Manager sees.",
         "tags": [
           "mlxcables",
           "tips",
           "pro",
           "infiniband",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxcables-cables-tool",
+              "title": "MFT: mlxcables"
+            },
+            {
+              "url": "https://networking-docs.nvidia.com/mftswum/4330/linux",
+              "title": "MFT: mst"
+            },
+            {
+              "url": "https://networking-docs.nvidia.com/mftswum/4330/cable-utilities",
+              "title": "MFT: cable utilities"
+            }
+          ],
+          "note": "What mlxcables prints with no options is not documented; -q queries a cable."
+        }
       }
     ]
   }

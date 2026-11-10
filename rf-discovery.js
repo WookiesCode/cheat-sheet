@@ -162,23 +162,23 @@ const RF_RF_DISCOVERY_DATA = [
       {
         "id": "discovery-auth-tips-card",
         "desc": "Production Redfish API Discovery & Authentication Best Practices",
-        "cmd": "curl -k -g -6 -sS -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1\" | jq .",
-        "details": "Always discover collection URIs dynamically starting from /redfish/v1 ServiceRoot rather than hardcoding vendor OEM paths. For automated scripts, create an X-Auth-Token via POST to /redfish/v1/SessionService/Sessions to bypass costly per-request Basic authentication handshakes.",
+        "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1\" | jq .",
+        "details": "Start at the service root (/redfish/v1) and follow the @odata.id links instead of hard-coding vendor paths. For scripts, log in once with a POST to /redfish/v1/SessionService/Sessions and send the returned X-Auth-Token header on later requests instead of Basic auth on every call.",
         "flags": [
           [
             "-g",
-            "Allow literal square brackets [] in URL for IPv6 link-local and ULA addresses"
+            "Turn off curl URL globbing so [IPv6] brackets in the URL work"
           ],
           [
             "-k",
-            "Allow untrusted/self-signed SSL certificates typically found on BMC controllers"
+            "Skip TLS certificate checks (BMCs often use self-signed certificates)"
           ],
           [
             "-H \"X-Auth-Token: <token>\"",
-            "Pass active Redfish session token to avoid slow Basic Auth"
+            "Send the session token instead of Basic auth"
           ]
         ],
-        "tip": "Store the X-Auth-Token in an environment variable and always DELETE the session URI upon script completion to prevent exhausting the BMC session limit.",
+        "tip": "When the script finishes, DELETE the session URI from the Location header; otherwise the session stays open until it times out.",
         "tags": [
           "discovery-auth",
           "tips",
@@ -186,7 +186,20 @@ const RF_RF_DISCOVERY_DATA = [
           "redfish",
           "rest",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.25.0.pdf",
+              "title": "DMTF DSP0266 Redfish Specification 1.25.0"
+            },
+            {
+              "url": "https://curl.se/docs/manpage.html",
+              "title": "curl man page"
+            }
+          ]
+        }
       }
     ]
   }

@@ -120,23 +120,23 @@ const RF_RF_HGX_DLC_DATA = [
       {
         "id": "hgx-dlc-redfish-tips-card",
         "desc": "AI Server HGX Baseboard & Liquid Cooling Telemetry",
-        "cmd": "curl -k -sS -K ~/.bmc-curlrc \"https://${BMC_IP}/redfish/v1/Chassis/HGX_Baseboard_0\" | jq .",
-        "details": "Modern 8-GPU AI supercomputers (NVIDIA HGX H100/H200/B200) expose dedicated Redfish Chassis and Thermal collections for the GPU tray. Inspect Direct Liquid Cooling (DLC) leak detection sensors and coolant flow rates before powering on GPUs.",
+        "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Chassis/HGX_Baseboard_0\" | jq .",
+        "details": "HGX GPU baseboards have their own Redfish chassis (Chassis/HGX_Baseboard_0 on NVIDIA DGX) and expose GPUs as Systems/HGX_Baseboard_0/Processors/GPU_SXM_<n>; other server vendors may name them differently. On liquid-cooled racks, check the leak detectors (ThermalSubsystem/LeakDetection/LeakDetectors, DetectorState) and coolant sensors before powering up GPUs.",
         "flags": [
           [
             "Chassis/HGX_Baseboard_0",
-            "Inspect baseboard serial, power distribution, and overall GPU tray status"
+            "GPU baseboard chassis on DGX: serial, status, sensors"
           ],
           [
-            "LeakDetectionSensors",
-            "Monitor coldplate and quick-disconnect leak detection ropes and optical sensors"
+            "ThermalSubsystem/LeakDetection/LeakDetectors",
+            "One entry per leak detector with DetectorState"
           ],
           [
-            "Processors/GPU_0..7",
-            "Direct Redfish query of SXM GPU temperatures, memory status, and health rollup"
+            "Systems/HGX_Baseboard_0/Processors/GPU_SXM_<n>",
+            "Per-GPU model, serial and health (DGX naming)"
           ]
         ],
-        "tip": "DLC leak detection sensors reporting anything other than \"OK\" must trigger immediate automated host shutdown to prevent coolant spray on live 800W GPUs.",
+        "tip": "A leak detector reporting anything but OK means stop: follow the site leak procedure before powering the GPUs on.",
         "tags": [
           "hgx-dlc-redfish",
           "tips",
@@ -144,7 +144,25 @@ const RF_RF_HGX_DLC_DATA = [
           "redfish",
           "rest",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/dgx/dgxh100-user-guide/redfish-api-supp.html",
+              "title": "NVIDIA DGX H100/H200 Redfish APIs"
+            },
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/LeakDetector.json",
+              "title": "DMTF LeakDetector schema"
+            },
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/Chassis.v1_29_0.json",
+              "title": "DMTF Chassis v1.29.0"
+            }
+          ],
+          "note": "Corrected 2026-11-10: GPUs are GPU_SXM_<n> under Systems/HGX_Baseboard_0 on DGX (not Processors/GPU_0..7), and the leak property is LeakDetection, not LeakDetectionSensors. Leak detection on non-NVIDIA HGX boards varies by vendor."
+        }
       }
     ]
   }

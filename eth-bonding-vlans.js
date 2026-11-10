@@ -157,11 +157,11 @@ const ETH_ETH_BONDING_VLANS_DATA = [
         "id": "bonding-vlans-bridges-tips-card",
         "desc": "High-Availability LACP Aggregation & 802.1Q Tagged VLANs",
         "cmd": "cat /proc/net/bonding/bond0 && ip link add link eth0 name eth0.100 type vlan id 100",
-        "details": "LACP (802.3ad mode 4) bundles multiple physical Ethernet interfaces into a single high-bandwidth logical link with active health monitoring. Inspect /proc/net/bonding/bond0 to verify Partner System MAC and Actor/Partner Churn state. Use 802.1Q sub-interfaces (\"eth0.100\") to isolate storage, management, and tenant VM traffic.",
+        "details": "LACP (802.3ad, mode 4) bundles several links into one logical link and negotiates it with the switch. /proc/net/bonding/bond0 shows each member's MII status, the aggregator IDs and the partner (switch) MAC: members with different aggregator IDs are not in the same LAG. 802.1Q sub-interfaces (eth0.100) separate VLANs on one link.",
         "flags": [
           [
             "/proc/net/bonding/bond0",
-            "Real-time kernel status: slave interfaces, MII link status, and LACP partner synchronization"
+            "Bond mode, members, MII status, aggregator and partner details"
           ],
           [
             "type vlan id <vlan>",
@@ -172,7 +172,7 @@ const ETH_ETH_BONDING_VLANS_DATA = [
             "Display Layer-2 forwarding database (MAC learning table) on Linux bridge interfaces"
           ]
         ],
-        "tip": "Set xmit_hash_policy to \"layer3+4\" (IP + Port hashing) to distribute TCP/UDP flows evenly across both bond slaves.",
+        "tip": "xmit_hash_policy=layer3+4 hashes on IP and port so different flows can use different members; one flow still stays on one link, and the kernel notes it is not fully 802.3ad compliant",
         "tags": [
           "bonding-vlans-bridges",
           "tips",
@@ -180,7 +180,29 @@ const ETH_ETH_BONDING_VLANS_DATA = [
           "ethernet",
           "nic",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.kernel.org/networking/bonding.html",
+              "title": "Linux kernel: bonding driver"
+            },
+            {
+              "url": "https://github.com/torvalds/linux/blob/master/drivers/net/bonding/bond_procfs.c",
+              "title": "Linux source: bond_procfs.c (/proc/net/bonding fields)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ip-link.8.html",
+              "title": "ip-link(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/bridge.8.html",
+              "title": "bridge(8)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: layer3+4 does not spread a single flow, and does not balance evenly by design."
+        }
       }
     ]
   }

@@ -119,22 +119,22 @@ const SW_SW_CUMULUS_OPTICS_DATA = [
         "id": "cumulus-optics-tips-card",
         "desc": "Transceiver DOM Optical Thresholds & Forward Error Correction",
         "cmd": "nv show interface swp1 transceiver && nv show interface swp1 fec",
-        "details": "400G and 800G optical links require Forward Error Correction (Reed-Solomon FEC / Clause 91) to achieve error-free operation. If an optic shows acceptable optical power (-2 to +2 dBm) but high packet drops, verify that both ends are configured with matching FEC modes (typically rs or baser).",
+        "details": "PAM4 links (50G per lane and faster, so 200G, 400G and 800G) depend on RS FEC; a link that comes up with clean optical power but has errors often has mismatched FEC between the two ends. Compare each lane's Rx power with the module's own warning and alarm thresholds, not a fixed number.",
         "flags": [
           [
             "nv show interface swp1 transceiver",
-            "Display laser Tx/Rx power (dBm), temperature, voltage, and vendor serial number"
+            "Module type, vendor, serial, temperature, voltage and per-lane power"
           ],
           [
             "nv set interface swp1 link fec rs",
-            "Enforce Reed-Solomon (RS) FEC for 100G/200G/400G PAM4 optical links"
+            "Force RS FEC (changes state; set the same on the far end)"
           ],
           [
-            "mst cable add ; mlxcables",
-            "Low-level QSFP-DD/OSFP memory map dump using Mellanox MFT on Cumulus"
+            "ethtool -m swp1",
+            "Raw module EEPROM and DOM from Linux"
           ]
         ],
-        "tip": "Laser Rx power below -8.0 dBm indicates severe optical attenuation or dirty fiber end-faces.",
+        "tip": "Read the module's thresholds from nv show interface swp1 transceiver (or ethtool -m swp1): they differ per optic type.",
         "tags": [
           "cumulus-optics",
           "tips",
@@ -142,7 +142,25 @@ const SW_SW_CUMULUS_OPTICS_DATA = [
           "switches",
           "fabric",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/Platform/",
+              "title": "NVUE reference: platform"
+            },
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Layer-1-and-Switch-Ports/Interface-Configuration-and-Management/Switch-Port-Attributes/",
+              "title": "Cumulus Linux 5.18: switch port attributes (MTU, FEC)"
+            },
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Monitoring-and-Troubleshooting/Troubleshooting-Network-Interfaces/Monitoring-Interfaces-and-Transceivers-with-ethtool/",
+              "title": "Cumulus Linux 5.18: ethtool"
+            }
+          ],
+          "note": "Corrected 2026-11-10: removed unsourced \"-2 to +2 dBm acceptable\" and \"-8 dBm\" limits, the Clause 91 label (that is 100G RS FEC), and mst/mlxcables on Cumulus."
+        }
       }
     ]
   }

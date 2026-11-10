@@ -93,14 +93,24 @@ const IB_IB_IBV_DEVINFO_DATA = [
         "desc": "Production recommendations, fabric stability tips & triage advice for ibv_devinfo",
         "cmd": "ibv_devinfo -v && ibv_devices",
         "tip": "RoCEv2 requires GID index matching 'RoCE v2' + IPv4 address",
-        "details": "In multi-tier Quantum/Quantum-2 topologies, always cross-reference ibv_devinfo telemetry with adjacent switch ports and Subnet Manager topology databases.",
+        "details": "Recap of the first ibv_devinfo card. Before replacing a part, check the far end too: the switch port, the cable and what the Subnet Manager sees.",
         "tags": [
           "ibv_devinfo",
           "tips",
           "pro",
           "infiniband",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/libibverbs/man/ibv_devinfo.1",
+              "title": "ibv_devinfo man page (rdma-core)"
+            }
+          ],
+          "note": "The ibv_devices man page does not mention node GUIDs."
+        }
       }
     ]
   }

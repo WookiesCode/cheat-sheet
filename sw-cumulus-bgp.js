@@ -121,23 +121,23 @@ const SW_SW_CUMULUS_BGP_DATA = [
       {
         "id": "cumulus-bgp-roce-tips-card",
         "desc": "BGP Unnumbered & RoCEv2 Lossless Buffer Configuration",
-        "cmd": "nv show router bgp && nv show qos pfc",
-        "details": "Modern AI cluster fabrics use BGP Unnumbered over IPv6 link-local addresses for dynamic leaf-spine routing without subnet allocation. RoCEv2 lossless delivery requires Priority Flow Control (PFC) on priority 3 alongside Explicit Congestion Notification (ECN).",
+        "cmd": "nv show vrf default router bgp neighbor && nv show qos roce",
+        "details": "Leaf-spine fabrics often use BGP unnumbered (IPv6 link-local peering). Cumulus RoCE lossless mode maps switch priority 3 to the RoCE traffic class with PFC and ECN, and priority 6 to CNP; nv set qos roce turns it on.",
         "flags": [
           [
-            "nv show router bgp",
-            "Show summary table of all BGP peering sessions, prefixes received, and state (Established)"
+            "nv show vrf default router bgp neighbor",
+            "BGP neighbours and state"
           ],
           [
-            "nv show qos pfc",
-            "Inspect PFC pause frame transmission and reception counters per traffic class"
+            "nv show qos roce",
+            "Current RoCE mode and settings"
           ],
           [
-            "nv set qos pfc priority 3 rx on tx on",
-            "Enable bidirectional PFC pause on priority 3 for lossless RDMA traffic"
+            "nv set qos roce",
+            "Enable RoCE lossless mode (default mode; changes state, then nv config apply)"
           ]
         ],
-        "tip": "Mismatched PFC priorities between NIC and switch causes head-of-line blocking or silent packet drop.",
+        "tip": "The NIC must tag RoCE traffic with the same priority the switch treats as lossless (3 by default), or the traffic is not protected by PFC.",
         "tags": [
           "cumulus-bgp-roce",
           "tips",
@@ -145,7 +145,25 @@ const SW_SW_CUMULUS_BGP_DATA = [
           "switches",
           "fabric",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Layer-3/Border-Gateway-Protocol-BGP/Troubleshooting-BGP/",
+              "title": "Cumulus Linux 5.18: troubleshooting BGP"
+            },
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Layer-1-and-Switch-Ports/Quality-of-Service/RDMA-over-Converged-Ethernet-RoCE/",
+              "title": "Cumulus Linux 5.18: RoCE"
+            },
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/QoS/",
+              "title": "NVUE reference: QoS"
+            }
+          ],
+          "note": "Corrected 2026-11-10: replaced an unverified nv set qos pfc syntax with NVIDIA's nv set qos roce."
+        }
       }
     ]
   }

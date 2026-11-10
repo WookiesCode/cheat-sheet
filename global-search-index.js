@@ -5429,7 +5429,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" update -f <update-file>",
     "desc": "Firmware from a Dell Update Package (changes state)",
     "tip": "Firmware changes need a drain and approval",
-    "tags": "bmc remote-management racadm tips best-practice"
+    "tags": "bmc remote-management racadm tips best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/update?guid=guid-4bf8c7bd-3d8e-451f-8913-29433dd646cd&lang=en-us",
+          "title": "Dell RACADM 7.xx: update"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/jobqueue?guid=guid-a57b0f48-1ebe-4cbe-9681-458e3348301d&lang=en-us",
+          "title": "Dell RACADM 7.xx: jobqueue"
+        }
+      ],
+      "note": "Corrected 2026-11-10: viewreport shows the --verifycatalog comparison report; --reboot applies to single-file updates."
+    }
   },
   {
     "sName": "bmc-tools",
@@ -5984,7 +5998,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest serverinfo --system --url $BMC -u $BMC_USER -p \"$BMC_PASS\" --logout",
     "desc": "One-off command without a lasting session",
     "tip": "Use this form in scripts",
-    "tags": "bmc remote-management ilorest tips best-practice"
+    "tags": "bmc remote-management ilorest tips best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/globalcommands.md",
+          "title": "HPE iLOrest 7.4: global commands"
+        },
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/usage.md",
+          "title": "HPE iLOrest 7.4: usage"
+        },
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/changelog.md",
+          "title": "HPE iLOrest changelog"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -6281,7 +6312,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "./saa -c UpdateBios --file <bios-image>",
     "desc": "Firmware updates and BMC reset (change state)",
     "tip": "Firmware changes need a drain and approval",
-    "tags": "bmc remote-management saa tips best-practice"
+    "tags": "bmc remote-management saa tips best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+          "title": "SAA for UEFI User's Guide 1.1.0"
+        },
+        {
+          "url": "https://www.supermicro.com/en/solutions/management-software/superserver-automation-assistant",
+          "title": "Supermicro SAA"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -6655,7 +6699,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "./OneCli misc ffdc --bmc \"$BMC_USER:$BMC_PASS@$BMC\"",
     "desc": "Service data (FFDC) for a Lenovo case",
     "tip": "Attach FFDC to every Lenovo RMA",
-    "tags": "bmc remote-management onecli tips best-practice"
+    "tags": "bmc remote-management onecli tips best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_ffdc_command",
+          "title": "Lenovo OneCLI: ffdc"
+        },
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/misc_encrypt_command",
+          "title": "Lenovo OneCLI: misc encrypt"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -7009,7 +7066,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "install -m 600 /dev/null /etc/freeipmi/freeipmi.conf",
     "desc": "Credentials in a config file instead of on the command line",
     "tip": "Mode 600, and keep it out of git",
-    "tags": "bmc remote-management freeipmi tips best-practice"
+    "tags": "bmc remote-management freeipmi tips best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-common/freeipmi.conf.5.en.html",
+          "title": "FreeIPMI freeipmi.conf(5)"
+        }
+      ]
+    }
   },
   {
     "sName": "bmc-tools",
@@ -7229,7 +7295,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmiconsole -h $BMC -u $BMC_USER -P --dont-steal",
     "desc": "Pick the console path by situation",
     "tip": "Log every console session to the case folder",
-    "tags": "bmc remote-management serial tips best-practice"
+    "tags": "bmc remote-management serial tips best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmiconsole.8.en.html",
+          "title": "FreeIPMI ipmiconsole(8)"
+        },
+        {
+          "url": "https://github.com/npat-efault/picocom/blob/master/picocom.1.md",
+          "title": "picocom(1)"
+        },
+        {
+          "url": "https://github.com/cminyard/ser2net/blob/master/README.rst",
+          "title": "ser2net README"
+        },
+        {
+          "url": "https://www.conserver.com/docs/conserver.cf.man.html",
+          "title": "conserver.cf(5)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -19099,8 +19186,30 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "LACP Bonds & VLANs: Pro Tips & Best Practices",
     "cmd": "cat /proc/net/bonding/bond0 && ip link add link eth0 name eth0.100 type vlan id 100",
     "desc": "High-Availability LACP Aggregation & 802.1Q Tagged VLANs",
-    "tip": "Set xmit_hash_policy to \"layer3+4\" (IP + Port hashing) to distribute TCP/UDP flows evenly across both bond slaves.",
-    "tags": "bonding-vlans-bridges tips pro ethernet nic best-practice"
+    "tip": "xmit_hash_policy=layer3+4 hashes on IP and port so different flows can use different members; one flow still stays on one link, and the kernel notes it is not fully 802.3ad compliant",
+    "tags": "bonding-vlans-bridges tips pro ethernet nic best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.kernel.org/networking/bonding.html",
+          "title": "Linux kernel: bonding driver"
+        },
+        {
+          "url": "https://github.com/torvalds/linux/blob/master/drivers/net/bonding/bond_procfs.c",
+          "title": "Linux source: bond_procfs.c (/proc/net/bonding fields)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-link.8.html",
+          "title": "ip-link(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/bridge.8.html",
+          "title": "bridge(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: layer3+4 does not spread a single flow, and does not balance evenly by design."
+    }
   },
   {
     "sName": "eth-ethtool-tuning",
@@ -19192,8 +19301,18 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "ethtool & Ring Buffers: Pro Tips & Best Practices",
     "cmd": "ethtool -S eth0 | grep -E \"(drop|error|miss)\" && ethtool -G eth0 rx 4096 tx 4096",
     "desc": "NIC Descriptor Ring Buffering & Hardware Packet Drop Elimination",
-    "tip": "High \"rx_crc_errors\" indicates damaged patch cables or dirty transceiver pins, while \"rx_missed_errors\" points to PCIe host bus bandwidth bottlenecks.",
-    "tags": "ethtool-phy-tuning tips pro ethernet nic best-practice"
+    "tip": "Rising rx_crc_errors point at the physical link (cable, optic, dirty connector); rx_missed_errors mean the NIC dropped frames because the host did not drain them in time",
+    "tags": "ethtool-phy-tuning tips pro ethernet nic best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ethtool.8.html",
+          "title": "ethtool(8)"
+        }
+      ],
+      "note": "Counter names such as rx_missed_errors and rx_no_buffer_count are driver-specific; the counter meanings are general practice, not from the ethtool man page."
+    }
   },
   {
     "sName": "eth-iproute2-ip6",
@@ -19309,7 +19428,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ip -br -c a && ip -6 route show && ip -6 neigh show",
     "desc": "Production iproute2 CLI Operations & IPv6 Neighbor Discovery",
     "tip": "Always verify MTU symmetry across both ends of a link: mismatched MTUs cause TCP handshake success but silent payload drops on large packets.",
-    "tags": "iproute2 tips pro ethernet nic best-practice"
+    "tags": "iproute2 tips pro ethernet nic best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-address.8.html",
+          "title": "ip-address(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-link.8.html",
+          "title": "ip-link(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-neighbour.8.html",
+          "title": "ip-neighbour(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-route.8.html",
+          "title": "ip-route(8)"
+        }
+      ],
+      "note": "The MTU mismatch symptom (handshake works, large transfers stall) is general practice, not from the man pages."
+    }
   },
   {
     "sName": "eth-lldp-perf",
@@ -19406,7 +19547,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lldpcli show neighbors && ping -6 -M do -s 8952 <dest_ip>",
     "desc": "Automated Switch Topology Discovery & Line-Rate Performance Validation",
     "tip": "Use \"ping -M do -s 8952\" (8952 payload + 40-byte IPv6 header + 8-byte ICMPv6 header = 9000 bytes) to audit MTU 9000 paths without fragmentation.",
-    "tags": "lldp-mtu-diag tips pro ethernet nic best-practice"
+    "tags": "lldp-mtu-diag tips pro ethernet nic best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/lldpd/lldpctl.8.en.html",
+          "title": "lldpctl(8) (lldpcli)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ping.8.html",
+          "title": "ping(8)"
+        },
+        {
+          "url": "https://software.es.net/iperf/invoking.html",
+          "title": "iperf3: invoking"
+        }
+      ],
+      "note": "Corrected 2026-11-10: -P sets parallel streams; both directions need --bidir."
+    }
   },
   {
     "sName": "eth-netplan-systemd",
@@ -19494,8 +19653,30 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "Netplan & networkctl: Pro Tips & Best Practices",
     "cmd": "netplan try --timeout 30 && networkctl status",
     "desc": "Safe Declarative Network Provisioning & Automated Rollback",
-    "tip": "YAML indentation must use exact 2-space increments; tabs in /etc/netplan/*.yaml cause immediate syntax rejection.",
-    "tags": "ubuntu-netplan tips pro ethernet nic best-practice"
+    "tip": "YAML forbids tabs for indentation: use spaces (any consistent amount) in /etc/netplan/*.yaml",
+    "tags": "ubuntu-netplan tips pro ethernet nic best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://netplan.readthedocs.io/en/stable/netplan-try/",
+          "title": "netplan try"
+        },
+        {
+          "url": "https://yaml.org/spec/1.2.2/",
+          "title": "YAML 1.2.2 spec (no tabs in indentation)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/networkctl.1.html",
+          "title": "networkctl(1)"
+        },
+        {
+          "url": "https://networkmanager.dev/docs/api/latest/nmcli.html",
+          "title": "nmcli(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: YAML does not require 2-space indentation, only no tabs; netplan try defaults to 120 seconds."
+    }
   },
   {
     "sName": "eth-rj45-tdr",
@@ -19564,7 +19745,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ethtool --cable-test eth0 && ethtool -p eth0 5",
     "desc": "Physical Layer RJ45 Cable Certification & TDR Fault Locating",
     "tip": "Never punch down mixed T568A and T568B on opposite patch panel ends unless intentionally building a legacy crossover cable.",
-    "tags": "rj45-pinout-tdr tips pro ethernet nic best-practice"
+    "tags": "rj45-pinout-tdr tips pro ethernet nic best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ethtool.8.html",
+          "title": "ethtool(8)"
+        }
+      ],
+      "note": "Wiring reference: the TIA-568 standard is not freely available, so the pinout was not checked against it. The 100 Mb/s pair rule is a rule of thumb. Removed 2026-11-10: an unsourced \"within 1 meter\" accuracy claim."
+    }
   },
   {
     "sName": "ethernet",
@@ -21606,7 +21797,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "install -m 600 /dev/null /etc/freeipmi/freeipmi.conf",
     "desc": "Credentials in a config file instead of on the command line",
     "tip": "Mode 600, and keep it out of git",
-    "tags": "bmc remote-management freeipmi tips best-practice"
+    "tags": "bmc remote-management freeipmi tips best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-common/freeipmi.conf.5.en.html",
+          "title": "FreeIPMI freeipmi.conf(5)"
+        }
+      ]
+    }
   },
   {
     "sName": "fuser",
@@ -33073,7 +33273,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mlxconfig -d /dev/mst/mt41692_pciconf0 q INTERNAL_CPU_OFFLOAD_ENGINE",
     "desc": "Production recommendations, fabric stability tips & triage advice for BlueField-3",
     "tip": "DPU <-> NIC mode: reset Arm and NIC, power cycle recommended. SuperNIC SKUs ship in NIC mode",
-    "tags": "BlueField-3 tips pro infiniband best-practice"
+    "tags": "BlueField-3 tips pro infiniband best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/bsp/4.16.0/modes-of-operation",
+          "title": "BlueField modes of operation"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/bsp/4.16.0/soc-management-interface-rshim",
+          "title": "BlueField RShim"
+        }
+      ],
+      "note": "Corrected 2026-11-09: BlueField-3 mode is INTERNAL_CPU_OFFLOAD_ENGINE only (0 = DPU, 1 = NIC); bfb-install takes -r and -b."
+    }
   },
   {
     "sName": "ib-ibdiagnet",
@@ -33150,7 +33364,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ibdiagnet -o /tmp/ibdiagnet2 --get_cable_info --get_phy_info",
     "desc": "Production recommendations, fabric stability tips & triage advice for ibdiagnet",
     "tip": "Check /tmp/ibdiagnet2/ibdiagnet2.cables for overtemp optics!",
-    "tags": "ibdiagnet tips pro infiniband best-practice"
+    "tags": "ibdiagnet tips pro infiniband best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/ibdiagnetutilityum/2.27.0/basic-commands",
+          "title": "ibdiagnet commands"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/ibdiagnetutilityum/2.27.0/ibdiagnet-dump-files",
+          "title": "ibdiagnet output files"
+        }
+      ],
+      "note": "Corrected 2026-11-09: --ber_test is for SwitchX/ConnectX-3/4 only; NVIDIA says to use --get_phy_info on later devices."
+    }
   },
   {
     "sName": "ib-iblinkinfo",
@@ -33236,7 +33464,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "iblinkinfo -l",
     "desc": "Production recommendations, fabric stability tips & triage advice for iblinkinfo",
     "tip": "iblinkinfo -l maps exact switch port to server hostname!",
-    "tags": "iblinkinfo tips pro infiniband best-practice"
+    "tags": "iblinkinfo tips pro infiniband best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/iblinkinfo.8.in.rst",
+          "title": "iblinkinfo man page (rdma-core)"
+        },
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibnetdiscover.8.in.rst",
+          "title": "ibnetdiscover man page (rdma-core)"
+        }
+      ],
+      "note": "-C/-P/-D come from the shared infiniband-diags options; the iblinkinfo page does not list them."
+    }
   },
   {
     "sName": "ib-ibping",
@@ -33295,7 +33537,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ibtracert <src_LID> <dst_LID> && ibping -c 10 <dst_LID>",
     "desc": "Production recommendations, fabric stability tips & triage advice for ibping",
     "tip": "ibtracert works immediately without any daemon on the remote node!",
-    "tags": "ibping tips pro infiniband best-practice"
+    "tags": "ibping tips pro infiniband best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibtracert.8.in.rst",
+          "title": "ibtracert man page (rdma-core)"
+        },
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibping.8.in.rst",
+          "title": "ibping man page (rdma-core)"
+        }
+      ]
+    }
   },
   {
     "sName": "ib-ibqueryerrors",
@@ -33367,7 +33622,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ibqueryerrors --data --details",
     "desc": "Production recommendations, fabric stability tips & triage advice for ibqueryerrors",
     "tip": "Suppress RcvSwRelayErrors to focus on real physical bad cables",
-    "tags": "ibqueryerrors tips pro infiniband best-practice"
+    "tags": "ibqueryerrors tips pro infiniband best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibqueryerrors.8.in.rst",
+          "title": "ibqueryerrors man page (rdma-core)"
+        }
+      ]
+    }
   },
   {
     "sName": "ib-ibstat",
@@ -33450,7 +33714,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ibstat && ibstatus",
     "desc": "Production recommendations, fabric stability tips & triage advice for ibstat",
     "tip": "LinkUp + State:Init = Subnet Manager (OpenSM/UFM) is not active!",
-    "tags": "ibstat tips pro infiniband best-practice"
+    "tags": "ibstat tips pro infiniband best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibstat.8.in.rst",
+          "title": "ibstat man page (rdma-core)"
+        },
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibstatus.8.in.rst",
+          "title": "ibstatus man page (rdma-core)"
+        }
+      ]
+    }
   },
   {
     "sName": "ib-ibswitches",
@@ -33505,7 +33782,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ibswitches && ibhosts",
     "desc": "Production recommendations, fabric stability tips & triage advice for ibswitches",
     "tip": "Run per rail (-C mlx5_0 .. mlx5_7) on multi-rail GPU clusters",
-    "tags": "ibswitches tips pro infiniband best-practice"
+    "tags": "ibswitches tips pro infiniband best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibswitches.8.in.rst",
+          "title": "ibswitches man page (rdma-core)"
+        },
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibhosts.8.in.rst",
+          "title": "ibhosts man page (rdma-core)"
+        },
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibnodes.8.in.rst",
+          "title": "ibnodes man page (rdma-core)"
+        }
+      ]
+    }
   },
   {
     "sName": "ib-ibv-devinfo",
@@ -33573,7 +33867,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ibv_devinfo -v && ibv_devices",
     "desc": "Production recommendations, fabric stability tips & triage advice for ibv_devinfo",
     "tip": "RoCEv2 requires GID index matching 'RoCE v2' + IPv4 address",
-    "tags": "ibv_devinfo tips pro infiniband best-practice"
+    "tags": "ibv_devinfo tips pro infiniband best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/libibverbs/man/ibv_devinfo.1",
+          "title": "ibv_devinfo man page (rdma-core)"
+        }
+      ],
+      "note": "The ibv_devices man page does not mention node GUIDs."
+    }
   },
   {
     "sName": "ib-mlxcables",
@@ -33671,7 +33975,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mst start && mst cable add && mlxcables",
     "desc": "Production recommendations, fabric stability tips & triage advice for mlxcables",
     "tip": "Run 'mst cable add' first so mlxcables can see all transceivers!",
-    "tags": "mlxcables tips pro infiniband best-practice"
+    "tags": "mlxcables tips pro infiniband best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxcables-cables-tool",
+          "title": "MFT: mlxcables"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/linux",
+          "title": "MFT: mst"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/cable-utilities",
+          "title": "MFT: cable utilities"
+        }
+      ],
+      "note": "What mlxcables prints with no options is not documented; -q queries a cable."
+    }
   },
   {
     "sName": "ib-mlxconfig",
@@ -33780,7 +34102,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mlxconfig -d /dev/mst/mt4129_pciconf0 query | grep -E 'LINK_TYPE|SRIOV|NUM_OF_VFS|PCI'",
     "desc": "Production recommendations, fabric stability tips & triage advice for mlxconfig",
     "tip": "LINK_TYPE: 1 = InfiniBand, 2 = Ethernet; reboot for it to take effect",
-    "tags": "mlxconfig tips pro infiniband best-practice"
+    "tags": "mlxconfig tips pro infiniband best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxconfig-changing-device-configuration-tool",
+          "title": "MFT: mlxconfig"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mft-supported-configurations-and-parameters",
+          "title": "MFT: mlxconfig parameters"
+        }
+      ]
+    }
   },
   {
     "sName": "ib-mlxfwmanager",
@@ -33878,7 +34213,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mlxfwmanager --query && flint -d /dev/mst/mt4129_pciconf0 q",
     "desc": "Production recommendations, fabric stability tips & triage advice for mlxfwmanager",
     "tip": "Always match the 16-char PSID when downloading NIC firmware!",
-    "tags": "mlxfwmanager tips pro infiniband best-practice"
+    "tags": "mlxfwmanager tips pro infiniband best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxfwmanager-firmware-update-and-query-tool",
+          "title": "MFT: mlxfwmanager"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/flint-firmware-burning-tool",
+          "title": "MFT: flint"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxfwreset-loading-firmware-on-5th-generation-devices-tool",
+          "title": "MFT: mlxfwreset"
+        }
+      ],
+      "note": "Corrected 2026-11-09: mlxfwreset is written \"reset -y\" as in NVIDIA's example."
+    }
   },
   {
     "sName": "ib-mlxlink",
@@ -33969,7 +34322,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mlxlink -d mlx5_0 -m -c -e",
     "desc": "Production recommendations, fabric stability tips & triage advice for mlxlink",
     "tip": "ethtool -m doesn't work on IB interfaces — always use mlxlink -m!",
-    "tags": "mlxlink tips pro infiniband best-practice"
+    "tags": "mlxlink tips pro infiniband best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxlink-utility",
+          "title": "MFT: mlxlink"
+        }
+      ]
+    }
   },
   {
     "sName": "ib-mst",
@@ -34028,7 +34390,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mst start && mst status -v",
     "desc": "Production recommendations, fabric stability tips & triage advice for mst",
     "tip": "Run 'mst status -v' first to map BDF <-> mlx5_X <-> netdev",
-    "tags": "mst tips pro infiniband best-practice"
+    "tags": "mst tips pro infiniband best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/linux",
+          "title": "MFT: mst"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/cable-utilities",
+          "title": "MFT: cable utilities"
+        }
+      ]
+    }
   },
   {
     "sName": "ib-perfquery",
@@ -34102,7 +34477,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "perfquery -x && perfquery -x <LID> <PORT>",
     "desc": "Production recommendations, fabric stability tips & triage advice for perfquery",
     "tip": "16-bit IB counters saturate at 65535 — use -R to clear after fixing!",
-    "tags": "perfquery tips pro infiniband best-practice"
+    "tags": "perfquery tips pro infiniband best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/perfquery.8.in.rst",
+          "title": "perfquery man page (rdma-core)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: --oprcv is --oprcvcounters (per-opcode receive counters)."
+    }
   },
   {
     "sName": "ib-perftest",
@@ -34188,7 +34573,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ib_write_bw -d mlx5_0 -F --report_gbits -q 4 --ipv6-addr   # Server;   ib_write_bw -d mlx5_0 -F --report_gbits -q 4 --ipv6-addr 2001:db8:dc::1   # Client",
     "desc": "Production recommendations, fabric stability tips & triage advice for perftest",
     "tip": "400G NDR = ~392 Gb/s; pass --ipv6-addr on both ends for an IPv6 server address",
-    "tags": "perftest tips pro infiniband best-practice"
+    "tags": "perftest tips pro infiniband best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/perftest/blob/master/man/perftest.1",
+          "title": "perftest man page"
+        },
+        {
+          "url": "https://github.com/linux-rdma/perftest/blob/master/src/perftest_parameters.c",
+          "title": "perftest source"
+        }
+      ],
+      "note": "Corrected 2026-11-09: --ipv6 only selects an IPv6 GID; an IPv6 server address needs --ipv6-addr on both ends. Bandwidth and latency figures are rules of thumb."
+    }
   },
   {
     "sName": "ib-rdma",
@@ -34283,7 +34682,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "rdma link show && rdma dev show && rdma statistic show",
     "desc": "Production recommendations, fabric stability tips & triage advice for rdma",
     "tip": "rdma link show maps mlx5_X directly to netdev ibX/ethX",
-    "tags": "rdma tips pro infiniband best-practice"
+    "tags": "rdma tips pro infiniband best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/rdma-link.8.html",
+          "title": "rdma link (iproute2)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/rdma-dev.8.html",
+          "title": "rdma dev"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/rdma-resource.8.html",
+          "title": "rdma resource"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/rdma-statistic.8.html",
+          "title": "rdma statistic"
+        }
+      ]
+    }
   },
   {
     "sName": "ib-sminfo",
@@ -34355,7 +34775,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sminfo && saquery -s",
     "desc": "Production recommendations, fabric stability tips & triage advice for sminfo",
     "tip": "saquery -s lists both the Master SM and all Standby SMs",
-    "tags": "sminfo tips pro infiniband best-practice"
+    "tags": "sminfo tips pro infiniband best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/sminfo.8.in.rst",
+          "title": "sminfo man page (rdma-core)"
+        },
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/saquery.8.in.rst",
+          "title": "saquery man page (rdma-core)"
+        }
+      ],
+      "note": "State numbers (2 = standby, 3 = master) come from sminfo -s; the page does not describe its output fields."
+    }
   },
   {
     "sName": "ilorest",
@@ -34910,7 +35344,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ilorest serverinfo --system --url $BMC -u $BMC_USER -p \"$BMC_PASS\" --logout",
     "desc": "One-off command without a lasting session",
     "tip": "Use this form in scripts",
-    "tags": "bmc remote-management ilorest tips best-practice"
+    "tags": "bmc remote-management ilorest tips best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/globalcommands.md",
+          "title": "HPE iLOrest 7.4: global commands"
+        },
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/usage.md",
+          "title": "HPE iLOrest 7.4: usage"
+        },
+        {
+          "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/changelog.md",
+          "title": "HPE iLOrest changelog"
+        }
+      ]
+    }
   },
   {
     "sName": "incident-response",
@@ -36095,8 +36546,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "BMC Network & Users: Pro Tips & Best Practices",
     "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E lan print 1",
     "desc": "BMC Out-of-Band Network Provisioning & Root Password Recovery",
-    "tip": "Modern AI clusters use IPv6 link-local and static ULA addressing; query channel 1 using \"lan6 print 1\".",
-    "tags": "bmc-lan-users tips pro ipmitool bmc best-practice"
+    "tip": "If the BMC has IPv6 enabled, \"lan6 print 1\" shows its static, SLAAC and DHCPv6 addresses",
+    "tags": "bmc-lan-users tips pro ipmitool bmc best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+          "title": "ipmitool(1) man page"
+        },
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_lanp6.c",
+          "title": "ipmitool source: ipmi_lanp6.c (lan6)"
+        },
+        {
+          "url": "https://docs.kernel.org/driver-api/ipmi.html",
+          "title": "Linux kernel IPMI driver"
+        }
+      ]
+    }
   },
   {
     "sName": "ipmi-boot-override",
@@ -36168,7 +36636,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis bootdev pxe options=efiboot",
     "desc": "Automated PXE Re-imaging & Boot Flag Persistence",
     "tip": "Always specify \"options=efiboot\" on modern UEFI servers to avoid legacy BIOS CSM boot failure.",
-    "tags": "boot-override tips pro ipmitool bmc best-practice"
+    "tags": "boot-override tips pro ipmitool bmc best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+          "title": "ipmitool(1) man page"
+        },
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_chassis.c",
+          "title": "ipmitool source: ipmi_chassis.c (boot options)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: removed \"bootparam set bootflag no-timeout\"; ipmitool's parser rejects no-timeout. The 60-second timeout is from the man page."
+    }
   },
   {
     "sName": "ipmi-chassis-power",
@@ -36274,7 +36756,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis power status",
     "desc": "Chassis Power Cycling & Hard Freeze Triage",
     "tip": "Run \"chassis status\" after unexpected node drops to inspect \"Last Power Event\" (e.g. AC failed, power overload, power interlock).",
-    "tags": "chassis-power tips pro ipmitool bmc best-practice"
+    "tags": "chassis-power tips pro ipmitool bmc best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+          "title": "ipmitool(1) man page"
+        }
+      ]
+    }
   },
   {
     "sName": "ipmi-fru-mc",
@@ -36350,7 +36841,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E fru print",
     "desc": "Hardware Inventory Audit & BMC Health Maintenance",
     "tip": "Check \"mc watchdog get\" to verify hardware watchdog timer parameters; disable watchdog during prolonged debug sessions.",
-    "tags": "fru-mc-watchdog tips pro ipmitool bmc best-practice"
+    "tags": "fru-mc-watchdog tips pro ipmitool bmc best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+          "title": "ipmitool(1) man page"
+        }
+      ],
+      "note": "\"The host stays up\" and fan ramp during a BMC reset are typical server behaviour, not stated in the ipmitool man page."
+    }
   },
   {
     "sName": "ipmi-sel-logs",
@@ -36410,7 +36911,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sel elist",
     "desc": "Out-of-Band Hardware Event Triage & Post-Mortem Crash Analysis",
     "tip": "Back up SEL entries to a timestamped file before calling \"sel clear\", as cleared events cannot be recovered.",
-    "tags": "sel-logs tips pro ipmitool bmc best-practice"
+    "tags": "sel-logs tips pro ipmitool bmc best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+          "title": "ipmitool(1) man page"
+        }
+      ]
+    }
   },
   {
     "sName": "ipmi-sensors-sdr",
@@ -36483,7 +36993,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sdr elist full",
     "desc": "Hardware Environmental Triage & Thermal Throttling Detection",
     "tip": "Filter SDR by sensor type using \"sdr type Temperature\" or \"sdr type Fan\" to cut through noisy SDR catalogs.",
-    "tags": "sensors-sdr-dcmi tips pro ipmitool bmc best-practice"
+    "tags": "sensors-sdr-dcmi tips pro ipmitool bmc best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+          "title": "ipmitool(1) man page"
+        }
+      ]
+    }
   },
   {
     "sName": "ipmi-sol-console",
@@ -36535,7 +37054,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sol activate",
     "desc": "Out-of-Band Serial Console Operations & Session Recovery",
     "tip": "To disconnect an active SOL session without killing the terminal, press Enter, then ~ (tilde), then . (period).",
-    "tags": "sol-console tips pro ipmitool bmc best-practice"
+    "tags": "sol-console tips pro ipmitool bmc best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+          "title": "ipmitool(1) man page"
+        }
+      ],
+      "note": "The default escape character is ~; ipmitool -e <char> changes it when ~ conflicts with ssh."
+    }
   },
   {
     "sName": "ipmi",
@@ -47676,7 +48205,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nvidia-smi --query-remapped-rows=gpu_name,gpu_bus_id,remapped_rows.correctable,remapped_rows.uncorrectable,remapped_rows.pending,remapped_rows.failure --format=csv",
     "desc": "HBM Row Remapper RMA inspection, persistent daemon & secondary bus reset",
     "tip": "Always drain holding processes with fuser -v /dev/nvidia* before running --gpu-reset!",
-    "tags": "gpu-admin-ecc tips pro nvidia gpu datacenter best-practices"
+    "tags": "gpu-admin-ecc tips pro nvidia gpu datacenter best-practices",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+          "title": "NVIDIA nvidia-smi documentation"
+        },
+        {
+          "url": "https://docs.nvidia.com/deploy/driver-persistence/persistence-daemon.html",
+          "title": "NVIDIA persistence daemon"
+        },
+        {
+          "url": "https://docs.nvidia.com/deploy/xid-errors/analyzing-xid-catalog.html",
+          "title": "NVIDIA Xid catalog"
+        }
+      ]
+    }
   },
   {
     "sName": "nv-dcgm",
@@ -47781,7 +48327,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dcgmi diag -r 3   |   dcgmi diag -r pcie,targeted_stress,memtest   |   dcgmi health -c",
     "desc": "Official NVIDIA hardware burn-in qualification (Level 1–4) & stress tests",
     "tip": "Ensure nvidia-dcgm.service is active before executing dcgmi CLI commands!",
-    "tags": "dcgm tips pro nvidia gpu datacenter best-practices"
+    "tags": "dcgm tips pro nvidia gpu datacenter best-practices",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/datacenter/dcgm/latest/user-guide/dcgm-diagnostics.html",
+          "title": "NVIDIA DCGM diagnostics (run levels)"
+        },
+        {
+          "url": "https://docs.nvidia.com/datacenter/dcgm/latest/user-guide/feature-overview.html",
+          "title": "NVIDIA DCGM feature overview (health watches)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: run times and per-level tests now follow NVIDIA's table; memtest is r4 only."
+    }
   },
   {
     "sName": "nv-gpudirect",
@@ -47862,8 +48422,30 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "GPUDirect RDMA: Pro Tips & Best Practices",
     "cmd": "lsmod | grep nvidia_peermem   |   ib_write_bw -d mlx5_0 -F --use_cuda=0   |   all_reduce_perf",
     "desc": "Zero-copy GPUDirect RDMA kernel module, CUDA DMA bandwidth & NCCL benchmarks",
-    "tip": "An 8x H100 SXM node should achieve ~450+ GB/s out-of-place AllReduce bus bandwidth!",
-    "tags": "gpudirect-rdma-nccl tips pro nvidia gpu datacenter best-practices"
+    "tip": "Compare all_reduce_perf busbw against your platform vendor's acceptance numbers; a single slow rank drags the whole result down",
+    "tags": "gpudirect-rdma-nccl tips pro nvidia gpu datacenter best-practices",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/cuda/gpudirect-rdma/index.html",
+          "title": "NVIDIA GPUDirect RDMA"
+        },
+        {
+          "url": "https://github.com/linux-rdma/perftest",
+          "title": "linux-rdma perftest"
+        },
+        {
+          "url": "https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/env.html",
+          "title": "NCCL environment variables"
+        },
+        {
+          "url": "https://github.com/NVIDIA/nccl-tests",
+          "title": "NVIDIA nccl-tests"
+        }
+      ],
+      "note": "Removed 2026-11-10: an unsourced \"~450 GB/s on 8x H100\" target."
+    }
   },
   {
     "sName": "nv-mig",
@@ -47945,10 +48527,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "tip",
     "id": "mig-partition-tips-card",
     "sec": "MIG (Multi-Instance GPU) Partitioning: Pro Tips & Best Practices",
-    "cmd": "nvidia-smi -i <ID> -mig 1   |   nvidia-smi mig -lgi   |   nvidia-smi mig -cgi 19,19 -C",
+    "cmd": "nvidia-smi -i <ID> -mig 1   |   nvidia-smi mig -lgip   |   nvidia-smi mig -cgi <PROFILE_ID>,<PROFILE_ID> -C",
     "desc": "Hardware slice partitioning into up to 7 isolated GPU Instances (GI) & Compute Instances (CI)",
     "tip": "Export CUDA_VISIBLE_DEVICES=MIG-UUID to target specific slices in container workloads!",
-    "tags": "mig-partition tips pro nvidia gpu datacenter best-practices"
+    "tags": "mig-partition tips pro nvidia gpu datacenter best-practices",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/datacenter/tesla/mig-user-guide/getting-started-with-mig.html",
+          "title": "NVIDIA MIG user guide: getting started"
+        },
+        {
+          "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+          "title": "NVIDIA nvidia-smi documentation"
+        }
+      ],
+      "note": "Corrected 2026-11-10: profiles are listed with -lgip; profile IDs such as 19 are model-specific."
+    }
   },
   {
     "sName": "nv-nvlink",
@@ -48024,8 +48620,26 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "NVLink: Pro Tips & Best Practices",
     "cmd": "systemctl status nvidia-fabricmanager   |   nvidia-smi nvlink -e -i 0   |   nvbandwidth",
     "desc": "SXM NVSwitch Fabric Manager required daemon, CRC error counters & bandwidth testing",
-    "tip": "Never upgrade the NVIDIA display driver on HGX SXM nodes without upgrading nvidia-fabricmanager simultaneously!",
-    "tags": "nvlink-fabric tips pro nvidia gpu datacenter best-practices"
+    "tip": "On drivers before 620, upgrade the driver and nvidia-fabricmanager together: the versions must match",
+    "tags": "nvlink-fabric tips pro nvidia gpu datacenter best-practices",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/datacenter/tesla/fabric-manager-user-guide/index.html",
+          "title": "NVIDIA Fabric Manager user guide"
+        },
+        {
+          "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+          "title": "NVIDIA nvidia-smi documentation"
+        },
+        {
+          "url": "https://github.com/NVIDIA/nvbandwidth",
+          "title": "NVIDIA nvbandwidth"
+        }
+      ],
+      "note": "Corrected 2026-11-10: HGX NVLink is not optical, the version-match rule ends at driver 620, and B200/B300 need NVLSM."
+    }
   },
   {
     "sName": "nv-ops",
@@ -48119,8 +48733,26 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "Slurm Drain: Pro Tips & Best Practices",
     "cmd": "scontrol update nodename=node01 state=DRAIN reason=\"Xid triage\"   |   nvsm show health   |   nvidia-smi -q -d TEMPERATURE",
     "desc": "Slurm GPU node drain, NVSM chassis diagnostics & HBM3 liquid cooling thermal triage",
-    "tip": "Inspect container device mounts in /dev/nvidia* and /dev/nvidia-uvm for Docker/Kubernetes workloads!",
-    "tags": "slurm-nvsm-burnin tips pro nvidia gpu datacenter best-practices"
+    "tip": "Give containers GPUs with --gpus (NVIDIA Container Toolkit) or CDI rather than mounting /dev/nvidia* by hand",
+    "tags": "slurm-nvsm-burnin tips pro nvidia gpu datacenter best-practices",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://slurm.schedmd.com/scontrol.html",
+          "title": "Slurm scontrol"
+        },
+        {
+          "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+          "title": "NVIDIA nvidia-smi documentation"
+        },
+        {
+          "url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/sample-workload.html",
+          "title": "NVIDIA Container Toolkit: sample workload"
+        }
+      ],
+      "note": "nvsm show health: NVIDIA's NVSM docs returned empty pages, so it is not checked. Removed 2026-11-10: an unsourced GPU vs HBM delta > 15°C rule."
+    }
   },
   {
     "sName": "nv-pcie",
@@ -48216,8 +48848,26 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "PCIe AER: Pro Tips & Best Practices",
     "cmd": "dmesg -T | grep -E \"NVRM: Xid|AER\"   |   lspci -vvv -s <BUS_ID>   |   nvidia-bug-report.sh",
     "desc": "Critical Xid error decoding, PCIe AER link errors & vendor RMA bug reports",
-    "tip": "Disable PCIe ACS (Access Control Services) on PCIe switches to enable direct P2P peer transfers!",
-    "tags": "pcie-kernel-triage tips pro nvidia gpu datacenter best-practices"
+    "tip": "On bare metal, PCIe ACS on switches can block GPU peer-to-peer and GPUDirect; NCCL's guide shows how to check and disable it",
+    "tags": "pcie-kernel-triage tips pro nvidia gpu datacenter best-practices",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/deploy/xid-errors/analyzing-xid-catalog.html",
+          "title": "NVIDIA Xid catalog"
+        },
+        {
+          "url": "https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/troubleshooting/gpu_troubleshooting.html",
+          "title": "NCCL troubleshooting: ACS and IOMMU"
+        },
+        {
+          "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+          "title": "NVIDIA nvidia-smi documentation"
+        }
+      ],
+      "note": "Corrected 2026-11-10: Xid 45 and 62 now use the Xid catalog descriptions."
+    }
   },
   {
     "sName": "nv-smi",
@@ -48330,8 +48980,22 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "nvidia-smi Telemetry: Pro Tips & Best Practices",
     "cmd": "nvidia-smi --query-gpu=timestamp,name,pci.bus_id,utilization.gpu,memory.used,temperature.gpu,power.draw --format=csv -l 1   |   nvidia-smi topo -m",
     "desc": "Automated CSV telemetry logger, NUMA matrix & throttling reason flags",
-    "tip": "NVLink connections (NV#) provide up to 900 GB/s bidirectional P2P throughput per GPU!",
-    "tags": "nvidia-smi tips pro nvidia gpu datacenter best-practices"
+    "tip": "NV# in topo -m means the pair talks over # NVLinks; H100 fourth-generation NVLink totals 900 GB/s per GPU",
+    "tags": "nvidia-smi tips pro nvidia gpu datacenter best-practices",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+          "title": "NVIDIA nvidia-smi documentation"
+        },
+        {
+          "url": "https://www.nvidia.com/en-us/data-center/h100/",
+          "title": "NVIDIA H100 (fourth-generation NVLink, 900 GB/s)"
+        }
+      ],
+      "note": "clocks_throttle_reasons.* is the older field name; newer drivers also list it as clocks_event_reasons.* (check nvidia-smi --help-query-gpu)."
+    }
   },
   {
     "sName": "nvidia",
@@ -51555,7 +52219,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "./OneCli misc ffdc --bmc \"$BMC_USER:$BMC_PASS@$BMC\"",
     "desc": "Service data (FFDC) for a Lenovo case",
     "tip": "Attach FFDC to every Lenovo RMA",
-    "tags": "bmc remote-management onecli tips best-practice"
+    "tags": "bmc remote-management onecli tips best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_ffdc_command",
+          "title": "Lenovo OneCLI: ffdc"
+        },
+        {
+          "url": "https://pubs.lenovo.com/lxce-onecli/misc_encrypt_command",
+          "title": "Lenovo OneCLI: misc encrypt"
+        }
+      ]
+    }
   },
   {
     "sName": "openssl",
@@ -58561,7 +59238,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" update -f <update-file>",
     "desc": "Firmware from a Dell Update Package (changes state)",
     "tip": "Firmware changes need a drain and approval",
-    "tags": "bmc remote-management racadm tips best-practice"
+    "tags": "bmc remote-management racadm tips best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/update?guid=guid-4bf8c7bd-3d8e-451f-8913-29433dd646cd&lang=en-us",
+          "title": "Dell RACADM 7.xx: update"
+        },
+        {
+          "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/jobqueue?guid=guid-a57b0f48-1ebe-4cbe-9681-458e3348301d&lang=en-us",
+          "title": "Dell RACADM 7.xx: jobqueue"
+        }
+      ],
+      "note": "Corrected 2026-11-10: viewreport shows the --verifycatalog comparison report; --reboot applies to single-file updates."
+    }
   },
   {
     "sName": "redfish",
@@ -59320,10 +60011,36 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "tip",
     "id": "bios-vmedia-bmc-tips-card",
     "sec": "BIOS & BMC Control: Pro Tips & Best Practices",
-    "cmd": "curl -k -sS -K ~/.bmc-curlrc -X POST \"https://${BMC_IP}/redfish/v1/Managers/1/VirtualMedia/CD/Actions/VirtualMedia.InsertMedia\" -d '{\"Image\":\"http://pxe.dc.internal/ubuntu-24.04.iso\"}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc -X POST \"https://[$BMC]/redfish/v1/Managers/1/VirtualMedia/CD/Actions/VirtualMedia.InsertMedia\" -H \"Content-Type: application/json\" -d '{\"Image\":\"https://example.com/ubuntu-24.04.iso\"}'",
     "desc": "Out-of-Band OS Deployment via Virtual Media & BIOS Tuning",
-    "tip": "Changes to BIOS settings are staged and only applied after the server executes an ACPI reboot cycle.",
-    "tags": "bios-vmedia-bmc tips pro redfish rest best-practice"
+    "tip": "Staged BIOS settings take effect at the next host reset; @Redfish.SettingsApplyTime, where supported, says when.",
+    "tags": "bios-vmedia-bmc tips pro redfish rest best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/VirtualMedia.v1_7_0.json",
+          "title": "DMTF VirtualMedia v1.7.0"
+        },
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/Manager.v1_25_0.json",
+          "title": "DMTF Manager v1.25.0"
+        },
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_29_0.json",
+          "title": "DMTF ComputerSystem v1.29.0"
+        },
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/Bios.v1_3_0.json",
+          "title": "DMTF Bios v1.3.0"
+        },
+        {
+          "url": "https://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.25.0.pdf",
+          "title": "DMTF DSP0266 Redfish Specification 1.25.0"
+        }
+      ],
+      "note": "Corrected 2026-11-10: Managers/{id}/VirtualMedia is deprecated in favour of Systems/{id}/VirtualMedia, and the BIOS settings URI comes from @Redfish.Settings (Bios/Settings is only a common name)."
+    }
   },
   {
     "sName": "rf-discovery",
@@ -59398,10 +60115,23 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "tip",
     "id": "discovery-auth-tips-card",
     "sec": "Discovery & Auth: Pro Tips & Best Practices",
-    "cmd": "curl -k -g -6 -sS -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1\" | jq .",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1\" | jq .",
     "desc": "Production Redfish API Discovery & Authentication Best Practices",
-    "tip": "Store the X-Auth-Token in an environment variable and always DELETE the session URI upon script completion to prevent exhausting the BMC session limit.",
-    "tags": "discovery-auth tips pro redfish rest best-practice"
+    "tip": "When the script finishes, DELETE the session URI from the Location header; otherwise the session stays open until it times out.",
+    "tags": "discovery-auth tips pro redfish rest best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.25.0.pdf",
+          "title": "DMTF DSP0266 Redfish Specification 1.25.0"
+        },
+        {
+          "url": "https://curl.se/docs/manpage.html",
+          "title": "curl man page"
+        }
+      ]
+    }
   },
   {
     "sName": "rf-firmware",
@@ -59475,10 +60205,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "tip",
     "id": "firmware-tasks-tips-card",
     "sec": "Firmware & Tasks: Pro Tips & Best Practices",
-    "cmd": "curl -k -sS -K ~/.bmc-curlrc \"https://${BMC_IP}/redfish/v1/UpdateService/FirmwareInventory\" | jq '.Members[] | {Name: .Name, Version: .Version, Updateable: .Updateable}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/UpdateService/FirmwareInventory?\\$expand=.(\\$levels=1)\" | jq '.Members[] | {Name: .Name, Version: .Version, Updateable: .Updateable}'",
     "desc": "Asynchronous Firmware Flashing & Task Service Monitoring",
-    "tip": "Monitor .PercentComplete in the Task object to track flash progression and check .Messages for flashing errors.",
-    "tags": "firmware-tasks tips pro redfish rest best-practice"
+    "tip": "Watch PercentComplete on the Task and read its Messages for errors.",
+    "tags": "firmware-tasks tips pro redfish rest best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/UpdateService.v1_17_1.json",
+          "title": "DMTF UpdateService v1.17.1"
+        },
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/Task.v1_7_4.json",
+          "title": "DMTF Task v1.7.4"
+        },
+        {
+          "url": "https://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.25.0.pdf",
+          "title": "DMTF DSP0266 Redfish Specification 1.25.0"
+        }
+      ],
+      "note": "Corrected 2026-11-10: the inventory command now expands members (the collection alone has only links), and the 202 goes to a task monitor rather than a POST to UpdateService itself."
+    }
   },
   {
     "sName": "rf-hgx-dlc",
@@ -59535,10 +60283,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "tip",
     "id": "hgx-dlc-redfish-tips-card",
     "sec": "HGX Baseboard & DLC: Pro Tips & Best Practices",
-    "cmd": "curl -k -sS -K ~/.bmc-curlrc \"https://${BMC_IP}/redfish/v1/Chassis/HGX_Baseboard_0\" | jq .",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Chassis/HGX_Baseboard_0\" | jq .",
     "desc": "AI Server HGX Baseboard & Liquid Cooling Telemetry",
-    "tip": "DLC leak detection sensors reporting anything other than \"OK\" must trigger immediate automated host shutdown to prevent coolant spray on live 800W GPUs.",
-    "tags": "hgx-dlc-redfish tips pro redfish rest best-practice"
+    "tip": "A leak detector reporting anything but OK means stop: follow the site leak procedure before powering the GPUs on.",
+    "tags": "hgx-dlc-redfish tips pro redfish rest best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/dgx/dgxh100-user-guide/redfish-api-supp.html",
+          "title": "NVIDIA DGX H100/H200 Redfish APIs"
+        },
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/LeakDetector.json",
+          "title": "DMTF LeakDetector schema"
+        },
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/Chassis.v1_29_0.json",
+          "title": "DMTF Chassis v1.29.0"
+        }
+      ],
+      "note": "Corrected 2026-11-10: GPUs are GPU_SXM_<n> under Systems/HGX_Baseboard_0 on DGX (not Processors/GPU_0..7), and the leak property is LeakDetection, not LeakDetectionSensors. Leak detection on non-NVIDIA HGX boards varies by vendor."
+    }
   },
   {
     "sName": "rf-inventory",
@@ -59632,10 +60398,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "tip",
     "id": "inventory-hw-tips-card",
     "sec": "Hardware Inventory: Pro Tips & Best Practices",
-    "cmd": "curl -k -sS -K ~/.bmc-curlrc \"https://${BMC_IP}/redfish/v1/Systems/1/Memory?$expand=.($levels=1)\" | jq '.Members[] | {Slot: .Id, Cap: .CapacityMiB, Health: .Status.Health}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems/1/Memory?\\$expand=.(\\$levels=1)\" | jq '.Members[] | {Slot: .Id, Cap: .CapacityMiB, Health: .Status.Health}'",
     "desc": "Automated Node Audit & Hardware Baseline Verification",
-    "tip": "Check .Status.HealthRollup on parent collections to quickly identify failing sub-components without recursing manually.",
-    "tags": "inventory-hw tips pro redfish rest best-practice"
+    "tip": "Status.HealthRollup on a parent resource covers it and everything under it, so one read flags a failing child.",
+    "tags": "inventory-hw tips pro redfish rest best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/Memory.v1_24_0.json",
+          "title": "DMTF Memory v1.24.0"
+        },
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/Processor.v1_24_0.json",
+          "title": "DMTF Processor v1.24.0"
+        },
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/Resource.json",
+          "title": "DMTF Resource schema (ResetType, Status)"
+        },
+        {
+          "url": "https://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.25.0.pdf",
+          "title": "DMTF DSP0266 Redfish Specification 1.25.0"
+        }
+      ],
+      "note": "Corrected 2026-11-10: the command now escapes $expand and $levels so the shell leaves them alone."
+    }
   },
   {
     "sName": "rf-logs-sel",
@@ -59709,10 +60497,36 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "tip",
     "id": "logs-sel-tips-card",
     "sec": "Logs & SEL Triage: Pro Tips & Best Practices",
-    "cmd": "curl -k -sS -K ~/.bmc-curlrc \"https://${BMC_IP}/redfish/v1/Systems/1/LogServices/EventLog/Entries?$filter=Severity eq 'Critical'\" | jq .",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc --get --data-urlencode \"\\$filter=Severity eq 'Critical'\" \"https://[$BMC]/redfish/v1/Managers/1/LogServices/Sel/Entries\" | jq .",
     "desc": "Hardware Event Log Analysis & Pre-Failure Detection",
-    "tip": "Always export and archive SEL entries before calling LogService.ClearLog during RMA or node re-provisioning.",
-    "tags": "logs-sel tips pro redfish rest best-practice"
+    "tip": "Export and archive the entries before LogService.ClearLog during an RMA or re-provisioning.",
+    "tags": "logs-sel tips pro redfish rest best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/LogService.v1_9_0.json",
+          "title": "DMTF LogService v1.9.0"
+        },
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/LogEntry.v1_22_0.json",
+          "title": "DMTF LogEntry v1.22.0"
+        },
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/Resource.json",
+          "title": "DMTF Resource schema (ResetType, Status)"
+        },
+        {
+          "url": "https://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.25.0.pdf",
+          "title": "DMTF DSP0266 Redfish Specification 1.25.0"
+        },
+        {
+          "url": "https://curl.se/docs/manpage.html",
+          "title": "curl man page"
+        }
+      ],
+      "note": "Corrected 2026-11-10: EventLog is not a standard path, and the old command lost $filter to the shell and sent spaces unencoded."
+    }
   },
   {
     "sName": "rf-power-boot",
@@ -59807,10 +60621,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "tip",
     "id": "power-boot-tips-card",
     "sec": "Power & Boot: Pro Tips & Best Practices",
-    "cmd": "curl -k -sS -K ~/.bmc-curlrc -X POST \"https://${BMC_IP}/redfish/v1/Systems/1/Actions/ComputerSystem.Reset\" -d '{\"ResetType\":\"GracefulRestart\"}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc -X POST \"https://[$BMC]/redfish/v1/Systems/1/Actions/ComputerSystem.Reset\" -H \"Content-Type: application/json\" -d '{\"ResetType\":\"GracefulRestart\"}'",
     "desc": "Chassis Power State Triage & Boot Target Verification",
-    "tip": "BootSourceOverrideTarget settings like Pxe or BiosSetup only apply for the immediate next boot cycle when BootSourceOverrideEnabled is set to \"Once\".",
-    "tags": "power-boot tips pro redfish rest best-practice"
+    "tip": "BootSourceOverrideEnabled \"Once\" goes back to Disabled after one boot; \"Continuous\" keeps the override until you cancel it.",
+    "tags": "power-boot tips pro redfish rest best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/Resource.json",
+          "title": "DMTF Resource schema (ResetType, Status)"
+        },
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_29_0.json",
+          "title": "DMTF ComputerSystem v1.29.0"
+        },
+        {
+          "url": "https://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.25.0.pdf",
+          "title": "DMTF DSP0266 Redfish Specification 1.25.0"
+        }
+      ],
+      "note": "Corrected 2026-11-10: ForceRestart was described as a 4-second power-button hold, and Nmi as a sysrq trigger. Systems/1 is a common ID; read /redfish/v1/Systems for yours."
+    }
   },
   {
     "sName": "rf-thermals-power",
@@ -59888,10 +60720,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "tip",
     "id": "thermals-power-sensors-tips-card",
     "sec": "Thermals & Sensors: Pro Tips & Best Practices",
-    "cmd": "curl -k -sS -K ~/.bmc-curlrc \"https://${BMC_IP}/redfish/v1/Chassis/1/Thermal\" | jq '.Temperatures[] | {Sensor: .Name, Reading: .ReadingCelsius, UpperThresh: .UpperThresholdCritical}'",
+    "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Chassis/1/Thermal\" | jq '.Temperatures[] | {Sensor: .Name, Reading: .ReadingCelsius, UpperThresh: .UpperThresholdCritical}'",
     "desc": "Thermal Triage & Power Supply Redundancy Telemetry",
-    "tip": "Toggle IndicatorLED to \"Blinking\" via PATCH to easily locate a troubled server in dense 42U rack rows.",
-    "tags": "thermals-power-sensors tips pro redfish rest best-practice"
+    "tip": "To find the server in the rack, PATCH {\"LocationIndicatorActive\": true} on the Chassis (older BMCs: IndicatorLED \"Blinking\").",
+    "tags": "thermals-power-sensors tips pro redfish rest best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/Thermal.json",
+          "title": "DMTF Thermal schema (deprecated)"
+        },
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/Power.json",
+          "title": "DMTF Power schema (deprecated)"
+        },
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/Chassis.v1_29_0.json",
+          "title": "DMTF Chassis v1.29.0"
+        }
+      ],
+      "note": "Corrected 2026-11-10: IndicatorLED is deprecated in favour of LocationIndicatorActive."
+    }
   },
   {
     "sName": "rsync",
@@ -62202,7 +63052,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ipmiconsole -h $BMC -u $BMC_USER -P --dont-steal",
     "desc": "Pick the console path by situation",
     "tip": "Log every console session to the case folder",
-    "tags": "bmc remote-management serial tips best-practice"
+    "tags": "bmc remote-management serial tips best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmiconsole.8.en.html",
+          "title": "FreeIPMI ipmiconsole(8)"
+        },
+        {
+          "url": "https://github.com/npat-efault/picocom/blob/master/picocom.1.md",
+          "title": "picocom(1)"
+        },
+        {
+          "url": "https://github.com/cminyard/ser2net/blob/master/README.rst",
+          "title": "ser2net README"
+        },
+        {
+          "url": "https://www.conserver.com/docs/conserver.cf.man.html",
+          "title": "conserver.cf(5)"
+        }
+      ]
+    }
   },
   {
     "sName": "sftp",
@@ -67473,7 +68344,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "./saa -c UpdateBios --file <bios-image>",
     "desc": "Firmware updates and BMC reset (change state)",
     "tip": "Firmware changes need a drain and approval",
-    "tags": "bmc remote-management saa tips best-practice"
+    "tags": "bmc remote-management saa tips best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+          "title": "SAA for UEFI User's Guide 1.1.0"
+        },
+        {
+          "url": "https://www.supermicro.com/en/solutions/management-software/superserver-automation-assistant",
+          "title": "Supermicro SAA"
+        }
+      ]
+    }
   },
   {
     "sName": "sw-arista-bgp",
@@ -67545,7 +68429,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show ip bgp summary && show system environment all",
     "desc": "Arista EOS BGP State & Transactional Config Sessions",
     "tip": "Always use \"configure session <name>\" for production changes to prevent accidental live-editing collisions.",
-    "tags": "arista-bgp-env tips pro switches fabric best-practice"
+    "tags": "arista-bgp-env tips pro switches fabric best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.arista.com/um-eos/eos-border-gateway-protocol-bgp",
+          "title": "Arista EOS 4.37: BGP"
+        },
+        {
+          "url": "https://www.arista.com/um-eos/eos-environment-commands",
+          "title": "Arista EOS 4.37: environment"
+        }
+      ],
+      "note": "Arista refused automated reads of the configure session page, so the session commands (configure session, show session-config diffs, commit) are not checked."
+    }
   },
   {
     "sName": "sw-arista-mlag",
@@ -67658,8 +68556,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "Arista EOS: LLDP & MLAG: Pro Tips & Best Practices",
     "cmd": "show mlag && show port-channel summary && show lldp neighbors",
     "desc": "Arista EOS MLAG Health & Dual-Homed Port-Channel Bundling",
-    "tip": "Verify MLAG state is \"Active\" and \"Status: Active, Peer link status: Up\" before conducting maintenance.",
-    "tags": "arista-lldp-mlag tips pro switches fabric best-practice"
+    "tip": "Before maintenance, show mlag should report state : Active and peer-link status : Up.",
+    "tags": "arista-lldp-mlag tips pro switches fabric best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.arista.com/um-eos/eos-multi-chassis-link-aggregation",
+          "title": "Arista EOS 4.37: MLAG"
+        },
+        {
+          "url": "https://www.arista.com/um-eos/eos-port-channels-and-lacp",
+          "title": "Arista EOS 4.37: port channels"
+        },
+        {
+          "url": "https://www.arista.com/um-eos/eos-link-layer-discovery-protocol",
+          "title": "Arista EOS 4.37: LLDP"
+        }
+      ]
+    }
   },
   {
     "sName": "sw-arista-ports",
@@ -67753,8 +68668,18 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "Arista EOS: Ports & DOM: Pro Tips & Best Practices",
     "cmd": "show interfaces status && show interfaces transceiver detail",
     "desc": "Arista EOS Interface Troubleshooting & Optical DOM Limits",
-    "tip": "An interface showing \"notconnect\" usually indicates an unplugged cable, failed laser, or speed mismatch.",
-    "tags": "arista-ports-dom tips pro switches fabric best-practice"
+    "tip": "notconnect means the port has no link: check the cable, the optic and that both ends agree on speed.",
+    "tags": "arista-ports-dom tips pro switches fabric best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.arista.com/um-eos/eos-ethernet-ports",
+          "title": "Arista EOS 4.37: Ethernet ports"
+        }
+      ],
+      "note": "EOS shows notconnect in examples but the page read does not define it; the meaning here is general practice."
+    }
   },
   {
     "sName": "sw-cumulus-bgp",
@@ -67840,10 +68765,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "tip",
     "id": "cumulus-bgp-roce-tips-card",
     "sec": "Cumulus: BGP, EVPN & RoCEv2: Pro Tips & Best Practices",
-    "cmd": "nv show router bgp && nv show qos pfc",
+    "cmd": "nv show vrf default router bgp neighbor && nv show qos roce",
     "desc": "BGP Unnumbered & RoCEv2 Lossless Buffer Configuration",
-    "tip": "Mismatched PFC priorities between NIC and switch causes head-of-line blocking or silent packet drop.",
-    "tags": "cumulus-bgp-roce tips pro switches fabric best-practice"
+    "tip": "The NIC must tag RoCE traffic with the same priority the switch treats as lossless (3 by default), or the traffic is not protected by PFC.",
+    "tags": "cumulus-bgp-roce tips pro switches fabric best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Layer-3/Border-Gateway-Protocol-BGP/Troubleshooting-BGP/",
+          "title": "Cumulus Linux 5.18: troubleshooting BGP"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Layer-1-and-Switch-Ports/Quality-of-Service/RDMA-over-Converged-Ethernet-RoCE/",
+          "title": "Cumulus Linux 5.18: RoCE"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/QoS/",
+          "title": "NVUE reference: QoS"
+        }
+      ],
+      "note": "Corrected 2026-11-10: replaced an unverified nv set qos pfc syntax with NVIDIA's nv set qos roce."
+    }
   },
   {
     "sName": "sw-cumulus-bonds",
@@ -67931,8 +68874,26 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "Cumulus: MLAG Bonds & VLAN: Pro Tips & Best Practices",
     "cmd": "nv show mlag && nv show interface bond1",
     "desc": "High-Availability MLAG & LACP Dual-Homed Server Uplinks",
-    "tip": "Ensure the MLAG peer-link is established with consistent system MAC and backup IP before activating host bonds.",
-    "tags": "cumulus-bonds tips pro switches fabric best-practice"
+    "tip": "Before enabling host bonds, check that nv show mlag reports the peer up and that both switches use the same MLAG system MAC and have the backup IP set.",
+    "tags": "cumulus-bonds tips pro switches fabric best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/MLAG/",
+          "title": "NVUE reference: MLAG"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Layer-2/Multi-Chassis-Link-Aggregation-MLAG/",
+          "title": "Cumulus Linux 5.18: MLAG"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Set-and-Unset-Commands/Interface/",
+          "title": "NVUE reference: interface set"
+        }
+      ],
+      "note": "Corrected 2026-11-10: NVIDIA's bond member example uses a range (swp1-4), not a comma list."
+    }
   },
   {
     "sName": "sw-cumulus-hw",
@@ -68058,8 +69019,22 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "Cumulus: PSU, Fans & Config: Pro Tips & Best Practices",
     "cmd": "nv show platform && nv config diff && nv config apply",
     "desc": "Platform Environmental Monitoring & Safe Atomic Configuration",
-    "tip": "Inspect fan speeds and PSU redundancy: power supply failures in dense 800G switches cause immediate thermal throttling.",
-    "tags": "cumulus-hw-cfg tips pro switches fabric best-practice"
+    "tip": "Check fans and both PSUs in nv show platform environment before and after hardware work.",
+    "tags": "cumulus-hw-cfg tips pro switches fabric best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/Platform/",
+          "title": "NVUE reference: platform"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Config-Commands/",
+          "title": "NVUE reference: config commands"
+        }
+      ],
+      "note": "nv config apply --confirm rolls back unless confirmed within ten minutes by default. Removed 2026-11-10: an unsourced claim that a PSU failure causes immediate thermal throttling."
+    }
   },
   {
     "sName": "sw-cumulus-lldp",
@@ -68137,10 +69112,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "tip",
     "id": "cumulus-lldp-tips-card",
     "sec": "Cumulus: LLDP, MAC & ARP: Pro Tips & Best Practices",
-    "cmd": "nv show interface --view lldp && nv show bridge domain br_default mac-table",
+    "cmd": "nv show interface lldp && nv show bridge domain br_default mac-table",
     "desc": "Cluster Cabling Verification & Host Discovery via LLDP",
     "tip": "Verify that server hostname, interface name, and switch port match the intended topology map.",
-    "tags": "cumulus-lldp tips pro switches fabric best-practice"
+    "tags": "cumulus-lldp tips pro switches fabric best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/LLDP/",
+          "title": "NVUE reference: LLDP"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/Bridge/",
+          "title": "NVUE reference: bridge"
+        }
+      ],
+      "note": "Corrected 2026-11-10: NVUE has no --view lldp (the views are ber and dom); removed nv show router arp, not found in the NVUE reference."
+    }
   },
   {
     "sName": "sw-cumulus-optics",
@@ -68225,8 +69214,26 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "Cumulus: Optics DOM & FEC: Pro Tips & Best Practices",
     "cmd": "nv show interface swp1 transceiver && nv show interface swp1 fec",
     "desc": "Transceiver DOM Optical Thresholds & Forward Error Correction",
-    "tip": "Laser Rx power below -8.0 dBm indicates severe optical attenuation or dirty fiber end-faces.",
-    "tags": "cumulus-optics tips pro switches fabric best-practice"
+    "tip": "Read the module's thresholds from nv show interface swp1 transceiver (or ethtool -m swp1): they differ per optic type.",
+    "tags": "cumulus-optics tips pro switches fabric best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/Platform/",
+          "title": "NVUE reference: platform"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Layer-1-and-Switch-Ports/Interface-Configuration-and-Management/Switch-Port-Attributes/",
+          "title": "Cumulus Linux 5.18: switch port attributes (MTU, FEC)"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Monitoring-and-Troubleshooting/Troubleshooting-Network-Interfaces/Monitoring-Interfaces-and-Transceivers-with-ethtool/",
+          "title": "Cumulus Linux 5.18: ethtool"
+        }
+      ],
+      "note": "Corrected 2026-11-10: removed unsourced \"-2 to +2 dBm acceptable\" and \"-8 dBm\" limits, the Clause 91 label (that is 100G RS FEC), and mst/mlxcables on Cumulus."
+    }
   },
   {
     "sName": "sw-cumulus-ports",
@@ -68326,10 +69333,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "tip",
     "id": "cumulus-ports-tips-card",
     "sec": "Cumulus: Port Status: Pro Tips & Best Practices",
-    "cmd": "nv show interface && nv set interface swp1 state up",
+    "cmd": "nv show interface && nv set interface swp1 link state up",
     "desc": "Cumulus Linux NVUE Interface Configuration & Link Bouncing",
-    "tip": "Always set MTU to 9216 for RoCEv2 lossless fabrics to accommodate Geneve/VXLAN encapsulation overhead.",
-    "tags": "cumulus-ports tips pro switches fabric best-practice"
+    "tip": "Cumulus Linux already gives switch ports a 9216 MTU by default; set hosts to a matching jumbo MTU (for example 9000) end to end rather than raising the switch.",
+    "tags": "cumulus-ports tips pro switches fabric best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Monitoring-and-Troubleshooting/Troubleshooting-Network-Interfaces/Monitoring-Interfaces-and-Transceivers-with-NVUE/",
+          "title": "Cumulus Linux 5.18: monitoring interfaces"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Set-and-Unset-Commands/Interface/",
+          "title": "NVUE reference: interface set"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Layer-1-and-Switch-Ports/Interface-Configuration-and-Management/Switch-Port-Attributes/",
+          "title": "Cumulus Linux 5.18: switch port attributes (MTU, FEC)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: the link state command needs \"link\"; NVUE is not \"Network Virtualization Underlay Engine\"; 9216 is already the Cumulus default MTU."
+    }
   },
   {
     "sName": "sw-nxos-ports",
@@ -68414,8 +69439,18 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "Cisco NX-OS: Ports & DOM: Pro Tips & Best Practices",
     "cmd": "show interface brief && show interface transceiver details",
     "desc": "Cisco Nexus NX-OS Interface Triage & Transceiver Calibration",
-    "tip": "If Rx power is in the alarm range (-14 dBm or lower), inspect fiber patch cords for micro-bends or dust contamination.",
-    "tags": "nxos-ports-dom tips pro switches fabric best-practice"
+    "tip": "If Rx power is in the module's warning or alarm range, clean and inspect the fiber and check for tight bends before replacing the optic.",
+    "tags": "nxos-ports-dom tips pro switches fabric best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_i_showcmds.html",
+          "title": "NX-OS 10.5 show commands: interface"
+        }
+      ],
+      "note": "Removed 2026-11-10: an unsourced \"-14 dBm\" alarm level; thresholds come from each transceiver."
+    }
   },
   {
     "sName": "sw-nxos-vpc",
@@ -68570,7 +69605,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show vpc && show vpc consistency-parameters global",
     "desc": "Cisco Nexus Virtual Port-Channel (vPC) Consistency & Peer Keepalive",
     "tip": "Verify \"vPC domain role: primary/secondary\" and ensure no Type 1 consistency parameter failures exist.",
-    "tags": "nxos-lldp-vpc tips pro switches fabric best-practice"
+    "tags": "nxos-lldp-vpc tips pro switches fabric best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_v_showcmds.html",
+          "title": "NX-OS 10.5 show commands: vPC"
+        },
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_l_showcmds.html",
+          "title": "NX-OS 10.5 show commands: LLDP"
+        }
+      ],
+      "note": "The vPC configuration guide (Type 1/2 consistency, peer-keepalive role) could not be read; only the show command reference was checked."
+    }
   },
   {
     "sName": "sw-quantum-hw-sm",
@@ -68718,8 +69767,26 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "Quantum: SM, UFM & HW: Pro Tips & Best Practices",
     "cmd": "show ib sm && show inventory",
     "desc": "Quantum MLNX-OS Subnet Manager Redundancy & Chassis Health",
-    "tip": "Never run multiple master Subnet Managers with identical priorities on the same fabric partition.",
-    "tags": "quantum-mlnxos-hw-sm tips pro switches fabric best-practice"
+    "tip": "Run one master SM and standbys, with sm-priority set so the intended master wins; if SMs restart repeatedly, NVIDIA says to check that all SM nodes are in the same IB subnet.",
+    "tags": "quantum-mlnxos-hw-sm tips pro switches fabric best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/subnet-manager",
+          "title": "MLNX-OS 3.12.6200: subnet manager"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/chassis-management",
+          "title": "MLNX-OS 3.12.6200: chassis management"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/logging",
+          "title": "MLNX-OS 3.12.6200: logging"
+        }
+      ],
+      "note": "show ib sm and show inventory are not in the MLNX-OS chapters read."
+    }
   },
   {
     "sName": "sw-quantum-inband",
@@ -68877,7 +69944,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mlxlink -d lid-0x0004 -p 1 --show_module --show_counters",
     "desc": "Out-of-Band vs In-Band Telemetry on Unmanaged QM8700/QM9700 Switches",
     "tip": "Obtain switch LIDs with \"ibswitches\" or \"ibnetdiscover\" before querying via host in-band MFT tools.",
-    "tags": "quantum-unmanaged-inband tips pro switches fabric best-practice"
+    "tags": "quantum-unmanaged-inband tips pro switches fabric best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxlink-utility",
+          "title": "MFT: mlxlink"
+        },
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibswitches.8.in.rst",
+          "title": "ibswitches man page (rdma-core)"
+        },
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/smpquery.8.in.rst",
+          "title": "smpquery man page (rdma-core)"
+        },
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibportstate.8.in.rst",
+          "title": "ibportstate man page (rdma-core)"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/infiniband-interface",
+          "title": "MLNX-OS 3.12.6200: InfiniBand interface"
+        }
+      ],
+      "note": "The in-band block on managed switches is from the MLNX-OS InfiniBand interface chapter."
+    }
   },
   {
     "sName": "sw-quantum-ports",
@@ -69072,8 +70165,18 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "Quantum: Ports & Optics: Pro Tips & Best Practices",
     "cmd": "show interfaces ib 1/1 transceiver && show interfaces ib status",
     "desc": "NVIDIA Quantum & Quantum-2 (MLNX-OS) Port Provisioning & DOM Diagnostics",
-    "tip": "Physical LinkUp + Logical Init = Subnet Manager unreachable. Check \"show ib sm\" or restart OpenSM.",
-    "tags": "quantum-mlnxos-ports tips pro switches fabric best-practice"
+    "tip": "Physical LinkUp + logical Init = no Subnet Manager has brought the port up. Check the SM, not the cable.",
+    "tags": "quantum-mlnxos-ports tips pro switches fabric best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/infiniband-interface",
+          "title": "MLNX-OS 3.12.6200: InfiniBand interface"
+        }
+      ],
+      "note": "Corrected 2026-11-10: removed \"restart OpenSM\", an unsourced QM8700/QM9700 split description and the show cables flag (not in the MLNX-OS manual chapters read)."
+    }
   },
   {
     "sName": "sw-sonic",
@@ -69188,8 +70291,22 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "SONiC: Cloud NOS CLI: Pro Tips & Best Practices",
     "cmd": "show interfaces status && show interfaces transceiver eeprom --dom && docker ps",
     "desc": "SONiC NOS Architecture, Interface Management & Container Diagnostics",
-    "tip": "Check \"docker ps\" if switch routing or telemetry stalls: verify swss, syncd, and bgp containers are healthy.",
-    "tags": "sonic-cli tips pro switches fabric best-practice"
+    "tip": "If forwarding or telemetry stalls, docker ps shows whether swss, syncd and bgp are up; orchagent runs inside swss.",
+    "tags": "sonic-cli tips pro switches fabric best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/sonic-net/sonic-utilities/blob/master/doc/Command-Reference.md",
+          "title": "SONiC command reference"
+        },
+        {
+          "url": "https://github.com/sonic-net/SONiC/wiki/Architecture",
+          "title": "SONiC architecture (containers)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: orchagent is a process in the swss container, not a container."
+    }
   },
   {
     "sName": "switches",

@@ -80,14 +80,27 @@ const IB_IB_MST_DATA = [
         "desc": "Production recommendations, fabric stability tips & triage advice for mst",
         "cmd": "mst start && mst status -v",
         "tip": "Run 'mst status -v' first to map BDF <-> mlx5_X <-> netdev",
-        "details": "In multi-tier Quantum/Quantum-2 topologies, always cross-reference mst telemetry with adjacent switch ports and Subnet Manager topology databases.",
+        "details": "Recap of the first mst card. Before replacing a part, check the far end too: the switch port, the cable and what the Subnet Manager sees.",
         "tags": [
           "mst",
           "tips",
           "pro",
           "infiniband",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/mftswum/4330/linux",
+              "title": "MFT: mst"
+            },
+            {
+              "url": "https://networking-docs.nvidia.com/mftswum/4330/cable-utilities",
+              "title": "MFT: cable utilities"
+            }
+          ]
+        }
       }
     ]
   }

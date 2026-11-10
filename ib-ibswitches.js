@@ -80,14 +80,31 @@ const IB_IB_IBSWITCHES_DATA = [
         "desc": "Production recommendations, fabric stability tips & triage advice for ibswitches",
         "cmd": "ibswitches && ibhosts",
         "tip": "Run per rail (-C mlx5_0 .. mlx5_7) on multi-rail GPU clusters",
-        "details": "In multi-tier Quantum/Quantum-2 topologies, always cross-reference ibswitches telemetry with adjacent switch ports and Subnet Manager topology databases.",
+        "details": "Recap of the first ibswitches card. Before replacing a part, check the far end too: the switch port, the cable and what the Subnet Manager sees.",
         "tags": [
           "ibswitches",
           "tips",
           "pro",
           "infiniband",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibswitches.8.in.rst",
+              "title": "ibswitches man page (rdma-core)"
+            },
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibhosts.8.in.rst",
+              "title": "ibhosts man page (rdma-core)"
+            },
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibnodes.8.in.rst",
+              "title": "ibnodes man page (rdma-core)"
+            }
+          ]
+        }
       }
     ]
   }

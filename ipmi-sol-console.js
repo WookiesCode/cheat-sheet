@@ -106,7 +106,7 @@ const IPMI_IPMI_SOL_CONSOLE_DATA = [
         "id": "sol-console-tips-card",
         "desc": "Out-of-Band Serial Console Operations & Session Recovery",
         "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sol activate",
-        "details": "Serial-over-LAN redirects the host server's UART serial port (COM1 / ttyS0 / ttyS1) over the encrypted IPMI 2.0 RMCP+ channel. If another administrator leaves an SOL session open, use \"sol deactivate\" to forcibly release the session.",
+        "details": "Serial-over-LAN carries the host serial console (COM1/ttyS0 or COM2/ttyS1, set in BIOS) over an IPMI 2.0 lanplus session. If someone left a session open, \"sol deactivate\" releases it.",
         "flags": [
           [
             "sol activate",
@@ -118,7 +118,7 @@ const IPMI_IPMI_SOL_CONSOLE_DATA = [
           ],
           [
             "sol info",
-            "Inspect SOL baud rate (typically 115200), character accumulation, and payload encryption"
+            "SOL settings: bit rate, character accumulate/send thresholds, encryption and authentication"
           ]
         ],
         "tip": "To disconnect an active SOL session without killing the terminal, press Enter, then ~ (tilde), then . (period).",
@@ -129,7 +129,17 @@ const IPMI_IPMI_SOL_CONSOLE_DATA = [
           "ipmitool",
           "bmc",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool(1) man page"
+            }
+          ],
+          "note": "The default escape character is ~; ipmitool -e <char> changes it when ~ conflicts with ssh."
+        }
       }
     ]
   }

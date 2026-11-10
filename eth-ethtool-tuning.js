@@ -221,22 +221,22 @@ const ETH_ETH_ETHTOOL_TUNING_DATA = [
         "id": "ethtool-phy-tuning-tips-card",
         "desc": "NIC Descriptor Ring Buffering & Hardware Packet Drop Elimination",
         "cmd": "ethtool -S eth0 | grep -E \"(drop|error|miss)\" && ethtool -G eth0 rx 4096 tx 4096",
-        "details": "Default kernel NIC RX ring buffers (often 512 or 1024 descriptors) easily overflow during microbursts in high-throughput AI/ML and storage clusters, manifesting as \"rx_dropped\" or \"rx_no_buffer_count\". Maximize ring buffers to 4096 or 8192 descriptors to absorb line-rate burst transitions before packets hit kernel softirqs.",
+        "details": "Small RX rings overflow during bursts and show up as rx drop / no-buffer counters (names vary by driver). Read the current and maximum sizes with ethtool -g, then raise rx/tx toward the maximum the NIC reports; larger rings trade a little latency and memory for fewer drops.",
         "flags": [
           [
             "ethtool -S <dev>",
             "Dump comprehensive low-level hardware MAC/PHY statistics and error counters"
           ],
           [
-            "ethtool -G <dev> rx 4096 tx 4096",
-            "Expand ring buffer descriptor depth to prevent microburst drops"
+            "ethtool -G <dev> rx <N> tx <N>",
+            "Set ring sizes (no larger than the maximums from ethtool -g)"
           ],
           [
             "ethtool -k <dev>",
             "Inspect status of hardware offloads (TSO, GSO, GRO, checksum offloading)"
           ]
         ],
-        "tip": "High \"rx_crc_errors\" indicates damaged patch cables or dirty transceiver pins, while \"rx_missed_errors\" points to PCIe host bus bandwidth bottlenecks.",
+        "tip": "Rising rx_crc_errors point at the physical link (cable, optic, dirty connector); rx_missed_errors mean the NIC dropped frames because the host did not drain them in time",
         "tags": [
           "ethtool-phy-tuning",
           "tips",
@@ -244,7 +244,17 @@ const ETH_ETH_ETHTOOL_TUNING_DATA = [
           "ethernet",
           "nic",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ethtool.8.html",
+              "title": "ethtool(8)"
+            }
+          ],
+          "note": "Counter names such as rx_missed_errors and rx_no_buffer_count are driver-specific; the counter meanings are general practice, not from the ethtool man page."
+        }
       }
     ]
   }

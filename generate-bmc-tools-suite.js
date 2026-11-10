@@ -198,10 +198,11 @@ const BMC_SECTIONS = [
       }
     ],
     proTip: {
+      src: {"verified": "2026-11-10", "refs": [{"url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/update?guid=guid-4bf8c7bd-3d8e-451f-8913-29433dd646cd&lang=en-us", "title": "Dell RACADM 7.xx: update"}, {"url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/jobqueue?guid=guid-a57b0f48-1ebe-4cbe-9681-458e3348301d&lang=en-us", "title": "Dell RACADM 7.xx: jobqueue"}], "note": "Corrected 2026-11-10: viewreport shows the --verifycatalog comparison report; --reboot applies to single-file updates."},
       desc: "Firmware from a Dell Update Package (changes state)",
       cmd: "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" update -f <update-file>",
-      details: "update -f takes a Dell Update Package (.exe, .d9, .pm, .sc). update -f Catalog.xml -t HTTPS -l <repo> updates from a repository. update viewreport shows the result. Drain first, and check the job queue afterwards.",
-      flags: [["update viewreport", "Result of the last update"], ["--reboot", "Graceful reboot after the update"]],
+      details: "update -f takes a Dell Update Package (.exe, .d9, .pm, .sc). update -f Catalog.xml -t <FTP|TFTP|HTTP|HTTPS|CIFS|NFS> -l <share> updates from a repository (Dell's HTTPS example uses -e <server/path> instead of -l); with --verifycatalog, update viewreport shows the comparison report. Drain first, and check the job queue afterwards.",
+      flags: [["update viewreport", "Comparison report from a --verifycatalog run"], ["--reboot", "Graceful reboot after a single-file update (repository updates use -a TRUE)"]],
       tip: "Firmware changes need a drain and approval"
     }
   },
@@ -370,6 +371,7 @@ const BMC_SECTIONS = [
       }
     ],
     proTip: {
+      src: {"verified": "2026-11-10", "refs": [{"url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/globalcommands.md", "title": "HPE iLOrest 7.4: global commands"}, {"url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/usage.md", "title": "HPE iLOrest 7.4: usage"}, {"url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/changelog.md", "title": "HPE iLOrest changelog"}]},
       desc: "One-off command without a lasting session",
       cmd: "ilorest serverinfo --system --url $BMC -u $BMC_USER -p \"$BMC_PASS\" --logout",
       details: "Every command accepts the login options plus --logout, so a script can run one command and leave no session behind. Deprecated: iloclone (removed in 3.2.1, use serverclone) and unifiedcertificate (merged into certificate).",
@@ -477,6 +479,7 @@ const BMC_SECTIONS = [
       }
     ],
     proTip: {
+      src: {"verified": "2026-11-10", "refs": [{"url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf", "title": "SAA for UEFI User's Guide 1.1.0"}, {"url": "https://www.supermicro.com/en/solutions/management-software/superserver-automation-assistant", "title": "Supermicro SAA"}]},
       desc: "Firmware updates and BMC reset (change state)",
       cmd: "./saa -c UpdateBios --file <bios-image>",
       details: "UpdateBios, UpdateBmc, UpdateGpu and UpdateCpld flash firmware; BmcReset restarts the BMC (--boot_check waits for it). Read the options with ./saa -h -c <command> first, save the event log, drain the node and get approval. Licences: standard update and management need none; remote management features need SFT-OOB-LIC or SFT-DCMS-SINGLE (Supermicro's SAA page).",
@@ -603,6 +606,7 @@ const BMC_SECTIONS = [
       }
     ],
     proTip: {
+      src: {"verified": "2026-11-10", "refs": [{"url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_ffdc_command", "title": "Lenovo OneCLI: ffdc"}, {"url": "https://pubs.lenovo.com/lxce-onecli/misc_encrypt_command", "title": "Lenovo OneCLI: misc encrypt"}]},
       desc: "Service data (FFDC) for a Lenovo case",
       cmd: "./OneCli misc ffdc --bmc \"$BMC_USER:$BMC_PASS@$BMC\"",
       details: "FFDC collects the XCC service data Lenovo support asks for. --upload lenovo sends it straight to Lenovo; --extra-data adds corefile, thermal, adapter or worknote data. Encrypt a credentials file with ./OneCli misc encrypt --configfile credentials.json and pass --configfile, so passwords stay off the command line.",
@@ -715,6 +719,7 @@ const BMC_SECTIONS = [
       }
     ],
     proTip: {
+      src: {"verified": "2026-11-10", "refs": [{"url": "https://manpages.debian.org/trixie/freeipmi-common/freeipmi.conf.5.en.html", "title": "FreeIPMI freeipmi.conf(5)"}]},
       desc: "Credentials in a config file instead of on the command line",
       cmd: "install -m 600 /dev/null /etc/freeipmi/freeipmi.conf",
       details: "freeipmi.conf takes one option per line: username <user>, password <pass>, driver-type LAN_2_0, cipher-suite-id 3. Tool-specific keys such as ipmi-sel-password override the general ones. Keep the file mode 600, or point a tool at your own file with --config-file. Never commit it, and never paste it into a case.",
@@ -806,6 +811,7 @@ const BMC_SECTIONS = [
       }
     ],
     proTip: {
+      src: {"verified": "2026-11-10", "refs": [{"url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmiconsole.8.en.html", "title": "FreeIPMI ipmiconsole(8)"}, {"url": "https://github.com/npat-efault/picocom/blob/master/picocom.1.md", "title": "picocom(1)"}, {"url": "https://github.com/cminyard/ser2net/blob/master/README.rst", "title": "ser2net README"}, {"url": "https://www.conserver.com/docs/conserver.cf.man.html", "title": "conserver.cf(5)"}]},
       desc: "Pick the console path by situation",
       cmd: "ipmiconsole -h $BMC -u $BMC_USER -P --dont-steal",
       details: "OS hung but BMC alive → SOL (ipmiconsole, ipmitool sol activate, or the conserver entry). BMC unreachable or a switch with no network → USB serial and picocom. Console that several people need, or one you want logged → ser2net or conserver.",

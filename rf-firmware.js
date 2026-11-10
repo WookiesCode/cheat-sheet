@@ -153,23 +153,23 @@ const RF_RF_FIRMWARE_DATA = [
       {
         "id": "firmware-tasks-tips-card",
         "desc": "Asynchronous Firmware Flashing & Task Service Monitoring",
-        "cmd": "curl -k -sS -K ~/.bmc-curlrc \"https://${BMC_IP}/redfish/v1/UpdateService/FirmwareInventory\" | jq '.Members[] | {Name: .Name, Version: .Version, Updateable: .Updateable}'",
-        "details": "Firmware updates via Redfish UpdateService are asynchronous operations. A successful POST to /redfish/v1/UpdateService returns HTTP 202 Accepted with a Location header pointing to a Task URI (e.g. /redfish/v1/TaskService/Tasks/3). Poll this URI until TaskState reaches Completed.",
+        "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/UpdateService/FirmwareInventory?\\$expand=.(\\$levels=1)\" | jq '.Members[] | {Name: .Name, Version: .Version, Updateable: .Updateable}'",
+        "details": "Firmware updates run asynchronously: a SimpleUpdate POST, or a multipart push to MultipartHttpPushUri, returns 202 Accepted with a Location header pointing to a task monitor. Poll it, or the Task under TaskService/Tasks, until TaskState is Completed (or Exception, Killed or Cancelled).",
         "flags": [
           [
             "FirmwareInventory",
-            "Catalog of installed and backup firmware images across BMC, BIOS, CPLD, and NICs"
+            "Installed firmware with Version and Updateable (BMC, BIOS, CPLD, NICs, ...)"
           ],
           [
             "UpdateService.SimpleUpdate",
-            "Push remote HTTP/TFTP image URI for BMC to download and flash"
+            "BMC pulls the image from ImageURI (TransferProtocol HTTP, HTTPS, TFTP, ... as supported)"
           ],
           [
             "TaskService/Tasks/<id>",
-            "Monitor TaskState (Running, Completed, Exception) and PercentComplete"
+            "TaskState (New, Running, Completed, Exception, ...) and PercentComplete"
           ]
         ],
-        "tip": "Monitor .PercentComplete in the Task object to track flash progression and check .Messages for flashing errors.",
+        "tip": "Watch PercentComplete on the Task and read its Messages for errors.",
         "tags": [
           "firmware-tasks",
           "tips",
@@ -177,7 +177,25 @@ const RF_RF_FIRMWARE_DATA = [
           "redfish",
           "rest",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/UpdateService.v1_17_1.json",
+              "title": "DMTF UpdateService v1.17.1"
+            },
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/Task.v1_7_4.json",
+              "title": "DMTF Task v1.7.4"
+            },
+            {
+              "url": "https://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.25.0.pdf",
+              "title": "DMTF DSP0266 Redfish Specification 1.25.0"
+            }
+          ],
+          "note": "Corrected 2026-11-10: the inventory command now expands members (the collection alone has only links), and the 202 goes to a task monitor rather than a POST to UpdateService itself."
+        }
       }
     ]
   }

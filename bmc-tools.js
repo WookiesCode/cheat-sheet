@@ -1118,15 +1118,15 @@ const BMC_HUB_DATA = [
         "id": "racadm-tips-card",
         "desc": "Firmware from a Dell Update Package (changes state)",
         "cmd": "racadm -r $BMC -u $BMC_USER -p \"$BMC_PASS\" update -f <update-file>",
-        "details": "update -f takes a Dell Update Package (.exe, .d9, .pm, .sc). update -f Catalog.xml -t HTTPS -l <repo> updates from a repository. update viewreport shows the result. Drain first, and check the job queue afterwards.",
+        "details": "update -f takes a Dell Update Package (.exe, .d9, .pm, .sc). update -f Catalog.xml -t <FTP|TFTP|HTTP|HTTPS|CIFS|NFS> -l <share> updates from a repository (Dell's HTTPS example uses -e <server/path> instead of -l); with --verifycatalog, update viewreport shows the comparison report. Drain first, and check the job queue afterwards.",
         "flags": [
           [
             "update viewreport",
-            "Result of the last update"
+            "Comparison report from a --verifycatalog run"
           ],
           [
             "--reboot",
-            "Graceful reboot after the update"
+            "Graceful reboot after a single-file update (repository updates use -a TRUE)"
           ]
         ],
         "tip": "Firmware changes need a drain and approval",
@@ -1136,7 +1136,21 @@ const BMC_HUB_DATA = [
           "racadm",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/update?guid=guid-4bf8c7bd-3d8e-451f-8913-29433dd646cd&lang=en-us",
+              "title": "Dell RACADM 7.xx: update"
+            },
+            {
+              "url": "https://www.dell.com/support/manuals/en-us/poweredge-r760xd2/idrac9_7.xx_racadm_pub/jobqueue?guid=guid-a57b0f48-1ebe-4cbe-9681-458e3348301d&lang=en-us",
+              "title": "Dell RACADM 7.xx: jobqueue"
+            }
+          ],
+          "note": "Corrected 2026-11-10: viewreport shows the --verifycatalog comparison report; --reboot applies to single-file updates."
+        }
       }
     ]
   },
@@ -2065,7 +2079,24 @@ const BMC_HUB_DATA = [
           "ilorest",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/globalcommands.md",
+              "title": "HPE iLOrest 7.4: global commands"
+            },
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/usage.md",
+              "title": "HPE iLOrest 7.4: usage"
+            },
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/changelog.md",
+              "title": "HPE iLOrest changelog"
+            }
+          ]
+        }
       }
     ]
   },
@@ -2586,7 +2617,20 @@ const BMC_HUB_DATA = [
           "saa",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.supermicro.com/Bios/sw_download/781/UEFI_SAA_UserGuide.pdf",
+              "title": "SAA for UEFI User's Guide 1.1.0"
+            },
+            {
+              "url": "https://www.supermicro.com/en/solutions/management-software/superserver-automation-assistant",
+              "title": "Supermicro SAA"
+            }
+          ]
+        }
       }
     ]
   },
@@ -3219,7 +3263,20 @@ const BMC_HUB_DATA = [
           "onecli",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/onecli_r_ffdc_command",
+              "title": "Lenovo OneCLI: ffdc"
+            },
+            {
+              "url": "https://pubs.lenovo.com/lxce-onecli/misc_encrypt_command",
+              "title": "Lenovo OneCLI: misc encrypt"
+            }
+          ]
+        }
       }
     ]
   },
@@ -3810,7 +3867,16 @@ const BMC_HUB_DATA = [
           "freeipmi",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-common/freeipmi.conf.5.en.html",
+              "title": "FreeIPMI freeipmi.conf(5)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -4222,7 +4288,28 @@ const BMC_HUB_DATA = [
           "serial",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/freeipmi-tools/ipmiconsole.8.en.html",
+              "title": "FreeIPMI ipmiconsole(8)"
+            },
+            {
+              "url": "https://github.com/npat-efault/picocom/blob/master/picocom.1.md",
+              "title": "picocom(1)"
+            },
+            {
+              "url": "https://github.com/cminyard/ser2net/blob/master/README.rst",
+              "title": "ser2net README"
+            },
+            {
+              "url": "https://www.conserver.com/docs/conserver.cf.man.html",
+              "title": "conserver.cf(5)"
+            }
+          ]
+        }
       }
     ]
   }

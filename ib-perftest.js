@@ -127,14 +127,28 @@ const IB_IB_PERFTEST_DATA = [
         "desc": "Production recommendations, fabric stability tips & triage advice for perftest",
         "cmd": "ib_write_bw -d mlx5_0 -F --report_gbits -q 4 --ipv6-addr   # Server;   ib_write_bw -d mlx5_0 -F --report_gbits -q 4 --ipv6-addr 2001:db8:dc::1   # Client",
         "tip": "400G NDR = ~392 Gb/s; pass --ipv6-addr on both ends for an IPv6 server address",
-        "details": "In multi-tier Quantum/Quantum-2 topologies, always cross-reference perftest telemetry with adjacent switch ports and Subnet Manager topology databases.",
+        "details": "Recap of the first perftest card. Before replacing a part, check the far end too: the switch port, the cable and what the Subnet Manager sees.",
         "tags": [
           "perftest",
           "tips",
           "pro",
           "infiniband",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/linux-rdma/perftest/blob/master/man/perftest.1",
+              "title": "perftest man page"
+            },
+            {
+              "url": "https://github.com/linux-rdma/perftest/blob/master/src/perftest_parameters.c",
+              "title": "perftest source"
+            }
+          ],
+          "note": "Corrected 2026-11-09: --ipv6 only selects an IPv6 GID; an IPv6 server address needs --ipv6-addr on both ends. Bandwidth and latency figures are rules of thumb."
+        }
       }
     ]
   }

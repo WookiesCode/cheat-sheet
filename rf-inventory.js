@@ -208,23 +208,23 @@ const RF_RF_INVENTORY_DATA = [
       {
         "id": "inventory-hw-tips-card",
         "desc": "Automated Node Audit & Hardware Baseline Verification",
-        "cmd": "curl -k -sS -K ~/.bmc-curlrc \"https://${BMC_IP}/redfish/v1/Systems/1/Memory?$expand=.($levels=1)\" | jq '.Members[] | {Slot: .Id, Cap: .CapacityMiB, Health: .Status.Health}'",
-        "details": "In large AI datacenters, query /redfish/v1/Systems/1/Memory and Processors during node provisioning to verify populated DIMM channel balancing and CPU core counts before passing bare-metal servers to the Kubernetes/Slurm scheduler pool.",
+        "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems/1/Memory?\\$expand=.(\\$levels=1)\" | jq '.Members[] | {Slot: .Id, Cap: .CapacityMiB, Health: .Status.Health}'",
+        "details": "At provisioning, read Systems/1/Memory and Processors and compare DIMM count, capacity and core counts with the build sheet before the node joins Slurm or Kubernetes. Keep the backslash in \\$expand: inside double quotes the shell would otherwise replace $expand with nothing. Not every BMC supports $expand (see ProtocolFeaturesSupported in the service root).",
         "flags": [
           [
             "Memory",
-            "Audit RAM capacity, operating frequency (MT/s), vendor PN/SN, and ECC health"
+            "CapacityMiB, OperatingSpeedMhz, Manufacturer, PartNumber, SerialNumber, Status"
           ],
           [
             "Processors",
-            "Inspect CPU sockets, core/thread count, microcode version, and GPU/NPU accelerators"
+            "ProcessorType (CPU, GPU, ...), Model, TotalCores, TotalThreads"
           ],
           [
             "Storage",
-            "Inspect NVMe/SATA SSD controllers, drive media health, and endurance wear life percentage"
+            "Controllers and Drives; drives report PredictedMediaLifeLeftPercent where supported"
           ]
         ],
-        "tip": "Check .Status.HealthRollup on parent collections to quickly identify failing sub-components without recursing manually.",
+        "tip": "Status.HealthRollup on a parent resource covers it and everything under it, so one read flags a failing child.",
         "tags": [
           "inventory-hw",
           "tips",
@@ -232,7 +232,29 @@ const RF_RF_INVENTORY_DATA = [
           "redfish",
           "rest",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/Memory.v1_24_0.json",
+              "title": "DMTF Memory v1.24.0"
+            },
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/Processor.v1_24_0.json",
+              "title": "DMTF Processor v1.24.0"
+            },
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/Resource.json",
+              "title": "DMTF Resource schema (ResetType, Status)"
+            },
+            {
+              "url": "https://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.25.0.pdf",
+              "title": "DMTF DSP0266 Redfish Specification 1.25.0"
+            }
+          ],
+          "note": "Corrected 2026-11-10: the command now escapes $expand and $levels so the shell leaves them alone."
+        }
       }
     ]
   }

@@ -136,14 +136,28 @@ const IB_IB_BLUEFIELD_DATA = [
         "desc": "Production recommendations, fabric stability tips & triage advice for BlueField-3",
         "cmd": "mlxconfig -d /dev/mst/mt41692_pciconf0 q INTERNAL_CPU_OFFLOAD_ENGINE",
         "tip": "DPU <-> NIC mode: reset Arm and NIC, power cycle recommended. SuperNIC SKUs ship in NIC mode",
-        "details": "In multi-tier Quantum/Quantum-2 topologies, always cross-reference BlueField-3 telemetry with adjacent switch ports and Subnet Manager topology databases.",
+        "details": "Recap of the first BlueField-3 card. Before replacing a part, check the far end too: the switch port, the cable and what the Subnet Manager sees.",
         "tags": [
           "BlueField-3",
           "tips",
           "pro",
           "infiniband",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/bsp/4.16.0/modes-of-operation",
+              "title": "BlueField modes of operation"
+            },
+            {
+              "url": "https://networking-docs.nvidia.com/bsp/4.16.0/soc-management-interface-rshim",
+              "title": "BlueField RShim"
+            }
+          ],
+          "note": "Corrected 2026-11-09: BlueField-3 mode is INTERNAL_CPU_OFFLOAD_ENGINE only (0 = DPU, 1 = NIC); bfb-install takes -r and -b."
+        }
       }
     ]
   }

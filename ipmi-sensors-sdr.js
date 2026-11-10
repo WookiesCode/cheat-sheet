@@ -154,7 +154,7 @@ const IPMI_IPMI_SENSORS_SDR_DATA = [
         "id": "sensors-sdr-dcmi-tips-card",
         "desc": "Hardware Environmental Triage & Thermal Throttling Detection",
         "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sdr elist full",
-        "details": "SDR elist full prints real-time analog sensor values (volts, amps, RPMs, Celsius) with sensor state (\"ok\", \"nc\", \"cr\"). DCMI (Data Center Management Interface) commands query calibrated high-frequency power meters to monitor instantaneous wattage and rolling averages.",
+        "details": "sdr elist full prints each threshold sensor (volts, amps, RPM, degrees C) with its status (ok, nc, cr, nr), sensor number and entity. dcmi power reading reports the BMC's instantaneous, minimum, maximum and average power in watts, where the BMC supports DCMI.",
         "flags": [
           [
             "sdr elist full",
@@ -177,7 +177,16 @@ const IPMI_IPMI_SENSORS_SDR_DATA = [
           "ipmitool",
           "bmc",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool(1) man page"
+            }
+          ]
+        }
       }
     ]
   }

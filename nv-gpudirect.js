@@ -182,7 +182,7 @@ const NV_NV_GPUDIRECT_DATA = [
             "Runs nccl-tests across all 8 GPUs measuring AllReduce bus bandwidth"
           ]
         ],
-        "tip": "An 8x H100 SXM node should achieve ~450+ GB/s out-of-place AllReduce bus bandwidth!",
+        "tip": "Compare all_reduce_perf busbw against your platform vendor's acceptance numbers; a single slow rank drags the whole result down",
         "tags": [
           "gpudirect-rdma-nccl",
           "tips",
@@ -191,7 +191,29 @@ const NV_NV_GPUDIRECT_DATA = [
           "gpu",
           "datacenter",
           "best-practices"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/cuda/gpudirect-rdma/index.html",
+              "title": "NVIDIA GPUDirect RDMA"
+            },
+            {
+              "url": "https://github.com/linux-rdma/perftest",
+              "title": "linux-rdma perftest"
+            },
+            {
+              "url": "https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/env.html",
+              "title": "NCCL environment variables"
+            },
+            {
+              "url": "https://github.com/NVIDIA/nccl-tests",
+              "title": "NVIDIA nccl-tests"
+            }
+          ],
+          "note": "Removed 2026-11-10: an unsourced \"~450 GB/s on 8x H100\" target."
+        }
       }
     ]
   }

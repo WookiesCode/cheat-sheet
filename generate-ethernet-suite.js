@@ -73,13 +73,14 @@ const SECTION_MAP = {
     name: 'RJ45 Pinouts & TDR',
     heading: 'TIA/EIA-568B/A Wire Sequences, PHY TDR Cable Diagnostics & Port LED',
     proTip: {
+      src: {"verified":"2026-11-10","refs":[{"url":"https://man7.org/linux/man-pages/man8/ethtool.8.html","title":"ethtool(8)"}],"note":"Wiring reference: the TIA-568 standard is not freely available, so the pinout was not checked against it. The 100 Mb/s pair rule is a rule of thumb. Removed 2026-11-10: an unsourced \"within 1 meter\" accuracy claim."},
       desc: 'Physical Layer RJ45 Cable Certification & TDR Fault Locating',
       cmd: 'ethtool --cable-test eth0 && ethtool -p eth0 5',
-      details: 'TDR (Time-Domain Reflectometry) transmits electrical pulses into twisted pairs to measure impedance reflections, detecting open pairs, shorts, and distance to faults within 1 meter accuracy. In datacenter patching, an accidental 100Mbps fallback on a 1Gbps/10Gbps link almost always indicates damage or discontinuity on pins 4/5 (Blue) or 7/8 (Brown).',
+      details: 'ethtool --cable-test asks the PHY to test each pair; what it reports depends on the NIC, typically OK, open or short per pair and, for a fault, the approximate distance. 10/100BASE-TX use only pins 1-2 and 3-6, so a gigabit link that comes up at 100 Mb/s usually has a bad blue (4-5) or brown (7-8) pair.',
       tip: 'Never punch down mixed T568A and T568B on opposite patch panel ends unless intentionally building a legacy crossover cable.',
       flags: [
-        ['ethtool --cable-test <dev>', 'Trigger physical layer PHY TDR analysis on unlinked twisted copper pairs'],
-        ['ethtool -p <dev> <sec>', 'Physically blink interface link/activity LED to trace cables in dense patch racks'],
+        ['ethtool --cable-test <dev>', 'PHY cable test per pair (needs PHY support; the link drops while it runs)'],
+        ['ethtool -p <dev> <sec>', 'Blink the port LED for <sec> seconds to find the port by sight'],
         ['T568B Standard', 'Pin 1: White/Orange, 2: Orange, 3: White/Green, 4: Blue, 5: White/Blue, 6: Green, 7: White/Brown, 8: Brown']
       ]
     }
@@ -90,13 +91,14 @@ const SECTION_MAP = {
     name: 'ethtool & Ring Buffers',
     heading: 'Link Speed Negotiation, CRC Drop Counters, Ring Buffers & Hardware Offloads',
     proTip: {
+      src: {"verified":"2026-11-10","refs":[{"url":"https://man7.org/linux/man-pages/man8/ethtool.8.html","title":"ethtool(8)"}],"note":"Counter names such as rx_missed_errors and rx_no_buffer_count are driver-specific; the counter meanings are general practice, not from the ethtool man page."},
       desc: 'NIC Descriptor Ring Buffering & Hardware Packet Drop Elimination',
       cmd: 'ethtool -S eth0 | grep -E "(drop|error|miss)" && ethtool -G eth0 rx 4096 tx 4096',
-      details: 'Default kernel NIC RX ring buffers (often 512 or 1024 descriptors) easily overflow during microbursts in high-throughput AI/ML and storage clusters, manifesting as "rx_dropped" or "rx_no_buffer_count". Maximize ring buffers to 4096 or 8192 descriptors to absorb line-rate burst transitions before packets hit kernel softirqs.',
-      tip: 'High "rx_crc_errors" indicates damaged patch cables or dirty transceiver pins, while "rx_missed_errors" points to PCIe host bus bandwidth bottlenecks.',
+      details: 'Small RX rings overflow during bursts and show up as rx drop / no-buffer counters (names vary by driver). Read the current and maximum sizes with ethtool -g, then raise rx/tx toward the maximum the NIC reports; larger rings trade a little latency and memory for fewer drops.',
+      tip: 'Rising rx_crc_errors point at the physical link (cable, optic, dirty connector); rx_missed_errors mean the NIC dropped frames because the host did not drain them in time',
       flags: [
         ['ethtool -S <dev>', 'Dump comprehensive low-level hardware MAC/PHY statistics and error counters'],
-        ['ethtool -G <dev> rx 4096 tx 4096', 'Expand ring buffer descriptor depth to prevent microburst drops'],
+        ['ethtool -G <dev> rx <N> tx <N>', 'Set ring sizes (no larger than the maximums from ethtool -g)'],
         ['ethtool -k <dev>', 'Inspect status of hardware offloads (TSO, GSO, GRO, checksum offloading)']
       ]
     }
@@ -107,14 +109,15 @@ const SECTION_MAP = {
     name: 'Netplan & networkctl',
     heading: 'Netplan YAML Configs, networkctl State & NetworkManager CLI (nmcli)',
     proTip: {
+      src: {"verified":"2026-11-10","refs":[{"url":"https://netplan.readthedocs.io/en/stable/netplan-try/","title":"netplan try"},{"url":"https://yaml.org/spec/1.2.2/","title":"YAML 1.2.2 spec (no tabs in indentation)"},{"url":"https://man7.org/linux/man-pages/man1/networkctl.1.html","title":"networkctl(1)"},{"url":"https://networkmanager.dev/docs/api/latest/nmcli.html","title":"nmcli(1)"}],"note":"Corrected 2026-11-10: YAML does not require 2-space indentation, only no tabs; netplan try defaults to 120 seconds."},
       desc: 'Safe Declarative Network Provisioning & Automated Rollback',
       cmd: 'netplan try --timeout 30 && networkctl status',
-      details: 'Always test remote network changes using "netplan try --timeout 30". If a configuration mistake isolates management connectivity, Netplan automatically reverts to the previous working configuration when the timer expires. Inspect real-time interface states and DHCPv6/SLAAC leases with "networkctl status".',
-      tip: 'YAML indentation must use exact 2-space increments; tabs in /etc/netplan/*.yaml cause immediate syntax rejection.',
+      details: 'Test remote network changes with "netplan try": it applies the YAML and rolls it back unless you confirm within the timeout (default 120 seconds), so a change that cuts your SSH session undoes itself. "networkctl status" shows link state, addresses and DNS servers.',
+      tip: 'YAML forbids tabs for indentation: use spaces (any consistent amount) in /etc/netplan/*.yaml',
       flags: [
-        ['netplan try', 'Apply candidate YAML with automatic revert if SSH session drops or user does not confirm'],
-        ['networkctl status <dev>', 'Display operational carrier state, DNS servers, search domains, and DHCP leases'],
-        ['nmcli device show', 'Query NetworkManager device properties, hardware UUID, and active IP profiles']
+        ['netplan try', 'Apply the YAML and revert it unless you press Enter to confirm before the timeout'],
+        ['networkctl status <dev>', 'Link type, state, driver, hardware and IP addresses, DNS servers'],
+        ['nmcli device show', 'NetworkManager device details: MAC, state, active connection, IP settings']
       ]
     }
   },
@@ -124,13 +127,14 @@ const SECTION_MAP = {
     name: 'iproute2 & IPv6 NDP',
     heading: 'ip link/addr/route, IPv6 SLAAC, Jumbo MTU & Neighbor Discovery Protocol',
     proTip: {
+      src: {"verified":"2026-11-10","refs":[{"url":"https://man7.org/linux/man-pages/man8/ip-address.8.html","title":"ip-address(8)"},{"url":"https://man7.org/linux/man-pages/man8/ip-link.8.html","title":"ip-link(8)"},{"url":"https://man7.org/linux/man-pages/man8/ip-neighbour.8.html","title":"ip-neighbour(8)"},{"url":"https://man7.org/linux/man-pages/man8/ip-route.8.html","title":"ip-route(8)"}],"note":"The MTU mismatch symptom (handshake works, large transfers stall) is general practice, not from the man pages."},
       desc: 'Production iproute2 CLI Operations & IPv6 Neighbor Discovery',
       cmd: 'ip -br -c a && ip -6 route show && ip -6 neigh show',
-      details: 'iproute2 replaces legacy ifconfig/netstat/arp. Use "ip -br -c a" for a quick, colorized summary of all interfaces, MACs, and IPv4/IPv6 addresses. In modern IPv6 datacenter fabrics, "ip -6 neigh show" inspects Neighbor Discovery Protocol (NDP) states ("REACHABLE", "STALE", "DELAY") without generating legacy ARP broadcasts.',
+      details: 'iproute2 replaces ifconfig, route and arp. "ip -br -c a" prints one coloured line per interface with its state and addresses. "ip -6 neigh show" lists the IPv6 neighbour (NDP) cache with each entry\'s state (REACHABLE, STALE, DELAY, FAILED, ...).',
       tip: 'Always verify MTU symmetry across both ends of a link: mismatched MTUs cause TCP handshake success but silent payload drops on large packets.',
       flags: [
         ['ip -br -c link', 'Compact one-line per interface status (UP/DOWN/LOWER_UP) with color coding'],
-        ['ip link set <dev> mtu 9000', 'Configure 9000-byte Jumbo Frames for high-throughput RoCEv2 and Ceph storage'],
+        ['ip link set <dev> mtu 9000', 'Jumbo frames (changes state; every hop on the path must allow it)'],
         ['ip -6 route get <ip>', 'Ask kernel routing subsystem exactly which egress interface and source IP will be used']
       ]
     }
@@ -141,12 +145,13 @@ const SECTION_MAP = {
     name: 'LACP Bonds & VLANs',
     heading: '802.3ad Link Aggregation, 802.1Q VLAN Sub-Interfaces & Software Bridges',
     proTip: {
+      src: {"verified":"2026-11-10","refs":[{"url":"https://docs.kernel.org/networking/bonding.html","title":"Linux kernel: bonding driver"},{"url":"https://github.com/torvalds/linux/blob/master/drivers/net/bonding/bond_procfs.c","title":"Linux source: bond_procfs.c (/proc/net/bonding fields)"},{"url":"https://man7.org/linux/man-pages/man8/ip-link.8.html","title":"ip-link(8)"},{"url":"https://man7.org/linux/man-pages/man8/bridge.8.html","title":"bridge(8)"}],"note":"Corrected 2026-11-10: layer3+4 does not spread a single flow, and does not balance evenly by design."},
       desc: 'High-Availability LACP Aggregation & 802.1Q Tagged VLANs',
       cmd: 'cat /proc/net/bonding/bond0 && ip link add link eth0 name eth0.100 type vlan id 100',
-      details: 'LACP (802.3ad mode 4) bundles multiple physical Ethernet interfaces into a single high-bandwidth logical link with active health monitoring. Inspect /proc/net/bonding/bond0 to verify Partner System MAC and Actor/Partner Churn state. Use 802.1Q sub-interfaces ("eth0.100") to isolate storage, management, and tenant VM traffic.',
-      tip: 'Set xmit_hash_policy to "layer3+4" (IP + Port hashing) to distribute TCP/UDP flows evenly across both bond slaves.',
+      details: 'LACP (802.3ad, mode 4) bundles several links into one logical link and negotiates it with the switch. /proc/net/bonding/bond0 shows each member\'s MII status, the aggregator IDs and the partner (switch) MAC: members with different aggregator IDs are not in the same LAG. 802.1Q sub-interfaces (eth0.100) separate VLANs on one link.',
+      tip: 'xmit_hash_policy=layer3+4 hashes on IP and port so different flows can use different members; one flow still stays on one link, and the kernel notes it is not fully 802.3ad compliant',
       flags: [
-        ['/proc/net/bonding/bond0', 'Real-time kernel status: slave interfaces, MII link status, and LACP partner synchronization'],
+        ['/proc/net/bonding/bond0', 'Bond mode, members, MII status, aggregator and partner details'],
         ['type vlan id <vlan>', 'Create kernel 802.1Q tagged sub-interface for VLAN trunk separation'],
         ['bridge fdb show', 'Display Layer-2 forwarding database (MAC learning table) on Linux bridge interfaces']
       ]
@@ -158,12 +163,13 @@ const SECTION_MAP = {
     name: 'LLDP & Line-Rate Tests',
     heading: 'LLDP Switch Discovery, Jumbo Ping MTU Triage, iperf3 & resolvectl DNS',
     proTip: {
+      src: {"verified":"2026-11-10","refs":[{"url":"https://manpages.debian.org/trixie/lldpd/lldpctl.8.en.html","title":"lldpctl(8) (lldpcli)"},{"url":"https://man7.org/linux/man-pages/man8/ping.8.html","title":"ping(8)"},{"url":"https://software.es.net/iperf/invoking.html","title":"iperf3: invoking"}],"note":"Corrected 2026-11-10: -P sets parallel streams; both directions need --bidir."},
       desc: 'Automated Switch Topology Discovery & Line-Rate Performance Validation',
       cmd: 'lldpcli show neighbors && ping -6 -M do -s 8952 <dest_ip>',
-      details: 'LLDP (Link Layer Discovery Protocol) queries the adjacent switch port name, chassis ID, and VLAN settings without needing switch CLI credentials. When validating newly provisioned 10G/25G/100G NICs, use iperf3 in bidirectional parallel stream mode ("-P 8") to verify line-rate throughput and identify single-core CPU interrupt bottlenecks.',
+      details: 'LLDP shows what the switch advertises on that port (chassis name, port ID, often VLAN and management IP) without switch credentials, if the switch sends LLDP. To check a new NIC\'s throughput, run iperf3 with several parallel streams (-P 8); add --bidir to test both directions at once.',
       tip: 'Use "ping -M do -s 8952" (8952 payload + 40-byte IPv6 header + 8-byte ICMPv6 header = 9000 bytes) to audit MTU 9000 paths without fragmentation.',
       flags: [
-        ['lldpcli show neighbors', 'Display upstream switch hostname, port identifier, and management IP'],
+        ['lldpcli show neighbors', 'What the neighbour advertises: system name, port ID, management IP'],
         ['ping -M do -s <bytes>', 'Enforce Don\'t Fragment flag to detect Path MTU Discovery blackholes'],
         ['iperf3 -6 -c <ip> -P 8', 'Run 8 parallel TCP streams over IPv6 to benchmark line-rate NIC performance']
       ]
@@ -254,7 +260,8 @@ function buildEthSectionCards(sec) {
           details: cfg.proTip.details,
           flags: cfg.proTip.flags,
           tip: cfg.proTip.tip,
-          tags: [sec.id, 'tips', 'pro', 'ethernet', 'nic', 'best-practice']
+          tags: [sec.id, 'tips', 'pro', 'ethernet', 'nic', 'best-practice'],
+          ...(cfg.proTip.src ? { src: cfg.proTip.src } : {})
         }
       ]
     });

@@ -101,14 +101,23 @@ const IB_IB_IBQUERYERRORS_DATA = [
         "desc": "Production recommendations, fabric stability tips & triage advice for ibqueryerrors",
         "cmd": "ibqueryerrors --data --details",
         "tip": "Suppress RcvSwRelayErrors to focus on real physical bad cables",
-        "details": "In multi-tier Quantum/Quantum-2 topologies, always cross-reference ibqueryerrors telemetry with adjacent switch ports and Subnet Manager topology databases.",
+        "details": "Recap of the first ibqueryerrors card. Before replacing a part, check the far end too: the switch port, the cable and what the Subnet Manager sees.",
         "tags": [
           "ibqueryerrors",
           "tips",
           "pro",
           "infiniband",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibqueryerrors.8.in.rst",
+              "title": "ibqueryerrors man page (rdma-core)"
+            }
+          ]
+        }
       }
     ]
   }

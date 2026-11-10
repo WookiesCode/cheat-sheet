@@ -175,9 +175,11 @@ function buildIbSectionCards(sec) {
         id: `${sec.id}-tips-card`,
         desc: `Production recommendations, fabric stability tips & triage advice for ${cfg.name}`,
         cmd: cmd.cmd,
-        tip: cmd.tip || `Verify line-rate NDR/HDR negotiation across all rails using ${cfg.name}`,
-        details: `In multi-tier Quantum/Quantum-2 topologies, always cross-reference ${cfg.name} telemetry with adjacent switch ports and Subnet Manager topology databases.`,
-        tags: [cfg.name, 'tips', 'pro', 'infiniband', 'best-practice']
+        tip: cmd.tip || '',
+        details: `Recap of the first ${cfg.name} card. Before replacing a part, check the far end too: the switch port, the cable and what the Subnet Manager sees.`,
+        tags: [cfg.name, 'tips', 'pro', 'infiniband', 'best-practice'],
+        // Same command and tip as card 1, so it shares card 1's source.
+        ...(cmd.src ? { src: cmd.src } : {})
       }
     ]
   });

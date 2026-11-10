@@ -926,7 +926,24 @@ const BMC_ILOREST_DATA = [
           "ilorest",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/globalcommands.md",
+              "title": "HPE iLOrest 7.4: global commands"
+            },
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/usage.md",
+              "title": "HPE iLOrest 7.4: usage"
+            },
+            {
+              "url": "https://servermanagementportal.ext.hpe.com/docs/redfishclients/ilorest-userguide/changelog.md",
+              "title": "HPE iLOrest changelog"
+            }
+          ]
+        }
       }
     ]
   }
