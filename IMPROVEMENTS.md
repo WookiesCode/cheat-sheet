@@ -1,6 +1,6 @@
 # Improvements: ranked proposals and status
 
-Product review started 2026-11-09. Phases 1–3 are below. Nine items (#8 for the NVIDIA suite) and one follow-up are built.
+Product review started 2026-11-09. Phases 1–3 are below. Eleven items are built, #8 across 11 suites; #10, #11 and #12 are open.
 
 ## Status
 
@@ -14,16 +14,16 @@ Product review started 2026-11-09. Phases 1–3 are below. Nine items (#8 for th
 | 3 | Say so when a save fails | ✅ Built | `improve/storage-warn` | `cbb0dd9` |
 | 5 | Keep keyboard focus out from under the fixed bars | ✅ Built | `improve/focus-visible` | `de6ac2e` |
 | 14 | Skip link (found while building #5) | ✅ Built | `improve/skip-link` | `220d5c9` |
-| 8 | Source and last-verified date on core suites | ✅ NVIDIA, InfiniBand, Redfish, IPMI, BMC vendor tools (merged to `main`), switches and Ethernet | `improve/sources-switches` | (this branch) |
-| 9 | Stop duplicating the nav into every page | Open | | |
+| 8 | Source and last-verified date on core suites | ✅ NVIDIA, InfiniBand, Redfish, IPMI, BMC vendor tools, switches, Ethernet, Linux storage and hardware, hardware reference, Kubernetes and GPU containers | `improve/sources-*` | `3320dc0` … `7ab92ed` |
+| 9 | Stop duplicating the nav into every page | ✅ Built | `improve/nav-once` | (this branch) |
 | 10 | Practice what I actually use | Open | | |
 | 11 | Local usage meter | Open | | |
 | 12 | Export My kit as a navi `.cheat` file | Open (needs navi installed: ask first) | | |
-| 13 | Make the doc counts agree | ✅ Built | `improve/doc-counts` | (this branch) |
+| 13 | Make the doc counts agree | ✅ Built | `improve/doc-counts` | `0d6d0f5` |
 
-**The branches are stacked**, each built on the one before, in the order of the table, **Merged to `main` on 2026-11-09 up to `7b809e7`** (fast-forward, not pushed). `improve/redfish-hgx-preset` sits on top of `main`. None are pushed or merged yet.
+Every built item up to #8 is fast-forward merged to `main` and pushed to GitHub (`7ab92ed`, 2026-11-09). #9 is on `improve/nav-once`.
 
-**Tests:** `node tests/run-all.js` runs 15 test files. All 20 pass on `improve/redfish-hgx-preset`. Every built item has its own regression test, and I checked that the tests for #2 and #5 fail on the commit before their fix.
+**Tests:** `node tests/run-all.js` runs 21 test files; all pass on `improve/nav-once`. Every built item has its own regression test, and I checked that the tests for #2 and #5 fail on the commit before their fix.
 
 ## What the built items changed (measured)
 
@@ -38,6 +38,7 @@ Product review started 2026-11-09. Phases 1–3 are below. Nine items (#8 for th
 | #14 Skip link | 287 Tab presses before the first command | 2 key presses (Tab, Enter) |
 | #8 Sources (NVIDIA) | 0 of 31 NVIDIA commands cited a source; nothing had been checked against the vendor docs | 31 of 31 show a source line (30 verified, 1 marked Not verified); 8 errors corrected (below) |
 | #8 Sources (InfiniBand) | 0 of 51 InfiniBand commands and recipes cited a source | 51 of 51 show one (47 verified, 4 marked Not verified); 9 errors corrected (below), one of them also on an NVIDIA card |
+| #9 Nav once | The same 142 KB nav copied into 235 pages: HTML 52 MB in all, `nv-smi.html` 146 KB | One copy in `nav/nav-source.html` → `nav.js` (144 KB, cached once); each page carries a 6.4 KB fallback: HTML 22 MB, `nv-smi.html` 11 KB. Menus in place before DOMContentLoaded |
 | #13 Doc counts | README "about 200 sheets", guide "235 linked pages", home "214 sheets" | Both docs say "236 pages, 214 of them command sheets with 2,043 commands", rewritten by `build-index.js` on every build |
 
 ## Errors found by #8 (corrected 2026-11-09, NVIDIA suite)
@@ -326,6 +327,8 @@ Impact (H/M/L) · Effort (S/M/L) · Risk (H/M/L). The ranking is by user impact 
 - **Evidence:** the header is ~153 KB of a ~226 KB page, repeated across 237 pages, and the portable file is ~18.2 MB.
 - **Plan:** emit the nav once (in `common.js` or a `nav.js` data file), render it at load, and keep a minimal static fallback.
 - Impact **L–M** · Effort **L** · Risk **M** · Files: `build-nav-groups.js`, 8 generators, `common.js`, every `*.html`.
+- ✅ **Built** (`improve/nav-once`, `tests/nav-once.test.js`). The full nav now lives once in `nav/nav-source.html`. All 17 generators' nav loops edit only that file (`nav/targets.js`), and so does `build-nav-groups.js`. That matters: several generators insert their menu wherever it's missing, so editing pages would re-grow them. A new step, `build-nav-js.js`, writes it into `nav.js` and gives each page a fallback nav: the same top row of tab links without the drop-downs, followed by `<script src="nav.js">`. Running synchronously right after `</nav>`, the script fills the menus before the page paints and before `common.js` reads them; without JavaScript the fallback still links every tab's hub. The portable build reads `nav/nav-source.html`. `omarchy.html` keeps its own nav. The source was byte-identical to the old page nav, and two full builds produce identical output.
+- ⚠ **Flag (structure):** a new `nav/` folder and a generated `nav.js`. Edit the nav through the generators or `nav/nav-source.html`, never in a page.
 
 ### Innovative ideas
 

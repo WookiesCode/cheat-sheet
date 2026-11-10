@@ -45,7 +45,7 @@ const SHEETS_CONFIG = [
 
 // The entries above carry hand-written labels. Every other sheet is discovered from
 // disk, so a new page is embedded without touching this list.
-const isTooling = f => /^(build-|generate-|create-)/.test(f) || f === 'common.js' || f === 'global-search-index.js' || f === 'man-pages-data.js' || f === 'flag-index.js';
+const isTooling = f => /^(build-|generate-|create-)/.test(f) || f === 'common.js' || f === 'global-search-index.js' || f === 'man-pages-data.js' || f === 'flag-index.js' || f === 'nav.js';
 const decodeEntities = text => text
   .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"')
   .replace(/&#0?39;/g, "'").replace(/&amp;/g, '&');
@@ -82,9 +82,9 @@ let css = fs.readFileSync(path.join(__dirname, 'styles.css'), 'utf8');
 // Replace external Google Font imports with clean system font stacks so portable file works 100% offline
 css = css.replace(/@import\s+url\([^)]+\);?/gi, '');
 
-// 2. Read index.html to extract navbar links with SVGs
-const indexHtml = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8');
-const navMatch = indexHtml.match(/<nav class="sheet-switcher"[^>]*>([\s\S]*?)<\/nav>/);
+// 2. Read the site's one nav copy (pages only carry a fallback; nav.js fills it in)
+const navSourceHtml = fs.readFileSync(path.join(__dirname, require('./nav/targets').NAV_SOURCE), 'utf8');
+const navMatch = navSourceHtml.match(/<nav class="sheet-switcher"[^>]*>([\s\S]*?)<\/nav>/);
 let navLinksHtml = navMatch ? navMatch[1] : '';
 
 // Convert every nav link to an in-page sheet link.

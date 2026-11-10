@@ -52,7 +52,7 @@ const NVIM_NAVBAR_SNIPPET = `              <div class="nav-dropdown" id="nvim-na
               </div>`;
 
 // 3. Update navbar across all existing HTML files
-const htmlFiles = fs.readdirSync(__dirname).filter(f => f.endsWith('.html') && f !== 'datacenter-cheatsheet-portable.html' && f !== 'omarchy.html');
+const htmlFiles = require('./nav/targets').navFiles();   // the one nav copy, not every page
 const nvimLinkPattern = /<a href="neovim\.html" class="sheet-link(?: active)?">[\s\S]*?<\/svg>\s*Neovim<\/a>/;
 
 let updatedNavCount = 0;

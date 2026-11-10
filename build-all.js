@@ -31,6 +31,7 @@ const STEPS = [
   'generate-hw-reference-suite.js',
   'generate-sre-suite.js',
   'build-nav-groups.js',
+  'build-nav-js.js',      // nav/nav-source.html → nav.js + a small fallback nav in every page
   'build-help-pages.js', // help-captures/ → help-pages.json, shipped by build-man-data.js
   'build-man-data.js',
   'build-index.js',

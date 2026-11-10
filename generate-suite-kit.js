@@ -650,7 +650,7 @@ ${o.groups.map(col).join('\n')}
 
 // Insert (or replace) the menu in every page, before the Home link.
 function insertMenu(menuId, snippet) {
-  const htmlFiles = fs.readdirSync(__dirname).filter(f => f.endsWith('.html') && f !== 'datacenter-cheatsheet-portable.html');
+  const htmlFiles = require('./nav/targets').navFiles();   // the one nav copy, not every page
   const existing = new RegExp(`<div class="nav-dropdown" id="${menuId}">[\\s\\S]*?<\\/div>\\s*<\\/div>\\s*<\\/div>\\s*<\\/div>\\s*`);
   const homeLink = /<a href="index\.html" class="sheet-link nav-home(?: active)?">/;
   let updated = 0;

@@ -45,7 +45,7 @@ const FO_NAVBAR_SNIPPET = `              <div class="nav-dropdown" id="fiber-nav
               </div>`;
 
 // 3. Update navbar across all existing HTML files
-const htmlFiles = fs.readdirSync(__dirname).filter(f => f.endsWith('.html') && f !== 'datacenter-cheatsheet-portable.html' && f !== 'omarchy.html');
+const htmlFiles = require('./nav/targets').navFiles();   // the one nav copy, not every page
 const foLinkPattern = /<a href="fiber\.html" class="sheet-link(?: active)?">[\s\S]*?<\/svg>\s*Fiber<\/a>/;
 
 let updatedNavCount = 0;

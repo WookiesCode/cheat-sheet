@@ -48,7 +48,7 @@ const IPMI_NAVBAR_SNIPPET = `              <div class="nav-dropdown" id="ipmi-na
               </div>`;
 
 // 3. Update navbar across all existing HTML files
-const htmlFiles = fs.readdirSync(__dirname).filter(f => f.endsWith('.html') && f !== 'datacenter-cheatsheet-portable.html' && f !== 'omarchy.html');
+const htmlFiles = require('./nav/targets').navFiles();   // the one nav copy, not every page
 const ipmiLinkPattern = /<a href="ipmi\.html" class="sheet-link(?: active)?">[\s\S]*?<\/svg>\s*ipmitool<\/a>/;
 
 let updatedNavCount = 0;

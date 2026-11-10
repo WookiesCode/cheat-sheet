@@ -7,7 +7,7 @@ const { isReference, referenceReason } = require('./build-reference-rules.js');
 const refWhyOf = (text, file) => { const r = referenceReason(text, file); return r && r !== 'reference' ? { refWhy: r } : {}; };
 
 // Tooling never holds sheet data. app.js does: it backs linux.html (index.html is the home page).
-const isTooling = f => /^(build-|generate-|create-)/.test(f) || f === 'common.js' || f === 'global-search-index.js' || f === 'man-pages-data.js' || f === 'flag-index.js';
+const isTooling = f => /^(build-|generate-|create-)/.test(f) || f === 'common.js' || f === 'global-search-index.js' || f === 'man-pages-data.js' || f === 'flag-index.js' || f === 'nav.js';
 const htmlFor = f => (f === 'app.js' ? 'linux.html' : f.replace(/\.js$/, '.html'));
 
 const jsFiles = fs.readdirSync(__dirname).filter(f => f.endsWith('.js') && !isTooling(f));

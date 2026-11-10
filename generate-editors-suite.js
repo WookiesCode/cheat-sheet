@@ -531,7 +531,7 @@ ${navCol('gui', 'GUI &amp; AI')}
               `;
 
 // 3. Insert (or replace) the menu in every page; the nav builder moves it into its tab.
-const htmlFiles = fs.readdirSync(__dirname).filter(f => f.endsWith('.html') && f !== 'datacenter-cheatsheet-portable.html');
+const htmlFiles = require('./nav/targets').navFiles();   // the one nav copy, not every page
 const existingDropdown = /<div class="nav-dropdown" id="editors-nav-dropdown">[\s\S]*?<\/div>\s*<\/div>\s*<\/div>\s*<\/div>\s*/;
 const homeLink = /<a href="index\.html" class="sheet-link nav-home(?: active)?">/;
 let navUpdated = 0, navMissing = [];

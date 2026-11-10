@@ -223,6 +223,10 @@ Under "What's broken?" the hub shows the team method from AGENTS.md §5 as five 
 
 Each card shows live status for the current node, such as `gpu-node-12 · BMC …`, `4 commands run · 2 analyses pinned`, `Fleet on · ×16 nodes`, `GPU missing: 7/13` or `Case: RMA filed`. Finished steps tick green and the next step is highlighted. **+ New incident** starts a fresh node workspace.
 
+## The top nav (one copy)
+
+The menus live once, in `nav/nav-source.html`; pages don't contain them. `node build-all.js` runs the generators (each one updates its own menu in that file) and `build-nav-groups.js` (it files the menus into tabs). Then `build-nav-js.js` writes `nav.js` and gives every page a small fallback nav (the tab links only) followed by `<script src="nav.js">`. The script fills in the full menus as the page loads, so they're there before you see anything. Change the nav through a generator or `nav/nav-source.html`, then rebuild; an edit made in one page's nav is overwritten. `omarchy.html` keeps its own nav.
+
 ## Tests
 
 `node tests/run-all.js` runs the browser checks (every page loads cleanly, search, the portable file, HTML injection in every paste tool, the terminal bridge) on a private server at `127.0.0.1:8799`, and exits non-zero on any failure. Run it after `node build-all.js`. See [`tests/README.md`](../tests/README.md) for the settings and for writing a new test.

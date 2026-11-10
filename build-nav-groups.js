@@ -8,7 +8,7 @@
 // data-suite-name / data-suite-hub, which common.js (navSuites) reads for the suite rail,
 // the pager and Practice, and every group keeps its official logo.
 //
-// Re-runnable: each page's nav is split into its top-level elements (balanced <div>s and
+// Re-runnable: the nav (nav/nav-source.html) is split into its top-level elements (balanced <div>s and
 // <a>s), the tabs are rebuilt, and anything this script does not know is kept at the end.
 const fs = require('fs');
 const path = require('path');
@@ -159,7 +159,8 @@ const TOOLS_LINK = '<a href="tools.html" class="sheet-link nav-tools"><svg class
 // ---- per page ----------------------------------------------------------------
 const NAV = /(<nav class="sheet-switcher" aria-label="Switch cheat sheet">)([\s\S]*?)(\n\s*<\/nav>)/;
 let changed = 0;
-for (const file of fs.readdirSync(__dirname).filter(f => f.endsWith('.html') && f !== 'datacenter-cheatsheet-portable.html')) {
+// Only the one nav copy: build-nav-js.js then hands it to every page through nav.js.
+for (const file of require('./nav/targets').navFiles()) {
   const p = path.join(__dirname, file);
   const before = fs.readFileSync(p, 'utf8');
   const nav = before.match(NAV);
@@ -226,4 +227,4 @@ for (const file of fs.readdirSync(__dirname).filter(f => f.endsWith('.html') && 
   const after = before.replace(NAV, () => navHtml);
   if (after !== before) { fs.writeFileSync(p, after, 'utf8'); changed++; }
 }
-console.log(`Nav tabs written into ${changed} page(s)`);
+console.log(`Nav tabs written into ${changed} nav source file(s)`);

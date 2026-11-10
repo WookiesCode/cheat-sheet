@@ -49,7 +49,7 @@ const RF_NAVBAR_SNIPPET = `              <div class="nav-dropdown" id="redfish-n
               </div>`;
 
 // 3. Update navbar across all existing HTML files
-const htmlFiles = fs.readdirSync(__dirname).filter(f => f.endsWith('.html') && f !== 'datacenter-cheatsheet-portable.html' && f !== 'omarchy.html');
+const htmlFiles = require('./nav/targets').navFiles();   // the one nav copy, not every page
 const rfLinkPattern = /<a href="redfish\.html" class="sheet-link(?: active)?">[\s\S]*?<\/svg>\s*Redfish<\/a>/;
 
 let updatedNavCount = 0;

@@ -1052,7 +1052,7 @@ ${navCol('k8s', 'Kubernetes')}
               `;
 
 // 3. Insert (or replace) the Containers dropdown in every sheet's nav.
-const htmlFiles = fs.readdirSync(__dirname).filter(f => f.endsWith('.html') && f !== 'datacenter-cheatsheet-portable.html');
+const htmlFiles = require('./nav/targets').navFiles();   // the one nav copy, not every page
 const existingDropdown = /<div class="nav-dropdown" id="containers-nav-dropdown">[\s\S]*?<\/div>\s*<\/div>\s*<\/div>\s*<\/div>\s*/;
 // Fallback insertion point (the menu is missing once build-nav-groups.js has filed it in a tab):
 // just before the Home link. build-nav-groups.js then moves it into its tab again.

@@ -87,7 +87,7 @@ const CLI_NAVBAR_SNIPPET = `              <div class="nav-dropdown" id="cli-nav-
               </div>`;
 
 // Update navbar in all existing HTML files
-const htmlFiles = fs.readdirSync(__dirname).filter(f => f.endsWith('.html') && f !== 'datacenter-cheatsheet-portable.html' && f !== 'omarchy.html');
+const htmlFiles = require('./nav/targets').navFiles();   // the one nav copy, not every page
 const cliLinkPattern = /<a href="cli-tools\.html" class="sheet-link(?: active)?"><svg class="nav-logo"[\s\S]*?<\/svg>\s*CLI Tools<\/a>/;
 
 // An existing dropdown is replaced too, so changes to the menu above reach every page.
