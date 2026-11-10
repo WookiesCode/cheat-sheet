@@ -38,7 +38,17 @@ const MACOS_TRACKPAD_DATA = [
           "spaces",
           "mission-control",
           "desktop"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://support.apple.com/en-us/102482",
+              "title": "Apple: trackpad gestures"
+            }
+          ],
+          "note": "Apple's default is four fingers for Mission Control and App Exposé (three is a setting)."
+        }
       }
     ]
   },
@@ -75,7 +85,16 @@ const MACOS_TRACKPAD_DATA = [
           "zoom",
           "preview",
           "rotate"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://support.apple.com/en-us/102482",
+              "title": "Apple: trackpad gestures"
+            }
+          ]
+        }
       }
     ]
   },
@@ -103,7 +122,16 @@ const MACOS_TRACKPAD_DATA = [
           "three-finger",
           "accessibility",
           "ergonomic"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://support.apple.com/en-us/102341",
+              "title": "Apple: three finger drag"
+            }
+          ]
+        }
       }
     ]
   },
@@ -111,22 +139,22 @@ const MACOS_TRACKPAD_DATA = [
     "id": "trackpad-card-4",
     "badge": "pad",
     "title": "Multi-Touch Trackpad: Shift-Scroll Horizontal Navigation",
-    "subtitle": "Scroll horizontally with any vertical mouse scroll wheel or switch Mission Control apps",
+    "subtitle": "Scroll horizontally with a vertical mouse wheel; Mission Control with a mouse",
     "commands": [
       {
         "id": "horizontal-scroll-shift",
         "mode": "MOUSE / PAD",
         "modeClass": "mode-v",
-        "desc": "Scroll horizontally with any vertical mouse scroll wheel or switch Mission Control apps",
-        "cmd": "Hold ⇧ Shift + Scroll Wheel   |   2-Finger Scroll on App Cluster in Mission Control",
+        "desc": "Scroll horizontally with a vertical mouse wheel; Mission Control with a mouse",
+        "cmd": "Hold ⇧ Shift + Scroll Wheel   |   Double-tap with two fingers (Magic Mouse)",
         "flags": [
           [
             "⇧ + Scroll Wheel",
-            "Convert vertical mouse wheel movement into horizontal scrolling"
+            "Turns vertical wheel movement into horizontal scrolling in most apps (not in Apple's gesture list)"
           ],
           [
-            "2-Finger Swipe Up on cluster",
-            "In Mission Control, swipe up with 2 fingers over grouped windows to fan them out"
+            "Two-finger double-tap (Magic Mouse)",
+            "Open Mission Control"
           ]
         ],
         "tags": [
@@ -135,7 +163,17 @@ const MACOS_TRACKPAD_DATA = [
           "mouse",
           "wheel",
           "mission-control"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://support.apple.com/en-us/102482",
+              "title": "Apple: trackpad gestures"
+            }
+          ],
+          "note": "Corrected 2026-11-10: the Mission Control \"fan out\" gesture was not Apple's; Shift+wheel is not in Apple's list."
+        }
       }
     ]
   },
@@ -161,7 +199,7 @@ const MACOS_TRACKPAD_DATA = [
           ],
           [
             "Thumb + 3 Fingers Pinch",
-            "Open Launchpad app grid"
+            "Show your apps (Apps in macOS Tahoe 26 and later; Launchpad before)"
           ],
           [
             "Double-tap with 2 fingers",
@@ -169,6 +207,20 @@ const MACOS_TRACKPAD_DATA = [
           ]
         ],
         "tip": "Hold Shift while scrolling any vertical mouse wheel to scroll horizontally!",
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://support.apple.com/en-us/102341",
+              "title": "Apple: three finger drag"
+            },
+            {
+              "url": "https://support.apple.com/en-us/102482",
+              "title": "Apple: trackpad gestures"
+            }
+          ],
+          "note": "Corrected 2026-11-10: the thumb-and-three-finger pinch shows Apps on macOS 26 and later (Launchpad is gone)."
+        },
         "tags": [
           "trackpad",
           "tips",

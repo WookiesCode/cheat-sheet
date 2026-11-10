@@ -35,7 +35,16 @@ const MACOS_DARWIN_CLI_DATA = [
           "copy",
           "paste",
           "ssh"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://keith.github.io/xcode-man-pages/pbcopy.1.html",
+              "title": "pbcopy man page (Xcode man-page mirror)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -80,7 +89,16 @@ const MACOS_DARWIN_CLI_DATA = [
           "launch",
           "app",
           "gui"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://keith.github.io/xcode-man-pages/open.1.html",
+              "title": "open man page (Xcode man-page mirror)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -114,7 +132,7 @@ const MACOS_DARWIN_CLI_DATA = [
             "Inspect all indexed Spotlight metadata attributes of a file"
           ]
         ],
-        "tip": "100x faster than find /",
+        "tip": "Searches the Spotlight index: only indexed volumes",
         "tags": [
           "mdfind",
           "mdls",
@@ -122,7 +140,20 @@ const MACOS_DARWIN_CLI_DATA = [
           "search",
           "index",
           "metadata"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://keith.github.io/xcode-man-pages/mdfind.1.html",
+              "title": "mdfind man page (Xcode man-page mirror)"
+            },
+            {
+              "url": "https://keith.github.io/xcode-man-pages/mdls.1.html",
+              "title": "mdls man page (Xcode man-page mirror)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -165,7 +196,28 @@ const MACOS_DARWIN_CLI_DATA = [
           "heic",
           "say",
           "audio"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://keith.github.io/xcode-man-pages/qlmanage.1.html",
+              "title": "qlmanage man page (Xcode man-page mirror)"
+            },
+            {
+              "url": "https://keith.github.io/xcode-man-pages/sips.1.html",
+              "title": "sips man page (Xcode man-page mirror)"
+            },
+            {
+              "url": "https://keith.github.io/xcode-man-pages/say.1.html",
+              "title": "say man page (Xcode man-page mirror)"
+            },
+            {
+              "url": "https://keith.github.io/xcode-man-pages/afplay.1.html",
+              "title": "afplay man page (Xcode man-page mirror)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -179,7 +231,7 @@ const MACOS_DARWIN_CLI_DATA = [
         "id": "darwin-cli-tips-card",
         "desc": "Terminal-to-GUI integration, instant mdfind queries & image manipulation",
         "cmd": "pbcopy < file   |   pbpaste | jq   |   open -a \"TextEdit\" file   |   mdfind -name \"app\"",
-        "details": "macOS provides unparalleled integration between CLI and GUI. Use pbcopy / pbpaste to bridge shell output to the OS clipboard, mdfind to query Spotlight instantly, and sips for CLI image conversion.",
+        "details": "macOS ties the shell to the GUI. Use pbcopy / pbpaste to bridge shell output to the OS clipboard, mdfind to query Spotlight instantly, and sips for CLI image conversion.",
         "flags": [
           [
             "pbcopy / pbpaste",
@@ -195,7 +247,7 @@ const MACOS_DARWIN_CLI_DATA = [
           ],
           [
             "mdfind \"kMDItemFSName == '*.log'\"",
-            "Instant Spotlight metadata search across all attached drives"
+            "Spotlight metadata search across indexed volumes"
           ],
           [
             "sips -Z 800 image.png",
@@ -203,6 +255,31 @@ const MACOS_DARWIN_CLI_DATA = [
           ]
         ],
         "tip": "Run say \"Task completed\" at the end of long compile jobs for spoken notification!",
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://keith.github.io/xcode-man-pages/pbcopy.1.html",
+              "title": "pbcopy man page (Xcode man-page mirror)"
+            },
+            {
+              "url": "https://keith.github.io/xcode-man-pages/open.1.html",
+              "title": "open man page (Xcode man-page mirror)"
+            },
+            {
+              "url": "https://keith.github.io/xcode-man-pages/mdfind.1.html",
+              "title": "mdfind man page (Xcode man-page mirror)"
+            },
+            {
+              "url": "https://keith.github.io/xcode-man-pages/sips.1.html",
+              "title": "sips man page (Xcode man-page mirror)"
+            },
+            {
+              "url": "https://keith.github.io/xcode-man-pages/say.1.html",
+              "title": "say man page (Xcode man-page mirror)"
+            }
+          ]
+        },
         "tags": [
           "darwin-cli",
           "tips",

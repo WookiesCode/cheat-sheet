@@ -605,6 +605,28 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     await ctx.close();
   }
 
+  // 2t. macOS suite (hub + eight sheets): every card sourced; tiling keys, Spotlight, Apps instead
+  // of Launchpad, xattr -d not -c, keychain secret prompted, current version labels.
+  {
+    const PAGES = ['macos', 'macos-system-keys', 'macos-finder-keys', 'macos-text-editing', 'macos-trackpad', 'macos-darwin-cli', 'macos-homebrew', 'macos-system-admin', 'macos-net-disk-sec'];
+    const ctx = await newContext(browser);
+    const p = await ctx.newPage();
+    const all = [];
+    let text = '';
+    for (const f of PAGES) {
+      await p.goto(BASE + f + '.html', { waitUntil: 'load' });
+      await p.waitForTimeout(400);
+      text += await p.evaluate(() => { const c = document.body.cloneNode(true); c.querySelectorAll('.cmd-source').forEach(n => n.remove()); return c.textContent; });
+      all.push(...await p.evaluate(() => [...document.querySelectorAll('.cmd-item:is([data-cmd-id], [data-id])')].filter(it => !/-flags-card$/.test(it.dataset.cmdId || '')).map(it => ({ id: it.dataset.cmdId || it.dataset.id, src: !!it.querySelector('.cmd-source:not(.is-unverified)') }))));
+    }
+    check(all.length >= 75 && all.every(x => x.src), `every card on the macOS hub and sheets shows a verified source (${all.filter(x => x.src).length}/${all.length})`);
+    check(/🌐⌃F/.test(text) && !/🌐⌃Return/.test(text) && !/⌘B/.test(text), 'tiling Fill is 🌐⌃F; no ⌘B in Spotlight');
+    check(!/Launchpad app grid/.test(text) && /Apps in macOS Tahoe 26/.test(text), 'thumb pinch shows Apps on macOS 26+');
+    check(!/xattr -cr/.test(text) && !/-w 'secret'/.test(text), 'xattr -dr quarantine only; keychain secret is prompted');
+    check(!/macOS Sequoia</.test(text) && /macOS 26 & 27/.test(text), 'version labels say macOS 26 & 27');
+    await ctx.close();
+  }
+
   // 3. Over a year old → amber "re-check"; and src can't inject markup or javascript: links.
   {
     const ctx = await newContext(browser);

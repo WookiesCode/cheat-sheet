@@ -35,7 +35,16 @@ const MACOS_FINDER_KEYS_DATA = [
           "parent",
           "open",
           "rename"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://support.apple.com/en-us/102650",
+              "title": "Apple: Mac keyboard shortcuts"
+            }
+          ]
+        }
       }
     ]
   },
@@ -72,7 +81,21 @@ const MACOS_FINDER_KEYS_DATA = [
           "pathbar",
           "views",
           "columns"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://support.apple.com/en-us/102650",
+              "title": "Apple: Mac keyboard shortcuts"
+            },
+            {
+              "url": "https://support.apple.com/guide/mac-help/get-file-folder-and-disk-information-on-mac-mchlp1774/mac",
+              "title": "Apple: file info and path bar"
+            }
+          ],
+          "note": "⇧⌘. and ⌘1–⌘4 come from Finder's menus; Apple's shortcut page doesn't list them."
+        }
       }
     ]
   },
@@ -111,7 +134,17 @@ const MACOS_FINDER_KEYS_DATA = [
           "copy",
           "duplicate",
           "folder"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://support.apple.com/en-us/102650",
+              "title": "Apple: Mac keyboard shortcuts"
+            }
+          ],
+          "note": "⌥⌘C in Finder is Edit → Copy as Pathname (hold ⌥); Apple's page lists ⌥⌘C as Copy Style in documents."
+        }
       }
     ]
   },
@@ -147,7 +180,21 @@ const MACOS_FINDER_KEYS_DATA = [
           "permanent",
           "empty",
           "remove"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://support.apple.com/en-us/102650",
+              "title": "Apple: Mac keyboard shortcuts"
+            },
+            {
+              "url": "https://support.apple.com/guide/mac-help/delete-files-and-folders-on-mac-mchlp1093/mac",
+              "title": "Apple: delete files and folders"
+            }
+          ],
+          "note": "⌥⌘⌫ is File → Delete Immediately with ⌥ held; not on Apple's shortcut page."
+        }
       }
     ]
   },
@@ -183,7 +230,16 @@ const MACOS_FINDER_KEYS_DATA = [
           "info",
           "inspector",
           "metadata"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://support.apple.com/en-us/102650",
+              "title": "Apple: Mac keyboard shortcuts"
+            }
+          ]
+        }
       }
     ]
   },
@@ -217,6 +273,19 @@ const MACOS_FINDER_KEYS_DATA = [
           ]
         ],
         "tip": "Press ⌘⇧G in Finder to open the \"Go to Folder\" direct path prompt!",
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://support.apple.com/en-us/102650",
+              "title": "Apple: Mac keyboard shortcuts"
+            },
+            {
+              "url": "https://support.apple.com/guide/mac-help/delete-files-and-folders-on-mac-mchlp1093/mac",
+              "title": "Apple: delete files and folders"
+            }
+          ]
+        },
         "tags": [
           "finder-keys",
           "tips",

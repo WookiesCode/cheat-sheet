@@ -405,6 +405,23 @@ All 34 commands (in `windows.js`) and 8 Pro Tips (in `generate-windows-suite.js`
 
 Not confirmed by a Microsoft page (said in the card's note): Ctrl+Shift+Enter to run elevated from Start/Run.
 
+## #8 for the macOS suite (2026-11-10, `macos-sources`)
+
+All 36 commands (in `macos.js`) and 8 Pro Tips (in `generate-macos-suite.js`, now passed through) cite Apple's support pages (keyboard shortcuts, screenshots, window tiling, Spotlight, force quit, trackpad gestures, three finger drag, accents, macOS versions), Homebrew's docs, and Apple's man pages through keith's Xcode man-page mirror (Apple doesn't publish them online). Current macOS is 27 Golden Gate (27.2.1). Corrections:
+
+| Was | Now |
+|---|---|
+| Labels "macOS Sequoia" | "macOS 26 & 27" |
+| Tile: 🌐⌃Return fills the screen; 🌐F full screen | Fill is 🌐⌃F (🌐⌃C center, 🌐⌃R restore); 🌐F isn't in Apple's list, ⌃⌘F is |
+| Spotlight: ⌘Return reveal, ⌘C copy file, ⌘B web search; "weather" | Rebuilt from Apple's current guide: hold ⌘ to locate, Space Quick Look, Tab Quick Actions, ↑ previous search, math and conversions |
+| Thumb + 3 finger pinch "opens Launchpad" (sheet and the hub's gesture panel) | Shows Apps on macOS 26+ (Launchpad before) |
+| `xattr -cr` "clears com.apple.quarantine" | `-c` clears every attribute; `xattr -dr com.apple.quarantine` removes only that one (with a trust warning) |
+| `security add-generic-password … -w 'secret'` | `-w` last so it prompts; the man page recommends it and the secret stays out of history |
+| ⇧⌥⌘⎋ held 3 s force-quits; fn+⌥⌫ deletes the next word; a Mission Control "fan out" gesture | Removed (not on Apple's pages); fn+⌫ / ⌃D forward delete, Magic Mouse two-finger double-tap for Mission Control |
+| mdfind "100x faster than find /", "across all attached drives" | Searches the Spotlight index, so only indexed volumes |
+
+Noted on the cards, not on Apple's shortcut page: ⇧⌘. hidden files, ⌘1–⌘4 views, ⌥⌘C Copy as Pathname, ⌥⌘⌫ Delete Immediately (all from Finder's menus), Shift+wheel horizontal scroll, ⌥-click Wi-Fi details, the ⌥ typography keys (U.S. layout).
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |

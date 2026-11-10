@@ -34,7 +34,20 @@ const MACOS_HOMEBREW_DATA = [
           "app",
           "package",
           "search"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.brew.sh/Manpage",
+              "title": "brew(1)"
+            },
+            {
+              "url": "https://docs.brew.sh/Installation",
+              "title": "Homebrew: installation (prefix)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -76,7 +89,16 @@ const MACOS_HOMEBREW_DATA = [
           "autoremove",
           "cache",
           "outdated"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.brew.sh/Manpage",
+              "title": "brew(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -114,7 +136,20 @@ const MACOS_HOMEBREW_DATA = [
           "daemon",
           "backup",
           "migrate"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.brew.sh/Manpage",
+              "title": "brew(1)"
+            },
+            {
+              "url": "https://docs.brew.sh/Brew-Bundle-and-Brewfile",
+              "title": "Homebrew: brew bundle and Brewfile"
+            }
+          ]
+        }
       }
     ]
   },
@@ -150,7 +185,16 @@ const MACOS_HOMEBREW_DATA = [
           "leaves",
           "doctor",
           "uses"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.brew.sh/Manpage",
+              "title": "brew(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -188,6 +232,19 @@ const MACOS_HOMEBREW_DATA = [
           ]
         ],
         "tip": "Run brew outdated --greedy to check for updates on auto-updating GUI casks!",
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.brew.sh/Manpage",
+              "title": "brew(1)"
+            },
+            {
+              "url": "https://docs.brew.sh/Brew-Bundle-and-Brewfile",
+              "title": "Homebrew: brew bundle and Brewfile"
+            }
+          ]
+        },
         "tags": [
           "homebrew",
           "tips",

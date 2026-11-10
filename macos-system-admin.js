@@ -39,7 +39,20 @@ const MACOS_SYSTEM_ADMIN_DATA = [
           "battery",
           "pmset",
           "power"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://keith.github.io/xcode-man-pages/caffeinate.8.html",
+              "title": "caffeinate man page (Xcode man-page mirror)"
+            },
+            {
+              "url": "https://keith.github.io/xcode-man-pages/pmset.1.html",
+              "title": "pmset man page (Xcode man-page mirror)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -79,7 +92,20 @@ const MACOS_SYSTEM_ADMIN_DATA = [
           "plutil",
           "preferences",
           "config"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://keith.github.io/xcode-man-pages/defaults.1.html",
+              "title": "defaults man page (Xcode man-page mirror)"
+            },
+            {
+              "url": "https://keith.github.io/xcode-man-pages/plutil.1.html",
+              "title": "plutil man page (Xcode man-page mirror)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -116,7 +142,16 @@ const MACOS_SYSTEM_ADMIN_DATA = [
           "agent",
           "service",
           "systemd"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://keith.github.io/xcode-man-pages/launchctl.1.html",
+              "title": "launchctl man page (Xcode man-page mirror)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -157,7 +192,28 @@ const MACOS_SYSTEM_ADMIN_DATA = [
           "apple-silicon",
           "update",
           "xcode"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://keith.github.io/xcode-man-pages/sw_vers.1.html",
+              "title": "sw_vers man page (Xcode man-page mirror)"
+            },
+            {
+              "url": "https://keith.github.io/xcode-man-pages/sysctl.8.html",
+              "title": "sysctl man page (Xcode man-page mirror)"
+            },
+            {
+              "url": "https://keith.github.io/xcode-man-pages/softwareupdate.8.html",
+              "title": "softwareupdate man page (Xcode man-page mirror)"
+            },
+            {
+              "url": "https://keith.github.io/xcode-man-pages/xcode-select.1.html",
+              "title": "xcode-select man page (Xcode man-page mirror)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -195,6 +251,31 @@ const MACOS_SYSTEM_ADMIN_DATA = [
           ]
         ],
         "tip": "Use caffeinate -s during long ssh uploads or backup transfers to prevent idle sleep!",
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://keith.github.io/xcode-man-pages/caffeinate.8.html",
+              "title": "caffeinate man page (Xcode man-page mirror)"
+            },
+            {
+              "url": "https://keith.github.io/xcode-man-pages/defaults.1.html",
+              "title": "defaults man page (Xcode man-page mirror)"
+            },
+            {
+              "url": "https://keith.github.io/xcode-man-pages/launchctl.1.html",
+              "title": "launchctl man page (Xcode man-page mirror)"
+            },
+            {
+              "url": "https://keith.github.io/xcode-man-pages/sw_vers.1.html",
+              "title": "sw_vers man page (Xcode man-page mirror)"
+            },
+            {
+              "url": "https://keith.github.io/xcode-man-pages/sysctl.8.html",
+              "title": "sysctl man page (Xcode man-page mirror)"
+            }
+          ]
+        },
         "tags": [
           "system-admin",
           "tips",

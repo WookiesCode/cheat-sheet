@@ -35,7 +35,28 @@ const MACOS_NET_DISK_SEC_DATA = [
           "network",
           "scutil",
           "vpn"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://keith.github.io/xcode-man-pages/dscacheutil.1.html",
+              "title": "dscacheutil man page (Xcode man-page mirror)"
+            },
+            {
+              "url": "https://keith.github.io/xcode-man-pages/mDNSResponder.8.html",
+              "title": "mDNSResponder man page (Xcode man-page mirror)"
+            },
+            {
+              "url": "https://keith.github.io/xcode-man-pages/scutil.8.html",
+              "title": "scutil man page (Xcode man-page mirror)"
+            },
+            {
+              "url": "https://keith.github.io/xcode-man-pages/networkQuality.8.html",
+              "title": "networkQuality man page (Xcode man-page mirror)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -73,7 +94,24 @@ const MACOS_NET_DISK_SEC_DATA = [
           "wifi",
           "en0",
           "networksetup"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://keith.github.io/xcode-man-pages/ipconfig.8.html",
+              "title": "ipconfig man page (Xcode man-page mirror)"
+            },
+            {
+              "url": "https://keith.github.io/xcode-man-pages/lsof.8.html",
+              "title": "lsof man page (Xcode man-page mirror)"
+            },
+            {
+              "url": "https://keith.github.io/xcode-man-pages/networksetup.8.html",
+              "title": "networksetup man page (Xcode man-page mirror)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -103,7 +141,7 @@ const MACOS_NET_DISK_SEC_DATA = [
             "Test whether Gatekeeper approves an application"
           ]
         ],
-        "tip": "Fixes unsigned CLI/GUI apps",
+        "tip": "Only for software you trust: this skips Gatekeeper's check",
         "tags": [
           "quarantine",
           "xattr",
@@ -111,7 +149,24 @@ const MACOS_NET_DISK_SEC_DATA = [
           "damaged",
           "codesign",
           "unverified"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://keith.github.io/xcode-man-pages/xattr.1.html",
+              "title": "xattr man page (Xcode man-page mirror)"
+            },
+            {
+              "url": "https://keith.github.io/xcode-man-pages/codesign.1.html",
+              "title": "codesign man page (Xcode man-page mirror)"
+            },
+            {
+              "url": "https://keith.github.io/xcode-man-pages/spctl.8.html",
+              "title": "spctl man page (Xcode man-page mirror)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -133,8 +188,8 @@ const MACOS_NET_DISK_SEC_DATA = [
             "Print only the raw password string (-w) for account <name>"
           ],
           [
-            "security add-generic-password -a $USER -s my_api_key -w 'secret'",
-            "Save a secret into login Keychain"
+            "security add-generic-password -a $USER -s my_api_key -w",
+            "Save a secret into the login keychain; -w last makes it prompt, so the secret stays out of shell history"
           ]
         ],
         "tags": [
@@ -143,7 +198,17 @@ const MACOS_NET_DISK_SEC_DATA = [
           "wifi",
           "secret",
           "security"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://keith.github.io/xcode-man-pages/security.1.html",
+              "title": "security man page (Xcode man-page mirror)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: -w with the password on the command line puts it in history; the man page recommends -w last to prompt."
+        }
       }
     ]
   },
@@ -181,7 +246,20 @@ const MACOS_NET_DISK_SEC_DATA = [
           "dmg",
           "hdiutil",
           "usb"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://keith.github.io/xcode-man-pages/diskutil.8.html",
+              "title": "diskutil man page (Xcode man-page mirror)"
+            },
+            {
+              "url": "https://keith.github.io/xcode-man-pages/hdiutil.1.html",
+              "title": "hdiutil man page (Xcode man-page mirror)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -194,12 +272,12 @@ const MACOS_NET_DISK_SEC_DATA = [
       {
         "id": "net-disk-sec-tips-card",
         "desc": "Quarantine xattr clearance, Apple networkQuality & Keychain password recovery",
-        "cmd": "xattr -cr /Applications/App.app   |   networkQuality -v   |   security find-generic-password",
-        "details": "Bypass macOS Gatekeeper \"App is damaged and can't be opened\" by removing the quarantine extended attribute with xattr -cr. Measure upload/download latency under load using native networkQuality.",
+        "cmd": "xattr -dr com.apple.quarantine /Applications/App.app   |   networkQuality -v   |   security find-generic-password",
+        "details": "For an app you trust that Gatekeeper calls \"damaged\", remove only the quarantine attribute with xattr -dr com.apple.quarantine (xattr -c would clear every attribute). Measure throughput and responsiveness under load with networkQuality.",
         "flags": [
           [
-            "xattr -cr <path>",
-            "Recursively clear com.apple.quarantine attribute on downloaded apps"
+            "xattr -dr com.apple.quarantine <path>",
+            "Recursively delete just the quarantine attribute (-c clears all attributes)"
           ],
           [
             "networkQuality -v",
@@ -219,6 +297,36 @@ const MACOS_NET_DISK_SEC_DATA = [
           ]
         ],
         "tip": "Run codesign -dvvv /Applications/App.app to verify code signatures and team identifiers!",
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://keith.github.io/xcode-man-pages/xattr.1.html",
+              "title": "xattr man page (Xcode man-page mirror)"
+            },
+            {
+              "url": "https://keith.github.io/xcode-man-pages/networkQuality.8.html",
+              "title": "networkQuality man page (Xcode man-page mirror)"
+            },
+            {
+              "url": "https://keith.github.io/xcode-man-pages/dscacheutil.1.html",
+              "title": "dscacheutil man page (Xcode man-page mirror)"
+            },
+            {
+              "url": "https://keith.github.io/xcode-man-pages/security.1.html",
+              "title": "security man page (Xcode man-page mirror)"
+            },
+            {
+              "url": "https://keith.github.io/xcode-man-pages/diskutil.8.html",
+              "title": "diskutil man page (Xcode man-page mirror)"
+            },
+            {
+              "url": "https://keith.github.io/xcode-man-pages/codesign.1.html",
+              "title": "codesign man page (Xcode man-page mirror)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: xattr -cr clears every extended attribute, not just quarantine."
+        },
         "tags": [
           "net-disk-sec",
           "tips",

@@ -39,7 +39,20 @@ const MACOS_SYSTEM_KEYS_DATA = [
           "window",
           "shadow",
           "clipboard"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://support.apple.com/en-us/102646",
+              "title": "Apple: take a screenshot"
+            },
+            {
+              "url": "https://support.apple.com/en-us/102650",
+              "title": "Apple: Mac keyboard shortcuts"
+            }
+          ]
+        }
       }
     ]
   },
@@ -77,7 +90,16 @@ const MACOS_SYSTEM_KEYS_DATA = [
           "cycle",
           "mission-control",
           "expose"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://support.apple.com/en-us/102650",
+              "title": "Apple: Mac keyboard shortcuts"
+            }
+          ]
+        }
       }
     ]
   },
@@ -85,26 +107,26 @@ const MACOS_SYSTEM_KEYS_DATA = [
     "id": "system-keys-card-3",
     "badge": "keys",
     "title": "System: Window Tiling & Snapping (Sequoia)",
-    "subtitle": "Native macOS Sequoia window snapping/tiling, fullscreen, hide, and minimize",
+    "subtitle": "Window tiling (macOS 15+), full screen, hide and minimize",
     "commands": [
       {
         "id": "window-tiling-fullscreen",
         "mode": "SHORTCUT",
         "modeClass": "mode-n",
-        "desc": "Native macOS Sequoia window snapping/tiling, fullscreen, hide, and minimize",
-        "cmd": "🌐⌃←   🌐⌃→   🌐⌃Return   |   ⌃⌘F   ⌘H   ⌥⌘H   ⌘M",
+        "desc": "Window tiling (macOS 15+), full screen, hide and minimize",
+        "cmd": "🌐⌃←   🌐⌃→   🌐⌃F   🌐⌃R   |   ⌃⌘F   ⌘H   ⌥⌘H   ⌘M",
         "flags": [
           [
             "🌐⌃← / 🌐⌃→",
             "Tile window to left / right half of screen (macOS 15+)"
           ],
           [
-            "🌐⌃Return",
-            "Fill screen without entering separate fullscreen Space"
+            "🌐⌃F / 🌐⌃C / 🌐⌃R",
+            "Fill the desktop without a full-screen Space / center the window / back to its size before tiling"
           ],
           [
-            "⌃⌘F / 🌐F",
-            "Toggle true macOS Fullscreen Space"
+            "⌃⌘F",
+            "Enter or leave full screen (its own Space), if the app supports it"
           ],
           [
             "⌘H / ⌥⌘H",
@@ -118,7 +140,21 @@ const MACOS_SYSTEM_KEYS_DATA = [
           "hide",
           "minimize",
           "sequoia"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://support.apple.com/guide/mac-help/mac-window-tiling-icons-keyboard-shortcuts-mchl9674d0b0/mac",
+              "title": "Apple: window tiling shortcuts"
+            },
+            {
+              "url": "https://support.apple.com/en-us/102650",
+              "title": "Apple: Mac keyboard shortcuts"
+            }
+          ],
+          "note": "Corrected 2026-11-10: Fill is 🌐⌃F (not 🌐⌃Return); 🌐F for full screen is not in Apple's list."
+        }
       }
     ]
   },
@@ -126,26 +162,26 @@ const MACOS_SYSTEM_KEYS_DATA = [
     "id": "system-keys-card-4",
     "badge": "keys",
     "title": "System: Spotlight Search & Finder Reveal",
-    "subtitle": "Launch Spotlight search, reveal matched file in Finder, or copy file directly",
+    "subtitle": "Spotlight: open a result, find it in Finder, preview it, or act on it",
     "commands": [
       {
         "id": "spotlight-power",
         "mode": "SHORTCUT",
         "modeClass": "mode-n",
-        "desc": "Launch Spotlight search, reveal matched file in Finder, or copy file directly",
-        "cmd": "⌘Space   |   ⌘Return (Reveal)   |   ⌘C (Copy file)   |   Hold ⌘ (Show Path)",
+        "desc": "Spotlight: open a result, find it in Finder, preview it, or act on it",
+        "cmd": "⌘Space   |   Hold ⌘ (Locate)   |   Space (Quick Look)   |   Tab (Quick Actions)",
         "flags": [
           [
-            "⌘Return",
-            "Open enclosing folder in Finder instead of launching the result"
-          ],
-          [
             "Hold ⌘",
-            "Display full file path in bottom status bar of Spotlight preview"
+            "With a result selected, shows where the file is so you can find it in Finder"
           ],
           [
-            "⌘B",
-            "Search the web directly for current Spotlight query"
+            "Space / Tab",
+            "Quick Look the selected result / show its Quick Actions"
+          ],
+          [
+            "↑",
+            "Recall the previous search; math and unit conversions answer in the search field"
           ]
         ],
         "tags": [
@@ -154,7 +190,17 @@ const MACOS_SYSTEM_KEYS_DATA = [
           "launcher",
           "reveal",
           "path"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://support.apple.com/guide/mac-help/find-what-you-need-with-spotlight-mchlp1008/mac",
+              "title": "Apple: Spotlight"
+            }
+          ],
+          "note": "Corrected 2026-11-10: rebuilt from Apple's current Spotlight guide; ⌘B and ⌘C are not in it."
+        }
       }
     ]
   },
@@ -177,7 +223,7 @@ const MACOS_SYSTEM_KEYS_DATA = [
           ],
           [
             "⌥⌘⎋ (Esc)",
-            "Open Force Quit Applications window (⇧⌥⌘⎋ held 3s force-quits front app)"
+            "Open the Force Quit Applications window (or Apple menu → Force Quit)"
           ],
           [
             "⌃⌘Space / 🌐E",
@@ -191,7 +237,21 @@ const MACOS_SYSTEM_KEYS_DATA = [
           "emoji",
           "symbols",
           "security"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://support.apple.com/en-us/102650",
+              "title": "Apple: Mac keyboard shortcuts"
+            },
+            {
+              "url": "https://support.apple.com/en-us/102586",
+              "title": "Apple: force quit an app"
+            }
+          ],
+          "note": "Corrected 2026-11-10: the \"hold ⇧⌥⌘⎋ for 3 s\" force quit is not on Apple's pages."
+        }
       }
     ]
   },
@@ -229,7 +289,17 @@ const MACOS_SYSTEM_KEYS_DATA = [
           "wifi",
           "menu-bar",
           "option"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://support.apple.com/en-us/102650",
+              "title": "Apple: Mac keyboard shortcuts"
+            }
+          ],
+          "note": "⌥-click on the Wi-Fi menu for details is long-standing behaviour, not on this page."
+        }
       }
     ]
   },
@@ -255,7 +325,7 @@ const MACOS_SYSTEM_KEYS_DATA = [
           ],
           [
             "⌘Space",
-            "Spotlight handles currency conversions, math calculations, and weather instantly"
+            "Spotlight answers math and unit or currency conversions in the search field"
           ],
           [
             "⌃⌘Q",
@@ -263,6 +333,24 @@ const MACOS_SYSTEM_KEYS_DATA = [
           ]
         ],
         "tip": "Press Space during region capture (⇧⌘4) to turn the crosshair into a camera icon!",
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://support.apple.com/en-us/102646",
+              "title": "Apple: take a screenshot"
+            },
+            {
+              "url": "https://support.apple.com/guide/mac-help/find-what-you-need-with-spotlight-mchlp1008/mac",
+              "title": "Apple: Spotlight"
+            },
+            {
+              "url": "https://support.apple.com/en-us/102650",
+              "title": "Apple: Mac keyboard shortcuts"
+            }
+          ],
+          "note": "Corrected 2026-11-10: Spotlight doesn't list weather."
+        },
         "tags": [
           "system-keys",
           "tips",

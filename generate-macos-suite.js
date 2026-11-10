@@ -74,10 +74,11 @@ const PRO_TIPS = {
     flags: [
       ['⌃ (Control modifier)', 'Copies screenshot directly to clipboard instead of saving file'],
       ['⌥ (Option modifier)', 'Eliminates drop shadow when capturing a single window'],
-      ['⌘Space', 'Spotlight handles currency conversions, math calculations, and weather instantly'],
+      ['⌘Space', 'Spotlight answers math and unit or currency conversions in the search field'],
       ['⌃⌘Q', 'Instant lock screen without putting display to sleep']
     ],
-    tip: 'Press Space during region capture (⇧⌘4) to turn the crosshair into a camera icon!'
+    tip: 'Press Space during region capture (⇧⌘4) to turn the crosshair into a camera icon!',
+    src: {"verified":"2026-11-10","refs":[{"url":"https://support.apple.com/en-us/102646","title":"Apple: take a screenshot"},{"url":"https://support.apple.com/guide/mac-help/find-what-you-need-with-spotlight-mchlp1008/mac","title":"Apple: Spotlight"},{"url":"https://support.apple.com/en-us/102650","title":"Apple: Mac keyboard shortcuts"}],"note":"Corrected 2026-11-10: Spotlight doesn't list weather."}
   },
   'finder-keys': {
     desc: 'Bypass trash, copy exact POSIX path & toggle hidden system dotfiles',
@@ -89,7 +90,8 @@ const PRO_TIPS = {
       ['⌥⌘⌫', 'Immediately and permanently delete file without moving to Trash'],
       ['⌘⇧.', 'Toggle visibility of hidden dotfiles (.zshrc, .git, .env) in Finder']
     ],
-    tip: 'Press ⌘⇧G in Finder to open the "Go to Folder" direct path prompt!'
+    tip: 'Press ⌘⇧G in Finder to open the "Go to Folder" direct path prompt!',
+    src: {"verified":"2026-11-10","refs":[{"url":"https://support.apple.com/en-us/102650","title":"Apple: Mac keyboard shortcuts"},{"url":"https://support.apple.com/guide/mac-help/delete-files-and-folders-on-mac-mchlp1093/mac","title":"Apple: delete files and folders"}]}
   },
   'text-editing': {
     desc: 'System-wide Emacs readline keybindings, paste matching style & special typography',
@@ -102,7 +104,8 @@ const PRO_TIPS = {
       ['⌥⇧K', 'Apple logo symbol ()'],
       ['⌃⌘Space', 'Character Viewer: search all Unicode emojis, technical symbols & math']
     ],
-    tip: '⌥⌫ deletes the entire previous word; ⌘⌫ deletes the entire line to the left!'
+    tip: '⌥⌫ deletes the entire previous word; ⌘⌫ deletes the entire line to the left!',
+    src: {"verified":"2026-11-10","refs":[{"url":"https://support.apple.com/en-us/102650","title":"Apple: Mac keyboard shortcuts"},{"url":"https://support.apple.com/guide/mac-help/enter-characters-with-accent-marks-on-mac-mh27474/mac","title":"Apple: accents and Option-key characters"}]}
   },
   'trackpad': {
     desc: 'Accessibility 3-finger drag, desktop peek & smart zoom gestures',
@@ -111,23 +114,25 @@ const PRO_TIPS = {
     flags: [
       ['3-Finger Drag', 'Effortlessly drag windows and select text without pressing down'],
       ['Thumb + 3 Fingers Spread', 'Show Desktop immediately (spread fingers outward)'],
-      ['Thumb + 3 Fingers Pinch', 'Open Launchpad app grid'],
+      ['Thumb + 3 Fingers Pinch', 'Show your apps (Apps in macOS Tahoe 26 and later; Launchpad before)'],
       ['Double-tap with 2 fingers', 'Smart Zoom: zooms in on the active webpage column or image']
     ],
-    tip: 'Hold Shift while scrolling any vertical mouse wheel to scroll horizontally!'
+    tip: 'Hold Shift while scrolling any vertical mouse wheel to scroll horizontally!',
+    src: {"verified":"2026-11-10","refs":[{"url":"https://support.apple.com/en-us/102341","title":"Apple: three finger drag"},{"url":"https://support.apple.com/en-us/102482","title":"Apple: trackpad gestures"}],"note":"Corrected 2026-11-10: the thumb-and-three-finger pinch shows Apps on macOS 26 and later (Launchpad is gone)."}
   },
   'darwin-cli': {
     desc: 'Terminal-to-GUI integration, instant mdfind queries & image manipulation',
     cmd: 'pbcopy < file   |   pbpaste | jq   |   open -a "TextEdit" file   |   mdfind -name "app"',
-    details: 'macOS provides unparalleled integration between CLI and GUI. Use pbcopy / pbpaste to bridge shell output to the OS clipboard, mdfind to query Spotlight instantly, and sips for CLI image conversion.',
+    details: 'macOS ties the shell to the GUI. Use pbcopy / pbpaste to bridge shell output to the OS clipboard, mdfind to query Spotlight instantly, and sips for CLI image conversion.',
     flags: [
       ['pbcopy / pbpaste', 'Pipe data into or read data out of the system clipboard'],
       ['open .', 'Open the current terminal working directory in Finder'],
       ['open -e <file>', 'Open file in default macOS TextEdit GUI editor'],
-      ['mdfind "kMDItemFSName == \'*.log\'"', 'Instant Spotlight metadata search across all attached drives'],
+      ['mdfind "kMDItemFSName == \'*.log\'"', 'Spotlight metadata search across indexed volumes'],
       ['sips -Z 800 image.png', 'Batch downscale image preserving aspect ratio to max 800px width/height']
     ],
-    tip: 'Run say "Task completed" at the end of long compile jobs for spoken notification!'
+    tip: 'Run say "Task completed" at the end of long compile jobs for spoken notification!',
+    src: {"verified":"2026-11-10","refs":[{"url":"https://keith.github.io/xcode-man-pages/pbcopy.1.html","title":"pbcopy man page (Xcode man-page mirror)"},{"url":"https://keith.github.io/xcode-man-pages/open.1.html","title":"open man page (Xcode man-page mirror)"},{"url":"https://keith.github.io/xcode-man-pages/mdfind.1.html","title":"mdfind man page (Xcode man-page mirror)"},{"url":"https://keith.github.io/xcode-man-pages/sips.1.html","title":"sips man page (Xcode man-page mirror)"},{"url":"https://keith.github.io/xcode-man-pages/say.1.html","title":"say man page (Xcode man-page mirror)"}]}
   },
   'homebrew': {
     desc: 'Reproducible Brewfile snapshots, background services & dependency auditing',
@@ -140,7 +145,8 @@ const PRO_TIPS = {
       ['brew autoremove', 'Uninstall orphaned dependencies no longer required by any formula'],
       ['brew cleanup -s', 'Scrub cached downloads and reclaim gigabytes of disk space']
     ],
-    tip: 'Run brew outdated --greedy to check for updates on auto-updating GUI casks!'
+    tip: 'Run brew outdated --greedy to check for updates on auto-updating GUI casks!',
+    src: {"verified":"2026-11-10","refs":[{"url":"https://docs.brew.sh/Manpage","title":"brew(1)"},{"url":"https://docs.brew.sh/Brew-Bundle-and-Brewfile","title":"Homebrew: brew bundle and Brewfile"}]}
   },
   'system-admin': {
     desc: 'Prevent sleep during long tasks, defaults customization & launchd triage',
@@ -153,20 +159,22 @@ const PRO_TIPS = {
       ['sw_vers', 'Display macOS product name, version, and OS build number'],
       ['sysctl -n machdep.cpu.brand_string', 'Inspect exact CPU model (Apple M1/M2/M3/M4 or Intel)']
     ],
-    tip: 'Use caffeinate -s during long ssh uploads or backup transfers to prevent idle sleep!'
+    tip: 'Use caffeinate -s during long ssh uploads or backup transfers to prevent idle sleep!',
+    src: {"verified":"2026-11-10","refs":[{"url":"https://keith.github.io/xcode-man-pages/caffeinate.8.html","title":"caffeinate man page (Xcode man-page mirror)"},{"url":"https://keith.github.io/xcode-man-pages/defaults.1.html","title":"defaults man page (Xcode man-page mirror)"},{"url":"https://keith.github.io/xcode-man-pages/launchctl.1.html","title":"launchctl man page (Xcode man-page mirror)"},{"url":"https://keith.github.io/xcode-man-pages/sw_vers.1.html","title":"sw_vers man page (Xcode man-page mirror)"},{"url":"https://keith.github.io/xcode-man-pages/sysctl.8.html","title":"sysctl man page (Xcode man-page mirror)"}]}
   },
   'net-disk-sec': {
     desc: 'Quarantine xattr clearance, Apple networkQuality & Keychain password recovery',
-    cmd: 'xattr -cr /Applications/App.app   |   networkQuality -v   |   security find-generic-password',
-    details: 'Bypass macOS Gatekeeper "App is damaged and can\'t be opened" by removing the quarantine extended attribute with xattr -cr. Measure upload/download latency under load using native networkQuality.',
+    cmd: 'xattr -dr com.apple.quarantine /Applications/App.app   |   networkQuality -v   |   security find-generic-password',
+    details: 'For an app you trust that Gatekeeper calls "damaged", remove only the quarantine attribute with xattr -dr com.apple.quarantine (xattr -c would clear every attribute). Measure throughput and responsiveness under load with networkQuality.',
     flags: [
-      ['xattr -cr <path>', 'Recursively clear com.apple.quarantine attribute on downloaded apps'],
+      ['xattr -dr com.apple.quarantine <path>', 'Recursively delete just the quarantine attribute (-c clears all attributes)'],
       ['networkQuality -v', 'Run Apple official responsiveness test (RPM, latency & bufferbloat)'],
       ['dscacheutil -flushcache; killall -HUP mDNSResponder', 'Completely flush and reset macOS DNS cache'],
       ['security find-generic-password -ga "SSID"', 'Retrieve saved Wi-Fi WPA2/WPA3 password from Keychain'],
       ['diskutil list', 'List all physical disks, synthesize APFS containers, and volume groups']
     ],
-    tip: 'Run codesign -dvvv /Applications/App.app to verify code signatures and team identifiers!'
+    tip: 'Run codesign -dvvv /Applications/App.app to verify code signatures and team identifiers!',
+    src: {"verified":"2026-11-10","refs":[{"url":"https://keith.github.io/xcode-man-pages/xattr.1.html","title":"xattr man page (Xcode man-page mirror)"},{"url":"https://keith.github.io/xcode-man-pages/networkQuality.8.html","title":"networkQuality man page (Xcode man-page mirror)"},{"url":"https://keith.github.io/xcode-man-pages/dscacheutil.1.html","title":"dscacheutil man page (Xcode man-page mirror)"},{"url":"https://keith.github.io/xcode-man-pages/security.1.html","title":"security man page (Xcode man-page mirror)"},{"url":"https://keith.github.io/xcode-man-pages/diskutil.8.html","title":"diskutil man page (Xcode man-page mirror)"},{"url":"https://keith.github.io/xcode-man-pages/codesign.1.html","title":"codesign man page (Xcode man-page mirror)"}],"note":"Corrected 2026-11-10: xattr -cr clears every extended attribute, not just quarantine."}
   }
 };
 
@@ -243,6 +251,7 @@ function buildMacosSectionCards(sec) {
           details: proTip.details,
           flags: proTip.flags,
           tip: proTip.tip,
+          ...(proTip.src ? { src: proTip.src } : {}),
           tags: [sec.id, 'tips', 'pro', 'tricks', 'macos', 'best-practices']
         }
       ]
@@ -705,7 +714,7 @@ function generateMacosHtml(sec) {
         <div>
           <div class="brand-title-row">
             <h1>${escapeHtml(sec.title)}</h1>
-            <span class="version-pill">${escapeHtml(sec.badge.toUpperCase())} / macOS Sequoia</span>
+            <span class="version-pill">${escapeHtml(sec.badge.toUpperCase())} / macOS 26 &amp; 27</span>
             <nav class="sheet-switcher" aria-label="Switch cheat sheet">
               <div class="nav-dropdown" id="linux-nav-dropdown">
                 <a href="index.html" class="sheet-link dropdown-toggle" aria-haspopup="true">

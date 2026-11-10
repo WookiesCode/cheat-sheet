@@ -34,7 +34,16 @@ const MACOS_TEXT_EDITING_DATA = [
           "end",
           "line",
           "select"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://support.apple.com/en-us/102650",
+              "title": "Apple: Mac keyboard shortcuts"
+            }
+          ]
+        }
       }
     ]
   },
@@ -56,8 +65,8 @@ const MACOS_TEXT_EDITING_DATA = [
             "Delete entire word to the left of cursor"
           ],
           [
-            "fn+⌥⌫",
-            "Delete entire word to the right of cursor"
+            "fn+⌫ or ⌃D",
+            "Forward delete the character to the right of the cursor"
           ],
           [
             "⌘⌫",
@@ -75,7 +84,17 @@ const MACOS_TEXT_EDITING_DATA = [
           "word",
           "line",
           "forward"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://support.apple.com/en-us/102650",
+              "title": "Apple: Mac keyboard shortcuts"
+            }
+          ],
+          "note": "Corrected 2026-11-10: fn+⌥⌫ (forward word) is not on Apple's list; fn+⌫ / ⌃D are."
+        }
       }
     ]
   },
@@ -108,7 +127,16 @@ const MACOS_TEXT_EDITING_DATA = [
           "unformatted",
           "style",
           "clipboard"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://support.apple.com/en-us/102650",
+              "title": "Apple: Mac keyboard shortcuts"
+            }
+          ]
+        }
       }
     ]
   },
@@ -145,7 +173,17 @@ const MACOS_TEXT_EDITING_DATA = [
           "degree",
           "accents",
           "apple"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://support.apple.com/guide/mac-help/enter-characters-with-accent-marks-on-mac-mh27474/mac",
+              "title": "Apple: accents and Option-key characters"
+            }
+          ],
+          "note": "The ⌥ combinations are for the U.S. keyboard layout; check yours in the Keyboard Viewer."
+        }
       }
     ]
   },
@@ -183,6 +221,19 @@ const MACOS_TEXT_EDITING_DATA = [
           ]
         ],
         "tip": "⌥⌫ deletes the entire previous word; ⌘⌫ deletes the entire line to the left!",
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://support.apple.com/en-us/102650",
+              "title": "Apple: Mac keyboard shortcuts"
+            },
+            {
+              "url": "https://support.apple.com/guide/mac-help/enter-characters-with-accent-marks-on-mac-mh27474/mac",
+              "title": "Apple: accents and Option-key characters"
+            }
+          ]
+        },
         "tags": [
           "text-editing",
           "tips",

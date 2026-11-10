@@ -18,7 +18,8 @@ const MACOS_CHEAT_SHEET_DATA = [
           ["⇧⌘5", "Open unified Screenshot & Screen Recording HUD bar"]
         ],
         tip: "Hold ⌥ click = no shadow",
-        tags: ["screenshot", "capture", "record", "window", "shadow", "clipboard"]
+        tags: ["screenshot", "capture", "record", "window", "shadow", "clipboard"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://support.apple.com/en-us/102646","title":"Apple: take a screenshot"},{"url":"https://support.apple.com/en-us/102650","title":"Apple: Mac keyboard shortcuts"}]}
       },
       {
         id: "app-window-switching",
@@ -32,34 +33,37 @@ const MACOS_CHEAT_SHEET_DATA = [
           ["⌃↑ / ⌃↓", "Mission Control (all windows) / App Exposé (only current app's windows)"]
         ],
         tip: "⌘` switches same-app windows",
-        tags: ["switch", "alt-tab", "windows", "cycle", "mission-control", "expose"]
+        tags: ["switch", "alt-tab", "windows", "cycle", "mission-control", "expose"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://support.apple.com/en-us/102650","title":"Apple: Mac keyboard shortcuts"}]}
       },
       {
         id: "window-tiling-fullscreen",
         mode: "SHORTCUT",
         modeClass: "mode-n",
-        desc: "Native macOS Sequoia window snapping/tiling, fullscreen, hide, and minimize",
-        cmd: "🌐⌃←   🌐⌃→   🌐⌃Return   |   ⌃⌘F   ⌘H   ⌥⌘H   ⌘M",
+        desc: "Window tiling (macOS 15+), full screen, hide and minimize",
+        cmd: "🌐⌃←   🌐⌃→   🌐⌃F   🌐⌃R   |   ⌃⌘F   ⌘H   ⌥⌘H   ⌘M",
         flags: [
           ["🌐⌃← / 🌐⌃→", "Tile window to left / right half of screen (macOS 15+)"],
-          ["🌐⌃Return", "Fill screen without entering separate fullscreen Space"],
-          ["⌃⌘F / 🌐F", "Toggle true macOS Fullscreen Space"],
+          ["🌐⌃F / 🌐⌃C / 🌐⌃R", "Fill the desktop without a full-screen Space / center the window / back to its size before tiling"],
+          ["⌃⌘F", "Enter or leave full screen (its own Space), if the app supports it"],
           ["⌘H / ⌥⌘H", "Hide active app / Hide all other apps except active one"]
         ],
-        tags: ["tile", "snap", "fullscreen", "hide", "minimize", "sequoia"]
+        tags: ["tile", "snap", "fullscreen", "hide", "minimize", "sequoia"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://support.apple.com/guide/mac-help/mac-window-tiling-icons-keyboard-shortcuts-mchl9674d0b0/mac","title":"Apple: window tiling shortcuts"},{"url":"https://support.apple.com/en-us/102650","title":"Apple: Mac keyboard shortcuts"}],"note":"Corrected 2026-11-10: Fill is 🌐⌃F (not 🌐⌃Return); 🌐F for full screen is not in Apple's list."}
       },
       {
         id: "spotlight-power",
         mode: "SHORTCUT",
         modeClass: "mode-n",
-        desc: "Launch Spotlight search, reveal matched file in Finder, or copy file directly",
-        cmd: "⌘Space   |   ⌘Return (Reveal)   |   ⌘C (Copy file)   |   Hold ⌘ (Show Path)",
+        desc: "Spotlight: open a result, find it in Finder, preview it, or act on it",
+        cmd: "⌘Space   |   Hold ⌘ (Locate)   |   Space (Quick Look)   |   Tab (Quick Actions)",
         flags: [
-          ["⌘Return", "Open enclosing folder in Finder instead of launching the result"],
-          ["Hold ⌘", "Display full file path in bottom status bar of Spotlight preview"],
-          ["⌘B", "Search the web directly for current Spotlight query"]
+          ["Hold ⌘", "With a result selected, shows where the file is so you can find it in Finder"],
+          ["Space / Tab", "Quick Look the selected result / show its Quick Actions"],
+          ["↑", "Recall the previous search; math and unit conversions answer in the search field"]
         ],
-        tags: ["spotlight", "search", "launcher", "reveal", "path"]
+        tags: ["spotlight", "search", "launcher", "reveal", "path"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://support.apple.com/guide/mac-help/find-what-you-need-with-spotlight-mchlp1008/mac","title":"Apple: Spotlight"}],"note":"Corrected 2026-11-10: rebuilt from Apple's current Spotlight guide; ⌘B and ⌘C are not in it."}
       },
       {
         id: "lock-forcequit-emoji",
@@ -69,10 +73,11 @@ const MACOS_CHEAT_SHEET_DATA = [
         cmd: "⌃⌘Q (Lock)   |   ⌥⌘⎋ (Force Quit)   |   ⌃⌘Space (Emoji)",
         flags: [
           ["⌃⌘Q", "Lock screen immediately"],
-          ["⌥⌘⎋ (Esc)", "Open Force Quit Applications window (⇧⌥⌘⎋ held 3s force-quits front app)"],
+          ["⌥⌘⎋ (Esc)", "Open the Force Quit Applications window (or Apple menu → Force Quit)"],
           ["⌃⌘Space / 🌐E", "Open Character Viewer (Emoji, math symbols, arrows)"]
         ],
-        tags: ["lock", "force-quit", "hang", "emoji", "symbols", "security"]
+        tags: ["lock", "force-quit", "hang", "emoji", "symbols", "security"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://support.apple.com/en-us/102650","title":"Apple: Mac keyboard shortcuts"},{"url":"https://support.apple.com/en-us/102586","title":"Apple: force quit an app"}],"note":"Corrected 2026-11-10: the \"hold ⇧⌥⌘⎋ for 3 s\" force quit is not on Apple's pages."}
       },
       {
         id: "sound-brightness-fine",
@@ -86,7 +91,8 @@ const MACOS_CHEAT_SHEET_DATA = [
           ["⌥ + Click Wi-Fi/Bluetooth", "Show RSSI signal dBm, noise, channel, TX rate & MAC address"]
         ],
         tip: "⌥+Click Wi-Fi icon for diagnostics",
-        tags: ["volume", "brightness", "fine", "wifi", "menu-bar", "option"]
+        tags: ["volume", "brightness", "fine", "wifi", "menu-bar", "option"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://support.apple.com/en-us/102650","title":"Apple: Mac keyboard shortcuts"}],"note":"⌥-click on the Wi-Fi menu for details is long-standing behaviour, not on this page."}
       }
     ]
   },
@@ -108,7 +114,8 @@ const MACOS_CHEAT_SHEET_DATA = [
           ["Return", "Rename selected file (unlike Windows/Linux where Enter opens it!)"]
         ],
         tip: "Works in Open/Save dialogs too!",
-        tags: ["finder", "goto", "path", "parent", "open", "rename"]
+        tags: ["finder", "goto", "path", "parent", "open", "rename"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://support.apple.com/en-us/102650","title":"Apple: Mac keyboard shortcuts"}]}
       },
       {
         id: "finder-dotfiles-pathbar",
@@ -122,7 +129,8 @@ const MACOS_CHEAT_SHEET_DATA = [
           ["⌘1 / ⌘2 / ⌘3 / ⌘4", "Switch to Icon / List / Column (Miller) / Gallery view"]
         ],
         tip: "⇧⌘. works in Save dialogs",
-        tags: ["hidden", "dotfiles", "pathbar", "views", "columns"]
+        tags: ["hidden", "dotfiles", "pathbar", "views", "columns"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://support.apple.com/en-us/102650","title":"Apple: Mac keyboard shortcuts"},{"url":"https://support.apple.com/guide/mac-help/get-file-folder-and-disk-information-on-mac-mchlp1774/mac","title":"Apple: file info and path bar"}],"note":"⇧⌘. and ⌘1–⌘4 come from Finder's menus; Apple's shortcut page doesn't list them."}
       },
       {
         id: "finder-copy-move-path",
@@ -136,7 +144,8 @@ const MACOS_CHEAT_SHEET_DATA = [
           ["⌃⌘N", "Create a new folder already containing the currently selected items"]
         ],
         tip: "⌥⌘V = Cut & Paste files",
-        tags: ["cut", "move", "paste", "path", "copy", "duplicate", "folder"]
+        tags: ["cut", "move", "paste", "path", "copy", "duplicate", "folder"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://support.apple.com/en-us/102650","title":"Apple: Mac keyboard shortcuts"}],"note":"⌥⌘C in Finder is Edit → Copy as Pathname (hold ⌥); Apple's page lists ⌥⌘C as Copy Style in documents."}
       },
       {
         id: "finder-trash-delete",
@@ -149,7 +158,8 @@ const MACOS_CHEAT_SHEET_DATA = [
           ["⌥⌘⌫", "Delete immediately (bypasses Trash completely)"],
           ["⇧⌘⌫ / ⌥⇧⌘⌫", "Empty Trash (with confirmation / skip confirmation dialog)"]
         ],
-        tags: ["trash", "delete", "permanent", "empty", "remove"]
+        tags: ["trash", "delete", "permanent", "empty", "remove"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://support.apple.com/en-us/102650","title":"Apple: Mac keyboard shortcuts"},{"url":"https://support.apple.com/guide/mac-help/delete-files-and-folders-on-mac-mchlp1093/mac","title":"Apple: delete files and folders"}],"note":"⌥⌘⌫ is File → Delete Immediately with ⌥ held; not on Apple's shortcut page."}
       },
       {
         id: "quicklook-inspector",
@@ -162,7 +172,8 @@ const MACOS_CHEAT_SHEET_DATA = [
           ["⌘I vs ⌥⌘I", "Get Info window vs Live Floating Inspector (updates as selection changes)"],
           ["⌘Y", "Alternate shortcut to toggle Quick Look"]
         ],
-        tags: ["quicklook", "preview", "info", "inspector", "metadata"]
+        tags: ["quicklook", "preview", "info", "inspector", "metadata"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://support.apple.com/en-us/102650","title":"Apple: Mac keyboard shortcuts"}]}
       }
     ]
   },
@@ -183,7 +194,8 @@ const MACOS_CHEAT_SHEET_DATA = [
           ["⌘← / ⌘→", "Jump to beginning / end of current line (Hold ⇧ Shift to select line)"],
           ["⌘↑ / ⌘↓", "Jump to very top / very bottom of document"]
         ],
-        tags: ["cursor", "word", "home", "end", "line", "select"]
+        tags: ["cursor", "word", "home", "end", "line", "select"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://support.apple.com/en-us/102650","title":"Apple: Mac keyboard shortcuts"}]}
       },
       {
         id: "text-delete-word-line",
@@ -193,12 +205,13 @@ const MACOS_CHEAT_SHEET_DATA = [
         cmd: "⌥⌫ (Prev Word)   |   ⌘⌫ (To Line Start)   |   fn+⌫ or ⌃D (Forward Del)",
         flags: [
           ["⌥⌫", "Delete entire word to the left of cursor"],
-          ["fn+⌥⌫", "Delete entire word to the right of cursor"],
+          ["fn+⌫ or ⌃D", "Forward delete the character to the right of the cursor"],
           ["⌘⌫", "Delete everything from cursor back to start of line"],
           ["⌃K", "Kill everything from cursor forward to end of line"]
         ],
         tip: "⌥⌫ & ⌘⌫ work everywhere",
-        tags: ["delete", "backspace", "word", "line", "forward"]
+        tags: ["delete", "backspace", "word", "line", "forward"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://support.apple.com/en-us/102650","title":"Apple: Mac keyboard shortcuts"}],"note":"Corrected 2026-11-10: fn+⌥⌫ (forward word) is not on Apple's list; fn+⌫ / ⌃D are."}
       },
       {
         id: "paste-without-formatting",
@@ -211,7 +224,8 @@ const MACOS_CHEAT_SHEET_DATA = [
           ["⌘Z / ⇧⌘Z", "Undo / Redo last action"]
         ],
         tip: "Essential for clean pasting",
-        tags: ["paste", "plain", "unformatted", "style", "clipboard"]
+        tags: ["paste", "plain", "unformatted", "style", "clipboard"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://support.apple.com/en-us/102650","title":"Apple: Mac keyboard shortcuts"}]}
       },
       {
         id: "mac-special-typography",
@@ -224,7 +238,8 @@ const MACOS_CHEAT_SHEET_DATA = [
           ["⌥⇧8 / ⌥;", "Degree symbol (°) / Horizontal ellipsis (…)"],
           ["Hold Vowel Key", "Press & hold e, a, u, o, n to pop up accent selector menu"]
         ],
-        tags: ["symbols", "typography", "emdash", "degree", "accents", "apple"]
+        tags: ["symbols", "typography", "emdash", "degree", "accents", "apple"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://support.apple.com/guide/mac-help/enter-characters-with-accent-marks-on-mac-mh27474/mac","title":"Apple: accents and Option-key characters"}],"note":"The ⌥ combinations are for the U.S. keyboard layout; check yours in the Keyboard Viewer."}
       }
     ]
   },
@@ -246,7 +261,8 @@ const MACOS_CHEAT_SHEET_DATA = [
           ["Swipe Left/Right", "Glide between Desktop Spaces and Fullscreen apps"],
           ["Spread Thumb + 3 Fingers", "Push all windows aside to reveal Desktop"]
         ],
-        tags: ["trackpad", "gesture", "swipe", "spaces", "mission-control", "desktop"]
+        tags: ["trackpad", "gesture", "swipe", "spaces", "mission-control", "desktop"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://support.apple.com/en-us/102482","title":"Apple: trackpad gestures"}],"note":"Apple's default is four fingers for Mission Control and App Exposé (three is a setting)."}
       },
       {
         id: "trackpad-lookup-zoom",
@@ -259,7 +275,8 @@ const MACOS_CHEAT_SHEET_DATA = [
           ["2-Finger Double Tap", "Smart Zoom in/out on Safari column or PDF"],
           ["2-Finger Rotate", "Rotate photo in Preview or Photos app"]
         ],
-        tags: ["force-click", "lookup", "dictionary", "zoom", "preview", "rotate"]
+        tags: ["force-click", "lookup", "dictionary", "zoom", "preview", "rotate"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://support.apple.com/en-us/102482","title":"Apple: trackpad gestures"}]}
       },
       {
         id: "trackpad-three-finger-drag",
@@ -271,19 +288,21 @@ const MACOS_CHEAT_SHEET_DATA = [
           ["Three Finger Drag", "Move windows or select text with 3 fingers without clicking down on the trackpad"]
         ],
         tip: "Best hidden trackpad setting",
-        tags: ["drag", "three-finger", "accessibility", "ergonomic"]
+        tags: ["drag", "three-finger", "accessibility", "ergonomic"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://support.apple.com/en-us/102341","title":"Apple: three finger drag"}]}
       },
       {
         id: "horizontal-scroll-shift",
         mode: "MOUSE / PAD",
         modeClass: "mode-v",
-        desc: "Scroll horizontally with any vertical mouse scroll wheel or switch Mission Control apps",
-        cmd: "Hold ⇧ Shift + Scroll Wheel   |   2-Finger Scroll on App Cluster in Mission Control",
+        desc: "Scroll horizontally with a vertical mouse wheel; Mission Control with a mouse",
+        cmd: "Hold ⇧ Shift + Scroll Wheel   |   Double-tap with two fingers (Magic Mouse)",
         flags: [
-          ["⇧ + Scroll Wheel", "Convert vertical mouse wheel movement into horizontal scrolling"],
-          ["2-Finger Swipe Up on cluster", "In Mission Control, swipe up with 2 fingers over grouped windows to fan them out"]
+          ["⇧ + Scroll Wheel", "Turns vertical wheel movement into horizontal scrolling in most apps (not in Apple's gesture list)"],
+          ["Two-finger double-tap (Magic Mouse)", "Open Mission Control"]
         ],
-        tags: ["scroll", "horizontal", "mouse", "wheel", "mission-control"]
+        tags: ["scroll", "horizontal", "mouse", "wheel", "mission-control"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://support.apple.com/en-us/102482","title":"Apple: trackpad gestures"}],"note":"Corrected 2026-11-10: the Mission Control \"fan out\" gesture was not Apple's; Shift+wheel is not in Apple's list."}
       }
     ]
   },
@@ -305,7 +324,8 @@ const MACOS_CHEAT_SHEET_DATA = [
           ["pbpaste | pbcopy", "Strip rich-text formatting from current clipboard"]
         ],
         tip: "Zero-mouse clipboard piping",
-        tags: ["clipboard", "pbcopy", "pbpaste", "copy", "paste", "ssh"]
+        tags: ["clipboard", "pbcopy", "pbpaste", "copy", "paste", "ssh"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://keith.github.io/xcode-man-pages/pbcopy.1.html","title":"pbcopy man page (Xcode man-page mirror)"}]}
       },
       {
         id: "open-command",
@@ -320,7 +340,8 @@ const MACOS_CHEAT_SHEET_DATA = [
           ["-t / -e", "Open file in default text editor / TextEdit"],
           ["-n", "Launch a fresh new instance of the application"]
         ],
-        tags: ["open", "finder", "reveal", "launch", "app", "gui"]
+        tags: ["open", "finder", "reveal", "launch", "app", "gui"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://keith.github.io/xcode-man-pages/open.1.html","title":"open man page (Xcode man-page mirror)"}]}
       },
       {
         id: "mdfind-spotlight-cli",
@@ -334,8 +355,9 @@ const MACOS_CHEAT_SHEET_DATA = [
           ["-0 | xargs -0", "Null-delimited output for safe piping"],
           ["mdls <file>", "Inspect all indexed Spotlight metadata attributes of a file"]
         ],
-        tip: "100x faster than find /",
-        tags: ["mdfind", "mdls", "spotlight", "search", "index", "metadata"]
+        tip: "Searches the Spotlight index: only indexed volumes",
+        tags: ["mdfind", "mdls", "spotlight", "search", "index", "metadata"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://keith.github.io/xcode-man-pages/mdfind.1.html","title":"mdfind man page (Xcode man-page mirror)"},{"url":"https://keith.github.io/xcode-man-pages/mdls.1.html","title":"mdls man page (Xcode man-page mirror)"}]}
       },
       {
         id: "qlmanage-sips-say",
@@ -349,7 +371,8 @@ const MACOS_CHEAT_SHEET_DATA = [
           ["sips -s format jpeg in.heic --out out.jpg", "Convert HEIC/PNG to JPEG natively"],
           ["say / afplay", "Synthesize speech alert / play audio file from CLI"]
         ],
-        tags: ["quicklook", "qlmanage", "sips", "image", "resize", "heic", "say", "audio"]
+        tags: ["quicklook", "qlmanage", "sips", "image", "resize", "heic", "say", "audio"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://keith.github.io/xcode-man-pages/qlmanage.1.html","title":"qlmanage man page (Xcode man-page mirror)"},{"url":"https://keith.github.io/xcode-man-pages/sips.1.html","title":"sips man page (Xcode man-page mirror)"},{"url":"https://keith.github.io/xcode-man-pages/say.1.html","title":"say man page (Xcode man-page mirror)"},{"url":"https://keith.github.io/xcode-man-pages/afplay.1.html","title":"afplay man page (Xcode man-page mirror)"}]}
       }
     ]
   },
@@ -370,7 +393,8 @@ const MACOS_CHEAT_SHEET_DATA = [
           ["--cask", "Install native macOS .app bundle into /Applications"],
           ["brew info <pkg>", "Show version, dependencies, caveats & analytics"]
         ],
-        tags: ["brew", "install", "cask", "app", "package", "search"]
+        tags: ["brew", "install", "cask", "app", "package", "search"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://docs.brew.sh/Manpage","title":"brew(1)"},{"url":"https://docs.brew.sh/Installation","title":"Homebrew: installation (prefix)"}]}
       },
       {
         id: "brew-update-cleanup",
@@ -385,7 +409,8 @@ const MACOS_CHEAT_SHEET_DATA = [
           ["brew outdated", "List packages with available updates before upgrading"]
         ],
         tip: "Reclaims GBs of cache",
-        tags: ["update", "upgrade", "cleanup", "autoremove", "cache", "outdated"]
+        tags: ["update", "upgrade", "cleanup", "autoremove", "cache", "outdated"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://docs.brew.sh/Manpage","title":"brew(1)"}]}
       },
       {
         id: "brew-services-bundle",
@@ -399,7 +424,8 @@ const MACOS_CHEAT_SHEET_DATA = [
           ["brew bundle install", "Install everything declared in a Brewfile on a new Mac"]
         ],
         tip: "Backup setup via Brewfile",
-        tags: ["services", "brewfile", "bundle", "daemon", "backup", "migrate"]
+        tags: ["services", "brewfile", "bundle", "daemon", "backup", "migrate"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://docs.brew.sh/Manpage","title":"brew(1)"},{"url":"https://docs.brew.sh/Brew-Bundle-and-Brewfile","title":"Homebrew: brew bundle and Brewfile"}]}
       },
       {
         id: "brew-deps-doctor",
@@ -412,7 +438,8 @@ const MACOS_CHEAT_SHEET_DATA = [
           ["uses --installed <pkg>", "Show which installed packages depend on <pkg>"],
           ["brew leaves", "List top-level packages not required as dependencies by anything else"]
         ],
-        tags: ["dependencies", "tree", "leaves", "doctor", "uses"]
+        tags: ["dependencies", "tree", "leaves", "doctor", "uses"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://docs.brew.sh/Manpage","title":"brew(1)"}]}
       }
     ]
   },
@@ -435,7 +462,8 @@ const MACOS_CHEAT_SHEET_DATA = [
           ["pmset -g assertions", "List processes currently blocking display or system sleep"]
         ],
         tip: "Wrap long builds in caffeinate",
-        tags: ["sleep", "awake", "caffeinate", "battery", "pmset", "power"]
+        tags: ["sleep", "awake", "caffeinate", "battery", "pmset", "power"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://keith.github.io/xcode-man-pages/caffeinate.8.html","title":"caffeinate man page (Xcode man-page mirror)"},{"url":"https://keith.github.io/xcode-man-pages/pmset.1.html","title":"pmset man page (Xcode man-page mirror)"}]}
       },
       {
         id: "defaults-plutil",
@@ -449,7 +477,8 @@ const MACOS_CHEAT_SHEET_DATA = [
           ["plutil -p <file.plist>", "Pretty-print binary or XML property list file"],
           ["plutil -convert xml1", "Convert binary .plist to human-editable XML"]
         ],
-        tags: ["defaults", "plist", "plutil", "preferences", "config"]
+        tags: ["defaults", "plist", "plutil", "preferences", "config"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://keith.github.io/xcode-man-pages/defaults.1.html","title":"defaults man page (Xcode man-page mirror)"},{"url":"https://keith.github.io/xcode-man-pages/plutil.1.html","title":"plutil man page (Xcode man-page mirror)"}]}
       },
       {
         id: "launchctl-modern",
@@ -462,7 +491,8 @@ const MACOS_CHEAT_SHEET_DATA = [
           ["kickstart -k gui/$(id -u)/...", "Immediately kill and restart a running user agent"],
           ["bootstrap / bootout", "Modern replacement for deprecated launchctl load / unload"]
         ],
-        tags: ["launchctl", "launchd", "daemon", "agent", "service", "systemd"]
+        tags: ["launchctl", "launchd", "daemon", "agent", "service", "systemd"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://keith.github.io/xcode-man-pages/launchctl.1.html","title":"launchctl man page (Xcode man-page mirror)"}]}
       },
       {
         id: "hardware-swvers-update",
@@ -476,7 +506,8 @@ const MACOS_CHEAT_SHEET_DATA = [
           ["softwareupdate -ia", "Download and install all available macOS system updates"],
           ["xcode-select --install", "Install Xcode Command Line Tools (git, clang, make)"]
         ],
-        tags: ["version", "hardware", "cpu", "apple-silicon", "update", "xcode"]
+        tags: ["version", "hardware", "cpu", "apple-silicon", "update", "xcode"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://keith.github.io/xcode-man-pages/sw_vers.1.html","title":"sw_vers man page (Xcode man-page mirror)"},{"url":"https://keith.github.io/xcode-man-pages/sysctl.8.html","title":"sysctl man page (Xcode man-page mirror)"},{"url":"https://keith.github.io/xcode-man-pages/softwareupdate.8.html","title":"softwareupdate man page (Xcode man-page mirror)"},{"url":"https://keith.github.io/xcode-man-pages/xcode-select.1.html","title":"xcode-select man page (Xcode man-page mirror)"}]}
       }
     ]
   },
@@ -498,7 +529,8 @@ const MACOS_CHEAT_SHEET_DATA = [
           ["networkQuality -v", "Built-in macOS uplink/downlink throughput & responsiveness (RPM) test"]
         ],
         tip: "networkQuality is built-in!",
-        tags: ["dns", "flush", "speedtest", "network", "scutil", "vpn"]
+        tags: ["dns", "flush", "speedtest", "network", "scutil", "vpn"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://keith.github.io/xcode-man-pages/dscacheutil.1.html","title":"dscacheutil man page (Xcode man-page mirror)"},{"url":"https://keith.github.io/xcode-man-pages/mDNSResponder.8.html","title":"mDNSResponder man page (Xcode man-page mirror)"},{"url":"https://keith.github.io/xcode-man-pages/scutil.8.html","title":"scutil man page (Xcode man-page mirror)"},{"url":"https://keith.github.io/xcode-man-pages/networkQuality.8.html","title":"networkQuality man page (Xcode man-page mirror)"}]}
       },
       {
         id: "ip-ports-wifi",
@@ -511,7 +543,8 @@ const MACOS_CHEAT_SHEET_DATA = [
           ["lsof -i :3000", "Find which process is occupying port 3000 on macOS"],
           ["networksetup -setdnsservers Wi-Fi 2606:4700:4700::1111 2001:4860:4860::8888", "Set IPv6 DNS servers for Wi-Fi from CLI"]
         ],
-        tags: ["ip", "ports", "lsof", "listen", "wifi", "en0", "networksetup"]
+        tags: ["ip", "ports", "lsof", "listen", "wifi", "en0", "networksetup"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://keith.github.io/xcode-man-pages/ipconfig.8.html","title":"ipconfig man page (Xcode man-page mirror)"},{"url":"https://keith.github.io/xcode-man-pages/lsof.8.html","title":"lsof man page (Xcode man-page mirror)"},{"url":"https://keith.github.io/xcode-man-pages/networksetup.8.html","title":"networksetup man page (Xcode man-page mirror)"}]}
       },
       {
         id: "gatekeeper-quarantine-codesign",
@@ -524,8 +557,9 @@ const MACOS_CHEAT_SHEET_DATA = [
           ["codesign -dv --verbose=4", "Inspect Developer Team ID and code signature of an app"],
           ["spctl --assess -vv /Applications/App.app", "Test whether Gatekeeper approves an application"]
         ],
-        tip: "Fixes unsigned CLI/GUI apps",
-        tags: ["quarantine", "xattr", "gatekeeper", "damaged", "codesign", "unverified"]
+        tip: "Only for software you trust: this skips Gatekeeper's check",
+        tags: ["quarantine", "xattr", "gatekeeper", "damaged", "codesign", "unverified"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://keith.github.io/xcode-man-pages/xattr.1.html","title":"xattr man page (Xcode man-page mirror)"},{"url":"https://keith.github.io/xcode-man-pages/codesign.1.html","title":"codesign man page (Xcode man-page mirror)"},{"url":"https://keith.github.io/xcode-man-pages/spctl.8.html","title":"spctl man page (Xcode man-page mirror)"}]}
       },
       {
         id: "keychain-security-cli",
@@ -535,9 +569,10 @@ const MACOS_CHEAT_SHEET_DATA = [
         cmd: "security find-generic-password -D 'AirPort network password' -wa 'MyWiFi'",
         flags: [
           ["-wa <name>", "Print only the raw password string (-w) for account <name>"],
-          ["security add-generic-password -a $USER -s my_api_key -w 'secret'", "Save a secret into login Keychain"]
+          ["security add-generic-password -a $USER -s my_api_key -w", "Save a secret into the login keychain; -w last makes it prompt, so the secret stays out of shell history"]
         ],
-        tags: ["keychain", "password", "wifi", "secret", "security"]
+        tags: ["keychain", "password", "wifi", "secret", "security"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://keith.github.io/xcode-man-pages/security.1.html","title":"security man page (Xcode man-page mirror)"}],"note":"Corrected 2026-11-10: -w with the password on the command line puts it in history; the man page recommends -w last to prompt."}
       },
       {
         id: "diskutil-apfs-dmg",
@@ -550,7 +585,8 @@ const MACOS_CHEAT_SHEET_DATA = [
           ["diskutil unmountDisk force /dev/disk4", "Force unmount stubborn external drive"],
           ["hdiutil attach / detach", "Mount or unmount a .dmg or .iso disk image from CLI"]
         ],
-        tags: ["diskutil", "apfs", "eject", "unmount", "dmg", "hdiutil", "usb"]
+        tags: ["diskutil", "apfs", "eject", "unmount", "dmg", "hdiutil", "usb"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://keith.github.io/xcode-man-pages/diskutil.8.html","title":"diskutil man page (Xcode man-page mirror)"},{"url":"https://keith.github.io/xcode-man-pages/hdiutil.1.html","title":"hdiutil man page (Xcode man-page mirror)"}]}
       }
     ]
   }
