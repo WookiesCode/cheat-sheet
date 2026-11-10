@@ -38,7 +38,16 @@ const NVIM_EX_SHELL_DATA = [
           "exit",
           "reload",
           "discard"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/editing/",
+              "title": "Neovim help: editing (:w, :e!)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -77,7 +86,20 @@ const NVIM_EX_SHELL_DATA = [
           "column",
           "filter",
           "external"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/change/",
+              "title": "Neovim help: change"
+            },
+            {
+              "url": "https://neovim.io/doc/user/various/",
+              "title": "Neovim help: various (:!, gc, CTRL-L)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -110,7 +132,24 @@ const NVIM_EX_SHELL_DATA = [
           "project",
           "batch",
           "multifile"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/quickfix/",
+              "title": "Neovim help: quickfix"
+            },
+            {
+              "url": "https://neovim.io/doc/user/vim_diff/",
+              "title": "Neovim help: default mappings"
+            },
+            {
+              "url": "https://www.lazyvim.org/keymaps",
+              "title": "LazyVim keymaps"
+            }
+          ]
+        }
       }
     ]
   },
@@ -146,7 +185,24 @@ const NVIM_EX_SHELL_DATA = [
           "escape",
           "checkhealth",
           "diagnose"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/terminal/",
+              "title": "Neovim help: terminal"
+            },
+            {
+              "url": "https://neovim.io/doc/user/health/",
+              "title": "Neovim help: health"
+            },
+            {
+              "url": "https://www.lazyvim.org/keymaps",
+              "title": "LazyVim keymaps"
+            }
+          ]
+        }
       }
     ]
   },
@@ -161,7 +217,7 @@ const NVIM_EX_SHELL_DATA = [
         "mode": "PRO TIP",
         "modeClass": "mode-n",
         "desc": "Ex command pipelines, external Unix filters & terminal integration",
-        "cmd": ":%!jq .   |   :%!sort -u   |   :w !sudo tee %   |   <C-/>",
+        "cmd": ":%!jq .   |   :%!sort -u   |   :r !date   |   <C-/>",
         "details": "Pipe buffer content directly through external shell tools in-place. Run :%!jq . to format JSON or :%!sort -u to deduplicate lines. Use <C-/> in LazyVim for instant floating terminal access.",
         "flags": [
           [
@@ -173,8 +229,8 @@ const NVIM_EX_SHELL_DATA = [
             "Deduplicate and sort all buffer lines in-place"
           ],
           [
-            ":w !sudo tee %",
-            "Save file with root privileges when opened without sudo"
+            ":r !date",
+            "Insert a shell command's output below the cursor. (:w !sudo tee % does not work in Neovim: :! has no terminal for the password prompt; quit and reopen the file with sudoedit)"
           ],
           [
             "<C-/>",
@@ -192,7 +248,29 @@ const NVIM_EX_SHELL_DATA = [
           "pro",
           "chords",
           "best-practices"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/change/",
+              "title": "Neovim help: change"
+            },
+            {
+              "url": "https://neovim.io/doc/user/various/",
+              "title": "Neovim help: various (:!, gc, CTRL-L)"
+            },
+            {
+              "url": "https://neovim.io/doc/user/terminal/",
+              "title": "Neovim help: terminal"
+            },
+            {
+              "url": "https://neovim.io/doc/user/health/",
+              "title": "Neovim help: health"
+            }
+          ],
+          "note": "Corrected 2026-11-10: :w !sudo tee % does not work in Neovim (:! runs without a terminal)."
+        }
       }
     ]
   }

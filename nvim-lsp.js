@@ -16,15 +16,15 @@ const NVIM_LSP_DATA = [
         "flags": [
           [
             "gd / gD",
-            "Goto Definition / Goto Declaration"
+            "Goto Definition / Declaration (LazyVim; in plain Neovim gd is the built-in local-declaration jump, and Ctrl+] reaches the LSP definition)"
           ],
           [
             "gr (or grr)",
-            "Find all References across workspace"
+            "References: gr in LazyVim, grr is the Neovim 0.11+ default"
           ],
           [
             "gI / gy",
-            "Goto Implementation / Goto Type Definition"
+            "Implementation / Type Definition in LazyVim (gri / grt by default in Neovim)"
           ],
           [
             "K",
@@ -39,7 +39,29 @@ const NVIM_LSP_DATA = [
           "hover",
           "implementation",
           "type"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/lsp/",
+              "title": "Neovim help: LSP defaults"
+            },
+            {
+              "url": "https://neovim.io/doc/user/news-0.11/",
+              "title": "Neovim 0.11 news"
+            },
+            {
+              "url": "https://neovim.io/doc/user/news-0.12/",
+              "title": "Neovim 0.12 news"
+            },
+            {
+              "url": "https://www.lazyvim.org/keymaps",
+              "title": "LazyVim keymaps"
+            }
+          ],
+          "note": "Corrected 2026-11-10: gd, gr, gI and gy are LazyVim keys; Neovim's own are grr, gri and grt."
+        }
       }
     ]
   },
@@ -70,7 +92,7 @@ const NVIM_LSP_DATA = [
           ],
           [
             "<C-k> (Insert)",
-            "Show function signature help"
+            "Signature help in LazyVim (Ctrl+S is Neovim's 0.11+ default)"
           ]
         ],
         "tags": [
@@ -79,7 +101,20 @@ const NVIM_LSP_DATA = [
           "code-action",
           "format",
           "signature"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/lsp/",
+              "title": "Neovim help: LSP defaults"
+            },
+            {
+              "url": "https://www.lazyvim.org/keymaps",
+              "title": "LazyVim keymaps"
+            }
+          ]
+        }
       }
     ]
   },
@@ -119,7 +154,24 @@ const NVIM_LSP_DATA = [
           "diagnostic",
           "trouble",
           "lint"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/diagnostic/",
+              "title": "Neovim help: diagnostics"
+            },
+            {
+              "url": "https://neovim.io/doc/user/vim_diff/",
+              "title": "Neovim help: default mappings"
+            },
+            {
+              "url": "https://www.lazyvim.org/keymaps",
+              "title": "LazyVim keymaps"
+            }
+          ]
+        }
       }
     ]
   },
@@ -138,7 +190,7 @@ const NVIM_LSP_DATA = [
         "flags": [
           [
             "<C-space>",
-            "Start / expand selection to parent Treesitter AST node"
+            "Start / expand selection to the parent node (LazyVim, via flash.nvim; Neovim 0.12+ has an / in in Visual mode built in)"
           ],
           [
             "<BS> (Backspace)",
@@ -150,7 +202,7 @@ const NVIM_LSP_DATA = [
           ],
           [
             "]c / [c",
-            "Jump to next / prev class or git hunk"
+            "Next / previous class start (in diff mode: the next / previous change); git hunks are ]h / [h"
           ]
         ],
         "tip": "AST-aware selection",
@@ -161,7 +213,25 @@ const NVIM_LSP_DATA = [
           "expand",
           "function",
           "class"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/LazyVim/LazyVim/blob/v16.0.2/lua/lazyvim/plugins/editor.lua",
+              "title": "LazyVim source: editor.lua (gitsigns, flash)"
+            },
+            {
+              "url": "https://github.com/LazyVim/LazyVim/blob/v16.0.2/lua/lazyvim/plugins/treesitter.lua",
+              "title": "LazyVim source: treesitter.lua"
+            },
+            {
+              "url": "https://neovim.io/doc/user/treesitter/",
+              "title": "Neovim help: treesitter (an / in)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: ]c is a class (a change in diff mode); git hunks are ]h."
+        }
       }
     ]
   },
@@ -169,34 +239,34 @@ const NVIM_LSP_DATA = [
     "id": "lsp-pro-tips",
     "badge": "tip",
     "title": "Built-in LSP: Pro Tips & Chords",
-    "subtitle": "Neovim 0.10+ native LSP navigation, inlay hints & code actions",
+    "subtitle": "LSP navigation, inlay hints & code actions (LazyVim keys; Neovim 0.11+ defaults in brackets)",
     "commands": [
       {
         "id": "lsp-tips-card",
         "mode": "PRO TIP",
         "modeClass": "mode-n",
-        "desc": "Neovim 0.10+ native LSP navigation, inlay hints & code actions",
+        "desc": "LSP navigation, inlay hints & code actions (LazyVim keys; Neovim 0.11+ defaults in brackets)",
         "cmd": "gd   gr   K   |   <leader>ca   <leader>cr   |   [d   ]d",
         "details": "Native Neovim LSP powers modern IDE capabilities. Jump to definitions with gd, show hover docs with K, trigger code actions with <leader>ca, and navigate compiler diagnostics with [d and ]d.",
         "flags": [
           [
             "gd / gD",
-            "Goto symbol Definition / Goto Declaration"
+            "Goto Definition / Declaration (LazyVim; Ctrl+] in plain Neovim)"
           ],
           [
-            "gr (or grr)",
-            "Find all references across entire project"
+            "gr (grr)",
+            "Find all references across the project"
           ],
           [
             "K",
             "Show hover documentation float (press K again to focus float)"
           ],
           [
-            "<leader>ca",
+            "<leader>ca (gra)",
             "Code actions (quickfix, imports, refactor)"
           ],
           [
-            "<leader>cr",
+            "<leader>cr (grn)",
             "Rename symbol workspace-wide"
           ],
           [
@@ -204,14 +274,32 @@ const NVIM_LSP_DATA = [
             "Jump to previous / next diagnostic error or warning"
           ]
         ],
-        "tip": "In Neovim 0.10, enable inlay hints with: vim.lsp.inlay_hint.enable()",
+        "tip": "Since Neovim 0.10, turn on inlay hints with: vim.lsp.inlay_hint.enable()",
         "tags": [
           "lsp",
           "tips",
           "pro",
           "chords",
           "best-practices"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/lsp/",
+              "title": "Neovim help: LSP defaults"
+            },
+            {
+              "url": "https://neovim.io/doc/user/news-0.11/",
+              "title": "Neovim 0.11 news"
+            },
+            {
+              "url": "https://www.lazyvim.org/keymaps",
+              "title": "LazyVim keymaps"
+            }
+          ],
+          "note": "Corrected 2026-11-10: gd and <leader>ca / <leader>cr are LazyVim keys; plain Neovim has Ctrl+], gra and grn."
+        }
       }
     ]
   }

@@ -42691,6 +42691,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Move by word start/end or whitespace-delimited WORD",
     "tip": "",
     "tags": "word move cursor navigation punctuation",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/motion/",
+          "title": "Neovim help: motion"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -42703,6 +42712,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Jump to first non-blank character, column 0, or end of line",
     "tip": "Use ^ & g_ with operators",
     "tags": "line start end home bol eol",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/motion/",
+          "title": "Neovim help: motion"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -42715,6 +42733,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Jump directly to or right before a character on the current line",
     "tip": "Fastest horizontal motion",
     "tags": "find till character inline repeat",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/motion/",
+          "title": "Neovim help: motion"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -42727,6 +42754,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Jump to top/bottom of buffer, specific line number, or matching bracket",
     "tip": "",
     "tags": "top bottom goto line bracket match",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/motion/",
+          "title": "Neovim help: motion"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -42739,6 +42775,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Half-page scrolling and recentering viewport around cursor",
     "tip": "Pro tip: map <C-d>zz",
     "tags": "scroll center page viewport screen",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/scroll/",
+          "title": "Neovim help: scroll"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -42751,6 +42796,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Jump to top, middle, or bottom of currently visible window",
     "tip": "",
     "tags": "window high middle low paragraph",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/motion/",
+          "title": "Neovim help: motion"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -42763,6 +42817,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Traverse jump history or edit location history across files",
     "tip": "",
     "tags": "back forward history jumplist changelist",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/motion/",
+          "title": "Neovim help: motion"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -42775,6 +42838,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Change, delete, or yank inside/around quotes, parens, braces & tags",
     "tip": "Core Vim superpower",
     "tags": "inside around text-object quotes parens braces html tag",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/motion/",
+          "title": "Neovim help: motion"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -42787,6 +42859,19 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Operate on whole word under cursor regardless of cursor position in word",
     "tip": "",
     "tags": "word replace delete copy inner",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/motion/",
+          "title": "Neovim help: motion"
+        },
+        {
+          "url": "https://neovim.io/doc/user/change/",
+          "title": "Neovim help: change"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -42799,6 +42884,19 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Single-key equivalents for operating from cursor to end of line",
     "tip": "Nvim defaults Y to y$",
     "tags": "end line shortcut substitute delete",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/change/",
+          "title": "Neovim help: change"
+        },
+        {
+          "url": "https://neovim.io/doc/user/vim_diff/",
+          "title": "Neovim help: default mappings"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -42811,6 +42909,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Repeat last change, join lines with or without space, and increment numbers",
     "tip": "",
     "tags": "repeat dot join increment number",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/repeat/",
+          "title": "Neovim help: repeat (macros, :g)"
+        },
+        {
+          "url": "https://neovim.io/doc/user/change/",
+          "title": "Neovim help: change"
+        },
+        {
+          "url": "https://neovim.io/doc/user/options/",
+          "title": "Neovim help: options"
+        }
+      ],
+      "note": "Corrected 2026-11-10: Ctrl+A only changes letters when 'nrformats' includes alpha."
+    },
     "noCopy": true
   },
   {
@@ -42823,6 +42939,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Toggle case, uppercase/lowercase, auto-indent, and wrap paragraphs",
     "tip": "",
     "tags": "case uppercase lowercase indent format wrap",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/change/",
+          "title": "Neovim help: change"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -42835,6 +42960,19 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Toggle code comments using Neovim 0.10+ built-in commenting",
     "tip": "Built into Nvim 0.10+",
     "tags": "comment uncomment toggle code",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/various/",
+          "title": "Neovim help: various (:!, gc, CTRL-L)"
+        },
+        {
+          "url": "https://neovim.io/doc/user/vim_diff/",
+          "title": "Neovim help: default mappings"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -42847,6 +42985,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Insert text at the beginning of multiple lines simultaneously",
     "tip": "Multi-cursor alternative",
     "tags": "block column multiline prefix insert",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/visual/",
+          "title": "Neovim help: visual"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -42859,6 +43006,19 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Append text to the end of multiple ragged-length lines",
     "tip": "",
     "tags": "append eol block multiline column",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/visual/",
+          "title": "Neovim help: visual"
+        },
+        {
+          "url": "https://neovim.io/doc/user/change/",
+          "title": "Neovim help: change"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -42871,6 +43031,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Reselect previous visual area or jump cursor to other end of selection",
     "tip": "",
     "tags": "reselect swap corner selection",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/visual/",
+          "title": "Neovim help: visual"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -42883,6 +43052,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Turn column of zeros into sequential numbers (1, 2, 3, 4...)",
     "tip": "Instant numbered lists",
     "tags": "sequence increment numbers list",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/change/",
+          "title": "Neovim help: change"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -42894,7 +43072,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": ":'<,'>sort u   |   <A-j>   <A-k>",
     "desc": "Sort selected lines uniquely or move selected block up/down",
     "tip": "",
-    "tags": "sort unique move lines deduplicate"
+    "tags": "sort unique move lines deduplicate",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/change/",
+          "title": "Neovim help: change"
+        },
+        {
+          "url": "https://www.lazyvim.org/keymaps",
+          "title": "LazyVim keymaps"
+        }
+      ]
+    }
   },
   {
     "sName": "neovim",
@@ -42906,6 +43097,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Search exact word under cursor forward/backward and operate with cgn",
     "tip": "* + cgn + . beats :%s",
     "tags": "search word cgn highlight repeat",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/pattern/",
+          "title": "Neovim help: pattern"
+        },
+        {
+          "url": "https://neovim.io/doc/user/various/",
+          "title": "Neovim help: various (:!, gc, CTRL-L)"
+        },
+        {
+          "url": "https://www.lazyvim.org/keymaps",
+          "title": "LazyVim keymaps"
+        }
+      ],
+      "note": "Corrected 2026-11-10: <Esc> clearing the highlight is LazyVim; plain Neovim uses Ctrl+L."
+    },
     "noCopy": true
   },
   {
@@ -42917,7 +43126,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": ":%s/old_name/new_name/gc",
     "desc": "Search and replace across entire buffer with interactive confirmation",
     "tip": "",
-    "tags": "replace substitute all confirm find"
+    "tags": "replace substitute all confirm find",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/change/",
+          "title": "Neovim help: change"
+        }
+      ]
+    }
   },
   {
     "sName": "neovim",
@@ -42928,7 +43146,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": ":%s//replacement/g",
     "desc": "Reuse last search pattern (e.g. from *) in substitution by leaving pattern empty",
     "tip": "Preview w/ / first",
-    "tags": "reuse last search replace visual"
+    "tags": "reuse last search replace visual",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/change/",
+          "title": "Neovim help: change"
+        },
+        {
+          "url": "https://neovim.io/doc/user/pattern/",
+          "title": "Neovim help: pattern"
+        }
+      ]
+    }
   },
   {
     "sName": "neovim",
@@ -42939,7 +43170,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": ":%s/\\v(\\w+):\\s*(\\w+)/\\2 = \\1/g",
     "desc": "Capture regex groups using very-magic mode (\\v) without backslash soup",
     "tip": "",
-    "tags": "regex capture groups magic paths"
+    "tags": "regex capture groups magic paths",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/pattern/",
+          "title": "Neovim help: pattern"
+        },
+        {
+          "url": "https://neovim.io/doc/user/change/",
+          "title": "Neovim help: change"
+        }
+      ]
+    }
   },
   {
     "sName": "neovim",
@@ -42950,7 +43194,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": ":g/DEBUG/d   |   :v/ERROR/d   |   :g/^\\s*$/d",
     "desc": "Delete all lines matching (or NOT matching) a pattern across buffer",
     "tip": "",
-    "tags": "global filter delete lines blank invert"
+    "tags": "global filter delete lines blank invert",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/repeat/",
+          "title": "Neovim help: repeat (macros, :g)"
+        }
+      ]
+    }
   },
   {
     "sName": "neovim",
@@ -42961,7 +43214,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": ":g/TODO/norm A [urgent]   |   :g/fn /y A",
     "desc": "Execute any Normal mode sequence or macro on every matching line",
     "tip": "Batch line surgery",
-    "tags": "global normal batch collect yank"
+    "tags": "global normal batch collect yank",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/repeat/",
+          "title": "Neovim help: repeat (macros, :g)"
+        },
+        {
+          "url": "https://neovim.io/doc/user/various/",
+          "title": "Neovim help: various (:!, gc, CTRL-L)"
+        }
+      ]
+    }
   },
   {
     "sName": "neovim",
@@ -42973,6 +43239,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Create vertical or horizontal window splits and close active/other splits",
     "tip": "",
     "tags": "split vertical horizontal window only close",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/windows/",
+          "title": "Neovim help: windows and buffers"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -42985,6 +43260,19 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Move focus between splits or rearrange window layout",
     "tip": "LazyVim maps Ctrl+h/j/k/l",
     "tags": "navigate focus rearrange break tab",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/windows/",
+          "title": "Neovim help: windows and buffers"
+        },
+        {
+          "url": "https://www.lazyvim.org/keymaps",
+          "title": "LazyVim keymaps"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -42997,6 +43285,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Equalize, maximize, or adjust split window dimensions",
     "tip": "",
     "tags": "resize equalize maximize width height",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/windows/",
+          "title": "Neovim help: windows and buffers"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -43009,6 +43306,23 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Switch between open buffers, jump to alternate file, or delete buffer",
     "tip": "",
     "tags": "buffer switch alternate close next prev",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/windows/",
+          "title": "Neovim help: windows and buffers"
+        },
+        {
+          "url": "https://neovim.io/doc/user/vim_diff/",
+          "title": "Neovim help: default mappings"
+        },
+        {
+          "url": "https://www.lazyvim.org/keymaps",
+          "title": "LazyVim keymaps"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -43021,6 +43335,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Manage workspace tab pages (each tab holds its own window layout)",
     "tip": "",
     "tags": "tabs workspace layout",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/tabpage/",
+          "title": "Neovim help: tab pages"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -43033,6 +43356,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Record keystrokes into register 'a' and replay once or N times",
     "tip": "Start macro with 0 or ^",
     "tags": "macro record replay automation",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/repeat/",
+          "title": "Neovim help: repeat (macros, :g)"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -43044,7 +43376,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": ":'<,'>norm @a",
     "desc": "Run recorded macro across all visually selected lines",
     "tip": "",
-    "tags": "macro visual batch lines"
+    "tags": "macro visual batch lines",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/various/",
+          "title": "Neovim help: various (:!, gc, CTRL-L)"
+        }
+      ]
+    }
   },
   {
     "sName": "neovim",
@@ -43056,6 +43397,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Copy/paste with system clipboard or replace text without losing yanked register",
     "tip": "\"0p saves tons of re-yanking",
     "tags": "clipboard copy paste blackhole register yank",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/change/",
+          "title": "Neovim help: change"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -43068,6 +43418,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Paste any register or evaluate math/Lua expressions inline while typing",
     "tip": "",
     "tags": "insert paste calculator expression cword",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/insert/",
+          "title": "Neovim help: insert (CTRL-R)"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -43080,6 +43439,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Undo, redo, or travel backward/forward through Neovim's persistent undo tree",
     "tip": "",
     "tags": "undo redo history tree earlier time",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/undo/",
+          "title": "Neovim help: undo"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -43092,6 +43460,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Jump to symbol definition, references, implementation, or type definition",
     "tip": "<C-o> jumps right back",
     "tags": "lsp definition references hover implementation type",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/lsp/",
+          "title": "Neovim help: LSP defaults"
+        },
+        {
+          "url": "https://neovim.io/doc/user/news-0.11/",
+          "title": "Neovim 0.11 news"
+        },
+        {
+          "url": "https://neovim.io/doc/user/news-0.12/",
+          "title": "Neovim 0.12 news"
+        },
+        {
+          "url": "https://www.lazyvim.org/keymaps",
+          "title": "LazyVim keymaps"
+        }
+      ],
+      "note": "Corrected 2026-11-10: gd, gr, gI and gy are LazyVim keys; Neovim's own are grr, gri and grt."
+    },
     "noCopy": true
   },
   {
@@ -43104,6 +43494,19 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Trigger LSP code actions, workspace-wide symbol rename, and formatting",
     "tip": "",
     "tags": "rename refactor code-action format signature",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/lsp/",
+          "title": "Neovim help: LSP defaults"
+        },
+        {
+          "url": "https://www.lazyvim.org/keymaps",
+          "title": "LazyVim keymaps"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -43116,6 +43519,23 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Jump between compiler/LSP diagnostics, errors, and inspect floating details",
     "tip": "",
     "tags": "error warning diagnostic trouble lint",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/diagnostic/",
+          "title": "Neovim help: diagnostics"
+        },
+        {
+          "url": "https://neovim.io/doc/user/vim_diff/",
+          "title": "Neovim help: default mappings"
+        },
+        {
+          "url": "https://www.lazyvim.org/keymaps",
+          "title": "LazyVim keymaps"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -43128,6 +43548,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Expand or shrink visual selection incrementally by AST syntax nodes",
     "tip": "AST-aware selection",
     "tags": "treesitter ast node expand function class",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/LazyVim/LazyVim/blob/v16.0.2/lua/lazyvim/plugins/editor.lua",
+          "title": "LazyVim source: editor.lua (gitsigns, flash)"
+        },
+        {
+          "url": "https://github.com/LazyVim/LazyVim/blob/v16.0.2/lua/lazyvim/plugins/treesitter.lua",
+          "title": "LazyVim source: treesitter.lua"
+        },
+        {
+          "url": "https://neovim.io/doc/user/treesitter/",
+          "title": "Neovim help: treesitter (an / in)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: ]c is a class (a change in diff mode); git hunks are ]h."
+    },
     "noCopy": true
   },
   {
@@ -43140,6 +43578,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Fuzzy find files, live ripgrep across project, recent files & open buffers",
     "tip": "<leader> is Space",
     "tags": "telescope fzf snacks find grep files search",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lazyvim.org/keymaps",
+          "title": "LazyVim keymaps"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -43149,9 +43596,27 @@ window.GLOBAL_SEARCH_INDEX = [
     "id": "lazyvim-neotree-explorer",
     "sec": "LazyVim, Picker, Neo-tree & Git",
     "cmd": "<leader>e   <leader>E   |   a   d   r   y   c   m   ?",
-    "desc": "Toggle Neo-tree file explorer and perform file operations inside tree",
+    "desc": "File explorer: LazyVim's default is the Snacks explorer; Neo-tree is an optional extra (:LazyExtras → editor.neo-tree)",
     "tip": "",
     "tags": "neotree explorer sidebar tree create rename",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lazyvim.org/keymaps",
+          "title": "LazyVim keymaps"
+        },
+        {
+          "url": "https://www.lazyvim.org/extras/editor/neo-tree",
+          "title": "LazyVim extra: Neo-tree"
+        },
+        {
+          "url": "https://github.com/nvim-neo-tree/neo-tree.nvim/blob/main/lua/neo-tree/defaults.lua",
+          "title": "Neo-tree default mappings"
+        }
+      ],
+      "note": "Corrected 2026-11-10: LazyVim's default explorer is Snacks; Neo-tree's y copies to its own clipboard, not the name."
+    },
     "noCopy": true
   },
   {
@@ -43164,6 +43629,19 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Open LazyGit TUI, navigate git diff hunks, stage/reset hunks, and blame",
     "tip": "",
     "tags": "git lazygit hunk stage blame diff",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/LazyVim/LazyVim/blob/v16.0.2/lua/lazyvim/config/keymaps.lua",
+          "title": "LazyVim source: keymaps.lua"
+        },
+        {
+          "url": "https://github.com/LazyVim/LazyVim/blob/v16.0.2/lua/lazyvim/plugins/editor.lua",
+          "title": "LazyVim source: editor.lua (gitsigns, flash)"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -43176,6 +43654,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Search LSP document/workspace symbols, keymaps, help tags, or project replace",
     "tip": "",
     "tags": "symbols functions outline keymaps help grug-far",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lazyvim.org/keymaps",
+          "title": "LazyVim keymaps"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -43188,6 +43675,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Toggle UI features (wrap, relative numbers, format-on-save, zen) & plugin managers",
     "tip": "",
     "tags": "toggle wrap format colorscheme lazy mason plugins",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lazyvim.org/keymaps",
+          "title": "LazyVim keymaps"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -43200,6 +43696,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Save, quit, force quit all buffers, or reload file from disk",
     "tip": "",
     "tags": "save write quit exit reload discard",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/editing/",
+          "title": "Neovim help: editing (:w, :e!)"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -43211,7 +43716,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": ":%!jq .   |   :'<,'>!column -t   |   :r !date -Iseconds",
     "desc": "Pipe buffer lines through external Unix commands (jq, sort, column, sh) in-place",
     "tip": "Unix + Vim synergy",
-    "tags": "shell pipe jq json column filter external"
+    "tags": "shell pipe jq json column filter external",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/change/",
+          "title": "Neovim help: change"
+        },
+        {
+          "url": "https://neovim.io/doc/user/various/",
+          "title": "Neovim help: various (:!, gc, CTRL-L)"
+        }
+      ]
+    }
   },
   {
     "sName": "neovim",
@@ -43223,6 +43741,23 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Navigate Quickfix list and run substitutions across all quickfix files",
     "tip": "",
     "tags": "quickfix cdo cfdo project batch multifile",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/quickfix/",
+          "title": "Neovim help: quickfix"
+        },
+        {
+          "url": "https://neovim.io/doc/user/vim_diff/",
+          "title": "Neovim help: default mappings"
+        },
+        {
+          "url": "https://www.lazyvim.org/keymaps",
+          "title": "LazyVim keymaps"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -43235,6 +43770,23 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Toggle floating terminal, exit terminal insert mode, or diagnose Neovim setup",
     "tip": "",
     "tags": "terminal shell escape checkhealth diagnose",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/terminal/",
+          "title": "Neovim help: terminal"
+        },
+        {
+          "url": "https://neovim.io/doc/user/health/",
+          "title": "Neovim help: health"
+        },
+        {
+          "url": "https://www.lazyvim.org/keymaps",
+          "title": "LazyVim keymaps"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -45074,6 +45626,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Save, quit, force quit all buffers, or reload file from disk",
     "tip": "",
     "tags": "save write quit exit reload discard",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/editing/",
+          "title": "Neovim help: editing (:w, :e!)"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -45085,7 +45646,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": ":%!jq .   |   :'<,'>!column -t   |   :r !date -Iseconds",
     "desc": "Pipe buffer lines through external Unix commands (jq, sort, column, sh) in-place",
     "tip": "Unix + Vim synergy",
-    "tags": "shell pipe jq json column filter external"
+    "tags": "shell pipe jq json column filter external",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/change/",
+          "title": "Neovim help: change"
+        },
+        {
+          "url": "https://neovim.io/doc/user/various/",
+          "title": "Neovim help: various (:!, gc, CTRL-L)"
+        }
+      ]
+    }
   },
   {
     "sName": "nvim-ex-shell",
@@ -45097,6 +45671,23 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Navigate Quickfix list and run substitutions across all quickfix files",
     "tip": "",
     "tags": "quickfix cdo cfdo project batch multifile",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/quickfix/",
+          "title": "Neovim help: quickfix"
+        },
+        {
+          "url": "https://neovim.io/doc/user/vim_diff/",
+          "title": "Neovim help: default mappings"
+        },
+        {
+          "url": "https://www.lazyvim.org/keymaps",
+          "title": "LazyVim keymaps"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -45109,6 +45700,23 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Toggle floating terminal, exit terminal insert mode, or diagnose Neovim setup",
     "tip": "",
     "tags": "terminal shell escape checkhealth diagnose",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/terminal/",
+          "title": "Neovim help: terminal"
+        },
+        {
+          "url": "https://neovim.io/doc/user/health/",
+          "title": "Neovim help: health"
+        },
+        {
+          "url": "https://www.lazyvim.org/keymaps",
+          "title": "LazyVim keymaps"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -45117,10 +45725,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "tip",
     "id": "ex-shell-tips-card",
     "sec": "Ex Commands: Pro Tips & Chords",
-    "cmd": ":%!jq .   |   :%!sort -u   |   :w !sudo tee %   |   <C-/>",
+    "cmd": ":%!jq .   |   :%!sort -u   |   :r !date   |   <C-/>",
     "desc": "Ex command pipelines, external Unix filters & terminal integration",
     "tip": "Use :checkhealth to diagnose Neovim, clipboard, treesitter, and LSP providers!",
-    "tags": "ex-shell tips pro chords best-practices"
+    "tags": "ex-shell tips pro chords best-practices",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/change/",
+          "title": "Neovim help: change"
+        },
+        {
+          "url": "https://neovim.io/doc/user/various/",
+          "title": "Neovim help: various (:!, gc, CTRL-L)"
+        },
+        {
+          "url": "https://neovim.io/doc/user/terminal/",
+          "title": "Neovim help: terminal"
+        },
+        {
+          "url": "https://neovim.io/doc/user/health/",
+          "title": "Neovim help: health"
+        }
+      ],
+      "note": "Corrected 2026-11-10: :w !sudo tee % does not work in Neovim (:! runs without a terminal)."
+    }
   },
   {
     "sName": "nvim-lazyvim",
@@ -45132,6 +45762,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Fuzzy find files, live ripgrep across project, recent files & open buffers",
     "tip": "<leader> is Space",
     "tags": "telescope fzf snacks find grep files search",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lazyvim.org/keymaps",
+          "title": "LazyVim keymaps"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -45141,9 +45780,27 @@ window.GLOBAL_SEARCH_INDEX = [
     "id": "lazyvim-neotree-explorer",
     "sec": "LazyVim: Neo-tree File Explorer",
     "cmd": "<leader>e   <leader>E   |   a   d   r   y   c   m   ?",
-    "desc": "Toggle Neo-tree file explorer and perform file operations inside tree",
+    "desc": "File explorer: LazyVim's default is the Snacks explorer; Neo-tree is an optional extra (:LazyExtras → editor.neo-tree)",
     "tip": "",
     "tags": "neotree explorer sidebar tree create rename",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lazyvim.org/keymaps",
+          "title": "LazyVim keymaps"
+        },
+        {
+          "url": "https://www.lazyvim.org/extras/editor/neo-tree",
+          "title": "LazyVim extra: Neo-tree"
+        },
+        {
+          "url": "https://github.com/nvim-neo-tree/neo-tree.nvim/blob/main/lua/neo-tree/defaults.lua",
+          "title": "Neo-tree default mappings"
+        }
+      ],
+      "note": "Corrected 2026-11-10: LazyVim's default explorer is Snacks; Neo-tree's y copies to its own clipboard, not the name."
+    },
     "noCopy": true
   },
   {
@@ -45156,6 +45813,19 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Open LazyGit TUI, navigate git diff hunks, stage/reset hunks, and blame",
     "tip": "",
     "tags": "git lazygit hunk stage blame diff",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/LazyVim/LazyVim/blob/v16.0.2/lua/lazyvim/config/keymaps.lua",
+          "title": "LazyVim source: keymaps.lua"
+        },
+        {
+          "url": "https://github.com/LazyVim/LazyVim/blob/v16.0.2/lua/lazyvim/plugins/editor.lua",
+          "title": "LazyVim source: editor.lua (gitsigns, flash)"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -45168,6 +45838,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Search LSP document/workspace symbols, keymaps, help tags, or project replace",
     "tip": "",
     "tags": "symbols functions outline keymaps help grug-far",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lazyvim.org/keymaps",
+          "title": "LazyVim keymaps"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -45180,6 +45859,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Toggle UI features (wrap, relative numbers, format-on-save, zen) & plugin managers",
     "tip": "",
     "tags": "toggle wrap format colorscheme lazy mason plugins",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lazyvim.org/keymaps",
+          "title": "LazyVim keymaps"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -45192,6 +45880,19 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "LazyVim fast fuzzy finding, Neo-tree, LazyGit & keymap discovery",
     "tip": "Space is the default <leader> key in LazyVim!",
     "tags": "lazyvim tips pro chords best-practices",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lazyvim.org/keymaps",
+          "title": "LazyVim keymaps"
+        },
+        {
+          "url": "https://github.com/LazyVim/LazyVim/releases",
+          "title": "LazyVim releases"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -45204,6 +45905,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Jump to symbol definition, references, implementation, or type definition",
     "tip": "<C-o> jumps right back",
     "tags": "lsp definition references hover implementation type",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/lsp/",
+          "title": "Neovim help: LSP defaults"
+        },
+        {
+          "url": "https://neovim.io/doc/user/news-0.11/",
+          "title": "Neovim 0.11 news"
+        },
+        {
+          "url": "https://neovim.io/doc/user/news-0.12/",
+          "title": "Neovim 0.12 news"
+        },
+        {
+          "url": "https://www.lazyvim.org/keymaps",
+          "title": "LazyVim keymaps"
+        }
+      ],
+      "note": "Corrected 2026-11-10: gd, gr, gI and gy are LazyVim keys; Neovim's own are grr, gri and grt."
+    },
     "noCopy": true
   },
   {
@@ -45216,6 +45939,19 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Trigger LSP code actions, workspace-wide symbol rename, and formatting",
     "tip": "",
     "tags": "rename refactor code-action format signature",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/lsp/",
+          "title": "Neovim help: LSP defaults"
+        },
+        {
+          "url": "https://www.lazyvim.org/keymaps",
+          "title": "LazyVim keymaps"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -45228,6 +45964,23 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Jump between compiler/LSP diagnostics, errors, and inspect floating details",
     "tip": "",
     "tags": "error warning diagnostic trouble lint",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/diagnostic/",
+          "title": "Neovim help: diagnostics"
+        },
+        {
+          "url": "https://neovim.io/doc/user/vim_diff/",
+          "title": "Neovim help: default mappings"
+        },
+        {
+          "url": "https://www.lazyvim.org/keymaps",
+          "title": "LazyVim keymaps"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -45240,6 +45993,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Expand or shrink visual selection incrementally by AST syntax nodes",
     "tip": "AST-aware selection",
     "tags": "treesitter ast node expand function class",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/LazyVim/LazyVim/blob/v16.0.2/lua/lazyvim/plugins/editor.lua",
+          "title": "LazyVim source: editor.lua (gitsigns, flash)"
+        },
+        {
+          "url": "https://github.com/LazyVim/LazyVim/blob/v16.0.2/lua/lazyvim/plugins/treesitter.lua",
+          "title": "LazyVim source: treesitter.lua"
+        },
+        {
+          "url": "https://neovim.io/doc/user/treesitter/",
+          "title": "Neovim help: treesitter (an / in)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: ]c is a class (a change in diff mode); git hunks are ]h."
+    },
     "noCopy": true
   },
   {
@@ -45249,9 +46020,27 @@ window.GLOBAL_SEARCH_INDEX = [
     "id": "lsp-tips-card",
     "sec": "Built-in LSP: Pro Tips & Chords",
     "cmd": "gd   gr   K   |   <leader>ca   <leader>cr   |   [d   ]d",
-    "desc": "Neovim 0.10+ native LSP navigation, inlay hints & code actions",
-    "tip": "In Neovim 0.10, enable inlay hints with: vim.lsp.inlay_hint.enable()",
+    "desc": "LSP navigation, inlay hints & code actions (LazyVim keys; Neovim 0.11+ defaults in brackets)",
+    "tip": "Since Neovim 0.10, turn on inlay hints with: vim.lsp.inlay_hint.enable()",
     "tags": "lsp tips pro chords best-practices",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/lsp/",
+          "title": "Neovim help: LSP defaults"
+        },
+        {
+          "url": "https://neovim.io/doc/user/news-0.11/",
+          "title": "Neovim 0.11 news"
+        },
+        {
+          "url": "https://www.lazyvim.org/keymaps",
+          "title": "LazyVim keymaps"
+        }
+      ],
+      "note": "Corrected 2026-11-10: gd and <leader>ca / <leader>cr are LazyVim keys; plain Neovim has Ctrl+], gra and grn."
+    },
     "noCopy": true
   },
   {
@@ -45264,6 +46053,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Record keystrokes into register 'a' and replay once or N times",
     "tip": "Start macro with 0 or ^",
     "tags": "macro record replay automation",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/repeat/",
+          "title": "Neovim help: repeat (macros, :g)"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -45275,7 +46073,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": ":'<,'>norm @a",
     "desc": "Run recorded macro across all visually selected lines",
     "tip": "",
-    "tags": "macro visual batch lines"
+    "tags": "macro visual batch lines",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/various/",
+          "title": "Neovim help: various (:!, gc, CTRL-L)"
+        }
+      ]
+    }
   },
   {
     "sName": "nvim-macros",
@@ -45287,6 +46094,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Copy/paste with system clipboard or replace text without losing yanked register",
     "tip": "\"0p saves tons of re-yanking",
     "tags": "clipboard copy paste blackhole register yank",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/change/",
+          "title": "Neovim help: change"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -45299,6 +46115,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Paste any register or evaluate math/Lua expressions inline while typing",
     "tip": "",
     "tags": "insert paste calculator expression cword",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/insert/",
+          "title": "Neovim help: insert (CTRL-R)"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -45311,6 +46136,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Undo, redo, or travel backward/forward through Neovim's persistent undo tree",
     "tip": "",
     "tags": "undo redo history tree earlier time",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/undo/",
+          "title": "Neovim help: undo"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -45323,6 +46157,23 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Macro recording, parallel visual playback & expression register",
     "tip": "Use \"+y to yank into system clipboard, and \"0p to paste last yank after deleting!",
     "tags": "macros tips pro chords best-practices",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/repeat/",
+          "title": "Neovim help: repeat (macros, :g)"
+        },
+        {
+          "url": "https://neovim.io/doc/user/insert/",
+          "title": "Neovim help: insert (CTRL-R)"
+        },
+        {
+          "url": "https://neovim.io/doc/user/change/",
+          "title": "Neovim help: change"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -45335,6 +46186,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Move by word start/end or whitespace-delimited WORD",
     "tip": "",
     "tags": "word move cursor navigation punctuation",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/motion/",
+          "title": "Neovim help: motion"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -45347,6 +46207,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Jump to first non-blank character, column 0, or end of line",
     "tip": "Use ^ & g_ with operators",
     "tags": "line start end home bol eol",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/motion/",
+          "title": "Neovim help: motion"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -45359,6 +46228,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Jump directly to or right before a character on the current line",
     "tip": "Fastest horizontal motion",
     "tags": "find till character inline repeat",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/motion/",
+          "title": "Neovim help: motion"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -45371,6 +46249,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Jump to top/bottom of buffer, specific line number, or matching bracket",
     "tip": "",
     "tags": "top bottom goto line bracket match",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/motion/",
+          "title": "Neovim help: motion"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -45383,6 +46270,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Half-page scrolling and recentering viewport around cursor",
     "tip": "Pro tip: map <C-d>zz",
     "tags": "scroll center page viewport screen",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/scroll/",
+          "title": "Neovim help: scroll"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -45395,6 +46291,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Jump to top, middle, or bottom of currently visible window",
     "tip": "",
     "tags": "window high middle low paragraph",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/motion/",
+          "title": "Neovim help: motion"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -45407,6 +46312,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Traverse jump history or edit location history across files",
     "tip": "",
     "tags": "back forward history jumplist changelist",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/motion/",
+          "title": "Neovim help: motion"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -45419,6 +46333,19 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Jump list traversal, change list navigation & viewport centering",
     "tip": "Combine motions with operators: d2w, y$, c^",
     "tags": "motions tips pro chords best-practices",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/motion/",
+          "title": "Neovim help: motion"
+        },
+        {
+          "url": "https://neovim.io/doc/user/scroll/",
+          "title": "Neovim help: scroll"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -45431,6 +46358,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Change, delete, or yank inside/around quotes, parens, braces & tags",
     "tip": "Core Vim superpower",
     "tags": "inside around text-object quotes parens braces html tag",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/motion/",
+          "title": "Neovim help: motion"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -45443,6 +46379,19 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Operate on whole word under cursor regardless of cursor position in word",
     "tip": "",
     "tags": "word replace delete copy inner",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/motion/",
+          "title": "Neovim help: motion"
+        },
+        {
+          "url": "https://neovim.io/doc/user/change/",
+          "title": "Neovim help: change"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -45455,6 +46404,19 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Single-key equivalents for operating from cursor to end of line",
     "tip": "Nvim defaults Y to y$",
     "tags": "end line shortcut substitute delete",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/change/",
+          "title": "Neovim help: change"
+        },
+        {
+          "url": "https://neovim.io/doc/user/vim_diff/",
+          "title": "Neovim help: default mappings"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -45467,6 +46429,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Repeat last change, join lines with or without space, and increment numbers",
     "tip": "",
     "tags": "repeat dot join increment number",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/repeat/",
+          "title": "Neovim help: repeat (macros, :g)"
+        },
+        {
+          "url": "https://neovim.io/doc/user/change/",
+          "title": "Neovim help: change"
+        },
+        {
+          "url": "https://neovim.io/doc/user/options/",
+          "title": "Neovim help: options"
+        }
+      ],
+      "note": "Corrected 2026-11-10: Ctrl+A only changes letters when 'nrformats' includes alpha."
+    },
     "noCopy": true
   },
   {
@@ -45479,6 +46459,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Toggle case, uppercase/lowercase, auto-indent, and wrap paragraphs",
     "tip": "",
     "tags": "case uppercase lowercase indent format wrap",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/change/",
+          "title": "Neovim help: change"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -45491,6 +46480,19 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Toggle code comments using Neovim 0.10+ built-in commenting",
     "tip": "Built into Nvim 0.10+",
     "tags": "comment uncomment toggle code",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/various/",
+          "title": "Neovim help: various (:!, gc, CTRL-L)"
+        },
+        {
+          "url": "https://neovim.io/doc/user/vim_diff/",
+          "title": "Neovim help: default mappings"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -45503,6 +46505,23 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Vim operator grammar composition rules: [operator][count][scope][target]",
     "tip": "The dot (.) command repeats the entire composite operator change!",
     "tags": "operators tips pro chords best-practices",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/motion/",
+          "title": "Neovim help: motion"
+        },
+        {
+          "url": "https://neovim.io/doc/user/change/",
+          "title": "Neovim help: change"
+        },
+        {
+          "url": "https://neovim.io/doc/user/various/",
+          "title": "Neovim help: various (:!, gc, CTRL-L)"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -45515,6 +46534,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Search exact word under cursor forward/backward and operate with cgn",
     "tip": "* + cgn + . beats :%s",
     "tags": "search word cgn highlight repeat",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/pattern/",
+          "title": "Neovim help: pattern"
+        },
+        {
+          "url": "https://neovim.io/doc/user/various/",
+          "title": "Neovim help: various (:!, gc, CTRL-L)"
+        },
+        {
+          "url": "https://www.lazyvim.org/keymaps",
+          "title": "LazyVim keymaps"
+        }
+      ],
+      "note": "Corrected 2026-11-10: <Esc> clearing the highlight is LazyVim; plain Neovim uses Ctrl+L."
+    },
     "noCopy": true
   },
   {
@@ -45526,7 +46563,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": ":%s/old_name/new_name/gc",
     "desc": "Search and replace across entire buffer with interactive confirmation",
     "tip": "",
-    "tags": "replace substitute all confirm find"
+    "tags": "replace substitute all confirm find",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/change/",
+          "title": "Neovim help: change"
+        }
+      ]
+    }
   },
   {
     "sName": "nvim-search",
@@ -45537,7 +46583,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": ":%s//replacement/g",
     "desc": "Reuse last search pattern (e.g. from *) in substitution by leaving pattern empty",
     "tip": "Preview w/ / first",
-    "tags": "reuse last search replace visual"
+    "tags": "reuse last search replace visual",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/change/",
+          "title": "Neovim help: change"
+        },
+        {
+          "url": "https://neovim.io/doc/user/pattern/",
+          "title": "Neovim help: pattern"
+        }
+      ]
+    }
   },
   {
     "sName": "nvim-search",
@@ -45548,7 +46607,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": ":%s/\\v(\\w+):\\s*(\\w+)/\\2 = \\1/g",
     "desc": "Capture regex groups using very-magic mode (\\v) without backslash soup",
     "tip": "",
-    "tags": "regex capture groups magic paths"
+    "tags": "regex capture groups magic paths",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/pattern/",
+          "title": "Neovim help: pattern"
+        },
+        {
+          "url": "https://neovim.io/doc/user/change/",
+          "title": "Neovim help: change"
+        }
+      ]
+    }
   },
   {
     "sName": "nvim-search",
@@ -45559,7 +46631,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": ":g/DEBUG/d   |   :v/ERROR/d   |   :g/^\\s*$/d",
     "desc": "Delete all lines matching (or NOT matching) a pattern across buffer",
     "tip": "",
-    "tags": "global filter delete lines blank invert"
+    "tags": "global filter delete lines blank invert",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/repeat/",
+          "title": "Neovim help: repeat (macros, :g)"
+        }
+      ]
+    }
   },
   {
     "sName": "nvim-search",
@@ -45570,7 +46651,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": ":g/TODO/norm A [urgent]   |   :g/fn /y A",
     "desc": "Execute any Normal mode sequence or macro on every matching line",
     "tip": "Batch line surgery",
-    "tags": "global normal batch collect yank"
+    "tags": "global normal batch collect yank",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/repeat/",
+          "title": "Neovim help: repeat (macros, :g)"
+        },
+        {
+          "url": "https://neovim.io/doc/user/various/",
+          "title": "Neovim help: various (:!, gc, CTRL-L)"
+        }
+      ]
+    }
   },
   {
     "sName": "nvim-search",
@@ -45581,7 +46675,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": ":%s/old/new/gc   |   /\\v<pattern>   |   :g/error/d   |   :v/keep/d",
     "desc": "Interactive buffer search, global confirmation & very-magic regex",
     "tip": "Hit * on any word to search forward immediately, then cgn to edit the next match!",
-    "tags": "search tips pro chords best-practices"
+    "tags": "search tips pro chords best-practices",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/change/",
+          "title": "Neovim help: change"
+        },
+        {
+          "url": "https://neovim.io/doc/user/pattern/",
+          "title": "Neovim help: pattern"
+        },
+        {
+          "url": "https://neovim.io/doc/user/repeat/",
+          "title": "Neovim help: repeat (macros, :g)"
+        }
+      ]
+    }
   },
   {
     "sName": "nvim-visual",
@@ -45593,6 +46704,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Insert text at the beginning of multiple lines simultaneously",
     "tip": "Multi-cursor alternative",
     "tags": "block column multiline prefix insert",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/visual/",
+          "title": "Neovim help: visual"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -45605,6 +46725,19 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Append text to the end of multiple ragged-length lines",
     "tip": "",
     "tags": "append eol block multiline column",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/visual/",
+          "title": "Neovim help: visual"
+        },
+        {
+          "url": "https://neovim.io/doc/user/change/",
+          "title": "Neovim help: change"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -45617,6 +46750,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Reselect previous visual area or jump cursor to other end of selection",
     "tip": "",
     "tags": "reselect swap corner selection",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/visual/",
+          "title": "Neovim help: visual"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -45629,6 +46771,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Turn column of zeros into sequential numbers (1, 2, 3, 4...)",
     "tip": "Instant numbered lists",
     "tags": "sequence increment numbers list",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/change/",
+          "title": "Neovim help: change"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -45640,7 +46791,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": ":'<,'>sort u   |   <A-j>   <A-k>",
     "desc": "Sort selected lines uniquely or move selected block up/down",
     "tip": "",
-    "tags": "sort unique move lines deduplicate"
+    "tags": "sort unique move lines deduplicate",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/change/",
+          "title": "Neovim help: change"
+        },
+        {
+          "url": "https://www.lazyvim.org/keymaps",
+          "title": "LazyVim keymaps"
+        }
+      ]
+    }
   },
   {
     "sName": "nvim-visual",
@@ -45650,8 +46814,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "Visual Mode: Pro Tips & Chords",
     "cmd": "<C-v>   I<text><Esc>   |   <C-v>$   A<text><Esc>   |   gv",
     "desc": "Visual-block multi-line column editing & reselection",
-    "tip": "Always wait 100ms after pressing Esc in visual block mode for lines to populate!",
+    "tip": "The text shows up on the other lines only after you press Esc",
     "tags": "visual tips pro chords best-practices",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/visual/",
+          "title": "Neovim help: visual"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -45664,6 +46837,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Create vertical or horizontal window splits and close active/other splits",
     "tip": "",
     "tags": "split vertical horizontal window only close",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/windows/",
+          "title": "Neovim help: windows and buffers"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -45676,6 +46858,19 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Move focus between splits or rearrange window layout",
     "tip": "LazyVim maps Ctrl+h/j/k/l",
     "tags": "navigate focus rearrange break tab",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/windows/",
+          "title": "Neovim help: windows and buffers"
+        },
+        {
+          "url": "https://www.lazyvim.org/keymaps",
+          "title": "LazyVim keymaps"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -45688,6 +46883,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Equalize, maximize, or adjust split window dimensions",
     "tip": "",
     "tags": "resize equalize maximize width height",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/windows/",
+          "title": "Neovim help: windows and buffers"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -45700,6 +46904,23 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Switch between open buffers, jump to alternate file, or delete buffer",
     "tip": "",
     "tags": "buffer switch alternate close next prev",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/windows/",
+          "title": "Neovim help: windows and buffers"
+        },
+        {
+          "url": "https://neovim.io/doc/user/vim_diff/",
+          "title": "Neovim help: default mappings"
+        },
+        {
+          "url": "https://www.lazyvim.org/keymaps",
+          "title": "LazyVim keymaps"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -45712,6 +46933,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Manage workspace tab pages (each tab holds its own window layout)",
     "tip": "",
     "tags": "tabs workspace layout",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/tabpage/",
+          "title": "Neovim help: tab pages"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -45724,6 +46954,23 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Split window layout navigation, resizing & tab page control",
     "tip": "In LazyVim, use Shift+H and Shift+L to switch between open buffer tabs rapidly!",
     "tags": "windows tips pro chords best-practices",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/windows/",
+          "title": "Neovim help: windows and buffers"
+        },
+        {
+          "url": "https://neovim.io/doc/user/tabpage/",
+          "title": "Neovim help: tab pages"
+        },
+        {
+          "url": "https://www.lazyvim.org/keymaps",
+          "title": "LazyVim keymaps"
+        }
+      ]
+    },
     "noCopy": true
   },
   {

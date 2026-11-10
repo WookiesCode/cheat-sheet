@@ -561,6 +561,28 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     await ctx.close();
   }
 
+  // 2r. Neovim suite (hub + nine sheets): every card sourced; LazyVim vs built-in keys, the
+  // Snacks explorer default, and no :w !sudo tee (it can't prompt in Neovim).
+  {
+    const PAGES = ['neovim', 'nvim-motions', 'nvim-operators', 'nvim-visual', 'nvim-search', 'nvim-windows', 'nvim-macros', 'nvim-lsp', 'nvim-lazyvim', 'nvim-ex-shell'];
+    const ctx = await newContext(browser);
+    const p = await ctx.newPage();
+    const all = [];
+    let text = '';
+    for (const f of PAGES) {
+      await p.goto(BASE + f + '.html', { waitUntil: 'load' });
+      await p.waitForTimeout(400);
+      text += await p.evaluate(() => { const c = document.body.cloneNode(true); c.querySelectorAll('.cmd-source').forEach(n => n.remove()); return c.textContent; });
+      all.push(...await p.evaluate(() => [...document.querySelectorAll('.cmd-item:is([data-cmd-id], [data-id])')].filter(it => !/-flags-card$/.test(it.dataset.cmdId || '')).map(it => ({ id: it.dataset.cmdId || it.dataset.id, src: !!it.querySelector('.cmd-source:not(.is-unverified)') }))));
+    }
+    check(all.length >= 100 && all.every(x => x.src), `every card on the Neovim hub and sheets shows a verified source (${all.filter(x => x.src).length}/${all.length})`);
+    check(!/:w !sudo tee %\s+\|/.test(text) && /does not work in Neovim/.test(text), ':w !sudo tee % is gone from the commands and explained');
+    check(/grr is the Neovim 0\.11\+ default/.test(text) && /gri \/ grt by default/.test(text), 'LSP keys: LazyVim vs Neovim defaults');
+    check(/Snacks explorer/.test(text) && !/Copy name \/ Copy file/.test(text), 'explorer: Snacks by default; Neo-tree y/x/p');
+    check(!/wait 100ms/.test(text) && !/Neovim 0\.10\+</.test(text), 'no 100 ms tip; version labels say 0.11+');
+    await ctx.close();
+  }
+
   // 3. Over a year old → amber "re-check"; and src can't inject markup or javascript: links.
   {
     const ctx = await newContext(browser);

@@ -33,7 +33,16 @@ const NVIM_MACROS_DATA = [
           "record",
           "replay",
           "automation"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/repeat/",
+              "title": "Neovim help: repeat (macros, :g)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -60,7 +69,16 @@ const NVIM_MACROS_DATA = [
           "visual",
           "batch",
           "lines"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/various/",
+              "title": "Neovim help: various (:!, gc, CTRL-L)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -98,7 +116,16 @@ const NVIM_MACROS_DATA = [
           "blackhole",
           "register",
           "yank"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/change/",
+              "title": "Neovim help: change"
+            }
+          ]
+        }
       }
     ]
   },
@@ -134,7 +161,16 @@ const NVIM_MACROS_DATA = [
           "calculator",
           "expression",
           "cword"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/insert/",
+              "title": "Neovim help: insert (CTRL-R)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -171,7 +207,16 @@ const NVIM_MACROS_DATA = [
           "tree",
           "earlier",
           "time"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/undo/",
+              "title": "Neovim help: undo"
+            }
+          ]
+        }
       }
     ]
   },
@@ -207,7 +252,7 @@ const NVIM_MACROS_DATA = [
           ],
           [
             "<C-r>= (in Insert)",
-            "Evaluate inline math or Lua expressions (e.g. 1024*64)"
+            "Evaluate a Vimscript expression inline (e.g. 1024*64); wrap Lua in luaeval()"
           ]
         ],
         "tip": "Use \"+y to yank into system clipboard, and \"0p to paste last yank after deleting!",
@@ -217,7 +262,24 @@ const NVIM_MACROS_DATA = [
           "pro",
           "chords",
           "best-practices"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/repeat/",
+              "title": "Neovim help: repeat (macros, :g)"
+            },
+            {
+              "url": "https://neovim.io/doc/user/insert/",
+              "title": "Neovim help: insert (CTRL-R)"
+            },
+            {
+              "url": "https://neovim.io/doc/user/change/",
+              "title": "Neovim help: change"
+            }
+          ]
+        }
       }
     ]
   }

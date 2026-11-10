@@ -33,7 +33,16 @@ const NVIM_MOTIONS_DATA = [
           "cursor",
           "navigation",
           "punctuation"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/motion/",
+              "title": "Neovim help: motion"
+            }
+          ]
+        }
       }
     ]
   },
@@ -75,7 +84,16 @@ const NVIM_MOTIONS_DATA = [
           "home",
           "bol",
           "eol"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/motion/",
+              "title": "Neovim help: motion"
+            }
+          ]
+        }
       }
     ]
   },
@@ -112,7 +130,16 @@ const NVIM_MOTIONS_DATA = [
           "character",
           "inline",
           "repeat"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/motion/",
+              "title": "Neovim help: motion"
+            }
+          ]
+        }
       }
     ]
   },
@@ -149,7 +176,16 @@ const NVIM_MOTIONS_DATA = [
           "line",
           "bracket",
           "match"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/motion/",
+              "title": "Neovim help: motion"
+            }
+          ]
+        }
       }
     ]
   },
@@ -186,7 +222,16 @@ const NVIM_MOTIONS_DATA = [
           "page",
           "viewport",
           "screen"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/scroll/",
+              "title": "Neovim help: scroll"
+            }
+          ]
+        }
       }
     ]
   },
@@ -218,7 +263,16 @@ const NVIM_MOTIONS_DATA = [
           "middle",
           "low",
           "paragraph"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/motion/",
+              "title": "Neovim help: motion"
+            }
+          ]
+        }
       }
     ]
   },
@@ -254,7 +308,16 @@ const NVIM_MOTIONS_DATA = [
           "history",
           "jumplist",
           "changelist"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/motion/",
+              "title": "Neovim help: motion"
+            }
+          ]
+        }
       }
     ]
   },
@@ -296,7 +359,20 @@ const NVIM_MOTIONS_DATA = [
           "pro",
           "chords",
           "best-practices"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/motion/",
+              "title": "Neovim help: motion"
+            },
+            {
+              "url": "https://neovim.io/doc/user/scroll/",
+              "title": "Neovim help: scroll"
+            }
+          ]
+        }
       }
     ]
   }

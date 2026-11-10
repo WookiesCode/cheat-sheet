@@ -40,7 +40,16 @@ const NVIM_LAZYVIM_DATA = [
           "grep",
           "files",
           "search"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.lazyvim.org/keymaps",
+              "title": "LazyVim keymaps"
+            }
+          ]
+        }
       }
     ]
   },
@@ -48,26 +57,26 @@ const NVIM_LAZYVIM_DATA = [
     "id": "lazyvim-card-2",
     "badge": "lazy",
     "title": "LazyVim: Neo-tree File Explorer",
-    "subtitle": "Toggle Neo-tree file explorer and perform file operations inside tree",
+    "subtitle": "File explorer: LazyVim's default is the Snacks explorer; Neo-tree is an optional extra (:LazyExtras → editor.neo-tree)",
     "commands": [
       {
         "id": "lazyvim-neotree-explorer",
         "mode": "LAZYVIM",
         "modeClass": "mode-v",
-        "desc": "Toggle Neo-tree file explorer and perform file operations inside tree",
+        "desc": "File explorer: LazyVim's default is the Snacks explorer; Neo-tree is an optional extra (:LazyExtras → editor.neo-tree)",
         "cmd": "<leader>e   <leader>E   |   a   d   r   y   c   m   ?",
         "flags": [
           [
             "<leader>e / <leader>E",
-            "Toggle Neo-tree (Root Dir / Current Working Dir)"
+            "Toggle the explorer (root dir / current working dir): Snacks by default, Neo-tree with the extra"
           ],
           [
             "a / d / r",
             "Add file or dir (end w/ /) / Delete / Rename inside Neo-tree"
           ],
           [
-            "y / c / m",
-            "Copy name / Copy file / Move file inside Neo-tree"
+            "y / x / p",
+            "Copy / cut to Neo-tree's clipboard, then paste (c / m copy or move to a path you type; Y copies the path in LazyVim)"
           ],
           [
             "H / ?",
@@ -81,7 +90,25 @@ const NVIM_LAZYVIM_DATA = [
           "tree",
           "create",
           "rename"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.lazyvim.org/keymaps",
+              "title": "LazyVim keymaps"
+            },
+            {
+              "url": "https://www.lazyvim.org/extras/editor/neo-tree",
+              "title": "LazyVim extra: Neo-tree"
+            },
+            {
+              "url": "https://github.com/nvim-neo-tree/neo-tree.nvim/blob/main/lua/neo-tree/defaults.lua",
+              "title": "Neo-tree default mappings"
+            }
+          ],
+          "note": "Corrected 2026-11-10: LazyVim's default explorer is Snacks; Neo-tree's y copies to its own clipboard, not the name."
+        }
       }
     ]
   },
@@ -122,7 +149,20 @@ const NVIM_LAZYVIM_DATA = [
           "stage",
           "blame",
           "diff"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/LazyVim/LazyVim/blob/v16.0.2/lua/lazyvim/config/keymaps.lua",
+              "title": "LazyVim source: keymaps.lua"
+            },
+            {
+              "url": "https://github.com/LazyVim/LazyVim/blob/v16.0.2/lua/lazyvim/plugins/editor.lua",
+              "title": "LazyVim source: editor.lua (gitsigns, flash)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -159,7 +199,16 @@ const NVIM_LAZYVIM_DATA = [
           "keymaps",
           "help",
           "grug-far"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.lazyvim.org/keymaps",
+              "title": "LazyVim keymaps"
+            }
+          ]
+        }
       }
     ]
   },
@@ -201,7 +250,16 @@ const NVIM_LAZYVIM_DATA = [
           "lazy",
           "mason",
           "plugins"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.lazyvim.org/keymaps",
+              "title": "LazyVim keymaps"
+            }
+          ]
+        }
       }
     ]
   },
@@ -221,7 +279,7 @@ const NVIM_LAZYVIM_DATA = [
         "flags": [
           [
             "<leader><space>",
-            "Find files in project (Telescope / Snacks / fzf-lua)"
+            "Find files in project (Snacks picker by default; Telescope or fzf-lua as extras)"
           ],
           [
             "<leader>sg",
@@ -229,7 +287,7 @@ const NVIM_LAZYVIM_DATA = [
           ],
           [
             "<leader>e",
-            "Toggle Neo-tree sidebar file explorer"
+            "Toggle the file explorer (Snacks by default, Neo-tree as an extra)"
           ],
           [
             "<leader>gg",
@@ -247,7 +305,20 @@ const NVIM_LAZYVIM_DATA = [
           "pro",
           "chords",
           "best-practices"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.lazyvim.org/keymaps",
+              "title": "LazyVim keymaps"
+            },
+            {
+              "url": "https://github.com/LazyVim/LazyVim/releases",
+              "title": "LazyVim releases"
+            }
+          ]
+        }
       }
     ]
   }

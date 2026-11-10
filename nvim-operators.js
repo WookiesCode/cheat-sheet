@@ -45,7 +45,16 @@ const NVIM_OPERATORS_DATA = [
           "braces",
           "html",
           "tag"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/motion/",
+              "title": "Neovim help: motion"
+            }
+          ]
+        }
       }
     ]
   },
@@ -81,7 +90,20 @@ const NVIM_OPERATORS_DATA = [
           "delete",
           "copy",
           "inner"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/motion/",
+              "title": "Neovim help: motion"
+            },
+            {
+              "url": "https://neovim.io/doc/user/change/",
+              "title": "Neovim help: change"
+            }
+          ]
+        }
       }
     ]
   },
@@ -122,7 +144,20 @@ const NVIM_OPERATORS_DATA = [
           "shortcut",
           "substitute",
           "delete"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/change/",
+              "title": "Neovim help: change"
+            },
+            {
+              "url": "https://neovim.io/doc/user/vim_diff/",
+              "title": "Neovim help: default mappings"
+            }
+          ]
+        }
       }
     ]
   },
@@ -149,7 +184,7 @@ const NVIM_OPERATORS_DATA = [
           ],
           [
             "<C-a> / <C-x>",
-            "Increment / decrement number or alpha under cursor"
+            "Increment / decrement the number under the cursor (letters too only if 'nrformats' includes alpha; the default is bin,hex)"
           ]
         ],
         "tags": [
@@ -158,7 +193,25 @@ const NVIM_OPERATORS_DATA = [
           "join",
           "increment",
           "number"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/repeat/",
+              "title": "Neovim help: repeat (macros, :g)"
+            },
+            {
+              "url": "https://neovim.io/doc/user/change/",
+              "title": "Neovim help: change"
+            },
+            {
+              "url": "https://neovim.io/doc/user/options/",
+              "title": "Neovim help: options"
+            }
+          ],
+          "note": "Corrected 2026-11-10: Ctrl+A only changes letters when 'nrformats' includes alpha."
+        }
       }
     ]
   },
@@ -199,7 +252,16 @@ const NVIM_OPERATORS_DATA = [
           "indent",
           "format",
           "wrap"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/change/",
+              "title": "Neovim help: change"
+            }
+          ]
+        }
       }
     ]
   },
@@ -231,7 +293,20 @@ const NVIM_OPERATORS_DATA = [
           "uncomment",
           "toggle",
           "code"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/various/",
+              "title": "Neovim help: various (:!, gc, CTRL-L)"
+            },
+            {
+              "url": "https://neovim.io/doc/user/vim_diff/",
+              "title": "Neovim help: default mappings"
+            }
+          ]
+        }
       }
     ]
   },
@@ -277,7 +352,24 @@ const NVIM_OPERATORS_DATA = [
           "pro",
           "chords",
           "best-practices"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/motion/",
+              "title": "Neovim help: motion"
+            },
+            {
+              "url": "https://neovim.io/doc/user/change/",
+              "title": "Neovim help: change"
+            },
+            {
+              "url": "https://neovim.io/doc/user/various/",
+              "title": "Neovim help: various (:!, gc, CTRL-L)"
+            }
+          ]
+        }
       }
     ]
   }

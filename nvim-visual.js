@@ -34,7 +34,16 @@ const NVIM_VISUAL_DATA = [
           "multiline",
           "prefix",
           "insert"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/visual/",
+              "title": "Neovim help: visual"
+            }
+          ]
+        }
       }
     ]
   },
@@ -66,7 +75,20 @@ const NVIM_VISUAL_DATA = [
           "block",
           "multiline",
           "column"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/visual/",
+              "title": "Neovim help: visual"
+            },
+            {
+              "url": "https://neovim.io/doc/user/change/",
+              "title": "Neovim help: change"
+            }
+          ]
+        }
       }
     ]
   },
@@ -97,7 +119,16 @@ const NVIM_VISUAL_DATA = [
           "swap",
           "corner",
           "selection"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/visual/",
+              "title": "Neovim help: visual"
+            }
+          ]
+        }
       }
     ]
   },
@@ -129,7 +160,16 @@ const NVIM_VISUAL_DATA = [
           "increment",
           "numbers",
           "list"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/change/",
+              "title": "Neovim help: change"
+            }
+          ]
+        }
       }
     ]
   },
@@ -165,7 +205,20 @@ const NVIM_VISUAL_DATA = [
           "move",
           "lines",
           "deduplicate"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/change/",
+              "title": "Neovim help: change"
+            },
+            {
+              "url": "https://www.lazyvim.org/keymaps",
+              "title": "LazyVim keymaps"
+            }
+          ]
+        }
       }
     ]
   },
@@ -204,14 +257,23 @@ const NVIM_VISUAL_DATA = [
             "Indent selection left / right (re-select with gv to repeat)"
           ]
         ],
-        "tip": "Always wait 100ms after pressing Esc in visual block mode for lines to populate!",
+        "tip": "The text shows up on the other lines only after you press Esc",
         "tags": [
           "visual",
           "tips",
           "pro",
           "chords",
           "best-practices"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/visual/",
+              "title": "Neovim help: visual"
+            }
+          ]
+        }
       }
     ]
   }

@@ -38,7 +38,16 @@ const NVIM_WINDOWS_DATA = [
           "window",
           "only",
           "close"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/windows/",
+              "title": "Neovim help: windows and buffers"
+            }
+          ]
+        }
       }
     ]
   },
@@ -79,7 +88,20 @@ const NVIM_WINDOWS_DATA = [
           "rearrange",
           "break",
           "tab"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/windows/",
+              "title": "Neovim help: windows and buffers"
+            },
+            {
+              "url": "https://www.lazyvim.org/keymaps",
+              "title": "LazyVim keymaps"
+            }
+          ]
+        }
       }
     ]
   },
@@ -115,7 +137,16 @@ const NVIM_WINDOWS_DATA = [
           "maximize",
           "width",
           "height"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/windows/",
+              "title": "Neovim help: windows and buffers"
+            }
+          ]
+        }
       }
     ]
   },
@@ -156,7 +187,24 @@ const NVIM_WINDOWS_DATA = [
           "close",
           "next",
           "prev"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/windows/",
+              "title": "Neovim help: windows and buffers"
+            },
+            {
+              "url": "https://neovim.io/doc/user/vim_diff/",
+              "title": "Neovim help: default mappings"
+            },
+            {
+              "url": "https://www.lazyvim.org/keymaps",
+              "title": "LazyVim keymaps"
+            }
+          ]
+        }
       }
     ]
   },
@@ -186,7 +234,16 @@ const NVIM_WINDOWS_DATA = [
           "tabs",
           "workspace",
           "layout"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/tabpage/",
+              "title": "Neovim help: tab pages"
+            }
+          ]
+        }
       }
     ]
   },
@@ -232,7 +289,24 @@ const NVIM_WINDOWS_DATA = [
           "pro",
           "chords",
           "best-practices"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/windows/",
+              "title": "Neovim help: windows and buffers"
+            },
+            {
+              "url": "https://neovim.io/doc/user/tabpage/",
+              "title": "Neovim help: tab pages"
+            },
+            {
+              "url": "https://www.lazyvim.org/keymaps",
+              "title": "LazyVim keymaps"
+            }
+          ]
+        }
       }
     ]
   }

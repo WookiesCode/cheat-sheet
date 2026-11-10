@@ -23,8 +23,8 @@ const NVIM_SEARCH_DATA = [
             "Change next search match (press . to repeat on select matches!)"
           ],
           [
-            ":noh or <Esc>",
-            "Clear active search highlighting"
+            ":noh or <C-l>",
+            "Clear search highlighting (Ctrl+L does it by default in Neovim; LazyVim also maps <Esc>)"
           ]
         ],
         "tip": "* + cgn + . beats :%s",
@@ -34,7 +34,25 @@ const NVIM_SEARCH_DATA = [
           "cgn",
           "highlight",
           "repeat"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/pattern/",
+              "title": "Neovim help: pattern"
+            },
+            {
+              "url": "https://neovim.io/doc/user/various/",
+              "title": "Neovim help: various (:!, gc, CTRL-L)"
+            },
+            {
+              "url": "https://www.lazyvim.org/keymaps",
+              "title": "LazyVim keymaps"
+            }
+          ],
+          "note": "Corrected 2026-11-10: <Esc> clearing the highlight is LazyVim; plain Neovim uses Ctrl+L."
+        }
       }
     ]
   },
@@ -70,7 +88,16 @@ const NVIM_SEARCH_DATA = [
           "all",
           "confirm",
           "find"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/change/",
+              "title": "Neovim help: change"
+            }
+          ]
+        }
       }
     ]
   },
@@ -103,7 +130,20 @@ const NVIM_SEARCH_DATA = [
           "search",
           "replace",
           "visual"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/change/",
+              "title": "Neovim help: change"
+            },
+            {
+              "url": "https://neovim.io/doc/user/pattern/",
+              "title": "Neovim help: pattern"
+            }
+          ]
+        }
       }
     ]
   },
@@ -139,7 +179,20 @@ const NVIM_SEARCH_DATA = [
           "groups",
           "magic",
           "paths"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/pattern/",
+              "title": "Neovim help: pattern"
+            },
+            {
+              "url": "https://neovim.io/doc/user/change/",
+              "title": "Neovim help: change"
+            }
+          ]
+        }
       }
     ]
   },
@@ -176,7 +229,16 @@ const NVIM_SEARCH_DATA = [
           "lines",
           "blank",
           "invert"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/repeat/",
+              "title": "Neovim help: repeat (macros, :g)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -209,7 +271,20 @@ const NVIM_SEARCH_DATA = [
           "batch",
           "collect",
           "yank"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/repeat/",
+              "title": "Neovim help: repeat (macros, :g)"
+            },
+            {
+              "url": "https://neovim.io/doc/user/various/",
+              "title": "Neovim help: various (:!, gc, CTRL-L)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -255,7 +330,24 @@ const NVIM_SEARCH_DATA = [
           "pro",
           "chords",
           "best-practices"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/change/",
+              "title": "Neovim help: change"
+            },
+            {
+              "url": "https://neovim.io/doc/user/pattern/",
+              "title": "Neovim help: pattern"
+            },
+            {
+              "url": "https://neovim.io/doc/user/repeat/",
+              "title": "Neovim help: repeat (macros, :g)"
+            }
+          ]
+        }
       }
     ]
   }

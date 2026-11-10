@@ -368,6 +368,24 @@ All 28 commands and 4 Pro Tips on the nano, VS Code, Zed and Cursor sheets (46 h
 
 Confirmed as written: every nano flag and key on the cards (from the 9.3 source), sudoedit's SUDO_EDITOR → VISUAL → EDITOR order, every VS Code Linux key and `code` flag (`--remote ssh-remote+HOST`), every Zed key against `default-linux.json` (ctrl-enter inline assist, ctrl-\\ split), `zed` -w/--diff/path:line:col, `zeditor` package naming, Cursor's chat/context/Tab keys and `agent` -p/--output-format/--mode/--sandbox/ls/resume/--continue.
 
+## #8 for the Neovim suite (2026-11-10, `neovim-sources`)
+
+All 47 commands (in `neovim.js`, copied whole into the nine sheets) and 9 Pro Tips (in `generate-neovim-suite.js`, now passed through) cite Neovim's help pages (motion, change, visual, pattern, repeat, windows, insert, undo, quickfix, terminal, LSP, diagnostics, treesitter, default mappings, 0.11/0.12 news), LazyVim's keymaps page and v16.0.2 source (gitsigns, flash, treesitter-textobjects), and Neo-tree's defaults. Checked against Neovim 0.12.6 and LazyVim 16.0.2. Corrections:
+
+| Was | Now |
+|---|---|
+| `:w !sudo tee %` "save with root privileges" (ex-shell Pro Tip) | Removed: Neovim's `:!` runs on a pipe with no terminal, so sudo can't prompt. The tip says to reopen with sudoedit; `:r !date` takes its place |
+| gd / gr / gI / gy / `<C-k>` shown as Neovim LSP keys | Labelled LazyVim; Neovim's own are `grr`, `gri`, `grt`, `gra`, `grn`, Ctrl+S (0.11+, `grt` 0.12) and Ctrl+] |
+| `:noh or <Esc>` clears the highlight | `<Esc>` is LazyVim; plain Neovim clears it with Ctrl+L |
+| Ctrl+A changes "number or alpha" | Letters only if `'nrformats'` has `alpha` (default `bin,hex`) |
+| `]c / [c` "class or git hunk" | Class start (a diff change in diff mode); hunks are `]h / [h`. `<C-space>` is LazyVim (flash.nvim); Neovim 0.12 has `an` / `in` |
+| Neo-tree is LazyVim's explorer; `y / c / m` = copy name / copy file / move | Snacks explorer is the default, Neo-tree an extra; `y / x / p` copy / cut / paste, `c / m` copy / move to a typed path, `Y` copies the path |
+| `<C-r>=` evaluates "math or Lua" | Vimscript expressions; wrap Lua in `luaeval()` |
+| "Always wait 100ms after Esc in visual block mode" | The text appears on the other lines once you press Esc |
+| Labels "Neovim 0.10+" | "Neovim 0.11+" (the `]b`, `]q`, `grr` defaults are 0.11) |
+
+The hub renders with `data-id`, not `data-cmd-id`; the test counts both (103 cards).
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |

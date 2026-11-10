@@ -78,7 +78,8 @@ const PRO_TIPS = {
       ['zz / zt / zb', 'Center screen / position line at top / position line at bottom'],
       ['H / M / L', 'Move cursor to High, Middle, or Low line of visible viewport']
     ],
-    tip: 'Combine motions with operators: d2w, y$, c^'
+    tip: 'Combine motions with operators: d2w, y$, c^',
+    src: {"verified":"2026-11-10","refs":[{"url":"https://neovim.io/doc/user/motion/","title":"Neovim help: motion"},{"url":"https://neovim.io/doc/user/scroll/","title":"Neovim help: scroll"}]}
   },
   operators: {
     desc: 'Vim operator grammar composition rules: [operator][count][scope][target]',
@@ -91,7 +92,8 @@ const PRO_TIPS = {
       ['gUiw / guiw', 'Convert inner word to UPPERCASE / lowercase'],
       ['gc / gcc', 'Comment motion target / comment entire current line']
     ],
-    tip: 'The dot (.) command repeats the entire composite operator change!'
+    tip: 'The dot (.) command repeats the entire composite operator change!',
+    src: {"verified":"2026-11-10","refs":[{"url":"https://neovim.io/doc/user/motion/","title":"Neovim help: motion"},{"url":"https://neovim.io/doc/user/change/","title":"Neovim help: change"},{"url":"https://neovim.io/doc/user/various/","title":"Neovim help: various (:!, gc, CTRL-L)"}]}
   },
   visual: {
     desc: 'Visual-block multi-line column editing & reselection',
@@ -104,7 +106,8 @@ const PRO_TIPS = {
       ['o', 'Swap cursor to opposite diagonal corner of visual block'],
       ['< / >', 'Indent selection left / right (re-select with gv to repeat)']
     ],
-    tip: 'Always wait 100ms after pressing Esc in visual block mode for lines to populate!'
+    tip: 'The text shows up on the other lines only after you press Esc',
+    src: {"verified":"2026-11-10","refs":[{"url":"https://neovim.io/doc/user/visual/","title":"Neovim help: visual"}]}
   },
   search: {
     desc: 'Interactive buffer search, global confirmation & very-magic regex',
@@ -117,7 +120,8 @@ const PRO_TIPS = {
       [':g/pat/d', 'Delete all lines containing pattern'],
       [':v/pat/d', 'Invert match: delete all lines NOT containing pattern']
     ],
-    tip: 'Hit * on any word to search forward immediately, then cgn to edit the next match!'
+    tip: 'Hit * on any word to search forward immediately, then cgn to edit the next match!',
+    src: {"verified":"2026-11-10","refs":[{"url":"https://neovim.io/doc/user/change/","title":"Neovim help: change"},{"url":"https://neovim.io/doc/user/pattern/","title":"Neovim help: pattern"},{"url":"https://neovim.io/doc/user/repeat/","title":"Neovim help: repeat (macros, :g)"}]}
   },
   windows: {
     desc: 'Split window layout navigation, resizing & tab page control',
@@ -130,7 +134,8 @@ const PRO_TIPS = {
       ['<C-w>T', 'Move current split into its own full-screen Tab Page'],
       ['<C-^> or <C-6>', 'Instantly toggle between current and alternate file']
     ],
-    tip: 'In LazyVim, use Shift+H and Shift+L to switch between open buffer tabs rapidly!'
+    tip: 'In LazyVim, use Shift+H and Shift+L to switch between open buffer tabs rapidly!',
+    src: {"verified":"2026-11-10","refs":[{"url":"https://neovim.io/doc/user/windows/","title":"Neovim help: windows and buffers"},{"url":"https://neovim.io/doc/user/tabpage/","title":"Neovim help: tab pages"},{"url":"https://www.lazyvim.org/keymaps","title":"LazyVim keymaps"}]}
   },
   macros: {
     desc: 'Macro recording, parallel visual playback & expression register',
@@ -141,49 +146,53 @@ const PRO_TIPS = {
       ['@a / @@', 'Execute macro "a" / replay last executed macro'],
       ['qA ... q', 'Append additional keystrokes to register "a" without overwriting'],
       [':\'<,\'>norm @a', 'Execute macro "a" independently across all visually selected lines'],
-      ['<C-r>= (in Insert)', 'Evaluate inline math or Lua expressions (e.g. 1024*64)']
+      ['<C-r>= (in Insert)', 'Evaluate a Vimscript expression inline (e.g. 1024*64); wrap Lua in luaeval()']
     ],
-    tip: 'Use "+y to yank into system clipboard, and "0p to paste last yank after deleting!'
+    tip: 'Use "+y to yank into system clipboard, and "0p to paste last yank after deleting!',
+    src: {"verified":"2026-11-10","refs":[{"url":"https://neovim.io/doc/user/repeat/","title":"Neovim help: repeat (macros, :g)"},{"url":"https://neovim.io/doc/user/insert/","title":"Neovim help: insert (CTRL-R)"},{"url":"https://neovim.io/doc/user/change/","title":"Neovim help: change"}]}
   },
   lsp: {
-    desc: 'Neovim 0.10+ native LSP navigation, inlay hints & code actions',
+    desc: 'LSP navigation, inlay hints & code actions (LazyVim keys; Neovim 0.11+ defaults in brackets)',
     cmd: 'gd   gr   K   |   <leader>ca   <leader>cr   |   [d   ]d',
     details: 'Native Neovim LSP powers modern IDE capabilities. Jump to definitions with gd, show hover docs with K, trigger code actions with <leader>ca, and navigate compiler diagnostics with [d and ]d.',
     flags: [
-      ['gd / gD', 'Goto symbol Definition / Goto Declaration'],
-      ['gr (or grr)', 'Find all references across entire project'],
+      ['gd / gD', 'Goto Definition / Declaration (LazyVim; Ctrl+] in plain Neovim)'],
+      ['gr (grr)', 'Find all references across the project'],
       ['K', 'Show hover documentation float (press K again to focus float)'],
-      ['<leader>ca', 'Code actions (quickfix, imports, refactor)'],
-      ['<leader>cr', 'Rename symbol workspace-wide'],
+      ['<leader>ca (gra)', 'Code actions (quickfix, imports, refactor)'],
+      ['<leader>cr (grn)', 'Rename symbol workspace-wide'],
       ['[d / ]d', 'Jump to previous / next diagnostic error or warning']
     ],
-    tip: 'In Neovim 0.10, enable inlay hints with: vim.lsp.inlay_hint.enable()'
+    tip: 'Since Neovim 0.10, turn on inlay hints with: vim.lsp.inlay_hint.enable()',
+    src: {"verified":"2026-11-10","refs":[{"url":"https://neovim.io/doc/user/lsp/","title":"Neovim help: LSP defaults"},{"url":"https://neovim.io/doc/user/news-0.11/","title":"Neovim 0.11 news"},{"url":"https://www.lazyvim.org/keymaps","title":"LazyVim keymaps"}],"note":"Corrected 2026-11-10: gd and <leader>ca / <leader>cr are LazyVim keys; plain Neovim has Ctrl+], gra and grn."}
   },
   lazyvim: {
     desc: 'LazyVim fast fuzzy finding, Neo-tree, LazyGit & keymap discovery',
     cmd: '<leader><space>   <leader>sg   <leader>e   <leader>gg',
     details: 'LazyVim is the modern, modular Neovim distribution. Use <leader><space> to find files, <leader>sg for live ripgrep, <leader>e to toggle Neo-tree, and <leader>gg to open full-screen LazyGit.',
     flags: [
-      ['<leader><space>', 'Find files in project (Telescope / Snacks / fzf-lua)'],
+      ['<leader><space>', 'Find files in project (Snacks picker by default; Telescope or fzf-lua as extras)'],
       ['<leader>sg', 'Live ripgrep text across all project files'],
-      ['<leader>e', 'Toggle Neo-tree sidebar file explorer'],
+      ['<leader>e', 'Toggle the file explorer (Snacks by default, Neo-tree as an extra)'],
       ['<leader>gg', 'Launch LazyGit terminal UI for staging, commit & rebase'],
       ['<leader>sk', 'Search and inspect all configured keymaps with which-key']
     ],
-    tip: 'Space is the default <leader> key in LazyVim!'
+    tip: 'Space is the default <leader> key in LazyVim!',
+    src: {"verified":"2026-11-10","refs":[{"url":"https://www.lazyvim.org/keymaps","title":"LazyVim keymaps"},{"url":"https://github.com/LazyVim/LazyVim/releases","title":"LazyVim releases"}]}
   },
   'ex-shell': {
     desc: 'Ex command pipelines, external Unix filters & terminal integration',
-    cmd: ':%!jq .   |   :%!sort -u   |   :w !sudo tee %   |   <C-/>',
+    cmd: ':%!jq .   |   :%!sort -u   |   :r !date   |   <C-/>',
     details: 'Pipe buffer content directly through external shell tools in-place. Run :%!jq . to format JSON or :%!sort -u to deduplicate lines. Use <C-/> in LazyVim for instant floating terminal access.',
     flags: [
       [':%!jq .', 'Pipe entire buffer through jq for JSON formatting and syntax validation'],
       [':%!sort -u', 'Deduplicate and sort all buffer lines in-place'],
-      [':w !sudo tee %', 'Save file with root privileges when opened without sudo'],
+      [':r !date', 'Insert a shell command\'s output below the cursor. (:w !sudo tee % does not work in Neovim: :! has no terminal for the password prompt; quit and reopen the file with sudoedit)'],
       ['<C-/>', 'Toggle floating terminal window in LazyVim'],
       ['<C-\\><C-n>', 'Exit terminal insert mode to scroll and yank terminal text']
     ],
-    tip: 'Use :checkhealth to diagnose Neovim, clipboard, treesitter, and LSP providers!'
+    tip: 'Use :checkhealth to diagnose Neovim, clipboard, treesitter, and LSP providers!',
+    src: {"verified":"2026-11-10","refs":[{"url":"https://neovim.io/doc/user/change/","title":"Neovim help: change"},{"url":"https://neovim.io/doc/user/various/","title":"Neovim help: various (:!, gc, CTRL-L)"},{"url":"https://neovim.io/doc/user/terminal/","title":"Neovim help: terminal"},{"url":"https://neovim.io/doc/user/health/","title":"Neovim help: health"}],"note":"Corrected 2026-11-10: :w !sudo tee % does not work in Neovim (:! runs without a terminal)."}
   }
 };
 
@@ -273,7 +282,8 @@ function buildNeovimSectionCards(sec) {
           details: proTip.details,
           flags: proTip.flags,
           tip: proTip.tip,
-          tags: [sec.id, 'tips', 'pro', 'chords', 'best-practices']
+          tags: [sec.id, 'tips', 'pro', 'chords', 'best-practices'],
+          ...(proTip.src ? { src: proTip.src } : {})
         }
       ]
     });
@@ -740,7 +750,7 @@ function generateNeovimHtml(sec) {
         <div>
           <div class="brand-title-row">
             <h1>${escapeHtml(sec.title)}</h1>
-            <span class="version-pill">${escapeHtml(sec.badge.toUpperCase())} / Neovim 0.10+</span>
+            <span class="version-pill">${escapeHtml(sec.badge.toUpperCase())} / Neovim 0.11+</span>
             <nav class="sheet-switcher" aria-label="Switch cheat sheet">
               <div class="nav-dropdown" id="linux-nav-dropdown">
                 <a href="index.html" class="sheet-link dropdown-toggle" aria-haspopup="true">
