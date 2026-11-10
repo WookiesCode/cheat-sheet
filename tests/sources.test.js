@@ -539,6 +539,28 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     await ctx.close();
   }
 
+  // 2q. Editors suite (nano, VS Code, Zed, Cursor + hub): every card sourced; nano 9.3 search
+  // keys, Zed's base keymap and CLI flags, Cursor's Ctrl keys.
+  {
+    const PAGES = ['nano', 'vscode', 'zed', 'cursor', 'editors'];
+    const ctx = await newContext(browser);
+    const p = await ctx.newPage();
+    const all = [];
+    let text = '';
+    for (const f of PAGES) {
+      await p.goto(BASE + f + '.html', { waitUntil: 'load' });
+      await p.waitForTimeout(400);
+      text += await p.evaluate(() => { const c = document.body.cloneNode(true); c.querySelectorAll('.cmd-source').forEach(n => n.remove()); return c.textContent; });
+      all.push(...await p.evaluate(() => [...document.querySelectorAll('.cmd-item[data-cmd-id]')].filter(it => !/-flags-card$/.test(it.dataset.cmdId)).map(it => ({ id: it.dataset.cmdId, src: !!it.querySelector('.cmd-source:not(.is-unverified)') }))));
+    }
+    check(all.length >= 80 && all.every(x => x.src), `every card on the editor sheets and hub shows a verified source (${all.filter(x => x.src).length}/${all.length})`);
+    check(/GNU nano 9\.3/.test(text) && /Ctrl\+F since nano 8\.0/.test(text), 'nano: 9.3 label and the Ctrl+F / Ctrl+B search keys');
+    check(/Zed \(default\), VS Code/.test(text) && !/VS Code \(default\)/.test(text), 'Zed: the default base keymap is Zed');
+    check(/-n \/ -a \/ -e/.test(text), 'Zed CLI: -e / --existing');
+    check(!/lists macOS keys;/.test(text) && /Cmd for macOS, Ctrl for Linux and Windows/.test(text), 'Cursor: the reference lists Ctrl keys');
+    await ctx.close();
+  }
+
   // 3. Over a year old → amber "re-check"; and src can't inject markup or javascript: links.
   {
     const ctx = await newContext(browser);

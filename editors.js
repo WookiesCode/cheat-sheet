@@ -47,7 +47,16 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "line",
           "view",
           "flags"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.nano-editor.org/dist/latest/nano.1.html",
+              "title": "nano(1)"
+            }
+          ]
+        }
       },
       {
         "id": "nano-open-line-sub-1",
@@ -61,7 +70,16 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "open",
           "line",
           "view"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.nano-editor.org/dist/latest/nano.1.html",
+              "title": "nano(1)"
+            }
+          ]
+        }
       },
       {
         "id": "nano-open-line-sub-2",
@@ -75,7 +93,16 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "open",
           "line",
           "view"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.nano-editor.org/dist/latest/nano.1.html",
+              "title": "nano(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -115,7 +142,28 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "safe",
           "fstab",
           "validate"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.sudo.ws/docs/man/sudo.man/",
+              "title": "sudo(8): sudoedit / -e"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/findmnt.8.html",
+              "title": "findmnt(8)"
+            },
+            {
+              "url": "https://man.openbsd.org/sshd",
+              "title": "sshd(8): -t"
+            },
+            {
+              "url": "https://www.sudo.ws/docs/man/visudo.man/",
+              "title": "visudo(8): -c"
+            }
+          ]
+        }
       },
       {
         "id": "nano-sudoedit-sub-1",
@@ -129,7 +177,28 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "sudoedit",
           "sudo",
           "root"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.sudo.ws/docs/man/sudo.man/",
+              "title": "sudo(8): sudoedit / -e"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/findmnt.8.html",
+              "title": "findmnt(8)"
+            },
+            {
+              "url": "https://man.openbsd.org/sshd",
+              "title": "sshd(8): -t"
+            },
+            {
+              "url": "https://www.sudo.ws/docs/man/visudo.man/",
+              "title": "visudo(8): -c"
+            }
+          ]
+        }
       },
       {
         "id": "nano-sudoedit-sub-2",
@@ -143,7 +212,28 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "sudoedit",
           "sudo",
           "root"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.sudo.ws/docs/man/sudo.man/",
+              "title": "sudo(8): sudoedit / -e"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/findmnt.8.html",
+              "title": "findmnt(8)"
+            },
+            {
+              "url": "https://man.openbsd.org/sshd",
+              "title": "sshd(8): -t"
+            },
+            {
+              "url": "https://www.sudo.ws/docs/man/visudo.man/",
+              "title": "visudo(8): -c"
+            }
+          ]
+        }
       },
       {
         "id": "nano-sudoedit-sub-3",
@@ -157,7 +247,28 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "sudoedit",
           "sudo",
           "root"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.sudo.ws/docs/man/sudo.man/",
+              "title": "sudo(8): sudoedit / -e"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/findmnt.8.html",
+              "title": "findmnt(8)"
+            },
+            {
+              "url": "https://man.openbsd.org/sshd",
+              "title": "sshd(8): -t"
+            },
+            {
+              "url": "https://www.sudo.ws/docs/man/visudo.man/",
+              "title": "visudo(8): -c"
+            }
+          ]
+        }
       },
       {
         "id": "nano-sudoedit-sub-4",
@@ -171,7 +282,28 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "sudoedit",
           "sudo",
           "root"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.sudo.ws/docs/man/sudo.man/",
+              "title": "sudo(8): sudoedit / -e"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/findmnt.8.html",
+              "title": "findmnt(8)"
+            },
+            {
+              "url": "https://man.openbsd.org/sshd",
+              "title": "sshd(8): -t"
+            },
+            {
+              "url": "https://www.sudo.ws/docs/man/visudo.man/",
+              "title": "visudo(8): -c"
+            }
+          ]
+        }
       }
     ]
   },
@@ -218,7 +350,20 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "write out",
           "help",
           "keys"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.nano-editor.org/dist/latest/cheatsheet.html",
+              "title": "nano cheatsheet"
+            },
+            {
+              "url": "https://www.nano-editor.org/dist/latest/nano.html",
+              "title": "GNU nano manual"
+            }
+          ]
+        }
       }
     ]
   },
@@ -235,8 +380,8 @@ const EDITORS_CHEAT_SHEET_DATA = [
         "details": "",
         "flags": [
           [
-            "Ctrl+W",
-            "Where Is: search forward; Alt+W repeats the last search"
+            "Ctrl+W or Ctrl+F",
+            "Search forward (Ctrl+F since nano 8.0; Ctrl+B searches backward). Alt+F / Alt+B find the next / previous match; Alt+W also repeats"
           ],
           [
             "Ctrl+\\",
@@ -264,7 +409,25 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "find",
           "replace",
           "regex"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.nano-editor.org/dist/latest/nano.html",
+              "title": "GNU nano manual"
+            },
+            {
+              "url": "https://www.nano-editor.org/news.php",
+              "title": "nano news (8.0 search keys, 9.3)"
+            },
+            {
+              "url": "https://cgit.git.savannah.gnu.org/cgit/nano.git/tree/src/global.c",
+              "title": "nano source: default bindings"
+            }
+          ],
+          "note": "Added 2026-11-10: Ctrl+F / Ctrl+B start a search since nano 8.0; Ctrl+W still works."
+        }
       }
     ]
   },
@@ -312,7 +475,20 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "undo",
           "redo",
           "mark"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.nano-editor.org/dist/latest/cheatsheet.html",
+              "title": "nano cheatsheet"
+            },
+            {
+              "url": "https://cgit.git.savannah.gnu.org/cgit/nano.git/tree/src/global.c",
+              "title": "nano source: default bindings"
+            }
+          ]
+        }
       }
     ]
   },
@@ -358,7 +534,20 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "go to line",
           "page",
           "position"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.nano-editor.org/dist/latest/cheatsheet.html",
+              "title": "nano cheatsheet"
+            },
+            {
+              "url": "https://cgit.git.savannah.gnu.org/cgit/nano.git/tree/src/global.c",
+              "title": "nano source: default bindings"
+            }
+          ]
+        }
       }
     ]
   },
@@ -401,7 +590,16 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "syntax",
           "tabs",
           "dotfiles"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.nano-editor.org/dist/latest/nanorc.5.html",
+              "title": "nanorc(5)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -440,7 +638,24 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "git",
           "crontab",
           "visudo"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.sudo.ws/docs/man/sudo.man/",
+              "title": "sudo(8): sudoedit / -e"
+            },
+            {
+              "url": "https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration",
+              "title": "Git: core.editor"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/dpkg/update-alternatives.1.en.html",
+              "title": "update-alternatives(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -472,7 +687,28 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "nano",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.sudo.ws/docs/man/sudo.man/",
+              "title": "sudo(8): sudoedit / -e"
+            },
+            {
+              "url": "https://man.openbsd.org/sshd",
+              "title": "sshd(8): -t"
+            },
+            {
+              "url": "https://www.sudo.ws/docs/man/visudo.man/",
+              "title": "visudo(8): -c"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/findmnt.8.html",
+              "title": "findmnt(8)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -514,7 +750,20 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "quick open",
           "settings",
           "shortcuts"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://code.visualstudio.com/shortcuts/keyboard-shortcuts-linux.pdf",
+              "title": "VS Code: Linux shortcut reference (PDF)"
+            },
+            {
+              "url": "https://code.visualstudio.com/docs/configure/keybindings",
+              "title": "VS Code: keyboard shortcuts"
+            }
+          ]
+        }
       }
     ]
   },
@@ -565,7 +814,16 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "explorer",
           "search",
           "git"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://code.visualstudio.com/shortcuts/keyboard-shortcuts-linux.pdf",
+              "title": "VS Code: Linux shortcut reference (PDF)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -615,7 +873,16 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "symbol",
           "rename",
           "go to line"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://code.visualstudio.com/shortcuts/keyboard-shortcuts-linux.pdf",
+              "title": "VS Code: Linux shortcut reference (PDF)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -670,7 +937,21 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "move line",
           "comment",
           "format"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://code.visualstudio.com/shortcuts/keyboard-shortcuts-linux.pdf",
+              "title": "VS Code: Linux shortcut reference (PDF)"
+            },
+            {
+              "url": "https://github.com/microsoft/vscode/blob/main/src/vs/editor/contrib/linesOperations/browser/linesOperations.ts",
+              "title": "VS Code source: line commands"
+            }
+          ],
+          "note": "Copy line down is not in the PDF; its Linux binding is in VS Code's source."
+        }
       }
     ]
   },
@@ -708,7 +989,16 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "close",
           "zen",
           "layout"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://code.visualstudio.com/shortcuts/keyboard-shortcuts-linux.pdf",
+              "title": "VS Code: Linux shortcut reference (PDF)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -760,7 +1050,20 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "goto",
           "git",
           "extensions"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://code.visualstudio.com/docs/configure/command-line",
+              "title": "VS Code: command line"
+            },
+            {
+              "url": "https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration",
+              "title": "Git: core.editor"
+            }
+          ]
+        }
       },
       {
         "id": "vscode-cli-sub-1",
@@ -774,7 +1077,20 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "code",
           "cli",
           "diff"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://code.visualstudio.com/docs/configure/command-line",
+              "title": "VS Code: command line"
+            },
+            {
+              "url": "https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration",
+              "title": "Git: core.editor"
+            }
+          ]
+        }
       },
       {
         "id": "vscode-cli-sub-2",
@@ -788,7 +1104,20 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "code",
           "cli",
           "diff"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://code.visualstudio.com/docs/configure/command-line",
+              "title": "VS Code: command line"
+            },
+            {
+              "url": "https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration",
+              "title": "Git: core.editor"
+            }
+          ]
+        }
       },
       {
         "id": "vscode-cli-sub-3",
@@ -802,7 +1131,20 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "code",
           "cli",
           "diff"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://code.visualstudio.com/docs/configure/command-line",
+              "title": "VS Code: command line"
+            },
+            {
+              "url": "https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration",
+              "title": "Git: core.editor"
+            }
+          ]
+        }
       },
       {
         "id": "vscode-cli-sub-4",
@@ -816,7 +1158,20 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "code",
           "cli",
           "diff"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://code.visualstudio.com/docs/configure/command-line",
+              "title": "VS Code: command line"
+            },
+            {
+              "url": "https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration",
+              "title": "Git: core.editor"
+            }
+          ]
+        }
       }
     ]
   },
@@ -863,7 +1218,24 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "remote-ssh",
           "tunnel",
           "jumpbox"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://code.visualstudio.com/docs/remote/ssh",
+              "title": "VS Code: Remote-SSH"
+            },
+            {
+              "url": "https://code.visualstudio.com/docs/configure/command-line",
+              "title": "VS Code: command line"
+            },
+            {
+              "url": "https://code.visualstudio.com/docs/remote/tunnels",
+              "title": "VS Code: Remote Tunnels"
+            }
+          ]
+        }
       }
     ]
   },
@@ -895,7 +1267,24 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "vscode",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://code.visualstudio.com/docs/configure/keybindings",
+              "title": "VS Code: keyboard shortcuts"
+            },
+            {
+              "url": "https://code.visualstudio.com/updates/v1_145",
+              "title": "VS Code 1.145 release notes"
+            },
+            {
+              "url": "https://code.visualstudio.com/docs/configure/settings-sync",
+              "title": "VS Code: Settings Sync"
+            }
+          ]
+        }
       }
     ]
   },
@@ -941,7 +1330,20 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "file finder",
           "settings",
           "keymap"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/zed-industries/zed/blob/main/assets/keymaps/default-linux.json",
+              "title": "Zed default Linux keymap"
+            },
+            {
+              "url": "https://zed.dev/docs/key-bindings",
+              "title": "Zed: key bindings"
+            }
+          ]
+        }
       }
     ]
   },
@@ -978,7 +1380,7 @@ const EDITORS_CHEAT_SHEET_DATA = [
             "Search / replace across the project"
           ]
         ],
-        "tip": "Same keys as VS Code by default",
+        "tip": "Most default keys match VS Code's",
         "tags": [
           "editor",
           "editors",
@@ -987,7 +1389,16 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "terminal",
           "project",
           "search"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/zed-industries/zed/blob/main/assets/keymaps/default-linux.json",
+              "title": "Zed default Linux keymap"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1037,7 +1448,16 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "references",
           "symbols",
           "go to line"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/zed-industries/zed/blob/main/assets/keymaps/default-linux.json",
+              "title": "Zed default Linux keymap"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1093,7 +1513,16 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "comment",
           "format",
           "split"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/zed-industries/zed/blob/main/assets/keymaps/default-linux.json",
+              "title": "Zed default Linux keymap"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1111,7 +1540,7 @@ const EDITORS_CHEAT_SHEET_DATA = [
         "flags": [
           [
             "ctrl-?",
-            "Toggle the agent panel"
+            "Focus the agent panel (opens it if closed)"
           ],
           [
             "ctrl-enter (in the editor)",
@@ -1131,7 +1560,24 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "agent",
           "inline assist",
           "assistant"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/zed-industries/zed/blob/main/assets/keymaps/default-linux.json",
+              "title": "Zed default Linux keymap"
+            },
+            {
+              "url": "https://zed.dev/docs/ai/agent-panel",
+              "title": "Zed: agent panel"
+            },
+            {
+              "url": "https://zed.dev/docs/ai/inline-assistant",
+              "title": "Zed: inline assistant"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1160,8 +1606,8 @@ const EDITORS_CHEAT_SHEET_DATA = [
             "Diff two files"
           ],
           [
-            "-n / -a / -r",
-            "New window / add to the current workspace / reuse the window"
+            "-n / -a / -e",
+            "New workspace / add to the current workspace / open in an existing window (-r, reuse, still works but is hidden from --help)"
           ],
           [
             "-w / --wait",
@@ -1181,7 +1627,25 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "cli",
           "diff",
           "git"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/zed-industries/zed/blob/main/crates/cli/src/main.rs",
+              "title": "Zed CLI source (flags)"
+            },
+            {
+              "url": "https://zed.dev/docs/linux",
+              "title": "Zed on Linux (zeditor)"
+            },
+            {
+              "url": "https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration",
+              "title": "Git: core.editor"
+            }
+          ],
+          "note": "Corrected 2026-11-10: -r is hidden; -e / --existing opens in an existing window."
+        }
       },
       {
         "id": "zed-cli-sub-1",
@@ -1195,7 +1659,25 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "zed",
           "cli",
           "diff"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/zed-industries/zed/blob/main/crates/cli/src/main.rs",
+              "title": "Zed CLI source (flags)"
+            },
+            {
+              "url": "https://zed.dev/docs/linux",
+              "title": "Zed on Linux (zeditor)"
+            },
+            {
+              "url": "https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration",
+              "title": "Git: core.editor"
+            }
+          ],
+          "note": "Corrected 2026-11-10: -r is hidden; -e / --existing opens in an existing window."
+        }
       },
       {
         "id": "zed-cli-sub-2",
@@ -1209,7 +1691,25 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "zed",
           "cli",
           "diff"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/zed-industries/zed/blob/main/crates/cli/src/main.rs",
+              "title": "Zed CLI source (flags)"
+            },
+            {
+              "url": "https://zed.dev/docs/linux",
+              "title": "Zed on Linux (zeditor)"
+            },
+            {
+              "url": "https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration",
+              "title": "Git: core.editor"
+            }
+          ],
+          "note": "Corrected 2026-11-10: -r is hidden; -e / --existing opens in an existing window."
+        }
       }
     ]
   },
@@ -1231,7 +1731,7 @@ const EDITORS_CHEAT_SHEET_DATA = [
           ],
           [
             "zed: toggle base keymap selector",
-            "Switch the base keymap: VS Code (default), JetBrains, Emacs (beta)…"
+            "Switch the base keymap: Zed (default), VS Code, JetBrains, Sublime Text, Emacs (beta), Cursor…"
           ],
           [
             "\"vim_mode\": true",
@@ -1248,7 +1748,21 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "vim",
           "base keymap",
           "config"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://zed.dev/docs/key-bindings",
+              "title": "Zed: key bindings"
+            },
+            {
+              "url": "https://zed.dev/docs/vim",
+              "title": "Zed: Vim mode"
+            }
+          ],
+          "note": "Corrected 2026-11-10: the default base keymap is Zed, not VS Code."
+        }
       }
     ]
   },
@@ -1280,7 +1794,24 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "zed",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://zed.dev/docs/key-bindings",
+              "title": "Zed: key bindings"
+            },
+            {
+              "url": "https://github.com/zed-industries/zed/blob/main/assets/keymaps/default-linux.json",
+              "title": "Zed default Linux keymap"
+            },
+            {
+              "url": "https://github.com/zed-industries/zed/releases",
+              "title": "Zed releases"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1318,7 +1849,7 @@ const EDITORS_CHEAT_SHEET_DATA = [
           ],
           [
             "Linux keys",
-            "Cursor's reference lists macOS keys; on Linux and Windows Ctrl takes the place of Cmd"
+            "Cursor's reference lists each key twice: Cmd for macOS, Ctrl for Linux and Windows"
           ]
         ],
         "tip": "Shift+Tab to switch Agent / Plan / Ask",
@@ -1330,7 +1861,17 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "side panel",
           "mode",
           "model"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://cursor.com/docs/reference/keyboard-shortcuts",
+              "title": "Cursor: keyboard shortcuts"
+            }
+          ],
+          "note": "Corrected 2026-11-10: the reference now lists the Ctrl keys too."
+        }
       }
     ]
   },
@@ -1381,7 +1922,16 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "accept",
           "reject",
           "cancel"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://cursor.com/docs/reference/keyboard-shortcuts",
+              "title": "Cursor: keyboard shortcuts"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1411,7 +1961,7 @@ const EDITORS_CHEAT_SHEET_DATA = [
           ],
           [
             "Ctrl+V (code or log in clipboard)",
-            "Paste it as context; Ctrl+Shift+V pastes it as plain text"
+            "Add it as context; Ctrl+Shift+V adds it to the input box as text"
           ]
         ],
         "tip": "@-mention the file instead of pasting it",
@@ -1423,7 +1973,16 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "mention",
           "selection",
           "clipboard"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://cursor.com/docs/reference/keyboard-shortcuts",
+              "title": "Cursor: keyboard shortcuts"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1456,7 +2015,16 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "tab",
           "completion",
           "suggestion"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://cursor.com/docs/reference/keyboard-shortcuts",
+              "title": "Cursor: keyboard shortcuts"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1502,7 +2070,16 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "palette",
           "shortcuts",
           "voice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://cursor.com/docs/reference/keyboard-shortcuts",
+              "title": "Cursor: keyboard shortcuts"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1548,7 +2125,20 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "agent",
           "terminal",
           "print mode"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://cursor.com/docs/cli/overview",
+              "title": "Cursor CLI overview"
+            },
+            {
+              "url": "https://cursor.com/docs/cli/reference/parameters",
+              "title": "Cursor CLI parameters"
+            }
+          ]
+        }
       },
       {
         "id": "cursor-agent-cli-sub-1",
@@ -1562,7 +2152,20 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "cli",
           "agent",
           "terminal"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://cursor.com/docs/cli/overview",
+              "title": "Cursor CLI overview"
+            },
+            {
+              "url": "https://cursor.com/docs/cli/reference/parameters",
+              "title": "Cursor CLI parameters"
+            }
+          ]
+        }
       },
       {
         "id": "cursor-agent-cli-sub-2",
@@ -1576,7 +2179,20 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "cli",
           "agent",
           "terminal"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://cursor.com/docs/cli/overview",
+              "title": "Cursor CLI overview"
+            },
+            {
+              "url": "https://cursor.com/docs/cli/reference/parameters",
+              "title": "Cursor CLI parameters"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1608,7 +2224,24 @@ const EDITORS_CHEAT_SHEET_DATA = [
           "cursor",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://cursor.com/docs/reference/keyboard-shortcuts",
+              "title": "Cursor: keyboard shortcuts"
+            },
+            {
+              "url": "https://cursor.com/changelog",
+              "title": "Cursor changelog"
+            },
+            {
+              "url": "https://cursor.com/docs/context/rules",
+              "title": "Cursor: rules"
+            }
+          ]
+        }
       }
     ]
   }

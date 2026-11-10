@@ -354,6 +354,20 @@ All 36 commands and 6 Pro Tips on the six Grafana sheets (102 entries on the hub
 
 Confirmed as written: `GF_<SECTION>_<KEY>__FILE`, `/api/health` fields, provisioning keys (`foldersFromFilesStructure` needs `folder`/`folderUid` unset), `/api/datasources/proxy/uid/:uid/*`, service-account click path, `d k`/`e`/`v`/`?` shortcuts, unit IDs (`percentunit`, `mbytes` = MiB), override matcher IDs, value-mapping types, `__url_time_range` needs your own `&`, variable formats, refresh 1/2 and sort 1/3/7, `$__rate_interval` = max(interval + scrape, 4 × scrape), gridPos 24 columns × 30 px rows, 412 version-mismatch/name-exists, Git Sync GA in 13 at Administration → General → Provisioning, every DCGM 4.9.0 metric name and its default/optional status, `--no-hostname`, port 9400, node_exporter's `infiniband` collector (on by default) metric names.
 
+## #8 for the editors suite (2026-11-10, `editors-sources`)
+
+All 28 commands and 4 Pro Tips on the nano, VS Code, Zed and Cursor sheets (46 hub entries) now cite their docs: nano's manual, man page, nanorc(5), cheatsheet, news and default-bindings source; sudo/visudo/findmnt/sshd man pages; VS Code's command-line, Remote-SSH, tunnels and keybinding docs plus the Linux shortcut PDF (copy-line-down from VS Code's source); Zed's default Linux keymap, key-bindings, Vim, Linux and agent docs and its CLI source; Cursor's shortcut reference, CLI overview and parameters page. Every link was checked to load. Corrections:
+
+| Was | Now |
+|---|---|
+| nano label 9.2; search is Ctrl+W, Alt+W repeats | nano **9.3** (Oct 21); Ctrl+W **or Ctrl+F** searches (Ctrl+F/Ctrl+B since 8.0), Alt+F / Alt+B find next / previous |
+| Zed base keymap "VS Code (default)" | **Zed** is the default; VS Code, JetBrains, Sublime, Emacs (beta), Cursor… are options |
+| Zed CLI `-n / -a / -r` | `-n / -a / -e` (`--existing`); `-r` still works but is hidden |
+| Cursor's reference "lists macOS keys" | It lists Cmd and Ctrl for every key |
+| Cursor Ctrl+Shift+V "pastes as plain text" | Adds the clipboard to the input box as text (Cursor's wording) |
+
+Confirmed as written: every nano flag and key on the cards (from the 9.3 source), sudoedit's SUDO_EDITOR → VISUAL → EDITOR order, every VS Code Linux key and `code` flag (`--remote ssh-remote+HOST`), every Zed key against `default-linux.json` (ctrl-enter inline assist, ctrl-\\ split), `zed` -w/--diff/path:line:col, `zeditor` package naming, Cursor's chat/context/Tab keys and `agent` -p/--output-format/--mode/--sandbox/ls/resume/--continue.
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |

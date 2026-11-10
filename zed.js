@@ -43,7 +43,20 @@ const ED_ZED_DATA = [
           "file finder",
           "settings",
           "keymap"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/zed-industries/zed/blob/main/assets/keymaps/default-linux.json",
+              "title": "Zed default Linux keymap"
+            },
+            {
+              "url": "https://zed.dev/docs/key-bindings",
+              "title": "Zed: key bindings"
+            }
+          ]
+        }
       }
     ]
   },
@@ -80,7 +93,7 @@ const ED_ZED_DATA = [
             "Search / replace across the project"
           ]
         ],
-        "tip": "Same keys as VS Code by default",
+        "tip": "Most default keys match VS Code's",
         "tags": [
           "editor",
           "editors",
@@ -89,7 +102,16 @@ const ED_ZED_DATA = [
           "terminal",
           "project",
           "search"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/zed-industries/zed/blob/main/assets/keymaps/default-linux.json",
+              "title": "Zed default Linux keymap"
+            }
+          ]
+        }
       }
     ]
   },
@@ -139,7 +161,16 @@ const ED_ZED_DATA = [
           "references",
           "symbols",
           "go to line"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/zed-industries/zed/blob/main/assets/keymaps/default-linux.json",
+              "title": "Zed default Linux keymap"
+            }
+          ]
+        }
       }
     ]
   },
@@ -195,7 +226,16 @@ const ED_ZED_DATA = [
           "comment",
           "format",
           "split"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/zed-industries/zed/blob/main/assets/keymaps/default-linux.json",
+              "title": "Zed default Linux keymap"
+            }
+          ]
+        }
       }
     ]
   },
@@ -213,7 +253,7 @@ const ED_ZED_DATA = [
         "flags": [
           [
             "ctrl-?",
-            "Toggle the agent panel"
+            "Focus the agent panel (opens it if closed)"
           ],
           [
             "ctrl-enter (in the editor)",
@@ -233,7 +273,24 @@ const ED_ZED_DATA = [
           "agent",
           "inline assist",
           "assistant"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/zed-industries/zed/blob/main/assets/keymaps/default-linux.json",
+              "title": "Zed default Linux keymap"
+            },
+            {
+              "url": "https://zed.dev/docs/ai/agent-panel",
+              "title": "Zed: agent panel"
+            },
+            {
+              "url": "https://zed.dev/docs/ai/inline-assistant",
+              "title": "Zed: inline assistant"
+            }
+          ]
+        }
       }
     ]
   },
@@ -262,8 +319,8 @@ const ED_ZED_DATA = [
             "Diff two files"
           ],
           [
-            "-n / -a / -r",
-            "New window / add to the current workspace / reuse the window"
+            "-n / -a / -e",
+            "New workspace / add to the current workspace / open in an existing window (-r, reuse, still works but is hidden from --help)"
           ],
           [
             "-w / --wait",
@@ -283,7 +340,25 @@ const ED_ZED_DATA = [
           "cli",
           "diff",
           "git"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/zed-industries/zed/blob/main/crates/cli/src/main.rs",
+              "title": "Zed CLI source (flags)"
+            },
+            {
+              "url": "https://zed.dev/docs/linux",
+              "title": "Zed on Linux (zeditor)"
+            },
+            {
+              "url": "https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration",
+              "title": "Git: core.editor"
+            }
+          ],
+          "note": "Corrected 2026-11-10: -r is hidden; -e / --existing opens in an existing window."
+        }
       },
       {
         "id": "zed-cli-sub-1",
@@ -297,7 +372,25 @@ const ED_ZED_DATA = [
           "zed",
           "cli",
           "diff"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/zed-industries/zed/blob/main/crates/cli/src/main.rs",
+              "title": "Zed CLI source (flags)"
+            },
+            {
+              "url": "https://zed.dev/docs/linux",
+              "title": "Zed on Linux (zeditor)"
+            },
+            {
+              "url": "https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration",
+              "title": "Git: core.editor"
+            }
+          ],
+          "note": "Corrected 2026-11-10: -r is hidden; -e / --existing opens in an existing window."
+        }
       },
       {
         "id": "zed-cli-sub-2",
@@ -311,7 +404,25 @@ const ED_ZED_DATA = [
           "zed",
           "cli",
           "diff"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/zed-industries/zed/blob/main/crates/cli/src/main.rs",
+              "title": "Zed CLI source (flags)"
+            },
+            {
+              "url": "https://zed.dev/docs/linux",
+              "title": "Zed on Linux (zeditor)"
+            },
+            {
+              "url": "https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration",
+              "title": "Git: core.editor"
+            }
+          ],
+          "note": "Corrected 2026-11-10: -r is hidden; -e / --existing opens in an existing window."
+        }
       }
     ]
   },
@@ -333,7 +444,7 @@ const ED_ZED_DATA = [
           ],
           [
             "zed: toggle base keymap selector",
-            "Switch the base keymap: VS Code (default), JetBrains, Emacs (beta)…"
+            "Switch the base keymap: Zed (default), VS Code, JetBrains, Sublime Text, Emacs (beta), Cursor…"
           ],
           [
             "\"vim_mode\": true",
@@ -350,7 +461,21 @@ const ED_ZED_DATA = [
           "vim",
           "base keymap",
           "config"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://zed.dev/docs/key-bindings",
+              "title": "Zed: key bindings"
+            },
+            {
+              "url": "https://zed.dev/docs/vim",
+              "title": "Zed: Vim mode"
+            }
+          ],
+          "note": "Corrected 2026-11-10: the default base keymap is Zed, not VS Code."
+        }
       }
     ]
   },
@@ -382,7 +507,24 @@ const ED_ZED_DATA = [
           "zed",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://zed.dev/docs/key-bindings",
+              "title": "Zed: key bindings"
+            },
+            {
+              "url": "https://github.com/zed-industries/zed/blob/main/assets/keymaps/default-linux.json",
+              "title": "Zed default Linux keymap"
+            },
+            {
+              "url": "https://github.com/zed-industries/zed/releases",
+              "title": "Zed releases"
+            }
+          ]
+        }
       }
     ]
   }

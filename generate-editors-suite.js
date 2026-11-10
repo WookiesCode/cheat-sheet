@@ -3,10 +3,10 @@
 // sheets, and inserts its menu (#editors-nav-dropdown) next to the Home link; build-nav-groups.js
 // then files it under the Editors tab with Neovim.
 //
-// Facts checked 2026-11-07 against official sources: GNU nano 9.2; VS Code 1.145 (Nov 4, 2026)
-// default Linux keys and `code` CLI; Zed 1.27.0 (Nov 4, 2026) default-linux.json keymap and
-// `zed` CLI; Cursor's shortcut reference (it lists macOS keys only; on Linux and Windows Ctrl
-// takes the place of Cmd, as in VS Code, which Cursor is built on) and the `agent` CLI.
+// Facts checked 2026-11-07, re-checked 2026-11-10 (each card's src lists the pages): GNU nano
+// 9.3 (Oct 21, 2026); VS Code 1.145 (Nov 4, 2026) default Linux keys and `code` CLI; Zed 1.27.0
+// (Nov 4, 2026) default-linux.json keymap and `zed` CLI (crates/cli); Cursor's shortcut
+// reference (it lists both the Cmd and the Ctrl keys) and the `agent` CLI parameters page.
 // Menu logos: official marks (Simple Icons 15.0.0, CC0; Devicon 2.18.0, MIT). nano uses the GNU
 // project mark: GNU nano's own logo only exists as a 128 KB drawing, and Simple Icons' "Nano" is a coin.
 //
@@ -57,7 +57,8 @@ const EDITOR_SECTIONS = [
           ["nano +/ListenAddress /etc/ssh/sshd_config", "Open at the first match of a word"]
         ],
         tip: "Use -v when you only need to read",
-        tags: ["open", "line", "view", "flags"]
+        tags: ["open", "line", "view", "flags"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://www.nano-editor.org/dist/latest/nano.1.html","title":"nano(1)"}]}
       },
       {
         id: "nano-sudoedit",
@@ -75,7 +76,8 @@ const EDITOR_SECTIONS = [
           ["visudo -c", "Check sudoers syntax"]
         ],
         tip: "Back up, sudoedit, then validate",
-        tags: ["sudoedit", "sudo", "root", "safe", "fstab", "validate"]
+        tags: ["sudoedit", "sudo", "root", "safe", "fstab", "validate"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://www.sudo.ws/docs/man/sudo.man/","title":"sudo(8): sudoedit / -e"},{"url":"https://man7.org/linux/man-pages/man8/findmnt.8.html","title":"findmnt(8)"},{"url":"https://man.openbsd.org/sshd","title":"sshd(8): -t"},{"url":"https://www.sudo.ws/docs/man/visudo.man/","title":"visudo(8): -c"}]}
       },
       {
         id: "nano-save-exit",
@@ -89,21 +91,23 @@ const EDITOR_SECTIONS = [
           ["^ and M-", "In nano's own help ^ means Ctrl and M- means Alt (Meta): M-U is Alt+U"]
         ],
         tip: "^ = Ctrl, M- = Alt",
-        tags: ["save", "exit", "write out", "help", "keys"]
+        tags: ["save", "exit", "write out", "help", "keys"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://www.nano-editor.org/dist/latest/cheatsheet.html","title":"nano cheatsheet"},{"url":"https://www.nano-editor.org/dist/latest/nano.html","title":"GNU nano manual"}]}
       },
       {
         id: "nano-search-replace",
         desc: "Search and replace",
         cmd: "Ctrl+W  ·  Ctrl+\\",
         flags: [
-          ["Ctrl+W", "Where Is: search forward; Alt+W repeats the last search"],
+          ["Ctrl+W or Ctrl+F", "Search forward (Ctrl+F since nano 8.0; Ctrl+B searches backward). Alt+F / Alt+B find the next / previous match; Alt+W also repeats"],
           ["Ctrl+\\", "Replace: type the search, then the replacement, then Y / N / A (all) per match"],
           ["Alt+R (in the search prompt)", "Toggle regular expressions"],
           ["Alt+C (in the search prompt)", "Toggle case-sensitive"],
           ["Alt+B (in the search prompt)", "Search backwards"]
         ],
         tip: "A = replace all remaining matches",
-        tags: ["search", "find", "replace", "regex"]
+        tags: ["search", "find", "replace", "regex"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://www.nano-editor.org/dist/latest/nano.html","title":"GNU nano manual"},{"url":"https://www.nano-editor.org/news.php","title":"nano news (8.0 search keys, 9.3)"},{"url":"https://cgit.git.savannah.gnu.org/cgit/nano.git/tree/src/global.c","title":"nano source: default bindings"}],"note":"Added 2026-11-10: Ctrl+F / Ctrl+B start a search since nano 8.0; Ctrl+W still works."}
       },
       {
         id: "nano-cut-paste",
@@ -117,7 +121,8 @@ const EDITOR_SECTIONS = [
           ["Alt+U / Alt+E", "Undo / redo"]
         ],
         tip: "Ctrl+K several times, then Ctrl+U = move a block",
-        tags: ["cut", "copy", "paste", "undo", "redo", "mark"]
+        tags: ["cut", "copy", "paste", "undo", "redo", "mark"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://www.nano-editor.org/dist/latest/cheatsheet.html","title":"nano cheatsheet"},{"url":"https://cgit.git.savannah.gnu.org/cgit/nano.git/tree/src/global.c","title":"nano source: default bindings"}]}
       },
       {
         id: "nano-navigate",
@@ -131,7 +136,8 @@ const EDITOR_SECTIONS = [
           ["Line numbers", "Toggle them with the key listed under Ctrl+G (Alt+N in current nano)"]
         ],
         tip: "Ctrl+G lists the keys of your exact version",
-        tags: ["navigate", "go to line", "page", "position"]
+        tags: ["navigate", "go to line", "page", "position"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://www.nano-editor.org/dist/latest/cheatsheet.html","title":"nano cheatsheet"},{"url":"https://cgit.git.savannah.gnu.org/cgit/nano.git/tree/src/global.c","title":"nano source: default bindings"}]}
       },
       {
         id: "nano-nanorc",
@@ -150,7 +156,8 @@ include "/usr/share/nano/*.nanorc"`,
           ["include …*.nanorc", "Syntax colouring for many file types (shipped with the nano package)"]
         ],
         tip: "One file, every server: keep it in your dotfiles",
-        tags: ["nanorc", "config", "syntax", "tabs", "dotfiles"]
+        tags: ["nanorc", "config", "syntax", "tabs", "dotfiles"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://www.nano-editor.org/dist/latest/nanorc.5.html","title":"nanorc(5)"}]}
       },
       {
         id: "nano-default-editor",
@@ -162,7 +169,8 @@ include "/usr/share/nano/*.nanorc"`,
           ["update-alternatives --config editor", "System-wide default on Debian/Ubuntu (changes state)"]
         ],
         tip: "Set EDITOR in ~/.bashrc",
-        tags: ["editor", "default", "git", "crontab", "visudo"]
+        tags: ["editor", "default", "git", "crontab", "visudo"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://www.sudo.ws/docs/man/sudo.man/","title":"sudo(8): sudoedit / -e"},{"url":"https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration","title":"Git: core.editor"},{"url":"https://manpages.debian.org/trixie/dpkg/update-alternatives.1.en.html","title":"update-alternatives(1)"}]}
       }
     ],
     proTip: {
@@ -170,7 +178,8 @@ include "/usr/share/nano/*.nanorc"`,
       cmd: "sudo cp -a FILE FILE.bak.$(date +%F) && sudoedit FILE",
       details: "Keep a dated copy, edit with sudoedit, validate with the service's own checker (sshd -t, nginx -t, visudo -c, findmnt --verify), and only then reload the service.",
       flags: [["cp -a", "Keeps owner, mode and timestamps"], ["Validate first", "A typo in sshd_config plus a restart can lock you out of the box"]],
-      tip: "Backup → edit → validate → reload"
+      tip: "Backup → edit → validate → reload",
+      src: {"verified":"2026-11-10","refs":[{"url":"https://www.sudo.ws/docs/man/sudo.man/","title":"sudo(8): sudoedit / -e"},{"url":"https://man.openbsd.org/sshd","title":"sshd(8): -t"},{"url":"https://www.sudo.ws/docs/man/visudo.man/","title":"visudo(8): -c"},{"url":"https://man7.org/linux/man-pages/man8/findmnt.8.html","title":"findmnt(8)"}]}
     }
   },
   {
@@ -190,7 +199,8 @@ include "/usr/share/nano/*.nanorc"`,
           ["Ctrl+K Ctrl+S", "Keyboard Shortcuts editor (a chord: press Ctrl+K, release, then Ctrl+S)"]
         ],
         tip: "Forgot a key? Search the palette",
-        tags: ["command palette", "quick open", "settings", "shortcuts"]
+        tags: ["command palette", "quick open", "settings", "shortcuts"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://code.visualstudio.com/shortcuts/keyboard-shortcuts-linux.pdf","title":"VS Code: Linux shortcut reference (PDF)"},{"url":"https://code.visualstudio.com/docs/configure/keybindings","title":"VS Code: keyboard shortcuts"}]}
       },
       {
         id: "vscode-panels",
@@ -205,7 +215,8 @@ include "/usr/share/nano/*.nanorc"`,
           ["Ctrl+Shift+X", "Extensions"]
         ],
         tip: "Ctrl+` keeps a shell one key away",
-        tags: ["sidebar", "terminal", "explorer", "search", "git"]
+        tags: ["sidebar", "terminal", "explorer", "search", "git"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://code.visualstudio.com/shortcuts/keyboard-shortcuts-linux.pdf","title":"VS Code: Linux shortcut reference (PDF)"}]}
       },
       {
         id: "vscode-navigate",
@@ -220,7 +231,8 @@ include "/usr/share/nano/*.nanorc"`,
           ["Ctrl+G", "Go to line"]
         ],
         tip: "F12 in, Ctrl+Alt+- back",
-        tags: ["definition", "symbol", "rename", "go to line"]
+        tags: ["definition", "symbol", "rename", "go to line"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://code.visualstudio.com/shortcuts/keyboard-shortcuts-linux.pdf","title":"VS Code: Linux shortcut reference (PDF)"}]}
       },
       {
         id: "vscode-multicursor",
@@ -236,7 +248,8 @@ include "/usr/share/nano/*.nanorc"`,
           ["Ctrl+Shift+I", "Format the document (Linux; Shift+Alt+F on Windows)"]
         ],
         tip: "Ctrl+D is the fastest bulk rename",
-        tags: ["multi-cursor", "select", "move line", "comment", "format"]
+        tags: ["multi-cursor", "select", "move line", "comment", "format"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://code.visualstudio.com/shortcuts/keyboard-shortcuts-linux.pdf","title":"VS Code: Linux shortcut reference (PDF)"},{"url":"https://github.com/microsoft/vscode/blob/main/src/vs/editor/contrib/linesOperations/browser/linesOperations.ts","title":"VS Code source: line commands"}],"note":"Copy line down is not in the PDF; its Linux binding is in VS Code's source."}
       },
       {
         id: "vscode-layout",
@@ -248,7 +261,8 @@ include "/usr/share/nano/*.nanorc"`,
           ["Ctrl+K Z", "Zen mode; Esc Esc leaves it"]
         ],
         tip: "Zen mode for long write-ups",
-        tags: ["split", "close", "zen", "layout"]
+        tags: ["split", "close", "zen", "layout"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://code.visualstudio.com/shortcuts/keyboard-shortcuts-linux.pdf","title":"VS Code: Linux shortcut reference (PDF)"}]}
       },
       {
         id: "vscode-cli",
@@ -269,7 +283,8 @@ include "/usr/share/nano/*.nanorc"`,
           ["code --install-extension ms-vscode-remote.remote-ssh", "Install an extension by ID (changes state)"]
         ],
         tip: "core.editor needs --wait",
-        tags: ["code", "cli", "diff", "goto", "git", "extensions"]
+        tags: ["code", "cli", "diff", "goto", "git", "extensions"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://code.visualstudio.com/docs/configure/command-line","title":"VS Code: command line"},{"url":"https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration","title":"Git: core.editor"}]}
       },
       {
         id: "vscode-remote",
@@ -283,7 +298,8 @@ include "/usr/share/nano/*.nanorc"`,
           ["code tunnel", "Alternative when inbound SSH is blocked: the machine connects out (needs sign-in)"]
         ],
         tip: "Define hosts in ~/.ssh/config once",
-        tags: ["remote", "ssh", "remote-ssh", "tunnel", "jumpbox"]
+        tags: ["remote", "ssh", "remote-ssh", "tunnel", "jumpbox"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://code.visualstudio.com/docs/remote/ssh","title":"VS Code: Remote-SSH"},{"url":"https://code.visualstudio.com/docs/configure/command-line","title":"VS Code: command line"},{"url":"https://code.visualstudio.com/docs/remote/tunnels","title":"VS Code: Remote Tunnels"}]}
       }
     ],
     proTip: {
@@ -291,7 +307,8 @@ include "/usr/share/nano/*.nanorc"`,
       cmd: "Ctrl+K Ctrl+S",
       details: "Linux, Windows and macOS defaults differ (peek, format, add-cursor). The Keyboard Shortcuts editor shows what your install actually uses and lets you search by key.",
       flags: [["Search by key", "Click the keyboard icon in the editor and press the combo"], ["Settings Sync", "Sign in once and keybindings follow you to other machines"]],
-      tip: "Check your own bindings with Ctrl+K Ctrl+S"
+      tip: "Check your own bindings with Ctrl+K Ctrl+S",
+      src: {"verified":"2026-11-10","refs":[{"url":"https://code.visualstudio.com/docs/configure/keybindings","title":"VS Code: keyboard shortcuts"},{"url":"https://code.visualstudio.com/updates/v1_145","title":"VS Code 1.145 release notes"},{"url":"https://code.visualstudio.com/docs/configure/settings-sync","title":"VS Code: Settings Sync"}]}
     }
   },
   {
@@ -312,7 +329,8 @@ include "/usr/share/nano/*.nanorc"`,
           ["ctrl-k ctrl-s", "Keymap editor"]
         ],
         tip: "zed: open default keymap shows every binding",
-        tags: ["palette", "file finder", "settings", "keymap"]
+        tags: ["palette", "file finder", "settings", "keymap"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/zed-industries/zed/blob/main/assets/keymaps/default-linux.json","title":"Zed default Linux keymap"},{"url":"https://zed.dev/docs/key-bindings","title":"Zed: key bindings"}]}
       },
       {
         id: "zed-panels",
@@ -325,8 +343,9 @@ include "/usr/share/nano/*.nanorc"`,
           ["ctrl-j", "Toggle the bottom dock"],
           ["ctrl-shift-f / ctrl-shift-h", "Search / replace across the project"]
         ],
-        tip: "Same keys as VS Code by default",
-        tags: ["dock", "terminal", "project", "search"]
+        tip: "Most default keys match VS Code's",
+        tags: ["dock", "terminal", "project", "search"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/zed-industries/zed/blob/main/assets/keymaps/default-linux.json","title":"Zed default Linux keymap"}]}
       },
       {
         id: "zed-navigate",
@@ -341,7 +360,8 @@ include "/usr/share/nano/*.nanorc"`,
           ["ctrl-g", "Go to line"]
         ],
         tip: "ctrl-shift-o for a quick file outline",
-        tags: ["definition", "references", "symbols", "go to line"]
+        tags: ["definition", "references", "symbols", "go to line"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/zed-industries/zed/blob/main/assets/keymaps/default-linux.json","title":"Zed default Linux keymap"}]}
       },
       {
         id: "zed-editing",
@@ -357,19 +377,21 @@ include "/usr/share/nano/*.nanorc"`,
           ["ctrl-\\ / ctrl-w", "Split right / close the tab"]
         ],
         tip: "Muscle memory from VS Code carries over",
-        tags: ["multi-cursor", "move line", "duplicate", "comment", "format", "split"]
+        tags: ["multi-cursor", "move line", "duplicate", "comment", "format", "split"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/zed-industries/zed/blob/main/assets/keymaps/default-linux.json","title":"Zed default Linux keymap"}]}
       },
       {
         id: "zed-agent",
         desc: "AI: agent panel and inline assist",
         cmd: "ctrl-?  ·  ctrl-enter",
         flags: [
-          ["ctrl-?", "Toggle the agent panel"],
+          ["ctrl-?", "Focus the agent panel (opens it if closed)"],
           ["ctrl-enter (in the editor)", "Inline assist on the selection or the current line"],
           ["Providers", "Configure models in the agent panel's settings"]
         ],
         tip: "Select code first, then ctrl-enter",
-        tags: ["ai", "agent", "inline assist", "assistant"]
+        tags: ["ai", "agent", "inline assist", "assistant"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/zed-industries/zed/blob/main/assets/keymaps/default-linux.json","title":"Zed default Linux keymap"},{"url":"https://zed.dev/docs/ai/agent-panel","title":"Zed: agent panel"},{"url":"https://zed.dev/docs/ai/inline-assistant","title":"Zed: inline assistant"}]}
       },
       {
         id: "zed-cli",
@@ -379,13 +401,14 @@ include "/usr/share/nano/*.nanorc"`,
           ["zed ~/projects/repo", "Open a folder as a workspace"],
           ["zed file:42 / file:42:10", "Open at a line (and column)"],
           ["--diff OLD NEW", "Diff two files"],
-          ["-n / -a / -r", "New window / add to the current workspace / reuse the window"],
+          ["-n / -a / -e", "New workspace / add to the current workspace / open in an existing window (-r, reuse, still works but is hidden from --help)"],
           ["-w / --wait", "Wait for the file to close (for git core.editor)"],
           ["zeditor", "Some Linux packages name the binary zeditor instead of zed"]
         ],
         subcommands: [["git config --global core.editor \"zed --wait\"", "Zed for commit messages"], ["zed --version", "Installed version"]],
         tip: "core.editor needs --wait",
-        tags: ["zed", "cli", "diff", "git"]
+        tags: ["zed", "cli", "diff", "git"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/zed-industries/zed/blob/main/crates/cli/src/main.rs","title":"Zed CLI source (flags)"},{"url":"https://zed.dev/docs/linux","title":"Zed on Linux (zeditor)"},{"url":"https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration","title":"Git: core.editor"}],"note":"Corrected 2026-11-10: -r is hidden; -e / --existing opens in an existing window."}
       },
       {
         id: "zed-config",
@@ -393,11 +416,12 @@ include "/usr/share/nano/*.nanorc"`,
         cmd: "~/.config/zed/keymap.json",
         flags: [
           ["~/.config/zed/keymap.json", "Your bindings (Linux); they take precedence over the defaults"],
-          ["zed: toggle base keymap selector", "Switch the base keymap: VS Code (default), JetBrains, Emacs (beta)…"],
+          ["zed: toggle base keymap selector", "Switch the base keymap: Zed (default), VS Code, JetBrains, Sublime Text, Emacs (beta), Cursor…"],
           ["\"vim_mode\": true", "Vim keys, set in settings.json (open it with ctrl-alt-,)"]
         ],
         tip: "Keymap editor writes keymap.json for you",
-        tags: ["keymap", "settings", "vim", "base keymap", "config"]
+        tags: ["keymap", "settings", "vim", "base keymap", "config"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://zed.dev/docs/key-bindings","title":"Zed: key bindings"},{"url":"https://zed.dev/docs/vim","title":"Zed: Vim mode"}],"note":"Corrected 2026-11-10: the default base keymap is Zed, not VS Code."}
       }
     ],
     proTip: {
@@ -405,7 +429,8 @@ include "/usr/share/nano/*.nanorc"`,
       cmd: "ctrl-shift-p → zed: open default keymap",
       details: "Zed updates often. The default keymap file is the source of truth for every action and its key; search it for an action name to find its binding.",
       flags: [["Actions", "There is no separate action list: the palette and the default keymap are it"], ["Linux vs macOS", "These are the Linux keys; macOS uses cmd"]],
-      tip: "The default keymap is the reference"
+      tip: "The default keymap is the reference",
+      src: {"verified":"2026-11-10","refs":[{"url":"https://zed.dev/docs/key-bindings","title":"Zed: key bindings"},{"url":"https://github.com/zed-industries/zed/blob/main/assets/keymaps/default-linux.json","title":"Zed default Linux keymap"},{"url":"https://github.com/zed-industries/zed/releases","title":"Zed releases"}]}
     }
   },
   {
@@ -424,10 +449,11 @@ include "/usr/share/nano/*.nanorc"`,
           ["Ctrl+.", "Mode menu"],
           ["Shift+Tab", "Rotate between agent modes"],
           ["Ctrl+/", "Loop between AI models"],
-          ["Linux keys", "Cursor's reference lists macOS keys; on Linux and Windows Ctrl takes the place of Cmd"]
+          ["Linux keys", "Cursor's reference lists each key twice: Cmd for macOS, Ctrl for Linux and Windows"]
         ],
         tip: "Shift+Tab to switch Agent / Plan / Ask",
-        tags: ["agent", "side panel", "mode", "model"]
+        tags: ["agent", "side panel", "mode", "model"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://cursor.com/docs/reference/keyboard-shortcuts","title":"Cursor: keyboard shortcuts"}],"note":"Corrected 2026-11-10: the reference now lists the Ctrl keys too."}
       },
       {
         id: "cursor-chat",
@@ -442,7 +468,8 @@ include "/usr/share/nano/*.nanorc"`,
           ["Ctrl+N / Ctrl+T / Ctrl+W", "New chat / new chat tab / close the chat"]
         ],
         tip: "Review the diff before accepting all",
-        tags: ["chat", "send", "accept", "reject", "cancel"]
+        tags: ["chat", "send", "accept", "reject", "cancel"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://cursor.com/docs/reference/keyboard-shortcuts","title":"Cursor: keyboard shortcuts"}]}
       },
       {
         id: "cursor-context",
@@ -452,10 +479,11 @@ include "/usr/share/nano/*.nanorc"`,
           ["Ctrl+Shift+L", "Add the selected code to the chat"],
           ["@", "Mention files, folders, docs and more"],
           ["/", "Shortcut commands"],
-          ["Ctrl+V (code or log in clipboard)", "Paste it as context; Ctrl+Shift+V pastes it as plain text"]
+          ["Ctrl+V (code or log in clipboard)", "Add it as context; Ctrl+Shift+V adds it to the input box as text"]
         ],
         tip: "@-mention the file instead of pasting it",
-        tags: ["context", "mention", "selection", "clipboard"]
+        tags: ["context", "mention", "selection", "clipboard"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://cursor.com/docs/reference/keyboard-shortcuts","title":"Cursor: keyboard shortcuts"}]}
       },
       {
         id: "cursor-tab",
@@ -463,7 +491,8 @@ include "/usr/share/nano/*.nanorc"`,
         cmd: "Tab  ·  Ctrl+→",
         flags: [["Tab", "Accept the suggestion"], ["Ctrl+→", "Accept the next word only"]],
         tip: "Ctrl+→ takes it one word at a time",
-        tags: ["tab", "completion", "suggestion"]
+        tags: ["tab", "completion", "suggestion"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://cursor.com/docs/reference/keyboard-shortcuts","title":"Cursor: keyboard shortcuts"}]}
       },
       {
         id: "cursor-settings",
@@ -477,7 +506,8 @@ include "/usr/share/nano/*.nanorc"`,
           ["Ctrl+Shift+Space", "Voice mode (dictation)"]
         ],
         tip: "Ctrl+Shift+J is Cursor's own settings",
-        tags: ["settings", "palette", "shortcuts", "voice"]
+        tags: ["settings", "palette", "shortcuts", "voice"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://cursor.com/docs/reference/keyboard-shortcuts","title":"Cursor: keyboard shortcuts"}]}
       },
       {
         id: "cursor-agent-cli",
@@ -495,7 +525,8 @@ include "/usr/share/nano/*.nanorc"`,
           ["agent -p \"review these changes for security issues\" --output-format text", "Non-interactive review"]
         ],
         tip: "-p for scripts, plain agent for a chat",
-        tags: ["cli", "agent", "terminal", "print mode"]
+        tags: ["cli", "agent", "terminal", "print mode"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://cursor.com/docs/cli/overview","title":"Cursor CLI overview"},{"url":"https://cursor.com/docs/cli/reference/parameters","title":"Cursor CLI parameters"}]}
       }
     ],
     proTip: {
@@ -503,7 +534,8 @@ include "/usr/share/nano/*.nanorc"`,
       cmd: "Ctrl+R Ctrl+S",
       details: "Cursor ships updates weekly (changelog entries on Nov 5 and 6, 2026 alone). The keyboard shortcuts editor shows your build's bindings; everything not AI-specific behaves like VS Code.",
       flags: [["VS Code sheet", "Navigation, multi-cursor and Remote-SSH keys are the same"], ["Rules", "Project rules guide the agent; keep secrets out of prompts and rules"]],
-      tip: "AI keys here, editing keys on the VS Code sheet"
+      tip: "AI keys here, editing keys on the VS Code sheet",
+      src: {"verified":"2026-11-10","refs":[{"url":"https://cursor.com/docs/reference/keyboard-shortcuts","title":"Cursor: keyboard shortcuts"},{"url":"https://cursor.com/changelog","title":"Cursor changelog"},{"url":"https://cursor.com/docs/context/rules","title":"Cursor: rules"}]}
     }
   }
 ];
@@ -565,7 +597,8 @@ function buildSectionCards(sec) {
       commands: [{
         id: cmd.id, desc: cmd.desc, cmd: cmd.cmd, details: cmd.details || '',
         flags: cmd.flags ? cmd.flags.slice(0, 3) : [], tip: cmd.tip || '',
-        tags: [...baseTags, ...(cmd.tags || [])]
+        tags: [...baseTags, ...(cmd.tags || [])],
+        ...(cmd.src ? { src: cmd.src } : {})
       }]
     });
     if (cmd.flags && cmd.flags.length > 3) {
@@ -579,7 +612,8 @@ function buildSectionCards(sec) {
           desc: `More options and gotchas for: ${cmd.desc.split('(')[0].trim()}`,
           cmd: cmd.cmd, hideCode: isMultiline(cmd.cmd),
           flags: cmd.flags.slice(3),
-          tags: [...baseTags, 'flags', 'options', ...(cmd.tags || []).slice(0, 3)]
+          tags: [...baseTags, 'flags', 'options', ...(cmd.tags || []).slice(0, 3)],
+          ...(cmd.src ? { src: cmd.src } : {})
         }]
       });
     }
@@ -591,7 +625,8 @@ function buildSectionCards(sec) {
         subtitle: `Related commands for: ${cmd.desc.split('(')[0].trim()}`,
         commands: cmd.subcommands.map((sub, idx) => ({
           id: `${cmd.id}-sub-${idx + 1}`, desc: sub[1], cmd: sub[0],
-          tags: [...baseTags, 'recipe', ...(cmd.tags || []).slice(0, 3)]
+          tags: [...baseTags, 'recipe', ...(cmd.tags || []).slice(0, 3)],
+          ...(cmd.src ? { src: cmd.src } : {})
         }))
       });
     }
@@ -605,7 +640,8 @@ function buildSectionCards(sec) {
       commands: [{
         id: `${sec.id}-tips-card`, desc: sec.proTip.desc, cmd: sec.proTip.cmd,
         details: sec.proTip.details, flags: sec.proTip.flags, tip: sec.proTip.tip,
-        tags: [...baseTags, 'tips', 'best-practice']
+        tags: [...baseTags, 'tips', 'best-practice'],
+        ...(sec.proTip.src ? { src: sec.proTip.src } : {})
       }]
     });
   }
@@ -1147,7 +1183,7 @@ function generateSheetHtml(o) {
 
 
 // 7. Write each sheet, then the hub (every card from every sheet).
-const PILLS = { nano: 'GNU nano 9.2', vscode: 'VS Code 1.145 · Linux keys', zed: 'Zed 1.27 · Linux keys', cursor: 'Cursor · Nov 2026' };
+const PILLS = { nano: 'GNU nano 9.3', vscode: 'VS Code 1.145 · Linux keys', zed: 'Zed 1.27 · Linux keys', cursor: 'Cursor · Nov 2026' };
 const writeSheet = (fileKey, varName, title, cards, page) => {
   fs.writeFileSync(path.join(__dirname, `${fileKey}.js`), generateSheetJs(varName, title, cards, fileKey), 'utf8');
   const htmlPath = path.join(__dirname, `${fileKey}.html`);

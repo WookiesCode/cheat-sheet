@@ -35,7 +35,7 @@ const ED_CURSOR_DATA = [
           ],
           [
             "Linux keys",
-            "Cursor's reference lists macOS keys; on Linux and Windows Ctrl takes the place of Cmd"
+            "Cursor's reference lists each key twice: Cmd for macOS, Ctrl for Linux and Windows"
           ]
         ],
         "tip": "Shift+Tab to switch Agent / Plan / Ask",
@@ -47,7 +47,17 @@ const ED_CURSOR_DATA = [
           "side panel",
           "mode",
           "model"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://cursor.com/docs/reference/keyboard-shortcuts",
+              "title": "Cursor: keyboard shortcuts"
+            }
+          ],
+          "note": "Corrected 2026-11-10: the reference now lists the Ctrl keys too."
+        }
       }
     ]
   },
@@ -98,7 +108,16 @@ const ED_CURSOR_DATA = [
           "accept",
           "reject",
           "cancel"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://cursor.com/docs/reference/keyboard-shortcuts",
+              "title": "Cursor: keyboard shortcuts"
+            }
+          ]
+        }
       }
     ]
   },
@@ -128,7 +147,7 @@ const ED_CURSOR_DATA = [
           ],
           [
             "Ctrl+V (code or log in clipboard)",
-            "Paste it as context; Ctrl+Shift+V pastes it as plain text"
+            "Add it as context; Ctrl+Shift+V adds it to the input box as text"
           ]
         ],
         "tip": "@-mention the file instead of pasting it",
@@ -140,7 +159,16 @@ const ED_CURSOR_DATA = [
           "mention",
           "selection",
           "clipboard"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://cursor.com/docs/reference/keyboard-shortcuts",
+              "title": "Cursor: keyboard shortcuts"
+            }
+          ]
+        }
       }
     ]
   },
@@ -173,7 +201,16 @@ const ED_CURSOR_DATA = [
           "tab",
           "completion",
           "suggestion"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://cursor.com/docs/reference/keyboard-shortcuts",
+              "title": "Cursor: keyboard shortcuts"
+            }
+          ]
+        }
       }
     ]
   },
@@ -219,7 +256,16 @@ const ED_CURSOR_DATA = [
           "palette",
           "shortcuts",
           "voice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://cursor.com/docs/reference/keyboard-shortcuts",
+              "title": "Cursor: keyboard shortcuts"
+            }
+          ]
+        }
       }
     ]
   },
@@ -265,7 +311,20 @@ const ED_CURSOR_DATA = [
           "agent",
           "terminal",
           "print mode"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://cursor.com/docs/cli/overview",
+              "title": "Cursor CLI overview"
+            },
+            {
+              "url": "https://cursor.com/docs/cli/reference/parameters",
+              "title": "Cursor CLI parameters"
+            }
+          ]
+        }
       },
       {
         "id": "cursor-agent-cli-sub-1",
@@ -279,7 +338,20 @@ const ED_CURSOR_DATA = [
           "cli",
           "agent",
           "terminal"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://cursor.com/docs/cli/overview",
+              "title": "Cursor CLI overview"
+            },
+            {
+              "url": "https://cursor.com/docs/cli/reference/parameters",
+              "title": "Cursor CLI parameters"
+            }
+          ]
+        }
       },
       {
         "id": "cursor-agent-cli-sub-2",
@@ -293,7 +365,20 @@ const ED_CURSOR_DATA = [
           "cli",
           "agent",
           "terminal"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://cursor.com/docs/cli/overview",
+              "title": "Cursor CLI overview"
+            },
+            {
+              "url": "https://cursor.com/docs/cli/reference/parameters",
+              "title": "Cursor CLI parameters"
+            }
+          ]
+        }
       }
     ]
   },
@@ -325,7 +410,24 @@ const ED_CURSOR_DATA = [
           "cursor",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://cursor.com/docs/reference/keyboard-shortcuts",
+              "title": "Cursor: keyboard shortcuts"
+            },
+            {
+              "url": "https://cursor.com/changelog",
+              "title": "Cursor changelog"
+            },
+            {
+              "url": "https://cursor.com/docs/context/rules",
+              "title": "Cursor: rules"
+            }
+          ]
+        }
       }
     ]
   }

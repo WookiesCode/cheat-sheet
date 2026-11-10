@@ -47,7 +47,16 @@ const ED_NANO_DATA = [
           "line",
           "view",
           "flags"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.nano-editor.org/dist/latest/nano.1.html",
+              "title": "nano(1)"
+            }
+          ]
+        }
       },
       {
         "id": "nano-open-line-sub-1",
@@ -61,7 +70,16 @@ const ED_NANO_DATA = [
           "open",
           "line",
           "view"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.nano-editor.org/dist/latest/nano.1.html",
+              "title": "nano(1)"
+            }
+          ]
+        }
       },
       {
         "id": "nano-open-line-sub-2",
@@ -75,7 +93,16 @@ const ED_NANO_DATA = [
           "open",
           "line",
           "view"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.nano-editor.org/dist/latest/nano.1.html",
+              "title": "nano(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -115,7 +142,28 @@ const ED_NANO_DATA = [
           "safe",
           "fstab",
           "validate"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.sudo.ws/docs/man/sudo.man/",
+              "title": "sudo(8): sudoedit / -e"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/findmnt.8.html",
+              "title": "findmnt(8)"
+            },
+            {
+              "url": "https://man.openbsd.org/sshd",
+              "title": "sshd(8): -t"
+            },
+            {
+              "url": "https://www.sudo.ws/docs/man/visudo.man/",
+              "title": "visudo(8): -c"
+            }
+          ]
+        }
       },
       {
         "id": "nano-sudoedit-sub-1",
@@ -129,7 +177,28 @@ const ED_NANO_DATA = [
           "sudoedit",
           "sudo",
           "root"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.sudo.ws/docs/man/sudo.man/",
+              "title": "sudo(8): sudoedit / -e"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/findmnt.8.html",
+              "title": "findmnt(8)"
+            },
+            {
+              "url": "https://man.openbsd.org/sshd",
+              "title": "sshd(8): -t"
+            },
+            {
+              "url": "https://www.sudo.ws/docs/man/visudo.man/",
+              "title": "visudo(8): -c"
+            }
+          ]
+        }
       },
       {
         "id": "nano-sudoedit-sub-2",
@@ -143,7 +212,28 @@ const ED_NANO_DATA = [
           "sudoedit",
           "sudo",
           "root"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.sudo.ws/docs/man/sudo.man/",
+              "title": "sudo(8): sudoedit / -e"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/findmnt.8.html",
+              "title": "findmnt(8)"
+            },
+            {
+              "url": "https://man.openbsd.org/sshd",
+              "title": "sshd(8): -t"
+            },
+            {
+              "url": "https://www.sudo.ws/docs/man/visudo.man/",
+              "title": "visudo(8): -c"
+            }
+          ]
+        }
       },
       {
         "id": "nano-sudoedit-sub-3",
@@ -157,7 +247,28 @@ const ED_NANO_DATA = [
           "sudoedit",
           "sudo",
           "root"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.sudo.ws/docs/man/sudo.man/",
+              "title": "sudo(8): sudoedit / -e"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/findmnt.8.html",
+              "title": "findmnt(8)"
+            },
+            {
+              "url": "https://man.openbsd.org/sshd",
+              "title": "sshd(8): -t"
+            },
+            {
+              "url": "https://www.sudo.ws/docs/man/visudo.man/",
+              "title": "visudo(8): -c"
+            }
+          ]
+        }
       },
       {
         "id": "nano-sudoedit-sub-4",
@@ -171,7 +282,28 @@ const ED_NANO_DATA = [
           "sudoedit",
           "sudo",
           "root"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.sudo.ws/docs/man/sudo.man/",
+              "title": "sudo(8): sudoedit / -e"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/findmnt.8.html",
+              "title": "findmnt(8)"
+            },
+            {
+              "url": "https://man.openbsd.org/sshd",
+              "title": "sshd(8): -t"
+            },
+            {
+              "url": "https://www.sudo.ws/docs/man/visudo.man/",
+              "title": "visudo(8): -c"
+            }
+          ]
+        }
       }
     ]
   },
@@ -218,7 +350,20 @@ const ED_NANO_DATA = [
           "write out",
           "help",
           "keys"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.nano-editor.org/dist/latest/cheatsheet.html",
+              "title": "nano cheatsheet"
+            },
+            {
+              "url": "https://www.nano-editor.org/dist/latest/nano.html",
+              "title": "GNU nano manual"
+            }
+          ]
+        }
       }
     ]
   },
@@ -235,8 +380,8 @@ const ED_NANO_DATA = [
         "details": "",
         "flags": [
           [
-            "Ctrl+W",
-            "Where Is: search forward; Alt+W repeats the last search"
+            "Ctrl+W or Ctrl+F",
+            "Search forward (Ctrl+F since nano 8.0; Ctrl+B searches backward). Alt+F / Alt+B find the next / previous match; Alt+W also repeats"
           ],
           [
             "Ctrl+\\",
@@ -264,7 +409,25 @@ const ED_NANO_DATA = [
           "find",
           "replace",
           "regex"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.nano-editor.org/dist/latest/nano.html",
+              "title": "GNU nano manual"
+            },
+            {
+              "url": "https://www.nano-editor.org/news.php",
+              "title": "nano news (8.0 search keys, 9.3)"
+            },
+            {
+              "url": "https://cgit.git.savannah.gnu.org/cgit/nano.git/tree/src/global.c",
+              "title": "nano source: default bindings"
+            }
+          ],
+          "note": "Added 2026-11-10: Ctrl+F / Ctrl+B start a search since nano 8.0; Ctrl+W still works."
+        }
       }
     ]
   },
@@ -312,7 +475,20 @@ const ED_NANO_DATA = [
           "undo",
           "redo",
           "mark"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.nano-editor.org/dist/latest/cheatsheet.html",
+              "title": "nano cheatsheet"
+            },
+            {
+              "url": "https://cgit.git.savannah.gnu.org/cgit/nano.git/tree/src/global.c",
+              "title": "nano source: default bindings"
+            }
+          ]
+        }
       }
     ]
   },
@@ -358,7 +534,20 @@ const ED_NANO_DATA = [
           "go to line",
           "page",
           "position"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.nano-editor.org/dist/latest/cheatsheet.html",
+              "title": "nano cheatsheet"
+            },
+            {
+              "url": "https://cgit.git.savannah.gnu.org/cgit/nano.git/tree/src/global.c",
+              "title": "nano source: default bindings"
+            }
+          ]
+        }
       }
     ]
   },
@@ -401,7 +590,16 @@ const ED_NANO_DATA = [
           "syntax",
           "tabs",
           "dotfiles"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.nano-editor.org/dist/latest/nanorc.5.html",
+              "title": "nanorc(5)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -440,7 +638,24 @@ const ED_NANO_DATA = [
           "git",
           "crontab",
           "visudo"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.sudo.ws/docs/man/sudo.man/",
+              "title": "sudo(8): sudoedit / -e"
+            },
+            {
+              "url": "https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration",
+              "title": "Git: core.editor"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/dpkg/update-alternatives.1.en.html",
+              "title": "update-alternatives(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -472,7 +687,28 @@ const ED_NANO_DATA = [
           "nano",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.sudo.ws/docs/man/sudo.man/",
+              "title": "sudo(8): sudoedit / -e"
+            },
+            {
+              "url": "https://man.openbsd.org/sshd",
+              "title": "sshd(8): -t"
+            },
+            {
+              "url": "https://www.sudo.ws/docs/man/visudo.man/",
+              "title": "visudo(8): -c"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/findmnt.8.html",
+              "title": "findmnt(8)"
+            }
+          ]
+        }
       }
     ]
   }

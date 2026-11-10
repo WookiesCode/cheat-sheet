@@ -39,7 +39,20 @@ const ED_VSCODE_DATA = [
           "quick open",
           "settings",
           "shortcuts"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://code.visualstudio.com/shortcuts/keyboard-shortcuts-linux.pdf",
+              "title": "VS Code: Linux shortcut reference (PDF)"
+            },
+            {
+              "url": "https://code.visualstudio.com/docs/configure/keybindings",
+              "title": "VS Code: keyboard shortcuts"
+            }
+          ]
+        }
       }
     ]
   },
@@ -90,7 +103,16 @@ const ED_VSCODE_DATA = [
           "explorer",
           "search",
           "git"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://code.visualstudio.com/shortcuts/keyboard-shortcuts-linux.pdf",
+              "title": "VS Code: Linux shortcut reference (PDF)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -140,7 +162,16 @@ const ED_VSCODE_DATA = [
           "symbol",
           "rename",
           "go to line"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://code.visualstudio.com/shortcuts/keyboard-shortcuts-linux.pdf",
+              "title": "VS Code: Linux shortcut reference (PDF)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -195,7 +226,21 @@ const ED_VSCODE_DATA = [
           "move line",
           "comment",
           "format"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://code.visualstudio.com/shortcuts/keyboard-shortcuts-linux.pdf",
+              "title": "VS Code: Linux shortcut reference (PDF)"
+            },
+            {
+              "url": "https://github.com/microsoft/vscode/blob/main/src/vs/editor/contrib/linesOperations/browser/linesOperations.ts",
+              "title": "VS Code source: line commands"
+            }
+          ],
+          "note": "Copy line down is not in the PDF; its Linux binding is in VS Code's source."
+        }
       }
     ]
   },
@@ -233,7 +278,16 @@ const ED_VSCODE_DATA = [
           "close",
           "zen",
           "layout"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://code.visualstudio.com/shortcuts/keyboard-shortcuts-linux.pdf",
+              "title": "VS Code: Linux shortcut reference (PDF)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -285,7 +339,20 @@ const ED_VSCODE_DATA = [
           "goto",
           "git",
           "extensions"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://code.visualstudio.com/docs/configure/command-line",
+              "title": "VS Code: command line"
+            },
+            {
+              "url": "https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration",
+              "title": "Git: core.editor"
+            }
+          ]
+        }
       },
       {
         "id": "vscode-cli-sub-1",
@@ -299,7 +366,20 @@ const ED_VSCODE_DATA = [
           "code",
           "cli",
           "diff"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://code.visualstudio.com/docs/configure/command-line",
+              "title": "VS Code: command line"
+            },
+            {
+              "url": "https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration",
+              "title": "Git: core.editor"
+            }
+          ]
+        }
       },
       {
         "id": "vscode-cli-sub-2",
@@ -313,7 +393,20 @@ const ED_VSCODE_DATA = [
           "code",
           "cli",
           "diff"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://code.visualstudio.com/docs/configure/command-line",
+              "title": "VS Code: command line"
+            },
+            {
+              "url": "https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration",
+              "title": "Git: core.editor"
+            }
+          ]
+        }
       },
       {
         "id": "vscode-cli-sub-3",
@@ -327,7 +420,20 @@ const ED_VSCODE_DATA = [
           "code",
           "cli",
           "diff"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://code.visualstudio.com/docs/configure/command-line",
+              "title": "VS Code: command line"
+            },
+            {
+              "url": "https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration",
+              "title": "Git: core.editor"
+            }
+          ]
+        }
       },
       {
         "id": "vscode-cli-sub-4",
@@ -341,7 +447,20 @@ const ED_VSCODE_DATA = [
           "code",
           "cli",
           "diff"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://code.visualstudio.com/docs/configure/command-line",
+              "title": "VS Code: command line"
+            },
+            {
+              "url": "https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration",
+              "title": "Git: core.editor"
+            }
+          ]
+        }
       }
     ]
   },
@@ -388,7 +507,24 @@ const ED_VSCODE_DATA = [
           "remote-ssh",
           "tunnel",
           "jumpbox"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://code.visualstudio.com/docs/remote/ssh",
+              "title": "VS Code: Remote-SSH"
+            },
+            {
+              "url": "https://code.visualstudio.com/docs/configure/command-line",
+              "title": "VS Code: command line"
+            },
+            {
+              "url": "https://code.visualstudio.com/docs/remote/tunnels",
+              "title": "VS Code: Remote Tunnels"
+            }
+          ]
+        }
       }
     ]
   },
@@ -420,7 +556,24 @@ const ED_VSCODE_DATA = [
           "vscode",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://code.visualstudio.com/docs/configure/keybindings",
+              "title": "VS Code: keyboard shortcuts"
+            },
+            {
+              "url": "https://code.visualstudio.com/updates/v1_145",
+              "title": "VS Code 1.145 release notes"
+            },
+            {
+              "url": "https://code.visualstudio.com/docs/configure/settings-sync",
+              "title": "VS Code: Settings Sync"
+            }
+          ]
+        }
       }
     ]
   }
