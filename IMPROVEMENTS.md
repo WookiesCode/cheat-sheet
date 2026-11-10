@@ -443,6 +443,19 @@ All 40 commands on the bash, Python, JavaScript, TypeScript, PowerShell, JSON, Y
 
 Also added: `node script.ts` (type stripping since Node 22.18/23.6, not for enums or parameter properties), the top-level-await-needs-a-module note, and the `[[ ]] && a \|\| b` catch. Confirmed by test: an EXIT trap runs after SIGINT and SIGTERM (bash 5.3); `hyprctl configerrors` exists on Hyprland 0.56.2 though the current wiki page omits it.
 
+## #8 for the Lua, git and Markdown sheets (2026-11-10, `lua-git-md-sources`)
+
+All 69 commands (Lua 12, git 31, Markdown 26) in `generate-scripting-suite.js` cite their references: the Lua 5.5 manual, LuaJIT's extensions page, Omarchy's `bindings.lua`, `looknfeel.lua` and `hyprland.lua`, the Hyprland wiki, Neovim's Lua docs; the git-scm.com page for every git command used (plus gitrevisions, gitignore, githooks), Git LFS, git-filter-repo and GitHub's sensitive-data and signing docs; CommonMark 0.31.2, the GFM spec, GitHub's writing docs (alerts, tables, task lists, autolinks, closing keywords, Mermaid, math, collapsed sections), Pandoc, glow, mdcat, markdownlint, Prettier, markdown-link-check and markdown-toc. All 93 links were checked to load (lua.org needed a retry). These sheets were already close to right; changes:
+
+| Was | Now |
+|---|---|
+| `f:read("a")`: "Lua 5.1 needs *a" | 5.1 and 5.2 need `*a`; LuaJIT (Neovim) accepts both |
+| Worktree tip: one worktree per branch | ...git refuses unless you pass `--force` |
+| `<mark>highlighted</mark>` "rendered on GitHub" | `<ins>underlined</ins>`, which GitHub documents (with `<sub>` and `<sup>`) |
+| mdcat listed as a current alternative | Notes its repository is archived |
+
+Confirmed as written, for example: reflog expiry 90 / 30 days, `git bisect run` exit codes (0 good, 1–127 bad except 125 skip), `merge.conflictStyle zdiff3`, `push.autoSetupRemote`, `--ours`/`--theirs` swapping in a rebase, git-filter-repo removing `origin`; the Omarchy `o.bind` / `hl.unbind` / `hl.config` forms and `require("hypr.bindings")` (checked against an Omarchy install). Git is at 2.56.0.
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |

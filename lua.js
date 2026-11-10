@@ -71,7 +71,16 @@ const LUA_CHEAT_SHEET_DATA = [
           "nil",
           "comments",
           "truthy"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.lua.org/manual/5.5/manual.html",
+              "title": "Lua 5.5 reference manual"
+            }
+          ]
+        }
       },
       {
         "id": "lua-strings-patterns",
@@ -138,7 +147,16 @@ const LUA_CHEAT_SHEET_DATA = [
           "gsub",
           "match",
           "gmatch"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.lua.org/manual/5.5/manual.html",
+              "title": "Lua 5.5 reference manual"
+            }
+          ]
+        }
       }
     ]
   },
@@ -206,7 +224,16 @@ const LUA_CHEAT_SHEET_DATA = [
           "map",
           "insert",
           "sort"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.lua.org/manual/5.5/manual.html",
+              "title": "Lua 5.5 reference manual"
+            }
+          ]
+        }
       }
     ]
   },
@@ -256,7 +283,16 @@ const LUA_CHEAT_SHEET_DATA = [
           "elseif",
           "conditionals",
           "defaults"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.lua.org/manual/5.5/manual.html",
+              "title": "Lua 5.5 reference manual"
+            }
+          ]
+        }
       },
       {
         "id": "lua-loops",
@@ -308,7 +344,16 @@ const LUA_CHEAT_SHEET_DATA = [
           "pairs",
           "ipairs",
           "break"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.lua.org/manual/5.5/manual.html",
+              "title": "Lua 5.5 reference manual"
+            }
+          ]
+        }
       }
     ]
   },
@@ -370,7 +415,16 @@ const LUA_CHEAT_SHEET_DATA = [
           "closures",
           "varargs",
           "callbacks"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.lua.org/manual/5.5/manual.html",
+              "title": "Lua 5.5 reference manual"
+            }
+          ]
+        }
       },
       {
         "id": "lua-methods-modules",
@@ -425,7 +479,20 @@ const LUA_CHEAT_SHEET_DATA = [
           "class",
           "modules",
           "require"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.lua.org/manual/5.5/manual.html",
+              "title": "Lua 5.5 reference manual"
+            },
+            {
+              "url": "https://www.lua.org/pil/",
+              "title": "Programming in Lua"
+            }
+          ]
+        }
       }
     ]
   },
@@ -479,7 +546,16 @@ const LUA_CHEAT_SHEET_DATA = [
           "xpcall",
           "assert",
           "exceptions"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.lua.org/manual/5.5/manual.html",
+              "title": "Lua 5.5 reference manual"
+            }
+          ]
+        }
       },
       {
         "id": "lua-file-io",
@@ -492,7 +568,7 @@ const LUA_CHEAT_SHEET_DATA = [
           ],
           [
             "f:read(\"a\")",
-            "Read the whole file (Lua 5.1 needs \"*a\")"
+            "Read the whole file (Lua 5.1 and 5.2 need \"*a\"; LuaJIT, which Neovim uses, accepts both)"
           ],
           [
             "f:read(\"l\")",
@@ -538,7 +614,21 @@ const LUA_CHEAT_SHEET_DATA = [
           "write",
           "lines",
           "os"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.lua.org/manual/5.5/manual.html",
+              "title": "Lua 5.5 reference manual"
+            },
+            {
+              "url": "https://luajit.org/extensions.html",
+              "title": "LuaJIT extensions (Lua 5.1 base)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: Lua 5.2 also needs \"*a\"; LuaJIT accepts both forms."
+        }
       },
       {
         "id": "lua-cli",
@@ -589,7 +679,24 @@ const LUA_CHEAT_SHEET_DATA = [
           "repl",
           "syntax-check",
           "arguments"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.lua.org/manual/5.5/manual.html",
+              "title": "Lua 5.5 reference manual"
+            },
+            {
+              "url": "https://www.lua.org/versions.html",
+              "title": "Lua versions (5.5, Dec 2025)"
+            },
+            {
+              "url": "https://luajit.org/extensions.html",
+              "title": "LuaJIT extensions (Lua 5.1 base)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -648,7 +755,29 @@ const LUA_CHEAT_SHEET_DATA = [
           "config",
           "o.bind",
           "hl.unbind"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/basecamp/omarchy/blob/quattro/config/hypr/bindings.lua",
+              "title": "Omarchy: bindings.lua"
+            },
+            {
+              "url": "https://github.com/basecamp/omarchy/blob/quattro/config/hypr/looknfeel.lua",
+              "title": "Omarchy: looknfeel.lua"
+            },
+            {
+              "url": "https://github.com/basecamp/omarchy/blob/quattro/config/hypr/hyprland.lua",
+              "title": "Omarchy: hyprland.lua (require order)"
+            },
+            {
+              "url": "https://wiki.hypr.land/configuring/core/advanced-configuration/using-hyprctl/",
+              "title": "Hyprland wiki: hyprctl"
+            }
+          ],
+          "note": "Checked against an Omarchy install; hyprctl configerrors is listed by hyprctl --help on Hyprland 0.56.2."
+        }
       },
       {
         "id": "lua-config-neovim",
@@ -695,7 +824,24 @@ const LUA_CHEAT_SHEET_DATA = [
           "keymap",
           "autocmd",
           "config"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/lua-guide/",
+              "title": "Neovim: Lua guide"
+            },
+            {
+              "url": "https://neovim.io/doc/user/lua/",
+              "title": "Neovim: Lua reference"
+            },
+            {
+              "url": "https://luajit.org/extensions.html",
+              "title": "LuaJIT extensions (Lua 5.1 base)"
+            }
+          ]
+        }
       }
     ]
   }

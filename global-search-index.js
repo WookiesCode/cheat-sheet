@@ -21300,7 +21300,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git config --global user.name \"Your Name\"\ngit config --global user.email \"you@example.com\"\ngit config --global init.defaultBranch main\ngit config --global pull.rebase true\ngit config --global push.autoSetupRemote true\ngit config --global fetch.prune true",
     "desc": "Set your identity and sensible defaults once per machine",
     "tip": "Run git config user.email inside a repository to see which address your commits will use.",
-    "tags": "git config setup identity gitconfig defaults"
+    "tags": "git config setup identity gitconfig defaults",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-config",
+          "title": "git config"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -21355,7 +21364,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git config --global alias.st \"status -sb\"\ngit config --global alias.co switch\ngit config --global alias.lg \"log --oneline --graph --decorate --all\"\ngit config --global alias.last \"log -1 --stat\"\ngit config --global alias.unstage \"restore --staged\"",
     "desc": "Short aliases for commands you type all day",
     "tip": "Aliases live in ~/.gitconfig, so copying that file brings them to a new machine.",
-    "tags": "git alias config shortcuts"
+    "tags": "git alias config shortcuts",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-config",
+          "title": "git config"
+        },
+        {
+          "url": "https://git-scm.com/book/en/v2/Git-Basics-Git-Aliases",
+          "title": "Pro Git: aliases"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -21388,7 +21410,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "# New repository\ngit init my-project\n\n# Clone over SSH or HTTPS\ngit clone git@github.com:org/repo.git\ngit clone https://github.com/org/repo.git my-folder",
     "desc": "Start a new repository or clone an existing one",
     "tip": "A shallow clone is ideal for pulling a tool onto a node. Use a full clone if you need log, blame or bisect.",
-    "tags": "git init clone shallow partial depth"
+    "tags": "git init clone shallow partial depth",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-init",
+          "title": "git init"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-clone",
+          "title": "git clone"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-fetch",
+          "title": "git fetch"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -21432,7 +21471,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "cat >> .gitignore <<'EOF'\n*.log\nbuild/\n.env\n!important.log\nEOF\ngit add .gitignore\ngit commit -m \"Ignore logs, build output and .env\"",
     "desc": "Keep logs, build output and secrets out of the repository",
     "tip": ".gitignore only affects untracked files. If a file is already committed, remove it with git rm --cached first.",
-    "tags": "git gitignore ignore untrack secrets"
+    "tags": "git gitignore ignore untrack secrets",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/gitignore",
+          "title": "gitignore"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-check-ignore",
+          "title": "git check-ignore"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-rm",
+          "title": "git rm"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-status",
+          "title": "git status"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -21487,7 +21547,36 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git status -sb\ngit add path/to/file\ngit commit -m \"Fix BMC timeout in collection script\"\ngit push",
     "desc": "The basic loop: check what changed, stage it, commit it",
     "tip": "Only amend commits you haven't pushed, because amending rewrites history other people may already have.",
-    "tags": "git status add commit amend stage push"
+    "tags": "git status add commit amend stage push",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-status",
+          "title": "git status"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-add",
+          "title": "git add"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-commit",
+          "title": "git commit"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-mv",
+          "title": "git mv"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-rm",
+          "title": "git rm"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-ls-files",
+          "title": "git ls-files"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -21553,7 +21642,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git diff\ngit diff --staged\ngit diff HEAD~1 HEAD\ngit diff main...feature/fix",
     "desc": "Compare the working tree, staging area, commits and branches",
     "tip": "Run git diff --staged before every commit to catch stray debug lines and secrets.",
-    "tags": "git diff compare staged changes"
+    "tags": "git diff compare staged changes",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-diff",
+          "title": "git diff"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-show",
+          "title": "git show"
+        },
+        {
+          "url": "https://git-scm.com/docs/gitrevisions",
+          "title": "gitrevisions"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -21608,7 +21714,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git stash push -u -m \"WIP timeout fix\"\ngit stash list\ngit stash pop",
     "desc": "Set unfinished work aside and bring it back later",
     "tip": "If git stash pop hits a conflict, the stash is kept. Fix the conflict, then git stash drop it.",
-    "tags": "git stash wip pop apply shelve"
+    "tags": "git stash wip pop apply shelve",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-stash",
+          "title": "git stash"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -21674,7 +21789,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git switch -c feature/nvme-check\ngit switch main\ngit switch -\ngit branch -vv",
     "desc": "Create, switch, rename and delete branches",
     "tip": "git switch and git restore split up the old git checkout, so it's harder to overwrite files by mistake.",
-    "tags": "git branch switch checkout delete rename"
+    "tags": "git branch switch checkout delete rename",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-switch",
+          "title": "git switch"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-branch",
+          "title": "git branch"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-push",
+          "title": "git push"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -21740,7 +21872,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git switch main\ngit pull\ngit merge feature/nvme-check",
     "desc": "Bring another branch into the current one",
     "tip": "Commit or stash your work before merging. Merges are hard to back out of with uncommitted changes around.",
-    "tags": "git merge fast-forward squash no-ff"
+    "tags": "git merge fast-forward squash no-ff",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-merge",
+          "title": "git merge"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -21784,7 +21925,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git switch feature/nvme-check\ngit fetch origin\ngit rebase origin/main\ngit push --force-with-lease",
     "desc": "Replay your commits on top of another branch and tidy them up",
     "tip": "Don't rebase a branch other people work on. Rebasing rewrites commit IDs, and that breaks their copies.",
-    "tags": "git rebase interactive squash fixup history"
+    "tags": "git rebase interactive squash fixup history",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-rebase",
+          "title": "git rebase"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-commit",
+          "title": "git commit"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-push",
+          "title": "git push"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -21839,7 +21997,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git switch release/1.2\ngit cherry-pick abc1234",
     "desc": "Copy specific commits onto the current branch",
     "tip": "Use -x when backporting to a release branch, so people can trace the fix to its original commit.",
-    "tags": "git cherry-pick backport hotfix"
+    "tags": "git cherry-pick backport hotfix",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-cherry-pick",
+          "title": "git cherry-pick"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -21872,7 +22039,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git status\n# Edit each conflicted file and remove the <<<<<<< ======= >>>>>>> markers\ngit add path/to/file\ngit merge --continue",
     "desc": "Resolve merge and rebase conflicts",
     "tip": "--ours and --theirs swap meaning during a rebase, so check the file after you pick a side.",
-    "tags": "git conflict merge rebase resolve ours theirs"
+    "tags": "git conflict merge rebase resolve ours theirs",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-merge",
+          "title": "git merge"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-checkout",
+          "title": "git checkout"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-config",
+          "title": "git config"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-rerere",
+          "title": "git rerere"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -21938,7 +22126,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git remote -v\ngit remote add upstream https://github.com/org/repo.git\ngit remote set-url origin git@github.com:org/repo.git",
     "desc": "See and change the remotes this repository talks to",
     "tip": "git ls-remote is a quick way to test that you can reach a remote and that your credentials work.",
-    "tags": "git remote origin upstream url"
+    "tags": "git remote origin upstream url",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-remote",
+          "title": "git remote"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-ls-remote",
+          "title": "git ls-remote"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -21982,7 +22183,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git fetch --all --prune\ngit status -sb\ngit pull --rebase\ngit push -u origin HEAD",
     "desc": "Download changes, update your branch and publish your commits",
     "tip": "Use --force-with-lease rather than --force, because plain --force can erase a teammate's commits.",
-    "tags": "git fetch pull push upstream force-with-lease sync"
+    "tags": "git fetch pull push upstream force-with-lease sync",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-fetch",
+          "title": "git fetch"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-pull",
+          "title": "git pull"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-push",
+          "title": "git push"
+        },
+        {
+          "url": "https://git-scm.com/docs/gitrevisions",
+          "title": "gitrevisions"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22037,7 +22259,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git tag -a v1.2.0 -m \"Release 1.2.0\"\ngit push origin v1.2.0\ngit tag -l 'v1.*'",
     "desc": "Mark releases and compare what's between them",
     "tip": "git push doesn't send tags by default, so push them by name.",
-    "tags": "git tag release version describe"
+    "tags": "git tag release version describe",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-tag",
+          "title": "git tag"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-push",
+          "title": "git push"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-describe",
+          "title": "git describe"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22103,7 +22342,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git log --oneline --graph --decorate --all -20",
     "desc": "Read the commit history",
     "tip": "Commits can be named with HEAD~2 (two back), HEAD^ (parent), a tag, a branch, or a short ID.",
-    "tags": "git log history graph shortlog show"
+    "tags": "git log history graph shortlog show",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-log",
+          "title": "git log"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-shortlog",
+          "title": "git shortlog"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-show",
+          "title": "git show"
+        },
+        {
+          "url": "https://git-scm.com/docs/gitrevisions",
+          "title": "gitrevisions"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22169,7 +22429,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git blame -L 40,60 path/to/file\ngit log -S'bmc_timeout' --oneline\ngit grep -n 'bmc_timeout'",
     "desc": "Find who changed a line and when a string appeared",
     "tip": "git log -S finds when something was added or removed, even if the line no longer exists.",
-    "tags": "git blame grep pickaxe search annotate"
+    "tags": "git blame grep pickaxe search annotate",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-blame",
+          "title": "git blame"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-log",
+          "title": "git log"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-grep",
+          "title": "git grep"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22224,7 +22501,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git bisect start\ngit bisect bad HEAD\ngit bisect good v1.1.0\n# Test this commit, then mark it, and repeat until git names the culprit\ngit bisect good\ngit bisect reset",
     "desc": "Binary search through history to find the commit that broke something",
     "tip": "Bisect tests about 10 commits to search 1,000, so it's well worth a small test script.",
-    "tags": "git bisect regression binary-search debug"
+    "tags": "git bisect regression binary-search debug",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-bisect",
+          "title": "git bisect"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22257,7 +22543,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git restore --staged path/to/file\ngit restore path/to/file",
     "desc": "Undo changes that haven't been committed",
     "tip": "Always run git clean -nd first. git clean deletes files that git has no copy of.",
-    "tags": "git restore unstage discard clean untracked"
+    "tags": "git restore unstage discard clean untracked",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-restore",
+          "title": "git restore"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-clean",
+          "title": "git clean"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22323,7 +22622,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "# Undo the last commit and keep its changes staged\ngit reset --soft HEAD~1",
     "desc": "Move the branch back to an earlier commit",
     "tip": "Run git status and git stash first. git reset --hard deletes uncommitted work for good.",
-    "tags": "git reset soft mixed hard uncommit"
+    "tags": "git reset soft mixed hard uncommit",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-reset",
+          "title": "git reset"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22367,7 +22675,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git revert abc1234\ngit push",
     "desc": "Undo a commit that's already pushed by adding a new commit",
     "tip": "On shared branches use git revert, not git reset, because revert keeps history intact for everyone else.",
-    "tags": "git revert undo rollback shared"
+    "tags": "git revert undo rollback shared",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-revert",
+          "title": "git revert"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22411,7 +22728,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git reflog -20\ngit branch recovered HEAD@{2}\ngit switch recovered",
     "desc": "Recover commits after a bad reset, rebase or deleted branch",
     "tip": "If it was committed, it can usually be recovered. Reflog entries last 90 days by default, or 30 for unreachable commits.",
-    "tags": "git reflog recover lost fsck rescue"
+    "tags": "git reflog recover lost fsck rescue",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-reflog",
+          "title": "git reflog"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-gc",
+          "title": "git gc"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-fsck",
+          "title": "git fsck"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22454,8 +22788,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "Worktrees, Submodules & Hooks",
     "cmd": "git worktree add ../repo-hotfix -b hotfix main\ngit worktree list\ngit worktree remove ../repo-hotfix",
     "desc": "Check out a second branch in another folder without cloning again",
-    "tip": "A branch can only be checked out in one worktree at a time.",
-    "tags": "git worktree parallel checkout hotfix"
+    "tip": "A branch can only be checked out in one worktree at a time (git refuses unless you pass --force).",
+    "tags": "git worktree parallel checkout hotfix",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-worktree",
+          "title": "git worktree"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22488,7 +22831,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git submodule add https://github.com/org/lib.git vendor/lib\ngit submodule update --init --recursive\ngit submodule status",
     "desc": "Work with repositories nested inside another repository",
     "tip": "Empty submodule folders after a clone just mean you need git submodule update --init --recursive.",
-    "tags": "git submodule vendor nested recursive"
+    "tags": "git submodule vendor nested recursive",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-submodule",
+          "title": "git submodule"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-clone",
+          "title": "git clone"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22521,7 +22877,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mkdir -p .githooks\ncat > .githooks/pre-commit <<'EOF'\n#!/bin/sh\nif git diff --cached | grep -qE 'BEGIN (RSA|OPENSSH) PRIVATE KEY'; then\n  echo \"Private key in staged changes\" >&2\n  exit 1\nfi\nEOF\nchmod +x .githooks/pre-commit\ngit config core.hooksPath .githooks",
     "desc": "Run checks automatically on commit or push",
     "tip": "Files in .git/hooks aren't cloned, so keep shared hooks in a tracked folder and set core.hooksPath.",
-    "tags": "git hooks pre-commit automation secrets"
+    "tags": "git hooks pre-commit automation secrets",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/githooks",
+          "title": "githooks"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-config",
+          "title": "git config"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22554,7 +22923,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "# Large files (needs the git-lfs package)\ngit lfs install\ngit lfs track \"*.bin\"\ngit add .gitattributes\n\n# Sign commits with your SSH key\ngit config --global gpg.format ssh\ngit config --global user.signingkey ~/.ssh/id_ed25519.pub\ngit config --global commit.gpgsign true",
     "desc": "Store large binaries with Git LFS and sign commits with an SSH key",
     "tip": "If firmware files look like tiny text files after a clone, those are LFS pointers. Run git lfs pull.",
-    "tags": "git lfs large-files signing ssh gpg firmware"
+    "tags": "git lfs large-files signing ssh gpg firmware",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-lfs.com/",
+          "title": "Git LFS"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-config",
+          "title": "git config"
+        },
+        {
+          "url": "https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification",
+          "title": "GitHub: commit signature verification (SSH)"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22587,7 +22973,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git -C /opt/tools describe --tags --always --dirty\ngit -C /opt/tools rev-parse HEAD\ngit -C /opt/tools status --short\ngit -C /opt/tools log -1 --format='%h %ad %an %s' --date=iso",
     "desc": "Check what version of a repository is deployed on a node, without changing it",
     "tip": "These commands only read the repository, so they're safe to run on a node that's running jobs.",
-    "tags": "git deployed version describe rev-parse fleet drift"
+    "tags": "git deployed version describe rev-parse fleet drift",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git",
+          "title": "git (-C, GIT_TRACE, GIT_SSH_COMMAND)"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-describe",
+          "title": "git describe"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-rev-parse",
+          "title": "git rev-parse"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-status",
+          "title": "git status"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-log",
+          "title": "git log"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22631,7 +23042,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "# On the connected machine\ngit bundle create tools.bundle --all\nsha256sum tools.bundle\nscp tools.bundle jumpbox:/tmp/\n\n# On the isolated host\ngit bundle verify /tmp/tools.bundle\ngit clone /tmp/tools.bundle tools",
     "desc": "Move a repository to a host with no route to the Git server",
     "tip": "A git bundle works like a remote, so history and tags survive the trip. Compare the sha256sum at both ends.",
-    "tags": "git bundle archive air-gapped offline patch format-patch"
+    "tags": "git bundle archive air-gapped offline patch format-patch",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-bundle",
+          "title": "git bundle"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-archive",
+          "title": "git archive"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-format-patch",
+          "title": "git format-patch"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-apply",
+          "title": "git apply"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-am",
+          "title": "git am"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22708,7 +23144,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "# Check that you can reach the remote and authenticate\ngit ls-remote origin HEAD\nssh -T git@github.com\n\n# Show what git is doing on the network\nGIT_TRACE=1 GIT_CURL_VERBOSE=1 git fetch\nGIT_SSH_COMMAND=\"ssh -v\" git fetch",
     "desc": "Work behind a proxy or internal CA, and debug connections",
     "tip": "GIT_CURL_VERBOSE output can include auth headers, so clean it before pasting it into a ticket.",
-    "tags": "git proxy ssl ca ssh trace debug credentials"
+    "tags": "git proxy ssl ca ssh trace debug credentials",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git",
+          "title": "git (-C, GIT_TRACE, GIT_SSH_COMMAND)"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-ls-remote",
+          "title": "git ls-remote"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-config",
+          "title": "git config"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-credential-cache",
+          "title": "git credential-cache"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22774,7 +23231,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "# fatal: detected dubious ownership in repository\ngit config --global --add safe.directory /opt/tools",
     "desc": "Fix common error messages",
     "tip": "Don't set http.sslVerify false to get past certificate errors. Install the CA instead.",
-    "tags": "git errors safe.directory dubious-ownership detached-head index.lock troubleshooting"
+    "tags": "git errors safe.directory dubious-ownership detached-head index.lock troubleshooting",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-config",
+          "title": "git config"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-switch",
+          "title": "git switch"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-fsck",
+          "title": "git fsck"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-count-objects",
+          "title": "git count-objects"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-gc",
+          "title": "git gc"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22851,7 +23333,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "# 1. Rotate the credential first. It's exposed once pushed.\n# 2. Rewrite history (needs the git-filter-repo package) in a fresh clone\ngit clone --mirror git@github.com:org/repo.git\ncd repo.git\ngit filter-repo --path config/secrets.env --invert-paths\n# 3. git filter-repo removes origin, so add it back, then coordinate the force push\ngit remote add origin git@github.com:org/repo.git\ngit push --force --mirror origin",
     "desc": "Deal with a password or key that was committed",
     "tip": "Rewriting history breaks everyone's clones and doesn't reach copies already made. Rotating the secret is the real fix.",
-    "tags": "git secrets filter-repo history rewrite credentials leak"
+    "tags": "git secrets filter-repo history rewrite credentials leak",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/newren/git-filter-repo",
+          "title": "git-filter-repo"
+        },
+        {
+          "url": "https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository",
+          "title": "GitHub: removing sensitive data"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-log",
+          "title": "git log"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -39768,7 +40267,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "-- Single-line comment\n--[[ Multi-line\n     comment ]]\nlocal host = \"node-01\"\nlocal port = 8080\nlocal enabled = true\nlocal nothing = nil\n\nprint(type(host), type(port), type(enabled), type(nothing))\nprint(host .. \":\" .. port)\nprint(port ~= 80, not enabled)\nlocal label = enabled and \"on\" or \"off\"\nprint(label)",
     "desc": "Variables, comments, data types, and what counts as true or false",
     "tip": "Only false and nil are falsy. 0 and the empty string \"\" both count as true.",
-    "tags": "lua variables local global types nil comments truthy"
+    "tags": "lua variables local global types nil comments truthy",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.5/manual.html",
+          "title": "Lua 5.5 reference manual"
+        }
+      ]
+    }
   },
   {
     "sName": "lua",
@@ -39823,7 +40331,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "local s = \"gpu-07: temp=71C\"\nprint(#s, s:upper(), s:sub(1, 6))\nprint(string.format(\"%-8s %5.1f%%\", \"load\", 93.456))\nprint(s:match(\"temp=(%d+)\"))\nprint(s:find(\"temp\", 1, true))\nprint((s:gsub(\"%d+\", \"#\")))\nfor key, value in (\"a=1, b=2\"):gmatch(\"(%w+)=(%w+)\") do\n  print(key, value)\nend",
     "desc": "String functions and Lua patterns, which are similar to regex but simpler",
     "tip": "Patterns are not regex: there is no | alternation or {n} count, and - means shortest repeat.",
-    "tags": "lua strings patterns format gsub match gmatch"
+    "tags": "lua strings patterns format gsub match gmatch",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.5/manual.html",
+          "title": "Lua 5.5 reference manual"
+        }
+      ]
+    }
   },
   {
     "sName": "lua",
@@ -39878,7 +40395,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "local nodes = { \"node-01\", \"node-02\", \"node-03\" }\nprint(nodes[1], #nodes)\ntable.insert(nodes, \"node-04\")\ntable.remove(nodes, 1)\nprint(table.concat(nodes, \", \"))\n\nlocal server = { host = \"10.0.0.1\", port = 22, tags = { \"gpu\", \"prod\" } }\nprint(server.host, server[\"port\"], server.tags[2])\nserver.port = 2222\nserver.tags = nil",
     "desc": "A table works as a list, a dictionary, or both. Lists start at index 1.",
     "tip": "Config files are mostly nested tables, so a { key = value } block is the shape to recognize.",
-    "tags": "lua tables arrays lists dictionary map insert sort"
+    "tags": "lua tables arrays lists dictionary map insert sort",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.5/manual.html",
+          "title": "Lua 5.5 reference manual"
+        }
+      ]
+    }
   },
   {
     "sName": "lua",
@@ -39933,7 +40459,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "local temp = 83\nif temp >= 90 then\n  print(\"critical\")\nelseif temp >= 80 then\n  print(\"warning\")\nelse\n  print(\"ok\")\nend",
     "desc": "if / elseif / else blocks. Each block closes with end.",
     "tip": "A missing end is the most common syntax error. Every if, for, while, and function needs one.",
-    "tags": "lua if else elseif conditionals defaults"
+    "tags": "lua if else elseif conditionals defaults",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.5/manual.html",
+          "title": "Lua 5.5 reference manual"
+        }
+      ]
+    }
   },
   {
     "sName": "lua",
@@ -39966,7 +40501,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "for i = 1, 3 do print(i) end\nfor i = 10, 0, -5 do print(i) end\n\nlocal list = { \"a\", \"b\" }\nfor index, value in ipairs(list) do\n  print(index, value)\nend\n\nlocal map = { host = \"n1\", port = 22 }\nfor key, value in pairs(map) do\n  print(key, value)\nend\n\nlocal n = 0\nwhile n < 2 do n = n + 1 end\nrepeat n = n - 1 until n == 0",
     "desc": "Numeric for loops, list and table iteration, while, and repeat",
     "tip": "Use ipairs for lists when order matters, and pairs for dictionaries.",
-    "tags": "lua loops for while repeat pairs ipairs break"
+    "tags": "lua loops for while repeat pairs ipairs break",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.5/manual.html",
+          "title": "Lua 5.5 reference manual"
+        }
+      ]
+    }
   },
   {
     "sName": "lua",
@@ -39999,7 +40543,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "local function add(a, b)\n  return a + b\nend\n\nlocal function min_max(list)\n  table.sort(list)\n  return list[1], list[#list]\nend\nlocal low, high = min_max({ 4, 9, 1 })\nprint(add(2, 3), low, high)\n\nlocal function counter()\n  local count = 0\n  return function()\n    count = count + 1\n    return count\n  end\nend\nlocal tick = counter()\ntick()\nprint(tick())\n\nlocal function sum(...)\n  local total = 0\n  for _, v in ipairs({ ... }) do total = total + v end\n  return total\nend\nprint(sum(1, 2, 3))",
     "desc": "Define functions, return several values, and pass functions around",
     "tip": "Missing arguments arrive as nil, and extra arguments are ignored without an error.",
-    "tags": "lua functions return closures varargs callbacks"
+    "tags": "lua functions return closures varargs callbacks",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.5/manual.html",
+          "title": "Lua 5.5 reference manual"
+        }
+      ]
+    }
   },
   {
     "sName": "lua",
@@ -40043,7 +40596,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "local Node = {}\nNode.__index = Node\n\nfunction Node.new(name)\n  return setmetatable({ name = name, up = false }, Node)\nend\n\nfunction Node:start()\n  self.up = true\n  return self.name .. \" started\"\nend\n\nlocal node = Node.new(\"gpu-01\")\nprint(node:start())\nprint(node.up)",
     "desc": "Colon method calls, metatable classes, and splitting code into modules",
     "tip": "If you see a nil error on a method, check for . where : was needed.",
-    "tags": "lua methods self metatable class modules require"
+    "tags": "lua methods self metatable class modules require",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.5/manual.html",
+          "title": "Lua 5.5 reference manual"
+        },
+        {
+          "url": "https://www.lua.org/pil/",
+          "title": "Programming in Lua"
+        }
+      ]
+    }
   },
   {
     "sName": "lua",
@@ -40087,7 +40653,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "local function read_port(cfg)\n  if not cfg.port then\n    error(\"port is missing\")\n  end\n  return cfg.port\nend\n\nlocal ok, result = pcall(read_port, {})\nif ok then\n  print(\"port\", result)\nelse\n  print(\"failed:\", result)\nend\n\nlocal f, err = io.open(\"/no/such/file\", \"r\")\nif not f then print(err) end",
     "desc": "Raise errors and catch them with pcall instead of crashing the script",
     "tip": "pcall takes the function and its arguments separately: pcall(f, x), not pcall(f(x)).",
-    "tags": "lua errors pcall xpcall assert exceptions"
+    "tags": "lua errors pcall xpcall assert exceptions",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.5/manual.html",
+          "title": "Lua 5.5 reference manual"
+        }
+      ]
+    }
   },
   {
     "sName": "lua",
@@ -40120,7 +40695,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "local path = \"lua-demo.txt\"\nlocal out = assert(io.open(path, \"w\"))\nout:write(\"node-01\\nnode-02\\n\")\nout:close()\n\nfor line in io.lines(path) do\n  print(line)\nend\n\nlocal input = assert(io.open(path, \"r\"))\nlocal content = input:read(\"a\")\ninput:close()\nprint(#content)\nos.remove(path)",
     "desc": "Read and write files line by line or all at once",
     "tip": "\"w\" mode erases the file as soon as it opens, so use \"a\" to add to it.",
-    "tags": "lua files io read write lines os"
+    "tags": "lua files io read write lines os",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.5/manual.html",
+          "title": "Lua 5.5 reference manual"
+        },
+        {
+          "url": "https://luajit.org/extensions.html",
+          "title": "LuaJIT extensions (Lua 5.1 base)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: Lua 5.2 also needs \"*a\"; LuaJIT accepts both forms."
+    }
   },
   {
     "sName": "lua",
@@ -40175,7 +40764,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lua script.lua arg1 arg2\nlua -e 'print(2 ^ 10)'\nlua -i\nluac -p script.lua",
     "desc": "Run scripts, check syntax without running, and try code interactively",
     "tip": "luac -p catches typos in a config file before you reload it.",
-    "tags": "lua cli luac luajit repl syntax-check arguments"
+    "tags": "lua cli luac luajit repl syntax-check arguments",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.5/manual.html",
+          "title": "Lua 5.5 reference manual"
+        },
+        {
+          "url": "https://www.lua.org/versions.html",
+          "title": "Lua versions (5.5, Dec 2025)"
+        },
+        {
+          "url": "https://luajit.org/extensions.html",
+          "title": "LuaJIT extensions (Lua 5.1 base)"
+        }
+      ]
+    }
   },
   {
     "sName": "lua",
@@ -40208,7 +40814,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "-- ~/.config/hypr/bindings.lua\nhl.unbind(\"SUPER + SHIFT + E\")\no.bind(\"SUPER + SHIFT + E\", \"Email\", { webapp = \"https://mail.google.com\" })\n\n-- ~/.config/hypr/looknfeel.lua\nhl.config({\n  general = {\n    layout = \"scrolling\",\n  },\n})",
     "desc": "Omarchy and Hyprland: bindings, unbinding defaults, and switching settings on",
     "tip": "When uncommenting a setting inside { }, uncomment the opening and closing lines too.",
-    "tags": "lua omarchy hyprland bindings config o.bind hl.unbind"
+    "tags": "lua omarchy hyprland bindings config o.bind hl.unbind",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/basecamp/omarchy/blob/quattro/config/hypr/bindings.lua",
+          "title": "Omarchy: bindings.lua"
+        },
+        {
+          "url": "https://github.com/basecamp/omarchy/blob/quattro/config/hypr/looknfeel.lua",
+          "title": "Omarchy: looknfeel.lua"
+        },
+        {
+          "url": "https://github.com/basecamp/omarchy/blob/quattro/config/hypr/hyprland.lua",
+          "title": "Omarchy: hyprland.lua (require order)"
+        },
+        {
+          "url": "https://wiki.hypr.land/configuring/core/advanced-configuration/using-hyprctl/",
+          "title": "Hyprland wiki: hyprctl"
+        }
+      ],
+      "note": "Checked against an Omarchy install; hyprctl configerrors is listed by hyprctl --help on Hyprland 0.56.2."
+    }
   },
   {
     "sName": "lua",
@@ -40241,7 +40869,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "-- ~/.config/nvim/init.lua\nvim.opt.number = true\nvim.opt.shiftwidth = 2\nvim.g.mapleader = \" \"\n\nvim.keymap.set(\"n\", \"<leader>w\", \"<cmd>write<cr>\", { desc = \"Save file\" })\n\nvim.api.nvim_create_autocmd(\"BufWritePre\", {\n  pattern = \"*.lua\",\n  callback = function() print(\"saving\") end,\n})",
     "desc": "Neovim: options, keymaps, and autocommands",
     "tip": "Neovim runs LuaJIT (Lua 5.1), so 5.3+ features such as // and bitwise operators are unavailable.",
-    "tags": "lua neovim nvim init.lua keymap autocmd config"
+    "tags": "lua neovim nvim init.lua keymap autocmd config",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/lua-guide/",
+          "title": "Neovim: Lua guide"
+        },
+        {
+          "url": "https://neovim.io/doc/user/lua/",
+          "title": "Neovim: Lua reference"
+        },
+        {
+          "url": "https://luajit.org/extensions.html",
+          "title": "LuaJIT extensions (Lua 5.1 base)"
+        }
+      ]
+    }
   },
   {
     "sName": "lua",
@@ -42211,7 +42856,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "# Node gpu-node-07 triage\n## Symptoms\n### GPU 3\n#### Xid 79\n##### Notes\n###### Footnote level",
     "desc": "Headings from level 1 to 6. Put a space after the # marks",
     "tip": "Leave a blank line before and after each heading so every renderer sees it.",
-    "tags": "markdown headings h1 h2 title anchor"
+    "tags": "markdown headings h1 h2 title anchor",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://spec.commonmark.org/0.31.2/",
+          "title": "CommonMark 0.31.2 spec"
+        },
+        {
+          "url": "https://pandoc.org/MANUAL.html",
+          "title": "Pandoc manual"
+        },
+        {
+          "url": "https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax",
+          "title": "GitHub: basic writing and formatting"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -42244,7 +42906,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "**bold**  __also bold__\n*italic*  _also italic_\n***bold and italic***\n~~strikethrough~~\n`inline code`\n<kbd>Ctrl</kbd>+<kbd>C</kbd>",
     "desc": "Bold, italic, strikethrough and inline code",
     "tip": "Put serial numbers, BDFs and hostnames in `backticks` so nothing turns them into links or formatting.",
-    "tags": "markdown bold italic strikethrough emphasis kbd inline-code"
+    "tags": "markdown bold italic strikethrough emphasis kbd inline-code",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://spec.commonmark.org/0.31.2/",
+          "title": "CommonMark 0.31.2 spec"
+        },
+        {
+          "url": "https://github.github.com/gfm/",
+          "title": "GitHub Flavored Markdown spec"
+        },
+        {
+          "url": "https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax",
+          "title": "GitHub: basic writing and formatting"
+        }
+      ],
+      "note": "Changed 2026-11-10: <mark> is not in GitHub's documented HTML; <ins> is."
+    }
   },
   {
     "sName": "markdown",
@@ -42274,8 +42954,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "text",
     "id": "md-emphasis",
     "sec": "Headings, Text & Paragraphs",
-    "cmd": "<mark>highlighted</mark>",
-    "desc": "Highlight text (rendered on GitHub)",
+    "cmd": "<ins>underlined</ins>",
+    "desc": "Underline text (in GitHub's documented HTML, with <sub> and <sup>)",
     "tip": "",
     "tags": "markdown bold italic strikethrough emphasis kbd inline-code"
   },
@@ -42288,7 +42968,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "First paragraph line one\nstill the same paragraph.\n\nNew paragraph after a blank line.\n\nLine one\\\nLine two (backslash break)\n\n> Quoted text from the vendor\n>\n> > Nested quote\n\n---",
     "desc": "Paragraphs, line breaks, block quotes and horizontal rules",
     "tip": "Use a backslash line break rather than trailing spaces. You can see it, and editors leave it alone.",
-    "tags": "markdown paragraph line-break blockquote hr rule"
+    "tags": "markdown paragraph line-break blockquote hr rule",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://spec.commonmark.org/0.31.2/",
+          "title": "CommonMark 0.31.2 spec"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -42321,7 +43010,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "\\*not italic\\*\n\\# not a heading\n1986\\. A great year\nC:\\\\Users\\\\admin\nfile\\_name\\_v2.txt\n\\| pipe inside a table",
     "desc": "Show special characters literally with a backslash",
     "tip": "Paths, regexes and globs belong in backticks. Escaping each character one by one is error prone.",
-    "tags": "markdown escape backslash special-characters comment entities"
+    "tags": "markdown escape backslash special-characters comment entities",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://spec.commonmark.org/0.31.2/",
+          "title": "CommonMark 0.31.2 spec"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -42354,7 +43052,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "- Check SEL\n- Check dmesg\n  - Look for Xid errors\n  - Look for AER errors\n- Check NVLink\n\n* Asterisks work too\n+ So do plus signs",
     "desc": "Bullet lists and nested lists",
     "tip": "Changing the marker from - to * in the middle starts a new list.",
-    "tags": "markdown lists bullets unordered nested"
+    "tags": "markdown lists bullets unordered nested",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://spec.commonmark.org/0.31.2/",
+          "title": "CommonMark 0.31.2 spec"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -42376,7 +43083,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "1. Drain the node in Slurm\n2. Run the health check:\n\n   ```bash\n   dcgmi health -c\n   ```\n\n3. Record the result\n   > Paste the output into the ticket\n\n1. Numbers can all be 1.\n1. The renderer counts for you.",
     "desc": "Numbered steps, with code and notes inside a step",
     "tip": "Indent code blocks inside a numbered step, or the numbering restarts at 1 after the block.",
-    "tags": "markdown lists numbered ordered steps runbook"
+    "tags": "markdown lists numbered ordered steps runbook",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://spec.commonmark.org/0.31.2/",
+          "title": "CommonMark 0.31.2 spec"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -42409,7 +43125,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "- [x] Drain node in Slurm\n- [x] Capture nvidia-smi -q\n- [ ] Reseat GPU 3\n- [ ] Run dcgmi diag -r 3\n  - [ ] Attach results to the RMA",
     "desc": "Task lists with checkboxes",
     "tip": "On GitHub issues and PRs you can tick the boxes in the rendered page, and the counts show in issue lists.",
-    "tags": "markdown tasks checklist checkbox todo gfm"
+    "tags": "markdown tasks checklist checkbox todo gfm",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.github.com/gfm/",
+          "title": "GitHub Flavored Markdown spec"
+        },
+        {
+          "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/about-task-lists",
+          "title": "GitHub: task lists"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+          "title": "grep(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -42442,7 +43175,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "[NVIDIA Xid docs](https://docs.nvidia.com/deploy/xid-errors/)\n[With a title](https://example.com \"Hover text\")\n[Jump to Root Cause](#root-cause)\n[GPU playbook](../docs/playbooks/gpu-nvlink.md)\n[Line 42](scripts/collect.sh#L42)\n<https://example.com>",
     "desc": "Inline links, links to headings and links to other files",
     "tip": "Heading anchors are lowercase with spaces as -, so \"## Root Cause\" becomes #root-cause.",
-    "tags": "markdown links url anchor relative autolink"
+    "tags": "markdown links url anchor relative autolink",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://spec.commonmark.org/0.31.2/",
+          "title": "CommonMark 0.31.2 spec"
+        },
+        {
+          "url": "https://github.github.com/gfm/",
+          "title": "GitHub Flavored Markdown spec"
+        },
+        {
+          "url": "https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax",
+          "title": "GitHub: basic writing and formatting"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -42486,7 +43236,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "See the [Xid list][xid] and the [DCGM guide][dcgm].\nThe [RMA portal] is linked below.\n\n[xid]: https://docs.nvidia.com/deploy/xid-errors/\n[dcgm]: https://docs.nvidia.com/datacenter/dcgm/latest/\n[RMA portal]: https://example.com/rma",
     "desc": "Reference links keep long URLs out of your sentences",
     "tip": "Reference links make tables and lists readable in the raw file.",
-    "tags": "markdown links reference footnote-style url"
+    "tags": "markdown links reference footnote-style url",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://spec.commonmark.org/0.31.2/",
+          "title": "CommonMark 0.31.2 spec"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -42508,7 +43267,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "![Rack 12 front view](images/rack12-front.jpg)\n![Link LED amber](images/osfp-led.png \"Cage 4\")\n<img src=\"images/riser.jpg\" alt=\"PCIe riser\" width=\"400\">\n[![Status](badge.svg)](https://example.com/status)",
     "desc": "Images, sized images and clickable images",
     "tip": "Keep photos in an images/ folder next to the file and use relative paths, so they work offline and in clones.",
-    "tags": "markdown images img photos alt size"
+    "tags": "markdown images img photos alt size",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://spec.commonmark.org/0.31.2/",
+          "title": "CommonMark 0.31.2 spec"
+        },
+        {
+          "url": "https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax",
+          "title": "GitHub: basic writing and formatting"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -42541,7 +43313,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "```bash\nnvidia-smi -q -d ECC\ndcgmi health -c\n```\n\n```json\n{ \"gpu\": 3, \"xid\": 79 }\n```\n\n```text\nPlain output, no highlighting\n```",
     "desc": "Fenced code block with a language for highlighting",
     "tip": "Always add a language, even text. It keeps highlighting predictable and tells readers what they're looking at.",
-    "tags": "markdown code fenced syntax highlighting bash"
+    "tags": "markdown code fenced syntax highlighting bash",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://spec.commonmark.org/0.31.2/",
+          "title": "CommonMark 0.31.2 spec"
+        },
+        {
+          "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-and-highlighting-code-blocks",
+          "title": "GitHub: code blocks"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -42574,7 +43359,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "```diff\n- MTU=1500\n+ MTU=9000\n```\n\n```console\n$ ibstat mlx5_0 | grep State\n        State: Active\n        Physical state: LinkUp\n```",
     "desc": "Show changes and log output",
     "tip": "Paste raw command output into text or console blocks so wide columns and spacing stay intact.",
-    "tags": "markdown code diff console logs output"
+    "tags": "markdown code diff console logs output",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-and-highlighting-code-blocks",
+          "title": "GitHub: code blocks"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -42596,7 +43390,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "````markdown\nUse this in the ticket:\n\n```bash\nipmitool sel elist\n```\n````",
     "desc": "Show a code block inside a code block",
     "tip": "The closing fence must use the same character and at least as many as the opening one.",
-    "tags": "markdown code nested fence backticks"
+    "tags": "markdown code nested fence backticks",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://spec.commonmark.org/0.31.2/",
+          "title": "CommonMark 0.31.2 spec"
+        },
+        {
+          "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/organizing-information-with-collapsed-sections",
+          "title": "GitHub: collapsed sections"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -42618,7 +43425,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "| GPU | BDF          | Temp | Status   |\n|:----|:-------------|-----:|:--------:|\n| 0   | 0000:18:00.0 |  41C | OK       |\n| 3   | 0000:8a:00.0 |  88C | **HOT**  |",
     "desc": "Table with a header row and column alignment",
     "tip": "Columns don't need to line up in the raw file. Your editor's formatter or prettier can align them.",
-    "tags": "markdown tables alignment columns gfm"
+    "tags": "markdown tables alignment columns gfm",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.github.com/gfm/",
+          "title": "GitHub Flavored Markdown spec"
+        },
+        {
+          "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/organizing-information-with-tables",
+          "title": "GitHub: tables"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -42662,7 +43482,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nvidia-smi --query-gpu=index,pci.bus_id,temperature.gpu,serial --format=csv,noheader \\\n  | awk -F', ' 'BEGIN { print \"| GPU | BDF | Temp | Serial |\"; print \"|---|---|---:|---|\" }\n               { printf \"| %s | %s | %sC | %s |\\n\", $1, $2, $3, $4 }'",
     "desc": "Turn command output into a Markdown table",
     "tip": "Fields that can contain spaces, like model names, should come last or be quoted in the CSV.",
-    "tags": "markdown tables awk nvidia-smi csv pandoc inventory"
+    "tags": "markdown tables awk nvidia-smi csv pandoc inventory",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+          "title": "nvidia-smi documentation"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/gawk.1.html",
+          "title": "gawk(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/lsblk.8.html",
+          "title": "lsblk(8)"
+        },
+        {
+          "url": "https://pandoc.org/MANUAL.html",
+          "title": "Pandoc manual"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -42706,7 +43547,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "> [!NOTE]\n> GPU 3 was reseated on 2026-11-03.\n\n> [!WARNING]\n> Drain the node before running dcgmi diag -r 3.\n\n> [!CAUTION]\n> nvme format erases the drive.",
     "desc": "GitHub alert boxes for notes and warnings",
     "tip": "Alerts render on GitHub and some editors. Elsewhere they show as plain block quotes.",
-    "tags": "markdown gfm alerts callout note warning admonition"
+    "tags": "markdown gfm alerts callout note warning admonition",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax",
+          "title": "GitHub: basic writing and formatting"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -42728,7 +43578,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "<details>\n<summary>Full nvidia-smi -q output</summary>\n\n```text\n==============NVSMI LOG==============\n...\n```\n\n</details>",
     "desc": "Collapsible section for long logs",
     "tip": "Keep the key evidence visible and fold the full logs, so reviewers see the cause first.",
-    "tags": "markdown gfm details summary collapse html logs"
+    "tags": "markdown gfm details summary collapse html logs",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/organizing-information-with-collapsed-sections",
+          "title": "GitHub: collapsed sections"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -42739,7 +43598,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Row remap failed on GPU 3.[^1]\n\n[^1]: See nvidia-smi -q -d ROW_REMAPPER output in logs/.\n\nFixed in org/repo#42 and abc1234.\nClosing: Fixes #57",
     "desc": "Footnotes, mentions and issue references",
     "tip": "On GitHub, a bare @name notifies that person, so only write it when you mean to.",
-    "tags": "markdown gfm footnotes mentions issues references"
+    "tags": "markdown gfm footnotes mentions issues references",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax",
+          "title": "GitHub: basic writing and formatting"
+        },
+        {
+          "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/autolinked-references-and-urls",
+          "title": "GitHub: autolinked references"
+        },
+        {
+          "url": "https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue",
+          "title": "GitHub: closing issues with keywords"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -42761,7 +43637,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "```mermaid\nflowchart LR\n  GPU3[GPU 3] -->|NVLink| NVS[NVSwitch 1]\n  NVS --> GPU5[GPU 5]\n```\n\nInline math: $BW = lanes \\times rate$\n\n$$\nBER = \\frac{errors}{bits}\n$$",
     "desc": "Diagrams with Mermaid and math with LaTeX",
     "tip": "Mermaid and math need a renderer that supports them. GitHub and Obsidian do; plain viewers show the source.",
-    "tags": "markdown gfm mermaid diagram math latex"
+    "tags": "markdown gfm mermaid diagram math latex",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-diagrams",
+          "title": "GitHub: diagrams (Mermaid)"
+        },
+        {
+          "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/writing-mathematical-expressions",
+          "title": "GitHub: math"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -42783,7 +43672,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "# gpu-node-07: GPU 3 Xid 79\n\n| Field    | Value |\n|----------|-------|\n| Ticket   | DC-1234 |\n| Severity | High |\n| Node     | `gpu-node-07` (Rack 12, U20) |\n| Status   | Drained |\n\n## Symptoms\n\n## Timeline\n- 2026-11-03 09:12 Xid 79 on GPU 3\n\n## Evidence\n\n## Root Cause\n\n## Next Actions\n- [ ] Reseat GPU 3\n- [ ] Open RMA",
     "desc": "Case summary.md skeleton for a hardware incident",
     "tip": "Never paste passwords or tokens into a case file. Strip them from captured output first.",
-    "tags": "markdown template case incident summary rma ticket"
+    "tags": "markdown template case incident summary rma ticket",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.github.com/gfm/",
+          "title": "GitHub Flavored Markdown spec"
+        },
+        {
+          "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/about-task-lists",
+          "title": "GitHub: task lists"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -42805,7 +43707,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "# Replace a failed NVMe drive\n\n> [!WARNING]\n> Confirm the drive serial before pulling anything.\n\n## Prerequisites\n- Node drained\n- Replacement drive on hand\n\n## Steps\n1. Identify the drive:\n\n   ```bash\n   nvme list\n   ```\n\n2. Light the bay LED.\n3. Swap the drive.\n\n## Verify\n\n## Rollback",
     "desc": "Runbook skeleton with prerequisites, steps and rollback",
     "tip": "Write each step as a single action, with its command in a code block indented under it.",
-    "tags": "markdown template runbook procedure sop steps"
+    "tags": "markdown template runbook procedure sop steps",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax",
+          "title": "GitHub: basic writing and formatting"
+        },
+        {
+          "url": "https://spec.commonmark.org/0.31.2/",
+          "title": "CommonMark 0.31.2 spec"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -42816,7 +43731,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "---\ntitle: Replace a failed NVMe drive\nauthor: dc-ops\ndate: 2026-11-03\ntags: [nvme, storage, runbook]\n---\n\n# Replace a failed NVMe drive",
     "desc": "YAML front matter for static sites and note apps",
     "tip": "GitHub shows front matter as a table at the top of the rendered file.",
-    "tags": "markdown front-matter yaml metadata hugo jekyll obsidian"
+    "tags": "markdown front-matter yaml metadata hugo jekyll obsidian",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://pandoc.org/MANUAL.html",
+          "title": "Pandoc manual"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -42838,7 +43762,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "glow README.md\nglow -p cases/DC-1234/summary.md\nmdcat README.md",
     "desc": "Read rendered Markdown in the terminal",
     "tip": "Neovim users can install render-markdown.nvim to see headings and tables styled while editing.",
-    "tags": "markdown glow mdcat preview terminal render"
+    "tags": "markdown glow mdcat preview terminal render",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/charmbracelet/glow",
+          "title": "glow"
+        },
+        {
+          "url": "https://github.com/swsnr/mdcat",
+          "title": "mdcat (archived)"
+        },
+        {
+          "url": "https://pandoc.org/MANUAL.html",
+          "title": "Pandoc manual"
+        }
+      ],
+      "note": "Changed 2026-11-10: mdcat's repository is archived."
+    }
   },
   {
     "sName": "markdown",
@@ -42871,7 +43813,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "markdownlint-cli2 \"**/*.md\"\nmarkdownlint-cli2 --fix \"docs/**/*.md\"\nprettier --write \"**/*.md\"",
     "desc": "Check and format Markdown files",
     "tip": "MD013 (line length) is the rule most teams turn off first.",
-    "tags": "markdown lint markdownlint prettier format ci"
+    "tags": "markdown lint markdownlint prettier format ci",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/DavidAnson/markdownlint-cli2",
+          "title": "markdownlint-cli2"
+        },
+        {
+          "url": "https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md",
+          "title": "markdownlint rules (MD013)"
+        },
+        {
+          "url": "https://prettier.io/docs/cli",
+          "title": "Prettier CLI"
+        },
+        {
+          "url": "https://github.com/tcort/markdown-link-check",
+          "title": "markdown-link-check"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -42904,7 +43867,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "pandoc summary.md -o summary.html --standalone\npandoc summary.md -o summary.docx\npandoc summary.md -o summary.pdf\npandoc report.docx -t gfm -o report.md",
     "desc": "Convert Markdown to HTML, Word or PDF with Pandoc",
     "tip": "PDF output needs a LaTeX engine. On Ubuntu, install texlive-latex-recommended, or write HTML and print it to PDF.",
-    "tags": "markdown pandoc convert html docx pdf jira"
+    "tags": "markdown pandoc convert html docx pdf jira",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://pandoc.org/MANUAL.html",
+          "title": "Pandoc manual"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -42948,7 +43920,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep -n '^#\\{1,6\\} ' README.md\ngrep -h '^## ' docs/playbooks/*.md\npandoc -s --toc README.md -o README.html",
     "desc": "List headings and build a table of contents",
     "tip": "GitHub builds a TOC for you: use the outline button at the top of any rendered Markdown file.",
-    "tags": "markdown toc headings grep pandoc outline"
+    "tags": "markdown toc headings grep pandoc outline",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+          "title": "grep(1)"
+        },
+        {
+          "url": "https://pandoc.org/MANUAL.html",
+          "title": "Pandoc manual"
+        },
+        {
+          "url": "https://github.com/jonschlinkert/markdown-toc",
+          "title": "markdown-toc"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",

@@ -1201,7 +1201,8 @@ const SCRIPTING_LANGUAGES = [
               ["a, b = b, a", "Swap two values without a temporary variable"]
             ],
             tip: "Only false and nil are falsy. 0 and the empty string \"\" both count as true.",
-            tags: ["lua", "variables", "local", "global", "types", "nil", "comments", "truthy"]
+            tags: ["lua", "variables", "local", "global", "types", "nil", "comments", "truthy"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://www.lua.org/manual/5.5/manual.html","title":"Lua 5.5 reference manual"}]}
           },
           {
             id: "lua-strings-patterns",
@@ -1224,7 +1225,8 @@ const SCRIPTING_LANGUAGES = [
               ["[[multi-line string]]", "Long string: no escapes, and newlines are kept"]
             ],
             tip: "Patterns are not regex: there is no | alternation or {n} count, and - means shortest repeat.",
-            tags: ["lua", "strings", "patterns", "format", "gsub", "match", "gmatch"]
+            tags: ["lua", "strings", "patterns", "format", "gsub", "match", "gmatch"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://www.lua.org/manual/5.5/manual.html","title":"Lua 5.5 reference manual"}]}
           }
         ]
       },
@@ -1253,7 +1255,8 @@ const SCRIPTING_LANGUAGES = [
               ["table.concat(t, \", \")", "Join a list into a string"]
             ],
             tip: "Config files are mostly nested tables, so a { key = value } block is the shape to recognize.",
-            tags: ["lua", "tables", "arrays", "lists", "dictionary", "map", "insert", "sort"]
+            tags: ["lua", "tables", "arrays", "lists", "dictionary", "map", "insert", "sort"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://www.lua.org/manual/5.5/manual.html","title":"Lua 5.5 reference manual"}]}
           }
         ]
       },
@@ -1278,7 +1281,8 @@ const SCRIPTING_LANGUAGES = [
               ["local port = opts.port or 8080", "Fall back to a default when a value is nil"]
             ],
             tip: "A missing end is the most common syntax error. Every if, for, while, and function needs one.",
-            tags: ["lua", "if", "else", "elseif", "conditionals", "defaults"]
+            tags: ["lua", "if", "else", "elseif", "conditionals", "defaults"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://www.lua.org/manual/5.5/manual.html","title":"Lua 5.5 reference manual"}]}
           },
           {
             id: "lua-loops",
@@ -1297,7 +1301,8 @@ const SCRIPTING_LANGUAGES = [
               ["goto continue ... ::continue::", "Stand-in for continue, which Lua does not have"]
             ],
             tip: "Use ipairs for lists when order matters, and pairs for dictionaries.",
-            tags: ["lua", "loops", "for", "while", "repeat", "pairs", "ipairs", "break"]
+            tags: ["lua", "loops", "for", "while", "repeat", "pairs", "ipairs", "break"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://www.lua.org/manual/5.5/manual.html","title":"Lua 5.5 reference manual"}]}
           }
         ]
       },
@@ -1325,7 +1330,8 @@ const SCRIPTING_LANGUAGES = [
               ["function M.name() end", "Define a function inside a table"]
             ],
             tip: "Missing arguments arrive as nil, and extra arguments are ignored without an error.",
-            tags: ["lua", "functions", "return", "closures", "varargs", "callbacks"]
+            tags: ["lua", "functions", "return", "closures", "varargs", "callbacks"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://www.lua.org/manual/5.5/manual.html","title":"Lua 5.5 reference manual"}]}
           },
           {
             id: "lua-methods-modules",
@@ -1345,7 +1351,8 @@ const SCRIPTING_LANGUAGES = [
               ["dofile(\"file.lua\")", "Run a file every time, with no caching"]
             ],
             tip: "If you see a nil error on a method, check for . where : was needed.",
-            tags: ["lua", "methods", "self", "metatable", "class", "modules", "require"]
+            tags: ["lua", "methods", "self", "metatable", "class", "modules", "require"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://www.lua.org/manual/5.5/manual.html","title":"Lua 5.5 reference manual"},{"url":"https://www.lua.org/pil/","title":"Programming in Lua"}]}
           }
         ]
       },
@@ -1371,7 +1378,8 @@ const SCRIPTING_LANGUAGES = [
               ["debug.traceback()", "Get the call stack as a string"]
             ],
             tip: "pcall takes the function and its arguments separately: pcall(f, x), not pcall(f(x)).",
-            tags: ["lua", "errors", "pcall", "xpcall", "assert", "exceptions"]
+            tags: ["lua", "errors", "pcall", "xpcall", "assert", "exceptions"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://www.lua.org/manual/5.5/manual.html","title":"Lua 5.5 reference manual"}]}
           },
           {
             id: "lua-file-io",
@@ -1379,7 +1387,7 @@ const SCRIPTING_LANGUAGES = [
             cmd: "local path = \"lua-demo.txt\"\nlocal out = assert(io.open(path, \"w\"))\nout:write(\"node-01\\nnode-02\\n\")\nout:close()\n\nfor line in io.lines(path) do\n  print(line)\nend\n\nlocal input = assert(io.open(path, \"r\"))\nlocal content = input:read(\"a\")\ninput:close()\nprint(#content)\nos.remove(path)",
             flags: [
               ["io.open(path, mode)", "Open a file: \"r\" read, \"w\" overwrite, \"a\" append"],
-              ["f:read(\"a\")", "Read the whole file (Lua 5.1 needs \"*a\")"],
+              ["f:read(\"a\")", "Read the whole file (Lua 5.1 and 5.2 need \"*a\"; LuaJIT, which Neovim uses, accepts both)"],
               ["f:read(\"l\")", "Read one line (Lua 5.1 needs \"*l\")"],
               ["io.lines(path)", "Loop over lines and close the file automatically"],
               ["f:write(text)", "Write text. It adds no newline."],
@@ -1392,7 +1400,8 @@ const SCRIPTING_LANGUAGES = [
               ["os.date(\"%Y-%m-%d\") / os.time()", "Formatted date / Unix timestamp"]
             ],
             tip: "\"w\" mode erases the file as soon as it opens, so use \"a\" to add to it.",
-            tags: ["lua", "files", "io", "read", "write", "lines", "os"]
+            tags: ["lua", "files", "io", "read", "write", "lines", "os"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://www.lua.org/manual/5.5/manual.html","title":"Lua 5.5 reference manual"},{"url":"https://luajit.org/extensions.html","title":"LuaJIT extensions (Lua 5.1 base)"}],"note":"Corrected 2026-11-10: Lua 5.2 also needs \"*a\"; LuaJIT accepts both forms."}
           },
           {
             id: "lua-cli",
@@ -1411,7 +1420,8 @@ const SCRIPTING_LANGUAGES = [
               ["lua -v", "Show the installed version"]
             ],
             tip: "luac -p catches typos in a config file before you reload it.",
-            tags: ["lua", "cli", "luac", "luajit", "repl", "syntax-check", "arguments"]
+            tags: ["lua", "cli", "luac", "luajit", "repl", "syntax-check", "arguments"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://www.lua.org/manual/5.5/manual.html","title":"Lua 5.5 reference manual"},{"url":"https://www.lua.org/versions.html","title":"Lua versions (5.5, Dec 2025)"},{"url":"https://luajit.org/extensions.html","title":"LuaJIT extensions (Lua 5.1 base)"}]}
           }
         ]
       },
@@ -1438,7 +1448,8 @@ const SCRIPTING_LANGUAGES = [
               ["hyprctl reload", "Reload the Hyprland config"]
             ],
             tip: "When uncommenting a setting inside { }, uncomment the opening and closing lines too.",
-            tags: ["lua", "omarchy", "hyprland", "bindings", "config", "o.bind", "hl.unbind"]
+            tags: ["lua", "omarchy", "hyprland", "bindings", "config", "o.bind", "hl.unbind"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/basecamp/omarchy/blob/quattro/config/hypr/bindings.lua","title":"Omarchy: bindings.lua"},{"url":"https://github.com/basecamp/omarchy/blob/quattro/config/hypr/looknfeel.lua","title":"Omarchy: looknfeel.lua"},{"url":"https://github.com/basecamp/omarchy/blob/quattro/config/hypr/hyprland.lua","title":"Omarchy: hyprland.lua (require order)"},{"url":"https://wiki.hypr.land/configuring/core/advanced-configuration/using-hyprctl/","title":"Hyprland wiki: hyprctl"}],"note":"Checked against an Omarchy install; hyprctl configerrors is listed by hyprctl --help on Hyprland 0.56.2."}
           },
           {
             id: "lua-config-neovim",
@@ -1456,7 +1467,8 @@ const SCRIPTING_LANGUAGES = [
               [":lua =vim.opt.number:get()", "Print the value of an expression"]
             ],
             tip: "Neovim runs LuaJIT (Lua 5.1), so 5.3+ features such as // and bitwise operators are unavailable.",
-            tags: ["lua", "neovim", "nvim", "init.lua", "keymap", "autocmd", "config"]
+            tags: ["lua", "neovim", "nvim", "init.lua", "keymap", "autocmd", "config"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://neovim.io/doc/user/lua-guide/","title":"Neovim: Lua guide"},{"url":"https://neovim.io/doc/user/lua/","title":"Neovim: Lua reference"},{"url":"https://luajit.org/extensions.html","title":"LuaJIT extensions (Lua 5.1 base)"}]}
           }
         ]
       }
@@ -1501,7 +1513,8 @@ const SCRIPTING_LANGUAGES = [
               ["git config --global --edit", "Open your global config in the editor"]
             ],
             tip: "Run git config user.email inside a repository to see which address your commits will use.",
-            tags: ["git", "config", "setup", "identity", "gitconfig", "defaults"]
+            tags: ["git", "config", "setup", "identity", "gitconfig", "defaults"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://git-scm.com/docs/git-config","title":"git config"}]}
           },
           {
             id: "git-aliases",
@@ -1516,7 +1529,8 @@ const SCRIPTING_LANGUAGES = [
               ["git config --global alias.root \"rev-parse --show-toplevel\"", "git root prints the top folder of the repository"]
             ],
             tip: "Aliases live in ~/.gitconfig, so copying that file brings them to a new machine.",
-            tags: ["git", "alias", "config", "shortcuts"]
+            tags: ["git", "alias", "config", "shortcuts"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://git-scm.com/docs/git-config","title":"git config"},{"url":"https://git-scm.com/book/en/v2/Git-Basics-Git-Aliases","title":"Pro Git: aliases"}]}
           },
           {
             id: "git-init-clone",
@@ -1535,7 +1549,8 @@ const SCRIPTING_LANGUAGES = [
               ["git fetch --unshallow", "Turn a shallow clone into a full one"]
             ],
             tip: "A shallow clone is ideal for pulling a tool onto a node. Use a full clone if you need log, blame or bisect.",
-            tags: ["git", "init", "clone", "shallow", "partial", "depth"]
+            tags: ["git", "init", "clone", "shallow", "partial", "depth"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://git-scm.com/docs/git-init","title":"git init"},{"url":"https://git-scm.com/docs/git-clone","title":"git clone"},{"url":"https://git-scm.com/docs/git-fetch","title":"git fetch"}]}
           },
           {
             id: "git-ignore",
@@ -1554,7 +1569,8 @@ const SCRIPTING_LANGUAGES = [
               ["git status --ignored", "List ignored files too"]
             ],
             tip: ".gitignore only affects untracked files. If a file is already committed, remove it with git rm --cached first.",
-            tags: ["git", "gitignore", "ignore", "untrack", "secrets"]
+            tags: ["git", "gitignore", "ignore", "untrack", "secrets"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://git-scm.com/docs/gitignore","title":"gitignore"},{"url":"https://git-scm.com/docs/git-check-ignore","title":"git check-ignore"},{"url":"https://git-scm.com/docs/git-rm","title":"git rm"},{"url":"https://git-scm.com/docs/git-status","title":"git status"}]}
           }
         ]
       },
@@ -1584,7 +1600,8 @@ const SCRIPTING_LANGUAGES = [
               ["git ls-files", "List every tracked file"]
             ],
             tip: "Only amend commits you haven't pushed, because amending rewrites history other people may already have.",
-            tags: ["git", "status", "add", "commit", "amend", "stage", "push"]
+            tags: ["git", "status", "add", "commit", "amend", "stage", "push"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://git-scm.com/docs/git-status","title":"git status"},{"url":"https://git-scm.com/docs/git-add","title":"git add"},{"url":"https://git-scm.com/docs/git-commit","title":"git commit"},{"url":"https://git-scm.com/docs/git-mv","title":"git mv"},{"url":"https://git-scm.com/docs/git-rm","title":"git rm"},{"url":"https://git-scm.com/docs/git-ls-files","title":"git ls-files"}]}
           },
           {
             id: "git-diff",
@@ -1607,7 +1624,8 @@ const SCRIPTING_LANGUAGES = [
               ["git show HEAD:path/to/file", "Print a file as it was in a commit"]
             ],
             tip: "Run git diff --staged before every commit to catch stray debug lines and secrets.",
-            tags: ["git", "diff", "compare", "staged", "changes"]
+            tags: ["git", "diff", "compare", "staged", "changes"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://git-scm.com/docs/git-diff","title":"git diff"},{"url":"https://git-scm.com/docs/git-show","title":"git show"},{"url":"https://git-scm.com/docs/gitrevisions","title":"gitrevisions"}]}
           },
           {
             id: "git-stash",
@@ -1628,7 +1646,8 @@ const SCRIPTING_LANGUAGES = [
               ["git stash clear", "Delete every stash"]
             ],
             tip: "If git stash pop hits a conflict, the stash is kept. Fix the conflict, then git stash drop it.",
-            tags: ["git", "stash", "wip", "pop", "apply", "shelve"]
+            tags: ["git", "stash", "wip", "pop", "apply", "shelve"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://git-scm.com/docs/git-stash","title":"git stash"}]}
           }
         ]
       },
@@ -1659,7 +1678,8 @@ const SCRIPTING_LANGUAGES = [
               ["git push origin --delete feature/old", "Delete a branch on the remote"]
             ],
             tip: "git switch and git restore split up the old git checkout, so it's harder to overwrite files by mistake.",
-            tags: ["git", "branch", "switch", "checkout", "delete", "rename"]
+            tags: ["git", "branch", "switch", "checkout", "delete", "rename"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://git-scm.com/docs/git-switch","title":"git switch"},{"url":"https://git-scm.com/docs/git-branch","title":"git branch"},{"url":"https://git-scm.com/docs/git-push","title":"git push"}]}
           },
           {
             id: "git-merge",
@@ -1678,7 +1698,8 @@ const SCRIPTING_LANGUAGES = [
               ["git log --merges --oneline", "List merge commits"]
             ],
             tip: "Commit or stash your work before merging. Merges are hard to back out of with uncommitted changes around.",
-            tags: ["git", "merge", "fast-forward", "squash", "no-ff"]
+            tags: ["git", "merge", "fast-forward", "squash", "no-ff"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://git-scm.com/docs/git-merge","title":"git merge"}]}
           },
           {
             id: "git-rebase",
@@ -1699,7 +1720,8 @@ const SCRIPTING_LANGUAGES = [
               ["git rebase --onto main old-base feature/x", "Move a branch to a new base"]
             ],
             tip: "Don't rebase a branch other people work on. Rebasing rewrites commit IDs, and that breaks their copies.",
-            tags: ["git", "rebase", "interactive", "squash", "fixup", "history"]
+            tags: ["git", "rebase", "interactive", "squash", "fixup", "history"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://git-scm.com/docs/git-rebase","title":"git rebase"},{"url":"https://git-scm.com/docs/git-commit","title":"git commit"},{"url":"https://git-scm.com/docs/git-push","title":"git push"}]}
           },
           {
             id: "git-cherry-pick",
@@ -1717,7 +1739,8 @@ const SCRIPTING_LANGUAGES = [
               ["git cherry-pick abc1234^..def5678", "Pick a run of commits in order"]
             ],
             tip: "Use -x when backporting to a release branch, so people can trace the fix to its original commit.",
-            tags: ["git", "cherry-pick", "backport", "hotfix"]
+            tags: ["git", "cherry-pick", "backport", "hotfix"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://git-scm.com/docs/git-cherry-pick","title":"git cherry-pick"}]}
           },
           {
             id: "git-conflicts",
@@ -1738,7 +1761,8 @@ const SCRIPTING_LANGUAGES = [
               ["git config --global rerere.enabled true", "Remember how you resolved a conflict and reuse it"]
             ],
             tip: "--ours and --theirs swap meaning during a rebase, so check the file after you pick a side.",
-            tags: ["git", "conflict", "merge", "rebase", "resolve", "ours", "theirs"]
+            tags: ["git", "conflict", "merge", "rebase", "resolve", "ours", "theirs"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://git-scm.com/docs/git-merge","title":"git merge"},{"url":"https://git-scm.com/docs/git-checkout","title":"git checkout"},{"url":"https://git-scm.com/docs/git-config","title":"git config"},{"url":"https://git-scm.com/docs/git-rerere","title":"git rerere"}]}
           }
         ]
       },
@@ -1766,7 +1790,8 @@ const SCRIPTING_LANGUAGES = [
               ["git ls-remote origin", "List remote branches and tags without fetching"]
             ],
             tip: "git ls-remote is a quick way to test that you can reach a remote and that your credentials work.",
-            tags: ["git", "remote", "origin", "upstream", "url"]
+            tags: ["git", "remote", "origin", "upstream", "url"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://git-scm.com/docs/git-remote","title":"git remote"},{"url":"https://git-scm.com/docs/git-ls-remote","title":"git ls-remote"}]}
           },
           {
             id: "git-fetch-pull-push",
@@ -1787,7 +1812,8 @@ const SCRIPTING_LANGUAGES = [
               ["git push --force-with-lease", "Publish a rebased branch safely"]
             ],
             tip: "Use --force-with-lease rather than --force, because plain --force can erase a teammate's commits.",
-            tags: ["git", "fetch", "pull", "push", "upstream", "force-with-lease", "sync"]
+            tags: ["git", "fetch", "pull", "push", "upstream", "force-with-lease", "sync"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://git-scm.com/docs/git-fetch","title":"git fetch"},{"url":"https://git-scm.com/docs/git-pull","title":"git pull"},{"url":"https://git-scm.com/docs/git-push","title":"git push"},{"url":"https://git-scm.com/docs/gitrevisions","title":"gitrevisions"}]}
           },
           {
             id: "git-tags",
@@ -1808,7 +1834,8 @@ const SCRIPTING_LANGUAGES = [
               ["git describe --tags --always --dirty", "Name the current commit relative to the nearest tag"]
             ],
             tip: "git push doesn't send tags by default, so push them by name.",
-            tags: ["git", "tag", "release", "version", "describe"]
+            tags: ["git", "tag", "release", "version", "describe"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://git-scm.com/docs/git-tag","title":"git tag"},{"url":"https://git-scm.com/docs/git-push","title":"git push"},{"url":"https://git-scm.com/docs/git-describe","title":"git describe"}]}
           }
         ]
       },
@@ -1841,7 +1868,8 @@ const SCRIPTING_LANGUAGES = [
               ["git show abc1234 --stat", "Show one commit and its files"]
             ],
             tip: "Commits can be named with HEAD~2 (two back), HEAD^ (parent), a tag, a branch, or a short ID.",
-            tags: ["git", "log", "history", "graph", "shortlog", "show"]
+            tags: ["git", "log", "history", "graph", "shortlog", "show"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://git-scm.com/docs/git-log","title":"git log"},{"url":"https://git-scm.com/docs/git-shortlog","title":"git shortlog"},{"url":"https://git-scm.com/docs/git-show","title":"git show"},{"url":"https://git-scm.com/docs/gitrevisions","title":"gitrevisions"}]}
           },
           {
             id: "git-blame-search",
@@ -1862,7 +1890,8 @@ const SCRIPTING_LANGUAGES = [
               ["git log --all --oneline -- deleted/file.sh", "Find commits that touched a file that's now gone"]
             ],
             tip: "git log -S finds when something was added or removed, even if the line no longer exists.",
-            tags: ["git", "blame", "grep", "pickaxe", "search", "annotate"]
+            tags: ["git", "blame", "grep", "pickaxe", "search", "annotate"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://git-scm.com/docs/git-blame","title":"git blame"},{"url":"https://git-scm.com/docs/git-log","title":"git log"},{"url":"https://git-scm.com/docs/git-grep","title":"git grep"}]}
           },
           {
             id: "git-bisect",
@@ -1881,7 +1910,8 @@ const SCRIPTING_LANGUAGES = [
               ["git bisect log", "Show the steps so far"]
             ],
             tip: "Bisect tests about 10 commits to search 1,000, so it's well worth a small test script.",
-            tags: ["git", "bisect", "regression", "binary-search", "debug"]
+            tags: ["git", "bisect", "regression", "binary-search", "debug"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://git-scm.com/docs/git-bisect","title":"git bisect"}]}
           }
         ]
       },
@@ -1909,7 +1939,8 @@ const SCRIPTING_LANGUAGES = [
               ["git clean -fdx", "Also delete ignored files, such as build output and .env"]
             ],
             tip: "Always run git clean -nd first. git clean deletes files that git has no copy of.",
-            tags: ["git", "restore", "unstage", "discard", "clean", "untracked"]
+            tags: ["git", "restore", "unstage", "discard", "clean", "untracked"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://git-scm.com/docs/git-restore","title":"git restore"},{"url":"https://git-scm.com/docs/git-clean","title":"git clean"}]}
           },
           {
             id: "git-reset",
@@ -1927,7 +1958,8 @@ const SCRIPTING_LANGUAGES = [
               ["git reset --hard ORIG_HEAD", "Undo a merge, rebase or reset you just did"]
             ],
             tip: "Run git status and git stash first. git reset --hard deletes uncommitted work for good.",
-            tags: ["git", "reset", "soft", "mixed", "hard", "uncommit"]
+            tags: ["git", "reset", "soft", "mixed", "hard", "uncommit"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://git-scm.com/docs/git-reset","title":"git reset"}]}
           },
           {
             id: "git-revert",
@@ -1945,7 +1977,8 @@ const SCRIPTING_LANGUAGES = [
               ["git revert --abort", "Cancel a conflicted revert"]
             ],
             tip: "On shared branches use git revert, not git reset, because revert keeps history intact for everyone else.",
-            tags: ["git", "revert", "undo", "rollback", "shared"]
+            tags: ["git", "revert", "undo", "rollback", "shared"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://git-scm.com/docs/git-revert","title":"git revert"}]}
           },
           {
             id: "git-reflog",
@@ -1963,7 +1996,8 @@ const SCRIPTING_LANGUAGES = [
               ["git show abc1234", "Inspect a recovered commit before using it"]
             ],
             tip: "If it was committed, it can usually be recovered. Reflog entries last 90 days by default, or 30 for unreachable commits.",
-            tags: ["git", "reflog", "recover", "lost", "fsck", "rescue"]
+            tags: ["git", "reflog", "recover", "lost", "fsck", "rescue"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://git-scm.com/docs/git-reflog","title":"git reflog"},{"url":"https://git-scm.com/docs/git-gc","title":"git gc"},{"url":"https://git-scm.com/docs/git-fsck","title":"git fsck"}]}
           }
         ]
       },
@@ -1988,8 +2022,9 @@ const SCRIPTING_LANGUAGES = [
               ["git worktree add ../repo-review origin/main", "Check out a remote branch in a separate folder, detached, to compare with"],
               ["git worktree prune", "Tidy up after deleting a folder by hand"]
             ],
-            tip: "A branch can only be checked out in one worktree at a time.",
-            tags: ["git", "worktree", "parallel", "checkout", "hotfix"]
+            tip: "A branch can only be checked out in one worktree at a time (git refuses unless you pass --force).",
+            tags: ["git", "worktree", "parallel", "checkout", "hotfix"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://git-scm.com/docs/git-worktree","title":"git worktree"}]}
           },
           {
             id: "git-submodule",
@@ -2006,7 +2041,8 @@ const SCRIPTING_LANGUAGES = [
               ["git submodule foreach 'git status -sb'", "Run a command in every submodule"]
             ],
             tip: "Empty submodule folders after a clone just mean you need git submodule update --init --recursive.",
-            tags: ["git", "submodule", "vendor", "nested", "recursive"]
+            tags: ["git", "submodule", "vendor", "nested", "recursive"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://git-scm.com/docs/git-submodule","title":"git submodule"},{"url":"https://git-scm.com/docs/git-clone","title":"git clone"}]}
           },
           {
             id: "git-hooks",
@@ -2023,7 +2059,8 @@ const SCRIPTING_LANGUAGES = [
               ["ls .git/hooks", "See the sample hooks git installs"]
             ],
             tip: "Files in .git/hooks aren't cloned, so keep shared hooks in a tracked folder and set core.hooksPath.",
-            tags: ["git", "hooks", "pre-commit", "automation", "secrets"]
+            tags: ["git", "hooks", "pre-commit", "automation", "secrets"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://git-scm.com/docs/githooks","title":"githooks"},{"url":"https://git-scm.com/docs/git-config","title":"git config"}]}
           },
           {
             id: "git-lfs-signing",
@@ -2040,7 +2077,8 @@ const SCRIPTING_LANGUAGES = [
               ["git log --show-signature -1", "Check the signature on the last commit"]
             ],
             tip: "If firmware files look like tiny text files after a clone, those are LFS pointers. Run git lfs pull.",
-            tags: ["git", "lfs", "large-files", "signing", "ssh", "gpg", "firmware"]
+            tags: ["git", "lfs", "large-files", "signing", "ssh", "gpg", "firmware"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://git-lfs.com/","title":"Git LFS"},{"url":"https://git-scm.com/docs/git-config","title":"git config"},{"url":"https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification","title":"GitHub: commit signature verification (SSH)"}]}
           }
         ]
       },
@@ -2065,7 +2103,8 @@ const SCRIPTING_LANGUAGES = [
               ["for h in node01 node02; do echo \"$h: $(ssh \"$h\" git -C /opt/tools rev-parse --short HEAD)\"; done", "Compare the deployed commit across nodes"]
             ],
             tip: "These commands only read the repository, so they're safe to run on a node that's running jobs.",
-            tags: ["git", "deployed", "version", "describe", "rev-parse", "fleet", "drift"]
+            tags: ["git", "deployed", "version", "describe", "rev-parse", "fleet", "drift"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://git-scm.com/docs/git","title":"git (-C, GIT_TRACE, GIT_SSH_COMMAND)"},{"url":"https://git-scm.com/docs/git-describe","title":"git describe"},{"url":"https://git-scm.com/docs/git-rev-parse","title":"git rev-parse"},{"url":"https://git-scm.com/docs/git-status","title":"git status"},{"url":"https://git-scm.com/docs/git-log","title":"git log"}]}
           },
           {
             id: "git-air-gapped",
@@ -2087,7 +2126,8 @@ const SCRIPTING_LANGUAGES = [
               ["git am patches/*.patch", "Apply patches as commits"]
             ],
             tip: "A git bundle works like a remote, so history and tags survive the trip. Compare the sha256sum at both ends.",
-            tags: ["git", "bundle", "archive", "air-gapped", "offline", "patch", "format-patch"]
+            tags: ["git", "bundle", "archive", "air-gapped", "offline", "patch", "format-patch"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://git-scm.com/docs/git-bundle","title":"git bundle"},{"url":"https://git-scm.com/docs/git-archive","title":"git archive"},{"url":"https://git-scm.com/docs/git-format-patch","title":"git format-patch"},{"url":"https://git-scm.com/docs/git-apply","title":"git apply"},{"url":"https://git-scm.com/docs/git-am","title":"git am"}]}
           },
           {
             id: "git-network-auth",
@@ -2108,7 +2148,8 @@ const SCRIPTING_LANGUAGES = [
               ["git config --global credential.helper 'cache --timeout=3600'", "Keep HTTPS credentials in memory for an hour"]
             ],
             tip: "GIT_CURL_VERBOSE output can include auth headers, so clean it before pasting it into a ticket.",
-            tags: ["git", "proxy", "ssl", "ca", "ssh", "trace", "debug", "credentials"]
+            tags: ["git", "proxy", "ssl", "ca", "ssh", "trace", "debug", "credentials"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://git-scm.com/docs/git","title":"git (-C, GIT_TRACE, GIT_SSH_COMMAND)"},{"url":"https://git-scm.com/docs/git-ls-remote","title":"git ls-remote"},{"url":"https://git-scm.com/docs/git-config","title":"git config"},{"url":"https://git-scm.com/docs/git-credential-cache","title":"git credential-cache"}]}
           },
           {
             id: "git-common-errors",
@@ -2132,7 +2173,8 @@ const SCRIPTING_LANGUAGES = [
               ["git gc", "Compress and clean up the repository"]
             ],
             tip: "Don't set http.sslVerify false to get past certificate errors. Install the CA instead.",
-            tags: ["git", "errors", "safe.directory", "dubious-ownership", "detached-head", "index.lock", "troubleshooting"]
+            tags: ["git", "errors", "safe.directory", "dubious-ownership", "detached-head", "index.lock", "troubleshooting"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://git-scm.com/docs/git-config","title":"git config"},{"url":"https://git-scm.com/docs/git-switch","title":"git switch"},{"url":"https://git-scm.com/docs/git-fsck","title":"git fsck"},{"url":"https://git-scm.com/docs/git-count-objects","title":"git count-objects"},{"url":"https://git-scm.com/docs/git-gc","title":"git gc"}]}
           },
           {
             id: "git-secret-removal",
@@ -2150,7 +2192,8 @@ const SCRIPTING_LANGUAGES = [
               ["git filter-repo --replace-text replacements.txt", "Scrub a string everywhere"]
             ],
             tip: "Rewriting history breaks everyone's clones and doesn't reach copies already made. Rotating the secret is the real fix.",
-            tags: ["git", "secrets", "filter-repo", "history", "rewrite", "credentials", "leak"]
+            tags: ["git", "secrets", "filter-repo", "history", "rewrite", "credentials", "leak"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/newren/git-filter-repo","title":"git-filter-repo"},{"url":"https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository","title":"GitHub: removing sensitive data"},{"url":"https://git-scm.com/docs/git-log","title":"git log"}]}
           }
         ]
       }
@@ -2191,7 +2234,8 @@ const SCRIPTING_LANGUAGES = [
               ["[Jump to Symptoms](#symptoms)", "Link to a heading: lowercase, spaces become -, punctuation removed"]
             ],
             tip: "Leave a blank line before and after each heading so every renderer sees it.",
-            tags: ["markdown", "headings", "h1", "h2", "title", "anchor"]
+            tags: ["markdown", "headings", "h1", "h2", "title", "anchor"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://spec.commonmark.org/0.31.2/","title":"CommonMark 0.31.2 spec"},{"url":"https://pandoc.org/MANUAL.html","title":"Pandoc manual"},{"url":"https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax","title":"GitHub: basic writing and formatting"}]}
           },
           {
             id: "md-emphasis",
@@ -2207,10 +2251,11 @@ const SCRIPTING_LANGUAGES = [
             subcommands: [
               ["``code with a ` backtick``", "Use two backticks to wrap code that contains one"],
               ["<sub>2</sub> <sup>TM</sup>", "Subscript and superscript with HTML"],
-              ["<mark>highlighted</mark>", "Highlight text (rendered on GitHub)"]
+              ["<ins>underlined</ins>", "Underline text (in GitHub's documented HTML, with <sub> and <sup>)"]
             ],
             tip: "Put serial numbers, BDFs and hostnames in `backticks` so nothing turns them into links or formatting.",
-            tags: ["markdown", "bold", "italic", "strikethrough", "emphasis", "kbd", "inline-code"]
+            tags: ["markdown", "bold", "italic", "strikethrough", "emphasis", "kbd", "inline-code"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://spec.commonmark.org/0.31.2/","title":"CommonMark 0.31.2 spec"},{"url":"https://github.github.com/gfm/","title":"GitHub Flavored Markdown spec"},{"url":"https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax","title":"GitHub: basic writing and formatting"}],"note":"Changed 2026-11-10: <mark> is not in GitHub's documented HTML; <ins> is."}
           },
           {
             id: "md-paragraphs",
@@ -2228,7 +2273,8 @@ const SCRIPTING_LANGUAGES = [
               ["&nbsp;", "Non-breaking space"]
             ],
             tip: "Use a backslash line break rather than trailing spaces. You can see it, and editors leave it alone.",
-            tags: ["markdown", "paragraph", "line-break", "blockquote", "hr", "rule"]
+            tags: ["markdown", "paragraph", "line-break", "blockquote", "hr", "rule"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://spec.commonmark.org/0.31.2/","title":"CommonMark 0.31.2 spec"}]}
           },
           {
             id: "md-escaping",
@@ -2244,7 +2290,8 @@ const SCRIPTING_LANGUAGES = [
               ["<!-- hidden comment -->", "HTML comment, left out of the rendered page"]
             ],
             tip: "Paths, regexes and globs belong in backticks. Escaping each character one by one is error prone.",
-            tags: ["markdown", "escape", "backslash", "special-characters", "comment", "entities"]
+            tags: ["markdown", "escape", "backslash", "special-characters", "comment", "entities"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://spec.commonmark.org/0.31.2/","title":"CommonMark 0.31.2 spec"}]}
           }
         ]
       },
@@ -2267,7 +2314,8 @@ const SCRIPTING_LANGUAGES = [
               ["- item\\n\\n<!-- end list -->\\n\\n- new list", "A comment ends one list so the next starts fresh"]
             ],
             tip: "Changing the marker from - to * in the middle starts a new list.",
-            tags: ["markdown", "lists", "bullets", "unordered", "nested"]
+            tags: ["markdown", "lists", "bullets", "unordered", "nested"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://spec.commonmark.org/0.31.2/","title":"CommonMark 0.31.2 spec"}]}
           },
           {
             id: "md-numbered",
@@ -2284,7 +2332,8 @@ const SCRIPTING_LANGUAGES = [
               ["10. Step", "Two-digit numbers need 4 spaces of indent for content below"]
             ],
             tip: "Indent code blocks inside a numbered step, or the numbering restarts at 1 after the block.",
-            tags: ["markdown", "lists", "numbered", "ordered", "steps", "runbook"]
+            tags: ["markdown", "lists", "numbered", "ordered", "steps", "runbook"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://spec.commonmark.org/0.31.2/","title":"CommonMark 0.31.2 spec"}]}
           },
           {
             id: "md-tasks",
@@ -2300,7 +2349,8 @@ const SCRIPTING_LANGUAGES = [
               ["grep -n '\\- \\[ \\]' cases/*/summary.md", "List open tasks across every case"]
             ],
             tip: "On GitHub issues and PRs you can tick the boxes in the rendered page, and the counts show in issue lists.",
-            tags: ["markdown", "tasks", "checklist", "checkbox", "todo", "gfm"]
+            tags: ["markdown", "tasks", "checklist", "checkbox", "todo", "gfm"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://github.github.com/gfm/","title":"GitHub Flavored Markdown spec"},{"url":"https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/about-task-lists","title":"GitHub: task lists"},{"url":"https://man7.org/linux/man-pages/man1/grep.1.html","title":"grep(1)"}]}
           }
         ]
       },
@@ -2327,7 +2377,8 @@ const SCRIPTING_LANGUAGES = [
               ["https://example.com", "GitHub links bare URLs; plain CommonMark doesn't"]
             ],
             tip: "Heading anchors are lowercase with spaces as -, so \"## Root Cause\" becomes #root-cause.",
-            tags: ["markdown", "links", "url", "anchor", "relative", "autolink"]
+            tags: ["markdown", "links", "url", "anchor", "relative", "autolink"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://spec.commonmark.org/0.31.2/","title":"CommonMark 0.31.2 spec"},{"url":"https://github.github.com/gfm/","title":"GitHub Flavored Markdown spec"},{"url":"https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax","title":"GitHub: basic writing and formatting"}]}
           },
           {
             id: "md-links-reference",
@@ -2343,7 +2394,8 @@ const SCRIPTING_LANGUAGES = [
               ["[label]: url \"Title\"", "Definition with hover text"]
             ],
             tip: "Reference links make tables and lists readable in the raw file.",
-            tags: ["markdown", "links", "reference", "footnote-style", "url"]
+            tags: ["markdown", "links", "reference", "footnote-style", "url"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://spec.commonmark.org/0.31.2/","title":"CommonMark 0.31.2 spec"}]}
           },
           {
             id: "md-images",
@@ -2359,7 +2411,8 @@ const SCRIPTING_LANGUAGES = [
               ["<picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"dark.png\"><img src=\"light.png\" alt=\"Diagram\"></picture>", "Different images for light and dark themes on GitHub"]
             ],
             tip: "Keep photos in an images/ folder next to the file and use relative paths, so they work offline and in clones.",
-            tags: ["markdown", "images", "img", "photos", "alt", "size"]
+            tags: ["markdown", "images", "img", "photos", "alt", "size"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://spec.commonmark.org/0.31.2/","title":"CommonMark 0.31.2 spec"},{"url":"https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax","title":"GitHub: basic writing and formatting"}]}
           }
         ]
       },
@@ -2385,7 +2438,8 @@ const SCRIPTING_LANGUAGES = [
               ["    indented code", "Four spaces of indent also make a code block, but with no language"]
             ],
             tip: "Always add a language, even text. It keeps highlighting predictable and tells readers what they're looking at.",
-            tags: ["markdown", "code", "fenced", "syntax", "highlighting", "bash"]
+            tags: ["markdown", "code", "fenced", "syntax", "highlighting", "bash"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://spec.commonmark.org/0.31.2/","title":"CommonMark 0.31.2 spec"},{"url":"https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-and-highlighting-code-blocks","title":"GitHub: code blocks"}]}
           },
           {
             id: "md-diff-logs",
@@ -2400,7 +2454,8 @@ const SCRIPTING_LANGUAGES = [
               ["git diff > change.diff", "Save a diff to paste into a diff block"]
             ],
             tip: "Paste raw command output into text or console blocks so wide columns and spacing stay intact.",
-            tags: ["markdown", "code", "diff", "console", "logs", "output"]
+            tags: ["markdown", "code", "diff", "console", "logs", "output"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-and-highlighting-code-blocks","title":"GitHub: code blocks"}]}
           },
           {
             id: "md-nested-fences",
@@ -2414,7 +2469,8 @@ const SCRIPTING_LANGUAGES = [
               ["<details><summary>Full dmesg</summary>\\n\\n```text\\n...\\n```\\n\\n</details>", "Collapse a long block (see the GitHub section)"]
             ],
             tip: "The closing fence must use the same character and at least as many as the opening one.",
-            tags: ["markdown", "code", "nested", "fence", "backticks"]
+            tags: ["markdown", "code", "nested", "fence", "backticks"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://spec.commonmark.org/0.31.2/","title":"CommonMark 0.31.2 spec"},{"url":"https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/organizing-information-with-collapsed-sections","title":"GitHub: collapsed sections"}]}
           }
         ]
       },
@@ -2441,7 +2497,8 @@ const SCRIPTING_LANGUAGES = [
               ["| `code` | **bold** |", "Inline formatting works in cells; lists and code blocks don't"]
             ],
             tip: "Columns don't need to line up in the raw file. Your editor's formatter or prettier can align them.",
-            tags: ["markdown", "tables", "alignment", "columns", "gfm"]
+            tags: ["markdown", "tables", "alignment", "columns", "gfm"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://github.github.com/gfm/","title":"GitHub Flavored Markdown spec"},{"url":"https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/organizing-information-with-tables","title":"GitHub: tables"}]}
           },
           {
             id: "md-table-from-cli",
@@ -2458,7 +2515,8 @@ const SCRIPTING_LANGUAGES = [
               ["pandoc -f csv -t gfm data.csv", "Convert a CSV straight to a Markdown table"]
             ],
             tip: "Fields that can contain spaces, like model names, should come last or be quoted in the CSV.",
-            tags: ["markdown", "tables", "awk", "nvidia-smi", "csv", "pandoc", "inventory"]
+            tags: ["markdown", "tables", "awk", "nvidia-smi", "csv", "pandoc", "inventory"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://docs.nvidia.com/deploy/nvidia-smi/index.html","title":"nvidia-smi documentation"},{"url":"https://man7.org/linux/man-pages/man1/gawk.1.html","title":"gawk(1)"},{"url":"https://man7.org/linux/man-pages/man8/lsblk.8.html","title":"lsblk(8)"},{"url":"https://pandoc.org/MANUAL.html","title":"Pandoc manual"}]}
           }
         ]
       },
@@ -2483,7 +2541,8 @@ const SCRIPTING_LANGUAGES = [
               ["> **Note:** text", "Fallback that reads well on renderers without alerts"]
             ],
             tip: "Alerts render on GitHub and some editors. Elsewhere they show as plain block quotes.",
-            tags: ["markdown", "gfm", "alerts", "callout", "note", "warning", "admonition"]
+            tags: ["markdown", "gfm", "alerts", "callout", "note", "warning", "admonition"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax","title":"GitHub: basic writing and formatting"}]}
           },
           {
             id: "md-details",
@@ -2497,7 +2556,8 @@ const SCRIPTING_LANGUAGES = [
             ],
             subcommands: [],
             tip: "Keep the key evidence visible and fold the full logs, so reviewers see the cause first.",
-            tags: ["markdown", "gfm", "details", "summary", "collapse", "html", "logs"]
+            tags: ["markdown", "gfm", "details", "summary", "collapse", "html", "logs"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/organizing-information-with-collapsed-sections","title":"GitHub: collapsed sections"}]}
           },
           {
             id: "md-footnotes-mentions",
@@ -2514,7 +2574,8 @@ const SCRIPTING_LANGUAGES = [
               ["`@name`", "Put a name in backticks to mention it without notifying anyone"]
             ],
             tip: "On GitHub, a bare @name notifies that person, so only write it when you mean to.",
-            tags: ["markdown", "gfm", "footnotes", "mentions", "issues", "references"]
+            tags: ["markdown", "gfm", "footnotes", "mentions", "issues", "references"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax","title":"GitHub: basic writing and formatting"},{"url":"https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/autolinked-references-and-urls","title":"GitHub: autolinked references"},{"url":"https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue","title":"GitHub: closing issues with keywords"}]}
           },
           {
             id: "md-mermaid-math",
@@ -2530,7 +2591,8 @@ const SCRIPTING_LANGUAGES = [
               ["sequenceDiagram", "Mermaid sequence diagram, good for request flows"]
             ],
             tip: "Mermaid and math need a renderer that supports them. GitHub and Obsidian do; plain viewers show the source.",
-            tags: ["markdown", "gfm", "mermaid", "diagram", "math", "latex"]
+            tags: ["markdown", "gfm", "mermaid", "diagram", "math", "latex"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-diagrams","title":"GitHub: diagrams (Mermaid)"},{"url":"https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/writing-mathematical-expressions","title":"GitHub: math"}]}
           }
         ]
       },
@@ -2554,7 +2616,8 @@ const SCRIPTING_LANGUAGES = [
               ["mkdir -p cases/DC-1234/logs && $EDITOR cases/DC-1234/summary.md", "Start a new case folder"]
             ],
             tip: "Never paste passwords or tokens into a case file. Strip them from captured output first.",
-            tags: ["markdown", "template", "case", "incident", "summary", "rma", "ticket"]
+            tags: ["markdown", "template", "case", "incident", "summary", "rma", "ticket"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://github.github.com/gfm/","title":"GitHub Flavored Markdown spec"},{"url":"https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/about-task-lists","title":"GitHub: task lists"}]}
           },
           {
             id: "md-runbook",
@@ -2567,7 +2630,8 @@ const SCRIPTING_LANGUAGES = [
             ],
             subcommands: [],
             tip: "Write each step as a single action, with its command in a code block indented under it.",
-            tags: ["markdown", "template", "runbook", "procedure", "sop", "steps"]
+            tags: ["markdown", "template", "runbook", "procedure", "sop", "steps"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax","title":"GitHub: basic writing and formatting"},{"url":"https://spec.commonmark.org/0.31.2/","title":"CommonMark 0.31.2 spec"}]}
           },
           {
             id: "md-front-matter",
@@ -2581,7 +2645,8 @@ const SCRIPTING_LANGUAGES = [
               ["+++ ... +++", "TOML front matter (Hugo)"]
             ],
             tip: "GitHub shows front matter as a table at the top of the rendered file.",
-            tags: ["markdown", "front-matter", "yaml", "metadata", "hugo", "jekyll", "obsidian"]
+            tags: ["markdown", "front-matter", "yaml", "metadata", "hugo", "jekyll", "obsidian"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://pandoc.org/MANUAL.html","title":"Pandoc manual"}]}
           }
         ]
       },
@@ -2599,14 +2664,15 @@ const SCRIPTING_LANGUAGES = [
               ["glow FILE", "Render Markdown with color in the terminal"],
               ["glow -p", "Page through long files"],
               ["glow -w 100", "Wrap at 100 columns"],
-              ["mdcat FILE", "Alternative renderer that can show images in some terminals"]
+              ["mdcat FILE", "Alternative renderer that can show images in some terminals (its repository is archived, so no more fixes)"]
             ],
             subcommands: [
               ["glow", "Browse every Markdown file in the current folder"],
               ["pandoc README.md | lynx -stdin", "Fallback with tools found on most servers"]
             ],
             tip: "Neovim users can install render-markdown.nvim to see headings and tables styled while editing.",
-            tags: ["markdown", "glow", "mdcat", "preview", "terminal", "render"]
+            tags: ["markdown", "glow", "mdcat", "preview", "terminal", "render"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/charmbracelet/glow","title":"glow"},{"url":"https://github.com/swsnr/mdcat","title":"mdcat (archived)"},{"url":"https://pandoc.org/MANUAL.html","title":"Pandoc manual"}],"note":"Changed 2026-11-10: mdcat's repository is archived."}
           },
           {
             id: "md-lint-format",
@@ -2623,7 +2689,8 @@ const SCRIPTING_LANGUAGES = [
               ["npx markdown-link-check README.md", "Find broken links"]
             ],
             tip: "MD013 (line length) is the rule most teams turn off first.",
-            tags: ["markdown", "lint", "markdownlint", "prettier", "format", "ci"]
+            tags: ["markdown", "lint", "markdownlint", "prettier", "format", "ci"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/DavidAnson/markdownlint-cli2","title":"markdownlint-cli2"},{"url":"https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md","title":"markdownlint rules (MD013)"},{"url":"https://prettier.io/docs/cli","title":"Prettier CLI"},{"url":"https://github.com/tcort/markdown-link-check","title":"markdown-link-check"}]}
           },
           {
             id: "md-pandoc",
@@ -2642,7 +2709,8 @@ const SCRIPTING_LANGUAGES = [
               ["pandoc summary.md -t jira", "Convert to Jira wiki markup for older Jira editors"]
             ],
             tip: "PDF output needs a LaTeX engine. On Ubuntu, install texlive-latex-recommended, or write HTML and print it to PDF.",
-            tags: ["markdown", "pandoc", "convert", "html", "docx", "pdf", "jira"]
+            tags: ["markdown", "pandoc", "convert", "html", "docx", "pdf", "jira"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://pandoc.org/MANUAL.html","title":"Pandoc manual"}]}
           },
           {
             id: "md-toc-grep",
@@ -2657,7 +2725,8 @@ const SCRIPTING_LANGUAGES = [
               ["npx markdown-toc -i README.md", "Insert a TOC between <!-- toc --> markers"]
             ],
             tip: "GitHub builds a TOC for you: use the outline button at the top of any rendered Markdown file.",
-            tags: ["markdown", "toc", "headings", "grep", "pandoc", "outline"]
+            tags: ["markdown", "toc", "headings", "grep", "pandoc", "outline"],
+            src: {"verified":"2026-11-10","refs":[{"url":"https://man7.org/linux/man-pages/man1/grep.1.html","title":"grep(1)"},{"url":"https://pandoc.org/MANUAL.html","title":"Pandoc manual"},{"url":"https://github.com/jonschlinkert/markdown-toc","title":"markdown-toc"}]}
           }
         ]
       }

@@ -61,7 +61,16 @@ const GIT_CHEAT_SHEET_DATA = [
           "identity",
           "gitconfig",
           "defaults"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://git-scm.com/docs/git-config",
+              "title": "git config"
+            }
+          ]
+        }
       },
       {
         "id": "git-aliases",
@@ -93,7 +102,20 @@ const GIT_CHEAT_SHEET_DATA = [
           "alias",
           "config",
           "shortcuts"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://git-scm.com/docs/git-config",
+              "title": "git config"
+            },
+            {
+              "url": "https://git-scm.com/book/en/v2/Git-Basics-Git-Aliases",
+              "title": "Pro Git: aliases"
+            }
+          ]
+        }
       },
       {
         "id": "git-init-clone",
@@ -143,7 +165,24 @@ const GIT_CHEAT_SHEET_DATA = [
           "shallow",
           "partial",
           "depth"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://git-scm.com/docs/git-init",
+              "title": "git init"
+            },
+            {
+              "url": "https://git-scm.com/docs/git-clone",
+              "title": "git clone"
+            },
+            {
+              "url": "https://git-scm.com/docs/git-fetch",
+              "title": "git fetch"
+            }
+          ]
+        }
       },
       {
         "id": "git-ignore",
@@ -192,7 +231,28 @@ const GIT_CHEAT_SHEET_DATA = [
           "ignore",
           "untrack",
           "secrets"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://git-scm.com/docs/gitignore",
+              "title": "gitignore"
+            },
+            {
+              "url": "https://git-scm.com/docs/git-check-ignore",
+              "title": "git check-ignore"
+            },
+            {
+              "url": "https://git-scm.com/docs/git-rm",
+              "title": "git rm"
+            },
+            {
+              "url": "https://git-scm.com/docs/git-status",
+              "title": "git status"
+            }
+          ]
+        }
       }
     ]
   },
@@ -263,7 +323,36 @@ const GIT_CHEAT_SHEET_DATA = [
           "amend",
           "stage",
           "push"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://git-scm.com/docs/git-status",
+              "title": "git status"
+            },
+            {
+              "url": "https://git-scm.com/docs/git-add",
+              "title": "git add"
+            },
+            {
+              "url": "https://git-scm.com/docs/git-commit",
+              "title": "git commit"
+            },
+            {
+              "url": "https://git-scm.com/docs/git-mv",
+              "title": "git mv"
+            },
+            {
+              "url": "https://git-scm.com/docs/git-rm",
+              "title": "git rm"
+            },
+            {
+              "url": "https://git-scm.com/docs/git-ls-files",
+              "title": "git ls-files"
+            }
+          ]
+        }
       },
       {
         "id": "git-diff",
@@ -328,7 +417,24 @@ const GIT_CHEAT_SHEET_DATA = [
           "compare",
           "staged",
           "changes"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://git-scm.com/docs/git-diff",
+              "title": "git diff"
+            },
+            {
+              "url": "https://git-scm.com/docs/git-show",
+              "title": "git show"
+            },
+            {
+              "url": "https://git-scm.com/docs/gitrevisions",
+              "title": "gitrevisions"
+            }
+          ]
+        }
       },
       {
         "id": "git-stash",
@@ -386,7 +492,16 @@ const GIT_CHEAT_SHEET_DATA = [
           "pop",
           "apply",
           "shelve"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://git-scm.com/docs/git-stash",
+              "title": "git stash"
+            }
+          ]
+        }
       }
     ]
   },
@@ -460,7 +575,24 @@ const GIT_CHEAT_SHEET_DATA = [
           "checkout",
           "delete",
           "rename"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://git-scm.com/docs/git-switch",
+              "title": "git switch"
+            },
+            {
+              "url": "https://git-scm.com/docs/git-branch",
+              "title": "git branch"
+            },
+            {
+              "url": "https://git-scm.com/docs/git-push",
+              "title": "git push"
+            }
+          ]
+        }
       },
       {
         "id": "git-merge",
@@ -509,7 +641,16 @@ const GIT_CHEAT_SHEET_DATA = [
           "fast-forward",
           "squash",
           "no-ff"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://git-scm.com/docs/git-merge",
+              "title": "git merge"
+            }
+          ]
+        }
       },
       {
         "id": "git-rebase",
@@ -567,7 +708,24 @@ const GIT_CHEAT_SHEET_DATA = [
           "squash",
           "fixup",
           "history"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://git-scm.com/docs/git-rebase",
+              "title": "git rebase"
+            },
+            {
+              "url": "https://git-scm.com/docs/git-commit",
+              "title": "git commit"
+            },
+            {
+              "url": "https://git-scm.com/docs/git-push",
+              "title": "git push"
+            }
+          ]
+        }
       },
       {
         "id": "git-cherry-pick",
@@ -611,7 +769,16 @@ const GIT_CHEAT_SHEET_DATA = [
           "cherry-pick",
           "backport",
           "hotfix"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://git-scm.com/docs/git-cherry-pick",
+              "title": "git cherry-pick"
+            }
+          ]
+        }
       },
       {
         "id": "git-conflicts",
@@ -670,7 +837,28 @@ const GIT_CHEAT_SHEET_DATA = [
           "resolve",
           "ours",
           "theirs"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://git-scm.com/docs/git-merge",
+              "title": "git merge"
+            },
+            {
+              "url": "https://git-scm.com/docs/git-checkout",
+              "title": "git checkout"
+            },
+            {
+              "url": "https://git-scm.com/docs/git-config",
+              "title": "git config"
+            },
+            {
+              "url": "https://git-scm.com/docs/git-rerere",
+              "title": "git rerere"
+            }
+          ]
+        }
       }
     ]
   },
@@ -731,7 +919,20 @@ const GIT_CHEAT_SHEET_DATA = [
           "origin",
           "upstream",
           "url"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://git-scm.com/docs/git-remote",
+              "title": "git remote"
+            },
+            {
+              "url": "https://git-scm.com/docs/git-ls-remote",
+              "title": "git ls-remote"
+            }
+          ]
+        }
       },
       {
         "id": "git-fetch-pull-push",
@@ -790,7 +991,28 @@ const GIT_CHEAT_SHEET_DATA = [
           "upstream",
           "force-with-lease",
           "sync"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://git-scm.com/docs/git-fetch",
+              "title": "git fetch"
+            },
+            {
+              "url": "https://git-scm.com/docs/git-pull",
+              "title": "git pull"
+            },
+            {
+              "url": "https://git-scm.com/docs/git-push",
+              "title": "git push"
+            },
+            {
+              "url": "https://git-scm.com/docs/gitrevisions",
+              "title": "gitrevisions"
+            }
+          ]
+        }
       },
       {
         "id": "git-tags",
@@ -847,7 +1069,24 @@ const GIT_CHEAT_SHEET_DATA = [
           "release",
           "version",
           "describe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://git-scm.com/docs/git-tag",
+              "title": "git tag"
+            },
+            {
+              "url": "https://git-scm.com/docs/git-push",
+              "title": "git push"
+            },
+            {
+              "url": "https://git-scm.com/docs/git-describe",
+              "title": "git describe"
+            }
+          ]
+        }
       }
     ]
   },
@@ -929,7 +1168,28 @@ const GIT_CHEAT_SHEET_DATA = [
           "graph",
           "shortlog",
           "show"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://git-scm.com/docs/git-log",
+              "title": "git log"
+            },
+            {
+              "url": "https://git-scm.com/docs/git-shortlog",
+              "title": "git shortlog"
+            },
+            {
+              "url": "https://git-scm.com/docs/git-show",
+              "title": "git show"
+            },
+            {
+              "url": "https://git-scm.com/docs/gitrevisions",
+              "title": "gitrevisions"
+            }
+          ]
+        }
       },
       {
         "id": "git-blame-search",
@@ -987,7 +1247,24 @@ const GIT_CHEAT_SHEET_DATA = [
           "pickaxe",
           "search",
           "annotate"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://git-scm.com/docs/git-blame",
+              "title": "git blame"
+            },
+            {
+              "url": "https://git-scm.com/docs/git-log",
+              "title": "git log"
+            },
+            {
+              "url": "https://git-scm.com/docs/git-grep",
+              "title": "git grep"
+            }
+          ]
+        }
       },
       {
         "id": "git-bisect",
@@ -1036,7 +1313,16 @@ const GIT_CHEAT_SHEET_DATA = [
           "regression",
           "binary-search",
           "debug"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://git-scm.com/docs/git-bisect",
+              "title": "git bisect"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1098,7 +1384,20 @@ const GIT_CHEAT_SHEET_DATA = [
           "discard",
           "clean",
           "untracked"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://git-scm.com/docs/git-restore",
+              "title": "git restore"
+            },
+            {
+              "url": "https://git-scm.com/docs/git-clean",
+              "title": "git clean"
+            }
+          ]
+        }
       },
       {
         "id": "git-reset",
@@ -1144,7 +1443,16 @@ const GIT_CHEAT_SHEET_DATA = [
           "mixed",
           "hard",
           "uncommit"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://git-scm.com/docs/git-reset",
+              "title": "git reset"
+            }
+          ]
+        }
       },
       {
         "id": "git-revert",
@@ -1189,7 +1497,16 @@ const GIT_CHEAT_SHEET_DATA = [
           "undo",
           "rollback",
           "shared"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://git-scm.com/docs/git-revert",
+              "title": "git revert"
+            }
+          ]
+        }
       },
       {
         "id": "git-reflog",
@@ -1235,7 +1552,24 @@ const GIT_CHEAT_SHEET_DATA = [
           "lost",
           "fsck",
           "rescue"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://git-scm.com/docs/git-reflog",
+              "title": "git reflog"
+            },
+            {
+              "url": "https://git-scm.com/docs/git-gc",
+              "title": "git gc"
+            },
+            {
+              "url": "https://git-scm.com/docs/git-fsck",
+              "title": "git fsck"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1281,14 +1615,23 @@ const GIT_CHEAT_SHEET_DATA = [
             "Tidy up after deleting a folder by hand"
           ]
         ],
-        "tip": "A branch can only be checked out in one worktree at a time.",
+        "tip": "A branch can only be checked out in one worktree at a time (git refuses unless you pass --force).",
         "tags": [
           "git",
           "worktree",
           "parallel",
           "checkout",
           "hotfix"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://git-scm.com/docs/git-worktree",
+              "title": "git worktree"
+            }
+          ]
+        }
       },
       {
         "id": "git-submodule",
@@ -1329,7 +1672,20 @@ const GIT_CHEAT_SHEET_DATA = [
           "vendor",
           "nested",
           "recursive"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://git-scm.com/docs/git-submodule",
+              "title": "git submodule"
+            },
+            {
+              "url": "https://git-scm.com/docs/git-clone",
+              "title": "git clone"
+            }
+          ]
+        }
       },
       {
         "id": "git-hooks",
@@ -1370,7 +1726,20 @@ const GIT_CHEAT_SHEET_DATA = [
           "pre-commit",
           "automation",
           "secrets"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://git-scm.com/docs/githooks",
+              "title": "githooks"
+            },
+            {
+              "url": "https://git-scm.com/docs/git-config",
+              "title": "git config"
+            }
+          ]
+        }
       },
       {
         "id": "git-lfs-signing",
@@ -1413,7 +1782,24 @@ const GIT_CHEAT_SHEET_DATA = [
           "ssh",
           "gpg",
           "firmware"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://git-lfs.com/",
+              "title": "Git LFS"
+            },
+            {
+              "url": "https://git-scm.com/docs/git-config",
+              "title": "git config"
+            },
+            {
+              "url": "https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification",
+              "title": "GitHub: commit signature verification (SSH)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1464,7 +1850,32 @@ const GIT_CHEAT_SHEET_DATA = [
           "rev-parse",
           "fleet",
           "drift"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://git-scm.com/docs/git",
+              "title": "git (-C, GIT_TRACE, GIT_SSH_COMMAND)"
+            },
+            {
+              "url": "https://git-scm.com/docs/git-describe",
+              "title": "git describe"
+            },
+            {
+              "url": "https://git-scm.com/docs/git-rev-parse",
+              "title": "git rev-parse"
+            },
+            {
+              "url": "https://git-scm.com/docs/git-status",
+              "title": "git status"
+            },
+            {
+              "url": "https://git-scm.com/docs/git-log",
+              "title": "git log"
+            }
+          ]
+        }
       },
       {
         "id": "git-air-gapped",
@@ -1527,7 +1938,32 @@ const GIT_CHEAT_SHEET_DATA = [
           "offline",
           "patch",
           "format-patch"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://git-scm.com/docs/git-bundle",
+              "title": "git bundle"
+            },
+            {
+              "url": "https://git-scm.com/docs/git-archive",
+              "title": "git archive"
+            },
+            {
+              "url": "https://git-scm.com/docs/git-format-patch",
+              "title": "git format-patch"
+            },
+            {
+              "url": "https://git-scm.com/docs/git-apply",
+              "title": "git apply"
+            },
+            {
+              "url": "https://git-scm.com/docs/git-am",
+              "title": "git am"
+            }
+          ]
+        }
       },
       {
         "id": "git-network-auth",
@@ -1587,7 +2023,28 @@ const GIT_CHEAT_SHEET_DATA = [
           "trace",
           "debug",
           "credentials"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://git-scm.com/docs/git",
+              "title": "git (-C, GIT_TRACE, GIT_SSH_COMMAND)"
+            },
+            {
+              "url": "https://git-scm.com/docs/git-ls-remote",
+              "title": "git ls-remote"
+            },
+            {
+              "url": "https://git-scm.com/docs/git-config",
+              "title": "git config"
+            },
+            {
+              "url": "https://git-scm.com/docs/git-credential-cache",
+              "title": "git credential-cache"
+            }
+          ]
+        }
       },
       {
         "id": "git-common-errors",
@@ -1658,7 +2115,32 @@ const GIT_CHEAT_SHEET_DATA = [
           "detached-head",
           "index.lock",
           "troubleshooting"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://git-scm.com/docs/git-config",
+              "title": "git config"
+            },
+            {
+              "url": "https://git-scm.com/docs/git-switch",
+              "title": "git switch"
+            },
+            {
+              "url": "https://git-scm.com/docs/git-fsck",
+              "title": "git fsck"
+            },
+            {
+              "url": "https://git-scm.com/docs/git-count-objects",
+              "title": "git count-objects"
+            },
+            {
+              "url": "https://git-scm.com/docs/git-gc",
+              "title": "git gc"
+            }
+          ]
+        }
       },
       {
         "id": "git-secret-removal",
@@ -1705,7 +2187,24 @@ const GIT_CHEAT_SHEET_DATA = [
           "rewrite",
           "credentials",
           "leak"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/newren/git-filter-repo",
+              "title": "git-filter-repo"
+            },
+            {
+              "url": "https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository",
+              "title": "GitHub: removing sensitive data"
+            },
+            {
+              "url": "https://git-scm.com/docs/git-log",
+              "title": "git log"
+            }
+          ]
+        }
       }
     ]
   }

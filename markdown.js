@@ -45,7 +45,24 @@ const MARKDOWN_CHEAT_SHEET_DATA = [
           "h2",
           "title",
           "anchor"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://spec.commonmark.org/0.31.2/",
+              "title": "CommonMark 0.31.2 spec"
+            },
+            {
+              "url": "https://pandoc.org/MANUAL.html",
+              "title": "Pandoc manual"
+            },
+            {
+              "url": "https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax",
+              "title": "GitHub: basic writing and formatting"
+            }
+          ]
+        }
       },
       {
         "id": "md-emphasis",
@@ -83,8 +100,8 @@ const MARKDOWN_CHEAT_SHEET_DATA = [
             "Subscript and superscript with HTML"
           ],
           [
-            "<mark>highlighted</mark>",
-            "Highlight text (rendered on GitHub)"
+            "<ins>underlined</ins>",
+            "Underline text (in GitHub's documented HTML, with <sub> and <sup>)"
           ]
         ],
         "tip": "Put serial numbers, BDFs and hostnames in `backticks` so nothing turns them into links or formatting.",
@@ -96,7 +113,25 @@ const MARKDOWN_CHEAT_SHEET_DATA = [
           "emphasis",
           "kbd",
           "inline-code"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://spec.commonmark.org/0.31.2/",
+              "title": "CommonMark 0.31.2 spec"
+            },
+            {
+              "url": "https://github.github.com/gfm/",
+              "title": "GitHub Flavored Markdown spec"
+            },
+            {
+              "url": "https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax",
+              "title": "GitHub: basic writing and formatting"
+            }
+          ],
+          "note": "Changed 2026-11-10: <mark> is not in GitHub's documented HTML; <ins> is."
+        }
       },
       {
         "id": "md-paragraphs",
@@ -142,7 +177,16 @@ const MARKDOWN_CHEAT_SHEET_DATA = [
           "blockquote",
           "hr",
           "rule"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://spec.commonmark.org/0.31.2/",
+              "title": "CommonMark 0.31.2 spec"
+            }
+          ]
+        }
       },
       {
         "id": "md-escaping",
@@ -180,7 +224,16 @@ const MARKDOWN_CHEAT_SHEET_DATA = [
           "special-characters",
           "comment",
           "entities"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://spec.commonmark.org/0.31.2/",
+              "title": "CommonMark 0.31.2 spec"
+            }
+          ]
+        }
       }
     ]
   },
@@ -221,7 +274,16 @@ const MARKDOWN_CHEAT_SHEET_DATA = [
           "bullets",
           "unordered",
           "nested"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://spec.commonmark.org/0.31.2/",
+              "title": "CommonMark 0.31.2 spec"
+            }
+          ]
+        }
       },
       {
         "id": "md-numbered",
@@ -263,7 +325,16 @@ const MARKDOWN_CHEAT_SHEET_DATA = [
           "ordered",
           "steps",
           "runbook"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://spec.commonmark.org/0.31.2/",
+              "title": "CommonMark 0.31.2 spec"
+            }
+          ]
+        }
       },
       {
         "id": "md-tasks",
@@ -301,7 +372,24 @@ const MARKDOWN_CHEAT_SHEET_DATA = [
           "checkbox",
           "todo",
           "gfm"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.github.com/gfm/",
+              "title": "GitHub Flavored Markdown spec"
+            },
+            {
+              "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/about-task-lists",
+              "title": "GitHub: task lists"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+              "title": "grep(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -359,7 +447,24 @@ const MARKDOWN_CHEAT_SHEET_DATA = [
           "anchor",
           "relative",
           "autolink"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://spec.commonmark.org/0.31.2/",
+              "title": "CommonMark 0.31.2 spec"
+            },
+            {
+              "url": "https://github.github.com/gfm/",
+              "title": "GitHub Flavored Markdown spec"
+            },
+            {
+              "url": "https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax",
+              "title": "GitHub: basic writing and formatting"
+            }
+          ]
+        }
       },
       {
         "id": "md-links-reference",
@@ -396,7 +501,16 @@ const MARKDOWN_CHEAT_SHEET_DATA = [
           "reference",
           "footnote-style",
           "url"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://spec.commonmark.org/0.31.2/",
+              "title": "CommonMark 0.31.2 spec"
+            }
+          ]
+        }
       },
       {
         "id": "md-images",
@@ -434,7 +548,20 @@ const MARKDOWN_CHEAT_SHEET_DATA = [
           "photos",
           "alt",
           "size"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://spec.commonmark.org/0.31.2/",
+              "title": "CommonMark 0.31.2 spec"
+            },
+            {
+              "url": "https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax",
+              "title": "GitHub: basic writing and formatting"
+            }
+          ]
+        }
       }
     ]
   },
@@ -488,7 +615,20 @@ const MARKDOWN_CHEAT_SHEET_DATA = [
           "syntax",
           "highlighting",
           "bash"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://spec.commonmark.org/0.31.2/",
+              "title": "CommonMark 0.31.2 spec"
+            },
+            {
+              "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-and-highlighting-code-blocks",
+              "title": "GitHub: code blocks"
+            }
+          ]
+        }
       },
       {
         "id": "md-diff-logs",
@@ -522,7 +662,16 @@ const MARKDOWN_CHEAT_SHEET_DATA = [
           "console",
           "logs",
           "output"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-and-highlighting-code-blocks",
+              "title": "GitHub: code blocks"
+            }
+          ]
+        }
       },
       {
         "id": "md-nested-fences",
@@ -551,7 +700,20 @@ const MARKDOWN_CHEAT_SHEET_DATA = [
           "nested",
           "fence",
           "backticks"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://spec.commonmark.org/0.31.2/",
+              "title": "CommonMark 0.31.2 spec"
+            },
+            {
+              "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/organizing-information-with-collapsed-sections",
+              "title": "GitHub: collapsed sections"
+            }
+          ]
+        }
       }
     ]
   },
@@ -608,7 +770,20 @@ const MARKDOWN_CHEAT_SHEET_DATA = [
           "alignment",
           "columns",
           "gfm"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.github.com/gfm/",
+              "title": "GitHub Flavored Markdown spec"
+            },
+            {
+              "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/organizing-information-with-tables",
+              "title": "GitHub: tables"
+            }
+          ]
+        }
       },
       {
         "id": "md-table-from-cli",
@@ -651,7 +826,28 @@ const MARKDOWN_CHEAT_SHEET_DATA = [
           "csv",
           "pandoc",
           "inventory"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "nvidia-smi documentation"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/gawk.1.html",
+              "title": "gawk(1)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/lsblk.8.html",
+              "title": "lsblk(8)"
+            },
+            {
+              "url": "https://pandoc.org/MANUAL.html",
+              "title": "Pandoc manual"
+            }
+          ]
+        }
       }
     ]
   },
@@ -702,7 +898,16 @@ const MARKDOWN_CHEAT_SHEET_DATA = [
           "note",
           "warning",
           "admonition"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax",
+              "title": "GitHub: basic writing and formatting"
+            }
+          ]
+        }
       },
       {
         "id": "md-details",
@@ -736,7 +941,16 @@ const MARKDOWN_CHEAT_SHEET_DATA = [
           "collapse",
           "html",
           "logs"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/organizing-information-with-collapsed-sections",
+              "title": "GitHub: collapsed sections"
+            }
+          ]
+        }
       },
       {
         "id": "md-footnotes-mentions",
@@ -778,7 +992,24 @@ const MARKDOWN_CHEAT_SHEET_DATA = [
           "mentions",
           "issues",
           "references"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax",
+              "title": "GitHub: basic writing and formatting"
+            },
+            {
+              "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/autolinked-references-and-urls",
+              "title": "GitHub: autolinked references"
+            },
+            {
+              "url": "https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue",
+              "title": "GitHub: closing issues with keywords"
+            }
+          ]
+        }
       },
       {
         "id": "md-mermaid-math",
@@ -816,7 +1047,20 @@ const MARKDOWN_CHEAT_SHEET_DATA = [
           "diagram",
           "math",
           "latex"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-diagrams",
+              "title": "GitHub: diagrams (Mermaid)"
+            },
+            {
+              "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/writing-mathematical-expressions",
+              "title": "GitHub: math"
+            }
+          ]
+        }
       }
     ]
   },
@@ -863,7 +1107,20 @@ const MARKDOWN_CHEAT_SHEET_DATA = [
           "summary",
           "rma",
           "ticket"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.github.com/gfm/",
+              "title": "GitHub Flavored Markdown spec"
+            },
+            {
+              "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/about-task-lists",
+              "title": "GitHub: task lists"
+            }
+          ]
+        }
       },
       {
         "id": "md-runbook",
@@ -892,7 +1149,20 @@ const MARKDOWN_CHEAT_SHEET_DATA = [
           "procedure",
           "sop",
           "steps"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax",
+              "title": "GitHub: basic writing and formatting"
+            },
+            {
+              "url": "https://spec.commonmark.org/0.31.2/",
+              "title": "CommonMark 0.31.2 spec"
+            }
+          ]
+        }
       },
       {
         "id": "md-front-matter",
@@ -923,7 +1193,16 @@ const MARKDOWN_CHEAT_SHEET_DATA = [
           "hugo",
           "jekyll",
           "obsidian"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://pandoc.org/MANUAL.html",
+              "title": "Pandoc manual"
+            }
+          ]
+        }
       }
     ]
   },
@@ -952,7 +1231,7 @@ const MARKDOWN_CHEAT_SHEET_DATA = [
           ],
           [
             "mdcat FILE",
-            "Alternative renderer that can show images in some terminals"
+            "Alternative renderer that can show images in some terminals (its repository is archived, so no more fixes)"
           ]
         ],
         "subcommands": [
@@ -973,7 +1252,25 @@ const MARKDOWN_CHEAT_SHEET_DATA = [
           "preview",
           "terminal",
           "render"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/charmbracelet/glow",
+              "title": "glow"
+            },
+            {
+              "url": "https://github.com/swsnr/mdcat",
+              "title": "mdcat (archived)"
+            },
+            {
+              "url": "https://pandoc.org/MANUAL.html",
+              "title": "Pandoc manual"
+            }
+          ],
+          "note": "Changed 2026-11-10: mdcat's repository is archived."
+        }
       },
       {
         "id": "md-lint-format",
@@ -1015,7 +1312,28 @@ const MARKDOWN_CHEAT_SHEET_DATA = [
           "prettier",
           "format",
           "ci"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/DavidAnson/markdownlint-cli2",
+              "title": "markdownlint-cli2"
+            },
+            {
+              "url": "https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md",
+              "title": "markdownlint rules (MD013)"
+            },
+            {
+              "url": "https://prettier.io/docs/cli",
+              "title": "Prettier CLI"
+            },
+            {
+              "url": "https://github.com/tcort/markdown-link-check",
+              "title": "markdown-link-check"
+            }
+          ]
+        }
       },
       {
         "id": "md-pandoc",
@@ -1066,7 +1384,16 @@ const MARKDOWN_CHEAT_SHEET_DATA = [
           "docx",
           "pdf",
           "jira"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://pandoc.org/MANUAL.html",
+              "title": "Pandoc manual"
+            }
+          ]
+        }
       },
       {
         "id": "md-toc-grep",
@@ -1100,7 +1427,24 @@ const MARKDOWN_CHEAT_SHEET_DATA = [
           "grep",
           "pandoc",
           "outline"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+              "title": "grep(1)"
+            },
+            {
+              "url": "https://pandoc.org/MANUAL.html",
+              "title": "Pandoc manual"
+            },
+            {
+              "url": "https://github.com/jonschlinkert/markdown-toc",
+              "title": "markdown-toc"
+            }
+          ]
+        }
       }
     ]
   }

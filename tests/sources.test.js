@@ -650,6 +650,26 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     await ctx.close();
   }
 
+  // 2v. Lua, git and Markdown sheets: every card sourced; LuaJIT read formats, the worktree
+  // --force note, <ins> instead of <mark>, mdcat archived.
+  {
+    const PAGES = ['lua', 'git', 'markdown'];
+    const ctx = await newContext(browser);
+    const p = await ctx.newPage();
+    const all = [];
+    let text = '';
+    for (const f of PAGES) {
+      await p.goto(BASE + f + '.html', { waitUntil: 'load' });
+      await p.waitForTimeout(400);
+      text += await p.evaluate(() => { const c = document.body.cloneNode(true); c.querySelectorAll('.cmd-source').forEach(n => n.remove()); return c.textContent; });
+      all.push(...await p.evaluate(() => [...document.querySelectorAll('.cmd-item:is([data-cmd-id], [data-id])')].filter(it => !/-flags-card$/.test(it.dataset.cmdId || '')).map(it => ({ id: it.dataset.cmdId || it.dataset.id, src: !!it.querySelector('.cmd-source:not(.is-unverified)') }))));
+    }
+    check(all.length >= 69 && all.every(x => x.src), `every card on the Lua, git and Markdown sheets shows a verified source (${all.filter(x => x.src).length}/${all.length})`);
+    check(/LuaJIT, which Neovim uses, accepts both/.test(text) && /unless you pass --force/.test(text), 'LuaJIT read formats; worktree --force');
+    check(!/<mark>highlighted<\/mark>/.test(text) && /<ins>underlined<\/ins>/.test(text) && /repository is archived/.test(text), 'Markdown: <ins> (documented), mdcat archived');
+    await ctx.close();
+  }
+
   // 3. Over a year old → amber "re-check"; and src can't inject markup or javascript: links.
   {
     const ctx = await newContext(browser);
