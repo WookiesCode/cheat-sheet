@@ -52,7 +52,20 @@ const TEXT_DATA = [
           "grep",
           "zgrep",
           "config"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+              "title": "grep(1)"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/gzip/zgrep.1.en.html",
+              "title": "zgrep(1), Debian"
+            }
+          ]
+        }
       }
     ]
   },
@@ -103,7 +116,32 @@ const TEXT_DATA = [
           "column",
           "logs",
           "replace"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/gawk.1.html",
+              "title": "gawk(1)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/sort.1.html",
+              "title": "sort(1)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/uniq.1.html",
+              "title": "uniq(1)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/sed.1.html",
+              "title": "sed(1)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/column.1.html",
+              "title": "column(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -145,7 +183,24 @@ const TEXT_DATA = [
           "logs",
           "diff",
           "stream"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/tail.1.html",
+              "title": "tail(1)"
+            },
+            {
+              "url": "https://jqlang.org/manual/",
+              "title": "jq manual"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+              "title": "bash(1)"
+            }
+          ]
+        }
       }
     ]
   }

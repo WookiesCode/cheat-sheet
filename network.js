@@ -11,7 +11,7 @@ const NETWORK_DATA = [
         "id": "ss-listening-conns",
         "desc": "Inspect all listening TCP/UDP ports, owning process/PID, and established socket states",
         "cmd": "ss -tulpn",
-        "details": "Queries kernel netlink TCP_DIAG directly (much faster than legacy netstat on servers with 50,000+ sockets). Shows local bind address (0.0.0.0 vs 127.0.0.1 vs [::]), port number, and the process name + PID holding the socket.",
+        "details": "Reads sockets from the kernel over netlink, which is faster than the legacy netstat on busy servers. Shows local bind address (0.0.0.0 vs 127.0.0.1 vs [::]), port number, and the process name + PID holding the socket.",
         "flags": [
           [
             "-t -u",
@@ -23,7 +23,7 @@ const NETWORK_DATA = [
           ],
           [
             "-p",
-            "Show process name, PID, and file descriptor owning the socket (requires sudo)"
+            "Show process name, PID, and file descriptor owning the socket"
           ],
           [
             "-n",
@@ -53,7 +53,21 @@ const NETWORK_DATA = [
           "socket",
           "ss",
           "lsof"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ss.8.html",
+              "title": "ss(8)"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/lsof/lsof.8.en.html",
+              "title": "lsof(8), Debian"
+            }
+          ],
+          "note": "Corrected 2026-11-09: the ss man page doesn't say -p needs root; the ROOT badge's 'maybe' note covers seeing other users' processes."
+        }
       }
     ]
   },
@@ -103,7 +117,32 @@ const NETWORK_DATA = [
           "ndp",
           "arp",
           "mtu"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ip-link.8.html",
+              "title": "ip-link(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ip-address.8.html",
+              "title": "ip-address(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ip-route.8.html",
+              "title": "ip-route(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ip-neighbour.8.html",
+              "title": "ip-neighbour(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ip-rule.8.html",
+              "title": "ip-rule(8)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -153,7 +192,29 @@ const NETWORK_DATA = [
           "ssl",
           "certificate",
           "netcat"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/bind9-dnsutils/dig.1.en.html",
+              "title": "dig(1), Debian"
+            },
+            {
+              "url": "https://curl.se/docs/manpage.html",
+              "title": "curl manual"
+            },
+            {
+              "url": "https://docs.openssl.org/master/man1/openssl-s_client/",
+              "title": "openssl s_client"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/netcat-openbsd/nc.1.en.html",
+              "title": "nc(1), Debian"
+            }
+          ],
+          "note": "openssl s_client -6 is in the OpenSSL docs; your openssl version may differ."
+        }
       }
     ]
   },
@@ -207,7 +268,28 @@ const NETWORK_DATA = [
           "tunnel",
           "mtr",
           "traceroute"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.tcpdump.org/manpages/tcpdump.1.html",
+              "title": "tcpdump(1)"
+            },
+            {
+              "url": "https://manpages.ubuntu.com/manpages/noble/man8/ufw.8.html",
+              "title": "ufw(8), Ubuntu 24.04"
+            },
+            {
+              "url": "https://man.openbsd.org/ssh",
+              "title": "ssh(1), OpenBSD"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/mtr-tiny/mtr.8.en.html",
+              "title": "mtr(8), Debian"
+            }
+          ]
+        }
       }
     ]
   }

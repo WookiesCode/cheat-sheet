@@ -90,6 +90,7 @@ function buildLinuxSectionCards(sec) {
     let proTipDetails = '';
     let flags = [];
     let subcommands = [];
+    let proTipSrc = null;   // where the Pro Tip card's commands were checked
 
     if (sec.id === 'systemd') {
       proTipDesc = 'Systemd boot latency analysis, critical-chain bottlenecks & log persistence';
@@ -104,6 +105,7 @@ function buildLinuxSectionCards(sec) {
         ['journalctl --vacuum-time=14d --vacuum-size=2G', 'Purge archived journal logs older than 14 days or exceeding 2 GiB'],
         ['systemctl is-failed --quiet nginx.service || echo "Running"', 'Quietly check if a service has entered the failed state']
       ];
+      proTipSrc = {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/systemd-analyze.1.html", "title": "systemd-analyze(1)"}, {"url": "https://man7.org/linux/man-pages/man1/journalctl.1.html", "title": "journalctl(1)"}, {"url": "https://man7.org/linux/man-pages/man1/systemctl.1.html", "title": "systemctl(1)"}]};
     } else if (sec.id === 'archives') {
       proTipDesc = 'Multithreaded compression with pigz/zstd and streaming integrity checks';
       proTipCmd = 'tar -I pigz -cf archive.tar.gz /srv/data/ && sha256sum archive.tar.gz > archive.tar.gz.sha256';
@@ -117,19 +119,23 @@ function buildLinuxSectionCards(sec) {
         ['sha256sum -c archive.tar.gz.sha256', 'Validate SHA-256 hash checksum against computed file integrity'],
         ['tar -tvf archive.tar.gz | head -n 25', 'List table of contents without extracting archive to disk']
       ];
+      proTipSrc = {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/tar.1.html", "title": "tar(1)"}, {"url": "https://manpages.debian.org/trixie/pigz/pigz.1.en.html", "title": "pigz(1), Debian"}, {"url": "https://man7.org/linux/man-pages/man1/sha256sum.1.html", "title": "sha256sum(1)"}]};
     } else if (sec.id === 'users') {
       proTipDesc = 'Sudoers validation, failed login auditing & account password expiration';
-      proTipCmd = 'visudo -c && faillog -a && chage -l $(whoami)';
-      proTipDetails = 'Always validate /etc/sudoers syntax with visudo -c before exiting. Audit authentication lockouts using faillog and verify password aging policies with chage.';
+      proTipCmd = 'visudo -c && chage -l $(whoami)';
+      proTipDetails = 'Always validate /etc/sudoers syntax with visudo -c before exiting, and check password aging with chage. Account lockouts after failed logins are recorded by pam_faillock: read them with faillock (the older faillog only reads the retired pam_tally counter and is gone from Debian 13).';
       flags = [
         ['visudo -c', 'Check syntax of sudoers file without opening editor'],
-        ['faillog -a', 'Display failed login attempts and lockout thresholds for all accounts'],
-        ['chage -l', 'List account aging parameters: password change date, expiry, and warning days']
+        ['chage -l', 'List account aging parameters: password change date, expiry, and warning days'],
+        ['faillock --user <username>', 'Recent failed authentications recorded by pam_faillock for that user']
       ];
       subcommands = [
-        ['lastb | head -n 20', 'Audit recent bad / failed login attempts recorded in /var/log/btmp'],
+        ['faillock --user <username>', 'Failed logins pam_faillock recorded for one user (and whether it is locked)'],
+        ['faillock --user <username> --reset', 'Clear that user\'s failure record, unlocking the account (changes state)'],
+        ['lastb | head -n 20', 'Failed login attempts from /var/log/btmp (util-linux; not shipped on Debian 13+)'],
         ['passwd -l <username>', 'Lock user account password to prevent interactive password logins']
       ];
+      proTipSrc = {"verified": "2026-11-09", "refs": [{"url": "https://www.sudo.ws/docs/man/visudo.man/", "title": "visudo(8)"}, {"url": "https://man7.org/linux/man-pages/man1/chage.1.html", "title": "chage(1)"}, {"url": "https://man7.org/linux/man-pages/man8/faillock.8.html", "title": "faillock(8)"}, {"url": "https://man7.org/linux/man-pages/man1/lastb.1.html", "title": "lastb(1)"}, {"url": "https://man7.org/linux/man-pages/man1/passwd.1.html", "title": "passwd(1)"}], "note": "Corrected 2026-11-09: faillog -a (pam_tally, dropped from Debian 13) replaced by faillock --user, which reads pam_faillock's records."};
     }
 
     if (proTipCmd) {
@@ -147,7 +153,8 @@ function buildLinuxSectionCards(sec) {
             flags: flags,
             subcommands: subcommands,
             tip: `Standard Ubuntu Server administration & security best practice`,
-            tags: [sec.id, 'tips', 'triage', 'diagnostics']
+            tags: [sec.id, 'tips', 'triage', 'diagnostics'],
+            ...(proTipSrc ? { src: proTipSrc } : {})
           }
         ]
       });

@@ -400,6 +400,40 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     await ctx.close();
   }
 
+  // 2l. The rest of the Linux sheets (files, permissions, text, processes, network, archives, systemd,
+  // users, packages): all sourced, so every card on the Linux hub has a source; corrections; the
+  // package, service, firewall and permission changes are flagged; reading /etc/passwd is not.
+  {
+    const PAGES = ['files', 'permissions', 'text', 'processes', 'network', 'archives', 'systemd', 'users', 'packages'];
+    const ctx = await newContext(browser);
+    const p = await ctx.newPage();
+    const all = [];
+    let text = '';
+    for (const f of PAGES) {
+      await p.goto(BASE + f + '.html', { waitUntil: 'load' });
+      await p.waitForTimeout(400);
+      text += await p.evaluate(() => { const c = document.body.cloneNode(true); c.querySelectorAll('.cmd-source').forEach(n => n.remove()); return c.textContent; });
+      all.push(...await p.evaluate(() => [...document.querySelectorAll('.cmd-item[data-cmd-id]')].filter(it => !/-flags-card$/.test(it.dataset.cmdId)).map(it => ({ id: it.dataset.cmdId, src: !!it.querySelector('.cmd-source:not(.is-unverified)') }))));
+    }
+    check(all.length >= 25 && all.every(x => x.src), `every remaining Linux command shows a verified source (${all.filter(x => x.src).length}/${all.length})`);
+    await p.goto(BASE + 'linux.html', { waitUntil: 'load' });
+    await p.waitForTimeout(700);
+    const hub = await p.evaluate(() => { const items = [...document.querySelectorAll('.cmd-item[data-id]')]; return { n: items.length, src: items.filter(it => it.querySelector('.cmd-source')).length }; });
+    check(hub.n >= 50 && hub.src === hub.n, `every card on the Linux hub has a source line (${hub.src}/${hub.n})`);
+    check(!/single rename syscall|defaults to \/bin\/sh|5x faster than gzip|faillog -a/.test(text) && /mv -T \/srv\/current\.tmp \/srv\/current/.test(text), 'corrections: no atomic-ln or /bin/sh-default claim, atomic switch recipe present');
+    // DANGER_RE is private to common.js: read the flag the page draws on a code box instead.
+    const danger = {};
+    for (const [f, re] of [['systemd', /^systemctl --failed && systemctl enable --now/], ['packages', /^apt update && apt full-upgrade/], ['network', /ufw allow from/], ['permissions', /^chown -R/], ['systemd', /journalctl --disk-usage && journalctl --vacuum-size/], ['text', /^column -t -s ':' \/etc\/passwd/]]) {
+      await p.goto(BASE + f + '.html', { waitUntil: 'load' });
+      await p.waitForTimeout(400);
+      danger[re.source] = await p.evaluate((src) => { const rx = new RegExp(src); const b = [...document.querySelectorAll('.cmd-code-box, .subcmd-row')].find(x => rx.test((x.dataset.cmd || x.dataset.copy || x.dataset.subcmd || x.textContent).trim())); return b ? /Changes state/.test(b.getAttribute('aria-label') || '') : null; }, re.source);
+    }
+    const vals = Object.entries(danger);
+    check(vals.slice(0, 5).every(([, v]) => v === true), `systemctl enable, apt full-upgrade, ufw allow, chown -R and journalctl --vacuum are flagged (${vals.slice(0, 5).map(([, v]) => v).join(', ')})`);
+    check(vals[5][1] === false, 'reading /etc/passwd (column) is not flagged');
+    await ctx.close();
+  }
+
   // 3. Over a year old → amber "re-check"; and src can't inject markup or javascript: links.
   {
     const ctx = await newContext(browser);

@@ -41,7 +41,20 @@ const PACKAGES_DATA = [
           "cleanup",
           "apt-mark",
           "hold"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/apt/apt.8.en.html",
+              "title": "apt(8), Debian"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/apt/apt-mark.8.en.html",
+              "title": "apt-mark(8), Debian"
+            }
+          ]
+        }
       }
     ]
   },
@@ -85,7 +98,24 @@ const PACKAGES_DATA = [
           "ppa",
           "version",
           "sources.list"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/apt/apt.8.en.html",
+              "title": "apt(8), Debian"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/apt/apt-cache.8.en.html",
+              "title": "apt-cache(8), Debian"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/dpkg/dpkg-deb.1.en.html",
+              "title": "dpkg-deb(1), Debian"
+            }
+          ]
+        }
       }
     ]
   },
@@ -131,7 +161,24 @@ const PACKAGES_DATA = [
           "files",
           "ubuntu",
           "apt-file"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/dpkg/dpkg.1.en.html",
+              "title": "dpkg(1), Debian"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/apt-file/apt-file.1.en.html",
+              "title": "apt-file(1), Debian"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/debsums/debsums.1.en.html",
+              "title": "debsums(1), Debian"
+            }
+          ]
+        }
       }
     ]
   },
@@ -178,7 +225,24 @@ const PACKAGES_DATA = [
           "repair",
           "needrestart",
           "reboot-required"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/dpkg/dpkg.1.en.html",
+              "title": "dpkg(1), Debian"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/apt/apt-get.8.en.html",
+              "title": "apt-get(8), Debian"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/needrestart/needrestart.1.en.html",
+              "title": "needrestart(1), Debian"
+            }
+          ]
+        }
       }
     ]
   },
@@ -224,7 +288,29 @@ const PACKAGES_DATA = [
           "hostnamectl",
           "dmesg",
           "livepatch"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/lsb-release/lsb_release.1.en.html",
+              "title": "lsb_release(1), Debian"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/hostnamectl.1.html",
+              "title": "hostnamectl(1)"
+            },
+            {
+              "url": "https://manpages.ubuntu.com/manpages/noble/man8/snap.8.html",
+              "title": "snap(8), Ubuntu 24.04"
+            },
+            {
+              "url": "https://manpages.ubuntu.com/manpages/noble/man1/pro.1.html",
+              "title": "pro(1), Ubuntu 24.04"
+            }
+          ],
+          "note": "Ubuntu-specific: snap and pro are Canonical tools."
+        }
       }
     ]
   }

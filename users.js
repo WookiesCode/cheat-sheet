@@ -19,7 +19,7 @@ const USERS_DATA = [
           ],
           [
             "-s /bin/bash",
-            "Set login shell to /bin/bash (useradd defaults to /bin/sh if omitted)"
+            "Set login shell to /bin/bash (without -s, useradd uses SHELL from /etc/default/useradd)"
           ],
           [
             "-G sudo,adm",
@@ -44,7 +44,25 @@ const USERS_DATA = [
           "sudo",
           "ubuntu",
           "groups"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/useradd.8.html",
+              "title": "useradd(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/usermod.8.html",
+              "title": "usermod(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/passwd.1.html",
+              "title": "passwd(1)"
+            }
+          ],
+          "note": "Corrected 2026-11-09: useradd has no fixed default shell; without -s it uses SHELL from /etc/default/useradd, else leaves the field empty."
+        }
       }
     ]
   },
@@ -58,7 +76,7 @@ const USERS_DATA = [
         "id": "ssh-visudo-audit",
         "desc": "Generate Ed25519 SSH keys, audit logged-in users/login history, and safely validate sudoers",
         "cmd": "id && w && last -n 10 -a -F",
-        "details": "Audits current user UID/GID memberships ('id'), active TTY/SSH sessions and their current foreground command ('w'), and historical login/reboot records from /var/log/wtmp ('last').",
+        "details": "Audits current user UID/GID memberships ('id'), active TTY/SSH sessions and their current foreground command ('w'), and historical login/reboot records ('last', which reads /var/log/wtmp; on Debian 13+ util-linux no longer ships it: use 'wtmpdb last', which reads /var/log/wtmp.db).",
         "flags": [
           [
             "id",
@@ -92,7 +110,37 @@ const USERS_DATA = [
           "last",
           "audit",
           "security"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/id.1.html",
+              "title": "id(1)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/w.1.html",
+              "title": "w(1)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/last.1.html",
+              "title": "last(1)"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/wtmpdb/wtmpdb.8.en.html",
+              "title": "wtmpdb(8), Debian"
+            },
+            {
+              "url": "https://man.openbsd.org/ssh-keygen",
+              "title": "ssh-keygen(1), OpenBSD"
+            },
+            {
+              "url": "https://www.sudo.ws/docs/man/visudo.man/",
+              "title": "visudo(8)"
+            }
+          ],
+          "note": "Debian 13 (trixie) dropped last and lastb from util-linux: use wtmpdb last (package wtmpdb, plus libpam-wtmpdb)."
+        }
       }
     ]
   },
@@ -105,26 +153,34 @@ const USERS_DATA = [
       {
         "id": "users-pro-tips",
         "desc": "Sudoers validation, failed login auditing & account password expiration",
-        "cmd": "visudo -c && faillog -a && chage -l $(whoami)",
-        "details": "Always validate /etc/sudoers syntax with visudo -c before exiting. Audit authentication lockouts using faillog and verify password aging policies with chage.",
+        "cmd": "visudo -c && chage -l $(whoami)",
+        "details": "Always validate /etc/sudoers syntax with visudo -c before exiting, and check password aging with chage. Account lockouts after failed logins are recorded by pam_faillock: read them with faillock (the older faillog only reads the retired pam_tally counter and is gone from Debian 13).",
         "flags": [
           [
             "visudo -c",
             "Check syntax of sudoers file without opening editor"
           ],
           [
-            "faillog -a",
-            "Display failed login attempts and lockout thresholds for all accounts"
-          ],
-          [
             "chage -l",
             "List account aging parameters: password change date, expiry, and warning days"
+          ],
+          [
+            "faillock --user <username>",
+            "Recent failed authentications recorded by pam_faillock for that user"
           ]
         ],
         "subcommands": [
           [
+            "faillock --user <username>",
+            "Failed logins pam_faillock recorded for one user (and whether it is locked)"
+          ],
+          [
+            "faillock --user <username> --reset",
+            "Clear that user's failure record, unlocking the account (changes state)"
+          ],
+          [
             "lastb | head -n 20",
-            "Audit recent bad / failed login attempts recorded in /var/log/btmp"
+            "Failed login attempts from /var/log/btmp (util-linux; not shipped on Debian 13+)"
           ],
           [
             "passwd -l <username>",
@@ -137,7 +193,33 @@ const USERS_DATA = [
           "tips",
           "triage",
           "diagnostics"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.sudo.ws/docs/man/visudo.man/",
+              "title": "visudo(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/chage.1.html",
+              "title": "chage(1)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/faillock.8.html",
+              "title": "faillock(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/lastb.1.html",
+              "title": "lastb(1)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/passwd.1.html",
+              "title": "passwd(1)"
+            }
+          ],
+          "note": "Corrected 2026-11-09: faillog -a (pam_tally, dropped from Debian 13) replaced by faillock --user, which reads pam_faillock's records."
+        }
       }
     ]
   }

@@ -441,7 +441,8 @@ const CHEAT_SHEET_DATA = [
           ["ls -laSrh", "Sort by file size with the largest files at the bottom of the terminal"],
           ["ls -li", "Include filesystem inode numbers in the first column"]
         ],
-        tags: ["list", "directory", "hidden", "size", "recent", "modified"]
+        tags: ["list", "directory", "hidden", "size", "recent", "modified"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/ls.1.html", "title": "ls(1)"}]}
       },
       {
         id: "find-mtime-size",
@@ -460,23 +461,26 @@ const CHEAT_SHEET_DATA = [
           ["find /var/log/app -type f -name '*.log.gz' -mtime +30 -delete", "Delete rotated compressed logs older than 30 days"]
         ],
         tip: "Use -xdev on root '/'",
-        tags: ["search", "find", "recent", "logs", "large", "big", "cleanup", "space"]
+        tags: ["search", "find", "recent", "logs", "large", "big", "cleanup", "space"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/find.1.html", "title": "find(1)"}]}
       },
       {
         id: "mkdir-cp-ln",
         desc: "Create nested directories, archive-copy preserving attributes, or atomically flip symlinks",
         cmd: "mkdir -pv /srv/releases/{v1,v2} && cp -a src/ /srv/releases/v2/ && ln -sfn /srv/releases/v2 /srv/current",
-        details: "Combines safe directory creation (-p), archive copying (-a preserves ownership, permissions, ACLs, and symlinks without following them), and atomic symlink replacement (-sfn updates a symlink pointing to a directory in a single rename syscall).",
+        details: "Combines safe directory creation (-p), archive copying (-a preserves ownership, permissions, ACLs, and symlinks without following them), and symlink replacement (-sfn: -f removes the old link, -n keeps ln from following a link to a directory). ln removes and recreates the link; for a truly atomic switch, create the new link under a temporary name and rename it over the old one (rename(2) replaces it atomically).",
         flags: [
           ["mkdir -pv", "Create parent directories as needed and print each created path"],
           ["cp -a", "Archive mode (-dR --preserve=all: permissions, timestamps, owners, symlinks)"],
           ["ln -sfn", "Create symbolic (-s) link, force overwrite (-f), treat symlink-to-dir as file (-n)"]
         ],
         subcommands: [
+          ["ln -s /srv/releases/v2 /srv/current.tmp && mv -T /srv/current.tmp /srv/current", "Atomic switch: make the new link under a temporary name, then rename it over the old one"],
           ["readlink -f /srv/current", "Resolve all symlinks in a path and print the canonical physical path"],
           ["stat /etc/fstab", "Display full inode metadata: octal access mode, UID/GID, device ID, links, and Access/Modify/Change/Birth times"]
         ],
-        tags: ["mkdir", "cp", "symlink", "ln", "stat", "readlink", "atomic"]
+        tags: ["mkdir", "cp", "symlink", "ln", "stat", "readlink", "atomic"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/mkdir.1.html", "title": "mkdir(1)"}, {"url": "https://man7.org/linux/man-pages/man1/cp.1.html", "title": "cp(1)"}, {"url": "https://man7.org/linux/man-pages/man1/ln.1.html", "title": "ln(1)"}, {"url": "https://man7.org/linux/man-pages/man2/rename.2.html", "title": "rename(2)"}, {"url": "https://man7.org/linux/man-pages/man1/readlink.1.html", "title": "readlink(1)"}, {"url": "https://man7.org/linux/man-pages/man1/stat.1.html", "title": "stat(1)"}, {"url": "https://man7.org/linux/man-pages/man1/mv.1.html", "title": "mv(1)"}], "note": "Corrected 2026-11-09: ln -sfn is not a single atomic rename (ln removes the old link, then creates the new one); the atomic switch is ln -s to a temporary name, then mv -T over the old link."}
       },
       {
         id: "rsync-mirror",
@@ -494,7 +498,8 @@ const CHEAT_SHEET_DATA = [
           ["rsync -avhP --bwlimit=50M /var/lib/data/ backup-node:/srv/data/", "Throttle transfer bandwidth to 50 MB/s so production NIC traffic is not saturated"]
         ],
         tip: "Always test --delete with -n first",
-        tags: ["sync", "backup", "remote", "transfer", "rsync", "mirror"]
+        tags: ["sync", "backup", "remote", "transfer", "rsync", "mirror"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://download.samba.org/pub/rsync/rsync.1", "title": "rsync(1)"}]}
       }
     ]
   },
@@ -519,7 +524,8 @@ const CHEAT_SHEET_DATA = [
           ["chmod 700 ~/.ssh && chmod 600 ~/.ssh/authorized_keys ~/.ssh/id_ed25519", "Enforce strict SSH directory and key permissions required by sshd StrictModes"]
         ],
         tip: "Fixes SSH & web root permissions",
-        tags: ["chmod", "web", "recursive", "permissions", "ssh"]
+        tags: ["chmod", "web", "recursive", "permissions", "ssh"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/chmod.1.html", "title": "chmod(1)"}, {"url": "https://man7.org/linux/man-pages/man1/find.1.html", "title": "find(1)"}]}
       },
       {
         id: "chown-setgid",
@@ -534,7 +540,8 @@ const CHEAT_SHEET_DATA = [
           ["chmod 1777 /tmp/scratch", "Set Sticky Bit (octal prefix '1' or '+t') so only a file's owner or root can delete it"]
         ],
         tip: "Essential for shared team folders",
-        tags: ["owner", "group", "chown", "setgid", "sgid", "sticky"]
+        tags: ["owner", "group", "chown", "setgid", "sgid", "sticky"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/chown.1.html", "title": "chown(1)"}, {"url": "https://man7.org/linux/man-pages/man1/chmod.1.html", "title": "chmod(1)"}]}
       },
       {
         id: "setfacl-chattr",
@@ -550,7 +557,8 @@ const CHEAT_SHEET_DATA = [
           ["setfacl -b -R /srv/app", "Strip all extended ACL entries and revert to standard POSIX permissions"],
           ["chattr +i /etc/resolv.conf && lsattr /etc/resolv.conf", "Make a file immutable (+i) and inspect extended filesystem attributes (use -i to unlock)"]
         ],
-        tags: ["acl", "getfacl", "setfacl", "chattr", "lsattr", "immutable"]
+        tags: ["acl", "getfacl", "setfacl", "chattr", "lsattr", "immutable"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/setfacl.1.html", "title": "setfacl(1)"}, {"url": "https://man7.org/linux/man-pages/man1/getfacl.1.html", "title": "getfacl(1)"}, {"url": "https://man7.org/linux/man-pages/man1/chattr.1.html", "title": "chattr(1)"}]}
       }
     ]
   },
@@ -577,7 +585,8 @@ const CHEAT_SHEET_DATA = [
           ["zgrep -i 'oom-killer' /var/log/syslog* /var/log/kern.log*", "Search transparently inside both plain-text and gzip-compressed (.gz) rotated logs"]
         ],
         tip: "grep -Ev '^\\s*(#|$)' strips comments",
-        tags: ["search", "regex", "logs", "grep", "zgrep", "config"]
+        tags: ["search", "regex", "logs", "grep", "zgrep", "config"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/grep.1.html", "title": "grep(1)"}, {"url": "https://manpages.debian.org/trixie/gzip/zgrep.1.en.html", "title": "zgrep(1), Debian"}]}
       },
       {
         id: "awk-sed-pipelines",
@@ -594,7 +603,8 @@ const CHEAT_SHEET_DATA = [
           ["sed -i.bak -E 's/^#?PermitRootLogin.*/PermitRootLogin no/' /etc/ssh/sshd_config", "Edit config file in-place while creating a .bak backup file automatically"],
           ["column -t -s ':' /etc/passwd | head -n 15", "Format any delimiter-separated file or stream into an aligned terminal table"]
         ],
-        tags: ["awk", "sed", "sort", "uniq", "column", "logs", "replace"]
+        tags: ["awk", "sed", "sort", "uniq", "column", "logs", "replace"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/gawk.1.html", "title": "gawk(1)"}, {"url": "https://man7.org/linux/man-pages/man1/sort.1.html", "title": "sort(1)"}, {"url": "https://man7.org/linux/man-pages/man1/uniq.1.html", "title": "uniq(1)"}, {"url": "https://man7.org/linux/man-pages/man1/sed.1.html", "title": "sed(1)"}, {"url": "https://man7.org/linux/man-pages/man1/column.1.html", "title": "column(1)"}]}
       },
       {
         id: "tail-jq-streams",
@@ -609,7 +619,8 @@ const CHEAT_SHEET_DATA = [
           ["curl -s http://localhost:8080/health | jq '.checks[] | select(.status != \"UP\")'", "Parse JSON stream and filter only objects matching a condition"],
           ["diff -u <(sort file1.txt) <(sort file2.txt)", "Compare two command outputs on the fly using Bash process substitution"]
         ],
-        tags: ["tail", "jq", "json", "logs", "diff", "stream"]
+        tags: ["tail", "jq", "json", "logs", "diff", "stream"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/tail.1.html", "title": "tail(1)"}, {"url": "https://jqlang.org/manual/", "title": "jq manual"}, {"url": "https://man7.org/linux/man-pages/man1/bash.1.html", "title": "bash(1)"}]}
       }
     ]
   },
@@ -634,7 +645,8 @@ const CHEAT_SHEET_DATA = [
           ["systemctl status <PID>", "Map any running PID back to its owning systemd service unit and cgroup slice"]
         ],
         tip: "STAT 'D' = blocked on disk/NFS I/O",
-        tags: ["ps", "memory", "cpu", "rss", "zombie", "tree", "pgrep", "pkill"]
+        tags: ["ps", "memory", "cpu", "rss", "zombie", "tree", "pgrep", "pkill"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/ps.1.html", "title": "ps(1)"}, {"url": "https://man7.org/linux/man-pages/man1/top.1.html", "title": "top(1)"}, {"url": "https://man7.org/linux/man-pages/man1/systemctl.1.html", "title": "systemctl(1)"}]}
       },
       {
         id: "lsof-deleted-proc",
@@ -649,7 +661,8 @@ const CHEAT_SHEET_DATA = [
           ["ls -l /proc/<PID>/fd /proc/<PID>/exe /proc/<PID>/cwd", "Inspect a process's open file descriptors, binary symlink, and working directory in /proc"]
         ],
         tip: "Fixes invisible disk exhaustion",
-        tags: ["lsof", "deleted", "disk-full", "fd", "proc"]
+        tags: ["lsof", "deleted", "disk-full", "fd", "proc"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://manpages.debian.org/trixie/lsof/lsof.8.en.html", "title": "lsof(8), Debian"}, {"url": "https://man7.org/linux/man-pages/man5/proc.5.html", "title": "proc(5)"}]}
       },
       {
         id: "free-vmstat-iostat",
@@ -665,7 +678,8 @@ const CHEAT_SHEET_DATA = [
           ["vmstat -Sm 1 5", "Sample run-queue (r), blocked I/O procs (b), swap in/out (si/so), and CPU iowait (wa) every 1s"],
           ["pidstat -d -u -r 1 5", "Per-process breakdown of disk I/O kB/s (-d), CPU% (-u), and page faults/RSS (-r)"]
         ],
-        tags: ["free", "iostat", "vmstat", "pidstat", "sysstat", "iowait", "ram", "latency"]
+        tags: ["free", "iostat", "vmstat", "pidstat", "sysstat", "iowait", "ram", "latency"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/free.1.html", "title": "free(1)"}, {"url": "https://man7.org/linux/man-pages/man8/vmstat.8.html", "title": "vmstat(8)"}, {"url": "https://man7.org/linux/man-pages/man1/iostat.1.html", "title": "iostat(1)"}, {"url": "https://man7.org/linux/man-pages/man1/pidstat.1.html", "title": "pidstat(1)"}]}
       },
       {
         id: "strace-oom-debug",
@@ -681,7 +695,8 @@ const CHEAT_SHEET_DATA = [
           ["perf top -g", "Live hardware performance counter profiler showing top kernel and userspace functions by CPU cycles"],
           ["dmesg -T | grep -iE -C 3 'out of memory|killed process|oom-kill'", "Check if the Linux kernel OOM killer terminated a process due to memory exhaustion"]
         ],
-        tags: ["strace", "syscall", "hang", "debug", "oom", "oom-killer"]
+        tags: ["strace", "syscall", "hang", "debug", "oom", "oom-killer"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/strace.1.html", "title": "strace(1)"}, {"url": "https://man7.org/linux/man-pages/man1/perf-top.1.html", "title": "perf-top(1)"}, {"url": "https://man7.org/linux/man-pages/man1/dmesg.1.html", "title": "dmesg(1)"}]}
       }
     ]
   },
@@ -695,11 +710,11 @@ const CHEAT_SHEET_DATA = [
         id: "ss-listening-conns",
         desc: "Inspect all listening TCP/UDP ports, owning process/PID, and established socket states",
         cmd: "ss -tulpn",
-        details: "Queries kernel netlink TCP_DIAG directly (much faster than legacy netstat on servers with 50,000+ sockets). Shows local bind address (0.0.0.0 vs 127.0.0.1 vs [::]), port number, and the process name + PID holding the socket.",
+        details: "Reads sockets from the kernel over netlink, which is faster than the legacy netstat on busy servers. Shows local bind address (0.0.0.0 vs 127.0.0.1 vs [::]), port number, and the process name + PID holding the socket.",
         flags: [
           ["-t -u", "Show both TCP (-t) and UDP (-u) sockets"],
           ["-l", "Show only listening server sockets (omit -l to see established connections)"],
-          ["-p", "Show process name, PID, and file descriptor owning the socket (requires sudo)"],
+          ["-p", "Show process name, PID, and file descriptor owning the socket"],
           ["-n", "Numeric addresses and port numbers (do not block on DNS/service resolution)"]
         ],
         subcommands: [
@@ -708,7 +723,8 @@ const CHEAT_SHEET_DATA = [
           ["lsof -iTCP:8080 -sTCP:LISTEN -P -n", "Find the exact process bound to TCP port 8080"]
         ],
         tip: "Fast netlink socket inspection",
-        tags: ["ports", "listen", "open", "netstat", "socket", "ss", "lsof"]
+        tags: ["ports", "listen", "open", "netstat", "socket", "ss", "lsof"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man8/ss.8.html", "title": "ss(8)"}, {"url": "https://manpages.debian.org/trixie/lsof/lsof.8.en.html", "title": "lsof(8), Debian"}], "note": "Corrected 2026-11-09: the ss man page doesn't say -p needs root; the ROOT badge's 'maybe' note covers seeing other users' processes."}
       },
       {
         id: "iproute2-interfaces-routes",
@@ -725,7 +741,8 @@ const CHEAT_SHEET_DATA = [
           ["ip -6 -c rule list && ip -6 route show table all", "Inspect IPv6 policy-based routing (PBR) rules and all kernel routing tables"]
         ],
         tip: "'ip -6 route get <IPv6>' tests routing policy",
-        tags: ["ip", "ipv6", "interface", "nic", "gateway", "route", "ndp", "arp", "mtu"]
+        tags: ["ip", "ipv6", "interface", "nic", "gateway", "route", "ndp", "arp", "mtu"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man8/ip-link.8.html", "title": "ip-link(8)"}, {"url": "https://man7.org/linux/man-pages/man8/ip-address.8.html", "title": "ip-address(8)"}, {"url": "https://man7.org/linux/man-pages/man8/ip-route.8.html", "title": "ip-route(8)"}, {"url": "https://man7.org/linux/man-pages/man8/ip-neighbour.8.html", "title": "ip-neighbour(8)"}, {"url": "https://man7.org/linux/man-pages/man8/ip-rule.8.html", "title": "ip-rule(8)"}]}
       },
       {
         id: "dig-curl-diagnostics",
@@ -741,7 +758,8 @@ const CHEAT_SHEET_DATA = [
           ["openssl s_client -6 -connect \"[2001:db8:dc:4::50]:443\" -servername bmc.local </dev/null 2>/dev/null | openssl x509 -noout -dates -subject -issuer", "Inspect a remote server/BMC's live TLS certificate over IPv6 (-6)"],
           ["nc -6 -zv -w 3 2001:db8:dc:4::25 22 80 443", "Test raw IPv6 TCP port connectivity to a remote host with a 3-second timeout"]
         ],
-        tags: ["dns", "ipv6", "aaaa", "dig", "curl", "http", "tls", "ssl", "certificate", "netcat"]
+        tags: ["dns", "ipv6", "aaaa", "dig", "curl", "http", "tls", "ssl", "certificate", "netcat"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://manpages.debian.org/trixie/bind9-dnsutils/dig.1.en.html", "title": "dig(1), Debian"}, {"url": "https://curl.se/docs/manpage.html", "title": "curl manual"}, {"url": "https://docs.openssl.org/master/man1/openssl-s_client/", "title": "openssl s_client"}, {"url": "https://manpages.debian.org/trixie/netcat-openbsd/nc.1.en.html", "title": "nc(1), Debian"}], "note": "openssl s_client -6 is in the OpenSSL docs; your openssl version may differ."}
       },
       {
         id: "tcpdump-ufw-ssh",
@@ -758,7 +776,8 @@ const CHEAT_SHEET_DATA = [
           ["ssh -6 -N -L \"[::1]:5432:[2001:db8:dc::db]:5432\" user@bastion-host", "Forward local IPv6 loopback port 5432 securely through an SSH bastion host to an internal IPv6 database"],
           ["mtr -6 -rwzbc 20 2606:4700:4700::1111", "Run IPv6 My Traceroute report showing per-hop packet loss %, ASN, and latency jitter over 20 pings"]
         ],
-        tags: ["tcpdump", "ipv6", "icmp6", "pcap", "ufw", "firewall", "ssh", "tunnel", "mtr", "traceroute"]
+        tags: ["tcpdump", "ipv6", "icmp6", "pcap", "ufw", "firewall", "ssh", "tunnel", "mtr", "traceroute"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://www.tcpdump.org/manpages/tcpdump.1.html", "title": "tcpdump(1)"}, {"url": "https://manpages.ubuntu.com/manpages/noble/man8/ufw.8.html", "title": "ufw(8), Ubuntu 24.04"}, {"url": "https://man.openbsd.org/ssh", "title": "ssh(1), OpenBSD"}, {"url": "https://manpages.debian.org/trixie/mtr-tiny/mtr.8.en.html", "title": "mtr(8), Debian"}]}
       }
     ]
   },
@@ -864,8 +883,9 @@ const CHEAT_SHEET_DATA = [
           ["tar -xvf archive.tar.gz -C /opt/target/", "Extract any compressed tar archive into /opt/target/"],
           ["tar -I 'zstd -T0 -9' -cvf backup.tar.zst /var/www/", "Create a high-ratio Zstandard (.tar.zst) archive utilizing all CPU cores (-T0)"]
         ],
-        tip: "zstd -T0 is 5x faster than gzip",
-        tags: ["tar", "compress", "extract", "zstd", "gzip", "backup"]
+        tip: "zstd -T0 uses every CPU core",
+        tags: ["tar", "compress", "extract", "zstd", "gzip", "backup"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/tar.1.html", "title": "tar(1)"}], "note": "Corrected 2026-11-09: dropped an unsourced '5x faster than gzip' claim."}
       },
       {
         id: "tar-ssh-sha256",
@@ -879,7 +899,8 @@ const CHEAT_SHEET_DATA = [
         subcommands: [
           ["sha256sum firmware.bin iso-image.iso > SHA256SUMS && sha256sum -c SHA256SUMS", "Generate and verify cryptographic SHA-256 checksums for ISOs or firmware images"]
         ],
-        tags: ["stream", "ssh", "remote-backup", "sha256sum", "checksum", "hash"]
+        tags: ["stream", "ssh", "remote-backup", "sha256sum", "checksum", "hash"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/tar.1.html", "title": "tar(1)"}, {"url": "https://man7.org/linux/man-pages/man1/sha256sum.1.html", "title": "sha256sum(1)"}]}
       }
     ]
   },
@@ -906,7 +927,8 @@ const CHEAT_SHEET_DATA = [
           ["systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target", "Permanently mask sleep/suspend targets on a data center server so it can never suspend"],
           ["systemctl reboot --firmware-setup", "Reboot the server directly into the motherboard UEFI/BIOS setup utility"]
         ],
-        tags: ["systemctl", "service", "daemon", "failed", "timers", "systemd"]
+        tags: ["systemctl", "service", "daemon", "failed", "timers", "systemd"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/systemctl.1.html", "title": "systemctl(1)"}, {"url": "https://man7.org/linux/man-pages/man5/systemd.unit.5.html", "title": "systemd.unit(5)"}]}
       },
       {
         id: "journalctl-triage",
@@ -926,7 +948,8 @@ const CHEAT_SHEET_DATA = [
           ["systemd-analyze time && systemd-analyze blame | head -n 15", "Measure kernel + userspace boot time and list the slowest-starting units"]
         ],
         tip: "Use 'journalctl -b -1' after a sudden reboot",
-        tags: ["journalctl", "logs", "boot", "crash", "errors", "systemd-analyze"]
+        tags: ["journalctl", "logs", "boot", "crash", "errors", "systemd-analyze"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/journalctl.1.html", "title": "journalctl(1)"}, {"url": "https://man7.org/linux/man-pages/man1/systemd-analyze.1.html", "title": "systemd-analyze(1)"}]}
       }
     ]
   },
@@ -943,7 +966,7 @@ const CHEAT_SHEET_DATA = [
         details: "On Ubuntu Linux, members of the 'sudo' group are granted root privileges via /etc/sudoers, and members of 'adm' / 'systemd-journal' can read system logs in /var/log and journalctl without sudo.",
         flags: [
           ["-m", "Create home directory (/home/alice) and copy skeleton files from /etc/skel"],
-          ["-s /bin/bash", "Set login shell to /bin/bash (useradd defaults to /bin/sh if omitted)"],
+          ["-s /bin/bash", "Set login shell to /bin/bash (without -s, useradd uses SHELL from /etc/default/useradd)"],
           ["-G sudo,adm", "Supplementary groups (Ubuntu uses 'sudo', not 'wheel')"]
         ],
         subcommands: [
@@ -951,13 +974,14 @@ const CHEAT_SHEET_DATA = [
           ["passwd -l <user> && usermod -s /usr/sbin/nologin <user>", "Lock a user's password and disable interactive shell login when offboarding"]
         ],
         danger: "Never omit '-a' with usermod -G!",
-        tags: ["useradd", "adduser", "usermod", "sudo", "ubuntu", "groups"]
+        tags: ["useradd", "adduser", "usermod", "sudo", "ubuntu", "groups"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man8/useradd.8.html", "title": "useradd(8)"}, {"url": "https://man7.org/linux/man-pages/man8/usermod.8.html", "title": "usermod(8)"}, {"url": "https://man7.org/linux/man-pages/man1/passwd.1.html", "title": "passwd(1)"}], "note": "Corrected 2026-11-09: useradd has no fixed default shell; without -s it uses SHELL from /etc/default/useradd, else leaves the field empty."}
       },
       {
         id: "ssh-visudo-audit",
         desc: "Generate Ed25519 SSH keys, audit logged-in users/login history, and safely validate sudoers",
         cmd: "id && w && last -n 10 -a -F",
-        details: "Audits current user UID/GID memberships ('id'), active TTY/SSH sessions and their current foreground command ('w'), and historical login/reboot records from /var/log/wtmp ('last').",
+        details: "Audits current user UID/GID memberships ('id'), active TTY/SSH sessions and their current foreground command ('w'), and historical login/reboot records ('last', which reads /var/log/wtmp; on Debian 13+ util-linux no longer ships it: use 'wtmpdb last', which reads /var/log/wtmp.db).",
         flags: [
           ["id", "Print effective UID, GID, and all supplementary group memberships"],
           ["w", "Show who is currently logged in, from what IP, idle time, and running process"],
@@ -968,7 +992,8 @@ const CHEAT_SHEET_DATA = [
           ["EDITOR=nano visudo -f /etc/sudoers.d/90-datacenter-techs", "Edit a drop-in sudoers file with automatic syntax validation so you never lock out sudo"]
         ],
         tip: "Always use visudo for /etc/sudoers.d/",
-        tags: ["ssh-keygen", "visudo", "sudoers", "who", "last", "audit", "security"]
+        tags: ["ssh-keygen", "visudo", "sudoers", "who", "last", "audit", "security"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/id.1.html", "title": "id(1)"}, {"url": "https://man7.org/linux/man-pages/man1/w.1.html", "title": "w(1)"}, {"url": "https://man7.org/linux/man-pages/man1/last.1.html", "title": "last(1)"}, {"url": "https://manpages.debian.org/trixie/wtmpdb/wtmpdb.8.en.html", "title": "wtmpdb(8), Debian"}, {"url": "https://man.openbsd.org/ssh-keygen", "title": "ssh-keygen(1), OpenBSD"}, {"url": "https://www.sudo.ws/docs/man/visudo.man/", "title": "visudo(8)"}], "note": "Debian 13 (trixie) dropped last and lastb from util-linux: use wtmpdb last (package wtmpdb, plus libpam-wtmpdb)."}
       }
     ]
   },
@@ -992,7 +1017,8 @@ const CHEAT_SHEET_DATA = [
           ["apt-mark hold linux-image-generic kubelet && apt-mark showhold", "Pin/hold critical packages (e.g. kernel or kubelet) to prevent accidental upgrades"]
         ],
         tip: "Keeps /boot clean of old kernels",
-        tags: ["ubuntu", "debian", "apt", "upgrade", "cleanup", "apt-mark", "hold"]
+        tags: ["ubuntu", "debian", "apt", "upgrade", "cleanup", "apt-mark", "hold"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://manpages.debian.org/trixie/apt/apt.8.en.html", "title": "apt(8), Debian"}, {"url": "https://manpages.debian.org/trixie/apt/apt-mark.8.en.html", "title": "apt-mark(8), Debian"}]}
       },
       {
         id: "apt-search-policy",
@@ -1008,7 +1034,8 @@ const CHEAT_SHEET_DATA = [
           ["apt download <pkg> && dpkg-deb -I <pkg>*.deb", "Download a .deb package to the current directory without installing it and inspect its control metadata"]
         ],
         tip: "Debugs version conflicts & PPAs",
-        tags: ["apt", "search", "policy", "repo", "ppa", "version", "sources.list"]
+        tags: ["apt", "search", "policy", "repo", "ppa", "version", "sources.list"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://manpages.debian.org/trixie/apt/apt.8.en.html", "title": "apt(8), Debian"}, {"url": "https://manpages.debian.org/trixie/apt/apt-cache.8.en.html", "title": "apt-cache(8), Debian"}, {"url": "https://manpages.debian.org/trixie/dpkg/dpkg-deb.1.en.html", "title": "dpkg-deb(1), Debian"}]}
       },
       {
         id: "dpkg-query-files",
@@ -1024,7 +1051,8 @@ const CHEAT_SHEET_DATA = [
           ["apt-file update && apt-file search /usr/sbin/ipmitool", "Find which Ubuntu package provides a binary that is NOT yet installed on the system"],
           ["debsums -s", "Verify MD5 checksums of installed Ubuntu package files against dpkg metadata to detect corruption"]
         ],
-        tags: ["dpkg", "deb", "owns", "files", "ubuntu", "apt-file"]
+        tags: ["dpkg", "deb", "owns", "files", "ubuntu", "apt-file"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://manpages.debian.org/trixie/dpkg/dpkg.1.en.html", "title": "dpkg(1), Debian"}, {"url": "https://manpages.debian.org/trixie/apt-file/apt-file.1.en.html", "title": "apt-file(1), Debian"}, {"url": "https://manpages.debian.org/trixie/debsums/debsums.1.en.html", "title": "debsums(1), Debian"}]}
       },
       {
         id: "dpkg-fix-needrestart",
@@ -1041,7 +1069,8 @@ const CHEAT_SHEET_DATA = [
           ["lsof /var/lib/dpkg/lock-frontend /var/lib/apt/lists/lock", "Check if a background apt or unattended-upgrade process is currently holding the dpkg lock"]
         ],
         tip: "Checks /var/run/reboot-required",
-        tags: ["dpkg", "broken", "lock", "repair", "needrestart", "reboot-required"]
+        tags: ["dpkg", "broken", "lock", "repair", "needrestart", "reboot-required"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://manpages.debian.org/trixie/dpkg/dpkg.1.en.html", "title": "dpkg(1), Debian"}, {"url": "https://manpages.debian.org/trixie/apt/apt-get.8.en.html", "title": "apt-get(8), Debian"}, {"url": "https://manpages.debian.org/trixie/needrestart/needrestart.1.en.html", "title": "needrestart(1), Debian"}]}
       },
       {
         id: "snap-ubuntu-release",
@@ -1057,7 +1086,8 @@ const CHEAT_SHEET_DATA = [
           ["pro status", "Check Ubuntu Pro subscription status (ESM security updates, Livepatch kernel patching)"],
           ["dmesg -T -w --level=err,warn", "Watch the kernel ring buffer live with human-readable timestamps for hardware/driver errors"]
         ],
-        tags: ["snap", "ubuntu", "lsb_release", "hostnamectl", "dmesg", "livepatch"]
+        tags: ["snap", "ubuntu", "lsb_release", "hostnamectl", "dmesg", "livepatch"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://manpages.debian.org/trixie/lsb-release/lsb_release.1.en.html", "title": "lsb_release(1), Debian"}, {"url": "https://man7.org/linux/man-pages/man1/hostnamectl.1.html", "title": "hostnamectl(1)"}, {"url": "https://manpages.ubuntu.com/manpages/noble/man8/snap.8.html", "title": "snap(8), Ubuntu 24.04"}, {"url": "https://manpages.ubuntu.com/manpages/noble/man1/pro.1.html", "title": "pro(1), Ubuntu 24.04"}], "note": "Ubuntu-specific: snap and pro are Canonical tools."}
       }
     ]
   }

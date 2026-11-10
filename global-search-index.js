@@ -1,5 +1,5 @@
 // Auto-generated Global Search Index across all 243 cheat sheets
-// Total indexed items: 3662
+// Total indexed items: 3666
 window.GLOBAL_SEARCH_INDEX = [
   {
     "sName": "ansible",
@@ -1426,7 +1426,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ls -lah --color=auto",
     "desc": "List all files with human-readable sizes, permissions & hidden dotfiles",
     "tip": "",
-    "tags": "list directory hidden size recent modified"
+    "tags": "list directory hidden size recent modified",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ls.1.html",
+          "title": "ls(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -1470,7 +1479,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "find /var/log -xdev -type f -iname '*.log' -mtime -7 -size +50M -exec ls -lh {} +",
     "desc": "Find large or recently modified files across a filesystem without crossing mount boundaries",
     "tip": "Use -xdev on root '/'",
-    "tags": "search find recent logs large big cleanup space"
+    "tags": "search find recent logs large big cleanup space",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/find.1.html",
+          "title": "find(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -1502,6 +1520,51 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "Files & Directories",
     "cmd": "mkdir -pv /srv/releases/{v1,v2} && cp -a src/ /srv/releases/v2/ && ln -sfn /srv/releases/v2 /srv/current",
     "desc": "Create nested directories, archive-copy preserving attributes, or atomically flip symlinks",
+    "tip": "",
+    "tags": "mkdir cp symlink ln stat readlink atomic",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/mkdir.1.html",
+          "title": "mkdir(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/cp.1.html",
+          "title": "cp(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ln.1.html",
+          "title": "ln(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man2/rename.2.html",
+          "title": "rename(2)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/readlink.1.html",
+          "title": "readlink(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/stat.1.html",
+          "title": "stat(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/mv.1.html",
+          "title": "mv(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: ln -sfn is not a single atomic rename (ln removes the old link, then creates the new one); the atomic switch is ln -s to a temporary name, then mv -T over the old link."
+    }
+  },
+  {
+    "sName": "linux",
+    "file": "linux.html",
+    "badge": "fs",
+    "id": "mkdir-cp-ln",
+    "sec": "Files & Directories",
+    "cmd": "ln -s /srv/releases/v2 /srv/current.tmp && mv -T /srv/current.tmp /srv/current",
+    "desc": "Atomic switch: make the new link under a temporary name, then rename it over the old one",
     "tip": "",
     "tags": "mkdir cp symlink ln stat readlink atomic"
   },
@@ -1536,7 +1599,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "rsync -avhP --stats src/ user@host:/backup/src/",
     "desc": "Synchronize directories locally or over SSH with delta transfer, progress bar & resume support",
     "tip": "Always test --delete with -n first",
-    "tags": "sync backup remote transfer rsync mirror"
+    "tags": "sync backup remote transfer rsync mirror",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://download.samba.org/pub/rsync/rsync.1",
+          "title": "rsync(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -1569,7 +1641,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "find /var/www/html -type d -exec chmod 755 {} + -o -type f -exec chmod 644 {} +",
     "desc": "Set standard 755 permissions on directories and 644 on files recursively",
     "tip": "Fixes SSH & web root permissions",
-    "tags": "chmod web recursive permissions ssh"
+    "tags": "chmod web recursive permissions ssh",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/chmod.1.html",
+          "title": "chmod(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/find.1.html",
+          "title": "find(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -1602,7 +1687,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "chown -R jason:devops /srv/shared && chmod 2775 /srv/shared",
     "desc": "Change recursive ownership and set the SGID bit so new files inherit the directory's group",
     "tip": "Essential for shared team folders",
-    "tags": "owner group chown setgid sgid sticky"
+    "tags": "owner group chown setgid sgid sticky",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/chown.1.html",
+          "title": "chown(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/chmod.1.html",
+          "title": "chmod(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -1624,7 +1722,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "setfacl -R -m u:deploy:rwX,d:u:deploy:rwX /srv/app && getfacl /srv/app",
     "desc": "Grant fine-grained POSIX ACL permissions or lock critical config files with immutable attribute",
     "tip": "",
-    "tags": "acl getfacl setfacl chattr lsattr immutable"
+    "tags": "acl getfacl setfacl chattr lsattr immutable",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/setfacl.1.html",
+          "title": "setfacl(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/getfacl.1.html",
+          "title": "getfacl(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/chattr.1.html",
+          "title": "chattr(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -1657,7 +1772,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep -rnIE -C 2 --color=auto 'ERROR|FATAL|CRITICAL|panic' /var/log/",
     "desc": "Search logs or configs recursively with extended regex, line numbers, and surrounding context",
     "tip": "grep -Ev '^\\s*(#|$)' strips comments",
-    "tags": "search regex logs grep zgrep config"
+    "tags": "search regex logs grep zgrep config",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+          "title": "grep(1)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/gzip/zgrep.1.en.html",
+          "title": "zgrep(1), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -1701,7 +1829,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "awk '{print $1}' /var/log/nginx/access.log | sort | uniq -c | sort -nr | head -n 10",
     "desc": "Parse log columns, aggregate metrics with awk, or perform safe in-place edits with sed",
     "tip": "",
-    "tags": "awk sed sort uniq column logs replace"
+    "tags": "awk sed sort uniq column logs replace",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/gawk.1.html",
+          "title": "gawk(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sort.1.html",
+          "title": "sort(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/uniq.1.html",
+          "title": "uniq(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sed.1.html",
+          "title": "sed(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/column.1.html",
+          "title": "column(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -1745,7 +1898,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tail -F /var/log/syslog /var/log/auth.log",
     "desc": "Follow rotating log files live and filter structured JSON output with jq",
     "tip": "",
-    "tags": "tail jq json logs diff stream"
+    "tags": "tail jq json logs diff stream",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/tail.1.html",
+          "title": "tail(1)"
+        },
+        {
+          "url": "https://jqlang.org/manual/",
+          "title": "jq manual"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -1778,7 +1948,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ps -eo pid,ppid,user,%cpu,%mem,rss,stat,lstart,cmd --sort=-%mem | head -n 15",
     "desc": "Find top processes consuming the most Resident Memory (RSS) or CPU, and view process tree",
     "tip": "STAT 'D' = blocked on disk/NFS I/O",
-    "tags": "ps memory cpu rss zombie tree pgrep pkill"
+    "tags": "ps memory cpu rss zombie tree pgrep pkill",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ps.1.html",
+          "title": "ps(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/top.1.html",
+          "title": "top(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/systemctl.1.html",
+          "title": "systemctl(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -1811,7 +1998,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lsof +L1",
     "desc": "Find processes holding open file handles to deleted files (fixing 'disk full but du shows space')",
     "tip": "Fixes invisible disk exhaustion",
-    "tags": "lsof deleted disk-full fd proc"
+    "tags": "lsof deleted disk-full fd proc",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/lsof/lsof.8.en.html",
+          "title": "lsof(8), Debian"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man5/proc.5.html",
+          "title": "proc(5)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -1844,7 +2044,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "free -h -w && iostat -xz 1 3",
     "desc": "Analyze available RAM, buffer/cache breakdown, swap activity, and per-disk I/O latency (await)",
     "tip": "",
-    "tags": "free iostat vmstat pidstat sysstat iowait ram latency"
+    "tags": "free iostat vmstat pidstat sysstat iowait ram latency",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/free.1.html",
+          "title": "free(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/vmstat.8.html",
+          "title": "vmstat(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/iostat.1.html",
+          "title": "iostat(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/pidstat.1.html",
+          "title": "pidstat(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -1877,7 +2098,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "strace -p <PID> -f -T -tt",
     "desc": "Trace live system calls of a hung process and inspect Linux kernel OOM-killer events",
     "tip": "",
-    "tags": "strace syscall hang debug oom oom-killer"
+    "tags": "strace syscall hang debug oom oom-killer",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/strace.1.html",
+          "title": "strace(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/perf-top.1.html",
+          "title": "perf-top(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/dmesg.1.html",
+          "title": "dmesg(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -1910,7 +2148,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ss -tulpn",
     "desc": "Inspect all listening TCP/UDP ports, owning process/PID, and established socket states",
     "tip": "Fast netlink socket inspection",
-    "tags": "ports listen open netstat socket ss lsof"
+    "tags": "ports listen open netstat socket ss lsof",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ss.8.html",
+          "title": "ss(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/lsof/lsof.8.en.html",
+          "title": "lsof(8), Debian"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the ss man page doesn't say -p needs root; the ROOT badge's 'maybe' note covers seeing other users' processes."
+    }
   },
   {
     "sName": "linux",
@@ -1954,7 +2206,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ip -c -br link show && ip -6 -c -br addr show && ip -6 -c route show",
     "desc": "Inspect NIC link state, MAC, MTU, IPv6 (`/64` & `fe80::`) addresses, IPv6 routing table & NDP neighbor cache",
     "tip": "'ip -6 route get <IPv6>' tests routing policy",
-    "tags": "ip ipv6 interface nic gateway route ndp arp mtu"
+    "tags": "ip ipv6 interface nic gateway route ndp arp mtu",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-link.8.html",
+          "title": "ip-link(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-address.8.html",
+          "title": "ip-address(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-route.8.html",
+          "title": "ip-route(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-neighbour.8.html",
+          "title": "ip-neighbour(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-rule.8.html",
+          "title": "ip-rule(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -1998,7 +2275,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dig @2606:4700:4700::1111 example.com AAAA +noall +answer && curl -g -6 -sSL -D - -o /dev/null -w 'DNS:%{time_namelookup}s TCP:%{time_connect}s TLS:%{time_appconnect}s TTFB:%{time_starttransfer}s\n' https://example.com",
     "desc": "Test IPv6 DNS (`AAAA`) resolution against specific nameservers and measure IPv6 HTTP/TLS connection timing",
     "tip": "",
-    "tags": "dns ipv6 aaaa dig curl http tls ssl certificate netcat"
+    "tags": "dns ipv6 aaaa dig curl http tls ssl certificate netcat",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/bind9-dnsutils/dig.1.en.html",
+          "title": "dig(1), Debian"
+        },
+        {
+          "url": "https://curl.se/docs/manpage.html",
+          "title": "curl manual"
+        },
+        {
+          "url": "https://docs.openssl.org/master/man1/openssl-s_client/",
+          "title": "openssl s_client"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/netcat-openbsd/nc.1.en.html",
+          "title": "nc(1), Debian"
+        }
+      ],
+      "note": "openssl s_client -6 is in the OpenSSL docs; your openssl version may differ."
+    }
   },
   {
     "sName": "linux",
@@ -2042,7 +2341,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tcpdump -ni any 'ip6 and (tcp port 443 or icmp6)' -nn -vv -c 50",
     "desc": "Capture live IPv6/ICMPv6 network packets (`tcpdump`), manage Ubuntu UFW IPv6 firewall rules, and create SSH tunnels",
     "tip": "",
-    "tags": "tcpdump ipv6 icmp6 pcap ufw firewall ssh tunnel mtr traceroute"
+    "tags": "tcpdump ipv6 icmp6 pcap ufw firewall ssh tunnel mtr traceroute",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.tcpdump.org/manpages/tcpdump.1.html",
+          "title": "tcpdump(1)"
+        },
+        {
+          "url": "https://manpages.ubuntu.com/manpages/noble/man8/ufw.8.html",
+          "title": "ufw(8), Ubuntu 24.04"
+        },
+        {
+          "url": "https://man.openbsd.org/ssh",
+          "title": "ssh(1), OpenBSD"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/mtr-tiny/mtr.8.en.html",
+          "title": "mtr(8), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -2325,8 +2645,18 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "Archives, Compression & Checksums",
     "cmd": "tar --exclude='.git' --exclude='node_modules' -czvf backup.tar.gz project/ && tar -ztvf backup.tar.gz | head",
     "desc": "Create, inspect, and extract tar archives (.tar.gz, .tar.xz, .tar.zst) with target directory control",
-    "tip": "zstd -T0 is 5x faster than gzip",
-    "tags": "tar compress extract zstd gzip backup"
+    "tip": "zstd -T0 uses every CPU core",
+    "tags": "tar compress extract zstd gzip backup",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/tar.1.html",
+          "title": "tar(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: dropped an unsourced '5x faster than gzip' claim."
+    }
   },
   {
     "sName": "linux",
@@ -2359,7 +2689,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tar -czf - /etc /var/www | ssh user@backup-host 'cat > /backups/host-$(date +%F).tar.gz'",
     "desc": "Stream compressed backups directly over SSH without local temp files and verify SHA-256 checksums",
     "tip": "",
-    "tags": "stream ssh remote-backup sha256sum checksum hash"
+    "tags": "stream ssh remote-backup sha256sum checksum hash",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/tar.1.html",
+          "title": "tar(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sha256sum.1.html",
+          "title": "sha256sum(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -2381,7 +2724,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "systemctl --failed && systemctl enable --now nginx.service && systemctl status nginx.service",
     "desc": "Manage systemd services, inspect failed units, view unit files, and reload daemon configs",
     "tip": "",
-    "tags": "systemctl service daemon failed timers systemd"
+    "tags": "systemctl service daemon failed timers systemd",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/systemctl.1.html",
+          "title": "systemctl(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man5/systemd.unit.5.html",
+          "title": "systemd.unit(5)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -2449,7 +2805,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "journalctl -b 0 -p err..emerg --no-pager && journalctl -u ssh.service --since '1 hour ago' -f",
     "desc": "Filter systemd journal logs by unit, boot session, time window, and syslog severity priority",
     "tip": "Use 'journalctl -b -1' after a sudden reboot",
-    "tags": "journalctl logs boot crash errors systemd-analyze"
+    "tags": "journalctl logs boot crash errors systemd-analyze",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/journalctl.1.html",
+          "title": "journalctl(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/systemd-analyze.1.html",
+          "title": "systemd-analyze(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -2504,7 +2873,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "useradd -m -s /bin/bash -G sudo,adm,systemd-journal alice && passwd alice",
     "desc": "Create a new user on Ubuntu with bash shell and sudo group, or append groups to an existing user",
     "tip": "",
-    "tags": "useradd adduser usermod sudo ubuntu groups"
+    "tags": "useradd adduser usermod sudo ubuntu groups",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/useradd.8.html",
+          "title": "useradd(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/usermod.8.html",
+          "title": "usermod(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/passwd.1.html",
+          "title": "passwd(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: useradd has no fixed default shell; without -s it uses SHELL from /etc/default/useradd, else leaves the field empty."
+    }
   },
   {
     "sName": "linux",
@@ -2537,7 +2924,37 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "id && w && last -n 10 -a -F",
     "desc": "Generate Ed25519 SSH keys, audit logged-in users/login history, and safely validate sudoers",
     "tip": "Always use visudo for /etc/sudoers.d/",
-    "tags": "ssh-keygen visudo sudoers who last audit security"
+    "tags": "ssh-keygen visudo sudoers who last audit security",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/id.1.html",
+          "title": "id(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/w.1.html",
+          "title": "w(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/last.1.html",
+          "title": "last(1)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/wtmpdb/wtmpdb.8.en.html",
+          "title": "wtmpdb(8), Debian"
+        },
+        {
+          "url": "https://man.openbsd.org/ssh-keygen",
+          "title": "ssh-keygen(1), OpenBSD"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        }
+      ],
+      "note": "Debian 13 (trixie) dropped last and lastb from util-linux: use wtmpdb last (package wtmpdb, plus libpam-wtmpdb)."
+    }
   },
   {
     "sName": "linux",
@@ -2570,7 +2987,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "apt update && apt full-upgrade -y && apt autoremove --purge -y",
     "desc": "Update Ubuntu APT repositories, perform full upgrade, and purge orphaned packages/kernels",
     "tip": "Keeps /boot clean of old kernels",
-    "tags": "ubuntu debian apt upgrade cleanup apt-mark hold"
+    "tags": "ubuntu debian apt upgrade cleanup apt-mark hold",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/apt/apt.8.en.html",
+          "title": "apt(8), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/apt/apt-mark.8.en.html",
+          "title": "apt-mark(8), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -2603,7 +3033,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "apt search <keyword> && apt show <pkg> && apt-cache policy <pkg>",
     "desc": "Search APT packages, inspect package dependencies, and debug PPA/repository version priorities",
     "tip": "Debugs version conflicts & PPAs",
-    "tags": "apt search policy repo ppa version sources.list"
+    "tags": "apt search policy repo ppa version sources.list",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/apt/apt.8.en.html",
+          "title": "apt(8), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/apt/apt-cache.8.en.html",
+          "title": "apt-cache(8), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/dpkg/dpkg-deb.1.en.html",
+          "title": "dpkg-deb(1), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -2636,7 +3083,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dpkg -S $(which ss) && dpkg -L iproute2 && dpkg -l | grep -E '^ii|^rc'",
     "desc": "Query installed .deb packages, find which package owns a binary, or list all files inside a package",
     "tip": "",
-    "tags": "dpkg deb owns files ubuntu apt-file"
+    "tags": "dpkg deb owns files ubuntu apt-file",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/dpkg/dpkg.1.en.html",
+          "title": "dpkg(1), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/apt-file/apt-file.1.en.html",
+          "title": "apt-file(1), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/debsums/debsums.1.en.html",
+          "title": "debsums(1), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -2669,7 +3133,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dpkg --configure -a && apt --fix-broken install && needrestart -r l",
     "desc": "Repair interrupted dpkg runs, fix broken APT dependencies, and check services/kernel pending restart",
     "tip": "Checks /var/run/reboot-required",
-    "tags": "dpkg broken lock repair needrestart reboot-required"
+    "tags": "dpkg broken lock repair needrestart reboot-required",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/dpkg/dpkg.1.en.html",
+          "title": "dpkg(1), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/apt/apt-get.8.en.html",
+          "title": "apt-get(8), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/needrestart/needrestart.1.en.html",
+          "title": "needrestart(1), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -2702,7 +3183,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lsb_release -a && hostnamectl && snap list",
     "desc": "Check Ubuntu LTS release version, inspect kernel/driver ring buffer, and manage Snap packages",
     "tip": "",
-    "tags": "snap ubuntu lsb_release hostnamectl dmesg livepatch"
+    "tags": "snap ubuntu lsb_release hostnamectl dmesg livepatch",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/lsb-release/lsb_release.1.en.html",
+          "title": "lsb_release(1), Debian"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/hostnamectl.1.html",
+          "title": "hostnamectl(1)"
+        },
+        {
+          "url": "https://manpages.ubuntu.com/manpages/noble/man8/snap.8.html",
+          "title": "snap(8), Ubuntu 24.04"
+        },
+        {
+          "url": "https://manpages.ubuntu.com/manpages/noble/man1/pro.1.html",
+          "title": "pro(1), Ubuntu 24.04"
+        }
+      ],
+      "note": "Ubuntu-specific: snap and pro are Canonical tools."
+    }
   },
   {
     "sName": "linux",
@@ -2734,8 +3237,18 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "Archives: Create, inspect, and extract tar archives (",
     "cmd": "tar --exclude='.git' --exclude='node_modules' -czvf backup.tar.gz project/ && tar -ztvf backup.tar.gz | head",
     "desc": "Create, inspect, and extract tar archives (.tar.gz, .tar.xz, .tar.zst) with target directory control",
-    "tip": "zstd -T0 is 5x faster than gzip",
-    "tags": "tar compress extract zstd gzip backup"
+    "tip": "zstd -T0 uses every CPU core",
+    "tags": "tar compress extract zstd gzip backup",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/tar.1.html",
+          "title": "tar(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: dropped an unsourced '5x faster than gzip' claim."
+    }
   },
   {
     "sName": "archives",
@@ -2768,7 +3281,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tar -czf - /etc /var/www | ssh user@backup-host 'cat > /backups/host-$(date +%F).tar.gz'",
     "desc": "Stream compressed backups directly over SSH without local temp files and verify SHA-256 checksums",
     "tip": "",
-    "tags": "stream ssh remote-backup sha256sum checksum hash"
+    "tags": "stream ssh remote-backup sha256sum checksum hash",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/tar.1.html",
+          "title": "tar(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sha256sum.1.html",
+          "title": "sha256sum(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "archives",
@@ -2790,7 +3316,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tar -I pigz -cf archive.tar.gz /srv/data/ && sha256sum archive.tar.gz > archive.tar.gz.sha256",
     "desc": "Multithreaded compression with pigz/zstd and streaming integrity checks",
     "tip": "Standard Ubuntu Server administration & security best practice",
-    "tags": "archives tips triage diagnostics"
+    "tags": "archives tips triage diagnostics",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/tar.1.html",
+          "title": "tar(1)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/pigz/pigz.1.en.html",
+          "title": "pigz(1), Debian"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sha256sum.1.html",
+          "title": "sha256sum(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "archives",
@@ -15227,7 +15770,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ls -lah --color=auto",
     "desc": "List all files with human-readable sizes, permissions & hidden dotfiles",
     "tip": "",
-    "tags": "list directory hidden size recent modified"
+    "tags": "list directory hidden size recent modified",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ls.1.html",
+          "title": "ls(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "files",
@@ -15271,7 +15823,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "find /var/log -xdev -type f -iname '*.log' -mtime -7 -size +50M -exec ls -lh {} +",
     "desc": "Find large or recently modified files across a filesystem without crossing mount boundaries",
     "tip": "Use -xdev on root '/'",
-    "tags": "search find recent logs large big cleanup space"
+    "tags": "search find recent logs large big cleanup space",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/find.1.html",
+          "title": "find(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "files",
@@ -15303,6 +15864,51 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "Files: Nested directories, archive-copy preserving attr...",
     "cmd": "mkdir -pv /srv/releases/{v1,v2} && cp -a src/ /srv/releases/v2/ && ln -sfn /srv/releases/v2 /srv/current",
     "desc": "Create nested directories, archive-copy preserving attributes, or atomically flip symlinks",
+    "tip": "",
+    "tags": "mkdir cp symlink ln stat readlink atomic",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/mkdir.1.html",
+          "title": "mkdir(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/cp.1.html",
+          "title": "cp(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ln.1.html",
+          "title": "ln(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man2/rename.2.html",
+          "title": "rename(2)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/readlink.1.html",
+          "title": "readlink(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/stat.1.html",
+          "title": "stat(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/mv.1.html",
+          "title": "mv(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: ln -sfn is not a single atomic rename (ln removes the old link, then creates the new one); the atomic switch is ln -s to a temporary name, then mv -T over the old link."
+    }
+  },
+  {
+    "sName": "files",
+    "file": "files.html",
+    "badge": "fs",
+    "id": "mkdir-cp-ln",
+    "sec": "Files: Nested directories, archive-copy preserving attr...",
+    "cmd": "ln -s /srv/releases/v2 /srv/current.tmp && mv -T /srv/current.tmp /srv/current",
+    "desc": "Atomic switch: make the new link under a temporary name, then rename it over the old one",
     "tip": "",
     "tags": "mkdir cp symlink ln stat readlink atomic"
   },
@@ -15337,7 +15943,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "rsync -avhP --stats src/ user@host:/backup/src/",
     "desc": "Synchronize directories locally or over SSH with delta transfer, progress bar & resume support",
     "tip": "Always test --delete with -n first",
-    "tags": "sync backup remote transfer rsync mirror"
+    "tags": "sync backup remote transfer rsync mirror",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://download.samba.org/pub/rsync/rsync.1",
+          "title": "rsync(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "files",
@@ -33580,7 +34195,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ss -tulpn",
     "desc": "Inspect all listening TCP/UDP ports, owning process/PID, and established socket states",
     "tip": "Fast netlink socket inspection",
-    "tags": "ports listen open netstat socket ss lsof"
+    "tags": "ports listen open netstat socket ss lsof",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ss.8.html",
+          "title": "ss(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/lsof/lsof.8.en.html",
+          "title": "lsof(8), Debian"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the ss man page doesn't say -p needs root; the ROOT badge's 'maybe' note covers seeing other users' processes."
+    }
   },
   {
     "sName": "network",
@@ -33624,7 +34253,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ip -c -br link show && ip -6 -c -br addr show && ip -6 -c route show",
     "desc": "Inspect NIC link state, MAC, MTU, IPv6 (`/64` & `fe80::`) addresses, IPv6 routing table & NDP neighbor cache",
     "tip": "'ip -6 route get <IPv6>' tests routing policy",
-    "tags": "ip ipv6 interface nic gateway route ndp arp mtu"
+    "tags": "ip ipv6 interface nic gateway route ndp arp mtu",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-link.8.html",
+          "title": "ip-link(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-address.8.html",
+          "title": "ip-address(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-route.8.html",
+          "title": "ip-route(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-neighbour.8.html",
+          "title": "ip-neighbour(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-rule.8.html",
+          "title": "ip-rule(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "network",
@@ -33668,7 +34322,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dig @2606:4700:4700::1111 example.com AAAA +noall +answer && curl -g -6 -sSL -D - -o /dev/null -w 'DNS:%{time_namelookup}s TCP:%{time_connect}s TLS:%{time_appconnect}s TTFB:%{time_starttransfer}s\n' https://example.com",
     "desc": "Test IPv6 DNS (`AAAA`) resolution against specific nameservers and measure IPv6 HTTP/TLS connection timing",
     "tip": "",
-    "tags": "dns ipv6 aaaa dig curl http tls ssl certificate netcat"
+    "tags": "dns ipv6 aaaa dig curl http tls ssl certificate netcat",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/bind9-dnsutils/dig.1.en.html",
+          "title": "dig(1), Debian"
+        },
+        {
+          "url": "https://curl.se/docs/manpage.html",
+          "title": "curl manual"
+        },
+        {
+          "url": "https://docs.openssl.org/master/man1/openssl-s_client/",
+          "title": "openssl s_client"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/netcat-openbsd/nc.1.en.html",
+          "title": "nc(1), Debian"
+        }
+      ],
+      "note": "openssl s_client -6 is in the OpenSSL docs; your openssl version may differ."
+    }
   },
   {
     "sName": "network",
@@ -33712,7 +34388,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tcpdump -ni any 'ip6 and (tcp port 443 or icmp6)' -nn -vv -c 50",
     "desc": "Capture live IPv6/ICMPv6 network packets (`tcpdump`), manage Ubuntu UFW IPv6 firewall rules, and create SSH tunnels",
     "tip": "",
-    "tags": "tcpdump ipv6 icmp6 pcap ufw firewall ssh tunnel mtr traceroute"
+    "tags": "tcpdump ipv6 icmp6 pcap ufw firewall ssh tunnel mtr traceroute",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.tcpdump.org/manpages/tcpdump.1.html",
+          "title": "tcpdump(1)"
+        },
+        {
+          "url": "https://manpages.ubuntu.com/manpages/noble/man8/ufw.8.html",
+          "title": "ufw(8), Ubuntu 24.04"
+        },
+        {
+          "url": "https://man.openbsd.org/ssh",
+          "title": "ssh(1), OpenBSD"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/mtr-tiny/mtr.8.en.html",
+          "title": "mtr(8), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "network",
@@ -36924,7 +37621,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "apt update && apt full-upgrade -y && apt autoremove --purge -y",
     "desc": "Update Ubuntu APT repositories, perform full upgrade, and purge orphaned packages/kernels",
     "tip": "Keeps /boot clean of old kernels",
-    "tags": "ubuntu debian apt upgrade cleanup apt-mark hold"
+    "tags": "ubuntu debian apt upgrade cleanup apt-mark hold",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/apt/apt.8.en.html",
+          "title": "apt(8), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/apt/apt-mark.8.en.html",
+          "title": "apt-mark(8), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "packages",
@@ -36957,7 +37667,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "apt search <keyword> && apt show <pkg> && apt-cache policy <pkg>",
     "desc": "Search APT packages, inspect package dependencies, and debug PPA/repository version priorities",
     "tip": "Debugs version conflicts & PPAs",
-    "tags": "apt search policy repo ppa version sources.list"
+    "tags": "apt search policy repo ppa version sources.list",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/apt/apt.8.en.html",
+          "title": "apt(8), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/apt/apt-cache.8.en.html",
+          "title": "apt-cache(8), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/dpkg/dpkg-deb.1.en.html",
+          "title": "dpkg-deb(1), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "packages",
@@ -36990,7 +37717,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dpkg -S $(which ss) && dpkg -L iproute2 && dpkg -l | grep -E '^ii|^rc'",
     "desc": "Query installed .deb packages, find which package owns a binary, or list all files inside a package",
     "tip": "",
-    "tags": "dpkg deb owns files ubuntu apt-file"
+    "tags": "dpkg deb owns files ubuntu apt-file",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/dpkg/dpkg.1.en.html",
+          "title": "dpkg(1), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/apt-file/apt-file.1.en.html",
+          "title": "apt-file(1), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/debsums/debsums.1.en.html",
+          "title": "debsums(1), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "packages",
@@ -37023,7 +37767,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dpkg --configure -a && apt --fix-broken install && needrestart -r l",
     "desc": "Repair interrupted dpkg runs, fix broken APT dependencies, and check services/kernel pending restart",
     "tip": "Checks /var/run/reboot-required",
-    "tags": "dpkg broken lock repair needrestart reboot-required"
+    "tags": "dpkg broken lock repair needrestart reboot-required",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/dpkg/dpkg.1.en.html",
+          "title": "dpkg(1), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/apt/apt-get.8.en.html",
+          "title": "apt-get(8), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/needrestart/needrestart.1.en.html",
+          "title": "needrestart(1), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "packages",
@@ -37056,7 +37817,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lsb_release -a && hostnamectl && snap list",
     "desc": "Check Ubuntu LTS release version, inspect kernel/driver ring buffer, and manage Snap packages",
     "tip": "",
-    "tags": "snap ubuntu lsb_release hostnamectl dmesg livepatch"
+    "tags": "snap ubuntu lsb_release hostnamectl dmesg livepatch",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/lsb-release/lsb_release.1.en.html",
+          "title": "lsb_release(1), Debian"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/hostnamectl.1.html",
+          "title": "hostnamectl(1)"
+        },
+        {
+          "url": "https://manpages.ubuntu.com/manpages/noble/man8/snap.8.html",
+          "title": "snap(8), Ubuntu 24.04"
+        },
+        {
+          "url": "https://manpages.ubuntu.com/manpages/noble/man1/pro.1.html",
+          "title": "pro(1), Ubuntu 24.04"
+        }
+      ],
+      "note": "Ubuntu-specific: snap and pro are Canonical tools."
+    }
   },
   {
     "sName": "packages",
@@ -37337,7 +38120,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "find /var/www/html -type d -exec chmod 755 {} + -o -type f -exec chmod 644 {} +",
     "desc": "Set standard 755 permissions on directories and 644 on files recursively",
     "tip": "Fixes SSH & web root permissions",
-    "tags": "chmod web recursive permissions ssh"
+    "tags": "chmod web recursive permissions ssh",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/chmod.1.html",
+          "title": "chmod(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/find.1.html",
+          "title": "find(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "permissions",
@@ -37370,7 +38166,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "chown -R jason:devops /srv/shared && chmod 2775 /srv/shared",
     "desc": "Change recursive ownership and set the SGID bit so new files inherit the directory's group",
     "tip": "Essential for shared team folders",
-    "tags": "owner group chown setgid sgid sticky"
+    "tags": "owner group chown setgid sgid sticky",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/chown.1.html",
+          "title": "chown(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/chmod.1.html",
+          "title": "chmod(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "permissions",
@@ -37392,7 +38201,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "setfacl -R -m u:deploy:rwX,d:u:deploy:rwX /srv/app && getfacl /srv/app",
     "desc": "Grant fine-grained POSIX ACL permissions or lock critical config files with immutable attribute",
     "tip": "",
-    "tags": "acl getfacl setfacl chattr lsattr immutable"
+    "tags": "acl getfacl setfacl chattr lsattr immutable",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/setfacl.1.html",
+          "title": "setfacl(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/getfacl.1.html",
+          "title": "getfacl(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/chattr.1.html",
+          "title": "chattr(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "permissions",
@@ -41768,7 +42594,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ps -eo pid,ppid,user,%cpu,%mem,rss,stat,lstart,cmd --sort=-%mem | head -n 15",
     "desc": "Find top processes consuming the most Resident Memory (RSS) or CPU, and view process tree",
     "tip": "STAT 'D' = blocked on disk/NFS I/O",
-    "tags": "ps memory cpu rss zombie tree pgrep pkill"
+    "tags": "ps memory cpu rss zombie tree pgrep pkill",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ps.1.html",
+          "title": "ps(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/top.1.html",
+          "title": "top(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/systemctl.1.html",
+          "title": "systemctl(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "processes",
@@ -41801,7 +42644,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lsof +L1",
     "desc": "Find processes holding open file handles to deleted files (fixing 'disk full but du shows space')",
     "tip": "Fixes invisible disk exhaustion",
-    "tags": "lsof deleted disk-full fd proc"
+    "tags": "lsof deleted disk-full fd proc",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/lsof/lsof.8.en.html",
+          "title": "lsof(8), Debian"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man5/proc.5.html",
+          "title": "proc(5)"
+        }
+      ]
+    }
   },
   {
     "sName": "processes",
@@ -41834,7 +42690,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "free -h -w && iostat -xz 1 3",
     "desc": "Analyze available RAM, buffer/cache breakdown, swap activity, and per-disk I/O latency (await)",
     "tip": "",
-    "tags": "free iostat vmstat pidstat sysstat iowait ram latency"
+    "tags": "free iostat vmstat pidstat sysstat iowait ram latency",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/free.1.html",
+          "title": "free(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/vmstat.8.html",
+          "title": "vmstat(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/iostat.1.html",
+          "title": "iostat(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/pidstat.1.html",
+          "title": "pidstat(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "processes",
@@ -41867,7 +42744,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "strace -p <PID> -f -T -tt",
     "desc": "Trace live system calls of a hung process and inspect Linux kernel OOM-killer events",
     "tip": "",
-    "tags": "strace syscall hang debug oom oom-killer"
+    "tags": "strace syscall hang debug oom oom-killer",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/strace.1.html",
+          "title": "strace(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/perf-top.1.html",
+          "title": "perf-top(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/dmesg.1.html",
+          "title": "dmesg(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "processes",
@@ -52618,7 +53512,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "systemctl --failed && systemctl enable --now nginx.service && systemctl status nginx.service",
     "desc": "Manage systemd services, inspect failed units, view unit files, and reload daemon configs",
     "tip": "",
-    "tags": "systemctl service daemon failed timers systemd"
+    "tags": "systemctl service daemon failed timers systemd",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/systemctl.1.html",
+          "title": "systemctl(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man5/systemd.unit.5.html",
+          "title": "systemd.unit(5)"
+        }
+      ]
+    }
   },
   {
     "sName": "systemd",
@@ -52686,7 +53593,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "journalctl -b 0 -p err..emerg --no-pager && journalctl -u ssh.service --since '1 hour ago' -f",
     "desc": "Filter systemd journal logs by unit, boot session, time window, and syslog severity priority",
     "tip": "Use 'journalctl -b -1' after a sudden reboot",
-    "tags": "journalctl logs boot crash errors systemd-analyze"
+    "tags": "journalctl logs boot crash errors systemd-analyze",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/journalctl.1.html",
+          "title": "journalctl(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/systemd-analyze.1.html",
+          "title": "systemd-analyze(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "systemd",
@@ -52741,7 +53661,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "systemd-analyze blame | head -n 15 && systemd-analyze critical-chain",
     "desc": "Systemd boot latency analysis, critical-chain bottlenecks & log persistence",
     "tip": "Standard Ubuntu Server administration & security best practice",
-    "tags": "systemd tips triage diagnostics"
+    "tags": "systemd tips triage diagnostics",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/systemd-analyze.1.html",
+          "title": "systemd-analyze(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/journalctl.1.html",
+          "title": "journalctl(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/systemctl.1.html",
+          "title": "systemctl(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "systemd",
@@ -53060,7 +53997,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep -rnIE -C 2 --color=auto 'ERROR|FATAL|CRITICAL|panic' /var/log/",
     "desc": "Search logs or configs recursively with extended regex, line numbers, and surrounding context",
     "tip": "grep -Ev '^\\s*(#|$)' strips comments",
-    "tags": "search regex logs grep zgrep config"
+    "tags": "search regex logs grep zgrep config",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+          "title": "grep(1)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/gzip/zgrep.1.en.html",
+          "title": "zgrep(1), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "text",
@@ -53104,7 +54054,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "awk '{print $1}' /var/log/nginx/access.log | sort | uniq -c | sort -nr | head -n 10",
     "desc": "Parse log columns, aggregate metrics with awk, or perform safe in-place edits with sed",
     "tip": "",
-    "tags": "awk sed sort uniq column logs replace"
+    "tags": "awk sed sort uniq column logs replace",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/gawk.1.html",
+          "title": "gawk(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sort.1.html",
+          "title": "sort(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/uniq.1.html",
+          "title": "uniq(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sed.1.html",
+          "title": "sed(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/column.1.html",
+          "title": "column(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "text",
@@ -53148,7 +54123,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tail -F /var/log/syslog /var/log/auth.log",
     "desc": "Follow rotating log files live and filter structured JSON output with jq",
     "tip": "",
-    "tags": "tail jq json logs diff stream"
+    "tags": "tail jq json logs diff stream",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/tail.1.html",
+          "title": "tail(1)"
+        },
+        {
+          "url": "https://jqlang.org/manual/",
+          "title": "jq manual"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "text",
@@ -53687,7 +54679,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "useradd -m -s /bin/bash -G sudo,adm,systemd-journal alice && passwd alice",
     "desc": "Create a new user on Ubuntu with bash shell and sudo group, or append groups to an existing user",
     "tip": "",
-    "tags": "useradd adduser usermod sudo ubuntu groups"
+    "tags": "useradd adduser usermod sudo ubuntu groups",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/useradd.8.html",
+          "title": "useradd(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/usermod.8.html",
+          "title": "usermod(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/passwd.1.html",
+          "title": "passwd(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: useradd has no fixed default shell; without -s it uses SHELL from /etc/default/useradd, else leaves the field empty."
+    }
   },
   {
     "sName": "users",
@@ -53720,7 +54730,37 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "id && w && last -n 10 -a -F",
     "desc": "Generate Ed25519 SSH keys, audit logged-in users/login history, and safely validate sudoers",
     "tip": "Always use visudo for /etc/sudoers.d/",
-    "tags": "ssh-keygen visudo sudoers who last audit security"
+    "tags": "ssh-keygen visudo sudoers who last audit security",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/id.1.html",
+          "title": "id(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/w.1.html",
+          "title": "w(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/last.1.html",
+          "title": "last(1)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/wtmpdb/wtmpdb.8.en.html",
+          "title": "wtmpdb(8), Debian"
+        },
+        {
+          "url": "https://man.openbsd.org/ssh-keygen",
+          "title": "ssh-keygen(1), OpenBSD"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        }
+      ],
+      "note": "Debian 13 (trixie) dropped last and lastb from util-linux: use wtmpdb last (package wtmpdb, plus libpam-wtmpdb)."
+    }
   },
   {
     "sName": "users",
@@ -53750,9 +54790,57 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "tip",
     "id": "users-pro-tips",
     "sec": "Users: Pro Tips & Triage",
-    "cmd": "visudo -c && faillog -a && chage -l $(whoami)",
+    "cmd": "visudo -c && chage -l $(whoami)",
     "desc": "Sudoers validation, failed login auditing & account password expiration",
     "tip": "Standard Ubuntu Server administration & security best practice",
+    "tags": "users tips triage diagnostics",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/chage.1.html",
+          "title": "chage(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/faillock.8.html",
+          "title": "faillock(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/lastb.1.html",
+          "title": "lastb(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/passwd.1.html",
+          "title": "passwd(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: faillog -a (pam_tally, dropped from Debian 13) replaced by faillock --user, which reads pam_faillock's records."
+    }
+  },
+  {
+    "sName": "users",
+    "file": "users.html",
+    "badge": "tip",
+    "id": "users-pro-tips",
+    "sec": "Users: Pro Tips & Triage",
+    "cmd": "faillock --user <username>",
+    "desc": "Failed logins pam_faillock recorded for one user (and whether it is locked)",
+    "tip": "",
+    "tags": "users tips triage diagnostics"
+  },
+  {
+    "sName": "users",
+    "file": "users.html",
+    "badge": "tip",
+    "id": "users-pro-tips",
+    "sec": "Users: Pro Tips & Triage",
+    "cmd": "faillock --user <username> --reset",
+    "desc": "Clear that user's failure record, unlocking the account (changes state)",
+    "tip": "",
     "tags": "users tips triage diagnostics"
   },
   {
@@ -53762,7 +54850,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "id": "users-pro-tips",
     "sec": "Users: Pro Tips & Triage",
     "cmd": "lastb | head -n 20",
-    "desc": "Audit recent bad / failed login attempts recorded in /var/log/btmp",
+    "desc": "Failed login attempts from /var/log/btmp (util-linux; not shipped on Debian 13+)",
     "tip": "",
     "tags": "users tips triage diagnostics"
   },

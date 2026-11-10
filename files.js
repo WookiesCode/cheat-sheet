@@ -47,7 +47,16 @@ const FILES_DATA = [
           "size",
           "recent",
           "modified"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/ls.1.html",
+              "title": "ls(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -104,7 +113,16 @@ const FILES_DATA = [
           "big",
           "cleanup",
           "space"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/find.1.html",
+              "title": "find(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -118,7 +136,7 @@ const FILES_DATA = [
         "id": "mkdir-cp-ln",
         "desc": "Create nested directories, archive-copy preserving attributes, or atomically flip symlinks",
         "cmd": "mkdir -pv /srv/releases/{v1,v2} && cp -a src/ /srv/releases/v2/ && ln -sfn /srv/releases/v2 /srv/current",
-        "details": "Combines safe directory creation (-p), archive copying (-a preserves ownership, permissions, ACLs, and symlinks without following them), and atomic symlink replacement (-sfn updates a symlink pointing to a directory in a single rename syscall).",
+        "details": "Combines safe directory creation (-p), archive copying (-a preserves ownership, permissions, ACLs, and symlinks without following them), and symlink replacement (-sfn: -f removes the old link, -n keeps ln from following a link to a directory). ln removes and recreates the link; for a truly atomic switch, create the new link under a temporary name and rename it over the old one (rename(2) replaces it atomically).",
         "flags": [
           [
             "mkdir -pv",
@@ -134,6 +152,10 @@ const FILES_DATA = [
           ]
         ],
         "subcommands": [
+          [
+            "ln -s /srv/releases/v2 /srv/current.tmp && mv -T /srv/current.tmp /srv/current",
+            "Atomic switch: make the new link under a temporary name, then rename it over the old one"
+          ],
           [
             "readlink -f /srv/current",
             "Resolve all symlinks in a path and print the canonical physical path"
@@ -151,7 +173,41 @@ const FILES_DATA = [
           "stat",
           "readlink",
           "atomic"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/mkdir.1.html",
+              "title": "mkdir(1)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/cp.1.html",
+              "title": "cp(1)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/ln.1.html",
+              "title": "ln(1)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man2/rename.2.html",
+              "title": "rename(2)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/readlink.1.html",
+              "title": "readlink(1)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/stat.1.html",
+              "title": "stat(1)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/mv.1.html",
+              "title": "mv(1)"
+            }
+          ],
+          "note": "Corrected 2026-11-09: ln -sfn is not a single atomic rename (ln removes the old link, then creates the new one); the atomic switch is ln -s to a temporary name, then mv -T over the old link."
+        }
       }
     ]
   },
@@ -202,7 +258,16 @@ const FILES_DATA = [
           "transfer",
           "rsync",
           "mirror"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://download.samba.org/pub/rsync/rsync.1",
+              "title": "rsync(1)"
+            }
+          ]
+        }
       }
     ]
   }

@@ -40,7 +40,7 @@ const ARCHIVES_DATA = [
             "Create a high-ratio Zstandard (.tar.zst) archive utilizing all CPU cores (-T0)"
           ]
         ],
-        "tip": "zstd -T0 is 5x faster than gzip",
+        "tip": "zstd -T0 uses every CPU core",
         "tags": [
           "tar",
           "compress",
@@ -48,7 +48,17 @@ const ARCHIVES_DATA = [
           "zstd",
           "gzip",
           "backup"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/tar.1.html",
+              "title": "tar(1)"
+            }
+          ],
+          "note": "Corrected 2026-11-09: dropped an unsourced '5x faster than gzip' claim."
+        }
       }
     ]
   },
@@ -86,7 +96,20 @@ const ARCHIVES_DATA = [
           "sha256sum",
           "checksum",
           "hash"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/tar.1.html",
+              "title": "tar(1)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/sha256sum.1.html",
+              "title": "sha256sum(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -131,7 +154,24 @@ const ARCHIVES_DATA = [
           "tips",
           "triage",
           "diagnostics"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/tar.1.html",
+              "title": "tar(1)"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/pigz/pigz.1.en.html",
+              "title": "pigz(1), Debian"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/sha256sum.1.html",
+              "title": "sha256sum(1)"
+            }
+          ]
+        }
       }
     ]
   }

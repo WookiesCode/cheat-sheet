@@ -43,7 +43,20 @@ const PERMISSIONS_DATA = [
           "recursive",
           "permissions",
           "ssh"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/chmod.1.html",
+              "title": "chmod(1)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/find.1.html",
+              "title": "find(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -82,7 +95,20 @@ const PERMISSIONS_DATA = [
           "setgid",
           "sgid",
           "sticky"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/chown.1.html",
+              "title": "chown(1)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/chmod.1.html",
+              "title": "chmod(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -128,7 +154,24 @@ const PERMISSIONS_DATA = [
           "chattr",
           "lsattr",
           "immutable"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/setfacl.1.html",
+              "title": "setfacl(1)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/getfacl.1.html",
+              "title": "getfacl(1)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/chattr.1.html",
+              "title": "chattr(1)"
+            }
+          ]
+        }
       }
     ]
   }

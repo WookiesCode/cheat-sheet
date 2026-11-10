@@ -266,6 +266,21 @@ The site marks root commands itself (the ROOT badge, and `# needs root` on copy)
 
 **Kept on purpose**, where `sudo` is what the card teaches: `sudo cp -a FILE … && sudoedit FILE` (back up, then edit as yourself), `echo … | sudo tee /sys/…` (why `sudo echo > file` fails), and the sudo, bash, CLI-tools and Linux sheets. `tests/no-sudo.test.js` holds the line.
 
+## #8 for the rest of the Linux sheets (2026-11-09, `improve/sources-linux-rest`)
+
+The last 29 Linux commands (files, permissions, text, processes, network, archives, systemd, users, packages) and the three generated Pro Tip cards now cite their man pages: man7.org, Debian trixie, Ubuntu noble, rsync's own page, curl, jq, OpenSSL, tcpdump, OpenBSD's ssh pages and sudo.ws. All 77 links were checked to resolve. Every card on the Linux hub now has a source (54/54), and every command in `app.js` has one.
+
+| Was | Now | Why |
+|---|---|---|
+| `ln -sfn` "atomic … single rename syscall" | `ln` removes and recreates the link; a new recipe makes the atomic switch (`ln -s … current.tmp && mv -T current.tmp current`) | ln(1) documents only `-f` removing the destination; rename(2) is the atomic step |
+| `useradd` "defaults to /bin/sh if -s is omitted" | uses `SHELL` from `/etc/default/useradd`, else leaves the field empty | useradd(8) |
+| `last` reads `/var/log/wtmp` | noted that Debian 13 dropped `last`/`lastb` from util-linux: `wtmpdb last` reads `/var/log/wtmp.db` | Debian trixie release notes, wtmpdb(8) |
+| users Pro Tip: `faillog -a` | `faillock --user <username>` (and a flagged `--reset`) | `faillog` reads the retired pam_tally counter and isn't in Debian 13; pam_faillock's records are read with faillock(8) |
+| `ss -p` "(requires sudo)" | no claim (the maybe-root badge covers it) | ss(8) doesn't say so |
+| "zstd -T0 is 5x faster than gzip"; "much faster than netstat with 50,000+ sockets" | dropped / softened | no source |
+
+**Now flagged as changing state** (`DANGER_RE`): `systemctl start|enable|disable|mask|unmask|edit|daemon-reload|kill|isolate|set-property`, `journalctl --vacuum-*`, `ufw allow|deny|…`, `apt`/`apt-get install|remove|purge|upgrade|full-upgrade|dist-upgrade|autoremove|reinstall` and `--fix-broken`, `dpkg -i|-r|-P|--configure`, `apt-mark hold|unhold|…`, `useradd`/`usermod`/`userdel`/group changes, `passwd` (as a command; `/etc/passwd` as a file isn't matched), `chmod`/`chown`/`chgrp`, `chattr ±`, `setfacl -m|-x|-b…`, `sed -i … /etc/…`, `rsync --delete` (not with `-n`/`--dry-run`), and `faillock --reset`. This flags 55 commands on 20 sheets that change system state (your ask-first list), including `systemctl enable --now nvidia-persistenced` and the netplan `chmod 600`.
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |

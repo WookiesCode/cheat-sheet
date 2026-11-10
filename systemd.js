@@ -55,7 +55,20 @@ const SYSTEMD_DATA = [
           "failed",
           "timers",
           "systemd"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/systemctl.1.html",
+              "title": "systemctl(1)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man5/systemd.unit.5.html",
+              "title": "systemd.unit(5)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -114,7 +127,20 @@ const SYSTEMD_DATA = [
           "crash",
           "errors",
           "systemd-analyze"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/journalctl.1.html",
+              "title": "journalctl(1)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/systemd-analyze.1.html",
+              "title": "systemd-analyze(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -159,7 +185,24 @@ const SYSTEMD_DATA = [
           "tips",
           "triage",
           "diagnostics"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/systemd-analyze.1.html",
+              "title": "systemd-analyze(1)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/journalctl.1.html",
+              "title": "journalctl(1)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/systemctl.1.html",
+              "title": "systemctl(1)"
+            }
+          ]
+        }
       }
     ]
   }

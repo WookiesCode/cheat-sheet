@@ -46,7 +46,24 @@ const PROCESSES_DATA = [
           "tree",
           "pgrep",
           "pkill"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/ps.1.html",
+              "title": "ps(1)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/top.1.html",
+              "title": "top(1)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/systemctl.1.html",
+              "title": "systemctl(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -84,7 +101,20 @@ const PROCESSES_DATA = [
           "disk-full",
           "fd",
           "proc"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/lsof/lsof.8.en.html",
+              "title": "lsof(8), Debian"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man5/proc.5.html",
+              "title": "proc(5)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -132,7 +162,28 @@ const PROCESSES_DATA = [
           "iowait",
           "ram",
           "latency"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/free.1.html",
+              "title": "free(1)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/vmstat.8.html",
+              "title": "vmstat(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/iostat.1.html",
+              "title": "iostat(1)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/pidstat.1.html",
+              "title": "pidstat(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -178,7 +229,24 @@ const PROCESSES_DATA = [
           "debug",
           "oom",
           "oom-killer"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/strace.1.html",
+              "title": "strace(1)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/perf-top.1.html",
+              "title": "perf-top(1)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/dmesg.1.html",
+              "title": "dmesg(1)"
+            }
+          ]
+        }
       }
     ]
   }
