@@ -35,7 +35,20 @@ const SYSCTL_DATA = [
           "hugepages",
           "swappiness",
           "network"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/sysctl.8.html",
+              "title": "sysctl(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man5/sysctl.d.5.html",
+              "title": "sysctl.d(5)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -62,7 +75,20 @@ const SYSCTL_DATA = [
           "network",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/sysctl.8.html",
+              "title": "sysctl(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man5/sysctl.d.5.html",
+              "title": "sysctl.d(5)"
+            }
+          ]
+        }
       },
       {
         "id": "sysctl-kernel-tuning-sub-2",
@@ -81,7 +107,20 @@ const SYSCTL_DATA = [
           "network",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/sysctl.8.html",
+              "title": "sysctl(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man5/sysctl.d.5.html",
+              "title": "sysctl.d(5)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -127,7 +166,20 @@ const SYSCTL_DATA = [
           "tips",
           "safety",
           "help"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/sysctl.8.html",
+              "title": "sysctl(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man5/sysctl.d.5.html",
+              "title": "sysctl.d(5)"
+            }
+          ]
+        }
       }
     ]
   }

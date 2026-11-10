@@ -47,7 +47,16 @@ const STRACE_DATA = [
           "hang",
           "enoent",
           "latency"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/strace.1.html",
+              "title": "strace(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -74,7 +83,16 @@ const STRACE_DATA = [
           "latency",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/strace.1.html",
+              "title": "strace(1)"
+            }
+          ]
+        }
       },
       {
         "id": "strace-syscall-triage-sub-2",
@@ -93,7 +111,16 @@ const STRACE_DATA = [
           "latency",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/strace.1.html",
+              "title": "strace(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -139,7 +166,16 @@ const STRACE_DATA = [
           "tips",
           "safety",
           "help"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/strace.1.html",
+              "title": "strace(1)"
+            }
+          ]
+        }
       }
     ]
   }

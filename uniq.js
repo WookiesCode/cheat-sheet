@@ -41,7 +41,16 @@ const UNIQ_DATA = [
           "frequency",
           "duplicates",
           "histogram"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/uniq.1.html",
+              "title": "uniq(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -66,7 +75,16 @@ const UNIQ_DATA = [
           "histogram",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/uniq.1.html",
+              "title": "uniq(1)"
+            }
+          ]
+        }
       },
       {
         "id": "uniq-counts-duplicates-sub-2",
@@ -83,7 +101,16 @@ const UNIQ_DATA = [
           "histogram",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/uniq.1.html",
+              "title": "uniq(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -127,7 +154,16 @@ const UNIQ_DATA = [
           "tips",
           "safety",
           "help"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/uniq.1.html",
+              "title": "uniq(1)"
+            }
+          ]
+        }
       }
     ]
   }

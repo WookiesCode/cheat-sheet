@@ -41,7 +41,20 @@ const NMAP_DATA = [
           "discovery",
           "bmc",
           "ports"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://nmap.org/book/man.html",
+              "title": "Nmap reference guide"
+            },
+            {
+              "url": "https://nmap.org/nsedoc/scripts/targets-ipv6-multicast-echo.html",
+              "title": "NSE: targets-ipv6-multicast-echo"
+            }
+          ]
+        }
       }
     ]
   },
@@ -70,7 +83,20 @@ const NMAP_DATA = [
           "ports",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://nmap.org/book/man.html",
+              "title": "Nmap reference guide"
+            },
+            {
+              "url": "https://nmap.org/nsedoc/scripts/targets-ipv6-multicast-echo.html",
+              "title": "NSE: targets-ipv6-multicast-echo"
+            }
+          ]
+        }
       },
       {
         "id": "nmap-subnet-ports-sub-2",
@@ -91,7 +117,20 @@ const NMAP_DATA = [
           "ports",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://nmap.org/book/man.html",
+              "title": "Nmap reference guide"
+            },
+            {
+              "url": "https://nmap.org/nsedoc/scripts/targets-ipv6-multicast-echo.html",
+              "title": "NSE: targets-ipv6-multicast-echo"
+            }
+          ]
+        }
       }
     ]
   },
@@ -139,7 +178,20 @@ const NMAP_DATA = [
           "tips",
           "safety",
           "help"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://nmap.org/book/man.html",
+              "title": "Nmap reference guide"
+            },
+            {
+              "url": "https://nmap.org/nsedoc/scripts/targets-ipv6-multicast-echo.html",
+              "title": "NSE: targets-ipv6-multicast-echo"
+            }
+          ]
+        }
       }
     ]
   }

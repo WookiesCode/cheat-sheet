@@ -35,7 +35,7 @@ const DD_DATA = [
           ]
         ],
         "subcommands": [],
-        "tip": "Run with sudo when inspecting hardware or root processes",
+        "tip": "Some flags need root: the badge on the command says so",
         "tags": [
           "dd",
           "benchmark",
@@ -43,7 +43,16 @@ const DD_DATA = [
           "direct-io",
           "sparse",
           "usr1"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/dd.1.html",
+              "title": "dd(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -70,7 +79,16 @@ const DD_DATA = [
           "usr1",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/dd.1.html",
+              "title": "dd(1)"
+            }
+          ]
+        }
       },
       {
         "id": "dd-direct-io-progress-sub-2",
@@ -89,7 +107,16 @@ const DD_DATA = [
           "usr1",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/dd.1.html",
+              "title": "dd(1)"
+            }
+          ]
+        }
       },
       {
         "id": "dd-direct-io-progress-sub-3",
@@ -108,7 +135,16 @@ const DD_DATA = [
           "usr1",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/dd.1.html",
+              "title": "dd(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -154,7 +190,16 @@ const DD_DATA = [
           "tips",
           "safety",
           "help"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/dd.1.html",
+              "title": "dd(1)"
+            }
+          ]
+        }
       }
     ]
   }

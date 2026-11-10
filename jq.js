@@ -49,7 +49,17 @@ const JQ_DATA = [
           "nvme",
           "lshw",
           "tsv"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://jqlang.org/manual/",
+              "title": "jq manual"
+            }
+          ],
+          "note": "nvme list -o json field names (DevicePath, ModelNumber…) are nvme-cli 2.x output; 3.x may differ."
+        }
       }
     ]
   },
@@ -96,7 +106,17 @@ const JQ_DATA = [
           "sort_by",
           "group_by",
           "api"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://jqlang.org/manual/",
+              "title": "jq manual"
+            }
+          ],
+          "note": "nvme list -o json field names (DevicePath, ModelNumber…) are nvme-cli 2.x output; 3.x may differ."
+        }
       }
     ]
   }

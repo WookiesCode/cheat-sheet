@@ -40,7 +40,21 @@ const EFIBOOTMGR_DATA = [
           "bootorder",
           "nextboot",
           "mokutil"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/efibootmgr/efibootmgr.8.en.html",
+              "title": "efibootmgr(8), Debian"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/mokutil/mokutil.1.en.html",
+              "title": "mokutil(1), Debian"
+            }
+          ],
+          "note": "Corrected 2026-11-09: the loader path takes single backslashes ('\\\\EFI\\\\ubuntu\\\\shimx64.efi')."
+        }
       }
     ]
   },
@@ -68,12 +82,26 @@ const EFIBOOTMGR_DATA = [
           "mokutil",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/efibootmgr/efibootmgr.8.en.html",
+              "title": "efibootmgr(8), Debian"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/mokutil/mokutil.1.en.html",
+              "title": "mokutil(1), Debian"
+            }
+          ],
+          "note": "Corrected 2026-11-09: the loader path takes single backslashes ('\\\\EFI\\\\ubuntu\\\\shimx64.efi')."
+        }
       },
       {
         "id": "efibootmgr-uefi-boot-sub-2",
         "desc": "Create a new UEFI NVRAM boot entry pointing to the EFI System Partition (partition 1) on /dev/nvme0n1",
-        "cmd": "efibootmgr -c -d /dev/nvme0n1 -p 1 -L 'Ubuntu' -l '\\\\EFI\\\\ubuntu\\\\shimx64.efi'",
+        "cmd": "efibootmgr -c -d /dev/nvme0n1 -p 1 -L 'Ubuntu' -l '\\EFI\\ubuntu\\shimx64.efi'",
         "details": "Production variation: Create a new UEFI NVRAM boot entry pointing to the EFI System Partition (partition 1) on /dev/nvme0n1. Useful for triage, automation, and targeted filtering.",
         "flags": [],
         "subcommands": [],
@@ -88,7 +116,21 @@ const EFIBOOTMGR_DATA = [
           "mokutil",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/efibootmgr/efibootmgr.8.en.html",
+              "title": "efibootmgr(8), Debian"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/mokutil/mokutil.1.en.html",
+              "title": "mokutil(1), Debian"
+            }
+          ],
+          "note": "Corrected 2026-11-09: the loader path takes single backslashes ('\\\\EFI\\\\ubuntu\\\\shimx64.efi')."
+        }
       },
       {
         "id": "efibootmgr-uefi-boot-sub-3",
@@ -108,7 +150,21 @@ const EFIBOOTMGR_DATA = [
           "mokutil",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/efibootmgr/efibootmgr.8.en.html",
+              "title": "efibootmgr(8), Debian"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/mokutil/mokutil.1.en.html",
+              "title": "mokutil(1), Debian"
+            }
+          ],
+          "note": "Corrected 2026-11-09: the loader path takes single backslashes ('\\\\EFI\\\\ubuntu\\\\shimx64.efi')."
+        }
       }
     ]
   },
@@ -155,7 +211,21 @@ const EFIBOOTMGR_DATA = [
           "tips",
           "safety",
           "help"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/efibootmgr/efibootmgr.8.en.html",
+              "title": "efibootmgr(8), Debian"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/mokutil/mokutil.1.en.html",
+              "title": "mokutil(1), Debian"
+            }
+          ],
+          "note": "Corrected 2026-11-09: the loader path takes single backslashes ('\\\\EFI\\\\ubuntu\\\\shimx64.efi')."
+        }
       }
     ]
   }

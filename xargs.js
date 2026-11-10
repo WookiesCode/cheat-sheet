@@ -19,7 +19,7 @@ const XARGS_DATA = [
           ],
           [
             "-P <N>",
-            "Run up to <N> processes in parallel at a time (use -P 0 for all CPU cores)"
+            "Run up to <N> processes in parallel at a time (-P 0 = as many as possible at once, no limit)"
           ],
           [
             "-n <N>",
@@ -47,7 +47,17 @@ const XARGS_DATA = [
           "null",
           "batch",
           "ping"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/xargs.1.html",
+              "title": "xargs(1)"
+            }
+          ],
+          "note": "Corrected 2026-11-09: -P 0 runs as many processes as possible at once; it isn't tied to the CPU count."
+        }
       }
     ]
   },
@@ -74,7 +84,17 @@ const XARGS_DATA = [
           "ping",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/xargs.1.html",
+              "title": "xargs(1)"
+            }
+          ],
+          "note": "Corrected 2026-11-09: -P 0 runs as many processes as possible at once; it isn't tied to the CPU count."
+        }
       },
       {
         "id": "xargs-parallel-null-sub-2",
@@ -93,7 +113,17 @@ const XARGS_DATA = [
           "ping",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/xargs.1.html",
+              "title": "xargs(1)"
+            }
+          ],
+          "note": "Corrected 2026-11-09: -P 0 runs as many processes as possible at once; it isn't tied to the CPU count."
+        }
       }
     ]
   },
@@ -139,7 +169,17 @@ const XARGS_DATA = [
           "tips",
           "safety",
           "help"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/xargs.1.html",
+              "title": "xargs(1)"
+            }
+          ],
+          "note": "Corrected 2026-11-09: -P 0 runs as many processes as possible at once; it isn't tied to the CPU count."
+        }
       }
     ]
   }

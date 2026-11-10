@@ -39,7 +39,16 @@ const NAMEI_DATA = [
           "path",
           "traversal",
           "debug"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/namei.1.html",
+              "title": "namei(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -66,7 +75,16 @@ const NAMEI_DATA = [
           "debug",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/namei.1.html",
+              "title": "namei(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -112,7 +130,16 @@ const NAMEI_DATA = [
           "tips",
           "safety",
           "help"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/namei.1.html",
+              "title": "namei(1)"
+            }
+          ]
+        }
       }
     ]
   }

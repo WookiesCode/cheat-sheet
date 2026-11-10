@@ -36,7 +36,16 @@ const STAT_DATA = [
           "birth",
           "ctime",
           "mtime"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/stat.1.html",
+              "title": "stat(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -64,7 +73,16 @@ const STAT_DATA = [
           "mtime",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/stat.1.html",
+              "title": "stat(1)"
+            }
+          ]
+        }
       },
       {
         "id": "stat-file-filesystem-sub-2",
@@ -84,7 +102,16 @@ const STAT_DATA = [
           "mtime",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/stat.1.html",
+              "title": "stat(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -131,7 +158,16 @@ const STAT_DATA = [
           "tips",
           "safety",
           "help"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/stat.1.html",
+              "title": "stat(1)"
+            }
+          ]
+        }
       }
     ]
   }

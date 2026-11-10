@@ -35,7 +35,16 @@ const FUSER_DATA = [
           "lock",
           "dpkg",
           "mount"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/fuser.1.html",
+              "title": "fuser(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -62,7 +71,16 @@ const FUSER_DATA = [
           "mount",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/fuser.1.html",
+              "title": "fuser(1)"
+            }
+          ]
+        }
       },
       {
         "id": "fuser-mount-locks-sub-2",
@@ -81,7 +99,16 @@ const FUSER_DATA = [
           "mount",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/fuser.1.html",
+              "title": "fuser(1)"
+            }
+          ]
+        }
       },
       {
         "id": "fuser-mount-locks-sub-3",
@@ -100,7 +127,16 @@ const FUSER_DATA = [
           "mount",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/fuser.1.html",
+              "title": "fuser(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -146,7 +182,16 @@ const FUSER_DATA = [
           "tips",
           "safety",
           "help"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/fuser.1.html",
+              "title": "fuser(1)"
+            }
+          ]
+        }
       }
     ]
   }

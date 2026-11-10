@@ -56,7 +56,33 @@ const SUDO_DATA = [
           "least-privilege",
           "audit",
           "security"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.sudo.ws/docs/man/sudo.man/",
+              "title": "sudo(8)"
+            },
+            {
+              "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+              "title": "sudoers(5)"
+            },
+            {
+              "url": "https://www.sudo.ws/docs/man/visudo.man/",
+              "title": "visudo(8)"
+            },
+            {
+              "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+              "title": "Ubuntu 25.10 release notes (sudo-rs)"
+            },
+            {
+              "url": "https://www.sudo.ws/releases/stable/",
+              "title": "sudo stable release"
+            }
+          ],
+          "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+        }
       }
     ]
   },
@@ -107,7 +133,33 @@ const SUDO_DATA = [
           "id",
           "whoami",
           "privilege"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.sudo.ws/docs/man/sudo.man/",
+              "title": "sudo(8)"
+            },
+            {
+              "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+              "title": "sudoers(5)"
+            },
+            {
+              "url": "https://www.sudo.ws/docs/man/visudo.man/",
+              "title": "visudo(8)"
+            },
+            {
+              "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+              "title": "Ubuntu 25.10 release notes (sudo-rs)"
+            },
+            {
+              "url": "https://www.sudo.ws/releases/stable/",
+              "title": "sudo stable release"
+            }
+          ],
+          "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+        }
       }
     ]
   },
@@ -161,7 +213,33 @@ const SUDO_DATA = [
           "user",
           "non-interactive",
           "scripts"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.sudo.ws/docs/man/sudo.man/",
+              "title": "sudo(8)"
+            },
+            {
+              "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+              "title": "sudoers(5)"
+            },
+            {
+              "url": "https://www.sudo.ws/docs/man/visudo.man/",
+              "title": "visudo(8)"
+            },
+            {
+              "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+              "title": "Ubuntu 25.10 release notes (sudo-rs)"
+            },
+            {
+              "url": "https://www.sudo.ws/releases/stable/",
+              "title": "sudo stable release"
+            }
+          ],
+          "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+        }
       }
     ]
   },
@@ -211,7 +289,33 @@ const SUDO_DATA = [
           "su",
           "login",
           "logging"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.sudo.ws/docs/man/sudo.man/",
+              "title": "sudo(8)"
+            },
+            {
+              "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+              "title": "sudoers(5)"
+            },
+            {
+              "url": "https://www.sudo.ws/docs/man/visudo.man/",
+              "title": "visudo(8)"
+            },
+            {
+              "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+              "title": "Ubuntu 25.10 release notes (sudo-rs)"
+            },
+            {
+              "url": "https://www.sudo.ws/releases/stable/",
+              "title": "sudo stable release"
+            }
+          ],
+          "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+        }
       }
     ]
   },
@@ -257,7 +361,33 @@ const SUDO_DATA = [
           "redirect",
           "permission-denied",
           "gotcha"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.sudo.ws/docs/man/sudo.man/",
+              "title": "sudo(8)"
+            },
+            {
+              "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+              "title": "sudoers(5)"
+            },
+            {
+              "url": "https://www.sudo.ws/docs/man/visudo.man/",
+              "title": "visudo(8)"
+            },
+            {
+              "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+              "title": "Ubuntu 25.10 release notes (sudo-rs)"
+            },
+            {
+              "url": "https://www.sudo.ws/releases/stable/",
+              "title": "sudo stable release"
+            }
+          ],
+          "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+        }
       }
     ]
   },
@@ -300,7 +430,33 @@ const SUDO_DATA = [
           "config",
           "nano",
           "vim"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.sudo.ws/docs/man/sudo.man/",
+              "title": "sudo(8)"
+            },
+            {
+              "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+              "title": "sudoers(5)"
+            },
+            {
+              "url": "https://www.sudo.ws/docs/man/visudo.man/",
+              "title": "visudo(8)"
+            },
+            {
+              "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+              "title": "Ubuntu 25.10 release notes (sudo-rs)"
+            },
+            {
+              "url": "https://www.sudo.ws/releases/stable/",
+              "title": "sudo stable release"
+            }
+          ],
+          "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+        }
       }
     ]
   },
@@ -350,7 +506,33 @@ const SUDO_DATA = [
           "visudo",
           "nopasswd",
           "least-privilege"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.sudo.ws/docs/man/sudo.man/",
+              "title": "sudo(8)"
+            },
+            {
+              "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+              "title": "sudoers(5)"
+            },
+            {
+              "url": "https://www.sudo.ws/docs/man/visudo.man/",
+              "title": "visudo(8)"
+            },
+            {
+              "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+              "title": "Ubuntu 25.10 release notes (sudo-rs)"
+            },
+            {
+              "url": "https://www.sudo.ws/releases/stable/",
+              "title": "sudo stable release"
+            }
+          ],
+          "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+        }
       }
     ]
   },
@@ -397,7 +579,33 @@ const SUDO_DATA = [
           "journalctl",
           "auth.log",
           "incident"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.sudo.ws/docs/man/sudo.man/",
+              "title": "sudo(8)"
+            },
+            {
+              "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+              "title": "sudoers(5)"
+            },
+            {
+              "url": "https://www.sudo.ws/docs/man/visudo.man/",
+              "title": "visudo(8)"
+            },
+            {
+              "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+              "title": "Ubuntu 25.10 release notes (sudo-rs)"
+            },
+            {
+              "url": "https://www.sudo.ws/releases/stable/",
+              "title": "sudo stable release"
+            }
+          ],
+          "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+        }
       }
     ]
   },
@@ -439,7 +647,33 @@ const SUDO_DATA = [
           "ubuntu",
           "version",
           "rust"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.sudo.ws/docs/man/sudo.man/",
+              "title": "sudo(8)"
+            },
+            {
+              "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+              "title": "sudoers(5)"
+            },
+            {
+              "url": "https://www.sudo.ws/docs/man/visudo.man/",
+              "title": "visudo(8)"
+            },
+            {
+              "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+              "title": "Ubuntu 25.10 release notes (sudo-rs)"
+            },
+            {
+              "url": "https://www.sudo.ws/releases/stable/",
+              "title": "sudo stable release"
+            }
+          ],
+          "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+        }
       }
     ]
   }

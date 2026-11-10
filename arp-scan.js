@@ -11,7 +11,7 @@ const ARP_SCAN_DATA = [
         "id": "arpscan-localnet-main",
         "desc": "Discover all active L2 IPv6 neighbors, MAC addresses, and upstream switch Router Advertisements on the local VLAN",
         "cmd": "ping -6 -L -c 3 ff02::1%eth1 >/dev/null ; ip -6 -c neigh show dev eth1 && rdisc6 eth1",
-        "details": "In IPv6, ICMPv6 Neighbor Discovery Protocol (NDP) replaces IPv4 ARP. Pinging 'ff02::1%eth1' triggers all local nodes on eth1 to reply, populating 'ip -6 neigh' with their link-local 'fe80::' addresses and hardware MACs. Furthermore, EUI-64 link-local addresses embed the NIC's MAC address directly inside the 'fe80::' address!",
+        "details": "In IPv6, ICMPv6 Neighbor Discovery Protocol (NDP) replaces IPv4 ARP. Pinging 'ff02::1%eth1' triggers all local nodes on eth1 to reply, populating 'ip -6 neigh' with their link-local 'fe80::' addresses and hardware MACs. Furthermore, EUI-64 link-local addresses embed the NIC's MAC address directly inside the 'fe80::' address! Many current systems use stable-privacy link-local addresses (RFC 7217) instead, which don't contain the MAC.",
         "flags": [
           [
             "ip -6 -c neigh show",
@@ -38,7 +38,29 @@ const ARP_SCAN_DATA = [
           "mac",
           "vlan",
           "discovery"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/ndisc6/ndisc6.8.en.html",
+              "title": "ndisc6(8), Debian"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/ndisc6/rdisc6.8.en.html",
+              "title": "rdisc6(8), Debian"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ping.8.html",
+              "title": "ping(8)"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/arp-scan/arp-scan.1.en.html",
+              "title": "arp-scan(1), Debian"
+            }
+          ],
+          "note": "EUI-64 (MAC-derived) link-local addresses aren't universal: RFC 7217 stable-privacy addresses don't contain the MAC."
+        }
       }
     ]
   },
@@ -68,7 +90,29 @@ const ARP_SCAN_DATA = [
           "discovery",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/ndisc6/ndisc6.8.en.html",
+              "title": "ndisc6(8), Debian"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/ndisc6/rdisc6.8.en.html",
+              "title": "rdisc6(8), Debian"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ping.8.html",
+              "title": "ping(8)"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/arp-scan/arp-scan.1.en.html",
+              "title": "arp-scan(1), Debian"
+            }
+          ],
+          "note": "EUI-64 (MAC-derived) link-local addresses aren't universal: RFC 7217 stable-privacy addresses don't contain the MAC."
+        }
       },
       {
         "id": "arpscan-localnet-sub-2",
@@ -90,7 +134,29 @@ const ARP_SCAN_DATA = [
           "discovery",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/ndisc6/ndisc6.8.en.html",
+              "title": "ndisc6(8), Debian"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/ndisc6/rdisc6.8.en.html",
+              "title": "rdisc6(8), Debian"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ping.8.html",
+              "title": "ping(8)"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/arp-scan/arp-scan.1.en.html",
+              "title": "arp-scan(1), Debian"
+            }
+          ],
+          "note": "EUI-64 (MAC-derived) link-local addresses aren't universal: RFC 7217 stable-privacy addresses don't contain the MAC."
+        }
       }
     ]
   },
@@ -139,7 +205,29 @@ const ARP_SCAN_DATA = [
           "tips",
           "safety",
           "help"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/ndisc6/ndisc6.8.en.html",
+              "title": "ndisc6(8), Debian"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/ndisc6/rdisc6.8.en.html",
+              "title": "rdisc6(8), Debian"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ping.8.html",
+              "title": "ping(8)"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/arp-scan/arp-scan.1.en.html",
+              "title": "arp-scan(1), Debian"
+            }
+          ],
+          "note": "EUI-64 (MAC-derived) link-local addresses aren't universal: RFC 7217 stable-privacy addresses don't contain the MAC."
+        }
       }
     ]
   }

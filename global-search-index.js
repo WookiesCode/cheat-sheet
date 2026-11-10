@@ -3487,7 +3487,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ping -6 -L -c 3 ff02::1%eth1 >/dev/null ; ip -6 -c neigh show dev eth1 && rdisc6 eth1",
     "desc": "Discover all active L2 IPv6 neighbors, MAC addresses, and upstream switch Router Advertisements on the local VLAN",
     "tip": "rdisc6 shows the exact /64 prefix & MTU advertised by your ToR switch!",
-    "tags": "ndp ndisc6 rdisc6 ipv6 neigh arp-scan mac vlan discovery"
+    "tags": "ndp ndisc6 rdisc6 ipv6 neigh arp-scan mac vlan discovery",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/ndisc6/ndisc6.8.en.html",
+          "title": "ndisc6(8), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/ndisc6/rdisc6.8.en.html",
+          "title": "rdisc6(8), Debian"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ping.8.html",
+          "title": "ping(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/arp-scan/arp-scan.1.en.html",
+          "title": "arp-scan(1), Debian"
+        }
+      ],
+      "note": "EUI-64 (MAC-derived) link-local addresses aren't universal: RFC 7217 stable-privacy addresses don't contain the MAC."
+    }
   },
   {
     "sName": "arp-scan",
@@ -3498,7 +3520,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ndisc6 -1 2001:db8:dc:4::50 eth1",
     "desc": "Resolve a specific IPv6 address to its Layer-2 Ethernet MAC address on eth1",
     "tip": "Frequently used with ndisc6 / ip -6 neigh in production workflows",
-    "tags": "ndp ndisc6 rdisc6 ipv6 neigh arp-scan mac vlan discovery variation recipe"
+    "tags": "ndp ndisc6 rdisc6 ipv6 neigh arp-scan mac vlan discovery variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/ndisc6/ndisc6.8.en.html",
+          "title": "ndisc6(8), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/ndisc6/rdisc6.8.en.html",
+          "title": "rdisc6(8), Debian"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ping.8.html",
+          "title": "ping(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/arp-scan/arp-scan.1.en.html",
+          "title": "arp-scan(1), Debian"
+        }
+      ],
+      "note": "EUI-64 (MAC-derived) link-local addresses aren't universal: RFC 7217 stable-privacy addresses don't contain the MAC."
+    }
   },
   {
     "sName": "arp-scan",
@@ -3509,7 +3553,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "arp-scan --interface=eth1 --localnet",
     "desc": "Legacy IPv4 L2 ARP scan (if dual-stack or checking factory-default IPv4 BMCs)",
     "tip": "Frequently used with ndisc6 / ip -6 neigh in production workflows",
-    "tags": "ndp ndisc6 rdisc6 ipv6 neigh arp-scan mac vlan discovery variation recipe"
+    "tags": "ndp ndisc6 rdisc6 ipv6 neigh arp-scan mac vlan discovery variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/ndisc6/ndisc6.8.en.html",
+          "title": "ndisc6(8), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/ndisc6/rdisc6.8.en.html",
+          "title": "rdisc6(8), Debian"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ping.8.html",
+          "title": "ping(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/arp-scan/arp-scan.1.en.html",
+          "title": "arp-scan(1), Debian"
+        }
+      ],
+      "note": "EUI-64 (MAC-derived) link-local addresses aren't universal: RFC 7217 stable-privacy addresses don't contain the MAC."
+    }
   },
   {
     "sName": "arp-scan",
@@ -3520,7 +3586,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "man arp-scan 2>/dev/null || arp-scan --help | head -n 30",
     "desc": "Operational guidelines, safety flags, and best practices for ndisc6 / ip -6 neigh",
     "tip": "rdisc6 shows the exact /64 prefix & MTU advertised by your ToR switch!",
-    "tags": "ndp ndisc6 rdisc6 ipv6 neigh arp-scan mac vlan discovery tips safety help"
+    "tags": "ndp ndisc6 rdisc6 ipv6 neigh arp-scan mac vlan discovery tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/ndisc6/ndisc6.8.en.html",
+          "title": "ndisc6(8), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/ndisc6/rdisc6.8.en.html",
+          "title": "rdisc6(8), Debian"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ping.8.html",
+          "title": "ping(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/arp-scan/arp-scan.1.en.html",
+          "title": "arp-scan(1), Debian"
+        }
+      ],
+      "note": "EUI-64 (MAC-derived) link-local addresses aren't universal: RFC 7217 stable-privacy addresses don't contain the MAC."
+    }
   },
   {
     "sName": "arp-scan",
@@ -3608,7 +3696,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "awk -F':' '$3 >= 1000 && $3 < 65534 {printf \"%-15s UID:%-6d Shell:%s\\n\", $1, $3, $7}' /etc/passwd",
     "desc": "Extract, reorder, and format specific columns using whitespace or custom regex field delimiters (-F)",
     "tip": "NR>1 skips the header row of CLI tables",
-    "tags": "awk columns delimiter printf filter df passwd"
+    "tags": "awk columns delimiter printf filter df passwd",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/gawk.1.html",
+          "title": "gawk(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "awk",
@@ -3641,7 +3738,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ps -eo rss,comm | awk 'NR>1 {sum+=$1; count++; if($1>max){max=$1; maxp=$2}} END {printf \"Procs:%d  Total:%.1f MiB  Avg:%.1f MiB  Max:%s (%.1f MiB)\\n\", count, sum/1024, (sum/count)/1024, maxp, max/1024}'",
     "desc": "Calculate sum, average, min, and max across numeric columns in logs or command outputs",
     "tip": "",
-    "tags": "awk sum average math max min aggregation"
+    "tags": "awk sum average math max min aggregation",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/gawk.1.html",
+          "title": "gawk(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "awk",
@@ -3674,7 +3780,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ss -tan | awk 'NR>1 {state[$1]++} END {for (s in state) printf \"%-15s %d\\n\", s, state[s]}' | sort -k2 -nr",
     "desc": "Group by column, count frequencies, sum per key, deduplicate lines, or join two files using associative arrays",
     "tip": "awk '!seen[$0]++' deduplicates without sorting!",
-    "tags": "awk array group-by frequency deduplicate join nr==fnr"
+    "tags": "awk array group-by frequency deduplicate join nr==fnr",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/gawk.1.html",
+          "title": "gawk(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "awk",
@@ -3718,7 +3833,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "gzip -c fix-net.sh | base64 -w0 && echo ''   # On target: echo '<B64>' | base64 -d | gunzip > fix-net.sh",
     "desc": "Compress and encode a file into single-line Base64 to copy-paste over an offline IPMI SOL or RS-232 serial console",
     "tip": "Lifesaver when NICs are dead and only Serial/SOL works!",
-    "tags": "base64 serial sol paste offline recovery"
+    "tags": "base64 serial sol paste offline recovery",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/base64.1.html",
+          "title": "base64(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "base64",
@@ -3729,7 +3853,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tar -czf - /etc/netplan/ | base64 -w0 && echo ''",
     "desc": "Encode an entire directory into a single Base64 line for serial console transfer",
     "tip": "Frequently used with base64 in production workflows",
-    "tags": "base64 serial sol paste offline recovery variation recipe"
+    "tags": "base64 serial sol paste offline recovery variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/base64.1.html",
+          "title": "base64(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "base64",
@@ -3740,7 +3873,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "man base64 2>/dev/null || base64 --help | head -n 30",
     "desc": "Operational guidelines, safety flags, and best practices for base64",
     "tip": "Lifesaver when NICs are dead and only Serial/SOL works!",
-    "tags": "base64 serial sol paste offline recovery tips safety help"
+    "tags": "base64 serial sol paste offline recovery tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/base64.1.html",
+          "title": "base64(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "base64",
@@ -6621,7 +6763,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep -rnIE -C 3 --color=auto 'ERROR|CRITICAL|FATAL|panic|MCE|AER' /var/log/",
     "desc": "Search logs or directories recursively with Extended Regex, line numbers, binary skip & surrounding context",
     "tip": "Always include -I to skip binaries",
-    "tags": "grep search logs context recursive regex errors"
+    "tags": "grep search logs context recursive regex errors",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+          "title": "grep(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -6665,7 +6816,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep -Ev '^\\s*(#|$|;)' /etc/ssh/sshd_config",
     "desc": "Invert match (-v) to strip comments and blank lines from config files or filter out noisy log lines",
     "tip": "Instant active-config view",
-    "tags": "grep invert comments config diff filter"
+    "tags": "grep invert comments config diff filter",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+          "title": "grep(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -6698,7 +6858,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep -Po '([0-9]{1,3}\\.){3}[0-9]{1,3}' /var/log/auth.log | sort | uniq -c | sort -nr | head",
     "desc": "Extract only the matched token (-o) using Perl-Compatible Regex (-P) lookarounds and \\K match reset",
     "tip": "grep -Po 'key=\\K\\S+' extracts values cleanly",
-    "tags": "grep pcre extract ip mac bdf only-matching"
+    "tags": "grep pcre extract ip mac bdf only-matching",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+          "title": "grep(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -6742,7 +6911,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep -H '' /sys/class/net/*/operstate /sys/class/net/*/speed 2>/dev/null",
     "desc": "List matching filenames (-l / -L), count matches (-c), match whole words (-w), read sysfs (-H '') & zgrep",
     "tip": "grep -H '' /sys/... reads many sysfs files with filenames!",
-    "tags": "grep zgrep fgrep sysfs count filenames word"
+    "tags": "grep zgrep fgrep sysfs count filenames word",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+          "title": "grep(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -6775,7 +6953,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ps -eo pid,ppid,nlwp,user,stat,%cpu,%mem,rss,lstart,args --sort=-%mem | head -n 20",
     "desc": "Display custom process table sorted by Resident Memory (RSS) or CPU% with exact start time and PPID",
     "tip": "nlwp shows thread count per process",
-    "tags": "ps memory rss cpu sort threads forest"
+    "tags": "ps memory rss cpu sort threads forest",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ps.1.html",
+          "title": "ps(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -6808,7 +6995,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ps -eo pid,ppid,user,stat,wchan:28,lstart,args | awk 'NR==1 || $4 ~ /^[DZ]/'",
     "desc": "Diagnose hung Uninterruptible I/O ('D' state) processes, kernel wait channels (wchan) & Zombie ('Z') parents",
     "tip": "Kill Parent (PPID) to clear Zombies; fix I/O to clear D-state",
-    "tags": "ps d-state zombie wchan hung sigkill stack"
+    "tags": "ps d-state zombie wchan hung sigkill stack",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ps.1.html",
+          "title": "ps(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -6841,7 +7037,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ps -eLo pid,lwp,psr,user,%cpu,stat,comm --sort=-%cpu | head -n 25",
     "desc": "Inspect individual threads (LWP/TID), see which physical CPU core (psr) each thread is running on & check cgroups",
     "tip": "psr column reveals CPU pinning & core hotspots",
-    "tags": "ps threads lwp psr cpu-core affinity cgroup pgrep pkill"
+    "tags": "ps threads lwp psr cpu-core affinity cgroup pgrep pkill",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ps.1.html",
+          "title": "ps(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -6885,7 +7090,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ls -lahtr --time-style=full-iso /var/log/",
     "desc": "List files sorted by modification time, file size, or natural version number with full ISO timestamps",
     "tip": "ls -lahtr puts newest files right above your prompt",
-    "tags": "ls sort time size iso timestamp directory"
+    "tags": "ls sort time size iso timestamp directory",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ls.1.html",
+          "title": "ls(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -6929,7 +7143,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ls -lahis --color=auto /var/lib/libvirt/images/",
     "desc": "Inspect filesystem inode numbers (-i), actual allocated disk blocks vs sparse size (-s), and numeric UIDs (-n)",
     "tip": "Compare column 1 (-s) vs size column to spot sparse files",
-    "tags": "ls inode sparse blocks uid gid"
+    "tags": "ls inode sparse blocks uid gid",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ls.1.html",
+          "title": "ls(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -6962,7 +7185,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "stat /etc/fstab && stat -f /var/log",
     "desc": "Inspect complete file inode metadata (timestamps, octal mode, UID/GID, links) or filesystem-level block/inode counters",
     "tip": "stat -c '%a %n' prints octal permissions (e.g. 600)",
-    "tags": "stat inode octal timestamps birth ctime mtime"
+    "tags": "stat inode octal timestamps birth ctime mtime",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/stat.1.html",
+          "title": "stat(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -6995,7 +7227,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "namei -l /var/www/html/index.html",
     "desc": "Trace every directory component and symlink from root '/' down to a file with permissions and ownership at each hop",
     "tip": "Instantly spots missing '+x' on parent directories",
-    "tags": "namei symlink permissions path traversal debug"
+    "tags": "namei symlink permissions path traversal debug",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/namei.1.html",
+          "title": "namei(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7017,7 +7258,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "file -sL /dev/nvme0n1 /dev/nvme0n1p1 && file -b /bin/ls",
     "desc": "Identify file types, ELF architecture, compression format, or raw block partition filesystems via magic bytes",
     "tip": "file -sL /dev/nvme0n1p1 reveals raw partition FS & UUID",
-    "tags": "file magic elf partition filesystem coredump"
+    "tags": "file magic elf partition filesystem coredump",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/file/file.1.en.html",
+          "title": "file(1), Debian"
+        }
+      ],
+      "note": "Corrected 2026-11-09: file(1) doesn't document showing the signal for a core dump."
+    }
   },
   {
     "sName": "cli-tools",
@@ -7026,7 +7277,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "id": "file-magic-headers",
     "sec": "file — Binary, Filesystem & Magic Header Identifier",
     "cmd": "file /var/crash/core.*",
-    "desc": "Inspect an application core dump to see the exact binary name and signal that caused the crash",
+    "desc": "Identify a core dump and the program that produced it",
     "tip": "",
     "tags": "file magic elf partition filesystem coredump"
   },
@@ -7050,7 +7301,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "awk -F':' '$3 >= 1000 && $3 < 65534 {printf \"%-15s UID:%-6d Shell:%s\\n\", $1, $3, $7}' /etc/passwd",
     "desc": "Extract, reorder, and format specific columns using whitespace or custom regex field delimiters (-F)",
     "tip": "NR>1 skips the header row of CLI tables",
-    "tags": "awk columns delimiter printf filter df passwd"
+    "tags": "awk columns delimiter printf filter df passwd",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/gawk.1.html",
+          "title": "gawk(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7083,7 +7343,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ps -eo rss,comm | awk 'NR>1 {sum+=$1; count++; if($1>max){max=$1; maxp=$2}} END {printf \"Procs:%d  Total:%.1f MiB  Avg:%.1f MiB  Max:%s (%.1f MiB)\\n\", count, sum/1024, (sum/count)/1024, maxp, max/1024}'",
     "desc": "Calculate sum, average, min, and max across numeric columns in logs or command outputs",
     "tip": "",
-    "tags": "awk sum average math max min aggregation"
+    "tags": "awk sum average math max min aggregation",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/gawk.1.html",
+          "title": "gawk(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7116,7 +7385,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ss -tan | awk 'NR>1 {state[$1]++} END {for (s in state) printf \"%-15s %d\\n\", s, state[s]}' | sort -k2 -nr",
     "desc": "Group by column, count frequencies, sum per key, deduplicate lines, or join two files using associative arrays",
     "tip": "awk '!seen[$0]++' deduplicates without sorting!",
-    "tags": "awk array group-by frequency deduplicate join nr==fnr"
+    "tags": "awk array group-by frequency deduplicate join nr==fnr",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/gawk.1.html",
+          "title": "gawk(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7160,7 +7438,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sed -i.bak -E 's|^#?(PermitRootLogin)\\s+.*|\\1 no|' /etc/ssh/sshd_config && diff -u /etc/ssh/sshd_config.bak /etc/ssh/sshd_config",
     "desc": "Perform safe in-place regex search-and-replace across config files with automatic backup creation",
     "tip": "Use s|old|new|g when replacing file paths",
-    "tags": "sed replace substitute inplace config backup regex"
+    "tags": "sed replace substitute inplace config backup regex",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sed.1.html",
+          "title": "sed(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7193,7 +7480,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sed -n '/2026-10-30T02:50/,/2026-10-30T03:05/p' /var/log/syslog",
     "desc": "Extract lines between two timestamps, regex markers, or exact line numbers from multi-GB log files",
     "tip": "Adding ';1051q' avoids reading the rest of a 50GB log",
-    "tags": "sed slice range timestamps logs lines"
+    "tags": "sed slice range timestamps logs lines",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sed.1.html",
+          "title": "sed(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7226,7 +7522,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sed -E '/^\\s*(#|$)/d' /etc/sysctl.conf",
     "desc": "Delete matching lines (d), strip blank/comment lines, remove ANSI color codes, or strip Windows CRLF",
     "tip": "sed -i '42d' ~/.ssh/known_hosts fixes SSH host key alerts",
-    "tags": "sed delete ansi crlf known_hosts comments"
+    "tags": "sed delete ansi crlf known_hosts comments",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sed.1.html",
+          "title": "sed(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7270,7 +7575,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "find / -xdev -type f -size +200M -mmin -120 -printf '%TY-%Tm-%Td %TH:%TM  %12s  %p\\n' 2>/dev/null | sort -k3 -nr",
     "desc": "Locate files by exact modification minutes/days, byte size thresholds, and filesystem boundaries (-xdev)",
     "tip": "-mmin -60 finds files modified in the last hour",
-    "tags": "find size mtime mmin xdev prune empty"
+    "tags": "find size mtime mmin xdev prune empty",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/find.1.html",
+          "title": "find(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7303,7 +7617,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "find /etc /srv /opt -xtype l -ls",
     "desc": "Audit SUID/SGID binaries, world-writable files, orphaned UID/GID files, broken symlinks & hardlinks",
     "tip": "find -xtype l finds broken symlinks",
-    "tags": "find permissions suid symlinks broken inode nouser"
+    "tags": "find permissions suid symlinks broken inode nouser",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/find.1.html",
+          "title": "find(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7336,7 +7659,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "find /var/log/archive -type f -name '*.log' -print0 | xargs -0 -r -P 8 -n 20 zstd --rm -9",
     "desc": "Execute commands in parallel across file or host lists using null-delimited streams (-0) and worker pools (-P)",
     "tip": "Always pass -r so empty inputs don't execute!",
-    "tags": "xargs parallel print0 null batch ping"
+    "tags": "xargs parallel print0 null batch ping",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/xargs.1.html",
+          "title": "xargs(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: -P 0 runs as many processes as possible at once; it isn't tied to the CPU count."
+    }
   },
   {
     "sName": "cli-tools",
@@ -7369,7 +7702,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ip -j addr show | jq -r '.[] | select(.operstate == \"UP\") | [.ifname, .address, (.addr_info[0].local // \"no-ip\")] | @tsv' | column -t",
     "desc": "Query native JSON outputs from Ubuntu hardware & network tools (ip -j, lsblk -J, lshw -json, nvme -o json)",
     "tip": "ip -j, lsblk -J, findmnt -J, nvme -o json all output JSON!",
-    "tags": "jq json ip lsblk nvme lshw tsv"
+    "tags": "jq json ip lsblk nvme lshw tsv",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://jqlang.org/manual/",
+          "title": "jq manual"
+        }
+      ],
+      "note": "nvme list -o json field names (DevicePath, ModelNumber…) are nvme-cli 2.x output; 3.x may differ."
+    }
   },
   {
     "sName": "cli-tools",
@@ -7402,7 +7745,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems/1/Memory\" | jq -r '.Members[] | .[\"@odata.id\"]'",
     "desc": "Filter Redfish BMC JSON responses over IPv6, sort/group arrays, and safely construct JSON payloads from bash variables",
     "tip": "",
-    "tags": "jq redfish csv tsv sort_by group_by api"
+    "tags": "jq redfish csv tsv sort_by group_by api",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://jqlang.org/manual/",
+          "title": "jq manual"
+        }
+      ],
+      "note": "nvme list -o json field names (DevicePath, ModelNumber…) are nvme-cli 2.x output; 3.x may differ."
+    }
   },
   {
     "sName": "cli-tools",
@@ -7435,7 +7788,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lsof +L1 && lsof -iTCP:443 -sTCP:LISTEN -P -n",
     "desc": "Find deleted files still holding disk blocks (+L1), processes listening on ports (-iTCP), or open FDs of a PID",
     "tip": "lsof +L1 solves 'df says 100% full, du says 20%'",
-    "tags": "lsof deleted disk-full ports socket fd"
+    "tags": "lsof deleted disk-full ports socket fd",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/lsof/lsof.8.en.html",
+          "title": "lsof(8), Debian"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man5/proc.5.html",
+          "title": "proc(5)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7479,7 +7845,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "fuser -vm /mnt/data",
     "desc": "Identify or terminate processes keeping a mounted filesystem busy (/mnt) or holding a package lock file",
     "tip": "Access 'c' means a shell is cd'd inside the mountpoint",
-    "tags": "fuser umount busy lock dpkg mount"
+    "tags": "fuser umount busy lock dpkg mount",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/fuser.1.html",
+          "title": "fuser(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7523,7 +7898,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "strace -p <PID> -f -tt -T -s 256 -e trace=file,network",
     "desc": "Trace live system calls, file opens, network connects, and syscall latency of a running or failing process",
     "tip": "-e trace=file,network cuts 90% of syscall noise",
-    "tags": "strace syscall debug hang enoent latency"
+    "tags": "strace syscall debug hang enoent latency",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/strace.1.html",
+          "title": "strace(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7556,7 +7940,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "du -sh /var/* 2>/dev/null | sort -hr",
     "desc": "Sort output by human-readable byte suffixes (-h), IPv4/version numbers (-V), or specific delimited columns (-k)",
     "tip": "sort -h understands K/M/G/T; sort -V sorts IPv4 addresses",
-    "tags": "sort human version columns ip du"
+    "tags": "sort human version columns ip du",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sort.1.html",
+          "title": "sort(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7589,7 +7982,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "awk '{print $1}' /var/log/nginx/access.log | sort | uniq -c | sort -nr | head -n 15",
     "desc": "Count line occurrence frequencies (uniq -c) or isolate duplicate (-d) vs single-occurrence (-u) lines",
     "tip": "Always pipe through 'sort' before 'uniq'",
-    "tags": "uniq frequency duplicates histogram"
+    "tags": "uniq frequency duplicates histogram",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/uniq.1.html",
+          "title": "uniq(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7622,7 +8024,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "comm -23 <(sort expected_nodes.txt) <(sort online_nodes.txt)",
     "desc": "Compare two sorted lists line-by-line to output set difference (A - B), (B - A), or intersection (A ∩ B)",
     "tip": "comm -23 = in File 1 only; comm -12 = in Both",
-    "tags": "comm compare diff set inventory"
+    "tags": "comm compare diff set inventory",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/comm.1.html",
+          "title": "comm(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7655,7 +8070,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "cut -d':' -f1,3,7 --output-delimiter=$'\\t' /etc/passwd | head -n 15",
     "desc": "Slice specific columns from delimited text streams or config tables",
     "tip": "Use --complement to drop a single column",
-    "tags": "cut fields columns delimiter slice"
+    "tags": "cut fields columns delimiter slice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/cut.1.html",
+          "title": "cut(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7677,7 +8101,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "cat /proc/net/dev | tr -s ' ' | cut -d' ' -f1,2,10",
     "desc": "Squeeze repeated spaces into single delimiters (-s), delete carriage returns (-d), or convert character sets",
     "tip": "tr -s ' ' normalizes CLI table spacing for cut",
-    "tags": "tr squeeze delete translate whitespace lowercase"
+    "tags": "tr squeeze delete translate whitespace lowercase",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/tr.1.html",
+          "title": "tr(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7721,7 +8154,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mount | column -t && column -t -s ':' /etc/passwd | head -n 15",
     "desc": "Format messy whitespace or delimiter-separated output into a cleanly aligned terminal table",
     "tip": "Pipe any TSV or colon-delimited file into column -t",
-    "tags": "column table align format mount fstab"
+    "tags": "column table align format mount fstab",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/column.1.html",
+          "title": "column(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7743,7 +8185,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "watch -n 1 -d -c 'ip -c -s link show eth0'",
     "desc": "Run a diagnostic command repeatedly while highlighting every counter or state that changes (-d)",
     "tip": "watch -g exits the moment output changes!",
-    "tags": "watch live monitor diff counters"
+    "tags": "watch live monitor diff counters",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/watch.1.html",
+          "title": "watch(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the permanent form is --differences=permanent (the argument must be attached to the option)."
+    }
   },
   {
     "sName": "cli-tools",
@@ -7776,7 +8228,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "echo 'performance' | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor",
     "desc": "Write to root-owned /sys, /proc, or /etc files via sudo or capture live command output to a log file while watching it",
     "tip": "Always use 'echo x | tee /sys/...' instead of 'echo >'",
-    "tags": "tee sudo sysfs proc redirect logging"
+    "tags": "tee sudo sysfs proc redirect logging",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/tee.1.html",
+          "title": "tee(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7809,7 +8270,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dd if=/dev/zero of=/tmp/bench.img bs=1G count=4 oflag=direct,dsync status=progress",
     "desc": "Clone, zero, or benchmark raw block devices with Direct I/O (bypassing RAM cache) and live progress",
     "tip": "",
-    "tags": "dd benchmark clone direct-io sparse usr1"
+    "tags": "dd benchmark clone direct-io sparse usr1",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/dd.1.html",
+          "title": "dd(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7853,7 +8323,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tar --sparse --numeric-owner --acls --xattrs -czvf /backups/srv-data.tar.gz /srv/data/",
     "desc": "Create, inspect, and extract tar archives preserving sparse files (-S), ACLs, xattrs, and numeric UIDs",
     "tip": "Use --sparse and --numeric-owner for VM & container backups",
-    "tags": "tar sparse numeric-owner ssh backup"
+    "tags": "tar sparse numeric-owner ssh backup",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/tar.1.html",
+          "title": "tar(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7886,7 +8365,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "zstd -T0 -9 --rm /var/crash/vmcore.dump   # Decompress: unzstd vmcore.dump.zst",
     "desc": "Compress and decompress large logs, core dumps, or raw disk images using all CPU cores (-T0)",
     "tip": "zstd -T0 compresses multi-GB core dumps in seconds",
-    "tags": "zstd unzstd zstdcat compress multithreaded"
+    "tags": "zstd unzstd zstdcat compress multithreaded",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/zstd/zstd.1.en.html",
+          "title": "zstd(1), Debian"
+        }
+      ],
+      "note": "Corrected 2026-11-09: -T0 detects physical cores (not logical); dropped unsourced speed figures."
+    }
   },
   {
     "sName": "cli-tools",
@@ -7919,7 +8408,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "rsync -avhPS --numeric-owner --stats /srv/data/ root@dr-node:/srv/data/",
     "desc": "Synchronize directories locally or over SSH preserving all attributes, sparse blocks, and partial transfers",
     "tip": "Always test --delete with -n (dry-run) first!",
-    "tags": "rsync sync mirror backup sparse bwlimit"
+    "tags": "rsync sync mirror backup sparse bwlimit",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://download.samba.org/pub/rsync/rsync.1",
+          "title": "rsync(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7952,7 +8450,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "scp -6 -r -p -P 2222 -J user@bastion /local/firmware/ \"root@[2001:db8:dc:4::15]:/tmp/firmware/\"",
     "desc": "Copy files or directories over IPv6 SSH using bracketed literal IPv6 syntax (`[2001:db8::]`), custom port (-P), and 3-way routing (-3)",
     "tip": "Always wrap literal IPv6 addresses in brackets: root@[2001:db8::1]:/path",
-    "tags": "scp ipv6 ssh transfer copy bastion proxyjump port"
+    "tags": "scp ipv6 ssh transfer copy bastion proxyjump port",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man.openbsd.org/scp",
+          "title": "scp(1), OpenBSD"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7985,7 +8492,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sftp -6 -P 22 -i ~/.ssh/id_ed25519 \"root@[2001:db8:dc:4::50]:/var/log/\"",
     "desc": "Open an interactive IPv6 SSH file transfer session supporting directory browsing and resuming interrupted transfers",
     "tip": "Use 'reget' / 'reput' inside sftp to resume dropped transfers",
-    "tags": "sftp ipv6 ssh resume reget reput interactive"
+    "tags": "sftp ipv6 ssh resume reget reput interactive",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man.openbsd.org/sftp",
+          "title": "sftp(1), OpenBSD"
+        }
+      ],
+      "note": "Corrected 2026-11-09: reget takes -f, -p and -R; there is no -P."
+    }
   },
   {
     "sName": "cli-tools",
@@ -7993,8 +8510,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "sft",
     "id": "sftp-interactive-resume",
     "sec": "sftp — Interactive IPv6 SSH File Transfer & Resume",
-    "cmd": "reget -P large-vmcore.dump /tmp/large-vmcore.dump",
-    "desc": "Inside sftp prompt: resume an interrupted download from the exact byte where it stopped",
+    "cmd": "reget large-vmcore.dump /tmp/large-vmcore.dump",
+    "desc": "Inside sftp prompt: resume an interrupted download (same as get -a)",
     "tip": "",
     "tags": "sftp ipv6 ssh resume reget reput interactive"
   },
@@ -8018,7 +8535,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -6 -fL -C - --retry 5 -O https://releases.ubuntu.com/24.04/ubuntu-24.04.1-live-server-amd64.iso",
     "desc": "Query IPv6 URLs (`-g -6`), download files with auto-resume (`-C -`), override DNS (`--resolve`), and measure TTFB",
     "tip": "Always pass -g to curl with literal [IPv6] URLs; use %25eth0 for fe80::!",
-    "tags": "curl ipv6 globoff fe80 resume resolve download iso firmware ttfb"
+    "tags": "curl ipv6 globoff fe80 resume resolve download iso firmware ttfb",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://curl.se/docs/manpage.html",
+          "title": "curl manual"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8062,7 +8588,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "python3 -m http.server 8000 --bind :: --directory /srv/firmware",
     "desc": "Spin up an instant IPv6 HTTP file server (`--bind ::`) on a rack VLAN to stage firmware or OS ISOs",
     "tip": "Use --bind :: to enable IPv6 support in python3 -m http.server!",
-    "tags": "http.server ipv6 python3 wget firmware iso staging"
+    "tags": "http.server ipv6 python3 wget firmware iso staging",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.python.org/3/library/http.server.html",
+          "title": "Python: http.server"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/wget/wget.1.en.html",
+          "title": "wget(1), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8095,7 +8634,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "openssl s_client -6 -connect \"[2001:db8:dc:4::50]:443\" -servername bmc.local </dev/null 2>/dev/null | openssl x509 -noout -subject -issuer -dates -ext subjectAltName",
     "desc": "Inspect a live server or BMC TLS certificate chain over IPv6 (`-6 -connect [ipv6]:443`), expiration dates & SANs",
     "tip": "Redirect </dev/null so s_client closes immediately",
-    "tags": "openssl ipv6 tls ssl certificate x509 expiry san"
+    "tags": "openssl ipv6 tls ssl certificate x509 expiry san",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.openssl.org/master/man1/openssl-s_client/",
+          "title": "openssl s_client"
+        },
+        {
+          "url": "https://docs.openssl.org/master/man1/openssl-x509/",
+          "title": "openssl x509"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8128,7 +8680,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ping -6 -c 3 ff02::1%eth0 && ip -6 -c neigh show dev eth0 && nmap -6 -sS -n -p 22,80,443,623 --open 2001:db8:dc:4::1-100",
     "desc": "Discover newly racked IPv6 servers/BMCs via link-local multicast (`ff02::1`) and scan open SSH/Redfish/IPMI ports (`nmap -6`)",
     "tip": "Ping ff02::1%eth0 to instantly discover all IPv6 nodes on a rack VLAN!",
-    "tags": "nmap ipv6 ff02::1 multicast subnet discovery bmc ports"
+    "tags": "nmap ipv6 ff02::1 multicast subnet discovery bmc ports",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://nmap.org/book/man.html",
+          "title": "Nmap reference guide"
+        },
+        {
+          "url": "https://nmap.org/nsedoc/scripts/targets-ipv6-multicast-echo.html",
+          "title": "NSE: targets-ipv6-multicast-echo"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8161,7 +8726,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ping -6 -L -c 3 ff02::1%eth1 >/dev/null ; ip -6 -c neigh show dev eth1 && rdisc6 eth1",
     "desc": "Discover all active L2 IPv6 neighbors, MAC addresses, and upstream switch Router Advertisements on the local VLAN",
     "tip": "rdisc6 shows the exact /64 prefix & MTU advertised by your ToR switch!",
-    "tags": "ndp ndisc6 rdisc6 ipv6 neigh arp-scan mac vlan discovery"
+    "tags": "ndp ndisc6 rdisc6 ipv6 neigh arp-scan mac vlan discovery",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/ndisc6/ndisc6.8.en.html",
+          "title": "ndisc6(8), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/ndisc6/rdisc6.8.en.html",
+          "title": "rdisc6(8), Debian"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ping.8.html",
+          "title": "ping(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/arp-scan/arp-scan.1.en.html",
+          "title": "arp-scan(1), Debian"
+        }
+      ],
+      "note": "EUI-64 (MAC-derived) link-local addresses aren't universal: RFC 7217 stable-privacy addresses don't contain the MAC."
+    }
   },
   {
     "sName": "cli-tools",
@@ -8194,7 +8781,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tmux new -s rack04-maint   # Detach: Ctrl+b d   |   Reattach: tmux attach -t rack04-maint",
     "desc": "Keep firmware upgrades/burn-ins alive across SSH drops and broadcast keystrokes to multiple servers at once",
     "tip": "synchronize-panes types across all split panes at once!",
-    "tags": "tmux session synchronize-panes ssh keepalive"
+    "tags": "tmux session synchronize-panes ssh keepalive",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man.openbsd.org/tmux",
+          "title": "tmux(1), OpenBSD"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8238,7 +8834,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tio -b 115200 -d 8 -f none -s 1 --log --log-file /tmp/serial.log /dev/ttyUSB0",
     "desc": "Connect a USB-to-Serial crash cart cable (/dev/ttyUSB0) to a switch, PDU, or server RS-232 console port",
     "tip": "Exit tio with Ctrl+t then q",
-    "tags": "tio picocom serial ttyusb0 baud console"
+    "tags": "tio picocom serial ttyusb0 baud console",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/tio/tio.1.en.html",
+          "title": "tio(1), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/picocom/picocom.1.en.html",
+          "title": "picocom(1), Debian"
+        }
+      ],
+      "note": "Corrected 2026-11-09: listing devices is tio -l (--list); -L is --log. Checked against tio 3.9."
+    }
   },
   {
     "sName": "cli-tools",
@@ -8246,8 +8856,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "tio",
     "id": "serial-console-tio",
     "sec": "tio — Serial Console Crash-Cart Client",
-    "cmd": "tio -L",
-    "desc": "List all available serial devices by ID (/dev/serial/by-id/*) on the system",
+    "cmd": "tio -l",
+    "desc": "List available serial devices (by ID), TIDs and configuration profiles",
     "tip": "",
     "tags": "tio picocom serial ttyusb0 baud console"
   },
@@ -8271,7 +8881,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "gzip -c fix-net.sh | base64 -w0 && echo ''   # On target: echo '<B64>' | base64 -d | gunzip > fix-net.sh",
     "desc": "Compress and encode a file into single-line Base64 to copy-paste over an offline IPMI SOL or RS-232 serial console",
     "tip": "Lifesaver when NICs are dead and only Serial/SOL works!",
-    "tags": "base64 serial sol paste offline recovery"
+    "tags": "base64 serial sol paste offline recovery",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/base64.1.html",
+          "title": "base64(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8293,7 +8912,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "efibootmgr -v",
     "desc": "Inspect UEFI NVRAM boot entries, set one-time NextBoot to PXE/NIC, change BootOrder, or reboot into BIOS Setup",
     "tip": "systemctl reboot --firmware-setup enters BIOS automatically!",
-    "tags": "efibootmgr uefi bios pxe bootorder nextboot mokutil"
+    "tags": "efibootmgr uefi bios pxe bootorder nextboot mokutil",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/efibootmgr/efibootmgr.8.en.html",
+          "title": "efibootmgr(8), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/mokutil/mokutil.1.en.html",
+          "title": "mokutil(1), Debian"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the loader path takes single backslashes ('\\\\EFI\\\\ubuntu\\\\shimx64.efi')."
+    }
   },
   {
     "sName": "cli-tools",
@@ -8314,7 +8947,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "efi",
     "id": "efibootmgr-uefi-boot",
     "sec": "efibootmgr — UEFI Boot Order & PXE NextBoot",
-    "cmd": "efibootmgr -c -d /dev/nvme0n1 -p 1 -L 'Ubuntu' -l '\\\\EFI\\\\ubuntu\\\\shimx64.efi'",
+    "cmd": "efibootmgr -c -d /dev/nvme0n1 -p 1 -L 'Ubuntu' -l '\\EFI\\ubuntu\\shimx64.efi'",
     "desc": "Create a new UEFI NVRAM boot entry pointing to the EFI System Partition (partition 1) on /dev/nvme0n1",
     "tip": "",
     "tags": "efibootmgr uefi bios pxe bootorder nextboot mokutil"
@@ -8339,7 +8972,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "udevadm monitor --kernel --udev --property",
     "desc": "Watch live kernel/udev hardware hotplug events and inspect sysfs device attributes & persistent naming rules",
     "tip": "Use /dev/disk/by-id/ for drive serial mapping",
-    "tags": "udevadm hotplug udev by-id by-path nvme nic"
+    "tags": "udevadm hotplug udev by-id by-path nvme nic",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/udevadm.8.html",
+          "title": "udevadm(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8383,7 +9025,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "cloud-init status --long && cloud-init analyze show",
     "desc": "Diagnose Ubuntu Server first-boot provisioning status, data source detection, and slow/failed modules",
     "tip": "",
-    "tags": "cloud-init maas provisioning subiquity ubuntu"
+    "tags": "cloud-init maas provisioning subiquity ubuntu",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.cloud-init.io/en/latest/reference/cli.html",
+          "title": "cloud-init CLI reference"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8416,7 +9067,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo -l",
     "desc": "Why not just work as root? The dangers, and what sudo does instead",
     "tip": "Root is a tool for one step, not a place to work",
-    "tags": "sudo root danger least-privilege audit security"
+    "tags": "sudo root danger least-privilege audit security",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.sudo.ws/docs/man/sudo.man/",
+          "title": "sudo(8)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+          "title": "sudoers(5)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        },
+        {
+          "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+          "title": "Ubuntu 25.10 release notes (sudo-rs)"
+        },
+        {
+          "url": "https://www.sudo.ws/releases/stable/",
+          "title": "sudo stable release"
+        }
+      ],
+      "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+    }
   },
   {
     "sName": "cli-tools",
@@ -8449,7 +9126,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "id",
     "desc": "Who am I running as? Check before you type anything destructive",
     "tip": "Read the prompt: # means every command is unchecked",
-    "tags": "sudo root uid id whoami privilege"
+    "tags": "sudo root uid id whoami privilege",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.sudo.ws/docs/man/sudo.man/",
+          "title": "sudo(8)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+          "title": "sudoers(5)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        },
+        {
+          "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+          "title": "Ubuntu 25.10 release notes (sudo-rs)"
+        },
+        {
+          "url": "https://www.sudo.ws/releases/stable/",
+          "title": "sudo stable release"
+        }
+      ],
+      "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+    }
   },
   {
     "sName": "cli-tools",
@@ -8482,7 +9185,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo dmesg -T",
     "desc": "Run one command as root, or as another user",
     "tip": "Prefix the one command, never your whole session",
-    "tags": "sudo run user non-interactive scripts"
+    "tags": "sudo run user non-interactive scripts",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.sudo.ws/docs/man/sudo.man/",
+          "title": "sudo(8)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+          "title": "sudoers(5)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        },
+        {
+          "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+          "title": "Ubuntu 25.10 release notes (sudo-rs)"
+        },
+        {
+          "url": "https://www.sudo.ws/releases/stable/",
+          "title": "sudo stable release"
+        }
+      ],
+      "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+    }
   },
   {
     "sName": "cli-tools",
@@ -8515,7 +9244,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo -i",
     "desc": "A root shell when you really need one: sudo -i, sudo -s and su",
     "tip": "If you open a root shell, close it in the same breath",
-    "tags": "sudo root-shell su login logging"
+    "tags": "sudo root-shell su login logging",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.sudo.ws/docs/man/sudo.man/",
+          "title": "sudo(8)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+          "title": "sudoers(5)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        },
+        {
+          "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+          "title": "Ubuntu 25.10 release notes (sudo-rs)"
+        },
+        {
+          "url": "https://www.sudo.ws/releases/stable/",
+          "title": "sudo stable release"
+        }
+      ],
+      "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+    }
   },
   {
     "sName": "cli-tools",
@@ -8537,7 +9292,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "echo 'vm.swappiness = 10' | sudo tee /etc/sysctl.d/99-swappiness.conf",
     "desc": "The redirect gotcha: sudo echo > /etc/file fails; use tee (changes state)",
     "tip": "The shell does the redirect, not sudo",
-    "tags": "sudo tee redirect permission-denied gotcha"
+    "tags": "sudo tee redirect permission-denied gotcha",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.sudo.ws/docs/man/sudo.man/",
+          "title": "sudo(8)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+          "title": "sudoers(5)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        },
+        {
+          "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+          "title": "Ubuntu 25.10 release notes (sudo-rs)"
+        },
+        {
+          "url": "https://www.sudo.ws/releases/stable/",
+          "title": "sudo stable release"
+        }
+      ],
+      "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+    }
   },
   {
     "sName": "cli-tools",
@@ -8559,7 +9340,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudoedit /etc/ssh/sshd_config",
     "desc": "Edit a root-owned file safely with sudoedit (sudo -e)",
     "tip": "Back up, sudoedit, then validate",
-    "tags": "sudo sudoedit edit config nano vim"
+    "tags": "sudo sudoedit edit config nano vim",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.sudo.ws/docs/man/sudo.man/",
+          "title": "sudo(8)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+          "title": "sudoers(5)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        },
+        {
+          "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+          "title": "Ubuntu 25.10 release notes (sudo-rs)"
+        },
+        {
+          "url": "https://www.sudo.ws/releases/stable/",
+          "title": "sudo stable release"
+        }
+      ],
+      "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+    }
   },
   {
     "sName": "cli-tools",
@@ -8581,7 +9388,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo visudo -f /etc/sudoers.d/90-datacenter-techs",
     "desc": "Who may run what: sudoers drop-in files, edited only with visudo (changes state)",
     "tip": "Keep a second root session open while you change sudoers",
-    "tags": "sudo sudoers visudo nopasswd least-privilege"
+    "tags": "sudo sudoers visudo nopasswd least-privilege",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.sudo.ws/docs/man/sudo.man/",
+          "title": "sudo(8)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+          "title": "sudoers(5)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        },
+        {
+          "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+          "title": "Ubuntu 25.10 release notes (sudo-rs)"
+        },
+        {
+          "url": "https://www.sudo.ws/releases/stable/",
+          "title": "sudo stable release"
+        }
+      ],
+      "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+    }
   },
   {
     "sName": "cli-tools",
@@ -8603,7 +9436,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo journalctl -t sudo --since today --no-pager",
     "desc": "Who ran what as root? Read the sudo log",
     "tip": "Commands typed inside a root shell do not show up here",
-    "tags": "sudo audit log journalctl auth.log incident"
+    "tags": "sudo audit log journalctl auth.log incident",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.sudo.ws/docs/man/sudo.man/",
+          "title": "sudo(8)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+          "title": "sudoers(5)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        },
+        {
+          "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+          "title": "Ubuntu 25.10 release notes (sudo-rs)"
+        },
+        {
+          "url": "https://www.sudo.ws/releases/stable/",
+          "title": "sudo stable release"
+        }
+      ],
+      "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+    }
   },
   {
     "sName": "cli-tools",
@@ -8625,7 +9484,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "update-alternatives --display sudo",
     "desc": "Which sudo is this? Ubuntu 25.10 and 26.04 default to sudo-rs",
     "tip": "If a sudoers rule behaves differently on Ubuntu 26.04, check which sudo is active",
-    "tags": "sudo sudo-rs ubuntu version rust"
+    "tags": "sudo sudo-rs ubuntu version rust",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.sudo.ws/docs/man/sudo.man/",
+          "title": "sudo(8)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+          "title": "sudoers(5)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        },
+        {
+          "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+          "title": "Ubuntu 25.10 release notes (sudo-rs)"
+        },
+        {
+          "url": "https://www.sudo.ws/releases/stable/",
+          "title": "sudo stable release"
+        }
+      ],
+      "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+    }
   },
   {
     "sName": "cli-tools",
@@ -8647,7 +9532,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sysctl -a | grep -E 'net.core.rmem_max|vm.swappiness|vm.nr_hugepages|fs.file-max|kernel.panic'",
     "desc": "Query active kernel runtime parameters (/proc/sys), apply live tunables (-w), and reload /etc/sysctl.d/*.conf",
     "tip": "Persist settings in /etc/sysctl.d/90-custom.conf",
-    "tags": "sysctl kernel tuning hugepages swappiness network"
+    "tags": "sysctl kernel tuning hugepages swappiness network",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/sysctl.8.html",
+          "title": "sysctl(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man5/sysctl.d.5.html",
+          "title": "sysctl.d(5)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8680,7 +9578,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "xxd -g 1 -l 256 /etc/localtime",
     "desc": "Inspect binary files, MBR/GPT partition headers, or SFP/FRU EEPROM dumps in side-by-side Hex + ASCII",
     "tip": "Check first 64 bytes of a .bin to ensure it's not HTML!",
-    "tags": "xxd hexdump hex binary eeprom mbr gpt"
+    "tags": "xxd hexdump hex binary eeprom mbr gpt",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/xxd/xxd.1.en.html",
+          "title": "xxd(1), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8724,7 +9631,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "strings -a -n 6 firmware.bin | grep -iE 'version|bios|build|date|copyright' | head -n 30",
     "desc": "Extract readable ASCII/UTF version strings from firmware blobs, kernel modules, or application core dumps",
     "tip": "Verify board model inside firmware.bin before flashing!",
-    "tags": "strings cmp firmware binary version coredump"
+    "tags": "strings cmp firmware binary version coredump",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://sourceware.org/binutils/docs/binutils/strings.html",
+          "title": "GNU binutils: strings"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/cmp.1.html",
+          "title": "cmp(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8757,7 +9677,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ip -c -br link show && ip -6 -c -br addr show && ip -s -s link show dev eth0",
     "desc": "Inspect network interface carrier state, MAC, MTU, IPv6 `/64` & `fe80::` link-local addresses, and hardware RX/TX drop counters",
     "tip": "LOWER_UP = physical link detected; UP = admin up",
-    "tags": "ip ipv6 iproute2 interface mac mtu counters vlan"
+    "tags": "ip ipv6 iproute2 interface mac mtu counters vlan",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-link.8.html",
+          "title": "ip-link(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-address.8.html",
+          "title": "ip-address(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-route.8.html",
+          "title": "ip-route(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-neighbour.8.html",
+          "title": "ip-neighbour(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-netns.8.html",
+          "title": "ip-netns(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: ip -6 neigh flush needs a selector (dev <if>), not 'all'."
+    }
   },
   {
     "sName": "cli-tools",
@@ -8801,7 +9747,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ip -6 route get 2001:db8:dc:4::50 && ip -6 -c neigh show",
     "desc": "Query kernel IPv6 routing decisions (`ip -6 route get`), inspect L2 NDP neighbor cache (`ip -6 neigh`), and run inside namespaces",
     "tip": "neigh state FAILED = ICMPv6 Neighbor Solicitation sent but no L2 reply!",
-    "tags": "ip ipv6 route ndp neighbor gateway netns"
+    "tags": "ip ipv6 route ndp neighbor gateway netns",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-link.8.html",
+          "title": "ip-link(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-address.8.html",
+          "title": "ip-address(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-route.8.html",
+          "title": "ip-route(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-neighbour.8.html",
+          "title": "ip-neighbour(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-netns.8.html",
+          "title": "ip-netns(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: ip -6 neigh flush needs a selector (dev <if>), not 'all'."
+    }
   },
   {
     "sName": "cli-tools",
@@ -8809,8 +9781,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "ip6",
     "id": "ip-route-neigh-netns",
     "sec": "ip — IPv6 Interfaces, Routing, NDP & Namespaces",
-    "cmd": "ip -6 neigh flush all",
-    "desc": "Flush stale IPv6 Neighbor Discovery (NDP) cache entries after a switch/VIP failover",
+    "cmd": "ip -6 neigh flush dev eth0",
+    "desc": "Flush stale IPv6 Neighbor Discovery (NDP) entries on eth0 after a switch/VIP failover (changes state)",
     "tip": "",
     "tags": "ip ipv6 route ndp neighbor gateway netns"
   },
@@ -8834,7 +9806,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ss -tulpn && ss -6 -tanp state established",
     "desc": "List listening IPv6/TCP/UDP ports with owning PIDs, filter by TCP state, and inspect per-socket RTT & retransmits",
     "tip": "ss -6 -ti reveals per-connection IPv6 TCP retransmits & RTT",
-    "tags": "ss ipv6 socket ports listen tcp retransmits rtt"
+    "tags": "ss ipv6 socket ports listen tcp retransmits rtt",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ss.8.html",
+          "title": "ss(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: ss(8) doesn't say -p needs root; the maybe-root badge covers other users' processes."
+    }
   },
   {
     "sName": "cli-tools",
@@ -8878,7 +9860,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tcpdump -ni eth0 -nn -vv -e -c 50 'ip6 and (port 546 or port 547 or port 69 or icmp6)'",
     "desc": "Capture live IPv6 packets on an interface using BPF expressions for VLANs, DHCPv6/PXEv6, ICMPv6 NDP/RA, or TCP flags",
     "tip": "DHCPv6 uses UDP 546/547; NDP/SLAAC uses ICMPv6 types 133–136!",
-    "tags": "tcpdump ipv6 icmp6 dhcpv6 ndp pcap vlan pxe lldp bpf"
+    "tags": "tcpdump ipv6 icmp6 dhcpv6 ndp pcap vlan pxe lldp bpf",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.tcpdump.org/manpages/tcpdump.1.html",
+          "title": "tcpdump(1)"
+        },
+        {
+          "url": "https://www.tcpdump.org/manpages/pcap-filter.7.html",
+          "title": "pcap-filter(7)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8922,7 +9917,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dmesg -T --level=emerg,alert,crit,err,warn | tail -n 40",
     "desc": "Inspect or follow the Linux kernel ring buffer for hardware faults, OOM kills, disk resets, and driver errors",
     "tip": "Keep 'dmesg -T -w' open while hot-swapping hardware",
-    "tags": "dmesg kernel hardware oom mce aer hotplug"
+    "tags": "dmesg kernel hardware oom mce aer hotplug",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/dmesg.1.html",
+          "title": "dmesg(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8954,8 +9958,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "cloud-init — Core Command & Flags",
     "cmd": "cloud-init status --long && cloud-init analyze show",
     "desc": "Diagnose Ubuntu Server first-boot provisioning status, data source detection, and slow/failed modules",
-    "tip": "Run with sudo when inspecting hardware or root processes",
-    "tags": "cloud-init maas provisioning subiquity ubuntu"
+    "tip": "Some flags need root: the badge on the command says so",
+    "tags": "cloud-init maas provisioning subiquity ubuntu",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.cloud-init.io/en/latest/reference/cli.html",
+          "title": "cloud-init CLI reference"
+        }
+      ]
+    }
   },
   {
     "sName": "cloud-init",
@@ -8966,7 +9979,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tail -n 100 /var/log/cloud-init-output.log /var/log/cloud-init.log",
     "desc": "Inspect stdout/stderr from cloud-init user-data provisioning scripts",
     "tip": "Frequently used with cloud-init in production workflows",
-    "tags": "cloud-init maas provisioning subiquity ubuntu variation recipe"
+    "tags": "cloud-init maas provisioning subiquity ubuntu variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.cloud-init.io/en/latest/reference/cli.html",
+          "title": "cloud-init CLI reference"
+        }
+      ]
+    }
   },
   {
     "sName": "cloud-init",
@@ -8977,7 +9999,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "cloud-init query --all",
     "desc": "Dump all instance metadata and user-data variables discovered by cloud-init",
     "tip": "Frequently used with cloud-init in production workflows",
-    "tags": "cloud-init maas provisioning subiquity ubuntu variation recipe"
+    "tags": "cloud-init maas provisioning subiquity ubuntu variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.cloud-init.io/en/latest/reference/cli.html",
+          "title": "cloud-init CLI reference"
+        }
+      ]
+    }
   },
   {
     "sName": "cloud-init",
@@ -8988,7 +10019,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "man cloud-init 2>/dev/null || cloud-init --help | head -n 30",
     "desc": "Operational guidelines, safety flags, and best practices for cloud-init",
     "tip": "Check /var/log or journalctl when troubleshooting system errors",
-    "tags": "cloud-init maas provisioning subiquity ubuntu tips safety help"
+    "tags": "cloud-init maas provisioning subiquity ubuntu tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.cloud-init.io/en/latest/reference/cli.html",
+          "title": "cloud-init CLI reference"
+        }
+      ]
+    }
   },
   {
     "sName": "cloud-init",
@@ -9010,7 +10050,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mount | column -t && column -t -s ':' /etc/passwd | head -n 15",
     "desc": "Format messy whitespace or delimiter-separated output into a cleanly aligned terminal table",
     "tip": "Pipe any TSV or colon-delimited file into column -t",
-    "tags": "column table align format mount fstab"
+    "tags": "column table align format mount fstab",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/column.1.html",
+          "title": "column(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "column",
@@ -9021,7 +10070,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "cat /etc/fstab | grep -Ev '^\\s*(#|$)' | column -t -N 'DEVICE,MOUNTPOINT,FSTYPE,OPTIONS,DUMP,PASS'",
     "desc": "Render active /etc/fstab mounts as a labeled, aligned table",
     "tip": "Frequently used with column in production workflows",
-    "tags": "column table align format mount fstab variation recipe"
+    "tags": "column table align format mount fstab variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/column.1.html",
+          "title": "column(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "column",
@@ -9032,7 +10090,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "man column 2>/dev/null || column --help | head -n 30",
     "desc": "Operational guidelines, safety flags, and best practices for column",
     "tip": "Pipe any TSV or colon-delimited file into column -t",
-    "tags": "column table align format mount fstab tips safety help"
+    "tags": "column table align format mount fstab tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/column.1.html",
+          "title": "column(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "column",
@@ -9054,7 +10121,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "comm -23 <(sort expected_nodes.txt) <(sort online_nodes.txt)",
     "desc": "Compare two sorted lists line-by-line to output set difference (A - B), (B - A), or intersection (A ∩ B)",
     "tip": "comm -23 = in File 1 only; comm -12 = in Both",
-    "tags": "comm compare diff set inventory"
+    "tags": "comm compare diff set inventory",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/comm.1.html",
+          "title": "comm(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "comm",
@@ -9065,7 +10145,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "comm -12 <(sort rack01_macs.txt) <(sort switch_arp_macs.txt)",
     "desc": "Show only MAC addresses that appear in BOTH the rack manifest and the switch ARP table",
     "tip": "Frequently used with comm in production workflows",
-    "tags": "comm compare diff set inventory variation recipe"
+    "tags": "comm compare diff set inventory variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/comm.1.html",
+          "title": "comm(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "comm",
@@ -9076,7 +10169,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "comm -13 <(sort baseline_pkgs.txt) <(dpkg-query -W -f='${Package}\\n' | sort)",
     "desc": "Show extra packages installed on the current server that are not in the baseline list",
     "tip": "Frequently used with comm in production workflows",
-    "tags": "comm compare diff set inventory variation recipe"
+    "tags": "comm compare diff set inventory variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/comm.1.html",
+          "title": "comm(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "comm",
@@ -9087,7 +10193,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "man comm 2>/dev/null || comm --help | head -n 30",
     "desc": "Operational guidelines, safety flags, and best practices for comm",
     "tip": "comm -23 = in File 1 only; comm -12 = in Both",
-    "tags": "comm compare diff set inventory tips safety help"
+    "tags": "comm compare diff set inventory tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/comm.1.html",
+          "title": "comm(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "comm",
@@ -12152,7 +13271,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -6 -fL -C - --retry 5 -O https://releases.ubuntu.com/24.04/ubuntu-24.04.1-live-server-amd64.iso",
     "desc": "Query IPv6 URLs (`-g -6`), download files with auto-resume (`-C -`), override DNS (`--resolve`), and measure TTFB",
     "tip": "Always pass -g to curl with literal [IPv6] URLs; use %25eth0 for fe80::!",
-    "tags": "curl ipv6 globoff fe80 resume resolve download iso firmware ttfb"
+    "tags": "curl ipv6 globoff fe80 resume resolve download iso firmware ttfb",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://curl.se/docs/manpage.html",
+          "title": "curl manual"
+        }
+      ]
+    }
   },
   {
     "sName": "curl",
@@ -12163,7 +13291,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -vk --resolve \"bmc.rack04.local:443:[2001:db8:dc:4::50]\" https://bmc.rack04.local/redfish/v1/",
     "desc": "Test a specific IPv6 address with TLS SNI and Host header without editing /etc/hosts (--resolve)",
     "tip": "Frequently used with curl in production workflows",
-    "tags": "curl ipv6 globoff fe80 resume resolve download iso firmware ttfb variation recipe"
+    "tags": "curl ipv6 globoff fe80 resume resolve download iso firmware ttfb variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://curl.se/docs/manpage.html",
+          "title": "curl manual"
+        }
+      ]
+    }
   },
   {
     "sName": "curl",
@@ -12174,7 +13311,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sSLk -D - -o /dev/null -w 'DNS:%{time_namelookup}s TCP:%{time_connect}s TLS:%{time_appconnect}s TTFB:%{time_starttransfer}s\\n' \"https://[2001:db8:dc:4::50]\"",
     "desc": "Measure granular DNS, IPv6 TCP, TLS handshake, and Time-To-First-Byte latency",
     "tip": "Frequently used with curl in production workflows",
-    "tags": "curl ipv6 globoff fe80 resume resolve download iso firmware ttfb variation recipe"
+    "tags": "curl ipv6 globoff fe80 resume resolve download iso firmware ttfb variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://curl.se/docs/manpage.html",
+          "title": "curl manual"
+        }
+      ]
+    }
   },
   {
     "sName": "curl",
@@ -12185,7 +13331,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk \"https://[fe80::a00:27ff:fe12:3456%25eth0]/redfish/v1\"",
     "desc": "Query a BMC over its IPv6 link-local (fe80::) address using URL-encoded '%25<interface>' zone ID",
     "tip": "Frequently used with curl in production workflows",
-    "tags": "curl ipv6 globoff fe80 resume resolve download iso firmware ttfb variation recipe"
+    "tags": "curl ipv6 globoff fe80 resume resolve download iso firmware ttfb variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://curl.se/docs/manpage.html",
+          "title": "curl manual"
+        }
+      ]
+    }
   },
   {
     "sName": "curl",
@@ -12196,7 +13351,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "man curl 2>/dev/null || curl --help | head -n 30",
     "desc": "Operational guidelines, safety flags, and best practices for curl",
     "tip": "Always pass -g to curl with literal [IPv6] URLs; use %25eth0 for fe80::!",
-    "tags": "curl ipv6 globoff fe80 resume resolve download iso firmware ttfb tips safety help"
+    "tags": "curl ipv6 globoff fe80 resume resolve download iso firmware ttfb tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://curl.se/docs/manpage.html",
+          "title": "curl manual"
+        }
+      ]
+    }
   },
   {
     "sName": "curl",
@@ -12317,7 +13481,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "cut -d':' -f1,3,7 --output-delimiter=$'\\t' /etc/passwd | head -n 15",
     "desc": "Slice specific columns from delimited text streams or config tables",
     "tip": "Use --complement to drop a single column",
-    "tags": "cut fields columns delimiter slice"
+    "tags": "cut fields columns delimiter slice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/cut.1.html",
+          "title": "cut(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cut",
@@ -12328,7 +13501,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "cut -d' ' -f1 --complement /var/log/syslog | head",
     "desc": "Strip the 1st field and print all remaining fields on each line (--complement)",
     "tip": "Frequently used with cut in production workflows",
-    "tags": "cut fields columns delimiter slice variation recipe"
+    "tags": "cut fields columns delimiter slice variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/cut.1.html",
+          "title": "cut(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cut",
@@ -12339,7 +13521,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "man cut 2>/dev/null || cut --help | head -n 30",
     "desc": "Operational guidelines, safety flags, and best practices for cut",
     "tip": "Use --complement to drop a single column",
-    "tags": "cut fields columns delimiter slice tips safety help"
+    "tags": "cut fields columns delimiter slice tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/cut.1.html",
+          "title": "cut(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cut",
@@ -12360,8 +13551,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "dd — Core Command & Flags",
     "cmd": "dd if=/dev/zero of=/tmp/bench.img bs=1G count=4 oflag=direct,dsync status=progress",
     "desc": "Clone, zero, or benchmark raw block devices with Direct I/O (bypassing RAM cache) and live progress",
-    "tip": "Run with sudo when inspecting hardware or root processes",
-    "tags": "dd benchmark clone direct-io sparse usr1"
+    "tip": "Some flags need root: the badge on the command says so",
+    "tags": "dd benchmark clone direct-io sparse usr1",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/dd.1.html",
+          "title": "dd(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "dd",
@@ -12372,7 +13572,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kill -USR1 $(pgrep -x dd)",
     "desc": "Send SIGUSR1 to a running dd process (started without status=progress) to force it to print current stats",
     "tip": "Frequently used with dd in production workflows",
-    "tags": "dd benchmark clone direct-io sparse usr1 variation recipe"
+    "tags": "dd benchmark clone direct-io sparse usr1 variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/dd.1.html",
+          "title": "dd(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "dd",
@@ -12383,7 +13592,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dd if=/dev/nvme0n1 of=/dev/nvme1n1 bs=16M conv=noerror,sync,sparse status=progress",
     "desc": "Block-clone a drive skipping zero-blocks (sparse) and continuing past bad sectors",
     "tip": "Frequently used with dd in production workflows",
-    "tags": "dd benchmark clone direct-io sparse usr1 variation recipe"
+    "tags": "dd benchmark clone direct-io sparse usr1 variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/dd.1.html",
+          "title": "dd(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "dd",
@@ -12394,7 +13612,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dd if=/dev/nvme0n1 of=/backups/nvme0-mbr-gpt.bin bs=1M count=16",
     "desc": "Back up the first 16 MiB of a disk (MBR, GPT header, EFI partition start)",
     "tip": "Frequently used with dd in production workflows",
-    "tags": "dd benchmark clone direct-io sparse usr1 variation recipe"
+    "tags": "dd benchmark clone direct-io sparse usr1 variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/dd.1.html",
+          "title": "dd(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "dd",
@@ -12405,7 +13632,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "man dd 2>/dev/null || dd --help | head -n 30",
     "desc": "Operational guidelines, safety flags, and best practices for dd",
     "tip": "Check /var/log or journalctl when troubleshooting system errors",
-    "tags": "dd benchmark clone direct-io sparse usr1 tips safety help"
+    "tags": "dd benchmark clone direct-io sparse usr1 tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/dd.1.html",
+          "title": "dd(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "dd",
@@ -12427,7 +13663,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dmesg -T --level=emerg,alert,crit,err,warn | tail -n 40",
     "desc": "Inspect or follow the Linux kernel ring buffer for hardware faults, OOM kills, disk resets, and driver errors",
     "tip": "Keep 'dmesg -T -w' open while hot-swapping hardware",
-    "tags": "dmesg kernel hardware oom mce aer hotplug"
+    "tags": "dmesg kernel hardware oom mce aer hotplug",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/dmesg.1.html",
+          "title": "dmesg(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "dmesg",
@@ -12438,7 +13683,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dmesg -T -w",
     "desc": "Follow live kernel events in real time while hot-plugging drives, optics, or USB serial cables",
     "tip": "Frequently used with dmesg in production workflows",
-    "tags": "dmesg kernel hardware oom mce aer hotplug variation recipe"
+    "tags": "dmesg kernel hardware oom mce aer hotplug variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/dmesg.1.html",
+          "title": "dmesg(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "dmesg",
@@ -12449,7 +13703,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dmesg -T | grep -iE 'oom|killed process|out of memory|mce|edac|aer|nvme|reset|link down'",
     "desc": "Scan kernel ring buffer for the top data center hardware and memory fault signatures",
     "tip": "Frequently used with dmesg in production workflows",
-    "tags": "dmesg kernel hardware oom mce aer hotplug variation recipe"
+    "tags": "dmesg kernel hardware oom mce aer hotplug variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/dmesg.1.html",
+          "title": "dmesg(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "dmesg",
@@ -12460,7 +13723,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "man dmesg 2>/dev/null || dmesg --help | head -n 30",
     "desc": "Operational guidelines, safety flags, and best practices for dmesg",
     "tip": "Keep 'dmesg -T -w' open while hot-swapping hardware",
-    "tags": "dmesg kernel hardware oom mce aer hotplug tips safety help"
+    "tags": "dmesg kernel hardware oom mce aer hotplug tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/dmesg.1.html",
+          "title": "dmesg(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "dmesg",
@@ -14465,7 +15737,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "efibootmgr -v",
     "desc": "Inspect UEFI NVRAM boot entries, set one-time NextBoot to PXE/NIC, change BootOrder, or reboot into BIOS Setup",
     "tip": "systemctl reboot --firmware-setup enters BIOS automatically!",
-    "tags": "efibootmgr uefi bios pxe bootorder nextboot mokutil"
+    "tags": "efibootmgr uefi bios pxe bootorder nextboot mokutil",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/efibootmgr/efibootmgr.8.en.html",
+          "title": "efibootmgr(8), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/mokutil/mokutil.1.en.html",
+          "title": "mokutil(1), Debian"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the loader path takes single backslashes ('\\\\EFI\\\\ubuntu\\\\shimx64.efi')."
+    }
   },
   {
     "sName": "efibootmgr",
@@ -14477,6 +15763,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Set UEFI NextBoot to entry 0004 (e.g. PXE IPv6 NIC) for the upcoming reboot only and reboot",
     "tip": "Frequently used with efibootmgr in production workflows",
     "tags": "efibootmgr uefi bios pxe bootorder nextboot mokutil variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/efibootmgr/efibootmgr.8.en.html",
+          "title": "efibootmgr(8), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/mokutil/mokutil.1.en.html",
+          "title": "mokutil(1), Debian"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the loader path takes single backslashes ('\\\\EFI\\\\ubuntu\\\\shimx64.efi')."
+    },
     "noCopy": true,
     "refWhy": "reboot"
   },
@@ -14486,10 +15786,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "rec",
     "id": "efibootmgr-uefi-boot-sub-2",
     "sec": "efibootmgr — Variations & Targeted Recipes",
-    "cmd": "efibootmgr -c -d /dev/nvme0n1 -p 1 -L 'Ubuntu' -l '\\\\EFI\\\\ubuntu\\\\shimx64.efi'",
+    "cmd": "efibootmgr -c -d /dev/nvme0n1 -p 1 -L 'Ubuntu' -l '\\EFI\\ubuntu\\shimx64.efi'",
     "desc": "Create a new UEFI NVRAM boot entry pointing to the EFI System Partition (partition 1) on /dev/nvme0n1",
     "tip": "Frequently used with efibootmgr in production workflows",
-    "tags": "efibootmgr uefi bios pxe bootorder nextboot mokutil variation recipe"
+    "tags": "efibootmgr uefi bios pxe bootorder nextboot mokutil variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/efibootmgr/efibootmgr.8.en.html",
+          "title": "efibootmgr(8), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/mokutil/mokutil.1.en.html",
+          "title": "mokutil(1), Debian"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the loader path takes single backslashes ('\\\\EFI\\\\ubuntu\\\\shimx64.efi')."
+    }
   },
   {
     "sName": "efibootmgr",
@@ -14500,7 +15814,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mokutil --sb-state",
     "desc": "Check whether UEFI Secure Boot is currently enabled or disabled",
     "tip": "Frequently used with efibootmgr in production workflows",
-    "tags": "efibootmgr uefi bios pxe bootorder nextboot mokutil variation recipe"
+    "tags": "efibootmgr uefi bios pxe bootorder nextboot mokutil variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/efibootmgr/efibootmgr.8.en.html",
+          "title": "efibootmgr(8), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/mokutil/mokutil.1.en.html",
+          "title": "mokutil(1), Debian"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the loader path takes single backslashes ('\\\\EFI\\\\ubuntu\\\\shimx64.efi')."
+    }
   },
   {
     "sName": "efibootmgr",
@@ -14511,7 +15839,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "man efibootmgr 2>/dev/null || efibootmgr --help | head -n 30",
     "desc": "Operational guidelines, safety flags, and best practices for efibootmgr",
     "tip": "systemctl reboot --firmware-setup enters BIOS automatically!",
-    "tags": "efibootmgr uefi bios pxe bootorder nextboot mokutil tips safety help"
+    "tags": "efibootmgr uefi bios pxe bootorder nextboot mokutil tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/efibootmgr/efibootmgr.8.en.html",
+          "title": "efibootmgr(8), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/mokutil/mokutil.1.en.html",
+          "title": "mokutil(1), Debian"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the loader path takes single backslashes ('\\\\EFI\\\\ubuntu\\\\shimx64.efi')."
+    }
   },
   {
     "sName": "efibootmgr",
@@ -15715,7 +17057,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "file -sL /dev/nvme0n1 /dev/nvme0n1p1 && file -b /bin/ls",
     "desc": "Identify file types, ELF architecture, compression format, or raw block partition filesystems via magic bytes",
     "tip": "file -sL /dev/nvme0n1p1 reveals raw partition FS & UUID",
-    "tags": "file magic elf partition filesystem coredump"
+    "tags": "file magic elf partition filesystem coredump",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/file/file.1.en.html",
+          "title": "file(1), Debian"
+        }
+      ],
+      "note": "Corrected 2026-11-09: file(1) doesn't document showing the signal for a core dump."
+    }
   },
   {
     "sName": "file",
@@ -15724,9 +17076,19 @@ window.GLOBAL_SEARCH_INDEX = [
     "id": "file-magic-headers-sub-1",
     "sec": "file — Variations & Targeted Recipes",
     "cmd": "file /var/crash/core.*",
-    "desc": "Inspect an application core dump to see the exact binary name and signal that caused the crash",
+    "desc": "Identify a core dump and the program that produced it",
     "tip": "Frequently used with file in production workflows",
-    "tags": "file magic elf partition filesystem coredump variation recipe"
+    "tags": "file magic elf partition filesystem coredump variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/file/file.1.en.html",
+          "title": "file(1), Debian"
+        }
+      ],
+      "note": "Corrected 2026-11-09: file(1) doesn't document showing the signal for a core dump."
+    }
   },
   {
     "sName": "file",
@@ -15737,7 +17099,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "file -z backup.tar.gz",
     "desc": "Peek inside a compressed file to see the uncompressed archive format and original timestamp",
     "tip": "Frequently used with file in production workflows",
-    "tags": "file magic elf partition filesystem coredump variation recipe"
+    "tags": "file magic elf partition filesystem coredump variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/file/file.1.en.html",
+          "title": "file(1), Debian"
+        }
+      ],
+      "note": "Corrected 2026-11-09: file(1) doesn't document showing the signal for a core dump."
+    }
   },
   {
     "sName": "file",
@@ -15748,7 +17120,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "man file 2>/dev/null || file --help | head -n 30",
     "desc": "Operational guidelines, safety flags, and best practices for file",
     "tip": "file -sL /dev/nvme0n1p1 reveals raw partition FS & UUID",
-    "tags": "file magic elf partition filesystem coredump tips safety help"
+    "tags": "file magic elf partition filesystem coredump tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/file/file.1.en.html",
+          "title": "file(1), Debian"
+        }
+      ],
+      "note": "Corrected 2026-11-09: file(1) doesn't document showing the signal for a core dump."
+    }
   },
   {
     "sName": "file",
@@ -15985,7 +17367,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "find / -xdev -type f -size +200M -mmin -120 -printf '%TY-%Tm-%Td %TH:%TM  %12s  %p\\n' 2>/dev/null | sort -k3 -nr",
     "desc": "Locate files by exact modification minutes/days, byte size thresholds, and filesystem boundaries (-xdev)",
     "tip": "-mmin -60 finds files modified in the last hour",
-    "tags": "find size mtime mmin xdev prune empty"
+    "tags": "find size mtime mmin xdev prune empty",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/find.1.html",
+          "title": "find(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "find",
@@ -16018,7 +17409,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "find /etc /srv /opt -xtype l -ls",
     "desc": "Audit SUID/SGID binaries, world-writable files, orphaned UID/GID files, broken symlinks & hardlinks",
     "tip": "find -xtype l finds broken symlinks",
-    "tags": "find permissions suid symlinks broken inode nouser"
+    "tags": "find permissions suid symlinks broken inode nouser",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/find.1.html",
+          "title": "find(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "find",
@@ -16625,7 +18025,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "fuser -vm /mnt/data",
     "desc": "Identify or terminate processes keeping a mounted filesystem busy (/mnt) or holding a package lock file",
     "tip": "Access 'c' means a shell is cd'd inside the mountpoint",
-    "tags": "fuser umount busy lock dpkg mount"
+    "tags": "fuser umount busy lock dpkg mount",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/fuser.1.html",
+          "title": "fuser(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "fuser",
@@ -16636,7 +18045,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "fuser -v /var/lib/dpkg/lock-frontend /var/lib/apt/lists/lock",
     "desc": "See which process (e.g. unattended-upgrade) is holding the Ubuntu APT/dpkg lock",
     "tip": "Frequently used with fuser in production workflows",
-    "tags": "fuser umount busy lock dpkg mount variation recipe"
+    "tags": "fuser umount busy lock dpkg mount variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/fuser.1.html",
+          "title": "fuser(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "fuser",
@@ -16647,7 +18065,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "fuser -v -k -TERM /mnt/data",
     "desc": "Send graceful SIGTERM to all processes holding open references on /mnt/data",
     "tip": "Frequently used with fuser in production workflows",
-    "tags": "fuser umount busy lock dpkg mount variation recipe"
+    "tags": "fuser umount busy lock dpkg mount variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/fuser.1.html",
+          "title": "fuser(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "fuser",
@@ -16658,7 +18085,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "fuser -v -n tcp 8080",
     "desc": "Find the PID listening on local TCP port 8080",
     "tip": "Frequently used with fuser in production workflows",
-    "tags": "fuser umount busy lock dpkg mount variation recipe"
+    "tags": "fuser umount busy lock dpkg mount variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/fuser.1.html",
+          "title": "fuser(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "fuser",
@@ -16669,7 +18105,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "man fuser 2>/dev/null || fuser --help | head -n 30",
     "desc": "Operational guidelines, safety flags, and best practices for fuser",
     "tip": "Access 'c' means a shell is cd'd inside the mountpoint",
-    "tags": "fuser umount busy lock dpkg mount tips safety help"
+    "tags": "fuser umount busy lock dpkg mount tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/fuser.1.html",
+          "title": "fuser(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "fuser",
@@ -20508,7 +21953,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep -rnIE -C 3 --color=auto 'ERROR|CRITICAL|FATAL|panic|MCE|AER' /var/log/",
     "desc": "Search logs or directories recursively with Extended Regex, line numbers, binary skip & surrounding context",
     "tip": "Always include -I to skip binaries",
-    "tags": "grep search logs context recursive regex errors"
+    "tags": "grep search logs context recursive regex errors",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+          "title": "grep(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "grep",
@@ -20552,7 +22006,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep -Ev '^\\s*(#|$|;)' /etc/ssh/sshd_config",
     "desc": "Invert match (-v) to strip comments and blank lines from config files or filter out noisy log lines",
     "tip": "Instant active-config view",
-    "tags": "grep invert comments config diff filter"
+    "tags": "grep invert comments config diff filter",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+          "title": "grep(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "grep",
@@ -20585,7 +22048,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep -Po '([0-9]{1,3}\\.){3}[0-9]{1,3}' /var/log/auth.log | sort | uniq -c | sort -nr | head",
     "desc": "Extract only the matched token (-o) using Perl-Compatible Regex (-P) lookarounds and \\K match reset",
     "tip": "grep -Po 'key=\\K\\S+' extracts values cleanly",
-    "tags": "grep pcre extract ip mac bdf only-matching"
+    "tags": "grep pcre extract ip mac bdf only-matching",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+          "title": "grep(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "grep",
@@ -20629,7 +22101,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep -H '' /sys/class/net/*/operstate /sys/class/net/*/speed 2>/dev/null",
     "desc": "List matching filenames (-l / -L), count matches (-c), match whole words (-w), read sysfs (-H '') & zgrep",
     "tip": "grep -H '' /sys/... reads many sysfs files with filenames!",
-    "tags": "grep zgrep fgrep sysfs count filenames word"
+    "tags": "grep zgrep fgrep sysfs count filenames word",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+          "title": "grep(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "grep",
@@ -20783,7 +22264,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "python3 -m http.server 8000 --bind :: --directory /srv/firmware",
     "desc": "Spin up an instant IPv6 HTTP file server (`--bind ::`) on a rack VLAN to stage firmware or OS ISOs",
     "tip": "Use --bind :: to enable IPv6 support in python3 -m http.server!",
-    "tags": "http.server ipv6 python3 wget firmware iso staging"
+    "tags": "http.server ipv6 python3 wget firmware iso staging",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.python.org/3/library/http.server.html",
+          "title": "Python: http.server"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/wget/wget.1.en.html",
+          "title": "wget(1), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "http-server",
@@ -20794,7 +22288,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "wget -6 -c \"http://[2001:db8:dc:4::2]:8000/ubuntu-24.04-live-server-amd64.iso\" -O /tmp/ubuntu.iso",
     "desc": "Pull a staged ISO over IPv6 from the ad-hoc HTTP server with automatic resume (-c)",
     "tip": "Frequently used with http.server in production workflows",
-    "tags": "http.server ipv6 python3 wget firmware iso staging variation recipe"
+    "tags": "http.server ipv6 python3 wget firmware iso staging variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.python.org/3/library/http.server.html",
+          "title": "Python: http.server"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/wget/wget.1.en.html",
+          "title": "wget(1), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "http-server",
@@ -20805,7 +22312,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -fLO \"http://[2001:db8:dc:4::2]:8000/firmware.fwpkg\"",
     "desc": "Download a staged firmware package over IPv6 using curl (-g -6)",
     "tip": "Frequently used with http.server in production workflows",
-    "tags": "http.server ipv6 python3 wget firmware iso staging variation recipe"
+    "tags": "http.server ipv6 python3 wget firmware iso staging variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.python.org/3/library/http.server.html",
+          "title": "Python: http.server"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/wget/wget.1.en.html",
+          "title": "wget(1), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "http-server",
@@ -20816,7 +22336,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "man http-server 2>/dev/null || http-server --help | head -n 30",
     "desc": "Operational guidelines, safety flags, and best practices for http.server",
     "tip": "Use --bind :: to enable IPv6 support in python3 -m http.server!",
-    "tags": "http.server ipv6 python3 wget firmware iso staging tips safety help"
+    "tags": "http.server ipv6 python3 wget firmware iso staging tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.python.org/3/library/http.server.html",
+          "title": "Python: http.server"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/wget/wget.1.en.html",
+          "title": "wget(1), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "http-server",
@@ -26235,7 +27768,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ip -c -br link show && ip -6 -c -br addr show && ip -s -s link show dev eth0",
     "desc": "Inspect network interface carrier state, MAC, MTU, IPv6 `/64` & `fe80::` link-local addresses, and hardware RX/TX drop counters",
     "tip": "LOWER_UP = physical link detected; UP = admin up",
-    "tags": "ip ipv6 iproute2 interface mac mtu counters vlan"
+    "tags": "ip ipv6 iproute2 interface mac mtu counters vlan",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-link.8.html",
+          "title": "ip-link(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-address.8.html",
+          "title": "ip-address(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-route.8.html",
+          "title": "ip-route(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-neighbour.8.html",
+          "title": "ip-neighbour(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-netns.8.html",
+          "title": "ip-netns(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: ip -6 neigh flush needs a selector (dev <if>), not 'all'."
+    }
   },
   {
     "sName": "ip",
@@ -26279,7 +27838,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ip -6 route get 2001:db8:dc:4::50 && ip -6 -c neigh show",
     "desc": "Query kernel IPv6 routing decisions (`ip -6 route get`), inspect L2 NDP neighbor cache (`ip -6 neigh`), and run inside namespaces",
     "tip": "neigh state FAILED = ICMPv6 Neighbor Solicitation sent but no L2 reply!",
-    "tags": "ip ipv6 route ndp neighbor gateway netns"
+    "tags": "ip ipv6 route ndp neighbor gateway netns",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-link.8.html",
+          "title": "ip-link(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-address.8.html",
+          "title": "ip-address(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-route.8.html",
+          "title": "ip-route(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-neighbour.8.html",
+          "title": "ip-neighbour(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-netns.8.html",
+          "title": "ip-netns(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: ip -6 neigh flush needs a selector (dev <if>), not 'all'."
+    }
   },
   {
     "sName": "ip",
@@ -26287,8 +27872,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "ip6",
     "id": "ip-route-neigh-netns",
     "sec": "ip: Query kernel IPv6 routing decisions (`ip -6 rout",
-    "cmd": "ip -6 neigh flush all",
-    "desc": "Flush stale IPv6 Neighbor Discovery (NDP) cache entries after a switch/VIP failover",
+    "cmd": "ip -6 neigh flush dev eth0",
+    "desc": "Flush stale IPv6 Neighbor Discovery (NDP) entries on eth0 after a switch/VIP failover (changes state)",
     "tip": "",
     "tags": "ip ipv6 route ndp neighbor gateway netns"
   },
@@ -28243,7 +29828,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ip -j addr show | jq -r '.[] | select(.operstate == \"UP\") | [.ifname, .address, (.addr_info[0].local // \"no-ip\")] | @tsv' | column -t",
     "desc": "Query native JSON outputs from Ubuntu hardware & network tools (ip -j, lsblk -J, lshw -json, nvme -o json)",
     "tip": "ip -j, lsblk -J, findmnt -J, nvme -o json all output JSON!",
-    "tags": "jq json ip lsblk nvme lshw tsv"
+    "tags": "jq json ip lsblk nvme lshw tsv",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://jqlang.org/manual/",
+          "title": "jq manual"
+        }
+      ],
+      "note": "nvme list -o json field names (DevicePath, ModelNumber…) are nvme-cli 2.x output; 3.x may differ."
+    }
   },
   {
     "sName": "jq",
@@ -28276,7 +29871,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems/1/Memory\" | jq -r '.Members[] | .[\"@odata.id\"]'",
     "desc": "Filter Redfish BMC JSON responses over IPv6, sort/group arrays, and safely construct JSON payloads from bash variables",
     "tip": "",
-    "tags": "jq redfish csv tsv sort_by group_by api"
+    "tags": "jq redfish csv tsv sort_by group_by api",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://jqlang.org/manual/",
+          "title": "jq manual"
+        }
+      ],
+      "note": "nvme list -o json field names (DevicePath, ModelNumber…) are nvme-cli 2.x output; 3.x may differ."
+    }
   },
   {
     "sName": "jq",
@@ -30612,7 +32217,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ls -lahtr --time-style=full-iso /var/log/",
     "desc": "List files sorted by modification time, file size, or natural version number with full ISO timestamps",
     "tip": "ls -lahtr puts newest files right above your prompt",
-    "tags": "ls sort time size iso timestamp directory"
+    "tags": "ls sort time size iso timestamp directory",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ls.1.html",
+          "title": "ls(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "ls",
@@ -30656,7 +32270,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ls -lahis --color=auto /var/lib/libvirt/images/",
     "desc": "Inspect filesystem inode numbers (-i), actual allocated disk blocks vs sparse size (-s), and numeric UIDs (-n)",
     "tip": "Compare column 1 (-s) vs size column to spot sparse files",
-    "tags": "ls inode sparse blocks uid gid"
+    "tags": "ls inode sparse blocks uid gid",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ls.1.html",
+          "title": "ls(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "ls",
@@ -30689,7 +32312,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lsof +L1 && lsof -iTCP:443 -sTCP:LISTEN -P -n",
     "desc": "Find deleted files still holding disk blocks (+L1), processes listening on ports (-iTCP), or open FDs of a PID",
     "tip": "lsof +L1 solves 'df says 100% full, du says 20%'",
-    "tags": "lsof deleted disk-full ports socket fd"
+    "tags": "lsof deleted disk-full ports socket fd",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/lsof/lsof.8.en.html",
+          "title": "lsof(8), Debian"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man5/proc.5.html",
+          "title": "proc(5)"
+        }
+      ]
+    }
   },
   {
     "sName": "lsof",
@@ -30700,7 +32336,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lsof -p <PID>",
     "desc": "Inspect all open files, .so libraries, and sockets held by <PID>",
     "tip": "Frequently used with lsof in production workflows",
-    "tags": "lsof deleted disk-full ports socket fd variation recipe"
+    "tags": "lsof deleted disk-full ports socket fd variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/lsof/lsof.8.en.html",
+          "title": "lsof(8), Debian"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man5/proc.5.html",
+          "title": "proc(5)"
+        }
+      ]
+    }
   },
   {
     "sName": "lsof",
@@ -30711,7 +32360,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lsof -u ^root -i -P -n",
     "desc": "List all active network connections owned by any non-root user (^root)",
     "tip": "Frequently used with lsof in production workflows",
-    "tags": "lsof deleted disk-full ports socket fd variation recipe"
+    "tags": "lsof deleted disk-full ports socket fd variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/lsof/lsof.8.en.html",
+          "title": "lsof(8), Debian"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man5/proc.5.html",
+          "title": "proc(5)"
+        }
+      ]
+    }
   },
   {
     "sName": "lsof",
@@ -30722,7 +32384,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": ": > /proc/<PID>/fd/<FD_NUM>",
     "desc": "Truncate a deleted-but-open log file via /proc to reclaim disk space without restarting the daemon",
     "tip": "Frequently used with lsof in production workflows",
-    "tags": "lsof deleted disk-full ports socket fd variation recipe"
+    "tags": "lsof deleted disk-full ports socket fd variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/lsof/lsof.8.en.html",
+          "title": "lsof(8), Debian"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man5/proc.5.html",
+          "title": "proc(5)"
+        }
+      ]
+    }
   },
   {
     "sName": "lsof",
@@ -30733,7 +32408,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "man lsof 2>/dev/null || lsof --help | head -n 30",
     "desc": "Operational guidelines, safety flags, and best practices for lsof",
     "tip": "lsof +L1 solves 'df says 100% full, du says 20%'",
-    "tags": "lsof deleted disk-full ports socket fd tips safety help"
+    "tags": "lsof deleted disk-full ports socket fd tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/lsof/lsof.8.en.html",
+          "title": "lsof(8), Debian"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man5/proc.5.html",
+          "title": "proc(5)"
+        }
+      ]
+    }
   },
   {
     "sName": "lsof",
@@ -33430,7 +35118,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "namei -l /var/www/html/index.html",
     "desc": "Trace every directory component and symlink from root '/' down to a file with permissions and ownership at each hop",
     "tip": "Instantly spots missing '+x' on parent directories",
-    "tags": "namei symlink permissions path traversal debug"
+    "tags": "namei symlink permissions path traversal debug",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/namei.1.html",
+          "title": "namei(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "namei",
@@ -33441,7 +35138,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "namei -lx /srv/current/app.sock",
     "desc": "Trace a path resolving all nested symlinks while marking filesystem mount boundaries ('D')",
     "tip": "Frequently used with namei in production workflows",
-    "tags": "namei symlink permissions path traversal debug variation recipe"
+    "tags": "namei symlink permissions path traversal debug variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/namei.1.html",
+          "title": "namei(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "namei",
@@ -33452,7 +35158,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "man namei 2>/dev/null || namei --help | head -n 30",
     "desc": "Operational guidelines, safety flags, and best practices for namei",
     "tip": "Instantly spots missing '+x' on parent directories",
-    "tags": "namei symlink permissions path traversal debug tips safety help"
+    "tags": "namei symlink permissions path traversal debug tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/namei.1.html",
+          "title": "namei(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "namei",
@@ -34453,7 +36168,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ping -6 -c 3 ff02::1%eth0 && ip -6 -c neigh show dev eth0 && nmap -6 -sS -n -p 22,80,443,623 --open 2001:db8:dc:4::1-100",
     "desc": "Discover newly racked IPv6 servers/BMCs via link-local multicast (`ff02::1`) and scan open SSH/Redfish/IPMI ports (`nmap -6`)",
     "tip": "Ping ff02::1%eth0 to instantly discover all IPv6 nodes on a rack VLAN!",
-    "tags": "nmap ipv6 ff02::1 multicast subnet discovery bmc ports"
+    "tags": "nmap ipv6 ff02::1 multicast subnet discovery bmc ports",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://nmap.org/book/man.html",
+          "title": "Nmap reference guide"
+        },
+        {
+          "url": "https://nmap.org/nsedoc/scripts/targets-ipv6-multicast-echo.html",
+          "title": "NSE: targets-ipv6-multicast-echo"
+        }
+      ]
+    }
   },
   {
     "sName": "nmap",
@@ -34464,7 +36192,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nmap -6 -sn --script=targets-ipv6-multicast-echo,targets-ipv6-multicast-slaac --script-args 'newtargets,interface=eth0'",
     "desc": "Automatically discover all IPv6 hosts on eth0 via ICMPv6 multicast & SLAAC and ping-scan them",
     "tip": "Frequently used with nmap in production workflows",
-    "tags": "nmap ipv6 ff02::1 multicast subnet discovery bmc ports variation recipe"
+    "tags": "nmap ipv6 ff02::1 multicast subnet discovery bmc ports variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://nmap.org/book/man.html",
+          "title": "Nmap reference guide"
+        },
+        {
+          "url": "https://nmap.org/nsedoc/scripts/targets-ipv6-multicast-echo.html",
+          "title": "NSE: targets-ipv6-multicast-echo"
+        }
+      ]
+    }
   },
   {
     "sName": "nmap",
@@ -34475,7 +36216,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nmap -6 -sU -p 161,623 --open 2001:db8:dc:4::50",
     "desc": "Scan UDP ports 161 (SNMP) and 623 (IPMI RMCP+) on an IPv6 BMC",
     "tip": "Frequently used with nmap in production workflows",
-    "tags": "nmap ipv6 ff02::1 multicast subnet discovery bmc ports variation recipe"
+    "tags": "nmap ipv6 ff02::1 multicast subnet discovery bmc ports variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://nmap.org/book/man.html",
+          "title": "Nmap reference guide"
+        },
+        {
+          "url": "https://nmap.org/nsedoc/scripts/targets-ipv6-multicast-echo.html",
+          "title": "NSE: targets-ipv6-multicast-echo"
+        }
+      ]
+    }
   },
   {
     "sName": "nmap",
@@ -34486,7 +36240,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "man nmap 2>/dev/null || nmap --help | head -n 30",
     "desc": "Operational guidelines, safety flags, and best practices for nmap",
     "tip": "Ping ff02::1%eth0 to instantly discover all IPv6 nodes on a rack VLAN!",
-    "tags": "nmap ipv6 ff02::1 multicast subnet discovery bmc ports tips safety help"
+    "tags": "nmap ipv6 ff02::1 multicast subnet discovery bmc ports tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://nmap.org/book/man.html",
+          "title": "Nmap reference guide"
+        },
+        {
+          "url": "https://nmap.org/nsedoc/scripts/targets-ipv6-multicast-echo.html",
+          "title": "NSE: targets-ipv6-multicast-echo"
+        }
+      ]
+    }
   },
   {
     "sName": "nmap",
@@ -37566,7 +39333,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "openssl s_client -6 -connect \"[2001:db8:dc:4::50]:443\" -servername bmc.local </dev/null 2>/dev/null | openssl x509 -noout -subject -issuer -dates -ext subjectAltName",
     "desc": "Inspect a live server or BMC TLS certificate chain over IPv6 (`-6 -connect [ipv6]:443`), expiration dates & SANs",
     "tip": "Redirect </dev/null so s_client closes immediately",
-    "tags": "openssl ipv6 tls ssl certificate x509 expiry san"
+    "tags": "openssl ipv6 tls ssl certificate x509 expiry san",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.openssl.org/master/man1/openssl-s_client/",
+          "title": "openssl s_client"
+        },
+        {
+          "url": "https://docs.openssl.org/master/man1/openssl-x509/",
+          "title": "openssl x509"
+        }
+      ]
+    }
   },
   {
     "sName": "openssl",
@@ -37577,7 +39357,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "openssl x509 -in /etc/ssl/certs/server.crt -noout -text",
     "desc": "Decode and inspect a local PEM certificate file on disk",
     "tip": "Frequently used with openssl in production workflows",
-    "tags": "openssl ipv6 tls ssl certificate x509 expiry san variation recipe"
+    "tags": "openssl ipv6 tls ssl certificate x509 expiry san variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.openssl.org/master/man1/openssl-s_client/",
+          "title": "openssl s_client"
+        },
+        {
+          "url": "https://docs.openssl.org/master/man1/openssl-x509/",
+          "title": "openssl x509"
+        }
+      ]
+    }
   },
   {
     "sName": "openssl",
@@ -37588,7 +39381,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "openssl rand -base64 32",
     "desc": "Generate a cryptographically strong 32-byte random secret / password",
     "tip": "Frequently used with openssl in production workflows",
-    "tags": "openssl ipv6 tls ssl certificate x509 expiry san variation recipe"
+    "tags": "openssl ipv6 tls ssl certificate x509 expiry san variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.openssl.org/master/man1/openssl-s_client/",
+          "title": "openssl s_client"
+        },
+        {
+          "url": "https://docs.openssl.org/master/man1/openssl-x509/",
+          "title": "openssl x509"
+        }
+      ]
+    }
   },
   {
     "sName": "openssl",
@@ -37599,7 +39405,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "man openssl 2>/dev/null || openssl --help | head -n 30",
     "desc": "Operational guidelines, safety flags, and best practices for openssl",
     "tip": "Redirect </dev/null so s_client closes immediately",
-    "tags": "openssl ipv6 tls ssl certificate x509 expiry san tips safety help"
+    "tags": "openssl ipv6 tls ssl certificate x509 expiry san tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.openssl.org/master/man1/openssl-s_client/",
+          "title": "openssl s_client"
+        },
+        {
+          "url": "https://docs.openssl.org/master/man1/openssl-x509/",
+          "title": "openssl x509"
+        }
+      ]
+    }
   },
   {
     "sName": "openssl",
@@ -42970,7 +44789,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ps -eo pid,ppid,nlwp,user,stat,%cpu,%mem,rss,lstart,args --sort=-%mem | head -n 20",
     "desc": "Display custom process table sorted by Resident Memory (RSS) or CPU% with exact start time and PPID",
     "tip": "nlwp shows thread count per process",
-    "tags": "ps memory rss cpu sort threads forest"
+    "tags": "ps memory rss cpu sort threads forest",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ps.1.html",
+          "title": "ps(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "ps",
@@ -43003,7 +44831,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ps -eo pid,ppid,user,stat,wchan:28,lstart,args | awk 'NR==1 || $4 ~ /^[DZ]/'",
     "desc": "Diagnose hung Uninterruptible I/O ('D' state) processes, kernel wait channels (wchan) & Zombie ('Z') parents",
     "tip": "Kill Parent (PPID) to clear Zombies; fix I/O to clear D-state",
-    "tags": "ps d-state zombie wchan hung sigkill stack"
+    "tags": "ps d-state zombie wchan hung sigkill stack",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ps.1.html",
+          "title": "ps(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "ps",
@@ -43036,7 +44873,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ps -eLo pid,lwp,psr,user,%cpu,stat,comm --sort=-%cpu | head -n 25",
     "desc": "Inspect individual threads (LWP/TID), see which physical CPU core (psr) each thread is running on & check cgroups",
     "tip": "psr column reveals CPU pinning & core hotspots",
-    "tags": "ps threads lwp psr cpu-core affinity cgroup pgrep pkill"
+    "tags": "ps threads lwp psr cpu-core affinity cgroup pgrep pkill",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ps.1.html",
+          "title": "ps(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "ps",
@@ -45383,7 +47229,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "rsync -avhPS --numeric-owner --stats /srv/data/ root@dr-node:/srv/data/",
     "desc": "Synchronize directories locally or over SSH preserving all attributes, sparse blocks, and partial transfers",
     "tip": "Always test --delete with -n (dry-run) first!",
-    "tags": "rsync sync mirror backup sparse bwlimit"
+    "tags": "rsync sync mirror backup sparse bwlimit",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://download.samba.org/pub/rsync/rsync.1",
+          "title": "rsync(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "rsync",
@@ -45394,7 +47249,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "rsync -avhPn --delete /srv/data/ root@dr-node:/srv/data/",
     "desc": "Dry-run (-n) mirror with --delete to preview exactly which files would be added or deleted",
     "tip": "Frequently used with rsync in production workflows",
-    "tags": "rsync sync mirror backup sparse bwlimit variation recipe"
+    "tags": "rsync sync mirror backup sparse bwlimit variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://download.samba.org/pub/rsync/rsync.1",
+          "title": "rsync(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "rsync",
@@ -45405,7 +47269,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "rsync -avhP --bwlimit=50M -e 'ssh -p 2222' /var/backups/ user@remote:/backups/",
     "desc": "Sync over a custom SSH port while capping transfer rate at 50 MB/s",
     "tip": "Frequently used with rsync in production workflows",
-    "tags": "rsync sync mirror backup sparse bwlimit variation recipe"
+    "tags": "rsync sync mirror backup sparse bwlimit variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://download.samba.org/pub/rsync/rsync.1",
+          "title": "rsync(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "rsync",
@@ -45416,7 +47289,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "man rsync 2>/dev/null || rsync --help | head -n 30",
     "desc": "Operational guidelines, safety flags, and best practices for rsync",
     "tip": "Always test --delete with -n (dry-run) first!",
-    "tags": "rsync sync mirror backup sparse bwlimit tips safety help"
+    "tags": "rsync sync mirror backup sparse bwlimit tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://download.samba.org/pub/rsync/rsync.1",
+          "title": "rsync(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "rsync",
@@ -45438,7 +47320,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "scp -6 -r -p -P 2222 -J user@bastion /local/firmware/ \"root@[2001:db8:dc:4::15]:/tmp/firmware/\"",
     "desc": "Copy files or directories over IPv6 SSH using bracketed literal IPv6 syntax (`[2001:db8::]`), custom port (-P), and 3-way routing (-3)",
     "tip": "Always wrap literal IPv6 addresses in brackets: root@[2001:db8::1]:/path",
-    "tags": "scp ipv6 ssh transfer copy bastion proxyjump port"
+    "tags": "scp ipv6 ssh transfer copy bastion proxyjump port",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man.openbsd.org/scp",
+          "title": "scp(1), OpenBSD"
+        }
+      ]
+    }
   },
   {
     "sName": "scp",
@@ -45449,7 +47340,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "scp -6 -3 \"root@[2001:db8:dc:4::10]:/etc/netplan/01-netcfg.yaml\" \"root@[2001:db8:dc:4::11]:/etc/netplan/01-netcfg.yaml\"",
     "desc": "Copy a file directly from remote Server A to remote Server B over IPv6 routed through your local jumpbox (-3)",
     "tip": "Frequently used with scp in production workflows",
-    "tags": "scp ipv6 ssh transfer copy bastion proxyjump port variation recipe"
+    "tags": "scp ipv6 ssh transfer copy bastion proxyjump port variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man.openbsd.org/scp",
+          "title": "scp(1), OpenBSD"
+        }
+      ]
+    }
   },
   {
     "sName": "scp",
@@ -45460,7 +47360,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "scp -6 -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/dev/null bios.bin \"root@[2001:db8:dc:4::50]:/tmp/\"",
     "desc": "Copy firmware over IPv6 to a freshly imaged rack server without failing on changed/unknown known_hosts keys",
     "tip": "Frequently used with scp in production workflows",
-    "tags": "scp ipv6 ssh transfer copy bastion proxyjump port variation recipe"
+    "tags": "scp ipv6 ssh transfer copy bastion proxyjump port variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man.openbsd.org/scp",
+          "title": "scp(1), OpenBSD"
+        }
+      ]
+    }
   },
   {
     "sName": "scp",
@@ -45471,7 +47380,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "scp -r -p -P 22 -J user@bastion ./firmware/ root@10.20.4.15:/tmp/",
     "desc": "Copy Directory via Bastion / Custom Port (-r -p -P -J)",
     "tip": "Composite shell pipeline",
-    "tags": "scp ipv6 ssh transfer copy bastion proxyjump port pipe composite"
+    "tags": "scp ipv6 ssh transfer copy bastion proxyjump port pipe composite",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man.openbsd.org/scp",
+          "title": "scp(1), OpenBSD"
+        }
+      ]
+    }
   },
   {
     "sName": "scp",
@@ -45482,7 +47400,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "scp -3 root@10.20.4.15:/etc/netplan/01-netcfg.yaml root@10.20.4.16:/etc/netplan/",
     "desc": "Copy Directly Between Two Remote Servers (-3)",
     "tip": "Composite shell pipeline",
-    "tags": "scp ipv6 ssh transfer copy bastion proxyjump port pipe composite"
+    "tags": "scp ipv6 ssh transfer copy bastion proxyjump port pipe composite",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man.openbsd.org/scp",
+          "title": "scp(1), OpenBSD"
+        }
+      ]
+    }
   },
   {
     "sName": "scp",
@@ -45493,7 +47420,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "python3 -m http.server 8000 --directory /srv/firmware",
     "desc": "Serve Current Directory over HTTP for BMC/ISO Pull (python3)",
     "tip": "Composite shell pipeline",
-    "tags": "scp ipv6 ssh transfer copy bastion proxyjump port pipe composite"
+    "tags": "scp ipv6 ssh transfer copy bastion proxyjump port pipe composite",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.python.org/3/library/http.server.html",
+          "title": "Python: http.server"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/wget/wget.1.en.html",
+          "title": "wget(1), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "scp",
@@ -45504,7 +47444,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "man scp 2>/dev/null || scp --help | head -n 30",
     "desc": "Operational guidelines, safety flags, and best practices for scp",
     "tip": "Always wrap literal IPv6 addresses in brackets: root@[2001:db8::1]:/path",
-    "tags": "scp ipv6 ssh transfer copy bastion proxyjump port tips safety help"
+    "tags": "scp ipv6 ssh transfer copy bastion proxyjump port tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man.openbsd.org/scp",
+          "title": "scp(1), OpenBSD"
+        }
+      ]
+    }
   },
   {
     "sName": "scp",
@@ -46725,7 +48674,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sed -i.bak -E 's|^#?(PermitRootLogin)\\s+.*|\\1 no|' /etc/ssh/sshd_config && diff -u /etc/ssh/sshd_config.bak /etc/ssh/sshd_config",
     "desc": "Perform safe in-place regex search-and-replace across config files with automatic backup creation",
     "tip": "Use s|old|new|g when replacing file paths",
-    "tags": "sed replace substitute inplace config backup regex"
+    "tags": "sed replace substitute inplace config backup regex",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sed.1.html",
+          "title": "sed(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "sed",
@@ -46758,7 +48716,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sed -n '/2026-10-30T02:50/,/2026-10-30T03:05/p' /var/log/syslog",
     "desc": "Extract lines between two timestamps, regex markers, or exact line numbers from multi-GB log files",
     "tip": "Adding ';1051q' avoids reading the rest of a 50GB log",
-    "tags": "sed slice range timestamps logs lines"
+    "tags": "sed slice range timestamps logs lines",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sed.1.html",
+          "title": "sed(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "sed",
@@ -46791,7 +48758,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sed -E '/^\\s*(#|$)/d' /etc/sysctl.conf",
     "desc": "Delete matching lines (d), strip blank/comment lines, remove ANSI color codes, or strip Windows CRLF",
     "tip": "sed -i '42d' ~/.ssh/known_hosts fixes SSH host key alerts",
-    "tags": "sed delete ansi crlf known_hosts comments"
+    "tags": "sed delete ansi crlf known_hosts comments",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sed.1.html",
+          "title": "sed(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "sed",
@@ -47055,7 +49031,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sftp -6 -P 22 -i ~/.ssh/id_ed25519 \"root@[2001:db8:dc:4::50]:/var/log/\"",
     "desc": "Open an interactive IPv6 SSH file transfer session supporting directory browsing and resuming interrupted transfers",
     "tip": "Use 'reget' / 'reput' inside sftp to resume dropped transfers",
-    "tags": "sftp ipv6 ssh resume reget reput interactive"
+    "tags": "sftp ipv6 ssh resume reget reput interactive",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man.openbsd.org/sftp",
+          "title": "sftp(1), OpenBSD"
+        }
+      ],
+      "note": "Corrected 2026-11-09: reget takes -f, -p and -R; there is no -P."
+    }
   },
   {
     "sName": "sftp",
@@ -47063,10 +49049,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "rec",
     "id": "sftp-interactive-resume-sub-1",
     "sec": "sftp — Variations & Targeted Recipes",
-    "cmd": "reget -P large-vmcore.dump /tmp/large-vmcore.dump",
-    "desc": "Inside sftp prompt: resume an interrupted download from the exact byte where it stopped",
+    "cmd": "reget large-vmcore.dump /tmp/large-vmcore.dump",
+    "desc": "Inside sftp prompt: resume an interrupted download (same as get -a)",
     "tip": "Frequently used with sftp in production workflows",
-    "tags": "sftp ipv6 ssh resume reget reput interactive variation recipe"
+    "tags": "sftp ipv6 ssh resume reget reput interactive variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man.openbsd.org/sftp",
+          "title": "sftp(1), OpenBSD"
+        }
+      ],
+      "note": "Corrected 2026-11-09: reget takes -f, -p and -R; there is no -P."
+    }
   },
   {
     "sName": "sftp",
@@ -47077,7 +49073,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "put -r -p ./firmware_bundle/ /tmp/firmware_bundle/",
     "desc": "Inside sftp prompt: recursively upload a local folder while preserving permissions and timestamps",
     "tip": "Frequently used with sftp in production workflows",
-    "tags": "sftp ipv6 ssh resume reget reput interactive variation recipe"
+    "tags": "sftp ipv6 ssh resume reget reput interactive variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man.openbsd.org/sftp",
+          "title": "sftp(1), OpenBSD"
+        }
+      ],
+      "note": "Corrected 2026-11-09: reget takes -f, -p and -R; there is no -P."
+    }
   },
   {
     "sName": "sftp",
@@ -47088,7 +49094,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "man sftp 2>/dev/null || sftp --help | head -n 30",
     "desc": "Operational guidelines, safety flags, and best practices for sftp",
     "tip": "Use 'reget' / 'reput' inside sftp to resume dropped transfers",
-    "tags": "sftp ipv6 ssh resume reget reput interactive tips safety help"
+    "tags": "sftp ipv6 ssh resume reget reput interactive tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man.openbsd.org/sftp",
+          "title": "sftp(1), OpenBSD"
+        }
+      ],
+      "note": "Corrected 2026-11-09: reget takes -f, -p and -R; there is no -P."
+    }
   },
   {
     "sName": "sftp",
@@ -48834,7 +50850,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "du -sh /var/* 2>/dev/null | sort -hr",
     "desc": "Sort output by human-readable byte suffixes (-h), IPv4/version numbers (-V), or specific delimited columns (-k)",
     "tip": "sort -h understands K/M/G/T; sort -V sorts IPv4 addresses",
-    "tags": "sort human version columns ip du"
+    "tags": "sort human version columns ip du",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sort.1.html",
+          "title": "sort(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "sort",
@@ -48845,7 +50870,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sort -t':' -k3,3n /etc/passwd",
     "desc": "Sort /etc/passwd numerically by UID (column 3)",
     "tip": "Frequently used with sort in production workflows",
-    "tags": "sort human version columns ip du variation recipe"
+    "tags": "sort human version columns ip du variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sort.1.html",
+          "title": "sort(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "sort",
@@ -48856,7 +50890,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sort -V ip_list.txt",
     "desc": "Sort a list of IPv4 addresses or kernel version strings in natural numerical order",
     "tip": "Frequently used with sort in production workflows",
-    "tags": "sort human version columns ip du variation recipe"
+    "tags": "sort human version columns ip du variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sort.1.html",
+          "title": "sort(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "sort",
@@ -48867,7 +50910,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "man sort 2>/dev/null || sort --help | head -n 30",
     "desc": "Operational guidelines, safety flags, and best practices for sort",
     "tip": "sort -h understands K/M/G/T; sort -V sorts IPv4 addresses",
-    "tags": "sort human version columns ip du tips safety help"
+    "tags": "sort human version columns ip du tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sort.1.html",
+          "title": "sort(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "sort",
@@ -49758,7 +51810,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ss -tulpn && ss -6 -tanp state established",
     "desc": "List listening IPv6/TCP/UDP ports with owning PIDs, filter by TCP state, and inspect per-socket RTT & retransmits",
     "tip": "ss -6 -ti reveals per-connection IPv6 TCP retransmits & RTT",
-    "tags": "ss ipv6 socket ports listen tcp retransmits rtt"
+    "tags": "ss ipv6 socket ports listen tcp retransmits rtt",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ss.8.html",
+          "title": "ss(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: ss(8) doesn't say -p needs root; the maybe-root badge covers other users' processes."
+    }
   },
   {
     "sName": "ss",
@@ -49769,7 +51831,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ss -6 -tanp state established '( dport = :443 or sport = :22 )'",
     "desc": "Filter established IPv6 TCP connections matching specific source or destination ports",
     "tip": "Frequently used with ss in production workflows",
-    "tags": "ss ipv6 socket ports listen tcp retransmits rtt variation recipe"
+    "tags": "ss ipv6 socket ports listen tcp retransmits rtt variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ss.8.html",
+          "title": "ss(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: ss(8) doesn't say -p needs root; the maybe-root badge covers other users' processes."
+    }
   },
   {
     "sName": "ss",
@@ -49780,7 +51852,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ss -tan state time-wait | wc -l",
     "desc": "Count total sockets in TIME-WAIT state (check for ephemeral port exhaustion)",
     "tip": "Frequently used with ss in production workflows",
-    "tags": "ss ipv6 socket ports listen tcp retransmits rtt variation recipe"
+    "tags": "ss ipv6 socket ports listen tcp retransmits rtt variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ss.8.html",
+          "title": "ss(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: ss(8) doesn't say -p needs root; the maybe-root badge covers other users' processes."
+    }
   },
   {
     "sName": "ss",
@@ -49791,7 +51873,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ss -6 -ti dst \"[2001:db8:dc:4::50]\"",
     "desc": "Inspect TCP RTT latency, congestion window (cwnd), and retransmit counts to a specific peer IPv6",
     "tip": "Frequently used with ss in production workflows",
-    "tags": "ss ipv6 socket ports listen tcp retransmits rtt variation recipe"
+    "tags": "ss ipv6 socket ports listen tcp retransmits rtt variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ss.8.html",
+          "title": "ss(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: ss(8) doesn't say -p needs root; the maybe-root badge covers other users' processes."
+    }
   },
   {
     "sName": "ss",
@@ -49802,7 +51894,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "man ss 2>/dev/null || ss --help | head -n 30",
     "desc": "Operational guidelines, safety flags, and best practices for ss",
     "tip": "ss -6 -ti reveals per-connection IPv6 TCP retransmits & RTT",
-    "tags": "ss ipv6 socket ports listen tcp retransmits rtt tips safety help"
+    "tags": "ss ipv6 socket ports listen tcp retransmits rtt tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ss.8.html",
+          "title": "ss(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: ss(8) doesn't say -p needs root; the maybe-root badge covers other users' processes."
+    }
   },
   {
     "sName": "ss",
@@ -49824,7 +51926,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "stat /etc/fstab && stat -f /var/log",
     "desc": "Inspect complete file inode metadata (timestamps, octal mode, UID/GID, links) or filesystem-level block/inode counters",
     "tip": "stat -c '%a %n' prints octal permissions (e.g. 600)",
-    "tags": "stat inode octal timestamps birth ctime mtime"
+    "tags": "stat inode octal timestamps birth ctime mtime",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/stat.1.html",
+          "title": "stat(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "stat",
@@ -49835,7 +51946,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "stat -c '%a %A  %U:%G  %10s  %n' /etc/ssh/*_key*",
     "desc": "Print concise custom columns: octal mode (%a), symbolic mode (%A), owner:group, size, and filename",
     "tip": "Frequently used with stat in production workflows",
-    "tags": "stat inode octal timestamps birth ctime mtime variation recipe"
+    "tags": "stat inode octal timestamps birth ctime mtime variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/stat.1.html",
+          "title": "stat(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "stat",
@@ -49846,7 +51966,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "stat -L /dev/disk/by-id/*",
     "desc": "Dereference symlinks (-L) to inspect the target block device major/minor numbers",
     "tip": "Frequently used with stat in production workflows",
-    "tags": "stat inode octal timestamps birth ctime mtime variation recipe"
+    "tags": "stat inode octal timestamps birth ctime mtime variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/stat.1.html",
+          "title": "stat(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "stat",
@@ -49857,7 +51986,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "man stat 2>/dev/null || stat --help | head -n 30",
     "desc": "Operational guidelines, safety flags, and best practices for stat",
     "tip": "stat -c '%a %n' prints octal permissions (e.g. 600)",
-    "tags": "stat inode octal timestamps birth ctime mtime tips safety help"
+    "tags": "stat inode octal timestamps birth ctime mtime tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/stat.1.html",
+          "title": "stat(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "stat",
@@ -50119,7 +52257,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "strace -p <PID> -f -tt -T -s 256 -e trace=file,network",
     "desc": "Trace live system calls, file opens, network connects, and syscall latency of a running or failing process",
     "tip": "-e trace=file,network cuts 90% of syscall noise",
-    "tags": "strace syscall debug hang enoent latency"
+    "tags": "strace syscall debug hang enoent latency",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/strace.1.html",
+          "title": "strace(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "strace",
@@ -50130,7 +52277,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "strace -p <PID> -f -c",
     "desc": "Attach to a slow process, press Ctrl+C after 10s, and view a summary table of syscall time & errors",
     "tip": "Frequently used with strace in production workflows",
-    "tags": "strace syscall debug hang enoent latency variation recipe"
+    "tags": "strace syscall debug hang enoent latency variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/strace.1.html",
+          "title": "strace(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "strace",
@@ -50141,7 +52297,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "strace -f -e trace=openat,stat,access ./mystery-binary 2>&1 | grep -v ENOENT",
     "desc": "Run a binary and see every config file or shared library it successfully opens",
     "tip": "Frequently used with strace in production workflows",
-    "tags": "strace syscall debug hang enoent latency variation recipe"
+    "tags": "strace syscall debug hang enoent latency variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/strace.1.html",
+          "title": "strace(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "strace",
@@ -50152,7 +52317,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "man strace 2>/dev/null || strace --help | head -n 30",
     "desc": "Operational guidelines, safety flags, and best practices for strace",
     "tip": "-e trace=file,network cuts 90% of syscall noise",
-    "tags": "strace syscall debug hang enoent latency tips safety help"
+    "tags": "strace syscall debug hang enoent latency tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/strace.1.html",
+          "title": "strace(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "strace",
@@ -50174,7 +52348,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "strings -a -n 6 firmware.bin | grep -iE 'version|bios|build|date|copyright' | head -n 30",
     "desc": "Extract readable ASCII/UTF version strings from firmware blobs, kernel modules, or application core dumps",
     "tip": "Verify board model inside firmware.bin before flashing!",
-    "tags": "strings cmp firmware binary version coredump"
+    "tags": "strings cmp firmware binary version coredump",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://sourceware.org/binutils/docs/binutils/strings.html",
+          "title": "GNU binutils: strings"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/cmp.1.html",
+          "title": "cmp(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "strings",
@@ -50185,7 +52372,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "strings -t x -n 8 /var/crash/core.* | tail -n 40",
     "desc": "Extract printable strings along with their hex offsets (-t x) from an application core dump",
     "tip": "Frequently used with strings in production workflows",
-    "tags": "strings cmp firmware binary version coredump variation recipe"
+    "tags": "strings cmp firmware binary version coredump variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://sourceware.org/binutils/docs/binutils/strings.html",
+          "title": "GNU binutils: strings"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/cmp.1.html",
+          "title": "cmp(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "strings",
@@ -50196,7 +52396,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "cmp -l fw_slot1.bin fw_slot2.bin | head -n 20",
     "desc": "Compare two binary firmware images byte-by-byte and print differing byte offsets",
     "tip": "Frequently used with strings in production workflows",
-    "tags": "strings cmp firmware binary version coredump variation recipe"
+    "tags": "strings cmp firmware binary version coredump variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://sourceware.org/binutils/docs/binutils/strings.html",
+          "title": "GNU binutils: strings"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/cmp.1.html",
+          "title": "cmp(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "strings",
@@ -50207,7 +52420,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "man strings 2>/dev/null || strings --help | head -n 30",
     "desc": "Operational guidelines, safety flags, and best practices for strings",
     "tip": "Verify board model inside firmware.bin before flashing!",
-    "tags": "strings cmp firmware binary version coredump tips safety help"
+    "tags": "strings cmp firmware binary version coredump tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://sourceware.org/binutils/docs/binutils/strings.html",
+          "title": "GNU binutils: strings"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/cmp.1.html",
+          "title": "cmp(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "strings",
@@ -50229,7 +52455,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo -l",
     "desc": "Why not just work as root? The dangers, and what sudo does instead",
     "tip": "Root is a tool for one step, not a place to work",
-    "tags": "sudo root danger least-privilege audit security"
+    "tags": "sudo root danger least-privilege audit security",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.sudo.ws/docs/man/sudo.man/",
+          "title": "sudo(8)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+          "title": "sudoers(5)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        },
+        {
+          "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+          "title": "Ubuntu 25.10 release notes (sudo-rs)"
+        },
+        {
+          "url": "https://www.sudo.ws/releases/stable/",
+          "title": "sudo stable release"
+        }
+      ],
+      "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+    }
   },
   {
     "sName": "sudo",
@@ -50262,7 +52514,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "id",
     "desc": "Who am I running as? Check before you type anything destructive",
     "tip": "Read the prompt: # means every command is unchecked",
-    "tags": "sudo root uid id whoami privilege"
+    "tags": "sudo root uid id whoami privilege",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.sudo.ws/docs/man/sudo.man/",
+          "title": "sudo(8)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+          "title": "sudoers(5)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        },
+        {
+          "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+          "title": "Ubuntu 25.10 release notes (sudo-rs)"
+        },
+        {
+          "url": "https://www.sudo.ws/releases/stable/",
+          "title": "sudo stable release"
+        }
+      ],
+      "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+    }
   },
   {
     "sName": "sudo",
@@ -50295,7 +52573,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo dmesg -T",
     "desc": "Run one command as root, or as another user",
     "tip": "Prefix the one command, never your whole session",
-    "tags": "sudo run user non-interactive scripts"
+    "tags": "sudo run user non-interactive scripts",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.sudo.ws/docs/man/sudo.man/",
+          "title": "sudo(8)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+          "title": "sudoers(5)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        },
+        {
+          "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+          "title": "Ubuntu 25.10 release notes (sudo-rs)"
+        },
+        {
+          "url": "https://www.sudo.ws/releases/stable/",
+          "title": "sudo stable release"
+        }
+      ],
+      "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+    }
   },
   {
     "sName": "sudo",
@@ -50328,7 +52632,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo -i",
     "desc": "A root shell when you really need one: sudo -i, sudo -s and su",
     "tip": "If you open a root shell, close it in the same breath",
-    "tags": "sudo root-shell su login logging"
+    "tags": "sudo root-shell su login logging",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.sudo.ws/docs/man/sudo.man/",
+          "title": "sudo(8)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+          "title": "sudoers(5)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        },
+        {
+          "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+          "title": "Ubuntu 25.10 release notes (sudo-rs)"
+        },
+        {
+          "url": "https://www.sudo.ws/releases/stable/",
+          "title": "sudo stable release"
+        }
+      ],
+      "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+    }
   },
   {
     "sName": "sudo",
@@ -50350,7 +52680,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "echo 'vm.swappiness = 10' | sudo tee /etc/sysctl.d/99-swappiness.conf",
     "desc": "The redirect gotcha: sudo echo > /etc/file fails; use tee (changes state)",
     "tip": "The shell does the redirect, not sudo",
-    "tags": "sudo tee redirect permission-denied gotcha"
+    "tags": "sudo tee redirect permission-denied gotcha",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.sudo.ws/docs/man/sudo.man/",
+          "title": "sudo(8)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+          "title": "sudoers(5)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        },
+        {
+          "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+          "title": "Ubuntu 25.10 release notes (sudo-rs)"
+        },
+        {
+          "url": "https://www.sudo.ws/releases/stable/",
+          "title": "sudo stable release"
+        }
+      ],
+      "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+    }
   },
   {
     "sName": "sudo",
@@ -50372,7 +52728,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudoedit /etc/ssh/sshd_config",
     "desc": "Edit a root-owned file safely with sudoedit (sudo -e)",
     "tip": "Back up, sudoedit, then validate",
-    "tags": "sudo sudoedit edit config nano vim"
+    "tags": "sudo sudoedit edit config nano vim",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.sudo.ws/docs/man/sudo.man/",
+          "title": "sudo(8)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+          "title": "sudoers(5)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        },
+        {
+          "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+          "title": "Ubuntu 25.10 release notes (sudo-rs)"
+        },
+        {
+          "url": "https://www.sudo.ws/releases/stable/",
+          "title": "sudo stable release"
+        }
+      ],
+      "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+    }
   },
   {
     "sName": "sudo",
@@ -50394,7 +52776,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo visudo -f /etc/sudoers.d/90-datacenter-techs",
     "desc": "Who may run what: sudoers drop-in files, edited only with visudo (changes state)",
     "tip": "Keep a second root session open while you change sudoers",
-    "tags": "sudo sudoers visudo nopasswd least-privilege"
+    "tags": "sudo sudoers visudo nopasswd least-privilege",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.sudo.ws/docs/man/sudo.man/",
+          "title": "sudo(8)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+          "title": "sudoers(5)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        },
+        {
+          "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+          "title": "Ubuntu 25.10 release notes (sudo-rs)"
+        },
+        {
+          "url": "https://www.sudo.ws/releases/stable/",
+          "title": "sudo stable release"
+        }
+      ],
+      "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+    }
   },
   {
     "sName": "sudo",
@@ -50416,7 +52824,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo journalctl -t sudo --since today --no-pager",
     "desc": "Who ran what as root? Read the sudo log",
     "tip": "Commands typed inside a root shell do not show up here",
-    "tags": "sudo audit log journalctl auth.log incident"
+    "tags": "sudo audit log journalctl auth.log incident",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.sudo.ws/docs/man/sudo.man/",
+          "title": "sudo(8)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+          "title": "sudoers(5)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        },
+        {
+          "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+          "title": "Ubuntu 25.10 release notes (sudo-rs)"
+        },
+        {
+          "url": "https://www.sudo.ws/releases/stable/",
+          "title": "sudo stable release"
+        }
+      ],
+      "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+    }
   },
   {
     "sName": "sudo",
@@ -50438,7 +52872,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "update-alternatives --display sudo",
     "desc": "Which sudo is this? Ubuntu 25.10 and 26.04 default to sudo-rs",
     "tip": "If a sudoers rule behaves differently on Ubuntu 26.04, check which sudo is active",
-    "tags": "sudo sudo-rs ubuntu version rust"
+    "tags": "sudo sudo-rs ubuntu version rust",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.sudo.ws/docs/man/sudo.man/",
+          "title": "sudo(8)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+          "title": "sudoers(5)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        },
+        {
+          "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+          "title": "Ubuntu 25.10 release notes (sudo-rs)"
+        },
+        {
+          "url": "https://www.sudo.ws/releases/stable/",
+          "title": "sudo stable release"
+        }
+      ],
+      "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+    }
   },
   {
     "sName": "sudo",
@@ -53457,7 +55917,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sysctl -a | grep -E 'net.core.rmem_max|vm.swappiness|vm.nr_hugepages|fs.file-max|kernel.panic'",
     "desc": "Query active kernel runtime parameters (/proc/sys), apply live tunables (-w), and reload /etc/sysctl.d/*.conf",
     "tip": "Persist settings in /etc/sysctl.d/90-custom.conf",
-    "tags": "sysctl kernel tuning hugepages swappiness network"
+    "tags": "sysctl kernel tuning hugepages swappiness network",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/sysctl.8.html",
+          "title": "sysctl(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man5/sysctl.d.5.html",
+          "title": "sysctl.d(5)"
+        }
+      ]
+    }
   },
   {
     "sName": "sysctl",
@@ -53468,7 +55941,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sysctl --system",
     "desc": "Apply all persistent kernel parameters configured in /etc/sysctl.d/*.conf",
     "tip": "Frequently used with sysctl in production workflows",
-    "tags": "sysctl kernel tuning hugepages swappiness network variation recipe"
+    "tags": "sysctl kernel tuning hugepages swappiness network variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/sysctl.8.html",
+          "title": "sysctl(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man5/sysctl.d.5.html",
+          "title": "sysctl.d(5)"
+        }
+      ]
+    }
   },
   {
     "sName": "sysctl",
@@ -53479,7 +55965,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sysctl -w vm.drop_caches=3",
     "desc": "Instruct the kernel to drop clean pagecache, dentries, and inodes from RAM before storage benchmarks",
     "tip": "Frequently used with sysctl in production workflows",
-    "tags": "sysctl kernel tuning hugepages swappiness network variation recipe"
+    "tags": "sysctl kernel tuning hugepages swappiness network variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/sysctl.8.html",
+          "title": "sysctl(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man5/sysctl.d.5.html",
+          "title": "sysctl.d(5)"
+        }
+      ]
+    }
   },
   {
     "sName": "sysctl",
@@ -53490,7 +55989,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "man sysctl 2>/dev/null || sysctl --help | head -n 30",
     "desc": "Operational guidelines, safety flags, and best practices for sysctl",
     "tip": "Persist settings in /etc/sysctl.d/90-custom.conf",
-    "tags": "sysctl kernel tuning hugepages swappiness network tips safety help"
+    "tags": "sysctl kernel tuning hugepages swappiness network tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/sysctl.8.html",
+          "title": "sysctl(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man5/sysctl.d.5.html",
+          "title": "sysctl.d(5)"
+        }
+      ]
+    }
   },
   {
     "sName": "sysctl",
@@ -53711,7 +56223,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tar --sparse --numeric-owner --acls --xattrs -czvf /backups/srv-data.tar.gz /srv/data/",
     "desc": "Create, inspect, and extract tar archives preserving sparse files (-S), ACLs, xattrs, and numeric UIDs",
     "tip": "Use --sparse and --numeric-owner for VM & container backups",
-    "tags": "tar sparse numeric-owner ssh backup"
+    "tags": "tar sparse numeric-owner ssh backup",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/tar.1.html",
+          "title": "tar(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "tar",
@@ -53722,7 +56243,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tar --numeric-owner --acls --xattrs -czf - /srv/data | ssh backup-host 'cat > /backups/srv-data.tar.gz'",
     "desc": "Stream a compressed backup directly over SSH when local disk is 99% full",
     "tip": "Frequently used with tar in production workflows",
-    "tags": "tar sparse numeric-owner ssh backup variation recipe"
+    "tags": "tar sparse numeric-owner ssh backup variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/tar.1.html",
+          "title": "tar(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "tar",
@@ -53733,7 +56263,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tar -xvf archive.tar.gz -C /opt/restore/",
     "desc": "Extract any compressed tar archive (.tar.gz, .tar.xz, .tar.zst) into /opt/restore/",
     "tip": "Frequently used with tar in production workflows",
-    "tags": "tar sparse numeric-owner ssh backup variation recipe"
+    "tags": "tar sparse numeric-owner ssh backup variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/tar.1.html",
+          "title": "tar(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "tar",
@@ -53744,7 +56283,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "man tar 2>/dev/null || tar --help | head -n 30",
     "desc": "Operational guidelines, safety flags, and best practices for tar",
     "tip": "Use --sparse and --numeric-owner for VM & container backups",
-    "tags": "tar sparse numeric-owner ssh backup tips safety help"
+    "tags": "tar sparse numeric-owner ssh backup tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/tar.1.html",
+          "title": "tar(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "tar",
@@ -53766,7 +56314,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tcpdump -ni eth0 -nn -vv -e -c 50 'ip6 and (port 546 or port 547 or port 69 or icmp6)'",
     "desc": "Capture live IPv6 packets on an interface using BPF expressions for VLANs, DHCPv6/PXEv6, ICMPv6 NDP/RA, or TCP flags",
     "tip": "DHCPv6 uses UDP 546/547; NDP/SLAAC uses ICMPv6 types 133–136!",
-    "tags": "tcpdump ipv6 icmp6 dhcpv6 ndp pcap vlan pxe lldp bpf"
+    "tags": "tcpdump ipv6 icmp6 dhcpv6 ndp pcap vlan pxe lldp bpf",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.tcpdump.org/manpages/tcpdump.1.html",
+          "title": "tcpdump(1)"
+        },
+        {
+          "url": "https://www.tcpdump.org/manpages/pcap-filter.7.html",
+          "title": "pcap-filter(7)"
+        }
+      ]
+    }
   },
   {
     "sName": "tcpdump",
@@ -53777,7 +56338,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tcpdump -ni eth0 -nn -vv 'icmp6 and (ip6[40] == 133 or ip6[40] == 134 or ip6[40] == 135 or ip6[40] == 136)'",
     "desc": "Capture only ICMPv6 Router Solicitation/Advertisement (133/134) and Neighbor Solicitation/Advertisement (135/136)",
     "tip": "Frequently used with tcpdump in production workflows",
-    "tags": "tcpdump ipv6 icmp6 dhcpv6 ndp pcap vlan pxe lldp bpf variation recipe"
+    "tags": "tcpdump ipv6 icmp6 dhcpv6 ndp pcap vlan pxe lldp bpf variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.tcpdump.org/manpages/tcpdump.1.html",
+          "title": "tcpdump(1)"
+        },
+        {
+          "url": "https://www.tcpdump.org/manpages/pcap-filter.7.html",
+          "title": "pcap-filter(7)"
+        }
+      ]
+    }
   },
   {
     "sName": "tcpdump",
@@ -53788,7 +56362,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tcpdump -ni eth0 -nn -e 'vlan 100 and ip6'",
     "desc": "Capture only IPv6 packets tagged with IEEE 802.1Q VLAN ID 100 and display L2 headers (-e)",
     "tip": "Frequently used with tcpdump in production workflows",
-    "tags": "tcpdump ipv6 icmp6 dhcpv6 ndp pcap vlan pxe lldp bpf variation recipe"
+    "tags": "tcpdump ipv6 icmp6 dhcpv6 ndp pcap vlan pxe lldp bpf variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.tcpdump.org/manpages/tcpdump.1.html",
+          "title": "tcpdump(1)"
+        },
+        {
+          "url": "https://www.tcpdump.org/manpages/pcap-filter.7.html",
+          "title": "pcap-filter(7)"
+        }
+      ]
+    }
   },
   {
     "sName": "tcpdump",
@@ -53799,7 +56386,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tcpdump -ni eth0 -nn -s 1500 -vv -c 1 'ether proto 0x88cc'",
     "desc": "Capture a single LLDP frame (ethertype 0x88cc) to see the upstream switch name and port ID",
     "tip": "Frequently used with tcpdump in production workflows",
-    "tags": "tcpdump ipv6 icmp6 dhcpv6 ndp pcap vlan pxe lldp bpf variation recipe"
+    "tags": "tcpdump ipv6 icmp6 dhcpv6 ndp pcap vlan pxe lldp bpf variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.tcpdump.org/manpages/tcpdump.1.html",
+          "title": "tcpdump(1)"
+        },
+        {
+          "url": "https://www.tcpdump.org/manpages/pcap-filter.7.html",
+          "title": "pcap-filter(7)"
+        }
+      ]
+    }
   },
   {
     "sName": "tcpdump",
@@ -53810,7 +56410,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "man tcpdump 2>/dev/null || tcpdump --help | head -n 30",
     "desc": "Operational guidelines, safety flags, and best practices for tcpdump",
     "tip": "DHCPv6 uses UDP 546/547; NDP/SLAAC uses ICMPv6 types 133–136!",
-    "tags": "tcpdump ipv6 icmp6 dhcpv6 ndp pcap vlan pxe lldp bpf tips safety help"
+    "tags": "tcpdump ipv6 icmp6 dhcpv6 ndp pcap vlan pxe lldp bpf tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.tcpdump.org/manpages/tcpdump.1.html",
+          "title": "tcpdump(1)"
+        },
+        {
+          "url": "https://www.tcpdump.org/manpages/pcap-filter.7.html",
+          "title": "pcap-filter(7)"
+        }
+      ]
+    }
   },
   {
     "sName": "tcpdump",
@@ -53832,7 +56445,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "echo 'performance' | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor",
     "desc": "Write to root-owned /sys, /proc, or /etc files via sudo or capture live command output to a log file while watching it",
     "tip": "Always use 'echo x | tee /sys/...' instead of 'echo >'",
-    "tags": "tee sudo sysfs proc redirect logging"
+    "tags": "tee sudo sysfs proc redirect logging",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/tee.1.html",
+          "title": "tee(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "tee",
@@ -53843,7 +56465,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "./firmware-update.sh 2>&1 | tee -a /var/log/fw-upgrade-$(date +%F).log",
     "desc": "Watch a firmware upgrade live on screen while simultaneously recording all stdout & stderr to a log file",
     "tip": "Frequently used with tee in production workflows",
-    "tags": "tee sudo sysfs proc redirect logging variation recipe"
+    "tags": "tee sudo sysfs proc redirect logging variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/tee.1.html",
+          "title": "tee(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "tee",
@@ -53854,7 +56485,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "echo '2001:db8:dc:4::50 bmc-rack04' | tee -a /etc/hosts",
     "desc": "Safely append an IPv6 host mapping to /etc/hosts with root privileges",
     "tip": "Frequently used with tee in production workflows",
-    "tags": "tee sudo sysfs proc redirect logging variation recipe"
+    "tags": "tee sudo sysfs proc redirect logging variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/tee.1.html",
+          "title": "tee(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "tee",
@@ -53865,7 +56505,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "man tee 2>/dev/null || tee --help | head -n 30",
     "desc": "Operational guidelines, safety flags, and best practices for tee",
     "tip": "Always use 'echo x | tee /sys/...' instead of 'echo >'",
-    "tags": "tee sudo sysfs proc redirect logging tips safety help"
+    "tags": "tee sudo sysfs proc redirect logging tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/tee.1.html",
+          "title": "tee(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "tee",
@@ -54173,7 +56822,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tio -b 115200 -d 8 -f none -s 1 --log --log-file /tmp/serial.log /dev/ttyUSB0",
     "desc": "Connect a USB-to-Serial crash cart cable (/dev/ttyUSB0) to a switch, PDU, or server RS-232 console port",
     "tip": "Exit tio with Ctrl+t then q",
-    "tags": "tio picocom serial ttyusb0 baud console"
+    "tags": "tio picocom serial ttyusb0 baud console",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/tio/tio.1.en.html",
+          "title": "tio(1), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/picocom/picocom.1.en.html",
+          "title": "picocom(1), Debian"
+        }
+      ],
+      "note": "Corrected 2026-11-09: listing devices is tio -l (--list); -L is --log. Checked against tio 3.9."
+    }
   },
   {
     "sName": "tio",
@@ -54181,10 +56844,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "rec",
     "id": "serial-console-tio-sub-1",
     "sec": "tio — Variations & Targeted Recipes",
-    "cmd": "tio -L",
-    "desc": "List all available serial devices by ID (/dev/serial/by-id/*) on the system",
+    "cmd": "tio -l",
+    "desc": "List available serial devices (by ID), TIDs and configuration profiles",
     "tip": "Frequently used with tio in production workflows",
-    "tags": "tio picocom serial ttyusb0 baud console variation recipe"
+    "tags": "tio picocom serial ttyusb0 baud console variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/tio/tio.1.en.html",
+          "title": "tio(1), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/picocom/picocom.1.en.html",
+          "title": "picocom(1), Debian"
+        }
+      ],
+      "note": "Corrected 2026-11-09: listing devices is tio -l (--list); -L is --log. Checked against tio 3.9."
+    }
   },
   {
     "sName": "tio",
@@ -54195,7 +56872,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "picocom -b 115200 /dev/ttyUSB0   # Exit: Ctrl+a followed by Ctrl+x",
     "desc": "Alternative lightweight serial terminal using picocom",
     "tip": "Frequently used with tio in production workflows",
-    "tags": "tio picocom serial ttyusb0 baud console variation recipe"
+    "tags": "tio picocom serial ttyusb0 baud console variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/tio/tio.1.en.html",
+          "title": "tio(1), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/picocom/picocom.1.en.html",
+          "title": "picocom(1), Debian"
+        }
+      ],
+      "note": "Corrected 2026-11-09: listing devices is tio -l (--list); -L is --log. Checked against tio 3.9."
+    }
   },
   {
     "sName": "tio",
@@ -54206,7 +56897,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "man tio 2>/dev/null || tio --help | head -n 30",
     "desc": "Operational guidelines, safety flags, and best practices for tio",
     "tip": "Exit tio with Ctrl+t then q",
-    "tags": "tio picocom serial ttyusb0 baud console tips safety help"
+    "tags": "tio picocom serial ttyusb0 baud console tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/tio/tio.1.en.html",
+          "title": "tio(1), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/picocom/picocom.1.en.html",
+          "title": "picocom(1), Debian"
+        }
+      ],
+      "note": "Corrected 2026-11-09: listing devices is tio -l (--list); -L is --log. Checked against tio 3.9."
+    }
   },
   {
     "sName": "tio",
@@ -54228,7 +56933,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tmux new -s rack04-maint   # Detach: Ctrl+b d   |   Reattach: tmux attach -t rack04-maint",
     "desc": "Keep firmware upgrades/burn-ins alive across SSH drops and broadcast keystrokes to multiple servers at once",
     "tip": "synchronize-panes types across all split panes at once!",
-    "tags": "tmux session synchronize-panes ssh keepalive"
+    "tags": "tmux session synchronize-panes ssh keepalive",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man.openbsd.org/tmux",
+          "title": "tmux(1), OpenBSD"
+        }
+      ]
+    }
   },
   {
     "sName": "tmux",
@@ -54239,7 +56953,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tmux set-window-option synchronize-panes on",
     "desc": "Broadcast everything you type into ALL split panes in the current window simultaneously (toggle off with 'off')",
     "tip": "Frequently used with tmux in production workflows",
-    "tags": "tmux session synchronize-panes ssh keepalive variation recipe"
+    "tags": "tmux session synchronize-panes ssh keepalive variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man.openbsd.org/tmux",
+          "title": "tmux(1), OpenBSD"
+        }
+      ]
+    }
   },
   {
     "sName": "tmux",
@@ -54250,7 +56973,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tmux capture-pane -S - -E - -p > /tmp/tmux-scrollback.log",
     "desc": "Dump the entire scrollback history of the current tmux pane to a text file",
     "tip": "Frequently used with tmux in production workflows",
-    "tags": "tmux session synchronize-panes ssh keepalive variation recipe"
+    "tags": "tmux session synchronize-panes ssh keepalive variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man.openbsd.org/tmux",
+          "title": "tmux(1), OpenBSD"
+        }
+      ]
+    }
   },
   {
     "sName": "tmux",
@@ -54261,7 +56993,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tmux new-session -d -s burnin 'stress-ng --cpu 0 -t 4h > /tmp/burnin.log 2>&1'",
     "desc": "Launch a detached background tmux session running a 4-hour burn-in job",
     "tip": "Frequently used with tmux in production workflows",
-    "tags": "tmux session synchronize-panes ssh keepalive variation recipe"
+    "tags": "tmux session synchronize-panes ssh keepalive variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man.openbsd.org/tmux",
+          "title": "tmux(1), OpenBSD"
+        }
+      ]
+    }
   },
   {
     "sName": "tmux",
@@ -54272,7 +57013,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tmux new -s rack04-maint \\; split-window -v \\; set-window-option synchronize-panes on",
     "desc": "Start Named Session & Enable Synchronized Multi-Server Panes",
     "tip": "Composite shell pipeline",
-    "tags": "tmux session synchronize-panes ssh keepalive pipe composite"
+    "tags": "tmux session synchronize-panes ssh keepalive pipe composite",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man.openbsd.org/tmux",
+          "title": "tmux(1), OpenBSD"
+        }
+      ]
+    }
   },
   {
     "sName": "tmux",
@@ -54283,7 +57033,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tio -b 115200 -d 8 -f none -s 1 /dev/ttyUSB0",
     "desc": "Connect USB-to-Serial Crash Cart at 115200 8N1 (tio)",
     "tip": "Composite shell pipeline",
-    "tags": "tmux session synchronize-panes ssh keepalive pipe composite"
+    "tags": "tmux session synchronize-panes ssh keepalive pipe composite",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/tio/tio.1.en.html",
+          "title": "tio(1), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/picocom/picocom.1.en.html",
+          "title": "picocom(1), Debian"
+        }
+      ],
+      "note": "Corrected 2026-11-09: listing devices is tio -l (--list); -L is --log. Checked against tio 3.9."
+    }
   },
   {
     "sName": "tmux",
@@ -54294,7 +57058,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "gzip -c fix-net.sh | base64 -w0 && echo ''",
     "desc": "Encode File as Single-Line Base64 for Serial/SOL Paste",
     "tip": "Composite shell pipeline",
-    "tags": "tmux session synchronize-panes ssh keepalive pipe composite"
+    "tags": "tmux session synchronize-panes ssh keepalive pipe composite",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/base64.1.html",
+          "title": "base64(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "tmux",
@@ -54305,7 +57078,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "man tmux 2>/dev/null || tmux --help | head -n 30",
     "desc": "Operational guidelines, safety flags, and best practices for tmux",
     "tip": "synchronize-panes types across all split panes at once!",
-    "tags": "tmux session synchronize-panes ssh keepalive tips safety help"
+    "tags": "tmux session synchronize-panes ssh keepalive tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man.openbsd.org/tmux",
+          "title": "tmux(1), OpenBSD"
+        }
+      ]
+    }
   },
   {
     "sName": "tmux",
@@ -54360,7 +57142,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "cat /proc/net/dev | tr -s ' ' | cut -d' ' -f1,2,10",
     "desc": "Squeeze repeated spaces into single delimiters (-s), delete carriage returns (-d), or convert character sets",
     "tip": "tr -s ' ' normalizes CLI table spacing for cut",
-    "tags": "tr squeeze delete translate whitespace lowercase"
+    "tags": "tr squeeze delete translate whitespace lowercase",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/tr.1.html",
+          "title": "tr(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "tr",
@@ -54371,7 +57162,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "echo $PATH | tr ':' '\\n'",
     "desc": "Translate colons into newlines to print PATH directories one per line",
     "tip": "Frequently used with tr in production workflows",
-    "tags": "tr squeeze delete translate whitespace lowercase variation recipe"
+    "tags": "tr squeeze delete translate whitespace lowercase variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/tr.1.html",
+          "title": "tr(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "tr",
@@ -54382,7 +57182,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tr '[:upper:]' '[:lower:]' < mac_list.txt",
     "desc": "Normalize uppercase MAC addresses or hostnames to lowercase",
     "tip": "Frequently used with tr in production workflows",
-    "tags": "tr squeeze delete translate whitespace lowercase variation recipe"
+    "tags": "tr squeeze delete translate whitespace lowercase variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/tr.1.html",
+          "title": "tr(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "tr",
@@ -54393,7 +57202,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tr -cd '[:print:]\\n\\t' < corrupted.log > clean.log",
     "desc": "Strip all non-printable binary bytes from a corrupted text log",
     "tip": "Frequently used with tr in production workflows",
-    "tags": "tr squeeze delete translate whitespace lowercase variation recipe"
+    "tags": "tr squeeze delete translate whitespace lowercase variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/tr.1.html",
+          "title": "tr(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "tr",
@@ -54404,7 +57222,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "man tr 2>/dev/null || tr --help | head -n 30",
     "desc": "Operational guidelines, safety flags, and best practices for tr",
     "tip": "tr -s ' ' normalizes CLI table spacing for cut",
-    "tags": "tr squeeze delete translate whitespace lowercase tips safety help"
+    "tags": "tr squeeze delete translate whitespace lowercase tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/tr.1.html",
+          "title": "tr(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "tr",
@@ -54558,7 +57385,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "udevadm monitor --kernel --udev --property",
     "desc": "Watch live kernel/udev hardware hotplug events and inspect sysfs device attributes & persistent naming rules",
     "tip": "Use /dev/disk/by-id/ for drive serial mapping",
-    "tags": "udevadm hotplug udev by-id by-path nvme nic"
+    "tags": "udevadm hotplug udev by-id by-path nvme nic",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/udevadm.8.html",
+          "title": "udevadm(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "udevadm",
@@ -54569,7 +57405,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "udevadm info --query=all --name=/dev/nvme0n1 | grep -E 'DEVLINKS=|ID_SERIAL=|ID_PATH=|ID_WWN='",
     "desc": "Show persistent /dev/disk/by-id/ and /dev/disk/by-path/ symlinks for a block device",
     "tip": "Frequently used with udevadm in production workflows",
-    "tags": "udevadm hotplug udev by-id by-path nvme nic variation recipe"
+    "tags": "udevadm hotplug udev by-id by-path nvme nic variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/udevadm.8.html",
+          "title": "udevadm(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "udevadm",
@@ -54580,7 +57425,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "udevadm info --query=all --path=/sys/class/net/eth0",
     "desc": "Inspect how systemd/udev named a NIC (ID_NET_NAME_ONBOARD, ID_NET_NAME_SLOT, ID_NET_NAME_PATH)",
     "tip": "Frequently used with udevadm in production workflows",
-    "tags": "udevadm hotplug udev by-id by-path nvme nic variation recipe"
+    "tags": "udevadm hotplug udev by-id by-path nvme nic variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/udevadm.8.html",
+          "title": "udevadm(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "udevadm",
@@ -54591,7 +57445,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "udevadm control --reload-rules && udevadm trigger --verbose --type=devices --action=change",
     "desc": "Reload /etc/udev/rules.d/ and re-trigger udev rules across devices without rebooting",
     "tip": "Frequently used with udevadm in production workflows",
-    "tags": "udevadm hotplug udev by-id by-path nvme nic variation recipe"
+    "tags": "udevadm hotplug udev by-id by-path nvme nic variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/udevadm.8.html",
+          "title": "udevadm(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "udevadm",
@@ -54602,7 +57465,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "man udevadm 2>/dev/null || udevadm --help | head -n 30",
     "desc": "Operational guidelines, safety flags, and best practices for udevadm",
     "tip": "Use /dev/disk/by-id/ for drive serial mapping",
-    "tags": "udevadm hotplug udev by-id by-path nvme nic tips safety help"
+    "tags": "udevadm hotplug udev by-id by-path nvme nic tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/udevadm.8.html",
+          "title": "udevadm(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "udevadm",
@@ -54624,7 +57496,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "awk '{print $1}' /var/log/nginx/access.log | sort | uniq -c | sort -nr | head -n 15",
     "desc": "Count line occurrence frequencies (uniq -c) or isolate duplicate (-d) vs single-occurrence (-u) lines",
     "tip": "Always pipe through 'sort' before 'uniq'",
-    "tags": "uniq frequency duplicates histogram"
+    "tags": "uniq frequency duplicates histogram",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/uniq.1.html",
+          "title": "uniq(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "uniq",
@@ -54635,7 +57516,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sort serials.txt | uniq -d",
     "desc": "Find any duplicate hardware serial numbers or IP addresses in an inventory file",
     "tip": "Frequently used with uniq in production workflows",
-    "tags": "uniq frequency duplicates histogram variation recipe"
+    "tags": "uniq frequency duplicates histogram variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/uniq.1.html",
+          "title": "uniq(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "uniq",
@@ -54646,7 +57536,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sort -u ip_list.txt",
     "desc": "Sort and deduplicate a list in a single pass",
     "tip": "Frequently used with uniq in production workflows",
-    "tags": "uniq frequency duplicates histogram variation recipe"
+    "tags": "uniq frequency duplicates histogram variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/uniq.1.html",
+          "title": "uniq(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "uniq",
@@ -54657,7 +57556,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "man uniq 2>/dev/null || uniq --help | head -n 30",
     "desc": "Operational guidelines, safety flags, and best practices for uniq",
     "tip": "Always pipe through 'sort' before 'uniq'",
-    "tags": "uniq frequency duplicates histogram tips safety help"
+    "tags": "uniq frequency duplicates histogram tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/uniq.1.html",
+          "title": "uniq(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "uniq",
@@ -55006,7 +57914,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "watch -n 1 -d -c 'ip -c -s link show eth0'",
     "desc": "Run a diagnostic command repeatedly while highlighting every counter or state that changes (-d)",
     "tip": "watch -g exits the moment output changes!",
-    "tags": "watch live monitor diff counters"
+    "tags": "watch live monitor diff counters",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/watch.1.html",
+          "title": "watch(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the permanent form is --differences=permanent (the argument must be attached to the option)."
+    }
   },
   {
     "sName": "watch",
@@ -55017,7 +57935,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "watch -n 1 -d 'cat /proc/mdstat'",
     "desc": "Monitor live software RAID rebuild speed and block progress",
     "tip": "Frequently used with watch in production workflows",
-    "tags": "watch live monitor diff counters variation recipe"
+    "tags": "watch live monitor diff counters variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/watch.1.html",
+          "title": "watch(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the permanent form is --differences=permanent (the argument must be attached to the option)."
+    }
   },
   {
     "sName": "watch",
@@ -55028,7 +57956,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "watch -n 2 -g 'cat /sys/class/net/eth0/operstate' && echo 'LINK CHANGED!'",
     "desc": "Block until eth0 link state changes (-g), then trigger an alert",
     "tip": "Frequently used with watch in production workflows",
-    "tags": "watch live monitor diff counters variation recipe"
+    "tags": "watch live monitor diff counters variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/watch.1.html",
+          "title": "watch(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the permanent form is --differences=permanent (the argument must be attached to the option)."
+    }
   },
   {
     "sName": "watch",
@@ -55039,7 +57977,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "man watch 2>/dev/null || watch --help | head -n 30",
     "desc": "Operational guidelines, safety flags, and best practices for watch",
     "tip": "watch -g exits the moment output changes!",
-    "tags": "watch live monitor diff counters tips safety help"
+    "tags": "watch live monitor diff counters tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/watch.1.html",
+          "title": "watch(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the permanent form is --differences=permanent (the argument must be attached to the option)."
+    }
   },
   {
     "sName": "watch",
@@ -56044,7 +58992,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "find /var/log/archive -type f -name '*.log' -print0 | xargs -0 -r -P 8 -n 20 zstd --rm -9",
     "desc": "Execute commands in parallel across file or host lists using null-delimited streams (-0) and worker pools (-P)",
     "tip": "Always pass -r so empty inputs don't execute!",
-    "tags": "xargs parallel print0 null batch ping"
+    "tags": "xargs parallel print0 null batch ping",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/xargs.1.html",
+          "title": "xargs(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: -P 0 runs as many processes as possible at once; it isn't tied to the CPU count."
+    }
   },
   {
     "sName": "xargs",
@@ -56055,7 +59013,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "cat rack_bmc_ipv6.txt | xargs -P 16 -I {} sh -c 'ping -6 -c 1 -W 1 {} >/dev/null && echo \"UP: {}\" || echo \"DOWN: {}\"'",
     "desc": "Ping 40+ rack server BMC IPv6 addresses in parallel (16 concurrent workers) and report UP/DOWN status",
     "tip": "Frequently used with xargs in production workflows",
-    "tags": "xargs parallel print0 null batch ping variation recipe"
+    "tags": "xargs parallel print0 null batch ping variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/xargs.1.html",
+          "title": "xargs(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: -P 0 runs as many processes as possible at once; it isn't tied to the CPU count."
+    }
   },
   {
     "sName": "xargs",
@@ -56066,7 +59034,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "find /tmp -type f -mtime +7 -print0 | xargs -0 -r rm -v",
     "desc": "Safely delete old files using -r (--no-run-if-empty) so rm doesn't error when no files match",
     "tip": "Frequently used with xargs in production workflows",
-    "tags": "xargs parallel print0 null batch ping variation recipe"
+    "tags": "xargs parallel print0 null batch ping variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/xargs.1.html",
+          "title": "xargs(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: -P 0 runs as many processes as possible at once; it isn't tied to the CPU count."
+    }
   },
   {
     "sName": "xargs",
@@ -56077,7 +59055,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "man xargs 2>/dev/null || xargs --help | head -n 30",
     "desc": "Operational guidelines, safety flags, and best practices for xargs",
     "tip": "Always pass -r so empty inputs don't execute!",
-    "tags": "xargs parallel print0 null batch ping tips safety help"
+    "tags": "xargs parallel print0 null batch ping tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/xargs.1.html",
+          "title": "xargs(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: -P 0 runs as many processes as possible at once; it isn't tied to the CPU count."
+    }
   },
   {
     "sName": "xargs",
@@ -56099,7 +59087,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "xxd -g 1 -l 256 /etc/localtime",
     "desc": "Inspect binary files, MBR/GPT partition headers, or SFP/FRU EEPROM dumps in side-by-side Hex + ASCII",
     "tip": "Check first 64 bytes of a .bin to ensure it's not HTML!",
-    "tags": "xxd hexdump hex binary eeprom mbr gpt"
+    "tags": "xxd hexdump hex binary eeprom mbr gpt",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/xxd/xxd.1.en.html",
+          "title": "xxd(1), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "xxd",
@@ -56110,7 +59107,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "head -c 512 /dev/nvme0n1 | xxd -g 1",
     "desc": "Dump the first 512 bytes (MBR / protective GPT signature 55 AA) of a physical disk",
     "tip": "Frequently used with xxd in production workflows",
-    "tags": "xxd hexdump hex binary eeprom mbr gpt variation recipe"
+    "tags": "xxd hexdump hex binary eeprom mbr gpt variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/xxd/xxd.1.en.html",
+          "title": "xxd(1), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "xxd",
@@ -56121,7 +59127,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "echo -n '4d 5a 90 00' | xxd -r -p > header.bin",
     "desc": "Convert a plain hex string back into raw binary bytes (-r -p)",
     "tip": "Frequently used with xxd in production workflows",
-    "tags": "xxd hexdump hex binary eeprom mbr gpt variation recipe"
+    "tags": "xxd hexdump hex binary eeprom mbr gpt variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/xxd/xxd.1.en.html",
+          "title": "xxd(1), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "xxd",
@@ -56132,7 +59147,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "hexdump -C -n 256 /bin/ls",
     "desc": "Alternative canonical hex+ASCII dump using BSD/util-linux hexdump -C",
     "tip": "Frequently used with xxd in production workflows",
-    "tags": "xxd hexdump hex binary eeprom mbr gpt variation recipe"
+    "tags": "xxd hexdump hex binary eeprom mbr gpt variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/xxd/xxd.1.en.html",
+          "title": "xxd(1), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "xxd",
@@ -56143,7 +59167,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "man xxd 2>/dev/null || xxd --help | head -n 30",
     "desc": "Operational guidelines, safety flags, and best practices for xxd",
     "tip": "Check first 64 bytes of a .bin to ensure it's not HTML!",
-    "tags": "xxd hexdump hex binary eeprom mbr gpt tips safety help"
+    "tags": "xxd hexdump hex binary eeprom mbr gpt tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/xxd/xxd.1.en.html",
+          "title": "xxd(1), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "xxd",
@@ -56341,7 +59374,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "zstd -T0 -9 --rm /var/crash/vmcore.dump   # Decompress: unzstd vmcore.dump.zst",
     "desc": "Compress and decompress large logs, core dumps, or raw disk images using all CPU cores (-T0)",
     "tip": "zstd -T0 compresses multi-GB core dumps in seconds",
-    "tags": "zstd unzstd zstdcat compress multithreaded"
+    "tags": "zstd unzstd zstdcat compress multithreaded",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/zstd/zstd.1.en.html",
+          "title": "zstd(1), Debian"
+        }
+      ],
+      "note": "Corrected 2026-11-09: -T0 detects physical cores (not logical); dropped unsourced speed figures."
+    }
   },
   {
     "sName": "zstd",
@@ -56352,7 +59395,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tar --sparse -I 'zstd -T0 -6' -cvf /backups/vm-disks.tar.zst /var/lib/libvirt/images/",
     "desc": "Pipe tar through multithreaded zstd across all CPU cores (-T0)",
     "tip": "Frequently used with zstd in production workflows",
-    "tags": "zstd unzstd zstdcat compress multithreaded variation recipe"
+    "tags": "zstd unzstd zstdcat compress multithreaded variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/zstd/zstd.1.en.html",
+          "title": "zstd(1), Debian"
+        }
+      ],
+      "note": "Corrected 2026-11-09: -T0 detects physical cores (not logical); dropped unsourced speed figures."
+    }
   },
   {
     "sName": "zstd",
@@ -56363,7 +59416,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "zstdcat /var/log/archive/syslog.zst | grep -iE 'error|mce'",
     "desc": "Stream-decompress a .zst log file directly to stdout without writing a temp file to disk",
     "tip": "Frequently used with zstd in production workflows",
-    "tags": "zstd unzstd zstdcat compress multithreaded variation recipe"
+    "tags": "zstd unzstd zstdcat compress multithreaded variation recipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/zstd/zstd.1.en.html",
+          "title": "zstd(1), Debian"
+        }
+      ],
+      "note": "Corrected 2026-11-09: -T0 detects physical cores (not logical); dropped unsourced speed figures."
+    }
   },
   {
     "sName": "zstd",
@@ -56374,7 +59437,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "man zstd 2>/dev/null || zstd --help | head -n 30",
     "desc": "Operational guidelines, safety flags, and best practices for zstd",
     "tip": "zstd -T0 compresses multi-GB core dumps in seconds",
-    "tags": "zstd unzstd zstdcat compress multithreaded tips safety help"
+    "tags": "zstd unzstd zstdcat compress multithreaded tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/zstd/zstd.1.en.html",
+          "title": "zstd(1), Debian"
+        }
+      ],
+      "note": "Corrected 2026-11-09: -T0 detects physical cores (not logical); dropped unsourced speed figures."
+    }
   },
   {
     "sName": "zstd",

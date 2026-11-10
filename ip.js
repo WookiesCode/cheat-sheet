@@ -50,7 +50,33 @@ const IP_DATA = [
           "mtu",
           "counters",
           "vlan"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ip-link.8.html",
+              "title": "ip-link(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ip-address.8.html",
+              "title": "ip-address(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ip-route.8.html",
+              "title": "ip-route(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ip-neighbour.8.html",
+              "title": "ip-neighbour(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ip-netns.8.html",
+              "title": "ip-netns(8)"
+            }
+          ],
+          "note": "Corrected 2026-11-09: ip -6 neigh flush needs a selector (dev <if>), not 'all'."
+        }
       }
     ]
   },
@@ -81,8 +107,8 @@ const IP_DATA = [
         ],
         "subcommands": [
           [
-            "ip -6 neigh flush all",
-            "Flush stale IPv6 Neighbor Discovery (NDP) cache entries after a switch/VIP failover"
+            "ip -6 neigh flush dev eth0",
+            "Flush stale IPv6 Neighbor Discovery (NDP) entries on eth0 after a switch/VIP failover (changes state)"
           ],
           [
             "ip netns list && ip netns exec <ns_name> ip -6 -c -br addr",
@@ -98,7 +124,33 @@ const IP_DATA = [
           "neighbor",
           "gateway",
           "netns"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ip-link.8.html",
+              "title": "ip-link(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ip-address.8.html",
+              "title": "ip-address(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ip-route.8.html",
+              "title": "ip-route(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ip-neighbour.8.html",
+              "title": "ip-neighbour(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ip-netns.8.html",
+              "title": "ip-netns(8)"
+            }
+          ],
+          "note": "Corrected 2026-11-09: ip -6 neigh flush needs a selector (dev <if>), not 'all'."
+        }
       }
     ]
   }

@@ -18,8 +18,8 @@ const WATCH_DATA = [
             "Refresh interval in seconds (supports decimals like -n 0.5)"
           ],
           [
-            "-d / -d=permanent",
-            "Highlight differences between successive updates (=permanent keeps all changes since start highlighted)"
+            "-d / --differences=permanent",
+            "Highlight differences between successive updates (=permanent keeps every change since the first run highlighted)"
           ],
           [
             "-c",
@@ -38,7 +38,17 @@ const WATCH_DATA = [
           "monitor",
           "diff",
           "counters"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/watch.1.html",
+              "title": "watch(1)"
+            }
+          ],
+          "note": "Corrected 2026-11-09: the permanent form is --differences=permanent (the argument must be attached to the option)."
+        }
       }
     ]
   },
@@ -64,7 +74,17 @@ const WATCH_DATA = [
           "counters",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/watch.1.html",
+              "title": "watch(1)"
+            }
+          ],
+          "note": "Corrected 2026-11-09: the permanent form is --differences=permanent (the argument must be attached to the option)."
+        }
       },
       {
         "id": "watch-diff-counters-sub-2",
@@ -82,7 +102,17 @@ const WATCH_DATA = [
           "counters",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/watch.1.html",
+              "title": "watch(1)"
+            }
+          ],
+          "note": "Corrected 2026-11-09: the permanent form is --differences=permanent (the argument must be attached to the option)."
+        }
       }
     ]
   },
@@ -127,7 +157,17 @@ const WATCH_DATA = [
           "tips",
           "safety",
           "help"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/watch.1.html",
+              "title": "watch(1)"
+            }
+          ],
+          "note": "Corrected 2026-11-09: the permanent form is --differences=permanent (the argument must be attached to the option)."
+        }
       }
     ]
   }

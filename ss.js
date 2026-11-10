@@ -11,7 +11,7 @@ const SS_DATA = [
         "id": "ss-listening-tcp-internals-main",
         "desc": "List listening IPv6/TCP/UDP ports with owning PIDs, filter by TCP state, and inspect per-socket RTT & retransmits",
         "cmd": "ss -tulpn && ss -6 -tanp state established",
-        "details": "Queries kernel netlink TCP_DIAG directly. Adding '-ti' to established IPv6 connections shows internal kernel TCP stack telemetry for each socket: congestion algorithm (cubic/bbr), smoothed RTT in ms, congestion window (cwnd), and packet retransmit counts.",
+        "details": "Reads sockets from the kernel over netlink. Adding '-ti' to established IPv6 connections shows internal kernel TCP stack telemetry for each socket: congestion algorithm (cubic/bbr), smoothed RTT in ms, congestion window (cwnd), and packet retransmit counts.",
         "flags": [
           [
             "-6",
@@ -27,7 +27,7 @@ const SS_DATA = [
           ],
           [
             "-p",
-            "Show owning process name, PID, and file descriptor number (requires sudo)"
+            "Show owning process name, PID, and file descriptor number"
           ],
           [
             "-n",
@@ -49,7 +49,17 @@ const SS_DATA = [
           "tcp",
           "retransmits",
           "rtt"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ss.8.html",
+              "title": "ss(8)"
+            }
+          ],
+          "note": "Corrected 2026-11-09: ss(8) doesn't say -p needs root; the maybe-root badge covers other users' processes."
+        }
       }
     ]
   },
@@ -78,7 +88,17 @@ const SS_DATA = [
           "rtt",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ss.8.html",
+              "title": "ss(8)"
+            }
+          ],
+          "note": "Corrected 2026-11-09: ss(8) doesn't say -p needs root; the maybe-root badge covers other users' processes."
+        }
       },
       {
         "id": "ss-listening-tcp-internals-sub-2",
@@ -99,7 +119,17 @@ const SS_DATA = [
           "rtt",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ss.8.html",
+              "title": "ss(8)"
+            }
+          ],
+          "note": "Corrected 2026-11-09: ss(8) doesn't say -p needs root; the maybe-root badge covers other users' processes."
+        }
       },
       {
         "id": "ss-listening-tcp-internals-sub-3",
@@ -120,7 +150,17 @@ const SS_DATA = [
           "rtt",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ss.8.html",
+              "title": "ss(8)"
+            }
+          ],
+          "note": "Corrected 2026-11-09: ss(8) doesn't say -p needs root; the maybe-root badge covers other users' processes."
+        }
       }
     ]
   },
@@ -168,7 +208,17 @@ const SS_DATA = [
           "tips",
           "safety",
           "help"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ss.8.html",
+              "title": "ss(8)"
+            }
+          ],
+          "note": "Corrected 2026-11-09: ss(8) doesn't say -p needs root; the maybe-root badge covers other users' processes."
+        }
       }
     ]
   }

@@ -44,7 +44,17 @@ const SFTP_DATA = [
           "reget",
           "reput",
           "interactive"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man.openbsd.org/sftp",
+              "title": "sftp(1), OpenBSD"
+            }
+          ],
+          "note": "Corrected 2026-11-09: reget takes -f, -p and -R; there is no -P."
+        }
       }
     ]
   },
@@ -56,9 +66,9 @@ const SFTP_DATA = [
     "commands": [
       {
         "id": "sftp-interactive-resume-sub-1",
-        "desc": "Inside sftp prompt: resume an interrupted download from the exact byte where it stopped",
-        "cmd": "reget -P large-vmcore.dump /tmp/large-vmcore.dump",
-        "details": "Production variation: Inside sftp prompt: resume an interrupted download from the exact byte where it stopped. Useful for triage, automation, and targeted filtering.",
+        "desc": "Inside sftp prompt: resume an interrupted download (same as get -a)",
+        "cmd": "reget large-vmcore.dump /tmp/large-vmcore.dump",
+        "details": "Production variation: Inside sftp prompt: resume an interrupted download (same as get -a). Useful for triage, automation, and targeted filtering.",
         "flags": [],
         "subcommands": [],
         "tip": "Frequently used with sftp in production workflows",
@@ -72,7 +82,17 @@ const SFTP_DATA = [
           "interactive",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man.openbsd.org/sftp",
+              "title": "sftp(1), OpenBSD"
+            }
+          ],
+          "note": "Corrected 2026-11-09: reget takes -f, -p and -R; there is no -P."
+        }
       },
       {
         "id": "sftp-interactive-resume-sub-2",
@@ -92,7 +112,17 @@ const SFTP_DATA = [
           "interactive",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man.openbsd.org/sftp",
+              "title": "sftp(1), OpenBSD"
+            }
+          ],
+          "note": "Corrected 2026-11-09: reget takes -f, -p and -R; there is no -P."
+        }
       }
     ]
   },
@@ -139,7 +169,17 @@ const SFTP_DATA = [
           "tips",
           "safety",
           "help"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man.openbsd.org/sftp",
+              "title": "sftp(1), OpenBSD"
+            }
+          ],
+          "note": "Corrected 2026-11-09: reget takes -f, -p and -R; there is no -P."
+        }
       }
     ]
   }

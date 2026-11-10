@@ -39,7 +39,16 @@ const COLUMN_DATA = [
           "format",
           "mount",
           "fstab"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/column.1.html",
+              "title": "column(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -66,7 +75,16 @@ const COLUMN_DATA = [
           "fstab",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/column.1.html",
+              "title": "column(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -112,7 +130,16 @@ const COLUMN_DATA = [
           "tips",
           "safety",
           "help"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/column.1.html",
+              "title": "column(1)"
+            }
+          ]
+        }
       }
     ]
   }

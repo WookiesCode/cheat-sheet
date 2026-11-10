@@ -39,7 +39,17 @@ const FILE_DATA = [
           "partition",
           "filesystem",
           "coredump"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/file/file.1.en.html",
+              "title": "file(1), Debian"
+            }
+          ],
+          "note": "Corrected 2026-11-09: file(1) doesn't document showing the signal for a core dump."
+        }
       }
     ]
   },
@@ -51,9 +61,9 @@ const FILE_DATA = [
     "commands": [
       {
         "id": "file-magic-headers-sub-1",
-        "desc": "Inspect an application core dump to see the exact binary name and signal that caused the crash",
+        "desc": "Identify a core dump and the program that produced it",
         "cmd": "file /var/crash/core.*",
-        "details": "Production variation: Inspect an application core dump to see the exact binary name and signal that caused the crash. Useful for triage, automation, and targeted filtering.",
+        "details": "Production variation: Identify a core dump and the program that produced it. Useful for triage, automation, and targeted filtering.",
         "flags": [],
         "subcommands": [],
         "tip": "Frequently used with file in production workflows",
@@ -66,7 +76,17 @@ const FILE_DATA = [
           "coredump",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/file/file.1.en.html",
+              "title": "file(1), Debian"
+            }
+          ],
+          "note": "Corrected 2026-11-09: file(1) doesn't document showing the signal for a core dump."
+        }
       },
       {
         "id": "file-magic-headers-sub-2",
@@ -85,7 +105,17 @@ const FILE_DATA = [
           "coredump",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/file/file.1.en.html",
+              "title": "file(1), Debian"
+            }
+          ],
+          "note": "Corrected 2026-11-09: file(1) doesn't document showing the signal for a core dump."
+        }
       }
     ]
   },
@@ -131,7 +161,17 @@ const FILE_DATA = [
           "tips",
           "safety",
           "help"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/file/file.1.en.html",
+              "title": "file(1), Debian"
+            }
+          ],
+          "note": "Corrected 2026-11-09: file(1) doesn't document showing the signal for a core dump."
+        }
       }
     ]
   }

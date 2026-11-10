@@ -42,7 +42,16 @@ const TAR_DATA = [
           "numeric-owner",
           "ssh",
           "backup"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/tar.1.html",
+              "title": "tar(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -68,7 +77,16 @@ const TAR_DATA = [
           "backup",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/tar.1.html",
+              "title": "tar(1)"
+            }
+          ]
+        }
       },
       {
         "id": "tar-archives-streams-sub-2",
@@ -86,7 +104,16 @@ const TAR_DATA = [
           "backup",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/tar.1.html",
+              "title": "tar(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -131,7 +158,16 @@ const TAR_DATA = [
           "tips",
           "safety",
           "help"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/tar.1.html",
+              "title": "tar(1)"
+            }
+          ]
+        }
       }
     ]
   }

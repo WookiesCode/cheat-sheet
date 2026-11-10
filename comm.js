@@ -42,7 +42,20 @@ const COMM_DATA = [
           "diff",
           "set",
           "inventory"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/comm.1.html",
+              "title": "comm(1)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+              "title": "bash(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -68,7 +81,20 @@ const COMM_DATA = [
           "inventory",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/comm.1.html",
+              "title": "comm(1)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+              "title": "bash(1)"
+            }
+          ]
+        }
       },
       {
         "id": "comm-set-operations-sub-2",
@@ -86,7 +112,20 @@ const COMM_DATA = [
           "inventory",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/comm.1.html",
+              "title": "comm(1)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+              "title": "bash(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -131,7 +170,20 @@ const COMM_DATA = [
           "tips",
           "safety",
           "help"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/comm.1.html",
+              "title": "comm(1)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+              "title": "bash(1)"
+            }
+          ]
+        }
       }
     ]
   }

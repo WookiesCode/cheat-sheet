@@ -120,6 +120,16 @@ for (const file of htmlFiles) {
 console.log(`Updated navbar with CLI Tools dropdown in ${updatedNavCount} existing HTML files`);
 
 // Function to generate section cards for each tool
+// Source for a pipeline card: the tool its first word runs, or the card's own tool.
+const PIPE_TOOL = { python3: 'http-server', gzip: 'base64' };
+const NVME_SRC = {"verified": "2026-11-09", "refs": [{"url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-list.txt", "title": "nvme-cli: nvme list"}, {"url": "https://jqlang.org/manual/", "title": "jq manual"}], "note": "nvme list -o json field names are nvme-cli 2.x output; 3.x may differ."};
+function pipeSrc(cmdStr, fallback) {
+  const first = String(cmdStr).trim().split(/\s+/)[0];
+  if (first === 'nvme') return NVME_SRC;
+  const tool = CLI_TOOLS_DATA.find(t => t.id === (PIPE_TOOL[first] || first));
+  return (tool && tool.commands[0].src) || fallback;
+}
+
 function buildToolSections(tool) {
   const sections = [];
   const toolName = tool.title.split('—')[0].trim();
@@ -155,8 +165,9 @@ function buildToolSections(tool) {
           details: c.details,
           flags: c.flags || [],
           subcommands: [],
-          tip: c.tip || `Run with sudo when inspecting hardware or root processes`,
-          tags: c.tags || [tool.id]
+          tip: c.tip || `Some flags need root: the badge on the command says so`,
+          tags: c.tags || [tool.id],
+          ...(c.src ? { src: c.src } : {})
         }
       ]
     });
@@ -171,7 +182,8 @@ function buildToolSections(tool) {
         flags: [],
         subcommands: [],
         tip: `Frequently used with ${toolName} in production workflows`,
-        tags: [...(c.tags || [tool.id]), "variation", "recipe"]
+        tags: [...(c.tags || [tool.id]), "variation", "recipe"],
+        ...(c.src ? { src: c.src } : {})
       }));
 
       sections.push({
@@ -196,7 +208,9 @@ function buildToolSections(tool) {
           flags: [],
           subcommands: [],
           tip: `Composite shell pipeline`,
-          tags: [...(c.tags || [tool.id]), "pipe", "composite"]
+          tags: [...(c.tags || [tool.id]), "pipe", "composite"],
+          // A pipeline may start with another tool (tio, python3, gzip, nvme): cite that one.
+          ...(pipeSrc(cmdStr, c.src) ? { src: pipeSrc(cmdStr, c.src) } : {})
         };
       });
 
@@ -230,7 +244,8 @@ function buildToolSections(tool) {
             [`which ${tool.id} && ${tool.id} --version 2>&1 | head -n 1`, `Verify binary path and installed version in current environment`]
           ],
           tip: c.tip || `Check /var/log or journalctl when troubleshooting system errors`,
-          tags: [...(c.tags || [tool.id]), "tips", "safety", "help"]
+          tags: [...(c.tags || [tool.id]), "tips", "safety", "help"],
+          ...(c.src ? { src: c.src } : {})
         }
       ]
     });

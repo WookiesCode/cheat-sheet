@@ -44,7 +44,16 @@ const DMESG_DATA = [
           "mce",
           "aer",
           "hotplug"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/dmesg.1.html",
+              "title": "dmesg(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -72,7 +81,16 @@ const DMESG_DATA = [
           "hotplug",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/dmesg.1.html",
+              "title": "dmesg(1)"
+            }
+          ]
+        }
       },
       {
         "id": "dmesg-kernel-triage-sub-2",
@@ -92,7 +110,16 @@ const DMESG_DATA = [
           "hotplug",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/dmesg.1.html",
+              "title": "dmesg(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -139,7 +166,16 @@ const DMESG_DATA = [
           "tips",
           "safety",
           "help"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/dmesg.1.html",
+              "title": "dmesg(1)"
+            }
+          ]
+        }
       }
     ]
   }

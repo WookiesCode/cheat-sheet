@@ -61,7 +61,16 @@ const GREP_DATA = [
           "recursive",
           "regex",
           "errors"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+              "title": "grep(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -108,7 +117,16 @@ const GREP_DATA = [
           "config",
           "diff",
           "filter"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+              "title": "grep(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -160,7 +178,16 @@ const GREP_DATA = [
           "mac",
           "bdf",
           "only-matching"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+              "title": "grep(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -216,7 +243,16 @@ const GREP_DATA = [
           "count",
           "filenames",
           "word"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+              "title": "grep(1)"
+            }
+          ]
+        }
       }
     ]
   }

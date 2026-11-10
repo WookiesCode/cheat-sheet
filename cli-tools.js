@@ -24,7 +24,8 @@ const CLI_TOOLS_DATA = [
           ["grep -rnI --exclude-dir={.git,node_modules,venv,proc,sys} 'listen' /", "Exclude specific directories (--exclude-dir) when searching large trees"]
         ],
         tip: "Always include -I to skip binaries",
-        tags: ["grep", "search", "logs", "context", "recursive", "regex", "errors"]
+        tags: ["grep", "search", "logs", "context", "recursive", "regex", "errors"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/grep.1.html", "title": "grep(1)"}]}
       },
       {
         id: "grep-invert-clean-configs",
@@ -41,7 +42,8 @@ const CLI_TOOLS_DATA = [
           ["grep -Fxv -f known_good_hosts.txt all_rack_hosts.txt", "Compare two plain lists and print lines in all_rack_hosts.txt that are missing from known_good_hosts.txt"]
         ],
         tip: "Instant active-config view",
-        tags: ["grep", "invert", "comments", "config", "diff", "filter"]
+        tags: ["grep", "invert", "comments", "config", "diff", "filter"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/grep.1.html", "title": "grep(1)"}]}
       },
       {
         id: "grep-pcre-extract",
@@ -59,7 +61,8 @@ const CLI_TOOLS_DATA = [
           ["grep -Po '[0-9a-f]{4}:[0-9a-f]{2}:[0-9a-f]{2}\\.[0-7]' /var/log/kern.log | sort -u", "Extract all unique PCIe BDF addresses (0000:3b:00.0) mentioned in kernel error logs"]
         ],
         tip: "grep -Po 'key=\\K\\S+' extracts values cleanly",
-        tags: ["grep", "pcre", "extract", "ip", "mac", "bdf", "only-matching"]
+        tags: ["grep", "pcre", "extract", "ip", "mac", "bdf", "only-matching"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/grep.1.html", "title": "grep(1)"}]}
       },
       {
         id: "grep-files-counts-flags",
@@ -78,7 +81,8 @@ const CLI_TOOLS_DATA = [
           ["zgrep -iE 'mce|edac|nvme|xid' /var/log/kern.log* /var/log/syslog*", "Search across both plain-text and gzip-compressed (.gz) rotated log files transparently"]
         ],
         tip: "grep -H '' /sys/... reads many sysfs files with filenames!",
-        tags: ["grep", "zgrep", "fgrep", "sysfs", "count", "filenames", "word"]
+        tags: ["grep", "zgrep", "fgrep", "sysfs", "count", "filenames", "word"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/grep.1.html", "title": "grep(1)"}]}
       }
     ]
   },
@@ -104,7 +108,8 @@ const CLI_TOOLS_DATA = [
           ["ps -ef --forest", "Display full ASCII process hierarchy tree showing parent-child spawning relationships"]
         ],
         tip: "nlwp shows thread count per process",
-        tags: ["ps", "memory", "rss", "cpu", "sort", "threads", "forest"]
+        tags: ["ps", "memory", "rss", "cpu", "sort", "threads", "forest"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/ps.1.html", "title": "ps(1)"}]}
       },
       {
         id: "ps-d-state-zombie-wchan",
@@ -120,7 +125,8 @@ const CLI_TOOLS_DATA = [
           ["ps -eo pid,ppid,stat,comm | awk '$3 ~ /^Z/ {print \"Zombie PID:\", $1, \"-> Parent PPID:\", $2, $4}'", "Identify Zombie processes and print the Parent PID (PPID) that failed to reap them"]
         ],
         tip: "Kill Parent (PPID) to clear Zombies; fix I/O to clear D-state",
-        tags: ["ps", "d-state", "zombie", "wchan", "hung", "sigkill", "stack"]
+        tags: ["ps", "d-state", "zombie", "wchan", "hung", "sigkill", "stack"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/ps.1.html", "title": "ps(1)"}]}
       },
       {
         id: "ps-threads-cpu-affinity",
@@ -138,7 +144,8 @@ const CLI_TOOLS_DATA = [
           ["pgrep -fa 'python.*worker' && pkill -SIGTERM -f 'python.*worker'", "Safely match or signal processes by full command line using pgrep/pkill"]
         ],
         tip: "psr column reveals CPU pinning & core hotspots",
-        tags: ["ps", "threads", "lwp", "psr", "cpu-core", "affinity", "cgroup", "pgrep", "pkill"]
+        tags: ["ps", "threads", "lwp", "psr", "cpu-core", "affinity", "cgroup", "pgrep", "pkill"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/ps.1.html", "title": "ps(1)"}]}
       }
     ]
   },
@@ -166,7 +173,8 @@ const CLI_TOOLS_DATA = [
           ["ls -ld /var /var/log /var/log/nginx", "Inspect permissions and ownership of directory entries themselves (-d)"]
         ],
         tip: "ls -lahtr puts newest files right above your prompt",
-        tags: ["ls", "sort", "time", "size", "iso", "timestamp", "directory"]
+        tags: ["ls", "sort", "time", "size", "iso", "timestamp", "directory"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/ls.1.html", "title": "ls(1)"}]}
       },
       {
         id: "ls-inodes-sparse-blocks",
@@ -184,7 +192,8 @@ const CLI_TOOLS_DATA = [
           ["ls -1 /etc/netplan/", "Force single-column output (one filename per line)"]
         ],
         tip: "Compare column 1 (-s) vs size column to spot sparse files",
-        tags: ["ls", "inode", "sparse", "blocks", "uid", "gid"]
+        tags: ["ls", "inode", "sparse", "blocks", "uid", "gid"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/ls.1.html", "title": "ls(1)"}]}
       }
     ]
   },
@@ -209,7 +218,8 @@ const CLI_TOOLS_DATA = [
           ["stat -L /dev/disk/by-id/*", "Dereference symlinks (-L) to inspect the target block device major/minor numbers"]
         ],
         tip: "stat -c '%a %n' prints octal permissions (e.g. 600)",
-        tags: ["stat", "inode", "octal", "timestamps", "birth", "ctime", "mtime"]
+        tags: ["stat", "inode", "octal", "timestamps", "birth", "ctime", "mtime"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/stat.1.html", "title": "stat(1)"}]}
       }
     ]
   },
@@ -234,7 +244,8 @@ const CLI_TOOLS_DATA = [
           ["namei -lx /srv/current/app.sock", "Trace a path resolving all nested symlinks while marking filesystem mount boundaries ('D')"]
         ],
         tip: "Instantly spots missing '+x' on parent directories",
-        tags: ["namei", "symlink", "permissions", "path", "traversal", "debug"]
+        tags: ["namei", "symlink", "permissions", "path", "traversal", "debug"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/namei.1.html", "title": "namei(1)"}]}
       }
     ]
   },
@@ -256,11 +267,12 @@ const CLI_TOOLS_DATA = [
           ["-z", "Try to look inside compressed files (.gz, .xz, .zst) to identify the inner payload"]
         ],
         subcommands: [
-          ["file /var/crash/core.*", "Inspect an application core dump to see the exact binary name and signal that caused the crash"],
+          ["file /var/crash/core.*", "Identify a core dump and the program that produced it"],
           ["file -z backup.tar.gz", "Peek inside a compressed file to see the uncompressed archive format and original timestamp"]
         ],
         tip: "file -sL /dev/nvme0n1p1 reveals raw partition FS & UUID",
-        tags: ["file", "magic", "elf", "partition", "filesystem", "coredump"]
+        tags: ["file", "magic", "elf", "partition", "filesystem", "coredump"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://manpages.debian.org/trixie/file/file.1.en.html", "title": "file(1), Debian"}], "note": "Corrected 2026-11-09: file(1) doesn't document showing the signal for a core dump."}
       }
     ]
   },
@@ -286,7 +298,8 @@ const CLI_TOOLS_DATA = [
           ["ip -br addr | awk '$2 == \"UP\" {print $1, $3}'", "Print only UP network interfaces and their primary IPv4 CIDR address"]
         ],
         tip: "NR>1 skips the header row of CLI tables",
-        tags: ["awk", "columns", "delimiter", "printf", "filter", "df", "passwd"]
+        tags: ["awk", "columns", "delimiter", "printf", "filter", "df", "passwd"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/gawk.1.html", "title": "gawk(1)"}]}
       },
       {
         id: "awk-math-aggregation",
@@ -302,7 +315,8 @@ const CLI_TOOLS_DATA = [
           ["ls -l /var/log/*.log | awk '{sum += $5} END {printf \"Total uncompressed logs: %.2f MiB\\n\", sum/1048576}'", "Sum byte sizes (column 5 of ls -l) and print total in MiB"],
           ["awk '{sum+=$NF; n++} END {if (n>0) print \"Average:\", sum/n}' timing.log", "Compute the arithmetic mean of the last column ($NF) across a log file"]
         ],
-        tags: ["awk", "sum", "average", "math", "max", "min", "aggregation"]
+        tags: ["awk", "sum", "average", "math", "max", "min", "aggregation"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/gawk.1.html", "title": "gawk(1)"}]}
       },
       {
         id: "awk-arrays-frequency-dedup",
@@ -320,7 +334,8 @@ const CLI_TOOLS_DATA = [
           ["awk 'NR==FNR {bad[$1]=1; next} $1 in bad {print $0}' faulty_serials.txt inventory.txt", "Join two files: load column 1 of file 1 into array 'bad', then print matching rows from file 2"]
         ],
         tip: "awk '!seen[$0]++' deduplicates without sorting!",
-        tags: ["awk", "array", "group-by", "frequency", "deduplicate", "join", "nr==fnr"]
+        tags: ["awk", "array", "group-by", "frequency", "deduplicate", "join", "nr==fnr"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/gawk.1.html", "title": "gawk(1)"}]}
       }
     ]
   },
@@ -346,7 +361,8 @@ const CLI_TOOLS_DATA = [
           ["sed -i '/swap/s/^/# /' /etc/fstab", "Address-scoped substitution: prepend '# ' ONLY on lines that match '/swap/'"]
         ],
         tip: "Use s|old|new|g when replacing file paths",
-        tags: ["sed", "replace", "substitute", "inplace", "config", "backup", "regex"]
+        tags: ["sed", "replace", "substitute", "inplace", "config", "backup", "regex"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/sed.1.html", "title": "sed(1)"}]}
       },
       {
         id: "sed-range-slice-logs",
@@ -363,7 +379,8 @@ const CLI_TOOLS_DATA = [
           ["sed -n '/^\\[storage\\]/,/^\\[/p' config.ini", "Extract an INI/TOML configuration section block between '[storage]' and the next '[' header"]
         ],
         tip: "Adding ';1051q' avoids reading the rest of a 50GB log",
-        tags: ["sed", "slice", "range", "timestamps", "logs", "lines"]
+        tags: ["sed", "slice", "range", "timestamps", "logs", "lines"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/sed.1.html", "title": "sed(1)"}]}
       },
       {
         id: "sed-delete-insert-clean",
@@ -381,7 +398,8 @@ const CLI_TOOLS_DATA = [
           ["sed -i 's/\\r$//' script_from_windows.sh", "Strip Windows CRLF (\\r) carriage returns to fix '/bin/bash^M: bad interpreter'"]
         ],
         tip: "sed -i '42d' ~/.ssh/known_hosts fixes SSH host key alerts",
-        tags: ["sed", "delete", "ansi", "crlf", "known_hosts", "comments"]
+        tags: ["sed", "delete", "ansi", "crlf", "known_hosts", "comments"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/sed.1.html", "title": "sed(1)"}]}
       }
     ]
   },
@@ -408,7 +426,8 @@ const CLI_TOOLS_DATA = [
           ["find / -xdev \\( -path /var/lib/docker -o -path /snap \\) -prune -o -type f -size +500M -print", "Prune (-prune) container/snap trees while searching for files > 500 MiB"]
         ],
         tip: "-mmin -60 finds files modified in the last hour",
-        tags: ["find", "size", "mtime", "mmin", "xdev", "prune", "empty"]
+        tags: ["find", "size", "mtime", "mmin", "xdev", "prune", "empty"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/find.1.html", "title": "find(1)"}]}
       },
       {
         id: "find-perms-owners-inodes",
@@ -426,7 +445,8 @@ const CLI_TOOLS_DATA = [
           ["find /home /srv \\( -nouser -o -nogroup \\) -exec chown root:root {} +", "Find files owned by deleted user/group IDs and reassign ownership"]
         ],
         tip: "find -xtype l finds broken symlinks",
-        tags: ["find", "permissions", "suid", "symlinks", "broken", "inode", "nouser"]
+        tags: ["find", "permissions", "suid", "symlinks", "broken", "inode", "nouser"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/find.1.html", "title": "find(1)"}]}
       }
     ]
   },
@@ -443,7 +463,7 @@ const CLI_TOOLS_DATA = [
         details: "'find -print0' separates filenames with a NUL ('\\0') byte, and 'xargs -0' reads NUL-separated items safely even if filenames contain spaces. Adding '-P 8' spawns up to 8 parallel worker processes at once.",
         flags: [
           ["-0 / --null", "Input items are terminated by a null byte ('\\0') instead of whitespace"],
-          ["-P <N>", "Run up to <N> processes in parallel at a time (use -P 0 for all CPU cores)"],
+          ["-P <N>", "Run up to <N> processes in parallel at a time (-P 0 = as many as possible at once, no limit)"],
           ["-n <N>", "Pass at most <N> arguments per command invocation"],
           ["-I {}", "Replace occurrences of '{}' in the command with each input item"],
           ["-r / --no-run-if-empty", "Do not run the command at all if stdin is empty (critical in scripts!)"],
@@ -454,7 +474,8 @@ const CLI_TOOLS_DATA = [
           ["find /tmp -type f -mtime +7 -print0 | xargs -0 -r rm -v", "Safely delete old files using -r (--no-run-if-empty) so rm doesn't error when no files match"]
         ],
         tip: "Always pass -r so empty inputs don't execute!",
-        tags: ["xargs", "parallel", "print0", "null", "batch", "ping"]
+        tags: ["xargs", "parallel", "print0", "null", "batch", "ping"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/xargs.1.html", "title": "xargs(1)"}], "note": "Corrected 2026-11-09: -P 0 runs as many processes as possible at once; it isn't tied to the CPU count."}
       }
     ]
   },
@@ -480,7 +501,8 @@ const CLI_TOOLS_DATA = [
           ["lsblk -J -o NAME,SIZE,TYPE,SERIAL,MOUNTPOINTS | jq '.blockdevices[] | select(.type==\"disk\")'", "Filter lsblk JSON output for physical disk devices and their hardware serial numbers"]
         ],
         tip: "ip -j, lsblk -J, findmnt -J, nvme -o json all output JSON!",
-        tags: ["jq", "json", "ip", "lsblk", "nvme", "lshw", "tsv"]
+        tags: ["jq", "json", "ip", "lsblk", "nvme", "lshw", "tsv"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://jqlang.org/manual/", "title": "jq manual"}], "note": "nvme list -o json field names (DevicePath, ModelNumber…) are nvme-cli 2.x output; 3.x may differ."}
       },
       {
         id: "jq-transform-group-redfish",
@@ -496,7 +518,8 @@ const CLI_TOOLS_DATA = [
           ["jq 'map(select(.status != \"OK\")) | length' health.json", "Count how many items in a JSON array have a status other than 'OK'"],
           ["jq -n --arg host \"$(hostname)\" --arg ts \"$(date -Is)\" '{hostname: $host, timestamp: $ts}'", "Generate a valid JSON payload from shell variables using -n and --arg"]
         ],
-        tags: ["jq", "redfish", "csv", "tsv", "sort_by", "group_by", "api"]
+        tags: ["jq", "redfish", "csv", "tsv", "sort_by", "group_by", "api"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://jqlang.org/manual/", "title": "jq manual"}], "note": "nvme list -o json field names (DevicePath, ModelNumber…) are nvme-cli 2.x output; 3.x may differ."}
       }
     ]
   },
@@ -524,7 +547,8 @@ const CLI_TOOLS_DATA = [
           [": > /proc/<PID>/fd/<FD_NUM>", "Truncate a deleted-but-open log file via /proc to reclaim disk space without restarting the daemon"]
         ],
         tip: "lsof +L1 solves 'df says 100% full, du says 20%'",
-        tags: ["lsof", "deleted", "disk-full", "ports", "socket", "fd"]
+        tags: ["lsof", "deleted", "disk-full", "ports", "socket", "fd"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://manpages.debian.org/trixie/lsof/lsof.8.en.html", "title": "lsof(8), Debian"}, {"url": "https://man7.org/linux/man-pages/man5/proc.5.html", "title": "proc(5)"}]}
       }
     ]
   },
@@ -550,7 +574,8 @@ const CLI_TOOLS_DATA = [
           ["fuser -v -n tcp 8080", "Find the PID listening on local TCP port 8080"]
         ],
         tip: "Access 'c' means a shell is cd'd inside the mountpoint",
-        tags: ["fuser", "umount", "busy", "lock", "dpkg", "mount"]
+        tags: ["fuser", "umount", "busy", "lock", "dpkg", "mount"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/fuser.1.html", "title": "fuser(1)"}]}
       }
     ]
   },
@@ -578,7 +603,8 @@ const CLI_TOOLS_DATA = [
           ["strace -f -e trace=openat,stat,access ./mystery-binary 2>&1 | grep -v ENOENT", "Run a binary and see every config file or shared library it successfully opens"]
         ],
         tip: "-e trace=file,network cuts 90% of syscall noise",
-        tags: ["strace", "syscall", "debug", "hang", "enoent", "latency"]
+        tags: ["strace", "syscall", "debug", "hang", "enoent", "latency"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/strace.1.html", "title": "strace(1)"}]}
       }
     ]
   },
@@ -605,7 +631,8 @@ const CLI_TOOLS_DATA = [
           ["sort -V ip_list.txt", "Sort a list of IPv4 addresses or kernel version strings in natural numerical order"]
         ],
         tip: "sort -h understands K/M/G/T; sort -V sorts IPv4 addresses",
-        tags: ["sort", "human", "version", "columns", "ip", "du"]
+        tags: ["sort", "human", "version", "columns", "ip", "du"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/sort.1.html", "title": "sort(1)"}]}
       }
     ]
   },
@@ -632,7 +659,8 @@ const CLI_TOOLS_DATA = [
           ["sort -u ip_list.txt", "Sort and deduplicate a list in a single pass"]
         ],
         tip: "Always pipe through 'sort' before 'uniq'",
-        tags: ["uniq", "frequency", "duplicates", "histogram"]
+        tags: ["uniq", "frequency", "duplicates", "histogram"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/uniq.1.html", "title": "uniq(1)"}]}
       }
     ]
   },
@@ -659,7 +687,8 @@ const CLI_TOOLS_DATA = [
           ["comm -13 <(sort baseline_pkgs.txt) <(dpkg-query -W -f='${Package}\\n' | sort)", "Show extra packages installed on the current server that are not in the baseline list"]
         ],
         tip: "comm -23 = in File 1 only; comm -12 = in Both",
-        tags: ["comm", "compare", "diff", "set", "inventory"]
+        tags: ["comm", "compare", "diff", "set", "inventory"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/comm.1.html", "title": "comm(1)"}, {"url": "https://man7.org/linux/man-pages/man1/bash.1.html", "title": "bash(1)"}]}
       }
     ]
   },
@@ -684,7 +713,8 @@ const CLI_TOOLS_DATA = [
           ["cut -d' ' -f1 --complement /var/log/syslog | head", "Strip the 1st field and print all remaining fields on each line (--complement)"]
         ],
         tip: "Use --complement to drop a single column",
-        tags: ["cut", "fields", "columns", "delimiter", "slice"]
+        tags: ["cut", "fields", "columns", "delimiter", "slice"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/cut.1.html", "title": "cut(1)"}]}
       }
     ]
   },
@@ -710,7 +740,8 @@ const CLI_TOOLS_DATA = [
           ["tr -cd '[:print:]\\n\\t' < corrupted.log > clean.log", "Strip all non-printable binary bytes from a corrupted text log"]
         ],
         tip: "tr -s ' ' normalizes CLI table spacing for cut",
-        tags: ["tr", "squeeze", "delete", "translate", "whitespace", "lowercase"]
+        tags: ["tr", "squeeze", "delete", "translate", "whitespace", "lowercase"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/tr.1.html", "title": "tr(1)"}]}
       }
     ]
   },
@@ -735,7 +766,8 @@ const CLI_TOOLS_DATA = [
           ["cat /etc/fstab | grep -Ev '^\\s*(#|$)' | column -t -N 'DEVICE,MOUNTPOINT,FSTYPE,OPTIONS,DUMP,PASS'", "Render active /etc/fstab mounts as a labeled, aligned table"]
         ],
         tip: "Pipe any TSV or colon-delimited file into column -t",
-        tags: ["column", "table", "align", "format", "mount", "fstab"]
+        tags: ["column", "table", "align", "format", "mount", "fstab"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/column.1.html", "title": "column(1)"}]}
       }
     ]
   },
@@ -752,7 +784,7 @@ const CLI_TOOLS_DATA = [
         details: "When troubleshooting flapping links, optical Rx power, PCIe AER errors, or MD RAID rebuilds, 'watch -n 1 -d' refreshes every second and highlights the exact digits that changed.",
         flags: [
           ["-n 1", "Refresh interval in seconds (supports decimals like -n 0.5)"],
-          ["-d / -d=permanent", "Highlight differences between successive updates (=permanent keeps all changes since start highlighted)"],
+          ["-d / --differences=permanent", "Highlight differences between successive updates (=permanent keeps every change since the first run highlighted)"],
           ["-c", "Interpret ANSI color sequences from the underlying command"],
           ["-g / --chgexit", "Exit watch automatically as soon as the output of the command changes!"]
         ],
@@ -761,7 +793,8 @@ const CLI_TOOLS_DATA = [
           ["watch -n 2 -g 'cat /sys/class/net/eth0/operstate' && echo 'LINK CHANGED!'", "Block until eth0 link state changes (-g), then trigger an alert"]
         ],
         tip: "watch -g exits the moment output changes!",
-        tags: ["watch", "live", "monitor", "diff", "counters"]
+        tags: ["watch", "live", "monitor", "diff", "counters"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/watch.1.html", "title": "watch(1)"}], "note": "Corrected 2026-11-09: the permanent form is --differences=permanent (the argument must be attached to the option)."}
       }
     ]
   },
@@ -785,7 +818,8 @@ const CLI_TOOLS_DATA = [
           ["echo '2001:db8:dc:4::50 bmc-rack04' | tee -a /etc/hosts", "Safely append an IPv6 host mapping to /etc/hosts with root privileges"]
         ],
         tip: "Always use 'echo x | tee /sys/...' instead of 'echo >'",
-        tags: ["tee", "sudo", "sysfs", "proc", "redirect", "logging"]
+        tags: ["tee", "sudo", "sysfs", "proc", "redirect", "logging"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/tee.1.html", "title": "tee(1)"}]}
       }
     ]
   },
@@ -813,7 +847,8 @@ const CLI_TOOLS_DATA = [
           ["dd if=/dev/nvme0n1 of=/backups/nvme0-mbr-gpt.bin bs=1M count=16", "Back up the first 16 MiB of a disk (MBR, GPT header, EFI partition start)"]
         ],
         danger: "Double-check 'of=' target device — dd overwrites raw blocks!",
-        tags: ["dd", "benchmark", "clone", "direct-io", "sparse", "usr1"]
+        tags: ["dd", "benchmark", "clone", "direct-io", "sparse", "usr1"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/dd.1.html", "title": "dd(1)"}]}
       }
     ]
   },
@@ -840,7 +875,8 @@ const CLI_TOOLS_DATA = [
           ["tar -xvf archive.tar.gz -C /opt/restore/", "Extract any compressed tar archive (.tar.gz, .tar.xz, .tar.zst) into /opt/restore/"]
         ],
         tip: "Use --sparse and --numeric-owner for VM & container backups",
-        tags: ["tar", "sparse", "numeric-owner", "ssh", "backup"]
+        tags: ["tar", "sparse", "numeric-owner", "ssh", "backup"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/tar.1.html", "title": "tar(1)"}]}
       }
     ]
   },
@@ -854,9 +890,9 @@ const CLI_TOOLS_DATA = [
         id: "zstd-multithreaded",
         desc: "Compress and decompress large logs, core dumps, or raw disk images using all CPU cores (-T0)",
         cmd: "zstd -T0 -9 --rm /var/crash/vmcore.dump   # Decompress: unzstd vmcore.dump.zst",
-        details: "Zstandard ('zstd') achieves compression ratios comparable to xz/gzip at 5x–10x the speed by scaling across all CPU threads ('-T0') and decompresses at >1,500 MB/s.",
+        details: "Zstandard ('zstd') compresses fast and decompresses faster, and '-T0' spreads compression over the CPU's physical cores. Levels run 1-19 (default 3), up to 22 with --ultra.",
         flags: [
-          ["-T0", "Spawn compression threads for all detected logical CPU cores"],
+          ["-T0", "One compression thread per detected physical CPU core (--auto-threads=logical to use every thread)"],
           ["-1 .. -19", "Compression level (default is 3; -9 is high ratio; --ultra -22 is maximum ratio)"],
           ["-d", "Decompress a .zst file (or use unzstd / zstdcat)"],
           ["--rm", "Remove the source file after successful compression or decompression"]
@@ -866,7 +902,8 @@ const CLI_TOOLS_DATA = [
           ["zstdcat /var/log/archive/syslog.zst | grep -iE 'error|mce'", "Stream-decompress a .zst log file directly to stdout without writing a temp file to disk"]
         ],
         tip: "zstd -T0 compresses multi-GB core dumps in seconds",
-        tags: ["zstd", "unzstd", "zstdcat", "compress", "multithreaded"]
+        tags: ["zstd", "unzstd", "zstdcat", "compress", "multithreaded"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://manpages.debian.org/trixie/zstd/zstd.1.en.html", "title": "zstd(1), Debian"}], "note": "Corrected 2026-11-09: -T0 detects physical cores (not logical); dropped unsourced speed figures."}
       }
     ]
   },
@@ -893,7 +930,8 @@ const CLI_TOOLS_DATA = [
           ["rsync -avhP --bwlimit=50M -e 'ssh -p 2222' /var/backups/ user@remote:/backups/", "Sync over a custom SSH port while capping transfer rate at 50 MB/s"]
         ],
         tip: "Always test --delete with -n (dry-run) first!",
-        tags: ["rsync", "sync", "mirror", "backup", "sparse", "bwlimit"]
+        tags: ["rsync", "sync", "mirror", "backup", "sparse", "bwlimit"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://download.samba.org/pub/rsync/rsync.1", "title": "rsync(1)"}]}
       }
     ]
   },
@@ -922,7 +960,8 @@ const CLI_TOOLS_DATA = [
           ["scp -6 -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/dev/null bios.bin \"root@[2001:db8:dc:4::50]:/tmp/\"", "Copy firmware over IPv6 to a freshly imaged rack server without failing on changed/unknown known_hosts keys"]
         ],
         tip: "Always wrap literal IPv6 addresses in brackets: root@[2001:db8::1]:/path",
-        tags: ["scp", "ipv6", "ssh", "transfer", "copy", "bastion", "proxyjump", "port"]
+        tags: ["scp", "ipv6", "ssh", "transfer", "copy", "bastion", "proxyjump", "port"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man.openbsd.org/scp", "title": "scp(1), OpenBSD"}]}
       }
     ]
   },
@@ -945,11 +984,12 @@ const CLI_TOOLS_DATA = [
           ["-b <batchfile>", "Run non-interactively by reading sftp commands from a batch file"]
         ],
         subcommands: [
-          ["reget -P large-vmcore.dump /tmp/large-vmcore.dump", "Inside sftp prompt: resume an interrupted download from the exact byte where it stopped"],
+          ["reget large-vmcore.dump /tmp/large-vmcore.dump", "Inside sftp prompt: resume an interrupted download (same as get -a)"],
           ["put -r -p ./firmware_bundle/ /tmp/firmware_bundle/", "Inside sftp prompt: recursively upload a local folder while preserving permissions and timestamps"]
         ],
         tip: "Use 'reget' / 'reput' inside sftp to resume dropped transfers",
-        tags: ["sftp", "ipv6", "ssh", "resume", "reget", "reput", "interactive"]
+        tags: ["sftp", "ipv6", "ssh", "resume", "reget", "reput", "interactive"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man.openbsd.org/sftp", "title": "sftp(1), OpenBSD"}], "note": "Corrected 2026-11-09: reget takes -f, -p and -R; there is no -P."}
       }
     ]
   },
@@ -978,7 +1018,8 @@ const CLI_TOOLS_DATA = [
           ["curl -g -6 -sk \"https://[fe80::a00:27ff:fe12:3456%25eth0]/redfish/v1\"", "Query a BMC over its IPv6 link-local (fe80::) address using URL-encoded '%25<interface>' zone ID"]
         ],
         tip: "Always pass -g to curl with literal [IPv6] URLs; use %25eth0 for fe80::!",
-        tags: ["curl", "ipv6", "globoff", "fe80", "resume", "resolve", "download", "iso", "firmware", "ttfb"]
+        tags: ["curl", "ipv6", "globoff", "fe80", "resume", "resolve", "download", "iso", "firmware", "ttfb"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://curl.se/docs/manpage.html", "title": "curl manual"}]}
       }
     ]
   },
@@ -1003,7 +1044,8 @@ const CLI_TOOLS_DATA = [
           ["curl -g -6 -fLO \"http://[2001:db8:dc:4::2]:8000/firmware.fwpkg\"", "Download a staged firmware package over IPv6 using curl (-g -6)"]
         ],
         tip: "Use --bind :: to enable IPv6 support in python3 -m http.server!",
-        tags: ["http.server", "ipv6", "python3", "wget", "firmware", "iso", "staging"]
+        tags: ["http.server", "ipv6", "python3", "wget", "firmware", "iso", "staging"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://docs.python.org/3/library/http.server.html", "title": "Python: http.server"}, {"url": "https://manpages.debian.org/trixie/wget/wget.1.en.html", "title": "wget(1), Debian"}]}
       }
     ]
   },
@@ -1029,7 +1071,8 @@ const CLI_TOOLS_DATA = [
           ["openssl rand -base64 32", "Generate a cryptographically strong 32-byte random secret / password"]
         ],
         tip: "Redirect </dev/null so s_client closes immediately",
-        tags: ["openssl", "ipv6", "tls", "ssl", "certificate", "x509", "expiry", "san"]
+        tags: ["openssl", "ipv6", "tls", "ssl", "certificate", "x509", "expiry", "san"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://docs.openssl.org/master/man1/openssl-s_client/", "title": "openssl s_client"}, {"url": "https://docs.openssl.org/master/man1/openssl-x509/", "title": "openssl x509"}]}
       }
     ]
   },
@@ -1055,7 +1098,8 @@ const CLI_TOOLS_DATA = [
           ["nmap -6 -sU -p 161,623 --open 2001:db8:dc:4::50", "Scan UDP ports 161 (SNMP) and 623 (IPMI RMCP+) on an IPv6 BMC"]
         ],
         tip: "Ping ff02::1%eth0 to instantly discover all IPv6 nodes on a rack VLAN!",
-        tags: ["nmap", "ipv6", "ff02::1", "multicast", "subnet", "discovery", "bmc", "ports"]
+        tags: ["nmap", "ipv6", "ff02::1", "multicast", "subnet", "discovery", "bmc", "ports"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://nmap.org/book/man.html", "title": "Nmap reference guide"}, {"url": "https://nmap.org/nsedoc/scripts/targets-ipv6-multicast-echo.html", "title": "NSE: targets-ipv6-multicast-echo"}]}
       }
     ]
   },
@@ -1069,7 +1113,7 @@ const CLI_TOOLS_DATA = [
         id: "arpscan-localnet",
         desc: "Discover all active L2 IPv6 neighbors, MAC addresses, and upstream switch Router Advertisements on the local VLAN",
         cmd: "ping -6 -L -c 3 ff02::1%eth1 >/dev/null ; ip -6 -c neigh show dev eth1 && rdisc6 eth1",
-        details: "In IPv6, ICMPv6 Neighbor Discovery Protocol (NDP) replaces IPv4 ARP. Pinging 'ff02::1%eth1' triggers all local nodes on eth1 to reply, populating 'ip -6 neigh' with their link-local 'fe80::' addresses and hardware MACs. Furthermore, EUI-64 link-local addresses embed the NIC's MAC address directly inside the 'fe80::' address!",
+        details: "In IPv6, ICMPv6 Neighbor Discovery Protocol (NDP) replaces IPv4 ARP. Pinging 'ff02::1%eth1' triggers all local nodes on eth1 to reply, populating 'ip -6 neigh' with their link-local 'fe80::' addresses and hardware MACs. Furthermore, EUI-64 link-local addresses embed the NIC's MAC address directly inside the 'fe80::' address! Many current systems use stable-privacy link-local addresses (RFC 7217) instead, which don't contain the MAC.",
         flags: [
           ["ip -6 -c neigh show", "Display IPv6 Neighbor Discovery cache mapping fe80:: and global IPv6 addresses to L2 MACs"],
           ["ndisc6 <ipv6> eth1", "Send an ICMPv6 Neighbor Solicitation (type 135) on eth1 and print the target's L2 MAC address"],
@@ -1080,7 +1124,8 @@ const CLI_TOOLS_DATA = [
           ["arp-scan --interface=eth1 --localnet", "Legacy IPv4 L2 ARP scan (if dual-stack or checking factory-default IPv4 BMCs)"]
         ],
         tip: "rdisc6 shows the exact /64 prefix & MTU advertised by your ToR switch!",
-        tags: ["ndp", "ndisc6", "rdisc6", "ipv6", "neigh", "arp-scan", "mac", "vlan", "discovery"]
+        tags: ["ndp", "ndisc6", "rdisc6", "ipv6", "neigh", "arp-scan", "mac", "vlan", "discovery"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://manpages.debian.org/trixie/ndisc6/ndisc6.8.en.html", "title": "ndisc6(8), Debian"}, {"url": "https://manpages.debian.org/trixie/ndisc6/rdisc6.8.en.html", "title": "rdisc6(8), Debian"}, {"url": "https://man7.org/linux/man-pages/man8/ping.8.html", "title": "ping(8)"}, {"url": "https://manpages.debian.org/trixie/arp-scan/arp-scan.1.en.html", "title": "arp-scan(1), Debian"}], "note": "EUI-64 (MAC-derived) link-local addresses aren't universal: RFC 7217 stable-privacy addresses don't contain the MAC."}
       }
     ]
   },
@@ -1107,7 +1152,8 @@ const CLI_TOOLS_DATA = [
           ["tmux new-session -d -s burnin 'stress-ng --cpu 0 -t 4h > /tmp/burnin.log 2>&1'", "Launch a detached background tmux session running a 4-hour burn-in job"]
         ],
         tip: "synchronize-panes types across all split panes at once!",
-        tags: ["tmux", "session", "synchronize-panes", "ssh", "keepalive"]
+        tags: ["tmux", "session", "synchronize-panes", "ssh", "keepalive"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man.openbsd.org/tmux", "title": "tmux(1), OpenBSD"}]}
       }
     ]
   },
@@ -1129,11 +1175,12 @@ const CLI_TOOLS_DATA = [
           ["Ctrl+t q", "Exit key sequence for 'tio' (Ctrl+t ? lists all tio hotkeys)"]
         ],
         subcommands: [
-          ["tio -L", "List all available serial devices by ID (/dev/serial/by-id/*) on the system"],
+          ["tio -l", "List available serial devices (by ID), TIDs and configuration profiles"],
           ["picocom -b 115200 /dev/ttyUSB0   # Exit: Ctrl+a followed by Ctrl+x", "Alternative lightweight serial terminal using picocom"]
         ],
         tip: "Exit tio with Ctrl+t then q",
-        tags: ["tio", "picocom", "serial", "ttyusb0", "baud", "console"]
+        tags: ["tio", "picocom", "serial", "ttyusb0", "baud", "console"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://manpages.debian.org/trixie/tio/tio.1.en.html", "title": "tio(1), Debian"}, {"url": "https://manpages.debian.org/trixie/picocom/picocom.1.en.html", "title": "picocom(1), Debian"}], "note": "Corrected 2026-11-09: listing devices is tio -l (--list); -L is --log. Checked against tio 3.9."}
       }
     ]
   },
@@ -1156,7 +1203,8 @@ const CLI_TOOLS_DATA = [
           ["tar -czf - /etc/netplan/ | base64 -w0 && echo ''", "Encode an entire directory into a single Base64 line for serial console transfer"]
         ],
         tip: "Lifesaver when NICs are dead and only Serial/SOL works!",
-        tags: ["base64", "serial", "sol", "paste", "offline", "recovery"]
+        tags: ["base64", "serial", "sol", "paste", "offline", "recovery"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/base64.1.html", "title": "base64(1)"}]}
       }
     ]
   },
@@ -1179,11 +1227,12 @@ const CLI_TOOLS_DATA = [
         ],
         subcommands: [
           ["efibootmgr -n 0004 && reboot", "Set UEFI NextBoot to entry 0004 (e.g. PXE IPv6 NIC) for the upcoming reboot only and reboot"],
-          ["efibootmgr -c -d /dev/nvme0n1 -p 1 -L 'Ubuntu' -l '\\\\EFI\\\\ubuntu\\\\shimx64.efi'", "Create a new UEFI NVRAM boot entry pointing to the EFI System Partition (partition 1) on /dev/nvme0n1"],
+          ["efibootmgr -c -d /dev/nvme0n1 -p 1 -L 'Ubuntu' -l '\\EFI\\ubuntu\\shimx64.efi'", "Create a new UEFI NVRAM boot entry pointing to the EFI System Partition (partition 1) on /dev/nvme0n1"],
           ["mokutil --sb-state", "Check whether UEFI Secure Boot is currently enabled or disabled"]
         ],
         tip: "systemctl reboot --firmware-setup enters BIOS automatically!",
-        tags: ["efibootmgr", "uefi", "bios", "pxe", "bootorder", "nextboot", "mokutil"]
+        tags: ["efibootmgr", "uefi", "bios", "pxe", "bootorder", "nextboot", "mokutil"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://manpages.debian.org/trixie/efibootmgr/efibootmgr.8.en.html", "title": "efibootmgr(8), Debian"}, {"url": "https://manpages.debian.org/trixie/mokutil/mokutil.1.en.html", "title": "mokutil(1), Debian"}], "note": "Corrected 2026-11-09: the loader path takes single backslashes ('\\\\EFI\\\\ubuntu\\\\shimx64.efi')."}
       }
     ]
   },
@@ -1209,7 +1258,8 @@ const CLI_TOOLS_DATA = [
           ["udevadm control --reload-rules && udevadm trigger --verbose --type=devices --action=change", "Reload /etc/udev/rules.d/ and re-trigger udev rules across devices without rebooting"]
         ],
         tip: "Use /dev/disk/by-id/ for drive serial mapping",
-        tags: ["udevadm", "hotplug", "udev", "by-id", "by-path", "nvme", "nic"]
+        tags: ["udevadm", "hotplug", "udev", "by-id", "by-path", "nvme", "nic"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man8/udevadm.8.html", "title": "udevadm(8)"}]}
       }
     ]
   },
@@ -1233,7 +1283,8 @@ const CLI_TOOLS_DATA = [
           ["tail -n 100 /var/log/cloud-init-output.log /var/log/cloud-init.log", "Inspect stdout/stderr from cloud-init user-data provisioning scripts"],
           ["cloud-init query --all", "Dump all instance metadata and user-data variables discovered by cloud-init"]
         ],
-        tags: ["cloud-init", "maas", "provisioning", "subiquity", "ubuntu"]
+        tags: ["cloud-init", "maas", "provisioning", "subiquity", "ubuntu"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://docs.cloud-init.io/en/latest/reference/cli.html", "title": "cloud-init CLI reference"}]}
       }
     ]
   },
@@ -1261,7 +1312,8 @@ const CLI_TOOLS_DATA = [
           ["sudo -v", "Refresh the cache without running anything (before a long series of steps)"]
         ],
         tip: "Root is a tool for one step, not a place to work",
-        tags: ["sudo", "root", "danger", "least-privilege", "audit", "security"]
+        tags: ["sudo", "root", "danger", "least-privilege", "audit", "security"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://www.sudo.ws/docs/man/sudo.man/", "title": "sudo(8)"}, {"url": "https://www.sudo.ws/docs/man/sudoers.man/", "title": "sudoers(5)"}, {"url": "https://www.sudo.ws/docs/man/visudo.man/", "title": "visudo(8)"}, {"url": "https://documentation.ubuntu.com/release-notes/25.10/", "title": "Ubuntu 25.10 release notes (sudo-rs)"}, {"url": "https://www.sudo.ws/releases/stable/", "title": "sudo stable release"}], "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."}
       },
       {
         id: "sudo-who-am-i",
@@ -1279,7 +1331,8 @@ const CLI_TOOLS_DATA = [
           ["sudo -l", "What sudo lets you run on this host (asks for your password)"]
         ],
         tip: "Read the prompt: # means every command is unchecked",
-        tags: ["sudo", "root", "uid", "id", "whoami", "privilege"]
+        tags: ["sudo", "root", "uid", "id", "whoami", "privilege"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://www.sudo.ws/docs/man/sudo.man/", "title": "sudo(8)"}, {"url": "https://www.sudo.ws/docs/man/sudoers.man/", "title": "sudoers(5)"}, {"url": "https://www.sudo.ws/docs/man/visudo.man/", "title": "visudo(8)"}, {"url": "https://documentation.ubuntu.com/release-notes/25.10/", "title": "Ubuntu 25.10 release notes (sudo-rs)"}, {"url": "https://www.sudo.ws/releases/stable/", "title": "sudo stable release"}], "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."}
       },
       {
         id: "sudo-run-one",
@@ -1298,7 +1351,8 @@ const CLI_TOOLS_DATA = [
           ["sudo -n true && echo 'sudo works without a prompt'", "Check that a script can use sudo before it runs"]
         ],
         tip: "Prefix the one command, never your whole session",
-        tags: ["sudo", "run", "user", "non-interactive", "scripts"]
+        tags: ["sudo", "run", "user", "non-interactive", "scripts"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://www.sudo.ws/docs/man/sudo.man/", "title": "sudo(8)"}, {"url": "https://www.sudo.ws/docs/man/sudoers.man/", "title": "sudoers(5)"}, {"url": "https://www.sudo.ws/docs/man/visudo.man/", "title": "visudo(8)"}, {"url": "https://documentation.ubuntu.com/release-notes/25.10/", "title": "Ubuntu 25.10 release notes (sudo-rs)"}, {"url": "https://www.sudo.ws/releases/stable/", "title": "sudo stable release"}], "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."}
       },
       {
         id: "sudo-shells",
@@ -1316,7 +1370,8 @@ const CLI_TOOLS_DATA = [
           ["exit", "Back to your own user"]
         ],
         tip: "If you open a root shell, close it in the same breath",
-        tags: ["sudo", "root-shell", "su", "login", "logging"]
+        tags: ["sudo", "root-shell", "su", "login", "logging"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://www.sudo.ws/docs/man/sudo.man/", "title": "sudo(8)"}, {"url": "https://www.sudo.ws/docs/man/sudoers.man/", "title": "sudoers(5)"}, {"url": "https://www.sudo.ws/docs/man/visudo.man/", "title": "visudo(8)"}, {"url": "https://documentation.ubuntu.com/release-notes/25.10/", "title": "Ubuntu 25.10 release notes (sudo-rs)"}, {"url": "https://www.sudo.ws/releases/stable/", "title": "sudo stable release"}], "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."}
       },
       {
         id: "sudo-redirect-gotcha",
@@ -1333,7 +1388,8 @@ const CLI_TOOLS_DATA = [
           ["echo '2001:db8:dc:4::50 bmc-rack04' | sudo tee -a /etc/hosts > /dev/null", "Append a line to a root-owned file (changes state)"]
         ],
         tip: "The shell does the redirect, not sudo",
-        tags: ["sudo", "tee", "redirect", "permission-denied", "gotcha"]
+        tags: ["sudo", "tee", "redirect", "permission-denied", "gotcha"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://www.sudo.ws/docs/man/sudo.man/", "title": "sudo(8)"}, {"url": "https://www.sudo.ws/docs/man/sudoers.man/", "title": "sudoers(5)"}, {"url": "https://www.sudo.ws/docs/man/visudo.man/", "title": "visudo(8)"}, {"url": "https://documentation.ubuntu.com/release-notes/25.10/", "title": "Ubuntu 25.10 release notes (sudo-rs)"}, {"url": "https://www.sudo.ws/releases/stable/", "title": "sudo stable release"}], "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."}
       },
       {
         id: "sudo-edit-files",
@@ -1349,7 +1405,8 @@ const CLI_TOOLS_DATA = [
           ["sudo sshd -t", "Validate sshd_config before restarting sshd"]
         ],
         tip: "Back up, sudoedit, then validate",
-        tags: ["sudo", "sudoedit", "edit", "config", "nano", "vim"]
+        tags: ["sudo", "sudoedit", "edit", "config", "nano", "vim"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://www.sudo.ws/docs/man/sudo.man/", "title": "sudo(8)"}, {"url": "https://www.sudo.ws/docs/man/sudoers.man/", "title": "sudoers(5)"}, {"url": "https://www.sudo.ws/docs/man/visudo.man/", "title": "visudo(8)"}, {"url": "https://documentation.ubuntu.com/release-notes/25.10/", "title": "Ubuntu 25.10 release notes (sudo-rs)"}, {"url": "https://www.sudo.ws/releases/stable/", "title": "sudo stable release"}], "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."}
       },
       {
         id: "sudo-sudoers",
@@ -1367,7 +1424,8 @@ const CLI_TOOLS_DATA = [
           ["sudo visudo -c", "Syntax check of every sudoers file"]
         ],
         tip: "Keep a second root session open while you change sudoers",
-        tags: ["sudo", "sudoers", "visudo", "nopasswd", "least-privilege"]
+        tags: ["sudo", "sudoers", "visudo", "nopasswd", "least-privilege"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://www.sudo.ws/docs/man/sudo.man/", "title": "sudo(8)"}, {"url": "https://www.sudo.ws/docs/man/sudoers.man/", "title": "sudoers(5)"}, {"url": "https://www.sudo.ws/docs/man/visudo.man/", "title": "visudo(8)"}, {"url": "https://documentation.ubuntu.com/release-notes/25.10/", "title": "Ubuntu 25.10 release notes (sudo-rs)"}, {"url": "https://www.sudo.ws/releases/stable/", "title": "sudo stable release"}], "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."}
       },
       {
         id: "sudo-audit",
@@ -1384,7 +1442,8 @@ const CLI_TOOLS_DATA = [
           ["sudo grep -h 'COMMAND=' /var/log/auth.log | tail -n 20", "Last 20 sudo commands (Ubuntu and Debian)"]
         ],
         tip: "Commands typed inside a root shell do not show up here",
-        tags: ["sudo", "audit", "log", "journalctl", "auth.log", "incident"]
+        tags: ["sudo", "audit", "log", "journalctl", "auth.log", "incident"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://www.sudo.ws/docs/man/sudo.man/", "title": "sudo(8)"}, {"url": "https://www.sudo.ws/docs/man/sudoers.man/", "title": "sudoers(5)"}, {"url": "https://www.sudo.ws/docs/man/visudo.man/", "title": "visudo(8)"}, {"url": "https://documentation.ubuntu.com/release-notes/25.10/", "title": "Ubuntu 25.10 release notes (sudo-rs)"}, {"url": "https://www.sudo.ws/releases/stable/", "title": "sudo stable release"}], "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."}
       },
       {
         id: "sudo-implementation",
@@ -1400,7 +1459,8 @@ const CLI_TOOLS_DATA = [
           ["sudo --version", "Which sudo, which version"]
         ],
         tip: "If a sudoers rule behaves differently on Ubuntu 26.04, check which sudo is active",
-        tags: ["sudo", "sudo-rs", "ubuntu", "version", "rust"]
+        tags: ["sudo", "sudo-rs", "ubuntu", "version", "rust"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://www.sudo.ws/docs/man/sudo.man/", "title": "sudo(8)"}, {"url": "https://www.sudo.ws/docs/man/sudoers.man/", "title": "sudoers(5)"}, {"url": "https://www.sudo.ws/docs/man/visudo.man/", "title": "visudo(8)"}, {"url": "https://documentation.ubuntu.com/release-notes/25.10/", "title": "Ubuntu 25.10 release notes (sudo-rs)"}, {"url": "https://www.sudo.ws/releases/stable/", "title": "sudo stable release"}], "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."}
       }
     ]
   },
@@ -1425,7 +1485,8 @@ const CLI_TOOLS_DATA = [
           ["sysctl -w vm.drop_caches=3", "Instruct the kernel to drop clean pagecache, dentries, and inodes from RAM before storage benchmarks"]
         ],
         tip: "Persist settings in /etc/sysctl.d/90-custom.conf",
-        tags: ["sysctl", "kernel", "tuning", "hugepages", "swappiness", "network"]
+        tags: ["sysctl", "kernel", "tuning", "hugepages", "swappiness", "network"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man8/sysctl.8.html", "title": "sysctl(8)"}, {"url": "https://man7.org/linux/man-pages/man5/sysctl.d.5.html", "title": "sysctl.d(5)"}]}
       }
     ]
   },
@@ -1453,7 +1514,8 @@ const CLI_TOOLS_DATA = [
           ["hexdump -C -n 256 /bin/ls", "Alternative canonical hex+ASCII dump using BSD/util-linux hexdump -C"]
         ],
         tip: "Check first 64 bytes of a .bin to ensure it's not HTML!",
-        tags: ["xxd", "hexdump", "hex", "binary", "eeprom", "mbr", "gpt"]
+        tags: ["xxd", "hexdump", "hex", "binary", "eeprom", "mbr", "gpt"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://manpages.debian.org/trixie/xxd/xxd.1.en.html", "title": "xxd(1), Debian"}]}
       }
     ]
   },
@@ -1478,7 +1540,8 @@ const CLI_TOOLS_DATA = [
           ["cmp -l fw_slot1.bin fw_slot2.bin | head -n 20", "Compare two binary firmware images byte-by-byte and print differing byte offsets"]
         ],
         tip: "Verify board model inside firmware.bin before flashing!",
-        tags: ["strings", "cmp", "firmware", "binary", "version", "coredump"]
+        tags: ["strings", "cmp", "firmware", "binary", "version", "coredump"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://sourceware.org/binutils/docs/binutils/strings.html", "title": "GNU binutils: strings"}, {"url": "https://man7.org/linux/man-pages/man1/cmp.1.html", "title": "cmp(1)"}]}
       }
     ]
   },
@@ -1504,7 +1567,8 @@ const CLI_TOOLS_DATA = [
           ["ip -6 addr add 2001:db8:dc:4::10/64 dev eth1", "Temporarily assign an IPv6 /64 address to eth1 (for direct laptop/BMC recovery connection)"]
         ],
         tip: "LOWER_UP = physical link detected; UP = admin up",
-        tags: ["ip", "ipv6", "iproute2", "interface", "mac", "mtu", "counters", "vlan"]
+        tags: ["ip", "ipv6", "iproute2", "interface", "mac", "mtu", "counters", "vlan"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man8/ip-link.8.html", "title": "ip-link(8)"}, {"url": "https://man7.org/linux/man-pages/man8/ip-address.8.html", "title": "ip-address(8)"}, {"url": "https://man7.org/linux/man-pages/man8/ip-route.8.html", "title": "ip-route(8)"}, {"url": "https://man7.org/linux/man-pages/man8/ip-neighbour.8.html", "title": "ip-neighbour(8)"}, {"url": "https://man7.org/linux/man-pages/man8/ip-netns.8.html", "title": "ip-netns(8)"}], "note": "Corrected 2026-11-09: ip -6 neigh flush needs a selector (dev <if>), not 'all'."}
       },
       {
         id: "ip-route-neigh-netns",
@@ -1517,11 +1581,12 @@ const CLI_TOOLS_DATA = [
           ["-6 rule list", "List IPv6 Policy-Based Routing (PBR) rules and routing table priorities"]
         ],
         subcommands: [
-          ["ip -6 neigh flush all", "Flush stale IPv6 Neighbor Discovery (NDP) cache entries after a switch/VIP failover"],
+          ["ip -6 neigh flush dev eth0", "Flush stale IPv6 Neighbor Discovery (NDP) entries on eth0 after a switch/VIP failover (changes state)"],
           ["ip netns list && ip netns exec <ns_name> ip -6 -c -br addr", "List network namespaces and execute an ip -6 command inside an isolated namespace"]
         ],
         tip: "neigh state FAILED = ICMPv6 Neighbor Solicitation sent but no L2 reply!",
-        tags: ["ip", "ipv6", "route", "ndp", "neighbor", "gateway", "netns"]
+        tags: ["ip", "ipv6", "route", "ndp", "neighbor", "gateway", "netns"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man8/ip-link.8.html", "title": "ip-link(8)"}, {"url": "https://man7.org/linux/man-pages/man8/ip-address.8.html", "title": "ip-address(8)"}, {"url": "https://man7.org/linux/man-pages/man8/ip-route.8.html", "title": "ip-route(8)"}, {"url": "https://man7.org/linux/man-pages/man8/ip-neighbour.8.html", "title": "ip-neighbour(8)"}, {"url": "https://man7.org/linux/man-pages/man8/ip-netns.8.html", "title": "ip-netns(8)"}], "note": "Corrected 2026-11-09: ip -6 neigh flush needs a selector (dev <if>), not 'all'."}
       }
     ]
   },
@@ -1535,12 +1600,12 @@ const CLI_TOOLS_DATA = [
         id: "ss-listening-tcp-internals",
         desc: "List listening IPv6/TCP/UDP ports with owning PIDs, filter by TCP state, and inspect per-socket RTT & retransmits",
         cmd: "ss -tulpn && ss -6 -tanp state established",
-        details: "Queries kernel netlink TCP_DIAG directly. Adding '-ti' to established IPv6 connections shows internal kernel TCP stack telemetry for each socket: congestion algorithm (cubic/bbr), smoothed RTT in ms, congestion window (cwnd), and packet retransmit counts.",
+        details: "Reads sockets from the kernel over netlink. Adding '-ti' to established IPv6 connections shows internal kernel TCP stack telemetry for each socket: congestion algorithm (cubic/bbr), smoothed RTT in ms, congestion window (cwnd), and packet retransmit counts.",
         flags: [
           ["-6", "Filter specifically for IPv6 sockets (note: sockets bound to [::] often accept both IPv6 and IPv4)"],
           ["-t -u", "Show TCP (-t) and UDP (-u) sockets (-x for Unix domain sockets)"],
           ["-l / -a", "Show only listening sockets (-l) or all sockets (-a)"],
-          ["-p", "Show owning process name, PID, and file descriptor number (requires sudo)"],
+          ["-p", "Show owning process name, PID, and file descriptor number"],
           ["-n", "Do not resolve port numbers or IPv6 addresses (instant output)"],
           ["-i / -o", "Show internal TCP info (-i: RTT, cwnd, retransmits) and TCP retransmission timers (-o)"]
         ],
@@ -1550,7 +1615,8 @@ const CLI_TOOLS_DATA = [
           ["ss -6 -ti dst \"[2001:db8:dc:4::50]\"", "Inspect TCP RTT latency, congestion window (cwnd), and retransmit counts to a specific peer IPv6"]
         ],
         tip: "ss -6 -ti reveals per-connection IPv6 TCP retransmits & RTT",
-        tags: ["ss", "ipv6", "socket", "ports", "listen", "tcp", "retransmits", "rtt"]
+        tags: ["ss", "ipv6", "socket", "ports", "listen", "tcp", "retransmits", "rtt"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man8/ss.8.html", "title": "ss(8)"}], "note": "Corrected 2026-11-09: ss(8) doesn't say -p needs root; the maybe-root badge covers other users' processes."}
       }
     ]
   },
@@ -1578,7 +1644,8 @@ const CLI_TOOLS_DATA = [
           ["tcpdump -ni eth0 -nn -s 1500 -vv -c 1 'ether proto 0x88cc'", "Capture a single LLDP frame (ethertype 0x88cc) to see the upstream switch name and port ID"]
         ],
         tip: "DHCPv6 uses UDP 546/547; NDP/SLAAC uses ICMPv6 types 133–136!",
-        tags: ["tcpdump", "ipv6", "icmp6", "dhcpv6", "ndp", "pcap", "vlan", "pxe", "lldp", "bpf"]
+        tags: ["tcpdump", "ipv6", "icmp6", "dhcpv6", "ndp", "pcap", "vlan", "pxe", "lldp", "bpf"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://www.tcpdump.org/manpages/tcpdump.1.html", "title": "tcpdump(1)"}, {"url": "https://www.tcpdump.org/manpages/pcap-filter.7.html", "title": "pcap-filter(7)"}]}
       }
     ]
   },
@@ -1605,7 +1672,8 @@ const CLI_TOOLS_DATA = [
           ["dmesg -T | grep -iE 'oom|killed process|out of memory|mce|edac|aer|nvme|reset|link down'", "Scan kernel ring buffer for the top data center hardware and memory fault signatures"]
         ],
         tip: "Keep 'dmesg -T -w' open while hot-swapping hardware",
-        tags: ["dmesg", "kernel", "hardware", "oom", "mce", "aer", "hotplug"]
+        tags: ["dmesg", "kernel", "hardware", "oom", "mce", "aer", "hotplug"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/dmesg.1.html", "title": "dmesg(1)"}]}
       }
     ]
   }

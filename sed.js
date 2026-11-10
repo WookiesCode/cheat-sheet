@@ -49,7 +49,16 @@ const SED_DATA = [
           "config",
           "backup",
           "regex"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/sed.1.html",
+              "title": "sed(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -96,7 +105,16 @@ const SED_DATA = [
           "timestamps",
           "logs",
           "lines"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/sed.1.html",
+              "title": "sed(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -147,7 +165,16 @@ const SED_DATA = [
           "crlf",
           "known_hosts",
           "comments"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/sed.1.html",
+              "title": "sed(1)"
+            }
+          ]
+        }
       }
     ]
   }

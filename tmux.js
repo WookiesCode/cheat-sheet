@@ -38,7 +38,16 @@ const TMUX_DATA = [
           "synchronize-panes",
           "ssh",
           "keepalive"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man.openbsd.org/tmux",
+              "title": "tmux(1), OpenBSD"
+            }
+          ]
+        }
       }
     ]
   },
@@ -64,7 +73,16 @@ const TMUX_DATA = [
           "keepalive",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man.openbsd.org/tmux",
+              "title": "tmux(1), OpenBSD"
+            }
+          ]
+        }
       },
       {
         "id": "tmux-sessions-sync-panes-sub-2",
@@ -82,7 +100,16 @@ const TMUX_DATA = [
           "keepalive",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man.openbsd.org/tmux",
+              "title": "tmux(1), OpenBSD"
+            }
+          ]
+        }
       },
       {
         "id": "tmux-sessions-sync-panes-sub-3",
@@ -100,7 +127,16 @@ const TMUX_DATA = [
           "keepalive",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man.openbsd.org/tmux",
+              "title": "tmux(1), OpenBSD"
+            }
+          ]
+        }
       }
     ]
   },
@@ -126,7 +162,16 @@ const TMUX_DATA = [
           "keepalive",
           "pipe",
           "composite"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man.openbsd.org/tmux",
+              "title": "tmux(1), OpenBSD"
+            }
+          ]
+        }
       },
       {
         "id": "tmux-pipe-2",
@@ -144,7 +189,21 @@ const TMUX_DATA = [
           "keepalive",
           "pipe",
           "composite"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/tio/tio.1.en.html",
+              "title": "tio(1), Debian"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/picocom/picocom.1.en.html",
+              "title": "picocom(1), Debian"
+            }
+          ],
+          "note": "Corrected 2026-11-09: listing devices is tio -l (--list); -L is --log. Checked against tio 3.9."
+        }
       },
       {
         "id": "tmux-pipe-3",
@@ -162,7 +221,16 @@ const TMUX_DATA = [
           "keepalive",
           "pipe",
           "composite"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/base64.1.html",
+              "title": "base64(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -207,7 +275,16 @@ const TMUX_DATA = [
           "tips",
           "safety",
           "help"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man.openbsd.org/tmux",
+              "title": "tmux(1), OpenBSD"
+            }
+          ]
+        }
       }
     ]
   }

@@ -38,7 +38,16 @@ const CUT_DATA = [
           "columns",
           "delimiter",
           "slice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/cut.1.html",
+              "title": "cut(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -64,7 +73,16 @@ const CUT_DATA = [
           "slice",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/cut.1.html",
+              "title": "cut(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -109,7 +127,16 @@ const CUT_DATA = [
           "tips",
           "safety",
           "help"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/cut.1.html",
+              "title": "cut(1)"
+            }
+          ]
+        }
       }
     ]
   }

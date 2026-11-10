@@ -41,7 +41,20 @@ const OPENSSL_DATA = [
           "x509",
           "expiry",
           "san"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.openssl.org/master/man1/openssl-s_client/",
+              "title": "openssl s_client"
+            },
+            {
+              "url": "https://docs.openssl.org/master/man1/openssl-x509/",
+              "title": "openssl x509"
+            }
+          ]
+        }
       }
     ]
   },
@@ -70,7 +83,20 @@ const OPENSSL_DATA = [
           "san",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.openssl.org/master/man1/openssl-s_client/",
+              "title": "openssl s_client"
+            },
+            {
+              "url": "https://docs.openssl.org/master/man1/openssl-x509/",
+              "title": "openssl x509"
+            }
+          ]
+        }
       },
       {
         "id": "openssl-sclient-x509-sub-2",
@@ -91,7 +117,20 @@ const OPENSSL_DATA = [
           "san",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.openssl.org/master/man1/openssl-s_client/",
+              "title": "openssl s_client"
+            },
+            {
+              "url": "https://docs.openssl.org/master/man1/openssl-x509/",
+              "title": "openssl x509"
+            }
+          ]
+        }
       }
     ]
   },
@@ -139,7 +178,20 @@ const OPENSSL_DATA = [
           "tips",
           "safety",
           "help"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.openssl.org/master/man1/openssl-s_client/",
+              "title": "openssl s_client"
+            },
+            {
+              "url": "https://docs.openssl.org/master/man1/openssl-x509/",
+              "title": "openssl x509"
+            }
+          ]
+        }
       }
     ]
   }

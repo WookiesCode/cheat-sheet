@@ -43,7 +43,16 @@ const RSYNC_DATA = [
           "backup",
           "sparse",
           "bwlimit"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://download.samba.org/pub/rsync/rsync.1",
+              "title": "rsync(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -70,7 +79,16 @@ const RSYNC_DATA = [
           "bwlimit",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://download.samba.org/pub/rsync/rsync.1",
+              "title": "rsync(1)"
+            }
+          ]
+        }
       },
       {
         "id": "rsync-mirror-throttle-sub-2",
@@ -89,7 +107,16 @@ const RSYNC_DATA = [
           "bwlimit",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://download.samba.org/pub/rsync/rsync.1",
+              "title": "rsync(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -135,7 +162,16 @@ const RSYNC_DATA = [
           "tips",
           "safety",
           "help"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://download.samba.org/pub/rsync/rsync.1",
+              "title": "rsync(1)"
+            }
+          ]
+        }
       }
     ]
   }

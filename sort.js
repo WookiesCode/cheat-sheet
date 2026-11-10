@@ -43,7 +43,16 @@ const SORT_DATA = [
           "columns",
           "ip",
           "du"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/sort.1.html",
+              "title": "sort(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -70,7 +79,16 @@ const SORT_DATA = [
           "du",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/sort.1.html",
+              "title": "sort(1)"
+            }
+          ]
+        }
       },
       {
         "id": "sort-human-version-keys-sub-2",
@@ -89,7 +107,16 @@ const SORT_DATA = [
           "du",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/sort.1.html",
+              "title": "sort(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -135,7 +162,16 @@ const SORT_DATA = [
           "tips",
           "safety",
           "help"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/sort.1.html",
+              "title": "sort(1)"
+            }
+          ]
+        }
       }
     ]
   }

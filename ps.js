@@ -49,7 +49,16 @@ const PS_DATA = [
           "sort",
           "threads",
           "forest"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/ps.1.html",
+              "title": "ps(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -93,7 +102,16 @@ const PS_DATA = [
           "hung",
           "sigkill",
           "stack"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/ps.1.html",
+              "title": "ps(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -147,7 +165,16 @@ const PS_DATA = [
           "cgroup",
           "pgrep",
           "pkill"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/ps.1.html",
+              "title": "ps(1)"
+            }
+          ]
+        }
       }
     ]
   }

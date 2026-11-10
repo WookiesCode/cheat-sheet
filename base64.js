@@ -31,7 +31,16 @@ const BASE64_DATA = [
           "paste",
           "offline",
           "recovery"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/base64.1.html",
+              "title": "base64(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -58,7 +67,16 @@ const BASE64_DATA = [
           "recovery",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/base64.1.html",
+              "title": "base64(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -104,7 +122,16 @@ const BASE64_DATA = [
           "tips",
           "safety",
           "help"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/base64.1.html",
+              "title": "base64(1)"
+            }
+          ]
+        }
       }
     ]
   }

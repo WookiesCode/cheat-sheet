@@ -35,7 +35,16 @@ const TR_DATA = [
           "translate",
           "whitespace",
           "lowercase"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/tr.1.html",
+              "title": "tr(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -62,7 +71,16 @@ const TR_DATA = [
           "lowercase",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/tr.1.html",
+              "title": "tr(1)"
+            }
+          ]
+        }
       },
       {
         "id": "tr-squeeze-delete-translate-sub-2",
@@ -81,7 +99,16 @@ const TR_DATA = [
           "lowercase",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/tr.1.html",
+              "title": "tr(1)"
+            }
+          ]
+        }
       },
       {
         "id": "tr-squeeze-delete-translate-sub-3",
@@ -100,7 +127,16 @@ const TR_DATA = [
           "lowercase",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/tr.1.html",
+              "title": "tr(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -146,7 +182,16 @@ const TR_DATA = [
           "tips",
           "safety",
           "help"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/tr.1.html",
+              "title": "tr(1)"
+            }
+          ]
+        }
       }
     ]
   }

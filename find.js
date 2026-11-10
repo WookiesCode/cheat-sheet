@@ -53,7 +53,16 @@ const FIND_DATA = [
           "xdev",
           "prune",
           "empty"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/find.1.html",
+              "title": "find(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -105,7 +114,16 @@ const FIND_DATA = [
           "broken",
           "inode",
           "nouser"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/find.1.html",
+              "title": "find(1)"
+            }
+          ]
+        }
       }
     ]
   }

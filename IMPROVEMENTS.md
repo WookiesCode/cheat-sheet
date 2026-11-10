@@ -281,6 +281,29 @@ The last 29 Linux commands (files, permissions, text, processes, network, archiv
 
 **Now flagged as changing state** (`DANGER_RE`): `systemctl start|enable|disable|mask|unmask|edit|daemon-reload|kill|isolate|set-property`, `journalctl --vacuum-*`, `ufw allow|deny|…`, `apt`/`apt-get install|remove|purge|upgrade|full-upgrade|dist-upgrade|autoremove|reinstall` and `--fix-broken`, `dpkg -i|-r|-P|--configure`, `apt-mark hold|unhold|…`, `useradd`/`usermod`/`userdel`/group changes, `passwd` (as a command; `/etc/passwd` as a file isn't matched), `chmod`/`chown`/`chgrp`, `chattr ±`, `setfacl -m|-x|-b…`, `sed -i … /etc/…`, `rsync --delete` (not with `-n`/`--dry-run`), and `faillock --reset`. This flags 55 commands on 20 sheets that change system state (your ask-first list), including `systemctl enable --now nvidia-persistenced` and the netplan `chmod 600`.
 
+## #8 for the CLI tools (2026-11-09, `improve/sources-cli`)
+
+All 47 CLI tool sheets now show a source on every card (195/195: commands, recipes, pipelines and the generic tip cards), and so does the CLI tools hub (68/68). The sources are man7.org, Debian, the OpenBSD manuals (scp, sftp, tmux), and each project's own docs: curl, jq, Python http.server, OpenSSL, Nmap, cloud-init, sudo.ws, GNU binutils and tcpdump. All 69 links were checked to resolve. `generate-cli-suite.js` now passes `src` to every card it builds; a pipeline cites the tool its first word runs (tio, python3, gzip, nvme), not the card's own tool.
+
+| Was | Now |
+|---|---|
+| `xargs -P 0` "for all CPU cores" | as many processes as possible at once (no limit) |
+| `zstd -T0` "logical CPU cores"; "5x–10x faster, >1,500 MB/s" | physical cores (`--auto-threads=logical` for all threads); levels 1-19, 22 with `--ultra`; speed figures dropped |
+| `sftp` `reget -P …` | `reget …` (options are -f -p -R; same as `get -a`) |
+| `tio -L` lists devices | `tio -l` (`-L` is `--log`) |
+| `watch -d=permanent` | `--differences=permanent` |
+| `efibootmgr -l '\\EFI\\…'` | `-l '\EFI\ubuntu\shimx64.efi'` |
+| `ip -6 neigh flush all` | `ip -6 neigh flush dev eth0` (flagged) |
+| `ss -p` "(requires sudo)"; `ss` "TCP_DIAG directly" | no root claim; "reads sockets over netlink" |
+| `file` on a core dump shows "the signal" | identifies the dump and the program that produced it |
+| generic tip "Run with sudo when inspecting…" | "Some flags need root: the badge on the command says so" |
+
+Also noted that MAC-derived (EUI-64) link-local addresses aren't universal (RFC 7217), and that `nvme list -o json` field names are nvme-cli 2.x output. Confirmed as written: Ubuntu 25.10+ uses sudo-rs by default with the original kept as `sudo.ws`, and upstream sudo is 1.9.17p2.
+
+**Now flagged:** `fuser -k`, truncating through `> /proc/<pid>/fd/<n>`, `efibootmgr -n|-o|-B|-c|-a|-A|-t`, `sysctl -w|-p|--system`, `udevadm trigger`, and `ip addr|route|neigh|rule add|del|flush|change|replace`. `efibootmgr -n … && reboot` stays reference-only.
+
+**Lesson:** `DANGER_RE` is one big `\b( … )` group, so an alternative that starts with a non-word character (`>`, `(`) can never match at a space. The `/proc` pattern and the earlier `passwd` pattern now use lookbehinds, and both are tested in both directions.
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |

@@ -53,7 +53,16 @@ const SCP_DATA = [
           "bastion",
           "proxyjump",
           "port"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man.openbsd.org/scp",
+              "title": "scp(1), OpenBSD"
+            }
+          ]
+        }
       }
     ]
   },
@@ -82,7 +91,16 @@ const SCP_DATA = [
           "port",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man.openbsd.org/scp",
+              "title": "scp(1), OpenBSD"
+            }
+          ]
+        }
       },
       {
         "id": "scp-file-transfers-sub-2",
@@ -103,7 +121,16 @@ const SCP_DATA = [
           "port",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man.openbsd.org/scp",
+              "title": "scp(1), OpenBSD"
+            }
+          ]
+        }
       }
     ]
   },
@@ -132,7 +159,16 @@ const SCP_DATA = [
           "port",
           "pipe",
           "composite"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man.openbsd.org/scp",
+              "title": "scp(1), OpenBSD"
+            }
+          ]
+        }
       },
       {
         "id": "scp-pipe-2",
@@ -153,7 +189,16 @@ const SCP_DATA = [
           "port",
           "pipe",
           "composite"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man.openbsd.org/scp",
+              "title": "scp(1), OpenBSD"
+            }
+          ]
+        }
       },
       {
         "id": "scp-pipe-3",
@@ -174,7 +219,20 @@ const SCP_DATA = [
           "port",
           "pipe",
           "composite"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.python.org/3/library/http.server.html",
+              "title": "Python: http.server"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/wget/wget.1.en.html",
+              "title": "wget(1), Debian"
+            }
+          ]
+        }
       }
     ]
   },
@@ -222,7 +280,16 @@ const SCP_DATA = [
           "tips",
           "safety",
           "help"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man.openbsd.org/scp",
+              "title": "scp(1), OpenBSD"
+            }
+          ]
+        }
       }
     ]
   }

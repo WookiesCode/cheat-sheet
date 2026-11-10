@@ -31,7 +31,16 @@ const TEE_DATA = [
           "proc",
           "redirect",
           "logging"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/tee.1.html",
+              "title": "tee(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -58,7 +67,16 @@ const TEE_DATA = [
           "logging",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/tee.1.html",
+              "title": "tee(1)"
+            }
+          ]
+        }
       },
       {
         "id": "tee-sudo-sysfs-logging-sub-2",
@@ -77,7 +95,16 @@ const TEE_DATA = [
           "logging",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/tee.1.html",
+              "title": "tee(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -123,7 +150,16 @@ const TEE_DATA = [
           "tips",
           "safety",
           "help"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/tee.1.html",
+              "title": "tee(1)"
+            }
+          ]
+        }
       }
     ]
   }

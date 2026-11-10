@@ -43,7 +43,20 @@ const LSOF_DATA = [
           "ports",
           "socket",
           "fd"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/lsof/lsof.8.en.html",
+              "title": "lsof(8), Debian"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man5/proc.5.html",
+              "title": "proc(5)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -70,7 +83,20 @@ const LSOF_DATA = [
           "fd",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/lsof/lsof.8.en.html",
+              "title": "lsof(8), Debian"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man5/proc.5.html",
+              "title": "proc(5)"
+            }
+          ]
+        }
       },
       {
         "id": "lsof-deleted-sockets-pid-sub-2",
@@ -89,7 +115,20 @@ const LSOF_DATA = [
           "fd",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/lsof/lsof.8.en.html",
+              "title": "lsof(8), Debian"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man5/proc.5.html",
+              "title": "proc(5)"
+            }
+          ]
+        }
       },
       {
         "id": "lsof-deleted-sockets-pid-sub-3",
@@ -108,7 +147,20 @@ const LSOF_DATA = [
           "fd",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/lsof/lsof.8.en.html",
+              "title": "lsof(8), Debian"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man5/proc.5.html",
+              "title": "proc(5)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -154,7 +206,20 @@ const LSOF_DATA = [
           "tips",
           "safety",
           "help"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/lsof/lsof.8.en.html",
+              "title": "lsof(8), Debian"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man5/proc.5.html",
+              "title": "proc(5)"
+            }
+          ]
+        }
       }
     ]
   }

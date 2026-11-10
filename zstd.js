@@ -11,11 +11,11 @@ const ZSTD_DATA = [
         "id": "zstd-multithreaded-main",
         "desc": "Compress and decompress large logs, core dumps, or raw disk images using all CPU cores (-T0)",
         "cmd": "zstd -T0 -9 --rm /var/crash/vmcore.dump   # Decompress: unzstd vmcore.dump.zst",
-        "details": "Zstandard ('zstd') achieves compression ratios comparable to xz/gzip at 5x–10x the speed by scaling across all CPU threads ('-T0') and decompresses at >1,500 MB/s.",
+        "details": "Zstandard ('zstd') compresses fast and decompresses faster, and '-T0' spreads compression over the CPU's physical cores. Levels run 1-19 (default 3), up to 22 with --ultra.",
         "flags": [
           [
             "-T0",
-            "Spawn compression threads for all detected logical CPU cores"
+            "One compression thread per detected physical CPU core (--auto-threads=logical to use every thread)"
           ],
           [
             "-1 .. -19",
@@ -38,7 +38,17 @@ const ZSTD_DATA = [
           "zstdcat",
           "compress",
           "multithreaded"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/zstd/zstd.1.en.html",
+              "title": "zstd(1), Debian"
+            }
+          ],
+          "note": "Corrected 2026-11-09: -T0 detects physical cores (not logical); dropped unsourced speed figures."
+        }
       }
     ]
   },
@@ -64,7 +74,17 @@ const ZSTD_DATA = [
           "multithreaded",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/zstd/zstd.1.en.html",
+              "title": "zstd(1), Debian"
+            }
+          ],
+          "note": "Corrected 2026-11-09: -T0 detects physical cores (not logical); dropped unsourced speed figures."
+        }
       },
       {
         "id": "zstd-multithreaded-sub-2",
@@ -82,7 +102,17 @@ const ZSTD_DATA = [
           "multithreaded",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/zstd/zstd.1.en.html",
+              "title": "zstd(1), Debian"
+            }
+          ],
+          "note": "Corrected 2026-11-09: -T0 detects physical cores (not logical); dropped unsourced speed figures."
+        }
       }
     ]
   },
@@ -127,7 +157,17 @@ const ZSTD_DATA = [
           "tips",
           "safety",
           "help"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/zstd/zstd.1.en.html",
+              "title": "zstd(1), Debian"
+            }
+          ],
+          "note": "Corrected 2026-11-09: -T0 detects physical cores (not logical); dropped unsourced speed figures."
+        }
       }
     ]
   }

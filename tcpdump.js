@@ -47,7 +47,20 @@ const TCPDUMP_DATA = [
           "pxe",
           "lldp",
           "bpf"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.tcpdump.org/manpages/tcpdump.1.html",
+              "title": "tcpdump(1)"
+            },
+            {
+              "url": "https://www.tcpdump.org/manpages/pcap-filter.7.html",
+              "title": "pcap-filter(7)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -78,7 +91,20 @@ const TCPDUMP_DATA = [
           "bpf",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.tcpdump.org/manpages/tcpdump.1.html",
+              "title": "tcpdump(1)"
+            },
+            {
+              "url": "https://www.tcpdump.org/manpages/pcap-filter.7.html",
+              "title": "pcap-filter(7)"
+            }
+          ]
+        }
       },
       {
         "id": "tcpdump-datacenter-bpf-sub-2",
@@ -101,7 +127,20 @@ const TCPDUMP_DATA = [
           "bpf",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.tcpdump.org/manpages/tcpdump.1.html",
+              "title": "tcpdump(1)"
+            },
+            {
+              "url": "https://www.tcpdump.org/manpages/pcap-filter.7.html",
+              "title": "pcap-filter(7)"
+            }
+          ]
+        }
       },
       {
         "id": "tcpdump-datacenter-bpf-sub-3",
@@ -124,7 +163,20 @@ const TCPDUMP_DATA = [
           "bpf",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.tcpdump.org/manpages/tcpdump.1.html",
+              "title": "tcpdump(1)"
+            },
+            {
+              "url": "https://www.tcpdump.org/manpages/pcap-filter.7.html",
+              "title": "pcap-filter(7)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -174,7 +226,20 @@ const TCPDUMP_DATA = [
           "tips",
           "safety",
           "help"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.tcpdump.org/manpages/tcpdump.1.html",
+              "title": "tcpdump(1)"
+            },
+            {
+              "url": "https://www.tcpdump.org/manpages/pcap-filter.7.html",
+              "title": "pcap-filter(7)"
+            }
+          ]
+        }
       }
     ]
   }

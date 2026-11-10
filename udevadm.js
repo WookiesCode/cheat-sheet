@@ -36,7 +36,16 @@ const UDEVADM_DATA = [
           "by-path",
           "nvme",
           "nic"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/udevadm.8.html",
+              "title": "udevadm(8)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -64,7 +73,16 @@ const UDEVADM_DATA = [
           "nic",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/udevadm.8.html",
+              "title": "udevadm(8)"
+            }
+          ]
+        }
       },
       {
         "id": "udevadm-hotplug-monitor-sub-2",
@@ -84,7 +102,16 @@ const UDEVADM_DATA = [
           "nic",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/udevadm.8.html",
+              "title": "udevadm(8)"
+            }
+          ]
+        }
       },
       {
         "id": "udevadm-hotplug-monitor-sub-3",
@@ -104,7 +131,16 @@ const UDEVADM_DATA = [
           "nic",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/udevadm.8.html",
+              "title": "udevadm(8)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -151,7 +187,16 @@ const UDEVADM_DATA = [
           "tips",
           "safety",
           "help"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/udevadm.8.html",
+              "title": "udevadm(8)"
+            }
+          ]
+        }
       }
     ]
   }

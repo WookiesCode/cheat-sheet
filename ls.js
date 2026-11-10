@@ -57,7 +57,16 @@ const LS_DATA = [
           "iso",
           "timestamp",
           "directory"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/ls.1.html",
+              "title": "ls(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -108,7 +117,16 @@ const LS_DATA = [
           "blocks",
           "uid",
           "gid"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/ls.1.html",
+              "title": "ls(1)"
+            }
+          ]
+        }
       }
     ]
   }

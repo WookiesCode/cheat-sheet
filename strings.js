@@ -35,7 +35,20 @@ const STRINGS_DATA = [
           "binary",
           "version",
           "coredump"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://sourceware.org/binutils/docs/binutils/strings.html",
+              "title": "GNU binutils: strings"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/cmp.1.html",
+              "title": "cmp(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -62,7 +75,20 @@ const STRINGS_DATA = [
           "coredump",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://sourceware.org/binutils/docs/binutils/strings.html",
+              "title": "GNU binutils: strings"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/cmp.1.html",
+              "title": "cmp(1)"
+            }
+          ]
+        }
       },
       {
         "id": "strings-firmware-sub-2",
@@ -81,7 +107,20 @@ const STRINGS_DATA = [
           "coredump",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://sourceware.org/binutils/docs/binutils/strings.html",
+              "title": "GNU binutils: strings"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/cmp.1.html",
+              "title": "cmp(1)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -127,7 +166,20 @@ const STRINGS_DATA = [
           "tips",
           "safety",
           "help"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://sourceware.org/binutils/docs/binutils/strings.html",
+              "title": "GNU binutils: strings"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/cmp.1.html",
+              "title": "cmp(1)"
+            }
+          ]
+        }
       }
     ]
   }

@@ -434,6 +434,48 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     await ctx.close();
   }
 
+  // 2m. CLI tools (47 tool sheets + the hub): every card sourced (recipes, pipelines and tip cards
+  // too), the corrections, and the new state-change flags; read-only ip/sysctl/efibootmgr stay plain.
+  {
+    // Load the tool list the way the generator does: a sandbox with a stub localStorage.
+    const w = { localStorage: { getItem: () => null } };
+    require('vm').runInNewContext(fs.readFileSync(path.join(ROOT, 'cli-tools.js'), 'utf8').split('const searchInput =')[0] + ';D = CLI_TOOLS_DATA;', w);
+    const PAGES = w.D.map(t => t.id);
+    const ctx = await newContext(browser);
+    const p = await ctx.newPage();
+    const all = [];
+    const rows = [];
+    let text = '';
+    for (const f of PAGES) {
+      await p.goto(BASE + f + '.html', { waitUntil: 'load' });
+      await p.waitForTimeout(250);
+      text += await p.evaluate(() => { const c = document.body.cloneNode(true); c.querySelectorAll('.cmd-source').forEach(n => n.remove()); return c.textContent; });
+      all.push(...await p.evaluate(() => [...document.querySelectorAll('.cmd-item[data-cmd-id]')].filter(it => !/-flags-card$/.test(it.dataset.cmdId)).map(it => {
+        const b = it.querySelector('.cmd-code-box');
+        return { id: it.dataset.cmdId, code: b ? (b.dataset.cmd || b.dataset.copy || '').trim() : '', src: !!it.querySelector('.cmd-source:not(.is-unverified)'), danger: !!(b && /Changes state/.test(b.getAttribute('aria-label') || '')), ref: !!(b && b.classList.contains('is-reference')) };
+      })));
+      // Multi-command tools keep their recipes as rows inside the card.
+      rows.push(...await p.evaluate(() => [...document.querySelectorAll('.subcmd-row')].map(r => ({ code: (r.dataset.copy || r.dataset.subcmd || '').trim(), danger: /Changes state/.test(r.getAttribute('aria-label') || '') }))));
+    }
+    check(all.length >= 190 && all.every(x => x.src), `every card on the 47 CLI tool sheets shows a verified source (${all.filter(x => x.src).length}/${all.length})`);
+    await p.goto(BASE + 'cli-tools.html', { waitUntil: 'load' });
+    await p.waitForTimeout(700);
+    const hub = await p.evaluate(() => { const items = [...document.querySelectorAll('.cmd-item:is([data-id],[data-cmd-id])')]; return { n: items.length, src: items.filter(it => it.querySelector('.cmd-source')).length }; });
+    check(hub.n >= 60 && hub.src === hub.n, `every command on the CLI tools hub has a source line (${hub.src}/${hub.n})`);
+    check(!/-P 0 for all CPU cores|logical CPU cores|reget -P|tio -L\b|-d=permanent|neigh flush all|5x–10x|exact binary name and signal|Run with sudo when/.test(text), 'corrections: xargs -P 0, zstd -T0, sftp reget, tio -l, watch --differences, ip neigh flush, unsourced claims');
+    check(all.some(x => x.code === "efibootmgr -c -d /dev/nvme0n1 -p 1 -L 'Ubuntu' -l '\\EFI\\ubuntu\\shimx64.efi'"), 'efibootmgr loader path renders with single backslashes');
+    const byCode = re => [...all, ...rows].filter(x => re.test(x.code));
+    check(byCode(/^efibootmgr -n 0004 && reboot/).every(x => x.ref), 'efibootmgr -n … && reboot is reference-only (it reboots this machine)');
+    const flagged = [/^fuser -v -k -TERM/, /^efibootmgr -c /, /^sysctl -w /, /^sysctl --system/, /^udevadm control --reload-rules && udevadm trigger/, /^ip -6 neigh flush dev/, /^ip -6 addr add/, /^: > \/proc\//];
+    const fl = flagged.map(re => [re.source, byCode(re)]);
+    fl.filter(([, l]) => !(l.length && l.every(x => x.danger))).forEach(([re, l]) => console.log(`     not flagged or missing: ${re} (${l.map(x => x.code.slice(0, 60)).join(' | ') || 'no card'})`));
+    check(fl.every(([, l]) => l.length && l.every(x => x.danger)), `fuser -k, efibootmgr changes, sysctl writes, udevadm trigger, ip add/flush and /proc fd truncation are flagged (${fl.filter(([, l]) => l.length && l.every(x => x.danger)).length}/${fl.length})`);
+    const plain = [/^efibootmgr -v$/, /^sysctl -a /, /^ip -c -br link show/, /^ip -6 route get/, /^udevadm monitor/, /^watch -n 1 -d/];
+    const pl = plain.map(re => byCode(re)).flat();
+    check(pl.length >= 6 && !pl.some(x => x.danger), `read-only efibootmgr -v, sysctl -a, ip show/route get, udevadm monitor and watch are not flagged (${pl.filter(x => !x.danger).length}/${pl.length})`);
+    await ctx.close();
+  }
+
   // 3. Over a year old → amber "re-check"; and src can't inject markup or javascript: links.
   {
     const ctx = await newContext(browser);

@@ -44,7 +44,16 @@ const XXD_DATA = [
           "eeprom",
           "mbr",
           "gpt"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/xxd/xxd.1.en.html",
+              "title": "xxd(1), Debian"
+            }
+          ]
+        }
       }
     ]
   },
@@ -72,7 +81,16 @@ const XXD_DATA = [
           "gpt",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/xxd/xxd.1.en.html",
+              "title": "xxd(1), Debian"
+            }
+          ]
+        }
       },
       {
         "id": "xxd-hexdump-binary-sub-2",
@@ -92,7 +110,16 @@ const XXD_DATA = [
           "gpt",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/xxd/xxd.1.en.html",
+              "title": "xxd(1), Debian"
+            }
+          ]
+        }
       },
       {
         "id": "xxd-hexdump-binary-sub-3",
@@ -112,7 +139,16 @@ const XXD_DATA = [
           "gpt",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/xxd/xxd.1.en.html",
+              "title": "xxd(1), Debian"
+            }
+          ]
+        }
       }
     ]
   },
@@ -159,7 +195,16 @@ const XXD_DATA = [
           "tips",
           "safety",
           "help"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/xxd/xxd.1.en.html",
+              "title": "xxd(1), Debian"
+            }
+          ]
+        }
       }
     ]
   }

@@ -39,7 +39,21 @@ const TIO_DATA = [
           "ttyusb0",
           "baud",
           "console"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/tio/tio.1.en.html",
+              "title": "tio(1), Debian"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/picocom/picocom.1.en.html",
+              "title": "picocom(1), Debian"
+            }
+          ],
+          "note": "Corrected 2026-11-09: listing devices is tio -l (--list); -L is --log. Checked against tio 3.9."
+        }
       }
     ]
   },
@@ -51,9 +65,9 @@ const TIO_DATA = [
     "commands": [
       {
         "id": "serial-console-tio-sub-1",
-        "desc": "List all available serial devices by ID (/dev/serial/by-id/*) on the system",
-        "cmd": "tio -L",
-        "details": "Production variation: List all available serial devices by ID (/dev/serial/by-id/*) on the system. Useful for triage, automation, and targeted filtering.",
+        "desc": "List available serial devices (by ID), TIDs and configuration profiles",
+        "cmd": "tio -l",
+        "details": "Production variation: List available serial devices (by ID), TIDs and configuration profiles. Useful for triage, automation, and targeted filtering.",
         "flags": [],
         "subcommands": [],
         "tip": "Frequently used with tio in production workflows",
@@ -66,7 +80,21 @@ const TIO_DATA = [
           "console",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/tio/tio.1.en.html",
+              "title": "tio(1), Debian"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/picocom/picocom.1.en.html",
+              "title": "picocom(1), Debian"
+            }
+          ],
+          "note": "Corrected 2026-11-09: listing devices is tio -l (--list); -L is --log. Checked against tio 3.9."
+        }
       },
       {
         "id": "serial-console-tio-sub-2",
@@ -85,7 +113,21 @@ const TIO_DATA = [
           "console",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/tio/tio.1.en.html",
+              "title": "tio(1), Debian"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/picocom/picocom.1.en.html",
+              "title": "picocom(1), Debian"
+            }
+          ],
+          "note": "Corrected 2026-11-09: listing devices is tio -l (--list); -L is --log. Checked against tio 3.9."
+        }
       }
     ]
   },
@@ -131,7 +173,21 @@ const TIO_DATA = [
           "tips",
           "safety",
           "help"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/tio/tio.1.en.html",
+              "title": "tio(1), Debian"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/picocom/picocom.1.en.html",
+              "title": "picocom(1), Debian"
+            }
+          ],
+          "note": "Corrected 2026-11-09: listing devices is tio -l (--list); -L is --log. Checked against tio 3.9."
+        }
       }
     ]
   }

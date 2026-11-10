@@ -27,14 +27,23 @@ const CLOUD_INIT_DATA = [
           ]
         ],
         "subcommands": [],
-        "tip": "Run with sudo when inspecting hardware or root processes",
+        "tip": "Some flags need root: the badge on the command says so",
         "tags": [
           "cloud-init",
           "maas",
           "provisioning",
           "subiquity",
           "ubuntu"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.cloud-init.io/en/latest/reference/cli.html",
+              "title": "cloud-init CLI reference"
+            }
+          ]
+        }
       }
     ]
   },
@@ -60,7 +69,16 @@ const CLOUD_INIT_DATA = [
           "ubuntu",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.cloud-init.io/en/latest/reference/cli.html",
+              "title": "cloud-init CLI reference"
+            }
+          ]
+        }
       },
       {
         "id": "cloudinit-triage-sub-2",
@@ -78,7 +96,16 @@ const CLOUD_INIT_DATA = [
           "ubuntu",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.cloud-init.io/en/latest/reference/cli.html",
+              "title": "cloud-init CLI reference"
+            }
+          ]
+        }
       }
     ]
   },
@@ -123,7 +150,16 @@ const CLOUD_INIT_DATA = [
           "tips",
           "safety",
           "help"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.cloud-init.io/en/latest/reference/cli.html",
+              "title": "cloud-init CLI reference"
+            }
+          ]
+        }
       }
     ]
   }

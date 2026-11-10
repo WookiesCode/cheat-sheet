@@ -51,7 +51,16 @@ const CURL_DATA = [
           "iso",
           "firmware",
           "ttfb"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://curl.se/docs/manpage.html",
+              "title": "curl manual"
+            }
+          ]
+        }
       }
     ]
   },
@@ -82,7 +91,16 @@ const CURL_DATA = [
           "ttfb",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://curl.se/docs/manpage.html",
+              "title": "curl manual"
+            }
+          ]
+        }
       },
       {
         "id": "curl-downloads-timing-sub-2",
@@ -105,7 +123,16 @@ const CURL_DATA = [
           "ttfb",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://curl.se/docs/manpage.html",
+              "title": "curl manual"
+            }
+          ]
+        }
       },
       {
         "id": "curl-downloads-timing-sub-3",
@@ -128,7 +155,16 @@ const CURL_DATA = [
           "ttfb",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://curl.se/docs/manpage.html",
+              "title": "curl manual"
+            }
+          ]
+        }
       }
     ]
   },
@@ -178,7 +214,16 @@ const CURL_DATA = [
           "tips",
           "safety",
           "help"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://curl.se/docs/manpage.html",
+              "title": "curl manual"
+            }
+          ]
+        }
       }
     ]
   }

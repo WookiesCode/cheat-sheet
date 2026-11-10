@@ -36,7 +36,20 @@ const HTTP_SERVER_DATA = [
           "firmware",
           "iso",
           "staging"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.python.org/3/library/http.server.html",
+              "title": "Python: http.server"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/wget/wget.1.en.html",
+              "title": "wget(1), Debian"
+            }
+          ]
+        }
       }
     ]
   },
@@ -64,7 +77,20 @@ const HTTP_SERVER_DATA = [
           "staging",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.python.org/3/library/http.server.html",
+              "title": "Python: http.server"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/wget/wget.1.en.html",
+              "title": "wget(1), Debian"
+            }
+          ]
+        }
       },
       {
         "id": "python-http-server-sub-2",
@@ -84,7 +110,20 @@ const HTTP_SERVER_DATA = [
           "staging",
           "variation",
           "recipe"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.python.org/3/library/http.server.html",
+              "title": "Python: http.server"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/wget/wget.1.en.html",
+              "title": "wget(1), Debian"
+            }
+          ]
+        }
       }
     ]
   },
@@ -131,7 +170,20 @@ const HTTP_SERVER_DATA = [
           "tips",
           "safety",
           "help"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.python.org/3/library/http.server.html",
+              "title": "Python: http.server"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/wget/wget.1.en.html",
+              "title": "wget(1), Debian"
+            }
+          ]
+        }
       }
     ]
   }
