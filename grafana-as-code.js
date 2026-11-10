@@ -31,7 +31,7 @@ const GRAF_GRAFANA_AS_CODE_DATA = [
           ],
           [
             "Grafana 13",
-            "Exports default to the v2 resource schema (apiVersion/kind/spec); classic JSON like this still imports and is migrated"
+            "A dashboard can be exported as Classic JSON (like this) or the V2 Resource schema (apiVersion/kind/spec); classic JSON still imports and is migrated when opened"
           ]
         ],
         "tip": "Set uid yourself; drop id when moving",
@@ -46,7 +46,20 @@ const GRAF_GRAFANA_AS_CODE_DATA = [
           "panels",
           "export",
           "schema"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/view-dashboard-json-model/",
+              "title": "Grafana: dashboard JSON model"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/dashboard/",
+              "title": "Grafana: Dashboard API (/apis)"
+            }
+          ]
+        }
       },
       {
         "id": "grafana-dashboard-json-skeleton-sub-1",
@@ -60,7 +73,20 @@ const GRAF_GRAFANA_AS_CODE_DATA = [
           "json",
           "model",
           "uid"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/view-dashboard-json-model/",
+              "title": "Grafana: dashboard JSON model"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/dashboard/",
+              "title": "Grafana: Dashboard API (/apis)"
+            }
+          ]
+        }
       },
       {
         "id": "grafana-dashboard-json-skeleton-sub-2",
@@ -74,7 +100,20 @@ const GRAF_GRAFANA_AS_CODE_DATA = [
           "json",
           "model",
           "uid"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/view-dashboard-json-model/",
+              "title": "Grafana: dashboard JSON model"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/dashboard/",
+              "title": "Grafana: Dashboard API (/apis)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -121,7 +160,16 @@ const GRAF_GRAFANA_AS_CODE_DATA = [
           "file",
           "folders",
           "gitops"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/administration/provisioning/",
+              "title": "Grafana: provisioning"
+            }
+          ]
+        }
       },
       {
         "id": "grafana-dashboard-provider-sub-1",
@@ -135,7 +183,16 @@ const GRAF_GRAFANA_AS_CODE_DATA = [
           "provisioning",
           "yaml",
           "file"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/administration/provisioning/",
+              "title": "Grafana: provisioning"
+            }
+          ]
+        }
       }
     ]
   },
@@ -162,6 +219,10 @@ const GRAF_GRAFANA_AS_CODE_DATA = [
           [
             "> gpu-fleet.json",
             "Redirect into a file you commit to git"
+          ],
+          [
+            "Grafana 13",
+            "The /api routes are deprecated in favour of /apis, but still served: they just no longer get updates"
           ]
         ],
         "tip": "Export → del(.id) → commit",
@@ -175,7 +236,33 @@ const GRAF_GRAFANA_AS_CODE_DATA = [
           "jq",
           "backup",
           "uid"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/v12.4/developer-resources/api-reference/http-api/dashboard/",
+              "title": "Grafana 12.4: dashboard API (/api/dashboards)"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/folder_dashboard_search/",
+              "title": "Grafana: search API"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/v12.4/developer-resources/api-reference/http-api/folder/",
+              "title": "Grafana 12.4: folder API"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/dashboard/",
+              "title": "Grafana: Dashboard API (/apis)"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/",
+              "title": "Grafana: legacy HTTP API (deprecation)"
+            }
+          ],
+          "note": "Added 2026-11-10: Grafana 13 deprecates /api routes for /apis; they are still served but no longer updated."
+        }
       },
       {
         "id": "grafana-api-export-sub-1",
@@ -189,7 +276,33 @@ const GRAF_GRAFANA_AS_CODE_DATA = [
           "api",
           "export",
           "curl"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/v12.4/developer-resources/api-reference/http-api/dashboard/",
+              "title": "Grafana 12.4: dashboard API (/api/dashboards)"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/folder_dashboard_search/",
+              "title": "Grafana: search API"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/v12.4/developer-resources/api-reference/http-api/folder/",
+              "title": "Grafana 12.4: folder API"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/dashboard/",
+              "title": "Grafana: Dashboard API (/apis)"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/",
+              "title": "Grafana: legacy HTTP API (deprecation)"
+            }
+          ],
+          "note": "Added 2026-11-10: Grafana 13 deprecates /api routes for /apis; they are still served but no longer updated."
+        }
       },
       {
         "id": "grafana-api-export-sub-2",
@@ -203,7 +316,33 @@ const GRAF_GRAFANA_AS_CODE_DATA = [
           "api",
           "export",
           "curl"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/v12.4/developer-resources/api-reference/http-api/dashboard/",
+              "title": "Grafana 12.4: dashboard API (/api/dashboards)"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/folder_dashboard_search/",
+              "title": "Grafana: search API"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/v12.4/developer-resources/api-reference/http-api/folder/",
+              "title": "Grafana 12.4: folder API"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/dashboard/",
+              "title": "Grafana: Dashboard API (/apis)"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/",
+              "title": "Grafana: legacy HTTP API (deprecation)"
+            }
+          ],
+          "note": "Added 2026-11-10: Grafana 13 deprecates /api routes for /apis; they are still served but no longer updated."
+        }
       },
       {
         "id": "grafana-api-export-sub-3",
@@ -217,7 +356,73 @@ const GRAF_GRAFANA_AS_CODE_DATA = [
           "api",
           "export",
           "curl"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/v12.4/developer-resources/api-reference/http-api/dashboard/",
+              "title": "Grafana 12.4: dashboard API (/api/dashboards)"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/folder_dashboard_search/",
+              "title": "Grafana: search API"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/v12.4/developer-resources/api-reference/http-api/folder/",
+              "title": "Grafana 12.4: folder API"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/dashboard/",
+              "title": "Grafana: Dashboard API (/apis)"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/",
+              "title": "Grafana: legacy HTTP API (deprecation)"
+            }
+          ],
+          "note": "Added 2026-11-10: Grafana 13 deprecates /api routes for /apis; they are still served but no longer updated."
+        }
+      },
+      {
+        "id": "grafana-api-export-sub-4",
+        "desc": "The same dashboard from the new Dashboard API (Grafana 12+); spec holds the classic JSON. The namespace is default in Grafana's examples",
+        "cmd": "curl -s -H \"Authorization: Bearer $GRAFANA_TOKEN\" \"$GRAFANA_URL/apis/dashboard.grafana.app/v1/namespaces/default/dashboards/gpu-fleet\" | jq '.spec'",
+        "tags": [
+          "grafana",
+          "dashboards",
+          "observability",
+          "recipe",
+          "api",
+          "export",
+          "curl"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/v12.4/developer-resources/api-reference/http-api/dashboard/",
+              "title": "Grafana 12.4: dashboard API (/api/dashboards)"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/folder_dashboard_search/",
+              "title": "Grafana: search API"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/v12.4/developer-resources/api-reference/http-api/folder/",
+              "title": "Grafana 12.4: folder API"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/dashboard/",
+              "title": "Grafana: Dashboard API (/apis)"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/",
+              "title": "Grafana: legacy HTTP API (deprecation)"
+            }
+          ],
+          "note": "Added 2026-11-10: Grafana 13 deprecates /api routes for /apis; they are still served but no longer updated."
+        }
       }
     ]
   },
@@ -239,11 +444,11 @@ const GRAF_GRAFANA_AS_CODE_DATA = [
           ],
           [
             "folderUid",
-            "Folder to save into. If you leave it out on an update, the dashboard can move to the General folder"
+            "Folder to save into. If you leave it out on an update, the dashboard moves to the root level"
           ],
           [
             "overwrite: true",
-            "Replace an existing dashboard with the same uid or title. Without it, the API refuses (412 version-mismatch / name-exists)"
+            "Replace an existing dashboard with the same uid. Without it, the API refuses (412 version-mismatch / name-exists)"
           ],
           [
             "message",
@@ -266,7 +471,25 @@ const GRAF_GRAFANA_AS_CODE_DATA = [
           "jq",
           "overwrite",
           "folder"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/v12.4/developer-resources/api-reference/http-api/dashboard/",
+              "title": "Grafana 12.4: dashboard API (/api/dashboards)"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/dashboard/",
+              "title": "Grafana: Dashboard API (/apis)"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/",
+              "title": "Grafana: legacy HTTP API (deprecation)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: leaving out folderUid on an update moves the dashboard to the root level (it was \"can move\")."
+        }
       }
     ]
   },
@@ -274,11 +497,11 @@ const GRAF_GRAFANA_AS_CODE_DATA = [
     "id": "grafana-as-code-cmd-5",
     "badge": "code",
     "title": "Dashboards as Code: gcx",
-    "subtitle": "gcx: pull and push dashboards as files (successor to grafanactl, Grafana 12+)",
+    "subtitle": "gcx: pull and push dashboards as files (successor to grafanactl; full support on Grafana 13+)",
     "commands": [
       {
         "id": "grafana-gcx",
-        "desc": "gcx: pull and push dashboards as files (successor to grafanactl, Grafana 12+)",
+        "desc": "gcx: pull and push dashboards as files (successor to grafanactl; full support on Grafana 13+)",
         "cmd": "gcx resources pull --path ./resources/ -o yaml",
         "details": "",
         "flags": [
@@ -300,11 +523,11 @@ const GRAF_GRAFANA_AS_CODE_DATA = [
           ],
           [
             "Contexts",
-            "Configure one context per Grafana (lab, prod) and switch between them; see gcx config --help"
+            "gcx login creates a context per Grafana (lab, prod); gcx config manages and switches them (gcx config --help)"
           ],
           [
             "grafanactl",
-            "Deprecated; its repo was archived 2026-06-01. Replace grafanactl with gcx in old scripts"
+            "Deprecated (last release v0.1.10, April 2026). Its README says to search-and-replace grafanactl with gcx in old scripts"
           ]
         ],
         "tip": "Old scripts: grafanactl → gcx",
@@ -318,7 +541,25 @@ const GRAF_GRAFANA_AS_CODE_DATA = [
           "pull",
           "push",
           "gitops"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/grafana/gcx",
+              "title": "gcx README"
+            },
+            {
+              "url": "https://github.com/grafana/gcx/blob/main/cmd/gcx/resources/pull.go",
+              "title": "gcx source: resources pull flags"
+            },
+            {
+              "url": "https://github.com/grafana/grafanactl",
+              "title": "grafanactl README (deprecation)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: grafanactl's repo was announced for archiving on June 1, 2026 but was still not archived on Nov 10; gcx fully supports Grafana 13+ only."
+        }
       },
       {
         "id": "grafana-gcx-sub-1",
@@ -332,7 +573,25 @@ const GRAF_GRAFANA_AS_CODE_DATA = [
           "gcx",
           "grafanactl",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/grafana/gcx",
+              "title": "gcx README"
+            },
+            {
+              "url": "https://github.com/grafana/gcx/blob/main/cmd/gcx/resources/pull.go",
+              "title": "gcx source: resources pull flags"
+            },
+            {
+              "url": "https://github.com/grafana/grafanactl",
+              "title": "grafanactl README (deprecation)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: grafanactl's repo was announced for archiving on June 1, 2026 but was still not archived on Nov 10; gcx fully supports Grafana 13+ only."
+        }
       },
       {
         "id": "grafana-gcx-sub-2",
@@ -346,7 +605,25 @@ const GRAF_GRAFANA_AS_CODE_DATA = [
           "gcx",
           "grafanactl",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/grafana/gcx",
+              "title": "gcx README"
+            },
+            {
+              "url": "https://github.com/grafana/gcx/blob/main/cmd/gcx/resources/pull.go",
+              "title": "gcx source: resources pull flags"
+            },
+            {
+              "url": "https://github.com/grafana/grafanactl",
+              "title": "grafanactl README (deprecation)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: grafanactl's repo was announced for archiving on June 1, 2026 but was still not archived on Nov 10; gcx fully supports Grafana 13+ only."
+        }
       },
       {
         "id": "grafana-gcx-sub-3",
@@ -360,7 +637,25 @@ const GRAF_GRAFANA_AS_CODE_DATA = [
           "gcx",
           "grafanactl",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/grafana/gcx",
+              "title": "gcx README"
+            },
+            {
+              "url": "https://github.com/grafana/gcx/blob/main/cmd/gcx/resources/pull.go",
+              "title": "gcx source: resources pull flags"
+            },
+            {
+              "url": "https://github.com/grafana/grafanactl",
+              "title": "grafanactl README (deprecation)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: grafanactl's repo was announced for archiving on June 1, 2026 but was still not archived on Nov 10; gcx fully supports Grafana 13+ only."
+        }
       }
     ]
   },
@@ -368,11 +663,11 @@ const GRAF_GRAFANA_AS_CODE_DATA = [
     "id": "grafana-as-code-cmd-6",
     "badge": "code",
     "title": "Dashboards as Code: Git Sync",
-    "subtitle": "Git Sync (GA in Grafana 13): keep dashboards in a GitHub/GitLab/Bitbucket repo from the UI",
+    "subtitle": "Git Sync (GA in Grafana 13): keep dashboards in a Git repo (GitHub, GitLab, Bitbucket or any Git) from the UI",
     "commands": [
       {
         "id": "grafana-git-sync",
-        "desc": "Git Sync (GA in Grafana 13): keep dashboards in a GitHub/GitLab/Bitbucket repo from the UI",
+        "desc": "Git Sync (GA in Grafana 13): keep dashboards in a Git repo (GitHub, GitLab, Bitbucket or any Git) from the UI",
         "cmd": "Administration → General → Provisioning → Configure Git Sync",
         "details": "",
         "flags": [
@@ -382,7 +677,7 @@ const GRAF_GRAFANA_AS_CODE_DATA = [
           ],
           [
             "Auth",
-            "GitHub App or a token for GitLab/Bitbucket; use a dedicated repo or folder"
+            "GitHub: personal access token, GitHub App or OAuth App; GitLab and Bitbucket: a token. Use a dedicated repo or folder"
           ],
           [
             "vs file provisioning",
@@ -403,7 +698,25 @@ const GRAF_GRAFANA_AS_CODE_DATA = [
           "gitops",
           "github",
           "provisioning"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/as-code/git-sync/",
+              "title": "Grafana: Git Sync"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/as-code/git-sync/git-sync-setup/",
+              "title": "Grafana: set up Git Sync"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/whatsnew/whats-new-in-v13/whats-new-in-v13-0/",
+              "title": "What's new in Grafana 13.0"
+            }
+          ],
+          "note": "Corrected 2026-11-10: Git Sync works with any Git repo, and GitHub can also use a personal access token or an OAuth App."
+        }
       }
     ]
   },
@@ -439,7 +752,20 @@ const GRAF_GRAFANA_AS_CODE_DATA = [
           "observability",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/administration/provisioning/",
+              "title": "Grafana: provisioning"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/as-code/git-sync/",
+              "title": "Grafana: Git Sync"
+            }
+          ]
+        }
       }
     ]
   }

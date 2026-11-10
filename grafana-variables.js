@@ -18,6 +18,10 @@ const GRAF_GRAFANA_VARIABLES_DATA = [
             "Values come from the data source; the query above lists every hostname that has GPU metrics"
           ],
           [
+            "Query type",
+            "Typing label_values() is the Classic query type, which Grafana's docs mark deprecated. The same list without it: Query type = Label values, Label = hostname, Metric = DCGM_FI_DEV_GPU_TEMP_CELSIUS"
+          ],
+          [
             "Name: host",
             "Use it in queries as $host: DCGM_FI_DEV_GPU_TEMP_CELSIUS{hostname=~\"$host\"}"
           ],
@@ -44,11 +48,25 @@ const GRAF_GRAFANA_VARIABLES_DATA = [
           "label_values",
           "dropdown",
           "query variable"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/datasources/prometheus/template-variables/",
+              "title": "Grafana: Prometheus template variables"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/variables/add-template-variables/",
+              "title": "Grafana: add variables"
+            }
+          ],
+          "note": "Added 2026-11-10: typed label_values() is the Classic query type, which the Prometheus variables page marks deprecated."
+        }
       },
       {
         "id": "grafana-query-variable-sub-1",
-        "desc": "Every label name in the data source",
+        "desc": "Every label name in the data source (Classic query; the Label names query type does the same)",
         "cmd": "label_names()",
         "tags": [
           "grafana",
@@ -58,7 +76,21 @@ const GRAF_GRAFANA_VARIABLES_DATA = [
           "variables",
           "templating",
           "label_values"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/datasources/prometheus/template-variables/",
+              "title": "Grafana: Prometheus template variables"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/variables/add-template-variables/",
+              "title": "Grafana: add variables"
+            }
+          ],
+          "note": "Added 2026-11-10: typed label_values() is the Classic query type, which the Prometheus variables page marks deprecated."
+        }
       },
       {
         "id": "grafana-query-variable-sub-2",
@@ -72,7 +104,21 @@ const GRAF_GRAFANA_VARIABLES_DATA = [
           "variables",
           "templating",
           "label_values"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/datasources/prometheus/template-variables/",
+              "title": "Grafana: Prometheus template variables"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/variables/add-template-variables/",
+              "title": "Grafana: add variables"
+            }
+          ],
+          "note": "Added 2026-11-10: typed label_values() is the Classic query type, which the Prometheus variables page marks deprecated."
+        }
       },
       {
         "id": "grafana-query-variable-sub-3",
@@ -86,7 +132,21 @@ const GRAF_GRAFANA_VARIABLES_DATA = [
           "variables",
           "templating",
           "label_values"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/datasources/prometheus/template-variables/",
+              "title": "Grafana: Prometheus template variables"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/variables/add-template-variables/",
+              "title": "Grafana: add variables"
+            }
+          ],
+          "note": "Added 2026-11-10: typed label_values() is the Classic query type, which the Prometheus variables page marks deprecated."
+        }
       }
     ]
   },
@@ -129,7 +189,20 @@ const GRAF_GRAFANA_VARIABLES_DATA = [
           "dependent",
           "filter",
           "gpu"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/variables/add-template-variables/",
+              "title": "Grafana: add variables"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/datasources/prometheus/template-variables/",
+              "title": "Grafana: Prometheus template variables"
+            }
+          ]
+        }
       }
     ]
   },
@@ -171,7 +244,24 @@ const GRAF_GRAFANA_VARIABLES_DATA = [
           "json",
           "templating",
           "schema"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/view-dashboard-json-model/",
+              "title": "Grafana: dashboard JSON model"
+            },
+            {
+              "url": "https://github.com/grafana/grafana/blob/main/packages/grafana-data/src/types/templateVars.ts",
+              "title": "Grafana source: variable sort/refresh values"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/variables/add-template-variables/",
+              "title": "Grafana: add variables"
+            }
+          ]
+        }
       }
     ]
   },
@@ -223,7 +313,16 @@ const GRAF_GRAFANA_VARIABLES_DATA = [
           "csv",
           "queryparam",
           "interpolation"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/variables/variable-syntax/",
+              "title": "Grafana: variable syntax"
+            }
+          ]
+        }
       }
     ]
   },
@@ -270,7 +369,20 @@ const GRAF_GRAFANA_VARIABLES_DATA = [
           "variables",
           "per node",
           "layout"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-panel-options/",
+              "title": "Grafana: panel options (repeat)"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/view-dashboard-json-model/",
+              "title": "Grafana: dashboard JSON model"
+            }
+          ]
+        }
       }
     ]
   },
@@ -317,7 +429,24 @@ const GRAF_GRAFANA_VARIABLES_DATA = [
           "interval",
           "range",
           "rate_interval"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/variables/built-in-variables/",
+              "title": "Grafana: built-in variables"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/datasources/prometheus/template-variables/",
+              "title": "Grafana: Prometheus template variables"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/variables/add-template-variables/",
+              "title": "Grafana: add variables"
+            }
+          ]
+        }
       }
     ]
   },
@@ -349,7 +478,16 @@ const GRAF_GRAFANA_VARIABLES_DATA = [
           "observability",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/variables/add-template-variables/",
+              "title": "Grafana: add variables"
+            }
+          ]
+        }
       }
     ]
   }

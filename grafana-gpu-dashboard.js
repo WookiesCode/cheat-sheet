@@ -78,7 +78,24 @@ const GRAF_GRAFANA_GPU_DASHBOARD_DATA = [
           "upgrade",
           "units",
           "hostname"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/dcgm/latest/release-notes/dcgm-exporter.html",
+              "title": "dcgm-exporter release notes"
+            },
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/blob/4.9.0/etc/default-counters.csv",
+              "title": "dcgm-exporter 4.9.0 default-counters.csv"
+            },
+            {
+              "url": "https://docs.nvidia.com/datacenter/dcgm/latest/reference/command-line-reference/dcgm-exporter.html",
+              "title": "dcgm-exporter command reference"
+            }
+          ]
+        }
       },
       {
         "id": "gpu-dash-metric-names-sub-1",
@@ -92,7 +109,24 @@ const GRAF_GRAFANA_GPU_DASHBOARD_DATA = [
           "dcgm",
           "metric names",
           "rename"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/dcgm/latest/release-notes/dcgm-exporter.html",
+              "title": "dcgm-exporter release notes"
+            },
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/blob/4.9.0/etc/default-counters.csv",
+              "title": "dcgm-exporter 4.9.0 default-counters.csv"
+            },
+            {
+              "url": "https://docs.nvidia.com/datacenter/dcgm/latest/reference/command-line-reference/dcgm-exporter.html",
+              "title": "dcgm-exporter command reference"
+            }
+          ]
+        }
       },
       {
         "id": "gpu-dash-metric-names-sub-2",
@@ -106,7 +140,24 @@ const GRAF_GRAFANA_GPU_DASHBOARD_DATA = [
           "dcgm",
           "metric names",
           "rename"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/dcgm/latest/release-notes/dcgm-exporter.html",
+              "title": "dcgm-exporter release notes"
+            },
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/blob/4.9.0/etc/default-counters.csv",
+              "title": "dcgm-exporter 4.9.0 default-counters.csv"
+            },
+            {
+              "url": "https://docs.nvidia.com/datacenter/dcgm/latest/reference/command-line-reference/dcgm-exporter.html",
+              "title": "dcgm-exporter command reference"
+            }
+          ]
+        }
       },
       {
         "id": "gpu-dash-metric-names-sub-3",
@@ -120,7 +171,24 @@ const GRAF_GRAFANA_GPU_DASHBOARD_DATA = [
           "dcgm",
           "metric names",
           "rename"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/dcgm/latest/release-notes/dcgm-exporter.html",
+              "title": "dcgm-exporter release notes"
+            },
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/blob/4.9.0/etc/default-counters.csv",
+              "title": "dcgm-exporter 4.9.0 default-counters.csv"
+            },
+            {
+              "url": "https://docs.nvidia.com/datacenter/dcgm/latest/reference/command-line-reference/dcgm-exporter.html",
+              "title": "dcgm-exporter command reference"
+            }
+          ]
+        }
       }
     ]
   },
@@ -150,7 +218,7 @@ const GRAF_GRAFANA_GPU_DASHBOARD_DATA = [
           ],
           [
             "Starting point",
-            "Community dashboard 12239 shows working queries but uses the pre-4.9 metric names. dcgm-exporter 4.9.0 updated its own Grafana dashboard to the new names and units"
+            "dcgm-exporter 4.9.0 updated the dashboard in its repo (grafana/dcgm-exporter-dashboard.json) to the new names and units. Dashboard 12239 on grafana.com (NVIDIA, last revised 2021) still uses the pre-4.9 names"
           ]
         ],
         "tip": "Match the dashboard to your exporter's names",
@@ -164,12 +232,34 @@ const GRAF_GRAFANA_GPU_DASHBOARD_DATA = [
           "design",
           "rows",
           "12239"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/blob/4.9.0/grafana/dcgm-exporter-dashboard.json",
+              "title": "dcgm-exporter 4.9.0 Grafana dashboard"
+            },
+            {
+              "url": "https://grafana.com/grafana/dashboards/12239-nvidia-dcgm-exporter-dashboard/",
+              "title": "Grafana dashboard 12239"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/import-dashboards/",
+              "title": "Grafana: import dashboards"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/datasources/prometheus/template-variables/",
+              "title": "Grafana: Prometheus template variables"
+            }
+          ],
+          "note": "Corrected 2026-11-10: 12239 is published by NVIDIA (not community) and was last revised in 2021; the 4.9.0 dashboard is in the exporter repo."
+        }
       },
       {
         "id": "gpu-dash-layout-sub-1",
-        "desc": "Import the community DCGM dashboard (read its JSON before trusting it)",
-        "cmd": "Dashboards → New → Import → 12239 → pick the Prometheus data source",
+        "desc": "Import the exporter's own dashboard (read its JSON before trusting it); entering ID 12239 instead gets the pre-4.9 one",
+        "cmd": "Dashboards → New → Import → upload dcgm-exporter-dashboard.json → pick the Prometheus data source",
         "tags": [
           "grafana",
           "dashboards",
@@ -178,7 +268,29 @@ const GRAF_GRAFANA_GPU_DASHBOARD_DATA = [
           "layout",
           "gpu",
           "dcgm"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/blob/4.9.0/grafana/dcgm-exporter-dashboard.json",
+              "title": "dcgm-exporter 4.9.0 Grafana dashboard"
+            },
+            {
+              "url": "https://grafana.com/grafana/dashboards/12239-nvidia-dcgm-exporter-dashboard/",
+              "title": "Grafana dashboard 12239"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/import-dashboards/",
+              "title": "Grafana: import dashboards"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/datasources/prometheus/template-variables/",
+              "title": "Grafana: Prometheus template variables"
+            }
+          ],
+          "note": "Corrected 2026-11-10: 12239 is published by NVIDIA (not community) and was last revised in 2021; the 4.9.0 dashboard is in the exporter repo."
+        }
       }
     ]
   },
@@ -226,7 +338,24 @@ const GRAF_GRAFANA_GPU_DASHBOARD_DATA = [
           "temperature",
           "count",
           "dcgm"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/blob/4.9.0/etc/default-counters.csv",
+              "title": "dcgm-exporter 4.9.0 default-counters.csv"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/operators/",
+              "title": "PromQL operators"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-standard-options/",
+              "title": "Grafana: standard options"
+            }
+          ]
+        }
       },
       {
         "id": "gpu-dash-health-stats-sub-1",
@@ -240,7 +369,24 @@ const GRAF_GRAFANA_GPU_DASHBOARD_DATA = [
           "stat",
           "health",
           "xid"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/blob/4.9.0/etc/default-counters.csv",
+              "title": "dcgm-exporter 4.9.0 default-counters.csv"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/operators/",
+              "title": "PromQL operators"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-standard-options/",
+              "title": "Grafana: standard options"
+            }
+          ]
+        }
       },
       {
         "id": "gpu-dash-health-stats-sub-2",
@@ -254,7 +400,24 @@ const GRAF_GRAFANA_GPU_DASHBOARD_DATA = [
           "stat",
           "health",
           "xid"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/blob/4.9.0/etc/default-counters.csv",
+              "title": "dcgm-exporter 4.9.0 default-counters.csv"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/operators/",
+              "title": "PromQL operators"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-standard-options/",
+              "title": "Grafana: standard options"
+            }
+          ]
+        }
       }
     ]
   },
@@ -298,7 +461,28 @@ const GRAF_GRAFANA_GPU_DASHBOARD_DATA = [
           "uuid",
           "bdf",
           "rma"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/dcgm/latest/reference/command-line-reference/dcgm-exporter.html",
+              "title": "dcgm-exporter command reference"
+            },
+            {
+              "url": "https://docs.nvidia.com/datacenter/dcgm/latest/release-notes/dcgm-exporter.html",
+              "title": "dcgm-exporter release notes"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/query-transform-data/transform-data/",
+              "title": "Grafana: transform data"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/visualizations/table/",
+              "title": "Grafana: table"
+            }
+          ]
+        }
       }
     ]
   },
@@ -351,7 +535,20 @@ const GRAF_GRAFANA_GPU_DASHBOARD_DATA = [
           "clocks",
           "nvlink",
           "dcgm"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/blob/4.9.0/etc/default-counters.csv",
+              "title": "dcgm-exporter 4.9.0 default-counters.csv"
+            },
+            {
+              "url": "https://github.com/grafana/grafana/blob/main/packages/grafana-data/src/valueFormats/categories.ts",
+              "title": "Grafana source: unit IDs"
+            }
+          ]
+        }
       },
       {
         "id": "gpu-dash-timeseries-sub-1",
@@ -365,7 +562,20 @@ const GRAF_GRAFANA_GPU_DASHBOARD_DATA = [
           "time series",
           "temperature",
           "power"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/blob/4.9.0/etc/default-counters.csv",
+              "title": "dcgm-exporter 4.9.0 default-counters.csv"
+            },
+            {
+              "url": "https://github.com/grafana/grafana/blob/main/packages/grafana-data/src/valueFormats/categories.ts",
+              "title": "Grafana source: unit IDs"
+            }
+          ]
+        }
       },
       {
         "id": "gpu-dash-timeseries-sub-2",
@@ -379,7 +589,20 @@ const GRAF_GRAFANA_GPU_DASHBOARD_DATA = [
           "time series",
           "temperature",
           "power"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/blob/4.9.0/etc/default-counters.csv",
+              "title": "dcgm-exporter 4.9.0 default-counters.csv"
+            },
+            {
+              "url": "https://github.com/grafana/grafana/blob/main/packages/grafana-data/src/valueFormats/categories.ts",
+              "title": "Grafana source: unit IDs"
+            }
+          ]
+        }
       }
     ]
   },
@@ -427,7 +650,25 @@ const GRAF_GRAFANA_GPU_DASHBOARD_DATA = [
           "errors",
           "state timeline",
           "rma"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/blob/4.9.0/etc/default-counters.csv",
+              "title": "dcgm-exporter 4.9.0 default-counters.csv"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/visualizations/state-timeline/",
+              "title": "Grafana: state timeline"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-value-mappings/",
+              "title": "Grafana: value mappings"
+            }
+          ],
+          "note": "XID codes themselves are on the NVIDIA DC Xid sheet."
+        }
       }
     ]
   },
@@ -475,7 +716,28 @@ const GRAF_GRAFANA_GPU_DASHBOARD_DATA = [
           "infiniband",
           "link errors",
           "context"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/prometheus/node_exporter",
+              "title": "node_exporter README"
+            },
+            {
+              "url": "https://github.com/prometheus/node_exporter/blob/master/collector/infiniband_linux.go",
+              "title": "node_exporter infiniband collector"
+            },
+            {
+              "url": "https://github.com/prometheus/node_exporter/blob/master/collector/uname.go",
+              "title": "node_exporter uname collector"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/operators/",
+              "title": "PromQL operators"
+            }
+          ]
+        }
       }
     ]
   },
@@ -515,7 +777,24 @@ const GRAF_GRAFANA_GPU_DASHBOARD_DATA = [
           "observability",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/dcgm/latest/reference/command-line-reference/dcgm-exporter.html",
+              "title": "dcgm-exporter command reference"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/api/",
+              "title": "Prometheus HTTP API"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/use-dashboards/",
+              "title": "Grafana: use dashboards (shortcuts)"
+            }
+          ]
+        }
       }
     ]
   }

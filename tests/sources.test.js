@@ -516,6 +516,29 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     await ctx.close();
   }
 
+  // 2p. Grafana suite (six sheets + hub): every card and Pro Tip sourced; the image tag, zoom
+  // shortcut, legacy-API, grafanactl and dashboard-12239 corrections.
+  {
+    const PAGES = ['grafana-setup', 'grafana-panels', 'grafana-promql', 'grafana-variables', 'grafana-as-code', 'grafana-gpu-dashboard', 'grafana'];
+    const ctx = await newContext(browser);
+    const p = await ctx.newPage();
+    const all = [];
+    let text = '';
+    for (const f of PAGES) {
+      await p.goto(BASE + f + '.html', { waitUntil: 'load' });
+      await p.waitForTimeout(400);
+      text += await p.evaluate(() => { const c = document.body.cloneNode(true); c.querySelectorAll('.cmd-source').forEach(n => n.remove()); return c.textContent; });
+      all.push(...await p.evaluate(() => [...document.querySelectorAll('.cmd-item[data-cmd-id]')].filter(it => !/-flags-card$/.test(it.dataset.cmdId)).map(it => ({ id: it.dataset.cmdId, src: !!it.querySelector('.cmd-source:not(.is-unverified)') }))));
+    }
+    check(all.length >= 80 && all.every(x => x.src), `every card on the Grafana sheets and hub shows a verified source (${all.filter(x => x.src).length}/${all.length})`);
+    check(/grafana\/grafana:13\.3\.0/.test(text) && !/13\.2\.4/.test(text), 'compose lab pins Grafana 13.3.0');
+    check(/t -/.test(text) && !/\bt z\b/.test(text), 'zoom-out shortcut is t - (not t z)');
+    check(/\/apis\/dashboard\.grafana\.app\/v1/.test(text) && /moves to the root level/.test(text), 'dashboard API: /apis recipe and folderUid moves to root');
+    check(!/repo was archived/.test(text) && /last release v0\.1\.10/.test(text), 'grafanactl: deprecated, not claimed archived');
+    check(/dcgm-exporter-dashboard\.json/.test(text) && !/Community dashboard 12239/.test(text), 'GPU layout starts from the exporter\'s 4.9.0 dashboard');
+    await ctx.close();
+  }
+
   // 3. Over a year old → amber "re-check"; and src can't inject markup or javascript: links.
   {
     const ctx = await newContext(browser);

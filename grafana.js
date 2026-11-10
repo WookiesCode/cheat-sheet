@@ -10,7 +10,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
       {
         "id": "grafana-compose-lab",
         "desc": "compose.yaml for a local Grafana + Prometheus lab (bound to 127.0.0.1)",
-        "cmd": "services:\n  prometheus:\n    image: prom/prometheus:latest\n    ports: [\"127.0.0.1:9090:9090\"]\n    volumes:\n      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro\n      - prom-data:/prometheus\n  grafana:\n    image: grafana/grafana:13.2.4\n    ports: [\"127.0.0.1:3000:3000\"]\n    environment:\n      GF_SECURITY_ADMIN_PASSWORD__FILE: /run/secrets/grafana_admin\n    secrets: [grafana_admin]\n    volumes:\n      - grafana-data:/var/lib/grafana\n      - ./provisioning:/etc/grafana/provisioning:ro\n      - ./dashboards:/var/lib/grafana/dashboards:ro\nsecrets:\n  grafana_admin:\n    file: ./grafana_admin.txt   # chmod 600, keep out of git\nvolumes:\n  prom-data:\n  grafana-data:",
+        "cmd": "services:\n  prometheus:\n    image: prom/prometheus:latest\n    ports: [\"127.0.0.1:9090:9090\"]\n    volumes:\n      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro\n      - prom-data:/prometheus\n  grafana:\n    image: grafana/grafana:13.3.0\n    ports: [\"127.0.0.1:3000:3000\"]\n    environment:\n      GF_SECURITY_ADMIN_PASSWORD__FILE: /run/secrets/grafana_admin\n    secrets: [grafana_admin]\n    volumes:\n      - grafana-data:/var/lib/grafana\n      - ./provisioning:/etc/grafana/provisioning:ro\n      - ./dashboards:/var/lib/grafana/dashboards:ro\nsecrets:\n  grafana_admin:\n    file: ./grafana_admin.txt   # chmod 600, keep out of git\nvolumes:\n  prom-data:\n  grafana-data:",
         "details": "",
         "flags": [
           [
@@ -31,7 +31,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           ],
           [
             "image tag",
-            "Pin a version (13.2.4 was current on 2026-11-07); check the Grafana releases page before upgrading"
+            "Pin a version (13.3.0, released Oct 27, 2026, was current on 2026-11-10); check the Grafana releases page before upgrading"
           ]
         ],
         "tip": "Bind to 127.0.0.1, tunnel with ssh -L",
@@ -45,7 +45,33 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "lab",
           "prometheus",
           "secrets"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/setup-grafana/configure-docker/",
+              "title": "Grafana: configure a Docker image"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/",
+              "title": "Grafana: configuration"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/other/",
+              "title": "Grafana: health API"
+            },
+            {
+              "url": "https://github.com/grafana/grafana/releases",
+              "title": "Grafana releases"
+            },
+            {
+              "url": "https://docs.docker.com/reference/compose-file/secrets/",
+              "title": "Compose file: secrets"
+            }
+          ],
+          "note": "Corrected 2026-11-10: the image tag was 13.2.4; 13.3.0 (Oct 27, 2026) is current."
+        }
       },
       {
         "id": "grafana-compose-lab-sub-1",
@@ -59,7 +85,33 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "compose",
           "docker",
           "install"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/setup-grafana/configure-docker/",
+              "title": "Grafana: configure a Docker image"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/",
+              "title": "Grafana: configuration"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/other/",
+              "title": "Grafana: health API"
+            },
+            {
+              "url": "https://github.com/grafana/grafana/releases",
+              "title": "Grafana releases"
+            },
+            {
+              "url": "https://docs.docker.com/reference/compose-file/secrets/",
+              "title": "Compose file: secrets"
+            }
+          ],
+          "note": "Corrected 2026-11-10: the image tag was 13.2.4; 13.3.0 (Oct 27, 2026) is current."
+        }
       },
       {
         "id": "grafana-compose-lab-sub-2",
@@ -73,7 +125,33 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "compose",
           "docker",
           "install"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/setup-grafana/configure-docker/",
+              "title": "Grafana: configure a Docker image"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/",
+              "title": "Grafana: configuration"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/other/",
+              "title": "Grafana: health API"
+            },
+            {
+              "url": "https://github.com/grafana/grafana/releases",
+              "title": "Grafana releases"
+            },
+            {
+              "url": "https://docs.docker.com/reference/compose-file/secrets/",
+              "title": "Compose file: secrets"
+            }
+          ],
+          "note": "Corrected 2026-11-10: the image tag was 13.2.4; 13.3.0 (Oct 27, 2026) is current."
+        }
       },
       {
         "id": "grafana-compose-lab-sub-3",
@@ -87,7 +165,33 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "compose",
           "docker",
           "install"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/setup-grafana/configure-docker/",
+              "title": "Grafana: configure a Docker image"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/",
+              "title": "Grafana: configuration"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/other/",
+              "title": "Grafana: health API"
+            },
+            {
+              "url": "https://github.com/grafana/grafana/releases",
+              "title": "Grafana releases"
+            },
+            {
+              "url": "https://docs.docker.com/reference/compose-file/secrets/",
+              "title": "Compose file: secrets"
+            }
+          ],
+          "note": "Corrected 2026-11-10: the image tag was 13.2.4; 13.3.0 (Oct 27, 2026) is current."
+        }
       },
       {
         "id": "grafana-compose-lab-sub-4",
@@ -101,7 +205,33 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "compose",
           "docker",
           "install"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/setup-grafana/configure-docker/",
+              "title": "Grafana: configure a Docker image"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/",
+              "title": "Grafana: configuration"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/other/",
+              "title": "Grafana: health API"
+            },
+            {
+              "url": "https://github.com/grafana/grafana/releases",
+              "title": "Grafana releases"
+            },
+            {
+              "url": "https://docs.docker.com/reference/compose-file/secrets/",
+              "title": "Compose file: secrets"
+            }
+          ],
+          "note": "Corrected 2026-11-10: the image tag was 13.2.4; 13.3.0 (Oct 27, 2026) is current."
+        }
       }
     ]
   },
@@ -149,7 +279,32 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "node_exporter",
           "dcgm-exporter",
           "yaml"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/configuration/configuration/",
+              "title": "Prometheus configuration"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/command-line/promtool/",
+              "title": "promtool"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/api/",
+              "title": "Prometheus HTTP API"
+            },
+            {
+              "url": "https://docs.nvidia.com/datacenter/dcgm/latest/reference/command-line-reference/dcgm-exporter.html",
+              "title": "dcgm-exporter command reference"
+            },
+            {
+              "url": "https://github.com/prometheus/node_exporter",
+              "title": "node_exporter README"
+            }
+          ]
+        }
       },
       {
         "id": "prometheus-scrape-config-sub-1",
@@ -163,7 +318,32 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "prometheus",
           "scrape",
           "targets"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/configuration/configuration/",
+              "title": "Prometheus configuration"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/command-line/promtool/",
+              "title": "promtool"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/api/",
+              "title": "Prometheus HTTP API"
+            },
+            {
+              "url": "https://docs.nvidia.com/datacenter/dcgm/latest/reference/command-line-reference/dcgm-exporter.html",
+              "title": "dcgm-exporter command reference"
+            },
+            {
+              "url": "https://github.com/prometheus/node_exporter",
+              "title": "node_exporter README"
+            }
+          ]
+        }
       },
       {
         "id": "prometheus-scrape-config-sub-2",
@@ -177,7 +357,32 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "prometheus",
           "scrape",
           "targets"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/configuration/configuration/",
+              "title": "Prometheus configuration"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/command-line/promtool/",
+              "title": "promtool"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/api/",
+              "title": "Prometheus HTTP API"
+            },
+            {
+              "url": "https://docs.nvidia.com/datacenter/dcgm/latest/reference/command-line-reference/dcgm-exporter.html",
+              "title": "dcgm-exporter command reference"
+            },
+            {
+              "url": "https://github.com/prometheus/node_exporter",
+              "title": "node_exporter README"
+            }
+          ]
+        }
       },
       {
         "id": "prometheus-scrape-config-sub-3",
@@ -191,7 +396,32 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "prometheus",
           "scrape",
           "targets"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/configuration/configuration/",
+              "title": "Prometheus configuration"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/command-line/promtool/",
+              "title": "promtool"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/api/",
+              "title": "Prometheus HTTP API"
+            },
+            {
+              "url": "https://docs.nvidia.com/datacenter/dcgm/latest/reference/command-line-reference/dcgm-exporter.html",
+              "title": "dcgm-exporter command reference"
+            },
+            {
+              "url": "https://github.com/prometheus/node_exporter",
+              "title": "node_exporter README"
+            }
+          ]
+        }
       }
     ]
   },
@@ -238,7 +468,24 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "prometheus",
           "uid",
           "yaml"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/administration/provisioning/",
+              "title": "Grafana: provisioning"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/datasources/prometheus/configure/",
+              "title": "Grafana: configure the Prometheus data source"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/data_source/",
+              "title": "Grafana: data source API"
+            }
+          ]
+        }
       },
       {
         "id": "grafana-datasource-provisioning-sub-1",
@@ -252,7 +499,24 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "datasource",
           "provisioning",
           "prometheus"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/administration/provisioning/",
+              "title": "Grafana: provisioning"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/datasources/prometheus/configure/",
+              "title": "Grafana: configure the Prometheus data source"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/data_source/",
+              "title": "Grafana: data source API"
+            }
+          ]
+        }
       },
       {
         "id": "grafana-datasource-provisioning-sub-2",
@@ -266,7 +530,24 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "datasource",
           "provisioning",
           "prometheus"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/administration/provisioning/",
+              "title": "Grafana: provisioning"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/datasources/prometheus/configure/",
+              "title": "Grafana: configure the Prometheus data source"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/data_source/",
+              "title": "Grafana: data source API"
+            }
+          ]
+        }
       },
       {
         "id": "grafana-datasource-provisioning-sub-3",
@@ -280,7 +561,24 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "datasource",
           "provisioning",
           "prometheus"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/administration/provisioning/",
+              "title": "Grafana: provisioning"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/datasources/prometheus/configure/",
+              "title": "Grafana: configure the Prometheus data source"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/data_source/",
+              "title": "Grafana: data source API"
+            }
+          ]
+        }
       }
     ]
   },
@@ -327,7 +625,24 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "api",
           "auth",
           "secrets"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/administration/service-accounts/",
+              "title": "Grafana: service accounts"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+              "title": "bash(1): read builtin"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/folder_dashboard_search/",
+              "title": "Grafana: search API"
+            }
+          ]
+        }
       },
       {
         "id": "grafana-service-account-token-sub-1",
@@ -341,7 +656,24 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "token",
           "service account",
           "api"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/administration/service-accounts/",
+              "title": "Grafana: service accounts"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+              "title": "bash(1): read builtin"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/folder_dashboard_search/",
+              "title": "Grafana: search API"
+            }
+          ]
+        }
       },
       {
         "id": "grafana-service-account-token-sub-2",
@@ -355,7 +687,24 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "token",
           "service account",
           "api"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/administration/service-accounts/",
+              "title": "Grafana: service accounts"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+              "title": "bash(1): read builtin"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/folder_dashboard_search/",
+              "title": "Grafana: search API"
+            }
+          ]
+        }
       }
     ]
   },
@@ -387,7 +736,20 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "observability",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://man.openbsd.org/ssh",
+              "title": "ssh(1)"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/",
+              "title": "Grafana: configuration"
+            }
+          ]
+        }
       }
     ]
   },
@@ -421,7 +783,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           ],
           [
             "Grafana 13 layouts",
-            "New dashboards use the v2 schema with auto grid, tabs and conditional rendering; older dashboards are migrated when opened"
+            "Dynamic dashboards (GA in 13) add tabs, an auto grid and show/hide rules; Custom layout is the default for a new dashboard, and older dashboards are migrated when opened"
           ]
         ],
         "tip": "Set the unit before anything else",
@@ -436,7 +798,37 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "save",
           "shortcuts",
           "beginner"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/create-dashboard/",
+              "title": "Grafana: create dashboards"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/use-dashboards/",
+              "title": "Grafana: use dashboards (shortcuts)"
+            },
+            {
+              "url": "https://github.com/grafana/grafana/blob/main/public/app/features/dashboard-scene/scene/keyboardShortcuts.ts",
+              "title": "Grafana source: dashboard shortcuts"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-standard-options/",
+              "title": "Grafana: standard options"
+            },
+            {
+              "url": "https://github.com/grafana/grafana/blob/main/packages/grafana-data/src/valueFormats/categories.ts",
+              "title": "Grafana source: unit IDs"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/whatsnew/whats-new-in-v13/whats-new-in-v13-0/",
+              "title": "What's new in Grafana 13.0"
+            }
+          ],
+          "note": "Corrected 2026-11-10: zoom out is t - (or Ctrl+Z) in Grafana 13, not t z."
+        }
       },
       {
         "id": "grafana-first-dashboard-sub-1",
@@ -450,7 +842,37 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "dashboard",
           "panel",
           "ui"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/create-dashboard/",
+              "title": "Grafana: create dashboards"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/use-dashboards/",
+              "title": "Grafana: use dashboards (shortcuts)"
+            },
+            {
+              "url": "https://github.com/grafana/grafana/blob/main/public/app/features/dashboard-scene/scene/keyboardShortcuts.ts",
+              "title": "Grafana source: dashboard shortcuts"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-standard-options/",
+              "title": "Grafana: standard options"
+            },
+            {
+              "url": "https://github.com/grafana/grafana/blob/main/packages/grafana-data/src/valueFormats/categories.ts",
+              "title": "Grafana source: unit IDs"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/whatsnew/whats-new-in-v13/whats-new-in-v13-0/",
+              "title": "What's new in Grafana 13.0"
+            }
+          ],
+          "note": "Corrected 2026-11-10: zoom out is t - (or Ctrl+Z) in Grafana 13, not t z."
+        }
       },
       {
         "id": "grafana-first-dashboard-sub-2",
@@ -464,7 +886,37 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "dashboard",
           "panel",
           "ui"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/create-dashboard/",
+              "title": "Grafana: create dashboards"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/use-dashboards/",
+              "title": "Grafana: use dashboards (shortcuts)"
+            },
+            {
+              "url": "https://github.com/grafana/grafana/blob/main/public/app/features/dashboard-scene/scene/keyboardShortcuts.ts",
+              "title": "Grafana source: dashboard shortcuts"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-standard-options/",
+              "title": "Grafana: standard options"
+            },
+            {
+              "url": "https://github.com/grafana/grafana/blob/main/packages/grafana-data/src/valueFormats/categories.ts",
+              "title": "Grafana source: unit IDs"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/whatsnew/whats-new-in-v13/whats-new-in-v13-0/",
+              "title": "What's new in Grafana 13.0"
+            }
+          ],
+          "note": "Corrected 2026-11-10: zoom out is t - (or Ctrl+Z) in Grafana 13, not t z."
+        }
       },
       {
         "id": "grafana-first-dashboard-sub-3",
@@ -478,7 +930,37 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "dashboard",
           "panel",
           "ui"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/create-dashboard/",
+              "title": "Grafana: create dashboards"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/use-dashboards/",
+              "title": "Grafana: use dashboards (shortcuts)"
+            },
+            {
+              "url": "https://github.com/grafana/grafana/blob/main/public/app/features/dashboard-scene/scene/keyboardShortcuts.ts",
+              "title": "Grafana source: dashboard shortcuts"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-standard-options/",
+              "title": "Grafana: standard options"
+            },
+            {
+              "url": "https://github.com/grafana/grafana/blob/main/packages/grafana-data/src/valueFormats/categories.ts",
+              "title": "Grafana source: unit IDs"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/whatsnew/whats-new-in-v13/whats-new-in-v13-0/",
+              "title": "What's new in Grafana 13.0"
+            }
+          ],
+          "note": "Corrected 2026-11-10: zoom out is t - (or Ctrl+Z) in Grafana 13, not t z."
+        }
       },
       {
         "id": "grafana-first-dashboard-sub-4",
@@ -492,12 +974,42 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "dashboard",
           "panel",
           "ui"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/create-dashboard/",
+              "title": "Grafana: create dashboards"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/use-dashboards/",
+              "title": "Grafana: use dashboards (shortcuts)"
+            },
+            {
+              "url": "https://github.com/grafana/grafana/blob/main/public/app/features/dashboard-scene/scene/keyboardShortcuts.ts",
+              "title": "Grafana source: dashboard shortcuts"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-standard-options/",
+              "title": "Grafana: standard options"
+            },
+            {
+              "url": "https://github.com/grafana/grafana/blob/main/packages/grafana-data/src/valueFormats/categories.ts",
+              "title": "Grafana source: unit IDs"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/whatsnew/whats-new-in-v13/whats-new-in-v13-0/",
+              "title": "What's new in Grafana 13.0"
+            }
+          ],
+          "note": "Corrected 2026-11-10: zoom out is t - (or Ctrl+Z) in Grafana 13, not t z."
+        }
       },
       {
         "id": "grafana-first-dashboard-sub-5",
-        "desc": "Zoom out the time range",
-        "cmd": "t z",
+        "desc": "Zoom out the time range (Ctrl+Z does the same)",
+        "cmd": "t -",
         "tags": [
           "grafana",
           "dashboards",
@@ -506,7 +1018,37 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "dashboard",
           "panel",
           "ui"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/create-dashboard/",
+              "title": "Grafana: create dashboards"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/use-dashboards/",
+              "title": "Grafana: use dashboards (shortcuts)"
+            },
+            {
+              "url": "https://github.com/grafana/grafana/blob/main/public/app/features/dashboard-scene/scene/keyboardShortcuts.ts",
+              "title": "Grafana source: dashboard shortcuts"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-standard-options/",
+              "title": "Grafana: standard options"
+            },
+            {
+              "url": "https://github.com/grafana/grafana/blob/main/packages/grafana-data/src/valueFormats/categories.ts",
+              "title": "Grafana source: unit IDs"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/whatsnew/whats-new-in-v13/whats-new-in-v13-0/",
+              "title": "What's new in Grafana 13.0"
+            }
+          ],
+          "note": "Corrected 2026-11-10: zoom out is t - (or Ctrl+Z) in Grafana 13, not t z."
+        }
       },
       {
         "id": "grafana-first-dashboard-sub-6",
@@ -520,7 +1062,37 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "dashboard",
           "panel",
           "ui"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/create-dashboard/",
+              "title": "Grafana: create dashboards"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/use-dashboards/",
+              "title": "Grafana: use dashboards (shortcuts)"
+            },
+            {
+              "url": "https://github.com/grafana/grafana/blob/main/public/app/features/dashboard-scene/scene/keyboardShortcuts.ts",
+              "title": "Grafana source: dashboard shortcuts"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-standard-options/",
+              "title": "Grafana: standard options"
+            },
+            {
+              "url": "https://github.com/grafana/grafana/blob/main/packages/grafana-data/src/valueFormats/categories.ts",
+              "title": "Grafana source: unit IDs"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/whatsnew/whats-new-in-v13/whats-new-in-v13-0/",
+              "title": "What's new in Grafana 13.0"
+            }
+          ],
+          "note": "Corrected 2026-11-10: zoom out is t - (or Ctrl+Z) in Grafana 13, not t z."
+        }
       }
     ]
   },
@@ -569,7 +1141,29 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "table",
           "heatmap",
           "state timeline"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/visualizations/",
+              "title": "Grafana: visualizations"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-standard-options/",
+              "title": "Grafana: standard options"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/visualizations/state-timeline/",
+              "title": "Grafana: state timeline"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/visualizations/table/",
+              "title": "Grafana: table"
+            }
+          ],
+          "note": "Which visualization to pick is advice; the type IDs are from the visualization pages."
+        }
       }
     ]
   },
@@ -617,7 +1211,28 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "mappings",
           "json",
           "colors"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/grafana/grafana/blob/main/packages/grafana-data/src/valueFormats/categories.ts",
+              "title": "Grafana source: unit IDs"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-thresholds/",
+              "title": "Grafana: thresholds"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-value-mappings/",
+              "title": "Grafana: value mappings"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-standard-options/",
+              "title": "Grafana: standard options"
+            }
+          ]
+        }
       },
       {
         "id": "grafana-fieldconfig-json-sub-1",
@@ -631,7 +1246,28 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "fieldconfig",
           "unit",
           "thresholds"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/grafana/grafana/blob/main/packages/grafana-data/src/valueFormats/categories.ts",
+              "title": "Grafana source: unit IDs"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-thresholds/",
+              "title": "Grafana: thresholds"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-value-mappings/",
+              "title": "Grafana: value mappings"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-standard-options/",
+              "title": "Grafana: standard options"
+            }
+          ]
+        }
       },
       {
         "id": "grafana-fieldconfig-json-sub-2",
@@ -645,7 +1281,28 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "fieldconfig",
           "unit",
           "thresholds"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/grafana/grafana/blob/main/packages/grafana-data/src/valueFormats/categories.ts",
+              "title": "Grafana source: unit IDs"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-thresholds/",
+              "title": "Grafana: thresholds"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-value-mappings/",
+              "title": "Grafana: value mappings"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-standard-options/",
+              "title": "Grafana: standard options"
+            }
+          ]
+        }
       },
       {
         "id": "grafana-fieldconfig-json-sub-3",
@@ -659,7 +1316,28 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "fieldconfig",
           "unit",
           "thresholds"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/grafana/grafana/blob/main/packages/grafana-data/src/valueFormats/categories.ts",
+              "title": "Grafana source: unit IDs"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-thresholds/",
+              "title": "Grafana: thresholds"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-value-mappings/",
+              "title": "Grafana: value mappings"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-standard-options/",
+              "title": "Grafana: standard options"
+            }
+          ]
+        }
       }
     ]
   },
@@ -702,7 +1380,20 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "axis",
           "unit",
           "json"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-overrides/",
+              "title": "Grafana: field overrides"
+            },
+            {
+              "url": "https://github.com/grafana/grafana/blob/main/packages/grafana-data/src/transformations/matchers/ids.ts",
+              "title": "Grafana source: matcher IDs"
+            }
+          ]
+        }
       }
     ]
   },
@@ -754,7 +1445,20 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "table",
           "reduce",
           "join"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/query-transform-data/transform-data/",
+              "title": "Grafana: transform data"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/datasources/prometheus/query-editor/",
+              "title": "Grafana: Prometheus query editor"
+            }
+          ]
+        }
       }
     ]
   },
@@ -797,7 +1501,24 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "url",
           "kiosk",
           "variables"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-data-links/",
+              "title": "Grafana: data links and actions"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/create-dashboard-url-variables/",
+              "title": "Grafana: dashboard URL variables"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/use-dashboards/",
+              "title": "Grafana: use dashboards (shortcuts)"
+            }
+          ]
+        }
       },
       {
         "id": "grafana-data-links-sub-1",
@@ -811,7 +1532,24 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "data links",
           "drilldown",
           "url"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-data-links/",
+              "title": "Grafana: data links and actions"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/create-dashboard-url-variables/",
+              "title": "Grafana: dashboard URL variables"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/use-dashboards/",
+              "title": "Grafana: use dashboards (shortcuts)"
+            }
+          ]
+        }
       },
       {
         "id": "grafana-data-links-sub-2",
@@ -825,7 +1563,24 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "data links",
           "drilldown",
           "url"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-data-links/",
+              "title": "Grafana: data links and actions"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/create-dashboard-url-variables/",
+              "title": "Grafana: dashboard URL variables"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/use-dashboards/",
+              "title": "Grafana: use dashboards (shortcuts)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -865,7 +1620,16 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "observability",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/best-practices/",
+              "title": "Grafana: dashboard best practices"
+            }
+          ]
+        }
       }
     ]
   },
@@ -917,7 +1681,24 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "network",
           "throughput",
           "rate_interval"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/functions/",
+              "title": "PromQL functions"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/basics/",
+              "title": "PromQL basics"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/datasources/prometheus/template-variables/",
+              "title": "Grafana: Prometheus template variables"
+            }
+          ]
+        }
       },
       {
         "id": "promql-rate-counter-sub-1",
@@ -931,7 +1712,24 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "promql",
           "rate",
           "counter"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/functions/",
+              "title": "PromQL functions"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/basics/",
+              "title": "PromQL basics"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/datasources/prometheus/template-variables/",
+              "title": "Grafana: Prometheus template variables"
+            }
+          ]
+        }
       },
       {
         "id": "promql-rate-counter-sub-2",
@@ -945,7 +1743,24 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "promql",
           "rate",
           "counter"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/functions/",
+              "title": "PromQL functions"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/basics/",
+              "title": "PromQL basics"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/datasources/prometheus/template-variables/",
+              "title": "Grafana: Prometheus template variables"
+            }
+          ]
+        }
       },
       {
         "id": "promql-rate-counter-sub-3",
@@ -959,7 +1774,24 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "promql",
           "rate",
           "counter"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/functions/",
+              "title": "PromQL functions"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/basics/",
+              "title": "PromQL basics"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/datasources/prometheus/template-variables/",
+              "title": "Grafana: Prometheus template variables"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1004,7 +1836,24 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "count",
           "by",
           "without"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/operators/",
+              "title": "PromQL operators"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/functions/",
+              "title": "PromQL functions"
+            },
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/blob/4.9.0/etc/default-counters.csv",
+              "title": "dcgm-exporter 4.9.0 default-counters.csv"
+            }
+          ]
+        }
       },
       {
         "id": "promql-aggregation-sub-1",
@@ -1018,7 +1867,24 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "promql",
           "aggregation",
           "avg"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/operators/",
+              "title": "PromQL operators"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/functions/",
+              "title": "PromQL functions"
+            },
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/blob/4.9.0/etc/default-counters.csv",
+              "title": "dcgm-exporter 4.9.0 default-counters.csv"
+            }
+          ]
+        }
       },
       {
         "id": "promql-aggregation-sub-2",
@@ -1032,7 +1898,24 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "promql",
           "aggregation",
           "avg"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/operators/",
+              "title": "PromQL operators"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/functions/",
+              "title": "PromQL functions"
+            },
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/blob/4.9.0/etc/default-counters.csv",
+              "title": "dcgm-exporter 4.9.0 default-counters.csv"
+            }
+          ]
+        }
       },
       {
         "id": "promql-aggregation-sub-3",
@@ -1046,7 +1929,24 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "promql",
           "aggregation",
           "avg"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/operators/",
+              "title": "PromQL operators"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/functions/",
+              "title": "PromQL functions"
+            },
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/blob/4.9.0/etc/default-counters.csv",
+              "title": "dcgm-exporter 4.9.0 default-counters.csv"
+            }
+          ]
+        }
       },
       {
         "id": "promql-aggregation-sub-4",
@@ -1060,7 +1960,24 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "promql",
           "aggregation",
           "avg"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/operators/",
+              "title": "PromQL operators"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/functions/",
+              "title": "PromQL functions"
+            },
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/blob/4.9.0/etc/default-counters.csv",
+              "title": "dcgm-exporter 4.9.0 default-counters.csv"
+            }
+          ]
+        }
       },
       {
         "id": "promql-aggregation-sub-5",
@@ -1074,7 +1991,24 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "promql",
           "aggregation",
           "avg"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/operators/",
+              "title": "PromQL operators"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/functions/",
+              "title": "PromQL functions"
+            },
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/blob/4.9.0/etc/default-counters.csv",
+              "title": "dcgm-exporter 4.9.0 default-counters.csv"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1113,7 +2047,20 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "bottomk",
           "top",
           "ranking"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/operators/",
+              "title": "PromQL operators"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/variables/built-in-variables/",
+              "title": "Grafana: built-in variables"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1156,7 +2103,20 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "offset",
           "changes",
           "range"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/functions/",
+              "title": "PromQL functions"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/basics/",
+              "title": "PromQL basics"
+            }
+          ]
+        }
       },
       {
         "id": "promql-over-time-sub-1",
@@ -1170,7 +2130,20 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "promql",
           "over_time",
           "offset"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/functions/",
+              "title": "PromQL functions"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/basics/",
+              "title": "PromQL basics"
+            }
+          ]
+        }
       },
       {
         "id": "promql-over-time-sub-2",
@@ -1184,7 +2157,20 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "promql",
           "over_time",
           "offset"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/functions/",
+              "title": "PromQL functions"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/basics/",
+              "title": "PromQL basics"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1228,7 +2214,24 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "missing",
           "targets",
           "gpu fell off bus"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/functions/",
+              "title": "PromQL functions"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/operators/",
+              "title": "PromQL operators"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/configuration/configuration/",
+              "title": "Prometheus configuration"
+            }
+          ]
+        }
       },
       {
         "id": "promql-up-absent-sub-1",
@@ -1242,7 +2245,24 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "promql",
           "up",
           "absent"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/functions/",
+              "title": "PromQL functions"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/operators/",
+              "title": "PromQL operators"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/configuration/configuration/",
+              "title": "Prometheus configuration"
+            }
+          ]
+        }
       },
       {
         "id": "promql-up-absent-sub-2",
@@ -1256,7 +2276,24 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "promql",
           "up",
           "absent"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/functions/",
+              "title": "PromQL functions"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/operators/",
+              "title": "PromQL operators"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/configuration/configuration/",
+              "title": "Prometheus configuration"
+            }
+          ]
+        }
       },
       {
         "id": "promql-up-absent-sub-3",
@@ -1270,7 +2307,24 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "promql",
           "up",
           "absent"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/functions/",
+              "title": "PromQL functions"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/operators/",
+              "title": "PromQL operators"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/configuration/configuration/",
+              "title": "Prometheus configuration"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1314,7 +2368,20 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "on",
           "labels",
           "info metric"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/operators/",
+              "title": "PromQL operators"
+            },
+            {
+              "url": "https://github.com/prometheus/node_exporter/blob/master/collector/uname.go",
+              "title": "node_exporter uname collector"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1358,7 +2425,24 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "jq",
           "promtool",
           "test"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/api/",
+              "title": "Prometheus HTTP API"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/command-line/promtool/",
+              "title": "promtool"
+            },
+            {
+              "url": "https://curl.se/docs/manpage.html",
+              "title": "curl man page"
+            }
+          ]
+        }
       },
       {
         "id": "promql-test-cli-sub-1",
@@ -1372,7 +2456,24 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "promql",
           "curl",
           "api"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/api/",
+              "title": "Prometheus HTTP API"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/command-line/promtool/",
+              "title": "promtool"
+            },
+            {
+              "url": "https://curl.se/docs/manpage.html",
+              "title": "curl man page"
+            }
+          ]
+        }
       },
       {
         "id": "promql-test-cli-sub-2",
@@ -1386,7 +2487,24 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "promql",
           "curl",
           "api"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/api/",
+              "title": "Prometheus HTTP API"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/command-line/promtool/",
+              "title": "promtool"
+            },
+            {
+              "url": "https://curl.se/docs/manpage.html",
+              "title": "curl man page"
+            }
+          ]
+        }
       },
       {
         "id": "promql-test-cli-sub-3",
@@ -1400,7 +2518,24 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "promql",
           "curl",
           "api"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/api/",
+              "title": "Prometheus HTTP API"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/command-line/promtool/",
+              "title": "promtool"
+            },
+            {
+              "url": "https://curl.se/docs/manpage.html",
+              "title": "curl man page"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1440,7 +2575,20 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "observability",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/instrumenting/exposition_formats/",
+              "title": "Prometheus exposition formats"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/explore/",
+              "title": "Grafana: Explore"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1459,6 +2607,10 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           [
             "Variable type: Query",
             "Values come from the data source; the query above lists every hostname that has GPU metrics"
+          ],
+          [
+            "Query type",
+            "Typing label_values() is the Classic query type, which Grafana's docs mark deprecated. The same list without it: Query type = Label values, Label = hostname, Metric = DCGM_FI_DEV_GPU_TEMP_CELSIUS"
           ],
           [
             "Name: host",
@@ -1487,11 +2639,25 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "label_values",
           "dropdown",
           "query variable"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/datasources/prometheus/template-variables/",
+              "title": "Grafana: Prometheus template variables"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/variables/add-template-variables/",
+              "title": "Grafana: add variables"
+            }
+          ],
+          "note": "Added 2026-11-10: typed label_values() is the Classic query type, which the Prometheus variables page marks deprecated."
+        }
       },
       {
         "id": "grafana-query-variable-sub-1",
-        "desc": "Every label name in the data source",
+        "desc": "Every label name in the data source (Classic query; the Label names query type does the same)",
         "cmd": "label_names()",
         "tags": [
           "grafana",
@@ -1501,7 +2667,21 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "variables",
           "templating",
           "label_values"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/datasources/prometheus/template-variables/",
+              "title": "Grafana: Prometheus template variables"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/variables/add-template-variables/",
+              "title": "Grafana: add variables"
+            }
+          ],
+          "note": "Added 2026-11-10: typed label_values() is the Classic query type, which the Prometheus variables page marks deprecated."
+        }
       },
       {
         "id": "grafana-query-variable-sub-2",
@@ -1515,7 +2695,21 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "variables",
           "templating",
           "label_values"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/datasources/prometheus/template-variables/",
+              "title": "Grafana: Prometheus template variables"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/variables/add-template-variables/",
+              "title": "Grafana: add variables"
+            }
+          ],
+          "note": "Added 2026-11-10: typed label_values() is the Classic query type, which the Prometheus variables page marks deprecated."
+        }
       },
       {
         "id": "grafana-query-variable-sub-3",
@@ -1529,7 +2723,21 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "variables",
           "templating",
           "label_values"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/datasources/prometheus/template-variables/",
+              "title": "Grafana: Prometheus template variables"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/variables/add-template-variables/",
+              "title": "Grafana: add variables"
+            }
+          ],
+          "note": "Added 2026-11-10: typed label_values() is the Classic query type, which the Prometheus variables page marks deprecated."
+        }
       }
     ]
   },
@@ -1572,7 +2780,20 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "dependent",
           "filter",
           "gpu"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/variables/add-template-variables/",
+              "title": "Grafana: add variables"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/datasources/prometheus/template-variables/",
+              "title": "Grafana: Prometheus template variables"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1614,7 +2835,24 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "json",
           "templating",
           "schema"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/view-dashboard-json-model/",
+              "title": "Grafana: dashboard JSON model"
+            },
+            {
+              "url": "https://github.com/grafana/grafana/blob/main/packages/grafana-data/src/types/templateVars.ts",
+              "title": "Grafana source: variable sort/refresh values"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/variables/add-template-variables/",
+              "title": "Grafana: add variables"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1666,7 +2904,16 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "csv",
           "queryparam",
           "interpolation"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/variables/variable-syntax/",
+              "title": "Grafana: variable syntax"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1713,7 +2960,20 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "variables",
           "per node",
           "layout"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-panel-options/",
+              "title": "Grafana: panel options (repeat)"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/view-dashboard-json-model/",
+              "title": "Grafana: dashboard JSON model"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1760,7 +3020,24 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "interval",
           "range",
           "rate_interval"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/variables/built-in-variables/",
+              "title": "Grafana: built-in variables"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/datasources/prometheus/template-variables/",
+              "title": "Grafana: Prometheus template variables"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/variables/add-template-variables/",
+              "title": "Grafana: add variables"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1792,7 +3069,16 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "observability",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/variables/add-template-variables/",
+              "title": "Grafana: add variables"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1826,7 +3112,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           ],
           [
             "Grafana 13",
-            "Exports default to the v2 resource schema (apiVersion/kind/spec); classic JSON like this still imports and is migrated"
+            "A dashboard can be exported as Classic JSON (like this) or the V2 Resource schema (apiVersion/kind/spec); classic JSON still imports and is migrated when opened"
           ]
         ],
         "tip": "Set uid yourself; drop id when moving",
@@ -1841,7 +3127,20 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "panels",
           "export",
           "schema"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/view-dashboard-json-model/",
+              "title": "Grafana: dashboard JSON model"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/dashboard/",
+              "title": "Grafana: Dashboard API (/apis)"
+            }
+          ]
+        }
       },
       {
         "id": "grafana-dashboard-json-skeleton-sub-1",
@@ -1855,7 +3154,20 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "json",
           "model",
           "uid"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/view-dashboard-json-model/",
+              "title": "Grafana: dashboard JSON model"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/dashboard/",
+              "title": "Grafana: Dashboard API (/apis)"
+            }
+          ]
+        }
       },
       {
         "id": "grafana-dashboard-json-skeleton-sub-2",
@@ -1869,7 +3181,20 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "json",
           "model",
           "uid"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/view-dashboard-json-model/",
+              "title": "Grafana: dashboard JSON model"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/dashboard/",
+              "title": "Grafana: Dashboard API (/apis)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1916,7 +3241,16 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "file",
           "folders",
           "gitops"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/administration/provisioning/",
+              "title": "Grafana: provisioning"
+            }
+          ]
+        }
       },
       {
         "id": "grafana-dashboard-provider-sub-1",
@@ -1930,7 +3264,16 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "provisioning",
           "yaml",
           "file"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/administration/provisioning/",
+              "title": "Grafana: provisioning"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1957,6 +3300,10 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           [
             "> gpu-fleet.json",
             "Redirect into a file you commit to git"
+          ],
+          [
+            "Grafana 13",
+            "The /api routes are deprecated in favour of /apis, but still served: they just no longer get updates"
           ]
         ],
         "tip": "Export → del(.id) → commit",
@@ -1970,7 +3317,33 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "jq",
           "backup",
           "uid"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/v12.4/developer-resources/api-reference/http-api/dashboard/",
+              "title": "Grafana 12.4: dashboard API (/api/dashboards)"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/folder_dashboard_search/",
+              "title": "Grafana: search API"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/v12.4/developer-resources/api-reference/http-api/folder/",
+              "title": "Grafana 12.4: folder API"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/dashboard/",
+              "title": "Grafana: Dashboard API (/apis)"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/",
+              "title": "Grafana: legacy HTTP API (deprecation)"
+            }
+          ],
+          "note": "Added 2026-11-10: Grafana 13 deprecates /api routes for /apis; they are still served but no longer updated."
+        }
       },
       {
         "id": "grafana-api-export-sub-1",
@@ -1984,7 +3357,33 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "api",
           "export",
           "curl"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/v12.4/developer-resources/api-reference/http-api/dashboard/",
+              "title": "Grafana 12.4: dashboard API (/api/dashboards)"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/folder_dashboard_search/",
+              "title": "Grafana: search API"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/v12.4/developer-resources/api-reference/http-api/folder/",
+              "title": "Grafana 12.4: folder API"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/dashboard/",
+              "title": "Grafana: Dashboard API (/apis)"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/",
+              "title": "Grafana: legacy HTTP API (deprecation)"
+            }
+          ],
+          "note": "Added 2026-11-10: Grafana 13 deprecates /api routes for /apis; they are still served but no longer updated."
+        }
       },
       {
         "id": "grafana-api-export-sub-2",
@@ -1998,7 +3397,33 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "api",
           "export",
           "curl"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/v12.4/developer-resources/api-reference/http-api/dashboard/",
+              "title": "Grafana 12.4: dashboard API (/api/dashboards)"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/folder_dashboard_search/",
+              "title": "Grafana: search API"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/v12.4/developer-resources/api-reference/http-api/folder/",
+              "title": "Grafana 12.4: folder API"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/dashboard/",
+              "title": "Grafana: Dashboard API (/apis)"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/",
+              "title": "Grafana: legacy HTTP API (deprecation)"
+            }
+          ],
+          "note": "Added 2026-11-10: Grafana 13 deprecates /api routes for /apis; they are still served but no longer updated."
+        }
       },
       {
         "id": "grafana-api-export-sub-3",
@@ -2012,7 +3437,73 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "api",
           "export",
           "curl"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/v12.4/developer-resources/api-reference/http-api/dashboard/",
+              "title": "Grafana 12.4: dashboard API (/api/dashboards)"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/folder_dashboard_search/",
+              "title": "Grafana: search API"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/v12.4/developer-resources/api-reference/http-api/folder/",
+              "title": "Grafana 12.4: folder API"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/dashboard/",
+              "title": "Grafana: Dashboard API (/apis)"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/",
+              "title": "Grafana: legacy HTTP API (deprecation)"
+            }
+          ],
+          "note": "Added 2026-11-10: Grafana 13 deprecates /api routes for /apis; they are still served but no longer updated."
+        }
+      },
+      {
+        "id": "grafana-api-export-sub-4",
+        "desc": "The same dashboard from the new Dashboard API (Grafana 12+); spec holds the classic JSON. The namespace is default in Grafana's examples",
+        "cmd": "curl -s -H \"Authorization: Bearer $GRAFANA_TOKEN\" \"$GRAFANA_URL/apis/dashboard.grafana.app/v1/namespaces/default/dashboards/gpu-fleet\" | jq '.spec'",
+        "tags": [
+          "grafana",
+          "dashboards",
+          "observability",
+          "recipe",
+          "api",
+          "export",
+          "curl"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/v12.4/developer-resources/api-reference/http-api/dashboard/",
+              "title": "Grafana 12.4: dashboard API (/api/dashboards)"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/folder_dashboard_search/",
+              "title": "Grafana: search API"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/v12.4/developer-resources/api-reference/http-api/folder/",
+              "title": "Grafana 12.4: folder API"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/dashboard/",
+              "title": "Grafana: Dashboard API (/apis)"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/",
+              "title": "Grafana: legacy HTTP API (deprecation)"
+            }
+          ],
+          "note": "Added 2026-11-10: Grafana 13 deprecates /api routes for /apis; they are still served but no longer updated."
+        }
       }
     ]
   },
@@ -2034,11 +3525,11 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           ],
           [
             "folderUid",
-            "Folder to save into. If you leave it out on an update, the dashboard can move to the General folder"
+            "Folder to save into. If you leave it out on an update, the dashboard moves to the root level"
           ],
           [
             "overwrite: true",
-            "Replace an existing dashboard with the same uid or title. Without it, the API refuses (412 version-mismatch / name-exists)"
+            "Replace an existing dashboard with the same uid. Without it, the API refuses (412 version-mismatch / name-exists)"
           ],
           [
             "message",
@@ -2061,7 +3552,25 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "jq",
           "overwrite",
           "folder"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/v12.4/developer-resources/api-reference/http-api/dashboard/",
+              "title": "Grafana 12.4: dashboard API (/api/dashboards)"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/dashboard/",
+              "title": "Grafana: Dashboard API (/apis)"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/",
+              "title": "Grafana: legacy HTTP API (deprecation)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: leaving out folderUid on an update moves the dashboard to the root level (it was \"can move\")."
+        }
       }
     ]
   },
@@ -2069,11 +3578,11 @@ const GRAFANA_CHEAT_SHEET_DATA = [
     "id": "grafana-as-code-cmd-5",
     "badge": "code",
     "title": "Dashboards as Code: gcx",
-    "subtitle": "gcx: pull and push dashboards as files (successor to grafanactl, Grafana 12+)",
+    "subtitle": "gcx: pull and push dashboards as files (successor to grafanactl; full support on Grafana 13+)",
     "commands": [
       {
         "id": "grafana-gcx",
-        "desc": "gcx: pull and push dashboards as files (successor to grafanactl, Grafana 12+)",
+        "desc": "gcx: pull and push dashboards as files (successor to grafanactl; full support on Grafana 13+)",
         "cmd": "gcx resources pull --path ./resources/ -o yaml",
         "details": "",
         "flags": [
@@ -2095,11 +3604,11 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           ],
           [
             "Contexts",
-            "Configure one context per Grafana (lab, prod) and switch between them; see gcx config --help"
+            "gcx login creates a context per Grafana (lab, prod); gcx config manages and switches them (gcx config --help)"
           ],
           [
             "grafanactl",
-            "Deprecated; its repo was archived 2026-06-01. Replace grafanactl with gcx in old scripts"
+            "Deprecated (last release v0.1.10, April 2026). Its README says to search-and-replace grafanactl with gcx in old scripts"
           ]
         ],
         "tip": "Old scripts: grafanactl → gcx",
@@ -2113,7 +3622,25 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "pull",
           "push",
           "gitops"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/grafana/gcx",
+              "title": "gcx README"
+            },
+            {
+              "url": "https://github.com/grafana/gcx/blob/main/cmd/gcx/resources/pull.go",
+              "title": "gcx source: resources pull flags"
+            },
+            {
+              "url": "https://github.com/grafana/grafanactl",
+              "title": "grafanactl README (deprecation)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: grafanactl's repo was announced for archiving on June 1, 2026 but was still not archived on Nov 10; gcx fully supports Grafana 13+ only."
+        }
       },
       {
         "id": "grafana-gcx-sub-1",
@@ -2127,7 +3654,25 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "gcx",
           "grafanactl",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/grafana/gcx",
+              "title": "gcx README"
+            },
+            {
+              "url": "https://github.com/grafana/gcx/blob/main/cmd/gcx/resources/pull.go",
+              "title": "gcx source: resources pull flags"
+            },
+            {
+              "url": "https://github.com/grafana/grafanactl",
+              "title": "grafanactl README (deprecation)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: grafanactl's repo was announced for archiving on June 1, 2026 but was still not archived on Nov 10; gcx fully supports Grafana 13+ only."
+        }
       },
       {
         "id": "grafana-gcx-sub-2",
@@ -2141,7 +3686,25 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "gcx",
           "grafanactl",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/grafana/gcx",
+              "title": "gcx README"
+            },
+            {
+              "url": "https://github.com/grafana/gcx/blob/main/cmd/gcx/resources/pull.go",
+              "title": "gcx source: resources pull flags"
+            },
+            {
+              "url": "https://github.com/grafana/grafanactl",
+              "title": "grafanactl README (deprecation)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: grafanactl's repo was announced for archiving on June 1, 2026 but was still not archived on Nov 10; gcx fully supports Grafana 13+ only."
+        }
       },
       {
         "id": "grafana-gcx-sub-3",
@@ -2155,7 +3718,25 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "gcx",
           "grafanactl",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/grafana/gcx",
+              "title": "gcx README"
+            },
+            {
+              "url": "https://github.com/grafana/gcx/blob/main/cmd/gcx/resources/pull.go",
+              "title": "gcx source: resources pull flags"
+            },
+            {
+              "url": "https://github.com/grafana/grafanactl",
+              "title": "grafanactl README (deprecation)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: grafanactl's repo was announced for archiving on June 1, 2026 but was still not archived on Nov 10; gcx fully supports Grafana 13+ only."
+        }
       }
     ]
   },
@@ -2163,11 +3744,11 @@ const GRAFANA_CHEAT_SHEET_DATA = [
     "id": "grafana-as-code-cmd-6",
     "badge": "code",
     "title": "Dashboards as Code: Git Sync",
-    "subtitle": "Git Sync (GA in Grafana 13): keep dashboards in a GitHub/GitLab/Bitbucket repo from the UI",
+    "subtitle": "Git Sync (GA in Grafana 13): keep dashboards in a Git repo (GitHub, GitLab, Bitbucket or any Git) from the UI",
     "commands": [
       {
         "id": "grafana-git-sync",
-        "desc": "Git Sync (GA in Grafana 13): keep dashboards in a GitHub/GitLab/Bitbucket repo from the UI",
+        "desc": "Git Sync (GA in Grafana 13): keep dashboards in a Git repo (GitHub, GitLab, Bitbucket or any Git) from the UI",
         "cmd": "Administration → General → Provisioning → Configure Git Sync",
         "details": "",
         "flags": [
@@ -2177,7 +3758,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           ],
           [
             "Auth",
-            "GitHub App or a token for GitLab/Bitbucket; use a dedicated repo or folder"
+            "GitHub: personal access token, GitHub App or OAuth App; GitLab and Bitbucket: a token. Use a dedicated repo or folder"
           ],
           [
             "vs file provisioning",
@@ -2198,7 +3779,25 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "gitops",
           "github",
           "provisioning"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/as-code/git-sync/",
+              "title": "Grafana: Git Sync"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/as-code/git-sync/git-sync-setup/",
+              "title": "Grafana: set up Git Sync"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/whatsnew/whats-new-in-v13/whats-new-in-v13-0/",
+              "title": "What's new in Grafana 13.0"
+            }
+          ],
+          "note": "Corrected 2026-11-10: Git Sync works with any Git repo, and GitHub can also use a personal access token or an OAuth App."
+        }
       }
     ]
   },
@@ -2234,7 +3833,20 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "observability",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/administration/provisioning/",
+              "title": "Grafana: provisioning"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/as-code/git-sync/",
+              "title": "Grafana: Git Sync"
+            }
+          ]
+        }
       }
     ]
   },
@@ -2315,7 +3927,24 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "upgrade",
           "units",
           "hostname"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/dcgm/latest/release-notes/dcgm-exporter.html",
+              "title": "dcgm-exporter release notes"
+            },
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/blob/4.9.0/etc/default-counters.csv",
+              "title": "dcgm-exporter 4.9.0 default-counters.csv"
+            },
+            {
+              "url": "https://docs.nvidia.com/datacenter/dcgm/latest/reference/command-line-reference/dcgm-exporter.html",
+              "title": "dcgm-exporter command reference"
+            }
+          ]
+        }
       },
       {
         "id": "gpu-dash-metric-names-sub-1",
@@ -2329,7 +3958,24 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "dcgm",
           "metric names",
           "rename"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/dcgm/latest/release-notes/dcgm-exporter.html",
+              "title": "dcgm-exporter release notes"
+            },
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/blob/4.9.0/etc/default-counters.csv",
+              "title": "dcgm-exporter 4.9.0 default-counters.csv"
+            },
+            {
+              "url": "https://docs.nvidia.com/datacenter/dcgm/latest/reference/command-line-reference/dcgm-exporter.html",
+              "title": "dcgm-exporter command reference"
+            }
+          ]
+        }
       },
       {
         "id": "gpu-dash-metric-names-sub-2",
@@ -2343,7 +3989,24 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "dcgm",
           "metric names",
           "rename"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/dcgm/latest/release-notes/dcgm-exporter.html",
+              "title": "dcgm-exporter release notes"
+            },
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/blob/4.9.0/etc/default-counters.csv",
+              "title": "dcgm-exporter 4.9.0 default-counters.csv"
+            },
+            {
+              "url": "https://docs.nvidia.com/datacenter/dcgm/latest/reference/command-line-reference/dcgm-exporter.html",
+              "title": "dcgm-exporter command reference"
+            }
+          ]
+        }
       },
       {
         "id": "gpu-dash-metric-names-sub-3",
@@ -2357,7 +4020,24 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "dcgm",
           "metric names",
           "rename"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/dcgm/latest/release-notes/dcgm-exporter.html",
+              "title": "dcgm-exporter release notes"
+            },
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/blob/4.9.0/etc/default-counters.csv",
+              "title": "dcgm-exporter 4.9.0 default-counters.csv"
+            },
+            {
+              "url": "https://docs.nvidia.com/datacenter/dcgm/latest/reference/command-line-reference/dcgm-exporter.html",
+              "title": "dcgm-exporter command reference"
+            }
+          ]
+        }
       }
     ]
   },
@@ -2387,7 +4067,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           ],
           [
             "Starting point",
-            "Community dashboard 12239 shows working queries but uses the pre-4.9 metric names. dcgm-exporter 4.9.0 updated its own Grafana dashboard to the new names and units"
+            "dcgm-exporter 4.9.0 updated the dashboard in its repo (grafana/dcgm-exporter-dashboard.json) to the new names and units. Dashboard 12239 on grafana.com (NVIDIA, last revised 2021) still uses the pre-4.9 names"
           ]
         ],
         "tip": "Match the dashboard to your exporter's names",
@@ -2401,12 +4081,34 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "design",
           "rows",
           "12239"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/blob/4.9.0/grafana/dcgm-exporter-dashboard.json",
+              "title": "dcgm-exporter 4.9.0 Grafana dashboard"
+            },
+            {
+              "url": "https://grafana.com/grafana/dashboards/12239-nvidia-dcgm-exporter-dashboard/",
+              "title": "Grafana dashboard 12239"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/import-dashboards/",
+              "title": "Grafana: import dashboards"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/datasources/prometheus/template-variables/",
+              "title": "Grafana: Prometheus template variables"
+            }
+          ],
+          "note": "Corrected 2026-11-10: 12239 is published by NVIDIA (not community) and was last revised in 2021; the 4.9.0 dashboard is in the exporter repo."
+        }
       },
       {
         "id": "gpu-dash-layout-sub-1",
-        "desc": "Import the community DCGM dashboard (read its JSON before trusting it)",
-        "cmd": "Dashboards → New → Import → 12239 → pick the Prometheus data source",
+        "desc": "Import the exporter's own dashboard (read its JSON before trusting it); entering ID 12239 instead gets the pre-4.9 one",
+        "cmd": "Dashboards → New → Import → upload dcgm-exporter-dashboard.json → pick the Prometheus data source",
         "tags": [
           "grafana",
           "dashboards",
@@ -2415,7 +4117,29 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "layout",
           "gpu",
           "dcgm"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/blob/4.9.0/grafana/dcgm-exporter-dashboard.json",
+              "title": "dcgm-exporter 4.9.0 Grafana dashboard"
+            },
+            {
+              "url": "https://grafana.com/grafana/dashboards/12239-nvidia-dcgm-exporter-dashboard/",
+              "title": "Grafana dashboard 12239"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/import-dashboards/",
+              "title": "Grafana: import dashboards"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/datasources/prometheus/template-variables/",
+              "title": "Grafana: Prometheus template variables"
+            }
+          ],
+          "note": "Corrected 2026-11-10: 12239 is published by NVIDIA (not community) and was last revised in 2021; the 4.9.0 dashboard is in the exporter repo."
+        }
       }
     ]
   },
@@ -2463,7 +4187,24 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "temperature",
           "count",
           "dcgm"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/blob/4.9.0/etc/default-counters.csv",
+              "title": "dcgm-exporter 4.9.0 default-counters.csv"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/operators/",
+              "title": "PromQL operators"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-standard-options/",
+              "title": "Grafana: standard options"
+            }
+          ]
+        }
       },
       {
         "id": "gpu-dash-health-stats-sub-1",
@@ -2477,7 +4218,24 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "stat",
           "health",
           "xid"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/blob/4.9.0/etc/default-counters.csv",
+              "title": "dcgm-exporter 4.9.0 default-counters.csv"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/operators/",
+              "title": "PromQL operators"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-standard-options/",
+              "title": "Grafana: standard options"
+            }
+          ]
+        }
       },
       {
         "id": "gpu-dash-health-stats-sub-2",
@@ -2491,7 +4249,24 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "stat",
           "health",
           "xid"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/blob/4.9.0/etc/default-counters.csv",
+              "title": "dcgm-exporter 4.9.0 default-counters.csv"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/operators/",
+              "title": "PromQL operators"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-standard-options/",
+              "title": "Grafana: standard options"
+            }
+          ]
+        }
       }
     ]
   },
@@ -2535,7 +4310,28 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "uuid",
           "bdf",
           "rma"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/dcgm/latest/reference/command-line-reference/dcgm-exporter.html",
+              "title": "dcgm-exporter command reference"
+            },
+            {
+              "url": "https://docs.nvidia.com/datacenter/dcgm/latest/release-notes/dcgm-exporter.html",
+              "title": "dcgm-exporter release notes"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/query-transform-data/transform-data/",
+              "title": "Grafana: transform data"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/visualizations/table/",
+              "title": "Grafana: table"
+            }
+          ]
+        }
       }
     ]
   },
@@ -2588,7 +4384,20 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "clocks",
           "nvlink",
           "dcgm"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/blob/4.9.0/etc/default-counters.csv",
+              "title": "dcgm-exporter 4.9.0 default-counters.csv"
+            },
+            {
+              "url": "https://github.com/grafana/grafana/blob/main/packages/grafana-data/src/valueFormats/categories.ts",
+              "title": "Grafana source: unit IDs"
+            }
+          ]
+        }
       },
       {
         "id": "gpu-dash-timeseries-sub-1",
@@ -2602,7 +4411,20 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "time series",
           "temperature",
           "power"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/blob/4.9.0/etc/default-counters.csv",
+              "title": "dcgm-exporter 4.9.0 default-counters.csv"
+            },
+            {
+              "url": "https://github.com/grafana/grafana/blob/main/packages/grafana-data/src/valueFormats/categories.ts",
+              "title": "Grafana source: unit IDs"
+            }
+          ]
+        }
       },
       {
         "id": "gpu-dash-timeseries-sub-2",
@@ -2616,7 +4438,20 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "time series",
           "temperature",
           "power"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/blob/4.9.0/etc/default-counters.csv",
+              "title": "dcgm-exporter 4.9.0 default-counters.csv"
+            },
+            {
+              "url": "https://github.com/grafana/grafana/blob/main/packages/grafana-data/src/valueFormats/categories.ts",
+              "title": "Grafana source: unit IDs"
+            }
+          ]
+        }
       }
     ]
   },
@@ -2664,7 +4499,25 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "errors",
           "state timeline",
           "rma"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/blob/4.9.0/etc/default-counters.csv",
+              "title": "dcgm-exporter 4.9.0 default-counters.csv"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/visualizations/state-timeline/",
+              "title": "Grafana: state timeline"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-value-mappings/",
+              "title": "Grafana: value mappings"
+            }
+          ],
+          "note": "XID codes themselves are on the NVIDIA DC Xid sheet."
+        }
       }
     ]
   },
@@ -2712,7 +4565,28 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "infiniband",
           "link errors",
           "context"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/prometheus/node_exporter",
+              "title": "node_exporter README"
+            },
+            {
+              "url": "https://github.com/prometheus/node_exporter/blob/master/collector/infiniband_linux.go",
+              "title": "node_exporter infiniband collector"
+            },
+            {
+              "url": "https://github.com/prometheus/node_exporter/blob/master/collector/uname.go",
+              "title": "node_exporter uname collector"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/operators/",
+              "title": "PromQL operators"
+            }
+          ]
+        }
       }
     ]
   },
@@ -2752,7 +4626,24 @@ const GRAFANA_CHEAT_SHEET_DATA = [
           "observability",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/dcgm/latest/reference/command-line-reference/dcgm-exporter.html",
+              "title": "dcgm-exporter command reference"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/api/",
+              "title": "Prometheus HTTP API"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/use-dashboards/",
+              "title": "Grafana: use dashboards (shortcuts)"
+            }
+          ]
+        }
       }
     ]
   }

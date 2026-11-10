@@ -10,7 +10,7 @@ const GRAF_GRAFANA_SETUP_DATA = [
       {
         "id": "grafana-compose-lab",
         "desc": "compose.yaml for a local Grafana + Prometheus lab (bound to 127.0.0.1)",
-        "cmd": "services:\n  prometheus:\n    image: prom/prometheus:latest\n    ports: [\"127.0.0.1:9090:9090\"]\n    volumes:\n      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro\n      - prom-data:/prometheus\n  grafana:\n    image: grafana/grafana:13.2.4\n    ports: [\"127.0.0.1:3000:3000\"]\n    environment:\n      GF_SECURITY_ADMIN_PASSWORD__FILE: /run/secrets/grafana_admin\n    secrets: [grafana_admin]\n    volumes:\n      - grafana-data:/var/lib/grafana\n      - ./provisioning:/etc/grafana/provisioning:ro\n      - ./dashboards:/var/lib/grafana/dashboards:ro\nsecrets:\n  grafana_admin:\n    file: ./grafana_admin.txt   # chmod 600, keep out of git\nvolumes:\n  prom-data:\n  grafana-data:",
+        "cmd": "services:\n  prometheus:\n    image: prom/prometheus:latest\n    ports: [\"127.0.0.1:9090:9090\"]\n    volumes:\n      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro\n      - prom-data:/prometheus\n  grafana:\n    image: grafana/grafana:13.3.0\n    ports: [\"127.0.0.1:3000:3000\"]\n    environment:\n      GF_SECURITY_ADMIN_PASSWORD__FILE: /run/secrets/grafana_admin\n    secrets: [grafana_admin]\n    volumes:\n      - grafana-data:/var/lib/grafana\n      - ./provisioning:/etc/grafana/provisioning:ro\n      - ./dashboards:/var/lib/grafana/dashboards:ro\nsecrets:\n  grafana_admin:\n    file: ./grafana_admin.txt   # chmod 600, keep out of git\nvolumes:\n  prom-data:\n  grafana-data:",
         "details": "",
         "flags": [
           [
@@ -31,7 +31,7 @@ const GRAF_GRAFANA_SETUP_DATA = [
           ],
           [
             "image tag",
-            "Pin a version (13.2.4 was current on 2026-11-07); check the Grafana releases page before upgrading"
+            "Pin a version (13.3.0, released Oct 27, 2026, was current on 2026-11-10); check the Grafana releases page before upgrading"
           ]
         ],
         "tip": "Bind to 127.0.0.1, tunnel with ssh -L",
@@ -45,7 +45,33 @@ const GRAF_GRAFANA_SETUP_DATA = [
           "lab",
           "prometheus",
           "secrets"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/setup-grafana/configure-docker/",
+              "title": "Grafana: configure a Docker image"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/",
+              "title": "Grafana: configuration"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/other/",
+              "title": "Grafana: health API"
+            },
+            {
+              "url": "https://github.com/grafana/grafana/releases",
+              "title": "Grafana releases"
+            },
+            {
+              "url": "https://docs.docker.com/reference/compose-file/secrets/",
+              "title": "Compose file: secrets"
+            }
+          ],
+          "note": "Corrected 2026-11-10: the image tag was 13.2.4; 13.3.0 (Oct 27, 2026) is current."
+        }
       },
       {
         "id": "grafana-compose-lab-sub-1",
@@ -59,7 +85,33 @@ const GRAF_GRAFANA_SETUP_DATA = [
           "compose",
           "docker",
           "install"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/setup-grafana/configure-docker/",
+              "title": "Grafana: configure a Docker image"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/",
+              "title": "Grafana: configuration"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/other/",
+              "title": "Grafana: health API"
+            },
+            {
+              "url": "https://github.com/grafana/grafana/releases",
+              "title": "Grafana releases"
+            },
+            {
+              "url": "https://docs.docker.com/reference/compose-file/secrets/",
+              "title": "Compose file: secrets"
+            }
+          ],
+          "note": "Corrected 2026-11-10: the image tag was 13.2.4; 13.3.0 (Oct 27, 2026) is current."
+        }
       },
       {
         "id": "grafana-compose-lab-sub-2",
@@ -73,7 +125,33 @@ const GRAF_GRAFANA_SETUP_DATA = [
           "compose",
           "docker",
           "install"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/setup-grafana/configure-docker/",
+              "title": "Grafana: configure a Docker image"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/",
+              "title": "Grafana: configuration"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/other/",
+              "title": "Grafana: health API"
+            },
+            {
+              "url": "https://github.com/grafana/grafana/releases",
+              "title": "Grafana releases"
+            },
+            {
+              "url": "https://docs.docker.com/reference/compose-file/secrets/",
+              "title": "Compose file: secrets"
+            }
+          ],
+          "note": "Corrected 2026-11-10: the image tag was 13.2.4; 13.3.0 (Oct 27, 2026) is current."
+        }
       },
       {
         "id": "grafana-compose-lab-sub-3",
@@ -87,7 +165,33 @@ const GRAF_GRAFANA_SETUP_DATA = [
           "compose",
           "docker",
           "install"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/setup-grafana/configure-docker/",
+              "title": "Grafana: configure a Docker image"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/",
+              "title": "Grafana: configuration"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/other/",
+              "title": "Grafana: health API"
+            },
+            {
+              "url": "https://github.com/grafana/grafana/releases",
+              "title": "Grafana releases"
+            },
+            {
+              "url": "https://docs.docker.com/reference/compose-file/secrets/",
+              "title": "Compose file: secrets"
+            }
+          ],
+          "note": "Corrected 2026-11-10: the image tag was 13.2.4; 13.3.0 (Oct 27, 2026) is current."
+        }
       },
       {
         "id": "grafana-compose-lab-sub-4",
@@ -101,7 +205,33 @@ const GRAF_GRAFANA_SETUP_DATA = [
           "compose",
           "docker",
           "install"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/setup-grafana/configure-docker/",
+              "title": "Grafana: configure a Docker image"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/",
+              "title": "Grafana: configuration"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/other/",
+              "title": "Grafana: health API"
+            },
+            {
+              "url": "https://github.com/grafana/grafana/releases",
+              "title": "Grafana releases"
+            },
+            {
+              "url": "https://docs.docker.com/reference/compose-file/secrets/",
+              "title": "Compose file: secrets"
+            }
+          ],
+          "note": "Corrected 2026-11-10: the image tag was 13.2.4; 13.3.0 (Oct 27, 2026) is current."
+        }
       }
     ]
   },
@@ -149,7 +279,32 @@ const GRAF_GRAFANA_SETUP_DATA = [
           "node_exporter",
           "dcgm-exporter",
           "yaml"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/configuration/configuration/",
+              "title": "Prometheus configuration"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/command-line/promtool/",
+              "title": "promtool"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/api/",
+              "title": "Prometheus HTTP API"
+            },
+            {
+              "url": "https://docs.nvidia.com/datacenter/dcgm/latest/reference/command-line-reference/dcgm-exporter.html",
+              "title": "dcgm-exporter command reference"
+            },
+            {
+              "url": "https://github.com/prometheus/node_exporter",
+              "title": "node_exporter README"
+            }
+          ]
+        }
       },
       {
         "id": "prometheus-scrape-config-sub-1",
@@ -163,7 +318,32 @@ const GRAF_GRAFANA_SETUP_DATA = [
           "prometheus",
           "scrape",
           "targets"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/configuration/configuration/",
+              "title": "Prometheus configuration"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/command-line/promtool/",
+              "title": "promtool"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/api/",
+              "title": "Prometheus HTTP API"
+            },
+            {
+              "url": "https://docs.nvidia.com/datacenter/dcgm/latest/reference/command-line-reference/dcgm-exporter.html",
+              "title": "dcgm-exporter command reference"
+            },
+            {
+              "url": "https://github.com/prometheus/node_exporter",
+              "title": "node_exporter README"
+            }
+          ]
+        }
       },
       {
         "id": "prometheus-scrape-config-sub-2",
@@ -177,7 +357,32 @@ const GRAF_GRAFANA_SETUP_DATA = [
           "prometheus",
           "scrape",
           "targets"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/configuration/configuration/",
+              "title": "Prometheus configuration"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/command-line/promtool/",
+              "title": "promtool"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/api/",
+              "title": "Prometheus HTTP API"
+            },
+            {
+              "url": "https://docs.nvidia.com/datacenter/dcgm/latest/reference/command-line-reference/dcgm-exporter.html",
+              "title": "dcgm-exporter command reference"
+            },
+            {
+              "url": "https://github.com/prometheus/node_exporter",
+              "title": "node_exporter README"
+            }
+          ]
+        }
       },
       {
         "id": "prometheus-scrape-config-sub-3",
@@ -191,7 +396,32 @@ const GRAF_GRAFANA_SETUP_DATA = [
           "prometheus",
           "scrape",
           "targets"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/configuration/configuration/",
+              "title": "Prometheus configuration"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/command-line/promtool/",
+              "title": "promtool"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/api/",
+              "title": "Prometheus HTTP API"
+            },
+            {
+              "url": "https://docs.nvidia.com/datacenter/dcgm/latest/reference/command-line-reference/dcgm-exporter.html",
+              "title": "dcgm-exporter command reference"
+            },
+            {
+              "url": "https://github.com/prometheus/node_exporter",
+              "title": "node_exporter README"
+            }
+          ]
+        }
       }
     ]
   },
@@ -238,7 +468,24 @@ const GRAF_GRAFANA_SETUP_DATA = [
           "prometheus",
           "uid",
           "yaml"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/administration/provisioning/",
+              "title": "Grafana: provisioning"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/datasources/prometheus/configure/",
+              "title": "Grafana: configure the Prometheus data source"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/data_source/",
+              "title": "Grafana: data source API"
+            }
+          ]
+        }
       },
       {
         "id": "grafana-datasource-provisioning-sub-1",
@@ -252,7 +499,24 @@ const GRAF_GRAFANA_SETUP_DATA = [
           "datasource",
           "provisioning",
           "prometheus"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/administration/provisioning/",
+              "title": "Grafana: provisioning"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/datasources/prometheus/configure/",
+              "title": "Grafana: configure the Prometheus data source"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/data_source/",
+              "title": "Grafana: data source API"
+            }
+          ]
+        }
       },
       {
         "id": "grafana-datasource-provisioning-sub-2",
@@ -266,7 +530,24 @@ const GRAF_GRAFANA_SETUP_DATA = [
           "datasource",
           "provisioning",
           "prometheus"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/administration/provisioning/",
+              "title": "Grafana: provisioning"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/datasources/prometheus/configure/",
+              "title": "Grafana: configure the Prometheus data source"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/data_source/",
+              "title": "Grafana: data source API"
+            }
+          ]
+        }
       },
       {
         "id": "grafana-datasource-provisioning-sub-3",
@@ -280,7 +561,24 @@ const GRAF_GRAFANA_SETUP_DATA = [
           "datasource",
           "provisioning",
           "prometheus"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/administration/provisioning/",
+              "title": "Grafana: provisioning"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/datasources/prometheus/configure/",
+              "title": "Grafana: configure the Prometheus data source"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/data_source/",
+              "title": "Grafana: data source API"
+            }
+          ]
+        }
       }
     ]
   },
@@ -327,7 +625,24 @@ const GRAF_GRAFANA_SETUP_DATA = [
           "api",
           "auth",
           "secrets"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/administration/service-accounts/",
+              "title": "Grafana: service accounts"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+              "title": "bash(1): read builtin"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/folder_dashboard_search/",
+              "title": "Grafana: search API"
+            }
+          ]
+        }
       },
       {
         "id": "grafana-service-account-token-sub-1",
@@ -341,7 +656,24 @@ const GRAF_GRAFANA_SETUP_DATA = [
           "token",
           "service account",
           "api"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/administration/service-accounts/",
+              "title": "Grafana: service accounts"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+              "title": "bash(1): read builtin"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/folder_dashboard_search/",
+              "title": "Grafana: search API"
+            }
+          ]
+        }
       },
       {
         "id": "grafana-service-account-token-sub-2",
@@ -355,7 +687,24 @@ const GRAF_GRAFANA_SETUP_DATA = [
           "token",
           "service account",
           "api"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/administration/service-accounts/",
+              "title": "Grafana: service accounts"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+              "title": "bash(1): read builtin"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/folder_dashboard_search/",
+              "title": "Grafana: search API"
+            }
+          ]
+        }
       }
     ]
   },
@@ -387,7 +736,20 @@ const GRAF_GRAFANA_SETUP_DATA = [
           "observability",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://man.openbsd.org/ssh",
+              "title": "ssh(1)"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/",
+              "title": "Grafana: configuration"
+            }
+          ]
+        }
       }
     ]
   }

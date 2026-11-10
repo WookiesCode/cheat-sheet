@@ -49,7 +49,24 @@ const GRAF_GRAFANA_PROMQL_DATA = [
           "network",
           "throughput",
           "rate_interval"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/functions/",
+              "title": "PromQL functions"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/basics/",
+              "title": "PromQL basics"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/datasources/prometheus/template-variables/",
+              "title": "Grafana: Prometheus template variables"
+            }
+          ]
+        }
       },
       {
         "id": "promql-rate-counter-sub-1",
@@ -63,7 +80,24 @@ const GRAF_GRAFANA_PROMQL_DATA = [
           "promql",
           "rate",
           "counter"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/functions/",
+              "title": "PromQL functions"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/basics/",
+              "title": "PromQL basics"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/datasources/prometheus/template-variables/",
+              "title": "Grafana: Prometheus template variables"
+            }
+          ]
+        }
       },
       {
         "id": "promql-rate-counter-sub-2",
@@ -77,7 +111,24 @@ const GRAF_GRAFANA_PROMQL_DATA = [
           "promql",
           "rate",
           "counter"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/functions/",
+              "title": "PromQL functions"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/basics/",
+              "title": "PromQL basics"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/datasources/prometheus/template-variables/",
+              "title": "Grafana: Prometheus template variables"
+            }
+          ]
+        }
       },
       {
         "id": "promql-rate-counter-sub-3",
@@ -91,7 +142,24 @@ const GRAF_GRAFANA_PROMQL_DATA = [
           "promql",
           "rate",
           "counter"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/functions/",
+              "title": "PromQL functions"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/basics/",
+              "title": "PromQL basics"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/datasources/prometheus/template-variables/",
+              "title": "Grafana: Prometheus template variables"
+            }
+          ]
+        }
       }
     ]
   },
@@ -136,7 +204,24 @@ const GRAF_GRAFANA_PROMQL_DATA = [
           "count",
           "by",
           "without"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/operators/",
+              "title": "PromQL operators"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/functions/",
+              "title": "PromQL functions"
+            },
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/blob/4.9.0/etc/default-counters.csv",
+              "title": "dcgm-exporter 4.9.0 default-counters.csv"
+            }
+          ]
+        }
       },
       {
         "id": "promql-aggregation-sub-1",
@@ -150,7 +235,24 @@ const GRAF_GRAFANA_PROMQL_DATA = [
           "promql",
           "aggregation",
           "avg"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/operators/",
+              "title": "PromQL operators"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/functions/",
+              "title": "PromQL functions"
+            },
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/blob/4.9.0/etc/default-counters.csv",
+              "title": "dcgm-exporter 4.9.0 default-counters.csv"
+            }
+          ]
+        }
       },
       {
         "id": "promql-aggregation-sub-2",
@@ -164,7 +266,24 @@ const GRAF_GRAFANA_PROMQL_DATA = [
           "promql",
           "aggregation",
           "avg"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/operators/",
+              "title": "PromQL operators"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/functions/",
+              "title": "PromQL functions"
+            },
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/blob/4.9.0/etc/default-counters.csv",
+              "title": "dcgm-exporter 4.9.0 default-counters.csv"
+            }
+          ]
+        }
       },
       {
         "id": "promql-aggregation-sub-3",
@@ -178,7 +297,24 @@ const GRAF_GRAFANA_PROMQL_DATA = [
           "promql",
           "aggregation",
           "avg"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/operators/",
+              "title": "PromQL operators"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/functions/",
+              "title": "PromQL functions"
+            },
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/blob/4.9.0/etc/default-counters.csv",
+              "title": "dcgm-exporter 4.9.0 default-counters.csv"
+            }
+          ]
+        }
       },
       {
         "id": "promql-aggregation-sub-4",
@@ -192,7 +328,24 @@ const GRAF_GRAFANA_PROMQL_DATA = [
           "promql",
           "aggregation",
           "avg"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/operators/",
+              "title": "PromQL operators"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/functions/",
+              "title": "PromQL functions"
+            },
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/blob/4.9.0/etc/default-counters.csv",
+              "title": "dcgm-exporter 4.9.0 default-counters.csv"
+            }
+          ]
+        }
       },
       {
         "id": "promql-aggregation-sub-5",
@@ -206,7 +359,24 @@ const GRAF_GRAFANA_PROMQL_DATA = [
           "promql",
           "aggregation",
           "avg"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/operators/",
+              "title": "PromQL operators"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/functions/",
+              "title": "PromQL functions"
+            },
+            {
+              "url": "https://github.com/NVIDIA/dcgm-exporter/blob/4.9.0/etc/default-counters.csv",
+              "title": "dcgm-exporter 4.9.0 default-counters.csv"
+            }
+          ]
+        }
       }
     ]
   },
@@ -245,7 +415,20 @@ const GRAF_GRAFANA_PROMQL_DATA = [
           "bottomk",
           "top",
           "ranking"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/operators/",
+              "title": "PromQL operators"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/variables/built-in-variables/",
+              "title": "Grafana: built-in variables"
+            }
+          ]
+        }
       }
     ]
   },
@@ -288,7 +471,20 @@ const GRAF_GRAFANA_PROMQL_DATA = [
           "offset",
           "changes",
           "range"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/functions/",
+              "title": "PromQL functions"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/basics/",
+              "title": "PromQL basics"
+            }
+          ]
+        }
       },
       {
         "id": "promql-over-time-sub-1",
@@ -302,7 +498,20 @@ const GRAF_GRAFANA_PROMQL_DATA = [
           "promql",
           "over_time",
           "offset"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/functions/",
+              "title": "PromQL functions"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/basics/",
+              "title": "PromQL basics"
+            }
+          ]
+        }
       },
       {
         "id": "promql-over-time-sub-2",
@@ -316,7 +525,20 @@ const GRAF_GRAFANA_PROMQL_DATA = [
           "promql",
           "over_time",
           "offset"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/functions/",
+              "title": "PromQL functions"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/basics/",
+              "title": "PromQL basics"
+            }
+          ]
+        }
       }
     ]
   },
@@ -360,7 +582,24 @@ const GRAF_GRAFANA_PROMQL_DATA = [
           "missing",
           "targets",
           "gpu fell off bus"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/functions/",
+              "title": "PromQL functions"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/operators/",
+              "title": "PromQL operators"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/configuration/configuration/",
+              "title": "Prometheus configuration"
+            }
+          ]
+        }
       },
       {
         "id": "promql-up-absent-sub-1",
@@ -374,7 +613,24 @@ const GRAF_GRAFANA_PROMQL_DATA = [
           "promql",
           "up",
           "absent"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/functions/",
+              "title": "PromQL functions"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/operators/",
+              "title": "PromQL operators"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/configuration/configuration/",
+              "title": "Prometheus configuration"
+            }
+          ]
+        }
       },
       {
         "id": "promql-up-absent-sub-2",
@@ -388,7 +644,24 @@ const GRAF_GRAFANA_PROMQL_DATA = [
           "promql",
           "up",
           "absent"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/functions/",
+              "title": "PromQL functions"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/operators/",
+              "title": "PromQL operators"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/configuration/configuration/",
+              "title": "Prometheus configuration"
+            }
+          ]
+        }
       },
       {
         "id": "promql-up-absent-sub-3",
@@ -402,7 +675,24 @@ const GRAF_GRAFANA_PROMQL_DATA = [
           "promql",
           "up",
           "absent"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/functions/",
+              "title": "PromQL functions"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/operators/",
+              "title": "PromQL operators"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/configuration/configuration/",
+              "title": "Prometheus configuration"
+            }
+          ]
+        }
       }
     ]
   },
@@ -446,7 +736,20 @@ const GRAF_GRAFANA_PROMQL_DATA = [
           "on",
           "labels",
           "info metric"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/operators/",
+              "title": "PromQL operators"
+            },
+            {
+              "url": "https://github.com/prometheus/node_exporter/blob/master/collector/uname.go",
+              "title": "node_exporter uname collector"
+            }
+          ]
+        }
       }
     ]
   },
@@ -490,7 +793,24 @@ const GRAF_GRAFANA_PROMQL_DATA = [
           "jq",
           "promtool",
           "test"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/api/",
+              "title": "Prometheus HTTP API"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/command-line/promtool/",
+              "title": "promtool"
+            },
+            {
+              "url": "https://curl.se/docs/manpage.html",
+              "title": "curl man page"
+            }
+          ]
+        }
       },
       {
         "id": "promql-test-cli-sub-1",
@@ -504,7 +824,24 @@ const GRAF_GRAFANA_PROMQL_DATA = [
           "promql",
           "curl",
           "api"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/api/",
+              "title": "Prometheus HTTP API"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/command-line/promtool/",
+              "title": "promtool"
+            },
+            {
+              "url": "https://curl.se/docs/manpage.html",
+              "title": "curl man page"
+            }
+          ]
+        }
       },
       {
         "id": "promql-test-cli-sub-2",
@@ -518,7 +855,24 @@ const GRAF_GRAFANA_PROMQL_DATA = [
           "promql",
           "curl",
           "api"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/api/",
+              "title": "Prometheus HTTP API"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/command-line/promtool/",
+              "title": "promtool"
+            },
+            {
+              "url": "https://curl.se/docs/manpage.html",
+              "title": "curl man page"
+            }
+          ]
+        }
       },
       {
         "id": "promql-test-cli-sub-3",
@@ -532,7 +886,24 @@ const GRAF_GRAFANA_PROMQL_DATA = [
           "promql",
           "curl",
           "api"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/querying/api/",
+              "title": "Prometheus HTTP API"
+            },
+            {
+              "url": "https://prometheus.io/docs/prometheus/latest/command-line/promtool/",
+              "title": "promtool"
+            },
+            {
+              "url": "https://curl.se/docs/manpage.html",
+              "title": "curl man page"
+            }
+          ]
+        }
       }
     ]
   },
@@ -572,7 +943,20 @@ const GRAF_GRAFANA_PROMQL_DATA = [
           "observability",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://prometheus.io/docs/instrumenting/exposition_formats/",
+              "title": "Prometheus exposition formats"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/explore/",
+              "title": "Grafana: Explore"
+            }
+          ]
+        }
       }
     ]
   }

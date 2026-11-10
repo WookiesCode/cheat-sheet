@@ -335,6 +335,25 @@ Confirmed as written:
 
 **Gotcha found:** a sheet's version pill lives in its `.html` (pages own their header; generators only write new pages), so changing `pill:` in a generator doesn't reach an existing page. `ansible.html` and `prometheus.html` were edited directly.
 
+## #8 for the Grafana suite (2026-11-10, `grafana-sources`)
+
+All 36 commands and 6 Pro Tips on the six Grafana sheets (102 entries on the hub) now cite their docs: grafana.com docs (provisioning, panels, transformations, variables, built-in variables, data links, JSON model, Dashboard API, Git Sync, What's new in 13.0), Grafana source files for the shortcut, unit and variable-sort values the docs don't list, prometheus.io, node_exporter, the gcx and grafanactl repos, and NVIDIA's dcgm-exporter release notes, command reference and 4.9.0 counters file. Every link was checked to load (GNU's server refused, so `read` cites man7's bash page). `generate-grafana-suite.js` has its own card builder, so it now passes `src` through to main, More options, Related commands and Pro Tip cards. Corrections:
+
+| Was | Now |
+|---|---|
+| Compose lab pins `grafana/grafana:13.2.4` | **13.3.0** (Oct 27, 2026) is current |
+| Zoom out: `t z` | `t -` (or Ctrl+Z) in Grafana 13's dashboards |
+| `grafanactl` "repo was archived 2026-06-01" | Deprecated (last release v0.1.10, April 2026); the README announced June 1 archiving, but the repo was still not archived on Nov 10 |
+| gcx "Grafana 12+" | Full support on Grafana 13+; 12.x not actively supported; under 12 refused |
+| Dashboard API: no deprecation note | Grafana 13 deprecates `/api` for `/apis` (still served, no longer updated); `/apis/dashboard.grafana.app/v1/...` recipe added |
+| Omitting `folderUid` on an update "can move" the dashboard | It **moves** to the root level (docs) |
+| `label_values()` shown as the way to fill a variable | Still works, but it's the Classic query type, marked deprecated; the Label values query type does the same |
+| Git Sync auth: "GitHub App or a token for GitLab/Bitbucket" | GitHub: personal access token, GitHub App or OAuth App; any Git repo works (Pure Git) |
+| "Community dashboard 12239" as the starting point | 12239 is NVIDIA's, last revised 2021, pre-4.9 names; start from `grafana/dcgm-exporter-dashboard.json` in the 4.9.0 repo |
+| "Exports default to the v2 schema"; "new dashboards use auto grid" | A dashboard exports as Classic or V2 Resource; Custom layout is the default for a new dashboard |
+
+Confirmed as written: `GF_<SECTION>_<KEY>__FILE`, `/api/health` fields, provisioning keys (`foldersFromFilesStructure` needs `folder`/`folderUid` unset), `/api/datasources/proxy/uid/:uid/*`, service-account click path, `d k`/`e`/`v`/`?` shortcuts, unit IDs (`percentunit`, `mbytes` = MiB), override matcher IDs, value-mapping types, `__url_time_range` needs your own `&`, variable formats, refresh 1/2 and sort 1/3/7, `$__rate_interval` = max(interval + scrape, 4 × scrape), gridPos 24 columns × 30 px rows, 412 version-mismatch/name-exists, Git Sync GA in 13 at Administration → General → Provisioning, every DCGM 4.9.0 metric name and its default/optional status, `--no-hostname`, port 9400, node_exporter's `infiniband` collector (on by default) metric names.
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |

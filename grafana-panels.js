@@ -31,7 +31,7 @@ const GRAF_GRAFANA_PANELS_DATA = [
           ],
           [
             "Grafana 13 layouts",
-            "New dashboards use the v2 schema with auto grid, tabs and conditional rendering; older dashboards are migrated when opened"
+            "Dynamic dashboards (GA in 13) add tabs, an auto grid and show/hide rules; Custom layout is the default for a new dashboard, and older dashboards are migrated when opened"
           ]
         ],
         "tip": "Set the unit before anything else",
@@ -46,7 +46,37 @@ const GRAF_GRAFANA_PANELS_DATA = [
           "save",
           "shortcuts",
           "beginner"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/create-dashboard/",
+              "title": "Grafana: create dashboards"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/use-dashboards/",
+              "title": "Grafana: use dashboards (shortcuts)"
+            },
+            {
+              "url": "https://github.com/grafana/grafana/blob/main/public/app/features/dashboard-scene/scene/keyboardShortcuts.ts",
+              "title": "Grafana source: dashboard shortcuts"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-standard-options/",
+              "title": "Grafana: standard options"
+            },
+            {
+              "url": "https://github.com/grafana/grafana/blob/main/packages/grafana-data/src/valueFormats/categories.ts",
+              "title": "Grafana source: unit IDs"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/whatsnew/whats-new-in-v13/whats-new-in-v13-0/",
+              "title": "What's new in Grafana 13.0"
+            }
+          ],
+          "note": "Corrected 2026-11-10: zoom out is t - (or Ctrl+Z) in Grafana 13, not t z."
+        }
       },
       {
         "id": "grafana-first-dashboard-sub-1",
@@ -60,7 +90,37 @@ const GRAF_GRAFANA_PANELS_DATA = [
           "dashboard",
           "panel",
           "ui"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/create-dashboard/",
+              "title": "Grafana: create dashboards"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/use-dashboards/",
+              "title": "Grafana: use dashboards (shortcuts)"
+            },
+            {
+              "url": "https://github.com/grafana/grafana/blob/main/public/app/features/dashboard-scene/scene/keyboardShortcuts.ts",
+              "title": "Grafana source: dashboard shortcuts"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-standard-options/",
+              "title": "Grafana: standard options"
+            },
+            {
+              "url": "https://github.com/grafana/grafana/blob/main/packages/grafana-data/src/valueFormats/categories.ts",
+              "title": "Grafana source: unit IDs"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/whatsnew/whats-new-in-v13/whats-new-in-v13-0/",
+              "title": "What's new in Grafana 13.0"
+            }
+          ],
+          "note": "Corrected 2026-11-10: zoom out is t - (or Ctrl+Z) in Grafana 13, not t z."
+        }
       },
       {
         "id": "grafana-first-dashboard-sub-2",
@@ -74,7 +134,37 @@ const GRAF_GRAFANA_PANELS_DATA = [
           "dashboard",
           "panel",
           "ui"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/create-dashboard/",
+              "title": "Grafana: create dashboards"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/use-dashboards/",
+              "title": "Grafana: use dashboards (shortcuts)"
+            },
+            {
+              "url": "https://github.com/grafana/grafana/blob/main/public/app/features/dashboard-scene/scene/keyboardShortcuts.ts",
+              "title": "Grafana source: dashboard shortcuts"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-standard-options/",
+              "title": "Grafana: standard options"
+            },
+            {
+              "url": "https://github.com/grafana/grafana/blob/main/packages/grafana-data/src/valueFormats/categories.ts",
+              "title": "Grafana source: unit IDs"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/whatsnew/whats-new-in-v13/whats-new-in-v13-0/",
+              "title": "What's new in Grafana 13.0"
+            }
+          ],
+          "note": "Corrected 2026-11-10: zoom out is t - (or Ctrl+Z) in Grafana 13, not t z."
+        }
       },
       {
         "id": "grafana-first-dashboard-sub-3",
@@ -88,7 +178,37 @@ const GRAF_GRAFANA_PANELS_DATA = [
           "dashboard",
           "panel",
           "ui"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/create-dashboard/",
+              "title": "Grafana: create dashboards"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/use-dashboards/",
+              "title": "Grafana: use dashboards (shortcuts)"
+            },
+            {
+              "url": "https://github.com/grafana/grafana/blob/main/public/app/features/dashboard-scene/scene/keyboardShortcuts.ts",
+              "title": "Grafana source: dashboard shortcuts"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-standard-options/",
+              "title": "Grafana: standard options"
+            },
+            {
+              "url": "https://github.com/grafana/grafana/blob/main/packages/grafana-data/src/valueFormats/categories.ts",
+              "title": "Grafana source: unit IDs"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/whatsnew/whats-new-in-v13/whats-new-in-v13-0/",
+              "title": "What's new in Grafana 13.0"
+            }
+          ],
+          "note": "Corrected 2026-11-10: zoom out is t - (or Ctrl+Z) in Grafana 13, not t z."
+        }
       },
       {
         "id": "grafana-first-dashboard-sub-4",
@@ -102,12 +222,42 @@ const GRAF_GRAFANA_PANELS_DATA = [
           "dashboard",
           "panel",
           "ui"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/create-dashboard/",
+              "title": "Grafana: create dashboards"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/use-dashboards/",
+              "title": "Grafana: use dashboards (shortcuts)"
+            },
+            {
+              "url": "https://github.com/grafana/grafana/blob/main/public/app/features/dashboard-scene/scene/keyboardShortcuts.ts",
+              "title": "Grafana source: dashboard shortcuts"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-standard-options/",
+              "title": "Grafana: standard options"
+            },
+            {
+              "url": "https://github.com/grafana/grafana/blob/main/packages/grafana-data/src/valueFormats/categories.ts",
+              "title": "Grafana source: unit IDs"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/whatsnew/whats-new-in-v13/whats-new-in-v13-0/",
+              "title": "What's new in Grafana 13.0"
+            }
+          ],
+          "note": "Corrected 2026-11-10: zoom out is t - (or Ctrl+Z) in Grafana 13, not t z."
+        }
       },
       {
         "id": "grafana-first-dashboard-sub-5",
-        "desc": "Zoom out the time range",
-        "cmd": "t z",
+        "desc": "Zoom out the time range (Ctrl+Z does the same)",
+        "cmd": "t -",
         "tags": [
           "grafana",
           "dashboards",
@@ -116,7 +266,37 @@ const GRAF_GRAFANA_PANELS_DATA = [
           "dashboard",
           "panel",
           "ui"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/create-dashboard/",
+              "title": "Grafana: create dashboards"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/use-dashboards/",
+              "title": "Grafana: use dashboards (shortcuts)"
+            },
+            {
+              "url": "https://github.com/grafana/grafana/blob/main/public/app/features/dashboard-scene/scene/keyboardShortcuts.ts",
+              "title": "Grafana source: dashboard shortcuts"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-standard-options/",
+              "title": "Grafana: standard options"
+            },
+            {
+              "url": "https://github.com/grafana/grafana/blob/main/packages/grafana-data/src/valueFormats/categories.ts",
+              "title": "Grafana source: unit IDs"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/whatsnew/whats-new-in-v13/whats-new-in-v13-0/",
+              "title": "What's new in Grafana 13.0"
+            }
+          ],
+          "note": "Corrected 2026-11-10: zoom out is t - (or Ctrl+Z) in Grafana 13, not t z."
+        }
       },
       {
         "id": "grafana-first-dashboard-sub-6",
@@ -130,7 +310,37 @@ const GRAF_GRAFANA_PANELS_DATA = [
           "dashboard",
           "panel",
           "ui"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/create-dashboard/",
+              "title": "Grafana: create dashboards"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/use-dashboards/",
+              "title": "Grafana: use dashboards (shortcuts)"
+            },
+            {
+              "url": "https://github.com/grafana/grafana/blob/main/public/app/features/dashboard-scene/scene/keyboardShortcuts.ts",
+              "title": "Grafana source: dashboard shortcuts"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-standard-options/",
+              "title": "Grafana: standard options"
+            },
+            {
+              "url": "https://github.com/grafana/grafana/blob/main/packages/grafana-data/src/valueFormats/categories.ts",
+              "title": "Grafana source: unit IDs"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/whatsnew/whats-new-in-v13/whats-new-in-v13-0/",
+              "title": "What's new in Grafana 13.0"
+            }
+          ],
+          "note": "Corrected 2026-11-10: zoom out is t - (or Ctrl+Z) in Grafana 13, not t z."
+        }
       }
     ]
   },
@@ -179,7 +389,29 @@ const GRAF_GRAFANA_PANELS_DATA = [
           "table",
           "heatmap",
           "state timeline"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/visualizations/",
+              "title": "Grafana: visualizations"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-standard-options/",
+              "title": "Grafana: standard options"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/visualizations/state-timeline/",
+              "title": "Grafana: state timeline"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/visualizations/table/",
+              "title": "Grafana: table"
+            }
+          ],
+          "note": "Which visualization to pick is advice; the type IDs are from the visualization pages."
+        }
       }
     ]
   },
@@ -227,7 +459,28 @@ const GRAF_GRAFANA_PANELS_DATA = [
           "mappings",
           "json",
           "colors"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/grafana/grafana/blob/main/packages/grafana-data/src/valueFormats/categories.ts",
+              "title": "Grafana source: unit IDs"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-thresholds/",
+              "title": "Grafana: thresholds"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-value-mappings/",
+              "title": "Grafana: value mappings"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-standard-options/",
+              "title": "Grafana: standard options"
+            }
+          ]
+        }
       },
       {
         "id": "grafana-fieldconfig-json-sub-1",
@@ -241,7 +494,28 @@ const GRAF_GRAFANA_PANELS_DATA = [
           "fieldconfig",
           "unit",
           "thresholds"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/grafana/grafana/blob/main/packages/grafana-data/src/valueFormats/categories.ts",
+              "title": "Grafana source: unit IDs"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-thresholds/",
+              "title": "Grafana: thresholds"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-value-mappings/",
+              "title": "Grafana: value mappings"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-standard-options/",
+              "title": "Grafana: standard options"
+            }
+          ]
+        }
       },
       {
         "id": "grafana-fieldconfig-json-sub-2",
@@ -255,7 +529,28 @@ const GRAF_GRAFANA_PANELS_DATA = [
           "fieldconfig",
           "unit",
           "thresholds"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/grafana/grafana/blob/main/packages/grafana-data/src/valueFormats/categories.ts",
+              "title": "Grafana source: unit IDs"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-thresholds/",
+              "title": "Grafana: thresholds"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-value-mappings/",
+              "title": "Grafana: value mappings"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-standard-options/",
+              "title": "Grafana: standard options"
+            }
+          ]
+        }
       },
       {
         "id": "grafana-fieldconfig-json-sub-3",
@@ -269,7 +564,28 @@ const GRAF_GRAFANA_PANELS_DATA = [
           "fieldconfig",
           "unit",
           "thresholds"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/grafana/grafana/blob/main/packages/grafana-data/src/valueFormats/categories.ts",
+              "title": "Grafana source: unit IDs"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-thresholds/",
+              "title": "Grafana: thresholds"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-value-mappings/",
+              "title": "Grafana: value mappings"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-standard-options/",
+              "title": "Grafana: standard options"
+            }
+          ]
+        }
       }
     ]
   },
@@ -312,7 +628,20 @@ const GRAF_GRAFANA_PANELS_DATA = [
           "axis",
           "unit",
           "json"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-overrides/",
+              "title": "Grafana: field overrides"
+            },
+            {
+              "url": "https://github.com/grafana/grafana/blob/main/packages/grafana-data/src/transformations/matchers/ids.ts",
+              "title": "Grafana source: matcher IDs"
+            }
+          ]
+        }
       }
     ]
   },
@@ -364,7 +693,20 @@ const GRAF_GRAFANA_PANELS_DATA = [
           "table",
           "reduce",
           "join"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/query-transform-data/transform-data/",
+              "title": "Grafana: transform data"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/datasources/prometheus/query-editor/",
+              "title": "Grafana: Prometheus query editor"
+            }
+          ]
+        }
       }
     ]
   },
@@ -407,7 +749,24 @@ const GRAF_GRAFANA_PANELS_DATA = [
           "url",
           "kiosk",
           "variables"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-data-links/",
+              "title": "Grafana: data links and actions"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/create-dashboard-url-variables/",
+              "title": "Grafana: dashboard URL variables"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/use-dashboards/",
+              "title": "Grafana: use dashboards (shortcuts)"
+            }
+          ]
+        }
       },
       {
         "id": "grafana-data-links-sub-1",
@@ -421,7 +780,24 @@ const GRAF_GRAFANA_PANELS_DATA = [
           "data links",
           "drilldown",
           "url"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-data-links/",
+              "title": "Grafana: data links and actions"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/create-dashboard-url-variables/",
+              "title": "Grafana: dashboard URL variables"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/use-dashboards/",
+              "title": "Grafana: use dashboards (shortcuts)"
+            }
+          ]
+        }
       },
       {
         "id": "grafana-data-links-sub-2",
@@ -435,7 +811,24 @@ const GRAF_GRAFANA_PANELS_DATA = [
           "data links",
           "drilldown",
           "url"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-data-links/",
+              "title": "Grafana: data links and actions"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/create-dashboard-url-variables/",
+              "title": "Grafana: dashboard URL variables"
+            },
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/use-dashboards/",
+              "title": "Grafana: use dashboards (shortcuts)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -475,7 +868,16 @@ const GRAF_GRAFANA_PANELS_DATA = [
           "observability",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/best-practices/",
+              "title": "Grafana: dashboard best practices"
+            }
+          ]
+        }
       }
     ]
   }

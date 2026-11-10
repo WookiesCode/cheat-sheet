@@ -2,10 +2,11 @@
 // Generates the Grafana suite: a hub (grafana.html) plus 6 sheets on building dashboards,
 // and inserts the Grafana dropdown into the nav of every HTML sheet.
 //
-// Facts checked 2026-11-07 against official sources: Grafana 13.x (13.0 GA April 2026;
-// dynamic dashboards and the v2 dashboard schema are the default, older JSON is migrated
-// on load), Git Sync GA in 13, `grafanactl` replaced by `gcx` (repo archived 2026-06-01),
-// dashboard HTTP API POST /api/dashboards/db, dcgm-exporter on port 9400.
+// Facts checked 2026-11-07, re-checked 2026-11-10 (each card's src lists the pages): Grafana
+// 13.3.0 (Oct 27, 2026; dynamic dashboards GA in 13.0, older dashboards migrate on open),
+// Git Sync GA in 13, `grafanactl` deprecated for `gcx` (its README announced archiving on
+// 2026-06-01; the repo was still not archived on 2026-11-10), legacy /api routes deprecated
+// in 13 for /apis but still served, dcgm-exporter on port 9400.
 // DCGM metric names are the dcgm-exporter 4.9.0 defaults (renamed to DCGM 4.7 names with
 // unit suffixes; utilization is a 0-1 ratio, memory in bytes); the GPU sheet maps the
 // pre-4.9 names. Labels per NVIDIA's exporter metrics page: gpu, UUID, pci_bus_id,
@@ -48,7 +49,7 @@ const GRAFANA_SECTIONS = [
       - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
       - prom-data:/prometheus
   grafana:
-    image: grafana/grafana:13.2.4
+    image: grafana/grafana:13.3.0
     ports: ["127.0.0.1:3000:3000"]
     environment:
       GF_SECURITY_ADMIN_PASSWORD__FILE: /run/secrets/grafana_admin
@@ -68,7 +69,7 @@ volumes:
           ["GF_SECURITY_ADMIN_PASSWORD__FILE", "Any Grafana setting can come from an env var GF_<SECTION>_<KEY>; the __FILE suffix reads the value from a file, so the password never appears in compose.yaml or docker inspect"],
           ["grafana-data volume", "Holds grafana.db (users, UI-made dashboards, API keys). Lose the volume and you lose everything not provisioned from files"],
           ["./provisioning", "Data sources and dashboard providers as YAML, loaded at startup (see the cards below)"],
-          ["image tag", "Pin a version (13.2.4 was current on 2026-11-07); check the Grafana releases page before upgrading"]
+          ["image tag", "Pin a version (13.3.0, released Oct 27, 2026, was current on 2026-11-10); check the Grafana releases page before upgrading"]
         ],
         subcommands: [
           ["docker compose up -d", "Start the lab in the background (changes state)"],
@@ -77,7 +78,8 @@ volumes:
           ["curl -s http://127.0.0.1:3000/api/health | jq", "Grafana is up when database is \"ok\"; also shows the version"]
         ],
         tip: "Bind to 127.0.0.1, tunnel with ssh -L",
-        tags: ["compose", "docker", "install", "lab", "prometheus", "secrets"]
+        tags: ["compose", "docker", "install", "lab", "prometheus", "secrets"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://grafana.com/docs/grafana/latest/setup-grafana/configure-docker/","title":"Grafana: configure a Docker image"},{"url":"https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/","title":"Grafana: configuration"},{"url":"https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/other/","title":"Grafana: health API"},{"url":"https://github.com/grafana/grafana/releases","title":"Grafana releases"},{"url":"https://docs.docker.com/reference/compose-file/secrets/","title":"Compose file: secrets"}],"note":"Corrected 2026-11-10: the image tag was 13.2.4; 13.3.0 (Oct 27, 2026) is current."}
       },
       {
         id: "prometheus-scrape-config",
@@ -104,7 +106,8 @@ scrape_configs:
           ["curl -s http://gpu-node01:9400/metrics | grep -m5 -E '^DCGM_FI_DEV_GPU_TEMP(_CELSIUS)?\\{'", "Check the exporter directly on a node before blaming Prometheus or Grafana (matches old and new metric names)"]
         ],
         tip: "No data in Grafana? Check Prometheus targets first",
-        tags: ["prometheus", "scrape", "targets", "node_exporter", "dcgm-exporter", "yaml"]
+        tags: ["prometheus", "scrape", "targets", "node_exporter", "dcgm-exporter", "yaml"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://prometheus.io/docs/prometheus/latest/configuration/configuration/","title":"Prometheus configuration"},{"url":"https://prometheus.io/docs/prometheus/latest/command-line/promtool/","title":"promtool"},{"url":"https://prometheus.io/docs/prometheus/latest/querying/api/","title":"Prometheus HTTP API"},{"url":"https://docs.nvidia.com/datacenter/dcgm/latest/reference/command-line-reference/dcgm-exporter.html","title":"dcgm-exporter command reference"},{"url":"https://github.com/prometheus/node_exporter","title":"node_exporter README"}]}
       },
       {
         id: "grafana-datasource-provisioning",
@@ -132,7 +135,8 @@ datasources:
           ["curl -s -G -H \"Authorization: Bearer $GRAFANA_TOKEN\" \"$GRAFANA_URL/api/datasources/proxy/uid/prometheus/api/v1/query\" --data-urlencode 'query=up' | jq '.data.result | length'", "Run a query through Grafana's proxy: proves Grafana can reach Prometheus"]
         ],
         tip: "Fixed data source UIDs keep dashboards portable",
-        tags: ["datasource", "provisioning", "prometheus", "uid", "yaml"]
+        tags: ["datasource", "provisioning", "prometheus", "uid", "yaml"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://grafana.com/docs/grafana/latest/administration/provisioning/","title":"Grafana: provisioning"},{"url":"https://grafana.com/docs/grafana/latest/datasources/prometheus/configure/","title":"Grafana: configure the Prometheus data source"},{"url":"https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/data_source/","title":"Grafana: data source API"}]}
       },
       {
         id: "grafana-service-account-token",
@@ -150,7 +154,8 @@ datasources:
           ["unset GRAFANA_TOKEN", "Drop the token from this shell when you are done"]
         ],
         tip: "Never paste tokens into commands that get logged",
-        tags: ["token", "service account", "api", "auth", "secrets"]
+        tags: ["token", "service account", "api", "auth", "secrets"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://grafana.com/docs/grafana/latest/administration/service-accounts/","title":"Grafana: service accounts"},{"url":"https://man7.org/linux/man-pages/man1/bash.1.html","title":"bash(1): read builtin"},{"url":"https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/folder_dashboard_search/","title":"Grafana: search API"}]}
       }
     ],
     proTip: {
@@ -161,7 +166,8 @@ datasources:
         ["-L 3000:127.0.0.1:3000", "Local port 3000 → the jumpbox's 127.0.0.1:3000; then open http://localhost:3000"],
         ["Why not open the port?", "Grafana with default settings on a datacenter network is an easy target; a tunnel needs no firewall change"]
       ],
-      tip: "Lab → JSON in git → provisioned"
+      tip: "Lab → JSON in git → provisioned",
+      src: {"verified":"2026-11-10","refs":[{"url":"https://man.openbsd.org/ssh","title":"ssh(1)"},{"url":"https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/","title":"Grafana: configuration"}]}
     }
   },
   {
@@ -186,18 +192,19 @@ datasources:
           ["Legend {{hostname}}", "Text in double braces is replaced by that label's value, so lines are named gpu-node01 instead of a full label set"],
           ["Unit", "Sets axis labels, tooltip formatting and stat values in one place; pick it before anything else. _RATIO metrics are 0-1, so use Percent (0.0-1.0), not Percent (0-100)"],
           ["Save message", "Every save is a version (Dashboard settings → Versions); a message makes rollback easy"],
-          ["Grafana 13 layouts", "New dashboards use the v2 schema with auto grid, tabs and conditional rendering; older dashboards are migrated when opened"]
+          ["Grafana 13 layouts", "Dynamic dashboards (GA in 13) add tabs, an auto grid and show/hide rules; Custom layout is the default for a new dashboard, and older dashboards are migrated when opened"]
         ],
         subcommands: [
           ["Ctrl+S", "Save the dashboard"],
           ["e (hover a panel)", "Edit that panel"],
           ["v (hover a panel)", "View the panel full screen"],
           ["d k", "Toggle kiosk mode (for wall screens)"],
-          ["t z", "Zoom out the time range"],
+          ["t -", "Zoom out the time range (Ctrl+Z does the same)"],
           ["?", "Show every keyboard shortcut"]
         ],
         tip: "Set the unit before anything else",
-        tags: ["dashboard", "panel", "ui", "first", "save", "shortcuts", "beginner"]
+        tags: ["dashboard", "panel", "ui", "first", "save", "shortcuts", "beginner"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/create-dashboard/","title":"Grafana: create dashboards"},{"url":"https://grafana.com/docs/grafana/latest/visualizations/dashboards/use-dashboards/","title":"Grafana: use dashboards (shortcuts)"},{"url":"https://github.com/grafana/grafana/blob/main/public/app/features/dashboard-scene/scene/keyboardShortcuts.ts","title":"Grafana source: dashboard shortcuts"},{"url":"https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-standard-options/","title":"Grafana: standard options"},{"url":"https://github.com/grafana/grafana/blob/main/packages/grafana-data/src/valueFormats/categories.ts","title":"Grafana source: unit IDs"},{"url":"https://grafana.com/docs/grafana/latest/whatsnew/whats-new-in-v13/whats-new-in-v13-0/","title":"What's new in Grafana 13.0"}],"note":"Corrected 2026-11-10: zoom out is t - (or Ctrl+Z) in Grafana 13, not t z."}
       },
       {
         id: "grafana-visualization-choice",
@@ -218,7 +225,8 @@ Notes, runbook links             → Text          (text)`,
           ["Avoid", "Pie charts for anything but small parts-of-a-whole; time series with more than ~20 lines (aggregate or use a table)"]
         ],
         tip: "Too many lines? Aggregate, table or heatmap",
-        tags: ["visualization", "time series", "stat", "gauge", "table", "heatmap", "state timeline"]
+        tags: ["visualization", "time series", "stat", "gauge", "table", "heatmap", "state timeline"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/visualizations/","title":"Grafana: visualizations"},{"url":"https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-standard-options/","title":"Grafana: standard options"},{"url":"https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/visualizations/state-timeline/","title":"Grafana: state timeline"},{"url":"https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/visualizations/table/","title":"Grafana: table"}],"note":"Which visualization to pick is advice; the type IDs are from the visualization pages."}
       },
       {
         id: "grafana-fieldconfig-json",
@@ -256,7 +264,8 @@ Notes, runbook links             → Text          (text)`,
           ["Panel menu → Inspect → Query", "See the exact request sent and the time it took"]
         ],
         tip: "Inspect → Panel JSON shows what the UI set",
-        tags: ["fieldconfig", "unit", "thresholds", "mappings", "json", "colors"]
+        tags: ["fieldconfig", "unit", "thresholds", "mappings", "json", "colors"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/grafana/grafana/blob/main/packages/grafana-data/src/valueFormats/categories.ts","title":"Grafana source: unit IDs"},{"url":"https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-thresholds/","title":"Grafana: thresholds"},{"url":"https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-value-mappings/","title":"Grafana: value mappings"},{"url":"https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-standard-options/","title":"Grafana: standard options"}]}
       },
       {
         id: "grafana-overrides",
@@ -281,7 +290,8 @@ Notes, runbook links             → Text          (text)`,
           ["Add in the UI", "Edit panel → Overrides tab → Add field override; the JSON above is the result"]
         ],
         tip: "Second metric, second axis: override on query B",
-        tags: ["overrides", "matcher", "axis", "unit", "json"]
+        tags: ["overrides", "matcher", "axis", "unit", "json"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-overrides/","title":"Grafana: field overrides"},{"url":"https://github.com/grafana/grafana/blob/main/packages/grafana-data/src/transformations/matchers/ids.ts","title":"Grafana source: matcher IDs"}]}
       },
       {
         id: "grafana-transformations",
@@ -303,7 +313,8 @@ Transformations:
           ["Order matters", "Transformations run top to bottom; use the debug (bug icon) view to see the data after each step"]
         ],
         tip: "Instant + Table format + Merge = per-GPU table",
-        tags: ["transformations", "merge", "organize", "table", "reduce", "join"]
+        tags: ["transformations", "merge", "organize", "table", "reduce", "join"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/query-transform-data/transform-data/","title":"Grafana: transform data"},{"url":"https://grafana.com/docs/grafana/latest/datasources/prometheus/query-editor/","title":"Grafana: Prometheus query editor"}]}
       },
       {
         id: "grafana-data-links",
@@ -320,7 +331,8 @@ Transformations:
           ["&refresh=30s&kiosk", "Auto-refresh and hide the chrome: ready for a NOC wall screen"]
         ],
         tip: "Overview → click → detail is the classic layout",
-        tags: ["data links", "drilldown", "url", "kiosk", "variables"]
+        tags: ["data links", "drilldown", "url", "kiosk", "variables"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-data-links/","title":"Grafana: data links and actions"},{"url":"https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/create-dashboard-url-variables/","title":"Grafana: dashboard URL variables"},{"url":"https://grafana.com/docs/grafana/latest/visualizations/dashboards/use-dashboards/","title":"Grafana: use dashboards (shortcuts)"}]}
       }
     ],
     proTip: {
@@ -333,7 +345,8 @@ Transformations:
         ["Repeat, don't copy", "Use a variable + repeat instead of 8 hand-copied per-node panels"],
         ["Text panel", "Add a short 'how to read this / runbook link' panel at the top"]
       ],
-      tip: "Summary → where → why"
+      tip: "Summary → where → why",
+      src: {"verified":"2026-11-10","refs":[{"url":"https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/best-practices/","title":"Grafana: dashboard best practices"}]}
     }
   },
   {
@@ -360,7 +373,8 @@ Transformations:
           ["resets(x[1d])", "How many times a counter reset (process or node restarts)"]
         ],
         tip: "_total metric? Wrap it in rate()",
-        tags: ["promql", "rate", "counter", "network", "throughput", "rate_interval"]
+        tags: ["promql", "rate", "counter", "network", "throughput", "rate_interval"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://prometheus.io/docs/prometheus/latest/querying/functions/","title":"PromQL functions"},{"url":"https://prometheus.io/docs/prometheus/latest/querying/basics/","title":"PromQL basics"},{"url":"https://grafana.com/docs/grafana/latest/datasources/prometheus/template-variables/","title":"Grafana: Prometheus template variables"}]}
       },
       {
         id: "promql-aggregation",
@@ -380,7 +394,8 @@ Transformations:
           ["sum(DCGM_FI_DEV_BOARD_POWER_WATTS) / 1000", "Total GPU power of the fleet in kW"]
         ],
         tip: "Use max for health, avg for capacity",
-        tags: ["promql", "aggregation", "avg", "max", "count", "by", "without"]
+        tags: ["promql", "aggregation", "avg", "max", "count", "by", "without"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://prometheus.io/docs/prometheus/latest/querying/operators/","title":"PromQL operators"},{"url":"https://prometheus.io/docs/prometheus/latest/querying/functions/","title":"PromQL functions"},{"url":"https://github.com/NVIDIA/dcgm-exporter/blob/4.9.0/etc/default-counters.csv","title":"dcgm-exporter 4.9.0 default-counters.csv"}]}
       },
       {
         id: "promql-topk",
@@ -392,7 +407,8 @@ Transformations:
           ["Fixed set over a range", "topk(10, max_over_time(DCGM_FI_DEV_GPU_TEMP_CELSIUS[$__range])) with an Instant query: top 10 of the whole visible range"]
         ],
         tip: "topk + Instant query + table",
-        tags: ["promql", "topk", "bottomk", "top", "ranking"]
+        tags: ["promql", "topk", "bottomk", "top", "ranking"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://prometheus.io/docs/prometheus/latest/querying/operators/","title":"PromQL operators"},{"url":"https://grafana.com/docs/grafana/latest/visualizations/dashboards/variables/built-in-variables/","title":"Grafana: built-in variables"}]}
       },
       {
         id: "promql-over-time",
@@ -409,7 +425,8 @@ Transformations:
           ["avg_over_time(DCGM_FI_DEV_GPU_UTIL_RATIO[1h]) < 0.2", "GPUs averaging under 20% for an hour (idle allocation); the ratio is 0-1, so 20% is 0.2"]
         ],
         tip: "$__range + Instant = one number for the view",
-        tags: ["promql", "over_time", "offset", "changes", "range"]
+        tags: ["promql", "over_time", "offset", "changes", "range"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://prometheus.io/docs/prometheus/latest/querying/functions/","title":"PromQL functions"},{"url":"https://prometheus.io/docs/prometheus/latest/querying/basics/","title":"PromQL basics"}]}
       },
       {
         id: "promql-up-absent",
@@ -427,7 +444,8 @@ Transformations:
           ["count by (hostname) (DCGM_FI_DEV_GPU_TEMP_CELSIUS) < 8", "Nodes reporting fewer than 8 GPUs (a GPU fell off the bus)"]
         ],
         tip: "Silence is not health: graph up == 0",
-        tags: ["promql", "up", "absent", "missing", "targets", "gpu fell off bus"]
+        tags: ["promql", "up", "absent", "missing", "targets", "gpu fell off bus"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://prometheus.io/docs/prometheus/latest/querying/functions/","title":"PromQL functions"},{"url":"https://prometheus.io/docs/prometheus/latest/querying/operators/","title":"PromQL operators"},{"url":"https://prometheus.io/docs/prometheus/latest/configuration/configuration/","title":"Prometheus configuration"}]}
       },
       {
         id: "promql-join-group-left",
@@ -440,7 +458,8 @@ Transformations:
           ["Multiply by 1", "Because info metrics are 1, the values stay the same; only labels are added"]
         ],
         tip: "Info metric × group_left = add labels",
-        tags: ["promql", "join", "group_left", "on", "labels", "info metric"]
+        tags: ["promql", "join", "group_left", "on", "labels", "info metric"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://prometheus.io/docs/prometheus/latest/querying/operators/","title":"PromQL operators"},{"url":"https://github.com/prometheus/node_exporter/blob/master/collector/uname.go","title":"node_exporter uname collector"}]}
       },
       {
         id: "promql-test-cli",
@@ -458,7 +477,8 @@ Transformations:
           ["curl -s -G http://127.0.0.1:9090/api/v1/series --data-urlencode 'match[]=DCGM_FI_DEV_GPU_TEMP_CELSIUS' | jq '.data[0]'", "Every label on a metric: shows exactly which labels you can use in by()"]
         ],
         tip: "Use -G so curl sends a GET",
-        tags: ["promql", "curl", "api", "jq", "promtool", "test"]
+        tags: ["promql", "curl", "api", "jq", "promtool", "test"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://prometheus.io/docs/prometheus/latest/querying/api/","title":"Prometheus HTTP API"},{"url":"https://prometheus.io/docs/prometheus/latest/command-line/promtool/","title":"promtool"},{"url":"https://curl.se/docs/manpage.html","title":"curl man page"}]}
       }
     ],
     proTip: {
@@ -471,7 +491,8 @@ Transformations:
         ["sort -u", "One line per metric name"],
         ["Grafana Explore", "Explore (compass icon) → Metrics browser does the same with clicks"]
       ],
-      tip: "TYPE counter → rate(); gauge → as is"
+      tip: "TYPE counter → rate(); gauge → as is",
+      src: {"verified":"2026-11-10","refs":[{"url":"https://prometheus.io/docs/instrumenting/exposition_formats/","title":"Prometheus exposition formats"},{"url":"https://grafana.com/docs/grafana/latest/visualizations/explore/","title":"Grafana: Explore"}]}
     }
   },
   {
@@ -486,18 +507,20 @@ Transformations:
         cmd: "label_values(DCGM_FI_DEV_GPU_TEMP_CELSIUS, hostname)",
         flags: [
           ["Variable type: Query", "Values come from the data source; the query above lists every hostname that has GPU metrics"],
+          ["Query type", "Typing label_values() is the Classic query type, which Grafana's docs mark deprecated. The same list without it: Query type = Label values, Label = hostname, Metric = DCGM_FI_DEV_GPU_TEMP_CELSIUS"],
           ["Name: host", "Use it in queries as $host: DCGM_FI_DEV_GPU_TEMP_CELSIUS{hostname=~\"$host\"}"],
           ["Multi-value + Include All", "Lets people pick several hosts or All; then always use =~ (regex match), never ="],
           ["Refresh: On time range change", "Picks up nodes that joined since the dashboard was opened"],
           ["Custom all value: .*", "Without it, All sends a regex of every host, which gets slow and long on big fleets"]
         ],
         subcommands: [
-          ["label_names()", "Every label name in the data source"],
+          ["label_names()", "Every label name in the data source (Classic query; the Label names query type does the same)"],
           ["label_values(hostname)", "Values of a label across all metrics (slower than naming a metric)"],
           ["query_result(topk(5, max by (hostname) (DCGM_FI_DEV_GPU_TEMP_CELSIUS)))", "Values from any PromQL result; pair with a Regex such as /hostname=\"([^\"]+)\"/"]
         ],
         tip: "Multi-value variables need =~ not =",
-        tags: ["variables", "templating", "label_values", "dropdown", "query variable"]
+        tags: ["variables", "templating", "label_values", "dropdown", "query variable"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://grafana.com/docs/grafana/latest/datasources/prometheus/template-variables/","title":"Grafana: Prometheus template variables"},{"url":"https://grafana.com/docs/grafana/latest/visualizations/dashboards/variables/add-template-variables/","title":"Grafana: add variables"}],"note":"Added 2026-11-10: typed label_values() is the Classic query type, which the Prometheus variables page marks deprecated."}
       },
       {
         id: "grafana-chained-variable",
@@ -510,7 +533,8 @@ Transformations:
           ["Regex field", "/^gpu-node(\\d+)$/ in the variable's Regex box would keep only the number; leave empty to keep full names"]
         ],
         tip: "Order variables parent first",
-        tags: ["variables", "chained", "dependent", "filter", "gpu"]
+        tags: ["variables", "chained", "dependent", "filter", "gpu"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://grafana.com/docs/grafana/latest/visualizations/dashboards/variables/add-template-variables/","title":"Grafana: add variables"},{"url":"https://grafana.com/docs/grafana/latest/datasources/prometheus/template-variables/","title":"Grafana: Prometheus template variables"}]}
       },
       {
         id: "grafana-variable-json",
@@ -538,7 +562,8 @@ Transformations:
           ["Schema note", "This is the classic JSON model; Grafana 13 stores dashboards in the v2 schema and converts classic JSON on load"]
         ],
         tip: "refresh 2 picks up new nodes",
-        tags: ["variables", "json", "templating", "schema"]
+        tags: ["variables", "json", "templating", "schema"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/view-dashboard-json-model/","title":"Grafana: dashboard JSON model"},{"url":"https://github.com/grafana/grafana/blob/main/packages/grafana-data/src/types/templateVars.ts","title":"Grafana source: variable sort/refresh values"},{"url":"https://grafana.com/docs/grafana/latest/visualizations/dashboards/variables/add-template-variables/","title":"Grafana: add variables"}]}
       },
       {
         id: "grafana-variable-formats",
@@ -553,7 +578,8 @@ Transformations:
           ["${host:text}", "The display text instead of the value"]
         ],
         tip: "Links to other dashboards: ${var:queryparam}",
-        tags: ["variables", "format", "regex", "csv", "queryparam", "interpolation"]
+        tags: ["variables", "format", "regex", "csv", "queryparam", "interpolation"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://grafana.com/docs/grafana/latest/visualizations/dashboards/variables/variable-syntax/","title":"Grafana: variable syntax"}]}
       },
       {
         id: "grafana-repeat-panels",
@@ -569,7 +595,8 @@ Transformations:
           ["Title", "Use $host in the title so each copy is labeled"]
         ],
         tip: "Repeat rows, not copy-pasted panels",
-        tags: ["repeat", "rows", "variables", "per node", "layout"]
+        tags: ["repeat", "rows", "variables", "per node", "layout"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-panel-options/","title":"Grafana: panel options (repeat)"},{"url":"https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/view-dashboard-json-model/","title":"Grafana: dashboard JSON model"}]}
       },
       {
         id: "grafana-builtin-variables",
@@ -583,7 +610,8 @@ Transformations:
           ["Interval variable type", "A dropdown of windows (1m, 5m, 1h) the user can pick, used as [$window]"]
         ],
         tip: "Use $__rate_interval for every rate()",
-        tags: ["variables", "builtin", "interval", "range", "rate_interval"]
+        tags: ["variables", "builtin", "interval", "range", "rate_interval"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://grafana.com/docs/grafana/latest/visualizations/dashboards/variables/built-in-variables/","title":"Grafana: built-in variables"},{"url":"https://grafana.com/docs/grafana/latest/datasources/prometheus/template-variables/","title":"Grafana: Prometheus template variables"},{"url":"https://grafana.com/docs/grafana/latest/visualizations/dashboards/variables/add-template-variables/","title":"Grafana: add variables"}]}
       }
     ],
     proTip: {
@@ -594,7 +622,8 @@ Transformations:
         ["Hidden variables", "Set Hide = Variable for helper variables people should not change"],
         ["Constants", "A constant variable for a cluster name or job keeps queries short and editable in one place"]
       ],
-      tip: "One templated dashboard per kind of thing"
+      tip: "One templated dashboard per kind of thing",
+      src: {"verified":"2026-11-10","refs":[{"url":"https://grafana.com/docs/grafana/latest/visualizations/dashboards/variables/add-template-variables/","title":"Grafana: add variables"}]}
     }
   },
   // ---------------------------------------------------------------- SHIP
@@ -633,14 +662,15 @@ Transformations:
           ["gridPos", "24 columns wide; w = width in columns, h = height in rows (~30 px), x/y = position. w 12 = half width"],
           ["targets[].expr", "The PromQL. Inside JSON, double quotes in the query must be escaped as \\\""],
           ["Leave out id", "id is per-instance; when moving a dashboard between Grafanas, remove it (or set null) and keep uid"],
-          ["Grafana 13", "Exports default to the v2 resource schema (apiVersion/kind/spec); classic JSON like this still imports and is migrated"]
+          ["Grafana 13", "A dashboard can be exported as Classic JSON (like this) or the V2 Resource schema (apiVersion/kind/spec); classic JSON still imports and is migrated when opened"]
         ],
         subcommands: [
           ["jq . gpu-fleet.json > /dev/null && echo valid", "Check the file is valid JSON before loading it"],
           ["jq -r '.panels[] | \"\\(.gridPos.y)\\t\\(.gridPos.x)\\t\\(.title)\"' gpu-fleet.json | sort -n", "List panels in layout order"]
         ],
         tip: "Set uid yourself; drop id when moving",
-        tags: ["json", "model", "uid", "gridPos", "panels", "export", "schema"]
+        tags: ["json", "model", "uid", "gridPos", "panels", "export", "schema"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/view-dashboard-json-model/","title":"Grafana: dashboard JSON model"},{"url":"https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/dashboard/","title":"Grafana: Dashboard API (/apis)"}]}
       },
       {
         id: "grafana-dashboard-provider",
@@ -666,7 +696,8 @@ providers:
           ["docker compose logs grafana | grep -i provisioning", "See which dashboards loaded and any JSON errors"]
         ],
         tip: "Git is the source of truth: allowUiUpdates false",
-        tags: ["provisioning", "yaml", "file", "folders", "gitops"]
+        tags: ["provisioning", "yaml", "file", "folders", "gitops"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://grafana.com/docs/grafana/latest/administration/provisioning/","title":"Grafana: provisioning"}]}
       },
       {
         id: "grafana-api-export",
@@ -675,15 +706,18 @@ providers:
         flags: [
           ["/api/dashboards/uid/<uid>", "Returns { dashboard: {...}, meta: {...} }; meta holds folder and version info"],
           ["jq '.dashboard | del(.id)'", "Keep only the dashboard and remove the instance-specific id"],
-          ["> gpu-fleet.json", "Redirect into a file you commit to git"]
+          ["> gpu-fleet.json", "Redirect into a file you commit to git"],
+          ["Grafana 13", "The /api routes are deprecated in favour of /apis, but still served: they just no longer get updates"]
         ],
         subcommands: [
           ["curl -s -H \"Authorization: Bearer $GRAFANA_TOKEN\" \"$GRAFANA_URL/api/search?type=dash-db&query=gpu\" | jq -r '.[] | \"\\(.uid)\\t\\(.folderTitle)\\t\\(.title)\"'", "Find dashboards and their UIDs"],
           ["curl -s -H \"Authorization: Bearer $GRAFANA_TOKEN\" \"$GRAFANA_URL/api/folders\" | jq -r '.[] | \"\\(.uid)\\t\\(.title)\"'", "List folders and their UIDs"],
-          ["for uid in $(curl -s -H \"Authorization: Bearer $GRAFANA_TOKEN\" \"$GRAFANA_URL/api/search?type=dash-db\" | jq -r '.[].uid'); do curl -s -H \"Authorization: Bearer $GRAFANA_TOKEN\" \"$GRAFANA_URL/api/dashboards/uid/$uid\" | jq '.dashboard | del(.id)' > \"$uid.json\"; done", "Back up every dashboard to <uid>.json"]
+          ["for uid in $(curl -s -H \"Authorization: Bearer $GRAFANA_TOKEN\" \"$GRAFANA_URL/api/search?type=dash-db\" | jq -r '.[].uid'); do curl -s -H \"Authorization: Bearer $GRAFANA_TOKEN\" \"$GRAFANA_URL/api/dashboards/uid/$uid\" | jq '.dashboard | del(.id)' > \"$uid.json\"; done", "Back up every dashboard to <uid>.json"],
+          ["curl -s -H \"Authorization: Bearer $GRAFANA_TOKEN\" \"$GRAFANA_URL/apis/dashboard.grafana.app/v1/namespaces/default/dashboards/gpu-fleet\" | jq '.spec'", "The same dashboard from the new Dashboard API (Grafana 12+); spec holds the classic JSON. The namespace is default in Grafana's examples"]
         ],
         tip: "Export → del(.id) → commit",
-        tags: ["api", "export", "curl", "jq", "backup", "uid"]
+        tags: ["api", "export", "curl", "jq", "backup", "uid"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://grafana.com/docs/grafana/v12.4/developer-resources/api-reference/http-api/dashboard/","title":"Grafana 12.4: dashboard API (/api/dashboards)"},{"url":"https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/folder_dashboard_search/","title":"Grafana: search API"},{"url":"https://grafana.com/docs/grafana/v12.4/developer-resources/api-reference/http-api/folder/","title":"Grafana 12.4: folder API"},{"url":"https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/dashboard/","title":"Grafana: Dashboard API (/apis)"},{"url":"https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/","title":"Grafana: legacy HTTP API (deprecation)"}],"note":"Added 2026-11-10: Grafana 13 deprecates /api routes for /apis; they are still served but no longer updated."}
       },
       {
         id: "grafana-api-import",
@@ -691,25 +725,26 @@ providers:
         cmd: "jq '{dashboard: (. | .id = null), folderUid: \"<folder-uid>\", overwrite: true, message: \"update from git\"}' gpu-fleet.json | curl -s -X POST -H \"Authorization: Bearer $GRAFANA_TOKEN\" -H 'Content-Type: application/json' --data-binary @- \"$GRAFANA_URL/api/dashboards/db\" | jq",
         flags: [
           ["jq '{dashboard: ..., ...}'", "Wraps the dashboard in the body the API expects"],
-          ["folderUid", "Folder to save into. If you leave it out on an update, the dashboard can move to the General folder"],
-          ["overwrite: true", "Replace an existing dashboard with the same uid or title. Without it, the API refuses (412 version-mismatch / name-exists)"],
+          ["folderUid", "Folder to save into. If you leave it out on an update, the dashboard moves to the root level"],
+          ["overwrite: true", "Replace an existing dashboard with the same uid. Without it, the API refuses (412 version-mismatch / name-exists)"],
           ["message", "Shows in the dashboard's version history"],
           ["--data-binary @-", "Read the body from stdin (the jq output) without changing newlines"]
         ],
         tip: "412 = someone changed it; re-export first",
-        tags: ["api", "import", "post", "curl", "jq", "overwrite", "folder"]
+        tags: ["api", "import", "post", "curl", "jq", "overwrite", "folder"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://grafana.com/docs/grafana/v12.4/developer-resources/api-reference/http-api/dashboard/","title":"Grafana 12.4: dashboard API (/api/dashboards)"},{"url":"https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/dashboard/","title":"Grafana: Dashboard API (/apis)"},{"url":"https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/","title":"Grafana: legacy HTTP API (deprecation)"}],"note":"Corrected 2026-11-10: leaving out folderUid on an update moves the dashboard to the root level (it was \"can move\")."}
       },
       {
         id: "grafana-gcx",
-        desc: "gcx: pull and push dashboards as files (successor to grafanactl, Grafana 12+)",
+        desc: "gcx: pull and push dashboards as files (successor to grafanactl; full support on Grafana 13+)",
         cmd: "gcx resources pull --path ./resources/ -o yaml",
         flags: [
           ["gcx resources pull", "Download resources (dashboards, folders…) from the current context into files"],
           ["-p / --path", "Directory to read/write; the default is ./resources"],
           ["-o yaml|json", "File format for pulled resources"],
           ["--include-managed", "Also touch resources owned by Terraform or Git Sync (skipped by default)"],
-          ["Contexts", "Configure one context per Grafana (lab, prod) and switch between them; see gcx config --help"],
-          ["grafanactl", "Deprecated; its repo was archived 2026-06-01. Replace grafanactl with gcx in old scripts"]
+          ["Contexts", "gcx login creates a context per Grafana (lab, prod); gcx config manages and switches them (gcx config --help)"],
+          ["grafanactl", "Deprecated (last release v0.1.10, April 2026). Its README says to search-and-replace grafanactl with gcx in old scripts"]
         ],
         subcommands: [
           ["gcx resources push -p ./resources/", "Upload the files to the current context (changes state)"],
@@ -717,20 +752,22 @@ providers:
           ["gcx --help", "Commands vary by version and some are marked [experimental]; check help before scripting"]
         ],
         tip: "Old scripts: grafanactl → gcx",
-        tags: ["gcx", "grafanactl", "cli", "pull", "push", "gitops"]
+        tags: ["gcx", "grafanactl", "cli", "pull", "push", "gitops"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/grafana/gcx","title":"gcx README"},{"url":"https://github.com/grafana/gcx/blob/main/cmd/gcx/resources/pull.go","title":"gcx source: resources pull flags"},{"url":"https://github.com/grafana/grafanactl","title":"grafanactl README (deprecation)"}],"note":"Corrected 2026-11-10: grafanactl's repo was announced for archiving on June 1, 2026 but was still not archived on Nov 10; gcx fully supports Grafana 13+ only."}
       },
       {
         id: "grafana-git-sync",
-        desc: "Git Sync (GA in Grafana 13): keep dashboards in a GitHub/GitLab/Bitbucket repo from the UI",
+        desc: "Git Sync (GA in Grafana 13): keep dashboards in a Git repo (GitHub, GitLab, Bitbucket or any Git) from the UI",
         cmd: "Administration → General → Provisioning → Configure Git Sync",
         flags: [
           ["What it does", "Dashboards saved in the UI become commits (or pull requests) in a repo, and changes in the repo flow back to Grafana"],
-          ["Auth", "GitHub App or a token for GitLab/Bitbucket; use a dedicated repo or folder"],
+          ["Auth", "GitHub: personal access token, GitHub App or OAuth App; GitLab and Bitbucket: a token. Use a dedicated repo or folder"],
           ["vs file provisioning", "File provisioning is one-way (files → Grafana). Git Sync is two-way and keeps UI editing"],
           ["vs API/gcx", "API and gcx are scripts you run; Git Sync runs continuously inside Grafana"]
         ],
         tip: "One-way: files. Two-way: Git Sync",
-        tags: ["git sync", "git", "gitops", "github", "provisioning"]
+        tags: ["git sync", "git", "gitops", "github", "provisioning"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://grafana.com/docs/grafana/latest/as-code/git-sync/","title":"Grafana: Git Sync"},{"url":"https://grafana.com/docs/grafana/latest/as-code/git-sync/git-sync-setup/","title":"Grafana: set up Git Sync"},{"url":"https://grafana.com/docs/grafana/latest/whatsnew/whats-new-in-v13/whats-new-in-v13-0/","title":"What's new in Grafana 13.0"}],"note":"Corrected 2026-11-10: Git Sync works with any Git repo, and GitHub can also use a personal access token or an OAuth App."}
       }
     ],
     proTip: {
@@ -742,7 +779,8 @@ providers:
         ["Datasource UIDs", "Use the same provisioned UID everywhere so JSON moves between lab and prod untouched"],
         ["Backups", "The export loop on the previous cards is a cheap nightly backup even for UI-owned dashboards"]
       ],
-      tip: "Never edit the same dashboard in two places"
+      tip: "Never edit the same dashboard in two places",
+      src: {"verified":"2026-11-10","refs":[{"url":"https://grafana.com/docs/grafana/latest/administration/provisioning/","title":"Grafana: provisioning"},{"url":"https://grafana.com/docs/grafana/latest/as-code/git-sync/","title":"Grafana: Git Sync"}]}
     }
   },
   {
@@ -776,7 +814,8 @@ providers:
           ["curl -s http://<node>:9400/metrics | grep -E '^# (HELP|TYPE) DCGM_FI_DEV_GPU_UTIL'", "HELP/TYPE lines show the name, type and unit your exporter really uses"]
         ],
         tip: "Upgrading the exporter breaks old dashboards",
-        tags: ["dcgm", "metric names", "rename", "4.9.0", "upgrade", "units", "hostname"]
+        tags: ["dcgm", "metric names", "rename", "4.9.0", "upgrade", "units", "hostname"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://docs.nvidia.com/datacenter/dcgm/latest/release-notes/dcgm-exporter.html","title":"dcgm-exporter release notes"},{"url":"https://github.com/NVIDIA/dcgm-exporter/blob/4.9.0/etc/default-counters.csv","title":"dcgm-exporter 4.9.0 default-counters.csv"},{"url":"https://docs.nvidia.com/datacenter/dcgm/latest/reference/command-line-reference/dcgm-exporter.html","title":"dcgm-exporter command reference"}]}
       },
       {
         id: "gpu-dash-layout",
@@ -791,13 +830,14 @@ Row 3  Why (time series, repeat by $host)
           ["Variables", "host = label_values(DCGM_FI_DEV_GPU_TEMP_CELSIUS, hostname), gpu chained on host"],
           ["Row 1 colors", "Every stat is green at 0 problems and red when something needs a technician"],
           ["Row 3 repeat", "Repeat the row by $host so selecting 3 nodes shows 3 blocks"],
-          ["Starting point", "Community dashboard 12239 shows working queries but uses the pre-4.9 metric names. dcgm-exporter 4.9.0 updated its own Grafana dashboard to the new names and units"]
+          ["Starting point", "dcgm-exporter 4.9.0 updated the dashboard in its repo (grafana/dcgm-exporter-dashboard.json) to the new names and units. Dashboard 12239 on grafana.com (NVIDIA, last revised 2021) still uses the pre-4.9 names"]
         ],
         subcommands: [
-          ["Dashboards → New → Import → 12239 → pick the Prometheus data source", "Import the community DCGM dashboard (read its JSON before trusting it)"]
+          ["Dashboards → New → Import → upload dcgm-exporter-dashboard.json → pick the Prometheus data source", "Import the exporter's own dashboard (read its JSON before trusting it); entering ID 12239 instead gets the pre-4.9 one"]
         ],
         tip: "Match the dashboard to your exporter's names",
-        tags: ["layout", "gpu", "dcgm", "design", "rows", "12239"]
+        tags: ["layout", "gpu", "dcgm", "design", "rows", "12239"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/NVIDIA/dcgm-exporter/blob/4.9.0/grafana/dcgm-exporter-dashboard.json","title":"dcgm-exporter 4.9.0 Grafana dashboard"},{"url":"https://grafana.com/grafana/dashboards/12239-nvidia-dcgm-exporter-dashboard/","title":"Grafana dashboard 12239"},{"url":"https://grafana.com/docs/grafana/latest/visualizations/dashboards/build-dashboards/import-dashboards/","title":"Grafana: import dashboards"},{"url":"https://grafana.com/docs/grafana/latest/datasources/prometheus/template-variables/","title":"Grafana: Prometheus template variables"}],"note":"Corrected 2026-11-10: 12239 is published by NVIDIA (not community) and was last revised in 2021; the 4.9.0 dashboard is in the exporter repo."}
       },
       {
         id: "gpu-dash-health-stats",
@@ -815,7 +855,8 @@ Row 3  Why (time series, repeat by $host)
           ["avg(DCGM_FI_DEV_GPU_UTIL_RATIO)", "Fleet average utilization (unit percentunit, because the value is 0-1)"]
         ],
         tip: "or vector(0) keeps stat panels green",
-        tags: ["stat", "health", "xid", "temperature", "count", "dcgm"]
+        tags: ["stat", "health", "xid", "temperature", "count", "dcgm"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/NVIDIA/dcgm-exporter/blob/4.9.0/etc/default-counters.csv","title":"dcgm-exporter 4.9.0 default-counters.csv"},{"url":"https://prometheus.io/docs/prometheus/latest/querying/operators/","title":"PromQL operators"},{"url":"https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-standard-options/","title":"Grafana: standard options"}]}
       },
       {
         id: "gpu-dash-table",
@@ -833,7 +874,8 @@ D: DCGM_FI_DEV_FB_USED_BYTES{hostname=~"$host"}
           ["Cell display", "Override Temp: Cell options → Colored background, so hot rows stand out"]
         ],
         tip: "Keep UUID and BDF columns for RMAs",
-        tags: ["table", "per gpu", "merge", "uuid", "bdf", "rma"]
+        tags: ["table", "per gpu", "merge", "uuid", "bdf", "rma"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://docs.nvidia.com/datacenter/dcgm/latest/reference/command-line-reference/dcgm-exporter.html","title":"dcgm-exporter command reference"},{"url":"https://docs.nvidia.com/datacenter/dcgm/latest/release-notes/dcgm-exporter.html","title":"dcgm-exporter release notes"},{"url":"https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/query-transform-data/transform-data/","title":"Grafana: transform data"},{"url":"https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/visualizations/table/","title":"Grafana: table"}]}
       },
       {
         id: "gpu-dash-timeseries",
@@ -852,7 +894,8 @@ D: DCGM_FI_DEV_FB_USED_BYTES{hostname=~"$host"}
           ["rate(DCGM_FI_DEV_GPU_THERMAL_THROTTLE_SECONDS_TOTAL{hostname=~\"$host\"}[$__rate_interval])", "Share of time spent thermally throttled (0-1). Optional field: uncomment it (and GPU_POWER_THROTTLE_SECONDS_TOTAL) in the counters CSV"]
         ],
         tip: "One GPU unlike its 7 siblings = investigate",
-        tags: ["time series", "temperature", "power", "memory", "clocks", "nvlink", "dcgm"]
+        tags: ["time series", "temperature", "power", "memory", "clocks", "nvlink", "dcgm"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/NVIDIA/dcgm-exporter/blob/4.9.0/etc/default-counters.csv","title":"dcgm-exporter 4.9.0 default-counters.csv"},{"url":"https://github.com/grafana/grafana/blob/main/packages/grafana-data/src/valueFormats/categories.ts","title":"Grafana source: unit IDs"}]}
       },
       {
         id: "gpu-dash-errors",
@@ -866,7 +909,8 @@ D: DCGM_FI_DEV_FB_USED_BYTES{hostname=~"$host"}
           ["Then go to the node", "The dashboard says where; nvidia-smi -q and dmesg on the node say why (see the NVIDIA DC sheets)"]
         ],
         tip: "Dashboards find the GPU; the CLI proves the fault",
-        tags: ["xid", "ecc", "row remap", "errors", "state timeline", "rma"]
+        tags: ["xid", "ecc", "row remap", "errors", "state timeline", "rma"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/NVIDIA/dcgm-exporter/blob/4.9.0/etc/default-counters.csv","title":"dcgm-exporter 4.9.0 default-counters.csv"},{"url":"https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/visualizations/state-timeline/","title":"Grafana: state timeline"},{"url":"https://grafana.com/docs/grafana/latest/visualizations/panels-visualizations/configure-value-mappings/","title":"Grafana: value mappings"}],"note":"XID codes themselves are on the NVIDIA DC Xid sheet."}
       },
       {
         id: "gpu-dash-node-context",
@@ -880,7 +924,8 @@ D: DCGM_FI_DEV_FB_USED_BYTES{hostname=~"$host"}
           ["instance vs hostname", "node_exporter labels by instance (host:9100) while DCGM uses hostname; join with node_uname_info or relabel in Prometheus"]
         ],
         tip: "Rising symbol errors → clean/swap the optic",
-        tags: ["node_exporter", "cpu", "memory", "infiniband", "link errors", "context"]
+        tags: ["node_exporter", "cpu", "memory", "infiniband", "link errors", "context"],
+        src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/prometheus/node_exporter","title":"node_exporter README"},{"url":"https://github.com/prometheus/node_exporter/blob/master/collector/infiniband_linux.go","title":"node_exporter infiniband collector"},{"url":"https://github.com/prometheus/node_exporter/blob/master/collector/uname.go","title":"node_exporter uname collector"},{"url":"https://prometheus.io/docs/prometheus/latest/querying/operators/","title":"PromQL operators"}]}
       }
     ],
     proTip: {
@@ -893,7 +938,8 @@ D: DCGM_FI_DEV_FB_USED_BYTES{hostname=~"$host"}
         ["3. Grafana", "Panel → Inspect → Query: did the query return series?"],
         ["4. Dashboard", "Variables: is the node selected? Time range right?"]
       ],
-      tip: "Exporter → Prometheus → Grafana → panel"
+      tip: "Exporter → Prometheus → Grafana → panel",
+      src: {"verified":"2026-11-10","refs":[{"url":"https://docs.nvidia.com/datacenter/dcgm/latest/reference/command-line-reference/dcgm-exporter.html","title":"dcgm-exporter command reference"},{"url":"https://prometheus.io/docs/prometheus/latest/querying/api/","title":"Prometheus HTTP API"},{"url":"https://grafana.com/docs/grafana/latest/visualizations/dashboards/use-dashboards/","title":"Grafana: use dashboards (shortcuts)"}]}
     }
   }
 ];
@@ -957,7 +1003,8 @@ function buildSectionCards(sec) {
       commands: [{
         id: cmd.id, desc: cmd.desc, cmd: cmd.cmd, details: cmd.details || '',
         flags: cmd.flags ? cmd.flags.slice(0, 3) : [], tip: cmd.tip || '',
-        tags: [...baseTags, ...(cmd.tags || [])]
+        tags: [...baseTags, ...(cmd.tags || [])],
+        ...(cmd.src ? { src: cmd.src } : {})
       }]
     });
     if (cmd.flags && cmd.flags.length > 3) {
@@ -971,7 +1018,8 @@ function buildSectionCards(sec) {
           desc: `More options and gotchas for: ${cmd.desc.split('(')[0].trim()}`,
           cmd: cmd.cmd, hideCode: isMultiline(cmd.cmd),
           flags: cmd.flags.slice(3),
-          tags: [...baseTags, 'flags', 'options', ...(cmd.tags || []).slice(0, 3)]
+          tags: [...baseTags, 'flags', 'options', ...(cmd.tags || []).slice(0, 3)],
+          ...(cmd.src ? { src: cmd.src } : {})
         }]
       });
     }
@@ -983,7 +1031,8 @@ function buildSectionCards(sec) {
         subtitle: `Related commands for: ${cmd.desc.split('(')[0].trim()}`,
         commands: cmd.subcommands.map((sub, idx) => ({
           id: `${cmd.id}-sub-${idx + 1}`, desc: sub[1], cmd: sub[0],
-          tags: [...baseTags, 'recipe', ...(cmd.tags || []).slice(0, 3)]
+          tags: [...baseTags, 'recipe', ...(cmd.tags || []).slice(0, 3)],
+          ...(cmd.src ? { src: cmd.src } : {})
         }))
       });
     }
@@ -997,7 +1046,8 @@ function buildSectionCards(sec) {
       commands: [{
         id: `${sec.id}-tips-card`, desc: sec.proTip.desc, cmd: sec.proTip.cmd,
         details: sec.proTip.details, flags: sec.proTip.flags, tip: sec.proTip.tip,
-        tags: [...baseTags, 'tips', 'best-practice']
+        tags: [...baseTags, 'tips', 'best-practice'],
+        ...(sec.proTip.src ? { src: sec.proTip.src } : {})
       }]
     });
   }
