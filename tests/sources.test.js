@@ -716,6 +716,20 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     await ctx.close();
   }
 
+  // 2y. Omarchy sheet: every card sourced against Omarchy 4.5.0; no Copilot-key (F23) binding,
+  // the Ctrl+Brightness keyboard-backlight keys listed.
+  {
+    const ctx = await newContext(browser);
+    const p = await ctx.newPage();
+    await p.goto(BASE + 'omarchy.html', { waitUntil: 'load' });
+    await p.waitForTimeout(600);
+    const text = await p.evaluate(() => { const c = document.body.cloneNode(true); c.querySelectorAll('.cmd-source').forEach(n => n.remove()); return c.textContent; });
+    const all = await p.evaluate(() => [...document.querySelectorAll('.cmd-item:is([data-cmd-id], [data-id])')].map(it => ({ id: it.dataset.cmdId || it.dataset.id, src: !!it.querySelector('.cmd-source:not(.is-unverified)') })));
+    check(all.length >= 19 && all.every(x => x.src), `every card on the Omarchy sheet shows a verified source (${all.filter(x => x.src).length}/${all.length})`);
+    check(!/F23/.test(text) && /Ctrl \+ Brightness Up/.test(text), 'Omarchy: no F23 binding; Ctrl+Brightness listed');
+    await ctx.close();
+  }
+
   // 3. Over a year old → amber "re-check"; and src can't inject markup or javascript: links.
   {
     const ctx = await newContext(browser);

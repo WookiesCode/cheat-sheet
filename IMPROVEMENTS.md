@@ -490,6 +490,17 @@ All 17 commands (in `motherboards.js`) and 7 Pro Tips (in `generate-motherboards
 
 Also fixed on the Quantum in-band switch sheet: `mlxlink … --show_ber` (no such flag) → `--show_counters`.
 
+## #8 for the Omarchy sheet (2026-11-10, `omarchy-sources`)
+
+All 19 cards in `omarchy.js` cite Omarchy's own files at the `v4.5.0` tag (the binding files, the user `bindings.lua` template, the copy-url and yt-dlp browser extensions, `omarchy-capture-region`, and the Ghostty, Alacritty and foot configs). Each binding on the sheet was matched by script against every `o.bind` / `bind_toggle` / `bind_hold` in Omarchy 4.5.0 installed here (identical to the tag) plus `~/.config/hypr/bindings.lua`; all matched except one. Changes:
+
+| Was | Now |
+|---|---|
+| Super + Shift + F23 opens the menu (the Copilot key) | Removed: Omarchy 4.5.0 has no F23 binding |
+| (missing) | Ctrl + Brightness Up / Down also change the keyboard backlight |
+
+Noted on the cards: F9 and Super+Ctrl+X dictation, and the Gmail / Google Calendar web apps, are personal overrides in `~/.config/hypr/bindings.lua`; Omarchy's own dictation keys are Alt+Space and hold Alt+Right Alt, bound only while a dictation backend is installed.
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |

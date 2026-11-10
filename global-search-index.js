@@ -50424,6 +50424,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Open the Omarchy menu, app launcher, keybinding guides, and the focused sub-menus",
     "tip": "Super+K searches every live binding",
     "tags": "menu launcher keybindings system theme wallpaper background hardware toggle share capture tmux herdr power",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/utilities.lua",
+          "title": "Omarchy 4.5.0: utilities.lua"
+        },
+        {
+          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/applications.lua",
+          "title": "Omarchy 4.5.0: applications.lua"
+        }
+      ],
+      "note": "Corrected 2026-11-10: removed Super+Shift+F23 (Copilot key), which Omarchy 4.5.0 does not bind. Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."
+    },
     "noCopy": true
   },
   {
@@ -50436,6 +50450,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Launch the terminal, browser, file manager, and editor",
     "tip": "Two chords open the browser",
     "tags": "terminal tmux herdr browser private files nautilus editor neovim",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/applications.lua",
+          "title": "Omarchy 4.5.0: applications.lua"
+        }
+      ],
+      "note": "Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."
+    },
     "noCopy": true
   },
   {
@@ -50448,6 +50472,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Launch the coding agent picker, activity monitor, Docker, calculator, passwords, notes, and music",
     "tip": "",
     "tags": "agent activity btop docker lazydocker calculator 1password passwords obsidian omawrite music spotify",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/applications.lua",
+          "title": "Omarchy 4.5.0: applications.lua"
+        },
+        {
+          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/utilities.lua",
+          "title": "Omarchy 4.5.0: utilities.lua"
+        }
+      ],
+      "note": "Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."
+    },
     "noCopy": true
   },
   {
@@ -50460,6 +50498,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Launch web apps. Email and Calendar are rebound to Gmail and Google Calendar on this machine.",
     "tip": "Shift+Alt+L copies the URL inside any web app",
     "tags": "webapp chatgpt grok email gmail calendar youtube whatsapp signal messages photos maps url download",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/applications.lua",
+          "title": "Omarchy 4.5.0: applications.lua"
+        },
+        {
+          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/config/hypr/bindings.lua",
+          "title": "Omarchy 4.5.0: user bindings.lua template"
+        },
+        {
+          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/chromium/extensions/copy-url/manifest.json",
+          "title": "Omarchy 4.5.0: copy-url extension"
+        },
+        {
+          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/chromium/extensions/yt-dlp/manifest.json",
+          "title": "Omarchy 4.5.0: yt-dlp extension"
+        }
+      ],
+      "note": "Email and Calendar point at Gmail and Google Calendar through personal overrides in ~/.config/hypr/bindings.lua. Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."
+    },
     "noCopy": true
   },
   {
@@ -50472,6 +50532,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Close windows, change fullscreen mode, float, pop out, and change the tiling split",
     "tip": "Super+O keeps a video on top",
     "tags": "close fullscreen float pop pip pin split pseudo minimize dock",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/tiling.lua",
+          "title": "Omarchy 4.5.0: tiling.lua"
+        },
+        {
+          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/utilities.lua",
+          "title": "Omarchy 4.5.0: utilities.lua"
+        }
+      ],
+      "note": "Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."
+    },
     "noCopy": true
   },
   {
@@ -50484,6 +50558,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Move focus between windows, swap their positions, and cycle the workspace layout",
     "tip": "",
     "tags": "focus swap move arrows layout alt-tab navigate",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/tiling.lua",
+          "title": "Omarchy 4.5.0: tiling.lua"
+        }
+      ],
+      "note": "Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."
+    },
     "noCopy": true
   },
   {
@@ -50496,6 +50580,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Move or resize with the mouse or keyboard. Add Alt for small steps or Ctrl for large steps.",
     "tip": "",
     "tags": "resize mouse drag width height expand shrink save restore",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/tiling.lua",
+          "title": "Omarchy 4.5.0: tiling.lua"
+        }
+      ],
+      "note": "Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."
+    },
     "noCopy": true
   },
   {
@@ -50508,6 +50602,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Toggle transparency, gaps, the top bar, and single-window aspect",
     "tip": "",
     "tags": "transparency opacity gaps bar hide aspect",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/utilities.lua",
+          "title": "Omarchy 4.5.0: utilities.lua"
+        },
+        {
+          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/tiling.lua",
+          "title": "Omarchy 4.5.0: tiling.lua"
+        }
+      ],
+      "note": "Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."
+    },
     "noCopy": true
   },
   {
@@ -50520,6 +50628,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Switch workspaces and move windows between them. Each monitor has its own workspaces 1-10.",
     "tip": "Super+Ctrl+Tab jumps back",
     "tags": "workspace switch move silent tab scroll former",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/tiling.lua",
+          "title": "Omarchy 4.5.0: tiling.lua"
+        }
+      ],
+      "note": "Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."
+    },
     "noCopy": true
   },
   {
@@ -50532,6 +50650,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Toggle the scratchpad or Quake console overlay, or send the active window to either one",
     "tip": "Good for an always-handy terminal or chat",
     "tags": "scratchpad quake dropdown overlay tilde grave",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/tiling.lua",
+          "title": "Omarchy 4.5.0: tiling.lua"
+        }
+      ],
+      "note": "Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."
+    },
     "noCopy": true
   },
   {
@@ -50544,6 +50672,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Combine windows into a tabbed group, then switch or rearrange its tabs",
     "tip": "",
     "tags": "group tabs tabbed stack container ungroup",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/tiling.lua",
+          "title": "Omarchy 4.5.0: tiling.lua"
+        }
+      ],
+      "note": "Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."
+    },
     "noCopy": true
   },
   {
@@ -50556,6 +50694,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Move focus, windows, and workspaces across monitors, adjust scaling, and control the laptop display",
     "tip": "",
     "tags": "monitor display scaling mirror laptop clamshell",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/tiling.lua",
+          "title": "Omarchy 4.5.0: tiling.lua"
+        },
+        {
+          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/utilities.lua",
+          "title": "Omarchy 4.5.0: utilities.lua"
+        }
+      ],
+      "note": "Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."
+    },
     "noCopy": true
   },
   {
@@ -50568,6 +50720,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Open top bar panels from the keyboard",
     "tip": "",
     "tags": "panel bar quickshell audio bluetooth network wifi calendar clock power display",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/utilities.lua",
+          "title": "Omarchy 4.5.0: utilities.lua"
+        }
+      ],
+      "note": "Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."
+    },
     "noCopy": true
   },
   {
@@ -50580,6 +50742,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Take screenshots, record the screen, extract text, pick colors, and transcode media",
     "tip": "Enter snaps the highlighted window",
     "tags": "screenshot screenrecord ocr color-picker capture webcam share transcode",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/utilities.lua",
+          "title": "Omarchy 4.5.0: utilities.lua"
+        },
+        {
+          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/bin/omarchy-capture-region",
+          "title": "Omarchy 4.5.0: omarchy-capture-region"
+        }
+      ],
+      "note": "Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."
+    },
     "noCopy": true
   },
   {
@@ -50592,6 +50768,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Universal clipboard shortcuts, clipboard history, emojis, voice dictation, and input language",
     "tip": "Super+C/V works in terminals and apps",
     "tags": "copy paste cut select clipboard emoji dictation voice voxtype language prefix",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/clipboard.lua",
+          "title": "Omarchy 4.5.0: clipboard.lua"
+        },
+        {
+          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/dictation.lua",
+          "title": "Omarchy 4.5.0: dictation.lua"
+        },
+        {
+          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/input-method.lua",
+          "title": "Omarchy 4.5.0: input-method.lua"
+        },
+        {
+          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/config/hypr/bindings.lua",
+          "title": "Omarchy 4.5.0: user bindings.lua template"
+        }
+      ],
+      "note": "Omarchy's own dictation keys are Alt+Space (toggle) and hold Alt+Right Alt; F9 and Super+Ctrl+X are personal bindings on this machine. Dictation keys exist only while a dictation backend is installed. Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."
+    },
     "noCopy": true
   },
   {
@@ -50604,6 +50802,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Manage notifications and reminders, show status toasts, zoom, and lock the system",
     "tip": "",
     "tags": "notification dismiss dnd silence reminder lock idle zoom weather battery time",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/utilities.lua",
+          "title": "Omarchy 4.5.0: utilities.lua"
+        }
+      ],
+      "note": "Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."
+    },
     "noCopy": true
   },
   {
@@ -50616,6 +50824,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Control volume, playback, and audio routing with the keyboard's media keys",
     "tip": "Alt gives fine volume steps",
     "tags": "volume mute microphone media play pause track audio output eject",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/media.lua",
+          "title": "Omarchy 4.5.0: media.lua"
+        }
+      ],
+      "note": "Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."
+    },
     "noCopy": true
   },
   {
@@ -50628,6 +50846,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Control screen and keyboard brightness, the touchpad, and the power menu",
     "tip": "",
     "tags": "brightness screen keyboard backlight touchpad power",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/default/hypr/bindings/media.lua",
+          "title": "Omarchy 4.5.0: media.lua"
+        }
+      ],
+      "note": "Added 2026-11-10: Ctrl+Brightness also changes the keyboard backlight. Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."
+    },
     "noCopy": true
   },
   {
@@ -50640,6 +50868,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Keys configured inside Omarchy's terminals, in addition to Super+C and Super+V",
     "tip": "",
     "tags": "terminal copy paste ghostty alacritty foot split",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/config/ghostty/config",
+          "title": "Omarchy 4.5.0: Ghostty config"
+        },
+        {
+          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/config/alacritty/alacritty.toml",
+          "title": "Omarchy 4.5.0: Alacritty config"
+        },
+        {
+          "url": "https://github.com/basecamp/omarchy/blob/v4.5.0/config/foot/foot.ini",
+          "title": "Omarchy 4.5.0: foot config"
+        }
+      ],
+      "note": "Checked against Omarchy 4.5.0 installed on this machine; the v4.5.0 files are identical."
+    },
     "noCopy": true
   },
   {
