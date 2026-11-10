@@ -2,6 +2,7 @@
 // Standalone interactive cheat sheet for Slurm: Slurm Hub (nodes and drain, jobs and accounting, GPUs and daemons)
 const SLURM_HUB_DATA = [
   {
+    "part": "slurm-nodes",
     "id": "slurm-nodes-cmd-1",
     "badge": "nodes",
     "title": "Nodes & drain: One node's state, the drain reason, who set it and when",
@@ -144,6 +145,7 @@ const SLURM_HUB_DATA = [
     ]
   },
   {
+    "part": "slurm-nodes",
     "id": "slurm-nodes-cmd-2",
     "badge": "nodes",
     "title": "Nodes & drain: Everything slurmctld knows about one node",
@@ -225,6 +227,7 @@ const SLURM_HUB_DATA = [
     ]
   },
   {
+    "part": "slurm-nodes",
     "id": "slurm-nodes-cmd-3",
     "badge": "nodes",
     "title": "Nodes & drain: Drain a node before hardware work",
@@ -337,6 +340,7 @@ const SLURM_HUB_DATA = [
     ]
   },
   {
+    "part": "slurm-nodes",
     "id": "slurm-nodes-cmd-4",
     "badge": "nodes",
     "title": "Nodes & drain: Return a node to service after the work",
@@ -462,6 +466,7 @@ const SLURM_HUB_DATA = [
     ]
   },
   {
+    "part": "slurm-nodes",
     "id": "slurm-nodes-pro-tips",
     "badge": "tip",
     "title": "Nodes & drain: Pro Tip",
@@ -512,6 +517,7 @@ const SLURM_HUB_DATA = [
     ]
   },
   {
+    "part": "slurm-jobs",
     "id": "slurm-jobs-cmd-1",
     "badge": "jobs",
     "title": "Jobs & accounting: Jobs on one node",
@@ -616,6 +622,7 @@ const SLURM_HUB_DATA = [
     ]
   },
   {
+    "part": "slurm-jobs",
     "id": "slurm-jobs-cmd-2",
     "badge": "jobs",
     "title": "Jobs & accounting: Pending jobs and why they wait",
@@ -745,6 +752,7 @@ const SLURM_HUB_DATA = [
     ]
   },
   {
+    "part": "slurm-jobs",
     "id": "slurm-jobs-cmd-3",
     "badge": "jobs",
     "title": "Jobs & accounting: How a job ended",
@@ -865,6 +873,7 @@ const SLURM_HUB_DATA = [
     ]
   },
   {
+    "part": "slurm-jobs",
     "id": "slurm-jobs-cmd-4",
     "badge": "jobs",
     "title": "Jobs & accounting: Cancel a job",
@@ -936,6 +945,7 @@ const SLURM_HUB_DATA = [
     ]
   },
   {
+    "part": "slurm-jobs",
     "id": "slurm-jobs-pro-tips",
     "badge": "tip",
     "title": "Jobs & accounting: Pro Tip",
@@ -982,6 +992,7 @@ const SLURM_HUB_DATA = [
     ]
   },
   {
+    "part": "slurm-gpus",
     "id": "slurm-gpus-cmd-1",
     "badge": "gpus",
     "title": "GPUs & daemons: GPUs configured and in use, per node",
@@ -1066,6 +1077,7 @@ const SLURM_HUB_DATA = [
     ]
   },
   {
+    "part": "slurm-gpus",
     "id": "slurm-gpus-cmd-2",
     "badge": "gpus",
     "title": "GPUs & daemons: What this node really has, in slurm.conf format",
@@ -1147,6 +1159,7 @@ const SLURM_HUB_DATA = [
     ]
   },
   {
+    "part": "slurm-gpus",
     "id": "slurm-gpus-cmd-3",
     "badge": "gpus",
     "title": "GPUs & daemons: Run a one-GPU test job on a specific node",
@@ -1227,6 +1240,7 @@ const SLURM_HUB_DATA = [
     ]
   },
   {
+    "part": "slurm-gpus",
     "id": "slurm-gpus-cmd-4",
     "badge": "gpus",
     "title": "GPUs & daemons: Is Slurm itself healthy",
@@ -1368,6 +1382,7 @@ const SLURM_HUB_DATA = [
     ]
   },
   {
+    "part": "slurm-nodes",
     "id": "slurm-gpus-pro-tips",
     "badge": "tip",
     "title": "GPUs & daemons: Pro Tip",
@@ -1412,6 +1427,10 @@ const SLURM_HUB_DATA = [
 ];
 
 // Application State
+// One page for the whole group: the old per-topic pages are parts of it (#part in the URL).
+// Stars, visited ticks and practice from those pages move here once, before the stars are read.
+if (typeof window !== "undefined" && window.migrateMergedSheet) window.migrateMergedSheet("slurm.html", "slurm_bookmarks", SLURM_HUB_DATA, {"slurm-nodes":"slurm-nodes_bookmarks","slurm-gpus":"slurm-gpus_bookmarks","slurm-jobs":"slurm-jobs_bookmarks"});
+
 const state = {
   searchQuery: "",
   activeCategory: "all",
@@ -1419,6 +1438,10 @@ const state = {
   theme: localStorage.getItem("linux_cs_theme") || "dark",
   bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("slurm_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
+// The part the hash picks (#nv-smi, or a command id): the first render is already filtered.
+state.part = typeof window !== "undefined" && window.sheetPartFromHash ? window.sheetPartFromHash(SLURM_HUB_DATA) : "";
+if (typeof window !== "undefined") window.SHEET_FILTER = { sections: SLURM_HUB_DATA, label: "Slurm sheets" };
+
 
 // DOM Elements
 const searchInput = document.getElementById("search-input");
@@ -1630,7 +1653,7 @@ function renderSections() {
   const cardsHtml = [];
 
   for (const card of SLURM_HUB_DATA) {
-    if (state.activeCategory !== "all" && state.activeCategory !== card.id) {
+    if (((state.activeCategory !== "all" && state.activeCategory !== card.id) || (state.part && (card.part || card.id) !== state.part))) {
       continue;
     }
 

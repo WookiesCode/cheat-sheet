@@ -1908,6 +1908,10 @@ const state = {
   bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("cli_tools_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
 
+// The tool the hash picks (#grep, or a command id): the first render is already filtered.
+state.part = typeof window !== "undefined" && window.sheetPartFromHash ? window.sheetPartFromHash(CLI_TOOLS_DATA) : "";
+if (typeof window !== "undefined") window.SHEET_FILTER = { sections: CLI_TOOLS_DATA, label: "CLI tools" };
+
 // DOM References
 const searchInput = document.getElementById("search-input");
 const categoryTabsEl = document.getElementById("category-tabs");
@@ -2083,7 +2087,7 @@ function renderSections() {
   const cardsHtml = [];
 
   for (const section of CLI_TOOLS_DATA) {
-    if (state.activeCategory !== "all" && state.activeCategory !== section.id) {
+    if ((state.activeCategory !== "all" && state.activeCategory !== section.id) || (state.part && (section.part || section.id) !== state.part)) {
       continue;
     }
 
@@ -2375,16 +2379,5 @@ function init() {
   initMiniTabs();
   initEvents();
 }
-
-// common.js filters this page by its hash (#grep, or a command id) through this hook.
-window.SHEET_FILTER = {
-  sections: CLI_TOOLS_DATA,
-  label: "CLI tools",
-  set(id) {
-    state.activeCategory = id || "all";
-    if (typeof renderCategoryTabs === "function") renderCategoryTabs();
-    renderSections();
-  }
-};
 
 init();

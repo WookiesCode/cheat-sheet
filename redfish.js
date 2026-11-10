@@ -1,5 +1,6 @@
 const REDFISH_CHEAT_SHEET_DATA = [
   {
+    part: "rf-discovery",
     id: "discovery-auth",
     badge: "auth",
     title: "Discovery, Session Tokens & ETag Headers",
@@ -51,6 +52,58 @@ const REDFISH_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "rf-discovery",
+    "id": "discovery-auth-pro-tips",
+    "badge": "tip",
+    "title": "Discovery & Auth: Pro Tips & Best Practices",
+    "subtitle": "Production Redfish API Discovery & Authentication Best Practices",
+    "commands": [
+      {
+        "id": "discovery-auth-tips-card",
+        "desc": "Production Redfish API Discovery & Authentication Best Practices",
+        "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1\" | jq .",
+        "details": "Start at the service root (/redfish/v1) and follow the @odata.id links instead of hard-coding vendor paths. For scripts, log in once with a POST to /redfish/v1/SessionService/Sessions and send the returned X-Auth-Token header on later requests instead of Basic auth on every call.",
+        "flags": [
+          [
+            "-g",
+            "Turn off curl URL globbing so [IPv6] brackets in the URL work"
+          ],
+          [
+            "-k",
+            "Skip TLS certificate checks (BMCs often use self-signed certificates)"
+          ],
+          [
+            "-H \"X-Auth-Token: <token>\"",
+            "Send the session token instead of Basic auth"
+          ]
+        ],
+        "tip": "When the script finishes, DELETE the session URI from the Location header; otherwise the session stays open until it times out.",
+        "tags": [
+          "discovery-auth",
+          "tips",
+          "pro",
+          "redfish",
+          "rest",
+          "best-practice"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.25.0.pdf",
+              "title": "DMTF DSP0266 Redfish Specification 1.25.0"
+            },
+            {
+              "url": "https://curl.se/docs/manpage.html",
+              "title": "curl man page"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    part: "rf-power-boot",
     id: "power-boot",
     badge: "pwr",
     title: "Chassis Power Control & Boot Overrides",
@@ -112,6 +165,63 @@ const REDFISH_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "rf-power-boot",
+    "id": "power-boot-pro-tips",
+    "badge": "tip",
+    "title": "Power & Boot: Pro Tips & Best Practices",
+    "subtitle": "Chassis Power State Triage & Boot Target Verification",
+    "commands": [
+      {
+        "id": "power-boot-tips-card",
+        "desc": "Chassis Power State Triage & Boot Target Verification",
+        "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc -X POST \"https://[$BMC]/redfish/v1/Systems/1/Actions/ComputerSystem.Reset\" -H \"Content-Type: application/json\" -d '{\"ResetType\":\"GracefulRestart\"}'",
+        "details": "GracefulShutdown and GracefulRestart ask the OS to shut down cleanly. If the kernel is hung, ForceRestart restarts without the OS, or Nmi sends a diagnostic interrupt so a kdump-configured kernel can write a crash dump. Read ResetType@Redfish.AllowableValues on the action first: each BMC supports a different subset.",
+        "flags": [
+          [
+            "GracefulRestart",
+            "Clean OS shutdown, then restart"
+          ],
+          [
+            "ForceRestart",
+            "Immediate non-graceful restart (no OS shutdown)"
+          ],
+          [
+            "Nmi",
+            "Diagnostic interrupt (usually an NMI on x86); typically halts the system"
+          ]
+        ],
+        "tip": "BootSourceOverrideEnabled \"Once\" goes back to Disabled after one boot; \"Continuous\" keeps the override until you cancel it.",
+        "tags": [
+          "power-boot",
+          "tips",
+          "pro",
+          "redfish",
+          "rest",
+          "best-practice"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/Resource.json",
+              "title": "DMTF Resource schema (ResetType, Status)"
+            },
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_29_0.json",
+              "title": "DMTF ComputerSystem v1.29.0"
+            },
+            {
+              "url": "https://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.25.0.pdf",
+              "title": "DMTF DSP0266 Redfish Specification 1.25.0"
+            }
+          ],
+          "note": "Corrected 2026-11-10: ForceRestart was described as a 4-second power-button hold, and Nmi as a sysrq trigger. Systems/1 is a common ID; read /redfish/v1/Systems for yours."
+        }
+      }
+    ]
+  },
+  {
+    part: "rf-inventory",
     id: "inventory-hw",
     badge: "inv",
     title: "Hardware Inventory: CPU, Memory, Drives & PCIe",
@@ -174,6 +284,67 @@ const REDFISH_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "rf-inventory",
+    "id": "inventory-hw-pro-tips",
+    "badge": "tip",
+    "title": "Hardware Inventory: Pro Tips & Best Practices",
+    "subtitle": "Automated Node Audit & Hardware Baseline Verification",
+    "commands": [
+      {
+        "id": "inventory-hw-tips-card",
+        "desc": "Automated Node Audit & Hardware Baseline Verification",
+        "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems/1/Memory?\\$expand=.(\\$levels=1)\" | jq '.Members[] | {Slot: .Id, Cap: .CapacityMiB, Health: .Status.Health}'",
+        "details": "At provisioning, read Systems/1/Memory and Processors and compare DIMM count, capacity and core counts with the build sheet before the node joins Slurm or Kubernetes. Keep the backslash in \\$expand: inside double quotes the shell would otherwise replace $expand with nothing. Not every BMC supports $expand (see ProtocolFeaturesSupported in the service root).",
+        "flags": [
+          [
+            "Memory",
+            "CapacityMiB, OperatingSpeedMhz, Manufacturer, PartNumber, SerialNumber, Status"
+          ],
+          [
+            "Processors",
+            "ProcessorType (CPU, GPU, ...), Model, TotalCores, TotalThreads"
+          ],
+          [
+            "Storage",
+            "Controllers and Drives; drives report PredictedMediaLifeLeftPercent where supported"
+          ]
+        ],
+        "tip": "Status.HealthRollup on a parent resource covers it and everything under it, so one read flags a failing child.",
+        "tags": [
+          "inventory-hw",
+          "tips",
+          "pro",
+          "redfish",
+          "rest",
+          "best-practice"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/Memory.v1_24_0.json",
+              "title": "DMTF Memory v1.24.0"
+            },
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/Processor.v1_24_0.json",
+              "title": "DMTF Processor v1.24.0"
+            },
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/Resource.json",
+              "title": "DMTF Resource schema (ResetType, Status)"
+            },
+            {
+              "url": "https://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.25.0.pdf",
+              "title": "DMTF DSP0266 Redfish Specification 1.25.0"
+            }
+          ],
+          "note": "Corrected 2026-11-10: the command now escapes $expand and $levels so the shell leaves them alone."
+        }
+      }
+    ]
+  },
+  {
+    part: "rf-thermals-power",
     id: "thermals-power-sensors",
     badge: "sns",
     title: "Thermals, Power Supplies, Fans & UID LED",
@@ -220,6 +391,63 @@ const REDFISH_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "rf-thermals-power",
+    "id": "thermals-power-sensors-pro-tips",
+    "badge": "tip",
+    "title": "Thermals & Sensors: Pro Tips & Best Practices",
+    "subtitle": "Thermal Triage & Power Supply Redundancy Telemetry",
+    "commands": [
+      {
+        "id": "thermals-power-sensors-tips-card",
+        "desc": "Thermal Triage & Power Supply Redundancy Telemetry",
+        "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Chassis/1/Thermal\" | jq '.Temperatures[] | {Sensor: .Name, Reading: .ReadingCelsius, UpperThresh: .UpperThresholdCritical}'",
+        "details": "Chassis Thermal lists temperature sensors (CPU, inlet, DIMM zones, ...) and fans; Chassis Power lists power use and each PSU. Before trusting A/B feed redundancy, check that every PSU is healthy and shows input voltage. Both resources are deprecated in favour of ThermalSubsystem and PowerSubsystem but many BMCs still serve them.",
+        "flags": [
+          [
+            "Thermal",
+            "Temperatures[] with thresholds; Fans[] with Reading and ReadingUnits (RPM or Percent)"
+          ],
+          [
+            "Power",
+            "PowerControl (watts used), PowerSupplies[] (input voltage, health), Redundancy"
+          ],
+          [
+            "LocationIndicatorActive",
+            "true/false identify LED; replaces the deprecated IndicatorLED (Lit, Blinking, Off)"
+          ]
+        ],
+        "tip": "To find the server in the rack, PATCH {\"LocationIndicatorActive\": true} on the Chassis (older BMCs: IndicatorLED \"Blinking\").",
+        "tags": [
+          "thermals-power-sensors",
+          "tips",
+          "pro",
+          "redfish",
+          "rest",
+          "best-practice"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/Thermal.json",
+              "title": "DMTF Thermal schema (deprecated)"
+            },
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/Power.json",
+              "title": "DMTF Power schema (deprecated)"
+            },
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/Chassis.v1_29_0.json",
+              "title": "DMTF Chassis v1.29.0"
+            }
+          ],
+          "note": "Corrected 2026-11-10: IndicatorLED is deprecated in favour of LocationIndicatorActive."
+        }
+      }
+    ]
+  },
+  {
+    part: "rf-logs-sel",
     id: "logs-sel",
     badge: "log",
     title: "System Event Logs (SEL), Faults & ClearLog",
@@ -266,6 +494,71 @@ const REDFISH_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "rf-logs-sel",
+    "id": "logs-sel-pro-tips",
+    "badge": "tip",
+    "title": "Logs & SEL Triage: Pro Tips & Best Practices",
+    "subtitle": "Hardware Event Log Analysis & Pre-Failure Detection",
+    "commands": [
+      {
+        "id": "logs-sel-tips-card",
+        "desc": "Hardware Event Log Analysis & Pre-Failure Detection",
+        "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc --get --data-urlencode \"\\$filter=Severity eq 'Critical'\" \"https://[$BMC]/redfish/v1/Managers/1/LogServices/Sel/Entries\" | jq .",
+        "details": "BMC event logs record hardware events the BMC sees even when the OS is down (memory ECC, PSU loss, thermal trips, PCIe errors). Log service names and places vary by vendor (Sel, SEL, EventLog; under Managers or Systems), so list .../LogServices first. $filter is optional in Redfish and a BMC that lacks it ignores it: if every entry comes back, filter with jq select(.Severity == \"Critical\") instead.",
+        "flags": [
+          [
+            "LogServices",
+            "List the log services this BMC has, then read each one's Entries"
+          ],
+          [
+            "--data-urlencode \"\\$filter=Severity eq 'Critical'\"",
+            "Server-side filter, URL-encoded by curl (Severity is OK, Warning or Critical)"
+          ],
+          [
+            "LogService.ClearLog",
+            "Action that clears the log (changes state)"
+          ]
+        ],
+        "tip": "Export and archive the entries before LogService.ClearLog during an RMA or re-provisioning.",
+        "tags": [
+          "logs-sel",
+          "tips",
+          "pro",
+          "redfish",
+          "rest",
+          "best-practice"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/LogService.v1_9_0.json",
+              "title": "DMTF LogService v1.9.0"
+            },
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/LogEntry.v1_22_0.json",
+              "title": "DMTF LogEntry v1.22.0"
+            },
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/Resource.json",
+              "title": "DMTF Resource schema (ResetType, Status)"
+            },
+            {
+              "url": "https://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.25.0.pdf",
+              "title": "DMTF DSP0266 Redfish Specification 1.25.0"
+            },
+            {
+              "url": "https://curl.se/docs/manpage.html",
+              "title": "curl man page"
+            }
+          ],
+          "note": "Corrected 2026-11-10: EventLog is not a standard path, and the old command lost $filter to the shell and sent spaces unencoded."
+        }
+      }
+    ]
+  },
+  {
+    part: "rf-bios-bmc",
     id: "bios-vmedia-bmc",
     badge: "bmc",
     title: "BIOS Settings, Virtual Media ISO & BMC Reset",
@@ -315,6 +608,71 @@ const REDFISH_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "rf-bios-bmc",
+    "id": "bios-vmedia-bmc-pro-tips",
+    "badge": "tip",
+    "title": "BIOS & BMC Control: Pro Tips & Best Practices",
+    "subtitle": "Out-of-Band OS Deployment via Virtual Media & BIOS Tuning",
+    "commands": [
+      {
+        "id": "bios-vmedia-bmc-tips-card",
+        "desc": "Out-of-Band OS Deployment via Virtual Media & BIOS Tuning",
+        "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc -X POST \"https://[$BMC]/redfish/v1/Managers/1/VirtualMedia/CD/Actions/VirtualMedia.InsertMedia\" -H \"Content-Type: application/json\" -d '{\"Image\":\"https://example.com/ubuntu-24.04.iso\"}'",
+        "details": "Virtual Media attaches a remote ISO (HTTP, HTTPS, NFS, CIFS and others, per TransferProtocolType) to the host as a virtual CD or USB drive, for OS installs or recovery without a USB stick. Newer services put VirtualMedia under Systems/{id}; the Managers/{id}/VirtualMedia link is deprecated. Media IDs (CD, Cd, 1, ...) vary, so list the collection first. BIOS changes are PATCHed to the settings object named in @Redfish.Settings on the Bios resource.",
+        "flags": [
+          [
+            "InsertMedia",
+            "Attach a remote image (Image URI, optional TransferProtocolType)"
+          ],
+          [
+            "EjectMedia",
+            "Detach the image after the install"
+          ],
+          [
+            "Manager.Reset",
+            "Restart the BMC; the host normally keeps running"
+          ]
+        ],
+        "tip": "Staged BIOS settings take effect at the next host reset; @Redfish.SettingsApplyTime, where supported, says when.",
+        "tags": [
+          "bios-vmedia-bmc",
+          "tips",
+          "pro",
+          "redfish",
+          "rest",
+          "best-practice"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/VirtualMedia.v1_7_0.json",
+              "title": "DMTF VirtualMedia v1.7.0"
+            },
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/Manager.v1_25_0.json",
+              "title": "DMTF Manager v1.25.0"
+            },
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_29_0.json",
+              "title": "DMTF ComputerSystem v1.29.0"
+            },
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/Bios.v1_3_0.json",
+              "title": "DMTF Bios v1.3.0"
+            },
+            {
+              "url": "https://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.25.0.pdf",
+              "title": "DMTF DSP0266 Redfish Specification 1.25.0"
+            }
+          ],
+          "note": "Corrected 2026-11-10: Managers/{id}/VirtualMedia is deprecated in favour of Systems/{id}/VirtualMedia, and the BIOS settings URI comes from @Redfish.Settings (Bios/Settings is only a common name)."
+        }
+      }
+    ]
+  },
+  {
+    part: "rf-firmware",
     id: "firmware-tasks",
     badge: "fw",
     title: "Firmware Inventory, UpdateService & Tasks",
@@ -361,6 +719,63 @@ const REDFISH_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "rf-firmware",
+    "id": "firmware-tasks-pro-tips",
+    "badge": "tip",
+    "title": "Firmware & Tasks: Pro Tips & Best Practices",
+    "subtitle": "Asynchronous Firmware Flashing & Task Service Monitoring",
+    "commands": [
+      {
+        "id": "firmware-tasks-tips-card",
+        "desc": "Asynchronous Firmware Flashing & Task Service Monitoring",
+        "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/UpdateService/FirmwareInventory?\\$expand=.(\\$levels=1)\" | jq '.Members[] | {Name: .Name, Version: .Version, Updateable: .Updateable}'",
+        "details": "Firmware updates run asynchronously: a SimpleUpdate POST, or a multipart push to MultipartHttpPushUri, returns 202 Accepted with a Location header pointing to a task monitor. Poll it, or the Task under TaskService/Tasks, until TaskState is Completed (or Exception, Killed or Cancelled).",
+        "flags": [
+          [
+            "FirmwareInventory",
+            "Installed firmware with Version and Updateable (BMC, BIOS, CPLD, NICs, ...)"
+          ],
+          [
+            "UpdateService.SimpleUpdate",
+            "BMC pulls the image from ImageURI (TransferProtocol HTTP, HTTPS, TFTP, ... as supported)"
+          ],
+          [
+            "TaskService/Tasks/<id>",
+            "TaskState (New, Running, Completed, Exception, ...) and PercentComplete"
+          ]
+        ],
+        "tip": "Watch PercentComplete on the Task and read its Messages for errors.",
+        "tags": [
+          "firmware-tasks",
+          "tips",
+          "pro",
+          "redfish",
+          "rest",
+          "best-practice"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/UpdateService.v1_17_1.json",
+              "title": "DMTF UpdateService v1.17.1"
+            },
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/Task.v1_7_4.json",
+              "title": "DMTF Task v1.7.4"
+            },
+            {
+              "url": "https://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.25.0.pdf",
+              "title": "DMTF DSP0266 Redfish Specification 1.25.0"
+            }
+          ],
+          "note": "Corrected 2026-11-10: the inventory command now expands members (the collection alone has only links), and the 202 goes to a task monitor rather than a POST to UpdateService itself."
+        }
+      }
+    ]
+  },
+  {
+    part: "rf-hgx-dlc",
     id: "hgx-dlc-redfish",
     badge: "HGX / DLC",
     title: "HGX GPU Baseboard, NVSwitch & Liquid-Cooling Leak Sensors",
@@ -394,6 +809,62 @@ const REDFISH_CHEAT_SHEET_DATA = [
         tip: "Inspect leak sensors immediately if a liquid-cooled node shuts down unexpectedly!",
         tags: ["dlc", "liquid-cooling", "leak", "coolant", "coldplate", "manifold", "sensors"],
         src: {"verified": "2026-11-09", "refs": [{"url": "https://redfish.dmtf.org/schemas/v1/Chassis.v1_29_0.json", "title": "Redfish schema: Chassis"}, {"url": "https://redfish.dmtf.org/schemas/v1/LeakDetection.json", "title": "Redfish schema: LeakDetection"}]}
+      }
+    ]
+  },
+  {
+    "part": "rf-hgx-dlc",
+    "id": "hgx-dlc-redfish-pro-tips",
+    "badge": "tip",
+    "title": "HGX Baseboard & DLC: Pro Tips & Best Practices",
+    "subtitle": "AI Server HGX Baseboard & Liquid Cooling Telemetry",
+    "commands": [
+      {
+        "id": "hgx-dlc-redfish-tips-card",
+        "desc": "AI Server HGX Baseboard & Liquid Cooling Telemetry",
+        "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Chassis/HGX_Baseboard_0\" | jq .",
+        "details": "HGX GPU baseboards have their own Redfish chassis (Chassis/HGX_Baseboard_0 on NVIDIA DGX) and expose GPUs as Systems/HGX_Baseboard_0/Processors/GPU_SXM_<n>; other server vendors may name them differently. On liquid-cooled racks, check the leak detectors (ThermalSubsystem/LeakDetection/LeakDetectors, DetectorState) and coolant sensors before powering up GPUs.",
+        "flags": [
+          [
+            "Chassis/HGX_Baseboard_0",
+            "GPU baseboard chassis on DGX: serial, status, sensors"
+          ],
+          [
+            "ThermalSubsystem/LeakDetection/LeakDetectors",
+            "One entry per leak detector with DetectorState"
+          ],
+          [
+            "Systems/HGX_Baseboard_0/Processors/GPU_SXM_<n>",
+            "Per-GPU model, serial and health (DGX naming)"
+          ]
+        ],
+        "tip": "A leak detector reporting anything but OK means stop: follow the site leak procedure before powering the GPUs on.",
+        "tags": [
+          "hgx-dlc-redfish",
+          "tips",
+          "pro",
+          "redfish",
+          "rest",
+          "best-practice"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/dgx/dgxh100-user-guide/redfish-api-supp.html",
+              "title": "NVIDIA DGX H100/H200 Redfish APIs"
+            },
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/LeakDetector.json",
+              "title": "DMTF LeakDetector schema"
+            },
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/Chassis.v1_29_0.json",
+              "title": "DMTF Chassis v1.29.0"
+            }
+          ],
+          "note": "Corrected 2026-11-10: GPUs are GPU_SXM_<n> under Systems/HGX_Baseboard_0 on DGX (not Processors/GPU_0..7), and the leak property is LeakDetection, not LeakDetectionSensors. Leak detection on non-NVIDIA HGX boards varies by vendor."
+        }
       }
     ]
   }
@@ -494,6 +965,10 @@ const VENDOR_IDS = {
 };
 
 // Application State
+// One page for the whole group: the old per-topic pages are parts of it (#part in the URL).
+// Stars, visited ticks and practice from those pages move here once, before the stars are read.
+if (typeof window !== "undefined" && window.migrateMergedSheet) window.migrateMergedSheet("redfish.html", "rf_cs_bookmarks", REDFISH_CHEAT_SHEET_DATA, {"rf-discovery":"rf-discovery_bookmarks","rf-power-boot":"rf-power-boot_bookmarks","rf-inventory":"rf-inventory_bookmarks","rf-thermals-power":"rf-thermals-power_bookmarks","rf-logs-sel":"rf-logs-sel_bookmarks","rf-bios-bmc":"rf-bios-bmc_bookmarks","rf-firmware":"rf-firmware_bookmarks","rf-hgx-dlc":"rf-hgx-dlc_bookmarks"});
+
 const state = {
   searchQuery: "",
   activeCategory: "all",
@@ -501,6 +976,10 @@ const state = {
   theme: localStorage.getItem("linux_cs_theme") || "dark",
   bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("rf_cs_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
+// The part the hash picks (#nv-smi, or a command id): the first render is already filtered.
+state.part = typeof window !== "undefined" && window.sheetPartFromHash ? window.sheetPartFromHash(REDFISH_CHEAT_SHEET_DATA) : "";
+if (typeof window !== "undefined") window.SHEET_FILTER = { sections: REDFISH_CHEAT_SHEET_DATA, label: "Redfish sheets" };
+
 
 // DOM Elements
 const searchInput = document.getElementById("search-input");
@@ -662,7 +1141,7 @@ function renderSections() {
   const cardsHtml = [];
 
   for (const section of REDFISH_CHEAT_SHEET_DATA) {
-    if (state.activeCategory !== "all" && state.activeCategory !== section.id) {
+    if (((state.activeCategory !== "all" && state.activeCategory !== section.id) || (state.part && (section.part || section.id) !== state.part))) {
       continue;
     }
 

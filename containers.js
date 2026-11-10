@@ -2,6 +2,7 @@
 // Standalone interactive cheat sheet for Containers: Containers Hub (Docker & Kubernetes)
 const CONTAINERS_CHEAT_SHEET_DATA = [
   {
+    "part": "docker-containers",
     "id": "docker-containers-cmd-1",
     "badge": "run",
     "title": "Docker Containers: List all containers",
@@ -57,6 +58,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "docker-containers",
     "id": "docker-containers-cmd-2",
     "badge": "run",
     "title": "Docker Containers: Run a container in the background with a name, a restart policy and a published port",
@@ -305,6 +307,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "docker-containers",
     "id": "docker-containers-cmd-3",
     "badge": "run",
     "title": "Docker Containers: Read the last 200 log lines of a container with timestamps",
@@ -400,6 +403,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "docker-containers",
     "id": "docker-containers-cmd-4",
     "badge": "run",
     "title": "Docker Containers: Run a command inside a running container, or open a shell in it",
@@ -495,6 +499,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "docker-containers",
     "id": "docker-containers-cmd-5",
     "badge": "run",
     "title": "Docker Containers: Find out why a container stopped",
@@ -646,6 +651,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "docker-containers",
     "id": "docker-containers-pro-tips",
     "badge": "tip",
     "title": "Docker Containers: Pro Tip",
@@ -703,6 +709,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "docker-images",
     "id": "docker-images-cmd-1",
     "badge": "img",
     "title": "Docker Images: List local images with their size and digest",
@@ -818,6 +825,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "docker-images",
     "id": "docker-images-cmd-2",
     "badge": "img",
     "title": "Docker Images: Build an image from the Dockerfile in the current directory and tag it",
@@ -945,6 +953,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "docker-images",
     "id": "docker-images-cmd-3",
     "badge": "img",
     "title": "Docker Images: Minimal Dockerfile for a small Python tool, with the layer-caching order explained",
@@ -1006,6 +1015,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "docker-images",
     "id": "docker-images-cmd-4",
     "badge": "img",
     "title": "Docker Images: Pull an image, retag it for a private registry and push it",
@@ -1150,6 +1160,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "docker-images",
     "id": "docker-images-cmd-5",
     "badge": "img",
     "title": "Docker Images: Move an image to an air-gapped host as a tar file",
@@ -1286,6 +1297,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "docker-images",
     "id": "docker-images-cmd-6",
     "badge": "img",
     "title": "Docker Images: Reclaim disk space from stopped containers, unused images and build cache",
@@ -1439,6 +1451,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "docker-images",
     "id": "docker-images-pro-tips",
     "badge": "tip",
     "title": "Docker Images: Pro Tip",
@@ -1488,6 +1501,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "docker-compose",
     "id": "docker-compose-cmd-1",
     "badge": "compose",
     "title": "Docker Compose: Start",
@@ -1644,6 +1658,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "docker-compose",
     "id": "docker-compose-cmd-2",
     "badge": "compose",
     "title": "Docker Compose: See the state of every service in the stack",
@@ -1788,6 +1803,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "docker-compose",
     "id": "docker-compose-cmd-3",
     "badge": "compose",
     "title": "Docker Compose: Stop and remove the stack's containers and networks",
@@ -1890,6 +1906,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "docker-compose",
     "id": "docker-compose-cmd-4",
     "badge": "compose",
     "title": "Docker Compose: Example compose.yaml",
@@ -1950,6 +1967,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "docker-compose",
     "id": "docker-compose-pro-tips",
     "badge": "tip",
     "title": "Docker Compose: Pro Tip",
@@ -1998,6 +2016,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "docker-network-storage",
     "id": "docker-network-storage-cmd-1",
     "badge": "dnet",
     "title": "Docker Networking & Storage: List Docker networks and see which containers are on one",
@@ -2130,6 +2149,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "docker-network-storage",
     "id": "docker-network-storage-cmd-2",
     "badge": "dnet",
     "title": "Docker Networking & Storage: Show which host ports a container publishes",
@@ -2233,6 +2253,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "docker-network-storage",
     "id": "docker-network-storage-cmd-3",
     "badge": "dnet",
     "title": "Docker Networking & Storage: List volumes and find where one lives on the host",
@@ -2386,6 +2407,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "docker-network-storage",
     "id": "docker-network-storage-pro-tips",
     "badge": "tip",
     "title": "Docker Networking & Storage: Pro Tip",
@@ -2431,6 +2453,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "docker-gpu-daemon",
     "id": "docker-gpu-daemon-cmd-1",
     "badge": "dgpu",
     "title": "Docker GPUs & Daemon: Smoke test",
@@ -2529,6 +2552,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "docker-gpu-daemon",
     "id": "docker-gpu-daemon-cmd-2",
     "badge": "dgpu",
     "title": "Docker GPUs & Daemon: Register the NVIDIA runtime with Docker, then restart Docker",
@@ -2622,6 +2646,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "docker-gpu-daemon",
     "id": "docker-gpu-daemon-cmd-3",
     "badge": "dgpu",
     "title": "Docker GPUs & Daemon: List the CDI",
@@ -2754,6 +2779,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "docker-gpu-daemon",
     "id": "docker-gpu-daemon-cmd-4",
     "badge": "dgpu",
     "title": "Docker GPUs & Daemon: Check the Docker daemon",
@@ -2919,6 +2945,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "docker-gpu-daemon",
     "id": "docker-gpu-daemon-pro-tips",
     "badge": "tip",
     "title": "Docker GPUs & Daemon: Pro Tip",
@@ -2971,6 +2998,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "k8s-kubectl",
     "id": "k8s-kubectl-cmd-1",
     "badge": "ctx",
     "title": "kubectl Basics & Contexts: Show which cluster and namespace kubectl is pointed at",
@@ -3107,6 +3135,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "k8s-kubectl",
     "id": "k8s-kubectl-cmd-2",
     "badge": "ctx",
     "title": "kubectl Basics & Contexts: List pods in every namespace with their node and IP",
@@ -3216,6 +3245,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "k8s-kubectl",
     "id": "k8s-kubectl-cmd-3",
     "badge": "ctx",
     "title": "kubectl Basics & Contexts: Print exactly the fields you need with jsonpath or custom columns",
@@ -3358,6 +3388,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "k8s-kubectl",
     "id": "k8s-kubectl-cmd-4",
     "badge": "ctx",
     "title": "kubectl Basics & Contexts: Look up what a field means without leaving the terminal",
@@ -3495,6 +3526,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "k8s-kubectl",
     "id": "k8s-kubectl-pro-tips",
     "badge": "tip",
     "title": "kubectl Basics & Contexts: Pro Tip",
@@ -3541,6 +3573,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "k8s-workloads",
     "id": "k8s-workloads-cmd-1",
     "badge": "wl",
     "title": "Kubernetes Workloads: Preview what a manifest would change, then apply it",
@@ -3655,6 +3688,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "k8s-workloads",
     "id": "k8s-workloads-cmd-2",
     "badge": "wl",
     "title": "Kubernetes Workloads: Minimal Deployment manifest with resource requests and limits",
@@ -3717,6 +3751,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "k8s-workloads",
     "id": "k8s-workloads-cmd-3",
     "badge": "wl",
     "title": "Kubernetes Workloads: Watch a deployment roll out and check its history",
@@ -3843,6 +3878,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "k8s-workloads",
     "id": "k8s-workloads-cmd-4",
     "badge": "wl",
     "title": "Kubernetes Workloads: Change the number of replicas",
@@ -3951,6 +3987,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "k8s-workloads",
     "id": "k8s-workloads-cmd-5",
     "badge": "wl",
     "title": "Kubernetes Workloads: Check batch Jobs and CronJobs",
@@ -4058,6 +4095,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "k8s-workloads",
     "id": "k8s-workloads-pro-tips",
     "badge": "tip",
     "title": "Kubernetes Workloads: Pro Tip",
@@ -4109,6 +4147,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "k8s-troubleshoot",
     "id": "k8s-troubleshoot-cmd-1",
     "badge": "dbg",
     "title": "Kubernetes Troubleshooting: Describe a pod",
@@ -4165,6 +4204,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "k8s-troubleshoot",
     "id": "k8s-troubleshoot-cmd-2",
     "badge": "dbg",
     "title": "Kubernetes Troubleshooting: What the common pod statuses mean and where to look next",
@@ -4235,6 +4275,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "k8s-troubleshoot",
     "id": "k8s-troubleshoot-cmd-3",
     "badge": "dbg",
     "title": "Kubernetes Troubleshooting: Logs from the previous",
@@ -4339,6 +4380,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "k8s-troubleshoot",
     "id": "k8s-troubleshoot-cmd-4",
     "badge": "dbg",
     "title": "Kubernetes Troubleshooting: Recent events in a namespace, oldest first",
@@ -4462,6 +4504,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "k8s-troubleshoot",
     "id": "k8s-troubleshoot-cmd-5",
     "badge": "dbg",
     "title": "Kubernetes Troubleshooting: Get a shell in a running pod, or attach a debug container to one that has no shell",
@@ -4623,6 +4666,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "k8s-troubleshoot",
     "id": "k8s-troubleshoot-cmd-6",
     "badge": "dbg",
     "title": "Kubernetes Troubleshooting: Reach a service from your workstation, and see live resource usage",
@@ -4776,6 +4820,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "k8s-troubleshoot",
     "id": "k8s-troubleshoot-pro-tips",
     "badge": "tip",
     "title": "Kubernetes Troubleshooting: Pro Tip",
@@ -4826,6 +4871,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "k8s-nodes",
     "id": "k8s-nodes-cmd-1",
     "badge": "node",
     "title": "Kubernetes Nodes & Maintenance: List nodes with status, version, OS and container runtime",
@@ -4951,6 +4997,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "k8s-nodes",
     "id": "k8s-nodes-cmd-2",
     "badge": "node",
     "title": "Kubernetes Nodes & Maintenance: Take a node out of service for hardware work",
@@ -5117,6 +5164,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "k8s-nodes",
     "id": "k8s-nodes-cmd-3",
     "badge": "node",
     "title": "Kubernetes Nodes & Maintenance: Show a node's taints and labels",
@@ -5257,6 +5305,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "k8s-nodes",
     "id": "k8s-nodes-cmd-4",
     "badge": "node",
     "title": "Kubernetes Nodes & Maintenance: On the node itself",
@@ -5485,6 +5534,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "k8s-nodes",
     "id": "k8s-nodes-pro-tips",
     "badge": "tip",
     "title": "Kubernetes Nodes & Maintenance: Pro Tip",
@@ -5531,6 +5581,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "k8s-gpu",
     "id": "k8s-gpu-cmd-1",
     "badge": "kgpu",
     "title": "Kubernetes GPUs: How many GPUs each node advertises to the scheduler",
@@ -5643,6 +5694,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "k8s-gpu",
     "id": "k8s-gpu-cmd-2",
     "badge": "kgpu",
     "title": "Kubernetes GPUs: Check the NVIDIA GPU Operator components",
@@ -5755,6 +5807,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "k8s-gpu",
     "id": "k8s-gpu-cmd-3",
     "badge": "kgpu",
     "title": "Kubernetes GPUs: Test pod that requests one GPU and runs nvidia-smi",
@@ -5896,6 +5949,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "k8s-gpu",
     "id": "k8s-gpu-cmd-4",
     "badge": "kgpu",
     "title": "Kubernetes GPUs: Read GPU metrics from DCGM exporter",
@@ -6012,6 +6066,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "k8s-gpu",
     "id": "k8s-gpu-pro-tips",
     "badge": "tip",
     "title": "Kubernetes GPUs: Pro Tip",
@@ -6068,6 +6123,10 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
 ];
 
 // Application State
+// One page for the whole group: the old per-topic pages are parts of it (#part in the URL).
+// Stars, visited ticks and practice from those pages move here once, before the stars are read.
+if (typeof window !== "undefined" && window.migrateMergedSheet) window.migrateMergedSheet("containers.html", "containers_bookmarks", CONTAINERS_CHEAT_SHEET_DATA, {"docker-containers":"docker-containers_bookmarks","docker-images":"docker-images_bookmarks","docker-compose":"docker-compose_bookmarks","docker-network-storage":"docker-network-storage_bookmarks","docker-gpu-daemon":"docker-gpu-daemon_bookmarks","k8s-kubectl":"k8s-kubectl_bookmarks","k8s-workloads":"k8s-workloads_bookmarks","k8s-troubleshoot":"k8s-troubleshoot_bookmarks","k8s-nodes":"k8s-nodes_bookmarks","k8s-gpu":"k8s-gpu_bookmarks"});
+
 const state = {
   searchQuery: "",
   activeCategory: "all",
@@ -6075,6 +6134,10 @@ const state = {
   theme: localStorage.getItem("linux_cs_theme") || "dark",
   bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("containers_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
+// The part the hash picks (#nv-smi, or a command id): the first render is already filtered.
+state.part = typeof window !== "undefined" && window.sheetPartFromHash ? window.sheetPartFromHash(CONTAINERS_CHEAT_SHEET_DATA) : "";
+if (typeof window !== "undefined") window.SHEET_FILTER = { sections: CONTAINERS_CHEAT_SHEET_DATA, label: "Containers sheets" };
+
 
 // DOM Elements
 const searchInput = document.getElementById("search-input");
@@ -6286,7 +6349,7 @@ function renderSections() {
   const cardsHtml = [];
 
   for (const card of CONTAINERS_CHEAT_SHEET_DATA) {
-    if (state.activeCategory !== "all" && state.activeCategory !== card.id) {
+    if (((state.activeCategory !== "all" && state.activeCategory !== card.id) || (state.part && (card.part || card.id) !== state.part))) {
       continue;
     }
 

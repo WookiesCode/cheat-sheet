@@ -2,6 +2,7 @@
 // Standalone interactive cheat sheet for Parallel filesystems: Parallel Filesystems Hub (Lustre, WEKA, BeeGFS, Storage Scale, Ceph)
 const PFS_HUB_DATA = [
   {
+    "part": "pfs-lustre",
     "id": "pfs-lustre-cmd-1",
     "badge": "lustre",
     "title": "Lustre: Are all the Lustre servers",
@@ -96,6 +97,7 @@ const PFS_HUB_DATA = [
     ]
   },
   {
+    "part": "pfs-lustre",
     "id": "pfs-lustre-cmd-2",
     "badge": "lustre",
     "title": "Lustre: Space per MDT and OST",
@@ -194,6 +196,7 @@ const PFS_HUB_DATA = [
     ]
   },
   {
+    "part": "pfs-lustre",
     "id": "pfs-lustre-cmd-3",
     "badge": "lustre",
     "title": "Lustre: Lustre devices on this node and whether they are UP",
@@ -294,6 +297,7 @@ const PFS_HUB_DATA = [
     ]
   },
   {
+    "part": "pfs-lustre",
     "id": "pfs-lustre-cmd-4",
     "badge": "lustre",
     "title": "Lustre: LNet",
@@ -420,6 +424,7 @@ const PFS_HUB_DATA = [
     ]
   },
   {
+    "part": "pfs-lustre",
     "id": "pfs-lustre-cmd-5",
     "badge": "lustre",
     "title": "Lustre: How a file or directory is striped across OSTs",
@@ -517,6 +522,7 @@ const PFS_HUB_DATA = [
     ]
   },
   {
+    "part": "pfs-lustre",
     "id": "pfs-lustre-cmd-6",
     "badge": "lustre",
     "title": "Lustre: Mount a Lustre filesystem on a client",
@@ -590,6 +596,7 @@ const PFS_HUB_DATA = [
     ]
   },
   {
+    "part": "pfs-lustre",
     "id": "pfs-lustre-pro-tips",
     "badge": "tip",
     "title": "Lustre: Pro Tip",
@@ -633,6 +640,7 @@ const PFS_HUB_DATA = [
     ]
   },
   {
+    "part": "pfs-weka",
     "id": "pfs-weka-cmd-1",
     "badge": "weka",
     "title": "WEKA: Overall cluster status",
@@ -730,6 +738,7 @@ const PFS_HUB_DATA = [
     ]
   },
   {
+    "part": "pfs-weka",
     "id": "pfs-weka-cmd-2",
     "badge": "weka",
     "title": "WEKA: Active alerts in the cluster",
@@ -801,6 +810,7 @@ const PFS_HUB_DATA = [
     ]
   },
   {
+    "part": "pfs-weka",
     "id": "pfs-weka-cmd-3",
     "badge": "weka",
     "title": "WEKA: Every WEKA container",
@@ -910,6 +920,7 @@ const PFS_HUB_DATA = [
     ]
   },
   {
+    "part": "pfs-weka",
     "id": "pfs-weka-cmd-4",
     "badge": "weka",
     "title": "WEKA: NVMe drives WEKA manages, per container, and their status",
@@ -1009,6 +1020,7 @@ const PFS_HUB_DATA = [
     ]
   },
   {
+    "part": "pfs-weka",
     "id": "pfs-weka-cmd-5",
     "badge": "weka",
     "title": "WEKA: On one machine",
@@ -1117,6 +1129,7 @@ const PFS_HUB_DATA = [
     ]
   },
   {
+    "part": "pfs-weka",
     "id": "pfs-weka-cmd-6",
     "badge": "weka",
     "title": "WEKA: Mount a WEKA filesystem on a stateless client",
@@ -1197,6 +1210,7 @@ const PFS_HUB_DATA = [
     ]
   },
   {
+    "part": "pfs-weka",
     "id": "pfs-weka-pro-tips",
     "badge": "tip",
     "title": "WEKA: Pro Tip",
@@ -1239,6 +1253,7 @@ const PFS_HUB_DATA = [
     ]
   },
   {
+    "part": "pfs-beegfs",
     "id": "pfs-beegfs-cmd-1",
     "badge": "beegfs",
     "title": "BeeGFS: Check for common problems across the whole filesystem",
@@ -1326,6 +1341,7 @@ const PFS_HUB_DATA = [
     ]
   },
   {
+    "part": "pfs-beegfs",
     "id": "pfs-beegfs-cmd-2",
     "badge": "beegfs",
     "title": "BeeGFS: Target reachability and consistency",
@@ -1407,6 +1423,7 @@ const PFS_HUB_DATA = [
     ]
   },
   {
+    "part": "pfs-beegfs",
     "id": "pfs-beegfs-cmd-3",
     "badge": "beegfs",
     "title": "BeeGFS: Nodes and the network interfaces they use",
@@ -1515,6 +1532,7 @@ const PFS_HUB_DATA = [
     ]
   },
   {
+    "part": "pfs-beegfs",
     "id": "pfs-beegfs-cmd-4",
     "badge": "beegfs",
     "title": "BeeGFS: Free space and inodes on metadata and storage targets",
@@ -1652,6 +1670,7 @@ const PFS_HUB_DATA = [
     ]
   },
   {
+    "part": "pfs-beegfs",
     "id": "pfs-beegfs-cmd-5",
     "badge": "beegfs",
     "title": "BeeGFS: Where a file or directory lives",
@@ -1734,6 +1753,7 @@ const PFS_HUB_DATA = [
     ]
   },
   {
+    "part": "pfs-beegfs",
     "id": "pfs-beegfs-pro-tips",
     "badge": "tip",
     "title": "BeeGFS: Pro Tip",
@@ -1780,6 +1800,7 @@ const PFS_HUB_DATA = [
     ]
   },
   {
+    "part": "pfs-scale",
     "id": "pfs-scale-cmd-1",
     "badge": "gpfs",
     "title": "IBM Storage Scale: Is the GPFS daemon active on every node?",
@@ -1896,6 +1917,7 @@ const PFS_HUB_DATA = [
     ]
   },
   {
+    "part": "pfs-scale",
     "id": "pfs-scale-cmd-2",
     "badge": "gpfs",
     "title": "IBM Storage Scale: What the health monitor flags on this node and across the cluster",
@@ -2021,6 +2043,7 @@ const PFS_HUB_DATA = [
     ]
   },
   {
+    "part": "pfs-scale",
     "id": "pfs-scale-cmd-3",
     "badge": "gpfs",
     "title": "IBM Storage Scale: Disks in a filesystem that are not up and ready",
@@ -2138,6 +2161,7 @@ const PFS_HUB_DATA = [
     ]
   },
   {
+    "part": "pfs-scale",
     "id": "pfs-scale-cmd-4",
     "badge": "gpfs",
     "title": "IBM Storage Scale: Which local device is behind each NSD",
@@ -2248,6 +2272,7 @@ const PFS_HUB_DATA = [
     ]
   },
   {
+    "part": "pfs-scale",
     "id": "pfs-scale-cmd-5",
     "badge": "gpfs",
     "title": "IBM Storage Scale: Bring a down disk back",
@@ -2422,6 +2447,7 @@ const PFS_HUB_DATA = [
     ]
   },
   {
+    "part": "pfs-scale",
     "id": "pfs-scale-pro-tips",
     "badge": "tip",
     "title": "IBM Storage Scale: Pro Tip",
@@ -2472,6 +2498,7 @@ const PFS_HUB_DATA = [
     ]
   },
   {
+    "part": "pfs-ceph",
     "id": "pfs-ceph-cmd-1",
     "badge": "ceph",
     "title": "Ceph: Cluster health at a glance, then the detail",
@@ -2579,6 +2606,7 @@ const PFS_HUB_DATA = [
     ]
   },
   {
+    "part": "pfs-ceph",
     "id": "pfs-ceph-cmd-2",
     "badge": "ceph",
     "title": "Ceph: Every OSD by host, and which are down",
@@ -2693,6 +2721,7 @@ const PFS_HUB_DATA = [
     ]
   },
   {
+    "part": "pfs-ceph",
     "id": "pfs-ceph-cmd-3",
     "badge": "ceph",
     "title": "Ceph: Placement group states, and inconsistent PGs after a scrub",
@@ -2806,6 +2835,7 @@ const PFS_HUB_DATA = [
     ]
   },
   {
+    "part": "pfs-ceph",
     "id": "pfs-ceph-cmd-4",
     "badge": "ceph",
     "title": "Ceph: Which physical disk is behind each OSD on a host",
@@ -2903,6 +2933,7 @@ const PFS_HUB_DATA = [
     ]
   },
   {
+    "part": "pfs-ceph",
     "id": "pfs-ceph-cmd-5",
     "badge": "ceph",
     "title": "Ceph: Before maintenance",
@@ -3012,6 +3043,7 @@ const PFS_HUB_DATA = [
     ]
   },
   {
+    "part": "pfs-ceph",
     "id": "pfs-ceph-cmd-6",
     "badge": "ceph",
     "title": "Ceph: cephadm",
@@ -3164,6 +3196,7 @@ const PFS_HUB_DATA = [
     ]
   },
   {
+    "part": "pfs-ceph",
     "id": "pfs-ceph-cmd-7",
     "badge": "ceph",
     "title": "Ceph: Daemon crash reports",
@@ -3259,6 +3292,7 @@ const PFS_HUB_DATA = [
     ]
   },
   {
+    "part": "pfs-ceph",
     "id": "pfs-ceph-pro-tips",
     "badge": "tip",
     "title": "Ceph: Pro Tip",
@@ -3307,6 +3341,10 @@ const PFS_HUB_DATA = [
 ];
 
 // Application State
+// One page for the whole group: the old per-topic pages are parts of it (#part in the URL).
+// Stars, visited ticks and practice from those pages move here once, before the stars are read.
+if (typeof window !== "undefined" && window.migrateMergedSheet) window.migrateMergedSheet("pfs.html", "pfs_bookmarks", PFS_HUB_DATA, {"pfs-lustre":"pfs-lustre_bookmarks","pfs-weka":"pfs-weka_bookmarks","pfs-beegfs":"pfs-beegfs_bookmarks","pfs-scale":"pfs-scale_bookmarks","pfs-ceph":"pfs-ceph_bookmarks"});
+
 const state = {
   searchQuery: "",
   activeCategory: "all",
@@ -3314,6 +3352,10 @@ const state = {
   theme: localStorage.getItem("linux_cs_theme") || "dark",
   bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("pfs_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
+// The part the hash picks (#nv-smi, or a command id): the first render is already filtered.
+state.part = typeof window !== "undefined" && window.sheetPartFromHash ? window.sheetPartFromHash(PFS_HUB_DATA) : "";
+if (typeof window !== "undefined") window.SHEET_FILTER = { sections: PFS_HUB_DATA, label: "Parallel filesystems sheets" };
+
 
 // DOM Elements
 const searchInput = document.getElementById("search-input");
@@ -3525,7 +3567,7 @@ function renderSections() {
   const cardsHtml = [];
 
   for (const card of PFS_HUB_DATA) {
-    if (state.activeCategory !== "all" && state.activeCategory !== card.id) {
+    if (((state.activeCategory !== "all" && state.activeCategory !== card.id) || (state.part && (card.part || card.id) !== state.part))) {
       continue;
     }
 

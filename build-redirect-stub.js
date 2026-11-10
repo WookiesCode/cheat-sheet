@@ -29,5 +29,7 @@ function stub(target, label, group) {
 }
 
 const isStub = html => new RegExp(`<meta name="${MARKER}"`).test(html);
+// A page file that is a redirect (missing files are not).
+const isStubFile = file => { try { return isStub(require('fs').readFileSync(file, 'utf8')); } catch (e) { return false; } };
 
-module.exports = { stub, isStub, MARKER };
+module.exports = { stub, isStub, isStubFile, MARKER };

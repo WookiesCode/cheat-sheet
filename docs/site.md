@@ -1,6 +1,6 @@
 # Datacenter Cheat Sheets
 
-Offline command reference sheets for datacenter work: <!-- counts -->199 pages, 176 of them command sheets with 2,098 commands<!-- /counts -->, plus one file that bundles them all.
+Offline command reference sheets for datacenter work: <!-- counts -->27 pages, 24 of them command sheets with 2,098 commands<!-- /counts -->, plus one file that bundles them all.
 
 ## Open it
 

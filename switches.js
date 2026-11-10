@@ -1,5 +1,6 @@
 const SWITCH_DATA = [
   {
+    part: "sw-quantum-ports",
     id: "quantum-mlnxos-ports",
     badge: "qtm",
     title: "NVIDIA Quantum IB (MLNX-OS) — Ports, Optics & Counters",
@@ -47,6 +48,55 @@ const SWITCH_DATA = [
     ]
   },
   {
+    "part": "sw-quantum-ports",
+    "id": "quantum-mlnxos-ports-pro-tips",
+    "badge": "tip",
+    "title": "Quantum: Ports & Optics: Pro Tips & Best Practices",
+    "subtitle": "NVIDIA Quantum & Quantum-2 (MLNX-OS) Port Provisioning & DOM Diagnostics",
+    "commands": [
+      {
+        "id": "quantum-mlnxos-ports-tips-card",
+        "desc": "NVIDIA Quantum & Quantum-2 (MLNX-OS) Port Provisioning & DOM Diagnostics",
+        "cmd": "show interfaces ib 1/1 transceiver && show interfaces ib status",
+        "details": "Split ports show as three-part names (IB1/1/1, IB1/1/2) in show interfaces ib status; unsplit ports as IB1/2. A port that is Active/LinkUp physically but stuck in Init logically has no Subnet Manager configuring it: check that an SM (embedded, OpenSM or UFM) is running on the fabric.",
+        "flags": [
+          [
+            "show interfaces ib status",
+            "Link state, physical state, speed and width for every IB port"
+          ],
+          [
+            "show interfaces ib 1/1 transceiver",
+            "Module details and DOM for one port"
+          ],
+          [
+            "show interfaces ib 1/1/1 transceiver",
+            "Same for one half of a split port"
+          ]
+        ],
+        "tip": "Physical LinkUp + logical Init = no Subnet Manager has brought the port up. Check the SM, not the cable.",
+        "tags": [
+          "quantum-mlnxos-ports",
+          "tips",
+          "pro",
+          "switches",
+          "fabric",
+          "best-practice"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/infiniband-interface",
+              "title": "MLNX-OS 3.12.6200: InfiniBand interface"
+            }
+          ],
+          "note": "Corrected 2026-11-10: removed \"restart OpenSM\", an unsourced QM8700/QM9700 split description and the show cables flag (not in the MLNX-OS manual chapters read)."
+        }
+      }
+    ]
+  },
+  {
+    part: "sw-quantum-hw-sm",
     id: "quantum-mlnxos-hw-sm",
     badge: "qsm",
     title: "NVIDIA Quantum IB (MLNX-OS) — Hardware, SM/UFM & Config",
@@ -78,6 +128,63 @@ const SWITCH_DATA = [
     ]
   },
   {
+    "part": "sw-quantum-hw-sm",
+    "id": "quantum-mlnxos-hw-sm-pro-tips",
+    "badge": "tip",
+    "title": "Quantum: SM, UFM & HW: Pro Tips & Best Practices",
+    "subtitle": "Quantum MLNX-OS Subnet Manager Redundancy & Chassis Health",
+    "commands": [
+      {
+        "id": "quantum-mlnxos-hw-sm-tips-card",
+        "desc": "Quantum MLNX-OS Subnet Manager Redundancy & Chassis Health",
+        "cmd": "show ib sm && show inventory",
+        "details": "NVIDIA documents the embedded MLNX-OS Subnet Manager for fabrics up to 2048 nodes on x86-based switches; larger fabrics usually run the SM on dedicated servers or UFM. The SM is disabled by default. configuration write saves the running configuration.",
+        "flags": [
+          [
+            "ib smnode <sm-node> enable",
+            "Enable the embedded Subnet Manager (NVIDIA example: ib smnode my-sm enable)"
+          ],
+          [
+            "ib smnode <sm-node> sm-priority <n>",
+            "Set this SM's priority for master election"
+          ],
+          [
+            "configuration write",
+            "Save the running configuration"
+          ]
+        ],
+        "tip": "Run one master SM and standbys, with sm-priority set so the intended master wins; if SMs restart repeatedly, NVIDIA says to check that all SM nodes are in the same IB subnet.",
+        "tags": [
+          "quantum-mlnxos-hw-sm",
+          "tips",
+          "pro",
+          "switches",
+          "fabric",
+          "best-practice"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/subnet-manager",
+              "title": "MLNX-OS 3.12.6200: subnet manager"
+            },
+            {
+              "url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/chassis-management",
+              "title": "MLNX-OS 3.12.6200: chassis management"
+            },
+            {
+              "url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/logging",
+              "title": "MLNX-OS 3.12.6200: logging"
+            }
+          ],
+          "note": "show ib sm and show inventory are not in the MLNX-OS chapters read."
+        }
+      }
+    ]
+  },
+  {
+    part: "sw-quantum-inband",
     id: "quantum-unmanaged-inband",
     badge: "qib",
     title: "NVIDIA Quantum IB (Unmanaged) — Host In-Band MFT & Diagnostics",
@@ -109,6 +216,71 @@ const SWITCH_DATA = [
     ]
   },
   {
+    "part": "sw-quantum-inband",
+    "id": "quantum-unmanaged-inband-pro-tips",
+    "badge": "tip",
+    "title": "Quantum: In-Band MFT: Pro Tips & Best Practices",
+    "subtitle": "Out-of-Band vs In-Band Telemetry on Unmanaged QM8700/QM9700 Switches",
+    "commands": [
+      {
+        "id": "quantum-unmanaged-inband-tips-card",
+        "desc": "Out-of-Band vs In-Band Telemetry on Unmanaged QM8700/QM9700 Switches",
+        "cmd": "mlxlink -d lid-0x0004 -p 1 --show_module --show_counters",
+        "details": "Externally managed (unmanaged) Quantum switches have no management CPU or IP, so you read them in-band from a connected host with MFT, addressing the switch by LID: mlxlink -d lid-<LID> -p <port>. On managed MLNX-OS switches, in-band management is blocked by default (system manage inband-ib enables it).",
+        "flags": [
+          [
+            "mlxlink -d lid-<LID> -p <port>",
+            "Read a switch port's module and PHY state in-band"
+          ],
+          [
+            "smpquery portinfo <LID> <port>",
+            "SMP PortInfo: link speed, width, state, MTU"
+          ],
+          [
+            "ibportstate <LID> <port> reset",
+            "Reset a switch port from a host (changes state)"
+          ]
+        ],
+        "tip": "Obtain switch LIDs with \"ibswitches\" or \"ibnetdiscover\" before querying via host in-band MFT tools.",
+        "tags": [
+          "quantum-unmanaged-inband",
+          "tips",
+          "pro",
+          "switches",
+          "fabric",
+          "best-practice"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxlink-utility",
+              "title": "MFT: mlxlink"
+            },
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibswitches.8.in.rst",
+              "title": "ibswitches man page (rdma-core)"
+            },
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/smpquery.8.in.rst",
+              "title": "smpquery man page (rdma-core)"
+            },
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibportstate.8.in.rst",
+              "title": "ibportstate man page (rdma-core)"
+            },
+            {
+              "url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/infiniband-interface",
+              "title": "MLNX-OS 3.12.6200: InfiniBand interface"
+            }
+          ],
+          "note": "The in-band block on managed switches is from the MLNX-OS InfiniBand interface chapter."
+        }
+      }
+    ]
+  },
+  {
+    part: "sw-cumulus-ports",
     id: "cumulus-ports",
     badge: "nvu",
     title: "Cumulus NVUE — Port Status, Counters & Bounce",
@@ -136,6 +308,63 @@ const SWITCH_DATA = [
     ]
   },
   {
+    "part": "sw-cumulus-ports",
+    "id": "cumulus-ports-pro-tips",
+    "badge": "tip",
+    "title": "Cumulus: Port Status: Pro Tips & Best Practices",
+    "subtitle": "Cumulus Linux NVUE Interface Configuration & Link Bouncing",
+    "commands": [
+      {
+        "id": "cumulus-ports-tips-card",
+        "desc": "Cumulus Linux NVUE Interface Configuration & Link Bouncing",
+        "cmd": "nv show interface && nv set interface swp1 link state up",
+        "details": "Cumulus Linux is configured with the NVUE CLI. nv set and nv unset change a pending configuration that takes effect only after nv config apply.",
+        "flags": [
+          [
+            "nv show interface",
+            "All interfaces with state, speed and MTU"
+          ],
+          [
+            "nv show interface swp1 link stats",
+            "Rx/Tx bytes, packets, drops and errors for one port"
+          ],
+          [
+            "nv set interface swp1 link mtu 9216",
+            "Set MTU explicitly (9216 is the default)"
+          ]
+        ],
+        "tip": "Cumulus Linux already gives switch ports a 9216 MTU by default; set hosts to a matching jumbo MTU (for example 9000) end to end rather than raising the switch.",
+        "tags": [
+          "cumulus-ports",
+          "tips",
+          "pro",
+          "switches",
+          "fabric",
+          "best-practice"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Monitoring-and-Troubleshooting/Troubleshooting-Network-Interfaces/Monitoring-Interfaces-and-Transceivers-with-NVUE/",
+              "title": "Cumulus Linux 5.18: monitoring interfaces"
+            },
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Set-and-Unset-Commands/Interface/",
+              "title": "NVUE reference: interface set"
+            },
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Layer-1-and-Switch-Ports/Interface-Configuration-and-Management/Switch-Port-Attributes/",
+              "title": "Cumulus Linux 5.18: switch port attributes (MTU, FEC)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: the link state command needs \"link\"; NVUE is not \"Network Virtualization Underlay Engine\"; 9216 is already the Cumulus default MTU."
+        }
+      }
+    ]
+  },
+  {
+    part: "sw-cumulus-optics",
     id: "cumulus-optics",
     badge: "dom",
     title: "Cumulus NVUE — Optical DOM, Transceivers & FEC",
@@ -162,6 +391,63 @@ const SWITCH_DATA = [
     ]
   },
   {
+    "part": "sw-cumulus-optics",
+    "id": "cumulus-optics-pro-tips",
+    "badge": "tip",
+    "title": "Cumulus: Optics DOM & FEC: Pro Tips & Best Practices",
+    "subtitle": "Transceiver DOM Optical Thresholds & Forward Error Correction",
+    "commands": [
+      {
+        "id": "cumulus-optics-tips-card",
+        "desc": "Transceiver DOM Optical Thresholds & Forward Error Correction",
+        "cmd": "nv show interface swp1 transceiver && nv show interface swp1 fec",
+        "details": "PAM4 links (50G per lane and faster, so 200G, 400G and 800G) depend on RS FEC; a link that comes up with clean optical power but has errors often has mismatched FEC between the two ends. Compare each lane's Rx power with the module's own warning and alarm thresholds, not a fixed number.",
+        "flags": [
+          [
+            "nv show interface swp1 transceiver",
+            "Module type, vendor, serial, temperature, voltage and per-lane power"
+          ],
+          [
+            "nv set interface swp1 link fec rs",
+            "Force RS FEC (changes state; set the same on the far end)"
+          ],
+          [
+            "ethtool -m swp1",
+            "Raw module EEPROM and DOM from Linux"
+          ]
+        ],
+        "tip": "Read the module's thresholds from nv show interface swp1 transceiver (or ethtool -m swp1): they differ per optic type.",
+        "tags": [
+          "cumulus-optics",
+          "tips",
+          "pro",
+          "switches",
+          "fabric",
+          "best-practice"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/Platform/",
+              "title": "NVUE reference: platform"
+            },
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Layer-1-and-Switch-Ports/Interface-Configuration-and-Management/Switch-Port-Attributes/",
+              "title": "Cumulus Linux 5.18: switch port attributes (MTU, FEC)"
+            },
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Monitoring-and-Troubleshooting/Troubleshooting-Network-Interfaces/Monitoring-Interfaces-and-Transceivers-with-ethtool/",
+              "title": "Cumulus Linux 5.18: ethtool"
+            }
+          ],
+          "note": "Corrected 2026-11-10: removed unsourced \"-2 to +2 dBm acceptable\" and \"-8 dBm\" limits, the Clause 91 label (that is 100G RS FEC), and mst/mlxcables on Cumulus."
+        }
+      }
+    ]
+  },
+  {
+    part: "sw-cumulus-lldp",
     id: "cumulus-lldp",
     badge: "lld",
     title: "Cumulus NVUE — LLDP Neighbors, MAC & ARP Tables",
@@ -188,6 +474,59 @@ const SWITCH_DATA = [
     ]
   },
   {
+    "part": "sw-cumulus-lldp",
+    "id": "cumulus-lldp-pro-tips",
+    "badge": "tip",
+    "title": "Cumulus: LLDP, MAC & ARP: Pro Tips & Best Practices",
+    "subtitle": "Cluster Cabling Verification & Host Discovery via LLDP",
+    "commands": [
+      {
+        "id": "cumulus-lldp-tips-card",
+        "desc": "Cluster Cabling Verification & Host Discovery via LLDP",
+        "cmd": "nv show interface lldp && nv show bridge domain br_default mac-table",
+        "details": "Compare LLDP neighbours with the cabling plan to catch miswired GPU nodes before a job runs.",
+        "flags": [
+          [
+            "nv show interface lldp",
+            "LLDP neighbours on all ports"
+          ],
+          [
+            "nv show interface swp1 lldp",
+            "LLDP settings and neighbour for one port"
+          ],
+          [
+            "nv show bridge domain br_default mac-table",
+            "Layer 2 forwarding table: MAC, VLAN, port"
+          ]
+        ],
+        "tip": "Verify that server hostname, interface name, and switch port match the intended topology map.",
+        "tags": [
+          "cumulus-lldp",
+          "tips",
+          "pro",
+          "switches",
+          "fabric",
+          "best-practice"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/LLDP/",
+              "title": "NVUE reference: LLDP"
+            },
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/Bridge/",
+              "title": "NVUE reference: bridge"
+            }
+          ],
+          "note": "Corrected 2026-11-10: NVUE has no --view lldp (the views are ber and dom); removed nv show router arp, not found in the NVUE reference."
+        }
+      }
+    ]
+  },
+  {
+    part: "sw-cumulus-bonds",
     id: "cumulus-bonds",
     badge: "lcp",
     title: "Cumulus NVUE — LACP Bonds, MLAG & VLANs",
@@ -214,6 +553,63 @@ const SWITCH_DATA = [
     ]
   },
   {
+    "part": "sw-cumulus-bonds",
+    "id": "cumulus-bonds-pro-tips",
+    "badge": "tip",
+    "title": "Cumulus: MLAG Bonds & VLAN: Pro Tips & Best Practices",
+    "subtitle": "High-Availability MLAG & LACP Dual-Homed Server Uplinks",
+    "commands": [
+      {
+        "id": "cumulus-bonds-tips-card",
+        "desc": "High-Availability MLAG & LACP Dual-Homed Server Uplinks",
+        "cmd": "nv show mlag && nv show interface bond1",
+        "details": "MLAG lets a server bond to two leaf switches as one LACP partner. The pair needs a peer link, a unique MLAG system MAC per pair and a backup IP that the switches use when the peer link is down.",
+        "flags": [
+          [
+            "nv show mlag",
+            "MLAG state, peer, backup and system MAC"
+          ],
+          [
+            "nv show interface bond1",
+            "Bond members and state"
+          ],
+          [
+            "nv set interface bond1 bond member swp1-2",
+            "Add members to a bond (changes state)"
+          ]
+        ],
+        "tip": "Before enabling host bonds, check that nv show mlag reports the peer up and that both switches use the same MLAG system MAC and have the backup IP set.",
+        "tags": [
+          "cumulus-bonds",
+          "tips",
+          "pro",
+          "switches",
+          "fabric",
+          "best-practice"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/MLAG/",
+              "title": "NVUE reference: MLAG"
+            },
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Layer-2/Multi-Chassis-Link-Aggregation-MLAG/",
+              "title": "Cumulus Linux 5.18: MLAG"
+            },
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Set-and-Unset-Commands/Interface/",
+              "title": "NVUE reference: interface set"
+            }
+          ],
+          "note": "Corrected 2026-11-10: NVIDIA's bond member example uses a range (swp1-4), not a comma list."
+        }
+      }
+    ]
+  },
+  {
+    part: "sw-cumulus-bgp",
     id: "cumulus-bgp-roce",
     badge: "bgp",
     title: "Cumulus NVUE — BGP, EVPN & RoCEv2 Lossless QoS",
@@ -240,6 +636,7 @@ const SWITCH_DATA = [
     ]
   },
   {
+    part: "sw-cumulus-hw",
     id: "cumulus-hw-cfg",
     badge: "psu",
     title: "Cumulus NVUE — PSU/Fan Health & Config Rollback",
@@ -268,6 +665,63 @@ const SWITCH_DATA = [
     ]
   },
   {
+    "part": "sw-cumulus-hw",
+    "id": "cumulus-hw-cfg-pro-tips",
+    "badge": "tip",
+    "title": "Cumulus: PSU, Fans & Config: Pro Tips & Best Practices",
+    "subtitle": "Platform Environmental Monitoring & Safe Atomic Configuration",
+    "commands": [
+      {
+        "id": "cumulus-hw-cfg-tips-card",
+        "desc": "Platform Environmental Monitoring & Safe Atomic Configuration",
+        "cmd": "nv show platform && nv config diff && nv config apply",
+        "details": "NVUE features atomic commit semantics. Review configuration changes with `nv config diff` before applying them with `nv config apply`. If a change causes network isolation, go back with `nv config apply <revision_id>` (list revisions with `nv config history`), or use `nv config apply --confirm` so an unconfirmed change rolls itself back.",
+        "flags": [
+          [
+            "nv show platform environment",
+            "Check chassis power supplies (PSU1/PSU2 status, wattage), fan RPMs, and ASIC temps"
+          ],
+          [
+            "nv config diff",
+            "Display line-by-line unified diff between candidate buffer and active running configuration"
+          ],
+          [
+            "nv config apply",
+            "Atomically validate and apply all pending NVUE configuration changes"
+          ],
+          [
+            "nv config apply <revision_id>",
+            "Go back to an earlier revision (nv config history lists them)"
+          ]
+        ],
+        "tip": "Check fans and both PSUs in nv show platform environment before and after hardware work.",
+        "tags": [
+          "cumulus-hw-cfg",
+          "tips",
+          "pro",
+          "switches",
+          "fabric",
+          "best-practice"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/Platform/",
+              "title": "NVUE reference: platform"
+            },
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Config-Commands/",
+              "title": "NVUE reference: config commands"
+            }
+          ],
+          "note": "nv config apply --confirm rolls back unless confirmed within ten minutes by default. Removed 2026-11-10: an unsourced claim that a PSU failure causes immediate thermal throttling."
+        }
+      }
+    ]
+  },
+  {
+    part: "sw-arista-ports",
     id: "arista-ports-dom",
     badge: "eos",
     title: "Arista EOS — Interface Status, Optical DOM & Counters",
@@ -295,6 +749,55 @@ const SWITCH_DATA = [
     ]
   },
   {
+    "part": "sw-arista-ports",
+    "id": "arista-ports-dom-pro-tips",
+    "badge": "tip",
+    "title": "Arista EOS: Ports & DOM: Pro Tips & Best Practices",
+    "subtitle": "Arista EOS Interface Troubleshooting & Optical DOM Limits",
+    "commands": [
+      {
+        "id": "arista-ports-dom-tips-card",
+        "desc": "Arista EOS Interface Troubleshooting & Optical DOM Limits",
+        "cmd": "show interfaces status && show interfaces transceiver detail",
+        "details": "Arista EOS provides granular real-time telemetry on all QSFP-DD, OSFP, and SFP cages. Use `show interfaces transceiver detail` to check whether optical Rx power is within high/low warning and alarm thresholds.",
+        "flags": [
+          [
+            "show interfaces status",
+            "Compact summary table of all Ethernet interfaces: status, VLAN, duplex, speed, and media type"
+          ],
+          [
+            "show interfaces transceiver detail",
+            "Per-lane optical Rx/Tx power (dBm), temperature, voltage, and calibrated alarm thresholds"
+          ],
+          [
+            "show interfaces counters errors",
+            "Identify interfaces accumulating FCS errors, alignment errors, or symbol errors"
+          ]
+        ],
+        "tip": "notconnect means the port has no link: check the cable, the optic and that both ends agree on speed.",
+        "tags": [
+          "arista-ports-dom",
+          "tips",
+          "pro",
+          "switches",
+          "fabric",
+          "best-practice"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.arista.com/um-eos/eos-ethernet-ports",
+              "title": "Arista EOS 4.37: Ethernet ports"
+            }
+          ],
+          "note": "EOS shows notconnect in examples but the page read does not define it; the meaning here is general practice."
+        }
+      }
+    ]
+  },
+  {
+    part: "sw-arista-mlag",
     id: "arista-lldp-mlag",
     badge: "mlg",
     title: "Arista EOS — LLDP Neighbors, LACP & MLAG",
@@ -322,6 +825,62 @@ const SWITCH_DATA = [
     ]
   },
   {
+    "part": "sw-arista-mlag",
+    "id": "arista-lldp-mlag-pro-tips",
+    "badge": "tip",
+    "title": "Arista EOS: LLDP & MLAG: Pro Tips & Best Practices",
+    "subtitle": "Arista EOS MLAG Health & Dual-Homed Port-Channel Bundling",
+    "commands": [
+      {
+        "id": "arista-lldp-mlag-tips-card",
+        "desc": "Arista EOS MLAG Health & Dual-Homed Port-Channel Bundling",
+        "cmd": "show mlag && show port-channel summary && show lldp neighbors",
+        "details": "Arista MLAG joins two switches over a peer link so a dual-homed server sees one LACP partner. Each peer uses the MLAG System ID (MSI), the MLAG domain's MAC address, in its STP and LACP PDUs.",
+        "flags": [
+          [
+            "show mlag",
+            "Display MLAG domain ID, peer link status, peer address heartbeat, and local/peer state"
+          ],
+          [
+            "show port-channel summary",
+            "List all Port-Channels (Po1, Po10) with protocol (LACP) and member interface flags"
+          ],
+          [
+            "show lldp neighbors",
+            "Quick audit of adjacent hosts, switch spine nodes, and management IP addresses"
+          ]
+        ],
+        "tip": "Before maintenance, show mlag should report state : Active and peer-link status : Up.",
+        "tags": [
+          "arista-lldp-mlag",
+          "tips",
+          "pro",
+          "switches",
+          "fabric",
+          "best-practice"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.arista.com/um-eos/eos-multi-chassis-link-aggregation",
+              "title": "Arista EOS 4.37: MLAG"
+            },
+            {
+              "url": "https://www.arista.com/um-eos/eos-port-channels-and-lacp",
+              "title": "Arista EOS 4.37: port channels"
+            },
+            {
+              "url": "https://www.arista.com/um-eos/eos-link-layer-discovery-protocol",
+              "title": "Arista EOS 4.37: LLDP"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    part: "sw-arista-bgp",
     id: "arista-bgp-env",
     badge: "env",
     title: "Arista EOS — BGP, Environment, Logs & Config Diff",
@@ -347,6 +906,59 @@ const SWITCH_DATA = [
     ]
   },
   {
+    "part": "sw-arista-bgp",
+    "id": "arista-bgp-env-pro-tips",
+    "badge": "tip",
+    "title": "Arista EOS: BGP & Health: Pro Tips & Best Practices",
+    "subtitle": "Arista EOS BGP State & Transactional Config Sessions",
+    "commands": [
+      {
+        "id": "arista-bgp-env-tips-card",
+        "desc": "Arista EOS BGP State & Transactional Config Sessions",
+        "cmd": "show ip bgp summary && show system environment all",
+        "details": "Arista EOS supports transactional configuration via `configure session`. Changes are isolated in a private session where you can verify syntax with `show session-config diff` before committing or aborting.",
+        "flags": [
+          [
+            "show ip bgp summary",
+            "Summary of all IPv4 BGP neighbor sessions: peer IP, AS number, state, and prefix count"
+          ],
+          [
+            "show system environment all",
+            "Display real-time fan RPMs, chassis temperatures, and power supply wattage/voltage"
+          ],
+          [
+            "configure session <name> ; show session-config diff ; commit",
+            "Atomic configuration session with preview diff and commit"
+          ]
+        ],
+        "tip": "Always use \"configure session <name>\" for production changes to prevent accidental live-editing collisions.",
+        "tags": [
+          "arista-bgp-env",
+          "tips",
+          "pro",
+          "switches",
+          "fabric",
+          "best-practice"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.arista.com/um-eos/eos-border-gateway-protocol-bgp",
+              "title": "Arista EOS 4.37: BGP"
+            },
+            {
+              "url": "https://www.arista.com/um-eos/eos-environment-commands",
+              "title": "Arista EOS 4.37: environment"
+            }
+          ],
+          "note": "Arista refused automated reads of the configure session page, so the session commands (configure session, show session-config diffs, commit) are not checked."
+        }
+      }
+    ]
+  },
+  {
+    part: "sw-nxos-ports",
     id: "nxos-ports-dom",
     badge: "nxo",
     title: "Cisco NX-OS — Interface Status, Optical DOM & Counters",
@@ -373,6 +985,55 @@ const SWITCH_DATA = [
     ]
   },
   {
+    "part": "sw-nxos-ports",
+    "id": "nxos-ports-dom-pro-tips",
+    "badge": "tip",
+    "title": "Cisco NX-OS: Ports & DOM: Pro Tips & Best Practices",
+    "subtitle": "Cisco Nexus NX-OS Interface Triage & Transceiver Calibration",
+    "commands": [
+      {
+        "id": "nxos-ports-dom-tips-card",
+        "desc": "Cisco Nexus NX-OS Interface Triage & Transceiver Calibration",
+        "cmd": "show interface brief && show interface transceiver details",
+        "details": "On Cisco Nexus 9000/3000 switches, `show interface brief` gives a quick snapshot of link status and speed. `show interface transceiver details` prints per-lane optical levels alongside warning/alarm thresholds calibrated to the optical transceiver part.",
+        "flags": [
+          [
+            "show interface brief",
+            "Summary list of Ethernet, Port-Channel, and management interfaces with status and speed"
+          ],
+          [
+            "show interface transceiver details",
+            "Detailed optical Tx/Rx power (dBm), temperature, voltage, and threshold alarms"
+          ],
+          [
+            "show interface counters errors",
+            "Display CRC, input error, and frame alignment error counts across all switch ports"
+          ]
+        ],
+        "tip": "If Rx power is in the module's warning or alarm range, clean and inspect the fiber and check for tight bends before replacing the optic.",
+        "tags": [
+          "nxos-ports-dom",
+          "tips",
+          "pro",
+          "switches",
+          "fabric",
+          "best-practice"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_i_showcmds.html",
+              "title": "NX-OS 10.5 show commands: interface"
+            }
+          ],
+          "note": "Removed 2026-11-10: an unsourced \"-14 dBm\" alarm level; thresholds come from each transceiver."
+        }
+      }
+    ]
+  },
+  {
+    part: "sw-nxos-vpc",
     id: "nxos-lldp-vpc",
     badge: "vpc",
     title: "Cisco NX-OS — LLDP/CDP, LACP Port-Channel & vPC",
@@ -400,6 +1061,59 @@ const SWITCH_DATA = [
     ]
   },
   {
+    "part": "sw-nxos-vpc",
+    "id": "nxos-lldp-vpc-pro-tips",
+    "badge": "tip",
+    "title": "Cisco NX-OS: LLDP & vPC: Pro Tips & Best Practices",
+    "subtitle": "Cisco Nexus Virtual Port-Channel (vPC) Consistency & Peer Keepalive",
+    "commands": [
+      {
+        "id": "nxos-lldp-vpc-tips-card",
+        "desc": "Cisco Nexus Virtual Port-Channel (vPC) Consistency & Peer Keepalive",
+        "cmd": "show vpc && show vpc consistency-parameters global",
+        "details": "Cisco vPC provides active-active dual-homing without Spanning Tree loop blocking. The vPC peer-keepalive link exchanges heartbeats out-of-band to prevent split-brain scenarios if the high-speed vPC peer-link fails.",
+        "flags": [
+          [
+            "show vpc",
+            "Overview of vPC domain status, peer link status, peer keepalive status, and vPC interface bundle states"
+          ],
+          [
+            "show vpc consistency-parameters global",
+            "Verify STP, MTU, and VLAN consistency between the two vPC peer switches"
+          ],
+          [
+            "show lldp neighbors",
+            "List discovered physical neighbors with device ID, port ID, and capabilities"
+          ]
+        ],
+        "tip": "Verify \"vPC domain role: primary/secondary\" and ensure no Type 1 consistency parameter failures exist.",
+        "tags": [
+          "nxos-lldp-vpc",
+          "tips",
+          "pro",
+          "switches",
+          "fabric",
+          "best-practice"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_v_showcmds.html",
+              "title": "NX-OS 10.5 show commands: vPC"
+            },
+            {
+              "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_l_showcmds.html",
+              "title": "NX-OS 10.5 show commands: LLDP"
+            }
+          ],
+          "note": "The vPC configuration guide (Type 1/2 consistency, peer-keepalive role) could not be read; only the show command reference was checked."
+        }
+      }
+    ]
+  },
+  {
+    part: "sw-sonic",
     id: "sonic-cli",
     badge: "snc",
     title: "SONiC — Enterprise & Cloud Switch CLI",
@@ -424,6 +1138,62 @@ const SWITCH_DATA = [
         tip: "show interfaces transceiver eeprom --dom reads optical DOM on SONiC switches",
         tags: ["sonic", "sfputil", "interfaces", "lldp", "platform", "psu", "pfc"],
         src: {"verified": "2026-11-09", "refs": [{"url": "https://github.com/sonic-net/sonic-utilities/blob/master/doc/Command-Reference.md", "title": "SONiC command reference"}], "note": "Corrected 2026-11-09: sfputil show eeprom is not documented; the DOM command is show interfaces transceiver eeprom --dom."}
+      }
+    ]
+  },
+  {
+    "part": "sw-sonic",
+    "id": "sonic-cli-pro-tips",
+    "badge": "tip",
+    "title": "SONiC: Cloud NOS CLI: Pro Tips & Best Practices",
+    "subtitle": "SONiC NOS Architecture, Interface Management & Container Diagnostics",
+    "commands": [
+      {
+        "id": "sonic-cli-tips-card",
+        "desc": "SONiC NOS Architecture, Interface Management & Container Diagnostics",
+        "cmd": "show interfaces status && show interfaces transceiver eeprom --dom && docker ps",
+        "details": "SONiC runs on Debian Linux with its functions in Docker containers (swss, syncd, teamd, bgp, lldp, pmon, database and others). syncd programs the ASIC through SAI (Switch Abstraction Interface).",
+        "flags": [
+          [
+            "show interfaces status",
+            "Admin and oper state, lanes, speed, MTU, alias and type (FEC: show interfaces fec status)"
+          ],
+          [
+            "show interfaces transceiver eeprom --dom <port>",
+            "Module EEPROM, vendor info and DOM"
+          ],
+          [
+            "show lldp table",
+            "Summary of LLDP neighbours"
+          ],
+          [
+            "docker ps",
+            "SONiC containers and their uptime (swss, syncd, teamd, bgp, ...)"
+          ]
+        ],
+        "tip": "If forwarding or telemetry stalls, docker ps shows whether swss, syncd and bgp are up; orchagent runs inside swss.",
+        "tags": [
+          "sonic-cli",
+          "tips",
+          "pro",
+          "switches",
+          "fabric",
+          "best-practice"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/sonic-net/sonic-utilities/blob/master/doc/Command-Reference.md",
+              "title": "SONiC command reference"
+            },
+            {
+              "url": "https://github.com/sonic-net/SONiC/wiki/Architecture",
+              "title": "SONiC architecture (containers)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: orchagent is a process in the swss container, not a container."
+        }
       }
     ]
   }
@@ -500,6 +1270,10 @@ const SW_DEFAULT_PORTS = {
 };
 
 // State
+// One page for the whole group: the old per-topic pages are parts of it (#part in the URL).
+// Stars, visited ticks and practice from those pages move here once, before the stars are read.
+if (typeof window !== "undefined" && window.migrateMergedSheet) window.migrateMergedSheet("switches.html", "sw_cs_bookmarks", SWITCH_DATA, {"sw-quantum-ports":"sw-quantum-ports_bookmarks","sw-quantum-hw-sm":"sw-quantum-hw-sm_bookmarks","sw-quantum-inband":"sw-quantum-inband_bookmarks","sw-sonic":"sw-sonic_bookmarks","sw-cumulus-ports":"sw-cumulus-ports_bookmarks","sw-cumulus-optics":"sw-cumulus-optics_bookmarks","sw-cumulus-lldp":"sw-cumulus-lldp_bookmarks","sw-cumulus-bonds":"sw-cumulus-bonds_bookmarks","sw-cumulus-bgp":"sw-cumulus-bgp_bookmarks","sw-cumulus-hw":"sw-cumulus-hw_bookmarks","sw-arista-ports":"sw-arista-ports_bookmarks","sw-arista-mlag":"sw-arista-mlag_bookmarks","sw-arista-bgp":"sw-arista-bgp_bookmarks","sw-nxos-ports":"sw-nxos-ports_bookmarks","sw-nxos-vpc":"sw-nxos-vpc_bookmarks"});
+
 const state = {
   searchQuery: "",
   activeCategory: "all",
@@ -507,6 +1281,10 @@ const state = {
   theme: localStorage.getItem("linux_cs_theme") || "dark",
   bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("sw_cs_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
+// The part the hash picks (#nv-smi, or a command id): the first render is already filtered.
+state.part = typeof window !== "undefined" && window.sheetPartFromHash ? window.sheetPartFromHash(SWITCH_DATA) : "";
+if (typeof window !== "undefined") window.SHEET_FILTER = { sections: SWITCH_DATA, label: "Switches sheets" };
+
 
 // DOM References
 const searchInput = document.getElementById("search-input");
@@ -677,7 +1455,7 @@ function renderSections() {
   const cardsHtml = [];
 
   for (const section of SWITCH_DATA) {
-    if (state.activeCategory !== "all" && state.activeCategory !== section.id) {
+    if (((state.activeCategory !== "all" && state.activeCategory !== section.id) || (state.part && (section.part || section.id) !== state.part))) {
       continue;
     }
 

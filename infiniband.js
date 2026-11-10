@@ -1,5 +1,6 @@
 const IB_DATA = [
   {
+    part: "ib-ibstat",
     id: "ibstat",
     badge: "ibs",
     title: "ibstat — HCA Port State, Rate, LID & GUID",
@@ -27,6 +28,7 @@ const IB_DATA = [
     ]
   },
   {
+    part: "ib-ibv-devinfo",
     id: "ibv-devinfo",
     badge: "ibv",
     title: "ibv_devinfo — RDMA Verbs, MTU & RoCEv2 GID Table",
@@ -53,6 +55,7 @@ const IB_DATA = [
     ]
   },
   {
+    part: "ib-rdma",
     id: "rdma",
     badge: "rdm",
     title: "rdma — Kernel RDMA Subsystem & Netdevice Mapping",
@@ -80,6 +83,7 @@ const IB_DATA = [
     ]
   },
   {
+    part: "ib-iblinkinfo",
     id: "iblinkinfo",
     badge: "lnk",
     title: "iblinkinfo & ibnetdiscover — Fabric Topology & Link Audit",
@@ -107,6 +111,7 @@ const IB_DATA = [
     ]
   },
   {
+    part: "ib-ibswitches",
     id: "ibswitches",
     badge: "sw",
     title: "ibswitches & ibhosts — Fabric Node Inventory",
@@ -132,6 +137,7 @@ const IB_DATA = [
     ]
   },
   {
+    part: "ib-sminfo",
     id: "sminfo",
     badge: "sm",
     title: "sminfo & saquery — Subnet Manager & SA Verification",
@@ -157,6 +163,7 @@ const IB_DATA = [
     ]
   },
   {
+    part: "ib-perfquery",
     id: "perfquery",
     badge: "prf",
     title: "perfquery — IB Port Error & Traffic Counters",
@@ -184,6 +191,7 @@ const IB_DATA = [
     ]
   },
   {
+    part: "ib-ibqueryerrors",
     id: "ibqueryerrors",
     badge: "err",
     title: "ibqueryerrors — Fabric-Wide Error & Flap Scanner",
@@ -211,6 +219,7 @@ const IB_DATA = [
     ]
   },
   {
+    part: "ib-ibdiagnet",
     id: "ibdiagnet",
     badge: "dgn",
     title: "ibdiagnet — Comprehensive Fabric Health, BER & Cable Audit",
@@ -238,6 +247,7 @@ const IB_DATA = [
     ]
   },
   {
+    part: "ib-ibping",
     id: "ibping",
     badge: "png",
     title: "ibping & ibtracert — IB Layer-2 Ping & Path Trace",
@@ -263,6 +273,7 @@ const IB_DATA = [
     ]
   },
   {
+    part: "ib-mst",
     id: "mst",
     badge: "mst",
     title: "mst — Mellanox Software Tools Device Manager",
@@ -287,6 +298,7 @@ const IB_DATA = [
     ]
   },
   {
+    part: "ib-mlxconfig",
     id: "mlxconfig",
     badge: "cfg",
     title: "mlxconfig — ConnectX / BlueField NVRAM Configuration",
@@ -315,6 +327,7 @@ const IB_DATA = [
     ]
   },
   {
+    part: "ib-mlxlink",
     id: "mlxlink",
     badge: "mlx",
     title: "mlxlink — Optical DOM, BER, FEC & SerDes Eye Grades",
@@ -344,6 +357,7 @@ const IB_DATA = [
     ]
   },
   {
+    part: "ib-mlxfwmanager",
     id: "mlxfwmanager",
     badge: "fwm",
     title: "mlxfwmanager & flint — NIC Firmware Query, Burn & Reset",
@@ -371,6 +385,7 @@ const IB_DATA = [
     ]
   },
   {
+    part: "ib-perftest",
     id: "perftest",
     badge: "bch",
     title: "ib_write_bw & ib_read_lat — RDMA Bandwidth & Latency",
@@ -401,6 +416,7 @@ const IB_DATA = [
     ]
   },
   {
+    part: "ib-mlxcables",
     id: "mlxcables",
     badge: "cbl",
     title: "mlxcables — Transceiver, AOC & DAC Cable EEPROM Inspector",
@@ -427,6 +443,7 @@ const IB_DATA = [
     ]
   },
   {
+    part: "ib-bluefield",
     id: "bluefield-dpu",
     badge: "dpu",
     title: "BlueField-3 DPU & SuperNIC Mode (rshim, mlxconfig & bfb)",
@@ -484,6 +501,10 @@ const IB_BUILDER_TASKS = {
 };
 
 // State
+// One page for the whole group: the old per-topic pages are parts of it (#part in the URL).
+// Stars, visited ticks and practice from those pages move here once, before the stars are read.
+if (typeof window !== "undefined" && window.migrateMergedSheet) window.migrateMergedSheet("infiniband.html", "ib_cs_bookmarks", IB_DATA, {"ib-ibstat":"ib-ibstat_bookmarks","ib-ibv-devinfo":"ib-ibv-devinfo_bookmarks","ib-rdma":"ib-rdma_bookmarks","ib-iblinkinfo":"ib-iblinkinfo_bookmarks","ib-ibswitches":"ib-ibswitches_bookmarks","ib-sminfo":"ib-sminfo_bookmarks","ib-perfquery":"ib-perfquery_bookmarks","ib-ibqueryerrors":"ib-ibqueryerrors_bookmarks","ib-ibdiagnet":"ib-ibdiagnet_bookmarks","ib-ibping":"ib-ibping_bookmarks","ib-mlxlink":"ib-mlxlink_bookmarks","ib-mlxcables":"ib-mlxcables_bookmarks","ib-mst":"ib-mst_bookmarks","ib-mlxconfig":"ib-mlxconfig_bookmarks","ib-mlxfwmanager":"ib-mlxfwmanager_bookmarks","ib-perftest":"ib-perftest_bookmarks","ib-bluefield":"ib-bluefield_bookmarks"});
+
 const state = {
   searchQuery: "",
   activeCategory: "all",
@@ -491,6 +512,10 @@ const state = {
   theme: localStorage.getItem("linux_cs_theme") || "dark",
   bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("ib_cs_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
+// The part the hash picks (#nv-smi, or a command id): the first render is already filtered.
+state.part = typeof window !== "undefined" && window.sheetPartFromHash ? window.sheetPartFromHash(IB_DATA) : "";
+if (typeof window !== "undefined") window.SHEET_FILTER = { sections: IB_DATA, label: "InfiniBand sheets" };
+
 
 // DOM References
 const searchInput = document.getElementById("search-input");
@@ -661,7 +686,7 @@ function renderSections() {
   const cardsHtml = [];
 
   for (const section of IB_DATA) {
-    if (state.activeCategory !== "all" && state.activeCategory !== section.id) {
+    if (((state.activeCategory !== "all" && state.activeCategory !== section.id) || (state.part && (section.part || section.id) !== state.part))) {
       continue;
     }
 

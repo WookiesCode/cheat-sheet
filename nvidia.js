@@ -1,5 +1,6 @@
 const NVIDIA_CHEAT_SHEET_DATA = [
   {
+    part: "nv-smi",
     id: "nvidia-smi",
     badge: "smi",
     title: "nvidia-smi Telemetry, Queries & Topology",
@@ -79,6 +80,64 @@ const NVIDIA_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "nv-smi",
+    "id": "nvidia-smi-pro-tips",
+    "badge": "tip",
+    "title": "nvidia-smi Telemetry: Pro Tips & Best Practices",
+    "subtitle": "Automated CSV telemetry logger, NUMA matrix & throttling reason flags",
+    "commands": [
+      {
+        "id": "nvidia-smi-tips-card",
+        "desc": "Automated CSV telemetry logger, NUMA matrix & throttling reason flags",
+        "cmd": "nvidia-smi --query-gpu=timestamp,name,pci.bus_id,utilization.gpu,memory.used,temperature.gpu,power.draw --format=csv -l 1   |   nvidia-smi topo -m",
+        "details": "Log 1-second continuous telemetry directly to CSV for post-crash analysis. Use nvidia-smi topo -m to audit GPU-to-GPU interconnects (NVLink vs PCIe vs NUMA traversal).",
+        "flags": [
+          [
+            "--format=csv -l 1",
+            "Streams continuous CSV telemetry metrics every 1 second to stdout"
+          ],
+          [
+            "topo -m",
+            "Matrix showing NV# (NVLink), PIX (PCIe switch), NODE (same NUMA), SYS (remote socket)"
+          ],
+          [
+            "--query-gpu=clocks_throttle_reasons.active",
+            "Detects SW_POWER_CAP, HW_SLOWDOWN, or THERMAL clock throttling"
+          ],
+          [
+            "nvidia-smi dmon -s pucvmet -d 1",
+            "One line per GPU per second: power/temp, utilization, clocks, violations, memory, ECC/PCIe, PCIe throughput"
+          ]
+        ],
+        "tip": "NV# in topo -m means the pair talks over # NVLinks; H100 fourth-generation NVLink totals 900 GB/s per GPU",
+        "tags": [
+          "nvidia-smi",
+          "tips",
+          "pro",
+          "nvidia",
+          "gpu",
+          "datacenter",
+          "best-practices"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            },
+            {
+              "url": "https://www.nvidia.com/en-us/data-center/h100/",
+              "title": "NVIDIA H100 (fourth-generation NVLink, 900 GB/s)"
+            }
+          ],
+          "note": "clocks_throttle_reasons.* is the older field name; newer drivers also list it as clocks_event_reasons.* (check nvidia-smi --help-query-gpu)."
+        }
+      }
+    ]
+  },
+  {
+    part: "nv-admin",
     id: "gpu-admin-ecc",
     badge: "adm",
     title: "GPU Admin, Reset, ECC, Row Remap & Clocks",
@@ -160,6 +219,67 @@ const NVIDIA_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "nv-admin",
+    "id": "gpu-admin-ecc-pro-tips",
+    "badge": "tip",
+    "title": "GPU Admin: Pro Tips & Best Practices",
+    "subtitle": "HBM Row Remapper RMA inspection, persistent daemon & secondary bus reset",
+    "commands": [
+      {
+        "id": "gpu-admin-ecc-tips-card",
+        "desc": "HBM Row Remapper RMA inspection, persistent daemon & secondary bus reset",
+        "cmd": "nvidia-smi --query-remapped-rows=gpu_name,gpu_bus_id,remapped_rows.correctable,remapped_rows.uncorrectable,remapped_rows.pending,remapped_rows.failure --format=csv",
+        "details": "HBM GPUs replace failing rows with spare rows (row remapping). Pending = a remap is waiting for a GPU reset to take effect. remapped_rows.failure = a remap has failed in the past (Xid 64): an RMA candidate.",
+        "flags": [
+          [
+            "remapped_rows.failure",
+            "Yes if a row remapping has failed in the past (RMA candidate)"
+          ],
+          [
+            "nvidia-smi --gpu-reset -i <ID>",
+            "Resets one GPU without a host reboot (the default method is usually a Function Level Reset); check its health afterwards"
+          ],
+          [
+            "systemctl enable --now nvidia-persistenced",
+            "Keeps the driver loaded with no clients; the daemon drops root via --user (running it as root is not recommended)"
+          ],
+          [
+            "nvidia-smi -i <ID> -pl <WATTS>",
+            "Caps GPU maximum TDP power limit for rack thermal budgeting"
+          ]
+        ],
+        "tip": "Always drain holding processes with fuser -v /dev/nvidia* before running --gpu-reset!",
+        "tags": [
+          "gpu-admin-ecc",
+          "tips",
+          "pro",
+          "nvidia",
+          "gpu",
+          "datacenter",
+          "best-practices"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            },
+            {
+              "url": "https://docs.nvidia.com/deploy/driver-persistence/persistence-daemon.html",
+              "title": "NVIDIA persistence daemon"
+            },
+            {
+              "url": "https://docs.nvidia.com/deploy/xid-errors/analyzing-xid-catalog.html",
+              "title": "NVIDIA Xid catalog"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    part: "nv-dcgm",
     id: "dcgm",
     badge: "dcgm",
     title: "DCGM (dcgmi) Diagnostics, Health & Profiling",
@@ -229,6 +349,64 @@ const NVIDIA_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "nv-dcgm",
+    "id": "dcgm-pro-tips",
+    "badge": "tip",
+    "title": "DCGM (dcgmi) Diagnostics: Pro Tips & Best Practices",
+    "subtitle": "Official NVIDIA hardware burn-in qualification (Level 1–4) & stress tests",
+    "commands": [
+      {
+        "id": "dcgm-tips-card",
+        "desc": "Official NVIDIA hardware burn-in qualification (Level 1–4) & stress tests",
+        "cmd": "dcgmi diag -r 3   |   dcgmi diag -r pcie,targeted_stress,memtest   |   dcgmi health -c",
+        "details": "Measured on Hopper: r1 < 2.5 s, r2 < 10.5 min, r3 < 35 min, r4 < 2.25 h on an 8-GPU system (about a quarter of that on 4 GPUs). r3 adds diagnostic, targeted_stress, targeted_power, nvbandwidth and nccl_tests; memtest and pulse run only at r4.",
+        "flags": [
+          [
+            "dcgmi diag -r 1",
+            "Short readiness check: software and deployment (seconds)"
+          ],
+          [
+            "dcgmi diag -r 3",
+            "Long: adds stress, power, nvbandwidth and NCCL tests (drain first)"
+          ],
+          [
+            "dcgmi diag -r 4",
+            "Extra long: adds memtest and pulse; NVIDIA lists r3/r4 for post-mortem runs"
+          ],
+          [
+            "dcgmi health -g <GROUP> -s mpi then -c",
+            "-s sets background watches (PCIe, memory, InfoROM, ...); -c reports what they caught"
+          ]
+        ],
+        "tip": "Ensure nvidia-dcgm.service is active before executing dcgmi CLI commands!",
+        "tags": [
+          "dcgm",
+          "tips",
+          "pro",
+          "nvidia",
+          "gpu",
+          "datacenter",
+          "best-practices"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/dcgm/latest/user-guide/dcgm-diagnostics.html",
+              "title": "NVIDIA DCGM diagnostics (run levels)"
+            },
+            {
+              "url": "https://docs.nvidia.com/datacenter/dcgm/latest/user-guide/feature-overview.html",
+              "title": "NVIDIA DCGM feature overview (health watches)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: run times and per-level tests now follow NVIDIA's table; memtest is r4 only."
+        }
+      }
+    ]
+  },
+  {
+    part: "nv-nvlink",
     id: "nvlink-fabric",
     badge: "nvl",
     title: "NVLink, NVSwitch & Fabric Manager",
@@ -281,6 +459,68 @@ const NVIDIA_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "nv-nvlink",
+    "id": "nvlink-fabric-pro-tips",
+    "badge": "tip",
+    "title": "NVLink: Pro Tips & Best Practices",
+    "subtitle": "SXM NVSwitch Fabric Manager required daemon, CRC error counters & bandwidth testing",
+    "commands": [
+      {
+        "id": "nvlink-fabric-tips-card",
+        "desc": "SXM NVSwitch Fabric Manager required daemon, CRC error counters & bandwidth testing",
+        "cmd": "systemctl status nvidia-fabricmanager   |   nvidia-smi nvlink -e -i 0   |   nvbandwidth",
+        "details": "NVSwitch HGX systems need nvidia-fabricmanager running before CUDA jobs start; without it new jobs fail with cudaErrorSystemNotReady. Before driver 620 the FM package must match the driver version exactly; from 620 FM is versioned on its own. HGX B200/B300 also need NVLSM and OFED.",
+        "flags": [
+          [
+            "nvidia-fabricmanager",
+            "Required on NVSwitch systems; if it stops, new CUDA jobs fail"
+          ],
+          [
+            "nvidia-smi nvlink -e -i <ID>",
+            "NVLink error counters (replay, recovery, CRC); rising counts point at the link or baseboard"
+          ],
+          [
+            "nvbandwidth",
+            "NVIDIA open-source P2P bandwidth test for measuring full NVLink crossbar saturation"
+          ],
+          [
+            "nvidia-smi nvlink -s -i <ID>",
+            "Link status; an active link shows its bandwidth"
+          ]
+        ],
+        "tip": "On drivers before 620, upgrade the driver and nvidia-fabricmanager together: the versions must match",
+        "tags": [
+          "nvlink-fabric",
+          "tips",
+          "pro",
+          "nvidia",
+          "gpu",
+          "datacenter",
+          "best-practices"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/tesla/fabric-manager-user-guide/index.html",
+              "title": "NVIDIA Fabric Manager user guide"
+            },
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            },
+            {
+              "url": "https://github.com/NVIDIA/nvbandwidth",
+              "title": "NVIDIA nvbandwidth"
+            }
+          ],
+          "note": "Corrected 2026-11-10: HGX NVLink is not optical, the version-match rule ends at driver 620, and B200/B300 need NVLSM."
+        }
+      }
+    ]
+  },
+  {
+    part: "nv-mig",
     id: "mig-partition",
     badge: "mig",
     title: "MIG (Multi-Instance GPU) Partitioning",
@@ -330,6 +570,64 @@ const NVIDIA_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "nv-mig",
+    "id": "mig-partition-pro-tips",
+    "badge": "tip",
+    "title": "MIG (Multi-Instance GPU) Partitioning: Pro Tips & Best Practices",
+    "subtitle": "Hardware slice partitioning into up to 7 isolated GPU Instances (GI) & Compute Instances (CI)",
+    "commands": [
+      {
+        "id": "mig-partition-tips-card",
+        "desc": "Hardware slice partitioning into up to 7 isolated GPU Instances (GI) & Compute Instances (CI)",
+        "cmd": "nvidia-smi -i <ID> -mig 1   |   nvidia-smi mig -lgip   |   nvidia-smi mig -cgi <PROFILE_ID>,<PROFILE_ID> -C",
+        "details": "MIG splits a supported GPU (A100, H100 and later) into up to seven GPU instances, each with its own compute and memory resources. Profile IDs differ by GPU model: read them from -lgip, never copy them from another model.",
+        "flags": [
+          [
+            "nvidia-smi -i 0 -mig 1",
+            "Enables MIG mode on target GPU (all processes must be closed)"
+          ],
+          [
+            "nvidia-smi mig -lgip",
+            "Lists the GPU instance profiles and IDs this GPU supports (-lgi lists instances already created)"
+          ],
+          [
+            "nvidia-smi mig -cgi <ID> -C",
+            "Creates GPU Instance and immediately provisions child Compute Instance"
+          ],
+          [
+            "nvidia-smi mig -dci && nvidia-smi mig -dgi",
+            "Destroys all active Compute Instances and GPU Instances on device"
+          ]
+        ],
+        "tip": "Export CUDA_VISIBLE_DEVICES=MIG-UUID to target specific slices in container workloads!",
+        "tags": [
+          "mig-partition",
+          "tips",
+          "pro",
+          "nvidia",
+          "gpu",
+          "datacenter",
+          "best-practices"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/datacenter/tesla/mig-user-guide/getting-started-with-mig.html",
+              "title": "NVIDIA MIG user guide: getting started"
+            },
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            }
+          ],
+          "note": "Corrected 2026-11-10: profiles are listed with -lgip; profile IDs such as 19 are model-specific."
+        }
+      }
+    ]
+  },
+  {
+    part: "nv-gpudirect",
     id: "gpudirect-rdma-nccl",
     badge: "rdma",
     title: "GPUDirect RDMA, Perftest & NCCL Validation",
@@ -383,6 +681,72 @@ const NVIDIA_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "nv-gpudirect",
+    "id": "gpudirect-rdma-nccl-pro-tips",
+    "badge": "tip",
+    "title": "GPUDirect RDMA: Pro Tips & Best Practices",
+    "subtitle": "Zero-copy GPUDirect RDMA kernel module, CUDA DMA bandwidth & NCCL benchmarks",
+    "commands": [
+      {
+        "id": "gpudirect-rdma-nccl-tips-card",
+        "desc": "Zero-copy GPUDirect RDMA kernel module, CUDA DMA bandwidth & NCCL benchmarks",
+        "cmd": "lsmod | grep nvidia_peermem   |   ib_write_bw -d mlx5_0 -F --use_cuda=0   |   all_reduce_perf",
+        "details": "GPUDirect RDMA enables ConnectX InfiniBand/RoCE adapters to read/write directly to GPU VRAM bypassing CPU host memory. Requires nvidia-peermem module loaded in kernel.",
+        "flags": [
+          [
+            "nvidia-peermem",
+            "Kernel bridge driver enabling direct P2P DMA between NIC and GPU HBM"
+          ],
+          [
+            "ib_write_bw --use_cuda=0",
+            "Tests raw line-rate InfiniBand RDMA write bandwidth directly from GPU VRAM"
+          ],
+          [
+            "NCCL_DEBUG=INFO",
+            "Prints detailed NCCL tree/ring topology, IB verbs, and GPUDirect initialization"
+          ],
+          [
+            "all_reduce_perf -b 8M -e 1G -f 2 -g 8",
+            "Runs nccl-tests across all 8 GPUs measuring AllReduce bus bandwidth"
+          ]
+        ],
+        "tip": "Compare all_reduce_perf busbw against your platform vendor's acceptance numbers; a single slow rank drags the whole result down",
+        "tags": [
+          "gpudirect-rdma-nccl",
+          "tips",
+          "pro",
+          "nvidia",
+          "gpu",
+          "datacenter",
+          "best-practices"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/cuda/gpudirect-rdma/index.html",
+              "title": "NVIDIA GPUDirect RDMA"
+            },
+            {
+              "url": "https://github.com/linux-rdma/perftest",
+              "title": "linux-rdma perftest"
+            },
+            {
+              "url": "https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/env.html",
+              "title": "NCCL environment variables"
+            },
+            {
+              "url": "https://github.com/NVIDIA/nccl-tests",
+              "title": "NVIDIA nccl-tests"
+            }
+          ],
+          "note": "Removed 2026-11-10: an unsourced \"~450 GB/s on 8x H100\" target."
+        }
+      }
+    ]
+  },
+  {
+    part: "nv-pcie",
     id: "pcie-kernel-triage",
     badge: "pcie",
     title: "PCIe AER, ACS, Xid Triage, GSP & Bug Reports",
@@ -447,6 +811,68 @@ const NVIDIA_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "nv-pcie",
+    "id": "pcie-kernel-triage-pro-tips",
+    "badge": "tip",
+    "title": "PCIe AER: Pro Tips & Best Practices",
+    "subtitle": "Critical Xid error decoding, PCIe AER link errors & vendor RMA bug reports",
+    "commands": [
+      {
+        "id": "pcie-kernel-triage-tips-card",
+        "desc": "Critical Xid error decoding, PCIe AER link errors & vendor RMA bug reports",
+        "cmd": "dmesg -T | grep -E \"NVRM: Xid|AER\"   |   lspci -vvv -s <BUS_ID>   |   nvidia-bug-report.sh",
+        "details": "Xid errors are logged to dmesg. Xid 31 = GPU memory page fault (usually the application); Xid 43 = GPU stopped processing after an application fault, GPU still healthy; Xid 79 = GPU fallen off the bus. Run nvidia-bug-report.sh before rebooting.",
+        "flags": [
+          [
+            "Xid 79",
+            "GPU fallen off PCIe bus: check PCIe auxiliary power cables, risers, or cold-plate torque"
+          ],
+          [
+            "Xid 45",
+            "Preemptive cleanup after an app aborted or earlier errors; if other Xids appear with it, follow those"
+          ],
+          [
+            "Xid 62",
+            "Internal micro-controller halt; NVIDIA's action is reset the GPU, then contact support"
+          ],
+          [
+            "nvidia-bug-report.sh",
+            "Writes nvidia-bug-report.log.gz, the bundle NVIDIA support asks for"
+          ]
+        ],
+        "tip": "On bare metal, PCIe ACS on switches can block GPU peer-to-peer and GPUDirect; NCCL's guide shows how to check and disable it",
+        "tags": [
+          "pcie-kernel-triage",
+          "tips",
+          "pro",
+          "nvidia",
+          "gpu",
+          "datacenter",
+          "best-practices"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/deploy/xid-errors/analyzing-xid-catalog.html",
+              "title": "NVIDIA Xid catalog"
+            },
+            {
+              "url": "https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/troubleshooting/gpu_troubleshooting.html",
+              "title": "NCCL troubleshooting: ACS and IOMMU"
+            },
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            }
+          ],
+          "note": "Corrected 2026-11-10: Xid 45 and 62 now use the Xid catalog descriptions."
+        }
+      }
+    ]
+  },
+  {
+    part: "nv-ops",
     id: "slurm-nvsm-burnin",
     badge: "ops",
     title: "Slurm Drain, NVSM, Liquid Cooling & Container Triage",
@@ -511,6 +937,67 @@ const NVIDIA_CHEAT_SHEET_DATA = [
         tip: "Run 'nvidia-modprobe -u -c=0' if containers fail to open /dev/nvidia-uvm",
         tags: ["container", "docker", "k8s", "nvidia-uvm", "nvidia-ctk", "nvidia-modprobe"],
         src: {"verified": "2026-11-09", "refs": [{"url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/sample-workload.html", "title": "Container Toolkit sample workload"}], "note": "nvidia-ctk system create-dev-char-symlinks is not in the Container Toolkit docs read: check nvidia-ctk system --help."}
+      }
+    ]
+  },
+  {
+    "part": "nv-ops",
+    "id": "slurm-nvsm-burnin-pro-tips",
+    "badge": "tip",
+    "title": "Slurm Drain: Pro Tips & Best Practices",
+    "subtitle": "Slurm GPU node drain, NVSM chassis diagnostics & HBM3 liquid cooling thermal triage",
+    "commands": [
+      {
+        "id": "slurm-nvsm-burnin-tips-card",
+        "desc": "Slurm GPU node drain, NVSM chassis diagnostics & HBM3 liquid cooling thermal triage",
+        "cmd": "scontrol update nodename=node01 state=DRAIN reason=\"Xid triage\"   |   nvsm show health   |   nvidia-smi -q -d TEMPERATURE",
+        "details": "Drain Slurm nodes before physical or driver maintenance. On liquid-cooled nodes, compare GPU and memory temperatures across identical GPUs: one GPU running hotter than its neighbours points at its cold plate or coolant flow.",
+        "flags": [
+          [
+            "scontrol update state=DRAIN",
+            "Prevents new Slurm scheduler jobs from landing on server during triage"
+          ],
+          [
+            "scontrol update state=RESUME",
+            "Returns validated and qualified node to active Slurm partition"
+          ],
+          [
+            "nvsm show health",
+            "NVIDIA System Management: queries chassis fans, power supplies, BMC, and GPUs"
+          ],
+          [
+            "nvidia-smi -q -d TEMPERATURE",
+            "GPU and memory (HBM) temperatures plus the slowdown and shutdown thresholds"
+          ]
+        ],
+        "tip": "Give containers GPUs with --gpus (NVIDIA Container Toolkit) or CDI rather than mounting /dev/nvidia* by hand",
+        "tags": [
+          "slurm-nvsm-burnin",
+          "tips",
+          "pro",
+          "nvidia",
+          "gpu",
+          "datacenter",
+          "best-practices"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://slurm.schedmd.com/scontrol.html",
+              "title": "Slurm scontrol"
+            },
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            },
+            {
+              "url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/sample-workload.html",
+              "title": "NVIDIA Container Toolkit: sample workload"
+            }
+          ],
+          "note": "nvsm show health: NVIDIA's NVSM docs returned empty pages, so it is not checked. Removed 2026-11-10: an unsourced GPU vs HBM delta > 15°C rule."
+        }
       }
     ]
   }
@@ -635,6 +1122,10 @@ const NV_BUILDER_PROFILES = {
 };
 
 // Application State
+// One page for the whole group: the old per-topic pages are parts of it (#part in the URL).
+// Stars, visited ticks and practice from those pages move here once, before the stars are read.
+if (typeof window !== "undefined" && window.migrateMergedSheet) window.migrateMergedSheet("nvidia.html", "nv_cs_bookmarks", NVIDIA_CHEAT_SHEET_DATA, {"nv-smi":"nv-smi_bookmarks","nv-nvlink":"nv-nvlink_bookmarks","nv-dcgm":"nv-dcgm_bookmarks","nv-gpudirect":"nv-gpudirect_bookmarks","nv-admin":"nv-admin_bookmarks","nv-mig":"nv-mig_bookmarks","nv-pcie":"nv-pcie_bookmarks","nv-ops":"nv-ops_bookmarks"});
+
 const state = {
   searchQuery: "",
   activeCategory: "all",
@@ -642,6 +1133,10 @@ const state = {
   theme: localStorage.getItem("linux_cs_theme") || "dark",
   bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("nv_cs_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
+// The part the hash picks (#nv-smi, or a command id): the first render is already filtered.
+state.part = typeof window !== "undefined" && window.sheetPartFromHash ? window.sheetPartFromHash(NVIDIA_CHEAT_SHEET_DATA) : "";
+if (typeof window !== "undefined") window.SHEET_FILTER = { sections: NVIDIA_CHEAT_SHEET_DATA, label: "NVIDIA DC sheets" };
+
 
 // DOM Elements
 const searchInput = document.getElementById("search-input");
@@ -811,7 +1306,7 @@ function renderSections() {
   const cardsHtml = [];
 
   for (const section of NVIDIA_CHEAT_SHEET_DATA) {
-    if (state.activeCategory !== "all" && state.activeCategory !== section.id) {
+    if (((state.activeCategory !== "all" && state.activeCategory !== section.id) || (state.part && (section.part || section.id) !== state.part))) {
       continue;
     }
 

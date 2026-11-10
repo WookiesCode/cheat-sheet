@@ -1,5 +1,6 @@
 const NEOVIM_CHEAT_SHEET_DATA = [
   {
+    part: "nvim-motions",
     id: "motions",
     badge: "mov",
     title: "Motions, Jumps & Screen Navigation",
@@ -109,6 +110,63 @@ const NEOVIM_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "nvim-motions",
+    "id": "motions-pro-tips",
+    "badge": "tip",
+    "title": "Motions: Pro Tips & Chords",
+    "subtitle": "Jump list traversal, change list navigation & viewport centering",
+    "commands": [
+      {
+        "id": "motions-tips-card",
+        "mode": "PRO TIP",
+        "modeClass": "mode-n",
+        "desc": "Jump list traversal, change list navigation & viewport centering",
+        "cmd": "<C-o>   <C-i>   |   g;   g,   |   zz   zt   zb",
+        "details": "Navigate your entire editing history across buffers with Ctrl+o / Ctrl+i. Use g; to jump to exact previous change positions and zz to immediately center your screen on the active cursor line.",
+        "flags": [
+          [
+            "<C-o> / <C-i>",
+            "Jump back / forward in jump list across files"
+          ],
+          [
+            "g; / g,",
+            "Jump to older / newer change list edit position"
+          ],
+          [
+            "zz / zt / zb",
+            "Center screen / position line at top / position line at bottom"
+          ],
+          [
+            "H / M / L",
+            "Move cursor to High, Middle, or Low line of visible viewport"
+          ]
+        ],
+        "tip": "Combine motions with operators: d2w, y$, c^",
+        "tags": [
+          "motions",
+          "tips",
+          "pro",
+          "chords",
+          "best-practices"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/motion/",
+              "title": "Neovim help: motion"
+            },
+            {
+              "url": "https://neovim.io/doc/user/scroll/",
+              "title": "Neovim help: scroll"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    part: "nvim-operators",
     id: "operators",
     badge: "edit",
     title: "Operators, Text Objects & Editing",
@@ -207,6 +265,71 @@ const NEOVIM_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "nvim-operators",
+    "id": "operators-pro-tips",
+    "badge": "tip",
+    "title": "Operators: Pro Tips & Chords",
+    "subtitle": "Vim operator grammar composition rules: [operator][count][scope][target]",
+    "commands": [
+      {
+        "id": "operators-tips-card",
+        "mode": "PRO TIP",
+        "modeClass": "mode-n",
+        "desc": "Vim operator grammar composition rules: [operator][count][scope][target]",
+        "cmd": "ci\"   da)   yiw   gUiw   =i}   gc",
+        "details": "Operators (c, d, y, v, =, gU, gu, gc) combine with inner (i) or around (a) scope targets. Inner affects content inside delimiters; around includes delimiters themselves.",
+        "flags": [
+          [
+            "ci\" / ca\"",
+            "Change inside / around double quotes"
+          ],
+          [
+            "da) / di)",
+            "Delete around / inside parentheses"
+          ],
+          [
+            "yiw / yaw",
+            "Yank inner word / around word including trailing space"
+          ],
+          [
+            "gUiw / guiw",
+            "Convert inner word to UPPERCASE / lowercase"
+          ],
+          [
+            "gc / gcc",
+            "Comment motion target / comment entire current line"
+          ]
+        ],
+        "tip": "The dot (.) command repeats the entire composite operator change!",
+        "tags": [
+          "operators",
+          "tips",
+          "pro",
+          "chords",
+          "best-practices"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/motion/",
+              "title": "Neovim help: motion"
+            },
+            {
+              "url": "https://neovim.io/doc/user/change/",
+              "title": "Neovim help: change"
+            },
+            {
+              "url": "https://neovim.io/doc/user/various/",
+              "title": "Neovim help: various (:!, gc, CTRL-L)"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    part: "nvim-visual",
     id: "visual",
     badge: "vis",
     title: "Visual Mode & Multi-Line Block Editing",
@@ -284,6 +407,63 @@ const NEOVIM_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "nvim-visual",
+    "id": "visual-pro-tips",
+    "badge": "tip",
+    "title": "Visual Mode: Pro Tips & Chords",
+    "subtitle": "Visual-block multi-line column editing & reselection",
+    "commands": [
+      {
+        "id": "visual-tips-card",
+        "mode": "PRO TIP",
+        "modeClass": "mode-n",
+        "desc": "Visual-block multi-line column editing & reselection",
+        "cmd": "<C-v>   I<text><Esc>   |   <C-v>$   A<text><Esc>   |   gv",
+        "details": "Visual-block mode (<C-v>) allows typing text on 20+ lines at once. Select column, press uppercase I, type prefix, and hit Esc. For ragged lines, select column, hit $ to extend to line ends, press uppercase A, and hit Esc.",
+        "flags": [
+          [
+            "<C-v> then I ... <Esc>",
+            "Insert at beginning of all selected column lines simultaneously"
+          ],
+          [
+            "<C-v>$ then A ... <Esc>",
+            "Append to end of uneven ragged lines simultaneously"
+          ],
+          [
+            "gv",
+            "Reselect the exact previous visual selection area"
+          ],
+          [
+            "o",
+            "Swap cursor to opposite diagonal corner of visual block"
+          ],
+          [
+            "< / >",
+            "Indent selection left / right (re-select with gv to repeat)"
+          ]
+        ],
+        "tip": "The text shows up on the other lines only after you press Esc",
+        "tags": [
+          "visual",
+          "tips",
+          "pro",
+          "chords",
+          "best-practices"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/visual/",
+              "title": "Neovim help: visual"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    part: "nvim-search",
     id: "search",
     badge: "srch",
     title: "Search, Substitute & Global (:g)",
@@ -377,6 +557,71 @@ const NEOVIM_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "nvim-search",
+    "id": "search-pro-tips",
+    "badge": "tip",
+    "title": "Search: Pro Tips & Chords",
+    "subtitle": "Interactive buffer search, global confirmation & very-magic regex",
+    "commands": [
+      {
+        "id": "search-tips-card",
+        "mode": "PRO TIP",
+        "modeClass": "mode-n",
+        "desc": "Interactive buffer search, global confirmation & very-magic regex",
+        "cmd": ":%s/old/new/gc   |   /\\v<pattern>   |   :g/error/d   |   :v/keep/d",
+        "details": "Run global substitution with the c flag to confirm each replacement (y/n/a/q). Use \\v (very magic) to eliminate backslash escaping for parentheses and plus operators. Use :g to execute Ex commands on matching lines.",
+        "flags": [
+          [
+            ":%s/find/replace/gc",
+            "Search & replace buffer-wide with confirmation prompt"
+          ],
+          [
+            "c flag",
+            "Interactive confirmation: y=yes, n=no, a=all, q=quit"
+          ],
+          [
+            "\\v",
+            "Very-magic mode: enables regex without escaping ()+?|"
+          ],
+          [
+            ":g/pat/d",
+            "Delete all lines containing pattern"
+          ],
+          [
+            ":v/pat/d",
+            "Invert match: delete all lines NOT containing pattern"
+          ]
+        ],
+        "tip": "Hit * on any word to search forward immediately, then cgn to edit the next match!",
+        "tags": [
+          "search",
+          "tips",
+          "pro",
+          "chords",
+          "best-practices"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/change/",
+              "title": "Neovim help: change"
+            },
+            {
+              "url": "https://neovim.io/doc/user/pattern/",
+              "title": "Neovim help: pattern"
+            },
+            {
+              "url": "https://neovim.io/doc/user/repeat/",
+              "title": "Neovim help: repeat (macros, :g)"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    part: "nvim-windows",
     id: "windows",
     badge: "win",
     title: "Windows, Splits, Buffers & Tabs",
@@ -458,6 +703,71 @@ const NEOVIM_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "nvim-windows",
+    "id": "windows-pro-tips",
+    "badge": "tip",
+    "title": "Windows: Pro Tips & Chords",
+    "subtitle": "Split window layout navigation, resizing & tab page control",
+    "commands": [
+      {
+        "id": "windows-tips-card",
+        "mode": "PRO TIP",
+        "modeClass": "mode-n",
+        "desc": "Split window layout navigation, resizing & tab page control",
+        "cmd": "<C-w>v   <C-w>s   |   <C-w>h/j/k/l   |   <C-w>=   |   <C-w>T",
+        "details": "Easily manage multi-file views. Split vertically with <C-w>v or horizontally with <C-w>s. Equalize all split sizes with <C-w>=. Break any active split out into its own dedicated tab page with <C-w>T.",
+        "flags": [
+          [
+            "<C-w>v / <C-w>s",
+            "Create vertical / horizontal window split"
+          ],
+          [
+            "<C-w>h/j/k/l",
+            "Move cursor focus left / down / up / right"
+          ],
+          [
+            "<C-w>=",
+            "Equalize height and width across all window splits"
+          ],
+          [
+            "<C-w>T",
+            "Move current split into its own full-screen Tab Page"
+          ],
+          [
+            "<C-^> or <C-6>",
+            "Instantly toggle between current and alternate file"
+          ]
+        ],
+        "tip": "In LazyVim, use Shift+H and Shift+L to switch between open buffer tabs rapidly!",
+        "tags": [
+          "windows",
+          "tips",
+          "pro",
+          "chords",
+          "best-practices"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/windows/",
+              "title": "Neovim help: windows and buffers"
+            },
+            {
+              "url": "https://neovim.io/doc/user/tabpage/",
+              "title": "Neovim help: tab pages"
+            },
+            {
+              "url": "https://www.lazyvim.org/keymaps",
+              "title": "LazyVim keymaps"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    part: "nvim-macros",
     id: "macros",
     badge: "mac",
     title: "Macros, Registers & Undo Tree",
@@ -536,6 +846,71 @@ const NEOVIM_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "nvim-macros",
+    "id": "macros-pro-tips",
+    "badge": "tip",
+    "title": "Macros: Pro Tips & Chords",
+    "subtitle": "Macro recording, parallel visual playback & expression register",
+    "commands": [
+      {
+        "id": "macros-tips-card",
+        "mode": "PRO TIP",
+        "modeClass": "mode-n",
+        "desc": "Macro recording, parallel visual playback & expression register",
+        "cmd": "qa ... q   |   @a   @@   |   :'<,'>norm @a   |   <C-r>=",
+        "details": "Record repetitive keystrokes into any register with qa, then replay with @a. To run macros in parallel across multiple lines without aborting on line errors, select lines and run :norm @a.",
+        "flags": [
+          [
+            "qa ... q",
+            "Record keystrokes into register \"a\", stop with q"
+          ],
+          [
+            "@a / @@",
+            "Execute macro \"a\" / replay last executed macro"
+          ],
+          [
+            "qA ... q",
+            "Append additional keystrokes to register \"a\" without overwriting"
+          ],
+          [
+            ":'<,'>norm @a",
+            "Execute macro \"a\" independently across all visually selected lines"
+          ],
+          [
+            "<C-r>= (in Insert)",
+            "Evaluate a Vimscript expression inline (e.g. 1024*64); wrap Lua in luaeval()"
+          ]
+        ],
+        "tip": "Use \"+y to yank into system clipboard, and \"0p to paste last yank after deleting!",
+        "tags": [
+          "macros",
+          "tips",
+          "pro",
+          "chords",
+          "best-practices"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/repeat/",
+              "title": "Neovim help: repeat (macros, :g)"
+            },
+            {
+              "url": "https://neovim.io/doc/user/insert/",
+              "title": "Neovim help: insert (CTRL-R)"
+            },
+            {
+              "url": "https://neovim.io/doc/user/change/",
+              "title": "Neovim help: change"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    part: "nvim-lsp",
     id: "lsp",
     badge: "lsp",
     title: "Built-in LSP, Diagnostics & Treesitter",
@@ -606,6 +981,76 @@ const NEOVIM_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "nvim-lsp",
+    "id": "lsp-pro-tips",
+    "badge": "tip",
+    "title": "Built-in LSP: Pro Tips & Chords",
+    "subtitle": "LSP navigation, inlay hints & code actions (LazyVim keys; Neovim 0.11+ defaults in brackets)",
+    "commands": [
+      {
+        "id": "lsp-tips-card",
+        "mode": "PRO TIP",
+        "modeClass": "mode-n",
+        "desc": "LSP navigation, inlay hints & code actions (LazyVim keys; Neovim 0.11+ defaults in brackets)",
+        "cmd": "gd   gr   K   |   <leader>ca   <leader>cr   |   [d   ]d",
+        "details": "Native Neovim LSP powers modern IDE capabilities. Jump to definitions with gd, show hover docs with K, trigger code actions with <leader>ca, and navigate compiler diagnostics with [d and ]d.",
+        "flags": [
+          [
+            "gd / gD",
+            "Goto Definition / Declaration (LazyVim; Ctrl+] in plain Neovim)"
+          ],
+          [
+            "gr (grr)",
+            "Find all references across the project"
+          ],
+          [
+            "K",
+            "Show hover documentation float (press K again to focus float)"
+          ],
+          [
+            "<leader>ca (gra)",
+            "Code actions (quickfix, imports, refactor)"
+          ],
+          [
+            "<leader>cr (grn)",
+            "Rename symbol workspace-wide"
+          ],
+          [
+            "[d / ]d",
+            "Jump to previous / next diagnostic error or warning"
+          ]
+        ],
+        "tip": "Since Neovim 0.10, turn on inlay hints with: vim.lsp.inlay_hint.enable()",
+        "tags": [
+          "lsp",
+          "tips",
+          "pro",
+          "chords",
+          "best-practices"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/lsp/",
+              "title": "Neovim help: LSP defaults"
+            },
+            {
+              "url": "https://neovim.io/doc/user/news-0.11/",
+              "title": "Neovim 0.11 news"
+            },
+            {
+              "url": "https://www.lazyvim.org/keymaps",
+              "title": "LazyVim keymaps"
+            }
+          ],
+          "note": "Corrected 2026-11-10: gd and <leader>ca / <leader>cr are LazyVim keys; plain Neovim has Ctrl+], gra and grn."
+        }
+      }
+    ]
+  },
+  {
+    part: "nvim-lazyvim",
     id: "lazyvim",
     badge: "lazy",
     title: "LazyVim, Picker, Neo-tree & Git",
@@ -689,6 +1134,67 @@ const NEOVIM_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "nvim-lazyvim",
+    "id": "lazyvim-pro-tips",
+    "badge": "tip",
+    "title": "LazyVim: Pro Tips & Chords",
+    "subtitle": "LazyVim fast fuzzy finding, Neo-tree, LazyGit & keymap discovery",
+    "commands": [
+      {
+        "id": "lazyvim-tips-card",
+        "mode": "PRO TIP",
+        "modeClass": "mode-n",
+        "desc": "LazyVim fast fuzzy finding, Neo-tree, LazyGit & keymap discovery",
+        "cmd": "<leader><space>   <leader>sg   <leader>e   <leader>gg",
+        "details": "LazyVim is the modern, modular Neovim distribution. Use <leader><space> to find files, <leader>sg for live ripgrep, <leader>e to toggle Neo-tree, and <leader>gg to open full-screen LazyGit.",
+        "flags": [
+          [
+            "<leader><space>",
+            "Find files in project (Snacks picker by default; Telescope or fzf-lua as extras)"
+          ],
+          [
+            "<leader>sg",
+            "Live ripgrep text across all project files"
+          ],
+          [
+            "<leader>e",
+            "Toggle the file explorer (Snacks by default, Neo-tree as an extra)"
+          ],
+          [
+            "<leader>gg",
+            "Launch LazyGit terminal UI for staging, commit & rebase"
+          ],
+          [
+            "<leader>sk",
+            "Search and inspect all configured keymaps with which-key"
+          ]
+        ],
+        "tip": "Space is the default <leader> key in LazyVim!",
+        "tags": [
+          "lazyvim",
+          "tips",
+          "pro",
+          "chords",
+          "best-practices"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.lazyvim.org/keymaps",
+              "title": "LazyVim keymaps"
+            },
+            {
+              "url": "https://github.com/LazyVim/LazyVim/releases",
+              "title": "LazyVim releases"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    part: "nvim-ex-shell",
     id: "ex-shell",
     badge: "ex",
     title: "Ex Commands, Shell Filter & Quickfix",
@@ -752,10 +1258,83 @@ const NEOVIM_CHEAT_SHEET_DATA = [
         src: {"verified":"2026-11-10","refs":[{"url":"https://neovim.io/doc/user/terminal/","title":"Neovim help: terminal"},{"url":"https://neovim.io/doc/user/health/","title":"Neovim help: health"},{"url":"https://www.lazyvim.org/keymaps","title":"LazyVim keymaps"}]}
       }
     ]
+  },
+  {
+    "part": "nvim-ex-shell",
+    "id": "ex-shell-pro-tips",
+    "badge": "tip",
+    "title": "Ex Commands: Pro Tips & Chords",
+    "subtitle": "Ex command pipelines, external Unix filters & terminal integration",
+    "commands": [
+      {
+        "id": "ex-shell-tips-card",
+        "mode": "PRO TIP",
+        "modeClass": "mode-n",
+        "desc": "Ex command pipelines, external Unix filters & terminal integration",
+        "cmd": ":%!jq .   |   :%!sort -u   |   :r !date   |   <C-/>",
+        "details": "Pipe buffer content directly through external shell tools in-place. Run :%!jq . to format JSON or :%!sort -u to deduplicate lines. Use <C-/> in LazyVim for instant floating terminal access.",
+        "flags": [
+          [
+            ":%!jq .",
+            "Pipe entire buffer through jq for JSON formatting and syntax validation"
+          ],
+          [
+            ":%!sort -u",
+            "Deduplicate and sort all buffer lines in-place"
+          ],
+          [
+            ":r !date",
+            "Insert a shell command's output below the cursor. (:w !sudo tee % does not work in Neovim: :! has no terminal for the password prompt; quit and reopen the file with sudoedit)"
+          ],
+          [
+            "<C-/>",
+            "Toggle floating terminal window in LazyVim"
+          ],
+          [
+            "<C-\\><C-n>",
+            "Exit terminal insert mode to scroll and yank terminal text"
+          ]
+        ],
+        "tip": "Use :checkhealth to diagnose Neovim, clipboard, treesitter, and LSP providers!",
+        "tags": [
+          "ex-shell",
+          "tips",
+          "pro",
+          "chords",
+          "best-practices"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://neovim.io/doc/user/change/",
+              "title": "Neovim help: change"
+            },
+            {
+              "url": "https://neovim.io/doc/user/various/",
+              "title": "Neovim help: various (:!, gc, CTRL-L)"
+            },
+            {
+              "url": "https://neovim.io/doc/user/terminal/",
+              "title": "Neovim help: terminal"
+            },
+            {
+              "url": "https://neovim.io/doc/user/health/",
+              "title": "Neovim help: health"
+            }
+          ],
+          "note": "Corrected 2026-11-10: :w !sudo tee % does not work in Neovim (:! runs without a terminal)."
+        }
+      }
+    ]
   }
 ];
 
 // Application State (shares theme & compact preference with Linux sheet)
+// One page for the whole group: the old per-topic pages are parts of it (#part in the URL).
+// Stars, visited ticks and practice from those pages move here once, before the stars are read.
+if (typeof window !== "undefined" && window.migrateMergedSheet) window.migrateMergedSheet("neovim.html", "nvim_cs_bookmarks", NEOVIM_CHEAT_SHEET_DATA, {"nvim-motions":"nvim_motions_bookmarks","nvim-operators":"nvim_operators_bookmarks","nvim-visual":"nvim_visual_bookmarks","nvim-search":"nvim_search_bookmarks","nvim-macros":"nvim_macros_bookmarks","nvim-windows":"nvim_windows_bookmarks","nvim-lsp":"nvim_lsp_bookmarks","nvim-lazyvim":"nvim_lazyvim_bookmarks","nvim-ex-shell":"nvim_ex-shell_bookmarks"});
+
 const state = {
   searchQuery: "",
   activeCategory: "all",
@@ -763,6 +1342,10 @@ const state = {
   theme: localStorage.getItem("linux_cs_theme") || "dark",
   bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("nvim_cs_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
+// The part the hash picks (#nv-smi, or a command id): the first render is already filtered.
+state.part = typeof window !== "undefined" && window.sheetPartFromHash ? window.sheetPartFromHash(NEOVIM_CHEAT_SHEET_DATA) : "";
+if (typeof window !== "undefined") window.SHEET_FILTER = { sections: NEOVIM_CHEAT_SHEET_DATA, label: "Neovim sheets" };
+
 
 // DOM Elements
 const searchInput = document.getElementById("search-input");
@@ -932,7 +1515,7 @@ function renderSections() {
   const cardsHtml = [];
 
   for (const section of NEOVIM_CHEAT_SHEET_DATA) {
-    if (state.activeCategory !== "all" && state.activeCategory !== section.id) {
+    if (((state.activeCategory !== "all" && state.activeCategory !== section.id) || (state.part && (section.part || section.id) !== state.part))) {
       continue;
     }
 

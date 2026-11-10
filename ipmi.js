@@ -1,5 +1,6 @@
 const IPMI_CHEAT_SHEET_DATA = [
   {
+    part: "ipmi-chassis-power",
     id: "chassis-power",
     badge: "pwr",
     title: "Chassis Power, Status & UID Identify",
@@ -54,6 +55,54 @@ const IPMI_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "ipmi-chassis-power",
+    "id": "chassis-power-pro-tips",
+    "badge": "tip",
+    "title": "Chassis Power & UID: Pro Tips & Best Practices",
+    "subtitle": "Chassis Power Cycling & Hard Freeze Triage",
+    "commands": [
+      {
+        "id": "chassis-power-tips-card",
+        "desc": "Chassis Power Cycling & Hard Freeze Triage",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis power status",
+        "details": "Try \"power soft\" first: it asks the OS for an ACPI shutdown. If the kernel is hard frozen, \"power diag\" pulses an NMI so a kdump-configured kernel writes a crash dump; \"power cycle\" powers off for at least 1 second, then back on.",
+        "flags": [
+          [
+            "chassis power status",
+            "Query whether the host motherboard is currently on or off"
+          ],
+          [
+            "chassis power cycle",
+            "Hard power off for at least 1 s, then on (no clean OS shutdown)"
+          ],
+          [
+            "chassis identify <seconds>",
+            "Blink the identify (UID) LED; default 15 s, 0 = off, force = on until turned off"
+          ]
+        ],
+        "tip": "Run \"chassis status\" after unexpected node drops to inspect \"Last Power Event\" (e.g. AC failed, power overload, power interlock).",
+        "tags": [
+          "chassis-power",
+          "tips",
+          "pro",
+          "ipmitool",
+          "bmc",
+          "best-practice"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool(1) man page"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    part: "ipmi-boot-override",
     id: "boot-override",
     badge: "boot",
     title: "Boot Device Override (bootdev & bootparam)",
@@ -103,6 +152,59 @@ const IPMI_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "ipmi-boot-override",
+    "id": "boot-override-pro-tips",
+    "badge": "tip",
+    "title": "Boot Device Override: Pro Tips & Best Practices",
+    "subtitle": "Automated PXE Re-imaging & Boot Flag Persistence",
+    "commands": [
+      {
+        "id": "boot-override-tips-card",
+        "desc": "Automated PXE Re-imaging & Boot Flag Persistence",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E chassis bootdev pxe options=efiboot",
+        "details": "A boot override is cleared automatically if no chassis power command arrives within 60 seconds. Chain the bootdev command with \"chassis power cycle\" on one line, or add options=persistent to keep the device for all future boots (set it back with bootdev disk afterwards).",
+        "flags": [
+          [
+            "bootdev pxe",
+            "Direct next host boot to UEFI PXE network installer (HTTP/TFTP)"
+          ],
+          [
+            "bootdev bios",
+            "Boot into BIOS (UEFI) Setup next time"
+          ],
+          [
+            "bootdev pxe options=persistent,efiboot",
+            "Keep PXE as the boot device for all future boots, in UEFI mode"
+          ]
+        ],
+        "tip": "Always specify \"options=efiboot\" on modern UEFI servers to avoid legacy BIOS CSM boot failure.",
+        "tags": [
+          "boot-override",
+          "tips",
+          "pro",
+          "ipmitool",
+          "bmc",
+          "best-practice"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool(1) man page"
+            },
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_chassis.c",
+              "title": "ipmitool source: ipmi_chassis.c (boot options)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: removed \"bootparam set bootflag no-timeout\"; ipmitool's parser rejects no-timeout. The 60-second timeout is from the man page."
+        }
+      }
+    ]
+  },
+  {
+    part: "ipmi-sensors-sdr",
     id: "sensors-sdr-dcmi",
     badge: "sdr",
     title: "Sensors, SDR, Fan Speeds & DCMI Wattage",
@@ -152,6 +254,54 @@ const IPMI_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "ipmi-sensors-sdr",
+    "id": "sensors-sdr-dcmi-pro-tips",
+    "badge": "tip",
+    "title": "Sensors & DCMI Power: Pro Tips & Best Practices",
+    "subtitle": "Hardware Environmental Triage & Thermal Throttling Detection",
+    "commands": [
+      {
+        "id": "sensors-sdr-dcmi-tips-card",
+        "desc": "Hardware Environmental Triage & Thermal Throttling Detection",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sdr elist full",
+        "details": "sdr elist full prints each threshold sensor (volts, amps, RPM, degrees C) with its status (ok, nc, cr, nr), sensor number and entity. dcmi power reading reports the BMC's instantaneous, minimum, maximum and average power in watts, where the BMC supports DCMI.",
+        "flags": [
+          [
+            "sdr elist full",
+            "Display all populated sensors with calibrated analog units and health status"
+          ],
+          [
+            "dcmi power reading",
+            "Read instantaneous, minimum, maximum, and average server power consumption in Watts"
+          ],
+          [
+            "sensor get <name>",
+            "Display lower and upper non-critical, critical, and non-recoverable threshold boundaries"
+          ]
+        ],
+        "tip": "Filter SDR by sensor type using \"sdr type Temperature\" or \"sdr type Fan\" to cut through noisy SDR catalogs.",
+        "tags": [
+          "sensors-sdr-dcmi",
+          "tips",
+          "pro",
+          "ipmitool",
+          "bmc",
+          "best-practice"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool(1) man page"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    part: "ipmi-sel-logs",
     id: "sel-logs",
     badge: "sel",
     title: "System Event Log (SEL) & Hardware Triage",
@@ -188,6 +338,54 @@ const IPMI_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "ipmi-sel-logs",
+    "id": "sel-logs-pro-tips",
+    "badge": "tip",
+    "title": "SEL Logs & Faults: Pro Tips & Best Practices",
+    "subtitle": "Out-of-Band Hardware Event Triage & Post-Mortem Crash Analysis",
+    "commands": [
+      {
+        "id": "sel-logs-tips-card",
+        "desc": "Out-of-Band Hardware Event Triage & Post-Mortem Crash Analysis",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sel elist",
+        "details": "The BMC System Event Log records hardware events the BMC sees or BIOS reports to it (memory ECC errors, PSU failures, thermal trips, PCIe errors), even when the OS is down. \"sel elist\" adds the sensor names from the SDR to each entry.",
+        "flags": [
+          [
+            "sel elist",
+            "Print human-readable SEL entries cross-referenced against the SDR catalog"
+          ],
+          [
+            "sel info",
+            "Inspect SEL fullness percentage, total entries, and free record space"
+          ],
+          [
+            "sel clear",
+            "Purge the BMC SEL memory buffer after documenting diagnostic fault traces"
+          ]
+        ],
+        "tip": "Back up SEL entries to a timestamped file before calling \"sel clear\", as cleared events cannot be recovered.",
+        "tags": [
+          "sel-logs",
+          "tips",
+          "pro",
+          "ipmitool",
+          "bmc",
+          "best-practice"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool(1) man page"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    part: "ipmi-sol-console",
     id: "sol-console",
     badge: "sol",
     title: "Serial-over-LAN (SOL) Console",
@@ -223,6 +421,55 @@ const IPMI_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "ipmi-sol-console",
+    "id": "sol-console-pro-tips",
+    "badge": "tip",
+    "title": "SOL Serial Console: Pro Tips & Best Practices",
+    "subtitle": "Out-of-Band Serial Console Operations & Session Recovery",
+    "commands": [
+      {
+        "id": "sol-console-tips-card",
+        "desc": "Out-of-Band Serial Console Operations & Session Recovery",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sol activate",
+        "details": "Serial-over-LAN carries the host serial console (COM1/ttyS0 or COM2/ttyS1, set in BIOS) over an IPMI 2.0 lanplus session. If someone left a session open, \"sol deactivate\" releases it.",
+        "flags": [
+          [
+            "sol activate",
+            "Open bidirectional Serial-over-LAN terminal to view BIOS POST and GRUB"
+          ],
+          [
+            "sol deactivate",
+            "Forcefully terminate a hung or abandoned SOL session on the BMC"
+          ],
+          [
+            "sol info",
+            "SOL settings: bit rate, character accumulate/send thresholds, encryption and authentication"
+          ]
+        ],
+        "tip": "To disconnect an active SOL session without killing the terminal, press Enter, then ~ (tilde), then . (period).",
+        "tags": [
+          "sol-console",
+          "tips",
+          "pro",
+          "ipmitool",
+          "bmc",
+          "best-practice"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool(1) man page"
+            }
+          ],
+          "note": "The default escape character is ~; ipmitool -e <char> changes it when ~ conflicts with ssh."
+        }
+      }
+    ]
+  },
+  {
+    part: "ipmi-bmc-lan-users",
     id: "bmc-lan-users",
     badge: "lan6",
     title: "BMC Network (lan6 / lan) & User Management",
@@ -273,6 +520,62 @@ const IPMI_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "ipmi-bmc-lan-users",
+    "id": "bmc-lan-users-pro-tips",
+    "badge": "tip",
+    "title": "BMC Network & Users: Pro Tips & Best Practices",
+    "subtitle": "BMC Out-of-Band Network Provisioning & Root Password Recovery",
+    "commands": [
+      {
+        "id": "bmc-lan-users-tips-card",
+        "desc": "BMC Out-of-Band Network Provisioning & Root Password Recovery",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E lan print 1",
+        "details": "The BMC LAN channel is usually 1, but some vendors use another number: find it with \"channel info <n>\" (look for 802.3 LAN). From the host OS as root, in-band ipmitool (no -H) can reset a lost BMC password with \"user set password <id>\".",
+        "flags": [
+          [
+            "lan print 1",
+            "Display current BMC IP address, MAC address, subnet mask, and default gateway"
+          ],
+          [
+            "lan6 print 1",
+            "Display current BMC IPv6 global, link-local, SLAAC, and DHCPv6 addresses"
+          ],
+          [
+            "user set password <id> <new_pass>",
+            "Change BMC user password directly from local host or over RMCP+"
+          ]
+        ],
+        "tip": "If the BMC has IPv6 enabled, \"lan6 print 1\" shows its static, SLAAC and DHCPv6 addresses",
+        "tags": [
+          "bmc-lan-users",
+          "tips",
+          "pro",
+          "ipmitool",
+          "bmc",
+          "best-practice"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool(1) man page"
+            },
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_lanp6.c",
+              "title": "ipmitool source: ipmi_lanp6.c (lan6)"
+            },
+            {
+              "url": "https://docs.kernel.org/driver-api/ipmi.html",
+              "title": "Linux kernel IPMI driver"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    part: "ipmi-fru-mc",
     id: "fru-mc-watchdog",
     badge: "mc",
     title: "FRU Inventory, BMC Reset (mc) & Watchdog",
@@ -415,6 +718,10 @@ const IPMI_BUILDER_TASKS = {
 };
 
 // Application State
+// One page for the whole group: the old per-topic pages are parts of it (#part in the URL).
+// Stars, visited ticks and practice from those pages move here once, before the stars are read.
+if (typeof window !== "undefined" && window.migrateMergedSheet) window.migrateMergedSheet("ipmi.html", "ipmi_cs_bookmarks", IPMI_CHEAT_SHEET_DATA, {"ipmi-chassis-power":"ipmi-chassis-power_bookmarks","ipmi-boot-override":"ipmi-boot-override_bookmarks","ipmi-sensors-sdr":"ipmi-sensors-sdr_bookmarks","ipmi-sel-logs":"ipmi-sel-logs_bookmarks","ipmi-sol-console":"ipmi-sol-console_bookmarks","ipmi-bmc-lan-users":"ipmi-bmc-lan-users_bookmarks","ipmi-fru-mc":"ipmi-fru-mc_bookmarks"});
+
 const state = {
   searchQuery: "",
   activeCategory: "all",
@@ -422,6 +729,10 @@ const state = {
   theme: localStorage.getItem("linux_cs_theme") || "dark",
   bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("ipmi_cs_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
+// The part the hash picks (#nv-smi, or a command id): the first render is already filtered.
+state.part = typeof window !== "undefined" && window.sheetPartFromHash ? window.sheetPartFromHash(IPMI_CHEAT_SHEET_DATA) : "";
+if (typeof window !== "undefined") window.SHEET_FILTER = { sections: IPMI_CHEAT_SHEET_DATA, label: "ipmitool sheets" };
+
 
 // DOM Elements
 const searchInput = document.getElementById("search-input");
@@ -582,7 +893,7 @@ function renderSections() {
   const cardsHtml = [];
 
   for (const section of IPMI_CHEAT_SHEET_DATA) {
-    if (state.activeCategory !== "all" && state.activeCategory !== section.id) {
+    if (((state.activeCategory !== "all" && state.activeCategory !== section.id) || (state.part && (section.part || section.id) !== state.part))) {
       continue;
     }
 

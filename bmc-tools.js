@@ -2,6 +2,7 @@
 // Standalone interactive cheat sheet for BMC vendor tools: BMC Vendor Tools Hub (racadm, iLOrest, SAA, OneCLI, FreeIPMI, serial)
 const BMC_HUB_DATA = [
   {
+    "part": "racadm",
     "id": "racadm-cmd-1",
     "badge": "racadm",
     "title": "Dell racadm: System and iDRAC summary, remote or in-band",
@@ -220,6 +221,7 @@ const BMC_HUB_DATA = [
     ]
   },
   {
+    "part": "racadm",
     "id": "racadm-cmd-2",
     "badge": "racadm",
     "title": "Dell racadm: Lifecycle log, filtered to storage and system warnings",
@@ -386,6 +388,7 @@ const BMC_HUB_DATA = [
     ]
   },
   {
+    "part": "racadm",
     "id": "racadm-cmd-3",
     "badge": "racadm",
     "title": "Dell racadm: Hardware inventory",
@@ -485,6 +488,7 @@ const BMC_HUB_DATA = [
     ]
   },
   {
+    "part": "racadm",
     "id": "racadm-cmd-4",
     "badge": "racadm",
     "title": "Dell racadm: RAID controllers, physical and virtual disks",
@@ -615,6 +619,7 @@ const BMC_HUB_DATA = [
     ]
   },
   {
+    "part": "racadm",
     "id": "racadm-cmd-5",
     "badge": "racadm",
     "title": "Dell racadm: Power state, and power actions after a drain",
@@ -756,6 +761,7 @@ const BMC_HUB_DATA = [
     ]
   },
   {
+    "part": "racadm",
     "id": "racadm-cmd-6",
     "badge": "racadm",
     "title": "Dell racadm: Read and change attributes; BIOS changes need a job",
@@ -918,6 +924,7 @@ const BMC_HUB_DATA = [
     ]
   },
   {
+    "part": "racadm",
     "id": "racadm-cmd-7",
     "badge": "racadm",
     "title": "Dell racadm: Export the whole server configuration",
@@ -1003,6 +1010,7 @@ const BMC_HUB_DATA = [
     ]
   },
   {
+    "part": "racadm",
     "id": "racadm-cmd-8",
     "badge": "racadm",
     "title": "Dell racadm: SupportAssist collection",
@@ -1109,6 +1117,7 @@ const BMC_HUB_DATA = [
     ]
   },
   {
+    "part": "racadm",
     "id": "racadm-pro-tips",
     "badge": "tip",
     "title": "Dell racadm: Pro Tip",
@@ -1155,6 +1164,7 @@ const BMC_HUB_DATA = [
     ]
   },
   {
+    "part": "ilorest",
     "id": "ilorest-cmd-1",
     "badge": "ilorest",
     "title": "HPE iLOrest: Log in to an iLO",
@@ -1269,6 +1279,7 @@ const BMC_HUB_DATA = [
     ]
   },
   {
+    "part": "ilorest",
     "id": "ilorest-cmd-2",
     "badge": "ilorest",
     "title": "HPE iLOrest: Server summary",
@@ -1395,6 +1406,7 @@ const BMC_HUB_DATA = [
     ]
   },
   {
+    "part": "ilorest",
     "id": "ilorest-cmd-3",
     "badge": "ilorest",
     "title": "HPE iLOrest: IML, iLO event log and AHS download",
@@ -1533,6 +1545,7 @@ const BMC_HUB_DATA = [
     ]
   },
   {
+    "part": "ilorest",
     "id": "ilorest-cmd-4",
     "badge": "ilorest",
     "title": "HPE iLOrest: Storage controllers, drives and volumes",
@@ -1635,6 +1648,7 @@ const BMC_HUB_DATA = [
     ]
   },
   {
+    "part": "ilorest",
     "id": "ilorest-cmd-5",
     "badge": "ilorest",
     "title": "HPE iLOrest: Read any Redfish property with select and get",
@@ -1750,6 +1764,7 @@ const BMC_HUB_DATA = [
     ]
   },
   {
+    "part": "ilorest",
     "id": "ilorest-cmd-6",
     "badge": "ilorest",
     "title": "HPE iLOrest: Power control",
@@ -1856,6 +1871,7 @@ const BMC_HUB_DATA = [
     ]
   },
   {
+    "part": "ilorest",
     "id": "ilorest-cmd-7",
     "badge": "ilorest",
     "title": "HPE iLOrest: Firmware integrity and the iLO repository",
@@ -1970,6 +1986,7 @@ const BMC_HUB_DATA = [
     ]
   },
   {
+    "part": "ilorest",
     "id": "ilorest-cmd-8",
     "badge": "ilorest",
     "title": "HPE iLOrest: iLO network settings and virtual media",
@@ -2052,6 +2069,7 @@ const BMC_HUB_DATA = [
     ]
   },
   {
+    "part": "ilorest",
     "id": "ilorest-pro-tips",
     "badge": "tip",
     "title": "HPE iLOrest: Pro Tip",
@@ -2101,6 +2119,7 @@ const BMC_HUB_DATA = [
     ]
   },
   {
+    "part": "supermicro-saa",
     "id": "saa-cmd-1",
     "badge": "saa",
     "title": "Supermicro SAA: List the commands, and the options for one command",
@@ -2194,6 +2213,7 @@ const BMC_HUB_DATA = [
     ]
   },
   {
+    "part": "supermicro-saa",
     "id": "saa-cmd-2",
     "badge": "saa",
     "title": "Supermicro SAA: System, BIOS and BMC firmware information",
@@ -2344,6 +2364,7 @@ const BMC_HUB_DATA = [
     ]
   },
   {
+    "part": "supermicro-saa",
     "id": "saa-cmd-3",
     "badge": "saa",
     "title": "Supermicro SAA: BMC event log and sensor status",
@@ -2473,6 +2494,7 @@ const BMC_HUB_DATA = [
     ]
   },
   {
+    "part": "supermicro-saa",
     "id": "saa-cmd-4",
     "badge": "saa",
     "title": "Supermicro SAA: Same command across many BMCs",
@@ -2520,6 +2542,7 @@ const BMC_HUB_DATA = [
     ]
   },
   {
+    "part": "supermicro-saa",
     "id": "saa-cmd-5",
     "badge": "saa",
     "title": "Supermicro SAA: GPU and CPLD firmware information",
@@ -2590,6 +2613,7 @@ const BMC_HUB_DATA = [
     ]
   },
   {
+    "part": "supermicro-saa",
     "id": "saa-pro-tips",
     "badge": "tip",
     "title": "Supermicro SAA: Pro Tip",
@@ -2635,6 +2659,7 @@ const BMC_HUB_DATA = [
     ]
   },
   {
+    "part": "onecli",
     "id": "onecli-cmd-1",
     "badge": "onecli",
     "title": "Lenovo OneCLI: System health summary through the XCC",
@@ -2752,6 +2777,7 @@ const BMC_HUB_DATA = [
     ]
   },
   {
+    "part": "onecli",
     "id": "onecli-cmd-2",
     "badge": "onecli",
     "title": "Lenovo OneCLI: SEL, BMC and audit logs",
@@ -2830,6 +2856,7 @@ const BMC_HUB_DATA = [
     ]
   },
   {
+    "part": "onecli",
     "id": "onecli-cmd-3",
     "badge": "onecli",
     "title": "Lenovo OneCLI: Full inventory report",
@@ -2915,6 +2942,7 @@ const BMC_HUB_DATA = [
     ]
   },
   {
+    "part": "onecli",
     "id": "onecli-cmd-4",
     "badge": "onecli",
     "title": "Lenovo OneCLI: Read and save settings",
@@ -3022,6 +3050,7 @@ const BMC_HUB_DATA = [
     ]
   },
   {
+    "part": "onecli",
     "id": "onecli-cmd-5",
     "badge": "onecli",
     "title": "Lenovo OneCLI: What firmware is installed, and what is newer",
@@ -3107,6 +3136,7 @@ const BMC_HUB_DATA = [
     ]
   },
   {
+    "part": "onecli",
     "id": "onecli-cmd-6",
     "badge": "onecli",
     "title": "Lenovo OneCLI: Power state and control",
@@ -3236,6 +3266,7 @@ const BMC_HUB_DATA = [
     ]
   },
   {
+    "part": "onecli",
     "id": "onecli-pro-tips",
     "badge": "tip",
     "title": "Lenovo OneCLI: Pro Tip",
@@ -3281,6 +3312,7 @@ const BMC_HUB_DATA = [
     ]
   },
   {
+    "part": "freeipmi",
     "id": "freeipmi-cmd-1",
     "badge": "freeipmi",
     "title": "GNU FreeIPMI: Sensors with a health state, password prompted",
@@ -3462,6 +3494,7 @@ const BMC_HUB_DATA = [
     ]
   },
   {
+    "part": "freeipmi",
     "id": "freeipmi-cmd-2",
     "badge": "freeipmi",
     "title": "GNU FreeIPMI: Last SEL entries, interpreted",
@@ -3540,6 +3573,7 @@ const BMC_HUB_DATA = [
     ]
   },
   {
+    "part": "freeipmi",
     "id": "freeipmi-cmd-3",
     "badge": "freeipmi",
     "title": "GNU FreeIPMI: Power status for a whole rack at once",
@@ -3657,6 +3691,7 @@ const BMC_HUB_DATA = [
     ]
   },
   {
+    "part": "freeipmi",
     "id": "freeipmi-cmd-4",
     "badge": "freeipmi",
     "title": "GNU FreeIPMI: Serial-over-LAN console",
@@ -3766,6 +3801,7 @@ const BMC_HUB_DATA = [
     ]
   },
   {
+    "part": "freeipmi",
     "id": "freeipmi-cmd-5",
     "badge": "freeipmi",
     "title": "GNU FreeIPMI: Power draw from the BMC",
@@ -3840,6 +3876,7 @@ const BMC_HUB_DATA = [
     ]
   },
   {
+    "part": "freeipmi",
     "id": "freeipmi-pro-tips",
     "badge": "tip",
     "title": "GNU FreeIPMI: Pro Tip",
@@ -3881,6 +3918,7 @@ const BMC_HUB_DATA = [
     ]
   },
   {
+    "part": "serial-console",
     "id": "serial-cmd-1",
     "badge": "serial",
     "title": "Serial consoles: Open a USB serial console",
@@ -3998,6 +4036,7 @@ const BMC_HUB_DATA = [
     ]
   },
   {
+    "part": "serial-console",
     "id": "serial-cmd-2",
     "badge": "serial",
     "title": "Serial consoles: Share a serial port on the network with ser2net",
@@ -4105,6 +4144,7 @@ const BMC_HUB_DATA = [
     ]
   },
   {
+    "part": "serial-console",
     "id": "serial-cmd-3",
     "badge": "serial",
     "title": "Serial consoles: List and attach to logged consoles",
@@ -4210,6 +4250,7 @@ const BMC_HUB_DATA = [
     ]
   },
   {
+    "part": "serial-console",
     "id": "serial-cmd-4",
     "badge": "serial",
     "title": "Serial consoles: conserver console for an IPMI SOL target",
@@ -4261,6 +4302,7 @@ const BMC_HUB_DATA = [
     ]
   },
   {
+    "part": "freeipmi",
     "id": "serial-pro-tips",
     "badge": "tip",
     "title": "Serial consoles: Pro Tip",
@@ -4316,6 +4358,10 @@ const BMC_HUB_DATA = [
 ];
 
 // Application State
+// One page for the whole group: the old per-topic pages are parts of it (#part in the URL).
+// Stars, visited ticks and practice from those pages move here once, before the stars are read.
+if (typeof window !== "undefined" && window.migrateMergedSheet) window.migrateMergedSheet("bmc-tools.html", "bmc-tools_bookmarks", BMC_HUB_DATA, {"racadm":"racadm_bookmarks","ilorest":"ilorest_bookmarks","supermicro-saa":"supermicro-saa_bookmarks","onecli":"onecli_bookmarks","freeipmi":"freeipmi_bookmarks","serial-console":"serial-console_bookmarks"});
+
 const state = {
   searchQuery: "",
   activeCategory: "all",
@@ -4323,6 +4369,10 @@ const state = {
   theme: localStorage.getItem("linux_cs_theme") || "dark",
   bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("bmc-tools_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
+// The part the hash picks (#nv-smi, or a command id): the first render is already filtered.
+state.part = typeof window !== "undefined" && window.sheetPartFromHash ? window.sheetPartFromHash(BMC_HUB_DATA) : "";
+if (typeof window !== "undefined") window.SHEET_FILTER = { sections: BMC_HUB_DATA, label: "BMC vendor tools sheets" };
+
 
 // DOM Elements
 const searchInput = document.getElementById("search-input");
@@ -4534,7 +4584,7 @@ function renderSections() {
   const cardsHtml = [];
 
   for (const card of BMC_HUB_DATA) {
-    if (state.activeCategory !== "all" && state.activeCategory !== card.id) {
+    if (((state.activeCategory !== "all" && state.activeCategory !== card.id) || (state.part && (card.part || card.id) !== state.part))) {
       continue;
     }
 

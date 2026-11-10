@@ -1,5 +1,6 @@
 const FIBER_CHEAT_SHEET_DATA = [
   {
+    part: "fo-dom-cli",
     id: "dom-cli",
     badge: "dom",
     title: "DOM / DDM Optical CLI Diagnostics",
@@ -64,6 +65,67 @@ const FIBER_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "fo-dom-cli",
+    "id": "dom-cli-pro-tips",
+    "badge": "tip",
+    "title": "DOM / DDM Telemetry: Pro Tips & Best Practices",
+    "subtitle": "Production Optical DOM Diagnostic Workflow & Threshold Limits",
+    "commands": [
+      {
+        "id": "dom-cli-tips-card",
+        "desc": "Production Optical DOM Diagnostic Workflow & Threshold Limits",
+        "cmd": "ethtool -m eth0 | grep -Ei \"output power|optical power\" && mlxlink -d mlx5_0 -p 1 --show_module",
+        "details": "DOM (Digital Optical Monitoring) / DDM reports real-time laser TX/RX power in dBm and mW, bias current, and module temperature. When bringing up a new link or investigating flaps, check RX power against the module datasheet: for NVIDIA 400G DR4, -5.9 to +4.0 dBm average per lane, with damage above +5 dBm.",
+        "flags": [
+          [
+            "ethtool -m <dev>",
+            "Dump SFF-8636 / CMIS transceiver EEPROM memory map and live DOM readings"
+          ],
+          [
+            "mlxlink -d <dev> -p 1 --show_module",
+            "Query ConnectX/BlueField HCA optical DOM power and SerDes eye health"
+          ],
+          [
+            "sfputil show eeprom -p <port>",
+            "SONiC CLI utility to display optical transceiver EEPROM and DOM telemetry"
+          ]
+        ],
+        "tip": "RX at -40 dBm (or -inf) means no light at all (RX_LOS): check fiber seating, dust, or a reversed pair.",
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://git.kernel.org/pub/scm/network/ethtool/ethtool.git/tree/cmis.c",
+              "title": "ethtool source: CMIS/QSFP DOM field names"
+            },
+            {
+              "url": "https://docs.nvidia.com/nvidia-mms4x00-ns400-400gb-s-single-port-osfp-single-mode-dr4-transceivers-product-specifications.pdf",
+              "title": "NVIDIA MMS4X00-NS400 400G DR4 datasheet (RX power, RHS flat top)"
+            },
+            {
+              "url": "https://networking-docs.nvidia.com/mftswum/4320/mlxlink-utility",
+              "title": "NVIDIA MFT: mlxlink"
+            },
+            {
+              "url": "https://github.com/sonic-net/sonic-utilities/blob/master/doc/Command-Reference.md",
+              "title": "SONiC command reference"
+            }
+          ],
+          "note": "Corrected 2026-11-10: the grep missed the RX line (ethtool labels it \"Receiver/Rcvr signal average optical power\") and the thresholds now come from the DR4 datasheet."
+        },
+        "tags": [
+          "dom-cli",
+          "tips",
+          "pro",
+          "fiber",
+          "optics",
+          "best-practice"
+        ]
+      }
+    ]
+  },
+  {
+    part: "fo-form-factors",
     id: "form-factors-breakout",
     badge: "xcvr",
     title: "Form Factors, 400G/800G Optics & Breakouts",
@@ -116,6 +178,63 @@ const FIBER_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "fo-form-factors",
+    "id": "form-factors-breakout-pro-tips",
+    "badge": "tip",
+    "title": "Form Factors & Breakouts: Pro Tips & Best Practices",
+    "subtitle": "Transceiver Form Factors, Thermal Dissipation & Interconnect Selection",
+    "commands": [
+      {
+        "id": "form-factors-breakout-tips-card",
+        "desc": "Transceiver Form Factors, Thermal Dissipation & Interconnect Selection",
+        "cmd": "show interfaces transceiver detail && show cables",
+        "details": "NVIDIA Quantum-2 NDR switches use finned OSFP cages for top-down forced air cooling , whereas GPU servers use Flat-Top (RHS) OSFPs that insert flush into internal chassis heat sinks. NVIDIA lists passive DAC up to 3m at 100G PAM4/lane and active copper (ACC) at 4-5m; use optical MPO transceivers for longer, rack-to-rack runs.",
+        "flags": [
+          [
+            "OSFP Finned",
+            "Thermal fins integrated on transceiver body; required for external switch airflow"
+          ],
+          [
+            "OSFP Flat-Top / RHS",
+            "Smooth top surface designed to contact server internal heat sink clamps"
+          ],
+          [
+            "800G 2xDR4 Breakout",
+            "Split dual-port 800G OSFP into two 400G DR4 MPO-12 links"
+          ]
+        ],
+        "tip": "Finned OSFPs are for switch cages and flat-top (RHS) OSFPs for adapter cages with a riding heat sink: match the module to the cage.",
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://content.mellanox.com/LinkX/LinkX_Configuration_Maps.pdf",
+              "title": "NVIDIA LinkX configuration maps (DAC/ACC reach)"
+            },
+            {
+              "url": "https://docs.nvidia.com/mca7j60-nxxx-800gb-s-twin-port-osfp-to-2x400gb-s-osfp-acc-splitter-product-specifications.pdf",
+              "title": "NVIDIA MCA7J60 ACC splitter spec"
+            },
+            {
+              "url": "https://docs.nvidia.com/nvidia-mms4x00-ns400-400gb-s-single-port-osfp-single-mode-dr4-transceivers-product-specifications.pdf",
+              "title": "NVIDIA MMS4X00-NS400 400G DR4 datasheet (RX power, RHS flat top)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: DAC/ACC reach from NVIDIA (3m / 4-5m)."
+        },
+        "tags": [
+          "form-factors-breakout",
+          "tips",
+          "pro",
+          "fiber",
+          "optics",
+          "best-practice"
+        ]
+      }
+    ]
+  },
+  {
+    part: "fo-mpo-polarity",
     id: "mpo-polarity-connectors",
     badge: "conn",
     title: "MPO/MTP Pinning, Polarity & Connector Types",
@@ -182,6 +301,59 @@ const FIBER_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "fo-mpo-polarity",
+    "id": "mpo-polarity-connectors-pro-tips",
+    "badge": "tip",
+    "title": "MPO Pinning & Polarity: Pro Tips & Best Practices",
+    "subtitle": "MPO Mating Rules, Polarity Inversion & Connector Keying",
+    "commands": [
+      {
+        "id": "mpo-polarity-connectors-tips-card",
+        "desc": "MPO Mating Rules, Polarity Inversion & Connector Keying",
+        "cmd": "cat /sys/class/infiniband/*/ports/*/counters/link_downed",
+        "details": "Parallel-optic transceivers carry the guide pins (male), so the cords that plug into them are female (unpinned): NVIDIA's MPO-12/APC cable is female-to-female, Type-B crossover. Every mated pair needs exactly one pinned side. A direct transceiver-to-transceiver cord must be Type B so fiber 1 (TX) lands on fiber 12 (RX).",
+        "flags": [
+          [
+            "MPO Female (Unpinned)",
+            "Smooth guide holes without pins; the normal end on cords that plug into transceivers"
+          ],
+          [
+            "MPO Male (Pinned)",
+            "Metal guide pins protruding from the ferrule; transceiver receptacles are pinned"
+          ],
+          [
+            "Type-B Polarity",
+            "Key-Up to Key-Up crossover; fiber 1 maps to fiber 12 (TX to RX)"
+          ]
+        ],
+        "tip": "Never attempt to mate two pinned (male) MPO connectors; guide pins will collide and shatter the ceramic ferrule micro-lenses.",
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/mfp7e30nxxxpub",
+              "title": "NVIDIA MFP7E30 MPO-12/APC cable (female-female, Type B)"
+            },
+            {
+              "url": "https://www.kernel.org/doc/Documentation/ABI/stable/sysfs-class-infiniband",
+              "title": "Linux ABI: sysfs-class-infiniband (link_downed)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: transceivers are pinned (male), not female; the sysfs counter is link_downed."
+        },
+        "tags": [
+          "mpo-polarity-connectors",
+          "tips",
+          "pro",
+          "fiber",
+          "optics",
+          "best-practice"
+        ]
+      }
+    ]
+  },
+  {
+    part: "fo-cleaning-testing",
     id: "cleaning-testing-triage",
     badge: "phy",
     title: "Cleaning, OTDR/OLTS Testing, FEC & Triage",
@@ -245,6 +417,66 @@ const FIBER_CHEAT_SHEET_DATA = [
         src: {"verified":"2026-11-10","refs":[{"url":"https://www.flukenetworks.com/knowledge-base/fiber-inspection-and-cleaning/inspect-you-connect","title":"Fluke Networks: inspect before you connect"}]}
       }
     ]
+  },
+  {
+    "part": "fo-cleaning-testing",
+    "id": "cleaning-testing-triage-pro-tips",
+    "badge": "tip",
+    "title": "Cleaning & Testing Triage: Pro Tips & Best Practices",
+    "subtitle": "Inspect-Before-You-Connect Best Practices & Layer-1 Optical Flap Triage",
+    "commands": [
+      {
+        "id": "cleaning-testing-triage-tips-card",
+        "desc": "Inspect-Before-You-Connect Best Practices & Layer-1 Optical Flap Triage",
+        "cmd": "ethtool --show-fec eth0 && mlxlink -d mlx5_0 -p 1 -c",
+        "details": "Contaminated end faces are a leading cause of optical link problems. Inspect with a fiber microscope before connecting. DR4/FR4 optics are safe back-to-back (NVIDIA DR4 launches at most +3.0 dBm and accepts up to +4.0 dBm); attenuators are for long-reach ER4/ZR-class optics on short links.",
+        "flags": [
+          [
+            "IEC 61300-3-35",
+            "International inspection standard defining acceptable scratches and contamination zones on core/cladding"
+          ],
+          [
+            "Pre-FEC BER",
+            "Raw bit error rate before Reed-Solomon correction; healthy links sit orders of magnitude below the ~2.4e-4 KP4 limit"
+          ],
+          [
+            "OTDR (Tier-2)",
+            "Optical Time-Domain Reflectometer: pinpoints distance to micro-bends, breaks, and high-loss splices"
+          ]
+        ],
+        "tip": "KP4 FEC on PAM4 links is designed for a pre-FEC BER up to about 2.4e-4: a pre-FEC BER climbing toward that, or any uncorrectable codewords, means dirty end faces, bends or a failing optic.",
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.flukenetworks.com/knowledge-base/fiber-inspection-and-cleaning/inspect-you-connect",
+              "title": "Fluke Networks: inspect before you connect"
+            },
+            {
+              "url": "https://docs.nvidia.com/nvidia-mms4x00-ns400-400gb-s-single-port-osfp-single-mode-dr4-transceivers-product-specifications.pdf",
+              "title": "NVIDIA MMS4X00-NS400 400G DR4 datasheet (RX power, RHS flat top)"
+            },
+            {
+              "url": "https://networking-docs.nvidia.com/mftswum/4320/mlxlink-utility",
+              "title": "NVIDIA MFT: mlxlink"
+            },
+            {
+              "url": "https://grouper.ieee.org/groups/802/3/bs/public/adhoc/logic/oct23_15/anslow_01_1015_logic.pdf",
+              "title": "IEEE 802.3bs contribution: 2.4E-4 pre-FEC BER limit (KP4)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: mlxlink has no --show_ber (BER is in -c); DR4 does not need attenuators back-to-back."
+        },
+        "tags": [
+          "cleaning-testing-triage",
+          "tips",
+          "pro",
+          "fiber",
+          "optics",
+          "best-practice"
+        ]
+      }
+    ]
   }
 ];
 
@@ -288,6 +520,10 @@ const OPTIC_SPECS = {
 };
 
 // Application State
+// One page for the whole group: the old per-topic pages are parts of it (#part in the URL).
+// Stars, visited ticks and practice from those pages move here once, before the stars are read.
+if (typeof window !== "undefined" && window.migrateMergedSheet) window.migrateMergedSheet("fiber.html", "fiber_cs_bookmarks", FIBER_CHEAT_SHEET_DATA, {"fo-dom-cli":"fo-dom-cli_bookmarks","fo-form-factors":"fo-form-factors_bookmarks","fo-mpo-polarity":"fo-mpo-polarity_bookmarks","fo-cleaning-testing":"fo-cleaning-testing_bookmarks"});
+
 const state = {
   searchQuery: "",
   activeCategory: "all",
@@ -295,6 +531,10 @@ const state = {
   theme: localStorage.getItem("linux_cs_theme") || "dark",
   bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("fiber_cs_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
+// The part the hash picks (#nv-smi, or a command id): the first render is already filtered.
+state.part = typeof window !== "undefined" && window.sheetPartFromHash ? window.sheetPartFromHash(FIBER_CHEAT_SHEET_DATA) : "";
+if (typeof window !== "undefined") window.SHEET_FILTER = { sections: FIBER_CHEAT_SHEET_DATA, label: "Fiber sheets" };
+
 
 // DOM Elements
 const searchInput = document.getElementById("search-input");
@@ -455,7 +695,7 @@ function renderSections() {
   const cardsHtml = [];
 
   for (const section of FIBER_CHEAT_SHEET_DATA) {
-    if (state.activeCategory !== "all" && state.activeCategory !== section.id) {
+    if (((state.activeCategory !== "all" && state.activeCategory !== section.id) || (state.part && (section.part || section.id) !== state.part))) {
       continue;
     }
 

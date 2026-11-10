@@ -905,6 +905,69 @@ const CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "archives",
+    "id": "archives-tips-diag",
+    "badge": "tip",
+    "title": "Archives: Pro Tips & Triage",
+    "subtitle": "Multithreaded compression with pigz/zstd and streaming integrity checks",
+    "commands": [
+      {
+        "id": "archives-pro-tips",
+        "desc": "Multithreaded compression with pigz/zstd and streaming integrity checks",
+        "cmd": "tar -I pigz -cf archive.tar.gz /srv/data/ && sha256sum archive.tar.gz > archive.tar.gz.sha256",
+        "details": "Use pigz (parallel implementation of gzip) or zstd -T0 to saturate all available CPU cores when creating large datacenter archives. Always produce and verify cryptographic checksums.",
+        "flags": [
+          [
+            "-I pigz",
+            "Use pigz multithreaded gzip compression utility"
+          ],
+          [
+            "-T0",
+            "zstd flag to automatically scale thread count to match physical cores"
+          ],
+          [
+            "--exclude",
+            "Exclude specific directories or patterns during archive creation"
+          ]
+        ],
+        "subcommands": [
+          [
+            "sha256sum -c archive.tar.gz.sha256",
+            "Validate SHA-256 hash checksum against computed file integrity"
+          ],
+          [
+            "tar -tvf archive.tar.gz | head -n 25",
+            "List table of contents without extracting archive to disk"
+          ]
+        ],
+        "tip": "Standard Ubuntu Server administration & security best practice",
+        "tags": [
+          "archives",
+          "tips",
+          "triage",
+          "diagnostics"
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/tar.1.html",
+              "title": "tar(1)"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/pigz/pigz.1.en.html",
+              "title": "pigz(1), Debian"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/sha256sum.1.html",
+              "title": "sha256sum(1)"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
     id: "systemd",
     badge: "sys",
     title: "Systemd Services, Journald & Boot Analysis",
@@ -954,6 +1017,69 @@ const CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "systemd",
+    "id": "systemd-tips-diag",
+    "badge": "tip",
+    "title": "Systemd Services: Pro Tips & Triage",
+    "subtitle": "Systemd boot latency analysis, critical-chain bottlenecks & log persistence",
+    "commands": [
+      {
+        "id": "systemd-pro-tips",
+        "desc": "Systemd boot latency analysis, critical-chain bottlenecks & log persistence",
+        "cmd": "systemd-analyze blame | head -n 15 && systemd-analyze critical-chain",
+        "details": "Pinpoint services delaying server boot. Check /var/log/journal/ for persistent journal storage and verify systemd service unit syntax with systemd-analyze verify.",
+        "flags": [
+          [
+            "blame",
+            "Prints list of all running units ordered by initialization time taken"
+          ],
+          [
+            "critical-chain",
+            "Prints tree of the time-critical chain of systemd units at boot"
+          ],
+          [
+            "verify",
+            "Check unit configuration files for syntax errors and circular dependencies"
+          ]
+        ],
+        "subcommands": [
+          [
+            "journalctl --vacuum-time=14d --vacuum-size=2G",
+            "Purge archived journal logs older than 14 days or exceeding 2 GiB"
+          ],
+          [
+            "systemctl is-failed --quiet nginx.service || echo \"Running\"",
+            "Quietly check if a service has entered the failed state"
+          ]
+        ],
+        "tip": "Standard Ubuntu Server administration & security best practice",
+        "tags": [
+          "systemd",
+          "tips",
+          "triage",
+          "diagnostics"
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/systemd-analyze.1.html",
+              "title": "systemd-analyze(1)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/journalctl.1.html",
+              "title": "journalctl(1)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/systemctl.1.html",
+              "title": "systemctl(1)"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
     id: "users",
     badge: "usr",
     title: "Users, Groups, SSH Keys & Sudoers",
@@ -994,6 +1120,86 @@ const CHEAT_SHEET_DATA = [
         tip: "Always use visudo for /etc/sudoers.d/",
         tags: ["ssh-keygen", "visudo", "sudoers", "who", "last", "audit", "security"],
         src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/id.1.html", "title": "id(1)"}, {"url": "https://man7.org/linux/man-pages/man1/w.1.html", "title": "w(1)"}, {"url": "https://man7.org/linux/man-pages/man1/last.1.html", "title": "last(1)"}, {"url": "https://manpages.debian.org/trixie/wtmpdb/wtmpdb.8.en.html", "title": "wtmpdb(8), Debian"}, {"url": "https://man.openbsd.org/ssh-keygen", "title": "ssh-keygen(1), OpenBSD"}, {"url": "https://www.sudo.ws/docs/man/visudo.man/", "title": "visudo(8)"}], "note": "Debian 13 (trixie) dropped last and lastb from util-linux: use wtmpdb last (package wtmpdb, plus libpam-wtmpdb)."}
+      }
+    ]
+  },
+  {
+    "part": "users",
+    "id": "users-tips-diag",
+    "badge": "tip",
+    "title": "Users: Pro Tips & Triage",
+    "subtitle": "Sudoers validation, failed login auditing & account password expiration",
+    "commands": [
+      {
+        "id": "users-pro-tips",
+        "desc": "Sudoers validation, failed login auditing & account password expiration",
+        "cmd": "visudo -c && chage -l $(whoami)",
+        "details": "Always validate /etc/sudoers syntax with visudo -c before exiting, and check password aging with chage. Account lockouts after failed logins are recorded by pam_faillock: read them with faillock (the older faillog only reads the retired pam_tally counter and is gone from Debian 13).",
+        "flags": [
+          [
+            "visudo -c",
+            "Check syntax of sudoers file without opening editor"
+          ],
+          [
+            "chage -l",
+            "List account aging parameters: password change date, expiry, and warning days"
+          ],
+          [
+            "faillock --user <username>",
+            "Recent failed authentications recorded by pam_faillock for that user"
+          ]
+        ],
+        "subcommands": [
+          [
+            "faillock --user <username>",
+            "Failed logins pam_faillock recorded for one user (and whether it is locked)"
+          ],
+          [
+            "faillock --user <username> --reset",
+            "Clear that user's failure record, unlocking the account (changes state)"
+          ],
+          [
+            "lastb | head -n 20",
+            "Failed login attempts from /var/log/btmp (util-linux; not shipped on Debian 13+)"
+          ],
+          [
+            "passwd -l <username>",
+            "Lock user account password to prevent interactive password logins"
+          ]
+        ],
+        "tip": "Standard Ubuntu Server administration & security best practice",
+        "tags": [
+          "users",
+          "tips",
+          "triage",
+          "diagnostics"
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.sudo.ws/docs/man/visudo.man/",
+              "title": "visudo(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/chage.1.html",
+              "title": "chage(1)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/faillock.8.html",
+              "title": "faillock(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/lastb.1.html",
+              "title": "lastb(1)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/passwd.1.html",
+              "title": "passwd(1)"
+            }
+          ],
+          "note": "Corrected 2026-11-09: faillog -a (pam_tally, dropped from Debian 13) replaced by faillock --user, which reads pam_faillock's records."
+        }
       }
     ]
   },
@@ -1094,6 +1300,10 @@ const CHEAT_SHEET_DATA = [
 ];
 
 // State
+// One page for the whole group: the old per-topic pages are parts of it (#part in the URL).
+// Stars, visited ticks and practice from those pages move here once, before the stars are read.
+if (typeof window !== "undefined" && window.migrateMergedSheet) window.migrateMergedSheet("linux.html", "linux_cs_bookmarks", CHEAT_SHEET_DATA, {"kernel-boot":"kernel-boot_bookmarks","systemd":"systemd_bookmarks","processes":"processes_bookmarks","storage":"storage_bookmarks","archives":"archives_bookmarks","packages":"packages_bookmarks","files":"files_bookmarks","permissions":"permissions_bookmarks","users":"users_bookmarks","network":"network_bookmarks","text":"text_bookmarks","dmi-hw":"dmi-hw_bookmarks","pcie-numa":"pcie-numa_bookmarks","ecc-edac":"ecc-edac_bookmarks","nvme-smart":"nvme-smart_bookmarks"});
+
 const state = {
   searchQuery: "",
   activeCategory: "all",
@@ -1101,6 +1311,10 @@ const state = {
   theme: localStorage.getItem("linux_cs_theme") || "dark",
   bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("linux_cs_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
+// The part the hash picks (#nv-smi, or a command id): the first render is already filtered.
+state.part = typeof window !== "undefined" && window.sheetPartFromHash ? window.sheetPartFromHash(CHEAT_SHEET_DATA) : "";
+if (typeof window !== "undefined") window.SHEET_FILTER = { sections: CHEAT_SHEET_DATA, label: "Linux sheets" };
+
 
 // DOM References
 const searchInput = document.getElementById("search-input");
@@ -1280,7 +1494,7 @@ function renderSections() {
   const cardsHtml = [];
 
   for (const section of CHEAT_SHEET_DATA) {
-    if (state.activeCategory !== "all" && state.activeCategory !== section.id) {
+    if (((state.activeCategory !== "all" && state.activeCategory !== section.id) || (state.part && (section.part || section.id) !== state.part))) {
       continue;
     }
 

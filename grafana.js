@@ -2,6 +2,7 @@
 // Standalone interactive cheat sheet for Grafana: Grafana Hub (Building Dashboards)
 const GRAFANA_CHEAT_SHEET_DATA = [
   {
+    "part": "grafana-setup",
     "id": "grafana-setup-cmd-1",
     "badge": "lab",
     "title": "Grafana Lab Setup: compose.yaml for a local Grafana + Prometheus lab",
@@ -236,6 +237,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "grafana-setup",
     "id": "grafana-setup-cmd-2",
     "badge": "lab",
     "title": "Grafana Lab Setup: prometheus.yml",
@@ -426,6 +428,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "grafana-setup",
     "id": "grafana-setup-cmd-3",
     "badge": "lab",
     "title": "Grafana Lab Setup: Provision the Prometheus data source from YAML",
@@ -583,6 +586,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "grafana-setup",
     "id": "grafana-setup-cmd-4",
     "badge": "lab",
     "title": "Grafana Lab Setup: Create a service account token for API and CLI use, and load it without echoing it",
@@ -709,6 +713,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "grafana-setup",
     "id": "grafana-setup-pro-tips",
     "badge": "tip",
     "title": "Grafana Lab Setup: Pro Tip",
@@ -754,6 +759,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "grafana-panels",
     "id": "grafana-panels-cmd-1",
     "badge": "pnl",
     "title": "Grafana Panels: Build your first dashboard",
@@ -1097,6 +1103,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "grafana-panels",
     "id": "grafana-panels-cmd-2",
     "badge": "pnl",
     "title": "Grafana Panels: Pick the visualization from the question you are answering",
@@ -1168,6 +1175,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "grafana-panels",
     "id": "grafana-panels-cmd-3",
     "badge": "pnl",
     "title": "Grafana Panels: Units, min/max, thresholds and value mappings in the panel JSON",
@@ -1342,6 +1350,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "grafana-panels",
     "id": "grafana-panels-cmd-4",
     "badge": "pnl",
     "title": "Grafana Panels: Overrides",
@@ -1398,6 +1407,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "grafana-panels",
     "id": "grafana-panels-cmd-5",
     "badge": "pnl",
     "title": "Grafana Panels: Transformations",
@@ -1463,6 +1473,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "grafana-panels",
     "id": "grafana-panels-cmd-6",
     "badge": "pnl",
     "title": "Grafana Panels: Data links",
@@ -1585,6 +1596,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "grafana-panels",
     "id": "grafana-panels-pro-tips",
     "badge": "tip",
     "title": "Grafana Panels: Pro Tip",
@@ -1634,6 +1646,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "grafana-promql",
     "id": "grafana-promql-cmd-1",
     "badge": "pql",
     "title": "PromQL for Dashboards: Turn a counter into a per-second rate",
@@ -1796,6 +1809,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "grafana-promql",
     "id": "grafana-promql-cmd-2",
     "badge": "pql",
     "title": "PromQL for Dashboards: Aggregate across GPUs and nodes",
@@ -2013,6 +2027,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "grafana-promql",
     "id": "grafana-promql-cmd-3",
     "badge": "pql",
     "title": "PromQL for Dashboards: Top-N",
@@ -2065,6 +2080,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "grafana-promql",
     "id": "grafana-promql-cmd-4",
     "badge": "pql",
     "title": "PromQL for Dashboards: Functions over a time range",
@@ -2175,6 +2191,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "grafana-promql",
     "id": "grafana-promql-cmd-5",
     "badge": "pql",
     "title": "PromQL for Dashboards: Is anything missing? Down targets and vanished metrics",
@@ -2329,6 +2346,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "grafana-promql",
     "id": "grafana-promql-cmd-6",
     "badge": "pql",
     "title": "PromQL for Dashboards: Join labels from another metric",
@@ -2386,6 +2404,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "grafana-promql",
     "id": "grafana-promql-cmd-7",
     "badge": "pql",
     "title": "PromQL for Dashboards: Test a query from the shell before putting it in a panel",
@@ -2540,6 +2559,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "grafana-promql",
     "id": "grafana-promql-pro-tips",
     "badge": "tip",
     "title": "PromQL for Dashboards: Pro Tip",
@@ -2593,6 +2613,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "grafana-variables",
     "id": "grafana-variables-cmd-1",
     "badge": "var",
     "title": "Grafana Variables: A host dropdown filled from Prometheus labels",
@@ -2742,6 +2763,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "grafana-variables",
     "id": "grafana-variables-cmd-2",
     "badge": "var",
     "title": "Grafana Variables: Chained variables",
@@ -2798,6 +2820,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "grafana-variables",
     "id": "grafana-variables-cmd-3",
     "badge": "var",
     "title": "Grafana Variables: The same host variable as dashboard JSON",
@@ -2857,6 +2880,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "grafana-variables",
     "id": "grafana-variables-cmd-4",
     "badge": "var",
     "title": "Grafana Variables: Format a multi-value variable for where it is used",
@@ -2918,6 +2942,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "grafana-variables",
     "id": "grafana-variables-cmd-5",
     "badge": "var",
     "title": "Grafana Variables: Repeat a panel or row once per selected host",
@@ -2978,6 +3003,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "grafana-variables",
     "id": "grafana-variables-cmd-6",
     "badge": "var",
     "title": "Grafana Variables: Built-in variables you can use in any query or title",
@@ -3042,6 +3068,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "grafana-variables",
     "id": "grafana-variables-pro-tips",
     "badge": "tip",
     "title": "Grafana Variables: Pro Tip",
@@ -3083,6 +3110,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "grafana-as-code",
     "id": "grafana-as-code-cmd-1",
     "badge": "code",
     "title": "Dashboards as Code: Minimal dashboard JSON",
@@ -3199,6 +3227,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "grafana-as-code",
     "id": "grafana-as-code-cmd-2",
     "badge": "code",
     "title": "Dashboards as Code: Load dashboards from a folder of JSON files",
@@ -3278,6 +3307,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "grafana-as-code",
     "id": "grafana-as-code-cmd-3",
     "badge": "code",
     "title": "Dashboards as Code: Export a dashboard's JSON with the HTTP API",
@@ -3508,6 +3538,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "grafana-as-code",
     "id": "grafana-as-code-cmd-4",
     "badge": "code",
     "title": "Dashboards as Code: Create or update a dashboard from a JSON file with the HTTP API",
@@ -3575,6 +3606,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "grafana-as-code",
     "id": "grafana-as-code-cmd-5",
     "badge": "code",
     "title": "Dashboards as Code: gcx",
@@ -3741,6 +3773,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "grafana-as-code",
     "id": "grafana-as-code-cmd-6",
     "badge": "code",
     "title": "Dashboards as Code: Git Sync",
@@ -3802,6 +3835,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "grafana-as-code",
     "id": "grafana-as-code-pro-tips",
     "badge": "tip",
     "title": "Dashboards as Code: Pro Tip",
@@ -3851,6 +3885,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "grafana-gpu-dashboard",
     "id": "grafana-gpu-dashboard-cmd-1",
     "badge": "gpu",
     "title": "GPU Fleet Dashboard: Which metric names does your exporter use? dcgm-exporter 4.9.0 renamed them",
@@ -4042,6 +4077,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "grafana-gpu-dashboard",
     "id": "grafana-gpu-dashboard-cmd-2",
     "badge": "gpu",
     "title": "GPU Fleet Dashboard: Layout",
@@ -4144,6 +4180,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "grafana-gpu-dashboard",
     "id": "grafana-gpu-dashboard-cmd-3",
     "badge": "gpu",
     "title": "GPU Fleet Dashboard: Row 1 stat queries",
@@ -4271,6 +4308,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "grafana-gpu-dashboard",
     "id": "grafana-gpu-dashboard-cmd-4",
     "badge": "gpu",
     "title": "GPU Fleet Dashboard: Row 2 per-GPU table",
@@ -4336,6 +4374,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "grafana-gpu-dashboard",
     "id": "grafana-gpu-dashboard-cmd-5",
     "badge": "gpu",
     "title": "GPU Fleet Dashboard: Row 3 time series queries for one node",
@@ -4456,6 +4495,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "grafana-gpu-dashboard",
     "id": "grafana-gpu-dashboard-cmd-6",
     "badge": "gpu",
     "title": "GPU Fleet Dashboard: Error panels",
@@ -4522,6 +4562,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "grafana-gpu-dashboard",
     "id": "grafana-gpu-dashboard-cmd-7",
     "badge": "gpu",
     "title": "GPU Fleet Dashboard: Node context from node_exporter",
@@ -4591,6 +4632,7 @@ const GRAFANA_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "grafana-gpu-dashboard",
     "id": "grafana-gpu-dashboard-pro-tips",
     "badge": "tip",
     "title": "GPU Fleet Dashboard: Pro Tip",
@@ -4650,6 +4692,10 @@ const GRAFANA_CHEAT_SHEET_DATA = [
 ];
 
 // Application State
+// One page for the whole group: the old per-topic pages are parts of it (#part in the URL).
+// Stars, visited ticks and practice from those pages move here once, before the stars are read.
+if (typeof window !== "undefined" && window.migrateMergedSheet) window.migrateMergedSheet("grafana.html", "grafana_bookmarks", GRAFANA_CHEAT_SHEET_DATA, {"grafana-setup":"grafana-setup_bookmarks","grafana-panels":"grafana-panels_bookmarks","grafana-promql":"grafana-promql_bookmarks","grafana-variables":"grafana-variables_bookmarks","grafana-as-code":"grafana-as-code_bookmarks","grafana-gpu-dashboard":"grafana-gpu-dashboard_bookmarks"});
+
 const state = {
   searchQuery: "",
   activeCategory: "all",
@@ -4657,6 +4703,10 @@ const state = {
   theme: localStorage.getItem("linux_cs_theme") || "dark",
   bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("grafana_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
+// The part the hash picks (#nv-smi, or a command id): the first render is already filtered.
+state.part = typeof window !== "undefined" && window.sheetPartFromHash ? window.sheetPartFromHash(GRAFANA_CHEAT_SHEET_DATA) : "";
+if (typeof window !== "undefined") window.SHEET_FILTER = { sections: GRAFANA_CHEAT_SHEET_DATA, label: "Grafana sheets" };
+
 
 // DOM Elements
 const searchInput = document.getElementById("search-input");
@@ -4868,7 +4918,7 @@ function renderSections() {
   const cardsHtml = [];
 
   for (const card of GRAFANA_CHEAT_SHEET_DATA) {
-    if (state.activeCategory !== "all" && state.activeCategory !== card.id) {
+    if (((state.activeCategory !== "all" && state.activeCategory !== card.id) || (state.part && (card.part || card.id) !== state.part))) {
       continue;
     }
 

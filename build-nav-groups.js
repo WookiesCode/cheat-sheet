@@ -37,24 +37,24 @@ const svgIcon = (k, cls) => `<svg class="${cls}" viewBox="0 0 24 24" width="14" 
 
 // Where each suite's menu comes from.
 const SUITES = {
-  linux: { id: 'linux-nav-dropdown', gen: ['generate-linux-suite.js', 'LINUX_NAVBAR_SNIPPET'], hub: 'linux.html' },
-  macos: { id: 'macos-nav-dropdown', gen: ['generate-macos-suite.js', 'MACOS_NAVBAR_SNIPPET'] },
-  windows: { id: 'win-nav-dropdown', gen: ['generate-windows-suite.js', 'WIN_NAVBAR_SNIPPET'] },
+  linux: { id: 'linux-nav-dropdown', hub: 'linux.html' },
+  macos: { id: 'macos-nav-dropdown' },
+  windows: { id: 'win-nav-dropdown' },
   omarchy: { link: 'omarchy.html', name: 'Omarchy', logo: OMARCHY_WORDMARK, label: 'Hyprland desktop' },
-  neovim: { id: 'nvim-nav-dropdown', gen: ['generate-neovim-suite.js', 'NVIM_NAVBAR_SNIPPET'] },
+  neovim: { id: 'nvim-nav-dropdown' },
   editors: { id: 'editors-nav-dropdown' },
-  infiniband: { id: 'infiniband-nav-dropdown', gen: ['generate-infiniband-suite.js', 'IB_NAVBAR_SNIPPET'] },
-  ethernet: { id: 'ethernet-nav-dropdown', gen: ['generate-ethernet-suite.js', 'ETH_NAVBAR_SNIPPET'] },
-  fiber: { id: 'fiber-nav-dropdown', gen: ['generate-fiber-suite.js', 'FO_NAVBAR_SNIPPET'] },
-  switches: { id: 'switches-nav-dropdown', gen: ['generate-switches-suite.js', 'SW_NAVBAR_SNIPPET'] },
-  redfish: { id: 'redfish-nav-dropdown', gen: ['generate-redfish-suite.js', 'RF_NAVBAR_SNIPPET'] },
-  ipmi: { id: 'ipmi-nav-dropdown', gen: ['generate-ipmi-suite.js', 'IPMI_NAVBAR_SNIPPET'] },
+  infiniband: { id: 'infiniband-nav-dropdown' },
+  ethernet: { id: 'ethernet-nav-dropdown' },
+  fiber: { id: 'fiber-nav-dropdown' },
+  switches: { id: 'switches-nav-dropdown' },
+  redfish: { id: 'redfish-nav-dropdown' },
+  ipmi: { id: 'ipmi-nav-dropdown' },
   bmctools: { id: 'bmctools-nav-dropdown' },
-  nvidia: { id: 'nvidia-nav-dropdown', gen: ['generate-nvidia-suite.js', 'NVIDIA_NAVBAR_SNIPPET'] },
-  motherboards: { id: 'motherboards-nav-dropdown', gen: ['generate-motherboards-suite.js', 'MB_NAVBAR_SNIPPET'] },
+  nvidia: { id: 'nvidia-nav-dropdown' },
+  motherboards: { id: 'motherboards-nav-dropdown' },
   hwref: { id: 'hwref-nav-dropdown' },
-  // No hub page: the hardware-inventory sheets the Linux generator writes, filed under Hardware.
-  internals: { name: 'Server internals', label: 'inventory, PCIe, ECC, NVMe', logo: svgIcon('hw', 'ng-logo'), take: ['dmi-hw.html', 'pcie-numa.html', 'ecc-edac.html', 'nvme-smart.html'] },
+  // No hub page of its own: parts of the Linux page, filed under Hardware.
+  internals: { name: 'Server internals', label: 'inventory, PCIe, ECC, NVMe', logo: svgIcon('hw', 'ng-logo'), take: ['linux.html#dmi-hw', 'linux.html#pcie-numa', 'linux.html#ecc-edac', 'linux.html#nvme-smart'] },
   containers: { id: 'containers-nav-dropdown' },
   grafana: { id: 'grafana-nav-dropdown' },
   sre: { id: 'sre-nav-dropdown' },
@@ -189,7 +189,7 @@ for (const file of require('./nav/targets').navFiles()) {
       byHref(def.link);   // the plain top-level link, if still there, is replaced by the group
       g = { name: def.name, hub: def.link, logo: def.logo, label: def.label, entries: [] };
     } else if (def.take) {
-      g = { name: def.name, hub: '', logo: def.logo, label: def.label, entries: [] };
+      g = oldGroups[key] ? parseGroup(oldGroups[key]) : { name: def.name, hub: '', logo: def.logo, label: def.label, entries: [] };
     } else {
       const own = byId(def.id);
       if (own) g = parseMenu(own);
@@ -205,7 +205,7 @@ for (const file of require('./nav/targets').navFiles()) {
     if (key === 'internals') continue;
     const taken = g.entries.filter(e => e.href && takes.includes(e.href));
     if (!taken.length) continue;
-    groups.internals.entries.push(...taken);
+    groups.internals.entries.push(...taken.filter(e => !groups.internals.entries.some(x => x.href === e.href)));
     g.entries = g.entries.filter(e => !(e.href && takes.includes(e.href)));
     // Drop a heading left with nothing under it.
     g.entries = g.entries.filter((e, i, a) => e.h === undefined || (a[i + 1] && a[i + 1].h === undefined));

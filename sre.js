@@ -2,6 +2,7 @@
 // Standalone interactive cheat sheet for SRE toolkit: SRE Toolkit Hub (Prometheus, Ansible, Terraform, Helm, Argo CD, incidents)
 const SRE_HUB_DATA = [
   {
+    "part": "prometheus",
     "id": "prometheus-cmd-1",
     "badge": "prometheus",
     "title": "Prometheus: Validate the config and rule files before reloading",
@@ -116,6 +117,7 @@ const SRE_HUB_DATA = [
     ]
   },
   {
+    "part": "prometheus",
     "id": "prometheus-cmd-2",
     "badge": "prometheus",
     "title": "Prometheus: Query from the shell",
@@ -269,6 +271,7 @@ const SRE_HUB_DATA = [
     ]
   },
   {
+    "part": "prometheus",
     "id": "prometheus-cmd-3",
     "badge": "prometheus",
     "title": "Prometheus: An alerting rule",
@@ -321,6 +324,7 @@ const SRE_HUB_DATA = [
     ]
   },
   {
+    "part": "prometheus",
     "id": "prometheus-cmd-4",
     "badge": "prometheus",
     "title": "Prometheus: A recording rule and its naming convention",
@@ -376,6 +380,7 @@ const SRE_HUB_DATA = [
     ]
   },
   {
+    "part": "prometheus",
     "id": "prometheus-cmd-5",
     "badge": "prometheus",
     "title": "Prometheus: Alertmanager",
@@ -504,6 +509,7 @@ const SRE_HUB_DATA = [
     ]
   },
   {
+    "part": "prometheus",
     "id": "prometheus-cmd-6",
     "badge": "prometheus",
     "title": "Prometheus: Reload the config after a check",
@@ -588,6 +594,7 @@ const SRE_HUB_DATA = [
     ]
   },
   {
+    "part": "prometheus",
     "id": "prometheus-pro-tips",
     "badge": "tip",
     "title": "Prometheus: Pro Tip",
@@ -630,6 +637,7 @@ const SRE_HUB_DATA = [
     ]
   },
   {
+    "part": "ansible",
     "id": "ansible-cmd-1",
     "badge": "ansible",
     "title": "Ansible: Can Ansible reach every host?",
@@ -755,6 +763,7 @@ const SRE_HUB_DATA = [
     ]
   },
   {
+    "part": "ansible",
     "id": "ansible-cmd-2",
     "badge": "ansible",
     "title": "Ansible: One read-only command across a group",
@@ -841,6 +850,7 @@ const SRE_HUB_DATA = [
     ]
   },
   {
+    "part": "ansible",
     "id": "ansible-cmd-3",
     "badge": "ansible",
     "title": "Ansible: Dry-run a playbook on one host with a diff",
@@ -986,6 +996,7 @@ const SRE_HUB_DATA = [
     ]
   },
   {
+    "part": "ansible",
     "id": "ansible-cmd-4",
     "badge": "ansible",
     "title": "Ansible: Encrypt a secret for a playbook",
@@ -1087,6 +1098,7 @@ const SRE_HUB_DATA = [
     ]
   },
   {
+    "part": "ansible",
     "id": "ansible-cmd-5",
     "badge": "ansible",
     "title": "Ansible: Collections, config and module docs",
@@ -1220,6 +1232,7 @@ const SRE_HUB_DATA = [
     ]
   },
   {
+    "part": "ansible",
     "id": "ansible-pro-tips",
     "badge": "tip",
     "title": "Ansible: Pro Tip",
@@ -1261,6 +1274,7 @@ const SRE_HUB_DATA = [
     ]
   },
   {
+    "part": "terraform",
     "id": "terraform-cmd-1",
     "badge": "terraform",
     "title": "Terraform / OpenTofu: Initialise, format and validate",
@@ -1372,6 +1386,7 @@ const SRE_HUB_DATA = [
     ]
   },
   {
+    "part": "terraform",
     "id": "terraform-cmd-2",
     "badge": "terraform",
     "title": "Terraform / OpenTofu: Save a plan, review it, apply exactly that plan",
@@ -1493,6 +1508,7 @@ const SRE_HUB_DATA = [
     ]
   },
   {
+    "part": "terraform",
     "id": "terraform-cmd-3",
     "badge": "terraform",
     "title": "Terraform / OpenTofu: Inspect state",
@@ -1629,6 +1645,7 @@ const SRE_HUB_DATA = [
     ]
   },
   {
+    "part": "terraform",
     "id": "terraform-cmd-4",
     "badge": "terraform",
     "title": "Terraform / OpenTofu: moved and import blocks",
@@ -1689,6 +1706,7 @@ const SRE_HUB_DATA = [
     ]
   },
   {
+    "part": "terraform",
     "id": "terraform-pro-tips",
     "badge": "tip",
     "title": "Terraform / OpenTofu: Pro Tip",
@@ -1734,6 +1752,7 @@ const SRE_HUB_DATA = [
     ]
   },
   {
+    "part": "helm",
     "id": "helm-cmd-1",
     "badge": "helm",
     "title": "Helm: Add a chart repo and read its default values",
@@ -1855,6 +1874,7 @@ const SRE_HUB_DATA = [
     ]
   },
   {
+    "part": "helm",
     "id": "helm-cmd-2",
     "badge": "helm",
     "title": "Helm: Render and lint before installing",
@@ -1972,6 +1992,7 @@ const SRE_HUB_DATA = [
     ]
   },
   {
+    "part": "helm",
     "id": "helm-cmd-3",
     "badge": "helm",
     "title": "Helm: Install or upgrade, rolling back on failure",
@@ -2037,6 +2058,7 @@ const SRE_HUB_DATA = [
     ]
   },
   {
+    "part": "helm",
     "id": "helm-cmd-4",
     "badge": "helm",
     "title": "Helm: Release history and rollback",
@@ -2162,6 +2184,7 @@ const SRE_HUB_DATA = [
     ]
   },
   {
+    "part": "helm",
     "id": "helm-pro-tips",
     "badge": "tip",
     "title": "Helm: Pro Tip",
@@ -2212,6 +2235,7 @@ const SRE_HUB_DATA = [
     ]
   },
   {
+    "part": "argocd",
     "id": "argocd-cmd-1",
     "badge": "argocd",
     "title": "Argo CD: Log in with SSO",
@@ -2263,6 +2287,7 @@ const SRE_HUB_DATA = [
     ]
   },
   {
+    "part": "argocd",
     "id": "argocd-cmd-2",
     "badge": "argocd",
     "title": "Argo CD: What is out of sync, and what differs",
@@ -2372,6 +2397,7 @@ const SRE_HUB_DATA = [
     ]
   },
   {
+    "part": "argocd",
     "id": "argocd-cmd-3",
     "badge": "argocd",
     "title": "Argo CD: Preview, then sync",
@@ -2485,6 +2511,7 @@ const SRE_HUB_DATA = [
     ]
   },
   {
+    "part": "argocd",
     "id": "argocd-cmd-4",
     "badge": "argocd",
     "title": "Argo CD: Roll back, and the auto-sync gotcha",
@@ -2606,6 +2633,7 @@ const SRE_HUB_DATA = [
     ]
   },
   {
+    "part": "argocd",
     "id": "argocd-pro-tips",
     "badge": "tip",
     "title": "Argo CD: Pro Tip",
@@ -2647,6 +2675,7 @@ const SRE_HUB_DATA = [
     ]
   },
   {
+    "part": "incident-response",
     "id": "incident-cmd-1",
     "badge": "incident",
     "title": "Incident response: Roles",
@@ -2707,6 +2736,7 @@ const SRE_HUB_DATA = [
     ]
   },
   {
+    "part": "incident-response",
     "id": "incident-cmd-2",
     "badge": "incident",
     "title": "Incident response: First 15 minutes on a node",
@@ -2848,6 +2878,7 @@ const SRE_HUB_DATA = [
     ]
   },
   {
+    "part": "incident-response",
     "id": "incident-cmd-3",
     "badge": "incident",
     "title": "Incident response: Keep a timeline as you go",
@@ -2899,6 +2930,7 @@ const SRE_HUB_DATA = [
     ]
   },
   {
+    "part": "incident-response",
     "id": "incident-cmd-4",
     "badge": "incident",
     "title": "Incident response: Blameless postmortem outline",
@@ -2950,6 +2982,7 @@ const SRE_HUB_DATA = [
     ]
   },
   {
+    "part": "incident-response",
     "id": "incident-pro-tips",
     "badge": "tip",
     "title": "Incident response: Pro Tip",
@@ -2993,6 +3026,10 @@ const SRE_HUB_DATA = [
 ];
 
 // Application State
+// One page for the whole group: the old per-topic pages are parts of it (#part in the URL).
+// Stars, visited ticks and practice from those pages move here once, before the stars are read.
+if (typeof window !== "undefined" && window.migrateMergedSheet) window.migrateMergedSheet("sre.html", "sre_bookmarks", SRE_HUB_DATA, {"prometheus":"prometheus_bookmarks","incident-response":"incident-response_bookmarks","ansible":"ansible_bookmarks","terraform":"terraform_bookmarks","helm":"helm_bookmarks","argocd":"argocd_bookmarks"});
+
 const state = {
   searchQuery: "",
   activeCategory: "all",
@@ -3000,6 +3037,10 @@ const state = {
   theme: localStorage.getItem("linux_cs_theme") || "dark",
   bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("sre_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
+// The part the hash picks (#nv-smi, or a command id): the first render is already filtered.
+state.part = typeof window !== "undefined" && window.sheetPartFromHash ? window.sheetPartFromHash(SRE_HUB_DATA) : "";
+if (typeof window !== "undefined") window.SHEET_FILTER = { sections: SRE_HUB_DATA, label: "SRE toolkit sheets" };
+
 
 // DOM Elements
 const searchInput = document.getElementById("search-input");
@@ -3211,7 +3252,7 @@ function renderSections() {
   const cardsHtml = [];
 
   for (const card of SRE_HUB_DATA) {
-    if (state.activeCategory !== "all" && state.activeCategory !== card.id) {
+    if (((state.activeCategory !== "all" && state.activeCategory !== card.id) || (state.part && (card.part || card.id) !== state.part))) {
       continue;
     }
 

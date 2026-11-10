@@ -1,5 +1,6 @@
 const ETHERNET_CHEAT_SHEET_DATA = [
   {
+    part: "eth-rj45-tdr",
     id: "rj45-pinout-tdr",
     badge: "rj45",
     title: "RJ45 Pinouts (T568B/A) & TDR Cable Testing",
@@ -53,6 +54,55 @@ const ETHERNET_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "eth-rj45-tdr",
+    "id": "rj45-pinout-tdr-pro-tips",
+    "badge": "tip",
+    "title": "RJ45 Pinouts & TDR: Pro Tips & Best Practices",
+    "subtitle": "Physical Layer RJ45 Cable Certification & TDR Fault Locating",
+    "commands": [
+      {
+        "id": "rj45-pinout-tdr-tips-card",
+        "desc": "Physical Layer RJ45 Cable Certification & TDR Fault Locating",
+        "cmd": "ethtool --cable-test eth0 && ethtool -p eth0 5",
+        "details": "ethtool --cable-test asks the PHY to test each pair; what it reports depends on the NIC, typically OK, open or short per pair and, for a fault, the approximate distance. 10/100BASE-TX use only pins 1-2 and 3-6, so a gigabit link that comes up at 100 Mb/s usually has a bad blue (4-5) or brown (7-8) pair.",
+        "flags": [
+          [
+            "ethtool --cable-test <dev>",
+            "PHY cable test per pair (needs PHY support; the link drops while it runs)"
+          ],
+          [
+            "ethtool -p <dev> <sec>",
+            "Blink the port LED for <sec> seconds to find the port by sight"
+          ],
+          [
+            "T568B Standard",
+            "Pin 1: White/Orange, 2: Orange, 3: White/Green, 4: Blue, 5: White/Blue, 6: Green, 7: White/Brown, 8: Brown"
+          ]
+        ],
+        "tip": "Never punch down mixed T568A and T568B on opposite patch panel ends unless intentionally building a legacy crossover cable.",
+        "tags": [
+          "rj45-pinout-tdr",
+          "tips",
+          "pro",
+          "ethernet",
+          "nic",
+          "best-practice"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ethtool.8.html",
+              "title": "ethtool(8)"
+            }
+          ],
+          "note": "Wiring reference: the TIA-568 standard is not freely available, so the pinout was not checked against it. The 100 Mb/s pair rule is a rule of thumb. Removed 2026-11-10: an unsourced \"within 1 meter\" accuracy claim."
+        }
+      }
+    ]
+  },
+  {
+    part: "eth-ethtool-tuning",
     id: "ethtool-phy-tuning",
     badge: "eth",
     title: "ethtool Link Speed, Offloads & Ring Buffers",
@@ -118,6 +168,55 @@ const ETHERNET_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "eth-ethtool-tuning",
+    "id": "ethtool-phy-tuning-pro-tips",
+    "badge": "tip",
+    "title": "ethtool & Ring Buffers: Pro Tips & Best Practices",
+    "subtitle": "NIC Descriptor Ring Buffering & Hardware Packet Drop Elimination",
+    "commands": [
+      {
+        "id": "ethtool-phy-tuning-tips-card",
+        "desc": "NIC Descriptor Ring Buffering & Hardware Packet Drop Elimination",
+        "cmd": "ethtool -S eth0 | grep -E \"(drop|error|miss)\" && ethtool -G eth0 rx 4096 tx 4096",
+        "details": "Small RX rings overflow during bursts and show up as rx drop / no-buffer counters (names vary by driver). Read the current and maximum sizes with ethtool -g, then raise rx/tx toward the maximum the NIC reports; larger rings trade a little latency and memory for fewer drops.",
+        "flags": [
+          [
+            "ethtool -S <dev>",
+            "Dump comprehensive low-level hardware MAC/PHY statistics and error counters"
+          ],
+          [
+            "ethtool -G <dev> rx <N> tx <N>",
+            "Set ring sizes (no larger than the maximums from ethtool -g)"
+          ],
+          [
+            "ethtool -k <dev>",
+            "Inspect status of hardware offloads (TSO, GSO, GRO, checksum offloading)"
+          ]
+        ],
+        "tip": "Rising rx_crc_errors point at the physical link (cable, optic, dirty connector); rx_missed_errors mean the NIC dropped frames because the host did not drain them in time",
+        "tags": [
+          "ethtool-phy-tuning",
+          "tips",
+          "pro",
+          "ethernet",
+          "nic",
+          "best-practice"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ethtool.8.html",
+              "title": "ethtool(8)"
+            }
+          ],
+          "note": "Counter names such as rx_missed_errors and rx_no_buffer_count are driver-specific; the counter meanings are general practice, not from the ethtool man page."
+        }
+      }
+    ]
+  },
+  {
+    part: "eth-netplan-systemd",
     id: "ubuntu-netplan",
     badge: "netp",
     title: "Ubuntu Netplan, networkctl & nmcli",
@@ -170,6 +269,67 @@ const ETHERNET_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "eth-netplan-systemd",
+    "id": "ubuntu-netplan-pro-tips",
+    "badge": "tip",
+    "title": "Netplan & networkctl: Pro Tips & Best Practices",
+    "subtitle": "Safe Declarative Network Provisioning & Automated Rollback",
+    "commands": [
+      {
+        "id": "ubuntu-netplan-tips-card",
+        "desc": "Safe Declarative Network Provisioning & Automated Rollback",
+        "cmd": "netplan try --timeout 30 && networkctl status",
+        "details": "Test remote network changes with \"netplan try\": it applies the YAML and rolls it back unless you confirm within the timeout (default 120 seconds), so a change that cuts your SSH session undoes itself. \"networkctl status\" shows link state, addresses and DNS servers.",
+        "flags": [
+          [
+            "netplan try",
+            "Apply the YAML and revert it unless you press Enter to confirm before the timeout"
+          ],
+          [
+            "networkctl status <dev>",
+            "Link type, state, driver, hardware and IP addresses, DNS servers"
+          ],
+          [
+            "nmcli device show",
+            "NetworkManager device details: MAC, state, active connection, IP settings"
+          ]
+        ],
+        "tip": "YAML forbids tabs for indentation: use spaces (any consistent amount) in /etc/netplan/*.yaml",
+        "tags": [
+          "ubuntu-netplan",
+          "tips",
+          "pro",
+          "ethernet",
+          "nic",
+          "best-practice"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://netplan.readthedocs.io/en/stable/netplan-try/",
+              "title": "netplan try"
+            },
+            {
+              "url": "https://yaml.org/spec/1.2.2/",
+              "title": "YAML 1.2.2 spec (no tabs in indentation)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/networkctl.1.html",
+              "title": "networkctl(1)"
+            },
+            {
+              "url": "https://networkmanager.dev/docs/api/latest/nmcli.html",
+              "title": "nmcli(1)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: YAML does not require 2-space indentation, only no tabs; netplan try defaults to 120 seconds."
+        }
+      }
+    ]
+  },
+  {
+    part: "eth-iproute2-ip6",
     id: "iproute2",
     badge: "ip6",
     title: "iproute2: IPv6 Links, Addresses, Routes & NDP",
@@ -237,6 +397,67 @@ const ETHERNET_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "eth-iproute2-ip6",
+    "id": "iproute2-pro-tips",
+    "badge": "tip",
+    "title": "iproute2 & IPv6 NDP: Pro Tips & Best Practices",
+    "subtitle": "Production iproute2 CLI Operations & IPv6 Neighbor Discovery",
+    "commands": [
+      {
+        "id": "iproute2-tips-card",
+        "desc": "Production iproute2 CLI Operations & IPv6 Neighbor Discovery",
+        "cmd": "ip -br -c a && ip -6 route show && ip -6 neigh show",
+        "details": "iproute2 replaces ifconfig, route and arp. \"ip -br -c a\" prints one coloured line per interface with its state and addresses. \"ip -6 neigh show\" lists the IPv6 neighbour (NDP) cache with each entry's state (REACHABLE, STALE, DELAY, FAILED, ...).",
+        "flags": [
+          [
+            "ip -br -c link",
+            "Compact one-line per interface status (UP/DOWN/LOWER_UP) with color coding"
+          ],
+          [
+            "ip link set <dev> mtu 9000",
+            "Jumbo frames (changes state; every hop on the path must allow it)"
+          ],
+          [
+            "ip -6 route get <ip>",
+            "Ask kernel routing subsystem exactly which egress interface and source IP will be used"
+          ]
+        ],
+        "tip": "Always verify MTU symmetry across both ends of a link: mismatched MTUs cause TCP handshake success but silent payload drops on large packets.",
+        "tags": [
+          "iproute2",
+          "tips",
+          "pro",
+          "ethernet",
+          "nic",
+          "best-practice"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ip-address.8.html",
+              "title": "ip-address(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ip-link.8.html",
+              "title": "ip-link(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ip-neighbour.8.html",
+              "title": "ip-neighbour(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ip-route.8.html",
+              "title": "ip-route(8)"
+            }
+          ],
+          "note": "The MTU mismatch symptom (handshake works, large transfers stall) is general practice, not from the man pages."
+        }
+      }
+    ]
+  },
+  {
+    part: "eth-bonding-vlans",
     id: "bonding-vlans-bridges",
     badge: "bond",
     title: "LACP Bonding (802.3ad), 802.1Q VLANs & Bridges",
@@ -286,6 +507,67 @@ const ETHERNET_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "eth-bonding-vlans",
+    "id": "bonding-vlans-bridges-pro-tips",
+    "badge": "tip",
+    "title": "LACP Bonds & VLANs: Pro Tips & Best Practices",
+    "subtitle": "High-Availability LACP Aggregation & 802.1Q Tagged VLANs",
+    "commands": [
+      {
+        "id": "bonding-vlans-bridges-tips-card",
+        "desc": "High-Availability LACP Aggregation & 802.1Q Tagged VLANs",
+        "cmd": "cat /proc/net/bonding/bond0 && ip link add link eth0 name eth0.100 type vlan id 100",
+        "details": "LACP (802.3ad, mode 4) bundles several links into one logical link and negotiates it with the switch. /proc/net/bonding/bond0 shows each member's MII status, the aggregator IDs and the partner (switch) MAC: members with different aggregator IDs are not in the same LAG. 802.1Q sub-interfaces (eth0.100) separate VLANs on one link.",
+        "flags": [
+          [
+            "/proc/net/bonding/bond0",
+            "Bond mode, members, MII status, aggregator and partner details"
+          ],
+          [
+            "type vlan id <vlan>",
+            "Create kernel 802.1Q tagged sub-interface for VLAN trunk separation"
+          ],
+          [
+            "bridge fdb show",
+            "Display Layer-2 forwarding database (MAC learning table) on Linux bridge interfaces"
+          ]
+        ],
+        "tip": "xmit_hash_policy=layer3+4 hashes on IP and port so different flows can use different members; one flow still stays on one link, and the kernel notes it is not fully 802.3ad compliant",
+        "tags": [
+          "bonding-vlans-bridges",
+          "tips",
+          "pro",
+          "ethernet",
+          "nic",
+          "best-practice"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.kernel.org/networking/bonding.html",
+              "title": "Linux kernel: bonding driver"
+            },
+            {
+              "url": "https://github.com/torvalds/linux/blob/master/drivers/net/bonding/bond_procfs.c",
+              "title": "Linux source: bond_procfs.c (/proc/net/bonding fields)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ip-link.8.html",
+              "title": "ip-link(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/bridge.8.html",
+              "title": "bridge(8)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: layer3+4 does not spread a single flow, and does not balance evenly by design."
+        }
+      }
+    ]
+  },
+  {
+    part: "eth-lldp-perf",
     id: "lldp-mtu-diag",
     badge: "diag",
     title: "LLDP Switch Discovery, Jumbo Ping, iperf3 & DNS",
@@ -346,6 +628,62 @@ const ETHERNET_CHEAT_SHEET_DATA = [
         ],
         tags: ["dns", "ipv6", "aaaa", "resolvectl", "systemd-resolved", "127.0.0.53", "ubuntu"],
         src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/resolvectl.1.html", "title": "resolvectl(1)"}]}
+      }
+    ]
+  },
+  {
+    "part": "eth-lldp-perf",
+    "id": "lldp-mtu-diag-pro-tips",
+    "badge": "tip",
+    "title": "LLDP & Line-Rate Tests: Pro Tips & Best Practices",
+    "subtitle": "Automated Switch Topology Discovery & Line-Rate Performance Validation",
+    "commands": [
+      {
+        "id": "lldp-mtu-diag-tips-card",
+        "desc": "Automated Switch Topology Discovery & Line-Rate Performance Validation",
+        "cmd": "lldpcli show neighbors && ping -6 -M do -s 8952 <dest_ip>",
+        "details": "LLDP shows what the switch advertises on that port (chassis name, port ID, often VLAN and management IP) without switch credentials, if the switch sends LLDP. To check a new NIC's throughput, run iperf3 with several parallel streams (-P 8); add --bidir to test both directions at once.",
+        "flags": [
+          [
+            "lldpcli show neighbors",
+            "What the neighbour advertises: system name, port ID, management IP"
+          ],
+          [
+            "ping -M do -s <bytes>",
+            "Enforce Don't Fragment flag to detect Path MTU Discovery blackholes"
+          ],
+          [
+            "iperf3 -6 -c <ip> -P 8",
+            "Run 8 parallel TCP streams over IPv6 to benchmark line-rate NIC performance"
+          ]
+        ],
+        "tip": "Use \"ping -M do -s 8952\" (8952 payload + 40-byte IPv6 header + 8-byte ICMPv6 header = 9000 bytes) to audit MTU 9000 paths without fragmentation.",
+        "tags": [
+          "lldp-mtu-diag",
+          "tips",
+          "pro",
+          "ethernet",
+          "nic",
+          "best-practice"
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/lldpd/lldpctl.8.en.html",
+              "title": "lldpctl(8) (lldpcli)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ping.8.html",
+              "title": "ping(8)"
+            },
+            {
+              "url": "https://software.es.net/iperf/invoking.html",
+              "title": "iperf3: invoking"
+            }
+          ],
+          "note": "Corrected 2026-11-10: -P sets parallel streams; both directions need --bidir."
+        }
       }
     ]
   }
@@ -438,6 +776,10 @@ EOF`
 };
 
 // Application State
+// One page for the whole group: the old per-topic pages are parts of it (#part in the URL).
+// Stars, visited ticks and practice from those pages move here once, before the stars are read.
+if (typeof window !== "undefined" && window.migrateMergedSheet) window.migrateMergedSheet("ethernet.html", "eth_cs_bookmarks", ETHERNET_CHEAT_SHEET_DATA, {"eth-rj45-tdr":"eth-rj45-tdr_bookmarks","eth-ethtool-tuning":"eth-ethtool-tuning_bookmarks","eth-netplan-systemd":"eth-netplan-systemd_bookmarks","eth-iproute2-ip6":"eth-iproute2-ip6_bookmarks","eth-bonding-vlans":"eth-bonding-vlans_bookmarks","eth-lldp-perf":"eth-lldp-perf_bookmarks"});
+
 const state = {
   searchQuery: "",
   activeCategory: "all",
@@ -445,6 +787,10 @@ const state = {
   theme: localStorage.getItem("linux_cs_theme") || "dark",
   bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("eth_cs_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
+// The part the hash picks (#nv-smi, or a command id): the first render is already filtered.
+state.part = typeof window !== "undefined" && window.sheetPartFromHash ? window.sheetPartFromHash(ETHERNET_CHEAT_SHEET_DATA) : "";
+if (typeof window !== "undefined") window.SHEET_FILTER = { sections: ETHERNET_CHEAT_SHEET_DATA, label: "Ethernet sheets" };
+
 
 // DOM Elements
 const searchInput = document.getElementById("search-input");
@@ -605,7 +951,7 @@ function renderSections() {
   const cardsHtml = [];
 
   for (const section of ETHERNET_CHEAT_SHEET_DATA) {
-    if (state.activeCategory !== "all" && state.activeCategory !== section.id) {
+    if (((state.activeCategory !== "all" && state.activeCategory !== section.id) || (state.part && (section.part || section.id) !== state.part))) {
       continue;
     }
 

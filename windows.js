@@ -1,5 +1,6 @@
 const WINDOWS_CHEAT_SHEET_DATA = [
   {
+    part: "win-shortcuts",
     id: "win-keys",
     badge: "keys",
     title: "Windows 11, Snap & Explorer Shortcuts",
@@ -86,6 +87,65 @@ const WINDOWS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "win-shortcuts",
+    "id": "win-keys-pro-tips",
+    "badge": "tip",
+    "title": "Windows 11: Pro Tips & Best Practices",
+    "subtitle": "Instant graphics driver reset, Snipping Tool OCR & Task Manager shortcut",
+    "commands": [
+      {
+        "id": "win-keys-tips-card",
+        "desc": "Instant graphics driver reset, Snipping Tool OCR & Task Manager shortcut",
+        "cmd": "Win+Ctrl+Shift+B   |   Win+Shift+S   |   Ctrl+Shift+Esc   |   Win+X",
+        "details": "Press Win+Ctrl+Shift+B to instantly restart your graphics driver subsystem when experiencing screen flickering or black screen freezes without rebooting. Use Win+Shift+S for text OCR extraction from any image.",
+        "flags": [
+          [
+            "Win+Ctrl+Shift+B",
+            "Beeps and wakes a blank or black display without closing apps"
+          ],
+          [
+            "Win+Shift+S",
+            "Snipping Tool: capture region, window, screen recording, or extract text (OCR)"
+          ],
+          [
+            "Ctrl+Shift+Esc",
+            "Directly open Task Manager without going through Ctrl+Alt+Del lock screen"
+          ],
+          [
+            "Win+V",
+            "Open Clipboard History (the first press offers to turn it on; pinned items stay)"
+          ]
+        ],
+        "tip": "Win+X opens the same menu as right-clicking Start: Terminal (Admin) is one click away",
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://support.microsoft.com/en-us/windows/keyboard-shortcuts-in-windows-dcc61a57-8ff0-cffe-9796-cb9706c75eec",
+              "title": "Microsoft: keyboard shortcuts in Windows"
+            },
+            {
+              "url": "https://support.microsoft.com/en-us/windows/use-snipping-tool-to-capture-screenshots-00246869-1843-655f-f220-97299b865f6b",
+              "title": "Microsoft: Snipping Tool"
+            },
+            {
+              "url": "https://support.microsoft.com/en-us/windows/clipboard-in-windows-c436501e-985d-1c8d-97ea-fe46ddf338c6",
+              "title": "Microsoft: clipboard history"
+            }
+          ]
+        },
+        "tags": [
+          "win-keys",
+          "tips",
+          "pro",
+          "windows",
+          "powershell",
+          "best-practices"
+        ]
+      }
+    ]
+  },
+  {
     id: "win-storage",
     badge: "storage",
     title: "Disks, Volumes & BitLocker Encryption",
@@ -151,6 +211,74 @@ const WINDOWS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "win-storage",
+    "id": "win-storage-pro-tips",
+    "badge": "tip",
+    "title": "Disks: Pro Tips & Best Practices",
+    "subtitle": "Retrieve 48-digit BitLocker recovery password & clean disk wipe",
+    "commands": [
+      {
+        "id": "win-storage-tips-card",
+        "desc": "Retrieve 48-digit BitLocker recovery password & clean disk wipe",
+        "cmd": "manage-bde -protectors -get C:   |   Get-Disk | Where-Object OperationalStatus -ne \"OK\"",
+        "details": "Always backup your 48-digit BitLocker numerical recovery password before BIOS/firmware updates using manage-bde. Inspect unhealthy or degraded physical storage drives with Get-Disk.",
+        "flags": [
+          [
+            "manage-bde -protectors -get C:",
+            "Outputs Numerical Password (Recovery Key ID and 48-digit key)"
+          ],
+          [
+            "Clear-Disk -Number 1 -RemoveData -Confirm:$false",
+            "Wipe disk partition table completely to prepare for clean provisioning"
+          ],
+          [
+            "Initialize-Disk -Number 1 -PartitionStyle GPT",
+            "Initialize newly attached drive with modern GPT partition table"
+          ],
+          [
+            "Get-Volume | Format-Table -AutoSize",
+            "List all drive letters, file system types (NTFS/ReFS), and free space"
+          ]
+        ],
+        "tip": "For source trees and build output, a Dev Drive (ReFS) is the supported fast option on Windows 11",
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/manage-bde-protectors",
+              "title": "manage-bde -protectors"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/storage/clear-disk",
+              "title": "Clear-Disk"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/storage/initialize-disk",
+              "title": "Initialize-Disk"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/storage/get-volume",
+              "title": "Get-Volume"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/windows/dev-drive/",
+              "title": "Dev Drive (ReFS)"
+            }
+          ]
+        },
+        "tags": [
+          "win-storage",
+          "tips",
+          "pro",
+          "windows",
+          "powershell",
+          "best-practices"
+        ]
+      }
+    ]
+  },
+  {
+    part: "win-processes",
     id: "ps-sys",
     badge: "ps-sys",
     title: "Processes, Services, Events & Hardware",
@@ -226,6 +354,75 @@ const WINDOWS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "win-processes",
+    "id": "ps-sys-pro-tips",
+    "badge": "tip",
+    "title": "Processes: Pro Tips & Best Practices",
+    "subtitle": "Accurate system uptime, parent process tree inspection & crash triage",
+    "commands": [
+      {
+        "id": "ps-sys-tips-card",
+        "desc": "Accurate system uptime, parent process tree inspection & crash triage",
+        "cmd": "(Get-CimInstance Win32_OperatingSystem).LastBootUpTime   |   Get-Service | Where Status -eq \"Running\"",
+        "details": "With Fast Startup on, Shut down hibernates the kernel instead of ending it, so neither Task Manager's uptime nor LastBootUpTime resets. Use Restart (or turn Fast Startup off) when you need a real fresh boot.",
+        "flags": [
+          [
+            "LastBootUpTime",
+            "Time of the last full boot (a Fast Startup power-on is not one)"
+          ],
+          [
+            "Get-Process | Sort-Object WorkingSet64 -Descending | Select -First 10",
+            "Identifies top RAM consumers in bytes"
+          ],
+          [
+            "Stop-Process -Name \"target\" -Force",
+            "Forcefully terminates all process instances immediately"
+          ],
+          [
+            "Get-WinEvent -FilterHashtable @{LogName='System'; Level=1,2} -MaxEvents 20",
+            "Pulls recent Critical (1) and Error (2) events"
+          ]
+        ],
+        "tip": "Use Get-CimInstance Win32_Process to inspect full command-line arguments and parent PIDs!",
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-operatingsystem",
+              "title": "Win32_OperatingSystem class"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/windows-hardware/drivers/kernel/distinguishing-fast-startup-from-wake-from-hibernation",
+              "title": "Microsoft: fast startup vs hibernation"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-process",
+              "title": "Get-Process"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/stop-process",
+              "title": "Stop-Process"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.diagnostics/get-winevent",
+              "title": "Get-WinEvent"
+            }
+          ],
+          "note": "Corrected 2026-11-10: LastBootUpTime does not bypass Fast Startup; it is not reset by a Fast Startup shutdown."
+        },
+        "tags": [
+          "ps-sys",
+          "tips",
+          "pro",
+          "windows",
+          "powershell",
+          "best-practices"
+        ]
+      }
+    ]
+  },
+  {
+    part: "win-network",
     id: "ps-net",
     badge: "ps-net",
     title: "Networking, Ports, DNS & Firewall",
@@ -304,6 +501,75 @@ const WINDOWS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "win-network",
+    "id": "ps-net-pro-tips",
+    "badge": "tip",
+    "title": "Networking: Pro Tips & Best Practices",
+    "subtitle": "Instant listening port ownership mapping & PowerShell netcat replacement",
+    "commands": [
+      {
+        "id": "ps-net-tips-card",
+        "desc": "Instant listening port ownership mapping & PowerShell netcat replacement",
+        "cmd": "Get-NetTCPConnection -State Listen | Select LocalPort, OwningProcess   |   Test-NetConnection",
+        "details": "Map listening TCP ports directly to process IDs without third-party utilities. Use Test-NetConnection as a built-in replacement for netcat, telnet, and traceroute.",
+        "flags": [
+          [
+            "Get-NetTCPConnection -State Listen",
+            "Returns all active listening TCP ports with OwningProcess PID"
+          ],
+          [
+            "Test-NetConnection -ComputerName 1.1.1.1 -Port 443",
+            "Tests TCP handshake connectivity and reports ping RTT"
+          ],
+          [
+            "Resolve-DnsName -Name example.com -Type AAAA",
+            "Query one record type (add -NoHostsFile to skip the hosts file, -Server to ask one resolver)"
+          ],
+          [
+            "Clear-DnsClientCache",
+            "Immediately purges Windows DNS resolver cache"
+          ]
+        ],
+        "tip": "Use Invoke-RestMethod instead of curl to parse JSON REST endpoints directly into PowerShell objects!",
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/nettcpip/get-nettcpconnection",
+              "title": "Get-NetTCPConnection"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/nettcpip/test-netconnection",
+              "title": "Test-NetConnection"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/dnsclient/resolve-dnsname",
+              "title": "Resolve-DnsName"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/dnsclient/clear-dnsclientcache",
+              "title": "Clear-DnsClientCache"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/invoke-restmethod",
+              "title": "Invoke-RestMethod"
+            }
+          ],
+          "note": "Corrected 2026-11-10: Resolve-DnsName reads the hosts file unless you pass -NoHostsFile."
+        },
+        "tags": [
+          "ps-net",
+          "tips",
+          "pro",
+          "windows",
+          "powershell",
+          "best-practices"
+        ]
+      }
+    ]
+  },
+  {
+    part: "win-packages",
     id: "winget-pkg",
     badge: "pkg",
     title: "Winget, Packages & PS Modules",
@@ -369,6 +635,70 @@ const WINDOWS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "win-packages",
+    "id": "winget-pkg-pro-tips",
+    "badge": "tip",
+    "title": "Winget: Pro Tips & Best Practices",
+    "subtitle": "Silent batch application upgrades & reproducible JSON machine manifests",
+    "commands": [
+      {
+        "id": "winget-pkg-tips-card",
+        "desc": "Silent batch application upgrades & reproducible JSON machine manifests",
+        "cmd": "winget upgrade --all --include-unknown   |   winget export -o winget.json",
+        "details": "The official Windows Package Manager (winget) can update your entire software suite with one command. Export your installed software catalog to JSON for instant provisioning on new machines.",
+        "flags": [
+          [
+            "winget upgrade --all",
+            "Updates all detected outdated applications across machine silently"
+          ],
+          [
+            "winget export -o manifest.json",
+            "Creates JSON manifest of all installed winget packages"
+          ],
+          [
+            "winget import -i manifest.json",
+            "Batch installs all packages specified in manifest"
+          ],
+          [
+            "Set-ExecutionPolicy RemoteSigned -Scope CurrentUser",
+            "Allows running local .ps1 scripts without admin rights"
+          ]
+        ],
+        "tip": "Pass --accept-package-agreements --accept-source-agreements so installs never stop at a license prompt",
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://learn.microsoft.com/en-us/windows/package-manager/winget/upgrade",
+              "title": "winget upgrade"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/windows/package-manager/winget/export",
+              "title": "winget export"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/windows/package-manager/winget/import",
+              "title": "winget import"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy",
+              "title": "Set-ExecutionPolicy"
+            }
+          ]
+        },
+        "tags": [
+          "winget-pkg",
+          "tips",
+          "pro",
+          "windows",
+          "powershell",
+          "best-practices"
+        ]
+      }
+    ]
+  },
+  {
+    part: "win-wsl",
     id: "wsl",
     badge: "wsl",
     title: "WSL 2 (Subsystem for Linux) & Interop",
@@ -434,6 +764,62 @@ const WINDOWS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "win-wsl",
+    "id": "wsl-pro-tips",
+    "badge": "tip",
+    "title": "WSL 2 (Subsystem for Linux): Pro Tips & Best Practices",
+    "subtitle": "Reclaim RAM instantly with VM shutdown & Windows-Linux filesystem interop",
+    "commands": [
+      {
+        "id": "wsl-tips-card",
+        "desc": "Reclaim RAM instantly with VM shutdown & Windows-Linux filesystem interop",
+        "cmd": "wsl --shutdown   |   explorer.exe \\\\wsl$\\Ubuntu\\   |   wsl --export Ubuntu D:\\backup.tar",
+        "details": "WSL 2 runs a lightweight Hyper-V VM that retains RAM caches. Running wsl --shutdown terminates the background VM and immediately releases gigabytes of RAM to Windows.",
+        "flags": [
+          [
+            "wsl --shutdown",
+            "Stops all running distributions and completely reclaims VM memory"
+          ],
+          [
+            "\\\\wsl$\\<distro>\\",
+            "Access the Linux root filesystem directly inside Windows File Explorer"
+          ],
+          [
+            "wsl -u root",
+            "Log into default distribution as root user to fix broken sudoers or permissions"
+          ],
+          [
+            "wsl --export <distro> <file.tar>",
+            "Create full portable backup snapshot of your Linux environment"
+          ]
+        ],
+        "tip": "You can run Windows commands from inside Linux bash (e.g. clip.exe < file.txt)!",
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://learn.microsoft.com/en-us/windows/wsl/basic-commands",
+              "title": "WSL basic commands"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/windows/wsl/filesystems",
+              "title": "WSL: working across file systems"
+            }
+          ]
+        },
+        "tags": [
+          "wsl",
+          "tips",
+          "pro",
+          "windows",
+          "powershell",
+          "best-practices"
+        ]
+      }
+    ]
+  },
+  {
+    part: "win-registry",
     id: "reg-env",
     badge: "reg",
     title: "Environment, Profile, Registry & Admin",
@@ -498,6 +884,70 @@ const WINDOWS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "win-registry",
+    "id": "reg-env-pro-tips",
+    "badge": "tip",
+    "title": "Environment: Pro Tips & Best Practices",
+    "subtitle": "Persistent environment variables, Registry PSDrives & Admin elevation",
+    "commands": [
+      {
+        "id": "reg-env-tips-card",
+        "desc": "Persistent environment variables, Registry PSDrives & Admin elevation",
+        "cmd": "[Environment]::SetEnvironmentVariable(\"NAME\", \"VAL\", \"User\")   |   cd HKCU:\\Software",
+        "details": "PowerShell allows navigating the Windows Registry just like a file folder using HKCU: and HKLM:. Persist environment variables cleanly across reboots without clicking through System Properties.",
+        "flags": [
+          [
+            "[Environment]::SetEnvironmentVariable()",
+            "Permanently sets User or Machine level environment variables"
+          ],
+          [
+            "$env:PATH -split \";\"",
+            "Cleanly splits PATH variable into one readable line per directory"
+          ],
+          [
+            "cd HKCU:\\",
+            "Navigate Current User Registry hive using standard cd, ls, dir, and Get-Item"
+          ],
+          [
+            "Start-Process wt -Verb RunAs",
+            "Launches an elevated Administrator Windows Terminal window"
+          ]
+        ],
+        "tip": "Edit your startup profile with notepad $PROFILE to define custom functions and persistent aliases!",
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://learn.microsoft.com/en-us/dotnet/api/system.environment.setenvironmentvariable",
+              "title": "Environment.SetEnvironmentVariable"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_registry_provider",
+              "title": "about_Registry_Provider"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/start-process",
+              "title": "Start-Process"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_profiles",
+              "title": "about_Profiles"
+            }
+          ]
+        },
+        "tags": [
+          "reg-env",
+          "tips",
+          "pro",
+          "windows",
+          "powershell",
+          "best-practices"
+        ]
+      }
+    ]
+  },
+  {
+    part: "win-sysadmin",
     id: "sysadmin-repair",
     badge: "adm",
     title: "System Repair, Robocopy, Power & UEFI",
@@ -562,6 +1012,77 @@ const WINDOWS_CHEAT_SHEET_DATA = [
         tip: "No more mashing F2/Del!",
         tags: ["bios", "uefi", "firmware", "reboot", "recovery", "safemode"],
         src: {"verified":"2026-11-10","refs":[{"url":"https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/shutdown","title":"shutdown"}]}
+      }
+    ]
+  },
+  {
+    "part": "win-sysadmin",
+    "id": "sysadmin-repair-pro-tips",
+    "badge": "tip",
+    "title": "System Repair: Pro Tips & Best Practices",
+    "subtitle": "High-speed 16-thread Robocopy directory mirror & corruption repair",
+    "commands": [
+      {
+        "id": "sysadmin-repair-tips-card",
+        "desc": "High-speed 16-thread Robocopy directory mirror & corruption repair",
+        "cmd": "robocopy <src> <dst> /MIR /MT:16 /R:1 /W:1   |   DISM /Online /Cleanup-Image /RestoreHealth",
+        "details": "Robocopy /MT copies with several threads (8 by default, up to 128), which helps most with many small files. To repair Windows, run DISM /RestoreHealth first, then sfc /scannow.",
+        "flags": [
+          [
+            "robocopy /MIR /MT:16",
+            "Mirrors directory structure using 16 concurrent worker threads"
+          ],
+          [
+            "/R:1 /W:1",
+            "Retry a locked file once after 1 second (defaults: 1,000,000 retries, 30 seconds apart)"
+          ],
+          [
+            "DISM /Online /Cleanup-Image /RestoreHealth",
+            "Downloads clean replacement system files from Windows Update"
+          ],
+          [
+            "sfc /scannow",
+            "Scans and repairs local protected operating system files"
+          ],
+          [
+            "shutdown /r /fw /t 0",
+            "Instantly reboots directly into motherboard UEFI/BIOS configuration"
+          ]
+        ],
+        "tip": "Generate a detailed laptop battery degradation report with: powercfg /batteryreport",
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/robocopy",
+              "title": "robocopy"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/repair-a-windows-image",
+              "title": "Repair a Windows image (DISM)"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/sfc",
+              "title": "sfc"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/shutdown",
+              "title": "shutdown"
+            },
+            {
+              "url": "https://learn.microsoft.com/en-us/windows-hardware/design/device-experiences/powercfg-command-line-options",
+              "title": "powercfg options"
+            }
+          ]
+        },
+        "tags": [
+          "sysadmin-repair",
+          "tips",
+          "pro",
+          "windows",
+          "powershell",
+          "best-practices"
+        ]
       }
     ]
   }
@@ -667,6 +1188,10 @@ const PS_OUTPUT_SUFFIX = {
 };
 
 // Application State
+// One page for the whole group: the old per-topic pages are parts of it (#part in the URL).
+// Stars, visited ticks and practice from those pages move here once, before the stars are read.
+if (typeof window !== "undefined" && window.migrateMergedSheet) window.migrateMergedSheet("windows.html", "win_cs_bookmarks", WINDOWS_CHEAT_SHEET_DATA, {"win-shortcuts":"win-shortcuts_bookmarks","win-storage":"win-storage_bookmarks","win-packages":"win-packages_bookmarks","win-wsl":"win-wsl_bookmarks","win-processes":"win-processes_bookmarks","win-network":"win-network_bookmarks","win-registry":"win-registry_bookmarks","win-sysadmin":"win-sysadmin_bookmarks"});
+
 const state = {
   searchQuery: "",
   activeCategory: "all",
@@ -674,6 +1199,10 @@ const state = {
   theme: localStorage.getItem("linux_cs_theme") || "dark",
   bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("win_cs_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
+// The part the hash picks (#nv-smi, or a command id): the first render is already filtered.
+state.part = typeof window !== "undefined" && window.sheetPartFromHash ? window.sheetPartFromHash(WINDOWS_CHEAT_SHEET_DATA) : "";
+if (typeof window !== "undefined") window.SHEET_FILTER = { sections: WINDOWS_CHEAT_SHEET_DATA, label: "Windows sheets" };
+
 
 // DOM Elements
 const searchInput = document.getElementById("search-input");
@@ -846,7 +1375,7 @@ function renderSections() {
   const cardsHtml = [];
 
   for (const section of WINDOWS_CHEAT_SHEET_DATA) {
-    if (state.activeCategory !== "all" && state.activeCategory !== section.id) {
+    if (((state.activeCategory !== "all" && state.activeCategory !== section.id) || (state.part && (section.part || section.id) !== state.part))) {
       continue;
     }
 

@@ -2,6 +2,7 @@
 // Standalone interactive cheat sheet for Rack & hardware reference: Rack & Hardware Reference Hub (power, cooling, memory, drives, GPUs, racks)
 const HWREF_HUB_DATA = [
   {
+    "part": "hw-power",
     "id": "power-cmd-1",
     "badge": "power",
     "title": "Power & PDUs: Real power draw from the BMC",
@@ -159,6 +160,7 @@ const HWREF_HUB_DATA = [
     ]
   },
   {
+    "part": "hw-power",
     "id": "power-cmd-2",
     "badge": "power",
     "title": "Power & PDUs: Cord and inlet ratings",
@@ -220,6 +222,7 @@ const HWREF_HUB_DATA = [
     ]
   },
   {
+    "part": "hw-power",
     "id": "power-cmd-3",
     "badge": "power",
     "title": "Power & PDUs: Circuit math",
@@ -292,6 +295,7 @@ const HWREF_HUB_DATA = [
     ]
   },
   {
+    "part": "hw-power",
     "id": "power-cmd-4",
     "badge": "power",
     "title": "Power & PDUs: PSU redundancy and A/B feeds",
@@ -377,6 +381,7 @@ const HWREF_HUB_DATA = [
     ]
   },
   {
+    "part": "hw-power",
     "id": "power-pro-tips",
     "badge": "tip",
     "title": "Power & PDUs: Pro Tip",
@@ -427,6 +432,7 @@ const HWREF_HUB_DATA = [
     ]
   },
   {
+    "part": "hw-cooling",
     "id": "cooling-cmd-1",
     "badge": "cooling",
     "title": "Cooling: Inlet and component temperatures from the BMC",
@@ -552,6 +558,7 @@ const HWREF_HUB_DATA = [
     ]
   },
   {
+    "part": "hw-cooling",
     "id": "cooling-cmd-2",
     "badge": "cooling",
     "title": "Cooling: GPU temperatures and thermal slowdown",
@@ -653,6 +660,7 @@ const HWREF_HUB_DATA = [
     ]
   },
   {
+    "part": "hw-cooling",
     "id": "cooling-cmd-3",
     "badge": "cooling",
     "title": "Cooling: Airflow checklist",
@@ -709,6 +717,7 @@ const HWREF_HUB_DATA = [
     ]
   },
   {
+    "part": "hw-cooling",
     "id": "cooling-cmd-4",
     "badge": "cooling",
     "title": "Cooling: Liquid cooling",
@@ -774,6 +783,7 @@ const HWREF_HUB_DATA = [
     ]
   },
   {
+    "part": "hw-cooling",
     "id": "cooling-pro-tips",
     "badge": "tip",
     "title": "Cooling: Pro Tip",
@@ -815,6 +825,7 @@ const HWREF_HUB_DATA = [
     ]
   },
   {
+    "part": "hw-memory",
     "id": "memory-cmd-1",
     "badge": "memory",
     "title": "Memory population: Every DIMM slot",
@@ -972,6 +983,7 @@ const HWREF_HUB_DATA = [
     ]
   },
   {
+    "part": "hw-memory",
     "id": "memory-cmd-2",
     "badge": "memory",
     "title": "Memory population: Channels per socket on current CPUs",
@@ -1034,6 +1046,7 @@ const HWREF_HUB_DATA = [
     ]
   },
   {
+    "part": "hw-memory",
     "id": "memory-cmd-3",
     "badge": "memory",
     "title": "Memory population: Balanced population check",
@@ -1118,6 +1131,7 @@ const HWREF_HUB_DATA = [
     ]
   },
   {
+    "part": "hw-memory",
     "id": "memory-cmd-4",
     "badge": "memory",
     "title": "Memory population: Correctable errors per DIMM",
@@ -1202,6 +1216,7 @@ const HWREF_HUB_DATA = [
     ]
   },
   {
+    "part": "hw-memory",
     "id": "memory-pro-tips",
     "badge": "tip",
     "title": "Memory population: Pro Tip",
@@ -1243,6 +1258,7 @@ const HWREF_HUB_DATA = [
     ]
   },
   {
+    "part": "hw-drives",
     "id": "drives-cmd-1",
     "badge": "drives",
     "title": "Drive form factors: Which drives, which transport, which model",
@@ -1363,6 +1379,7 @@ const HWREF_HUB_DATA = [
     ]
   },
   {
+    "part": "hw-drives",
     "id": "drives-cmd-2",
     "badge": "drives",
     "title": "Drive form factors: U.2 vs U.3",
@@ -1460,6 +1477,7 @@ const HWREF_HUB_DATA = [
     ]
   },
   {
+    "part": "hw-drives",
     "id": "drives-cmd-3",
     "badge": "drives",
     "title": "Drive form factors: EDSFF sizes",
@@ -1521,6 +1539,7 @@ const HWREF_HUB_DATA = [
     ]
   },
   {
+    "part": "hw-drives",
     "id": "drives-cmd-4",
     "badge": "drives",
     "title": "Drive form factors: Is the NVMe link at full width and speed?",
@@ -1569,6 +1588,7 @@ const HWREF_HUB_DATA = [
     ]
   },
   {
+    "part": "hw-drives",
     "id": "drives-pro-tips",
     "badge": "tip",
     "title": "Drive form factors: Pro Tip",
@@ -1610,6 +1630,7 @@ const HWREF_HUB_DATA = [
     ]
   },
   {
+    "part": "hw-gpu-forms",
     "id": "gpuform-cmd-1",
     "badge": "gpu",
     "title": "GPU form factors: Which GPUs, which bus IDs, which power limits",
@@ -1735,6 +1756,7 @@ const HWREF_HUB_DATA = [
     ]
   },
   {
+    "part": "hw-gpu-forms",
     "id": "gpuform-cmd-2",
     "badge": "gpu",
     "title": "GPU form factors: HGX / DGX 8-GPU systems",
@@ -1841,6 +1863,7 @@ const HWREF_HUB_DATA = [
     ]
   },
   {
+    "part": "hw-gpu-forms",
     "id": "gpuform-cmd-3",
     "badge": "gpu",
     "title": "GPU form factors: Rack-scale",
@@ -1901,6 +1924,7 @@ const HWREF_HUB_DATA = [
     ]
   },
   {
+    "part": "hw-gpu-forms",
     "id": "gpuform-pro-tips",
     "badge": "tip",
     "title": "GPU form factors: Pro Tip",
@@ -1938,6 +1962,7 @@ const HWREF_HUB_DATA = [
     ]
   },
   {
+    "part": "hw-rack",
     "id": "rack-cmd-1",
     "badge": "rack",
     "title": "Racks & labelling: Who is this server? Serial, model and asset tag",
@@ -2063,6 +2088,7 @@ const HWREF_HUB_DATA = [
     ]
   },
   {
+    "part": "hw-rack",
     "id": "rack-cmd-2",
     "badge": "rack",
     "title": "Racks & labelling: Rack units and rack types",
@@ -2127,6 +2153,7 @@ const HWREF_HUB_DATA = [
     ]
   },
   {
+    "part": "hw-rack",
     "id": "rack-cmd-3",
     "badge": "rack",
     "title": "Racks & labelling: A labelling scheme",
@@ -2174,6 +2201,7 @@ const HWREF_HUB_DATA = [
     ]
   },
   {
+    "part": "hw-rack",
     "id": "rack-pro-tips",
     "badge": "tip",
     "title": "Racks & labelling: Pro Tip",
@@ -2217,6 +2245,10 @@ const HWREF_HUB_DATA = [
 ];
 
 // Application State
+// One page for the whole group: the old per-topic pages are parts of it (#part in the URL).
+// Stars, visited ticks and practice from those pages move here once, before the stars are read.
+if (typeof window !== "undefined" && window.migrateMergedSheet) window.migrateMergedSheet("hw-reference.html", "hw-reference_bookmarks", HWREF_HUB_DATA, {"hw-power":"hw-power_bookmarks","hw-cooling":"hw-cooling_bookmarks","hw-rack":"hw-rack_bookmarks","hw-memory":"hw-memory_bookmarks","hw-drives":"hw-drives_bookmarks","hw-gpu-forms":"hw-gpu-forms_bookmarks"});
+
 const state = {
   searchQuery: "",
   activeCategory: "all",
@@ -2224,6 +2256,10 @@ const state = {
   theme: localStorage.getItem("linux_cs_theme") || "dark",
   bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("hw-reference_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
+// The part the hash picks (#nv-smi, or a command id): the first render is already filtered.
+state.part = typeof window !== "undefined" && window.sheetPartFromHash ? window.sheetPartFromHash(HWREF_HUB_DATA) : "";
+if (typeof window !== "undefined") window.SHEET_FILTER = { sections: HWREF_HUB_DATA, label: "Rack & hardware reference sheets" };
+
 
 // DOM Elements
 const searchInput = document.getElementById("search-input");
@@ -2435,7 +2471,7 @@ function renderSections() {
   const cardsHtml = [];
 
   for (const card of HWREF_HUB_DATA) {
-    if (state.activeCategory !== "all" && state.activeCategory !== card.id) {
+    if (((state.activeCategory !== "all" && state.activeCategory !== card.id) || (state.part && (card.part || card.id) !== state.part))) {
       continue;
     }
 

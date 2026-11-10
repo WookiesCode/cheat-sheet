@@ -2,6 +2,7 @@
 // Standalone interactive cheat sheet for Editors: Editors Hub (nano, VS Code, Zed, Cursor)
 const EDITORS_CHEAT_SHEET_DATA = [
   {
+    "part": "nano",
     "id": "nano-cmd-1",
     "badge": "nano",
     "title": "GNU nano: Open a file at a given line",
@@ -107,6 +108,7 @@ const EDITORS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "nano",
     "id": "nano-cmd-2",
     "badge": "nano",
     "title": "GNU nano: Edit a root-owned file safely with sudoedit",
@@ -308,6 +310,7 @@ const EDITORS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "nano",
     "id": "nano-cmd-3",
     "badge": "nano",
     "title": "GNU nano: Save, exit and get help",
@@ -368,6 +371,7 @@ const EDITORS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "nano",
     "id": "nano-cmd-4",
     "badge": "nano",
     "title": "GNU nano: Search and replace",
@@ -432,6 +436,7 @@ const EDITORS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "nano",
     "id": "nano-cmd-5",
     "badge": "nano",
     "title": "GNU nano: Cut, copy and paste whole lines; undo and redo",
@@ -493,6 +498,7 @@ const EDITORS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "nano",
     "id": "nano-cmd-6",
     "badge": "nano",
     "title": "GNU nano: Jump around a long file",
@@ -552,6 +558,7 @@ const EDITORS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "nano",
     "id": "nano-cmd-7",
     "badge": "nano",
     "title": "GNU nano: ~/.config/nano/nanorc",
@@ -604,6 +611,7 @@ const EDITORS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "nano",
     "id": "nano-cmd-8",
     "badge": "nano",
     "title": "GNU nano: Make nano",
@@ -660,6 +668,7 @@ const EDITORS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "nano",
     "id": "nano-pro-tips",
     "badge": "tip",
     "title": "GNU nano: Pro Tip",
@@ -713,6 +722,7 @@ const EDITORS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "vscode",
     "id": "vscode-cmd-1",
     "badge": "code",
     "title": "VS Code: Command Palette and Quick Open",
@@ -768,6 +778,7 @@ const EDITORS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "vscode",
     "id": "vscode-cmd-2",
     "badge": "code",
     "title": "VS Code: Show and hide the panels",
@@ -828,6 +839,7 @@ const EDITORS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "vscode",
     "id": "vscode-cmd-3",
     "badge": "code",
     "title": "VS Code: Move through code",
@@ -887,6 +899,7 @@ const EDITORS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "vscode",
     "id": "vscode-cmd-4",
     "badge": "code",
     "title": "VS Code: Multi-cursor and line editing",
@@ -956,6 +969,7 @@ const EDITORS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "vscode",
     "id": "vscode-cmd-5",
     "badge": "code",
     "title": "VS Code: Split, close and focus",
@@ -1003,6 +1017,7 @@ const EDITORS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "vscode",
     "id": "vscode-cmd-6",
     "badge": "code",
     "title": "VS Code: The code command",
@@ -1176,6 +1191,7 @@ const EDITORS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "vscode",
     "id": "vscode-cmd-7",
     "badge": "code",
     "title": "VS Code: Edit files on a server over SSH",
@@ -1240,6 +1256,7 @@ const EDITORS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "vscode",
     "id": "vscode-pro-tips",
     "badge": "tip",
     "title": "VS Code: Pro Tip",
@@ -1289,6 +1306,7 @@ const EDITORS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "zed",
     "id": "zed-cmd-1",
     "badge": "zed",
     "title": "Zed: Command palette, file finder, settings and keymap",
@@ -1348,6 +1366,7 @@ const EDITORS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "zed",
     "id": "zed-cmd-2",
     "badge": "zed",
     "title": "Zed: Docks, terminal and project search",
@@ -1403,6 +1422,7 @@ const EDITORS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "zed",
     "id": "zed-cmd-3",
     "badge": "zed",
     "title": "Zed: Definitions, references, symbols",
@@ -1462,6 +1482,7 @@ const EDITORS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "zed",
     "id": "zed-cmd-4",
     "badge": "zed",
     "title": "Zed: Multi-cursor and line editing",
@@ -1527,6 +1548,7 @@ const EDITORS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "zed",
     "id": "zed-cmd-5",
     "badge": "zed",
     "title": "Zed: AI",
@@ -1582,6 +1604,7 @@ const EDITORS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "zed",
     "id": "zed-cmd-6",
     "badge": "zed",
     "title": "Zed: The zed command",
@@ -1714,6 +1737,7 @@ const EDITORS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "zed",
     "id": "zed-cmd-7",
     "badge": "zed",
     "title": "Zed: Keymap file, base keymap and vim mode",
@@ -1767,6 +1791,7 @@ const EDITORS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "zed",
     "id": "zed-pro-tips",
     "badge": "tip",
     "title": "Zed: Pro Tip",
@@ -1816,6 +1841,7 @@ const EDITORS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "cursor",
     "id": "cursor-cmd-1",
     "badge": "cur",
     "title": "Cursor: Open the agent side panel and switch modes and models",
@@ -1876,6 +1902,7 @@ const EDITORS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "cursor",
     "id": "cursor-cmd-2",
     "badge": "cur",
     "title": "Cursor: In the chat box",
@@ -1936,6 +1963,7 @@ const EDITORS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "cursor",
     "id": "cursor-cmd-3",
     "badge": "cur",
     "title": "Cursor: Give the agent context",
@@ -1987,6 +2015,7 @@ const EDITORS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "cursor",
     "id": "cursor-cmd-4",
     "badge": "cur",
     "title": "Cursor: Tab completions",
@@ -2029,6 +2058,7 @@ const EDITORS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "cursor",
     "id": "cursor-cmd-5",
     "badge": "cur",
     "title": "Cursor: Settings, palette, keyboard shortcuts, voice",
@@ -2084,6 +2114,7 @@ const EDITORS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "cursor",
     "id": "cursor-cmd-6",
     "badge": "cur",
     "title": "Cursor: Run the Cursor agent in a terminal",
@@ -2197,6 +2228,7 @@ const EDITORS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "cursor",
     "id": "cursor-pro-tips",
     "badge": "tip",
     "title": "Cursor: Pro Tip",
@@ -2248,6 +2280,10 @@ const EDITORS_CHEAT_SHEET_DATA = [
 ];
 
 // Application State
+// One page for the whole group: the old per-topic pages are parts of it (#part in the URL).
+// Stars, visited ticks and practice from those pages move here once, before the stars are read.
+if (typeof window !== "undefined" && window.migrateMergedSheet) window.migrateMergedSheet("editors.html", "editors_bookmarks", EDITORS_CHEAT_SHEET_DATA, {"nano":"nano_bookmarks","vscode":"vscode_bookmarks","zed":"zed_bookmarks","cursor":"cursor_bookmarks"});
+
 const state = {
   searchQuery: "",
   activeCategory: "all",
@@ -2255,6 +2291,10 @@ const state = {
   theme: localStorage.getItem("linux_cs_theme") || "dark",
   bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("editors_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
+// The part the hash picks (#nv-smi, or a command id): the first render is already filtered.
+state.part = typeof window !== "undefined" && window.sheetPartFromHash ? window.sheetPartFromHash(EDITORS_CHEAT_SHEET_DATA) : "";
+if (typeof window !== "undefined") window.SHEET_FILTER = { sections: EDITORS_CHEAT_SHEET_DATA, label: "Editors sheets" };
+
 
 // DOM Elements
 const searchInput = document.getElementById("search-input");
@@ -2466,7 +2506,7 @@ function renderSections() {
   const cardsHtml = [];
 
   for (const card of EDITORS_CHEAT_SHEET_DATA) {
-    if (state.activeCategory !== "all" && state.activeCategory !== card.id) {
+    if (((state.activeCategory !== "all" && state.activeCategory !== card.id) || (state.part && (card.part || card.id) !== state.part))) {
       continue;
     }
 

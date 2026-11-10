@@ -1,5 +1,6 @@
 const MACOS_CHEAT_SHEET_DATA = [
   {
+    part: "macos-system-keys",
     id: "system-keys",
     badge: "keys",
     title: "System, Window & Screenshot Shortcuts",
@@ -97,6 +98,67 @@ const MACOS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "macos-system-keys",
+    "id": "system-keys-pro-tips",
+    "badge": "tip",
+    "title": "System: Pro Tips & Tricks",
+    "subtitle": "Capture to clipboard directly, window shadow removal & instant Spotlight math",
+    "commands": [
+      {
+        "id": "system-keys-tips-card",
+        "desc": "Capture to clipboard directly, window shadow removal & instant Spotlight math",
+        "cmd": "⌃⇧⌘4   |   ⇧⌘4 then Space then ⌥Click   |   ⌘Space then 1024*768",
+        "details": "Hold Control (⌃) during any screenshot shortcut to copy the image directly to your clipboard without saving a desktop file. Hold Option (⌥) when clicking a window to capture without the drop shadow.",
+        "flags": [
+          [
+            "⌃ (Control modifier)",
+            "Copies screenshot directly to clipboard instead of saving file"
+          ],
+          [
+            "⌥ (Option modifier)",
+            "Eliminates drop shadow when capturing a single window"
+          ],
+          [
+            "⌘Space",
+            "Spotlight answers math and unit or currency conversions in the search field"
+          ],
+          [
+            "⌃⌘Q",
+            "Instant lock screen without putting display to sleep"
+          ]
+        ],
+        "tip": "Press Space during region capture (⇧⌘4) to turn the crosshair into a camera icon!",
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://support.apple.com/en-us/102646",
+              "title": "Apple: take a screenshot"
+            },
+            {
+              "url": "https://support.apple.com/guide/mac-help/find-what-you-need-with-spotlight-mchlp1008/mac",
+              "title": "Apple: Spotlight"
+            },
+            {
+              "url": "https://support.apple.com/en-us/102650",
+              "title": "Apple: Mac keyboard shortcuts"
+            }
+          ],
+          "note": "Corrected 2026-11-10: Spotlight doesn't list weather."
+        },
+        "tags": [
+          "system-keys",
+          "tips",
+          "pro",
+          "tricks",
+          "macos",
+          "best-practices"
+        ]
+      }
+    ]
+  },
+  {
+    part: "macos-finder-keys",
     id: "finder-keys",
     badge: "fndr",
     title: "Finder, Quick Look & File Dialogs",
@@ -178,6 +240,62 @@ const MACOS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "macos-finder-keys",
+    "id": "finder-keys-pro-tips",
+    "badge": "tip",
+    "title": "Finder: Pro Tips & Tricks",
+    "subtitle": "Bypass trash, copy exact POSIX path & toggle hidden system dotfiles",
+    "commands": [
+      {
+        "id": "finder-keys-tips-card",
+        "desc": "Bypass trash, copy exact POSIX path & toggle hidden system dotfiles",
+        "cmd": "⌥⌘V   |   ⌥⌘C   |   ⌥⌘⌫   |   ⌘⇧.",
+        "details": "macOS has no \"cut\" for files in Finder—instead, press ⌘C to copy, then ⌥⌘V to move the file. Press ⌥⌘C to copy the full UNIX filesystem path directly to your clipboard.",
+        "flags": [
+          [
+            "⌥⌘V",
+            "Move (cut-paste) copied files into the current folder"
+          ],
+          [
+            "⌥⌘C",
+            "Copy exact full POSIX path (e.g. /Users/username/Docs/file.pdf)"
+          ],
+          [
+            "⌥⌘⌫",
+            "Immediately and permanently delete file without moving to Trash"
+          ],
+          [
+            "⌘⇧.",
+            "Toggle visibility of hidden dotfiles (.zshrc, .git, .env) in Finder"
+          ]
+        ],
+        "tip": "Press ⌘⇧G in Finder to open the \"Go to Folder\" direct path prompt!",
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://support.apple.com/en-us/102650",
+              "title": "Apple: Mac keyboard shortcuts"
+            },
+            {
+              "url": "https://support.apple.com/guide/mac-help/delete-files-and-folders-on-mac-mchlp1093/mac",
+              "title": "Apple: delete files and folders"
+            }
+          ]
+        },
+        "tags": [
+          "finder-keys",
+          "tips",
+          "pro",
+          "tricks",
+          "macos",
+          "best-practices"
+        ]
+      }
+    ]
+  },
+  {
+    part: "macos-text-editing",
     id: "text-editing",
     badge: "txt",
     title: "Text Editing, Cursor & Selection Shortcuts",
@@ -244,6 +362,66 @@ const MACOS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "macos-text-editing",
+    "id": "text-editing-pro-tips",
+    "badge": "tip",
+    "title": "Text Editing: Pro Tips & Tricks",
+    "subtitle": "System-wide Emacs readline keybindings, paste matching style & special typography",
+    "commands": [
+      {
+        "id": "text-editing-tips-card",
+        "desc": "System-wide Emacs readline keybindings, paste matching style & special typography",
+        "cmd": "⌃A   ⌃E   ⌃K   ⌃Y   |   ⌥⇧⌘V   |   ⌥⇧- (—)   ⌥; (…)   ⌥⇧K ()",
+        "details": "All native macOS text fields support Emacs readline navigation: ⌃A (beginning of line), ⌃E (end of line), ⌃K (kill to end of line), and ⌃Y (yank back). Use ⌥⇧⌘V to paste plain unformatted text anywhere.",
+        "flags": [
+          [
+            "⌥⇧⌘V",
+            "Paste and Match Style (strips HTML, rich text, colors & custom fonts)"
+          ],
+          [
+            "⌥⇧-",
+            "Em-dash (—) for clean typography without two hyphens"
+          ],
+          [
+            "⌥;",
+            "True typographic ellipsis (…) rather than three periods"
+          ],
+          [
+            "⌥⇧K",
+            "Apple logo symbol ()"
+          ],
+          [
+            "⌃⌘Space",
+            "Character Viewer: search all Unicode emojis, technical symbols & math"
+          ]
+        ],
+        "tip": "⌥⌫ deletes the entire previous word; ⌘⌫ deletes the entire line to the left!",
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://support.apple.com/en-us/102650",
+              "title": "Apple: Mac keyboard shortcuts"
+            },
+            {
+              "url": "https://support.apple.com/guide/mac-help/enter-characters-with-accent-marks-on-mac-mh27474/mac",
+              "title": "Apple: accents and Option-key characters"
+            }
+          ]
+        },
+        "tags": [
+          "text-editing",
+          "tips",
+          "pro",
+          "tricks",
+          "macos",
+          "best-practices"
+        ]
+      }
+    ]
+  },
+  {
+    part: "macos-trackpad",
     id: "trackpad",
     badge: "pad",
     title: "Multi-Touch Trackpad & Mouse Gestures",
@@ -307,6 +485,63 @@ const MACOS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "macos-trackpad",
+    "id": "trackpad-pro-tips",
+    "badge": "tip",
+    "title": "Multi-Touch Trackpad: Pro Tips & Tricks",
+    "subtitle": "Accessibility 3-finger drag, desktop peek & smart zoom gestures",
+    "commands": [
+      {
+        "id": "trackpad-tips-card",
+        "desc": "Accessibility 3-finger drag, desktop peek & smart zoom gestures",
+        "cmd": "System Settings > Accessibility > Pointer Control > Trackpad Options > Dragging style",
+        "details": "Three-Finger Drag allows moving windows, rearranging browser tabs, and highlighting paragraphs without clicking down hard on the trackpad. Enable it under Pointer Control > Trackpad Options.",
+        "flags": [
+          [
+            "3-Finger Drag",
+            "Effortlessly drag windows and select text without pressing down"
+          ],
+          [
+            "Thumb + 3 Fingers Spread",
+            "Show Desktop immediately (spread fingers outward)"
+          ],
+          [
+            "Thumb + 3 Fingers Pinch",
+            "Show your apps (Apps in macOS Tahoe 26 and later; Launchpad before)"
+          ],
+          [
+            "Double-tap with 2 fingers",
+            "Smart Zoom: zooms in on the active webpage column or image"
+          ]
+        ],
+        "tip": "Hold Shift while scrolling any vertical mouse wheel to scroll horizontally!",
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://support.apple.com/en-us/102341",
+              "title": "Apple: three finger drag"
+            },
+            {
+              "url": "https://support.apple.com/en-us/102482",
+              "title": "Apple: trackpad gestures"
+            }
+          ],
+          "note": "Corrected 2026-11-10: the thumb-and-three-finger pinch shows Apps on macOS 26 and later (Launchpad is gone)."
+        },
+        "tags": [
+          "trackpad",
+          "tips",
+          "pro",
+          "tricks",
+          "macos",
+          "best-practices"
+        ]
+      }
+    ]
+  },
+  {
+    part: "macos-darwin-cli",
     id: "darwin-cli",
     badge: "cli",
     title: "macOS Clipboard, Open & Spotlight CLI",
@@ -377,6 +612,78 @@ const MACOS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "macos-darwin-cli",
+    "id": "darwin-cli-pro-tips",
+    "badge": "tip",
+    "title": "macOS Clipboard: Pro Tips & Tricks",
+    "subtitle": "Terminal-to-GUI integration, instant mdfind queries & image manipulation",
+    "commands": [
+      {
+        "id": "darwin-cli-tips-card",
+        "desc": "Terminal-to-GUI integration, instant mdfind queries & image manipulation",
+        "cmd": "pbcopy < file   |   pbpaste | jq   |   open -a \"TextEdit\" file   |   mdfind -name \"app\"",
+        "details": "macOS ties the shell to the GUI. Use pbcopy / pbpaste to bridge shell output to the OS clipboard, mdfind to query Spotlight instantly, and sips for CLI image conversion.",
+        "flags": [
+          [
+            "pbcopy / pbpaste",
+            "Pipe data into or read data out of the system clipboard"
+          ],
+          [
+            "open .",
+            "Open the current terminal working directory in Finder"
+          ],
+          [
+            "open -e <file>",
+            "Open file in default macOS TextEdit GUI editor"
+          ],
+          [
+            "mdfind \"kMDItemFSName == '*.log'\"",
+            "Spotlight metadata search across indexed volumes"
+          ],
+          [
+            "sips -Z 800 image.png",
+            "Batch downscale image preserving aspect ratio to max 800px width/height"
+          ]
+        ],
+        "tip": "Run say \"Task completed\" at the end of long compile jobs for spoken notification!",
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://keith.github.io/xcode-man-pages/pbcopy.1.html",
+              "title": "pbcopy man page (Xcode man-page mirror)"
+            },
+            {
+              "url": "https://keith.github.io/xcode-man-pages/open.1.html",
+              "title": "open man page (Xcode man-page mirror)"
+            },
+            {
+              "url": "https://keith.github.io/xcode-man-pages/mdfind.1.html",
+              "title": "mdfind man page (Xcode man-page mirror)"
+            },
+            {
+              "url": "https://keith.github.io/xcode-man-pages/sips.1.html",
+              "title": "sips man page (Xcode man-page mirror)"
+            },
+            {
+              "url": "https://keith.github.io/xcode-man-pages/say.1.html",
+              "title": "say man page (Xcode man-page mirror)"
+            }
+          ]
+        },
+        "tags": [
+          "darwin-cli",
+          "tips",
+          "pro",
+          "tricks",
+          "macos",
+          "best-practices"
+        ]
+      }
+    ]
+  },
+  {
+    part: "macos-homebrew",
     id: "homebrew",
     badge: "brew",
     title: "Homebrew & Package Management",
@@ -444,6 +751,66 @@ const MACOS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "macos-homebrew",
+    "id": "homebrew-pro-tips",
+    "badge": "tip",
+    "title": "Homebrew: Pro Tips & Tricks",
+    "subtitle": "Reproducible Brewfile snapshots, background services & dependency auditing",
+    "commands": [
+      {
+        "id": "homebrew-tips-card",
+        "desc": "Reproducible Brewfile snapshots, background services & dependency auditing",
+        "cmd": "brew bundle dump --force   |   brew services list   |   brew autoremove   |   brew doctor",
+        "details": "Keep macOS development environments perfectly reproducible. Use brew bundle to create a Brewfile snapshot of all installed formulae, casks, and App Store apps for instant machine setup.",
+        "flags": [
+          [
+            "brew bundle dump --force",
+            "Create or overwrite Brewfile with all active packages & casks"
+          ],
+          [
+            "brew bundle install",
+            "Install everything listed in Brewfile on a new Mac"
+          ],
+          [
+            "brew services list",
+            "Inspect background launchd daemons (nginx, redis, postgresql)"
+          ],
+          [
+            "brew autoremove",
+            "Uninstall orphaned dependencies no longer required by any formula"
+          ],
+          [
+            "brew cleanup -s",
+            "Scrub cached downloads and reclaim gigabytes of disk space"
+          ]
+        ],
+        "tip": "Run brew outdated --greedy to check for updates on auto-updating GUI casks!",
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.brew.sh/Manpage",
+              "title": "brew(1)"
+            },
+            {
+              "url": "https://docs.brew.sh/Brew-Bundle-and-Brewfile",
+              "title": "Homebrew: brew bundle and Brewfile"
+            }
+          ]
+        },
+        "tags": [
+          "homebrew",
+          "tips",
+          "pro",
+          "tricks",
+          "macos",
+          "best-practices"
+        ]
+      }
+    ]
+  },
+  {
+    part: "macos-system-admin",
     id: "system-admin",
     badge: "sys",
     title: "System Defaults, Launchd, Power & Hardware",
@@ -512,6 +879,78 @@ const MACOS_CHEAT_SHEET_DATA = [
     ]
   },
   {
+    "part": "macos-system-admin",
+    "id": "system-admin-pro-tips",
+    "badge": "tip",
+    "title": "System Defaults: Pro Tips & Tricks",
+    "subtitle": "Prevent sleep during long tasks, defaults customization & launchd triage",
+    "commands": [
+      {
+        "id": "system-admin-tips-card",
+        "desc": "Prevent sleep during long tasks, defaults customization & launchd triage",
+        "cmd": "caffeinate -dimsu -t 3600   |   defaults read <domain>   |   launchctl list | grep -v 0$",
+        "details": "caffeinate prevents your Mac from sleeping, dimming display, or throttling CPU while scripts run. The defaults command inspects and overrides preferences in ~/Library/Preferences/.",
+        "flags": [
+          [
+            "caffeinate -dimsu",
+            "Assert display, system, disk, and user active sleep prevention"
+          ],
+          [
+            "caffeinate -i <command>",
+            "Keep Mac awake until the specified command process terminates"
+          ],
+          [
+            "defaults write <domain> <key> <val>",
+            "Set hidden OS preferences; follow with killall <Process>"
+          ],
+          [
+            "sw_vers",
+            "Display macOS product name, version, and OS build number"
+          ],
+          [
+            "sysctl -n machdep.cpu.brand_string",
+            "Inspect exact CPU model (Apple M1/M2/M3/M4 or Intel)"
+          ]
+        ],
+        "tip": "Use caffeinate -s during long ssh uploads or backup transfers to prevent idle sleep!",
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://keith.github.io/xcode-man-pages/caffeinate.8.html",
+              "title": "caffeinate man page (Xcode man-page mirror)"
+            },
+            {
+              "url": "https://keith.github.io/xcode-man-pages/defaults.1.html",
+              "title": "defaults man page (Xcode man-page mirror)"
+            },
+            {
+              "url": "https://keith.github.io/xcode-man-pages/launchctl.1.html",
+              "title": "launchctl man page (Xcode man-page mirror)"
+            },
+            {
+              "url": "https://keith.github.io/xcode-man-pages/sw_vers.1.html",
+              "title": "sw_vers man page (Xcode man-page mirror)"
+            },
+            {
+              "url": "https://keith.github.io/xcode-man-pages/sysctl.8.html",
+              "title": "sysctl man page (Xcode man-page mirror)"
+            }
+          ]
+        },
+        "tags": [
+          "system-admin",
+          "tips",
+          "pro",
+          "tricks",
+          "macos",
+          "best-practices"
+        ]
+      }
+    ]
+  },
+  {
+    part: "macos-net-disk-sec",
     id: "net-disk-sec",
     badge: "net",
     title: "Networking, Disks, Gatekeeper & Keychain",
@@ -587,6 +1026,82 @@ const MACOS_CHEAT_SHEET_DATA = [
         ],
         tags: ["diskutil", "apfs", "eject", "unmount", "dmg", "hdiutil", "usb"],
         src: {"verified":"2026-11-10","refs":[{"url":"https://keith.github.io/xcode-man-pages/diskutil.8.html","title":"diskutil man page (Xcode man-page mirror)"},{"url":"https://keith.github.io/xcode-man-pages/hdiutil.1.html","title":"hdiutil man page (Xcode man-page mirror)"}]}
+      }
+    ]
+  },
+  {
+    "part": "macos-net-disk-sec",
+    "id": "net-disk-sec-pro-tips",
+    "badge": "tip",
+    "title": "Networking: Pro Tips & Tricks",
+    "subtitle": "Quarantine xattr clearance, Apple networkQuality & Keychain password recovery",
+    "commands": [
+      {
+        "id": "net-disk-sec-tips-card",
+        "desc": "Quarantine xattr clearance, Apple networkQuality & Keychain password recovery",
+        "cmd": "xattr -dr com.apple.quarantine /Applications/App.app   |   networkQuality -v   |   security find-generic-password",
+        "details": "For an app you trust that Gatekeeper calls \"damaged\", remove only the quarantine attribute with xattr -dr com.apple.quarantine (xattr -c would clear every attribute). Measure throughput and responsiveness under load with networkQuality.",
+        "flags": [
+          [
+            "xattr -dr com.apple.quarantine <path>",
+            "Recursively delete just the quarantine attribute (-c clears all attributes)"
+          ],
+          [
+            "networkQuality -v",
+            "Run Apple official responsiveness test (RPM, latency & bufferbloat)"
+          ],
+          [
+            "dscacheutil -flushcache; killall -HUP mDNSResponder",
+            "Completely flush and reset macOS DNS cache"
+          ],
+          [
+            "security find-generic-password -ga \"SSID\"",
+            "Retrieve saved Wi-Fi WPA2/WPA3 password from Keychain"
+          ],
+          [
+            "diskutil list",
+            "List all physical disks, synthesize APFS containers, and volume groups"
+          ]
+        ],
+        "tip": "Run codesign -dvvv /Applications/App.app to verify code signatures and team identifiers!",
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://keith.github.io/xcode-man-pages/xattr.1.html",
+              "title": "xattr man page (Xcode man-page mirror)"
+            },
+            {
+              "url": "https://keith.github.io/xcode-man-pages/networkQuality.8.html",
+              "title": "networkQuality man page (Xcode man-page mirror)"
+            },
+            {
+              "url": "https://keith.github.io/xcode-man-pages/dscacheutil.1.html",
+              "title": "dscacheutil man page (Xcode man-page mirror)"
+            },
+            {
+              "url": "https://keith.github.io/xcode-man-pages/security.1.html",
+              "title": "security man page (Xcode man-page mirror)"
+            },
+            {
+              "url": "https://keith.github.io/xcode-man-pages/diskutil.8.html",
+              "title": "diskutil man page (Xcode man-page mirror)"
+            },
+            {
+              "url": "https://keith.github.io/xcode-man-pages/codesign.1.html",
+              "title": "codesign man page (Xcode man-page mirror)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: xattr -cr clears every extended attribute, not just quarantine."
+        },
+        "tags": [
+          "net-disk-sec",
+          "tips",
+          "pro",
+          "tricks",
+          "macos",
+          "best-practices"
+        ]
       }
     ]
   }
@@ -719,6 +1234,10 @@ const DEFAULTS_TWEAKS = {
 };
 
 // Application State (shares theme & compact preference across all sheets)
+// One page for the whole group: the old per-topic pages are parts of it (#part in the URL).
+// Stars, visited ticks and practice from those pages move here once, before the stars are read.
+if (typeof window !== "undefined" && window.migrateMergedSheet) window.migrateMergedSheet("macos.html", "macos_cs_bookmarks", MACOS_CHEAT_SHEET_DATA, {"macos-system-keys":"macos_system-keys_bookmarks","macos-finder-keys":"macos_finder-keys_bookmarks","macos-text-editing":"macos_text-editing_bookmarks","macos-trackpad":"macos_trackpad_bookmarks","macos-darwin-cli":"macos_darwin-cli_bookmarks","macos-homebrew":"macos_homebrew_bookmarks","macos-system-admin":"macos_system-admin_bookmarks","macos-net-disk-sec":"macos_net-disk-sec_bookmarks"});
+
 const state = {
   searchQuery: "",
   activeCategory: "all",
@@ -726,6 +1245,10 @@ const state = {
   theme: localStorage.getItem("linux_cs_theme") || "dark",
   bookmarks: new Set((() => { try { return JSON.parse(localStorage.getItem("macos_cs_bookmarks") || "[]"); } catch (e) { return []; } })())
 };
+// The part the hash picks (#nv-smi, or a command id): the first render is already filtered.
+state.part = typeof window !== "undefined" && window.sheetPartFromHash ? window.sheetPartFromHash(MACOS_CHEAT_SHEET_DATA) : "";
+if (typeof window !== "undefined") window.SHEET_FILTER = { sections: MACOS_CHEAT_SHEET_DATA, label: "macOS sheets" };
+
 
 // DOM Elements
 const searchInput = document.getElementById("search-input");
@@ -895,7 +1418,7 @@ function renderSections() {
   const cardsHtml = [];
 
   for (const section of MACOS_CHEAT_SHEET_DATA) {
-    if (state.activeCategory !== "all" && state.activeCategory !== section.id) {
+    if (((state.activeCategory !== "all" && state.activeCategory !== section.id) || (state.part && (section.part || section.id) !== state.part))) {
       continue;
     }
 

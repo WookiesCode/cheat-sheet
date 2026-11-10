@@ -4808,7 +4808,9 @@ ${rmaTrailSection()}#### Action Requested:
       if (legacy === 'true' && readStored(COMPACT_KEY) === null) localStorage.setItem(COMPACT_KEY, '1');
       localStorage.removeItem('mb_sheet_compact');
     }
-    setSheetContext(window.location.pathname.split('/').pop() || 'index.html');
+    // A merged group page with a part picked (nvidia.html#nv-smi) runs as the old page (nv-smi.html).
+    const part = window.SHEET_FILTER && !window.portableOpenSheet ? sheetFilterTarget(window.SHEET_FILTER.sections).part : '';
+    setSheetContext(part ? `${part}.html` : (window.location.pathname.split('/').pop() || 'index.html'));
     applyCompact(readStored(COMPACT_KEY) === '1');
 
     document.addEventListener('click', (e) => {
@@ -9074,28 +9076,51 @@ ${rmaTrailSection()}#### Action Requested:
 
   // -------------------------------------------------------------
   // MERGED SHEETS
-  // A group page (cli-tools.html) can hold what used to be one page per tool. Its sheet
-  // script registers window.SHEET_FILTER = { sections, set(id) }, and the hash picks what
-  // shows: #grep = only grep's cards, #grep-pcre-extract = grep's cards scrolled to that
-  // command, no hash = everything. The rail, pager, visited ticks and practice treat
-  // "cli-tools.html#grep" as the sheet; the old grep.html is a redirect to it.
+  // A group page (cli-tools.html, nvidia.html, …) holds what used to be one page per tool or
+  // topic. Its data sections carry part: "<old page name>" (or the section id is the part),
+  // its script registers window.SHEET_FILTER = { sections, label }, and the hash picks what
+  // shows: #nv-smi = only that part, #<command id> = its part scrolled to the command, no
+  // hash = everything. While a part is picked the page reports itself as the old page
+  // (nv-smi.html) to the features keyed by page name (health ranges, strips, badges), and
+  // the rail, pager, visited ticks and practice treat "nvidia.html#nv-smi" as the sheet.
+  // Picking another part reloads the page, so every one of those features starts clean.
   // -------------------------------------------------------------
   let sheetFilterId = '';
   const sheetOf = i => i.sheet || i.file;
+  const partOf = sec => sec.part || sec.id;
+  function pageFile() { return window.location.pathname.split('/').pop() || 'index.html'; }
   function currentSheetFile() {
-    const file = anatSheetFile || window.location.pathname.split('/').pop() || 'index.html';
-    return window.SHEET_FILTER && sheetFilterId ? `${file}#${sheetFilterId}` : file;
+    if (window.SHEET_FILTER) return sheetFilterId ? `${pageFile()}#${sheetFilterId}` : pageFile();
+    return anatSheetFile || pageFile();
   }
+
+  // The part (and card) the hash asks for. The group page's script calls this while it loads,
+  // so its first render is already filtered.
+  function sheetFilterTarget(sections) {
+    let h = '';
+    try { h = decodeURIComponent(location.hash.slice(1)); } catch (e) { h = location.hash.slice(1); }
+    if (!sections || !h) return { part: '', card: '' };
+    if (sections.some(s => partOf(s) === h || s.id === h)) {
+      const sec = sections.find(s => partOf(s) === h) || sections.find(s => s.id === h);
+      return { part: partOf(sec), card: '' };
+    }
+    const sec = sections.find(s => (s.commands || []).some(c => c.id === h));
+    return sec ? { part: partOf(sec), card: h } : { part: '', card: '' };
+  }
+  window.sheetPartFromHash = sections => sheetFilterTarget(sections).part;
 
   // Runs from the merged sheet's script before it reads its stars, so stars made on the old
   // per-tool pages show on the group page. Old visited ticks and practice progress move too.
-  window.migrateMergedSheet = function (hubFile, hubKey, sections) {
+  // oldKeys: { part: "<old page's star key>" }; a part with no entry used "<part>_bookmarks".
+  window.migrateMergedSheet = function (hubFile, hubKey, sections, oldKeys = {}) {
     const flag = `cs_merged:${hubFile}`;
     try { if (localStorage.getItem(flag)) return; } catch (e) { return; }
     try {
+      const parts = [...new Set(sections.map(partOf))];
       const into = new Set(JSON.parse(localStorage.getItem(hubKey) || '[]'));
-      sections.forEach(sec => {
-        const key = `${sec.id}_bookmarks`;
+      parts.forEach(part => {
+        const key = oldKeys[part] || `${part}_bookmarks`;
+        if (key === hubKey) return;
         const raw = localStorage.getItem(key);
         if (raw === null) return;
         try { JSON.parse(raw).forEach(id => into.add(id)); } catch (e) {}
@@ -9103,7 +9128,7 @@ ${rmaTrailSection()}#### Action Requested:
       });
       localStorage.setItem(hubKey, JSON.stringify([...into]));
       const v = readVisited();
-      sections.forEach(sec => { if (v.has(`${sec.id}.html`)) v.add(`${hubFile}#${sec.id}`); });
+      parts.forEach(part => { if (v.has(`${part}.html`)) v.add(`${hubFile}#${part}`); });
       localStorage.setItem(VISITED_KEY, JSON.stringify([...v]));
       // Practice progress is keyed by sheet file + command text.
       const d = pracLoad();
@@ -9111,7 +9136,7 @@ ${rmaTrailSection()}#### Action Requested:
       sections.forEach(sec => (sec.commands || []).forEach(c => {
         const cmds = [c.cmd, ...(Array.isArray(c.subcommands) ? c.subcommands.map(x => Array.isArray(x) ? x[0] : '') : [])].filter(Boolean);
         cmds.forEach(cmd => {
-          const oldK = pracKey({ file: `${sec.id}.html`, cmd }), newK = pracKey({ file: hubFile, cmd });
+          const oldK = pracKey({ file: `${partOf(sec)}.html`, cmd }), newK = pracKey({ file: hubFile, cmd });
           if (d.cards[oldK] && !d.cards[newK]) { d.cards[newK] = d.cards[oldK]; delete d.cards[oldK]; moved++; }
         });
       }));
@@ -9120,69 +9145,54 @@ ${rmaTrailSection()}#### Action Requested:
     } catch (e) { /* storage blocked: nothing to move */ }
   };
 
-  // Which part the hash asks for: a section id, or a command id inside one.
-  function sheetFilterTarget() {
-    const f = window.SHEET_FILTER;
-    let h = '';
-    try { h = decodeURIComponent(location.hash.slice(1)); } catch (e) { h = location.hash.slice(1); }
-    if (!f || !h) return { part: '', card: '' };
-    if (f.sections.some(s => s.id === h)) return { part: h, card: '' };
-    const sec = f.sections.find(s => (s.commands || []).some(c => c.id === h));
-    return sec ? { part: sec.id, card: h } : { part: '', card: '' };
+  function sheetFilterScroll(card) {
+    const el = card && document.querySelector(`.cmd-item[data-id="${CSS.escape(card)}"], .cmd-item[data-cmd-id="${CSS.escape(card)}"], #${CSS.escape(card)}`);
+    if (!el) return;
+    el.classList.add('card-revealed');
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    el.classList.add('cmd-highlight-flash');
+    setTimeout(() => el.classList.remove('cmd-highlight-flash'), 2500);
   }
 
+  // A hash change inside the same part only scrolls; a different part reloads the page.
   function applySheetFilter() {
     const f = window.SHEET_FILTER;
     if (!f) return;
-    const { part, card } = sheetFilterTarget();
-    const changed = part !== sheetFilterId;
-    sheetFilterId = part;
-    f.set(part || 'all');
-    document.body.classList.toggle('sheet-filtered', !!part);
-    renderSheetFilterBar();
-    if (changed || !document.querySelector('.suite-rail, .sheet-rail .rail-list')) {
-      markVisited(currentSheetFile());
-      try { mountHubLanding(currentSheetFile()); } catch (e) {}
-      try { renderSuiteNav(); } catch (e) {}
-    }
-    requestAnimationFrame(() => {
-      window.dispatchEvent(new Event('resize'));   // masonry repacks the new set of cards
-      const el = card && document.querySelector(`.cmd-item[data-id="${CSS.escape(card)}"], .cmd-item[data-cmd-id="${CSS.escape(card)}"], #${CSS.escape(card)}`);
-      if (el) {
-        el.classList.add('card-revealed');
-        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        el.classList.add('cmd-highlight-flash');
-        setTimeout(() => el.classList.remove('cmd-highlight-flash'), 2500);
-      } else if (changed) {
-        window.scrollTo({ top: 0 });
-      }
-    });
+    const { part, card } = sheetFilterTarget(f.sections);
+    if (part !== sheetFilterId) { location.reload(); return; }
+    requestAnimationFrame(() => sheetFilterScroll(card));
   }
 
-  // "Showing grep · All 47 CLI tools" above the cards while a part is picked.
+  // "Showing nvidia-smi · All 8 NVIDIA DC sheets →" above the cards while a part is picked.
   function renderSheetFilterBar() {
-    let bar = document.getElementById('sheet-filter-bar');
     const f = window.SHEET_FILTER;
-    if (!f || !sheetFilterId) { if (bar) bar.remove(); return; }
-    const sec = f.sections.find(s => s.id === sheetFilterId);
     const host = document.getElementById('sections-container');
-    if (!sec || !host) return;
-    if (!bar) {
-      bar = document.createElement('div');
-      bar.id = 'sheet-filter-bar';
-      bar.className = 'sheet-filter-bar';
-      host.parentNode.insertBefore(bar, host);
-    }
-    const [name, about] = String(sec.title || sec.id).split(/\s+[—–-]\s+/);
+    if (!f || !sheetFilterId || !host) return;
+    const suite = suiteFor(currentSheetFile());
+    const me = suite && suite.sheets.find(s => s.file === currentSheetFile());
+    const sec = f.sections.find(s => partOf(s) === sheetFilterId);
+    const [name, about] = me ? [me.code || me.desc, me.code ? me.desc : ''] : String((sec && sec.title) || sheetFilterId).split(/\s+[—–-]\s+/);
+    const n = suite ? suite.sheets.filter(s => s.file.startsWith(`${pageFile()}#`)).length : new Set(f.sections.map(partOf)).size;
+    const bar = document.createElement('div');
+    bar.id = 'sheet-filter-bar';
+    bar.className = 'sheet-filter-bar';
     bar.innerHTML = `<span class="sfb-label">Showing</span> <b>${escapeHtml(name)}</b>${about ? ` <span class="sfb-about">${escapeHtml(about)}</span>` : ''}
-      <a class="sfb-all" href="#">All ${f.sections.length} ${escapeHtml(f.label || 'sections')} →</a>`;
+      <a class="sfb-all" href="#">All ${n} ${escapeHtml(f.label || (suite ? suite.name : 'sections'))} →</a>`;
+    host.parentNode.insertBefore(bar, host);
   }
 
   function initSheetFilter() {
-    if (!window.SHEET_FILTER || IN_WIDGET_FRAME) return;
+    const f = window.SHEET_FILTER;
+    if (!f || IN_WIDGET_FRAME) return;
+    const { part, card } = sheetFilterTarget(f.sections);
+    sheetFilterId = part;
+    // Features keyed by page name see the old page while a part is picked.
+    if (part && !window.portableOpenSheet) setSheetContext(`${part}.html`);
     document.body.classList.add('is-merged');
+    document.body.classList.toggle('sheet-filtered', !!part);
+    renderSheetFilterBar();
     window.addEventListener('hashchange', applySheetFilter);
-    applySheetFilter();
+    if (card) setTimeout(() => sheetFilterScroll(card), 300);
   }
 
   function kitIndex() {
@@ -16315,7 +16325,7 @@ ${rmaTrailSection()}#### Action Requested:
   // they must not get a $ prompt or be split at | and ;.
   // Hoisted: setSheetContext() runs at startup, before this line is reached.
   var anatSheetFile;
-  const ANAT_SKIP_SHEETS = /^(neovim|nvim-|markdown|regex|json|yaml|toml|lua|python|javascript|typescript|sql|jira|omarchy|macos-(finder-keys|system-keys|text-editing|trackpad)|win-shortcuts|fiber|motherboards)/;
+  const ANAT_SKIP_SHEETS = /^(scripting\.html$|neovim|nvim-|markdown|regex|json|yaml|toml|lua|python|javascript|typescript|sql|jira|omarchy|macos-(finder-keys|system-keys|text-editing|trackpad)|win-shortcuts|fiber|motherboards)/;
   function anatLooksShell(raw) {
     if (ANAT_SKIP_SHEETS.test(anatSheetFile || window.location.pathname.split('/').pop() || '')) return false;
     if (/[⌘⌥⌃⇧⌫←→↑↓─►▸•]/.test(raw)) return false;
