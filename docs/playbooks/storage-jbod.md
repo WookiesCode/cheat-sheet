@@ -97,30 +97,38 @@ zpool iostat -v
 
 ## 4. Parallel & Distributed File Systems (Read-Only Health Checks)
 
-When a compute node or storage server reports slow I/O, hung mounts, or OSD/OST errors, use these read-only checks to distinguish client network issues from backend storage server faults:
+When a compute node or storage server reports slow I/O, hung mounts, or OSD/OST errors, use these read-only checks to distinguish client network issues from backend storage server faults. Each one is sourced, with more commands, on the site's Parallel filesystems sheets (`pfs-lustre.html`, `pfs-weka.html`, `pfs-beegfs.html`, `pfs-ceph.html`), checked 2026-11-09.
 
 ### Lustre
 ```bash
 lfs check servers                   # Verify MDS/OSS reachability from client
 lfs df -h                           # Check OST/MDT capacity and state
 lctl dl                             # List Lustre devices and status (UP/DOWN)
-lctl ping <nid>@o2ib                # Test LNet RDMA connectivity (Read-Only)
+lctl ping <server-ip>@o2ib          # Test LNet RDMA connectivity to a server NID (Read-Only)
 dmesg -T | grep -i lustre           # Check for LNet timeouts or OST evictions
 ```
 
 ### WEKA
 ```bash
-weka status                         # Cluster health, rebuild status, active alerts
+weka status                         # Cluster health and capacity (weka status rebuild: rebuild/protection)
 weka alerts                         # List current active cluster alerts
-weka cluster nodes                  # Check container/node states
+weka cluster container              # Container states per host (WEKA 6.0; older CLIs: weka cluster host)
 weka cluster drive                  # Check NVMe drive states managed by WEKA
 ```
 
 ### BeeGFS
+BeeGFS 8.x uses one `beegfs` command; 7.x uses `beegfs-ctl` and helper scripts. Check which the node has (`beegfs --help`).
 ```bash
-beegfs-check-servers                # Check reachability of mgmtd, meta, storage
-beegfs-ctl --listnodes --nodetype=storage --nicdetails
-beegfs-df                           # Check free space and target health across pools
+beegfs health check                 # 8.x: common problems across nodes and targets
+beegfs target list --state          # 8.x: reachability (Online/Offline) and consistency (Good/Needs resync/Bad)
+beegfs node list --with-nics        # 8.x: nodes and the NICs they use
+beegfs health df                    # 8.x: free space and inodes per target
+```
+```bash
+beegfs-check-servers                # 7.x: reachability of mgmtd, meta, storage
+beegfs-ctl --listtargets --longnodes --state   # 7.x: target states
+beegfs-ctl --listnodes --nodetype=storage --nicdetails   # 7.x: storage nodes and NICs
+beegfs-df                           # 7.x: free space and inodes per target
 ```
 
 ### Ceph
@@ -128,7 +136,8 @@ beegfs-df                           # Check free space and target health across 
 ceph -s                             # Overall health (HEALTH_OK / WARN / ERR)
 ceph health detail                  # Detailed breakdown of slow ops, PG state, down OSDs
 ceph osd tree                       # Map OSDs to hosts and racks
-ceph osd df tree                    # Check OSD utilization and weight
+ceph osd df <host>                  # OSD utilization on one host (ceph osd df: all OSDs)
+ceph device ls-by-host <host>       # Which physical disk is behind each OSD
 ```
 
 ### IBM Storage Scale (GPFS)

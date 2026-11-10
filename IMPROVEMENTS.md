@@ -250,7 +250,7 @@ All 37 entries were written against SchedMD's Slurm 26.05 docs and cite them. Ch
 
 `DANGER_RE` now flags `umount`, `lfs setstripe`, the Ceph state changes (`osd set|unset|out|in|…`, `crash archive|rm|prune`, `pg repair`, `health mute`, `orch apply|rm|host …|daemon …`), WEKA drive and container (de)activation and removal, `cluster stop-io|start-io`, `fs remove`, `local stop|rm`, and BeeGFS node delete and migrate (8.x and 7.x).
 
-**Found in `docs/playbooks/storage-jbod.md` (not changed):**
+**Found in `docs/playbooks/storage-jbod.md`** (✅ fixed on `fix/storage-playbook`: WEKA and Ceph lines replaced; BeeGFS split into 8.x and labelled 7.x commands; each section points to the sheets):
 - `weka cluster nodes` doesn't exist in the WEKA 6.0 CLI; use `weka cluster container` (or `cluster server list`).
 - `ceph osd df tree` isn't in the current Ceph docs; use `ceph osd df <host>`.
 - The BeeGFS lines are 7.x-only. On 8.x they are `beegfs health check`, `beegfs node list --with-nics` and `beegfs health df`.
