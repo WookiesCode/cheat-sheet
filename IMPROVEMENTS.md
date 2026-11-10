@@ -185,6 +185,22 @@ Wording: dmidecode `-t` keywords map to several types (bios 0+13, system 1/12/15
 
 **Not confirmed (said in the notes):** the EDAC `csrow*/ch*_ce_count` files (not in the kernel ABI docs; the `dimm*` files are); the Intel `thermal_throttle/*_count` files (only turbostat(8) points to them); the GRUB manual (rate-limited); the `(downgraded)` and `UNCLAIMED` markers are confirmed from pciutils and lshw source, not their man pages.
 
+## #8 for the Rack & hardware reference sheets (2026-11-09, `improve/sources-hw-reference`)
+
+All 50 entries on the six hardware-reference sheets (power, cooling, memory, drives, GPU form factors, racks: commands, recipes and the Pro Tip cards) now show a source line. `generate-suite-kit.js` now passes a Pro Tip's `src` through too. The sources: ipmitool's man page and source (sensor-type names, `fru print [fru id]`), the nvidia-smi docs, the Fabric Manager guide, NVIDIA's HGX, H200, GB200/GB300 NVL72 and DGX B200 pages, SNIA's EDSFF and SFF pages, the OCP Open Rack V3 base spec (read locally from the PDF), dmidecode, lsmem, numactl, lsblk, nvme-cli, smartctl, edac-util, ledctl and the kernel EDAC ABI. Wikipedia is cited where it was the only fetchable summary: IEC 60320, rack unit, U.2/U.3, 12VHPWR/12V-2x6 and Granite Rapids.
+
+| Was | Now | Why |
+|---|---|---|
+| Fabric Manager "at the driver's exact version" | compatible with the driver; the same version only before R620 | FM guide: from R620, FM has its own versioning |
+| Xeon 6900P/6700P "DDR5-6400" | DDR5-6400 at 1 DPC (5200 at 2 DPC); MRDIMM 8000 on some 6700P SKUs | Intel SKU data (via Wikipedia) |
+| "U.2 drive in a U.3-only bay: usually doesn't work" | U.2 drives are not compatible with U.3 hosts | the U.2/U.3 rule as stated |
+| 12V-2x6 "marked H++" | dropped; "replaced 12VHPWR in CEM 5.1" | the marking couldn't be confirmed |
+| E1.S "8 mm", "20 W and x8" | 8.01 mm; 20 W and x8 in the 9.5 mm symmetric enclosure | SNIA form-factor page |
+
+**`sudo` removed** from all 14 commands (dmidecode, nvme, smartctl, lspci, ledctl, nvidia-bug-report, edac-util). The site marks root commands itself: a ROOT badge, and the copy gets `# needs root` by default. `ledctl` got a root rule in `PRIV_RULES` so its badge isn't lost. `edac-util` reads world-readable sysfs counters, so it never needed root.
+
+**Not verified (said on the card, 5):** the circuit card and its recipe (NEC 210.20(A) is paywalled), the labelling card (ANSI/TIA-606-D is sold), the NVMe link-width loop (the sysfs files exist on a live system but aren't in the kernel ABI docs), and the nvidia-bug-report tip (not in the nvidia-smi docs). Notes also flag the ASHRAE ranges and W classes (ASHRAE refuses automated fetches), the AMD EPYC 9005 memory figures and HPE's "highest common speed" rule (vendor pages refused or timed out), and the nvidia-smi `--query-gpu` field names (use `--help-query-gpu`).
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |

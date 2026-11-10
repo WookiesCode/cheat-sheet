@@ -13063,6 +13063,7 @@ ${rmaTrailSection()}#### Action Requested:
     [/^efibootmgr\b[^|;&]*\s-(c|b|B|o|n|N|a|A|O|t|T|D)\b/, 'root', 'writes UEFI boot variables'],
     [/^nvidia-smi\b[^|;&]*\s(-r|--gpu-reset|-pm|--persistence-mode|-pl|--power-limit|-lgc|--lock-gpu-clocks|-rgc|--reset-gpu-clocks|-lmc|--lock-memory-clocks|-rmc|-ac|--applications-clocks|-rac|-mig|--multi-instance-gpu|-e|--ecc-config|-c|--compute-mode|-p|--reset-ecc-errors)\b/, 'root', 'changes GPU state (reset, persistence, clocks, power, MIG, ECC)'],
     [/^nvidia-bug-report\.sh\b/, 'root', 'collects logs and device state only root can read'],
+    [/^ledctl\b(?!\s+(-h|--help|-v|--version)\b)/, 'root', 'changes backplane LED state through sysfs / SES'],
     [/^(dd)\b[^|;&]*\b(if|of)=\/dev\/(sd|nvme|md|dm-|hd|vd|xvd|mapper)/, 'root', 'reads or writes a raw disk'],
     [/^(crictl|ctr)\b/, 'root', 'talks to the container runtime socket, root-only'],
     [/^tee\s+(-a\s+)?\/(etc|sys|proc|boot|dev)\//, 'root', 'writes into /etc, /sys, /proc or /boot'],

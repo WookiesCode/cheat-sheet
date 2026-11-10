@@ -40,7 +40,25 @@ const HWREF_HUB_DATA = [
           "watts",
           "psu",
           "budget"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool man page"
+            },
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_sdr.c",
+              "title": "ipmitool source: sensor type names"
+            },
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            }
+          ],
+          "note": "ipmitool -E reads IPMI_PASSWORD (or IPMITOOL_PASSWORD, which wins). --query-gpu field names are listed by nvidia-smi --help-query-gpu on your driver, not on the docs page."
+        }
       },
       {
         "id": "power-read-bmc-sub-1",
@@ -54,7 +72,25 @@ const HWREF_HUB_DATA = [
           "power",
           "dcmi",
           "watts"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool man page"
+            },
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_sdr.c",
+              "title": "ipmitool source: sensor type names"
+            },
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            }
+          ],
+          "note": "ipmitool -E reads IPMI_PASSWORD (or IPMITOOL_PASSWORD, which wins). --query-gpu field names are listed by nvidia-smi --help-query-gpu on your driver, not on the docs page."
+        }
       },
       {
         "id": "power-read-bmc-sub-2",
@@ -68,7 +104,25 @@ const HWREF_HUB_DATA = [
           "power",
           "dcmi",
           "watts"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool man page"
+            },
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_sdr.c",
+              "title": "ipmitool source: sensor type names"
+            },
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            }
+          ],
+          "note": "ipmitool -E reads IPMI_PASSWORD (or IPMITOOL_PASSWORD, which wins). --query-gpu field names are listed by nvidia-smi --help-query-gpu on your driver, not on the docs page."
+        }
       },
       {
         "id": "power-read-bmc-sub-3",
@@ -82,7 +136,25 @@ const HWREF_HUB_DATA = [
           "power",
           "dcmi",
           "watts"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool man page"
+            },
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_sdr.c",
+              "title": "ipmitool source: sensor type names"
+            },
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            }
+          ],
+          "note": "ipmitool -E reads IPMI_PASSWORD (or IPMITOOL_PASSWORD, which wins). --query-gpu field names are listed by nvidia-smi --help-query-gpu on your driver, not on the docs page."
+        }
       }
     ]
   },
@@ -129,7 +201,21 @@ const HWREF_HUB_DATA = [
           "iec60320",
           "cord",
           "inlet"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://en.wikipedia.org/wiki/IEC_60320",
+              "title": "IEC 60320 (Wikipedia)"
+            },
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_fru.c",
+              "title": "ipmitool source: fru print [fru id]"
+            }
+          ],
+          "note": "Ratings from Wikipedia's summary of IEC 60320 and UL/CSA 60320-1, not the standard itself. Which FRU fields mention power is vendor-specific."
+        }
       }
     ]
   },
@@ -177,7 +263,12 @@ const HWREF_HUB_DATA = [
           "kw",
           "circuit",
           "pdu"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [],
+          "note": "NEC 210.20(A) (NFPA 70) is not freely readable, so the 125 % / 80 % rule and the 100 %-rated exception are not checked here. The kW formulas are standard electrical math."
+        }
       },
       {
         "id": "power-circuit-sub-1",
@@ -191,7 +282,12 @@ const HWREF_HUB_DATA = [
           "nec",
           "80-percent",
           "three-phase"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [],
+          "note": "NEC 210.20(A) (NFPA 70) is not freely readable, so the 125 % / 80 % rule and the 100 %-rated exception are not checked here. The kW formulas are standard electrical math."
+        }
       }
     ]
   },
@@ -234,7 +330,21 @@ const HWREF_HUB_DATA = [
           "ab-feed",
           "pdu",
           "ac-lost"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool man page"
+            },
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_sdr.c",
+              "title": "ipmitool source: sensor type names"
+            }
+          ],
+          "note": "SEL wording for PSU events (AC lost, redundancy) varies by vendor."
+        }
       },
       {
         "id": "power-redundancy-sub-1",
@@ -248,7 +358,21 @@ const HWREF_HUB_DATA = [
           "redundancy",
           "psu",
           "ab-feed"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool man page"
+            },
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_sdr.c",
+              "title": "ipmitool source: sensor type names"
+            }
+          ],
+          "note": "SEL wording for PSU events (AC lost, redundancy) varies by vendor."
+        }
       }
     ]
   },
@@ -262,7 +386,7 @@ const HWREF_HUB_DATA = [
         "id": "power-tips-card",
         "desc": "GPU power at the card: the 12V-2x6 connector",
         "cmd": "nvidia-smi -q -d POWER",
-        "details": "PCIe GPUs such as H200 NVL (up to 600 W) are fed by the 16-pin 12V-2x6 connector (PCIe CEM 5.1, marked H++), rated up to 600 W. Its sense pins only make contact when the plug is fully seated. A half-seated plug is a melting risk: push until it clicks and check that no gap shows. SXM GPUs (H200 SXM up to 700 W) are fed through the HGX baseboard.",
+        "details": "PCIe GPUs such as H200 NVL (up to 600 W) are fed by the 16-pin 12V-2x6 connector (PCIe CEM 5.1, the revision that replaced 12VHPWR), rated up to 600 W. Its sense pins only make contact when the power pins are fully seated. A half-seated plug is a melting risk: push until it clicks and check that no gap shows. SXM GPUs (H200 SXM up to 700 W) are fed through the HGX baseboard.",
         "flags": [
           [
             "Power Limit / Max Power Limit",
@@ -280,7 +404,25 @@ const HWREF_HUB_DATA = [
           "power",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            },
+            {
+              "url": "https://www.nvidia.com/en-us/data-center/h200/",
+              "title": "NVIDIA H200"
+            },
+            {
+              "url": "https://en.wikipedia.org/wiki/12VHPWR",
+              "title": "12VHPWR / 12V-2x6 (Wikipedia)"
+            }
+          ],
+          "note": "Wikipedia gives 12V-2x6 as 525 W or 600 W depending on the sense pins."
+        }
       }
     ]
   },
@@ -323,7 +465,25 @@ const HWREF_HUB_DATA = [
           "ashrae",
           "sensors",
           "airflow"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool man page"
+            },
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_sdr.c",
+              "title": "ipmitool source: sensor type names"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/lm-sensors/sensors.1.en.html",
+              "title": "sensors(1)"
+            }
+          ],
+          "note": "The ASHRAE TC 9.9 ranges (recommended 18-27 °C, A1 allowable 15-32 °C) could not be checked: ASHRAE's reference card is not freely fetchable. The exhaust delta is a rule of thumb."
+        }
       },
       {
         "id": "cooling-inlet-sub-1",
@@ -337,7 +497,25 @@ const HWREF_HUB_DATA = [
           "temperature",
           "inlet",
           "ashrae"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool man page"
+            },
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_sdr.c",
+              "title": "ipmitool source: sensor type names"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/lm-sensors/sensors.1.en.html",
+              "title": "sensors(1)"
+            }
+          ],
+          "note": "The ASHRAE TC 9.9 ranges (recommended 18-27 °C, A1 allowable 15-32 °C) could not be checked: ASHRAE's reference card is not freely fetchable. The exhaust delta is a rule of thumb."
+        }
       },
       {
         "id": "cooling-inlet-sub-2",
@@ -351,7 +529,25 @@ const HWREF_HUB_DATA = [
           "temperature",
           "inlet",
           "ashrae"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool man page"
+            },
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_sdr.c",
+              "title": "ipmitool source: sensor type names"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/lm-sensors/sensors.1.en.html",
+              "title": "sensors(1)"
+            }
+          ],
+          "note": "The ASHRAE TC 9.9 ranges (recommended 18-27 °C, A1 allowable 15-32 °C) could not be checked: ASHRAE's reference card is not freely fetchable. The exhaust delta is a rule of thumb."
+        }
       }
     ]
   },
@@ -394,7 +590,17 @@ const HWREF_HUB_DATA = [
           "throttle",
           "hbm",
           "thermal"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            }
+          ],
+          "note": "--query-gpu field names are listed by nvidia-smi --help-query-gpu on your driver, not on the docs page."
+        }
       },
       {
         "id": "cooling-gpu-sub-1",
@@ -408,7 +614,17 @@ const HWREF_HUB_DATA = [
           "gpu",
           "temperature",
           "throttle"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            }
+          ],
+          "note": "--query-gpu field names are listed by nvidia-smi --help-query-gpu on your driver, not on the docs page."
+        }
       },
       {
         "id": "cooling-gpu-sub-2",
@@ -422,7 +638,17 @@ const HWREF_HUB_DATA = [
           "gpu",
           "temperature",
           "throttle"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            }
+          ],
+          "note": "--query-gpu field names are listed by nvidia-smi --help-query-gpu on your driver, not on the docs page."
+        }
       }
     ]
   },
@@ -468,7 +694,17 @@ const HWREF_HUB_DATA = [
           "fans",
           "blanking",
           "physical"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool man page"
+            }
+          ],
+          "note": "The checklist is field practice, not from a standard."
+        }
       }
     ]
   },
@@ -515,7 +751,25 @@ const HWREF_HUB_DATA = [
           "coolant",
           "leak",
           "nvl72"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool man page"
+            },
+            {
+              "url": "https://www.nvidia.com/en-us/data-center/gb200-nvl72/",
+              "title": "NVIDIA GB200 NVL72"
+            },
+            {
+              "url": "https://www.nvidia.com/en-us/data-center/gb300-nvl72/",
+              "title": "NVIDIA GB300 NVL72"
+            }
+          ],
+          "note": "The ASHRAE W classes (W17-W45, W+) could not be checked: ASHRAE's pages refuse automated fetches."
+        }
       }
     ]
   },
@@ -547,7 +801,16 @@ const HWREF_HUB_DATA = [
           "cooling",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool man page"
+            }
+          ]
+        }
       }
     ]
   },
@@ -560,7 +823,7 @@ const HWREF_HUB_DATA = [
       {
         "id": "mem-dmidecode",
         "desc": "Every DIMM slot: populated, size, speed, part and serial",
-        "cmd": "sudo dmidecode -t memory | grep -E 'Locator|Size|Speed|Part Number|Serial Number'",
+        "cmd": "dmidecode -t memory | grep -E 'Locator|Size|Speed|Part Number|Serial Number'",
         "details": "",
         "flags": [
           [
@@ -594,12 +857,29 @@ const HWREF_HUB_DATA = [
           "locator",
           "serial",
           "memory"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+              "title": "dmidecode(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/lsmem.1.html",
+              "title": "lsmem(1)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/numactl.8.html",
+              "title": "numactl(8)"
+            }
+          ]
+        }
       },
       {
         "id": "mem-dmidecode-sub-1",
         "desc": "How many DIMMs are installed",
-        "cmd": "sudo dmidecode -t memory | grep -c 'Size: [0-9]'",
+        "cmd": "dmidecode -t memory | grep -c 'Size: [0-9]'",
         "tags": [
           "hardware",
           "reference",
@@ -608,7 +888,24 @@ const HWREF_HUB_DATA = [
           "dimm",
           "dmidecode",
           "locator"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+              "title": "dmidecode(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/lsmem.1.html",
+              "title": "lsmem(1)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/numactl.8.html",
+              "title": "numactl(8)"
+            }
+          ]
+        }
       },
       {
         "id": "mem-dmidecode-sub-2",
@@ -622,7 +919,24 @@ const HWREF_HUB_DATA = [
           "dimm",
           "dmidecode",
           "locator"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+              "title": "dmidecode(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/lsmem.1.html",
+              "title": "lsmem(1)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/numactl.8.html",
+              "title": "numactl(8)"
+            }
+          ]
+        }
       },
       {
         "id": "mem-dmidecode-sub-3",
@@ -636,7 +950,24 @@ const HWREF_HUB_DATA = [
           "dimm",
           "dmidecode",
           "locator"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+              "title": "dmidecode(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/lsmem.1.html",
+              "title": "lsmem(1)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/numactl.8.html",
+              "title": "numactl(8)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -658,11 +989,11 @@ const HWREF_HUB_DATA = [
           ],
           [
             "Intel Xeon 6900P",
-            "12 channels, DDR5-6400, MRDIMM up to 8800 MT/s"
+            "12 channels, DDR5-6400 at 1 DPC (5200 at 2 DPC), MRDIMM up to 8800 MT/s"
           ],
           [
             "Intel Xeon 6700P",
-            "8 channels, DDR5-6400, MRDIMM up to 8000 MT/s"
+            "8 channels, DDR5-6400 at 1 DPC (5200 at 2 DPC), MRDIMM up to 8000 MT/s on some SKUs"
           ],
           [
             "Highest common speed",
@@ -684,7 +1015,21 @@ const HWREF_HUB_DATA = [
           "xeon",
           "ddr5",
           "mrdimm"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/lscpu.1.html",
+              "title": "lscpu(1)"
+            },
+            {
+              "url": "https://en.wikipedia.org/wiki/Granite_Rapids",
+              "title": "Granite Rapids (Wikipedia, Xeon 6900P/6700P)"
+            }
+          ],
+          "note": "Corrected 2026-11-09: Xeon 6 DDR5-6400 is at 1 DPC (5200 at 2 DPC). The AMD EPYC 9005 figures and the 'highest common speed' rule could not be checked (AMD, Kingston and HPE pages refused or timed out); use your server's memory population guide."
+        }
       }
     ]
   },
@@ -697,7 +1042,7 @@ const HWREF_HUB_DATA = [
       {
         "id": "mem-balance",
         "desc": "Balanced population check",
-        "cmd": "sudo dmidecode -t memory | awk -F: '/Size:/{s=$2} /Bank Locator/{print $2 \" ->\" s}' | sort",
+        "cmd": "dmidecode -t memory | awk -F: '/Size:/{s=$2} /Bank Locator/{print $2 \" ->\" s}' | sort",
         "details": "",
         "flags": [
           [
@@ -726,7 +1071,21 @@ const HWREF_HUB_DATA = [
           "numa",
           "population",
           "dimm"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+              "title": "dmidecode(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/numactl.8.html",
+              "title": "numactl(8)"
+            }
+          ],
+          "note": "Balance guidance is general; the server vendor's population guide is the authority."
+        }
       },
       {
         "id": "mem-balance-sub-1",
@@ -740,7 +1099,21 @@ const HWREF_HUB_DATA = [
           "balance",
           "numa",
           "population"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+              "title": "dmidecode(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/numactl.8.html",
+              "title": "numactl(8)"
+            }
+          ],
+          "note": "Balance guidance is general; the server vendor's population guide is the authority."
+        }
       }
     ]
   },
@@ -753,7 +1126,7 @@ const HWREF_HUB_DATA = [
       {
         "id": "mem-errors",
         "desc": "Correctable errors per DIMM",
-        "cmd": "sudo edac-util -v",
+        "cmd": "edac-util -v",
         "details": "",
         "flags": [
           [
@@ -782,7 +1155,21 @@ const HWREF_HUB_DATA = [
           "edac",
           "errors",
           "rma"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/edac-utils/edac-util.1.en.html",
+              "title": "edac-util(1)"
+            },
+            {
+              "url": "https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-devices-edac",
+              "title": "Kernel ABI: sysfs-devices-edac"
+            }
+          ],
+          "note": "edac-util reads world-readable sysfs counters, so it doesn't need root (the old sudo was dropped)."
+        }
       },
       {
         "id": "mem-errors-sub-1",
@@ -796,7 +1183,21 @@ const HWREF_HUB_DATA = [
           "ecc",
           "edac",
           "errors"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/edac-utils/edac-util.1.en.html",
+              "title": "edac-util(1)"
+            },
+            {
+              "url": "https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-devices-edac",
+              "title": "Kernel ABI: sysfs-devices-edac"
+            }
+          ],
+          "note": "edac-util reads world-readable sysfs counters, so it doesn't need root (the old sudo was dropped)."
+        }
       }
     ]
   },
@@ -809,7 +1210,7 @@ const HWREF_HUB_DATA = [
       {
         "id": "memory-tips-card",
         "desc": "Before you reseat or swap a DIMM",
-        "cmd": "sudo dmidecode -t memory > dimms-before.txt",
+        "cmd": "dmidecode -t memory > dimms-before.txt",
         "details": "Save the DIMM table, note the slot from the Locator (not the Linux row number), drain the node and get approval to power off. After the swap, save dimms-after.txt and diff: same count, same Configured Memory Speed, and the new serial in the right slot.",
         "flags": [
           [
@@ -828,7 +1229,16 @@ const HWREF_HUB_DATA = [
           "memory",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+              "title": "dmidecode(8)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -866,12 +1276,30 @@ const HWREF_HUB_DATA = [
           "lsblk",
           "serial",
           "identify"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/lsblk.8.html",
+              "title": "lsblk(8)"
+            },
+            {
+              "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-list.txt",
+              "title": "nvme-cli: nvme list"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/smartmontools/smartctl.8.en.html",
+              "title": "smartctl(8)"
+            }
+          ],
+          "note": "smartctl -i shows model, serial and firmware; form factor and rotation rate appear only when the drive reports them."
+        }
       },
       {
         "id": "drives-identify-sub-1",
         "desc": "NVMe inventory",
-        "cmd": "sudo nvme list",
+        "cmd": "nvme list",
         "tags": [
           "hardware",
           "reference",
@@ -880,12 +1308,30 @@ const HWREF_HUB_DATA = [
           "nvme",
           "lsblk",
           "serial"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/lsblk.8.html",
+              "title": "lsblk(8)"
+            },
+            {
+              "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-list.txt",
+              "title": "nvme-cli: nvme list"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/smartmontools/smartctl.8.en.html",
+              "title": "smartctl(8)"
+            }
+          ],
+          "note": "smartctl -i shows model, serial and firmware; form factor and rotation rate appear only when the drive reports them."
+        }
       },
       {
         "id": "drives-identify-sub-2",
         "desc": "Model, form factor and rotation rate for SAS/SATA",
-        "cmd": "sudo smartctl -i /dev/sda",
+        "cmd": "smartctl -i /dev/sda",
         "tags": [
           "hardware",
           "reference",
@@ -894,7 +1340,25 @@ const HWREF_HUB_DATA = [
           "nvme",
           "lsblk",
           "serial"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/lsblk.8.html",
+              "title": "lsblk(8)"
+            },
+            {
+              "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-list.txt",
+              "title": "nvme-cli: nvme list"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/smartmontools/smartctl.8.en.html",
+              "title": "smartctl(8)"
+            }
+          ],
+          "note": "smartctl -i shows model, serial and firmware; form factor and rotation rate appear only when the drive reports them."
+        }
       }
     ]
   },
@@ -907,7 +1371,7 @@ const HWREF_HUB_DATA = [
       {
         "id": "drives-u2u3",
         "desc": "U.2 vs U.3 (same connector, different wiring)",
-        "cmd": "sudo lspci -vv -s <bdf> | grep -E 'LnkCap|LnkSta'",
+        "cmd": "lspci -vv -s <bdf> | grep -E 'LnkCap|LnkSta'",
         "details": "",
         "flags": [
           [
@@ -923,8 +1387,8 @@ const HWREF_HUB_DATA = [
             "Works: U.3 drives must be backward-compatible with U.2 hosts"
           ],
           [
-            "U.2 drive in a U.3-only bay",
-            "Usually doesn't work: the lane pinout differs"
+            "U.2 drive in a U.3 host",
+            "Not compatible: U.3 moved the PCIe lanes"
           ],
           [
             "Same plug ≠ works",
@@ -941,12 +1405,30 @@ const HWREF_HUB_DATA = [
           "sff-8639",
           "tri-mode",
           "backplane"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://en.wikipedia.org/wiki/U.2",
+              "title": "U.2 / U.3 (Wikipedia)"
+            },
+            {
+              "url": "https://www.snia.org/technology-communities/sff/specifications?items_per_page=All",
+              "title": "SNIA SFF specifications (SFF-TA-1001)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/lspci.8.html",
+              "title": "lspci(8)"
+            }
+          ],
+          "note": "SNIA lists SFF-TA-1001 as the Universal x4 Link Definition for SFF-8639 (1.1, 2018); the U.2/U.3 compatibility rule is from Wikipedia's summary."
+        }
       },
       {
         "id": "drives-u2u3-sub-1",
         "desc": "Which controller and path each NVMe drive is on",
-        "cmd": "sudo nvme list -v",
+        "cmd": "nvme list -v",
         "tags": [
           "hardware",
           "reference",
@@ -955,7 +1437,25 @@ const HWREF_HUB_DATA = [
           "u.2",
           "u.3",
           "sff-8639"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://en.wikipedia.org/wiki/U.2",
+              "title": "U.2 / U.3 (Wikipedia)"
+            },
+            {
+              "url": "https://www.snia.org/technology-communities/sff/specifications?items_per_page=All",
+              "title": "SNIA SFF specifications (SFF-TA-1001)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/lspci.8.html",
+              "title": "lspci(8)"
+            }
+          ],
+          "note": "SNIA lists SFF-TA-1001 as the Universal x4 Link Definition for SFF-8639 (1.1, 2018); the U.2/U.3 compatibility rule is from Wikipedia's summary."
+        }
       }
     ]
   },
@@ -968,12 +1468,12 @@ const HWREF_HUB_DATA = [
       {
         "id": "drives-edsff",
         "desc": "EDSFF sizes (SNIA)",
-        "cmd": "sudo nvme id-ctrl /dev/nvme0 | grep -E '^(mn|sn|fr) '",
+        "cmd": "nvme id-ctrl /dev/nvme0 | grep -E '^(mn|sn|fr) '",
         "details": "",
         "flags": [
           [
             "E1.S",
-            "SFF-TA-1006. 31.5-33.75 mm wide, about 111-119 mm long, thickness 5.9, 8, 9.5, 15 or 25 mm. Up to 20 W and x8 in the symmetric enclosure"
+            "SFF-TA-1006. 31.5-33.75 mm wide, about 111-119 mm long, thickness 5.9, 8.01, 9.5, 15 or 25 mm. Up to 20 W and x8 in the 9.5 mm symmetric enclosure"
           ],
           [
             "E1.L",
@@ -1002,7 +1502,21 @@ const HWREF_HUB_DATA = [
           "e3.s",
           "e1.l",
           "ruler"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.snia.org/forums/cmsi/knowledge/formfactors",
+              "title": "SNIA: SSD form factors (EDSFF)"
+            },
+            {
+              "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-id-ctrl.txt",
+              "title": "nvme-cli: id-ctrl"
+            }
+          ],
+          "note": "The mn/sn/fr field names are nvme-cli output, not listed in its man page."
+        }
       }
     ]
   },
@@ -1045,7 +1559,12 @@ const HWREF_HUB_DATA = [
           "width",
           "speed",
           "degraded"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [],
+          "note": "current_link_width/_speed and max_link_* exist in PCI device sysfs (seen on a live system) but are not in the kernel ABI docs."
+        }
       }
     ]
   },
@@ -1058,7 +1577,7 @@ const HWREF_HUB_DATA = [
       {
         "id": "drives-tips-card",
         "desc": "Find the bay before you pull",
-        "cmd": "sudo ledctl --listed-only locate=/dev/nvme0n1",
+        "cmd": "ledctl --listed-only locate=/dev/nvme0n1",
         "details": "Light the bay LED (ledctl --listed-only locate=..., then locate_off=... to switch it off; without --listed-only ledctl turns off every other drive's LEDs, fault LEDs included) and match the serial on the drive label before pulling. The storage playbook (docs/playbooks/storage-jbod.md) covers SES slot mapping for JBODs.",
         "flags": [
           [
@@ -1077,7 +1596,16 @@ const HWREF_HUB_DATA = [
           "drives",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/ledmon/ledctl.8.en.html",
+              "title": "ledctl(8) (ledmon 0.97)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1120,7 +1648,25 @@ const HWREF_HUB_DATA = [
           "hgx",
           "topology",
           "identify"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            },
+            {
+              "url": "https://www.nvidia.com/en-us/data-center/h200/",
+              "title": "NVIDIA H200"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/lspci.8.html",
+              "title": "lspci(8)"
+            }
+          ],
+          "note": "--query-gpu field names are listed by nvidia-smi --help-query-gpu on your driver, not on the docs page. On some kernels nvidia-smi topo needs root."
+        }
       },
       {
         "id": "gpu-forms-identify-sub-1",
@@ -1134,7 +1680,25 @@ const HWREF_HUB_DATA = [
           "sxm",
           "pcie",
           "hgx"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            },
+            {
+              "url": "https://www.nvidia.com/en-us/data-center/h200/",
+              "title": "NVIDIA H200"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/lspci.8.html",
+              "title": "lspci(8)"
+            }
+          ],
+          "note": "--query-gpu field names are listed by nvidia-smi --help-query-gpu on your driver, not on the docs page. On some kernels nvidia-smi topo needs root."
+        }
       },
       {
         "id": "gpu-forms-identify-sub-2",
@@ -1148,7 +1712,25 @@ const HWREF_HUB_DATA = [
           "sxm",
           "pcie",
           "hgx"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            },
+            {
+              "url": "https://www.nvidia.com/en-us/data-center/h200/",
+              "title": "NVIDIA H200"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/lspci.8.html",
+              "title": "lspci(8)"
+            }
+          ],
+          "note": "--query-gpu field names are listed by nvidia-smi --help-query-gpu on your driver, not on the docs page. On some kernels nvidia-smi topo needs root."
+        }
       }
     ]
   },
@@ -1178,7 +1760,7 @@ const HWREF_HUB_DATA = [
           ],
           [
             "Fabric Manager",
-            "Must run, at the driver's exact version, before CUDA works on NVSwitch systems"
+            "Must be running on NVSwitch systems, at a version compatible with the driver (the same version before driver R620; its own versioning from R620)"
           ],
           [
             "Service",
@@ -1196,7 +1778,29 @@ const HWREF_HUB_DATA = [
           "nvswitch",
           "b200",
           "b300"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            },
+            {
+              "url": "https://www.nvidia.com/en-us/data-center/hgx/",
+              "title": "NVIDIA HGX"
+            },
+            {
+              "url": "https://docs.nvidia.com/dgx/dgxb200-user-guide/introduction-to-dgxb200.html",
+              "title": "DGX B200 user guide: introduction"
+            },
+            {
+              "url": "https://docs.nvidia.com/datacenter/tesla/fabric-manager-user-guide/index.html",
+              "title": "Fabric Manager user guide"
+            }
+          ],
+          "note": "Corrected 2026-11-09: Fabric Manager must be compatible with the driver; it matched the driver version only before R620. DGX B200 runs at 10-35 °C (the product page's '90 °F' is a typo for 95 °F)."
+        }
       },
       {
         "id": "gpu-forms-hgx-sub-1",
@@ -1210,7 +1814,29 @@ const HWREF_HUB_DATA = [
           "hgx",
           "dgx",
           "nvlink"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            },
+            {
+              "url": "https://www.nvidia.com/en-us/data-center/hgx/",
+              "title": "NVIDIA HGX"
+            },
+            {
+              "url": "https://docs.nvidia.com/dgx/dgxb200-user-guide/introduction-to-dgxb200.html",
+              "title": "DGX B200 user guide: introduction"
+            },
+            {
+              "url": "https://docs.nvidia.com/datacenter/tesla/fabric-manager-user-guide/index.html",
+              "title": "Fabric Manager user guide"
+            }
+          ],
+          "note": "Corrected 2026-11-09: Fabric Manager must be compatible with the driver; it matched the driver version only before R620. DGX B200 runs at 10-35 °C (the product page's '90 °F' is a typo for 95 °F)."
+        }
       }
     ]
   },
@@ -1253,7 +1879,24 @@ const HWREF_HUB_DATA = [
           "gb300",
           "rack-scale",
           "liquid"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.nvidia.com/en-us/data-center/gb200-nvl72/",
+              "title": "NVIDIA GB200 NVL72"
+            },
+            {
+              "url": "https://www.nvidia.com/en-us/data-center/gb300-nvl72/",
+              "title": "NVIDIA GB300 NVL72"
+            },
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1266,7 +1909,7 @@ const HWREF_HUB_DATA = [
       {
         "id": "gpuform-tips-card",
         "desc": "Evidence first, then the RMA",
-        "cmd": "sudo nvidia-bug-report.sh",
+        "cmd": "nvidia-bug-report.sh",
         "details": "Before any GPU swap, collect nvidia-bug-report (long-running), the SEL, and nvidia-smi -q. Record logical and physical IDs together: GPU index, UUID, bus ID and the SXM module or slot number. The NVIDIA DC suite and docs/playbooks/gpu-nvlink.md have the full flow.",
         "flags": [
           [
@@ -1285,7 +1928,12 @@ const HWREF_HUB_DATA = [
           "gpuform",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [],
+          "note": "nvidia-bug-report.sh ships with the NVIDIA driver but isn't described in the nvidia-smi docs."
+        }
       }
     ]
   },
@@ -1298,7 +1946,7 @@ const HWREF_HUB_DATA = [
       {
         "id": "rack-identity",
         "desc": "Who is this server? Serial, model and asset tag",
-        "cmd": "sudo dmidecode -s system-serial-number; sudo dmidecode -s system-product-name",
+        "cmd": "dmidecode -s system-serial-number; dmidecode -s system-product-name",
         "details": "",
         "flags": [
           [
@@ -1328,7 +1976,25 @@ const HWREF_HUB_DATA = [
           "identify",
           "fru",
           "dmidecode"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+              "title": "dmidecode(8)"
+            },
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool man page"
+            },
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_fru.c",
+              "title": "ipmitool source: fru print [fru id]"
+            }
+          ],
+          "note": "fru print [fru id] is in ipmitool's source usage text; the man page shows fru print without an ID. chassis identify takes seconds (default 15, 0 = off, force = on)."
+        }
       },
       {
         "id": "rack-identity-sub-1",
@@ -1342,7 +2008,25 @@ const HWREF_HUB_DATA = [
           "serial",
           "asset",
           "identify"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+              "title": "dmidecode(8)"
+            },
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool man page"
+            },
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_fru.c",
+              "title": "ipmitool source: fru print [fru id]"
+            }
+          ],
+          "note": "fru print [fru id] is in ipmitool's source usage text; the man page shows fru print without an ID. chassis identify takes seconds (default 15, 0 = off, force = on)."
+        }
       },
       {
         "id": "rack-identity-sub-2",
@@ -1356,7 +2040,25 @@ const HWREF_HUB_DATA = [
           "serial",
           "asset",
           "identify"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+              "title": "dmidecode(8)"
+            },
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool man page"
+            },
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_fru.c",
+              "title": "ipmitool source: fru print [fru id]"
+            }
+          ],
+          "note": "fru print [fru id] is in ipmitool's source usage text; the man page shows fru print without an ID. chassis identify takes seconds (default 15, 0 = off, force = on)."
+        }
       }
     ]
   },
@@ -1403,7 +2105,24 @@ const HWREF_HUB_DATA = [
           "ocp",
           "open-rack",
           "busbar"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://en.wikipedia.org/wiki/Rack_unit",
+              "title": "Rack unit (Wikipedia, EIA-310)"
+            },
+            {
+              "url": "https://www.opencompute.org/documents/open-rack-base-specification-version-3-pdf/",
+              "title": "OCP Open Rack V3 base specification"
+            },
+            {
+              "url": "https://www.opencompute.org/wiki/Rack_&_Power",
+              "title": "OCP Rack & Power"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1445,7 +2164,12 @@ const HWREF_HUB_DATA = [
           "tia-606",
           "cabling",
           "cmdb"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [],
+          "note": "ANSI/TIA-606-D is sold, not published openly, so its date and class definitions are not checked here. The label format is an example."
+        }
       }
     ]
   },
@@ -1458,7 +2182,7 @@ const HWREF_HUB_DATA = [
       {
         "id": "rack-tips-card",
         "desc": "Physical location in the case notes",
-        "cmd": "echo \"$(hostname) serial=$(sudo dmidecode -s system-serial-number) rack=<row-rack> U=<u>\"",
+        "cmd": "echo \"$(hostname) serial=$(dmidecode -s system-serial-number) rack=<row-rack> U=<u>\"",
         "details": "Record logical and physical identity together in every case: hostname, serial, BMC address, row/rack/U, and the PDU outlets for each PSU. Field notes on the home page keep them per server.",
         "flags": [
           [
@@ -1477,7 +2201,16 @@ const HWREF_HUB_DATA = [
           "rack",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+              "title": "dmidecode(8)"
+            }
+          ]
+        }
       }
     ]
   }

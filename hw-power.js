@@ -40,7 +40,25 @@ const HWREF_HW_POWER_DATA = [
           "watts",
           "psu",
           "budget"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool man page"
+            },
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_sdr.c",
+              "title": "ipmitool source: sensor type names"
+            },
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            }
+          ],
+          "note": "ipmitool -E reads IPMI_PASSWORD (or IPMITOOL_PASSWORD, which wins). --query-gpu field names are listed by nvidia-smi --help-query-gpu on your driver, not on the docs page."
+        }
       },
       {
         "id": "power-read-bmc-sub-1",
@@ -54,7 +72,25 @@ const HWREF_HW_POWER_DATA = [
           "power",
           "dcmi",
           "watts"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool man page"
+            },
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_sdr.c",
+              "title": "ipmitool source: sensor type names"
+            },
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            }
+          ],
+          "note": "ipmitool -E reads IPMI_PASSWORD (or IPMITOOL_PASSWORD, which wins). --query-gpu field names are listed by nvidia-smi --help-query-gpu on your driver, not on the docs page."
+        }
       },
       {
         "id": "power-read-bmc-sub-2",
@@ -68,7 +104,25 @@ const HWREF_HW_POWER_DATA = [
           "power",
           "dcmi",
           "watts"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool man page"
+            },
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_sdr.c",
+              "title": "ipmitool source: sensor type names"
+            },
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            }
+          ],
+          "note": "ipmitool -E reads IPMI_PASSWORD (or IPMITOOL_PASSWORD, which wins). --query-gpu field names are listed by nvidia-smi --help-query-gpu on your driver, not on the docs page."
+        }
       },
       {
         "id": "power-read-bmc-sub-3",
@@ -82,7 +136,25 @@ const HWREF_HW_POWER_DATA = [
           "power",
           "dcmi",
           "watts"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool man page"
+            },
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_sdr.c",
+              "title": "ipmitool source: sensor type names"
+            },
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            }
+          ],
+          "note": "ipmitool -E reads IPMI_PASSWORD (or IPMITOOL_PASSWORD, which wins). --query-gpu field names are listed by nvidia-smi --help-query-gpu on your driver, not on the docs page."
+        }
       }
     ]
   },
@@ -129,7 +201,21 @@ const HWREF_HW_POWER_DATA = [
           "iec60320",
           "cord",
           "inlet"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://en.wikipedia.org/wiki/IEC_60320",
+              "title": "IEC 60320 (Wikipedia)"
+            },
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_fru.c",
+              "title": "ipmitool source: fru print [fru id]"
+            }
+          ],
+          "note": "Ratings from Wikipedia's summary of IEC 60320 and UL/CSA 60320-1, not the standard itself. Which FRU fields mention power is vendor-specific."
+        }
       }
     ]
   },
@@ -177,7 +263,12 @@ const HWREF_HW_POWER_DATA = [
           "kw",
           "circuit",
           "pdu"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [],
+          "note": "NEC 210.20(A) (NFPA 70) is not freely readable, so the 125 % / 80 % rule and the 100 %-rated exception are not checked here. The kW formulas are standard electrical math."
+        }
       },
       {
         "id": "power-circuit-sub-1",
@@ -191,7 +282,12 @@ const HWREF_HW_POWER_DATA = [
           "nec",
           "80-percent",
           "three-phase"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [],
+          "note": "NEC 210.20(A) (NFPA 70) is not freely readable, so the 125 % / 80 % rule and the 100 %-rated exception are not checked here. The kW formulas are standard electrical math."
+        }
       }
     ]
   },
@@ -234,7 +330,21 @@ const HWREF_HW_POWER_DATA = [
           "ab-feed",
           "pdu",
           "ac-lost"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool man page"
+            },
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_sdr.c",
+              "title": "ipmitool source: sensor type names"
+            }
+          ],
+          "note": "SEL wording for PSU events (AC lost, redundancy) varies by vendor."
+        }
       },
       {
         "id": "power-redundancy-sub-1",
@@ -248,7 +358,21 @@ const HWREF_HW_POWER_DATA = [
           "redundancy",
           "psu",
           "ab-feed"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool man page"
+            },
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_sdr.c",
+              "title": "ipmitool source: sensor type names"
+            }
+          ],
+          "note": "SEL wording for PSU events (AC lost, redundancy) varies by vendor."
+        }
       }
     ]
   },
@@ -262,7 +386,7 @@ const HWREF_HW_POWER_DATA = [
         "id": "power-tips-card",
         "desc": "GPU power at the card: the 12V-2x6 connector",
         "cmd": "nvidia-smi -q -d POWER",
-        "details": "PCIe GPUs such as H200 NVL (up to 600 W) are fed by the 16-pin 12V-2x6 connector (PCIe CEM 5.1, marked H++), rated up to 600 W. Its sense pins only make contact when the plug is fully seated. A half-seated plug is a melting risk: push until it clicks and check that no gap shows. SXM GPUs (H200 SXM up to 700 W) are fed through the HGX baseboard.",
+        "details": "PCIe GPUs such as H200 NVL (up to 600 W) are fed by the 16-pin 12V-2x6 connector (PCIe CEM 5.1, the revision that replaced 12VHPWR), rated up to 600 W. Its sense pins only make contact when the power pins are fully seated. A half-seated plug is a melting risk: push until it clicks and check that no gap shows. SXM GPUs (H200 SXM up to 700 W) are fed through the HGX baseboard.",
         "flags": [
           [
             "Power Limit / Max Power Limit",
@@ -280,7 +404,25 @@ const HWREF_HW_POWER_DATA = [
           "power",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            },
+            {
+              "url": "https://www.nvidia.com/en-us/data-center/h200/",
+              "title": "NVIDIA H200"
+            },
+            {
+              "url": "https://en.wikipedia.org/wiki/12VHPWR",
+              "title": "12VHPWR / 12V-2x6 (Wikipedia)"
+            }
+          ],
+          "note": "Wikipedia gives 12V-2x6 as 525 W or 600 W depending on the sense pins."
+        }
       }
     ]
   }

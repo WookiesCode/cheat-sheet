@@ -275,6 +275,42 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     await ctx.close();
   }
 
+  // 2h. Rack & hardware reference sheets: commands, recipes and Pro Tip cards sourced; reference
+  // facts that couldn't be checked say so; no sudo (the site marks root itself); corrections.
+  {
+    const PAGES = ['hw-power', 'hw-cooling', 'hw-memory', 'hw-drives', 'hw-gpu-forms', 'hw-rack'];
+    const ctx = await newContext(browser);
+    const p = await ctx.newPage();
+    const got = {};
+    let text = '';
+    const boxes = [];
+    for (const f of PAGES) {
+      await p.goto(BASE + f + '.html', { waitUntil: 'load' });
+      await p.waitForTimeout(400);
+      for (const l of await lines(p)) if (!/-flags-card$/.test(l.id)) got[l.id] = l;
+      text += await p.evaluate(() => { const c = document.body.cloneNode(true); c.querySelectorAll('.cmd-source').forEach(n => n.remove()); return c.textContent; }) + '\n';
+      boxes.push(...await p.evaluate(() => [...document.querySelectorAll('.cmd-item[data-cmd-id]')].map(it => {
+        const b = it.querySelector('.cmd-code-box');
+        return { id: it.dataset.cmdId, code: b ? (b.dataset.cmd || b.dataset.copy || b.innerText) : '', root: !!it.querySelector('.priv-tag.priv-root') };
+      })));
+    }
+    const list = Object.values(got);
+    check(list.length === 50 && list.every(l => l.text), `all 50 hardware-reference commands, recipes and tip cards show a source line (${list.filter(l => l.text).length}/${list.length})`);
+    const unv = list.filter(l => /is-unverified/.test(l.cls)).map(l => l.id).sort();
+    check(unv.join(' ') === 'drives-link gpuform-tips-card power-circuit power-circuit-sub-1 rack-labels',
+      `only the paywalled/undocumented entries say "Not verified" (${unv.join(', ')})`);
+    check(!boxes.some(b => /(^|[\s;(|&$])sudo\s/.test(b.code)), 'no command on the hardware-reference sheets starts with sudo');
+    const rooted = (re) => boxes.filter(b => re.test(b.code)).length > 0 && boxes.filter(b => re.test(b.code)).every(b => b.root);
+    check(rooted(/^dmidecode /), 'dmidecode commands still carry the root badge');
+    check(rooted(/^ledctl /), 'ledctl carries the root badge (new rule)');
+    check(rooted(/^nvidia-bug-report\.sh/), 'nvidia-bug-report.sh carries the root badge');
+    check(!/driver's exact version/.test(text) && /compatible with the driver/.test(text), 'Fabric Manager: compatible version, not "exact version"');
+    check(/DDR5-6400 at 1 DPC \(5200 at 2 DPC\)/.test(text), 'Xeon 6 memory speed says 1 DPC vs 2 DPC');
+    check(!/marked H\+\+/.test(text), 'the unverified "H++" marking is gone');
+    check(/IEC 60320 \(Wikipedia\)/.test(got['power-cords'].text) && /NVIDIA HGX/.test(got['gpu-forms-hgx'].text), 'reference cards cite their spec pages');
+    await ctx.close();
+  }
+
   // 3. Over a year old → amber "re-check"; and src can't inject markup or javascript: links.
   {
     const ctx = await newContext(browser);

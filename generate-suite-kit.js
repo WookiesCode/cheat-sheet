@@ -83,7 +83,8 @@ function buildSectionCards(sec, suiteTags) {
       commands: [{
         id: `${sec.id}-tips-card`, desc: sec.proTip.desc, cmd: sec.proTip.cmd,
         details: sec.proTip.details, flags: sec.proTip.flags, tip: sec.proTip.tip,
-        tags: [...baseTags, 'tips', 'best-practice']
+        tags: [...baseTags, 'tips', 'best-practice'],
+        ...(sec.proTip.src ? { src: sec.proTip.src } : {})
       }]
     });
   }

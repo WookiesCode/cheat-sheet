@@ -40,7 +40,25 @@ const HWREF_HW_COOLING_DATA = [
           "ashrae",
           "sensors",
           "airflow"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool man page"
+            },
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_sdr.c",
+              "title": "ipmitool source: sensor type names"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/lm-sensors/sensors.1.en.html",
+              "title": "sensors(1)"
+            }
+          ],
+          "note": "The ASHRAE TC 9.9 ranges (recommended 18-27 °C, A1 allowable 15-32 °C) could not be checked: ASHRAE's reference card is not freely fetchable. The exhaust delta is a rule of thumb."
+        }
       },
       {
         "id": "cooling-inlet-sub-1",
@@ -54,7 +72,25 @@ const HWREF_HW_COOLING_DATA = [
           "temperature",
           "inlet",
           "ashrae"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool man page"
+            },
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_sdr.c",
+              "title": "ipmitool source: sensor type names"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/lm-sensors/sensors.1.en.html",
+              "title": "sensors(1)"
+            }
+          ],
+          "note": "The ASHRAE TC 9.9 ranges (recommended 18-27 °C, A1 allowable 15-32 °C) could not be checked: ASHRAE's reference card is not freely fetchable. The exhaust delta is a rule of thumb."
+        }
       },
       {
         "id": "cooling-inlet-sub-2",
@@ -68,7 +104,25 @@ const HWREF_HW_COOLING_DATA = [
           "temperature",
           "inlet",
           "ashrae"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool man page"
+            },
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_sdr.c",
+              "title": "ipmitool source: sensor type names"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/lm-sensors/sensors.1.en.html",
+              "title": "sensors(1)"
+            }
+          ],
+          "note": "The ASHRAE TC 9.9 ranges (recommended 18-27 °C, A1 allowable 15-32 °C) could not be checked: ASHRAE's reference card is not freely fetchable. The exhaust delta is a rule of thumb."
+        }
       }
     ]
   },
@@ -111,7 +165,17 @@ const HWREF_HW_COOLING_DATA = [
           "throttle",
           "hbm",
           "thermal"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            }
+          ],
+          "note": "--query-gpu field names are listed by nvidia-smi --help-query-gpu on your driver, not on the docs page."
+        }
       },
       {
         "id": "cooling-gpu-sub-1",
@@ -125,7 +189,17 @@ const HWREF_HW_COOLING_DATA = [
           "gpu",
           "temperature",
           "throttle"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            }
+          ],
+          "note": "--query-gpu field names are listed by nvidia-smi --help-query-gpu on your driver, not on the docs page."
+        }
       },
       {
         "id": "cooling-gpu-sub-2",
@@ -139,7 +213,17 @@ const HWREF_HW_COOLING_DATA = [
           "gpu",
           "temperature",
           "throttle"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            }
+          ],
+          "note": "--query-gpu field names are listed by nvidia-smi --help-query-gpu on your driver, not on the docs page."
+        }
       }
     ]
   },
@@ -185,7 +269,17 @@ const HWREF_HW_COOLING_DATA = [
           "fans",
           "blanking",
           "physical"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool man page"
+            }
+          ],
+          "note": "The checklist is field practice, not from a standard."
+        }
       }
     ]
   },
@@ -232,7 +326,25 @@ const HWREF_HW_COOLING_DATA = [
           "coolant",
           "leak",
           "nvl72"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool man page"
+            },
+            {
+              "url": "https://www.nvidia.com/en-us/data-center/gb200-nvl72/",
+              "title": "NVIDIA GB200 NVL72"
+            },
+            {
+              "url": "https://www.nvidia.com/en-us/data-center/gb300-nvl72/",
+              "title": "NVIDIA GB300 NVL72"
+            }
+          ],
+          "note": "The ASHRAE W classes (W17-W45, W+) could not be checked: ASHRAE's pages refuse automated fetches."
+        }
       }
     ]
   },
@@ -264,7 +376,16 @@ const HWREF_HW_COOLING_DATA = [
           "cooling",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool man page"
+            }
+          ]
+        }
       }
     ]
   }

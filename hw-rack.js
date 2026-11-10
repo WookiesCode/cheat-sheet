@@ -10,7 +10,7 @@ const HWREF_HW_RACK_DATA = [
       {
         "id": "rack-identity",
         "desc": "Who is this server? Serial, model and asset tag",
-        "cmd": "sudo dmidecode -s system-serial-number; sudo dmidecode -s system-product-name",
+        "cmd": "dmidecode -s system-serial-number; dmidecode -s system-product-name",
         "details": "",
         "flags": [
           [
@@ -40,7 +40,25 @@ const HWREF_HW_RACK_DATA = [
           "identify",
           "fru",
           "dmidecode"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+              "title": "dmidecode(8)"
+            },
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool man page"
+            },
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_fru.c",
+              "title": "ipmitool source: fru print [fru id]"
+            }
+          ],
+          "note": "fru print [fru id] is in ipmitool's source usage text; the man page shows fru print without an ID. chassis identify takes seconds (default 15, 0 = off, force = on)."
+        }
       },
       {
         "id": "rack-identity-sub-1",
@@ -54,7 +72,25 @@ const HWREF_HW_RACK_DATA = [
           "serial",
           "asset",
           "identify"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+              "title": "dmidecode(8)"
+            },
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool man page"
+            },
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_fru.c",
+              "title": "ipmitool source: fru print [fru id]"
+            }
+          ],
+          "note": "fru print [fru id] is in ipmitool's source usage text; the man page shows fru print without an ID. chassis identify takes seconds (default 15, 0 = off, force = on)."
+        }
       },
       {
         "id": "rack-identity-sub-2",
@@ -68,7 +104,25 @@ const HWREF_HW_RACK_DATA = [
           "serial",
           "asset",
           "identify"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+              "title": "dmidecode(8)"
+            },
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+              "title": "ipmitool man page"
+            },
+            {
+              "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_fru.c",
+              "title": "ipmitool source: fru print [fru id]"
+            }
+          ],
+          "note": "fru print [fru id] is in ipmitool's source usage text; the man page shows fru print without an ID. chassis identify takes seconds (default 15, 0 = off, force = on)."
+        }
       }
     ]
   },
@@ -115,7 +169,24 @@ const HWREF_HW_RACK_DATA = [
           "ocp",
           "open-rack",
           "busbar"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://en.wikipedia.org/wiki/Rack_unit",
+              "title": "Rack unit (Wikipedia, EIA-310)"
+            },
+            {
+              "url": "https://www.opencompute.org/documents/open-rack-base-specification-version-3-pdf/",
+              "title": "OCP Open Rack V3 base specification"
+            },
+            {
+              "url": "https://www.opencompute.org/wiki/Rack_&_Power",
+              "title": "OCP Rack & Power"
+            }
+          ]
+        }
       }
     ]
   },
@@ -157,7 +228,12 @@ const HWREF_HW_RACK_DATA = [
           "tia-606",
           "cabling",
           "cmdb"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [],
+          "note": "ANSI/TIA-606-D is sold, not published openly, so its date and class definitions are not checked here. The label format is an example."
+        }
       }
     ]
   },
@@ -170,7 +246,7 @@ const HWREF_HW_RACK_DATA = [
       {
         "id": "rack-tips-card",
         "desc": "Physical location in the case notes",
-        "cmd": "echo \"$(hostname) serial=$(sudo dmidecode -s system-serial-number) rack=<row-rack> U=<u>\"",
+        "cmd": "echo \"$(hostname) serial=$(dmidecode -s system-serial-number) rack=<row-rack> U=<u>\"",
         "details": "Record logical and physical identity together in every case: hostname, serial, BMC address, row/rack/U, and the PDU outlets for each PSU. Field notes on the home page keep them per server.",
         "flags": [
           [
@@ -189,7 +265,16 @@ const HWREF_HW_RACK_DATA = [
           "rack",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+              "title": "dmidecode(8)"
+            }
+          ]
+        }
       }
     ]
   }

@@ -40,7 +40,25 @@ const HWREF_HW_GPU_FORMS_DATA = [
           "hgx",
           "topology",
           "identify"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            },
+            {
+              "url": "https://www.nvidia.com/en-us/data-center/h200/",
+              "title": "NVIDIA H200"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/lspci.8.html",
+              "title": "lspci(8)"
+            }
+          ],
+          "note": "--query-gpu field names are listed by nvidia-smi --help-query-gpu on your driver, not on the docs page. On some kernels nvidia-smi topo needs root."
+        }
       },
       {
         "id": "gpu-forms-identify-sub-1",
@@ -54,7 +72,25 @@ const HWREF_HW_GPU_FORMS_DATA = [
           "sxm",
           "pcie",
           "hgx"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            },
+            {
+              "url": "https://www.nvidia.com/en-us/data-center/h200/",
+              "title": "NVIDIA H200"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/lspci.8.html",
+              "title": "lspci(8)"
+            }
+          ],
+          "note": "--query-gpu field names are listed by nvidia-smi --help-query-gpu on your driver, not on the docs page. On some kernels nvidia-smi topo needs root."
+        }
       },
       {
         "id": "gpu-forms-identify-sub-2",
@@ -68,7 +104,25 @@ const HWREF_HW_GPU_FORMS_DATA = [
           "sxm",
           "pcie",
           "hgx"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            },
+            {
+              "url": "https://www.nvidia.com/en-us/data-center/h200/",
+              "title": "NVIDIA H200"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/lspci.8.html",
+              "title": "lspci(8)"
+            }
+          ],
+          "note": "--query-gpu field names are listed by nvidia-smi --help-query-gpu on your driver, not on the docs page. On some kernels nvidia-smi topo needs root."
+        }
       }
     ]
   },
@@ -98,7 +152,7 @@ const HWREF_HW_GPU_FORMS_DATA = [
           ],
           [
             "Fabric Manager",
-            "Must run, at the driver's exact version, before CUDA works on NVSwitch systems"
+            "Must be running on NVSwitch systems, at a version compatible with the driver (the same version before driver R620; its own versioning from R620)"
           ],
           [
             "Service",
@@ -116,7 +170,29 @@ const HWREF_HW_GPU_FORMS_DATA = [
           "nvswitch",
           "b200",
           "b300"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            },
+            {
+              "url": "https://www.nvidia.com/en-us/data-center/hgx/",
+              "title": "NVIDIA HGX"
+            },
+            {
+              "url": "https://docs.nvidia.com/dgx/dgxb200-user-guide/introduction-to-dgxb200.html",
+              "title": "DGX B200 user guide: introduction"
+            },
+            {
+              "url": "https://docs.nvidia.com/datacenter/tesla/fabric-manager-user-guide/index.html",
+              "title": "Fabric Manager user guide"
+            }
+          ],
+          "note": "Corrected 2026-11-09: Fabric Manager must be compatible with the driver; it matched the driver version only before R620. DGX B200 runs at 10-35 °C (the product page's '90 °F' is a typo for 95 °F)."
+        }
       },
       {
         "id": "gpu-forms-hgx-sub-1",
@@ -130,7 +206,29 @@ const HWREF_HW_GPU_FORMS_DATA = [
           "hgx",
           "dgx",
           "nvlink"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            },
+            {
+              "url": "https://www.nvidia.com/en-us/data-center/hgx/",
+              "title": "NVIDIA HGX"
+            },
+            {
+              "url": "https://docs.nvidia.com/dgx/dgxb200-user-guide/introduction-to-dgxb200.html",
+              "title": "DGX B200 user guide: introduction"
+            },
+            {
+              "url": "https://docs.nvidia.com/datacenter/tesla/fabric-manager-user-guide/index.html",
+              "title": "Fabric Manager user guide"
+            }
+          ],
+          "note": "Corrected 2026-11-09: Fabric Manager must be compatible with the driver; it matched the driver version only before R620. DGX B200 runs at 10-35 °C (the product page's '90 °F' is a typo for 95 °F)."
+        }
       }
     ]
   },
@@ -173,7 +271,24 @@ const HWREF_HW_GPU_FORMS_DATA = [
           "gb300",
           "rack-scale",
           "liquid"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.nvidia.com/en-us/data-center/gb200-nvl72/",
+              "title": "NVIDIA GB200 NVL72"
+            },
+            {
+              "url": "https://www.nvidia.com/en-us/data-center/gb300-nvl72/",
+              "title": "NVIDIA GB300 NVL72"
+            },
+            {
+              "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+              "title": "NVIDIA nvidia-smi documentation"
+            }
+          ]
+        }
       }
     ]
   },
@@ -186,7 +301,7 @@ const HWREF_HW_GPU_FORMS_DATA = [
       {
         "id": "gpuform-tips-card",
         "desc": "Evidence first, then the RMA",
-        "cmd": "sudo nvidia-bug-report.sh",
+        "cmd": "nvidia-bug-report.sh",
         "details": "Before any GPU swap, collect nvidia-bug-report (long-running), the SEL, and nvidia-smi -q. Record logical and physical IDs together: GPU index, UUID, bus ID and the SXM module or slot number. The NVIDIA DC suite and docs/playbooks/gpu-nvlink.md have the full flow.",
         "flags": [
           [
@@ -205,7 +320,12 @@ const HWREF_HW_GPU_FORMS_DATA = [
           "gpuform",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [],
+          "note": "nvidia-bug-report.sh ships with the NVIDIA driver but isn't described in the nvidia-smi docs."
+        }
       }
     ]
   }

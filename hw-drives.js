@@ -35,12 +35,30 @@ const HWREF_HW_DRIVES_DATA = [
           "lsblk",
           "serial",
           "identify"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/lsblk.8.html",
+              "title": "lsblk(8)"
+            },
+            {
+              "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-list.txt",
+              "title": "nvme-cli: nvme list"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/smartmontools/smartctl.8.en.html",
+              "title": "smartctl(8)"
+            }
+          ],
+          "note": "smartctl -i shows model, serial and firmware; form factor and rotation rate appear only when the drive reports them."
+        }
       },
       {
         "id": "drives-identify-sub-1",
         "desc": "NVMe inventory",
-        "cmd": "sudo nvme list",
+        "cmd": "nvme list",
         "tags": [
           "hardware",
           "reference",
@@ -49,12 +67,30 @@ const HWREF_HW_DRIVES_DATA = [
           "nvme",
           "lsblk",
           "serial"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/lsblk.8.html",
+              "title": "lsblk(8)"
+            },
+            {
+              "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-list.txt",
+              "title": "nvme-cli: nvme list"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/smartmontools/smartctl.8.en.html",
+              "title": "smartctl(8)"
+            }
+          ],
+          "note": "smartctl -i shows model, serial and firmware; form factor and rotation rate appear only when the drive reports them."
+        }
       },
       {
         "id": "drives-identify-sub-2",
         "desc": "Model, form factor and rotation rate for SAS/SATA",
-        "cmd": "sudo smartctl -i /dev/sda",
+        "cmd": "smartctl -i /dev/sda",
         "tags": [
           "hardware",
           "reference",
@@ -63,7 +99,25 @@ const HWREF_HW_DRIVES_DATA = [
           "nvme",
           "lsblk",
           "serial"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/lsblk.8.html",
+              "title": "lsblk(8)"
+            },
+            {
+              "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-list.txt",
+              "title": "nvme-cli: nvme list"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/smartmontools/smartctl.8.en.html",
+              "title": "smartctl(8)"
+            }
+          ],
+          "note": "smartctl -i shows model, serial and firmware; form factor and rotation rate appear only when the drive reports them."
+        }
       }
     ]
   },
@@ -76,7 +130,7 @@ const HWREF_HW_DRIVES_DATA = [
       {
         "id": "drives-u2u3",
         "desc": "U.2 vs U.3 (same connector, different wiring)",
-        "cmd": "sudo lspci -vv -s <bdf> | grep -E 'LnkCap|LnkSta'",
+        "cmd": "lspci -vv -s <bdf> | grep -E 'LnkCap|LnkSta'",
         "details": "",
         "flags": [
           [
@@ -92,8 +146,8 @@ const HWREF_HW_DRIVES_DATA = [
             "Works: U.3 drives must be backward-compatible with U.2 hosts"
           ],
           [
-            "U.2 drive in a U.3-only bay",
-            "Usually doesn't work: the lane pinout differs"
+            "U.2 drive in a U.3 host",
+            "Not compatible: U.3 moved the PCIe lanes"
           ],
           [
             "Same plug ≠ works",
@@ -110,12 +164,30 @@ const HWREF_HW_DRIVES_DATA = [
           "sff-8639",
           "tri-mode",
           "backplane"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://en.wikipedia.org/wiki/U.2",
+              "title": "U.2 / U.3 (Wikipedia)"
+            },
+            {
+              "url": "https://www.snia.org/technology-communities/sff/specifications?items_per_page=All",
+              "title": "SNIA SFF specifications (SFF-TA-1001)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/lspci.8.html",
+              "title": "lspci(8)"
+            }
+          ],
+          "note": "SNIA lists SFF-TA-1001 as the Universal x4 Link Definition for SFF-8639 (1.1, 2018); the U.2/U.3 compatibility rule is from Wikipedia's summary."
+        }
       },
       {
         "id": "drives-u2u3-sub-1",
         "desc": "Which controller and path each NVMe drive is on",
-        "cmd": "sudo nvme list -v",
+        "cmd": "nvme list -v",
         "tags": [
           "hardware",
           "reference",
@@ -124,7 +196,25 @@ const HWREF_HW_DRIVES_DATA = [
           "u.2",
           "u.3",
           "sff-8639"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://en.wikipedia.org/wiki/U.2",
+              "title": "U.2 / U.3 (Wikipedia)"
+            },
+            {
+              "url": "https://www.snia.org/technology-communities/sff/specifications?items_per_page=All",
+              "title": "SNIA SFF specifications (SFF-TA-1001)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/lspci.8.html",
+              "title": "lspci(8)"
+            }
+          ],
+          "note": "SNIA lists SFF-TA-1001 as the Universal x4 Link Definition for SFF-8639 (1.1, 2018); the U.2/U.3 compatibility rule is from Wikipedia's summary."
+        }
       }
     ]
   },
@@ -137,12 +227,12 @@ const HWREF_HW_DRIVES_DATA = [
       {
         "id": "drives-edsff",
         "desc": "EDSFF sizes (SNIA)",
-        "cmd": "sudo nvme id-ctrl /dev/nvme0 | grep -E '^(mn|sn|fr) '",
+        "cmd": "nvme id-ctrl /dev/nvme0 | grep -E '^(mn|sn|fr) '",
         "details": "",
         "flags": [
           [
             "E1.S",
-            "SFF-TA-1006. 31.5-33.75 mm wide, about 111-119 mm long, thickness 5.9, 8, 9.5, 15 or 25 mm. Up to 20 W and x8 in the symmetric enclosure"
+            "SFF-TA-1006. 31.5-33.75 mm wide, about 111-119 mm long, thickness 5.9, 8.01, 9.5, 15 or 25 mm. Up to 20 W and x8 in the 9.5 mm symmetric enclosure"
           ],
           [
             "E1.L",
@@ -171,7 +261,21 @@ const HWREF_HW_DRIVES_DATA = [
           "e3.s",
           "e1.l",
           "ruler"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.snia.org/forums/cmsi/knowledge/formfactors",
+              "title": "SNIA: SSD form factors (EDSFF)"
+            },
+            {
+              "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-id-ctrl.txt",
+              "title": "nvme-cli: id-ctrl"
+            }
+          ],
+          "note": "The mn/sn/fr field names are nvme-cli output, not listed in its man page."
+        }
       }
     ]
   },
@@ -214,7 +318,12 @@ const HWREF_HW_DRIVES_DATA = [
           "width",
           "speed",
           "degraded"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [],
+          "note": "current_link_width/_speed and max_link_* exist in PCI device sysfs (seen on a live system) but are not in the kernel ABI docs."
+        }
       }
     ]
   },
@@ -227,7 +336,7 @@ const HWREF_HW_DRIVES_DATA = [
       {
         "id": "drives-tips-card",
         "desc": "Find the bay before you pull",
-        "cmd": "sudo ledctl --listed-only locate=/dev/nvme0n1",
+        "cmd": "ledctl --listed-only locate=/dev/nvme0n1",
         "details": "Light the bay LED (ledctl --listed-only locate=..., then locate_off=... to switch it off; without --listed-only ledctl turns off every other drive's LEDs, fault LEDs included) and match the serial on the drive label before pulling. The storage playbook (docs/playbooks/storage-jbod.md) covers SES slot mapping for JBODs.",
         "flags": [
           [
@@ -246,7 +355,16 @@ const HWREF_HW_DRIVES_DATA = [
           "drives",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/ledmon/ledctl.8.en.html",
+              "title": "ledctl(8) (ledmon 0.97)"
+            }
+          ]
+        }
       }
     ]
   }

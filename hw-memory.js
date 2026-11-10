@@ -10,7 +10,7 @@ const HWREF_HW_MEMORY_DATA = [
       {
         "id": "mem-dmidecode",
         "desc": "Every DIMM slot: populated, size, speed, part and serial",
-        "cmd": "sudo dmidecode -t memory | grep -E 'Locator|Size|Speed|Part Number|Serial Number'",
+        "cmd": "dmidecode -t memory | grep -E 'Locator|Size|Speed|Part Number|Serial Number'",
         "details": "",
         "flags": [
           [
@@ -44,12 +44,29 @@ const HWREF_HW_MEMORY_DATA = [
           "locator",
           "serial",
           "memory"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+              "title": "dmidecode(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/lsmem.1.html",
+              "title": "lsmem(1)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/numactl.8.html",
+              "title": "numactl(8)"
+            }
+          ]
+        }
       },
       {
         "id": "mem-dmidecode-sub-1",
         "desc": "How many DIMMs are installed",
-        "cmd": "sudo dmidecode -t memory | grep -c 'Size: [0-9]'",
+        "cmd": "dmidecode -t memory | grep -c 'Size: [0-9]'",
         "tags": [
           "hardware",
           "reference",
@@ -58,7 +75,24 @@ const HWREF_HW_MEMORY_DATA = [
           "dimm",
           "dmidecode",
           "locator"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+              "title": "dmidecode(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/lsmem.1.html",
+              "title": "lsmem(1)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/numactl.8.html",
+              "title": "numactl(8)"
+            }
+          ]
+        }
       },
       {
         "id": "mem-dmidecode-sub-2",
@@ -72,7 +106,24 @@ const HWREF_HW_MEMORY_DATA = [
           "dimm",
           "dmidecode",
           "locator"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+              "title": "dmidecode(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/lsmem.1.html",
+              "title": "lsmem(1)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/numactl.8.html",
+              "title": "numactl(8)"
+            }
+          ]
+        }
       },
       {
         "id": "mem-dmidecode-sub-3",
@@ -86,7 +137,24 @@ const HWREF_HW_MEMORY_DATA = [
           "dimm",
           "dmidecode",
           "locator"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+              "title": "dmidecode(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/lsmem.1.html",
+              "title": "lsmem(1)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/numactl.8.html",
+              "title": "numactl(8)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -108,11 +176,11 @@ const HWREF_HW_MEMORY_DATA = [
           ],
           [
             "Intel Xeon 6900P",
-            "12 channels, DDR5-6400, MRDIMM up to 8800 MT/s"
+            "12 channels, DDR5-6400 at 1 DPC (5200 at 2 DPC), MRDIMM up to 8800 MT/s"
           ],
           [
             "Intel Xeon 6700P",
-            "8 channels, DDR5-6400, MRDIMM up to 8000 MT/s"
+            "8 channels, DDR5-6400 at 1 DPC (5200 at 2 DPC), MRDIMM up to 8000 MT/s on some SKUs"
           ],
           [
             "Highest common speed",
@@ -134,7 +202,21 @@ const HWREF_HW_MEMORY_DATA = [
           "xeon",
           "ddr5",
           "mrdimm"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/lscpu.1.html",
+              "title": "lscpu(1)"
+            },
+            {
+              "url": "https://en.wikipedia.org/wiki/Granite_Rapids",
+              "title": "Granite Rapids (Wikipedia, Xeon 6900P/6700P)"
+            }
+          ],
+          "note": "Corrected 2026-11-09: Xeon 6 DDR5-6400 is at 1 DPC (5200 at 2 DPC). The AMD EPYC 9005 figures and the 'highest common speed' rule could not be checked (AMD, Kingston and HPE pages refused or timed out); use your server's memory population guide."
+        }
       }
     ]
   },
@@ -147,7 +229,7 @@ const HWREF_HW_MEMORY_DATA = [
       {
         "id": "mem-balance",
         "desc": "Balanced population check",
-        "cmd": "sudo dmidecode -t memory | awk -F: '/Size:/{s=$2} /Bank Locator/{print $2 \" ->\" s}' | sort",
+        "cmd": "dmidecode -t memory | awk -F: '/Size:/{s=$2} /Bank Locator/{print $2 \" ->\" s}' | sort",
         "details": "",
         "flags": [
           [
@@ -176,7 +258,21 @@ const HWREF_HW_MEMORY_DATA = [
           "numa",
           "population",
           "dimm"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+              "title": "dmidecode(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/numactl.8.html",
+              "title": "numactl(8)"
+            }
+          ],
+          "note": "Balance guidance is general; the server vendor's population guide is the authority."
+        }
       },
       {
         "id": "mem-balance-sub-1",
@@ -190,7 +286,21 @@ const HWREF_HW_MEMORY_DATA = [
           "balance",
           "numa",
           "population"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+              "title": "dmidecode(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/numactl.8.html",
+              "title": "numactl(8)"
+            }
+          ],
+          "note": "Balance guidance is general; the server vendor's population guide is the authority."
+        }
       }
     ]
   },
@@ -203,7 +313,7 @@ const HWREF_HW_MEMORY_DATA = [
       {
         "id": "mem-errors",
         "desc": "Correctable errors per DIMM",
-        "cmd": "sudo edac-util -v",
+        "cmd": "edac-util -v",
         "details": "",
         "flags": [
           [
@@ -232,7 +342,21 @@ const HWREF_HW_MEMORY_DATA = [
           "edac",
           "errors",
           "rma"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/edac-utils/edac-util.1.en.html",
+              "title": "edac-util(1)"
+            },
+            {
+              "url": "https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-devices-edac",
+              "title": "Kernel ABI: sysfs-devices-edac"
+            }
+          ],
+          "note": "edac-util reads world-readable sysfs counters, so it doesn't need root (the old sudo was dropped)."
+        }
       },
       {
         "id": "mem-errors-sub-1",
@@ -246,7 +370,21 @@ const HWREF_HW_MEMORY_DATA = [
           "ecc",
           "edac",
           "errors"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/edac-utils/edac-util.1.en.html",
+              "title": "edac-util(1)"
+            },
+            {
+              "url": "https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-devices-edac",
+              "title": "Kernel ABI: sysfs-devices-edac"
+            }
+          ],
+          "note": "edac-util reads world-readable sysfs counters, so it doesn't need root (the old sudo was dropped)."
+        }
       }
     ]
   },
@@ -259,7 +397,7 @@ const HWREF_HW_MEMORY_DATA = [
       {
         "id": "memory-tips-card",
         "desc": "Before you reseat or swap a DIMM",
-        "cmd": "sudo dmidecode -t memory > dimms-before.txt",
+        "cmd": "dmidecode -t memory > dimms-before.txt",
         "details": "Save the DIMM table, note the slot from the Locator (not the Linux row number), drain the node and get approval to power off. After the swap, save dimms-after.txt and diff: same count, same Configured Memory Speed, and the new serial in the right slot.",
         "flags": [
           [
@@ -278,7 +416,16 @@ const HWREF_HW_MEMORY_DATA = [
           "memory",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+              "title": "dmidecode(8)"
+            }
+          ]
+        }
       }
     ]
   }
