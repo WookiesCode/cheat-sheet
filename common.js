@@ -7603,7 +7603,49 @@ ${rmaTrailSection()}#### Action Requested:
       .filter(x => x.name && x.files.size);
   }
 
-  // Scope strings: 'due', 'all', 'sheet:<file>', 'suite:<name>'.
+  // ---- From my trail (#10) ---------------------------------------------------
+  // Drill the commands you actually copied on real tickets. Every node workspace's Case
+  // Trail is read (the live one plus the saved snapshots); each entry is matched back to the
+  // sheet command it came from, treating that command's placeholders (<node>, $BMC, ${GPU})
+  // as wildcards, because the trail stores the copy with your targets filled in.
+  const PRAC_SLOT_RE = /<[^<>\s][^<>]*>|\$\{?[A-Z_][A-Z0-9_]*\}?/g;
+  const pracReEsc = s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  function pracTrailRe(cmd) {
+    const s = pracNorm(cmd);
+    let src = '', last = 0;
+    for (const m of s.matchAll(PRAC_SLOT_RE)) { src += pracReEsc(s.slice(last, m.index)) + '.+?'; last = m.index + m[0].length; }
+    return new RegExp(`^${src}${pracReEsc(s.slice(last))}$`);
+  }
+  function pracTrailEntries() {
+    const out = [];
+    const add = raw => { try { const l = JSON.parse(raw || '[]'); if (Array.isArray(l)) out.push(...l.filter(e => e && typeof e.cmd === 'string')); } catch (e) {} };
+    try { add(localStorage.getItem('dc_case_trail')); } catch (e) {}
+    const reg = readNodes();
+    Object.entries(reg.nodes).forEach(([name, n]) => { if (name !== reg.active && n && n.data) add(n.data.dc_case_trail); });
+    return out;
+  }
+  // pracKey → how many times you copied it, across every node.
+  function pracTrailCounts() {
+    const byFile = new Map();
+    pracPool().forEach(i => { if (!byFile.has(i.file)) byFile.set(i.file, []); byFile.get(i.file).push(i); });
+    const res = pracTrailCounts.res || (pracTrailCounts.res = new Map());
+    const counts = new Map();
+    pracTrailEntries().forEach(e => {
+      // A root command may be copied with a "# needs root" line above it.
+      const typed = pracNorm(String(e.cmd).replace(/^(\s*#[^\n]*\n)+/, ''));
+      const files = e.sheet === 'linux' ? ['linux.html', 'index.html'] : [`${e.sheet}.html`];
+      for (const f of files) {
+        const hit = (byFile.get(f) || []).find(i => {
+          if (!res.has(i.cmd)) res.set(i.cmd, pracTrailRe(i.cmd));
+          return res.get(i.cmd).test(typed);
+        });
+        if (hit) { const k = pracKey(hit); counts.set(k, (counts.get(k) || 0) + 1); break; }
+      }
+    });
+    return counts;
+  }
+
+  // Scope strings: 'due', 'all', 'trail', 'sheet:<file>', 'suite:<name>'.
   function pracScope(spec) {
     const file = anatSheetFile || window.location.pathname.split('/').pop() || 'index.html';
     if (!spec) {
@@ -7612,6 +7654,7 @@ ${rmaTrailSection()}#### Action Requested:
       else { const s = suiteFor(file); spec = s ? `suite:${s.name}` : 'all'; }
     }
     if (spec === 'due') return { spec, kind: 'due', label: 'Due for review' };
+    if (spec === 'trail') { const counts = pracTrailCounts(); return { spec, kind: 'trail', label: 'From my trail', keys: new Set(counts.keys()), counts }; }
     if (spec.startsWith('sheet:')) {
       const f = spec.slice(6);
       const hit = pracPool().find(i => i.file === f);
@@ -7629,11 +7672,12 @@ ${rmaTrailSection()}#### Action Requested:
     return a;
   }
 
-  function pracStats(files) {
+  function pracStats(files, keys) {
     const data = pracLoad();
     const now = Date.now();
     let pool = pracPool();
     if (files) pool = pool.filter(i => files.has(i.file));
+    if (keys) pool = pool.filter(i => keys.has(pracKey(i)));
     let due = 0, mastered = 0, seen = 0;
     pool.forEach(i => {
       const r = data.cards[pracKey(i)];
@@ -7650,10 +7694,14 @@ ${rmaTrailSection()}#### Action Requested:
     const now = Date.now();
     let pool = pracPool();
     if (scope.files) pool = pool.filter(i => scope.files.has(i.file));
+    if (scope.keys) pool = pool.filter(i => scope.keys.has(pracKey(i)));
     const cards = pool.map(i => ({ item: i, key: pracKey(i), rec: data.cards[pracKey(i)] }));
     const due = cards.filter(c => c.rec && c.rec.due <= now).sort((a, b) => a.rec.due - b.rec.due);
     if (scope.kind === 'due') return due.slice(0, PRAC_ROUND);
-    const fresh = pracShuffle(cards.filter(c => !c.rec));
+    // From my trail: the commands you copy most come first; elsewhere new cards are shuffled.
+    const fresh = scope.counts
+      ? cards.filter(c => !c.rec).sort((a, b) => scope.counts.get(b.key) - scope.counts.get(a.key))
+      : pracShuffle(cards.filter(c => !c.rec));
     let round = [...due, ...fresh];
     // Everything here is learned and nothing is due: review the weakest ones early.
     if (!round.length) round = cards.slice().sort((a, b) => a.rec.b - b.rec.b || a.rec.due - b.rec.due);
@@ -7721,6 +7769,8 @@ ${rmaTrailSection()}#### Action Requested:
     if (here >= 4) chips.push([`sheet:${file}`, 'This sheet', here]);
     if (suite) chips.push([`suite:${suite.name}`, suite.name, pracStats(pracScope(`suite:${suite.name}`).files).total]);
     chips.push(['all', 'Everything', pracPool().length]);
+    const mine = pracTrailCounts().size;
+    if (mine) chips.push(['trail', 'From my trail', mine]);
     chips.push(['due', 'Due now', pracStats().due]);
     return chips.map(([spec, label, n]) => `<button type="button" class="prac-scope ${spec === scope.spec ? 'is-on' : ''}" data-prac-scope="${escapeHtml(spec)}">${escapeHtml(label)}<small>${n}</small></button>`).join('');
   }
@@ -7769,7 +7819,7 @@ ${rmaTrailSection()}#### Action Requested:
 
   function pracHeader() {
     const s = pracSession;
-    const st = pracStats(s.scope.files);
+    const st = pracStats(s.scope.files, s.scope.keys);
     pracEl.querySelector('#prac-title').innerHTML = `Practice <span>· ${escapeHtml(s.scope.label)}</span>`;
     pracEl.querySelector('.prac-stats').innerHTML = `
       <span title="Days in a row with practice"><b>🔥 ${st.streak}</b>day streak</span>
@@ -7784,7 +7834,10 @@ ${rmaTrailSection()}#### Action Requested:
     pracHeader();
     const stage = pracEl.querySelector('.prac-stage');
     if (!s.cards.length) {
-      stage.innerHTML = `<div class="prac-empty"><b>${s.scope.kind === 'due' ? 'Nothing is due.' : 'No commands to practise here.'}</b><p>${s.scope.kind === 'due' ? 'Every command you have practised is scheduled for later. Start a round on new ones instead.' : 'This scope has no single-line commands to drill.'}</p><button type="button" class="prac-primary" data-prac-scope="all">Practise everything →</button></div>`;
+      const empty = s.scope.kind === 'due' ? ['Nothing is due.', 'Every command you have practised is scheduled for later. Start a round on new ones instead.']
+        : s.scope.kind === 'trail' ? ['Your Case Trail is empty.', 'Copy commands from the sheets while you work a ticket; the ones you use show up here to practise.']
+        : ['No commands to practise here.', 'This scope has no single-line commands to drill.'];
+      stage.innerHTML = `<div class="prac-empty"><b>${empty[0]}</b><p>${empty[1]}</p><button type="button" class="prac-primary" data-prac-scope="all">Practise everything →</button></div>`;
       setTimeout(() => stage.querySelector('button').focus(), 30);
       return;
     }

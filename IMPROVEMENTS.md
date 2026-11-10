@@ -16,7 +16,7 @@ Product review started 2026-11-09. Phases 1–3 are below. Eleven items are buil
 | 14 | Skip link (found while building #5) | ✅ Built | `improve/skip-link` | `220d5c9` |
 | 8 | Source and last-verified date on core suites | ✅ NVIDIA, InfiniBand, Redfish, IPMI, BMC vendor tools, switches, Ethernet, Linux storage and hardware, hardware reference, Kubernetes and GPU containers | `improve/sources-*` | `3320dc0` … `7ab92ed` |
 | 9 | Stop duplicating the nav into every page | ✅ Built | `improve/nav-once` | (this branch) |
-| 10 | Practice what I actually use | Open | | |
+| 10 | Practice what I actually use | ✅ Built | `improve/practice-trail` | (this branch) |
 | 11 | Local usage meter | Open | | |
 | 12 | Export My kit as a navi `.cheat` file | Open (needs navi installed: ask first) | | |
 | 13 | Make the doc counts agree | ✅ Built | `improve/doc-counts` | `0d6d0f5` |
@@ -336,6 +336,7 @@ Impact (H/M/L) · Effort (S/M/L) · Risk (H/M/L). The ranking is by user impact 
 - **Why:** J5. It drills the commands you copied on real tickets, not a random draw from 2,043.
 - **Plan:** a "From my trail" source in Practice, seeded from Case Trail entries across node workspaces, using the same Leitner boxes.
 - Impact **M** · Effort **S** · Risk **L** · Files: `common.js`.
+- ✅ **Built** (`improve/practice-trail`, `tests/practice-trail.test.js`). Practice gets a **From my trail** chip. It reads every node workspace's Case Trail (the live one plus the snapshots in `dc_nodes`) and matches each entry back to its sheet command. The command's placeholders (`<node>`, `$BMC`) act as wildcards, because the trail stores the copy with targets filled in; a `# needs root` line is ignored. The most-copied commands come first, and the same Leitner boxes schedule them. The chip shows only when there's something to drill.
 
 **11. A local usage meter to guide what to keep**
 - **Why:** J3. The site keeps growing (24 themes, about 20 tools, 108 home buttons), and you have done redundancy cleanups before.
