@@ -15,27 +15,27 @@ const MB_MB_STORAGE_BDS_POST_DATA = [
         "flags": [
           [
             "0x99 / 0x9A",
-            "Super I/O initialization (99) and USB controller initialization started (9A)"
+            "Super IO initialization (99); USB initialization is started (9A)"
           ],
           [
             "0x9C / 0x9D",
-            "USB Detect (9C — probing USB ports, KVM dongles, and BMC Virtual Media) and USB Enable (9D)"
+            "USB Detect (9C: USB ports, KVM dongles, BMC virtual media); USB Enable (9D)"
           ],
           [
             "0xA0 / 0xA1",
-            "IDE / SATA AHCI controller initialization started (A0) and reset (A1)"
+            "IDE (SATA) initialization is started (A0); IDE reset (A1)"
           ],
           [
             "0xA2 / 0xA3",
-            "IDE / SATA / M.2 Drive Detect (A2) and Enable (A3): Hang at 0xA2 = dead SATA DOM, failing M.2 SSD, or bad backplane SATA cable!"
+            "IDE Detect (A2) and Enable (A3): a hang at A2 points at a failing SATA drive, SATA DOM or cable"
           ],
           [
             "0xA4 / 0xA5 / 0xA6",
-            "SCSI / SAS / NVMe backplane bus initialization (A4), reset (A5), and detect (A6)"
+            "SCSI initialization is started (A4), SCSI reset (A5), SCSI detect (A6)"
           ],
           [
             "0xB4",
-            "USB Hot-Plug: Frequent pause point when a faulty USB flash drive or corrupted BMC Virtual Media ISO is mounted"
+            "USB hot plug: a common pause point with a faulty USB drive or a bad virtual-media ISO"
           ]
         ],
         "tip": "Stuck on 0xA2 = unplug SATA/M.2 drives one by one to find the bad drive!",
@@ -58,7 +58,16 @@ const MB_MB_STORAGE_BDS_POST_DATA = [
           "nvme",
           "usb",
           "virtual-media"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.supermicro.com/manuals/other/AMI_AptioV_BIOS_POST_Codes_for_SM_Motherboards.pdf",
+              "title": "AMI Aptio V POST codes (Supermicro, from AMI Aptio 5.x Status Codes rev 2.04)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -71,32 +80,32 @@ const MB_MB_STORAGE_BDS_POST_DATA = [
       {
         "id": "post-a9-ae-boot-handoff",
         "desc": "Decode UEFI Setup entry, PXE/NVMe boot selection, and OS handoff codes (`0xA9`–`0xAE`, `0xAA`, `0x00`)",
-        "cmd": "POST 0xA9 (Start Setup)  ->  0xAB (Setup Input Wait)  ->  0xAD (Ready To Boot)  ->  0xAA / 0x00 (OS Running)",
+        "cmd": "POST 0xA9 (Start Setup)  ->  0xAB (Setup Input Wait)  ->  0xAD (Ready To Boot)  ->  0xAA (ACPI mode: OS running)",
         "details": "",
         "flags": [
           [
             "0xA9 / 0xAB",
-            "Start of Setup (A9) and Setup Input Wait (AB): The server is NOT hung — it is sitting inside BIOS Setup or waiting for F1 on VGA/SOL!"
+            "Start of Setup (A9) and Setup Input Wait (AB): not hung, it is in BIOS Setup or waiting for a key (check KVM/SOL)"
           ],
           [
             "0xAC",
-            "Reserved for ASL / Entering UEFI Shell or boot menu selection"
+            "Reserved for ASL in BDS; as an ASL code, AC = ACPI mode with the interrupt controller in PIC mode"
           ],
           [
             "0xAD",
-            "Ready To Boot Event: UEFI POST is 100% finished and handing control to GRUB / Linux EFI stub / PXE NBP"
+            "Ready To Boot event: UEFI is handing control to the bootloader or PXE"
           ],
           [
             "0xAE",
-            "Legacy Boot Event: Handing control to a legacy MBR bootloader"
+            "Legacy Boot event"
           ],
           [
-            "0xAA / 0xA0 (Normal Run)",
-            "System has transitioned into ACPI APIC mode — OS is booted and running normally (ASUS Q-Code often rests on AA or A0 in Ubuntu)"
+            "0xAA (Normal Run)",
+            "ASL code: system has transitioned into ACPI mode, interrupt controller in APIC mode: the usual \"OS running\" value"
           ],
           [
             "0x00 / 0xFF (At Power-On)",
-            "If stuck on 0x00 or 0xFF the instant power is pressed: CPU not executing reset vector (check 8-pin EPS12V cables, CPU VRMs, or BIOS flash)"
+            "0x00 is \"not used\" in AMI's table: a display stuck at 00 or FF at power-on means no code was written yet (power, CPU or BIOS flash)"
           ]
         ],
         "tip": "0xAB means the board is waiting at the BIOS prompt (connect BMC KVM/SOL)!",
@@ -119,7 +128,17 @@ const MB_MB_STORAGE_BDS_POST_DATA = [
           "grub",
           "boot",
           "acpi"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.supermicro.com/manuals/other/AMI_AptioV_BIOS_POST_Codes_for_SM_Motherboards.pdf",
+              "title": "AMI Aptio V POST codes (Supermicro, from AMI Aptio 5.x Status Codes rev 2.04)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: 0xAC is the ASL PIC-mode code; 0x00 is not used."
+        }
       }
     ]
   },
@@ -133,22 +152,40 @@ const MB_MB_STORAGE_BDS_POST_DATA = [
         "id": "storage-bds-post-tips-card",
         "desc": "Storage Detection, Boot Device Selection (BDS) & OS Handoff",
         "cmd": "lsblk -o NAME,MODEL,SERIAL,SIZE,FSTYPE,MOUNTPOINT && efibootmgr -v",
-        "details": "Codes starting with 0xA indicate Boot Device Selection (BDS). A hang at 0xA2 (IDE/SATA Detect) typically points to a failing NVMe SSD, corrupt M.2 controller, or degraded backplane cable. 0xAA indicates successfully passing control to the ACPI OS (normal operating state).",
+        "details": "0x90–0xCF are BDS (Boot Device Selection) codes. A hang at 0xA2 (IDE detect) points at a failing SATA drive or cable. 0xAA (an ASL code) means ACPI mode with the APIC interrupt controller: the normal running state.",
         "flags": [
           [
-            "0xA2 (Storage Detect)",
-            "SATA/NVMe drive detection hang: bad drive controller or broken backplane link"
+            "0xA2 (IDE Detect)",
+            "SATA drive detection hang: bad drive, SATA DOM or cable"
           ],
           [
             "0xAD (Ready To Boot)",
-            "UEFI handoff pending: check USB installer, NVMe bootloader, or PXE target"
+            "UEFI handoff pending: check the USB installer, NVMe bootloader, or PXE target"
           ],
           [
-            "0xAA / 0x00 (OS Active)",
-            "ACPI OS payload running normally; boot phase complete"
+            "0xAA (OS Active)",
+            "ACPI mode with APIC: the OS has taken over"
           ]
         ],
         "tip": "0xAD (Ready To Boot) means the system is waiting for boot media; check efibootmgr order or PXE timeout.",
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.supermicro.com/manuals/other/AMI_AptioV_BIOS_POST_Codes_for_SM_Motherboards.pdf",
+              "title": "AMI Aptio V POST codes (Supermicro, from AMI Aptio 5.x Status Codes rev 2.04)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/lsblk.8.html",
+              "title": "lsblk(8)"
+            },
+            {
+              "url": "https://github.com/rhboot/efibootmgr",
+              "title": "efibootmgr"
+            }
+          ],
+          "note": "Corrected 2026-11-10: BDS is 0x90–0xCF, not \"codes starting with A\"."
+        },
         "tags": [
           "storage-bds-post",
           "tips",

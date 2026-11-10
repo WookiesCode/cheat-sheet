@@ -76,12 +76,13 @@ const SECTION_MAP = {
     proTip: {
       desc: 'Memory Initialization & Rank Training Fault Isolation',
       cmd: 'dmidecode -t 17 | grep -E "(Locator|Size|Speed|Part Number)" && edac-util -v',
-      details: 'POST codes 0x50–0x55 signal early PEI Memory Reference Code (MRC) failure. 0x53 indicates memory initialization failure (bad SPD read or unsupported timing), while 0x55 indicates no usable memory detected. B0–BF codes indicate Xeon/EPYC channel-specific training errors. If stuck on 0x55, reseat the primary channel DIMM in Slot A1.',
-      tip: 'Always populate DIMM slots with the furthest slot from the CPU socket first (typically white/blue slots designated A1, B1, C1).',
+      details: "AMI's PEI memory errors are 0x50–0x55: 0x51 = SPD read failed, 0x53 = no usable memory detected, 0x55 = memory not installed. On Intel Xeon boards, B0–BF during memory init are Intel MRC progress codes (B7 = train DDR4 ranks). If stuck on 0x55, reseat the first DIMM slot of CPU0.",
+      tip: "Populate DIMMs in the order the board manual's population table gives.",
+      src: {"verified":"2026-11-10","refs":[{"url":"https://www.supermicro.com/manuals/other/AMI_AptioV_BIOS_POST_Codes_for_SM_Motherboards.pdf","title":"AMI Aptio V POST codes (Supermicro, from AMI Aptio 5.x Status Codes rev 2.04)"},{"url":"https://miyconst.github.io/assets/2024-07-27-intel-s2600-tpm20/Intel_S2600ST_TPS.pdf","title":"Intel S2600ST TPS: MRC progress and error codes (copy)"},{"url":"https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html","title":"dmidecode(8)"},{"url":"https://manpages.debian.org/trixie/edac-utils/edac-util.1.en.html","title":"edac-util(1)"}],"note":"Corrected 2026-11-10: 0x53 is no usable memory and 0x55 not installed (was swapped); the SPD failure is 0x51."},
       flags: [
-        ['0x53 (Memory Init)', 'Memory initialization error: unreadable SPD EEPROM or timing mismatch'],
-        ['0x55 (No Memory)', 'No memory installed: CPU socket pin contact fault or unseated A1 DIMM'],
-        ['0xB7 / 0xBD (Training)', 'DDR4/DDR5 rank margin training failure on designated memory channel']
+        ["0x53 (No usable memory)","Memory was found but none of it could be used: mixed types, bad DIMM or wrong population"],
+        ["0x55 (Not installed)","No DIMM detected: unseated first slot, or a socket-contact problem"],
+        ["0xB7 (Intel MRC)","Training DDR4 ranks: a hang here points at one DIMM or channel; the BMC SEL names it"]
       ]
     }
   },
@@ -93,8 +94,9 @@ const SECTION_MAP = {
     proTip: {
       desc: 'PCIe Bus Hangs, Bifurcation & Option ROM Freeze Triage',
       cmd: 'lspci -tv && lspci -vvv -d 10de: | grep -E "(LnkCap|LnkSta|DevSta)"',
-      details: 'Codes 0x91–0x96 occur during DXE driver dispatch and bus enumeration. A hang at 0x94 (PCI Bus Enumeration) indicates an unseated riser, bad PCIe Gen5 retimer, or shorted power pins on a multi-GPU add-in card. 0xd6 indicates No Console Output Found (missing or disabled GPU display output).',
+      details: "0x92–0x96 are BDS PCI bus initialization, enumeration and resource assignment. A hang at 0x94 (PCI Bus Enumeration) usually means an unseated riser, a bad retimer or cable, or a dead add-in card. 0xD6 means no console output device was found.",
       tip: 'Verify PCIe bifurcation settings in BIOS: setting an x16 slot to x4x4x4x4 for quad M.2 cards avoids post code 0x94 hangs.',
+      src: {"verified":"2026-11-10","refs":[{"url":"https://www.supermicro.com/manuals/other/AMI_AptioV_BIOS_POST_Codes_for_SM_Motherboards.pdf","title":"AMI Aptio V POST codes (Supermicro, from AMI Aptio 5.x Status Codes rev 2.04)"},{"url":"https://man7.org/linux/man-pages/man8/lspci.8.html","title":"lspci(8)"}]},
       flags: [
         ['0x94 (PCI Bus Enum)', 'PCIe bus scan failure: unseated riser, bad cable, or dead add-in card'],
         ['0x96 (PCI Resource)', 'PCI resource allocation failure: enable "Above 4G Decoding" and Large BARs'],
@@ -110,12 +112,13 @@ const SECTION_MAP = {
     proTip: {
       desc: 'Storage Detection, Boot Device Selection (BDS) & OS Handoff',
       cmd: 'lsblk -o NAME,MODEL,SERIAL,SIZE,FSTYPE,MOUNTPOINT && efibootmgr -v',
-      details: 'Codes starting with 0xA indicate Boot Device Selection (BDS). A hang at 0xA2 (IDE/SATA Detect) typically points to a failing NVMe SSD, corrupt M.2 controller, or degraded backplane cable. 0xAA indicates successfully passing control to the ACPI OS (normal operating state).',
+      details: "0x90–0xCF are BDS (Boot Device Selection) codes. A hang at 0xA2 (IDE detect) points at a failing SATA drive or cable. 0xAA (an ASL code) means ACPI mode with the APIC interrupt controller: the normal running state.",
       tip: '0xAD (Ready To Boot) means the system is waiting for boot media; check efibootmgr order or PXE timeout.',
+      src: {"verified":"2026-11-10","refs":[{"url":"https://www.supermicro.com/manuals/other/AMI_AptioV_BIOS_POST_Codes_for_SM_Motherboards.pdf","title":"AMI Aptio V POST codes (Supermicro, from AMI Aptio 5.x Status Codes rev 2.04)"},{"url":"https://man7.org/linux/man-pages/man8/lsblk.8.html","title":"lsblk(8)"},{"url":"https://github.com/rhboot/efibootmgr","title":"efibootmgr"}],"note":"Corrected 2026-11-10: BDS is 0x90–0xCF, not \"codes starting with A\"."},
       flags: [
-        ['0xA2 (Storage Detect)', 'SATA/NVMe drive detection hang: bad drive controller or broken backplane link'],
-        ['0xAD (Ready To Boot)', 'UEFI handoff pending: check USB installer, NVMe bootloader, or PXE target'],
-        ['0xAA / 0x00 (OS Active)', 'ACPI OS payload running normally; boot phase complete']
+        ["0xA2 (IDE Detect)","SATA drive detection hang: bad drive, SATA DOM or cable"],
+        ["0xAD (Ready To Boot)","UEFI handoff pending: check the USB installer, NVMe bootloader, or PXE target"],
+        ["0xAA (OS Active)","ACPI mode with APIC: the OS has taken over"]
       ]
     }
   },
@@ -127,12 +130,13 @@ const SECTION_MAP = {
     proTip: {
       desc: 'AMD EPYC AGESA Boot Loader (ABL) & xGMI Infinity Fabric Diagnostics',
       cmd: 'lscpu | grep -E "(Model name|NUMA|Socket)" && numactl --hardware',
-      details: 'AMD EPYC motherboards exhibit a unique 2-stage POST cycle. The Platform Security Processor (PSP) boots first, displaying E0–FF codes on port 0x80 while loading microcode and initializing CPU chiplets. The board then resets and executes standard AMI Aptio PEI/DXE codes.',
-      tip: 'A halt at 0xEA indicates AMD AGESA memory timing failure; check DIMM thermal sensors and socket torque spec (14.0 in-lbs / 1.58 Nm).',
+      details: "AMD EPYC boots in two stages: AMD's PSP and AGESA boot loader train memory first, then AMI's UEFI runs its own PEI/DXE codes. The early codes are vendor-specific, so decode them with the board manual.",
+      tip: "AMI's E0–EF meanings (S3 resume) do not apply to EPYC's early boot codes: use the board manual.",
+      src: {"verified":"2026-11-10","refs":[{"url":"https://www.supermicro.com/manuals/other/AMI_AptioV_BIOS_POST_Codes_for_SM_Motherboards.pdf","title":"AMI Aptio V POST codes (Supermicro, from AMI Aptio 5.x Status Codes rev 2.04)"},{"url":"https://man7.org/linux/man-pages/man1/lscpu.1.html","title":"lscpu(1)"},{"url":"https://man7.org/linux/man-pages/man8/numactl.8.html","title":"numactl(8)"}],"note":"Corrected 2026-11-10: removed 0xEA/0xEE meanings and a torque value that contradicted the other card."},
       flags: [
-        ['0xEA (AGESA Memory)', 'AMD memory training abort: uneven socket mounting pressure or damaged LGA pins'],
-        ['0xEE (xGMI Link)', 'Dual-socket Infinity Fabric inter-socket link training timeout'],
-        ['2-Stage Boot', 'Initial E0-FF codes followed by cold reset to 10-AA is expected normal behavior']
+        ["lscpu | grep -E \"Socket|NUMA\"","Confirm both sockets and all NUMA nodes came up"],
+        ["numactl --hardware","Confirm every NUMA node has memory (a missing node points at a socket or its DIMMs)"],
+        ["2-Stage Boot","AMD firmware codes first, then a reset into AMI's 0x10-onward codes: normal behavior"]
       ]
     }
   },
@@ -143,13 +147,14 @@ const SECTION_MAP = {
     heading: 'ASUS Server Motherboards: ASMB10/11 BMC, Q-Code 7-Segment & Diagnostic Jumpers',
     proTip: {
       desc: 'ASUS Server ASMB BMC Telemetry & Hardware Recovery Jumpers',
-      cmd: 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E raw 0x30 0x18',
-      details: 'ASUS server boards (ESC8000, KRPA, Z13, K14 series) feature an onboard 2-digit 7-segment Q-Code display and ASMB10/11 BMC controller. Use the CLRTC jumper to reset corrupt NVRAM, or ME_RCVR jumper to force Intel ME firmware recovery.',
-      tip: 'Query live ASUS Q-Codes over Redfish via /redfish/v1/Managers/1/Oem/Asus/PostCode without opening chassis.',
+      cmd: "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sel elist",
+      details: "ASUS server boards (ESC8000, KRPA, Z13, K14 series) have a 2-digit Q-Code display and an ASMB BMC. Use the BMC event log first, then the board's clear-CMOS jumper for corrupt NVRAM.",
+      tip: "Read POST codes remotely from the BMC web UI's POST code log, and the boot stage from Redfish BootProgress.",
+      src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/ipmitool/ipmitool","title":"ipmitool"},{"url":"https://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_22_0.json","title":"DMTF Redfish ComputerSystem schema (BootProgress)"}],"note":"Corrected 2026-11-10: replaced an unsourced raw IPMI command and an unverified ASUS Redfish OEM path."},
       flags: [
-        ['CLRTC Jumper', 'Clear CMOS RTC jumper: short pins 1-2 for 10s with AC power removed to clear BIOS'],
-        ['ME_RCVR Jumper', 'Intel Management Engine recovery mode jumper for recovering corrupted ME flash'],
-        ['BMC_LED1', 'Blinks green at 1Hz when ASMB BMC Linux kernel is healthy and ready']
+        ["ipmitool … sel elist","BMC event log with sensor names: DIMM, CPU and PCIe faults"],
+        ["CLRTC jumper","Clear CMOS with AC removed; jumper positions are in the board manual"],
+        ["BMC_LED1","BMC heartbeat LED: wait for it before powering on"]
       ]
     }
   },
@@ -160,9 +165,10 @@ const SECTION_MAP = {
     heading: 'GIGABYTE Server Boards: GSM / AST2600 BMC, Dual-BIOS & Diagnostic LEDs',
     proTip: {
       desc: 'GIGABYTE Dual-BIOS Switching & Remote Port 0x80 Snooping',
-      cmd: 'ipmitool -I lanplus -H "$BMC" -U "$BMC_USER" -E raw 0x32 0x8b',
+      cmd: "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sel elist",
       details: 'GIGABYTE server motherboards (MZ, MD, MS, R-series) utilize an ASPEED AST2500/AST2600 BMC with hardware port 0x80 LPC snooping. If the primary SPI flash chip becomes corrupted, toggle the Dual-BIOS switch (BIOS_SEL) to boot from the redundant secondary SPI ROM.',
       tip: 'If BMC_RDY LED is solid amber or off, BMC power rail or SPI flash is unpowered; verify standby 3.3V rail.',
+      src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/ipmitool/ipmitool","title":"ipmitool"},{"url":"https://www.gigabyte.com/Support/Security/1762","title":"GIGABYTE: BMC unique pre-programmed password"}],"note":"Corrected 2026-11-10: replaced an unsourced raw IPMI command with the standard SEL listing. LED and switch names are board-specific."},
       flags: [
         ['BIOS_SEL Switch', 'Hardware slide switch to manually select Primary vs Secondary SPI BIOS ROM'],
         ['BMC_RDY LED', 'Blinks green at 1Hz when ASPEED BMC firmware has successfully completed Linux boot'],
@@ -177,9 +183,10 @@ const SECTION_MAP = {
     heading: 'Ubuntu In-Band Motherboard Telemetry, ACPI BERT Crash Tables & BIOS Checklist',
     proTip: {
       desc: 'Production In-Band Motherboard Telemetry & Fatal Crash Log Extraction',
-      cmd: 'dmesg | grep -i bert && cat /sys/firmware/acpi/tables/BERT > bert.dat',
-      details: 'The ACPI BERT (Boot Error Record Table) preserves hardware errors from fatal crashes that occurred during previous reboots. Use dmidecode -t 2 to audit motherboard manufacturer, serial number, and PCB revision across large server fleets.',
+      cmd: "dmesg | grep -i bert && cp /sys/firmware/acpi/tables/BERT bert.dat",
+      details: "The ACPI BERT (Boot Error Record Table) keeps hardware errors from a fatal crash for the next boot. The table files under /sys/firmware/acpi/tables are root-only. Use dmidecode -t 2 to audit motherboard maker, serial and revision across a fleet.",
       tip: 'Ensure "Above 4G Decoding" and "SR-IOV Support" are enabled in BIOS to avoid post code 0x96 resource allocation failure with multi-GPU accelerators.',
+      src: {"verified":"2026-11-10","refs":[{"url":"https://github.com/torvalds/linux/blob/master/drivers/acpi/apei/bert.c","title":"Linux ACPI BERT driver"},{"url":"https://docs.kernel.org/firmware-guide/acpi/apei/output_format.html","title":"Linux APEI output format"},{"url":"https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html","title":"dmidecode(8)"},{"url":"https://github.com/torvalds/linux/blob/master/drivers/firmware/dmi-id.c","title":"Linux dmi-id.c (serial files are 0400)"}]},
       flags: [
         ['dmidecode -t 2', 'Query motherboard model, PCB hardware revision, and manufacturer serial number'],
         ['/sys/firmware/acpi/tables/BERT', 'ACPI Boot Error Record Table containing fatal post-mortem crash records'],
@@ -209,7 +216,8 @@ function buildMbSectionCards(sec) {
           details: cmd.details || '',
           flags: cmd.flags ? cmd.flags.slice(0, 3) : [],
           tip: cmd.tip || '',
-          tags: [cfg.name, 'motherboard', 'post', 'bios', 'hardware', ...(cmd.tags || [])]
+          tags: [cfg.name, 'motherboard', 'post', 'bios', 'hardware', ...(cmd.tags || [])],
+          ...(cmd.src ? { src: cmd.src } : {})
         }
       ]
     });
@@ -228,7 +236,8 @@ function buildMbSectionCards(sec) {
             cmd: cmd.cmd,
             flags: cmd.flags.slice(3),
             details: `Common operational and diagnostic POST / Q-Codes on ASUS and GIGABYTE server motherboards.`,
-            tags: [cfg.name, 'flags', 'options', 'syntax']
+            tags: [cfg.name, 'flags', 'options', 'syntax'],
+            ...(cmd.src ? { src: cmd.src } : {})
           }
         ]
       });
@@ -245,7 +254,8 @@ function buildMbSectionCards(sec) {
           id: `${cmd.id}-sub-${idx + 1}`,
           desc: sub[1],
           cmd: sub[0],
-          tags: [cfg.name, 'recipe', 'automation', 'cli']
+          tags: [cfg.name, 'recipe', 'automation', 'cli'],
+          ...(cmd.src ? { src: cmd.src } : {})
         }))
       });
     }
@@ -266,6 +276,7 @@ function buildMbSectionCards(sec) {
           details: cfg.proTip.details,
           flags: cfg.proTip.flags,
           tip: cfg.proTip.tip,
+          ...(cfg.proTip.src ? { src: cfg.proTip.src } : {}),
           tags: [sec.id, 'tips', 'pro', 'motherboard', 'post', 'best-practice']
         }
       ]

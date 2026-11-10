@@ -198,7 +198,7 @@ const SW_SW_QUANTUM_INBAND_DATA = [
       {
         "id": "quantum-unmanaged-inband-tips-card",
         "desc": "Out-of-Band vs In-Band Telemetry on Unmanaged QM8700/QM9700 Switches",
-        "cmd": "mlxlink -d lid-0x0004 -p 1 --show_module --show_ber",
+        "cmd": "mlxlink -d lid-0x0004 -p 1 --show_module --show_counters",
         "details": "Unmanaged NVIDIA Quantum switches lack an onboard CPU and management IP. Cluster administrators query switch telemetry in-band directly from connected GPU servers using Mellanox Firmware Tools (MFT) with the target switch LID: `mlxlink -d lid-<LID> -p <Port>`.",
         "flags": [
           [

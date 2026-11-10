@@ -15,18 +15,18 @@ const MB_MB_ASUS_SERVERS_DATA = [
         "flags": [
           [
             "Systems/Self",
-            "ASUS ASMB10/ASMB11 (AMI MegaRAC SP-X) uses 'Systems/Self' as the primary ComputerSystem Redfish resource URI"
+            "AMI MegaRAC-based BMCs often name the system Self: list /redfish/v1/Systems to find the ID on yours"
           ],
           [
             "BootProgress.LastState",
-            "Reports current UEFI boot stage (OSRunning, PCIResourceConfigStarted, PrimaryProcessorInitializationStarted, etc.)"
+            "Standard Redfish boot stage (for example PrimaryProcessorInitializationStarted, PCIResourceConfigStarted, OSRunning)"
           ],
           [
-            "Web UI Path",
-            "In ASUS ASMB10/ASMB11 Web GUI: navigate to 'Logs & Reports -> POST Code Log' to view Current vs Previous boot 0x80 hex codes with timestamps"
+            "Web UI POST code log",
+            "ASMB web GUIs have a POST code log with current and previous boot codes (menu names vary by firmware)"
           ]
         ],
-        "tip": "ASUS ASMB11 Web GUI records the exact millisecond each 0x80 hex code changed!",
+        "tip": "BootProgress shows the stage; the BMC POST code log shows the exact codes",
         "tags": [
           "ASUS Server Boards",
           "motherboard",
@@ -41,7 +41,17 @@ const MB_MB_ASUS_SERVERS_DATA = [
           "post",
           "qcode",
           "megarac"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_22_0.json",
+              "title": "DMTF Redfish ComputerSystem schema (BootProgress)"
+            }
+          ],
+          "note": "The ASMB web-UI menu path is not confirmed against an ASUS document."
+        }
       }
     ]
   },
@@ -59,23 +69,19 @@ const MB_MB_ASUS_SERVERS_DATA = [
         "flags": [
           [
             "Q-Code LED (80 Port)",
-            "2-digit 7-segment display on the motherboard edge showing live Port 0x80 hex POST code (switches to AA/A0 or CPU temp once booted)"
+            "2-digit display showing the live port-80 POST code (it may switch to another value once booted)"
           ],
           [
             "BMC_LED1 (Heartbeat)",
-            "Blinks green at 1 Hz when ASMB9/10/11 BMC firmware is booted. Do NOT press chassis power until BMC_LED1 is blinking!"
+            "Blinks when the BMC firmware is up: wait for it before pressing power"
           ],
           [
             "CATERR_LED1 (Red)",
-            "Catastrophic Error LED: illuminates red if CPU asserts IERR/MCERR due to fatal uncorrectable PCIe AER or CPU core fault"
+            "Lights when the CPU signals a catastrophic error (IERR/MCERR)"
           ],
           [
-            "Q-LEDs (Pro WS boards)",
-            "4-LED cluster near 24-pin ATX: CPU (Red), DRAM (Yellow/Amber), VGA (White), BOOT (Yellow-Green) — stays lit on the failing component!"
-          ],
-          [
-            "CLRTC1 /VGA_SW1",
-            "CLRTC1 (short pins 2-3 for 10s with AC unplugged to Clear CMOS); VGA_SW1 (enables/disables onboard ASPEED VGA)"
+            "CLRTC1 / VGA_SW1",
+            "Clear CMOS (follow the jumper positions in the board manual, with AC unplugged); VGA_SW1 enables or disables the onboard VGA"
           ]
         ],
         "tip": "Wait ~60s after plugging in AC power for BMC_LED1 to blink green before powering on!",
@@ -93,7 +99,12 @@ const MB_MB_ASUS_SERVERS_DATA = [
           "vga_sw1",
           "jumper",
           "cmos"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [],
+          "note": "Board-specific (LED names, jumper positions, menu paths): check this board's manual; not confirmed against a vendor document here."
+        }
       }
     ]
   },
@@ -106,23 +117,37 @@ const MB_MB_ASUS_SERVERS_DATA = [
       {
         "id": "asus-server-board-tips-card",
         "desc": "ASUS Server ASMB BMC Telemetry & Hardware Recovery Jumpers",
-        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E raw 0x30 0x18",
-        "details": "ASUS server boards (ESC8000, KRPA, Z13, K14 series) feature an onboard 2-digit 7-segment Q-Code display and ASMB10/11 BMC controller. Use the CLRTC jumper to reset corrupt NVRAM, or ME_RCVR jumper to force Intel ME firmware recovery.",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sel elist",
+        "details": "ASUS server boards (ESC8000, KRPA, Z13, K14 series) have a 2-digit Q-Code display and an ASMB BMC. Use the BMC event log first, then the board's clear-CMOS jumper for corrupt NVRAM.",
         "flags": [
           [
-            "CLRTC Jumper",
-            "Clear CMOS RTC jumper: short pins 1-2 for 10s with AC power removed to clear BIOS"
+            "ipmitool … sel elist",
+            "BMC event log with sensor names: DIMM, CPU and PCIe faults"
           ],
           [
-            "ME_RCVR Jumper",
-            "Intel Management Engine recovery mode jumper for recovering corrupted ME flash"
+            "CLRTC jumper",
+            "Clear CMOS with AC removed; jumper positions are in the board manual"
           ],
           [
             "BMC_LED1",
-            "Blinks green at 1Hz when ASMB BMC Linux kernel is healthy and ready"
+            "BMC heartbeat LED: wait for it before powering on"
           ]
         ],
-        "tip": "Query live ASUS Q-Codes over Redfish via /redfish/v1/Managers/1/Oem/Asus/PostCode without opening chassis.",
+        "tip": "Read POST codes remotely from the BMC web UI's POST code log, and the boot stage from Redfish BootProgress.",
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool",
+              "title": "ipmitool"
+            },
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_22_0.json",
+              "title": "DMTF Redfish ComputerSystem schema (BootProgress)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: replaced an unsourced raw IPMI command and an unverified ASUS Redfish OEM path."
+        },
         "tags": [
           "asus-server-board",
           "tips",

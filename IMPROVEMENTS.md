@@ -473,6 +473,23 @@ All 15 commands (in `fiber.js`) and 4 Pro Tips (in `generate-fiber-suite.js`) ci
 | "85%+ of link issues are dirty ferrules"; dust caps "outgas plasticizer"; "30W+", "25W" OSFP figures; "lane skew <2.5 dB"; "<0.1 ns" DAC latency | Unsourced numbers removed; contamination described as a leading cause |
 | Finned OSFP "will damage the server heat sink" in an RHS cage | Match finned modules to switch cages and flat-top (RHS) modules to adapter cages |
 
+## #8 for the motherboard POST-code suite (2026-11-10, `mb-sources`)
+
+All 17 commands (in `motherboards.js`) and 7 Pro Tips (in `generate-motherboards-suite.js`, which now passes `src` to the main, options, recipe and Pro Tip cards) have a source line on the hub and the seven sheets (41 cards). 13 cite AMI's Aptio V status-code table (Supermicro's copy of AMI Aptio 5.x Status Codes rev 2.04), Intel's S2600ST TPS MRC table, GIGABYTE's BMC password notice, the DMTF Redfish schema, NVIDIA's NCCL GPU troubleshooting page and the Linux kernel source. Four that depend on one board's manual (DIMM slot names, ASUS and GIGABYTE LEDs and jumpers, 2-socket advice) now say "Not verified" instead of implying a source. This sheet had the most invented detail so far:
+
+| Was | Now |
+|---|---|
+| B0–BF as one "Intel & AMD DDR channel training" range (B4 RCD, B7 training fail, BA BIST…) | Intel MRC during memory init (B0 detect DIMMs, B7 train DDR4 ranks, BF MRC done); AMI reuses B0–B7 later in BDS (B2 option ROM, B4 USB hot plug, B7 NVRAM reset); AMD doesn't use the range for training |
+| E0–EF as AMD ABL memory/xGMI codes (EA training error, EE complete / xGMI timeout), socket torque 12.0–13.5 vs 14.0 in-lbs | AMI defines E0–EF as S3 resume; Intel MRC uses E8/EA for memory errors; EPYC's early codes are vendor-specific: use the board manual. The conflicting numbers are gone |
+| Memory Pro Tip: 0x53 = bad SPD, 0x55 = no usable memory | 0x51 = SPD read failed, 0x53 = no usable memory, 0x55 = memory not installed |
+| 0x91 PCI bus init, 0x92 bridge init; 0x69 NB SMM; 0x2F "init complete"; 0xAC boot menu; 0xd8 "or corrupted NVRAM"; 0x00 reset vector; "codes starting with A are BDS" | AMI: 0x91 driver connecting, 0x92 PCI bus init, 0x69 NB DXE init (SMM 0x6A), 0x2F memory init (other), 0xAC ASL PIC mode, 0xd8 invalid password, 0x00 not used, BDS = 0x90–0xCF |
+| `ipmitool raw 0x30 0x18`, `raw 0x32 0x8b`, `raw 0x3c`, `/redfish/v1/Managers/1/Oem/Asus/PostCode` | Removed (no source; unknown raw IPMI commands are risky): `ipmitool … sel elist` and Redfish BootProgress instead |
+| GIGABYTE unique BMC password "8 characters on the CPU cover" | GIGABYTE: shipped before March 2020 = password; later = last 11 characters of the serial number on the sticker |
+| sysfs board identity "without root"; reading the BERT table | `board_serial` is 0400 and `/sys/firmware/acpi/tables/*` are root-only (kernel `dmi-id.c`, checked on this machine) |
+| MMIO High Base 56T / granularity 1024G as mandatory | Use the server vendor's values; ACS-disable advice now cites NVIDIA's NCCL page |
+
+Also fixed on the Quantum in-band switch sheet: `mlxlink … --show_ber` (no such flag) → `--show_counters`.
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |

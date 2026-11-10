@@ -44397,8 +44397,18 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "ASUS Server Boards: Query live & historical POST codes remotely from an ASUS ASMB10 / ASMB11",
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems/Self\" | jq '{PowerState, Status, BootProgress}'",
     "desc": "Query live & historical POST codes remotely from an ASUS ASMB10 / ASMB11 (ASPEED AST2600) BMC over IPv6",
-    "tip": "ASUS ASMB11 Web GUI records the exact millisecond each 0x80 hex code changed!",
-    "tags": "ASUS Server Boards motherboard post bios hardware asus asmb10 asmb11 redfish ipv6 post qcode megarac"
+    "tip": "BootProgress shows the stage; the BMC POST code log shows the exact codes",
+    "tags": "ASUS Server Boards motherboard post bios hardware asus asmb10 asmb11 redfish ipv6 post qcode megarac",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_22_0.json",
+          "title": "DMTF Redfish ComputerSystem schema (BootProgress)"
+        }
+      ],
+      "note": "The ASMB web-UI menu path is not confirmed against an ASUS document."
+    }
   },
   {
     "sName": "mb-asus-servers",
@@ -44410,6 +44420,11 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "ASUS server motherboard onboard diagnostic LEDs (`BMC_LED1`, `CATERR_LED1`, `Q-LED`) and recovery jumpers",
     "tip": "Wait ~60s after plugging in AC power for BMC_LED1 to blink green before powering on!",
     "tags": "ASUS Server Boards motherboard post bios hardware asus bmc_led1 caterr q-led clrtc1 vga_sw1 jumper cmos",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [],
+      "note": "Board-specific (LED names, jumper positions, menu paths): check this board's manual; not confirmed against a vendor document here."
+    },
     "noCopy": true
   },
   {
@@ -44418,21 +44433,49 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "tip",
     "id": "asus-server-board-tips-card",
     "sec": "ASUS Server Boards: Pro Tips & Best Practices",
-    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E raw 0x30 0x18",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sel elist",
     "desc": "ASUS Server ASMB BMC Telemetry & Hardware Recovery Jumpers",
-    "tip": "Query live ASUS Q-Codes over Redfish via /redfish/v1/Managers/1/Oem/Asus/PostCode without opening chassis.",
-    "tags": "asus-server-board tips pro motherboard post best-practice"
+    "tip": "Read POST codes remotely from the BMC web UI's POST code log, and the boot stage from Redfish BootProgress.",
+    "tags": "asus-server-board tips pro motherboard post best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool",
+          "title": "ipmitool"
+        },
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_22_0.json",
+          "title": "DMTF Redfish ComputerSystem schema (BootProgress)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: replaced an unsourced raw IPMI command and an unverified ASUS Redfish OEM path."
+    }
   },
   {
     "sName": "mb-epyc-agesa",
     "file": "mb-epyc-agesa.html",
     "badge": "epyc",
     "id": "epyc-2stage-abl-post",
-    "sec": "AMD EPYC AGESA & PSP: Understand the 2-Stage POST sequence on GIGABYTE & ASUS AMD EPYC",
-    "cmd": "Stage 1: AMD PSP & AGESA BootLoader (0xE0..0xFF / 0xD0..0xDF)   -->   Stage 2: AMI Aptio V UEFI (0x10..0xAD)",
-    "desc": "Understand the 2-Stage POST sequence on GIGABYTE & ASUS AMD EPYC (Rome/Milan/Genoa/Turin) boards",
-    "tip": "EPYC SP3/SP5 sockets are extremely torque-sensitive: uneven Torx T20 screws cause 0xEA/0x55!",
+    "sec": "AMD EPYC AGESA & PSP: AMD EPYC boards show AMD firmware codes before AMI UEFI starts: decode those from the board manual, not AMI's table",
+    "cmd": "Stage 1: AMD PSP / AGESA boot loader (vendor-specific codes)   -->   Stage 2: AMI Aptio V UEFI (0x10 onward)",
+    "desc": "AMD EPYC boards show AMD firmware codes before AMI UEFI starts: decode those from the board manual, not AMI's table",
+    "tip": "Early-code hang after a DIMM or CPU change: reseat, then look the code up in the board manual",
     "tags": "AMD EPYC AGESA & PSP motherboard post bios hardware epyc amd agesa abl psp e0 e1 e6 ea eb ee sp3 sp5 genoa turin",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.supermicro.com/manuals/other/AMI_AptioV_BIOS_POST_Codes_for_SM_Motherboards.pdf",
+          "title": "AMI Aptio V POST codes (Supermicro, from AMI Aptio 5.x Status Codes rev 2.04)"
+        },
+        {
+          "url": "https://miyconst.github.io/assets/2024-07-27-intel-s2600-tpm20/Intel_S2600ST_TPS.pdf",
+          "title": "Intel S2600ST TPS: MRC progress and error codes (copy)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: removed specific E0–EF ABL meanings and socket-torque figures that contradicted each other and had no source."
+    },
     "noCopy": true
   },
   {
@@ -44440,12 +44483,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "file": "mb-epyc-agesa.html",
     "badge": "epyc",
     "id": "epyc-xgmi-dual-socket",
-    "sec": "AMD EPYC AGESA & PSP: Diagnose Dual-Socket",
-    "cmd": "POST 0xE3 / 0xE4 (EPYC xGMI Link Training)   |   POST 0x19 / 0x2A / 0x3B (Intel Xeon UPI Init)",
-    "desc": "Diagnose Dual-Socket (2P) AMD EPYC Infinity Fabric (xGMI) & Intel Xeon UPI link training hangs",
-    "tip": "You can flash BIOS via ASUS ASMB11 or GIGABYTE GSM BMC even without a supported CPU installed!",
+    "sec": "AMD EPYC AGESA & PSP: Two-socket boards",
+    "cmd": "BMC SEL: which socket (P0 / P1) logged the error   |   New CPU generation: update BIOS first",
+    "desc": "Two-socket boards (AMD EPYC xGMI, Intel Xeon UPI): find which socket failed, and update BIOS before a newer CPU",
+    "tip": "Update BIOS through the BMC before swapping in a newer CPU generation",
     "tags": "AMD EPYC AGESA & PSP motherboard post bios hardware xgmi upi 2p dual-socket e3 e4 mz73 k14 krpa",
-    "noCopy": true
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [],
+      "note": "Corrected 2026-11-10: removed unsourced xGMI/UPI code numbers. General advice; check your board's BMC guide."
+    }
   },
   {
     "sName": "mb-epyc-agesa",
@@ -44455,8 +44502,26 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "AMD EPYC AGESA & PSP: Pro Tips & Best Practices",
     "cmd": "lscpu | grep -E \"(Model name|NUMA|Socket)\" && numactl --hardware",
     "desc": "AMD EPYC AGESA Boot Loader (ABL) & xGMI Infinity Fabric Diagnostics",
-    "tip": "A halt at 0xEA indicates AMD AGESA memory timing failure; check DIMM thermal sensors and socket torque spec (14.0 in-lbs / 1.58 Nm).",
-    "tags": "amd-epyc-agesa tips pro motherboard post best-practice"
+    "tip": "AMI's E0–EF meanings (S3 resume) do not apply to EPYC's early boot codes: use the board manual.",
+    "tags": "amd-epyc-agesa tips pro motherboard post best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.supermicro.com/manuals/other/AMI_AptioV_BIOS_POST_Codes_for_SM_Motherboards.pdf",
+          "title": "AMI Aptio V POST codes (Supermicro, from AMI Aptio 5.x Status Codes rev 2.04)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/lscpu.1.html",
+          "title": "lscpu(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/numactl.8.html",
+          "title": "numactl(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: removed 0xEA/0xEE meanings and a torque value that contradicted the other card."
+    }
   },
   {
     "sName": "mb-gigabyte-servers",
@@ -44466,8 +44531,22 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "GIGABYTE Server Boards: Query GIGABYTE Server Management",
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems/Self\" | jq '{PowerState, BootProgress}'",
     "desc": "Query GIGABYTE Server Management (GSM / MegaRAC) BMC POST Snooping code over IPv6 Redfish or IPMI",
-    "tip": "Newer GIGABYTE boards print the unique default BMC password on the serial sticker!",
-    "tags": "GIGABYTE Server Boards motherboard post bios hardware gigabyte gsm bmc post snooping redfish ipv6 mz73 ms73 g492"
+    "tip": "Newer GIGABYTE boards: the default BMC password is on the serial-number sticker",
+    "tags": "GIGABYTE Server Boards motherboard post bios hardware gigabyte gsm bmc post snooping redfish ipv6 mz73 ms73 g492",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.gigabyte.com/Support/Security/1762",
+          "title": "GIGABYTE: BMC unique pre-programmed password"
+        },
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_22_0.json",
+          "title": "DMTF Redfish ComputerSystem schema (BootProgress)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: GIGABYTE says the unique password is the last 11 characters of the serial (was 8); removed an unsourced raw IPMI command."
+    }
   },
   {
     "sName": "mb-gigabyte-servers",
@@ -44479,6 +44558,11 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "GIGABYTE server motherboard status LEDs (`BMC_RDY`, `CPU_ERR`), Dual-BIOS switches & CMOS jumpers",
     "tip": "If a GIGABYTE board won't POST after a failed BIOS flash, flip SW_BIOS to the backup ROM!",
     "tags": "GIGABYTE Server Boards motherboard post bios hardware gigabyte bmc_rdy sw_bios dual-bios clr_cmos jumper dip-switch",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [],
+      "note": "Board-specific (LED names, jumper positions, menu paths): check this board's manual; not confirmed against a vendor document here."
+    },
     "noCopy": true
   },
   {
@@ -44487,21 +44571,45 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "tip",
     "id": "gigabyte-server-board-tips-card",
     "sec": "GIGABYTE Server Boards: Pro Tips & Best Practices",
-    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E raw 0x32 0x8b",
+    "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sel elist",
     "desc": "GIGABYTE Dual-BIOS Switching & Remote Port 0x80 Snooping",
     "tip": "If BMC_RDY LED is solid amber or off, BMC power rail or SPI flash is unpowered; verify standby 3.3V rail.",
-    "tags": "gigabyte-server-board tips pro motherboard post best-practice"
+    "tags": "gigabyte-server-board tips pro motherboard post best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool",
+          "title": "ipmitool"
+        },
+        {
+          "url": "https://www.gigabyte.com/Support/Security/1762",
+          "title": "GIGABYTE: BMC unique pre-programmed password"
+        }
+      ],
+      "note": "Corrected 2026-11-10: replaced an unsourced raw IPMI command with the standard SEL listing. LED and switch names are board-specific."
+    }
   },
   {
     "sName": "mb-linux-audit",
     "file": "mb-linux-audit.html",
     "badge": "dmi",
     "id": "sysfs-board-identity",
-    "sec": "In-Band DMI & ACPI Audit: Read exact ASUS or GIGABYTE motherboard vendor, model, PCB revision & BIOS version without root",
+    "sec": "In-Band DMI & ACPI Audit: Read the motherboard vendor, model, revision and BIOS version from sysfs",
     "cmd": "head -n 1 /sys/class/dmi/id/{board_vendor,board_name,board_version,board_serial,bios_vendor,bios_version,bios_date}",
-    "desc": "Read exact ASUS or GIGABYTE motherboard vendor, model, PCB revision & BIOS version without root",
-    "tip": "Works instantly as a non-root user via /sys/class/dmi/id/",
-    "tags": "In-Band DMI & ACPI Audit motherboard post bios hardware sysfs dmi board_name bios_version asus gigabyte model"
+    "desc": "Read the motherboard vendor, model, revision and BIOS version from sysfs (board_serial needs root)",
+    "tip": "Everything except board_serial reads as a normal user",
+    "tags": "In-Band DMI & ACPI Audit motherboard post bios hardware sysfs dmi board_name bios_version asus gigabyte model",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/torvalds/linux/blob/master/drivers/firmware/dmi-id.c",
+          "title": "Linux dmi-id.c (serial files are 0400)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: board_serial is mode 0400 (root only)."
+    }
   },
   {
     "sName": "mb-linux-audit",
@@ -44511,8 +44619,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "In-Band DMI & ACPI Audit: Inspect ACPI BERT",
     "cmd": "dmesg | grep -iE 'BERT|GHES|Hardware Error|APEI|AER'   &&   ls -lh /sys/firmware/acpi/tables/BERT 2>/dev/null",
     "desc": "Inspect ACPI BERT (Boot Error Record Table) after a fatal motherboard reset & check UEFI capsule status",
-    "tip": "ACPI BERT in dmesg tells you why the motherboard crashed on the PREVIOUS boot!",
-    "tags": "In-Band DMI & ACPI Audit motherboard post bios hardware bert apei ghes acpi crash reboot hardware-error fwupdmgr"
+    "tip": "BERT records in dmesg say why the board crashed on the PREVIOUS boot (reading the table file needs root)",
+    "tags": "In-Band DMI & ACPI Audit motherboard post bios hardware bert apei ghes acpi crash reboot hardware-error fwupdmgr",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/torvalds/linux/blob/master/drivers/acpi/apei/bert.c",
+          "title": "Linux ACPI BERT driver"
+        },
+        {
+          "url": "https://docs.kernel.org/firmware-guide/acpi/apei/output_format.html",
+          "title": "Linux APEI output format"
+        },
+        {
+          "url": "https://fwupd.github.io/libfwupdplugin/",
+          "title": "fwupd"
+        }
+      ]
+    }
   },
   {
     "sName": "mb-linux-audit",
@@ -44520,10 +44645,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "dmi",
     "id": "ai-server-bios-checklist",
     "sec": "In-Band DMI & ACPI Audit: Mandatory BIOS settings on ASUS",
-    "cmd": "Above 4G Decoding = Enabled  |  MMIO High Base = 56T  |  ACS = Disabled  |  IOMMU = Disabled (or iommu=pt)",
+    "cmd": "Above 4G Decoding = Enabled  |  MMIO High per the vendor GPU guide  |  ACS = Disabled on PCIe switches  |  IOMMU / VT-d = Disabled or passthrough",
     "desc": "Mandatory BIOS settings on ASUS (ESC N8 / ESC8000 / K14 / Z13) & GIGABYTE (G593 / G493 / MZ / MS) 8-GPU AI servers",
-    "tip": "After clearing CMOS or flashing BIOS, re-verify Above 4G, MMIO 56T & ACS Disabled!",
+    "tip": "After clearing CMOS or flashing BIOS, re-check Above 4G, MMIO and ACS",
     "tags": "In-Band DMI & ACPI Audit motherboard post bios hardware bios above-4g mmio acs iommu resize-bar hgx asus gigabyte",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/troubleshooting/gpu_troubleshooting.html",
+          "title": "NVIDIA NCCL: GPU troubleshooting (ACS, IOMMU)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: removed the fixed 56T / 1024G MMIO values, which vary by vendor."
+    },
     "noCopy": true
   },
   {
@@ -44532,10 +44667,31 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "tip",
     "id": "inband-board-audit-tips-card",
     "sec": "In-Band DMI & ACPI Audit: Pro Tips & Best Practices",
-    "cmd": "dmesg | grep -i bert && cat /sys/firmware/acpi/tables/BERT > bert.dat",
+    "cmd": "dmesg | grep -i bert && cp /sys/firmware/acpi/tables/BERT bert.dat",
     "desc": "Production In-Band Motherboard Telemetry & Fatal Crash Log Extraction",
     "tip": "Ensure \"Above 4G Decoding\" and \"SR-IOV Support\" are enabled in BIOS to avoid post code 0x96 resource allocation failure with multi-GPU accelerators.",
-    "tags": "inband-board-audit tips pro motherboard post best-practice"
+    "tags": "inband-board-audit tips pro motherboard post best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/torvalds/linux/blob/master/drivers/acpi/apei/bert.c",
+          "title": "Linux ACPI BERT driver"
+        },
+        {
+          "url": "https://docs.kernel.org/firmware-guide/acpi/apei/output_format.html",
+          "title": "Linux APEI output format"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+          "title": "dmidecode(8)"
+        },
+        {
+          "url": "https://github.com/torvalds/linux/blob/master/drivers/firmware/dmi-id.c",
+          "title": "Linux dmi-id.c (serial files are 0400)"
+        }
+      ]
+    }
   },
   {
     "sName": "mb-memory-post",
@@ -44543,10 +44699,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "mrc",
     "id": "post-50-55-memory-init",
     "sec": "Memory MRC Codes: Decode AMI Aptio V memory initialization halt codes",
-    "cmd": "POST 0x53 (Invalid/Incompatible RAM)   |   POST 0x55 (Memory Not Installed / Unseated)",
+    "cmd": "POST 0x53 (No usable memory)   |   POST 0x55 (Memory not installed)",
     "desc": "Decode AMI Aptio V memory initialization halt codes (`0x50`–`0x55`) on ASUS & GIGABYTE boards",
-    "tip": "0x55 = Check primary slot population (ASUS=A1, GIGABYTE=A0) & CPU socket pins!",
+    "tip": "0x55 = no DIMM found: reseat the first slot of CPU0",
     "tags": "Memory MRC Codes motherboard post bios hardware 50 51 52 53 54 55 memory ram dimm rdimm mrc asus gigabyte",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.supermicro.com/manuals/other/AMI_AptioV_BIOS_POST_Codes_for_SM_Motherboards.pdf",
+          "title": "AMI Aptio V POST codes (Supermicro, from AMI Aptio 5.x Status Codes rev 2.04)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: wording follows AMI's Aptio V table."
+    },
     "noCopy": true
   },
   {
@@ -44554,12 +44720,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "file": "mb-memory-post.html",
     "badge": "mrc",
     "id": "post-b0-bf-xeon-epyc-training",
-    "sec": "Memory MRC Codes: Decode Intel Xeon & AMD EPYC DDR4/DDR5 MRC channel training codes",
-    "cmd": "POST 0xB0 (DIMM Detect)  ->  0xB4 (Rank/RCD)  ->  0xB7 (Channel Training Fail)  ->  0xBF (MRC Done)",
-    "desc": "Decode Intel Xeon & AMD EPYC DDR4/DDR5 MRC channel training codes (`0xB0`–`0xBF`, `0x2C`–`0x2F`)",
-    "tip": "When stuck on 0xB7, check BMC Event Log (SEL) to see which exact DIMM slot failed!",
+    "sec": "Memory MRC Codes: Intel Xeon memory init",
+    "cmd": "Intel MRC: 0xB0 (Detect DIMMs)  ->  0xB7 (Train DDR4 ranks)  ->  0xBF (MRC done)   |   AMI BDS later: B2 Option ROM, B4 USB hot plug, B7 NVRAM reset",
+    "desc": "Intel Xeon memory init (MRC) codes B0–BF, and why the same codes mean something else later in boot",
+    "tip": "Stuck on 0xB7 during memory init: check the BMC SEL for the failing DIMM",
     "tags": "Memory MRC Codes motherboard post bios hardware b0 b1 b4 b7 b8 ba bf 2c 2e 2f mrc training xeon epyc",
-    "noCopy": true
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://miyconst.github.io/assets/2024-07-27-intel-s2600-tpm20/Intel_S2600ST_TPS.pdf",
+          "title": "Intel S2600ST TPS: MRC progress and error codes (copy)"
+        },
+        {
+          "url": "https://www.supermicro.com/manuals/other/AMI_AptioV_BIOS_POST_Codes_for_SM_Motherboards.pdf",
+          "title": "AMI Aptio V POST codes (Supermicro, from AMI Aptio 5.x Status Codes rev 2.04)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: B0–BF are Intel MRC codes during memory init and AMI BDS codes later; AMD does not use them for training."
+    }
   },
   {
     "sName": "mb-memory-post",
@@ -44569,8 +44748,13 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "Memory MRC Codes: ASUS",
     "cmd": "1-DIMM Minimal Boot Test:  ASUS = CPU1_DIMM_A1   |   GIGABYTE = CPU0_DIMM_A0 (or DIMM_P0_A0)",
     "desc": "ASUS (K14/KRPA/Z13) vs GIGABYTE (MZ/MD/MS) server motherboard DIMM slot naming & population order",
-    "tip": "Wait at least 4 minutes on first DDR5 boot before assuming a hang!",
+    "tip": "Give the first DDR5 boot several minutes before assuming a hang",
     "tags": "Memory MRC Codes motherboard post bios hardware population slots a1 a0 ddr5 ddr4 rdimm lrdimm asus gigabyte",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [],
+      "note": "Board-specific (LED names, jumper positions, menu paths): check this board's manual; not confirmed against a vendor document here."
+    },
     "noCopy": true
   },
   {
@@ -44581,8 +44765,30 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "Memory MRC Codes: Pro Tips & Best Practices",
     "cmd": "dmidecode -t 17 | grep -E \"(Locator|Size|Speed|Part Number)\" && edac-util -v",
     "desc": "Memory Initialization & Rank Training Fault Isolation",
-    "tip": "Always populate DIMM slots with the furthest slot from the CPU socket first (typically white/blue slots designated A1, B1, C1).",
-    "tags": "memory-post tips pro motherboard post best-practice"
+    "tip": "Populate DIMMs in the order the board manual's population table gives.",
+    "tags": "memory-post tips pro motherboard post best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.supermicro.com/manuals/other/AMI_AptioV_BIOS_POST_Codes_for_SM_Motherboards.pdf",
+          "title": "AMI Aptio V POST codes (Supermicro, from AMI Aptio 5.x Status Codes rev 2.04)"
+        },
+        {
+          "url": "https://miyconst.github.io/assets/2024-07-27-intel-s2600-tpm20/Intel_S2600ST_TPS.pdf",
+          "title": "Intel S2600ST TPS: MRC progress and error codes (copy)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+          "title": "dmidecode(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/edac-utils/edac-util.1.en.html",
+          "title": "edac-util(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: 0x53 is no usable memory and 0x55 not installed (was swapped); the SPD failure is 0x51."
+    }
   },
   {
     "sName": "mb-pcie-dxe-post",
@@ -44590,10 +44796,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "pci",
     "id": "post-91-96-pcie-enumeration",
     "sec": "PCIe & DXE Codes: Decode PCIe bus, riser card, GPU, and NVMe enumeration hangs",
-    "cmd": "POST 0x91 (PCIe Init)  ->  0x92 (Bridge/Riser Detect)  ->  0x94 (Bus Enumeration)  ->  0x96 (BAR Resources)",
+    "cmd": "POST 0x92 (PCI Bus init)  ->  0x94 (PCI Bus Enumeration)  ->  0x95 (Request Resources)  ->  0x96 (Assign Resources)",
     "desc": "Decode PCIe bus, riser card, GPU, and NVMe enumeration hangs (`0x91`–`0x99`)",
     "tip": "Hang at 0x94/0x96 after adding GPUs = Enable 'Above 4G Decoding' in BIOS!",
     "tags": "PCIe & DXE Codes motherboard post bios hardware 91 92 93 94 95 96 pcie gpu riser mcio slimsas above-4g bar",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.supermicro.com/manuals/other/AMI_AptioV_BIOS_POST_Codes_for_SM_Motherboards.pdf",
+          "title": "AMI Aptio V POST codes (Supermicro, from AMI Aptio 5.x Status Codes rev 2.04)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: 0x91 is driver connecting and 0x92 is PCI bus init."
+    },
     "noCopy": true
   },
   {
@@ -44604,8 +44820,18 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "PCIe & DXE Codes: Decode DXE error codes",
     "cmd": "POST 0xd6 (No Console Output / VGA)   |   POST 0xd7 (No Console Input)   |   POST 0xB2 (Legacy Option ROM)",
     "desc": "Decode DXE error codes (`0xd0`–`0xd8`), missing VGA/Console (`0xd6`), and Option ROM hangs (`0xB2`)",
-    "tip": "Check onboard VGA_SW1 jumper on ASUS/GIGABYTE boards if halting at 0xd6!",
+    "tip": "0xd6: check that the onboard VGA is enabled (the jumper name varies by board)",
     "tags": "PCIe & DXE Codes motherboard post bios hardware d0 d1 d2 d4 d6 d7 d8 b2 vga console option-rom ast2600",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.supermicro.com/manuals/other/AMI_AptioV_BIOS_POST_Codes_for_SM_Motherboards.pdf",
+          "title": "AMI Aptio V POST codes (Supermicro, from AMI Aptio 5.x Status Codes rev 2.04)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: 0xd8 is invalid password only."
+    },
     "noCopy": true
   },
   {
@@ -44618,6 +44844,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Decode DXE Core, NVRAM, Northbridge/UPI, and Southbridge/PCH codes (`0x60`–`0x79`)",
     "tip": "Stuck at 0x61 = corrupted UEFI NVRAM (use CLRTC / CLR_CMOS jumper)",
     "tags": "PCIe & DXE Codes motherboard post bios hardware 60 61 62 63 68 69 70 78 79 dxe nvram cmos acpi csm",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.supermicro.com/manuals/other/AMI_AptioV_BIOS_POST_Codes_for_SM_Motherboards.pdf",
+          "title": "AMI Aptio V POST codes (Supermicro, from AMI Aptio 5.x Status Codes rev 2.04)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: 0x69 is North Bridge DXE init (SMM is 0x6A)."
+    },
     "noCopy": true
   },
   {
@@ -44629,7 +44865,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lspci -tv && lspci -vvv -d 10de: | grep -E \"(LnkCap|LnkSta|DevSta)\"",
     "desc": "PCIe Bus Hangs, Bifurcation & Option ROM Freeze Triage",
     "tip": "Verify PCIe bifurcation settings in BIOS: setting an x16 slot to x4x4x4x4 for quad M.2 cards avoids post code 0x94 hangs.",
-    "tags": "pcie-dxe-post tips pro motherboard post best-practice"
+    "tags": "pcie-dxe-post tips pro motherboard post best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.supermicro.com/manuals/other/AMI_AptioV_BIOS_POST_Codes_for_SM_Motherboards.pdf",
+          "title": "AMI Aptio V POST codes (Supermicro, from AMI Aptio 5.x Status Codes rev 2.04)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/lspci.8.html",
+          "title": "lspci(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "mb-storage-bds-post",
@@ -44641,6 +44890,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Decode SATA, SAS, M.2 NVMe, and USB bus initialization codes (`0x99`–`0xA7`, `0xB4`)",
     "tip": "Stuck on 0xA2 = unplug SATA/M.2 drives one by one to find the bad drive!",
     "tags": "Storage & Boot BDS motherboard post bios hardware 99 9c a0 a1 a2 a3 a4 a6 b4 sata nvme usb virtual-media",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.supermicro.com/manuals/other/AMI_AptioV_BIOS_POST_Codes_for_SM_Motherboards.pdf",
+          "title": "AMI Aptio V POST codes (Supermicro, from AMI Aptio 5.x Status Codes rev 2.04)"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -44649,10 +44907,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "bds",
     "id": "post-a9-ae-boot-handoff",
     "sec": "Storage & Boot BDS: Decode UEFI Setup entry, PXE/NVMe boot selection, and OS handoff codes",
-    "cmd": "POST 0xA9 (Start Setup)  ->  0xAB (Setup Input Wait)  ->  0xAD (Ready To Boot)  ->  0xAA / 0x00 (OS Running)",
+    "cmd": "POST 0xA9 (Start Setup)  ->  0xAB (Setup Input Wait)  ->  0xAD (Ready To Boot)  ->  0xAA (ACPI mode: OS running)",
     "desc": "Decode UEFI Setup entry, PXE/NVMe boot selection, and OS handoff codes (`0xA9`–`0xAE`, `0xAA`, `0x00`)",
     "tip": "0xAB means the board is waiting at the BIOS prompt (connect BMC KVM/SOL)!",
     "tags": "Storage & Boot BDS motherboard post bios hardware a9 ab ac ad ae aa 00 ff bios setup grub boot acpi",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.supermicro.com/manuals/other/AMI_AptioV_BIOS_POST_Codes_for_SM_Motherboards.pdf",
+          "title": "AMI Aptio V POST codes (Supermicro, from AMI Aptio 5.x Status Codes rev 2.04)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: 0xAC is the ASL PIC-mode code; 0x00 is not used."
+    },
     "noCopy": true
   },
   {
@@ -44664,7 +44932,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lsblk -o NAME,MODEL,SERIAL,SIZE,FSTYPE,MOUNTPOINT && efibootmgr -v",
     "desc": "Storage Detection, Boot Device Selection (BDS) & OS Handoff",
     "tip": "0xAD (Ready To Boot) means the system is waiting for boot media; check efibootmgr order or PXE timeout.",
-    "tags": "storage-bds-post tips pro motherboard post best-practice"
+    "tags": "storage-bds-post tips pro motherboard post best-practice",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.supermicro.com/manuals/other/AMI_AptioV_BIOS_POST_Codes_for_SM_Motherboards.pdf",
+          "title": "AMI Aptio V POST codes (Supermicro, from AMI Aptio 5.x Status Codes rev 2.04)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/lsblk.8.html",
+          "title": "lsblk(8)"
+        },
+        {
+          "url": "https://github.com/rhboot/efibootmgr",
+          "title": "efibootmgr"
+        }
+      ],
+      "note": "Corrected 2026-11-10: BDS is 0x90–0xCF, not \"codes starting with A\"."
+    }
   },
   {
     "sName": "motherboards",
@@ -44672,10 +44958,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "MRC / RAM",
     "id": "post-50-55-memory-init",
     "sec": "Memory (MRC) POST Codes — ASUS & GIGABYTE (50–55, B0–BF)",
-    "cmd": "POST 0x53 (Invalid/Incompatible RAM)   |   POST 0x55 (Memory Not Installed / Unseated)",
+    "cmd": "POST 0x53 (No usable memory)   |   POST 0x55 (Memory not installed)",
     "desc": "Decode AMI Aptio V memory initialization halt codes (`0x50`–`0x55`) on ASUS & GIGABYTE boards",
-    "tip": "0x55 = Check primary slot population (ASUS=A1, GIGABYTE=A0) & CPU socket pins!",
+    "tip": "0x55 = no DIMM found: reseat the first slot of CPU0",
     "tags": "50 51 52 53 54 55 memory ram dimm rdimm mrc asus gigabyte",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.supermicro.com/manuals/other/AMI_AptioV_BIOS_POST_Codes_for_SM_Motherboards.pdf",
+          "title": "AMI Aptio V POST codes (Supermicro, from AMI Aptio 5.x Status Codes rev 2.04)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: wording follows AMI's Aptio V table."
+    },
     "noCopy": true
   },
   {
@@ -44684,11 +44980,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "MRC / RAM",
     "id": "post-b0-bf-xeon-epyc-training",
     "sec": "Memory (MRC) POST Codes — ASUS & GIGABYTE (50–55, B0–BF)",
-    "cmd": "POST 0xB0 (DIMM Detect)  ->  0xB4 (Rank/RCD)  ->  0xB7 (Channel Training Fail)  ->  0xBF (MRC Done)",
-    "desc": "Decode Intel Xeon & AMD EPYC DDR4/DDR5 MRC channel training codes (`0xB0`–`0xBF`, `0x2C`–`0x2F`)",
-    "tip": "When stuck on 0xB7, check BMC Event Log (SEL) to see which exact DIMM slot failed!",
+    "cmd": "Intel MRC: 0xB0 (Detect DIMMs)  ->  0xB7 (Train DDR4 ranks)  ->  0xBF (MRC done)   |   AMI BDS later: B2 Option ROM, B4 USB hot plug, B7 NVRAM reset",
+    "desc": "Intel Xeon memory init (MRC) codes B0–BF, and why the same codes mean something else later in boot",
+    "tip": "Stuck on 0xB7 during memory init: check the BMC SEL for the failing DIMM",
     "tags": "b0 b1 b4 b7 b8 ba bf 2c 2e 2f mrc training xeon epyc",
-    "noCopy": true
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://miyconst.github.io/assets/2024-07-27-intel-s2600-tpm20/Intel_S2600ST_TPS.pdf",
+          "title": "Intel S2600ST TPS: MRC progress and error codes (copy)"
+        },
+        {
+          "url": "https://www.supermicro.com/manuals/other/AMI_AptioV_BIOS_POST_Codes_for_SM_Motherboards.pdf",
+          "title": "AMI Aptio V POST codes (Supermicro, from AMI Aptio 5.x Status Codes rev 2.04)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: B0–BF are Intel MRC codes during memory init and AMI BDS codes later; AMD does not use them for training."
+    }
   },
   {
     "sName": "motherboards",
@@ -44698,8 +45007,13 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "Memory (MRC) POST Codes — ASUS & GIGABYTE (50–55, B0–BF)",
     "cmd": "1-DIMM Minimal Boot Test:  ASUS = CPU1_DIMM_A1   |   GIGABYTE = CPU0_DIMM_A0 (or DIMM_P0_A0)",
     "desc": "ASUS (K14/KRPA/Z13) vs GIGABYTE (MZ/MD/MS) server motherboard DIMM slot naming & population order",
-    "tip": "Wait at least 4 minutes on first DDR5 boot before assuming a hang!",
+    "tip": "Give the first DDR5 boot several minutes before assuming a hang",
     "tags": "population slots a1 a0 ddr5 ddr4 rdimm lrdimm asus gigabyte",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [],
+      "note": "Board-specific (LED names, jumper positions, menu paths): check this board's manual; not confirmed against a vendor document here."
+    },
     "noCopy": true
   },
   {
@@ -44708,10 +45022,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "DXE / PCIe",
     "id": "post-91-96-pcie-enumeration",
     "sec": "PCIe, GPU, Riser & Option ROM POST Codes (60–99, d2–d8)",
-    "cmd": "POST 0x91 (PCIe Init)  ->  0x92 (Bridge/Riser Detect)  ->  0x94 (Bus Enumeration)  ->  0x96 (BAR Resources)",
+    "cmd": "POST 0x92 (PCI Bus init)  ->  0x94 (PCI Bus Enumeration)  ->  0x95 (Request Resources)  ->  0x96 (Assign Resources)",
     "desc": "Decode PCIe bus, riser card, GPU, and NVMe enumeration hangs (`0x91`–`0x99`)",
     "tip": "Hang at 0x94/0x96 after adding GPUs = Enable 'Above 4G Decoding' in BIOS!",
     "tags": "91 92 93 94 95 96 pcie gpu riser mcio slimsas above-4g bar",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.supermicro.com/manuals/other/AMI_AptioV_BIOS_POST_Codes_for_SM_Motherboards.pdf",
+          "title": "AMI Aptio V POST codes (Supermicro, from AMI Aptio 5.x Status Codes rev 2.04)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: 0x91 is driver connecting and 0x92 is PCI bus init."
+    },
     "noCopy": true
   },
   {
@@ -44722,8 +45046,18 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "PCIe, GPU, Riser & Option ROM POST Codes (60–99, d2–d8)",
     "cmd": "POST 0xd6 (No Console Output / VGA)   |   POST 0xd7 (No Console Input)   |   POST 0xB2 (Legacy Option ROM)",
     "desc": "Decode DXE error codes (`0xd0`–`0xd8`), missing VGA/Console (`0xd6`), and Option ROM hangs (`0xB2`)",
-    "tip": "Check onboard VGA_SW1 jumper on ASUS/GIGABYTE boards if halting at 0xd6!",
+    "tip": "0xd6: check that the onboard VGA is enabled (the jumper name varies by board)",
     "tags": "d0 d1 d2 d4 d6 d7 d8 b2 vga console option-rom ast2600",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.supermicro.com/manuals/other/AMI_AptioV_BIOS_POST_Codes_for_SM_Motherboards.pdf",
+          "title": "AMI Aptio V POST codes (Supermicro, from AMI Aptio 5.x Status Codes rev 2.04)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: 0xd8 is invalid password only."
+    },
     "noCopy": true
   },
   {
@@ -44736,6 +45070,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Decode DXE Core, NVRAM, Northbridge/UPI, and Southbridge/PCH codes (`0x60`–`0x79`)",
     "tip": "Stuck at 0x61 = corrupted UEFI NVRAM (use CLRTC / CLR_CMOS jumper)",
     "tags": "60 61 62 63 68 69 70 78 79 dxe nvram cmos acpi csm",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.supermicro.com/manuals/other/AMI_AptioV_BIOS_POST_Codes_for_SM_Motherboards.pdf",
+          "title": "AMI Aptio V POST codes (Supermicro, from AMI Aptio 5.x Status Codes rev 2.04)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: 0x69 is North Bridge DXE init (SMM is 0x6A)."
+    },
     "noCopy": true
   },
   {
@@ -44748,6 +45092,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Decode SATA, SAS, M.2 NVMe, and USB bus initialization codes (`0x99`–`0xA7`, `0xB4`)",
     "tip": "Stuck on 0xA2 = unplug SATA/M.2 drives one by one to find the bad drive!",
     "tags": "99 9c a0 a1 a2 a3 a4 a6 b4 sata nvme usb virtual-media",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.supermicro.com/manuals/other/AMI_AptioV_BIOS_POST_Codes_for_SM_Motherboards.pdf",
+          "title": "AMI Aptio V POST codes (Supermicro, from AMI Aptio 5.x Status Codes rev 2.04)"
+        }
+      ]
+    },
     "noCopy": true
   },
   {
@@ -44756,10 +45109,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "BDS / BOOT",
     "id": "post-a9-ae-boot-handoff",
     "sec": "Storage, USB, BIOS Setup & OS Handoff Codes (A0–DF, 00, AA)",
-    "cmd": "POST 0xA9 (Start Setup)  ->  0xAB (Setup Input Wait)  ->  0xAD (Ready To Boot)  ->  0xAA / 0x00 (OS Running)",
+    "cmd": "POST 0xA9 (Start Setup)  ->  0xAB (Setup Input Wait)  ->  0xAD (Ready To Boot)  ->  0xAA (ACPI mode: OS running)",
     "desc": "Decode UEFI Setup entry, PXE/NVMe boot selection, and OS handoff codes (`0xA9`–`0xAE`, `0xAA`, `0x00`)",
     "tip": "0xAB means the board is waiting at the BIOS prompt (connect BMC KVM/SOL)!",
     "tags": "a9 ab ac ad ae aa 00 ff bios setup grub boot acpi",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.supermicro.com/manuals/other/AMI_AptioV_BIOS_POST_Codes_for_SM_Motherboards.pdf",
+          "title": "AMI Aptio V POST codes (Supermicro, from AMI Aptio 5.x Status Codes rev 2.04)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: 0xAC is the ASL PIC-mode code; 0x00 is not used."
+    },
     "noCopy": true
   },
   {
@@ -44768,10 +45131,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "EPYC CPU",
     "id": "epyc-2stage-abl-post",
     "sec": "AMD EPYC CPU (AGESA ABL & PSP) POST Codes (E0–FF, D0–DF)",
-    "cmd": "Stage 1: AMD PSP & AGESA BootLoader (0xE0..0xFF / 0xD0..0xDF)   -->   Stage 2: AMI Aptio V UEFI (0x10..0xAD)",
-    "desc": "Understand the 2-Stage POST sequence on GIGABYTE & ASUS AMD EPYC (Rome/Milan/Genoa/Turin) boards",
-    "tip": "EPYC SP3/SP5 sockets are extremely torque-sensitive: uneven Torx T20 screws cause 0xEA/0x55!",
+    "cmd": "Stage 1: AMD PSP / AGESA boot loader (vendor-specific codes)   -->   Stage 2: AMI Aptio V UEFI (0x10 onward)",
+    "desc": "AMD EPYC boards show AMD firmware codes before AMI UEFI starts: decode those from the board manual, not AMI's table",
+    "tip": "Early-code hang after a DIMM or CPU change: reseat, then look the code up in the board manual",
     "tags": "epyc amd agesa abl psp e0 e1 e6 ea eb ee sp3 sp5 genoa turin",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.supermicro.com/manuals/other/AMI_AptioV_BIOS_POST_Codes_for_SM_Motherboards.pdf",
+          "title": "AMI Aptio V POST codes (Supermicro, from AMI Aptio 5.x Status Codes rev 2.04)"
+        },
+        {
+          "url": "https://miyconst.github.io/assets/2024-07-27-intel-s2600-tpm20/Intel_S2600ST_TPS.pdf",
+          "title": "Intel S2600ST TPS: MRC progress and error codes (copy)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: removed specific E0–EF ABL meanings and socket-torque figures that contradicted each other and had no source."
+    },
     "noCopy": true
   },
   {
@@ -44780,11 +45157,15 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "EPYC CPU",
     "id": "epyc-xgmi-dual-socket",
     "sec": "AMD EPYC CPU (AGESA ABL & PSP) POST Codes (E0–FF, D0–DF)",
-    "cmd": "POST 0xE3 / 0xE4 (EPYC xGMI Link Training)   |   POST 0x19 / 0x2A / 0x3B (Intel Xeon UPI Init)",
-    "desc": "Diagnose Dual-Socket (2P) AMD EPYC Infinity Fabric (xGMI) & Intel Xeon UPI link training hangs",
-    "tip": "You can flash BIOS via ASUS ASMB11 or GIGABYTE GSM BMC even without a supported CPU installed!",
+    "cmd": "BMC SEL: which socket (P0 / P1) logged the error   |   New CPU generation: update BIOS first",
+    "desc": "Two-socket boards (AMD EPYC xGMI, Intel Xeon UPI): find which socket failed, and update BIOS before a newer CPU",
+    "tip": "Update BIOS through the BMC before swapping in a newer CPU generation",
     "tags": "xgmi upi 2p dual-socket e3 e4 mz73 k14 krpa",
-    "noCopy": true
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [],
+      "note": "Corrected 2026-11-10: removed unsourced xGMI/UPI code numbers. General advice; check your board's BMC guide."
+    }
   },
   {
     "sName": "motherboards",
@@ -44794,8 +45175,18 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "ASUS Server Boards (ASMB10 / ASMB11 BMC, Q-Code & Jumpers)",
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems/Self\" | jq '{PowerState, Status, BootProgress}'",
     "desc": "Query live & historical POST codes remotely from an ASUS ASMB10 / ASMB11 (ASPEED AST2600) BMC over IPv6",
-    "tip": "ASUS ASMB11 Web GUI records the exact millisecond each 0x80 hex code changed!",
-    "tags": "asus asmb10 asmb11 redfish ipv6 post qcode megarac"
+    "tip": "BootProgress shows the stage; the BMC POST code log shows the exact codes",
+    "tags": "asus asmb10 asmb11 redfish ipv6 post qcode megarac",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_22_0.json",
+          "title": "DMTF Redfish ComputerSystem schema (BootProgress)"
+        }
+      ],
+      "note": "The ASMB web-UI menu path is not confirmed against an ASUS document."
+    }
   },
   {
     "sName": "motherboards",
@@ -44807,6 +45198,11 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "ASUS server motherboard onboard diagnostic LEDs (`BMC_LED1`, `CATERR_LED1`, `Q-LED`) and recovery jumpers",
     "tip": "Wait ~60s after plugging in AC power for BMC_LED1 to blink green before powering on!",
     "tags": "asus bmc_led1 caterr q-led clrtc1 vga_sw1 jumper cmos",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [],
+      "note": "Board-specific (LED names, jumper positions, menu paths): check this board's manual; not confirmed against a vendor document here."
+    },
     "noCopy": true
   },
   {
@@ -44817,8 +45213,22 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "GIGABYTE Server Boards (GSM / AST2600 BMC, Dual-BIOS & Jumpers)",
     "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Systems/Self\" | jq '{PowerState, BootProgress}'",
     "desc": "Query GIGABYTE Server Management (GSM / MegaRAC) BMC POST Snooping code over IPv6 Redfish or IPMI",
-    "tip": "Newer GIGABYTE boards print the unique default BMC password on the serial sticker!",
-    "tags": "gigabyte gsm bmc post snooping redfish ipv6 mz73 ms73 g492"
+    "tip": "Newer GIGABYTE boards: the default BMC password is on the serial-number sticker",
+    "tags": "gigabyte gsm bmc post snooping redfish ipv6 mz73 ms73 g492",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.gigabyte.com/Support/Security/1762",
+          "title": "GIGABYTE: BMC unique pre-programmed password"
+        },
+        {
+          "url": "https://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_22_0.json",
+          "title": "DMTF Redfish ComputerSystem schema (BootProgress)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: GIGABYTE says the unique password is the last 11 characters of the serial (was 8); removed an unsourced raw IPMI command."
+    }
   },
   {
     "sName": "motherboards",
@@ -44830,6 +45240,11 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "GIGABYTE server motherboard status LEDs (`BMC_RDY`, `CPU_ERR`), Dual-BIOS switches & CMOS jumpers",
     "tip": "If a GIGABYTE board won't POST after a failed BIOS flash, flip SW_BIOS to the backup ROM!",
     "tags": "gigabyte bmc_rdy sw_bios dual-bios clr_cmos jumper dip-switch",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [],
+      "note": "Board-specific (LED names, jumper positions, menu paths): check this board's manual; not confirmed against a vendor document here."
+    },
     "noCopy": true
   },
   {
@@ -44839,9 +45254,19 @@ window.GLOBAL_SEARCH_INDEX = [
     "id": "sysfs-board-identity",
     "sec": "Ubuntu In-Band Motherboard, BIOS & ACPI BERT Error Audit",
     "cmd": "head -n 1 /sys/class/dmi/id/{board_vendor,board_name,board_version,board_serial,bios_vendor,bios_version,bios_date}",
-    "desc": "Read exact ASUS or GIGABYTE motherboard vendor, model, PCB revision & BIOS version without root",
-    "tip": "Works instantly as a non-root user via /sys/class/dmi/id/",
-    "tags": "sysfs dmi board_name bios_version asus gigabyte model"
+    "desc": "Read the motherboard vendor, model, revision and BIOS version from sysfs (board_serial needs root)",
+    "tip": "Everything except board_serial reads as a normal user",
+    "tags": "sysfs dmi board_name bios_version asus gigabyte model",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/torvalds/linux/blob/master/drivers/firmware/dmi-id.c",
+          "title": "Linux dmi-id.c (serial files are 0400)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: board_serial is mode 0400 (root only)."
+    }
   },
   {
     "sName": "motherboards",
@@ -44851,8 +45276,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "Ubuntu In-Band Motherboard, BIOS & ACPI BERT Error Audit",
     "cmd": "dmesg | grep -iE 'BERT|GHES|Hardware Error|APEI|AER'   &&   ls -lh /sys/firmware/acpi/tables/BERT 2>/dev/null",
     "desc": "Inspect ACPI BERT (Boot Error Record Table) after a fatal motherboard reset & check UEFI capsule status",
-    "tip": "ACPI BERT in dmesg tells you why the motherboard crashed on the PREVIOUS boot!",
-    "tags": "bert apei ghes acpi crash reboot hardware-error fwupdmgr"
+    "tip": "BERT records in dmesg say why the board crashed on the PREVIOUS boot (reading the table file needs root)",
+    "tags": "bert apei ghes acpi crash reboot hardware-error fwupdmgr",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/torvalds/linux/blob/master/drivers/acpi/apei/bert.c",
+          "title": "Linux ACPI BERT driver"
+        },
+        {
+          "url": "https://docs.kernel.org/firmware-guide/acpi/apei/output_format.html",
+          "title": "Linux APEI output format"
+        },
+        {
+          "url": "https://fwupd.github.io/libfwupdplugin/",
+          "title": "fwupd"
+        }
+      ]
+    }
   },
   {
     "sName": "motherboards",
@@ -44860,10 +45302,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "LINUX / DMI",
     "id": "ai-server-bios-checklist",
     "sec": "Ubuntu In-Band Motherboard, BIOS & ACPI BERT Error Audit",
-    "cmd": "Above 4G Decoding = Enabled  |  MMIO High Base = 56T  |  ACS = Disabled  |  IOMMU = Disabled (or iommu=pt)",
+    "cmd": "Above 4G Decoding = Enabled  |  MMIO High per the vendor GPU guide  |  ACS = Disabled on PCIe switches  |  IOMMU / VT-d = Disabled or passthrough",
     "desc": "Mandatory BIOS settings on ASUS (ESC N8 / ESC8000 / K14 / Z13) & GIGABYTE (G593 / G493 / MZ / MS) 8-GPU AI servers",
-    "tip": "After clearing CMOS or flashing BIOS, re-verify Above 4G, MMIO 56T & ACS Disabled!",
+    "tip": "After clearing CMOS or flashing BIOS, re-check Above 4G, MMIO and ACS",
     "tags": "bios above-4g mmio acs iommu resize-bar hgx asus gigabyte",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/troubleshooting/gpu_troubleshooting.html",
+          "title": "NVIDIA NCCL: GPU troubleshooting (ACS, IOMMU)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: removed the fixed 56T / 1024G MMIO values, which vary by vendor."
+    },
     "noCopy": true
   },
   {
@@ -67881,7 +68333,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "tip",
     "id": "quantum-unmanaged-inband-tips-card",
     "sec": "Quantum: In-Band MFT: Pro Tips & Best Practices",
-    "cmd": "mlxlink -d lid-0x0004 -p 1 --show_module --show_ber",
+    "cmd": "mlxlink -d lid-0x0004 -p 1 --show_module --show_counters",
     "desc": "Out-of-Band vs In-Band Telemetry on Unmanaged QM8700/QM9700 Switches",
     "tip": "Obtain switch LIDs with \"ibswitches\" or \"ibnetdiscover\" before querying via host in-band MFT tools.",
     "tags": "quantum-unmanaged-inband tips pro switches fabric best-practice"

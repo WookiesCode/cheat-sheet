@@ -120,7 +120,7 @@ const SECTION_MAP = {
     heading: 'Host In-Band Remote Switch Telemetry, mlxlink & Diagnostics',
     proTip: {
       desc: 'Out-of-Band vs In-Band Telemetry on Unmanaged QM8700/QM9700 Switches',
-      cmd: 'mlxlink -d lid-0x0004 -p 1 --show_module --show_ber',
+      cmd: 'mlxlink -d lid-0x0004 -p 1 --show_module --show_counters',
       details: 'Unmanaged NVIDIA Quantum switches lack an onboard CPU and management IP. Cluster administrators query switch telemetry in-band directly from connected GPU servers using Mellanox Firmware Tools (MFT) with the target switch LID: `mlxlink -d lid-<LID> -p <Port>`.',
       tip: 'Obtain switch LIDs with "ibswitches" or "ibnetdiscover" before querying via host in-band MFT tools.',
       flags: [

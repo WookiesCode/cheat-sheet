@@ -4,37 +4,29 @@ const MB_MB_EPYC_AGESA_DATA = [
   {
     "id": "amd-epyc-agesa-cmd-1",
     "badge": "epyc",
-    "title": "AMD EPYC AGESA & PSP: Understand the 2-Stage POST sequence on GIGABYTE & ASUS AMD EPYC",
-    "subtitle": "Understand the 2-Stage POST sequence on GIGABYTE & ASUS AMD EPYC (Rome/Milan/Genoa/Turin) boards",
+    "title": "AMD EPYC AGESA & PSP: AMD EPYC boards show AMD firmware codes before AMI UEFI starts: decode those from the board manual, not AMI's table",
+    "subtitle": "AMD EPYC boards show AMD firmware codes before AMI UEFI starts: decode those from the board manual, not AMI's table",
     "commands": [
       {
         "id": "epyc-2stage-abl-post",
-        "desc": "Understand the 2-Stage POST sequence on GIGABYTE & ASUS AMD EPYC (Rome/Milan/Genoa/Turin) boards",
-        "cmd": "Stage 1: AMD PSP & AGESA BootLoader (0xE0..0xFF / 0xD0..0xDF)   -->   Stage 2: AMI Aptio V UEFI (0x10..0xAD)",
+        "desc": "AMD EPYC boards show AMD firmware codes before AMI UEFI starts: decode those from the board manual, not AMI's table",
+        "cmd": "Stage 1: AMD PSP / AGESA boot loader (vendor-specific codes)   -->   Stage 2: AMI Aptio V UEFI (0x10 onward)",
         "details": "",
         "flags": [
           [
-            "Why codes cycle E0–FF first",
-            "On AMD EPYC (SP3/SP5), the integrated Platform Security Processor (PSP) and AGESA BootLoader (ABL) initialize Infinity Fabric and DDR4/DDR5 BEFORE x86 cores start AMI UEFI!"
+            "Why other codes appear first",
+            "On AMD EPYC, the Platform Security Processor and AGESA boot loader (ABL) train memory before the x86 cores run AMI's UEFI, and they write their own port-80 codes"
           ],
           [
-            "0xE0 / 0xE1 / 0xE2",
-            "ABL0/ABL1: Early processor & memory parameter initialization and SPD readout across all 8 or 12 memory channels"
+            "Do not decode with AMI's table",
+            "In AMI's table E0–E8 are S3 resume and E9–EF S3 resume errors (EA = S3 boot script error). Intel's MRC uses E8/EA for memory errors. Neither applies to EPYC's ABL codes"
           ],
           [
-            "0xE6 / 0xE7 / 0xE8",
-            "ABL2/ABL3: PMU (PHY Microcontroller Unit) DDR4/DDR5 training across populated DIMM channels"
-          ],
-          [
-            "0xEA / 0xEB / 0xED",
-            "ABL Memory Training Error: PMU failed to train a DDR4/DDR5 channel (reseat DIMMs, check CPU socket torque of 12.0–13.5 in-lbs on Torx T20)"
-          ],
-          [
-            "0xEE / 0xEF",
-            "ABL Stage complete — releasing x86 Zen cores from reset to begin AMI Aptio V SEC/PEI (0x10+)"
+            "Where to look",
+            "The board manual's AMD POST code section and the BMC SEL"
           ]
         ],
-        "tip": "EPYC SP3/SP5 sockets are extremely torque-sensitive: uneven Torx T20 screws cause 0xEA/0x55!",
+        "tip": "Early-code hang after a DIMM or CPU change: reseat, then look the code up in the board manual",
         "tags": [
           "AMD EPYC AGESA & PSP",
           "motherboard",
@@ -56,36 +48,50 @@ const MB_MB_EPYC_AGESA_DATA = [
           "sp5",
           "genoa",
           "turin"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.supermicro.com/manuals/other/AMI_AptioV_BIOS_POST_Codes_for_SM_Motherboards.pdf",
+              "title": "AMI Aptio V POST codes (Supermicro, from AMI Aptio 5.x Status Codes rev 2.04)"
+            },
+            {
+              "url": "https://miyconst.github.io/assets/2024-07-27-intel-s2600-tpm20/Intel_S2600ST_TPS.pdf",
+              "title": "Intel S2600ST TPS: MRC progress and error codes (copy)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: removed specific E0–EF ABL meanings and socket-torque figures that contradicted each other and had no source."
+        }
       }
     ]
   },
   {
     "id": "amd-epyc-agesa-cmd-2",
     "badge": "epyc",
-    "title": "AMD EPYC AGESA & PSP: Diagnose Dual-Socket",
-    "subtitle": "Diagnose Dual-Socket (2P) AMD EPYC Infinity Fabric (xGMI) & Intel Xeon UPI link training hangs",
+    "title": "AMD EPYC AGESA & PSP: Two-socket boards",
+    "subtitle": "Two-socket boards (AMD EPYC xGMI, Intel Xeon UPI): find which socket failed, and update BIOS before a newer CPU",
     "commands": [
       {
         "id": "epyc-xgmi-dual-socket",
-        "desc": "Diagnose Dual-Socket (2P) AMD EPYC Infinity Fabric (xGMI) & Intel Xeon UPI link training hangs",
-        "cmd": "POST 0xE3 / 0xE4 (EPYC xGMI Link Training)   |   POST 0x19 / 0x2A / 0x3B (Intel Xeon UPI Init)",
+        "desc": "Two-socket boards (AMD EPYC xGMI, Intel Xeon UPI): find which socket failed, and update BIOS before a newer CPU",
+        "cmd": "BMC SEL: which socket (P0 / P1) logged the error   |   New CPU generation: update BIOS first",
         "details": "",
         "flags": [
           [
-            "0xE3 / 0xE4 (AMD EPYC 2P)",
-            "xGMI (External Global Memory Interconnect) inter-socket link training between CPU0 (P0) and CPU1 (P1)"
+            "2-socket hang",
+            "Read the BMC SEL to see whether the failing DIMM or link is on socket 0 or 1, then reseat or swap on that side"
           ],
           [
-            "Socket 1 (P1) Fault Isolation",
-            "On GIGABYTE MZ72/MZ73 & ASUS KRPA-U16/K14PA: if 2P board halts on 0xE4 or 0xB7, check BMC SEL to see if error is on P0 (Socket 0) or P1 (Socket 1)"
+            "Newer CPU, older BIOS",
+            "The BIOS must support the CPU generation: update it before installing the new CPU"
           ],
           [
-            "Mixed Stepping / AGESA Mismatch",
-            "Installing an EPYC 9005 (Turin) or 9004 (Genoa) CPU on a board with older BIOS halts immediately at 0x00 / 0xD0 / 0xE0 — update BIOS via BMC first!"
+            "BIOS update without a supported CPU",
+            "Many server BMCs can flash the host BIOS with the host off: check your board's BMC guide"
           ]
         ],
-        "tip": "You can flash BIOS via ASUS ASMB11 or GIGABYTE GSM BMC even without a supported CPU installed!",
+        "tip": "Update BIOS through the BMC before swapping in a newer CPU generation",
         "tags": [
           "AMD EPYC AGESA & PSP",
           "motherboard",
@@ -101,7 +107,12 @@ const MB_MB_EPYC_AGESA_DATA = [
           "mz73",
           "k14",
           "krpa"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [],
+          "note": "Corrected 2026-11-10: removed unsourced xGMI/UPI code numbers. General advice; check your board's BMC guide."
+        }
       }
     ]
   },
@@ -115,22 +126,40 @@ const MB_MB_EPYC_AGESA_DATA = [
         "id": "amd-epyc-agesa-tips-card",
         "desc": "AMD EPYC AGESA Boot Loader (ABL) & xGMI Infinity Fabric Diagnostics",
         "cmd": "lscpu | grep -E \"(Model name|NUMA|Socket)\" && numactl --hardware",
-        "details": "AMD EPYC motherboards exhibit a unique 2-stage POST cycle. The Platform Security Processor (PSP) boots first, displaying E0–FF codes on port 0x80 while loading microcode and initializing CPU chiplets. The board then resets and executes standard AMI Aptio PEI/DXE codes.",
+        "details": "AMD EPYC boots in two stages: AMD's PSP and AGESA boot loader train memory first, then AMI's UEFI runs its own PEI/DXE codes. The early codes are vendor-specific, so decode them with the board manual.",
         "flags": [
           [
-            "0xEA (AGESA Memory)",
-            "AMD memory training abort: uneven socket mounting pressure or damaged LGA pins"
+            "lscpu | grep -E \"Socket|NUMA\"",
+            "Confirm both sockets and all NUMA nodes came up"
           ],
           [
-            "0xEE (xGMI Link)",
-            "Dual-socket Infinity Fabric inter-socket link training timeout"
+            "numactl --hardware",
+            "Confirm every NUMA node has memory (a missing node points at a socket or its DIMMs)"
           ],
           [
             "2-Stage Boot",
-            "Initial E0-FF codes followed by cold reset to 10-AA is expected normal behavior"
+            "AMD firmware codes first, then a reset into AMI's 0x10-onward codes: normal behavior"
           ]
         ],
-        "tip": "A halt at 0xEA indicates AMD AGESA memory timing failure; check DIMM thermal sensors and socket torque spec (14.0 in-lbs / 1.58 Nm).",
+        "tip": "AMI's E0–EF meanings (S3 resume) do not apply to EPYC's early boot codes: use the board manual.",
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.supermicro.com/manuals/other/AMI_AptioV_BIOS_POST_Codes_for_SM_Motherboards.pdf",
+              "title": "AMI Aptio V POST codes (Supermicro, from AMI Aptio 5.x Status Codes rev 2.04)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man1/lscpu.1.html",
+              "title": "lscpu(1)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/numactl.8.html",
+              "title": "numactl(8)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: removed 0xEA/0xEE meanings and a torque value that contradicted the other card."
+        },
         "tags": [
           "amd-epyc-agesa",
           "tips",

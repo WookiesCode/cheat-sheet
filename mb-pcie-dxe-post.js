@@ -10,32 +10,32 @@ const MB_MB_PCIE_DXE_POST_DATA = [
       {
         "id": "post-91-96-pcie-enumeration",
         "desc": "Decode PCIe bus, riser card, GPU, and NVMe enumeration hangs (`0x91`–`0x99`)",
-        "cmd": "POST 0x91 (PCIe Init)  ->  0x92 (Bridge/Riser Detect)  ->  0x94 (Bus Enumeration)  ->  0x96 (BAR Resources)",
+        "cmd": "POST 0x92 (PCI Bus init)  ->  0x94 (PCI Bus Enumeration)  ->  0x95 (Request Resources)  ->  0x96 (Assign Resources)",
         "details": "",
         "flags": [
           [
             "0x91",
-            "PCI Bus Initialization is started: Root Complex beginning to probe CPU PCIe lanes"
+            "Driver connecting is started (start of BDS device connection)"
           ],
           [
             "0x92",
-            "PCI Bus Bridge initialization: Hung here = faulty PCIe riser card, unseated MCIO/SlimSAS cable, or dead PCIe switch"
+            "PCI Bus initialization is started: a hang here points at a riser, cable or add-in card"
           ],
           [
             "0x93",
-            "PCI Bus Hot-Plug controller initialization"
+            "PCI Bus Hot Plug Controller initialization"
           ],
           [
             "0x94",
-            "PCI Bus Enumeration: Probing all endpoints (GPUs, ConnectX NICs, U.2 NVMe). Hang at 0x94 = bad GPU/NIC or unseated riser"
+            "PCI Bus Enumeration: a hang here usually means a bad GPU or NIC, or an unseated riser"
           ],
           [
             "0x95",
-            "PCI Bus Request Resources: Calculating MMIO aperture requirements across all PCIe devices"
+            "PCI Bus Request Resources"
           ],
           [
             "0x96",
-            "PCI Bus Assign Resources: Out of 32-bit MMIO BAR space! Enable 'Above 4G Decoding' and set 'MMIO High Base / Size' in BIOS"
+            "PCI Bus Assign Resources: if it appears after adding GPUs, enable Above 4G Decoding and check MMIO settings"
           ]
         ],
         "tip": "Hang at 0x94/0x96 after adding GPUs = Enable 'Above 4G Decoding' in BIOS!",
@@ -58,7 +58,17 @@ const MB_MB_PCIE_DXE_POST_DATA = [
           "slimsas",
           "above-4g",
           "bar"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.supermicro.com/manuals/other/AMI_AptioV_BIOS_POST_Codes_for_SM_Motherboards.pdf",
+              "title": "AMI Aptio V POST codes (Supermicro, from AMI Aptio 5.x Status Codes rev 2.04)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: 0x91 is driver connecting and 0x92 is PCI bus init."
+        }
       }
     ]
   },
@@ -76,30 +86,30 @@ const MB_MB_PCIE_DXE_POST_DATA = [
         "flags": [
           [
             "0xd0 / 0xd1",
-            "CPU initialization error (d0) or Northbridge / Root Complex initialization error (d1)"
+            "CPU initialization error (d0); North Bridge initialization error (d1)"
           ],
           [
             "0xd2 / 0xd4",
-            "Southbridge / PCH initialization error (d2) or PCI resource allocation error — Out of Resources (d4)"
+            "South Bridge initialization error (d2); PCI resource allocation error, out of resources (d4)"
           ],
           [
             "0xd6",
-            "No Console Output Devices found: Onboard ASPEED AST2500/AST2600 VGA disabled via jumper (VGA_SW1) or discrete GPU missing 12VHPWR/8-pin power"
+            "No Console Output Devices are found: for example the onboard VGA disabled, or a GPU without power"
           ],
           [
             "0xd7",
-            "No Console Input Devices found: No USB keyboard or BMC virtual HID keyboard detected"
+            "No Console Input Devices are found: no USB keyboard or BMC virtual keyboard"
           ],
           [
             "0xd8",
-            "Invalid password or corrupted UEFI NVRAM variable state"
+            "Invalid password"
           ],
           [
             "0xB2",
-            "Legacy Option ROM Initialization: Hangs if an older RAID HBA/NIC tries to load a Legacy 16-bit OpROM when CSM is misconfigured"
+            "Legacy Option ROM initialization (BDS): an old RAID card or NIC option ROM can hang here"
           ]
         ],
-        "tip": "Check onboard VGA_SW1 jumper on ASUS/GIGABYTE boards if halting at 0xd6!",
+        "tip": "0xd6: check that the onboard VGA is enabled (the jumper name varies by board)",
         "tags": [
           "PCIe & DXE Codes",
           "motherboard",
@@ -118,7 +128,17 @@ const MB_MB_PCIE_DXE_POST_DATA = [
           "console",
           "option-rom",
           "ast2600"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.supermicro.com/manuals/other/AMI_AptioV_BIOS_POST_Codes_for_SM_Motherboards.pdf",
+              "title": "AMI Aptio V POST codes (Supermicro, from AMI Aptio 5.x Status Codes rev 2.04)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: 0xd8 is invalid password only."
+        }
       }
     ]
   },
@@ -136,23 +156,23 @@ const MB_MB_PCIE_DXE_POST_DATA = [
         "flags": [
           [
             "0x60 / 0x61",
-            "DXE Core started (60) and NVRAM initialization (61 — if stuck at 61, Clear CMOS or reflash corrupted BIOS NVRAM)"
+            "DXE Core is started (60); NVRAM initialization (61: if stuck here, clearing CMOS/NVRAM is the usual next step)"
           ],
           [
             "0x62 / 0x63",
-            "Installation of Southbridge Runtime Services (62) and CPU DXE initialization started (63)"
+            "South Bridge Runtime Services installation (62); CPU DXE initialization started (63)"
           ],
           [
             "0x68 / 0x69",
-            "PCI Host Bridge initialization (68) and Northbridge / Intel IOH / AMD IOD SMM initialization (69)"
+            "PCI host bridge initialization (68); North Bridge DXE initialization started (69; its SMM init is 6A)"
           ],
           [
             "0x70 / 0x71 / 0x72",
-            "Southbridge DXE initialization started (70), Southbridge SMM initialization (71), and Southbridge devices init (72)"
+            "South Bridge DXE initialization started (70), South Bridge DXE SMM initialization (71), South Bridge devices initialization (72)"
           ],
           [
             "0x78 / 0x79",
-            "ACPI module initialization (78) and CSM (Compatibility Support Module) initialization (79 — often hangs if GPU vBIOS is corrupted)"
+            "ACPI module initialization (78); CSM initialization (79)"
           ]
         ],
         "tip": "Stuck at 0x61 = corrupted UEFI NVRAM (use CLRTC / CLR_CMOS jumper)",
@@ -176,7 +196,17 @@ const MB_MB_PCIE_DXE_POST_DATA = [
           "cmos",
           "acpi",
           "csm"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.supermicro.com/manuals/other/AMI_AptioV_BIOS_POST_Codes_for_SM_Motherboards.pdf",
+              "title": "AMI Aptio V POST codes (Supermicro, from AMI Aptio 5.x Status Codes rev 2.04)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: 0x69 is North Bridge DXE init (SMM is 0x6A)."
+        }
       }
     ]
   },
@@ -190,7 +220,7 @@ const MB_MB_PCIE_DXE_POST_DATA = [
         "id": "pcie-dxe-post-tips-card",
         "desc": "PCIe Bus Hangs, Bifurcation & Option ROM Freeze Triage",
         "cmd": "lspci -tv && lspci -vvv -d 10de: | grep -E \"(LnkCap|LnkSta|DevSta)\"",
-        "details": "Codes 0x91–0x96 occur during DXE driver dispatch and bus enumeration. A hang at 0x94 (PCI Bus Enumeration) indicates an unseated riser, bad PCIe Gen5 retimer, or shorted power pins on a multi-GPU add-in card. 0xd6 indicates No Console Output Found (missing or disabled GPU display output).",
+        "details": "0x92–0x96 are BDS PCI bus initialization, enumeration and resource assignment. A hang at 0x94 (PCI Bus Enumeration) usually means an unseated riser, a bad retimer or cable, or a dead add-in card. 0xD6 means no console output device was found.",
         "flags": [
           [
             "0x94 (PCI Bus Enum)",
@@ -206,6 +236,19 @@ const MB_MB_PCIE_DXE_POST_DATA = [
           ]
         ],
         "tip": "Verify PCIe bifurcation settings in BIOS: setting an x16 slot to x4x4x4x4 for quad M.2 cards avoids post code 0x94 hangs.",
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.supermicro.com/manuals/other/AMI_AptioV_BIOS_POST_Codes_for_SM_Motherboards.pdf",
+              "title": "AMI Aptio V POST codes (Supermicro, from AMI Aptio 5.x Status Codes rev 2.04)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/lspci.8.html",
+              "title": "lspci(8)"
+            }
+          ]
+        },
         "tags": [
           "pcie-dxe-post",
           "tips",

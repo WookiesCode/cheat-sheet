@@ -4,12 +4,12 @@ const MB_MB_LINUX_AUDIT_DATA = [
   {
     "id": "inband-board-audit-cmd-1",
     "badge": "dmi",
-    "title": "In-Band DMI & ACPI Audit: Read exact ASUS or GIGABYTE motherboard vendor, model, PCB revision & BIOS version without root",
-    "subtitle": "Read exact ASUS or GIGABYTE motherboard vendor, model, PCB revision & BIOS version without root",
+    "title": "In-Band DMI & ACPI Audit: Read the motherboard vendor, model, revision and BIOS version from sysfs",
+    "subtitle": "Read the motherboard vendor, model, revision and BIOS version from sysfs (board_serial needs root)",
     "commands": [
       {
         "id": "sysfs-board-identity",
-        "desc": "Read exact ASUS or GIGABYTE motherboard vendor, model, PCB revision & BIOS version without root",
+        "desc": "Read the motherboard vendor, model, revision and BIOS version from sysfs (board_serial needs root)",
         "cmd": "head -n 1 /sys/class/dmi/id/{board_vendor,board_name,board_version,board_serial,bios_vendor,bios_version,bios_date}",
         "details": "",
         "flags": [
@@ -26,7 +26,7 @@ const MB_MB_LINUX_AUDIT_DATA = [
             "Prints active UEFI BIOS version string and release date for checking against vendor QVL/support matrix"
           ]
         ],
-        "tip": "Works instantly as a non-root user via /sys/class/dmi/id/",
+        "tip": "Everything except board_serial reads as a normal user",
         "tags": [
           "In-Band DMI & ACPI Audit",
           "motherboard",
@@ -40,7 +40,17 @@ const MB_MB_LINUX_AUDIT_DATA = [
           "asus",
           "gigabyte",
           "model"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/torvalds/linux/blob/master/drivers/firmware/dmi-id.c",
+              "title": "Linux dmi-id.c (serial files are 0400)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: board_serial is mode 0400 (root only)."
+        }
       }
     ]
   },
@@ -69,7 +79,7 @@ const MB_MB_LINUX_AUDIT_DATA = [
             "Inspect UEFI System Firmware (ESRT) capsule update support and current motherboard/device firmware versions"
           ]
         ],
-        "tip": "ACPI BERT in dmesg tells you why the motherboard crashed on the PREVIOUS boot!",
+        "tip": "BERT records in dmesg say why the board crashed on the PREVIOUS boot (reading the table file needs root)",
         "tags": [
           "In-Band DMI & ACPI Audit",
           "motherboard",
@@ -84,7 +94,24 @@ const MB_MB_LINUX_AUDIT_DATA = [
           "reboot",
           "hardware-error",
           "fwupdmgr"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/torvalds/linux/blob/master/drivers/acpi/apei/bert.c",
+              "title": "Linux ACPI BERT driver"
+            },
+            {
+              "url": "https://docs.kernel.org/firmware-guide/acpi/apei/output_format.html",
+              "title": "Linux APEI output format"
+            },
+            {
+              "url": "https://fwupd.github.io/libfwupdplugin/",
+              "title": "fwupd"
+            }
+          ]
+        }
       }
     ]
   },
@@ -97,27 +124,27 @@ const MB_MB_LINUX_AUDIT_DATA = [
       {
         "id": "ai-server-bios-checklist",
         "desc": "Mandatory BIOS settings on ASUS (ESC N8 / ESC8000 / K14 / Z13) & GIGABYTE (G593 / G493 / MZ / MS) 8-GPU AI servers",
-        "cmd": "Above 4G Decoding = Enabled  |  MMIO High Base = 56T  |  ACS = Disabled  |  IOMMU = Disabled (or iommu=pt)",
+        "cmd": "Above 4G Decoding = Enabled  |  MMIO High per the vendor GPU guide  |  ACS = Disabled on PCIe switches  |  IOMMU / VT-d = Disabled or passthrough",
         "details": "",
         "flags": [
           [
             "Above 4G Decoding & Re-Size BAR",
-            "MUST be Enabled so BIOS can map 8x H100 (80GB) / H200 (141GB) / B200 BAR1 apertures without halting at POST 0x94/0x96/0xd4"
+            "Enable so the BIOS can map large GPU BAR1 apertures (H100/H200/B200) without stopping at 0x94/0x96/0xd4"
           ],
           [
             "MMIO High Base / Size",
-            "Set MMIO High Base = 56T (or 64T) and MMIO High Granularity Size = 1024G for 8-GPU SXM/PCIe nodes"
+            "Use the values your server vendor gives for its 8-GPU configuration; they differ between vendors"
           ],
           [
             "ACS (Access Control Services)",
-            "Set ACS Control = Disabled in BIOS so GPUDirect RDMA & P2P stay on PCIe switches instead of bottlenecking through the CPU"
+            "NVIDIA: ACS on PCIe switches sends P2P traffic through the CPU root complex; disable it (check with lspci -vvv | grep ACSCtl)"
           ],
           [
             "CPU Power / C-States",
-            "Set Power Profile = Performance, Package C-State = C0/C1, and DF C-States = Disabled to prevent NCCL latency jitter"
+            "Many GPU-server guides recommend a performance power profile and fewer deep C-states for steadier latency"
           ]
         ],
-        "tip": "After clearing CMOS or flashing BIOS, re-verify Above 4G, MMIO 56T & ACS Disabled!",
+        "tip": "After clearing CMOS or flashing BIOS, re-check Above 4G, MMIO and ACS",
         "tags": [
           "In-Band DMI & ACPI Audit",
           "motherboard",
@@ -133,7 +160,17 @@ const MB_MB_LINUX_AUDIT_DATA = [
           "hgx",
           "asus",
           "gigabyte"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/troubleshooting/gpu_troubleshooting.html",
+              "title": "NVIDIA NCCL: GPU troubleshooting (ACS, IOMMU)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: removed the fixed 56T / 1024G MMIO values, which vary by vendor."
+        }
       }
     ]
   },
@@ -146,8 +183,8 @@ const MB_MB_LINUX_AUDIT_DATA = [
       {
         "id": "inband-board-audit-tips-card",
         "desc": "Production In-Band Motherboard Telemetry & Fatal Crash Log Extraction",
-        "cmd": "dmesg | grep -i bert && cat /sys/firmware/acpi/tables/BERT > bert.dat",
-        "details": "The ACPI BERT (Boot Error Record Table) preserves hardware errors from fatal crashes that occurred during previous reboots. Use dmidecode -t 2 to audit motherboard manufacturer, serial number, and PCB revision across large server fleets.",
+        "cmd": "dmesg | grep -i bert && cp /sys/firmware/acpi/tables/BERT bert.dat",
+        "details": "The ACPI BERT (Boot Error Record Table) keeps hardware errors from a fatal crash for the next boot. The table files under /sys/firmware/acpi/tables are root-only. Use dmidecode -t 2 to audit motherboard maker, serial and revision across a fleet.",
         "flags": [
           [
             "dmidecode -t 2",
@@ -163,6 +200,27 @@ const MB_MB_LINUX_AUDIT_DATA = [
           ]
         ],
         "tip": "Ensure \"Above 4G Decoding\" and \"SR-IOV Support\" are enabled in BIOS to avoid post code 0x96 resource allocation failure with multi-GPU accelerators.",
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/torvalds/linux/blob/master/drivers/acpi/apei/bert.c",
+              "title": "Linux ACPI BERT driver"
+            },
+            {
+              "url": "https://docs.kernel.org/firmware-guide/acpi/apei/output_format.html",
+              "title": "Linux APEI output format"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+              "title": "dmidecode(8)"
+            },
+            {
+              "url": "https://github.com/torvalds/linux/blob/master/drivers/firmware/dmi-id.c",
+              "title": "Linux dmi-id.c (serial files are 0400)"
+            }
+          ]
+        },
         "tags": [
           "inband-board-audit",
           "tips",

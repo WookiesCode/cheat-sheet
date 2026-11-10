@@ -14,19 +14,19 @@ const MB_MB_GIGABYTE_SERVERS_DATA = [
         "details": "",
         "flags": [
           [
-            "Web UI POST Snooping",
-            "In GIGABYTE BMC Web UI: go to 'System -> POST Codes' (or 'Logs -> POST Code') to see the full sequence of Current & Previous Boot 0x80 hex codes"
+            "Web UI POST codes",
+            "The BMC web UI keeps the POST codes of the current and previous boot (menu names vary by firmware)"
           ],
           [
-            "ipmitool raw 0x3c",
-            "On GIGABYTE AST2500/AST2600 boards, BMC snoopsLPC/eSPI port 0x80 and logs every checkpoint transition"
+            "Redfish BootProgress",
+            "Standard Redfish field with the current boot stage (see the command above)"
           ],
           [
             "Default GIGABYTE BMC Login",
-            "Older boards: admin / password; Newer AST2600 boards: admin / <8-char unique password printed on motherboard CPU socket cover or chassis pull-tab>"
+            "Shipped before March 2020: admin / password. Later boards: a unique password, the last 11 characters of the serial number on the board's sticker"
           ]
         ],
-        "tip": "Newer GIGABYTE boards print the unique default BMC password on the serial sticker!",
+        "tip": "Newer GIGABYTE boards: the default BMC password is on the serial-number sticker",
         "tags": [
           "GIGABYTE Server Boards",
           "motherboard",
@@ -43,7 +43,21 @@ const MB_MB_GIGABYTE_SERVERS_DATA = [
           "mz73",
           "ms73",
           "g492"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.gigabyte.com/Support/Security/1762",
+              "title": "GIGABYTE: BMC unique pre-programmed password"
+            },
+            {
+              "url": "https://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_22_0.json",
+              "title": "DMTF Redfish ComputerSystem schema (BootProgress)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: GIGABYTE says the unique password is the last 11 characters of the serial (was 8); removed an unsourced raw IPMI command."
+        }
       }
     ]
   },
@@ -61,19 +75,19 @@ const MB_MB_GIGABYTE_SERVERS_DATA = [
         "flags": [
           [
             "BMC_RDY LED",
-            "Blinks green when AST2500/AST2600 BMC is initialized. On many GIGABYTE G-series/R-series servers, power button is locked out until BMC_RDY blinks!"
+            "Blinks when the BMC has finished booting; on many models the power button waits for it"
           ],
           [
-            "SW_BIOS / SPI_SEL",
-            "Hardware DIP switch or jumper to flip from primary BIOS SPI flash chip (BIOS1) to backup recovery SPI chip (BIOS2) if stuck at POST 0x00/0xFF"
+            "BIOS_SW / BIOS_SEL",
+            "Switch or jumper selecting the primary or backup BIOS flash chip (the name varies by board)"
           ],
           [
-            "CLR_CMOS / BAT",
-            "Short CLR_CMOS jumper for 10 seconds (with standby power off) to reset NVRAM settings if stuck at POST 0x61 or 0x94"
+            "CLR_CMOS",
+            "Clear CMOS with standby power removed (positions and timing in the board manual)"
           ],
           [
             "SYS_ERR / ID_LED",
-            "Front/Rear Blue UID LED (chassis identify) and Amber System Fault LED (triggered by PSU fault, fan fail, ECC uncorrectable, or thermal trip)"
+            "Blue UID (identify) LED and amber system-fault LED"
           ]
         ],
         "tip": "If a GIGABYTE board won't POST after a failed BIOS flash, flip SW_BIOS to the backup ROM!",
@@ -90,7 +104,12 @@ const MB_MB_GIGABYTE_SERVERS_DATA = [
           "clr_cmos",
           "jumper",
           "dip-switch"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [],
+          "note": "Board-specific (LED names, jumper positions, menu paths): check this board's manual; not confirmed against a vendor document here."
+        }
       }
     ]
   },
@@ -103,7 +122,7 @@ const MB_MB_GIGABYTE_SERVERS_DATA = [
       {
         "id": "gigabyte-server-board-tips-card",
         "desc": "GIGABYTE Dual-BIOS Switching & Remote Port 0x80 Snooping",
-        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E raw 0x32 0x8b",
+        "cmd": "ipmitool -I lanplus -H \"$BMC\" -U \"$BMC_USER\" -E sel elist",
         "details": "GIGABYTE server motherboards (MZ, MD, MS, R-series) utilize an ASPEED AST2500/AST2600 BMC with hardware port 0x80 LPC snooping. If the primary SPI flash chip becomes corrupted, toggle the Dual-BIOS switch (BIOS_SEL) to boot from the redundant secondary SPI ROM.",
         "flags": [
           [
@@ -120,6 +139,20 @@ const MB_MB_GIGABYTE_SERVERS_DATA = [
           ]
         ],
         "tip": "If BMC_RDY LED is solid amber or off, BMC power rail or SPI flash is unpowered; verify standby 3.3V rail.",
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://github.com/ipmitool/ipmitool",
+              "title": "ipmitool"
+            },
+            {
+              "url": "https://www.gigabyte.com/Support/Security/1762",
+              "title": "GIGABYTE: BMC unique pre-programmed password"
+            }
+          ],
+          "note": "Corrected 2026-11-10: replaced an unsourced raw IPMI command with the standard SEL listing. LED and switch names are board-specific."
+        },
         "tags": [
           "gigabyte-server-board",
           "tips",

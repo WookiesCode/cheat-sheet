@@ -10,31 +10,35 @@ const MB_MB_MEMORY_POST_DATA = [
       {
         "id": "post-50-55-memory-init",
         "desc": "Decode AMI Aptio V memory initialization halt codes (`0x50`–`0x55`) on ASUS & GIGABYTE boards",
-        "cmd": "POST 0x53 (Invalid/Incompatible RAM)   |   POST 0x55 (Memory Not Installed / Unseated)",
+        "cmd": "POST 0x53 (No usable memory)   |   POST 0x55 (Memory not installed)",
         "details": "",
         "flags": [
           [
-            "0x50 / 0x51",
-            "Memory initialization error: Invalid memory type / incompatible speed (0x50) or SPD EEPROM read failure over I2C/I3C (0x51)"
+            "0x50",
+            "Memory initialization error: invalid memory type or incompatible memory speed"
+          ],
+          [
+            "0x51",
+            "Memory initialization error: SPD reading has failed"
           ],
           [
             "0x52",
-            "Memory initialization error: Invalid memory size or mismatched rank/capacity modules across symmetric channels"
+            "Memory initialization error: invalid memory size, or memory modules do not match"
           ],
           [
             "0x53",
-            "Memory initialization error: Memory modules detected, but no usable/compatible memory configured (mixing RDIMM & UDIMM/LRDIMM!)"
+            "Memory initialization error: no usable memory detected (for example after mixing RDIMM and LRDIMM)"
           ],
           [
             "0x54",
-            "Unspecified memory initialization error during early PEI MRC training"
+            "Unspecified memory initialization error"
           ],
           [
             "0x55",
-            "Memory Not Installed: Zero DIMMs detected on CPU0 primary channel (ASUS: A1; GIGABYTE: A0) or uneven CPU cooler torque"
+            "Memory not installed: check the first slot of CPU0 (ASUS boards often call it A1, GIGABYTE A0; the manual has the exact name)"
           ]
         ],
-        "tip": "0x55 = Check primary slot population (ASUS=A1, GIGABYTE=A0) & CPU socket pins!",
+        "tip": "0x55 = no DIMM found: reseat the first slot of CPU0",
         "tags": [
           "Memory MRC Codes",
           "motherboard",
@@ -54,44 +58,62 @@ const MB_MB_MEMORY_POST_DATA = [
           "mrc",
           "asus",
           "gigabyte"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.supermicro.com/manuals/other/AMI_AptioV_BIOS_POST_Codes_for_SM_Motherboards.pdf",
+              "title": "AMI Aptio V POST codes (Supermicro, from AMI Aptio 5.x Status Codes rev 2.04)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: wording follows AMI's Aptio V table."
+        }
       }
     ]
   },
   {
     "id": "memory-post-cmd-2",
     "badge": "mrc",
-    "title": "Memory MRC Codes: Decode Intel Xeon & AMD EPYC DDR4/DDR5 MRC channel training codes",
-    "subtitle": "Decode Intel Xeon & AMD EPYC DDR4/DDR5 MRC channel training codes (`0xB0`–`0xBF`, `0x2C`–`0x2F`)",
+    "title": "Memory MRC Codes: Intel Xeon memory init",
+    "subtitle": "Intel Xeon memory init (MRC) codes B0–BF, and why the same codes mean something else later in boot",
     "commands": [
       {
         "id": "post-b0-bf-xeon-epyc-training",
-        "desc": "Decode Intel Xeon & AMD EPYC DDR4/DDR5 MRC channel training codes (`0xB0`–`0xBF`, `0x2C`–`0x2F`)",
-        "cmd": "POST 0xB0 (DIMM Detect)  ->  0xB4 (Rank/RCD)  ->  0xB7 (Channel Training Fail)  ->  0xBF (MRC Done)",
+        "desc": "Intel Xeon memory init (MRC) codes B0–BF, and why the same codes mean something else later in boot",
+        "cmd": "Intel MRC: 0xB0 (Detect DIMMs)  ->  0xB7 (Train DDR4 ranks)  ->  0xBF (MRC done)   |   AMI BDS later: B2 Option ROM, B4 USB hot plug, B7 NVRAM reset",
         "details": "",
         "flags": [
           [
             "0x2C / 0x2E / 0x2F",
-            "Early PEI Memory detection (2C), configuring memory timings (2E), and memory initialization complete (2F)"
+            "AMI PEI: memory presence detection (2C), configuring memory (2E), memory initialization, other (2F)"
           ],
           [
-            "0xB0 / 0xB1",
-            "Intel MRC: Detect presence of DIMMs via SPD (B0) and check DDR frequency/voltage compatibility (B1)"
+            "0xB0 / 0xB1 / 0xB2",
+            "Intel MRC: detect DIMM population (B0), set DDR4 frequency (B1), gather remaining SPD data (B2)"
           ],
           [
             "0xB4 / 0xB6",
-            "Registering Clock Driver (RCD) & Data Buffer initialization on DDR4/DDR5 RDIMMs/MRDIMMs"
+            "Intel MRC: evaluate RAS modes and save rank information (B4); JEDEC initialization sequence (B6)"
           ],
           [
             "0xB7 / 0xB8",
-            "DDR channel training failure / marginal eye margin on a specific DIMM channel (check BMC SEL for exact failing DIMM slot label!)"
+            "Intel MRC: train DDR4 ranks (B7); initialize closed/open-loop thermal throttling (B8)"
           ],
           [
-            "0xBA / 0xBC / 0xBF",
-            "Memory BIST (Built-In Self Test) & Rank Margin Tool (RMT) validation; 0xBF = MRC memory init complete"
+            "0xB9–0xBC / 0xBF",
+            "Intel MRC: memory test, software init, memory map, RAS configuration; BF = MRC is done"
+          ],
+          [
+            "Same code, later phase",
+            "After memory init, AMI reuses B0–B7 for BDS (B2 legacy option ROM, B4 USB hot plug, B7 configuration reset). AMD EPYC boards do not use B0–BF for memory training"
+          ],
+          [
+            "Intel fatal memory errors",
+            "Intel lists E8 = no usable memory and EA = DDR4 channel training error"
           ]
         ],
-        "tip": "When stuck on 0xB7, check BMC Event Log (SEL) to see which exact DIMM slot failed!",
+        "tip": "Stuck on 0xB7 during memory init: check the BMC SEL for the failing DIMM",
         "tags": [
           "Memory MRC Codes",
           "motherboard",
@@ -112,7 +134,21 @@ const MB_MB_MEMORY_POST_DATA = [
           "training",
           "xeon",
           "epyc"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://miyconst.github.io/assets/2024-07-27-intel-s2600-tpm20/Intel_S2600ST_TPS.pdf",
+              "title": "Intel S2600ST TPS: MRC progress and error codes (copy)"
+            },
+            {
+              "url": "https://www.supermicro.com/manuals/other/AMI_AptioV_BIOS_POST_Codes_for_SM_Motherboards.pdf",
+              "title": "AMI Aptio V POST codes (Supermicro, from AMI Aptio 5.x Status Codes rev 2.04)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: B0–BF are Intel MRC codes during memory init and AMI BDS codes later; AMD does not use them for training."
+        }
       }
     ]
   },
@@ -130,22 +166,22 @@ const MB_MB_MEMORY_POST_DATA = [
         "flags": [
           [
             "ASUS Slot Naming",
-            "ASUS server boards label channels A..L and slots 1..2: always populate Slot 1 (e.g. DIMM_A1, B1, C1...) first before Slot 2!"
+            "ASUS server boards usually label channels A, B, C… and slots 1 and 2: fill slot 1 of each channel first"
           ],
           [
             "GIGABYTE Slot Naming",
-            "GIGABYTE server boards use 0-indexed labels (DIMM_P0_A0, B0, C0...): always populate Slot 0 (furthest from CPU in 2DPC) first!"
+            "GIGABYTE server boards usually count from 0 (DIMM_P0_A0, B0, C0…): fill slot 0 first"
           ],
           [
             "Never Mix RDIMM & LRDIMM",
-            "Mixing Registered (RDIMM), Load-Reduced (LRDIMM/3DS), or Unbuffered (ECC UDIMM) on the same board halts at POST 0x53"
+            "Mixing RDIMM, LRDIMM/3DS or UDIMM on one board fails memory init (AMI 0x50-0x53 range)"
           ],
           [
-            "DDR5 PMIC Training",
-            "First boot after swapping DDR5 RDIMMs on EPYC 9004/9005 or Xeon 4th/5th Gen takes 2–5 minutes at 0x2E/0xB4/0xEA — do not power-cycle early!"
+            "DDR5 first boot",
+            "The first boot after a DDR5 change can spend minutes in memory training: do not power-cycle it early"
           ]
         ],
-        "tip": "Wait at least 4 minutes on first DDR5 boot before assuming a hang!",
+        "tip": "Give the first DDR5 boot several minutes before assuming a hang",
         "tags": [
           "Memory MRC Codes",
           "motherboard",
@@ -162,7 +198,12 @@ const MB_MB_MEMORY_POST_DATA = [
           "lrdimm",
           "asus",
           "gigabyte"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [],
+          "note": "Board-specific (LED names, jumper positions, menu paths): check this board's manual; not confirmed against a vendor document here."
+        }
       }
     ]
   },
@@ -176,22 +217,44 @@ const MB_MB_MEMORY_POST_DATA = [
         "id": "memory-post-tips-card",
         "desc": "Memory Initialization & Rank Training Fault Isolation",
         "cmd": "dmidecode -t 17 | grep -E \"(Locator|Size|Speed|Part Number)\" && edac-util -v",
-        "details": "POST codes 0x50–0x55 signal early PEI Memory Reference Code (MRC) failure. 0x53 indicates memory initialization failure (bad SPD read or unsupported timing), while 0x55 indicates no usable memory detected. B0–BF codes indicate Xeon/EPYC channel-specific training errors. If stuck on 0x55, reseat the primary channel DIMM in Slot A1.",
+        "details": "AMI's PEI memory errors are 0x50–0x55: 0x51 = SPD read failed, 0x53 = no usable memory detected, 0x55 = memory not installed. On Intel Xeon boards, B0–BF during memory init are Intel MRC progress codes (B7 = train DDR4 ranks). If stuck on 0x55, reseat the first DIMM slot of CPU0.",
         "flags": [
           [
-            "0x53 (Memory Init)",
-            "Memory initialization error: unreadable SPD EEPROM or timing mismatch"
+            "0x53 (No usable memory)",
+            "Memory was found but none of it could be used: mixed types, bad DIMM or wrong population"
           ],
           [
-            "0x55 (No Memory)",
-            "No memory installed: CPU socket pin contact fault or unseated A1 DIMM"
+            "0x55 (Not installed)",
+            "No DIMM detected: unseated first slot, or a socket-contact problem"
           ],
           [
-            "0xB7 / 0xBD (Training)",
-            "DDR4/DDR5 rank margin training failure on designated memory channel"
+            "0xB7 (Intel MRC)",
+            "Training DDR4 ranks: a hang here points at one DIMM or channel; the BMC SEL names it"
           ]
         ],
-        "tip": "Always populate DIMM slots with the furthest slot from the CPU socket first (typically white/blue slots designated A1, B1, C1).",
+        "tip": "Populate DIMMs in the order the board manual's population table gives.",
+        "src": {
+          "verified": "2026-11-10",
+          "refs": [
+            {
+              "url": "https://www.supermicro.com/manuals/other/AMI_AptioV_BIOS_POST_Codes_for_SM_Motherboards.pdf",
+              "title": "AMI Aptio V POST codes (Supermicro, from AMI Aptio 5.x Status Codes rev 2.04)"
+            },
+            {
+              "url": "https://miyconst.github.io/assets/2024-07-27-intel-s2600-tpm20/Intel_S2600ST_TPS.pdf",
+              "title": "Intel S2600ST TPS: MRC progress and error codes (copy)"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+              "title": "dmidecode(8)"
+            },
+            {
+              "url": "https://manpages.debian.org/trixie/edac-utils/edac-util.1.en.html",
+              "title": "edac-util(1)"
+            }
+          ],
+          "note": "Corrected 2026-11-10: 0x53 is no usable memory and 0x55 not installed (was swapped); the SPD failure is 0x51."
+        },
         "tags": [
           "memory-post",
           "tips",
