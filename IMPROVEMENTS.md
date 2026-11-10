@@ -501,6 +501,17 @@ All 19 cards in `omarchy.js` cite Omarchy's own files at the `v4.5.0` tag (the b
 
 Noted on the cards: F9 and Super+Ctrl+X dictation, and the Gmail / Google Calendar web apps, are personal overrides in `~/.config/hypr/bindings.lua`; Omarchy's own dictation keys are Alt+Space and hold Alt+Right Alt, bound only while a dictation backend is installed.
 
+## #8 for the Jira JQL sheet (2026-11-10, `jira-sources`)
+
+All 22 cards in `jira.js` cite Atlassian's Jira Cloud JQL docs (fields, functions, operators, keywords, text-field search syntax, advanced search). The queries held up; changes are small:
+
+| Was | Now |
+|---|---|
+| `~ / !~` listed without a caveat | The catch-all `text` field accepts only `~` (Atlassian lists `!~`, `=` and the rest as unsupported) |
+| "Filters > View all issues > Switch to JQL" | "View all work items (older Jira: View all issues)" |
+
+Noted: Jira Cloud is renaming issue → work item and project → space (`workItemHistory()`, `linkedWorkItems()`); Atlassian says existing JQL with the old names keeps working, and Data Center keeps them, so the sheet keeps `issueHistory()` / `linkedIssues()` / `project`. `breached()` and `remaining()` need Jira Service Management.
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |

@@ -730,6 +730,20 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     await ctx.close();
   }
 
+  // 2z. Jira JQL sheet: every card sourced from Atlassian's JQL docs; the text-field operator
+  // and "work items" menu corrections.
+  {
+    const ctx = await newContext(browser);
+    const p = await ctx.newPage();
+    await p.goto(BASE + 'jira.html', { waitUntil: 'load' });
+    await p.waitForTimeout(600);
+    const text = await p.evaluate(() => { const c = document.body.cloneNode(true); c.querySelectorAll('.cmd-source').forEach(n => n.remove()); return c.textContent; });
+    const all = await p.evaluate(() => [...document.querySelectorAll('.cmd-item:is([data-cmd-id], [data-id])')].map(it => ({ id: it.dataset.cmdId || it.dataset.id, src: !!it.querySelector('.cmd-source:not(.is-unverified)') })));
+    check(all.length >= 22 && all.every(x => x.src), `every card on the Jira sheet shows a verified source (${all.filter(x => x.src).length}/${all.length})`);
+    check(/text field accepts only ~/.test(text) && /View all work items/.test(text), 'Jira: text field takes only ~; work-items menu name');
+    await ctx.close();
+  }
+
   // 3. Over a year old → amber "re-check"; and src can't inject markup or javascript: links.
   {
     const ctx = await newContext(browser);

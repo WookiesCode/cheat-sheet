@@ -37236,7 +37236,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "text ~ \"\\\"$NODE\\\"\" ORDER BY created DESC",
     "desc": "Every ticket that mentions a server or node, open or closed",
     "tip": "Start here. text ~ finds the node even if it's only mentioned in a comment.",
-    "tags": "node server host hostname history all tickets text"
+    "tags": "node server host hostname history all tickets text",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/search-for-work-items-using-the-text-field/",
+          "title": "Atlassian: search syntax for text fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-functions/",
+          "title": "Atlassian: JQL functions"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -37324,7 +37341,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "text ~ \"\\\"$RACK\\\"\" ORDER BY created DESC",
     "desc": "Every ticket for a rack, including all the nodes in it if the rack is mentioned",
     "tip": "Tickets that name only the node won't match. Search the nodes too for a full picture.",
-    "tags": "rack cabinet history pdu tor"
+    "tags": "rack cabinet history pdu tor",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/search-for-work-items-using-the-text-field/",
+          "title": "Atlassian: search syntax for text fields"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -37379,7 +37409,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "text ~ \"\\\"$RACK\\\"\" AND text ~ \"\\\"$POSITION\\\"\" ORDER BY created DESC",
     "desc": "Every ticket for one rack position, such as a U number or slot",
     "tip": "The same position can hold different servers over time, so this also shows work on earlier hardware.",
-    "tags": "position rack unit ru u slot location elevation"
+    "tags": "position rack unit ru u slot location elevation",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/search-for-work-items-using-the-text-field/",
+          "title": "Atlassian: search syntax for text fields"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -37423,7 +37466,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "text ~ \"\\\"$SITE\\\"\" AND statusCategory != Done ORDER BY priority DESC, created ASC",
     "desc": "Open tickets for a site, data hall, or row",
     "tip": "",
-    "tags": "site data hall datacenter row location"
+    "tags": "site data hall datacenter row location",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-functions/",
+          "title": "Atlassian: JQL functions"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -37456,7 +37512,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "text ~ \"\\\"$SERIAL\\\"\" ORDER BY created DESC",
     "desc": "Find tickets by serial number or BMC address, which also follow hardware that moved",
     "tip": "Serials stay with the hardware when a server is renamed or moved.",
-    "tags": "serial sn asset bmc ip rma"
+    "tags": "serial sn asset bmc ip rma",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/search-for-work-items-using-the-text-field/",
+          "title": "Atlassian: search syntax for text fields"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -37489,7 +37558,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "\"Rack\" ~ \"$RACK\" ORDER BY created DESC",
     "desc": "Templates for dedicated fields, if your Jira has them. More precise than text search.",
     "tip": "In Jira's Advanced search, start typing a field name and it will suggest the real names.",
-    "tags": "custom field cf hostname rack position serial field"
+    "tags": "custom field cf hostname rack position serial field",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -37544,7 +37622,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "text ~ \"\\\"$NODE\\\"\" AND (text ~ \"Xid\" OR text ~ \"NVLink\" OR text ~ \"ECC\" OR text ~ \"GPU\") ORDER BY created DESC",
     "desc": "Past tickets on a node for one kind of fault",
     "tip": "Check this before an RMA. A repeat fault after a part swap can point at the slot or riser, not the part.",
-    "tags": "gpu xid nvlink ecc nvme optics psu dimm fault"
+    "tags": "gpu xid nvlink ecc nvme optics psu dimm fault",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/search-for-work-items-using-the-text-field/",
+          "title": "Atlassian: search syntax for text fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-keywords/",
+          "title": "Atlassian: JQL keywords (issue → work item renaming)"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -37599,7 +37694,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "text ~ \"\\\"$NODE\\\"\" AND text ~ \"RMA\" ORDER BY created DESC",
     "desc": "Hardware returns for a node, and RMAs that are still open",
     "tip": "",
-    "tags": "rma return replacement warranty parts"
+    "tags": "rma return replacement warranty parts",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/search-for-work-items-using-the-text-field/",
+          "title": "Atlassian: search syntax for text fields"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -37643,7 +37751,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "project = \"$PROJECT\" AND status WAS IN (\"Done\", \"Closed\", \"Resolved\") AND statusCategory != Done ORDER BY updated DESC",
     "desc": "Tickets that were closed and came back, a sign the first fix didn't hold",
     "tip": "",
-    "tags": "reopened repeat regression was"
+    "tags": "reopened repeat regression was",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-operators/",
+          "title": "Atlassian: JQL operators"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -37665,7 +37786,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "issue in linkedIssues(\"$TICKET\") ORDER BY created DESC",
     "desc": "Everything connected to one ticket",
     "tip": "",
-    "tags": "linked related parent subtask epic"
+    "tags": "linked related parent subtask epic",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-functions/",
+          "title": "Atlassian: JQL functions"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        }
+      ],
+      "note": "Jira Cloud docs now say work item and space (workItemHistory(), linkedWorkItems()); Atlassian states existing JQL with the old names keeps working, and Data Center uses the old names."
+    }
   },
   {
     "sName": "jira",
@@ -37698,7 +37833,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "assignee = currentUser() AND statusCategory != Done ORDER BY priority DESC, updated ASC",
     "desc": "Your open tickets, most urgent first",
     "tip": "currentUser() works for anyone, so you can share these queries.",
-    "tags": "my tickets assignee currentuser queue watching"
+    "tags": "my tickets assignee currentuser queue watching",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-functions/",
+          "title": "Atlassian: JQL functions"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -37742,7 +37890,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "issuekey in issueHistory() ORDER BY lastViewed DESC",
     "desc": "Find a ticket you worked on or looked at recently",
     "tip": "",
-    "tags": "recent viewed history updatedby handoff"
+    "tags": "recent viewed history updatedby handoff",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-functions/",
+          "title": "Atlassian: JQL functions"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-operators/",
+          "title": "Atlassian: JQL operators"
+        }
+      ],
+      "note": "Jira Cloud docs now say work item and space (workItemHistory(), linkedWorkItems()); Atlassian states existing JQL with the old names keeps working, and Data Center uses the old names."
+    }
   },
   {
     "sName": "jira",
@@ -37786,7 +37952,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "project = \"$PROJECT\" AND assignee is EMPTY AND statusCategory != Done ORDER BY priority DESC, created ASC",
     "desc": "Open tickets nobody has picked up",
     "tip": "",
-    "tags": "unassigned triage queue empty"
+    "tags": "unassigned triage queue empty",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-operators/",
+          "title": "Atlassian: JQL operators"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -37797,7 +37976,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "project = \"$PROJECT\" AND statusCategory != Done AND updated <= -7d ORDER BY updated ASC",
     "desc": "Open tickets with no update for a week",
     "tip": "",
-    "tags": "stale aging stuck old"
+    "tags": "stale aging stuck old",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -37830,7 +38018,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "project = \"$PROJECT\" AND priority in (Highest, High) AND statusCategory != Done ORDER BY priority DESC, created ASC",
     "desc": "High-priority and overdue tickets",
     "tip": "",
-    "tags": "priority urgent overdue due p1"
+    "tags": "priority urgent overdue due p1",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-operators/",
+          "title": "Atlassian: JQL operators"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-functions/",
+          "title": "Atlassian: JQL functions"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -37863,7 +38068,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "project = \"$PROJECT\" AND \"Time to resolution\" = breached() AND statusCategory != Done ORDER BY created ASC",
     "desc": "SLA risk. These only work in Jira Service Management projects.",
     "tip": "",
-    "tags": "sla breached remaining service management jsm"
+    "tags": "sla breached remaining service management jsm",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-functions/",
+          "title": "Atlassian: JQL functions"
+        }
+      ],
+      "note": "breached() and remaining() work only on sites with Jira Service Management."
+    }
   },
   {
     "sName": "jira",
@@ -37896,7 +38111,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "project = \"$PROJECT\" AND updated >= -12h ORDER BY updated DESC",
     "desc": "Everything that changed in the last 12 hours",
     "tip": "Change -12h to match your shift length.",
-    "tags": "shift handoff turnover today 12h"
+    "tags": "shift handoff turnover today 12h",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-operators/",
+          "title": "Atlassian: JQL operators"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -37951,7 +38179,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "project = \"$PROJECT\" AND created >= startOfDay() ORDER BY created DESC",
     "desc": "Daily, weekly, and monthly counts",
     "tip": "",
-    "tags": "report weekly monthly metrics startofweek"
+    "tags": "report weekly monthly metrics startofweek",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-functions/",
+          "title": "Atlassian: JQL functions"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -38006,7 +38247,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "field operator value AND field operator value ORDER BY field DESC",
     "desc": "The operators you'll use most",
     "tip": "",
-    "tags": "operators syntax was changed empty"
+    "tags": "operators syntax was changed empty",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-operators/",
+          "title": "Atlassian: JQL operators"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-keywords/",
+          "title": "Atlassian: JQL keywords (issue → work item renaming)"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        }
+      ],
+      "note": "Corrected 2026-11-10: the text field supports only ~ (not !~ or =)."
+    }
   },
   {
     "sName": "jira",
@@ -38017,7 +38276,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "created >= -7d AND created < startOfDay()",
     "desc": "Dates and common functions",
     "tip": "",
-    "tags": "dates functions startofday now membersof statuscategory"
+    "tags": "dates functions startofday now membersof statuscategory",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-functions/",
+          "title": "Atlassian: JQL functions"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -38028,7 +38300,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "text ~ \"\\\"exact phrase\\\"\" AND text ~ \"prefix*\"",
     "desc": "How text search behaves, which explains most surprising results",
     "tip": "If a search misses a ticket you know exists, try a prefix search or fewer words.",
-    "tags": "text search wildcard phrase quotes syntax"
+    "tags": "text search wildcard phrase quotes syntax",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/search-for-work-items-using-the-text-field/",
+          "title": "Atlassian: search syntax for text fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -38036,10 +38321,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "jql",
     "id": "jira-use-it",
     "sec": "JQL Quick Reference",
-    "cmd": "Filters > View all issues > Switch to JQL > paste > Enter",
+    "cmd": "Filters > View all work items (older Jira: View all issues) > Switch to JQL > paste > Enter",
     "desc": "Running a query and keeping it",
     "tip": "Menu names vary by Jira version.",
-    "tags": "filter save subscribe export advanced search"
+    "tags": "filter save subscribe export advanced search",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/use-advanced-search-with-jira-query-language-jql/",
+          "title": "Atlassian: advanced search with JQL"
+        }
+      ],
+      "note": "Changed 2026-11-10: Jira Cloud menus now say work items."
+    }
   },
   {
     "sName": "jq",
