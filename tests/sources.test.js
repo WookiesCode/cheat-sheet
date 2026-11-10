@@ -777,6 +777,27 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     await ctx.close();
   }
 
+  // 2zb. Ctrl+K results carry the source line too, including command variants inside a card.
+  {
+    const idx = fs.readFileSync(path.join(ROOT, 'global-search-index.js'), 'utf8');
+    const sb = { window: {} }; require('vm').runInNewContext(idx, sb);
+    const items = sb.window.GLOBAL_SEARCH_INDEX;
+    const variant = items.find(i => i.file === 'linux.html' && i.cmd === 'dmidecode -s system-serial-number');
+    check(variant && variant.src && variant.src.refs.length > 0, 'a variant inside a card inherits the card\'s source in the index');
+    const ctx = await newContext(browser);
+    const p = await ctx.newPage();
+    await p.goto(BASE + 'index.html', { waitUntil: 'load' });
+    await p.waitForTimeout(500);
+    await p.keyboard.press('Control+k');
+    await p.waitForTimeout(300);
+    await p.keyboard.type('nvidia-smi -q', { delay: 30 });
+    await p.waitForTimeout(500);
+    const res = await p.evaluate(() => [...document.querySelectorAll('#palette-results .palette-item[data-cmd]')].slice(0, 8).map(it => { const s = it.querySelector('.palette-src'); return s ? s.textContent : ''; }));
+    check(res.length > 0 && res.every(t => /^Source: .+ · verified [A-Z][a-z]{2} \d{4}|Not verified/.test(t)), `Ctrl+K command results show a source line (${res.filter(Boolean).length}/${res.length})`);
+    check(!(await p.evaluate(() => !!document.querySelector('#palette-results .palette-src a'))), 'the palette source line has no links (a click opens the sheet)');
+    await ctx.close();
+  }
+
   // 3. Over a year old → amber "re-check"; and src can't inject markup or javascript: links.
   {
     const ctx = await newContext(browser);

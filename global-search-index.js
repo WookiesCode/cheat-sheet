@@ -435,7 +435,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dmidecode -s system-serial-number",
     "desc": "Print only the server chassis/system serial number",
     "tip": "",
-    "tags": "dmidecode serial bios motherboard fru asset datacenter"
+    "tags": "dmidecode serial bios motherboard fru asset datacenter",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+          "title": "dmidecode(8)"
+        }
+      ],
+      "note": "dmidecode reads the SMBIOS table from sysfs first and falls back to /dev/mem."
+    }
   },
   {
     "sName": "linux",
@@ -446,7 +456,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dmidecode -s system-product-name",
     "desc": "Print only the server model (e.g. PowerEdge, ProLiant, Supermicro)",
     "tip": "",
-    "tags": "dmidecode serial bios motherboard fru asset datacenter"
+    "tags": "dmidecode serial bios motherboard fru asset datacenter",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+          "title": "dmidecode(8)"
+        }
+      ],
+      "note": "dmidecode reads the SMBIOS table from sysfs first and falls back to /dev/mem."
+    }
   },
   {
     "sName": "linux",
@@ -457,7 +477,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dmidecode -s bios-version && dmidecode -s bios-release-date",
     "desc": "Print only the active BIOS version and release date",
     "tip": "",
-    "tags": "dmidecode serial bios motherboard fru asset datacenter"
+    "tags": "dmidecode serial bios motherboard fru asset datacenter",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+          "title": "dmidecode(8)"
+        }
+      ],
+      "note": "dmidecode reads the SMBIOS table from sysfs first and falls back to /dev/mem."
+    }
   },
   {
     "sName": "linux",
@@ -468,7 +498,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dmidecode -t slot",
     "desc": "DMI Type 9: List all physical PCIe riser slots and whether each slot is In Use or Available",
     "tip": "",
-    "tags": "dmidecode serial bios motherboard fru asset datacenter"
+    "tags": "dmidecode serial bios motherboard fru asset datacenter",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+          "title": "dmidecode(8)"
+        }
+      ],
+      "note": "dmidecode reads the SMBIOS table from sysfs first and falls back to /dev/mem."
+    }
   },
   {
     "sName": "linux",
@@ -504,7 +544,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dmidecode -t 16",
     "desc": "Show maximum supported memory capacity, error correction type (Multi-bit ECC), and total slot count",
     "tip": "",
-    "tags": "dimm ram memory ddr5 ddr4 slot part-number dmidecode"
+    "tags": "dimm ram memory ddr5 ddr4 slot part-number dmidecode",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+          "title": "dmidecode(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/lshw/lshw.1.en.html",
+          "title": "lshw(1)"
+        }
+      ],
+      "note": "Slot labels (Locator) come from the vendor's SMBIOS table and vary by board."
+    }
   },
   {
     "sName": "linux",
@@ -515,7 +569,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dmidecode -t 17 | awk '/Memory Device/,/^$/' | grep -E 'Locator:|Size:'",
     "desc": "Compact list of every motherboard DIMM slot and whether it is populated or 'No Module Installed'",
     "tip": "",
-    "tags": "dimm ram memory ddr5 ddr4 slot part-number dmidecode"
+    "tags": "dimm ram memory ddr5 ddr4 slot part-number dmidecode",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+          "title": "dmidecode(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/lshw/lshw.1.en.html",
+          "title": "lshw(1)"
+        }
+      ],
+      "note": "Slot labels (Locator) come from the vendor's SMBIOS table and vary by board."
+    }
   },
   {
     "sName": "linux",
@@ -526,7 +594,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lshw -short -C memory",
     "desc": "Concise summary of system RAM banks and populated DIMM sizes",
     "tip": "",
-    "tags": "dimm ram memory ddr5 ddr4 slot part-number dmidecode"
+    "tags": "dimm ram memory ddr5 ddr4 slot part-number dmidecode",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+          "title": "dmidecode(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/lshw/lshw.1.en.html",
+          "title": "lshw(1)"
+        }
+      ],
+      "note": "Slot labels (Locator) come from the vendor's SMBIOS table and vary by board."
+    }
   },
   {
     "sName": "linux",
@@ -562,7 +644,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dmidecode -s processor-version",
     "desc": "Print exact CPU model strings for all populated sockets",
     "tip": "",
-    "tags": "psu power-supply cpu socket dmidecode datacenter"
+    "tags": "psu power-supply cpu socket dmidecode datacenter",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+          "title": "dmidecode(8)"
+        },
+        {
+          "url": "https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-class-dmi",
+          "title": "Kernel ABI: sysfs-class-dmi"
+        }
+      ],
+      "note": "Many servers leave DMI Type 39 empty: check PSUs in the BMC (ipmitool sdr type 'Power Supply') if it prints nothing. product_serial in /sys/class/dmi/id is usually root-only."
+    }
   },
   {
     "sName": "linux",
@@ -573,7 +669,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "cat /sys/class/dmi/id/product_name /sys/class/dmi/id/product_serial",
     "desc": "Read product name and serial without root if permissions allow (/sys/class/dmi/id/)",
     "tip": "",
-    "tags": "psu power-supply cpu socket dmidecode datacenter"
+    "tags": "psu power-supply cpu socket dmidecode datacenter",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+          "title": "dmidecode(8)"
+        },
+        {
+          "url": "https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-class-dmi",
+          "title": "Kernel ABI: sysfs-class-dmi"
+        }
+      ],
+      "note": "Many servers leave DMI Type 39 empty: check PSUs in the BMC (ipmitool sdr type 'Power Supply') if it prints nothing. product_serial in /sys/class/dmi/id is usually root-only."
+    }
   },
   {
     "sName": "linux",
@@ -609,7 +719,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lshw -C network -businfo",
     "desc": "List all NIC ports with PCIe bus address, logical interface name, MAC, and link state",
     "tip": "",
-    "tags": "lshw inventory businfo unclaimed driver manifest"
+    "tags": "lshw inventory businfo unclaimed driver manifest",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/lshw/lshw.1.en.html",
+          "title": "lshw(1)"
+        },
+        {
+          "url": "https://github.com/lyonel/lshw/blob/master/src/core/print.cc",
+          "title": "lshw source: print.cc (UNCLAIMED)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: lshw -short -businfo → lshw -businfo (they are two output formats; the man page doesn't say what both together do)."
+    }
   },
   {
     "sName": "linux",
@@ -620,7 +744,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lshw -C storage -C disk",
     "desc": "List all storage controllers (RAID/HBA/NVMe) and attached physical disks",
     "tip": "",
-    "tags": "lshw inventory businfo unclaimed driver manifest"
+    "tags": "lshw inventory businfo unclaimed driver manifest",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/lshw/lshw.1.en.html",
+          "title": "lshw(1)"
+        },
+        {
+          "url": "https://github.com/lyonel/lshw/blob/master/src/core/print.cc",
+          "title": "lshw source: print.cc (UNCLAIMED)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: lshw -short -businfo → lshw -businfo (they are two output formats; the man page doesn't say what both together do)."
+    }
   },
   {
     "sName": "linux",
@@ -631,7 +769,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lshw -json > /tmp/server-hw-manifest.json",
     "desc": "Export full machine-readable hardware manifest for DCIM asset ingestion",
     "tip": "",
-    "tags": "lshw inventory businfo unclaimed driver manifest"
+    "tags": "lshw inventory businfo unclaimed driver manifest",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/lshw/lshw.1.en.html",
+          "title": "lshw(1)"
+        },
+        {
+          "url": "https://github.com/lyonel/lshw/blob/master/src/core/print.cc",
+          "title": "lshw source: print.cc (UNCLAIMED)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: lshw -short -businfo → lshw -businfo (they are two output formats; the man page doesn't say what both together do)."
+    }
   },
   {
     "sName": "linux",
@@ -667,7 +819,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lspci -vvv | grep -B 1 -E 'LnkSta:.*downgraded'",
     "desc": "Scan all PCIe devices across the server for any downgraded PCIe lane width or speed",
     "tip": "",
-    "tags": "lspci pcie lnksta lnkcap downgraded lanes gen4 gen5 riser"
+    "tags": "lspci pcie lnksta lnkcap downgraded lanes gen4 gen5 riser",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/lspci.8.html",
+          "title": "lspci(8)"
+        },
+        {
+          "url": "https://github.com/pciutils/pciutils/blob/master/ls-caps.c",
+          "title": "pciutils source: ls-caps.c (downgraded)"
+        }
+      ],
+      "note": "lspci adds (downgraded) to LnkSta on endpoints only, not on root or downstream ports. Without root, lspci can't read the capability registers."
+    }
   },
   {
     "sName": "linux",
@@ -678,7 +844,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lspci -nnk",
     "desc": "List all PCIe devices with Vendor:Device hex IDs [10de:2330] and active kernel driver",
     "tip": "",
-    "tags": "lspci pcie lnksta lnkcap downgraded lanes gen4 gen5 riser"
+    "tags": "lspci pcie lnksta lnkcap downgraded lanes gen4 gen5 riser",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/lspci.8.html",
+          "title": "lspci(8)"
+        },
+        {
+          "url": "https://github.com/pciutils/pciutils/blob/master/ls-caps.c",
+          "title": "pciutils source: ls-caps.c (downgraded)"
+        }
+      ],
+      "note": "lspci adds (downgraded) to LnkSta on endpoints only, not on root or downstream ports. Without root, lspci can't read the capability registers."
+    }
   },
   {
     "sName": "linux",
@@ -689,7 +869,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lspci -tv",
     "desc": "Render PCIe root complex, bridges, switches, and endpoints as a tree",
     "tip": "",
-    "tags": "lspci pcie lnksta lnkcap downgraded lanes gen4 gen5 riser"
+    "tags": "lspci pcie lnksta lnkcap downgraded lanes gen4 gen5 riser",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/lspci.8.html",
+          "title": "lspci(8)"
+        },
+        {
+          "url": "https://github.com/pciutils/pciutils/blob/master/ls-caps.c",
+          "title": "pciutils source: ls-caps.c (downgraded)"
+        }
+      ],
+      "note": "lspci adds (downgraded) to LnkSta on endpoints only, not on root or downstream ports. Without root, lspci can't read the capability registers."
+    }
   },
   {
     "sName": "linux",
@@ -729,7 +923,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "echo 1 | tee /sys/bus/pci/rescan",
     "desc": "Rescan every PCI bus and re-discover removed devices (after a card or U.2 drive dropped off)",
     "tip": "",
-    "tags": "aer pcie errors rescan hotplug tlp lspci"
+    "tags": "aer pcie errors rescan hotplug tlp lspci",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/lspci.8.html",
+          "title": "lspci(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/setpci.8.html",
+          "title": "setpci(8)"
+        },
+        {
+          "url": "https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-bus-pci",
+          "title": "Kernel ABI: sysfs-bus-pci"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the read-only AER check also ran a bus rescan (… && echo 1 | tee /sys/bus/pci/rescan); the rescan is now its own recipe."
+    }
   },
   {
     "sName": "linux",
@@ -740,7 +952,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "echo 1 | tee /sys/bus/pci/devices/0000:3b:00.0/remove",
     "desc": "Safely hot-remove a specific PCIe BDF device before hot-swapping or rescanning",
     "tip": "",
-    "tags": "aer pcie errors rescan hotplug tlp lspci"
+    "tags": "aer pcie errors rescan hotplug tlp lspci",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/lspci.8.html",
+          "title": "lspci(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/setpci.8.html",
+          "title": "setpci(8)"
+        },
+        {
+          "url": "https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-bus-pci",
+          "title": "Kernel ABI: sysfs-bus-pci"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the read-only AER check also ran a bus rescan (… && echo 1 | tee /sys/bus/pci/rescan); the rescan is now its own recipe."
+    }
   },
   {
     "sName": "linux",
@@ -751,7 +981,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "setpci -s 3b:00.0 COMMAND",
     "desc": "Read raw PCI configuration space COMMAND register in hex",
     "tip": "",
-    "tags": "aer pcie errors rescan hotplug tlp lspci"
+    "tags": "aer pcie errors rescan hotplug tlp lspci",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/lspci.8.html",
+          "title": "lspci(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/setpci.8.html",
+          "title": "setpci(8)"
+        },
+        {
+          "url": "https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-bus-pci",
+          "title": "Kernel ABI: sysfs-bus-pci"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the read-only AER check also ran a bus rescan (… && echo 1 | tee /sys/bus/pci/rescan); the rescan is now its own recipe."
+    }
   },
   {
     "sName": "linux",
@@ -791,7 +1039,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "cpupower frequency-info",
     "desc": "Inspect active CPU frequency governor (performance vs powersave) and hardware P-states",
     "tip": "",
-    "tags": "lscpu cpu cores numa governor microcode smt"
+    "tags": "lscpu cpu cores numa governor microcode smt",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/lscpu.1.html",
+          "title": "lscpu(1)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/linux-cpupower/cpupower-frequency-set.1.en.html",
+          "title": "cpupower-frequency-set(1)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/linux-cpupower/cpupower-frequency-info.1.en.html",
+          "title": "cpupower-frequency-info(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: lscpu -e=…,L1d:L1i:L2:L3,… fails with 'unknown column' (tested, util-linux 2.42): the column is CACHE. Which governors exist depends on the cpufreq driver: cpupower frequency-info -g lists them."
+    }
   },
   {
     "sName": "linux",
@@ -802,7 +1068,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "cpupower frequency-set -g performance",
     "desc": "Lock all CPU cores to the 'performance' governor for low-latency datacenter workloads",
     "tip": "",
-    "tags": "lscpu cpu cores numa governor microcode smt"
+    "tags": "lscpu cpu cores numa governor microcode smt",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/lscpu.1.html",
+          "title": "lscpu(1)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/linux-cpupower/cpupower-frequency-set.1.en.html",
+          "title": "cpupower-frequency-set(1)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/linux-cpupower/cpupower-frequency-info.1.en.html",
+          "title": "cpupower-frequency-info(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: lscpu -e=…,L1d:L1i:L2:L3,… fails with 'unknown column' (tested, util-linux 2.42): the column is CACHE. Which governors exist depends on the cpufreq driver: cpupower frequency-info -g lists them."
+    }
   },
   {
     "sName": "linux",
@@ -813,7 +1097,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep -E 'model name|microcode|cpu MHz' /proc/cpuinfo | head -n 6",
     "desc": "Check loaded CPU microcode patch version and current clock speed",
     "tip": "",
-    "tags": "lscpu cpu cores numa governor microcode smt"
+    "tags": "lscpu cpu cores numa governor microcode smt",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/lscpu.1.html",
+          "title": "lscpu(1)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/linux-cpupower/cpupower-frequency-set.1.en.html",
+          "title": "cpupower-frequency-set(1)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/linux-cpupower/cpupower-frequency-info.1.en.html",
+          "title": "cpupower-frequency-info(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: lscpu -e=…,L1d:L1i:L2:L3,… fails with 'unknown column' (tested, util-linux 2.42): the column is CACHE. Which governors exist depends on the cpufreq driver: cpupower frequency-info -g lists them."
+    }
   },
   {
     "sName": "linux",
@@ -857,7 +1159,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "numactl --cpunodebind=0 --membind=0 ./workload",
     "desc": "Pin a process strictly to CPU cores and local RAM on NUMA node 0",
     "tip": "",
-    "tags": "numa numactl numastat lstopo socket affinity latency"
+    "tags": "numa numactl numastat lstopo socket affinity latency",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/numactl.8.html",
+          "title": "numactl(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/numastat.8.html",
+          "title": "numastat(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/hwloc/lstopo-no-graphics.1.en.html",
+          "title": "lstopo-no-graphics(1)"
+        },
+        {
+          "url": "https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-bus-pci",
+          "title": "Kernel ABI: sysfs-bus-pci"
+        }
+      ],
+      "note": "numa_node reads -1 when the firmware doesn't report a node, and virtual NICs have no device link."
+    }
   },
   {
     "sName": "linux",
@@ -868,7 +1192,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "cat /sys/class/net/eth0/device/numa_node",
     "desc": "Check which CPU NUMA node a specific NIC or NVMe device is physically wired to",
     "tip": "",
-    "tags": "numa numactl numastat lstopo socket affinity latency"
+    "tags": "numa numactl numastat lstopo socket affinity latency",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/numactl.8.html",
+          "title": "numactl(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/numastat.8.html",
+          "title": "numastat(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/hwloc/lstopo-no-graphics.1.en.html",
+          "title": "lstopo-no-graphics(1)"
+        },
+        {
+          "url": "https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-bus-pci",
+          "title": "Kernel ABI: sysfs-bus-pci"
+        }
+      ],
+      "note": "numa_node reads -1 when the firmware doesn't report a node, and virtual NICs have no device link."
+    }
   },
   {
     "sName": "linux",
@@ -879,7 +1225,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lstopo-no-graphics",
     "desc": "Render ASCII topology diagram of NUMA nodes, PCIe bridges, NICs, NVMe drives, and caches (hwloc-nox)",
     "tip": "",
-    "tags": "numa numactl numastat lstopo socket affinity latency"
+    "tags": "numa numactl numastat lstopo socket affinity latency",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/numactl.8.html",
+          "title": "numactl(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/numastat.8.html",
+          "title": "numastat(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/hwloc/lstopo-no-graphics.1.en.html",
+          "title": "lstopo-no-graphics(1)"
+        },
+        {
+          "url": "https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-bus-pci",
+          "title": "Kernel ABI: sysfs-bus-pci"
+        }
+      ],
+      "note": "numa_node reads -1 when the firmware doesn't report a node, and virtual NICs have no device link."
+    }
   },
   {
     "sName": "linux",
@@ -915,7 +1283,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "edac-util --status",
     "desc": "Check whether the kernel EDAC driver is loaded and monitoring memory controllers",
     "tip": "",
-    "tags": "ecc edac dimm memory-error ce ue ram"
+    "tags": "ecc edac dimm memory-error ce ue ram",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/edac-utils/edac-util.1.en.html",
+          "title": "edac-util(1)"
+        },
+        {
+          "url": "https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-devices-edac",
+          "title": "Kernel ABI: sysfs-devices-edac"
+        }
+      ],
+      "note": "The dimm*/dimm_label, dimm_location, dimm_ce_count and dimm_ue_count files are in the kernel ABI; the older csrow*/ch*_ce_count files are not documented there and exist only on some drivers."
+    }
   },
   {
     "sName": "linux",
@@ -926,7 +1308,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "head -n 20 /sys/devices/system/edac/mc/mc*/dimm*/{dimm_label,dimm_location,dimm_ce_count,dimm_ue_count}",
     "desc": "Directly read per-DIMM labels and ECC error counts from sysfs (zero dependencies)",
     "tip": "",
-    "tags": "ecc edac dimm memory-error ce ue ram"
+    "tags": "ecc edac dimm memory-error ce ue ram",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/edac-utils/edac-util.1.en.html",
+          "title": "edac-util(1)"
+        },
+        {
+          "url": "https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-devices-edac",
+          "title": "Kernel ABI: sysfs-devices-edac"
+        }
+      ],
+      "note": "The dimm*/dimm_label, dimm_location, dimm_ce_count and dimm_ue_count files are in the kernel ABI; the older csrow*/ch*_ce_count files are not documented there and exist only on some drivers."
+    }
   },
   {
     "sName": "linux",
@@ -962,7 +1358,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ras-mc-ctl --mainboard",
     "desc": "Display mainboard vendor and model recognized by rasdaemon DIMM label database",
     "tip": "",
-    "tags": "rasdaemon ras-mc-ctl mce mcelog apei ghes hardware-error"
+    "tags": "rasdaemon ras-mc-ctl mce mcelog apei ghes hardware-error",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/rasdaemon/ras-mc-ctl.8.en.html",
+          "title": "ras-mc-ctl(8)"
+        },
+        {
+          "url": "https://github.com/mchehab/rasdaemon",
+          "title": "rasdaemon README"
+        }
+      ],
+      "note": "Corrected 2026-11-09: removed the claims that rasdaemon 'replaces' mcelog and that the database is /var/lib/rasdaemon/ras-mc_event.db; neither is in its docs."
+    }
   },
   {
     "sName": "linux",
@@ -973,7 +1383,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "journalctl -u rasdaemon.service --no-pager -n 50",
     "desc": "Inspect recent hardware error alerts logged by the rasdaemon systemd unit",
     "tip": "",
-    "tags": "rasdaemon ras-mc-ctl mce mcelog apei ghes hardware-error"
+    "tags": "rasdaemon ras-mc-ctl mce mcelog apei ghes hardware-error",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/rasdaemon/ras-mc-ctl.8.en.html",
+          "title": "ras-mc-ctl(8)"
+        },
+        {
+          "url": "https://github.com/mchehab/rasdaemon",
+          "title": "rasdaemon README"
+        }
+      ],
+      "note": "Corrected 2026-11-09: removed the claims that rasdaemon 'replaces' mcelog and that the database is /var/lib/rasdaemon/ras-mc_event.db; neither is in its docs."
+    }
   },
   {
     "sName": "linux",
@@ -984,7 +1408,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dmesg -T | grep -iE 'mce|edac|hardware error|aer|ghES|apei'",
     "desc": "Search kernel ring buffer for ACPI APEI/GHES firmware-first hardware errors",
     "tip": "",
-    "tags": "rasdaemon ras-mc-ctl mce mcelog apei ghes hardware-error"
+    "tags": "rasdaemon ras-mc-ctl mce mcelog apei ghes hardware-error",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/rasdaemon/ras-mc-ctl.8.en.html",
+          "title": "ras-mc-ctl(8)"
+        },
+        {
+          "url": "https://github.com/mchehab/rasdaemon",
+          "title": "rasdaemon README"
+        }
+      ],
+      "note": "Corrected 2026-11-09: removed the claims that rasdaemon 'replaces' mcelog and that the database is /var/lib/rasdaemon/ras-mc_event.db; neither is in its docs."
+    }
   },
   {
     "sName": "linux",
@@ -1024,7 +1462,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "watch -n 1 sensors",
     "desc": "Live 1-second refresh of all CPU and board temperature sensors",
     "tip": "",
-    "tags": "sensors temperature thermal overheating throttling fan hwmon"
+    "tags": "sensors temperature thermal overheating throttling fan hwmon",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/lm-sensors/sensors.1.en.html",
+          "title": "sensors(1)"
+        },
+        {
+          "url": "https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-class-thermal",
+          "title": "Kernel ABI: sysfs-class-thermal"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/linux-cpupower/turbostat.8.en.html",
+          "title": "turbostat(8)"
+        }
+      ],
+      "note": "The thermal_throttle/*_count files are Intel-only and not in the kernel ABI docs; turbostat(8) points to them for throttle events since boot."
+    }
   },
   {
     "sName": "linux",
@@ -1035,7 +1491,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep -H . /sys/devices/system/cpu/cpu0/thermal_throttle/*_count",
     "desc": "Check if CPU0 has experienced core or package thermal throttling events since boot",
     "tip": "",
-    "tags": "sensors temperature thermal overheating throttling fan hwmon"
+    "tags": "sensors temperature thermal overheating throttling fan hwmon",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/lm-sensors/sensors.1.en.html",
+          "title": "sensors(1)"
+        },
+        {
+          "url": "https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-class-thermal",
+          "title": "Kernel ABI: sysfs-class-thermal"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/linux-cpupower/turbostat.8.en.html",
+          "title": "turbostat(8)"
+        }
+      ],
+      "note": "The thermal_throttle/*_count files are Intel-only and not in the kernel ABI docs; turbostat(8) points to them for throttle events since boot."
+    }
   },
   {
     "sName": "linux",
@@ -1104,7 +1578,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nvme error-log /dev/nvme0 --log-entries=16",
     "desc": "Inspect recent controller command errors and status codes",
     "tip": "",
-    "tags": "nvme nvme-cli smart ssd wear endurance firmware"
+    "tags": "nvme nvme-cli smart ssd wear endurance firmware",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-list.txt",
+          "title": "nvme-cli: nvme list"
+        },
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-log-smart.txt",
+          "title": "nvme-cli: smart log"
+        },
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-log-error.txt",
+          "title": "nvme-cli: error log"
+        },
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-list-subsys.txt",
+          "title": "nvme-cli: list-subsys"
+        }
+      ],
+      "note": "nvme-cli 3.0 (Sep 2026) renamed smart-log, error-log and id-ctrl to nvme log smart, nvme log error and nvme id ctrl; the old names still work with a warning. The man pages don't list smart-log or id-ctrl output fields (critical_warning, media_errors, mn, sn, fr): those are nvme-cli's output names."
+    }
   },
   {
     "sName": "linux",
@@ -1115,7 +1611,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nvme id-ctrl /dev/nvme0 | grep -E 'mn |sn |fr |ver |tnvmcap'",
     "desc": "Identify controller model (mn), serial (sn), firmware revision (fr), and total NVM capacity",
     "tip": "",
-    "tags": "nvme nvme-cli smart ssd wear endurance firmware"
+    "tags": "nvme nvme-cli smart ssd wear endurance firmware",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-list.txt",
+          "title": "nvme-cli: nvme list"
+        },
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-log-smart.txt",
+          "title": "nvme-cli: smart log"
+        },
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-log-error.txt",
+          "title": "nvme-cli: error log"
+        },
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-list-subsys.txt",
+          "title": "nvme-cli: list-subsys"
+        }
+      ],
+      "note": "nvme-cli 3.0 (Sep 2026) renamed smart-log, error-log and id-ctrl to nvme log smart, nvme log error and nvme id ctrl; the old names still work with a warning. The man pages don't list smart-log or id-ctrl output fields (critical_warning, media_errors, mn, sn, fr): those are nvme-cli's output names."
+    }
   },
   {
     "sName": "linux",
@@ -1126,7 +1644,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nvme list-subsys",
     "desc": "Display NVMe multipath subsystems and PCIe BDF addresses for each controller",
     "tip": "",
-    "tags": "nvme nvme-cli smart ssd wear endurance firmware"
+    "tags": "nvme nvme-cli smart ssd wear endurance firmware",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-list.txt",
+          "title": "nvme-cli: nvme list"
+        },
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-log-smart.txt",
+          "title": "nvme-cli: smart log"
+        },
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-log-error.txt",
+          "title": "nvme-cli: error log"
+        },
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-list-subsys.txt",
+          "title": "nvme-cli: list-subsys"
+        }
+      ],
+      "note": "nvme-cli 3.0 (Sep 2026) renamed smart-log, error-log and id-ctrl to nvme log smart, nvme log error and nvme id ctrl; the old names still work with a warning. The man pages don't list smart-log or id-ctrl output fields (critical_warning, media_errors, mn, sn, fr): those are nvme-cli's output names."
+    }
   },
   {
     "sName": "linux",
@@ -1174,7 +1714,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nvme id-ns /dev/nvme0n1 -H | grep 'LBA Format'",
     "desc": "Check supported sector sizes (512B vs 4096B 4Kn) and active LBA format",
     "tip": "",
-    "tags": "nvme secure-erase format firmware 4kn blkdiscard wipe"
+    "tags": "nvme secure-erase format firmware 4kn blkdiscard wipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-format.txt",
+          "title": "nvme-cli: format"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/nvme-cli/nvme-id-ns.1.en.html",
+          "title": "nvme-id-ns(1) (nvme-cli 2.13)"
+        },
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-fw-commit.txt",
+          "title": "nvme-cli: fw-commit"
+        },
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-fw-download.txt",
+          "title": "nvme-cli: fw-download"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/blkdiscard.8.html",
+          "title": "blkdiscard(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: fw-commit --action=1 activates at the next reset, not on the spot. nvme-cli 3.x moves these to nvme fw download / nvme fw commit / nvme id ns and deprecates -H; the 2.x forms shown still work. The man page doesn't name the 'LBA Format' lines."
+    }
   },
   {
     "sName": "linux",
@@ -1185,7 +1751,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nvme fw-download /dev/nvme0 --fw=firmware.bin && nvme fw-commit /dev/nvme0 --slot=1 --action=1",
     "desc": "Download a firmware image and commit it to slot 1; it activates at the next controller reset (--action=3 activates immediately, without a reset)",
     "tip": "",
-    "tags": "nvme secure-erase format firmware 4kn blkdiscard wipe"
+    "tags": "nvme secure-erase format firmware 4kn blkdiscard wipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-format.txt",
+          "title": "nvme-cli: format"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/nvme-cli/nvme-id-ns.1.en.html",
+          "title": "nvme-id-ns(1) (nvme-cli 2.13)"
+        },
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-fw-commit.txt",
+          "title": "nvme-cli: fw-commit"
+        },
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-fw-download.txt",
+          "title": "nvme-cli: fw-download"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/blkdiscard.8.html",
+          "title": "blkdiscard(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: fw-commit --action=1 activates at the next reset, not on the spot. nvme-cli 3.x moves these to nvme fw download / nvme fw commit / nvme id ns and deprecates -H; the 2.x forms shown still work. The man page doesn't name the 'LBA Format' lines."
+    }
   },
   {
     "sName": "linux",
@@ -1196,7 +1788,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "blkdiscard -v /dev/nvme0n1",
     "desc": "Discard (TRIM/Deallocate) every block on the device: all data is lost (-v only prints the offset and length)",
     "tip": "",
-    "tags": "nvme secure-erase format firmware 4kn blkdiscard wipe"
+    "tags": "nvme secure-erase format firmware 4kn blkdiscard wipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-format.txt",
+          "title": "nvme-cli: format"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/nvme-cli/nvme-id-ns.1.en.html",
+          "title": "nvme-id-ns(1) (nvme-cli 2.13)"
+        },
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-fw-commit.txt",
+          "title": "nvme-cli: fw-commit"
+        },
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-fw-download.txt",
+          "title": "nvme-cli: fw-download"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/blkdiscard.8.html",
+          "title": "blkdiscard(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: fw-commit --action=1 activates at the next reset, not on the spot. nvme-cli 3.x moves these to nvme fw download / nvme fw commit / nvme id ns and deprecates -H; the 2.x forms shown still work. The man page doesn't name the 'LBA Format' lines."
+    }
   },
   {
     "sName": "linux",
@@ -1228,7 +1846,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "smartctl -t short /dev/sda",
     "desc": "Start a short self-test (usually under ten minutes) while the drive stays in service",
     "tip": "",
-    "tags": "smartctl smart sata sas hdd ssd megaraid defects"
+    "tags": "smartctl smart sata sas hdd ssd megaraid defects",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/smartmontools/smartctl.8.en.html",
+          "title": "smartctl(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the self-test and its log were one line (smartctl -t short && smartctl -l selftest), which reads the log before the new test finishes. The SATA attribute IDs and the SAS 'grown defect list' wording are drive-reported names, not from the man page."
+    }
   },
   {
     "sName": "linux",
@@ -1239,7 +1867,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "smartctl -l selftest /dev/sda",
     "desc": "Read the self-test log once the test has had time to finish (it shows the percentage left while one is running)",
     "tip": "",
-    "tags": "smartctl smart sata sas hdd ssd megaraid defects"
+    "tags": "smartctl smart sata sas hdd ssd megaraid defects",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/smartmontools/smartctl.8.en.html",
+          "title": "smartctl(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the self-test and its log were one line (smartctl -t short && smartctl -l selftest), which reads the log before the new test finishes. The SATA attribute IDs and the SAS 'grown defect list' wording are drive-reported names, not from the man page."
+    }
   },
   {
     "sName": "linux",
@@ -1250,7 +1888,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "smartctl -a -d megaraid,0 /dev/bus/0",
     "desc": "Query physical disk #0 behind a Broadcom/LSI MegaRAID hardware RAID controller",
     "tip": "",
-    "tags": "smartctl smart sata sas hdd ssd megaraid defects"
+    "tags": "smartctl smart sata sas hdd ssd megaraid defects",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/smartmontools/smartctl.8.en.html",
+          "title": "smartctl(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the self-test and its log were one line (smartctl -t short && smartctl -l selftest), which reads the log before the new test finishes. The SATA attribute IDs and the SAS 'grown defect list' wording are drive-reported names, not from the man page."
+    }
   },
   {
     "sName": "linux",
@@ -1261,7 +1909,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "smartctl --scan",
     "desc": "Scan and list devices smartctl can open, with device type and protocol",
     "tip": "",
-    "tags": "smartctl smart sata sas hdd ssd megaraid defects"
+    "tags": "smartctl smart sata sas hdd ssd megaraid defects",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/smartmontools/smartctl.8.en.html",
+          "title": "smartctl(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the self-test and its log were one line (smartctl -t short && smartctl -l selftest), which reads the log before the new test finishes. The SATA attribute IDs and the SAS 'grown defect list' wording are drive-reported names, not from the man page."
+    }
   },
   {
     "sName": "linux",
@@ -1297,7 +1955,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mdadm --manage /dev/md0 --fail /dev/sdb1 --remove /dev/sdb1",
     "desc": "Mark a failing partition as faulty and detach it from /dev/md0 before physical drive pull",
     "tip": "",
-    "tags": "mdadm raid mdstat degraded rebuild hotswap"
+    "tags": "mdadm raid mdstat degraded rebuild hotswap",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/mdadm.8.html",
+          "title": "mdadm(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/initramfs-tools/update-initramfs.8.en.html",
+          "title": "update-initramfs(8)"
+        }
+      ],
+      "note": "mdadm documents both /etc/mdadm.conf and /etc/mdadm/mdadm.conf; Debian and Ubuntu use the second. --manage is optional: mdadm assumes it when the first option is --add, --fail or --remove."
+    }
   },
   {
     "sName": "linux",
@@ -1308,7 +1980,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mdadm --manage /dev/md0 --add /dev/sdb1",
     "desc": "Add newly inserted replacement drive partition into /dev/md0 to start rebuild",
     "tip": "",
-    "tags": "mdadm raid mdstat degraded rebuild hotswap"
+    "tags": "mdadm raid mdstat degraded rebuild hotswap",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/mdadm.8.html",
+          "title": "mdadm(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/initramfs-tools/update-initramfs.8.en.html",
+          "title": "update-initramfs(8)"
+        }
+      ],
+      "note": "mdadm documents both /etc/mdadm.conf and /etc/mdadm/mdadm.conf; Debian and Ubuntu use the second. --manage is optional: mdadm assumes it when the first option is --add, --fail or --remove."
+    }
   },
   {
     "sName": "linux",
@@ -1319,7 +2005,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mdadm --examine /dev/sd[a-z]1",
     "desc": "Inspect RAID superblocks directly on member partitions",
     "tip": "",
-    "tags": "mdadm raid mdstat degraded rebuild hotswap"
+    "tags": "mdadm raid mdstat degraded rebuild hotswap",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/mdadm.8.html",
+          "title": "mdadm(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/initramfs-tools/update-initramfs.8.en.html",
+          "title": "update-initramfs(8)"
+        }
+      ],
+      "note": "mdadm documents both /etc/mdadm.conf and /etc/mdadm/mdadm.conf; Debian and Ubuntu use the second. --manage is optional: mdadm assumes it when the first option is --add, --fail or --remove."
+    }
   },
   {
     "sName": "linux",
@@ -1330,7 +2030,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mdadm --detail --scan | tee -a /etc/mdadm/mdadm.conf && update-initramfs -u",
     "desc": "Append active array definitions to mdadm.conf and update the Ubuntu initramfs (run it twice and you get duplicate ARRAY lines: check the file first)",
     "tip": "",
-    "tags": "mdadm raid mdstat degraded rebuild hotswap"
+    "tags": "mdadm raid mdstat degraded rebuild hotswap",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/mdadm.8.html",
+          "title": "mdadm(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/initramfs-tools/update-initramfs.8.en.html",
+          "title": "update-initramfs(8)"
+        }
+      ],
+      "note": "mdadm documents both /etc/mdadm.conf and /etc/mdadm/mdadm.conf; Debian and Ubuntu use the second. --manage is optional: mdadm assumes it when the first option is --add, --fail or --remove."
+    }
   },
   {
     "sName": "linux",
@@ -1370,7 +2084,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ledctl --listed-only locate_off=/dev/nvme0n1",
     "desc": "Turn the Locate LED off once the drive is swapped (other drives' LEDs untouched)",
     "tip": "",
-    "tags": "ledctl lsscsi multipath backplane led hotswap sas"
+    "tags": "ledctl lsscsi multipath backplane led hotswap sas",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/ledmon/ledctl.8.en.html",
+          "title": "ledctl(8) (ledmon 0.97)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/lsscsi/lsscsi.8.en.html",
+          "title": "lsscsi(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/multipath-tools/multipath.8.en.html",
+          "title": "multipath(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: added --listed-only; plain ledctl locate= turns off the LEDs of all other drives. Checked against ledmon 0.97; the 1.x changelog doesn't mention a syntax change."
+    }
   },
   {
     "sName": "linux",
@@ -1381,7 +2113,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ledctl --listed-only normal=/dev/nvme0n1",
     "desc": "Reset this bay's Status, Failure and Locate LEDs to off",
     "tip": "",
-    "tags": "ledctl lsscsi multipath backplane led hotswap sas"
+    "tags": "ledctl lsscsi multipath backplane led hotswap sas",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/ledmon/ledctl.8.en.html",
+          "title": "ledctl(8) (ledmon 0.97)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/lsscsi/lsscsi.8.en.html",
+          "title": "lsscsi(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/multipath-tools/multipath.8.en.html",
+          "title": "multipath(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: added --listed-only; plain ledctl locate= turns off the LEDs of all other drives. Checked against ledmon 0.97; the 1.x changelog doesn't mention a syntax change."
+    }
   },
   {
     "sName": "linux",
@@ -1392,7 +2142,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "multipath -ll",
     "desc": "Display Device-Mapper Multipath topology, path-checker states, and LUN WWIDs",
     "tip": "",
-    "tags": "ledctl lsscsi multipath backplane led hotswap sas"
+    "tags": "ledctl lsscsi multipath backplane led hotswap sas",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/ledmon/ledctl.8.en.html",
+          "title": "ledctl(8) (ledmon 0.97)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/lsscsi/lsscsi.8.en.html",
+          "title": "lsscsi(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/multipath-tools/multipath.8.en.html",
+          "title": "multipath(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: added --listed-only; plain ledctl locate= turns off the LEDs of all other drives. Checked against ledmon 0.97; the 1.x changelog doesn't mention a syntax change."
+    }
   },
   {
     "sName": "linux",
@@ -1432,7 +2200,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "modprobe -v <module_name>",
     "desc": "Load a kernel module and its dependencies, printing what it does (-v)",
     "tip": "",
-    "tags": "lsmod modinfo modprobe dkms driver kernel-module"
+    "tags": "lsmod modinfo modprobe dkms driver kernel-module",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/modinfo.8.html",
+          "title": "modinfo(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/modprobe.8.html",
+          "title": "modprobe(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/dkms/dkms.8.en.html",
+          "title": "dkms(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: load and unload were one line (modprobe -v … && modprobe -rv …), so copying it loaded the module and removed it again."
+    }
   },
   {
     "sName": "linux",
@@ -1443,7 +2229,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "modprobe -rv <module_name>",
     "desc": "Unload a kernel module and its now-unused dependencies",
     "tip": "",
-    "tags": "lsmod modinfo modprobe dkms driver kernel-module"
+    "tags": "lsmod modinfo modprobe dkms driver kernel-module",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/modinfo.8.html",
+          "title": "modinfo(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/modprobe.8.html",
+          "title": "modprobe(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/dkms/dkms.8.en.html",
+          "title": "dkms(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: load and unload were one line (modprobe -v … && modprobe -rv …), so copying it loaded the module and removed it again."
+    }
   },
   {
     "sName": "linux",
@@ -1454,7 +2258,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep -H . /sys/module/mlx5_core/parameters/*",
     "desc": "Read currently active runtime parameter values of a loaded kernel module",
     "tip": "",
-    "tags": "lsmod modinfo modprobe dkms driver kernel-module"
+    "tags": "lsmod modinfo modprobe dkms driver kernel-module",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/modinfo.8.html",
+          "title": "modinfo(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/modprobe.8.html",
+          "title": "modprobe(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/dkms/dkms.8.en.html",
+          "title": "dkms(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: load and unload were one line (modprobe -v … && modprobe -rv …), so copying it loaded the module and removed it again."
+    }
   },
   {
     "sName": "linux",
@@ -1465,7 +2287,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dkms status",
     "desc": "Check Dynamic Kernel Module Support build/install status across installed Ubuntu kernels",
     "tip": "",
-    "tags": "lsmod modinfo modprobe dkms driver kernel-module"
+    "tags": "lsmod modinfo modprobe dkms driver kernel-module",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/modinfo.8.html",
+          "title": "modinfo(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/modprobe.8.html",
+          "title": "modprobe(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/dkms/dkms.8.en.html",
+          "title": "dkms(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: load and unload were one line (modprobe -v … && modprobe -rv …), so copying it loaded the module and removed it again."
+    }
   },
   {
     "sName": "linux",
@@ -1509,7 +2349,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "update-grub",
     "desc": "Regenerate /boot/grub/grub.cfg after editing /etc/default/grub",
     "tip": "",
-    "tags": "grub cmdline serial ttys0 sol initramfs boot"
+    "tags": "grub cmdline serial ttys0 sol initramfs boot",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.kernel.org/admin-guide/serial-console.html",
+          "title": "Kernel: Linux serial console"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/grub2-common/update-grub.8.en.html",
+          "title": "update-grub(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/initramfs-tools/update-initramfs.8.en.html",
+          "title": "update-initramfs(8)"
+        },
+        {
+          "url": "https://www.freedesktop.org/software/systemd/man/latest/systemd-getty-generator.html",
+          "title": "systemd-getty-generator(8)"
+        }
+      ],
+      "note": "With console=tty0 console=ttyS0,115200n8 the kernel writes to both and /dev/console is the last one (ttyS0). The GRUB manual (GRUB_CMDLINE_LINUX, GRUB_TERMINAL) could not be fetched."
+    }
   },
   {
     "sName": "linux",
@@ -1520,7 +2382,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "update-initramfs -u -k all",
     "desc": "Rebuild initial RAM filesystem images for all installed Ubuntu kernels after driver/mdadm changes",
     "tip": "",
-    "tags": "grub cmdline serial ttys0 sol initramfs boot"
+    "tags": "grub cmdline serial ttys0 sol initramfs boot",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.kernel.org/admin-guide/serial-console.html",
+          "title": "Kernel: Linux serial console"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/grub2-common/update-grub.8.en.html",
+          "title": "update-grub(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/initramfs-tools/update-initramfs.8.en.html",
+          "title": "update-initramfs(8)"
+        },
+        {
+          "url": "https://www.freedesktop.org/software/systemd/man/latest/systemd-getty-generator.html",
+          "title": "systemd-getty-generator(8)"
+        }
+      ],
+      "note": "With console=tty0 console=ttyS0,115200n8 the kernel writes to both and /dev/console is the last one (ttyS0). The GRUB manual (GRUB_CMDLINE_LINUX, GRUB_TERMINAL) could not be fetched."
+    }
   },
   {
     "sName": "linux",
@@ -1531,7 +2415,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "systemctl enable --now serial-getty@ttyS0.service",
     "desc": "Start a login prompt on ttyS0 now (with console=ttyS0 on the kernel command line, systemd starts one by itself at boot)",
     "tip": "",
-    "tags": "grub cmdline serial ttys0 sol initramfs boot"
+    "tags": "grub cmdline serial ttys0 sol initramfs boot",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.kernel.org/admin-guide/serial-console.html",
+          "title": "Kernel: Linux serial console"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/grub2-common/update-grub.8.en.html",
+          "title": "update-grub(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/initramfs-tools/update-initramfs.8.en.html",
+          "title": "update-initramfs(8)"
+        },
+        {
+          "url": "https://www.freedesktop.org/software/systemd/man/latest/systemd-getty-generator.html",
+          "title": "systemd-getty-generator(8)"
+        }
+      ],
+      "note": "With console=tty0 console=ttyS0,115200n8 the kernel writes to both and /dev/console is the last one (ttyS0). The GRUB manual (GRUB_CMDLINE_LINUX, GRUB_TERMINAL) could not be fetched."
+    }
   },
   {
     "sName": "linux",
@@ -1570,7 +2476,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "coredumpctl info <PID>",
     "desc": "Show detailed stack trace, registers, and signal metadata for the latest crash",
     "tip": "",
-    "tags": "coredumpctl kdump crash panic segfault vmcore"
+    "tags": "coredumpctl kdump crash panic segfault vmcore",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.freedesktop.org/software/systemd/man/latest/coredumpctl.html",
+          "title": "coredumpctl(1)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/kdump-tools/kdump-config.8.en.html",
+          "title": "kdump-config(8)"
+        },
+        {
+          "url": "https://ubuntu.com/server/docs/how-to/software/kernel-crash-dump/",
+          "title": "Ubuntu Server: kernel crash dump"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -1581,7 +2504,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ls -lh /var/crash/",
     "desc": "Inspect Ubuntu Apport / kdump crash reports and kernel vmcore directories",
     "tip": "",
-    "tags": "coredumpctl kdump crash panic segfault vmcore"
+    "tags": "coredumpctl kdump crash panic segfault vmcore",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.freedesktop.org/software/systemd/man/latest/coredumpctl.html",
+          "title": "coredumpctl(1)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/kdump-tools/kdump-config.8.en.html",
+          "title": "kdump-config(8)"
+        },
+        {
+          "url": "https://ubuntu.com/server/docs/how-to/software/kernel-crash-dump/",
+          "title": "Ubuntu Server: kernel crash dump"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -1621,7 +2561,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "fio --name=randread --ioengine=libaio --iodepth=32 --rw=randread --bs=4k --direct=1 --size=4G --numjobs=4 --runtime=60 --time_based --filename=/tmp/fio.test --group_reporting",
     "desc": "Benchmark 4K random read IOPS and tail latency (direct I/O bypassing page cache)",
     "tip": "",
-    "tags": "stress-ng fio iperf3 burnin benchmark iops testing"
+    "tags": "stress-ng fio iperf3 burnin benchmark iops testing",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/stress-ng/stress-ng.1.en.html",
+          "title": "stress-ng(1)"
+        },
+        {
+          "url": "https://fio.readthedocs.io/en/latest/fio_doc.html",
+          "title": "fio documentation"
+        },
+        {
+          "url": "https://software.es.net/iperf/invoking.html",
+          "title": "iperf3: invoking"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the iperf3 recipe was 'iperf3 -s # on target node && iperf3 -c …': everything after # is a comment, so copying it only started the server. Now two recipes."
+    }
   },
   {
     "sName": "linux",
@@ -1632,7 +2590,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "iperf3 -s",
     "desc": "Start the iperf3 server on the target node (run this first, there)",
     "tip": "",
-    "tags": "stress-ng fio iperf3 burnin benchmark iops testing"
+    "tags": "stress-ng fio iperf3 burnin benchmark iops testing",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/stress-ng/stress-ng.1.en.html",
+          "title": "stress-ng(1)"
+        },
+        {
+          "url": "https://fio.readthedocs.io/en/latest/fio_doc.html",
+          "title": "fio documentation"
+        },
+        {
+          "url": "https://software.es.net/iperf/invoking.html",
+          "title": "iperf3: invoking"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the iperf3 recipe was 'iperf3 -s # on target node && iperf3 -c …': everything after # is a comment, so copying it only started the server. Now two recipes."
+    }
   },
   {
     "sName": "linux",
@@ -1643,7 +2619,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "iperf3 -6 -c 2001:db8:dc:10::1 -P 8 -t 30",
     "desc": "From the other node: verify IPv6 (-6) NIC throughput across 8 parallel TCP streams for 30 seconds",
     "tip": "",
-    "tags": "stress-ng fio iperf3 burnin benchmark iops testing"
+    "tags": "stress-ng fio iperf3 burnin benchmark iops testing",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/stress-ng/stress-ng.1.en.html",
+          "title": "stress-ng(1)"
+        },
+        {
+          "url": "https://fio.readthedocs.io/en/latest/fio_doc.html",
+          "title": "fio documentation"
+        },
+        {
+          "url": "https://software.es.net/iperf/invoking.html",
+          "title": "iperf3: invoking"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the iperf3 recipe was 'iperf3 -s # on target node && iperf3 -c …': everything after # is a comment, so copying it only started the server. Now two recipes."
+    }
   },
   {
     "sName": "linux",
@@ -1674,7 +2668,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ls -lahtr",
     "desc": "Sort by modification time in reverse so the newest modified files appear at the bottom",
     "tip": "",
-    "tags": "list directory hidden size recent modified"
+    "tags": "list directory hidden size recent modified",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ls.1.html",
+          "title": "ls(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -1685,7 +2688,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ls -laSrh",
     "desc": "Sort by file size with the largest files at the bottom of the terminal",
     "tip": "",
-    "tags": "list directory hidden size recent modified"
+    "tags": "list directory hidden size recent modified",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ls.1.html",
+          "title": "ls(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -1696,7 +2708,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ls -li",
     "desc": "Include filesystem inode numbers in the first column",
     "tip": "",
-    "tags": "list directory hidden size recent modified"
+    "tags": "list directory hidden size recent modified",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ls.1.html",
+          "title": "ls(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -1727,7 +2748,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "find / -xdev -type f -size +500M -printf '%s\\t%p\\n' 2>/dev/null | sort -nr | head -n 20",
     "desc": "Find top 20 largest files on the root filesystem with exact byte sizes",
     "tip": "",
-    "tags": "search find recent logs large big cleanup space"
+    "tags": "search find recent logs large big cleanup space",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/find.1.html",
+          "title": "find(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -1738,7 +2768,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "find /var/log/app -type f -name '*.log.gz' -mtime +30 -delete",
     "desc": "Delete rotated compressed logs older than 30 days",
     "tip": "",
-    "tags": "search find recent logs large big cleanup space"
+    "tags": "search find recent logs large big cleanup space",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/find.1.html",
+          "title": "find(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -1794,7 +2833,41 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ln -s /srv/releases/v2 /srv/current.tmp && mv -T /srv/current.tmp /srv/current",
     "desc": "Atomic switch: make the new link under a temporary name, then rename it over the old one",
     "tip": "",
-    "tags": "mkdir cp symlink ln stat readlink atomic"
+    "tags": "mkdir cp symlink ln stat readlink atomic",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/mkdir.1.html",
+          "title": "mkdir(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/cp.1.html",
+          "title": "cp(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ln.1.html",
+          "title": "ln(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man2/rename.2.html",
+          "title": "rename(2)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/readlink.1.html",
+          "title": "readlink(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/stat.1.html",
+          "title": "stat(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/mv.1.html",
+          "title": "mv(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: ln -sfn is not a single atomic rename (ln removes the old link, then creates the new one); the atomic switch is ln -s to a temporary name, then mv -T over the old link."
+    }
   },
   {
     "sName": "linux",
@@ -1805,7 +2878,41 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "readlink -f /srv/current",
     "desc": "Resolve all symlinks in a path and print the canonical physical path",
     "tip": "",
-    "tags": "mkdir cp symlink ln stat readlink atomic"
+    "tags": "mkdir cp symlink ln stat readlink atomic",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/mkdir.1.html",
+          "title": "mkdir(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/cp.1.html",
+          "title": "cp(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ln.1.html",
+          "title": "ln(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man2/rename.2.html",
+          "title": "rename(2)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/readlink.1.html",
+          "title": "readlink(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/stat.1.html",
+          "title": "stat(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/mv.1.html",
+          "title": "mv(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: ln -sfn is not a single atomic rename (ln removes the old link, then creates the new one); the atomic switch is ln -s to a temporary name, then mv -T over the old link."
+    }
   },
   {
     "sName": "linux",
@@ -1816,7 +2923,41 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "stat /etc/fstab",
     "desc": "Display full inode metadata: octal access mode, UID/GID, device ID, links, and Access/Modify/Change/Birth times",
     "tip": "",
-    "tags": "mkdir cp symlink ln stat readlink atomic"
+    "tags": "mkdir cp symlink ln stat readlink atomic",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/mkdir.1.html",
+          "title": "mkdir(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/cp.1.html",
+          "title": "cp(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ln.1.html",
+          "title": "ln(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man2/rename.2.html",
+          "title": "rename(2)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/readlink.1.html",
+          "title": "readlink(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/stat.1.html",
+          "title": "stat(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/mv.1.html",
+          "title": "mv(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: ln -sfn is not a single atomic rename (ln removes the old link, then creates the new one); the atomic switch is ln -s to a temporary name, then mv -T over the old link."
+    }
   },
   {
     "sName": "linux",
@@ -1847,7 +2988,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "rsync -avhPn --delete src/ dest/",
     "desc": "Dry-run (-n) mirror with --delete to preview exactly what would be added or deleted",
     "tip": "",
-    "tags": "sync backup remote transfer rsync mirror"
+    "tags": "sync backup remote transfer rsync mirror",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://download.samba.org/pub/rsync/rsync.1",
+          "title": "rsync(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -1858,7 +3008,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "rsync -avhP --bwlimit=50M /var/lib/data/ backup-node:/srv/data/",
     "desc": "Throttle transfer bandwidth to 50 MB/s so production NIC traffic is not saturated",
     "tip": "",
-    "tags": "sync backup remote transfer rsync mirror"
+    "tags": "sync backup remote transfer rsync mirror",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://download.samba.org/pub/rsync/rsync.1",
+          "title": "rsync(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -1893,7 +3052,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "chmod -R u+rwX,go+rX,go-w /srv/data",
     "desc": "Smart recursive chmod using capital +X (no find command needed)",
     "tip": "",
-    "tags": "chmod web recursive permissions ssh"
+    "tags": "chmod web recursive permissions ssh",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/chmod.1.html",
+          "title": "chmod(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/find.1.html",
+          "title": "find(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -1904,7 +3076,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "chmod 700 ~/.ssh && chmod 600 ~/.ssh/authorized_keys ~/.ssh/id_ed25519",
     "desc": "Enforce strict SSH directory and key permissions required by sshd StrictModes",
     "tip": "",
-    "tags": "chmod web recursive permissions ssh"
+    "tags": "chmod web recursive permissions ssh",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/chmod.1.html",
+          "title": "chmod(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/find.1.html",
+          "title": "find(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -1939,7 +3124,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "chmod 1777 /tmp/scratch",
     "desc": "Set Sticky Bit (octal prefix '1' or '+t') so only a file's owner or root can delete it",
     "tip": "",
-    "tags": "owner group chown setgid sgid sticky"
+    "tags": "owner group chown setgid sgid sticky",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/chown.1.html",
+          "title": "chown(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/chmod.1.html",
+          "title": "chmod(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -1978,7 +3176,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "setfacl -b -R /srv/app",
     "desc": "Strip all extended ACL entries and revert to standard POSIX permissions",
     "tip": "",
-    "tags": "acl getfacl setfacl chattr lsattr immutable"
+    "tags": "acl getfacl setfacl chattr lsattr immutable",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/setfacl.1.html",
+          "title": "setfacl(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/getfacl.1.html",
+          "title": "getfacl(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/chattr.1.html",
+          "title": "chattr(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -1989,7 +3204,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "chattr +i /etc/resolv.conf && lsattr /etc/resolv.conf",
     "desc": "Make a file immutable (+i) and inspect extended filesystem attributes (use -i to unlock)",
     "tip": "",
-    "tags": "acl getfacl setfacl chattr lsattr immutable"
+    "tags": "acl getfacl setfacl chattr lsattr immutable",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/setfacl.1.html",
+          "title": "setfacl(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/getfacl.1.html",
+          "title": "getfacl(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/chattr.1.html",
+          "title": "chattr(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -2024,7 +3256,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep -Ev '^\\s*(#|$)' /etc/ssh/sshd_config",
     "desc": "Strip all comment lines (#) and blank lines to view only active configuration directives",
     "tip": "",
-    "tags": "search regex logs grep zgrep config"
+    "tags": "search regex logs grep zgrep config",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+          "title": "grep(1)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/gzip/zgrep.1.en.html",
+          "title": "zgrep(1), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -2035,7 +3280,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep -rn --exclude-dir={.git,node_modules,venv} 'pattern' .",
     "desc": "Search source trees excluding version control and dependency directories",
     "tip": "",
-    "tags": "search regex logs grep zgrep config"
+    "tags": "search regex logs grep zgrep config",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+          "title": "grep(1)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/gzip/zgrep.1.en.html",
+          "title": "zgrep(1), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -2046,7 +3304,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "zgrep -i 'oom-killer' /var/log/syslog* /var/log/kern.log*",
     "desc": "Search transparently inside both plain-text and gzip-compressed (.gz) rotated logs",
     "tip": "",
-    "tags": "search regex logs grep zgrep config"
+    "tags": "search regex logs grep zgrep config",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+          "title": "grep(1)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/gzip/zgrep.1.en.html",
+          "title": "zgrep(1), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -2093,7 +3364,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ls -l | awk '{sum += $5} END {printf \"Total: %.2f MiB\\n\", sum/1048576}'",
     "desc": "Sum the 5th column (byte size) across all lines and print total in MiB",
     "tip": "",
-    "tags": "awk sed sort uniq column logs replace"
+    "tags": "awk sed sort uniq column logs replace",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/gawk.1.html",
+          "title": "gawk(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sort.1.html",
+          "title": "sort(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/uniq.1.html",
+          "title": "uniq(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sed.1.html",
+          "title": "sed(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/column.1.html",
+          "title": "column(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -2104,7 +3400,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sed -i.bak -E 's/^#?PermitRootLogin.*/PermitRootLogin no/' /etc/ssh/sshd_config",
     "desc": "Edit config file in-place while creating a .bak backup file automatically",
     "tip": "",
-    "tags": "awk sed sort uniq column logs replace"
+    "tags": "awk sed sort uniq column logs replace",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/gawk.1.html",
+          "title": "gawk(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sort.1.html",
+          "title": "sort(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/uniq.1.html",
+          "title": "uniq(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sed.1.html",
+          "title": "sed(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/column.1.html",
+          "title": "column(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -2115,7 +3436,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "column -t -s ':' /etc/passwd | head -n 15",
     "desc": "Format any delimiter-separated file or stream into an aligned terminal table",
     "tip": "",
-    "tags": "awk sed sort uniq column logs replace"
+    "tags": "awk sed sort uniq column logs replace",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/gawk.1.html",
+          "title": "gawk(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sort.1.html",
+          "title": "sort(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/uniq.1.html",
+          "title": "uniq(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sed.1.html",
+          "title": "sed(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/column.1.html",
+          "title": "column(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -2154,7 +3500,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -s http://localhost:8080/health | jq '.checks[] | select(.status != \"UP\")'",
     "desc": "Parse JSON stream and filter only objects matching a condition",
     "tip": "",
-    "tags": "tail jq json logs diff stream"
+    "tags": "tail jq json logs diff stream",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/tail.1.html",
+          "title": "tail(1)"
+        },
+        {
+          "url": "https://jqlang.org/manual/",
+          "title": "jq manual"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -2165,7 +3528,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "diff -u <(sort file1.txt) <(sort file2.txt)",
     "desc": "Compare two command outputs on the fly using Bash process substitution",
     "tip": "",
-    "tags": "tail jq json logs diff stream"
+    "tags": "tail jq json logs diff stream",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/tail.1.html",
+          "title": "tail(1)"
+        },
+        {
+          "url": "https://jqlang.org/manual/",
+          "title": "jq manual"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -2204,7 +3584,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "top -b -n 1 -o +%CPU | head -n 20",
     "desc": "Run top in non-interactive batch mode sorted by highest CPU utilization",
     "tip": "",
-    "tags": "ps memory cpu rss zombie tree pgrep pkill"
+    "tags": "ps memory cpu rss zombie tree pgrep pkill",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ps.1.html",
+          "title": "ps(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/top.1.html",
+          "title": "top(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/systemctl.1.html",
+          "title": "systemctl(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -2215,7 +3612,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "systemctl status <PID>",
     "desc": "Map any running PID back to its owning systemd service unit and cgroup slice",
     "tip": "",
-    "tags": "ps memory cpu rss zombie tree pgrep pkill"
+    "tags": "ps memory cpu rss zombie tree pgrep pkill",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ps.1.html",
+          "title": "ps(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/top.1.html",
+          "title": "top(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/systemctl.1.html",
+          "title": "systemctl(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -2250,7 +3664,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lsof +D /var/log",
     "desc": "List all processes holding open files inside the /var/log directory tree",
     "tip": "",
-    "tags": "lsof deleted disk-full fd proc"
+    "tags": "lsof deleted disk-full fd proc",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/lsof/lsof.8.en.html",
+          "title": "lsof(8), Debian"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man5/proc.5.html",
+          "title": "proc(5)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -2261,7 +3688,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ls -l /proc/<PID>/fd /proc/<PID>/exe /proc/<PID>/cwd",
     "desc": "Inspect a process's open file descriptors, binary symlink, and working directory in /proc",
     "tip": "",
-    "tags": "lsof deleted disk-full fd proc"
+    "tags": "lsof deleted disk-full fd proc",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/lsof/lsof.8.en.html",
+          "title": "lsof(8), Debian"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man5/proc.5.html",
+          "title": "proc(5)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -2304,7 +3744,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "vmstat -Sm 1 5",
     "desc": "Sample run-queue (r), blocked I/O procs (b), swap in/out (si/so), and CPU iowait (wa) every 1s",
     "tip": "",
-    "tags": "free iostat vmstat pidstat sysstat iowait ram latency"
+    "tags": "free iostat vmstat pidstat sysstat iowait ram latency",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/free.1.html",
+          "title": "free(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/vmstat.8.html",
+          "title": "vmstat(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/iostat.1.html",
+          "title": "iostat(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/pidstat.1.html",
+          "title": "pidstat(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -2315,7 +3776,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "pidstat -d -u -r 1 5",
     "desc": "Per-process breakdown of disk I/O kB/s (-d), CPU% (-u), and page faults/RSS (-r)",
     "tip": "",
-    "tags": "free iostat vmstat pidstat sysstat iowait ram latency"
+    "tags": "free iostat vmstat pidstat sysstat iowait ram latency",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/free.1.html",
+          "title": "free(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/vmstat.8.html",
+          "title": "vmstat(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/iostat.1.html",
+          "title": "iostat(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/pidstat.1.html",
+          "title": "pidstat(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -2354,7 +3836,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "perf top -g",
     "desc": "Live hardware performance counter profiler showing top kernel and userspace functions by CPU cycles",
     "tip": "",
-    "tags": "strace syscall hang debug oom oom-killer"
+    "tags": "strace syscall hang debug oom oom-killer",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/strace.1.html",
+          "title": "strace(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/perf-top.1.html",
+          "title": "perf-top(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/dmesg.1.html",
+          "title": "dmesg(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -2365,7 +3864,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dmesg -T | grep -iE -C 3 'out of memory|killed process|oom-kill'",
     "desc": "Check if the Linux kernel OOM killer terminated a process due to memory exhaustion",
     "tip": "",
-    "tags": "strace syscall hang debug oom oom-killer"
+    "tags": "strace syscall hang debug oom oom-killer",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/strace.1.html",
+          "title": "strace(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/perf-top.1.html",
+          "title": "perf-top(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/dmesg.1.html",
+          "title": "dmesg(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -2401,7 +3917,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ss -tanp state established",
     "desc": "List all currently established TCP connections with remote peer IPs and local PIDs",
     "tip": "",
-    "tags": "ports listen open netstat socket ss lsof"
+    "tags": "ports listen open netstat socket ss lsof",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ss.8.html",
+          "title": "ss(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/lsof/lsof.8.en.html",
+          "title": "lsof(8), Debian"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the ss man page doesn't say -p needs root; the ROOT badge's 'maybe' note covers seeing other users' processes."
+    }
   },
   {
     "sName": "linux",
@@ -2412,7 +3942,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ss -s",
     "desc": "Print high-level kernel socket summary (total TCP established, syn-recv, time-wait, orphaned)",
     "tip": "",
-    "tags": "ports listen open netstat socket ss lsof"
+    "tags": "ports listen open netstat socket ss lsof",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ss.8.html",
+          "title": "ss(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/lsof/lsof.8.en.html",
+          "title": "lsof(8), Debian"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the ss man page doesn't say -p needs root; the ROOT badge's 'maybe' note covers seeing other users' processes."
+    }
   },
   {
     "sName": "linux",
@@ -2423,7 +3967,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lsof -iTCP:8080 -sTCP:LISTEN -P -n",
     "desc": "Find the exact process bound to TCP port 8080",
     "tip": "",
-    "tags": "ports listen open netstat socket ss lsof"
+    "tags": "ports listen open netstat socket ss lsof",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ss.8.html",
+          "title": "ss(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/lsof/lsof.8.en.html",
+          "title": "lsof(8), Debian"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the ss man page doesn't say -p needs root; the ROOT badge's 'maybe' note covers seeing other users' processes."
+    }
   },
   {
     "sName": "linux",
@@ -2470,7 +4028,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ip -6 route get 2606:4700:4700::1111",
     "desc": "Query the kernel IPv6 routing table to see which egress interface, source IPv6, and next-hop gateway will be used",
     "tip": "",
-    "tags": "ip ipv6 interface nic gateway route ndp arp mtu"
+    "tags": "ip ipv6 interface nic gateway route ndp arp mtu",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-link.8.html",
+          "title": "ip-link(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-address.8.html",
+          "title": "ip-address(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-route.8.html",
+          "title": "ip-route(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-neighbour.8.html",
+          "title": "ip-neighbour(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-rule.8.html",
+          "title": "ip-rule(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -2481,7 +4064,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ip -6 -c neigh show",
     "desc": "Display the L2 IPv6 Neighbor Discovery (NDP) table (REACHABLE, STALE, FAILED, router)",
     "tip": "",
-    "tags": "ip ipv6 interface nic gateway route ndp arp mtu"
+    "tags": "ip ipv6 interface nic gateway route ndp arp mtu",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-link.8.html",
+          "title": "ip-link(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-address.8.html",
+          "title": "ip-address(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-route.8.html",
+          "title": "ip-route(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-neighbour.8.html",
+          "title": "ip-neighbour(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-rule.8.html",
+          "title": "ip-rule(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -2492,7 +4100,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ip -6 -c rule list && ip -6 route show table all",
     "desc": "Inspect IPv6 policy-based routing (PBR) rules and all kernel routing tables",
     "tip": "",
-    "tags": "ip ipv6 interface nic gateway route ndp arp mtu"
+    "tags": "ip ipv6 interface nic gateway route ndp arp mtu",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-link.8.html",
+          "title": "ip-link(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-address.8.html",
+          "title": "ip-address(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-route.8.html",
+          "title": "ip-route(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-neighbour.8.html",
+          "title": "ip-neighbour(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-rule.8.html",
+          "title": "ip-rule(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -2536,7 +4169,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dig -x 2606:4700:4700::1111 +short",
     "desc": "Perform reverse DNS (ip6.arpa PTR record) lookup on an IPv6 address",
     "tip": "",
-    "tags": "dns ipv6 aaaa dig curl http tls ssl certificate netcat"
+    "tags": "dns ipv6 aaaa dig curl http tls ssl certificate netcat",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/bind9-dnsutils/dig.1.en.html",
+          "title": "dig(1), Debian"
+        },
+        {
+          "url": "https://curl.se/docs/manpage.html",
+          "title": "curl manual"
+        },
+        {
+          "url": "https://docs.openssl.org/master/man1/openssl-s_client/",
+          "title": "openssl s_client"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/netcat-openbsd/nc.1.en.html",
+          "title": "nc(1), Debian"
+        }
+      ],
+      "note": "openssl s_client -6 is in the OpenSSL docs; your openssl version may differ."
+    }
   },
   {
     "sName": "linux",
@@ -2547,7 +4202,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "openssl s_client -6 -connect \"[2001:db8:dc:4::50]:443\" -servername bmc.local </dev/null 2>/dev/null | openssl x509 -noout -dates -subject -issuer",
     "desc": "Inspect a remote server/BMC's live TLS certificate over IPv6 (-6)",
     "tip": "",
-    "tags": "dns ipv6 aaaa dig curl http tls ssl certificate netcat"
+    "tags": "dns ipv6 aaaa dig curl http tls ssl certificate netcat",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/bind9-dnsutils/dig.1.en.html",
+          "title": "dig(1), Debian"
+        },
+        {
+          "url": "https://curl.se/docs/manpage.html",
+          "title": "curl manual"
+        },
+        {
+          "url": "https://docs.openssl.org/master/man1/openssl-s_client/",
+          "title": "openssl s_client"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/netcat-openbsd/nc.1.en.html",
+          "title": "nc(1), Debian"
+        }
+      ],
+      "note": "openssl s_client -6 is in the OpenSSL docs; your openssl version may differ."
+    }
   },
   {
     "sName": "linux",
@@ -2558,7 +4235,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nc -6 -zv -w 3 2001:db8:dc:4::25 22 80 443",
     "desc": "Test raw IPv6 TCP port connectivity to a remote host with a 3-second timeout",
     "tip": "",
-    "tags": "dns ipv6 aaaa dig curl http tls ssl certificate netcat"
+    "tags": "dns ipv6 aaaa dig curl http tls ssl certificate netcat",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/bind9-dnsutils/dig.1.en.html",
+          "title": "dig(1), Debian"
+        },
+        {
+          "url": "https://curl.se/docs/manpage.html",
+          "title": "curl manual"
+        },
+        {
+          "url": "https://docs.openssl.org/master/man1/openssl-s_client/",
+          "title": "openssl s_client"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/netcat-openbsd/nc.1.en.html",
+          "title": "nc(1), Debian"
+        }
+      ],
+      "note": "openssl s_client -6 is in the OpenSSL docs; your openssl version may differ."
+    }
   },
   {
     "sName": "linux",
@@ -2601,7 +4300,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ufw status numbered && ufw allow from 2001:db8:dc::/48 to any port 22 proto tcp",
     "desc": "View numbered Ubuntu UFW firewall rules and allow SSH only from internal 2001:db8:dc::/48 IPv6 prefix",
     "tip": "",
-    "tags": "tcpdump ipv6 icmp6 pcap ufw firewall ssh tunnel mtr traceroute"
+    "tags": "tcpdump ipv6 icmp6 pcap ufw firewall ssh tunnel mtr traceroute",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.tcpdump.org/manpages/tcpdump.1.html",
+          "title": "tcpdump(1)"
+        },
+        {
+          "url": "https://manpages.ubuntu.com/manpages/noble/man8/ufw.8.html",
+          "title": "ufw(8), Ubuntu 24.04"
+        },
+        {
+          "url": "https://man.openbsd.org/ssh",
+          "title": "ssh(1), OpenBSD"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/mtr-tiny/mtr.8.en.html",
+          "title": "mtr(8), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -2612,7 +4332,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ssh -6 -N -L \"[::1]:5432:[2001:db8:dc::db]:5432\" user@bastion-host",
     "desc": "Forward local IPv6 loopback port 5432 securely through an SSH bastion host to an internal IPv6 database",
     "tip": "",
-    "tags": "tcpdump ipv6 icmp6 pcap ufw firewall ssh tunnel mtr traceroute"
+    "tags": "tcpdump ipv6 icmp6 pcap ufw firewall ssh tunnel mtr traceroute",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.tcpdump.org/manpages/tcpdump.1.html",
+          "title": "tcpdump(1)"
+        },
+        {
+          "url": "https://manpages.ubuntu.com/manpages/noble/man8/ufw.8.html",
+          "title": "ufw(8), Ubuntu 24.04"
+        },
+        {
+          "url": "https://man.openbsd.org/ssh",
+          "title": "ssh(1), OpenBSD"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/mtr-tiny/mtr.8.en.html",
+          "title": "mtr(8), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -2623,7 +4364,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mtr -6 -rwzbc 20 2606:4700:4700::1111",
     "desc": "Run IPv6 My Traceroute report showing per-hop packet loss %, ASN, and latency jitter over 20 pings",
     "tip": "",
-    "tags": "tcpdump ipv6 icmp6 pcap ufw firewall ssh tunnel mtr traceroute"
+    "tags": "tcpdump ipv6 icmp6 pcap ufw firewall ssh tunnel mtr traceroute",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.tcpdump.org/manpages/tcpdump.1.html",
+          "title": "tcpdump(1)"
+        },
+        {
+          "url": "https://manpages.ubuntu.com/manpages/noble/man8/ufw.8.html",
+          "title": "ufw(8), Ubuntu 24.04"
+        },
+        {
+          "url": "https://man.openbsd.org/ssh",
+          "title": "ssh(1), OpenBSD"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/mtr-tiny/mtr.8.en.html",
+          "title": "mtr(8), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -2662,7 +4424,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "du -xh --max-depth=1 /var 2>/dev/null | sort -hr | head -n 15",
     "desc": "List the 15 largest subdirectories inside /var on the same filesystem (-x)",
     "tip": "",
-    "tags": "space free partition mount inodes du ncdu"
+    "tags": "space free partition mount inodes du ncdu",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/df.1.html",
+          "title": "df(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/du.1.html",
+          "title": "du(1)"
+        },
+        {
+          "url": "https://dev.yorhel.nl/ncdu/man",
+          "title": "ncdu manual"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -2673,7 +4452,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "df -hlT -x squashfs -x tmpfs",
     "desc": "Show only local filesystems (-l), avoiding hangs when a remote NFS server is unreachable",
     "tip": "",
-    "tags": "space free partition mount inodes du ncdu"
+    "tags": "space free partition mount inodes du ncdu",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/df.1.html",
+          "title": "df(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/du.1.html",
+          "title": "du(1)"
+        },
+        {
+          "url": "https://dev.yorhel.nl/ncdu/man",
+          "title": "ncdu manual"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -2684,7 +4480,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "df -h --output=source,fstype,size,used,avail,pcent,ipcent,target -x tmpfs -x squashfs",
     "desc": "Show both Block Use% (pcent) and Inode Use% (ipcent) side-by-side in a single table",
     "tip": "",
-    "tags": "space free partition mount inodes du ncdu"
+    "tags": "space free partition mount inodes du ncdu",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/df.1.html",
+          "title": "df(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/du.1.html",
+          "title": "du(1)"
+        },
+        {
+          "url": "https://dev.yorhel.nl/ncdu/man",
+          "title": "ncdu manual"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -2695,7 +4508,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ncdu -x /",
     "desc": "Launch interactive terminal disk usage analyzer on root '/' (staying on one filesystem)",
     "tip": "",
-    "tags": "space free partition mount inodes du ncdu"
+    "tags": "space free partition mount inodes du ncdu",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/df.1.html",
+          "title": "df(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/du.1.html",
+          "title": "du(1)"
+        },
+        {
+          "url": "https://dev.yorhel.nl/ncdu/man",
+          "title": "ncdu manual"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -2739,7 +4569,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "blkid",
     "desc": "Print block device attributes (UUID, PARTUUID, TYPE) formatted for /etc/fstab",
     "tip": "",
-    "tags": "lsblk blkid uuid fstab findmnt mount"
+    "tags": "lsblk blkid uuid fstab findmnt mount",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/lsblk.8.html",
+          "title": "lsblk(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/findmnt.8.html",
+          "title": "findmnt(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/blkid.8.html",
+          "title": "blkid(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/mount.8.html",
+          "title": "mount(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: dropped -f from lsblk -f -o (-f is itself a column list; how the two combine isn't documented). TRAN, ROTA, MODEL, SERIAL and WWN checked with lsblk --list-columns (util-linux 2.42)."
+    }
   },
   {
     "sName": "linux",
@@ -2750,7 +4602,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lsblk -d -o NAME,SIZE,TRAN,ROTA,MODEL,SERIAL,WWN",
     "desc": "List top-level devices only (-d: no partitions or holders) with transport type, rotational flag (1=HDD, 0=SSD), model, and serial",
     "tip": "",
-    "tags": "lsblk blkid uuid fstab findmnt mount"
+    "tags": "lsblk blkid uuid fstab findmnt mount",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/lsblk.8.html",
+          "title": "lsblk(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/findmnt.8.html",
+          "title": "findmnt(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/blkid.8.html",
+          "title": "blkid(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/mount.8.html",
+          "title": "mount(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: dropped -f from lsblk -f -o (-f is itself a column list; how the two combine isn't documented). TRAN, ROTA, MODEL, SERIAL and WWN checked with lsblk --list-columns (util-linux 2.42)."
+    }
   },
   {
     "sName": "linux",
@@ -2761,7 +4635,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mount -o remount,rw /",
     "desc": "Remount the root filesystem read-write if the system booted into read-only recovery mode",
     "tip": "",
-    "tags": "lsblk blkid uuid fstab findmnt mount"
+    "tags": "lsblk blkid uuid fstab findmnt mount",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/lsblk.8.html",
+          "title": "lsblk(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/findmnt.8.html",
+          "title": "findmnt(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/blkid.8.html",
+          "title": "blkid(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/mount.8.html",
+          "title": "mount(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: dropped -f from lsblk -f -o (-f is itself a column list; how the two combine isn't documented). TRAN, ROTA, MODEL, SERIAL and WWN checked with lsblk --list-columns (util-linux 2.42)."
+    }
   },
   {
     "sName": "linux",
@@ -2797,7 +4693,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lvextend -r -l +100%FREE /dev/ubuntu-vg/ubuntu-lv",
     "desc": "Expand the default Ubuntu root logical volume to use 100% of remaining free space in the VG and resize ext4/xfs live",
     "tip": "",
-    "tags": "lvm lvextend vgs lvs pvs resize2fs xfs_growfs ubuntu-vg"
+    "tags": "lvm lvextend vgs lvs pvs resize2fs xfs_growfs ubuntu-vg",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/lvextend.8.html",
+          "title": "lvextend(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/lvs.8.html",
+          "title": "lvs(8)"
+        }
+      ],
+      "note": "The names ubuntu-vg / ubuntu-lv and how much free space the Ubuntu installer leaves in the VG are not in Ubuntu's docs: run lvs and vgs to get yours."
+    }
   },
   {
     "sName": "linux",
@@ -2808,7 +4718,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lvextend -r -L +50G /dev/ubuntu-vg/ubuntu-lv",
     "desc": "Add 50 GiB to the logical volume and grow the filesystem online without unmounting",
     "tip": "",
-    "tags": "lvm lvextend vgs lvs pvs resize2fs xfs_growfs ubuntu-vg"
+    "tags": "lvm lvextend vgs lvs pvs resize2fs xfs_growfs ubuntu-vg",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/lvextend.8.html",
+          "title": "lvextend(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/lvs.8.html",
+          "title": "lvs(8)"
+        }
+      ],
+      "note": "The names ubuntu-vg / ubuntu-lv and how much free space the Ubuntu installer leaves in the VG are not in Ubuntu's docs: run lvs and vgs to get yours."
+    }
   },
   {
     "sName": "linux",
@@ -2852,7 +4776,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "parted -s /dev/nvme1n1 mklabel gpt mkpart data ext4 1MiB 100% && mkfs.ext4 -L data /dev/nvme1n1p1",
     "desc": "Create a 1MiB-aligned GPT partition named 'data' across a new NVMe drive, then format it as ext4 (mkpart makes no filesystem)",
     "tip": "",
-    "tags": "dd parted gpt mkfs ext4 iso usb"
+    "tags": "dd parted gpt mkfs ext4 iso usb",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/dd.1.html",
+          "title": "dd(1)"
+        },
+        {
+          "url": "https://www.gnu.org/software/parted/manual/parted.html",
+          "title": "GNU Parted manual"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/mke2fs.8.html",
+          "title": "mke2fs(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/tune2fs.8.html",
+          "title": "tune2fs(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: oflag=sync → conv=fsync (the flush-before-exit flag), and mkpart primary → mkpart data (on GPT that word is the partition name). The tune2fs -l output labels aren't listed in the man page."
+    }
   },
   {
     "sName": "linux",
@@ -2863,7 +4809,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tune2fs -l /dev/sda1 | grep -E 'Filesystem state|Mount count|Last checked|Reserved block'",
     "desc": "Inspect ext4 superblock health state and reserved root block count",
     "tip": "",
-    "tags": "dd parted gpt mkfs ext4 iso usb"
+    "tags": "dd parted gpt mkfs ext4 iso usb",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/dd.1.html",
+          "title": "dd(1)"
+        },
+        {
+          "url": "https://www.gnu.org/software/parted/manual/parted.html",
+          "title": "GNU Parted manual"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/mke2fs.8.html",
+          "title": "mke2fs(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/tune2fs.8.html",
+          "title": "tune2fs(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: oflag=sync → conv=fsync (the flush-before-exit flag), and mkpart primary → mkpart data (on GPT that word is the partition name). The tune2fs -l output labels aren't listed in the man page."
+    }
   },
   {
     "sName": "linux",
@@ -2895,7 +4863,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tar -xvf archive.tar.gz -C /opt/target/",
     "desc": "Extract any compressed tar archive into /opt/target/",
     "tip": "",
-    "tags": "tar compress extract zstd gzip backup"
+    "tags": "tar compress extract zstd gzip backup",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/tar.1.html",
+          "title": "tar(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: dropped an unsourced '5x faster than gzip' claim."
+    }
   },
   {
     "sName": "linux",
@@ -2906,7 +4884,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tar -I 'zstd -T0 -9' -cvf backup.tar.zst /var/www/",
     "desc": "Create a high-ratio Zstandard (.tar.zst) archive utilizing all CPU cores (-T0)",
     "tip": "",
-    "tags": "tar compress extract zstd gzip backup"
+    "tags": "tar compress extract zstd gzip backup",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/tar.1.html",
+          "title": "tar(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: dropped an unsourced '5x faster than gzip' claim."
+    }
   },
   {
     "sName": "linux",
@@ -2941,7 +4929,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sha256sum firmware.bin iso-image.iso > SHA256SUMS && sha256sum -c SHA256SUMS",
     "desc": "Generate and verify cryptographic SHA-256 checksums for ISOs or firmware images",
     "tip": "",
-    "tags": "stream ssh remote-backup sha256sum checksum hash"
+    "tags": "stream ssh remote-backup sha256sum checksum hash",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/tar.1.html",
+          "title": "tar(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sha256sum.1.html",
+          "title": "sha256sum(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -2976,7 +4977,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "systemctl cat ssh.service",
     "desc": "Print the full systemd unit file and any active drop-in overrides",
     "tip": "",
-    "tags": "systemctl service daemon failed timers systemd"
+    "tags": "systemctl service daemon failed timers systemd",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/systemctl.1.html",
+          "title": "systemctl(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man5/systemd.unit.5.html",
+          "title": "systemd.unit(5)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -2987,7 +5001,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "systemctl edit nginx.service",
     "desc": "Create or edit a safe drop-in override (/etc/systemd/system/nginx.service.d/override.conf)",
     "tip": "",
-    "tags": "systemctl service daemon failed timers systemd"
+    "tags": "systemctl service daemon failed timers systemd",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/systemctl.1.html",
+          "title": "systemctl(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man5/systemd.unit.5.html",
+          "title": "systemd.unit(5)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -2998,7 +5025,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "systemctl list-timers --all",
     "desc": "List all systemd timers with next/last trigger times (modern cron replacement)",
     "tip": "",
-    "tags": "systemctl service daemon failed timers systemd"
+    "tags": "systemctl service daemon failed timers systemd",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/systemctl.1.html",
+          "title": "systemctl(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man5/systemd.unit.5.html",
+          "title": "systemd.unit(5)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -3009,7 +5049,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target",
     "desc": "Permanently mask sleep/suspend targets on a data center server so it can never suspend",
     "tip": "",
-    "tags": "systemctl service daemon failed timers systemd"
+    "tags": "systemctl service daemon failed timers systemd",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/systemctl.1.html",
+          "title": "systemctl(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man5/systemd.unit.5.html",
+          "title": "systemd.unit(5)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -3021,6 +5074,19 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Reboot the server directly into the motherboard UEFI/BIOS setup utility",
     "tip": "",
     "tags": "systemctl service daemon failed timers systemd",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/systemctl.1.html",
+          "title": "systemctl(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man5/systemd.unit.5.html",
+          "title": "systemd.unit(5)"
+        }
+      ]
+    },
     "noCopy": true,
     "refWhy": "reboot"
   },
@@ -3057,7 +5123,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "journalctl --list-boots",
     "desc": "List all recorded system boot sessions with boot IDs and start/stop timestamps",
     "tip": "",
-    "tags": "journalctl logs boot crash errors systemd-analyze"
+    "tags": "journalctl logs boot crash errors systemd-analyze",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/journalctl.1.html",
+          "title": "journalctl(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/systemd-analyze.1.html",
+          "title": "systemd-analyze(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -3068,7 +5147,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "journalctl -k -b -1 -n 100 --no-pager",
     "desc": "View the last 100 kernel messages from the previous boot before the server crashed",
     "tip": "",
-    "tags": "journalctl logs boot crash errors systemd-analyze"
+    "tags": "journalctl logs boot crash errors systemd-analyze",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/journalctl.1.html",
+          "title": "journalctl(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/systemd-analyze.1.html",
+          "title": "systemd-analyze(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -3079,7 +5171,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "journalctl --disk-usage && journalctl --vacuum-size=500M",
     "desc": "Check journal disk usage in /var/log/journal and prune old logs down to 500 MiB",
     "tip": "",
-    "tags": "journalctl logs boot crash errors systemd-analyze"
+    "tags": "journalctl logs boot crash errors systemd-analyze",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/journalctl.1.html",
+          "title": "journalctl(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/systemd-analyze.1.html",
+          "title": "systemd-analyze(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -3090,7 +5195,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "systemd-analyze time && systemd-analyze blame | head -n 15",
     "desc": "Measure kernel + userspace boot time and list the slowest-starting units",
     "tip": "",
-    "tags": "journalctl logs boot crash errors systemd-analyze"
+    "tags": "journalctl logs boot crash errors systemd-analyze",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/journalctl.1.html",
+          "title": "journalctl(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/systemd-analyze.1.html",
+          "title": "systemd-analyze(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -3130,7 +5248,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "usermod -aG docker $USER && newgrp docker",
     "desc": "Append (-aG) current user to a group without losing existing groups and activate immediately",
     "tip": "",
-    "tags": "useradd adduser usermod sudo ubuntu groups"
+    "tags": "useradd adduser usermod sudo ubuntu groups",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/useradd.8.html",
+          "title": "useradd(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/usermod.8.html",
+          "title": "usermod(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/passwd.1.html",
+          "title": "passwd(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: useradd has no fixed default shell; without -s it uses SHELL from /etc/default/useradd, else leaves the field empty."
+    }
   },
   {
     "sName": "linux",
@@ -3141,7 +5277,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "passwd -l <user> && usermod -s /usr/sbin/nologin <user>",
     "desc": "Lock a user's password and disable interactive shell login when offboarding",
     "tip": "",
-    "tags": "useradd adduser usermod sudo ubuntu groups"
+    "tags": "useradd adduser usermod sudo ubuntu groups",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/useradd.8.html",
+          "title": "useradd(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/usermod.8.html",
+          "title": "usermod(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/passwd.1.html",
+          "title": "passwd(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: useradd has no fixed default shell; without -s it uses SHELL from /etc/default/useradd, else leaves the field empty."
+    }
   },
   {
     "sName": "linux",
@@ -3193,7 +5347,37 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ssh-keygen -t ed25519 -C 'tech@datacenter' && ssh-copy-id -i ~/.ssh/id_ed25519.pub user@server",
     "desc": "Generate an Ed25519 SSH keypair and install the public key onto a remote server",
     "tip": "",
-    "tags": "ssh-keygen visudo sudoers who last audit security"
+    "tags": "ssh-keygen visudo sudoers who last audit security",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/id.1.html",
+          "title": "id(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/w.1.html",
+          "title": "w(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/last.1.html",
+          "title": "last(1)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/wtmpdb/wtmpdb.8.en.html",
+          "title": "wtmpdb(8), Debian"
+        },
+        {
+          "url": "https://man.openbsd.org/ssh-keygen",
+          "title": "ssh-keygen(1), OpenBSD"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        }
+      ],
+      "note": "Debian 13 (trixie) dropped last and lastb from util-linux: use wtmpdb last (package wtmpdb, plus libpam-wtmpdb)."
+    }
   },
   {
     "sName": "linux",
@@ -3204,7 +5388,37 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "EDITOR=nano visudo -f /etc/sudoers.d/90-datacenter-techs",
     "desc": "Edit a drop-in sudoers file with automatic syntax validation so you never lock out sudo",
     "tip": "",
-    "tags": "ssh-keygen visudo sudoers who last audit security"
+    "tags": "ssh-keygen visudo sudoers who last audit security",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/id.1.html",
+          "title": "id(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/w.1.html",
+          "title": "w(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/last.1.html",
+          "title": "last(1)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/wtmpdb/wtmpdb.8.en.html",
+          "title": "wtmpdb(8), Debian"
+        },
+        {
+          "url": "https://man.openbsd.org/ssh-keygen",
+          "title": "ssh-keygen(1), OpenBSD"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        }
+      ],
+      "note": "Debian 13 (trixie) dropped last and lastb from util-linux: use wtmpdb last (package wtmpdb, plus libpam-wtmpdb)."
+    }
   },
   {
     "sName": "linux",
@@ -3239,7 +5453,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "apt list --upgradable",
     "desc": "List all packages that have a newer version available in configured APT repositories",
     "tip": "",
-    "tags": "ubuntu debian apt upgrade cleanup apt-mark hold"
+    "tags": "ubuntu debian apt upgrade cleanup apt-mark hold",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/apt/apt.8.en.html",
+          "title": "apt(8), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/apt/apt-mark.8.en.html",
+          "title": "apt-mark(8), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -3250,7 +5477,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "apt-mark hold linux-image-generic kubelet && apt-mark showhold",
     "desc": "Pin/hold critical packages (e.g. kernel or kubelet) to prevent accidental upgrades",
     "tip": "",
-    "tags": "ubuntu debian apt upgrade cleanup apt-mark hold"
+    "tags": "ubuntu debian apt upgrade cleanup apt-mark hold",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/apt/apt.8.en.html",
+          "title": "apt(8), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/apt/apt-mark.8.en.html",
+          "title": "apt-mark(8), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -3289,7 +5529,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep -rhE '^deb |^Types:' /etc/apt/sources.list /etc/apt/sources.list.d/",
     "desc": "List all active APT package repositories and PPAs configured on the Ubuntu host",
     "tip": "",
-    "tags": "apt search policy repo ppa version sources.list"
+    "tags": "apt search policy repo ppa version sources.list",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/apt/apt.8.en.html",
+          "title": "apt(8), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/apt/apt-cache.8.en.html",
+          "title": "apt-cache(8), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/dpkg/dpkg-deb.1.en.html",
+          "title": "dpkg-deb(1), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -3300,7 +5557,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "apt download <pkg> && dpkg-deb -I <pkg>*.deb",
     "desc": "Download a .deb package to the current directory without installing it and inspect its control metadata",
     "tip": "",
-    "tags": "apt search policy repo ppa version sources.list"
+    "tags": "apt search policy repo ppa version sources.list",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/apt/apt.8.en.html",
+          "title": "apt(8), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/apt/apt-cache.8.en.html",
+          "title": "apt-cache(8), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/dpkg/dpkg-deb.1.en.html",
+          "title": "dpkg-deb(1), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -3339,7 +5613,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "apt-file update && apt-file search /usr/sbin/ipmitool",
     "desc": "Find which Ubuntu package provides a binary that is NOT yet installed on the system",
     "tip": "",
-    "tags": "dpkg deb owns files ubuntu apt-file"
+    "tags": "dpkg deb owns files ubuntu apt-file",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/dpkg/dpkg.1.en.html",
+          "title": "dpkg(1), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/apt-file/apt-file.1.en.html",
+          "title": "apt-file(1), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/debsums/debsums.1.en.html",
+          "title": "debsums(1), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -3350,7 +5641,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "debsums -s",
     "desc": "Verify MD5 checksums of installed Ubuntu package files against dpkg metadata to detect corruption",
     "tip": "",
-    "tags": "dpkg deb owns files ubuntu apt-file"
+    "tags": "dpkg deb owns files ubuntu apt-file",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/dpkg/dpkg.1.en.html",
+          "title": "dpkg(1), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/apt-file/apt-file.1.en.html",
+          "title": "apt-file(1), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/debsums/debsums.1.en.html",
+          "title": "debsums(1), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -3389,7 +5697,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "cat /var/run/reboot-required /var/run/reboot-required.pkgs 2>/dev/null",
     "desc": "Check if Ubuntu requires a system reboot after patching and see which packages triggered it",
     "tip": "",
-    "tags": "dpkg broken lock repair needrestart reboot-required"
+    "tags": "dpkg broken lock repair needrestart reboot-required",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/dpkg/dpkg.1.en.html",
+          "title": "dpkg(1), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/apt/apt-get.8.en.html",
+          "title": "apt-get(8), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/needrestart/needrestart.1.en.html",
+          "title": "needrestart(1), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -3400,7 +5725,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lsof /var/lib/dpkg/lock-frontend /var/lib/apt/lists/lock",
     "desc": "Check if a background apt or unattended-upgrade process is currently holding the dpkg lock",
     "tip": "",
-    "tags": "dpkg broken lock repair needrestart reboot-required"
+    "tags": "dpkg broken lock repair needrestart reboot-required",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/dpkg/dpkg.1.en.html",
+          "title": "dpkg(1), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/apt/apt-get.8.en.html",
+          "title": "apt-get(8), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/needrestart/needrestart.1.en.html",
+          "title": "needrestart(1), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "linux",
@@ -3444,7 +5786,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "pro status",
     "desc": "Check Ubuntu Pro subscription status (ESM security updates, Livepatch kernel patching)",
     "tip": "",
-    "tags": "snap ubuntu lsb_release hostnamectl dmesg livepatch"
+    "tags": "snap ubuntu lsb_release hostnamectl dmesg livepatch",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/lsb-release/lsb_release.1.en.html",
+          "title": "lsb_release(1), Debian"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/hostnamectl.1.html",
+          "title": "hostnamectl(1)"
+        },
+        {
+          "url": "https://manpages.ubuntu.com/manpages/noble/man8/snap.8.html",
+          "title": "snap(8), Ubuntu 24.04"
+        },
+        {
+          "url": "https://manpages.ubuntu.com/manpages/noble/man1/pro.1.html",
+          "title": "pro(1), Ubuntu 24.04"
+        }
+      ],
+      "note": "Ubuntu-specific: snap and pro are Canonical tools."
+    }
   },
   {
     "sName": "linux",
@@ -3455,7 +5819,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dmesg -T -w --level=err,warn",
     "desc": "Watch the kernel ring buffer live with human-readable timestamps for hardware/driver errors",
     "tip": "",
-    "tags": "snap ubuntu lsb_release hostnamectl dmesg livepatch"
+    "tags": "snap ubuntu lsb_release hostnamectl dmesg livepatch",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/lsb-release/lsb_release.1.en.html",
+          "title": "lsb_release(1), Debian"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/hostnamectl.1.html",
+          "title": "hostnamectl(1)"
+        },
+        {
+          "url": "https://manpages.ubuntu.com/manpages/noble/man8/snap.8.html",
+          "title": "snap(8), Ubuntu 24.04"
+        },
+        {
+          "url": "https://manpages.ubuntu.com/manpages/noble/man1/pro.1.html",
+          "title": "pro(1), Ubuntu 24.04"
+        }
+      ],
+      "note": "Ubuntu-specific: snap and pro are Canonical tools."
+    }
   },
   {
     "sName": "archives",
@@ -3487,7 +5873,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tar -xvf archive.tar.gz -C /opt/target/",
     "desc": "Extract any compressed tar archive into /opt/target/",
     "tip": "",
-    "tags": "tar compress extract zstd gzip backup"
+    "tags": "tar compress extract zstd gzip backup",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/tar.1.html",
+          "title": "tar(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: dropped an unsourced '5x faster than gzip' claim."
+    }
   },
   {
     "sName": "archives",
@@ -3498,7 +5894,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tar -I 'zstd -T0 -9' -cvf backup.tar.zst /var/www/",
     "desc": "Create a high-ratio Zstandard (.tar.zst) archive utilizing all CPU cores (-T0)",
     "tip": "",
-    "tags": "tar compress extract zstd gzip backup"
+    "tags": "tar compress extract zstd gzip backup",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/tar.1.html",
+          "title": "tar(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: dropped an unsourced '5x faster than gzip' claim."
+    }
   },
   {
     "sName": "archives",
@@ -3533,7 +5939,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sha256sum firmware.bin iso-image.iso > SHA256SUMS && sha256sum -c SHA256SUMS",
     "desc": "Generate and verify cryptographic SHA-256 checksums for ISOs or firmware images",
     "tip": "",
-    "tags": "stream ssh remote-backup sha256sum checksum hash"
+    "tags": "stream ssh remote-backup sha256sum checksum hash",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/tar.1.html",
+          "title": "tar(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sha256sum.1.html",
+          "title": "sha256sum(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "archives",
@@ -3572,7 +5991,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sha256sum -c archive.tar.gz.sha256",
     "desc": "Validate SHA-256 hash checksum against computed file integrity",
     "tip": "",
-    "tags": "archives tips triage diagnostics"
+    "tags": "archives tips triage diagnostics",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/tar.1.html",
+          "title": "tar(1)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/pigz/pigz.1.en.html",
+          "title": "pigz(1), Debian"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sha256sum.1.html",
+          "title": "sha256sum(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "archives",
@@ -3583,7 +6019,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tar -tvf archive.tar.gz | head -n 25",
     "desc": "List table of contents without extracting archive to disk",
     "tip": "",
-    "tags": "archives tips triage diagnostics"
+    "tags": "archives tips triage diagnostics",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/tar.1.html",
+          "title": "tar(1)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/pigz/pigz.1.en.html",
+          "title": "pigz(1), Debian"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sha256sum.1.html",
+          "title": "sha256sum(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "argocd",
@@ -3995,7 +6448,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "which arp-scan && arp-scan --version 2>&1 | head -n 1",
     "desc": "Verify binary path and installed version in current environment",
     "tip": "",
-    "tags": "ndp ndisc6 rdisc6 ipv6 neigh arp-scan mac vlan discovery tips safety help"
+    "tags": "ndp ndisc6 rdisc6 ipv6 neigh arp-scan mac vlan discovery tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/ndisc6/ndisc6.8.en.html",
+          "title": "ndisc6(8), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/ndisc6/rdisc6.8.en.html",
+          "title": "rdisc6(8), Debian"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ping.8.html",
+          "title": "ping(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/arp-scan/arp-scan.1.en.html",
+          "title": "arp-scan(1), Debian"
+        }
+      ],
+      "note": "EUI-64 (MAC-derived) link-local addresses aren't universal: RFC 7217 stable-privacy addresses don't contain the MAC."
+    }
   },
   {
     "sName": "awk-sed",
@@ -4026,7 +6501,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "awk '!seen[$0]++' file.txt",
     "desc": "Remove duplicate lines while preserving original line order",
     "tip": "",
-    "tags": "awk columns math sum filter delimiter csv"
+    "tags": "awk columns math sum filter delimiter csv",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/gawk.1.html",
+          "title": "gawk(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "awk-sed",
@@ -4037,7 +6521,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "awk '{printf \"%-15s %5d\\n\", $1, $2}'",
     "desc": "Format output into fixed-width aligned columns",
     "tip": "",
-    "tags": "awk columns math sum filter delimiter csv"
+    "tags": "awk columns math sum filter delimiter csv",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/gawk.1.html",
+          "title": "gawk(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "awk-sed",
@@ -4068,7 +6561,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sed 's|^http://|https://|' urls.txt",
     "desc": "Use alternate delimiter (| or #) when replacement strings contain slashes",
     "tip": "",
-    "tags": "sed substitute regex inplace delete cleanup streams"
+    "tags": "sed substitute regex inplace delete cleanup streams",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sed.1.html",
+          "title": "sed(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "awk-sed",
@@ -4079,7 +6581,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sed -i 's/[ \\t]*$//' file.txt",
     "desc": "Strip trailing whitespace from ends of lines",
     "tip": "",
-    "tags": "sed substitute regex inplace delete cleanup streams"
+    "tags": "sed substitute regex inplace delete cleanup streams",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sed.1.html",
+          "title": "sed(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "awk",
@@ -4110,7 +6621,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "df -hP | awk 'NR>1 && int($5) >= 80 {print \"CRITICAL DISK:\", $6, $5, \"used on\", $1}'",
     "desc": "Skip header line (NR>1) and alert on any mounted filesystem at or above 80% capacity",
     "tip": "",
-    "tags": "awk columns delimiter printf filter df passwd"
+    "tags": "awk columns delimiter printf filter df passwd",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/gawk.1.html",
+          "title": "gawk(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "awk",
@@ -4121,7 +6641,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ip -br addr | awk '$2 == \"UP\" {print $1, $3}'",
     "desc": "Print only UP network interfaces and their primary IPv4 CIDR address",
     "tip": "",
-    "tags": "awk columns delimiter printf filter df passwd"
+    "tags": "awk columns delimiter printf filter df passwd",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/gawk.1.html",
+          "title": "gawk(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "awk",
@@ -4152,7 +6681,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ls -l /var/log/*.log | awk '{sum += $5} END {printf \"Total uncompressed logs: %.2f MiB\\n\", sum/1048576}'",
     "desc": "Sum byte sizes (column 5 of ls -l) and print total in MiB",
     "tip": "",
-    "tags": "awk sum average math max min aggregation"
+    "tags": "awk sum average math max min aggregation",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/gawk.1.html",
+          "title": "gawk(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "awk",
@@ -4163,7 +6701,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "awk '{sum+=$NF; n++} END {if (n>0) print \"Average:\", sum/n}' timing.log",
     "desc": "Compute the arithmetic mean of the last column ($NF) across a log file",
     "tip": "",
-    "tags": "awk sum average math max min aggregation"
+    "tags": "awk sum average math max min aggregation",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/gawk.1.html",
+          "title": "gawk(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "awk",
@@ -4194,7 +6741,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ps -eo user,rss | awk 'NR>1 {mem[$1]+=$2} END {for (u in mem) printf \"%-12s %8.1f MiB\\n\", u, mem[u]/1024}' | sort -k2 -nr",
     "desc": "Aggregate total Resident Memory (MiB) consumed per Linux username",
     "tip": "",
-    "tags": "awk array group-by frequency deduplicate join nr==fnr"
+    "tags": "awk array group-by frequency deduplicate join nr==fnr",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/gawk.1.html",
+          "title": "gawk(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "awk",
@@ -4205,7 +6761,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "awk '!seen[$0]++' /var/log/boot.log",
     "desc": "Deduplicate repeated lines in a file without sorting (preserves chronological order)",
     "tip": "",
-    "tags": "awk array group-by frequency deduplicate join nr==fnr"
+    "tags": "awk array group-by frequency deduplicate join nr==fnr",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/gawk.1.html",
+          "title": "gawk(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "awk",
@@ -4216,7 +6781,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "awk 'NR==FNR {bad[$1]=1; next} $1 in bad {print $0}' faulty_serials.txt inventory.txt",
     "desc": "Join two files: load column 1 of file 1 into array 'bad', then print matching rows from file 2",
     "tip": "",
-    "tags": "awk array group-by frequency deduplicate join nr==fnr"
+    "tags": "awk array group-by frequency deduplicate join nr==fnr",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/gawk.1.html",
+          "title": "gawk(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "base64",
@@ -4287,7 +6861,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "which base64 && base64 --version 2>&1 | head -n 1",
     "desc": "Verify binary path and installed version in current environment",
     "tip": "",
-    "tags": "base64 serial sol paste offline recovery tips safety help"
+    "tags": "base64 serial sol paste offline recovery tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/base64.1.html",
+          "title": "base64(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "bash",
@@ -4319,7 +6902,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "unset VAR",
     "desc": "Remove/delete variable from current shell environment",
     "tip": "",
-    "tags": "bash variables types scope export readonly quotes"
+    "tags": "bash variables types scope export readonly quotes",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: the example no longer exports a secret-looking API_KEY."
+    }
   },
   {
     "sName": "bash",
@@ -4330,7 +6923,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "echo $((10 * 5 + 3))",
     "desc": "Integer arithmetic evaluation using $(( expression ))",
     "tip": "",
-    "tags": "bash variables types scope export readonly quotes"
+    "tags": "bash variables types scope export readonly quotes",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: the example no longer exports a secret-looking API_KEY."
+    }
   },
   {
     "sName": "bash",
@@ -4341,7 +6944,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "RESULT=$(date +%Y-%m-%d)",
     "desc": "Command substitution: captures command stdout into variable",
     "tip": "",
-    "tags": "bash variables types scope export readonly quotes"
+    "tags": "bash variables types scope export readonly quotes",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: the example no longer exports a secret-looking API_KEY."
+    }
   },
   {
     "sName": "bash",
@@ -4372,7 +6985,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "${VAR:?error_msg}",
     "desc": "Exit script with error_msg if VAR is unset or empty",
     "tip": "",
-    "tags": "bash parameter-expansion substring defaults string-manipulation"
+    "tags": "bash parameter-expansion substring defaults string-manipulation",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "bash",
@@ -4383,7 +7005,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "${!PREFIX*}",
     "desc": "List all variable names currently defined starting with PREFIX",
     "tip": "",
-    "tags": "bash parameter-expansion substring defaults string-manipulation"
+    "tags": "bash parameter-expansion substring defaults string-manipulation",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "bash",
@@ -4414,7 +7045,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "unset 'ARRAY[1]'",
     "desc": "Deletes element at index 1",
     "tip": "",
-    "tags": "bash arrays associative hashmap collections"
+    "tags": "bash arrays associative hashmap collections",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "bash",
@@ -4425,7 +7065,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "for k in \"${!BMC_IPS[@]}\"; do echo \"$k -> ${BMC_IPS[$k]}\"; done",
     "desc": "Iterate over associative array key-value pairs",
     "tip": "",
-    "tags": "bash arrays associative hashmap collections"
+    "tags": "bash arrays associative hashmap collections",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "bash",
@@ -4456,7 +7105,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "[[ condition ]] && true_action || false_action",
     "desc": "Ternary-style shorthand, with a catch: false_action also runs if true_action fails. Use if/else when that matters",
     "tip": "",
-    "tags": "bash if conditionals comparison regex file-tests"
+    "tags": "bash if conditionals comparison regex file-tests",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "bash",
@@ -4467,7 +7125,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "(( COUNT > 10 ))",
     "desc": "Arithmetic evaluation conditional without dollar signs",
     "tip": "",
-    "tags": "bash if conditionals comparison regex file-tests"
+    "tags": "bash if conditionals comparison regex file-tests",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "bash",
@@ -4498,7 +7165,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "case \"$OS\" in [Uu]buntu|[Dd]ebian) PKG=\"apt\" ;; [Rr][Hh][Ee][Ll]) PKG=\"dnf\" ;; esac",
     "desc": "Case-insensitive OS branching",
     "tip": "",
-    "tags": "bash case switch branching cli-args"
+    "tags": "bash case switch branching cli-args",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "bash",
@@ -4529,7 +7205,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "for f in *; do [[ -f \"$f\" ]] || continue; echo \"$f\"; done",
     "desc": "Skip non-files safely",
     "tip": "",
-    "tags": "bash for loops range iteration brace-expansion"
+    "tags": "bash for loops range iteration brace-expansion",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "bash",
@@ -4540,7 +7225,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "for ((;;)); do echo \"Infinite\"; sleep 1; done",
     "desc": "Infinite loop with sleep interval",
     "tip": "",
-    "tags": "bash for loops range iteration brace-expansion"
+    "tags": "bash for loops range iteration brace-expansion",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "bash",
@@ -4571,7 +7265,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "command | while IFS= read -r line; do ... done",
     "desc": "Process stdout stream of command line-by-line",
     "tip": "",
-    "tags": "bash while read stream file-io csv"
+    "tags": "bash while read stream file-io csv",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "bash",
@@ -4582,7 +7285,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "while IFS=',' read -r col1 col2 col3; do ... done < data.csv",
     "desc": "Parse CSV columns directly into variables",
     "tip": "",
-    "tags": "bash while read stream file-io csv"
+    "tags": "bash while read stream file-io csv",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "bash",
@@ -4613,7 +7325,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "shift",
     "desc": "Shifts positional arguments to the left: $2 becomes $1, $# decrements",
     "tip": "",
-    "tags": "bash functions local arguments flags getopts"
+    "tags": "bash functions local arguments flags getopts",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "bash",
@@ -4624,7 +7345,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "getopts \"p:h\" opt",
     "desc": "Standard POSIX option parsing loop for flags like -p 8080 -h",
     "tip": "",
-    "tags": "bash functions local arguments flags getopts"
+    "tags": "bash functions local arguments flags getopts",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "bash",
@@ -4656,7 +7386,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "trap - EXIT",
     "desc": "Disables/unregisters the trap handler",
     "tip": "",
-    "tags": "bash trap cleanup exit signals error-handling"
+    "tags": "bash trap cleanup exit signals error-handling",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ],
+      "note": "Checked on bash 5.3: an EXIT trap runs after SIGINT and SIGTERM. With EXIT plus INT/TERM traps, cleanup can run twice, so keep it idempotent."
+    }
   },
   {
     "sName": "bash",
@@ -4667,7 +7407,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "trap 'echo \"Error on line $LINENO\"' ERR",
     "desc": "Print file line number where an error occurred",
     "tip": "",
-    "tags": "bash trap cleanup exit signals error-handling"
+    "tags": "bash trap cleanup exit signals error-handling",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ],
+      "note": "Checked on bash 5.3: an EXIT trap runs after SIGINT and SIGTERM. With EXIT plus INT/TERM traps, cleanup can run twice, so keep it idempotent."
+    }
   },
   {
     "sName": "bmc-tools",
@@ -7347,7 +10097,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep -rnI -B 2 -A 5 'Out of memory' /var/log/",
     "desc": "Show 2 lines before (-B 2) and 5 lines after (-A 5) an OOM-killer trigger",
     "tip": "",
-    "tags": "grep search logs context recursive regex errors"
+    "tags": "grep search logs context recursive regex errors",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+          "title": "grep(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7358,7 +10117,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep -rnI --include='*.conf' --include='*.yaml' 'timeout' /etc/",
     "desc": "Search only files matching specific filename globs (--include) inside /etc/",
     "tip": "",
-    "tags": "grep search logs context recursive regex errors"
+    "tags": "grep search logs context recursive regex errors",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+          "title": "grep(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7369,7 +10137,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep -rnI --exclude-dir={.git,node_modules,venv,proc,sys} 'listen' /",
     "desc": "Exclude specific directories (--exclude-dir) when searching large trees",
     "tip": "",
-    "tags": "grep search logs context recursive regex errors"
+    "tags": "grep search logs context recursive regex errors",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+          "title": "grep(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7400,7 +10177,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep -v -e 'CRON' -e 'systemd-logind' /var/log/syslog | tail -n 50",
     "desc": "Filter out repetitive cron and session noise when inspecting /var/log/syslog",
     "tip": "",
-    "tags": "grep invert comments config diff filter"
+    "tags": "grep invert comments config diff filter",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+          "title": "grep(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7411,7 +10197,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep -Fxv -f known_good_hosts.txt all_rack_hosts.txt",
     "desc": "Compare two plain lists and print lines in all_rack_hosts.txt that are missing from known_good_hosts.txt",
     "tip": "",
-    "tags": "grep invert comments config diff filter"
+    "tags": "grep invert comments config diff filter",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+          "title": "grep(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7442,7 +10237,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep -Po 'user=\\K[^ ]+' /var/log/auth.log | sort | uniq -c | sort -nr",
     "desc": "Extract only the value after 'user=' using \\K without printing 'user=' itself",
     "tip": "",
-    "tags": "grep pcre extract ip mac bdf only-matching"
+    "tags": "grep pcre extract ip mac bdf only-matching",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+          "title": "grep(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7453,7 +10257,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep -Eio '([0-9a-f]{2}:){5}[0-9a-f]{2}' /var/log/syslog | sort -u",
     "desc": "Extract all unique MAC addresses (XX:XX:XX:XX:XX:XX) from a log file",
     "tip": "",
-    "tags": "grep pcre extract ip mac bdf only-matching"
+    "tags": "grep pcre extract ip mac bdf only-matching",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+          "title": "grep(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7464,7 +10277,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep -Po '[0-9a-f]{4}:[0-9a-f]{2}:[0-9a-f]{2}\\.[0-7]' /var/log/kern.log | sort -u",
     "desc": "Extract all unique PCIe BDF addresses (0000:3b:00.0) mentioned in kernel error logs",
     "tip": "",
-    "tags": "grep pcre extract ip mac bdf only-matching"
+    "tags": "grep pcre extract ip mac bdf only-matching",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+          "title": "grep(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7495,7 +10317,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep -rnw '/dev/sd' /etc/fstab /etc/mdadm/",
     "desc": "Whole-word search (-w) so '/dev/sda' does not accidentally match '/dev/sda1'",
     "tip": "",
-    "tags": "grep zgrep fgrep sysfs count filenames word"
+    "tags": "grep zgrep fgrep sysfs count filenames word",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+          "title": "grep(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7506,7 +10337,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "zgrep -iE 'mce|edac|nvme|xid' /var/log/kern.log* /var/log/syslog*",
     "desc": "Search across both plain-text and gzip-compressed (.gz) rotated log files transparently",
     "tip": "",
-    "tags": "grep zgrep fgrep sysfs count filenames word"
+    "tags": "grep zgrep fgrep sysfs count filenames word",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+          "title": "grep(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7537,7 +10377,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ps -eo pid,ppid,user,%cpu,%mem,etimes,comm --sort=-%cpu | head -n 15",
     "desc": "List top 15 CPU-consuming processes along with elapsed runtime in seconds (etimes)",
     "tip": "",
-    "tags": "ps memory rss cpu sort threads forest"
+    "tags": "ps memory rss cpu sort threads forest",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ps.1.html",
+          "title": "ps(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7548,7 +10397,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ps -ef --forest",
     "desc": "Display full ASCII process hierarchy tree showing parent-child spawning relationships",
     "tip": "",
-    "tags": "ps memory rss cpu sort threads forest"
+    "tags": "ps memory rss cpu sort threads forest",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ps.1.html",
+          "title": "ps(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7579,7 +10437,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "head -n 30 /proc/$(pgrep -o -r D)/stack",
     "desc": "Print the live kernel call stack of the oldest process currently stuck in 'D' state",
     "tip": "",
-    "tags": "ps d-state zombie wchan hung sigkill stack"
+    "tags": "ps d-state zombie wchan hung sigkill stack",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ps.1.html",
+          "title": "ps(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7590,7 +10457,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ps -eo pid,ppid,stat,comm | awk '$3 ~ /^Z/ {print \"Zombie PID:\", $1, \"-> Parent PPID:\", $2, $4}'",
     "desc": "Identify Zombie processes and print the Parent PID (PPID) that failed to reap them",
     "tip": "",
-    "tags": "ps d-state zombie wchan hung sigkill stack"
+    "tags": "ps d-state zombie wchan hung sigkill stack",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ps.1.html",
+          "title": "ps(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7621,7 +10497,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ps -T -p <PID> -o pid,spid,psr,%cpu,stat,comm",
     "desc": "List all threads belonging to a single PID along with their assigned CPU core (psr)",
     "tip": "",
-    "tags": "ps threads lwp psr cpu-core affinity cgroup pgrep pkill"
+    "tags": "ps threads lwp psr cpu-core affinity cgroup pgrep pkill",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ps.1.html",
+          "title": "ps(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7632,7 +10517,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ps -eo pid,user,cgroup:50,comm | grep -i '.service'",
     "desc": "Map running PIDs back to their owning systemd .service or container cgroup slice",
     "tip": "",
-    "tags": "ps threads lwp psr cpu-core affinity cgroup pgrep pkill"
+    "tags": "ps threads lwp psr cpu-core affinity cgroup pgrep pkill",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ps.1.html",
+          "title": "ps(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7643,7 +10537,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "pgrep -fa 'python.*worker' && pkill -SIGTERM -f 'python.*worker'",
     "desc": "Safely match or signal processes by full command line using pgrep/pkill",
     "tip": "",
-    "tags": "ps threads lwp psr cpu-core affinity cgroup pgrep pkill"
+    "tags": "ps threads lwp psr cpu-core affinity cgroup pgrep pkill",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ps.1.html",
+          "title": "ps(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7674,7 +10577,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ls -laSrh /var/log/",
     "desc": "List files sorted by size with the largest files at the bottom of the terminal",
     "tip": "",
-    "tags": "ls sort time size iso timestamp directory"
+    "tags": "ls sort time size iso timestamp directory",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ls.1.html",
+          "title": "ls(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7685,7 +10597,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ls -l --time=atime /etc/passwd",
     "desc": "Show last access/read timestamp (atime) or metadata change timestamp (--time=ctime)",
     "tip": "",
-    "tags": "ls sort time size iso timestamp directory"
+    "tags": "ls sort time size iso timestamp directory",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ls.1.html",
+          "title": "ls(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7696,7 +10617,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ls -ld /var /var/log /var/log/nginx",
     "desc": "Inspect permissions and ownership of directory entries themselves (-d)",
     "tip": "",
-    "tags": "ls sort time size iso timestamp directory"
+    "tags": "ls sort time size iso timestamp directory",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ls.1.html",
+          "title": "ls(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7727,7 +10657,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ls -li /etc/localtime",
     "desc": "Check inode number and hardlink count of a file",
     "tip": "",
-    "tags": "ls inode sparse blocks uid gid"
+    "tags": "ls inode sparse blocks uid gid",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ls.1.html",
+          "title": "ls(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7738,7 +10677,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ls -1 /etc/netplan/",
     "desc": "Force single-column output (one filename per line)",
     "tip": "",
-    "tags": "ls inode sparse blocks uid gid"
+    "tags": "ls inode sparse blocks uid gid",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ls.1.html",
+          "title": "ls(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7769,7 +10717,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "stat -c '%a %A  %U:%G  %10s  %n' /etc/ssh/*_key*",
     "desc": "Print concise custom columns: octal mode (%a), symbolic mode (%A), owner:group, size, and filename",
     "tip": "",
-    "tags": "stat inode octal timestamps birth ctime mtime"
+    "tags": "stat inode octal timestamps birth ctime mtime",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/stat.1.html",
+          "title": "stat(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7780,7 +10737,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "stat -L /dev/disk/by-id/*",
     "desc": "Dereference symlinks (-L) to inspect the target block device major/minor numbers",
     "tip": "",
-    "tags": "stat inode octal timestamps birth ctime mtime"
+    "tags": "stat inode octal timestamps birth ctime mtime",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/stat.1.html",
+          "title": "stat(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7811,7 +10777,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "namei -lx /srv/current/app.sock",
     "desc": "Trace a path resolving all nested symlinks while marking filesystem mount boundaries ('D')",
     "tip": "",
-    "tags": "namei symlink permissions path traversal debug"
+    "tags": "namei symlink permissions path traversal debug",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/namei.1.html",
+          "title": "namei(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7843,7 +10818,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "file /var/crash/core.*",
     "desc": "Identify a core dump and the program that produced it",
     "tip": "",
-    "tags": "file magic elf partition filesystem coredump"
+    "tags": "file magic elf partition filesystem coredump",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/file/file.1.en.html",
+          "title": "file(1), Debian"
+        }
+      ],
+      "note": "Corrected 2026-11-09: file(1) doesn't document showing the signal for a core dump."
+    }
   },
   {
     "sName": "cli-tools",
@@ -7854,7 +10839,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "file -z backup.tar.gz",
     "desc": "Peek inside a compressed file to see the uncompressed archive format and original timestamp",
     "tip": "",
-    "tags": "file magic elf partition filesystem coredump"
+    "tags": "file magic elf partition filesystem coredump",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/file/file.1.en.html",
+          "title": "file(1), Debian"
+        }
+      ],
+      "note": "Corrected 2026-11-09: file(1) doesn't document showing the signal for a core dump."
+    }
   },
   {
     "sName": "cli-tools",
@@ -7885,7 +10880,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "df -hP | awk 'NR>1 && int($5) >= 80 {print \"CRITICAL DISK:\", $6, $5, \"used on\", $1}'",
     "desc": "Skip header line (NR>1) and alert on any mounted filesystem at or above 80% capacity",
     "tip": "",
-    "tags": "awk columns delimiter printf filter df passwd"
+    "tags": "awk columns delimiter printf filter df passwd",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/gawk.1.html",
+          "title": "gawk(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7896,7 +10900,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ip -br addr | awk '$2 == \"UP\" {print $1, $3}'",
     "desc": "Print only UP network interfaces and their primary IPv4 CIDR address",
     "tip": "",
-    "tags": "awk columns delimiter printf filter df passwd"
+    "tags": "awk columns delimiter printf filter df passwd",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/gawk.1.html",
+          "title": "gawk(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7927,7 +10940,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ls -l /var/log/*.log | awk '{sum += $5} END {printf \"Total uncompressed logs: %.2f MiB\\n\", sum/1048576}'",
     "desc": "Sum byte sizes (column 5 of ls -l) and print total in MiB",
     "tip": "",
-    "tags": "awk sum average math max min aggregation"
+    "tags": "awk sum average math max min aggregation",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/gawk.1.html",
+          "title": "gawk(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7938,7 +10960,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "awk '{sum+=$NF; n++} END {if (n>0) print \"Average:\", sum/n}' timing.log",
     "desc": "Compute the arithmetic mean of the last column ($NF) across a log file",
     "tip": "",
-    "tags": "awk sum average math max min aggregation"
+    "tags": "awk sum average math max min aggregation",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/gawk.1.html",
+          "title": "gawk(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7969,7 +11000,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ps -eo user,rss | awk 'NR>1 {mem[$1]+=$2} END {for (u in mem) printf \"%-12s %8.1f MiB\\n\", u, mem[u]/1024}' | sort -k2 -nr",
     "desc": "Aggregate total Resident Memory (MiB) consumed per Linux username",
     "tip": "",
-    "tags": "awk array group-by frequency deduplicate join nr==fnr"
+    "tags": "awk array group-by frequency deduplicate join nr==fnr",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/gawk.1.html",
+          "title": "gawk(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7980,7 +11020,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "awk '!seen[$0]++' /var/log/boot.log",
     "desc": "Deduplicate repeated lines in a file without sorting (preserves chronological order)",
     "tip": "",
-    "tags": "awk array group-by frequency deduplicate join nr==fnr"
+    "tags": "awk array group-by frequency deduplicate join nr==fnr",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/gawk.1.html",
+          "title": "gawk(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -7991,7 +11040,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "awk 'NR==FNR {bad[$1]=1; next} $1 in bad {print $0}' faulty_serials.txt inventory.txt",
     "desc": "Join two files: load column 1 of file 1 into array 'bad', then print matching rows from file 2",
     "tip": "",
-    "tags": "awk array group-by frequency deduplicate join nr==fnr"
+    "tags": "awk array group-by frequency deduplicate join nr==fnr",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/gawk.1.html",
+          "title": "gawk(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8022,7 +11080,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sed -i.bak 's|/mnt/old-nfs|/srv/fast-nvme|g' /etc/fstab",
     "desc": "Replace file paths in /etc/fstab cleanly using '|' as the s||| delimiter",
     "tip": "",
-    "tags": "sed replace substitute inplace config backup regex"
+    "tags": "sed replace substitute inplace config backup regex",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sed.1.html",
+          "title": "sed(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8033,7 +11100,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sed -i '/swap/s/^/# /' /etc/fstab",
     "desc": "Address-scoped substitution: prepend '# ' ONLY on lines that match '/swap/'",
     "tip": "",
-    "tags": "sed replace substitute inplace config backup regex"
+    "tags": "sed replace substitute inplace config backup regex",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sed.1.html",
+          "title": "sed(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8064,7 +11140,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sed -n '1000,1050p;1051q' /var/log/kern.log",
     "desc": "Extract lines 1000–1050 from a massive file and exit immediately at line 1051",
     "tip": "",
-    "tags": "sed slice range timestamps logs lines"
+    "tags": "sed slice range timestamps logs lines",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sed.1.html",
+          "title": "sed(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8075,7 +11160,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sed -n '/^\\[storage\\]/,/^\\[/p' config.ini",
     "desc": "Extract an INI/TOML configuration section block between '[storage]' and the next '[' header",
     "tip": "",
-    "tags": "sed slice range timestamps logs lines"
+    "tags": "sed slice range timestamps logs lines",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sed.1.html",
+          "title": "sed(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8106,7 +11200,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sed -i.bak '42d' ~/.ssh/known_hosts",
     "desc": "Delete exact line 42 from ~/.ssh/known_hosts when a rebuilt server gets a new SSH host key",
     "tip": "",
-    "tags": "sed delete ansi crlf known_hosts comments"
+    "tags": "sed delete ansi crlf known_hosts comments",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sed.1.html",
+          "title": "sed(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8117,7 +11220,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sed -E 's/\\x1B\\[[0-9;]*[a-zA-Z]//g' colored_output.log",
     "desc": "Strip all ANSI terminal color escape sequences from a captured log file",
     "tip": "",
-    "tags": "sed delete ansi crlf known_hosts comments"
+    "tags": "sed delete ansi crlf known_hosts comments",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sed.1.html",
+          "title": "sed(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8128,7 +11240,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sed -i 's/\\r$//' script_from_windows.sh",
     "desc": "Strip Windows CRLF (\\r) carriage returns to fix '/bin/bash^M: bad interpreter'",
     "tip": "",
-    "tags": "sed delete ansi crlf known_hosts comments"
+    "tags": "sed delete ansi crlf known_hosts comments",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sed.1.html",
+          "title": "sed(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8159,7 +11280,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "find /var/log -type f -empty -delete",
     "desc": "Find and delete all 0-byte empty regular files inside /var/log",
     "tip": "",
-    "tags": "find size mtime mmin xdev prune empty"
+    "tags": "find size mtime mmin xdev prune empty",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/find.1.html",
+          "title": "find(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8170,7 +11300,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "find / -xdev \\( -path /var/lib/docker -o -path /snap \\) -prune -o -type f -size +500M -print",
     "desc": "Prune (-prune) container/snap trees while searching for files > 500 MiB",
     "tip": "",
-    "tags": "find size mtime mmin xdev prune empty"
+    "tags": "find size mtime mmin xdev prune empty",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/find.1.html",
+          "title": "find(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8201,7 +11340,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "find / -xdev -type f \\( -perm -4000 -o -perm -2000 \\) -ls 2>/dev/null",
     "desc": "Audit all SUID and SGID executables on the root filesystem",
     "tip": "",
-    "tags": "find permissions suid symlinks broken inode nouser"
+    "tags": "find permissions suid symlinks broken inode nouser",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/find.1.html",
+          "title": "find(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8212,7 +11360,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "find /home /srv \\( -nouser -o -nogroup \\) -exec chown root:root {} +",
     "desc": "Find files owned by deleted user/group IDs and reassign ownership",
     "tip": "",
-    "tags": "find permissions suid symlinks broken inode nouser"
+    "tags": "find permissions suid symlinks broken inode nouser",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/find.1.html",
+          "title": "find(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8244,7 +11401,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "cat rack_bmc_ipv6.txt | xargs -P 16 -I {} sh -c 'ping -6 -c 1 -W 1 {} >/dev/null && echo \"UP: {}\" || echo \"DOWN: {}\"'",
     "desc": "Ping 40+ rack server BMC IPv6 addresses in parallel (16 concurrent workers) and report UP/DOWN status",
     "tip": "",
-    "tags": "xargs parallel print0 null batch ping"
+    "tags": "xargs parallel print0 null batch ping",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/xargs.1.html",
+          "title": "xargs(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: -P 0 runs as many processes as possible at once; it isn't tied to the CPU count."
+    }
   },
   {
     "sName": "cli-tools",
@@ -8255,7 +11422,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "find /tmp -type f -mtime +7 -print0 | xargs -0 -r rm -v",
     "desc": "Safely delete old files using -r (--no-run-if-empty) so rm doesn't error when no files match",
     "tip": "",
-    "tags": "xargs parallel print0 null batch ping"
+    "tags": "xargs parallel print0 null batch ping",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/xargs.1.html",
+          "title": "xargs(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: -P 0 runs as many processes as possible at once; it isn't tied to the CPU count."
+    }
   },
   {
     "sName": "cli-tools",
@@ -8287,7 +11464,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nvme list -o json | jq -r '.Devices[] | [.DevicePath, .ModelNumber, .SerialNumber, .Firmware] | @tsv' | column -t -s $'\\t'",
     "desc": "Extract NVMe device path, model, serial, and firmware as an aligned table",
     "tip": "",
-    "tags": "jq json ip lsblk nvme lshw tsv"
+    "tags": "jq json ip lsblk nvme lshw tsv",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://jqlang.org/manual/",
+          "title": "jq manual"
+        }
+      ],
+      "note": "nvme list -o json field names (DevicePath, ModelNumber…) are nvme-cli 2.x output; 3.x may differ."
+    }
   },
   {
     "sName": "cli-tools",
@@ -8298,7 +11485,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lsblk -J -o NAME,SIZE,TYPE,SERIAL,MOUNTPOINTS | jq '.blockdevices[] | select(.type==\"disk\")'",
     "desc": "Filter lsblk JSON output for physical disk devices and their hardware serial numbers",
     "tip": "",
-    "tags": "jq json ip lsblk nvme lshw tsv"
+    "tags": "jq json ip lsblk nvme lshw tsv",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://jqlang.org/manual/",
+          "title": "jq manual"
+        }
+      ],
+      "note": "nvme list -o json field names (DevicePath, ModelNumber…) are nvme-cli 2.x output; 3.x may differ."
+    }
   },
   {
     "sName": "cli-tools",
@@ -8330,7 +11527,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "jq 'map(select(.status != \"OK\")) | length' health.json",
     "desc": "Count how many items in a JSON array have a status other than 'OK'",
     "tip": "",
-    "tags": "jq redfish csv tsv sort_by group_by api"
+    "tags": "jq redfish csv tsv sort_by group_by api",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://jqlang.org/manual/",
+          "title": "jq manual"
+        }
+      ],
+      "note": "nvme list -o json field names (DevicePath, ModelNumber…) are nvme-cli 2.x output; 3.x may differ."
+    }
   },
   {
     "sName": "cli-tools",
@@ -8341,7 +11548,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "jq -n --arg host \"$(hostname)\" --arg ts \"$(date -Is)\" '{hostname: $host, timestamp: $ts}'",
     "desc": "Generate a valid JSON payload from shell variables using -n and --arg",
     "tip": "",
-    "tags": "jq redfish csv tsv sort_by group_by api"
+    "tags": "jq redfish csv tsv sort_by group_by api",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://jqlang.org/manual/",
+          "title": "jq manual"
+        }
+      ],
+      "note": "nvme list -o json field names (DevicePath, ModelNumber…) are nvme-cli 2.x output; 3.x may differ."
+    }
   },
   {
     "sName": "cli-tools",
@@ -8376,7 +11593,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lsof -p <PID>",
     "desc": "Inspect all open files, .so libraries, and sockets held by <PID>",
     "tip": "",
-    "tags": "lsof deleted disk-full ports socket fd"
+    "tags": "lsof deleted disk-full ports socket fd",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/lsof/lsof.8.en.html",
+          "title": "lsof(8), Debian"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man5/proc.5.html",
+          "title": "proc(5)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8387,7 +11617,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lsof -u ^root -i -P -n",
     "desc": "List all active network connections owned by any non-root user (^root)",
     "tip": "",
-    "tags": "lsof deleted disk-full ports socket fd"
+    "tags": "lsof deleted disk-full ports socket fd",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/lsof/lsof.8.en.html",
+          "title": "lsof(8), Debian"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man5/proc.5.html",
+          "title": "proc(5)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8398,7 +11641,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": ": > /proc/<PID>/fd/<FD_NUM>",
     "desc": "Truncate a deleted-but-open log file via /proc to reclaim disk space without restarting the daemon",
     "tip": "",
-    "tags": "lsof deleted disk-full ports socket fd"
+    "tags": "lsof deleted disk-full ports socket fd",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/lsof/lsof.8.en.html",
+          "title": "lsof(8), Debian"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man5/proc.5.html",
+          "title": "proc(5)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8429,7 +11685,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "fuser -v /var/lib/dpkg/lock-frontend /var/lib/apt/lists/lock",
     "desc": "See which process (e.g. unattended-upgrade) is holding the Ubuntu APT/dpkg lock",
     "tip": "",
-    "tags": "fuser umount busy lock dpkg mount"
+    "tags": "fuser umount busy lock dpkg mount",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/fuser.1.html",
+          "title": "fuser(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8440,7 +11705,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "fuser -v -k -TERM /mnt/data",
     "desc": "Send graceful SIGTERM to all processes holding open references on /mnt/data",
     "tip": "",
-    "tags": "fuser umount busy lock dpkg mount"
+    "tags": "fuser umount busy lock dpkg mount",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/fuser.1.html",
+          "title": "fuser(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8451,7 +11725,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "fuser -v -n tcp 8080",
     "desc": "Find the PID listening on local TCP port 8080",
     "tip": "",
-    "tags": "fuser umount busy lock dpkg mount"
+    "tags": "fuser umount busy lock dpkg mount",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/fuser.1.html",
+          "title": "fuser(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8482,7 +11765,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "strace -p <PID> -f -c",
     "desc": "Attach to a slow process, press Ctrl+C after 10s, and view a summary table of syscall time & errors",
     "tip": "",
-    "tags": "strace syscall debug hang enoent latency"
+    "tags": "strace syscall debug hang enoent latency",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/strace.1.html",
+          "title": "strace(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8493,7 +11785,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "strace -f -e trace=openat,stat,access ./mystery-binary 2>&1 | grep -v ENOENT",
     "desc": "Run a binary and see every config file or shared library it successfully opens",
     "tip": "",
-    "tags": "strace syscall debug hang enoent latency"
+    "tags": "strace syscall debug hang enoent latency",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/strace.1.html",
+          "title": "strace(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8524,7 +11825,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sort -t':' -k3,3n /etc/passwd",
     "desc": "Sort /etc/passwd numerically by UID (column 3)",
     "tip": "",
-    "tags": "sort human version columns ip du"
+    "tags": "sort human version columns ip du",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sort.1.html",
+          "title": "sort(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8535,7 +11845,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sort -V ip_list.txt",
     "desc": "Sort a list of IPv4 addresses or kernel version strings in natural numerical order",
     "tip": "",
-    "tags": "sort human version columns ip du"
+    "tags": "sort human version columns ip du",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sort.1.html",
+          "title": "sort(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8566,7 +11885,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sort serials.txt | uniq -d",
     "desc": "Find any duplicate hardware serial numbers or IP addresses in an inventory file",
     "tip": "",
-    "tags": "uniq frequency duplicates histogram"
+    "tags": "uniq frequency duplicates histogram",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/uniq.1.html",
+          "title": "uniq(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8577,7 +11905,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sort -u ip_list.txt",
     "desc": "Sort and deduplicate a list in a single pass",
     "tip": "",
-    "tags": "uniq frequency duplicates histogram"
+    "tags": "uniq frequency duplicates histogram",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/uniq.1.html",
+          "title": "uniq(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8612,7 +11949,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "comm -12 <(sort rack01_macs.txt) <(sort switch_arp_macs.txt)",
     "desc": "Show only MAC addresses that appear in BOTH the rack manifest and the switch ARP table",
     "tip": "",
-    "tags": "comm compare diff set inventory"
+    "tags": "comm compare diff set inventory",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/comm.1.html",
+          "title": "comm(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8623,7 +11973,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "comm -13 <(sort baseline_pkgs.txt) <(dpkg-query -W -f='${Package}\\n' | sort)",
     "desc": "Show extra packages installed on the current server that are not in the baseline list",
     "tip": "",
-    "tags": "comm compare diff set inventory"
+    "tags": "comm compare diff set inventory",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/comm.1.html",
+          "title": "comm(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8654,7 +12017,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "cut -d' ' -f1 --complement /var/log/syslog | head",
     "desc": "Strip the 1st field and print all remaining fields on each line (--complement)",
     "tip": "",
-    "tags": "cut fields columns delimiter slice"
+    "tags": "cut fields columns delimiter slice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/cut.1.html",
+          "title": "cut(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8685,7 +12057,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "echo $PATH | tr ':' '\\n'",
     "desc": "Translate colons into newlines to print PATH directories one per line",
     "tip": "",
-    "tags": "tr squeeze delete translate whitespace lowercase"
+    "tags": "tr squeeze delete translate whitespace lowercase",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/tr.1.html",
+          "title": "tr(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8696,7 +12077,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tr '[:upper:]' '[:lower:]' < mac_list.txt",
     "desc": "Normalize uppercase MAC addresses or hostnames to lowercase",
     "tip": "",
-    "tags": "tr squeeze delete translate whitespace lowercase"
+    "tags": "tr squeeze delete translate whitespace lowercase",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/tr.1.html",
+          "title": "tr(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8707,7 +12097,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tr -cd '[:print:]\\n\\t' < corrupted.log > clean.log",
     "desc": "Strip all non-printable binary bytes from a corrupted text log",
     "tip": "",
-    "tags": "tr squeeze delete translate whitespace lowercase"
+    "tags": "tr squeeze delete translate whitespace lowercase",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/tr.1.html",
+          "title": "tr(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8738,7 +12137,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "cat /etc/fstab | grep -Ev '^\\s*(#|$)' | column -t -N 'DEVICE,MOUNTPOINT,FSTYPE,OPTIONS,DUMP,PASS'",
     "desc": "Render active /etc/fstab mounts as a labeled, aligned table",
     "tip": "",
-    "tags": "column table align format mount fstab"
+    "tags": "column table align format mount fstab",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/column.1.html",
+          "title": "column(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8770,7 +12178,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "watch -n 1 -d 'cat /proc/mdstat'",
     "desc": "Monitor live software RAID rebuild speed and block progress",
     "tip": "",
-    "tags": "watch live monitor diff counters"
+    "tags": "watch live monitor diff counters",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/watch.1.html",
+          "title": "watch(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the permanent form is --differences=permanent (the argument must be attached to the option)."
+    }
   },
   {
     "sName": "cli-tools",
@@ -8781,7 +12199,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "watch -n 2 -g 'cat /sys/class/net/eth0/operstate' && echo 'LINK CHANGED!'",
     "desc": "Block until eth0 link state changes (-g), then trigger an alert",
     "tip": "",
-    "tags": "watch live monitor diff counters"
+    "tags": "watch live monitor diff counters",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/watch.1.html",
+          "title": "watch(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the permanent form is --differences=permanent (the argument must be attached to the option)."
+    }
   },
   {
     "sName": "cli-tools",
@@ -8812,7 +12240,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "./firmware-update.sh 2>&1 | tee -a /var/log/fw-upgrade-$(date +%F).log",
     "desc": "Watch a firmware upgrade live on screen while simultaneously recording all stdout & stderr to a log file",
     "tip": "",
-    "tags": "tee sudo sysfs proc redirect logging"
+    "tags": "tee sudo sysfs proc redirect logging",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/tee.1.html",
+          "title": "tee(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8823,7 +12260,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "echo '2001:db8:dc:4::50 bmc-rack04' | tee -a /etc/hosts",
     "desc": "Safely append an IPv6 host mapping to /etc/hosts with root privileges",
     "tip": "",
-    "tags": "tee sudo sysfs proc redirect logging"
+    "tags": "tee sudo sysfs proc redirect logging",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/tee.1.html",
+          "title": "tee(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8854,7 +12300,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "kill -USR1 $(pgrep -x dd)",
     "desc": "Send SIGUSR1 to a running dd process (started without status=progress) to force it to print current stats",
     "tip": "",
-    "tags": "dd benchmark clone direct-io sparse usr1"
+    "tags": "dd benchmark clone direct-io sparse usr1",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/dd.1.html",
+          "title": "dd(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8865,7 +12320,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dd if=/dev/nvme0n1 of=/dev/nvme1n1 bs=16M conv=noerror,sync,sparse status=progress",
     "desc": "Block-clone a drive skipping zero-blocks (sparse) and continuing past bad sectors",
     "tip": "",
-    "tags": "dd benchmark clone direct-io sparse usr1"
+    "tags": "dd benchmark clone direct-io sparse usr1",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/dd.1.html",
+          "title": "dd(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8876,7 +12340,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dd if=/dev/nvme0n1 of=/backups/nvme0-mbr-gpt.bin bs=1M count=16",
     "desc": "Back up the first 16 MiB of a disk (MBR, GPT header, EFI partition start)",
     "tip": "",
-    "tags": "dd benchmark clone direct-io sparse usr1"
+    "tags": "dd benchmark clone direct-io sparse usr1",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/dd.1.html",
+          "title": "dd(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8907,7 +12380,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tar --numeric-owner --acls --xattrs -czf - /srv/data | ssh backup-host 'cat > /backups/srv-data.tar.gz'",
     "desc": "Stream a compressed backup directly over SSH when local disk is 99% full",
     "tip": "",
-    "tags": "tar sparse numeric-owner ssh backup"
+    "tags": "tar sparse numeric-owner ssh backup",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/tar.1.html",
+          "title": "tar(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8918,7 +12400,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tar -xvf archive.tar.gz -C /opt/restore/",
     "desc": "Extract any compressed tar archive (.tar.gz, .tar.xz, .tar.zst) into /opt/restore/",
     "tip": "",
-    "tags": "tar sparse numeric-owner ssh backup"
+    "tags": "tar sparse numeric-owner ssh backup",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/tar.1.html",
+          "title": "tar(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -8950,7 +12441,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tar --sparse -I 'zstd -T0 -6' -cvf /backups/vm-disks.tar.zst /var/lib/libvirt/images/",
     "desc": "Pipe tar through multithreaded zstd across all CPU cores (-T0)",
     "tip": "",
-    "tags": "zstd unzstd zstdcat compress multithreaded"
+    "tags": "zstd unzstd zstdcat compress multithreaded",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/zstd/zstd.1.en.html",
+          "title": "zstd(1), Debian"
+        }
+      ],
+      "note": "Corrected 2026-11-09: -T0 detects physical cores (not logical); dropped unsourced speed figures."
+    }
   },
   {
     "sName": "cli-tools",
@@ -8961,7 +12462,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "zstdcat /var/log/archive/syslog.zst | grep -iE 'error|mce'",
     "desc": "Stream-decompress a .zst log file directly to stdout without writing a temp file to disk",
     "tip": "",
-    "tags": "zstd unzstd zstdcat compress multithreaded"
+    "tags": "zstd unzstd zstdcat compress multithreaded",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/zstd/zstd.1.en.html",
+          "title": "zstd(1), Debian"
+        }
+      ],
+      "note": "Corrected 2026-11-09: -T0 detects physical cores (not logical); dropped unsourced speed figures."
+    }
   },
   {
     "sName": "cli-tools",
@@ -8992,7 +12503,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "rsync -avhPn --delete /srv/data/ root@dr-node:/srv/data/",
     "desc": "Dry-run (-n) mirror with --delete to preview exactly which files would be added or deleted",
     "tip": "",
-    "tags": "rsync sync mirror backup sparse bwlimit"
+    "tags": "rsync sync mirror backup sparse bwlimit",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://download.samba.org/pub/rsync/rsync.1",
+          "title": "rsync(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -9003,7 +12523,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "rsync -avhP --bwlimit=50M -e 'ssh -p 2222' /var/backups/ user@remote:/backups/",
     "desc": "Sync over a custom SSH port while capping transfer rate at 50 MB/s",
     "tip": "",
-    "tags": "rsync sync mirror backup sparse bwlimit"
+    "tags": "rsync sync mirror backup sparse bwlimit",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://download.samba.org/pub/rsync/rsync.1",
+          "title": "rsync(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -9034,7 +12563,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "scp -6 -3 \"root@[2001:db8:dc:4::10]:/etc/netplan/01-netcfg.yaml\" \"root@[2001:db8:dc:4::11]:/etc/netplan/01-netcfg.yaml\"",
     "desc": "Copy a file directly from remote Server A to remote Server B over IPv6 routed through your local jumpbox (-3)",
     "tip": "",
-    "tags": "scp ipv6 ssh transfer copy bastion proxyjump port"
+    "tags": "scp ipv6 ssh transfer copy bastion proxyjump port",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man.openbsd.org/scp",
+          "title": "scp(1), OpenBSD"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -9045,7 +12583,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "scp -6 -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/dev/null bios.bin \"root@[2001:db8:dc:4::50]:/tmp/\"",
     "desc": "Copy firmware over IPv6 to a freshly imaged rack server without failing on changed/unknown known_hosts keys",
     "tip": "",
-    "tags": "scp ipv6 ssh transfer copy bastion proxyjump port"
+    "tags": "scp ipv6 ssh transfer copy bastion proxyjump port",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man.openbsd.org/scp",
+          "title": "scp(1), OpenBSD"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -9077,7 +12624,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "reget large-vmcore.dump /tmp/large-vmcore.dump",
     "desc": "Inside sftp prompt: resume an interrupted download (same as get -a)",
     "tip": "",
-    "tags": "sftp ipv6 ssh resume reget reput interactive"
+    "tags": "sftp ipv6 ssh resume reget reput interactive",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man.openbsd.org/sftp",
+          "title": "sftp(1), OpenBSD"
+        }
+      ],
+      "note": "Corrected 2026-11-09: reget takes -f, -p and -R; there is no -P."
+    }
   },
   {
     "sName": "cli-tools",
@@ -9088,7 +12645,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "put -r -p ./firmware_bundle/ /tmp/firmware_bundle/",
     "desc": "Inside sftp prompt: recursively upload a local folder while preserving permissions and timestamps",
     "tip": "",
-    "tags": "sftp ipv6 ssh resume reget reput interactive"
+    "tags": "sftp ipv6 ssh resume reget reput interactive",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man.openbsd.org/sftp",
+          "title": "sftp(1), OpenBSD"
+        }
+      ],
+      "note": "Corrected 2026-11-09: reget takes -f, -p and -R; there is no -P."
+    }
   },
   {
     "sName": "cli-tools",
@@ -9119,7 +12686,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -vk --resolve \"bmc.rack04.local:443:[2001:db8:dc:4::50]\" https://bmc.rack04.local/redfish/v1/",
     "desc": "Test a specific IPv6 address with TLS SNI and Host header without editing /etc/hosts (--resolve)",
     "tip": "",
-    "tags": "curl ipv6 globoff fe80 resume resolve download iso firmware ttfb"
+    "tags": "curl ipv6 globoff fe80 resume resolve download iso firmware ttfb",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://curl.se/docs/manpage.html",
+          "title": "curl manual"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -9130,7 +12706,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sSLk -D - -o /dev/null -w 'DNS:%{time_namelookup}s TCP:%{time_connect}s TLS:%{time_appconnect}s TTFB:%{time_starttransfer}s\\n' \"https://[2001:db8:dc:4::50]\"",
     "desc": "Measure granular DNS, IPv6 TCP, TLS handshake, and Time-To-First-Byte latency",
     "tip": "",
-    "tags": "curl ipv6 globoff fe80 resume resolve download iso firmware ttfb"
+    "tags": "curl ipv6 globoff fe80 resume resolve download iso firmware ttfb",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://curl.se/docs/manpage.html",
+          "title": "curl manual"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -9141,7 +12726,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -sk \"https://[fe80::a00:27ff:fe12:3456%25eth0]/redfish/v1\"",
     "desc": "Query a BMC over its IPv6 link-local (fe80::) address using URL-encoded '%25<interface>' zone ID",
     "tip": "",
-    "tags": "curl ipv6 globoff fe80 resume resolve download iso firmware ttfb"
+    "tags": "curl ipv6 globoff fe80 resume resolve download iso firmware ttfb",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://curl.se/docs/manpage.html",
+          "title": "curl manual"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -9176,7 +12770,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "wget -6 -c \"http://[2001:db8:dc:4::2]:8000/ubuntu-24.04-live-server-amd64.iso\" -O /tmp/ubuntu.iso",
     "desc": "Pull a staged ISO over IPv6 from the ad-hoc HTTP server with automatic resume (-c)",
     "tip": "",
-    "tags": "http.server ipv6 python3 wget firmware iso staging"
+    "tags": "http.server ipv6 python3 wget firmware iso staging",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.python.org/3/library/http.server.html",
+          "title": "Python: http.server"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/wget/wget.1.en.html",
+          "title": "wget(1), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -9187,7 +12794,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -g -6 -fLO \"http://[2001:db8:dc:4::2]:8000/firmware.fwpkg\"",
     "desc": "Download a staged firmware package over IPv6 using curl (-g -6)",
     "tip": "",
-    "tags": "http.server ipv6 python3 wget firmware iso staging"
+    "tags": "http.server ipv6 python3 wget firmware iso staging",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.python.org/3/library/http.server.html",
+          "title": "Python: http.server"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/wget/wget.1.en.html",
+          "title": "wget(1), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -9222,7 +12842,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "openssl x509 -in /etc/ssl/certs/server.crt -noout -text",
     "desc": "Decode and inspect a local PEM certificate file on disk",
     "tip": "",
-    "tags": "openssl ipv6 tls ssl certificate x509 expiry san"
+    "tags": "openssl ipv6 tls ssl certificate x509 expiry san",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.openssl.org/master/man1/openssl-s_client/",
+          "title": "openssl s_client"
+        },
+        {
+          "url": "https://docs.openssl.org/master/man1/openssl-x509/",
+          "title": "openssl x509"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -9233,7 +12866,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "openssl rand -base64 32",
     "desc": "Generate a cryptographically strong 32-byte random secret / password",
     "tip": "",
-    "tags": "openssl ipv6 tls ssl certificate x509 expiry san"
+    "tags": "openssl ipv6 tls ssl certificate x509 expiry san",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.openssl.org/master/man1/openssl-s_client/",
+          "title": "openssl s_client"
+        },
+        {
+          "url": "https://docs.openssl.org/master/man1/openssl-x509/",
+          "title": "openssl x509"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -9268,7 +12914,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nmap -6 -sn --script=targets-ipv6-multicast-echo,targets-ipv6-multicast-slaac --script-args 'newtargets,interface=eth0'",
     "desc": "Automatically discover all IPv6 hosts on eth0 via ICMPv6 multicast & SLAAC and ping-scan them",
     "tip": "",
-    "tags": "nmap ipv6 ff02::1 multicast subnet discovery bmc ports"
+    "tags": "nmap ipv6 ff02::1 multicast subnet discovery bmc ports",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://nmap.org/book/man.html",
+          "title": "Nmap reference guide"
+        },
+        {
+          "url": "https://nmap.org/nsedoc/scripts/targets-ipv6-multicast-echo.html",
+          "title": "NSE: targets-ipv6-multicast-echo"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -9279,7 +12938,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nmap -6 -sU -p 161,623 --open 2001:db8:dc:4::50",
     "desc": "Scan UDP ports 161 (SNMP) and 623 (IPMI RMCP+) on an IPv6 BMC",
     "tip": "",
-    "tags": "nmap ipv6 ff02::1 multicast subnet discovery bmc ports"
+    "tags": "nmap ipv6 ff02::1 multicast subnet discovery bmc ports",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://nmap.org/book/man.html",
+          "title": "Nmap reference guide"
+        },
+        {
+          "url": "https://nmap.org/nsedoc/scripts/targets-ipv6-multicast-echo.html",
+          "title": "NSE: targets-ipv6-multicast-echo"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -9323,7 +12995,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ndisc6 -1 2001:db8:dc:4::50 eth1",
     "desc": "Resolve a specific IPv6 address to its Layer-2 Ethernet MAC address on eth1",
     "tip": "",
-    "tags": "ndp ndisc6 rdisc6 ipv6 neigh arp-scan mac vlan discovery"
+    "tags": "ndp ndisc6 rdisc6 ipv6 neigh arp-scan mac vlan discovery",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/ndisc6/ndisc6.8.en.html",
+          "title": "ndisc6(8), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/ndisc6/rdisc6.8.en.html",
+          "title": "rdisc6(8), Debian"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ping.8.html",
+          "title": "ping(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/arp-scan/arp-scan.1.en.html",
+          "title": "arp-scan(1), Debian"
+        }
+      ],
+      "note": "EUI-64 (MAC-derived) link-local addresses aren't universal: RFC 7217 stable-privacy addresses don't contain the MAC."
+    }
   },
   {
     "sName": "cli-tools",
@@ -9334,7 +13028,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "arp-scan --interface=eth1 --localnet",
     "desc": "Legacy IPv4 L2 ARP scan (if dual-stack or checking factory-default IPv4 BMCs)",
     "tip": "",
-    "tags": "ndp ndisc6 rdisc6 ipv6 neigh arp-scan mac vlan discovery"
+    "tags": "ndp ndisc6 rdisc6 ipv6 neigh arp-scan mac vlan discovery",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/ndisc6/ndisc6.8.en.html",
+          "title": "ndisc6(8), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/ndisc6/rdisc6.8.en.html",
+          "title": "rdisc6(8), Debian"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ping.8.html",
+          "title": "ping(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/arp-scan/arp-scan.1.en.html",
+          "title": "arp-scan(1), Debian"
+        }
+      ],
+      "note": "EUI-64 (MAC-derived) link-local addresses aren't universal: RFC 7217 stable-privacy addresses don't contain the MAC."
+    }
   },
   {
     "sName": "cli-tools",
@@ -9365,7 +13081,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tmux set-window-option synchronize-panes on",
     "desc": "Broadcast everything you type into ALL split panes in the current window simultaneously (toggle off with 'off')",
     "tip": "",
-    "tags": "tmux session synchronize-panes ssh keepalive"
+    "tags": "tmux session synchronize-panes ssh keepalive",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man.openbsd.org/tmux",
+          "title": "tmux(1), OpenBSD"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -9376,7 +13101,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tmux capture-pane -S - -E - -p > /tmp/tmux-scrollback.log",
     "desc": "Dump the entire scrollback history of the current tmux pane to a text file",
     "tip": "",
-    "tags": "tmux session synchronize-panes ssh keepalive"
+    "tags": "tmux session synchronize-panes ssh keepalive",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man.openbsd.org/tmux",
+          "title": "tmux(1), OpenBSD"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -9387,7 +13121,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tmux new-session -d -s burnin 'stress-ng --cpu 0 -t 4h > /tmp/burnin.log 2>&1'",
     "desc": "Launch a detached background tmux session running a 4-hour burn-in job",
     "tip": "",
-    "tags": "tmux session synchronize-panes ssh keepalive"
+    "tags": "tmux session synchronize-panes ssh keepalive",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man.openbsd.org/tmux",
+          "title": "tmux(1), OpenBSD"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -9423,7 +13166,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tio -l",
     "desc": "List available serial devices (by ID), TIDs and configuration profiles",
     "tip": "",
-    "tags": "tio picocom serial ttyusb0 baud console"
+    "tags": "tio picocom serial ttyusb0 baud console",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/tio/tio.1.en.html",
+          "title": "tio(1), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/picocom/picocom.1.en.html",
+          "title": "picocom(1), Debian"
+        }
+      ],
+      "note": "Corrected 2026-11-09: listing devices is tio -l (--list); -L is --log. Checked against tio 3.9."
+    }
   },
   {
     "sName": "cli-tools",
@@ -9434,7 +13191,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "picocom -b 115200 /dev/ttyUSB0   # Exit: Ctrl+a followed by Ctrl+x",
     "desc": "Alternative lightweight serial terminal using picocom",
     "tip": "",
-    "tags": "tio picocom serial ttyusb0 baud console"
+    "tags": "tio picocom serial ttyusb0 baud console",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/tio/tio.1.en.html",
+          "title": "tio(1), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/picocom/picocom.1.en.html",
+          "title": "picocom(1), Debian"
+        }
+      ],
+      "note": "Corrected 2026-11-09: listing devices is tio -l (--list); -L is --log. Checked against tio 3.9."
+    }
   },
   {
     "sName": "cli-tools",
@@ -9465,7 +13236,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tar -czf - /etc/netplan/ | base64 -w0 && echo ''",
     "desc": "Encode an entire directory into a single Base64 line for serial console transfer",
     "tip": "",
-    "tags": "base64 serial sol paste offline recovery"
+    "tags": "base64 serial sol paste offline recovery",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/base64.1.html",
+          "title": "base64(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -9502,6 +13282,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Set UEFI NextBoot to entry 0004 (e.g. PXE IPv6 NIC) for the upcoming reboot only and reboot",
     "tip": "",
     "tags": "efibootmgr uefi bios pxe bootorder nextboot mokutil",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/efibootmgr/efibootmgr.8.en.html",
+          "title": "efibootmgr(8), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/mokutil/mokutil.1.en.html",
+          "title": "mokutil(1), Debian"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the loader path takes single backslashes ('\\\\EFI\\\\ubuntu\\\\shimx64.efi')."
+    },
     "noCopy": true,
     "refWhy": "reboot"
   },
@@ -9514,7 +13308,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "efibootmgr -c -d /dev/nvme0n1 -p 1 -L 'Ubuntu' -l '\\EFI\\ubuntu\\shimx64.efi'",
     "desc": "Create a new UEFI NVRAM boot entry pointing to the EFI System Partition (partition 1) on /dev/nvme0n1",
     "tip": "",
-    "tags": "efibootmgr uefi bios pxe bootorder nextboot mokutil"
+    "tags": "efibootmgr uefi bios pxe bootorder nextboot mokutil",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/efibootmgr/efibootmgr.8.en.html",
+          "title": "efibootmgr(8), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/mokutil/mokutil.1.en.html",
+          "title": "mokutil(1), Debian"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the loader path takes single backslashes ('\\\\EFI\\\\ubuntu\\\\shimx64.efi')."
+    }
   },
   {
     "sName": "cli-tools",
@@ -9525,7 +13333,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mokutil --sb-state",
     "desc": "Check whether UEFI Secure Boot is currently enabled or disabled",
     "tip": "",
-    "tags": "efibootmgr uefi bios pxe bootorder nextboot mokutil"
+    "tags": "efibootmgr uefi bios pxe bootorder nextboot mokutil",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/efibootmgr/efibootmgr.8.en.html",
+          "title": "efibootmgr(8), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/mokutil/mokutil.1.en.html",
+          "title": "mokutil(1), Debian"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the loader path takes single backslashes ('\\\\EFI\\\\ubuntu\\\\shimx64.efi')."
+    }
   },
   {
     "sName": "cli-tools",
@@ -9556,7 +13378,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "udevadm info --query=all --name=/dev/nvme0n1 | grep -E 'DEVLINKS=|ID_SERIAL=|ID_PATH=|ID_WWN='",
     "desc": "Show persistent /dev/disk/by-id/ and /dev/disk/by-path/ symlinks for a block device",
     "tip": "",
-    "tags": "udevadm hotplug udev by-id by-path nvme nic"
+    "tags": "udevadm hotplug udev by-id by-path nvme nic",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/udevadm.8.html",
+          "title": "udevadm(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -9567,7 +13398,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "udevadm info --query=all --path=/sys/class/net/eth0",
     "desc": "Inspect how systemd/udev named a NIC (ID_NET_NAME_ONBOARD, ID_NET_NAME_SLOT, ID_NET_NAME_PATH)",
     "tip": "",
-    "tags": "udevadm hotplug udev by-id by-path nvme nic"
+    "tags": "udevadm hotplug udev by-id by-path nvme nic",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/udevadm.8.html",
+          "title": "udevadm(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -9578,7 +13418,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "udevadm control --reload-rules && udevadm trigger --verbose --type=devices --action=change",
     "desc": "Reload /etc/udev/rules.d/ and re-trigger udev rules across devices without rebooting",
     "tip": "",
-    "tags": "udevadm hotplug udev by-id by-path nvme nic"
+    "tags": "udevadm hotplug udev by-id by-path nvme nic",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/udevadm.8.html",
+          "title": "udevadm(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -9609,7 +13458,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tail -n 100 /var/log/cloud-init-output.log /var/log/cloud-init.log",
     "desc": "Inspect stdout/stderr from cloud-init user-data provisioning scripts",
     "tip": "",
-    "tags": "cloud-init maas provisioning subiquity ubuntu"
+    "tags": "cloud-init maas provisioning subiquity ubuntu",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.cloud-init.io/en/latest/reference/cli.html",
+          "title": "cloud-init CLI reference"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -9620,7 +13478,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "cloud-init query --all",
     "desc": "Dump all instance metadata and user-data variables discovered by cloud-init",
     "tip": "",
-    "tags": "cloud-init maas provisioning subiquity ubuntu"
+    "tags": "cloud-init maas provisioning subiquity ubuntu",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.cloud-init.io/en/latest/reference/cli.html",
+          "title": "cloud-init CLI reference"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -9668,7 +13535,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo -k",
     "desc": "Forget your cached password now (do it before you walk away)",
     "tip": "",
-    "tags": "sudo root danger least-privilege audit security"
+    "tags": "sudo root danger least-privilege audit security",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.sudo.ws/docs/man/sudo.man/",
+          "title": "sudo(8)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+          "title": "sudoers(5)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        },
+        {
+          "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+          "title": "Ubuntu 25.10 release notes (sudo-rs)"
+        },
+        {
+          "url": "https://www.sudo.ws/releases/stable/",
+          "title": "sudo stable release"
+        }
+      ],
+      "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+    }
   },
   {
     "sName": "cli-tools",
@@ -9679,7 +13572,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo -v",
     "desc": "Refresh the cache without running anything (before a long series of steps)",
     "tip": "",
-    "tags": "sudo root danger least-privilege audit security"
+    "tags": "sudo root danger least-privilege audit security",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.sudo.ws/docs/man/sudo.man/",
+          "title": "sudo(8)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+          "title": "sudoers(5)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        },
+        {
+          "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+          "title": "Ubuntu 25.10 release notes (sudo-rs)"
+        },
+        {
+          "url": "https://www.sudo.ws/releases/stable/",
+          "title": "sudo stable release"
+        }
+      ],
+      "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+    }
   },
   {
     "sName": "cli-tools",
@@ -9727,7 +13646,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "whoami",
     "desc": "Just the user name",
     "tip": "",
-    "tags": "sudo root uid id whoami privilege"
+    "tags": "sudo root uid id whoami privilege",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.sudo.ws/docs/man/sudo.man/",
+          "title": "sudo(8)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+          "title": "sudoers(5)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        },
+        {
+          "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+          "title": "Ubuntu 25.10 release notes (sudo-rs)"
+        },
+        {
+          "url": "https://www.sudo.ws/releases/stable/",
+          "title": "sudo stable release"
+        }
+      ],
+      "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+    }
   },
   {
     "sName": "cli-tools",
@@ -9738,7 +13683,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo -l",
     "desc": "What sudo lets you run on this host (asks for your password)",
     "tip": "",
-    "tags": "sudo root uid id whoami privilege"
+    "tags": "sudo root uid id whoami privilege",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.sudo.ws/docs/man/sudo.man/",
+          "title": "sudo(8)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+          "title": "sudoers(5)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        },
+        {
+          "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+          "title": "Ubuntu 25.10 release notes (sudo-rs)"
+        },
+        {
+          "url": "https://www.sudo.ws/releases/stable/",
+          "title": "sudo stable release"
+        }
+      ],
+      "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+    }
   },
   {
     "sName": "cli-tools",
@@ -9786,7 +13757,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo -u postgres psql -c 'select 1'",
     "desc": "Run a command as a service account",
     "tip": "",
-    "tags": "sudo run user non-interactive scripts"
+    "tags": "sudo run user non-interactive scripts",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.sudo.ws/docs/man/sudo.man/",
+          "title": "sudo(8)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+          "title": "sudoers(5)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        },
+        {
+          "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+          "title": "Ubuntu 25.10 release notes (sudo-rs)"
+        },
+        {
+          "url": "https://www.sudo.ws/releases/stable/",
+          "title": "sudo stable release"
+        }
+      ],
+      "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+    }
   },
   {
     "sName": "cli-tools",
@@ -9797,7 +13794,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo -n true && echo 'sudo works without a prompt'",
     "desc": "Check that a script can use sudo before it runs",
     "tip": "",
-    "tags": "sudo run user non-interactive scripts"
+    "tags": "sudo run user non-interactive scripts",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.sudo.ws/docs/man/sudo.man/",
+          "title": "sudo(8)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+          "title": "sudoers(5)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        },
+        {
+          "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+          "title": "Ubuntu 25.10 release notes (sudo-rs)"
+        },
+        {
+          "url": "https://www.sudo.ws/releases/stable/",
+          "title": "sudo stable release"
+        }
+      ],
+      "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+    }
   },
   {
     "sName": "cli-tools",
@@ -9845,7 +13868,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "exit",
     "desc": "Back to your own user",
     "tip": "",
-    "tags": "sudo root-shell su login logging"
+    "tags": "sudo root-shell su login logging",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.sudo.ws/docs/man/sudo.man/",
+          "title": "sudo(8)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+          "title": "sudoers(5)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        },
+        {
+          "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+          "title": "Ubuntu 25.10 release notes (sudo-rs)"
+        },
+        {
+          "url": "https://www.sudo.ws/releases/stable/",
+          "title": "sudo stable release"
+        }
+      ],
+      "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+    }
   },
   {
     "sName": "cli-tools",
@@ -9893,7 +13942,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "echo '2001:db8:dc:4::50 bmc-rack04' | sudo tee -a /etc/hosts > /dev/null",
     "desc": "Append a line to a root-owned file (changes state)",
     "tip": "",
-    "tags": "sudo tee redirect permission-denied gotcha"
+    "tags": "sudo tee redirect permission-denied gotcha",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.sudo.ws/docs/man/sudo.man/",
+          "title": "sudo(8)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+          "title": "sudoers(5)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        },
+        {
+          "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+          "title": "Ubuntu 25.10 release notes (sudo-rs)"
+        },
+        {
+          "url": "https://www.sudo.ws/releases/stable/",
+          "title": "sudo stable release"
+        }
+      ],
+      "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+    }
   },
   {
     "sName": "cli-tools",
@@ -9941,7 +14016,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo sshd -t",
     "desc": "Validate sshd_config before restarting sshd",
     "tip": "",
-    "tags": "sudo sudoedit edit config nano vim"
+    "tags": "sudo sudoedit edit config nano vim",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.sudo.ws/docs/man/sudo.man/",
+          "title": "sudo(8)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+          "title": "sudoers(5)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        },
+        {
+          "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+          "title": "Ubuntu 25.10 release notes (sudo-rs)"
+        },
+        {
+          "url": "https://www.sudo.ws/releases/stable/",
+          "title": "sudo stable release"
+        }
+      ],
+      "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+    }
   },
   {
     "sName": "cli-tools",
@@ -9989,7 +14090,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo visudo -c",
     "desc": "Syntax check of every sudoers file",
     "tip": "",
-    "tags": "sudo sudoers visudo nopasswd least-privilege"
+    "tags": "sudo sudoers visudo nopasswd least-privilege",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.sudo.ws/docs/man/sudo.man/",
+          "title": "sudo(8)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+          "title": "sudoers(5)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        },
+        {
+          "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+          "title": "Ubuntu 25.10 release notes (sudo-rs)"
+        },
+        {
+          "url": "https://www.sudo.ws/releases/stable/",
+          "title": "sudo stable release"
+        }
+      ],
+      "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+    }
   },
   {
     "sName": "cli-tools",
@@ -10037,7 +14164,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo grep -h 'COMMAND=' /var/log/auth.log | tail -n 20",
     "desc": "Last 20 sudo commands (Ubuntu and Debian)",
     "tip": "",
-    "tags": "sudo audit log journalctl auth.log incident"
+    "tags": "sudo audit log journalctl auth.log incident",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.sudo.ws/docs/man/sudo.man/",
+          "title": "sudo(8)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+          "title": "sudoers(5)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        },
+        {
+          "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+          "title": "Ubuntu 25.10 release notes (sudo-rs)"
+        },
+        {
+          "url": "https://www.sudo.ws/releases/stable/",
+          "title": "sudo stable release"
+        }
+      ],
+      "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+    }
   },
   {
     "sName": "cli-tools",
@@ -10085,7 +14238,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo --version",
     "desc": "Which sudo, which version",
     "tip": "",
-    "tags": "sudo sudo-rs ubuntu version rust"
+    "tags": "sudo sudo-rs ubuntu version rust",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.sudo.ws/docs/man/sudo.man/",
+          "title": "sudo(8)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+          "title": "sudoers(5)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        },
+        {
+          "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+          "title": "Ubuntu 25.10 release notes (sudo-rs)"
+        },
+        {
+          "url": "https://www.sudo.ws/releases/stable/",
+          "title": "sudo stable release"
+        }
+      ],
+      "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+    }
   },
   {
     "sName": "cli-tools",
@@ -10120,7 +14299,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sysctl --system",
     "desc": "Apply all persistent kernel parameters configured in /etc/sysctl.d/*.conf",
     "tip": "",
-    "tags": "sysctl kernel tuning hugepages swappiness network"
+    "tags": "sysctl kernel tuning hugepages swappiness network",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/sysctl.8.html",
+          "title": "sysctl(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man5/sysctl.d.5.html",
+          "title": "sysctl.d(5)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -10131,7 +14323,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sysctl -w vm.drop_caches=3",
     "desc": "Instruct the kernel to drop clean pagecache, dentries, and inodes from RAM before storage benchmarks",
     "tip": "",
-    "tags": "sysctl kernel tuning hugepages swappiness network"
+    "tags": "sysctl kernel tuning hugepages swappiness network",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/sysctl.8.html",
+          "title": "sysctl(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man5/sysctl.d.5.html",
+          "title": "sysctl.d(5)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -10162,7 +14367,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "head -c 512 /dev/nvme0n1 | xxd -g 1",
     "desc": "Dump the first 512 bytes (MBR / protective GPT signature 55 AA) of a physical disk",
     "tip": "",
-    "tags": "xxd hexdump hex binary eeprom mbr gpt"
+    "tags": "xxd hexdump hex binary eeprom mbr gpt",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/xxd/xxd.1.en.html",
+          "title": "xxd(1), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -10173,7 +14387,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "echo -n '4d 5a 90 00' | xxd -r -p > header.bin",
     "desc": "Convert a plain hex string back into raw binary bytes (-r -p)",
     "tip": "",
-    "tags": "xxd hexdump hex binary eeprom mbr gpt"
+    "tags": "xxd hexdump hex binary eeprom mbr gpt",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/xxd/xxd.1.en.html",
+          "title": "xxd(1), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -10184,7 +14407,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "hexdump -C -n 256 /bin/ls",
     "desc": "Alternative canonical hex+ASCII dump using BSD/util-linux hexdump -C",
     "tip": "",
-    "tags": "xxd hexdump hex binary eeprom mbr gpt"
+    "tags": "xxd hexdump hex binary eeprom mbr gpt",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/xxd/xxd.1.en.html",
+          "title": "xxd(1), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -10219,7 +14451,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "strings -t x -n 8 /var/crash/core.* | tail -n 40",
     "desc": "Extract printable strings along with their hex offsets (-t x) from an application core dump",
     "tip": "",
-    "tags": "strings cmp firmware binary version coredump"
+    "tags": "strings cmp firmware binary version coredump",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://sourceware.org/binutils/docs/binutils/strings.html",
+          "title": "GNU binutils: strings"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/cmp.1.html",
+          "title": "cmp(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -10230,7 +14475,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "cmp -l fw_slot1.bin fw_slot2.bin | head -n 20",
     "desc": "Compare two binary firmware images byte-by-byte and print differing byte offsets",
     "tip": "",
-    "tags": "strings cmp firmware binary version coredump"
+    "tags": "strings cmp firmware binary version coredump",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://sourceware.org/binutils/docs/binutils/strings.html",
+          "title": "GNU binutils: strings"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/cmp.1.html",
+          "title": "cmp(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -10278,7 +14536,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ip -d -c link show type vlan && ip -d -c link show type bond",
     "desc": "Display detailed 802.1Q VLAN tag IDs and 802.3ad bond configurations",
     "tip": "",
-    "tags": "ip ipv6 iproute2 interface mac mtu counters vlan"
+    "tags": "ip ipv6 iproute2 interface mac mtu counters vlan",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-link.8.html",
+          "title": "ip-link(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-address.8.html",
+          "title": "ip-address(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-route.8.html",
+          "title": "ip-route(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-neighbour.8.html",
+          "title": "ip-neighbour(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-netns.8.html",
+          "title": "ip-netns(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: ip -6 neigh flush needs a selector (dev <if>), not 'all'."
+    }
   },
   {
     "sName": "cli-tools",
@@ -10289,7 +14573,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ip link set dev eth0 mtu 9000 up",
     "desc": "Bring interface eth0 UP and set MTU to 9000 (Jumbo Frames)",
     "tip": "",
-    "tags": "ip ipv6 iproute2 interface mac mtu counters vlan"
+    "tags": "ip ipv6 iproute2 interface mac mtu counters vlan",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-link.8.html",
+          "title": "ip-link(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-address.8.html",
+          "title": "ip-address(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-route.8.html",
+          "title": "ip-route(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-neighbour.8.html",
+          "title": "ip-neighbour(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-netns.8.html",
+          "title": "ip-netns(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: ip -6 neigh flush needs a selector (dev <if>), not 'all'."
+    }
   },
   {
     "sName": "cli-tools",
@@ -10300,7 +14610,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ip -6 addr add 2001:db8:dc:4::10/64 dev eth1",
     "desc": "Temporarily assign an IPv6 /64 address to eth1 (for direct laptop/BMC recovery connection)",
     "tip": "",
-    "tags": "ip ipv6 iproute2 interface mac mtu counters vlan"
+    "tags": "ip ipv6 iproute2 interface mac mtu counters vlan",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-link.8.html",
+          "title": "ip-link(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-address.8.html",
+          "title": "ip-address(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-route.8.html",
+          "title": "ip-route(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-neighbour.8.html",
+          "title": "ip-neighbour(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-netns.8.html",
+          "title": "ip-netns(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: ip -6 neigh flush needs a selector (dev <if>), not 'all'."
+    }
   },
   {
     "sName": "cli-tools",
@@ -10348,7 +14684,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ip -6 neigh flush dev eth0",
     "desc": "Flush stale IPv6 Neighbor Discovery (NDP) entries on eth0 after a switch/VIP failover (changes state)",
     "tip": "",
-    "tags": "ip ipv6 route ndp neighbor gateway netns"
+    "tags": "ip ipv6 route ndp neighbor gateway netns",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-link.8.html",
+          "title": "ip-link(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-address.8.html",
+          "title": "ip-address(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-route.8.html",
+          "title": "ip-route(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-neighbour.8.html",
+          "title": "ip-neighbour(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-netns.8.html",
+          "title": "ip-netns(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: ip -6 neigh flush needs a selector (dev <if>), not 'all'."
+    }
   },
   {
     "sName": "cli-tools",
@@ -10359,7 +14721,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ip netns list && ip netns exec <ns_name> ip -6 -c -br addr",
     "desc": "List network namespaces and execute an ip -6 command inside an isolated namespace",
     "tip": "",
-    "tags": "ip ipv6 route ndp neighbor gateway netns"
+    "tags": "ip ipv6 route ndp neighbor gateway netns",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-link.8.html",
+          "title": "ip-link(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-address.8.html",
+          "title": "ip-address(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-route.8.html",
+          "title": "ip-route(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-neighbour.8.html",
+          "title": "ip-neighbour(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-netns.8.html",
+          "title": "ip-netns(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: ip -6 neigh flush needs a selector (dev <if>), not 'all'."
+    }
   },
   {
     "sName": "cli-tools",
@@ -10391,7 +14779,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ss -6 -tanp state established '( dport = :443 or sport = :22 )'",
     "desc": "Filter established IPv6 TCP connections matching specific source or destination ports",
     "tip": "",
-    "tags": "ss ipv6 socket ports listen tcp retransmits rtt"
+    "tags": "ss ipv6 socket ports listen tcp retransmits rtt",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ss.8.html",
+          "title": "ss(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: ss(8) doesn't say -p needs root; the maybe-root badge covers other users' processes."
+    }
   },
   {
     "sName": "cli-tools",
@@ -10402,7 +14800,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ss -tan state time-wait | wc -l",
     "desc": "Count total sockets in TIME-WAIT state (check for ephemeral port exhaustion)",
     "tip": "",
-    "tags": "ss ipv6 socket ports listen tcp retransmits rtt"
+    "tags": "ss ipv6 socket ports listen tcp retransmits rtt",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ss.8.html",
+          "title": "ss(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: ss(8) doesn't say -p needs root; the maybe-root badge covers other users' processes."
+    }
   },
   {
     "sName": "cli-tools",
@@ -10413,7 +14821,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ss -6 -ti dst \"[2001:db8:dc:4::50]\"",
     "desc": "Inspect TCP RTT latency, congestion window (cwnd), and retransmit counts to a specific peer IPv6",
     "tip": "",
-    "tags": "ss ipv6 socket ports listen tcp retransmits rtt"
+    "tags": "ss ipv6 socket ports listen tcp retransmits rtt",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ss.8.html",
+          "title": "ss(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: ss(8) doesn't say -p needs root; the maybe-root badge covers other users' processes."
+    }
   },
   {
     "sName": "cli-tools",
@@ -10448,7 +14866,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tcpdump -ni eth0 -nn -vv 'icmp6 and (ip6[40] == 133 or ip6[40] == 134 or ip6[40] == 135 or ip6[40] == 136)'",
     "desc": "Capture only ICMPv6 Router Solicitation/Advertisement (133/134) and Neighbor Solicitation/Advertisement (135/136)",
     "tip": "",
-    "tags": "tcpdump ipv6 icmp6 dhcpv6 ndp pcap vlan pxe lldp bpf"
+    "tags": "tcpdump ipv6 icmp6 dhcpv6 ndp pcap vlan pxe lldp bpf",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.tcpdump.org/manpages/tcpdump.1.html",
+          "title": "tcpdump(1)"
+        },
+        {
+          "url": "https://www.tcpdump.org/manpages/pcap-filter.7.html",
+          "title": "pcap-filter(7)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -10459,7 +14890,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tcpdump -ni eth0 -nn -e 'vlan 100 and ip6'",
     "desc": "Capture only IPv6 packets tagged with IEEE 802.1Q VLAN ID 100 and display L2 headers (-e)",
     "tip": "",
-    "tags": "tcpdump ipv6 icmp6 dhcpv6 ndp pcap vlan pxe lldp bpf"
+    "tags": "tcpdump ipv6 icmp6 dhcpv6 ndp pcap vlan pxe lldp bpf",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.tcpdump.org/manpages/tcpdump.1.html",
+          "title": "tcpdump(1)"
+        },
+        {
+          "url": "https://www.tcpdump.org/manpages/pcap-filter.7.html",
+          "title": "pcap-filter(7)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -10470,7 +14914,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tcpdump -ni eth0 -nn -s 1500 -vv -c 1 'ether proto 0x88cc'",
     "desc": "Capture a single LLDP frame (ethertype 0x88cc) to see the upstream switch name and port ID",
     "tip": "",
-    "tags": "tcpdump ipv6 icmp6 dhcpv6 ndp pcap vlan pxe lldp bpf"
+    "tags": "tcpdump ipv6 icmp6 dhcpv6 ndp pcap vlan pxe lldp bpf",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.tcpdump.org/manpages/tcpdump.1.html",
+          "title": "tcpdump(1)"
+        },
+        {
+          "url": "https://www.tcpdump.org/manpages/pcap-filter.7.html",
+          "title": "pcap-filter(7)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -10501,7 +14958,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dmesg -T -w",
     "desc": "Follow live kernel events in real time while hot-plugging drives, optics, or USB serial cables",
     "tip": "",
-    "tags": "dmesg kernel hardware oom mce aer hotplug"
+    "tags": "dmesg kernel hardware oom mce aer hotplug",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/dmesg.1.html",
+          "title": "dmesg(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cli-tools",
@@ -10512,7 +14978,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dmesg -T | grep -iE 'oom|killed process|out of memory|mce|edac|aer|nvme|reset|link down'",
     "desc": "Scan kernel ring buffer for the top data center hardware and memory fault signatures",
     "tip": "",
-    "tags": "dmesg kernel hardware oom mce aer hotplug"
+    "tags": "dmesg kernel hardware oom mce aer hotplug",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/dmesg.1.html",
+          "title": "dmesg(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "cloud-init",
@@ -10603,7 +15078,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "which cloud-init && cloud-init --version 2>&1 | head -n 1",
     "desc": "Verify binary path and installed version in current environment",
     "tip": "",
-    "tags": "cloud-init maas provisioning subiquity ubuntu tips safety help"
+    "tags": "cloud-init maas provisioning subiquity ubuntu tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.cloud-init.io/en/latest/reference/cli.html",
+          "title": "cloud-init CLI reference"
+        }
+      ]
+    }
   },
   {
     "sName": "column",
@@ -10674,7 +15158,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "which column && column --version 2>&1 | head -n 1",
     "desc": "Verify binary path and installed version in current environment",
     "tip": "",
-    "tags": "column table align format mount fstab tips safety help"
+    "tags": "column table align format mount fstab tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/column.1.html",
+          "title": "column(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "comm",
@@ -10781,7 +15274,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "which comm && comm --version 2>&1 | head -n 1",
     "desc": "Verify binary path and installed version in current environment",
     "tip": "",
-    "tags": "comm compare diff set inventory tips safety help"
+    "tags": "comm compare diff set inventory tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/comm.1.html",
+          "title": "comm(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -14911,7 +19417,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "which curl && curl --version 2>&1 | head -n 1",
     "desc": "Verify binary path and installed version in current environment",
     "tip": "",
-    "tags": "curl ipv6 globoff fe80 resume resolve download iso firmware ttfb tips safety help"
+    "tags": "curl ipv6 globoff fe80 resume resolve download iso firmware ttfb tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://curl.se/docs/manpage.html",
+          "title": "curl manual"
+        }
+      ]
+    }
   },
   {
     "sName": "cursor",
@@ -15183,7 +19698,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "which cut && cut --version 2>&1 | head -n 1",
     "desc": "Verify binary path and installed version in current environment",
     "tip": "",
-    "tags": "cut fields columns delimiter slice tips safety help"
+    "tags": "cut fields columns delimiter slice tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/cut.1.html",
+          "title": "cut(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "dd",
@@ -15294,7 +19818,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "which dd && dd --version 2>&1 | head -n 1",
     "desc": "Verify binary path and installed version in current environment",
     "tip": "",
-    "tags": "dd benchmark clone direct-io sparse usr1 tips safety help"
+    "tags": "dd benchmark clone direct-io sparse usr1 tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/dd.1.html",
+          "title": "dd(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "dmesg",
@@ -15385,7 +19918,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "which dmesg && dmesg --version 2>&1 | head -n 1",
     "desc": "Verify binary path and installed version in current environment",
     "tip": "",
-    "tags": "dmesg kernel hardware oom mce aer hotplug tips safety help"
+    "tags": "dmesg kernel hardware oom mce aer hotplug tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/dmesg.1.html",
+          "title": "dmesg(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "dmi-hw",
@@ -15417,7 +19959,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dmidecode -s system-serial-number",
     "desc": "Print only the server chassis/system serial number",
     "tip": "",
-    "tags": "dmidecode serial bios motherboard fru asset datacenter"
+    "tags": "dmidecode serial bios motherboard fru asset datacenter",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+          "title": "dmidecode(8)"
+        }
+      ],
+      "note": "dmidecode reads the SMBIOS table from sysfs first and falls back to /dev/mem."
+    }
   },
   {
     "sName": "dmi-hw",
@@ -15428,7 +19980,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dmidecode -s system-product-name",
     "desc": "Print only the server model (e.g. PowerEdge, ProLiant, Supermicro)",
     "tip": "",
-    "tags": "dmidecode serial bios motherboard fru asset datacenter"
+    "tags": "dmidecode serial bios motherboard fru asset datacenter",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+          "title": "dmidecode(8)"
+        }
+      ],
+      "note": "dmidecode reads the SMBIOS table from sysfs first and falls back to /dev/mem."
+    }
   },
   {
     "sName": "dmi-hw",
@@ -15439,7 +20001,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dmidecode -s bios-version && dmidecode -s bios-release-date",
     "desc": "Print only the active BIOS version and release date",
     "tip": "",
-    "tags": "dmidecode serial bios motherboard fru asset datacenter"
+    "tags": "dmidecode serial bios motherboard fru asset datacenter",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+          "title": "dmidecode(8)"
+        }
+      ],
+      "note": "dmidecode reads the SMBIOS table from sysfs first and falls back to /dev/mem."
+    }
   },
   {
     "sName": "dmi-hw",
@@ -15450,7 +20022,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dmidecode -t slot",
     "desc": "DMI Type 9: List all physical PCIe riser slots and whether each slot is In Use or Available",
     "tip": "",
-    "tags": "dmidecode serial bios motherboard fru asset datacenter"
+    "tags": "dmidecode serial bios motherboard fru asset datacenter",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+          "title": "dmidecode(8)"
+        }
+      ],
+      "note": "dmidecode reads the SMBIOS table from sysfs first and falls back to /dev/mem."
+    }
   },
   {
     "sName": "dmi-hw",
@@ -15486,7 +20068,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dmidecode -t 16",
     "desc": "Show maximum supported memory capacity, error correction type (Multi-bit ECC), and total slot count",
     "tip": "",
-    "tags": "dimm ram memory ddr5 ddr4 slot part-number dmidecode"
+    "tags": "dimm ram memory ddr5 ddr4 slot part-number dmidecode",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+          "title": "dmidecode(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/lshw/lshw.1.en.html",
+          "title": "lshw(1)"
+        }
+      ],
+      "note": "Slot labels (Locator) come from the vendor's SMBIOS table and vary by board."
+    }
   },
   {
     "sName": "dmi-hw",
@@ -15497,7 +20093,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dmidecode -t 17 | awk '/Memory Device/,/^$/' | grep -E 'Locator:|Size:'",
     "desc": "Compact list of every motherboard DIMM slot and whether it is populated or 'No Module Installed'",
     "tip": "",
-    "tags": "dimm ram memory ddr5 ddr4 slot part-number dmidecode"
+    "tags": "dimm ram memory ddr5 ddr4 slot part-number dmidecode",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+          "title": "dmidecode(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/lshw/lshw.1.en.html",
+          "title": "lshw(1)"
+        }
+      ],
+      "note": "Slot labels (Locator) come from the vendor's SMBIOS table and vary by board."
+    }
   },
   {
     "sName": "dmi-hw",
@@ -15508,7 +20118,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lshw -short -C memory",
     "desc": "Concise summary of system RAM banks and populated DIMM sizes",
     "tip": "",
-    "tags": "dimm ram memory ddr5 ddr4 slot part-number dmidecode"
+    "tags": "dimm ram memory ddr5 ddr4 slot part-number dmidecode",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+          "title": "dmidecode(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/lshw/lshw.1.en.html",
+          "title": "lshw(1)"
+        }
+      ],
+      "note": "Slot labels (Locator) come from the vendor's SMBIOS table and vary by board."
+    }
   },
   {
     "sName": "dmi-hw",
@@ -15544,7 +20168,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dmidecode -s processor-version",
     "desc": "Print exact CPU model strings for all populated sockets",
     "tip": "",
-    "tags": "psu power-supply cpu socket dmidecode datacenter"
+    "tags": "psu power-supply cpu socket dmidecode datacenter",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+          "title": "dmidecode(8)"
+        },
+        {
+          "url": "https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-class-dmi",
+          "title": "Kernel ABI: sysfs-class-dmi"
+        }
+      ],
+      "note": "Many servers leave DMI Type 39 empty: check PSUs in the BMC (ipmitool sdr type 'Power Supply') if it prints nothing. product_serial in /sys/class/dmi/id is usually root-only."
+    }
   },
   {
     "sName": "dmi-hw",
@@ -15555,7 +20193,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "cat /sys/class/dmi/id/product_name /sys/class/dmi/id/product_serial",
     "desc": "Read product name and serial without root if permissions allow (/sys/class/dmi/id/)",
     "tip": "",
-    "tags": "psu power-supply cpu socket dmidecode datacenter"
+    "tags": "psu power-supply cpu socket dmidecode datacenter",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/dmidecode/dmidecode.8.en.html",
+          "title": "dmidecode(8)"
+        },
+        {
+          "url": "https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-class-dmi",
+          "title": "Kernel ABI: sysfs-class-dmi"
+        }
+      ],
+      "note": "Many servers leave DMI Type 39 empty: check PSUs in the BMC (ipmitool sdr type 'Power Supply') if it prints nothing. product_serial in /sys/class/dmi/id is usually root-only."
+    }
   },
   {
     "sName": "dmi-hw",
@@ -15591,7 +20243,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lshw -C network -businfo",
     "desc": "List all NIC ports with PCIe bus address, logical interface name, MAC, and link state",
     "tip": "",
-    "tags": "lshw inventory businfo unclaimed driver manifest"
+    "tags": "lshw inventory businfo unclaimed driver manifest",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/lshw/lshw.1.en.html",
+          "title": "lshw(1)"
+        },
+        {
+          "url": "https://github.com/lyonel/lshw/blob/master/src/core/print.cc",
+          "title": "lshw source: print.cc (UNCLAIMED)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: lshw -short -businfo → lshw -businfo (they are two output formats; the man page doesn't say what both together do)."
+    }
   },
   {
     "sName": "dmi-hw",
@@ -15602,7 +20268,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lshw -C storage -C disk",
     "desc": "List all storage controllers (RAID/HBA/NVMe) and attached physical disks",
     "tip": "",
-    "tags": "lshw inventory businfo unclaimed driver manifest"
+    "tags": "lshw inventory businfo unclaimed driver manifest",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/lshw/lshw.1.en.html",
+          "title": "lshw(1)"
+        },
+        {
+          "url": "https://github.com/lyonel/lshw/blob/master/src/core/print.cc",
+          "title": "lshw source: print.cc (UNCLAIMED)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: lshw -short -businfo → lshw -businfo (they are two output formats; the man page doesn't say what both together do)."
+    }
   },
   {
     "sName": "dmi-hw",
@@ -15613,7 +20293,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lshw -json > /tmp/server-hw-manifest.json",
     "desc": "Export full machine-readable hardware manifest for DCIM asset ingestion",
     "tip": "",
-    "tags": "lshw inventory businfo unclaimed driver manifest"
+    "tags": "lshw inventory businfo unclaimed driver manifest",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/lshw/lshw.1.en.html",
+          "title": "lshw(1)"
+        },
+        {
+          "url": "https://github.com/lyonel/lshw/blob/master/src/core/print.cc",
+          "title": "lshw source: print.cc (UNCLAIMED)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: lshw -short -businfo → lshw -businfo (they are two output formats; the man page doesn't say what both together do)."
+    }
   },
   {
     "sName": "docker-compose",
@@ -17693,7 +22387,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "edac-util --status",
     "desc": "Check whether the kernel EDAC driver is loaded and monitoring memory controllers",
     "tip": "",
-    "tags": "ecc edac dimm memory-error ce ue ram"
+    "tags": "ecc edac dimm memory-error ce ue ram",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/edac-utils/edac-util.1.en.html",
+          "title": "edac-util(1)"
+        },
+        {
+          "url": "https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-devices-edac",
+          "title": "Kernel ABI: sysfs-devices-edac"
+        }
+      ],
+      "note": "The dimm*/dimm_label, dimm_location, dimm_ce_count and dimm_ue_count files are in the kernel ABI; the older csrow*/ch*_ce_count files are not documented there and exist only on some drivers."
+    }
   },
   {
     "sName": "ecc-edac",
@@ -17704,7 +22412,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "head -n 20 /sys/devices/system/edac/mc/mc*/dimm*/{dimm_label,dimm_location,dimm_ce_count,dimm_ue_count}",
     "desc": "Directly read per-DIMM labels and ECC error counts from sysfs (zero dependencies)",
     "tip": "",
-    "tags": "ecc edac dimm memory-error ce ue ram"
+    "tags": "ecc edac dimm memory-error ce ue ram",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/edac-utils/edac-util.1.en.html",
+          "title": "edac-util(1)"
+        },
+        {
+          "url": "https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-devices-edac",
+          "title": "Kernel ABI: sysfs-devices-edac"
+        }
+      ],
+      "note": "The dimm*/dimm_label, dimm_location, dimm_ce_count and dimm_ue_count files are in the kernel ABI; the older csrow*/ch*_ce_count files are not documented there and exist only on some drivers."
+    }
   },
   {
     "sName": "ecc-edac",
@@ -17740,7 +22462,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ras-mc-ctl --mainboard",
     "desc": "Display mainboard vendor and model recognized by rasdaemon DIMM label database",
     "tip": "",
-    "tags": "rasdaemon ras-mc-ctl mce mcelog apei ghes hardware-error"
+    "tags": "rasdaemon ras-mc-ctl mce mcelog apei ghes hardware-error",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/rasdaemon/ras-mc-ctl.8.en.html",
+          "title": "ras-mc-ctl(8)"
+        },
+        {
+          "url": "https://github.com/mchehab/rasdaemon",
+          "title": "rasdaemon README"
+        }
+      ],
+      "note": "Corrected 2026-11-09: removed the claims that rasdaemon 'replaces' mcelog and that the database is /var/lib/rasdaemon/ras-mc_event.db; neither is in its docs."
+    }
   },
   {
     "sName": "ecc-edac",
@@ -17751,7 +22487,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "journalctl -u rasdaemon.service --no-pager -n 50",
     "desc": "Inspect recent hardware error alerts logged by the rasdaemon systemd unit",
     "tip": "",
-    "tags": "rasdaemon ras-mc-ctl mce mcelog apei ghes hardware-error"
+    "tags": "rasdaemon ras-mc-ctl mce mcelog apei ghes hardware-error",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/rasdaemon/ras-mc-ctl.8.en.html",
+          "title": "ras-mc-ctl(8)"
+        },
+        {
+          "url": "https://github.com/mchehab/rasdaemon",
+          "title": "rasdaemon README"
+        }
+      ],
+      "note": "Corrected 2026-11-09: removed the claims that rasdaemon 'replaces' mcelog and that the database is /var/lib/rasdaemon/ras-mc_event.db; neither is in its docs."
+    }
   },
   {
     "sName": "ecc-edac",
@@ -17762,7 +22512,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dmesg -T | grep -iE 'mce|edac|hardware error|aer|ghES|apei'",
     "desc": "Search kernel ring buffer for ACPI APEI/GHES firmware-first hardware errors",
     "tip": "",
-    "tags": "rasdaemon ras-mc-ctl mce mcelog apei ghes hardware-error"
+    "tags": "rasdaemon ras-mc-ctl mce mcelog apei ghes hardware-error",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/rasdaemon/ras-mc-ctl.8.en.html",
+          "title": "ras-mc-ctl(8)"
+        },
+        {
+          "url": "https://github.com/mchehab/rasdaemon",
+          "title": "rasdaemon README"
+        }
+      ],
+      "note": "Corrected 2026-11-09: removed the claims that rasdaemon 'replaces' mcelog and that the database is /var/lib/rasdaemon/ras-mc_event.db; neither is in its docs."
+    }
   },
   {
     "sName": "ecc-edac",
@@ -17802,7 +22566,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "watch -n 1 sensors",
     "desc": "Live 1-second refresh of all CPU and board temperature sensors",
     "tip": "",
-    "tags": "sensors temperature thermal overheating throttling fan hwmon"
+    "tags": "sensors temperature thermal overheating throttling fan hwmon",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/lm-sensors/sensors.1.en.html",
+          "title": "sensors(1)"
+        },
+        {
+          "url": "https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-class-thermal",
+          "title": "Kernel ABI: sysfs-class-thermal"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/linux-cpupower/turbostat.8.en.html",
+          "title": "turbostat(8)"
+        }
+      ],
+      "note": "The thermal_throttle/*_count files are Intel-only and not in the kernel ABI docs; turbostat(8) points to them for throttle events since boot."
+    }
   },
   {
     "sName": "ecc-edac",
@@ -17813,7 +22595,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep -H . /sys/devices/system/cpu/cpu0/thermal_throttle/*_count",
     "desc": "Check if CPU0 has experienced core or package thermal throttling events since boot",
     "tip": "",
-    "tags": "sensors temperature thermal overheating throttling fan hwmon"
+    "tags": "sensors temperature thermal overheating throttling fan hwmon",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/lm-sensors/sensors.1.en.html",
+          "title": "sensors(1)"
+        },
+        {
+          "url": "https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-class-thermal",
+          "title": "Kernel ABI: sysfs-class-thermal"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/linux-cpupower/turbostat.8.en.html",
+          "title": "turbostat(8)"
+        }
+      ],
+      "note": "The thermal_throttle/*_count files are Intel-only and not in the kernel ABI docs; turbostat(8) points to them for throttle events since boot."
+    }
   },
   {
     "sName": "ecc-edac",
@@ -19115,7 +23915,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "which efibootmgr && efibootmgr --version 2>&1 | head -n 1",
     "desc": "Verify binary path and installed version in current environment",
     "tip": "",
-    "tags": "efibootmgr uefi bios pxe bootorder nextboot mokutil tips safety help"
+    "tags": "efibootmgr uefi bios pxe bootorder nextboot mokutil tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/efibootmgr/efibootmgr.8.en.html",
+          "title": "efibootmgr(8), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/mokutil/mokutil.1.en.html",
+          "title": "mokutil(1), Debian"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the loader path takes single backslashes ('\\\\EFI\\\\ubuntu\\\\shimx64.efi')."
+    }
   },
   {
     "sName": "eth-bonding-vlans",
@@ -20672,7 +25486,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "which file && file --version 2>&1 | head -n 1",
     "desc": "Verify binary path and installed version in current environment",
     "tip": "",
-    "tags": "file magic elf partition filesystem coredump tips safety help"
+    "tags": "file magic elf partition filesystem coredump tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/file/file.1.en.html",
+          "title": "file(1), Debian"
+        }
+      ],
+      "note": "Corrected 2026-11-09: file(1) doesn't document showing the signal for a core dump."
+    }
   },
   {
     "sName": "files",
@@ -20703,7 +25527,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ls -lahtr",
     "desc": "Sort by modification time in reverse so the newest modified files appear at the bottom",
     "tip": "",
-    "tags": "list directory hidden size recent modified"
+    "tags": "list directory hidden size recent modified",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ls.1.html",
+          "title": "ls(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "files",
@@ -20714,7 +25547,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ls -laSrh",
     "desc": "Sort by file size with the largest files at the bottom of the terminal",
     "tip": "",
-    "tags": "list directory hidden size recent modified"
+    "tags": "list directory hidden size recent modified",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ls.1.html",
+          "title": "ls(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "files",
@@ -20725,7 +25567,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ls -li",
     "desc": "Include filesystem inode numbers in the first column",
     "tip": "",
-    "tags": "list directory hidden size recent modified"
+    "tags": "list directory hidden size recent modified",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ls.1.html",
+          "title": "ls(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "files",
@@ -20756,7 +25607,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "find / -xdev -type f -size +500M -printf '%s\\t%p\\n' 2>/dev/null | sort -nr | head -n 20",
     "desc": "Find top 20 largest files on the root filesystem with exact byte sizes",
     "tip": "",
-    "tags": "search find recent logs large big cleanup space"
+    "tags": "search find recent logs large big cleanup space",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/find.1.html",
+          "title": "find(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "files",
@@ -20767,7 +25627,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "find /var/log/app -type f -name '*.log.gz' -mtime +30 -delete",
     "desc": "Delete rotated compressed logs older than 30 days",
     "tip": "",
-    "tags": "search find recent logs large big cleanup space"
+    "tags": "search find recent logs large big cleanup space",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/find.1.html",
+          "title": "find(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "files",
@@ -20823,7 +25692,41 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ln -s /srv/releases/v2 /srv/current.tmp && mv -T /srv/current.tmp /srv/current",
     "desc": "Atomic switch: make the new link under a temporary name, then rename it over the old one",
     "tip": "",
-    "tags": "mkdir cp symlink ln stat readlink atomic"
+    "tags": "mkdir cp symlink ln stat readlink atomic",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/mkdir.1.html",
+          "title": "mkdir(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/cp.1.html",
+          "title": "cp(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ln.1.html",
+          "title": "ln(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man2/rename.2.html",
+          "title": "rename(2)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/readlink.1.html",
+          "title": "readlink(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/stat.1.html",
+          "title": "stat(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/mv.1.html",
+          "title": "mv(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: ln -sfn is not a single atomic rename (ln removes the old link, then creates the new one); the atomic switch is ln -s to a temporary name, then mv -T over the old link."
+    }
   },
   {
     "sName": "files",
@@ -20834,7 +25737,41 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "readlink -f /srv/current",
     "desc": "Resolve all symlinks in a path and print the canonical physical path",
     "tip": "",
-    "tags": "mkdir cp symlink ln stat readlink atomic"
+    "tags": "mkdir cp symlink ln stat readlink atomic",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/mkdir.1.html",
+          "title": "mkdir(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/cp.1.html",
+          "title": "cp(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ln.1.html",
+          "title": "ln(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man2/rename.2.html",
+          "title": "rename(2)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/readlink.1.html",
+          "title": "readlink(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/stat.1.html",
+          "title": "stat(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/mv.1.html",
+          "title": "mv(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: ln -sfn is not a single atomic rename (ln removes the old link, then creates the new one); the atomic switch is ln -s to a temporary name, then mv -T over the old link."
+    }
   },
   {
     "sName": "files",
@@ -20845,7 +25782,41 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "stat /etc/fstab",
     "desc": "Display full inode metadata: octal access mode, UID/GID, device ID, links, and Access/Modify/Change/Birth times",
     "tip": "",
-    "tags": "mkdir cp symlink ln stat readlink atomic"
+    "tags": "mkdir cp symlink ln stat readlink atomic",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/mkdir.1.html",
+          "title": "mkdir(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/cp.1.html",
+          "title": "cp(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ln.1.html",
+          "title": "ln(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man2/rename.2.html",
+          "title": "rename(2)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/readlink.1.html",
+          "title": "readlink(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/stat.1.html",
+          "title": "stat(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/mv.1.html",
+          "title": "mv(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: ln -sfn is not a single atomic rename (ln removes the old link, then creates the new one); the atomic switch is ln -s to a temporary name, then mv -T over the old link."
+    }
   },
   {
     "sName": "files",
@@ -20876,7 +25847,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "rsync -avhPn --delete src/ dest/",
     "desc": "Dry-run (-n) mirror with --delete to preview exactly what would be added or deleted",
     "tip": "",
-    "tags": "sync backup remote transfer rsync mirror"
+    "tags": "sync backup remote transfer rsync mirror",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://download.samba.org/pub/rsync/rsync.1",
+          "title": "rsync(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "files",
@@ -20887,7 +25867,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "rsync -avhP --bwlimit=50M /var/lib/data/ backup-node:/srv/data/",
     "desc": "Throttle transfer bandwidth to 50 MB/s so production NIC traffic is not saturated",
     "tip": "",
-    "tags": "sync backup remote transfer rsync mirror"
+    "tags": "sync backup remote transfer rsync mirror",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://download.samba.org/pub/rsync/rsync.1",
+          "title": "rsync(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "find",
@@ -20918,7 +25907,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "find /var/log -type f -empty -delete",
     "desc": "Find and delete all 0-byte empty regular files inside /var/log",
     "tip": "",
-    "tags": "find size mtime mmin xdev prune empty"
+    "tags": "find size mtime mmin xdev prune empty",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/find.1.html",
+          "title": "find(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "find",
@@ -20929,7 +25927,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "find / -xdev \\( -path /var/lib/docker -o -path /snap \\) -prune -o -type f -size +500M -print",
     "desc": "Prune (-prune) container/snap trees while searching for files > 500 MiB",
     "tip": "",
-    "tags": "find size mtime mmin xdev prune empty"
+    "tags": "find size mtime mmin xdev prune empty",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/find.1.html",
+          "title": "find(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "find",
@@ -20960,7 +25967,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "find / -xdev -type f \\( -perm -4000 -o -perm -2000 \\) -ls 2>/dev/null",
     "desc": "Audit all SUID and SGID executables on the root filesystem",
     "tip": "",
-    "tags": "find permissions suid symlinks broken inode nouser"
+    "tags": "find permissions suid symlinks broken inode nouser",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/find.1.html",
+          "title": "find(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "find",
@@ -20971,7 +25987,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "find /home /srv \\( -nouser -o -nogroup \\) -exec chown root:root {} +",
     "desc": "Find files owned by deleted user/group IDs and reassign ownership",
     "tip": "",
-    "tags": "find permissions suid symlinks broken inode nouser"
+    "tags": "find permissions suid symlinks broken inode nouser",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/find.1.html",
+          "title": "find(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "fo-cleaning-testing",
@@ -21917,7 +26942,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "which fuser && fuser --version 2>&1 | head -n 1",
     "desc": "Verify binary path and installed version in current environment",
     "tip": "",
-    "tags": "fuser umount busy lock dpkg mount tips safety help"
+    "tags": "fuser umount busy lock dpkg mount tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/fuser.1.html",
+          "title": "fuser(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -21948,7 +26982,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git config --list --show-origin",
     "desc": "Show every setting and the file it came from",
     "tip": "",
-    "tags": "git config setup identity gitconfig defaults"
+    "tags": "git config setup identity gitconfig defaults",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-config",
+          "title": "git config"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -21959,7 +27002,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git config --global core.editor nvim",
     "desc": "Set the editor used for commit messages",
     "tip": "",
-    "tags": "git config setup identity gitconfig defaults"
+    "tags": "git config setup identity gitconfig defaults",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-config",
+          "title": "git config"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -21970,7 +27022,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git config --global --unset pull.rebase",
     "desc": "Remove a setting",
     "tip": "",
-    "tags": "git config setup identity gitconfig defaults"
+    "tags": "git config setup identity gitconfig defaults",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-config",
+          "title": "git config"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -21981,7 +27042,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git config --global --edit",
     "desc": "Open your global config in the editor",
     "tip": "",
-    "tags": "git config setup identity gitconfig defaults"
+    "tags": "git config setup identity gitconfig defaults",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-config",
+          "title": "git config"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22016,7 +27086,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git config --get-regexp '^alias\\.'",
     "desc": "List your aliases",
     "tip": "",
-    "tags": "git alias config shortcuts"
+    "tags": "git alias config shortcuts",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-config",
+          "title": "git config"
+        },
+        {
+          "url": "https://git-scm.com/book/en/v2/Git-Basics-Git-Aliases",
+          "title": "Pro Git: aliases"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22027,7 +27110,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git config --global alias.root \"rev-parse --show-toplevel\"",
     "desc": "git root prints the top folder of the repository",
     "tip": "",
-    "tags": "git alias config shortcuts"
+    "tags": "git alias config shortcuts",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-config",
+          "title": "git config"
+        },
+        {
+          "url": "https://git-scm.com/book/en/v2/Git-Basics-Git-Aliases",
+          "title": "Pro Git: aliases"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22066,7 +27162,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git clone --depth 1 --branch v1.2.0 https://github.com/org/repo.git",
     "desc": "Fetch one tagged release quickly",
     "tip": "",
-    "tags": "git init clone shallow partial depth"
+    "tags": "git init clone shallow partial depth",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-init",
+          "title": "git init"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-clone",
+          "title": "git clone"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-fetch",
+          "title": "git fetch"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22077,7 +27190,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git clone --filter=blob:none https://github.com/org/repo.git",
     "desc": "Clone a large repository with history but less data",
     "tip": "",
-    "tags": "git init clone shallow partial depth"
+    "tags": "git init clone shallow partial depth",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-init",
+          "title": "git init"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-clone",
+          "title": "git clone"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-fetch",
+          "title": "git fetch"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22088,7 +27218,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git fetch --unshallow",
     "desc": "Turn a shallow clone into a full one",
     "tip": "",
-    "tags": "git init clone shallow partial depth"
+    "tags": "git init clone shallow partial depth",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-init",
+          "title": "git init"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-clone",
+          "title": "git clone"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-fetch",
+          "title": "git fetch"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22131,7 +27278,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git check-ignore -v build/out.bin",
     "desc": "Show which rule ignores a file",
     "tip": "",
-    "tags": "git gitignore ignore untrack secrets"
+    "tags": "git gitignore ignore untrack secrets",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/gitignore",
+          "title": "gitignore"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-check-ignore",
+          "title": "git check-ignore"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-rm",
+          "title": "git rm"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-status",
+          "title": "git status"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22142,7 +27310,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git rm --cached .env",
     "desc": "Stop tracking a file but keep it on disk",
     "tip": "",
-    "tags": "git gitignore ignore untrack secrets"
+    "tags": "git gitignore ignore untrack secrets",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/gitignore",
+          "title": "gitignore"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-check-ignore",
+          "title": "git check-ignore"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-rm",
+          "title": "git rm"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-status",
+          "title": "git status"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22153,7 +27342,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git rm -r --cached build/",
     "desc": "Stop tracking a whole folder",
     "tip": "",
-    "tags": "git gitignore ignore untrack secrets"
+    "tags": "git gitignore ignore untrack secrets",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/gitignore",
+          "title": "gitignore"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-check-ignore",
+          "title": "git check-ignore"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-rm",
+          "title": "git rm"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-status",
+          "title": "git status"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22164,7 +27374,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git status --ignored",
     "desc": "List ignored files too",
     "tip": "",
-    "tags": "git gitignore ignore untrack secrets"
+    "tags": "git gitignore ignore untrack secrets",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/gitignore",
+          "title": "gitignore"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-check-ignore",
+          "title": "git check-ignore"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-rm",
+          "title": "git rm"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-status",
+          "title": "git status"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22215,7 +27446,36 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git commit --amend --no-edit",
     "desc": "Add staged changes to the last commit and keep its message",
     "tip": "",
-    "tags": "git status add commit amend stage push"
+    "tags": "git status add commit amend stage push",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-status",
+          "title": "git status"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-add",
+          "title": "git add"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-commit",
+          "title": "git commit"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-mv",
+          "title": "git mv"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-rm",
+          "title": "git rm"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-ls-files",
+          "title": "git ls-files"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22226,7 +27486,36 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git commit --amend -m \"Better message\"",
     "desc": "Replace the last commit's message",
     "tip": "",
-    "tags": "git status add commit amend stage push"
+    "tags": "git status add commit amend stage push",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-status",
+          "title": "git status"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-add",
+          "title": "git add"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-commit",
+          "title": "git commit"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-mv",
+          "title": "git mv"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-rm",
+          "title": "git rm"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-ls-files",
+          "title": "git ls-files"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22237,7 +27526,36 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git mv old.sh new.sh",
     "desc": "Rename a tracked file",
     "tip": "",
-    "tags": "git status add commit amend stage push"
+    "tags": "git status add commit amend stage push",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-status",
+          "title": "git status"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-add",
+          "title": "git add"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-commit",
+          "title": "git commit"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-mv",
+          "title": "git mv"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-rm",
+          "title": "git rm"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-ls-files",
+          "title": "git ls-files"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22248,7 +27566,36 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git rm old.sh",
     "desc": "Delete a tracked file and stage the deletion",
     "tip": "",
-    "tags": "git status add commit amend stage push"
+    "tags": "git status add commit amend stage push",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-status",
+          "title": "git status"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-add",
+          "title": "git add"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-commit",
+          "title": "git commit"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-mv",
+          "title": "git mv"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-rm",
+          "title": "git rm"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-ls-files",
+          "title": "git ls-files"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22259,7 +27606,36 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git ls-files",
     "desc": "List every tracked file",
     "tip": "",
-    "tags": "git status add commit amend stage push"
+    "tags": "git status add commit amend stage push",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-status",
+          "title": "git status"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-add",
+          "title": "git add"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-commit",
+          "title": "git commit"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-mv",
+          "title": "git mv"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-rm",
+          "title": "git rm"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-ls-files",
+          "title": "git ls-files"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22298,7 +27674,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git diff --stat main...HEAD",
     "desc": "See how much your branch changes",
     "tip": "",
-    "tags": "git diff compare staged changes"
+    "tags": "git diff compare staged changes",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-diff",
+          "title": "git diff"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-show",
+          "title": "git show"
+        },
+        {
+          "url": "https://git-scm.com/docs/gitrevisions",
+          "title": "gitrevisions"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22309,7 +27702,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git diff --name-only HEAD~3",
     "desc": "Files changed in the last 3 commits",
     "tip": "",
-    "tags": "git diff compare staged changes"
+    "tags": "git diff compare staged changes",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-diff",
+          "title": "git diff"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-show",
+          "title": "git show"
+        },
+        {
+          "url": "https://git-scm.com/docs/gitrevisions",
+          "title": "gitrevisions"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22320,7 +27730,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git diff HEAD~1 -- path/to/file",
     "desc": "Limit the diff to one file",
     "tip": "",
-    "tags": "git diff compare staged changes"
+    "tags": "git diff compare staged changes",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-diff",
+          "title": "git diff"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-show",
+          "title": "git show"
+        },
+        {
+          "url": "https://git-scm.com/docs/gitrevisions",
+          "title": "gitrevisions"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22331,7 +27758,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git show HEAD:path/to/file",
     "desc": "Print a file as it was in a commit",
     "tip": "",
-    "tags": "git diff compare staged changes"
+    "tags": "git diff compare staged changes",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-diff",
+          "title": "git diff"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-show",
+          "title": "git show"
+        },
+        {
+          "url": "https://git-scm.com/docs/gitrevisions",
+          "title": "gitrevisions"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22362,7 +27806,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git stash show -p stash@{0}",
     "desc": "See what a stash contains",
     "tip": "",
-    "tags": "git stash wip pop apply shelve"
+    "tags": "git stash wip pop apply shelve",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-stash",
+          "title": "git stash"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22373,7 +27826,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git stash apply stash@{1}",
     "desc": "Apply a specific stash",
     "tip": "",
-    "tags": "git stash wip pop apply shelve"
+    "tags": "git stash wip pop apply shelve",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-stash",
+          "title": "git stash"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22384,7 +27846,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git stash branch fix-timeout stash@{0}",
     "desc": "Turn a stash into a new branch",
     "tip": "",
-    "tags": "git stash wip pop apply shelve"
+    "tags": "git stash wip pop apply shelve",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-stash",
+          "title": "git stash"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22395,7 +27866,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git stash drop stash@{1}",
     "desc": "Delete one stash",
     "tip": "",
-    "tags": "git stash wip pop apply shelve"
+    "tags": "git stash wip pop apply shelve",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-stash",
+          "title": "git stash"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22406,7 +27886,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git stash clear",
     "desc": "Delete every stash",
     "tip": "",
-    "tags": "git stash wip pop apply shelve"
+    "tags": "git stash wip pop apply shelve",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-stash",
+          "title": "git stash"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22445,7 +27934,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git switch -c fix origin/fix",
     "desc": "Create a local branch from a remote branch",
     "tip": "",
-    "tags": "git branch switch checkout delete rename"
+    "tags": "git branch switch checkout delete rename",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-switch",
+          "title": "git switch"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-branch",
+          "title": "git branch"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-push",
+          "title": "git push"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22456,7 +27962,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git switch --detach v1.2.0",
     "desc": "Look at a tag without being on a branch",
     "tip": "",
-    "tags": "git branch switch checkout delete rename"
+    "tags": "git branch switch checkout delete rename",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-switch",
+          "title": "git switch"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-branch",
+          "title": "git branch"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-push",
+          "title": "git push"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22467,7 +27990,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git branch --merged main",
     "desc": "List branches already merged, which are safe to delete",
     "tip": "",
-    "tags": "git branch switch checkout delete rename"
+    "tags": "git branch switch checkout delete rename",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-switch",
+          "title": "git switch"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-branch",
+          "title": "git branch"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-push",
+          "title": "git push"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22478,7 +28018,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git branch --sort=-committerdate",
     "desc": "List branches by most recent work",
     "tip": "",
-    "tags": "git branch switch checkout delete rename"
+    "tags": "git branch switch checkout delete rename",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-switch",
+          "title": "git switch"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-branch",
+          "title": "git branch"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-push",
+          "title": "git push"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22489,7 +28046,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git push origin --delete feature/old",
     "desc": "Delete a branch on the remote",
     "tip": "",
-    "tags": "git branch switch checkout delete rename"
+    "tags": "git branch switch checkout delete rename",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-switch",
+          "title": "git switch"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-branch",
+          "title": "git branch"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-push",
+          "title": "git push"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22520,7 +28094,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git merge --squash feature/x && git commit -m \"Add feature x\"",
     "desc": "Merge a branch as a single commit",
     "tip": "",
-    "tags": "git merge fast-forward squash no-ff"
+    "tags": "git merge fast-forward squash no-ff",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-merge",
+          "title": "git merge"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22531,7 +28114,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git merge --abort",
     "desc": "Back out of a conflicted merge",
     "tip": "",
-    "tags": "git merge fast-forward squash no-ff"
+    "tags": "git merge fast-forward squash no-ff",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-merge",
+          "title": "git merge"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22542,7 +28134,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git log --merges --oneline",
     "desc": "List merge commits",
     "tip": "",
-    "tags": "git merge fast-forward squash no-ff"
+    "tags": "git merge fast-forward squash no-ff",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-merge",
+          "title": "git merge"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22581,7 +28182,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git rebase -i HEAD~5",
     "desc": "Clean up recent commits before opening a pull request",
     "tip": "",
-    "tags": "git rebase interactive squash fixup history"
+    "tags": "git rebase interactive squash fixup history",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-rebase",
+          "title": "git rebase"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-commit",
+          "title": "git commit"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-push",
+          "title": "git push"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22592,7 +28210,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git commit --fixup=abc1234",
     "desc": "Mark a commit as a correction to abc1234",
     "tip": "",
-    "tags": "git rebase interactive squash fixup history"
+    "tags": "git rebase interactive squash fixup history",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-rebase",
+          "title": "git rebase"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-commit",
+          "title": "git commit"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-push",
+          "title": "git push"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22603,7 +28238,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git rebase -i --autosquash origin/main",
     "desc": "Fold fixup commits into their targets",
     "tip": "",
-    "tags": "git rebase interactive squash fixup history"
+    "tags": "git rebase interactive squash fixup history",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-rebase",
+          "title": "git rebase"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-commit",
+          "title": "git commit"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-push",
+          "title": "git push"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22614,7 +28266,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git rebase --onto main old-base feature/x",
     "desc": "Move a branch to a new base",
     "tip": "",
-    "tags": "git rebase interactive squash fixup history"
+    "tags": "git rebase interactive squash fixup history",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-rebase",
+          "title": "git rebase"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-commit",
+          "title": "git commit"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-push",
+          "title": "git push"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22645,7 +28314,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git cherry-pick -x abc1234",
     "desc": "Backport a fix and record where it came from",
     "tip": "",
-    "tags": "git cherry-pick backport hotfix"
+    "tags": "git cherry-pick backport hotfix",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-cherry-pick",
+          "title": "git cherry-pick"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22656,7 +28334,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git cherry-pick abc1234^..def5678",
     "desc": "Pick a run of commits in order",
     "tip": "",
-    "tags": "git cherry-pick backport hotfix"
+    "tags": "git cherry-pick backport hotfix",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-cherry-pick",
+          "title": "git cherry-pick"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22699,7 +28386,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git diff --name-only --diff-filter=U",
     "desc": "List files that still have conflicts",
     "tip": "",
-    "tags": "git conflict merge rebase resolve ours theirs"
+    "tags": "git conflict merge rebase resolve ours theirs",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-merge",
+          "title": "git merge"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-checkout",
+          "title": "git checkout"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-config",
+          "title": "git config"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-rerere",
+          "title": "git rerere"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22710,7 +28418,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git checkout --ours path/to/file",
     "desc": "Take one side of a conflicted file",
     "tip": "",
-    "tags": "git conflict merge rebase resolve ours theirs"
+    "tags": "git conflict merge rebase resolve ours theirs",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-merge",
+          "title": "git merge"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-checkout",
+          "title": "git checkout"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-config",
+          "title": "git config"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-rerere",
+          "title": "git rerere"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22721,7 +28450,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git checkout --theirs path/to/file",
     "desc": "Take the other side of a conflicted file",
     "tip": "",
-    "tags": "git conflict merge rebase resolve ours theirs"
+    "tags": "git conflict merge rebase resolve ours theirs",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-merge",
+          "title": "git merge"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-checkout",
+          "title": "git checkout"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-config",
+          "title": "git config"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-rerere",
+          "title": "git rerere"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22732,7 +28482,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git config --global merge.conflictStyle zdiff3",
     "desc": "Also show the original text inside conflict markers",
     "tip": "",
-    "tags": "git conflict merge rebase resolve ours theirs"
+    "tags": "git conflict merge rebase resolve ours theirs",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-merge",
+          "title": "git merge"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-checkout",
+          "title": "git checkout"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-config",
+          "title": "git config"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-rerere",
+          "title": "git rerere"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22743,7 +28514,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git config --global rerere.enabled true",
     "desc": "Remember how you resolved a conflict and reuse it",
     "tip": "",
-    "tags": "git conflict merge rebase resolve ours theirs"
+    "tags": "git conflict merge rebase resolve ours theirs",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-merge",
+          "title": "git merge"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-checkout",
+          "title": "git checkout"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-config",
+          "title": "git config"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-rerere",
+          "title": "git rerere"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22778,7 +28570,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git remote show origin",
     "desc": "Check the default branch and what tracks what",
     "tip": "",
-    "tags": "git remote origin upstream url"
+    "tags": "git remote origin upstream url",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-remote",
+          "title": "git remote"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-ls-remote",
+          "title": "git ls-remote"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22789,7 +28594,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git remote prune origin",
     "desc": "Remove local references to deleted remote branches",
     "tip": "",
-    "tags": "git remote origin upstream url"
+    "tags": "git remote origin upstream url",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-remote",
+          "title": "git remote"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-ls-remote",
+          "title": "git ls-remote"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22800,7 +28618,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git ls-remote origin",
     "desc": "List remote branches and tags without fetching",
     "tip": "",
-    "tags": "git remote origin upstream url"
+    "tags": "git remote origin upstream url",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-remote",
+          "title": "git remote"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-ls-remote",
+          "title": "git ls-remote"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22843,7 +28674,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git log HEAD..@{u} --oneline",
     "desc": "Commits on the remote that you don't have yet",
     "tip": "",
-    "tags": "git fetch pull push upstream force-with-lease sync"
+    "tags": "git fetch pull push upstream force-with-lease sync",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-fetch",
+          "title": "git fetch"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-pull",
+          "title": "git pull"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-push",
+          "title": "git push"
+        },
+        {
+          "url": "https://git-scm.com/docs/gitrevisions",
+          "title": "gitrevisions"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22854,7 +28706,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git log @{u}..HEAD --oneline",
     "desc": "Local commits you haven't pushed",
     "tip": "",
-    "tags": "git fetch pull push upstream force-with-lease sync"
+    "tags": "git fetch pull push upstream force-with-lease sync",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-fetch",
+          "title": "git fetch"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-pull",
+          "title": "git pull"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-push",
+          "title": "git push"
+        },
+        {
+          "url": "https://git-scm.com/docs/gitrevisions",
+          "title": "gitrevisions"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22865,7 +28738,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git pull --ff-only",
     "desc": "Update a deployed copy, stopping if it has diverged",
     "tip": "",
-    "tags": "git fetch pull push upstream force-with-lease sync"
+    "tags": "git fetch pull push upstream force-with-lease sync",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-fetch",
+          "title": "git fetch"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-pull",
+          "title": "git pull"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-push",
+          "title": "git push"
+        },
+        {
+          "url": "https://git-scm.com/docs/gitrevisions",
+          "title": "gitrevisions"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22876,7 +28770,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git push --force-with-lease",
     "desc": "Publish a rebased branch safely",
     "tip": "",
-    "tags": "git fetch pull push upstream force-with-lease sync"
+    "tags": "git fetch pull push upstream force-with-lease sync",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-fetch",
+          "title": "git fetch"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-pull",
+          "title": "git pull"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-push",
+          "title": "git push"
+        },
+        {
+          "url": "https://git-scm.com/docs/gitrevisions",
+          "title": "gitrevisions"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22915,7 +28830,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git tag -a v1.1.9 abc1234 -m \"Tag an older commit\"",
     "desc": "Tag a past commit",
     "tip": "",
-    "tags": "git tag release version describe"
+    "tags": "git tag release version describe",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-tag",
+          "title": "git tag"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-push",
+          "title": "git push"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-describe",
+          "title": "git describe"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22926,7 +28858,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git push origin --tags",
     "desc": "Push every local tag",
     "tip": "",
-    "tags": "git tag release version describe"
+    "tags": "git tag release version describe",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-tag",
+          "title": "git tag"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-push",
+          "title": "git push"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-describe",
+          "title": "git describe"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22937,7 +28886,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git push origin --delete v1.2.0",
     "desc": "Delete a tag on the remote",
     "tip": "",
-    "tags": "git tag release version describe"
+    "tags": "git tag release version describe",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-tag",
+          "title": "git tag"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-push",
+          "title": "git push"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-describe",
+          "title": "git describe"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22948,7 +28914,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git log v1.1.0..v1.2.0 --oneline",
     "desc": "List commits between two releases",
     "tip": "",
-    "tags": "git tag release version describe"
+    "tags": "git tag release version describe",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-tag",
+          "title": "git tag"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-push",
+          "title": "git push"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-describe",
+          "title": "git describe"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -22959,7 +28942,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git describe --tags --always --dirty",
     "desc": "Name the current commit relative to the nearest tag",
     "tip": "",
-    "tags": "git tag release version describe"
+    "tags": "git tag release version describe",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-tag",
+          "title": "git tag"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-push",
+          "title": "git push"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-describe",
+          "title": "git describe"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23002,7 +29002,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git log --pretty=format:'%h %ad %an %s' --date=short",
     "desc": "Compact custom format",
     "tip": "",
-    "tags": "git log history graph shortlog show"
+    "tags": "git log history graph shortlog show",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-log",
+          "title": "git log"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-shortlog",
+          "title": "git shortlog"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-show",
+          "title": "git show"
+        },
+        {
+          "url": "https://git-scm.com/docs/gitrevisions",
+          "title": "gitrevisions"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23013,7 +29034,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git log main..feature/x --oneline",
     "desc": "Commits on the branch that aren't on main",
     "tip": "",
-    "tags": "git log history graph shortlog show"
+    "tags": "git log history graph shortlog show",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-log",
+          "title": "git log"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-shortlog",
+          "title": "git shortlog"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-show",
+          "title": "git show"
+        },
+        {
+          "url": "https://git-scm.com/docs/gitrevisions",
+          "title": "gitrevisions"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23024,7 +29066,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git log --follow -p -- path/to/file",
     "desc": "Every change made to one file",
     "tip": "",
-    "tags": "git log history graph shortlog show"
+    "tags": "git log history graph shortlog show",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-log",
+          "title": "git log"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-shortlog",
+          "title": "git shortlog"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-show",
+          "title": "git show"
+        },
+        {
+          "url": "https://git-scm.com/docs/gitrevisions",
+          "title": "gitrevisions"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23035,7 +29098,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git shortlog -sne",
     "desc": "Commit counts per author",
     "tip": "",
-    "tags": "git log history graph shortlog show"
+    "tags": "git log history graph shortlog show",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-log",
+          "title": "git log"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-shortlog",
+          "title": "git shortlog"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-show",
+          "title": "git show"
+        },
+        {
+          "url": "https://git-scm.com/docs/gitrevisions",
+          "title": "gitrevisions"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23046,7 +29130,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git show abc1234 --stat",
     "desc": "Show one commit and its files",
     "tip": "",
-    "tags": "git log history graph shortlog show"
+    "tags": "git log history graph shortlog show",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-log",
+          "title": "git log"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-shortlog",
+          "title": "git shortlog"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-show",
+          "title": "git show"
+        },
+        {
+          "url": "https://git-scm.com/docs/gitrevisions",
+          "title": "gitrevisions"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23085,7 +29190,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git blame -w -C path/to/file",
     "desc": "Skip formatting changes to find the real author",
     "tip": "",
-    "tags": "git blame grep pickaxe search annotate"
+    "tags": "git blame grep pickaxe search annotate",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-blame",
+          "title": "git blame"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-log",
+          "title": "git log"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-grep",
+          "title": "git grep"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23096,7 +29218,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git log -L 40,60:path/to/file",
     "desc": "History of a range of lines",
     "tip": "",
-    "tags": "git blame grep pickaxe search annotate"
+    "tags": "git blame grep pickaxe search annotate",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-blame",
+          "title": "git blame"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-log",
+          "title": "git log"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-grep",
+          "title": "git grep"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23107,7 +29246,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git grep -n 'pattern' v1.2.0",
     "desc": "Search the code as it was at a tag",
     "tip": "",
-    "tags": "git blame grep pickaxe search annotate"
+    "tags": "git blame grep pickaxe search annotate",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-blame",
+          "title": "git blame"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-log",
+          "title": "git log"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-grep",
+          "title": "git grep"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23118,7 +29274,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git log --all --oneline -- deleted/file.sh",
     "desc": "Find commits that touched a file that's now gone",
     "tip": "",
-    "tags": "git blame grep pickaxe search annotate"
+    "tags": "git blame grep pickaxe search annotate",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-blame",
+          "title": "git blame"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-log",
+          "title": "git log"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-grep",
+          "title": "git grep"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23149,7 +29322,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git bisect run ./test.sh",
     "desc": "Let a script find the bad commit",
     "tip": "",
-    "tags": "git bisect regression binary-search debug"
+    "tags": "git bisect regression binary-search debug",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-bisect",
+          "title": "git bisect"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23160,7 +29342,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git bisect log",
     "desc": "Show the steps so far",
     "tip": "",
-    "tags": "git bisect regression binary-search debug"
+    "tags": "git bisect regression binary-search debug",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-bisect",
+          "title": "git bisect"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23195,7 +29386,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git restore --source=HEAD~2 -- path/to/file",
     "desc": "Bring back an older version of a file",
     "tip": "",
-    "tags": "git restore unstage discard clean untracked"
+    "tags": "git restore unstage discard clean untracked",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-restore",
+          "title": "git restore"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-clean",
+          "title": "git clean"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23206,7 +29410,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git restore .",
     "desc": "Discard all unstaged edits under the current folder",
     "tip": "",
-    "tags": "git restore unstage discard clean untracked"
+    "tags": "git restore unstage discard clean untracked",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-restore",
+          "title": "git restore"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-clean",
+          "title": "git clean"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23217,7 +29434,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git clean -nd",
     "desc": "Preview which untracked files and folders would be deleted",
     "tip": "",
-    "tags": "git restore unstage discard clean untracked"
+    "tags": "git restore unstage discard clean untracked",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-restore",
+          "title": "git restore"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-clean",
+          "title": "git clean"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23228,7 +29458,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git clean -fd",
     "desc": "Delete untracked files and folders",
     "tip": "",
-    "tags": "git restore unstage discard clean untracked"
+    "tags": "git restore unstage discard clean untracked",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-restore",
+          "title": "git restore"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-clean",
+          "title": "git clean"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23239,7 +29482,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git clean -fdx",
     "desc": "Also delete ignored files, such as build output and .env",
     "tip": "",
-    "tags": "git restore unstage discard clean untracked"
+    "tags": "git restore unstage discard clean untracked",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-restore",
+          "title": "git restore"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-clean",
+          "title": "git clean"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23270,7 +29526,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git reset HEAD~1",
     "desc": "Undo the last commit and keep the edits unstaged",
     "tip": "",
-    "tags": "git reset soft mixed hard uncommit"
+    "tags": "git reset soft mixed hard uncommit",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-reset",
+          "title": "git reset"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23281,7 +29546,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git reset --hard origin/main",
     "desc": "Make your branch match the remote exactly, discarding local work",
     "tip": "",
-    "tags": "git reset soft mixed hard uncommit"
+    "tags": "git reset soft mixed hard uncommit",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-reset",
+          "title": "git reset"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23292,7 +29566,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git reset --hard ORIG_HEAD",
     "desc": "Undo a merge, rebase or reset you just did",
     "tip": "",
-    "tags": "git reset soft mixed hard uncommit"
+    "tags": "git reset soft mixed hard uncommit",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-reset",
+          "title": "git reset"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23323,7 +29606,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git revert --no-edit HEAD",
     "desc": "Back out the latest commit",
     "tip": "",
-    "tags": "git revert undo rollback shared"
+    "tags": "git revert undo rollback shared",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-revert",
+          "title": "git revert"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23334,7 +29626,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git revert -m 1 abc1234",
     "desc": "Back out a merged branch",
     "tip": "",
-    "tags": "git revert undo rollback shared"
+    "tags": "git revert undo rollback shared",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-revert",
+          "title": "git revert"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23345,7 +29646,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git revert --abort",
     "desc": "Cancel a conflicted revert",
     "tip": "",
-    "tags": "git revert undo rollback shared"
+    "tags": "git revert undo rollback shared",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-revert",
+          "title": "git revert"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23384,7 +29694,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git reset --hard HEAD@{1}",
     "desc": "Jump back to where you were before the last move",
     "tip": "",
-    "tags": "git reflog recover lost fsck rescue"
+    "tags": "git reflog recover lost fsck rescue",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-reflog",
+          "title": "git reflog"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-gc",
+          "title": "git gc"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-fsck",
+          "title": "git fsck"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23395,7 +29722,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git fsck --lost-found",
     "desc": "Find dangling commits and blobs",
     "tip": "",
-    "tags": "git reflog recover lost fsck rescue"
+    "tags": "git reflog recover lost fsck rescue",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-reflog",
+          "title": "git reflog"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-gc",
+          "title": "git gc"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-fsck",
+          "title": "git fsck"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23406,7 +29750,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git show abc1234",
     "desc": "Inspect a recovered commit before using it",
     "tip": "",
-    "tags": "git reflog recover lost fsck rescue"
+    "tags": "git reflog recover lost fsck rescue",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-reflog",
+          "title": "git reflog"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-gc",
+          "title": "git gc"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-fsck",
+          "title": "git fsck"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23437,7 +29798,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git worktree add ../repo-review origin/main",
     "desc": "Check out a remote branch in a separate folder, detached, to compare with",
     "tip": "",
-    "tags": "git worktree parallel checkout hotfix"
+    "tags": "git worktree parallel checkout hotfix",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-worktree",
+          "title": "git worktree"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23448,7 +29818,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git worktree prune",
     "desc": "Tidy up after deleting a folder by hand",
     "tip": "",
-    "tags": "git worktree parallel checkout hotfix"
+    "tags": "git worktree parallel checkout hotfix",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-worktree",
+          "title": "git worktree"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23483,7 +29862,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git clone --recurse-submodules https://github.com/org/repo.git",
     "desc": "Clone with submodules included",
     "tip": "",
-    "tags": "git submodule vendor nested recursive"
+    "tags": "git submodule vendor nested recursive",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-submodule",
+          "title": "git submodule"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-clone",
+          "title": "git clone"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23494,7 +29886,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git submodule foreach 'git status -sb'",
     "desc": "Run a command in every submodule",
     "tip": "",
-    "tags": "git submodule vendor nested recursive"
+    "tags": "git submodule vendor nested recursive",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-submodule",
+          "title": "git submodule"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-clone",
+          "title": "git clone"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23529,7 +29934,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git commit --no-verify",
     "desc": "Skip the pre-commit and commit-msg hooks once",
     "tip": "",
-    "tags": "git hooks pre-commit automation secrets"
+    "tags": "git hooks pre-commit automation secrets",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/githooks",
+          "title": "githooks"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-config",
+          "title": "git config"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23540,7 +29958,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ls .git/hooks",
     "desc": "See the sample hooks git installs",
     "tip": "",
-    "tags": "git hooks pre-commit automation secrets"
+    "tags": "git hooks pre-commit automation secrets",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/githooks",
+          "title": "githooks"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-config",
+          "title": "git config"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23579,7 +30010,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git lfs ls-files",
     "desc": "List files stored in LFS",
     "tip": "",
-    "tags": "git lfs large-files signing ssh gpg firmware"
+    "tags": "git lfs large-files signing ssh gpg firmware",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-lfs.com/",
+          "title": "Git LFS"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-config",
+          "title": "git config"
+        },
+        {
+          "url": "https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification",
+          "title": "GitHub: commit signature verification (SSH)"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23590,7 +30038,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git log --show-signature -1",
     "desc": "Check the signature on the last commit",
     "tip": "",
-    "tags": "git lfs large-files signing ssh gpg firmware"
+    "tags": "git lfs large-files signing ssh gpg firmware",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-lfs.com/",
+          "title": "Git LFS"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-config",
+          "title": "git config"
+        },
+        {
+          "url": "https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification",
+          "title": "GitHub: commit signature verification (SSH)"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23637,7 +30102,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git rev-parse --show-toplevel",
     "desc": "Print the top folder of the repository",
     "tip": "",
-    "tags": "git deployed version describe rev-parse fleet drift"
+    "tags": "git deployed version describe rev-parse fleet drift",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git",
+          "title": "git (-C, GIT_TRACE, GIT_SSH_COMMAND)"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-describe",
+          "title": "git describe"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-rev-parse",
+          "title": "git rev-parse"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-status",
+          "title": "git status"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-log",
+          "title": "git log"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23648,7 +30138,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git rev-parse --abbrev-ref HEAD",
     "desc": "Print the current branch name",
     "tip": "",
-    "tags": "git deployed version describe rev-parse fleet drift"
+    "tags": "git deployed version describe rev-parse fleet drift",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git",
+          "title": "git (-C, GIT_TRACE, GIT_SSH_COMMAND)"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-describe",
+          "title": "git describe"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-rev-parse",
+          "title": "git rev-parse"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-status",
+          "title": "git status"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-log",
+          "title": "git log"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23659,7 +30174,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "for h in node01 node02; do echo \"$h: $(ssh \"$h\" git -C /opt/tools rev-parse --short HEAD)\"; done",
     "desc": "Compare the deployed commit across nodes",
     "tip": "",
-    "tags": "git deployed version describe rev-parse fleet drift"
+    "tags": "git deployed version describe rev-parse fleet drift",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git",
+          "title": "git (-C, GIT_TRACE, GIT_SSH_COMMAND)"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-describe",
+          "title": "git describe"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-rev-parse",
+          "title": "git rev-parse"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-status",
+          "title": "git status"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-log",
+          "title": "git log"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23706,7 +30246,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git bundle create update.bundle main ^v1.2.0",
     "desc": "Bundle main's commits made since a tag",
     "tip": "",
-    "tags": "git bundle archive air-gapped offline patch format-patch"
+    "tags": "git bundle archive air-gapped offline patch format-patch",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-bundle",
+          "title": "git bundle"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-archive",
+          "title": "git archive"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-format-patch",
+          "title": "git format-patch"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-apply",
+          "title": "git apply"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-am",
+          "title": "git am"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23717,7 +30282,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git fetch /tmp/update.bundle main:refs/remotes/bundle/main",
     "desc": "Fetch from a bundle on the isolated host",
     "tip": "",
-    "tags": "git bundle archive air-gapped offline patch format-patch"
+    "tags": "git bundle archive air-gapped offline patch format-patch",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-bundle",
+          "title": "git bundle"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-archive",
+          "title": "git archive"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-format-patch",
+          "title": "git format-patch"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-apply",
+          "title": "git apply"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-am",
+          "title": "git am"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23728,7 +30318,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git archive --format=tar.gz --prefix=tools/ -o tools.tar.gz HEAD",
     "desc": "Export the files only",
     "tip": "",
-    "tags": "git bundle archive air-gapped offline patch format-patch"
+    "tags": "git bundle archive air-gapped offline patch format-patch",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-bundle",
+          "title": "git bundle"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-archive",
+          "title": "git archive"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-format-patch",
+          "title": "git format-patch"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-apply",
+          "title": "git apply"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-am",
+          "title": "git am"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23739,7 +30354,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git format-patch -3 -o patches/",
     "desc": "Save the last 3 commits as patches",
     "tip": "",
-    "tags": "git bundle archive air-gapped offline patch format-patch"
+    "tags": "git bundle archive air-gapped offline patch format-patch",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-bundle",
+          "title": "git bundle"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-archive",
+          "title": "git archive"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-format-patch",
+          "title": "git format-patch"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-apply",
+          "title": "git apply"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-am",
+          "title": "git am"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23750,7 +30390,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git apply --check patches/0001-fix.patch",
     "desc": "Test whether a patch applies, without changing anything",
     "tip": "",
-    "tags": "git bundle archive air-gapped offline patch format-patch"
+    "tags": "git bundle archive air-gapped offline patch format-patch",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-bundle",
+          "title": "git bundle"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-archive",
+          "title": "git archive"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-format-patch",
+          "title": "git format-patch"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-apply",
+          "title": "git apply"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-am",
+          "title": "git am"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23761,7 +30426,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git am patches/*.patch",
     "desc": "Apply patches as commits",
     "tip": "",
-    "tags": "git bundle archive air-gapped offline patch format-patch"
+    "tags": "git bundle archive air-gapped offline patch format-patch",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-bundle",
+          "title": "git bundle"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-archive",
+          "title": "git archive"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-format-patch",
+          "title": "git format-patch"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-apply",
+          "title": "git apply"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-am",
+          "title": "git am"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23804,7 +30494,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git config --global http.proxy http://proxy.example.com:3128",
     "desc": "Use a proxy",
     "tip": "",
-    "tags": "git proxy ssl ca ssh trace debug credentials"
+    "tags": "git proxy ssl ca ssh trace debug credentials",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git",
+          "title": "git (-C, GIT_TRACE, GIT_SSH_COMMAND)"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-ls-remote",
+          "title": "git ls-remote"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-config",
+          "title": "git config"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-credential-cache",
+          "title": "git credential-cache"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23815,7 +30526,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git config --global --unset http.proxy",
     "desc": "Stop using a proxy",
     "tip": "",
-    "tags": "git proxy ssl ca ssh trace debug credentials"
+    "tags": "git proxy ssl ca ssh trace debug credentials",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git",
+          "title": "git (-C, GIT_TRACE, GIT_SSH_COMMAND)"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-ls-remote",
+          "title": "git ls-remote"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-config",
+          "title": "git config"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-credential-cache",
+          "title": "git credential-cache"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23826,7 +30558,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git config --global http.sslCAInfo /etc/ssl/certs/internal-ca.pem",
     "desc": "Trust an internal CA",
     "tip": "",
-    "tags": "git proxy ssl ca ssh trace debug credentials"
+    "tags": "git proxy ssl ca ssh trace debug credentials",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git",
+          "title": "git (-C, GIT_TRACE, GIT_SSH_COMMAND)"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-ls-remote",
+          "title": "git ls-remote"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-config",
+          "title": "git config"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-credential-cache",
+          "title": "git credential-cache"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23837,7 +30590,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "GIT_SSH_COMMAND=\"ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes\" git pull",
     "desc": "Use a specific SSH key once",
     "tip": "",
-    "tags": "git proxy ssl ca ssh trace debug credentials"
+    "tags": "git proxy ssl ca ssh trace debug credentials",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git",
+          "title": "git (-C, GIT_TRACE, GIT_SSH_COMMAND)"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-ls-remote",
+          "title": "git ls-remote"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-config",
+          "title": "git config"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-credential-cache",
+          "title": "git credential-cache"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23848,7 +30622,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git config --global credential.helper 'cache --timeout=3600'",
     "desc": "Keep HTTPS credentials in memory for an hour",
     "tip": "",
-    "tags": "git proxy ssl ca ssh trace debug credentials"
+    "tags": "git proxy ssl ca ssh trace debug credentials",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git",
+          "title": "git (-C, GIT_TRACE, GIT_SSH_COMMAND)"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-ls-remote",
+          "title": "git ls-remote"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-config",
+          "title": "git config"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-credential-cache",
+          "title": "git credential-cache"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23895,7 +30690,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "pgrep -a git",
     "desc": "Check for a running git process before touching a lock file",
     "tip": "",
-    "tags": "git errors safe.directory dubious-ownership detached-head index.lock troubleshooting"
+    "tags": "git errors safe.directory dubious-ownership detached-head index.lock troubleshooting",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-config",
+          "title": "git config"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-switch",
+          "title": "git switch"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-fsck",
+          "title": "git fsck"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-count-objects",
+          "title": "git count-objects"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-gc",
+          "title": "git gc"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23906,7 +30726,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "rm .git/index.lock",
     "desc": "Remove a stale lock once no git process is running",
     "tip": "",
-    "tags": "git errors safe.directory dubious-ownership detached-head index.lock troubleshooting"
+    "tags": "git errors safe.directory dubious-ownership detached-head index.lock troubleshooting",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-config",
+          "title": "git config"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-switch",
+          "title": "git switch"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-fsck",
+          "title": "git fsck"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-count-objects",
+          "title": "git count-objects"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-gc",
+          "title": "git gc"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23917,7 +30762,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git switch -c rescue-work",
     "desc": "Keep commits made on a detached HEAD",
     "tip": "",
-    "tags": "git errors safe.directory dubious-ownership detached-head index.lock troubleshooting"
+    "tags": "git errors safe.directory dubious-ownership detached-head index.lock troubleshooting",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-config",
+          "title": "git config"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-switch",
+          "title": "git switch"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-fsck",
+          "title": "git fsck"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-count-objects",
+          "title": "git count-objects"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-gc",
+          "title": "git gc"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23928,7 +30798,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git fsck",
     "desc": "Check the repository for corruption",
     "tip": "",
-    "tags": "git errors safe.directory dubious-ownership detached-head index.lock troubleshooting"
+    "tags": "git errors safe.directory dubious-ownership detached-head index.lock troubleshooting",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-config",
+          "title": "git config"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-switch",
+          "title": "git switch"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-fsck",
+          "title": "git fsck"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-count-objects",
+          "title": "git count-objects"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-gc",
+          "title": "git gc"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23939,7 +30834,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git count-objects -vH",
     "desc": "Show how much space the repository uses",
     "tip": "",
-    "tags": "git errors safe.directory dubious-ownership detached-head index.lock troubleshooting"
+    "tags": "git errors safe.directory dubious-ownership detached-head index.lock troubleshooting",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-config",
+          "title": "git config"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-switch",
+          "title": "git switch"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-fsck",
+          "title": "git fsck"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-count-objects",
+          "title": "git count-objects"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-gc",
+          "title": "git gc"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23950,7 +30870,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git gc",
     "desc": "Compress and clean up the repository",
     "tip": "",
-    "tags": "git errors safe.directory dubious-ownership detached-head index.lock troubleshooting"
+    "tags": "git errors safe.directory dubious-ownership detached-head index.lock troubleshooting",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-config",
+          "title": "git config"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-switch",
+          "title": "git switch"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-fsck",
+          "title": "git fsck"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-count-objects",
+          "title": "git count-objects"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-gc",
+          "title": "git gc"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -23989,7 +30934,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git log --all --oneline -- config/secrets.env",
     "desc": "See which commits contain the file",
     "tip": "",
-    "tags": "git secrets filter-repo history rewrite credentials leak"
+    "tags": "git secrets filter-repo history rewrite credentials leak",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/newren/git-filter-repo",
+          "title": "git-filter-repo"
+        },
+        {
+          "url": "https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository",
+          "title": "GitHub: removing sensitive data"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-log",
+          "title": "git log"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -24000,7 +30962,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git log --all -p -S'SEARCH_TEXT'",
     "desc": "Find a leaked string anywhere in history",
     "tip": "",
-    "tags": "git secrets filter-repo history rewrite credentials leak"
+    "tags": "git secrets filter-repo history rewrite credentials leak",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/newren/git-filter-repo",
+          "title": "git-filter-repo"
+        },
+        {
+          "url": "https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository",
+          "title": "GitHub: removing sensitive data"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-log",
+          "title": "git log"
+        }
+      ]
+    }
   },
   {
     "sName": "git",
@@ -24011,7 +30990,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git filter-repo --replace-text replacements.txt",
     "desc": "Scrub a string everywhere",
     "tip": "",
-    "tags": "git secrets filter-repo history rewrite credentials leak"
+    "tags": "git secrets filter-repo history rewrite credentials leak",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/newren/git-filter-repo",
+          "title": "git-filter-repo"
+        },
+        {
+          "url": "https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository",
+          "title": "GitHub: removing sensitive data"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-log",
+          "title": "git log"
+        }
+      ]
+    }
   },
   {
     "sName": "grafana-as-code",
@@ -30024,7 +37020,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep -rnI -B 2 -A 5 'Out of memory' /var/log/",
     "desc": "Show 2 lines before (-B 2) and 5 lines after (-A 5) an OOM-killer trigger",
     "tip": "",
-    "tags": "grep search logs context recursive regex errors"
+    "tags": "grep search logs context recursive regex errors",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+          "title": "grep(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "grep",
@@ -30035,7 +37040,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep -rnI --include='*.conf' --include='*.yaml' 'timeout' /etc/",
     "desc": "Search only files matching specific filename globs (--include) inside /etc/",
     "tip": "",
-    "tags": "grep search logs context recursive regex errors"
+    "tags": "grep search logs context recursive regex errors",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+          "title": "grep(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "grep",
@@ -30046,7 +37060,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep -rnI --exclude-dir={.git,node_modules,venv,proc,sys} 'listen' /",
     "desc": "Exclude specific directories (--exclude-dir) when searching large trees",
     "tip": "",
-    "tags": "grep search logs context recursive regex errors"
+    "tags": "grep search logs context recursive regex errors",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+          "title": "grep(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "grep",
@@ -30077,7 +37100,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep -v -e 'CRON' -e 'systemd-logind' /var/log/syslog | tail -n 50",
     "desc": "Filter out repetitive cron and session noise when inspecting /var/log/syslog",
     "tip": "",
-    "tags": "grep invert comments config diff filter"
+    "tags": "grep invert comments config diff filter",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+          "title": "grep(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "grep",
@@ -30088,7 +37120,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep -Fxv -f known_good_hosts.txt all_rack_hosts.txt",
     "desc": "Compare two plain lists and print lines in all_rack_hosts.txt that are missing from known_good_hosts.txt",
     "tip": "",
-    "tags": "grep invert comments config diff filter"
+    "tags": "grep invert comments config diff filter",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+          "title": "grep(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "grep",
@@ -30119,7 +37160,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep -Po 'user=\\K[^ ]+' /var/log/auth.log | sort | uniq -c | sort -nr",
     "desc": "Extract only the value after 'user=' using \\K without printing 'user=' itself",
     "tip": "",
-    "tags": "grep pcre extract ip mac bdf only-matching"
+    "tags": "grep pcre extract ip mac bdf only-matching",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+          "title": "grep(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "grep",
@@ -30130,7 +37180,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep -Eio '([0-9a-f]{2}:){5}[0-9a-f]{2}' /var/log/syslog | sort -u",
     "desc": "Extract all unique MAC addresses (XX:XX:XX:XX:XX:XX) from a log file",
     "tip": "",
-    "tags": "grep pcre extract ip mac bdf only-matching"
+    "tags": "grep pcre extract ip mac bdf only-matching",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+          "title": "grep(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "grep",
@@ -30141,7 +37200,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep -Po '[0-9a-f]{4}:[0-9a-f]{2}:[0-9a-f]{2}\\.[0-7]' /var/log/kern.log | sort -u",
     "desc": "Extract all unique PCIe BDF addresses (0000:3b:00.0) mentioned in kernel error logs",
     "tip": "",
-    "tags": "grep pcre extract ip mac bdf only-matching"
+    "tags": "grep pcre extract ip mac bdf only-matching",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+          "title": "grep(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "grep",
@@ -30172,7 +37240,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep -rnw '/dev/sd' /etc/fstab /etc/mdadm/",
     "desc": "Whole-word search (-w) so '/dev/sda' does not accidentally match '/dev/sda1'",
     "tip": "",
-    "tags": "grep zgrep fgrep sysfs count filenames word"
+    "tags": "grep zgrep fgrep sysfs count filenames word",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+          "title": "grep(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "grep",
@@ -30183,7 +37260,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "zgrep -iE 'mce|edac|nvme|xid' /var/log/kern.log* /var/log/syslog*",
     "desc": "Search across both plain-text and gzip-compressed (.gz) rotated log files transparently",
     "tip": "",
-    "tags": "grep zgrep fgrep sysfs count filenames word"
+    "tags": "grep zgrep fgrep sysfs count filenames word",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+          "title": "grep(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "helm",
@@ -30596,7 +37682,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "which http-server && http-server --version 2>&1 | head -n 1",
     "desc": "Verify binary path and installed version in current environment",
     "tip": "",
-    "tags": "http.server ipv6 python3 wget firmware iso staging tips safety help"
+    "tags": "http.server ipv6 python3 wget firmware iso staging tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.python.org/3/library/http.server.html",
+          "title": "Python: http.server"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/wget/wget.1.en.html",
+          "title": "wget(1), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "hw-cooling",
@@ -35576,7 +42675,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ibstat | grep -E 'CA |Port |State:|Physical state:|Rate:|Base lid:|Link layer:'",
     "desc": "Condensed multi-HCA summary of all 8 GPU-facing rail HCAs on a compute node",
     "tip": "",
-    "tags": "ibstat ibstatus hca linkup active init ndr hdr lid guid"
+    "tags": "ibstat ibstatus hca linkup active init ndr hdr lid guid",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibstat.8.in.rst",
+          "title": "ibstat man page (rdma-core)"
+        },
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibstatus.8.in.rst",
+          "title": "ibstatus man page (rdma-core)"
+        }
+      ]
+    }
   },
   {
     "sName": "infiniband",
@@ -35587,7 +42699,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ibstat -l",
     "desc": "Print a simple list of all local HCA device names (mlx5_0 .. mlx5_7)",
     "tip": "",
-    "tags": "ibstat ibstatus hca linkup active init ndr hdr lid guid"
+    "tags": "ibstat ibstatus hca linkup active init ndr hdr lid guid",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibstat.8.in.rst",
+          "title": "ibstat man page (rdma-core)"
+        },
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibstatus.8.in.rst",
+          "title": "ibstatus man page (rdma-core)"
+        }
+      ]
+    }
   },
   {
     "sName": "infiniband",
@@ -35619,7 +42744,12 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show_gids",
     "desc": "Display full Global Identifier (GID) table across all mlx5 ports with IPv4/IPv6 addresses and RoCE v1/v2 version",
     "tip": "",
-    "tags": "ibv_devinfo ibv_devices show_gids rdma verbs gid rocev2 mtu"
+    "tags": "ibv_devinfo ibv_devices show_gids rdma verbs gid rocev2 mtu",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [],
+      "note": "show_gids is not described in the MLNX_OFED docs read; the sysfs GID table below is."
+    }
   },
   {
     "sName": "infiniband",
@@ -35630,7 +42760,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep -H . /sys/class/infiniband/mlx5_*/ports/1/gid_attrs/types/* 2>/dev/null | grep 'RoCE v2'",
     "desc": "Find which GID index numbers are configured for 'RoCE v2' directly via sysfs (when show_gids is absent)",
     "tip": "",
-    "tags": "ibv_devinfo ibv_devices show_gids rdma verbs gid rocev2 mtu"
+    "tags": "ibv_devinfo ibv_devices show_gids rdma verbs gid rocev2 mtu",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mlnxofedswum/24.10-5.1.6.1lts/rdma-over-converged-ethernet-roce",
+          "title": "MLNX_OFED: RoCE"
+        }
+      ]
+    }
   },
   {
     "sName": "infiniband",
@@ -35673,7 +42812,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "rdma res show cm_id",
     "desc": "Show active RDMA Connection Manager IDs, local/remote IPs, and owning process PIDs",
     "tip": "",
-    "tags": "rdma mlx5 netdev ib0 qp mr counters"
+    "tags": "rdma mlx5 netdev ib0 qp mr counters",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/rdma-link.8.html",
+          "title": "rdma link (iproute2)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/rdma-dev.8.html",
+          "title": "rdma dev"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/rdma-resource.8.html",
+          "title": "rdma resource"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/rdma-statistic.8.html",
+          "title": "rdma statistic"
+        }
+      ]
+    }
   },
   {
     "sName": "infiniband",
@@ -35684,7 +42844,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "rdma system show",
     "desc": "Check whether the kernel RDMA netns mode is set to 'exclusive' or 'shared'",
     "tip": "",
-    "tags": "rdma mlx5 netdev ib0 qp mr counters"
+    "tags": "rdma mlx5 netdev ib0 qp mr counters",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/rdma-system.8.html",
+          "title": "rdma system (iproute2)"
+        }
+      ]
+    }
   },
   {
     "sName": "infiniband",
@@ -35720,7 +42889,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "iblinkinfo -l | grep -vE '4X.*Active|Down'",
     "desc": "Find any active fabric links running at degraded lane width (1X/2X) or stuck in Init/Armed state",
     "tip": "",
-    "tags": "iblinkinfo ibnetdiscover topology fabric switch 4x downgraded"
+    "tags": "iblinkinfo ibnetdiscover topology fabric switch 4x downgraded",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/iblinkinfo.8.in.rst",
+          "title": "iblinkinfo man page (rdma-core)"
+        },
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibnetdiscover.8.in.rst",
+          "title": "ibnetdiscover man page (rdma-core)"
+        }
+      ],
+      "note": "-C/-P/-D come from the shared infiniband-diags options; the iblinkinfo page does not list them."
+    }
   },
   {
     "sName": "infiniband",
@@ -35731,7 +42914,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ibnetdiscover -p",
     "desc": "Generate a concise port-by-port topology map of all switches (SW) and Channel Adapters (CA) in the subnet",
     "tip": "",
-    "tags": "iblinkinfo ibnetdiscover topology fabric switch 4x downgraded"
+    "tags": "iblinkinfo ibnetdiscover topology fabric switch 4x downgraded",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/iblinkinfo.8.in.rst",
+          "title": "iblinkinfo man page (rdma-core)"
+        },
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibnetdiscover.8.in.rst",
+          "title": "ibnetdiscover man page (rdma-core)"
+        }
+      ],
+      "note": "-C/-P/-D come from the shared infiniband-diags options; the iblinkinfo page does not list them."
+    }
   },
   {
     "sName": "infiniband",
@@ -35770,7 +42967,12 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ibhosts -C mlx5_0 -P 1 | wc -l",
     "desc": "Count total compute HCA ports visible on Rail 0 (mlx5_0) to verify all servers are online",
     "tip": "",
-    "tags": "ibswitches ibhosts ibnodes inventory quantum lid guid"
+    "tags": "ibswitches ibhosts ibnodes inventory quantum lid guid",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [],
+      "note": "ibhosts does not document -C/-P (they are shared infiniband-diags options): check ibhosts -h."
+    }
   },
   {
     "sName": "infiniband",
@@ -35806,7 +43008,12 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "systemctl status opensm.service",
     "desc": "Check if the local OpenSM Subnet Manager daemon is running on this host",
     "tip": "",
-    "tags": "sminfo saquery opensm ufm subnet-manager master lid"
+    "tags": "sminfo saquery opensm ufm subnet-manager master lid",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [],
+      "note": "The OpenSM service name is not documented in the OpenSM repo read; it depends on your distro/package."
+    }
   },
   {
     "sName": "infiniband",
@@ -35817,7 +43024,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "saquery -m",
     "desc": "Query Subnet Administrator for all InfiniBand multicast group memberships",
     "tip": "",
-    "tags": "sminfo saquery opensm ufm subnet-manager master lid"
+    "tags": "sminfo saquery opensm ufm subnet-manager master lid",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/saquery.8.in.rst",
+          "title": "saquery man page (rdma-core)"
+        }
+      ]
+    }
   },
   {
     "sName": "infiniband",
@@ -35849,7 +43065,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "perfquery -R -a <LID>",
     "desc": "Clear all latched PMA error counters across all ports on target LID",
     "tip": "",
-    "tags": "perfquery counters errors symbolerror linkdowned xmitdiscards reset"
+    "tags": "perfquery counters errors symbolerror linkdowned xmitdiscards reset",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/perfquery.8.in.rst",
+          "title": "perfquery man page (rdma-core)"
+        }
+      ],
+      "note": "Combining -R with -a is not shown as an example; -R is \"only reset counters\"."
+    }
   },
   {
     "sName": "infiniband",
@@ -35860,7 +43086,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "perfquery --oprcvcounters <LID> <PORT>",
     "desc": "Receive counters per opcode (an optional counter: not every device has it)",
     "tip": "",
-    "tags": "perfquery counters errors symbolerror linkdowned xmitdiscards reset"
+    "tags": "perfquery counters errors symbolerror linkdowned xmitdiscards reset",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/perfquery.8.in.rst",
+          "title": "perfquery man page (rdma-core)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: --oprcv is --oprcvcounters (per-opcode receive counters)."
+    }
   },
   {
     "sName": "infiniband",
@@ -35891,7 +43127,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ibqueryerrors -s RcvSwRelayErrors,XmitDiscard,XmitWait",
     "desc": "Show only physical-layer symbol, link-down, and receive CRC errors across the fabric",
     "tip": "",
-    "tags": "ibqueryerrors fabric errors cables flaps symbol-errors"
+    "tags": "ibqueryerrors fabric errors cables flaps symbol-errors",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibqueryerrors.8.in.rst",
+          "title": "ibqueryerrors man page (rdma-core)"
+        }
+      ]
+    }
   },
   {
     "sName": "infiniband",
@@ -35902,7 +43147,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ibqueryerrors -G <Switch_GUID>",
     "desc": "Check error counters on a single specific InfiniBand switch GUID",
     "tip": "",
-    "tags": "ibqueryerrors fabric errors cables flaps symbol-errors"
+    "tags": "ibqueryerrors fabric errors cables flaps symbol-errors",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibqueryerrors.8.in.rst",
+          "title": "ibqueryerrors man page (rdma-core)"
+        }
+      ],
+      "note": "-G comes from the shared infiniband-diags options (port GUID)."
+    }
   },
   {
     "sName": "infiniband",
@@ -35938,7 +43193,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ibdiagnet -i mlx5_0 -p 1 -o /tmp/ibdiag_rail0",
     "desc": "Run fabric diagnostics specifically on Rail 0 (mlx5_0 port 1)",
     "tip": "",
-    "tags": "ibdiagnet ber cables optics routing diagnostics"
+    "tags": "ibdiagnet ber cables optics routing diagnostics",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/ibdiagnetutilityum/2.27.0/basic-commands",
+          "title": "ibdiagnet commands"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/ibdiagnetutilityum/2.27.0/ibdiagnet-dump-files",
+          "title": "ibdiagnet output files"
+        }
+      ],
+      "note": "Corrected 2026-11-09: --ber_test is for SwitchX/ConnectX-3/4 only; NVIDIA says to use --get_phy_info on later devices."
+    }
   },
   {
     "sName": "infiniband",
@@ -35949,7 +43218,12 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep -E '^-E-|^-W-' /tmp/ibdiagnet2/ibdiagnet2.log",
     "desc": "Extract all Error (-E-) and Warning (-W-) summary lines from an ibdiagnet report",
     "tip": "",
-    "tags": "ibdiagnet ber cables optics routing diagnostics"
+    "tags": "ibdiagnet ber cables optics routing diagnostics",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [],
+      "note": "The -E- / -W- line prefixes are not described in the ibdiagnet docs read."
+    }
   },
   {
     "sName": "infiniband",
@@ -35984,7 +43258,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ibtracert -G 0x1070fd0300123456 0x1070fd0300654321",
     "desc": "Trace the fabric switch path between two HCA Port GUIDs",
     "tip": "",
-    "tags": "ibping ibtracert lid guid trace hops routing"
+    "tags": "ibping ibtracert lid guid trace hops routing",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibtracert.8.in.rst",
+          "title": "ibtracert man page (rdma-core)"
+        },
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibping.8.in.rst",
+          "title": "ibping man page (rdma-core)"
+        }
+      ]
+    }
   },
   {
     "sName": "infiniband",
@@ -36019,7 +43306,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mst cable add && mst status -v",
     "desc": "Discover and create MST device nodes for attached optical transceivers and active cables",
     "tip": "",
-    "tags": "mst mft mellanox connectx bluefield bdf mlx5"
+    "tags": "mst mft mellanox connectx bluefield bdf mlx5",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/linux",
+          "title": "MFT: mst"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/cable-utilities",
+          "title": "MFT: cable utilities"
+        }
+      ]
+    }
   },
   {
     "sName": "infiniband",
@@ -36054,7 +43354,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mlxconfig -y -d mlx5_0 set LINK_TYPE_P1=1 LINK_TYPE_P2=1",
     "desc": "Configure both ports of a dual-port ConnectX VPI adapter for native InfiniBand mode (1)",
     "tip": "",
-    "tags": "mlxconfig vpi link_type infiniband ethernet roce sriov"
+    "tags": "mlxconfig vpi link_type infiniband ethernet roce sriov",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxconfig-changing-device-configuration-tool",
+          "title": "MFT: mlxconfig"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mft-supported-configurations-and-parameters",
+          "title": "MFT: mlxconfig parameters"
+        }
+      ],
+      "note": "NVIDIA documents 2 = ETH (text values like ETH also work); 1 = IB is not spelled out: check mlxconfig show_confs."
+    }
   },
   {
     "sName": "infiniband",
@@ -36065,7 +43379,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mlxconfig -y -d mlx5_0 set LINK_TYPE_P1=2 LINK_TYPE_P2=2",
     "desc": "Configure both ports of a ConnectX VPI adapter for Ethernet / RoCEv2 mode (2)",
     "tip": "",
-    "tags": "mlxconfig vpi link_type infiniband ethernet roce sriov"
+    "tags": "mlxconfig vpi link_type infiniband ethernet roce sriov",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxconfig-changing-device-configuration-tool",
+          "title": "MFT: mlxconfig"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mft-supported-configurations-and-parameters",
+          "title": "MFT: mlxconfig parameters"
+        }
+      ],
+      "note": "NVIDIA documents LINK_TYPE_P1=ETH as the same as 2. Reboot to apply."
+    }
   },
   {
     "sName": "infiniband",
@@ -36076,7 +43404,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mlxconfig -y -d mlx5_0 reset",
     "desc": "Reset all NVRAM configuration parameters on the adapter back to factory defaults",
     "tip": "",
-    "tags": "mlxconfig vpi link_type infiniband ethernet roce sriov"
+    "tags": "mlxconfig vpi link_type infiniband ethernet roce sriov",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxconfig-changing-device-configuration-tool",
+          "title": "MFT: mlxconfig"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mft-supported-configurations-and-parameters",
+          "title": "MFT: mlxconfig parameters"
+        }
+      ]
+    }
   },
   {
     "sName": "infiniband",
@@ -36107,7 +43448,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mlxlink -d mlx5_0 --port_state TG",
     "desc": "Toggle (bounce/flap) the physical port link down and back up to force link retraining",
     "tip": "",
-    "tags": "mlxlink mget_temp optics dom ber eye osfp qsfp fec"
+    "tags": "mlxlink mget_temp optics dom ber eye osfp qsfp fec",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxlink-utility",
+          "title": "MFT: mlxlink"
+        }
+      ]
+    }
   },
   {
     "sName": "infiniband",
@@ -36118,7 +43468,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mlxlink -d mlx5_0 --test_mode EN --rx_prbs PRBS31 --tx_prbs PRBS31",
     "desc": "PRBS31 bit-pattern test: takes the link out of service; end it with --test_mode DS",
     "tip": "",
-    "tags": "mlxlink mget_temp optics dom ber eye osfp qsfp fec"
+    "tags": "mlxlink mget_temp optics dom ber eye osfp qsfp fec",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxlink-utility",
+          "title": "MFT: mlxlink"
+        }
+      ]
+    }
   },
   {
     "sName": "infiniband",
@@ -36129,7 +43488,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mget_temp -d mlx5_0",
     "desc": "Read the on-die ASIC temperature (°C) of the ConnectX / BlueField network adapter",
     "tip": "",
-    "tags": "mlxlink mget_temp optics dom ber eye osfp qsfp fec"
+    "tags": "mlxlink mget_temp optics dom ber eye osfp qsfp fec",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mget_temp-utility",
+          "title": "MFT: mget_temp"
+        }
+      ]
+    }
   },
   {
     "sName": "infiniband",
@@ -36169,7 +43537,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "flint -d /dev/mst/mt4129_pciconf0 -i fw-ConnectX7.bin burn",
     "desc": "Burn a specific .bin firmware image onto a target adapter using flint",
     "tip": "",
-    "tags": "mlxfwmanager flint mlxfwreset firmware psid burn connectx"
+    "tags": "mlxfwmanager flint mlxfwreset firmware psid burn connectx",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxfwmanager-firmware-update-and-query-tool",
+          "title": "MFT: mlxfwmanager"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/flint-firmware-burning-tool",
+          "title": "MFT: flint"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxfwreset-loading-firmware-on-5th-generation-devices-tool",
+          "title": "MFT: mlxfwreset"
+        }
+      ],
+      "note": "Corrected 2026-11-09: mlxfwreset is written \"reset -y\" as in NVIDIA's example."
+    }
   },
   {
     "sName": "infiniband",
@@ -36180,7 +43566,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mlxfwreset -d mlx5_0 reset -y",
     "desc": "Reset mlx5_0 to activate newly burned firmware (NVIDIA says reboot to apply mlxconfig changes)",
     "tip": "",
-    "tags": "mlxfwmanager flint mlxfwreset firmware psid burn connectx"
+    "tags": "mlxfwmanager flint mlxfwreset firmware psid burn connectx",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxfwmanager-firmware-update-and-query-tool",
+          "title": "MFT: mlxfwmanager"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/flint-firmware-burning-tool",
+          "title": "MFT: flint"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxfwreset-loading-firmware-on-5th-generation-devices-tool",
+          "title": "MFT: mlxfwreset"
+        }
+      ],
+      "note": "Corrected 2026-11-09: mlxfwreset is written \"reset -y\" as in NVIDIA's example."
+    }
   },
   {
     "sName": "infiniband",
@@ -36216,7 +43620,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ib_write_lat -d mlx5_0 -F --ipv6-addr   # Server;   ib_write_lat -d mlx5_0 -F --ipv6-addr 2001:db8:dc::1   # Client",
     "desc": "Measure half-round-trip RDMA Write latency in microseconds (usec) over IPv6",
     "tip": "",
-    "tags": "perftest ipv6 ib_write_bw ib_write_lat rdma gpudirect bandwidth latency"
+    "tags": "perftest ipv6 ib_write_bw ib_write_lat rdma gpudirect bandwidth latency",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/perftest/blob/master/man/perftest.1",
+          "title": "perftest man page"
+        },
+        {
+          "url": "https://github.com/linux-rdma/perftest/blob/master/src/perftest_parameters.c",
+          "title": "perftest source"
+        }
+      ],
+      "note": "Corrected 2026-11-09: --ipv6 only selects an IPv6 GID; an IPv6 server address needs --ipv6-addr on both ends. Bandwidth and latency figures are rules of thumb."
+    }
   },
   {
     "sName": "infiniband",
@@ -36227,7 +43645,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ib_write_bw -d mlx5_0 -F --report_gbits --use_cuda=0 --ipv6-addr 2001:db8:dc::1",
     "desc": "Benchmark GPUDirect RDMA (GDR) directly between GPU 0 HBM and HCA mlx5_0 bypassing host RAM",
     "tip": "",
-    "tags": "perftest ipv6 ib_write_bw ib_write_lat rdma gpudirect bandwidth latency"
+    "tags": "perftest ipv6 ib_write_bw ib_write_lat rdma gpudirect bandwidth latency",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/perftest/blob/master/man/perftest.1",
+          "title": "perftest man page"
+        },
+        {
+          "url": "https://github.com/linux-rdma/perftest/blob/master/src/perftest_parameters.c",
+          "title": "perftest source"
+        }
+      ],
+      "note": "Corrected 2026-11-09: --ipv6 only selects an IPv6 GID; an IPv6 server address needs --ipv6-addr on both ends. Bandwidth and latency figures are rules of thumb."
+    }
   },
   {
     "sName": "infiniband",
@@ -36267,7 +43699,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mlxcables -d mt4129_pciconf0_cable_0 --DDM",
     "desc": "Read detailed vendor part number, serial number, FW version, and per-lane DDM power on cable 0",
     "tip": "",
-    "tags": "mlxcables mst osfp qsfp aoc dac serial ddm transceiver"
+    "tags": "mlxcables mst osfp qsfp aoc dac serial ddm transceiver",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxcables-cables-tool",
+          "title": "MFT: mlxcables"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/linux",
+          "title": "MFT: mst"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/cable-utilities",
+          "title": "MFT: cable utilities"
+        }
+      ],
+      "note": "What mlxcables prints with no options is not documented; -q queries a cable."
+    }
   },
   {
     "sName": "infiniband",
@@ -36278,7 +43728,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mlxcables --read_all_regs -d mt4129_pciconf0_cable_0",
     "desc": "Dump all CMIS control and status registers from an OSFP/QSFP-DD transceiver",
     "tip": "",
-    "tags": "mlxcables mst osfp qsfp aoc dac serial ddm transceiver"
+    "tags": "mlxcables mst osfp qsfp aoc dac serial ddm transceiver",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxcables-cables-tool",
+          "title": "MFT: mlxcables"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/linux",
+          "title": "MFT: mst"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/cable-utilities",
+          "title": "MFT: cable utilities"
+        }
+      ],
+      "note": "What mlxcables prints with no options is not documented; -q queries a cable."
+    }
   },
   {
     "sName": "infiniband",
@@ -36314,7 +43782,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mlxconfig -y -d /dev/mst/mt41692_pciconf0 s INTERNAL_CPU_OFFLOAD_ENGINE=1",
     "desc": "Switch BlueField-3 to NIC mode (=0 for DPU mode). Arm and NIC must reset; NVIDIA recommends a power cycle",
     "tip": "",
-    "tags": "bluefield bf3 dpu supernic rshim bfb-install doca mlxconfig"
+    "tags": "bluefield bf3 dpu supernic rshim bfb-install doca mlxconfig",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/bsp/4.16.0/modes-of-operation",
+          "title": "BlueField modes of operation"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/bsp/4.16.0/soc-management-interface-rshim",
+          "title": "BlueField RShim"
+        }
+      ],
+      "note": "Corrected 2026-11-09: BlueField-3 mode is INTERNAL_CPU_OFFLOAD_ENGINE only (0 = DPU, 1 = NIC); bfb-install takes -r and -b."
+    }
   },
   {
     "sName": "infiniband",
@@ -36325,7 +43807,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "bfb-install -r rshim0 -b DOCA_2.9.0_Ubuntu_22.04-arm64.bfb",
     "desc": "Flash a fresh DOCA Ubuntu BFB OS image onto BlueField ARM storage over rshim0",
     "tip": "",
-    "tags": "bluefield bf3 dpu supernic rshim bfb-install doca mlxconfig"
+    "tags": "bluefield bf3 dpu supernic rshim bfb-install doca mlxconfig",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/bsp/4.16.0/modes-of-operation",
+          "title": "BlueField modes of operation"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/bsp/4.16.0/soc-management-interface-rshim",
+          "title": "BlueField RShim"
+        }
+      ],
+      "note": "Corrected 2026-11-09: BlueField-3 mode is INTERNAL_CPU_OFFLOAD_ENGINE only (0 = DPU, 1 = NIC); bfb-install takes -r and -b."
+    }
   },
   {
     "sName": "infiniband",
@@ -36336,7 +43832,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tio -b 115200 /dev/rshim0/console",
     "desc": "Open serial console directly into the embedded BlueField ARM processor over PCIe rshim",
     "tip": "",
-    "tags": "bluefield bf3 dpu supernic rshim bfb-install doca mlxconfig"
+    "tags": "bluefield bf3 dpu supernic rshim bfb-install doca mlxconfig",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/bsp/4.16.0/modes-of-operation",
+          "title": "BlueField modes of operation"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/bsp/4.16.0/soc-management-interface-rshim",
+          "title": "BlueField RShim"
+        }
+      ],
+      "note": "Corrected 2026-11-09: BlueField-3 mode is INTERNAL_CPU_OFFLOAD_ENGINE only (0 = DPU, 1 = NIC); bfb-install takes -r and -b."
+    }
   },
   {
     "sName": "ip",
@@ -36384,7 +43894,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ip -d -c link show type vlan && ip -d -c link show type bond",
     "desc": "Display detailed 802.1Q VLAN tag IDs and 802.3ad bond configurations",
     "tip": "",
-    "tags": "ip ipv6 iproute2 interface mac mtu counters vlan"
+    "tags": "ip ipv6 iproute2 interface mac mtu counters vlan",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-link.8.html",
+          "title": "ip-link(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-address.8.html",
+          "title": "ip-address(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-route.8.html",
+          "title": "ip-route(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-neighbour.8.html",
+          "title": "ip-neighbour(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-netns.8.html",
+          "title": "ip-netns(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: ip -6 neigh flush needs a selector (dev <if>), not 'all'."
+    }
   },
   {
     "sName": "ip",
@@ -36395,7 +43931,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ip link set dev eth0 mtu 9000 up",
     "desc": "Bring interface eth0 UP and set MTU to 9000 (Jumbo Frames)",
     "tip": "",
-    "tags": "ip ipv6 iproute2 interface mac mtu counters vlan"
+    "tags": "ip ipv6 iproute2 interface mac mtu counters vlan",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-link.8.html",
+          "title": "ip-link(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-address.8.html",
+          "title": "ip-address(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-route.8.html",
+          "title": "ip-route(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-neighbour.8.html",
+          "title": "ip-neighbour(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-netns.8.html",
+          "title": "ip-netns(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: ip -6 neigh flush needs a selector (dev <if>), not 'all'."
+    }
   },
   {
     "sName": "ip",
@@ -36406,7 +43968,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ip -6 addr add 2001:db8:dc:4::10/64 dev eth1",
     "desc": "Temporarily assign an IPv6 /64 address to eth1 (for direct laptop/BMC recovery connection)",
     "tip": "",
-    "tags": "ip ipv6 iproute2 interface mac mtu counters vlan"
+    "tags": "ip ipv6 iproute2 interface mac mtu counters vlan",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-link.8.html",
+          "title": "ip-link(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-address.8.html",
+          "title": "ip-address(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-route.8.html",
+          "title": "ip-route(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-neighbour.8.html",
+          "title": "ip-neighbour(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-netns.8.html",
+          "title": "ip-netns(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: ip -6 neigh flush needs a selector (dev <if>), not 'all'."
+    }
   },
   {
     "sName": "ip",
@@ -36454,7 +44042,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ip -6 neigh flush dev eth0",
     "desc": "Flush stale IPv6 Neighbor Discovery (NDP) entries on eth0 after a switch/VIP failover (changes state)",
     "tip": "",
-    "tags": "ip ipv6 route ndp neighbor gateway netns"
+    "tags": "ip ipv6 route ndp neighbor gateway netns",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-link.8.html",
+          "title": "ip-link(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-address.8.html",
+          "title": "ip-address(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-route.8.html",
+          "title": "ip-route(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-neighbour.8.html",
+          "title": "ip-neighbour(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-netns.8.html",
+          "title": "ip-netns(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: ip -6 neigh flush needs a selector (dev <if>), not 'all'."
+    }
   },
   {
     "sName": "ip",
@@ -36465,7 +44079,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ip netns list && ip netns exec <ns_name> ip -6 -c -br addr",
     "desc": "List network namespaces and execute an ip -6 command inside an isolated namespace",
     "tip": "",
-    "tags": "ip ipv6 route ndp neighbor gateway netns"
+    "tags": "ip ipv6 route ndp neighbor gateway netns",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-link.8.html",
+          "title": "ip-link(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-address.8.html",
+          "title": "ip-address(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-route.8.html",
+          "title": "ip-route(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-neighbour.8.html",
+          "title": "ip-neighbour(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-netns.8.html",
+          "title": "ip-netns(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: ip -6 neigh flush needs a selector (dev <if>), not 'all'."
+    }
   },
   {
     "sName": "ipmi-bmc-lan-users",
@@ -37145,6 +44785,19 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Pulse an NMI to a hung host so it panics and writes a kdump (reference only: it crashes the kernel)",
     "tip": "",
     "tags": "identify uid led blink diag nmi kdump",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/doc/ipmitool.1.in",
+          "title": "ipmitool man page"
+        },
+        {
+          "url": "https://github.com/ipmitool/ipmitool/blob/master/lib/ipmi_chassis.c",
+          "title": "ipmitool source (ipmi_chassis.c)"
+        }
+      ]
+    },
     "noCopy": true,
     "refWhy": "nmi"
   },
@@ -37538,7 +45191,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "const merged = { ...defaults, ...userConfig };",
     "desc": "Object spread: clones and shallow-merges objects",
     "tip": "",
-    "tags": "javascript const let variables template-literals destructuring spread"
+    "tags": "javascript const let variables template-literals destructuring spread",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let",
+          "title": "MDN: let"
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring",
+          "title": "MDN: destructuring"
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax",
+          "title": "MDN: spread syntax"
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals",
+          "title": "MDN: template literals"
+        }
+      ]
+    }
   },
   {
     "sName": "javascript",
@@ -37549,7 +45223,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "const clone = [...originalArray, 'new_item'];",
     "desc": "Array spread: clones and appends elements",
     "tip": "",
-    "tags": "javascript const let variables template-literals destructuring spread"
+    "tags": "javascript const let variables template-literals destructuring spread",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let",
+          "title": "MDN: let"
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring",
+          "title": "MDN: destructuring"
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax",
+          "title": "MDN: spread syntax"
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals",
+          "title": "MDN: template literals"
+        }
+      ]
+    }
   },
   {
     "sName": "javascript",
@@ -37592,7 +45287,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "const label = isOnline ? 'Active' : 'Offline';",
     "desc": "Ternary conditional expression",
     "tip": "",
-    "tags": "javascript operators nullish optional-chaining equality truthy"
+    "tags": "javascript operators nullish optional-chaining equality truthy",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Strict_equality",
+          "title": "MDN: strict equality (===)"
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing",
+          "title": "MDN: nullish coalescing (??)"
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining",
+          "title": "MDN: optional chaining (?.)"
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Glossary/Falsy",
+          "title": "MDN: falsy"
+        }
+      ]
+    }
   },
   {
     "sName": "javascript",
@@ -37603,7 +45319,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "isReady && startService();",
     "desc": "Short-circuit execution: runs startService only if isReady is true",
     "tip": "",
-    "tags": "javascript operators nullish optional-chaining equality truthy"
+    "tags": "javascript operators nullish optional-chaining equality truthy",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Strict_equality",
+          "title": "MDN: strict equality (===)"
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing",
+          "title": "MDN: nullish coalescing (??)"
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining",
+          "title": "MDN: optional chaining (?.)"
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Glossary/Falsy",
+          "title": "MDN: falsy"
+        }
+      ]
+    }
   },
   {
     "sName": "javascript",
@@ -37638,7 +45375,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "for (const [index, val] of nodes.entries()) { ... }",
     "desc": "Iterate over both index and value using .entries()",
     "tip": "",
-    "tags": "javascript for for-of for-in while loops iteration"
+    "tags": "javascript for for-of for-in while loops iteration",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of",
+          "title": "MDN: for...of"
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...in",
+          "title": "MDN: for...in"
+        }
+      ]
+    }
   },
   {
     "sName": "javascript",
@@ -37649,7 +45399,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "switch (status) { case 'UP': ... break; default: ... }",
     "desc": "Multi-branch switch statement",
     "tip": "",
-    "tags": "javascript for for-of for-in while loops iteration"
+    "tags": "javascript for for-of for-in while loops iteration",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of",
+          "title": "MDN: for...of"
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...in",
+          "title": "MDN: for...in"
+        }
+      ]
+    }
   },
   {
     "sName": "javascript",
@@ -37680,7 +45443,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "[...new Set(duplicates)]",
     "desc": "Deduplicate array elements instantly using Set",
     "tip": "",
-    "tags": "javascript arrays map filter reduce find functional"
+    "tags": "javascript arrays map filter reduce find functional",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
+          "title": "MDN: Array methods"
+        }
+      ]
+    }
   },
   {
     "sName": "javascript",
@@ -37691,7 +45463,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "servers.sort((a, b) => b.load - a.load)",
     "desc": "Numeric sorting (b - a for descending order)",
     "tip": "",
-    "tags": "javascript arrays map filter reduce find functional"
+    "tags": "javascript arrays map filter reduce find functional",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
+          "title": "MDN: Array methods"
+        }
+      ]
+    }
   },
   {
     "sName": "javascript",
@@ -37743,7 +45524,37 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "const add = (a, b) => a + b;",
     "desc": "Concise arrow function with implicit return",
     "tip": "",
-    "tags": "javascript async await promises fetch try-catch concurrency"
+    "tags": "javascript async await promises fetch try-catch concurrency",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function",
+          "title": "MDN: async function"
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await",
+          "title": "MDN: await (top-level await in modules)"
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all",
+          "title": "MDN: Promise.all"
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettled",
+          "title": "MDN: Promise.allSettled"
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal/timeout_static",
+          "title": "MDN: AbortSignal.timeout()"
+        },
+        {
+          "url": "https://nodejs.org/en/about/previous-releases",
+          "title": "Node.js releases (LTS)"
+        }
+      ],
+      "note": "Node.js 20 reached end of life in 2026; 22, 24 and 26 are the maintained lines."
+    }
   },
   {
     "sName": "javascript",
@@ -37754,7 +45565,37 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "throw new Error('Custom failure message');",
     "desc": "Instantiate and throw standard Error object with stack trace",
     "tip": "",
-    "tags": "javascript async await promises fetch try-catch concurrency"
+    "tags": "javascript async await promises fetch try-catch concurrency",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function",
+          "title": "MDN: async function"
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await",
+          "title": "MDN: await (top-level await in modules)"
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all",
+          "title": "MDN: Promise.all"
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettled",
+          "title": "MDN: Promise.allSettled"
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal/timeout_static",
+          "title": "MDN: AbortSignal.timeout()"
+        },
+        {
+          "url": "https://nodejs.org/en/about/previous-releases",
+          "title": "Node.js releases (LTS)"
+        }
+      ],
+      "note": "Node.js 20 reached end of life in 2026; 22, 24 and 26 are the maintained lines."
+    }
   },
   {
     "sName": "jira",
@@ -37793,7 +45634,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "text ~ \"\\\"$NODE\\\"\" AND statusCategory != Done ORDER BY updated DESC",
     "desc": "Open tickets only",
     "tip": "",
-    "tags": "node server host hostname history all tickets text"
+    "tags": "node server host hostname history all tickets text",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/search-for-work-items-using-the-text-field/",
+          "title": "Atlassian: search syntax for text fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-functions/",
+          "title": "Atlassian: JQL functions"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -37804,7 +45662,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "text ~ \"\\\"$NODE\\\"\" AND statusCategory = Done ORDER BY resolved DESC",
     "desc": "Closed tickets only",
     "tip": "",
-    "tags": "node server host hostname history all tickets text"
+    "tags": "node server host hostname history all tickets text",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/search-for-work-items-using-the-text-field/",
+          "title": "Atlassian: search syntax for text fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-functions/",
+          "title": "Atlassian: JQL functions"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -37815,7 +45690,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "text ~ \"\\\"$NODE\\\"\" AND created >= -90d ORDER BY created DESC",
     "desc": "Last 90 days",
     "tip": "",
-    "tags": "node server host hostname history all tickets text"
+    "tags": "node server host hostname history all tickets text",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/search-for-work-items-using-the-text-field/",
+          "title": "Atlassian: search syntax for text fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-functions/",
+          "title": "Atlassian: JQL functions"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -37826,7 +45718,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "project = \"$PROJECT\" AND text ~ \"\\\"$NODE\\\"\" ORDER BY created DESC",
     "desc": "Limit to one project",
     "tip": "",
-    "tags": "node server host hostname history all tickets text"
+    "tags": "node server host hostname history all tickets text",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/search-for-work-items-using-the-text-field/",
+          "title": "Atlassian: search syntax for text fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-functions/",
+          "title": "Atlassian: JQL functions"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -37837,7 +45746,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "summary ~ \"\\\"$NODE\\\"\" ORDER BY created DESC",
     "desc": "Only tickets with the node in the title",
     "tip": "",
-    "tags": "node server host hostname history all tickets text"
+    "tags": "node server host hostname history all tickets text",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/search-for-work-items-using-the-text-field/",
+          "title": "Atlassian: search syntax for text fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-functions/",
+          "title": "Atlassian: JQL functions"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -37848,7 +45774,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "text ~ \"\\\"node-01\\\"\" OR text ~ \"\\\"node-02\\\"\" ORDER BY created DESC",
     "desc": "Several nodes at once",
     "tip": "",
-    "tags": "node server host hostname history all tickets text"
+    "tags": "node server host hostname history all tickets text",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/search-for-work-items-using-the-text-field/",
+          "title": "Atlassian: search syntax for text fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-functions/",
+          "title": "Atlassian: JQL functions"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -37859,7 +45802,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "summary ~ \"gpu-node*\" ORDER BY created DESC",
     "desc": "Names starting with a prefix. Wildcards can't go at the start.",
     "tip": "",
-    "tags": "node server host hostname history all tickets text"
+    "tags": "node server host hostname history all tickets text",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/search-for-work-items-using-the-text-field/",
+          "title": "Atlassian: search syntax for text fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-functions/",
+          "title": "Atlassian: JQL functions"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -37894,7 +45854,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "text ~ \"\\\"$RACK\\\"\" AND statusCategory != Done ORDER BY priority DESC",
     "desc": "Open tickets for the rack, most urgent first",
     "tip": "",
-    "tags": "rack cabinet history pdu tor"
+    "tags": "rack cabinet history pdu tor",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/search-for-work-items-using-the-text-field/",
+          "title": "Atlassian: search syntax for text fields"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -37905,7 +45878,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "text ~ \"\\\"$RACK\\\"\" AND created >= -30d ORDER BY created DESC",
     "desc": "Last 30 days",
     "tip": "",
-    "tags": "rack cabinet history pdu tor"
+    "tags": "rack cabinet history pdu tor",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/search-for-work-items-using-the-text-field/",
+          "title": "Atlassian: search syntax for text fields"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -37916,7 +45902,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "text ~ \"\\\"$RACK\\\"\" AND text ~ \"PDU\" ORDER BY created DESC",
     "desc": "Rack power tickets",
     "tip": "",
-    "tags": "rack cabinet history pdu tor"
+    "tags": "rack cabinet history pdu tor",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/search-for-work-items-using-the-text-field/",
+          "title": "Atlassian: search syntax for text fields"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -37927,7 +45926,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "text ~ \"\\\"$RACK\\\"\" AND (text ~ \"switch\" OR text ~ \"ToR\") ORDER BY created DESC",
     "desc": "Rack switch tickets",
     "tip": "",
-    "tags": "rack cabinet history pdu tor"
+    "tags": "rack cabinet history pdu tor",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/search-for-work-items-using-the-text-field/",
+          "title": "Atlassian: search syntax for text fields"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -37962,7 +45974,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "text ~ \"\\\"$RACK $POSITION\\\"\" ORDER BY created DESC",
     "desc": "Written together: R12 U23",
     "tip": "",
-    "tags": "position rack unit ru u slot location elevation"
+    "tags": "position rack unit ru u slot location elevation",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/search-for-work-items-using-the-text-field/",
+          "title": "Atlassian: search syntax for text fields"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -37973,7 +45998,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "text ~ \"\\\"$RACK-$POSITION\\\"\" ORDER BY created DESC",
     "desc": "Written with a hyphen: R12-U23",
     "tip": "",
-    "tags": "position rack unit ru u slot location elevation"
+    "tags": "position rack unit ru u slot location elevation",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/search-for-work-items-using-the-text-field/",
+          "title": "Atlassian: search syntax for text fields"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -37984,7 +46022,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "text ~ \"\\\"$RACK/$POSITION\\\"\" ORDER BY created DESC",
     "desc": "Written with a slash: R12/U23",
     "tip": "",
-    "tags": "position rack unit ru u slot location elevation"
+    "tags": "position rack unit ru u slot location elevation",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/search-for-work-items-using-the-text-field/",
+          "title": "Atlassian: search syntax for text fields"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -38019,7 +46070,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "text ~ \"\\\"$SITE\\\"\" AND created >= startOfDay() ORDER BY created DESC",
     "desc": "Opened at this site today",
     "tip": "",
-    "tags": "site data hall datacenter row location"
+    "tags": "site data hall datacenter row location",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-functions/",
+          "title": "Atlassian: JQL functions"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -38030,7 +46094,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "text ~ \"\\\"$SITE\\\"\" AND assignee is EMPTY AND statusCategory != Done",
     "desc": "Unassigned work at this site",
     "tip": "",
-    "tags": "site data hall datacenter row location"
+    "tags": "site data hall datacenter row location",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-functions/",
+          "title": "Atlassian: JQL functions"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -38065,7 +46142,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "text ~ \"\\\"$BMC\\\"\" ORDER BY created DESC",
     "desc": "Tickets that mention the BMC address",
     "tip": "",
-    "tags": "serial sn asset bmc ip rma"
+    "tags": "serial sn asset bmc ip rma",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/search-for-work-items-using-the-text-field/",
+          "title": "Atlassian: search syntax for text fields"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -38076,7 +46166,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "text ~ \"\\\"$NODE\\\"\" OR text ~ \"\\\"$SERIAL\\\"\" ORDER BY created DESC",
     "desc": "By name or serial, which helps after a rename or a move",
     "tip": "",
-    "tags": "serial sn asset bmc ip rma"
+    "tags": "serial sn asset bmc ip rma",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/search-for-work-items-using-the-text-field/",
+          "title": "Atlassian: search syntax for text fields"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -38107,7 +46210,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "\"Hostname\" ~ \"$NODE\" ORDER BY created DESC",
     "desc": "Node field",
     "tip": "",
-    "tags": "custom field cf hostname rack position serial field"
+    "tags": "custom field cf hostname rack position serial field",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -38118,7 +46230,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "\"Rack\" ~ \"$RACK\" AND \"Rack Position\" ~ \"$POSITION\" ORDER BY created DESC",
     "desc": "Rack and position fields",
     "tip": "",
-    "tags": "custom field cf hostname rack position serial field"
+    "tags": "custom field cf hostname rack position serial field",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -38129,7 +46250,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "\"Serial Number\" ~ \"$SERIAL\" ORDER BY created DESC",
     "desc": "Serial number field",
     "tip": "",
-    "tags": "custom field cf hostname rack position serial field"
+    "tags": "custom field cf hostname rack position serial field",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -38140,7 +46270,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "cf[10050] ~ \"$NODE\" ORDER BY created DESC",
     "desc": "Same search using a field ID (replace 10050 with yours)",
     "tip": "",
-    "tags": "custom field cf hostname rack position serial field"
+    "tags": "custom field cf hostname rack position serial field",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -38179,7 +46318,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "text ~ \"\\\"$NODE\\\"\" AND (text ~ \"NVMe\" OR text ~ \"SMART\" OR text ~ \"drive\" OR text ~ \"disk\") ORDER BY created DESC",
     "desc": "Storage faults",
     "tip": "",
-    "tags": "gpu xid nvlink ecc nvme optics psu dimm fault"
+    "tags": "gpu xid nvlink ecc nvme optics psu dimm fault",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/search-for-work-items-using-the-text-field/",
+          "title": "Atlassian: search syntax for text fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-keywords/",
+          "title": "Atlassian: JQL keywords (issue → work item renaming)"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -38190,7 +46346,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "text ~ \"\\\"$NODE\\\"\" AND (text ~ \"InfiniBand\" OR text ~ \"transceiver\" OR text ~ \"optic\" OR text ~ \"link\") ORDER BY created DESC",
     "desc": "Network and optics faults",
     "tip": "",
-    "tags": "gpu xid nvlink ecc nvme optics psu dimm fault"
+    "tags": "gpu xid nvlink ecc nvme optics psu dimm fault",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/search-for-work-items-using-the-text-field/",
+          "title": "Atlassian: search syntax for text fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-keywords/",
+          "title": "Atlassian: JQL keywords (issue → work item renaming)"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -38201,7 +46374,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "text ~ \"\\\"$NODE\\\"\" AND (text ~ \"PSU\" OR text ~ \"power\" OR text ~ \"thermal\" OR text ~ \"fan\") ORDER BY created DESC",
     "desc": "Power and cooling faults",
     "tip": "",
-    "tags": "gpu xid nvlink ecc nvme optics psu dimm fault"
+    "tags": "gpu xid nvlink ecc nvme optics psu dimm fault",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/search-for-work-items-using-the-text-field/",
+          "title": "Atlassian: search syntax for text fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-keywords/",
+          "title": "Atlassian: JQL keywords (issue → work item renaming)"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -38212,7 +46402,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "text ~ \"\\\"$NODE\\\"\" AND (text ~ \"DIMM\" OR text ~ \"memory\" OR text ~ \"BMC\" OR text ~ \"BIOS\") ORDER BY created DESC",
     "desc": "Memory and firmware faults",
     "tip": "",
-    "tags": "gpu xid nvlink ecc nvme optics psu dimm fault"
+    "tags": "gpu xid nvlink ecc nvme optics psu dimm fault",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/search-for-work-items-using-the-text-field/",
+          "title": "Atlassian: search syntax for text fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-keywords/",
+          "title": "Atlassian: JQL keywords (issue → work item renaming)"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -38247,7 +46454,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "project = \"$PROJECT\" AND text ~ \"RMA\" AND statusCategory != Done ORDER BY created ASC",
     "desc": "All open RMAs, oldest first",
     "tip": "",
-    "tags": "rma return replacement warranty parts"
+    "tags": "rma return replacement warranty parts",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/search-for-work-items-using-the-text-field/",
+          "title": "Atlassian: search syntax for text fields"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -38258,7 +46478,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "project = \"$PROJECT\" AND text ~ \"RMA\" AND statusCategory != Done AND updated <= -7d",
     "desc": "RMAs with no update for 7 days",
     "tip": "",
-    "tags": "rma return replacement warranty parts"
+    "tags": "rma return replacement warranty parts",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/search-for-work-items-using-the-text-field/",
+          "title": "Atlassian: search syntax for text fields"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -38269,7 +46502,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "project = \"$PROJECT\" AND text ~ \"RMA\" AND resolved >= -30d ORDER BY resolved DESC",
     "desc": "RMAs closed in the last 30 days",
     "tip": "",
-    "tags": "rma return replacement warranty parts"
+    "tags": "rma return replacement warranty parts",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/search-for-work-items-using-the-text-field/",
+          "title": "Atlassian: search syntax for text fields"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -38304,7 +46550,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "text ~ \"\\\"$NODE\\\"\" AND status WAS IN (\"Done\", \"Closed\", \"Resolved\") AND statusCategory != Done",
     "desc": "Reopened tickets for one node",
     "tip": "",
-    "tags": "reopened repeat regression was"
+    "tags": "reopened repeat regression was",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-operators/",
+          "title": "Atlassian: JQL operators"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -38340,7 +46599,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "parent = \"$TICKET\" ORDER BY created ASC",
     "desc": "Sub-tasks and child tickets",
     "tip": "",
-    "tags": "linked related parent subtask epic"
+    "tags": "linked related parent subtask epic",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-functions/",
+          "title": "Atlassian: JQL functions"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        }
+      ],
+      "note": "Jira Cloud docs now say work item and space (workItemHistory(), linkedWorkItems()); Atlassian states existing JQL with the old names keeps working, and Data Center uses the old names."
+    }
   },
   {
     "sName": "jira",
@@ -38351,7 +46624,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "issue in linkedIssues(\"$TICKET\", \"blocks\")",
     "desc": "Only one kind of link",
     "tip": "",
-    "tags": "linked related parent subtask epic"
+    "tags": "linked related parent subtask epic",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-functions/",
+          "title": "Atlassian: JQL functions"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        }
+      ],
+      "note": "Jira Cloud docs now say work item and space (workItemHistory(), linkedWorkItems()); Atlassian states existing JQL with the old names keeps working, and Data Center uses the old names."
+    }
   },
   {
     "sName": "jira",
@@ -38386,7 +46673,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "assignee = currentUser() AND due <= 7d AND statusCategory != Done ORDER BY due ASC",
     "desc": "Due in the next 7 days",
     "tip": "",
-    "tags": "my tickets assignee currentuser queue watching"
+    "tags": "my tickets assignee currentuser queue watching",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-functions/",
+          "title": "Atlassian: JQL functions"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -38397,7 +46697,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "reporter = currentUser() AND statusCategory != Done ORDER BY updated DESC",
     "desc": "Tickets you opened that are still open",
     "tip": "",
-    "tags": "my tickets assignee currentuser queue watching"
+    "tags": "my tickets assignee currentuser queue watching",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-functions/",
+          "title": "Atlassian: JQL functions"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -38408,7 +46721,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "watcher = currentUser() AND statusCategory != Done ORDER BY updated DESC",
     "desc": "Tickets you're watching",
     "tip": "",
-    "tags": "my tickets assignee currentuser queue watching"
+    "tags": "my tickets assignee currentuser queue watching",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-functions/",
+          "title": "Atlassian: JQL functions"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -38448,7 +46774,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "issue in updatedBy(currentUser(), \"-7d\") ORDER BY updated DESC",
     "desc": "Tickets you changed in the last 7 days",
     "tip": "",
-    "tags": "recent viewed history updatedby handoff"
+    "tags": "recent viewed history updatedby handoff",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-functions/",
+          "title": "Atlassian: JQL functions"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-operators/",
+          "title": "Atlassian: JQL operators"
+        }
+      ],
+      "note": "Jira Cloud docs now say work item and space (workItemHistory(), linkedWorkItems()); Atlassian states existing JQL with the old names keeps working, and Data Center uses the old names."
+    }
   },
   {
     "sName": "jira",
@@ -38459,7 +46803,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "assignee WAS currentUser() AND updated >= -30d ORDER BY updated DESC",
     "desc": "Tickets that were assigned to you",
     "tip": "",
-    "tags": "recent viewed history updatedby handoff"
+    "tags": "recent viewed history updatedby handoff",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-functions/",
+          "title": "Atlassian: JQL functions"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-operators/",
+          "title": "Atlassian: JQL operators"
+        }
+      ],
+      "note": "Jira Cloud docs now say work item and space (workItemHistory(), linkedWorkItems()); Atlassian states existing JQL with the old names keeps working, and Data Center uses the old names."
+    }
   },
   {
     "sName": "jira",
@@ -38470,7 +46832,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "assignee CHANGED FROM currentUser() AFTER -7d",
     "desc": "Tickets you handed off in the last 7 days",
     "tip": "",
-    "tags": "recent viewed history updatedby handoff"
+    "tags": "recent viewed history updatedby handoff",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-functions/",
+          "title": "Atlassian: JQL functions"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-operators/",
+          "title": "Atlassian: JQL operators"
+        }
+      ],
+      "note": "Jira Cloud docs now say work item and space (workItemHistory(), linkedWorkItems()); Atlassian states existing JQL with the old names keeps working, and Data Center uses the old names."
+    }
   },
   {
     "sName": "jira",
@@ -38525,7 +46905,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "project = \"$PROJECT\" AND statusCategory = \"In Progress\" AND updated <= -3d ORDER BY updated ASC",
     "desc": "In progress but quiet for 3 days",
     "tip": "",
-    "tags": "stale aging stuck old"
+    "tags": "stale aging stuck old",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -38536,7 +46925,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "project = \"$PROJECT\" AND statusCategory != Done AND created <= -30d ORDER BY created ASC",
     "desc": "Open for more than 30 days",
     "tip": "",
-    "tags": "stale aging stuck old"
+    "tags": "stale aging stuck old",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -38575,7 +46973,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "project = \"$PROJECT\" AND due < now() AND statusCategory != Done ORDER BY due ASC",
     "desc": "Past their due date",
     "tip": "",
-    "tags": "priority urgent overdue due p1"
+    "tags": "priority urgent overdue due p1",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-operators/",
+          "title": "Atlassian: JQL operators"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-functions/",
+          "title": "Atlassian: JQL functions"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -38586,7 +47001,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "project = \"$PROJECT\" AND priority in (Highest, High) AND assignee is EMPTY AND statusCategory != Done",
     "desc": "Urgent and unassigned",
     "tip": "",
-    "tags": "priority urgent overdue due p1"
+    "tags": "priority urgent overdue due p1",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-operators/",
+          "title": "Atlassian: JQL operators"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-functions/",
+          "title": "Atlassian: JQL functions"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -38618,7 +47050,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "project = \"$PROJECT\" AND \"Time to resolution\" < remaining(\"2h\") AND statusCategory != Done",
     "desc": "Under 2 hours left on the SLA",
     "tip": "",
-    "tags": "sla breached remaining service management jsm"
+    "tags": "sla breached remaining service management jsm",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-functions/",
+          "title": "Atlassian: JQL functions"
+        }
+      ],
+      "note": "breached() and remaining() work only on sites with Jira Service Management."
+    }
   },
   {
     "sName": "jira",
@@ -38629,7 +47071,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "project = \"$PROJECT\" AND \"Time to first response\" = breached() AND resolved >= -30d",
     "desc": "Missed first response in the last 30 days",
     "tip": "",
-    "tags": "sla breached remaining service management jsm"
+    "tags": "sla breached remaining service management jsm",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-functions/",
+          "title": "Atlassian: JQL functions"
+        }
+      ],
+      "note": "breached() and remaining() work only on sites with Jira Service Management."
+    }
   },
   {
     "sName": "jira",
@@ -38664,7 +47116,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "project = \"$PROJECT\" AND created >= -12h ORDER BY priority DESC",
     "desc": "Opened in the last 12 hours",
     "tip": "",
-    "tags": "shift handoff turnover today 12h"
+    "tags": "shift handoff turnover today 12h",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-operators/",
+          "title": "Atlassian: JQL operators"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -38675,7 +47140,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "project = \"$PROJECT\" AND resolved >= -12h ORDER BY resolved DESC",
     "desc": "Closed in the last 12 hours",
     "tip": "",
-    "tags": "shift handoff turnover today 12h"
+    "tags": "shift handoff turnover today 12h",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-operators/",
+          "title": "Atlassian: JQL operators"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -38686,7 +47164,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "project = \"$PROJECT\" AND status CHANGED AFTER -12h ORDER BY updated DESC",
     "desc": "Status changed in the last 12 hours",
     "tip": "",
-    "tags": "shift handoff turnover today 12h"
+    "tags": "shift handoff turnover today 12h",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-operators/",
+          "title": "Atlassian: JQL operators"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -38697,7 +47188,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "project = \"$PROJECT\" AND statusCategory = \"In Progress\" ORDER BY assignee, updated DESC",
     "desc": "In progress, grouped by person",
     "tip": "",
-    "tags": "shift handoff turnover today 12h"
+    "tags": "shift handoff turnover today 12h",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-operators/",
+          "title": "Atlassian: JQL operators"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -38732,7 +47236,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "project = \"$PROJECT\" AND resolved >= startOfDay() ORDER BY resolved DESC",
     "desc": "Closed today",
     "tip": "",
-    "tags": "report weekly monthly metrics startofweek"
+    "tags": "report weekly monthly metrics startofweek",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-functions/",
+          "title": "Atlassian: JQL functions"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -38743,7 +47260,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "project = \"$PROJECT\" AND created >= startOfWeek() ORDER BY created DESC",
     "desc": "Opened this week",
     "tip": "",
-    "tags": "report weekly monthly metrics startofweek"
+    "tags": "report weekly monthly metrics startofweek",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-functions/",
+          "title": "Atlassian: JQL functions"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -38754,7 +47284,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "project = \"$PROJECT\" AND resolved >= startOfWeek() ORDER BY resolved DESC",
     "desc": "Closed this week",
     "tip": "",
-    "tags": "report weekly monthly metrics startofweek"
+    "tags": "report weekly monthly metrics startofweek",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-functions/",
+          "title": "Atlassian: JQL functions"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -38765,7 +47308,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "project = \"$PROJECT\" AND created >= startOfMonth(-1) AND created < startOfMonth() ORDER BY created ASC",
     "desc": "Opened last month",
     "tip": "",
-    "tags": "report weekly monthly metrics startofweek"
+    "tags": "report weekly monthly metrics startofweek",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-functions/",
+          "title": "Atlassian: JQL functions"
+        },
+        {
+          "url": "https://support.atlassian.com/jira-software-cloud/docs/jql-fields/",
+          "title": "Atlassian: JQL fields"
+        }
+      ]
+    }
   },
   {
     "sName": "jira",
@@ -38895,7 +47451,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nvme list -o json | jq -r '.Devices[] | [.DevicePath, .ModelNumber, .SerialNumber, .Firmware] | @tsv' | column -t -s $'\\t'",
     "desc": "Extract NVMe device path, model, serial, and firmware as an aligned table",
     "tip": "",
-    "tags": "jq json ip lsblk nvme lshw tsv"
+    "tags": "jq json ip lsblk nvme lshw tsv",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://jqlang.org/manual/",
+          "title": "jq manual"
+        }
+      ],
+      "note": "nvme list -o json field names (DevicePath, ModelNumber…) are nvme-cli 2.x output; 3.x may differ."
+    }
   },
   {
     "sName": "jq",
@@ -38906,7 +47472,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lsblk -J -o NAME,SIZE,TYPE,SERIAL,MOUNTPOINTS | jq '.blockdevices[] | select(.type==\"disk\")'",
     "desc": "Filter lsblk JSON output for physical disk devices and their hardware serial numbers",
     "tip": "",
-    "tags": "jq json ip lsblk nvme lshw tsv"
+    "tags": "jq json ip lsblk nvme lshw tsv",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://jqlang.org/manual/",
+          "title": "jq manual"
+        }
+      ],
+      "note": "nvme list -o json field names (DevicePath, ModelNumber…) are nvme-cli 2.x output; 3.x may differ."
+    }
   },
   {
     "sName": "jq",
@@ -38938,7 +47514,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "jq 'map(select(.status != \"OK\")) | length' health.json",
     "desc": "Count how many items in a JSON array have a status other than 'OK'",
     "tip": "",
-    "tags": "jq redfish csv tsv sort_by group_by api"
+    "tags": "jq redfish csv tsv sort_by group_by api",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://jqlang.org/manual/",
+          "title": "jq manual"
+        }
+      ],
+      "note": "nvme list -o json field names (DevicePath, ModelNumber…) are nvme-cli 2.x output; 3.x may differ."
+    }
   },
   {
     "sName": "jq",
@@ -38949,7 +47535,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "jq -n --arg host \"$(hostname)\" --arg ts \"$(date -Is)\" '{hostname: $host, timestamp: $ts}'",
     "desc": "Generate a valid JSON payload from shell variables using -n and --arg",
     "tip": "",
-    "tags": "jq redfish csv tsv sort_by group_by api"
+    "tags": "jq redfish csv tsv sort_by group_by api",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://jqlang.org/manual/",
+          "title": "jq manual"
+        }
+      ],
+      "note": "nvme list -o json field names (DevicePath, ModelNumber…) are nvme-cli 2.x output; 3.x may differ."
+    }
   },
   {
     "sName": "json",
@@ -38988,7 +47584,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "python3 -m json.tool < input.json",
     "desc": "Validate and pretty-print JSON using Python standard library",
     "tip": "",
-    "tags": "json syntax types validation quotes schema"
+    "tags": "json syntax types validation quotes schema",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.rfc-editor.org/rfc/rfc8259.html",
+          "title": "RFC 8259: JSON"
+        },
+        {
+          "url": "https://docs.python.org/3/library/json.html",
+          "title": "Python: json (and json.tool)"
+        },
+        {
+          "url": "https://jqlang.org/manual/",
+          "title": "jq manual"
+        }
+      ]
+    }
   },
   {
     "sName": "json",
@@ -38999,7 +47612,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "jq empty input.json",
     "desc": "Validates JSON syntax; exits 0 if valid, non-zero with error line number if invalid",
     "tip": "",
-    "tags": "json syntax types validation quotes schema"
+    "tags": "json syntax types validation quotes schema",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.rfc-editor.org/rfc/rfc8259.html",
+          "title": "RFC 8259: JSON"
+        },
+        {
+          "url": "https://docs.python.org/3/library/json.html",
+          "title": "Python: json (and json.tool)"
+        },
+        {
+          "url": "https://jqlang.org/manual/",
+          "title": "jq manual"
+        }
+      ]
+    }
   },
   {
     "sName": "json",
@@ -39034,7 +47664,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "jq 'map(.temp) | add / length'",
     "desc": "Compute arithmetic average across array of numbers",
     "tip": "",
-    "tags": "jq filter select csv json transform api"
+    "tags": "jq filter select csv json transform api",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://jqlang.org/manual/",
+          "title": "jq manual"
+        },
+        {
+          "url": "https://github.com/jqlang/jq/releases",
+          "title": "jq releases"
+        }
+      ]
+    }
   },
   {
     "sName": "json",
@@ -39045,7 +47688,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "jq 'sort_by(.load) | reverse'",
     "desc": "Sort JSON array by specific object property descending",
     "tip": "",
-    "tags": "jq filter select csv json transform api"
+    "tags": "jq filter select csv json transform api",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://jqlang.org/manual/",
+          "title": "jq manual"
+        },
+        {
+          "url": "https://github.com/jqlang/jq/releases",
+          "title": "jq releases"
+        }
+      ]
+    }
   },
   {
     "sName": "json",
@@ -39056,7 +47712,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "jq 'keys'",
     "desc": "Return array of all property keys in object",
     "tip": "",
-    "tags": "jq filter select csv json transform api"
+    "tags": "jq filter select csv json transform api",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://jqlang.org/manual/",
+          "title": "jq manual"
+        },
+        {
+          "url": "https://github.com/jqlang/jq/releases",
+          "title": "jq releases"
+        }
+      ]
+    }
   },
   {
     "sName": "k8s-gpu",
@@ -41071,7 +49740,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "modprobe -v <module_name>",
     "desc": "Load a kernel module and its dependencies, printing what it does (-v)",
     "tip": "",
-    "tags": "lsmod modinfo modprobe dkms driver kernel-module"
+    "tags": "lsmod modinfo modprobe dkms driver kernel-module",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/modinfo.8.html",
+          "title": "modinfo(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/modprobe.8.html",
+          "title": "modprobe(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/dkms/dkms.8.en.html",
+          "title": "dkms(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: load and unload were one line (modprobe -v … && modprobe -rv …), so copying it loaded the module and removed it again."
+    }
   },
   {
     "sName": "kernel-boot",
@@ -41082,7 +49769,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "modprobe -rv <module_name>",
     "desc": "Unload a kernel module and its now-unused dependencies",
     "tip": "",
-    "tags": "lsmod modinfo modprobe dkms driver kernel-module"
+    "tags": "lsmod modinfo modprobe dkms driver kernel-module",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/modinfo.8.html",
+          "title": "modinfo(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/modprobe.8.html",
+          "title": "modprobe(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/dkms/dkms.8.en.html",
+          "title": "dkms(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: load and unload were one line (modprobe -v … && modprobe -rv …), so copying it loaded the module and removed it again."
+    }
   },
   {
     "sName": "kernel-boot",
@@ -41093,7 +49798,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep -H . /sys/module/mlx5_core/parameters/*",
     "desc": "Read currently active runtime parameter values of a loaded kernel module",
     "tip": "",
-    "tags": "lsmod modinfo modprobe dkms driver kernel-module"
+    "tags": "lsmod modinfo modprobe dkms driver kernel-module",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/modinfo.8.html",
+          "title": "modinfo(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/modprobe.8.html",
+          "title": "modprobe(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/dkms/dkms.8.en.html",
+          "title": "dkms(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: load and unload were one line (modprobe -v … && modprobe -rv …), so copying it loaded the module and removed it again."
+    }
   },
   {
     "sName": "kernel-boot",
@@ -41104,7 +49827,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dkms status",
     "desc": "Check Dynamic Kernel Module Support build/install status across installed Ubuntu kernels",
     "tip": "",
-    "tags": "lsmod modinfo modprobe dkms driver kernel-module"
+    "tags": "lsmod modinfo modprobe dkms driver kernel-module",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/modinfo.8.html",
+          "title": "modinfo(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/modprobe.8.html",
+          "title": "modprobe(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/dkms/dkms.8.en.html",
+          "title": "dkms(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: load and unload were one line (modprobe -v … && modprobe -rv …), so copying it loaded the module and removed it again."
+    }
   },
   {
     "sName": "kernel-boot",
@@ -41148,7 +49889,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "update-grub",
     "desc": "Regenerate /boot/grub/grub.cfg after editing /etc/default/grub",
     "tip": "",
-    "tags": "grub cmdline serial ttys0 sol initramfs boot"
+    "tags": "grub cmdline serial ttys0 sol initramfs boot",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.kernel.org/admin-guide/serial-console.html",
+          "title": "Kernel: Linux serial console"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/grub2-common/update-grub.8.en.html",
+          "title": "update-grub(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/initramfs-tools/update-initramfs.8.en.html",
+          "title": "update-initramfs(8)"
+        },
+        {
+          "url": "https://www.freedesktop.org/software/systemd/man/latest/systemd-getty-generator.html",
+          "title": "systemd-getty-generator(8)"
+        }
+      ],
+      "note": "With console=tty0 console=ttyS0,115200n8 the kernel writes to both and /dev/console is the last one (ttyS0). The GRUB manual (GRUB_CMDLINE_LINUX, GRUB_TERMINAL) could not be fetched."
+    }
   },
   {
     "sName": "kernel-boot",
@@ -41159,7 +49922,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "update-initramfs -u -k all",
     "desc": "Rebuild initial RAM filesystem images for all installed Ubuntu kernels after driver/mdadm changes",
     "tip": "",
-    "tags": "grub cmdline serial ttys0 sol initramfs boot"
+    "tags": "grub cmdline serial ttys0 sol initramfs boot",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.kernel.org/admin-guide/serial-console.html",
+          "title": "Kernel: Linux serial console"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/grub2-common/update-grub.8.en.html",
+          "title": "update-grub(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/initramfs-tools/update-initramfs.8.en.html",
+          "title": "update-initramfs(8)"
+        },
+        {
+          "url": "https://www.freedesktop.org/software/systemd/man/latest/systemd-getty-generator.html",
+          "title": "systemd-getty-generator(8)"
+        }
+      ],
+      "note": "With console=tty0 console=ttyS0,115200n8 the kernel writes to both and /dev/console is the last one (ttyS0). The GRUB manual (GRUB_CMDLINE_LINUX, GRUB_TERMINAL) could not be fetched."
+    }
   },
   {
     "sName": "kernel-boot",
@@ -41170,7 +49955,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "systemctl enable --now serial-getty@ttyS0.service",
     "desc": "Start a login prompt on ttyS0 now (with console=ttyS0 on the kernel command line, systemd starts one by itself at boot)",
     "tip": "",
-    "tags": "grub cmdline serial ttys0 sol initramfs boot"
+    "tags": "grub cmdline serial ttys0 sol initramfs boot",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.kernel.org/admin-guide/serial-console.html",
+          "title": "Kernel: Linux serial console"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/grub2-common/update-grub.8.en.html",
+          "title": "update-grub(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/initramfs-tools/update-initramfs.8.en.html",
+          "title": "update-initramfs(8)"
+        },
+        {
+          "url": "https://www.freedesktop.org/software/systemd/man/latest/systemd-getty-generator.html",
+          "title": "systemd-getty-generator(8)"
+        }
+      ],
+      "note": "With console=tty0 console=ttyS0,115200n8 the kernel writes to both and /dev/console is the last one (ttyS0). The GRUB manual (GRUB_CMDLINE_LINUX, GRUB_TERMINAL) could not be fetched."
+    }
   },
   {
     "sName": "kernel-boot",
@@ -41209,7 +50016,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "coredumpctl info <PID>",
     "desc": "Show detailed stack trace, registers, and signal metadata for the latest crash",
     "tip": "",
-    "tags": "coredumpctl kdump crash panic segfault vmcore"
+    "tags": "coredumpctl kdump crash panic segfault vmcore",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.freedesktop.org/software/systemd/man/latest/coredumpctl.html",
+          "title": "coredumpctl(1)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/kdump-tools/kdump-config.8.en.html",
+          "title": "kdump-config(8)"
+        },
+        {
+          "url": "https://ubuntu.com/server/docs/how-to/software/kernel-crash-dump/",
+          "title": "Ubuntu Server: kernel crash dump"
+        }
+      ]
+    }
   },
   {
     "sName": "kernel-boot",
@@ -41220,7 +50044,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ls -lh /var/crash/",
     "desc": "Inspect Ubuntu Apport / kdump crash reports and kernel vmcore directories",
     "tip": "",
-    "tags": "coredumpctl kdump crash panic segfault vmcore"
+    "tags": "coredumpctl kdump crash panic segfault vmcore",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.freedesktop.org/software/systemd/man/latest/coredumpctl.html",
+          "title": "coredumpctl(1)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/kdump-tools/kdump-config.8.en.html",
+          "title": "kdump-config(8)"
+        },
+        {
+          "url": "https://ubuntu.com/server/docs/how-to/software/kernel-crash-dump/",
+          "title": "Ubuntu Server: kernel crash dump"
+        }
+      ]
+    }
   },
   {
     "sName": "kernel-boot",
@@ -41260,7 +50101,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "fio --name=randread --ioengine=libaio --iodepth=32 --rw=randread --bs=4k --direct=1 --size=4G --numjobs=4 --runtime=60 --time_based --filename=/tmp/fio.test --group_reporting",
     "desc": "Benchmark 4K random read IOPS and tail latency (direct I/O bypassing page cache)",
     "tip": "",
-    "tags": "stress-ng fio iperf3 burnin benchmark iops testing"
+    "tags": "stress-ng fio iperf3 burnin benchmark iops testing",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/stress-ng/stress-ng.1.en.html",
+          "title": "stress-ng(1)"
+        },
+        {
+          "url": "https://fio.readthedocs.io/en/latest/fio_doc.html",
+          "title": "fio documentation"
+        },
+        {
+          "url": "https://software.es.net/iperf/invoking.html",
+          "title": "iperf3: invoking"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the iperf3 recipe was 'iperf3 -s # on target node && iperf3 -c …': everything after # is a comment, so copying it only started the server. Now two recipes."
+    }
   },
   {
     "sName": "kernel-boot",
@@ -41271,7 +50130,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "iperf3 -s",
     "desc": "Start the iperf3 server on the target node (run this first, there)",
     "tip": "",
-    "tags": "stress-ng fio iperf3 burnin benchmark iops testing"
+    "tags": "stress-ng fio iperf3 burnin benchmark iops testing",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/stress-ng/stress-ng.1.en.html",
+          "title": "stress-ng(1)"
+        },
+        {
+          "url": "https://fio.readthedocs.io/en/latest/fio_doc.html",
+          "title": "fio documentation"
+        },
+        {
+          "url": "https://software.es.net/iperf/invoking.html",
+          "title": "iperf3: invoking"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the iperf3 recipe was 'iperf3 -s # on target node && iperf3 -c …': everything after # is a comment, so copying it only started the server. Now two recipes."
+    }
   },
   {
     "sName": "kernel-boot",
@@ -41282,7 +50159,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "iperf3 -6 -c 2001:db8:dc:10::1 -P 8 -t 30",
     "desc": "From the other node: verify IPv6 (-6) NIC throughput across 8 parallel TCP streams for 30 seconds",
     "tip": "",
-    "tags": "stress-ng fio iperf3 burnin benchmark iops testing"
+    "tags": "stress-ng fio iperf3 burnin benchmark iops testing",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/stress-ng/stress-ng.1.en.html",
+          "title": "stress-ng(1)"
+        },
+        {
+          "url": "https://fio.readthedocs.io/en/latest/fio_doc.html",
+          "title": "fio documentation"
+        },
+        {
+          "url": "https://software.es.net/iperf/invoking.html",
+          "title": "iperf3: invoking"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the iperf3 recipe was 'iperf3 -s # on target node && iperf3 -c …': everything after # is a comment, so copying it only started the server. Now two recipes."
+    }
   },
   {
     "sName": "ls",
@@ -41313,7 +50208,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ls -laSrh /var/log/",
     "desc": "List files sorted by size with the largest files at the bottom of the terminal",
     "tip": "",
-    "tags": "ls sort time size iso timestamp directory"
+    "tags": "ls sort time size iso timestamp directory",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ls.1.html",
+          "title": "ls(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "ls",
@@ -41324,7 +50228,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ls -l --time=atime /etc/passwd",
     "desc": "Show last access/read timestamp (atime) or metadata change timestamp (--time=ctime)",
     "tip": "",
-    "tags": "ls sort time size iso timestamp directory"
+    "tags": "ls sort time size iso timestamp directory",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ls.1.html",
+          "title": "ls(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "ls",
@@ -41335,7 +50248,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ls -ld /var /var/log /var/log/nginx",
     "desc": "Inspect permissions and ownership of directory entries themselves (-d)",
     "tip": "",
-    "tags": "ls sort time size iso timestamp directory"
+    "tags": "ls sort time size iso timestamp directory",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ls.1.html",
+          "title": "ls(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "ls",
@@ -41366,7 +50288,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ls -li /etc/localtime",
     "desc": "Check inode number and hardlink count of a file",
     "tip": "",
-    "tags": "ls inode sparse blocks uid gid"
+    "tags": "ls inode sparse blocks uid gid",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ls.1.html",
+          "title": "ls(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "ls",
@@ -41377,7 +50308,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ls -1 /etc/netplan/",
     "desc": "Force single-column output (one filename per line)",
     "tip": "",
-    "tags": "ls inode sparse blocks uid gid"
+    "tags": "ls inode sparse blocks uid gid",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ls.1.html",
+          "title": "ls(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "lsof",
@@ -41508,7 +50448,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "which lsof && lsof --version 2>&1 | head -n 1",
     "desc": "Verify binary path and installed version in current environment",
     "tip": "",
-    "tags": "lsof deleted disk-full ports socket fd tips safety help"
+    "tags": "lsof deleted disk-full ports socket fd tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/lsof/lsof.8.en.html",
+          "title": "lsof(8), Debian"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man5/proc.5.html",
+          "title": "proc(5)"
+        }
+      ]
+    }
   },
   {
     "sName": "lua",
@@ -41539,7 +50492,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "type(value)",
     "desc": "Returns \"nil\", \"boolean\", \"number\", \"string\", \"table\", or \"function\"",
     "tip": "",
-    "tags": "lua variables local global types nil comments truthy"
+    "tags": "lua variables local global types nil comments truthy",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.5/manual.html",
+          "title": "Lua 5.5 reference manual"
+        }
+      ]
+    }
   },
   {
     "sName": "lua",
@@ -41550,7 +50512,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tostring(42) / tonumber(\"42\")",
     "desc": "Convert between numbers and strings. tonumber gives nil if invalid.",
     "tip": "",
-    "tags": "lua variables local global types nil comments truthy"
+    "tags": "lua variables local global types nil comments truthy",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.5/manual.html",
+          "title": "Lua 5.5 reference manual"
+        }
+      ]
+    }
   },
   {
     "sName": "lua",
@@ -41561,7 +50532,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "local a, b = 1, 2",
     "desc": "Assign several variables at once",
     "tip": "",
-    "tags": "lua variables local global types nil comments truthy"
+    "tags": "lua variables local global types nil comments truthy",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.5/manual.html",
+          "title": "Lua 5.5 reference manual"
+        }
+      ]
+    }
   },
   {
     "sName": "lua",
@@ -41572,7 +50552,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "a, b = b, a",
     "desc": "Swap two values without a temporary variable",
     "tip": "",
-    "tags": "lua variables local global types nil comments truthy"
+    "tags": "lua variables local global types nil comments truthy",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.5/manual.html",
+          "title": "Lua 5.5 reference manual"
+        }
+      ]
+    }
   },
   {
     "sName": "lua",
@@ -41603,7 +50592,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "string.format(\"%s %d %.2f\", s, i, f)",
     "desc": "printf-style formatting",
     "tip": "",
-    "tags": "lua strings patterns format gsub match gmatch"
+    "tags": "lua strings patterns format gsub match gmatch",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.5/manual.html",
+          "title": "Lua 5.5 reference manual"
+        }
+      ]
+    }
   },
   {
     "sName": "lua",
@@ -41614,7 +50612,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "%.  %-  %%",
     "desc": "Use % to escape magic characters, not a backslash",
     "tip": "",
-    "tags": "lua strings patterns format gsub match gmatch"
+    "tags": "lua strings patterns format gsub match gmatch",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.5/manual.html",
+          "title": "Lua 5.5 reference manual"
+        }
+      ]
+    }
   },
   {
     "sName": "lua",
@@ -41625,7 +50632,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "s:rep(3, \",\")",
     "desc": "Repeat a string with an optional separator",
     "tip": "",
-    "tags": "lua strings patterns format gsub match gmatch"
+    "tags": "lua strings patterns format gsub match gmatch",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.5/manual.html",
+          "title": "Lua 5.5 reference manual"
+        }
+      ]
+    }
   },
   {
     "sName": "lua",
@@ -41636,7 +50652,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "[[multi-line string]]",
     "desc": "Long string: no escapes, and newlines are kept",
     "tip": "",
-    "tags": "lua strings patterns format gsub match gmatch"
+    "tags": "lua strings patterns format gsub match gmatch",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.5/manual.html",
+          "title": "Lua 5.5 reference manual"
+        }
+      ]
+    }
   },
   {
     "sName": "lua",
@@ -41667,7 +50692,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "table.insert(t, value)",
     "desc": "Append to the end (table.insert(t, 1, value) to prepend)",
     "tip": "",
-    "tags": "lua tables arrays lists dictionary map insert sort"
+    "tags": "lua tables arrays lists dictionary map insert sort",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.5/manual.html",
+          "title": "Lua 5.5 reference manual"
+        }
+      ]
+    }
   },
   {
     "sName": "lua",
@@ -41678,7 +50712,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "table.remove(t, i)",
     "desc": "Remove item i and shift the rest down",
     "tip": "",
-    "tags": "lua tables arrays lists dictionary map insert sort"
+    "tags": "lua tables arrays lists dictionary map insert sort",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.5/manual.html",
+          "title": "Lua 5.5 reference manual"
+        }
+      ]
+    }
   },
   {
     "sName": "lua",
@@ -41689,7 +50732,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "table.sort(t, function(a, b) return a > b end)",
     "desc": "Sort in place, with an optional comparator",
     "tip": "",
-    "tags": "lua tables arrays lists dictionary map insert sort"
+    "tags": "lua tables arrays lists dictionary map insert sort",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.5/manual.html",
+          "title": "Lua 5.5 reference manual"
+        }
+      ]
+    }
   },
   {
     "sName": "lua",
@@ -41700,7 +50752,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "table.concat(t, \", \")",
     "desc": "Join a list into a string",
     "tip": "",
-    "tags": "lua tables arrays lists dictionary map insert sort"
+    "tags": "lua tables arrays lists dictionary map insert sort",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.5/manual.html",
+          "title": "Lua 5.5 reference manual"
+        }
+      ]
+    }
   },
   {
     "sName": "lua",
@@ -41731,7 +50792,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "if t and t.key then",
     "desc": "Check a table exists before reading a field",
     "tip": "",
-    "tags": "lua if else elseif conditionals defaults"
+    "tags": "lua if else elseif conditionals defaults",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.5/manual.html",
+          "title": "Lua 5.5 reference manual"
+        }
+      ]
+    }
   },
   {
     "sName": "lua",
@@ -41742,7 +50812,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "local port = opts.port or 8080",
     "desc": "Fall back to a default when a value is nil",
     "tip": "",
-    "tags": "lua if else elseif conditionals defaults"
+    "tags": "lua if else elseif conditionals defaults",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.5/manual.html",
+          "title": "Lua 5.5 reference manual"
+        }
+      ]
+    }
   },
   {
     "sName": "lua",
@@ -41773,7 +50852,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "for _, value in ipairs(t) do",
     "desc": "_ is the usual name for a value you will ignore",
     "tip": "",
-    "tags": "lua loops for while repeat pairs ipairs break"
+    "tags": "lua loops for while repeat pairs ipairs break",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.5/manual.html",
+          "title": "Lua 5.5 reference manual"
+        }
+      ]
+    }
   },
   {
     "sName": "lua",
@@ -41784,7 +50872,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "goto continue ... ::continue::",
     "desc": "Stand-in for continue, which Lua does not have",
     "tip": "",
-    "tags": "lua loops for while repeat pairs ipairs break"
+    "tags": "lua loops for while repeat pairs ipairs break",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.5/manual.html",
+          "title": "Lua 5.5 reference manual"
+        }
+      ]
+    }
   },
   {
     "sName": "lua",
@@ -41815,7 +50912,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "local x, y = f()",
     "desc": "Extra return values are dropped, and missing ones are nil",
     "tip": "",
-    "tags": "lua functions return closures varargs callbacks"
+    "tags": "lua functions return closures varargs callbacks",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.5/manual.html",
+          "title": "Lua 5.5 reference manual"
+        }
+      ]
+    }
   },
   {
     "sName": "lua",
@@ -41826,7 +50932,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "select(\"#\", ...)",
     "desc": "Count arguments, including nils",
     "tip": "",
-    "tags": "lua functions return closures varargs callbacks"
+    "tags": "lua functions return closures varargs callbacks",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.5/manual.html",
+          "title": "Lua 5.5 reference manual"
+        }
+      ]
+    }
   },
   {
     "sName": "lua",
@@ -41837,7 +50952,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "function M.name() end",
     "desc": "Define a function inside a table",
     "tip": "",
-    "tags": "lua functions return closures varargs callbacks"
+    "tags": "lua functions return closures varargs callbacks",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.5/manual.html",
+          "title": "Lua 5.5 reference manual"
+        }
+      ]
+    }
   },
   {
     "sName": "lua",
@@ -41872,7 +50996,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "local cfg = require(\"hypr.monitors\")",
     "desc": "Dots map to folders: hypr/monitors.lua",
     "tip": "",
-    "tags": "lua methods self metatable class modules require"
+    "tags": "lua methods self metatable class modules require",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.5/manual.html",
+          "title": "Lua 5.5 reference manual"
+        },
+        {
+          "url": "https://www.lua.org/pil/",
+          "title": "Programming in Lua"
+        }
+      ]
+    }
   },
   {
     "sName": "lua",
@@ -41883,7 +51020,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "package.path",
     "desc": "Search path that require uses to find files",
     "tip": "",
-    "tags": "lua methods self metatable class modules require"
+    "tags": "lua methods self metatable class modules require",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.5/manual.html",
+          "title": "Lua 5.5 reference manual"
+        },
+        {
+          "url": "https://www.lua.org/pil/",
+          "title": "Programming in Lua"
+        }
+      ]
+    }
   },
   {
     "sName": "lua",
@@ -41894,7 +51044,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dofile(\"file.lua\")",
     "desc": "Run a file every time, with no caching",
     "tip": "",
-    "tags": "lua methods self metatable class modules require"
+    "tags": "lua methods self metatable class modules require",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.5/manual.html",
+          "title": "Lua 5.5 reference manual"
+        },
+        {
+          "url": "https://www.lua.org/pil/",
+          "title": "Programming in Lua"
+        }
+      ]
+    }
   },
   {
     "sName": "lua",
@@ -41925,7 +51088,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "local f = assert(io.open(path))",
     "desc": "Open a file or stop with the reason",
     "tip": "",
-    "tags": "lua errors pcall xpcall assert exceptions"
+    "tags": "lua errors pcall xpcall assert exceptions",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.5/manual.html",
+          "title": "Lua 5.5 reference manual"
+        }
+      ]
+    }
   },
   {
     "sName": "lua",
@@ -41936,7 +51108,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "debug.traceback()",
     "desc": "Get the call stack as a string",
     "tip": "",
-    "tags": "lua errors pcall xpcall assert exceptions"
+    "tags": "lua errors pcall xpcall assert exceptions",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.5/manual.html",
+          "title": "Lua 5.5 reference manual"
+        }
+      ]
+    }
   },
   {
     "sName": "lua",
@@ -41972,7 +51153,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "os.getenv(\"HOME\")",
     "desc": "Read an environment variable",
     "tip": "",
-    "tags": "lua files io read write lines os"
+    "tags": "lua files io read write lines os",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.5/manual.html",
+          "title": "Lua 5.5 reference manual"
+        },
+        {
+          "url": "https://luajit.org/extensions.html",
+          "title": "LuaJIT extensions (Lua 5.1 base)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: Lua 5.2 also needs \"*a\"; LuaJIT accepts both forms."
+    }
   },
   {
     "sName": "lua",
@@ -41983,7 +51178,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "os.execute(\"cmd\")",
     "desc": "Run a shell command",
     "tip": "",
-    "tags": "lua files io read write lines os"
+    "tags": "lua files io read write lines os",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.5/manual.html",
+          "title": "Lua 5.5 reference manual"
+        },
+        {
+          "url": "https://luajit.org/extensions.html",
+          "title": "LuaJIT extensions (Lua 5.1 base)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: Lua 5.2 also needs \"*a\"; LuaJIT accepts both forms."
+    }
   },
   {
     "sName": "lua",
@@ -41994,7 +51203,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "io.popen(\"cmd\"):read(\"a\")",
     "desc": "Run a shell command and capture its output",
     "tip": "",
-    "tags": "lua files io read write lines os"
+    "tags": "lua files io read write lines os",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.5/manual.html",
+          "title": "Lua 5.5 reference manual"
+        },
+        {
+          "url": "https://luajit.org/extensions.html",
+          "title": "LuaJIT extensions (Lua 5.1 base)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: Lua 5.2 also needs \"*a\"; LuaJIT accepts both forms."
+    }
   },
   {
     "sName": "lua",
@@ -42005,7 +51228,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "os.date(\"%Y-%m-%d\") / os.time()",
     "desc": "Formatted date / Unix timestamp",
     "tip": "",
-    "tags": "lua files io read write lines os"
+    "tags": "lua files io read write lines os",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.5/manual.html",
+          "title": "Lua 5.5 reference manual"
+        },
+        {
+          "url": "https://luajit.org/extensions.html",
+          "title": "LuaJIT extensions (Lua 5.1 base)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: Lua 5.2 also needs \"*a\"; LuaJIT accepts both forms."
+    }
   },
   {
     "sName": "lua",
@@ -42044,7 +51281,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "#!/usr/bin/env lua",
     "desc": "Shebang line for executable scripts",
     "tip": "",
-    "tags": "lua cli luac luajit repl syntax-check arguments"
+    "tags": "lua cli luac luajit repl syntax-check arguments",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.5/manual.html",
+          "title": "Lua 5.5 reference manual"
+        },
+        {
+          "url": "https://www.lua.org/versions.html",
+          "title": "Lua versions (5.5, Dec 2025)"
+        },
+        {
+          "url": "https://luajit.org/extensions.html",
+          "title": "LuaJIT extensions (Lua 5.1 base)"
+        }
+      ]
+    }
   },
   {
     "sName": "lua",
@@ -42055,7 +51309,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lua -v",
     "desc": "Show the installed version",
     "tip": "",
-    "tags": "lua cli luac luajit repl syntax-check arguments"
+    "tags": "lua cli luac luajit repl syntax-check arguments",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.5/manual.html",
+          "title": "Lua 5.5 reference manual"
+        },
+        {
+          "url": "https://www.lua.org/versions.html",
+          "title": "Lua versions (5.5, Dec 2025)"
+        },
+        {
+          "url": "https://luajit.org/extensions.html",
+          "title": "LuaJIT extensions (Lua 5.1 base)"
+        }
+      ]
+    }
   },
   {
     "sName": "lua",
@@ -42099,7 +51370,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "hyprctl configerrors",
     "desc": "List config problems after you save and reload",
     "tip": "",
-    "tags": "lua omarchy hyprland bindings config o.bind hl.unbind"
+    "tags": "lua omarchy hyprland bindings config o.bind hl.unbind",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/basecamp/omarchy/blob/quattro/config/hypr/bindings.lua",
+          "title": "Omarchy: bindings.lua"
+        },
+        {
+          "url": "https://github.com/basecamp/omarchy/blob/quattro/config/hypr/looknfeel.lua",
+          "title": "Omarchy: looknfeel.lua"
+        },
+        {
+          "url": "https://github.com/basecamp/omarchy/blob/quattro/config/hypr/hyprland.lua",
+          "title": "Omarchy: hyprland.lua (require order)"
+        },
+        {
+          "url": "https://wiki.hypr.land/configuring/core/advanced-configuration/using-hyprctl/",
+          "title": "Hyprland wiki: hyprctl"
+        }
+      ],
+      "note": "Checked against an Omarchy install; hyprctl configerrors is listed by hyprctl --help on Hyprland 0.56.2."
+    }
   },
   {
     "sName": "lua",
@@ -42110,7 +51403,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "hyprctl reload",
     "desc": "Reload the Hyprland config",
     "tip": "",
-    "tags": "lua omarchy hyprland bindings config o.bind hl.unbind"
+    "tags": "lua omarchy hyprland bindings config o.bind hl.unbind",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/basecamp/omarchy/blob/quattro/config/hypr/bindings.lua",
+          "title": "Omarchy: bindings.lua"
+        },
+        {
+          "url": "https://github.com/basecamp/omarchy/blob/quattro/config/hypr/looknfeel.lua",
+          "title": "Omarchy: looknfeel.lua"
+        },
+        {
+          "url": "https://github.com/basecamp/omarchy/blob/quattro/config/hypr/hyprland.lua",
+          "title": "Omarchy: hyprland.lua (require order)"
+        },
+        {
+          "url": "https://wiki.hypr.land/configuring/core/advanced-configuration/using-hyprctl/",
+          "title": "Hyprland wiki: hyprctl"
+        }
+      ],
+      "note": "Checked against an Omarchy install; hyprctl configerrors is listed by hyprctl --help on Hyprland 0.56.2."
+    }
   },
   {
     "sName": "lua",
@@ -42149,7 +51464,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": ":lua print(vim.version().minor)",
     "desc": "Run Lua from Neovim's command line",
     "tip": "",
-    "tags": "lua neovim nvim init.lua keymap autocmd config"
+    "tags": "lua neovim nvim init.lua keymap autocmd config",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/lua-guide/",
+          "title": "Neovim: Lua guide"
+        },
+        {
+          "url": "https://neovim.io/doc/user/lua/",
+          "title": "Neovim: Lua reference"
+        },
+        {
+          "url": "https://luajit.org/extensions.html",
+          "title": "LuaJIT extensions (Lua 5.1 base)"
+        }
+      ]
+    }
   },
   {
     "sName": "lua",
@@ -42160,7 +51492,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": ":lua =vim.opt.number:get()",
     "desc": "Print the value of an expression",
     "tip": "",
-    "tags": "lua neovim nvim init.lua keymap autocmd config"
+    "tags": "lua neovim nvim init.lua keymap autocmd config",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://neovim.io/doc/user/lua-guide/",
+          "title": "Neovim: Lua guide"
+        },
+        {
+          "url": "https://neovim.io/doc/user/lua/",
+          "title": "Neovim: Lua reference"
+        },
+        {
+          "url": "https://luajit.org/extensions.html",
+          "title": "LuaJIT extensions (Lua 5.1 base)"
+        }
+      ]
+    }
   },
   {
     "sName": "macos-darwin-cli",
@@ -44136,7 +53485,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "## Step 1: Drain the node {#drain}",
     "desc": "Custom anchor id (Pandoc and some renderers, not GitHub)",
     "tip": "",
-    "tags": "markdown headings h1 h2 title anchor"
+    "tags": "markdown headings h1 h2 title anchor",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://spec.commonmark.org/0.31.2/",
+          "title": "CommonMark 0.31.2 spec"
+        },
+        {
+          "url": "https://pandoc.org/MANUAL.html",
+          "title": "Pandoc manual"
+        },
+        {
+          "url": "https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax",
+          "title": "GitHub: basic writing and formatting"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -44147,7 +53513,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "[Jump to Symptoms](#symptoms)",
     "desc": "Link to a heading: lowercase, spaces become -, punctuation removed",
     "tip": "",
-    "tags": "markdown headings h1 h2 title anchor"
+    "tags": "markdown headings h1 h2 title anchor",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://spec.commonmark.org/0.31.2/",
+          "title": "CommonMark 0.31.2 spec"
+        },
+        {
+          "url": "https://pandoc.org/MANUAL.html",
+          "title": "Pandoc manual"
+        },
+        {
+          "url": "https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax",
+          "title": "GitHub: basic writing and formatting"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -44187,7 +53570,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "``code with a ` backtick``",
     "desc": "Use two backticks to wrap code that contains one",
     "tip": "",
-    "tags": "markdown bold italic strikethrough emphasis kbd inline-code"
+    "tags": "markdown bold italic strikethrough emphasis kbd inline-code",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://spec.commonmark.org/0.31.2/",
+          "title": "CommonMark 0.31.2 spec"
+        },
+        {
+          "url": "https://github.github.com/gfm/",
+          "title": "GitHub Flavored Markdown spec"
+        },
+        {
+          "url": "https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax",
+          "title": "GitHub: basic writing and formatting"
+        }
+      ],
+      "note": "Changed 2026-11-10: <mark> is not in GitHub's documented HTML; <ins> is."
+    }
   },
   {
     "sName": "markdown",
@@ -44198,7 +53599,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "<sub>2</sub> <sup>TM</sup>",
     "desc": "Subscript and superscript with HTML",
     "tip": "",
-    "tags": "markdown bold italic strikethrough emphasis kbd inline-code"
+    "tags": "markdown bold italic strikethrough emphasis kbd inline-code",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://spec.commonmark.org/0.31.2/",
+          "title": "CommonMark 0.31.2 spec"
+        },
+        {
+          "url": "https://github.github.com/gfm/",
+          "title": "GitHub Flavored Markdown spec"
+        },
+        {
+          "url": "https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax",
+          "title": "GitHub: basic writing and formatting"
+        }
+      ],
+      "note": "Changed 2026-11-10: <mark> is not in GitHub's documented HTML; <ins> is."
+    }
   },
   {
     "sName": "markdown",
@@ -44209,7 +53628,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "<ins>underlined</ins>",
     "desc": "Underline text (in GitHub's documented HTML, with <sub> and <sup>)",
     "tip": "",
-    "tags": "markdown bold italic strikethrough emphasis kbd inline-code"
+    "tags": "markdown bold italic strikethrough emphasis kbd inline-code",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://spec.commonmark.org/0.31.2/",
+          "title": "CommonMark 0.31.2 spec"
+        },
+        {
+          "url": "https://github.github.com/gfm/",
+          "title": "GitHub Flavored Markdown spec"
+        },
+        {
+          "url": "https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax",
+          "title": "GitHub: basic writing and formatting"
+        }
+      ],
+      "note": "Changed 2026-11-10: <mark> is not in GitHub's documented HTML; <ins> is."
+    }
   },
   {
     "sName": "markdown",
@@ -44240,7 +53677,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "<br>",
     "desc": "HTML line break, useful inside table cells",
     "tip": "",
-    "tags": "markdown paragraph line-break blockquote hr rule"
+    "tags": "markdown paragraph line-break blockquote hr rule",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://spec.commonmark.org/0.31.2/",
+          "title": "CommonMark 0.31.2 spec"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -44251,7 +53697,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "&nbsp;",
     "desc": "Non-breaking space",
     "tip": "",
-    "tags": "markdown paragraph line-break blockquote hr rule"
+    "tags": "markdown paragraph line-break blockquote hr rule",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://spec.commonmark.org/0.31.2/",
+          "title": "CommonMark 0.31.2 spec"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -44282,7 +53737,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "`*args`",
     "desc": "Inline code is the easiest escape: everything inside is literal",
     "tip": "",
-    "tags": "markdown escape backslash special-characters comment entities"
+    "tags": "markdown escape backslash special-characters comment entities",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://spec.commonmark.org/0.31.2/",
+          "title": "CommonMark 0.31.2 spec"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -44293,7 +53757,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "<!-- hidden comment -->",
     "desc": "HTML comment, left out of the rendered page",
     "tip": "",
-    "tags": "markdown escape backslash special-characters comment entities"
+    "tags": "markdown escape backslash special-characters comment entities",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://spec.commonmark.org/0.31.2/",
+          "title": "CommonMark 0.31.2 spec"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -44324,7 +53797,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "- item\\n\\n<!-- end list -->\\n\\n- new list",
     "desc": "A comment ends one list so the next starts fresh",
     "tip": "",
-    "tags": "markdown lists bullets unordered nested"
+    "tags": "markdown lists bullets unordered nested",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://spec.commonmark.org/0.31.2/",
+          "title": "CommonMark 0.31.2 spec"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -44355,7 +53837,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "1. Step\\n   - sub-bullet",
     "desc": "Bullets inside a numbered step",
     "tip": "",
-    "tags": "markdown lists numbered ordered steps runbook"
+    "tags": "markdown lists numbered ordered steps runbook",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://spec.commonmark.org/0.31.2/",
+          "title": "CommonMark 0.31.2 spec"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -44366,7 +53857,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "10. Step",
     "desc": "Two-digit numbers need 4 spaces of indent for content below",
     "tip": "",
-    "tags": "markdown lists numbered ordered steps runbook"
+    "tags": "markdown lists numbered ordered steps runbook",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://spec.commonmark.org/0.31.2/",
+          "title": "CommonMark 0.31.2 spec"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -44405,7 +53905,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep -c '\\- \\[ \\]' summary.md",
     "desc": "Count open tasks in a file",
     "tip": "",
-    "tags": "markdown tasks checklist checkbox todo gfm"
+    "tags": "markdown tasks checklist checkbox todo gfm",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.github.com/gfm/",
+          "title": "GitHub Flavored Markdown spec"
+        },
+        {
+          "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/about-task-lists",
+          "title": "GitHub: task lists"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+          "title": "grep(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -44416,7 +53933,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep -n '\\- \\[ \\]' cases/*/summary.md",
     "desc": "List open tasks across every case",
     "tip": "",
-    "tags": "markdown tasks checklist checkbox todo gfm"
+    "tags": "markdown tasks checklist checkbox todo gfm",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.github.com/gfm/",
+          "title": "GitHub Flavored Markdown spec"
+        },
+        {
+          "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/about-task-lists",
+          "title": "GitHub: task lists"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+          "title": "grep(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -44455,7 +53989,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "[text](<path with spaces.md>)",
     "desc": "Angle brackets allow spaces in the path",
     "tip": "",
-    "tags": "markdown links url anchor relative autolink"
+    "tags": "markdown links url anchor relative autolink",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://spec.commonmark.org/0.31.2/",
+          "title": "CommonMark 0.31.2 spec"
+        },
+        {
+          "url": "https://github.github.com/gfm/",
+          "title": "GitHub Flavored Markdown spec"
+        },
+        {
+          "url": "https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax",
+          "title": "GitHub: basic writing and formatting"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -44466,7 +54017,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "[text](path%20with%20spaces.md)",
     "desc": "Or encode spaces as %20",
     "tip": "",
-    "tags": "markdown links url anchor relative autolink"
+    "tags": "markdown links url anchor relative autolink",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://spec.commonmark.org/0.31.2/",
+          "title": "CommonMark 0.31.2 spec"
+        },
+        {
+          "url": "https://github.github.com/gfm/",
+          "title": "GitHub Flavored Markdown spec"
+        },
+        {
+          "url": "https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax",
+          "title": "GitHub: basic writing and formatting"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -44477,7 +54045,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "https://example.com",
     "desc": "GitHub links bare URLs; plain CommonMark doesn't",
     "tip": "",
-    "tags": "markdown links url anchor relative autolink"
+    "tags": "markdown links url anchor relative autolink",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://spec.commonmark.org/0.31.2/",
+          "title": "CommonMark 0.31.2 spec"
+        },
+        {
+          "url": "https://github.github.com/gfm/",
+          "title": "GitHub Flavored Markdown spec"
+        },
+        {
+          "url": "https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax",
+          "title": "GitHub: basic writing and formatting"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -44508,7 +54093,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "[label]: url \"Title\"",
     "desc": "Definition with hover text",
     "tip": "",
-    "tags": "markdown links reference footnote-style url"
+    "tags": "markdown links reference footnote-style url",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://spec.commonmark.org/0.31.2/",
+          "title": "CommonMark 0.31.2 spec"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -44543,7 +54137,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "![Photo](https://example.com/photo.jpg)",
     "desc": "Remote image",
     "tip": "",
-    "tags": "markdown images img photos alt size"
+    "tags": "markdown images img photos alt size",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://spec.commonmark.org/0.31.2/",
+          "title": "CommonMark 0.31.2 spec"
+        },
+        {
+          "url": "https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax",
+          "title": "GitHub: basic writing and formatting"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -44554,7 +54161,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "<picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"dark.png\"><img src=\"light.png\" alt=\"Diagram\"></picture>",
     "desc": "Different images for light and dark themes on GitHub",
     "tip": "",
-    "tags": "markdown images img photos alt size"
+    "tags": "markdown images img photos alt size",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://spec.commonmark.org/0.31.2/",
+          "title": "CommonMark 0.31.2 spec"
+        },
+        {
+          "url": "https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax",
+          "title": "GitHub: basic writing and formatting"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -44589,7 +54209,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "~~~bash",
     "desc": "Tildes work as fences too",
     "tip": "",
-    "tags": "markdown code fenced syntax highlighting bash"
+    "tags": "markdown code fenced syntax highlighting bash",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://spec.commonmark.org/0.31.2/",
+          "title": "CommonMark 0.31.2 spec"
+        },
+        {
+          "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-and-highlighting-code-blocks",
+          "title": "GitHub: code blocks"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -44600,7 +54233,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "    indented code",
     "desc": "Four spaces of indent also make a code block, but with no language",
     "tip": "",
-    "tags": "markdown code fenced syntax highlighting bash"
+    "tags": "markdown code fenced syntax highlighting bash",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://spec.commonmark.org/0.31.2/",
+          "title": "CommonMark 0.31.2 spec"
+        },
+        {
+          "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-and-highlighting-code-blocks",
+          "title": "GitHub: code blocks"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -44631,7 +54277,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git diff > change.diff",
     "desc": "Save a diff to paste into a diff block",
     "tip": "",
-    "tags": "markdown code diff console logs output"
+    "tags": "markdown code diff console logs output",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-and-highlighting-code-blocks",
+          "title": "GitHub: code blocks"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -44666,7 +54321,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "<details><summary>Full dmesg</summary>\\n\\n```text\\n...\\n```\\n\\n</details>",
     "desc": "Collapse a long block (see the GitHub section)",
     "tip": "",
-    "tags": "markdown code nested fence backticks"
+    "tags": "markdown code nested fence backticks",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://spec.commonmark.org/0.31.2/",
+          "title": "CommonMark 0.31.2 spec"
+        },
+        {
+          "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/organizing-information-with-collapsed-sections",
+          "title": "GitHub: collapsed sections"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -44701,7 +54369,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "| a \\| b |",
     "desc": "Escape a pipe inside a cell",
     "tip": "",
-    "tags": "markdown tables alignment columns gfm"
+    "tags": "markdown tables alignment columns gfm",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.github.com/gfm/",
+          "title": "GitHub Flavored Markdown spec"
+        },
+        {
+          "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/organizing-information-with-tables",
+          "title": "GitHub: tables"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -44712,7 +54393,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "| line one<br>line two |",
     "desc": "Line break inside a cell",
     "tip": "",
-    "tags": "markdown tables alignment columns gfm"
+    "tags": "markdown tables alignment columns gfm",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.github.com/gfm/",
+          "title": "GitHub Flavored Markdown spec"
+        },
+        {
+          "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/organizing-information-with-tables",
+          "title": "GitHub: tables"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -44723,7 +54417,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "| `code` | **bold** |",
     "desc": "Inline formatting works in cells; lists and code blocks don't",
     "tip": "",
-    "tags": "markdown tables alignment columns gfm"
+    "tags": "markdown tables alignment columns gfm",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.github.com/gfm/",
+          "title": "GitHub Flavored Markdown spec"
+        },
+        {
+          "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/organizing-information-with-tables",
+          "title": "GitHub: tables"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -44766,7 +54473,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lsblk -o NAME,SIZE,MODEL,SERIAL -dn | awk '{ printf \"| %s | %s | %s | %s |\\n\", $1, $2, $3, $4 }'",
     "desc": "Disk inventory rows",
     "tip": "",
-    "tags": "markdown tables awk nvidia-smi csv pandoc inventory"
+    "tags": "markdown tables awk nvidia-smi csv pandoc inventory",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+          "title": "nvidia-smi documentation"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/gawk.1.html",
+          "title": "gawk(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/lsblk.8.html",
+          "title": "lsblk(8)"
+        },
+        {
+          "url": "https://pandoc.org/MANUAL.html",
+          "title": "Pandoc manual"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -44777,7 +54505,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "column -t -s, data.csv",
     "desc": "Align a CSV for a plain text block instead",
     "tip": "",
-    "tags": "markdown tables awk nvidia-smi csv pandoc inventory"
+    "tags": "markdown tables awk nvidia-smi csv pandoc inventory",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+          "title": "nvidia-smi documentation"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/gawk.1.html",
+          "title": "gawk(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/lsblk.8.html",
+          "title": "lsblk(8)"
+        },
+        {
+          "url": "https://pandoc.org/MANUAL.html",
+          "title": "Pandoc manual"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -44788,7 +54537,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "pandoc -f csv -t gfm data.csv",
     "desc": "Convert a CSV straight to a Markdown table",
     "tip": "",
-    "tags": "markdown tables awk nvidia-smi csv pandoc inventory"
+    "tags": "markdown tables awk nvidia-smi csv pandoc inventory",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+          "title": "nvidia-smi documentation"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/gawk.1.html",
+          "title": "gawk(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/lsblk.8.html",
+          "title": "lsblk(8)"
+        },
+        {
+          "url": "https://pandoc.org/MANUAL.html",
+          "title": "Pandoc manual"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -44819,7 +54589,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "> **Note:** text",
     "desc": "Fallback that reads well on renderers without alerts",
     "tip": "",
-    "tags": "markdown gfm alerts callout note warning admonition"
+    "tags": "markdown gfm alerts callout note warning admonition",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax",
+          "title": "GitHub: basic writing and formatting"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -44878,7 +54657,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "`@name`",
     "desc": "Put a name in backticks to mention it without notifying anyone",
     "tip": "",
-    "tags": "markdown gfm footnotes mentions issues references"
+    "tags": "markdown gfm footnotes mentions issues references",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax",
+          "title": "GitHub: basic writing and formatting"
+        },
+        {
+          "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/autolinked-references-and-urls",
+          "title": "GitHub: autolinked references"
+        },
+        {
+          "url": "https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue",
+          "title": "GitHub: closing issues with keywords"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -44913,7 +54709,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sequenceDiagram",
     "desc": "Mermaid sequence diagram, good for request flows",
     "tip": "",
-    "tags": "markdown gfm mermaid diagram math latex"
+    "tags": "markdown gfm mermaid diagram math latex",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-diagrams",
+          "title": "GitHub: diagrams (Mermaid)"
+        },
+        {
+          "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/writing-mathematical-expressions",
+          "title": "GitHub: math"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -44948,7 +54757,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mkdir -p cases/DC-1234/logs && $EDITOR cases/DC-1234/summary.md",
     "desc": "Start a new case folder",
     "tip": "",
-    "tags": "markdown template case incident summary rma ticket"
+    "tags": "markdown template case incident summary rma ticket",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.github.com/gfm/",
+          "title": "GitHub Flavored Markdown spec"
+        },
+        {
+          "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/about-task-lists",
+          "title": "GitHub: task lists"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -45003,7 +54825,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "+++ ... +++",
     "desc": "TOML front matter (Hugo)",
     "tip": "",
-    "tags": "markdown front-matter yaml metadata hugo jekyll obsidian"
+    "tags": "markdown front-matter yaml metadata hugo jekyll obsidian",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://pandoc.org/MANUAL.html",
+          "title": "Pandoc manual"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -45043,7 +54874,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "glow",
     "desc": "Browse every Markdown file in the current folder",
     "tip": "",
-    "tags": "markdown glow mdcat preview terminal render"
+    "tags": "markdown glow mdcat preview terminal render",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/charmbracelet/glow",
+          "title": "glow"
+        },
+        {
+          "url": "https://github.com/swsnr/mdcat",
+          "title": "mdcat (archived)"
+        },
+        {
+          "url": "https://pandoc.org/MANUAL.html",
+          "title": "Pandoc manual"
+        }
+      ],
+      "note": "Changed 2026-11-10: mdcat's repository is archived."
+    }
   },
   {
     "sName": "markdown",
@@ -45054,7 +54903,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "pandoc README.md | lynx -stdin",
     "desc": "Fallback with tools found on most servers",
     "tip": "",
-    "tags": "markdown glow mdcat preview terminal render"
+    "tags": "markdown glow mdcat preview terminal render",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/charmbracelet/glow",
+          "title": "glow"
+        },
+        {
+          "url": "https://github.com/swsnr/mdcat",
+          "title": "mdcat (archived)"
+        },
+        {
+          "url": "https://pandoc.org/MANUAL.html",
+          "title": "Pandoc manual"
+        }
+      ],
+      "note": "Changed 2026-11-10: mdcat's repository is archived."
+    }
   },
   {
     "sName": "markdown",
@@ -45097,7 +54964,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "prettier --check \"**/*.md\"",
     "desc": "Fail in CI if files need formatting",
     "tip": "",
-    "tags": "markdown lint markdownlint prettier format ci"
+    "tags": "markdown lint markdownlint prettier format ci",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/DavidAnson/markdownlint-cli2",
+          "title": "markdownlint-cli2"
+        },
+        {
+          "url": "https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md",
+          "title": "markdownlint rules (MD013)"
+        },
+        {
+          "url": "https://prettier.io/docs/cli",
+          "title": "Prettier CLI"
+        },
+        {
+          "url": "https://github.com/tcort/markdown-link-check",
+          "title": "markdown-link-check"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -45108,7 +54996,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "npx markdown-link-check README.md",
     "desc": "Find broken links",
     "tip": "",
-    "tags": "markdown lint markdownlint prettier format ci"
+    "tags": "markdown lint markdownlint prettier format ci",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/DavidAnson/markdownlint-cli2",
+          "title": "markdownlint-cli2"
+        },
+        {
+          "url": "https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md",
+          "title": "markdownlint rules (MD013)"
+        },
+        {
+          "url": "https://prettier.io/docs/cli",
+          "title": "Prettier CLI"
+        },
+        {
+          "url": "https://github.com/tcort/markdown-link-check",
+          "title": "markdown-link-check"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -45139,7 +55048,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "pandoc -s --embed-resources summary.md -o summary.html",
     "desc": "Single HTML file with images built in",
     "tip": "",
-    "tags": "markdown pandoc convert html docx pdf jira"
+    "tags": "markdown pandoc convert html docx pdf jira",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://pandoc.org/MANUAL.html",
+          "title": "Pandoc manual"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -45150,7 +55068,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "pandoc page.html -t gfm -o page.md",
     "desc": "Convert a web page or wiki export to Markdown",
     "tip": "",
-    "tags": "markdown pandoc convert html docx pdf jira"
+    "tags": "markdown pandoc convert html docx pdf jira",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://pandoc.org/MANUAL.html",
+          "title": "Pandoc manual"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -45161,7 +55088,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "pandoc summary.md -t jira",
     "desc": "Convert to Jira wiki markup for older Jira editors",
     "tip": "",
-    "tags": "markdown pandoc convert html docx pdf jira"
+    "tags": "markdown pandoc convert html docx pdf jira",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://pandoc.org/MANUAL.html",
+          "title": "Pandoc manual"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -45200,7 +55136,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep '^## ' README.md | sed -E 's/^## (.*)/- [\\1](#\\1)/'",
     "desc": "Rough TOC list to paste (fix the anchors to lowercase-with-dashes)",
     "tip": "",
-    "tags": "markdown toc headings grep pandoc outline"
+    "tags": "markdown toc headings grep pandoc outline",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+          "title": "grep(1)"
+        },
+        {
+          "url": "https://pandoc.org/MANUAL.html",
+          "title": "Pandoc manual"
+        },
+        {
+          "url": "https://github.com/jonschlinkert/markdown-toc",
+          "title": "markdown-toc"
+        }
+      ]
+    }
   },
   {
     "sName": "markdown",
@@ -45211,7 +55164,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "npx markdown-toc -i README.md",
     "desc": "Insert a TOC between <!-- toc --> markers",
     "tip": "",
-    "tags": "markdown toc headings grep pandoc outline"
+    "tags": "markdown toc headings grep pandoc outline",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+          "title": "grep(1)"
+        },
+        {
+          "url": "https://pandoc.org/MANUAL.html",
+          "title": "Pandoc manual"
+        },
+        {
+          "url": "https://github.com/jonschlinkert/markdown-toc",
+          "title": "markdown-toc"
+        }
+      ]
+    }
   },
   {
     "sName": "mb-asus-servers",
@@ -46211,7 +56181,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "which namei && namei --version 2>&1 | head -n 1",
     "desc": "Verify binary path and installed version in current environment",
     "tip": "",
-    "tags": "namei symlink permissions path traversal debug tips safety help"
+    "tags": "namei symlink permissions path traversal debug tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/namei.1.html",
+          "title": "namei(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "nano",
@@ -47756,7 +57735,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ss -tanp state established",
     "desc": "List all currently established TCP connections with remote peer IPs and local PIDs",
     "tip": "",
-    "tags": "ports listen open netstat socket ss lsof"
+    "tags": "ports listen open netstat socket ss lsof",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ss.8.html",
+          "title": "ss(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/lsof/lsof.8.en.html",
+          "title": "lsof(8), Debian"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the ss man page doesn't say -p needs root; the ROOT badge's 'maybe' note covers seeing other users' processes."
+    }
   },
   {
     "sName": "network",
@@ -47767,7 +57760,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ss -s",
     "desc": "Print high-level kernel socket summary (total TCP established, syn-recv, time-wait, orphaned)",
     "tip": "",
-    "tags": "ports listen open netstat socket ss lsof"
+    "tags": "ports listen open netstat socket ss lsof",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ss.8.html",
+          "title": "ss(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/lsof/lsof.8.en.html",
+          "title": "lsof(8), Debian"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the ss man page doesn't say -p needs root; the ROOT badge's 'maybe' note covers seeing other users' processes."
+    }
   },
   {
     "sName": "network",
@@ -47778,7 +57785,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lsof -iTCP:8080 -sTCP:LISTEN -P -n",
     "desc": "Find the exact process bound to TCP port 8080",
     "tip": "",
-    "tags": "ports listen open netstat socket ss lsof"
+    "tags": "ports listen open netstat socket ss lsof",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ss.8.html",
+          "title": "ss(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/lsof/lsof.8.en.html",
+          "title": "lsof(8), Debian"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the ss man page doesn't say -p needs root; the ROOT badge's 'maybe' note covers seeing other users' processes."
+    }
   },
   {
     "sName": "network",
@@ -47825,7 +57846,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ip -6 route get 2606:4700:4700::1111",
     "desc": "Query the kernel IPv6 routing table to see which egress interface, source IPv6, and next-hop gateway will be used",
     "tip": "",
-    "tags": "ip ipv6 interface nic gateway route ndp arp mtu"
+    "tags": "ip ipv6 interface nic gateway route ndp arp mtu",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-link.8.html",
+          "title": "ip-link(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-address.8.html",
+          "title": "ip-address(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-route.8.html",
+          "title": "ip-route(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-neighbour.8.html",
+          "title": "ip-neighbour(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-rule.8.html",
+          "title": "ip-rule(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "network",
@@ -47836,7 +57882,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ip -6 -c neigh show",
     "desc": "Display the L2 IPv6 Neighbor Discovery (NDP) table (REACHABLE, STALE, FAILED, router)",
     "tip": "",
-    "tags": "ip ipv6 interface nic gateway route ndp arp mtu"
+    "tags": "ip ipv6 interface nic gateway route ndp arp mtu",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-link.8.html",
+          "title": "ip-link(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-address.8.html",
+          "title": "ip-address(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-route.8.html",
+          "title": "ip-route(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-neighbour.8.html",
+          "title": "ip-neighbour(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-rule.8.html",
+          "title": "ip-rule(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "network",
@@ -47847,7 +57918,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ip -6 -c rule list && ip -6 route show table all",
     "desc": "Inspect IPv6 policy-based routing (PBR) rules and all kernel routing tables",
     "tip": "",
-    "tags": "ip ipv6 interface nic gateway route ndp arp mtu"
+    "tags": "ip ipv6 interface nic gateway route ndp arp mtu",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-link.8.html",
+          "title": "ip-link(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-address.8.html",
+          "title": "ip-address(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-route.8.html",
+          "title": "ip-route(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-neighbour.8.html",
+          "title": "ip-neighbour(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-rule.8.html",
+          "title": "ip-rule(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "network",
@@ -47891,7 +57987,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dig -x 2606:4700:4700::1111 +short",
     "desc": "Perform reverse DNS (ip6.arpa PTR record) lookup on an IPv6 address",
     "tip": "",
-    "tags": "dns ipv6 aaaa dig curl http tls ssl certificate netcat"
+    "tags": "dns ipv6 aaaa dig curl http tls ssl certificate netcat",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/bind9-dnsutils/dig.1.en.html",
+          "title": "dig(1), Debian"
+        },
+        {
+          "url": "https://curl.se/docs/manpage.html",
+          "title": "curl manual"
+        },
+        {
+          "url": "https://docs.openssl.org/master/man1/openssl-s_client/",
+          "title": "openssl s_client"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/netcat-openbsd/nc.1.en.html",
+          "title": "nc(1), Debian"
+        }
+      ],
+      "note": "openssl s_client -6 is in the OpenSSL docs; your openssl version may differ."
+    }
   },
   {
     "sName": "network",
@@ -47902,7 +58020,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "openssl s_client -6 -connect \"[2001:db8:dc:4::50]:443\" -servername bmc.local </dev/null 2>/dev/null | openssl x509 -noout -dates -subject -issuer",
     "desc": "Inspect a remote server/BMC's live TLS certificate over IPv6 (-6)",
     "tip": "",
-    "tags": "dns ipv6 aaaa dig curl http tls ssl certificate netcat"
+    "tags": "dns ipv6 aaaa dig curl http tls ssl certificate netcat",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/bind9-dnsutils/dig.1.en.html",
+          "title": "dig(1), Debian"
+        },
+        {
+          "url": "https://curl.se/docs/manpage.html",
+          "title": "curl manual"
+        },
+        {
+          "url": "https://docs.openssl.org/master/man1/openssl-s_client/",
+          "title": "openssl s_client"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/netcat-openbsd/nc.1.en.html",
+          "title": "nc(1), Debian"
+        }
+      ],
+      "note": "openssl s_client -6 is in the OpenSSL docs; your openssl version may differ."
+    }
   },
   {
     "sName": "network",
@@ -47913,7 +58053,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nc -6 -zv -w 3 2001:db8:dc:4::25 22 80 443",
     "desc": "Test raw IPv6 TCP port connectivity to a remote host with a 3-second timeout",
     "tip": "",
-    "tags": "dns ipv6 aaaa dig curl http tls ssl certificate netcat"
+    "tags": "dns ipv6 aaaa dig curl http tls ssl certificate netcat",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/bind9-dnsutils/dig.1.en.html",
+          "title": "dig(1), Debian"
+        },
+        {
+          "url": "https://curl.se/docs/manpage.html",
+          "title": "curl manual"
+        },
+        {
+          "url": "https://docs.openssl.org/master/man1/openssl-s_client/",
+          "title": "openssl s_client"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/netcat-openbsd/nc.1.en.html",
+          "title": "nc(1), Debian"
+        }
+      ],
+      "note": "openssl s_client -6 is in the OpenSSL docs; your openssl version may differ."
+    }
   },
   {
     "sName": "network",
@@ -47956,7 +58118,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ufw status numbered && ufw allow from 2001:db8:dc::/48 to any port 22 proto tcp",
     "desc": "View numbered Ubuntu UFW firewall rules and allow SSH only from internal 2001:db8:dc::/48 IPv6 prefix",
     "tip": "",
-    "tags": "tcpdump ipv6 icmp6 pcap ufw firewall ssh tunnel mtr traceroute"
+    "tags": "tcpdump ipv6 icmp6 pcap ufw firewall ssh tunnel mtr traceroute",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.tcpdump.org/manpages/tcpdump.1.html",
+          "title": "tcpdump(1)"
+        },
+        {
+          "url": "https://manpages.ubuntu.com/manpages/noble/man8/ufw.8.html",
+          "title": "ufw(8), Ubuntu 24.04"
+        },
+        {
+          "url": "https://man.openbsd.org/ssh",
+          "title": "ssh(1), OpenBSD"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/mtr-tiny/mtr.8.en.html",
+          "title": "mtr(8), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "network",
@@ -47967,7 +58150,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ssh -6 -N -L \"[::1]:5432:[2001:db8:dc::db]:5432\" user@bastion-host",
     "desc": "Forward local IPv6 loopback port 5432 securely through an SSH bastion host to an internal IPv6 database",
     "tip": "",
-    "tags": "tcpdump ipv6 icmp6 pcap ufw firewall ssh tunnel mtr traceroute"
+    "tags": "tcpdump ipv6 icmp6 pcap ufw firewall ssh tunnel mtr traceroute",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.tcpdump.org/manpages/tcpdump.1.html",
+          "title": "tcpdump(1)"
+        },
+        {
+          "url": "https://manpages.ubuntu.com/manpages/noble/man8/ufw.8.html",
+          "title": "ufw(8), Ubuntu 24.04"
+        },
+        {
+          "url": "https://man.openbsd.org/ssh",
+          "title": "ssh(1), OpenBSD"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/mtr-tiny/mtr.8.en.html",
+          "title": "mtr(8), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "network",
@@ -47978,7 +58182,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mtr -6 -rwzbc 20 2606:4700:4700::1111",
     "desc": "Run IPv6 My Traceroute report showing per-hop packet loss %, ASN, and latency jitter over 20 pings",
     "tip": "",
-    "tags": "tcpdump ipv6 icmp6 pcap ufw firewall ssh tunnel mtr traceroute"
+    "tags": "tcpdump ipv6 icmp6 pcap ufw firewall ssh tunnel mtr traceroute",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.tcpdump.org/manpages/tcpdump.1.html",
+          "title": "tcpdump(1)"
+        },
+        {
+          "url": "https://manpages.ubuntu.com/manpages/noble/man8/ufw.8.html",
+          "title": "ufw(8), Ubuntu 24.04"
+        },
+        {
+          "url": "https://man.openbsd.org/ssh",
+          "title": "ssh(1), OpenBSD"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/mtr-tiny/mtr.8.en.html",
+          "title": "mtr(8), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "nmap",
@@ -48085,7 +58310,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "which nmap && nmap --version 2>&1 | head -n 1",
     "desc": "Verify binary path and installed version in current environment",
     "tip": "",
-    "tags": "nmap ipv6 ff02::1 multicast subnet discovery bmc ports tips safety help"
+    "tags": "nmap ipv6 ff02::1 multicast subnet discovery bmc ports tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://nmap.org/book/man.html",
+          "title": "Nmap reference guide"
+        },
+        {
+          "url": "https://nmap.org/nsedoc/scripts/targets-ipv6-multicast-echo.html",
+          "title": "NSE: targets-ipv6-multicast-echo"
+        }
+      ]
+    }
   },
   {
     "sName": "nv-admin",
@@ -51083,7 +61321,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nvme error-log /dev/nvme0 --log-entries=16",
     "desc": "Inspect recent controller command errors and status codes",
     "tip": "",
-    "tags": "nvme nvme-cli smart ssd wear endurance firmware"
+    "tags": "nvme nvme-cli smart ssd wear endurance firmware",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-list.txt",
+          "title": "nvme-cli: nvme list"
+        },
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-log-smart.txt",
+          "title": "nvme-cli: smart log"
+        },
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-log-error.txt",
+          "title": "nvme-cli: error log"
+        },
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-list-subsys.txt",
+          "title": "nvme-cli: list-subsys"
+        }
+      ],
+      "note": "nvme-cli 3.0 (Sep 2026) renamed smart-log, error-log and id-ctrl to nvme log smart, nvme log error and nvme id ctrl; the old names still work with a warning. The man pages don't list smart-log or id-ctrl output fields (critical_warning, media_errors, mn, sn, fr): those are nvme-cli's output names."
+    }
   },
   {
     "sName": "nvme-smart",
@@ -51094,7 +61354,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nvme id-ctrl /dev/nvme0 | grep -E 'mn |sn |fr |ver |tnvmcap'",
     "desc": "Identify controller model (mn), serial (sn), firmware revision (fr), and total NVM capacity",
     "tip": "",
-    "tags": "nvme nvme-cli smart ssd wear endurance firmware"
+    "tags": "nvme nvme-cli smart ssd wear endurance firmware",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-list.txt",
+          "title": "nvme-cli: nvme list"
+        },
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-log-smart.txt",
+          "title": "nvme-cli: smart log"
+        },
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-log-error.txt",
+          "title": "nvme-cli: error log"
+        },
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-list-subsys.txt",
+          "title": "nvme-cli: list-subsys"
+        }
+      ],
+      "note": "nvme-cli 3.0 (Sep 2026) renamed smart-log, error-log and id-ctrl to nvme log smart, nvme log error and nvme id ctrl; the old names still work with a warning. The man pages don't list smart-log or id-ctrl output fields (critical_warning, media_errors, mn, sn, fr): those are nvme-cli's output names."
+    }
   },
   {
     "sName": "nvme-smart",
@@ -51105,7 +61387,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nvme list-subsys",
     "desc": "Display NVMe multipath subsystems and PCIe BDF addresses for each controller",
     "tip": "",
-    "tags": "nvme nvme-cli smart ssd wear endurance firmware"
+    "tags": "nvme nvme-cli smart ssd wear endurance firmware",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-list.txt",
+          "title": "nvme-cli: nvme list"
+        },
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-log-smart.txt",
+          "title": "nvme-cli: smart log"
+        },
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-log-error.txt",
+          "title": "nvme-cli: error log"
+        },
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-list-subsys.txt",
+          "title": "nvme-cli: list-subsys"
+        }
+      ],
+      "note": "nvme-cli 3.0 (Sep 2026) renamed smart-log, error-log and id-ctrl to nvme log smart, nvme log error and nvme id ctrl; the old names still work with a warning. The man pages don't list smart-log or id-ctrl output fields (critical_warning, media_errors, mn, sn, fr): those are nvme-cli's output names."
+    }
   },
   {
     "sName": "nvme-smart",
@@ -51153,7 +61457,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nvme id-ns /dev/nvme0n1 -H | grep 'LBA Format'",
     "desc": "Check supported sector sizes (512B vs 4096B 4Kn) and active LBA format",
     "tip": "",
-    "tags": "nvme secure-erase format firmware 4kn blkdiscard wipe"
+    "tags": "nvme secure-erase format firmware 4kn blkdiscard wipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-format.txt",
+          "title": "nvme-cli: format"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/nvme-cli/nvme-id-ns.1.en.html",
+          "title": "nvme-id-ns(1) (nvme-cli 2.13)"
+        },
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-fw-commit.txt",
+          "title": "nvme-cli: fw-commit"
+        },
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-fw-download.txt",
+          "title": "nvme-cli: fw-download"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/blkdiscard.8.html",
+          "title": "blkdiscard(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: fw-commit --action=1 activates at the next reset, not on the spot. nvme-cli 3.x moves these to nvme fw download / nvme fw commit / nvme id ns and deprecates -H; the 2.x forms shown still work. The man page doesn't name the 'LBA Format' lines."
+    }
   },
   {
     "sName": "nvme-smart",
@@ -51164,7 +61494,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nvme fw-download /dev/nvme0 --fw=firmware.bin && nvme fw-commit /dev/nvme0 --slot=1 --action=1",
     "desc": "Download a firmware image and commit it to slot 1; it activates at the next controller reset (--action=3 activates immediately, without a reset)",
     "tip": "",
-    "tags": "nvme secure-erase format firmware 4kn blkdiscard wipe"
+    "tags": "nvme secure-erase format firmware 4kn blkdiscard wipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-format.txt",
+          "title": "nvme-cli: format"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/nvme-cli/nvme-id-ns.1.en.html",
+          "title": "nvme-id-ns(1) (nvme-cli 2.13)"
+        },
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-fw-commit.txt",
+          "title": "nvme-cli: fw-commit"
+        },
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-fw-download.txt",
+          "title": "nvme-cli: fw-download"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/blkdiscard.8.html",
+          "title": "blkdiscard(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: fw-commit --action=1 activates at the next reset, not on the spot. nvme-cli 3.x moves these to nvme fw download / nvme fw commit / nvme id ns and deprecates -H; the 2.x forms shown still work. The man page doesn't name the 'LBA Format' lines."
+    }
   },
   {
     "sName": "nvme-smart",
@@ -51175,7 +61531,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "blkdiscard -v /dev/nvme0n1",
     "desc": "Discard (TRIM/Deallocate) every block on the device: all data is lost (-v only prints the offset and length)",
     "tip": "",
-    "tags": "nvme secure-erase format firmware 4kn blkdiscard wipe"
+    "tags": "nvme secure-erase format firmware 4kn blkdiscard wipe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-format.txt",
+          "title": "nvme-cli: format"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/nvme-cli/nvme-id-ns.1.en.html",
+          "title": "nvme-id-ns(1) (nvme-cli 2.13)"
+        },
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-fw-commit.txt",
+          "title": "nvme-cli: fw-commit"
+        },
+        {
+          "url": "https://github.com/linux-nvme/nvme-cli/blob/master/Documentation/nvme-fw-download.txt",
+          "title": "nvme-cli: fw-download"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/blkdiscard.8.html",
+          "title": "blkdiscard(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: fw-commit --action=1 activates at the next reset, not on the spot. nvme-cli 3.x moves these to nvme fw download / nvme fw commit / nvme id ns and deprecates -H; the 2.x forms shown still work. The man page doesn't name the 'LBA Format' lines."
+    }
   },
   {
     "sName": "nvme-smart",
@@ -51207,7 +61589,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "smartctl -t short /dev/sda",
     "desc": "Start a short self-test (usually under ten minutes) while the drive stays in service",
     "tip": "",
-    "tags": "smartctl smart sata sas hdd ssd megaraid defects"
+    "tags": "smartctl smart sata sas hdd ssd megaraid defects",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/smartmontools/smartctl.8.en.html",
+          "title": "smartctl(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the self-test and its log were one line (smartctl -t short && smartctl -l selftest), which reads the log before the new test finishes. The SATA attribute IDs and the SAS 'grown defect list' wording are drive-reported names, not from the man page."
+    }
   },
   {
     "sName": "nvme-smart",
@@ -51218,7 +61610,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "smartctl -l selftest /dev/sda",
     "desc": "Read the self-test log once the test has had time to finish (it shows the percentage left while one is running)",
     "tip": "",
-    "tags": "smartctl smart sata sas hdd ssd megaraid defects"
+    "tags": "smartctl smart sata sas hdd ssd megaraid defects",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/smartmontools/smartctl.8.en.html",
+          "title": "smartctl(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the self-test and its log were one line (smartctl -t short && smartctl -l selftest), which reads the log before the new test finishes. The SATA attribute IDs and the SAS 'grown defect list' wording are drive-reported names, not from the man page."
+    }
   },
   {
     "sName": "nvme-smart",
@@ -51229,7 +61631,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "smartctl -a -d megaraid,0 /dev/bus/0",
     "desc": "Query physical disk #0 behind a Broadcom/LSI MegaRAID hardware RAID controller",
     "tip": "",
-    "tags": "smartctl smart sata sas hdd ssd megaraid defects"
+    "tags": "smartctl smart sata sas hdd ssd megaraid defects",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/smartmontools/smartctl.8.en.html",
+          "title": "smartctl(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the self-test and its log were one line (smartctl -t short && smartctl -l selftest), which reads the log before the new test finishes. The SATA attribute IDs and the SAS 'grown defect list' wording are drive-reported names, not from the man page."
+    }
   },
   {
     "sName": "nvme-smart",
@@ -51240,7 +61652,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "smartctl --scan",
     "desc": "Scan and list devices smartctl can open, with device type and protocol",
     "tip": "",
-    "tags": "smartctl smart sata sas hdd ssd megaraid defects"
+    "tags": "smartctl smart sata sas hdd ssd megaraid defects",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/smartmontools/smartctl.8.en.html",
+          "title": "smartctl(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the self-test and its log were one line (smartctl -t short && smartctl -l selftest), which reads the log before the new test finishes. The SATA attribute IDs and the SAS 'grown defect list' wording are drive-reported names, not from the man page."
+    }
   },
   {
     "sName": "nvme-smart",
@@ -51276,7 +61698,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mdadm --manage /dev/md0 --fail /dev/sdb1 --remove /dev/sdb1",
     "desc": "Mark a failing partition as faulty and detach it from /dev/md0 before physical drive pull",
     "tip": "",
-    "tags": "mdadm raid mdstat degraded rebuild hotswap"
+    "tags": "mdadm raid mdstat degraded rebuild hotswap",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/mdadm.8.html",
+          "title": "mdadm(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/initramfs-tools/update-initramfs.8.en.html",
+          "title": "update-initramfs(8)"
+        }
+      ],
+      "note": "mdadm documents both /etc/mdadm.conf and /etc/mdadm/mdadm.conf; Debian and Ubuntu use the second. --manage is optional: mdadm assumes it when the first option is --add, --fail or --remove."
+    }
   },
   {
     "sName": "nvme-smart",
@@ -51287,7 +61723,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mdadm --manage /dev/md0 --add /dev/sdb1",
     "desc": "Add newly inserted replacement drive partition into /dev/md0 to start rebuild",
     "tip": "",
-    "tags": "mdadm raid mdstat degraded rebuild hotswap"
+    "tags": "mdadm raid mdstat degraded rebuild hotswap",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/mdadm.8.html",
+          "title": "mdadm(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/initramfs-tools/update-initramfs.8.en.html",
+          "title": "update-initramfs(8)"
+        }
+      ],
+      "note": "mdadm documents both /etc/mdadm.conf and /etc/mdadm/mdadm.conf; Debian and Ubuntu use the second. --manage is optional: mdadm assumes it when the first option is --add, --fail or --remove."
+    }
   },
   {
     "sName": "nvme-smart",
@@ -51298,7 +61748,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mdadm --examine /dev/sd[a-z]1",
     "desc": "Inspect RAID superblocks directly on member partitions",
     "tip": "",
-    "tags": "mdadm raid mdstat degraded rebuild hotswap"
+    "tags": "mdadm raid mdstat degraded rebuild hotswap",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/mdadm.8.html",
+          "title": "mdadm(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/initramfs-tools/update-initramfs.8.en.html",
+          "title": "update-initramfs(8)"
+        }
+      ],
+      "note": "mdadm documents both /etc/mdadm.conf and /etc/mdadm/mdadm.conf; Debian and Ubuntu use the second. --manage is optional: mdadm assumes it when the first option is --add, --fail or --remove."
+    }
   },
   {
     "sName": "nvme-smart",
@@ -51309,7 +61773,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mdadm --detail --scan | tee -a /etc/mdadm/mdadm.conf && update-initramfs -u",
     "desc": "Append active array definitions to mdadm.conf and update the Ubuntu initramfs (run it twice and you get duplicate ARRAY lines: check the file first)",
     "tip": "",
-    "tags": "mdadm raid mdstat degraded rebuild hotswap"
+    "tags": "mdadm raid mdstat degraded rebuild hotswap",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/mdadm.8.html",
+          "title": "mdadm(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/initramfs-tools/update-initramfs.8.en.html",
+          "title": "update-initramfs(8)"
+        }
+      ],
+      "note": "mdadm documents both /etc/mdadm.conf and /etc/mdadm/mdadm.conf; Debian and Ubuntu use the second. --manage is optional: mdadm assumes it when the first option is --add, --fail or --remove."
+    }
   },
   {
     "sName": "nvme-smart",
@@ -51349,7 +61827,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ledctl --listed-only locate_off=/dev/nvme0n1",
     "desc": "Turn the Locate LED off once the drive is swapped (other drives' LEDs untouched)",
     "tip": "",
-    "tags": "ledctl lsscsi multipath backplane led hotswap sas"
+    "tags": "ledctl lsscsi multipath backplane led hotswap sas",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/ledmon/ledctl.8.en.html",
+          "title": "ledctl(8) (ledmon 0.97)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/lsscsi/lsscsi.8.en.html",
+          "title": "lsscsi(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/multipath-tools/multipath.8.en.html",
+          "title": "multipath(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: added --listed-only; plain ledctl locate= turns off the LEDs of all other drives. Checked against ledmon 0.97; the 1.x changelog doesn't mention a syntax change."
+    }
   },
   {
     "sName": "nvme-smart",
@@ -51360,7 +61856,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ledctl --listed-only normal=/dev/nvme0n1",
     "desc": "Reset this bay's Status, Failure and Locate LEDs to off",
     "tip": "",
-    "tags": "ledctl lsscsi multipath backplane led hotswap sas"
+    "tags": "ledctl lsscsi multipath backplane led hotswap sas",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/ledmon/ledctl.8.en.html",
+          "title": "ledctl(8) (ledmon 0.97)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/lsscsi/lsscsi.8.en.html",
+          "title": "lsscsi(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/multipath-tools/multipath.8.en.html",
+          "title": "multipath(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: added --listed-only; plain ledctl locate= turns off the LEDs of all other drives. Checked against ledmon 0.97; the 1.x changelog doesn't mention a syntax change."
+    }
   },
   {
     "sName": "nvme-smart",
@@ -51371,7 +61885,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "multipath -ll",
     "desc": "Display Device-Mapper Multipath topology, path-checker states, and LUN WWIDs",
     "tip": "",
-    "tags": "ledctl lsscsi multipath backplane led hotswap sas"
+    "tags": "ledctl lsscsi multipath backplane led hotswap sas",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/ledmon/ledctl.8.en.html",
+          "title": "ledctl(8) (ledmon 0.97)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/lsscsi/lsscsi.8.en.html",
+          "title": "lsscsi(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/multipath-tools/multipath.8.en.html",
+          "title": "multipath(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: added --listed-only; plain ledctl locate= turns off the LEDs of all other drives. Checked against ledmon 0.97; the 1.x changelog doesn't mention a syntax change."
+    }
   },
   {
     "sName": "omarchy",
@@ -52339,7 +62871,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "which openssl && openssl --version 2>&1 | head -n 1",
     "desc": "Verify binary path and installed version in current environment",
     "tip": "",
-    "tags": "openssl ipv6 tls ssl certificate x509 expiry san tips safety help"
+    "tags": "openssl ipv6 tls ssl certificate x509 expiry san tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.openssl.org/master/man1/openssl-s_client/",
+          "title": "openssl s_client"
+        },
+        {
+          "url": "https://docs.openssl.org/master/man1/openssl-x509/",
+          "title": "openssl x509"
+        }
+      ]
+    }
   },
   {
     "sName": "packages",
@@ -52374,7 +62919,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "apt list --upgradable",
     "desc": "List all packages that have a newer version available in configured APT repositories",
     "tip": "",
-    "tags": "ubuntu debian apt upgrade cleanup apt-mark hold"
+    "tags": "ubuntu debian apt upgrade cleanup apt-mark hold",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/apt/apt.8.en.html",
+          "title": "apt(8), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/apt/apt-mark.8.en.html",
+          "title": "apt-mark(8), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "packages",
@@ -52385,7 +62943,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "apt-mark hold linux-image-generic kubelet && apt-mark showhold",
     "desc": "Pin/hold critical packages (e.g. kernel or kubelet) to prevent accidental upgrades",
     "tip": "",
-    "tags": "ubuntu debian apt upgrade cleanup apt-mark hold"
+    "tags": "ubuntu debian apt upgrade cleanup apt-mark hold",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/apt/apt.8.en.html",
+          "title": "apt(8), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/apt/apt-mark.8.en.html",
+          "title": "apt-mark(8), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "packages",
@@ -52424,7 +62995,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep -rhE '^deb |^Types:' /etc/apt/sources.list /etc/apt/sources.list.d/",
     "desc": "List all active APT package repositories and PPAs configured on the Ubuntu host",
     "tip": "",
-    "tags": "apt search policy repo ppa version sources.list"
+    "tags": "apt search policy repo ppa version sources.list",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/apt/apt.8.en.html",
+          "title": "apt(8), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/apt/apt-cache.8.en.html",
+          "title": "apt-cache(8), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/dpkg/dpkg-deb.1.en.html",
+          "title": "dpkg-deb(1), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "packages",
@@ -52435,7 +63023,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "apt download <pkg> && dpkg-deb -I <pkg>*.deb",
     "desc": "Download a .deb package to the current directory without installing it and inspect its control metadata",
     "tip": "",
-    "tags": "apt search policy repo ppa version sources.list"
+    "tags": "apt search policy repo ppa version sources.list",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/apt/apt.8.en.html",
+          "title": "apt(8), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/apt/apt-cache.8.en.html",
+          "title": "apt-cache(8), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/dpkg/dpkg-deb.1.en.html",
+          "title": "dpkg-deb(1), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "packages",
@@ -52474,7 +63079,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "apt-file update && apt-file search /usr/sbin/ipmitool",
     "desc": "Find which Ubuntu package provides a binary that is NOT yet installed on the system",
     "tip": "",
-    "tags": "dpkg deb owns files ubuntu apt-file"
+    "tags": "dpkg deb owns files ubuntu apt-file",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/dpkg/dpkg.1.en.html",
+          "title": "dpkg(1), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/apt-file/apt-file.1.en.html",
+          "title": "apt-file(1), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/debsums/debsums.1.en.html",
+          "title": "debsums(1), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "packages",
@@ -52485,7 +63107,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "debsums -s",
     "desc": "Verify MD5 checksums of installed Ubuntu package files against dpkg metadata to detect corruption",
     "tip": "",
-    "tags": "dpkg deb owns files ubuntu apt-file"
+    "tags": "dpkg deb owns files ubuntu apt-file",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/dpkg/dpkg.1.en.html",
+          "title": "dpkg(1), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/apt-file/apt-file.1.en.html",
+          "title": "apt-file(1), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/debsums/debsums.1.en.html",
+          "title": "debsums(1), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "packages",
@@ -52524,7 +63163,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "cat /var/run/reboot-required /var/run/reboot-required.pkgs 2>/dev/null",
     "desc": "Check if Ubuntu requires a system reboot after patching and see which packages triggered it",
     "tip": "",
-    "tags": "dpkg broken lock repair needrestart reboot-required"
+    "tags": "dpkg broken lock repair needrestart reboot-required",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/dpkg/dpkg.1.en.html",
+          "title": "dpkg(1), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/apt/apt-get.8.en.html",
+          "title": "apt-get(8), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/needrestart/needrestart.1.en.html",
+          "title": "needrestart(1), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "packages",
@@ -52535,7 +63191,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lsof /var/lib/dpkg/lock-frontend /var/lib/apt/lists/lock",
     "desc": "Check if a background apt or unattended-upgrade process is currently holding the dpkg lock",
     "tip": "",
-    "tags": "dpkg broken lock repair needrestart reboot-required"
+    "tags": "dpkg broken lock repair needrestart reboot-required",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/dpkg/dpkg.1.en.html",
+          "title": "dpkg(1), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/apt/apt-get.8.en.html",
+          "title": "apt-get(8), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/needrestart/needrestart.1.en.html",
+          "title": "needrestart(1), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "packages",
@@ -52579,7 +63252,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "pro status",
     "desc": "Check Ubuntu Pro subscription status (ESM security updates, Livepatch kernel patching)",
     "tip": "",
-    "tags": "snap ubuntu lsb_release hostnamectl dmesg livepatch"
+    "tags": "snap ubuntu lsb_release hostnamectl dmesg livepatch",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/lsb-release/lsb_release.1.en.html",
+          "title": "lsb_release(1), Debian"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/hostnamectl.1.html",
+          "title": "hostnamectl(1)"
+        },
+        {
+          "url": "https://manpages.ubuntu.com/manpages/noble/man8/snap.8.html",
+          "title": "snap(8), Ubuntu 24.04"
+        },
+        {
+          "url": "https://manpages.ubuntu.com/manpages/noble/man1/pro.1.html",
+          "title": "pro(1), Ubuntu 24.04"
+        }
+      ],
+      "note": "Ubuntu-specific: snap and pro are Canonical tools."
+    }
   },
   {
     "sName": "packages",
@@ -52590,7 +63285,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dmesg -T -w --level=err,warn",
     "desc": "Watch the kernel ring buffer live with human-readable timestamps for hardware/driver errors",
     "tip": "",
-    "tags": "snap ubuntu lsb_release hostnamectl dmesg livepatch"
+    "tags": "snap ubuntu lsb_release hostnamectl dmesg livepatch",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/lsb-release/lsb_release.1.en.html",
+          "title": "lsb_release(1), Debian"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/hostnamectl.1.html",
+          "title": "hostnamectl(1)"
+        },
+        {
+          "url": "https://manpages.ubuntu.com/manpages/noble/man8/snap.8.html",
+          "title": "snap(8), Ubuntu 24.04"
+        },
+        {
+          "url": "https://manpages.ubuntu.com/manpages/noble/man1/pro.1.html",
+          "title": "pro(1), Ubuntu 24.04"
+        }
+      ],
+      "note": "Ubuntu-specific: snap and pro are Canonical tools."
+    }
   },
   {
     "sName": "pcie-numa",
@@ -52626,7 +63343,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lspci -vvv | grep -B 1 -E 'LnkSta:.*downgraded'",
     "desc": "Scan all PCIe devices across the server for any downgraded PCIe lane width or speed",
     "tip": "",
-    "tags": "lspci pcie lnksta lnkcap downgraded lanes gen4 gen5 riser"
+    "tags": "lspci pcie lnksta lnkcap downgraded lanes gen4 gen5 riser",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/lspci.8.html",
+          "title": "lspci(8)"
+        },
+        {
+          "url": "https://github.com/pciutils/pciutils/blob/master/ls-caps.c",
+          "title": "pciutils source: ls-caps.c (downgraded)"
+        }
+      ],
+      "note": "lspci adds (downgraded) to LnkSta on endpoints only, not on root or downstream ports. Without root, lspci can't read the capability registers."
+    }
   },
   {
     "sName": "pcie-numa",
@@ -52637,7 +63368,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lspci -nnk",
     "desc": "List all PCIe devices with Vendor:Device hex IDs [10de:2330] and active kernel driver",
     "tip": "",
-    "tags": "lspci pcie lnksta lnkcap downgraded lanes gen4 gen5 riser"
+    "tags": "lspci pcie lnksta lnkcap downgraded lanes gen4 gen5 riser",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/lspci.8.html",
+          "title": "lspci(8)"
+        },
+        {
+          "url": "https://github.com/pciutils/pciutils/blob/master/ls-caps.c",
+          "title": "pciutils source: ls-caps.c (downgraded)"
+        }
+      ],
+      "note": "lspci adds (downgraded) to LnkSta on endpoints only, not on root or downstream ports. Without root, lspci can't read the capability registers."
+    }
   },
   {
     "sName": "pcie-numa",
@@ -52648,7 +63393,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lspci -tv",
     "desc": "Render PCIe root complex, bridges, switches, and endpoints as a tree",
     "tip": "",
-    "tags": "lspci pcie lnksta lnkcap downgraded lanes gen4 gen5 riser"
+    "tags": "lspci pcie lnksta lnkcap downgraded lanes gen4 gen5 riser",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/lspci.8.html",
+          "title": "lspci(8)"
+        },
+        {
+          "url": "https://github.com/pciutils/pciutils/blob/master/ls-caps.c",
+          "title": "pciutils source: ls-caps.c (downgraded)"
+        }
+      ],
+      "note": "lspci adds (downgraded) to LnkSta on endpoints only, not on root or downstream ports. Without root, lspci can't read the capability registers."
+    }
   },
   {
     "sName": "pcie-numa",
@@ -52688,7 +63447,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "echo 1 | tee /sys/bus/pci/rescan",
     "desc": "Rescan every PCI bus and re-discover removed devices (after a card or U.2 drive dropped off)",
     "tip": "",
-    "tags": "aer pcie errors rescan hotplug tlp lspci"
+    "tags": "aer pcie errors rescan hotplug tlp lspci",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/lspci.8.html",
+          "title": "lspci(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/setpci.8.html",
+          "title": "setpci(8)"
+        },
+        {
+          "url": "https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-bus-pci",
+          "title": "Kernel ABI: sysfs-bus-pci"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the read-only AER check also ran a bus rescan (… && echo 1 | tee /sys/bus/pci/rescan); the rescan is now its own recipe."
+    }
   },
   {
     "sName": "pcie-numa",
@@ -52699,7 +63476,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "echo 1 | tee /sys/bus/pci/devices/0000:3b:00.0/remove",
     "desc": "Safely hot-remove a specific PCIe BDF device before hot-swapping or rescanning",
     "tip": "",
-    "tags": "aer pcie errors rescan hotplug tlp lspci"
+    "tags": "aer pcie errors rescan hotplug tlp lspci",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/lspci.8.html",
+          "title": "lspci(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/setpci.8.html",
+          "title": "setpci(8)"
+        },
+        {
+          "url": "https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-bus-pci",
+          "title": "Kernel ABI: sysfs-bus-pci"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the read-only AER check also ran a bus rescan (… && echo 1 | tee /sys/bus/pci/rescan); the rescan is now its own recipe."
+    }
   },
   {
     "sName": "pcie-numa",
@@ -52710,7 +63505,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "setpci -s 3b:00.0 COMMAND",
     "desc": "Read raw PCI configuration space COMMAND register in hex",
     "tip": "",
-    "tags": "aer pcie errors rescan hotplug tlp lspci"
+    "tags": "aer pcie errors rescan hotplug tlp lspci",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/lspci.8.html",
+          "title": "lspci(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/setpci.8.html",
+          "title": "setpci(8)"
+        },
+        {
+          "url": "https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-bus-pci",
+          "title": "Kernel ABI: sysfs-bus-pci"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the read-only AER check also ran a bus rescan (… && echo 1 | tee /sys/bus/pci/rescan); the rescan is now its own recipe."
+    }
   },
   {
     "sName": "pcie-numa",
@@ -52750,7 +63563,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "cpupower frequency-info",
     "desc": "Inspect active CPU frequency governor (performance vs powersave) and hardware P-states",
     "tip": "",
-    "tags": "lscpu cpu cores numa governor microcode smt"
+    "tags": "lscpu cpu cores numa governor microcode smt",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/lscpu.1.html",
+          "title": "lscpu(1)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/linux-cpupower/cpupower-frequency-set.1.en.html",
+          "title": "cpupower-frequency-set(1)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/linux-cpupower/cpupower-frequency-info.1.en.html",
+          "title": "cpupower-frequency-info(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: lscpu -e=…,L1d:L1i:L2:L3,… fails with 'unknown column' (tested, util-linux 2.42): the column is CACHE. Which governors exist depends on the cpufreq driver: cpupower frequency-info -g lists them."
+    }
   },
   {
     "sName": "pcie-numa",
@@ -52761,7 +63592,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "cpupower frequency-set -g performance",
     "desc": "Lock all CPU cores to the 'performance' governor for low-latency datacenter workloads",
     "tip": "",
-    "tags": "lscpu cpu cores numa governor microcode smt"
+    "tags": "lscpu cpu cores numa governor microcode smt",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/lscpu.1.html",
+          "title": "lscpu(1)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/linux-cpupower/cpupower-frequency-set.1.en.html",
+          "title": "cpupower-frequency-set(1)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/linux-cpupower/cpupower-frequency-info.1.en.html",
+          "title": "cpupower-frequency-info(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: lscpu -e=…,L1d:L1i:L2:L3,… fails with 'unknown column' (tested, util-linux 2.42): the column is CACHE. Which governors exist depends on the cpufreq driver: cpupower frequency-info -g lists them."
+    }
   },
   {
     "sName": "pcie-numa",
@@ -52772,7 +63621,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep -E 'model name|microcode|cpu MHz' /proc/cpuinfo | head -n 6",
     "desc": "Check loaded CPU microcode patch version and current clock speed",
     "tip": "",
-    "tags": "lscpu cpu cores numa governor microcode smt"
+    "tags": "lscpu cpu cores numa governor microcode smt",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/lscpu.1.html",
+          "title": "lscpu(1)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/linux-cpupower/cpupower-frequency-set.1.en.html",
+          "title": "cpupower-frequency-set(1)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/linux-cpupower/cpupower-frequency-info.1.en.html",
+          "title": "cpupower-frequency-info(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: lscpu -e=…,L1d:L1i:L2:L3,… fails with 'unknown column' (tested, util-linux 2.42): the column is CACHE. Which governors exist depends on the cpufreq driver: cpupower frequency-info -g lists them."
+    }
   },
   {
     "sName": "pcie-numa",
@@ -52816,7 +63683,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "numactl --cpunodebind=0 --membind=0 ./workload",
     "desc": "Pin a process strictly to CPU cores and local RAM on NUMA node 0",
     "tip": "",
-    "tags": "numa numactl numastat lstopo socket affinity latency"
+    "tags": "numa numactl numastat lstopo socket affinity latency",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/numactl.8.html",
+          "title": "numactl(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/numastat.8.html",
+          "title": "numastat(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/hwloc/lstopo-no-graphics.1.en.html",
+          "title": "lstopo-no-graphics(1)"
+        },
+        {
+          "url": "https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-bus-pci",
+          "title": "Kernel ABI: sysfs-bus-pci"
+        }
+      ],
+      "note": "numa_node reads -1 when the firmware doesn't report a node, and virtual NICs have no device link."
+    }
   },
   {
     "sName": "pcie-numa",
@@ -52827,7 +63716,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "cat /sys/class/net/eth0/device/numa_node",
     "desc": "Check which CPU NUMA node a specific NIC or NVMe device is physically wired to",
     "tip": "",
-    "tags": "numa numactl numastat lstopo socket affinity latency"
+    "tags": "numa numactl numastat lstopo socket affinity latency",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/numactl.8.html",
+          "title": "numactl(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/numastat.8.html",
+          "title": "numastat(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/hwloc/lstopo-no-graphics.1.en.html",
+          "title": "lstopo-no-graphics(1)"
+        },
+        {
+          "url": "https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-bus-pci",
+          "title": "Kernel ABI: sysfs-bus-pci"
+        }
+      ],
+      "note": "numa_node reads -1 when the firmware doesn't report a node, and virtual NICs have no device link."
+    }
   },
   {
     "sName": "pcie-numa",
@@ -52838,7 +63749,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lstopo-no-graphics",
     "desc": "Render ASCII topology diagram of NUMA nodes, PCIe bridges, NICs, NVMe drives, and caches (hwloc-nox)",
     "tip": "",
-    "tags": "numa numactl numastat lstopo socket affinity latency"
+    "tags": "numa numactl numastat lstopo socket affinity latency",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/numactl.8.html",
+          "title": "numactl(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/numastat.8.html",
+          "title": "numastat(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/hwloc/lstopo-no-graphics.1.en.html",
+          "title": "lstopo-no-graphics(1)"
+        },
+        {
+          "url": "https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-bus-pci",
+          "title": "Kernel ABI: sysfs-bus-pci"
+        }
+      ],
+      "note": "numa_node reads -1 when the firmware doesn't report a node, and virtual NICs have no device link."
+    }
   },
   {
     "sName": "permissions",
@@ -52873,7 +63806,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "chmod -R u+rwX,go+rX,go-w /srv/data",
     "desc": "Smart recursive chmod using capital +X (no find command needed)",
     "tip": "",
-    "tags": "chmod web recursive permissions ssh"
+    "tags": "chmod web recursive permissions ssh",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/chmod.1.html",
+          "title": "chmod(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/find.1.html",
+          "title": "find(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "permissions",
@@ -52884,7 +63830,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "chmod 700 ~/.ssh && chmod 600 ~/.ssh/authorized_keys ~/.ssh/id_ed25519",
     "desc": "Enforce strict SSH directory and key permissions required by sshd StrictModes",
     "tip": "",
-    "tags": "chmod web recursive permissions ssh"
+    "tags": "chmod web recursive permissions ssh",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/chmod.1.html",
+          "title": "chmod(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/find.1.html",
+          "title": "find(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "permissions",
@@ -52919,7 +63878,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "chmod 1777 /tmp/scratch",
     "desc": "Set Sticky Bit (octal prefix '1' or '+t') so only a file's owner or root can delete it",
     "tip": "",
-    "tags": "owner group chown setgid sgid sticky"
+    "tags": "owner group chown setgid sgid sticky",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/chown.1.html",
+          "title": "chown(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/chmod.1.html",
+          "title": "chmod(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "permissions",
@@ -52958,7 +63930,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "setfacl -b -R /srv/app",
     "desc": "Strip all extended ACL entries and revert to standard POSIX permissions",
     "tip": "",
-    "tags": "acl getfacl setfacl chattr lsattr immutable"
+    "tags": "acl getfacl setfacl chattr lsattr immutable",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/setfacl.1.html",
+          "title": "setfacl(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/getfacl.1.html",
+          "title": "getfacl(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/chattr.1.html",
+          "title": "chattr(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "permissions",
@@ -52969,7 +63958,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "chattr +i /etc/resolv.conf && lsattr /etc/resolv.conf",
     "desc": "Make a file immutable (+i) and inspect extended filesystem attributes (use -i to unlock)",
     "tip": "",
-    "tags": "acl getfacl setfacl chattr lsattr immutable"
+    "tags": "acl getfacl setfacl chattr lsattr immutable",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/setfacl.1.html",
+          "title": "setfacl(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/getfacl.1.html",
+          "title": "getfacl(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/chattr.1.html",
+          "title": "chattr(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "pfs-beegfs",
@@ -57264,7 +68270,36 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "$obj = [PSCustomObject]@{ Id = 'srv-01'; IP = '10.0.0.1' }",
     "desc": "Create custom structured object with properties",
     "tip": "",
-    "tags": "powershell variables pipeline hashtable objects csv"
+    "tags": "powershell variables pipeline hashtable objects csv",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_variables",
+          "title": "about_Variables"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_hash_tables",
+          "title": "about_Hash_Tables"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_pipelines",
+          "title": "about_Pipelines"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/where-object",
+          "title": "Where-Object"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/select-object",
+          "title": "Select-Object"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_pscustomobject",
+          "title": "about_PSCustomObject"
+        }
+      ]
+    }
   },
   {
     "sName": "powershell",
@@ -57275,7 +68310,36 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "$var | Get-Member (gm)",
     "desc": "Inspect all properties, methods, and types available on object",
     "tip": "",
-    "tags": "powershell variables pipeline hashtable objects csv"
+    "tags": "powershell variables pipeline hashtable objects csv",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_variables",
+          "title": "about_Variables"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_hash_tables",
+          "title": "about_Hash_Tables"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_pipelines",
+          "title": "about_Pipelines"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/where-object",
+          "title": "Where-Object"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/select-object",
+          "title": "Select-Object"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_pscustomobject",
+          "title": "about_PSCustomObject"
+        }
+      ]
+    }
   },
   {
     "sName": "powershell",
@@ -57314,7 +68378,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "switch -Regex ($node) { '^srv' { 'Server' } '^sw' { 'Switch' } default { 'Unknown' } }",
     "desc": "Regex pattern-matching switch statement",
     "tip": "",
-    "tags": "powershell if comparison foreach switch loops regex"
+    "tags": "powershell if comparison foreach switch loops regex",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_comparison_operators",
+          "title": "about_Comparison_Operators"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_switch",
+          "title": "about_Switch"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/write-host",
+          "title": "Write-Host"
+        }
+      ]
+    }
   },
   {
     "sName": "powershell",
@@ -57325,7 +68406,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "1..5 | ForEach-Object { \"Step $_\" }",
     "desc": "Range operator and pipeline loop",
     "tip": "",
-    "tags": "powershell if comparison foreach switch loops regex"
+    "tags": "powershell if comparison foreach switch loops regex",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_comparison_operators",
+          "title": "about_Comparison_Operators"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_switch",
+          "title": "about_Switch"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/write-host",
+          "title": "Write-Host"
+        }
+      ]
+    }
   },
   {
     "sName": "powershell",
@@ -57381,7 +68479,41 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Get-Content -Raw \"data.json\" | ConvertFrom-Json",
     "desc": "Parse a JSON file into an object (-Raw passes the file as one string)",
     "tip": "",
-    "tags": "powershell functions param cmdlet try-catch json exceptions"
+    "tags": "powershell functions param cmdlet try-catch json exceptions",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_cmdletbindingattribute",
+          "title": "about_Functions_CmdletBindingAttribute"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_advanced_parameters",
+          "title": "about_Functions_Advanced_Parameters"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_try_catch_finally",
+          "title": "about_Try_Catch_Finally"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_preference_variables",
+          "title": "about_Preference_Variables"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_quoting_rules",
+          "title": "about_Quoting_Rules (${name}: in strings)"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/test-connection",
+          "title": "Test-Connection"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/convertfrom-json",
+          "title": "ConvertFrom-Json (Get-Content -Raw)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: \"$ComputerName: $_\" fails to parse (the colon makes a scope); now ${ComputerName}. Get-Content gets -Raw."
+    }
   },
   {
     "sName": "powershell",
@@ -57392,7 +68524,41 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "$obj | ConvertTo-Json -Depth 5 | Out-File \"out.json\"",
     "desc": "Serialize object to formatted JSON file",
     "tip": "",
-    "tags": "powershell functions param cmdlet try-catch json exceptions"
+    "tags": "powershell functions param cmdlet try-catch json exceptions",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_cmdletbindingattribute",
+          "title": "about_Functions_CmdletBindingAttribute"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_advanced_parameters",
+          "title": "about_Functions_Advanced_Parameters"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_try_catch_finally",
+          "title": "about_Try_Catch_Finally"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_preference_variables",
+          "title": "about_Preference_Variables"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_quoting_rules",
+          "title": "about_Quoting_Rules (${name}: in strings)"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/test-connection",
+          "title": "Test-Connection"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/convertfrom-json",
+          "title": "ConvertFrom-Json (Get-Content -Raw)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: \"$ComputerName: $_\" fails to parse (the colon makes a scope); now ${ComputerName}. Get-Content gets -Raw."
+    }
   },
   {
     "sName": "processes",
@@ -57431,7 +68597,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "top -b -n 1 -o +%CPU | head -n 20",
     "desc": "Run top in non-interactive batch mode sorted by highest CPU utilization",
     "tip": "",
-    "tags": "ps memory cpu rss zombie tree pgrep pkill"
+    "tags": "ps memory cpu rss zombie tree pgrep pkill",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ps.1.html",
+          "title": "ps(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/top.1.html",
+          "title": "top(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/systemctl.1.html",
+          "title": "systemctl(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "processes",
@@ -57442,7 +68625,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "systemctl status <PID>",
     "desc": "Map any running PID back to its owning systemd service unit and cgroup slice",
     "tip": "",
-    "tags": "ps memory cpu rss zombie tree pgrep pkill"
+    "tags": "ps memory cpu rss zombie tree pgrep pkill",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ps.1.html",
+          "title": "ps(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/top.1.html",
+          "title": "top(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/systemctl.1.html",
+          "title": "systemctl(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "processes",
@@ -57477,7 +68677,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lsof +D /var/log",
     "desc": "List all processes holding open files inside the /var/log directory tree",
     "tip": "",
-    "tags": "lsof deleted disk-full fd proc"
+    "tags": "lsof deleted disk-full fd proc",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/lsof/lsof.8.en.html",
+          "title": "lsof(8), Debian"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man5/proc.5.html",
+          "title": "proc(5)"
+        }
+      ]
+    }
   },
   {
     "sName": "processes",
@@ -57488,7 +68701,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ls -l /proc/<PID>/fd /proc/<PID>/exe /proc/<PID>/cwd",
     "desc": "Inspect a process's open file descriptors, binary symlink, and working directory in /proc",
     "tip": "",
-    "tags": "lsof deleted disk-full fd proc"
+    "tags": "lsof deleted disk-full fd proc",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/lsof/lsof.8.en.html",
+          "title": "lsof(8), Debian"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man5/proc.5.html",
+          "title": "proc(5)"
+        }
+      ]
+    }
   },
   {
     "sName": "processes",
@@ -57531,7 +68757,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "vmstat -Sm 1 5",
     "desc": "Sample run-queue (r), blocked I/O procs (b), swap in/out (si/so), and CPU iowait (wa) every 1s",
     "tip": "",
-    "tags": "free iostat vmstat pidstat sysstat iowait ram latency"
+    "tags": "free iostat vmstat pidstat sysstat iowait ram latency",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/free.1.html",
+          "title": "free(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/vmstat.8.html",
+          "title": "vmstat(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/iostat.1.html",
+          "title": "iostat(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/pidstat.1.html",
+          "title": "pidstat(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "processes",
@@ -57542,7 +68789,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "pidstat -d -u -r 1 5",
     "desc": "Per-process breakdown of disk I/O kB/s (-d), CPU% (-u), and page faults/RSS (-r)",
     "tip": "",
-    "tags": "free iostat vmstat pidstat sysstat iowait ram latency"
+    "tags": "free iostat vmstat pidstat sysstat iowait ram latency",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/free.1.html",
+          "title": "free(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/vmstat.8.html",
+          "title": "vmstat(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/iostat.1.html",
+          "title": "iostat(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/pidstat.1.html",
+          "title": "pidstat(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "processes",
@@ -57581,7 +68849,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "perf top -g",
     "desc": "Live hardware performance counter profiler showing top kernel and userspace functions by CPU cycles",
     "tip": "",
-    "tags": "strace syscall hang debug oom oom-killer"
+    "tags": "strace syscall hang debug oom oom-killer",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/strace.1.html",
+          "title": "strace(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/perf-top.1.html",
+          "title": "perf-top(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/dmesg.1.html",
+          "title": "dmesg(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "processes",
@@ -57592,7 +68877,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "dmesg -T | grep -iE -C 3 'out of memory|killed process|oom-kill'",
     "desc": "Check if the Linux kernel OOM killer terminated a process due to memory exhaustion",
     "tip": "",
-    "tags": "strace syscall hang debug oom oom-killer"
+    "tags": "strace syscall hang debug oom oom-killer",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/strace.1.html",
+          "title": "strace(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/perf-top.1.html",
+          "title": "perf-top(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/dmesg.1.html",
+          "title": "dmesg(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "prometheus",
@@ -58002,7 +69304,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ps -eo pid,ppid,user,%cpu,%mem,etimes,comm --sort=-%cpu | head -n 15",
     "desc": "List top 15 CPU-consuming processes along with elapsed runtime in seconds (etimes)",
     "tip": "",
-    "tags": "ps memory rss cpu sort threads forest"
+    "tags": "ps memory rss cpu sort threads forest",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ps.1.html",
+          "title": "ps(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "ps",
@@ -58013,7 +69324,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ps -ef --forest",
     "desc": "Display full ASCII process hierarchy tree showing parent-child spawning relationships",
     "tip": "",
-    "tags": "ps memory rss cpu sort threads forest"
+    "tags": "ps memory rss cpu sort threads forest",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ps.1.html",
+          "title": "ps(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "ps",
@@ -58044,7 +69364,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "head -n 30 /proc/$(pgrep -o -r D)/stack",
     "desc": "Print the live kernel call stack of the oldest process currently stuck in 'D' state",
     "tip": "",
-    "tags": "ps d-state zombie wchan hung sigkill stack"
+    "tags": "ps d-state zombie wchan hung sigkill stack",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ps.1.html",
+          "title": "ps(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "ps",
@@ -58055,7 +69384,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ps -eo pid,ppid,stat,comm | awk '$3 ~ /^Z/ {print \"Zombie PID:\", $1, \"-> Parent PPID:\", $2, $4}'",
     "desc": "Identify Zombie processes and print the Parent PID (PPID) that failed to reap them",
     "tip": "",
-    "tags": "ps d-state zombie wchan hung sigkill stack"
+    "tags": "ps d-state zombie wchan hung sigkill stack",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ps.1.html",
+          "title": "ps(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "ps",
@@ -58086,7 +69424,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ps -T -p <PID> -o pid,spid,psr,%cpu,stat,comm",
     "desc": "List all threads belonging to a single PID along with their assigned CPU core (psr)",
     "tip": "",
-    "tags": "ps threads lwp psr cpu-core affinity cgroup pgrep pkill"
+    "tags": "ps threads lwp psr cpu-core affinity cgroup pgrep pkill",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ps.1.html",
+          "title": "ps(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "ps",
@@ -58097,7 +69444,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ps -eo pid,user,cgroup:50,comm | grep -i '.service'",
     "desc": "Map running PIDs back to their owning systemd .service or container cgroup slice",
     "tip": "",
-    "tags": "ps threads lwp psr cpu-core affinity cgroup pgrep pkill"
+    "tags": "ps threads lwp psr cpu-core affinity cgroup pgrep pkill",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ps.1.html",
+          "title": "ps(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "ps",
@@ -58108,7 +69464,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "pgrep -fa 'python.*worker' && pkill -SIGTERM -f 'python.*worker'",
     "desc": "Safely match or signal processes by full command line using pgrep/pkill",
     "tip": "",
-    "tags": "ps threads lwp psr cpu-core affinity cgroup pgrep pkill"
+    "tags": "ps threads lwp psr cpu-core affinity cgroup pgrep pkill",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ps.1.html",
+          "title": "ps(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "python",
@@ -58147,7 +69512,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "type(var)",
     "desc": "Inspect dynamic runtime type of variable",
     "tip": "",
-    "tags": "python variables types f-strings annotations primitives"
+    "tags": "python variables types f-strings annotations primitives",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.python.org/3/library/stdtypes.html",
+          "title": "Python: built-in types"
+        },
+        {
+          "url": "https://docs.python.org/3/reference/lexical_analysis.html#f-strings",
+          "title": "Python: f-strings"
+        },
+        {
+          "url": "https://docs.python.org/3/library/typing.html",
+          "title": "Python: typing"
+        }
+      ]
+    }
   },
   {
     "sName": "python",
@@ -58158,7 +69540,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "isinstance(var, (int, float))",
     "desc": "Check if variable matches one or more types",
     "tip": "",
-    "tags": "python variables types f-strings annotations primitives"
+    "tags": "python variables types f-strings annotations primitives",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.python.org/3/library/stdtypes.html",
+          "title": "Python: built-in types"
+        },
+        {
+          "url": "https://docs.python.org/3/reference/lexical_analysis.html#f-strings",
+          "title": "Python: f-strings"
+        },
+        {
+          "url": "https://docs.python.org/3/library/typing.html",
+          "title": "Python: typing"
+        }
+      ]
+    }
   },
   {
     "sName": "python",
@@ -58169,7 +69568,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "None",
     "desc": "Python's null/nil singleton representing absence of value",
     "tip": "",
-    "tags": "python variables types f-strings annotations primitives"
+    "tags": "python variables types f-strings annotations primitives",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.python.org/3/library/stdtypes.html",
+          "title": "Python: built-in types"
+        },
+        {
+          "url": "https://docs.python.org/3/reference/lexical_analysis.html#f-strings",
+          "title": "Python: f-strings"
+        },
+        {
+          "url": "https://docs.python.org/3/library/typing.html",
+          "title": "Python: typing"
+        }
+      ]
+    }
   },
   {
     "sName": "python",
@@ -58204,7 +69620,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nums = [x * 2 for x in range(5) if x % 2 == 0]",
     "desc": "List comprehension: compact, fast list building",
     "tip": "",
-    "tags": "python collections list dict tuple set comprehensions"
+    "tags": "python collections list dict tuple set comprehensions",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.python.org/3/tutorial/datastructures.html",
+          "title": "Python tutorial: data structures"
+        },
+        {
+          "url": "https://docs.python.org/3/library/stdtypes.html",
+          "title": "Python: built-in types"
+        }
+      ]
+    }
   },
   {
     "sName": "python",
@@ -58215,7 +69644,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mapping = {k: v.upper() for k, v in bmc_info.items()}",
     "desc": "Dictionary comprehension",
     "tip": "",
-    "tags": "python collections list dict tuple set comprehensions"
+    "tags": "python collections list dict tuple set comprehensions",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.python.org/3/tutorial/datastructures.html",
+          "title": "Python tutorial: data structures"
+        },
+        {
+          "url": "https://docs.python.org/3/library/stdtypes.html",
+          "title": "Python: built-in types"
+        }
+      ]
+    }
   },
   {
     "sName": "python",
@@ -58226,7 +69668,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "a, b, *rest = [1, 2, 3, 4, 5]",
     "desc": "Extended iterable unpacking into variables",
     "tip": "",
-    "tags": "python collections list dict tuple set comprehensions"
+    "tags": "python collections list dict tuple set comprehensions",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.python.org/3/tutorial/datastructures.html",
+          "title": "Python tutorial: data structures"
+        },
+        {
+          "url": "https://docs.python.org/3/library/stdtypes.html",
+          "title": "Python: built-in types"
+        }
+      ]
+    }
   },
   {
     "sName": "python",
@@ -58265,7 +69720,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "if not my_list:",
     "desc": "Idiomatic way to check if a list/string/dict is empty",
     "tip": "",
-    "tags": "python if else conditionals ternary truthy falsy"
+    "tags": "python if else conditionals ternary truthy falsy",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.python.org/3/reference/compound_stmts.html",
+          "title": "Python: compound statements (if, for, match, def)"
+        },
+        {
+          "url": "https://docs.python.org/3/library/functions.html",
+          "title": "Python: built-in functions (enumerate, zip, any, all)"
+        },
+        {
+          "url": "https://docs.python.org/3/library/stdtypes.html",
+          "title": "Python: built-in types"
+        }
+      ]
+    }
   },
   {
     "sName": "python",
@@ -58276,7 +69748,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "any([x > 80 for x in temps])",
     "desc": "Returns True if at least one item satisfies condition",
     "tip": "",
-    "tags": "python if else conditionals ternary truthy falsy"
+    "tags": "python if else conditionals ternary truthy falsy",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.python.org/3/reference/compound_stmts.html",
+          "title": "Python: compound statements (if, for, match, def)"
+        },
+        {
+          "url": "https://docs.python.org/3/library/functions.html",
+          "title": "Python: built-in functions (enumerate, zip, any, all)"
+        },
+        {
+          "url": "https://docs.python.org/3/library/stdtypes.html",
+          "title": "Python: built-in types"
+        }
+      ]
+    }
   },
   {
     "sName": "python",
@@ -58287,7 +69776,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "all([x > 0 for x in temps])",
     "desc": "Returns True only if every item satisfies condition",
     "tip": "",
-    "tags": "python if else conditionals ternary truthy falsy"
+    "tags": "python if else conditionals ternary truthy falsy",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.python.org/3/reference/compound_stmts.html",
+          "title": "Python: compound statements (if, for, match, def)"
+        },
+        {
+          "url": "https://docs.python.org/3/library/functions.html",
+          "title": "Python: built-in functions (enumerate, zip, any, all)"
+        },
+        {
+          "url": "https://docs.python.org/3/library/stdtypes.html",
+          "title": "Python: built-in types"
+        }
+      ]
+    }
   },
   {
     "sName": "python",
@@ -58322,7 +69828,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "case int() | float():",
     "desc": "Union pattern matching multiple alternative types",
     "tip": "",
-    "tags": "python match case pattern-matching switch"
+    "tags": "python match case pattern-matching switch",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.python.org/3/reference/compound_stmts.html",
+          "title": "Python: compound statements (if, for, match, def)"
+        },
+        {
+          "url": "https://peps.python.org/pep-0636/",
+          "title": "PEP 636: structural pattern matching tutorial"
+        }
+      ]
+    }
   },
   {
     "sName": "python",
@@ -58357,7 +69876,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "for key, val in my_dict.items():",
     "desc": "Iterate over both keys and values of dictionary",
     "tip": "",
-    "tags": "python for while loops enumerate zip iteration"
+    "tags": "python for while loops enumerate zip iteration",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.python.org/3/reference/compound_stmts.html",
+          "title": "Python: compound statements (if, for, match, def)"
+        },
+        {
+          "url": "https://docs.python.org/3/library/functions.html",
+          "title": "Python: built-in functions (enumerate, zip, any, all)"
+        }
+      ]
+    }
   },
   {
     "sName": "python",
@@ -58368,7 +69900,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "for i in range(0, 10, 2):",
     "desc": "Generate arithmetic progressions (start, stop, step)",
     "tip": "",
-    "tags": "python for while loops enumerate zip iteration"
+    "tags": "python for while loops enumerate zip iteration",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.python.org/3/reference/compound_stmts.html",
+          "title": "Python: compound statements (if, for, match, def)"
+        },
+        {
+          "url": "https://docs.python.org/3/library/functions.html",
+          "title": "Python: built-in functions (enumerate, zip, any, all)"
+        }
+      ]
+    }
   },
   {
     "sName": "python",
@@ -58379,7 +69924,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "while count > 0: count -= 1",
     "desc": "Standard while loop condition",
     "tip": "",
-    "tags": "python for while loops enumerate zip iteration"
+    "tags": "python for while loops enumerate zip iteration",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.python.org/3/reference/compound_stmts.html",
+          "title": "Python: compound statements (if, for, match, def)"
+        },
+        {
+          "url": "https://docs.python.org/3/library/functions.html",
+          "title": "Python: built-in functions (enumerate, zip, any, all)"
+        }
+      ]
+    }
   },
   {
     "sName": "python",
@@ -58415,7 +69973,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "deploy_node(**config_dict)",
     "desc": "Unpack dictionary as keyword arguments into function call",
     "tip": "",
-    "tags": "python functions args kwargs lambda typing"
+    "tags": "python functions args kwargs lambda typing",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.python.org/3/reference/compound_stmts.html",
+          "title": "Python: compound statements (if, for, match, def)"
+        },
+        {
+          "url": "https://docs.python.org/3/faq/programming.html#why-are-default-values-shared-between-objects",
+          "title": "Python FAQ: shared default values"
+        }
+      ],
+      "note": "Corrected 2026-11-10: defaults are evaluated when the def runs, not at import."
+    }
   },
   {
     "sName": "python",
@@ -58426,7 +69998,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "deploy_node(*arg_list)",
     "desc": "Unpack list as positional arguments into function call",
     "tip": "",
-    "tags": "python functions args kwargs lambda typing"
+    "tags": "python functions args kwargs lambda typing",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.python.org/3/reference/compound_stmts.html",
+          "title": "Python: compound statements (if, for, match, def)"
+        },
+        {
+          "url": "https://docs.python.org/3/faq/programming.html#why-are-default-values-shared-between-objects",
+          "title": "Python FAQ: shared default values"
+        }
+      ],
+      "note": "Corrected 2026-11-10: defaults are evaluated when the def runs, not at import."
+    }
   },
   {
     "sName": "python",
@@ -58465,7 +70051,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Path(\"data.txt\").read_text(encoding=\"utf-8\")",
     "desc": "Modern pathlib one-liner for reading entire text file",
     "tip": "",
-    "tags": "python file-io exceptions try-except json pathlib with"
+    "tags": "python file-io exceptions try-except json pathlib with",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.python.org/3/tutorial/errors.html",
+          "title": "Python tutorial: errors and exceptions"
+        },
+        {
+          "url": "https://docs.python.org/3/library/pathlib.html",
+          "title": "Python: pathlib"
+        },
+        {
+          "url": "https://docs.python.org/3/library/json.html",
+          "title": "Python: json (and json.tool)"
+        }
+      ]
+    }
   },
   {
     "sName": "python",
@@ -58476,7 +70079,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Path(\"out.txt\").write_text(\"hello\", encoding=\"utf-8\")",
     "desc": "Modern pathlib one-liner for writing text file",
     "tip": "",
-    "tags": "python file-io exceptions try-except json pathlib with"
+    "tags": "python file-io exceptions try-except json pathlib with",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.python.org/3/tutorial/errors.html",
+          "title": "Python tutorial: errors and exceptions"
+        },
+        {
+          "url": "https://docs.python.org/3/library/pathlib.html",
+          "title": "Python: pathlib"
+        },
+        {
+          "url": "https://docs.python.org/3/library/json.html",
+          "title": "Python: json (and json.tool)"
+        }
+      ]
+    }
   },
   {
     "sName": "racadm",
@@ -59852,7 +71472,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "(?i)",
     "desc": "Case-insensitive from here on (PCRE, Python); JavaScript only has the scoped (?i:...) form, or the i flag",
     "tip": "",
-    "tags": "regex tokens quantifiers groups capture anchors"
+    "tags": "regex tokens quantifiers groups capture anchors",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.pcre.org/current/doc/html/pcre2pattern.html",
+          "title": "PCRE2 pattern syntax"
+        },
+        {
+          "url": "https://docs.python.org/3/library/re.html",
+          "title": "Python: re"
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Regular_expressions/Named_capturing_group",
+          "title": "MDN: named capturing group"
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Regular_expressions/Modifier",
+          "title": "MDN: regex modifiers (?i:...)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: Python needs (?P<name>...); JavaScript has no unscoped (?i)."
+    }
   },
   {
     "sName": "regex",
@@ -59863,7 +71505,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "\\b",
     "desc": "Word boundary assertion: \\bword\\b prevents partial matches",
     "tip": "",
-    "tags": "regex tokens quantifiers groups capture anchors"
+    "tags": "regex tokens quantifiers groups capture anchors",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.pcre.org/current/doc/html/pcre2pattern.html",
+          "title": "PCRE2 pattern syntax"
+        },
+        {
+          "url": "https://docs.python.org/3/library/re.html",
+          "title": "Python: re"
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Regular_expressions/Named_capturing_group",
+          "title": "MDN: named capturing group"
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Regular_expressions/Modifier",
+          "title": "MDN: regex modifiers (?i:...)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: Python needs (?P<name>...); JavaScript has no unscoped (?i)."
+    }
   },
   {
     "sName": "regex",
@@ -59902,7 +71566,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "\\d+(?=px)",
     "desc": "Matches number in '100px' without including 'px' in match result",
     "tip": "",
-    "tags": "regex lookahead lookbehind lookaround assertions"
+    "tags": "regex lookahead lookbehind lookaround assertions",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.pcre.org/current/doc/html/pcre2pattern.html",
+          "title": "PCRE2 pattern syntax"
+        },
+        {
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Regular_expressions/Lookbehind_assertion",
+          "title": "MDN: lookbehind assertion"
+        },
+        {
+          "url": "https://docs.python.org/3/library/re.html",
+          "title": "Python: re"
+        }
+      ]
+    }
   },
   {
     "sName": "regex",
@@ -59938,7 +71619,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep -P '^[0-9a-f]{4}:[0-9a-f]{2}:[0-9a-f]{2}\\.[0-7]' lspci.txt",
     "desc": "Filter lspci output by PCIe address using ripgrep or grep -P",
     "tip": "",
-    "tags": "regex recipes mac pcie uuid ipv4 datacenter"
+    "tags": "regex recipes mac pcie uuid ipv4 datacenter",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.rfc-editor.org/rfc/rfc9562.html",
+          "title": "RFC 9562: UUIDs (obsoletes RFC 4122)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+          "title": "grep(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: RFC 9562 replaced RFC 4122 and adds UUID versions 6-8."
+    }
   },
   {
     "sName": "rf-bios-bmc",
@@ -60832,7 +72527,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "which rsync && rsync --version 2>&1 | head -n 1",
     "desc": "Verify binary path and installed version in current environment",
     "tip": "",
-    "tags": "rsync sync mirror backup sparse bwlimit tips safety help"
+    "tags": "rsync sync mirror backup sparse bwlimit tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://download.samba.org/pub/rsync/rsync.1",
+          "title": "rsync(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "scp",
@@ -60987,7 +72691,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "which scp && scp --version 2>&1 | head -n 1",
     "desc": "Verify binary path and installed version in current environment",
     "tip": "",
-    "tags": "scp ipv6 ssh transfer copy bastion proxyjump port tips safety help"
+    "tags": "scp ipv6 ssh transfer copy bastion proxyjump port tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man.openbsd.org/scp",
+          "title": "scp(1), OpenBSD"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -61018,7 +72731,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "SCRIPT_DIR=\"$(cd \"$(dirname \"${BASH_SOURCE[0]}\")\" && pwd)\"",
     "desc": "Resolve absolute directory path of the running script",
     "tip": "",
-    "tags": "bash strict-mode pipefail trap boilerplate errexit"
+    "tags": "bash strict-mode pipefail trap boilerplate errexit",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -61029,7 +72751,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": ": \"${TARGET_VAR:?Target variable must be set}\"",
     "desc": "Fail with descriptive error message if variable is unset or null",
     "tip": "",
-    "tags": "bash strict-mode pipefail trap boilerplate errexit"
+    "tags": "bash strict-mode pipefail trap boilerplate errexit",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -61040,7 +72771,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "exec 3>&1 4>&2",
     "desc": "Save original stdout/stderr descriptors before redirection",
     "tip": "",
-    "tags": "bash strict-mode pipefail trap boilerplate errexit"
+    "tags": "bash strict-mode pipefail trap boilerplate errexit",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -61072,7 +72812,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "for f in *.tar.gz; do echo \"${f%%.tar.gz}\"; done",
     "desc": "Strip double extensions cleanly",
     "tip": "",
-    "tags": "bash parameter-expansion string defaults trim extension"
+    "tags": "bash parameter-expansion string defaults trim extension",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: the echo commands were piped into each other, and ${PATH//:/\\n} inserts a literal n; now $'\\n'."
+    }
   },
   {
     "sName": "scripting",
@@ -61083,7 +72833,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "${VAR:0:8}",
     "desc": "Extract substring by offset and length (first 8 characters)",
     "tip": "",
-    "tags": "bash parameter-expansion string defaults trim extension"
+    "tags": "bash parameter-expansion string defaults trim extension",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: the echo commands were piped into each other, and ${PATH//:/\\n} inserts a literal n; now $'\\n'."
+    }
   },
   {
     "sName": "scripting",
@@ -61094,7 +72854,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "${#VAR}",
     "desc": "Return character length of string variable",
     "tip": "",
-    "tags": "bash parameter-expansion string defaults trim extension"
+    "tags": "bash parameter-expansion string defaults trim extension",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: the echo commands were piped into each other, and ${PATH//:/\\n} inserts a literal n; now $'\\n'."
+    }
   },
   {
     "sName": "scripting",
@@ -61125,7 +72895,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mapfile -t LINES < <(grep 'ERROR' /var/log/syslog)",
     "desc": "Read command output lines into array without trailing newlines (readarray)",
     "tip": "",
-    "tags": "bash arrays associative hashmap mapfile loops"
+    "tags": "bash arrays associative hashmap mapfile loops",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -61136,7 +72915,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "arr+=(\"new_item\")",
     "desc": "Append new element to indexed array",
     "tip": "",
-    "tags": "bash arrays associative hashmap mapfile loops"
+    "tags": "bash arrays associative hashmap mapfile loops",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -61147,7 +72935,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "unset 'SERVERS[node1]'",
     "desc": "Remove specific key/value pair from associative array",
     "tip": "",
-    "tags": "bash arrays associative hashmap mapfile loops"
+    "tags": "bash arrays associative hashmap mapfile loops",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -61178,7 +72975,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tee /etc/sysctl.d/99-custom.conf > /dev/null << 'EOF'\nnet.core.somaxconn = 65535\nEOF",
     "desc": "Write a root-owned file with tee and a heredoc (run it as root)",
     "tip": "",
-    "tags": "bash heredoc herestring template tee multiline"
+    "tags": "bash heredoc herestring template tee multiline",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -61189,7 +72995,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "bc <<< \"scale=2; 100 / 3\"",
     "desc": "Calculate floating-point arithmetic with herestring and bc",
     "tip": "",
-    "tags": "bash heredoc herestring template tee multiline"
+    "tags": "bash heredoc herestring template tee multiline",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -61220,7 +73035,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "res = subprocess.run('echo hello | tr a-z A-Z', shell=True, text=True, capture_output=True)",
     "desc": "Run shell pipeline safely when piping syntax is required",
     "tip": "",
-    "tags": "python subprocess cli exec timeout pipe"
+    "tags": "python subprocess cli exec timeout pipe",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.python.org/3/library/subprocess.html",
+          "title": "Python: subprocess"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -61231,7 +73055,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "proc = subprocess.Popen(['ping', '-c', '4', '8.8.8.8'], stdout=subprocess.PIPE, text=True)",
     "desc": "Stream real-time output line-by-line using Popen",
     "tip": "",
-    "tags": "python subprocess cli exec timeout pipe"
+    "tags": "python subprocess cli exec timeout pipe",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.python.org/3/library/subprocess.html",
+          "title": "Python: subprocess"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -61267,7 +73100,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "[f.name for f in Path('.').iterdir() if f.is_file()]",
     "desc": "List all direct files in current directory",
     "tip": "",
-    "tags": "python pathlib files glob filesystem path"
+    "tags": "python pathlib files glob filesystem path",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.python.org/3/library/pathlib.html",
+          "title": "Python: pathlib"
+        },
+        {
+          "url": "https://docs.python.org/3/library/json.html",
+          "title": "Python: json (and json.tool)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: Path.write_text() is not atomic."
+    }
   },
   {
     "sName": "scripting",
@@ -61278,7 +73125,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "data = json.loads(Path('config.json').read_text())",
     "desc": "One-liner JSON load directly from Path object",
     "tip": "",
-    "tags": "python pathlib files glob filesystem path"
+    "tags": "python pathlib files glob filesystem path",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.python.org/3/library/pathlib.html",
+          "title": "Python: pathlib"
+        },
+        {
+          "url": "https://docs.python.org/3/library/json.html",
+          "title": "Python: json (and json.tool)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: Path.write_text() is not atomic."
+    }
   },
   {
     "sName": "scripting",
@@ -61309,7 +73170,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "subparsers = p.add_subparsers(dest='command', required=True)",
     "desc": "Create multi-command CLI (like git commit, git push)",
     "tip": "",
-    "tags": "python argparse cli flags options arguments"
+    "tags": "python argparse cli flags options arguments",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.python.org/3/library/argparse.html",
+          "title": "Python: argparse"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -61320,7 +73190,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "p.add_argument('targets', nargs='+', help='1 or more positional items')",
     "desc": "Accept one or more positional arguments into a list",
     "tip": "",
-    "tags": "python argparse cli flags options arguments"
+    "tags": "python argparse cli flags options arguments",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.python.org/3/library/argparse.html",
+          "title": "Python: argparse"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -61355,7 +73234,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "for await (const line of readline.createInterface({ input: fs.createReadStream('huge.log') })) { ... }",
     "desc": "Stream gigabyte-sized log files line-by-line with minimal memory",
     "tip": "",
-    "tags": "javascript nodejs fs async promises io"
+    "tags": "javascript nodejs fs async promises io",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://nodejs.org/api/fs.html",
+          "title": "Node.js: fs"
+        },
+        {
+          "url": "https://nodejs.org/api/readline.html",
+          "title": "Node.js: readline"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -61366,7 +73258,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "await fs.stat('/path/file').then(s => s.size)",
     "desc": "Query file size, permissions (mode), and mtime",
     "tip": "",
-    "tags": "javascript nodejs fs async promises io"
+    "tags": "javascript nodejs fs async promises io",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://nodejs.org/api/fs.html",
+          "title": "Node.js: fs"
+        },
+        {
+          "url": "https://nodejs.org/api/readline.html",
+          "title": "Node.js: readline"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -61401,7 +73306,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "const child = spawn('tail', ['-f', 'app.log']); child.stdout.on('data', chunk => process.stdout.write(chunk));",
     "desc": "Real-time process streaming via spawn()",
     "tip": "",
-    "tags": "nodejs exec spawn child_process cli"
+    "tags": "nodejs exec spawn child_process cli",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://nodejs.org/api/child_process.html",
+          "title": "Node.js: child_process"
+        },
+        {
+          "url": "https://nodejs.org/api/util.html",
+          "title": "Node.js: util (promisify, parseArgs)"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -61412,7 +73330,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "const { values, positionals } = parseArgs({ options: { port: { type: 'string', short: 'p', default: '8080' } } });",
     "desc": "Built-in Node.js CLI argument parsing without npm dependencies",
     "tip": "",
-    "tags": "nodejs exec spawn child_process cli"
+    "tags": "nodejs exec spawn child_process cli",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://nodejs.org/api/child_process.html",
+          "title": "Node.js: child_process"
+        },
+        {
+          "url": "https://nodejs.org/api/util.html",
+          "title": "Node.js: util (promisify, parseArgs)"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -61447,7 +73378,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "type Result<T> = { data: T; error: null } | { data: null; error: string };",
     "desc": "Standard discriminated union for resilient error handling",
     "tip": "",
-    "tags": "typescript generics partial record omit types"
+    "tags": "typescript generics partial record omit types",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.typescriptlang.org/docs/handbook/utility-types.html",
+          "title": "TypeScript: utility types"
+        },
+        {
+          "url": "https://www.typescriptlang.org/docs/handbook/2/narrowing.html",
+          "title": "TypeScript: narrowing"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -61458,7 +73402,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "const isNode = (val: unknown): val is NodeConfig => typeof val === 'object' && val !== null && 'bmcIp' in val;",
     "desc": "Custom type predicate (User-defined Type Guard)",
     "tip": "",
-    "tags": "typescript generics partial record omit types"
+    "tags": "typescript generics partial record omit types",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.typescriptlang.org/docs/handbook/utility-types.html",
+          "title": "TypeScript: utility types"
+        },
+        {
+          "url": "https://www.typescriptlang.org/docs/handbook/2/narrowing.html",
+          "title": "TypeScript: narrowing"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -61538,7 +73495,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "$node = [PSCustomObject]@{ Hostname='gpu01'; BMC='2001:db8::1'; GPUs=8 }",
     "desc": "Instantiate standalone custom object",
     "tip": "",
-    "tags": "powershell pipeline pscustomobject objects filter sort"
+    "tags": "powershell pipeline pscustomobject objects filter sort",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/where-object",
+          "title": "Where-Object"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/select-object",
+          "title": "Select-Object"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_pscustomobject",
+          "title": "about_PSCustomObject"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_automatic_variables",
+          "title": "about_Automatic_Variables ($_, $LASTEXITCODE)"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/convertto-json",
+          "title": "ConvertTo-Json"
+        }
+      ],
+      "note": "Corrected 2026-11-10: % is ForEach-Object, not Select-Object."
+    }
   },
   {
     "sName": "scripting",
@@ -61549,7 +73532,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "$node | ConvertTo-Json -Depth 4",
     "desc": "Serialize object tree to formatted JSON string",
     "tip": "",
-    "tags": "powershell pipeline pscustomobject objects filter sort"
+    "tags": "powershell pipeline pscustomobject objects filter sort",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/where-object",
+          "title": "Where-Object"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/select-object",
+          "title": "Select-Object"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_pscustomobject",
+          "title": "about_PSCustomObject"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_automatic_variables",
+          "title": "about_Automatic_Variables ($_, $LASTEXITCODE)"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/convertto-json",
+          "title": "ConvertTo-Json"
+        }
+      ],
+      "note": "Corrected 2026-11-10: % is ForEach-Object, not Select-Object."
+    }
   },
   {
     "sName": "scripting",
@@ -61592,7 +73601,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "if ($LASTEXITCODE -ne 0) { throw \"Native command exited with $LASTEXITCODE\" }",
     "desc": "Check exit status of native external binaries (like git or nvidia-smi)",
     "tip": "",
-    "tags": "powershell error try-catch exceptions exitcode"
+    "tags": "powershell error try-catch exceptions exitcode",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_preference_variables",
+          "title": "about_Preference_Variables"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_try_catch_finally",
+          "title": "about_Try_Catch_Finally"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_automatic_variables",
+          "title": "about_Automatic_Variables ($_, $LASTEXITCODE)"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/invoke-restmethod",
+          "title": "Invoke-RestMethod"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -61603,7 +73633,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Test-Path -Path $Path -PathType Leaf",
     "desc": "Verify file exists before operating",
     "tip": "",
-    "tags": "powershell error try-catch exceptions exitcode"
+    "tags": "powershell error try-catch exceptions exitcode",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_preference_variables",
+          "title": "about_Preference_Variables"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_try_catch_finally",
+          "title": "about_Try_Catch_Finally"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_automatic_variables",
+          "title": "about_Automatic_Variables ($_, $LASTEXITCODE)"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/invoke-restmethod",
+          "title": "Invoke-RestMethod"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -61659,7 +73710,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "local port = opts.port or 8080",
     "desc": "Use a default when a value is nil or false",
     "tip": "",
-    "tags": "lua variables tables local comments hyprland neovim"
+    "tags": "lua variables tables local comments hyprland neovim",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.4/manual.html",
+          "title": "Lua 5.4 reference manual"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -61670,7 +73730,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "local a, b = 1, 2",
     "desc": "Assign several values at once, or swap with a, b = b, a",
     "tip": "",
-    "tags": "lua variables tables local comments hyprland neovim"
+    "tags": "lua variables tables local comments hyprland neovim",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.4/manual.html",
+          "title": "Lua 5.4 reference manual"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -61681,7 +73750,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "print(type(server), tostring(nil))",
     "desc": "Check a value's type, or turn it into a string",
     "tip": "",
-    "tags": "lua variables tables local comments hyprland neovim"
+    "tags": "lua variables tables local comments hyprland neovim",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.4/manual.html",
+          "title": "Lua 5.4 reference manual"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -61712,7 +73790,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "for i, host in ipairs(hosts) do print(i, host) end",
     "desc": "Loop over a list in order",
     "tip": "",
-    "tags": "lua loops pairs ipairs functions pcall errors"
+    "tags": "lua loops pairs ipairs functions pcall errors",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.4/manual.html",
+          "title": "Lua 5.4 reference manual"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -61723,7 +73810,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "while retries > 0 do retries = retries - 1 end",
     "desc": "Loop until a condition changes",
     "tip": "",
-    "tags": "lua loops pairs ipairs functions pcall errors"
+    "tags": "lua loops pairs ipairs functions pcall errors",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.4/manual.html",
+          "title": "Lua 5.4 reference manual"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -61734,7 +73830,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "local ok, err = pcall(check, temps)",
     "desc": "Catch an error: ok is false and err holds the message",
     "tip": "",
-    "tags": "lua loops pairs ipairs functions pcall errors"
+    "tags": "lua loops pairs ipairs functions pcall errors",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.4/manual.html",
+          "title": "Lua 5.4 reference manual"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -61769,7 +73874,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "for word in line:gmatch(\"%S+\") do print(word) end",
     "desc": "Split a string on whitespace",
     "tip": "",
-    "tags": "lua strings patterns match gsub format tables insert sort concat"
+    "tags": "lua strings patterns match gsub format tables insert sort concat",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.4/manual.html",
+          "title": "Lua 5.4 reference manual"
+        },
+        {
+          "url": "https://luajit.org/extensions.html",
+          "title": "LuaJIT (Lua 5.1 + extensions)"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -61780,7 +73898,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "local clean = line:gsub(\"%s+$\", \"\")",
     "desc": "Trim trailing spaces. gsub finds and replaces.",
     "tip": "",
-    "tags": "lua strings patterns match gsub format tables insert sort concat"
+    "tags": "lua strings patterns match gsub format tables insert sort concat",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.4/manual.html",
+          "title": "Lua 5.4 reference manual"
+        },
+        {
+          "url": "https://luajit.org/extensions.html",
+          "title": "LuaJIT (Lua 5.1 + extensions)"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -61791,7 +73922,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "table.remove(hosts, 1)",
     "desc": "Remove and return the first item",
     "tip": "",
-    "tags": "lua strings patterns match gsub format tables insert sort concat"
+    "tags": "lua strings patterns match gsub format tables insert sort concat",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.4/manual.html",
+          "title": "Lua 5.4 reference manual"
+        },
+        {
+          "url": "https://luajit.org/extensions.html",
+          "title": "LuaJIT (Lua 5.1 + extensions)"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -61802,7 +73946,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "local copy = { table.unpack(hosts) }",
     "desc": "Make a shallow copy of a list. In Neovim, use unpack(hosts) instead.",
     "tip": "",
-    "tags": "lua strings patterns match gsub format tables insert sort concat"
+    "tags": "lua strings patterns match gsub format tables insert sort concat",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.4/manual.html",
+          "title": "Lua 5.4 reference manual"
+        },
+        {
+          "url": "https://luajit.org/extensions.html",
+          "title": "LuaJIT (Lua 5.1 + extensions)"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -61833,7 +73990,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lua script.lua arg1",
     "desc": "Run a script",
     "tip": "",
-    "tags": "lua files io open read popen cli arg luac"
+    "tags": "lua files io open read popen cli arg luac",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.4/manual.html",
+          "title": "Lua 5.4 reference manual"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -61844,7 +74010,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lua -e 'print(_VERSION)'",
     "desc": "Run one line without a file",
     "tip": "",
-    "tags": "lua files io open read popen cli arg luac"
+    "tags": "lua files io open read popen cli arg luac",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.4/manual.html",
+          "title": "Lua 5.4 reference manual"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -61855,7 +74030,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "luac -p script.lua",
     "desc": "Check syntax without running it",
     "tip": "",
-    "tags": "lua files io open read popen cli arg luac"
+    "tags": "lua files io open read popen cli arg luac",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.lua.org/manual/5.4/manual.html",
+          "title": "Lua 5.4 reference manual"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -61899,7 +74083,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "hyprctl configerrors",
     "desc": "List Hyprland config problems after you save",
     "tip": "",
-    "tags": "lua hyprland omarchy neovim config bindings keymap"
+    "tags": "lua hyprland omarchy neovim config bindings keymap",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/basecamp/omarchy/blob/quattro/config/hypr/bindings.lua",
+          "title": "Omarchy: bindings.lua"
+        },
+        {
+          "url": "https://neovim.io/doc/user/lua-guide/",
+          "title": "Neovim: Lua guide"
+        },
+        {
+          "url": "https://wiki.hypr.land/configuring/core/advanced-configuration/using-hyprctl/",
+          "title": "Hyprland wiki: hyprctl"
+        },
+        {
+          "url": "https://luajit.org/extensions.html",
+          "title": "LuaJIT (Lua 5.1 + extensions)"
+        }
+      ],
+      "note": "o.bind / hl.unbind checked against an Omarchy install and its bindings.lua; hyprctl configerrors is listed by hyprctl --help on Hyprland 0.56.2."
+    }
   },
   {
     "sName": "scripting",
@@ -61910,7 +74116,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "hyprctl reload",
     "desc": "Reload the Hyprland config",
     "tip": "",
-    "tags": "lua hyprland omarchy neovim config bindings keymap"
+    "tags": "lua hyprland omarchy neovim config bindings keymap",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/basecamp/omarchy/blob/quattro/config/hypr/bindings.lua",
+          "title": "Omarchy: bindings.lua"
+        },
+        {
+          "url": "https://neovim.io/doc/user/lua-guide/",
+          "title": "Neovim: Lua guide"
+        },
+        {
+          "url": "https://wiki.hypr.land/configuring/core/advanced-configuration/using-hyprctl/",
+          "title": "Hyprland wiki: hyprctl"
+        },
+        {
+          "url": "https://luajit.org/extensions.html",
+          "title": "LuaJIT (Lua 5.1 + extensions)"
+        }
+      ],
+      "note": "o.bind / hl.unbind checked against an Omarchy install and its bindings.lua; hyprctl configerrors is listed by hyprctl --help on Hyprland 0.56.2."
+    }
   },
   {
     "sName": "scripting",
@@ -61921,7 +74149,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": ":lua print(vim.version().minor)",
     "desc": "Run Lua from Neovim's command line",
     "tip": "",
-    "tags": "lua hyprland omarchy neovim config bindings keymap"
+    "tags": "lua hyprland omarchy neovim config bindings keymap",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.com/basecamp/omarchy/blob/quattro/config/hypr/bindings.lua",
+          "title": "Omarchy: bindings.lua"
+        },
+        {
+          "url": "https://neovim.io/doc/user/lua-guide/",
+          "title": "Neovim: Lua guide"
+        },
+        {
+          "url": "https://wiki.hypr.land/configuring/core/advanced-configuration/using-hyprctl/",
+          "title": "Hyprland wiki: hyprctl"
+        },
+        {
+          "url": "https://luajit.org/extensions.html",
+          "title": "LuaJIT (Lua 5.1 + extensions)"
+        }
+      ],
+      "note": "o.bind / hl.unbind checked against an Omarchy install and its bindings.lua; hyprctl configerrors is listed by hyprctl --help on Hyprland 0.56.2."
+    }
   },
   {
     "sName": "scripting",
@@ -61952,7 +74202,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "jq -s 'add' *.json",
     "desc": "Slurp several files into one array (-s); add then merges them (objects merge, arrays concatenate)",
     "tip": "",
-    "tags": "json jq csv select transform filter array"
+    "tags": "json jq csv select transform filter array",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://jqlang.org/manual/",
+          "title": "jq manual"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -61963,7 +74222,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "jq '.Members | map({id: .\"@odata.id\", name: .Name})'",
     "desc": "Map array elements into transformed schema objects",
     "tip": "",
-    "tags": "json jq csv select transform filter array"
+    "tags": "json jq csv select transform filter array",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://jqlang.org/manual/",
+          "title": "jq manual"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -61974,7 +74242,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "jq 'keys'",
     "desc": "Return array of top-level key names in object",
     "tip": "",
-    "tags": "json jq csv select transform filter array"
+    "tags": "json jq csv select transform filter array",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://jqlang.org/manual/",
+          "title": "jq manual"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -62041,7 +74318,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "# The Norway / Boolean Trap",
     "desc": "In YAML 1.1, unquoted NO, no, YES, yes, ON, on are parsed as boolean FALSE/TRUE! Quote country codes: 'NO'",
     "tip": "",
-    "tags": "yaml scalars anchors aliases yq multiline"
+    "tags": "yaml scalars anchors aliases yq multiline",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://yaml.org/spec/1.2.2/",
+          "title": "YAML 1.2.2 spec (core schema booleans)"
+        },
+        {
+          "url": "https://yaml.org/type/merge.html",
+          "title": "YAML 1.1 merge key (<<)"
+        },
+        {
+          "url": "https://mikefarah.gitbook.io/yq",
+          "title": "yq documentation"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -62052,7 +74346,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "yq eval '.production.nodes = 128' -i config.yaml",
     "desc": "Edit YAML file in-place with yq",
     "tip": "",
-    "tags": "yaml scalars anchors aliases yq multiline"
+    "tags": "yaml scalars anchors aliases yq multiline",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://yaml.org/spec/1.2.2/",
+          "title": "YAML 1.2.2 spec (core schema booleans)"
+        },
+        {
+          "url": "https://yaml.org/type/merge.html",
+          "title": "YAML 1.1 merge key (<<)"
+        },
+        {
+          "url": "https://mikefarah.gitbook.io/yq",
+          "title": "yq documentation"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -62111,7 +74422,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "python3 -c 'import tomllib, pprint; pprint.pprint(tomllib.load(open(\"pyproject.toml\", \"rb\")))'",
     "desc": "Parse TOML natively in Python 3.11+ using built-in tomllib",
     "tip": "",
-    "tags": "toml config pyproject cargo tables schema"
+    "tags": "toml config pyproject cargo tables schema",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://toml.io/en/v1.1.0",
+          "title": "TOML 1.1.0 spec"
+        },
+        {
+          "url": "https://docs.python.org/3/library/tomllib.html",
+          "title": "Python: tomllib"
+        },
+        {
+          "url": "https://taplo.tamasfe.dev/cli/usage/formatting.html",
+          "title": "Taplo: formatting"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -62122,7 +74450,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "taplo fmt pyproject.toml",
     "desc": "Format and lint TOML configuration files using Taplo CLI",
     "tip": "",
-    "tags": "toml config pyproject cargo tables schema"
+    "tags": "toml config pyproject cargo tables schema",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://toml.io/en/v1.1.0",
+          "title": "TOML 1.1.0 spec"
+        },
+        {
+          "url": "https://docs.python.org/3/library/tomllib.html",
+          "title": "Python: tomllib"
+        },
+        {
+          "url": "https://taplo.tamasfe.dev/cli/usage/formatting.html",
+          "title": "Taplo: formatting"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -62158,7 +74503,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "\\b(?:[0-9]{1,3}\\.){3}[0-9]{1,3}\\b",
     "desc": "IPv4-shaped matcher with word boundaries (shape only: also accepts 999.1.1.1)",
     "tip": "",
-    "tags": "regex lookahead lookbehind pcre ipv4 mac bdf"
+    "tags": "regex lookahead lookbehind pcre ipv4 mac bdf",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.pcre.org/current/doc/html/pcre2pattern.html",
+          "title": "PCRE2 pattern syntax"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+          "title": "grep(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: PCRE2 10.43+ allows bounded variable-length lookbehind."
+    }
   },
   {
     "sName": "scripting",
@@ -62169,7 +74528,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "[0-9a-fA-F]{4}:[0-9a-fA-F]{2}:[0-9a-fA-F]{2}\\.[0-7]",
     "desc": "PCIe BDF identifier regex (e.g. 0000:41:00.0)",
     "tip": "",
-    "tags": "regex lookahead lookbehind pcre ipv4 mac bdf"
+    "tags": "regex lookahead lookbehind pcre ipv4 mac bdf",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.pcre.org/current/doc/html/pcre2pattern.html",
+          "title": "PCRE2 pattern syntax"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+          "title": "grep(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: PCRE2 10.43+ allows bounded variable-length lookbehind."
+    }
   },
   {
     "sName": "scripting",
@@ -62180,7 +74553,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})",
     "desc": "Standard MAC address matcher",
     "tip": "",
-    "tags": "regex lookahead lookbehind pcre ipv4 mac bdf"
+    "tags": "regex lookahead lookbehind pcre ipv4 mac bdf",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.pcre.org/current/doc/html/pcre2pattern.html",
+          "title": "PCRE2 pattern syntax"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+          "title": "grep(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: PCRE2 10.43+ allows bounded variable-length lookbehind."
+    }
   },
   {
     "sName": "scripting",
@@ -62215,7 +74602,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "awk '!seen[$0]++' file.txt",
     "desc": "Deduplicate lines while preserving exact file order",
     "tip": "",
-    "tags": "awk sum math columns dedup fields"
+    "tags": "awk sum math columns dedup fields",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/gawk.1.html",
+          "title": "gawk(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ps.1.html",
+          "title": "ps(1) (RSS in KiB)"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -62226,7 +74626,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "awk -F: '$3 >= 1000 {print $1, $3, $6}' /etc/passwd",
     "desc": "Filter system users with UID >= 1000",
     "tip": "",
-    "tags": "awk sum math columns dedup fields"
+    "tags": "awk sum math columns dedup fields",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/gawk.1.html",
+          "title": "gawk(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/ps.1.html",
+          "title": "ps(1) (RSS in KiB)"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -62258,7 +74671,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sed -i '/^[[:space:]]*#/d; /^[[:space:]]*$/d' config.ini",
     "desc": "Strip all comment lines and blank lines in-place",
     "tip": "",
-    "tags": "sed stream substitute regex inplace delete"
+    "tags": "sed stream substitute regex inplace delete",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sed.1.html",
+          "title": "sed(1)"
+        }
+      ],
+      "note": "Changed 2026-11-10: the example no longer disables SELinux."
+    }
   },
   {
     "sName": "scripting",
@@ -62269,7 +74692,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sed -n '20,40p' file.log",
     "desc": "Print specific line number range (lines 20 to 40)",
     "tip": "",
-    "tags": "sed stream substitute regex inplace delete"
+    "tags": "sed stream substitute regex inplace delete",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sed.1.html",
+          "title": "sed(1)"
+        }
+      ],
+      "note": "Changed 2026-11-10: the example no longer disables SELinux."
+    }
   },
   {
     "sName": "scripting",
@@ -62304,7 +74737,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sqlite3 :memory: -cmd \".mode csv\" -cmd \".import nodes.csv data\" \"SELECT * FROM data LIMIT 5;\"",
     "desc": "Instant in-memory ad-hoc SQL query on a CSV file without installing a server",
     "tip": "",
-    "tags": "sqlite sql csv json database schema cli"
+    "tags": "sqlite sql csv json database schema cli",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://sqlite.org/cli.html",
+          "title": "SQLite CLI"
+        },
+        {
+          "url": "https://sqlite.org/json1.html",
+          "title": "SQLite JSON functions"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -62315,7 +74761,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sqlite3 database.db \".schema --indent\"",
     "desc": "Introspect and print pretty-printed DDL database schema",
     "tip": "",
-    "tags": "sqlite sql csv json database schema cli"
+    "tags": "sqlite sql csv json database schema cli",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://sqlite.org/cli.html",
+          "title": "SQLite CLI"
+        },
+        {
+          "url": "https://sqlite.org/json1.html",
+          "title": "SQLite JSON functions"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -62326,7 +74785,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sqlite3 db.sqlite \"SELECT json_extract(metadata, '$.firmware.bios') FROM inventory;\"",
     "desc": "Extract nested attributes from SQLite JSON columns",
     "tip": "",
-    "tags": "sqlite sql csv json database schema cli"
+    "tags": "sqlite sql csv json database schema cli",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://sqlite.org/cli.html",
+          "title": "SQLite CLI"
+        },
+        {
+          "url": "https://sqlite.org/json1.html",
+          "title": "SQLite JSON functions"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -62381,7 +74853,40 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git switch -c feature/x",
     "desc": "Create a branch and switch to it",
     "tip": "",
-    "tags": "git status add commit pull push branch"
+    "tags": "git status add commit pull push branch",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-status",
+          "title": "git status"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-add",
+          "title": "git add"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-pull",
+          "title": "git pull"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-push",
+          "title": "git push"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-switch",
+          "title": "git switch"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-log",
+          "title": "git log"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-diff",
+          "title": "git diff"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -62392,7 +74897,40 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git log --oneline --graph --all -20",
     "desc": "See recent history across branches",
     "tip": "",
-    "tags": "git status add commit pull push branch"
+    "tags": "git status add commit pull push branch",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-status",
+          "title": "git status"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-add",
+          "title": "git add"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-pull",
+          "title": "git pull"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-push",
+          "title": "git push"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-switch",
+          "title": "git switch"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-log",
+          "title": "git log"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-diff",
+          "title": "git diff"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -62403,7 +74941,40 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git diff --staged",
     "desc": "Review what the next commit contains",
     "tip": "",
-    "tags": "git status add commit pull push branch"
+    "tags": "git status add commit pull push branch",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-status",
+          "title": "git status"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-add",
+          "title": "git add"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-pull",
+          "title": "git pull"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-push",
+          "title": "git push"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-switch",
+          "title": "git switch"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-log",
+          "title": "git log"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-diff",
+          "title": "git diff"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -62454,7 +75025,36 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git stash push -u -m \"WIP\"",
     "desc": "Set work aside, including untracked files",
     "tip": "",
-    "tags": "git undo restore reset revert reflog stash"
+    "tags": "git undo restore reset revert reflog stash",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-restore",
+          "title": "git restore"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-reset",
+          "title": "git reset"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-revert",
+          "title": "git revert"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-reflog",
+          "title": "git reflog"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-stash",
+          "title": "git stash"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-clean",
+          "title": "git clean"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -62465,7 +75065,36 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git clean -nd",
     "desc": "Preview which untracked files would be deleted",
     "tip": "",
-    "tags": "git undo restore reset revert reflog stash"
+    "tags": "git undo restore reset revert reflog stash",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-restore",
+          "title": "git restore"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-reset",
+          "title": "git reset"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-revert",
+          "title": "git revert"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-reflog",
+          "title": "git reflog"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-stash",
+          "title": "git stash"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-clean",
+          "title": "git clean"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -62476,7 +75105,36 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git branch recovered HEAD@{2}",
     "desc": "Recover a commit found in the reflog",
     "tip": "",
-    "tags": "git undo restore reset revert reflog stash"
+    "tags": "git undo restore reset revert reflog stash",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-restore",
+          "title": "git restore"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-reset",
+          "title": "git reset"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-revert",
+          "title": "git revert"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-reflog",
+          "title": "git reflog"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-stash",
+          "title": "git stash"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-clean",
+          "title": "git clean"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -62523,7 +75181,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git -C /opt/tools rev-parse --short HEAD",
     "desc": "Print the commit deployed in a folder",
     "tip": "",
-    "tags": "git scripts porcelain rev-parse describe deploy automation"
+    "tags": "git scripts porcelain rev-parse describe deploy automation",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-rev-parse",
+          "title": "git rev-parse"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-status",
+          "title": "git status"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-describe",
+          "title": "git describe"
+        },
+        {
+          "url": "https://git-scm.com/docs/git",
+          "title": "git (-C)"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-diff",
+          "title": "git diff"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -62534,7 +75217,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git diff --quiet || echo \"Unstaged changes\"",
     "desc": "Use the exit code to detect changes",
     "tip": "",
-    "tags": "git scripts porcelain rev-parse describe deploy automation"
+    "tags": "git scripts porcelain rev-parse describe deploy automation",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-rev-parse",
+          "title": "git rev-parse"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-status",
+          "title": "git status"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-describe",
+          "title": "git describe"
+        },
+        {
+          "url": "https://git-scm.com/docs/git",
+          "title": "git (-C)"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-diff",
+          "title": "git diff"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -62545,7 +75253,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "git rev-parse --abbrev-ref HEAD",
     "desc": "Print the current branch name",
     "tip": "",
-    "tags": "git scripts porcelain rev-parse describe deploy automation"
+    "tags": "git scripts porcelain rev-parse describe deploy automation",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://git-scm.com/docs/git-rev-parse",
+          "title": "git rev-parse"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-status",
+          "title": "git status"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-describe",
+          "title": "git describe"
+        },
+        {
+          "url": "https://git-scm.com/docs/git",
+          "title": "git (-C)"
+        },
+        {
+          "url": "https://git-scm.com/docs/git-diff",
+          "title": "git diff"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -62584,7 +75317,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "> [!WARNING]\n> Drain the node first.",
     "desc": "GitHub alert box",
     "tip": "",
-    "tags": "markdown md headings lists links code gfm"
+    "tags": "markdown md headings lists links code gfm",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://spec.commonmark.org/0.31.2/",
+          "title": "CommonMark 0.31.2 spec"
+        },
+        {
+          "url": "https://github.github.com/gfm/",
+          "title": "GitHub Flavored Markdown spec (tables, task lists)"
+        },
+        {
+          "url": "https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax",
+          "title": "GitHub: basic writing and formatting (alerts)"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -62595,7 +75345,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "[Jump](#root-cause)",
     "desc": "Link to a heading in the same file",
     "tip": "",
-    "tags": "markdown md headings lists links code gfm"
+    "tags": "markdown md headings lists links code gfm",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://spec.commonmark.org/0.31.2/",
+          "title": "CommonMark 0.31.2 spec"
+        },
+        {
+          "url": "https://github.github.com/gfm/",
+          "title": "GitHub Flavored Markdown spec (tables, task lists)"
+        },
+        {
+          "url": "https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax",
+          "title": "GitHub: basic writing and formatting (alerts)"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -62606,7 +75373,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "\\*not italic\\*",
     "desc": "Backslash shows a special character literally",
     "tip": "",
-    "tags": "markdown md headings lists links code gfm"
+    "tags": "markdown md headings lists links code gfm",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://spec.commonmark.org/0.31.2/",
+          "title": "CommonMark 0.31.2 spec"
+        },
+        {
+          "url": "https://github.github.com/gfm/",
+          "title": "GitHub Flavored Markdown spec (tables, task lists)"
+        },
+        {
+          "url": "https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax",
+          "title": "GitHub: basic writing and formatting (alerts)"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -62645,7 +75429,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "pandoc -f csv -t gfm data.csv",
     "desc": "Convert a CSV to a Markdown table",
     "tip": "",
-    "tags": "markdown tables awk nvidia-smi csv"
+    "tags": "markdown tables awk nvidia-smi csv",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://github.github.com/gfm/",
+          "title": "GitHub Flavored Markdown spec (tables, task lists)"
+        },
+        {
+          "url": "https://pandoc.org/MANUAL.html",
+          "title": "Pandoc manual"
+        },
+        {
+          "url": "https://docs.nvidia.com/deploy/nvidia-smi/index.html",
+          "title": "nvidia-smi documentation"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -62684,7 +75485,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "glow summary.md",
     "desc": "Preview rendered Markdown in the terminal",
     "tip": "",
-    "tags": "markdown details summary collapse logs ticket"
+    "tags": "markdown details summary collapse logs ticket",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/organizing-information-with-collapsed-sections",
+          "title": "GitHub: collapsed sections"
+        },
+        {
+          "url": "https://github.com/charmbracelet/glow",
+          "title": "glow"
+        },
+        {
+          "url": "https://pandoc.org/MANUAL.html",
+          "title": "Pandoc manual"
+        }
+      ]
+    }
   },
   {
     "sName": "scripting",
@@ -62695,7 +75513,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "pandoc summary.md -o summary.docx",
     "desc": "Convert to Word",
     "tip": "",
-    "tags": "markdown details summary collapse logs ticket"
+    "tags": "markdown details summary collapse logs ticket",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/organizing-information-with-collapsed-sections",
+          "title": "GitHub: collapsed sections"
+        },
+        {
+          "url": "https://github.com/charmbracelet/glow",
+          "title": "glow"
+        },
+        {
+          "url": "https://pandoc.org/MANUAL.html",
+          "title": "Pandoc manual"
+        }
+      ]
+    }
   },
   {
     "sName": "sed",
@@ -62726,7 +75561,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sed -i.bak 's|/mnt/old-nfs|/srv/fast-nvme|g' /etc/fstab",
     "desc": "Replace file paths in /etc/fstab cleanly using '|' as the s||| delimiter",
     "tip": "",
-    "tags": "sed replace substitute inplace config backup regex"
+    "tags": "sed replace substitute inplace config backup regex",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sed.1.html",
+          "title": "sed(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "sed",
@@ -62737,7 +75581,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sed -i '/swap/s/^/# /' /etc/fstab",
     "desc": "Address-scoped substitution: prepend '# ' ONLY on lines that match '/swap/'",
     "tip": "",
-    "tags": "sed replace substitute inplace config backup regex"
+    "tags": "sed replace substitute inplace config backup regex",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sed.1.html",
+          "title": "sed(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "sed",
@@ -62768,7 +75621,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sed -n '1000,1050p;1051q' /var/log/kern.log",
     "desc": "Extract lines 1000–1050 from a massive file and exit immediately at line 1051",
     "tip": "",
-    "tags": "sed slice range timestamps logs lines"
+    "tags": "sed slice range timestamps logs lines",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sed.1.html",
+          "title": "sed(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "sed",
@@ -62779,7 +75641,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sed -n '/^\\[storage\\]/,/^\\[/p' config.ini",
     "desc": "Extract an INI/TOML configuration section block between '[storage]' and the next '[' header",
     "tip": "",
-    "tags": "sed slice range timestamps logs lines"
+    "tags": "sed slice range timestamps logs lines",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sed.1.html",
+          "title": "sed(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "sed",
@@ -62810,7 +75681,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sed -i.bak '42d' ~/.ssh/known_hosts",
     "desc": "Delete exact line 42 from ~/.ssh/known_hosts when a rebuilt server gets a new SSH host key",
     "tip": "",
-    "tags": "sed delete ansi crlf known_hosts comments"
+    "tags": "sed delete ansi crlf known_hosts comments",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sed.1.html",
+          "title": "sed(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "sed",
@@ -62821,7 +75701,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sed -E 's/\\x1B\\[[0-9;]*[a-zA-Z]//g' colored_output.log",
     "desc": "Strip all ANSI terminal color escape sequences from a captured log file",
     "tip": "",
-    "tags": "sed delete ansi crlf known_hosts comments"
+    "tags": "sed delete ansi crlf known_hosts comments",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sed.1.html",
+          "title": "sed(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "sed",
@@ -62832,7 +75721,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sed -i 's/\\r$//' script_from_windows.sh",
     "desc": "Strip Windows CRLF (\\r) carriage returns to fix '/bin/bash^M: bad interpreter'",
     "tip": "",
-    "tags": "sed delete ansi crlf known_hosts comments"
+    "tags": "sed delete ansi crlf known_hosts comments",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sed.1.html",
+          "title": "sed(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "serial-console",
@@ -63168,7 +76066,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "which sftp && sftp --version 2>&1 | head -n 1",
     "desc": "Verify binary path and installed version in current environment",
     "tip": "",
-    "tags": "sftp ipv6 ssh resume reget reput interactive tips safety help"
+    "tags": "sftp ipv6 ssh resume reget reput interactive tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man.openbsd.org/sftp",
+          "title": "sftp(1), OpenBSD"
+        }
+      ],
+      "note": "Corrected 2026-11-09: reget takes -f, -p and -R; there is no -P."
+    }
   },
   {
     "sName": "slurm-gpus",
@@ -64983,7 +77891,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "which sort && sort --version 2>&1 | head -n 1",
     "desc": "Verify binary path and installed version in current environment",
     "tip": "",
-    "tags": "sort human version columns ip du tips safety help"
+    "tags": "sort human version columns ip du tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sort.1.html",
+          "title": "sort(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "sql",
@@ -65023,7 +77940,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "INSERT INTO nodes (hostname, ip) VALUES ('gpu-05', '10.0.0.15');",
     "desc": "Insert a new row into table",
     "tip": "",
-    "tags": "sql select join group-by aggregations having database"
+    "tags": "sql select join group-by aggregations having database",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.postgresql.org/docs/current/sql-select.html",
+          "title": "PostgreSQL: SELECT (GROUP BY, HAVING)"
+        },
+        {
+          "url": "https://sqlite.org/lang_select.html",
+          "title": "SQLite: SELECT (bare columns)"
+        },
+        {
+          "url": "https://sqlite.org/lang_transaction.html",
+          "title": "SQLite: transactions"
+        }
+      ],
+      "note": "Corrected 2026-11-10: GROUP BY now lists every selected column and HAVING repeats the aggregate, as standard SQL (PostgreSQL) requires; SQLite accepted the old form."
+    }
   },
   {
     "sName": "sql",
@@ -65034,7 +77969,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "UPDATE nodes SET status = 'MAINT' WHERE id = 42;",
     "desc": "Update matching rows",
     "tip": "",
-    "tags": "sql select join group-by aggregations having database"
+    "tags": "sql select join group-by aggregations having database",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.postgresql.org/docs/current/sql-select.html",
+          "title": "PostgreSQL: SELECT (GROUP BY, HAVING)"
+        },
+        {
+          "url": "https://sqlite.org/lang_select.html",
+          "title": "SQLite: SELECT (bare columns)"
+        },
+        {
+          "url": "https://sqlite.org/lang_transaction.html",
+          "title": "SQLite: transactions"
+        }
+      ],
+      "note": "Corrected 2026-11-10: GROUP BY now lists every selected column and HAVING repeats the aggregate, as standard SQL (PostgreSQL) requires; SQLite accepted the old form."
+    }
   },
   {
     "sName": "sql",
@@ -65045,7 +77998,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "BEGIN TRANSACTION; ... COMMIT;",
     "desc": "Atomic transaction block (rolls back on failure with ROLLBACK)",
     "tip": "",
-    "tags": "sql select join group-by aggregations having database"
+    "tags": "sql select join group-by aggregations having database",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.postgresql.org/docs/current/sql-select.html",
+          "title": "PostgreSQL: SELECT (GROUP BY, HAVING)"
+        },
+        {
+          "url": "https://sqlite.org/lang_select.html",
+          "title": "SQLite: SELECT (bare columns)"
+        },
+        {
+          "url": "https://sqlite.org/lang_transaction.html",
+          "title": "SQLite: transactions"
+        }
+      ],
+      "note": "Corrected 2026-11-10: GROUP BY now lists every selected column and HAVING repeats the aggregate, as standard SQL (PostgreSQL) requires; SQLite accepted the old form."
+    }
   },
   {
     "sName": "sql",
@@ -65080,7 +78051,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sqlite3 db.sqlite \".schema --indent\"",
     "desc": "Print clean indented DDL table schemas",
     "tip": "",
-    "tags": "sqlite csv json cli memory schema database"
+    "tags": "sqlite csv json cli memory schema database",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://sqlite.org/cli.html",
+          "title": "SQLite CLI"
+        },
+        {
+          "url": "https://sqlite.org/json1.html",
+          "title": "SQLite JSON functions"
+        }
+      ]
+    }
   },
   {
     "sName": "sql",
@@ -65091,7 +78075,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "SELECT json_extract(metadata, '$.firmware.bios') FROM inventory;",
     "desc": "Extract nested JSON attributes from database columns",
     "tip": "",
-    "tags": "sqlite csv json cli memory schema database"
+    "tags": "sqlite csv json cli memory schema database",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://sqlite.org/cli.html",
+          "title": "SQLite CLI"
+        },
+        {
+          "url": "https://sqlite.org/json1.html",
+          "title": "SQLite JSON functions"
+        }
+      ]
+    }
   },
   {
     "sName": "sre",
@@ -67053,7 +80050,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "which ss && ss --version 2>&1 | head -n 1",
     "desc": "Verify binary path and installed version in current environment",
     "tip": "",
-    "tags": "ss ipv6 socket ports listen tcp retransmits rtt tips safety help"
+    "tags": "ss ipv6 socket ports listen tcp retransmits rtt tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ss.8.html",
+          "title": "ss(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: ss(8) doesn't say -p needs root; the maybe-root badge covers other users' processes."
+    }
   },
   {
     "sName": "stat",
@@ -67144,7 +80151,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "which stat && stat --version 2>&1 | head -n 1",
     "desc": "Verify binary path and installed version in current environment",
     "tip": "",
-    "tags": "stat inode octal timestamps birth ctime mtime tips safety help"
+    "tags": "stat inode octal timestamps birth ctime mtime tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/stat.1.html",
+          "title": "stat(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "storage",
@@ -67183,7 +80199,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "du -xh --max-depth=1 /var 2>/dev/null | sort -hr | head -n 15",
     "desc": "List the 15 largest subdirectories inside /var on the same filesystem (-x)",
     "tip": "",
-    "tags": "space free partition mount inodes du ncdu"
+    "tags": "space free partition mount inodes du ncdu",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/df.1.html",
+          "title": "df(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/du.1.html",
+          "title": "du(1)"
+        },
+        {
+          "url": "https://dev.yorhel.nl/ncdu/man",
+          "title": "ncdu manual"
+        }
+      ]
+    }
   },
   {
     "sName": "storage",
@@ -67194,7 +80227,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "df -hlT -x squashfs -x tmpfs",
     "desc": "Show only local filesystems (-l), avoiding hangs when a remote NFS server is unreachable",
     "tip": "",
-    "tags": "space free partition mount inodes du ncdu"
+    "tags": "space free partition mount inodes du ncdu",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/df.1.html",
+          "title": "df(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/du.1.html",
+          "title": "du(1)"
+        },
+        {
+          "url": "https://dev.yorhel.nl/ncdu/man",
+          "title": "ncdu manual"
+        }
+      ]
+    }
   },
   {
     "sName": "storage",
@@ -67205,7 +80255,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "df -h --output=source,fstype,size,used,avail,pcent,ipcent,target -x tmpfs -x squashfs",
     "desc": "Show both Block Use% (pcent) and Inode Use% (ipcent) side-by-side in a single table",
     "tip": "",
-    "tags": "space free partition mount inodes du ncdu"
+    "tags": "space free partition mount inodes du ncdu",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/df.1.html",
+          "title": "df(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/du.1.html",
+          "title": "du(1)"
+        },
+        {
+          "url": "https://dev.yorhel.nl/ncdu/man",
+          "title": "ncdu manual"
+        }
+      ]
+    }
   },
   {
     "sName": "storage",
@@ -67216,7 +80283,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ncdu -x /",
     "desc": "Launch interactive terminal disk usage analyzer on root '/' (staying on one filesystem)",
     "tip": "",
-    "tags": "space free partition mount inodes du ncdu"
+    "tags": "space free partition mount inodes du ncdu",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/df.1.html",
+          "title": "df(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/du.1.html",
+          "title": "du(1)"
+        },
+        {
+          "url": "https://dev.yorhel.nl/ncdu/man",
+          "title": "ncdu manual"
+        }
+      ]
+    }
   },
   {
     "sName": "storage",
@@ -67260,7 +80344,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "blkid",
     "desc": "Print block device attributes (UUID, PARTUUID, TYPE) formatted for /etc/fstab",
     "tip": "",
-    "tags": "lsblk blkid uuid fstab findmnt mount"
+    "tags": "lsblk blkid uuid fstab findmnt mount",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/lsblk.8.html",
+          "title": "lsblk(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/findmnt.8.html",
+          "title": "findmnt(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/blkid.8.html",
+          "title": "blkid(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/mount.8.html",
+          "title": "mount(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: dropped -f from lsblk -f -o (-f is itself a column list; how the two combine isn't documented). TRAN, ROTA, MODEL, SERIAL and WWN checked with lsblk --list-columns (util-linux 2.42)."
+    }
   },
   {
     "sName": "storage",
@@ -67271,7 +80377,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lsblk -d -o NAME,SIZE,TRAN,ROTA,MODEL,SERIAL,WWN",
     "desc": "List top-level devices only (-d: no partitions or holders) with transport type, rotational flag (1=HDD, 0=SSD), model, and serial",
     "tip": "",
-    "tags": "lsblk blkid uuid fstab findmnt mount"
+    "tags": "lsblk blkid uuid fstab findmnt mount",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/lsblk.8.html",
+          "title": "lsblk(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/findmnt.8.html",
+          "title": "findmnt(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/blkid.8.html",
+          "title": "blkid(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/mount.8.html",
+          "title": "mount(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: dropped -f from lsblk -f -o (-f is itself a column list; how the two combine isn't documented). TRAN, ROTA, MODEL, SERIAL and WWN checked with lsblk --list-columns (util-linux 2.42)."
+    }
   },
   {
     "sName": "storage",
@@ -67282,7 +80410,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mount -o remount,rw /",
     "desc": "Remount the root filesystem read-write if the system booted into read-only recovery mode",
     "tip": "",
-    "tags": "lsblk blkid uuid fstab findmnt mount"
+    "tags": "lsblk blkid uuid fstab findmnt mount",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/lsblk.8.html",
+          "title": "lsblk(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/findmnt.8.html",
+          "title": "findmnt(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/blkid.8.html",
+          "title": "blkid(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/mount.8.html",
+          "title": "mount(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: dropped -f from lsblk -f -o (-f is itself a column list; how the two combine isn't documented). TRAN, ROTA, MODEL, SERIAL and WWN checked with lsblk --list-columns (util-linux 2.42)."
+    }
   },
   {
     "sName": "storage",
@@ -67318,7 +80468,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lvextend -r -l +100%FREE /dev/ubuntu-vg/ubuntu-lv",
     "desc": "Expand the default Ubuntu root logical volume to use 100% of remaining free space in the VG and resize ext4/xfs live",
     "tip": "",
-    "tags": "lvm lvextend vgs lvs pvs resize2fs xfs_growfs ubuntu-vg"
+    "tags": "lvm lvextend vgs lvs pvs resize2fs xfs_growfs ubuntu-vg",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/lvextend.8.html",
+          "title": "lvextend(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/lvs.8.html",
+          "title": "lvs(8)"
+        }
+      ],
+      "note": "The names ubuntu-vg / ubuntu-lv and how much free space the Ubuntu installer leaves in the VG are not in Ubuntu's docs: run lvs and vgs to get yours."
+    }
   },
   {
     "sName": "storage",
@@ -67329,7 +80493,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lvextend -r -L +50G /dev/ubuntu-vg/ubuntu-lv",
     "desc": "Add 50 GiB to the logical volume and grow the filesystem online without unmounting",
     "tip": "",
-    "tags": "lvm lvextend vgs lvs pvs resize2fs xfs_growfs ubuntu-vg"
+    "tags": "lvm lvextend vgs lvs pvs resize2fs xfs_growfs ubuntu-vg",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/lvextend.8.html",
+          "title": "lvextend(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/lvs.8.html",
+          "title": "lvs(8)"
+        }
+      ],
+      "note": "The names ubuntu-vg / ubuntu-lv and how much free space the Ubuntu installer leaves in the VG are not in Ubuntu's docs: run lvs and vgs to get yours."
+    }
   },
   {
     "sName": "storage",
@@ -67373,7 +80551,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "parted -s /dev/nvme1n1 mklabel gpt mkpart data ext4 1MiB 100% && mkfs.ext4 -L data /dev/nvme1n1p1",
     "desc": "Create a 1MiB-aligned GPT partition named 'data' across a new NVMe drive, then format it as ext4 (mkpart makes no filesystem)",
     "tip": "",
-    "tags": "dd parted gpt mkfs ext4 iso usb"
+    "tags": "dd parted gpt mkfs ext4 iso usb",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/dd.1.html",
+          "title": "dd(1)"
+        },
+        {
+          "url": "https://www.gnu.org/software/parted/manual/parted.html",
+          "title": "GNU Parted manual"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/mke2fs.8.html",
+          "title": "mke2fs(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/tune2fs.8.html",
+          "title": "tune2fs(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: oflag=sync → conv=fsync (the flush-before-exit flag), and mkpart primary → mkpart data (on GPT that word is the partition name). The tune2fs -l output labels aren't listed in the man page."
+    }
   },
   {
     "sName": "storage",
@@ -67384,7 +80584,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "tune2fs -l /dev/sda1 | grep -E 'Filesystem state|Mount count|Last checked|Reserved block'",
     "desc": "Inspect ext4 superblock health state and reserved root block count",
     "tip": "",
-    "tags": "dd parted gpt mkfs ext4 iso usb"
+    "tags": "dd parted gpt mkfs ext4 iso usb",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/dd.1.html",
+          "title": "dd(1)"
+        },
+        {
+          "url": "https://www.gnu.org/software/parted/manual/parted.html",
+          "title": "GNU Parted manual"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/mke2fs.8.html",
+          "title": "mke2fs(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/tune2fs.8.html",
+          "title": "tune2fs(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: oflag=sync → conv=fsync (the flush-before-exit flag), and mkpart primary → mkpart data (on GPT that word is the partition name). The tune2fs -l output labels aren't listed in the man page."
+    }
   },
   {
     "sName": "strace",
@@ -67475,7 +80697,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "which strace && strace --version 2>&1 | head -n 1",
     "desc": "Verify binary path and installed version in current environment",
     "tip": "",
-    "tags": "strace syscall debug hang enoent latency tips safety help"
+    "tags": "strace syscall debug hang enoent latency tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/strace.1.html",
+          "title": "strace(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "strings",
@@ -67582,7 +80813,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "which strings && strings --version 2>&1 | head -n 1",
     "desc": "Verify binary path and installed version in current environment",
     "tip": "",
-    "tags": "strings cmp firmware binary version coredump tips safety help"
+    "tags": "strings cmp firmware binary version coredump tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://sourceware.org/binutils/docs/binutils/strings.html",
+          "title": "GNU binutils: strings"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/cmp.1.html",
+          "title": "cmp(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "sudo",
@@ -67630,7 +80874,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo -k",
     "desc": "Forget your cached password now (do it before you walk away)",
     "tip": "",
-    "tags": "sudo root danger least-privilege audit security"
+    "tags": "sudo root danger least-privilege audit security",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.sudo.ws/docs/man/sudo.man/",
+          "title": "sudo(8)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+          "title": "sudoers(5)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        },
+        {
+          "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+          "title": "Ubuntu 25.10 release notes (sudo-rs)"
+        },
+        {
+          "url": "https://www.sudo.ws/releases/stable/",
+          "title": "sudo stable release"
+        }
+      ],
+      "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+    }
   },
   {
     "sName": "sudo",
@@ -67641,7 +80911,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo -v",
     "desc": "Refresh the cache without running anything (before a long series of steps)",
     "tip": "",
-    "tags": "sudo root danger least-privilege audit security"
+    "tags": "sudo root danger least-privilege audit security",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.sudo.ws/docs/man/sudo.man/",
+          "title": "sudo(8)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+          "title": "sudoers(5)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        },
+        {
+          "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+          "title": "Ubuntu 25.10 release notes (sudo-rs)"
+        },
+        {
+          "url": "https://www.sudo.ws/releases/stable/",
+          "title": "sudo stable release"
+        }
+      ],
+      "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+    }
   },
   {
     "sName": "sudo",
@@ -67689,7 +80985,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "whoami",
     "desc": "Just the user name",
     "tip": "",
-    "tags": "sudo root uid id whoami privilege"
+    "tags": "sudo root uid id whoami privilege",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.sudo.ws/docs/man/sudo.man/",
+          "title": "sudo(8)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+          "title": "sudoers(5)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        },
+        {
+          "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+          "title": "Ubuntu 25.10 release notes (sudo-rs)"
+        },
+        {
+          "url": "https://www.sudo.ws/releases/stable/",
+          "title": "sudo stable release"
+        }
+      ],
+      "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+    }
   },
   {
     "sName": "sudo",
@@ -67700,7 +81022,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo -l",
     "desc": "What sudo lets you run on this host (asks for your password)",
     "tip": "",
-    "tags": "sudo root uid id whoami privilege"
+    "tags": "sudo root uid id whoami privilege",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.sudo.ws/docs/man/sudo.man/",
+          "title": "sudo(8)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+          "title": "sudoers(5)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        },
+        {
+          "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+          "title": "Ubuntu 25.10 release notes (sudo-rs)"
+        },
+        {
+          "url": "https://www.sudo.ws/releases/stable/",
+          "title": "sudo stable release"
+        }
+      ],
+      "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+    }
   },
   {
     "sName": "sudo",
@@ -67748,7 +81096,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo -u postgres psql -c 'select 1'",
     "desc": "Run a command as a service account",
     "tip": "",
-    "tags": "sudo run user non-interactive scripts"
+    "tags": "sudo run user non-interactive scripts",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.sudo.ws/docs/man/sudo.man/",
+          "title": "sudo(8)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+          "title": "sudoers(5)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        },
+        {
+          "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+          "title": "Ubuntu 25.10 release notes (sudo-rs)"
+        },
+        {
+          "url": "https://www.sudo.ws/releases/stable/",
+          "title": "sudo stable release"
+        }
+      ],
+      "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+    }
   },
   {
     "sName": "sudo",
@@ -67759,7 +81133,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo -n true && echo 'sudo works without a prompt'",
     "desc": "Check that a script can use sudo before it runs",
     "tip": "",
-    "tags": "sudo run user non-interactive scripts"
+    "tags": "sudo run user non-interactive scripts",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.sudo.ws/docs/man/sudo.man/",
+          "title": "sudo(8)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+          "title": "sudoers(5)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        },
+        {
+          "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+          "title": "Ubuntu 25.10 release notes (sudo-rs)"
+        },
+        {
+          "url": "https://www.sudo.ws/releases/stable/",
+          "title": "sudo stable release"
+        }
+      ],
+      "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+    }
   },
   {
     "sName": "sudo",
@@ -67807,7 +81207,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "exit",
     "desc": "Back to your own user",
     "tip": "",
-    "tags": "sudo root-shell su login logging"
+    "tags": "sudo root-shell su login logging",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.sudo.ws/docs/man/sudo.man/",
+          "title": "sudo(8)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+          "title": "sudoers(5)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        },
+        {
+          "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+          "title": "Ubuntu 25.10 release notes (sudo-rs)"
+        },
+        {
+          "url": "https://www.sudo.ws/releases/stable/",
+          "title": "sudo stable release"
+        }
+      ],
+      "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+    }
   },
   {
     "sName": "sudo",
@@ -67855,7 +81281,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "echo '2001:db8:dc:4::50 bmc-rack04' | sudo tee -a /etc/hosts > /dev/null",
     "desc": "Append a line to a root-owned file (changes state)",
     "tip": "",
-    "tags": "sudo tee redirect permission-denied gotcha"
+    "tags": "sudo tee redirect permission-denied gotcha",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.sudo.ws/docs/man/sudo.man/",
+          "title": "sudo(8)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+          "title": "sudoers(5)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        },
+        {
+          "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+          "title": "Ubuntu 25.10 release notes (sudo-rs)"
+        },
+        {
+          "url": "https://www.sudo.ws/releases/stable/",
+          "title": "sudo stable release"
+        }
+      ],
+      "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+    }
   },
   {
     "sName": "sudo",
@@ -67903,7 +81355,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo sshd -t",
     "desc": "Validate sshd_config before restarting sshd",
     "tip": "",
-    "tags": "sudo sudoedit edit config nano vim"
+    "tags": "sudo sudoedit edit config nano vim",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.sudo.ws/docs/man/sudo.man/",
+          "title": "sudo(8)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+          "title": "sudoers(5)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        },
+        {
+          "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+          "title": "Ubuntu 25.10 release notes (sudo-rs)"
+        },
+        {
+          "url": "https://www.sudo.ws/releases/stable/",
+          "title": "sudo stable release"
+        }
+      ],
+      "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+    }
   },
   {
     "sName": "sudo",
@@ -67951,7 +81429,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo visudo -c",
     "desc": "Syntax check of every sudoers file",
     "tip": "",
-    "tags": "sudo sudoers visudo nopasswd least-privilege"
+    "tags": "sudo sudoers visudo nopasswd least-privilege",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.sudo.ws/docs/man/sudo.man/",
+          "title": "sudo(8)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+          "title": "sudoers(5)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        },
+        {
+          "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+          "title": "Ubuntu 25.10 release notes (sudo-rs)"
+        },
+        {
+          "url": "https://www.sudo.ws/releases/stable/",
+          "title": "sudo stable release"
+        }
+      ],
+      "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+    }
   },
   {
     "sName": "sudo",
@@ -67999,7 +81503,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo grep -h 'COMMAND=' /var/log/auth.log | tail -n 20",
     "desc": "Last 20 sudo commands (Ubuntu and Debian)",
     "tip": "",
-    "tags": "sudo audit log journalctl auth.log incident"
+    "tags": "sudo audit log journalctl auth.log incident",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.sudo.ws/docs/man/sudo.man/",
+          "title": "sudo(8)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+          "title": "sudoers(5)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        },
+        {
+          "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+          "title": "Ubuntu 25.10 release notes (sudo-rs)"
+        },
+        {
+          "url": "https://www.sudo.ws/releases/stable/",
+          "title": "sudo stable release"
+        }
+      ],
+      "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+    }
   },
   {
     "sName": "sudo",
@@ -68047,7 +81577,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sudo --version",
     "desc": "Which sudo, which version",
     "tip": "",
-    "tags": "sudo sudo-rs ubuntu version rust"
+    "tags": "sudo sudo-rs ubuntu version rust",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.sudo.ws/docs/man/sudo.man/",
+          "title": "sudo(8)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/sudoers.man/",
+          "title": "sudoers(5)"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        },
+        {
+          "url": "https://documentation.ubuntu.com/release-notes/25.10/",
+          "title": "Ubuntu 25.10 release notes (sudo-rs)"
+        },
+        {
+          "url": "https://www.sudo.ws/releases/stable/",
+          "title": "sudo stable release"
+        }
+      ],
+      "note": "sudo-rs is Ubuntu's default from 25.10 (original kept as sudo.ws); the claim that sudo-rs visudo skips drop-ins is not confirmed in Ubuntu's public docs."
+    }
   },
   {
     "sName": "supermicro-saa",
@@ -70338,7 +83894,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show interfaces ib 1/1 transceiver",
     "desc": "Inspect OSFP/QSFP optical DOM on IB 1/1: per-lane Rx/Tx optical power (dBm), bias current, module temp, PN & SN",
     "tip": "",
-    "tags": "nvidia quantum mlnx-os infiniband ib interfaces transceiver dom counters qm9700 qm8700"
+    "tags": "nvidia quantum mlnx-os infiniband ib interfaces transceiver dom counters qm9700 qm8700",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/infiniband-interface",
+          "title": "MLNX-OS 3.12.6200: InfiniBand interface"
+        }
+      ],
+      "note": "MLNX-OS (newer Quantum switches may run NVOS instead: check your switch). The per-port form show interfaces ib 1/1 is not shown on its own in the manual."
+    }
   },
   {
     "sName": "switches",
@@ -70349,7 +83915,12 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show interfaces ib transceiver",
     "desc": "Dump optical transceiver inventory and DOM diagnostics across all populated InfiniBand switch ports",
     "tip": "",
-    "tags": "nvidia quantum mlnx-os infiniband ib interfaces transceiver dom counters qm9700 qm8700"
+    "tags": "nvidia quantum mlnx-os infiniband ib interfaces transceiver dom counters qm9700 qm8700",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [],
+      "note": "Only the per-port form (show interfaces ib 1/36 transceiver) is in the MLNX-OS manual chapters read."
+    }
   },
   {
     "sName": "switches",
@@ -70360,7 +83931,12 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show interfaces ib 1/1 counters",
     "desc": "Display IB 1/1 traffic and physical error counters (SymbolError, LinkErrorRecovery, LinkDowned, PortRcvErrors)",
     "tip": "",
-    "tags": "nvidia quantum mlnx-os infiniband ib interfaces transceiver dom counters qm9700 qm8700"
+    "tags": "nvidia quantum mlnx-os infiniband ib interfaces transceiver dom counters qm9700 qm8700",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [],
+      "note": "Not in the MLNX-OS manual chapters read."
+    }
   },
   {
     "sName": "switches",
@@ -70371,7 +83947,12 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "interface ib 1/1\nclear counters",
     "desc": "Reset IB 1/1 error counters after cleaning fiber or replacing an OSFP/QSFP module (MLNX-OS clears counters only inside interface ib mode, from configure terminal)",
     "tip": "",
-    "tags": "nvidia quantum mlnx-os infiniband ib interfaces transceiver dom counters qm9700 qm8700"
+    "tags": "nvidia quantum mlnx-os infiniband ib interfaces transceiver dom counters qm9700 qm8700",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [],
+      "note": "Clearing counters is not in the MLNX-OS manual chapters read."
+    }
   },
   {
     "sName": "switches",
@@ -70382,7 +83963,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "configure terminal ; interface ib 1/1 shutdown ; no interface ib 1/1 shutdown",
     "desc": "Bounce (shut / no shut) InfiniBand switch port IB 1/1 to force link retraining",
     "tip": "",
-    "tags": "nvidia quantum mlnx-os infiniband ib interfaces transceiver dom counters qm9700 qm8700"
+    "tags": "nvidia quantum mlnx-os infiniband ib interfaces transceiver dom counters qm9700 qm8700",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/infiniband-interface",
+          "title": "MLNX-OS 3.12.6200: InfiniBand interface"
+        }
+      ],
+      "note": "NVIDIA shows interface ib 1/4 shutdown; the no form is not shown."
+    }
   },
   {
     "sName": "switches",
@@ -70393,7 +83984,12 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "interface ib 1/1 description \"GPU-Node-01 mlx5_0\"",
     "desc": "Label InfiniBand switch port IB 1/1 with the connected GPU server hostname and HCA",
     "tip": "",
-    "tags": "nvidia quantum mlnx-os infiniband ib interfaces transceiver dom counters qm9700 qm8700"
+    "tags": "nvidia quantum mlnx-os infiniband ib interfaces transceiver dom counters qm9700 qm8700",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [],
+      "note": "Not in the MLNX-OS manual chapters read."
+    }
   },
   {
     "sName": "switches",
@@ -70425,7 +84021,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show interfaces ib 1/1/1 transceiver",
     "desc": "Check optical DOM Tx/Rx dBm and module temperature on split sub-port IB 1/1/1",
     "tip": "",
-    "tags": "nvidia quantum mlnx-os split osfp ndr hdr cables"
+    "tags": "nvidia quantum mlnx-os split osfp ndr hdr cables",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/infiniband-interface",
+          "title": "MLNX-OS 3.12.6200: InfiniBand interface"
+        }
+      ],
+      "note": "Corrected 2026-11-09: splitting is module-type qsfp-split-2, not \"interface ib … split\"."
+    }
   },
   {
     "sName": "switches",
@@ -70436,7 +84042,12 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show cables",
     "desc": "List all plugged InfiniBand cables/transceivers (OSFP/QSFP, active optical vs passive DAC, length, vendor PN/SN)",
     "tip": "",
-    "tags": "nvidia quantum mlnx-os split osfp ndr hdr cables"
+    "tags": "nvidia quantum mlnx-os split osfp ndr hdr cables",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [],
+      "note": "Not in the MLNX-OS manual chapters read; use show interfaces ib <port> transceiver."
+    }
   },
   {
     "sName": "switches",
@@ -70472,7 +84083,12 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show inventory && show version",
     "desc": "Display chassis serial number, part number (e.g., MQM9700-NS2F), MLNX-OS software version, and ASIC firmware",
     "tip": "",
-    "tags": "nvidia quantum mlnx-os power fan temperature sm opensm ufm inventory version"
+    "tags": "nvidia quantum mlnx-os power fan temperature sm opensm ufm inventory version",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [],
+      "note": "Not in the MLNX-OS manual chapters read."
+    }
   },
   {
     "sName": "switches",
@@ -70483,7 +84099,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sminfo",
     "desc": "From any host on the fabric: the LID, GUID, priority and state of the master Subnet Manager (infiniband-diags)",
     "tip": "",
-    "tags": "nvidia quantum mlnx-os power fan temperature sm opensm ufm inventory version"
+    "tags": "nvidia quantum mlnx-os power fan temperature sm opensm ufm inventory version",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/sminfo.8.in.rst",
+          "title": "sminfo man page (rdma-core)"
+        }
+      ]
+    }
   },
   {
     "sName": "switches",
@@ -70494,7 +84119,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "configure terminal ; ib smnode <sm-node> enable ; configuration write",
     "desc": "Enable the embedded Subnet Manager on a standalone Quantum switch (NVIDIA's example: ib smnode my-sm enable) and save the config",
     "tip": "",
-    "tags": "nvidia quantum mlnx-os power fan temperature sm opensm ufm inventory version"
+    "tags": "nvidia quantum mlnx-os power fan temperature sm opensm ufm inventory version",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/subnet-manager",
+          "title": "MLNX-OS 3.12.6200: subnet manager"
+        }
+      ]
+    }
   },
   {
     "sName": "switches",
@@ -70505,7 +84139,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show log",
     "desc": "Inspect recent MLNX-OS system logs for port flaps, thermal alerts, PSU faults, or SM traps (show logging shows the logging settings, not the log)",
     "tip": "",
-    "tags": "nvidia quantum mlnx-os power fan temperature sm opensm ufm inventory version"
+    "tags": "nvidia quantum mlnx-os power fan temperature sm opensm ufm inventory version",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/logging",
+          "title": "MLNX-OS 3.12.6200: logging"
+        }
+      ]
+    }
   },
   {
     "sName": "switches",
@@ -70516,7 +84159,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "configuration write",
     "desc": "Save running MLNX-OS configuration to startup database (equivalent to 'write memory')",
     "tip": "",
-    "tags": "nvidia quantum mlnx-os power fan temperature sm opensm ufm inventory version"
+    "tags": "nvidia quantum mlnx-os power fan temperature sm opensm ufm inventory version",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/logging",
+          "title": "MLNX-OS 3.12.6200: logging"
+        }
+      ],
+      "note": "Named in the manual; its own reference entry was not read."
+    }
   },
   {
     "sName": "switches",
@@ -70527,7 +84180,12 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show images && boot system partition next",
     "desc": "Inspect installed MLNX-OS software partition images (image 1 vs image 2) for upgrades",
     "tip": "",
-    "tags": "nvidia quantum mlnx-os power fan temperature sm opensm ufm inventory version"
+    "tags": "nvidia quantum mlnx-os power fan temperature sm opensm ufm inventory version",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [],
+      "note": "show images and the next-boot command were not found in the MLNX-OS chapters read; check the Software Management commands."
+    }
   },
   {
     "sName": "switches",
@@ -70563,7 +84221,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mlxlink -d lid-1 -p 15 -m -c -e",
     "desc": "Remotely read OSFP/QSFP optical Rx/Tx power (dBm), SNR, and BER on port 15 of Quantum switch LID 1",
     "tip": "",
-    "tags": "nvidia quantum unmanaged mqm9790 mqm8790 inband mlxlink lid perfquery smpquery flint ibswitches"
+    "tags": "nvidia quantum unmanaged mqm9790 mqm8790 inband mlxlink lid perfquery smpquery flint ibswitches",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxlink-utility",
+          "title": "MFT: mlxlink"
+        },
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibswitches.8.in.rst",
+          "title": "ibswitches man page (rdma-core)"
+        }
+      ],
+      "note": "NVIDIA shows mlxlink -d lid-<LID> -p <port> for Quantum split ports."
+    }
   },
   {
     "sName": "switches",
@@ -70574,7 +84246,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mlxlink -d lid-1 -p 15 -a TG",
     "desc": "Remotely bounce (toggle) port 15 on Quantum switch LID 1 over the InfiniBand fabric",
     "tip": "",
-    "tags": "nvidia quantum unmanaged mqm9790 mqm8790 inband mlxlink lid perfquery smpquery flint ibswitches"
+    "tags": "nvidia quantum unmanaged mqm9790 mqm8790 inband mlxlink lid perfquery smpquery flint ibswitches",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxlink-utility",
+          "title": "MFT: mlxlink"
+        }
+      ]
+    }
   },
   {
     "sName": "switches",
@@ -70585,7 +84266,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "perfquery -x 1 15 && perfquery -R 1 15",
     "desc": "Read extended PMA error counters on switch LID 1 port 15, then reset (-R) its counters",
     "tip": "",
-    "tags": "nvidia quantum unmanaged mqm9790 mqm8790 inband mlxlink lid perfquery smpquery flint ibswitches"
+    "tags": "nvidia quantum unmanaged mqm9790 mqm8790 inband mlxlink lid perfquery smpquery flint ibswitches",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/perfquery.8.in.rst",
+          "title": "perfquery man page (rdma-core)"
+        }
+      ]
+    }
   },
   {
     "sName": "switches",
@@ -70596,7 +84286,12 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "smpquery nodeinfo 1 && smpquery portinfo 1 15",
     "desc": "Query hardware NodeInfo and PortInfo (Active/Init state, speed, width, LID) of switch LID 1 port 15",
     "tip": "",
-    "tags": "nvidia quantum unmanaged mqm9790 mqm8790 inband mlxlink lid perfquery smpquery flint ibswitches"
+    "tags": "nvidia quantum unmanaged mqm9790 mqm8790 inband mlxlink lid perfquery smpquery flint ibswitches",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [],
+      "note": "smpquery was not checked this round."
+    }
   },
   {
     "sName": "switches",
@@ -70607,7 +84302,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "flint -d lid-1 q",
     "desc": "Query the ASIC firmware version and PSID of remote Quantum switch LID 1 in-band",
     "tip": "",
-    "tags": "nvidia quantum unmanaged mqm9790 mqm8790 inband mlxlink lid perfquery smpquery flint ibswitches"
+    "tags": "nvidia quantum unmanaged mqm9790 mqm8790 inband mlxlink lid perfquery smpquery flint ibswitches",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/flint-firmware-burning-tool",
+          "title": "MFT: flint"
+        }
+      ],
+      "note": "flint documents q and in-band use, not a lid- example."
+    }
   },
   {
     "sName": "switches",
@@ -70618,7 +84323,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ibdiagnet --get_phy_info --get_cable_info -o /tmp/ibdiag",
     "desc": "Sweep all Quantum switches in the fabric and dump every switch port's optical transceiver and temperature report",
     "tip": "",
-    "tags": "nvidia quantum unmanaged mqm9790 mqm8790 inband mlxlink lid perfquery smpquery flint ibswitches"
+    "tags": "nvidia quantum unmanaged mqm9790 mqm8790 inband mlxlink lid perfquery smpquery flint ibswitches",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/ibdiagnetutilityum/2.27.0/basic-commands",
+          "title": "ibdiagnet commands"
+        }
+      ]
+    }
   },
   {
     "sName": "switches",
@@ -70653,7 +84367,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nv show interface swp1 link stats",
     "desc": "Display hardware RX/TX packets, bytes, CRC errors, drops, and symbol errors on swp1",
     "tip": "",
-    "tags": "cumulus nvue nv swp interface status bounce counters"
+    "tags": "cumulus nvue nv swp interface status bounce counters",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Monitoring-and-Troubleshooting/Troubleshooting-Network-Interfaces/Monitoring-Interfaces-and-Transceivers-with-NVUE/",
+          "title": "Cumulus Linux 5.18: monitoring interfaces"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Set-and-Unset-Commands/Interface/",
+          "title": "NVUE reference: interface set"
+        }
+      ]
+    }
   },
   {
     "sName": "switches",
@@ -70664,7 +84391,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ip -c -br link show",
     "desc": "Since Cumulus is Linux, standard 'ip -c -br link' works directly on swp1..swp64!",
     "tip": "",
-    "tags": "cumulus nvue nv swp interface status bounce counters"
+    "tags": "cumulus nvue nv swp interface status bounce counters",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip.8.html",
+          "title": "ip(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "switches",
@@ -70675,7 +84411,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nv set interface swp1 link state down && nv config apply --assume-yes && sleep 2 && nv set interface swp1 link state up && nv config apply --assume-yes",
     "desc": "Administratively bounce (shut / no shut) switch port swp1 to force transceiver link retraining",
     "tip": "",
-    "tags": "cumulus nvue nv swp interface status bounce counters"
+    "tags": "cumulus nvue nv swp interface status bounce counters",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Monitoring-and-Troubleshooting/Troubleshooting-Network-Interfaces/Monitoring-Interfaces-and-Transceivers-with-NVUE/",
+          "title": "Cumulus Linux 5.18: monitoring interfaces"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Set-and-Unset-Commands/Interface/",
+          "title": "NVUE reference: interface set"
+        }
+      ]
+    }
   },
   {
     "sName": "switches",
@@ -70711,7 +84460,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nv show platform transceiver",
     "desc": "Summary table of all populated optical/DAC transceivers across the entire switch",
     "tip": "",
-    "tags": "cumulus nvue transceiver optics dom dbm ethtool fec"
+    "tags": "cumulus nvue transceiver optics dom dbm ethtool fec",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/Platform/",
+          "title": "NVUE reference: platform"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Monitoring-and-Troubleshooting/Troubleshooting-Network-Interfaces/Monitoring-Interfaces-and-Transceivers-with-ethtool/",
+          "title": "Cumulus Linux 5.18: ethtool"
+        }
+      ],
+      "note": "FEC values rs/off are from the Switch Port Attributes page summary."
+    }
   },
   {
     "sName": "switches",
@@ -70722,7 +84485,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nv set interface swp1 link fec rs && nv config apply --assume-yes",
     "desc": "Configure Forward Error Correction (rs / baser / auto / off) on port swp1",
     "tip": "",
-    "tags": "cumulus nvue transceiver optics dom dbm ethtool fec"
+    "tags": "cumulus nvue transceiver optics dom dbm ethtool fec",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/Platform/",
+          "title": "NVUE reference: platform"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Monitoring-and-Troubleshooting/Troubleshooting-Network-Interfaces/Monitoring-Interfaces-and-Transceivers-with-ethtool/",
+          "title": "Cumulus Linux 5.18: ethtool"
+        }
+      ],
+      "note": "FEC values rs/off are from the Switch Port Attributes page summary."
+    }
   },
   {
     "sName": "switches",
@@ -70758,7 +84535,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nv show interface neighbor && ip -6 -c neigh show",
     "desc": "Display IPv6 Neighbor Discovery (NDP) table mapping server IPv6 addresses to MACs and swp* ports",
     "tip": "",
-    "tags": "cumulus lldp lldpctl mac arp bridge fdb"
+    "tags": "cumulus lldp lldpctl mac arp bridge fdb",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/LLDP/",
+          "title": "NVUE reference: LLDP"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/Bridge/",
+          "title": "NVUE reference: bridge"
+        }
+      ],
+      "note": "lldpctl comes from lldpd, not NVUE."
+    }
   },
   {
     "sName": "switches",
@@ -70769,7 +84560,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "bridge fdb show | grep -i 'aa:bb:cc'",
     "desc": "Search the Linux kernel bridge Forwarding Database (FDB) directly for a server MAC address",
     "tip": "",
-    "tags": "cumulus lldp lldpctl mac arp bridge fdb"
+    "tags": "cumulus lldp lldpctl mac arp bridge fdb",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/bridge.8.html",
+          "title": "bridge(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "switches",
@@ -70809,7 +84609,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "cat /proc/net/bonding/bond1",
     "desc": "Inspect raw Linux kernel 802.3ad LACP partner MAC, aggregator ID, and link failure counters for bond1",
     "tip": "",
-    "tags": "cumulus bond lacp mlag vlan trunk access"
+    "tags": "cumulus bond lacp mlag vlan trunk access",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.kernel.org/networking/bonding.html",
+          "title": "Linux bonding"
+        }
+      ]
+    }
   },
   {
     "sName": "switches",
@@ -70820,7 +84629,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nv set interface swp10 bridge domain br_default access 100 && nv config apply --assume-yes",
     "desc": "Configure switch port swp10 as an untagged Access port in VLAN 100",
     "tip": "",
-    "tags": "cumulus bond lacp mlag vlan trunk access"
+    "tags": "cumulus bond lacp mlag vlan trunk access",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/MLAG/",
+          "title": "NVUE reference: MLAG"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/Bridge/",
+          "title": "NVUE reference: bridge"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Layer-2/Ethernet-Bridging-VLANs/VLAN-aware-Bridge-Mode/",
+          "title": "Cumulus Linux 5.18: VLAN-aware bridge"
+        }
+      ],
+      "note": "nv show interface bond (all bonds) is not in the NVUE reference; nv show mlag is."
+    }
   },
   {
     "sName": "switches",
@@ -70860,7 +84687,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nv show vrf default router rib ipv6",
     "desc": "Display the IPv6 Routing Information Base (RIB) and ECMP next-hops (often link-local fe80:: via BGP Unnumbered)",
     "tip": "",
-    "tags": "cumulus bgp evpn frr roce pfc ecn qos"
+    "tags": "cumulus bgp evpn frr roce pfc ecn qos",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Layer-3/Border-Gateway-Protocol-BGP/Troubleshooting-BGP/",
+          "title": "Cumulus Linux 5.18: troubleshooting BGP"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Layer-1-and-Switch-Ports/Quality-of-Service/RDMA-over-Converged-Ethernet-RoCE/",
+          "title": "Cumulus Linux 5.18: RoCE"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/RIB/",
+          "title": "NVUE reference: RIB"
+        }
+      ],
+      "note": "Corrected 2026-11-09: NVIDIA's page uses vtysh show ip bgp summary."
+    }
   },
   {
     "sName": "switches",
@@ -70871,7 +84716,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ethtool -S swp1 | grep -iE 'pfc|pause|ecn|discard'",
     "desc": "Check hardware NIC/ASIC counters on swp1 for Priority Flow Control (PFC) pause storms or buffer drops",
     "tip": "",
-    "tags": "cumulus bgp evpn frr roce pfc ecn qos"
+    "tags": "cumulus bgp evpn frr roce pfc ecn qos",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Monitoring-and-Troubleshooting/Troubleshooting-Network-Interfaces/Monitoring-Interfaces-and-Transceivers-with-ethtool/",
+          "title": "Cumulus Linux 5.18: ethtool"
+        }
+      ]
+    }
   },
   {
     "sName": "switches",
@@ -70911,7 +84765,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nv show system && nv show platform hardware",
     "desc": "Show Cumulus Linux OS version, uptime, switch model, ASIC type, and serial number",
     "tip": "",
-    "tags": "cumulus platform psu fan temperature config rollback"
+    "tags": "cumulus platform psu fan temperature config rollback",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/Platform/",
+          "title": "NVUE reference: platform"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/System/",
+          "title": "NVUE reference: system"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Config-Commands/",
+          "title": "NVUE reference: config commands"
+        }
+      ],
+      "note": "Corrected 2026-11-09: there is no nv config rollback (use nv config apply <rev>), and nv config show -o takes only auto/json/yaml/native."
+    }
   },
   {
     "sName": "switches",
@@ -70922,7 +84794,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nv config apply <revision_id> --assume-yes",
     "desc": "Go back to a known-good revision (list them with nv config history). nv config apply --confirm rolls back by itself if you do not confirm",
     "tip": "",
-    "tags": "cumulus platform psu fan temperature config rollback"
+    "tags": "cumulus platform psu fan temperature config rollback",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/Platform/",
+          "title": "NVUE reference: platform"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/System/",
+          "title": "NVUE reference: system"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Config-Commands/",
+          "title": "NVUE reference: config commands"
+        }
+      ],
+      "note": "Corrected 2026-11-09: there is no nv config rollback (use nv config apply <rev>), and nv config show -o takes only auto/json/yaml/native."
+    }
   },
   {
     "sName": "switches",
@@ -70933,7 +84823,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nv config translate revision <revision_id>",
     "desc": "Export a revision as flat, copy-pasteable 'nv set ...' commands (Cumulus 5.12 and later)",
     "tip": "",
-    "tags": "cumulus platform psu fan temperature config rollback"
+    "tags": "cumulus platform psu fan temperature config rollback",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/Platform/",
+          "title": "NVUE reference: platform"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/System/",
+          "title": "NVUE reference: system"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Config-Commands/",
+          "title": "NVUE reference: config commands"
+        }
+      ],
+      "note": "Corrected 2026-11-09: there is no nv config rollback (use nv config apply <rev>), and nv config show -o takes only auto/json/yaml/native."
+    }
   },
   {
     "sName": "switches",
@@ -70965,7 +84873,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show interfaces counters errors",
     "desc": "Physical error counters (FCS, Align, Symbol, Runts, Giants) for every port",
     "tip": "",
-    "tags": "arista eos interfaces transceiver dom errors nz phy"
+    "tags": "arista eos interfaces transceiver dom errors nz phy",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.arista.com/um-eos/eos-ethernet-ports",
+          "title": "Arista EOS 4.37: Ethernet ports"
+        }
+      ],
+      "note": "Corrected 2026-11-09: EOS documents no nz filter. show inventory is not in the chapters read."
+    }
   },
   {
     "sName": "switches",
@@ -70976,7 +84894,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show interfaces Ethernet1 phy detail",
     "desc": "Deep physical-layer SerDes, FEC codeword error, and pre/post-FEC BER diagnostics",
     "tip": "",
-    "tags": "arista eos interfaces transceiver dom errors nz phy"
+    "tags": "arista eos interfaces transceiver dom errors nz phy",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.arista.com/um-eos/eos-ethernet-ports",
+          "title": "Arista EOS 4.37: Ethernet ports"
+        }
+      ],
+      "note": "Corrected 2026-11-09: EOS documents no nz filter. show inventory is not in the chapters read."
+    }
   },
   {
     "sName": "switches",
@@ -70987,7 +84915,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show inventory",
     "desc": "Display switch chassis serial number, PSU models/serials, and every plugged transceiver's vendor/part/serial",
     "tip": "",
-    "tags": "arista eos interfaces transceiver dom errors nz phy"
+    "tags": "arista eos interfaces transceiver dom errors nz phy",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.arista.com/um-eos/eos-ethernet-ports",
+          "title": "Arista EOS 4.37: Ethernet ports"
+        }
+      ],
+      "note": "Corrected 2026-11-09: EOS documents no nz filter. show inventory is not in the chapters read."
+    }
   },
   {
     "sName": "switches",
@@ -71031,7 +84969,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show lldp neighbors Ethernet1 detail",
     "desc": "Show complete LLDP chassis ID, system description, management IPv6/IPv4, and VLAN for port Ethernet1",
     "tip": "",
-    "tags": "arista eos lldp port-channel lacp mlag mac arp"
+    "tags": "arista eos lldp port-channel lacp mlag mac arp",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.arista.com/um-eos/eos-link-layer-discovery-protocol",
+          "title": "Arista EOS 4.37: LLDP"
+        },
+        {
+          "url": "https://www.arista.com/um-eos/eos-port-channels-and-lacp",
+          "title": "Arista EOS 4.37: port channels"
+        },
+        {
+          "url": "https://www.arista.com/um-eos/eos-multi-chassis-link-aggregation",
+          "title": "Arista EOS 4.37: MLAG"
+        },
+        {
+          "url": "https://www.arista.com/um-eos/eos-ipv6",
+          "title": "Arista EOS 4.37: IPv6"
+        }
+      ],
+      "note": "show mac address-table was not found in the chapters read."
+    }
   },
   {
     "sName": "switches",
@@ -71042,7 +85002,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show mac address-table address <mac> && show ipv6 neighbors <ipv6>",
     "desc": "Locate which switch port or Port-Channel learned a specific server MAC or IPv6 Neighbor Discovery entry",
     "tip": "",
-    "tags": "arista eos lldp port-channel lacp mlag mac arp"
+    "tags": "arista eos lldp port-channel lacp mlag mac arp",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.arista.com/um-eos/eos-ipv6",
+          "title": "Arista EOS 4.37: IPv6"
+        }
+      ],
+      "note": "show ipv6 neighbors is documented; show mac address-table was not found in the chapters read."
+    }
   },
   {
     "sName": "switches",
@@ -71053,7 +85023,12 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "bash ethtool -m Ethernet1",
     "desc": "Drop into Arista's underlying Linux bash shell to run standard Linux utilities",
     "tip": "",
-    "tags": "arista eos lldp port-channel lacp mlag mac arp"
+    "tags": "arista eos lldp port-channel lacp mlag mac arp",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [],
+      "note": "EOS documents bash but not the Linux name of Ethernet1 or ethtool; check ip link in bash first."
+    }
   },
   {
     "sName": "switches",
@@ -71093,7 +85068,12 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show version && show boot-config",
     "desc": "Check Arista switch hardware model, serial number, MAC, uptime, and EOS image version",
     "tip": "",
-    "tags": "arista eos bgp environment psu fan logging version"
+    "tags": "arista eos bgp environment psu fan logging version",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [],
+      "note": "show version is not in the EOS chapters read; show boot-config appears only in an example."
+    }
   },
   {
     "sName": "switches",
@@ -71104,7 +85084,12 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show running-config interfaces Ethernet1",
     "desc": "View the exact configuration block applied to interface Ethernet1",
     "tip": "",
-    "tags": "arista eos bgp environment psu fan logging version"
+    "tags": "arista eos bgp environment psu fan logging version",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [],
+      "note": "Not in the EOS chapters read."
+    }
   },
   {
     "sName": "switches",
@@ -71140,7 +85125,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show interface status err-disabled",
     "desc": "List any switch ports shut down by error-disable (BPDU guard, link-flap, storm-control)",
     "tip": "",
-    "tags": "nxos cisco nexus interface transceiver dom errors"
+    "tags": "nxos cisco nexus interface transceiver dom errors",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_i_showcmds.html",
+          "title": "NX-OS 10.5 show commands: interface"
+        },
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_i_showcmds.html",
+          "title": "NX-OS 10.5 show commands: inventory"
+        }
+      ],
+      "note": "The status values and the ++ / + DOM legend are not in the show command reference."
+    }
   },
   {
     "sName": "switches",
@@ -71151,7 +85150,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show inventory all",
     "desc": "List chassis, linecard, PSU, fan tray, and all plugged transceiver part numbers and serial numbers",
     "tip": "",
-    "tags": "nxos cisco nexus interface transceiver dom errors"
+    "tags": "nxos cisco nexus interface transceiver dom errors",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_i_showcmds.html",
+          "title": "NX-OS 10.5 show commands: interface"
+        },
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_i_showcmds.html",
+          "title": "NX-OS 10.5 show commands: inventory"
+        }
+      ],
+      "note": "The status values and the ++ / + DOM legend are not in the show command reference."
+    }
   },
   {
     "sName": "switches",
@@ -71203,7 +85216,37 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show cdp neighbors detail && show lldp neighbors detail",
     "desc": "View detailed neighbor management IPs, OS versions, and port descriptions",
     "tip": "",
-    "tags": "nxos cisco lldp cdp port-channel lacp vpc environment"
+    "tags": "nxos cisco lldp cdp port-channel lacp vpc environment",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_l_showcmds.html",
+          "title": "NX-OS 10.5 show commands: LLDP"
+        },
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_c_showcmds.html",
+          "title": "NX-OS 10.5 show commands: CDP"
+        },
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_p_showcmds.html",
+          "title": "NX-OS 10.5 show commands: port-channel"
+        },
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_v_showcmds.html",
+          "title": "NX-OS 10.5 show commands: vPC"
+        },
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_m_showcmds.html",
+          "title": "NX-OS 10.5 show commands: MAC table"
+        },
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_e_showcmds.html",
+          "title": "NX-OS 10.5 show commands: environment"
+        }
+      ],
+      "note": "show ipv6 neighbor <addr> is not in the 10.5 show reference; the port-channel flag legend is in a configuration guide, not read."
+    }
   },
   {
     "sName": "switches",
@@ -71214,7 +85257,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show mac address-table address <mac> && show ipv6 neighbor <ipv6>",
     "desc": "Trace a server MAC or IPv6 Neighbor Discovery (NDP) address to its exact Ethernet1/* or Po* interface",
     "tip": "",
-    "tags": "nxos cisco lldp cdp port-channel lacp vpc environment"
+    "tags": "nxos cisco lldp cdp port-channel lacp vpc environment",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_m_showcmds.html",
+          "title": "NX-OS 10.5 show commands: MAC table"
+        }
+      ],
+      "note": "The bare show ipv6 neighbor is not in the 10.5 show reference."
+    }
   },
   {
     "sName": "switches",
@@ -71225,7 +85278,37 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show environment",
     "desc": "Check Nexus power supplies, fan trays, and temperature sensor status",
     "tip": "",
-    "tags": "nxos cisco lldp cdp port-channel lacp vpc environment"
+    "tags": "nxos cisco lldp cdp port-channel lacp vpc environment",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_l_showcmds.html",
+          "title": "NX-OS 10.5 show commands: LLDP"
+        },
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_c_showcmds.html",
+          "title": "NX-OS 10.5 show commands: CDP"
+        },
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_p_showcmds.html",
+          "title": "NX-OS 10.5 show commands: port-channel"
+        },
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_v_showcmds.html",
+          "title": "NX-OS 10.5 show commands: vPC"
+        },
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_m_showcmds.html",
+          "title": "NX-OS 10.5 show commands: MAC table"
+        },
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_e_showcmds.html",
+          "title": "NX-OS 10.5 show commands: environment"
+        }
+      ],
+      "note": "show ipv6 neighbor <addr> is not in the 10.5 show reference; the port-channel flag legend is in a configuration guide, not read."
+    }
   },
   {
     "sName": "switches",
@@ -71257,7 +85340,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show lldp table && show lldp neighbors Ethernet0",
     "desc": "List all LLDP neighbors across the switch or inspect detailed TLVs on Ethernet0",
     "tip": "",
-    "tags": "sonic sfputil interfaces lldp platform psu pfc"
+    "tags": "sonic sfputil interfaces lldp platform psu pfc",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/sonic-net/sonic-utilities/blob/master/doc/Command-Reference.md",
+          "title": "SONiC command reference"
+        }
+      ],
+      "note": "Corrected 2026-11-09: sfputil show eeprom is not documented; the DOM command is show interfaces transceiver eeprom --dom."
+    }
   },
   {
     "sName": "switches",
@@ -71268,7 +85361,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show interfaces counters errors && show pfc counters",
     "desc": "Inspect physical error counters and RoCEv2 Priority Flow Control (PFC) pause counters",
     "tip": "",
-    "tags": "sonic sfputil interfaces lldp platform psu pfc"
+    "tags": "sonic sfputil interfaces lldp platform psu pfc",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/sonic-net/sonic-utilities/blob/master/doc/Command-Reference.md",
+          "title": "SONiC command reference"
+        }
+      ],
+      "note": "Corrected 2026-11-09: sfputil show eeprom is not documented; the DOM command is show interfaces transceiver eeprom --dom."
+    }
   },
   {
     "sName": "switches",
@@ -71279,7 +85382,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show platform summary && show platform psustatus && show platform fan && show platform temperature",
     "desc": "Inspect SONiC switch hardware SKU, ASIC, PSU wattage/status, fan RPMs, and board temperatures",
     "tip": "",
-    "tags": "sonic sfputil interfaces lldp platform psu pfc"
+    "tags": "sonic sfputil interfaces lldp platform psu pfc",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/sonic-net/sonic-utilities/blob/master/doc/Command-Reference.md",
+          "title": "SONiC command reference"
+        }
+      ],
+      "note": "Corrected 2026-11-09: sfputil show eeprom is not documented; the DOM command is show interfaces transceiver eeprom --dom."
+    }
   },
   {
     "sName": "switches",
@@ -71290,7 +85403,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "config interface shutdown Ethernet0 && config interface startup Ethernet0",
     "desc": "Bounce (shut / no shut) port Ethernet0 in SONiC and save with 'config save -y'",
     "tip": "",
-    "tags": "sonic sfputil interfaces lldp platform psu pfc"
+    "tags": "sonic sfputil interfaces lldp platform psu pfc",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/sonic-net/sonic-utilities/blob/master/doc/Command-Reference.md",
+          "title": "SONiC command reference"
+        }
+      ],
+      "note": "Corrected 2026-11-09: sfputil show eeprom is not documented; the DOM command is show interfaces transceiver eeprom --dom."
+    }
   },
   {
     "sName": "sysctl",
@@ -71397,7 +85520,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "which sysctl && sysctl --version 2>&1 | head -n 1",
     "desc": "Verify binary path and installed version in current environment",
     "tip": "",
-    "tags": "sysctl kernel tuning hugepages swappiness network tips safety help"
+    "tags": "sysctl kernel tuning hugepages swappiness network tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/sysctl.8.html",
+          "title": "sysctl(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man5/sysctl.d.5.html",
+          "title": "sysctl.d(5)"
+        }
+      ]
+    }
   },
   {
     "sName": "systemd",
@@ -71432,7 +85568,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "systemctl cat ssh.service",
     "desc": "Print the full systemd unit file and any active drop-in overrides",
     "tip": "",
-    "tags": "systemctl service daemon failed timers systemd"
+    "tags": "systemctl service daemon failed timers systemd",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/systemctl.1.html",
+          "title": "systemctl(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man5/systemd.unit.5.html",
+          "title": "systemd.unit(5)"
+        }
+      ]
+    }
   },
   {
     "sName": "systemd",
@@ -71443,7 +85592,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "systemctl edit nginx.service",
     "desc": "Create or edit a safe drop-in override (/etc/systemd/system/nginx.service.d/override.conf)",
     "tip": "",
-    "tags": "systemctl service daemon failed timers systemd"
+    "tags": "systemctl service daemon failed timers systemd",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/systemctl.1.html",
+          "title": "systemctl(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man5/systemd.unit.5.html",
+          "title": "systemd.unit(5)"
+        }
+      ]
+    }
   },
   {
     "sName": "systemd",
@@ -71454,7 +85616,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "systemctl list-timers --all",
     "desc": "List all systemd timers with next/last trigger times (modern cron replacement)",
     "tip": "",
-    "tags": "systemctl service daemon failed timers systemd"
+    "tags": "systemctl service daemon failed timers systemd",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/systemctl.1.html",
+          "title": "systemctl(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man5/systemd.unit.5.html",
+          "title": "systemd.unit(5)"
+        }
+      ]
+    }
   },
   {
     "sName": "systemd",
@@ -71465,7 +85640,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target",
     "desc": "Permanently mask sleep/suspend targets on a data center server so it can never suspend",
     "tip": "",
-    "tags": "systemctl service daemon failed timers systemd"
+    "tags": "systemctl service daemon failed timers systemd",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/systemctl.1.html",
+          "title": "systemctl(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man5/systemd.unit.5.html",
+          "title": "systemd.unit(5)"
+        }
+      ]
+    }
   },
   {
     "sName": "systemd",
@@ -71477,6 +85665,19 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Reboot the server directly into the motherboard UEFI/BIOS setup utility",
     "tip": "",
     "tags": "systemctl service daemon failed timers systemd",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/systemctl.1.html",
+          "title": "systemctl(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man5/systemd.unit.5.html",
+          "title": "systemd.unit(5)"
+        }
+      ]
+    },
     "noCopy": true,
     "refWhy": "reboot"
   },
@@ -71513,7 +85714,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "journalctl --list-boots",
     "desc": "List all recorded system boot sessions with boot IDs and start/stop timestamps",
     "tip": "",
-    "tags": "journalctl logs boot crash errors systemd-analyze"
+    "tags": "journalctl logs boot crash errors systemd-analyze",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/journalctl.1.html",
+          "title": "journalctl(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/systemd-analyze.1.html",
+          "title": "systemd-analyze(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "systemd",
@@ -71524,7 +85738,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "journalctl -k -b -1 -n 100 --no-pager",
     "desc": "View the last 100 kernel messages from the previous boot before the server crashed",
     "tip": "",
-    "tags": "journalctl logs boot crash errors systemd-analyze"
+    "tags": "journalctl logs boot crash errors systemd-analyze",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/journalctl.1.html",
+          "title": "journalctl(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/systemd-analyze.1.html",
+          "title": "systemd-analyze(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "systemd",
@@ -71535,7 +85762,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "journalctl --disk-usage && journalctl --vacuum-size=500M",
     "desc": "Check journal disk usage in /var/log/journal and prune old logs down to 500 MiB",
     "tip": "",
-    "tags": "journalctl logs boot crash errors systemd-analyze"
+    "tags": "journalctl logs boot crash errors systemd-analyze",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/journalctl.1.html",
+          "title": "journalctl(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/systemd-analyze.1.html",
+          "title": "systemd-analyze(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "systemd",
@@ -71546,7 +85786,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "systemd-analyze time && systemd-analyze blame | head -n 15",
     "desc": "Measure kernel + userspace boot time and list the slowest-starting units",
     "tip": "",
-    "tags": "journalctl logs boot crash errors systemd-analyze"
+    "tags": "journalctl logs boot crash errors systemd-analyze",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/journalctl.1.html",
+          "title": "journalctl(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/systemd-analyze.1.html",
+          "title": "systemd-analyze(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "systemd",
@@ -71585,7 +85838,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "journalctl --vacuum-time=14d --vacuum-size=2G",
     "desc": "Purge archived journal logs older than 14 days or exceeding 2 GiB",
     "tip": "",
-    "tags": "systemd tips triage diagnostics"
+    "tags": "systemd tips triage diagnostics",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/systemd-analyze.1.html",
+          "title": "systemd-analyze(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/journalctl.1.html",
+          "title": "journalctl(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/systemctl.1.html",
+          "title": "systemctl(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "systemd",
@@ -71596,7 +85866,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "systemctl is-failed --quiet nginx.service || echo \"Running\"",
     "desc": "Quietly check if a service has entered the failed state",
     "tip": "",
-    "tags": "systemd tips triage diagnostics"
+    "tags": "systemd tips triage diagnostics",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/systemd-analyze.1.html",
+          "title": "systemd-analyze(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/journalctl.1.html",
+          "title": "journalctl(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/systemctl.1.html",
+          "title": "systemctl(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "tar",
@@ -71687,7 +85974,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "which tar && tar --version 2>&1 | head -n 1",
     "desc": "Verify binary path and installed version in current environment",
     "tip": "",
-    "tags": "tar sparse numeric-owner ssh backup tips safety help"
+    "tags": "tar sparse numeric-owner ssh backup tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/tar.1.html",
+          "title": "tar(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "tcpdump",
@@ -71818,7 +86114,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "which tcpdump && tcpdump --version 2>&1 | head -n 1",
     "desc": "Verify binary path and installed version in current environment",
     "tip": "",
-    "tags": "tcpdump ipv6 icmp6 dhcpv6 ndp pcap vlan pxe lldp bpf tips safety help"
+    "tags": "tcpdump ipv6 icmp6 dhcpv6 ndp pcap vlan pxe lldp bpf tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.tcpdump.org/manpages/tcpdump.1.html",
+          "title": "tcpdump(1)"
+        },
+        {
+          "url": "https://www.tcpdump.org/manpages/pcap-filter.7.html",
+          "title": "pcap-filter(7)"
+        }
+      ]
+    }
   },
   {
     "sName": "tee",
@@ -71909,7 +86218,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "which tee && tee --version 2>&1 | head -n 1",
     "desc": "Verify binary path and installed version in current environment",
     "tip": "",
-    "tags": "tee sudo sysfs proc redirect logging tips safety help"
+    "tags": "tee sudo sysfs proc redirect logging tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/tee.1.html",
+          "title": "tee(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "terraform",
@@ -72252,7 +86570,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep -Ev '^\\s*(#|$)' /etc/ssh/sshd_config",
     "desc": "Strip all comment lines (#) and blank lines to view only active configuration directives",
     "tip": "",
-    "tags": "search regex logs grep zgrep config"
+    "tags": "search regex logs grep zgrep config",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+          "title": "grep(1)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/gzip/zgrep.1.en.html",
+          "title": "zgrep(1), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "text",
@@ -72263,7 +86594,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "grep -rn --exclude-dir={.git,node_modules,venv} 'pattern' .",
     "desc": "Search source trees excluding version control and dependency directories",
     "tip": "",
-    "tags": "search regex logs grep zgrep config"
+    "tags": "search regex logs grep zgrep config",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+          "title": "grep(1)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/gzip/zgrep.1.en.html",
+          "title": "zgrep(1), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "text",
@@ -72274,7 +86618,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "zgrep -i 'oom-killer' /var/log/syslog* /var/log/kern.log*",
     "desc": "Search transparently inside both plain-text and gzip-compressed (.gz) rotated logs",
     "tip": "",
-    "tags": "search regex logs grep zgrep config"
+    "tags": "search regex logs grep zgrep config",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/grep.1.html",
+          "title": "grep(1)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/gzip/zgrep.1.en.html",
+          "title": "zgrep(1), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "text",
@@ -72321,7 +86678,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ls -l | awk '{sum += $5} END {printf \"Total: %.2f MiB\\n\", sum/1048576}'",
     "desc": "Sum the 5th column (byte size) across all lines and print total in MiB",
     "tip": "",
-    "tags": "awk sed sort uniq column logs replace"
+    "tags": "awk sed sort uniq column logs replace",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/gawk.1.html",
+          "title": "gawk(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sort.1.html",
+          "title": "sort(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/uniq.1.html",
+          "title": "uniq(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sed.1.html",
+          "title": "sed(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/column.1.html",
+          "title": "column(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "text",
@@ -72332,7 +86714,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sed -i.bak -E 's/^#?PermitRootLogin.*/PermitRootLogin no/' /etc/ssh/sshd_config",
     "desc": "Edit config file in-place while creating a .bak backup file automatically",
     "tip": "",
-    "tags": "awk sed sort uniq column logs replace"
+    "tags": "awk sed sort uniq column logs replace",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/gawk.1.html",
+          "title": "gawk(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sort.1.html",
+          "title": "sort(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/uniq.1.html",
+          "title": "uniq(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sed.1.html",
+          "title": "sed(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/column.1.html",
+          "title": "column(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "text",
@@ -72343,7 +86750,32 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "column -t -s ':' /etc/passwd | head -n 15",
     "desc": "Format any delimiter-separated file or stream into an aligned terminal table",
     "tip": "",
-    "tags": "awk sed sort uniq column logs replace"
+    "tags": "awk sed sort uniq column logs replace",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/gawk.1.html",
+          "title": "gawk(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sort.1.html",
+          "title": "sort(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/uniq.1.html",
+          "title": "uniq(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/sed.1.html",
+          "title": "sed(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/column.1.html",
+          "title": "column(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "text",
@@ -72382,7 +86814,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "curl -s http://localhost:8080/health | jq '.checks[] | select(.status != \"UP\")'",
     "desc": "Parse JSON stream and filter only objects matching a condition",
     "tip": "",
-    "tags": "tail jq json logs diff stream"
+    "tags": "tail jq json logs diff stream",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/tail.1.html",
+          "title": "tail(1)"
+        },
+        {
+          "url": "https://jqlang.org/manual/",
+          "title": "jq manual"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "text",
@@ -72393,7 +86842,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "diff -u <(sort file1.txt) <(sort file2.txt)",
     "desc": "Compare two command outputs on the fly using Bash process substitution",
     "tip": "",
-    "tags": "tail jq json logs diff stream"
+    "tags": "tail jq json logs diff stream",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/tail.1.html",
+          "title": "tail(1)"
+        },
+        {
+          "url": "https://jqlang.org/manual/",
+          "title": "jq manual"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/bash.1.html",
+          "title": "bash(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "tio",
@@ -72504,7 +86970,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "which tio && tio --version 2>&1 | head -n 1",
     "desc": "Verify binary path and installed version in current environment",
     "tip": "",
-    "tags": "tio picocom serial ttyusb0 baud console tips safety help"
+    "tags": "tio picocom serial ttyusb0 baud console tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/tio/tio.1.en.html",
+          "title": "tio(1), Debian"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/picocom/picocom.1.en.html",
+          "title": "picocom(1), Debian"
+        }
+      ],
+      "note": "Corrected 2026-11-09: listing devices is tio -l (--list); -L is --log. Checked against tio 3.9."
+    }
   },
   {
     "sName": "tmux",
@@ -72680,7 +87160,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "which tmux && tmux --version 2>&1 | head -n 1",
     "desc": "Verify binary path and installed version in current environment",
     "tip": "",
-    "tags": "tmux session synchronize-panes ssh keepalive tips safety help"
+    "tags": "tmux session synchronize-panes ssh keepalive tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man.openbsd.org/tmux",
+          "title": "tmux(1), OpenBSD"
+        }
+      ]
+    }
   },
   {
     "sName": "toml",
@@ -72719,7 +87208,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "import tomllib; data = tomllib.loads(toml_str)",
     "desc": "Parse TOML natively in Python 3.11+ without third-party packages (TOML 1.1 from 3.15)",
     "tip": "",
-    "tags": "toml tables arrays config tomllib syntax"
+    "tags": "toml tables arrays config tomllib syntax",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://toml.io/en/v1.1.0",
+          "title": "TOML 1.1.0 spec"
+        },
+        {
+          "url": "https://docs.python.org/3/library/tomllib.html",
+          "title": "Python: tomllib"
+        },
+        {
+          "url": "https://taplo.tamasfe.dev/cli/usage/formatting.html",
+          "title": "Taplo: formatting"
+        }
+      ]
+    }
   },
   {
     "sName": "toml",
@@ -72730,7 +87236,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "taplo fmt file.toml",
     "desc": "Format and lint TOML files with Taplo CLI",
     "tip": "",
-    "tags": "toml tables arrays config tomllib syntax"
+    "tags": "toml tables arrays config tomllib syntax",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://toml.io/en/v1.1.0",
+          "title": "TOML 1.1.0 spec"
+        },
+        {
+          "url": "https://docs.python.org/3/library/tomllib.html",
+          "title": "Python: tomllib"
+        },
+        {
+          "url": "https://taplo.tamasfe.dev/cli/usage/formatting.html",
+          "title": "Taplo: formatting"
+        }
+      ]
+    }
   },
   {
     "sName": "tr",
@@ -72841,7 +87364,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "which tr && tr --version 2>&1 | head -n 1",
     "desc": "Verify binary path and installed version in current environment",
     "tip": "",
-    "tags": "tr squeeze delete translate whitespace lowercase tips safety help"
+    "tags": "tr squeeze delete translate whitespace lowercase tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/tr.1.html",
+          "title": "tr(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "typescript",
@@ -72880,7 +87412,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "type ID = string | number;",
     "desc": "Union type: value can be either string or number",
     "tip": "",
-    "tags": "typescript interface type generics union schema"
+    "tags": "typescript interface type generics union schema",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.typescriptlang.org/docs/handbook/2/everyday-types.html",
+          "title": "TypeScript: everyday types"
+        },
+        {
+          "url": "https://www.typescriptlang.org/docs/handbook/2/generics.html",
+          "title": "TypeScript: generics"
+        },
+        {
+          "url": "https://www.typescriptlang.org/docs/handbook/utility-types.html",
+          "title": "TypeScript: utility types"
+        }
+      ]
+    }
   },
   {
     "sName": "typescript",
@@ -72891,7 +87440,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "type ReadonlyNode = Readonly<ServerNode>;",
     "desc": "Built-in utility type: makes all properties immutable at compile time",
     "tip": "",
-    "tags": "typescript interface type generics union schema"
+    "tags": "typescript interface type generics union schema",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.typescriptlang.org/docs/handbook/2/everyday-types.html",
+          "title": "TypeScript: everyday types"
+        },
+        {
+          "url": "https://www.typescriptlang.org/docs/handbook/2/generics.html",
+          "title": "TypeScript: generics"
+        },
+        {
+          "url": "https://www.typescriptlang.org/docs/handbook/utility-types.html",
+          "title": "TypeScript: utility types"
+        }
+      ]
+    }
   },
   {
     "sName": "typescript",
@@ -72922,7 +87488,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "const val = (input as string);",
     "desc": "Type assertion (override compiler type checking)",
     "tip": "",
-    "tags": "typescript narrowing typeguards discriminated-union typeof instanceof"
+    "tags": "typescript narrowing typeguards discriminated-union typeof instanceof",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.typescriptlang.org/docs/handbook/2/narrowing.html",
+          "title": "TypeScript: narrowing"
+        }
+      ]
+    }
   },
   {
     "sName": "typescript",
@@ -72933,7 +87508,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "const val = input!;",
     "desc": "Non-null assertion operator: asserts value is not null or undefined",
     "tip": "",
-    "tags": "typescript narrowing typeguards discriminated-union typeof instanceof"
+    "tags": "typescript narrowing typeguards discriminated-union typeof instanceof",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.typescriptlang.org/docs/handbook/2/narrowing.html",
+          "title": "TypeScript: narrowing"
+        }
+      ]
+    }
   },
   {
     "sName": "typescript",
@@ -72964,7 +87548,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "type PromResult = Awaited<Promise<string>>;",
     "desc": "Extracts resolved type of a Promise",
     "tip": "",
-    "tags": "typescript utility-types partial pick omit record generics"
+    "tags": "typescript utility-types partial pick omit record generics",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.typescriptlang.org/docs/handbook/utility-types.html",
+          "title": "TypeScript: utility types"
+        }
+      ]
+    }
   },
   {
     "sName": "typescript",
@@ -72975,7 +87568,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "type FuncReturn = ReturnType<typeof myFunction>;",
     "desc": "Extracts return type of a function signature",
     "tip": "",
-    "tags": "typescript utility-types partial pick omit record generics"
+    "tags": "typescript utility-types partial pick omit record generics",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.typescriptlang.org/docs/handbook/utility-types.html",
+          "title": "TypeScript: utility types"
+        }
+      ]
+    }
   },
   {
     "sName": "typescript",
@@ -73023,7 +87625,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "npx tsx script.ts",
     "desc": "Run TypeScript files directly without separate build step (instant execution)",
     "tip": "",
-    "tags": "typescript classes access-modifiers tsconfig tooling tsx"
+    "tags": "typescript classes access-modifiers tsconfig tooling tsx",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.typescriptlang.org/docs/handbook/2/classes.html",
+          "title": "TypeScript: classes"
+        },
+        {
+          "url": "https://www.typescriptlang.org/tsconfig/",
+          "title": "TypeScript: tsconfig reference"
+        },
+        {
+          "url": "https://devblogs.microsoft.com/typescript/announcing-typescript-6-0/",
+          "title": "Announcing TypeScript 6.0 (strict by default)"
+        },
+        {
+          "url": "https://nodejs.org/api/typescript.html",
+          "title": "Node.js: TypeScript type stripping"
+        },
+        {
+          "url": "https://github.com/privatenumber/tsx",
+          "title": "tsx"
+        }
+      ],
+      "note": "Added 2026-11-10: strict is on by default since TypeScript 6.0; Node can run .ts directly but not parameter properties."
+    }
   },
   {
     "sName": "typescript",
@@ -73034,7 +87662,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "node script.ts",
     "desc": "Node 22.18+ / 23.6+ runs .ts files by stripping types; parameter properties like the ones above and enums still need tsx",
     "tip": "",
-    "tags": "typescript classes access-modifiers tsconfig tooling tsx"
+    "tags": "typescript classes access-modifiers tsconfig tooling tsx",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.typescriptlang.org/docs/handbook/2/classes.html",
+          "title": "TypeScript: classes"
+        },
+        {
+          "url": "https://www.typescriptlang.org/tsconfig/",
+          "title": "TypeScript: tsconfig reference"
+        },
+        {
+          "url": "https://devblogs.microsoft.com/typescript/announcing-typescript-6-0/",
+          "title": "Announcing TypeScript 6.0 (strict by default)"
+        },
+        {
+          "url": "https://nodejs.org/api/typescript.html",
+          "title": "Node.js: TypeScript type stripping"
+        },
+        {
+          "url": "https://github.com/privatenumber/tsx",
+          "title": "tsx"
+        }
+      ],
+      "note": "Added 2026-11-10: strict is on by default since TypeScript 6.0; Node can run .ts directly but not parameter properties."
+    }
   },
   {
     "sName": "typescript",
@@ -73045,7 +87699,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "npx tsc --noEmit",
     "desc": "Run type checker on codebase without generating JavaScript output files",
     "tip": "",
-    "tags": "typescript classes access-modifiers tsconfig tooling tsx"
+    "tags": "typescript classes access-modifiers tsconfig tooling tsx",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://www.typescriptlang.org/docs/handbook/2/classes.html",
+          "title": "TypeScript: classes"
+        },
+        {
+          "url": "https://www.typescriptlang.org/tsconfig/",
+          "title": "TypeScript: tsconfig reference"
+        },
+        {
+          "url": "https://devblogs.microsoft.com/typescript/announcing-typescript-6-0/",
+          "title": "Announcing TypeScript 6.0 (strict by default)"
+        },
+        {
+          "url": "https://nodejs.org/api/typescript.html",
+          "title": "Node.js: TypeScript type stripping"
+        },
+        {
+          "url": "https://github.com/privatenumber/tsx",
+          "title": "tsx"
+        }
+      ],
+      "note": "Added 2026-11-10: strict is on by default since TypeScript 6.0; Node can run .ts directly but not parameter properties."
+    }
   },
   {
     "sName": "udevadm",
@@ -73156,7 +87836,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "which udevadm && udevadm --version 2>&1 | head -n 1",
     "desc": "Verify binary path and installed version in current environment",
     "tip": "",
-    "tags": "udevadm hotplug udev by-id by-path nvme nic tips safety help"
+    "tags": "udevadm hotplug udev by-id by-path nvme nic tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/udevadm.8.html",
+          "title": "udevadm(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "uniq",
@@ -73247,7 +87936,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "which uniq && uniq --version 2>&1 | head -n 1",
     "desc": "Verify binary path and installed version in current environment",
     "tip": "",
-    "tags": "uniq frequency duplicates histogram tips safety help"
+    "tags": "uniq frequency duplicates histogram tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/uniq.1.html",
+          "title": "uniq(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "users",
@@ -73287,7 +87985,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "usermod -aG docker $USER && newgrp docker",
     "desc": "Append (-aG) current user to a group without losing existing groups and activate immediately",
     "tip": "",
-    "tags": "useradd adduser usermod sudo ubuntu groups"
+    "tags": "useradd adduser usermod sudo ubuntu groups",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/useradd.8.html",
+          "title": "useradd(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/usermod.8.html",
+          "title": "usermod(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/passwd.1.html",
+          "title": "passwd(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: useradd has no fixed default shell; without -s it uses SHELL from /etc/default/useradd, else leaves the field empty."
+    }
   },
   {
     "sName": "users",
@@ -73298,7 +88014,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "passwd -l <user> && usermod -s /usr/sbin/nologin <user>",
     "desc": "Lock a user's password and disable interactive shell login when offboarding",
     "tip": "",
-    "tags": "useradd adduser usermod sudo ubuntu groups"
+    "tags": "useradd adduser usermod sudo ubuntu groups",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/useradd.8.html",
+          "title": "useradd(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/usermod.8.html",
+          "title": "usermod(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/passwd.1.html",
+          "title": "passwd(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: useradd has no fixed default shell; without -s it uses SHELL from /etc/default/useradd, else leaves the field empty."
+    }
   },
   {
     "sName": "users",
@@ -73350,7 +88084,37 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ssh-keygen -t ed25519 -C 'tech@datacenter' && ssh-copy-id -i ~/.ssh/id_ed25519.pub user@server",
     "desc": "Generate an Ed25519 SSH keypair and install the public key onto a remote server",
     "tip": "",
-    "tags": "ssh-keygen visudo sudoers who last audit security"
+    "tags": "ssh-keygen visudo sudoers who last audit security",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/id.1.html",
+          "title": "id(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/w.1.html",
+          "title": "w(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/last.1.html",
+          "title": "last(1)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/wtmpdb/wtmpdb.8.en.html",
+          "title": "wtmpdb(8), Debian"
+        },
+        {
+          "url": "https://man.openbsd.org/ssh-keygen",
+          "title": "ssh-keygen(1), OpenBSD"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        }
+      ],
+      "note": "Debian 13 (trixie) dropped last and lastb from util-linux: use wtmpdb last (package wtmpdb, plus libpam-wtmpdb)."
+    }
   },
   {
     "sName": "users",
@@ -73361,7 +88125,37 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "EDITOR=nano visudo -f /etc/sudoers.d/90-datacenter-techs",
     "desc": "Edit a drop-in sudoers file with automatic syntax validation so you never lock out sudo",
     "tip": "",
-    "tags": "ssh-keygen visudo sudoers who last audit security"
+    "tags": "ssh-keygen visudo sudoers who last audit security",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/id.1.html",
+          "title": "id(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/w.1.html",
+          "title": "w(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/last.1.html",
+          "title": "last(1)"
+        },
+        {
+          "url": "https://manpages.debian.org/trixie/wtmpdb/wtmpdb.8.en.html",
+          "title": "wtmpdb(8), Debian"
+        },
+        {
+          "url": "https://man.openbsd.org/ssh-keygen",
+          "title": "ssh-keygen(1), OpenBSD"
+        },
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        }
+      ],
+      "note": "Debian 13 (trixie) dropped last and lastb from util-linux: use wtmpdb last (package wtmpdb, plus libpam-wtmpdb)."
+    }
   },
   {
     "sName": "users",
@@ -73409,7 +88203,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "faillock --user <username>",
     "desc": "Failed logins pam_faillock recorded for one user (and whether it is locked)",
     "tip": "",
-    "tags": "users tips triage diagnostics"
+    "tags": "users tips triage diagnostics",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/chage.1.html",
+          "title": "chage(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/faillock.8.html",
+          "title": "faillock(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/lastb.1.html",
+          "title": "lastb(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/passwd.1.html",
+          "title": "passwd(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: faillog -a (pam_tally, dropped from Debian 13) replaced by faillock --user, which reads pam_faillock's records."
+    }
   },
   {
     "sName": "users",
@@ -73420,7 +88240,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "faillock --user <username> --reset",
     "desc": "Clear that user's failure record, unlocking the account (changes state)",
     "tip": "",
-    "tags": "users tips triage diagnostics"
+    "tags": "users tips triage diagnostics",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/chage.1.html",
+          "title": "chage(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/faillock.8.html",
+          "title": "faillock(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/lastb.1.html",
+          "title": "lastb(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/passwd.1.html",
+          "title": "passwd(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: faillog -a (pam_tally, dropped from Debian 13) replaced by faillock --user, which reads pam_faillock's records."
+    }
   },
   {
     "sName": "users",
@@ -73431,7 +88277,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lastb | head -n 20",
     "desc": "Failed login attempts from /var/log/btmp (util-linux; not shipped on Debian 13+)",
     "tip": "",
-    "tags": "users tips triage diagnostics"
+    "tags": "users tips triage diagnostics",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/chage.1.html",
+          "title": "chage(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/faillock.8.html",
+          "title": "faillock(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/lastb.1.html",
+          "title": "lastb(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/passwd.1.html",
+          "title": "passwd(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: faillog -a (pam_tally, dropped from Debian 13) replaced by faillock --user, which reads pam_faillock's records."
+    }
   },
   {
     "sName": "users",
@@ -73442,7 +88314,33 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "passwd -l <username>",
     "desc": "Lock user account password to prevent interactive password logins",
     "tip": "",
-    "tags": "users tips triage diagnostics"
+    "tags": "users tips triage diagnostics",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.sudo.ws/docs/man/visudo.man/",
+          "title": "visudo(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/chage.1.html",
+          "title": "chage(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/faillock.8.html",
+          "title": "faillock(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/lastb.1.html",
+          "title": "lastb(1)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man1/passwd.1.html",
+          "title": "passwd(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: faillog -a (pam_tally, dropped from Debian 13) replaced by faillock --user, which reads pam_faillock's records."
+    }
   },
   {
     "sName": "vscode",
@@ -73822,7 +88720,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "which watch && watch --version 2>&1 | head -n 1",
     "desc": "Verify binary path and installed version in current environment",
     "tip": "",
-    "tags": "watch live monitor diff counters tips safety help"
+    "tags": "watch live monitor diff counters tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/watch.1.html",
+          "title": "watch(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: the permanent form is --differences=permanent (the argument must be attached to the option)."
+    }
   },
   {
     "sName": "win-network",
@@ -74598,7 +89506,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Get-PhysicalDisk | Select-Object DeviceId, FriendlyName, MediaType, HealthStatus",
     "desc": "Inspect whether disks are SSD, HDD, or SCM (Storage Class Memory)",
     "tip": "",
-    "tags": "disk storage nvme ssd smart partition"
+    "tags": "disk storage nvme ssd smart partition",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/get-disk",
+          "title": "Get-Disk"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/get-physicaldisk",
+          "title": "Get-PhysicalDisk"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/get-storagereliabilitycounter",
+          "title": "Get-StorageReliabilityCounter"
+        }
+      ]
+    }
   },
   {
     "sName": "win-storage",
@@ -74609,7 +89534,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Get-StorageReliabilityCounter -PhysicalDisk (Get-PhysicalDisk -DeviceId 0)",
     "desc": "Check hardware temperature, read/write error counts and wear level",
     "tip": "",
-    "tags": "disk storage nvme ssd smart partition"
+    "tags": "disk storage nvme ssd smart partition",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/get-disk",
+          "title": "Get-Disk"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/get-physicaldisk",
+          "title": "Get-PhysicalDisk"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/get-storagereliabilitycounter",
+          "title": "Get-StorageReliabilityCounter"
+        }
+      ]
+    }
   },
   {
     "sName": "win-storage",
@@ -74661,7 +89603,37 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Get-Volume | Select-Object DriveLetter, FileSystemLabel, FileSystem, @{Name='Free_GB'; Expression={[math]::Round($_.SizeRemaining/1GB, 1)}}",
     "desc": "List all mounted logical volumes and free capacity",
     "tip": "",
-    "tags": "format partition volume ntfs refs gpt trim"
+    "tags": "format partition volume ntfs refs gpt trim",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/initialize-disk",
+          "title": "Initialize-Disk"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/new-partition",
+          "title": "New-Partition"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/format-volume",
+          "title": "Format-Volume"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/get-volume",
+          "title": "Get-Volume"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/optimize-volume",
+          "title": "Optimize-Volume"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_pipeline_chain_operators",
+          "title": "about_Pipeline_Chain_Operators (&& is PowerShell 7+)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: && needs PowerShell 7 (now ;), and -Defrag is not TRIM."
+    }
   },
   {
     "sName": "win-storage",
@@ -74672,7 +89644,37 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Optimize-Volume -DriveLetter C -Verbose",
     "desc": "Optimize the volume the right way for its media: retrim on an SSD, analyze and defrag on an HDD (-Defrag alone always defragments)",
     "tip": "",
-    "tags": "format partition volume ntfs refs gpt trim"
+    "tags": "format partition volume ntfs refs gpt trim",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/initialize-disk",
+          "title": "Initialize-Disk"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/new-partition",
+          "title": "New-Partition"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/format-volume",
+          "title": "Format-Volume"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/get-volume",
+          "title": "Get-Volume"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/optimize-volume",
+          "title": "Optimize-Volume"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_pipeline_chain_operators",
+          "title": "about_Pipeline_Chain_Operators (&& is PowerShell 7+)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: && needs PowerShell 7 (now ;), and -Defrag is not TRIM."
+    }
   },
   {
     "sName": "win-storage",
@@ -74711,7 +89713,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "(Get-BitLockerVolume -MountPoint C:).KeyProtector | Where-Object KeyProtectorType -eq 'RecoveryPassword' | Select-Object -ExpandProperty RecoveryPassword",
     "desc": "Print the 48-digit BitLocker numerical recovery password for disaster recovery",
     "tip": "",
-    "tags": "bitlocker encryption tpm recovery-key manage-bde security"
+    "tags": "bitlocker encryption tpm recovery-key manage-bde security",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/bitlocker/get-bitlockervolume",
+          "title": "Get-BitLockerVolume"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/manage-bde-protectors",
+          "title": "manage-bde -protectors"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/manage-bde-status",
+          "title": "manage-bde -status"
+        }
+      ]
+    }
   },
   {
     "sName": "win-storage",
@@ -74722,7 +89741,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "manage-bde -protectors -get C:",
     "desc": "Query BitLocker protectors and GUIDs via legacy CLI tool",
     "tip": "",
-    "tags": "bitlocker encryption tpm recovery-key manage-bde security"
+    "tags": "bitlocker encryption tpm recovery-key manage-bde security",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/bitlocker/get-bitlockervolume",
+          "title": "Get-BitLockerVolume"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/manage-bde-protectors",
+          "title": "manage-bde -protectors"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/manage-bde-status",
+          "title": "manage-bde -status"
+        }
+      ]
+    }
   },
   {
     "sName": "win-storage",
@@ -75143,7 +90179,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Get-PhysicalDisk | Select-Object DeviceId, FriendlyName, MediaType, HealthStatus",
     "desc": "Inspect whether disks are SSD, HDD, or SCM (Storage Class Memory)",
     "tip": "",
-    "tags": "disk storage nvme ssd smart partition"
+    "tags": "disk storage nvme ssd smart partition",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/get-disk",
+          "title": "Get-Disk"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/get-physicaldisk",
+          "title": "Get-PhysicalDisk"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/get-storagereliabilitycounter",
+          "title": "Get-StorageReliabilityCounter"
+        }
+      ]
+    }
   },
   {
     "sName": "windows",
@@ -75154,7 +90207,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Get-StorageReliabilityCounter -PhysicalDisk (Get-PhysicalDisk -DeviceId 0)",
     "desc": "Check hardware temperature, read/write error counts and wear level",
     "tip": "",
-    "tags": "disk storage nvme ssd smart partition"
+    "tags": "disk storage nvme ssd smart partition",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/get-disk",
+          "title": "Get-Disk"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/get-physicaldisk",
+          "title": "Get-PhysicalDisk"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/get-storagereliabilitycounter",
+          "title": "Get-StorageReliabilityCounter"
+        }
+      ]
+    }
   },
   {
     "sName": "windows",
@@ -75206,7 +90276,37 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Get-Volume | Select-Object DriveLetter, FileSystemLabel, FileSystem, @{Name='Free_GB'; Expression={[math]::Round($_.SizeRemaining/1GB, 1)}}",
     "desc": "List all mounted logical volumes and free capacity",
     "tip": "",
-    "tags": "format partition volume ntfs refs gpt trim"
+    "tags": "format partition volume ntfs refs gpt trim",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/initialize-disk",
+          "title": "Initialize-Disk"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/new-partition",
+          "title": "New-Partition"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/format-volume",
+          "title": "Format-Volume"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/get-volume",
+          "title": "Get-Volume"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/optimize-volume",
+          "title": "Optimize-Volume"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_pipeline_chain_operators",
+          "title": "about_Pipeline_Chain_Operators (&& is PowerShell 7+)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: && needs PowerShell 7 (now ;), and -Defrag is not TRIM."
+    }
   },
   {
     "sName": "windows",
@@ -75217,7 +90317,37 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "Optimize-Volume -DriveLetter C -Verbose",
     "desc": "Optimize the volume the right way for its media: retrim on an SSD, analyze and defrag on an HDD (-Defrag alone always defragments)",
     "tip": "",
-    "tags": "format partition volume ntfs refs gpt trim"
+    "tags": "format partition volume ntfs refs gpt trim",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/initialize-disk",
+          "title": "Initialize-Disk"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/new-partition",
+          "title": "New-Partition"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/format-volume",
+          "title": "Format-Volume"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/get-volume",
+          "title": "Get-Volume"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/storage/optimize-volume",
+          "title": "Optimize-Volume"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_pipeline_chain_operators",
+          "title": "about_Pipeline_Chain_Operators (&& is PowerShell 7+)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: && needs PowerShell 7 (now ;), and -Defrag is not TRIM."
+    }
   },
   {
     "sName": "windows",
@@ -75256,7 +90386,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "(Get-BitLockerVolume -MountPoint C:).KeyProtector | Where-Object KeyProtectorType -eq 'RecoveryPassword' | Select-Object -ExpandProperty RecoveryPassword",
     "desc": "Print the 48-digit BitLocker numerical recovery password for disaster recovery",
     "tip": "",
-    "tags": "bitlocker encryption tpm recovery-key manage-bde security"
+    "tags": "bitlocker encryption tpm recovery-key manage-bde security",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/bitlocker/get-bitlockervolume",
+          "title": "Get-BitLockerVolume"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/manage-bde-protectors",
+          "title": "manage-bde -protectors"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/manage-bde-status",
+          "title": "manage-bde -status"
+        }
+      ]
+    }
   },
   {
     "sName": "windows",
@@ -75267,7 +90414,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "manage-bde -protectors -get C:",
     "desc": "Query BitLocker protectors and GUIDs via legacy CLI tool",
     "tip": "",
-    "tags": "bitlocker encryption tpm recovery-key manage-bde security"
+    "tags": "bitlocker encryption tpm recovery-key manage-bde security",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://learn.microsoft.com/en-us/powershell/module/bitlocker/get-bitlockervolume",
+          "title": "Get-BitLockerVolume"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/manage-bde-protectors",
+          "title": "manage-bde -protectors"
+        },
+        {
+          "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/manage-bde-status",
+          "title": "manage-bde -status"
+        }
+      ]
+    }
   },
   {
     "sName": "windows",
@@ -75980,7 +91144,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "which xargs && xargs --version 2>&1 | head -n 1",
     "desc": "Verify binary path and installed version in current environment",
     "tip": "",
-    "tags": "xargs parallel print0 null batch ping tips safety help"
+    "tags": "xargs parallel print0 null batch ping tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/xargs.1.html",
+          "title": "xargs(1)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: -P 0 runs as many processes as possible at once; it isn't tied to the CPU count."
+    }
   },
   {
     "sName": "xxd",
@@ -76091,7 +91265,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "which xxd && xxd --version 2>&1 | head -n 1",
     "desc": "Verify binary path and installed version in current environment",
     "tip": "",
-    "tags": "xxd hexdump hex binary eeprom mbr gpt tips safety help"
+    "tags": "xxd hexdump hex binary eeprom mbr gpt tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/xxd/xxd.1.en.html",
+          "title": "xxd(1), Debian"
+        }
+      ]
+    }
   },
   {
     "sName": "yaml",
@@ -76127,7 +91310,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "bool_val: true # True, false, yes, no",
     "desc": "YAML 1.2 booleans are only true/false (any case); yes/no/on/off are booleans only to YAML 1.1 parsers such as PyYAML",
     "tip": "",
-    "tags": "yaml syntax anchors aliases merge multiline strings"
+    "tags": "yaml syntax anchors aliases merge multiline strings",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://yaml.org/spec/1.2.2/",
+          "title": "YAML 1.2.2 spec (core schema booleans)"
+        },
+        {
+          "url": "https://yaml.org/type/merge.html",
+          "title": "YAML 1.1 merge key (<<)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: in YAML 1.2 only true/false are booleans."
+    }
   },
   {
     "sName": "yaml",
@@ -76138,7 +91335,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "list: [1, 2, 3] # or - 1 \\n - 2",
     "desc": "Inline flow list vs standard indented list",
     "tip": "",
-    "tags": "yaml syntax anchors aliases merge multiline strings"
+    "tags": "yaml syntax anchors aliases merge multiline strings",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://yaml.org/spec/1.2.2/",
+          "title": "YAML 1.2.2 spec (core schema booleans)"
+        },
+        {
+          "url": "https://yaml.org/type/merge.html",
+          "title": "YAML 1.1 merge key (<<)"
+        }
+      ],
+      "note": "Corrected 2026-11-10: in YAML 1.2 only true/false are booleans."
+    }
   },
   {
     "sName": "yaml",
@@ -76177,7 +91388,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "yq '.. | select(has(\"timeout\"))' config.yaml",
     "desc": "Recursively search all objects containing a specific key",
     "tip": "",
-    "tags": "yq yaml cli json mutate convert inplace"
+    "tags": "yq yaml cli json mutate convert inplace",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://mikefarah.gitbook.io/yq",
+          "title": "yq documentation"
+        },
+        {
+          "url": "https://mikefarah.gitbook.io/yq/operators/has",
+          "title": "yq: has operator"
+        },
+        {
+          "url": "https://github.com/mikefarah/yq#known-issues--missing-features",
+          "title": "yq README: known issues (whitespace)"
+        }
+      ]
+    }
   },
   {
     "sName": "yaml",
@@ -76188,7 +91416,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "yq eval-all 'select(fileIndex == 0) * select(fileIndex == 1)' f1.yaml f2.yaml",
     "desc": "Deep-merge two YAML files together",
     "tip": "",
-    "tags": "yq yaml cli json mutate convert inplace"
+    "tags": "yq yaml cli json mutate convert inplace",
+    "src": {
+      "verified": "2026-11-10",
+      "refs": [
+        {
+          "url": "https://mikefarah.gitbook.io/yq",
+          "title": "yq documentation"
+        },
+        {
+          "url": "https://mikefarah.gitbook.io/yq/operators/has",
+          "title": "yq: has operator"
+        },
+        {
+          "url": "https://github.com/mikefarah/yq#known-issues--missing-features",
+          "title": "yq README: known issues (whitespace)"
+        }
+      ]
+    }
   },
   {
     "sName": "zed",
@@ -76535,6 +91780,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "which zstd && zstd --version 2>&1 | head -n 1",
     "desc": "Verify binary path and installed version in current environment",
     "tip": "",
-    "tags": "zstd unzstd zstdcat compress multithreaded tips safety help"
+    "tags": "zstd unzstd zstdcat compress multithreaded tips safety help",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/zstd/zstd.1.en.html",
+          "title": "zstd(1), Debian"
+        }
+      ],
+      "note": "Corrected 2026-11-09: -T0 detects physical cores (not logical); dropped unsourced speed figures."
+    }
   }
 ];

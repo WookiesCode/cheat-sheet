@@ -104,6 +104,8 @@ for (const jsFile of jsFiles) {
               desc: sub[1],
               tip: '',
               tags: Array.isArray(c.tags) ? c.tags.join(' ') : '',
+              // A variant was checked with its card: its own source (third element) or the card's.
+              ...((sub[2] && typeof sub[2] === 'object') ? { src: sub[2] } : (c.src && typeof c.src === 'object') ? { src: c.src } : {}),
               ...(isReference(String(sub[0]), jsFile) ? { noCopy: true } : {}),
               ...refWhyOf(String(sub[0]), jsFile)
             });

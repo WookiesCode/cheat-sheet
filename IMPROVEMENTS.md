@@ -531,6 +531,12 @@ The last unsourced cards: 73 Pro Tip entries (67 sheets plus the same six on the
 
 Not checked: Arista `configure session` commands (Arista refused automated reads) and the Cisco vPC configuration guide (404); `nvsm show health` (NVIDIA's NVSM pages are empty). The cards say so.
 
+## #10 Sources in search, tour v12 (2026-11-10, `search-sources-tour`)
+
+- **Index:** command variants inside a card (the extra `dmidecode -s …` forms and so on, about 1,000 entries) now inherit the card's source in `global-search-index.js` (`build-index.js`); a variant's own third-element source wins. Every index entry now has a source.
+- **Ctrl+K:** each command result ends with one plain-text line, "Source: <first doc> +N · verified Nov 2026", or "⚠ Not verified"; amber when unverified or over a year old. No links, because clicking a result opens its sheet.
+- **Tour v12:** three new "What's new" steps (sources on every card, sources in search, the IBM Storage Scale sheet); the invite names them; "1,500 commands" → "2,000+"; the Slurm and filesystem steps are no longer flagged new.
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |

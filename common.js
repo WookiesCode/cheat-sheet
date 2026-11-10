@@ -3051,7 +3051,7 @@
   // -------------------------------------------------------------
   const TOUR_SEEN_KEY = 'dc_tour_seen';
   // Bumped when the tour gains steps: anyone who saw an older one is offered "What's new" (the isNew steps).
-  const TOUR_VERSION = '11';
+  const TOUR_VERSION = '12';
   // center: the step still shows (centred) when its control is not on this page.
   const TOUR_STEPS = [
     { title: 'This reference does more than list commands', body: 'A short tour that follows an incident: diagnose the error, set up the node, run commands in the built-in terminal, see the GPU tray, compare against healthy nodes, and file the case. Use ← → or the buttons; Esc ends it.' },
@@ -3073,7 +3073,7 @@
       try: { label: 'Watch a demo tray heat up', run: () => { endTour(); openXray(XR_SAMPLE); xrLiveStart(true); } } },
     { target: '[data-flow="diff"], .fleet-chip', center: true, title: 'One node, or the whole rack?', body: 'Compare nodes puts a suspect next to a known-good twin and shows only real differences (firmware, link width, missing devices), not serials and temperatures. Fleet mode fans any command out over pdsh / clush; paste what comes back and Fleet results groups the nodes and points at the odd one out.',
       try: { label: 'Try Fleet results with 12 nodes', run: () => { endTour(); openFleetResults(FR_SAMPLE); } } },
-    { target: '.hdr-search-pill, #global-search-btn', title: 'One search for everything', body: 'Ctrl+K, / or the search pill: search 1,500 commands, open any sheet or runbook, run actions (> lists them), switch themes, or quick-set values: "gpu 3", "hca mlx5_4", "node gpu-node-08".',
+    { target: '.hdr-search-pill, #global-search-btn', title: 'One search for everything', body: 'Ctrl+K, / or the search pill: search 2,000+ commands, open any sheet or runbook, run actions (> lists them), switch themes, or quick-set values: "gpu 3", "hca mlx5_4", "node gpu-node-08".',
       try: { label: 'Open Ctrl+K with "gpu 3"', run: () => { endTour(); openGlobalSearch('gpu 3'); } } },
     { target: '#triage-modal-btn', title: 'Runbooks that run themselves', body: 'Step-by-step runs of the team playbooks: safety, evidence, decisions, physical isolation. With the terminal connected, ▶ Run executes a step, shows its output under it, ticks it and suggests the finding; ▶ Run all safe steps does the whole evidence collection. Gates, state changes and live views stay manual, and intrusive steps stay locked until you confirm the drain. The verdict and findings fill the RMA ticket.',
       try: { label: 'Open the runbooks', run: () => { endTour(); openRunbook(); } } },
@@ -3083,15 +3083,19 @@
       try: { label: 'Open the Shift board', run: () => { endTour(); openBoard(); } } },
     { target: '.hdr-search-pill', title: 'Search warns before risky copies', body: 'In Ctrl+K a command that changes state (a port bounce, a reset, a power cycle) is edged in red: the first Enter asks, the second copies, and a click opens its sheet without copying.' },
     { target: '.hdr-more-btn', center: true, title: 'Back up everything you keep', body: 'More → Backup & restore saves notes, case files, node workspaces, kit stars and the rack inventory in one JSON file (never passwords or the terminal token) and restores them on the portable copy or another laptop. If the browser refuses a save, an amber bar says so.' },
-    { center: true, title: 'Every command shows where it was checked', body: 'On the NVIDIA, InfiniBand, Redfish, ipmitool and BMC tool sheets each command ends with its source and the date it was verified; amber means re-check. Checking them corrected commands that were wrong, such as the ECC and NVLink counter resets.' },
+    { center: true, title: 'Every command shows where it was checked', body: 'Each command ends with its source and the date it was verified; amber means re-check. Checking them corrected commands that were wrong, such as the ECC and NVLink counter resets.' },
     { center: true, title: 'Reboot and crash commands are read-only', body: 'Commands that reboot or shut down the machine you type them on, and BMC NMIs that panic a kernel, stay on the sheets as reference with a 🔒 note but cannot be copied or run.' },
     { center: true, title: 'Keyboard: skip the menus', body: 'The first Tab offers Skip to commands. Tab stays inside an open tool and Esc puts you back where you were; Tab and j/k never leave the command you are on hidden under a bar.' },
     { center: true, title: 'Practice what you actually run', body: 'Practice (q) has a From my trail round: the commands you copied on real tickets, from every node workspace, most-copied first, scheduled with the same review boxes.' },
     { target: '.nav-tools', title: 'See what you never open', body: 'The Workbench counts how often you open each tool and sheet (in this browser only, included in Backup). Its Unused in 30 days fold lists the ones you skip, to guide what to keep.' },
     { center: true, title: 'My kit in the terminal', body: 'My kit (s) → Export for navi saves your starred commands as a navi cheatsheet, with each <placeholder> as a navi variable, so you can search and run them from tmux or ssh.' },
     { center: true, title: 'More sheets checked against the docs', body: 'Switch, Ethernet, Linux storage and hardware, hardware-reference and Kubernetes commands now show their source too. Checking them corrected dozens of wrong flags and claims.' },
-    { target: '#navgroup-devops', isNew: true, title: 'Slurm: drain, resume, what ran there', body: 'DevOps → Slurm covers the scheduler side of a hardware ticket: a node\u2019s state and who drained it, drain and resume (RESUME vs UNDRAIN), the jobs that ran on it, and slurmd -C to check its hardware after a swap.' },
-    { target: '#navgroup-hw', isNew: true, title: 'Lustre, WEKA, BeeGFS and Ceph', body: 'Hardware → Parallel filesystems: are all the servers and targets up, which one is full, which disk sits behind a failed Ceph OSD, and noout for a swap. BeeGFS cards give both the 8.x and 7.x commands.' },
+    { target: '#navgroup-devops', title: 'Slurm: drain, resume, what ran there', body: 'DevOps → Slurm covers the scheduler side of a hardware ticket: a node\u2019s state and who drained it, drain and resume (RESUME vs UNDRAIN), the jobs that ran on it, and slurmd -C to check its hardware after a swap.' },
+    { target: '#navgroup-hw', title: 'Lustre, WEKA, BeeGFS and Ceph', body: 'Hardware → Parallel filesystems: are all the servers and targets up, which one is full, which disk sits behind a failed Ceph OSD, and noout for a swap. BeeGFS cards give both the 8.x and 7.x commands.' },
+    { center: true, isNew: true, title: 'Every card now shows its source', body: 'All sheets, from Linux and the CLI tools to Docker, Grafana, editors, Windows, macOS, scripting, fiber, motherboards, Omarchy and Jira, end each card with the docs it was checked against and when. Cards nobody could confirm say \u26a0 Not verified. Checking them fixed dozens of wrong flags and removed invented numbers.' },
+    { target: '.hdr-search-pill, #global-search-btn', isNew: true, title: 'Search shows the source too', body: 'Ctrl+K results now carry the same line: which doc a command was checked against and when, or \u26a0 Not verified. Amber means re-check before you trust it.',
+      try: { label: 'Search "nvidia-smi -q"', run: () => { endTour(); openGlobalSearch('nvidia-smi -q'); } } },
+    { target: '#navgroup-hw', isNew: true, title: 'IBM Storage Scale (GPFS)', body: 'Hardware → Parallel filesystems → IBM Storage Scale: node state with mmgetstate, mmhealth for what is degraded, and the disks and NSDs behind a failed drive.' },
     { target: '.hdr-more-btn', title: 'Replay this anytime', body: 'My kit (★) collects bookmarked commands into a printable pocket card. Themes, Manuals and the offline 1-file copy live under More. j/k move between commands, Enter copies, ? lists every shortcut. Ctrl+K → "tour" or "what’s new" brings this back.' }
   ];
   const tourSeenVersion = () => { try { return localStorage.getItem(TOUR_SEEN_KEY); } catch (e) { return null; } };
@@ -3225,7 +3229,7 @@
     inv.className = `tour-invite${returning ? ' is-whatsnew' : ''}`;
     inv.setAttribute('role', 'status');
     inv.innerHTML = returning
-      ? `<span class="tour-invite-dot" aria-hidden="true"></span><div><b>New since your last tour</b><span>A Slurm suite (drain, resume, jobs, GPUs) and Lustre, WEKA, BeeGFS and Ceph sheets.</span></div>
+      ? `<span class="tour-invite-dot" aria-hidden="true"></span><div><b>New since your last tour</b><span>Sources on every card and in Ctrl+K results, and an IBM Storage Scale (GPFS) sheet.</span></div>
       <button type="button" class="tour-invite-go">What\u2019s new</button><button type="button" class="tour-invite-x" aria-label="Dismiss">✕</button>`
       : `<span class="tour-invite-dot" aria-hidden="true"></span><div><b>New here?</b><span>Two-minute tour of what this reference can do.</span></div>
       <button type="button" class="tour-invite-go">Take the tour</button><button type="button" class="tour-invite-x" aria-label="Dismiss">✕</button>`;
@@ -3539,6 +3543,7 @@
           ${danger ? '<span class="danger-tag">⚠ Changes state · drain &amp; get approval first</span>' : ''}
           <div class="palette-cmd-code">${highlightedCmd}</div>
           <div class="palette-desc">${highlightedDesc}</div>
+          ${item.src ? paletteSrcHtml(item.src) : ''}
         </div>
       `;
     }).join('');
@@ -12983,6 +12988,19 @@ ${rmaTrailSection()}#### Action Requested:
       : `<span class="src-label">⚠ Not verified</span> <span class="src-when">against vendor docs${dated ? ` (looked ${escapeHtml(month)})` : ''}</span>`;
     const note = src.note ? `<div class="src-note">${escapeHtml(String(src.note))}</div>` : '';
     return `<div class="cmd-source${stale ? ' is-stale' : ''}${refs.length ? '' : ' is-unverified'}">${head}${note}</div>`;
+  }
+
+  // The Ctrl+K result line: plain text, no links (a click on the result opens the sheet).
+  function paletteSrcHtml(src) {
+    const refs = (Array.isArray(src.refs) ? src.refs : []).filter(r => r && /^https:\/\//.test(String(r.url || '')));
+    const when = new Date(String(src.verified || ''));
+    const dated = !isNaN(when.getTime());
+    const stale = dated && (Date.now() - when.getTime()) / 864e5 > SRC_STALE_DAYS;
+    const month = dated ? when.toLocaleDateString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' }) : '';
+    if (!refs.length) return '<div class="palette-src is-unverified">⚠ Not verified against vendor docs</div>';
+    const first = refs[0].title || new URL(refs[0].url).hostname;
+    const more = refs.length > 1 ? ` +${refs.length - 1}` : '';
+    return `<div class="palette-src${stale ? ' is-stale' : ''}">Source: ${escapeHtml(first)}${more}${dated ? ` · verified ${escapeHtml(month)}${stale ? ' · re-check' : ''}` : ''}</div>`;
   }
 
   function initSources() {

@@ -2266,6 +2266,18 @@ code, kbd, pre {
   color: var(--text-secondary);
 }
 
+/* Where the command was checked (from its card's src), one muted line. */
+.palette-src {
+  margin-top: 0.2rem;
+  font-size: 0.68rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.palette-src.is-unverified,
+.palette-src.is-stale { color: var(--accent-amber); }
+
 .palette-empty {
   padding: 2.5rem 1rem;
   text-align: center;
