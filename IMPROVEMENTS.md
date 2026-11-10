@@ -237,6 +237,26 @@ All 37 entries were written against SchedMD's Slurm 26.05 docs and cite them. Ch
 
 `DANGER_RE` now flags `scancel` and `scontrol reboot | cancel_reboot | reconfigure`, and the Slurm admin badge covers `cancel_reboot`. `scontrol reboot` stays copyable: it reboots compute nodes through the scheduler, not the machine you type on.
 
+## New: Parallel filesystems suite (2026-11-09, `improve/pfs-sheets`)
+
+`generate-pfs-suite.js` (suite-kit) adds a hub, `pfs.html`, and four sheets in the Hardware tab. All 73 entries are written against each project's docs and cite them:
+
+| Sheet | Version checked | Covers |
+|---|---|---|
+| `pfs-lustre` | Lustre manual; 2.17 current, 2.15 maintenance | `lfs check servers`, `lfs df -h/-i`, `lctl dl`, `lnetctl net show`, `lctl ping <nid>`, `lfs getstripe` / `find --obd`, client mount, server `health_check` |
+| `pfs-weka` | WEKA 6.0 CLI | `weka status` (+ `rebuild`), `weka alerts`, `weka cluster container` / `drive`, `weka local ps` / `local events`, the wekafs mount |
+| `pfs-beegfs` | BeeGFS 8.4, with 7.4.6 recipes | `beegfs health check|df|net`, `beegfs target list --state` (state meanings), `beegfs node list --with-nics`; the 7.x `beegfs-ctl` / `beegfs-df` / `beegfs-net` / `beegfs-check-servers` beside each |
+| `pfs-ceph` | Ceph docs; 21.2 Umbrella current | `ceph -s` / `health detail`, `osd tree` (up/down, in/out), PG states and inconsistent PGs, `device ls-by-host`, `noout`, `orch ps`, crash reports |
+
+`DANGER_RE` now flags `umount`, `lfs setstripe`, the Ceph state changes (`osd set|unset|out|in|…`, `crash archive|rm|prune`, `pg repair`, `health mute`, `orch apply|rm|host …|daemon …`), WEKA drive and container (de)activation and removal, `cluster stop-io|start-io`, `fs remove`, `local stop|rm`, and BeeGFS node delete and migrate (8.x and 7.x).
+
+**Found in `docs/playbooks/storage-jbod.md` (not changed):**
+- `weka cluster nodes` doesn't exist in the WEKA 6.0 CLI; use `weka cluster container` (or `cluster server list`).
+- `ceph osd df tree` isn't in the current Ceph docs; use `ceph osd df <host>`.
+- The BeeGFS lines are 7.x-only. On 8.x they are `beegfs health check`, `beegfs node list --with-nics` and `beegfs health df`.
+
+**Not verified:** WEKA's drive status values (the CLI reference doesn't list them); the arguments of BeeGFS 8's `beegfs entry info`; whether BeeGFS 8 still ships `beegfs-ctl`; `lnetctl ping` (not in the Lustre manual, so the sheet uses `lctl ping`).
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |

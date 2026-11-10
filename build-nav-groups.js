@@ -59,6 +59,7 @@ const SUITES = {
   grafana: { id: 'grafana-nav-dropdown' },
   sre: { id: 'sre-nav-dropdown' },
   slurm: { id: 'slurm-nav-dropdown' },
+  pfs: { id: 'pfs-nav-dropdown' },
   jira: { link: 'jira.html', name: 'Jira', logo: JIRA_LOGO.replace('class="nav-logo"', 'class="ng-logo"'), label: 'JQL: tickets per server, rack, RMA' }
 };
 
@@ -67,7 +68,7 @@ const TABS = [
   { key: 'editors', label: 'Editors', href: 'editors.html', cols: [['neovim'], ['editors']] },
   { key: 'net', label: 'Networking', href: 'infiniband.html', cols: [['infiniband'], ['ethernet', 'fiber'], ['switches']] },
   { key: 'remote', label: 'Remote Management', href: 'redfish.html', cols: [['redfish'], ['ipmi'], ['bmctools']] },
-  { key: 'hw', label: 'Hardware', href: 'motherboards.html', cols: [['nvidia'], ['motherboards', 'internals'], ['hwref']] },
+  { key: 'hw', label: 'Hardware', href: 'motherboards.html', cols: [['nvidia'], ['motherboards', 'internals'], ['hwref', 'pfs']] },
   { key: 'devops', label: 'DevOps', href: 'containers.html', cols: [['containers', 'slurm'], ['grafana'], ['sre']] },
   // Jira is a ticketing system, not DevOps: its own tab, with room for other ticketing tools.
   { key: 'tickets', label: 'Ticketing', href: 'jira.html', cols: [['jira']] }

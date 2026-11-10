@@ -1,5 +1,5 @@
-// Auto-generated Global Search Index across all 237 cheat sheets
-// Total indexed items: 3480
+// Auto-generated Global Search Index across all 242 cheat sheets
+// Total indexed items: 3626
 window.GLOBAL_SEARCH_INDEX = [
   {
     "sName": "ansible",
@@ -37415,6 +37415,3318 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Make a file immutable (+i) and inspect extended filesystem attributes (use -i to unlock)",
     "tip": "",
     "tags": "acl getfacl setfacl chattr lsattr immutable"
+  },
+  {
+    "sName": "pfs-beegfs",
+    "file": "pfs-beegfs.html",
+    "badge": "beegfs",
+    "id": "beegfs-health-check",
+    "sec": "BeeGFS: Check for common problems across the whole filesystem",
+    "cmd": "beegfs health check",
+    "desc": "Check for common problems across the whole filesystem",
+    "tip": "Start here on any BeeGFS ticket",
+    "tags": "storage filesystem pfs pfs-beegfs beegfs health check-servers",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.beegfs.io/latest/quick_start_guide/quick_start_guide.html",
+          "title": "BeeGFS 8.4 quick start"
+        },
+        {
+          "url": "https://doc.beegfs.io/latest/advanced_topics/upgrade.html",
+          "title": "BeeGFS 8.4 upgrade guide"
+        },
+        {
+          "url": "https://doc.beegfs.io/7.4.6/quick_start_guide/quick_start_guide.html",
+          "title": "BeeGFS 7.4.6 quick start"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-beegfs",
+    "file": "pfs-beegfs.html",
+    "badge": "beegfs",
+    "id": "beegfs-health-check-sub-1",
+    "sec": "BeeGFS: Check for common problems across the whole filesystem",
+    "cmd": "beegfs-check-servers",
+    "desc": "BeeGFS 7.x: reachability of mgmtd, meta and storage services",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-beegfs recipe beegfs health check-servers",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.beegfs.io/latest/quick_start_guide/quick_start_guide.html",
+          "title": "BeeGFS 8.4 quick start"
+        },
+        {
+          "url": "https://doc.beegfs.io/latest/advanced_topics/upgrade.html",
+          "title": "BeeGFS 8.4 upgrade guide"
+        },
+        {
+          "url": "https://doc.beegfs.io/7.4.6/quick_start_guide/quick_start_guide.html",
+          "title": "BeeGFS 7.4.6 quick start"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-beegfs",
+    "file": "pfs-beegfs.html",
+    "badge": "beegfs",
+    "id": "beegfs-targets",
+    "sec": "BeeGFS: Target reachability and consistency",
+    "cmd": "beegfs target list --state",
+    "desc": "Target reachability and consistency",
+    "tip": "Bad consistency = the resync failed",
+    "tags": "storage filesystem pfs pfs-beegfs beegfs targets state mirror resync",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.beegfs.io/latest/reference/target_states.html",
+          "title": "BeeGFS 8.4: target states"
+        },
+        {
+          "url": "https://doc.beegfs.io/7.4.6/advanced_topics/target_management.html",
+          "title": "BeeGFS 7.4.6: target management"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-beegfs",
+    "file": "pfs-beegfs.html",
+    "badge": "beegfs",
+    "id": "beegfs-targets-sub-1",
+    "sec": "BeeGFS: Target reachability and consistency",
+    "cmd": "beegfs-ctl --listtargets --longnodes --state",
+    "desc": "BeeGFS 7.x: the same view",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-beegfs recipe beegfs targets state",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.beegfs.io/latest/reference/target_states.html",
+          "title": "BeeGFS 8.4: target states"
+        },
+        {
+          "url": "https://doc.beegfs.io/7.4.6/advanced_topics/target_management.html",
+          "title": "BeeGFS 7.4.6: target management"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-beegfs",
+    "file": "pfs-beegfs.html",
+    "badge": "beegfs",
+    "id": "beegfs-nodes",
+    "sec": "BeeGFS: Nodes and the network interfaces they use",
+    "cmd": "beegfs node list --with-nics",
+    "desc": "Nodes and the network interfaces they use",
+    "tip": "Expect RDMA NICs on an IB fabric",
+    "tags": "storage filesystem pfs pfs-beegfs beegfs nodes nic rdma",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.beegfs.io/latest/advanced_topics/node_management.html",
+          "title": "BeeGFS 8.4: node management"
+        },
+        {
+          "url": "https://doc.beegfs.io/7.4.6/quick_start_guide/quick_start_guide.html",
+          "title": "BeeGFS 7.4.6 quick start"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-beegfs",
+    "file": "pfs-beegfs.html",
+    "badge": "beegfs",
+    "id": "beegfs-nodes-sub-1",
+    "sec": "BeeGFS: Nodes and the network interfaces they use",
+    "cmd": "beegfs node list --node-type=meta --with-nics --reachability-check",
+    "desc": "Metadata nodes, NICs and reachability",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-beegfs recipe beegfs nodes nic",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.beegfs.io/latest/advanced_topics/node_management.html",
+          "title": "BeeGFS 8.4: node management"
+        },
+        {
+          "url": "https://doc.beegfs.io/7.4.6/quick_start_guide/quick_start_guide.html",
+          "title": "BeeGFS 7.4.6 quick start"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-beegfs",
+    "file": "pfs-beegfs.html",
+    "badge": "beegfs",
+    "id": "beegfs-nodes-sub-2",
+    "sec": "BeeGFS: Nodes and the network interfaces they use",
+    "cmd": "beegfs-ctl --listnodes --nodetype=storage --nicdetails",
+    "desc": "BeeGFS 7.x: storage nodes with NIC details",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-beegfs recipe beegfs nodes nic",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.beegfs.io/latest/advanced_topics/node_management.html",
+          "title": "BeeGFS 8.4: node management"
+        },
+        {
+          "url": "https://doc.beegfs.io/7.4.6/quick_start_guide/quick_start_guide.html",
+          "title": "BeeGFS 7.4.6 quick start"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-beegfs",
+    "file": "pfs-beegfs.html",
+    "badge": "beegfs",
+    "id": "beegfs-df",
+    "sec": "BeeGFS: Free space and inodes on metadata and storage targets",
+    "cmd": "beegfs health df",
+    "desc": "Free space and inodes on metadata and storage targets",
+    "tip": "TCP where you expected RDMA = check the IB fabric",
+    "tags": "storage filesystem pfs pfs-beegfs beegfs df space inodes net",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.beegfs.io/latest/quick_start_guide/quick_start_guide.html",
+          "title": "BeeGFS 8.4 quick start"
+        },
+        {
+          "url": "https://doc.beegfs.io/7.4.6/quick_start_guide/quick_start_guide.html",
+          "title": "BeeGFS 7.4.6 quick start"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-beegfs",
+    "file": "pfs-beegfs.html",
+    "badge": "beegfs",
+    "id": "beegfs-df-sub-1",
+    "sec": "BeeGFS: Free space and inodes on metadata and storage targets",
+    "cmd": "beegfs-df",
+    "desc": "BeeGFS 7.x: free space and inodes per target",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-beegfs recipe beegfs df space",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.beegfs.io/latest/quick_start_guide/quick_start_guide.html",
+          "title": "BeeGFS 8.4 quick start"
+        },
+        {
+          "url": "https://doc.beegfs.io/7.4.6/quick_start_guide/quick_start_guide.html",
+          "title": "BeeGFS 7.4.6 quick start"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-beegfs",
+    "file": "pfs-beegfs.html",
+    "badge": "beegfs",
+    "id": "beegfs-df-sub-2",
+    "sec": "BeeGFS: Free space and inodes on metadata and storage targets",
+    "cmd": "beegfs health net",
+    "desc": "Connections this client uses (RDMA or TCP fallback)",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-beegfs recipe beegfs df space",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.beegfs.io/latest/quick_start_guide/quick_start_guide.html",
+          "title": "BeeGFS 8.4 quick start"
+        },
+        {
+          "url": "https://doc.beegfs.io/7.4.6/quick_start_guide/quick_start_guide.html",
+          "title": "BeeGFS 7.4.6 quick start"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-beegfs",
+    "file": "pfs-beegfs.html",
+    "badge": "beegfs",
+    "id": "beegfs-df-sub-3",
+    "sec": "BeeGFS: Free space and inodes on metadata and storage targets",
+    "cmd": "beegfs-net",
+    "desc": "BeeGFS 7.x: the same",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-beegfs recipe beegfs df space",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.beegfs.io/latest/quick_start_guide/quick_start_guide.html",
+          "title": "BeeGFS 8.4 quick start"
+        },
+        {
+          "url": "https://doc.beegfs.io/7.4.6/quick_start_guide/quick_start_guide.html",
+          "title": "BeeGFS 7.4.6 quick start"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-beegfs",
+    "file": "pfs-beegfs.html",
+    "badge": "beegfs",
+    "id": "beegfs-entry",
+    "sec": "BeeGFS: Where a file or directory lives",
+    "cmd": "beegfs-ctl --getentryinfo <path>",
+    "desc": "Where a file or directory lives: stripe pattern and targets",
+    "tip": "Map a slow file to its targets",
+    "tags": "storage filesystem pfs pfs-beegfs beegfs entry stripe client",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.beegfs.io/7.4.6/advanced_topics/striping.html",
+          "title": "BeeGFS 7.4.6: striping"
+        },
+        {
+          "url": "https://doc.beegfs.io/latest/release_notes.html",
+          "title": "BeeGFS 8.4 release notes"
+        }
+      ],
+      "note": "The 8.4 docs name beegfs entry info but don't show its arguments."
+    }
+  },
+  {
+    "sName": "pfs-beegfs",
+    "file": "pfs-beegfs.html",
+    "badge": "beegfs",
+    "id": "beegfs-entry-sub-1",
+    "sec": "BeeGFS: Where a file or directory lives",
+    "cmd": "systemctl status beegfs-client --no-pager",
+    "desc": "Is the BeeGFS client service running on this node",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-beegfs recipe beegfs entry stripe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.beegfs.io/7.4.6/advanced_topics/striping.html",
+          "title": "BeeGFS 7.4.6: striping"
+        },
+        {
+          "url": "https://doc.beegfs.io/latest/release_notes.html",
+          "title": "BeeGFS 8.4 release notes"
+        }
+      ],
+      "note": "The 8.4 docs name beegfs entry info but don't show its arguments."
+    }
+  },
+  {
+    "sName": "pfs-beegfs",
+    "file": "pfs-beegfs.html",
+    "badge": "tip",
+    "id": "pfs-beegfs-tips-card",
+    "sec": "BeeGFS: Pro Tip",
+    "cmd": "beegfs --help",
+    "desc": "Which BeeGFS do you have?",
+    "tip": "Don't mix 7.x flags into 8.x commands",
+    "tags": "storage filesystem pfs pfs-beegfs tips best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.beegfs.io/latest/quick_start_guide/quick_start_guide.html",
+          "title": "BeeGFS 8.4 quick start"
+        },
+        {
+          "url": "https://doc.beegfs.io/7.4.6/quick_start_guide/quick_start_guide.html",
+          "title": "BeeGFS 7.4.6 quick start"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-ceph",
+    "file": "pfs-ceph.html",
+    "badge": "ceph",
+    "id": "ceph-status",
+    "sec": "Ceph: Cluster health at a glance, then the detail",
+    "cmd": "ceph -s",
+    "desc": "Cluster health at a glance, then the detail",
+    "tip": "HEALTH_WARN: read ceph health detail before acting",
+    "tags": "storage filesystem pfs pfs-ceph ceph status health",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/monitoring/",
+          "title": "Ceph: monitoring a cluster"
+        },
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/health-checks/",
+          "title": "Ceph: health checks"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-ceph",
+    "file": "pfs-ceph.html",
+    "badge": "ceph",
+    "id": "ceph-status-sub-1",
+    "sec": "Ceph: Cluster health at a glance, then the detail",
+    "cmd": "ceph health detail",
+    "desc": "Every warning and error with the OSDs and PGs involved",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-ceph recipe ceph status health",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/monitoring/",
+          "title": "Ceph: monitoring a cluster"
+        },
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/health-checks/",
+          "title": "Ceph: health checks"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-ceph",
+    "file": "pfs-ceph.html",
+    "badge": "ceph",
+    "id": "ceph-status-sub-2",
+    "sec": "Ceph: Cluster health at a glance, then the detail",
+    "cmd": "ceph df",
+    "desc": "Space per pool and raw capacity",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-ceph recipe ceph status health",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/monitoring/",
+          "title": "Ceph: monitoring a cluster"
+        },
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/health-checks/",
+          "title": "Ceph: health checks"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-ceph",
+    "file": "pfs-ceph.html",
+    "badge": "ceph",
+    "id": "ceph-osd-tree",
+    "sec": "Ceph: Every OSD by host, and which are down",
+    "cmd": "ceph osd tree",
+    "desc": "Every OSD by host, and which are down",
+    "tip": "Down but still in = data is degraded, not moving yet",
+    "tags": "storage filesystem pfs pfs-ceph ceph osd tree up down in out",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/control/",
+          "title": "Ceph: control commands"
+        },
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/monitoring-osd-pg/",
+          "title": "Ceph: monitoring OSDs and PGs"
+        }
+      ],
+      "note": "ceph osd df tree is not in the current docs; ceph osd df <host> is."
+    }
+  },
+  {
+    "sName": "pfs-ceph",
+    "file": "pfs-ceph.html",
+    "badge": "ceph",
+    "id": "ceph-osd-tree-sub-1",
+    "sec": "Ceph: Every OSD by host, and which are down",
+    "cmd": "ceph osd stat",
+    "desc": "How many OSDs are up and in",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-ceph recipe ceph osd tree",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/control/",
+          "title": "Ceph: control commands"
+        },
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/monitoring-osd-pg/",
+          "title": "Ceph: monitoring OSDs and PGs"
+        }
+      ],
+      "note": "ceph osd df tree is not in the current docs; ceph osd df <host> is."
+    }
+  },
+  {
+    "sName": "pfs-ceph",
+    "file": "pfs-ceph.html",
+    "badge": "ceph",
+    "id": "ceph-osd-tree-sub-2",
+    "sec": "Ceph: Every OSD by host, and which are down",
+    "cmd": "ceph osd df <host>",
+    "desc": "Utilization of the OSDs on one host",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-ceph recipe ceph osd tree",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/control/",
+          "title": "Ceph: control commands"
+        },
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/monitoring-osd-pg/",
+          "title": "Ceph: monitoring OSDs and PGs"
+        }
+      ],
+      "note": "ceph osd df tree is not in the current docs; ceph osd df <host> is."
+    }
+  },
+  {
+    "sName": "pfs-ceph",
+    "file": "pfs-ceph.html",
+    "badge": "ceph",
+    "id": "ceph-pg",
+    "sec": "Ceph: Placement group states, and inconsistent PGs after a scrub",
+    "cmd": "ceph pg stat",
+    "desc": "Placement group states, and inconsistent PGs after a scrub",
+    "tip": "Inconsistent: find the bad copy (often a failing disk) before ceph pg repair",
+    "tags": "storage filesystem pfs pfs-ceph ceph pg degraded inconsistent scrub",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/monitoring-osd-pg/",
+          "title": "Ceph: monitoring OSDs and PGs"
+        },
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/troubleshooting/troubleshooting-pg/",
+          "title": "Ceph: troubleshooting PGs"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-ceph",
+    "file": "pfs-ceph.html",
+    "badge": "ceph",
+    "id": "ceph-pg-sub-1",
+    "sec": "Ceph: Placement group states, and inconsistent PGs after a scrub",
+    "cmd": "rados list-inconsistent-pg <pool>",
+    "desc": "PG ids with inconsistencies in a pool",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-ceph recipe ceph pg degraded",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/monitoring-osd-pg/",
+          "title": "Ceph: monitoring OSDs and PGs"
+        },
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/troubleshooting/troubleshooting-pg/",
+          "title": "Ceph: troubleshooting PGs"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-ceph",
+    "file": "pfs-ceph.html",
+    "badge": "ceph",
+    "id": "ceph-pg-sub-2",
+    "sec": "Ceph: Placement group states, and inconsistent PGs after a scrub",
+    "cmd": "rados list-inconsistent-obj <pgid> --format=json-pretty",
+    "desc": "Which objects, and which copy is bad",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-ceph recipe ceph pg degraded",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/monitoring-osd-pg/",
+          "title": "Ceph: monitoring OSDs and PGs"
+        },
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/troubleshooting/troubleshooting-pg/",
+          "title": "Ceph: troubleshooting PGs"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-ceph",
+    "file": "pfs-ceph.html",
+    "badge": "ceph",
+    "id": "ceph-devices",
+    "sec": "Ceph: Which physical disk is behind each OSD on a host",
+    "cmd": "ceph device ls-by-host <host>",
+    "desc": "Which physical disk is behind each OSD on a host",
+    "tip": "Match the serial in the device id to the drive label",
+    "tags": "storage filesystem pfs pfs-ceph ceph device osd disk serial",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/devices/",
+          "title": "Ceph: device management"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-ceph",
+    "file": "pfs-ceph.html",
+    "badge": "ceph",
+    "id": "ceph-devices-sub-1",
+    "sec": "Ceph: Which physical disk is behind each OSD on a host",
+    "cmd": "ceph device info <devid>",
+    "desc": "One device in detail",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-ceph recipe ceph device osd",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/devices/",
+          "title": "Ceph: device management"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-ceph",
+    "file": "pfs-ceph.html",
+    "badge": "ceph",
+    "id": "ceph-devices-sub-2",
+    "sec": "Ceph: Which physical disk is behind each OSD on a host",
+    "cmd": "ceph device ls",
+    "desc": "All devices and their daemons",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-ceph recipe ceph device osd",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/devices/",
+          "title": "Ceph: device management"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-ceph",
+    "file": "pfs-ceph.html",
+    "badge": "ceph",
+    "id": "ceph-noout",
+    "sec": "Ceph: Before maintenance",
+    "cmd": "ceph osd set noout",
+    "desc": "Before maintenance: stop Ceph re-balancing while OSDs are down (changes state: ask first)",
+    "tip": "Set noout → work → unset noout",
+    "tags": "storage filesystem pfs pfs-ceph ceph noout maintenance osd out",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/health-checks/",
+          "title": "Ceph: health checks (OSDMAP_FLAGS)"
+        },
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/control/",
+          "title": "Ceph: control commands"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-ceph",
+    "file": "pfs-ceph.html",
+    "badge": "ceph",
+    "id": "ceph-noout-sub-1",
+    "sec": "Ceph: Before maintenance",
+    "cmd": "ceph osd unset noout",
+    "desc": "After the work: let Ceph mark failed OSDs out again (changes state)",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-ceph recipe ceph noout maintenance",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/health-checks/",
+          "title": "Ceph: health checks (OSDMAP_FLAGS)"
+        },
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/control/",
+          "title": "Ceph: control commands"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-ceph",
+    "file": "pfs-ceph.html",
+    "badge": "ceph",
+    "id": "ceph-noout-sub-2",
+    "sec": "Ceph: Before maintenance",
+    "cmd": "ceph osd out <osd-id>",
+    "desc": "Drain data off one OSD before replacing its disk (changes state)",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-ceph recipe ceph noout maintenance",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/health-checks/",
+          "title": "Ceph: health checks (OSDMAP_FLAGS)"
+        },
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/control/",
+          "title": "Ceph: control commands"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-ceph",
+    "file": "pfs-ceph.html",
+    "badge": "ceph",
+    "id": "ceph-orch",
+    "sec": "Ceph: cephadm",
+    "cmd": "ceph orch ps",
+    "desc": "cephadm: every daemon, host and device the orchestrator manages",
+    "tip": "No ceph CLI on the host? cephadm shell",
+    "tags": "storage filesystem pfs pfs-ceph ceph cephadm orch daemons",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.ceph.com/en/latest/cephadm/operations/",
+          "title": "Ceph: cephadm operations"
+        },
+        {
+          "url": "https://docs.ceph.com/en/latest/cephadm/host-management/",
+          "title": "Ceph: cephadm host management"
+        },
+        {
+          "url": "https://docs.ceph.com/en/latest/cephadm/install/",
+          "title": "Ceph: cephadm install"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-ceph",
+    "file": "pfs-ceph.html",
+    "badge": "ceph",
+    "id": "ceph-orch-sub-1",
+    "sec": "Ceph: cephadm",
+    "cmd": "ceph orch host ls",
+    "desc": "Hosts in the cluster",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-ceph recipe ceph cephadm orch",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.ceph.com/en/latest/cephadm/operations/",
+          "title": "Ceph: cephadm operations"
+        },
+        {
+          "url": "https://docs.ceph.com/en/latest/cephadm/host-management/",
+          "title": "Ceph: cephadm host management"
+        },
+        {
+          "url": "https://docs.ceph.com/en/latest/cephadm/install/",
+          "title": "Ceph: cephadm install"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-ceph",
+    "file": "pfs-ceph.html",
+    "badge": "ceph",
+    "id": "ceph-orch-sub-2",
+    "sec": "Ceph: cephadm",
+    "cmd": "ceph orch device ls",
+    "desc": "Disks on each host, and whether they are available",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-ceph recipe ceph cephadm orch",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.ceph.com/en/latest/cephadm/operations/",
+          "title": "Ceph: cephadm operations"
+        },
+        {
+          "url": "https://docs.ceph.com/en/latest/cephadm/host-management/",
+          "title": "Ceph: cephadm host management"
+        },
+        {
+          "url": "https://docs.ceph.com/en/latest/cephadm/install/",
+          "title": "Ceph: cephadm install"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-ceph",
+    "file": "pfs-ceph.html",
+    "badge": "ceph",
+    "id": "ceph-orch-sub-3",
+    "sec": "Ceph: cephadm",
+    "cmd": "cephadm shell -- ceph -s",
+    "desc": "Run one ceph command through cephadm",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-ceph recipe ceph cephadm orch",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.ceph.com/en/latest/cephadm/operations/",
+          "title": "Ceph: cephadm operations"
+        },
+        {
+          "url": "https://docs.ceph.com/en/latest/cephadm/host-management/",
+          "title": "Ceph: cephadm host management"
+        },
+        {
+          "url": "https://docs.ceph.com/en/latest/cephadm/install/",
+          "title": "Ceph: cephadm install"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-ceph",
+    "file": "pfs-ceph.html",
+    "badge": "ceph",
+    "id": "ceph-crash",
+    "sec": "Ceph: Daemon crash reports",
+    "cmd": "ceph crash ls-new",
+    "desc": "Daemon crash reports",
+    "tip": "Put the backtrace in the ticket before archiving",
+    "tags": "storage filesystem pfs pfs-ceph ceph crash mgr",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.ceph.com/en/latest/mgr/crash/",
+          "title": "Ceph: crash module"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-ceph",
+    "file": "pfs-ceph.html",
+    "badge": "ceph",
+    "id": "ceph-crash-sub-1",
+    "sec": "Ceph: Daemon crash reports",
+    "cmd": "ceph crash info <crashid>",
+    "desc": "One crash in detail",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-ceph recipe ceph crash mgr",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.ceph.com/en/latest/mgr/crash/",
+          "title": "Ceph: crash module"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-ceph",
+    "file": "pfs-ceph.html",
+    "badge": "ceph",
+    "id": "ceph-crash-sub-2",
+    "sec": "Ceph: Daemon crash reports",
+    "cmd": "ceph crash archive-all",
+    "desc": "Archive every new crash once it is in the ticket (changes state)",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-ceph recipe ceph crash mgr",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.ceph.com/en/latest/mgr/crash/",
+          "title": "Ceph: crash module"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-ceph",
+    "file": "pfs-ceph.html",
+    "badge": "tip",
+    "id": "pfs-ceph-tips-card",
+    "sec": "Ceph: Pro Tip",
+    "cmd": "ceph device ls-by-host <host>",
+    "desc": "Replacing a disk under a Ceph OSD",
+    "tip": "Serial first, then the drive",
+    "tags": "storage filesystem pfs pfs-ceph tips best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/devices/",
+          "title": "Ceph: device management"
+        },
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/control/",
+          "title": "Ceph: control commands"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-lustre",
+    "file": "pfs-lustre.html",
+    "badge": "lustre",
+    "id": "lustre-check-servers",
+    "sec": "Lustre: Are all the Lustre servers",
+    "cmd": "lfs check servers",
+    "desc": "Are all the Lustre servers (MDTs and OSTs) reachable from this client?",
+    "tip": "First check on a \"Lustre is slow / hung\" ticket",
+    "tags": "storage filesystem pfs pfs-lustre lustre lfs servers ost mdt reachability",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.lustre.org/lustre_manual.xhtml",
+          "title": "Lustre Operations Manual"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-lustre",
+    "file": "pfs-lustre.html",
+    "badge": "lustre",
+    "id": "lustre-check-servers-sub-1",
+    "sec": "Lustre: Are all the Lustre servers",
+    "cmd": "lfs check osts",
+    "desc": "Only the object storage targets",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-lustre recipe lustre lfs servers",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.lustre.org/lustre_manual.xhtml",
+          "title": "Lustre Operations Manual"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-lustre",
+    "file": "pfs-lustre.html",
+    "badge": "lustre",
+    "id": "lustre-check-servers-sub-2",
+    "sec": "Lustre: Are all the Lustre servers",
+    "cmd": "lfs check mds",
+    "desc": "Only the metadata targets",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-lustre recipe lustre lfs servers",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.lustre.org/lustre_manual.xhtml",
+          "title": "Lustre Operations Manual"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-lustre",
+    "file": "pfs-lustre.html",
+    "badge": "lustre",
+    "id": "lustre-df",
+    "sec": "Lustre: Space per MDT and OST",
+    "cmd": "lfs df -h /mnt/<fsname>",
+    "desc": "Space per MDT and OST: which target is full",
+    "tip": "One OST at 100% stalls writes striped onto it",
+    "tags": "storage filesystem pfs pfs-lustre lustre lfs df space inodes ost",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.lustre.org/lustre_manual.xhtml",
+          "title": "Lustre Operations Manual"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-lustre",
+    "file": "pfs-lustre.html",
+    "badge": "lustre",
+    "id": "lustre-df-sub-1",
+    "sec": "Lustre: Space per MDT and OST",
+    "cmd": "lfs df -i /mnt/<fsname>",
+    "desc": "Inode use per MDT and OST",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-lustre recipe lustre lfs df",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.lustre.org/lustre_manual.xhtml",
+          "title": "Lustre Operations Manual"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-lustre",
+    "file": "pfs-lustre.html",
+    "badge": "lustre",
+    "id": "lustre-df-sub-2",
+    "sec": "Lustre: Space per MDT and OST",
+    "cmd": "lfs osts /mnt/<fsname>",
+    "desc": "Every OST with its index and UUID",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-lustre recipe lustre lfs df",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.lustre.org/lustre_manual.xhtml",
+          "title": "Lustre Operations Manual"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-lustre",
+    "file": "pfs-lustre.html",
+    "badge": "lustre",
+    "id": "lustre-dl",
+    "sec": "Lustre: Lustre devices on this node and whether they are UP",
+    "cmd": "lctl dl",
+    "desc": "Lustre devices on this node and whether they are UP",
+    "tip": "Count the osc lines against lfs osts",
+    "tags": "storage filesystem pfs pfs-lustre lustre lctl devices osc mdc",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.lustre.org/lustre_manual.xhtml",
+          "title": "Lustre Operations Manual"
+        }
+      ],
+      "note": "The manual shows lctl get_param osc.<fs>-OST0001-osc-*.import; the fields in its output vary by version."
+    }
+  },
+  {
+    "sName": "pfs-lustre",
+    "file": "pfs-lustre.html",
+    "badge": "lustre",
+    "id": "lustre-dl-sub-1",
+    "sec": "Lustre: Lustre devices on this node and whether they are UP",
+    "cmd": "lctl dl | grep -E \" (mdc|osc) \"",
+    "desc": "Only the client's connections to MDTs and OSTs",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-lustre recipe lustre lctl devices",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.lustre.org/lustre_manual.xhtml",
+          "title": "Lustre Operations Manual"
+        }
+      ],
+      "note": "The manual shows lctl get_param osc.<fs>-OST0001-osc-*.import; the fields in its output vary by version."
+    }
+  },
+  {
+    "sName": "pfs-lustre",
+    "file": "pfs-lustre.html",
+    "badge": "lustre",
+    "id": "lustre-dl-sub-2",
+    "sec": "Lustre: Lustre devices on this node and whether they are UP",
+    "cmd": "lctl get_param osc.*.import",
+    "desc": "Connection detail for every OST import (fields vary by Lustre version)",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-lustre recipe lustre lctl devices",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.lustre.org/lustre_manual.xhtml",
+          "title": "Lustre Operations Manual"
+        }
+      ],
+      "note": "The manual shows lctl get_param osc.<fs>-OST0001-osc-*.import; the fields in its output vary by version."
+    }
+  },
+  {
+    "sName": "pfs-lustre",
+    "file": "pfs-lustre.html",
+    "badge": "lustre",
+    "id": "lustre-lnet",
+    "sec": "Lustre: LNet",
+    "cmd": "lnetctl net show --verbose",
+    "desc": "LNet: which networks this node is on, and can it reach a server NID",
+    "tip": "lctl ping fails but IP ping works → LNet / IB, not the network",
+    "tags": "storage filesystem pfs pfs-lustre lustre lnet lnetctl nid o2ib ping",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.lustre.org/lustre_manual.xhtml",
+          "title": "Lustre Operations Manual"
+        }
+      ],
+      "note": "lnetctl ping is not in the Operations Manual; lctl ping {nid} is."
+    }
+  },
+  {
+    "sName": "pfs-lustre",
+    "file": "pfs-lustre.html",
+    "badge": "lustre",
+    "id": "lustre-lnet-sub-1",
+    "sec": "Lustre: LNet",
+    "cmd": "lctl ping <nid>",
+    "desc": "LNet-level ping of a server, e.g. lctl ping 192.0.2.10@o2ib",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-lustre recipe lustre lnet lnetctl",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.lustre.org/lustre_manual.xhtml",
+          "title": "Lustre Operations Manual"
+        }
+      ],
+      "note": "lnetctl ping is not in the Operations Manual; lctl ping {nid} is."
+    }
+  },
+  {
+    "sName": "pfs-lustre",
+    "file": "pfs-lustre.html",
+    "badge": "lustre",
+    "id": "lustre-lnet-sub-2",
+    "sec": "Lustre: LNet",
+    "cmd": "lnetctl peer show",
+    "desc": "Peers this node knows, with their NIDs and state",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-lustre recipe lustre lnet lnetctl",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.lustre.org/lustre_manual.xhtml",
+          "title": "Lustre Operations Manual"
+        }
+      ],
+      "note": "lnetctl ping is not in the Operations Manual; lctl ping {nid} is."
+    }
+  },
+  {
+    "sName": "pfs-lustre",
+    "file": "pfs-lustre.html",
+    "badge": "lustre",
+    "id": "lustre-lnet-sub-3",
+    "sec": "Lustre: LNet",
+    "cmd": "dmesg -T | grep -iE \"lustre|lnet\"",
+    "desc": "Timeouts, evictions and reconnects in the kernel log",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-lustre recipe lustre lnet lnetctl",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.lustre.org/lustre_manual.xhtml",
+          "title": "Lustre Operations Manual"
+        }
+      ],
+      "note": "lnetctl ping is not in the Operations Manual; lctl ping {nid} is."
+    }
+  },
+  {
+    "sName": "pfs-lustre",
+    "file": "pfs-lustre.html",
+    "badge": "lustre",
+    "id": "lustre-stripe",
+    "sec": "Lustre: How a file or directory is striped across OSTs",
+    "cmd": "lfs getstripe -v <file-or-dir>",
+    "desc": "How a file or directory is striped across OSTs",
+    "tip": "lfs find --obd lists what a dead OST takes with it",
+    "tags": "storage filesystem pfs pfs-lustre lustre lfs stripe layout ost",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.lustre.org/lustre_manual.xhtml",
+          "title": "Lustre Operations Manual"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-lustre",
+    "file": "pfs-lustre.html",
+    "badge": "lustre",
+    "id": "lustre-stripe-sub-1",
+    "sec": "Lustre: How a file or directory is striped across OSTs",
+    "cmd": "lfs setstripe -c <count> <dir>",
+    "desc": "Stripe new files in this directory over <count> OSTs (changes state)",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-lustre recipe lustre lfs stripe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.lustre.org/lustre_manual.xhtml",
+          "title": "Lustre Operations Manual"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-lustre",
+    "file": "pfs-lustre.html",
+    "badge": "lustre",
+    "id": "lustre-stripe-sub-2",
+    "sec": "Lustre: How a file or directory is striped across OSTs",
+    "cmd": "lfs find --obd <ost-uuid> /mnt/<fsname>",
+    "desc": "Files with objects on one OST (e.g. before replacing it)",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-lustre recipe lustre lfs stripe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.lustre.org/lustre_manual.xhtml",
+          "title": "Lustre Operations Manual"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-lustre",
+    "file": "pfs-lustre.html",
+    "badge": "lustre",
+    "id": "lustre-mount",
+    "sec": "Lustre: Mount a Lustre filesystem on a client",
+    "cmd": "mount -t lustre <mgs-nid>:/<fsname> /mnt/<fsname>",
+    "desc": "Mount a Lustre filesystem on a client",
+    "tip": "Failover MGS: nid1:nid2:/fsname",
+    "tags": "storage filesystem pfs pfs-lustre lustre mount client mgs nid",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.lustre.org/lustre_manual.xhtml",
+          "title": "Lustre Operations Manual"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-lustre",
+    "file": "pfs-lustre.html",
+    "badge": "lustre",
+    "id": "lustre-mount-sub-1",
+    "sec": "Lustre: Mount a Lustre filesystem on a client",
+    "cmd": "umount /mnt/<fsname>",
+    "desc": "Unmount (changes state: drain the node first)",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-lustre recipe lustre mount client",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.lustre.org/lustre_manual.xhtml",
+          "title": "Lustre Operations Manual"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-lustre",
+    "file": "pfs-lustre.html",
+    "badge": "tip",
+    "id": "pfs-lustre-tips-card",
+    "sec": "Lustre: Pro Tip",
+    "cmd": "lctl get_param health_check",
+    "desc": "Server side: is the target healthy?",
+    "tip": "Read the logs before you restart a Lustre server",
+    "tags": "storage filesystem pfs pfs-lustre tips best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.lustre.org/lustre_manual.xhtml",
+          "title": "Lustre Operations Manual"
+        }
+      ],
+      "note": "The manual names the health_check parameter and its \"not healthy\" status; reading it with lctl get_param is the standard form."
+    }
+  },
+  {
+    "sName": "pfs-weka",
+    "file": "pfs-weka.html",
+    "badge": "weka",
+    "id": "weka-status",
+    "sec": "WEKA: Overall cluster status",
+    "cmd": "weka status",
+    "desc": "Overall cluster status: health, capacity and protection",
+    "tip": "Rebuilding? Don't pull another drive",
+    "tags": "storage filesystem pfs pfs-weka weka status rebuild protection capacity",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.weka.io/getting-started-with-weka/weka-cli-overview/cli-reference-guide/weka-status",
+          "title": "WEKA CLI: weka status"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-weka",
+    "file": "pfs-weka.html",
+    "badge": "weka",
+    "id": "weka-status-sub-1",
+    "sec": "WEKA: Overall cluster status",
+    "cmd": "weka status rebuild",
+    "desc": "Rebuild / phase-out progress and protection level",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-weka recipe weka status rebuild",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.weka.io/getting-started-with-weka/weka-cli-overview/cli-reference-guide/weka-status",
+          "title": "WEKA CLI: weka status"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-weka",
+    "file": "pfs-weka.html",
+    "badge": "weka",
+    "id": "weka-status-sub-2",
+    "sec": "WEKA: Overall cluster status",
+    "cmd": "weka status --detailed-capacity",
+    "desc": "Capacity with data reduction",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-weka recipe weka status rebuild",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.weka.io/getting-started-with-weka/weka-cli-overview/cli-reference-guide/weka-status",
+          "title": "WEKA CLI: weka status"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-weka",
+    "file": "pfs-weka.html",
+    "badge": "weka",
+    "id": "weka-alerts",
+    "sec": "WEKA: Active alerts in the cluster",
+    "cmd": "weka alerts",
+    "desc": "Active alerts in the cluster",
+    "tip": "Muted alerts hide from the list",
+    "tags": "storage filesystem pfs pfs-weka weka alerts health",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.weka.io/getting-started-with-weka/weka-cli-overview/cli-reference-guide/weka-alerts",
+          "title": "WEKA CLI: weka alerts"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-weka",
+    "file": "pfs-weka.html",
+    "badge": "weka",
+    "id": "weka-alerts-sub-1",
+    "sec": "WEKA: Active alerts in the cluster",
+    "cmd": "weka alerts --inactive",
+    "desc": "Recently cleared alerts",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-weka recipe weka alerts health",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.weka.io/getting-started-with-weka/weka-cli-overview/cli-reference-guide/weka-alerts",
+          "title": "WEKA CLI: weka alerts"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-weka",
+    "file": "pfs-weka.html",
+    "badge": "weka",
+    "id": "weka-containers",
+    "sec": "WEKA: Every WEKA container",
+    "cmd": "weka cluster container",
+    "desc": "Every WEKA container (backend and client) and its status",
+    "tip": "A container not UP: check its server first",
+    "tags": "storage filesystem pfs pfs-weka weka cluster container process server",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.weka.io/getting-started-with-weka/weka-cli-overview/cli-reference-guide/weka-cluster",
+          "title": "WEKA CLI: weka cluster"
+        },
+        {
+          "url": "https://docs.weka.io/getting-started-with-weka/weka-cli-overview/migrate-from-legacy-weka-cli",
+          "title": "WEKA: migrate from the legacy CLI"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-weka",
+    "file": "pfs-weka.html",
+    "badge": "weka",
+    "id": "weka-containers-sub-1",
+    "sec": "WEKA: Every WEKA container",
+    "cmd": "weka cluster process",
+    "desc": "Processes per container",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-weka recipe weka cluster container",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.weka.io/getting-started-with-weka/weka-cli-overview/cli-reference-guide/weka-cluster",
+          "title": "WEKA CLI: weka cluster"
+        },
+        {
+          "url": "https://docs.weka.io/getting-started-with-weka/weka-cli-overview/migrate-from-legacy-weka-cli",
+          "title": "WEKA: migrate from the legacy CLI"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-weka",
+    "file": "pfs-weka.html",
+    "badge": "weka",
+    "id": "weka-containers-sub-2",
+    "sec": "WEKA: Every WEKA container",
+    "cmd": "weka cluster server list",
+    "desc": "Servers in the cluster",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-weka recipe weka cluster container",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.weka.io/getting-started-with-weka/weka-cli-overview/cli-reference-guide/weka-cluster",
+          "title": "WEKA CLI: weka cluster"
+        },
+        {
+          "url": "https://docs.weka.io/getting-started-with-weka/weka-cli-overview/migrate-from-legacy-weka-cli",
+          "title": "WEKA: migrate from the legacy CLI"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-weka",
+    "file": "pfs-weka.html",
+    "badge": "weka",
+    "id": "weka-drives",
+    "sec": "WEKA: NVMe drives WEKA manages, per container, and their status",
+    "cmd": "weka cluster drive",
+    "desc": "NVMe drives WEKA manages, per container, and their status",
+    "tip": "Match the drive to its server before any swap",
+    "tags": "storage filesystem pfs pfs-weka weka drive nvme container",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.weka.io/getting-started-with-weka/weka-cli-overview/cli-reference-guide/weka-cluster",
+          "title": "WEKA CLI: weka cluster"
+        }
+      ],
+      "note": "The CLI reference names the status columns but does not list their values."
+    }
+  },
+  {
+    "sName": "pfs-weka",
+    "file": "pfs-weka.html",
+    "badge": "weka",
+    "id": "weka-drives-sub-1",
+    "sec": "WEKA: NVMe drives WEKA manages, per container, and their status",
+    "cmd": "weka cluster drive --container <container-id>",
+    "desc": "Drives on one server",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-weka recipe weka drive nvme",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.weka.io/getting-started-with-weka/weka-cli-overview/cli-reference-guide/weka-cluster",
+          "title": "WEKA CLI: weka cluster"
+        }
+      ],
+      "note": "The CLI reference names the status columns but does not list their values."
+    }
+  },
+  {
+    "sName": "pfs-weka",
+    "file": "pfs-weka.html",
+    "badge": "weka",
+    "id": "weka-drives-sub-2",
+    "sec": "WEKA: NVMe drives WEKA manages, per container, and their status",
+    "cmd": "weka cluster drive deactivate <drive-id>",
+    "desc": "Phase a drive out before replacing it (changes state: WEKA support + approval)",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-weka recipe weka drive nvme",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.weka.io/getting-started-with-weka/weka-cli-overview/cli-reference-guide/weka-cluster",
+          "title": "WEKA CLI: weka cluster"
+        }
+      ],
+      "note": "The CLI reference names the status columns but does not list their values."
+    }
+  },
+  {
+    "sName": "pfs-weka",
+    "file": "pfs-weka.html",
+    "badge": "weka",
+    "id": "weka-local",
+    "sec": "WEKA: On one machine",
+    "cmd": "weka local ps",
+    "desc": "On one machine: its local WEKA containers and events",
+    "tip": "Cluster down? weka local events still answers",
+    "tags": "storage filesystem pfs pfs-weka weka local events container",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.weka.io/getting-started-with-weka/weka-cli-overview/cli-reference-guide/weka-local",
+          "title": "WEKA CLI: weka local"
+        },
+        {
+          "url": "https://docs.weka.io/getting-started-with-weka/weka-cli-overview/cli-reference-guide/weka-events",
+          "title": "WEKA CLI: weka events"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-weka",
+    "file": "pfs-weka.html",
+    "badge": "weka",
+    "id": "weka-local-sub-1",
+    "sec": "WEKA: On one machine",
+    "cmd": "weka local events",
+    "desc": "Local events, even with the cluster down",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-weka recipe weka local events",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.weka.io/getting-started-with-weka/weka-cli-overview/cli-reference-guide/weka-local",
+          "title": "WEKA CLI: weka local"
+        },
+        {
+          "url": "https://docs.weka.io/getting-started-with-weka/weka-cli-overview/cli-reference-guide/weka-events",
+          "title": "WEKA CLI: weka events"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-weka",
+    "file": "pfs-weka.html",
+    "badge": "weka",
+    "id": "weka-local-sub-2",
+    "sec": "WEKA: On one machine",
+    "cmd": "weka events local",
+    "desc": "Recent events that happened on this machine",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-weka recipe weka local events",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.weka.io/getting-started-with-weka/weka-cli-overview/cli-reference-guide/weka-local",
+          "title": "WEKA CLI: weka local"
+        },
+        {
+          "url": "https://docs.weka.io/getting-started-with-weka/weka-cli-overview/cli-reference-guide/weka-events",
+          "title": "WEKA CLI: weka events"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-weka",
+    "file": "pfs-weka.html",
+    "badge": "weka",
+    "id": "weka-mount",
+    "sec": "WEKA: Mount a WEKA filesystem on a stateless client",
+    "cmd": "mount -t wekafs <backend1>,<backend2>/<fs> /mnt/weka",
+    "desc": "Mount a WEKA filesystem on a stateless client",
+    "tip": "List more than one backend",
+    "tags": "storage filesystem pfs pfs-weka weka mount wekafs client",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.weka.io/weka-filesystems-and-object-stores/mounting-filesystems",
+          "title": "WEKA: mount filesystems"
+        },
+        {
+          "url": "https://docs.weka.io/getting-started-with-weka/weka-cli-overview/cli-reference-guide/weka-fs",
+          "title": "WEKA CLI: weka fs"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-weka",
+    "file": "pfs-weka.html",
+    "badge": "weka",
+    "id": "weka-mount-sub-1",
+    "sec": "WEKA: Mount a WEKA filesystem on a stateless client",
+    "cmd": "weka fs",
+    "desc": "Filesystems in the cluster",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-weka recipe weka mount wekafs",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.weka.io/weka-filesystems-and-object-stores/mounting-filesystems",
+          "title": "WEKA: mount filesystems"
+        },
+        {
+          "url": "https://docs.weka.io/getting-started-with-weka/weka-cli-overview/cli-reference-guide/weka-fs",
+          "title": "WEKA CLI: weka fs"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs-weka",
+    "file": "pfs-weka.html",
+    "badge": "tip",
+    "id": "pfs-weka-tips-card",
+    "sec": "WEKA: Pro Tip",
+    "cmd": "weka status rebuild",
+    "desc": "Before touching a WEKA backend",
+    "tip": "Never start a second failure during a rebuild",
+    "tags": "storage filesystem pfs pfs-weka tips best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.weka.io/getting-started-with-weka/weka-cli-overview/cli-reference-guide/weka-status",
+          "title": "WEKA CLI: weka status"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "lustre",
+    "id": "lustre-check-servers",
+    "sec": "Lustre: Are all the Lustre servers",
+    "cmd": "lfs check servers",
+    "desc": "Are all the Lustre servers (MDTs and OSTs) reachable from this client?",
+    "tip": "First check on a \"Lustre is slow / hung\" ticket",
+    "tags": "storage filesystem pfs pfs-lustre lustre lfs servers ost mdt reachability",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.lustre.org/lustre_manual.xhtml",
+          "title": "Lustre Operations Manual"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "lustre",
+    "id": "lustre-check-servers-sub-1",
+    "sec": "Lustre: Are all the Lustre servers",
+    "cmd": "lfs check osts",
+    "desc": "Only the object storage targets",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-lustre recipe lustre lfs servers",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.lustre.org/lustre_manual.xhtml",
+          "title": "Lustre Operations Manual"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "lustre",
+    "id": "lustre-check-servers-sub-2",
+    "sec": "Lustre: Are all the Lustre servers",
+    "cmd": "lfs check mds",
+    "desc": "Only the metadata targets",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-lustre recipe lustre lfs servers",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.lustre.org/lustre_manual.xhtml",
+          "title": "Lustre Operations Manual"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "lustre",
+    "id": "lustre-df",
+    "sec": "Lustre: Space per MDT and OST",
+    "cmd": "lfs df -h /mnt/<fsname>",
+    "desc": "Space per MDT and OST: which target is full",
+    "tip": "One OST at 100% stalls writes striped onto it",
+    "tags": "storage filesystem pfs pfs-lustre lustre lfs df space inodes ost",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.lustre.org/lustre_manual.xhtml",
+          "title": "Lustre Operations Manual"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "lustre",
+    "id": "lustre-df-sub-1",
+    "sec": "Lustre: Space per MDT and OST",
+    "cmd": "lfs df -i /mnt/<fsname>",
+    "desc": "Inode use per MDT and OST",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-lustre recipe lustre lfs df",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.lustre.org/lustre_manual.xhtml",
+          "title": "Lustre Operations Manual"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "lustre",
+    "id": "lustre-df-sub-2",
+    "sec": "Lustre: Space per MDT and OST",
+    "cmd": "lfs osts /mnt/<fsname>",
+    "desc": "Every OST with its index and UUID",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-lustre recipe lustre lfs df",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.lustre.org/lustre_manual.xhtml",
+          "title": "Lustre Operations Manual"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "lustre",
+    "id": "lustre-dl",
+    "sec": "Lustre: Lustre devices on this node and whether they are UP",
+    "cmd": "lctl dl",
+    "desc": "Lustre devices on this node and whether they are UP",
+    "tip": "Count the osc lines against lfs osts",
+    "tags": "storage filesystem pfs pfs-lustre lustre lctl devices osc mdc",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.lustre.org/lustre_manual.xhtml",
+          "title": "Lustre Operations Manual"
+        }
+      ],
+      "note": "The manual shows lctl get_param osc.<fs>-OST0001-osc-*.import; the fields in its output vary by version."
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "lustre",
+    "id": "lustre-dl-sub-1",
+    "sec": "Lustre: Lustre devices on this node and whether they are UP",
+    "cmd": "lctl dl | grep -E \" (mdc|osc) \"",
+    "desc": "Only the client's connections to MDTs and OSTs",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-lustre recipe lustre lctl devices",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.lustre.org/lustre_manual.xhtml",
+          "title": "Lustre Operations Manual"
+        }
+      ],
+      "note": "The manual shows lctl get_param osc.<fs>-OST0001-osc-*.import; the fields in its output vary by version."
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "lustre",
+    "id": "lustre-dl-sub-2",
+    "sec": "Lustre: Lustre devices on this node and whether they are UP",
+    "cmd": "lctl get_param osc.*.import",
+    "desc": "Connection detail for every OST import (fields vary by Lustre version)",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-lustre recipe lustre lctl devices",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.lustre.org/lustre_manual.xhtml",
+          "title": "Lustre Operations Manual"
+        }
+      ],
+      "note": "The manual shows lctl get_param osc.<fs>-OST0001-osc-*.import; the fields in its output vary by version."
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "lustre",
+    "id": "lustre-lnet",
+    "sec": "Lustre: LNet",
+    "cmd": "lnetctl net show --verbose",
+    "desc": "LNet: which networks this node is on, and can it reach a server NID",
+    "tip": "lctl ping fails but IP ping works → LNet / IB, not the network",
+    "tags": "storage filesystem pfs pfs-lustre lustre lnet lnetctl nid o2ib ping",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.lustre.org/lustre_manual.xhtml",
+          "title": "Lustre Operations Manual"
+        }
+      ],
+      "note": "lnetctl ping is not in the Operations Manual; lctl ping {nid} is."
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "lustre",
+    "id": "lustre-lnet-sub-1",
+    "sec": "Lustre: LNet",
+    "cmd": "lctl ping <nid>",
+    "desc": "LNet-level ping of a server, e.g. lctl ping 192.0.2.10@o2ib",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-lustre recipe lustre lnet lnetctl",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.lustre.org/lustre_manual.xhtml",
+          "title": "Lustre Operations Manual"
+        }
+      ],
+      "note": "lnetctl ping is not in the Operations Manual; lctl ping {nid} is."
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "lustre",
+    "id": "lustre-lnet-sub-2",
+    "sec": "Lustre: LNet",
+    "cmd": "lnetctl peer show",
+    "desc": "Peers this node knows, with their NIDs and state",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-lustre recipe lustre lnet lnetctl",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.lustre.org/lustre_manual.xhtml",
+          "title": "Lustre Operations Manual"
+        }
+      ],
+      "note": "lnetctl ping is not in the Operations Manual; lctl ping {nid} is."
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "lustre",
+    "id": "lustre-lnet-sub-3",
+    "sec": "Lustre: LNet",
+    "cmd": "dmesg -T | grep -iE \"lustre|lnet\"",
+    "desc": "Timeouts, evictions and reconnects in the kernel log",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-lustre recipe lustre lnet lnetctl",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.lustre.org/lustre_manual.xhtml",
+          "title": "Lustre Operations Manual"
+        }
+      ],
+      "note": "lnetctl ping is not in the Operations Manual; lctl ping {nid} is."
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "lustre",
+    "id": "lustre-stripe",
+    "sec": "Lustre: How a file or directory is striped across OSTs",
+    "cmd": "lfs getstripe -v <file-or-dir>",
+    "desc": "How a file or directory is striped across OSTs",
+    "tip": "lfs find --obd lists what a dead OST takes with it",
+    "tags": "storage filesystem pfs pfs-lustre lustre lfs stripe layout ost",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.lustre.org/lustre_manual.xhtml",
+          "title": "Lustre Operations Manual"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "lustre",
+    "id": "lustre-stripe-sub-1",
+    "sec": "Lustre: How a file or directory is striped across OSTs",
+    "cmd": "lfs setstripe -c <count> <dir>",
+    "desc": "Stripe new files in this directory over <count> OSTs (changes state)",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-lustre recipe lustre lfs stripe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.lustre.org/lustre_manual.xhtml",
+          "title": "Lustre Operations Manual"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "lustre",
+    "id": "lustre-stripe-sub-2",
+    "sec": "Lustre: How a file or directory is striped across OSTs",
+    "cmd": "lfs find --obd <ost-uuid> /mnt/<fsname>",
+    "desc": "Files with objects on one OST (e.g. before replacing it)",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-lustre recipe lustre lfs stripe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.lustre.org/lustre_manual.xhtml",
+          "title": "Lustre Operations Manual"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "lustre",
+    "id": "lustre-mount",
+    "sec": "Lustre: Mount a Lustre filesystem on a client",
+    "cmd": "mount -t lustre <mgs-nid>:/<fsname> /mnt/<fsname>",
+    "desc": "Mount a Lustre filesystem on a client",
+    "tip": "Failover MGS: nid1:nid2:/fsname",
+    "tags": "storage filesystem pfs pfs-lustre lustre mount client mgs nid",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.lustre.org/lustre_manual.xhtml",
+          "title": "Lustre Operations Manual"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "lustre",
+    "id": "lustre-mount-sub-1",
+    "sec": "Lustre: Mount a Lustre filesystem on a client",
+    "cmd": "umount /mnt/<fsname>",
+    "desc": "Unmount (changes state: drain the node first)",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-lustre recipe lustre mount client",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.lustre.org/lustre_manual.xhtml",
+          "title": "Lustre Operations Manual"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "tip",
+    "id": "pfs-lustre-tips-card",
+    "sec": "Lustre: Pro Tip",
+    "cmd": "lctl get_param health_check",
+    "desc": "Server side: is the target healthy?",
+    "tip": "Read the logs before you restart a Lustre server",
+    "tags": "storage filesystem pfs pfs-lustre tips best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.lustre.org/lustre_manual.xhtml",
+          "title": "Lustre Operations Manual"
+        }
+      ],
+      "note": "The manual names the health_check parameter and its \"not healthy\" status; reading it with lctl get_param is the standard form."
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "weka",
+    "id": "weka-status",
+    "sec": "WEKA: Overall cluster status",
+    "cmd": "weka status",
+    "desc": "Overall cluster status: health, capacity and protection",
+    "tip": "Rebuilding? Don't pull another drive",
+    "tags": "storage filesystem pfs pfs-weka weka status rebuild protection capacity",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.weka.io/getting-started-with-weka/weka-cli-overview/cli-reference-guide/weka-status",
+          "title": "WEKA CLI: weka status"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "weka",
+    "id": "weka-status-sub-1",
+    "sec": "WEKA: Overall cluster status",
+    "cmd": "weka status rebuild",
+    "desc": "Rebuild / phase-out progress and protection level",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-weka recipe weka status rebuild",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.weka.io/getting-started-with-weka/weka-cli-overview/cli-reference-guide/weka-status",
+          "title": "WEKA CLI: weka status"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "weka",
+    "id": "weka-status-sub-2",
+    "sec": "WEKA: Overall cluster status",
+    "cmd": "weka status --detailed-capacity",
+    "desc": "Capacity with data reduction",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-weka recipe weka status rebuild",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.weka.io/getting-started-with-weka/weka-cli-overview/cli-reference-guide/weka-status",
+          "title": "WEKA CLI: weka status"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "weka",
+    "id": "weka-alerts",
+    "sec": "WEKA: Active alerts in the cluster",
+    "cmd": "weka alerts",
+    "desc": "Active alerts in the cluster",
+    "tip": "Muted alerts hide from the list",
+    "tags": "storage filesystem pfs pfs-weka weka alerts health",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.weka.io/getting-started-with-weka/weka-cli-overview/cli-reference-guide/weka-alerts",
+          "title": "WEKA CLI: weka alerts"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "weka",
+    "id": "weka-alerts-sub-1",
+    "sec": "WEKA: Active alerts in the cluster",
+    "cmd": "weka alerts --inactive",
+    "desc": "Recently cleared alerts",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-weka recipe weka alerts health",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.weka.io/getting-started-with-weka/weka-cli-overview/cli-reference-guide/weka-alerts",
+          "title": "WEKA CLI: weka alerts"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "weka",
+    "id": "weka-containers",
+    "sec": "WEKA: Every WEKA container",
+    "cmd": "weka cluster container",
+    "desc": "Every WEKA container (backend and client) and its status",
+    "tip": "A container not UP: check its server first",
+    "tags": "storage filesystem pfs pfs-weka weka cluster container process server",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.weka.io/getting-started-with-weka/weka-cli-overview/cli-reference-guide/weka-cluster",
+          "title": "WEKA CLI: weka cluster"
+        },
+        {
+          "url": "https://docs.weka.io/getting-started-with-weka/weka-cli-overview/migrate-from-legacy-weka-cli",
+          "title": "WEKA: migrate from the legacy CLI"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "weka",
+    "id": "weka-containers-sub-1",
+    "sec": "WEKA: Every WEKA container",
+    "cmd": "weka cluster process",
+    "desc": "Processes per container",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-weka recipe weka cluster container",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.weka.io/getting-started-with-weka/weka-cli-overview/cli-reference-guide/weka-cluster",
+          "title": "WEKA CLI: weka cluster"
+        },
+        {
+          "url": "https://docs.weka.io/getting-started-with-weka/weka-cli-overview/migrate-from-legacy-weka-cli",
+          "title": "WEKA: migrate from the legacy CLI"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "weka",
+    "id": "weka-containers-sub-2",
+    "sec": "WEKA: Every WEKA container",
+    "cmd": "weka cluster server list",
+    "desc": "Servers in the cluster",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-weka recipe weka cluster container",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.weka.io/getting-started-with-weka/weka-cli-overview/cli-reference-guide/weka-cluster",
+          "title": "WEKA CLI: weka cluster"
+        },
+        {
+          "url": "https://docs.weka.io/getting-started-with-weka/weka-cli-overview/migrate-from-legacy-weka-cli",
+          "title": "WEKA: migrate from the legacy CLI"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "weka",
+    "id": "weka-drives",
+    "sec": "WEKA: NVMe drives WEKA manages, per container, and their status",
+    "cmd": "weka cluster drive",
+    "desc": "NVMe drives WEKA manages, per container, and their status",
+    "tip": "Match the drive to its server before any swap",
+    "tags": "storage filesystem pfs pfs-weka weka drive nvme container",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.weka.io/getting-started-with-weka/weka-cli-overview/cli-reference-guide/weka-cluster",
+          "title": "WEKA CLI: weka cluster"
+        }
+      ],
+      "note": "The CLI reference names the status columns but does not list their values."
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "weka",
+    "id": "weka-drives-sub-1",
+    "sec": "WEKA: NVMe drives WEKA manages, per container, and their status",
+    "cmd": "weka cluster drive --container <container-id>",
+    "desc": "Drives on one server",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-weka recipe weka drive nvme",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.weka.io/getting-started-with-weka/weka-cli-overview/cli-reference-guide/weka-cluster",
+          "title": "WEKA CLI: weka cluster"
+        }
+      ],
+      "note": "The CLI reference names the status columns but does not list their values."
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "weka",
+    "id": "weka-drives-sub-2",
+    "sec": "WEKA: NVMe drives WEKA manages, per container, and their status",
+    "cmd": "weka cluster drive deactivate <drive-id>",
+    "desc": "Phase a drive out before replacing it (changes state: WEKA support + approval)",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-weka recipe weka drive nvme",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.weka.io/getting-started-with-weka/weka-cli-overview/cli-reference-guide/weka-cluster",
+          "title": "WEKA CLI: weka cluster"
+        }
+      ],
+      "note": "The CLI reference names the status columns but does not list their values."
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "weka",
+    "id": "weka-local",
+    "sec": "WEKA: On one machine",
+    "cmd": "weka local ps",
+    "desc": "On one machine: its local WEKA containers and events",
+    "tip": "Cluster down? weka local events still answers",
+    "tags": "storage filesystem pfs pfs-weka weka local events container",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.weka.io/getting-started-with-weka/weka-cli-overview/cli-reference-guide/weka-local",
+          "title": "WEKA CLI: weka local"
+        },
+        {
+          "url": "https://docs.weka.io/getting-started-with-weka/weka-cli-overview/cli-reference-guide/weka-events",
+          "title": "WEKA CLI: weka events"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "weka",
+    "id": "weka-local-sub-1",
+    "sec": "WEKA: On one machine",
+    "cmd": "weka local events",
+    "desc": "Local events, even with the cluster down",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-weka recipe weka local events",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.weka.io/getting-started-with-weka/weka-cli-overview/cli-reference-guide/weka-local",
+          "title": "WEKA CLI: weka local"
+        },
+        {
+          "url": "https://docs.weka.io/getting-started-with-weka/weka-cli-overview/cli-reference-guide/weka-events",
+          "title": "WEKA CLI: weka events"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "weka",
+    "id": "weka-local-sub-2",
+    "sec": "WEKA: On one machine",
+    "cmd": "weka events local",
+    "desc": "Recent events that happened on this machine",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-weka recipe weka local events",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.weka.io/getting-started-with-weka/weka-cli-overview/cli-reference-guide/weka-local",
+          "title": "WEKA CLI: weka local"
+        },
+        {
+          "url": "https://docs.weka.io/getting-started-with-weka/weka-cli-overview/cli-reference-guide/weka-events",
+          "title": "WEKA CLI: weka events"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "weka",
+    "id": "weka-mount",
+    "sec": "WEKA: Mount a WEKA filesystem on a stateless client",
+    "cmd": "mount -t wekafs <backend1>,<backend2>/<fs> /mnt/weka",
+    "desc": "Mount a WEKA filesystem on a stateless client",
+    "tip": "List more than one backend",
+    "tags": "storage filesystem pfs pfs-weka weka mount wekafs client",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.weka.io/weka-filesystems-and-object-stores/mounting-filesystems",
+          "title": "WEKA: mount filesystems"
+        },
+        {
+          "url": "https://docs.weka.io/getting-started-with-weka/weka-cli-overview/cli-reference-guide/weka-fs",
+          "title": "WEKA CLI: weka fs"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "weka",
+    "id": "weka-mount-sub-1",
+    "sec": "WEKA: Mount a WEKA filesystem on a stateless client",
+    "cmd": "weka fs",
+    "desc": "Filesystems in the cluster",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-weka recipe weka mount wekafs",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.weka.io/weka-filesystems-and-object-stores/mounting-filesystems",
+          "title": "WEKA: mount filesystems"
+        },
+        {
+          "url": "https://docs.weka.io/getting-started-with-weka/weka-cli-overview/cli-reference-guide/weka-fs",
+          "title": "WEKA CLI: weka fs"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "tip",
+    "id": "pfs-weka-tips-card",
+    "sec": "WEKA: Pro Tip",
+    "cmd": "weka status rebuild",
+    "desc": "Before touching a WEKA backend",
+    "tip": "Never start a second failure during a rebuild",
+    "tags": "storage filesystem pfs pfs-weka tips best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.weka.io/getting-started-with-weka/weka-cli-overview/cli-reference-guide/weka-status",
+          "title": "WEKA CLI: weka status"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "beegfs",
+    "id": "beegfs-health-check",
+    "sec": "BeeGFS: Check for common problems across the whole filesystem",
+    "cmd": "beegfs health check",
+    "desc": "Check for common problems across the whole filesystem",
+    "tip": "Start here on any BeeGFS ticket",
+    "tags": "storage filesystem pfs pfs-beegfs beegfs health check-servers",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.beegfs.io/latest/quick_start_guide/quick_start_guide.html",
+          "title": "BeeGFS 8.4 quick start"
+        },
+        {
+          "url": "https://doc.beegfs.io/latest/advanced_topics/upgrade.html",
+          "title": "BeeGFS 8.4 upgrade guide"
+        },
+        {
+          "url": "https://doc.beegfs.io/7.4.6/quick_start_guide/quick_start_guide.html",
+          "title": "BeeGFS 7.4.6 quick start"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "beegfs",
+    "id": "beegfs-health-check-sub-1",
+    "sec": "BeeGFS: Check for common problems across the whole filesystem",
+    "cmd": "beegfs-check-servers",
+    "desc": "BeeGFS 7.x: reachability of mgmtd, meta and storage services",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-beegfs recipe beegfs health check-servers",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.beegfs.io/latest/quick_start_guide/quick_start_guide.html",
+          "title": "BeeGFS 8.4 quick start"
+        },
+        {
+          "url": "https://doc.beegfs.io/latest/advanced_topics/upgrade.html",
+          "title": "BeeGFS 8.4 upgrade guide"
+        },
+        {
+          "url": "https://doc.beegfs.io/7.4.6/quick_start_guide/quick_start_guide.html",
+          "title": "BeeGFS 7.4.6 quick start"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "beegfs",
+    "id": "beegfs-targets",
+    "sec": "BeeGFS: Target reachability and consistency",
+    "cmd": "beegfs target list --state",
+    "desc": "Target reachability and consistency",
+    "tip": "Bad consistency = the resync failed",
+    "tags": "storage filesystem pfs pfs-beegfs beegfs targets state mirror resync",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.beegfs.io/latest/reference/target_states.html",
+          "title": "BeeGFS 8.4: target states"
+        },
+        {
+          "url": "https://doc.beegfs.io/7.4.6/advanced_topics/target_management.html",
+          "title": "BeeGFS 7.4.6: target management"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "beegfs",
+    "id": "beegfs-targets-sub-1",
+    "sec": "BeeGFS: Target reachability and consistency",
+    "cmd": "beegfs-ctl --listtargets --longnodes --state",
+    "desc": "BeeGFS 7.x: the same view",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-beegfs recipe beegfs targets state",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.beegfs.io/latest/reference/target_states.html",
+          "title": "BeeGFS 8.4: target states"
+        },
+        {
+          "url": "https://doc.beegfs.io/7.4.6/advanced_topics/target_management.html",
+          "title": "BeeGFS 7.4.6: target management"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "beegfs",
+    "id": "beegfs-nodes",
+    "sec": "BeeGFS: Nodes and the network interfaces they use",
+    "cmd": "beegfs node list --with-nics",
+    "desc": "Nodes and the network interfaces they use",
+    "tip": "Expect RDMA NICs on an IB fabric",
+    "tags": "storage filesystem pfs pfs-beegfs beegfs nodes nic rdma",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.beegfs.io/latest/advanced_topics/node_management.html",
+          "title": "BeeGFS 8.4: node management"
+        },
+        {
+          "url": "https://doc.beegfs.io/7.4.6/quick_start_guide/quick_start_guide.html",
+          "title": "BeeGFS 7.4.6 quick start"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "beegfs",
+    "id": "beegfs-nodes-sub-1",
+    "sec": "BeeGFS: Nodes and the network interfaces they use",
+    "cmd": "beegfs node list --node-type=meta --with-nics --reachability-check",
+    "desc": "Metadata nodes, NICs and reachability",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-beegfs recipe beegfs nodes nic",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.beegfs.io/latest/advanced_topics/node_management.html",
+          "title": "BeeGFS 8.4: node management"
+        },
+        {
+          "url": "https://doc.beegfs.io/7.4.6/quick_start_guide/quick_start_guide.html",
+          "title": "BeeGFS 7.4.6 quick start"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "beegfs",
+    "id": "beegfs-nodes-sub-2",
+    "sec": "BeeGFS: Nodes and the network interfaces they use",
+    "cmd": "beegfs-ctl --listnodes --nodetype=storage --nicdetails",
+    "desc": "BeeGFS 7.x: storage nodes with NIC details",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-beegfs recipe beegfs nodes nic",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.beegfs.io/latest/advanced_topics/node_management.html",
+          "title": "BeeGFS 8.4: node management"
+        },
+        {
+          "url": "https://doc.beegfs.io/7.4.6/quick_start_guide/quick_start_guide.html",
+          "title": "BeeGFS 7.4.6 quick start"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "beegfs",
+    "id": "beegfs-df",
+    "sec": "BeeGFS: Free space and inodes on metadata and storage targets",
+    "cmd": "beegfs health df",
+    "desc": "Free space and inodes on metadata and storage targets",
+    "tip": "TCP where you expected RDMA = check the IB fabric",
+    "tags": "storage filesystem pfs pfs-beegfs beegfs df space inodes net",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.beegfs.io/latest/quick_start_guide/quick_start_guide.html",
+          "title": "BeeGFS 8.4 quick start"
+        },
+        {
+          "url": "https://doc.beegfs.io/7.4.6/quick_start_guide/quick_start_guide.html",
+          "title": "BeeGFS 7.4.6 quick start"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "beegfs",
+    "id": "beegfs-df-sub-1",
+    "sec": "BeeGFS: Free space and inodes on metadata and storage targets",
+    "cmd": "beegfs-df",
+    "desc": "BeeGFS 7.x: free space and inodes per target",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-beegfs recipe beegfs df space",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.beegfs.io/latest/quick_start_guide/quick_start_guide.html",
+          "title": "BeeGFS 8.4 quick start"
+        },
+        {
+          "url": "https://doc.beegfs.io/7.4.6/quick_start_guide/quick_start_guide.html",
+          "title": "BeeGFS 7.4.6 quick start"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "beegfs",
+    "id": "beegfs-df-sub-2",
+    "sec": "BeeGFS: Free space and inodes on metadata and storage targets",
+    "cmd": "beegfs health net",
+    "desc": "Connections this client uses (RDMA or TCP fallback)",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-beegfs recipe beegfs df space",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.beegfs.io/latest/quick_start_guide/quick_start_guide.html",
+          "title": "BeeGFS 8.4 quick start"
+        },
+        {
+          "url": "https://doc.beegfs.io/7.4.6/quick_start_guide/quick_start_guide.html",
+          "title": "BeeGFS 7.4.6 quick start"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "beegfs",
+    "id": "beegfs-df-sub-3",
+    "sec": "BeeGFS: Free space and inodes on metadata and storage targets",
+    "cmd": "beegfs-net",
+    "desc": "BeeGFS 7.x: the same",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-beegfs recipe beegfs df space",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.beegfs.io/latest/quick_start_guide/quick_start_guide.html",
+          "title": "BeeGFS 8.4 quick start"
+        },
+        {
+          "url": "https://doc.beegfs.io/7.4.6/quick_start_guide/quick_start_guide.html",
+          "title": "BeeGFS 7.4.6 quick start"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "beegfs",
+    "id": "beegfs-entry",
+    "sec": "BeeGFS: Where a file or directory lives",
+    "cmd": "beegfs-ctl --getentryinfo <path>",
+    "desc": "Where a file or directory lives: stripe pattern and targets",
+    "tip": "Map a slow file to its targets",
+    "tags": "storage filesystem pfs pfs-beegfs beegfs entry stripe client",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.beegfs.io/7.4.6/advanced_topics/striping.html",
+          "title": "BeeGFS 7.4.6: striping"
+        },
+        {
+          "url": "https://doc.beegfs.io/latest/release_notes.html",
+          "title": "BeeGFS 8.4 release notes"
+        }
+      ],
+      "note": "The 8.4 docs name beegfs entry info but don't show its arguments."
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "beegfs",
+    "id": "beegfs-entry-sub-1",
+    "sec": "BeeGFS: Where a file or directory lives",
+    "cmd": "systemctl status beegfs-client --no-pager",
+    "desc": "Is the BeeGFS client service running on this node",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-beegfs recipe beegfs entry stripe",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.beegfs.io/7.4.6/advanced_topics/striping.html",
+          "title": "BeeGFS 7.4.6: striping"
+        },
+        {
+          "url": "https://doc.beegfs.io/latest/release_notes.html",
+          "title": "BeeGFS 8.4 release notes"
+        }
+      ],
+      "note": "The 8.4 docs name beegfs entry info but don't show its arguments."
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "tip",
+    "id": "pfs-beegfs-tips-card",
+    "sec": "BeeGFS: Pro Tip",
+    "cmd": "beegfs --help",
+    "desc": "Which BeeGFS do you have?",
+    "tip": "Don't mix 7.x flags into 8.x commands",
+    "tags": "storage filesystem pfs pfs-beegfs tips best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://doc.beegfs.io/latest/quick_start_guide/quick_start_guide.html",
+          "title": "BeeGFS 8.4 quick start"
+        },
+        {
+          "url": "https://doc.beegfs.io/7.4.6/quick_start_guide/quick_start_guide.html",
+          "title": "BeeGFS 7.4.6 quick start"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "ceph",
+    "id": "ceph-status",
+    "sec": "Ceph: Cluster health at a glance, then the detail",
+    "cmd": "ceph -s",
+    "desc": "Cluster health at a glance, then the detail",
+    "tip": "HEALTH_WARN: read ceph health detail before acting",
+    "tags": "storage filesystem pfs pfs-ceph ceph status health",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/monitoring/",
+          "title": "Ceph: monitoring a cluster"
+        },
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/health-checks/",
+          "title": "Ceph: health checks"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "ceph",
+    "id": "ceph-status-sub-1",
+    "sec": "Ceph: Cluster health at a glance, then the detail",
+    "cmd": "ceph health detail",
+    "desc": "Every warning and error with the OSDs and PGs involved",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-ceph recipe ceph status health",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/monitoring/",
+          "title": "Ceph: monitoring a cluster"
+        },
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/health-checks/",
+          "title": "Ceph: health checks"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "ceph",
+    "id": "ceph-status-sub-2",
+    "sec": "Ceph: Cluster health at a glance, then the detail",
+    "cmd": "ceph df",
+    "desc": "Space per pool and raw capacity",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-ceph recipe ceph status health",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/monitoring/",
+          "title": "Ceph: monitoring a cluster"
+        },
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/health-checks/",
+          "title": "Ceph: health checks"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "ceph",
+    "id": "ceph-osd-tree",
+    "sec": "Ceph: Every OSD by host, and which are down",
+    "cmd": "ceph osd tree",
+    "desc": "Every OSD by host, and which are down",
+    "tip": "Down but still in = data is degraded, not moving yet",
+    "tags": "storage filesystem pfs pfs-ceph ceph osd tree up down in out",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/control/",
+          "title": "Ceph: control commands"
+        },
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/monitoring-osd-pg/",
+          "title": "Ceph: monitoring OSDs and PGs"
+        }
+      ],
+      "note": "ceph osd df tree is not in the current docs; ceph osd df <host> is."
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "ceph",
+    "id": "ceph-osd-tree-sub-1",
+    "sec": "Ceph: Every OSD by host, and which are down",
+    "cmd": "ceph osd stat",
+    "desc": "How many OSDs are up and in",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-ceph recipe ceph osd tree",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/control/",
+          "title": "Ceph: control commands"
+        },
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/monitoring-osd-pg/",
+          "title": "Ceph: monitoring OSDs and PGs"
+        }
+      ],
+      "note": "ceph osd df tree is not in the current docs; ceph osd df <host> is."
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "ceph",
+    "id": "ceph-osd-tree-sub-2",
+    "sec": "Ceph: Every OSD by host, and which are down",
+    "cmd": "ceph osd df <host>",
+    "desc": "Utilization of the OSDs on one host",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-ceph recipe ceph osd tree",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/control/",
+          "title": "Ceph: control commands"
+        },
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/monitoring-osd-pg/",
+          "title": "Ceph: monitoring OSDs and PGs"
+        }
+      ],
+      "note": "ceph osd df tree is not in the current docs; ceph osd df <host> is."
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "ceph",
+    "id": "ceph-pg",
+    "sec": "Ceph: Placement group states, and inconsistent PGs after a scrub",
+    "cmd": "ceph pg stat",
+    "desc": "Placement group states, and inconsistent PGs after a scrub",
+    "tip": "Inconsistent: find the bad copy (often a failing disk) before ceph pg repair",
+    "tags": "storage filesystem pfs pfs-ceph ceph pg degraded inconsistent scrub",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/monitoring-osd-pg/",
+          "title": "Ceph: monitoring OSDs and PGs"
+        },
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/troubleshooting/troubleshooting-pg/",
+          "title": "Ceph: troubleshooting PGs"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "ceph",
+    "id": "ceph-pg-sub-1",
+    "sec": "Ceph: Placement group states, and inconsistent PGs after a scrub",
+    "cmd": "rados list-inconsistent-pg <pool>",
+    "desc": "PG ids with inconsistencies in a pool",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-ceph recipe ceph pg degraded",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/monitoring-osd-pg/",
+          "title": "Ceph: monitoring OSDs and PGs"
+        },
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/troubleshooting/troubleshooting-pg/",
+          "title": "Ceph: troubleshooting PGs"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "ceph",
+    "id": "ceph-pg-sub-2",
+    "sec": "Ceph: Placement group states, and inconsistent PGs after a scrub",
+    "cmd": "rados list-inconsistent-obj <pgid> --format=json-pretty",
+    "desc": "Which objects, and which copy is bad",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-ceph recipe ceph pg degraded",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/monitoring-osd-pg/",
+          "title": "Ceph: monitoring OSDs and PGs"
+        },
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/troubleshooting/troubleshooting-pg/",
+          "title": "Ceph: troubleshooting PGs"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "ceph",
+    "id": "ceph-devices",
+    "sec": "Ceph: Which physical disk is behind each OSD on a host",
+    "cmd": "ceph device ls-by-host <host>",
+    "desc": "Which physical disk is behind each OSD on a host",
+    "tip": "Match the serial in the device id to the drive label",
+    "tags": "storage filesystem pfs pfs-ceph ceph device osd disk serial",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/devices/",
+          "title": "Ceph: device management"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "ceph",
+    "id": "ceph-devices-sub-1",
+    "sec": "Ceph: Which physical disk is behind each OSD on a host",
+    "cmd": "ceph device info <devid>",
+    "desc": "One device in detail",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-ceph recipe ceph device osd",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/devices/",
+          "title": "Ceph: device management"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "ceph",
+    "id": "ceph-devices-sub-2",
+    "sec": "Ceph: Which physical disk is behind each OSD on a host",
+    "cmd": "ceph device ls",
+    "desc": "All devices and their daemons",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-ceph recipe ceph device osd",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/devices/",
+          "title": "Ceph: device management"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "ceph",
+    "id": "ceph-noout",
+    "sec": "Ceph: Before maintenance",
+    "cmd": "ceph osd set noout",
+    "desc": "Before maintenance: stop Ceph re-balancing while OSDs are down (changes state: ask first)",
+    "tip": "Set noout → work → unset noout",
+    "tags": "storage filesystem pfs pfs-ceph ceph noout maintenance osd out",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/health-checks/",
+          "title": "Ceph: health checks (OSDMAP_FLAGS)"
+        },
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/control/",
+          "title": "Ceph: control commands"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "ceph",
+    "id": "ceph-noout-sub-1",
+    "sec": "Ceph: Before maintenance",
+    "cmd": "ceph osd unset noout",
+    "desc": "After the work: let Ceph mark failed OSDs out again (changes state)",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-ceph recipe ceph noout maintenance",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/health-checks/",
+          "title": "Ceph: health checks (OSDMAP_FLAGS)"
+        },
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/control/",
+          "title": "Ceph: control commands"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "ceph",
+    "id": "ceph-noout-sub-2",
+    "sec": "Ceph: Before maintenance",
+    "cmd": "ceph osd out <osd-id>",
+    "desc": "Drain data off one OSD before replacing its disk (changes state)",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-ceph recipe ceph noout maintenance",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/health-checks/",
+          "title": "Ceph: health checks (OSDMAP_FLAGS)"
+        },
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/control/",
+          "title": "Ceph: control commands"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "ceph",
+    "id": "ceph-orch",
+    "sec": "Ceph: cephadm",
+    "cmd": "ceph orch ps",
+    "desc": "cephadm: every daemon, host and device the orchestrator manages",
+    "tip": "No ceph CLI on the host? cephadm shell",
+    "tags": "storage filesystem pfs pfs-ceph ceph cephadm orch daemons",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.ceph.com/en/latest/cephadm/operations/",
+          "title": "Ceph: cephadm operations"
+        },
+        {
+          "url": "https://docs.ceph.com/en/latest/cephadm/host-management/",
+          "title": "Ceph: cephadm host management"
+        },
+        {
+          "url": "https://docs.ceph.com/en/latest/cephadm/install/",
+          "title": "Ceph: cephadm install"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "ceph",
+    "id": "ceph-orch-sub-1",
+    "sec": "Ceph: cephadm",
+    "cmd": "ceph orch host ls",
+    "desc": "Hosts in the cluster",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-ceph recipe ceph cephadm orch",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.ceph.com/en/latest/cephadm/operations/",
+          "title": "Ceph: cephadm operations"
+        },
+        {
+          "url": "https://docs.ceph.com/en/latest/cephadm/host-management/",
+          "title": "Ceph: cephadm host management"
+        },
+        {
+          "url": "https://docs.ceph.com/en/latest/cephadm/install/",
+          "title": "Ceph: cephadm install"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "ceph",
+    "id": "ceph-orch-sub-2",
+    "sec": "Ceph: cephadm",
+    "cmd": "ceph orch device ls",
+    "desc": "Disks on each host, and whether they are available",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-ceph recipe ceph cephadm orch",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.ceph.com/en/latest/cephadm/operations/",
+          "title": "Ceph: cephadm operations"
+        },
+        {
+          "url": "https://docs.ceph.com/en/latest/cephadm/host-management/",
+          "title": "Ceph: cephadm host management"
+        },
+        {
+          "url": "https://docs.ceph.com/en/latest/cephadm/install/",
+          "title": "Ceph: cephadm install"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "ceph",
+    "id": "ceph-orch-sub-3",
+    "sec": "Ceph: cephadm",
+    "cmd": "cephadm shell -- ceph -s",
+    "desc": "Run one ceph command through cephadm",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-ceph recipe ceph cephadm orch",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.ceph.com/en/latest/cephadm/operations/",
+          "title": "Ceph: cephadm operations"
+        },
+        {
+          "url": "https://docs.ceph.com/en/latest/cephadm/host-management/",
+          "title": "Ceph: cephadm host management"
+        },
+        {
+          "url": "https://docs.ceph.com/en/latest/cephadm/install/",
+          "title": "Ceph: cephadm install"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "ceph",
+    "id": "ceph-crash",
+    "sec": "Ceph: Daemon crash reports",
+    "cmd": "ceph crash ls-new",
+    "desc": "Daemon crash reports",
+    "tip": "Put the backtrace in the ticket before archiving",
+    "tags": "storage filesystem pfs pfs-ceph ceph crash mgr",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.ceph.com/en/latest/mgr/crash/",
+          "title": "Ceph: crash module"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "ceph",
+    "id": "ceph-crash-sub-1",
+    "sec": "Ceph: Daemon crash reports",
+    "cmd": "ceph crash info <crashid>",
+    "desc": "One crash in detail",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-ceph recipe ceph crash mgr",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.ceph.com/en/latest/mgr/crash/",
+          "title": "Ceph: crash module"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "ceph",
+    "id": "ceph-crash-sub-2",
+    "sec": "Ceph: Daemon crash reports",
+    "cmd": "ceph crash archive-all",
+    "desc": "Archive every new crash once it is in the ticket (changes state)",
+    "tip": "",
+    "tags": "storage filesystem pfs pfs-ceph recipe ceph crash mgr",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.ceph.com/en/latest/mgr/crash/",
+          "title": "Ceph: crash module"
+        }
+      ]
+    }
+  },
+  {
+    "sName": "pfs",
+    "file": "pfs.html",
+    "badge": "tip",
+    "id": "pfs-ceph-tips-card",
+    "sec": "Ceph: Pro Tip",
+    "cmd": "ceph device ls-by-host <host>",
+    "desc": "Replacing a disk under a Ceph OSD",
+    "tip": "Serial first, then the drive",
+    "tags": "storage filesystem pfs pfs-ceph tips best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/devices/",
+          "title": "Ceph: device management"
+        },
+        {
+          "url": "https://docs.ceph.com/en/latest/rados/operations/control/",
+          "title": "Ceph: control commands"
+        }
+      ]
+    }
   },
   {
     "sName": "powershell",

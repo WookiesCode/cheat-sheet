@@ -373,6 +373,32 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     await ctx.close();
   }
 
+  // 2k. Parallel filesystems (Lustre, WEKA, BeeGFS, Ceph), written sourced: every entry has a source,
+  // the state-changing ones are flagged, the read-only checks are not, and the suite is in Hardware.
+  {
+    const PAGES = ['pfs-lustre', 'pfs-weka', 'pfs-beegfs', 'pfs-ceph'];
+    const ctx = await newContext(browser);
+    const p = await ctx.newPage();
+    const all = [];
+    for (const f of PAGES) {
+      await p.goto(BASE + f + '.html', { waitUntil: 'load' });
+      await p.waitForTimeout(500);
+      all.push(...await p.evaluate(() => [...document.querySelectorAll('.cmd-item[data-cmd-id]')].filter(it => !/-flags-card$/.test(it.dataset.cmdId)).map(it => {
+        const b = it.querySelector('.cmd-code-box');
+        return { id: it.dataset.cmdId, code: b ? (b.dataset.cmd || b.dataset.copy || '') : '', src: !!it.querySelector('.cmd-source'),
+          verified: !!it.querySelector('.cmd-source:not(.is-unverified)'), danger: !!(b && /Changes state/.test(b.getAttribute('aria-label') || '')) };
+      })));
+    }
+    check(all.length >= 60 && all.every(x => x.verified), `every parallel-filesystem entry shows a verified source line (${all.filter(x => x.verified).length}/${all.length})`);
+    const muts = all.filter(x => /^(umount|lfs setstripe|ceph osd (set|unset|out)|ceph crash archive-all|weka cluster drive deactivate)\b/.test(x.code));
+    check(muts.length === 7 && muts.every(x => x.danger), `umount, setstripe, noout, osd out, crash archive and drive deactivate are flagged (${muts.filter(x => x.danger).length}/${muts.length})`);
+    const reads = all.filter(x => /^(lfs (check|df|osts|getstripe|find)|lctl (dl|ping|get_param)|lnetctl|weka (status|alerts|cluster (container|drive|process|server)|local|events|fs)|beegfs(-ctl --(list|getentry)|-df|-net|-check-servers| (health|target list|node list))|ceph (-s|health detail|df|osd (tree|stat|df)|pg stat|device|orch (ps|host ls|device ls)|crash (ls-new|info))|rados list-)/.test(x.code) && !/(deactivate)/.test(x.code));
+    check(reads.length >= 40 && !reads.some(x => x.danger), `read-only checks are not flagged (${reads.length}; flagged: ${reads.filter(x => x.danger).map(x => x.code).join(' | ') || 'none'})`);
+    check(!all.some(x => /weka cluster (host|nodes)\b|events list-local|ceph osd df tree|lnetctl ping/.test(x.code)), 'no retired or undocumented forms (weka cluster host/nodes, events list-local, ceph osd df tree, lnetctl ping)');
+    check(await p.evaluate(() => !!document.querySelector('#navgroup-hw .ng-group[data-suite-key="pfs"]')), 'Parallel filesystems is a group in the Hardware tab');
+    await ctx.close();
+  }
+
   // 3. Over a year old → amber "re-check"; and src can't inject markup or javascript: links.
   {
     const ctx = await newContext(browser);
