@@ -19,7 +19,8 @@ const ETHERNET_CHEAT_SHEET_DATA = [
           ["1G / 2.5G / 5G / 10GBASE-T", "Uses ALL 4 pairs (Pins 1–8) simultaneously in full-duplex PAM5 / PAM16"]
         ],
         tip: "Only Orange & Green swap between B and A",
-        tags: ["rj45", "pinout", "t568b", "t568a", "568b", "568a", "wires", "colors", "8p8c"]
+        tags: ["rj45", "pinout", "t568b", "t568a", "568b", "568a", "wires", "colors", "8p8c"],
+        src: {"verified": "2026-11-09", "refs": [], "note": "Wiring reference: the TIA-568 standard is not freely available, so the pinout was not checked against it."}
       },
       {
         id: "ethtool-cable-test-tdr",
@@ -33,7 +34,8 @@ const ETHERNET_CHEAT_SHEET_DATA = [
           ["Split Pair Error", "Wiring Pin 3 & 4 as a pair instead of Pin 3 & 6 passes basic continuity lights but fails at 1Gbps due to severe NEXT crosstalk!"]
         ],
         tip: "Finds bad crimp distance in meters!",
-        tags: ["cable-test", "tdr", "ethtool", "open", "short", "100mbps", "crimp", "rj45"]
+        tags: ["cable-test", "tdr", "ethtool", "open", "short", "100mbps", "crimp", "rj45"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man8/ethtool.8.html", "title": "ethtool(8)"}], "note": "The pair-fault explanations are rules of thumb."}
       },
       {
         id: "ethtool-identify-blink-led",
@@ -45,7 +47,8 @@ const ETHERNET_CHEAT_SHEET_DATA = [
           ["-p <iface> 30", "Flashes the physical activity/link LED on that specific NIC port for 30 seconds"]
         ],
         tip: "Never unplug the wrong port again",
-        tags: ["blink", "led", "identify", "port", "ethtool", "physical"]
+        tags: ["blink", "led", "identify", "port", "ethtool", "physical"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man8/ethtool.8.html", "title": "ethtool(8)"}]}
       }
     ]
   },
@@ -67,7 +70,8 @@ const ETHERNET_CHEAT_SHEET_DATA = [
           ["ethtool -r <iface>", "Restart auto-negotiation on the interface"],
           ["Note on 1000BASE-T", "IEEE 802.3ab requires autoneg ON for 1000BASE-T (to negotiate Master/Slave clock timing)"]
         ],
-        tags: ["speed", "duplex", "autoneg", "ethtool", "carrier", "1000base-t"]
+        tags: ["speed", "duplex", "autoneg", "ethtool", "carrier", "1000base-t"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man8/ethtool.8.html", "title": "ethtool(8)"}]}
       },
       {
         id: "ethtool-crc-drop-counters",
@@ -81,7 +85,8 @@ const ETHERNET_CHEAT_SHEET_DATA = [
           ["tx_pause / rx_pause", "802.3x flow-control pause frames throttling traffic"]
         ],
         tip: "rx_crc_errors > 0 = replace cable",
-        tags: ["crc", "fcs", "errors", "drops", "counters", "pause", "ethtool"]
+        tags: ["crc", "fcs", "errors", "drops", "counters", "pause", "ethtool"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man8/ethtool.8.html", "title": "ethtool(8)"}], "note": "Counter names vary by driver."}
       },
       {
         id: "ethtool-ring-buffers-queues",
@@ -94,7 +99,8 @@ const ETHERNET_CHEAT_SHEET_DATA = [
           ["-l / -L", "Show / Set number of multi-queue RSS channels (spreads IRQ softirq load across CPU cores)"],
           ["ethtool -k eth0", "Inspect hardware offloads (tcp-segmentation-offload, generic-receive-offload, rx-checksumming)"]
         ],
-        tags: ["ring", "buffer", "rss", "queues", "offload", "tso", "gro", "drops"]
+        tags: ["ring", "buffer", "rss", "queues", "offload", "tso", "gro", "drops"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man8/ethtool.8.html", "title": "ethtool(8)"}]}
       },
       {
         id: "ethtool-driver-pci-bdf",
@@ -106,7 +112,8 @@ const ETHERNET_CHEAT_SHEET_DATA = [
           ["driver / version / firmware-version", "Prints kernel module name, driver version, and NIC NVM/EEPROM firmware version"],
           ["bus-info", "Prints exact PCI BDF (e.g. 0000:04:00.0) to correlate with lspci -vvv"]
         ],
-        tags: ["driver", "firmware", "pci", "bdf", "lspci", "ixgbe", "mlx5"]
+        tags: ["driver", "firmware", "pci", "bdf", "lspci", "ixgbe", "mlx5"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man8/ethtool.8.html", "title": "ethtool(8)"}], "note": "ethtool(8) does not list the -i field names."}
       }
     ]
   },
@@ -123,13 +130,14 @@ const ETHERNET_CHEAT_SHEET_DATA = [
         desc: "Validate and safely test `/etc/netplan/*.yaml` changes with automatic rollback if SSH disconnects",
         cmd: "chmod 600 /etc/netplan/*.yaml && netplan generate && netplan try --timeout 60",
         flags: [
-          ["chmod 600", "Silences Netplan warning 'Permissions for /etc/netplan/*.yaml are too open'"],
+          ["chmod 600", "Netplan's security advice: keep YAML files in /etc/netplan unreadable by other users"],
           ["netplan try --timeout 60", "Applies config and waits 60s for you to press Enter; automatically reverts if you lose SSH!"],
-          ["netplan status --all", "Display active addresses, routes, DNS, and underlying renderer state (Ubuntu 22.04+)"],
+          ["netplan status --all", "Active addresses, routes, DNS and renderer state, including inactive interfaces"],
           ["netplan get", "Dump merged active Netplan YAML configuration across all files"]
         ],
         tip: "Always use 'netplan try' over remote SSH!",
-        tags: ["netplan", "try", "apply", "ubuntu", "yaml", "rollback", "chmod"]
+        tags: ["netplan", "try", "apply", "ubuntu", "yaml", "rollback", "chmod"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://netplan.readthedocs.io/en/stable/netplan-try/", "title": "netplan try"}, {"url": "https://netplan.readthedocs.io/en/stable/netplan-status/", "title": "netplan status"}, {"url": "https://netplan.readthedocs.io/en/stable/netplan-get/", "title": "netplan get"}, {"url": "https://netplan.readthedocs.io/en/stable/security/", "title": "netplan security"}]}
       },
       {
         id: "networkctl-systemd-networkd",
@@ -143,7 +151,8 @@ const ETHERNET_CHEAT_SHEET_DATA = [
           ["networkctl reconfigure <iface>", "Reload interface configuration without restarting all network interfaces"]
         ],
         tip: "networkctl lldp works out-of-the-box!",
-        tags: ["networkctl", "networkd", "systemd", "lldp", "status", "ubuntu"]
+        tags: ["networkctl", "networkd", "systemd", "lldp", "status", "ubuntu"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/networkctl.1.html", "title": "networkctl(1)"}], "note": "networkctl lldp needs LLDP= enabled on the interface; reconfigure does not reload .network files (networkctl reload first)."}
       },
       {
         id: "nmcli-ubuntu-desktop-server",
@@ -155,7 +164,8 @@ const ETHERNET_CHEAT_SHEET_DATA = [
           ["ipv6.method manual / auto / dhcp", "Set static IPv6 ('manual'), SLAAC + RA ('auto'), or stateful DHCPv6 ('dhcp')"],
           ["ipv4.method disabled", "Disable IPv4 on pure IPv6-only data center interfaces"]
         ],
-        tags: ["nmcli", "networkmanager", "ipv6", "static", "slaac", "dhcpv6", "connection"]
+        tags: ["nmcli", "networkmanager", "ipv6", "static", "slaac", "dhcpv6", "connection"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://networkmanager.dev/docs/api/latest/nmcli.html", "title": "nmcli"}, {"url": "https://networkmanager.dev/docs/api/latest/nm-settings-nmcli.html", "title": "nm-settings-nmcli"}], "note": "ipv6.method values are from the settings page summary."}
       }
     ]
   },
@@ -177,7 +187,8 @@ const ETHERNET_CHEAT_SHEET_DATA = [
           ["-s -s link", "Detailed RX/TX byte/packet counters plus specific crc_errors, frame, fifo, and carrier_changes counts"]
         ],
         tip: "ip -6 -br -c addr shows all IPv6 prefixes cleanly",
-        tags: ["ip", "ipv6", "brief", "addr", "link", "mac", "stats", "fe80"]
+        tags: ["ip", "ipv6", "brief", "addr", "link", "mac", "stats", "fe80"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man8/ip.8.html", "title": "ip(8)"}, {"url": "https://man7.org/linux/man-pages/man8/ip-link.8.html", "title": "ip-link(8)"}, {"url": "https://man7.org/linux/man-pages/man8/ip-address.8.html", "title": "ip-address(8)"}]}
       },
       {
         id: "ip-mtu-up-down-addr",
@@ -190,7 +201,8 @@ const ETHERNET_CHEAT_SHEET_DATA = [
           ["scope global", "Flush only global IPv6 addresses while preserving the required fe80:: link-local address!"]
         ],
         tip: "Never flush link-local fe80:: — IPv6 NDP & routing need it!",
-        tags: ["mtu", "jumbo", "9000", "up", "down", "ipv6", "cidr", "flush"]
+        tags: ["mtu", "jumbo", "9000", "up", "down", "ipv6", "cidr", "flush"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man8/ip-link.8.html", "title": "ip-link(8)"}, {"url": "https://man7.org/linux/man-pages/man8/ip-address.8.html", "title": "ip-address(8)"}]}
       },
       {
         id: "ip-route-get-lookup",
@@ -204,21 +216,23 @@ const ETHERNET_CHEAT_SHEET_DATA = [
           ["ip -6 rule show", "List IPv6 policy-based routing (PBR) tables and priorities"]
         ],
         tip: "'ip -6 route get' debugs multi-NIC IPv6 routing",
-        tags: ["route", "ipv6", "gateway", "default", "egress", "source", "pbr", "fe80"]
+        tags: ["route", "ipv6", "gateway", "default", "egress", "source", "pbr", "fe80"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man8/ip-route.8.html", "title": "ip-route(8)"}, {"url": "https://man7.org/linux/man-pages/man8/ip-rule.8.html", "title": "ip-rule(8)"}]}
       },
       {
         id: "ip-neigh-arping-duplicate",
         mode: "NDP / L2",
         modeClass: "mode-t",
         desc: "Inspect IPv6 Neighbor Discovery Protocol (NDP) cache (`REACHABLE`, `STALE`, `FAILED`, `router`) or probe with `ndisc6` / `rdisc6`",
-        cmd: "ip -6 -c neigh show   |   ip -6 neigh flush all   |   ndisc6 2001:db8:dc:10::1 eth0   |   rdisc6 eth0",
+        cmd: "ip -6 -c neigh show   |   ip -6 neigh flush dev eth0   |   ndisc6 2001:db8:dc:10::1 eth0   |   rdisc6 eth0",
         flags: [
           ["ip -6 -c neigh show", "Replaces IPv4 ARP! Maps IPv6 addresses to L2 MACs and marks upstream routers with the 'router' flag"],
           ["ndisc6 <ipv6> <if>", "Send an explicit ICMPv6 Neighbor Solicitation (type 135) to resolve target IPv6's MAC address"],
           ["rdisc6 <if>", "Send an ICMPv6 Router Solicitation (type 133) to inspect switch Router Advertisement (RA) prefixes, MTU, and flags"]
         ],
         tip: "IPv6 uses ICMPv6 Neighbor Discovery (NDP) instead of ARP!",
-        tags: ["ndp", "neigh", "ndisc6", "rdisc6", "ipv6", "mac", "l2", "router-advertisement"]
+        tags: ["ndp", "neigh", "ndisc6", "rdisc6", "ipv6", "mac", "l2", "router-advertisement"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man8/ip-neighbour.8.html", "title": "ip-neighbour(8)"}, {"url": "https://manpages.debian.org/unstable/ndisc6/ndisc6.8.en.html", "title": "ndisc6(8)"}, {"url": "https://manpages.debian.org/unstable/ndisc6/rdisc6.8.en.html", "title": "rdisc6(8)"}], "note": "Corrected 2026-11-09: \"neigh flush all\" is not a documented form; flush takes the same selectors as show."}
       }
     ]
   },
@@ -240,7 +254,8 @@ const ETHERNET_CHEAT_SHEET_DATA = [
           ["xmit_hash_policy layer3+4", "Hashes on IP + TCP/UDP port so multiple flows between two hosts load-balance across all links"]
         ],
         tip: "Partner MAC 00:00:.. = switch LACP off",
-        tags: ["bond", "lacp", "802.3ad", "bonding", "aggregator", "mlag", "port-channel"]
+        tags: ["bond", "lacp", "802.3ad", "bonding", "aggregator", "mlag", "port-channel"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://docs.kernel.org/networking/bonding.html", "title": "Linux bonding"}], "note": "Aggregator ID and Partner MAC are not in the kernel bonding doc's sample output."}
       },
       {
         id: "iproute2-create-bond-vlan",
@@ -252,7 +267,8 @@ const ETHERNET_CHEAT_SHEET_DATA = [
           ["type vlan id 100", "Tags egress frames with 802.1Q VLAN ID 100 and strips tag on ingress"],
           ["cat /proc/net/vlan/eth0.100", "Inspect 802.1Q VLAN ID, reorder header flag, and per-VLAN packet counters"]
         ],
-        tags: ["vlan", "802.1q", "trunk", "tagged", "subinterface"]
+        tags: ["vlan", "802.1q", "trunk", "tagged", "subinterface"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man8/ip-link.8.html", "title": "ip-link(8)"}]}
       },
       {
         id: "bridge-fdb-vlan",
@@ -264,7 +280,8 @@ const ETHERNET_CHEAT_SHEET_DATA = [
           ["bridge link show", "Lists all member interfaces (physical NICs, veth pairs, tap VMs) enslaved to bridges"],
           ["bridge fdb show", "Displays learned MAC address table per bridge port (like 'show mac address-table' on a switch)"]
         ],
-        tags: ["bridge", "br0", "fdb", "mac-table", "kvm", "veth"]
+        tags: ["bridge", "br0", "fdb", "mac-table", "kvm", "veth"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man8/bridge.8.html", "title": "bridge(8)"}]}
       }
     ]
   },
@@ -281,11 +298,12 @@ const ETHERNET_CHEAT_SHEET_DATA = [
         desc: "Identify which physical upstream switch name, port number, and native VLAN `eth0` is plugged into",
         cmd: "lldpctl eth0   |   tcpdump -nn -v -i eth0 -s 1500 -c 1 '(ether proto 0x88cc or ether[20:2] == 0x2000)'",
         flags: [
-          ["lldpctl (lldpd package)", "Queries & transmits LLDP frames (prints SysName, PortID, PortDescr,MgmtIP, and PVID VLAN)"],
+          ["lldpctl (lldpd package)", "Shows the neighbors the lldpd daemon learned (the daemon sends and receives LLDP; lldpctl only displays)"],
           ["tcpdump ether proto 0x88cc", "Zero-install trick: captures 1 raw LLDP (0x88cc) or Cisco CDP (0x2000) frame (sent every 30s by switches)"]
         ],
         tip: "Traces cables without going to the rack!",
-        tags: ["lldp", "cdp", "switch", "port", "tcpdump", "lldpctl", "trace"]
+        tags: ["lldp", "cdp", "switch", "port", "tcpdump", "lldpctl", "trace"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://manpages.debian.org/trixie/lldpd/lldpctl.8.en.html", "title": "lldpctl(8)"}, {"url": "https://man7.org/linux/man-pages/man7/pcap-filter.7.html", "title": "pcap-filter(7)"}], "note": "The neighbor fields lldpctl prints are not listed in its man page; the CDP filter is a convention."}
       },
       {
         id: "jumbo-frame-mtu-ping",
@@ -298,7 +316,8 @@ const ETHERNET_CHEAT_SHEET_DATA = [
           ["-s 8952 / -s 1452", "Payload size + 8-byte ICMPv6 header + 40-byte IPv6 header = exact 9000 (Jumbo) or 1500 (Standard) frame!"]
         ],
         tip: "IPv6 header is 40B: 8952 + 48 = 9000 MTU (vs 8972 on IPv4)",
-        tags: ["mtu", "jumbo", "ping", "ping6", "ipv6", "fragment", "df", "8952", "1452"]
+        tags: ["mtu", "jumbo", "ping", "ping6", "ipv6", "fragment", "df", "8952", "1452"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man8/ping.8.html", "title": "ping(8)"}]}
       },
       {
         id: "iperf3-line-rate-test",
@@ -312,7 +331,8 @@ const ETHERNET_CHEAT_SHEET_DATA = [
           ["-R (Reverse)", "Server sends, client receives (tests download direction without switching sides)"],
           ["Retr column", "Watch TCP Retransmissions column: high Retr indicates switch buffer drops or bad cable CRC errors"]
         ],
-        tags: ["iperf3", "ipv6", "bandwidth", "throughput", "speedtest", "retransmissions", "10g"]
+        tags: ["iperf3", "ipv6", "bandwidth", "throughput", "speedtest", "retransmissions", "10g"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://software.es.net/iperf/invoking.html", "title": "iperf3"}], "note": "The Retr column is not described in the iperf3 manual."}
       },
       {
         id: "ubuntu-resolvectl-dns",
@@ -324,7 +344,8 @@ const ETHERNET_CHEAT_SHEET_DATA = [
           ["resolvectl status", "Shows why /etc/resolv.conf points to 127.0.0.53 and lists actual upstream IPv6 DNS servers per NIC"],
           ["resolvectl dns eth0 2606:4700:4700::1111 2001:4860:4860::8888", "Set upstream IPv6 DNS servers for interface eth0 on the fly"]
         ],
-        tags: ["dns", "ipv6", "aaaa", "resolvectl", "systemd-resolved", "127.0.0.53", "ubuntu"]
+        tags: ["dns", "ipv6", "aaaa", "resolvectl", "systemd-resolved", "127.0.0.53", "ubuntu"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man1/resolvectl.1.html", "title": "resolvectl(1)"}]}
       }
     ]
   }

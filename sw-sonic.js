@@ -4,29 +4,29 @@ const SW_SW_SONIC_DATA = [
   {
     "id": "sonic-cli-cmd-1",
     "badge": "snc",
-    "title": "SONiC: Cloud NOS CLI: Check SONiC switch interface status, optical transceiver DOM EEPROM",
-    "subtitle": "Check SONiC switch interface status, optical transceiver DOM EEPROM (sfputil), LLDP neighbors, and PSU/fan health",
+    "title": "SONiC: Cloud NOS CLI: Check SONiC switch interface status, optical transceiver DOM EEPROM, LLDP neighbors, and PSU/fan health",
+    "subtitle": "Check SONiC switch interface status, optical transceiver DOM EEPROM, LLDP neighbors, and PSU/fan health",
     "commands": [
       {
         "id": "sonic-interfaces-sfputil-lldp",
-        "desc": "Check SONiC switch interface status, optical transceiver DOM EEPROM (sfputil), LLDP neighbors, and PSU/fan health",
-        "cmd": "show interfaces status && sfputil show eeprom -d -p Ethernet0",
+        "desc": "Check SONiC switch interface status, optical transceiver DOM EEPROM, LLDP neighbors, and PSU/fan health",
+        "cmd": "show interfaces status && show interfaces transceiver eeprom --dom Ethernet0",
         "details": "SONiC (Software for Open Networking in the Cloud) runs on Debian Linux using Docker containers for each network service (swss, bgp, syncd, lldp, pmon). Standard Linux commands and SONiC 'show' / 'sfputil' / 'config' CLI tools both work.",
         "flags": [
           [
             "show interfaces status",
-            "Display Oper/Admin state, speed (100G/400G), MTU, FEC, and alias for all Ethernet* ports"
+            "Oper/Admin state, lanes, speed, MTU, alias and type for every port (FEC is show interfaces fec status)"
           ],
           [
-            "sfputil show eeprom -d",
-            "Dump transceiver EEPROM and Digital Optical Monitoring (-d) Tx/Rx dBm power and temperature"
+            "show interfaces transceiver eeprom --dom",
+            "Transceiver EEPROM plus Digital Optical Monitoring (Tx/Rx power, temperature)"
           ],
           [
             "show lldp table",
             "Compact table of local ports and connected remote LLDP neighbor hostnames and ports"
           ]
         ],
-        "tip": "sfputil show eeprom -d reads optical DOM on SONiC switches",
+        "tip": "show interfaces transceiver eeprom --dom reads optical DOM on SONiC switches",
         "tags": [
           "SONiC: Cloud NOS CLI",
           "switch",
@@ -40,7 +40,17 @@ const SW_SW_SONIC_DATA = [
           "platform",
           "psu",
           "pfc"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/sonic-net/sonic-utilities/blob/master/doc/Command-Reference.md",
+              "title": "SONiC command reference"
+            }
+          ],
+          "note": "Corrected 2026-11-09: sfputil show eeprom is not documented; the DOM command is show interfaces transceiver eeprom --dom."
+        }
       },
       {
         "id": "sonic-interfaces-sfputil-lldp-sub-1",
@@ -51,7 +61,17 @@ const SW_SW_SONIC_DATA = [
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/sonic-net/sonic-utilities/blob/master/doc/Command-Reference.md",
+              "title": "SONiC command reference"
+            }
+          ],
+          "note": "Corrected 2026-11-09: sfputil show eeprom is not documented; the DOM command is show interfaces transceiver eeprom --dom."
+        }
       },
       {
         "id": "sonic-interfaces-sfputil-lldp-sub-2",
@@ -62,7 +82,17 @@ const SW_SW_SONIC_DATA = [
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/sonic-net/sonic-utilities/blob/master/doc/Command-Reference.md",
+              "title": "SONiC command reference"
+            }
+          ],
+          "note": "Corrected 2026-11-09: sfputil show eeprom is not documented; the DOM command is show interfaces transceiver eeprom --dom."
+        }
       },
       {
         "id": "sonic-interfaces-sfputil-lldp-sub-3",
@@ -73,7 +103,17 @@ const SW_SW_SONIC_DATA = [
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/sonic-net/sonic-utilities/blob/master/doc/Command-Reference.md",
+              "title": "SONiC command reference"
+            }
+          ],
+          "note": "Corrected 2026-11-09: sfputil show eeprom is not documented; the DOM command is show interfaces transceiver eeprom --dom."
+        }
       },
       {
         "id": "sonic-interfaces-sfputil-lldp-sub-4",
@@ -84,7 +124,17 @@ const SW_SW_SONIC_DATA = [
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/sonic-net/sonic-utilities/blob/master/doc/Command-Reference.md",
+              "title": "SONiC command reference"
+            }
+          ],
+          "note": "Corrected 2026-11-09: sfputil show eeprom is not documented; the DOM command is show interfaces transceiver eeprom --dom."
+        }
       }
     ]
   },
@@ -97,15 +147,15 @@ const SW_SW_SONIC_DATA = [
       {
         "id": "sonic-cli-tips-card",
         "desc": "SONiC NOS Architecture, Interface Management & Container Diagnostics",
-        "cmd": "show interface status && sfputil show eeprom && docker ps",
+        "cmd": "show interfaces status && show interfaces transceiver eeprom --dom && docker ps",
         "details": "Software for Open Networking in the Cloud (SONiC) runs Debian Linux with microservices deployed as Docker containers (swss, syncd, teamd, bgp). Switch physical interfaces are managed via SAI (Switch Abstraction Interface) and mapped to Linux network interfaces.",
         "flags": [
           [
-            "show interface status",
-            "Table of Ethernet interfaces, administrative state, operational state, speed, MTU, and FEC"
+            "show interfaces status",
+            "Table of Ethernet interfaces: admin and oper state, lanes, speed, MTU, alias and type (FEC: show interfaces fec status)"
           ],
           [
-            "sfputil show eeprom -p <port>",
+            "show interfaces transceiver eeprom --dom <port>",
             "Display optical transceiver EEPROM, DOM Rx/Tx power levels, and vendor information"
           ],
           [

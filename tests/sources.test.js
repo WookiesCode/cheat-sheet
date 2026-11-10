@@ -143,6 +143,67 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     await ctx.close();
   }
 
+  // 2e. Switch NOS sheets and Ethernet/Linux sheets, their corrections, and the hub builder.
+  {
+    const SW = ['sw-quantum-ports', 'sw-quantum-hw-sm', 'sw-quantum-inband', 'sw-cumulus-ports', 'sw-cumulus-optics', 'sw-cumulus-lldp', 'sw-cumulus-bonds',
+      'sw-cumulus-bgp', 'sw-cumulus-hw', 'sw-arista-ports', 'sw-arista-mlag', 'sw-arista-bgp', 'sw-nxos-ports', 'sw-nxos-vpc', 'sw-sonic'];
+    const ETH = ['eth-rj45-tdr', 'eth-ethtool-tuning', 'eth-netplan-systemd', 'eth-iproute2-ip6', 'eth-bonding-vlans', 'eth-lldp-perf'];
+    const ctx = await newContext(browser);
+    const p = await ctx.newPage();
+    const collect = async (pages) => {
+      const all = {};
+      for (const f of pages) {
+        await p.goto(BASE + f + '.html', { waitUntil: 'load' });
+        await p.waitForTimeout(400);
+        for (const l of await lines(p)) if (!/-(tips|flags)-card$/.test(l.id)) all[l.id] = l;
+      }
+      return all;
+    };
+    let swText = '';  // flag tables render client-side; keep each page's visible text for the flag-row checks
+    const collectSw = async () => {
+      const all = {};
+      for (const f of SW) {
+        await p.goto(BASE + f + '.html', { waitUntil: 'load' });
+        await p.waitForTimeout(400);
+        // Source notes name the old command on purpose ("Corrected: …"), so leave them out.
+        swText += await p.evaluate(() => { const c = document.body.cloneNode(true); c.querySelectorAll('.cmd-source').forEach(n => n.remove()); return c.textContent; }) + '\n';
+        for (const l of await lines(p)) if (!/-(tips|flags)-card$/.test(l.id)) all[l.id] = l;
+      }
+      return all;
+    };
+    const sw = await collectSw();
+    const swList = Object.values(sw);
+    check(swList.length === 67 && swList.every(l => l.text), `all 67 switch commands and recipes show a source line (${swList.filter(l => l.text).length}/${swList.length})`);
+    const swUnv = swList.filter(l => /is-unverified/.test(l.cls)).map(l => l.id).sort();
+    check(swUnv.length === 11, `the 11 unconfirmed switch recipes say "Not verified" (${swUnv.join(', ')})`);
+    const swCmds = swList.map(l => l.cmd).join('\n');
+    check(/module-type qsfp-split-2/.test(swText) && !/interface ib 1\/1 split/.test(swText), 'MLNX-OS split uses module-type qsfp-split-2');
+    check(/ib smnode <sm-node> enable/.test(swCmds) && !/show ib smgoing/.test(swCmds), 'MLNX-OS SM uses ib smnode … enable; no invented show ib smgoing');
+    check(!/nv config apply -y/.test(swCmds) && /nv config apply --assume-yes/.test(swCmds), 'Cumulus uses --assume-yes (not -y)');
+    check(!/nv config rollback|nv config show -o commands/.test(swCmds) && /nv config translate revision/.test(swCmds), 'no invented nv config rollback / -o commands');
+    check(!/errors nz/.test(swText) && !/show logging last 50/.test(swText) && /show logging 50/.test(swText), 'Arista: no nz filter; show logging 50 for a count');
+    check(!/sfputil show eeprom|nv config apply -y|nv config rollback|show ib smgoing/.test(swText), 'no corrected command survives anywhere on the switch pages');
+    check(!/sfputil show eeprom/.test(swCmds) && /show interfaces transceiver eeprom --dom/.test(swCmds), 'SONiC DOM uses show interfaces transceiver eeprom --dom');
+    check(sw['nvue-platform-config-sub-2'].danger, 'nv config apply is still flagged as changing state');
+    const eth = await collect(ETH);
+    const ethList = Object.values(eth);
+    check(ethList.length === 21 && ethList.every(l => l.text), `all 21 Ethernet commands show a source line (${ethList.filter(l => l.text).length}/${ethList.length})`);
+    const ethUnv = ethList.filter(l => /is-unverified/.test(l.cls)).map(l => l.id);
+    check(ethUnv.join(' ') === 'rj45-t568b-t568a-chart', `only the RJ45 wiring chart says "Not verified" (${ethUnv.join(', ')})`);
+    check(/man7\.org/.test(JSON.stringify(eth['ip-route-get-lookup'].links)), 'iproute2 commands link the man7.org man pages');
+    // The hub builder produces the corrected commands too.
+    await p.goto(BASE + 'switches.html', { waitUntil: 'load' });
+    await p.waitForTimeout(500);
+    const build = (nos, task) => p.evaluate(([n, t]) => {
+      const set = (id, v) => { const el = document.getElementById(id); el.value = v; el.dispatchEvent(new Event('change', { bubbles: true })); };
+      set('sw-nos-select', n); set('sw-task-select', t);
+      return document.getElementById('sw-builder-output').textContent;
+    }, [nos, task]);
+    check((await build('arista', 'errors')) === 'show interfaces counters errors', 'builder: Arista errors has no nz');
+    check(/^show interfaces transceiver eeprom --dom Ethernet/.test(await build('sonic', 'dom')), 'builder: SONiC DOM uses show interfaces transceiver eeprom --dom');
+    await ctx.close();
+  }
+
   // 3. Over a year old → amber "re-check"; and src can't inject markup or javascript: links.
   {
     const ctx = await newContext(browser);

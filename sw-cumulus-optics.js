@@ -41,7 +41,21 @@ const SW_SW_CUMULUS_OPTICS_DATA = [
           "dbm",
           "ethtool",
           "fec"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/Platform/",
+              "title": "NVUE reference: platform"
+            },
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Monitoring-and-Troubleshooting/Troubleshooting-Network-Interfaces/Monitoring-Interfaces-and-Transceivers-with-ethtool/",
+              "title": "Cumulus Linux 5.18: ethtool"
+            }
+          ],
+          "note": "FEC values rs/off are from the Switch Port Attributes page summary."
+        }
       },
       {
         "id": "nvue-show-transceiver-sub-1",
@@ -52,18 +66,46 @@ const SW_SW_CUMULUS_OPTICS_DATA = [
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/Platform/",
+              "title": "NVUE reference: platform"
+            },
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Monitoring-and-Troubleshooting/Troubleshooting-Network-Interfaces/Monitoring-Interfaces-and-Transceivers-with-ethtool/",
+              "title": "Cumulus Linux 5.18: ethtool"
+            }
+          ],
+          "note": "FEC values rs/off are from the Switch Port Attributes page summary."
+        }
       },
       {
         "id": "nvue-show-transceiver-sub-2",
         "desc": "Configure Forward Error Correction (rs / baser / auto / off) on port swp1",
-        "cmd": "nv set interface swp1 link fec rs && nv config apply -y",
+        "cmd": "nv set interface swp1 link fec rs && nv config apply --assume-yes",
         "tags": [
           "Cumulus: Optics DOM & FEC",
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/Platform/",
+              "title": "NVUE reference: platform"
+            },
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Monitoring-and-Troubleshooting/Troubleshooting-Network-Interfaces/Monitoring-Interfaces-and-Transceivers-with-ethtool/",
+              "title": "Cumulus Linux 5.18: ethtool"
+            }
+          ],
+          "note": "FEC values rs/off are from the Switch Port Attributes page summary."
+        }
       }
     ]
   },

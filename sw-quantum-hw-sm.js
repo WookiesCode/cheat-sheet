@@ -30,7 +30,7 @@ const SW_SW_QUANTUM_HW_SM_DATA = [
             "Verify whether the switch's embedded InfiniBand Subnet Manager is enabled or disabled"
           ]
         ],
-        "tip": "Only enable 'ib sm' on the switch if you do NOT have UFM or host-based OpenSM running!",
+        "tip": "Only enable the switch's SM (ib smnode <name> enable) if you do NOT have UFM or host-based OpenSM running!",
         "tags": [
           "Quantum: SM, UFM & HW",
           "switch",
@@ -48,7 +48,21 @@ const SW_SW_QUANTUM_HW_SM_DATA = [
           "ufm",
           "inventory",
           "version"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/chassis-management",
+              "title": "MLNX-OS 3.12.6200: chassis management"
+            },
+            {
+              "url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/subnet-manager",
+              "title": "MLNX-OS 3.12.6200: subnet manager"
+            }
+          ],
+          "note": "show ib sm is not in the manual chapters read; NVIDIA enables the SM with ib smnode <name> enable."
+        }
       },
       {
         "id": "mlnxos-hardware-sm-config-sub-1",
@@ -59,29 +73,52 @@ const SW_SW_QUANTUM_HW_SM_DATA = [
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [],
+          "note": "Not in the MLNX-OS manual chapters read."
+        }
       },
       {
         "id": "mlnxos-hardware-sm-config-sub-2",
-        "desc": "Check which LID/GUID in the InfiniBand fabric is currently acting as the Master Subnet Manager",
-        "cmd": "show ib smgoing && sminfo",
+        "desc": "From any host on the fabric: the LID, GUID, priority and state of the master Subnet Manager (infiniband-diags)",
+        "cmd": "sminfo",
         "tags": [
           "Quantum: SM, UFM & HW",
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/sminfo.8.in.rst",
+              "title": "sminfo man page (rdma-core)"
+            }
+          ]
+        }
       },
       {
         "id": "mlnxos-hardware-sm-config-sub-3",
-        "desc": "Enable the embedded Subnet Manager on a standalone Quantum switch and persist config",
-        "cmd": "configure terminal ; ib sm ; configuration write",
+        "desc": "Enable the embedded Subnet Manager on a standalone Quantum switch (NVIDIA's example: ib smnode my-sm enable) and save the config",
+        "cmd": "configure terminal ; ib smnode <sm-node> enable ; configuration write",
         "tags": [
           "Quantum: SM, UFM & HW",
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/subnet-manager",
+              "title": "MLNX-OS 3.12.6200: subnet manager"
+            }
+          ]
+        }
       },
       {
         "id": "mlnxos-hardware-sm-config-sub-4",
@@ -92,7 +129,16 @@ const SW_SW_QUANTUM_HW_SM_DATA = [
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/logging",
+              "title": "MLNX-OS 3.12.6200: logging"
+            }
+          ]
+        }
       },
       {
         "id": "mlnxos-hardware-sm-config-sub-5",
@@ -103,7 +149,17 @@ const SW_SW_QUANTUM_HW_SM_DATA = [
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/logging",
+              "title": "MLNX-OS 3.12.6200: logging"
+            }
+          ],
+          "note": "Named in the manual; its own reference entry was not read."
+        }
       },
       {
         "id": "mlnxos-hardware-sm-config-sub-6",
@@ -114,7 +170,12 @@ const SW_SW_QUANTUM_HW_SM_DATA = [
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [],
+          "note": "show images and the next-boot command were not found in the MLNX-OS chapters read; check the Software Management commands."
+        }
       }
     ]
   },
@@ -131,8 +192,8 @@ const SW_SW_QUANTUM_HW_SM_DATA = [
         "details": "In high-performance clusters, running OpenSM directly on leaf switches is recommended only for small dev clusters; large fabrics should designate dedicated SM management nodes or NVIDIA UFM appliances. Use \"configuration write\" to save the running configuration to non-volatile flash.",
         "flags": [
           [
-            "ib sm enable",
-            "Enable the embedded OpenSM Subnet Manager daemon on MLNX-OS"
+            "ib smnode <sm-node> enable",
+            "Enable the embedded Subnet Manager on MLNX-OS (NVIDIA example: ib smnode my-sm enable)"
           ],
           [
             "show ib sm",

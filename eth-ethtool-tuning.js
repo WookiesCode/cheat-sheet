@@ -43,7 +43,16 @@ const ETH_ETH_ETHTOOL_TUNING_DATA = [
           "ethtool",
           "carrier",
           "1000base-t"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ethtool.8.html",
+              "title": "ethtool(8)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -86,7 +95,17 @@ const ETH_ETH_ETHTOOL_TUNING_DATA = [
           "counters",
           "pause",
           "ethtool"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ethtool.8.html",
+              "title": "ethtool(8)"
+            }
+          ],
+          "note": "Counter names vary by driver."
+        }
       }
     ]
   },
@@ -130,7 +149,16 @@ const ETH_ETH_ETHTOOL_TUNING_DATA = [
           "tso",
           "gro",
           "drops"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ethtool.8.html",
+              "title": "ethtool(8)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -169,7 +197,17 @@ const ETH_ETH_ETHTOOL_TUNING_DATA = [
           "lspci",
           "ixgbe",
           "mlx5"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ethtool.8.html",
+              "title": "ethtool(8)"
+            }
+          ],
+          "note": "ethtool(8) does not list the -i field names."
+        }
       }
     ]
   },

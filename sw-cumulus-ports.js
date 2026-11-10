@@ -41,7 +41,20 @@ const SW_SW_CUMULUS_PORTS_DATA = [
           "status",
           "bounce",
           "counters"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Monitoring-and-Troubleshooting/Troubleshooting-Network-Interfaces/Monitoring-Interfaces-and-Transceivers-with-NVUE/",
+              "title": "Cumulus Linux 5.18: monitoring interfaces"
+            },
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Set-and-Unset-Commands/Interface/",
+              "title": "NVUE reference: interface set"
+            }
+          ]
+        }
       },
       {
         "id": "nvue-show-interface-sub-1",
@@ -52,7 +65,20 @@ const SW_SW_CUMULUS_PORTS_DATA = [
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Monitoring-and-Troubleshooting/Troubleshooting-Network-Interfaces/Monitoring-Interfaces-and-Transceivers-with-NVUE/",
+              "title": "Cumulus Linux 5.18: monitoring interfaces"
+            },
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Set-and-Unset-Commands/Interface/",
+              "title": "NVUE reference: interface set"
+            }
+          ]
+        }
       },
       {
         "id": "nvue-show-interface-sub-2",
@@ -63,18 +89,40 @@ const SW_SW_CUMULUS_PORTS_DATA = [
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ip.8.html",
+              "title": "ip(8)"
+            }
+          ]
+        }
       },
       {
         "id": "nvue-show-interface-sub-3",
         "desc": "Administratively bounce (shut / no shut) switch port swp1 to force transceiver link retraining",
-        "cmd": "nv set interface swp1 link state down && nv config apply -y && sleep 2 && nv set interface swp1 link state up && nv config apply -y",
+        "cmd": "nv set interface swp1 link state down && nv config apply --assume-yes && sleep 2 && nv set interface swp1 link state up && nv config apply --assume-yes",
         "tags": [
           "Cumulus: Port Status",
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Monitoring-and-Troubleshooting/Troubleshooting-Network-Interfaces/Monitoring-Interfaces-and-Transceivers-with-NVUE/",
+              "title": "Cumulus Linux 5.18: monitoring interfaces"
+            },
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Set-and-Unset-Commands/Interface/",
+              "title": "NVUE reference: interface set"
+            }
+          ]
+        }
       }
     ]
   },

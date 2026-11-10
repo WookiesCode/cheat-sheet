@@ -40,7 +40,17 @@ const ETH_ETH_BONDING_VLANS_DATA = [
           "aggregator",
           "mlag",
           "port-channel"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.kernel.org/networking/bonding.html",
+              "title": "Linux bonding"
+            }
+          ],
+          "note": "Aggregator ID and Partner MAC are not in the kernel bonding doc's sample output."
+        }
       }
     ]
   },
@@ -77,7 +87,16 @@ const ETH_ETH_BONDING_VLANS_DATA = [
           "trunk",
           "tagged",
           "subinterface"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ip-link.8.html",
+              "title": "ip-link(8)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -115,7 +134,16 @@ const ETH_ETH_BONDING_VLANS_DATA = [
           "mac-table",
           "kvm",
           "veth"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/bridge.8.html",
+              "title": "bridge(8)"
+            }
+          ]
+        }
       }
     ]
   },

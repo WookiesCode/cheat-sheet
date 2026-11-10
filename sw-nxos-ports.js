@@ -40,7 +40,21 @@ const SW_SW_NXOS_PORTS_DATA = [
           "transceiver",
           "dom",
           "errors"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_i_showcmds.html",
+              "title": "NX-OS 10.5 show commands: interface"
+            },
+            {
+              "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_i_showcmds.html",
+              "title": "NX-OS 10.5 show commands: inventory"
+            }
+          ],
+          "note": "The status values and the ++ / + DOM legend are not in the show command reference."
+        }
       },
       {
         "id": "nxos-interfaces-transceiver-sub-1",
@@ -51,7 +65,21 @@ const SW_SW_NXOS_PORTS_DATA = [
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_i_showcmds.html",
+              "title": "NX-OS 10.5 show commands: interface"
+            },
+            {
+              "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_i_showcmds.html",
+              "title": "NX-OS 10.5 show commands: inventory"
+            }
+          ],
+          "note": "The status values and the ++ / + DOM legend are not in the show command reference."
+        }
       },
       {
         "id": "nxos-interfaces-transceiver-sub-2",
@@ -62,7 +90,21 @@ const SW_SW_NXOS_PORTS_DATA = [
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_i_showcmds.html",
+              "title": "NX-OS 10.5 show commands: interface"
+            },
+            {
+              "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_i_showcmds.html",
+              "title": "NX-OS 10.5 show commands: inventory"
+            }
+          ],
+          "note": "The status values and the ++ / + DOM legend are not in the show command reference."
+        }
       }
     ]
   },

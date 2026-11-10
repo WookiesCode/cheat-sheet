@@ -15,7 +15,7 @@ const ETH_ETH_NETPLAN_SYSTEMD_DATA = [
         "flags": [
           [
             "chmod 600",
-            "Silences Netplan warning 'Permissions for /etc/netplan/*.yaml are too open'"
+            "Netplan's security advice: keep YAML files in /etc/netplan unreadable by other users"
           ],
           [
             "netplan try --timeout 60",
@@ -23,7 +23,7 @@ const ETH_ETH_NETPLAN_SYSTEMD_DATA = [
           ],
           [
             "netplan status --all",
-            "Display active addresses, routes, DNS, and underlying renderer state (Ubuntu 22.04+)"
+            "Active addresses, routes, DNS and renderer state, including inactive interfaces"
           ],
           [
             "netplan get",
@@ -44,7 +44,28 @@ const ETH_ETH_NETPLAN_SYSTEMD_DATA = [
           "yaml",
           "rollback",
           "chmod"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://netplan.readthedocs.io/en/stable/netplan-try/",
+              "title": "netplan try"
+            },
+            {
+              "url": "https://netplan.readthedocs.io/en/stable/netplan-status/",
+              "title": "netplan status"
+            },
+            {
+              "url": "https://netplan.readthedocs.io/en/stable/netplan-get/",
+              "title": "netplan get"
+            },
+            {
+              "url": "https://netplan.readthedocs.io/en/stable/security/",
+              "title": "netplan security"
+            }
+          ]
+        }
       }
     ]
   },
@@ -86,7 +107,17 @@ const ETH_ETH_NETPLAN_SYSTEMD_DATA = [
           "lldp",
           "status",
           "ubuntu"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/networkctl.1.html",
+              "title": "networkctl(1)"
+            }
+          ],
+          "note": "networkctl lldp needs LLDP= enabled on the interface; reconfigure does not reload .network files (networkctl reload first)."
+        }
       }
     ]
   },
@@ -125,7 +156,21 @@ const ETH_ETH_NETPLAN_SYSTEMD_DATA = [
           "slaac",
           "dhcpv6",
           "connection"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://networkmanager.dev/docs/api/latest/nmcli.html",
+              "title": "nmcli"
+            },
+            {
+              "url": "https://networkmanager.dev/docs/api/latest/nm-settings-nmcli.html",
+              "title": "nm-settings-nmcli"
+            }
+          ],
+          "note": "ipv6.method values are from the settings page summary."
+        }
       }
     ]
   },

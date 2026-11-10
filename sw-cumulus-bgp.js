@@ -22,7 +22,7 @@ const SW_SW_CUMULUS_BGP_DATA = [
             "Inspect RoCEv2 lossless QoS profile, PFC priority bitmask (prio 3), and ECN thresholds"
           ],
           [
-            "vtysh -c 'show bgp summary'",
+            "vtysh -c 'show ip bgp summary'",
             "Query underlying FRRouting (FRR) BGP daemon directly"
           ]
         ],
@@ -41,7 +41,25 @@ const SW_SW_CUMULUS_BGP_DATA = [
           "pfc",
           "ecn",
           "qos"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Layer-3/Border-Gateway-Protocol-BGP/Troubleshooting-BGP/",
+              "title": "Cumulus Linux 5.18: troubleshooting BGP"
+            },
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Layer-1-and-Switch-Ports/Quality-of-Service/RDMA-over-Converged-Ethernet-RoCE/",
+              "title": "Cumulus Linux 5.18: RoCE"
+            },
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/RIB/",
+              "title": "NVUE reference: RIB"
+            }
+          ],
+          "note": "Corrected 2026-11-09: NVIDIA's page uses vtysh show ip bgp summary."
+        }
       },
       {
         "id": "nvue-bgp-roce-qos-sub-1",
@@ -52,7 +70,25 @@ const SW_SW_CUMULUS_BGP_DATA = [
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Layer-3/Border-Gateway-Protocol-BGP/Troubleshooting-BGP/",
+              "title": "Cumulus Linux 5.18: troubleshooting BGP"
+            },
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Layer-1-and-Switch-Ports/Quality-of-Service/RDMA-over-Converged-Ethernet-RoCE/",
+              "title": "Cumulus Linux 5.18: RoCE"
+            },
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/RIB/",
+              "title": "NVUE reference: RIB"
+            }
+          ],
+          "note": "Corrected 2026-11-09: NVIDIA's page uses vtysh show ip bgp summary."
+        }
       },
       {
         "id": "nvue-bgp-roce-qos-sub-2",
@@ -63,7 +99,16 @@ const SW_SW_CUMULUS_BGP_DATA = [
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Monitoring-and-Troubleshooting/Troubleshooting-Network-Interfaces/Monitoring-Interfaces-and-Transceivers-with-ethtool/",
+              "title": "Cumulus Linux 5.18: ethtool"
+            }
+          ]
+        }
       }
     ]
   },

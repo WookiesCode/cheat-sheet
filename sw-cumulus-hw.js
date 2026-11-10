@@ -30,7 +30,7 @@ const SW_SW_CUMULUS_HW_DATA = [
             "List historical configuration commits with timestamps, user, and revision IDs"
           ]
         ],
-        "tip": "nv config show -o commands exports clean CLI commands",
+        "tip": "nv config translate revision <id> exports a revision as nv set commands",
         "tags": [
           "Cumulus: PSU, Fans & Config",
           "switch",
@@ -44,7 +44,25 @@ const SW_SW_CUMULUS_HW_DATA = [
           "temperature",
           "config",
           "rollback"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/Platform/",
+              "title": "NVUE reference: platform"
+            },
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/System/",
+              "title": "NVUE reference: system"
+            },
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Config-Commands/",
+              "title": "NVUE reference: config commands"
+            }
+          ],
+          "note": "Corrected 2026-11-09: there is no nv config rollback (use nv config apply <rev>), and nv config show -o takes only auto/json/yaml/native."
+        }
       },
       {
         "id": "nvue-platform-config-sub-1",
@@ -55,29 +73,83 @@ const SW_SW_CUMULUS_HW_DATA = [
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/Platform/",
+              "title": "NVUE reference: platform"
+            },
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/System/",
+              "title": "NVUE reference: system"
+            },
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Config-Commands/",
+              "title": "NVUE reference: config commands"
+            }
+          ],
+          "note": "Corrected 2026-11-09: there is no nv config rollback (use nv config apply <rev>), and nv config show -o takes only auto/json/yaml/native."
+        }
       },
       {
         "id": "nvue-platform-config-sub-2",
-        "desc": "Roll back the switch configuration to a known-good previous revision ID",
-        "cmd": "nv config rollback <revision_id>",
+        "desc": "Go back to a known-good revision (list them with nv config history). nv config apply --confirm rolls back by itself if you do not confirm",
+        "cmd": "nv config apply <revision_id> --assume-yes",
         "tags": [
           "Cumulus: PSU, Fans & Config",
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/Platform/",
+              "title": "NVUE reference: platform"
+            },
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/System/",
+              "title": "NVUE reference: system"
+            },
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Config-Commands/",
+              "title": "NVUE reference: config commands"
+            }
+          ],
+          "note": "Corrected 2026-11-09: there is no nv config rollback (use nv config apply <rev>), and nv config show -o takes only auto/json/yaml/native."
+        }
       },
       {
         "id": "nvue-platform-config-sub-3",
-        "desc": "Export the entire switch configuration as flat, copy-pasteable 'nv set ...' CLI commands",
-        "cmd": "nv config show -o commands",
+        "desc": "Export a revision as flat, copy-pasteable 'nv set ...' commands (Cumulus 5.12 and later)",
+        "cmd": "nv config translate revision <revision_id>",
         "tags": [
           "Cumulus: PSU, Fans & Config",
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/Platform/",
+              "title": "NVUE reference: platform"
+            },
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/System/",
+              "title": "NVUE reference: system"
+            },
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Config-Commands/",
+              "title": "NVUE reference: config commands"
+            }
+          ],
+          "note": "Corrected 2026-11-09: there is no nv config rollback (use nv config apply <rev>), and nv config show -o takes only auto/json/yaml/native."
+        }
       }
     ]
   },
@@ -91,7 +163,7 @@ const SW_SW_CUMULUS_HW_DATA = [
         "id": "cumulus-hw-cfg-tips-card",
         "desc": "Platform Environmental Monitoring & Safe Atomic Configuration",
         "cmd": "nv show platform && nv config diff && nv config apply",
-        "details": "NVUE features atomic commit semantics. Review configuration changes with `nv config diff` before applying them with `nv config apply`. If a change causes network isolation, use `nv config rollback` or reboot to safely recover.",
+        "details": "NVUE features atomic commit semantics. Review configuration changes with `nv config diff` before applying them with `nv config apply`. If a change causes network isolation, go back with `nv config apply <revision_id>` (list revisions with `nv config history`), or use `nv config apply --confirm` so an unconfirmed change rolls itself back.",
         "flags": [
           [
             "nv show platform environment",
@@ -106,8 +178,8 @@ const SW_SW_CUMULUS_HW_DATA = [
             "Atomically validate and apply all pending NVUE configuration changes"
           ],
           [
-            "nv config rollback",
-            "Immediately revert to the previous verified configuration revision checkpoint"
+            "nv config apply <revision_id>",
+            "Go back to an earlier revision (nv config history lists them)"
           ]
         ],
         "tip": "Inspect fan speeds and PSU redundancy: power supply failures in dense 800G switches cause immediate thermal throttling.",

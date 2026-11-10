@@ -22,8 +22,8 @@ const SW_SW_ARISTA_BGP_DATA = [
             "Show power supply status/wattage, fan tray speeds, and temperature sensors"
           ],
           [
-            "show logging last 50",
-            "Show the 50 most recent switch syslog messages (link flaps, transceiver insert/remove, LACP)"
+            "show logging 50",
+            "The 50 most recent syslog messages (show logging last <n> filters by time units, not a count)"
           ]
         ],
         "tip": "",
@@ -41,7 +41,25 @@ const SW_SW_ARISTA_BGP_DATA = [
           "fan",
           "logging",
           "version"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.arista.com/um-eos/eos-border-gateway-protocol-bgp",
+              "title": "Arista EOS 4.37: BGP"
+            },
+            {
+              "url": "https://www.arista.com/um-eos/eos-environment-commands",
+              "title": "Arista EOS 4.37: environment"
+            },
+            {
+              "url": "https://www.arista.com/um-eos/eos-switch-administration-commands",
+              "title": "Arista EOS 4.37: show logging"
+            }
+          ],
+          "note": "Corrected 2026-11-09: show logging last <n> filters by time; a count is show logging <n>. show version and show boot-config are not in the chapters read."
+        }
       },
       {
         "id": "arista-bgp-environment-logs-sub-1",
@@ -52,7 +70,12 @@ const SW_SW_ARISTA_BGP_DATA = [
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [],
+          "note": "show version is not in the EOS chapters read; show boot-config appears only in an example."
+        }
       },
       {
         "id": "arista-bgp-environment-logs-sub-2",
@@ -63,7 +86,12 @@ const SW_SW_ARISTA_BGP_DATA = [
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [],
+          "note": "Not in the EOS chapters read."
+        }
       }
     ]
   },

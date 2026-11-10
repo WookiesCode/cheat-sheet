@@ -40,18 +40,46 @@ const SW_SW_CUMULUS_LLDP_DATA = [
           "arp",
           "bridge",
           "fdb"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/LLDP/",
+              "title": "NVUE reference: LLDP"
+            },
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/Bridge/",
+              "title": "NVUE reference: bridge"
+            }
+          ],
+          "note": "lldpctl comes from lldpd, not NVUE."
+        }
       },
       {
         "id": "nvue-lldp-mac-arp-sub-1",
         "desc": "Display IPv6 Neighbor Discovery (NDP) table mapping server IPv6 addresses to MACs and swp* ports",
-        "cmd": "nv show vrf default router nexthop neighbor && ip -6 -c neigh show",
+        "cmd": "nv show interface neighbor && ip -6 -c neigh show",
         "tags": [
           "Cumulus: LLDP, MAC & ARP",
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/LLDP/",
+              "title": "NVUE reference: LLDP"
+            },
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/Bridge/",
+              "title": "NVUE reference: bridge"
+            }
+          ],
+          "note": "lldpctl comes from lldpd, not NVUE."
+        }
       },
       {
         "id": "nvue-lldp-mac-arp-sub-2",
@@ -62,7 +90,16 @@ const SW_SW_CUMULUS_LLDP_DATA = [
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/bridge.8.html",
+              "title": "bridge(8)"
+            }
+          ]
+        }
       }
     ]
   },

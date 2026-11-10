@@ -15,7 +15,7 @@ const ETH_ETH_LLDP_PERF_DATA = [
         "flags": [
           [
             "lldpctl (lldpd package)",
-            "Queries & transmits LLDP frames (prints SysName, PortID, PortDescr,MgmtIP, and PVID VLAN)"
+            "Shows the neighbors the lldpd daemon learned (the daemon sends and receives LLDP; lldpctl only displays)"
           ],
           [
             "tcpdump ether proto 0x88cc",
@@ -36,7 +36,21 @@ const ETH_ETH_LLDP_PERF_DATA = [
           "tcpdump",
           "lldpctl",
           "trace"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://manpages.debian.org/trixie/lldpd/lldpctl.8.en.html",
+              "title": "lldpctl(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man7/pcap-filter.7.html",
+              "title": "pcap-filter(7)"
+            }
+          ],
+          "note": "The neighbor fields lldpctl prints are not listed in its man page; the CDP filter is a convention."
+        }
       }
     ]
   },
@@ -77,7 +91,16 @@ const ETH_ETH_LLDP_PERF_DATA = [
           "df",
           "8952",
           "1452"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ping.8.html",
+              "title": "ping(8)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -124,7 +147,17 @@ const ETH_ETH_LLDP_PERF_DATA = [
           "speedtest",
           "retransmissions",
           "10g"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://software.es.net/iperf/invoking.html",
+              "title": "iperf3"
+            }
+          ],
+          "note": "The Retr column is not described in the iperf3 manual."
+        }
       }
     ]
   },
@@ -163,7 +196,16 @@ const ETH_ETH_LLDP_PERF_DATA = [
           "systemd-resolved",
           "127.0.0.53",
           "ubuntu"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man1/resolvectl.1.html",
+              "title": "resolvectl(1)"
+            }
+          ]
+        }
       }
     ]
   },

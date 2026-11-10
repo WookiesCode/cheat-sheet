@@ -11884,7 +11884,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "cat /proc/net/bonding/bond0   |   ip -d link show bond0",
     "desc": "Verify LACP (`802.3ad`) bond health, Partner System MAC, Aggregator ID, and slave `Link Failure Count`",
     "tip": "Partner MAC 00:00:.. = switch LACP off",
-    "tags": "LACP Bonds & VLANs ethernet nic networking linux bond lacp 802.3ad bonding aggregator mlag port-channel"
+    "tags": "LACP Bonds & VLANs ethernet nic networking linux bond lacp 802.3ad bonding aggregator mlag port-channel",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.kernel.org/networking/bonding.html",
+          "title": "Linux bonding"
+        }
+      ],
+      "note": "Aggregator ID and Partner MAC are not in the kernel bonding doc's sample output."
+    }
   },
   {
     "sName": "eth-bonding-vlans",
@@ -11895,7 +11905,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ip link add link eth0 name eth0.100 type vlan id 100 && ip link set eth0.100 up",
     "desc": "Create an 802.1Q tagged VLAN sub-interface (`eth0.100`) or LACP bond dynamically via `ip link`",
     "tip": "",
-    "tags": "LACP Bonds & VLANs ethernet nic networking linux vlan 802.1q trunk tagged subinterface"
+    "tags": "LACP Bonds & VLANs ethernet nic networking linux vlan 802.1q trunk tagged subinterface",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-link.8.html",
+          "title": "ip-link(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "eth-bonding-vlans",
@@ -11906,7 +11925,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "bridge link show   |   bridge fdb show br br0   |   bridge vlan show",
     "desc": "Inspect Linux software bridge ports, learned L2 MAC forwarding database (FDB), and bridge VLANs",
     "tip": "",
-    "tags": "LACP Bonds & VLANs ethernet nic networking linux bridge br0 fdb mac-table kvm veth"
+    "tags": "LACP Bonds & VLANs ethernet nic networking linux bridge br0 fdb mac-table kvm veth",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/bridge.8.html",
+          "title": "bridge(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "eth-bonding-vlans",
@@ -11928,7 +11956,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ethtool eth0   |   ethtool -r eth0   |   ethtool -s eth0 speed 1000 duplex full autoneg on",
     "desc": "Check negotiated link speed, duplex, auto-negotiation, and link partner advertised speeds",
     "tip": "",
-    "tags": "ethtool & Ring Buffers ethernet nic networking linux speed duplex autoneg ethtool carrier 1000base-t"
+    "tags": "ethtool & Ring Buffers ethernet nic networking linux speed duplex autoneg ethtool carrier 1000base-t",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ethtool.8.html",
+          "title": "ethtool(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "eth-ethtool-tuning",
@@ -11939,7 +11976,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ethtool -S eth0 | grep -iE 'err|drop|crc|fcs|align|miss|fifo|over|pause' | grep -v ': 0'",
     "desc": "Inspect hardware NIC MAC/PHY counters for bad cables (`rx_crc_errors`), ring drops, or pause frames",
     "tip": "rx_crc_errors > 0 = replace cable",
-    "tags": "ethtool & Ring Buffers ethernet nic networking linux crc fcs errors drops counters pause ethtool"
+    "tags": "ethtool & Ring Buffers ethernet nic networking linux crc fcs errors drops counters pause ethtool",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ethtool.8.html",
+          "title": "ethtool(8)"
+        }
+      ],
+      "note": "Counter names vary by driver."
+    }
   },
   {
     "sName": "eth-ethtool-tuning",
@@ -11950,7 +11997,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ethtool -g eth0   |   ethtool -G eth0 rx 4096 tx 4096   |   ethtool -l eth0   |   ethtool -L eth0 combined 16",
     "desc": "Inspect and increase NIC RX/TX descriptor ring buffers and multi-queue RSS channels",
     "tip": "",
-    "tags": "ethtool & Ring Buffers ethernet nic networking linux ring buffer rss queues offload tso gro drops"
+    "tags": "ethtool & Ring Buffers ethernet nic networking linux ring buffer rss queues offload tso gro drops",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ethtool.8.html",
+          "title": "ethtool(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "eth-ethtool-tuning",
@@ -11961,7 +12017,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ethtool -i eth0   |   lspci -nnk | grep -A3 -i net",
     "desc": "Identify kernel driver (`igb`, `ixgbe`, `i40e`, `ice`, `mlx5_core`, `r8169`), NIC firmware & PCI bus address",
     "tip": "",
-    "tags": "ethtool & Ring Buffers ethernet nic networking linux driver firmware pci bdf lspci ixgbe mlx5"
+    "tags": "ethtool & Ring Buffers ethernet nic networking linux driver firmware pci bdf lspci ixgbe mlx5",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ethtool.8.html",
+          "title": "ethtool(8)"
+        }
+      ],
+      "note": "ethtool(8) does not list the -i field names."
+    }
   },
   {
     "sName": "eth-ethtool-tuning",
@@ -11983,7 +12049,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ip -br -c link   |   ip -6 -br -c addr   |   ip -s -s link show dev eth0",
     "desc": "Show compact color-coded table of all network interfaces, MACs, link state, and Global/Link-Local IPv6 addresses",
     "tip": "ip -6 -br -c addr shows all IPv6 prefixes cleanly",
-    "tags": "iproute2 & IPv6 NDP ethernet nic networking linux ip ipv6 brief addr link mac stats fe80"
+    "tags": "iproute2 & IPv6 NDP ethernet nic networking linux ip ipv6 brief addr link mac stats fe80",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip.8.html",
+          "title": "ip(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-link.8.html",
+          "title": "ip-link(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-address.8.html",
+          "title": "ip-address(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "eth-iproute2-ip6",
@@ -11994,7 +12077,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ip link set dev eth0 mtu 9000 up   |   ip -6 addr add 2001:db8:dc:10::50/64 dev eth0   |   ip -6 addr flush scope global dev eth0",
     "desc": "Bring interface up/down, enable Jumbo Frames (`mtu 9000`), or add/remove IPv6 `/64` or `/128` addresses on the fly",
     "tip": "Never flush link-local fe80:: — IPv6 NDP & routing need it!",
-    "tags": "iproute2 & IPv6 NDP ethernet nic networking linux mtu jumbo 9000 up down ipv6 cidr flush"
+    "tags": "iproute2 & IPv6 NDP ethernet nic networking linux mtu jumbo 9000 up down ipv6 cidr flush",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-link.8.html",
+          "title": "ip-link(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-address.8.html",
+          "title": "ip-address(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "eth-iproute2-ip6",
@@ -12005,7 +12101,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ip -6 -c route   |   ip -6 route get 2606:4700:4700::1111   |   ip -6 route replace default via fe80::1 dev eth0",
     "desc": "Inspect IPv6 routing table or ask kernel which exact egress interface, next-hop (often `fe80::`), and source IPv6 will reach a target",
     "tip": "'ip -6 route get' debugs multi-NIC IPv6 routing",
-    "tags": "iproute2 & IPv6 NDP ethernet nic networking linux route ipv6 gateway default egress source pbr fe80"
+    "tags": "iproute2 & IPv6 NDP ethernet nic networking linux route ipv6 gateway default egress source pbr fe80",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-route.8.html",
+          "title": "ip-route(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-rule.8.html",
+          "title": "ip-rule(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "eth-iproute2-ip6",
@@ -12013,10 +12122,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "ip6",
     "id": "ip-neigh-arping-duplicate",
     "sec": "iproute2 & IPv6 NDP: Inspect IPv6 Neighbor Discovery Protocol",
-    "cmd": "ip -6 -c neigh show   |   ip -6 neigh flush all   |   ndisc6 2001:db8:dc:10::1 eth0   |   rdisc6 eth0",
+    "cmd": "ip -6 -c neigh show   |   ip -6 neigh flush dev eth0   |   ndisc6 2001:db8:dc:10::1 eth0   |   rdisc6 eth0",
     "desc": "Inspect IPv6 Neighbor Discovery Protocol (NDP) cache (`REACHABLE`, `STALE`, `FAILED`, `router`) or probe with `ndisc6` / `rdisc6`",
     "tip": "IPv6 uses ICMPv6 Neighbor Discovery (NDP) instead of ARP!",
-    "tags": "iproute2 & IPv6 NDP ethernet nic networking linux ndp neigh ndisc6 rdisc6 ipv6 mac l2 router-advertisement"
+    "tags": "iproute2 & IPv6 NDP ethernet nic networking linux ndp neigh ndisc6 rdisc6 ipv6 mac l2 router-advertisement",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-neighbour.8.html",
+          "title": "ip-neighbour(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/unstable/ndisc6/ndisc6.8.en.html",
+          "title": "ndisc6(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/unstable/ndisc6/rdisc6.8.en.html",
+          "title": "rdisc6(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: \"neigh flush all\" is not a documented form; flush takes the same selectors as show."
+    }
   },
   {
     "sName": "eth-iproute2-ip6",
@@ -12038,7 +12165,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lldpctl eth0   |   tcpdump -nn -v -i eth0 -s 1500 -c 1 '(ether proto 0x88cc or ether[20:2] == 0x2000)'",
     "desc": "Identify which physical upstream switch name, port number, and native VLAN `eth0` is plugged into",
     "tip": "Traces cables without going to the rack!",
-    "tags": "LLDP & Line-Rate Tests ethernet nic networking linux lldp cdp switch port tcpdump lldpctl trace"
+    "tags": "LLDP & Line-Rate Tests ethernet nic networking linux lldp cdp switch port tcpdump lldpctl trace",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/lldpd/lldpctl.8.en.html",
+          "title": "lldpctl(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man7/pcap-filter.7.html",
+          "title": "pcap-filter(7)"
+        }
+      ],
+      "note": "The neighbor fields lldpctl prints are not listed in its man page; the CDP filter is a convention."
+    }
   },
   {
     "sName": "eth-lldp-perf",
@@ -12049,7 +12190,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ping -6 -M do -s 8952 -c 4 2001:db8:dc:10::1   |   ping -6 -M do -s 1452 -c 4 2606:4700:4700::1111",
     "desc": "Verify end-to-end IPv6 9000-byte Jumbo Frame path without fragmentation (`ping -6 -M do -s 8952`)",
     "tip": "IPv6 header is 40B: 8952 + 48 = 9000 MTU (vs 8972 on IPv4)",
-    "tags": "LLDP & Line-Rate Tests ethernet nic networking linux mtu jumbo ping ping6 ipv6 fragment df 8952 1452"
+    "tags": "LLDP & Line-Rate Tests ethernet nic networking linux mtu jumbo ping ping6 ipv6 fragment df 8952 1452",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ping.8.html",
+          "title": "ping(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "eth-lldp-perf",
@@ -12060,7 +12210,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "# Server: iperf3 -s   |   # Client: iperf3 -6 -c 2001:db8:dc:10::1 -P 8 -t 30   |   iperf3 -6 -c 2001:db8:dc:10::1 -R",
     "desc": "Test IPv6 (`-6`) 1G / 10G / 25G / 100G / 400G TCP & UDP line-rate throughput and TCP retransmissions (`Retr`)",
     "tip": "",
-    "tags": "LLDP & Line-Rate Tests ethernet nic networking linux iperf3 ipv6 bandwidth throughput speedtest retransmissions 10g"
+    "tags": "LLDP & Line-Rate Tests ethernet nic networking linux iperf3 ipv6 bandwidth throughput speedtest retransmissions 10g",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://software.es.net/iperf/invoking.html",
+          "title": "iperf3"
+        }
+      ],
+      "note": "The Retr column is not described in the iperf3 manual."
+    }
   },
   {
     "sName": "eth-lldp-perf",
@@ -12071,7 +12231,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "resolvectl status   |   resolvectl query --type=AAAA example.com   |   resolvectl flush-caches",
     "desc": "Inspect per-interface IPv6 DNS servers, query `AAAA` records, and flush cache in Ubuntu's `systemd-resolved`",
     "tip": "",
-    "tags": "LLDP & Line-Rate Tests ethernet nic networking linux dns ipv6 aaaa resolvectl systemd-resolved 127.0.0.53 ubuntu"
+    "tags": "LLDP & Line-Rate Tests ethernet nic networking linux dns ipv6 aaaa resolvectl systemd-resolved 127.0.0.53 ubuntu",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/resolvectl.1.html",
+          "title": "resolvectl(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "eth-lldp-perf",
@@ -12093,7 +12262,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "chmod 600 /etc/netplan/*.yaml && netplan generate && netplan try --timeout 60",
     "desc": "Validate and safely test `/etc/netplan/*.yaml` changes with automatic rollback if SSH disconnects",
     "tip": "Always use 'netplan try' over remote SSH!",
-    "tags": "Netplan & networkctl ethernet nic networking linux netplan try apply ubuntu yaml rollback chmod"
+    "tags": "Netplan & networkctl ethernet nic networking linux netplan try apply ubuntu yaml rollback chmod",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://netplan.readthedocs.io/en/stable/netplan-try/",
+          "title": "netplan try"
+        },
+        {
+          "url": "https://netplan.readthedocs.io/en/stable/netplan-status/",
+          "title": "netplan status"
+        },
+        {
+          "url": "https://netplan.readthedocs.io/en/stable/netplan-get/",
+          "title": "netplan get"
+        },
+        {
+          "url": "https://netplan.readthedocs.io/en/stable/security/",
+          "title": "netplan security"
+        }
+      ]
+    }
   },
   {
     "sName": "eth-netplan-systemd",
@@ -12104,7 +12294,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "networkctl list   |   networkctl status eth0   |   networkctl lldp   |   networkctl reconfigure eth0",
     "desc": "Inspect `systemd-networkd` link state, DHCP leases, and discovered LLDP switch neighbors on Ubuntu Server",
     "tip": "networkctl lldp works out-of-the-box!",
-    "tags": "Netplan & networkctl ethernet nic networking linux networkctl networkd systemd lldp status ubuntu"
+    "tags": "Netplan & networkctl ethernet nic networking linux networkctl networkd systemd lldp status ubuntu",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/networkctl.1.html",
+          "title": "networkctl(1)"
+        }
+      ],
+      "note": "networkctl lldp needs LLDP= enabled on the interface; reconfigure does not reload .network files (networkctl reload first)."
+    }
   },
   {
     "sName": "eth-netplan-systemd",
@@ -12115,7 +12315,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nmcli dev status   |   nmcli con show   |   nmcli con mod 'Wired connection 1' ipv6.addresses 2001:db8:dc:10::50/64 ipv6.gateway 2001:db8:dc:10::1 ipv6.dns '2606:4700:4700::1111' ipv6.method manual && nmcli con up 'Wired connection 1'",
     "desc": "Manage IPv6 Ethernet connections using NetworkManager CLI (`nmcli`) on Ubuntu Desktop or Server",
     "tip": "",
-    "tags": "Netplan & networkctl ethernet nic networking linux nmcli networkmanager ipv6 static slaac dhcpv6 connection"
+    "tags": "Netplan & networkctl ethernet nic networking linux nmcli networkmanager ipv6 static slaac dhcpv6 connection",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networkmanager.dev/docs/api/latest/nmcli.html",
+          "title": "nmcli"
+        },
+        {
+          "url": "https://networkmanager.dev/docs/api/latest/nm-settings-nmcli.html",
+          "title": "nm-settings-nmcli"
+        }
+      ],
+      "note": "ipv6.method values are from the settings page summary."
+    }
   },
   {
     "sName": "eth-netplan-systemd",
@@ -12138,6 +12352,11 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Complete TIA/EIA-568B vs 568A RJ45 (8P8C) wire order (Hold plug clip-down, gold pins facing you, left=Pin 1)",
     "tip": "Only Orange & Green swap between B and A",
     "tags": "RJ45 Pinouts & TDR ethernet nic networking linux rj45 pinout t568b t568a 568b 568a wires colors 8p8c",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [],
+      "note": "Wiring reference: the TIA-568 standard is not freely available, so the pinout was not checked against it."
+    },
     "noCopy": true
   },
   {
@@ -12149,7 +12368,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ethtool --cable-test eth0   |   ethtool --cable-test-tdr eth0",
     "desc": "Run built-in NIC PHY Time-Domain Reflectometer (TDR) to find broken RJ45 pins & exact distance to fault",
     "tip": "Finds bad crimp distance in meters!",
-    "tags": "RJ45 Pinouts & TDR ethernet nic networking linux cable-test tdr ethtool open short 100mbps crimp rj45"
+    "tags": "RJ45 Pinouts & TDR ethernet nic networking linux cable-test tdr ethtool open short 100mbps crimp rj45",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ethtool.8.html",
+          "title": "ethtool(8)"
+        }
+      ],
+      "note": "The pair-fault explanations are rules of thumb."
+    }
   },
   {
     "sName": "eth-rj45-tdr",
@@ -12160,7 +12389,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ethtool -p eno1 30",
     "desc": "Physically blink the RJ45/SFP port LED on a multi-port NIC to identify which cable is `eth0`/`eno1`",
     "tip": "Never unplug the wrong port again",
-    "tags": "RJ45 Pinouts & TDR ethernet nic networking linux blink led identify port ethtool physical"
+    "tags": "RJ45 Pinouts & TDR ethernet nic networking linux blink led identify port ethtool physical",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ethtool.8.html",
+          "title": "ethtool(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "eth-rj45-tdr",
@@ -12183,6 +12421,11 @@ window.GLOBAL_SEARCH_INDEX = [
     "desc": "Complete TIA/EIA-568B vs 568A RJ45 (8P8C) wire order (Hold plug clip-down, gold pins facing you, left=Pin 1)",
     "tip": "Only Orange & Green swap between B and A",
     "tags": "rj45 pinout t568b t568a 568b 568a wires colors 8p8c",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [],
+      "note": "Wiring reference: the TIA-568 standard is not freely available, so the pinout was not checked against it."
+    },
     "noCopy": true
   },
   {
@@ -12194,7 +12437,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ethtool --cable-test eth0   |   ethtool --cable-test-tdr eth0",
     "desc": "Run built-in NIC PHY Time-Domain Reflectometer (TDR) to find broken RJ45 pins & exact distance to fault",
     "tip": "Finds bad crimp distance in meters!",
-    "tags": "cable-test tdr ethtool open short 100mbps crimp rj45"
+    "tags": "cable-test tdr ethtool open short 100mbps crimp rj45",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ethtool.8.html",
+          "title": "ethtool(8)"
+        }
+      ],
+      "note": "The pair-fault explanations are rules of thumb."
+    }
   },
   {
     "sName": "ethernet",
@@ -12205,7 +12458,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ethtool -p eno1 30",
     "desc": "Physically blink the RJ45/SFP port LED on a multi-port NIC to identify which cable is `eth0`/`eno1`",
     "tip": "Never unplug the wrong port again",
-    "tags": "blink led identify port ethtool physical"
+    "tags": "blink led identify port ethtool physical",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ethtool.8.html",
+          "title": "ethtool(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "ethernet",
@@ -12216,7 +12478,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ethtool eth0   |   ethtool -r eth0   |   ethtool -s eth0 speed 1000 duplex full autoneg on",
     "desc": "Check negotiated link speed, duplex, auto-negotiation, and link partner advertised speeds",
     "tip": "",
-    "tags": "speed duplex autoneg ethtool carrier 1000base-t"
+    "tags": "speed duplex autoneg ethtool carrier 1000base-t",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ethtool.8.html",
+          "title": "ethtool(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "ethernet",
@@ -12227,7 +12498,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ethtool -S eth0 | grep -iE 'err|drop|crc|fcs|align|miss|fifo|over|pause' | grep -v ': 0'",
     "desc": "Inspect hardware NIC MAC/PHY counters for bad cables (`rx_crc_errors`), ring drops, or pause frames",
     "tip": "rx_crc_errors > 0 = replace cable",
-    "tags": "crc fcs errors drops counters pause ethtool"
+    "tags": "crc fcs errors drops counters pause ethtool",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ethtool.8.html",
+          "title": "ethtool(8)"
+        }
+      ],
+      "note": "Counter names vary by driver."
+    }
   },
   {
     "sName": "ethernet",
@@ -12238,7 +12519,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ethtool -g eth0   |   ethtool -G eth0 rx 4096 tx 4096   |   ethtool -l eth0   |   ethtool -L eth0 combined 16",
     "desc": "Inspect and increase NIC RX/TX descriptor ring buffers and multi-queue RSS channels",
     "tip": "",
-    "tags": "ring buffer rss queues offload tso gro drops"
+    "tags": "ring buffer rss queues offload tso gro drops",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ethtool.8.html",
+          "title": "ethtool(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "ethernet",
@@ -12249,7 +12539,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ethtool -i eth0   |   lspci -nnk | grep -A3 -i net",
     "desc": "Identify kernel driver (`igb`, `ixgbe`, `i40e`, `ice`, `mlx5_core`, `r8169`), NIC firmware & PCI bus address",
     "tip": "",
-    "tags": "driver firmware pci bdf lspci ixgbe mlx5"
+    "tags": "driver firmware pci bdf lspci ixgbe mlx5",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ethtool.8.html",
+          "title": "ethtool(8)"
+        }
+      ],
+      "note": "ethtool(8) does not list the -i field names."
+    }
   },
   {
     "sName": "ethernet",
@@ -12260,7 +12560,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "chmod 600 /etc/netplan/*.yaml && netplan generate && netplan try --timeout 60",
     "desc": "Validate and safely test `/etc/netplan/*.yaml` changes with automatic rollback if SSH disconnects",
     "tip": "Always use 'netplan try' over remote SSH!",
-    "tags": "netplan try apply ubuntu yaml rollback chmod"
+    "tags": "netplan try apply ubuntu yaml rollback chmod",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://netplan.readthedocs.io/en/stable/netplan-try/",
+          "title": "netplan try"
+        },
+        {
+          "url": "https://netplan.readthedocs.io/en/stable/netplan-status/",
+          "title": "netplan status"
+        },
+        {
+          "url": "https://netplan.readthedocs.io/en/stable/netplan-get/",
+          "title": "netplan get"
+        },
+        {
+          "url": "https://netplan.readthedocs.io/en/stable/security/",
+          "title": "netplan security"
+        }
+      ]
+    }
   },
   {
     "sName": "ethernet",
@@ -12271,7 +12592,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "networkctl list   |   networkctl status eth0   |   networkctl lldp   |   networkctl reconfigure eth0",
     "desc": "Inspect `systemd-networkd` link state, DHCP leases, and discovered LLDP switch neighbors on Ubuntu Server",
     "tip": "networkctl lldp works out-of-the-box!",
-    "tags": "networkctl networkd systemd lldp status ubuntu"
+    "tags": "networkctl networkd systemd lldp status ubuntu",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/networkctl.1.html",
+          "title": "networkctl(1)"
+        }
+      ],
+      "note": "networkctl lldp needs LLDP= enabled on the interface; reconfigure does not reload .network files (networkctl reload first)."
+    }
   },
   {
     "sName": "ethernet",
@@ -12282,7 +12613,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nmcli dev status   |   nmcli con show   |   nmcli con mod 'Wired connection 1' ipv6.addresses 2001:db8:dc:10::50/64 ipv6.gateway 2001:db8:dc:10::1 ipv6.dns '2606:4700:4700::1111' ipv6.method manual && nmcli con up 'Wired connection 1'",
     "desc": "Manage IPv6 Ethernet connections using NetworkManager CLI (`nmcli`) on Ubuntu Desktop or Server",
     "tip": "",
-    "tags": "nmcli networkmanager ipv6 static slaac dhcpv6 connection"
+    "tags": "nmcli networkmanager ipv6 static slaac dhcpv6 connection",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networkmanager.dev/docs/api/latest/nmcli.html",
+          "title": "nmcli"
+        },
+        {
+          "url": "https://networkmanager.dev/docs/api/latest/nm-settings-nmcli.html",
+          "title": "nm-settings-nmcli"
+        }
+      ],
+      "note": "ipv6.method values are from the settings page summary."
+    }
   },
   {
     "sName": "ethernet",
@@ -12293,7 +12638,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ip -br -c link   |   ip -6 -br -c addr   |   ip -s -s link show dev eth0",
     "desc": "Show compact color-coded table of all network interfaces, MACs, link state, and Global/Link-Local IPv6 addresses",
     "tip": "ip -6 -br -c addr shows all IPv6 prefixes cleanly",
-    "tags": "ip ipv6 brief addr link mac stats fe80"
+    "tags": "ip ipv6 brief addr link mac stats fe80",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip.8.html",
+          "title": "ip(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-link.8.html",
+          "title": "ip-link(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-address.8.html",
+          "title": "ip-address(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "ethernet",
@@ -12304,7 +12666,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ip link set dev eth0 mtu 9000 up   |   ip -6 addr add 2001:db8:dc:10::50/64 dev eth0   |   ip -6 addr flush scope global dev eth0",
     "desc": "Bring interface up/down, enable Jumbo Frames (`mtu 9000`), or add/remove IPv6 `/64` or `/128` addresses on the fly",
     "tip": "Never flush link-local fe80:: — IPv6 NDP & routing need it!",
-    "tags": "mtu jumbo 9000 up down ipv6 cidr flush"
+    "tags": "mtu jumbo 9000 up down ipv6 cidr flush",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-link.8.html",
+          "title": "ip-link(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-address.8.html",
+          "title": "ip-address(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "ethernet",
@@ -12315,7 +12690,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ip -6 -c route   |   ip -6 route get 2606:4700:4700::1111   |   ip -6 route replace default via fe80::1 dev eth0",
     "desc": "Inspect IPv6 routing table or ask kernel which exact egress interface, next-hop (often `fe80::`), and source IPv6 will reach a target",
     "tip": "'ip -6 route get' debugs multi-NIC IPv6 routing",
-    "tags": "route ipv6 gateway default egress source pbr fe80"
+    "tags": "route ipv6 gateway default egress source pbr fe80",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-route.8.html",
+          "title": "ip-route(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-rule.8.html",
+          "title": "ip-rule(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "ethernet",
@@ -12323,10 +12711,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "ip6",
     "id": "ip-neigh-arping-duplicate",
     "sec": "iproute2: IPv6 Links, Addresses, Routes & NDP",
-    "cmd": "ip -6 -c neigh show   |   ip -6 neigh flush all   |   ndisc6 2001:db8:dc:10::1 eth0   |   rdisc6 eth0",
+    "cmd": "ip -6 -c neigh show   |   ip -6 neigh flush dev eth0   |   ndisc6 2001:db8:dc:10::1 eth0   |   rdisc6 eth0",
     "desc": "Inspect IPv6 Neighbor Discovery Protocol (NDP) cache (`REACHABLE`, `STALE`, `FAILED`, `router`) or probe with `ndisc6` / `rdisc6`",
     "tip": "IPv6 uses ICMPv6 Neighbor Discovery (NDP) instead of ARP!",
-    "tags": "ndp neigh ndisc6 rdisc6 ipv6 mac l2 router-advertisement"
+    "tags": "ndp neigh ndisc6 rdisc6 ipv6 mac l2 router-advertisement",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-neighbour.8.html",
+          "title": "ip-neighbour(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/unstable/ndisc6/ndisc6.8.en.html",
+          "title": "ndisc6(8)"
+        },
+        {
+          "url": "https://manpages.debian.org/unstable/ndisc6/rdisc6.8.en.html",
+          "title": "rdisc6(8)"
+        }
+      ],
+      "note": "Corrected 2026-11-09: \"neigh flush all\" is not a documented form; flush takes the same selectors as show."
+    }
   },
   {
     "sName": "ethernet",
@@ -12337,7 +12743,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "cat /proc/net/bonding/bond0   |   ip -d link show bond0",
     "desc": "Verify LACP (`802.3ad`) bond health, Partner System MAC, Aggregator ID, and slave `Link Failure Count`",
     "tip": "Partner MAC 00:00:.. = switch LACP off",
-    "tags": "bond lacp 802.3ad bonding aggregator mlag port-channel"
+    "tags": "bond lacp 802.3ad bonding aggregator mlag port-channel",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.kernel.org/networking/bonding.html",
+          "title": "Linux bonding"
+        }
+      ],
+      "note": "Aggregator ID and Partner MAC are not in the kernel bonding doc's sample output."
+    }
   },
   {
     "sName": "ethernet",
@@ -12348,7 +12764,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ip link add link eth0 name eth0.100 type vlan id 100 && ip link set eth0.100 up",
     "desc": "Create an 802.1Q tagged VLAN sub-interface (`eth0.100`) or LACP bond dynamically via `ip link`",
     "tip": "",
-    "tags": "vlan 802.1q trunk tagged subinterface"
+    "tags": "vlan 802.1q trunk tagged subinterface",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip-link.8.html",
+          "title": "ip-link(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "ethernet",
@@ -12359,7 +12784,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "bridge link show   |   bridge fdb show br br0   |   bridge vlan show",
     "desc": "Inspect Linux software bridge ports, learned L2 MAC forwarding database (FDB), and bridge VLANs",
     "tip": "",
-    "tags": "bridge br0 fdb mac-table kvm veth"
+    "tags": "bridge br0 fdb mac-table kvm veth",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/bridge.8.html",
+          "title": "bridge(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "ethernet",
@@ -12370,7 +12804,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "lldpctl eth0   |   tcpdump -nn -v -i eth0 -s 1500 -c 1 '(ether proto 0x88cc or ether[20:2] == 0x2000)'",
     "desc": "Identify which physical upstream switch name, port number, and native VLAN `eth0` is plugged into",
     "tip": "Traces cables without going to the rack!",
-    "tags": "lldp cdp switch port tcpdump lldpctl trace"
+    "tags": "lldp cdp switch port tcpdump lldpctl trace",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://manpages.debian.org/trixie/lldpd/lldpctl.8.en.html",
+          "title": "lldpctl(8)"
+        },
+        {
+          "url": "https://man7.org/linux/man-pages/man7/pcap-filter.7.html",
+          "title": "pcap-filter(7)"
+        }
+      ],
+      "note": "The neighbor fields lldpctl prints are not listed in its man page; the CDP filter is a convention."
+    }
   },
   {
     "sName": "ethernet",
@@ -12381,7 +12829,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ping -6 -M do -s 8952 -c 4 2001:db8:dc:10::1   |   ping -6 -M do -s 1452 -c 4 2606:4700:4700::1111",
     "desc": "Verify end-to-end IPv6 9000-byte Jumbo Frame path without fragmentation (`ping -6 -M do -s 8952`)",
     "tip": "IPv6 header is 40B: 8952 + 48 = 9000 MTU (vs 8972 on IPv4)",
-    "tags": "mtu jumbo ping ping6 ipv6 fragment df 8952 1452"
+    "tags": "mtu jumbo ping ping6 ipv6 fragment df 8952 1452",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ping.8.html",
+          "title": "ping(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "ethernet",
@@ -12392,7 +12849,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "# Server: iperf3 -s   |   # Client: iperf3 -6 -c 2001:db8:dc:10::1 -P 8 -t 30   |   iperf3 -6 -c 2001:db8:dc:10::1 -R",
     "desc": "Test IPv6 (`-6`) 1G / 10G / 25G / 100G / 400G TCP & UDP line-rate throughput and TCP retransmissions (`Retr`)",
     "tip": "",
-    "tags": "iperf3 ipv6 bandwidth throughput speedtest retransmissions 10g"
+    "tags": "iperf3 ipv6 bandwidth throughput speedtest retransmissions 10g",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://software.es.net/iperf/invoking.html",
+          "title": "iperf3"
+        }
+      ],
+      "note": "The Retr column is not described in the iperf3 manual."
+    }
   },
   {
     "sName": "ethernet",
@@ -12403,7 +12870,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "resolvectl status   |   resolvectl query --type=AAAA example.com   |   resolvectl flush-caches",
     "desc": "Inspect per-interface IPv6 DNS servers, query `AAAA` records, and flush cache in Ubuntu's `systemd-resolved`",
     "tip": "",
-    "tags": "dns ipv6 aaaa resolvectl systemd-resolved 127.0.0.53 ubuntu"
+    "tags": "dns ipv6 aaaa resolvectl systemd-resolved 127.0.0.53 ubuntu",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man1/resolvectl.1.html",
+          "title": "resolvectl(1)"
+        }
+      ]
+    }
   },
   {
     "sName": "fiber",
@@ -38385,7 +38861,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show ipv6 bgp summary && show system environment all && show logging",
     "desc": "Inspect IPv6/IPv4 BGP peering, chassis power/fan/temperature sensors, recent link-flap logs, and config changes",
     "tip": "",
-    "tags": "Arista EOS: BGP & Health switch nos cli triage arista eos bgp environment psu fan logging version"
+    "tags": "Arista EOS: BGP & Health switch nos cli triage arista eos bgp environment psu fan logging version",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.arista.com/um-eos/eos-border-gateway-protocol-bgp",
+          "title": "Arista EOS 4.37: BGP"
+        },
+        {
+          "url": "https://www.arista.com/um-eos/eos-environment-commands",
+          "title": "Arista EOS 4.37: environment"
+        },
+        {
+          "url": "https://www.arista.com/um-eos/eos-switch-administration-commands",
+          "title": "Arista EOS 4.37: show logging"
+        }
+      ],
+      "note": "Corrected 2026-11-09: show logging last <n> filters by time; a count is show logging <n>. show version and show boot-config are not in the chapters read."
+    }
   },
   {
     "sName": "sw-arista-bgp",
@@ -38396,7 +38890,12 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show version && show boot-config",
     "desc": "Check Arista switch hardware model, serial number, MAC, uptime, and EOS image version",
     "tip": "",
-    "tags": "Arista EOS: BGP & Health recipe automation cli"
+    "tags": "Arista EOS: BGP & Health recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [],
+      "note": "show version is not in the EOS chapters read; show boot-config appears only in an example."
+    }
   },
   {
     "sName": "sw-arista-bgp",
@@ -38407,7 +38906,12 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show running-config interfaces Ethernet1",
     "desc": "View the exact configuration block applied to interface Ethernet1",
     "tip": "",
-    "tags": "Arista EOS: BGP & Health recipe automation cli"
+    "tags": "Arista EOS: BGP & Health recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [],
+      "note": "Not in the EOS chapters read."
+    }
   },
   {
     "sName": "sw-arista-bgp",
@@ -38429,7 +38933,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show lldp neighbors && show port-channel summary && show mlag",
     "desc": "Verify LLDP server connections, LACP Port-Channel member states, MLAG health, and MAC/ARP tables",
     "tip": "Member flag (P) = active in LACP; (s) = suspended!",
-    "tags": "Arista EOS: LLDP & MLAG switch nos cli triage arista eos lldp port-channel lacp mlag mac arp"
+    "tags": "Arista EOS: LLDP & MLAG switch nos cli triage arista eos lldp port-channel lacp mlag mac arp",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.arista.com/um-eos/eos-link-layer-discovery-protocol",
+          "title": "Arista EOS 4.37: LLDP"
+        },
+        {
+          "url": "https://www.arista.com/um-eos/eos-port-channels-and-lacp",
+          "title": "Arista EOS 4.37: port channels"
+        },
+        {
+          "url": "https://www.arista.com/um-eos/eos-multi-chassis-link-aggregation",
+          "title": "Arista EOS 4.37: MLAG"
+        },
+        {
+          "url": "https://www.arista.com/um-eos/eos-ipv6",
+          "title": "Arista EOS 4.37: IPv6"
+        }
+      ],
+      "note": "show mac address-table was not found in the chapters read."
+    }
   },
   {
     "sName": "sw-arista-mlag",
@@ -38440,7 +38966,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show lldp neighbors Ethernet1 detail",
     "desc": "Show complete LLDP chassis ID, system description, management IPv6/IPv4, and VLAN for port Ethernet1",
     "tip": "",
-    "tags": "Arista EOS: LLDP & MLAG recipe automation cli"
+    "tags": "Arista EOS: LLDP & MLAG recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.arista.com/um-eos/eos-link-layer-discovery-protocol",
+          "title": "Arista EOS 4.37: LLDP"
+        },
+        {
+          "url": "https://www.arista.com/um-eos/eos-port-channels-and-lacp",
+          "title": "Arista EOS 4.37: port channels"
+        },
+        {
+          "url": "https://www.arista.com/um-eos/eos-multi-chassis-link-aggregation",
+          "title": "Arista EOS 4.37: MLAG"
+        },
+        {
+          "url": "https://www.arista.com/um-eos/eos-ipv6",
+          "title": "Arista EOS 4.37: IPv6"
+        }
+      ],
+      "note": "show mac address-table was not found in the chapters read."
+    }
   },
   {
     "sName": "sw-arista-mlag",
@@ -38451,7 +38999,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show mac address-table address <mac> && show ipv6 neighbors <ipv6>",
     "desc": "Locate which switch port or Port-Channel learned a specific server MAC or IPv6 Neighbor Discovery entry",
     "tip": "",
-    "tags": "Arista EOS: LLDP & MLAG recipe automation cli"
+    "tags": "Arista EOS: LLDP & MLAG recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.arista.com/um-eos/eos-ipv6",
+          "title": "Arista EOS 4.37: IPv6"
+        }
+      ],
+      "note": "show ipv6 neighbors is documented; show mac address-table was not found in the chapters read."
+    }
   },
   {
     "sName": "sw-arista-mlag",
@@ -38462,7 +39020,12 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "bash ethtool -m Ethernet1",
     "desc": "Drop into Arista's underlying Linux bash shell to run standard Linux utilities",
     "tip": "",
-    "tags": "Arista EOS: LLDP & MLAG recipe automation cli"
+    "tags": "Arista EOS: LLDP & MLAG recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [],
+      "note": "EOS documents bash but not the Linux name of Ethernet1 or ethtool; check ip link in bash first."
+    }
   },
   {
     "sName": "sw-arista-mlag",
@@ -38483,8 +39046,18 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "Arista EOS: Ports & DOM: Inspect Arista switch port status, SFP/QSFP/OSFP optical DOM power",
     "cmd": "show interfaces status && show interfaces Ethernet1 transceiver detail",
     "desc": "Inspect Arista switch port status, SFP/QSFP/OSFP optical DOM power (dBm), and non-zero error counters",
-    "tip": "Append 'nz' in Arista EOS to show only non-zero counters!",
-    "tags": "Arista EOS: Ports & DOM switch nos cli triage arista eos interfaces transceiver dom errors nz phy"
+    "tip": "Run show interfaces counters errors twice a minute apart: a counter that grows is the live problem",
+    "tags": "Arista EOS: Ports & DOM switch nos cli triage arista eos interfaces transceiver dom errors nz phy",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.arista.com/um-eos/eos-ethernet-ports",
+          "title": "Arista EOS 4.37: Ethernet ports"
+        }
+      ],
+      "note": "Corrected 2026-11-09: EOS documents no nz filter. show inventory is not in the chapters read."
+    }
   },
   {
     "sName": "sw-arista-ports",
@@ -38492,10 +39065,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "eos",
     "id": "arista-interfaces-dom-sub-1",
     "sec": "Arista EOS: Ports & DOM: Inspect Arista switch port status, SFP/QSFP/OSFP optical DOM power",
-    "cmd": "show interfaces counters errors nz",
-    "desc": "Filter out clean ports and display ONLY ports with non-zero physical error counters",
+    "cmd": "show interfaces counters errors",
+    "desc": "Physical error counters (FCS, Align, Symbol, Runts, Giants) for every port",
     "tip": "",
-    "tags": "Arista EOS: Ports & DOM recipe automation cli"
+    "tags": "Arista EOS: Ports & DOM recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.arista.com/um-eos/eos-ethernet-ports",
+          "title": "Arista EOS 4.37: Ethernet ports"
+        }
+      ],
+      "note": "Corrected 2026-11-09: EOS documents no nz filter. show inventory is not in the chapters read."
+    }
   },
   {
     "sName": "sw-arista-ports",
@@ -38506,7 +39089,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show interfaces Ethernet1 phy detail",
     "desc": "Deep physical-layer SerDes, FEC codeword error, and pre/post-FEC BER diagnostics",
     "tip": "",
-    "tags": "Arista EOS: Ports & DOM recipe automation cli"
+    "tags": "Arista EOS: Ports & DOM recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.arista.com/um-eos/eos-ethernet-ports",
+          "title": "Arista EOS 4.37: Ethernet ports"
+        }
+      ],
+      "note": "Corrected 2026-11-09: EOS documents no nz filter. show inventory is not in the chapters read."
+    }
   },
   {
     "sName": "sw-arista-ports",
@@ -38517,7 +39110,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show inventory",
     "desc": "Display switch chassis serial number, PSU models/serials, and every plugged transceiver's vendor/part/serial",
     "tip": "",
-    "tags": "Arista EOS: Ports & DOM recipe automation cli"
+    "tags": "Arista EOS: Ports & DOM recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.arista.com/um-eos/eos-ethernet-ports",
+          "title": "Arista EOS 4.37: Ethernet ports"
+        }
+      ],
+      "note": "Corrected 2026-11-09: EOS documents no nz filter. show inventory is not in the chapters read."
+    }
   },
   {
     "sName": "sw-arista-ports",
@@ -38539,7 +39142,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nv show vrf default router bgp neighbor && nv show qos roce",
     "desc": "Check BGP neighbor session states (Established), IPv4/IPv6 routes, and RoCEv2 lossless PFC/ECN congestion counters",
     "tip": "BGP state 'Active' or 'Connect' means session is DOWN!",
-    "tags": "Cumulus: BGP, EVPN & RoCEv2 switch nos cli triage cumulus bgp evpn frr roce pfc ecn qos"
+    "tags": "Cumulus: BGP, EVPN & RoCEv2 switch nos cli triage cumulus bgp evpn frr roce pfc ecn qos",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Layer-3/Border-Gateway-Protocol-BGP/Troubleshooting-BGP/",
+          "title": "Cumulus Linux 5.18: troubleshooting BGP"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Layer-1-and-Switch-Ports/Quality-of-Service/RDMA-over-Converged-Ethernet-RoCE/",
+          "title": "Cumulus Linux 5.18: RoCE"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/RIB/",
+          "title": "NVUE reference: RIB"
+        }
+      ],
+      "note": "Corrected 2026-11-09: NVIDIA's page uses vtysh show ip bgp summary."
+    }
   },
   {
     "sName": "sw-cumulus-bgp",
@@ -38550,7 +39171,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nv show vrf default router rib ipv6",
     "desc": "Display the IPv6 Routing Information Base (RIB) and ECMP next-hops (often link-local fe80:: via BGP Unnumbered)",
     "tip": "",
-    "tags": "Cumulus: BGP, EVPN & RoCEv2 recipe automation cli"
+    "tags": "Cumulus: BGP, EVPN & RoCEv2 recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Layer-3/Border-Gateway-Protocol-BGP/Troubleshooting-BGP/",
+          "title": "Cumulus Linux 5.18: troubleshooting BGP"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Layer-1-and-Switch-Ports/Quality-of-Service/RDMA-over-Converged-Ethernet-RoCE/",
+          "title": "Cumulus Linux 5.18: RoCE"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/RIB/",
+          "title": "NVUE reference: RIB"
+        }
+      ],
+      "note": "Corrected 2026-11-09: NVIDIA's page uses vtysh show ip bgp summary."
+    }
   },
   {
     "sName": "sw-cumulus-bgp",
@@ -38561,7 +39200,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ethtool -S swp1 | grep -iE 'pfc|pause|ecn|discard'",
     "desc": "Check hardware NIC/ASIC counters on swp1 for Priority Flow Control (PFC) pause storms or buffer drops",
     "tip": "",
-    "tags": "Cumulus: BGP, EVPN & RoCEv2 recipe automation cli"
+    "tags": "Cumulus: BGP, EVPN & RoCEv2 recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Monitoring-and-Troubleshooting/Troubleshooting-Network-Interfaces/Monitoring-Interfaces-and-Transceivers-with-ethtool/",
+          "title": "Cumulus Linux 5.18: ethtool"
+        }
+      ]
+    }
   },
   {
     "sName": "sw-cumulus-bgp",
@@ -38583,7 +39231,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nv show interface bond && nv show mlag",
     "desc": "Verify LACP bond member links, MLAG dual-homing peer synchronization, and port VLAN trunk/access settings",
     "tip": "Check 'Link Failure Count' in /proc/net/bonding/<bond>",
-    "tags": "Cumulus: MLAG Bonds & VLAN switch nos cli triage cumulus bond lacp mlag vlan trunk access"
+    "tags": "Cumulus: MLAG Bonds & VLAN switch nos cli triage cumulus bond lacp mlag vlan trunk access",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/MLAG/",
+          "title": "NVUE reference: MLAG"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/Bridge/",
+          "title": "NVUE reference: bridge"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Layer-2/Ethernet-Bridging-VLANs/VLAN-aware-Bridge-Mode/",
+          "title": "Cumulus Linux 5.18: VLAN-aware bridge"
+        }
+      ],
+      "note": "nv show interface bond (all bonds) is not in the NVUE reference; nv show mlag is."
+    }
   },
   {
     "sName": "sw-cumulus-bonds",
@@ -38594,7 +39260,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "cat /proc/net/bonding/bond1",
     "desc": "Inspect raw Linux kernel 802.3ad LACP partner MAC, aggregator ID, and link failure counters for bond1",
     "tip": "",
-    "tags": "Cumulus: MLAG Bonds & VLAN recipe automation cli"
+    "tags": "Cumulus: MLAG Bonds & VLAN recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.kernel.org/networking/bonding.html",
+          "title": "Linux bonding"
+        }
+      ]
+    }
   },
   {
     "sName": "sw-cumulus-bonds",
@@ -38602,10 +39277,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "lcp",
     "id": "nvue-bond-mlag-vlan-sub-2",
     "sec": "Cumulus: MLAG Bonds & VLAN: Verify LACP bond member links, MLAG dual-homing peer synchronization, and port VLAN trunk/access settings",
-    "cmd": "nv set interface swp10 bridge domain br_default access 100 && nv config apply -y",
+    "cmd": "nv set interface swp10 bridge domain br_default access 100 && nv config apply --assume-yes",
     "desc": "Configure switch port swp10 as an untagged Access port in VLAN 100",
     "tip": "",
-    "tags": "Cumulus: MLAG Bonds & VLAN recipe automation cli"
+    "tags": "Cumulus: MLAG Bonds & VLAN recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/MLAG/",
+          "title": "NVUE reference: MLAG"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/Bridge/",
+          "title": "NVUE reference: bridge"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Layer-2/Ethernet-Bridging-VLANs/VLAN-aware-Bridge-Mode/",
+          "title": "Cumulus Linux 5.18: VLAN-aware bridge"
+        }
+      ],
+      "note": "nv show interface bond (all bonds) is not in the NVUE reference; nv show mlag is."
+    }
   },
   {
     "sName": "sw-cumulus-bonds",
@@ -38626,8 +39319,26 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "Cumulus: PSU, Fans & Config: Inspect switch PSUs, fan RPMs, thermal sensors, and safely diff, apply, or rollback NVUE config revisions",
     "cmd": "nv show platform environment && nv config diff",
     "desc": "Inspect switch PSUs, fan RPMs, thermal sensors, and safely diff, apply, or rollback NVUE config revisions",
-    "tip": "nv config show -o commands exports clean CLI commands",
-    "tags": "Cumulus: PSU, Fans & Config switch nos cli triage cumulus platform psu fan temperature config rollback"
+    "tip": "nv config translate revision <id> exports a revision as nv set commands",
+    "tags": "Cumulus: PSU, Fans & Config switch nos cli triage cumulus platform psu fan temperature config rollback",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/Platform/",
+          "title": "NVUE reference: platform"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/System/",
+          "title": "NVUE reference: system"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Config-Commands/",
+          "title": "NVUE reference: config commands"
+        }
+      ],
+      "note": "Corrected 2026-11-09: there is no nv config rollback (use nv config apply <rev>), and nv config show -o takes only auto/json/yaml/native."
+    }
   },
   {
     "sName": "sw-cumulus-hw",
@@ -38638,7 +39349,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nv show system && nv show platform hardware",
     "desc": "Show Cumulus Linux OS version, uptime, switch model, ASIC type, and serial number",
     "tip": "",
-    "tags": "Cumulus: PSU, Fans & Config recipe automation cli"
+    "tags": "Cumulus: PSU, Fans & Config recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/Platform/",
+          "title": "NVUE reference: platform"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/System/",
+          "title": "NVUE reference: system"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Config-Commands/",
+          "title": "NVUE reference: config commands"
+        }
+      ],
+      "note": "Corrected 2026-11-09: there is no nv config rollback (use nv config apply <rev>), and nv config show -o takes only auto/json/yaml/native."
+    }
   },
   {
     "sName": "sw-cumulus-hw",
@@ -38646,10 +39375,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "psu",
     "id": "nvue-platform-config-sub-2",
     "sec": "Cumulus: PSU, Fans & Config: Inspect switch PSUs, fan RPMs, thermal sensors, and safely diff, apply, or rollback NVUE config revisions",
-    "cmd": "nv config rollback <revision_id>",
-    "desc": "Roll back the switch configuration to a known-good previous revision ID",
+    "cmd": "nv config apply <revision_id> --assume-yes",
+    "desc": "Go back to a known-good revision (list them with nv config history). nv config apply --confirm rolls back by itself if you do not confirm",
     "tip": "",
-    "tags": "Cumulus: PSU, Fans & Config recipe automation cli"
+    "tags": "Cumulus: PSU, Fans & Config recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/Platform/",
+          "title": "NVUE reference: platform"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/System/",
+          "title": "NVUE reference: system"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Config-Commands/",
+          "title": "NVUE reference: config commands"
+        }
+      ],
+      "note": "Corrected 2026-11-09: there is no nv config rollback (use nv config apply <rev>), and nv config show -o takes only auto/json/yaml/native."
+    }
   },
   {
     "sName": "sw-cumulus-hw",
@@ -38657,10 +39404,28 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "psu",
     "id": "nvue-platform-config-sub-3",
     "sec": "Cumulus: PSU, Fans & Config: Inspect switch PSUs, fan RPMs, thermal sensors, and safely diff, apply, or rollback NVUE config revisions",
-    "cmd": "nv config show -o commands",
-    "desc": "Export the entire switch configuration as flat, copy-pasteable 'nv set ...' CLI commands",
+    "cmd": "nv config translate revision <revision_id>",
+    "desc": "Export a revision as flat, copy-pasteable 'nv set ...' commands (Cumulus 5.12 and later)",
     "tip": "",
-    "tags": "Cumulus: PSU, Fans & Config recipe automation cli"
+    "tags": "Cumulus: PSU, Fans & Config recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/Platform/",
+          "title": "NVUE reference: platform"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/System/",
+          "title": "NVUE reference: system"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Config-Commands/",
+          "title": "NVUE reference: config commands"
+        }
+      ],
+      "note": "Corrected 2026-11-09: there is no nv config rollback (use nv config apply <rev>), and nv config show -o takes only auto/json/yaml/native."
+    }
   },
   {
     "sName": "sw-cumulus-hw",
@@ -38682,7 +39447,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nv show interface lldp && lldpctl",
     "desc": "List all connected servers and Spine switches via LLDP, and search bridge MAC and IPv4/IPv6 ARP tables",
     "tip": "Run 'nv show interface lldp' to verify rack cabling matrix",
-    "tags": "Cumulus: LLDP, MAC & ARP switch nos cli triage cumulus lldp lldpctl mac arp bridge fdb"
+    "tags": "Cumulus: LLDP, MAC & ARP switch nos cli triage cumulus lldp lldpctl mac arp bridge fdb",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/LLDP/",
+          "title": "NVUE reference: LLDP"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/Bridge/",
+          "title": "NVUE reference: bridge"
+        }
+      ],
+      "note": "lldpctl comes from lldpd, not NVUE."
+    }
   },
   {
     "sName": "sw-cumulus-lldp",
@@ -38690,10 +39469,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "lld",
     "id": "nvue-lldp-mac-arp-sub-1",
     "sec": "Cumulus: LLDP, MAC & ARP: List all connected servers and Spine switches via LLDP, and search bridge MAC and IPv4/IPv6 ARP tables",
-    "cmd": "nv show vrf default router nexthop neighbor && ip -6 -c neigh show",
+    "cmd": "nv show interface neighbor && ip -6 -c neigh show",
     "desc": "Display IPv6 Neighbor Discovery (NDP) table mapping server IPv6 addresses to MACs and swp* ports",
     "tip": "",
-    "tags": "Cumulus: LLDP, MAC & ARP recipe automation cli"
+    "tags": "Cumulus: LLDP, MAC & ARP recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/LLDP/",
+          "title": "NVUE reference: LLDP"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/Bridge/",
+          "title": "NVUE reference: bridge"
+        }
+      ],
+      "note": "lldpctl comes from lldpd, not NVUE."
+    }
   },
   {
     "sName": "sw-cumulus-lldp",
@@ -38704,7 +39497,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "bridge fdb show | grep -i 'aa:bb:cc'",
     "desc": "Search the Linux kernel bridge Forwarding Database (FDB) directly for a server MAC address",
     "tip": "",
-    "tags": "Cumulus: LLDP, MAC & ARP recipe automation cli"
+    "tags": "Cumulus: LLDP, MAC & ARP recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/bridge.8.html",
+          "title": "bridge(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "sw-cumulus-lldp",
@@ -38726,7 +39528,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nv show interface swp1 transceiver && ethtool -m swp1",
     "desc": "Inspect optical transceiver vendor, part/serial number, temperature, and per-lane Tx/Rx optical power (dBm)",
     "tip": "Compare Rx dBm across all 4/8 lanes to spot dirty MPO pins",
-    "tags": "Cumulus: Optics DOM & FEC switch nos cli triage cumulus nvue transceiver optics dom dbm ethtool fec"
+    "tags": "Cumulus: Optics DOM & FEC switch nos cli triage cumulus nvue transceiver optics dom dbm ethtool fec",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/Platform/",
+          "title": "NVUE reference: platform"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Monitoring-and-Troubleshooting/Troubleshooting-Network-Interfaces/Monitoring-Interfaces-and-Transceivers-with-ethtool/",
+          "title": "Cumulus Linux 5.18: ethtool"
+        }
+      ],
+      "note": "FEC values rs/off are from the Switch Port Attributes page summary."
+    }
   },
   {
     "sName": "sw-cumulus-optics",
@@ -38737,7 +39553,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nv show platform transceiver",
     "desc": "Summary table of all populated optical/DAC transceivers across the entire switch",
     "tip": "",
-    "tags": "Cumulus: Optics DOM & FEC recipe automation cli"
+    "tags": "Cumulus: Optics DOM & FEC recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/Platform/",
+          "title": "NVUE reference: platform"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Monitoring-and-Troubleshooting/Troubleshooting-Network-Interfaces/Monitoring-Interfaces-and-Transceivers-with-ethtool/",
+          "title": "Cumulus Linux 5.18: ethtool"
+        }
+      ],
+      "note": "FEC values rs/off are from the Switch Port Attributes page summary."
+    }
   },
   {
     "sName": "sw-cumulus-optics",
@@ -38745,10 +39575,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "dom",
     "id": "nvue-show-transceiver-sub-2",
     "sec": "Cumulus: Optics DOM & FEC: Inspect optical transceiver vendor, part/serial number, temperature, and per-lane Tx/Rx optical power",
-    "cmd": "nv set interface swp1 link fec rs && nv config apply -y",
+    "cmd": "nv set interface swp1 link fec rs && nv config apply --assume-yes",
     "desc": "Configure Forward Error Correction (rs / baser / auto / off) on port swp1",
     "tip": "",
-    "tags": "Cumulus: Optics DOM & FEC recipe automation cli"
+    "tags": "Cumulus: Optics DOM & FEC recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/Platform/",
+          "title": "NVUE reference: platform"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Monitoring-and-Troubleshooting/Troubleshooting-Network-Interfaces/Monitoring-Interfaces-and-Transceivers-with-ethtool/",
+          "title": "Cumulus Linux 5.18: ethtool"
+        }
+      ],
+      "note": "FEC values rs/off are from the Switch Port Attributes page summary."
+    }
   },
   {
     "sName": "sw-cumulus-optics",
@@ -38770,7 +39614,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nv show interface && nv show interface swp1",
     "desc": "Show summary status of all switch ports (swp1..64) including link state, speed, MTU, and description",
     "tip": "Every swp* port is also a standard Linux netdev!",
-    "tags": "Cumulus: Port Status switch nos cli triage cumulus nvue nv swp interface status bounce counters"
+    "tags": "Cumulus: Port Status switch nos cli triage cumulus nvue nv swp interface status bounce counters",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Monitoring-and-Troubleshooting/Troubleshooting-Network-Interfaces/Monitoring-Interfaces-and-Transceivers-with-NVUE/",
+          "title": "Cumulus Linux 5.18: monitoring interfaces"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Set-and-Unset-Commands/Interface/",
+          "title": "NVUE reference: interface set"
+        }
+      ]
+    }
   },
   {
     "sName": "sw-cumulus-ports",
@@ -38781,7 +39638,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nv show interface swp1 link stats",
     "desc": "Display hardware RX/TX packets, bytes, CRC errors, drops, and symbol errors on swp1",
     "tip": "",
-    "tags": "Cumulus: Port Status recipe automation cli"
+    "tags": "Cumulus: Port Status recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Monitoring-and-Troubleshooting/Troubleshooting-Network-Interfaces/Monitoring-Interfaces-and-Transceivers-with-NVUE/",
+          "title": "Cumulus Linux 5.18: monitoring interfaces"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Set-and-Unset-Commands/Interface/",
+          "title": "NVUE reference: interface set"
+        }
+      ]
+    }
   },
   {
     "sName": "sw-cumulus-ports",
@@ -38792,7 +39662,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ip -c -br link show",
     "desc": "Since Cumulus is Linux, standard 'ip -c -br link' works directly on swp1..swp64!",
     "tip": "",
-    "tags": "Cumulus: Port Status recipe automation cli"
+    "tags": "Cumulus: Port Status recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://man7.org/linux/man-pages/man8/ip.8.html",
+          "title": "ip(8)"
+        }
+      ]
+    }
   },
   {
     "sName": "sw-cumulus-ports",
@@ -38800,10 +39679,23 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "nvu",
     "id": "nvue-show-interface-sub-3",
     "sec": "Cumulus: Port Status: Show summary status of all switch ports",
-    "cmd": "nv set interface swp1 link state down && nv config apply -y && sleep 2 && nv set interface swp1 link state up && nv config apply -y",
+    "cmd": "nv set interface swp1 link state down && nv config apply --assume-yes && sleep 2 && nv set interface swp1 link state up && nv config apply --assume-yes",
     "desc": "Administratively bounce (shut / no shut) switch port swp1 to force transceiver link retraining",
     "tip": "",
-    "tags": "Cumulus: Port Status recipe automation cli"
+    "tags": "Cumulus: Port Status recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Monitoring-and-Troubleshooting/Troubleshooting-Network-Interfaces/Monitoring-Interfaces-and-Transceivers-with-NVUE/",
+          "title": "Cumulus Linux 5.18: monitoring interfaces"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Set-and-Unset-Commands/Interface/",
+          "title": "NVUE reference: interface set"
+        }
+      ]
+    }
   },
   {
     "sName": "sw-cumulus-ports",
@@ -38825,7 +39717,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show interface status && show interface Ethernet1/1 transceiver details",
     "desc": "Check Cisco Nexus port status, SFP/QSFP optical DOM power (dBm) with alarm thresholds, and physical error counters",
     "tip": "'++' or '--' in DOM output indicates an active optical alarm!",
-    "tags": "Cisco NX-OS: Ports & DOM switch nos cli triage nxos cisco nexus interface transceiver dom errors"
+    "tags": "Cisco NX-OS: Ports & DOM switch nos cli triage nxos cisco nexus interface transceiver dom errors",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_i_showcmds.html",
+          "title": "NX-OS 10.5 show commands: interface"
+        },
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_i_showcmds.html",
+          "title": "NX-OS 10.5 show commands: inventory"
+        }
+      ],
+      "note": "The status values and the ++ / + DOM legend are not in the show command reference."
+    }
   },
   {
     "sName": "sw-nxos-ports",
@@ -38836,7 +39742,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show interface status err-disabled",
     "desc": "List any switch ports shut down by error-disable (BPDU guard, link-flap, storm-control)",
     "tip": "",
-    "tags": "Cisco NX-OS: Ports & DOM recipe automation cli"
+    "tags": "Cisco NX-OS: Ports & DOM recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_i_showcmds.html",
+          "title": "NX-OS 10.5 show commands: interface"
+        },
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_i_showcmds.html",
+          "title": "NX-OS 10.5 show commands: inventory"
+        }
+      ],
+      "note": "The status values and the ++ / + DOM legend are not in the show command reference."
+    }
   },
   {
     "sName": "sw-nxos-ports",
@@ -38847,7 +39767,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show inventory all",
     "desc": "List chassis, linecard, PSU, fan tray, and all plugged transceiver part numbers and serial numbers",
     "tip": "",
-    "tags": "Cisco NX-OS: Ports & DOM recipe automation cli"
+    "tags": "Cisco NX-OS: Ports & DOM recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_i_showcmds.html",
+          "title": "NX-OS 10.5 show commands: interface"
+        },
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_i_showcmds.html",
+          "title": "NX-OS 10.5 show commands: inventory"
+        }
+      ],
+      "note": "The status values and the ++ / + DOM legend are not in the show command reference."
+    }
   },
   {
     "sName": "sw-nxos-ports",
@@ -38869,7 +39803,37 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show lldp neighbors && show port-channel summary && show vpc",
     "desc": "Inspect LLDP and CDP neighbors, LACP Port-Channel member states, vPC dual-ToR health, and MAC/ARP tables",
     "tip": "Run 'show vpc consistency-parameters global' if vPC is suspended",
-    "tags": "Cisco NX-OS: LLDP & vPC switch nos cli triage nxos cisco lldp cdp port-channel lacp vpc environment"
+    "tags": "Cisco NX-OS: LLDP & vPC switch nos cli triage nxos cisco lldp cdp port-channel lacp vpc environment",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_l_showcmds.html",
+          "title": "NX-OS 10.5 show commands: LLDP"
+        },
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_c_showcmds.html",
+          "title": "NX-OS 10.5 show commands: CDP"
+        },
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_p_showcmds.html",
+          "title": "NX-OS 10.5 show commands: port-channel"
+        },
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_v_showcmds.html",
+          "title": "NX-OS 10.5 show commands: vPC"
+        },
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_m_showcmds.html",
+          "title": "NX-OS 10.5 show commands: MAC table"
+        },
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_e_showcmds.html",
+          "title": "NX-OS 10.5 show commands: environment"
+        }
+      ],
+      "note": "show ipv6 neighbor <addr> is not in the 10.5 show reference; the port-channel flag legend is in a configuration guide, not read."
+    }
   },
   {
     "sName": "sw-nxos-vpc",
@@ -38880,7 +39844,37 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show cdp neighbors detail && show lldp neighbors detail",
     "desc": "View detailed neighbor management IPs, OS versions, and port descriptions",
     "tip": "",
-    "tags": "Cisco NX-OS: LLDP & vPC recipe automation cli"
+    "tags": "Cisco NX-OS: LLDP & vPC recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_l_showcmds.html",
+          "title": "NX-OS 10.5 show commands: LLDP"
+        },
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_c_showcmds.html",
+          "title": "NX-OS 10.5 show commands: CDP"
+        },
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_p_showcmds.html",
+          "title": "NX-OS 10.5 show commands: port-channel"
+        },
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_v_showcmds.html",
+          "title": "NX-OS 10.5 show commands: vPC"
+        },
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_m_showcmds.html",
+          "title": "NX-OS 10.5 show commands: MAC table"
+        },
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_e_showcmds.html",
+          "title": "NX-OS 10.5 show commands: environment"
+        }
+      ],
+      "note": "show ipv6 neighbor <addr> is not in the 10.5 show reference; the port-channel flag legend is in a configuration guide, not read."
+    }
   },
   {
     "sName": "sw-nxos-vpc",
@@ -38891,7 +39885,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show mac address-table address <mac> && show ipv6 neighbor <ipv6>",
     "desc": "Trace a server MAC or IPv6 Neighbor Discovery (NDP) address to its exact Ethernet1/* or Po* interface",
     "tip": "",
-    "tags": "Cisco NX-OS: LLDP & vPC recipe automation cli"
+    "tags": "Cisco NX-OS: LLDP & vPC recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_m_showcmds.html",
+          "title": "NX-OS 10.5 show commands: MAC table"
+        }
+      ],
+      "note": "The bare show ipv6 neighbor is not in the 10.5 show reference."
+    }
   },
   {
     "sName": "sw-nxos-vpc",
@@ -38902,7 +39906,37 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show environment",
     "desc": "Check Nexus power supplies, fan trays, and temperature sensor status",
     "tip": "",
-    "tags": "Cisco NX-OS: LLDP & vPC recipe automation cli"
+    "tags": "Cisco NX-OS: LLDP & vPC recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_l_showcmds.html",
+          "title": "NX-OS 10.5 show commands: LLDP"
+        },
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_c_showcmds.html",
+          "title": "NX-OS 10.5 show commands: CDP"
+        },
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_p_showcmds.html",
+          "title": "NX-OS 10.5 show commands: port-channel"
+        },
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_v_showcmds.html",
+          "title": "NX-OS 10.5 show commands: vPC"
+        },
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_m_showcmds.html",
+          "title": "NX-OS 10.5 show commands: MAC table"
+        },
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_e_showcmds.html",
+          "title": "NX-OS 10.5 show commands: environment"
+        }
+      ],
+      "note": "show ipv6 neighbor <addr> is not in the 10.5 show reference; the port-channel flag legend is in a configuration guide, not read."
+    }
   },
   {
     "sName": "sw-nxos-vpc",
@@ -38923,8 +39957,22 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "Quantum: SM, UFM & HW: Check Quantum switch PSUs, fan trays, ASIC temperatures, Subnet Manager",
     "cmd": "show power && show fan && show temperature && show ib sm",
     "desc": "Check Quantum switch PSUs, fan trays, ASIC temperatures, Subnet Manager (SM) status, and save configuration",
-    "tip": "Only enable 'ib sm' on the switch if you do NOT have UFM or host-based OpenSM running!",
-    "tags": "Quantum: SM, UFM & HW switch nos cli triage nvidia quantum mlnx-os power fan temperature sm opensm ufm inventory version"
+    "tip": "Only enable the switch's SM (ib smnode <name> enable) if you do NOT have UFM or host-based OpenSM running!",
+    "tags": "Quantum: SM, UFM & HW switch nos cli triage nvidia quantum mlnx-os power fan temperature sm opensm ufm inventory version",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/chassis-management",
+          "title": "MLNX-OS 3.12.6200: chassis management"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/subnet-manager",
+          "title": "MLNX-OS 3.12.6200: subnet manager"
+        }
+      ],
+      "note": "show ib sm is not in the manual chapters read; NVIDIA enables the SM with ib smnode <name> enable."
+    }
   },
   {
     "sName": "sw-quantum-hw-sm",
@@ -38935,7 +39983,12 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show inventory && show version",
     "desc": "Display chassis serial number, part number (e.g., MQM9700-NS2F), MLNX-OS software version, and ASIC firmware",
     "tip": "",
-    "tags": "Quantum: SM, UFM & HW recipe automation cli"
+    "tags": "Quantum: SM, UFM & HW recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [],
+      "note": "Not in the MLNX-OS manual chapters read."
+    }
   },
   {
     "sName": "sw-quantum-hw-sm",
@@ -38943,10 +39996,19 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "qsm",
     "id": "mlnxos-hardware-sm-config-sub-2",
     "sec": "Quantum: SM, UFM & HW: Check Quantum switch PSUs, fan trays, ASIC temperatures, Subnet Manager",
-    "cmd": "show ib smgoing && sminfo",
-    "desc": "Check which LID/GUID in the InfiniBand fabric is currently acting as the Master Subnet Manager",
+    "cmd": "sminfo",
+    "desc": "From any host on the fabric: the LID, GUID, priority and state of the master Subnet Manager (infiniband-diags)",
     "tip": "",
-    "tags": "Quantum: SM, UFM & HW recipe automation cli"
+    "tags": "Quantum: SM, UFM & HW recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/sminfo.8.in.rst",
+          "title": "sminfo man page (rdma-core)"
+        }
+      ]
+    }
   },
   {
     "sName": "sw-quantum-hw-sm",
@@ -38954,10 +40016,19 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "qsm",
     "id": "mlnxos-hardware-sm-config-sub-3",
     "sec": "Quantum: SM, UFM & HW: Check Quantum switch PSUs, fan trays, ASIC temperatures, Subnet Manager",
-    "cmd": "configure terminal ; ib sm ; configuration write",
-    "desc": "Enable the embedded Subnet Manager on a standalone Quantum switch and persist config",
+    "cmd": "configure terminal ; ib smnode <sm-node> enable ; configuration write",
+    "desc": "Enable the embedded Subnet Manager on a standalone Quantum switch (NVIDIA's example: ib smnode my-sm enable) and save the config",
     "tip": "",
-    "tags": "Quantum: SM, UFM & HW recipe automation cli"
+    "tags": "Quantum: SM, UFM & HW recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/subnet-manager",
+          "title": "MLNX-OS 3.12.6200: subnet manager"
+        }
+      ]
+    }
   },
   {
     "sName": "sw-quantum-hw-sm",
@@ -38968,7 +40039,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show log",
     "desc": "Inspect recent MLNX-OS system logs for port flaps, thermal alerts, PSU faults, or SM traps (show logging shows the logging settings, not the log)",
     "tip": "",
-    "tags": "Quantum: SM, UFM & HW recipe automation cli"
+    "tags": "Quantum: SM, UFM & HW recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/logging",
+          "title": "MLNX-OS 3.12.6200: logging"
+        }
+      ]
+    }
   },
   {
     "sName": "sw-quantum-hw-sm",
@@ -38979,7 +40059,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "configuration write",
     "desc": "Save running MLNX-OS configuration to startup database (equivalent to 'write memory')",
     "tip": "",
-    "tags": "Quantum: SM, UFM & HW recipe automation cli"
+    "tags": "Quantum: SM, UFM & HW recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/logging",
+          "title": "MLNX-OS 3.12.6200: logging"
+        }
+      ],
+      "note": "Named in the manual; its own reference entry was not read."
+    }
   },
   {
     "sName": "sw-quantum-hw-sm",
@@ -38990,7 +40080,12 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show images && boot system partition next",
     "desc": "Inspect installed MLNX-OS software partition images (image 1 vs image 2) for upgrades",
     "tip": "",
-    "tags": "Quantum: SM, UFM & HW recipe automation cli"
+    "tags": "Quantum: SM, UFM & HW recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [],
+      "note": "show images and the next-boot command were not found in the MLNX-OS chapters read; check the Software Management commands."
+    }
   },
   {
     "sName": "sw-quantum-hw-sm",
@@ -39012,7 +40107,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ibswitches && mlxlink -d lid-1 -p 1 -m -c -e",
     "desc": "Remotely inspect optical DOM (dBm), BER, eye opening, and port counters on an Unmanaged Quantum switch using its IB LID",
     "tip": "MQM9790 / MQM8790 switches have no SSH CLI—use 'mlxlink -d lid-<N> -p <Port>' from any host!",
-    "tags": "Quantum: In-Band MFT switch nos cli triage nvidia quantum unmanaged mqm9790 mqm8790 inband mlxlink lid perfquery smpquery flint ibswitches"
+    "tags": "Quantum: In-Band MFT switch nos cli triage nvidia quantum unmanaged mqm9790 mqm8790 inband mlxlink lid perfquery smpquery flint ibswitches",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxlink-utility",
+          "title": "MFT: mlxlink"
+        },
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibswitches.8.in.rst",
+          "title": "ibswitches man page (rdma-core)"
+        }
+      ],
+      "note": "NVIDIA shows mlxlink -d lid-<LID> -p <port> for Quantum split ports."
+    }
   },
   {
     "sName": "sw-quantum-inband",
@@ -39023,7 +40132,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mlxlink -d lid-1 -p 15 -m -c -e",
     "desc": "Remotely read OSFP/QSFP optical Rx/Tx power (dBm), SNR, and BER on port 15 of Quantum switch LID 1",
     "tip": "",
-    "tags": "Quantum: In-Band MFT recipe automation cli"
+    "tags": "Quantum: In-Band MFT recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxlink-utility",
+          "title": "MFT: mlxlink"
+        },
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibswitches.8.in.rst",
+          "title": "ibswitches man page (rdma-core)"
+        }
+      ],
+      "note": "NVIDIA shows mlxlink -d lid-<LID> -p <port> for Quantum split ports."
+    }
   },
   {
     "sName": "sw-quantum-inband",
@@ -39034,7 +40157,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "mlxlink -d lid-1 -p 15 -a TG",
     "desc": "Remotely bounce (toggle) port 15 on Quantum switch LID 1 over the InfiniBand fabric",
     "tip": "",
-    "tags": "Quantum: In-Band MFT recipe automation cli"
+    "tags": "Quantum: In-Band MFT recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxlink-utility",
+          "title": "MFT: mlxlink"
+        }
+      ]
+    }
   },
   {
     "sName": "sw-quantum-inband",
@@ -39045,7 +40177,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "perfquery -x 1 15 && perfquery -R 1 15",
     "desc": "Read extended PMA error counters on switch LID 1 port 15, then reset (-R) its counters",
     "tip": "",
-    "tags": "Quantum: In-Band MFT recipe automation cli"
+    "tags": "Quantum: In-Band MFT recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/perfquery.8.in.rst",
+          "title": "perfquery man page (rdma-core)"
+        }
+      ]
+    }
   },
   {
     "sName": "sw-quantum-inband",
@@ -39056,7 +40197,12 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "smpquery nodeinfo 1 && smpquery portinfo 1 15",
     "desc": "Query hardware NodeInfo and PortInfo (Active/Init state, speed, width, LID) of switch LID 1 port 15",
     "tip": "",
-    "tags": "Quantum: In-Band MFT recipe automation cli"
+    "tags": "Quantum: In-Band MFT recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [],
+      "note": "smpquery was not checked this round."
+    }
   },
   {
     "sName": "sw-quantum-inband",
@@ -39067,7 +40213,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "flint -d lid-1 q",
     "desc": "Query the ASIC firmware version and PSID of remote Quantum switch LID 1 in-band",
     "tip": "",
-    "tags": "Quantum: In-Band MFT recipe automation cli"
+    "tags": "Quantum: In-Band MFT recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/flint-firmware-burning-tool",
+          "title": "MFT: flint"
+        }
+      ],
+      "note": "flint documents q and in-band use, not a lid- example."
+    }
   },
   {
     "sName": "sw-quantum-inband",
@@ -39078,7 +40234,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ibdiagnet --get_phy_info --get_cable_info -o /tmp/ibdiag",
     "desc": "Sweep all Quantum switches in the fabric and dump every switch port's optical transceiver and temperature report",
     "tip": "",
-    "tags": "Quantum: In-Band MFT recipe automation cli"
+    "tags": "Quantum: In-Band MFT recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/ibdiagnetutilityum/2.27.0/basic-commands",
+          "title": "ibdiagnet commands"
+        }
+      ]
+    }
   },
   {
     "sName": "sw-quantum-inband",
@@ -39100,7 +40265,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show interfaces ib status && show interfaces ib 1/1",
     "desc": "Show operational state, physical link state, NDR/HDR rate, and speed of all InfiniBand switch ports (IB 1/1..1/64)",
     "tip": "Physical 'LinkUp' + Logical 'Init' means OpenSM/UFM Subnet Manager is not reachable!",
-    "tags": "Quantum: Ports & Optics switch nos cli triage nvidia quantum mlnx-os infiniband ib interfaces transceiver dom counters qm9700 qm8700"
+    "tags": "Quantum: Ports & Optics switch nos cli triage nvidia quantum mlnx-os infiniband ib interfaces transceiver dom counters qm9700 qm8700",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/infiniband-interface",
+          "title": "MLNX-OS 3.12.6200: InfiniBand interface"
+        }
+      ],
+      "note": "MLNX-OS (newer Quantum switches may run NVOS instead: check your switch). The per-port form show interfaces ib 1/1 is not shown on its own in the manual."
+    }
   },
   {
     "sName": "sw-quantum-ports",
@@ -39111,7 +40286,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show interfaces ib 1/1 transceiver",
     "desc": "Inspect OSFP/QSFP optical DOM on IB 1/1: per-lane Rx/Tx optical power (dBm), bias current, module temp, PN & SN",
     "tip": "",
-    "tags": "Quantum: Ports & Optics recipe automation cli"
+    "tags": "Quantum: Ports & Optics recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/infiniband-interface",
+          "title": "MLNX-OS 3.12.6200: InfiniBand interface"
+        }
+      ],
+      "note": "MLNX-OS (newer Quantum switches may run NVOS instead: check your switch). The per-port form show interfaces ib 1/1 is not shown on its own in the manual."
+    }
   },
   {
     "sName": "sw-quantum-ports",
@@ -39122,7 +40307,12 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show interfaces ib transceiver",
     "desc": "Dump optical transceiver inventory and DOM diagnostics across all populated InfiniBand switch ports",
     "tip": "",
-    "tags": "Quantum: Ports & Optics recipe automation cli"
+    "tags": "Quantum: Ports & Optics recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [],
+      "note": "Only the per-port form (show interfaces ib 1/36 transceiver) is in the MLNX-OS manual chapters read."
+    }
   },
   {
     "sName": "sw-quantum-ports",
@@ -39133,7 +40323,12 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show interfaces ib 1/1 counters",
     "desc": "Display IB 1/1 traffic and physical error counters (SymbolError, LinkErrorRecovery, LinkDowned, PortRcvErrors)",
     "tip": "",
-    "tags": "Quantum: Ports & Optics recipe automation cli"
+    "tags": "Quantum: Ports & Optics recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [],
+      "note": "Not in the MLNX-OS manual chapters read."
+    }
   },
   {
     "sName": "sw-quantum-ports",
@@ -39144,7 +40339,12 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "interface ib 1/1\nclear counters",
     "desc": "Reset IB 1/1 error counters after cleaning fiber or replacing an OSFP/QSFP module (MLNX-OS clears counters only inside interface ib mode, from configure terminal)",
     "tip": "",
-    "tags": "Quantum: Ports & Optics recipe automation cli"
+    "tags": "Quantum: Ports & Optics recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [],
+      "note": "Clearing counters is not in the MLNX-OS manual chapters read."
+    }
   },
   {
     "sName": "sw-quantum-ports",
@@ -39155,7 +40355,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "configure terminal ; interface ib 1/1 shutdown ; no interface ib 1/1 shutdown",
     "desc": "Bounce (shut / no shut) InfiniBand switch port IB 1/1 to force link retraining",
     "tip": "",
-    "tags": "Quantum: Ports & Optics recipe automation cli"
+    "tags": "Quantum: Ports & Optics recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/infiniband-interface",
+          "title": "MLNX-OS 3.12.6200: InfiniBand interface"
+        }
+      ],
+      "note": "NVIDIA shows interface ib 1/4 shutdown; the no form is not shown."
+    }
   },
   {
     "sName": "sw-quantum-ports",
@@ -39166,7 +40376,12 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "interface ib 1/1 description \"GPU-Node-01 mlx5_0\"",
     "desc": "Label InfiniBand switch port IB 1/1 with the connected GPU server hostname and HCA",
     "tip": "",
-    "tags": "Quantum: Ports & Optics recipe automation cli"
+    "tags": "Quantum: Ports & Optics recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [],
+      "note": "Not in the MLNX-OS manual chapters read."
+    }
   },
   {
     "sName": "sw-quantum-ports",
@@ -39177,7 +40392,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show system profile && show interfaces ib 1/1/1 status",
     "desc": "Configure or inspect 2x400G (NDR) / 2x200G (HDR) twin-port OSFP/QSFP split mode and cable info on Quantum switches",
     "tip": "Quantum-2 QM9700 cages house two 400G NDR ports per OSFP module (64 ports in 32 cages)",
-    "tags": "Quantum: Ports & Optics switch nos cli triage nvidia quantum mlnx-os split osfp ndr hdr cables"
+    "tags": "Quantum: Ports & Optics switch nos cli triage nvidia quantum mlnx-os split osfp ndr hdr cables",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/infiniband-interface",
+          "title": "MLNX-OS 3.12.6200: InfiniBand interface"
+        }
+      ],
+      "note": "Corrected 2026-11-09: splitting is module-type qsfp-split-2, not \"interface ib … split\"."
+    }
   },
   {
     "sName": "sw-quantum-ports",
@@ -39188,7 +40413,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show interfaces ib 1/1/1 transceiver",
     "desc": "Check optical DOM Tx/Rx dBm and module temperature on split sub-port IB 1/1/1",
     "tip": "",
-    "tags": "Quantum: Ports & Optics recipe automation cli"
+    "tags": "Quantum: Ports & Optics recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/infiniband-interface",
+          "title": "MLNX-OS 3.12.6200: InfiniBand interface"
+        }
+      ],
+      "note": "Corrected 2026-11-09: splitting is module-type qsfp-split-2, not \"interface ib … split\"."
+    }
   },
   {
     "sName": "sw-quantum-ports",
@@ -39199,7 +40434,12 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show cables",
     "desc": "List all plugged InfiniBand cables/transceivers (OSFP/QSFP, active optical vs passive DAC, length, vendor PN/SN)",
     "tip": "",
-    "tags": "Quantum: Ports & Optics recipe automation cli"
+    "tags": "Quantum: Ports & Optics recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [],
+      "note": "Not in the MLNX-OS manual chapters read; use show interfaces ib <port> transceiver."
+    }
   },
   {
     "sName": "sw-quantum-ports",
@@ -39217,55 +40457,105 @@ window.GLOBAL_SEARCH_INDEX = [
     "file": "sw-sonic.html",
     "badge": "snc",
     "id": "sonic-interfaces-sfputil-lldp",
-    "sec": "SONiC: Cloud NOS CLI: Check SONiC switch interface status, optical transceiver DOM EEPROM",
-    "cmd": "show interfaces status && sfputil show eeprom -d -p Ethernet0",
-    "desc": "Check SONiC switch interface status, optical transceiver DOM EEPROM (sfputil), LLDP neighbors, and PSU/fan health",
-    "tip": "sfputil show eeprom -d reads optical DOM on SONiC switches",
-    "tags": "SONiC: Cloud NOS CLI switch nos cli triage sonic sfputil interfaces lldp platform psu pfc"
+    "sec": "SONiC: Cloud NOS CLI: Check SONiC switch interface status, optical transceiver DOM EEPROM, LLDP neighbors, and PSU/fan health",
+    "cmd": "show interfaces status && show interfaces transceiver eeprom --dom Ethernet0",
+    "desc": "Check SONiC switch interface status, optical transceiver DOM EEPROM, LLDP neighbors, and PSU/fan health",
+    "tip": "show interfaces transceiver eeprom --dom reads optical DOM on SONiC switches",
+    "tags": "SONiC: Cloud NOS CLI switch nos cli triage sonic sfputil interfaces lldp platform psu pfc",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/sonic-net/sonic-utilities/blob/master/doc/Command-Reference.md",
+          "title": "SONiC command reference"
+        }
+      ],
+      "note": "Corrected 2026-11-09: sfputil show eeprom is not documented; the DOM command is show interfaces transceiver eeprom --dom."
+    }
   },
   {
     "sName": "sw-sonic",
     "file": "sw-sonic.html",
     "badge": "snc",
     "id": "sonic-interfaces-sfputil-lldp-sub-1",
-    "sec": "SONiC: Cloud NOS CLI: Check SONiC switch interface status, optical transceiver DOM EEPROM",
+    "sec": "SONiC: Cloud NOS CLI: Check SONiC switch interface status, optical transceiver DOM EEPROM, LLDP neighbors, and PSU/fan health",
     "cmd": "show lldp table && show lldp neighbors Ethernet0",
     "desc": "List all LLDP neighbors across the switch or inspect detailed TLVs on Ethernet0",
     "tip": "",
-    "tags": "SONiC: Cloud NOS CLI recipe automation cli"
+    "tags": "SONiC: Cloud NOS CLI recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/sonic-net/sonic-utilities/blob/master/doc/Command-Reference.md",
+          "title": "SONiC command reference"
+        }
+      ],
+      "note": "Corrected 2026-11-09: sfputil show eeprom is not documented; the DOM command is show interfaces transceiver eeprom --dom."
+    }
   },
   {
     "sName": "sw-sonic",
     "file": "sw-sonic.html",
     "badge": "snc",
     "id": "sonic-interfaces-sfputil-lldp-sub-2",
-    "sec": "SONiC: Cloud NOS CLI: Check SONiC switch interface status, optical transceiver DOM EEPROM",
+    "sec": "SONiC: Cloud NOS CLI: Check SONiC switch interface status, optical transceiver DOM EEPROM, LLDP neighbors, and PSU/fan health",
     "cmd": "show interfaces counters errors && show pfc counters",
     "desc": "Inspect physical error counters and RoCEv2 Priority Flow Control (PFC) pause counters",
     "tip": "",
-    "tags": "SONiC: Cloud NOS CLI recipe automation cli"
+    "tags": "SONiC: Cloud NOS CLI recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/sonic-net/sonic-utilities/blob/master/doc/Command-Reference.md",
+          "title": "SONiC command reference"
+        }
+      ],
+      "note": "Corrected 2026-11-09: sfputil show eeprom is not documented; the DOM command is show interfaces transceiver eeprom --dom."
+    }
   },
   {
     "sName": "sw-sonic",
     "file": "sw-sonic.html",
     "badge": "snc",
     "id": "sonic-interfaces-sfputil-lldp-sub-3",
-    "sec": "SONiC: Cloud NOS CLI: Check SONiC switch interface status, optical transceiver DOM EEPROM",
+    "sec": "SONiC: Cloud NOS CLI: Check SONiC switch interface status, optical transceiver DOM EEPROM, LLDP neighbors, and PSU/fan health",
     "cmd": "show platform summary && show platform psustatus && show platform fan && show platform temperature",
     "desc": "Inspect SONiC switch hardware SKU, ASIC, PSU wattage/status, fan RPMs, and board temperatures",
     "tip": "",
-    "tags": "SONiC: Cloud NOS CLI recipe automation cli"
+    "tags": "SONiC: Cloud NOS CLI recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/sonic-net/sonic-utilities/blob/master/doc/Command-Reference.md",
+          "title": "SONiC command reference"
+        }
+      ],
+      "note": "Corrected 2026-11-09: sfputil show eeprom is not documented; the DOM command is show interfaces transceiver eeprom --dom."
+    }
   },
   {
     "sName": "sw-sonic",
     "file": "sw-sonic.html",
     "badge": "snc",
     "id": "sonic-interfaces-sfputil-lldp-sub-4",
-    "sec": "SONiC: Cloud NOS CLI: Check SONiC switch interface status, optical transceiver DOM EEPROM",
+    "sec": "SONiC: Cloud NOS CLI: Check SONiC switch interface status, optical transceiver DOM EEPROM, LLDP neighbors, and PSU/fan health",
     "cmd": "config interface shutdown Ethernet0 && config interface startup Ethernet0",
     "desc": "Bounce (shut / no shut) port Ethernet0 in SONiC and save with 'config save -y'",
     "tip": "",
-    "tags": "SONiC: Cloud NOS CLI recipe automation cli"
+    "tags": "SONiC: Cloud NOS CLI recipe automation cli",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/sonic-net/sonic-utilities/blob/master/doc/Command-Reference.md",
+          "title": "SONiC command reference"
+        }
+      ],
+      "note": "Corrected 2026-11-09: sfputil show eeprom is not documented; the DOM command is show interfaces transceiver eeprom --dom."
+    }
   },
   {
     "sName": "sw-sonic",
@@ -39273,7 +40563,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "tip",
     "id": "sonic-cli-tips-card",
     "sec": "SONiC: Cloud NOS CLI: Pro Tips & Best Practices",
-    "cmd": "show interface status && sfputil show eeprom && docker ps",
+    "cmd": "show interfaces status && show interfaces transceiver eeprom --dom && docker ps",
     "desc": "SONiC NOS Architecture, Interface Management & Container Diagnostics",
     "tip": "Check \"docker ps\" if switch routing or telemetry stalls: verify swss, syncd, and bgp containers are healthy.",
     "tags": "sonic-cli tips pro switches fabric best-practice"
@@ -39287,7 +40577,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show interfaces ib status && show interfaces ib 1/1",
     "desc": "Show operational state, physical link state, NDR/HDR rate, and speed of all InfiniBand switch ports (IB 1/1..1/64)",
     "tip": "Physical 'LinkUp' + Logical 'Init' means OpenSM/UFM Subnet Manager is not reachable!",
-    "tags": "nvidia quantum mlnx-os infiniband ib interfaces transceiver dom counters qm9700 qm8700"
+    "tags": "nvidia quantum mlnx-os infiniband ib interfaces transceiver dom counters qm9700 qm8700",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/infiniband-interface",
+          "title": "MLNX-OS 3.12.6200: InfiniBand interface"
+        }
+      ],
+      "note": "MLNX-OS (newer Quantum switches may run NVOS instead: check your switch). The per-port form show interfaces ib 1/1 is not shown on its own in the manual."
+    }
   },
   {
     "sName": "switches",
@@ -39364,7 +40664,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show system profile && show interfaces ib 1/1/1 status",
     "desc": "Configure or inspect 2x400G (NDR) / 2x200G (HDR) twin-port OSFP/QSFP split mode and cable info on Quantum switches",
     "tip": "Quantum-2 QM9700 cages house two 400G NDR ports per OSFP module (64 ports in 32 cages)",
-    "tags": "nvidia quantum mlnx-os split osfp ndr hdr cables"
+    "tags": "nvidia quantum mlnx-os split osfp ndr hdr cables",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/infiniband-interface",
+          "title": "MLNX-OS 3.12.6200: InfiniBand interface"
+        }
+      ],
+      "note": "Corrected 2026-11-09: splitting is module-type qsfp-split-2, not \"interface ib … split\"."
+    }
   },
   {
     "sName": "switches",
@@ -39396,8 +40706,22 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "NVIDIA Quantum IB (MLNX-OS) — Hardware, SM/UFM & Config",
     "cmd": "show power && show fan && show temperature && show ib sm",
     "desc": "Check Quantum switch PSUs, fan trays, ASIC temperatures, Subnet Manager (SM) status, and save configuration",
-    "tip": "Only enable 'ib sm' on the switch if you do NOT have UFM or host-based OpenSM running!",
-    "tags": "nvidia quantum mlnx-os power fan temperature sm opensm ufm inventory version"
+    "tip": "Only enable the switch's SM (ib smnode <name> enable) if you do NOT have UFM or host-based OpenSM running!",
+    "tags": "nvidia quantum mlnx-os power fan temperature sm opensm ufm inventory version",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/chassis-management",
+          "title": "MLNX-OS 3.12.6200: chassis management"
+        },
+        {
+          "url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/subnet-manager",
+          "title": "MLNX-OS 3.12.6200: subnet manager"
+        }
+      ],
+      "note": "show ib sm is not in the manual chapters read; NVIDIA enables the SM with ib smnode <name> enable."
+    }
   },
   {
     "sName": "switches",
@@ -39416,8 +40740,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "qsm",
     "id": "mlnxos-hardware-sm-config",
     "sec": "NVIDIA Quantum IB (MLNX-OS) — Hardware, SM/UFM & Config",
-    "cmd": "show ib smgoing && sminfo",
-    "desc": "Check which LID/GUID in the InfiniBand fabric is currently acting as the Master Subnet Manager",
+    "cmd": "sminfo",
+    "desc": "From any host on the fabric: the LID, GUID, priority and state of the master Subnet Manager (infiniband-diags)",
     "tip": "",
     "tags": "nvidia quantum mlnx-os power fan temperature sm opensm ufm inventory version"
   },
@@ -39427,8 +40751,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "qsm",
     "id": "mlnxos-hardware-sm-config",
     "sec": "NVIDIA Quantum IB (MLNX-OS) — Hardware, SM/UFM & Config",
-    "cmd": "configure terminal ; ib sm ; configuration write",
-    "desc": "Enable the embedded Subnet Manager on a standalone Quantum switch and persist config",
+    "cmd": "configure terminal ; ib smnode <sm-node> enable ; configuration write",
+    "desc": "Enable the embedded Subnet Manager on a standalone Quantum switch (NVIDIA's example: ib smnode my-sm enable) and save the config",
     "tip": "",
     "tags": "nvidia quantum mlnx-os power fan temperature sm opensm ufm inventory version"
   },
@@ -39474,7 +40798,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ibswitches && mlxlink -d lid-1 -p 1 -m -c -e",
     "desc": "Remotely inspect optical DOM (dBm), BER, eye opening, and port counters on an Unmanaged Quantum switch using its IB LID",
     "tip": "MQM9790 / MQM8790 switches have no SSH CLI—use 'mlxlink -d lid-<N> -p <Port>' from any host!",
-    "tags": "nvidia quantum unmanaged mqm9790 mqm8790 inband mlxlink lid perfquery smpquery flint ibswitches"
+    "tags": "nvidia quantum unmanaged mqm9790 mqm8790 inband mlxlink lid perfquery smpquery flint ibswitches",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxlink-utility",
+          "title": "MFT: mlxlink"
+        },
+        {
+          "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibswitches.8.in.rst",
+          "title": "ibswitches man page (rdma-core)"
+        }
+      ],
+      "note": "NVIDIA shows mlxlink -d lid-<LID> -p <port> for Quantum split ports."
+    }
   },
   {
     "sName": "switches",
@@ -39551,7 +40889,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nv show interface && nv show interface swp1",
     "desc": "Show summary status of all switch ports (swp1..64) including link state, speed, MTU, and description",
     "tip": "Every swp* port is also a standard Linux netdev!",
-    "tags": "cumulus nvue nv swp interface status bounce counters"
+    "tags": "cumulus nvue nv swp interface status bounce counters",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Monitoring-and-Troubleshooting/Troubleshooting-Network-Interfaces/Monitoring-Interfaces-and-Transceivers-with-NVUE/",
+          "title": "Cumulus Linux 5.18: monitoring interfaces"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Set-and-Unset-Commands/Interface/",
+          "title": "NVUE reference: interface set"
+        }
+      ]
+    }
   },
   {
     "sName": "switches",
@@ -39581,7 +40932,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "nvu",
     "id": "nvue-show-interface",
     "sec": "Cumulus NVUE — Port Status, Counters & Bounce",
-    "cmd": "nv set interface swp1 link state down && nv config apply -y && sleep 2 && nv set interface swp1 link state up && nv config apply -y",
+    "cmd": "nv set interface swp1 link state down && nv config apply --assume-yes && sleep 2 && nv set interface swp1 link state up && nv config apply --assume-yes",
     "desc": "Administratively bounce (shut / no shut) switch port swp1 to force transceiver link retraining",
     "tip": "",
     "tags": "cumulus nvue nv swp interface status bounce counters"
@@ -39595,7 +40946,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nv show interface swp1 transceiver && ethtool -m swp1",
     "desc": "Inspect optical transceiver vendor, part/serial number, temperature, and per-lane Tx/Rx optical power (dBm)",
     "tip": "Compare Rx dBm across all 4/8 lanes to spot dirty MPO pins",
-    "tags": "cumulus nvue transceiver optics dom dbm ethtool fec"
+    "tags": "cumulus nvue transceiver optics dom dbm ethtool fec",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/Platform/",
+          "title": "NVUE reference: platform"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Monitoring-and-Troubleshooting/Troubleshooting-Network-Interfaces/Monitoring-Interfaces-and-Transceivers-with-ethtool/",
+          "title": "Cumulus Linux 5.18: ethtool"
+        }
+      ],
+      "note": "FEC values rs/off are from the Switch Port Attributes page summary."
+    }
   },
   {
     "sName": "switches",
@@ -39614,7 +40979,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "dom",
     "id": "nvue-show-transceiver",
     "sec": "Cumulus NVUE — Optical DOM, Transceivers & FEC",
-    "cmd": "nv set interface swp1 link fec rs && nv config apply -y",
+    "cmd": "nv set interface swp1 link fec rs && nv config apply --assume-yes",
     "desc": "Configure Forward Error Correction (rs / baser / auto / off) on port swp1",
     "tip": "",
     "tags": "cumulus nvue transceiver optics dom dbm ethtool fec"
@@ -39628,7 +40993,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nv show interface lldp && lldpctl",
     "desc": "List all connected servers and Spine switches via LLDP, and search bridge MAC and IPv4/IPv6 ARP tables",
     "tip": "Run 'nv show interface lldp' to verify rack cabling matrix",
-    "tags": "cumulus lldp lldpctl mac arp bridge fdb"
+    "tags": "cumulus lldp lldpctl mac arp bridge fdb",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/LLDP/",
+          "title": "NVUE reference: LLDP"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/Bridge/",
+          "title": "NVUE reference: bridge"
+        }
+      ],
+      "note": "lldpctl comes from lldpd, not NVUE."
+    }
   },
   {
     "sName": "switches",
@@ -39636,7 +41015,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "lld",
     "id": "nvue-lldp-mac-arp",
     "sec": "Cumulus NVUE — LLDP Neighbors, MAC & ARP Tables",
-    "cmd": "nv show vrf default router nexthop neighbor && ip -6 -c neigh show",
+    "cmd": "nv show interface neighbor && ip -6 -c neigh show",
     "desc": "Display IPv6 Neighbor Discovery (NDP) table mapping server IPv6 addresses to MACs and swp* ports",
     "tip": "",
     "tags": "cumulus lldp lldpctl mac arp bridge fdb"
@@ -39661,7 +41040,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nv show interface bond && nv show mlag",
     "desc": "Verify LACP bond member links, MLAG dual-homing peer synchronization, and port VLAN trunk/access settings",
     "tip": "Check 'Link Failure Count' in /proc/net/bonding/<bond>",
-    "tags": "cumulus bond lacp mlag vlan trunk access"
+    "tags": "cumulus bond lacp mlag vlan trunk access",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/MLAG/",
+          "title": "NVUE reference: MLAG"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/Bridge/",
+          "title": "NVUE reference: bridge"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Layer-2/Ethernet-Bridging-VLANs/VLAN-aware-Bridge-Mode/",
+          "title": "Cumulus Linux 5.18: VLAN-aware bridge"
+        }
+      ],
+      "note": "nv show interface bond (all bonds) is not in the NVUE reference; nv show mlag is."
+    }
   },
   {
     "sName": "switches",
@@ -39680,7 +41077,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "lcp",
     "id": "nvue-bond-mlag-vlan",
     "sec": "Cumulus NVUE — LACP Bonds, MLAG & VLANs",
-    "cmd": "nv set interface swp10 bridge domain br_default access 100 && nv config apply -y",
+    "cmd": "nv set interface swp10 bridge domain br_default access 100 && nv config apply --assume-yes",
     "desc": "Configure switch port swp10 as an untagged Access port in VLAN 100",
     "tip": "",
     "tags": "cumulus bond lacp mlag vlan trunk access"
@@ -39694,7 +41091,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "nv show vrf default router bgp neighbor && nv show qos roce",
     "desc": "Check BGP neighbor session states (Established), IPv4/IPv6 routes, and RoCEv2 lossless PFC/ECN congestion counters",
     "tip": "BGP state 'Active' or 'Connect' means session is DOWN!",
-    "tags": "cumulus bgp evpn frr roce pfc ecn qos"
+    "tags": "cumulus bgp evpn frr roce pfc ecn qos",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Layer-3/Border-Gateway-Protocol-BGP/Troubleshooting-BGP/",
+          "title": "Cumulus Linux 5.18: troubleshooting BGP"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Layer-1-and-Switch-Ports/Quality-of-Service/RDMA-over-Converged-Ethernet-RoCE/",
+          "title": "Cumulus Linux 5.18: RoCE"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/RIB/",
+          "title": "NVUE reference: RIB"
+        }
+      ],
+      "note": "Corrected 2026-11-09: NVIDIA's page uses vtysh show ip bgp summary."
+    }
   },
   {
     "sName": "switches",
@@ -39726,8 +41141,26 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "Cumulus NVUE — PSU/Fan Health & Config Rollback",
     "cmd": "nv show platform environment && nv config diff",
     "desc": "Inspect switch PSUs, fan RPMs, thermal sensors, and safely diff, apply, or rollback NVUE config revisions",
-    "tip": "nv config show -o commands exports clean CLI commands",
-    "tags": "cumulus platform psu fan temperature config rollback"
+    "tip": "nv config translate revision <id> exports a revision as nv set commands",
+    "tags": "cumulus platform psu fan temperature config rollback",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/Platform/",
+          "title": "NVUE reference: platform"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/System/",
+          "title": "NVUE reference: system"
+        },
+        {
+          "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Config-Commands/",
+          "title": "NVUE reference: config commands"
+        }
+      ],
+      "note": "Corrected 2026-11-09: there is no nv config rollback (use nv config apply <rev>), and nv config show -o takes only auto/json/yaml/native."
+    }
   },
   {
     "sName": "switches",
@@ -39746,8 +41179,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "psu",
     "id": "nvue-platform-config",
     "sec": "Cumulus NVUE — PSU/Fan Health & Config Rollback",
-    "cmd": "nv config rollback <revision_id>",
-    "desc": "Roll back the switch configuration to a known-good previous revision ID",
+    "cmd": "nv config apply <revision_id> --assume-yes",
+    "desc": "Go back to a known-good revision (list them with nv config history). nv config apply --confirm rolls back by itself if you do not confirm",
     "tip": "",
     "tags": "cumulus platform psu fan temperature config rollback"
   },
@@ -39757,8 +41190,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "psu",
     "id": "nvue-platform-config",
     "sec": "Cumulus NVUE — PSU/Fan Health & Config Rollback",
-    "cmd": "nv config show -o commands",
-    "desc": "Export the entire switch configuration as flat, copy-pasteable 'nv set ...' CLI commands",
+    "cmd": "nv config translate revision <revision_id>",
+    "desc": "Export a revision as flat, copy-pasteable 'nv set ...' commands (Cumulus 5.12 and later)",
     "tip": "",
     "tags": "cumulus platform psu fan temperature config rollback"
   },
@@ -39770,8 +41203,18 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "Arista EOS — Interface Status, Optical DOM & Counters",
     "cmd": "show interfaces status && show interfaces Ethernet1 transceiver detail",
     "desc": "Inspect Arista switch port status, SFP/QSFP/OSFP optical DOM power (dBm), and non-zero error counters",
-    "tip": "Append 'nz' in Arista EOS to show only non-zero counters!",
-    "tags": "arista eos interfaces transceiver dom errors nz phy"
+    "tip": "Run show interfaces counters errors twice a minute apart: a counter that grows is the live problem",
+    "tags": "arista eos interfaces transceiver dom errors nz phy",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.arista.com/um-eos/eos-ethernet-ports",
+          "title": "Arista EOS 4.37: Ethernet ports"
+        }
+      ],
+      "note": "Corrected 2026-11-09: EOS documents no nz filter. show inventory is not in the chapters read."
+    }
   },
   {
     "sName": "switches",
@@ -39779,8 +41222,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "eos",
     "id": "arista-interfaces-dom",
     "sec": "Arista EOS — Interface Status, Optical DOM & Counters",
-    "cmd": "show interfaces counters errors nz",
-    "desc": "Filter out clean ports and display ONLY ports with non-zero physical error counters",
+    "cmd": "show interfaces counters errors",
+    "desc": "Physical error counters (FCS, Align, Symbol, Runts, Giants) for every port",
     "tip": "",
     "tags": "arista eos interfaces transceiver dom errors nz phy"
   },
@@ -39815,7 +41258,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show lldp neighbors && show port-channel summary && show mlag",
     "desc": "Verify LLDP server connections, LACP Port-Channel member states, MLAG health, and MAC/ARP tables",
     "tip": "Member flag (P) = active in LACP; (s) = suspended!",
-    "tags": "arista eos lldp port-channel lacp mlag mac arp"
+    "tags": "arista eos lldp port-channel lacp mlag mac arp",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.arista.com/um-eos/eos-link-layer-discovery-protocol",
+          "title": "Arista EOS 4.37: LLDP"
+        },
+        {
+          "url": "https://www.arista.com/um-eos/eos-port-channels-and-lacp",
+          "title": "Arista EOS 4.37: port channels"
+        },
+        {
+          "url": "https://www.arista.com/um-eos/eos-multi-chassis-link-aggregation",
+          "title": "Arista EOS 4.37: MLAG"
+        },
+        {
+          "url": "https://www.arista.com/um-eos/eos-ipv6",
+          "title": "Arista EOS 4.37: IPv6"
+        }
+      ],
+      "note": "show mac address-table was not found in the chapters read."
+    }
   },
   {
     "sName": "switches",
@@ -39859,7 +41324,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show ipv6 bgp summary && show system environment all && show logging",
     "desc": "Inspect IPv6/IPv4 BGP peering, chassis power/fan/temperature sensors, recent link-flap logs, and config changes",
     "tip": "",
-    "tags": "arista eos bgp environment psu fan logging version"
+    "tags": "arista eos bgp environment psu fan logging version",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.arista.com/um-eos/eos-border-gateway-protocol-bgp",
+          "title": "Arista EOS 4.37: BGP"
+        },
+        {
+          "url": "https://www.arista.com/um-eos/eos-environment-commands",
+          "title": "Arista EOS 4.37: environment"
+        },
+        {
+          "url": "https://www.arista.com/um-eos/eos-switch-administration-commands",
+          "title": "Arista EOS 4.37: show logging"
+        }
+      ],
+      "note": "Corrected 2026-11-09: show logging last <n> filters by time; a count is show logging <n>. show version and show boot-config are not in the chapters read."
+    }
   },
   {
     "sName": "switches",
@@ -39892,7 +41375,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show interface status && show interface Ethernet1/1 transceiver details",
     "desc": "Check Cisco Nexus port status, SFP/QSFP optical DOM power (dBm) with alarm thresholds, and physical error counters",
     "tip": "'++' or '--' in DOM output indicates an active optical alarm!",
-    "tags": "nxos cisco nexus interface transceiver dom errors"
+    "tags": "nxos cisco nexus interface transceiver dom errors",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_i_showcmds.html",
+          "title": "NX-OS 10.5 show commands: interface"
+        },
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_i_showcmds.html",
+          "title": "NX-OS 10.5 show commands: inventory"
+        }
+      ],
+      "note": "The status values and the ++ / + DOM legend are not in the show command reference."
+    }
   },
   {
     "sName": "switches",
@@ -39925,7 +41422,37 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "show lldp neighbors && show port-channel summary && show vpc",
     "desc": "Inspect LLDP and CDP neighbors, LACP Port-Channel member states, vPC dual-ToR health, and MAC/ARP tables",
     "tip": "Run 'show vpc consistency-parameters global' if vPC is suspended",
-    "tags": "nxos cisco lldp cdp port-channel lacp vpc environment"
+    "tags": "nxos cisco lldp cdp port-channel lacp vpc environment",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_l_showcmds.html",
+          "title": "NX-OS 10.5 show commands: LLDP"
+        },
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_c_showcmds.html",
+          "title": "NX-OS 10.5 show commands: CDP"
+        },
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_p_showcmds.html",
+          "title": "NX-OS 10.5 show commands: port-channel"
+        },
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_v_showcmds.html",
+          "title": "NX-OS 10.5 show commands: vPC"
+        },
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_m_showcmds.html",
+          "title": "NX-OS 10.5 show commands: MAC table"
+        },
+        {
+          "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_e_showcmds.html",
+          "title": "NX-OS 10.5 show commands: environment"
+        }
+      ],
+      "note": "show ipv6 neighbor <addr> is not in the 10.5 show reference; the port-channel flag legend is in a configuration guide, not read."
+    }
   },
   {
     "sName": "switches",
@@ -39966,10 +41493,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "snc",
     "id": "sonic-interfaces-sfputil-lldp",
     "sec": "SONiC — Enterprise & Cloud Switch CLI",
-    "cmd": "show interfaces status && sfputil show eeprom -d -p Ethernet0",
-    "desc": "Check SONiC switch interface status, optical transceiver DOM EEPROM (sfputil), LLDP neighbors, and PSU/fan health",
-    "tip": "sfputil show eeprom -d reads optical DOM on SONiC switches",
-    "tags": "sonic sfputil interfaces lldp platform psu pfc"
+    "cmd": "show interfaces status && show interfaces transceiver eeprom --dom Ethernet0",
+    "desc": "Check SONiC switch interface status, optical transceiver DOM EEPROM, LLDP neighbors, and PSU/fan health",
+    "tip": "show interfaces transceiver eeprom --dom reads optical DOM on SONiC switches",
+    "tags": "sonic sfputil interfaces lldp platform psu pfc",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://github.com/sonic-net/sonic-utilities/blob/master/doc/Command-Reference.md",
+          "title": "SONiC command reference"
+        }
+      ],
+      "note": "Corrected 2026-11-09: sfputil show eeprom is not documented; the DOM command is show interfaces transceiver eeprom --dom."
+    }
   },
   {
     "sName": "switches",

@@ -41,7 +41,24 @@ const ETH_ETH_IPROUTE2_IP6_DATA = [
           "mac",
           "stats",
           "fe80"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ip.8.html",
+              "title": "ip(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ip-link.8.html",
+              "title": "ip-link(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ip-address.8.html",
+              "title": "ip-address(8)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -81,7 +98,20 @@ const ETH_ETH_IPROUTE2_IP6_DATA = [
           "ipv6",
           "cidr",
           "flush"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ip-link.8.html",
+              "title": "ip-link(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ip-address.8.html",
+              "title": "ip-address(8)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -125,7 +155,20 @@ const ETH_ETH_IPROUTE2_IP6_DATA = [
           "source",
           "pbr",
           "fe80"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ip-route.8.html",
+              "title": "ip-route(8)"
+            },
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ip-rule.8.html",
+              "title": "ip-rule(8)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -138,7 +181,7 @@ const ETH_ETH_IPROUTE2_IP6_DATA = [
       {
         "id": "ip-neigh-arping-duplicate",
         "desc": "Inspect IPv6 Neighbor Discovery Protocol (NDP) cache (`REACHABLE`, `STALE`, `FAILED`, `router`) or probe with `ndisc6` / `rdisc6`",
-        "cmd": "ip -6 -c neigh show   |   ip -6 neigh flush all   |   ndisc6 2001:db8:dc:10::1 eth0   |   rdisc6 eth0",
+        "cmd": "ip -6 -c neigh show   |   ip -6 neigh flush dev eth0   |   ndisc6 2001:db8:dc:10::1 eth0   |   rdisc6 eth0",
         "details": "",
         "flags": [
           [
@@ -169,7 +212,25 @@ const ETH_ETH_IPROUTE2_IP6_DATA = [
           "mac",
           "l2",
           "router-advertisement"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ip-neighbour.8.html",
+              "title": "ip-neighbour(8)"
+            },
+            {
+              "url": "https://manpages.debian.org/unstable/ndisc6/ndisc6.8.en.html",
+              "title": "ndisc6(8)"
+            },
+            {
+              "url": "https://manpages.debian.org/unstable/ndisc6/rdisc6.8.en.html",
+              "title": "rdisc6(8)"
+            }
+          ],
+          "note": "Corrected 2026-11-09: \"neigh flush all\" is not a documented form; flush takes the same selectors as show."
+        }
       }
     ]
   },

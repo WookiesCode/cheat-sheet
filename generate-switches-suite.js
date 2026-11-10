@@ -107,7 +107,7 @@ const SECTION_MAP = {
       details: 'In high-performance clusters, running OpenSM directly on leaf switches is recommended only for small dev clusters; large fabrics should designate dedicated SM management nodes or NVIDIA UFM appliances. Use "configuration write" to save the running configuration to non-volatile flash.',
       tip: 'Never run multiple master Subnet Managers with identical priorities on the same fabric partition.',
       flags: [
-        ['ib sm enable', 'Enable the embedded OpenSM Subnet Manager daemon on MLNX-OS'],
+        ['ib smnode <sm-node> enable', 'Enable the embedded Subnet Manager on MLNX-OS (NVIDIA example: ib smnode my-sm enable)'],
         ['show ib sm', 'Display Subnet Manager state (Master vs Standby), priority, and managed LIDs'],
         ['configuration write', 'Save running configuration to non-volatile memory (equivalent to write memory)']
       ]
@@ -223,13 +223,13 @@ const SECTION_MAP = {
     proTip: {
       desc: 'Platform Environmental Monitoring & Safe Atomic Configuration',
       cmd: 'nv show platform && nv config diff && nv config apply',
-      details: 'NVUE features atomic commit semantics. Review configuration changes with `nv config diff` before applying them with `nv config apply`. If a change causes network isolation, use `nv config rollback` or reboot to safely recover.',
+      details: 'NVUE features atomic commit semantics. Review configuration changes with `nv config diff` before applying them with `nv config apply`. If a change causes network isolation, go back with `nv config apply <revision_id>` (list revisions with `nv config history`), or use `nv config apply --confirm` so an unconfirmed change rolls itself back.',
       tip: 'Inspect fan speeds and PSU redundancy: power supply failures in dense 800G switches cause immediate thermal throttling.',
       flags: [
         ['nv show platform environment', 'Check chassis power supplies (PSU1/PSU2 status, wattage), fan RPMs, and ASIC temps'],
         ['nv config diff', 'Display line-by-line unified diff between candidate buffer and active running configuration'],
         ['nv config apply', 'Atomically validate and apply all pending NVUE configuration changes'],
-        ['nv config rollback', 'Immediately revert to the previous verified configuration revision checkpoint']
+        ['nv config apply <revision_id>', 'Go back to an earlier revision (nv config history lists them)']
       ]
     }
   },
@@ -325,12 +325,12 @@ const SECTION_MAP = {
     heading: 'SONiC Cloud NOS Interface Status, sfputil DOM, LLDP & Containers',
     proTip: {
       desc: 'SONiC NOS Architecture, Interface Management & Container Diagnostics',
-      cmd: 'show interface status && sfputil show eeprom && docker ps',
+      cmd: 'show interfaces status && show interfaces transceiver eeprom --dom && docker ps',
       details: 'Software for Open Networking in the Cloud (SONiC) runs Debian Linux with microservices deployed as Docker containers (swss, syncd, teamd, bgp). Switch physical interfaces are managed via SAI (Switch Abstraction Interface) and mapped to Linux network interfaces.',
       tip: 'Check "docker ps" if switch routing or telemetry stalls: verify swss, syncd, and bgp containers are healthy.',
       flags: [
-        ['show interface status', 'Table of Ethernet interfaces, administrative state, operational state, speed, MTU, and FEC'],
-        ['sfputil show eeprom -p <port>', 'Display optical transceiver EEPROM, DOM Rx/Tx power levels, and vendor information'],
+        ['show interfaces status', 'Table of Ethernet interfaces: admin and oper state, lanes, speed, MTU, alias and type (FEC: show interfaces fec status)'],
+        ['show interfaces transceiver eeprom --dom <port>', 'Display optical transceiver EEPROM, DOM Rx/Tx power levels, and vendor information'],
         ['show lldp table', 'Display discovered LLDP neighbors, remote ports, and system names'],
         ['docker ps', 'Inspect status and uptime of SONiC subsystem containers (swss, syncd, orchagent, bgp)']
       ]
@@ -358,7 +358,9 @@ function buildSwSectionCards(sec) {
           details: cmd.details || '',
           flags: cmd.flags ? cmd.flags.slice(0, 3) : [],
           tip: cmd.tip || '',
-          tags: [cfg.name, 'switch', 'nos', 'cli', 'triage', ...(cmd.tags || [])]
+          tags: [cfg.name, 'switch', 'nos', 'cli', 'triage', ...(cmd.tags || [])],
+          // Where the command was checked (drawn under the card by common.js initSources).
+          ...(cmd.src ? { src: cmd.src } : {})
         }
       ]
     });
@@ -394,7 +396,9 @@ function buildSwSectionCards(sec) {
           id: `${cmd.id}-sub-${idx + 1}`,
           desc: sub[1],
           cmd: sub[0],
-          tags: [cfg.name, 'recipe', 'automation', 'cli']
+          tags: [cfg.name, 'recipe', 'automation', 'cli'],
+          // A recipe's own source (third element) wins; otherwise it shares the command's.
+          ...((sub[2] || cmd.src) ? { src: sub[2] || cmd.src } : {})
         }))
       });
     }

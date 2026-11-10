@@ -14,7 +14,7 @@ Product review started 2026-11-09. Phases 1–3 are below. Nine items (#8 for th
 | 3 | Say so when a save fails | ✅ Built | `improve/storage-warn` | `cbb0dd9` |
 | 5 | Keep keyboard focus out from under the fixed bars | ✅ Built | `improve/focus-visible` | `de6ac2e` |
 | 14 | Skip link (found while building #5) | ✅ Built | `improve/skip-link` | `220d5c9` |
-| 8 | Source and last-verified date on core suites | ✅ NVIDIA, InfiniBand, Redfish, IPMI (merged to `main` up to `d16e8b2`) and BMC vendor tools | `improve/sources-bmc-tools` | (this branch) |
+| 8 | Source and last-verified date on core suites | ✅ NVIDIA, InfiniBand, Redfish, IPMI, BMC vendor tools (merged to `main`), switches and Ethernet | `improve/sources-switches` | (this branch) |
 | 9 | Stop duplicating the nav into every page | Open | | |
 | 10 | Practice what I actually use | Open | | |
 | 11 | Local usage meter | Open | | |
@@ -121,6 +121,32 @@ All 107 commands and recipes on the racadm, iLOrest, SAA, OneCLI, FreeIPMI and s
 
 `generate-suite-kit.js` now passes `src` through, so the hardware-reference and SRE suites (also built on it) only need data.
 
+## #8 for the switch and Ethernet sheets (2026-11-09, `improve/sources-switches`)
+
+All 67 switch commands and recipes (15 sheets: Quantum MLNX-OS and in-band, Cumulus NVUE, Arista EOS, Cisco NX-OS, SONiC) and all 21 Ethernet/Linux commands now cite a source: MLNX-OS 3.12.6200 LTS manual, NVIDIA MFT 4.33, rdma-core man pages, Cumulus Linux 5.18 and the NVUE command reference, Arista EOS 4.37 manual, Cisco NX-OS 10.5 show command reference, SONiC Command-Reference.md, man7.org (ethtool, ip-*, bridge, ping, pcap-filter, networkctl, resolvectl), netplan docs, nmcli docs, the kernel bonding doc, iperf3, ndisc6/rdisc6 and lldpctl man pages. `generate-switches-suite.js` and `generate-ethernet-suite.js` now pass `src` through.
+
+| Was | Now | Why |
+|---|---|---|
+| `interface ib 1/1 split` | shut the port, then `module-type qsfp-split-2` in its interface mode | MLNX-OS has no `split` command; splitting deletes the port's config |
+| `show ib smgoing` | `sminfo` from a host | not in the MLNX-OS manual |
+| `ib sm` / `ib sm enable` | `ib smnode <sm-node> enable` | NVIDIA's example: `ib smnode my-sm enable` |
+| `nv config apply -y` (4×) | `nv config apply --assume-yes` | NVUE's flag is `--y` / `--assume-yes` |
+| `nv config rollback <rev>` | `nv config apply <rev>` (or `--confirm` for auto-rollback) | no `rollback` subcommand |
+| `nv config show -o commands` | `nv config translate revision <rev>` (Cumulus 5.12+) | `-o` takes auto/json/yaml/native only |
+| `nv show vrf default router nexthop neighbor` | `nv show interface neighbor` | the NVUE neighbor table (5.7+) |
+| `vtysh -c 'show bgp summary'` | `vtysh -c 'show ip bgp summary'` | the form NVIDIA's BGP page uses |
+| Arista `show interfaces counters errors nz` (sheet + builder) | `show interfaces counters errors` | EOS documents no `nz` filter |
+| Arista `show logging last 50` | `show logging 50` | `last` takes time units, not a count |
+| SONiC `sfputil show eeprom -d -p` (sheet + builder) | `show interfaces transceiver eeprom --dom` | the documented DOM command |
+| SONiC "status shows FEC" | `show interfaces fec status` | `show interfaces status` has no FEC column |
+| `ip -6 neigh flush all` | `ip -6 neigh flush dev eth0` | flush takes the same selectors as show |
+| "lldpctl transmits LLDP" | the lldpd daemon sends/receives; lldpctl only displays | lldpctl(8) |
+| netplan `chmod 600` "silences a warning" | security advice: keep netplan YAML unreadable by others | netplan docs |
+
+**Not verified (said on the card, 12):** MLNX-OS `show interfaces ib transceiver` (all ports), `… counters`, `clear counters`, port `description`, `show cables`, `show inventory && show version`, `show images` / next-boot partition; `smpquery` (not checked); Arista `bash ethtool -m Ethernet1`, `show version && show boot-config`, `show running-config interfaces`; the RJ45 T568A/B chart (TIA-568 is paywalled). Notes flag the rest (e.g. the NX-OS `++`/`+` DOM legend, `show ipv6 neighbor <addr>` on NX-OS, Aggregator ID in `/proc/net/bonding`, iperf3's Retr column).
+
+**Not covered:** the per-page tip/flag cards (they are quick-reference rows; four wrong rows were corrected anyway), Cumulus `nv show interface --view lldp` and `nv show router arp` there (not checked), and the Switch Rosetta table in `common.js`.
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |
@@ -219,7 +245,8 @@ Impact (H/M/L) · Effort (S/M/L) · Risk (H/M/L). The ranking is by user impact 
 - ✅ **InfiniBand** done on `improve/sources-ib` (51 commands and recipes, 9 errors fixed).
 - ✅ **Redfish and IPMI** done on `improve/sources-redfish-ipmi` (45 commands and recipes).
 - ✅ **BMC vendor tools** done on `improve/sources-bmc-tools` (107 commands and recipes, no command errors).
-- **Next:** the remaining suites (Linux, CLI tools, Ethernet/switches, storage) as needed; each is data-only for suite-kit and the four patched generators.
+- ✅ **Switches and Ethernet** done on `improve/sources-switches` (67 + 21, 15 errors fixed).
+- **Next:** the remaining suites (Linux storage, CLI tools) as needed; each is data-only for suite-kit and the six patched generators.
 
 **9. Stop duplicating the full nav into every page**
 - **Why:** mostly maintenance and the portable file's size. The direct user gain is small, because pages already load in ~250 ms.
@@ -262,6 +289,12 @@ Impact (H/M/L) · Effort (S/M/L) · Risk (H/M/L). The ranking is by user impact 
 Considered and dropped: a shift handoff export (it already exists: "Shift board & handoff" in `common.js`), a phone layout (laptop-only by your decision), and variable prompts in the style of navi (Rack Targets and slot chips already do this).
 
 ## Sources
+- [MLNX-OS 3.12.6200: InfiniBand interface](https://networking-docs.nvidia.com/mlnxosum/3126200lts/infiniband-interface) · [subnet manager](https://networking-docs.nvidia.com/mlnxosum/3126200lts/subnet-manager) · [chassis management](https://networking-docs.nvidia.com/mlnxosum/3126200lts/chassis-management) · [logging](https://networking-docs.nvidia.com/mlnxosum/3126200lts/logging)
+- [Cumulus Linux 5.18](https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/) · [NVUE command reference](https://docs.nvidia.com/networking-ethernet-software/nvue-reference/)
+- [Arista EOS: Ethernet ports](https://www.arista.com/um-eos/eos-ethernet-ports) · [system event logging](https://www.arista.com/um-eos/eos-system-event-logging)
+- [Cisco NX-OS 10.5 show commands (I)](https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_i_showcmds.html)
+- [SONiC command reference](https://github.com/sonic-net/sonic-utilities/blob/master/doc/Command-Reference.md)
+- [ip-neighbour(8)](https://man7.org/linux/man-pages/man8/ip-neighbour.8.html) · [ethtool(8)](https://man7.org/linux/man-pages/man8/ethtool.8.html) · [lldpctl(8)](https://manpages.debian.org/trixie/lldpd/lldpctl.8.en.html) · [netplan](https://netplan.readthedocs.io/en/stable/)
 - [navi: cheatsheet syntax](https://github.com/denisidoro/navi/blob/master/docs/cheatsheet/syntax/README.md)
 - [navi releases](https://github.com/denisidoro/navi/releases)
 - [WAI-ARIA APG: Dialog (Modal) pattern](https://www.w3.org/WAI/ARIA/apg/patterns/dialogmodal/)

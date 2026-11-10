@@ -17,14 +17,15 @@ const SWITCH_DATA = [
         ],
         subcommands: [
           ["show interfaces ib 1/1 transceiver", "Inspect OSFP/QSFP optical DOM on IB 1/1: per-lane Rx/Tx optical power (dBm), bias current, module temp, PN & SN"],
-          ["show interfaces ib transceiver", "Dump optical transceiver inventory and DOM diagnostics across all populated InfiniBand switch ports"],
-          ["show interfaces ib 1/1 counters", "Display IB 1/1 traffic and physical error counters (SymbolError, LinkErrorRecovery, LinkDowned, PortRcvErrors)"],
-          ["interface ib 1/1\nclear counters", "Reset IB 1/1 error counters after cleaning fiber or replacing an OSFP/QSFP module (MLNX-OS clears counters only inside interface ib mode, from configure terminal)"],
-          ["configure terminal ; interface ib 1/1 shutdown ; no interface ib 1/1 shutdown", "Bounce (shut / no shut) InfiniBand switch port IB 1/1 to force link retraining"],
-          ["interface ib 1/1 description \"GPU-Node-01 mlx5_0\"", "Label InfiniBand switch port IB 1/1 with the connected GPU server hostname and HCA"]
+          ["show interfaces ib transceiver", "Dump optical transceiver inventory and DOM diagnostics across all populated InfiniBand switch ports", {"verified": "2026-11-09", "refs": [], "note": "Only the per-port form (show interfaces ib 1/36 transceiver) is in the MLNX-OS manual chapters read."}],
+          ["show interfaces ib 1/1 counters", "Display IB 1/1 traffic and physical error counters (SymbolError, LinkErrorRecovery, LinkDowned, PortRcvErrors)", {"verified": "2026-11-09", "refs": [], "note": "Not in the MLNX-OS manual chapters read."}],
+          ["interface ib 1/1\nclear counters", "Reset IB 1/1 error counters after cleaning fiber or replacing an OSFP/QSFP module (MLNX-OS clears counters only inside interface ib mode, from configure terminal)", {"verified": "2026-11-09", "refs": [], "note": "Clearing counters is not in the MLNX-OS manual chapters read."}],
+          ["configure terminal ; interface ib 1/1 shutdown ; no interface ib 1/1 shutdown", "Bounce (shut / no shut) InfiniBand switch port IB 1/1 to force link retraining", {"verified": "2026-11-09", "refs": [{"url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/infiniband-interface", "title": "MLNX-OS 3.12.6200: InfiniBand interface"}], "note": "NVIDIA shows interface ib 1/4 shutdown; the no form is not shown."}],
+          ["interface ib 1/1 description \"GPU-Node-01 mlx5_0\"", "Label InfiniBand switch port IB 1/1 with the connected GPU server hostname and HCA", {"verified": "2026-11-09", "refs": [], "note": "Not in the MLNX-OS manual chapters read."}]
         ],
         tip: "Physical 'LinkUp' + Logical 'Init' means OpenSM/UFM Subnet Manager is not reachable!",
-        tags: ["nvidia", "quantum", "mlnx-os", "infiniband", "ib", "interfaces", "transceiver", "dom", "counters", "qm9700", "qm8700"]
+        tags: ["nvidia", "quantum", "mlnx-os", "infiniband", "ib", "interfaces", "transceiver", "dom", "counters", "qm9700", "qm8700"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/infiniband-interface", "title": "MLNX-OS 3.12.6200: InfiniBand interface"}], "note": "MLNX-OS (newer Quantum switches may run NVOS instead: check your switch). The per-port form show interfaces ib 1/1 is not shown on its own in the manual."}
       },
       {
         id: "mlnxos-split-ports-cable",
@@ -33,14 +34,15 @@ const SWITCH_DATA = [
         details: "NVIDIA Quantum-2 QM9700 switches feature 32 physical OSFP cages where each 800G cage natively splits into two 4-lane 400G NDR ports (1/1/1 and 1/1/2, totaling 64x 400G NDR ports) using twin-port OSFP finned transceivers and 2x MPO-12 APC splitters.",
         flags: [
           ["show system profile", "Display active switch system profile (ib, ib-split-ready, etc.) and max port layout"],
-          ["interface ib 1/1 split", "Split a 4x port into two 2x sub-ports (1/1/1 and 1/1/2) for HDR100 / NDR200 splitter cables"]
+          ["interface ib 1/1 → module-type qsfp-split-2", "Split a port: shut it down, then in its interface mode run module-type qsfp-split-2 (module-type qsfp undoes it). Sub-ports are 1/5/1, 1/5/2 on Quantum; Quantum-2 uses 1/3/1/1. Splitting deletes the port's configuration"]
         ],
         subcommands: [
           ["show interfaces ib 1/1/1 transceiver", "Check optical DOM Tx/Rx dBm and module temperature on split sub-port IB 1/1/1"],
-          ["show cables", "List all plugged InfiniBand cables/transceivers (OSFP/QSFP, active optical vs passive DAC, length, vendor PN/SN)"]
+          ["show cables", "List all plugged InfiniBand cables/transceivers (OSFP/QSFP, active optical vs passive DAC, length, vendor PN/SN)", {"verified": "2026-11-09", "refs": [], "note": "Not in the MLNX-OS manual chapters read; use show interfaces ib <port> transceiver."}]
         ],
         tip: "Quantum-2 QM9700 cages house two 400G NDR ports per OSFP module (64 ports in 32 cages)",
-        tags: ["nvidia", "quantum", "mlnx-os", "split", "osfp", "ndr", "hdr", "cables"]
+        tags: ["nvidia", "quantum", "mlnx-os", "split", "osfp", "ndr", "hdr", "cables"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/infiniband-interface", "title": "MLNX-OS 3.12.6200: InfiniBand interface"}], "note": "Corrected 2026-11-09: splitting is module-type qsfp-split-2, not \"interface ib … split\"."}
       }
     ]
   },
@@ -62,15 +64,16 @@ const SWITCH_DATA = [
           ["show ib sm", "Verify whether the switch's embedded InfiniBand Subnet Manager is enabled or disabled"]
         ],
         subcommands: [
-          ["show inventory && show version", "Display chassis serial number, part number (e.g., MQM9700-NS2F), MLNX-OS software version, and ASIC firmware"],
-          ["show ib smgoing && sminfo", "Check which LID/GUID in the InfiniBand fabric is currently acting as the Master Subnet Manager"],
-          ["configure terminal ; ib sm ; configuration write", "Enable the embedded Subnet Manager on a standalone Quantum switch and persist config"],
-          ["show log", "Inspect recent MLNX-OS system logs for port flaps, thermal alerts, PSU faults, or SM traps (show logging shows the logging settings, not the log)"],
-          ["configuration write", "Save running MLNX-OS configuration to startup database (equivalent to 'write memory')"],
-          ["show images && boot system partition next", "Inspect installed MLNX-OS software partition images (image 1 vs image 2) for upgrades"]
+          ["show inventory && show version", "Display chassis serial number, part number (e.g., MQM9700-NS2F), MLNX-OS software version, and ASIC firmware", {"verified": "2026-11-09", "refs": [], "note": "Not in the MLNX-OS manual chapters read."}],
+          ["sminfo", "From any host on the fabric: the LID, GUID, priority and state of the master Subnet Manager (infiniband-diags)", {"verified": "2026-11-09", "refs": [{"url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/sminfo.8.in.rst", "title": "sminfo man page (rdma-core)"}]}],
+          ["configure terminal ; ib smnode <sm-node> enable ; configuration write", "Enable the embedded Subnet Manager on a standalone Quantum switch (NVIDIA's example: ib smnode my-sm enable) and save the config", {"verified": "2026-11-09", "refs": [{"url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/subnet-manager", "title": "MLNX-OS 3.12.6200: subnet manager"}]}],
+          ["show log", "Inspect recent MLNX-OS system logs for port flaps, thermal alerts, PSU faults, or SM traps (show logging shows the logging settings, not the log)", {"verified": "2026-11-09", "refs": [{"url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/logging", "title": "MLNX-OS 3.12.6200: logging"}]}],
+          ["configuration write", "Save running MLNX-OS configuration to startup database (equivalent to 'write memory')", {"verified": "2026-11-09", "refs": [{"url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/logging", "title": "MLNX-OS 3.12.6200: logging"}], "note": "Named in the manual; its own reference entry was not read."}],
+          ["show images && boot system partition next", "Inspect installed MLNX-OS software partition images (image 1 vs image 2) for upgrades", {"verified": "2026-11-09", "refs": [], "note": "show images and the next-boot command were not found in the MLNX-OS chapters read; check the Software Management commands."}]
         ],
-        tip: "Only enable 'ib sm' on the switch if you do NOT have UFM or host-based OpenSM running!",
-        tags: ["nvidia", "quantum", "mlnx-os", "power", "fan", "temperature", "sm", "opensm", "ufm", "inventory", "version"]
+        tip: "Only enable the switch's SM (ib smnode <name> enable) if you do NOT have UFM or host-based OpenSM running!",
+        tags: ["nvidia", "quantum", "mlnx-os", "power", "fan", "temperature", "sm", "opensm", "ufm", "inventory", "version"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/chassis-management", "title": "MLNX-OS 3.12.6200: chassis management"}, {"url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/subnet-manager", "title": "MLNX-OS 3.12.6200: subnet manager"}], "note": "show ib sm is not in the manual chapters read; NVIDIA enables the SM with ib smnode <name> enable."}
       }
     ]
   },
@@ -93,14 +96,15 @@ const SWITCH_DATA = [
         ],
         subcommands: [
           ["mlxlink -d lid-1 -p 15 -m -c -e", "Remotely read OSFP/QSFP optical Rx/Tx power (dBm), SNR, and BER on port 15 of Quantum switch LID 1"],
-          ["mlxlink -d lid-1 -p 15 -a TG", "Remotely bounce (toggle) port 15 on Quantum switch LID 1 over the InfiniBand fabric"],
-          ["perfquery -x 1 15 && perfquery -R 1 15", "Read extended PMA error counters on switch LID 1 port 15, then reset (-R) its counters"],
-          ["smpquery nodeinfo 1 && smpquery portinfo 1 15", "Query hardware NodeInfo and PortInfo (Active/Init state, speed, width, LID) of switch LID 1 port 15"],
-          ["flint -d lid-1 q", "Query the ASIC firmware version and PSID of remote Quantum switch LID 1 in-band"],
-          ["ibdiagnet --get_phy_info --get_cable_info -o /tmp/ibdiag", "Sweep all Quantum switches in the fabric and dump every switch port's optical transceiver and temperature report"]
+          ["mlxlink -d lid-1 -p 15 -a TG", "Remotely bounce (toggle) port 15 on Quantum switch LID 1 over the InfiniBand fabric", {"verified": "2026-11-09", "refs": [{"url": "https://networking-docs.nvidia.com/mftswum/4330/mlxlink-utility", "title": "MFT: mlxlink"}]}],
+          ["perfquery -x 1 15 && perfquery -R 1 15", "Read extended PMA error counters on switch LID 1 port 15, then reset (-R) its counters", {"verified": "2026-11-09", "refs": [{"url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/perfquery.8.in.rst", "title": "perfquery man page (rdma-core)"}]}],
+          ["smpquery nodeinfo 1 && smpquery portinfo 1 15", "Query hardware NodeInfo and PortInfo (Active/Init state, speed, width, LID) of switch LID 1 port 15", {"verified": "2026-11-09", "refs": [], "note": "smpquery was not checked this round."}],
+          ["flint -d lid-1 q", "Query the ASIC firmware version and PSID of remote Quantum switch LID 1 in-band", {"verified": "2026-11-09", "refs": [{"url": "https://networking-docs.nvidia.com/mftswum/4330/flint-firmware-burning-tool", "title": "MFT: flint"}], "note": "flint documents q and in-band use, not a lid- example."}],
+          ["ibdiagnet --get_phy_info --get_cable_info -o /tmp/ibdiag", "Sweep all Quantum switches in the fabric and dump every switch port's optical transceiver and temperature report", {"verified": "2026-11-09", "refs": [{"url": "https://networking-docs.nvidia.com/ibdiagnetutilityum/2.27.0/basic-commands", "title": "ibdiagnet commands"}]}]
         ],
         tip: "MQM9790 / MQM8790 switches have no SSH CLI—use 'mlxlink -d lid-<N> -p <Port>' from any host!",
-        tags: ["nvidia", "quantum", "unmanaged", "mqm9790", "mqm8790", "inband", "mlxlink", "lid", "perfquery", "smpquery", "flint", "ibswitches"]
+        tags: ["nvidia", "quantum", "unmanaged", "mqm9790", "mqm8790", "inband", "mlxlink", "lid", "perfquery", "smpquery", "flint", "ibswitches"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://networking-docs.nvidia.com/mftswum/4330/mlxlink-utility", "title": "MFT: mlxlink"}, {"url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibswitches.8.in.rst", "title": "ibswitches man page (rdma-core)"}], "note": "NVIDIA shows mlxlink -d lid-<LID> -p <port> for Quantum split ports."}
       }
     ]
   },
@@ -122,11 +126,12 @@ const SWITCH_DATA = [
         ],
         subcommands: [
           ["nv show interface swp1 link stats", "Display hardware RX/TX packets, bytes, CRC errors, drops, and symbol errors on swp1"],
-          ["ip -c -br link show", "Since Cumulus is Linux, standard 'ip -c -br link' works directly on swp1..swp64!"],
-          ["nv set interface swp1 link state down && nv config apply -y && sleep 2 && nv set interface swp1 link state up && nv config apply -y", "Administratively bounce (shut / no shut) switch port swp1 to force transceiver link retraining"]
+          ["ip -c -br link show", "Since Cumulus is Linux, standard 'ip -c -br link' works directly on swp1..swp64!", {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man8/ip.8.html", "title": "ip(8)"}]}],
+          ["nv set interface swp1 link state down && nv config apply --assume-yes && sleep 2 && nv set interface swp1 link state up && nv config apply --assume-yes", "Administratively bounce (shut / no shut) switch port swp1 to force transceiver link retraining"]
         ],
         tip: "Every swp* port is also a standard Linux netdev!",
-        tags: ["cumulus", "nvue", "nv", "swp", "interface", "status", "bounce", "counters"]
+        tags: ["cumulus", "nvue", "nv", "swp", "interface", "status", "bounce", "counters"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Monitoring-and-Troubleshooting/Troubleshooting-Network-Interfaces/Monitoring-Interfaces-and-Transceivers-with-NVUE/", "title": "Cumulus Linux 5.18: monitoring interfaces"}, {"url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Set-and-Unset-Commands/Interface/", "title": "NVUE reference: interface set"}]}
       }
     ]
   },
@@ -148,10 +153,11 @@ const SWITCH_DATA = [
         ],
         subcommands: [
           ["nv show platform transceiver", "Summary table of all populated optical/DAC transceivers across the entire switch"],
-          ["nv set interface swp1 link fec rs && nv config apply -y", "Configure Forward Error Correction (rs / baser / auto / off) on port swp1"]
+          ["nv set interface swp1 link fec rs && nv config apply --assume-yes", "Configure Forward Error Correction (rs / baser / auto / off) on port swp1"]
         ],
         tip: "Compare Rx dBm across all 4/8 lanes to spot dirty MPO pins",
-        tags: ["cumulus", "nvue", "transceiver", "optics", "dom", "dbm", "ethtool", "fec"]
+        tags: ["cumulus", "nvue", "transceiver", "optics", "dom", "dbm", "ethtool", "fec"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/Platform/", "title": "NVUE reference: platform"}, {"url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Monitoring-and-Troubleshooting/Troubleshooting-Network-Interfaces/Monitoring-Interfaces-and-Transceivers-with-ethtool/", "title": "Cumulus Linux 5.18: ethtool"}], "note": "FEC values rs/off are from the Switch Port Attributes page summary."}
       }
     ]
   },
@@ -172,11 +178,12 @@ const SWITCH_DATA = [
           ["nv show bridge domain br_default mac-table", "Display Layer-2 MAC address learning table across VLANs and ports"]
         ],
         subcommands: [
-          ["nv show vrf default router nexthop neighbor && ip -6 -c neigh show", "Display IPv6 Neighbor Discovery (NDP) table mapping server IPv6 addresses to MACs and swp* ports"],
-          ["bridge fdb show | grep -i 'aa:bb:cc'", "Search the Linux kernel bridge Forwarding Database (FDB) directly for a server MAC address"]
+          ["nv show interface neighbor && ip -6 -c neigh show", "Display IPv6 Neighbor Discovery (NDP) table mapping server IPv6 addresses to MACs and swp* ports"],
+          ["bridge fdb show | grep -i 'aa:bb:cc'", "Search the Linux kernel bridge Forwarding Database (FDB) directly for a server MAC address", {"verified": "2026-11-09", "refs": [{"url": "https://man7.org/linux/man-pages/man8/bridge.8.html", "title": "bridge(8)"}]}]
         ],
         tip: "Run 'nv show interface lldp' to verify rack cabling matrix",
-        tags: ["cumulus", "lldp", "lldpctl", "mac", "arp", "bridge", "fdb"]
+        tags: ["cumulus", "lldp", "lldpctl", "mac", "arp", "bridge", "fdb"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/LLDP/", "title": "NVUE reference: LLDP"}, {"url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/Bridge/", "title": "NVUE reference: bridge"}], "note": "lldpctl comes from lldpd, not NVUE."}
       }
     ]
   },
@@ -197,11 +204,12 @@ const SWITCH_DATA = [
           ["nv show bridge domain br_default vlan", "List all active VLAN IDs and the ports/bonds assigned to each VLAN"]
         ],
         subcommands: [
-          ["cat /proc/net/bonding/bond1", "Inspect raw Linux kernel 802.3ad LACP partner MAC, aggregator ID, and link failure counters for bond1"],
-          ["nv set interface swp10 bridge domain br_default access 100 && nv config apply -y", "Configure switch port swp10 as an untagged Access port in VLAN 100"]
+          ["cat /proc/net/bonding/bond1", "Inspect raw Linux kernel 802.3ad LACP partner MAC, aggregator ID, and link failure counters for bond1", {"verified": "2026-11-09", "refs": [{"url": "https://docs.kernel.org/networking/bonding.html", "title": "Linux bonding"}]}],
+          ["nv set interface swp10 bridge domain br_default access 100 && nv config apply --assume-yes", "Configure switch port swp10 as an untagged Access port in VLAN 100"]
         ],
         tip: "Check 'Link Failure Count' in /proc/net/bonding/<bond>",
-        tags: ["cumulus", "bond", "lacp", "mlag", "vlan", "trunk", "access"]
+        tags: ["cumulus", "bond", "lacp", "mlag", "vlan", "trunk", "access"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/MLAG/", "title": "NVUE reference: MLAG"}, {"url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/Bridge/", "title": "NVUE reference: bridge"}, {"url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Layer-2/Ethernet-Bridging-VLANs/VLAN-aware-Bridge-Mode/", "title": "Cumulus Linux 5.18: VLAN-aware bridge"}], "note": "nv show interface bond (all bonds) is not in the NVUE reference; nv show mlag is."}
       }
     ]
   },
@@ -219,14 +227,15 @@ const SWITCH_DATA = [
         flags: [
           ["router bgp neighbor", "Display BGP peer state (Established vs Active/Connect), uptime, ASN, and prefixes received"],
           ["nv show qos roce", "Inspect RoCEv2 lossless QoS profile, PFC priority bitmask (prio 3), and ECN thresholds"],
-          ["vtysh -c 'show bgp summary'", "Query underlying FRRouting (FRR) BGP daemon directly"]
+          ["vtysh -c 'show ip bgp summary'", "Query underlying FRRouting (FRR) BGP daemon directly"]
         ],
         subcommands: [
           ["nv show vrf default router rib ipv6", "Display the IPv6 Routing Information Base (RIB) and ECMP next-hops (often link-local fe80:: via BGP Unnumbered)"],
-          ["ethtool -S swp1 | grep -iE 'pfc|pause|ecn|discard'", "Check hardware NIC/ASIC counters on swp1 for Priority Flow Control (PFC) pause storms or buffer drops"]
+          ["ethtool -S swp1 | grep -iE 'pfc|pause|ecn|discard'", "Check hardware NIC/ASIC counters on swp1 for Priority Flow Control (PFC) pause storms or buffer drops", {"verified": "2026-11-09", "refs": [{"url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Monitoring-and-Troubleshooting/Troubleshooting-Network-Interfaces/Monitoring-Interfaces-and-Transceivers-with-ethtool/", "title": "Cumulus Linux 5.18: ethtool"}]}]
         ],
         tip: "BGP state 'Active' or 'Connect' means session is DOWN!",
-        tags: ["cumulus", "bgp", "evpn", "frr", "roce", "pfc", "ecn", "qos"]
+        tags: ["cumulus", "bgp", "evpn", "frr", "roce", "pfc", "ecn", "qos"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Layer-3/Border-Gateway-Protocol-BGP/Troubleshooting-BGP/", "title": "Cumulus Linux 5.18: troubleshooting BGP"}, {"url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Layer-1-and-Switch-Ports/Quality-of-Service/RDMA-over-Converged-Ethernet-RoCE/", "title": "Cumulus Linux 5.18: RoCE"}, {"url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/RIB/", "title": "NVUE reference: RIB"}], "note": "Corrected 2026-11-09: NVIDIA's page uses vtysh show ip bgp summary."}
       }
     ]
   },
@@ -249,11 +258,12 @@ const SWITCH_DATA = [
         ],
         subcommands: [
           ["nv show system && nv show platform hardware", "Show Cumulus Linux OS version, uptime, switch model, ASIC type, and serial number"],
-          ["nv config rollback <revision_id>", "Roll back the switch configuration to a known-good previous revision ID"],
-          ["nv config show -o commands", "Export the entire switch configuration as flat, copy-pasteable 'nv set ...' CLI commands"]
+          ["nv config apply <revision_id> --assume-yes", "Go back to a known-good revision (list them with nv config history). nv config apply --confirm rolls back by itself if you do not confirm"],
+          ["nv config translate revision <revision_id>", "Export a revision as flat, copy-pasteable 'nv set ...' commands (Cumulus 5.12 and later)"]
         ],
-        tip: "nv config show -o commands exports clean CLI commands",
-        tags: ["cumulus", "platform", "psu", "fan", "temperature", "config", "rollback"]
+        tip: "nv config translate revision <id> exports a revision as nv set commands",
+        tags: ["cumulus", "platform", "psu", "fan", "temperature", "config", "rollback"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/Platform/", "title": "NVUE reference: platform"}, {"url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/System/", "title": "NVUE reference: system"}, {"url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Config-Commands/", "title": "NVUE reference: config commands"}], "note": "Corrected 2026-11-09: there is no nv config rollback (use nv config apply <rev>), and nv config show -o takes only auto/json/yaml/native."}
       }
     ]
   },
@@ -267,19 +277,20 @@ const SWITCH_DATA = [
         id: "arista-interfaces-dom",
         desc: "Inspect Arista switch port status, SFP/QSFP/OSFP optical DOM power (dBm), and non-zero error counters",
         cmd: "show interfaces status && show interfaces Ethernet1 transceiver detail",
-        details: "'show interfaces status' lists every port's description, status (connected / notconnect / errdisabled), VLAN, duplex, speed, and transceiver type. Adding 'nz' to 'show interfaces counters errors nz' prints ONLY ports with non-zero error counters!",
+        details: "'show interfaces status' lists every port's description, status (connected / notconnect / errdisabled), VLAN, duplex, speed, and transceiver type. 'show interfaces counters errors' adds FCS, alignment, symbol, runt and giant counters for every port.",
         flags: [
           ["status", "One-line summary per interface (connected, notconnect, disabled, errdisabled)"],
           ["transceiver detail", "Show per-lane optical Tx/Rx power (dBm), laser bias, temp, voltage, and alarm thresholds"],
-          ["counters errors nz", "Display only interfaces that have non-zero FCS/CRC, symbol, Alignment, or Runt errors"]
+          ["counters errors", "FCS, Align, Symbol, Rx, Runts, Giants and Tx error counters per interface"]
         ],
         subcommands: [
-          ["show interfaces counters errors nz", "Filter out clean ports and display ONLY ports with non-zero physical error counters"],
+          ["show interfaces counters errors", "Physical error counters (FCS, Align, Symbol, Runts, Giants) for every port"],
           ["show interfaces Ethernet1 phy detail", "Deep physical-layer SerDes, FEC codeword error, and pre/post-FEC BER diagnostics"],
           ["show inventory", "Display switch chassis serial number, PSU models/serials, and every plugged transceiver's vendor/part/serial"]
         ],
-        tip: "Append 'nz' in Arista EOS to show only non-zero counters!",
-        tags: ["arista", "eos", "interfaces", "transceiver", "dom", "errors", "nz", "phy"]
+        tip: "Run show interfaces counters errors twice a minute apart: a counter that grows is the live problem",
+        tags: ["arista", "eos", "interfaces", "transceiver", "dom", "errors", "nz", "phy"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://www.arista.com/um-eos/eos-ethernet-ports", "title": "Arista EOS 4.37: Ethernet ports"}], "note": "Corrected 2026-11-09: EOS documents no nz filter. show inventory is not in the chapters read."}
       }
     ]
   },
@@ -301,11 +312,12 @@ const SWITCH_DATA = [
         ],
         subcommands: [
           ["show lldp neighbors Ethernet1 detail", "Show complete LLDP chassis ID, system description, management IPv6/IPv4, and VLAN for port Ethernet1"],
-          ["show mac address-table address <mac> && show ipv6 neighbors <ipv6>", "Locate which switch port or Port-Channel learned a specific server MAC or IPv6 Neighbor Discovery entry"],
-          ["bash ethtool -m Ethernet1", "Drop into Arista's underlying Linux bash shell to run standard Linux utilities"]
+          ["show mac address-table address <mac> && show ipv6 neighbors <ipv6>", "Locate which switch port or Port-Channel learned a specific server MAC or IPv6 Neighbor Discovery entry", {"verified": "2026-11-09", "refs": [{"url": "https://www.arista.com/um-eos/eos-ipv6", "title": "Arista EOS 4.37: IPv6"}], "note": "show ipv6 neighbors is documented; show mac address-table was not found in the chapters read."}],
+          ["bash ethtool -m Ethernet1", "Drop into Arista's underlying Linux bash shell to run standard Linux utilities", {"verified": "2026-11-09", "refs": [], "note": "EOS documents bash but not the Linux name of Ethernet1 or ethtool; check ip link in bash first."}]
         ],
         tip: "Member flag (P) = active in LACP; (s) = suspended!",
-        tags: ["arista", "eos", "lldp", "port-channel", "lacp", "mlag", "mac", "arp"]
+        tags: ["arista", "eos", "lldp", "port-channel", "lacp", "mlag", "mac", "arp"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://www.arista.com/um-eos/eos-link-layer-discovery-protocol", "title": "Arista EOS 4.37: LLDP"}, {"url": "https://www.arista.com/um-eos/eos-port-channels-and-lacp", "title": "Arista EOS 4.37: port channels"}, {"url": "https://www.arista.com/um-eos/eos-multi-chassis-link-aggregation", "title": "Arista EOS 4.37: MLAG"}, {"url": "https://www.arista.com/um-eos/eos-ipv6", "title": "Arista EOS 4.37: IPv6"}], "note": "show mac address-table was not found in the chapters read."}
       }
     ]
   },
@@ -323,13 +335,14 @@ const SWITCH_DATA = [
         flags: [
           ["show ipv6 bgp summary", "List all IPv6 BGP peers, ASNs, message counts, and state/prefixes received (also 'show ip bgp summary')"],
           ["show system environment all", "Show power supply status/wattage, fan tray speeds, and temperature sensors"],
-          ["show logging last 50", "Show the 50 most recent switch syslog messages (link flaps, transceiver insert/remove, LACP)"]
+          ["show logging 50", "The 50 most recent syslog messages (show logging last <n> filters by time units, not a count)"]
         ],
         subcommands: [
-          ["show version && show boot-config", "Check Arista switch hardware model, serial number, MAC, uptime, and EOS image version"],
-          ["show running-config interfaces Ethernet1", "View the exact configuration block applied to interface Ethernet1"]
+          ["show version && show boot-config", "Check Arista switch hardware model, serial number, MAC, uptime, and EOS image version", {"verified": "2026-11-09", "refs": [], "note": "show version is not in the EOS chapters read; show boot-config appears only in an example."}],
+          ["show running-config interfaces Ethernet1", "View the exact configuration block applied to interface Ethernet1", {"verified": "2026-11-09", "refs": [], "note": "Not in the EOS chapters read."}]
         ],
-        tags: ["arista", "eos", "bgp", "environment", "psu", "fan", "logging", "version"]
+        tags: ["arista", "eos", "bgp", "environment", "psu", "fan", "logging", "version"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://www.arista.com/um-eos/eos-border-gateway-protocol-bgp", "title": "Arista EOS 4.37: BGP"}, {"url": "https://www.arista.com/um-eos/eos-environment-commands", "title": "Arista EOS 4.37: environment"}, {"url": "https://www.arista.com/um-eos/eos-switch-administration-commands", "title": "Arista EOS 4.37: show logging"}], "note": "Corrected 2026-11-09: show logging last <n> filters by time; a count is show logging <n>. show version and show boot-config are not in the chapters read."}
       }
     ]
   },
@@ -354,7 +367,8 @@ const SWITCH_DATA = [
           ["show inventory all", "List chassis, linecard, PSU, fan tray, and all plugged transceiver part numbers and serial numbers"]
         ],
         tip: "'++' or '--' in DOM output indicates an active optical alarm!",
-        tags: ["nxos", "cisco", "nexus", "interface", "transceiver", "dom", "errors"]
+        tags: ["nxos", "cisco", "nexus", "interface", "transceiver", "dom", "errors"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_i_showcmds.html", "title": "NX-OS 10.5 show commands: interface"}, {"url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_i_showcmds.html", "title": "NX-OS 10.5 show commands: inventory"}], "note": "The status values and the ++ / + DOM legend are not in the show command reference."}
       }
     ]
   },
@@ -376,11 +390,12 @@ const SWITCH_DATA = [
         ],
         subcommands: [
           ["show cdp neighbors detail && show lldp neighbors detail", "View detailed neighbor management IPs, OS versions, and port descriptions"],
-          ["show mac address-table address <mac> && show ipv6 neighbor <ipv6>", "Trace a server MAC or IPv6 Neighbor Discovery (NDP) address to its exact Ethernet1/* or Po* interface"],
+          ["show mac address-table address <mac> && show ipv6 neighbor <ipv6>", "Trace a server MAC or IPv6 Neighbor Discovery (NDP) address to its exact Ethernet1/* or Po* interface", {"verified": "2026-11-09", "refs": [{"url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_m_showcmds.html", "title": "NX-OS 10.5 show commands: MAC table"}], "note": "The bare show ipv6 neighbor is not in the 10.5 show reference."}],
           ["show environment", "Check Nexus power supplies, fan trays, and temperature sensor status"]
         ],
         tip: "Run 'show vpc consistency-parameters global' if vPC is suspended",
-        tags: ["nxos", "cisco", "lldp", "cdp", "port-channel", "lacp", "vpc", "environment"]
+        tags: ["nxos", "cisco", "lldp", "cdp", "port-channel", "lacp", "vpc", "environment"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_l_showcmds.html", "title": "NX-OS 10.5 show commands: LLDP"}, {"url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_c_showcmds.html", "title": "NX-OS 10.5 show commands: CDP"}, {"url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_p_showcmds.html", "title": "NX-OS 10.5 show commands: port-channel"}, {"url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_v_showcmds.html", "title": "NX-OS 10.5 show commands: vPC"}, {"url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_m_showcmds.html", "title": "NX-OS 10.5 show commands: MAC table"}, {"url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_e_showcmds.html", "title": "NX-OS 10.5 show commands: environment"}], "note": "show ipv6 neighbor <addr> is not in the 10.5 show reference; the port-channel flag legend is in a configuration guide, not read."}
       }
     ]
   },
@@ -388,16 +403,16 @@ const SWITCH_DATA = [
     id: "sonic-cli",
     badge: "snc",
     title: "SONiC — Enterprise & Cloud Switch CLI",
-    subtitle: "Inspecting Ethernet* port status, sfputil optical DOM, lldpctl neighbors, PortChannel bonds & platform sensors",
+    subtitle: "Inspecting Ethernet* port status, transceiver optical DOM, lldpctl neighbors, PortChannel bonds & platform sensors",
     commands: [
       {
         id: "sonic-interfaces-sfputil-lldp",
-        desc: "Check SONiC switch interface status, optical transceiver DOM EEPROM (sfputil), LLDP neighbors, and PSU/fan health",
-        cmd: "show interfaces status && sfputil show eeprom -d -p Ethernet0",
+        desc: "Check SONiC switch interface status, optical transceiver DOM EEPROM, LLDP neighbors, and PSU/fan health",
+        cmd: "show interfaces status && show interfaces transceiver eeprom --dom Ethernet0",
         details: "SONiC (Software for Open Networking in the Cloud) runs on Debian Linux using Docker containers for each network service (swss, bgp, syncd, lldp, pmon). Standard Linux commands and SONiC 'show' / 'sfputil' / 'config' CLI tools both work.",
         flags: [
-          ["show interfaces status", "Display Oper/Admin state, speed (100G/400G), MTU, FEC, and alias for all Ethernet* ports"],
-          ["sfputil show eeprom -d", "Dump transceiver EEPROM and Digital Optical Monitoring (-d) Tx/Rx dBm power and temperature"],
+          ["show interfaces status", "Oper/Admin state, lanes, speed, MTU, alias and type for every port (FEC is show interfaces fec status)"],
+          ["show interfaces transceiver eeprom --dom", "Transceiver EEPROM plus Digital Optical Monitoring (Tx/Rx power, temperature)"],
           ["show lldp table", "Compact table of local ports and connected remote LLDP neighbor hostnames and ports"]
         ],
         subcommands: [
@@ -406,8 +421,9 @@ const SWITCH_DATA = [
           ["show platform summary && show platform psustatus && show platform fan && show platform temperature", "Inspect SONiC switch hardware SKU, ASIC, PSU wattage/status, fan RPMs, and board temperatures"],
           ["config interface shutdown Ethernet0 && config interface startup Ethernet0", "Bounce (shut / no shut) port Ethernet0 in SONiC and save with 'config save -y'"]
         ],
-        tip: "sfputil show eeprom -d reads optical DOM on SONiC switches",
-        tags: ["sonic", "sfputil", "interfaces", "lldp", "platform", "psu", "pfc"]
+        tip: "show interfaces transceiver eeprom --dom reads optical DOM on SONiC switches",
+        tags: ["sonic", "sfputil", "interfaces", "lldp", "platform", "psu", "pfc"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://github.com/sonic-net/sonic-utilities/blob/master/doc/Command-Reference.md", "title": "SONiC command reference"}], "note": "Corrected 2026-11-09: sfputil show eeprom is not documented; the DOM command is show interfaces transceiver eeprom --dom."}
       }
     ]
   }
@@ -443,7 +459,7 @@ const SW_TRANSLATOR = {
     dom: (p) => `show interfaces ${p && p.startsWith("Eth") ? p : "Ethernet1"} transceiver detail`,
     status: (p) => `show interfaces ${p && p.startsWith("Eth") ? p : "Ethernet1"} status`,
     lldp: (p) => `show lldp neighbors ${p && p.startsWith("Eth") ? p : "Ethernet1"} detail`,
-    errors: () => `show interfaces counters errors nz`,
+    errors: () => `show interfaces counters errors`,
     lacp: () => `show port-channel summary && show mlag`,
     env: () => `show system environment all && show inventory`
   },
@@ -456,7 +472,7 @@ const SW_TRANSLATOR = {
     env: () => `show environment && show inventory`
   },
   sonic: {
-    dom: (p) => `sfputil show eeprom -d -p ${p && p.startsWith("Eth") ? p : "Ethernet0"}`,
+    dom: (p) => `show interfaces transceiver eeprom --dom ${p && p.startsWith("Eth") ? p : "Ethernet0"}`,
     status: (p) => `show interfaces status ${p && p.startsWith("Eth") ? p : "Ethernet0"}`,
     lldp: (p) => `show lldp neighbors ${p && p.startsWith("Eth") ? p : "Ethernet0"}`,
     errors: () => `show interfaces counters errors`,

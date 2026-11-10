@@ -44,7 +44,17 @@ const SW_SW_QUANTUM_PORTS_DATA = [
           "counters",
           "qm9700",
           "qm8700"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/infiniband-interface",
+              "title": "MLNX-OS 3.12.6200: InfiniBand interface"
+            }
+          ],
+          "note": "MLNX-OS (newer Quantum switches may run NVOS instead: check your switch). The per-port form show interfaces ib 1/1 is not shown on its own in the manual."
+        }
       },
       {
         "id": "mlnxos-show-interfaces-ib-sub-1",
@@ -55,7 +65,17 @@ const SW_SW_QUANTUM_PORTS_DATA = [
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/infiniband-interface",
+              "title": "MLNX-OS 3.12.6200: InfiniBand interface"
+            }
+          ],
+          "note": "MLNX-OS (newer Quantum switches may run NVOS instead: check your switch). The per-port form show interfaces ib 1/1 is not shown on its own in the manual."
+        }
       },
       {
         "id": "mlnxos-show-interfaces-ib-sub-2",
@@ -66,7 +86,12 @@ const SW_SW_QUANTUM_PORTS_DATA = [
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [],
+          "note": "Only the per-port form (show interfaces ib 1/36 transceiver) is in the MLNX-OS manual chapters read."
+        }
       },
       {
         "id": "mlnxos-show-interfaces-ib-sub-3",
@@ -77,7 +102,12 @@ const SW_SW_QUANTUM_PORTS_DATA = [
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [],
+          "note": "Not in the MLNX-OS manual chapters read."
+        }
       },
       {
         "id": "mlnxos-show-interfaces-ib-sub-4",
@@ -88,7 +118,12 @@ const SW_SW_QUANTUM_PORTS_DATA = [
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [],
+          "note": "Clearing counters is not in the MLNX-OS manual chapters read."
+        }
       },
       {
         "id": "mlnxos-show-interfaces-ib-sub-5",
@@ -99,7 +134,17 @@ const SW_SW_QUANTUM_PORTS_DATA = [
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/infiniband-interface",
+              "title": "MLNX-OS 3.12.6200: InfiniBand interface"
+            }
+          ],
+          "note": "NVIDIA shows interface ib 1/4 shutdown; the no form is not shown."
+        }
       },
       {
         "id": "mlnxos-show-interfaces-ib-sub-6",
@@ -110,7 +155,12 @@ const SW_SW_QUANTUM_PORTS_DATA = [
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [],
+          "note": "Not in the MLNX-OS manual chapters read."
+        }
       }
     ]
   },
@@ -131,8 +181,8 @@ const SW_SW_QUANTUM_PORTS_DATA = [
             "Display active switch system profile (ib, ib-split-ready, etc.) and max port layout"
           ],
           [
-            "interface ib 1/1 split",
-            "Split a 4x port into two 2x sub-ports (1/1/1 and 1/1/2) for HDR100 / NDR200 splitter cables"
+            "interface ib 1/1 → module-type qsfp-split-2",
+            "Split a port: shut it down, then in its interface mode run module-type qsfp-split-2 (module-type qsfp undoes it). Sub-ports are 1/5/1, 1/5/2 on Quantum; Quantum-2 uses 1/3/1/1. Splitting deletes the port's configuration"
           ]
         ],
         "tip": "Quantum-2 QM9700 cages house two 400G NDR ports per OSFP module (64 ports in 32 cages)",
@@ -150,7 +200,17 @@ const SW_SW_QUANTUM_PORTS_DATA = [
           "ndr",
           "hdr",
           "cables"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/infiniband-interface",
+              "title": "MLNX-OS 3.12.6200: InfiniBand interface"
+            }
+          ],
+          "note": "Corrected 2026-11-09: splitting is module-type qsfp-split-2, not \"interface ib … split\"."
+        }
       },
       {
         "id": "mlnxos-split-ports-cable-sub-1",
@@ -161,7 +221,17 @@ const SW_SW_QUANTUM_PORTS_DATA = [
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/mlnxosum/3126200lts/infiniband-interface",
+              "title": "MLNX-OS 3.12.6200: InfiniBand interface"
+            }
+          ],
+          "note": "Corrected 2026-11-09: splitting is module-type qsfp-split-2, not \"interface ib … split\"."
+        }
       },
       {
         "id": "mlnxos-split-ports-cable-sub-2",
@@ -172,7 +242,12 @@ const SW_SW_QUANTUM_PORTS_DATA = [
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [],
+          "note": "Not in the MLNX-OS manual chapters read; use show interfaces ib <port> transceiver."
+        }
       }
     ]
   },

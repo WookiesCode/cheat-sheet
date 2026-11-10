@@ -192,7 +192,9 @@ function buildEthSectionCards(sec) {
           details: cmd.details || '',
           flags: cmd.flags ? cmd.flags.slice(0, 3) : [],
           tip: cmd.tip || '',
-          tags: [cfg.name, 'ethernet', 'nic', 'networking', 'linux', ...(cmd.tags || [])]
+          tags: [cfg.name, 'ethernet', 'nic', 'networking', 'linux', ...(cmd.tags || [])],
+          // Where the command was checked (drawn under the card by common.js initSources).
+          ...(cmd.src ? { src: cmd.src } : {})
         }
       ]
     });
@@ -229,7 +231,9 @@ function buildEthSectionCards(sec) {
           id: `${cmd.id}-sub-${idx + 1}`,
           desc: sub[1],
           cmd: sub[0],
-          tags: [cfg.name, 'recipe', 'automation', 'cli']
+          tags: [cfg.name, 'recipe', 'automation', 'cli'],
+          // A recipe's own source (third element) wins; otherwise it shares the command's.
+          ...((sub[2] || cmd.src) ? { src: sub[2] || cmd.src } : {})
         }))
       });
     }

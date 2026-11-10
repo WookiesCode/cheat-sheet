@@ -11,7 +11,7 @@ const SW_SW_ARISTA_PORTS_DATA = [
         "id": "arista-interfaces-dom",
         "desc": "Inspect Arista switch port status, SFP/QSFP/OSFP optical DOM power (dBm), and non-zero error counters",
         "cmd": "show interfaces status && show interfaces Ethernet1 transceiver detail",
-        "details": "'show interfaces status' lists every port's description, status (connected / notconnect / errdisabled), VLAN, duplex, speed, and transceiver type. Adding 'nz' to 'show interfaces counters errors nz' prints ONLY ports with non-zero error counters!",
+        "details": "'show interfaces status' lists every port's description, status (connected / notconnect / errdisabled), VLAN, duplex, speed, and transceiver type. 'show interfaces counters errors' adds FCS, alignment, symbol, runt and giant counters for every port.",
         "flags": [
           [
             "status",
@@ -22,11 +22,11 @@ const SW_SW_ARISTA_PORTS_DATA = [
             "Show per-lane optical Tx/Rx power (dBm), laser bias, temp, voltage, and alarm thresholds"
           ],
           [
-            "counters errors nz",
-            "Display only interfaces that have non-zero FCS/CRC, symbol, Alignment, or Runt errors"
+            "counters errors",
+            "FCS, Align, Symbol, Rx, Runts, Giants and Tx error counters per interface"
           ]
         ],
-        "tip": "Append 'nz' in Arista EOS to show only non-zero counters!",
+        "tip": "Run show interfaces counters errors twice a minute apart: a counter that grows is the live problem",
         "tags": [
           "Arista EOS: Ports & DOM",
           "switch",
@@ -41,18 +41,38 @@ const SW_SW_ARISTA_PORTS_DATA = [
           "errors",
           "nz",
           "phy"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.arista.com/um-eos/eos-ethernet-ports",
+              "title": "Arista EOS 4.37: Ethernet ports"
+            }
+          ],
+          "note": "Corrected 2026-11-09: EOS documents no nz filter. show inventory is not in the chapters read."
+        }
       },
       {
         "id": "arista-interfaces-dom-sub-1",
-        "desc": "Filter out clean ports and display ONLY ports with non-zero physical error counters",
-        "cmd": "show interfaces counters errors nz",
+        "desc": "Physical error counters (FCS, Align, Symbol, Runts, Giants) for every port",
+        "cmd": "show interfaces counters errors",
         "tags": [
           "Arista EOS: Ports & DOM",
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.arista.com/um-eos/eos-ethernet-ports",
+              "title": "Arista EOS 4.37: Ethernet ports"
+            }
+          ],
+          "note": "Corrected 2026-11-09: EOS documents no nz filter. show inventory is not in the chapters read."
+        }
       },
       {
         "id": "arista-interfaces-dom-sub-2",
@@ -63,7 +83,17 @@ const SW_SW_ARISTA_PORTS_DATA = [
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.arista.com/um-eos/eos-ethernet-ports",
+              "title": "Arista EOS 4.37: Ethernet ports"
+            }
+          ],
+          "note": "Corrected 2026-11-09: EOS documents no nz filter. show inventory is not in the chapters read."
+        }
       },
       {
         "id": "arista-interfaces-dom-sub-3",
@@ -74,7 +104,17 @@ const SW_SW_ARISTA_PORTS_DATA = [
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.arista.com/um-eos/eos-ethernet-ports",
+              "title": "Arista EOS 4.37: Ethernet ports"
+            }
+          ],
+          "note": "Corrected 2026-11-09: EOS documents no nz filter. show inventory is not in the chapters read."
+        }
       }
     ]
   },

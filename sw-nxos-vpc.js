@@ -41,7 +41,37 @@ const SW_SW_NXOS_VPC_DATA = [
           "lacp",
           "vpc",
           "environment"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_l_showcmds.html",
+              "title": "NX-OS 10.5 show commands: LLDP"
+            },
+            {
+              "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_c_showcmds.html",
+              "title": "NX-OS 10.5 show commands: CDP"
+            },
+            {
+              "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_p_showcmds.html",
+              "title": "NX-OS 10.5 show commands: port-channel"
+            },
+            {
+              "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_v_showcmds.html",
+              "title": "NX-OS 10.5 show commands: vPC"
+            },
+            {
+              "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_m_showcmds.html",
+              "title": "NX-OS 10.5 show commands: MAC table"
+            },
+            {
+              "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_e_showcmds.html",
+              "title": "NX-OS 10.5 show commands: environment"
+            }
+          ],
+          "note": "show ipv6 neighbor <addr> is not in the 10.5 show reference; the port-channel flag legend is in a configuration guide, not read."
+        }
       },
       {
         "id": "nxos-neighbors-portchannel-vpc-sub-1",
@@ -52,7 +82,37 @@ const SW_SW_NXOS_VPC_DATA = [
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_l_showcmds.html",
+              "title": "NX-OS 10.5 show commands: LLDP"
+            },
+            {
+              "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_c_showcmds.html",
+              "title": "NX-OS 10.5 show commands: CDP"
+            },
+            {
+              "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_p_showcmds.html",
+              "title": "NX-OS 10.5 show commands: port-channel"
+            },
+            {
+              "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_v_showcmds.html",
+              "title": "NX-OS 10.5 show commands: vPC"
+            },
+            {
+              "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_m_showcmds.html",
+              "title": "NX-OS 10.5 show commands: MAC table"
+            },
+            {
+              "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_e_showcmds.html",
+              "title": "NX-OS 10.5 show commands: environment"
+            }
+          ],
+          "note": "show ipv6 neighbor <addr> is not in the 10.5 show reference; the port-channel flag legend is in a configuration guide, not read."
+        }
       },
       {
         "id": "nxos-neighbors-portchannel-vpc-sub-2",
@@ -63,7 +123,17 @@ const SW_SW_NXOS_VPC_DATA = [
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_m_showcmds.html",
+              "title": "NX-OS 10.5 show commands: MAC table"
+            }
+          ],
+          "note": "The bare show ipv6 neighbor is not in the 10.5 show reference."
+        }
       },
       {
         "id": "nxos-neighbors-portchannel-vpc-sub-3",
@@ -74,7 +144,37 @@ const SW_SW_NXOS_VPC_DATA = [
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_l_showcmds.html",
+              "title": "NX-OS 10.5 show commands: LLDP"
+            },
+            {
+              "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_c_showcmds.html",
+              "title": "NX-OS 10.5 show commands: CDP"
+            },
+            {
+              "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_p_showcmds.html",
+              "title": "NX-OS 10.5 show commands: port-channel"
+            },
+            {
+              "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_v_showcmds.html",
+              "title": "NX-OS 10.5 show commands: vPC"
+            },
+            {
+              "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_m_showcmds.html",
+              "title": "NX-OS 10.5 show commands: MAC table"
+            },
+            {
+              "url": "https://www.cisco.com/c/en/us/td/docs/dcn/nx-os/nexus9000/105x/command-reference/show/b_n9k_show_commands_1051/m_e_showcmds.html",
+              "title": "NX-OS 10.5 show commands: environment"
+            }
+          ],
+          "note": "show ipv6 neighbor <addr> is not in the 10.5 show reference; the port-channel flag legend is in a configuration guide, not read."
+        }
       }
     ]
   },

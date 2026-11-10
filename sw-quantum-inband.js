@@ -49,7 +49,21 @@ const SW_SW_QUANTUM_INBAND_DATA = [
           "smpquery",
           "flint",
           "ibswitches"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxlink-utility",
+              "title": "MFT: mlxlink"
+            },
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibswitches.8.in.rst",
+              "title": "ibswitches man page (rdma-core)"
+            }
+          ],
+          "note": "NVIDIA shows mlxlink -d lid-<LID> -p <port> for Quantum split ports."
+        }
       },
       {
         "id": "quantum-inband-mlxlink-smpquery-sub-1",
@@ -60,7 +74,21 @@ const SW_SW_QUANTUM_INBAND_DATA = [
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxlink-utility",
+              "title": "MFT: mlxlink"
+            },
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/ibswitches.8.in.rst",
+              "title": "ibswitches man page (rdma-core)"
+            }
+          ],
+          "note": "NVIDIA shows mlxlink -d lid-<LID> -p <port> for Quantum split ports."
+        }
       },
       {
         "id": "quantum-inband-mlxlink-smpquery-sub-2",
@@ -71,7 +99,16 @@ const SW_SW_QUANTUM_INBAND_DATA = [
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/mftswum/4330/mlxlink-utility",
+              "title": "MFT: mlxlink"
+            }
+          ]
+        }
       },
       {
         "id": "quantum-inband-mlxlink-smpquery-sub-3",
@@ -82,7 +119,16 @@ const SW_SW_QUANTUM_INBAND_DATA = [
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://github.com/linux-rdma/rdma-core/blob/master/infiniband-diags/man/perfquery.8.in.rst",
+              "title": "perfquery man page (rdma-core)"
+            }
+          ]
+        }
       },
       {
         "id": "quantum-inband-mlxlink-smpquery-sub-4",
@@ -93,7 +139,12 @@ const SW_SW_QUANTUM_INBAND_DATA = [
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [],
+          "note": "smpquery was not checked this round."
+        }
       },
       {
         "id": "quantum-inband-mlxlink-smpquery-sub-5",
@@ -104,7 +155,17 @@ const SW_SW_QUANTUM_INBAND_DATA = [
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/mftswum/4330/flint-firmware-burning-tool",
+              "title": "MFT: flint"
+            }
+          ],
+          "note": "flint documents q and in-band use, not a lid- example."
+        }
       },
       {
         "id": "quantum-inband-mlxlink-smpquery-sub-6",
@@ -115,7 +176,16 @@ const SW_SW_QUANTUM_INBAND_DATA = [
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://networking-docs.nvidia.com/ibdiagnetutilityum/2.27.0/basic-commands",
+              "title": "ibdiagnet commands"
+            }
+          ]
+        }
       }
     ]
   },

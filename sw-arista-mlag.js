@@ -41,7 +41,29 @@ const SW_SW_ARISTA_MLAG_DATA = [
           "mlag",
           "mac",
           "arp"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.arista.com/um-eos/eos-link-layer-discovery-protocol",
+              "title": "Arista EOS 4.37: LLDP"
+            },
+            {
+              "url": "https://www.arista.com/um-eos/eos-port-channels-and-lacp",
+              "title": "Arista EOS 4.37: port channels"
+            },
+            {
+              "url": "https://www.arista.com/um-eos/eos-multi-chassis-link-aggregation",
+              "title": "Arista EOS 4.37: MLAG"
+            },
+            {
+              "url": "https://www.arista.com/um-eos/eos-ipv6",
+              "title": "Arista EOS 4.37: IPv6"
+            }
+          ],
+          "note": "show mac address-table was not found in the chapters read."
+        }
       },
       {
         "id": "arista-lldp-portchannel-mlag-sub-1",
@@ -52,7 +74,29 @@ const SW_SW_ARISTA_MLAG_DATA = [
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.arista.com/um-eos/eos-link-layer-discovery-protocol",
+              "title": "Arista EOS 4.37: LLDP"
+            },
+            {
+              "url": "https://www.arista.com/um-eos/eos-port-channels-and-lacp",
+              "title": "Arista EOS 4.37: port channels"
+            },
+            {
+              "url": "https://www.arista.com/um-eos/eos-multi-chassis-link-aggregation",
+              "title": "Arista EOS 4.37: MLAG"
+            },
+            {
+              "url": "https://www.arista.com/um-eos/eos-ipv6",
+              "title": "Arista EOS 4.37: IPv6"
+            }
+          ],
+          "note": "show mac address-table was not found in the chapters read."
+        }
       },
       {
         "id": "arista-lldp-portchannel-mlag-sub-2",
@@ -63,7 +107,17 @@ const SW_SW_ARISTA_MLAG_DATA = [
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://www.arista.com/um-eos/eos-ipv6",
+              "title": "Arista EOS 4.37: IPv6"
+            }
+          ],
+          "note": "show ipv6 neighbors is documented; show mac address-table was not found in the chapters read."
+        }
       },
       {
         "id": "arista-lldp-portchannel-mlag-sub-3",
@@ -74,7 +128,12 @@ const SW_SW_ARISTA_MLAG_DATA = [
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [],
+          "note": "EOS documents bash but not the Linux name of Ethernet1 or ethtool; check ip link in bash first."
+        }
       }
     ]
   },

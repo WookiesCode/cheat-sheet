@@ -47,7 +47,12 @@ const ETH_ETH_RJ45_TDR_DATA = [
           "wires",
           "colors",
           "8p8c"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [],
+          "note": "Wiring reference: the TIA-568 standard is not freely available, so the pinout was not checked against it."
+        }
       }
     ]
   },
@@ -91,7 +96,17 @@ const ETH_ETH_RJ45_TDR_DATA = [
           "100mbps",
           "crimp",
           "rj45"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ethtool.8.html",
+              "title": "ethtool(8)"
+            }
+          ],
+          "note": "The pair-fault explanations are rules of thumb."
+        }
       }
     ]
   },
@@ -125,7 +140,16 @@ const ETH_ETH_RJ45_TDR_DATA = [
           "port",
           "ethtool",
           "physical"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://man7.org/linux/man-pages/man8/ethtool.8.html",
+              "title": "ethtool(8)"
+            }
+          ]
+        }
       }
     ]
   },

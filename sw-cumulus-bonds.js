@@ -40,7 +40,25 @@ const SW_SW_CUMULUS_BONDS_DATA = [
           "vlan",
           "trunk",
           "access"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/MLAG/",
+              "title": "NVUE reference: MLAG"
+            },
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/Bridge/",
+              "title": "NVUE reference: bridge"
+            },
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Layer-2/Ethernet-Bridging-VLANs/VLAN-aware-Bridge-Mode/",
+              "title": "Cumulus Linux 5.18: VLAN-aware bridge"
+            }
+          ],
+          "note": "nv show interface bond (all bonds) is not in the NVUE reference; nv show mlag is."
+        }
       },
       {
         "id": "nvue-bond-mlag-vlan-sub-1",
@@ -51,18 +69,45 @@ const SW_SW_CUMULUS_BONDS_DATA = [
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.kernel.org/networking/bonding.html",
+              "title": "Linux bonding"
+            }
+          ]
+        }
       },
       {
         "id": "nvue-bond-mlag-vlan-sub-2",
         "desc": "Configure switch port swp10 as an untagged Access port in VLAN 100",
-        "cmd": "nv set interface swp10 bridge domain br_default access 100 && nv config apply -y",
+        "cmd": "nv set interface swp10 bridge domain br_default access 100 && nv config apply --assume-yes",
         "tags": [
           "Cumulus: MLAG Bonds & VLAN",
           "recipe",
           "automation",
           "cli"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/MLAG/",
+              "title": "NVUE reference: MLAG"
+            },
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/nvue-reference/Show-Commands/Bridge/",
+              "title": "NVUE reference: bridge"
+            },
+            {
+              "url": "https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-518/Layer-2/Ethernet-Bridging-VLANs/VLAN-aware-Bridge-Mode/",
+              "title": "Cumulus Linux 5.18: VLAN-aware bridge"
+            }
+          ],
+          "note": "nv show interface bond (all bonds) is not in the NVUE reference; nv show mlag is."
+        }
       }
     ]
   },
