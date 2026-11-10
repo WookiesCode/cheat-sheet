@@ -476,6 +476,26 @@ const lines = (p) => p.evaluate(() => [...document.querySelectorAll('.cmd-item[d
     await ctx.close();
   }
 
+  // 2n. General Docker sheets (containers, images, compose, networking & storage): every card sourced,
+  // and the volume-prune and containerd-image-store corrections.
+  {
+    const PAGES = ['docker-containers', 'docker-images', 'docker-compose', 'docker-network-storage'];
+    const ctx = await newContext(browser);
+    const p = await ctx.newPage();
+    const all = [];
+    let text = '';
+    for (const f of PAGES) {
+      await p.goto(BASE + f + '.html', { waitUntil: 'load' });
+      await p.waitForTimeout(400);
+      text += await p.evaluate(() => { const c = document.body.cloneNode(true); c.querySelectorAll('.cmd-source').forEach(n => n.remove()); return c.textContent; });
+      all.push(...await p.evaluate(() => [...document.querySelectorAll('.cmd-item[data-cmd-id]')].filter(it => !/-flags-card$/.test(it.dataset.cmdId)).map(it => ({ id: it.dataset.cmdId, src: !!it.querySelector('.cmd-source:not(.is-unverified)') }))));
+    }
+    check(all.length >= 60 && all.every(x => x.src), `every card on the four Docker sheets shows a verified source (${all.filter(x => x.src).length}/${all.length})`);
+    check(/anonymous volumes \(named volumes are kept\)/.test(text) && /add -a for unused named volumes/.test(text), 'prune --volumes / volume prune: anonymous only unless -a');
+    check(/\/var\/lib\/containerd/.test(text) && !/Images, containers and volumes live under the Docker root directory/.test(text), 'the data-root tip covers the containerd image store (Engine 29+)');
+    await ctx.close();
+  }
+
   // 3. Over a year old → amber "re-check"; and src can't inject markup or javascript: links.
   {
     const ctx = await newContext(browser);

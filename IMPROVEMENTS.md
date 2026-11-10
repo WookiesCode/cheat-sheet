@@ -304,6 +304,18 @@ Also noted that MAC-derived (EUI-64) link-local addresses aren't universal (RFC 
 
 **Lesson:** `DANGER_RE` is one big `\b( … )` group, so an alternative that starts with a non-word character (`>`, `(`) can never match at a space. The `/proc` pattern and the earlier `passwd` pattern now use lookbehinds, and both are tested in both directions.
 
+## #8 for the general Docker sheets (2026-11-09, `improve/sources-docker`)
+
+All 63 cards on `docker-containers`, `docker-images`, `docker-compose` and `docker-network-storage` now cite Docker's own docs: the CLI reference, the Dockerfile and Compose file references, and the networking, storage and daemon guides. All 46 links were checked to resolve. The facts were checked against Engine 29.9.3 and Compose v5.7.0. This finishes the containers suite: Kubernetes and the GPU stack were done earlier.
+
+| Was | Now | Source |
+|---|---|---|
+| `docker system prune --volumes` "removes unused volumes"; `docker volume prune` "deletes unused volumes" | only **anonymous** volumes; named ones are kept unless `docker volume prune -a` | system prune and volume prune references |
+| "Images, containers and volumes live under /var/lib/docker (overlay2)"; "check du -sh /var/lib/docker" | containers and volumes do; on fresh Engine 29+ installs the containerd image store keeps images under `/var/lib/containerd` (overlayfs snapshotter), which `data-root` doesn't move; check both | daemon and containerd image store docs |
+| `--mount` "fails loudly" | gives the exact error ("bind source path does not exist"); `-v` creates the missing path as a directory | bind mounts |
+
+Notes on cards: Docker's current `docker run` reference shows neither the 125/126/127 exit codes nor `--device` with a directory (`/dev/infiniband`). Its migration page didn't state Compose v1's end-of-life when checked. Confirmed: published ports bypass ufw, the 10-second stop timeout, BuildKit as the default builder, default-bridge name resolution, `.env` interpolation. The GPU sheet's "Storage Driver: overlay2" row now mentions overlayfs too.
+
 ## Found while building (not fixed)
 
 | Finding | Where | Note |

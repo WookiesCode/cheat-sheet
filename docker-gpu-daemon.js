@@ -350,7 +350,7 @@ const CTR_DOCKER_GPU_DAEMON_DATA = [
           ],
           [
             "Storage Driver",
-            "overlay2 on current kernels"
+            "overlay2 on older installs; overlayfs (containerd image store) on fresh Engine 29+ installs"
           ]
         ],
         "tip": "docker events with --until returns instead of following",

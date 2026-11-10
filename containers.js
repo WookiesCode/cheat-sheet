@@ -43,7 +43,16 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "status",
           "exited",
           "format"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/ls/",
+              "title": "docker ps (container ls)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -94,7 +103,29 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "restart",
           "port",
           "publish"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/run/",
+              "title": "docker run"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/stop/",
+              "title": "docker stop"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/start/",
+              "title": "docker start"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/rm/",
+              "title": "docker rm"
+            }
+          ],
+          "note": "Checked against Docker Engine 29.9.3 docs. Exit codes 125/126/127 (on the Pro Tip) are not on the current docker run reference page."
+        }
       },
       {
         "id": "docker-run-detached-sub-1",
@@ -107,7 +138,29 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "run",
           "start",
           "detached"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/run/",
+              "title": "docker run"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/stop/",
+              "title": "docker stop"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/start/",
+              "title": "docker start"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/rm/",
+              "title": "docker rm"
+            }
+          ],
+          "note": "Checked against Docker Engine 29.9.3 docs. Exit codes 125/126/127 (on the Pro Tip) are not on the current docker run reference page."
+        }
       },
       {
         "id": "docker-run-detached-sub-2",
@@ -120,7 +173,29 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "run",
           "start",
           "detached"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/run/",
+              "title": "docker run"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/stop/",
+              "title": "docker stop"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/start/",
+              "title": "docker start"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/rm/",
+              "title": "docker rm"
+            }
+          ],
+          "note": "Checked against Docker Engine 29.9.3 docs. Exit codes 125/126/127 (on the Pro Tip) are not on the current docker run reference page."
+        }
       },
       {
         "id": "docker-run-detached-sub-3",
@@ -133,7 +208,29 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "run",
           "start",
           "detached"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/run/",
+              "title": "docker run"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/stop/",
+              "title": "docker stop"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/start/",
+              "title": "docker start"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/rm/",
+              "title": "docker rm"
+            }
+          ],
+          "note": "Checked against Docker Engine 29.9.3 docs. Exit codes 125/126/127 (on the Pro Tip) are not on the current docker run reference page."
+        }
       },
       {
         "id": "docker-run-detached-sub-4",
@@ -146,7 +243,29 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "run",
           "start",
           "detached"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/run/",
+              "title": "docker run"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/stop/",
+              "title": "docker stop"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/start/",
+              "title": "docker start"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/rm/",
+              "title": "docker rm"
+            }
+          ],
+          "note": "Checked against Docker Engine 29.9.3 docs. Exit codes 125/126/127 (on the Pro Tip) are not on the current docker run reference page."
+        }
       },
       {
         "id": "docker-run-detached-sub-5",
@@ -159,7 +278,29 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "run",
           "start",
           "detached"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/run/",
+              "title": "docker run"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/stop/",
+              "title": "docker stop"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/start/",
+              "title": "docker start"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/rm/",
+              "title": "docker rm"
+            }
+          ],
+          "note": "Checked against Docker Engine 29.9.3 docs. Exit codes 125/126/127 (on the Pro Tip) are not on the current docker run reference page."
+        }
       }
     ]
   },
@@ -201,7 +342,16 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "follow",
           "stderr",
           "timestamps"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/logs/",
+              "title": "docker logs"
+            }
+          ]
+        }
       },
       {
         "id": "docker-logs-tail-sub-1",
@@ -214,7 +364,16 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "logs",
           "tail",
           "follow"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/logs/",
+              "title": "docker logs"
+            }
+          ]
+        }
       },
       {
         "id": "docker-logs-tail-sub-2",
@@ -227,7 +386,16 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "logs",
           "tail",
           "follow"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/logs/",
+              "title": "docker logs"
+            }
+          ]
+        }
       }
     ]
   },
@@ -269,7 +437,16 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "sh",
           "bash",
           "interactive"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/exec/",
+              "title": "docker exec"
+            }
+          ]
+        }
       },
       {
         "id": "docker-exec-shell-sub-1",
@@ -282,7 +459,16 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "exec",
           "shell",
           "sh"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/exec/",
+              "title": "docker exec"
+            }
+          ]
+        }
       },
       {
         "id": "docker-exec-shell-sub-2",
@@ -295,7 +481,16 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "exec",
           "shell",
           "sh"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/exec/",
+              "title": "docker exec"
+            }
+          ]
+        }
       }
     ]
   },
@@ -339,7 +534,24 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "restart",
           "stats",
           "debug"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/inspect/",
+              "title": "docker inspect"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/stats/",
+              "title": "docker stats"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/top/",
+              "title": "docker top"
+            }
+          ]
+        }
       },
       {
         "id": "docker-inspect-state-sub-1",
@@ -352,7 +564,24 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "inspect",
           "state",
           "exitcode"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/inspect/",
+              "title": "docker inspect"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/stats/",
+              "title": "docker stats"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/top/",
+              "title": "docker top"
+            }
+          ]
+        }
       },
       {
         "id": "docker-inspect-state-sub-2",
@@ -365,7 +594,24 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "inspect",
           "state",
           "exitcode"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/inspect/",
+              "title": "docker inspect"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/stats/",
+              "title": "docker stats"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/top/",
+              "title": "docker top"
+            }
+          ]
+        }
       },
       {
         "id": "docker-inspect-state-sub-3",
@@ -378,7 +624,24 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "inspect",
           "state",
           "exitcode"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/inspect/",
+              "title": "docker inspect"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/stats/",
+              "title": "docker stats"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/top/",
+              "title": "docker top"
+            }
+          ]
+        }
       }
     ]
   },
@@ -421,7 +684,21 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "containers",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/ls/",
+              "title": "docker ps"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/logs/",
+              "title": "docker logs"
+            }
+          ],
+          "note": "Exit codes 125/126/127 are Docker's long-standing convention but are not on the current docker run reference page."
+        }
       }
     ]
   },
@@ -459,7 +736,24 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "digest",
           "size",
           "df"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/ls/",
+              "title": "docker image ls"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/system/df/",
+              "title": "docker system df"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/history/",
+              "title": "docker history"
+            }
+          ]
+        }
       },
       {
         "id": "docker-image-ls-sub-1",
@@ -472,7 +766,24 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "images",
           "ls",
           "digest"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/ls/",
+              "title": "docker image ls"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/system/df/",
+              "title": "docker system df"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/history/",
+              "title": "docker history"
+            }
+          ]
+        }
       },
       {
         "id": "docker-image-ls-sub-2",
@@ -485,7 +796,24 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "images",
           "ls",
           "digest"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/ls/",
+              "title": "docker image ls"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/system/df/",
+              "title": "docker system df"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/history/",
+              "title": "docker history"
+            }
+          ]
+        }
       }
     ]
   },
@@ -535,7 +863,24 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "buildx",
           "dockerfile",
           "tag"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/buildx/build/",
+              "title": "docker build (buildx)"
+            },
+            {
+              "url": "https://docs.docker.com/build/buildkit/",
+              "title": "BuildKit"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/builder/prune/",
+              "title": "docker builder prune"
+            }
+          ]
+        }
       },
       {
         "id": "docker-build-tag-sub-1",
@@ -548,7 +893,24 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "build",
           "buildkit",
           "buildx"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/buildx/build/",
+              "title": "docker build (buildx)"
+            },
+            {
+              "url": "https://docs.docker.com/build/buildkit/",
+              "title": "BuildKit"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/builder/prune/",
+              "title": "docker builder prune"
+            }
+          ]
+        }
       },
       {
         "id": "docker-build-tag-sub-2",
@@ -561,7 +923,24 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "build",
           "buildkit",
           "buildx"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/buildx/build/",
+              "title": "docker build (buildx)"
+            },
+            {
+              "url": "https://docs.docker.com/build/buildkit/",
+              "title": "BuildKit"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/builder/prune/",
+              "title": "docker builder prune"
+            }
+          ]
+        }
       }
     ]
   },
@@ -609,7 +988,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "cmd",
           "layers",
           "cache"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/dockerfile/",
+              "title": "Dockerfile reference"
+            },
+            {
+              "url": "https://docs.docker.com/build/building/best-practices/",
+              "title": "Dockerfile best practices"
+            }
+          ]
+        }
       }
     ]
   },
@@ -646,7 +1038,24 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "push",
           "tag",
           "registry"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/pull/",
+              "title": "docker pull"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/tag/",
+              "title": "docker tag"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/push/",
+              "title": "docker push"
+            }
+          ]
+        }
       },
       {
         "id": "docker-pull-tag-push-sub-1",
@@ -659,7 +1068,24 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "pull",
           "push",
           "tag"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/pull/",
+              "title": "docker pull"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/tag/",
+              "title": "docker tag"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/push/",
+              "title": "docker push"
+            }
+          ]
+        }
       },
       {
         "id": "docker-pull-tag-push-sub-2",
@@ -672,7 +1098,24 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "pull",
           "push",
           "tag"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/pull/",
+              "title": "docker pull"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/tag/",
+              "title": "docker tag"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/push/",
+              "title": "docker push"
+            }
+          ]
+        }
       },
       {
         "id": "docker-pull-tag-push-sub-3",
@@ -685,7 +1128,24 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "pull",
           "push",
           "tag"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/pull/",
+              "title": "docker pull"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/tag/",
+              "title": "docker tag"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/push/",
+              "title": "docker push"
+            }
+          ]
+        }
       }
     ]
   },
@@ -730,7 +1190,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "transfer",
           "ctr",
           "containerd"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/save/",
+              "title": "docker save"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/load/",
+              "title": "docker load"
+            }
+          ]
+        }
       },
       {
         "id": "docker-save-load-airgap-sub-1",
@@ -743,7 +1216,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "save",
           "load",
           "airgap"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/save/",
+              "title": "docker save"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/load/",
+              "title": "docker load"
+            }
+          ]
+        }
       },
       {
         "id": "docker-save-load-airgap-sub-2",
@@ -756,7 +1242,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "save",
           "load",
           "airgap"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/save/",
+              "title": "docker save"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/load/",
+              "title": "docker load"
+            }
+          ]
+        }
       },
       {
         "id": "docker-save-load-airgap-sub-3",
@@ -769,7 +1268,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "save",
           "load",
           "airgap"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/save/",
+              "title": "docker save"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/load/",
+              "title": "docker load"
+            }
+          ]
+        }
       }
     ]
   },
@@ -795,7 +1307,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           ],
           [
             "--volumes",
-            "Also removes unused volumes: this deletes data. Never use it casually"
+            "Also removes unused anonymous volumes (named volumes are kept): still deletes data, never use it casually"
           ],
           [
             "-f",
@@ -811,7 +1323,25 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "disk",
           "space",
           "df"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/system/prune/",
+              "title": "docker system prune"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/prune/",
+              "title": "docker image prune"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/prune/",
+              "title": "docker container prune"
+            }
+          ],
+          "note": "Corrected 2026-11-09: --volumes (and docker volume prune without -a) removes only anonymous volumes; named volumes are kept."
+        }
       },
       {
         "id": "docker-prune-sub-1",
@@ -824,7 +1354,25 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "prune",
           "cleanup",
           "disk"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/system/prune/",
+              "title": "docker system prune"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/prune/",
+              "title": "docker image prune"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/prune/",
+              "title": "docker container prune"
+            }
+          ],
+          "note": "Corrected 2026-11-09: --volumes (and docker volume prune without -a) removes only anonymous volumes; named volumes are kept."
+        }
       },
       {
         "id": "docker-prune-sub-2",
@@ -837,7 +1385,25 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "prune",
           "cleanup",
           "disk"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/system/prune/",
+              "title": "docker system prune"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/prune/",
+              "title": "docker image prune"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/prune/",
+              "title": "docker container prune"
+            }
+          ],
+          "note": "Corrected 2026-11-09: --volumes (and docker volume prune without -a) removes only anonymous volumes; named volumes are kept."
+        }
       },
       {
         "id": "docker-prune-sub-3",
@@ -850,7 +1416,25 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "prune",
           "cleanup",
           "disk"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/system/prune/",
+              "title": "docker system prune"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/prune/",
+              "title": "docker image prune"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/prune/",
+              "title": "docker container prune"
+            }
+          ],
+          "note": "Corrected 2026-11-09: --volumes (and docker volume prune without -a) removes only anonymous volumes; named volumes are kept."
+        }
       }
     ]
   },
@@ -864,28 +1448,42 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
         "id": "docker-images-tips-card",
         "desc": "Where Docker keeps its data",
         "cmd": "docker info --format '{{.DockerRootDir}} {{.Driver}}'",
-        "details": "Images, containers and volumes live under the Docker root directory (default /var/lib/docker) using the storage driver shown (overlay2 on modern Ubuntu). When / fills up on a GPU node, this directory is the usual culprit. The location is set with data-root in /etc/docker/daemon.json.",
+        "details": "Containers and volumes live under the Docker root directory (default /var/lib/docker), set with data-root in /etc/docker/daemon.json. Images depend on the storage backend: older installs use the overlay2 driver under the same directory; fresh installs of Engine 29+ use the containerd image store, whose image data sits under /var/lib/containerd and is not moved by data-root. When / fills up on a GPU node, check both.",
         "flags": [
           [
             "DockerRootDir",
             "Where everything is stored, default /var/lib/docker"
           ],
           [
-            "Driver: overlay2",
-            "The normal storage driver on current kernels"
+            "Driver: overlay2 / overlayfs",
+            "overlay2 on older installs; the containerd image store (Engine 29+ fresh installs) uses the overlayfs snapshotter"
           ],
           [
             "data-root in daemon.json",
             "Moves storage to another disk; needs a Docker restart and a data copy (changes state)"
           ]
         ],
-        "tip": "Full root disk on a node? Check du -sh /var/lib/docker first",
+        "tip": "Full root disk on a node? du -sh /var/lib/docker /var/lib/containerd",
         "tags": [
           "docker",
           "containers",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/engine/daemon/",
+              "title": "Docker daemon: data directory"
+            },
+            {
+              "url": "https://docs.docker.com/engine/storage/containerd/",
+              "title": "containerd image store"
+            }
+          ],
+          "note": "Corrected 2026-11-09: with the containerd image store (default on fresh Engine 29+ installs) image data is under /var/lib/containerd, not data-root."
+        }
       }
     ]
   },
@@ -930,7 +1528,25 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "up",
           "stack",
           "services"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/up/",
+              "title": "docker compose up"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/config/",
+              "title": "docker compose config"
+            },
+            {
+              "url": "https://docs.docker.com/compose/intro/compose-application-model/",
+              "title": "Compose application model"
+            }
+          ],
+          "note": "The Python docker-compose (v1) is no longer maintained; Compose v5.7.0 is current (GitHub releases). Docker's migration page didn't state v1's end-of-life when checked."
+        }
       },
       {
         "id": "compose-up-sub-1",
@@ -943,7 +1559,25 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "compose",
           "up",
           "stack"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/up/",
+              "title": "docker compose up"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/config/",
+              "title": "docker compose config"
+            },
+            {
+              "url": "https://docs.docker.com/compose/intro/compose-application-model/",
+              "title": "Compose application model"
+            }
+          ],
+          "note": "The Python docker-compose (v1) is no longer maintained; Compose v5.7.0 is current (GitHub releases). Docker's migration page didn't state v1's end-of-life when checked."
+        }
       },
       {
         "id": "compose-up-sub-2",
@@ -956,7 +1590,25 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "compose",
           "up",
           "stack"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/up/",
+              "title": "docker compose up"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/config/",
+              "title": "docker compose config"
+            },
+            {
+              "url": "https://docs.docker.com/compose/intro/compose-application-model/",
+              "title": "Compose application model"
+            }
+          ],
+          "note": "The Python docker-compose (v1) is no longer maintained; Compose v5.7.0 is current (GitHub releases). Docker's migration page didn't state v1's end-of-life when checked."
+        }
       },
       {
         "id": "compose-up-sub-3",
@@ -969,7 +1621,25 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "compose",
           "up",
           "stack"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/up/",
+              "title": "docker compose up"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/config/",
+              "title": "docker compose config"
+            },
+            {
+              "url": "https://docs.docker.com/compose/intro/compose-application-model/",
+              "title": "Compose application model"
+            }
+          ],
+          "note": "The Python docker-compose (v1) is no longer maintained; Compose v5.7.0 is current (GitHub releases). Docker's migration page didn't state v1's end-of-life when checked."
+        }
       }
     ]
   },
@@ -1006,7 +1676,24 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "ps",
           "logs",
           "exec"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/ps/",
+              "title": "docker compose ps"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/logs/",
+              "title": "docker compose logs"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/exec/",
+              "title": "docker compose exec"
+            }
+          ]
+        }
       },
       {
         "id": "compose-ps-logs-sub-1",
@@ -1019,7 +1706,24 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "compose",
           "ps",
           "logs"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/ps/",
+              "title": "docker compose ps"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/logs/",
+              "title": "docker compose logs"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/exec/",
+              "title": "docker compose exec"
+            }
+          ]
+        }
       },
       {
         "id": "compose-ps-logs-sub-2",
@@ -1032,7 +1736,24 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "compose",
           "ps",
           "logs"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/ps/",
+              "title": "docker compose ps"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/logs/",
+              "title": "docker compose logs"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/exec/",
+              "title": "docker compose exec"
+            }
+          ]
+        }
       },
       {
         "id": "compose-ps-logs-sub-3",
@@ -1045,7 +1766,24 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "compose",
           "ps",
           "logs"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/ps/",
+              "title": "docker compose ps"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/logs/",
+              "title": "docker compose logs"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/exec/",
+              "title": "docker compose exec"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1082,7 +1820,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "down",
           "stop",
           "volumes"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/down/",
+              "title": "docker compose down"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/stop/",
+              "title": "docker compose stop"
+            }
+          ]
+        }
       },
       {
         "id": "compose-down-sub-1",
@@ -1095,7 +1846,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "compose",
           "down",
           "stop"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/down/",
+              "title": "docker compose down"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/stop/",
+              "title": "docker compose stop"
+            }
+          ]
+        }
       },
       {
         "id": "compose-down-sub-2",
@@ -1108,7 +1872,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "compose",
           "down",
           "stop"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/down/",
+              "title": "docker compose down"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/stop/",
+              "title": "docker compose stop"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1155,7 +1932,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "volumes",
           "healthcheck",
           "depends_on"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/compose-file/services/",
+              "title": "Compose file: services"
+            },
+            {
+              "url": "https://docs.docker.com/reference/compose-file/volumes/",
+              "title": "Compose file: volumes"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1190,7 +1980,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "containers",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/compose/how-tos/environment-variables/variable-interpolation/",
+              "title": "Compose: variable interpolation (.env)"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/config/",
+              "title": "docker compose config"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1231,7 +2034,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "bridge",
           "host",
           "dns"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/network/ls/",
+              "title": "docker network ls"
+            },
+            {
+              "url": "https://docs.docker.com/engine/network/drivers/bridge/",
+              "title": "Bridge network driver"
+            }
+          ]
+        }
       },
       {
         "id": "docker-network-ls-sub-1",
@@ -1244,7 +2060,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "network",
           "bridge",
           "host"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/network/ls/",
+              "title": "docker network ls"
+            },
+            {
+              "url": "https://docs.docker.com/engine/network/drivers/bridge/",
+              "title": "Bridge network driver"
+            }
+          ]
+        }
       },
       {
         "id": "docker-network-ls-sub-2",
@@ -1257,7 +2086,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "network",
           "bridge",
           "host"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/network/ls/",
+              "title": "docker network ls"
+            },
+            {
+              "url": "https://docs.docker.com/engine/network/drivers/bridge/",
+              "title": "Bridge network driver"
+            }
+          ]
+        }
       },
       {
         "id": "docker-network-ls-sub-3",
@@ -1270,7 +2112,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "network",
           "bridge",
           "host"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/network/ls/",
+              "title": "docker network ls"
+            },
+            {
+              "url": "https://docs.docker.com/engine/network/drivers/bridge/",
+              "title": "Bridge network driver"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1308,7 +2163,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "ss",
           "firewall",
           "ufw"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/port/",
+              "title": "docker port"
+            },
+            {
+              "url": "https://docs.docker.com/engine/network/packet-filtering-firewalls/",
+              "title": "Packet filtering and firewalls"
+            }
+          ]
+        }
       },
       {
         "id": "docker-port-check-sub-1",
@@ -1321,7 +2189,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "port",
           "publish",
           "ss"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/port/",
+              "title": "docker port"
+            },
+            {
+              "url": "https://docs.docker.com/engine/network/packet-filtering-firewalls/",
+              "title": "Packet filtering and firewalls"
+            }
+          ]
+        }
       },
       {
         "id": "docker-port-check-sub-2",
@@ -1334,7 +2215,20 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "port",
           "publish",
           "ss"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/port/",
+              "title": "docker port"
+            },
+            {
+              "url": "https://docs.docker.com/engine/network/packet-filtering-firewalls/",
+              "title": "Packet filtering and firewalls"
+            }
+          ]
+        }
       }
     ]
   },
@@ -1364,7 +2258,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           ],
           [
             "--mount type=bind,src=...,dst=...",
-            "Longer syntax that fails loudly if the host path doesn't exist (-v silently creates it)"
+            "Longer syntax that fails (\"bind source path does not exist\") if the host path is missing; -v silently creates it as a directory"
           ]
         ],
         "tip": "-v creates a missing host path silently; --mount errors",
@@ -1376,7 +2270,25 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "mount",
           "storage",
           "backup"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/volume/ls/",
+              "title": "docker volume ls"
+            },
+            {
+              "url": "https://docs.docker.com/engine/storage/bind-mounts/",
+              "title": "Bind mounts"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/volume/prune/",
+              "title": "docker volume prune"
+            }
+          ],
+          "note": "Corrected 2026-11-09: docker volume prune removes only anonymous volumes unless -a is given."
+        }
       },
       {
         "id": "docker-volumes-sub-1",
@@ -1389,7 +2301,25 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "volume",
           "bind",
           "mount"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/volume/ls/",
+              "title": "docker volume ls"
+            },
+            {
+              "url": "https://docs.docker.com/engine/storage/bind-mounts/",
+              "title": "Bind mounts"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/volume/prune/",
+              "title": "docker volume prune"
+            }
+          ],
+          "note": "Corrected 2026-11-09: docker volume prune removes only anonymous volumes unless -a is given."
+        }
       },
       {
         "id": "docker-volumes-sub-2",
@@ -1402,11 +2332,29 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "volume",
           "bind",
           "mount"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/volume/ls/",
+              "title": "docker volume ls"
+            },
+            {
+              "url": "https://docs.docker.com/engine/storage/bind-mounts/",
+              "title": "Bind mounts"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/volume/prune/",
+              "title": "docker volume prune"
+            }
+          ],
+          "note": "Corrected 2026-11-09: docker volume prune removes only anonymous volumes unless -a is given."
+        }
       },
       {
         "id": "docker-volumes-sub-3",
-        "desc": "Delete unused volumes: this deletes data (changes state)",
+        "desc": "Delete unused anonymous volumes; add -a for unused named volumes too: this deletes data (changes state)",
         "cmd": "docker volume prune",
         "tags": [
           "docker",
@@ -1415,7 +2363,25 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "volume",
           "bind",
           "mount"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/volume/ls/",
+              "title": "docker volume ls"
+            },
+            {
+              "url": "https://docs.docker.com/engine/storage/bind-mounts/",
+              "title": "Bind mounts"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/volume/prune/",
+              "title": "docker volume prune"
+            }
+          ],
+          "note": "Corrected 2026-11-09: docker volume prune removes only anonymous volumes unless -a is given."
+        }
       }
     ]
   },
@@ -1450,7 +2416,17 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           "containers",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/run/",
+              "title": "docker run"
+            }
+          ],
+          "note": "Docker's run reference shows --device with single device paths; passing the /dev/infiniband directory is common practice but not shown there."
+        }
       }
     ]
   },
@@ -1803,7 +2779,7 @@ const CONTAINERS_CHEAT_SHEET_DATA = [
           ],
           [
             "Storage Driver",
-            "overlay2 on current kernels"
+            "overlay2 on older installs; overlayfs (containerd image store) on fresh Engine 29+ installs"
           ]
         ],
         "tip": "docker events with --until returns instead of following",

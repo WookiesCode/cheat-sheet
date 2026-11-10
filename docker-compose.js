@@ -42,7 +42,25 @@ const CTR_DOCKER_COMPOSE_DATA = [
           "up",
           "stack",
           "services"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/up/",
+              "title": "docker compose up"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/config/",
+              "title": "docker compose config"
+            },
+            {
+              "url": "https://docs.docker.com/compose/intro/compose-application-model/",
+              "title": "Compose application model"
+            }
+          ],
+          "note": "The Python docker-compose (v1) is no longer maintained; Compose v5.7.0 is current (GitHub releases). Docker's migration page didn't state v1's end-of-life when checked."
+        }
       },
       {
         "id": "compose-up-sub-1",
@@ -55,7 +73,25 @@ const CTR_DOCKER_COMPOSE_DATA = [
           "compose",
           "up",
           "stack"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/up/",
+              "title": "docker compose up"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/config/",
+              "title": "docker compose config"
+            },
+            {
+              "url": "https://docs.docker.com/compose/intro/compose-application-model/",
+              "title": "Compose application model"
+            }
+          ],
+          "note": "The Python docker-compose (v1) is no longer maintained; Compose v5.7.0 is current (GitHub releases). Docker's migration page didn't state v1's end-of-life when checked."
+        }
       },
       {
         "id": "compose-up-sub-2",
@@ -68,7 +104,25 @@ const CTR_DOCKER_COMPOSE_DATA = [
           "compose",
           "up",
           "stack"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/up/",
+              "title": "docker compose up"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/config/",
+              "title": "docker compose config"
+            },
+            {
+              "url": "https://docs.docker.com/compose/intro/compose-application-model/",
+              "title": "Compose application model"
+            }
+          ],
+          "note": "The Python docker-compose (v1) is no longer maintained; Compose v5.7.0 is current (GitHub releases). Docker's migration page didn't state v1's end-of-life when checked."
+        }
       },
       {
         "id": "compose-up-sub-3",
@@ -81,7 +135,25 @@ const CTR_DOCKER_COMPOSE_DATA = [
           "compose",
           "up",
           "stack"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/up/",
+              "title": "docker compose up"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/config/",
+              "title": "docker compose config"
+            },
+            {
+              "url": "https://docs.docker.com/compose/intro/compose-application-model/",
+              "title": "Compose application model"
+            }
+          ],
+          "note": "The Python docker-compose (v1) is no longer maintained; Compose v5.7.0 is current (GitHub releases). Docker's migration page didn't state v1's end-of-life when checked."
+        }
       }
     ]
   },
@@ -118,7 +190,24 @@ const CTR_DOCKER_COMPOSE_DATA = [
           "ps",
           "logs",
           "exec"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/ps/",
+              "title": "docker compose ps"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/logs/",
+              "title": "docker compose logs"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/exec/",
+              "title": "docker compose exec"
+            }
+          ]
+        }
       },
       {
         "id": "compose-ps-logs-sub-1",
@@ -131,7 +220,24 @@ const CTR_DOCKER_COMPOSE_DATA = [
           "compose",
           "ps",
           "logs"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/ps/",
+              "title": "docker compose ps"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/logs/",
+              "title": "docker compose logs"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/exec/",
+              "title": "docker compose exec"
+            }
+          ]
+        }
       },
       {
         "id": "compose-ps-logs-sub-2",
@@ -144,7 +250,24 @@ const CTR_DOCKER_COMPOSE_DATA = [
           "compose",
           "ps",
           "logs"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/ps/",
+              "title": "docker compose ps"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/logs/",
+              "title": "docker compose logs"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/exec/",
+              "title": "docker compose exec"
+            }
+          ]
+        }
       },
       {
         "id": "compose-ps-logs-sub-3",
@@ -157,7 +280,24 @@ const CTR_DOCKER_COMPOSE_DATA = [
           "compose",
           "ps",
           "logs"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/ps/",
+              "title": "docker compose ps"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/logs/",
+              "title": "docker compose logs"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/exec/",
+              "title": "docker compose exec"
+            }
+          ]
+        }
       }
     ]
   },
@@ -194,7 +334,20 @@ const CTR_DOCKER_COMPOSE_DATA = [
           "down",
           "stop",
           "volumes"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/down/",
+              "title": "docker compose down"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/stop/",
+              "title": "docker compose stop"
+            }
+          ]
+        }
       },
       {
         "id": "compose-down-sub-1",
@@ -207,7 +360,20 @@ const CTR_DOCKER_COMPOSE_DATA = [
           "compose",
           "down",
           "stop"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/down/",
+              "title": "docker compose down"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/stop/",
+              "title": "docker compose stop"
+            }
+          ]
+        }
       },
       {
         "id": "compose-down-sub-2",
@@ -220,7 +386,20 @@ const CTR_DOCKER_COMPOSE_DATA = [
           "compose",
           "down",
           "stop"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/down/",
+              "title": "docker compose down"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/stop/",
+              "title": "docker compose stop"
+            }
+          ]
+        }
       }
     ]
   },
@@ -267,7 +446,20 @@ const CTR_DOCKER_COMPOSE_DATA = [
           "volumes",
           "healthcheck",
           "depends_on"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/compose-file/services/",
+              "title": "Compose file: services"
+            },
+            {
+              "url": "https://docs.docker.com/reference/compose-file/volumes/",
+              "title": "Compose file: volumes"
+            }
+          ]
+        }
       }
     ]
   },
@@ -302,7 +494,20 @@ const CTR_DOCKER_COMPOSE_DATA = [
           "containers",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/compose/how-tos/environment-variables/variable-interpolation/",
+              "title": "Compose: variable interpolation (.env)"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/compose/config/",
+              "title": "docker compose config"
+            }
+          ]
+        }
       }
     ]
   }

@@ -10228,7 +10228,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker ps -a --format 'table {{.Names}}\\t{{.Image}}\\t{{.Status}}\\t{{.Ports}}'",
     "desc": "List all containers (running and stopped) as a readable table",
     "tip": "Exit 137 = SIGKILL, usually out of memory",
-    "tags": "docker containers ps list status exited format"
+    "tags": "docker containers ps list status exited format",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/ls/",
+          "title": "docker ps (container ls)"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10239,7 +10248,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker run -d --name <name> --restart unless-stopped -p 8080:80 <image>:<tag>",
     "desc": "Run a container in the background with a name, a restart policy and a published port (changes state)",
     "tip": "Ports are host:container",
-    "tags": "docker containers run start detached restart port publish"
+    "tags": "docker containers run start detached restart port publish",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/run/",
+          "title": "docker run"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/stop/",
+          "title": "docker stop"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/start/",
+          "title": "docker start"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/rm/",
+          "title": "docker rm"
+        }
+      ],
+      "note": "Checked against Docker Engine 29.9.3 docs. Exit codes 125/126/127 (on the Pro Tip) are not on the current docker run reference page."
+    }
   },
   {
     "sName": "containers",
@@ -10250,7 +10281,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker run --rm -it ubuntu:24.04 bash",
     "desc": "Throwaway interactive container: gone as soon as you exit the shell",
     "tip": "",
-    "tags": "docker containers recipe run start detached"
+    "tags": "docker containers recipe run start detached",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/run/",
+          "title": "docker run"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/stop/",
+          "title": "docker stop"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/start/",
+          "title": "docker start"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/rm/",
+          "title": "docker rm"
+        }
+      ],
+      "note": "Checked against Docker Engine 29.9.3 docs. Exit codes 125/126/127 (on the Pro Tip) are not on the current docker run reference page."
+    }
   },
   {
     "sName": "containers",
@@ -10261,7 +10314,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker stop <container>",
     "desc": "Send SIGTERM, then SIGKILL after 10 s (changes state)",
     "tip": "",
-    "tags": "docker containers recipe run start detached"
+    "tags": "docker containers recipe run start detached",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/run/",
+          "title": "docker run"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/stop/",
+          "title": "docker stop"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/start/",
+          "title": "docker start"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/rm/",
+          "title": "docker rm"
+        }
+      ],
+      "note": "Checked against Docker Engine 29.9.3 docs. Exit codes 125/126/127 (on the Pro Tip) are not on the current docker run reference page."
+    }
   },
   {
     "sName": "containers",
@@ -10272,7 +10347,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker start <container>",
     "desc": "Start a stopped container again with its original settings (changes state)",
     "tip": "",
-    "tags": "docker containers recipe run start detached"
+    "tags": "docker containers recipe run start detached",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/run/",
+          "title": "docker run"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/stop/",
+          "title": "docker stop"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/start/",
+          "title": "docker start"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/rm/",
+          "title": "docker rm"
+        }
+      ],
+      "note": "Checked against Docker Engine 29.9.3 docs. Exit codes 125/126/127 (on the Pro Tip) are not on the current docker run reference page."
+    }
   },
   {
     "sName": "containers",
@@ -10283,7 +10380,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker restart <container>",
     "desc": "Stop then start (changes state)",
     "tip": "",
-    "tags": "docker containers recipe run start detached"
+    "tags": "docker containers recipe run start detached",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/run/",
+          "title": "docker run"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/stop/",
+          "title": "docker stop"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/start/",
+          "title": "docker start"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/rm/",
+          "title": "docker rm"
+        }
+      ],
+      "note": "Checked against Docker Engine 29.9.3 docs. Exit codes 125/126/127 (on the Pro Tip) are not on the current docker run reference page."
+    }
   },
   {
     "sName": "containers",
@@ -10294,7 +10413,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker rm <container>",
     "desc": "Delete a stopped container; its writable layer is lost (changes state)",
     "tip": "",
-    "tags": "docker containers recipe run start detached"
+    "tags": "docker containers recipe run start detached",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/run/",
+          "title": "docker run"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/stop/",
+          "title": "docker stop"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/start/",
+          "title": "docker start"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/rm/",
+          "title": "docker rm"
+        }
+      ],
+      "note": "Checked against Docker Engine 29.9.3 docs. Exit codes 125/126/127 (on the Pro Tip) are not on the current docker run reference page."
+    }
   },
   {
     "sName": "containers",
@@ -10305,7 +10446,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker logs --tail 200 --timestamps <container>",
     "desc": "Read the last 200 log lines of a container with timestamps",
     "tip": "Apps often log to stderr: add 2>&1 before grep",
-    "tags": "docker containers logs tail follow stderr timestamps"
+    "tags": "docker containers logs tail follow stderr timestamps",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/logs/",
+          "title": "docker logs"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10316,7 +10466,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker logs --since 30m <container> 2>&1 | grep -i error",
     "desc": "Errors from the last 30 minutes. 2>&1 merges stderr, where many apps write errors",
     "tip": "",
-    "tags": "docker containers recipe logs tail follow"
+    "tags": "docker containers recipe logs tail follow",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/logs/",
+          "title": "docker logs"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10327,7 +10486,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker logs -f --tail 50 <container>",
     "desc": "Follow live output, starting from the last 50 lines",
     "tip": "",
-    "tags": "docker containers recipe logs tail follow"
+    "tags": "docker containers recipe logs tail follow",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/logs/",
+          "title": "docker logs"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10338,7 +10506,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker exec <container> cat /etc/os-release",
     "desc": "Run a command inside a running container, or open a shell in it",
     "tip": "No bash? Use sh",
-    "tags": "docker containers exec shell sh bash interactive"
+    "tags": "docker containers exec shell sh bash interactive",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/exec/",
+          "title": "docker exec"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10349,7 +10526,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker exec -it <container> sh",
     "desc": "Interactive shell inside the container (exit with Ctrl+D)",
     "tip": "",
-    "tags": "docker containers recipe exec shell sh"
+    "tags": "docker containers recipe exec shell sh",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/exec/",
+          "title": "docker exec"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10360,7 +10546,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker exec <container> env",
     "desc": "Show the environment variables the app actually sees",
     "tip": "",
-    "tags": "docker containers recipe exec shell sh"
+    "tags": "docker containers recipe exec shell sh",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/exec/",
+          "title": "docker exec"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10371,7 +10566,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker inspect <container> --format '{{.State.Status}} exit={{.State.ExitCode}} oom={{.State.OOMKilled}} restarts={{.RestartCount}}'",
     "desc": "Find out why a container stopped: state, exit code, OOM kill and restart count",
     "tip": "Exited + oom=true → memory limit",
-    "tags": "docker containers inspect state exitcode oom restart stats debug"
+    "tags": "docker containers inspect state exitcode oom restart stats debug",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/inspect/",
+          "title": "docker inspect"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/stats/",
+          "title": "docker stats"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/top/",
+          "title": "docker top"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10382,7 +10594,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker inspect <container> | jq '.[0].Mounts'",
     "desc": "Which host paths and volumes are mounted, via jq",
     "tip": "",
-    "tags": "docker containers recipe inspect state exitcode"
+    "tags": "docker containers recipe inspect state exitcode",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/inspect/",
+          "title": "docker inspect"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/stats/",
+          "title": "docker stats"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/top/",
+          "title": "docker top"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10393,7 +10622,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker stats --no-stream",
     "desc": "One snapshot of CPU, memory, network and disk I/O per container (without --no-stream it keeps refreshing)",
     "tip": "",
-    "tags": "docker containers recipe inspect state exitcode"
+    "tags": "docker containers recipe inspect state exitcode",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/inspect/",
+          "title": "docker inspect"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/stats/",
+          "title": "docker stats"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/top/",
+          "title": "docker top"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10404,7 +10650,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker top <container>",
     "desc": "Processes running inside the container, as seen from the host",
     "tip": "",
-    "tags": "docker containers recipe inspect state exitcode"
+    "tags": "docker containers recipe inspect state exitcode",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/inspect/",
+          "title": "docker inspect"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/stats/",
+          "title": "docker stats"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/top/",
+          "title": "docker top"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10415,7 +10678,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker ps -a --filter status=exited --format '{{.Names}} {{.Status}}'",
     "desc": "Read the state before you restart anything",
     "tip": "Capture logs + inspect output into cases/<host>/logs/ before restarting",
-    "tags": "docker containers tips best-practice"
+    "tags": "docker containers tips best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/ls/",
+          "title": "docker ps"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/logs/",
+          "title": "docker logs"
+        }
+      ],
+      "note": "Exit codes 125/126/127 are Docker's long-standing convention but are not on the current docker run reference page."
+    }
   },
   {
     "sName": "containers",
@@ -10426,7 +10703,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker image ls --digests",
     "desc": "List local images with their size and digest",
     "tip": "Pin production images by digest",
-    "tags": "docker containers images ls digest size df"
+    "tags": "docker containers images ls digest size df",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/ls/",
+          "title": "docker image ls"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/system/df/",
+          "title": "docker system df"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/history/",
+          "title": "docker history"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10437,7 +10731,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker system df",
     "desc": "Disk used by images, containers, volumes and build cache, and how much is reclaimable",
     "tip": "",
-    "tags": "docker containers recipe images ls digest"
+    "tags": "docker containers recipe images ls digest",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/ls/",
+          "title": "docker image ls"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/system/df/",
+          "title": "docker system df"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/history/",
+          "title": "docker history"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10448,7 +10759,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker history --no-trunc <image>:<tag>",
     "desc": "The layers of an image and the Dockerfile step that created each one",
     "tip": "",
-    "tags": "docker containers recipe images ls digest"
+    "tags": "docker containers recipe images ls digest",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/ls/",
+          "title": "docker image ls"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/system/df/",
+          "title": "docker system df"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/history/",
+          "title": "docker history"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10459,7 +10787,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker build -t <name>:<tag> .",
     "desc": "Build an image from the Dockerfile in the current directory and tag it (BuildKit is the default builder)",
     "tip": "Add a .dockerignore so .git and data aren't uploaded",
-    "tags": "docker containers build buildkit buildx dockerfile tag"
+    "tags": "docker containers build buildkit buildx dockerfile tag",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/buildx/build/",
+          "title": "docker build (buildx)"
+        },
+        {
+          "url": "https://docs.docker.com/build/buildkit/",
+          "title": "BuildKit"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/builder/prune/",
+          "title": "docker builder prune"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10470,7 +10815,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker buildx ls",
     "desc": "List builders and the platforms they can build for",
     "tip": "",
-    "tags": "docker containers recipe build buildkit buildx"
+    "tags": "docker containers recipe build buildkit buildx",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/buildx/build/",
+          "title": "docker build (buildx)"
+        },
+        {
+          "url": "https://docs.docker.com/build/buildkit/",
+          "title": "BuildKit"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/builder/prune/",
+          "title": "docker builder prune"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10481,7 +10843,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker builder prune",
     "desc": "Delete the build cache when disk is tight (changes state)",
     "tip": "",
-    "tags": "docker containers recipe build buildkit buildx"
+    "tags": "docker containers recipe build buildkit buildx",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/buildx/build/",
+          "title": "docker build (buildx)"
+        },
+        {
+          "url": "https://docs.docker.com/build/buildkit/",
+          "title": "BuildKit"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/builder/prune/",
+          "title": "docker builder prune"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10492,7 +10871,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "FROM python:3.12-slim\nWORKDIR /app\nCOPY requirements.txt .\nRUN pip install --no-cache-dir -r requirements.txt\nCOPY . .\nUSER 1000\nCMD [\"python\", \"main.py\"]",
     "desc": "Minimal Dockerfile for a small Python tool, with the layer-caching order explained",
     "tip": "Order steps from least to most often changed",
-    "tags": "docker containers dockerfile from run copy cmd layers cache"
+    "tags": "docker containers dockerfile from run copy cmd layers cache",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/dockerfile/",
+          "title": "Dockerfile reference"
+        },
+        {
+          "url": "https://docs.docker.com/build/building/best-practices/",
+          "title": "Dockerfile best practices"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10503,7 +10895,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker pull <image>:<tag>",
     "desc": "Pull an image, retag it for a private registry and push it (push changes the registry)",
     "tip": "A tag is just a pointer",
-    "tags": "docker containers pull push tag registry"
+    "tags": "docker containers pull push tag registry",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/pull/",
+          "title": "docker pull"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/tag/",
+          "title": "docker tag"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/push/",
+          "title": "docker push"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10514,7 +10923,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker tag <image>:<tag> <registry>/<repo>:<tag>",
     "desc": "Retag for your own registry",
     "tip": "",
-    "tags": "docker containers recipe pull push tag"
+    "tags": "docker containers recipe pull push tag",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/pull/",
+          "title": "docker pull"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/tag/",
+          "title": "docker tag"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/push/",
+          "title": "docker push"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10525,7 +10951,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker push <registry>/<repo>:<tag>",
     "desc": "Upload to that registry (changes state)",
     "tip": "",
-    "tags": "docker containers recipe pull push tag"
+    "tags": "docker containers recipe pull push tag",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/pull/",
+          "title": "docker pull"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/tag/",
+          "title": "docker tag"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/push/",
+          "title": "docker push"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10536,7 +10979,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker image inspect <image>:<tag> --format '{{.Architecture}} {{.Os}}'",
     "desc": "Check the image matches the host CPU (amd64 vs arm64)",
     "tip": "",
-    "tags": "docker containers recipe pull push tag"
+    "tags": "docker containers recipe pull push tag",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/pull/",
+          "title": "docker pull"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/tag/",
+          "title": "docker tag"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/push/",
+          "title": "docker push"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10547,7 +11007,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker save -o <name>.tar <image>:<tag>",
     "desc": "Move an image to an air-gapped host as a tar file",
     "tip": "Checksum the tar on both ends",
-    "tags": "docker containers save load airgap offline tar transfer ctr containerd"
+    "tags": "docker containers save load airgap offline tar transfer ctr containerd",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/save/",
+          "title": "docker save"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/load/",
+          "title": "docker load"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10558,7 +11031,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker load -i <name>.tar",
     "desc": "Import the image on the target host (changes state)",
     "tip": "",
-    "tags": "docker containers recipe save load airgap"
+    "tags": "docker containers recipe save load airgap",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/save/",
+          "title": "docker save"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/load/",
+          "title": "docker load"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10569,7 +11055,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sha256sum <name>.tar",
     "desc": "Checksum before and after copying, to catch a truncated transfer",
     "tip": "",
-    "tags": "docker containers recipe save load airgap"
+    "tags": "docker containers recipe save load airgap",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/save/",
+          "title": "docker save"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/load/",
+          "title": "docker load"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10580,7 +11079,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ctr -n k8s.io images import <name>.tar",
     "desc": "Import into containerd's Kubernetes namespace on a node with no Docker (changes state)",
     "tip": "",
-    "tags": "docker containers recipe save load airgap"
+    "tags": "docker containers recipe save load airgap",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/save/",
+          "title": "docker save"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/load/",
+          "title": "docker load"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10591,7 +11103,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker system prune",
     "desc": "Reclaim disk space from stopped containers, unused images and build cache (changes state)",
     "tip": "Run docker system df first; never add --volumes blindly",
-    "tags": "docker containers prune cleanup disk space df"
+    "tags": "docker containers prune cleanup disk space df",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/system/prune/",
+          "title": "docker system prune"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/prune/",
+          "title": "docker image prune"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/prune/",
+          "title": "docker container prune"
+        }
+      ],
+      "note": "Corrected 2026-11-09: --volumes (and docker volume prune without -a) removes only anonymous volumes; named volumes are kept."
+    }
   },
   {
     "sName": "containers",
@@ -10602,7 +11132,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker system df -v",
     "desc": "See exactly what is using space before you prune",
     "tip": "",
-    "tags": "docker containers recipe prune cleanup disk"
+    "tags": "docker containers recipe prune cleanup disk",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/system/prune/",
+          "title": "docker system prune"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/prune/",
+          "title": "docker image prune"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/prune/",
+          "title": "docker container prune"
+        }
+      ],
+      "note": "Corrected 2026-11-09: --volumes (and docker volume prune without -a) removes only anonymous volumes; named volumes are kept."
+    }
   },
   {
     "sName": "containers",
@@ -10613,7 +11161,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker image prune",
     "desc": "Only dangling images (changes state)",
     "tip": "",
-    "tags": "docker containers recipe prune cleanup disk"
+    "tags": "docker containers recipe prune cleanup disk",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/system/prune/",
+          "title": "docker system prune"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/prune/",
+          "title": "docker image prune"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/prune/",
+          "title": "docker container prune"
+        }
+      ],
+      "note": "Corrected 2026-11-09: --volumes (and docker volume prune without -a) removes only anonymous volumes; named volumes are kept."
+    }
   },
   {
     "sName": "containers",
@@ -10624,7 +11190,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker container prune",
     "desc": "Only stopped containers (changes state)",
     "tip": "",
-    "tags": "docker containers recipe prune cleanup disk"
+    "tags": "docker containers recipe prune cleanup disk",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/system/prune/",
+          "title": "docker system prune"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/prune/",
+          "title": "docker image prune"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/prune/",
+          "title": "docker container prune"
+        }
+      ],
+      "note": "Corrected 2026-11-09: --volumes (and docker volume prune without -a) removes only anonymous volumes; named volumes are kept."
+    }
   },
   {
     "sName": "containers",
@@ -10634,8 +11218,22 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "Docker Images: Pro Tip",
     "cmd": "docker info --format '{{.DockerRootDir}} {{.Driver}}'",
     "desc": "Where Docker keeps its data",
-    "tip": "Full root disk on a node? Check du -sh /var/lib/docker first",
-    "tags": "docker containers tips best-practice"
+    "tip": "Full root disk on a node? du -sh /var/lib/docker /var/lib/containerd",
+    "tags": "docker containers tips best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/engine/daemon/",
+          "title": "Docker daemon: data directory"
+        },
+        {
+          "url": "https://docs.docker.com/engine/storage/containerd/",
+          "title": "containerd image store"
+        }
+      ],
+      "note": "Corrected 2026-11-09: with the containerd image store (default on fresh Engine 29+ installs) image data is under /var/lib/containerd, not data-root."
+    }
   },
   {
     "sName": "containers",
@@ -10646,7 +11244,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker compose up -d",
     "desc": "Start (or update) every service in compose.yaml in the background (changes state)",
     "tip": "Run docker compose config before up",
-    "tags": "docker containers compose up stack services"
+    "tags": "docker containers compose up stack services",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/up/",
+          "title": "docker compose up"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/config/",
+          "title": "docker compose config"
+        },
+        {
+          "url": "https://docs.docker.com/compose/intro/compose-application-model/",
+          "title": "Compose application model"
+        }
+      ],
+      "note": "The Python docker-compose (v1) is no longer maintained; Compose v5.7.0 is current (GitHub releases). Docker's migration page didn't state v1's end-of-life when checked."
+    }
   },
   {
     "sName": "containers",
@@ -10657,7 +11273,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker compose config",
     "desc": "Print the final merged config with variables filled in; a quick syntax check",
     "tip": "",
-    "tags": "docker containers recipe compose up stack"
+    "tags": "docker containers recipe compose up stack",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/up/",
+          "title": "docker compose up"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/config/",
+          "title": "docker compose config"
+        },
+        {
+          "url": "https://docs.docker.com/compose/intro/compose-application-model/",
+          "title": "Compose application model"
+        }
+      ],
+      "note": "The Python docker-compose (v1) is no longer maintained; Compose v5.7.0 is current (GitHub releases). Docker's migration page didn't state v1's end-of-life when checked."
+    }
   },
   {
     "sName": "containers",
@@ -10668,7 +11302,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker compose pull",
     "desc": "Pull newer images for all services (changes state)",
     "tip": "",
-    "tags": "docker containers recipe compose up stack"
+    "tags": "docker containers recipe compose up stack",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/up/",
+          "title": "docker compose up"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/config/",
+          "title": "docker compose config"
+        },
+        {
+          "url": "https://docs.docker.com/compose/intro/compose-application-model/",
+          "title": "Compose application model"
+        }
+      ],
+      "note": "The Python docker-compose (v1) is no longer maintained; Compose v5.7.0 is current (GitHub releases). Docker's migration page didn't state v1's end-of-life when checked."
+    }
   },
   {
     "sName": "containers",
@@ -10679,7 +11331,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker compose up -d --force-recreate <service>",
     "desc": "Recreate one service even if nothing changed (changes state)",
     "tip": "",
-    "tags": "docker containers recipe compose up stack"
+    "tags": "docker containers recipe compose up stack",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/up/",
+          "title": "docker compose up"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/config/",
+          "title": "docker compose config"
+        },
+        {
+          "url": "https://docs.docker.com/compose/intro/compose-application-model/",
+          "title": "Compose application model"
+        }
+      ],
+      "note": "The Python docker-compose (v1) is no longer maintained; Compose v5.7.0 is current (GitHub releases). Docker's migration page didn't state v1's end-of-life when checked."
+    }
   },
   {
     "sName": "containers",
@@ -10690,7 +11360,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker compose ps",
     "desc": "See the state of every service in the stack",
     "tip": "Use the service name from compose.yaml",
-    "tags": "docker containers compose ps logs exec"
+    "tags": "docker containers compose ps logs exec",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/ps/",
+          "title": "docker compose ps"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/logs/",
+          "title": "docker compose logs"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/exec/",
+          "title": "docker compose exec"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10701,7 +11388,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker compose logs --tail 100 <service>",
     "desc": "Last 100 lines from one service",
     "tip": "",
-    "tags": "docker containers recipe compose ps logs"
+    "tags": "docker containers recipe compose ps logs",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/ps/",
+          "title": "docker compose ps"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/logs/",
+          "title": "docker compose logs"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/exec/",
+          "title": "docker compose exec"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10712,7 +11416,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker compose logs -f",
     "desc": "Follow all services live (Ctrl+C to stop)",
     "tip": "",
-    "tags": "docker containers recipe compose ps logs"
+    "tags": "docker containers recipe compose ps logs",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/ps/",
+          "title": "docker compose ps"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/logs/",
+          "title": "docker compose logs"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/exec/",
+          "title": "docker compose exec"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10723,7 +11444,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker compose exec <service> sh",
     "desc": "Interactive shell in a service container",
     "tip": "",
-    "tags": "docker containers recipe compose ps logs"
+    "tags": "docker containers recipe compose ps logs",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/ps/",
+          "title": "docker compose ps"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/logs/",
+          "title": "docker compose logs"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/exec/",
+          "title": "docker compose exec"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10734,7 +11472,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker compose down",
     "desc": "Stop and remove the stack's containers and networks (changes state)",
     "tip": "down keeps volumes; down -v deletes them",
-    "tags": "docker containers compose down stop volumes"
+    "tags": "docker containers compose down stop volumes",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/down/",
+          "title": "docker compose down"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/stop/",
+          "title": "docker compose stop"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10745,7 +11496,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker compose stop",
     "desc": "Stop containers but keep them (changes state)",
     "tip": "",
-    "tags": "docker containers recipe compose down stop"
+    "tags": "docker containers recipe compose down stop",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/down/",
+          "title": "docker compose down"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/stop/",
+          "title": "docker compose stop"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10756,7 +11520,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker compose restart <service>",
     "desc": "Restart one service (changes state)",
     "tip": "",
-    "tags": "docker containers recipe compose down stop"
+    "tags": "docker containers recipe compose down stop",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/down/",
+          "title": "docker compose down"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/stop/",
+          "title": "docker compose stop"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10767,7 +11544,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "services:\n  web:\n    image: nginx:1.27\n    ports:\n      - \"8080:80\"\n    depends_on:\n      db:\n        condition: service_healthy\n  db:\n    image: postgres:16\n    environment:\n      POSTGRES_PASSWORD_FILE: /run/secrets/db_pw\n    volumes:\n      - dbdata:/var/lib/postgresql/data\n    healthcheck:\n      test: [\"CMD\", \"pg_isready\"]\n      interval: 10s\nvolumes:\n  dbdata:",
     "desc": "Example compose.yaml: a web service plus a database with a named volume and a health check",
     "tip": "Services reach each other by service name",
-    "tags": "docker containers compose yaml services volumes healthcheck depends_on"
+    "tags": "docker containers compose yaml services volumes healthcheck depends_on",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/compose-file/services/",
+          "title": "Compose file: services"
+        },
+        {
+          "url": "https://docs.docker.com/reference/compose-file/volumes/",
+          "title": "Compose file: volumes"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10778,7 +11568,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker compose config --quiet && echo OK",
     "desc": "Keep secrets out of compose.yaml",
     "tip": "Commit .env.example, never .env",
-    "tags": "docker containers tips best-practice"
+    "tags": "docker containers tips best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/compose/how-tos/environment-variables/variable-interpolation/",
+          "title": "Compose: variable interpolation (.env)"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/config/",
+          "title": "docker compose config"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10789,7 +11592,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker network ls",
     "desc": "List Docker networks and see which containers are on one",
     "tip": "Use a user-defined network for name resolution",
-    "tags": "docker containers network bridge host dns"
+    "tags": "docker containers network bridge host dns",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/network/ls/",
+          "title": "docker network ls"
+        },
+        {
+          "url": "https://docs.docker.com/engine/network/drivers/bridge/",
+          "title": "Bridge network driver"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10800,7 +11616,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker network inspect <network> --format '{{range .Containers}}{{.Name}} {{.IPv4Address}}{{\"\\n\"}}{{end}}'",
     "desc": "Containers attached to a network and their IPs",
     "tip": "",
-    "tags": "docker containers recipe network bridge host"
+    "tags": "docker containers recipe network bridge host",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/network/ls/",
+          "title": "docker network ls"
+        },
+        {
+          "url": "https://docs.docker.com/engine/network/drivers/bridge/",
+          "title": "Bridge network driver"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10811,7 +11640,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker network create <network>",
     "desc": "Create a user-defined bridge (changes state)",
     "tip": "",
-    "tags": "docker containers recipe network bridge host"
+    "tags": "docker containers recipe network bridge host",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/network/ls/",
+          "title": "docker network ls"
+        },
+        {
+          "url": "https://docs.docker.com/engine/network/drivers/bridge/",
+          "title": "Bridge network driver"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10822,7 +11664,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker network connect <network> <container>",
     "desc": "Attach a running container to another network (changes state)",
     "tip": "",
-    "tags": "docker containers recipe network bridge host"
+    "tags": "docker containers recipe network bridge host",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/network/ls/",
+          "title": "docker network ls"
+        },
+        {
+          "url": "https://docs.docker.com/engine/network/drivers/bridge/",
+          "title": "Bridge network driver"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10833,7 +11688,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker port <container>",
     "desc": "Show which host ports a container publishes",
     "tip": "Docker-published ports can bypass ufw",
-    "tags": "docker containers port publish ss firewall ufw"
+    "tags": "docker containers port publish ss firewall ufw",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/port/",
+          "title": "docker port"
+        },
+        {
+          "url": "https://docs.docker.com/engine/network/packet-filtering-firewalls/",
+          "title": "Packet filtering and firewalls"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10844,7 +11712,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ss -ltnp | grep <port>",
     "desc": "Confirm what is listening on the host side",
     "tip": "",
-    "tags": "docker containers recipe port publish ss"
+    "tags": "docker containers recipe port publish ss",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/port/",
+          "title": "docker port"
+        },
+        {
+          "url": "https://docs.docker.com/engine/network/packet-filtering-firewalls/",
+          "title": "Packet filtering and firewalls"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10855,7 +11736,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker exec <container> getent hosts <other-container>",
     "desc": "Test name resolution from inside a container",
     "tip": "",
-    "tags": "docker containers recipe port publish ss"
+    "tags": "docker containers recipe port publish ss",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/port/",
+          "title": "docker port"
+        },
+        {
+          "url": "https://docs.docker.com/engine/network/packet-filtering-firewalls/",
+          "title": "Packet filtering and firewalls"
+        }
+      ]
+    }
   },
   {
     "sName": "containers",
@@ -10866,7 +11760,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker volume ls",
     "desc": "List volumes and find where one lives on the host",
     "tip": "-v creates a missing host path silently; --mount errors",
-    "tags": "docker containers volume bind mount storage backup"
+    "tags": "docker containers volume bind mount storage backup",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/volume/ls/",
+          "title": "docker volume ls"
+        },
+        {
+          "url": "https://docs.docker.com/engine/storage/bind-mounts/",
+          "title": "Bind mounts"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/volume/prune/",
+          "title": "docker volume prune"
+        }
+      ],
+      "note": "Corrected 2026-11-09: docker volume prune removes only anonymous volumes unless -a is given."
+    }
   },
   {
     "sName": "containers",
@@ -10877,7 +11789,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker volume inspect <volume> --format '{{.Mountpoint}}'",
     "desc": "Host path of a named volume",
     "tip": "",
-    "tags": "docker containers recipe volume bind mount"
+    "tags": "docker containers recipe volume bind mount",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/volume/ls/",
+          "title": "docker volume ls"
+        },
+        {
+          "url": "https://docs.docker.com/engine/storage/bind-mounts/",
+          "title": "Bind mounts"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/volume/prune/",
+          "title": "docker volume prune"
+        }
+      ],
+      "note": "Corrected 2026-11-09: docker volume prune removes only anonymous volumes unless -a is given."
+    }
   },
   {
     "sName": "containers",
@@ -10888,7 +11818,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker run --rm -v <volume>:/data -v \"$PWD\":/backup ubuntu:24.04 tar czf /backup/<volume>.tgz -C /data .",
     "desc": "Back up a named volume to a tarball in the current directory",
     "tip": "",
-    "tags": "docker containers recipe volume bind mount"
+    "tags": "docker containers recipe volume bind mount",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/volume/ls/",
+          "title": "docker volume ls"
+        },
+        {
+          "url": "https://docs.docker.com/engine/storage/bind-mounts/",
+          "title": "Bind mounts"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/volume/prune/",
+          "title": "docker volume prune"
+        }
+      ],
+      "note": "Corrected 2026-11-09: docker volume prune removes only anonymous volumes unless -a is given."
+    }
   },
   {
     "sName": "containers",
@@ -10897,9 +11845,27 @@ window.GLOBAL_SEARCH_INDEX = [
     "id": "docker-volumes-sub-3",
     "sec": "Docker Networking & Storage: List volumes and find where one lives on the host",
     "cmd": "docker volume prune",
-    "desc": "Delete unused volumes: this deletes data (changes state)",
+    "desc": "Delete unused anonymous volumes; add -a for unused named volumes too: this deletes data (changes state)",
     "tip": "",
-    "tags": "docker containers recipe volume bind mount"
+    "tags": "docker containers recipe volume bind mount",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/volume/ls/",
+          "title": "docker volume ls"
+        },
+        {
+          "url": "https://docs.docker.com/engine/storage/bind-mounts/",
+          "title": "Bind mounts"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/volume/prune/",
+          "title": "docker volume prune"
+        }
+      ],
+      "note": "Corrected 2026-11-09: docker volume prune removes only anonymous volumes unless -a is given."
+    }
   },
   {
     "sName": "containers",
@@ -10910,7 +11876,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker run --rm --network host --device /dev/infiniband --ulimit memlock=-1 <image> ibv_devinfo",
     "desc": "RDMA and host networking for GPU jobs",
     "tip": "ibv_devinfo inside the container should match the host",
-    "tags": "docker containers tips best-practice"
+    "tags": "docker containers tips best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/run/",
+          "title": "docker run"
+        }
+      ],
+      "note": "Docker's run reference shows --device with single device paths; passing the /dev/infiniband directory is common practice but not shown there."
+    }
   },
   {
     "sName": "containers",
@@ -13982,7 +14958,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker compose up -d",
     "desc": "Start (or update) every service in compose.yaml in the background (changes state)",
     "tip": "Run docker compose config before up",
-    "tags": "docker containers compose up stack services"
+    "tags": "docker containers compose up stack services",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/up/",
+          "title": "docker compose up"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/config/",
+          "title": "docker compose config"
+        },
+        {
+          "url": "https://docs.docker.com/compose/intro/compose-application-model/",
+          "title": "Compose application model"
+        }
+      ],
+      "note": "The Python docker-compose (v1) is no longer maintained; Compose v5.7.0 is current (GitHub releases). Docker's migration page didn't state v1's end-of-life when checked."
+    }
   },
   {
     "sName": "docker-compose",
@@ -13993,7 +14987,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker compose config",
     "desc": "Print the final merged config with variables filled in; a quick syntax check",
     "tip": "",
-    "tags": "docker containers recipe compose up stack"
+    "tags": "docker containers recipe compose up stack",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/up/",
+          "title": "docker compose up"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/config/",
+          "title": "docker compose config"
+        },
+        {
+          "url": "https://docs.docker.com/compose/intro/compose-application-model/",
+          "title": "Compose application model"
+        }
+      ],
+      "note": "The Python docker-compose (v1) is no longer maintained; Compose v5.7.0 is current (GitHub releases). Docker's migration page didn't state v1's end-of-life when checked."
+    }
   },
   {
     "sName": "docker-compose",
@@ -14004,7 +15016,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker compose pull",
     "desc": "Pull newer images for all services (changes state)",
     "tip": "",
-    "tags": "docker containers recipe compose up stack"
+    "tags": "docker containers recipe compose up stack",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/up/",
+          "title": "docker compose up"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/config/",
+          "title": "docker compose config"
+        },
+        {
+          "url": "https://docs.docker.com/compose/intro/compose-application-model/",
+          "title": "Compose application model"
+        }
+      ],
+      "note": "The Python docker-compose (v1) is no longer maintained; Compose v5.7.0 is current (GitHub releases). Docker's migration page didn't state v1's end-of-life when checked."
+    }
   },
   {
     "sName": "docker-compose",
@@ -14015,7 +15045,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker compose up -d --force-recreate <service>",
     "desc": "Recreate one service even if nothing changed (changes state)",
     "tip": "",
-    "tags": "docker containers recipe compose up stack"
+    "tags": "docker containers recipe compose up stack",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/up/",
+          "title": "docker compose up"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/config/",
+          "title": "docker compose config"
+        },
+        {
+          "url": "https://docs.docker.com/compose/intro/compose-application-model/",
+          "title": "Compose application model"
+        }
+      ],
+      "note": "The Python docker-compose (v1) is no longer maintained; Compose v5.7.0 is current (GitHub releases). Docker's migration page didn't state v1's end-of-life when checked."
+    }
   },
   {
     "sName": "docker-compose",
@@ -14026,7 +15074,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker compose ps",
     "desc": "See the state of every service in the stack",
     "tip": "Use the service name from compose.yaml",
-    "tags": "docker containers compose ps logs exec"
+    "tags": "docker containers compose ps logs exec",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/ps/",
+          "title": "docker compose ps"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/logs/",
+          "title": "docker compose logs"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/exec/",
+          "title": "docker compose exec"
+        }
+      ]
+    }
   },
   {
     "sName": "docker-compose",
@@ -14037,7 +15102,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker compose logs --tail 100 <service>",
     "desc": "Last 100 lines from one service",
     "tip": "",
-    "tags": "docker containers recipe compose ps logs"
+    "tags": "docker containers recipe compose ps logs",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/ps/",
+          "title": "docker compose ps"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/logs/",
+          "title": "docker compose logs"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/exec/",
+          "title": "docker compose exec"
+        }
+      ]
+    }
   },
   {
     "sName": "docker-compose",
@@ -14048,7 +15130,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker compose logs -f",
     "desc": "Follow all services live (Ctrl+C to stop)",
     "tip": "",
-    "tags": "docker containers recipe compose ps logs"
+    "tags": "docker containers recipe compose ps logs",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/ps/",
+          "title": "docker compose ps"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/logs/",
+          "title": "docker compose logs"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/exec/",
+          "title": "docker compose exec"
+        }
+      ]
+    }
   },
   {
     "sName": "docker-compose",
@@ -14059,7 +15158,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker compose exec <service> sh",
     "desc": "Interactive shell in a service container",
     "tip": "",
-    "tags": "docker containers recipe compose ps logs"
+    "tags": "docker containers recipe compose ps logs",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/ps/",
+          "title": "docker compose ps"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/logs/",
+          "title": "docker compose logs"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/exec/",
+          "title": "docker compose exec"
+        }
+      ]
+    }
   },
   {
     "sName": "docker-compose",
@@ -14070,7 +15186,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker compose down",
     "desc": "Stop and remove the stack's containers and networks (changes state)",
     "tip": "down keeps volumes; down -v deletes them",
-    "tags": "docker containers compose down stop volumes"
+    "tags": "docker containers compose down stop volumes",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/down/",
+          "title": "docker compose down"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/stop/",
+          "title": "docker compose stop"
+        }
+      ]
+    }
   },
   {
     "sName": "docker-compose",
@@ -14081,7 +15210,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker compose stop",
     "desc": "Stop containers but keep them (changes state)",
     "tip": "",
-    "tags": "docker containers recipe compose down stop"
+    "tags": "docker containers recipe compose down stop",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/down/",
+          "title": "docker compose down"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/stop/",
+          "title": "docker compose stop"
+        }
+      ]
+    }
   },
   {
     "sName": "docker-compose",
@@ -14092,7 +15234,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker compose restart <service>",
     "desc": "Restart one service (changes state)",
     "tip": "",
-    "tags": "docker containers recipe compose down stop"
+    "tags": "docker containers recipe compose down stop",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/down/",
+          "title": "docker compose down"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/stop/",
+          "title": "docker compose stop"
+        }
+      ]
+    }
   },
   {
     "sName": "docker-compose",
@@ -14103,7 +15258,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "services:\n  web:\n    image: nginx:1.27\n    ports:\n      - \"8080:80\"\n    depends_on:\n      db:\n        condition: service_healthy\n  db:\n    image: postgres:16\n    environment:\n      POSTGRES_PASSWORD_FILE: /run/secrets/db_pw\n    volumes:\n      - dbdata:/var/lib/postgresql/data\n    healthcheck:\n      test: [\"CMD\", \"pg_isready\"]\n      interval: 10s\nvolumes:\n  dbdata:",
     "desc": "Example compose.yaml: a web service plus a database with a named volume and a health check",
     "tip": "Services reach each other by service name",
-    "tags": "docker containers compose yaml services volumes healthcheck depends_on"
+    "tags": "docker containers compose yaml services volumes healthcheck depends_on",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/compose-file/services/",
+          "title": "Compose file: services"
+        },
+        {
+          "url": "https://docs.docker.com/reference/compose-file/volumes/",
+          "title": "Compose file: volumes"
+        }
+      ]
+    }
   },
   {
     "sName": "docker-compose",
@@ -14114,7 +15282,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker compose config --quiet && echo OK",
     "desc": "Keep secrets out of compose.yaml",
     "tip": "Commit .env.example, never .env",
-    "tags": "docker containers tips best-practice"
+    "tags": "docker containers tips best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/compose/how-tos/environment-variables/variable-interpolation/",
+          "title": "Compose: variable interpolation (.env)"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/compose/config/",
+          "title": "docker compose config"
+        }
+      ]
+    }
   },
   {
     "sName": "docker-containers",
@@ -14125,7 +15306,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker ps -a --format 'table {{.Names}}\\t{{.Image}}\\t{{.Status}}\\t{{.Ports}}'",
     "desc": "List all containers (running and stopped) as a readable table",
     "tip": "Exit 137 = SIGKILL, usually out of memory",
-    "tags": "docker containers ps list status exited format"
+    "tags": "docker containers ps list status exited format",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/ls/",
+          "title": "docker ps (container ls)"
+        }
+      ]
+    }
   },
   {
     "sName": "docker-containers",
@@ -14136,7 +15326,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker run -d --name <name> --restart unless-stopped -p 8080:80 <image>:<tag>",
     "desc": "Run a container in the background with a name, a restart policy and a published port (changes state)",
     "tip": "Ports are host:container",
-    "tags": "docker containers run start detached restart port publish"
+    "tags": "docker containers run start detached restart port publish",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/run/",
+          "title": "docker run"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/stop/",
+          "title": "docker stop"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/start/",
+          "title": "docker start"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/rm/",
+          "title": "docker rm"
+        }
+      ],
+      "note": "Checked against Docker Engine 29.9.3 docs. Exit codes 125/126/127 (on the Pro Tip) are not on the current docker run reference page."
+    }
   },
   {
     "sName": "docker-containers",
@@ -14147,7 +15359,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker run --rm -it ubuntu:24.04 bash",
     "desc": "Throwaway interactive container: gone as soon as you exit the shell",
     "tip": "",
-    "tags": "docker containers recipe run start detached"
+    "tags": "docker containers recipe run start detached",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/run/",
+          "title": "docker run"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/stop/",
+          "title": "docker stop"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/start/",
+          "title": "docker start"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/rm/",
+          "title": "docker rm"
+        }
+      ],
+      "note": "Checked against Docker Engine 29.9.3 docs. Exit codes 125/126/127 (on the Pro Tip) are not on the current docker run reference page."
+    }
   },
   {
     "sName": "docker-containers",
@@ -14158,7 +15392,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker stop <container>",
     "desc": "Send SIGTERM, then SIGKILL after 10 s (changes state)",
     "tip": "",
-    "tags": "docker containers recipe run start detached"
+    "tags": "docker containers recipe run start detached",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/run/",
+          "title": "docker run"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/stop/",
+          "title": "docker stop"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/start/",
+          "title": "docker start"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/rm/",
+          "title": "docker rm"
+        }
+      ],
+      "note": "Checked against Docker Engine 29.9.3 docs. Exit codes 125/126/127 (on the Pro Tip) are not on the current docker run reference page."
+    }
   },
   {
     "sName": "docker-containers",
@@ -14169,7 +15425,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker start <container>",
     "desc": "Start a stopped container again with its original settings (changes state)",
     "tip": "",
-    "tags": "docker containers recipe run start detached"
+    "tags": "docker containers recipe run start detached",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/run/",
+          "title": "docker run"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/stop/",
+          "title": "docker stop"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/start/",
+          "title": "docker start"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/rm/",
+          "title": "docker rm"
+        }
+      ],
+      "note": "Checked against Docker Engine 29.9.3 docs. Exit codes 125/126/127 (on the Pro Tip) are not on the current docker run reference page."
+    }
   },
   {
     "sName": "docker-containers",
@@ -14180,7 +15458,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker restart <container>",
     "desc": "Stop then start (changes state)",
     "tip": "",
-    "tags": "docker containers recipe run start detached"
+    "tags": "docker containers recipe run start detached",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/run/",
+          "title": "docker run"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/stop/",
+          "title": "docker stop"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/start/",
+          "title": "docker start"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/rm/",
+          "title": "docker rm"
+        }
+      ],
+      "note": "Checked against Docker Engine 29.9.3 docs. Exit codes 125/126/127 (on the Pro Tip) are not on the current docker run reference page."
+    }
   },
   {
     "sName": "docker-containers",
@@ -14191,7 +15491,29 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker rm <container>",
     "desc": "Delete a stopped container; its writable layer is lost (changes state)",
     "tip": "",
-    "tags": "docker containers recipe run start detached"
+    "tags": "docker containers recipe run start detached",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/run/",
+          "title": "docker run"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/stop/",
+          "title": "docker stop"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/start/",
+          "title": "docker start"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/rm/",
+          "title": "docker rm"
+        }
+      ],
+      "note": "Checked against Docker Engine 29.9.3 docs. Exit codes 125/126/127 (on the Pro Tip) are not on the current docker run reference page."
+    }
   },
   {
     "sName": "docker-containers",
@@ -14202,7 +15524,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker logs --tail 200 --timestamps <container>",
     "desc": "Read the last 200 log lines of a container with timestamps",
     "tip": "Apps often log to stderr: add 2>&1 before grep",
-    "tags": "docker containers logs tail follow stderr timestamps"
+    "tags": "docker containers logs tail follow stderr timestamps",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/logs/",
+          "title": "docker logs"
+        }
+      ]
+    }
   },
   {
     "sName": "docker-containers",
@@ -14213,7 +15544,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker logs --since 30m <container> 2>&1 | grep -i error",
     "desc": "Errors from the last 30 minutes. 2>&1 merges stderr, where many apps write errors",
     "tip": "",
-    "tags": "docker containers recipe logs tail follow"
+    "tags": "docker containers recipe logs tail follow",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/logs/",
+          "title": "docker logs"
+        }
+      ]
+    }
   },
   {
     "sName": "docker-containers",
@@ -14224,7 +15564,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker logs -f --tail 50 <container>",
     "desc": "Follow live output, starting from the last 50 lines",
     "tip": "",
-    "tags": "docker containers recipe logs tail follow"
+    "tags": "docker containers recipe logs tail follow",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/logs/",
+          "title": "docker logs"
+        }
+      ]
+    }
   },
   {
     "sName": "docker-containers",
@@ -14235,7 +15584,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker exec <container> cat /etc/os-release",
     "desc": "Run a command inside a running container, or open a shell in it",
     "tip": "No bash? Use sh",
-    "tags": "docker containers exec shell sh bash interactive"
+    "tags": "docker containers exec shell sh bash interactive",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/exec/",
+          "title": "docker exec"
+        }
+      ]
+    }
   },
   {
     "sName": "docker-containers",
@@ -14246,7 +15604,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker exec -it <container> sh",
     "desc": "Interactive shell inside the container (exit with Ctrl+D)",
     "tip": "",
-    "tags": "docker containers recipe exec shell sh"
+    "tags": "docker containers recipe exec shell sh",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/exec/",
+          "title": "docker exec"
+        }
+      ]
+    }
   },
   {
     "sName": "docker-containers",
@@ -14257,7 +15624,16 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker exec <container> env",
     "desc": "Show the environment variables the app actually sees",
     "tip": "",
-    "tags": "docker containers recipe exec shell sh"
+    "tags": "docker containers recipe exec shell sh",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/exec/",
+          "title": "docker exec"
+        }
+      ]
+    }
   },
   {
     "sName": "docker-containers",
@@ -14268,7 +15644,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker inspect <container> --format '{{.State.Status}} exit={{.State.ExitCode}} oom={{.State.OOMKilled}} restarts={{.RestartCount}}'",
     "desc": "Find out why a container stopped: state, exit code, OOM kill and restart count",
     "tip": "Exited + oom=true → memory limit",
-    "tags": "docker containers inspect state exitcode oom restart stats debug"
+    "tags": "docker containers inspect state exitcode oom restart stats debug",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/inspect/",
+          "title": "docker inspect"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/stats/",
+          "title": "docker stats"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/top/",
+          "title": "docker top"
+        }
+      ]
+    }
   },
   {
     "sName": "docker-containers",
@@ -14279,7 +15672,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker inspect <container> | jq '.[0].Mounts'",
     "desc": "Which host paths and volumes are mounted, via jq",
     "tip": "",
-    "tags": "docker containers recipe inspect state exitcode"
+    "tags": "docker containers recipe inspect state exitcode",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/inspect/",
+          "title": "docker inspect"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/stats/",
+          "title": "docker stats"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/top/",
+          "title": "docker top"
+        }
+      ]
+    }
   },
   {
     "sName": "docker-containers",
@@ -14290,7 +15700,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker stats --no-stream",
     "desc": "One snapshot of CPU, memory, network and disk I/O per container (without --no-stream it keeps refreshing)",
     "tip": "",
-    "tags": "docker containers recipe inspect state exitcode"
+    "tags": "docker containers recipe inspect state exitcode",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/inspect/",
+          "title": "docker inspect"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/stats/",
+          "title": "docker stats"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/top/",
+          "title": "docker top"
+        }
+      ]
+    }
   },
   {
     "sName": "docker-containers",
@@ -14301,7 +15728,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker top <container>",
     "desc": "Processes running inside the container, as seen from the host",
     "tip": "",
-    "tags": "docker containers recipe inspect state exitcode"
+    "tags": "docker containers recipe inspect state exitcode",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/inspect/",
+          "title": "docker inspect"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/stats/",
+          "title": "docker stats"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/top/",
+          "title": "docker top"
+        }
+      ]
+    }
   },
   {
     "sName": "docker-containers",
@@ -14312,7 +15756,21 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker ps -a --filter status=exited --format '{{.Names}} {{.Status}}'",
     "desc": "Read the state before you restart anything",
     "tip": "Capture logs + inspect output into cases/<host>/logs/ before restarting",
-    "tags": "docker containers tips best-practice"
+    "tags": "docker containers tips best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/ls/",
+          "title": "docker ps"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/logs/",
+          "title": "docker logs"
+        }
+      ],
+      "note": "Exit codes 125/126/127 are Docker's long-standing convention but are not on the current docker run reference page."
+    }
   },
   {
     "sName": "docker-gpu-daemon",
@@ -14698,7 +16156,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker image ls --digests",
     "desc": "List local images with their size and digest",
     "tip": "Pin production images by digest",
-    "tags": "docker containers images ls digest size df"
+    "tags": "docker containers images ls digest size df",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/ls/",
+          "title": "docker image ls"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/system/df/",
+          "title": "docker system df"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/history/",
+          "title": "docker history"
+        }
+      ]
+    }
   },
   {
     "sName": "docker-images",
@@ -14709,7 +16184,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker system df",
     "desc": "Disk used by images, containers, volumes and build cache, and how much is reclaimable",
     "tip": "",
-    "tags": "docker containers recipe images ls digest"
+    "tags": "docker containers recipe images ls digest",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/ls/",
+          "title": "docker image ls"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/system/df/",
+          "title": "docker system df"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/history/",
+          "title": "docker history"
+        }
+      ]
+    }
   },
   {
     "sName": "docker-images",
@@ -14720,7 +16212,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker history --no-trunc <image>:<tag>",
     "desc": "The layers of an image and the Dockerfile step that created each one",
     "tip": "",
-    "tags": "docker containers recipe images ls digest"
+    "tags": "docker containers recipe images ls digest",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/ls/",
+          "title": "docker image ls"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/system/df/",
+          "title": "docker system df"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/history/",
+          "title": "docker history"
+        }
+      ]
+    }
   },
   {
     "sName": "docker-images",
@@ -14731,7 +16240,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker build -t <name>:<tag> .",
     "desc": "Build an image from the Dockerfile in the current directory and tag it (BuildKit is the default builder)",
     "tip": "Add a .dockerignore so .git and data aren't uploaded",
-    "tags": "docker containers build buildkit buildx dockerfile tag"
+    "tags": "docker containers build buildkit buildx dockerfile tag",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/buildx/build/",
+          "title": "docker build (buildx)"
+        },
+        {
+          "url": "https://docs.docker.com/build/buildkit/",
+          "title": "BuildKit"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/builder/prune/",
+          "title": "docker builder prune"
+        }
+      ]
+    }
   },
   {
     "sName": "docker-images",
@@ -14742,7 +16268,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker buildx ls",
     "desc": "List builders and the platforms they can build for",
     "tip": "",
-    "tags": "docker containers recipe build buildkit buildx"
+    "tags": "docker containers recipe build buildkit buildx",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/buildx/build/",
+          "title": "docker build (buildx)"
+        },
+        {
+          "url": "https://docs.docker.com/build/buildkit/",
+          "title": "BuildKit"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/builder/prune/",
+          "title": "docker builder prune"
+        }
+      ]
+    }
   },
   {
     "sName": "docker-images",
@@ -14753,7 +16296,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker builder prune",
     "desc": "Delete the build cache when disk is tight (changes state)",
     "tip": "",
-    "tags": "docker containers recipe build buildkit buildx"
+    "tags": "docker containers recipe build buildkit buildx",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/buildx/build/",
+          "title": "docker build (buildx)"
+        },
+        {
+          "url": "https://docs.docker.com/build/buildkit/",
+          "title": "BuildKit"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/builder/prune/",
+          "title": "docker builder prune"
+        }
+      ]
+    }
   },
   {
     "sName": "docker-images",
@@ -14764,7 +16324,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "FROM python:3.12-slim\nWORKDIR /app\nCOPY requirements.txt .\nRUN pip install --no-cache-dir -r requirements.txt\nCOPY . .\nUSER 1000\nCMD [\"python\", \"main.py\"]",
     "desc": "Minimal Dockerfile for a small Python tool, with the layer-caching order explained",
     "tip": "Order steps from least to most often changed",
-    "tags": "docker containers dockerfile from run copy cmd layers cache"
+    "tags": "docker containers dockerfile from run copy cmd layers cache",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/dockerfile/",
+          "title": "Dockerfile reference"
+        },
+        {
+          "url": "https://docs.docker.com/build/building/best-practices/",
+          "title": "Dockerfile best practices"
+        }
+      ]
+    }
   },
   {
     "sName": "docker-images",
@@ -14775,7 +16348,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker pull <image>:<tag>",
     "desc": "Pull an image, retag it for a private registry and push it (push changes the registry)",
     "tip": "A tag is just a pointer",
-    "tags": "docker containers pull push tag registry"
+    "tags": "docker containers pull push tag registry",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/pull/",
+          "title": "docker pull"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/tag/",
+          "title": "docker tag"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/push/",
+          "title": "docker push"
+        }
+      ]
+    }
   },
   {
     "sName": "docker-images",
@@ -14786,7 +16376,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker tag <image>:<tag> <registry>/<repo>:<tag>",
     "desc": "Retag for your own registry",
     "tip": "",
-    "tags": "docker containers recipe pull push tag"
+    "tags": "docker containers recipe pull push tag",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/pull/",
+          "title": "docker pull"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/tag/",
+          "title": "docker tag"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/push/",
+          "title": "docker push"
+        }
+      ]
+    }
   },
   {
     "sName": "docker-images",
@@ -14797,7 +16404,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker push <registry>/<repo>:<tag>",
     "desc": "Upload to that registry (changes state)",
     "tip": "",
-    "tags": "docker containers recipe pull push tag"
+    "tags": "docker containers recipe pull push tag",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/pull/",
+          "title": "docker pull"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/tag/",
+          "title": "docker tag"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/push/",
+          "title": "docker push"
+        }
+      ]
+    }
   },
   {
     "sName": "docker-images",
@@ -14808,7 +16432,24 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker image inspect <image>:<tag> --format '{{.Architecture}} {{.Os}}'",
     "desc": "Check the image matches the host CPU (amd64 vs arm64)",
     "tip": "",
-    "tags": "docker containers recipe pull push tag"
+    "tags": "docker containers recipe pull push tag",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/pull/",
+          "title": "docker pull"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/tag/",
+          "title": "docker tag"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/push/",
+          "title": "docker push"
+        }
+      ]
+    }
   },
   {
     "sName": "docker-images",
@@ -14819,7 +16460,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker save -o <name>.tar <image>:<tag>",
     "desc": "Move an image to an air-gapped host as a tar file",
     "tip": "Checksum the tar on both ends",
-    "tags": "docker containers save load airgap offline tar transfer ctr containerd"
+    "tags": "docker containers save load airgap offline tar transfer ctr containerd",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/save/",
+          "title": "docker save"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/load/",
+          "title": "docker load"
+        }
+      ]
+    }
   },
   {
     "sName": "docker-images",
@@ -14830,7 +16484,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker load -i <name>.tar",
     "desc": "Import the image on the target host (changes state)",
     "tip": "",
-    "tags": "docker containers recipe save load airgap"
+    "tags": "docker containers recipe save load airgap",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/save/",
+          "title": "docker save"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/load/",
+          "title": "docker load"
+        }
+      ]
+    }
   },
   {
     "sName": "docker-images",
@@ -14841,7 +16508,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "sha256sum <name>.tar",
     "desc": "Checksum before and after copying, to catch a truncated transfer",
     "tip": "",
-    "tags": "docker containers recipe save load airgap"
+    "tags": "docker containers recipe save load airgap",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/save/",
+          "title": "docker save"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/load/",
+          "title": "docker load"
+        }
+      ]
+    }
   },
   {
     "sName": "docker-images",
@@ -14852,7 +16532,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ctr -n k8s.io images import <name>.tar",
     "desc": "Import into containerd's Kubernetes namespace on a node with no Docker (changes state)",
     "tip": "",
-    "tags": "docker containers recipe save load airgap"
+    "tags": "docker containers recipe save load airgap",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/save/",
+          "title": "docker save"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/load/",
+          "title": "docker load"
+        }
+      ]
+    }
   },
   {
     "sName": "docker-images",
@@ -14863,7 +16556,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker system prune",
     "desc": "Reclaim disk space from stopped containers, unused images and build cache (changes state)",
     "tip": "Run docker system df first; never add --volumes blindly",
-    "tags": "docker containers prune cleanup disk space df"
+    "tags": "docker containers prune cleanup disk space df",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/system/prune/",
+          "title": "docker system prune"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/prune/",
+          "title": "docker image prune"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/prune/",
+          "title": "docker container prune"
+        }
+      ],
+      "note": "Corrected 2026-11-09: --volumes (and docker volume prune without -a) removes only anonymous volumes; named volumes are kept."
+    }
   },
   {
     "sName": "docker-images",
@@ -14874,7 +16585,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker system df -v",
     "desc": "See exactly what is using space before you prune",
     "tip": "",
-    "tags": "docker containers recipe prune cleanup disk"
+    "tags": "docker containers recipe prune cleanup disk",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/system/prune/",
+          "title": "docker system prune"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/prune/",
+          "title": "docker image prune"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/prune/",
+          "title": "docker container prune"
+        }
+      ],
+      "note": "Corrected 2026-11-09: --volumes (and docker volume prune without -a) removes only anonymous volumes; named volumes are kept."
+    }
   },
   {
     "sName": "docker-images",
@@ -14885,7 +16614,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker image prune",
     "desc": "Only dangling images (changes state)",
     "tip": "",
-    "tags": "docker containers recipe prune cleanup disk"
+    "tags": "docker containers recipe prune cleanup disk",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/system/prune/",
+          "title": "docker system prune"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/prune/",
+          "title": "docker image prune"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/prune/",
+          "title": "docker container prune"
+        }
+      ],
+      "note": "Corrected 2026-11-09: --volumes (and docker volume prune without -a) removes only anonymous volumes; named volumes are kept."
+    }
   },
   {
     "sName": "docker-images",
@@ -14896,7 +16643,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker container prune",
     "desc": "Only stopped containers (changes state)",
     "tip": "",
-    "tags": "docker containers recipe prune cleanup disk"
+    "tags": "docker containers recipe prune cleanup disk",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/system/prune/",
+          "title": "docker system prune"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/image/prune/",
+          "title": "docker image prune"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/prune/",
+          "title": "docker container prune"
+        }
+      ],
+      "note": "Corrected 2026-11-09: --volumes (and docker volume prune without -a) removes only anonymous volumes; named volumes are kept."
+    }
   },
   {
     "sName": "docker-images",
@@ -14906,8 +16671,22 @@ window.GLOBAL_SEARCH_INDEX = [
     "sec": "Docker Images: Pro Tip",
     "cmd": "docker info --format '{{.DockerRootDir}} {{.Driver}}'",
     "desc": "Where Docker keeps its data",
-    "tip": "Full root disk on a node? Check du -sh /var/lib/docker first",
-    "tags": "docker containers tips best-practice"
+    "tip": "Full root disk on a node? du -sh /var/lib/docker /var/lib/containerd",
+    "tags": "docker containers tips best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/engine/daemon/",
+          "title": "Docker daemon: data directory"
+        },
+        {
+          "url": "https://docs.docker.com/engine/storage/containerd/",
+          "title": "containerd image store"
+        }
+      ],
+      "note": "Corrected 2026-11-09: with the containerd image store (default on fresh Engine 29+ installs) image data is under /var/lib/containerd, not data-root."
+    }
   },
   {
     "sName": "docker-network-storage",
@@ -14918,7 +16697,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker network ls",
     "desc": "List Docker networks and see which containers are on one",
     "tip": "Use a user-defined network for name resolution",
-    "tags": "docker containers network bridge host dns"
+    "tags": "docker containers network bridge host dns",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/network/ls/",
+          "title": "docker network ls"
+        },
+        {
+          "url": "https://docs.docker.com/engine/network/drivers/bridge/",
+          "title": "Bridge network driver"
+        }
+      ]
+    }
   },
   {
     "sName": "docker-network-storage",
@@ -14929,7 +16721,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker network inspect <network> --format '{{range .Containers}}{{.Name}} {{.IPv4Address}}{{\"\\n\"}}{{end}}'",
     "desc": "Containers attached to a network and their IPs",
     "tip": "",
-    "tags": "docker containers recipe network bridge host"
+    "tags": "docker containers recipe network bridge host",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/network/ls/",
+          "title": "docker network ls"
+        },
+        {
+          "url": "https://docs.docker.com/engine/network/drivers/bridge/",
+          "title": "Bridge network driver"
+        }
+      ]
+    }
   },
   {
     "sName": "docker-network-storage",
@@ -14940,7 +16745,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker network create <network>",
     "desc": "Create a user-defined bridge (changes state)",
     "tip": "",
-    "tags": "docker containers recipe network bridge host"
+    "tags": "docker containers recipe network bridge host",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/network/ls/",
+          "title": "docker network ls"
+        },
+        {
+          "url": "https://docs.docker.com/engine/network/drivers/bridge/",
+          "title": "Bridge network driver"
+        }
+      ]
+    }
   },
   {
     "sName": "docker-network-storage",
@@ -14951,7 +16769,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker network connect <network> <container>",
     "desc": "Attach a running container to another network (changes state)",
     "tip": "",
-    "tags": "docker containers recipe network bridge host"
+    "tags": "docker containers recipe network bridge host",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/network/ls/",
+          "title": "docker network ls"
+        },
+        {
+          "url": "https://docs.docker.com/engine/network/drivers/bridge/",
+          "title": "Bridge network driver"
+        }
+      ]
+    }
   },
   {
     "sName": "docker-network-storage",
@@ -14962,7 +16793,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker port <container>",
     "desc": "Show which host ports a container publishes",
     "tip": "Docker-published ports can bypass ufw",
-    "tags": "docker containers port publish ss firewall ufw"
+    "tags": "docker containers port publish ss firewall ufw",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/port/",
+          "title": "docker port"
+        },
+        {
+          "url": "https://docs.docker.com/engine/network/packet-filtering-firewalls/",
+          "title": "Packet filtering and firewalls"
+        }
+      ]
+    }
   },
   {
     "sName": "docker-network-storage",
@@ -14973,7 +16817,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "ss -ltnp | grep <port>",
     "desc": "Confirm what is listening on the host side",
     "tip": "",
-    "tags": "docker containers recipe port publish ss"
+    "tags": "docker containers recipe port publish ss",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/port/",
+          "title": "docker port"
+        },
+        {
+          "url": "https://docs.docker.com/engine/network/packet-filtering-firewalls/",
+          "title": "Packet filtering and firewalls"
+        }
+      ]
+    }
   },
   {
     "sName": "docker-network-storage",
@@ -14984,7 +16841,20 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker exec <container> getent hosts <other-container>",
     "desc": "Test name resolution from inside a container",
     "tip": "",
-    "tags": "docker containers recipe port publish ss"
+    "tags": "docker containers recipe port publish ss",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/port/",
+          "title": "docker port"
+        },
+        {
+          "url": "https://docs.docker.com/engine/network/packet-filtering-firewalls/",
+          "title": "Packet filtering and firewalls"
+        }
+      ]
+    }
   },
   {
     "sName": "docker-network-storage",
@@ -14995,7 +16865,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker volume ls",
     "desc": "List volumes and find where one lives on the host",
     "tip": "-v creates a missing host path silently; --mount errors",
-    "tags": "docker containers volume bind mount storage backup"
+    "tags": "docker containers volume bind mount storage backup",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/volume/ls/",
+          "title": "docker volume ls"
+        },
+        {
+          "url": "https://docs.docker.com/engine/storage/bind-mounts/",
+          "title": "Bind mounts"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/volume/prune/",
+          "title": "docker volume prune"
+        }
+      ],
+      "note": "Corrected 2026-11-09: docker volume prune removes only anonymous volumes unless -a is given."
+    }
   },
   {
     "sName": "docker-network-storage",
@@ -15006,7 +16894,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker volume inspect <volume> --format '{{.Mountpoint}}'",
     "desc": "Host path of a named volume",
     "tip": "",
-    "tags": "docker containers recipe volume bind mount"
+    "tags": "docker containers recipe volume bind mount",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/volume/ls/",
+          "title": "docker volume ls"
+        },
+        {
+          "url": "https://docs.docker.com/engine/storage/bind-mounts/",
+          "title": "Bind mounts"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/volume/prune/",
+          "title": "docker volume prune"
+        }
+      ],
+      "note": "Corrected 2026-11-09: docker volume prune removes only anonymous volumes unless -a is given."
+    }
   },
   {
     "sName": "docker-network-storage",
@@ -15017,7 +16923,25 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker run --rm -v <volume>:/data -v \"$PWD\":/backup ubuntu:24.04 tar czf /backup/<volume>.tgz -C /data .",
     "desc": "Back up a named volume to a tarball in the current directory",
     "tip": "",
-    "tags": "docker containers recipe volume bind mount"
+    "tags": "docker containers recipe volume bind mount",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/volume/ls/",
+          "title": "docker volume ls"
+        },
+        {
+          "url": "https://docs.docker.com/engine/storage/bind-mounts/",
+          "title": "Bind mounts"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/volume/prune/",
+          "title": "docker volume prune"
+        }
+      ],
+      "note": "Corrected 2026-11-09: docker volume prune removes only anonymous volumes unless -a is given."
+    }
   },
   {
     "sName": "docker-network-storage",
@@ -15026,9 +16950,27 @@ window.GLOBAL_SEARCH_INDEX = [
     "id": "docker-volumes-sub-3",
     "sec": "Docker Networking & Storage: List volumes and find where one lives on the host",
     "cmd": "docker volume prune",
-    "desc": "Delete unused volumes: this deletes data (changes state)",
+    "desc": "Delete unused anonymous volumes; add -a for unused named volumes too: this deletes data (changes state)",
     "tip": "",
-    "tags": "docker containers recipe volume bind mount"
+    "tags": "docker containers recipe volume bind mount",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/volume/ls/",
+          "title": "docker volume ls"
+        },
+        {
+          "url": "https://docs.docker.com/engine/storage/bind-mounts/",
+          "title": "Bind mounts"
+        },
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/volume/prune/",
+          "title": "docker volume prune"
+        }
+      ],
+      "note": "Corrected 2026-11-09: docker volume prune removes only anonymous volumes unless -a is given."
+    }
   },
   {
     "sName": "docker-network-storage",
@@ -15039,7 +16981,17 @@ window.GLOBAL_SEARCH_INDEX = [
     "cmd": "docker run --rm --network host --device /dev/infiniband --ulimit memlock=-1 <image> ibv_devinfo",
     "desc": "RDMA and host networking for GPU jobs",
     "tip": "ibv_devinfo inside the container should match the host",
-    "tags": "docker containers tips best-practice"
+    "tags": "docker containers tips best-practice",
+    "src": {
+      "verified": "2026-11-09",
+      "refs": [
+        {
+          "url": "https://docs.docker.com/reference/cli/docker/container/run/",
+          "title": "docker run"
+        }
+      ],
+      "note": "Docker's run reference shows --device with single device paths; passing the /dev/infiniband directory is common practice but not shown there."
+    }
   },
   {
     "sName": "ecc-edac",

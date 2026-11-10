@@ -43,7 +43,16 @@ const CTR_DOCKER_CONTAINERS_DATA = [
           "status",
           "exited",
           "format"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/ls/",
+              "title": "docker ps (container ls)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -94,7 +103,29 @@ const CTR_DOCKER_CONTAINERS_DATA = [
           "restart",
           "port",
           "publish"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/run/",
+              "title": "docker run"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/stop/",
+              "title": "docker stop"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/start/",
+              "title": "docker start"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/rm/",
+              "title": "docker rm"
+            }
+          ],
+          "note": "Checked against Docker Engine 29.9.3 docs. Exit codes 125/126/127 (on the Pro Tip) are not on the current docker run reference page."
+        }
       },
       {
         "id": "docker-run-detached-sub-1",
@@ -107,7 +138,29 @@ const CTR_DOCKER_CONTAINERS_DATA = [
           "run",
           "start",
           "detached"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/run/",
+              "title": "docker run"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/stop/",
+              "title": "docker stop"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/start/",
+              "title": "docker start"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/rm/",
+              "title": "docker rm"
+            }
+          ],
+          "note": "Checked against Docker Engine 29.9.3 docs. Exit codes 125/126/127 (on the Pro Tip) are not on the current docker run reference page."
+        }
       },
       {
         "id": "docker-run-detached-sub-2",
@@ -120,7 +173,29 @@ const CTR_DOCKER_CONTAINERS_DATA = [
           "run",
           "start",
           "detached"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/run/",
+              "title": "docker run"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/stop/",
+              "title": "docker stop"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/start/",
+              "title": "docker start"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/rm/",
+              "title": "docker rm"
+            }
+          ],
+          "note": "Checked against Docker Engine 29.9.3 docs. Exit codes 125/126/127 (on the Pro Tip) are not on the current docker run reference page."
+        }
       },
       {
         "id": "docker-run-detached-sub-3",
@@ -133,7 +208,29 @@ const CTR_DOCKER_CONTAINERS_DATA = [
           "run",
           "start",
           "detached"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/run/",
+              "title": "docker run"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/stop/",
+              "title": "docker stop"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/start/",
+              "title": "docker start"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/rm/",
+              "title": "docker rm"
+            }
+          ],
+          "note": "Checked against Docker Engine 29.9.3 docs. Exit codes 125/126/127 (on the Pro Tip) are not on the current docker run reference page."
+        }
       },
       {
         "id": "docker-run-detached-sub-4",
@@ -146,7 +243,29 @@ const CTR_DOCKER_CONTAINERS_DATA = [
           "run",
           "start",
           "detached"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/run/",
+              "title": "docker run"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/stop/",
+              "title": "docker stop"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/start/",
+              "title": "docker start"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/rm/",
+              "title": "docker rm"
+            }
+          ],
+          "note": "Checked against Docker Engine 29.9.3 docs. Exit codes 125/126/127 (on the Pro Tip) are not on the current docker run reference page."
+        }
       },
       {
         "id": "docker-run-detached-sub-5",
@@ -159,7 +278,29 @@ const CTR_DOCKER_CONTAINERS_DATA = [
           "run",
           "start",
           "detached"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/run/",
+              "title": "docker run"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/stop/",
+              "title": "docker stop"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/start/",
+              "title": "docker start"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/rm/",
+              "title": "docker rm"
+            }
+          ],
+          "note": "Checked against Docker Engine 29.9.3 docs. Exit codes 125/126/127 (on the Pro Tip) are not on the current docker run reference page."
+        }
       }
     ]
   },
@@ -201,7 +342,16 @@ const CTR_DOCKER_CONTAINERS_DATA = [
           "follow",
           "stderr",
           "timestamps"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/logs/",
+              "title": "docker logs"
+            }
+          ]
+        }
       },
       {
         "id": "docker-logs-tail-sub-1",
@@ -214,7 +364,16 @@ const CTR_DOCKER_CONTAINERS_DATA = [
           "logs",
           "tail",
           "follow"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/logs/",
+              "title": "docker logs"
+            }
+          ]
+        }
       },
       {
         "id": "docker-logs-tail-sub-2",
@@ -227,7 +386,16 @@ const CTR_DOCKER_CONTAINERS_DATA = [
           "logs",
           "tail",
           "follow"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/logs/",
+              "title": "docker logs"
+            }
+          ]
+        }
       }
     ]
   },
@@ -269,7 +437,16 @@ const CTR_DOCKER_CONTAINERS_DATA = [
           "sh",
           "bash",
           "interactive"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/exec/",
+              "title": "docker exec"
+            }
+          ]
+        }
       },
       {
         "id": "docker-exec-shell-sub-1",
@@ -282,7 +459,16 @@ const CTR_DOCKER_CONTAINERS_DATA = [
           "exec",
           "shell",
           "sh"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/exec/",
+              "title": "docker exec"
+            }
+          ]
+        }
       },
       {
         "id": "docker-exec-shell-sub-2",
@@ -295,7 +481,16 @@ const CTR_DOCKER_CONTAINERS_DATA = [
           "exec",
           "shell",
           "sh"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/exec/",
+              "title": "docker exec"
+            }
+          ]
+        }
       }
     ]
   },
@@ -339,7 +534,24 @@ const CTR_DOCKER_CONTAINERS_DATA = [
           "restart",
           "stats",
           "debug"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/inspect/",
+              "title": "docker inspect"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/stats/",
+              "title": "docker stats"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/top/",
+              "title": "docker top"
+            }
+          ]
+        }
       },
       {
         "id": "docker-inspect-state-sub-1",
@@ -352,7 +564,24 @@ const CTR_DOCKER_CONTAINERS_DATA = [
           "inspect",
           "state",
           "exitcode"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/inspect/",
+              "title": "docker inspect"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/stats/",
+              "title": "docker stats"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/top/",
+              "title": "docker top"
+            }
+          ]
+        }
       },
       {
         "id": "docker-inspect-state-sub-2",
@@ -365,7 +594,24 @@ const CTR_DOCKER_CONTAINERS_DATA = [
           "inspect",
           "state",
           "exitcode"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/inspect/",
+              "title": "docker inspect"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/stats/",
+              "title": "docker stats"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/top/",
+              "title": "docker top"
+            }
+          ]
+        }
       },
       {
         "id": "docker-inspect-state-sub-3",
@@ -378,7 +624,24 @@ const CTR_DOCKER_CONTAINERS_DATA = [
           "inspect",
           "state",
           "exitcode"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/inspect/",
+              "title": "docker inspect"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/stats/",
+              "title": "docker stats"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/top/",
+              "title": "docker top"
+            }
+          ]
+        }
       }
     ]
   },
@@ -421,7 +684,21 @@ const CTR_DOCKER_CONTAINERS_DATA = [
           "containers",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/ls/",
+              "title": "docker ps"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/logs/",
+              "title": "docker logs"
+            }
+          ],
+          "note": "Exit codes 125/126/127 are Docker's long-standing convention but are not on the current docker run reference page."
+        }
       }
     ]
   }

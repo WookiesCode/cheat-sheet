@@ -38,7 +38,20 @@ const CTR_DOCKER_NETWORK_STORAGE_DATA = [
           "bridge",
           "host",
           "dns"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/network/ls/",
+              "title": "docker network ls"
+            },
+            {
+              "url": "https://docs.docker.com/engine/network/drivers/bridge/",
+              "title": "Bridge network driver"
+            }
+          ]
+        }
       },
       {
         "id": "docker-network-ls-sub-1",
@@ -51,7 +64,20 @@ const CTR_DOCKER_NETWORK_STORAGE_DATA = [
           "network",
           "bridge",
           "host"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/network/ls/",
+              "title": "docker network ls"
+            },
+            {
+              "url": "https://docs.docker.com/engine/network/drivers/bridge/",
+              "title": "Bridge network driver"
+            }
+          ]
+        }
       },
       {
         "id": "docker-network-ls-sub-2",
@@ -64,7 +90,20 @@ const CTR_DOCKER_NETWORK_STORAGE_DATA = [
           "network",
           "bridge",
           "host"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/network/ls/",
+              "title": "docker network ls"
+            },
+            {
+              "url": "https://docs.docker.com/engine/network/drivers/bridge/",
+              "title": "Bridge network driver"
+            }
+          ]
+        }
       },
       {
         "id": "docker-network-ls-sub-3",
@@ -77,7 +116,20 @@ const CTR_DOCKER_NETWORK_STORAGE_DATA = [
           "network",
           "bridge",
           "host"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/network/ls/",
+              "title": "docker network ls"
+            },
+            {
+              "url": "https://docs.docker.com/engine/network/drivers/bridge/",
+              "title": "Bridge network driver"
+            }
+          ]
+        }
       }
     ]
   },
@@ -115,7 +167,20 @@ const CTR_DOCKER_NETWORK_STORAGE_DATA = [
           "ss",
           "firewall",
           "ufw"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/port/",
+              "title": "docker port"
+            },
+            {
+              "url": "https://docs.docker.com/engine/network/packet-filtering-firewalls/",
+              "title": "Packet filtering and firewalls"
+            }
+          ]
+        }
       },
       {
         "id": "docker-port-check-sub-1",
@@ -128,7 +193,20 @@ const CTR_DOCKER_NETWORK_STORAGE_DATA = [
           "port",
           "publish",
           "ss"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/port/",
+              "title": "docker port"
+            },
+            {
+              "url": "https://docs.docker.com/engine/network/packet-filtering-firewalls/",
+              "title": "Packet filtering and firewalls"
+            }
+          ]
+        }
       },
       {
         "id": "docker-port-check-sub-2",
@@ -141,7 +219,20 @@ const CTR_DOCKER_NETWORK_STORAGE_DATA = [
           "port",
           "publish",
           "ss"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/port/",
+              "title": "docker port"
+            },
+            {
+              "url": "https://docs.docker.com/engine/network/packet-filtering-firewalls/",
+              "title": "Packet filtering and firewalls"
+            }
+          ]
+        }
       }
     ]
   },
@@ -171,7 +262,7 @@ const CTR_DOCKER_NETWORK_STORAGE_DATA = [
           ],
           [
             "--mount type=bind,src=...,dst=...",
-            "Longer syntax that fails loudly if the host path doesn't exist (-v silently creates it)"
+            "Longer syntax that fails (\"bind source path does not exist\") if the host path is missing; -v silently creates it as a directory"
           ]
         ],
         "tip": "-v creates a missing host path silently; --mount errors",
@@ -183,7 +274,25 @@ const CTR_DOCKER_NETWORK_STORAGE_DATA = [
           "mount",
           "storage",
           "backup"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/volume/ls/",
+              "title": "docker volume ls"
+            },
+            {
+              "url": "https://docs.docker.com/engine/storage/bind-mounts/",
+              "title": "Bind mounts"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/volume/prune/",
+              "title": "docker volume prune"
+            }
+          ],
+          "note": "Corrected 2026-11-09: docker volume prune removes only anonymous volumes unless -a is given."
+        }
       },
       {
         "id": "docker-volumes-sub-1",
@@ -196,7 +305,25 @@ const CTR_DOCKER_NETWORK_STORAGE_DATA = [
           "volume",
           "bind",
           "mount"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/volume/ls/",
+              "title": "docker volume ls"
+            },
+            {
+              "url": "https://docs.docker.com/engine/storage/bind-mounts/",
+              "title": "Bind mounts"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/volume/prune/",
+              "title": "docker volume prune"
+            }
+          ],
+          "note": "Corrected 2026-11-09: docker volume prune removes only anonymous volumes unless -a is given."
+        }
       },
       {
         "id": "docker-volumes-sub-2",
@@ -209,11 +336,29 @@ const CTR_DOCKER_NETWORK_STORAGE_DATA = [
           "volume",
           "bind",
           "mount"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/volume/ls/",
+              "title": "docker volume ls"
+            },
+            {
+              "url": "https://docs.docker.com/engine/storage/bind-mounts/",
+              "title": "Bind mounts"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/volume/prune/",
+              "title": "docker volume prune"
+            }
+          ],
+          "note": "Corrected 2026-11-09: docker volume prune removes only anonymous volumes unless -a is given."
+        }
       },
       {
         "id": "docker-volumes-sub-3",
-        "desc": "Delete unused volumes: this deletes data (changes state)",
+        "desc": "Delete unused anonymous volumes; add -a for unused named volumes too: this deletes data (changes state)",
         "cmd": "docker volume prune",
         "tags": [
           "docker",
@@ -222,7 +367,25 @@ const CTR_DOCKER_NETWORK_STORAGE_DATA = [
           "volume",
           "bind",
           "mount"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/volume/ls/",
+              "title": "docker volume ls"
+            },
+            {
+              "url": "https://docs.docker.com/engine/storage/bind-mounts/",
+              "title": "Bind mounts"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/volume/prune/",
+              "title": "docker volume prune"
+            }
+          ],
+          "note": "Corrected 2026-11-09: docker volume prune removes only anonymous volumes unless -a is given."
+        }
       }
     ]
   },
@@ -257,7 +420,17 @@ const CTR_DOCKER_NETWORK_STORAGE_DATA = [
           "containers",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/run/",
+              "title": "docker run"
+            }
+          ],
+          "note": "Docker's run reference shows --device with single device paths; passing the /dev/infiniband directory is common practice but not shown there."
+        }
       }
     ]
   }

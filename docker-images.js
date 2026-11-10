@@ -35,7 +35,24 @@ const CTR_DOCKER_IMAGES_DATA = [
           "digest",
           "size",
           "df"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/ls/",
+              "title": "docker image ls"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/system/df/",
+              "title": "docker system df"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/history/",
+              "title": "docker history"
+            }
+          ]
+        }
       },
       {
         "id": "docker-image-ls-sub-1",
@@ -48,7 +65,24 @@ const CTR_DOCKER_IMAGES_DATA = [
           "images",
           "ls",
           "digest"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/ls/",
+              "title": "docker image ls"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/system/df/",
+              "title": "docker system df"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/history/",
+              "title": "docker history"
+            }
+          ]
+        }
       },
       {
         "id": "docker-image-ls-sub-2",
@@ -61,7 +95,24 @@ const CTR_DOCKER_IMAGES_DATA = [
           "images",
           "ls",
           "digest"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/ls/",
+              "title": "docker image ls"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/system/df/",
+              "title": "docker system df"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/history/",
+              "title": "docker history"
+            }
+          ]
+        }
       }
     ]
   },
@@ -111,7 +162,24 @@ const CTR_DOCKER_IMAGES_DATA = [
           "buildx",
           "dockerfile",
           "tag"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/buildx/build/",
+              "title": "docker build (buildx)"
+            },
+            {
+              "url": "https://docs.docker.com/build/buildkit/",
+              "title": "BuildKit"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/builder/prune/",
+              "title": "docker builder prune"
+            }
+          ]
+        }
       },
       {
         "id": "docker-build-tag-sub-1",
@@ -124,7 +192,24 @@ const CTR_DOCKER_IMAGES_DATA = [
           "build",
           "buildkit",
           "buildx"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/buildx/build/",
+              "title": "docker build (buildx)"
+            },
+            {
+              "url": "https://docs.docker.com/build/buildkit/",
+              "title": "BuildKit"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/builder/prune/",
+              "title": "docker builder prune"
+            }
+          ]
+        }
       },
       {
         "id": "docker-build-tag-sub-2",
@@ -137,7 +222,24 @@ const CTR_DOCKER_IMAGES_DATA = [
           "build",
           "buildkit",
           "buildx"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/buildx/build/",
+              "title": "docker build (buildx)"
+            },
+            {
+              "url": "https://docs.docker.com/build/buildkit/",
+              "title": "BuildKit"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/builder/prune/",
+              "title": "docker builder prune"
+            }
+          ]
+        }
       }
     ]
   },
@@ -185,7 +287,20 @@ const CTR_DOCKER_IMAGES_DATA = [
           "cmd",
           "layers",
           "cache"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/dockerfile/",
+              "title": "Dockerfile reference"
+            },
+            {
+              "url": "https://docs.docker.com/build/building/best-practices/",
+              "title": "Dockerfile best practices"
+            }
+          ]
+        }
       }
     ]
   },
@@ -222,7 +337,24 @@ const CTR_DOCKER_IMAGES_DATA = [
           "push",
           "tag",
           "registry"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/pull/",
+              "title": "docker pull"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/tag/",
+              "title": "docker tag"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/push/",
+              "title": "docker push"
+            }
+          ]
+        }
       },
       {
         "id": "docker-pull-tag-push-sub-1",
@@ -235,7 +367,24 @@ const CTR_DOCKER_IMAGES_DATA = [
           "pull",
           "push",
           "tag"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/pull/",
+              "title": "docker pull"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/tag/",
+              "title": "docker tag"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/push/",
+              "title": "docker push"
+            }
+          ]
+        }
       },
       {
         "id": "docker-pull-tag-push-sub-2",
@@ -248,7 +397,24 @@ const CTR_DOCKER_IMAGES_DATA = [
           "pull",
           "push",
           "tag"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/pull/",
+              "title": "docker pull"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/tag/",
+              "title": "docker tag"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/push/",
+              "title": "docker push"
+            }
+          ]
+        }
       },
       {
         "id": "docker-pull-tag-push-sub-3",
@@ -261,7 +427,24 @@ const CTR_DOCKER_IMAGES_DATA = [
           "pull",
           "push",
           "tag"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/pull/",
+              "title": "docker pull"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/tag/",
+              "title": "docker tag"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/push/",
+              "title": "docker push"
+            }
+          ]
+        }
       }
     ]
   },
@@ -306,7 +489,20 @@ const CTR_DOCKER_IMAGES_DATA = [
           "transfer",
           "ctr",
           "containerd"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/save/",
+              "title": "docker save"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/load/",
+              "title": "docker load"
+            }
+          ]
+        }
       },
       {
         "id": "docker-save-load-airgap-sub-1",
@@ -319,7 +515,20 @@ const CTR_DOCKER_IMAGES_DATA = [
           "save",
           "load",
           "airgap"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/save/",
+              "title": "docker save"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/load/",
+              "title": "docker load"
+            }
+          ]
+        }
       },
       {
         "id": "docker-save-load-airgap-sub-2",
@@ -332,7 +541,20 @@ const CTR_DOCKER_IMAGES_DATA = [
           "save",
           "load",
           "airgap"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/save/",
+              "title": "docker save"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/load/",
+              "title": "docker load"
+            }
+          ]
+        }
       },
       {
         "id": "docker-save-load-airgap-sub-3",
@@ -345,7 +567,20 @@ const CTR_DOCKER_IMAGES_DATA = [
           "save",
           "load",
           "airgap"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/save/",
+              "title": "docker save"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/load/",
+              "title": "docker load"
+            }
+          ]
+        }
       }
     ]
   },
@@ -371,7 +606,7 @@ const CTR_DOCKER_IMAGES_DATA = [
           ],
           [
             "--volumes",
-            "Also removes unused volumes: this deletes data. Never use it casually"
+            "Also removes unused anonymous volumes (named volumes are kept): still deletes data, never use it casually"
           ],
           [
             "-f",
@@ -387,7 +622,25 @@ const CTR_DOCKER_IMAGES_DATA = [
           "disk",
           "space",
           "df"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/system/prune/",
+              "title": "docker system prune"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/prune/",
+              "title": "docker image prune"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/prune/",
+              "title": "docker container prune"
+            }
+          ],
+          "note": "Corrected 2026-11-09: --volumes (and docker volume prune without -a) removes only anonymous volumes; named volumes are kept."
+        }
       },
       {
         "id": "docker-prune-sub-1",
@@ -400,7 +653,25 @@ const CTR_DOCKER_IMAGES_DATA = [
           "prune",
           "cleanup",
           "disk"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/system/prune/",
+              "title": "docker system prune"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/prune/",
+              "title": "docker image prune"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/prune/",
+              "title": "docker container prune"
+            }
+          ],
+          "note": "Corrected 2026-11-09: --volumes (and docker volume prune without -a) removes only anonymous volumes; named volumes are kept."
+        }
       },
       {
         "id": "docker-prune-sub-2",
@@ -413,7 +684,25 @@ const CTR_DOCKER_IMAGES_DATA = [
           "prune",
           "cleanup",
           "disk"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/system/prune/",
+              "title": "docker system prune"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/prune/",
+              "title": "docker image prune"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/prune/",
+              "title": "docker container prune"
+            }
+          ],
+          "note": "Corrected 2026-11-09: --volumes (and docker volume prune without -a) removes only anonymous volumes; named volumes are kept."
+        }
       },
       {
         "id": "docker-prune-sub-3",
@@ -426,7 +715,25 @@ const CTR_DOCKER_IMAGES_DATA = [
           "prune",
           "cleanup",
           "disk"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/system/prune/",
+              "title": "docker system prune"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/image/prune/",
+              "title": "docker image prune"
+            },
+            {
+              "url": "https://docs.docker.com/reference/cli/docker/container/prune/",
+              "title": "docker container prune"
+            }
+          ],
+          "note": "Corrected 2026-11-09: --volumes (and docker volume prune without -a) removes only anonymous volumes; named volumes are kept."
+        }
       }
     ]
   },
@@ -440,28 +747,42 @@ const CTR_DOCKER_IMAGES_DATA = [
         "id": "docker-images-tips-card",
         "desc": "Where Docker keeps its data",
         "cmd": "docker info --format '{{.DockerRootDir}} {{.Driver}}'",
-        "details": "Images, containers and volumes live under the Docker root directory (default /var/lib/docker) using the storage driver shown (overlay2 on modern Ubuntu). When / fills up on a GPU node, this directory is the usual culprit. The location is set with data-root in /etc/docker/daemon.json.",
+        "details": "Containers and volumes live under the Docker root directory (default /var/lib/docker), set with data-root in /etc/docker/daemon.json. Images depend on the storage backend: older installs use the overlay2 driver under the same directory; fresh installs of Engine 29+ use the containerd image store, whose image data sits under /var/lib/containerd and is not moved by data-root. When / fills up on a GPU node, check both.",
         "flags": [
           [
             "DockerRootDir",
             "Where everything is stored, default /var/lib/docker"
           ],
           [
-            "Driver: overlay2",
-            "The normal storage driver on current kernels"
+            "Driver: overlay2 / overlayfs",
+            "overlay2 on older installs; the containerd image store (Engine 29+ fresh installs) uses the overlayfs snapshotter"
           ],
           [
             "data-root in daemon.json",
             "Moves storage to another disk; needs a Docker restart and a data copy (changes state)"
           ]
         ],
-        "tip": "Full root disk on a node? Check du -sh /var/lib/docker first",
+        "tip": "Full root disk on a node? du -sh /var/lib/docker /var/lib/containerd",
         "tags": [
           "docker",
           "containers",
           "tips",
           "best-practice"
-        ]
+        ],
+        "src": {
+          "verified": "2026-11-09",
+          "refs": [
+            {
+              "url": "https://docs.docker.com/engine/daemon/",
+              "title": "Docker daemon: data directory"
+            },
+            {
+              "url": "https://docs.docker.com/engine/storage/containerd/",
+              "title": "containerd image store"
+            }
+          ],
+          "note": "Corrected 2026-11-09: with the containerd image store (default on fresh Engine 29+ installs) image data is under /var/lib/containerd, not data-root."
+        }
       }
     ]
   }

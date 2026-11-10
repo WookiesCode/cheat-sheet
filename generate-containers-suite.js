@@ -44,7 +44,8 @@ const CONTAINER_SECTIONS = [
           ["--filter status=exited", "Show only containers in one state (running, exited, restarting, paused)"]
         ],
         tip: "Exit 137 = SIGKILL, usually out of memory",
-        tags: ["ps", "list", "status", "exited", "format"]
+        tags: ["ps", "list", "status", "exited", "format"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://docs.docker.com/reference/cli/docker/container/ls/", "title": "docker ps (container ls)"}]}
       },
       {
         id: "docker-run-detached",
@@ -66,7 +67,8 @@ const CONTAINER_SECTIONS = [
           ["docker rm <container>", "Delete a stopped container; its writable layer is lost (changes state)"]
         ],
         tip: "Ports are host:container",
-        tags: ["run", "start", "detached", "restart", "port", "publish"]
+        tags: ["run", "start", "detached", "restart", "port", "publish"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://docs.docker.com/reference/cli/docker/container/run/", "title": "docker run"}, {"url": "https://docs.docker.com/reference/cli/docker/container/stop/", "title": "docker stop"}, {"url": "https://docs.docker.com/reference/cli/docker/container/start/", "title": "docker start"}, {"url": "https://docs.docker.com/reference/cli/docker/container/rm/", "title": "docker rm"}], "note": "Checked against Docker Engine 29.9.3 docs. Exit codes 125/126/127 (on the Pro Tip) are not on the current docker run reference page."}
       },
       {
         id: "docker-logs-tail",
@@ -83,7 +85,8 @@ const CONTAINER_SECTIONS = [
           ["docker logs -f --tail 50 <container>", "Follow live output, starting from the last 50 lines"]
         ],
         tip: "Apps often log to stderr: add 2>&1 before grep",
-        tags: ["logs", "tail", "follow", "stderr", "timestamps"]
+        tags: ["logs", "tail", "follow", "stderr", "timestamps"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://docs.docker.com/reference/cli/docker/container/logs/", "title": "docker logs"}]}
       },
       {
         id: "docker-exec-shell",
@@ -100,7 +103,8 @@ const CONTAINER_SECTIONS = [
           ["docker exec <container> env", "Show the environment variables the app actually sees"]
         ],
         tip: "No bash? Use sh",
-        tags: ["exec", "shell", "sh", "bash", "interactive"]
+        tags: ["exec", "shell", "sh", "bash", "interactive"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://docs.docker.com/reference/cli/docker/container/exec/", "title": "docker exec"}]}
       },
       {
         id: "docker-inspect-state",
@@ -118,7 +122,8 @@ const CONTAINER_SECTIONS = [
           ["docker top <container>", "Processes running inside the container, as seen from the host"]
         ],
         tip: "Exited + oom=true → memory limit",
-        tags: ["inspect", "state", "exitcode", "oom", "restart", "stats", "debug"]
+        tags: ["inspect", "state", "exitcode", "oom", "restart", "stats", "debug"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://docs.docker.com/reference/cli/docker/inspect/", "title": "docker inspect"}, {"url": "https://docs.docker.com/reference/cli/docker/container/stats/", "title": "docker stats"}, {"url": "https://docs.docker.com/reference/cli/docker/container/top/", "title": "docker top"}]}
       }
     ],
     proTip: {
@@ -126,6 +131,7 @@ const CONTAINER_SECTIONS = [
       cmd: "docker ps -a --filter status=exited --format '{{.Names}} {{.Status}}'",
       details: "When a service is down, the evidence is in the stopped container: its exit code, its last log lines and whether the OOM killer hit it. docker rm or a restart with --rm throws that evidence away. Capture docker logs and docker inspect first, then restart.",
       tip: "Capture logs + inspect output into cases/<host>/logs/ before restarting",
+      src: {"verified": "2026-11-09", "refs": [{"url": "https://docs.docker.com/reference/cli/docker/container/ls/", "title": "docker ps"}, {"url": "https://docs.docker.com/reference/cli/docker/container/logs/", "title": "docker logs"}], "note": "Exit codes 125/126/127 are Docker's long-standing convention but are not on the current docker run reference page."},
       flags: [
         ["Exit 0", "The process finished on its own; check the command or entrypoint"],
         ["Exit 1 / 2", "The application reported an error; read its logs"],
@@ -155,7 +161,8 @@ const CONTAINER_SECTIONS = [
           ["docker history --no-trunc <image>:<tag>", "The layers of an image and the Dockerfile step that created each one"]
         ],
         tip: "Pin production images by digest",
-        tags: ["images", "ls", "digest", "size", "df"]
+        tags: ["images", "ls", "digest", "size", "df"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://docs.docker.com/reference/cli/docker/image/ls/", "title": "docker image ls"}, {"url": "https://docs.docker.com/reference/cli/docker/system/df/", "title": "docker system df"}, {"url": "https://docs.docker.com/reference/cli/docker/image/history/", "title": "docker history"}]}
       },
       {
         id: "docker-build-tag",
@@ -174,7 +181,8 @@ const CONTAINER_SECTIONS = [
           ["docker builder prune", "Delete the build cache when disk is tight (changes state)"]
         ],
         tip: "Add a .dockerignore so .git and data aren't uploaded",
-        tags: ["build", "buildkit", "buildx", "dockerfile", "tag"]
+        tags: ["build", "buildkit", "buildx", "dockerfile", "tag"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://docs.docker.com/reference/cli/docker/buildx/build/", "title": "docker build (buildx)"}, {"url": "https://docs.docker.com/build/buildkit/", "title": "BuildKit"}, {"url": "https://docs.docker.com/reference/cli/docker/builder/prune/", "title": "docker builder prune"}]}
       },
       {
         id: "dockerfile-minimal",
@@ -188,7 +196,8 @@ const CONTAINER_SECTIONS = [
           ["CMD [\"...\"] (exec form)", "JSON array form: the app gets signals directly, so docker stop works cleanly"]
         ],
         tip: "Order steps from least to most often changed",
-        tags: ["dockerfile", "from", "run", "copy", "cmd", "layers", "cache"]
+        tags: ["dockerfile", "from", "run", "copy", "cmd", "layers", "cache"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://docs.docker.com/reference/dockerfile/", "title": "Dockerfile reference"}, {"url": "https://docs.docker.com/build/building/best-practices/", "title": "Dockerfile best practices"}]}
       },
       {
         id: "docker-pull-tag-push",
@@ -205,7 +214,8 @@ const CONTAINER_SECTIONS = [
           ["docker image inspect <image>:<tag> --format '{{.Architecture}} {{.Os}}'", "Check the image matches the host CPU (amd64 vs arm64)"]
         ],
         tip: "A tag is just a pointer",
-        tags: ["pull", "push", "tag", "registry"]
+        tags: ["pull", "push", "tag", "registry"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://docs.docker.com/reference/cli/docker/image/pull/", "title": "docker pull"}, {"url": "https://docs.docker.com/reference/cli/docker/image/tag/", "title": "docker tag"}, {"url": "https://docs.docker.com/reference/cli/docker/image/push/", "title": "docker push"}]}
       },
       {
         id: "docker-save-load-airgap",
@@ -223,7 +233,8 @@ const CONTAINER_SECTIONS = [
           ["ctr -n k8s.io images import <name>.tar", "Import into containerd's Kubernetes namespace on a node with no Docker (changes state)"]
         ],
         tip: "Checksum the tar on both ends",
-        tags: ["save", "load", "airgap", "offline", "tar", "transfer", "ctr", "containerd"]
+        tags: ["save", "load", "airgap", "offline", "tar", "transfer", "ctr", "containerd"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://docs.docker.com/reference/cli/docker/image/save/", "title": "docker save"}, {"url": "https://docs.docker.com/reference/cli/docker/image/load/", "title": "docker load"}]}
       },
       {
         id: "docker-prune",
@@ -232,7 +243,7 @@ const CONTAINER_SECTIONS = [
         flags: [
           ["docker system prune", "Removes stopped containers, unused networks, dangling images and build cache; asks for confirmation"],
           ["-a", "Also removes every image not used by a container, which means re-pulling later"],
-          ["--volumes", "Also removes unused volumes: this deletes data. Never use it casually"],
+          ["--volumes", "Also removes unused anonymous volumes (named volumes are kept): still deletes data, never use it casually"],
           ["-f", "Skip the confirmation prompt; avoid in scripts unless you are sure"]
         ],
         subcommands: [
@@ -241,17 +252,19 @@ const CONTAINER_SECTIONS = [
           ["docker container prune", "Only stopped containers (changes state)"]
         ],
         tip: "Run docker system df first; never add --volumes blindly",
-        tags: ["prune", "cleanup", "disk", "space", "df"]
+        tags: ["prune", "cleanup", "disk", "space", "df"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://docs.docker.com/reference/cli/docker/system/prune/", "title": "docker system prune"}, {"url": "https://docs.docker.com/reference/cli/docker/image/prune/", "title": "docker image prune"}, {"url": "https://docs.docker.com/reference/cli/docker/container/prune/", "title": "docker container prune"}], "note": "Corrected 2026-11-09: --volumes (and docker volume prune without -a) removes only anonymous volumes; named volumes are kept."}
       }
     ],
     proTip: {
       desc: "Where Docker keeps its data",
       cmd: "docker info --format '{{.DockerRootDir}} {{.Driver}}'",
-      details: "Images, containers and volumes live under the Docker root directory (default /var/lib/docker) using the storage driver shown (overlay2 on modern Ubuntu). When / fills up on a GPU node, this directory is the usual culprit. The location is set with data-root in /etc/docker/daemon.json.",
-      tip: "Full root disk on a node? Check du -sh /var/lib/docker first",
+      details: "Containers and volumes live under the Docker root directory (default /var/lib/docker), set with data-root in /etc/docker/daemon.json. Images depend on the storage backend: older installs use the overlay2 driver under the same directory; fresh installs of Engine 29+ use the containerd image store, whose image data sits under /var/lib/containerd and is not moved by data-root. When / fills up on a GPU node, check both.",
+      tip: "Full root disk on a node? du -sh /var/lib/docker /var/lib/containerd",
+      src: {"verified": "2026-11-09", "refs": [{"url": "https://docs.docker.com/engine/daemon/", "title": "Docker daemon: data directory"}, {"url": "https://docs.docker.com/engine/storage/containerd/", "title": "containerd image store"}], "note": "Corrected 2026-11-09: with the containerd image store (default on fresh Engine 29+ installs) image data is under /var/lib/containerd, not data-root."},
       flags: [
         ["DockerRootDir", "Where everything is stored, default /var/lib/docker"],
-        ["Driver: overlay2", "The normal storage driver on current kernels"],
+        ["Driver: overlay2 / overlayfs", "overlay2 on older installs; the containerd image store (Engine 29+ fresh installs) uses the overlayfs snapshotter"],
         ["data-root in daemon.json", "Moves storage to another disk; needs a Docker restart and a data copy (changes state)"]
       ]
     }
@@ -279,7 +292,8 @@ const CONTAINER_SECTIONS = [
           ["docker compose up -d --force-recreate <service>", "Recreate one service even if nothing changed (changes state)"]
         ],
         tip: "Run docker compose config before up",
-        tags: ["compose", "up", "stack", "services"]
+        tags: ["compose", "up", "stack", "services"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://docs.docker.com/reference/cli/docker/compose/up/", "title": "docker compose up"}, {"url": "https://docs.docker.com/reference/cli/docker/compose/config/", "title": "docker compose config"}, {"url": "https://docs.docker.com/compose/intro/compose-application-model/", "title": "Compose application model"}], "note": "The Python docker-compose (v1) is no longer maintained; Compose v5.7.0 is current (GitHub releases). Docker's migration page didn't state v1's end-of-life when checked."}
       },
       {
         id: "compose-ps-logs",
@@ -296,7 +310,8 @@ const CONTAINER_SECTIONS = [
           ["docker compose exec <service> sh", "Interactive shell in a service container"]
         ],
         tip: "Use the service name from compose.yaml",
-        tags: ["compose", "ps", "logs", "exec"]
+        tags: ["compose", "ps", "logs", "exec"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://docs.docker.com/reference/cli/docker/compose/ps/", "title": "docker compose ps"}, {"url": "https://docs.docker.com/reference/cli/docker/compose/logs/", "title": "docker compose logs"}, {"url": "https://docs.docker.com/reference/cli/docker/compose/exec/", "title": "docker compose exec"}]}
       },
       {
         id: "compose-down",
@@ -312,7 +327,8 @@ const CONTAINER_SECTIONS = [
           ["docker compose restart <service>", "Restart one service (changes state)"]
         ],
         tip: "down keeps volumes; down -v deletes them",
-        tags: ["compose", "down", "stop", "volumes"]
+        tags: ["compose", "down", "stop", "volumes"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://docs.docker.com/reference/cli/docker/compose/down/", "title": "docker compose down"}, {"url": "https://docs.docker.com/reference/cli/docker/compose/stop/", "title": "docker compose stop"}]}
       },
       {
         id: "compose-yaml-example",
@@ -326,7 +342,8 @@ const CONTAINER_SECTIONS = [
           ["*_FILE / secrets", "Read passwords from files instead of putting them in compose.yaml"]
         ],
         tip: "Services reach each other by service name",
-        tags: ["compose", "yaml", "services", "volumes", "healthcheck", "depends_on"]
+        tags: ["compose", "yaml", "services", "volumes", "healthcheck", "depends_on"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://docs.docker.com/reference/compose-file/services/", "title": "Compose file: services"}, {"url": "https://docs.docker.com/reference/compose-file/volumes/", "title": "Compose file: volumes"}]}
       }
     ],
     proTip: {
@@ -334,6 +351,7 @@ const CONTAINER_SECTIONS = [
       cmd: "docker compose config --quiet && echo OK",
       details: "Compose reads a .env file in the project directory automatically and substitutes ${VAR} references. Keep that .env out of git (add it to .gitignore) and commit a .env.example with placeholder values instead. --quiet validates without printing the merged config, which would otherwise show secret values on screen.",
       tip: "Commit .env.example, never .env",
+      src: {"verified": "2026-11-09", "refs": [{"url": "https://docs.docker.com/compose/how-tos/environment-variables/variable-interpolation/", "title": "Compose: variable interpolation (.env)"}, {"url": "https://docs.docker.com/reference/cli/docker/compose/config/", "title": "docker compose config"}]},
       flags: [
         [".env", "Loaded automatically for ${VAR} substitution in compose.yaml"],
         ["config --quiet", "Validate only; prints nothing on success"],
@@ -363,7 +381,8 @@ const CONTAINER_SECTIONS = [
           ["docker network connect <network> <container>", "Attach a running container to another network (changes state)"]
         ],
         tip: "Use a user-defined network for name resolution",
-        tags: ["network", "bridge", "host", "dns"]
+        tags: ["network", "bridge", "host", "dns"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://docs.docker.com/reference/cli/docker/network/ls/", "title": "docker network ls"}, {"url": "https://docs.docker.com/engine/network/drivers/bridge/", "title": "Bridge network driver"}]}
       },
       {
         id: "docker-port-check",
@@ -379,7 +398,8 @@ const CONTAINER_SECTIONS = [
           ["docker exec <container> getent hosts <other-container>", "Test name resolution from inside a container"]
         ],
         tip: "Docker-published ports can bypass ufw",
-        tags: ["port", "publish", "ss", "firewall", "ufw"]
+        tags: ["port", "publish", "ss", "firewall", "ufw"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://docs.docker.com/reference/cli/docker/container/port/", "title": "docker port"}, {"url": "https://docs.docker.com/engine/network/packet-filtering-firewalls/", "title": "Packet filtering and firewalls"}]}
       },
       {
         id: "docker-volumes",
@@ -389,15 +409,16 @@ const CONTAINER_SECTIONS = [
           ["named volume (-v data:/path)", "Managed by Docker under /var/lib/docker/volumes; survives container removal"],
           ["bind mount (-v /host/path:/path)", "A host directory mapped in directly; you manage permissions and backups"],
           [":ro", "Mount read-only, e.g. -v /etc/ssl:/etc/ssl:ro"],
-          ["--mount type=bind,src=...,dst=...", "Longer syntax that fails loudly if the host path doesn't exist (-v silently creates it)"]
+          ["--mount type=bind,src=...,dst=...", "Longer syntax that fails (\"bind source path does not exist\") if the host path is missing; -v silently creates it as a directory"]
         ],
         subcommands: [
           ["docker volume inspect <volume> --format '{{.Mountpoint}}'", "Host path of a named volume"],
           ["docker run --rm -v <volume>:/data -v \"$PWD\":/backup ubuntu:24.04 tar czf /backup/<volume>.tgz -C /data .", "Back up a named volume to a tarball in the current directory"],
-          ["docker volume prune", "Delete unused volumes: this deletes data (changes state)"]
+          ["docker volume prune", "Delete unused anonymous volumes; add -a for unused named volumes too: this deletes data (changes state)"]
         ],
         tip: "-v creates a missing host path silently; --mount errors",
-        tags: ["volume", "bind", "mount", "storage", "backup"]
+        tags: ["volume", "bind", "mount", "storage", "backup"],
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://docs.docker.com/reference/cli/docker/volume/ls/", "title": "docker volume ls"}, {"url": "https://docs.docker.com/engine/storage/bind-mounts/", "title": "Bind mounts"}, {"url": "https://docs.docker.com/reference/cli/docker/volume/prune/", "title": "docker volume prune"}], "note": "Corrected 2026-11-09: docker volume prune removes only anonymous volumes unless -a is given."}
       }
     ],
     proTip: {
@@ -405,6 +426,7 @@ const CONTAINER_SECTIONS = [
       cmd: "docker run --rm --network host --device /dev/infiniband --ulimit memlock=-1 <image> ibv_devinfo",
       details: "Multi-node GPU jobs that use InfiniBand or RoCE need the host's RDMA devices inside the container. --network host avoids NAT, --device /dev/infiniband exposes the verbs devices, and an unlimited memlock lets RDMA pin memory. Check the HCA from inside with ibv_devinfo before blaming the fabric.",
       tip: "ibv_devinfo inside the container should match the host",
+      src: {"verified": "2026-11-09", "refs": [{"url": "https://docs.docker.com/reference/cli/docker/container/run/", "title": "docker run"}], "note": "Docker's run reference shows --device with single device paths; passing the /dev/infiniband directory is common practice but not shown there."},
       flags: [
         ["--network host", "Container uses the host's interfaces directly"],
         ["--device /dev/infiniband", "Pass the RDMA verbs devices through"],
@@ -479,7 +501,7 @@ const CONTAINER_SECTIONS = [
           ["Server Version", "The Engine version; compare with the release notes before upgrading"],
           ["Cgroup Driver / Version", "Should be systemd / 2 on current Ubuntu; cgroup v1 is deprecated in Kubernetes (1.35+) and the kubelet won't start on it by default"],
           ["Runtimes", "Should include nvidia on GPU nodes"],
-          ["Storage Driver", "overlay2 on current kernels"]
+          ["Storage Driver", "overlay2 on older installs; overlayfs (containerd image store) on fresh Engine 29+ installs"]
         ],
         subcommands: [
           ["systemctl status docker --no-pager", "Is the daemon running, and its last log lines"],
