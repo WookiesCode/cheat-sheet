@@ -17,7 +17,7 @@ Product review started 2026-11-09. Phases 1–3 are below. Eleven items are buil
 | 8 | Source and last-verified date on core suites | ✅ NVIDIA, InfiniBand, Redfish, IPMI, BMC vendor tools, switches, Ethernet, Linux storage and hardware, hardware reference, Kubernetes and GPU containers | `improve/sources-*` | `3320dc0` … `7ab92ed` |
 | 9 | Stop duplicating the nav into every page | ✅ Built | `improve/nav-once` | (this branch) |
 | 10 | Practice what I actually use | ✅ Built | `improve/practice-trail` | (this branch) |
-| 11 | Local usage meter | Open | | |
+| 11 | Local usage meter | ✅ Built | `improve/usage-meter` | (this branch) |
 | 12 | Export My kit as a navi `.cheat` file | Open (needs navi installed: ask first) | | |
 | 13 | Make the doc counts agree | ✅ Built | `improve/doc-counts` | `0d6d0f5` |
 
@@ -342,6 +342,7 @@ Impact (H/M/L) · Effort (S/M/L) · Risk (H/M/L). The ranking is by user impact 
 - **Why:** J3. The site keeps growing (24 themes, about 20 tools, 108 home buttons), and you have done redundancy cleanups before.
 - **Plan:** count opens per tool and sheet in `localStorage` only (never sent anywhere; name the key `dc_*` so the backup includes it). The Workbench gets an "Unused in 30 days" fold.
 - Impact **M** · Effort **S–M** · Risk **L** · Files: `common.js`.
+- ✅ **Built** (`improve/usage-meter`, `tests/usage-meter.test.js`). `dc_usage` keeps `{ since, tools: { id: { n, t } }, sheets: { file: { n, t } } }`. Each Workbench tool's open function notes itself on its first line, so a tool counts however it was opened: keyboard, toolbar, Ctrl+K, the home flow or the Workbench. Guided runbooks and the RMA formatter count from the triage modal's tabs, and Field notes, a page, counts as a sheet view. Sheets count in `recordVisit()`, which also covers the portable build's in-place switch. A repeat of the same open within 2 s counts once. The Workbench gets an **Unused in 30 days** fold with the stale tools as one-click chips and the stale sheets grouped by suite. It says "not opened since then" while the meter is under 30 days old. Backup labels the key.
 
 **12. Export My kit as a navi `.cheat` file**
 - **Why:** J1 from inside tmux and ssh, without the browser. A **data export only**; it doesn't revive the removed TUIs.

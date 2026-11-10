@@ -882,6 +882,7 @@
 
   let boardEl = null;
   function openBoard() {
+    usageNote('tool', 'board');
     if (!boardEl) {
       boardEl = document.createElement('div');
       boardEl.className = 'an-backdrop board-backdrop';
@@ -2065,6 +2066,7 @@
 
   let atlasEl = null;
   function openHealthAtlas(focusId) {
+    usageNote('tool', 'atlas');
     if (!atlasEl) {
       atlasEl = document.createElement('div');
       atlasEl.className = 'an-backdrop atlas-backdrop';
@@ -2556,6 +2558,7 @@
   let anBackdrop = null;
   let anFocus = null;
   function openAnalyzer(text = '') {
+    usageNote('tool', 'timeline');
     if (!anBackdrop) {
       anBackdrop = document.createElement('div');
       anBackdrop.className = 'an-backdrop';
@@ -3928,6 +3931,7 @@ echo "=========================================================="
         tabs.forEach(t => t.classList.remove('active'));
         tab.classList.add('active');
         const target = tab.dataset.tab;
+        usageNoteTriage(target);
         document.querySelectorAll('.triage-tab-content').forEach(c => c.classList.remove('active'));
         document.getElementById(`tab-${target}`).classList.add('active');
         if (target === 'ticket') updateRmaPreview();
@@ -3999,8 +4003,15 @@ ${rmaTrailSection()}#### Action Requested:
     if (el) el.textContent = md;
   }
 
+  // Guided runbooks and the RMA formatter live in this modal's tabs (usage meter).
+  function usageNoteTriage(tab) {
+    if (tab === 'runbook') usageNote('tool', 'runbook');
+    else if (tab === 'ticket') usageNote('tool', 'rma');
+  }
   function openTriageModal() {
     initTriageModal();
+    // Read the tab after a moment: the RMA path opens the modal, then switches tabs.
+    setTimeout(() => { const t = triageBackdrop && triageBackdrop.querySelector('.triage-tab.active'); if (t && !triageBackdrop.classList.contains('hidden')) usageNoteTriage(t.dataset.tab); }, 300);
     refreshTrailUi(false);
     updateRmaPreview();
     triageBackdrop.classList.remove('hidden');
@@ -5719,6 +5730,7 @@ ${rmaTrailSection()}#### Action Requested:
 
   let gdEl = null, gdFocus = null;
   function openGoldenDiff(suspectText = '', goodText = '') {
+    usageNote('tool', 'diff');
     if (!gdEl) {
       gdEl = document.createElement('div');
       gdEl.className = 'an-backdrop gd-backdrop';
@@ -5924,6 +5936,7 @@ ${rmaTrailSection()}#### Action Requested:
 
   let fleetEl = null;
   function openFleet() {
+    usageNote('tool', 'fleet');
     if (!fleetEl) {
       fleetEl = document.createElement('div');
       fleetEl.className = 'an-backdrop fleet-backdrop';
@@ -6329,6 +6342,7 @@ ${rmaTrailSection()}#### Action Requested:
 
   let frEl = null;
   function openFleetResults(text = '') {
+    usageNote('tool', 'fleetres');
     if (!frEl) {
       frEl = document.createElement('div');
       frEl.className = 'an-backdrop fr-backdrop';
@@ -6737,6 +6751,7 @@ ${rmaTrailSection()}#### Action Requested:
 
   let xrEl = null;
   function openXray(text = '') {
+    usageNote('tool', 'xray');
     if (!xrEl) {
       xrEl = document.createElement('div');
       xrEl.className = 'an-backdrop xr-backdrop';
@@ -7023,6 +7038,7 @@ ${rmaTrailSection()}#### Action Requested:
 
   let ckEl = null;
   function openCheckup(text) {
+    usageNote('tool', 'checkup');
     if (!ckEl) {
       ckEl = document.createElement('div');
       ckEl.className = 'an-backdrop ck-backdrop';
@@ -7339,6 +7355,7 @@ ${rmaTrailSection()}#### Action Requested:
 
   let caseEl = null;
   function openCaseFile() {
+    usageNote('tool', 'case');
     if (!caseEl) {
       caseEl = document.createElement('div');
       caseEl.className = 'an-backdrop case-backdrop';
@@ -10102,6 +10119,7 @@ ${rmaTrailSection()}#### Action Requested:
   }
 
   function openRack(query) {
+    usageNote('tool', 'rack');
     if (IN_WIDGET_FRAME) return;
     if (!rkEl) {
       rkEl = document.createElement('div');
@@ -10575,6 +10593,7 @@ ${rmaTrailSection()}#### Action Requested:
   }
 
   function openPanel(tab, findText) {
+    usageNote('tool', tab === 'check' ? 'cable' : 'panel');
     if (IN_WIDGET_FRAME) return;
     if (!pnEl) {
       pnEl = document.createElement('div');
@@ -10789,6 +10808,7 @@ ${rmaTrailSection()}#### Action Requested:
   }
 
   function openCapture(source) {
+    usageNote('tool', 'capture');
     if (IN_WIDGET_FRAME) return;
     if (!csEl) {
       csEl = document.createElement('div');
@@ -11134,6 +11154,7 @@ ${rmaTrailSection()}#### Action Requested:
   }
 
   function openPlan() {
+    usageNote('tool', 'plan');
     if (IN_WIDGET_FRAME) return;
     if (!cpEl) {
       cpEl = document.createElement('div');
@@ -11539,6 +11560,7 @@ ${rmaTrailSection()}#### Action Requested:
   }
 
   function openIntake(text) {
+    usageNote('tool', 'intake');
     if (IN_WIDGET_FRAME) return;
     if (!tkEl) {
       tkEl = document.createElement('div');
@@ -12032,6 +12054,7 @@ ${rmaTrailSection()}#### Action Requested:
   }
 
   function openFabric(text) {
+    usageNote('tool', 'fabric');
     if (IN_WIDGET_FRAME) return;
     if (!fmEl) {
       fmEl = document.createElement('div');
@@ -12120,6 +12143,62 @@ ${rmaTrailSection()}#### Action Requested:
   }
 
   // -------------------------------------------------------------
+  // USAGE METER (#11)
+  // The site keeps growing, and pruning it used to be guesswork. This counts how often
+  // each Workbench tool and each sheet is opened, with the last time, in this browser
+  // only (dc_usage: never sent anywhere, included in Backup). The Workbench shows what
+  // hasn't been opened in 30 days, so a cleanup starts from evidence.
+  // -------------------------------------------------------------
+  const USAGE_KEY = 'dc_usage';
+  const USAGE_STALE_DAYS = 30;
+  const usageRecent = new Map();   // kind:id → last note, so one open isn't counted twice
+  function usageRead() {
+    try {
+      const u = JSON.parse(localStorage.getItem(USAGE_KEY) || '{}') || {};
+      return { since: Number(u.since) || 0, tools: u.tools && typeof u.tools === 'object' ? u.tools : {}, sheets: u.sheets && typeof u.sheets === 'object' ? u.sheets : {} };
+    } catch (e) { return { since: 0, tools: {}, sheets: {} }; }
+  }
+  // kind: 'tool' (a WB_TOOLS id) or 'sheet' (a page file).
+  function usageNote(kind, id) {
+    if (!id || window.location.href === 'about:srcdoc') return;
+    const now = Date.now();
+    const k = `${kind}:${id}`;
+    if (now - (usageRecent.get(k) || 0) < 2000) return;
+    usageRecent.set(k, now);
+    const u = usageRead();
+    if (!u.since) u.since = now;
+    const bucket = kind === 'tool' ? u.tools : u.sheets;
+    const rec = bucket[id] || { n: 0, t: 0 };
+    bucket[id] = { n: (Number(rec.n) || 0) + 1, t: now };
+    try { localStorage.setItem(USAGE_KEY, JSON.stringify(u)); } catch (e) { /* storage full or blocked: the meter just doesn't count */ }
+  }
+
+  // The Workbench fold: tools and sheets not opened in the last 30 days.
+  function usageFoldHtml() {
+    const u = usageRead();
+    const now = Date.now();
+    const cutoff = now - USAGE_STALE_DAYS * DAY_MS;
+    const stale = rec => !rec || !rec.t || rec.t < cutoff;
+    const days = u.since ? Math.max(0, Math.floor((now - u.since) / DAY_MS)) : 0;
+    const since = u.since ? new Date(u.since).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' }) : '';
+    // A tool that is a page (Field notes) is counted as a sheet view.
+    const tools = WB_TOOLS.filter(t => stale(u.tools[t.id] || (t.href ? u.sheets[t.href] : null)));
+    const suites = navSuites().map(x => ({ name: x.name, hub: x.hub, sheets: [x.hub, ...x.sheets.map(i => i.file)].filter((f, i, a) => f && a.indexOf(f) === i && f !== 'index.html' && f !== 'tools.html') }))
+      .map(x => Object.assign(x, { unused: x.sheets.filter(f => stale(u.sheets[f])) }))
+      .filter(x => x.unused.length);
+    const unusedSheets = suites.reduce((n, x) => n + x.unused.length, 0);
+    const top = Object.entries(u.tools).sort((a, b) => b[1].n - a[1].n).slice(0, 5)
+      .map(([id, r]) => { const t = WB_TOOLS.find(x => x.id === id); return t ? `${escapeHtml(t.name)} <b>${r.n}</b>` : ''; }).filter(Boolean);
+    const sheetName = f => { const a = document.querySelector(`.sheet-switcher a[href="${f}"] .cmd-desc`); return a ? a.textContent.replace(/📑/g, '').trim() : f.replace(/\.html$/, ''); };
+    return `<details class="wb-unused">
+      <summary><b>Unused in ${USAGE_STALE_DAYS} days</b><span>${tools.length} tool${tools.length === 1 ? '' : 's'} · ${unusedSheets} sheet${unusedSheets === 1 ? '' : 's'}</span></summary>
+      <p class="wb-unused-note">${u.since ? `Counting since ${escapeHtml(since)}${days < USAGE_STALE_DAYS ? ` (${days} day${days === 1 ? '' : 's'} ago, so this means "not opened since then")` : ''}.` : 'Nothing counted yet: opening a tool or a sheet starts the meter.'} Kept in this browser only; included in Backup.${top.length ? ` Most opened: ${top.join(' · ')}.` : ''}</p>
+      ${tools.length ? `<h4>Tools</h4><div class="wb-recent wb-unused-tools">${tools.map(t => `<button type="button" data-wb-open="${t.id}"><i aria-hidden="true">${t.icon}</i>${escapeHtml(t.name)}</button>`).join('')}</div>` : ''}
+      ${suites.length ? `<h4>Sheets</h4><div class="wb-unused-sheets">${suites.map(x => `<div><b>${escapeHtml(x.name)}</b> <small>${x.unused.length} of ${x.sheets.length}</small><p>${x.unused.map(f => `<a href="${escapeHtml(f)}">${escapeHtml(f === x.hub ? `${x.name} hub` : sheetName(f))}</a>`).join(' · ')}</p></div>`).join('')}</div>` : ''}
+    </details>`;
+  }
+
+  // -------------------------------------------------------------
   // WORKBENCH (tools.html)
   // Twenty tools had grown up behind a More menu, Ctrl+K and the home flow: Ticket intake,
   // Fabric map, Node X-ray, Change plan… Every one was a pop-up, so none had an address,
@@ -12196,7 +12275,8 @@ ${rmaTrailSection()}#### Action Requested:
         <section class="wb-stage" aria-label="${title}">
           <header><span class="wb-n">${i + 1}</span><b>${title}</b><span>${escapeHtml(what)}</span></header>
           <div class="wb-cards">${WB_TOOLS.filter(t => t.stage === id).map(wbCard).join('')}</div>
-        </section>`).join('')}</div>`;
+        </section>`).join('')}</div>
+      ${usageFoldHtml()}`;
   }
 
   function wbShowGrid(show) {
@@ -12408,7 +12488,7 @@ ${rmaTrailSection()}#### Action Requested:
     dc_slot_values: 'Placeholder values', cs_racks_v1: 'Rack inventory', cs_practice_v1: 'Practice progress', cs_rosetta_v1: 'Rosetta choices',
     cs_panel_v1: 'Front panel & cable check', dc_terminal_prefs: 'Terminal settings (token left out)', linux_cs_theme: 'Theme',
     linux_cs_compact: 'Compact view', dc_root_style: 'Root copy style', dc_side_dock: 'Side dock', dc_visited_sheets: 'Visited sheets',
-    dc_recent_sheets: 'Recent sheets', dc_wb_recent: 'Recent tools', dc_tour_seen: 'Tour seen', jira_cs_targets: 'Jira form'
+    dc_recent_sheets: 'Recent sheets', dc_wb_recent: 'Recent tools', dc_usage: 'Usage meter (tools and sheets opened)', dc_tour_seen: 'Tour seen', jira_cs_targets: 'Jira form'
   };
   // What the person made, listed first; the rest are settings and history.
   const BK_WORK = ['dc_field_notes', 'dc_case_file', 'dc_nodes', 'dc_case_trail', 'cs_racks_v1', 'dc_change_plan', 'dc_cmd_outputs', 'cs_practice_v1', 'dc_target_vars'];
@@ -14034,6 +14114,7 @@ ${rmaTrailSection()}#### Action Requested:
   const exAutoSize = (i) => { i.style.height = 'auto'; i.style.height = `${Math.min(220, i.scrollHeight + 2)}px`; };
 
   function openExplain(text) {
+    usageNote('tool', 'explain');
     if (IN_WIDGET_FRAME) return;
     if (!exEl) {
       exEl = document.createElement('div');
@@ -14434,6 +14515,7 @@ ${rmaTrailSection()}#### Action Requested:
   const rosDomainFor = (file) => (ROS_DOMAINS.sw.strip.test(file || '') ? 'sw' : 'bmc');
 
   function openRosetta(query, domain) {
+    usageNote('tool', 'rosetta');
     if (IN_WIDGET_FRAME) return;
     rosDomain = domain || rosDomainFor(anatSheetFile || window.location.pathname.split('/').pop() || '');
     if (!rosEl) {
@@ -14537,6 +14619,7 @@ ${rmaTrailSection()}#### Action Requested:
 
   function recordVisit(file) {
     if (!file || IN_WIDGET_FRAME || !/\.html$/.test(file) || /portable/.test(file)) return;
+    usageNote('sheet', file);
     const h1 = document.querySelector('.top-bar h1');
     const name = (h1 ? h1.textContent.trim() : file).replace(/\s+/g, ' ');
     let list = [];
@@ -15945,6 +16028,7 @@ ${rmaTrailSection()}#### Action Requested:
 
   let trailFocus = null;
   function openTrail() {
+    usageNote('tool', 'trail');
     if (!trailDrawer) buildTrailDrawer();
     trailFocus = document.activeElement;
     renderTrailList();
