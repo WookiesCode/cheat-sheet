@@ -1,5 +1,5 @@
 // Auto-generated Global Search Index across all 24 cheat sheets
-// Total indexed items: 2130
+// Total indexed items: 2129
 window.GLOBAL_SEARCH_INDEX = [
   {
     "sName": "linux",
@@ -24488,11 +24488,11 @@ window.GLOBAL_SEARCH_INDEX = [
     "file": "hw-reference.html",
     "badge": "gpu",
     "id": "gpu-forms-hgx",
-    "sec": "GPU form factors: HGX / DGX 8-GPU systems",
+    "sec": "GPU form factors: HGX 8-GPU systems",
     "cmd": "nvidia-smi nvlink -s",
-    "desc": "HGX / DGX 8-GPU systems",
+    "desc": "HGX 8-GPU systems",
     "tip": "Inactive NVLinks on one GPU point at that module or its baseboard connector",
-    "tags": "hardware reference gpuform hgx dgx nvlink nvswitch b200 b300",
+    "tags": "hardware reference gpuform hgx nvlink nvswitch b200 b300",
     "sheet": "hw-reference.html#hw-gpu-forms",
     "src": {
       "verified": "2026-11-09",
@@ -24506,15 +24506,11 @@ window.GLOBAL_SEARCH_INDEX = [
           "title": "NVIDIA HGX"
         },
         {
-          "url": "https://docs.nvidia.com/dgx/dgxb200-user-guide/introduction-to-dgxb200.html",
-          "title": "DGX B200 user guide: introduction"
-        },
-        {
           "url": "https://docs.nvidia.com/datacenter/tesla/fabric-manager-user-guide/index.html",
           "title": "Fabric Manager user guide"
         }
       ],
-      "note": "Corrected 2026-11-09: Fabric Manager must be compatible with the driver; it matched the driver version only before R620. DGX B200 runs at 10-35 °C (the product page's '90 °F' is a typo for 95 °F)."
+      "note": "Corrected 2026-11-09: Fabric Manager must be compatible with the driver; it matched the driver version only before R620."
     }
   },
   {
@@ -24522,11 +24518,11 @@ window.GLOBAL_SEARCH_INDEX = [
     "file": "hw-reference.html",
     "badge": "gpu",
     "id": "gpu-forms-hgx-sub-1",
-    "sec": "GPU form factors: HGX / DGX 8-GPU systems",
+    "sec": "GPU form factors: HGX 8-GPU systems",
     "cmd": "systemctl status nvidia-fabricmanager --no-pager",
     "desc": "Fabric Manager state",
     "tip": "",
-    "tags": "hardware reference gpuform recipe hgx dgx nvlink",
+    "tags": "hardware reference gpuform recipe hgx nvlink",
     "sheet": "hw-reference.html#hw-gpu-forms",
     "src": {
       "verified": "2026-11-09",
@@ -24540,15 +24536,11 @@ window.GLOBAL_SEARCH_INDEX = [
           "title": "NVIDIA HGX"
         },
         {
-          "url": "https://docs.nvidia.com/dgx/dgxb200-user-guide/introduction-to-dgxb200.html",
-          "title": "DGX B200 user guide: introduction"
-        },
-        {
           "url": "https://docs.nvidia.com/datacenter/tesla/fabric-manager-user-guide/index.html",
           "title": "Fabric Manager user guide"
         }
       ],
-      "note": "Corrected 2026-11-09: Fabric Manager must be compatible with the driver; it matched the driver version only before R620. DGX B200 runs at 10-35 °C (the product page's '90 °F' is a typo for 95 °F)."
+      "note": "Corrected 2026-11-09: Fabric Manager must be compatible with the driver; it matched the driver version only before R620."
     }
   },
   {
@@ -32549,7 +32541,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "file": "nvidia.html",
     "badge": "ops",
     "id": "slurm-drain-resume",
-    "sec": "Slurm Drain, NVSM, Liquid Cooling & Container Triage",
+    "sec": "Slurm Drain, Liquid Cooling & Container Triage",
     "cmd": "squeue -w $(hostname -s)   &&   scontrol update NodeName=$(hostname -s) State=DRAIN Reason=\"DC Tech: GPU 3 Xid 79 RMA\"",
     "desc": "Check active Slurm GPU jobs on a node, drain it with a ticket reason before hardware work, and resume after burn-in",
     "tip": "Always check 'squeue -w $(hostname -s)' before rebooting a GPU node!",
@@ -32570,30 +32562,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "sName": "nvidia",
     "file": "nvidia.html",
     "badge": "ops",
-    "id": "nvsm-health-dump",
-    "sec": "Slurm Drain, NVSM, Liquid Cooling & Container Triage",
-    "cmd": "nvsm show health   &&   nvsm show alerts   &&   nvsm dump health",
-    "desc": "Run NVIDIA System Management (`nvsm`) health check and generate a full chassis/GPU diagnostic bundle",
-    "tip": "Fabric Manager version mismatch stops multi-GPU jobs from starting!",
-    "tags": "nvsm dgx hgx health alerts fabricmanager",
-    "sheet": "nvidia.html#nv-ops",
-    "src": {
-      "verified": "2026-11-09",
-      "refs": [
-        {
-          "url": "https://docs.nvidia.com/datacenter/tesla/fabric-manager-user-guide/index.html",
-          "title": "Fabric Manager user guide"
-        }
-      ],
-      "note": "NVSM commands not verified: NVIDIA's NVSM docs pages returned no content. Only nv-fabricmanager -v is checked (Fabric Manager guide)."
-    }
-  },
-  {
-    "sName": "nvidia",
-    "file": "nvidia.html",
-    "badge": "ops",
     "id": "hbm-dlc-thermal-delta",
-    "sec": "Slurm Drain, NVSM, Liquid Cooling & Container Triage",
+    "sec": "Slurm Drain, Liquid Cooling & Container Triage",
     "cmd": "nvidia-smi --query-gpu=index,pci.bus_id,temperature.gpu,temperature.memory,temperature.gpu.tlimit,power.draw,clocks_event_reasons.hw_thermal_slowdown --format=csv",
     "desc": "Compare GPU die temp vs HBM3/HBM3e memory temp to spot cold-plate contact or TIM degradation on air/liquid nodes",
     "tip": "High HBM temp with normal GPU temp = bad thermal pad / coldplate torque!",
@@ -32615,7 +32585,7 @@ window.GLOBAL_SEARCH_INDEX = [
     "file": "nvidia.html",
     "badge": "ops",
     "id": "nvidia-container-devices",
-    "sec": "Slurm Drain, NVSM, Liquid Cooling & Container Triage",
+    "sec": "Slurm Drain, Liquid Cooling & Container Triage",
     "cmd": "ls -la /dev/nvidia* /dev/infiniband/   &&   nvidia-ctk system create-dev-char-symlinks --create-all",
     "desc": "Verify `/dev/nvidia*` device nodes, UVM/MIG capabilities, and test Docker/Kubernetes GPU & RDMA pass-through",
     "tip": "Run 'nvidia-modprobe -u -c=0' if containers fail to open /dev/nvidia-uvm",
@@ -32638,8 +32608,8 @@ window.GLOBAL_SEARCH_INDEX = [
     "badge": "tip",
     "id": "slurm-nvsm-burnin-tips-card",
     "sec": "Slurm Drain: Pro Tips & Best Practices",
-    "cmd": "scontrol update nodename=node01 state=DRAIN reason=\"Xid triage\"   |   nvsm show health   |   nvidia-smi -q -d TEMPERATURE",
-    "desc": "Slurm GPU node drain, NVSM chassis diagnostics & HBM3 liquid cooling thermal triage",
+    "cmd": "scontrol update nodename=node01 state=DRAIN reason=\"Xid triage\"   |   nvidia-smi -q -d TEMPERATURE",
+    "desc": "Slurm GPU node drain & HBM3 liquid cooling thermal triage",
     "tip": "Give containers GPUs with --gpus (NVIDIA Container Toolkit) or CDI rather than mounting /dev/nvidia* by hand",
     "tags": "slurm-nvsm-burnin tips pro nvidia gpu datacenter best-practices",
     "sheet": "nvidia.html#nv-ops",
@@ -32659,7 +32629,7 @@ window.GLOBAL_SEARCH_INDEX = [
           "title": "NVIDIA Container Toolkit: sample workload"
         }
       ],
-      "note": "nvsm show health: NVIDIA's NVSM docs returned empty pages, so it is not checked. Removed 2026-11-10: an unsourced GPU vs HBM delta > 15°C rule."
+      "note": "Removed 2026-11-11: nvsm show health (DGX only; no DGX nodes). Removed 2026-11-10: an unsourced GPU vs HBM delta > 15°C rule."
     }
   },
   {
@@ -36127,7 +36097,7 @@ window.GLOBAL_SEARCH_INDEX = [
           "title": "NVIDIA DGX B200 Redfish"
         }
       ],
-      "note": "Corrected 2026-11-09: GPUs are /Systems/HGX_Baseboard_0/Processors/GPU_SXM_<n> on DGX; other HGX vendors may differ. Reading GPUs with the host off is not documented."
+      "note": "Corrected 2026-11-09: GPUs are /Systems/HGX_Baseboard_0/Processors/GPU_SXM_<n> in NVIDIA's DGX docs (NVIDIA documents the HGX baseboard there); other HGX vendors may differ. Reading GPUs with the host off is not documented."
     }
   },
   {
@@ -36182,7 +36152,7 @@ window.GLOBAL_SEARCH_INDEX = [
           "title": "DMTF Chassis v1.29.0"
         }
       ],
-      "note": "Corrected 2026-11-10: GPUs are GPU_SXM_<n> under Systems/HGX_Baseboard_0 on DGX (not Processors/GPU_0..7), and the leak property is LeakDetection, not LeakDetectionSensors. Leak detection on non-NVIDIA HGX boards varies by vendor."
+      "note": "Corrected 2026-11-10: GPUs are GPU_SXM_<n> under Systems/HGX_Baseboard_0 in NVIDIA's DGX docs (not Processors/GPU_0..7), and the leak property is LeakDetection, not LeakDetectionSensors. Leak detection on non-NVIDIA HGX boards varies by vendor."
     }
   },
   {

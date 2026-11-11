@@ -436,8 +436,8 @@ const NVIDIA_CHEAT_SHEET_DATA = [
         cmd: "systemctl status nvidia-fabricmanager   |   grep -E 'ERROR|SXid' /var/log/fabricmanager.log",
         flags: [
           ["nvidia-fabricmanager", "Initializes the NVSwitch fabric; until it has, CUDA fails with cudaErrorSystemNotReady (802)"],
-          ["SXid", "NVSwitch errors carry the SXid prefix in the kernel log; FM logs the GPU behind fatal ones. Not used on DGX/HGX B200/B300"],
-          ["Version", "Before driver 620 (pre-4th-gen NVSwitch) FM must match the driver version; from 620 FM has its own 2.0.x version"]
+          ["SXid", "NVSwitch errors carry the SXid prefix in the kernel log; FM logs the GPU behind fatal ones. Not used on HGX B200/B300"],
+          ["Version", "nv-fabricmanager -v prints it. Before driver 620 (pre-4th-gen NVSwitch) FM must match the driver version; from 620 FM has its own 2.0.x version"]
         ],
         tip: "CUDA Error 802 = check Fabric Manager",
         tags: ["fabricmanager", "nvswitch", "hgx", "sxm", "sxid", "802"],
@@ -877,8 +877,8 @@ const NVIDIA_CHEAT_SHEET_DATA = [
     part: "nv-ops",
     id: "slurm-nvsm-burnin",
     badge: "ops",
-    title: "Slurm Drain, NVSM, Liquid Cooling & Container Triage",
-    subtitle: "Draining Slurm GPU nodes before maintenance, NVSM health dumps, HBM3/DLC thermal delta & /dev/nvidia* checks",
+    title: "Slurm Drain, Liquid Cooling & Container Triage",
+    subtitle: "Draining Slurm GPU nodes before maintenance, HBM3/DLC thermal delta & /dev/nvidia* checks",
     commands: [
       {
         id: "slurm-drain-resume",
@@ -894,21 +894,6 @@ const NVIDIA_CHEAT_SHEET_DATA = [
         tip: "Always check 'squeue -w $(hostname -s)' before rebooting a GPU node!",
         tags: ["slurm", "scontrol", "squeue", "sinfo", "drain", "resume", "maintenance"],
         src: {"verified": "2026-11-09", "refs": [{"url": "https://slurm.schedmd.com/scontrol.html", "title": "Slurm scontrol"}], "note": "The scontrol page does not say whether State=DOWN ends running jobs."}
-      },
-      {
-        id: "nvsm-health-dump",
-        mode: "DGX / HGX NVSM",
-        modeClass: "mode-i",
-        desc: "Run NVIDIA System Management (`nvsm`) health check and generate a full chassis/GPU diagnostic bundle",
-        cmd: "nvsm show health   &&   nvsm show alerts   &&   nvsm dump health",
-        flags: [
-          ["nvsm show health", "Audits GPUs, NVSwitches, NVLinks, PCIe risers, ConnectX HCAs, drives, PSUs, and fans on DGX/HGX systems"],
-          ["nvsm dump health", "Generates /tmp/nvsm-health-*.tar.xz bundle for NVIDIA Enterprise Support RMA"],
-          ["nv-fabricmanager -v", "Print the Fabric Manager version (must match the driver before driver 620)"]
-        ],
-        tip: "Fabric Manager version mismatch stops multi-GPU jobs from starting!",
-        tags: ["nvsm", "dgx", "hgx", "health", "alerts", "fabricmanager"],
-        src: {"verified": "2026-11-09", "refs": [{"url": "https://docs.nvidia.com/datacenter/tesla/fabric-manager-user-guide/index.html", "title": "Fabric Manager user guide"}], "note": "NVSM commands not verified: NVIDIA's NVSM docs pages returned no content. Only nv-fabricmanager -v is checked (Fabric Manager guide)."}
       },
       {
         id: "hbm-dlc-thermal-delta",
@@ -947,12 +932,12 @@ const NVIDIA_CHEAT_SHEET_DATA = [
     "id": "slurm-nvsm-burnin-pro-tips",
     "badge": "tip",
     "title": "Slurm Drain: Pro Tips & Best Practices",
-    "subtitle": "Slurm GPU node drain, NVSM chassis diagnostics & HBM3 liquid cooling thermal triage",
+    "subtitle": "Slurm GPU node drain & HBM3 liquid cooling thermal triage",
     "commands": [
       {
         "id": "slurm-nvsm-burnin-tips-card",
-        "desc": "Slurm GPU node drain, NVSM chassis diagnostics & HBM3 liquid cooling thermal triage",
-        "cmd": "scontrol update nodename=node01 state=DRAIN reason=\"Xid triage\"   |   nvsm show health   |   nvidia-smi -q -d TEMPERATURE",
+        "desc": "Slurm GPU node drain & HBM3 liquid cooling thermal triage",
+        "cmd": "scontrol update nodename=node01 state=DRAIN reason=\"Xid triage\"   |   nvidia-smi -q -d TEMPERATURE",
         "details": "Drain Slurm nodes before physical or driver maintenance. On liquid-cooled nodes, compare GPU and memory temperatures across identical GPUs: one GPU running hotter than its neighbours points at its cold plate or coolant flow.",
         "flags": [
           [
@@ -962,10 +947,6 @@ const NVIDIA_CHEAT_SHEET_DATA = [
           [
             "scontrol update state=RESUME",
             "Returns validated and qualified node to active Slurm partition"
-          ],
-          [
-            "nvsm show health",
-            "NVIDIA System Management: queries chassis fans, power supplies, BMC, and GPUs"
           ],
           [
             "nvidia-smi -q -d TEMPERATURE",
@@ -998,7 +979,7 @@ const NVIDIA_CHEAT_SHEET_DATA = [
               "title": "NVIDIA Container Toolkit: sample workload"
             }
           ],
-          "note": "nvsm show health: NVIDIA's NVSM docs returned empty pages, so it is not checked. Removed 2026-11-10: an unsourced GPU vs HBM delta > 15°C rule."
+          "note": "Removed 2026-11-11: nvsm show health (DGX only; no DGX nodes). Removed 2026-11-10: an unsourced GPU vs HBM delta > 15°C rule."
         }
       }
     ]
@@ -1165,8 +1146,8 @@ if (typeof window !== "undefined") // Each part's own header, as its page had it
     "pill": "NVL / NVIDIA Datacenter"
    },
    "nv-ops": {
-    "title": "Slurm Drain, NVSM, Cooling & Container Triage",
-    "subtitle": "Draining Slurm GPU nodes before maintenance, NVSM health dumps, HBM3/DLC thermal delta & /dev/nvidia* checks",
+    "title": "Slurm Drain, Cooling & Container Triage",
+    "subtitle": "Draining Slurm GPU nodes before maintenance, HBM3/DLC thermal delta & /dev/nvidia* checks",
     "pill": "OPS / NVIDIA Datacenter"
    },
    "nv-pcie": {

@@ -27,7 +27,7 @@ const RANK = { required: 0, important: 1, standard: 2, optional: 3, extra: 4 };
 const VENDOR_TOOLS = [
   'all_reduce_perf', 'bfb-install', 'dcgmi', 'flint', 'ib_write_bw', 'ib_write_lat', 'ibdiagnet',
   'mget_temp', 'mlxcables', 'mlxconfig', 'mlxfwmanager', 'mlxfwreset', 'mlxlink', 'mst',
-  'nvbandwidth', 'nvidia-bug-report.sh', 'nvidia-ctk', 'nvidia-smi', 'nvsm', 'sfputil', 'show_gids'
+  'nvbandwidth', 'nvidia-bug-report.sh', 'nvidia-ctk', 'nvidia-smi', 'sfputil', 'show_gids'
 ];
 
 // Fleet tools the sheets may not name in first position.

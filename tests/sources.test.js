@@ -57,7 +57,7 @@ const rows = (p) => p.evaluate(() => {
         for (const a of l.links) if (!a.href.startsWith('https://') || a.target !== '_blank' || !/noopener/.test(a.rel)) badLinks++;
       }
     }
-    check(total === 31 && sourced === 31, `all 31 NVIDIA commands show a source line (${sourced}/${total})`);
+    check(total === 30 && sourced === 30, `all 30 NVIDIA commands show a source line (${sourced}/${total})`);
     // 2026-11-10: lspci checked against pciutils (man page and source): -D keeps the header grep working on multi-domain servers.
     check(unverified === 0 && !/Not verified/.test(all['lspci-link-aer-audit'].text), 'no NVIDIA command says "Not verified" (lspci now checked against pciutils)');
     check(/lspci -D -vvv -d 10de: \| grep -E '\^\[0-9a-f\]\{4\}:/.test(fs.readFileSync(path.join(ROOT, 'nvidia.js'), 'utf8')), 'the lspci audit prints the PCI domain (-D) and its grep matches the domain-prefixed device lines');

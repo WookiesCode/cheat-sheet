@@ -58,7 +58,7 @@ Each was checked against NVIDIA's own docs; the card's source line links the pag
 
 Also: `DANGER_RE` now flags `nvidia-smi -p`/`--reset-ecc-errors`, `nvlink -re`/`--reseterrorcounters` and `setpci … =` (PCIe config writes), and no longer flags the read-only `nvidia-smi nvlink -R`.
 
-**Not verified (said on the card):** `lspci` (no vendor doc checked), NVSM commands (NVIDIA's NVSM pages returned no content), `nvidia-ctk system create-dev-char-symlinks`, `NVreg_EnableGpuFirmware=0`, `nvidia-bug-report.sh --output-file`, and the `--query-gpu` / `--query-compute-apps` field names (not on the docs page). NVIDIA builder presets checked 2026-11-09 (`improve/small-fixes`): **no change needed**. The DCGM field IDs match what the presets say (140/150 temperatures, 155 power, 393–395 row remapping, 1009/1010 PCIe bytes), and `pulse_test` is right: every `dcgmi diag -r` example and the config key use `pulse_test` (only the test table writes `pulse`). The earlier suggestion to rename it was wrong.
+**Not verified (said on the card):** `lspci` (no vendor doc checked), NVSM commands (NVIDIA's NVSM pages returned no content; removed in #33), `nvidia-ctk system create-dev-char-symlinks`, `NVreg_EnableGpuFirmware=0`, `nvidia-bug-report.sh --output-file`, and the `--query-gpu` / `--query-compute-apps` field names (not on the docs page). NVIDIA builder presets checked 2026-11-09 (`improve/small-fixes`): **no change needed**. The DCGM field IDs match what the presets say (140/150 temperatures, 155 power, 393–395 row remapping, 1009/1010 PCIe bytes), and `pulse_test` is right: every `dcgmi diag -r` example and the config key use `pulse_test` (only the test table writes `pulse`). The earlier suggestion to rename it was wrong.
 
 ## Errors found by #8 (corrected 2026-11-09, InfiniBand suite)
 
@@ -529,7 +529,7 @@ The last unsourced cards: 73 Pro Tip entries (67 sheets plus the same six on the
 | Switches | `nv set interface swp1 state up`; `--view lldp`; "Clause 91" for 400G; "-8 dBm" / "-14 dBm" / "-2..+2 dBm" limits; `orchagent` container | `link state up`; `nv show interface lldp`; RS FEC without a clause; module thresholds; orchagent runs inside swss |
 | RACADM | `update viewreport` "result of the last update" | The `--verifycatalog` comparison report; `--reboot` is for single-file updates |
 
-Not checked: Arista `configure session` commands (Arista refused automated reads) and the Cisco vPC configuration guide (404); `nvsm show health` (NVIDIA's NVSM pages are empty). The cards say so.
+Not checked: Arista `configure session` commands (Arista refused automated reads) and the Cisco vPC configuration guide (404); `nvsm show health` (NVIDIA's NVSM pages are empty; removed in #33). The cards say so.
 
 ## #10 Sources in search, tour v12 (2026-11-10, `search-sources-tour`)
 
@@ -783,6 +783,20 @@ The fleet has no Dell hardware, so every Dell entry is gone:
 | Wording | Redfish and Motherboards portable subtitles, the `idrac` search tag, "PowerEdge" in the dmidecode example, docs/site.md |
 
 Kept: Dell text inside captured upstream man pages and `--help` output (ipmitool `delloem`, arp-scan vendor names), and the history in this file. Tests: `redfish-builder` (no Dell option or ids) and `sources` 2ze (Rosetta with a saved Dell vendor, 6 tools, ID 1).
+
+## #33 DGX-only content removed (2026-11-11, `no-dgx`)
+
+The fleet has no DGX nodes. HGX content stays, and NVIDIA's DGX docs stay as its source (NVIDIA documents the HGX baseboard's Redfish paths there).
+
+| Where | Change |
+|---|---|
+| Redfish builder | The DGX preset (`Systems/DGX`, `Managers/BMC`, `LogServices/SEL`) is gone, leaving only Standard (`1`) |
+| Redfish HGX cards | "on DGX" now reads "in NVIDIA's DGX docs" / "NVIDIA naming", with a check-your-OEM note; the paths and sources are unchanged |
+| NVIDIA ops | The NVSM card (never verified: NVIDIA's NVSM pages were empty) and `nvsm show health` in the tips card; titles and the nav label lose NVSM. Its `nv-fabricmanager -v` flag moved into the Fabric Manager card's Version flag. Ids such as `slurm-nvsm-burnin` are kept so saved stars and links still work |
+| GPU form factors | Retitled HGX 8-GPU systems; the DGX B200 row, DGX tags and the DGX B200 guide ref are gone |
+| Other | The DGX acronym; `nvsm` in the man-page policy list |
+
+Kept: the fiber notes that name DGX H100 Cedar7 (that is the part's documented compatibility) and DGX doc URLs used as sources. Tests: `redfish-builder` (Standard only, no Dell or DGX ids), `sources` NVIDIA count 31 → 30.
 
 ## Found while building (not fixed)
 

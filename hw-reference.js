@@ -1794,22 +1794,18 @@ const HWREF_HUB_DATA = [
     "part": "hw-gpu-forms",
     "id": "gpuform-cmd-2",
     "badge": "gpu",
-    "title": "GPU form factors: HGX / DGX 8-GPU systems",
-    "subtitle": "HGX / DGX 8-GPU systems",
+    "title": "GPU form factors: HGX 8-GPU systems",
+    "subtitle": "HGX 8-GPU systems",
     "commands": [
       {
         "id": "gpu-forms-hgx",
-        "desc": "HGX / DGX 8-GPU systems",
+        "desc": "HGX 8-GPU systems",
         "cmd": "nvidia-smi nvlink -s",
         "details": "",
         "flags": [
           [
             "HGX B200 / B300",
             "8 GPUs, NVLink 5: 1.8 TB/s per GPU, 14.4 TB/s total"
-          ],
-          [
-            "DGX B200",
-            "8 Blackwell GPUs, 10 RU, about 14.3 kW max, 10-35 °C operating"
           ],
           [
             "HGX Rubin NVL8",
@@ -1830,7 +1826,6 @@ const HWREF_HUB_DATA = [
           "reference",
           "gpuform",
           "hgx",
-          "dgx",
           "nvlink",
           "nvswitch",
           "b200",
@@ -1848,15 +1843,11 @@ const HWREF_HUB_DATA = [
               "title": "NVIDIA HGX"
             },
             {
-              "url": "https://docs.nvidia.com/dgx/dgxb200-user-guide/introduction-to-dgxb200.html",
-              "title": "DGX B200 user guide: introduction"
-            },
-            {
               "url": "https://docs.nvidia.com/datacenter/tesla/fabric-manager-user-guide/index.html",
               "title": "Fabric Manager user guide"
             }
           ],
-          "note": "Corrected 2026-11-09: Fabric Manager must be compatible with the driver; it matched the driver version only before R620. DGX B200 runs at 10-35 °C (the product page's '90 °F' is a typo for 95 °F)."
+          "note": "Corrected 2026-11-09: Fabric Manager must be compatible with the driver; it matched the driver version only before R620."
         }
       },
       {
@@ -1869,7 +1860,6 @@ const HWREF_HUB_DATA = [
           "gpuform",
           "recipe",
           "hgx",
-          "dgx",
           "nvlink"
         ],
         "src": {
@@ -1884,15 +1874,11 @@ const HWREF_HUB_DATA = [
               "title": "NVIDIA HGX"
             },
             {
-              "url": "https://docs.nvidia.com/dgx/dgxb200-user-guide/introduction-to-dgxb200.html",
-              "title": "DGX B200 user guide: introduction"
-            },
-            {
               "url": "https://docs.nvidia.com/datacenter/tesla/fabric-manager-user-guide/index.html",
               "title": "Fabric Manager user guide"
             }
           ],
-          "note": "Corrected 2026-11-09: Fabric Manager must be compatible with the driver; it matched the driver version only before R620. DGX B200 runs at 10-35 °C (the product page's '90 °F' is a typo for 95 °F)."
+          "note": "Corrected 2026-11-09: Fabric Manager must be compatible with the driver; it matched the driver version only before R620."
         }
       }
     ]
@@ -2330,7 +2316,7 @@ if (typeof window !== "undefined") // Each part's own header, as its page had it
    "hw-gpu-forms": {
     "title": "GPU form factors",
     "subtitle": "What each form factor means for power, NVLink and service, and how to tell them apart on a live node",
-    "pill": "HGX · DGX · NVL72"
+    "pill": "HGX · NVL72"
    },
    "hw-memory": {
     "title": "Memory population",

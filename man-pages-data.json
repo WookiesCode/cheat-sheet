@@ -3438,7 +3438,6 @@
   "nvidia-bug-report.sh": "vendor",
   "nvidia-ctk": "vendor",
   "nvidia-smi": "vendor",
-  "nvsm": "vendor",
   "sfputil": "vendor",
   "show_gids": "vendor",
   "mcelog": "unavailable",

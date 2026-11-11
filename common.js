@@ -9971,7 +9971,6 @@ ${rmaTrailSection()}#### Action Requested:
     // GPUs
     SXM: ['Server PCI Express Module', 'NVIDIA’s GPU module that plugs into an HGX baseboard with NVLink, instead of a PCIe slot.'],
     HGX: ['NVIDIA HGX', 'NVIDIA’s 8-GPU baseboard platform that server makers build systems around.'],
-    DGX: ['NVIDIA DGX', 'NVIDIA’s own complete AI server systems.'],
     MIG: ['Multi-Instance GPU', 'Splitting one GPU into several isolated smaller GPUs.'],
     DCGM: ['Data Center GPU Manager', 'NVIDIA’s GPU health, diagnostics and telemetry tool (dcgmi).'],
     HBM: ['High Bandwidth Memory', 'The stacked memory on a datacenter GPU.'],

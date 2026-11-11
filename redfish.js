@@ -14,7 +14,7 @@ const REDFISH_CHEAT_SHEET_DATA = [
         cmd: 'SYS_URI=$(curl -g -6 -sk -K ~/.bmc-curlrc "https://[$BMC]/redfish/v1/Systems" | jq -r \'.Members[0]."@odata.id"\') && echo "$SYS_URI"',
         flags: [
           ["-g -6", "-g turns off URL globbing (curl already accepts numeric [IPv6] addresses without it; -g matters when a URL has other [ ] or { }); -6 resolves names to IPv6 only"],
-          ['.Members[0]."@odata.id"', "Extracts exact vendor-specific URI (/redfish/v1/Systems/1 vs /redfish/v1/Systems/DGX)"],
+          ['.Members[0]."@odata.id"', "Extracts exact vendor-specific URI (/redfish/v1/Systems/1, or whatever Id the vendor chose)"],
           ["-sk", "-s silent mode, -k ignore self-signed BMC TLS certificate (use %25eth0 for link-local fe80:: addresses)"]
         ],
         tip: "Link-local BMC address? Write the zone as %25, e.g. [fe80::1%25eth0]",
@@ -788,13 +788,13 @@ const REDFISH_CHEAT_SHEET_DATA = [
         desc: "Query NVIDIA HGX SXM GPU Baseboard, SXM GPU health, and NVSwitch status out-of-band when the host OS is hung",
         cmd: 'curl -g -6 -sk -K ~/.bmc-curlrc "https://[$BMC]/redfish/v1/Chassis" | jq \'.Members[]["@odata.id"] | select(contains("HGX"))\' && curl -g -6 -sk -K ~/.bmc-curlrc "https://[$BMC]/redfish/v1/Systems/HGX_Baseboard_0/Processors/GPU_SXM_1" | jq \'{Id, PartNumber, SerialNumber, Status}\'',
         flags: [
-          ["HGX_Baseboard_0", "The GPU baseboard as a Redfish system on NVIDIA DGX H100/H200/B200 (the HMC serves it)"],
+          ["HGX_Baseboard_0", "The GPU baseboard as a Redfish system (the HMC serves it); named this in NVIDIA's DGX H100/H200/B200 docs, check your OEM"],
           ["GPU_SXM_1..8", "Each SXM GPU under /Systems/HGX_Baseboard_0/Processors (EnvironmentMetrics for power and thermals), read through the BMC"],
           ["Chassis members", "Names containing HGX vary by vendor and generation: list them first, as the first command does"]
         ],
         tip: "Lets you check GPU serials & health even if the server won't boot into Ubuntu!",
         tags: ["hgx", "sxm", "nvswitch", "hmc", "gpu", "out-of-band", "asus", "gigabyte"],
-        src: {"verified": "2026-11-09", "refs": [{"url": "https://docs.nvidia.com/dgx/dgxh100-user-guide/redfish-api-supp.html", "title": "NVIDIA DGX H100/H200 Redfish"}, {"url": "https://docs.nvidia.com/dgx/dgxb200-user-guide/redfish-api-supp.html", "title": "NVIDIA DGX B200 Redfish"}], "note": "Corrected 2026-11-09: GPUs are /Systems/HGX_Baseboard_0/Processors/GPU_SXM_<n> on DGX; other HGX vendors may differ. Reading GPUs with the host off is not documented."}
+        src: {"verified": "2026-11-09", "refs": [{"url": "https://docs.nvidia.com/dgx/dgxh100-user-guide/redfish-api-supp.html", "title": "NVIDIA DGX H100/H200 Redfish"}, {"url": "https://docs.nvidia.com/dgx/dgxb200-user-guide/redfish-api-supp.html", "title": "NVIDIA DGX B200 Redfish"}], "note": "Corrected 2026-11-09: GPUs are /Systems/HGX_Baseboard_0/Processors/GPU_SXM_<n> in NVIDIA's DGX docs (NVIDIA documents the HGX baseboard there); other HGX vendors may differ. Reading GPUs with the host off is not documented."}
       },
       {
         id: "rf-dlc-leak-sensors",
@@ -823,11 +823,11 @@ const REDFISH_CHEAT_SHEET_DATA = [
         "id": "hgx-dlc-redfish-tips-card",
         "desc": "AI Server HGX Baseboard & Liquid Cooling Telemetry",
         "cmd": "curl -g -6 -sk -K ~/.bmc-curlrc \"https://[$BMC]/redfish/v1/Chassis/HGX_Baseboard_0\" | jq .",
-        "details": "HGX GPU baseboards have their own Redfish chassis (Chassis/HGX_Baseboard_0 on NVIDIA DGX) and expose GPUs as Systems/HGX_Baseboard_0/Processors/GPU_SXM_<n>; other server vendors may name them differently. On liquid-cooled racks, check the leak detectors (ThermalSubsystem/LeakDetection/LeakDetectors, DetectorState) and coolant sensors before powering up GPUs.",
+        "details": "HGX GPU baseboards have their own Redfish chassis (Chassis/HGX_Baseboard_0 in NVIDIA's DGX docs) and expose GPUs as Systems/HGX_Baseboard_0/Processors/GPU_SXM_<n>; other server vendors may name them differently. On liquid-cooled racks, check the leak detectors (ThermalSubsystem/LeakDetection/LeakDetectors, DetectorState) and coolant sensors before powering up GPUs.",
         "flags": [
           [
             "Chassis/HGX_Baseboard_0",
-            "GPU baseboard chassis on DGX: serial, status, sensors"
+            "GPU baseboard chassis (NVIDIA naming): serial, status, sensors"
           ],
           [
             "ThermalSubsystem/LeakDetection/LeakDetectors",
@@ -835,7 +835,7 @@ const REDFISH_CHEAT_SHEET_DATA = [
           ],
           [
             "Systems/HGX_Baseboard_0/Processors/GPU_SXM_<n>",
-            "Per-GPU model, serial and health (DGX naming)"
+            "Per-GPU model, serial and health (NVIDIA naming)"
           ]
         ],
         "tip": "A leak detector reporting anything but OK means stop: follow the site leak procedure before powering the GPUs on.",
@@ -863,7 +863,7 @@ const REDFISH_CHEAT_SHEET_DATA = [
               "title": "DMTF Chassis v1.29.0"
             }
           ],
-          "note": "Corrected 2026-11-10: GPUs are GPU_SXM_<n> under Systems/HGX_Baseboard_0 on DGX (not Processors/GPU_0..7), and the leak property is LeakDetection, not LeakDetectionSensors. Leak detection on non-NVIDIA HGX boards varies by vendor."
+          "note": "Corrected 2026-11-10: GPUs are GPU_SXM_<n> under Systems/HGX_Baseboard_0 in NVIDIA's DGX docs (not Processors/GPU_0..7), and the leak property is LeakDetection, not LeakDetectionSensors. Leak detection on non-NVIDIA HGX boards varies by vendor."
         }
       }
     ]
@@ -953,14 +953,10 @@ const RF_BUILDER_ACTIONS = {
 };
 
 // Resource ids per vendor, plus the SEL log service id (Redfish paths are case-sensitive).
-// DGX (checked 2026-11-09, NVIDIA DGX H100/H200 and B200 Redfish pages): the host is Systems/DGX,
-// Chassis/DGX, Managers/BMC, and the SEL is LogServices/SEL. This replaced an "HGX" preset whose
-// ids (HGX_Baseboard_0 / HGX_Chassis_0 / HGX_BMC_0) pointed host commands at the GPU baseboard;
-// HGX_BMC_0 is not documented. GPU-tray queries live on the rf-hgx-dlc sheet. No Dell preset:
-// the fleet has no Dell hardware (removed 2026-11-11).
+// GPU-tray queries live on the rf-hgx-dlc sheet. No Dell or DGX preset: the fleet has neither
+// (both removed 2026-11-11).
 const VENDOR_IDS = {
-  standard: { sys: "1", chas: "1", mgr: "1", sel: "Sel" },
-  dgx: { sys: "DGX", chas: "DGX", mgr: "BMC", sel: "SEL" }
+  standard: { sys: "1", chas: "1", mgr: "1", sel: "Sel" }
 };
 
 // Application State
