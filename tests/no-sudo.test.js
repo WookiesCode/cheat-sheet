@@ -49,6 +49,11 @@ const IDIOMS = [/^sudo cp -a FILE FILE\.bak\.\$\(date \+%F\) && sudoedit FILE$/,
   const src = fs.readFileSync(path.join(ROOT, 'common.js'), 'utf8');
   const toolSudo = (src.match(/cmd: ['"]sudo |&& sudo [a-z]/g) || []).length;
   check(toolSudo === 0, `no tool command (healthy ranges, runbooks) is stored with sudo (${toolSudo})`);
+  // The symptom decoder's steps (2026-11-11): stored as ['label', 'command'] pairs between the Xid
+  // table and decodeSymptom, so the cmd: pattern above never saw them.
+  const decoderSrc = src.slice(src.indexOf('  const XID_TABLE = {'), src.indexOf('  function decodeSymptom(raw) {'));
+  const decoderSudo = (decoderSrc.match(/['`]sudo [a-z]/g) || []).length;
+  check(decoderSrc.length > 1000 && decoderSudo === 0, `no decoder step is stored with sudo (${decoderSudo})`);
   await p.goto(BASE + 'nvidia.html', { waitUntil: 'load' });
   await p.waitForTimeout(500);
   const forms = await p.evaluate(() => {
@@ -61,7 +66,10 @@ const IDIOMS = [/^sudo cp -a FILE FILE\.bak\.\$\(date \+%F\) && sudoedit FILE$/,
       kept: C.privRunForm('sudo dmesg -T'),
       cable: C.privRunForm('ethtool --cable-test eth0'),
       script: C.privRunForm('echo a\necho b'),
-      copy: C.privCopy('nvme smart-log /dev/nvme0')
+      copy: C.privCopy('nvme smart-log /dev/nvme0'),
+      module: C.privCopy('ethtool -m eth0'),
+      link: C.privCopy('ethtool eth0'),
+      lldp: C.privCopy('lldpctl eth0')
     };
   });
   check(forms.nvme === 'sudo -n nvme smart-log /dev/nvme0' && forms.pipe === 'sudo -n lspci -vvv -s 01:00.0 | grep -E "LnkCap:|LnkSta:"'
@@ -69,6 +77,40 @@ const IDIOMS = [/^sudo cp -a FILE FILE\.bak\.\$\(date \+%F\) && sudoedit FILE$/,
     && forms.cable === 'sudo -n ethtool --cable-test eth0' && forms.script === 'echo a\necho b',
     `the terminal runs root stages as sudo -n and leaves the rest alone (${JSON.stringify(forms).slice(0, 160)}…)`);
   check(forms.copy === '# needs root\nnvme smart-log /dev/nvme0', 'a root tool command copies with "# needs root" above it, no sudo');
+  // ethtool -m reads the module EEPROM, which the kernel answers only with CAP_NET_ADMIN; plain
+  // ethtool does not need it. lldpctl works for root or the _lldpd group: maybe, so no note.
+  check(forms.module === '# needs root\nethtool -m eth0' && forms.link === 'ethtool eth0' && forms.lldp === 'lldpctl eth0',
+    `ethtool -m copies as root, plain ethtool and lldpctl don't (${JSON.stringify([forms.module, forms.link, forms.lldp])})`);
+
+  // A decoder step copies the same way: paste an Xid 79 line, copy "Is it still on the bus?".
+  {
+    const dctx = await newContext(browser);
+    const writes = [];
+    await dctx.exposeBinding('__recordCopy', (_s, x) => { writes.push(String(x)); });
+    await dctx.addInitScript(() => {
+      const fake = { writeText: x => { window.__recordCopy(x); return Promise.resolve(); }, readText: () => Promise.resolve('') };
+      Object.defineProperty(navigator, 'clipboard', { configurable: true, get: () => fake });
+      try { localStorage.setItem('dc_tour_seen', '99'); } catch (e) {}
+    });
+    const dp = await dctx.newPage();
+    await dp.goto(BASE + 'index.html', { waitUntil: 'load' });
+    await dp.waitForTimeout(800);
+    await dp.fill('#lp-omni-input', 'NVRM: Xid (PCI:0000:8a:00): 79, pid=1234, name=python, GPU has fallen off the bus.');
+    await dp.press('#lp-omni-input', 'Enter');
+    await dp.waitForTimeout(600);
+    const shown = await dp.evaluate(() => [...document.querySelectorAll('.decoder-steps code')].map(c => c.textContent));
+    check(shown.length > 2 && !shown.some(c => /^sudo\s/.test(c)), `the Xid 79 card shows its steps without sudo (${shown.length} steps)`);
+    const btn = await dp.evaluateHandle(() => [...document.querySelectorAll('.decoder-copy')].find(b => /^lspci -vvv -s 0000:8a:00/.test(b.dataset.decCopy || '')));
+    const box = await btn.boundingBox();
+    await dp.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+    await dp.mouse.down();
+    await dp.waitForTimeout(120);
+    await dp.mouse.up();
+    await dp.waitForTimeout(400);
+    const last = writes[writes.length - 1] || '';
+    check(/^# needs root\nlspci -vvv -s 0000:8a:00/.test(last), `its lspci step copies with "# needs root" and no sudo (${JSON.stringify(last.slice(0, 50))})`);
+    await dctx.close();
+  }
   await p.click('[data-suite-rb="gpu-missing"] >> visible=true', { delay: 120 });
   await p.waitForTimeout(700);
   const rb = await p.evaluate(() => { const c = [...document.querySelectorAll('.rb-cmd, .rb-locked')]; return { n: c.length, sudo: c.filter(x => /\bsudo\b/.test((x.querySelector('code') || {}).textContent || '')).length, root: c.filter(x => x.querySelector('.priv-tag.priv-root')).length }; });
